@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="Unnamed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="beginDate" class="java.lang.String">
@@ -124,34 +124,59 @@
 		</band>
 		</groupHeader>
 		<groupFooter>
-		<band height="20">
+		<band height="45">
 			<staticText>
 				<reportElement positionType="Float" x="140" y="2" width="55" height="17"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TOPLAM]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="420" y="2" width="55" height="17"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TOPLAM]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="200" y="2" width="80" height="17"/>
+				<reportElement positionType="Float" x="200" y="2" width="77" height="17"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9" isBold="true" isUnderline="false" isStrikeThrough="false"/>
+					<font size="8" isBold="true" isUnderline="false" isStrikeThrough="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{totaldept})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="478" y="2" width="77" height="17"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9" isBold="true" isUnderline="false" isStrikeThrough="false"/>
+					<font size="8" isBold="true" isUnderline="false" isStrikeThrough="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{totalcredit})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="142" y="21" width="53" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BAKİYE]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="201" y="21" width="77" height="17">
+					<printWhenExpression><![CDATA[$F{credit_amount}.doubleValue() < $F{dept_amount}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{totaldept}.doubleValue()-$V{totalcredit}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="479" y="21" width="77" height="17">
+					<printWhenExpression><![CDATA[$F{credit_amount}.doubleValue() >= $F{dept_amount}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{totalcredit}.doubleValue()-$V{totaldept}.doubleValue())]]></textFieldExpression>
 			</textField>
 		</band>
 		</groupFooter>
