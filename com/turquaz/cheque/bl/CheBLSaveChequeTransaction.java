@@ -56,10 +56,6 @@ import com.turquaz.engine.dal.TurqModule;
 
 public class CheBLSaveChequeTransaction {
     
-    public CheBLSaveChequeTransaction(){
-        
-    }
-    
     public static void saveChequeRoll(TurqAccountingAccount rollAccount, TurqCurrentCard curCard,TurqBanksCard bankCard, String rollNo,Date rollDate,List chequeList, int rollType, boolean sumTransTotal, TurqCurrencyExchangeRate exchangeRate)throws Exception {
      
       try{
