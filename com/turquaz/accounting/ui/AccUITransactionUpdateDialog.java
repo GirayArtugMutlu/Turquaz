@@ -247,8 +247,7 @@ public void showDialog(TurqAccountingTransaction accTrans){
     throw ex;
     
     }
-    
-    
+        
     }
     
     

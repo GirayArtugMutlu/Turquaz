@@ -9,6 +9,7 @@ import java.util.Set;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
@@ -18,10 +19,14 @@ import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+
+import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionPayment;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
 
 /**
@@ -39,7 +44,9 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	private CoolItem coolItem1;
 	private CoolBar coolBar1;
 	private Shell dialogShell;
-	  private TurqAccountingTransaction accTrans;
+	private TurqAccountingTransaction accTrans;
+	
+	private AccBLTransactionUpdate blTransUpdate = new AccBLTransactionUpdate();
 
 	public AccUITransactionPaymentUpdateDialog(Shell parent, int style,TurqAccountingTransaction trans) {
 		super(parent, style);
@@ -79,6 +86,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 			coolBar1.setLayoutData(coolBar1LData);
 	
 			coolItem1.setControl(toolBar1);
+			coolItem1.setSize(new org.eclipse.swt.graphics.Point(88,38));
 			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88,38));
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,38));
 	
@@ -86,10 +94,20 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 			toolUpdate.setText("Update");
 			final org.eclipse.swt.graphics.Image toolUpdateimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
 			toolUpdate.setImage(toolUpdateimage);
+			toolUpdate.addSelectionListener( new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					toolUpdateWidgetSelected(evt);
+				}
+			});
 	
 			toolDelete.setText("Delete");
 			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
 			toolDelete.setImage(toolDeleteimage);
+			toolDelete.addSelectionListener( new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					toolDeleteWidgetSelected(evt);
+				}
+			});
 	
 			GridData compTransactionPaymentLData = new GridData();
 			compTransactionPaymentLData.verticalAlignment = GridData.FILL;
@@ -168,5 +186,89 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	}
 	
 	
+	}
+
+	/** Auto-generated event handler method */
+	protected void toolUpdateWidgetSelected(SelectionEvent evt){
+		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+		
+		try{
+		 
+		 blTransUpdate.updateTransaction(accTrans,compTransactionPayment.getTxtDocumentNo().getText().trim(),
+										compTransactionPayment.getDatePickerTransactionDate().getData());
+		 updateTransactionRows();
+		 msg.setMessage("Succesfully Updated");
+		 msg.open();
+			
+		}
+		catch(Exception ex){
+		ex.printStackTrace();
+		msg.setMessage("An error occured!");
+		 msg.open();
+		}
+		
+		
+		
+	}
+	 public void updateTransactionRows()throws Exception {
+	    try{
+	   
+	    if(compTransactionPayment.verifyFields()){
+	     deleteTransactionRows();
+	     
+	     compTransactionPayment.saveTransactionRows(accTrans.getAccountingTransactionsId());
+	     }
+	     }
+	     catch(Exception ex){
+	        throw ex;
+	     }
+	   
+	   }
+	 public void deleteTransactionRows()throws Exception{
+	    try{
+	     Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
+	     Iterator it = transactionRows.iterator();
+	     TurqAccountingTransactionColumn transRow;
+	     while(it.hasNext()){
+
+	     	blTransUpdate.delete(it.next());
+		
+		}
+	    
+	     
+	    
+	    
+	    }
+	    catch(Exception ex){
+	    throw ex;
+	    
+	    }
+	    
+	    
+	    }
+
+	/** Auto-generated event handler method */
+	protected void toolDeleteWidgetSelected(SelectionEvent evt){
+		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+		MessageBox msg2 = new MessageBox(this.getParent(),SWT.YES|SWT.NO);
+		msg2.setMessage("Really delete?");
+		int answer = msg2.open();
+		if(answer ==SWT.YES){
+		try{
+		
+		deleteTransactionRows();
+		blTransUpdate.delete(accTrans);
+		msg.setMessage("Succesfully Deleted!");
+		msg.open();	
+		this.dialogShell.dispose();	
+		
+		}
+		catch(Exception ex){
+		ex.printStackTrace();
+		msg.setMessage("An error occured!");
+		msg.open();	
+		
+		}
+		}
 	}
 }
