@@ -1,7 +1,10 @@
 package com.turquaz.current.bl;
 
+import java.util.Iterator;
+import com.turquaz.accounting.dal.AccDALTransactionSearch;
 import com.turquaz.current.dal.CurDALCurrentCardUpdate;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 
 /************************************************************************/
@@ -37,16 +40,16 @@ public class CurBLTransactionUpdate
 		}
 	}
 
-	public static void delete(Object obj) throws Exception
+	public static void deleteCurTrans(TurqCurrentTransaction curTrans) throws Exception
 	{
-		try
+		Iterator it = curTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
+		while (it.hasNext())
 		{
-			EngDALCommon.deleteObject(obj);
+			TurqAccountingTransaction accTrans = (TurqAccountingTransaction) it.next();
+			AccDALTransactionSearch.deleteTransaction(accTrans);
 		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		EngDALCommon.deleteObject(curTrans);
+		
 	}
 
 	public static void initCurTrans(TurqCurrentTransaction curTrans) throws Exception

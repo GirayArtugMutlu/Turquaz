@@ -20,12 +20,14 @@ package com.turquaz.accounting.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
@@ -302,11 +304,13 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 			if (compAccountCard.verifyFields(true, account))
 			{
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_ACCOUNT,account);
+				argMap.put(AccKeys.ACC_ACCOUNT_NAME,compAccountCard.getTxtAccAcountName().getText().trim());
+				argMap.put(AccKeys.ACC_ACCOUNT_CODE,compAccountCard.getTxtAccAccountCode().getText().trim());
+				argMap.put(AccKeys.ACC_PARENT_ACCOUNT,compAccountCard.getTxtParentAccount().getData());
 				
-				
-				AccBLAccountUpdate.updateAccount(account,compAccountCard.getTxtAccAcountName().getText().trim(),
-												compAccountCard.getTxtAccAccountCode().getText().trim(),
-												(TurqAccountingAccount)compAccountCard.getTxtParentAccount().getData());
+				EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"updateAccount",argMap);						
 				
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.14")); //$NON-NLS-1$
 				msg.open();
@@ -334,7 +338,10 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 			int result = msg2.open();
 			if (result == SWT.OK)
 			{
-				AccBLAccountUpdate.deleteAccount(account);
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_ACCOUNT,account);
+				EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"deleteAccount",argMap);
+				
 				
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 				msg.open();

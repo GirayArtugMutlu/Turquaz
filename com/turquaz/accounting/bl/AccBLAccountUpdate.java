@@ -20,7 +20,9 @@ package com.turquaz.accounting.bl;
  * @version $Id$
  */
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.dal.AccDALAccountUpdate;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.EngDALCommon;
@@ -32,11 +34,16 @@ public class AccBLAccountUpdate
 	{
 	}
 
-	public static void updateAccount(TurqAccountingAccount account, String accountName, String accountCode, TurqAccountingAccount parent)
+	public static void updateAccount(HashMap argMap)
 			throws Exception
 	{
 		try
 		{
+			TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+			 String accountName = (String)argMap.get(AccKeys.ACC_ACCOUNT_NAME);
+			 String accountCode = (String)argMap.get(AccKeys.ACC_ACCOUNT_CODE);
+			 TurqAccountingAccount parent = (TurqAccountingAccount)argMap.get(AccKeys.ACC_PARENT_ACCOUNT);
+			
 			String accCode = account.getAccountCode();
 			TurqAccountingAccount parentAccount = parent;
 			account.setAccountName(accountName);
@@ -63,70 +70,28 @@ public class AccBLAccountUpdate
 		}
 	}
 
-	public static void updateTopAccount(TurqAccountingAccount toUpdate, TurqAccountingAccount topAccount) throws Exception
-	{
-		try
-		{
-			System.out.println("updateTOoOp");
-			toUpdate.setTurqAccountingAccountByTopAccount(topAccount);
-			List subAccounts = AccDALAccountUpdate.getSubAccounts(toUpdate);
-			for (int k = 0; k < subAccounts.size(); k++)
-			{
-				TurqAccountingAccount subAcc = (TurqAccountingAccount) subAccounts.get(k);
-				updateTopAccount(subAcc, topAccount);
-			}
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
 
-	public static List getSubAccounts(TurqAccountingAccount parentAcc) throws Exception
+	public static List getSubAccounts(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		TurqAccountingAccount parentAcc = (TurqAccountingAccount)argMap.get(AccKeys.ACC_PARENT_ACCOUNT);
+		
 			return AccDALAccountUpdate.getSubAccounts(parentAcc);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	
 	}
 
-	public static List getAccountTransColumns(TurqAccountingAccount account) throws Exception
+	public static List getAccountTransColumns(HashMap argMap) throws Exception
 	{
-		try
-		{
-			return AccDALAccountUpdate.getAccountTransColumns(account);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
+		TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+		
+		return AccDALAccountUpdate.getAccountTransColumns(account);
+		
 	}
 
-	public static void deleteAccount(TurqAccountingAccount obj) throws Exception
+	public static void deleteAccount(HashMap argMap) throws Exception
 	{
-		try
-		{
-			EngDALCommon.deleteObject(obj);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		EngDALCommon.deleteObject(argMap.get(AccKeys.ACC_ACCOUNT));
 	}
 
-	public static List getTotalDeptAndCredit(Object obj) throws Exception
-	{
-		try
-		{
-			return AccDALAccountUpdate.getTotalDeptAndCredit((TurqAccountingAccount) obj);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
 }

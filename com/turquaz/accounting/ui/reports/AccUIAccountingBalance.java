@@ -49,11 +49,13 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Button;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.layout.GridData;
 
@@ -116,7 +118,13 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			List transColumns = AccBLAccountAdd.getTransactionColumns(3, datePickerBeginDate.getDate(), datePickerEndDate.getDate());
+			
+			HashMap argMap = new HashMap();
+			argMap.put(AccKeys.ACC_TYPE,new Integer(3));
+			argMap.put(AccKeys.ACC_START_DATE,datePickerBeginDate.getDate());
+			argMap.put(AccKeys.ACC_END_DATE,datePickerEndDate.getDate());
+		
+			List transColumns = (List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getTransactionColumns",argMap);
 			BigDecimal totalCredit = new BigDecimal(0);
 			BigDecimal totalDept = new BigDecimal(0);
 			for (int k = 0; k < transColumns.size(); k++)

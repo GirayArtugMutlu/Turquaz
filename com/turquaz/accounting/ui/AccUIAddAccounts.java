@@ -19,6 +19,7 @@ package com.turquaz.accounting.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
@@ -37,6 +38,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.SWT;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.accounting.bl.AccBLAccountUpdate;
@@ -312,9 +314,9 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				TurqAccountingAccount parent = (TurqAccountingAccount) txtParentAccount.getData();
 								
-				 
-				
-				 List accTrans =AccBLAccountUpdate.getAccountTransColumns(parent);
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_ACCOUNT,parent);				
+				List accTrans = (List) EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",argMap);
 				
 				if (accTrans.size() > 0)
 				{
@@ -325,7 +327,13 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				String accountName = txtAccAcountName.getText().trim();
 				String accountCode = txtAccAccountCode.getText().trim();
 				
-				TurqAccountingAccount account = AccBLAccountAdd.saveAccount(accountName,accountCode,parent);
+				
+				argMap = new HashMap();
+				argMap.put(AccKeys.ACC_ACCOUNT_NAME,accountName);
+				argMap.put(AccKeys.ACC_ACCOUNT_CODE,accountCode);
+				argMap.put(AccKeys.ACC_PARENT_ACCOUNT,parent);
+				
+				TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",argMap);
 				
 				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
 				msg.open();
@@ -354,7 +362,10 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 			{
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				TurqAccountingAccount parent = (TurqAccountingAccount) txtParentAccount.getData();
-				List accTrans =AccBLAccountUpdate.getAccountTransColumns(parent);
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_ACCOUNT,parent);				
+				List accTrans = (List) EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",argMap);
+				
 				
 				if (accTrans.size() > 0)
 				{
@@ -364,8 +375,14 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				}
 				String accountName = txtAccAcountName.getText().trim();
 				String accountCode = txtAccAccountCode.getText().trim();
-				TurqAccountingAccount account = AccBLAccountAdd.saveAccount(accountName,accountCode,parent);
-				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
+				
+				argMap = new HashMap();
+				argMap.put(AccKeys.ACC_ACCOUNT_NAME,accountName);
+				argMap.put(AccKeys.ACC_ACCOUNT_CODE,accountCode);
+				argMap.put(AccKeys.ACC_PARENT_ACCOUNT,parent);				
+				
+				TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",argMap);
+				
 				msg.open();
 				EngTXCommon.doSingleTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
 

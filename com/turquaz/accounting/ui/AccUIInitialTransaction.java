@@ -33,10 +33,12 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TurquazDecimalFormat;
@@ -57,6 +59,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
@@ -309,7 +312,9 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 			thisLayout.numColumns = 4;
 			tableTransactionColumns.setEnabled(true);
 			this.layout();
-			accTrans = AccBLTransactionUpdate.getInitialTransaction();
+			
+			accTrans = (TurqAccountingTransaction)EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"getInitialTransaction",null);
+			
 			postInitGUI();
 		}
 		catch (Exception e)
@@ -359,7 +364,11 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 				txtDocumentNo.setText(accTrans.getTransactionDocumentNo());
 				txtTransDefinition.setText(accTrans.getTransactionDescription());
 				dateTransactionDate.setDate(accTrans.getTransactionsDate());
-				AccBLTransactionUpdate.initiliazeTransactionRows(accTrans);
+				
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
+				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"initializeTransactionRows",argMap);
+				
 				Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
 				Iterator it = transactionRows.iterator();
 				TurqAccountingTransactionColumn transRow;
@@ -491,8 +500,14 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 				//TODO acc trans column exRate
 				if (row.okToSave())
 				{
-					AccBLTransactionAdd.registerAccTransactionRow((TurqAccountingTransactionColumn) row.getDBObject(), transId,
-							EngBLCommon.getBaseCurrencyExchangeRate());
+					
+					HashMap argMap = new HashMap();
+					argMap.put(AccKeys.ACC_TRANS_ROW,row.getDBObject());
+					argMap.put(AccKeys.ACC_TRANS_ID,transId);
+					argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+					
+					EngTXCommon.doTransactionTX(AccBLTransactionAdd.class.getName(),"saveAccountingTransactionRow",argMap);
+					
 				}
 			}
 		}
@@ -514,9 +529,19 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 				Map creditAccounts = new HashMap();
 				Map deptAccounts = new HashMap();
 				prepareAccountingMaps(creditAccounts, deptAccounts);
-				AccBLTransactionUpdate.updateTransaction(accTrans, txtDocumentNo.getText().trim(), dateTransactionDate.getData(),
-						txtTransDefinition.getText().trim(), EngBLCommon.getBaseCurrencyExchangeRate(), creditAccounts, deptAccounts,
-						false);
+			
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
+				argMap.put(AccKeys.ACC_DOCUMENT_NO,txtDocumentNo.getText().trim());
+				argMap.put(AccKeys.ACC_TRANS_DATE, dateTransactionDate.getDate());
+				argMap.put(AccKeys.ACC_DEFINITION,	txtTransDefinition.getText().trim());
+				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(AccKeys.ACC_DEPT_ACCOUNT_MAP,deptAccounts);
+				argMap.put(AccKeys.ACC_CREDIT_ACCOUNT_MAP,creditAccounts);
+				argMap.put(AccKeys.ACC_SUM_ROWS,new Boolean(false));
+				
+				EngTXCommon.doTransactionTX(AccBLTransactionUpdate.class.getName(),"updateTransaction",argMap);
+				
 				msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$
 				msg.open();
 			}

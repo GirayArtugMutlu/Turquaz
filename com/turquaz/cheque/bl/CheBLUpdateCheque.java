@@ -8,7 +8,7 @@ package com.turquaz.cheque.bl;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
-import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.accounting.dal.AccDALTransactionSearch;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import com.turquaz.cheque.Messages;
@@ -218,7 +218,7 @@ public class CheBLUpdateCheque
 		while (it.hasNext())
 		{
 			TurqAccountingTransaction accTrans = (TurqAccountingTransaction) it.next();
-			AccBLTransactionSearch.removeAccountingTransaction(accTrans);
+			AccDALTransactionSearch.deleteTransaction(accTrans);
 		}
 		int rollType = chequeRoll.getTurqChequeTransactionType().getId().intValue();
 		// 

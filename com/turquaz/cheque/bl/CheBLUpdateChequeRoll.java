@@ -25,7 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.accounting.dal.AccDALTransactionSearch;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
@@ -292,7 +292,7 @@ public class CheBLUpdateChequeRoll
 			while (it.hasNext())
 			{
 				TurqAccountingTransaction accTrans = (TurqAccountingTransaction) it.next();
-				AccBLTransactionSearch.removeAccountingTransaction(accTrans);
+				AccDALTransactionSearch.deleteTransaction(accTrans);
 			}
 			//Delete roll Account
 			//

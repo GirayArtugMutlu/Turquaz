@@ -1,9 +1,11 @@
 package com.turquaz.bank.ui;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.ToolBar;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
@@ -13,6 +15,7 @@ import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.layout.GridData;
@@ -154,7 +157,10 @@ public class BankUIOtherTransOutUpdate extends org.eclipse.swt.widgets.Dialog
 			TurqAccountingTransaction accTrans = (TurqAccountingTransaction) it.next();
 			try
 			{
-				AccBLTransactionUpdate.initiliazeTransactionRows(accTrans);
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
+				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"initializeTransactionRows",argMap);
+				
 				Iterator it2 = accTrans.getTurqAccountingTransactionColumns().iterator();
 				while (it2.hasNext())
 				{

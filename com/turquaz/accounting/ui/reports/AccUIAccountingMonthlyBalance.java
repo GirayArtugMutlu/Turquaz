@@ -46,10 +46,12 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.custom.TableTreeItem;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -330,8 +332,21 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 			endCal.set(endCal.get(Calendar.YEAR), month - 1, 1);
 			endCal.add(2, 1);
 			endCal.add(Calendar.DATE, -1);
-			List allAccounts = AccBLTransactionSearch.getTransactions(accountPickerStart.getData(), accountPickerEnd.getData(), false,
-					startCal.getTime(), endCal.getTime());
+			
+			
+			HashMap argMap = new HashMap();
+			argMap.put(AccKeys.ACC_ACCOUNT_START,accountPickerStart.getData());
+			argMap.put(AccKeys.ACC_ACCOUNT_END, accountPickerEnd.getData());
+			argMap.put(AccKeys.ACC_INITIAL_TRANS,new Boolean(false));
+			argMap.put(AccKeys.ACC_START_DATE,startCal.getTime());
+			argMap.put(AccKeys.ACC_END_DATE,endCal.getTime());
+			
+			List allAccounts =(List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getTransactions",argMap);
+			
+			
+			
+			
+			
 			TurqAccountingAccount account;
 			Integer parentId, accountId;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();

@@ -22,6 +22,7 @@ package com.turquaz.engine.ui;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Properties;
 import org.apache.log4j.Logger;
@@ -46,9 +47,12 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.EngConfiguration;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.DatabaseThread;
+import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.wizards.EngUIDatabaseConnectionWizard;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.MouseAdapter;
@@ -133,6 +137,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
+			EngDALSessionFactory.init();
 			String database = EngConfiguration.getString("serverAddress"); //$NON-NLS-1$
 			database = database.trim();
 			if (database == null || database.equals("") || database.equals("localhost") || database.equals("127.0.0.1")) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -373,7 +378,11 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		try
 		{
-			Boolean result = EngBLCommon.checkUserPass(txtUserName.getText(), txtPassword.getText());
+			HashMap argMap = new HashMap();
+			argMap.put(EngKeys.USER,txtUserName.getText());
+			argMap.put(EngKeys.PASSWORD,txtPassword.getText());
+			
+			Boolean result = (Boolean)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"checkUserPass",argMap);
 			if (result.booleanValue())
 			{
 				showMainFrame();

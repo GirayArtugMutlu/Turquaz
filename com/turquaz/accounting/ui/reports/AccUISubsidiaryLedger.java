@@ -36,10 +36,12 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.custom.CLabel;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -299,7 +301,13 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 			formatter.setMaximumFractionDigits(2);
 			formatter.setMinimumFractionDigits(2);
 			parameters.put("formatter", new TurkishCurrencyFormat()); //$NON-NLS-1$
-			List balances = AccBLTransactionSearch.getCurrentBalances(account, account2, dateStartDate.getDate());
+		
+			HashMap argMap = new HashMap();
+			argMap.put(AccKeys.ACC_ACCOUNT_START,account);
+			argMap.put(AccKeys.ACC_ACCOUNT_END,account2);
+			argMap.put(AccKeys.ACC_START_DATE,dateStartDate.getDate());
+			List balances = (List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getCurrentBalances",argMap);
+			
 			HashMap balanceList = new HashMap();
 			for (int k = 0; k < balances.size(); k++)
 			{

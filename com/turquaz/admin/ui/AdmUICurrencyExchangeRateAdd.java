@@ -17,6 +17,7 @@ import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyExchangeRateAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.CurrencyTextAdvanced;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -171,7 +172,7 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 	{
 		try
 		{
-			List currencies = AccBLTransactionSearch.getCurrencies();
+			List currencies = (List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null);
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);

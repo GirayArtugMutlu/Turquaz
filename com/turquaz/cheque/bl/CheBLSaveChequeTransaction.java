@@ -393,6 +393,7 @@ public class CheBLSaveChequeTransaction
 			chequeInRoll.setCreationDate(Calendar.getInstance().getTime());
 			amount = amount.add(cheque.getChequesAmount());
 			EngDALCommon.saveObject(chequeInRoll);
+			
 			TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque);
 			CurBLCurrentTransactionAdd
 					.saveCurrentTransaction(

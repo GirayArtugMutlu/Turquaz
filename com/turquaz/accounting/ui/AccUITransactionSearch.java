@@ -22,7 +22,7 @@ package com.turquaz.accounting.ui;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
@@ -36,12 +36,13 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -327,13 +328,12 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 				int result = msg2.open();
 				if (result == SWT.OK)
 				{
-					AccBLTransactionUpdate.initiliazeTransactionRows(accTrans);
-					Iterator it = accTrans.getTurqAccountingTransactionColumns().iterator();
-					while (it.hasNext())
-					{
-						EngBLCommon.delete(it.next());
-					}
-					EngBLCommon.delete(accTrans);
+							
+					HashMap argMap = new HashMap();
+					argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
+				    
+					EngTXCommon.doTransactionTX(AccBLTransactionSearch.class.getName(),"removeAccountingTransaction",argMap);
+					
 					msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 					msg.open();
 					search();
@@ -356,8 +356,19 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 		try
 		{
 			tableViewer.removeAll();
-			List result = AccBLTransactionSearch.searchAccTransaction(txtDocumentNo.getText().trim(), dateStartDate.getDate(),
-					dateEndDate.getDate(), btnAccTrans.getSelection(), btnCollect.getSelection(), btnPayment.getSelection());
+			
+			HashMap argMap = new HashMap();
+			argMap.put(AccKeys.ACC_DOCUMENT_NO,txtDocumentNo.getText().trim());
+			argMap.put(AccKeys.ACC_START_DATE,dateStartDate.getDate());
+			argMap.put(AccKeys.ACC_END_DATE,dateEndDate.getDate());
+			argMap.put(AccKeys.ACC_IS_GENERAL,new Boolean( btnAccTrans.getSelection()));
+			argMap.put(AccKeys.ACC_IS_COLLECT,new Boolean(btnCollect.getSelection()));
+			argMap.put(AccKeys.ACC_IS_PAYMENT,new Boolean(btnPayment.getSelection()));
+			
+			
+			List result = (List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"searchAccTransaction",argMap);
+		
+			
 			int listSize = result.size();
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			for (int i = 0; i < listSize; i++)
@@ -406,7 +417,11 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 			{
 				ITableRow row = (ITableRow) selection[0].getData();
 				TurqAccountingTransaction accTrans = (TurqAccountingTransaction) row.getDBObject();
-				AccBLTransactionUpdate.initiliazeTransactionRows(accTrans);
+				
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
+				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"initializeTransactionRows",argMap);
+				
 				int type = accTrans.getTurqAccountingTransactionType().getId().intValue();
 				boolean updated;
 				if (type == 2)

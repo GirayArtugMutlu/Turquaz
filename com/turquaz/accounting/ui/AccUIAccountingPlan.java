@@ -38,6 +38,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.custom.TableTreeItem;
 import org.eclipse.swt.SWT;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.accounting.bl.AccBLAccountUpdate;
@@ -301,10 +302,12 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 		try
 		{
 			TableTreeItem item;
-			Object args[] = new Object[2];
-			args[0]=new Integer(parent_id);
-			args[1]=codeCriteria;
-			List mainBranches = AccBLAccountAdd.getAccount((Integer)args[0],codeCriteria);
+			
+			HashMap argMap = new HashMap();
+			argMap.put(AccKeys.ACC_CODE_CRITERIA,codeCriteria);
+			argMap.put(AccKeys.ACC_PARENT_ID,new Integer(parent_id));
+		
+			List mainBranches =(List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAccount",argMap);
 			
 			TurqAccountingAccount account;
 			for (int i = 0; i < mainBranches.size(); i++)
@@ -363,18 +366,29 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 		if (items.length > 0)
 		{
 			TurqAccountingAccount account = (TurqAccountingAccount) items[0].getData();
+		
+			
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 			try
 			{
-				List accTrans = AccBLAccountUpdate.getAccountTransColumns(account);
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_ACCOUNT,account);				
+				List accTrans = (List) EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",argMap);
+				
 				if (accTrans.size() > 0)
 				{
 					msg.setMessage(Messages.getString("AccUIAccountingPlan.6")); //$NON-NLS-1$
 					msg.open();
 					return;
 				}
-				List subAccs = AccBLAccountUpdate.getSubAccounts(account);
+				
+				
+				argMap = new HashMap();
+		        argMap.put(AccKeys.ACC_PARENT_ACCOUNT,account);	        
+				List subAccs =(List)EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getSubAccounts",argMap);
+				
+				
 				if (subAccs.size() > 0)
 				{
 					msg.setMessage(Messages.getString("AccUIAccountingPlan.5")); //$NON-NLS-1$
@@ -385,7 +399,10 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 				int result = msg2.open();
 				if (result == SWT.OK)
 				{
-					AccBLAccountUpdate.deleteAccount(account);
+					argMap = new HashMap();
+					argMap.put(AccKeys.ACC_ACCOUNT,account);
+					EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"deleteAccount",argMap);
+					
 					msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 					msg.open();
 					EngTXCommon.doSingleTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);

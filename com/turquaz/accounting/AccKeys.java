@@ -39,6 +39,7 @@ public class AccKeys
     public final static String ACC_ACCOUNT_START ="accountStart";
     public final static String ACC_ACCOUNT_END ="accountEnd";
     public final static String ACC_TRANSACTION ="accTransaction";
+    public final static String ACC_INITIAL_TRANS ="initialTrans";
    
 	
 	

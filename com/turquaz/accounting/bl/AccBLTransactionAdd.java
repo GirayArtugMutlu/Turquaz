@@ -22,9 +22,12 @@ package com.turquaz.accounting.bl;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import com.turquaz.accounting.AccKeys;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -108,8 +111,20 @@ public class AccBLTransactionAdd
 			}
 		}
 	}
+	
+	
+	public static void saveAccountingTransactionRow(HashMap argMap)throws Exception
+	{
+		TurqAccountingTransactionColumn transRow = (TurqAccountingTransactionColumn)argMap.get(AccKeys.ACC_TRANS_ROW);
+		Integer transID =(Integer)argMap.get(AccKeys.ACC_TRANS_ID);
+		TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+		
+		registerAccTransactionRow(transRow,transID,exchangeRate);
+		
+		
+	}
 
-	public static void registerAccTransactionRow(TurqAccountingTransactionColumn transRow, Integer transID,
+	private static void registerAccTransactionRow(TurqAccountingTransactionColumn transRow, Integer transID,
 			TurqCurrencyExchangeRate exchangeRate) throws Exception
 	{
 		try
@@ -137,60 +152,23 @@ public class AccBLTransactionAdd
 		{
 			throw ex;
 		}
-	}
-
-	//TODO DONE
-	public static Integer regAccTransaction(Date date, String documentNo, int type, int moduleId, Integer docSeqId, String definition,
-			TurqCurrencyExchangeRate exchangeRate) throws Exception
-	{
-		try
-		{
-			TurqEngineSequence docSeq = new TurqEngineSequence();
-			if (docSeqId == null)
-			{
-				TurqModule module = new TurqModule();
-				module.setId(new Integer(EngBLCommon.MODULE_ACCOUNTING));
-				docSeq.setTurqModule(module);
-				EngDALCommon.saveObject(docSeq);
-			}
-			else
-			{
-				docSeq.setId(docSeqId);
-			}
-			TurqAccountingTransaction trans = new TurqAccountingTransaction();
-			trans.setTurqEngineSequence(docSeq);
-			trans.setTransactionDocumentNo(documentNo);
-			trans.setTransactionDescription(definition);
-			trans.setTransactionsDate(new java.sql.Date(date.getTime()));
-			/**
-			 * TODO Will Change in next version
-			 */
-			trans.setTurqCurrencyExchangeRate(exchangeRate);
-			//Hangi modulde kaydedildigi
-			TurqModule module = new TurqModule();
-			module.setId(new Integer(moduleId));
-			trans.setTurqModule(module);
-			//Muhasebelestirilmemis.. o zaman yevmiye kaydi -1
-			TurqAccountingJournal journal = new TurqAccountingJournal();
-			journal.setId(new Integer(-1));
-			trans.setTurqAccountingJournal(journal);
-			//Fis tip
-			TurqAccountingTransactionType transType = new TurqAccountingTransactionType();
-			transType.setId(new Integer(type));
-			trans.setTurqAccountingTransactionType(transType);
-			trans.setCreatedBy(System.getProperty("user"));
-			trans.setUpdatedBy(System.getProperty("user"));
-			Calendar cal = Calendar.getInstance();
-			trans.setLastModified(cal.getTime());
-			trans.setCreationDate(cal.getTime());
-			trans.setTransactionDescription(definition);
-			EngDALCommon.saveObject(trans);
-			return trans.getId();
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	}	
+	
+	public static void saveAccTransactionFromUI(HashMap argMap)throws Exception{
+		
+		Date date = (Date) argMap.get(AccKeys.ACC_TRANS_DATE);
+		String documentNo = (String)argMap.get(AccKeys.ACC_DOCUMENT_NO);
+		Integer type = (Integer)argMap.get(AccKeys.ACC_TYPE);
+		Integer moduleId = (Integer)argMap.get(AccKeys.ACC_MODULE_ID);
+		Integer seqId = (Integer)argMap.get(AccKeys.ACC_SEQUENCE_ID);
+		String definition = (String)argMap.get(AccKeys.ACC_DEFINITION);
+		TurqCurrencyExchangeRate exRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+		Map creditAccount = (Map)argMap.get(AccKeys.ACC_CREDIT_ACCOUNT_MAP);
+		Map deptAccount = (Map)argMap.get(AccKeys.ACC_DEPT_ACCOUNT_MAP);
+		Boolean sumRows = (Boolean)argMap.get(AccKeys.ACC_SUM_ROWS);
+		
+		saveAccTransaction(date, documentNo,type.intValue(),moduleId.intValue(),seqId,definition,exRate,creditAccount,deptAccount,sumRows.booleanValue());
+		
 	}
 
 	public static boolean saveAccTransaction(Date date, String documentNo, int type, int moduleId, Integer docSeqId, String definition,

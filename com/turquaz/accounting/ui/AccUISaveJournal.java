@@ -2,6 +2,7 @@ package com.turquaz.accounting.ui;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -16,6 +17,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.custom.CLabel;
@@ -23,6 +25,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -178,7 +181,7 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			tableAccountingTransaction.removeAll();
-			List result = AccBLTransactionSearch.getUnsavedTransactions();
+			List result = (List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getUnsavedTransactions",null);
 			TableItem item;
 			int listSize = result.size();
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
@@ -222,8 +225,11 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite
 				{
 					if (items[i].getChecked())
 					{
-						AccBLTransactionSearch.addToJournal((TurqAccountingTransaction) items[i].getData(), datePickerJournalDate
-								.getDate());
+						HashMap argMap = new HashMap();
+						argMap.put(AccKeys.ACC_TRANSACTION,items[i].getData());
+						argMap.put(AccKeys.ACC_TRANS_DATE,datePickerJournalDate.getDate());
+						EngTXCommon.doTransactionTX(AccBLTransactionSearch.class.getName(),"addToJournal",argMap);
+						
 					}
 				}
 				fillTable();

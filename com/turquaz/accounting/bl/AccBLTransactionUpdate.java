@@ -21,25 +21,34 @@ package com.turquaz.accounting.bl;
  */
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.dal.AccDALTransactionUpdate;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
-import com.turquaz.engine.dal.TurqAccountingTransactionType;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 
 public class AccBLTransactionUpdate
 {
-	public AccBLTransactionUpdate()
-	{
-	}
+	
 
-	//TODO DONE
-	public static void updateTransaction(TurqAccountingTransaction transaction, String docNo, Object transDate, String definition,
-			TurqCurrencyExchangeRate exchangeRate, Map creditAccounts, Map deptAccounts, boolean isSumRows) throws Exception
+	public static void updateTransaction(HashMap argMap) throws Exception
 	{
+		
+		TurqAccountingTransaction transaction = (TurqAccountingTransaction)argMap.get(AccKeys.ACC_TRANSACTION);
+		String docNo = (String)argMap.get(AccKeys.ACC_DOCUMENT_NO);
+		 Object transDate = argMap.get(AccKeys.ACC_TRANS_DATE);
+		 String definition = (String)argMap.get(AccKeys.ACC_DEFINITION);
+		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE); 
+		 Map creditAccounts = (Map)argMap.get(AccKeys.ACC_CREDIT_ACCOUNT_MAP);
+		 Map deptAccounts = (Map)argMap.get(AccKeys.ACC_DEPT_ACCOUNT_MAP);
+		 boolean isSumRows = ((Boolean)argMap.get(AccKeys.ACC_SUM_ROWS)).booleanValue();
+		
+		
 		Date date = new Date(((java.util.Date) transDate).getTime());
 		transaction.setTransactionsDate(date);
 		transaction.setTransactionDocumentNo(docNo);
@@ -83,50 +92,13 @@ public class AccBLTransactionUpdate
 		}
 	}
 
-	public static void updateTransaction(TurqAccountingTransaction transaction, String docNo, java.util.Date transDate, int transType,
-			String definition, TurqCurrencyExchangeRate exchangeRate) throws Exception
-	{
-		TurqAccountingTransactionType accTransType = new TurqAccountingTransactionType();
-		accTransType.setId(new Integer(transType));
-		transaction.setTurqAccountingTransactionType(accTransType);
-		transaction.setTransactionsDate(transDate);
-		transaction.setTransactionDocumentNo(docNo);
-		transaction.setTransactionDescription(definition);
-		transaction.setTurqCurrencyExchangeRate(exchangeRate);
-		transaction.setUpdatedBy(System.getProperty("user"));
-		Calendar cal = Calendar.getInstance();
-		transaction.setLastModified(cal.getTime());
-		try
-		{
-			EngDALCommon.updateObject(transaction);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
+	
 
-	public static void delete(Object obj) throws Exception
+	public static void initiliazeTransactionRows(HashMap argMap) throws Exception
 	{
-		try
-		{
-			EngDALCommon.deleteObject(obj);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static void initiliazeTransactionRows(TurqAccountingTransaction trans) throws Exception
-	{
-		try
-		{
+		
+		TurqAccountingTransaction trans = (TurqAccountingTransaction)argMap.get(AccKeys.ACC_TRANSACTION);
 			AccDALTransactionUpdate.initializeTransactionRows(trans);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 }

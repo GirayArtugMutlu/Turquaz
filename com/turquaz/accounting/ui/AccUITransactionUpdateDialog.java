@@ -36,15 +36,19 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionAdd;
+import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -282,9 +286,20 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				Map creditAccounts = new HashMap();
 				Map deptAccounts = new HashMap();
 				compTransactionAdd.prepareAccountingMaps(creditAccounts, deptAccounts);
-				AccBLTransactionUpdate.updateTransaction(accTrans, compTransactionAdd.getTxtDocumentNo().getText().trim(),
-						compTransactionAdd.getDateTransactionDate().getData(), compTransactionAdd.getTxtTransDefinition().getText()
-								.trim(), compTransactionAdd.getExchangeRate(), creditAccounts, deptAccounts, false);
+				
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
+				argMap.put(AccKeys.ACC_DOCUMENT_NO,compTransactionAdd.getTxtDocumentNo().getText().trim());
+				argMap.put(AccKeys.ACC_TRANS_DATE, compTransactionAdd.getDateTransactionDate().getDate());
+				argMap.put(AccKeys.ACC_DEFINITION,compTransactionAdd.getTxtTransDefinition().getText().trim());
+				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(AccKeys.ACC_DEPT_ACCOUNT_MAP,deptAccounts);
+				argMap.put(AccKeys.ACC_CREDIT_ACCOUNT_MAP,creditAccounts);
+				argMap.put(AccKeys.ACC_SUM_ROWS,new Boolean(false));
+				
+				EngTXCommon.doTransactionTX(AccBLTransactionUpdate.class.getName(),"updateTransaction",argMap);
+				
+				
 				msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$
 				msg.open();
 				dialogShell.close();
@@ -312,7 +327,10 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			try
 			{
 				updated = true;
-				AccBLTransactionSearch.removeAccountingTransaction(accTrans);
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
+				EngTXCommon.doTransactionTX(AccBLTransactionSearch.class.getName(),"removeAccountingTransaction",argMap);
+				
 				msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.5")); //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.dispose();

@@ -33,6 +33,7 @@ import net.sf.hibernate.Transaction;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.bill.dal.BillDALSearchBill;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
@@ -41,6 +42,7 @@ import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.inventory.dal.InvDALCardSearch;
 
 public class EngBLCommon
@@ -284,8 +286,10 @@ public class EngBLCommon
 		try
 		{
 			if (baseCurrency == null)
-				baseCurrency = AccBLTransactionSearch.getBaseCurrency();
-			return baseCurrency;
+			{
+				baseCurrency = (TurqCurrency)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getBaseCurrency",null);
+			}
+				return baseCurrency;
 		}
 		catch (Exception ex)
 		{
@@ -314,7 +318,7 @@ public class EngBLCommon
 		try
 		{
 			if (baseCurrencyExchangeRate == null)
-				baseCurrencyExchangeRate = AccBLTransactionSearch.getBaseCurrencyExchangeRate();
+				baseCurrencyExchangeRate = (TurqCurrencyExchangeRate)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getBaseCurrencyExchangeRate",null);
 			return baseCurrencyExchangeRate;
 		}
 		catch (Exception ex)
@@ -374,16 +378,14 @@ public class EngBLCommon
 		}
 	}
 
-	public static Boolean checkUserPass(String user, String pass) throws Exception
+	public static Boolean checkUserPass(HashMap argMap) throws Exception
 	{
-		try
-		{
-			return new Boolean(EngDALCommon.checkUserPass(user, pass));
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
+		String user = (String)argMap.get(EngKeys.USER);
+		String pass = (String)argMap.get(EngKeys.PASSWORD);
+		
+		return new Boolean(EngDALCommon.checkUserPass(user, pass));
+		
 	}
 
 	public static void delete(Object obj) throws Exception

@@ -21,7 +21,9 @@ package com.turquaz.accounting.bl;
  */
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -36,12 +38,18 @@ public class AccBLTransactionSearch
 	{
 	}
 
-	public static List searchAccTransaction(String docNo, Object startDate, Object endDate, boolean isGeneralTrans, boolean isCollect,
-			boolean isPayment) throws Exception
+	public static List searchAccTransaction(HashMap argMap) throws Exception
 	{
 		try
 		{
-			return AccDALTransactionSearch.searchTransaction(docNo, startDate, endDate, isGeneralTrans, isCollect, isPayment);
+			String docNo = (String)argMap.get(AccKeys.ACC_DOCUMENT_NO);
+			Object startDate = argMap.get(AccKeys.ACC_START_DATE);
+			Object endDate = argMap.get(AccKeys.ACC_END_DATE); 
+			Boolean isGeneralTrans = (Boolean)argMap.get(AccKeys.ACC_IS_GENERAL);
+			Boolean isCollect = (Boolean)argMap.get(AccKeys.ACC_IS_COLLECT);
+			Boolean isPayment = (Boolean)argMap.get(AccKeys.ACC_IS_PAYMENT);
+					
+			return AccDALTransactionSearch.searchTransaction(docNo, startDate, endDate, isGeneralTrans.booleanValue(), isCollect.booleanValue(), isPayment.booleanValue());
 		}
 		catch (Exception ex)
 		{
@@ -49,17 +57,15 @@ public class AccBLTransactionSearch
 		}
 	}
 
-	public static List getCurrentBalances(TurqAccountingAccount accountStart, TurqAccountingAccount accountEnd, Date startDate)
+	public static List getCurrentBalances(HashMap argMap)
 			throws Exception
 	{
-		try
-		{
+		TurqAccountingAccount accountStart =(TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT_START);
+		TurqAccountingAccount accountEnd =(TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT_END);
+		Date startDate = (Date)argMap.get(AccKeys.ACC_START_DATE);  
+				
 			return AccDALTransactionSearch.getCurrentBalances(accountStart, accountEnd, startDate);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	public static TurqCurrency getBaseCurrency() throws Exception
@@ -88,75 +94,12 @@ public class AccBLTransactionSearch
 
 	public static List getCurrencies() throws Exception
 	{
-		try
-		{
-			return AccDALTransactionSearch.getCurrencies();
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
+			return AccDALTransactionSearch.getCurrencies();	
+		
 	}
 
-	public static List searchAccTransactionsColumns(TurqAccountingAccount acc, Object startDate, Object endDate) throws Exception
-	{
-		try
-		{
-			return AccDALTransactionSearch.searchAccTransactionsColumns(acc, startDate, endDate);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
 
-	public static Object[] getAccTransactionBalance(TurqAccountingAccount acc, Object startDate, Object endDate) throws Exception
-	{
-		try
-		{
-			return AccDALTransactionSearch.getAccTransactionBalance(acc, startDate, endDate);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static List getTransactionTypes() throws Exception
-	{
-		try
-		{
-			return AccDALTransactionSearch.getTransactionTypes();
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static List searchTransactionRows(TurqAccountingTransaction trans, boolean isCredit) throws Exception
-	{
-		try
-		{
-			return AccDALTransactionSearch.searchTransactionRows(trans, isCredit);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static void removeTransactionRows(TurqAccountingTransaction transaction) throws Exception
-	{
-		try
-		{
-			AccDALTransactionSearch.removeTransactionRows(transaction);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
 
 	//-Muhasebele?tirilmemi? fi?leri getirir...
 	public static List getUnsavedTransactions() throws Exception
@@ -171,10 +114,12 @@ public class AccBLTransactionSearch
 		}
 	}
 
-	public static void addToJournal(TurqAccountingTransaction trans, Date journalDate) throws Exception
+	public static void addToJournal(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		TurqAccountingTransaction trans = (TurqAccountingTransaction)argMap.get(AccKeys.ACC_TRANSACTION);
+		Date journalDate = (Date)argMap.get(AccKeys.ACC_TRANS_DATE);
+		
 			TurqAccountingJournal journal = new TurqAccountingJournal();
 			journal.setCreatedBy(System.getProperty("user"));
 			journal.setUpdatedBy(System.getProperty("user"));
@@ -187,28 +132,26 @@ public class AccBLTransactionSearch
 			trans.setLastModified(cal.getTime());
 			trans.setUpdatedBy(System.getProperty("user"));
 			EngDALCommon.updateObject(trans);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
-	public static List getTransactions(Object firstAccount, Object secondAccount, boolean initialAccounts, Date startDate, Date endDate)
+	public static List getTransactions(HashMap argMap )
 			throws Exception
 	{
-		try
-		{
-			return AccDALTransactionSearch.getTransactions(firstAccount, secondAccount, initialAccounts, startDate, endDate);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		Object firstAccount = argMap.get(AccKeys.ACC_ACCOUNT_START);
+		Object secondAccount = argMap.get(AccKeys.ACC_ACCOUNT_END);
+		Boolean initialAccounts = (Boolean)argMap.get(AccKeys.ACC_INITIAL_TRANS);
+		Date startDate = (Date)argMap.get(AccKeys.ACC_START_DATE);
+		Date endDate = (Date)argMap.get(AccKeys.ACC_END_DATE);
+		
+		
+			return AccDALTransactionSearch.getTransactions(firstAccount, secondAccount, initialAccounts.booleanValue(), startDate, endDate);
+		
 	}
 
-	public static void removeAccountingTransaction(TurqAccountingTransaction accTrans) throws Exception
+	public static void removeAccountingTransaction(HashMap argMap) throws Exception
 	{
+		TurqAccountingTransaction accTrans =(TurqAccountingTransaction) argMap.get(AccKeys.ACC_TRANSACTION);
 		AccDALTransactionSearch.deleteTransaction(accTrans);
 	}
 }

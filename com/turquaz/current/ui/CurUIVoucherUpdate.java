@@ -1,12 +1,13 @@
 package com.turquaz.current.ui;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Iterator;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
-import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
@@ -18,6 +19,7 @@ import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.ToolBar;
@@ -177,7 +179,10 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 			if (it.hasNext())
 			{
 				TurqAccountingTransaction accTrans = (TurqAccountingTransaction) it.next();
-				AccBLTransactionUpdate.initiliazeTransactionRows(accTrans);
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
+				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"initializeTransactionRows",argMap);
+				
 				Iterator accIt = accTrans.getTurqAccountingTransactionColumns().iterator();
 				while (accIt.hasNext())
 				{
@@ -207,13 +212,8 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 			CurBLTransactionUpdate blUpdate = new CurBLTransactionUpdate();
 			try
 			{
-				Iterator it = curTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
-				while (it.hasNext())
-				{
-					TurqAccountingTransaction accTrans = (TurqAccountingTransaction) it.next();
-					AccBLTransactionSearch.removeAccountingTransaction(accTrans);
-				}
-				CurBLTransactionUpdate.delete(curTrans);
+				
+				CurBLTransactionUpdate.deleteCurTrans(curTrans);
 				BigDecimal credit = compVoucher.getTxtCredit().getBigDecimalValue();
 				boolean isCredit = false;
 				if (compVoucher.getComboType().getText().equals(EngBLCommon.COMMON_CREDIT_STRING))
@@ -242,14 +242,9 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 		{
 			if (EngUICommon.okToDelete(getParent()))
 			{
-				Iterator it = curTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
-				while (it.hasNext())
-				{
-					TurqAccountingTransaction accTrans = (TurqAccountingTransaction) it.next();
-					AccBLTransactionSearch.removeAccountingTransaction(accTrans);
-				}
+				
 				updated = true;
-				CurBLTransactionUpdate.delete(curTrans);
+				CurBLTransactionUpdate.deleteCurTrans(curTrans);
 			}
 		}
 		catch (Exception ex)

@@ -30,10 +30,12 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.custom.CCombo;
@@ -52,6 +54,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
@@ -350,7 +353,7 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 	{
 		try
 		{
-			List currencies = AccBLTransactionSearch.getCurrencies();
+			List currencies = (List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null);
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);
@@ -556,8 +559,24 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 				Map creditAccounts = new HashMap();
 				Map deptAccounts = new HashMap();
 				prepareAccountingMaps(creditAccounts, deptAccounts);
-				AccBLTransactionAdd.saveAccTransaction(dateTransactionDate.getDate(), txtDocumentNo.getText().trim(), 2, 1, null,
-						txtTransDefinition.getText().trim(), exchangeRate, creditAccounts, deptAccounts, false);
+				
+				
+				
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_TRANS_DATE,dateTransactionDate.getDate());
+				argMap.put(AccKeys.ACC_DOCUMENT_NO,txtDocumentNo.getText().trim());
+				argMap.put(AccKeys.ACC_TYPE,new Integer(2));
+				argMap.put(AccKeys.ACC_MODULE_ID,new Integer(1));
+				argMap.put(AccKeys.ACC_SEQUENCE_ID,null);
+				argMap.put(AccKeys.ACC_DEFINITION,txtTransDefinition.getText().trim());
+				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
+				argMap.put(AccKeys.ACC_CREDIT_ACCOUNT_MAP,creditAccounts);
+				argMap.put(AccKeys.ACC_DEPT_ACCOUNT_MAP,deptAccounts);
+				argMap.put(AccKeys.ACC_SUM_ROWS,new Boolean(false));
+				
+				EngTXCommon.doTransactionTX(AccBLTransactionAdd.class.getName(),"saveAccTransactionFromUI",argMap);
+				
+				
 				msg.setMessage(Messages.getString("AccUITransactionAdd.16")); //$NON-NLS-1$
 				msg.open();
 				clearFields();
