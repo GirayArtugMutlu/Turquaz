@@ -43,7 +43,7 @@ public class AccBLAccountUpdate {
 	{
 		try
 		{
-		
+			String accCode=account.getAccountCode();
 			TurqAccountingAccount parentAccount =(TurqAccountingAccount)parent; 
 			account.setAccountName(accountName);
 			account.setAccountCode(accountCode);
@@ -55,6 +55,8 @@ public class AccBLAccountUpdate {
 			account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());			
 		    	
 			dalAccountUpdate.updateObject(account);		
+			
+			dalAccountUpdate.updateAccountCodeOfSubAccs(account,accCode);
 			EngBLAccountingAccounts.RefreshContentAsistantMap();
 	
 		}

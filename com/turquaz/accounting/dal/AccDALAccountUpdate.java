@@ -93,6 +93,33 @@ public class AccDALAccountUpdate {
 		}
 	}
 	
+	public void updateAccountCodeOfSubAccs(TurqAccountingAccount parentAcc,String firstAccCode)throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			List subAccounts=getSubAccounts(parentAcc);
+			for (int k=0; k<subAccounts.size(); k++)
+			{
+				TurqAccountingAccount subAcc=(TurqAccountingAccount)subAccounts.get(k);
+				String remainingCode=subAcc.getAccountCode().substring(firstAccCode.length());
+				String firstSubAccCode=subAcc.getAccountCode();
+				subAcc.setAccountCode(parentAcc.getAccountCode().concat(remainingCode));
+				session.update(subAcc);
+				updateAccountCodeOfSubAccs(subAcc,firstSubAccCode);			
+				
+			}
+			session.flush();
+			tx.commit();
+			session.close();
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
 	public List getAccountTransColumns(TurqAccountingAccount account) throws Exception
 	{
 		try

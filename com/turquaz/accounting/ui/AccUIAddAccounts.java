@@ -272,7 +272,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
     	{
     		if (toUpdate!=null && !acc.getAccountingAccountsId().equals(toUpdate.getAccountingAccountsId()))
     		{
-    			msg.setMessage("Daha önce varolan bir hesap kodu giremezsiniz!");
+    			msg.setMessage(Messages.getString("AccUIAddAccounts.7")); //$NON-NLS-1$
     			msg.open();
     			txtAccAccountCode.setFocus();
     			return false;
@@ -280,12 +280,26 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
     	}
     }
     
-	else if(txtParentAccount.getData()==null){
-	  msg.setMessage(Messages.getString("AccUIAddAccounts.5")); //$NON-NLS-1$
-     msg.open();	
-     this.txtParentAccount.setFocus();
-    return false;
-	}	
+	else if(txtParentAccount.getData()==null)
+	{
+		msg.setMessage(Messages.getString("AccUIAddAccounts.5")); //$NON-NLS-1$
+		msg.open();	
+		this.txtParentAccount.setFocus();
+		return false;
+	}
+	TurqAccountingAccount topAcc=(TurqAccountingAccount)txtParentAccount.getData();
+	if (topAcc.getAccountingAccountsId().intValue()!=-1)
+	{
+		if (!txtAccAccountCode.getText().startsWith(txtParentAccount.getText().trim()))
+		{
+			msg.setMessage(Messages.getString("AccUIAddAccounts.9")); //$NON-NLS-1$
+			msg.open();
+			txtAccAccountCode.setText(txtParentAccount.getText().trim().concat(" ")); //$NON-NLS-1$
+			txtAccAccountCode.setFocus();
+			txtAccAccountCode.setSelection(txtParentAccount.getText().trim().length()+1);
+			return false;
+		}
+	}
 	return true;
 	}
 	catch(Exception ex)
