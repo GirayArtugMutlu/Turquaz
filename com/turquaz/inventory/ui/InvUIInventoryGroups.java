@@ -2,6 +2,7 @@ package com.turquaz.inventory.ui;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
@@ -19,6 +20,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.tx.EngTXCommon;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.inventory.Messages;
@@ -170,7 +172,7 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite
 			registeredGroups = new HashMap();
 			TableItem item;
 			TurqInventoryGroup group;
-			java.util.List ls = InvBLCardAdd.getParentInventoryGroups();
+			List ls =(List)EngTXCommon.searchTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
 			for (int i = 0; i < ls.size(); i++)
 			{
 				group = (TurqInventoryGroup) ls.get(i);

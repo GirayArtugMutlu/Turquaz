@@ -147,14 +147,11 @@ public class EngDALCommon
 
 	public static void saveObject(Object obj) throws Exception
 	{
-		Session session = EngDALSessionFactory.getSession();
-	
+		Session session = EngDALSessionFactory.getSession();	
 		session.save(obj);
 		session.flush();
-	
 		
 	}
-
 
 	public static Integer getBankTransaction(TurqEngineSequence seq) throws Exception
 	{

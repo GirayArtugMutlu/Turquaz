@@ -25,6 +25,7 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TextCellEditor;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
 import org.eclipse.jface.viewers.TableViewer;
@@ -972,7 +973,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		try
 		{
 			mapEditorsTableInvCardAddRegisteredUnits = new HashMap();
-			currencyList = EngBLCommon.getCurrencies();
+			currencyList = (List)EngTXCommon.searchTX(EngBLCommon.class.getName(),"getCurrencies",null);
 		}
 		catch (Exception ex)
 		{
@@ -1005,7 +1006,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 	{
 		try
 		{
-			List allTypes = InvBLCardSearch.getAllInvAccTypes();
+			List allTypes = (List)EngTXCommon.searchTX(InvBLCardSearch.class.getName(),"getAllInvAccTypes",null);
 			for (int k = 0; k < allTypes.size(); k++)
 			{
 				TurqInventoryAccountingType type = (TurqInventoryAccountingType) allTypes.get(k);
@@ -1179,7 +1180,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		tableInvCardAddRegisteredUnits.getColumn(1).setWidth(50);
 		try
 		{
-			java.util.List unitLst = InvBLCardAdd.getInventoryUnits();
+			List unitLst = (List)EngTXCommon.searchTX(InvBLCardAdd.class.getName(),"getInventoryUnits",null);
 			TableItem item = null;
 			TurqInventoryUnit trqInvUnit;
 			for (int i = 0; i < unitLst.size(); i++)
@@ -1221,7 +1222,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 				txtInvCardCode.setFocus();
 				return false;
 			}
-			else if (save && EngBLInventoryCards.getInvCard(txtInvCardCode.getText().trim()) != null)
+			else if (save && EngTXCommon.searchTX(EngBLInventoryCards.class.getName(),"getInvCard",new Object[]{txtInvCardCode.getText().trim()}) != null)
 			{
 				msg.setMessage(Messages.getString("InvUICardAdd.2")); //$NON-NLS-1$
 				msg.open();
@@ -1262,15 +1263,16 @@ public class InvUICardAdd extends Composite implements SecureComposite
 			try
 			{
 				// Save inventory card
-				InvBLCardAdd.saveInventoryCard(txtInvCardCode.getText().trim(), txtInvCardName.getText().trim(), txtInvCardDefinition
-						.getText().trim(), txtnumInvCardMin.getIntValue(), txtnumInvCardMax.getIntValue(), txtInvCardVat
-						.getIntValue(), txtInvCardDiscount.getIntValue(), numTextSpecailVATPercent.getIntValue(),
-						decTextSpecialVatAmount.getBigDecimalValue(), radioSpecialVatAmount.getSelection(), compInvCardGroups
+				Object[] argList=new Object[]{txtInvCardCode.getText().trim(), txtInvCardName.getText().trim(),
+						txtInvCardDefinition.getText().trim(), txtnumInvCardMin.getIntegerValue(), txtnumInvCardMax.getIntegerValue(), txtInvCardVat.getIntegerValue()
+						, txtInvCardDiscount.getIntegerValue(), numTextSpecailVATPercent.getIntegerValue(),
+						decTextSpecialVatAmount.getBigDecimalValue(), new Boolean(radioSpecialVatAmount.getSelection()), compInvCardGroups
 								.getRegisteredGroups(),//invGroups
 						getInvUnits(), //invUnits
-						getInvPrices(), getInvAccounts());
+						getInvPrices(), getInvAccounts()};
+				EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"saveInventoryCard",argList);
 				txtInvCardCode.asistant.refreshContentAssistant(1);
-				EngBLInventoryCards.RefreshContentAsistantMap();
+				EngTXCommon.searchTX(EngBLInventoryCards.class.getName(),"RefreshContentAsistantMap",null);
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(Messages.getString("InvUICardAdd.36")); //$NON-NLS-1$
 				msg.open();

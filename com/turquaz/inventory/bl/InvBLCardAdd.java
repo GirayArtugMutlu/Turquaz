@@ -20,13 +20,16 @@ package com.turquaz.inventory.bl;
  * @version $Id$
  */
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
@@ -45,6 +48,11 @@ import com.turquaz.inventory.dal.InvDALCardAdd;
 
 public class InvBLCardAdd
 {
+	public InvBLCardAdd()
+	{
+		
+	}
+	
 	public static void registerInvCardGroup(TurqInventoryCard card, TurqInventoryGroup group) throws Exception
 	{
 		try
@@ -285,6 +293,9 @@ public class InvBLCardAdd
 			invTrans.setLastModified(cal.getTime());
 			invTrans.setCreationDate(cal.getTime());
 			invTrans.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+			TurqCurrentCard curCard=new TurqCurrentCard();
+			curCard.setId(new Integer(-1));
+			invTrans.setTurqCurrentCard(curCard);
 			EngDALCommon.saveObject(invTrans);
 		}
 		catch (Exception ex)
@@ -293,14 +304,14 @@ public class InvBLCardAdd
 		}
 	}
 
-	public static void saveInventoryCard(String invCode, String cardName, String cardDefinition, int minAmount, int maxAmount,
-			int cardVat, int discount, int cardSpecialVat, BigDecimal cardSpecialVatEach, boolean isSpecAmount, Map invGroups,
-			List invCardUnits, List invPrices, List invAccounts) throws Exception
+	public static void saveInventoryCard(String invCode, String cardName, String cardDefinition, Integer minAmount, Integer maxAmount,
+			Integer cardVat, Integer discount, Integer cardSpecialVat, BigDecimal cardSpecialVatEach, Boolean isSpecAmount, HashMap invGroups,
+			ArrayList invCardUnits, ArrayList invPrices, ArrayList invAccounts) throws Exception
 	{
 		try
 		{
-			TurqInventoryCard card = registerInventoryCard(invCode, cardName, cardDefinition, minAmount, maxAmount, cardVat,
-					discount, cardSpecialVat, cardSpecialVatEach, isSpecAmount);
+			TurqInventoryCard card = registerInventoryCard(invCode, cardName, cardDefinition, minAmount.intValue(), maxAmount.intValue(), cardVat.intValue(),
+					discount.intValue(), cardSpecialVat.intValue(), cardSpecialVatEach, isSpecAmount.booleanValue());
 
 			saveInvCardGroups(card, invGroups);
 			saveInvCardUnits(card, invCardUnits);
