@@ -94,6 +94,13 @@
         not-null="true"
         length="4"
     />
+    <property
+        name="dueDate"
+        type="java.sql.Date"
+        column="due_date"
+        not-null="true"
+        length="4"
+    />
 
     <!-- Associations -->
   

@@ -63,7 +63,6 @@ import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 import com.turquaz.engine.ui.component.SecureComposite;
-import com.turquaz.inventory.ui.InvUITransactionTableRow;
 
 import org.eclipse.swt.widgets.Button;
 
@@ -260,6 +259,8 @@ implements SecureComposite{
 	private TableColumn tableColumnAmount;
 	private Composite compTotalsPanel;
 	private CLabel lblInventoryPrice;
+	private DatePicker dateDueDate;
+	private CLabel lblDueDate;
 	private AccountPicker accountPickerCurAcc;
 	private CLabel lblCashAccount;
 	private CCombo comboPaymentType;
@@ -387,8 +388,6 @@ implements SecureComposite{
 							compInfoPanelLData.grabExcessHorizontalSpace = true;
 							compInfoPanel.setLayoutData(compInfoPanelLData);
 							compInfoPanelLayout.numColumns = 4;
-							compInfoPanelLayout.horizontalSpacing = 0;
-							compInfoPanelLayout.verticalSpacing = 2;
 							compInfoPanel.setLayout(compInfoPanelLayout);
 							{
 								lblConsignmet = new CLabel(
@@ -397,8 +396,8 @@ implements SecureComposite{
 								lblConsignmet.setText(Messages
 									.getString("BillUIBillFromConsignment.2")); //$NON-NLS-1$
 								GridData lblConsignmetLData = new GridData();
-								lblConsignmetLData.widthHint = 149;
-								lblConsignmetLData.heightHint = 25;
+								lblConsignmetLData.widthHint = 118;
+								lblConsignmetLData.heightHint = 23;
 								lblConsignmet.setLayoutData(lblConsignmetLData);
 							}
 							{
@@ -447,12 +446,10 @@ implements SecureComposite{
 								lblCurrentCard.setText(Messages
 									.getString("BillUIBillFromConsignment.5")); //$NON-NLS-1$
 								GridData lblCurrentCardLData1 = new GridData();
-								lblCurrentCard.setSize(88, 19);
-								lblCurrentCardLData1.widthHint = 88;
+								lblCurrentCardLData1.widthHint = 86;
 								lblCurrentCardLData1.heightHint = 19;
 								lblCurrentCardLData1.verticalAlignment = GridData.BEGINNING;
-								lblCurrentCard
-									.setLayoutData(lblCurrentCardLData1);
+								lblCurrentCard.setLayoutData(lblCurrentCardLData1);
 							}
 							{
 								txtCurrentCard = new Text(
@@ -462,11 +459,9 @@ implements SecureComposite{
 								txtCurrentCard.setBackground(SWTResourceManager
 									.getColor(255, 255, 255));
 								txtCurrentCard.setEditable(false);
-								txtCurrentCardLData.widthHint = 192;
-								txtCurrentCardLData.heightHint = 40;
-								txtCurrentCardLData.horizontalSpan = 3;
-								txtCurrentCard
-									.setLayoutData(txtCurrentCardLData);
+								txtCurrentCardLData.widthHint = 179;
+								txtCurrentCardLData.heightHint = 19;
+								txtCurrentCard.setLayoutData(txtCurrentCardLData);
 							}
 							{
 								lblDocumentNo = new CLabel(
@@ -487,8 +482,8 @@ implements SecureComposite{
 								txtDocumentNo.setBackground(SWTResourceManager
 									.getColor(255, 255, 255));
 								txtDocumentNo.setEditable(false);
-								txtDocumentNoLData.widthHint = 188;
-								txtDocumentNoLData.heightHint = 18;
+								txtDocumentNoLData.widthHint = 114;
+								txtDocumentNoLData.heightHint = 16;
 								txtDocumentNo.setLayoutData(txtDocumentNoLData);
 							}
 							{
@@ -504,7 +499,7 @@ implements SecureComposite{
 								dateBillDate = new DatePicker(compInfoPanel, SWT.NONE);
 								GridData dateConsignmentDateLData = new GridData();
 								dateConsignmentDateLData.widthHint = 109;
-								dateConsignmentDateLData.heightHint = 31;
+								dateConsignmentDateLData.heightHint = 21;
 								dateBillDate.setLayoutData(dateConsignmentDateLData);
 							}
 							{
@@ -582,8 +577,8 @@ implements SecureComposite{
 									compInfoPanel,
 									SWT.NONE);
 								GridData txtDefinitionLData = new GridData();
-								txtDefinitionLData.widthHint = 189;
-								txtDefinitionLData.heightHint = 29;
+								txtDefinitionLData.widthHint = 160;
+								txtDefinitionLData.heightHint = 35;
 								txtDefinition.setLayoutData(txtDefinitionLData);
 							}
 							{
@@ -612,12 +607,23 @@ implements SecureComposite{
 								comboPaymentTypeLData.heightHint = 10;
 								comboPaymentType.setLayoutData(comboPaymentTypeLData);
 							}
+                            {
+                                lblDueDate = new CLabel(compInfoPanel, SWT.NONE);
+                                lblDueDate.setText("Vade Tarihi");
+                            }
+                            {
+                                dateDueDate = new DatePicker(
+                                    compInfoPanel,
+                                    SWT.NONE);
+                                GridData dateDueDateLData = new GridData();
+                                dateDueDateLData.widthHint = 110;
+                                dateDueDateLData.heightHint = 22;
+                                dateDueDate.setLayoutData(dateDueDateLData);
+                            }
 							{
 								lblCashAccount = new CLabel(compInfoPanel, SWT.NONE);
 								lblCashAccount.setText(Messages.getString("BillUIBillFromConsignment.35"));  //$NON-NLS-1$
 								GridData lblKasaLData = new GridData();
-								lblKasaLData.horizontalSpan = 3;
-								lblKasaLData.horizontalAlignment = GridData.END;
 								lblKasaLData.widthHint = 93;
 								lblKasaLData.heightHint = 16;
 								lblCashAccount.setLayoutData(lblKasaLData);
@@ -1005,7 +1011,8 @@ implements SecureComposite{
 										consignment,
 										type,
 										!paymentType.booleanValue(),
-										paymentType.booleanValue() ? accountPickerCurAcc.getData() : null);
+										paymentType.booleanValue() ? accountPickerCurAcc.getData() : null,
+										 dateDueDate.getDate());
 		
 		saveGroups(bill.getBillsId());
 		msg.setMessage(Messages.getString("BillUIBillFromConsignment.34")); //$NON-NLS-1$

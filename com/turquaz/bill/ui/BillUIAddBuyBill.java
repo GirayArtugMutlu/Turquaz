@@ -313,6 +313,8 @@ public class BillUIAddBuyBill extends Composite
 	private Text txtConsignmentDocumentNo;
 
 	private CLabel lblInventoryPrice;
+	private DatePicker dateDueDate;
+	private CLabel lblDueDate;
 	private AccountPicker accountPickerCurAcc;
 	private CLabel lblCashAccount;
 	private CCombo comboWareHouse;
@@ -473,7 +475,7 @@ public class BillUIAddBuyBill extends Composite
                             GridData compInfoPanelLData = new GridData();
                             compInfoPanelLData.horizontalSpan = 2;
                             compInfoPanelLData.horizontalAlignment = GridData.FILL;
-                            compInfoPanelLData.heightHint = 106;
+                            compInfoPanelLData.heightHint = 139;
                             compInfoPanelLData.grabExcessHorizontalSpace = true;
                             compInfoPanel.setLayoutData(compInfoPanelLData);
                             compInfoPanelLayout.numColumns = 4;
@@ -656,6 +658,22 @@ public class BillUIAddBuyBill extends Composite
 								accountPickerCurAccLData.heightHint = 15;
 								accountPickerCurAcc.setLayoutData(accountPickerCurAccLData);
 							}
+                            {
+                                lblDueDate = new CLabel(compInfoPanel, SWT.NONE);
+                                lblDueDate.setText("Vade Tarihi");
+                                GridData lblDueDateLData = new GridData();
+                                
+                                lblDueDate.setLayoutData(lblDueDateLData);
+                            }
+                            {
+                                dateDueDate = new DatePicker(
+                                    compInfoPanel,
+                                    SWT.NONE);
+                                GridData dateDueDateLData = new GridData();
+                                dateDueDateLData.widthHint = 117;
+                                dateDueDateLData.heightHint = 19;
+                                dateDueDate.setLayoutData(dateDueDateLData);
+                            }
 
                         }
                         {
@@ -1455,7 +1473,8 @@ public class BillUIAddBuyBill extends Composite
 						txtDefinition.getText(), false, dateConsignmentDate
 								.getDate(), cons, type, !paymentType
 								.booleanValue(),
-								paymentType.booleanValue() ? accountPickerCurAcc.getData():null);
+								paymentType.booleanValue() ? accountPickerCurAcc.getData():null,
+								 dateDueDate.getDate());
 				saveGroups(bill.getBillsId());
 				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				msg.open();

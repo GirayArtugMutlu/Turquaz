@@ -47,13 +47,13 @@ public class BillBLUpdateBill {
 			boolean isOpen, Date billDate, TurqCurrentCard curCard, 
 			BigDecimal discountAmount,
 			BigDecimal vatAmount, BigDecimal specialVatAmount,
-			BigDecimal totalAmount, int type, Object currentAccount) throws Exception {
+			BigDecimal totalAmount, int type, Object currentAccount,Date dueDate) throws Exception {
 		try {		
 			bill.setBillsDate(billDate);
 			bill.setBillsDefinition(definition);
 		
 			bill.setBillsPrinted(isPrinted);
-		
+		    bill.setDueDate(dueDate);
 			bill.setBillsType(type);
             bill.setIsOpen(isOpen);
 			

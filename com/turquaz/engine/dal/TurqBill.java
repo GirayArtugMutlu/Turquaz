@@ -43,6 +43,9 @@ public class TurqBill implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
+    private java.util.Date dueDate;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon;
 
     /** persistent field */
@@ -55,7 +58,7 @@ public class TurqBill implements Serializable {
     private Set turqOrders;
 
     /** full constructor */
-    public TurqBill(int billsType, java.util.Date billsDate, java.lang.String billsDefinition, int consignmentsId, boolean billsPrinted, boolean isOpen, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqBillInGroups, Set turqOrders) {
+    public TurqBill(int billsType, java.util.Date billsDate, java.lang.String billsDefinition, int consignmentsId, boolean billsPrinted, boolean isOpen, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.util.Date dueDate, com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqBillInGroups, Set turqOrders) {
         this.billsType = billsType;
         this.billsDate = billsDate;
         this.billsDefinition = billsDefinition;
@@ -66,6 +69,7 @@ public class TurqBill implements Serializable {
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
+        this.dueDate = dueDate;
         this.turqBillConsignmentCommon = turqBillConsignmentCommon;
         this.turqEngineSequence = turqEngineSequence;
         this.turqBillInGroups = turqBillInGroups;
@@ -162,6 +166,14 @@ public class TurqBill implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public java.util.Date getDueDate() {
+        return this.dueDate;
+    }
+
+    public void setDueDate(java.util.Date dueDate) {
+        this.dueDate = dueDate;
     }
 
     public com.turquaz.engine.dal.TurqBillConsignmentCommon getTurqBillConsignmentCommon() {

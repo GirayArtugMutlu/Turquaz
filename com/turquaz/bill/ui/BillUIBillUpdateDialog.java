@@ -323,7 +323,8 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 					compAddBill.getTxtTotalVat().getBigDecimalValue(),
 					compAddBill.getDecSpecialVat().getBigDecimalValue(),
 					compAddBill.getTxtTotalAmount().getBigDecimalValue(),type,
-					paymentType.booleanValue() ? compAddBill.getAccountPickerCurAcc().getData():null
+					paymentType.booleanValue() ? compAddBill.getAccountPickerCurAcc().getData():null,
+					compAddBill.getDateDueDate().getDate()
 			        
 			        );
 	       

@@ -35,7 +35,7 @@ public class BillBLAddBill {
 	}
 	public TurqBill saveBill(String docNo, String definition, boolean isPrinted,
 			                Date billsDate,  TurqConsignment cons,
-								   int type, boolean isOpen, Object currentAccount)throws Exception {
+								   int type, boolean isOpen, Object currentAccount,Date dueDate)throws Exception {
 		try{			
 			TurqBill bill = new TurqBill();
 			bill.setBillsDate(billsDate);
@@ -48,6 +48,9 @@ public class BillBLAddBill {
 			bill.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			bill.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			bill.setIsOpen(isOpen);
+			bill.setDueDate(dueDate);
+			
+			
 			
 			TurqBillConsignmentCommon common = cons.getTurqBillConsignmentCommon();
 			common.setBillDocumentNo(docNo);
