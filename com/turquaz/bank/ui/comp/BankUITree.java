@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import com.turquaz.admin.ui.AdmUIPermPanel;
+import com.turquaz.bank.ui.BankUIBankCardAdd;
 
 /**
  * @author onsel
@@ -26,7 +27,7 @@ public class BankUITree extends Tree{
 	root.setText("Banks");
 	TreeItem item = new TreeItem(root,SWT.NULL);
 	item.setText("Bank Card Add");
-	item.setData(AdmUIPermPanel.class.getName());
+	item.setData(BankUIBankCardAdd.class.getName());
 	}
 
 }
