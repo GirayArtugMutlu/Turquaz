@@ -19,6 +19,18 @@ package com.turquaz.cash.ui;
 
 import org.eclipse.swt.layout.GridLayout;
 
+import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.SWT;
+import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.cash.Messages;
+import com.turquaz.cash.bl.CashBLCashCardAdd;
+
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.layout.GridData;
+
+import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.ui.component.SecureComposite;
+
 /**
  * 
  * @author onsel
@@ -41,9 +53,15 @@ import org.eclipse.swt.layout.GridLayout;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite {
+public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite implements SecureComposite {
+	private CLabel lblCardName;
+	private CLabel lblCardDefinition;
+	private Text txtDefinition;
+	private AccountPicker accountPicker;
+	private CLabel lblAccountingCode;
+	private Text txtCardCode;
+	CashBLCashCardAdd blCardAdd = new CashBLCashCardAdd();
 
-	
 	public CashUICashCardAdd(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -51,11 +69,74 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite {
 
 	private void initGUI() {
 		try {
-			this.setLayout(new GridLayout());
+			GridLayout thisLayout = new GridLayout();
+			this.setLayout(thisLayout);
+			thisLayout.numColumns = 2;
+			this.setSize(539, 251);
+            {
+                lblCardName = new CLabel(this, SWT.NONE);
+                lblCardName.setText(Messages.getString("CashUICashCardAdd.0")); //$NON-NLS-1$
+            }
+            {
+                txtCardCode = new Text(this, SWT.NONE);
+                GridData txtCardCodeLData = new GridData();
+                txtCardCodeLData.widthHint = 155;
+                txtCardCodeLData.heightHint = 15;
+                txtCardCode.setLayoutData(txtCardCodeLData);
+            }
+            {
+                lblCardDefinition = new CLabel(this, SWT.NONE);
+                lblCardDefinition.setText(Messages.getString("CashUICashCardAdd.1")); //$NON-NLS-1$
+            }
+            {
+                txtDefinition = new Text(this, SWT.NONE);
+                GridData txtDefinitionLData = new GridData();
+                txtDefinitionLData.widthHint = 390;
+                txtDefinitionLData.heightHint = 15;
+                txtDefinition.setLayoutData(txtDefinitionLData);
+            }
+            {
+                lblAccountingCode = new CLabel(this, SWT.NONE);
+                lblAccountingCode.setText(Messages.getString("CashUICashCardAdd.2")); //$NON-NLS-1$
+            }
+            {
+                accountPicker = new AccountPicker(this, SWT.NONE);
+                GridData accountPickerLData = new GridData();
+                accountPicker.setSize(161, 15);
+                accountPickerLData.widthHint = 161;
+                accountPickerLData.heightHint = 15;
+                accountPicker.setLayoutData(accountPickerLData);
+            }
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 
+    public void newForm() {
+        // TODO Auto-generated method stub
+
+    }
+    public void save() {
+       try{
+           if(verifyFields()){
+               blCardAdd.saveCashCard(txtCardCode.getText().trim(),
+                       				  txtDefinition.getText().trim(),
+                       				  (TurqAccountingAccount)accountPicker.getData());
+                  
+               
+           }
+           
+           
+           
+       }
+       catch(Exception ex){
+           ex.printStackTrace();
+       }
+
+    }
+    public boolean verifyFields(){
+        return true;
+    }
 }

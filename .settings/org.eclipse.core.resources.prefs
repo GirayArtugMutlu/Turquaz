@@ -1,7 +1,8 @@
-#Mon Dec 27 18:44:39 EET 2004
+#Mon Dec 27 23:47:49 EET 2004
 encoding//com/turquaz/admin/messages_tr_TR.properties=8859_1
 encoding//com/turquaz/consignment/messages_tr_TR.properties=8859_1
 encoding//com/turquaz/bill/messages_tr_TR.properties=8859_1
 eclipse.preferences.version=1
+encoding//com/turquaz/cash/messages_tr_TR.properties=8859_1
 encoding//com/turquaz/bank/messages_tr_TR.properties=8859_1
 encoding//de/kupzog/ktools/kprint/gui/messages.properties=8859_1
