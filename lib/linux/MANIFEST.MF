@@ -3,5 +3,5 @@ Class-Path: lib/boot.jar lib/cglib2.jar lib/commons-beanutils.jar lib/commons-be
  lib/commons-logging.jar lib/commons-logging-api.jar lib/commons-pool.jar lib/dom4j.jar lib/ehcache.jar lib/hibernate2.jar lib/itext-1.02b.jar lib/jasperreports-0.6.4.jar lib/jaxen-core.jar lib/jaxen-jdom.jar 
  lib/jdom.jar 
  lib/jface.jar lib/jta.jar lib/mysql.jar lib/odmg.jar lib/osgi.jar lib/pg74.214.jdbc2.jar lib/poi-2.5.1-final-20040804.jar lib/poi-contrib-2.5.1-final-20040804.jar lib/poi-scratchpad-2.5.1-final-20040804.jar lib/runtime.jar lib/swtcalendar.jar lib/xml-apis.jar lib/linux/swt.jar lib/log4j-1.2.8.jar lib/hsqldb.jar lib/swtjasperviewer.jar lib/pg80b1.308.jdbc3.jar lib/jfacetext.jar lib/text.jar 
- config/ lib/linux/swt-pi.jar lib/linux/swt-mozilla.jar
+ config/ lib/linux/swt-pi.jar lib/linux/swt-mozilla.jar lib/jdt-compiler.jar
 Main-Class: com.turquaz.engine.ui.EngUIEntryFrame

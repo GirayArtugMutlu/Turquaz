@@ -73,6 +73,7 @@ public class CheBLUpdateChequeRoll {
            chequeRoll.setLastModified(Calendar.getInstance().getTime());
            chequeRoll.setChequeRollNo(rollNo);
            chequeRoll.setChequeRollsDate(rollDate);
+           chequeRoll.setSumChequeAmounts(sumTransTotal);
           
            if(curCard!=null)
            {

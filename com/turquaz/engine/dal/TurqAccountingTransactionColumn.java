@@ -33,22 +33,13 @@ public class TurqAccountingTransactionColumn implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
-    private int rowsCurrencyType;
-
-    /** persistent field */
-    private int rowsDeptInBaseCurrency;
-
-    /** persistent field */
-    private int rowsCreditInBaseCurrency;
-
-    /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction;
 
     /** full constructor */
-    public TurqAccountingTransactionColumn(java.math.BigDecimal deptAmount, java.math.BigDecimal creditAmount, java.lang.String transactionDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, int rowsCurrencyType, int rowsDeptInBaseCurrency, int rowsCreditInBaseCurrency, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction) {
+    public TurqAccountingTransactionColumn(java.math.BigDecimal deptAmount, java.math.BigDecimal creditAmount, java.lang.String transactionDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction) {
         this.deptAmount = deptAmount;
         this.creditAmount = creditAmount;
         this.transactionDefinition = transactionDefinition;
@@ -56,9 +47,6 @@ public class TurqAccountingTransactionColumn implements Serializable {
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.rowsCurrencyType = rowsCurrencyType;
-        this.rowsDeptInBaseCurrency = rowsDeptInBaseCurrency;
-        this.rowsCreditInBaseCurrency = rowsCreditInBaseCurrency;
         this.turqAccountingAccount = turqAccountingAccount;
         this.turqAccountingTransaction = turqAccountingTransaction;
     }
@@ -129,30 +117,6 @@ public class TurqAccountingTransactionColumn implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public int getRowsCurrencyType() {
-        return this.rowsCurrencyType;
-    }
-
-    public void setRowsCurrencyType(int rowsCurrencyType) {
-        this.rowsCurrencyType = rowsCurrencyType;
-    }
-
-    public int getRowsDeptInBaseCurrency() {
-        return this.rowsDeptInBaseCurrency;
-    }
-
-    public void setRowsDeptInBaseCurrency(int rowsDeptInBaseCurrency) {
-        this.rowsDeptInBaseCurrency = rowsDeptInBaseCurrency;
-    }
-
-    public int getRowsCreditInBaseCurrency() {
-        return this.rowsCreditInBaseCurrency;
-    }
-
-    public void setRowsCreditInBaseCurrency(int rowsCreditInBaseCurrency) {
-        this.rowsCreditInBaseCurrency = rowsCreditInBaseCurrency;
     }
 
     public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccount() {

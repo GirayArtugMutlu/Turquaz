@@ -128,19 +128,19 @@
   
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one
-        name="turqAccountingAccountByAccountingAccountsIdVat"
-        class="com.turquaz.engine.dal.TurqAccountingAccount"
-        not-null="true"
-    >
-        <column name="accounting_accounts_id_vat" />
-    </many-to-one>
-    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
-    <many-to-one
         name="turqAccountingAccountByAccountingAccountsIdSell"
         class="com.turquaz.engine.dal.TurqAccountingAccount"
         not-null="true"
     >
         <column name="accounting_accounts_id_sell" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
+    <many-to-one
+        name="turqAccountingAccountByAccountingAccountsIdVat"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="accounting_accounts_id_vat" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one

@@ -67,6 +67,7 @@ public class CheBLSaveChequeTransaction {
           chequeRoll.setChequeRollsDate(rollDate);
           chequeRoll.setChequeRollNo(rollNo);
           chequeRoll.setTurqChequeTransactionType(type);
+          chequeRoll.setSumChequeAmounts(sumTransTotal);
           
           chequeRoll.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
           chequeRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
@@ -190,6 +191,7 @@ public class CheBLSaveChequeTransaction {
           chequeRoll.setChequeRollsDate(rollDate);
           chequeRoll.setChequeRollNo(rollNo);
           chequeRoll.setTurqChequeTransactionType(type);
+          chequeRoll.setSumChequeAmounts(false);
           
           chequeRoll.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
           chequeRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
