@@ -322,6 +322,12 @@ public class CheBLUpdateCheque {
         	CheBLSaveChequeTransaction.saveRollAccountingTransactions(chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount(),null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
                    	
     	}
+        else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_FROM_BANK)
+        {
+        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount(),null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
+            
+        	
+        }
         
         
         
