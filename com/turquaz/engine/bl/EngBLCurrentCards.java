@@ -1,6 +1,8 @@
 package com.turquaz.engine.bl;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -87,6 +89,29 @@ public class EngBLCurrentCards {
 		{
 			throw ex;
 		}
+	}
+	public static TurqCurrentCard  getCurrentCardForContentAssist(String cardNameCode)throws Exception{
+	    try{
+	        
+	        String pattern = ".*[{](.*)[}].*";
+	        Pattern p = Pattern.compile(pattern);
+	        Matcher m = p.matcher(cardNameCode);
+	        if(m.find()){
+	            
+	          return getCards(m.group(1));
+	            
+	        }
+	        
+	        return null;
+	        
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	    
+	    
 	}
 	
 	public TurqCurrentCard getCurrentCard(String currentCode)throws Exception {

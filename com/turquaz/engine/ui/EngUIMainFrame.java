@@ -1211,7 +1211,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	            display.getSystemColor(SWT.COLOR_TITLE_FOREGROUND));
 		
 		try{
+		    
 		EngBLInventoryCards.getInventoryCards();	
+		
 		}
 		catch(Exception ex){
 		    ex.printStackTrace();

@@ -89,7 +89,7 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite {
                       
                             try {
                                 
-                               setData2(EngBLCurrentCards.getCards(text1.getText().trim()));
+                               setData2(EngBLCurrentCards.getCurrentCardForContentAssist(text1.getText().trim()));
                           
                                                            
                                 
