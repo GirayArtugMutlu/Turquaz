@@ -21,26 +21,25 @@ package com.turquaz.current.ui;
 */
 import java.util.List;
 
-import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
-import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.custom.VerifyKeyListener;
+
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLSearchTransaction;
-import com.turquaz.engine.bl.EngBLCurrentCards;
+
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
-import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
+
 
 
 import org.eclipse.swt.widgets.MessageBox;
@@ -49,11 +48,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
+
+
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.VerifyEvent;
+
 import org.eclipse.swt.SWT;
 
 import org.eclipse.swt.widgets.Text;

@@ -23,7 +23,7 @@ import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
-import com.turquaz.engine.dal.TurqCurrentCard;
+
 
 public class TurquazContentAssistProcessors implements
         ISubjectControlContentAssistProcessor {

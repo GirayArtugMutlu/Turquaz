@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="Unnamed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="currentName" class="java.lang.String">
@@ -15,9 +15,9 @@
 	</parameter>
 	<parameter name="currentTaxNumber" class="java.lang.String">
 	</parameter>
-	<parameter name="invoiceDate" class="java.util.Date">
+	<parameter name="invoiceDate" class="java.lang.String">
 	</parameter>
-	<parameter name="despatchNoteDate" class="java.util.Date">
+	<parameter name="despatchNoteDate" class="java.lang.String">
 	</parameter>
 	<parameter name="despatchNoteId" class="java.lang.String">
 	</parameter>
@@ -132,7 +132,7 @@
 			<textField>
 				<reportElement positionType="Float" x="414" y="19" width="117" height="16"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($P{invoiceDate})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{invoiceDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="329" y="39" width="69" height="17"/>
@@ -142,7 +142,7 @@
 			<textField>
 				<reportElement positionType="Float" x="413" y="40" width="118" height="14"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($P{despatchNoteDate})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{despatchNoteDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="327" y="64" width="70" height="15"/>
@@ -165,7 +165,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentId}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement positionType="Float" x="1" y="120" width="553" height="35"/>
+				<reportElement positionType="Float" x="1" y="120" width="553" height="33"/>
 				<graphicElement/>
 			</rectangle>
 			<staticText>

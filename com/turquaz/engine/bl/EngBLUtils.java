@@ -20,13 +20,13 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.MessageBox;
+
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
 import com.jasperassistant.designer.viewer.ViewerApp;
-import com.jasperassistant.designer.viewer.ViewerComposite;
+
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
@@ -35,13 +35,13 @@ import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
-import com.turquaz.engine.ui.component.DatePicker;
+
 import com.turquaz.engine.ui.component.SWTPTable;
 
 import de.kupzog.ktools.kprint.boxes.PBox;
 import de.kupzog.ktools.kprint.boxes.PDocument;
 import de.kupzog.ktools.kprint.boxes.PHLine;
-import de.kupzog.ktools.kprint.boxes.PHSpace;
+
 import de.kupzog.ktools.kprint.boxes.PTableBoxProvider;
 import de.kupzog.ktools.kprint.boxes.PTextBox;
 import de.kupzog.ktools.kprint.boxes.PTextStyle;
@@ -226,21 +226,21 @@ public class EngBLUtils {
 			SimpleDateFormat dformat=new SimpleDateFormat("dd-MM-yyyy");
 			Map parameters = new HashMap();
 			String sqlparam="Select invTrans.inventory_transactions_id," +
-					" invCardUnits.cards_units_factor, " +
+					" invCardUnits.card_units_factor, " +
 					" invCard.card_inventory_code, invCard.card_name,"+
 					((bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_BUY) ? 
 					"invTrans.transactions_amount_in as amount," : "invTrans.transactions_total_amount_out as amount,")+
 					" invTrans.transactions_unit_price, invTrans.transactions_total_price"+
-					" from turq_inventory_transations invTrans," +
+					" from turq_inventory_transactions invTrans," +
 					" turq_inventory_cards invCard, turq_inventory_card_units invCardUnits where" +
-					" invTrans.engine_sequences_id="+bill.getTurqEngineSequence().getEngineSequencesId()+
+					" invTrans.engine_sequences_id="+bill.getTurqEngineSequence().getEngineSequencesId().intValue()+
 					" and invTrans.inventory_cards_id=invCard.inventory_cards_id" +
 					" and invCardUnits.inventory_cards_id=invTrans.inventory_cards_id" +
 					" and invCardUnits.inventory_units_id=invTrans.inventory_units_id";
 			
 			
 
-			
+			System.out.println(sqlparam);
 			parameters.put("sqlparam",sqlparam);	
 			TurqBillConsignmentCommon billCommon=bill.getTurqBillConsignmentCommon();
 			BigDecimal invoiceSum=billCommon.getTotalAmount().add(billCommon.getSpecialVatAmount());
@@ -264,7 +264,7 @@ public class EngBLUtils {
 			
 			TurqConsignment cons = (TurqConsignment)bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator().next();
 
-			parameters.put("despatchNoteDate",cons.getConsignmentsDate());
+			parameters.put("despatchNoteDate",dformat.format(cons.getConsignmentsDate()));
 			parameters.put("despatchNoteId",billCommon.getConsignmentDocumentNo());
 			
 			TurqViewCurrentAmountTotal currentView=curBLCurCardSearch.getCurrentCardView(curCard);

@@ -26,8 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 
-import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
-import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
+
 import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.widgets.TableItem;
@@ -35,8 +34,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
 
 import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
-import com.turquaz.engine.bl.EngBLCurrentCards;
-import com.turquaz.engine.bl.EngBLInventoryCards;
+
 import com.turquaz.engine.bl.EngBLUtils;
 
 import com.turquaz.engine.dal.TurqConsignment;
@@ -50,19 +48,16 @@ import com.turquaz.inventory.ui.comp.InventoryPicker;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.engine.ui.component.TurquazDecimalFormat;
 
-import org.eclipse.swt.widgets.Text;
+
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.custom.VerifyKeyListener;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.VerifyEvent;
+
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 
 import org.eclipse.swt.SWT;
-import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
+
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLSearchTransaction;
 
