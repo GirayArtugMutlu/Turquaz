@@ -27,7 +27,8 @@ public class ConDALSearchConsignment {
 	try{
 		Session session = EngDALSessionFactory.openSession();
 		
-		String query = "Select consignment from TurqConsignment as consignment where" + //$NON-NLS-1$
+		String query = "Select consignment from TurqConsignment as consignment" +
+				" left join fetch consignment.turqConsignmentsInGroups where" + //$NON-NLS-1$
 				" consignment.turqCompany.companiesId ="+System.getProperty("company")+ //$NON-NLS-1$ //$NON-NLS-2$
 				" and consignment.consignmentsDate >= :startDate" + //$NON-NLS-1$
 				" and consignment.consignmentsDate <= :endDate" + //$NON-NLS-1$
@@ -56,7 +57,6 @@ public class ConDALSearchConsignment {
 		for(int i=0;i<list.size();i++){
 			
 		cons= (TurqConsignment)list.get(i);
-		Hibernate.initialize(cons.getTurqConsignmentsInGroups());
 		Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
 		Hibernate.initialize(cons.getTurqBillConsignmentCommon().getTurqBills());	
 		}

@@ -206,19 +206,20 @@ public class AccDALTransactionSearch {
 	public List getUnsavedTransactions()throws Exception {
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
-	        String query ="select accTrans from TurqAccountingTransaction as accTrans "+
-	                      "where accTrans.turqAccountingJournal.accountingJournalId = -1";
+	        String query ="select accTrans from TurqAccountingTransaction as accTrans" +
+	        				" left join fetch accTrans.turqAccountingTransactionColumns"+
+	                      " where accTrans.turqAccountingJournal.accountingJournalId = -1";
 	        
 	        Query q = session.createQuery(query); 
 			
 	        List list = q.list();		
 	       
-			for (int i =0;i<list.size();i++){
+			/*for (int i =0;i<list.size();i++){
 				
 			TurqAccountingTransaction accTrans = (TurqAccountingTransaction)list.get(i);
 			Hibernate.initialize(accTrans.getTurqAccountingTransactionColumns());
 				
-			}
+			}*/
 	        
 	        session.close();
 			

@@ -30,7 +30,8 @@ public class BillDALSearchBill {
 	try{
 		Session session = EngDALSessionFactory.openSession();
 		
-		String query = "Select bill from TurqBill as bill where" +
+		String query = "Select bill from TurqBill as bill" +
+				" left join fetch bill.turqBillInGroups where" +
 				" bill.turqCompany.companiesId ="+System.getProperty("company")+
 				" and bill.billsDate >= :startDate" +
 				" and bill.billsDate <= :endDate" +
@@ -60,7 +61,6 @@ public class BillDALSearchBill {
 		for(int i=0;i<list.size();i++){
 			
 		bill= (TurqBill)list.get(i);
-		Hibernate.initialize(bill.getTurqBillInGroups());
 		Hibernate.initialize(bill.getTurqBillConsignmentCommon().getTurqConsignments());
 		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
 		
