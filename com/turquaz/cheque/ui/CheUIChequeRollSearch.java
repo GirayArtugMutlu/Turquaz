@@ -24,8 +24,6 @@ package com.turquaz.cheque.ui;
 import java.util.Date;
 import java.util.List;
 
-import net.sf.hibernate.Session;
-
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CLabel;

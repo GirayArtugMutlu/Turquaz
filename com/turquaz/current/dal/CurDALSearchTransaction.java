@@ -33,7 +33,6 @@ import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
-import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 
 /**

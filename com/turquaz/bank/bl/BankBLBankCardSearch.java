@@ -23,11 +23,7 @@ package com.turquaz.bank.bl;
 
 import java.util.List;
 
-import net.sf.hibernate.Query;
-import net.sf.hibernate.Session;
-
 import com.turquaz.bank.dal.BankDALBankCardSearch;
-import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 

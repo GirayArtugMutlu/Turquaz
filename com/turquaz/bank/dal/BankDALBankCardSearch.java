@@ -29,7 +29,6 @@ import net.sf.hibernate.Session;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBanksCard;
-import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrency;
 
 

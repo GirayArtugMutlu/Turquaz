@@ -20,11 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import net.sf.hibernate.Query;
-import net.sf.hibernate.Session;
-
 import com.turquaz.consignment.dal.ConDALSearchConsignment;
-import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 

@@ -6,12 +6,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import net.sf.hibernate.Query;
-import net.sf.hibernate.Session;
-
 import com.turquaz.bill.dal.BillDALSearchBill;
 import com.turquaz.bill.dal.BillDALUpdateBill;
-import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrentCard;
 

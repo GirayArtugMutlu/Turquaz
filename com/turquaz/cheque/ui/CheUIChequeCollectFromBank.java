@@ -31,7 +31,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
