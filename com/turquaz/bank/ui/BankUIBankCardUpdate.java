@@ -37,6 +37,7 @@ import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLBankCardUpdate;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 
@@ -175,6 +176,18 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
 		try{
+			toolUpdate.setEnabled(false);
+			toolDelete.setEnabled(false);
+			    
+			if(EngBLPermissions.getPermission(compBankCard.getClass().getName())==2){
+			    toolUpdate.setEnabled(true); 
+			}
+			else if(EngBLPermissions.getPermission(compBankCard.getClass().getName())==3){
+			    toolDelete.setEnabled(true);
+			    toolUpdate.setEnabled(true); 
+			}
+		    
+		    
 			compBankCard.getTxtBankName().setText(bankCard.getBankName());
 			compBankCard.getTxtBankBranchName().setText(bankCard.getBankBranchName());
 			compBankCard.getTxtBankAccountNo().setText(bankCard.getBankAccountNo());

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
+import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqConsignment;
 
 import com.turquaz.engine.dal.TurqConsignmentsInGroup;
@@ -138,6 +139,19 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 	public void postInitGui(){
+		toolUpdate.setEnabled(false);
+		toolDelete.setEnabled(false);
+		    
+		if(EngBLPermissions.getPermission(compAddConsignment.getClass().getName())==2){
+		    toolUpdate.setEnabled(true); 
+		}
+		else if(EngBLPermissions.getPermission(compAddConsignment.getClass().getName())==3){
+		    toolDelete.setEnabled(true);
+		    toolUpdate.setEnabled(true); 
+		}
+	    
+	    
+	    
 		compAddConsignment.getTxtCurrentCard().setData(consignment.getTurqBillConsignmentCommon().getTurqCurrentCard());
 		compAddConsignment.getTxtCurrentCard().setText(consignment.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode()+Messages.getString("ConUIConsignmentUpdateDialog.4") + //$NON-NLS-1$
 														consignment.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName());

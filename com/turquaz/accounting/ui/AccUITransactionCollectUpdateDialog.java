@@ -42,6 +42,7 @@ import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionCollect;
+import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
@@ -185,6 +186,18 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	  
+		toolUpdate.setEnabled(false);
+		toolDelete.setEnabled(false);
+		    
+		if(EngBLPermissions.getPermission(compTransactionCollect.getClass().getName())==2){
+		    toolUpdate.setEnabled(true); 
+		}
+		else if(EngBLPermissions.getPermission(compTransactionCollect.getClass().getName())==3){
+		    toolDelete.setEnabled(true);
+		    toolUpdate.setEnabled(true); 
+		}   
+	    
 	compTransactionCollect.getTxtDocumentNo().setText(accTrans.getTransactionDocumentNo());
 	Date date = new Date(accTrans.getTransactionsDate().getTime());
 	compTransactionCollect.getDatePickerTransactionDate().setDate(date);
@@ -192,7 +205,6 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	fillTableAndCombo();
 		Integer trModule=accTrans.getTurqModule().getModulesId();
 	if (trModule.intValue()!=1){ //1=Transaction, only view is allowed for other modules..
-		compTransactionCollect.setEnabled(false);
 	}
 	
 	}

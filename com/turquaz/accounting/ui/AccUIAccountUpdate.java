@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.Shell;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
+import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
 import org.eclipse.swt.layout.GridData;
@@ -335,6 +336,17 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	    
+	toolUpdate.setEnabled(false);
+	toolDelete.setEnabled(false);
+	    
+	if(EngBLPermissions.getPermission(compAccountCard.getClass().getName())==2){
+	    toolUpdate.setEnabled(true); 
+	}
+	else if(EngBLPermissions.getPermission(compAccountCard.getClass().getName())==3){
+	    toolDelete.setEnabled(true);
+	    toolUpdate.setEnabled(true); 
+	}
     
 	compAccountCard.getTxtAccAccountCode().setText(account.getAccountCode());
     compAccountCard.getTxtAccAcountName().setText(account.getAccountName());

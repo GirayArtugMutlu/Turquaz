@@ -26,6 +26,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 
+import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 
 import com.turquaz.inventory.Messages;
@@ -165,6 +166,17 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	    
+		toolUpdate.setEnabled(false);
+		toolDelete.setEnabled(false);
+		    
+		if(EngBLPermissions.getPermission(compInvUIWarehouse.getClass().getName())==2){
+		    toolUpdate.setEnabled(true); 
+		}
+		else if(EngBLPermissions.getPermission(compInvUIWarehouse.getClass().getName())==3){
+		    toolDelete.setEnabled(true);
+		    toolUpdate.setEnabled(true); 
+		}    
 	
 	compInvUIWarehouse.getTxtTelephone().setText(warehouse.getWarehousesTelephone());
 	compInvUIWarehouse.getTxtWarehouseAdres().setText(warehouse.getWarehousesAddress());

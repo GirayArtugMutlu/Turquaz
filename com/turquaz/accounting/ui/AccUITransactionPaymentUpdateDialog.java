@@ -44,6 +44,7 @@ import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionPayment;
+import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
@@ -190,6 +191,18 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	    
+		toolUpdate.setEnabled(false);
+		toolDelete.setEnabled(false);
+		    
+		if(EngBLPermissions.getPermission(compTransactionPayment.getClass().getName())==2){
+		    toolUpdate.setEnabled(true); 
+		}
+		else if(EngBLPermissions.getPermission(compTransactionPayment.getClass().getName())==3){
+		    toolDelete.setEnabled(true);
+		    toolUpdate.setEnabled(true); 
+		}
+	    
 		compTransactionPayment.getTxtDocumentNo().setText(accTrans.getTransactionDocumentNo());
 		Date date = new Date(accTrans.getTransactionsDate().getTime());
 		compTransactionPayment.getDatePickerTransactionDate().setDate(date);
@@ -198,7 +211,6 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	
 		Integer trModule=accTrans.getTurqModule().getModulesId();
 		if (trModule.intValue()!=1){ //1=Transaction, only view is allowed for other modules..
-			compTransactionPayment.setEnabled(false);
 		}
 	}
 	
