@@ -112,6 +112,20 @@
         not-null="true"
         length="4"
     />
+    <property
+        name="cardSpecialVat"
+        type="int"
+        column="card_special_vat"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="cardSpecialVatEach"
+        type="java.math.BigDecimal"
+        column="card_special_vat_each"
+        not-null="true"
+        length="65535"
+    />
 
     <!-- Associations -->
   

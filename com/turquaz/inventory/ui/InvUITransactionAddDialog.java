@@ -6,6 +6,8 @@ import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.DecimalTextWithButton;
 import com.cloudgarden.resource.SWTResourceManager;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.ui.component.TextWithButton;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
@@ -35,6 +37,14 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private Composite composite1;
 	private CLabel invAmount;
 	private NumericText numTxtAmount;
+	private Button btnSpecialButtonEach;
+	private NumericText numTxtSpecialVatEach;
+	private CLabel lblSpecialVatEach;
+	private Button btnSpecialVat;
+	private NumericText numSpecialVat;
+	private NumericText txtVat;
+	private CLabel lblSpecialVAT;
+	private CLabel lblVat;
 	private DecimalTextWithButton comboPrices;
 	private CCombo comboCurrency;
 	private CLabel lblPrice;
@@ -70,7 +80,8 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 			dialogShellLayout.marginWidth = 0;
 			dialogShellLayout.verticalSpacing = 0;
 
-		
+			dialogShell.pack();
+			dialogShell.setSize(582, 399);
 			{
 				composite1 = new Composite(dialogShell, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
@@ -109,14 +120,14 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					numTxtAmount = new NumericText(composite1, SWT.NONE);
 					GridData numTxtAmountLData = new GridData();
-					numTxtAmountLData.widthHint = 183;
-					numTxtAmountLData.heightHint = 15;
+					numTxtAmountLData.heightHint = 16;
+					numTxtAmountLData.horizontalAlignment = GridData.FILL;
 					numTxtAmount.setLayoutData(numTxtAmountLData);
 				}
 				{
 					comboUnitType = new CCombo(composite1, SWT.NONE);
 					GridData cCombo1LData = new GridData();
-					cCombo1LData.widthHint = 57;
+					cCombo1LData.widthHint = 49;
 					cCombo1LData.heightHint = 18;
 					comboUnitType.setLayoutData(cCombo1LData);
 				}
@@ -129,25 +140,79 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 					lblPrice.setLayoutData(lblPriceLData);
 				}
 				{
-					comboPrices = new DecimalTextWithButton(composite1, SWT.NONE);
+					comboPrices = new DecimalTextWithButton(
+						composite1,
+						SWT.NONE);
 					GridData comboPricesLData = new GridData();
-					comboPrices.setBackground(SWTResourceManager.getColor(255,255,255));
-					comboPricesLData.widthHint = 187;
+					comboPrices.setBackground(SWTResourceManager.getColor(
+						255,
+						255,
+						255));
 					comboPricesLData.heightHint = 17;
+					comboPricesLData.horizontalAlignment = GridData.FILL;
 					comboPrices.setLayoutData(comboPricesLData);
 				}
 				{
 					comboCurrency = new CCombo(composite1, SWT.NONE);
 					GridData comboCurrencyLData = new GridData();
-					comboCurrencyLData.widthHint = 55;
+					comboCurrencyLData.widthHint = 49;
 					comboCurrencyLData.heightHint = 18;
 					comboCurrency.setLayoutData(comboCurrencyLData);
 				}
+				{
+					lblVat = new CLabel(composite1, SWT.NONE);
+					lblVat.setText("VAT");
+					GridData lblVatLData = new GridData();
+					lblVatLData.widthHint = 43;
+					lblVatLData.heightHint = 19;
+					lblVat.setLayoutData(lblVatLData);
+				}
+				{
+					txtVat = new NumericText(composite1, SWT.NONE);
+					GridData txtVatLData = new GridData();
+					txtVat.setTextLimit(2);
+					txtVatLData.heightHint = 17;
+					txtVatLData.horizontalSpan = 2;
+					txtVatLData.grabExcessHorizontalSpace = true;
+					txtVatLData.widthHint = 198;
+					txtVat.setLayoutData(txtVatLData);
+				}
+				{
+					lblSpecialVAT = new CLabel(composite1, SWT.NONE);
+					lblSpecialVAT.setText("Special VAT");
+					GridData lblSpecialVATLData = new GridData();
+					lblSpecialVATLData.widthHint = 86;
+					lblSpecialVATLData.heightHint = 19;
+					lblSpecialVAT.setLayoutData(lblSpecialVATLData);
+				}
+				{
+					numSpecialVat = new NumericText(composite1, SWT.NONE);
+					GridData numSpecialVatLData = new GridData();
+					numSpecialVat.setTextLimit(2);
+					numSpecialVatLData.widthHint = 201;
+					numSpecialVatLData.heightHint = 17;
+					numSpecialVat.setLayoutData(numSpecialVatLData);
+				}
+				{
+					btnSpecialVat = new Button(composite1, SWT.RADIO | SWT.LEFT);
+				}
+				{
+					lblSpecialVatEach = new CLabel(composite1, SWT.NONE);
+					lblSpecialVatEach.setText("Special VAT Each");
+				}
+				{
+					numTxtSpecialVatEach = new NumericText(composite1, SWT.NONE);
+					GridData numTxtSpecialVatEachLData = new GridData();
+					numTxtSpecialVatEachLData.horizontalAlignment = GridData.FILL;
+					numTxtSpecialVatEachLData.heightHint = 16;
+					numTxtSpecialVatEach.setLayoutData(numTxtSpecialVatEachLData);
+				}
+				{
+					btnSpecialButtonEach = new Button(composite1, SWT.RADIO
+						| SWT.LEFT);
+				}
 
 			}
-			
-			dialogShell.pack();
-			dialogShell.setSize(615, 494);
 			dialogShell.layout();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
