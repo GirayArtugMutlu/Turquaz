@@ -583,14 +583,14 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
     transRow.setTurqAccountingAccount((TurqAccountingAccount)comboCreditor.getData());
     transRow.setTransactionDefinition(Messages.getString("AccUITransactionPayment.13")); //$NON-NLS-1$
 
-    blTransAdd.saveAccTransactionRow(transRow,transId,exchangeRate);   
+    blTransAdd.registerAccTransactionRow(transRow,transId,exchangeRate);   
      
     //Save the table rows    
     for(int i=0; i<items.length;i++){
         AccUITransactionPaymentTableRow row =(AccUITransactionPaymentTableRow)items[i].getData();
 
         if(row.okToSave()){
-            blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId,exchangeRate);
+            blTransAdd.registerAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId,exchangeRate);
         }
     }
     

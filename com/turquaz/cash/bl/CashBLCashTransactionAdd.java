@@ -318,9 +318,9 @@ public class CashBLCashTransactionAdd {
 							.getId().intValue(), seq
 							.getId(), definition,exchangeRate);
 
-			blAccTran.saveAccTransactionRow(accTransRowCash, transId,
+			blAccTran.registerAccTransactionRow(accTransRowCash, transId,
 					exchangeRate);
-			blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,
+			blAccTran.registerAccTransactionRow(accTransRowCurrent, transId,
 					exchangeRate);
 
 		}
@@ -462,9 +462,9 @@ public class CashBLCashTransactionAdd {
 							.getId().intValue(), seq
 							.getId(), definition, exchangeRate);
 
-			blAccTran.saveAccTransactionRow(accTransRowCash, transId,
+			blAccTran.registerAccTransactionRow(accTransRowCash, transId,
 					exchangeRate);
-			blAccTran.saveAccTransactionRow(accTransRowOther, transId,
+			blAccTran.registerAccTransactionRow(accTransRowOther, transId,
 					exchangeRate);
 
 		}
@@ -612,9 +612,9 @@ public class CashBLCashTransactionAdd {
 							.getId().intValue(), seq
 							.getId(), definition,exchangeRate);
 
-			blAccTran.saveAccTransactionRow(accTransCashWithDept, transId,
+			blAccTran.registerAccTransactionRow(accTransCashWithDept, transId,
 					exchangeRate);
-			blAccTran.saveAccTransactionRow(accTransCashWithCredit, transId,
+			blAccTran.registerAccTransactionRow(accTransCashWithCredit, transId,
 					exchangeRate);
 
 		}

@@ -205,8 +205,8 @@ public class BankBLTransactionUpdate {
                     bankTransBill.getTurqEngineSequence().getTurqModule().getId().intValue(),bankTransBill.getTurqEngineSequence()
                             .getId(), accounting_definition,exchangeRate);
 
-            blAccTran.saveAccTransactionRow(accTransRowCredit, transId,exchangeRate);
-            blAccTran.saveAccTransactionRow(accTransRowDept, transId,exchangeRate);
+            blAccTran.registerAccTransactionRow(accTransRowCredit, transId,exchangeRate);
+            blAccTran.registerAccTransactionRow(accTransRowDept, transId,exchangeRate);
 
 
         } catch (Exception ex) {
@@ -377,8 +377,8 @@ public class BankBLTransactionUpdate {
                     bankTransBill.getTurqEngineSequence()
                             .getId(), definition,exchangeRate);
 
-            blAccTran.saveAccTransactionRow(accTransRowBank, transId,exchangeRate);
-            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,exchangeRate);
+            blAccTran.registerAccTransactionRow(accTransRowBank, transId,exchangeRate);
+            blAccTran.registerAccTransactionRow(accTransRowCurrent, transId,exchangeRate);
 
         } catch (Exception ex) {
             throw ex;
@@ -516,8 +516,8 @@ public class BankBLTransactionUpdate {
                     bankTransBill.getTurqEngineSequence()
                             .getId(), definition,exchangeRate);
 
-            blAccTran.saveAccTransactionRow(accTransRowBank, transId,exchangeRate);
-            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,exchangeRate);
+            blAccTran.registerAccTransactionRow(accTransRowBank, transId,exchangeRate);
+            blAccTran.registerAccTransactionRow(accTransRowCurrent, transId,exchangeRate);
 
         } catch (Exception ex) {
             throw ex;
@@ -693,8 +693,8 @@ public class BankBLTransactionUpdate {
                     bankTransBill.getTurqEngineSequence()
                             .getId(), definition,exchangeRate);
 
-            blAccTran.saveAccTransactionRow(accTransRowBank, transId,exchangeRate);
-            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,exchangeRate);
+            blAccTran.registerAccTransactionRow(accTransRowBank, transId,exchangeRate);
+            blAccTran.registerAccTransactionRow(accTransRowCurrent, transId,exchangeRate);
 
         } catch (Exception ex) {
             throw ex;

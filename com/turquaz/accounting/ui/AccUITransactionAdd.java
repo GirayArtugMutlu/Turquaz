@@ -569,7 +569,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
     
     			if(row.okToSave())
     			{
-    				blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId,exchangeRate);
+    				blTransAdd.registerAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId,exchangeRate);
     			}
     
     		}

@@ -3,7 +3,6 @@ package com.turquaz.bill.ui;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 
@@ -389,17 +388,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	               msg2.setMessage(Messages.getString("BillUIBillSearch.12")); //$NON-NLS-1$
 	               if(msg2.open()==SWT.OK){
 					initializeBill(bill);
-	                Iterator it = bill.getTurqBillInGroups().iterator();
-					while(it.hasNext()){
-					    
-						blUpdateBill.deleteObject(it.next());
-					    				
-					}
-					
-					BillBLUpdateBill.deleteAccountingTransactions(bill);
-					BillBLUpdateBill.deleteCurrentTransactions(bill);
-				
-					blUpdateBill.deleteObject(bill); 
+	                BillBLUpdateBill.deleteBill(bill);
 					msg.setMessage(Messages.getString("BillUIBillSearch.14")); //$NON-NLS-1$
 	                msg.open();
 	                search();

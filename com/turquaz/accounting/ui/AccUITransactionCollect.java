@@ -601,7 +601,7 @@ public class AccUITransactionCollect extends Composite implements
 			transRow.setTransactionDefinition(Messages
 					.getString("AccUITransactionCollect.9")); //$NON-NLS-1$
 
-			blTransAdd.saveAccTransactionRow(transRow, transId,exchangeRate );
+			blTransAdd.registerAccTransactionRow(transRow, transId,exchangeRate );
 
 			//Save the table rows
 			for (int i = 0; i < items.length; i++) {
@@ -610,7 +610,7 @@ public class AccUITransactionCollect extends Composite implements
 
 				if (row.okToSave()) 
 				{
-					blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn) row
+					blTransAdd.registerAccTransactionRow((TurqAccountingTransactionColumn) row
 											.getDBObject(), transId,exchangeRate );
 				}
 			}

@@ -565,7 +565,7 @@ public class AccUIInitialTransaction extends Composite implements
                 //TODO acc trans column exRate
                 if (row.okToSave()) {
                     blTransAdd
-                            .saveAccTransactionRow(
+                            .registerAccTransactionRow(
                                     (TurqAccountingTransactionColumn) row
                                             .getDBObject(), transId,EngBLCommon.getBaseCurrencyExchangeRate());
                 }

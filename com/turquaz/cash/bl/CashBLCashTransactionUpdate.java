@@ -344,8 +344,8 @@ public class CashBLCashTransactionUpdate {
             	           										   cashTrans.getTurqEngineSequence().getId(),
 																   definition,exchangeRate);
 
-            	   blAccTran.saveAccTransactionRow(accTransRowCash,transId,exchangeRate);
-            	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId,exchangeRate);         
+            	   blAccTran.registerAccTransactionRow(accTransRowCash,transId,exchangeRate);
+            	   blAccTran.registerAccTransactionRow(accTransRowCurrent,transId,exchangeRate);         
             
             
         }
@@ -503,8 +503,8 @@ try{
     	           										   cashTrans.getTurqEngineSequence().getId(),
 														   definition,exchangeRate);
 
-    	   blAccTran.saveAccTransactionRow(accTransRowCash,transId,exchangeRate);
-    	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId,exchangeRate);         
+    	   blAccTran.registerAccTransactionRow(accTransRowCash,transId,exchangeRate);
+    	   blAccTran.registerAccTransactionRow(accTransRowCurrent,transId,exchangeRate);         
     
     
 }
@@ -660,9 +660,9 @@ try{
 						.getId().intValue(), cashTrans.getTurqEngineSequence()
 						.getId(), definition,exchangeRate);
 
-		blAccTran.saveAccTransactionRow(accTransCashWithDept, transId,
+		blAccTran.registerAccTransactionRow(accTransCashWithDept, transId,
 				exchangeRate);
-		blAccTran.saveAccTransactionRow(accTransCashWithCredit, transId,
+		blAccTran.registerAccTransactionRow(accTransCashWithCredit, transId,
 				exchangeRate);
     
 }

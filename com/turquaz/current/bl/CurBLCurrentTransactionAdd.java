@@ -372,8 +372,8 @@ public class CurBLCurrentTransactionAdd {
          transRowCash.setTransactionDefinition(definition);
          transRowCurrent.setTransactionDefinition(definition);
 
-         blAcc.saveAccTransactionRow(transRowCash,AccTransId,exchangeRate);
-         blAcc.saveAccTransactionRow(transRowCurrent,AccTransId,exchangeRate);
+         blAcc.registerAccTransactionRow(transRowCash,AccTransId,exchangeRate);
+         blAcc.registerAccTransactionRow(transRowCurrent,AccTransId,exchangeRate);
        
 		}
 		
