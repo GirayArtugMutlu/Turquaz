@@ -152,6 +152,25 @@ public class BankDALCommon {
 	        throw ex;
 	    }
 	}
+	public static void initializeTransaction(TurqBanksTransactionBill trans)throws Exception{
+	    try{
+	        Session session = EngDALSessionFactory.openSession();
+	        
+	        session.refresh(trans);
+	        Hibernate.initialize(trans.getTurqBanksTransactions());
+	        Hibernate.initialize(trans.getTurqEngineSequence().getTurqCurrentTransactions());
+	        Hibernate.initialize(trans.getTurqEngineSequence().getTurqAccountingTransactions());
+	        session.close();
+	  
+	        
+	        
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
 	 public static List getTransactions(TurqBanksCard bankCard, Date startDate, Date endDate)throws Exception{
 	        try{
 	            Session session = EngDALSessionFactory.openSession();

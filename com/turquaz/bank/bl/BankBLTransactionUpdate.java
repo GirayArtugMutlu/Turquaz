@@ -32,6 +32,18 @@ public class BankBLTransactionUpdate {
         }
         
     }
+    public static void initializeTransaction(TurqBanksTransactionBill transBill)throws Exception {
+        try{
+            
+         BankDALCommon.initializeTransaction(transBill);
+            
+            
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+        
+    }
     public static void updateTransactionBill(TurqBanksTransactionBill bankTransBill, TurqBanksCard bankCard,
             								 TurqCurrentCard curCard,  BigDecimal totalAmount,
             								 Date transDate,

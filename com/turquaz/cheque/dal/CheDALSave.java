@@ -75,9 +75,8 @@ public class CheDALSave {
             Session session = EngDALSessionFactory.openSession();
             Transaction tx = session.beginTransaction();
             session.delete(obj);
-            
             tx.commit();
-            session.flush();
+           session.flush();
             session.close();
             
             

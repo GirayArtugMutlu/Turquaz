@@ -9,6 +9,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
@@ -78,18 +79,23 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
                 toolBar1.setLayoutData(toolBar1LData);
                 {
                     toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-                    toolUpdate.setText("Güncelle");
-                    toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+                    toolUpdate.setText(Messages.getString("CheUIChequeInPayrollUpdate.0")); //$NON-NLS-1$
+                    toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
                 }
                 {
                     toolDelete = new ToolItem(toolBar1, SWT.NONE);
-                    toolDelete.setText("Sil");
-                    toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
+                    toolDelete.setText(Messages.getString("CheUIChequeInPayrollUpdate.2")); //$NON-NLS-1$
+                    toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+                    toolDelete.addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                         delete();
+                        }
+                    });
                 }
                 {
                     toolCancel = new ToolItem(toolBar1, SWT.NONE);
-                    toolCancel.setText("?ptal");
-                    toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg"));
+                    toolCancel.setText(Messages.getString("CheUIChequeInPayrollUpdate.4")); //$NON-NLS-1$
+                    toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
                     toolCancel.addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
                           
@@ -129,7 +135,7 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
 	        CheBLUpdateChequeRoll.initializeChequeRoll(chequeRoll);
 	        compChequeRoll.getTxtRollNo().setText(chequeRoll.getChequeRollNo());
 	        compChequeRoll.getDatePicker1().setDate(chequeRoll.getChequeRollsDate());
-	        compChequeRoll.getCurrentPicker().setText(chequeRoll.getTurqCurrentCard().getCardsName()+" {"+chequeRoll.getTurqCurrentCard().getCardsCurrentCode()+"}");
+	        compChequeRoll.getCurrentPicker().setText(chequeRoll.getTurqCurrentCard().getCardsName()+" {"+chequeRoll.getTurqCurrentCard().getCardsCurrentCode()+"}"); //$NON-NLS-1$ //$NON-NLS-2$
 	        
 	        TableItem item;
 	        
@@ -168,6 +174,25 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
 	        ex.printStackTrace();
 	    }
 	    
+	}
+	public void delete(){
+	    try{
+	        
+	        if(EngUICommon.okToDelete(getParent()))
+	        {
+	            
+	            CheBLUpdateChequeRoll.deleteChequeRollIn(chequeRoll);
+	            EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeInPayrollUpdate.8"),SWT.ICON_INFORMATION); //$NON-NLS-1$
+	            isUpdated=true;
+	            dialogShell.close();
+	        }
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	        EngUICommon.showMessageBox(getParent(),ex.getMessage().toString(),SWT.ICON_ERROR);
+	    }
 	}
 	
 }
