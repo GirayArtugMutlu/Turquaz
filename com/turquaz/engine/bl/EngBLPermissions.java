@@ -48,12 +48,21 @@ public class EngBLPermissions {
 
 	static EngBLPermissions _instance;
 
+	/**
+	 * Constructor
+	 * @param username Current User of the system
+	 */
 	public EngBLPermissions(String username) {
 		
 		this.username = username;
 		fillCompMap();
 	}
 
+	/**
+	 * 
+	 * @param classname
+	 * @return permission level 
+	 */
 	public static synchronized int getPermission(String classname) {
 		if (_instance == null) {
 
@@ -64,7 +73,10 @@ public class EngBLPermissions {
 		return _instance.getPerm(classname);
 
 	}
-
+/**
+ * initiliaze the static EngBLPermission object
+ *
+ */
 	public static synchronized void init() {
 		if (_instance == null) {
 
@@ -73,11 +85,20 @@ public class EngBLPermissions {
 		}
 
 	}
-
-	protected Map getMap() {
+/**
+ * 
+ * @return the Map of classname and permission levels
+ */
+	protected Map getPermissionMap() {
 		return compMap;
 	}
 
+/**
+ * 
+ * Fill the Permissions Map
+ *
+ */	
+	
 	private void fillCompMap() {
 		try {
 			compMap = new HashMap();
@@ -107,6 +128,12 @@ public class EngBLPermissions {
 		}
 	}
 
+/**
+ * 
+ * @param list List of the TurqGroupPermission objects for user
+ * 
+ * Calculates the group permissions according to the list 
+ */	
 	private void calculateGroupPerms(List list) {
 		try {
 
@@ -165,6 +192,14 @@ public class EngBLPermissions {
 		}
 
 	}
+	
+	/**
+	 * 
+	 * @param list list of the TurqUserPermission objects of user
+	 * Adds the user permission to the permission map (compMap)
+	 * 
+	 * 
+	 */
 	private void calculateUserPerms(List list) {
 		try {
 
@@ -223,6 +258,13 @@ public class EngBLPermissions {
 		}
 
 	}
+	
+	/**
+	 * 
+	 * @param classname Name of the class to check permission level
+	 * @return the permission level for the classname
+	 */
+	
 	public int getPerm(String classname) {
 
 		String level = compMap.get(classname).toString();

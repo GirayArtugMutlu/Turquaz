@@ -18,17 +18,29 @@ import net.sf.hibernate.expression.Expression;
 
 /**
  * @author onsel
+ * @version $Id$
  * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ * Database functions for calculating user permissions.
+ * TODO Module, Module Component functions must be placed in a different class
+ * 
+ * 
  */
 public class EngDALUserPerms {
 
+	/**
+	 * Default Constructor
+	 *
+	 */
 	public EngDALUserPerms() {
 
 	}
 
-	
+	/**
+	 * 
+	 * @param username Current user of the system
+	 * @return List of TurqGroupPermission objects for username
+	 * @throws Exception "Hibernate Exception"
+	 */
 	public List getGroupPermissions(String username)throws Exception{
 	try{
 	Session session = EngDALSessionFactory.openSession();
@@ -60,7 +72,13 @@ public class EngDALUserPerms {
 }
 } 
 	 
-	 
+/**
+ * 
+ * @param username Current User of the system
+ * @return List of TurqUserPermission objects for the username
+ * @throws Exception HiberNate Exception
+ */
+	
  public List getUserPermissions(String username)throws Exception{
  	try{
 	 
@@ -93,7 +111,13 @@ public class EngDALUserPerms {
  		throw e; 
  		} 
  	}
-	
+	/**
+	 * 
+	 * @param module_id --Module id
+	 * @param component_id --ModuleComponent id
+	 * @return -- ModuleComponent Name
+	 * @throws Exception -- Hibernate Exception
+	 */
 	 public String getModuleCompName(int module_id, int component_id)throws
 	 Exception{ 
 	 	try{
@@ -123,7 +147,12 @@ public class EngDALUserPerms {
 	  } catch(Exception e){ throw e; }
 
 	 }
-	
+
+	 /**
+	  * 
+	  * @return List of all TurqModuleComponents objects   
+	  * @throws Exception Hibernate Exception
+	  */
 	public List getModuleComponents() throws Exception {
 		try {
 			Session session = EngDALSessionFactory.openSession();
@@ -142,6 +171,12 @@ public class EngDALUserPerms {
 		}
 	}
 
+	/**
+	 * 
+	 * @param module_id --Module id
+	 * @return List of TurqModuleComponent objects of the specified module
+	 * @throws Exception
+	 */
 	  public List getModuleComponents(int module_id)throws Exception{ 
 	  	
 	  
