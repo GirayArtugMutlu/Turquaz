@@ -104,21 +104,33 @@ public final class TreeFactory {
 	public static Tree createBankTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
 		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.6")); //$NON-NLS-1$
-		TreeItem item = new TreeItem(root,SWT.NULL);
+		
+		TreeItem item;
+		if(EngBLPermissions.getPermission(BankUIBankCardAdd.class.getName())>0){
+		item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.7")); //$NON-NLS-1$
 		item.setData(BankUIBankCardAdd.class.getName());
+		}
+		if(EngBLPermissions.getPermission(BankUIBankCardSearch.class.getName())>0){
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.8")); //$NON-NLS-1$
 		item.setData(BankUIBankCardSearch.class.getName());
+		}
+		
+		
 		return tree;
 	}
 	
 	public static Tree createAccountingTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
 		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.9")); //$NON-NLS-1$
-		TreeItem item = new TreeItem(root,SWT.NULL);
+		
+		TreeItem item;
+		if(EngBLPermissions.getPermission(AccUIAddAccounts.class.getName())>0){
+		item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.10")); //$NON-NLS-1$
 		item.setData(AccUIAddAccounts.class.getName());
+		}
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.11")); //$NON-NLS-1$
 		item.setData(AccUIAccountingPlan.class.getName());
@@ -137,6 +149,7 @@ public final class TreeFactory {
 		
 		TreeItem report = new TreeItem(tree,SWT.NULL);
 		report.setText(Messages.getString("TreeFactory.32")); //$NON-NLS-1$
+		
 		item = new TreeItem(report,SWT.NULL);
 		item.setText(Messages.getString("TreeFactory.28")); //$NON-NLS-1$
 		item.setData(AccUIAccountingJournal.class.getName());
