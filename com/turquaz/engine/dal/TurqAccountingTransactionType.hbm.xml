@@ -19,7 +19,7 @@
     <id
         name="accountingTransactionTypesId"
         type="int"
-        column="accounting _transaction_types_id"
+        column="accounting_transaction_types_id"
     >
         <generator class="sequence">
             <param name="sequence">seq_accounting_transaction_types</param>

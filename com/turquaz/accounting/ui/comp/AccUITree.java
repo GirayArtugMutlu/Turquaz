@@ -17,6 +17,7 @@ import com.turquaz.accounting.ui.AccUIAddAccounts;
 import com.turquaz.accounting.ui.AccUITransactionAdd;
 import com.turquaz.accounting.ui.AccUITransactionCollect;
 import com.turquaz.accounting.ui.AccUITransactionPayment;
+import com.turquaz.accounting.ui.AccUITransactionSearch;
 
 
 /**
@@ -45,6 +46,9 @@ public class AccUITree extends Tree {
 		item = new TreeItem(root,SWT.NULL);
 		item.setText("Payment Transaction");
 		item.setData(AccUITransactionPayment.class.getName());	
+		item = new TreeItem(root,SWT.NULL);
+		item.setText("Transaction Search");
+		item.setData(AccUITransactionSearch.class.getName());
 	
 	}
 }
