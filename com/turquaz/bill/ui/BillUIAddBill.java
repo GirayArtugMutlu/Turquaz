@@ -418,9 +418,7 @@ implements SecureComposite{
 									.setLayoutData(lblCurrentCardLData1);
 							}
 							{
-								txtCurrentCard = new Text(
-									compInfoPanel,
-									SWT.MULTI);
+								txtCurrentCard = new Text(compInfoPanel, SWT.SINGLE);
 								GridData txtCurrentCardLData = new GridData();
 								txtCurrentCard
 									.addModifyListener(new ModifyListener() {
