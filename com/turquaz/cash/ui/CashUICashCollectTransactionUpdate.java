@@ -21,6 +21,7 @@ package com.turquaz.cash.ui;
  */
 import java.math.BigDecimal;
 import java.util.Iterator;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.cash.Messages;
@@ -184,6 +185,8 @@ public class CashUICashCollectTransactionUpdate extends Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 		Iterator it = cashTrans.getTurqCashTransactionRows().iterator();
@@ -223,6 +226,8 @@ public class CashUICashCollectTransactionUpdate extends Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -246,6 +251,8 @@ public class CashUICashCollectTransactionUpdate extends Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

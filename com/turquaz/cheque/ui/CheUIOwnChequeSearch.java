@@ -10,6 +10,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CLabel;
@@ -76,7 +77,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 	private CLabel lblCurrentCard;
 	private DatePicker datePickerStartDueDate;
 	private CLabel lblDueDate;
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 	{
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
@@ -179,17 +180,19 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			datePickerEndEnterDate.setLastDayOfYear();
 			//END << datePickerEndEnterDate
 			//END << compSearchPanle
-			//START >>  tabFolder
+			//START >> tabFolder
 			tabFolder = new CTabFolder(this, SWT.NONE);
-			//START >>  cTabItem1
+			//START >> cTabItem1
 			cTabItem1 = new CTabItem(tabFolder, SWT.NONE);
 			cTabItem1.setText("Arama Sonucu");
 			//START >> tableCheques
 			tableCheques = new Table(tabFolder, SWT.SINGLE | SWT.FULL_SELECTION);
 			cTabItem1.setControl(tableCheques);
 			GridData tableChequesLData = new GridData();
-			tableCheques.addMouseListener(new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
+			tableCheques.addMouseListener(new MouseAdapter()
+			{
+				public void mouseDoubleClick(MouseEvent evt)
+				{
 					tableChequesMouseDoubleClick(evt);
 				}
 			});
@@ -242,17 +245,17 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			tabFolderLData.horizontalAlignment = GridData.FILL;
 			tabFolderLData.verticalAlignment = GridData.FILL;
 			tabFolder.setLayoutData(tabFolderLData);
-			//END <<  cTabItem1
-			//START >>  tabItemReport
+			//END << cTabItem1
+			//START >> tabItemReport
 			tabItemReport = new CTabItem(tabFolder, SWT.NONE);
 			tabItemReport.setText("Rapor");
-			//START >>  compReport
+			//START >> compReport
 			compReport = new Composite(tabFolder, SWT.NONE);
 			GridLayout compReportLayout = new GridLayout();
 			compReportLayout.makeColumnsEqualWidth = true;
 			compReport.setLayout(compReportLayout);
 			tabItemReport.setControl(compReport);
-			//START >>  viewer
+			//START >> viewer
 			viewer = new ViewerComposite(compReport, SWT.NONE);
 			GridData viewerLData = new GridData();
 			viewerLData.grabExcessVerticalSpace = true;
@@ -260,11 +263,11 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			viewerLData.horizontalAlignment = GridData.FILL;
 			viewerLData.verticalAlignment = GridData.FILL;
 			viewer.setLayoutData(viewerLData);
-			//END <<  viewer
-			//END <<  compReport
+			//END << viewer
+			//END << compReport
 			tabFolder.setSelection(0);
-			//END <<  tabItemReport
-			//END <<  tabFolder
+			//END << tabItemReport
+			//END << tabFolder
 			this.layout();
 			PostInitGui();
 		}
@@ -273,12 +276,12 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void PostInitGui()
 	{
 		createTableViewer();
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[7];
@@ -289,7 +292,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DATE;
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableCheques, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableCheques, columnTypes, true);
 	}
 
 	public void delete()
@@ -326,38 +329,39 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 				{
 					status = EngBLCommon.CHEQUE_TRANS_OUT_CURRENT_STRING;
 				}
-				Integer id=(Integer)result[0];
+				Integer id = (Integer) result[0];
 				tableViewer.addRow(new String[]{DatePicker.formatter.format(result[1]), result[6].toString(), result[7].toString(),
-						result[2].toString(), DatePicker.formatter.format(result[3]), status, cf.format(result[5])},id);
+						result[2].toString(), DatePicker.formatter.format(result[3]), status, cf.format(result[5])}, id);
 				total = total.add((BigDecimal) result[5]);
 			}
-			tableViewer.addRow(new String[]{"","","","","","",""},null);
-			tableViewer.addRow(new String[]{"", "", "", "", "", "Toplam", cf.format(total)},null);
+			tableViewer.addRow(new String[]{"", "", "", "", "", "", ""}, null);
+			tableViewer.addRow(new String[]{"", "", "", "", "", "Toplam", cf.format(total)}, null);
 			if (ls.size() > 0)
 				GenerateJasper(ls);
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
-	
+
 	public void GenerateJasper(List list)
 	{
 		try
 		{
-			Map parameters=new HashMap();
-			SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
-			TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
-			parameters.put("reportDate",sdf.format(Calendar.getInstance().getTime()));
-			parameters.put("startDate",sdf.format(datePickerStartEnterDate.getDate()));
-			parameters.put("endDate",sdf.format(datePickerEndEnterDate.getDate()));
-			parameters.put("dueDateStart",sdf.format(datePickerStartDueDate.getDate()));
-			parameters.put("dueDateEnd",sdf.format(datePickerEndDueDate.getDate()));
-			parameters.put("dateFormatter",sdf);
-			parameters.put("currenyFormatter",cf);
-			String[] fields = new String[]{"id", "cheque_rolls_date",
-					"cards_name", "cheques_due_date", "cheque_transaction_types_id",
+			Map parameters = new HashMap();
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+			parameters.put("reportDate", sdf.format(Calendar.getInstance().getTime()));
+			parameters.put("startDate", sdf.format(datePickerStartEnterDate.getDate()));
+			parameters.put("endDate", sdf.format(datePickerEndEnterDate.getDate()));
+			parameters.put("dueDateStart", sdf.format(datePickerStartDueDate.getDate()));
+			parameters.put("dueDateEnd", sdf.format(datePickerEndDueDate.getDate()));
+			parameters.put("dateFormatter", sdf);
+			parameters.put("currenyFormatter", cf);
+			String[] fields = new String[]{"id", "cheque_rolls_date", "cards_name", "cheques_due_date", "cheque_transaction_types_id",
 					"cheques_amount", "bank_code", "cheques_no"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/cheque/OwnChequeReport.jasper"); //$NON-NLS-1$
@@ -366,6 +370,8 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -377,7 +383,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			TableItem[] selection = tableCheques.getSelection();
 			if (selection.length > 0)
 			{
-				Integer cheqId=(Integer)((ITableRow) selection[0].getData()).getDBObject();
+				Integer cheqId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cheqId != null)
 				{
 					TurqChequeCheque cheque = CheDALUpdate.initializeCheque(cheqId);
@@ -389,6 +395,8 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

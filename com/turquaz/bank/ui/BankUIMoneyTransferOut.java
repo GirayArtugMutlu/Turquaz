@@ -21,6 +21,7 @@ package com.turquaz.bank.ui;
  */
 import java.math.BigDecimal;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.bank.ui.comp.BankCardPicker;
@@ -212,6 +213,8 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -269,6 +272,8 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return false;
 		}
@@ -289,6 +294,8 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			EngUICommon.showMessageBox(getShell(), ex.getMessage(), SWT.ICON_ERROR);
 		}

@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
@@ -84,7 +85,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 	private TableColumn tableColumnTotalPriceOut;
 	private TableColumn tableColumnTransactionDate;
 	private Calendar cal = Calendar.getInstance();
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 
 	public InvUITransactionSearch(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -246,7 +247,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 			TableItem items[] = tableTransactions.getSelection();
 			if (items.length > 0)
 			{
-				Integer transId = (Integer)((ITableRow) items[0].getData()).getDBObject();
+				Integer transId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (transId != null)
 				{
 					//TODO these methods should be transactional
@@ -260,7 +261,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 						updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill).open();
 					}
 					else if ((cons = InvBLSearchTransaction.getConsignment(seq)) != null)
-					{						
+					{
 						updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons).open();
 					}
 					else
@@ -274,6 +275,8 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -333,11 +336,13 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 				}
 				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), invCode, invName, cf.format(inAmount) + "", //$NON-NLS-1$								
 						cf.format(priceIn), cf.format(outAmount) + "", //$NON-NLS-1$
-						cf.format(priceOut)},transId);
+						cf.format(priceOut)}, transId);
 			}
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -345,7 +350,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 	public void newForm()
 	{
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[7];
@@ -356,9 +361,8 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableTransactions, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableTransactions, columnTypes, true);
 	}
-
 
 	public void delete()
 	{

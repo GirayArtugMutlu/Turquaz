@@ -30,7 +30,7 @@ public class ConDALUpdateConsignment
 			Session session = EngDALSessionFactory.openSession();
 			session.refresh(cons);
 			Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
-			Iterator it=cons.getTurqEngineSequence().getTurqBillInEngineSequences().iterator();
+			Iterator it = cons.getTurqEngineSequence().getTurqBillInEngineSequences().iterator();
 			Hibernate.initialize(cons.getTurqConsignmentsInGroups());
 			session.close();
 		}

@@ -13,20 +13,13 @@ public class BillDALAddBill
 	{
 		try
 		{
-			/*Session session = EngDALSessionFactory.openSession();
-			session.refresh(bill);
-			//XXX initialize cons
-			Hibernate.initialize(bill.getTurqBillInEngineSequences().getTurqConsignments());
-			Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
-			if (it.hasNext())
-			{
-				TurqConsignment cons = (TurqConsignment) it.next();
-				Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
-				session.close();
-				return cons.getTurqEngineSequence().getTurqInventoryTransactions();
-			}
-			else
-				session.close();*/
+			/*
+			 * Session session = EngDALSessionFactory.openSession(); session.refresh(bill); //XXX initialize cons
+			 * Hibernate.initialize(bill.getTurqBillInEngineSequences().getTurqConsignments()); Iterator it =
+			 * bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator(); if (it.hasNext()) { TurqConsignment cons =
+			 * (TurqConsignment) it.next(); Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
+			 * session.close(); return cons.getTurqEngineSequence().getTurqInventoryTransactions(); } else session.close();
+			 */
 			return null;
 		}
 		catch (Exception ex)

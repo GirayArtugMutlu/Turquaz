@@ -22,6 +22,7 @@ package com.turquaz.cash.ui;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
@@ -68,7 +69,7 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 	private DatePicker datePicker;
 	private CLabel lblStartDate;
 	private CashCardPicker cashCardPicker;
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 	{
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
@@ -124,8 +125,10 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 			{
 				tableCashTrans = new Table(this, SWT.FULL_SELECTION);
 				GridData tableCashTransLData = new GridData();
-				tableCashTrans.addMouseListener(new MouseAdapter() {
-					public void mouseDoubleClick(MouseEvent evt) {
+				tableCashTrans.addMouseListener(new MouseAdapter()
+				{
+					public void mouseDoubleClick(MouseEvent evt)
+					{
 						tableCashTransMouseDoubleClick(evt);
 					}
 				});
@@ -170,7 +173,7 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void PostInitGui()
 	{
 		createTableViewer();
@@ -186,7 +189,7 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 		}
 		return true;
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[5];
@@ -197,7 +200,7 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		tableViewer = new SearchTableViewer(tableCashTrans, columnTypes, true);
 	}
-	
+
 	private void tableCashTransMouseDoubleClick(MouseEvent evt)
 	{
 		try
@@ -206,7 +209,7 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 			if (selection.length > 0)
 			{
 				TableItem item = selection[0];
-				Integer id = (Integer)((ITableRow) item.getData()).getDBObject();
+				Integer id = (Integer) ((ITableRow) item.getData()).getDBObject();
 				if (id == null)
 				{
 					return;
@@ -244,6 +247,8 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -312,30 +317,33 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 					{
 						credit = (BigDecimal) results[4];
 					}
-					Integer id=(Integer)results[0];
+					Integer id = (Integer) results[0];
 					tableViewer.addRow(new String[]{DatePicker.formatter.format((Date) results[1]), results[5].toString(),
-							results[2].toString(), cf.format(dept), cf.format(credit)},id);
+							results[2].toString(), cf.format(dept), cf.format(credit)}, id);
 					total_dept = total_dept.add(dept);
 					total_credit = total_credit.add(credit);
 				}
-				tableViewer.addRow(new String[]{"","","","",""},null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-				tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardAbstract.18"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						cf.format(total_dept), cf.format(total_credit)},null);
-				tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardAbstract.21"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						cf.format(deferred_dept), cf.format(deferred_credit)},null);
-				
-				BigDecimal finalDept=deferred_dept.add(total_dept);
-				BigDecimal finalCredit=deferred_credit.add(total_credit);
-				tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardAbstract.24"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						cf.format(finalDept), cf.format(finalCredit)},null);
-				BigDecimal finalBalance=finalCredit.subtract(finalDept);
-				if (finalBalance.doubleValue()>0)
-					tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardDailyAbstract.16"),"",cf.format(finalBalance)},null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				tableViewer.addRow(new String[]{"", "", "", "", ""}, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+				tableViewer.addRow(new String[]{"", "", Messages.getString("CashUICashCardAbstract.18"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						cf.format(total_dept), cf.format(total_credit)}, null);
+				tableViewer.addRow(new String[]{"", "", Messages.getString("CashUICashCardAbstract.21"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						cf.format(deferred_dept), cf.format(deferred_credit)}, null);
+				BigDecimal finalDept = deferred_dept.add(total_dept);
+				BigDecimal finalCredit = deferred_credit.add(total_credit);
+				tableViewer.addRow(new String[]{"", "", Messages.getString("CashUICashCardAbstract.24"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						cf.format(finalDept), cf.format(finalCredit)}, null);
+				BigDecimal finalBalance = finalCredit.subtract(finalDept);
+				if (finalBalance.doubleValue() > 0)
+					tableViewer.addRow(new String[]{
+							"", "", Messages.getString("CashUICashCardDailyAbstract.16"), "", cf.format(finalBalance)}, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				else
-					tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardDailyAbstract.20"),cf.format(finalBalance.abs()),""},null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+					tableViewer.addRow(new String[]{
+							"", "", Messages.getString("CashUICashCardDailyAbstract.20"), cf.format(finalBalance.abs()), ""}, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			}
 			catch (Exception ex)
 			{
+				Logger loger = Logger.getLogger(this.getClass());
+				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
 			}
 		}

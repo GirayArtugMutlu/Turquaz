@@ -22,6 +22,7 @@ package com.turquaz.cheque.ui;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CLabel;
@@ -80,7 +81,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 	private TableColumn tableColumnOwner;
 	private TableColumn tableColumnType;
 	private TableColumn tableColumnRolNo;
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 
 	public CheUIChequeRollSearch(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -221,6 +222,8 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
 		}
@@ -233,7 +236,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 			TableItem selection[] = tableChequeRolls.getSelection();
 			if (selection.length > 0)
 			{
-				Integer rollId = (Integer)((ITableRow) selection[0].getData()).getDBObject();
+				Integer rollId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				boolean isUpdated = rollUpdate(rollId, this.getShell());
 				if (isUpdated)
 				{
@@ -243,11 +246,13 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
 
-	public static boolean rollUpdate(Integer rollId, Shell updateShell)
+	public static boolean rollUpdate(Integer rollId, Shell updateShell) throws Exception
 	{
 		try
 		{
@@ -299,11 +304,10 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
-			return true;
+			throw ex;
 		}
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[5];
@@ -312,7 +316,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableChequeRolls, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableChequeRolls, columnTypes, true);
 	}
 
 	public void delete()
@@ -360,14 +364,16 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 					owner = bankCode;
 				}
 				tableViewer.addRow(new String[]{DatePicker.formatter.format(cheqRollDate), cheqRollNo, transTypeName, owner,
-						cf.format(roll[8])},rollId);
+						cf.format(roll[8])}, rollId);
 				total = total.add((BigDecimal) roll[8]);
 			}
-			tableViewer.addRow(new String[]{"","","","",""},null);
-			tableViewer.addRow(new String[]{"", "", "", "Toplam", cf.format(total)},null);
+			tableViewer.addRow(new String[]{"", "", "", "", ""}, null);
+			tableViewer.addRow(new String[]{"", "", "", "Toplam", cf.format(total)}, null);
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			EngUICommon.showMessageBox(getShell(), ex.getMessage(), SWT.ICON_ERROR);
 		}

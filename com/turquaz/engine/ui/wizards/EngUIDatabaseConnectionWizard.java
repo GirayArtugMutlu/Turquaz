@@ -21,6 +21,7 @@ package com.turquaz.engine.ui.wizards;
  */
 import java.io.FileOutputStream;
 import java.util.Properties;
+import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
@@ -82,6 +83,8 @@ public class EngUIDatabaseConnectionWizard extends Wizard
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();

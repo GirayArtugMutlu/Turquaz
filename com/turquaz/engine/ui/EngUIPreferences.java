@@ -1,6 +1,7 @@
 package com.turquaz.engine.ui;
 
 import java.io.File;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.layout.GridData;
@@ -163,6 +164,8 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 						}
 						catch (Exception ex)
 						{
+							Logger loger = Logger.getLogger(this.getClass());
+							loger.error("Exception Caught", ex);
 							ex.printStackTrace();
 						}
 					}
@@ -182,6 +185,8 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 						}
 						catch (Exception ex)
 						{
+							Logger loger = Logger.getLogger(this.getClass());
+							loger.error("Exception Caught", ex);
 							ex.printStackTrace();
 						}
 					}
@@ -213,6 +218,8 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 						}
 						catch (Exception ex)
 						{
+							Logger loger = Logger.getLogger(this.getClass());
+							loger.error("Exception Caught", ex);
 							ex.printStackTrace();
 						}
 					}
@@ -234,16 +241,18 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 					}
 				});
 				//END << btnJiraBugReport
-				//START >>  btnFillBillInEngineSeq
+				//START >> btnFillBillInEngineSeq
 				btnFillBillInEngineSeq = new Button(composite1, SWT.PUSH | SWT.CENTER);
 				btnFillBillInEngineSeq.setText("Fill Bill In EngineSeq");
 				btnFillBillInEngineSeq.setVisible(false);
-				btnFillBillInEngineSeq.addMouseListener(new MouseAdapter() {
-					public void mouseUp(MouseEvent evt) {
+				btnFillBillInEngineSeq.addMouseListener(new MouseAdapter()
+				{
+					public void mouseUp(MouseEvent evt)
+					{
 						btnFillBillInEngineSeqMouseUp(evt);
 					}
 				});
-				//END <<  btnFillBillInEngineSeq
+				//END << btnFillBillInEngineSeq
 			}
 			fillBillTypeCombo();
 			EngUICommon.centreWindow(dialogShell);
@@ -283,6 +292,8 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -303,18 +314,22 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
-	
-	private void btnFillBillInEngineSeqMouseUp(MouseEvent evt) 
+
+	private void btnFillBillInEngineSeqMouseUp(MouseEvent evt)
 	{
 		try
 		{
 			EngBLCommon.insertBillInEngineSeq();
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

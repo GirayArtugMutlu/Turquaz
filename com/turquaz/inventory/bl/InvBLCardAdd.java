@@ -68,21 +68,21 @@ public class InvBLCardAdd
 		}
 	}
 
-	public static TurqInventoryUnit getBaseUnitFromCardUnits(List invCardUnits){
+	public static TurqInventoryUnit getBaseUnitFromCardUnits(List invCardUnits)
+	{
 		for (int k = 0; k < invCardUnits.size(); k++)
 		{
 			Object[] invCardUnit = (Object[]) invCardUnits.get(k);
 			TurqInventoryUnit invUnit = (TurqInventoryUnit) invCardUnit[0];
 			BigDecimal factor = (BigDecimal) invCardUnit[1];
-			if(factor.doubleValue()==1)
+			if (factor.doubleValue() == 1)
 			{
 				return invUnit;
 			}
-			
 		}
 		return null;
-		
 	}
+
 	public static void saveInvCardUnits(Session session, TurqInventoryCard card, List invCardUnits) throws Exception
 	{
 		for (int k = 0; k < invCardUnits.size(); k++)
@@ -228,55 +228,46 @@ public class InvBLCardAdd
 			throw ex;
 		}
 	}
-	public static List getInventoryUnits(TurqInventoryCard invCard)throws Exception
+
+	public static List getInventoryUnits(TurqInventoryCard invCard) throws Exception
 	{
-		try{
-			
-		
+		try
+		{
 			return InvDALCardAdd.getInventoryUnits(invCard);
-			
-			
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			throw ex;
 		}
-		
 	}
-	public static void saveInitialTransaction(TurqInventoryCard invCard, TurqInventoryUnit unit,Session session)throws Exception{
-		try{
-			
+
+	public static void saveInitialTransaction(TurqInventoryCard invCard, TurqInventoryUnit unit, Session session) throws Exception
+	{
+		try
+		{
 			Calendar cal = Calendar.getInstance();
 			TurqInventoryTransaction invTrans = new TurqInventoryTransaction();
-			
 			TurqInventoryTransactionType transType = new TurqInventoryTransactionType();
 			transType.setId(new Integer(EngBLCommon.INV_TRANS_INITIAL));
-			
-			
 			invTrans.setTurqInventoryTransactionType(transType);
 			invTrans.setTurqInventoryCard(invCard);
-			
 			TurqInventoryWarehous warehous = new TurqInventoryWarehous();
 			warehous.setId(new Integer(1));
-			invTrans.setTurqInventoryWarehous(warehous);			
-			
+			invTrans.setTurqInventoryWarehous(warehous);
 			invTrans.setTurqInventoryUnit(unit);
-
 			TurqEngineSequence seq = new TurqEngineSequence();
 			TurqModule module = new TurqModule();
 			module.setId(new Integer(EngBLCommon.MODULE_INVENTORY));
 			seq.setTurqModule(module);
 			EngDALCommon.saveObject(seq);
-			
 			invTrans.setTurqEngineSequence(seq);
 			invTrans.setTransactionsDate(DatePicker.getFirstDayOfYear());
-			invTrans.setDefinition(Messages.getString("InvBLCardAdd.0"));  //$NON-NLS-1$
+			invTrans.setDefinition(Messages.getString("InvBLCardAdd.0")); //$NON-NLS-1$
 			invTrans.setDocumentNo(""); //$NON-NLS-1$
 			invTrans.setAmountIn(new BigDecimal(0));
 			invTrans.setAmountOut(new BigDecimal(0));
 			invTrans.setTotalPrice(new BigDecimal(0));
 			invTrans.setTotalPriceInForeignCurrency(new BigDecimal(0));
-			
 			invTrans.setDiscountAmount(new BigDecimal(0));
 			invTrans.setDiscountAmountInForeignCurrency(new BigDecimal(0));
 			invTrans.setDiscountRate(new BigDecimal(0));
@@ -295,21 +286,16 @@ public class InvBLCardAdd
 			invTrans.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			invTrans.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			invTrans.setLastModified(cal.getTime());
-			invTrans.setCreationDate(cal.getTime());	
-			
+			invTrans.setCreationDate(cal.getTime());
 			invTrans.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
-			
-			EngDALCommon.saveObject(session,invTrans);
-			
-			
+			EngDALCommon.saveObject(session, invTrans);
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			throw ex;
 		}
-		
-		
 	}
+
 	public static void saveInventoryCard(String invCode, String cardName, String cardDefinition, int minAmount, int maxAmount,
 			int cardVat, int discount, int cardSpecialVat, BigDecimal cardSpecialVatEach, boolean isSpecAmount, Map invGroups,
 			List invCardUnits, List invPrices, List invAccounts) throws Exception
@@ -325,11 +311,10 @@ public class InvBLCardAdd
 			saveInvCardUnits(session, card, invCardUnits);
 			saveInvCardPrices(session, card, invPrices);
 			saveInvCardAccounts(session, card, invAccounts);
-			saveInitialTransaction(card,getBaseUnitFromCardUnits(invCardUnits),session);
+			saveInitialTransaction(card, getBaseUnitFromCardUnits(invCardUnits), session);
 			session.flush();
 			tx.commit();
 			session.close();
-			
 		}
 		catch (Exception ex)
 		{

@@ -219,18 +219,20 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 	public void setRowIndex(int index)
 	{
 	}
-	int columnTypes[] =null;
+	int columnTypes[] = null;
+
 	public int getColumnType(int index)
 	{
-		if(columnTypes == null)
+		if (columnTypes == null)
 		{
 			return TurquazTableSorter.COLUMN_TYPE_STRING;
 		}
-		else 
+		else
 			return columnTypes[index];
 	}
-	public void setColumnTypes(int []types)
+
+	public void setColumnTypes(int[] types)
 	{
-         columnTypes = types	;	
+		columnTypes = types;
 	}
 }

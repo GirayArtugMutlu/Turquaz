@@ -20,6 +20,7 @@ package com.turquaz.engine.bl;
  * @version  $Id$
  */
 import java.util.*;
+import org.apache.log4j.Logger;
 import com.turquaz.engine.dal.EngDALUserPerms;
 import com.turquaz.engine.dal.TurqGroupPermission;
 import com.turquaz.engine.dal.TurqModuleComponent;
@@ -102,6 +103,8 @@ public class EngBLPermissions
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -163,6 +166,8 @@ public class EngBLPermissions
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -224,6 +229,8 @@ public class EngBLPermissions
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -235,7 +242,16 @@ public class EngBLPermissions
 	 */
 	public int getPerm(String classname)
 	{
-		String level = compMap.get(classname).toString();
-		return Integer.parseInt(level);
+		if (compMap.get(classname) != null)
+		{
+			String level = compMap.get(classname).toString();
+			return Integer.parseInt(level);
+		}
+		else
+		{
+			System.err.println("You probably forgot to add a module component to database!");
+			System.err.println("Class name: " + classname);
+			return 0;
+		}
 	}
 }

@@ -16,6 +16,7 @@ package com.turquaz.cash.ui;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -157,7 +158,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void PostInitGui()
 	{
 		createTableViewer();
@@ -165,13 +166,13 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 
 	public void createTableViewer()
 	{
-		int columnTypes[] = new int[3] ;
-		columnTypes[0] =TurquazTableSorter.COLUMN_TYPE_STRING;
-		columnTypes[1] =TurquazTableSorter.COLUMN_TYPE_STRING;
-		columnTypes[2] =TurquazTableSorter.COLUMN_TYPE_STRING;
-		tableViewer = new SearchTableViewer(tableCashCards,columnTypes,true);
-		
+		int columnTypes[] = new int[3];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		tableViewer = new SearchTableViewer(tableCashCards, columnTypes, true);
 	}
+
 	public void delete()
 	{
 		// TODO should be implemented..
@@ -198,12 +199,13 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 			{
 				card = (TurqCashCard) ls.get(i);
 				tableViewer.addRow(new String[]{card.getCashCardName(), card.getCashCardDefinition(),
-						card.getTurqAccountingAccount().getAccountCode()},card);
-			
+						card.getTurqAccountingAccount().getAccountCode()}, card);
 			}
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -214,8 +216,8 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 		if (selection.length > 0)
 		{
 			TableItem item = selection[0];
-			ITableRow row = (ITableRow)item.getData();			
-			new CashUICashCardUpdate(this.getShell(), SWT.NULL, (TurqCashCard)row.getDBObject()).open();
+			ITableRow row = (ITableRow) item.getData();
+			new CashUICashCardUpdate(this.getShell(), SWT.NULL, (TurqCashCard) row.getDBObject()).open();
 			search();
 		}
 	}

@@ -8,6 +8,7 @@ package com.turquaz.engine.bl;
 
 import java.lang.reflect.Method;
 import java.util.Comparator;
+import org.apache.log4j.Logger;
 
 /**
  * @author Cem TODO To change the template for this generated type comment go to Window - Preferences - Java - Code Style - Code Templates
@@ -33,6 +34,8 @@ public class EngBLHibernateComparer implements Comparator
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -46,6 +49,8 @@ public class EngBLHibernateComparer implements Comparator
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 		return 1;

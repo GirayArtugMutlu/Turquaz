@@ -27,13 +27,13 @@ public class BillDALSearchBill
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select bill.id, bill.billsDate, bill.billDocumentNo," 
+			String query = "Select bill.id, bill.billsDate, bill.billDocumentNo,"
 					+ " bill.turqCurrentCard.cardsCurrentCode, bill.turqCurrentCard.cardsName,"
 					+ " billview.totalprice, billview.vatamount, billview.specialvatamount"
-					+ " from TurqBill as bill,TurqViewBillTransTotal as billview"
-				   + " where" + " billview.billsId = bill.id and bill.billsDate >= :startDate"
-					+ " and bill.billsDate <= :endDate" + " and bill.id <> -1 " ;
-							;
+					+ " from TurqBill as bill,TurqViewBillTransTotal as billview" + " where"
+					+ " billview.billsId = bill.id and bill.billsDate >= :startDate" + " and bill.billsDate <= :endDate"
+					+ " and bill.id <> -1 ";
+			;
 			if (type != EngBLCommon.COMMON_ALL_INT)
 			{
 				query += " and bill.billsType =" + type;
@@ -88,19 +88,16 @@ public class BillDALSearchBill
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select bill.id, bill.billsDate, bill.billDocumentNo," + " bill.turqCurrentCard.cardsCurrentCode, bill.turqCurrentCard.cardsName,"
+			String query = "Select bill.id, bill.billsDate, bill.billDocumentNo,"
+					+ " bill.turqCurrentCard.cardsCurrentCode, bill.turqCurrentCard.cardsName,"
 					+ " billview.totalprice, billview.vatamount, billview.specialvatamount"
-					+ " from TurqBill as bill, TurqViewBillTransTotal as billview"
-					+ " where" + " bill.billsDate >= :startDate"
+					+ " from TurqBill as bill, TurqViewBillTransTotal as billview" + " where" + " bill.billsDate >= :startDate"
 					+ " and bill.billsDate <= :endDate" + " and bill.id <> -1 " + " and bill.dueDate >= :dueDateStart"
-					+ " and bill.dueDate <= :dueDateEnd" 
-					+ " and bill.id=billview.billsId ";
+					+ " and bill.dueDate <= :dueDateEnd" + " and bill.id=billview.billsId ";
 			if (curCardStart != null && curCardEnd != null)
 			{
-				query += " and bill.turqCurrentCard.cardsCurrentCode >= '"
-						+ curCardStart.getCardsCurrentCode() + "'";
-				query += " and bill.turqCurrentCard.cardsCurrentCode <= '" + curCardEnd.getCardsCurrentCode()
-						+ "'";
+				query += " and bill.turqCurrentCard.cardsCurrentCode >= '" + curCardStart.getCardsCurrentCode() + "'";
+				query += " and bill.turqCurrentCard.cardsCurrentCode <= '" + curCardEnd.getCardsCurrentCode() + "'";
 			}
 			else if (curCardStart != null)
 			{
@@ -170,10 +167,10 @@ public class BillDALSearchBill
 			session.refresh(bill);
 			Hibernate.initialize(bill.getTurqBillInGroups());
 			Hibernate.initialize(bill.getTurqBillInEngineSequences());
-			Iterator it=bill.getTurqBillInEngineSequences().iterator();
-			while(it.hasNext())
+			Iterator it = bill.getTurqBillInEngineSequences().iterator();
+			while (it.hasNext())
 			{
-				TurqBillInEngineSequence billInEng=(TurqBillInEngineSequence)it.next();
+				TurqBillInEngineSequence billInEng = (TurqBillInEngineSequence) it.next();
 				Hibernate.initialize(billInEng.getTurqEngineSequence().getTurqConsignments());
 				Hibernate.initialize(billInEng.getTurqEngineSequence().getTurqInventoryTransactions());
 			}

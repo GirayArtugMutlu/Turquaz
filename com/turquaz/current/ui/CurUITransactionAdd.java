@@ -21,6 +21,7 @@ package com.turquaz.current.ui;
  */
 import java.math.BigDecimal;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -129,6 +130,8 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 						}
 						catch (Exception ex)
 						{
+							Logger loger = Logger.getLogger(this.getClass());
+							loger.error("Exception Caught", ex);
 							ex.printStackTrace();
 						}
 					}
@@ -303,6 +306,8 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -364,6 +369,8 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return false;
 		}
@@ -395,6 +402,8 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());

@@ -18,8 +18,9 @@ import com.turquaz.engine.ui.viewers.ITableRow;
  */
 public class InvUIInitialTransactionTableRow implements ITableRow
 {
-	TurqInventoryTransaction invTrans=null;
+	TurqInventoryTransaction invTrans = null;
 	TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -52,7 +53,6 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 		{
 			return SWTResourceManager.getColor(255, 198, 198);
 		}
-		
 	}
 
 	/*
@@ -62,7 +62,6 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 	 */
 	public String getColumnText(int column_index)
 	{
-		
 		String result = "";
 		switch (column_index)
 		{
@@ -108,13 +107,10 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 					result = cf.format(invTrans.getTotalPriceInForeignCurrency());
 				}
 				break;
-		
 			default :
 				result = "";
 		}
 		return result;
-		
-		
 	}
 
 	/*
@@ -123,7 +119,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 	 * @see com.turquaz.engine.ui.viewers.ITableRow#getDBObject()
 	 */
 	public Object getDBObject()
-	{		
+	{
 		return invTrans;
 	}
 
@@ -190,12 +186,10 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 					result = cf.format(invTrans.getTotalPriceInForeignCurrency());
 				}
 				break;
-		
 			default :
 				result = "";
 		}
 		return result;
-		
 	}
 
 	/*
@@ -209,15 +203,12 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 		{
 			case 0 : // inventory code
 				break;
-			
 			case 1 : //inventory name
 				break;
-				
 			case 2 : //Amount
 			{
 				if (invTrans == null)
 				{
-					
 				}
 				else
 				{
@@ -229,14 +220,12 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 						formatted = "0";
 					}
 					invTrans.setAmountIn(new BigDecimal(formatted));
-					
 				}
 				break;
 			}
 			case 3 : //Price
 				if (invTrans == null)
 				{
-					
 				}
 				else
 				{
@@ -248,12 +237,9 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 						formatted = "0";
 					}
 					invTrans.setTotalPriceInForeignCurrency(new BigDecimal(formatted));
-					
 				}
 				break;
-		
 			default :
-			
 		}
 	}
 
@@ -264,7 +250,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 	 */
 	public boolean okToSave()
 	{
-		if(invTrans==null)
+		if (invTrans == null)
 		{
 			return false;
 		}
@@ -278,9 +264,9 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 	 */
 	public void setDBObject(Object obj)
 	{
-		if(obj instanceof TurqInventoryTransaction)
+		if (obj instanceof TurqInventoryTransaction)
 		{
-			invTrans = (TurqInventoryTransaction)obj;
+			invTrans = (TurqInventoryTransaction) obj;
 		}
 	}
 

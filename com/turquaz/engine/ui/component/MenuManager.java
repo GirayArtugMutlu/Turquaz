@@ -109,7 +109,7 @@ public class MenuManager
 			});
 		}
 		MenuItem mitView = new MenuItem(menuEdit, SWT.CASCADE);
-		mitView.setText(Messages.getString("MenuManager.7"));  //$NON-NLS-1$
+		mitView.setText(Messages.getString("MenuManager.7")); //$NON-NLS-1$
 		{
 			Menu menuView = new Menu(mitView);
 			mitView.setMenu(menuView);

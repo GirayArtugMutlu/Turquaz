@@ -20,6 +20,7 @@ package com.turquaz.inventory.ui;
  * @version  $Id$
  */
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
@@ -71,7 +72,7 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 	private Text txtWarehouseName;
 	private CLabel lblWarehouseName;
 	private Composite composite1;
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 
 	public InvUIWarehouseSearch(Composite parent, int style)
 	{
@@ -240,16 +241,19 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 			for (int i = 0; i < result.size(); i++)
 			{
 				warehouse = (TurqInventoryWarehous) result.get(i);
-				tableViewer.addRow(new String[]{warehouse.getWarehousesCode(), warehouse.getWarehousesName(), warehouse.getWarehousesCity(),
-						warehouse.getWarehousesTelephone(), warehouse.getWarehousesDescription()},warehouse);
+				tableViewer.addRow(new String[]{warehouse.getWarehousesCode(), warehouse.getWarehousesName(),
+						warehouse.getWarehousesCity(), warehouse.getWarehousesTelephone(), warehouse.getWarehousesDescription()},
+						warehouse);
 			}
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[5];
@@ -258,7 +262,7 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_STRING;
-		tableViewer = new SearchTableViewer(tableInvUIWarehouses, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableInvUIWarehouses, columnTypes, true);
 	}
 
 	public void delete()
@@ -276,7 +280,7 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 		TableItem items[] = tableInvUIWarehouses.getSelection();
 		if (items.length > 0)
 		{
-			TurqInventoryWarehous wareh=(TurqInventoryWarehous)((ITableRow)items[0].getData()).getDBObject();
+			TurqInventoryWarehous wareh = (TurqInventoryWarehous) ((ITableRow) items[0].getData()).getDBObject();
 			new InvUIWarehouseUpdate(this.getShell(), SWT.NULL, wareh).open();
 			search();
 		}

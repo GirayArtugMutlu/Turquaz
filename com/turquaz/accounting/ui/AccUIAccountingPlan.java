@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
@@ -253,7 +254,10 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
+			loger.error(this, ex);
 		}
 	}
 
@@ -282,6 +286,8 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -356,6 +362,8 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			catch (Exception ex)
 			{
 				MessageBox msg3 = new MessageBox(this.getShell(), SWT.NULL);
+				Logger loger = Logger.getLogger(this.getClass());
+				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
 				msg3.setMessage(ex.getMessage());
 				msg3.open();

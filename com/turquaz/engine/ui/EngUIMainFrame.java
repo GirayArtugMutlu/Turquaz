@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Cursor;
@@ -943,9 +944,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		{
 			public void handleEvent(Event event)
 			{
-				if(treeFavorites.getSelection().length==0)
+				if (treeFavorites.getSelection().length == 0)
 				{
-//					if it has childeren then do not show menu
+					//					if it has childeren then do not show menu
 					event.doit = false;
 					popupTreeAddFavorites.setVisible(false);
 					itemRemove.setData(null);
@@ -1029,6 +1030,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -1158,24 +1161,27 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 
 	public void fillFavoritesTree()
 	{
-		try{
-		EngBLXmlParser xmlParser = new EngBLXmlParser("favorites.xml"); //$NON-NLS-1$
-		Map treeInfo = xmlParser.createMap();
-		Iterator it = treeInfo.keySet().iterator();
-		String text = ""; //$NON-NLS-1$
-		String className = ""; //$NON-NLS-1$
-		TreeItem treeItem;
-		while (it.hasNext())
+		try
 		{
-			text = it.next().toString();
-			className = treeInfo.get(text).toString();
-			treeItem = new TreeItem(treeFavorites, SWT.NULL);
-			treeItem.setText(text);
-			treeItem.setData(className);
+			EngBLXmlParser xmlParser = new EngBLXmlParser("favorites.xml"); //$NON-NLS-1$
+			Map treeInfo = xmlParser.createMap();
+			Iterator it = treeInfo.keySet().iterator();
+			String text = ""; //$NON-NLS-1$
+			String className = ""; //$NON-NLS-1$
+			TreeItem treeItem;
+			while (it.hasNext())
+			{
+				text = it.next().toString();
+				className = treeInfo.get(text).toString();
+				treeItem = new TreeItem(treeFavorites, SWT.NULL);
+				treeItem.setText(text);
+				treeItem.setData(className);
+			}
 		}
-		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -1296,6 +1302,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			}
 			catch (Exception ex)
 			{
+				Logger loger = Logger.getLogger("EngUIMainFrame");
+				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
 			}
 		}
@@ -1393,6 +1401,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			toolDelete.setEnabled(false);
 			toolSearch.setEnabled(false);
 			toolExportToExcel.setEnabled(false);
+			Logger loger = Logger.getLogger("EngUIMainFrame");
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -1537,7 +1547,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 	/** Auto-generated event handler method */
 	protected void treeFavoritesMouseDoubleClick()
 	{
-		if(treeFavorites.getSelection().length==0)
+		if (treeFavorites.getSelection().length == 0)
 		{
 			return;
 		}
@@ -1596,6 +1606,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger("EngUIMainFrame");
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -1622,6 +1634,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger("EngUIMainFrame");
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 		finally

@@ -20,6 +20,7 @@ package com.turquaz.admin.ui;
  * @version  $Id$
  */
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
@@ -240,6 +241,8 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -282,6 +285,8 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -335,6 +340,8 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -387,6 +394,8 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -424,6 +433,8 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg2.setMessage(ex.getMessage());
 			msg2.open();

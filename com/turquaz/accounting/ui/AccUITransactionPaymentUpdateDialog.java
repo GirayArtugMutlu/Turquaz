@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -295,6 +296,8 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.7")); //$NON-NLS-1$
 			msg.open();
@@ -320,6 +323,8 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 			}
 			catch (Exception ex)
 			{
+				Logger loger = Logger.getLogger(this.getClass());
+				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
 				msg.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.10")); //$NON-NLS-1$
 				msg.open();

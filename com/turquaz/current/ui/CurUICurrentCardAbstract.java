@@ -28,6 +28,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -349,6 +350,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -367,6 +370,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -454,6 +459,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
@@ -484,8 +491,9 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 		 * transaction.getTransactionsDefinition(), cf.format(transaction.getTransactionsTotalDept()),
 		 * cf.format(transaction.getTransactionsTotalCredit()), (balance.compareTo(new BigDecimal(0)) <0) ? cf.format(balance.multiply(new
 		 * BigDecimal(-1))) : "", //$NON-NLS-1$ (balance.compareTo(new BigDecimal(0))>0) ? cf.format(balance): "" //$NON-NLS-1$ }); } }
-		 * catch(Exception ex) { MessageBox msg=new MessageBox(this.getShell(),SWT.NULL); ex.printStackTrace();
-		 * msg.setMessage(ex.getMessage()); msg.open(); }
+		 * catch(Exception ex) { MessageBox msg=new MessageBox(this.getShell(),SWT.NULL); Logger loger =
+		 * Logger.getLogger(this.getClass()); loger.error("Exception Caught",ex);ex.printStackTrace(); msg.setMessage(ex.getMessage());
+		 * msg.open(); }
 		 */
 	}
 

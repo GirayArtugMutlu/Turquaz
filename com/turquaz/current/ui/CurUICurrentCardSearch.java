@@ -22,6 +22,7 @@ package com.turquaz.current.ui;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
@@ -89,7 +90,7 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 	private CurrentCodePicker txtCurrentCode;
 	private CLabel lblCurrentCode;
 	private Composite compCurrentCardSearch;
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 
 	public CurUICurrentCardSearch(Composite parent, int style)
 	{
@@ -216,8 +217,10 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 			//START >> item
 			item = new MenuItem(popup, SWT.PUSH);
 			item.setText("Cari kart hareketlerini getir");
-			item.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
+			item.addSelectionListener(new SelectionAdapter()
+			{
+				public void widgetSelected(SelectionEvent evt)
+				{
 					itemWidgetSelected(evt);
 				}
 			});
@@ -265,10 +268,12 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
 			msg.open();
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[5];
@@ -277,7 +282,7 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableCurrentCardSearch, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableCurrentCardSearch, columnTypes, true);
 	}
 
 	public void delete()
@@ -288,7 +293,7 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 			TableItem items[] = tableCurrentCardSearch.getSelection();
 			if (items.length > 0)
 			{
-				Integer cardId = (Integer)((ITableRow) items[0].getData()).getDBObject();
+				Integer cardId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (cardId != null)
 				{
 					TurqCurrentCard currentCard = CurBLCurrentCardSearch.initializeCurrentCard(cardId);
@@ -314,6 +319,8 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();
@@ -374,15 +381,18 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 						.getTransactionsBalanceNow();
 				generalCredit = generalCredit.add(totalCredit);
 				generalDept = generalDept.add(totalDept);
-				Integer cardId=(Integer)result[3];
-				tableViewer.addRow(new String[]{curCode, curName, cf.format(totalDept), cf.format(totalCredit), cf.format(balance)},cardId);
+				Integer cardId = (Integer) result[3];
+				tableViewer.addRow(new String[]{curCode, curName, cf.format(totalDept), cf.format(totalCredit), cf.format(balance)},
+						cardId);
 			}
-			tableViewer.addRow(new String[]{"","","","",""},null);
+			tableViewer.addRow(new String[]{"", "", "", "", ""}, null);
 			tableViewer.addRow(new String[]{"", "TOPLAM", cf.format(generalDept), cf.format(generalCredit),
-					cf.format(generalCredit.subtract(generalDept))},null);
+					cf.format(generalCredit.subtract(generalDept))}, null);
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
@@ -434,7 +444,7 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 		{
 			try
 			{
-				Integer cardId = (Integer)((ITableRow) selection[0].getData()).getDBObject();
+				Integer cardId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cardId != null)
 				{
 					TurqCurrentCard card = CurBLCurrentCardSearch.initializeCurrentCard(cardId);
@@ -445,6 +455,8 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 			}
 			catch (Exception ex)
 			{
+				Logger loger = Logger.getLogger(this.getClass());
+				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
 			}
 		}
@@ -459,22 +471,25 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 	{
 		EngBLUtils.printTable(tableCurrentCardSearch, Messages.getString("CurUICurrentCardSearch.4")); //$NON-NLS-1$
 	}
-	
-	private void itemWidgetSelected(SelectionEvent evt) {
+
+	private void itemWidgetSelected(SelectionEvent evt)
+	{
 		TableItem[] selection = tableCurrentCardSearch.getSelection();
 		if (selection.length > 0)
 		{
 			try
 			{
-				Integer cardId = (Integer)((ITableRow) selection[0].getData()).getDBObject();
+				Integer cardId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cardId != null)
 				{
 					TurqCurrentCard card = CurBLCurrentCardSearch.initializeCurrentCard(cardId);
-				    new CurUICurrentCardTransactions(getShell(),SWT.NONE,card).open();
+					new CurUICurrentCardTransactions(getShell(), SWT.NONE, card).open();
 				}
 			}
 			catch (Exception ex)
 			{
+				Logger loger = Logger.getLogger(this.getClass());
+				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
 			}
 		}

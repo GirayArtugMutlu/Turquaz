@@ -24,6 +24,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Locale;
 import java.util.Properties;
+import org.apache.log4j.Logger;
 import org.eclipse.core.internal.preferences.Base64;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.layout.FillLayout;
@@ -328,7 +329,6 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		{
 			DatabaseThread thread = new DatabaseThread();
 			thread.start();
-			
 			FileInputStream input = new FileInputStream("config/turquaz.properties"); //$NON-NLS-1$
 			Properties props = new Properties();
 			props.load(input);
@@ -361,6 +361,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 		this.getShell().dispose();
@@ -384,6 +386,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();
@@ -456,6 +460,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

@@ -25,6 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
@@ -102,6 +103,8 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite
 						}
 						catch (Exception ex)
 						{
+							Logger loger = Logger.getLogger(this.getClass());
+							loger.error("Exception Caught", ex);
 							ex.printStackTrace();
 						}
 					}
@@ -163,6 +166,8 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return null;
 		}

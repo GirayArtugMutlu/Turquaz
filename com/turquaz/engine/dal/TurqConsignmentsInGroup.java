@@ -6,117 +6,126 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqConsignmentsInGroup implements Serializable {
+public class TurqConsignmentsInGroup implements Serializable
+{
+	/** identifier field */
+	private java.lang.Integer id;
+	/** persistent field */
+	private java.lang.String createdBy;
+	/** persistent field */
+	private java.util.Date creationDate;
+	/** persistent field */
+	private java.lang.String updatedBy;
+	/** persistent field */
+	private java.util.Date lastModified;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqConsignmentGroup turqConsignmentGroup;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqConsignment turqConsignment;
 
-    /** identifier field */
-    private java.lang.Integer id;
+	/** full constructor */
+	public TurqConsignmentsInGroup(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy,
+			java.util.Date lastModified, com.turquaz.engine.dal.TurqConsignmentGroup turqConsignmentGroup,
+			com.turquaz.engine.dal.TurqConsignment turqConsignment)
+	{
+		this.createdBy = createdBy;
+		this.creationDate = creationDate;
+		this.updatedBy = updatedBy;
+		this.lastModified = lastModified;
+		this.turqConsignmentGroup = turqConsignmentGroup;
+		this.turqConsignment = turqConsignment;
+	}
 
-    /** persistent field */
-    private java.lang.String createdBy;
+	/** default constructor */
+	public TurqConsignmentsInGroup()
+	{
+	}
 
-    /** persistent field */
-    private java.util.Date creationDate;
+	public java.lang.Integer getId()
+	{
+		return this.id;
+	}
 
-    /** persistent field */
-    private java.lang.String updatedBy;
+	public void setId(java.lang.Integer id)
+	{
+		this.id = id;
+	}
 
-    /** persistent field */
-    private java.util.Date lastModified;
+	public java.lang.String getCreatedBy()
+	{
+		return this.createdBy;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqConsignmentGroup turqConsignmentGroup;
+	public void setCreatedBy(java.lang.String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqConsignment turqConsignment;
+	public java.util.Date getCreationDate()
+	{
+		return this.creationDate;
+	}
 
-    /** full constructor */
-    public TurqConsignmentsInGroup(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqConsignmentGroup turqConsignmentGroup, com.turquaz.engine.dal.TurqConsignment turqConsignment) {
-        this.createdBy = createdBy;
-        this.creationDate = creationDate;
-        this.updatedBy = updatedBy;
-        this.lastModified = lastModified;
-        this.turqConsignmentGroup = turqConsignmentGroup;
-        this.turqConsignment = turqConsignment;
-    }
+	public void setCreationDate(java.util.Date creationDate)
+	{
+		this.creationDate = creationDate;
+	}
 
-    /** default constructor */
-    public TurqConsignmentsInGroup() {
-    }
+	public java.lang.String getUpdatedBy()
+	{
+		return this.updatedBy;
+	}
 
-    public java.lang.Integer getId() {
-        return this.id;
-    }
+	public void setUpdatedBy(java.lang.String updatedBy)
+	{
+		this.updatedBy = updatedBy;
+	}
 
-    public void setId(java.lang.Integer id) {
-        this.id = id;
-    }
+	public java.util.Date getLastModified()
+	{
+		return this.lastModified;
+	}
 
-    public java.lang.String getCreatedBy() {
-        return this.createdBy;
-    }
+	public void setLastModified(java.util.Date lastModified)
+	{
+		this.lastModified = lastModified;
+	}
 
-    public void setCreatedBy(java.lang.String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public com.turquaz.engine.dal.TurqConsignmentGroup getTurqConsignmentGroup()
+	{
+		return this.turqConsignmentGroup;
+	}
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
+	public void setTurqConsignmentGroup(com.turquaz.engine.dal.TurqConsignmentGroup turqConsignmentGroup)
+	{
+		this.turqConsignmentGroup = turqConsignmentGroup;
+	}
 
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public com.turquaz.engine.dal.TurqConsignment getTurqConsignment()
+	{
+		return this.turqConsignment;
+	}
 
-    public java.lang.String getUpdatedBy() {
-        return this.updatedBy;
-    }
+	public void setTurqConsignment(com.turquaz.engine.dal.TurqConsignment turqConsignment)
+	{
+		this.turqConsignment = turqConsignment;
+	}
 
-    public void setUpdatedBy(java.lang.String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("id", getId()).toString();
+	}
 
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqConsignmentsInGroup))
+			return false;
+		TurqConsignmentsInGroup castOther = (TurqConsignmentsInGroup) other;
+		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
+	}
 
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
-    public com.turquaz.engine.dal.TurqConsignmentGroup getTurqConsignmentGroup() {
-        return this.turqConsignmentGroup;
-    }
-
-    public void setTurqConsignmentGroup(com.turquaz.engine.dal.TurqConsignmentGroup turqConsignmentGroup) {
-        this.turqConsignmentGroup = turqConsignmentGroup;
-    }
-
-    public com.turquaz.engine.dal.TurqConsignment getTurqConsignment() {
-        return this.turqConsignment;
-    }
-
-    public void setTurqConsignment(com.turquaz.engine.dal.TurqConsignment turqConsignment) {
-        this.turqConsignment = turqConsignment;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getId())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqConsignmentsInGroup) ) return false;
-        TurqConsignmentsInGroup castOther = (TurqConsignmentsInGroup) other;
-        return new EqualsBuilder()
-            .append(this.getId(), castOther.getId())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getId()).toHashCode();
+	}
 }

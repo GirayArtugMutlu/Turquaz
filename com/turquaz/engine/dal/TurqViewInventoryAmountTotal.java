@@ -6,91 +6,93 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqViewInventoryAmountTotal implements Serializable {
+public class TurqViewInventoryAmountTotal implements Serializable
+{
+	/** identifier field */
+	private int inventoryCardsId;
+	/** identifier field */
+	private java.math.BigDecimal transactionsAmountIn;
+	/** identifier field */
+	private java.math.BigDecimal transactionsTotalAmountOut;
+	/** identifier field */
+	private java.math.BigDecimal transactionsTotalAmountNow;
 
-    /** identifier field */
-    private int inventoryCardsId;
+	/** full constructor */
+	public TurqViewInventoryAmountTotal(int inventoryCardsId, java.math.BigDecimal transactionsAmountIn,
+			java.math.BigDecimal transactionsTotalAmountOut, java.math.BigDecimal transactionsTotalAmountNow)
+	{
+		this.inventoryCardsId = inventoryCardsId;
+		this.transactionsAmountIn = transactionsAmountIn;
+		this.transactionsTotalAmountOut = transactionsTotalAmountOut;
+		this.transactionsTotalAmountNow = transactionsTotalAmountNow;
+	}
 
-    /** identifier field */
-    private java.math.BigDecimal transactionsAmountIn;
+	/** default constructor */
+	public TurqViewInventoryAmountTotal()
+	{
+	}
 
-    /** identifier field */
-    private java.math.BigDecimal transactionsTotalAmountOut;
+	public int getInventoryCardsId()
+	{
+		return this.inventoryCardsId;
+	}
 
-    /** identifier field */
-    private java.math.BigDecimal transactionsTotalAmountNow;
+	public void setInventoryCardsId(int inventoryCardsId)
+	{
+		this.inventoryCardsId = inventoryCardsId;
+	}
 
-    /** full constructor */
-    public TurqViewInventoryAmountTotal(int inventoryCardsId, java.math.BigDecimal transactionsAmountIn, java.math.BigDecimal transactionsTotalAmountOut, java.math.BigDecimal transactionsTotalAmountNow) {
-        this.inventoryCardsId = inventoryCardsId;
-        this.transactionsAmountIn = transactionsAmountIn;
-        this.transactionsTotalAmountOut = transactionsTotalAmountOut;
-        this.transactionsTotalAmountNow = transactionsTotalAmountNow;
-    }
+	public java.math.BigDecimal getTransactionsAmountIn()
+	{
+		return this.transactionsAmountIn;
+	}
 
-    /** default constructor */
-    public TurqViewInventoryAmountTotal() {
-    }
+	public void setTransactionsAmountIn(java.math.BigDecimal transactionsAmountIn)
+	{
+		this.transactionsAmountIn = transactionsAmountIn;
+	}
 
-    public int getInventoryCardsId() {
-        return this.inventoryCardsId;
-    }
+	public java.math.BigDecimal getTransactionsTotalAmountOut()
+	{
+		return this.transactionsTotalAmountOut;
+	}
 
-    public void setInventoryCardsId(int inventoryCardsId) {
-        this.inventoryCardsId = inventoryCardsId;
-    }
+	public void setTransactionsTotalAmountOut(java.math.BigDecimal transactionsTotalAmountOut)
+	{
+		this.transactionsTotalAmountOut = transactionsTotalAmountOut;
+	}
 
-    public java.math.BigDecimal getTransactionsAmountIn() {
-        return this.transactionsAmountIn;
-    }
+	public java.math.BigDecimal getTransactionsTotalAmountNow()
+	{
+		return this.transactionsTotalAmountNow;
+	}
 
-    public void setTransactionsAmountIn(java.math.BigDecimal transactionsAmountIn) {
-        this.transactionsAmountIn = transactionsAmountIn;
-    }
+	public void setTransactionsTotalAmountNow(java.math.BigDecimal transactionsTotalAmountNow)
+	{
+		this.transactionsTotalAmountNow = transactionsTotalAmountNow;
+	}
 
-    public java.math.BigDecimal getTransactionsTotalAmountOut() {
-        return this.transactionsTotalAmountOut;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("inventoryCardsId", getInventoryCardsId()).append("transactionsAmountIn",
+				getTransactionsAmountIn()).append("transactionsTotalAmountOut", getTransactionsTotalAmountOut()).append(
+				"transactionsTotalAmountNow", getTransactionsTotalAmountNow()).toString();
+	}
 
-    public void setTransactionsTotalAmountOut(java.math.BigDecimal transactionsTotalAmountOut) {
-        this.transactionsTotalAmountOut = transactionsTotalAmountOut;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqViewInventoryAmountTotal))
+			return false;
+		TurqViewInventoryAmountTotal castOther = (TurqViewInventoryAmountTotal) other;
+		return new EqualsBuilder().append(this.getInventoryCardsId(), castOther.getInventoryCardsId()).append(
+				this.getTransactionsAmountIn(), castOther.getTransactionsAmountIn()).append(this.getTransactionsTotalAmountOut(),
+				castOther.getTransactionsTotalAmountOut()).append(this.getTransactionsTotalAmountNow(),
+				castOther.getTransactionsTotalAmountNow()).isEquals();
+	}
 
-    public java.math.BigDecimal getTransactionsTotalAmountNow() {
-        return this.transactionsTotalAmountNow;
-    }
-
-    public void setTransactionsTotalAmountNow(java.math.BigDecimal transactionsTotalAmountNow) {
-        this.transactionsTotalAmountNow = transactionsTotalAmountNow;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("inventoryCardsId", getInventoryCardsId())
-            .append("transactionsAmountIn", getTransactionsAmountIn())
-            .append("transactionsTotalAmountOut", getTransactionsTotalAmountOut())
-            .append("transactionsTotalAmountNow", getTransactionsTotalAmountNow())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqViewInventoryAmountTotal) ) return false;
-        TurqViewInventoryAmountTotal castOther = (TurqViewInventoryAmountTotal) other;
-        return new EqualsBuilder()
-            .append(this.getInventoryCardsId(), castOther.getInventoryCardsId())
-            .append(this.getTransactionsAmountIn(), castOther.getTransactionsAmountIn())
-            .append(this.getTransactionsTotalAmountOut(), castOther.getTransactionsTotalAmountOut())
-            .append(this.getTransactionsTotalAmountNow(), castOther.getTransactionsTotalAmountNow())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getInventoryCardsId())
-            .append(getTransactionsAmountIn())
-            .append(getTransactionsTotalAmountOut())
-            .append(getTransactionsTotalAmountNow())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getInventoryCardsId()).append(getTransactionsAmountIn()).append(
+				getTransactionsTotalAmountOut()).append(getTransactionsTotalAmountNow()).toHashCode();
+	}
 }

@@ -21,6 +21,7 @@ package com.turquaz.engine.ui.viewers;
  */
 import java.math.BigDecimal;
 import java.util.Date;
+import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -31,7 +32,7 @@ public class TurquazTableSorter extends ViewerSorter
 	public final static int COLUMN_TYPE_INT = 1;
 	public final static int COLUMN_TYPE_DATE = 2;
 	public final static int COLUMN_TYPE_DECIMAL = 3;
-	private boolean ascending=false;
+	private boolean ascending = false;
 	int columnIndex;
 	int columnType;
 
@@ -41,15 +42,15 @@ public class TurquazTableSorter extends ViewerSorter
 		this.columnIndex = creteria;
 		columnType = type;
 	}
-	
+
 	public boolean getAscending()
 	{
 		return ascending;
 	}
-	
+
 	public void setAscending(boolean ascending)
 	{
-		this.ascending=ascending;
+		this.ascending = ascending;
 	}
 
 	public int compare(Viewer arg0, Object arg1, Object arg2)
@@ -62,22 +63,22 @@ public class TurquazTableSorter extends ViewerSorter
 			{
 				row1 = (ITableRow) arg1;
 				row2 = (ITableRow) arg2;
-				if (row1.getDBObject()==null && row2.getDBObject()==null)
+				if (row1.getDBObject() == null && row2.getDBObject() == null)
 					return 0;
-				else if (row1.getDBObject()==null)
+				else if (row1.getDBObject() == null)
 					return 1;
-				else if (row2.getDBObject()==null)
+				else if (row2.getDBObject() == null)
 					return -1;
 			}
 			else
 			{
 				row2 = (ITableRow) arg1;
 				row1 = (ITableRow) arg2;
-				if (row1.getDBObject()==null && row2.getDBObject()==null)
+				if (row1.getDBObject() == null && row2.getDBObject() == null)
 					return 0;
-				else if (row1.getDBObject()==null)
+				else if (row1.getDBObject() == null)
 					return -1;
-				else if (row2.getDBObject()==null)
+				else if (row2.getDBObject() == null)
 					return 1;
 			}
 			if (columnType == TurquazTableSorter.COLUMN_TYPE_STRING)
@@ -127,9 +128,10 @@ public class TurquazTableSorter extends ViewerSorter
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return 0;
 		}
 	}
-	
 }

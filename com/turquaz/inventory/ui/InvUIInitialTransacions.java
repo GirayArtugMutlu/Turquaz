@@ -1,4 +1,5 @@
 package com.turquaz.inventory.ui;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -19,6 +20,7 @@ package com.turquaz.inventory.ui;
  * @version $Id$
  */
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.layout.FillLayout;
@@ -164,6 +166,8 @@ public class InvUIInitialTransacions extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -176,27 +180,29 @@ public class InvUIInitialTransacions extends org.eclipse.swt.widgets.Composite
 		editors[2] = new CurrencyCellEditor(tableInitialTransactions, 2);
 		editors[3] = new CurrencyCellEditor(tableInitialTransactions, 2);
 		tableViewer = new SaveTableViewer(tableInitialTransactions, editors);
-		tableViewer.addChangeListener(new ITableRowListViewer(){
-			public void removeRow(ITableRow row){
-				
+		tableViewer.addChangeListener(new ITableRowListViewer()
+		{
+			public void removeRow(ITableRow row)
+			{
 			}
-			public void addRow(ITableRow row){
-				
+
+			public void addRow(ITableRow row)
+			{
 			}
-			public void updateRow(ITableRow row){
-				
-				try{
-				
-					InvBLUpdateTransaction.updateObject(row.getDBObject());
-					
-				}
-				catch(Exception ex)
+
+			public void updateRow(ITableRow row)
+			{
+				try
 				{
+					InvBLUpdateTransaction.updateObject(row.getDBObject());
+				}
+				catch (Exception ex)
+				{
+					Logger loger = Logger.getLogger(this.getClass());
+					loger.error("Exception Caught", ex);
 					ex.printStackTrace();
 				}
-				
 			}
-			
 		});
 	}
 }

@@ -28,6 +28,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -137,6 +138,8 @@ public class EngBLUtils
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(EngBLUtils.class);
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -204,9 +207,10 @@ public class EngBLUtils
 		PrintPreview pr = new PrintPreview(null, title, IconSource.getImage("print"), doc); //$NON-NLS-1$
 		pr.open();
 	}
+
 	public static void printMonthlyAccountingBalance(Table table, String title, Map props)
 	{
-//		create a document with default settings from PageSetup
+		//		create a document with default settings from PageSetup
 		PDocument doc = new PDocument("Turquaz Printing"); //$NON-NLS-1$
 		// put some header text on it
 		PTextBox t;
@@ -217,11 +221,11 @@ public class EngBLUtils
 		new PHLine(doc, 0.02, SWT.COLOR_BLACK);
 		new PVSpace(doc, 0.1);
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.2")+ props.get("start_account_code"));  //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(Messages.getString("EngBLUtils.2") + props.get("start_account_code")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.GRAB | PBox.POS_RIGHT);
-		t.setText(Messages.getString("EngBLUtils.0")+ props.get("month"));   //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(Messages.getString("EngBLUtils.0") + props.get("month")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
@@ -230,7 +234,7 @@ public class EngBLUtils
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.13") + props.get("report_date"));  //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(Messages.getString("EngBLUtils.13") + props.get("report_date")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		new PVSpace(doc, 0.1);
@@ -242,12 +246,11 @@ public class EngBLUtils
 		ptable.setBoxProvider(new PTableBoxProvider());
 		PrintPreview pr = new PrintPreview(null, title, IconSource.getImage("print"), doc); //$NON-NLS-1$
 		pr.open();
-		
 	}
-	
+
 	public static void printAccountingBalance(Table table, String title, Map props)
 	{
-//		create a document with default settings from PageSetup
+		//		create a document with default settings from PageSetup
 		PDocument doc = new PDocument("Turquaz Printing"); //$NON-NLS-1$
 		// put some header text on it
 		PTextBox t;
@@ -258,11 +261,11 @@ public class EngBLUtils
 		new PHLine(doc, 0.02, SWT.COLOR_BLACK);
 		new PVSpace(doc, 0.1);
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.2")+ props.get("start_account_code"));  //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(Messages.getString("EngBLUtils.2") + props.get("start_account_code")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.GRAB | PBox.POS_RIGHT);
-		t.setText(Messages.getString("EngBLUtils.4")+ props.get("start_date"));  //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(Messages.getString("EngBLUtils.4") + props.get("start_date")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
@@ -271,12 +274,12 @@ public class EngBLUtils
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.GRAB | PBox.POS_RIGHT);
-		t.setText(Messages.getString("EngBLUtils.9") + props.get("end_date"));  //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(Messages.getString("EngBLUtils.9") + props.get("end_date")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.13") + props.get("report_date"));  //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(Messages.getString("EngBLUtils.13") + props.get("report_date")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		new PVSpace(doc, 0.1);
@@ -288,8 +291,8 @@ public class EngBLUtils
 		ptable.setBoxProvider(new PTableBoxProvider());
 		PrintPreview pr = new PrintPreview(null, title, IconSource.getImage("print"), doc); //$NON-NLS-1$
 		pr.open();
-		
 	}
+
 	public static void printBill(TurqBill bill, boolean balance)
 	{
 		try
@@ -323,57 +326,41 @@ public class EngBLUtils
 					" and units.id=invTrans.inventory_units_id"; //$NON-NLS-1$
 			parameters.put("sqlparam", sqlparam); //$NON-NLS-1$
 			//XXX print bill should be fixed..
-			/*TurqBillConsignmentCommon billCommon = bill.getTurqBillConsignmentCommon();
-			BigDecimal discount = billCommon.getDiscountAmount();
-			BigDecimal VAT = billCommon.getVatAmount();
-			BigDecimal invoiceSum = billCommon.getTotalAmount().subtract(VAT).add(discount);
-			BigDecimal invoiceTotal = invoiceSum.subtract(discount);
-			BigDecimal grandTotal = invoiceTotal.add(VAT);
-			parameters.put("invoiceSum", invoiceSum); //$NON-NLS-1$
-			parameters.put("invoiceTotal", invoiceTotal); //$NON-NLS-1$
-			parameters.put("invoiceDiscount", discount); //$NON-NLS-1$
-			parameters.put("invoiceVAT", VAT); //$NON-NLS-1$
-			parameters.put("invoiceGrandTotal", grandTotal); //$NON-NLS-1$
-			parameters.put("invoiceGrandTotalText", EngBLCurrencyToWords.getTurkishCarrencyInWords(grandTotal)); //$NON-NLS-1$
-			parameters.put("invoiceDate", dformat.format(bill.getBillsDate())); //$NON-NLS-1$
-			parameters.put("dueDate", dformat.format(bill.getDueDate())); //$NON-NLS-1$
-			TurqCurrentCard curCard = billCommon.getTurqCurrentCard();
-			parameters.put("currentName", curCard.getCardsName()); //$NON-NLS-1$
-			parameters.put("currentAddress", curCard.getCardsAddress()); //$NON-NLS-1$
-			parameters.put("currentTaxNumber", curCard.getCardsTaxNumber()); //$NON-NLS-1$
-			parameters.put("currentTaxDepartment", curCard.getCardsTaxDepartment()); //$NON-NLS-1$
-			parameters.put("currentId", curCard.getCardsCurrentCode()); //$NON-NLS-1$
-			parameters.put("totalSpecVAT", billCommon.getSpecialVatAmount()); //$NON-NLS-1$
-			parameters.put("despatchNoteDate", dformat.format(cons.getConsignmentsDate())); //$NON-NLS-1$
-			parameters.put("despatchNoteId", billCommon.getConsignmentDocumentNo()); //$NON-NLS-1$
-			parameters.put("billType", (bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_BUY) ? new Integer(1) : new Integer(0)); //$NON-NLS-1$
-			TurqViewCurrentAmountTotal currentView = CurBLCurrentCardSearch.getCurrentCardView(curCard);
-			BigDecimal allTotal = currentView.getTransactionsBalanceNow();
-			allTotal = allTotal.multiply(new BigDecimal(-1));
-			BigDecimal oldAllTotal = allTotal.subtract(grandTotal);
-			parameters.put("showBalance", new Boolean(balance)); //$NON-NLS-1$
-			parameters.put("currentBalance", oldAllTotal); //$NON-NLS-1$
-			parameters.put("currentNewBalance", allTotal); //$NON-NLS-1$
-			parameters.put("definition", bill.getBillsDefinition()); //$NON-NLS-1$
-			NumberFormat formatter = DecimalFormat.getInstance();
-			formatter.setMaximumFractionDigits(2);
-			formatter.setMinimumFractionDigits(2);
-			parameters.put("formatter", formatter); //$NON-NLS-1$
-			NumberFormat formatter2 = DecimalFormat.getInstance();
-			formatter2.setMaximumFractionDigits(4);
-			formatter2.setMinimumFractionDigits(4);
-			parameters.put("formatter2", formatter2); //$NON-NLS-1$
-			EngDALConnection db = new EngDALConnection();
-			db.connect();
-			JasperReport jasperReport = (JasperReport) JRLoader
-					.loadObject("reports/invoice/" + EngConfiguration.getString("invoice_template")); //$NON-NLS-1$ //$NON-NLS-2$
-			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, db.getCon());
-			ViewerApp viewer = new ViewerApp();
-			viewer.getReportViewer().setDocument(jasperPrint);
-			viewer.open();*/
+			/*
+			 * TurqBillConsignmentCommon billCommon = bill.getTurqBillConsignmentCommon(); BigDecimal discount =
+			 * billCommon.getDiscountAmount(); BigDecimal VAT = billCommon.getVatAmount(); BigDecimal invoiceSum =
+			 * billCommon.getTotalAmount().subtract(VAT).add(discount); BigDecimal invoiceTotal = invoiceSum.subtract(discount);
+			 * BigDecimal grandTotal = invoiceTotal.add(VAT); parameters.put("invoiceSum", invoiceSum); //$NON-NLS-1$
+			 * parameters.put("invoiceTotal", invoiceTotal); //$NON-NLS-1$ parameters.put("invoiceDiscount", discount); //$NON-NLS-1$
+			 * parameters.put("invoiceVAT", VAT); //$NON-NLS-1$ parameters.put("invoiceGrandTotal", grandTotal); //$NON-NLS-1$
+			 * parameters.put("invoiceGrandTotalText", EngBLCurrencyToWords.getTurkishCarrencyInWords(grandTotal)); //$NON-NLS-1$
+			 * parameters.put("invoiceDate", dformat.format(bill.getBillsDate())); //$NON-NLS-1$ parameters.put("dueDate",
+			 * dformat.format(bill.getDueDate())); //$NON-NLS-1$ TurqCurrentCard curCard = billCommon.getTurqCurrentCard();
+			 * parameters.put("currentName", curCard.getCardsName()); //$NON-NLS-1$ parameters.put("currentAddress",
+			 * curCard.getCardsAddress()); //$NON-NLS-1$ parameters.put("currentTaxNumber", curCard.getCardsTaxNumber()); //$NON-NLS-1$
+			 * parameters.put("currentTaxDepartment", curCard.getCardsTaxDepartment()); //$NON-NLS-1$ parameters.put("currentId",
+			 * curCard.getCardsCurrentCode()); //$NON-NLS-1$ parameters.put("totalSpecVAT", billCommon.getSpecialVatAmount());
+			 * //$NON-NLS-1$ parameters.put("despatchNoteDate", dformat.format(cons.getConsignmentsDate())); //$NON-NLS-1$
+			 * parameters.put("despatchNoteId", billCommon.getConsignmentDocumentNo()); //$NON-NLS-1$ parameters.put("billType",
+			 * (bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_BUY) ? new Integer(1) : new Integer(0)); //$NON-NLS-1$
+			 * TurqViewCurrentAmountTotal currentView = CurBLCurrentCardSearch.getCurrentCardView(curCard); BigDecimal allTotal =
+			 * currentView.getTransactionsBalanceNow(); allTotal = allTotal.multiply(new BigDecimal(-1)); BigDecimal oldAllTotal =
+			 * allTotal.subtract(grandTotal); parameters.put("showBalance", new Boolean(balance)); //$NON-NLS-1$
+			 * parameters.put("currentBalance", oldAllTotal); //$NON-NLS-1$ parameters.put("currentNewBalance", allTotal); //$NON-NLS-1$
+			 * parameters.put("definition", bill.getBillsDefinition()); //$NON-NLS-1$ NumberFormat formatter =
+			 * DecimalFormat.getInstance(); formatter.setMaximumFractionDigits(2); formatter.setMinimumFractionDigits(2);
+			 * parameters.put("formatter", formatter); //$NON-NLS-1$ NumberFormat formatter2 = DecimalFormat.getInstance();
+			 * formatter2.setMaximumFractionDigits(4); formatter2.setMinimumFractionDigits(4); parameters.put("formatter2", formatter2);
+			 * //$NON-NLS-1$ EngDALConnection db = new EngDALConnection(); db.connect(); JasperReport jasperReport = (JasperReport)
+			 * JRLoader .loadObject("reports/invoice/" + EngConfiguration.getString("invoice_template")); //$NON-NLS-1$ //$NON-NLS-2$
+			 * final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, db.getCon()); ViewerApp viewer =
+			 * new ViewerApp(); viewer.getReportViewer().setDocument(jasperPrint); viewer.open();
+			 */
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(EngBLUtils.class);
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -402,48 +389,37 @@ public class EngBLUtils
 					" and units.inventory_units_id=invTrans.inventory_units_id"; //$NON-NLS-1$
 			//XXX cons print should be fixed..
 			parameters.put("sqlparam", sqlparam); //$NON-NLS-1$
-			/*TurqBillConsignmentCommon billCommon = cons.getTurqBillConsignmentCommon();
-			BigDecimal invoiceSum = billCommon.getTotalAmount().add(billCommon.getSpecialVatAmount());
-			BigDecimal discount = billCommon.getDiscountAmount();
-			BigDecimal specialVAT = billCommon.getVatAmount();
-			BigDecimal invoiceTotal = invoiceSum.subtract(discount);
-			BigDecimal grandTotal = invoiceTotal.add(specialVAT);
-			parameters.put("invoiceSum", invoiceSum); //$NON-NLS-1$
-			parameters.put("invoiceTotal", invoiceTotal); //$NON-NLS-1$
-			parameters.put("invoiceDiscount", discount); //$NON-NLS-1$
-			parameters.put("invoiceVAT", specialVAT); //$NON-NLS-1$
-			parameters.put("invoiceGrandTotal", grandTotal); //$NON-NLS-1$
-			parameters.put("invoiceGrandTotalText", EngBLCurrencyToWords.getTurkishCarrencyInWords(grandTotal)); //$NON-NLS-1$
-			TurqCurrentCard curCard = billCommon.getTurqCurrentCard();
-			parameters.put("currentName", curCard.getCardsName()); //$NON-NLS-1$
-			parameters.put("currentAddress", curCard.getCardsAddress()); //$NON-NLS-1$
-			parameters.put("currentTaxNumber", curCard.getCardsTaxNumber()); //$NON-NLS-1$
-			parameters.put("currentTaxDepartment", curCard.getCardsTaxDepartment()); //$NON-NLS-1$
-			parameters.put("currentId", curCard.getCardsCurrentCode()); //$NON-NLS-1$
-			parameters.put("despatchNoteDate", dformat.format(cons.getConsignmentsDate())); //$NON-NLS-1$
-			parameters.put("despatchNoteId", billCommon.getConsignmentDocumentNo()); //$NON-NLS-1$
-			TurqViewCurrentAmountTotal currentView = CurBLCurrentCardSearch.getCurrentCardView(curCard);
-			BigDecimal allTotal = (currentView.getTransactionsBalanceNow() == null) ? new BigDecimal(0) : currentView
-					.getTransactionsBalanceNow();
-			BigDecimal oldAllTotal = allTotal.subtract(grandTotal);
-			parameters.put("currentBalance", oldAllTotal); //$NON-NLS-1$
-			parameters.put("currentNewBalance", allTotal); //$NON-NLS-1$
-			parameters.put("definition", cons.getConsignmentsDefinition()); //$NON-NLS-1$
-			NumberFormat formatter = DecimalFormat.getInstance();
-			formatter.setMaximumFractionDigits(2);
-			formatter.setMinimumFractionDigits(2);
-			parameters.put("formatter", formatter); //$NON-NLS-1$
-			EngDALConnection db = new EngDALConnection();
-			db.connect();
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/consignment/template1.jasper"); //$NON-NLS-1$
-			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, db.getCon());
-			ViewerApp viewerApp = new ViewerApp();
-			viewerApp.getReportViewer().setDocument(jasperPrint);
-			viewerApp.open();
-			//reportViewer.getReportViewer().setDocument(jasperPrint);*/
+			/*
+			 * TurqBillConsignmentCommon billCommon = cons.getTurqBillConsignmentCommon(); BigDecimal invoiceSum =
+			 * billCommon.getTotalAmount().add(billCommon.getSpecialVatAmount()); BigDecimal discount = billCommon.getDiscountAmount();
+			 * BigDecimal specialVAT = billCommon.getVatAmount(); BigDecimal invoiceTotal = invoiceSum.subtract(discount); BigDecimal
+			 * grandTotal = invoiceTotal.add(specialVAT); parameters.put("invoiceSum", invoiceSum); //$NON-NLS-1$
+			 * parameters.put("invoiceTotal", invoiceTotal); //$NON-NLS-1$ parameters.put("invoiceDiscount", discount); //$NON-NLS-1$
+			 * parameters.put("invoiceVAT", specialVAT); //$NON-NLS-1$ parameters.put("invoiceGrandTotal", grandTotal); //$NON-NLS-1$
+			 * parameters.put("invoiceGrandTotalText", EngBLCurrencyToWords.getTurkishCarrencyInWords(grandTotal)); //$NON-NLS-1$
+			 * TurqCurrentCard curCard = billCommon.getTurqCurrentCard(); parameters.put("currentName", curCard.getCardsName());
+			 * //$NON-NLS-1$ parameters.put("currentAddress", curCard.getCardsAddress()); //$NON-NLS-1$
+			 * parameters.put("currentTaxNumber", curCard.getCardsTaxNumber()); //$NON-NLS-1$ parameters.put("currentTaxDepartment",
+			 * curCard.getCardsTaxDepartment()); //$NON-NLS-1$ parameters.put("currentId", curCard.getCardsCurrentCode()); //$NON-NLS-1$
+			 * parameters.put("despatchNoteDate", dformat.format(cons.getConsignmentsDate())); //$NON-NLS-1$
+			 * parameters.put("despatchNoteId", billCommon.getConsignmentDocumentNo()); //$NON-NLS-1$ TurqViewCurrentAmountTotal
+			 * currentView = CurBLCurrentCardSearch.getCurrentCardView(curCard); BigDecimal allTotal =
+			 * (currentView.getTransactionsBalanceNow() == null) ? new BigDecimal(0) : currentView .getTransactionsBalanceNow();
+			 * BigDecimal oldAllTotal = allTotal.subtract(grandTotal); parameters.put("currentBalance", oldAllTotal); //$NON-NLS-1$
+			 * parameters.put("currentNewBalance", allTotal); //$NON-NLS-1$ parameters.put("definition",
+			 * cons.getConsignmentsDefinition()); //$NON-NLS-1$ NumberFormat formatter = DecimalFormat.getInstance();
+			 * formatter.setMaximumFractionDigits(2); formatter.setMinimumFractionDigits(2); parameters.put("formatter", formatter);
+			 * //$NON-NLS-1$ EngDALConnection db = new EngDALConnection(); db.connect(); JasperReport jasperReport = (JasperReport)
+			 * JRLoader.loadObject("reports/consignment/template1.jasper"); //$NON-NLS-1$ final JasperPrint jasperPrint =
+			 * JasperFillManager.fillReport(jasperReport, parameters, db.getCon()); ViewerApp viewerApp = new ViewerApp();
+			 * viewerApp.getReportViewer().setDocument(jasperPrint); viewerApp.open();
+			 * //reportViewer.getReportViewer().setDocument(jasperPrint);
+			 */
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(EngBLUtils.class);
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -483,6 +459,8 @@ public class EngBLUtils
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(EngBLUtils.class.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
@@ -73,7 +74,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	private CLabel lblDefinition;
 	private Table tableCashTransactions;
 	private Calendar cal = Calendar.getInstance();
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 
 	public CashUICashTransactionSearch(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -200,7 +201,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 		datePickerStart.setDate(cal.getTime());
 		createTableViewer();
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[4];
@@ -208,7 +209,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableCashTransactions, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableCashTransactions, columnTypes, true);
 	}
 
 	public void delete()
@@ -263,18 +264,19 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 				}
 				transDefinition = row[5].toString();
 				TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), transDefinition, type, cf.format(amount)},id);
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), transDefinition, type, cf.format(amount)}, id);
 			}
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
 
-	public static boolean updateCashTransaction(Integer transId,Shell shell)throws Exception
+	public static boolean updateCashTransaction(Integer transId, Shell shell) throws Exception
 	{
-		
 		TurqCashTransaction cashTrans = CashBLCashTransactionSearch.initializeCashTransaction(transId);
 		if (cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue() != EngBLCommon.MODULE_CASH)
 		{
@@ -302,11 +304,9 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 		{
 			updated = new CashUICashTransferBetweenCardsUpdate(shell, SWT.NULL, cashTrans).open();
 		}
-		
 		return updated;
-		
 	}
-	
+
 	public void tableMouseDoubleClick()
 	{
 		try
@@ -315,14 +315,16 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 			if (selection.length > 0)
 			{
 				TableItem item = selection[0];
-				Integer id = (Integer) ((ITableRow)item.getData()).getDBObject();
-				boolean updated = updateCashTransaction(id,getShell());
+				Integer id = (Integer) ((ITableRow) item.getData()).getDBObject();
+				boolean updated = updateCashTransaction(id, getShell());
 				if (updated)
 					search();
 			}
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

@@ -22,6 +22,7 @@ package com.turquaz.inventory.ui;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
@@ -89,7 +90,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 	private InventoryPicker txtInvCode;
 	private CLabel lblInvCode;
 	private Composite compInvCardSearchPanel;
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 
 	public InvUICardSearch(Composite parent, int style)
 	{
@@ -283,7 +284,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 		fillComboGroup();
 		createTableViewer();
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[8];
@@ -295,7 +296,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableSearcResults, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableSearcResults, columnTypes, true);
 	}
 
 	private void comboInvMainGroupWidgetSelected(SelectionEvent evt)
@@ -333,6 +334,8 @@ public class InvUICardSearch extends Composite implements SearchComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -349,12 +352,11 @@ public class InvUICardSearch extends Composite implements SearchComposite
 			TableItem items[] = tableSearcResults.getSelection();
 			if (items.length > 0)
 			{
-				Integer cardId = (Integer) ((ITableRow)items[0].getData()).getDBObject();
+				Integer cardId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (cardId != null)
-				{			
+				{
 					TurqInventoryCard invCard = InvBLCardSearch.initializeInventoryCard(cardId);
 					InvBLCardSearch.initializeInventoryCard(invCard);
-					
 					msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
 					if (msg.open() == SWT.NO)
 						return;
@@ -374,9 +376,10 @@ public class InvUICardSearch extends Composite implements SearchComposite
 				}
 			}
 		}
-		
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg = new MessageBox(this.getShell(), SWT.ICON_ERROR);
 			msg.setMessage(ex.getMessage());
@@ -420,11 +423,13 @@ public class InvUICardSearch extends Composite implements SearchComposite
 				TurkishCurrencyFormat format = new TurkishCurrencyFormat();
 				tableViewer.addRow(new String[]{invCode, invName, totalAmountIn.toString(), totalAmountOut.toString(),
 						balanceAmountIn.toString(), balanceAmountOut.toString(), format.format(totalPriceIn),
-						format.format(totalPriceOut)},cardId);
+						format.format(totalPriceOut)}, cardId);
 			}
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -465,7 +470,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 		{
 			try
 			{
-				Integer cardId = (Integer) ((ITableRow)selection[0].getData()).getDBObject();
+				Integer cardId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cardId != null)
 				{
 					TurqInventoryCard card = InvBLCardSearch.initializeInventoryCard(cardId);
@@ -476,6 +481,8 @@ public class InvUICardSearch extends Composite implements SearchComposite
 			}
 			catch (Exception ex)
 			{
+				Logger loger = Logger.getLogger(this.getClass());
+				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
 			}
 		}

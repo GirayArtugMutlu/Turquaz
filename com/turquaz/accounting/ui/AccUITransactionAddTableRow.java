@@ -1,6 +1,7 @@
 package com.turquaz.accounting.ui;
 
 import java.math.BigDecimal;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
@@ -33,7 +34,6 @@ public class AccUITransactionAddTableRow implements ITableRow
 	{
 		row_index = a;
 	}
-	
 
 	public int getRowIndex()
 	{
@@ -143,6 +143,8 @@ public class AccUITransactionAddTableRow implements ITableRow
 				}
 				catch (Exception ex)
 				{
+					Logger loger = Logger.getLogger(this.getClass());
+					loger.error("Exception Caught", ex);
 					ex.printStackTrace();
 				}
 				break;
@@ -216,17 +218,19 @@ public class AccUITransactionAddTableRow implements ITableRow
 			return true;
 		}
 	}
+
 	public int getColumnType(int index)
 	{
-		if(columnTypes == null)
+		if (columnTypes == null)
 		{
 			return TurquazTableSorter.COLUMN_TYPE_STRING;
 		}
-		else 
+		else
 			return columnTypes[index];
 	}
-	public void setColumnTypes(int []types)
+
+	public void setColumnTypes(int[] types)
 	{
-         columnTypes = types	;	
+		columnTypes = types;
 	}
 }

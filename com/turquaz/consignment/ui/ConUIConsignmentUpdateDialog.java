@@ -27,6 +27,7 @@ import com.turquaz.engine.dal.TurqConsignmentsInGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.CoolBar;
@@ -213,6 +214,8 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 		checkBill();
@@ -254,13 +257,12 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		while (it.hasNext())
 		{
 			invTrans = (TurqInventoryTransaction) it.next();
-			InvUITransactionTableRow row = new InvUITransactionTableRow( consignment.getConsignmentsType(),
+			InvUITransactionTableRow row = new InvUITransactionTableRow(consignment.getConsignmentsType(),
 					compAddConsignment.tableViewer);
 			row.setDBObject(invTrans);
 			compAddConsignment.tableViewer.addRow(row);
 		}
-		InvUITransactionTableRow row2 = new InvUITransactionTableRow( consignment.getConsignmentsType(),
-				compAddConsignment.tableViewer);
+		InvUITransactionTableRow row2 = new InvUITransactionTableRow(consignment.getConsignmentsType(), compAddConsignment.tableViewer);
 		compAddConsignment.tableViewer.addRow(row2);
 		compAddConsignment.calculateTotals();
 	}
@@ -284,6 +286,8 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();
@@ -301,15 +305,17 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				type = 1;
 			ConBLUpdateConsignment.updateConsignment(consignment, compAddConsignment.getTxtDocumentNo().getText(), compAddConsignment
 					.getTxtDefinition().getText(), compAddConsignment.getDateConsignmentDate().getDate(),
-					(TurqCurrentCard) compAddConsignment.getTxtCurrentCard().getData(), 
-							 type, EngBLCommon.getBaseCurrencyExchangeRate(),
-					compAddConsignment.getInventoryTransactions(), compAddConsignment.getConsignmentGroups());
+					(TurqCurrentCard) compAddConsignment.getTxtCurrentCard().getData(), type, EngBLCommon
+							.getBaseCurrencyExchangeRate(), compAddConsignment.getInventoryTransactions(), compAddConsignment
+							.getConsignmentGroups());
 			msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.12")); //$NON-NLS-1$
 			msg.open();
 			dialogShell.close();
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();

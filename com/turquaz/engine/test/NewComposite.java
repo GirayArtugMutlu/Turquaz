@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
@@ -111,18 +112,20 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite
 	{
 		super(parent, style);
 		initGUI();
-		try{
-		Map map = EngUITableProperties.getTableWidthMap("table.Inv.Transactions"); 
-		Iterator it =map.keySet().iterator();
-			while(it.hasNext())
-			{
-			Object key = it.next();
-			System.out.println(key +" : "+map.get(key));	
-			}
-		
-		}
-		catch(Exception ex)
+		try
 		{
+			Map map = EngUITableProperties.getTableWidthMap("table.Inv.Transactions");
+			Iterator it = map.keySet().iterator();
+			while (it.hasNext())
+			{
+				Object key = it.next();
+				System.out.println(key + " : " + map.get(key));
+			}
+		}
+		catch (Exception ex)
+		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -137,27 +140,23 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite
 			dateMask.setMask("##/##/####");
 			this.setLayout(new GridLayout());
 			this.setSize(1411, 311);
-			//START >>  tableViewer1
+			//START >> tableViewer1
 			tableViewer1 = new TableViewer(this, SWT.NONE);
 			GridData tableViewer1LData = new GridData();
-			((Table)tableViewer1.getControl()).setLinesVisible(true);
-			((Table)tableViewer1.getControl()).setHeaderVisible(true);
+			((Table) tableViewer1.getControl()).setLinesVisible(true);
+			((Table) tableViewer1.getControl()).setHeaderVisible(true);
 			tableViewer1LData.widthHint = 453;
 			tableViewer1LData.heightHint = 280;
 			tableViewer1.getControl().setLayoutData(tableViewer1LData);
-		    TableColumn column = new TableColumn(tableViewer1.getTable(),SWT.NONE);
+			TableColumn column = new TableColumn(tableViewer1.getTable(), SWT.NONE);
 			column.setWidth(100);
-			
-			TableItem item = new TableItem(tableViewer1.getTable(),SWT.NONE);
+			TableItem item = new TableItem(tableViewer1.getTable(), SWT.NONE);
 			item.setText("ggdgdffadfdsa");
-			
-			item = new TableItem(tableViewer1.getTable(),SWT.NONE);
+			item = new TableItem(tableViewer1.getTable(), SWT.NONE);
 			item.setText("cacacadcadcadc");
-			
-			item = new TableItem(tableViewer1.getTable(),SWT.NONE);
+			item = new TableItem(tableViewer1.getTable(), SWT.NONE);
 			item.setText("ddfdfadfadfad");
-			
-		    //END <<  tableViewer1
+			//END << tableViewer1
 			//          create a TableCursor to navigate around the table
 			this.layout();
 		}
@@ -166,8 +165,4 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite
 			e.printStackTrace();
 		}
 	}
-
-	
-
-	
 }

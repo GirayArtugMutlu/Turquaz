@@ -47,11 +47,10 @@ public class InvDALSearchTransaction
 		{
 			Session session = EngDALSessionFactory.openSession();
 			String query = "Select transaction.id,transaction.transactionsDate,transaction.amountIn,"
-					+ "transaction.amountOut, transaction.totalPrice,"
-					+ " transaction.turqInventoryCard.cardInventoryCode, "
+					+ "transaction.amountOut, transaction.totalPrice," + " transaction.turqInventoryCard.cardInventoryCode, "
 					+ " transaction.turqInventoryCard.cardName from TurqInventoryTransaction as transaction"
 					+ " where transaction.transactionsDate >= :startDate" + " and transaction.transactionsDate <= :endDate";
-			if (type == EngBLCommon.COMMON_BUY_INT)	
+			if (type == EngBLCommon.COMMON_BUY_INT)
 				query += " and transaction.amountIn > 0";
 			else if (type == EngBLCommon.COMMON_SELL_INT)
 				query += " and transaction.amountOut > 0";
@@ -92,11 +91,11 @@ public class InvDALSearchTransaction
 		{
 			Session session = EngDALSessionFactory.openSession();
 			String query = "Select transaction.id," + "transaction.transactionsDate," + "transaction.amountIn,"
-					+ "transaction.amountOut, transaction.totalPrice,"
-					+ " transaction.turqInventoryCard.cardInventoryCode, " + " transaction.turqInventoryCard.cardName,"
-					+ " transaction.turqCurrentCard.cardsName," + " transaction.turqInventoryCard.id,"
-					+ " transaction.documentNo " + "  from TurqInventoryTransaction as transaction"
-					+ " where transaction.transactionsDate >= :startDate" + " and transaction.transactionsDate <= :endDate";
+					+ "transaction.amountOut, transaction.totalPrice," + " transaction.turqInventoryCard.cardInventoryCode, "
+					+ " transaction.turqInventoryCard.cardName," + " transaction.turqCurrentCard.cardsName,"
+					+ " transaction.turqInventoryCard.id," + " transaction.documentNo "
+					+ "  from TurqInventoryTransaction as transaction" + " where transaction.transactionsDate >= :startDate"
+					+ " and transaction.transactionsDate <= :endDate";
 			if (type == EngBLCommon.COMMON_BUY_INT)
 				query += " and transaction.amountIn > 0";
 			else if (type == EngBLCommon.COMMON_SELL_INT)
@@ -155,10 +154,9 @@ public class InvDALSearchTransaction
 		{
 			Session session = EngDALSessionFactory.openSession();
 			String query = "Select transaction.id," + "transaction.transactionsDate," + "transaction.amountIn,"
-					+ "transaction.amountOut," + " transaction.totalPrice,"
-					+ " transaction.turqInventoryCard.cardInventoryCode, " + " transaction.turqInventoryCard.cardName,"
-					+ " transaction.turqCurrentCard.cardsName," + " transaction.turqInventoryCard.id,"
-					+ " transaction.documentNo";
+					+ "transaction.amountOut," + " transaction.totalPrice," + " transaction.turqInventoryCard.cardInventoryCode, "
+					+ " transaction.turqInventoryCard.cardName," + " transaction.turqCurrentCard.cardsName,"
+					+ " transaction.turqInventoryCard.id," + " transaction.documentNo";
 			if (invMainGroup != null)
 			{
 				query += ", cardGroup.turqInventoryGroup.groupsName," + " cardGroup.turqInventoryGroup.id";
@@ -205,10 +203,8 @@ public class InvDALSearchTransaction
 			}
 			if (curCardStart != null && curCardEnd != null)
 			{
-				query += " and transaction.turqCurrentCard.cardsCurrentCode >= '"
-						+ curCardStart.getCardsCurrentCode() + "'";
-				query += " and transaction.turqCurrentCard.cardsCurrentCode <= '"
-						+ curCardEnd.getCardsCurrentCode() + "'";
+				query += " and transaction.turqCurrentCard.cardsCurrentCode >= '" + curCardStart.getCardsCurrentCode() + "'";
+				query += " and transaction.turqCurrentCard.cardsCurrentCode <= '" + curCardEnd.getCardsCurrentCode() + "'";
 			}
 			else if (curCardStart != null)
 			{
@@ -286,7 +282,7 @@ public class InvDALSearchTransaction
 		Session session = null;
 		try
 		{
-			 session = EngDALSessionFactory.openSession();
+			session = EngDALSessionFactory.openSession();
 			session.refresh(seq);
 			Hibernate.initialize(seq.getTurqConsignments());
 			Iterator it = seq.getTurqConsignments().iterator();
@@ -296,7 +292,7 @@ public class InvDALSearchTransaction
 				cons = (TurqConsignment) it.next();
 				ConDALUpdateConsignment.initiliazeConsignment(cons);
 			}
-		    session.close();
+			session.close();
 			return cons;
 		}
 		catch (Exception ex)
@@ -305,27 +301,23 @@ public class InvDALSearchTransaction
 		}
 		finally
 		{
-			if(session!=null)
+			if (session != null)
 			{
 				session.close();
 			}
 		}
 	}
-	
-	public static List getInitialTransactions()throws Exception
+
+	public static List getInitialTransactions() throws Exception
 	{
 		Session session = null;
 		try
 		{
-		 session = EngDALSessionFactory.openSession();
-		String query = "Select invTrans from TurqInventoryTransaction as invTrans " +
-				" where invTrans.turqInventoryTransactionType.id = "+EngBLCommon.INV_TRANS_INITIAL;
-		 
-		 Query q = session.createQuery(query);
-		 
-		 return q.list();
-		 
-		 
+			session = EngDALSessionFactory.openSession();
+			String query = "Select invTrans from TurqInventoryTransaction as invTrans "
+					+ " where invTrans.turqInventoryTransactionType.id = " + EngBLCommon.INV_TRANS_INITIAL;
+			Query q = session.createQuery(query);
+			return q.list();
 		}
 		catch (Exception ex)
 		{
@@ -333,7 +325,7 @@ public class InvDALSearchTransaction
 		}
 		finally
 		{
-			if(session!=null)
+			if (session != null)
 			{
 				session.close();
 			}
@@ -345,19 +337,18 @@ public class InvDALSearchTransaction
 		Session session = null;
 		try
 		{
-		 session = EngDALSessionFactory.openSession();
+			session = EngDALSessionFactory.openSession();
 			session.refresh(seq);
 			Hibernate.initialize(seq.getTurqConsignments());
 			Iterator it = seq.getTurqBillInEngineSequences().iterator();
-			TurqBill bill=null;
+			TurqBill bill = null;
 			if (it.hasNext())
 			{
-				bill=((TurqBillInEngineSequence)it.next()).getTurqBill();
+				bill = ((TurqBillInEngineSequence) it.next()).getTurqBill();
 				BillDALSearchBill.initializeBill(bill);
 			}
 			session.close();
 			return bill;
-
 		}
 		catch (Exception ex)
 		{
@@ -365,7 +356,7 @@ public class InvDALSearchTransaction
 		}
 		finally
 		{
-			if(session!=null)
+			if (session != null)
 			{
 				session.close();
 			}

@@ -50,11 +50,11 @@ public class TableSpreadsheetCursor extends TableCursor implements ICellEditorLi
 	Table table;
 	boolean activeDelete = true;
 
-	public TableSpreadsheetCursor(Table table, int style, SaveTableViewer viewer,boolean activateDelete)
+	public TableSpreadsheetCursor(Table table, int style, SaveTableViewer viewer, boolean activateDelete)
 	{
 		super(table, style);
 		this.tableViewer = viewer.getViewer();
-		rowList=viewer.getRowList();
+		rowList = viewer.getRowList();
 		this.table = table;
 		this.activeDelete = activateDelete;
 		this.addKeyListener(new KeyAdapter()
@@ -72,11 +72,12 @@ public class TableSpreadsheetCursor extends TableCursor implements ICellEditorLi
 			}
 		});
 	}
-	public TableSpreadsheetCursor(Table table, int style,TableViewer viewer, TableRowList roeList,boolean activateDelete)
+
+	public TableSpreadsheetCursor(Table table, int style, TableViewer viewer, TableRowList roeList, boolean activateDelete)
 	{
 		super(table, style);
 		this.tableViewer = viewer;
-		this.rowList=roeList;
+		this.rowList = roeList;
 		this.table = table;
 		this.activeDelete = activateDelete;
 		this.addKeyListener(new KeyAdapter()

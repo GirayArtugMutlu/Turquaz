@@ -19,6 +19,7 @@ package com.turquaz.inventory.ui;
  * @author onsel
  * @version $Id$
  */
+import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -975,6 +976,8 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -992,6 +995,8 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -1010,6 +1015,8 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -1187,6 +1194,8 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -1269,6 +1278,8 @@ public class InvUICardAdd extends Composite implements SecureComposite
 			}
 			catch (Exception ex)
 			{
+				Logger loger = Logger.getLogger(this.getClass());
+				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(ex.getMessage());
@@ -1297,6 +1308,8 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return null;
 		}
@@ -1326,6 +1339,8 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return null;
 		}
@@ -1364,6 +1379,8 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return null;
 		}

@@ -51,8 +51,8 @@ public class BillBLUpdateBill
 		Iterator it = bill.getTurqBillInEngineSequences().iterator();
 		while (it.hasNext())
 		{
-			Iterator it2=((TurqBillInEngineSequence)it.next()).getTurqEngineSequence().getTurqConsignments().iterator();
-			while(it2.hasNext())
+			Iterator it2 = ((TurqBillInEngineSequence) it.next()).getTurqEngineSequence().getTurqConsignments().iterator();
+			while (it2.hasNext())
 			{
 				TurqConsignment cons = (TurqConsignment) it2.next();
 				ConBLUpdateConsignment.initiliazeConsignment(cons);
@@ -61,17 +61,16 @@ public class BillBLUpdateBill
 		}
 	}
 
-	public static void deleteBill(TurqBill bill,boolean deleteCons) throws Exception
+	public static void deleteBill(TurqBill bill, boolean deleteCons) throws Exception
 	{
 		deleteAccountingTransactions(bill);
 		deleteCurrentTransactions(bill);
 		deleteBillGroups(bill);
 		EngDALCommon.deleteObject(bill);
-		if(deleteCons)
+		if (deleteCons)
 		{
 			deleteBillConsignment(bill);
 		}
-		
 	}
 
 	/**
@@ -136,12 +135,12 @@ public class BillBLUpdateBill
 		Iterator it = bill.getTurqBillInEngineSequences().iterator();
 		while (it.hasNext())
 		{
-			Iterator it2=((TurqBillInEngineSequence)it.next()).getTurqEngineSequence().getTurqConsignments().iterator();
+			Iterator it2 = ((TurqBillInEngineSequence) it.next()).getTurqEngineSequence().getTurqConsignments().iterator();
 			while (it2.hasNext())
 			{
 				TurqConsignment cons = (TurqConsignment) it.next();
-				ConBLUpdateConsignment.updateConsignment(cons, consNo, definition, billDate, curCard, 
-						type, exchangeRate, invTransactions, null);
+				ConBLUpdateConsignment.updateConsignment(cons, consNo, definition, billDate, curCard, type, exchangeRate,
+						invTransactions, null);
 			}
 		}
 	}

@@ -34,7 +34,8 @@ public class CheBLSearchCheques
 	{
 		try
 		{
-			return CheDALSearch.searchCheque(portfoliNo, curCard, status, startEnterDate, endEnterDate, startDueDate, endDueDate,isSortEntryDate);
+			return CheDALSearch.searchCheque(portfoliNo, curCard, status, startEnterDate, endEnterDate, startDueDate, endDueDate,
+					isSortEntryDate);
 		}
 		catch (Exception ex)
 		{

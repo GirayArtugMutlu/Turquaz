@@ -164,8 +164,8 @@ public class InvDALCardSearch
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select invCard.cardInventoryCode,invCard.cardName from TurqInventoryCard as invCard" +
-					" order by invCard.cardInventoryCode";
+			String query = "Select invCard.cardInventoryCode,invCard.cardName from TurqInventoryCard as invCard"
+					+ " order by invCard.cardInventoryCode";
 			Query q = session.createQuery(query);
 			List list = q.list();
 			session.close();
@@ -246,7 +246,6 @@ public class InvDALCardSearch
 			Hibernate.initialize(invCard.getTurqInventoryPrices());
 			Hibernate.initialize(invCard.getTurqInventoryCardUnits());
 			Hibernate.initialize(invCard.getTurqInventoryAccountingAccounts());
-			
 			session.close();
 			return invCard;
 		}
@@ -266,7 +265,6 @@ public class InvDALCardSearch
 			Hibernate.initialize(invCard.getTurqInventoryPrices());
 			Hibernate.initialize(invCard.getTurqInventoryCardUnits());
 			Hibernate.initialize(invCard.getTurqInventoryAccountingAccounts());
-		
 			session.close();
 			return invCard;
 		}

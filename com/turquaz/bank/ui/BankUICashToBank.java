@@ -2,6 +2,7 @@ package com.turquaz.bank.ui;
 
 import java.math.BigDecimal;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
@@ -189,6 +190,8 @@ public class BankUICashToBank extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -238,6 +241,8 @@ public class BankUICashToBank extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return false;
 		}
@@ -266,6 +271,8 @@ public class BankUICashToBank extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			EngUICommon.showMessageBox(getShell(), ex.getMessage(), SWT.ICON_ERROR);
 		}

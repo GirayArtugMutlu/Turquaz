@@ -21,6 +21,7 @@ package com.turquaz.cash.ui;
  */
 import java.math.BigDecimal;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.MessageBox;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
@@ -233,6 +234,8 @@ public class CashUICashPaymentTransactionAdd extends org.eclipse.swt.widgets.Com
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -263,6 +266,8 @@ public class CashUICashPaymentTransactionAdd extends org.eclipse.swt.widgets.Com
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();
@@ -320,6 +325,8 @@ public class CashUICashPaymentTransactionAdd extends org.eclipse.swt.widgets.Com
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return false;
 		}

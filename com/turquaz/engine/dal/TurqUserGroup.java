@@ -6,117 +6,125 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqUserGroup implements Serializable {
+public class TurqUserGroup implements Serializable
+{
+	/** identifier field */
+	private java.lang.Integer id;
+	/** persistent field */
+	private java.lang.String createdBy;
+	/** persistent field */
+	private java.util.Date creationDate;
+	/** persistent field */
+	private java.lang.String updatedBy;
+	/** persistent field */
+	private java.util.Date updateDate;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqGroup turqGroup;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqUser turqUser;
 
-    /** identifier field */
-    private java.lang.Integer id;
+	/** full constructor */
+	public TurqUserGroup(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate,
+			com.turquaz.engine.dal.TurqGroup turqGroup, com.turquaz.engine.dal.TurqUser turqUser)
+	{
+		this.createdBy = createdBy;
+		this.creationDate = creationDate;
+		this.updatedBy = updatedBy;
+		this.updateDate = updateDate;
+		this.turqGroup = turqGroup;
+		this.turqUser = turqUser;
+	}
 
-    /** persistent field */
-    private java.lang.String createdBy;
+	/** default constructor */
+	public TurqUserGroup()
+	{
+	}
 
-    /** persistent field */
-    private java.util.Date creationDate;
+	public java.lang.Integer getId()
+	{
+		return this.id;
+	}
 
-    /** persistent field */
-    private java.lang.String updatedBy;
+	public void setId(java.lang.Integer id)
+	{
+		this.id = id;
+	}
 
-    /** persistent field */
-    private java.util.Date updateDate;
+	public java.lang.String getCreatedBy()
+	{
+		return this.createdBy;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqGroup turqGroup;
+	public void setCreatedBy(java.lang.String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqUser turqUser;
+	public java.util.Date getCreationDate()
+	{
+		return this.creationDate;
+	}
 
-    /** full constructor */
-    public TurqUserGroup(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqGroup turqGroup, com.turquaz.engine.dal.TurqUser turqUser) {
-        this.createdBy = createdBy;
-        this.creationDate = creationDate;
-        this.updatedBy = updatedBy;
-        this.updateDate = updateDate;
-        this.turqGroup = turqGroup;
-        this.turqUser = turqUser;
-    }
+	public void setCreationDate(java.util.Date creationDate)
+	{
+		this.creationDate = creationDate;
+	}
 
-    /** default constructor */
-    public TurqUserGroup() {
-    }
+	public java.lang.String getUpdatedBy()
+	{
+		return this.updatedBy;
+	}
 
-    public java.lang.Integer getId() {
-        return this.id;
-    }
+	public void setUpdatedBy(java.lang.String updatedBy)
+	{
+		this.updatedBy = updatedBy;
+	}
 
-    public void setId(java.lang.Integer id) {
-        this.id = id;
-    }
+	public java.util.Date getUpdateDate()
+	{
+		return this.updateDate;
+	}
 
-    public java.lang.String getCreatedBy() {
-        return this.createdBy;
-    }
+	public void setUpdateDate(java.util.Date updateDate)
+	{
+		this.updateDate = updateDate;
+	}
 
-    public void setCreatedBy(java.lang.String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public com.turquaz.engine.dal.TurqGroup getTurqGroup()
+	{
+		return this.turqGroup;
+	}
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
+	public void setTurqGroup(com.turquaz.engine.dal.TurqGroup turqGroup)
+	{
+		this.turqGroup = turqGroup;
+	}
 
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public com.turquaz.engine.dal.TurqUser getTurqUser()
+	{
+		return this.turqUser;
+	}
 
-    public java.lang.String getUpdatedBy() {
-        return this.updatedBy;
-    }
+	public void setTurqUser(com.turquaz.engine.dal.TurqUser turqUser)
+	{
+		this.turqUser = turqUser;
+	}
 
-    public void setUpdatedBy(java.lang.String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("id", getId()).toString();
+	}
 
-    public java.util.Date getUpdateDate() {
-        return this.updateDate;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqUserGroup))
+			return false;
+		TurqUserGroup castOther = (TurqUserGroup) other;
+		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
+	}
 
-    public void setUpdateDate(java.util.Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public com.turquaz.engine.dal.TurqGroup getTurqGroup() {
-        return this.turqGroup;
-    }
-
-    public void setTurqGroup(com.turquaz.engine.dal.TurqGroup turqGroup) {
-        this.turqGroup = turqGroup;
-    }
-
-    public com.turquaz.engine.dal.TurqUser getTurqUser() {
-        return this.turqUser;
-    }
-
-    public void setTurqUser(com.turquaz.engine.dal.TurqUser turqUser) {
-        this.turqUser = turqUser;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getId())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqUserGroup) ) return false;
-        TurqUserGroup castOther = (TurqUserGroup) other;
-        return new EqualsBuilder()
-            .append(this.getId(), castOther.getId())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getId()).toHashCode();
+	}
 }

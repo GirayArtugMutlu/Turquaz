@@ -2,6 +2,7 @@ package com.turquaz.current.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -119,6 +120,8 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -182,6 +185,8 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 				}
 				catch (Exception ex)
 				{
+					Logger loger = Logger.getLogger(this.getClass());
+					loger.error("Exception Caught", ex);
 					ex.printStackTrace();
 				}
 			}

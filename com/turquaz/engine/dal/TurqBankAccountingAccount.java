@@ -6,129 +6,139 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqBankAccountingAccount implements Serializable {
+public class TurqBankAccountingAccount implements Serializable
+{
+	/** identifier field */
+	private java.lang.Integer id;
+	/** persistent field */
+	private java.lang.String createdBy;
+	/** persistent field */
+	private java.util.Date creationDate;
+	/** persistent field */
+	private java.lang.String updatedBy;
+	/** persistent field */
+	private java.util.Date lastModified;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqBankAccountingType turqBankAccountingType;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqBanksCard turqBanksCard;
 
-    /** identifier field */
-    private java.lang.Integer id;
+	/** full constructor */
+	public TurqBankAccountingAccount(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy,
+			java.util.Date lastModified, com.turquaz.engine.dal.TurqBankAccountingType turqBankAccountingType,
+			com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksCard turqBanksCard)
+	{
+		this.createdBy = createdBy;
+		this.creationDate = creationDate;
+		this.updatedBy = updatedBy;
+		this.lastModified = lastModified;
+		this.turqBankAccountingType = turqBankAccountingType;
+		this.turqAccountingAccount = turqAccountingAccount;
+		this.turqBanksCard = turqBanksCard;
+	}
 
-    /** persistent field */
-    private java.lang.String createdBy;
+	/** default constructor */
+	public TurqBankAccountingAccount()
+	{
+	}
 
-    /** persistent field */
-    private java.util.Date creationDate;
+	public java.lang.Integer getId()
+	{
+		return this.id;
+	}
 
-    /** persistent field */
-    private java.lang.String updatedBy;
+	public void setId(java.lang.Integer id)
+	{
+		this.id = id;
+	}
 
-    /** persistent field */
-    private java.util.Date lastModified;
+	public java.lang.String getCreatedBy()
+	{
+		return this.createdBy;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqBankAccountingType turqBankAccountingType;
+	public void setCreatedBy(java.lang.String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
+	public java.util.Date getCreationDate()
+	{
+		return this.creationDate;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqBanksCard turqBanksCard;
+	public void setCreationDate(java.util.Date creationDate)
+	{
+		this.creationDate = creationDate;
+	}
 
-    /** full constructor */
-    public TurqBankAccountingAccount(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBankAccountingType turqBankAccountingType, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksCard turqBanksCard) {
-        this.createdBy = createdBy;
-        this.creationDate = creationDate;
-        this.updatedBy = updatedBy;
-        this.lastModified = lastModified;
-        this.turqBankAccountingType = turqBankAccountingType;
-        this.turqAccountingAccount = turqAccountingAccount;
-        this.turqBanksCard = turqBanksCard;
-    }
+	public java.lang.String getUpdatedBy()
+	{
+		return this.updatedBy;
+	}
 
-    /** default constructor */
-    public TurqBankAccountingAccount() {
-    }
+	public void setUpdatedBy(java.lang.String updatedBy)
+	{
+		this.updatedBy = updatedBy;
+	}
 
-    public java.lang.Integer getId() {
-        return this.id;
-    }
+	public java.util.Date getLastModified()
+	{
+		return this.lastModified;
+	}
 
-    public void setId(java.lang.Integer id) {
-        this.id = id;
-    }
+	public void setLastModified(java.util.Date lastModified)
+	{
+		this.lastModified = lastModified;
+	}
 
-    public java.lang.String getCreatedBy() {
-        return this.createdBy;
-    }
+	public com.turquaz.engine.dal.TurqBankAccountingType getTurqBankAccountingType()
+	{
+		return this.turqBankAccountingType;
+	}
 
-    public void setCreatedBy(java.lang.String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public void setTurqBankAccountingType(com.turquaz.engine.dal.TurqBankAccountingType turqBankAccountingType)
+	{
+		this.turqBankAccountingType = turqBankAccountingType;
+	}
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
+	public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccount()
+	{
+		return this.turqAccountingAccount;
+	}
 
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public void setTurqAccountingAccount(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount)
+	{
+		this.turqAccountingAccount = turqAccountingAccount;
+	}
 
-    public java.lang.String getUpdatedBy() {
-        return this.updatedBy;
-    }
+	public com.turquaz.engine.dal.TurqBanksCard getTurqBanksCard()
+	{
+		return this.turqBanksCard;
+	}
 
-    public void setUpdatedBy(java.lang.String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
+	public void setTurqBanksCard(com.turquaz.engine.dal.TurqBanksCard turqBanksCard)
+	{
+		this.turqBanksCard = turqBanksCard;
+	}
 
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("id", getId()).toString();
+	}
 
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqBankAccountingAccount))
+			return false;
+		TurqBankAccountingAccount castOther = (TurqBankAccountingAccount) other;
+		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
+	}
 
-    public com.turquaz.engine.dal.TurqBankAccountingType getTurqBankAccountingType() {
-        return this.turqBankAccountingType;
-    }
-
-    public void setTurqBankAccountingType(com.turquaz.engine.dal.TurqBankAccountingType turqBankAccountingType) {
-        this.turqBankAccountingType = turqBankAccountingType;
-    }
-
-    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccount() {
-        return this.turqAccountingAccount;
-    }
-
-    public void setTurqAccountingAccount(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
-        this.turqAccountingAccount = turqAccountingAccount;
-    }
-
-    public com.turquaz.engine.dal.TurqBanksCard getTurqBanksCard() {
-        return this.turqBanksCard;
-    }
-
-    public void setTurqBanksCard(com.turquaz.engine.dal.TurqBanksCard turqBanksCard) {
-        this.turqBanksCard = turqBanksCard;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getId())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqBankAccountingAccount) ) return false;
-        TurqBankAccountingAccount castOther = (TurqBankAccountingAccount) other;
-        return new EqualsBuilder()
-            .append(this.getId(), castOther.getId())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getId()).toHashCode();
+	}
 }

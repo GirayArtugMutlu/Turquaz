@@ -22,6 +22,7 @@ package com.turquaz.inventory.ui;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
@@ -99,7 +100,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	private InventoryPicker txtInvCodeStart;
 	private CLabel lblInvCode;
 	private Composite compInvCardSearchPanel;
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 
 	public InvUITransactionsTotalReport(Composite parent, int style)
 	{
@@ -265,11 +266,11 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 						tableColumnTransOverPrice.setText(Messages.getString("InvUITransactionsTotalReport.7")); //$NON-NLS-1$
 						tableColumnTransOverPrice.setWidth(60);
 					}
-					//START >>  tableColumnUnitPriceTransOver
+					//START >> tableColumnUnitPriceTransOver
 					tableColumnUnitPriceTransOver = new TableColumn(tableSearcResults, SWT.NONE);
 					tableColumnUnitPriceTransOver.setText(Messages.getString("InvUITransactionsTotalReport.11")); //$NON-NLS-1$
 					tableColumnUnitPriceTransOver.setWidth(50);
-					//END <<  tableColumnUnitPriceTransOver
+					//END << tableColumnUnitPriceTransOver
 					{
 						tableColumnAmountIn = new TableColumn(tableSearcResults, SWT.RIGHT);
 						tableColumnAmountIn.setText(Messages.getString("InvUICardSearch.5")); //$NON-NLS-1$
@@ -280,11 +281,11 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 						tableColumnPriceIn.setText(Messages.getString("InvUICardSearch.10")); //$NON-NLS-1$
 						tableColumnPriceIn.setWidth(75);
 					}
-					//START >>  tableColumnUnitPriceIn
+					//START >> tableColumnUnitPriceIn
 					tableColumnUnitPriceIn = new TableColumn(tableSearcResults, SWT.NONE);
 					tableColumnUnitPriceIn.setText(Messages.getString("InvUITransactionsTotalReport.12")); //$NON-NLS-1$
 					tableColumnUnitPriceIn.setWidth(50);
-					//END <<  tableColumnUnitPriceIn
+					//END << tableColumnUnitPriceIn
 					{
 						tableColumnAmountOut = new TableColumn(tableSearcResults, SWT.RIGHT);
 						tableColumnAmountOut.setText(Messages.getString("InvUICardSearch.7")); //$NON-NLS-1$
@@ -295,11 +296,11 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 						tableColumnPriceOut.setText(Messages.getString("InvUICardSearch.11")); //$NON-NLS-1$
 						tableColumnPriceOut.setWidth(76);
 					}
-					//START >>  tableColumnUnitPriceOut
+					//START >> tableColumnUnitPriceOut
 					tableColumnUnitPriceOut = new TableColumn(tableSearcResults, SWT.NONE);
 					tableColumnUnitPriceOut.setText(Messages.getString("InvUITransactionsTotalReport.13")); //$NON-NLS-1$
 					tableColumnUnitPriceOut.setWidth(50);
-					//END <<  tableColumnUnitPriceOut
+					//END << tableColumnUnitPriceOut
 					{
 						tableColumnBalanceAmountIn = new TableColumn(tableSearcResults, SWT.RIGHT);
 						tableColumnBalanceAmountIn.setText(Messages.getString("InvUITransactionsTotalReport.8")); //$NON-NLS-1$
@@ -352,6 +353,8 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -359,7 +362,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	public void save()
 	{
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[13];
@@ -376,7 +379,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		columnTypes[10] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[11] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[12] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableSearcResults, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableSearcResults, columnTypes, true);
 	}
 
 	public void delete()
@@ -387,7 +390,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 			TableItem items[] = tableSearcResults.getSelection();
 			if (items.length > 0)
 			{
-				Integer cardId = (Integer)((ITableRow) items[0].getData()).getDBObject();
+				Integer cardId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				TurqInventoryCard invCard = InvBLCardSearch.initializeInventoryCard(cardId);
 				msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
 				if (msg.open() == SWT.NO)
@@ -409,6 +412,8 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg = new MessageBox(this.getShell(), SWT.ICON_ERROR);
 			msg.setMessage(ex.getMessage());
@@ -472,34 +477,37 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 							totalAmountOut);
 					BigDecimal balancePrice = (totalAmountIn.doubleValue() == 0) ? new BigDecimal(0) : balanceAmount
 							.multiply(totalPriceIn.divide(totalAmountIn, 2, BigDecimal.ROUND_HALF_DOWN));
-					
-					BigDecimal unitPriceTransover=new BigDecimal(0);
-					BigDecimal unitPriceIn=new BigDecimal(0);
-					BigDecimal unitPriceOut=new BigDecimal(0);
+					BigDecimal unitPriceTransover = new BigDecimal(0);
+					BigDecimal unitPriceIn = new BigDecimal(0);
+					BigDecimal unitPriceOut = new BigDecimal(0);
 					if (totalAmountIn.doubleValue() != 0)
 					{
-						unitPriceIn=totalPriceIn.divide(totalAmountIn,2,EngBLCommon.ROUNDING_METHOD);
+						unitPriceIn = totalPriceIn.divide(totalAmountIn, 2, EngBLCommon.ROUNDING_METHOD);
 					}
 					if (totalAmountOut.doubleValue() != 0)
 					{
-						unitPriceOut=totalPriceOut.divide(totalAmountOut,2,EngBLCommon.ROUNDING_METHOD);
+						unitPriceOut = totalPriceOut.divide(totalAmountOut, 2, EngBLCommon.ROUNDING_METHOD);
 					}
-					BigDecimal transOverAmountNet=totaltransOverAmountIn.subtract(totaltransOverAmountOut);
-					BigDecimal transOverPriceNet=totaltransOverPriceIn.subtract(totaltransOverPriceOut);
+					BigDecimal transOverAmountNet = totaltransOverAmountIn.subtract(totaltransOverAmountOut);
+					BigDecimal transOverPriceNet = totaltransOverPriceIn.subtract(totaltransOverPriceOut);
 					if (transOverAmountNet.doubleValue() != 0)
 					{
-						unitPriceTransover=transOverPriceNet.divide(transOverAmountNet,2,EngBLCommon.ROUNDING_METHOD);
+						unitPriceTransover = transOverPriceNet.divide(transOverAmountNet, 2, EngBLCommon.ROUNDING_METHOD);
 					}
 					TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-					tableViewer.addRow(new String[]{invCode, invName, cf.format(totaltransOverAmountIn.subtract(totaltransOverAmountOut)),
+					tableViewer.addRow(new String[]{invCode, invName,
+							cf.format(totaltransOverAmountIn.subtract(totaltransOverAmountOut)),
 							cf.format(totaltransOverPriceIn.subtract(totaltransOverPriceOut)), cf.format(unitPriceTransover),
 							cf.format(totalAmountIn), cf.format(totalPriceIn), cf.format(unitPriceIn), cf.format(totalAmountOut),
-							cf.format(totalPriceOut), cf.format(unitPriceOut), cf.format(balanceAmount), cf.format(balancePrice)},cardId);
+							cf.format(totalPriceOut), cf.format(unitPriceOut), cf.format(balanceAmount), cf.format(balancePrice)},
+							cardId);
 				}
 			}
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -540,7 +548,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		{
 			try
 			{
-				Integer cardId = (Integer)((ITableRow) selection[0].getData()).getDBObject();
+				Integer cardId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				TurqInventoryCard card = InvBLCardSearch.initializeInventoryCard(cardId);
 				boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, card).open();
 				if (updated)
@@ -548,6 +556,8 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 			}
 			catch (Exception ex)
 			{
+				Logger loger = Logger.getLogger(this.getClass());
+				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
 			}
 		}

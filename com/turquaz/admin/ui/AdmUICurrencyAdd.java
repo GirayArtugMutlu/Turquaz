@@ -1,5 +1,6 @@
 package com.turquaz.admin.ui;
 
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -167,6 +168,8 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(Messages.getString("AdmUICurrencyAdd.8")); //$NON-NLS-1$
 			msg.open();

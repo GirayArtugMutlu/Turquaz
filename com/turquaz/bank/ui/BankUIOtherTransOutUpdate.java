@@ -1,6 +1,7 @@
 package com.turquaz.bank.ui;
 
 import java.util.Iterator;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.ToolBar;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
@@ -166,6 +167,8 @@ public class BankUIOtherTransOutUpdate extends org.eclipse.swt.widgets.Dialog
 			}
 			catch (Exception ex)
 			{
+				Logger loger = Logger.getLogger(this.getClass());
+				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
 			}
 		}
@@ -188,6 +191,8 @@ public class BankUIOtherTransOutUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			EngUICommon.showMessageBox(getParent(), ex.getMessage().toString(), SWT.ICON_ERROR);
 		}
@@ -207,6 +212,8 @@ public class BankUIOtherTransOutUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			EngUICommon.showMessageBox(getParent(), ex.getMessage().toString(), SWT.ICON_ERROR);
 		}

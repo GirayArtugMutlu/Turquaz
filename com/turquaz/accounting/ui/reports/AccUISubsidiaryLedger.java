@@ -29,6 +29,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
@@ -315,6 +316,8 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
@@ -357,7 +360,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 		 * String[]{"","",Messages.getString("AccUISubsidiaryLedger.25"),df.format(totalDept),df.format(totalCredit), //$NON-NLS-1$
 		 * //$NON-NLS-2$ //$NON-NLS-3$ (balance.compareTo(new BigDecimal(0)) <0) ? df.format(balance.multiply(new BigDecimal(-1))): "",
 		 * //$NON-NLS-1$ (balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "" }); //$NON-NLS-1$ } catch (Exception ex) {
-		 * ex.printStackTrace(); }
+		 * Logger loger = Logger.getLogger(this.getClass()); loger.error("Exception Caught",ex);ex.printStackTrace(); }
 		 */
 	}
 

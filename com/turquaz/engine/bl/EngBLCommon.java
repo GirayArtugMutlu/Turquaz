@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
@@ -41,7 +42,6 @@ import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.inventory.dal.InvDALCardSearch;
-
 
 public class EngBLCommon
 {
@@ -149,17 +149,10 @@ public class EngBLCommon
 	// modulu
 	public final static int MODULE_CHEQUE = 9; //cek
 	// modulu
-	
-	
-	public final static int INV_TRANS_INITIAL = 0; 
-	
-	public final static int INV_TRANS_BUY_SELL =1;
-	
+	public final static int INV_TRANS_INITIAL = 0;
+	public final static int INV_TRANS_BUY_SELL = 1;
 	public final static int INV_TRANS_OTHER = 2;
-	
 	public final static int INV_TRANS_MANUFACTURING = 3;
-	
-	
 	public final static Integer CHEQUE_TRANS_IN = new Integer(0); //Cek
 	// Giris
 	// Bordrosu
@@ -291,6 +284,8 @@ public class EngBLCommon
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(EngBLCommon.class);
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return null;
 		}
@@ -309,7 +304,7 @@ public class EngBLCommon
 		}
 	}
 
-	public static TurqCurrencyExchangeRate getBaseCurrencyExchangeRate()
+	public static TurqCurrencyExchangeRate getBaseCurrencyExchangeRate() throws Exception
 	{
 		try
 		{
@@ -319,8 +314,7 @@ public class EngBLCommon
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
-			return null;
+			throw ex;
 		}
 	}
 
@@ -335,8 +329,8 @@ public class EngBLCommon
 			throw ex;
 		}
 	}
-	
-	public static TurqEngineSequence saveEngineSequence(int moduleId)throws Exception
+
+	public static TurqEngineSequence saveEngineSequence(int moduleId) throws Exception
 	{
 		TurqEngineSequence seq = new TurqEngineSequence();
 		TurqModule module = new TurqModule();
@@ -345,36 +339,34 @@ public class EngBLCommon
 		EngDALCommon.saveObject(seq);
 		return seq;
 	}
-	
-	public static void insertBillInEngineSeq()
+
+	public static void insertBillInEngineSeq() throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction(); 
-			Statement stmt = session.connection().createStatement(); 
-			String query = "Select id,engine_sequences_id from turq_bills"; 
-			ResultSet result=stmt.executeQuery(query);
-			Statement stmt2 = session.connection().createStatement(); 
-			int k=0;
-			while(result.next())
+			Transaction tx = session.beginTransaction();
+			Statement stmt = session.connection().createStatement();
+			String query = "Select id,engine_sequences_id from turq_bills";
+			ResultSet result = stmt.executeQuery(query);
+			Statement stmt2 = session.connection().createStatement();
+			int k = 0;
+			while (result.next())
 			{
-				int id=result.getInt(1);
-				int engineSeq=result.getInt(2);
-				query="Insert into turq_bill_in_engine_sequences values ("+k+","+engineSeq+","+id+")";
+				int id = result.getInt(1);
+				int engineSeq = result.getInt(2);
+				query = "Insert into turq_bill_in_engine_sequences values (" + k + "," + engineSeq + "," + id + ")";
 				stmt2.execute(query);
 				k++;
 			}
 			session.flush();
-			tx.commit();			
+			tx.commit();
 			session.close();
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
-			ex.printStackTrace();
+			throw ex;
 		}
-		
-		
 	}
 
 	public static boolean checkUserPass(String user, String pass) throws Exception
@@ -422,6 +414,8 @@ public class EngBLCommon
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(EngBLCommon.class);
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -443,6 +437,8 @@ public class EngBLCommon
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(EngBLCommon.class);
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			if (tx != null)
 				tx.rollback();
@@ -454,26 +450,49 @@ public class EngBLCommon
 		Transaction tx = null;
 		try
 		{
-			
-			  List ls = InvDALCardSearch.getInventoryCardsAndAccounts(); Session session = EngDALSessionFactory.openSession(); tx =
-			  session.beginTransaction(); Statement stmt = session.connection().createStatement(); String query = "";  int
-			  i=0; int key=0; for (i = 0; i < ls.size(); i++) { Object results[]=(Object[])ls.get(i); query = "insert into turq_inventory_accounting_accounts values(" +key +","+results[0] +","+results[1]
-			  +","+0+",'admin','2005-01-01','admin','2005-01-01')";  stmt.execute(query); key++; 
-			   query = "insert into turq_inventory_accounting_accounts values(" +key +","+results[0] 
-			  +","+results[2]  +","+1+",'admin','2005-01-01','admin','2005-01-01')"; 
-			  stmt.execute(query); key++; query = "insert into turq_inventory_accounting_accounts values("+key
-			  +","+results[0] +","+results[3]  +","+2+",'admin','2005-01-01','admin','2005-01-01')";
-			  stmt.execute(query); key++; query = "insert into turq_inventory_accounting_accounts values(" +key +","+results[0] +","+results[4]
-			  +","+3+",'admin','2005-01-01','admin','2005-01-01')"; stmt.execute(query); key++; 
-			 query = "insert into turq_inventory_accounting_accounts values("  +key +","+results[0]
-			   +","+results[5]  +","+4+",'admin','2005-01-01','admin','2005-01-01')"; 
-			   stmt.execute(query); key++; query = "insert into turq_inventory_accounting_accounts  values(" +key +","+results[0]  +","+results[6]
-			  +","+5+",'admin','2005-01-01','admin','2005-01-01')";  stmt.execute(query); key++; }
-			  tx.commit(); session.flush(); session.close();
-			 
+			List ls = InvDALCardSearch.getInventoryCardsAndAccounts();
+			Session session = EngDALSessionFactory.openSession();
+			tx = session.beginTransaction();
+			Statement stmt = session.connection().createStatement();
+			String query = "";
+			int i = 0;
+			int key = 0;
+			for (i = 0; i < ls.size(); i++)
+			{
+				Object results[] = (Object[]) ls.get(i);
+				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[1] + "," + 0
+						+ ",'admin','2005-01-01','admin','2005-01-01')";
+				stmt.execute(query);
+				key++;
+				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[2] + "," + 1
+						+ ",'admin','2005-01-01','admin','2005-01-01')";
+				stmt.execute(query);
+				key++;
+				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[3] + "," + 2
+						+ ",'admin','2005-01-01','admin','2005-01-01')";
+				stmt.execute(query);
+				key++;
+				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[4] + "," + 3
+						+ ",'admin','2005-01-01','admin','2005-01-01')";
+				stmt.execute(query);
+				key++;
+				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[5] + "," + 4
+						+ ",'admin','2005-01-01','admin','2005-01-01')";
+				stmt.execute(query);
+				key++;
+				query = "insert into turq_inventory_accounting_accounts  values(" + key + "," + results[0] + "," + results[6] + "," + 5
+						+ ",'admin','2005-01-01','admin','2005-01-01')";
+				stmt.execute(query);
+				key++;
+			}
+			tx.commit();
+			session.flush();
+			session.close();
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(EngBLCommon.class);
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			if (tx != null)
 				tx.rollback();
@@ -488,8 +507,8 @@ public class EngBLCommon
 		 * String query = ""; //$NON-NLS-1$ for (int i = 0; i < ls.size(); i++) { Object result[] = (Object[]) ls.get(i); query = "insert
 		 * into turq_bank_accounting_accounts values(" + result[0] + "," + result[0] + "," + result[1] //$NON-NLS-1$ //$NON-NLS-2$
 		 * //$NON-NLS-3$ + "," + 0 + "," + "'admin','2005-01-01','admin','2005-01-01')"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		 * stmt.execute(query); } tx.commit(); session.flush(); session.close(); } catch (Exception ex) { ex.printStackTrace();
-		 * tx.rollback(); }
+		 * stmt.execute(query); } tx.commit(); session.flush(); session.close(); } catch (Exception ex) { Logger loger =
+		 * Logger.getLogger(this.getClass()); loger.error("Exception Caught",ex);ex.printStackTrace(); tx.rollback(); }
 		 */
 	}
 
@@ -515,6 +534,8 @@ public class EngBLCommon
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(EngBLCommon.class);
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

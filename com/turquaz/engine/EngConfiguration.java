@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
+import org.apache.log4j.Logger;
 
 public class EngConfiguration
 {
@@ -49,6 +50,8 @@ public class EngConfiguration
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -65,6 +68,8 @@ public class EngConfiguration
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(EngConfiguration.class);
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

@@ -19,6 +19,7 @@ package com.turquaz.inventory.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -235,6 +236,8 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(Messages.getString("InvUIWarehouseUpdate.4")); //$NON-NLS-1$
 		}
@@ -267,6 +270,8 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(Messages.getString("InvUIWarehouseUpdate.7")); //$NON-NLS-1$
 			msg.open();

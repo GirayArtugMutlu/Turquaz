@@ -22,6 +22,7 @@ package com.turquaz.inventory.ui;
 import java.util.Calendar;
 import java.util.List;
 import net.sf.hibernate.HibernateException;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.events.DisposeEvent;
@@ -283,6 +284,8 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -316,6 +319,8 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 			txtUnitName.setText(""); //$NON-NLS-1$
 			msg2.setMessage(Messages.getString("InvUIUnitAddDialog.9")); //$NON-NLS-1$
 			msg2.open();
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -374,6 +379,8 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 			txtUnitName.setText(""); //$NON-NLS-1$
 			msg.setMessage(Messages.getString("InvUIUnitAddDialog.16")); //$NON-NLS-1$
 			msg.open();
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -417,12 +424,16 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (HibernateException ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setText(Messages.getString("InvUIUnitAddDialog.21")); //$NON-NLS-1$
 			msg.open();
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

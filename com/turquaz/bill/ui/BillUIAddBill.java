@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
@@ -533,21 +534,23 @@ public class BillUIAddBill extends Composite implements SecureComposite
 								comboWareHouseLData.heightHint = 17;
 								comboWareHouse.setLayoutData(comboWareHouseLData);
 							}
-							//START >>  lblPaymentType
+							//START >> lblPaymentType
 							lblPaymentType = new CLabel(compInfoPanel, SWT.NONE);
 							lblPaymentType.setText("Ödeme Tipi");
 							GridData lblPaymentTypeLData1 = new GridData();
 							lblPaymentTypeLData1.widthHint = 90;
 							lblPaymentTypeLData1.heightHint = 22;
 							lblPaymentType.setLayoutData(lblPaymentTypeLData1);
-							//END <<  lblPaymentType
+							//END << lblPaymentType
 							{
 								comboPaymentType = new CCombo(compInfoPanel, SWT.NONE);
 								comboPaymentType.setEditable(false);
 								comboPaymentType.setBackground(SWTResourceManager.getColor(255, 255, 255));
 								GridData comboPaymentTypeLData = new GridData();
-								comboPaymentType.addSelectionListener(new SelectionAdapter() {
-									public void widgetSelected(SelectionEvent evt) {
+								comboPaymentType.addSelectionListener(new SelectionAdapter()
+								{
+									public void widgetSelected(SelectionEvent evt)
+									{
 										Boolean isCurrent = (Boolean) comboPaymentType.getData(comboPaymentType.getText());
 										if (isCurrent.booleanValue())
 											accountPickerCurAcc.setEnabled(true);
@@ -850,6 +853,8 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -894,6 +899,8 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -915,6 +922,8 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -936,7 +945,6 @@ public class BillUIAddBill extends Composite implements SecureComposite
 
 	public void createTableViewer()
 	{
-		
 		//     Create the cell editors
 		CellEditor[] editors = new CellEditor[columnNames.length];
 		editors[0] = new InventoryCellEditor(tableConsignmentRows); //Stok Kodu
@@ -955,8 +963,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		editors[13] = new CurrencyCellEditor(tableConsignmentRows, 2);
 		editors[14] = new CurrencyCellEditor(tableConsignmentRows, 2);
 		// Assign the cell editors to the viewer
-	
-		tableViewer = new SaveTableViewer(tableConsignmentRows,editors);
+		tableViewer = new SaveTableViewer(tableConsignmentRows, editors);
 		cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE, tableViewer, true);
 		cursor.setEnabled(true);
 		cursor.addSelectionListener(new SelectionAdapter()
@@ -1101,6 +1108,8 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return false;
 		}
@@ -1128,6 +1137,8 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

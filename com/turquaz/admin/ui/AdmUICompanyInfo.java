@@ -1,5 +1,6 @@
 package com.turquaz.admin.ui;
 
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
@@ -112,6 +113,8 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -132,6 +135,8 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();

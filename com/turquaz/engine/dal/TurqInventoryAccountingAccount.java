@@ -6,129 +6,140 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqInventoryAccountingAccount implements Serializable {
+public class TurqInventoryAccountingAccount implements Serializable
+{
+	/** identifier field */
+	private java.lang.Integer id;
+	/** persistent field */
+	private java.lang.String createdBy;
+	/** persistent field */
+	private java.util.Date creationDate;
+	/** persistent field */
+	private java.lang.String updatedBy;
+	/** persistent field */
+	private java.util.Date lastModified;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqInventoryAccountingType turqInventoryAccountingType;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
 
-    /** identifier field */
-    private java.lang.Integer id;
+	/** full constructor */
+	public TurqInventoryAccountingAccount(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy,
+			java.util.Date lastModified, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount,
+			com.turquaz.engine.dal.TurqInventoryAccountingType turqInventoryAccountingType,
+			com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard)
+	{
+		this.createdBy = createdBy;
+		this.creationDate = creationDate;
+		this.updatedBy = updatedBy;
+		this.lastModified = lastModified;
+		this.turqAccountingAccount = turqAccountingAccount;
+		this.turqInventoryAccountingType = turqInventoryAccountingType;
+		this.turqInventoryCard = turqInventoryCard;
+	}
 
-    /** persistent field */
-    private java.lang.String createdBy;
+	/** default constructor */
+	public TurqInventoryAccountingAccount()
+	{
+	}
 
-    /** persistent field */
-    private java.util.Date creationDate;
+	public java.lang.Integer getId()
+	{
+		return this.id;
+	}
 
-    /** persistent field */
-    private java.lang.String updatedBy;
+	public void setId(java.lang.Integer id)
+	{
+		this.id = id;
+	}
 
-    /** persistent field */
-    private java.util.Date lastModified;
+	public java.lang.String getCreatedBy()
+	{
+		return this.createdBy;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
+	public void setCreatedBy(java.lang.String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqInventoryAccountingType turqInventoryAccountingType;
+	public java.util.Date getCreationDate()
+	{
+		return this.creationDate;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
+	public void setCreationDate(java.util.Date creationDate)
+	{
+		this.creationDate = creationDate;
+	}
 
-    /** full constructor */
-    public TurqInventoryAccountingAccount(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqInventoryAccountingType turqInventoryAccountingType, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
-        this.createdBy = createdBy;
-        this.creationDate = creationDate;
-        this.updatedBy = updatedBy;
-        this.lastModified = lastModified;
-        this.turqAccountingAccount = turqAccountingAccount;
-        this.turqInventoryAccountingType = turqInventoryAccountingType;
-        this.turqInventoryCard = turqInventoryCard;
-    }
+	public java.lang.String getUpdatedBy()
+	{
+		return this.updatedBy;
+	}
 
-    /** default constructor */
-    public TurqInventoryAccountingAccount() {
-    }
+	public void setUpdatedBy(java.lang.String updatedBy)
+	{
+		this.updatedBy = updatedBy;
+	}
 
-    public java.lang.Integer getId() {
-        return this.id;
-    }
+	public java.util.Date getLastModified()
+	{
+		return this.lastModified;
+	}
 
-    public void setId(java.lang.Integer id) {
-        this.id = id;
-    }
+	public void setLastModified(java.util.Date lastModified)
+	{
+		this.lastModified = lastModified;
+	}
 
-    public java.lang.String getCreatedBy() {
-        return this.createdBy;
-    }
+	public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccount()
+	{
+		return this.turqAccountingAccount;
+	}
 
-    public void setCreatedBy(java.lang.String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public void setTurqAccountingAccount(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount)
+	{
+		this.turqAccountingAccount = turqAccountingAccount;
+	}
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
+	public com.turquaz.engine.dal.TurqInventoryAccountingType getTurqInventoryAccountingType()
+	{
+		return this.turqInventoryAccountingType;
+	}
 
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public void setTurqInventoryAccountingType(com.turquaz.engine.dal.TurqInventoryAccountingType turqInventoryAccountingType)
+	{
+		this.turqInventoryAccountingType = turqInventoryAccountingType;
+	}
 
-    public java.lang.String getUpdatedBy() {
-        return this.updatedBy;
-    }
+	public com.turquaz.engine.dal.TurqInventoryCard getTurqInventoryCard()
+	{
+		return this.turqInventoryCard;
+	}
 
-    public void setUpdatedBy(java.lang.String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
+	public void setTurqInventoryCard(com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard)
+	{
+		this.turqInventoryCard = turqInventoryCard;
+	}
 
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("id", getId()).toString();
+	}
 
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqInventoryAccountingAccount))
+			return false;
+		TurqInventoryAccountingAccount castOther = (TurqInventoryAccountingAccount) other;
+		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
+	}
 
-    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccount() {
-        return this.turqAccountingAccount;
-    }
-
-    public void setTurqAccountingAccount(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
-        this.turqAccountingAccount = turqAccountingAccount;
-    }
-
-    public com.turquaz.engine.dal.TurqInventoryAccountingType getTurqInventoryAccountingType() {
-        return this.turqInventoryAccountingType;
-    }
-
-    public void setTurqInventoryAccountingType(com.turquaz.engine.dal.TurqInventoryAccountingType turqInventoryAccountingType) {
-        this.turqInventoryAccountingType = turqInventoryAccountingType;
-    }
-
-    public com.turquaz.engine.dal.TurqInventoryCard getTurqInventoryCard() {
-        return this.turqInventoryCard;
-    }
-
-    public void setTurqInventoryCard(com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
-        this.turqInventoryCard = turqInventoryCard;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getId())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqInventoryAccountingAccount) ) return false;
-        TurqInventoryAccountingAccount castOther = (TurqInventoryAccountingAccount) other;
-        return new EqualsBuilder()
-            .append(this.getId(), castOther.getId())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getId()).toHashCode();
+	}
 }

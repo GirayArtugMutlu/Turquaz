@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.layout.GridLayout;
@@ -309,6 +310,8 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
@@ -403,6 +406,8 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 		catch (Exception ex)
 		{
 			MessageBox msg3 = new MessageBox(this.getParent(), SWT.ICON_WARNING);
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg3.setMessage(ex.getMessage());
 			msg3.open();
@@ -444,13 +449,13 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				updated = true;
 				CurBLCurrentCardUpdate.updateCurrentCard(currentCard, compCurCardAdd.getTxtCurrentCode().getText().trim(),
 						compCurCardAdd.getTxtCurrentName().getText().trim(), compCurCardAdd.getTxtCardDefinition().getText().trim(),
-						compCurCardAdd.getTxtCardAddress().getText().trim(),
-						compCurCardAdd.getNumTextDiscountRate().getBigDecimalValue(), compCurCardAdd
-								.getDecTxtDiscountAmount().getBigDecimalValue(), compCurCardAdd.getDecTxtCreditLimit()
-								.getBigDecimalValue(), compCurCardAdd.getDecTxtRiskLimit().getBigDecimalValue(), compCurCardAdd
-								.getTxtTaxDepartmant().getText().trim(), compCurCardAdd.getTxtTaxNumber().getText().trim(),
-						compCurCardAdd.getNumDueDays().getIntValue(), compCurCardAdd.createAccountingMap(), compCurCardAdd
-								.getPhoneList(), compCurCardAdd.getContactInfo(), compCurCardAdd.getGroupList());
+						compCurCardAdd.getTxtCardAddress().getText().trim(), compCurCardAdd.getNumTextDiscountRate()
+								.getBigDecimalValue(), compCurCardAdd.getDecTxtDiscountAmount().getBigDecimalValue(),
+						compCurCardAdd.getDecTxtCreditLimit().getBigDecimalValue(), compCurCardAdd.getDecTxtRiskLimit()
+								.getBigDecimalValue(), compCurCardAdd.getTxtTaxDepartmant().getText().trim(), compCurCardAdd
+								.getTxtTaxNumber().getText().trim(), compCurCardAdd.getNumDueDays().getIntValue(), compCurCardAdd
+								.createAccountingMap(), compCurCardAdd.getPhoneList(), compCurCardAdd.getContactInfo(),
+						compCurCardAdd.getGroupList());
 				EngBLCurrentCards.RefreshContentAsistantMap();
 				msg.setMessage(Messages.getString("CurUICurrentCardUpdate.26")); //$NON-NLS-1$
 				msg.open();
@@ -459,6 +464,8 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

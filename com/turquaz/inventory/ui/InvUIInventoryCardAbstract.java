@@ -30,6 +30,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
@@ -103,7 +104,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 	private TableColumn tableColumnTotalPriceOut;
 	private TableColumn tableColumnTransactionDate;
 	private Calendar cal = Calendar.getInstance();
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 
 	public InvUIInventoryCardAbstract(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -313,7 +314,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			TableItem items[] = tableTransactions.getSelection();
 			if (items.length > 0)
 			{
-				Integer transId = (Integer)((ITableRow) items[0].getData()).getDBObject();
+				Integer transId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (transId != null)
 				{
 					TurqInventoryTransaction invTrans = InvBLSearchTransaction.getInvTransByTransId(transId);
@@ -327,6 +328,8 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -381,15 +384,20 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				{
 					priceIn = totalPrice;
 				}
-				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), invCode, invName, cf.format(inAmount), //$NON-NLS-1$								
-						cf.format(priceIn), cf.format(outAmount), //$NON-NLS-1$
-						cf.format(priceOut), cf.format(inAmount.subtract(outAmount)), cf.format(priceIn.subtract(priceOut))},transId);
+				tableViewer
+						.addRow(
+								new String[]{DatePicker.formatter.format(transDate), invCode, invName, cf.format(inAmount), //$NON-NLS-1$								
+										cf.format(priceIn), cf.format(outAmount), //$NON-NLS-1$
+										cf.format(priceOut), cf.format(inAmount.subtract(outAmount)),
+										cf.format(priceIn.subtract(priceOut))}, transId);
 			}
 			if (list.size() > 0)
 				GenerateJasper(type, list);
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -444,6 +452,8 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
@@ -465,6 +475,8 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -472,7 +484,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 	public void newForm()
 	{
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[9];
@@ -485,7 +497,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[8] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableTransactions, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableTransactions, columnTypes, true);
 	}
 
 	public void delete()

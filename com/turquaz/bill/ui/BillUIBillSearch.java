@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -282,7 +283,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableBills, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableBills, columnTypes, true);
 	}
 
 	public void currentCardChoose()
@@ -300,7 +301,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	{
 	}
 
-	public static void initializeBill(TurqBill bill)
+	public static void initializeBill(TurqBill bill) throws Exception
 	{
 		try
 		{
@@ -308,7 +309,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
+			throw ex;
 		}
 	}
 
@@ -347,6 +348,8 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -399,6 +402,8 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -408,9 +413,8 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		EngBLUtils.Export2Excel(tableBills);
 	}
 
-	
-	public static boolean updateBill(Integer billId, Shell shell)throws Exception{
-		
+	public static boolean updateBill(Integer billId, Shell shell) throws Exception
+	{
 		if (billId != null)
 		{
 			TurqBill bill = BillBLSearchBill.getBillByBillId(billId);
@@ -420,9 +424,8 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				return true;
 		}
 		return false;
-		
-		
 	}
+
 	public void tableMouseDoubleClick()
 	{
 		try
@@ -431,13 +434,15 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 			if (items.length > 0)
 			{
 				Integer billId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
-				boolean updated = updateBill(billId,getShell());
+				boolean updated = updateBill(billId, getShell());
 				if (updated)
 					search();
 			}
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

@@ -120,7 +120,7 @@ public class CheDALSearch
 			String query = "Select cheque from TurqChequeCheque as cheque, TurqViewChequeStatus as chequeStatus, TurqCurrentCard currentCard "
 					+ "where cheque.id = chequeStatus.chequeChequesId "
 					+ " and currentCard.id =  chequeStatus.currentCardsId "
-					+ " and chequeStatus.transactionTypesParent =" +EngBLCommon.CHEQUE_STATUS_PORTFOY;
+					+ " and chequeStatus.transactionTypesParent =" + EngBLCommon.CHEQUE_STATUS_PORTFOY;
 			Query q = session.createQuery(query);
 			List list = q.list();
 			session.close();
@@ -198,10 +198,10 @@ public class CheDALSearch
 			TurqViewChequeStatus chequeStatus = null;
 			String query = "Select cheque.id, cheque.chequesPortfolioNo,chequeInRolls.turqChequeRoll.chequeRollsDate,"
 					+ " chequeInRolls.turqChequeRoll.turqCurrentCard.cardsName, cheque.chequesDueDate,status.chequeTransactionTypesId,"
-					+ " cheque.chequesAmount,status.transactionTypsName"
-					+ " from TurqChequeCheque as cheque" + " left join cheque.turqChequeChequeInRolls as chequeInRolls ,"
-					+ " TurqViewChequeStatus as status " + " where cheque.chequesPortfolioNo like '" + portfoyNo + "%'"
-					+ " and cheque.chequesDueDate >= :startDueDate " + " and cheque.chequesDueDate <= :endDueDate "
+					+ " cheque.chequesAmount,status.transactionTypsName" + " from TurqChequeCheque as cheque"
+					+ " left join cheque.turqChequeChequeInRolls as chequeInRolls ," + " TurqViewChequeStatus as status "
+					+ " where cheque.chequesPortfolioNo like '" + portfoyNo + "%'" + " and cheque.chequesDueDate >= :startDueDate "
+					+ " and cheque.chequesDueDate <= :endDueDate "
 					+ " and chequeInRolls.turqChequeRoll.chequeRollsDate >= :startEnterDate"
 					+ " and chequeInRolls.turqChequeRoll.chequeRollsDate <= :endEnterDate"
 					+ " and chequeInRolls.turqChequeRoll.turqChequeTransactionType.id =" + EngBLCommon.CHEQUE_TRANS_IN

@@ -29,6 +29,7 @@ import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.ToolBar;
@@ -183,6 +184,8 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 		Iterator it = cashTrans.getTurqCashTransactionRows().iterator();
@@ -222,6 +225,8 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -245,6 +250,8 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

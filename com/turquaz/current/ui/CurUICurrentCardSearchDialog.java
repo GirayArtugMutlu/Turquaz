@@ -17,6 +17,7 @@ package com.turquaz.current.ui;
 /************************************************************************/
 import java.util.List;
 import java.util.Set;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -261,6 +262,8 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
@@ -287,6 +290,8 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
 			msg.open();
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

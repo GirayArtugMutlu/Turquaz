@@ -19,6 +19,7 @@ package com.turquaz.admin.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -184,6 +185,8 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 			}
 			catch (Exception ex)
 			{
+				Logger loger = Logger.getLogger(this.getClass());
+				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
 				messageBox.setMessage(ex.getMessage());
 				messageBox.open();

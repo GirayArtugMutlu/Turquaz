@@ -19,6 +19,7 @@ package com.turquaz.accounting.ui.comp;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import org.apache.log4j.Logger;
 import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
@@ -90,6 +91,8 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite
 						}
 						catch (Exception ex)
 						{
+							Logger loger = Logger.getLogger(this.getClass());
+							loger.error("Exception Caught", ex);
 							ex.printStackTrace();
 						}
 					}
@@ -153,6 +156,8 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

@@ -22,25 +22,21 @@ import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 
 /**
- *
- * 
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class InvBLSaveTransaction
 {
-	public static void saveOtherInventoryTransaction(TurqInventoryCard invCard, TurqInventoryUnit invUnit, TurqInventoryWarehous warehous, String docNo, Date transDate, String definition,BigDecimal amountIn, BigDecimal amountOut)throws Exception
+	public static void saveOtherInventoryTransaction(TurqInventoryCard invCard, TurqInventoryUnit invUnit, TurqInventoryWarehous warehous,
+			String docNo, Date transDate, String definition, BigDecimal amountIn, BigDecimal amountOut) throws Exception
 	{
 		Calendar cal = Calendar.getInstance();
 		TurqInventoryTransaction invTrans = new TurqInventoryTransaction();
-		
 		TurqInventoryTransactionType transType = new TurqInventoryTransactionType();
 		transType.setId(new Integer(EngBLCommon.INV_TRANS_OTHER));
-		
 		invTrans.setTurqInventoryTransactionType(transType);
 		invTrans.setTurqInventoryCard(invCard);
 		invTrans.setTurqInventoryWarehous(warehous);
 		invTrans.setTurqInventoryUnit(invUnit);
-
 		TurqEngineSequence seq = EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_INVENTORY);
 		invTrans.setTurqEngineSequence(seq);
 		invTrans.setTransactionsDate(transDate);
@@ -48,13 +44,10 @@ public class InvBLSaveTransaction
 		invTrans.setDocumentNo(docNo);
 		invTrans.setAmountIn(amountIn);
 		invTrans.setAmountOut(amountOut);
-		
 		invTrans.setTotalPrice(new BigDecimal(0));
 		invTrans.setTotalPriceInForeignCurrency(new BigDecimal(0));
-		
 		invTrans.setDiscountAmount(new BigDecimal(0));
 		invTrans.setDiscountAmountInForeignCurrency(new BigDecimal(0));
-		
 		invTrans.setDiscountRate(new BigDecimal(0));
 		invTrans.setCumilativePrice(new BigDecimal(0));
 		invTrans.setCumilativePriceInForeignCurrency(new BigDecimal(0));
@@ -71,21 +64,18 @@ public class InvBLSaveTransaction
 		invTrans.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 		invTrans.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		invTrans.setLastModified(cal.getTime());
-		invTrans.setCreationDate(cal.getTime());	
-		
-		TurqCurrentCard curCard=new TurqCurrentCard();
+		invTrans.setCreationDate(cal.getTime());
+		TurqCurrentCard curCard = new TurqCurrentCard();
 		curCard.setId(new Integer(-1));
 		invTrans.setTurqCurrentCard(curCard);
-		
 		EngDALCommon.saveObject(invTrans);
 	}
-	
-	private static void registerInventoryTransaction(TurqInventoryTransaction invTrans,
-			Integer engSeqId, int type, Date transDate, String definition,
-			String docNo, TurqCurrencyExchangeRate exchangeRate, TurqCurrentCard curCard) throws Exception
+
+	private static void registerInventoryTransaction(TurqInventoryTransaction invTrans, Integer engSeqId, int type, Date transDate,
+			String definition, String docNo, TurqCurrencyExchangeRate exchangeRate, TurqCurrentCard curCard) throws Exception
 	{
 		Calendar cal = Calendar.getInstance();
-		TurqEngineSequence engSequence=new TurqEngineSequence();
+		TurqEngineSequence engSequence = new TurqEngineSequence();
 		engSequence.setId(engSeqId);
 		invTrans.setTurqEngineSequence(engSequence);
 		invTrans.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
@@ -96,55 +86,58 @@ public class InvBLSaveTransaction
 		invTrans.setDefinition(definition);
 		invTrans.setDocumentNo(docNo);
 		invTrans.setTurqCurrentCard(curCard);
-		
-		BigDecimal unitPriceInBase=invTrans.getUnitPriceInForeignCurrency().multiply(exchangeRate.getExchangeRatio()).setScale(4,EngBLCommon.ROUNDING_METHOD);
+		BigDecimal unitPriceInBase = invTrans.getUnitPriceInForeignCurrency().multiply(exchangeRate.getExchangeRatio()).setScale(4,
+				EngBLCommon.ROUNDING_METHOD);
 		invTrans.setUnitPrice(unitPriceInBase);
 		BigDecimal totalPriceInBase;
 		BigDecimal amount;
 		if (type == EngBLCommon.COMMON_BUY_INT)
 		{
 			invTrans.setAmountOut(new BigDecimal(0));
-			amount=invTrans.getAmountIn();
-			totalPriceInBase=unitPriceInBase.multiply(invTrans.getAmountIn()).setScale(2,EngBLCommon.ROUNDING_METHOD);		
+			amount = invTrans.getAmountIn();
+			totalPriceInBase = unitPriceInBase.multiply(invTrans.getAmountIn()).setScale(2, EngBLCommon.ROUNDING_METHOD);
 		}
 		else
 		{
 			invTrans.setAmountIn(new BigDecimal(0));
-			amount=invTrans.getAmountOut();
-			totalPriceInBase=unitPriceInBase.multiply(invTrans.getAmountOut()).setScale(2,EngBLCommon.ROUNDING_METHOD);
+			amount = invTrans.getAmountOut();
+			totalPriceInBase = unitPriceInBase.multiply(invTrans.getAmountOut()).setScale(2, EngBLCommon.ROUNDING_METHOD);
 		}
 		invTrans.setTotalPrice(totalPriceInBase);
-		BigDecimal discountAmount=totalPriceInBase.multiply(invTrans.getDiscountRate()).divide(new BigDecimal(100),2,EngBLCommon.ROUNDING_METHOD);
+		BigDecimal discountAmount = totalPriceInBase.multiply(invTrans.getDiscountRate()).divide(new BigDecimal(100), 2,
+				EngBLCommon.ROUNDING_METHOD);
 		invTrans.setDiscountAmount(discountAmount);
-		BigDecimal totalPriceAfterDiscount=totalPriceInBase.subtract(discountAmount);
+		BigDecimal totalPriceAfterDiscount = totalPriceInBase.subtract(discountAmount);
 		if (invTrans.getTurqInventoryCard().isSpecVatForEach())
 		{
-			BigDecimal vatSpecialUnitPriceInBase=invTrans.getVatSpecialUnitPriceInForeignCurrency().multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD);
+			BigDecimal vatSpecialUnitPriceInBase = invTrans.getVatSpecialUnitPriceInForeignCurrency().multiply(
+					exchangeRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD);
 			invTrans.setVatSpecialUnitPrice(vatSpecialUnitPriceInBase);
-			invTrans.setVatSpecialAmount(vatSpecialUnitPriceInBase.multiply(amount).setScale(2,EngBLCommon.ROUNDING_METHOD));				
+			invTrans.setVatSpecialAmount(vatSpecialUnitPriceInBase.multiply(amount).setScale(2, EngBLCommon.ROUNDING_METHOD));
 		}
 		else
 		{
 			invTrans.setVatSpecialUnitPrice(new BigDecimal(0));
-			BigDecimal vatSpecialAmount=totalPriceAfterDiscount.multiply(invTrans.getVatSpecialRate()).divide(new BigDecimal(100),2,EngBLCommon.ROUNDING_METHOD);
+			BigDecimal vatSpecialAmount = totalPriceAfterDiscount.multiply(invTrans.getVatSpecialRate()).divide(new BigDecimal(100), 2,
+					EngBLCommon.ROUNDING_METHOD);
 			invTrans.setVatSpecialAmount(vatSpecialAmount);
-		}	
-		BigDecimal vatAmount=totalPriceAfterDiscount.multiply(invTrans.getVatRate()).divide(new BigDecimal(100),2,EngBLCommon.ROUNDING_METHOD);
+		}
+		BigDecimal vatAmount = totalPriceAfterDiscount.multiply(invTrans.getVatRate()).divide(new BigDecimal(100), 2,
+				EngBLCommon.ROUNDING_METHOD);
 		invTrans.setVatAmount(vatAmount);
-		BigDecimal cumilativePrice=totalPriceAfterDiscount.add(vatAmount).add(invTrans.getVatSpecialAmount());
+		BigDecimal cumilativePrice = totalPriceAfterDiscount.add(vatAmount).add(invTrans.getVatSpecialAmount());
 		invTrans.setCumilativePrice(cumilativePrice);
 		invTrans.setTurqCurrencyExchangeRate(exchangeRate);
 		EngDALCommon.saveObject(invTrans);
-	}	
-	
-	public static void saveInventoryTransactions(List invTransactions,
-			Integer engSeqId, int type, Date transDate, String definition,
+	}
+
+	public static void saveInventoryTransactions(List invTransactions, Integer engSeqId, int type, Date transDate, String definition,
 			String docNo, TurqCurrencyExchangeRate exchangeRate, TurqCurrentCard curCard) throws Exception
 	{
-		for(int k=0; k<invTransactions.size(); k++)
+		for (int k = 0; k < invTransactions.size(); k++)
 		{
-			TurqInventoryTransaction invTrans=(TurqInventoryTransaction)invTransactions.get(k);
-			registerInventoryTransaction(invTrans,engSeqId,type,transDate,definition,docNo,exchangeRate,curCard);
+			TurqInventoryTransaction invTrans = (TurqInventoryTransaction) invTransactions.get(k);
+			registerInventoryTransaction(invTrans, engSeqId, type, transDate, definition, docNo, exchangeRate, curCard);
 		}
 	}
 }

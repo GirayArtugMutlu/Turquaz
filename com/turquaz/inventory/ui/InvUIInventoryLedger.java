@@ -2,6 +2,7 @@ package com.turquaz.inventory.ui;
 
 import java.math.BigDecimal;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -48,7 +49,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	final int INV_ALL = 0;
 	final int INV_WITH_TRANS = 1;
 	final int INV_WITH_BALANCE = 2;
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 
 	/**
 	 * Bu Class Envanter Defterinin Cikarilmasini Saglar..
@@ -183,12 +184,12 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void PostInitGui()
 	{
 		createTableViewer();
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[5];
@@ -197,7 +198,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableInventories, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableInventories, columnTypes, true);
 	}
 
 	public void search()
@@ -217,7 +218,6 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 			BigDecimal avgPrice = new BigDecimal(0);
 			BigDecimal totalPrice = new BigDecimal(0);
 			int reportType = INV_ALL;
-			
 			if (btnAll.getSelection() == true)
 			{
 				reportType = INV_ALL;
@@ -272,13 +272,12 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 						balanceAmount = amountIn.subtract(amountOut);
 						totalPrice = avgPrice.multiply(balanceAmount).setScale(2, BigDecimal.ROUND_HALF_DOWN);
 					}
-					else if(amountOut !=null)
+					else if (amountOut != null)
 					{
 						amountIn = new BigDecimal(0);
 						avgPrice = new BigDecimal(0);
 						balanceAmount = amountIn.subtract(amountOut);
 						totalPrice = avgPrice.multiply(balanceAmount).setScale(2, BigDecimal.ROUND_HALF_DOWN);
-							
 					}
 					else
 					{
@@ -295,24 +294,24 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 					else
 					{
 						avgPrice = priceIn.divide(amountIn, 2, BigDecimal.ROUND_HALF_DOWN);
-						
 					}
-					if(amountOut==null)
+					if (amountOut == null)
 					{
 						amountOut = new BigDecimal(0);
 					}
 					balanceAmount = amountIn.subtract(amountOut);
-						if (balanceAmount.doubleValue() == 0)
-							continue;
-						totalPrice = avgPrice.multiply(balanceAmount).setScale(2, BigDecimal.ROUND_HALF_DOWN);
-					
+					if (balanceAmount.doubleValue() == 0)
+						continue;
+					totalPrice = avgPrice.multiply(balanceAmount).setScale(2, BigDecimal.ROUND_HALF_DOWN);
 				}
 				tableViewer.addRow(new String[]{invCode, invName, balanceAmount.toString(), curFormat.format(avgPrice),
-						curFormat.format(totalPrice)},invCode);
+						curFormat.format(totalPrice)}, invCode);
 			}
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

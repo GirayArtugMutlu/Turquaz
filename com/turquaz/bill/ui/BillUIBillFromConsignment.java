@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
@@ -292,8 +293,10 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							{
 								txtConsignment = new TextWithButton(compInfoPanel, SWT.NONE);
 								GridData txtConsignmentLData = new GridData();
-								txtConsignment.addMouseListener(new MouseAdapter() {
-									public void mouseUp(MouseEvent evt) {
+								txtConsignment.addMouseListener(new MouseAdapter()
+								{
+									public void mouseUp(MouseEvent evt)
+									{
 										chooseConsignmentMouseUp();
 									}
 								});
@@ -401,8 +404,10 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 								txtDiscountRate.setTextLimit(2);
 								GridData txtDiscountRateLData = new GridData();
 								txtDiscountRate.setSize(107, 20);
-								txtDiscountRate.addModifyListener(new ModifyListener() {
-									public void modifyText(ModifyEvent evt) {
+								txtDiscountRate.addModifyListener(new ModifyListener()
+								{
+									public void modifyText(ModifyEvent evt)
+									{
 										calculateTotals();
 									}
 								});
@@ -433,8 +438,10 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							{
 								comboPaymentType = new CCombo(compInfoPanel, SWT.NONE);
 								GridData comboPaymentTypeLData = new GridData();
-								comboPaymentType.addSelectionListener(new SelectionAdapter() {
-									public void widgetSelected(SelectionEvent evt) {
+								comboPaymentType.addSelectionListener(new SelectionAdapter()
+								{
+									public void widgetSelected(SelectionEvent evt)
+									{
 										Boolean isCurrent = (Boolean) comboPaymentType.getData(comboPaymentType.getText());
 										if (isCurrent.booleanValue())
 											accountPickerCurAcc.setEnabled(true);
@@ -707,6 +714,8 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -772,6 +781,8 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();
@@ -847,7 +858,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 				txtCurrentCard.setText(cons.getTurqCurrentCard().getCardsCurrentCode()
 						+ " - " + cons.getTurqCurrentCard().getCardsName()); //$NON-NLS-1$
 				txtCurrentCard.setData(cons.getTurqCurrentCard());
-				TurqBill bill=(TurqBill)cons.getTurqEngineSequence().getTurqBillInEngineSequences().iterator().next();
+				TurqBill bill = (TurqBill) cons.getTurqEngineSequence().getTurqBillInEngineSequences().iterator().next();
 				txtDocumentNo.setText(bill.getBillDocumentNo());
 				dateConsDate.setDate(cons.getConsignmentsDate());
 				txtConsignment.setText(cons.getConsignmentDocumentNo());
@@ -872,7 +883,8 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							invTrans.getTurqInventoryCard().getCardName(), amount + "", //$NON-NLS-1$
 							invTrans.getTurqInventoryUnit().getUnitsName(), invTrans.getUnitPriceInForeignCurrency().toString(),
 							invTrans.getTotalPriceInForeignCurrency().toString(), invTrans.getVatRate() + "", //$NON-NLS-1$
-							invTrans.getVatAmountInForeignCurrency().toString(), invTrans.getVatSpecialAmountInForeignCurrency().toString(),
+							invTrans.getVatAmountInForeignCurrency().toString(),
+							invTrans.getVatSpecialAmountInForeignCurrency().toString(),
 							invTrans.getCumilativePriceInForeignCurrency().toString()});
 					//XXX numeric text->currency text
 					txtDiscountRate.setText(invTrans.getDiscountRate().intValue());
@@ -883,10 +895,11 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 					type = Messages.getString("BillUIBillFromConsignment.43"); //$NON-NLS-1$
 				}
 				comboConsignmentType.setText(type);
-				
 			}
 			catch (Exception ex)
 			{
+				Logger loger = Logger.getLogger(this.getClass());
+				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
 				EngUICommon.showMessageBox(getShell(), ex.getMessage(), SWT.ICON_ERROR);
 			}

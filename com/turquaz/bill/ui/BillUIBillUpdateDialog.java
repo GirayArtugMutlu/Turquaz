@@ -16,6 +16,7 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -89,8 +90,10 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 					toolUpdate = new ToolItem(toolBar1, SWT.NONE);
 					toolUpdate.setText(Messages.getString("BillUIBillUpdateDialog.0")); //$NON-NLS-1$
 					toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
-					toolUpdate.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					toolUpdate.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							update();
 						}
 					});
@@ -99,8 +102,10 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 					toolDelete = new ToolItem(toolBar1, SWT.NONE);
 					toolDelete.setText(Messages.getString("BillUIBillUpdateDialog.2")); //$NON-NLS-1$
 					toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
-					toolDelete.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					toolDelete.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							delete();
 						}
 					});
@@ -109,8 +114,10 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 					toolCancel = new ToolItem(toolBar1, SWT.NONE);
 					toolCancel.setText(Messages.getString("BillUIBillUpdateDialog.4")); //$NON-NLS-1$
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
-					toolCancel.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					toolCancel.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							dialogShell.close();
 						}
 					});
@@ -119,8 +126,10 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 					toolPrint = new ToolItem(toolBar1, SWT.NONE);
 					toolPrint.setText(Messages.getString("BillUIBillUpdateDialog.5")); //$NON-NLS-1$
 					toolPrint.setImage(SWTResourceManager.getImage("gfx/print.gif")); //$NON-NLS-1$
-					toolPrint.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					toolPrint.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							boolean answer = EngUICommon.okToDelete(getParent(), Messages.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
 							dialogShell.close();
 							EngBLUtils.printBill(bill, answer);
@@ -181,8 +190,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			compAddBill.getTxtCurrentCard().setData(bill.getTurqCurrentCard());
 			compAddBill.getTxtCurrentCard().setText(
-					bill.getTurqCurrentCard().getCardsName()
-							+ " {" + bill.getTurqCurrentCard().getCardsCurrentCode() + "}"); //$NON-NLS-1$ //$NON-NLS-2$
+					bill.getTurqCurrentCard().getCardsName() + " {" + bill.getTurqCurrentCard().getCardsCurrentCode() + "}"); //$NON-NLS-1$ //$NON-NLS-2$
 			;
 			compAddBill.getTxtDocumentNo().setText(bill.getBillDocumentNo());
 			compAddBill.getDateConsignmentDate().setDate(bill.getBillsDate());
@@ -202,6 +210,8 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -211,27 +221,26 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		compAddBill.tableViewer.removeAll();
 		TableItem item;
 		TurqInventoryTransaction invTrans;
-		Iterator it=bill.getTurqBillInEngineSequences().iterator();
+		Iterator it = bill.getTurqBillInEngineSequences().iterator();
 		while (it.hasNext())
 		{
-			TurqBillInEngineSequence billInEng=(TurqBillInEngineSequence)it.next();
-			Iterator it2=billInEng.getTurqEngineSequence().getTurqConsignments().iterator();
+			TurqBillInEngineSequence billInEng = (TurqBillInEngineSequence) it.next();
+			Iterator it2 = billInEng.getTurqEngineSequence().getTurqConsignments().iterator();
 			if (it2.hasNext())
 			{
-				TurqConsignment cons=(TurqConsignment)it2.next();
+				TurqConsignment cons = (TurqConsignment) it2.next();
 				if (!cons.getConsignmentDocumentNo().equals(""))
-					compAddBill.getTxtConsignmentDocumentNo().append("["+cons.getConsignmentDocumentNo()+"]");
+					compAddBill.getTxtConsignmentDocumentNo().append("[" + cons.getConsignmentDocumentNo() + "]");
 			}
-			Iterator it3=billInEng.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
-			while(it3.hasNext())
+			Iterator it3 = billInEng.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+			while (it3.hasNext())
 			{
-				invTrans=(TurqInventoryTransaction)it3.next();
-				InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.BILL_TYPE,
-						compAddBill.tableViewer);
+				invTrans = (TurqInventoryTransaction) it3.next();
+				InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.BILL_TYPE, compAddBill.tableViewer);
 				row.setDBObject(invTrans);
 				compAddBill.tableViewer.addRow(row);
 			}
-		}		
+		}
 		compAddBill.calculateTotals();
 	}
 
@@ -279,6 +288,8 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		catch (Exception ex)
 		{
 			msg = new MessageBox(this.getParent(), SWT.ICON_ERROR);
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();
@@ -297,12 +308,11 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			{
 				updated = true;
 				boolean deleteCons = false;
-			
 				//TODO send boolean to delete cons
 				if (EngUICommon.okToDelete(getParent(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
 					deleteCons = true;
 				}
-				BillBLUpdateBill.deleteBill(bill,deleteCons);
+				BillBLUpdateBill.deleteBill(bill, deleteCons);
 				msg.setMessage(Messages.getString("BillUIBillUpdateDialog.1")); //$NON-NLS-1$
 				msg.open();
 				dialogShell.close();
@@ -310,6 +320,8 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();

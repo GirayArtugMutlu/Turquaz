@@ -22,6 +22,7 @@ package com.turquaz.cheque.ui;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableItem;
@@ -193,7 +194,7 @@ public class CheUIReturnFromGivenCheques extends org.eclipse.swt.widgets.Composi
 					tableColumnAmount.setWidth(100);
 				}
 			}
-			//START >>  compTotal
+			//START >> compTotal
 			compTotal = new Composite(this, SWT.NONE);
 			GridLayout compTotalLayout = new GridLayout();
 			compTotalLayout.numColumns = 2;
@@ -203,18 +204,18 @@ public class CheUIReturnFromGivenCheques extends org.eclipse.swt.widgets.Composi
 			compTotalLData.heightHint = 29;
 			compTotalLData.grabExcessHorizontalSpace = true;
 			compTotal.setLayoutData(compTotalLData);
-			//START >>  lblTotalAmount
+			//START >> lblTotalAmount
 			lblTotalAmount = new CLabel(compTotal, SWT.NONE);
 			lblTotalAmount.setText("Toplam Tutar : ");
-			//END <<  lblTotalAmount
-			//START >>  txtTotalAmount
+			//END << lblTotalAmount
+			//START >> txtTotalAmount
 			txtTotalAmount = new CurrencyTextAdvanced(compTotal, SWT.NONE);
 			GridData txtTotalAmountLData = new GridData();
 			txtTotalAmountLData.widthHint = 150;
 			txtTotalAmountLData.heightHint = 17;
 			txtTotalAmount.setLayoutData(txtTotalAmountLData);
-			//END <<  txtTotalAmount
-			//END <<  compTotal
+			//END << txtTotalAmount
+			//END << compTotal
 			this.layout();
 		}
 		catch (Exception e)
@@ -256,19 +257,21 @@ public class CheUIReturnFromGivenCheques extends org.eclipse.swt.widgets.Composi
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
 		}
 	}
-	
+
 	public void calculateTotal()
 	{
 		int count = tableCheques.getItemCount();
-		BigDecimal totalAmount=new BigDecimal(0);
+		BigDecimal totalAmount = new BigDecimal(0);
 		for (int i = 0; i < count; i++)
 		{
-			TurqChequeCheque cheque=(TurqChequeCheque)tableCheques.getItem(i).getData();
-			totalAmount=totalAmount.add(cheque.getChequesAmount());
+			TurqChequeCheque cheque = (TurqChequeCheque) tableCheques.getItem(i).getData();
+			totalAmount = totalAmount.add(cheque.getChequesAmount());
 		}
 		txtTotalAmount.setBigDecimalValue(totalAmount);
 	}

@@ -6,141 +6,152 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqInventoryPrice implements Serializable {
+public class TurqInventoryPrice implements Serializable
+{
+	/** identifier field */
+	private java.lang.Integer id;
+	/** persistent field */
+	private boolean pricesType;
+	/** persistent field */
+	private java.math.BigDecimal pricesAmount;
+	/** persistent field */
+	private java.lang.String createdBy;
+	/** persistent field */
+	private java.util.Date creationDate;
+	/** persistent field */
+	private java.lang.String updatedBy;
+	/** persistent field */
+	private java.util.Date lastModified;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqCurrency turqCurrency;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
 
-    /** identifier field */
-    private java.lang.Integer id;
+	/** full constructor */
+	public TurqInventoryPrice(boolean pricesType, java.math.BigDecimal pricesAmount, java.lang.String createdBy,
+			java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified,
+			com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard)
+	{
+		this.pricesType = pricesType;
+		this.pricesAmount = pricesAmount;
+		this.createdBy = createdBy;
+		this.creationDate = creationDate;
+		this.updatedBy = updatedBy;
+		this.lastModified = lastModified;
+		this.turqCurrency = turqCurrency;
+		this.turqInventoryCard = turqInventoryCard;
+	}
 
-    /** persistent field */
-    private boolean pricesType;
+	/** default constructor */
+	public TurqInventoryPrice()
+	{
+	}
 
-    /** persistent field */
-    private java.math.BigDecimal pricesAmount;
+	public java.lang.Integer getId()
+	{
+		return this.id;
+	}
 
-    /** persistent field */
-    private java.lang.String createdBy;
+	public void setId(java.lang.Integer id)
+	{
+		this.id = id;
+	}
 
-    /** persistent field */
-    private java.util.Date creationDate;
+	public boolean isPricesType()
+	{
+		return this.pricesType;
+	}
 
-    /** persistent field */
-    private java.lang.String updatedBy;
+	public void setPricesType(boolean pricesType)
+	{
+		this.pricesType = pricesType;
+	}
 
-    /** persistent field */
-    private java.util.Date lastModified;
+	public java.math.BigDecimal getPricesAmount()
+	{
+		return this.pricesAmount;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqCurrency turqCurrency;
+	public void setPricesAmount(java.math.BigDecimal pricesAmount)
+	{
+		this.pricesAmount = pricesAmount;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
+	public java.lang.String getCreatedBy()
+	{
+		return this.createdBy;
+	}
 
-    /** full constructor */
-    public TurqInventoryPrice(boolean pricesType, java.math.BigDecimal pricesAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
-        this.pricesType = pricesType;
-        this.pricesAmount = pricesAmount;
-        this.createdBy = createdBy;
-        this.creationDate = creationDate;
-        this.updatedBy = updatedBy;
-        this.lastModified = lastModified;
-        this.turqCurrency = turqCurrency;
-        this.turqInventoryCard = turqInventoryCard;
-    }
+	public void setCreatedBy(java.lang.String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
 
-    /** default constructor */
-    public TurqInventoryPrice() {
-    }
+	public java.util.Date getCreationDate()
+	{
+		return this.creationDate;
+	}
 
-    public java.lang.Integer getId() {
-        return this.id;
-    }
+	public void setCreationDate(java.util.Date creationDate)
+	{
+		this.creationDate = creationDate;
+	}
 
-    public void setId(java.lang.Integer id) {
-        this.id = id;
-    }
+	public java.lang.String getUpdatedBy()
+	{
+		return this.updatedBy;
+	}
 
-    public boolean isPricesType() {
-        return this.pricesType;
-    }
+	public void setUpdatedBy(java.lang.String updatedBy)
+	{
+		this.updatedBy = updatedBy;
+	}
 
-    public void setPricesType(boolean pricesType) {
-        this.pricesType = pricesType;
-    }
+	public java.util.Date getLastModified()
+	{
+		return this.lastModified;
+	}
 
-    public java.math.BigDecimal getPricesAmount() {
-        return this.pricesAmount;
-    }
+	public void setLastModified(java.util.Date lastModified)
+	{
+		this.lastModified = lastModified;
+	}
 
-    public void setPricesAmount(java.math.BigDecimal pricesAmount) {
-        this.pricesAmount = pricesAmount;
-    }
+	public com.turquaz.engine.dal.TurqCurrency getTurqCurrency()
+	{
+		return this.turqCurrency;
+	}
 
-    public java.lang.String getCreatedBy() {
-        return this.createdBy;
-    }
+	public void setTurqCurrency(com.turquaz.engine.dal.TurqCurrency turqCurrency)
+	{
+		this.turqCurrency = turqCurrency;
+	}
 
-    public void setCreatedBy(java.lang.String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public com.turquaz.engine.dal.TurqInventoryCard getTurqInventoryCard()
+	{
+		return this.turqInventoryCard;
+	}
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
+	public void setTurqInventoryCard(com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard)
+	{
+		this.turqInventoryCard = turqInventoryCard;
+	}
 
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("id", getId()).toString();
+	}
 
-    public java.lang.String getUpdatedBy() {
-        return this.updatedBy;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqInventoryPrice))
+			return false;
+		TurqInventoryPrice castOther = (TurqInventoryPrice) other;
+		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
+	}
 
-    public void setUpdatedBy(java.lang.String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
-
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
-    public com.turquaz.engine.dal.TurqCurrency getTurqCurrency() {
-        return this.turqCurrency;
-    }
-
-    public void setTurqCurrency(com.turquaz.engine.dal.TurqCurrency turqCurrency) {
-        this.turqCurrency = turqCurrency;
-    }
-
-    public com.turquaz.engine.dal.TurqInventoryCard getTurqInventoryCard() {
-        return this.turqInventoryCard;
-    }
-
-    public void setTurqInventoryCard(com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
-        this.turqInventoryCard = turqInventoryCard;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getId())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqInventoryPrice) ) return false;
-        TurqInventoryPrice castOther = (TurqInventoryPrice) other;
-        return new EqualsBuilder()
-            .append(this.getId(), castOther.getId())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getId()).toHashCode();
+	}
 }

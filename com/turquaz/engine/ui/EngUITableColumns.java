@@ -21,19 +21,19 @@ public class EngUITableColumns extends org.eclipse.swt.widgets.Dialog
 	private Button btnOk;
 	private Composite composite1;
 	private Button btnCancel;
-	int defaultColumnWidths[]=null;
-	boolean defaultChecked[]=null;
+	int defaultColumnWidths[] = null;
+	boolean defaultChecked[] = null;
 
 	public EngUITableColumns(Shell parent, int style)
 	{
 		super(parent, style);
 	}
 
-	public void open(Table table,  int[]defaultWidths)
+	public void open(Table table, int[] defaultWidths)
 	{
 		try
 		{
-			this.defaultColumnWidths=defaultWidths;
+			this.defaultColumnWidths = defaultWidths;
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 			{
@@ -151,12 +151,12 @@ public class EngUITableColumns extends org.eclipse.swt.widgets.Dialog
 			{
 				column.setWidth(0);
 			}
-			else{
-				if(!defaultChecked[i])
+			else
+			{
+				if (!defaultChecked[i])
 				{
 					column.setWidth(defaultColumnWidths[i]);
 				}
-				
 			}
 		}
 		dialogShell.close();

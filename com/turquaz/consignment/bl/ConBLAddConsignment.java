@@ -38,7 +38,8 @@ import com.turquaz.inventory.bl.InvBLSaveTransaction;
 public class ConBLAddConsignment
 {
 	public static TurqConsignment saveConsignment(String docNo, String definition, boolean isPrinted, Date consignmentDate,
-			TurqCurrentCard curCard, int type, TurqCurrencyExchangeRate exchangeRate, List invTransactions, List groups) throws Exception
+			TurqCurrentCard curCard, int type, TurqCurrencyExchangeRate exchangeRate, List invTransactions, List groups)
+			throws Exception
 	{
 		try
 		{
@@ -53,14 +54,15 @@ public class ConBLAddConsignment
 			consignment.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			consignment.setLastModified(cal.getTime());
 			consignment.setCreationDate(cal.getTime());
-			TurqEngineSequence engSeq=EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_CONSIGNMENT);
+			TurqEngineSequence engSeq = EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_CONSIGNMENT);
 			consignment.setTurqEngineSequence(engSeq);
 			consignment.setConsignmentDocumentNo(docNo);
 			consignment.setTurqCurrencyExchangeRate(exchangeRate);
 			consignment.setBillDocumentNo("");
 			EngDALCommon.saveObject(consignment);
 			// Then Save Inventory Transactions
-			InvBLSaveTransaction.saveInventoryTransactions(invTransactions,engSeq.getId(),type,consignmentDate,definition,docNo,exchangeRate,curCard);
+			InvBLSaveTransaction.saveInventoryTransactions(invTransactions, engSeq.getId(), type, consignmentDate, definition, docNo,
+					exchangeRate, curCard);
 			if (groups != null)
 			{
 				for (int i = 0; i < groups.size(); i++)

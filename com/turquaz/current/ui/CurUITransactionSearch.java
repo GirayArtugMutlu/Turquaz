@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
@@ -86,7 +87,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	private CCombo comboTransactionGroup;
 	private Composite composite1;
 	private Calendar cal = Calendar.getInstance();
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 
 	public CurUITransactionSearch(Composite parent, int style)
 	{
@@ -243,7 +244,6 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					tableColumnDebit = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
 					tableColumnDebit.setText(Messages.getString("CurUITransactionSearch.7")); //$NON-NLS-1$
 					tableColumnDebit.setWidth(62);
-					
 				}
 				{
 					tableColumnCredit = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
@@ -280,7 +280,6 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 		fillComboTypes();
 		createTableViewer();
 	}
-	
 
 	public void fillComboTypes()
 	{
@@ -300,6 +299,8 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
@@ -335,20 +336,22 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				String transDefinition = (String) transaction[6];
 				BigDecimal transTotalDept = (BigDecimal) transaction[7];
 				BigDecimal transTotalCredit = (BigDecimal) transaction[8];
-				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), transDocNo, curCardCode, curCardName, transTypeName,
-						transDefinition, cf.format(transTotalDept), cf.format(transTotalCredit)},transId);
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), transDocNo, curCardCode, curCardName,
+						transTypeName, transDefinition, cf.format(transTotalDept), cf.format(transTotalCredit)}, transId);
 				totalDept = totalDept.add(transTotalDept);
 				totalCredit = totalCredit.add(transTotalCredit);
 			}
-			tableViewer.addRow(new String[]{"","","","","","","",""},null);
-			tableViewer.addRow(new String[]{"", "", "", "", "", "---TOPLAM---", cf.format(totalDept), cf.format(totalCredit)},null);
+			tableViewer.addRow(new String[]{"", "", "", "", "", "", "", ""}, null);
+			tableViewer.addRow(new String[]{"", "", "", "", "", "---TOPLAM---", cf.format(totalDept), cf.format(totalCredit)}, null);
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[8];
@@ -360,7 +363,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableCurrentTransactions, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableCurrentTransactions, columnTypes, true);
 	}
 
 	public void delete()
@@ -381,7 +384,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 			if (items.length > 0)
 			{
 				boolean updated = false;
-				Integer transId = (Integer)((ITableRow) items[0].getData()).getDBObject();
+				Integer transId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (transId != null)
 				{
 					TurqCurrentTransaction trans = CurBLSearchTransaction.getCurTransByTransId(transId);
@@ -389,43 +392,38 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					int type = trans.getTurqCurrentTransactionType().getId().intValue();
 					if (type == EngBLCommon.CURRENT_TRANS_OTHERS)
 					{
-						 updated = new CurUIVoucherUpdate(this.getShell(), SWT.NULL, trans).open();
-						
+						updated = new CurUIVoucherUpdate(this.getShell(), SWT.NULL, trans).open();
 					}
-					else if(type == EngBLCommon.CURRENT_TRANS_BANK)
+					else if (type == EngBLCommon.CURRENT_TRANS_BANK)
 					{
-						
 						Integer bankTransId = EngDALCommon.getBankTransaction(trans.getTurqEngineSequence());
-						if(bankTransId != null)
+						if (bankTransId != null)
 						{
-							updated = BankUISearchMoneyTransaction.updateTransaction(bankTransId,getShell());
+							updated = BankUISearchMoneyTransaction.updateTransaction(bankTransId, getShell());
 						}
 					}
-					else if(type == EngBLCommon.CURRENT_TRANS_BILL)
+					else if (type == EngBLCommon.CURRENT_TRANS_BILL)
 					{
-						
 						Integer bankTransId = EngDALCommon.getBill(trans.getTurqEngineSequence());
-						if(bankTransId != null)
+						if (bankTransId != null)
 						{
-							updated = BillUIBillSearch.updateBill(bankTransId,getShell());
+							updated = BillUIBillSearch.updateBill(bankTransId, getShell());
 						}
 					}
-					else if(type == EngBLCommon.CURRENT_TRANS_CHEQUE)
+					else if (type == EngBLCommon.CURRENT_TRANS_CHEQUE)
 					{
-						
 						Integer bankTransId = EngDALCommon.getCheqeuTransaction(trans.getTurqEngineSequence());
-						if(bankTransId != null)
+						if (bankTransId != null)
 						{
-							updated = CheUIChequeRollSearch.rollUpdate(bankTransId,getShell());
+							updated = CheUIChequeRollSearch.rollUpdate(bankTransId, getShell());
 						}
 					}
-					else if(type == EngBLCommon.CURRENT_TRANS_CASH)
+					else if (type == EngBLCommon.CURRENT_TRANS_CASH)
 					{
-						
 						Integer bankTransId = EngDALCommon.getCashTransaction(trans.getTurqEngineSequence());
-						if(bankTransId != null)
+						if (bankTransId != null)
 						{
-							updated = CashUICashTransactionSearch.updateCashTransaction(bankTransId,getShell());
+							updated = CashUICashTransactionSearch.updateCashTransaction(bankTransId, getShell());
 						}
 					}
 					else
@@ -441,6 +439,8 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());

@@ -7,129 +7,139 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqChequeTransactionType implements Serializable {
+public class TurqChequeTransactionType implements Serializable
+{
+	/** identifier field */
+	private java.lang.Integer id;
+	/** persistent field */
+	private java.lang.String transactionTypsName;
+	/** persistent field */
+	private java.lang.String createdBy;
+	/** persistent field */
+	private java.util.Date creationDate;
+	/** persistent field */
+	private java.lang.String updatedBy;
+	/** persistent field */
+	private java.util.Date lastModified;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqChequeTransactionTypeGroup turqChequeTransactionTypeGroup;
+	/** persistent field */
+	private Set turqChequeRolls;
 
-    /** identifier field */
-    private java.lang.Integer id;
+	/** full constructor */
+	public TurqChequeTransactionType(java.lang.String transactionTypsName, java.lang.String createdBy, java.util.Date creationDate,
+			java.lang.String updatedBy, java.util.Date lastModified,
+			com.turquaz.engine.dal.TurqChequeTransactionTypeGroup turqChequeTransactionTypeGroup, Set turqChequeRolls)
+	{
+		this.transactionTypsName = transactionTypsName;
+		this.createdBy = createdBy;
+		this.creationDate = creationDate;
+		this.updatedBy = updatedBy;
+		this.lastModified = lastModified;
+		this.turqChequeTransactionTypeGroup = turqChequeTransactionTypeGroup;
+		this.turqChequeRolls = turqChequeRolls;
+	}
 
-    /** persistent field */
-    private java.lang.String transactionTypsName;
+	/** default constructor */
+	public TurqChequeTransactionType()
+	{
+	}
 
-    /** persistent field */
-    private java.lang.String createdBy;
+	public java.lang.Integer getId()
+	{
+		return this.id;
+	}
 
-    /** persistent field */
-    private java.util.Date creationDate;
+	public void setId(java.lang.Integer id)
+	{
+		this.id = id;
+	}
 
-    /** persistent field */
-    private java.lang.String updatedBy;
+	public java.lang.String getTransactionTypsName()
+	{
+		return this.transactionTypsName;
+	}
 
-    /** persistent field */
-    private java.util.Date lastModified;
+	public void setTransactionTypsName(java.lang.String transactionTypsName)
+	{
+		this.transactionTypsName = transactionTypsName;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqChequeTransactionTypeGroup turqChequeTransactionTypeGroup;
+	public java.lang.String getCreatedBy()
+	{
+		return this.createdBy;
+	}
 
-    /** persistent field */
-    private Set turqChequeRolls;
+	public void setCreatedBy(java.lang.String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
 
-    /** full constructor */
-    public TurqChequeTransactionType(java.lang.String transactionTypsName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqChequeTransactionTypeGroup turqChequeTransactionTypeGroup, Set turqChequeRolls) {
-        this.transactionTypsName = transactionTypsName;
-        this.createdBy = createdBy;
-        this.creationDate = creationDate;
-        this.updatedBy = updatedBy;
-        this.lastModified = lastModified;
-        this.turqChequeTransactionTypeGroup = turqChequeTransactionTypeGroup;
-        this.turqChequeRolls = turqChequeRolls;
-    }
+	public java.util.Date getCreationDate()
+	{
+		return this.creationDate;
+	}
 
-    /** default constructor */
-    public TurqChequeTransactionType() {
-    }
+	public void setCreationDate(java.util.Date creationDate)
+	{
+		this.creationDate = creationDate;
+	}
 
-    public java.lang.Integer getId() {
-        return this.id;
-    }
+	public java.lang.String getUpdatedBy()
+	{
+		return this.updatedBy;
+	}
 
-    public void setId(java.lang.Integer id) {
-        this.id = id;
-    }
+	public void setUpdatedBy(java.lang.String updatedBy)
+	{
+		this.updatedBy = updatedBy;
+	}
 
-    public java.lang.String getTransactionTypsName() {
-        return this.transactionTypsName;
-    }
+	public java.util.Date getLastModified()
+	{
+		return this.lastModified;
+	}
 
-    public void setTransactionTypsName(java.lang.String transactionTypsName) {
-        this.transactionTypsName = transactionTypsName;
-    }
+	public void setLastModified(java.util.Date lastModified)
+	{
+		this.lastModified = lastModified;
+	}
 
-    public java.lang.String getCreatedBy() {
-        return this.createdBy;
-    }
+	public com.turquaz.engine.dal.TurqChequeTransactionTypeGroup getTurqChequeTransactionTypeGroup()
+	{
+		return this.turqChequeTransactionTypeGroup;
+	}
 
-    public void setCreatedBy(java.lang.String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public void setTurqChequeTransactionTypeGroup(com.turquaz.engine.dal.TurqChequeTransactionTypeGroup turqChequeTransactionTypeGroup)
+	{
+		this.turqChequeTransactionTypeGroup = turqChequeTransactionTypeGroup;
+	}
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
+	public java.util.Set getTurqChequeRolls()
+	{
+		return this.turqChequeRolls;
+	}
 
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public void setTurqChequeRolls(java.util.Set turqChequeRolls)
+	{
+		this.turqChequeRolls = turqChequeRolls;
+	}
 
-    public java.lang.String getUpdatedBy() {
-        return this.updatedBy;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("id", getId()).toString();
+	}
 
-    public void setUpdatedBy(java.lang.String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqChequeTransactionType))
+			return false;
+		TurqChequeTransactionType castOther = (TurqChequeTransactionType) other;
+		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
+	}
 
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
-
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
-    public com.turquaz.engine.dal.TurqChequeTransactionTypeGroup getTurqChequeTransactionTypeGroup() {
-        return this.turqChequeTransactionTypeGroup;
-    }
-
-    public void setTurqChequeTransactionTypeGroup(com.turquaz.engine.dal.TurqChequeTransactionTypeGroup turqChequeTransactionTypeGroup) {
-        this.turqChequeTransactionTypeGroup = turqChequeTransactionTypeGroup;
-    }
-
-    public java.util.Set getTurqChequeRolls() {
-        return this.turqChequeRolls;
-    }
-
-    public void setTurqChequeRolls(java.util.Set turqChequeRolls) {
-        this.turqChequeRolls = turqChequeRolls;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getId())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqChequeTransactionType) ) return false;
-        TurqChequeTransactionType castOther = (TurqChequeTransactionType) other;
-        return new EqualsBuilder()
-            .append(this.getId(), castOther.getId())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getId()).toHashCode();
+	}
 }

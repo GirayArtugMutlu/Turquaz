@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
@@ -408,7 +409,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 				cTabFolder1LData.horizontalAlignment = GridData.FILL;
 				cTabFolder1LData.verticalAlignment = GridData.FILL;
 				cTabFolder1.setLayoutData(cTabFolder1LData);
-				//START >>  tabItemInfo
+				//START >> tabItemInfo
 				tabItemInfo = new CTabItem(cTabFolder1, SWT.NONE);
 				tabItemInfo.setText("Genel Bilgiler");
 				{
@@ -557,8 +558,10 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 							tableColumn1 = new TableColumn(tableConsignmentRows, SWT.NONE);
 							tableColumn1.setText(INVENTORY_CODE);
 							tableColumn1.setWidth(73);
-							tableColumn1.addSelectionListener(new SelectionAdapter() {
-								public void widgetSelected(SelectionEvent evt) {
+							tableColumn1.addSelectionListener(new SelectionAdapter()
+							{
+								public void widgetSelected(SelectionEvent evt)
+								{
 									//      tableViewer.setSorter(new TurquazTableSorter(0));
 								}
 							});
@@ -588,7 +591,6 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 							tableColumn3.setText(BASE_UNIT);
 							tableColumn3.setWidth(75);
 						}
-
 						{
 							tableColumn6 = new TableColumn(tableConsignmentRows, SWT.RIGHT);
 							tableColumn6.setText(UNIT_PRICE);
@@ -736,7 +738,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 						}
 					}
 				}
-				//END <<  tabItemInfo
+				//END << tabItemInfo
 				{
 					tabItemGroups = new CTabItem(cTabFolder1, SWT.NONE);
 					tabItemGroups.setImage(SWTResourceManager.getImage("icons/Multi16.gif")); //$NON-NLS-1$
@@ -798,6 +800,8 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -833,7 +837,6 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		columnList.add(SPECIAL_VAT_PERCENT);
 		columnList.add(SPECIAL_VAT_TOTAL);
 		columnList.add(ROW_TOTAL);
-		
 		//     Create the cell editors
 		CellEditor[] editors = new CellEditor[columnNames.length];
 		editors[0] = new InventoryCellEditor(tableConsignmentRows); //Stok Kodu
@@ -851,9 +854,8 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		editors[12] = new CurrencyCellEditor(tableConsignmentRows, 4);
 		editors[13] = new CurrencyCellEditor(tableConsignmentRows, 2);
 		editors[14] = new CurrencyCellEditor(tableConsignmentRows, 2);
-		tableViewer = new SaveTableViewer(tableConsignmentRows,editors);
+		tableViewer = new SaveTableViewer(tableConsignmentRows, editors);
 		// Assign the cell editors to the viewer
-		
 		cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE, tableViewer, true);
 		cursor.setEnabled(true);
 		cursor.addSelectionListener(new SelectionAdapter()
@@ -937,6 +939,8 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -983,6 +987,8 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -1078,7 +1084,8 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 					type = 1;
 				}
 				TurqConsignment cons = ConBLAddConsignment.saveConsignment(txtDocumentNo.getText(), txtDefinition.getText(), false,
-						dateConsignmentDate.getDate(), (TurqCurrentCard) txtCurrentCard.getData(),type, EngBLCommon.getBaseCurrencyExchangeRate(), getInventoryTransactions(), getConsignmentGroups());
+						dateConsignmentDate.getDate(), (TurqCurrentCard) txtCurrentCard.getData(), type, EngBLCommon
+								.getBaseCurrencyExchangeRate(), getInventoryTransactions(), getConsignmentGroups());
 				msg.setMessage(Messages.getString("ConUIAddConsignment.36")); //$NON-NLS-1$
 				msg.open();
 				newForm();
@@ -1086,6 +1093,8 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();

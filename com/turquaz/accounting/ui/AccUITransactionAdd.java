@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.layout.GridLayout;
@@ -364,6 +365,8 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -383,9 +386,7 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 		editors[3] = new CurrencyCellEditor(tableTransactionColumns, 2);
 		editors[4] = new CurrencyCellEditor(tableTransactionColumns, 2);
 		// Assign the cell editors to the viewer
-
-		tableViewer = new SaveTableViewer(tableTransactionColumns,editors);
-	
+		tableViewer = new SaveTableViewer(tableTransactionColumns, editors);
 		// create a TableCursor to navigate around the table
 		cursor = new TableSpreadsheetCursor(tableTransactionColumns, SWT.NONE, tableViewer, true);
 		cursor.setEnabled(true);
@@ -488,6 +489,8 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return false;
 		}
@@ -561,6 +564,8 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 			}
 			catch (Exception ex)
 			{
+				Logger loger = Logger.getLogger(this.getClass());
+				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
 				msg.setMessage(Messages.getString("AccUITransactionAdd.17")); //$NON-NLS-1$
 				msg.open();

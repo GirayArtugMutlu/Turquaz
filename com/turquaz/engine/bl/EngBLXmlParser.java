@@ -48,7 +48,6 @@ public class EngBLXmlParser
 	public Map createMap()
 	{
 		treeInfo = new HashMap();
-		
 		Element root = myDocument.getRootElement();
 		List items = root.getChildren("treeitem");
 		String text = "";

@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -220,7 +221,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					accountPickerEndLData.heightHint = 17;
 					accountPickerEnd.setLayoutData(accountPickerEndLData);
 				}
-				//START >>  label1
+				//START >> label1
 				label1 = new Label(compAdvanced, SWT.SEPARATOR | SWT.HORIZONTAL);
 				label1.setText("label1"); //$NON-NLS-1$
 				GridData label1LData = new GridData();
@@ -228,7 +229,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				label1LData.heightHint = 2;
 				label1LData.horizontalSpan = 4;
 				label1.setLayoutData(label1LData);
-				//END <<  label1
+				//END << label1
 				//START >> groupRemainder
 				groupRemainder = new Group(compAdvanced, SWT.NONE);
 				GridLayout groupRemainderLayout = new GridLayout();
@@ -260,11 +261,14 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					checkSubAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.0")); //$NON-NLS-1$
 					GridData checkSubAccountsLData = new GridData();
 					checkSubAccounts.setLayoutData(checkSubAccountsLData);
-					checkSubAccounts.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					checkSubAccounts.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							boolean expand = checkSubAccounts.getSelection();
 							TableTreeItem[] subItems = tableTreeAccounts.getItems();
-							for (int k = 0; k < subItems.length; k++) {
+							for (int k = 0; k < subItems.length; k++)
+							{
 								expandTree(subItems[k], expand);
 							}
 						}
@@ -274,15 +278,12 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					checkInitialAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
 					checkInitialAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.1")); //$NON-NLS-1$
 					GridData checkInitialAccountsLData = new GridData();
-				
 					checkInitialAccounts.setLayoutData(checkInitialAccountsLData);
-				
 				}
 				{
 					checkFinalAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
 					checkFinalAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.2")); //$NON-NLS-1$
 					GridData checkFinalAccountsLData = new GridData();
-				
 					checkFinalAccounts.setLayoutData(checkFinalAccountsLData);
 				}
 			}
@@ -477,6 +478,8 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
 			msg.open();
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -552,13 +555,12 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 	{
 		Calendar cal = Calendar.getInstance();
 		Map props = new HashMap();
-		props.put("start_account_code",accountPickerStart.getText()); //$NON-NLS-1$
-		props.put("end_account_code",accountPickerEnd.getText()); //$NON-NLS-1$
-		props.put("start_date",DatePicker.formatter.format(datePickerStart.getDate())); //$NON-NLS-1$
-		props.put("end_date",DatePicker.formatter.format(datePickerEnd.getDate())); //$NON-NLS-1$
-		props.put("report_date",DatePicker.formatter.format(cal.getTime())); //$NON-NLS-1$
-		
-		EngBLUtils.printAccountingBalance(tableTreeAccounts.getTable(),Messages.getString("AccUIAccountingAdvancedBalance.23"),props);  //$NON-NLS-1$
+		props.put("start_account_code", accountPickerStart.getText()); //$NON-NLS-1$
+		props.put("end_account_code", accountPickerEnd.getText()); //$NON-NLS-1$
+		props.put("start_date", DatePicker.formatter.format(datePickerStart.getDate())); //$NON-NLS-1$
+		props.put("end_date", DatePicker.formatter.format(datePickerEnd.getDate())); //$NON-NLS-1$
+		props.put("report_date", DatePicker.formatter.format(cal.getTime())); //$NON-NLS-1$
+		EngBLUtils.printAccountingBalance(tableTreeAccounts.getTable(), Messages.getString("AccUIAccountingAdvancedBalance.23"), props); //$NON-NLS-1$
 	}
 
 	public void exportToExcel()

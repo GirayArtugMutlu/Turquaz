@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
@@ -413,14 +414,14 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								comboWareHouseLData.heightHint = 17;
 								comboWareHouse.setLayoutData(comboWareHouseLData);
 							}
-							//START >>  lblPaymentType
+							//START >> lblPaymentType
 							lblPaymentType = new CLabel(compInfoPanel, SWT.NONE);
 							lblPaymentType.setText("Ödeme Tipi");
 							GridData lblPaymentTypeLData1 = new GridData();
 							lblPaymentTypeLData1.widthHint = 90;
 							lblPaymentTypeLData1.heightHint = 19;
 							lblPaymentType.setLayoutData(lblPaymentTypeLData1);
-							//END <<  lblPaymentType
+							//END << lblPaymentType
 							{
 								comboPaymentType = new CCombo(compInfoPanel, SWT.NONE);
 								comboPaymentType.setEditable(false);
@@ -747,6 +748,8 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -777,6 +780,8 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -812,6 +817,8 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -858,6 +865,8 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -896,7 +905,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		editors[12] = new CurrencyCellEditor(tableConsignmentRows, 4);
 		editors[13] = new CurrencyCellEditor(tableConsignmentRows, 2);
 		editors[14] = new CurrencyCellEditor(tableConsignmentRows, 2);
-		tableViewer = new SaveTableViewer(tableConsignmentRows,editors);
+		tableViewer = new SaveTableViewer(tableConsignmentRows, editors);
 		// Assign the cell editors to the viewer
 		cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE, tableViewer, true);
 		cursor.setEnabled(true);
@@ -930,13 +939,13 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 			public void updateRow(ITableRow row)
 			{
 				calculateTotals();
-				Vector vec =tableViewer.getRowList().getTasks();
+				Vector vec = tableViewer.getRowList().getTasks();
 				int index = vec.indexOf(row);
 				if (index == vec.size() - 1)
 				{
 					if (row.okToSave())
 					{
-						InvUITransactionTableRow row2 = new InvUITransactionTableRow( 0, tableViewer);
+						InvUITransactionTableRow row2 = new InvUITransactionTableRow(0, tableViewer);
 						tableViewer.addRow(row2);
 					}
 				}
@@ -1001,7 +1010,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 				cursor.setFocus();
 				return false;
 			}
-			else if (comboWareHouse.getData(comboWareHouse.getText())==null)
+			else if (comboWareHouse.getData(comboWareHouse.getText()) == null)
 			{
 				msg.setMessage("Bir depo seçmelisiniz!");
 				msg.open();
@@ -1061,6 +1070,8 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return false;
 		}
@@ -1099,6 +1110,8 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return false;
 		}
@@ -1141,6 +1154,8 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

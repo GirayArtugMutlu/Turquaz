@@ -16,6 +16,7 @@
 package com.turquaz.engine.dal;
 
 import java.util.Properties;
+import org.apache.log4j.Logger;
 import org.eclipse.core.internal.preferences.Base64;
 import com.turquaz.engine.EngConfiguration;
 import net.sf.hibernate.Session;
@@ -24,8 +25,8 @@ import net.sf.hibernate.cfg.Configuration;
 
 /**
  * @author onsel
- * @version $Id$ Class for initial database configuration. It creates
- *          the necessary bindings according to hibernate.cfg.xml Initiliaze the static SessionFactory object
+ * @version $Id$ Class for initial database configuration. It creates the
+ *          necessary bindings according to hibernate.cfg.xml Initiliaze the static SessionFactory object
  */
 public class EngDALSessionFactory
 {
@@ -76,6 +77,8 @@ public class EngDALSessionFactory
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -79,7 +80,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 	private CLabel lblStartDate;
 	private Text txtDocNo;
 	private CLabel lblDocNo;
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 
 	public BankUISearchMoneyTransaction(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -193,15 +194,15 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void PostInitGui()
 	{
-		Calendar cal=Calendar.getInstance();
-		cal.set(cal.get(Calendar.YEAR),0,1);
+		Calendar cal = Calendar.getInstance();
+		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		dateStart.setDate(cal.getTime());
 		createTableViewer();
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[6];
@@ -211,7 +212,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableMoneyTrans, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableMoneyTrans, columnTypes, true);
 	}
 
 	public void delete()
@@ -263,19 +264,20 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 				docNo = result[4].toString();
 				String definition = result[3].toString();
 				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), docNo, transType, definition, cf.format(dept),
-						cf.format(credit)},transId);
+						cf.format(credit)}, transId);
 			}
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			EngUICommon.showMessageBox(getShell(), ex.getMessage(), SWT.ICON_ERROR);
 		}
 	}
-	
-	public static boolean updateTransaction(Integer billId, Shell shell)throws Exception
+
+	public static boolean updateTransaction(Integer billId, Shell shell) throws Exception
 	{
-		
 		boolean isUpdated = false;
 		TurqBanksTransactionBill transBill = BankBLTransactionUpdate.initializeTransaction(billId);
 		if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
@@ -306,10 +308,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 		{
 			isUpdated = new BankUITransferBetweenAccountsUpdate(shell, SWT.NULL, transBill).open();
 		}
-		
 		return isUpdated;
-		
-		
 	}
 
 	public void tableMouseDoubleClick()
@@ -320,9 +319,8 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 			if (selection.length > 0)
 			{
 				boolean isUpdated = false;
-				Integer billId=(Integer)((ITableRow) selection[0].getData()).getDBObject();
-				isUpdated = updateTransaction(billId,getShell());
-				
+				Integer billId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
+				isUpdated = updateTransaction(billId, getShell());
 				if (isUpdated)
 				{
 					search();
@@ -331,6 +329,8 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
 		}

@@ -111,24 +111,23 @@ public class InvDALCardAdd
 			throw ex;
 		}
 	}
-	public static List getInventoryUnits(TurqInventoryCard invCard)throws Exception
+
+	public static List getInventoryUnits(TurqInventoryCard invCard) throws Exception
 	{
-		try{
-			
+		try
+		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select cardUnit.turqInventoryUnit from TurqInventoryCardUnit cardUnit" +
-					"	where cardUnit.turqInventoryCard = :invCard";
+			String query = "Select cardUnit.turqInventoryUnit from TurqInventoryCardUnit cardUnit"
+					+ "	where cardUnit.turqInventoryCard = :invCard";
 			Query q = session.createQuery(query);
-			q.setParameter("invCard",invCard);
+			q.setParameter("invCard", invCard);
 			List list = q.list();
 			session.close();
-			return list;			
-			
+			return list;
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			throw ex;
 		}
-		
 	}
 }

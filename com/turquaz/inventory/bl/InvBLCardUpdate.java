@@ -51,22 +51,16 @@ public class InvBLCardUpdate
 			updateInvCardUnits(session, card, invCardUnits);
 			updateInvPrices(session, card, invPrices);
 			updateInvAccounts(session, card, invAccounts);
-			if(!InvDALCardUpdate.hasInitialTransaction(card))
+			if (!InvDALCardUpdate.hasInitialTransaction(card))
 			{
-				InvBLCardAdd.saveInitialTransaction(card,InvBLCardAdd.getBaseUnitFromCardUnits(invCardUnits),session);
-				
+				InvBLCardAdd.saveInitialTransaction(card, InvBLCardAdd.getBaseUnitFromCardUnits(invCardUnits), session);
 			}
-			
 			session.flush();
 			tx.commit();
 			session.close();
-			
-			
-			
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
 			if (tx != null)
 				tx.rollback();
 			if (session != null)
@@ -162,12 +156,12 @@ public class InvBLCardUpdate
 		Transaction tx = session.beginTransaction();
 		try
 		{
-			deleteInvCardAccounts(session,card);
-			deleteInvCardGroups(session,card);
-			deleteInvCardPrices(session,card);
-			deleteInvCardUnits(session,card);
+			deleteInvCardAccounts(session, card);
+			deleteInvCardGroups(session, card);
+			deleteInvCardPrices(session, card);
+			deleteInvCardUnits(session, card);
 			InvDALCardUpdate.deleteInitialTransactions(card);
-			EngDALCommon.deleteObject(session,card);
+			EngDALCommon.deleteObject(session, card);
 			session.flush();
 			tx.commit();
 			session.close();
@@ -214,7 +208,7 @@ public class InvBLCardUpdate
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
+			throw ex;
 		}
 	}
 
@@ -253,7 +247,7 @@ public class InvBLCardUpdate
 			throw ex;
 		}
 	}
-	
+
 	public static boolean hasTransactions(TurqInventoryCard card) throws Exception
 	{
 		try

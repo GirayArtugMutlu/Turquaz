@@ -21,6 +21,7 @@ package com.turquaz.inventory.ui;
  */
 import java.math.BigDecimal;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.ui.component.SearchComposite;
@@ -52,7 +53,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 	private TableColumn tableColumnTotalAmount;
 	private TableColumn tableColumnAvgPrice;
 	private TableColumn tableColumnInvCard;
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 
 	public InvUIProfitAnalysis(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -130,12 +131,12 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void PostInitGui()
 	{
 		createTableViewer();
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[8];
@@ -147,7 +148,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableInvTotals, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableInvTotals, columnTypes, true);
 	}
 
 	public void search()
@@ -214,12 +215,14 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 					totalPrice = outPrice;
 				}
 				totalProfit = totalPrice.subtract(totalCost);
-				tableViewer.addRow(new String[]{invCardCode, invCardName, cf.format(amountIn), cf.format(avgPrice), cf.format(amountOut),
-						cf.format(totalCost), cf.format(totalPrice), cf.format(totalProfit)},invCardCode);
+				tableViewer.addRow(new String[]{invCardCode, invCardName, cf.format(amountIn), cf.format(avgPrice),
+						cf.format(amountOut), cf.format(totalCost), cf.format(totalPrice), cf.format(totalProfit)}, invCardCode);
 			}
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

@@ -22,6 +22,7 @@ package com.turquaz.cheque.ui;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
@@ -318,6 +319,8 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -359,6 +362,8 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return false;
 		}
@@ -388,7 +393,14 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			cheque.setLastModified(Calendar.getInstance().getTime());
 			cheque.setCreationDate(Calendar.getInstance().getTime());
 			// TODO Exchane Rate
-			cheque.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+			try
+			{
+				cheque.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+			}
+			catch (Exception ex)
+			{
+				ex.printStackTrace();
+			}
 			cheque.setChequesAmountInForeignCurrency(curText.getBigDecimalValue());
 			TurqBanksCard bankCard = new TurqBanksCard();
 			bankCard.setId(new Integer(-1));

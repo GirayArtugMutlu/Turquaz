@@ -24,6 +24,7 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.sql.ResultSet;
+import org.apache.log4j.Logger;
 import com.turquaz.engine.dal.EngDALConnection;
 
 public class DatabaseTransfer
@@ -132,6 +133,8 @@ public class DatabaseTransfer
 				{
 					System.out.println(code);
 					//System.out.println(accCode);
+					Logger loger = Logger.getLogger("static");
+					loger.error("Exception Caught", ex);
 					ex.printStackTrace();
 					return;
 				}
@@ -169,6 +172,8 @@ public class DatabaseTransfer
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger("static");
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

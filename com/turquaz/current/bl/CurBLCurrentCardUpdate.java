@@ -57,7 +57,7 @@ public class CurBLCurrentCardUpdate
 			updateCurrentCardAccounts(session, currentCard, accountingAccounts);
 			updateCurrentCardPhones(session, currentCard, phoneList);
 			updateCurrentCardContact(session, currentCard, contactInfo);
-			updateCurrentCardGroups(session,currentCard,groupList);
+			updateCurrentCardGroups(session, currentCard, groupList);
 			session.flush();
 			tx.commit();
 			session.close();

@@ -19,6 +19,7 @@ package com.turquaz.bank.ui.comp;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import org.apache.log4j.Logger;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -91,6 +92,8 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite
 						}
 						catch (Exception ex)
 						{
+							Logger loger = Logger.getLogger(this.getClass());
+							loger.error("Exception Caught", ex);
 							ex.printStackTrace();
 						}
 					}
@@ -185,6 +188,8 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite
 				}
 				catch (Exception ex)
 				{
+					Logger loger = Logger.getLogger(this.getClass());
+					loger.error("Exception Caught", ex);
 					ex.printStackTrace();
 				}
 			}

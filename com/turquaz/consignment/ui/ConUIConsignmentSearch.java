@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -85,7 +86,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 	private TableColumn tableColumnCumulativePrice;
 	private TableColumn tableColumnConsignmentDate;
 	private Calendar cal = Calendar.getInstance();
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 
 	/**
 	 * Auto-generated main method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
@@ -376,11 +377,13 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				BigDecimal vatAmount = (BigDecimal) cons[6];
 				BigDecimal specVatAmount = (BigDecimal) cons[7];
 				tableViewer.addRow(new String[]{DatePicker.formatter.format(consDate), curCardCode, curCardName, consDocNo,
-						cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)},consId);
+						cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)}, consId);
 			}
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -388,7 +391,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 	public void newForm()
 	{
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[7];
@@ -399,7 +402,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableConsignments, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableConsignments, columnTypes, true);
 	}
 
 	public void delete()
@@ -407,7 +410,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 		TableItem items[] = tableConsignments.getSelection();
 		if (items.length > 0)
 		{
-			Integer consId = (Integer)((ITableRow) items[0].getData()).getDBObject();
+			Integer consId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			try
 			{
@@ -434,6 +437,8 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 			}
 			catch (Exception ex)
 			{
+				Logger loger = Logger.getLogger(this.getClass());
+				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
 				msg.setMessage(ex.getMessage());
 				msg.open();
@@ -454,7 +459,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 			TableItem items[] = tableConsignments.getSelection();
 			if (items.length > 0)
 			{
-				Integer consId = (Integer)((ITableRow) items[0].getData()).getDBObject();
+				Integer consId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (consId != null)
 				{
 					TurqConsignment cons = ConBLSearchConsignment.getConsignmentByConsId(consId);
@@ -466,6 +471,8 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());

@@ -49,7 +49,8 @@ public class ConBLUpdateConsignment
 	 * @throws Exception
 	 */
 	public static void updateConsignment(TurqConsignment consignment, String docNo, String definition, Date consignmentDate,
-			TurqCurrentCard curCard, int type, TurqCurrencyExchangeRate exchangeRate, List invTransactions, List groups) throws Exception
+			TurqCurrentCard curCard, int type, TurqCurrencyExchangeRate exchangeRate, List invTransactions, List groups)
+			throws Exception
 	{
 		try
 		{
@@ -76,7 +77,8 @@ public class ConBLUpdateConsignment
 			{
 				EngDALCommon.deleteObject(it2.next());
 			}
-			InvBLSaveTransaction.saveInventoryTransactions(invTransactions,consignment.getTurqEngineSequence().getId(),type,consignmentDate,definition,docNo,exchangeRate,curCard);
+			InvBLSaveTransaction.saveInventoryTransactions(invTransactions, consignment.getTurqEngineSequence().getId(), type,
+					consignmentDate, definition, docNo, exchangeRate, curCard);
 			consignment.setConsignmentsDate(consignmentDate);
 			consignment.setConsignmentsDefinition(definition);
 			consignment.setConsignmentsType(type);
@@ -97,7 +99,6 @@ public class ConBLUpdateConsignment
 	{
 		try
 		{
-		
 			Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
 			while (it.hasNext())
 			{

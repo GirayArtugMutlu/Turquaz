@@ -7,177 +7,191 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqModule implements Serializable {
+public class TurqModule implements Serializable
+{
+	/** identifier field */
+	private java.lang.Integer id;
+	/** persistent field */
+	private java.lang.String modulesName;
+	/** persistent field */
+	private java.lang.String moduleDescription;
+	/** persistent field */
+	private java.lang.String createdBy;
+	/** persistent field */
+	private java.util.Date creationDate;
+	/** persistent field */
+	private java.lang.String updatedBy;
+	/** persistent field */
+	private java.util.Date updateDate;
+	/** persistent field */
+	private Set turqUserPermissions;
+	/** persistent field */
+	private Set turqAccountingTransactions;
+	/** persistent field */
+	private Set turqEngineSequences;
+	/** persistent field */
+	private Set turqModuleComponents;
+	/** persistent field */
+	private Set turqGroupPermissions;
 
-    /** identifier field */
-    private java.lang.Integer id;
+	/** full constructor */
+	public TurqModule(java.lang.String modulesName, java.lang.String moduleDescription, java.lang.String createdBy,
+			java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, Set turqUserPermissions,
+			Set turqAccountingTransactions, Set turqEngineSequences, Set turqModuleComponents, Set turqGroupPermissions)
+	{
+		this.modulesName = modulesName;
+		this.moduleDescription = moduleDescription;
+		this.createdBy = createdBy;
+		this.creationDate = creationDate;
+		this.updatedBy = updatedBy;
+		this.updateDate = updateDate;
+		this.turqUserPermissions = turqUserPermissions;
+		this.turqAccountingTransactions = turqAccountingTransactions;
+		this.turqEngineSequences = turqEngineSequences;
+		this.turqModuleComponents = turqModuleComponents;
+		this.turqGroupPermissions = turqGroupPermissions;
+	}
 
-    /** persistent field */
-    private java.lang.String modulesName;
+	/** default constructor */
+	public TurqModule()
+	{
+	}
 
-    /** persistent field */
-    private java.lang.String moduleDescription;
+	public java.lang.Integer getId()
+	{
+		return this.id;
+	}
 
-    /** persistent field */
-    private java.lang.String createdBy;
+	public void setId(java.lang.Integer id)
+	{
+		this.id = id;
+	}
 
-    /** persistent field */
-    private java.util.Date creationDate;
+	public java.lang.String getModulesName()
+	{
+		return this.modulesName;
+	}
 
-    /** persistent field */
-    private java.lang.String updatedBy;
+	public void setModulesName(java.lang.String modulesName)
+	{
+		this.modulesName = modulesName;
+	}
 
-    /** persistent field */
-    private java.util.Date updateDate;
+	public java.lang.String getModuleDescription()
+	{
+		return this.moduleDescription;
+	}
 
-    /** persistent field */
-    private Set turqUserPermissions;
+	public void setModuleDescription(java.lang.String moduleDescription)
+	{
+		this.moduleDescription = moduleDescription;
+	}
 
-    /** persistent field */
-    private Set turqAccountingTransactions;
+	public java.lang.String getCreatedBy()
+	{
+		return this.createdBy;
+	}
 
-    /** persistent field */
-    private Set turqEngineSequences;
+	public void setCreatedBy(java.lang.String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
 
-    /** persistent field */
-    private Set turqModuleComponents;
+	public java.util.Date getCreationDate()
+	{
+		return this.creationDate;
+	}
 
-    /** persistent field */
-    private Set turqGroupPermissions;
+	public void setCreationDate(java.util.Date creationDate)
+	{
+		this.creationDate = creationDate;
+	}
 
-    /** full constructor */
-    public TurqModule(java.lang.String modulesName, java.lang.String moduleDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, Set turqUserPermissions, Set turqAccountingTransactions, Set turqEngineSequences, Set turqModuleComponents, Set turqGroupPermissions) {
-        this.modulesName = modulesName;
-        this.moduleDescription = moduleDescription;
-        this.createdBy = createdBy;
-        this.creationDate = creationDate;
-        this.updatedBy = updatedBy;
-        this.updateDate = updateDate;
-        this.turqUserPermissions = turqUserPermissions;
-        this.turqAccountingTransactions = turqAccountingTransactions;
-        this.turqEngineSequences = turqEngineSequences;
-        this.turqModuleComponents = turqModuleComponents;
-        this.turqGroupPermissions = turqGroupPermissions;
-    }
+	public java.lang.String getUpdatedBy()
+	{
+		return this.updatedBy;
+	}
 
-    /** default constructor */
-    public TurqModule() {
-    }
+	public void setUpdatedBy(java.lang.String updatedBy)
+	{
+		this.updatedBy = updatedBy;
+	}
 
-    public java.lang.Integer getId() {
-        return this.id;
-    }
+	public java.util.Date getUpdateDate()
+	{
+		return this.updateDate;
+	}
 
-    public void setId(java.lang.Integer id) {
-        this.id = id;
-    }
+	public void setUpdateDate(java.util.Date updateDate)
+	{
+		this.updateDate = updateDate;
+	}
 
-    public java.lang.String getModulesName() {
-        return this.modulesName;
-    }
+	public java.util.Set getTurqUserPermissions()
+	{
+		return this.turqUserPermissions;
+	}
 
-    public void setModulesName(java.lang.String modulesName) {
-        this.modulesName = modulesName;
-    }
+	public void setTurqUserPermissions(java.util.Set turqUserPermissions)
+	{
+		this.turqUserPermissions = turqUserPermissions;
+	}
 
-    public java.lang.String getModuleDescription() {
-        return this.moduleDescription;
-    }
+	public java.util.Set getTurqAccountingTransactions()
+	{
+		return this.turqAccountingTransactions;
+	}
 
-    public void setModuleDescription(java.lang.String moduleDescription) {
-        this.moduleDescription = moduleDescription;
-    }
+	public void setTurqAccountingTransactions(java.util.Set turqAccountingTransactions)
+	{
+		this.turqAccountingTransactions = turqAccountingTransactions;
+	}
 
-    public java.lang.String getCreatedBy() {
-        return this.createdBy;
-    }
+	public java.util.Set getTurqEngineSequences()
+	{
+		return this.turqEngineSequences;
+	}
 
-    public void setCreatedBy(java.lang.String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public void setTurqEngineSequences(java.util.Set turqEngineSequences)
+	{
+		this.turqEngineSequences = turqEngineSequences;
+	}
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
+	public java.util.Set getTurqModuleComponents()
+	{
+		return this.turqModuleComponents;
+	}
 
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public void setTurqModuleComponents(java.util.Set turqModuleComponents)
+	{
+		this.turqModuleComponents = turqModuleComponents;
+	}
 
-    public java.lang.String getUpdatedBy() {
-        return this.updatedBy;
-    }
+	public java.util.Set getTurqGroupPermissions()
+	{
+		return this.turqGroupPermissions;
+	}
 
-    public void setUpdatedBy(java.lang.String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
+	public void setTurqGroupPermissions(java.util.Set turqGroupPermissions)
+	{
+		this.turqGroupPermissions = turqGroupPermissions;
+	}
 
-    public java.util.Date getUpdateDate() {
-        return this.updateDate;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("id", getId()).toString();
+	}
 
-    public void setUpdateDate(java.util.Date updateDate) {
-        this.updateDate = updateDate;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqModule))
+			return false;
+		TurqModule castOther = (TurqModule) other;
+		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
+	}
 
-    public java.util.Set getTurqUserPermissions() {
-        return this.turqUserPermissions;
-    }
-
-    public void setTurqUserPermissions(java.util.Set turqUserPermissions) {
-        this.turqUserPermissions = turqUserPermissions;
-    }
-
-    public java.util.Set getTurqAccountingTransactions() {
-        return this.turqAccountingTransactions;
-    }
-
-    public void setTurqAccountingTransactions(java.util.Set turqAccountingTransactions) {
-        this.turqAccountingTransactions = turqAccountingTransactions;
-    }
-
-    public java.util.Set getTurqEngineSequences() {
-        return this.turqEngineSequences;
-    }
-
-    public void setTurqEngineSequences(java.util.Set turqEngineSequences) {
-        this.turqEngineSequences = turqEngineSequences;
-    }
-
-    public java.util.Set getTurqModuleComponents() {
-        return this.turqModuleComponents;
-    }
-
-    public void setTurqModuleComponents(java.util.Set turqModuleComponents) {
-        this.turqModuleComponents = turqModuleComponents;
-    }
-
-    public java.util.Set getTurqGroupPermissions() {
-        return this.turqGroupPermissions;
-    }
-
-    public void setTurqGroupPermissions(java.util.Set turqGroupPermissions) {
-        this.turqGroupPermissions = turqGroupPermissions;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getId())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqModule) ) return false;
-        TurqModule castOther = (TurqModule) other;
-        return new EqualsBuilder()
-            .append(this.getId(), castOther.getId())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getId()).toHashCode();
+	}
 }

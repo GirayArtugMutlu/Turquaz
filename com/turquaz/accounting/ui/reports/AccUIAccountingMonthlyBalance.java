@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -183,7 +184,6 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					lblAccEnd = new CLabel(compAdvanced, SWT.NONE);
 					lblAccEnd.setText(Messages.getString("AccUIAccountingMonthlyBalance.16")); //$NON-NLS-1$
 					GridData lblAccEndLData = new GridData();
-				
 					lblAccEnd.setLayoutData(lblAccEndLData);
 				}
 				{
@@ -227,13 +227,15 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					checkSubAccountsLData.horizontalSpan = 2;
 					checkSubAccountsLData.widthHint = 116;
 					checkSubAccountsLData.heightHint = 16;
-
 					checkSubAccounts.setLayoutData(checkSubAccountsLData);
-					checkSubAccounts.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					checkSubAccounts.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							boolean expand = checkSubAccounts.getSelection();
 							TableTreeItem[] subItems = tableTreeAccounts.getItems();
-							for (int k = 0; k < subItems.length; k++) {
+							for (int k = 0; k < subItems.length; k++)
+							{
 								expandTree(subItems[k], expand);
 							}
 						}
@@ -449,6 +451,8 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 		catch (Exception ex)
 		{
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -516,15 +520,16 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 		}
 	}
 
-	public void printTable()	
+	public void printTable()
 	{
 		Calendar cal = Calendar.getInstance();
 		Map props = new HashMap();
-		props.put("start_account_code",accountPickerStart.getText()); //$NON-NLS-1$
-		props.put("end_account_code",accountPickerEnd.getText()); //$NON-NLS-1$
-		props.put("report_date",DatePicker.formatter.format(cal.getTime())); //$NON-NLS-1$
-		props.put("month",comboMonth.getText()); //$NON-NLS-1$
-		EngBLUtils.printMonthlyAccountingBalance(tableTreeAccounts.getTable(),Messages.getString("AccUIAccountingMonthlyBalance.27"),props);  //$NON-NLS-1$
+		props.put("start_account_code", accountPickerStart.getText()); //$NON-NLS-1$
+		props.put("end_account_code", accountPickerEnd.getText()); //$NON-NLS-1$
+		props.put("report_date", DatePicker.formatter.format(cal.getTime())); //$NON-NLS-1$
+		props.put("month", comboMonth.getText()); //$NON-NLS-1$
+		EngBLUtils.printMonthlyAccountingBalance(tableTreeAccounts.getTable(),
+				Messages.getString("AccUIAccountingMonthlyBalance.27"), props); //$NON-NLS-1$
 	}
 
 	public void exportToExcel()

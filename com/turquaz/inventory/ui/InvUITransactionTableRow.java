@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -84,11 +85,9 @@ public class InvUITransactionTableRow implements ITableRow
 		invTrans.setCumilativePriceInForeignCurrency(new BigDecimal(0));
 		invTrans.setDiscountRate(new BigDecimal(0));
 		invTrans.setDiscountAmountInForeignCurrency(new BigDecimal(0));
-		
 		TurqInventoryTransactionType transType = new TurqInventoryTransactionType();
 		transType.setId(new Integer(EngBLCommon.INV_TRANS_BUY_SELL));
 		invTrans.setTurqInventoryTransactionType(transType);
-	
 	}
 
 	/**
@@ -232,6 +231,8 @@ public class InvUITransactionTableRow implements ITableRow
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -281,6 +282,8 @@ public class InvUITransactionTableRow implements ITableRow
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -388,13 +391,13 @@ public class InvUITransactionTableRow implements ITableRow
 					TurqInventoryCard invCard = EngBLInventoryCards.getInvCard(value.toString().trim());
 					if (invCard != null)
 					{
-						if(invTrans.getTurqInventoryCard()==null)
-						{					
+						if (invTrans.getTurqInventoryCard() == null)
+						{
 							invTrans.setTurqInventoryCard(invCard);
 							fillDefaults(invCard);
 							updateComboBoxEditor();
 						}
-						else if(invTrans.getTurqInventoryCard().getId().intValue()!=invCard.getId().intValue())
+						else if (invTrans.getTurqInventoryCard().getId().intValue() != invCard.getId().intValue())
 						{
 							invTrans.setTurqInventoryCard(invCard);
 							fillDefaults(invCard);
@@ -404,6 +407,8 @@ public class InvUITransactionTableRow implements ITableRow
 				}
 				catch (Exception ex)
 				{
+					Logger loger = Logger.getLogger(this.getClass());
+					loger.error("Exception Caught", ex);
 					ex.printStackTrace();
 				}
 				break;
@@ -515,8 +520,8 @@ public class InvUITransactionTableRow implements ITableRow
 					EngBLCommon.ROUNDING_METHOD));
 			invTrans.setDiscountAmountInForeignCurrency(invTrans.getTotalPriceInForeignCurrency().multiply(invTrans.getDiscountRate())
 					.divide(new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
-			BigDecimal totalPriceAfterDiscount = invTrans.getTotalPriceInForeignCurrency().subtract(invTrans.getDiscountAmountInForeignCurrency())
-					.setScale(2, EngBLCommon.ROUNDING_METHOD);
+			BigDecimal totalPriceAfterDiscount = invTrans.getTotalPriceInForeignCurrency().subtract(
+					invTrans.getDiscountAmountInForeignCurrency()).setScale(2, EngBLCommon.ROUNDING_METHOD);
 			if (transType == 0)
 			{
 				invTrans.setAmountIn(transAmountinBaseUnit);
@@ -527,8 +532,8 @@ public class InvUITransactionTableRow implements ITableRow
 			}
 			if (invTrans.getTurqInventoryCard().isSpecVatForEach())
 			{
-				BigDecimal vatSpecialAmount = invTrans.getVatSpecialUnitPriceInForeignCurrency().multiply(transAmountinBaseUnit).setScale(2,
-						EngBLCommon.ROUNDING_METHOD);
+				BigDecimal vatSpecialAmount = invTrans.getVatSpecialUnitPriceInForeignCurrency().multiply(transAmountinBaseUnit)
+						.setScale(2, EngBLCommon.ROUNDING_METHOD);
 				invTrans.setVatSpecialAmountInForeignCurrency(vatSpecialAmount);
 			}
 			else
@@ -536,12 +541,12 @@ public class InvUITransactionTableRow implements ITableRow
 				invTrans.setVatSpecialAmountInForeignCurrency(totalPriceAfterDiscount.multiply(invTrans.getVatSpecialRate()).divide(
 						new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
 			}
-			BigDecimal totalPriceAfterDiscountAddedSpecVAT = totalPriceAfterDiscount.add(invTrans.getVatSpecialAmountInForeignCurrency());
-			invTrans.setVatAmountInForeignCurrency(totalPriceAfterDiscountAddedSpecVAT
-					.multiply(invTrans.getVatRate())
-					.divide(new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
-			invTrans.setCumilativePriceInForeignCurrency(totalPriceAfterDiscount.add(invTrans.getVatSpecialAmountInForeignCurrency()).add(
-					invTrans.getVatAmountInForeignCurrency()));
+			BigDecimal totalPriceAfterDiscountAddedSpecVAT = totalPriceAfterDiscount
+					.add(invTrans.getVatSpecialAmountInForeignCurrency());
+			invTrans.setVatAmountInForeignCurrency(totalPriceAfterDiscountAddedSpecVAT.multiply(invTrans.getVatRate()).divide(
+					new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
+			invTrans.setCumilativePriceInForeignCurrency(totalPriceAfterDiscount.add(invTrans.getVatSpecialAmountInForeignCurrency())
+					.add(invTrans.getVatAmountInForeignCurrency()));
 		}
 	}
 
@@ -633,6 +638,8 @@ public class InvUITransactionTableRow implements ITableRow
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -652,18 +659,20 @@ public class InvUITransactionTableRow implements ITableRow
 		else
 			return false;
 	}
-	int columnTypes[] =null;
+	int columnTypes[] = null;
+
 	public int getColumnType(int index)
 	{
-		if(columnTypes == null)
+		if (columnTypes == null)
 		{
 			return TurquazTableSorter.COLUMN_TYPE_STRING;
 		}
-		else 
+		else
 			return columnTypes[index];
 	}
-	public void setColumnTypes(int []types)
+
+	public void setColumnTypes(int[] types)
 	{
-         columnTypes = types	;	
+		columnTypes = types;
 	}
 }

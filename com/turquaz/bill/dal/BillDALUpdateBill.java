@@ -20,9 +20,11 @@ public class BillDALUpdateBill
 		{
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			Iterator iter = session.iterate("from TurqAccountingTransaction as trans" +
-					", TurqBill bill where bill.id="+billId+
-					" and trans.turqEngineSequence.id in (Select engSeq.id from bill.turqBillInEngineSequences.turqEngineSequence as engSeq)");
+			Iterator iter = session
+					.iterate("from TurqAccountingTransaction as trans"
+							+ ", TurqBill bill where bill.id="
+							+ billId
+							+ " and trans.turqEngineSequence.id in (Select engSeq.id from bill.turqBillInEngineSequences.turqEngineSequence as engSeq)");
 			while (iter.hasNext())
 			{
 				TurqAccountingTransaction trans = (TurqAccountingTransaction) iter.next();
@@ -49,9 +51,12 @@ public class BillDALUpdateBill
 		{
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			Iterator iter = session.iterate("from TurqCurrentTransaction as trans," +
-					" TurqBill bill where"+" bill.id="+billId+
-					" and trans.turqEngineSequence.id in (Select engSeq.id from bill.turqBillInEngineSequences.turqEngineSequence as engSeq)");
+			Iterator iter = session
+					.iterate("from TurqCurrentTransaction as trans,"
+							+ " TurqBill bill where"
+							+ " bill.id="
+							+ billId
+							+ " and trans.turqEngineSequence.id in (Select engSeq.id from bill.turqBillInEngineSequences.turqEngineSequence as engSeq)");
 			while (iter.hasNext())
 			{
 				session.delete(iter.next());
@@ -71,11 +76,12 @@ public class BillDALUpdateBill
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select accTrans from TurqAccountingTransaction as accTrans," +
-					" TurqBill as bill where " +
-					" accTrans.turqAccountingJournal.id <>-1" + 
-					" and bill.id ="+bill.getId()+
-					" and accTrans.turqEngineSequence.id in (Select eng.turqEngineSequence.id from bill.turqBillInEngineSequences as eng)";
+			String query = "Select accTrans from TurqAccountingTransaction as accTrans,"
+					+ " TurqBill as bill where "
+					+ " accTrans.turqAccountingJournal.id <>-1"
+					+ " and bill.id ="
+					+ bill.getId()
+					+ " and accTrans.turqEngineSequence.id in (Select eng.turqEngineSequence.id from bill.turqBillInEngineSequences as eng)";
 			Query q = session.createQuery(query);
 			List list = q.list();
 			if (list.size() == 0)

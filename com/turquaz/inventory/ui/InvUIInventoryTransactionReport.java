@@ -31,6 +31,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
@@ -127,7 +128,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 	private InvBLSearchTransaction blSearch = new InvBLSearchTransaction();
 	private Calendar cal = Calendar.getInstance();
 	private InvDALCardAdd invCardAdd = new InvDALCardAdd();
-	private SearchTableViewer tableViewer=null;
+	private SearchTableViewer tableViewer = null;
 
 	public InvUIInventoryTransactionReport(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -371,11 +372,11 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					tableColumnTotalPriceIn.setText(Messages.getString("InvUIInventoryTransactionReport.14")); //$NON-NLS-1$
 					tableColumnTotalPriceIn.setWidth(100);
 				}
-				//START >>  tableColumnUnitPriceIn
+				//START >> tableColumnUnitPriceIn
 				tableColumnUnitPriceIn = new TableColumn(tableInvTransactions, SWT.RIGHT);
 				tableColumnUnitPriceIn.setText("Gir. Birim Fiyat");
 				tableColumnUnitPriceIn.setWidth(100);
-				//END <<  tableColumnUnitPriceIn
+				//END << tableColumnUnitPriceIn
 				{
 					tableColumnTotalAmountOut = new TableColumn(tableInvTransactions, SWT.RIGHT);
 					tableColumnTotalAmountOut.setText(Messages.getString("InvUIInventoryTransactionReport.13")); //$NON-NLS-1$
@@ -386,11 +387,11 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					tableColumnTotalPriceOut.setText(Messages.getString("InvUIInventoryTransactionReport.16")); //$NON-NLS-1$
 					tableColumnTotalPriceOut.setWidth(100);
 				}
-				//START >>  tableColumnUnitPriceOut
+				//START >> tableColumnUnitPriceOut
 				tableColumnUnitPriceOut = new TableColumn(tableInvTransactions, SWT.RIGHT);
 				tableColumnUnitPriceOut.setText("Ç\u0131k. Birim Fiyat");
 				tableColumnUnitPriceOut.setWidth(100);
-				//END <<  tableColumnUnitPriceOut
+				//END << tableColumnUnitPriceOut
 			}
 			GridData tabFolderLData = new GridData();
 			tabFolderLData.grabExcessHorizontalSpace = true;
@@ -446,6 +447,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -540,6 +543,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
@@ -554,7 +559,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			TableItem items[] = tableInvTransactions.getSelection();
 			if (items.length > 0)
 			{
-				Integer transId = (Integer)((ITableRow) items[0].getData()).getDBObject();
+				Integer transId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (transId != null)
 				{
 					boolean updated = false;
@@ -577,6 +582,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -601,12 +608,14 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				comboInvMainGroup.add(gr.getGroupsName());
 				comboInvMainGroup.setData(gr.getGroupsName(), gr);
 			}
-			tableInvTransactions.setData("table_name","tableInvTransactions");
+			tableInvTransactions.setData("table_name", "tableInvTransactions");
 			createTableViewer();
 		}
 		catch (Exception ex)
 		{
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();
@@ -673,36 +682,38 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				String invName = (String) result[6];
 				BigDecimal priceIn = new BigDecimal(0);
 				BigDecimal priceOut = new BigDecimal(0);
-				BigDecimal unitPriceIn=new BigDecimal(0);
-				BigDecimal unitPriceOut=new BigDecimal(0);
+				BigDecimal unitPriceIn = new BigDecimal(0);
+				BigDecimal unitPriceOut = new BigDecimal(0);
 				if (inAmount.doubleValue() == 0)
 				{
 					priceOut = totalPrice;
 					totalPriceOut = totalPriceOut.add(totalPrice);
 					if (outAmount.doubleValue() != 0)
-						unitPriceOut=totalPrice.divide(outAmount,2,EngBLCommon.ROUNDING_METHOD);
+						unitPriceOut = totalPrice.divide(outAmount, 2, EngBLCommon.ROUNDING_METHOD);
 				}
 				else
 				{
 					priceIn = totalPrice;
 					totalPriceIn = totalPriceIn.add(totalPrice);
 					if (inAmount.doubleValue() != 0)
-						unitPriceIn=totalPrice.divide(inAmount,2,EngBLCommon.ROUNDING_METHOD);
+						unitPriceIn = totalPrice.divide(inAmount, 2, EngBLCommon.ROUNDING_METHOD);
 				}
 				totalAmountIn = totalAmountIn.add(inAmount);
 				totalAmountOut = totalAmountOut.add(outAmount);
 				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), invCode, invName, cf.format(inAmount) + "", //$NON-NLS-1$								
 						cf.format(priceIn), cf.format(unitPriceIn), cf.format(outAmount) + "", //$NON-NLS-1$
-						cf.format(priceOut), cf.format(unitPriceOut)},transId);
+						cf.format(priceOut), cf.format(unitPriceOut)}, transId);
 			}
 			tableViewer.addRow(new String[]{"", "", "", "", "", "", "", "", ""}, null);
-			tableViewer.addRow(new String[]{"", "", "TOPLAM", "", cf.format(totalAmountIn),
-					"", "", cf.format(totalAmountOut), ""}, null);
+			tableViewer
+					.addRow(new String[]{"", "", "TOPLAM", "", cf.format(totalAmountIn), "", "", cf.format(totalAmountOut), ""}, null);
 			if (list.size() > 0)
 				GenerateJasper(list, type);
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -710,7 +721,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 	public void newForm()
 	{
 	}
-	
+
 	public void createTableViewer()
 	{
 		int columnTypes[] = new int[9];
@@ -723,7 +734,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[8] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableInvTransactions, columnTypes,true);
+		tableViewer = new SearchTableViewer(tableInvTransactions, columnTypes, true);
 	}
 
 	public void delete()

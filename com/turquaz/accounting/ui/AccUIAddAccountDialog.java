@@ -19,6 +19,7 @@ package com.turquaz.accounting.ui;
  * @author  Huseyin Ergun
  * @version  $Id$
  */
+import org.apache.log4j.Logger;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -50,7 +51,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolCancel;
 	private ToolItem toolSave;
 	private ToolBar toolBar1;
-	TurqAccountingAccount acc=null;
+	TurqAccountingAccount acc = null;
 
 	public AccUIAddAccountDialog(Shell parent, int style)
 	{
@@ -263,9 +264,9 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
-
-	
 }

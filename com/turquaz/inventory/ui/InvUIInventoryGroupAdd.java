@@ -1,5 +1,6 @@
 package com.turquaz.inventory.ui;
 
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -165,6 +166,8 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
 		}
@@ -184,6 +187,8 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
 		}
@@ -203,6 +208,8 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
 		}

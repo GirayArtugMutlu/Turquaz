@@ -17,6 +17,7 @@ package com.turquaz.current.ui;
 /************************************************************************/
 import java.math.BigDecimal;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -272,6 +273,8 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -309,6 +312,8 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
@@ -360,6 +365,8 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return false;
 		}

@@ -16,6 +16,7 @@ package com.turquaz.consignment.ui;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.consignment.Messages;
@@ -276,15 +277,18 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				item = new TableItem(tableConsignments, SWT.NULL);
 				item.setData(cons);
 				//XXX the data should be retrieved from view
-				/*item.setText(new String[]{DatePicker.formatter.format(cons.getConsignmentsDate()),
-						cons.getTurqCurrentCard().getCardsName(),
-						cons.getTurqBillConsignmentCommon().getTotalAmount().toString(),
-						cons.getTurqBillConsignmentCommon().getVatAmount().toString(),
-						cons.getTurqBillConsignmentCommon().getSpecialVatAmount().toString()});*/
+				/*
+				 * item.setText(new String[]{DatePicker.formatter.format(cons.getConsignmentsDate()),
+				 * cons.getTurqCurrentCard().getCardsName(), cons.getTurqBillConsignmentCommon().getTotalAmount().toString(),
+				 * cons.getTurqBillConsignmentCommon().getVatAmount().toString(),
+				 * cons.getTurqBillConsignmentCommon().getSpecialVatAmount().toString()});
+				 */
 			}
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}

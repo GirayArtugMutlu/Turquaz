@@ -234,7 +234,6 @@ public class CashBLCashTransactionAdd
 				cashTransRow.setCreditAmountInForeignCurrency(totalAmount);
 				accTransType = EngBLCommon.ACCOUNTING_TRANS_PAYMENT;
 				currentTransType = EngBLCommon.CURRENT_TRANS_DEBIT;
-				
 				if (definition.equals(""))
 				{
 					currentTransDefinition = current.getCardsName() + " 'e Nakit";

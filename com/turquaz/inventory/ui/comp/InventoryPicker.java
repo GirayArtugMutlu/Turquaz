@@ -20,6 +20,7 @@ package com.turquaz.inventory.ui.comp;
  * @version  $Id$
  */
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -93,6 +94,8 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite
 						}
 						catch (Exception ex)
 						{
+							Logger loger = Logger.getLogger(this.getClass());
+							loger.error("Exception Caught", ex);
 							ex.printStackTrace();
 						}
 					}
@@ -171,59 +174,60 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite
 		if (obj == null)
 		{
 			text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
-		    if(textInvName !=null)
-		    {
-		    	textInvName.setText("");
-		    }
-		    if(comboUnits != null)
-		    {
-		    	comboUnits.setText("");
-		    	comboUnits.removeAll();
-		    }
+			if (textInvName != null)
+			{
+				textInvName.setText("");
+			}
+			if (comboUnits != null)
+			{
+				comboUnits.setText("");
+				comboUnits.removeAll();
+			}
 		}
 		else
 		{
 			text1.setBackground(SWTResourceManager.getColor(198, 255, 198));
-			TurqInventoryCard invCard=(TurqInventoryCard)obj;
-			 if(textInvName !=null)
-			 {
-			 	textInvName.setText(invCard.getCardName());
-			 }
-			 if(comboUnits != null)
-			 {
-			 	comboUnits.removeAll();
-			 	comboUnits.setText("");
-			 	try{
-			 	
-			 		TurqInventoryUnit unit = null;
-			 		List ls = InvBLCardAdd.getInventoryUnits(invCard);
-			 		for(int i=0;i<ls.size();i++)
-			 		{
-			 		
-			 			unit = (TurqInventoryUnit)ls.get(i);
-			 			comboUnits.add(unit.getUnitsName());
-			 			comboUnits.setData(unit.getUnitsName(),unit);			 			
-			 		} 		
-			 		if(comboUnits.getItemCount()>0)
-			 		{
-			 			comboUnits.setText(comboUnits.getItem(0));
-			 		}
-			 		
-			 	}
-			 	catch(Exception ex)
+			TurqInventoryCard invCard = (TurqInventoryCard) obj;
+			if (textInvName != null)
+			{
+				textInvName.setText(invCard.getCardName());
+			}
+			if (comboUnits != null)
+			{
+				comboUnits.removeAll();
+				comboUnits.setText("");
+				try
 				{
-			 		ex.printStackTrace();
+					TurqInventoryUnit unit = null;
+					List ls = InvBLCardAdd.getInventoryUnits(invCard);
+					for (int i = 0; i < ls.size(); i++)
+					{
+						unit = (TurqInventoryUnit) ls.get(i);
+						comboUnits.add(unit.getUnitsName());
+						comboUnits.setData(unit.getUnitsName(), unit);
+					}
+					if (comboUnits.getItemCount() > 0)
+					{
+						comboUnits.setText(comboUnits.getItem(0));
+					}
 				}
-			 	
-			 }
-			
+				catch (Exception ex)
+				{
+					Logger loger = Logger.getLogger(this.getClass());
+					loger.error("Exception Caught", ex);
+					ex.printStackTrace();
+				}
+			}
 		}
 	}
+
 	public void setTextInvName(Text text)
 	{
 		textInvName = text;
 	}
-	public void setComboInvUnits(CCombo combo){
+
+	public void setComboInvUnits(CCombo combo)
+	{
 		comboUnits = combo;
 	}
 }

@@ -7,86 +7,91 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqChequeTransactionTypeGroup implements Serializable {
+public class TurqChequeTransactionTypeGroup implements Serializable
+{
+	/** identifier field */
+	private java.lang.Integer id;
+	/** nullable persistent field */
+	private java.lang.String groupName;
+	/** nullable persistent field */
+	private java.lang.String definition;
+	/** persistent field */
+	private Set turqChequeTransactionTypes;
 
-    /** identifier field */
-    private java.lang.Integer id;
+	/** full constructor */
+	public TurqChequeTransactionTypeGroup(java.lang.String groupName, java.lang.String definition, Set turqChequeTransactionTypes)
+	{
+		this.groupName = groupName;
+		this.definition = definition;
+		this.turqChequeTransactionTypes = turqChequeTransactionTypes;
+	}
 
-    /** nullable persistent field */
-    private java.lang.String groupName;
+	/** default constructor */
+	public TurqChequeTransactionTypeGroup()
+	{
+	}
 
-    /** nullable persistent field */
-    private java.lang.String definition;
+	/** minimal constructor */
+	public TurqChequeTransactionTypeGroup(Set turqChequeTransactionTypes)
+	{
+		this.turqChequeTransactionTypes = turqChequeTransactionTypes;
+	}
 
-    /** persistent field */
-    private Set turqChequeTransactionTypes;
+	public java.lang.Integer getId()
+	{
+		return this.id;
+	}
 
-    /** full constructor */
-    public TurqChequeTransactionTypeGroup(java.lang.String groupName, java.lang.String definition, Set turqChequeTransactionTypes) {
-        this.groupName = groupName;
-        this.definition = definition;
-        this.turqChequeTransactionTypes = turqChequeTransactionTypes;
-    }
+	public void setId(java.lang.Integer id)
+	{
+		this.id = id;
+	}
 
-    /** default constructor */
-    public TurqChequeTransactionTypeGroup() {
-    }
+	public java.lang.String getGroupName()
+	{
+		return this.groupName;
+	}
 
-    /** minimal constructor */
-    public TurqChequeTransactionTypeGroup(Set turqChequeTransactionTypes) {
-        this.turqChequeTransactionTypes = turqChequeTransactionTypes;
-    }
+	public void setGroupName(java.lang.String groupName)
+	{
+		this.groupName = groupName;
+	}
 
-    public java.lang.Integer getId() {
-        return this.id;
-    }
+	public java.lang.String getDefinition()
+	{
+		return this.definition;
+	}
 
-    public void setId(java.lang.Integer id) {
-        this.id = id;
-    }
+	public void setDefinition(java.lang.String definition)
+	{
+		this.definition = definition;
+	}
 
-    public java.lang.String getGroupName() {
-        return this.groupName;
-    }
+	public java.util.Set getTurqChequeTransactionTypes()
+	{
+		return this.turqChequeTransactionTypes;
+	}
 
-    public void setGroupName(java.lang.String groupName) {
-        this.groupName = groupName;
-    }
+	public void setTurqChequeTransactionTypes(java.util.Set turqChequeTransactionTypes)
+	{
+		this.turqChequeTransactionTypes = turqChequeTransactionTypes;
+	}
 
-    public java.lang.String getDefinition() {
-        return this.definition;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("id", getId()).toString();
+	}
 
-    public void setDefinition(java.lang.String definition) {
-        this.definition = definition;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqChequeTransactionTypeGroup))
+			return false;
+		TurqChequeTransactionTypeGroup castOther = (TurqChequeTransactionTypeGroup) other;
+		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
+	}
 
-    public java.util.Set getTurqChequeTransactionTypes() {
-        return this.turqChequeTransactionTypes;
-    }
-
-    public void setTurqChequeTransactionTypes(java.util.Set turqChequeTransactionTypes) {
-        this.turqChequeTransactionTypes = turqChequeTransactionTypes;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getId())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqChequeTransactionTypeGroup) ) return false;
-        TurqChequeTransactionTypeGroup castOther = (TurqChequeTransactionTypeGroup) other;
-        return new EqualsBuilder()
-            .append(this.getId(), castOther.getId())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getId()).toHashCode();
+	}
 }

@@ -34,12 +34,11 @@ public class ConDALSearchConsignment
 			String query = "Select consignment.id," + " consignment.consignmentsDate, consignment.turqCurrentCard.cardsCurrentCode,"
 					+ " consignment.turqCurrentCard.cardsName, consignment.consignmentDocumentNo,"
 					+ " view.totalprice, view.vatamount, view.specialvatamount" + " from TurqViewInvPriceTotal view,"
-					+" TurqConsignment as consignment"
-					+ " where consignment.consignmentsDate >= :startDate" + //$NON-NLS-1$
+					+ " TurqConsignment as consignment" + " where consignment.consignmentsDate >= :startDate" + //$NON-NLS-1$
 					" and consignment.consignmentsDate <= :endDate" + //$NON-NLS-1$					
 					" and consignment.id <> -1 " + //$NON-NLS-1$
-					" and consignment.turqEngineSequence.id=view.engineSequencesId"+
-					" and consignment.consignmentDocumentNo like '" + docNo + "%'"; //$NON-NLS-1$		
+					" and consignment.turqEngineSequence.id=view.engineSequencesId"
+					+ " and consignment.consignmentDocumentNo like '" + docNo + "%'"; //$NON-NLS-1$		
 			if (type != EngBLCommon.COMMON_ALL_INT)
 				query += " and consignment.consignmentsType =" + type; //$NON-NLS-1$
 			if (curCard != null)

@@ -286,7 +286,14 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			cheque.setChequesPaymentPlace(txtPaymentPlace.getText().trim());
 			cheque.setChequesAmount(curText.getBigDecimalValue());
 			cheque.setChequesAmountInForeignCurrency(curText.getBigDecimalValue());
-			cheque.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+			try
+			{
+				cheque.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+			}
+			catch (Exception ex)
+			{
+				ex.printStackTrace();
+			}
 			cheque.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			cheque.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			cheque.setLastModified(Calendar.getInstance().getTime());

@@ -1,6 +1,7 @@
 package com.turquaz.current.ui;
 
 import java.math.BigDecimal;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -16,10 +17,17 @@ public class CurUIInitialTransTableRow implements ITableRow
 
 	public CurUIInitialTransTableRow()
 	{
-		curTrans.setTransactionsTotalCredit(new BigDecimal(0));
-		curTrans.setTransactionsTotalDept(new BigDecimal(0));
-		//      TODO current trans exRate
-		curTrans.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+		try
+		{
+			curTrans.setTransactionsTotalCredit(new BigDecimal(0));
+			curTrans.setTransactionsTotalDept(new BigDecimal(0));
+			//      TODO current trans exRate
+			curTrans.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+		}
+		catch (Exception ex)
+		{
+			Logger log = Logger.getLogger(CurUIInitialTransaction.class.getClass());
+		}
 	}
 
 	public boolean canModify(int column_index)
@@ -160,18 +168,20 @@ public class CurUIInitialTransTableRow implements ITableRow
 	public void setRowIndex(int index)
 	{
 	}
-	int columnTypes[] =null;
+	int columnTypes[] = null;
+
 	public int getColumnType(int index)
 	{
-		if(columnTypes == null)
+		if (columnTypes == null)
 		{
 			return TurquazTableSorter.COLUMN_TYPE_STRING;
 		}
-		else 
+		else
 			return columnTypes[index];
 	}
-	public void setColumnTypes(int []types)
+
+	public void setColumnTypes(int[] types)
 	{
-         columnTypes = types	;	
+		columnTypes = types;
 	}
 }

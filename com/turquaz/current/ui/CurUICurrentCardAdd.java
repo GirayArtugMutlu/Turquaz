@@ -25,6 +25,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
@@ -1022,6 +1023,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
 	}
@@ -1042,6 +1045,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return null;
 		}
@@ -1064,6 +1069,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return null;
 		}
@@ -1080,6 +1087,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return null;
 		}
@@ -1117,17 +1126,14 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				txtCurrentName.setFocus();
 				return false;
 			}
-			
-			if(accPickerCustomer.getTurqAccountingAccount()==null)
+			if (accPickerCustomer.getTurqAccountingAccount() == null)
 			{
-			
-				boolean ans =EngUICommon.okToDelete(getShell(),Messages.getString("CurUICurrentCardAdd.26")); //$NON-NLS-1$
-				if(ans)
+				boolean ans = EngUICommon.okToDelete(getShell(), Messages.getString("CurUICurrentCardAdd.26")); //$NON-NLS-1$
+				if (ans)
 				{
-				  TurqAccountingAccount account = new AccUIAddAccountDialog(getShell(),SWT.NONE).open();	
-				  accPickerCustomer.setData(account);
+					TurqAccountingAccount account = new AccUIAddAccountDialog(getShell(), SWT.NONE).open();
+					accPickerCustomer.setData(account);
 				}
-				
 			}
 			/*
 			 * WARNING !.. do not add another check after this else if add upper instead
@@ -1173,11 +1179,10 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			if (verifyFields(true))
 			{
 				CurBLCurrentCardAdd.saveCurrentCard(txtCurrentCode.getText().trim(), txtCurrentName.getText().trim(), txtCardDefinition
-						.getText().trim(), txtCardAddress.getText().trim(),
-						numTextDiscountRate.getBigDecimalValue(), decTxtDiscountAmount.getBigDecimalValue(),
-						decTxtCreditLimit.getBigDecimalValue(), decTxtRiskLimit.getBigDecimalValue(), txtTaxDepartmant.getText()
-								.trim(), txtTaxNumber.getText().trim(), numDueDays.getIntValue(), createAccountingMap(),
-						getPhoneList(), getContactInfo(), getGroupList());
+						.getText().trim(), txtCardAddress.getText().trim(), numTextDiscountRate.getBigDecimalValue(),
+						decTxtDiscountAmount.getBigDecimalValue(), decTxtCreditLimit.getBigDecimalValue(), decTxtRiskLimit
+								.getBigDecimalValue(), txtTaxDepartmant.getText().trim(), txtTaxNumber.getText().trim(), numDueDays
+								.getIntValue(), createAccountingMap(), getPhoneList(), getContactInfo(), getGroupList());
 				EngBLCurrentCards.RefreshContentAsistantMap();
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(Messages.getString("CurUICurrentCardAdd.14")); //$NON-NLS-1$
@@ -1187,6 +1192,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());

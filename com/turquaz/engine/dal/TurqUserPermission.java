@@ -6,141 +6,152 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqUserPermission implements Serializable {
+public class TurqUserPermission implements Serializable
+{
+	/** identifier field */
+	private java.lang.Integer id;
+	/** persistent field */
+	private int userPermissionsLevel;
+	/** persistent field */
+	private java.lang.String createdBy;
+	/** persistent field */
+	private java.util.Date creationDate;
+	/** persistent field */
+	private java.lang.String updatedBy;
+	/** persistent field */
+	private java.util.Date updateDate;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqUser turqUser;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqModule turqModule;
 
-    /** identifier field */
-    private java.lang.Integer id;
+	/** full constructor */
+	public TurqUserPermission(int userPermissionsLevel, java.lang.String createdBy, java.util.Date creationDate,
+			java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent,
+			com.turquaz.engine.dal.TurqUser turqUser, com.turquaz.engine.dal.TurqModule turqModule)
+	{
+		this.userPermissionsLevel = userPermissionsLevel;
+		this.createdBy = createdBy;
+		this.creationDate = creationDate;
+		this.updatedBy = updatedBy;
+		this.updateDate = updateDate;
+		this.turqModuleComponent = turqModuleComponent;
+		this.turqUser = turqUser;
+		this.turqModule = turqModule;
+	}
 
-    /** persistent field */
-    private int userPermissionsLevel;
+	/** default constructor */
+	public TurqUserPermission()
+	{
+	}
 
-    /** persistent field */
-    private java.lang.String createdBy;
+	public java.lang.Integer getId()
+	{
+		return this.id;
+	}
 
-    /** persistent field */
-    private java.util.Date creationDate;
+	public void setId(java.lang.Integer id)
+	{
+		this.id = id;
+	}
 
-    /** persistent field */
-    private java.lang.String updatedBy;
+	public int getUserPermissionsLevel()
+	{
+		return this.userPermissionsLevel;
+	}
 
-    /** persistent field */
-    private java.util.Date updateDate;
+	public void setUserPermissionsLevel(int userPermissionsLevel)
+	{
+		this.userPermissionsLevel = userPermissionsLevel;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent;
+	public java.lang.String getCreatedBy()
+	{
+		return this.createdBy;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqUser turqUser;
+	public void setCreatedBy(java.lang.String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqModule turqModule;
+	public java.util.Date getCreationDate()
+	{
+		return this.creationDate;
+	}
 
-    /** full constructor */
-    public TurqUserPermission(int userPermissionsLevel, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent, com.turquaz.engine.dal.TurqUser turqUser, com.turquaz.engine.dal.TurqModule turqModule) {
-        this.userPermissionsLevel = userPermissionsLevel;
-        this.createdBy = createdBy;
-        this.creationDate = creationDate;
-        this.updatedBy = updatedBy;
-        this.updateDate = updateDate;
-        this.turqModuleComponent = turqModuleComponent;
-        this.turqUser = turqUser;
-        this.turqModule = turqModule;
-    }
+	public void setCreationDate(java.util.Date creationDate)
+	{
+		this.creationDate = creationDate;
+	}
 
-    /** default constructor */
-    public TurqUserPermission() {
-    }
+	public java.lang.String getUpdatedBy()
+	{
+		return this.updatedBy;
+	}
 
-    public java.lang.Integer getId() {
-        return this.id;
-    }
+	public void setUpdatedBy(java.lang.String updatedBy)
+	{
+		this.updatedBy = updatedBy;
+	}
 
-    public void setId(java.lang.Integer id) {
-        this.id = id;
-    }
+	public java.util.Date getUpdateDate()
+	{
+		return this.updateDate;
+	}
 
-    public int getUserPermissionsLevel() {
-        return this.userPermissionsLevel;
-    }
+	public void setUpdateDate(java.util.Date updateDate)
+	{
+		this.updateDate = updateDate;
+	}
 
-    public void setUserPermissionsLevel(int userPermissionsLevel) {
-        this.userPermissionsLevel = userPermissionsLevel;
-    }
+	public com.turquaz.engine.dal.TurqModuleComponent getTurqModuleComponent()
+	{
+		return this.turqModuleComponent;
+	}
 
-    public java.lang.String getCreatedBy() {
-        return this.createdBy;
-    }
+	public void setTurqModuleComponent(com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent)
+	{
+		this.turqModuleComponent = turqModuleComponent;
+	}
 
-    public void setCreatedBy(java.lang.String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public com.turquaz.engine.dal.TurqUser getTurqUser()
+	{
+		return this.turqUser;
+	}
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
+	public void setTurqUser(com.turquaz.engine.dal.TurqUser turqUser)
+	{
+		this.turqUser = turqUser;
+	}
 
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public com.turquaz.engine.dal.TurqModule getTurqModule()
+	{
+		return this.turqModule;
+	}
 
-    public java.lang.String getUpdatedBy() {
-        return this.updatedBy;
-    }
+	public void setTurqModule(com.turquaz.engine.dal.TurqModule turqModule)
+	{
+		this.turqModule = turqModule;
+	}
 
-    public void setUpdatedBy(java.lang.String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("id", getId()).toString();
+	}
 
-    public java.util.Date getUpdateDate() {
-        return this.updateDate;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqUserPermission))
+			return false;
+		TurqUserPermission castOther = (TurqUserPermission) other;
+		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
+	}
 
-    public void setUpdateDate(java.util.Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public com.turquaz.engine.dal.TurqModuleComponent getTurqModuleComponent() {
-        return this.turqModuleComponent;
-    }
-
-    public void setTurqModuleComponent(com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent) {
-        this.turqModuleComponent = turqModuleComponent;
-    }
-
-    public com.turquaz.engine.dal.TurqUser getTurqUser() {
-        return this.turqUser;
-    }
-
-    public void setTurqUser(com.turquaz.engine.dal.TurqUser turqUser) {
-        this.turqUser = turqUser;
-    }
-
-    public com.turquaz.engine.dal.TurqModule getTurqModule() {
-        return this.turqModule;
-    }
-
-    public void setTurqModule(com.turquaz.engine.dal.TurqModule turqModule) {
-        this.turqModule = turqModule;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getId())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqUserPermission) ) return false;
-        TurqUserPermission castOther = (TurqUserPermission) other;
-        return new EqualsBuilder()
-            .append(this.getId(), castOther.getId())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getId()).toHashCode();
+	}
 }

@@ -132,7 +132,6 @@ public class CurDALSearchTransaction
 		}
 	}
 
-
 	public static List getCurrentBalances(TurqCurrentCard curCard, TurqCurrentCard curCard2, Date endDate) throws Exception
 	{
 		try
@@ -197,7 +196,7 @@ public class CurDALSearchTransaction
 		}
 	}
 
-	public static void deleteInitialTransactions( TurqCurrentCard curCard) throws Exception
+	public static void deleteInitialTransactions(TurqCurrentCard curCard) throws Exception
 	{
 		try
 		{
@@ -213,7 +212,6 @@ public class CurDALSearchTransaction
 			{
 				session.delete(list.get(i));
 			}
-			
 			session.flush();
 			tx.commit();
 			session.close();

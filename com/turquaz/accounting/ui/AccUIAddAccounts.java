@@ -20,6 +20,7 @@ package com.turquaz.accounting.ui;
  * @version  $Id$
  */
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
@@ -141,6 +142,8 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 						}
 						catch (Exception ex)
 						{
+							Logger loger = Logger.getLogger(this.getClass());
+							loger.error("Exception Caught", ex);
 							ex.printStackTrace();
 						}
 					}
@@ -299,10 +302,11 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 		txtParentAccount.setFocus();
 		txtParentAccount.setSelection(txtParentAccount.getText().length());
 	}
-	
+
 	public TurqAccountingAccount saveAccount()
 	{
-		try{
+		try
+		{
 			if (verifyFields(false, null))
 			{
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
@@ -325,15 +329,14 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				return account;
 			}
 			return null;
-			
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
-			
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			return null;
 		}
-		
 	}
 
 	public void save()
@@ -363,6 +366,8 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
