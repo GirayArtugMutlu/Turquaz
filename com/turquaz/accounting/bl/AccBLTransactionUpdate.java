@@ -13,6 +13,7 @@ import java.util.List;
 
 import com.turquaz.accounting.dal.AccDALTransactionUpdate;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
+import com.turquaz.engine.dal.TurqAccountingTransactionType;
 
 /**
  * @author onsel
@@ -45,6 +46,27 @@ public class AccBLTransactionUpdate {
 	   	}
 	
 	}
+	public void updateTransaction(TurqAccountingTransaction transaction,String docNo, java.util.Date transDate,
+				int transType)
+	throws Exception{
+	
+		TurqAccountingTransactionType accTransType = new TurqAccountingTransactionType();
+		accTransType.setAccountingTransactionTypesId(new Integer(transType));
+		transaction.setTurqAccountingTransactionType(accTransType);
+		transaction.setTransactionsDate(transDate);
+		transaction.setTransactionDocumentNo(docNo);
+		transaction.setUpdatedBy(System.getProperty("user"));
+		transaction.setLastModified(new java.sql.Date( cal.getTime().getTime()));
+	   	try{
+		dalTransUpdate.updateObject(transaction);
+		
+	   	}
+	   	catch(Exception ex){
+	   		throw ex;
+	   	}
+	
+	}
+	
 	
 	public void delete(Object obj)throws Exception{
 		try{

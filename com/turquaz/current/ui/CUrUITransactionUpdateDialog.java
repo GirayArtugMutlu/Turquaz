@@ -18,9 +18,12 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.current.ui.CurUITransactionAdd;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 
 import org.eclipse.swt.events.SelectionAdapter;
@@ -43,6 +46,8 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private CoolBar coolBar1;
 	private Shell dialogShell;
 	TurqCurrentTransaction transaction;
+	CurBLSearchTransaction blSearch = new CurBLSearchTransaction();
+	
 
 	public CUrUITransactionUpdateDialog(Shell parent, int style,TurqCurrentTransaction trans) {
 		super(parent, style);
@@ -100,8 +105,8 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			final org.eclipse.swt.graphics.Image toolUpdateimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
 			toolUpdate.setImage(toolUpdateimage);
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
-				public void widgetDefaultSelected(SelectionEvent evt) {
-					toolUpdateWidgetDefaultSelected(evt);
+				public void widgetSelected(SelectionEvent evt) {
+					toolUpdateWidgetSelected(evt);
 				}
 			});
 	
@@ -215,8 +220,42 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	/** Auto-generated event handler method */
 	protected void toolUpdateWidgetDefaultSelected(SelectionEvent evt){
 	
-	
 		
+	}
+
+	/** Auto-generated event handler method */
+	protected void toolUpdateWidgetSelected(SelectionEvent evt){
+		try
+	{
+	 System.out.println("deneme");
+		
+		if(compTransactionAdd.verifyFields()){
+			boolean isCredit =false;
+			if(compTransactionAdd.getComboTransType().getText().equals("Debit")){
+				isCredit =false;
+			}
+			else if(compTransactionAdd.getComboTransType().getText().equals("Credit")){
+				isCredit =true;
+			
+			}
+			
+			
+			blSearch.updateCurrentTransaction((TurqCurrentCard)compTransactionAdd.getComboCurrentCode().getData(compTransactionAdd.getComboCurrentCode().getText()),
+											  compTransactionAdd.getDateTransDate().getDate(),
+											  compTransactionAdd.getTxtDocumentNo().getText(),
+											  isCredit,
+											  compTransactionAdd.getDecTxtAmount().getBigDecimalValue(),
+											  (TurqAccountingAccount)compTransactionAdd.getAccPickerCashAccount().getData(),
+											  	transaction);
+						
+		}
+		
+		
+	}
+	catch(Exception ex){
+		ex.printStackTrace();
+	}
+	
 		
 		
 	}

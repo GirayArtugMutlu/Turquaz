@@ -7,9 +7,14 @@
 package com.turquaz.accounting.bl;
 
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 
+import net.sf.hibernate.Hibernate;
+import net.sf.hibernate.Session;
+
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 
 /**
@@ -63,6 +68,19 @@ public class AccBLTransactionSearch {
 			throw ex;
 		}
 		
+		
+	}
+	public void removeTransactionRows(TurqAccountingTransaction transaction)throws Exception{
+		try{
+
+           dalTransSearch.removeTransactionRows(transaction);
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+			
+		}
 		
 	}
 	

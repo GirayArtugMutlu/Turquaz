@@ -7,11 +7,14 @@
 package com.turquaz.accounting.dal;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
+import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -129,6 +132,29 @@ public class AccDALTransactionSearch {
 	}
 	
 	
+	}
+	public void removeTransactionRows(TurqAccountingTransaction transaction)throws Exception{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			
+			Transaction tr = session.beginTransaction();
+			
+			session.delete("select row from TurqAccountingTransactionColumn as row where" +
+					" row.turqAccountingTransaction.accountingTransactionsId ="+transaction.getAccountingTransactionsId().intValue());
+		
+			session.flush();
+			tr.commit();
+			
+			session.close();
+			
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+			
+		}
+		
 	}
 	public List searchTransactionRows(TurqAccountingTransaction trans, boolean isCredit)throws Exception{
 		try{

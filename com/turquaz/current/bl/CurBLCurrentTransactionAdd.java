@@ -77,7 +77,7 @@ public class CurBLCurrentTransactionAdd {
     		}
         
         
-          AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
+         AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
         
          //4-Cari modulu id si.. 
          Integer transId = blAcc.saveAccTransaction(transDate,documentNo,accTransactionType,4);

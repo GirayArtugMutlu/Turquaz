@@ -3,6 +3,8 @@ package com.turquaz.engine.ui.component;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.RowLayout;
 import org.vafada.swtcalendar.SWTCalendar;
 import org.vafada.swtcalendar.SWTCalendarListener;
@@ -24,6 +26,7 @@ public class SWTCalendarDialog {
         swtcal = new SWTCalendar(shell);
         Locale locale = new Locale("tr","TR");
         swtcal.setLocale(locale);
+    
     }
 
     public void open() {

@@ -144,6 +144,7 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
               public void dateChanged(SWTCalendarEvent calendarEvent) {
                   text1.setText(formatter.format(calendarEvent.getCalendar().getTime()));
                   comp.setData(calendarEvent.getCalendar().getTime());
+             
               }
           });
 
