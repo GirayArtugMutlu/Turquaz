@@ -17,20 +17,16 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 
 
 public class BillBLUpdateBill {
-	private Calendar cal = Calendar.getInstance();
-	
-
-	private BillDALUpdateBill dalBill = new BillDALUpdateBill();
-	private BillBLAddBill blAddBill = new BillBLAddBill();
 
 	public BillBLUpdateBill() {
 
 	}
+	
 
-	public void deleteCurrentTransactions(TurqBill bill)throws Exception{
-	    try{
-	        
-	    dalBill.deleteCurrentTransactions(bill.getTurqEngineSequence().getId().intValue());    
+	public static void deleteCurrentTransactions(TurqBill bill)throws Exception{
+	    try
+		{	        
+	    	BillDALUpdateBill.deleteCurrentTransactions(bill.getTurqEngineSequence().getId().intValue());    
 	    
 	    }
 	    catch(Exception ex){
@@ -38,15 +34,34 @@ public class BillBLUpdateBill {
 	    }
 	}
 	
-	public void deleteAccountingTransactions(TurqBill bill)throws Exception{
+	public static void deleteAccountingTransactions(TurqBill bill)throws Exception{
 	    try{
 	        
-	       dalBill.deleteAccountingTransactions(bill.getTurqEngineSequence().getId().intValue()); 
+	       BillDALUpdateBill.deleteAccountingTransactions(bill.getTurqEngineSequence().getId().intValue()); 
 	        
 	    }
 	    catch(Exception ex){
 	        throw ex;
 	    }
+	}
+	
+	public static void deleteBillConsignment(TurqBill bill)throws Exception
+	{
+		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
+		
+		while(it.hasNext())
+		{
+			TurqConsignment cons = (TurqConsignment)it.next();
+			ConBLUpdateConsignment.deleteConsignment(cons);				
+		}		
+	}
+	
+	public static void deleteBill(TurqBill bill)throws Exception
+	{
+		deleteAccountingTransactions(bill);
+		deleteCurrentTransactions(bill);
+		deleteBillGroups(bill);
+		BillDALUpdateBill.deleteObject(bill);		
 	}
 	
 	/**
@@ -67,84 +82,97 @@ public class BillBLUpdateBill {
 	 * @param dueDate
 	 * @throws Exception
 	 */
-	public void updateBill(TurqBill bill,String billNo,String consNo, String definition, boolean isPrinted,
-			boolean isOpen, Date billDate, TurqCurrentCard curCard, 
-			BigDecimal discountAmount,
+	public void updateBill(TurqBill bill,String billNo,String consNo,
+			String definition, boolean isPrinted,boolean isOpen, Date billDate,
+			TurqCurrentCard curCard, BigDecimal discountAmount,
 			BigDecimal vatAmount, BigDecimal specialVatAmount,
-			BigDecimal totalAmount, int type, TurqAccountingAccount cashAccount,Date dueDate,
-			List invTransactions, List groups, TurqCurrencyExchangeRate exRate) throws Exception {
+			BigDecimal totalAmount, int type, TurqAccountingAccount cashAccount,
+			Date dueDate,List invTransactions, List groups, 
+			TurqCurrencyExchangeRate exchangeRate) throws Exception {
 		try {	
 			
 	
-			//update its consignment
+			updateBillConsignments(bill,consNo,definition,billDate,curCard,
+					discountAmount,billNo,vatAmount,specialVatAmount,totalAmount,
+					type,exchangeRate,invTransactions);
 			
-			Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
-				
-		   
-			if(it.hasNext()){
-			    
-				TurqConsignment cons = (TurqConsignment)it.next();
-			    ConBLUpdateConsignment.updateConsignment(cons,consNo,definition,billDate,curCard,discountAmount,billNo,vatAmount,specialVatAmount,totalAmount,type,exRate,invTransactions,null);
+			updateBillGroups(bill,groups);				
 			
-			}
-			
-			updateGroups(groups,bill);	
-			
-			
-			//update bill first 
-			
-			
-			bill.setBillsDate(billDate);
-			bill.setBillsDefinition(definition);
-		
-			bill.setBillsPrinted(isPrinted);
-		    bill.setDueDate(dueDate);
-			bill.setBillsType(type);
-            bill.setIsOpen(isOpen);
-			
-			bill.setUpdatedBy(System.getProperty("user"));
-			bill.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-					   
 
-			dalBill.updateBill(bill);
 			
-			//Update Transactions
-			
+			//Update Transactions			
 			deleteAccountingTransactions(bill);
-			deleteCurrentTransactions(bill);
-			
-			blAddBill.saveCurrentTransaction(bill);
-			blAddBill.saveAccountingTransaction(bill,cashAccount);
+			deleteCurrentTransactions(bill);			
+			BillBLAddBill.saveCurrentTransaction(bill);
+			BillBLAddBill.saveAccountingTransaction(bill,cashAccount);
 			
 			
 			
 			
 
-		} catch (Exception ex) {
+		}
+		catch (Exception ex) 
+		{
 			throw ex;
 		}
 	}
+	
+	public static void updateBillInfo(TurqBill bill,Date billDate,String definition,
+			boolean isPrinted, Date dueDate, int type, boolean isOpen)throws Exception
+	{
+		bill.setBillsDate(billDate);
+		bill.setBillsDefinition(definition);
+	
+		bill.setBillsPrinted(isPrinted);
+	    bill.setDueDate(dueDate);
+		bill.setBillsType(type);
+        bill.setIsOpen(isOpen);		
+		bill.setUpdatedBy(System.getProperty("user"));
+		
+		Calendar cal=Calendar.getInstance();
+		bill.setLastModified(cal.getTime());
+		BillDALUpdateBill.updateObject(bill);
+		
+	}
+	
+	public static void updateBillConsignments(TurqBill bill, String consNo,
+			String definition, Date billDate,TurqCurrentCard curCard,
+			BigDecimal discountAmount, String billNo, BigDecimal vatAmount,
+			BigDecimal specialVatAmount, BigDecimal totalAmount,int type,
+			TurqCurrencyExchangeRate exchangeRate,List invTransactions)throws Exception
+	{
+		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();   
+		if(it.hasNext())
+		{			    
+			TurqConsignment cons = (TurqConsignment)it.next();
+			ConBLUpdateConsignment.updateConsignment(cons,consNo,definition,
+					billDate,curCard,discountAmount,billNo,vatAmount,
+					specialVatAmount,totalAmount,type,exchangeRate,invTransactions,null);			
+		}		
+	}
 
-	public void updateGroups(List billGroups, TurqBill bill)throws Exception{
-		
-		 Iterator it = bill.getTurqBillInGroups().iterator();
-		    
-		while(it.hasNext()){
-		
-			dalBill.deleteObject(it.next());
-		
+	public static void updateBillGroups(TurqBill bill, List billGroups)throws Exception
+	{
+		deleteBillGroups(bill);
+		for(int i=0;i<billGroups.size();i++)
+		{
+			BillBLAddBill.registerGroup((TurqBillGroup)billGroups.get(i),bill.getId()); 
 		}
-		    
-		    for(int i=0;i<billGroups.size();i++)
-		    {
-		    	blAddBill.registerGroup((TurqBillGroup)billGroups.get(i),bill.getId()); 
-		    }
+	}
+	
+	public static void deleteBillGroups(TurqBill bill)throws Exception
+	{
+		Iterator it = bill.getTurqBillInGroups().iterator();		    
+		while(it.hasNext())
+		{	
+			BillDALUpdateBill.deleteObject(it.next());		
+		}	
 	}
 	
 	public void deleteObject(Object obj) throws Exception {
 		try {
 
-			dalBill.deleteObject(obj);
+			BillDALUpdateBill.deleteObject(obj);
 
 		} catch (Exception ex) {
 			throw ex;
@@ -154,7 +182,7 @@ public class BillBLUpdateBill {
 	public boolean canUpdateBill(TurqBill bill)throws Exception{
 	    try{
 	        
-	        return dalBill.canUpdateBill(bill);
+	        return BillDALUpdateBill.canUpdateBill(bill);
 	    }
 	    catch(Exception ex){
 	        throw ex;

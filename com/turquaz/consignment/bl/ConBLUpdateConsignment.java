@@ -153,7 +153,7 @@ public class ConBLUpdateConsignment {
 	
 	
 	}
-	public void deleteConsignment(TurqConsignment consignment)throws Exception{
+	public static void deleteConsignment(TurqConsignment consignment)throws Exception{
 	    try{
 	        
 //	      delete Consignment Group

@@ -1323,7 +1323,7 @@ public class BillUIAddBill extends Composite
 				Boolean paymentType = (Boolean) comboPaymentType
 						.getData(comboPaymentType.getText());
 
-				blAddBill.saveBill(txtConsignmentDocumentNo.getText(),txtDefinition.getText(), false, dateConsignmentDate.getDate(),type,!paymentType.booleanValue(),(TurqCurrentCard)txtCurrentCard.getData(),null,dateDueDate.getDate(),txtDiscountAmount.getBigDecimalValue(), txtDocumentNo.getText(), txtTotalVat.getBigDecimalValue(),decSpecialVat.getBigDecimalValue(), txtTotalAmount.getBigDecimalValue(),EngBLCommon.getBaseCurrencyExchangeRate(),getBillGroups(),getInventoryTransactions());
+				blAddBill.saveBillFromBill(txtConsignmentDocumentNo.getText(),txtDefinition.getText(), false, dateConsignmentDate.getDate(),type,!paymentType.booleanValue(),(TurqCurrentCard)txtCurrentCard.getData(),null,dateDueDate.getDate(),txtDiscountAmount.getBigDecimalValue(), txtDocumentNo.getText(), txtTotalVat.getBigDecimalValue(),decSpecialVat.getBigDecimalValue(), txtTotalAmount.getBigDecimalValue(),EngBLCommon.getBaseCurrencyExchangeRate(),getBillGroups(),getInventoryTransactions());
 				
 				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				msg.open();

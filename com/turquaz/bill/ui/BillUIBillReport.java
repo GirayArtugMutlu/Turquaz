@@ -506,9 +506,13 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			toolDelete.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					if (bill != null){
-						//TODO write delete method for BillReport fast view
-					}
-						
+						boolean answer = EngUICommon.okToDelete(getShell(),"Faturay? silmek istedi?inizden emin misiniz?");
+						if (answer)
+						{
+							
+							
+						}						
+					}						
 				}
 			});
 			//END <<  toolDelete
@@ -943,8 +947,8 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 					    				
 					}
 					
-					blUpdateBill.deleteAccountingTransactions(bill);
-					blUpdateBill.deleteCurrentTransactions(bill);
+					BillBLUpdateBill.deleteAccountingTransactions(bill);
+					BillBLUpdateBill.deleteCurrentTransactions(bill);
 				
 					blUpdateBill.deleteObject(bill); 
 					msg.setMessage(Messages.getString("BillUIBillSearch.14")); //$NON-NLS-1$

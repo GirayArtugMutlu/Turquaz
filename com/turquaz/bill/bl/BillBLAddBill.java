@@ -32,18 +32,16 @@ import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 
 public class BillBLAddBill {
-	BillDALAddBill dalBill = new BillDALAddBill();
+	private static BillDALAddBill dalBill = new BillDALAddBill();
 
-	AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
-
-	Calendar cal = Calendar.getInstance();
+	private static AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
 
 	public BillBLAddBill() {
 
 	}
 	
-	
-	public TurqBill saveBill(String consignemtDocNo, String definition,
+	//Bill from Bill
+	public TurqBill saveBillFromBill(String consignemtDocNo, String definition,
 						boolean isPrinted, Date billsDate,int type,
 						boolean isOpen, TurqCurrentCard currentCard,
 						TurqAccountingAccount cashAccount,
@@ -52,55 +50,55 @@ public class BillBLAddBill {
 						BigDecimal totalAmount,TurqCurrencyExchangeRate exRate,
 						List billGroups,List invTransactions )throws Exception{
 		
-	ConBLAddConsignment blConsAdd = new ConBLAddConsignment();
+		ConBLAddConsignment blConsAdd = new ConBLAddConsignment();
 	
-	// First Save Consignment
-	TurqConsignment cons = blConsAdd.saveConsignment(consignemtDocNo,definition,isPrinted,billsDate,currentCard,discountAmount,billDocNo,vatAmount,specialVatAmount,totalAmount,type,exRate,invTransactions,null);
+		// First Save Consignment
+		TurqConsignment cons = blConsAdd.saveConsignment(consignemtDocNo,definition,isPrinted,billsDate,currentCard,discountAmount,billDocNo,vatAmount,specialVatAmount,totalAmount,type,exRate,invTransactions,null);
 	
 
 	
-	TurqBill bill = saveBill(billDocNo,definition,isPrinted,billsDate,cons,type,isOpen,cashAccount,dueDate);
+		TurqBill bill = registerBill(billDocNo,definition,isPrinted,billsDate,cons,type,isOpen,cashAccount,dueDate);
 	
-	//Then Save Bill Groups
-	
-	for(int i=0;i<billGroups.size();i++)
-	{
-		TurqBillGroup group = (TurqBillGroup)billGroups.get(i);
-		registerGroup(group,bill.getId());
-		
-	}
-	
-	return bill;
-	
-	}
-	
-	/****************************************************************************/
-	
-    public TurqBill saveBill(String docNo, String definition,
-			boolean isPrinted, Date billsDate, TurqConsignment cons, int type,
-			boolean isOpen, TurqAccountingAccount cashAccount, Date dueDate,List billGroups)
-			throws Exception {
-	try {
-		
-		// Save Bill 
-		
-		TurqBill bill = saveBill(docNo,definition,isPrinted,billsDate,cons,type,isOpen,cashAccount,dueDate);
-		
 		//Then Save Bill Groups
-		
+		saveBillGroups(bill.getId(),billGroups);
+		return bill;
+	
+	}
+	
+	public static void saveBillGroups(Integer billId,List billGroups)throws Exception
+	{
 		for(int i=0;i<billGroups.size();i++)
 		{
 			TurqBillGroup group = (TurqBillGroup)billGroups.get(i);
-			registerGroup(group,bill.getId());
+			registerGroup(group,billId);
 			
-		}
-		
-		return bill;
-
-	} catch (Exception ex) {
-		throw ex;
+		}	
 	}
-}
+	
+	/****************************************************************************/
+	//B?ll from consignment
+    public TurqBill saveBillFromCons(String docNo, String definition,
+			boolean isPrinted, Date billsDate, TurqConsignment cons, int type,
+			boolean isOpen, TurqAccountingAccount cashAccount, Date dueDate,List billGroups)
+			throws Exception {
+    	try
+		{
+		
+    		// Save Bill 
+		
+    		TurqBill bill = registerBill(docNo,definition,isPrinted,billsDate,cons,type,isOpen,cashAccount,dueDate);
+		
+    		//Then Save Bill Groups
+    		saveBillGroups(bill.getId(),billGroups);
+		
+    		return bill;
+
+		}
+    	catch (Exception ex)
+		{
+    		throw ex;
+		}
+    }
 	/*****************************************************************************/
 	/**
 	 * 
@@ -116,11 +114,12 @@ public class BillBLAddBill {
 	 * @return
 	 * @throws Exception
 	 */
-	private TurqBill saveBill(String docNo, String definition,
+	private static TurqBill registerBill(String docNo, String definition,
 				boolean isPrinted, Date billsDate, TurqConsignment cons, int type,
 				boolean isOpen, TurqAccountingAccount cashAccount, Date dueDate)
 				throws Exception {
-	try {
+		try 
+		{
 			
 			TurqBill bill = new TurqBill();
 			bill.setBillsDate(billsDate);
@@ -130,8 +129,10 @@ public class BillBLAddBill {
 
 			bill.setCreatedBy(System.getProperty("user"));
 			bill.setUpdatedBy(System.getProperty("user"));
-			bill.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			bill.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			
+			Calendar cal=Calendar.getInstance();
+			bill.setLastModified(cal.getTime());
+			bill.setCreationDate(cal.getTime());
 			bill.setIsOpen(isOpen);
 			bill.setDueDate(dueDate);
 
@@ -158,7 +159,8 @@ public class BillBLAddBill {
 
 			return bill;
 
-		} catch (Exception ex) {
+		} 
+		catch (Exception ex) {
 			throw ex;
 		}
 	}
@@ -167,7 +169,7 @@ public class BillBLAddBill {
  * @param bill
  * @throws Exception
  */
-	public void saveCurrentTransaction(TurqBill bill) throws Exception {
+	public static void saveCurrentTransaction(TurqBill bill) throws Exception {
 		try {
 
 			TurqBillConsignmentCommon common = bill
@@ -239,7 +241,7 @@ public class BillBLAddBill {
 	 * @throws Exception
 	 */
 	
-	public void prepareAccountsForAccountingIntgretion(TurqBill bill, TurqAccountingAccount cashAccount, Map creditAccounts, Map deptAccounts)throws Exception
+	public static void prepareAccountsForAccountingIntgretion(TurqBill bill, TurqAccountingAccount cashAccount, Map creditAccounts, Map deptAccounts)throws Exception
 	{
 	
 		creditAccounts.clear();
@@ -401,7 +403,7 @@ public class BillBLAddBill {
 		
 	}
 	
-	public void saveAccountingTransaction(TurqBill bill, TurqAccountingAccount cashAccount) throws Exception
+	public static void saveAccountingTransaction(TurqBill bill, TurqAccountingAccount cashAccount) throws Exception
 	{
 		
 		Map creditAccounts = new HashMap();
@@ -434,7 +436,7 @@ public class BillBLAddBill {
 	 * @param billId
 	 * @throws Exception
 	 */
-	public void registerGroup(TurqBillGroup grp, Integer billId)
+	public static void registerGroup(TurqBillGroup grp, Integer billId)
 			throws Exception {
 		try {
 			TurqBillInGroup cardGroup = new TurqBillInGroup();
@@ -445,10 +447,10 @@ public class BillBLAddBill {
 
 			cardGroup.setCreatedBy(System.getProperty("user"));
 			cardGroup.setUpdatedBy(System.getProperty("user"));
-			cardGroup
-					.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			cardGroup
-					.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			
+			Calendar cal=Calendar.getInstance();
+			cardGroup.setLastModified(cal.getTime());
+			cardGroup.setCreationDate(cal.getTime());
 
 			dalBill.save(cardGroup);
 
@@ -458,7 +460,7 @@ public class BillBLAddBill {
 
 	}
 
-	public Set getInventoryTransactions(TurqBill bill) throws Exception {
+	public static Set getInventoryTransactions(TurqBill bill) throws Exception {
 		try {
 
 			return dalBill.getInvTransactions(bill);

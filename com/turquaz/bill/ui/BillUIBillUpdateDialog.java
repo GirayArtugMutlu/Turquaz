@@ -299,16 +299,15 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	try{
 		if (bill==null)
 			return;
-	   if(compAddBill.verifyFields()){
-	       updated=true;
-	       Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
-			
+	   if(compAddBill.verifyFields())
+	   {
+	       updated=true;			
 	       //update the consignment
 	       int type = compAddBill.BILL_TYPE;
 					
 	       Boolean paymentType = (Boolean)compAddBill.getComboPaymentType().getData(compAddBill.getComboPaymentType().getText());
 		
-		  blUpdateBill.updateBill(bill,
+	       blUpdateBill.updateBill(bill,
 			        compAddBill.getTxtDocumentNo().getText().trim(),
 					compAddBill.getTxtConsignmentDocumentNo().getText().trim(),
 			        compAddBill.getTxtDefinition().getText(),
@@ -334,16 +333,16 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	        
 	    
 			
-	    msg = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
-	    msg.setMessage(Messages.getString("BillUIBillUpdateDialog.10")); //$NON-NLS-1$
-	    msg.open();
-	    this.dialogShell.close();
+	       msg = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
+	       msg.setMessage(Messages.getString("BillUIBillUpdateDialog.10")); //$NON-NLS-1$
+	       msg.open();
+	       this.dialogShell.close();
 	    
 	    }
 	}
-	catch(Exception ex){
-	    msg = new MessageBox(this.getParent(),SWT.ICON_ERROR);
-	    
+	catch(Exception ex)
+	{
+	    msg = new MessageBox(this.getParent(),SWT.ICON_ERROR);	    
 		ex.printStackTrace();
 	    msg.setMessage(ex.getMessage());
 	    msg.open();
@@ -359,44 +358,14 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			if(msg2.open()==SWT.OK){
 				
 				updated=true;
-				//delete Consignment Group
-				Iterator it = bill.getTurqBillInGroups().iterator();
-				while(it.hasNext()){
-				    
-					blUpdateBill.deleteObject(it.next());
-										
-				}
-				
-				
-				
-				blUpdateBill.deleteAccountingTransactions(bill);
-				blUpdateBill.deleteCurrentTransactions(bill);
-
-				
-				blUpdateBill.deleteObject(bill);
-				
-				msg.setMessage(Messages.getString("BillUIBillUpdateDialog.1")); //$NON-NLS-1$
-				msg.open();
-				
-				
 				if(EngUICommon.okToDelete(getParent(),Messages.getString("BillUIBillUpdateDialog.9"))){ //$NON-NLS-1$
-				it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
-				
-				if(it.hasNext()){
-			    TurqConsignment cons = (TurqConsignment)it.next();
-			    blUpdateCons.deleteConsignment(cons);
-				
+					BillBLUpdateBill.deleteBillConsignment(bill);
 				}
-				}
-				
-				dialogShell.close();			
-				
-				//delete consignment 
-				
-			}
-			
-			
-			
+				BillBLUpdateBill.deleteBill(bill);				
+				msg.setMessage(Messages.getString("BillUIBillUpdateDialog.1")); //$NON-NLS-1$
+				msg.open();				
+				dialogShell.close();				
+			}		
 		}
 		catch(Exception ex){
 			

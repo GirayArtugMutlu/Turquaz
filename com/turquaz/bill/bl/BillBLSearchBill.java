@@ -66,7 +66,7 @@ public class BillBLSearchBill {
 	public boolean canUpdateBill(TurqBill bill)throws Exception{
 	    try{
 	        
-	        return dalUpdate.canUpdateBill(bill);
+	        return BillDALUpdateBill.canUpdateBill(bill);
 	    }
 	    catch(Exception ex){
 	        throw ex;

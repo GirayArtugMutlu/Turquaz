@@ -39,7 +39,7 @@ public class BillDALUpdateBill {
 			throw ex;
 		}
 	}
-	public void updateObject(Object obj)throws Exception{
+	public static void updateObject(Object obj)throws Exception{
 		try{
 		Session session = EngDALSessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
@@ -54,28 +54,7 @@ public class BillDALUpdateBill {
 		}
 	}
 	
-	
-	
-	public void updateBill(TurqBill obj)throws Exception{
-		try{
-			Session session = EngDALSessionFactory.openSession();
-			
-			Transaction tx = session.beginTransaction();
-			
-			session.update(obj);
-		
-			session.flush();
-			tx.commit();
-			session.close();
-			
-			}
-			catch(Exception ex){
-				throw ex;
-			}
-		
-	}
-	
-	public void deleteAccountingTransactions(int seq_id)throws Exception{
+	public static void deleteAccountingTransactions(int seq_id)throws Exception{
 		try{
 		    Session session = EngDALSessionFactory.openSession();
 		    Transaction tx = session.beginTransaction();
@@ -108,7 +87,7 @@ public class BillDALUpdateBill {
 	}
 		    
 	
-	public void deleteCurrentTransactions(int seq_id)throws Exception{
+	public static void deleteCurrentTransactions(int seq_id)throws Exception{
 	try{
 	    Session session = EngDALSessionFactory.openSession();
 	    Transaction tx = session.beginTransaction();
@@ -132,7 +111,7 @@ public class BillDALUpdateBill {
 	    
 	}
 	
-	public boolean canUpdateBill(TurqBill bill)throws Exception{
+	public static boolean canUpdateBill(TurqBill bill)throws Exception{
 	  try{
 	      Session session = EngDALSessionFactory.openSession();
 			
@@ -160,7 +139,7 @@ public class BillDALUpdateBill {
 	 
 	}
 	
-	public void deleteObject(Object obj)throws Exception{
+	public static void deleteObject(Object obj)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();

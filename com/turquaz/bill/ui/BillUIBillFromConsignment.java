@@ -994,7 +994,7 @@ implements SecureComposite{
 	     
 				Boolean paymentType = (Boolean)comboPaymentType.getData(comboPaymentType.getText());
 	     
-				TurqBill bill =blAddBill.saveBill(txtDocumentNo.getText(),
+				TurqBill bill =blAddBill.saveBillFromCons(txtDocumentNo.getText(),
 										txtDefinition.getText(),
 										false,
 										dateBillDate.getDate(),

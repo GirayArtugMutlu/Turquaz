@@ -462,8 +462,8 @@ public class EngBLCommon {
 						.getBillByBillId((Integer) result[0]);
 
 				dalBill.initializeBill(bill);
-				updateBill.deleteAccountingTransactions(bill);
-				addBill.saveAccountingTransaction(bill, null);
+				BillBLUpdateBill.deleteAccountingTransactions(bill);
+				BillBLAddBill.saveAccountingTransaction(bill, null);
 
 			}
 		} catch (Exception ex) {

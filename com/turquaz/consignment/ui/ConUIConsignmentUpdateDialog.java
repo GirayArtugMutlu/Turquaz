@@ -290,7 +290,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			if(msg2.open()==SWT.OK){
 				
 			    updated=true;
-				blCons.deleteConsignment(consignment);
+				ConBLUpdateConsignment.deleteConsignment(consignment);
 				msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
 				msg.open();
 				

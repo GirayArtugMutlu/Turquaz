@@ -396,8 +396,8 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 					    				
 					}
 					
-					blUpdateBill.deleteAccountingTransactions(bill);
-					blUpdateBill.deleteCurrentTransactions(bill);
+					BillBLUpdateBill.deleteAccountingTransactions(bill);
+					BillBLUpdateBill.deleteCurrentTransactions(bill);
 				
 					blUpdateBill.deleteObject(bill); 
 					msg.setMessage(Messages.getString("BillUIBillSearch.14")); //$NON-NLS-1$
