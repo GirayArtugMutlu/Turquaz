@@ -296,7 +296,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					" curTrans.turqCurrentTransactionType.transactionTypeName," +
 					" curTrans.transactionsDate, curTrans.transactionsDocumentNo," +
 					" curTrans.transactionsTotalCredit, curTrans.transactionsTotalDept," +
-					" curTrans.currentTransactionsId," +
+					" curTrans.id," +
 					" curTrans.transactionsDefinition" +
 					" from TurqViewCurrentAmountTotal as curView," +
 					" TurqCurrentCard as curCard " +
@@ -304,7 +304,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					" curCard.turqCurrentTransactions as curTrans" +
 					" where curTrans.transactionsDate >= :startDate" +
 					" and curTrans.transactionsDate <= :endDate " +
-					" and curView.currentCardsId=curCard.currentCardsId ";
+					" and curView.currentCardsId=curCard.id ";
 			
 			if (!txtDefinition.getText().equals("")) //$NON-NLS-1$
 				query +=" and curTrans.transactionsDefinition like '"+txtDefinition.getText().toUpperCase(Locale.getDefault())+"%'"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -318,7 +318,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			}
 			else if (currentCard2==null)
 			{
-				query +=" and curCard.currentCardsId="+currentCard.getId(); //$NON-NLS-1$
+				query +=" and curCard.id="+currentCard.getId(); //$NON-NLS-1$
 			}
 		
 			BigDecimal minAmount=txtTransAmount.getBigDecimalValue();
