@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqInventoryAmountTotal" 
+    table="turq_inventory_amount_total"
+>
+
+    <composite-id>
+        <key-property 
+            name="inventoryCardsId" 
+            column="inventory_cards_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="transactionsAmountIn" 
+            column="transactions_amount_in" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+        <key-property 
+            name="transactionsTotalAmountOut" 
+            column="transactions_total_amount_out" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+        <key-property 
+            name="transactionsTotalAmountNow" 
+            column="transactions_total_amount_now" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+    </composite-id>    
+
+
+    <!-- Associations -->
+    <!-- derived association(s) for compound key -->
+    <!-- end of derived association(s) -->
+  
+
+</class>
+</hibernate-mapping>

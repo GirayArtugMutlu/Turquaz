@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqViewAccTransTotalAmount" 
+    table="turq_view_acc_trans_total_amount"
+>
+
+    <composite-id>
+        <key-property 
+            name="accountingTransactionsId" 
+            column="accounting_transactions_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="totalcreditamount" 
+            column="totalcreditamount" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+        <key-property 
+            name="totaldeptamount" 
+            column="totaldeptamount" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+    </composite-id>    
+
+
+    <!-- Associations -->
+    <!-- derived association(s) for compound key -->
+    <!-- end of derived association(s) -->
+  
+
+</class>
+</hibernate-mapping>
