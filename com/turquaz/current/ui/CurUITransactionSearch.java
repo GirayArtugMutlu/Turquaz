@@ -21,7 +21,6 @@ package com.turquaz.current.ui;
 */
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
@@ -296,7 +295,9 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
-	dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
+	//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
+	cal.set(cal.get(Calendar.YEAR),0,1);
+	dateStartDate.setDate(cal.getTime());
 	fillComboTypes();
 
 

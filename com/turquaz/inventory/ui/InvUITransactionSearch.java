@@ -322,7 +322,9 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.12")); //$NON-NLS-1$
 		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.13")); //$NON-NLS-1$
 		comboTransactionsType.setText(Messages.getString("InvUITransactionSearch.18")); //$NON-NLS-1$
-		dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
+		//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
+		cal.set(cal.get(Calendar.YEAR),0,1);
+		dateStartDate.setDate(cal.getTime());
 		
 	}
 /*

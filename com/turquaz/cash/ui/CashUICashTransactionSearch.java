@@ -212,7 +212,9 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	
 	public void postInitGUI(){
 	    
-		datePickerStart.setDate(new Date(cal.getTime().getYear(),0,1));
+		//datePickerStart.setDate(new Date(cal.getTime().getYear(),0,1));
+		cal.set(cal.get(Calendar.YEAR),0,1);
+		datePickerStart.setDate(cal.getTime());
 //		  content assistant
 		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(
 				txtCashCard);

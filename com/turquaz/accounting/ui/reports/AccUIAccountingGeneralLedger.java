@@ -19,7 +19,6 @@ package com.turquaz.accounting.ui.reports;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -95,7 +94,9 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			}
 			{
 				datePickerBeginDate = new DatePicker(this, SWT.NONE);
-				datePickerBeginDate.setDate(new Date(cal.getTime().getYear(),0,1));
+				//datePickerBeginDate.setDate(new Date(cal.getTime().getYear(),0,1));
+				cal.set(cal.get(Calendar.YEAR),0,1);
+				datePickerBeginDate.setDate(cal.getTime());
 			}
 			{
 				datePickerEndDate = new DatePicker(this, SWT.NONE);

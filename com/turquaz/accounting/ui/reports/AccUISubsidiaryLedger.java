@@ -24,7 +24,6 @@ package com.turquaz.accounting.ui.reports;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -185,7 +184,9 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 					dateStartDate.layout();
 					
 					
-					dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
+					//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
+					cal.set(cal.get(Calendar.YEAR),0,1);
+					dateStartDate.setDate(cal.getTime());
 				}
 				{
 					lblEndDate = new CLabel(compAccTransactionSearch, SWT.NONE);

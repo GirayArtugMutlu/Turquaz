@@ -1,7 +1,6 @@
 package com.turquaz.bill.ui;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
@@ -263,7 +262,9 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	public void postInitGui(){
 		comboBillType.add(com.turquaz.bill.Messages.getString("BillUIBillSearch.10"));  //$NON-NLS-1$
 		comboBillType.add(com.turquaz.bill.Messages.getString("BillUIBillSearch.11"));  //$NON-NLS-1$
-		dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
+		//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
+		cal.set(cal.get(Calendar.YEAR),0,1);
+		dateStartDate.setDate(cal.getTime());
 
 	
 	}

@@ -20,7 +20,6 @@ package com.turquaz.current.ui;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -235,7 +234,9 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	
 	public void postInitGui(){
 	    
-		datePickerStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
+		//datePickerStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
+		cal.set(cal.get(Calendar.YEAR),0,1);
+		datePickerStartDate.setDate(cal.getTime());
 
 	}
 	
