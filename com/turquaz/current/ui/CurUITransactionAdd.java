@@ -388,4 +388,77 @@ public class CurUITransactionAdd extends SecureComposite {
 	}
 	
 	
+	/**
+	 * @return Returns the accPickerCashAccount.
+	 */
+	public DynamicAccountPicker getAccPickerCashAccount() {
+		return accPickerCashAccount;
+	}
+	/**
+	 * @param accPickerCashAccount The accPickerCashAccount to set.
+	 */
+	public void setAccPickerCashAccount(
+			DynamicAccountPicker accPickerCashAccount) {
+		this.accPickerCashAccount = accPickerCashAccount;
+	}
+	/**
+	 * @return Returns the comboCurrentCode.
+	 */
+	public CCombo getComboCurrentCode() {
+		return comboCurrentCode;
+	}
+	/**
+	 * @param comboCurrentCode The comboCurrentCode to set.
+	 */
+	public void setComboCurrentCode(CCombo comboCurrentCode) {
+		this.comboCurrentCode = comboCurrentCode;
+	}
+	/**
+	 * @return Returns the comboTransType.
+	 */
+	public CCombo getComboTransType() {
+		return comboTransType;
+	}
+	/**
+	 * @param comboTransType The comboTransType to set.
+	 */
+	public void setComboTransType(CCombo comboTransType) {
+		this.comboTransType = comboTransType;
+	}
+	/**
+	 * @return Returns the comboType.
+	 */
+	public CLabel getComboType() {
+		return comboType;
+	}
+	/**
+	 * @param comboType The comboType to set.
+	 */
+	public void setComboType(CLabel comboType) {
+		this.comboType = comboType;
+	}
+	/**
+	 * @return Returns the decTxtAmount.
+	 */
+	public DecimalText getDecTxtAmount() {
+		return decTxtAmount;
+	}
+	/**
+	 * @param decTxtAmount The decTxtAmount to set.
+	 */
+	public void setDecTxtAmount(DecimalText decTxtAmount) {
+		this.decTxtAmount = decTxtAmount;
+	}
+	/**
+	 * @return Returns the txtDocumentNo.
+	 */
+	public Text getTxtDocumentNo() {
+		return txtDocumentNo;
+	}
+	/**
+	 * @param txtDocumentNo The txtDocumentNo to set.
+	 */
+	public void setTxtDocumentNo(Text txtDocumentNo) {
+		this.txtDocumentNo = txtDocumentNo;
+	}
 }
