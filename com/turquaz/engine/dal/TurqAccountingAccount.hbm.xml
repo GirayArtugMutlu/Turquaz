@@ -69,6 +69,22 @@
 
     <!-- Associations -->
   
+    <!-- bi-directional many-to-one association to TurqAccountingAccountClass -->
+    <many-to-one
+        name="turqAccountingAccountClass"
+        class="com.turquaz.engine.dal.TurqAccountingAccountClass"
+        not-null="true"
+    >
+        <column name="accounting_class_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqAccountingAccountType -->
+    <many-to-one
+        name="turqAccountingAccountType"
+        class="com.turquaz.engine.dal.TurqAccountingAccountType"
+        not-null="true"
+    >
+        <column name="accounting_types_id" />
+    </many-to-one>
     <!-- bi-directional one-to-many association to TurqAccountingAccount -->
     <set
         name="turqAccountingAccountsByTopAccount"

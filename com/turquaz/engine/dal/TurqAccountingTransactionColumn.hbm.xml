@@ -73,9 +73,31 @@
         not-null="true"
         length="4"
     />
+    <property
+        name="rowsDeptInBaseCurrency"
+        type="int"
+        column="rows_dept_in_base_currency"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="rowsCreditInBaseCurrency"
+        type="int"
+        column="rows_credit_in_base_currency"
+        not-null="true"
+        length="65535"
+    />
 
     <!-- Associations -->
   
+    <!-- bi-directional many-to-one association to TurqCurrency -->
+    <many-to-one
+        name="turqCurrency"
+        class="com.turquaz.engine.dal.TurqCurrency"
+        not-null="true"
+    >
+        <column name="rows_currency_type" />
+    </many-to-one>
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one
         name="turqAccountingAccount"

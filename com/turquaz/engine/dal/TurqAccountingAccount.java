@@ -31,6 +31,12 @@ public class TurqAccountingAccount implements Serializable {
     private java.util.Date updateDate;
 
     /** persistent field */
+    private com.turquaz.engine.dal.TurqAccountingAccountClass turqAccountingAccountClass;
+
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqAccountingAccountType turqAccountingAccountType;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByTopAccount;
 
     /** persistent field */
@@ -88,13 +94,15 @@ public class TurqAccountingAccount implements Serializable {
     private Set turqCashCards;
 
     /** full constructor */
-    public TurqAccountingAccount(java.lang.String accountName, java.lang.String accountCode, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByTopAccount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByParentAccount, Set turqAccountingAccountsByTopAccount, Set turqAccountingAccountsByParentAccount, Set turqInventoryCardsByAccountingAccountsIdSell, Set turqInventoryCardsByAccountingAccountsIdVat, Set turqInventoryCardsByAccountingAccountsIdSpecialVatSell, Set turqInventoryCardsByAccountingAccountsIdBuy, Set turqInventoryCardsByAccountingAccountsIdVatSell, Set turqInventoryCardsByAccountingAccountsIdSpecialVat, Set turqAccountingTransactionColumns, Set turqChequeTransactionTypes, Set turqBanksCards, Set turqBankCardsSecondaryAccounts, Set turqChequeRollAccountingAccounts, Set turqCurrentCards, Set turqTradebillTransactionTypes, Set turqCashTransactionRows, Set turqCashCards) {
+    public TurqAccountingAccount(java.lang.String accountName, java.lang.String accountCode, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqAccountingAccountClass turqAccountingAccountClass, com.turquaz.engine.dal.TurqAccountingAccountType turqAccountingAccountType, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByTopAccount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByParentAccount, Set turqAccountingAccountsByTopAccount, Set turqAccountingAccountsByParentAccount, Set turqInventoryCardsByAccountingAccountsIdSell, Set turqInventoryCardsByAccountingAccountsIdVat, Set turqInventoryCardsByAccountingAccountsIdSpecialVatSell, Set turqInventoryCardsByAccountingAccountsIdBuy, Set turqInventoryCardsByAccountingAccountsIdVatSell, Set turqInventoryCardsByAccountingAccountsIdSpecialVat, Set turqAccountingTransactionColumns, Set turqChequeTransactionTypes, Set turqBanksCards, Set turqBankCardsSecondaryAccounts, Set turqChequeRollAccountingAccounts, Set turqCurrentCards, Set turqTradebillTransactionTypes, Set turqCashTransactionRows, Set turqCashCards) {
         this.accountName = accountName;
         this.accountCode = accountCode;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.updateDate = updateDate;
+        this.turqAccountingAccountClass = turqAccountingAccountClass;
+        this.turqAccountingAccountType = turqAccountingAccountType;
         this.turqAccountingAccountByTopAccount = turqAccountingAccountByTopAccount;
         this.turqAccountingAccountByParentAccount = turqAccountingAccountByParentAccount;
         this.turqAccountingAccountsByTopAccount = turqAccountingAccountsByTopAccount;
@@ -174,6 +182,22 @@ public class TurqAccountingAccount implements Serializable {
 
     public void setUpdateDate(java.util.Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public com.turquaz.engine.dal.TurqAccountingAccountClass getTurqAccountingAccountClass() {
+        return this.turqAccountingAccountClass;
+    }
+
+    public void setTurqAccountingAccountClass(com.turquaz.engine.dal.TurqAccountingAccountClass turqAccountingAccountClass) {
+        this.turqAccountingAccountClass = turqAccountingAccountClass;
+    }
+
+    public com.turquaz.engine.dal.TurqAccountingAccountType getTurqAccountingAccountType() {
+        return this.turqAccountingAccountType;
+    }
+
+    public void setTurqAccountingAccountType(com.turquaz.engine.dal.TurqAccountingAccountType turqAccountingAccountType) {
+        this.turqAccountingAccountType = turqAccountingAccountType;
     }
 
     public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByTopAccount() {

@@ -1,6 +1,7 @@
 package com.turquaz.engine.dal;
 
 import java.io.Serializable;
+import java.util.Set;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -29,8 +30,11 @@ public class TurqAccountingAccountType implements Serializable {
     /** persistent field */
     private java.util.Date lastModified;
 
+    /** persistent field */
+    private Set turqAccountingAccounts;
+
     /** full constructor */
-    public TurqAccountingAccountType(java.lang.Integer accountingTypesId, java.lang.String accountingTypesName, java.lang.String accountingTypesDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified) {
+    public TurqAccountingAccountType(java.lang.Integer accountingTypesId, java.lang.String accountingTypesName, java.lang.String accountingTypesDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqAccountingAccounts) {
         this.accountingTypesId = accountingTypesId;
         this.accountingTypesName = accountingTypesName;
         this.accountingTypesDefinition = accountingTypesDefinition;
@@ -38,6 +42,7 @@ public class TurqAccountingAccountType implements Serializable {
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
+        this.turqAccountingAccounts = turqAccountingAccounts;
     }
 
     /** default constructor */
@@ -98,6 +103,14 @@ public class TurqAccountingAccountType implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public java.util.Set getTurqAccountingAccounts() {
+        return this.turqAccountingAccounts;
+    }
+
+    public void setTurqAccountingAccounts(java.util.Set turqAccountingAccounts) {
+        this.turqAccountingAccounts = turqAccountingAccounts;
     }
 
     public String toString() {

@@ -69,6 +69,20 @@
 
     <!-- Associations -->
   
+    <!-- bi-directional one-to-many association to TurqAccountingAccount -->
+    <set
+        name="turqAccountingAccounts"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="accounting_types_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqAccountingAccount"
+        />
+    </set>
 
 </class>
 </hibernate-mapping>

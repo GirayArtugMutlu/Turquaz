@@ -37,10 +37,16 @@ public class TurqCurrency implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
+    private boolean defaultCurrency;
+
+    /** persistent field */
     private Set turqInventoryPrices;
 
     /** persistent field */
     private Set turqTradebillTradebills;
+
+    /** persistent field */
+    private Set turqAccountingTransactionColumns;
 
     /** persistent field */
     private Set turqBanksCards;
@@ -52,7 +58,7 @@ public class TurqCurrency implements Serializable {
     private Set turqCurrentTransactions;
 
     /** full constructor */
-    public TurqCurrency(java.lang.String currenciesName, java.lang.String currenciesAbbreviation, java.lang.String currenciesCountry, java.math.BigDecimal exchangeRate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqInventoryPrices, Set turqTradebillTradebills, Set turqBanksCards, Set turqChequeCheques, Set turqCurrentTransactions) {
+    public TurqCurrency(java.lang.String currenciesName, java.lang.String currenciesAbbreviation, java.lang.String currenciesCountry, java.math.BigDecimal exchangeRate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, boolean defaultCurrency, Set turqInventoryPrices, Set turqTradebillTradebills, Set turqAccountingTransactionColumns, Set turqBanksCards, Set turqChequeCheques, Set turqCurrentTransactions) {
         this.currenciesName = currenciesName;
         this.currenciesAbbreviation = currenciesAbbreviation;
         this.currenciesCountry = currenciesCountry;
@@ -61,8 +67,10 @@ public class TurqCurrency implements Serializable {
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
+        this.defaultCurrency = defaultCurrency;
         this.turqInventoryPrices = turqInventoryPrices;
         this.turqTradebillTradebills = turqTradebillTradebills;
+        this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
         this.turqBanksCards = turqBanksCards;
         this.turqChequeCheques = turqChequeCheques;
         this.turqCurrentTransactions = turqCurrentTransactions;
@@ -73,7 +81,7 @@ public class TurqCurrency implements Serializable {
     }
 
     /** minimal constructor */
-    public TurqCurrency(java.lang.String currenciesName, java.lang.String currenciesAbbreviation, java.lang.String currenciesCountry, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqInventoryPrices, Set turqTradebillTradebills, Set turqBanksCards, Set turqChequeCheques, Set turqCurrentTransactions) {
+    public TurqCurrency(java.lang.String currenciesName, java.lang.String currenciesAbbreviation, java.lang.String currenciesCountry, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, boolean defaultCurrency, Set turqInventoryPrices, Set turqTradebillTradebills, Set turqAccountingTransactionColumns, Set turqBanksCards, Set turqChequeCheques, Set turqCurrentTransactions) {
         this.currenciesName = currenciesName;
         this.currenciesAbbreviation = currenciesAbbreviation;
         this.currenciesCountry = currenciesCountry;
@@ -81,8 +89,10 @@ public class TurqCurrency implements Serializable {
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
+        this.defaultCurrency = defaultCurrency;
         this.turqInventoryPrices = turqInventoryPrices;
         this.turqTradebillTradebills = turqTradebillTradebills;
+        this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
         this.turqBanksCards = turqBanksCards;
         this.turqChequeCheques = turqChequeCheques;
         this.turqCurrentTransactions = turqCurrentTransactions;
@@ -160,6 +170,14 @@ public class TurqCurrency implements Serializable {
         this.lastModified = lastModified;
     }
 
+    public boolean isDefaultCurrency() {
+        return this.defaultCurrency;
+    }
+
+    public void setDefaultCurrency(boolean defaultCurrency) {
+        this.defaultCurrency = defaultCurrency;
+    }
+
     public java.util.Set getTurqInventoryPrices() {
         return this.turqInventoryPrices;
     }
@@ -174,6 +192,14 @@ public class TurqCurrency implements Serializable {
 
     public void setTurqTradebillTradebills(java.util.Set turqTradebillTradebills) {
         this.turqTradebillTradebills = turqTradebillTradebills;
+    }
+
+    public java.util.Set getTurqAccountingTransactionColumns() {
+        return this.turqAccountingTransactionColumns;
+    }
+
+    public void setTurqAccountingTransactionColumns(java.util.Set turqAccountingTransactionColumns) {
+        this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
     }
 
     public java.util.Set getTurqBanksCards() {

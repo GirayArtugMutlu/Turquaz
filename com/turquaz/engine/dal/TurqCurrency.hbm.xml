@@ -79,6 +79,13 @@
         not-null="true"
         length="4"
     />
+    <property
+        name="defaultCurrency"
+        type="boolean"
+        column="default_currency"
+        not-null="true"
+        length="1"
+    />
 
     <!-- Associations -->
   
@@ -108,6 +115,20 @@
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqTradebillTradebill"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqAccountingTransactionColumn -->
+    <set
+        name="turqAccountingTransactionColumns"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="rows_currency_type" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqAccountingTransactionColumn"
         />
     </set>
     <!-- bi-directional one-to-many association to TurqBanksCard -->
