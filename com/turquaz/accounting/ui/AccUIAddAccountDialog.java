@@ -24,7 +24,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import com.turquaz.accounting.Messages;
-import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -48,10 +47,10 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 {
 	private AccUIAddAccounts compAccountCard;
 	private Shell dialogShell;
-	private TurqAccountingAccount account;
 	private ToolItem toolCancel;
 	private ToolItem toolSave;
 	private ToolBar toolBar1;
+	TurqAccountingAccount acc=null;
 
 	public AccUIAddAccountDialog(Shell parent, int style)
 	{
@@ -143,7 +142,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 	/**
 	 * Opens the Dialog Shell. Auto-generated code - any changes you make will disappear.
 	 */
-	public void open()
+	public TurqAccountingAccount open()
 	{
 		try
 		{
@@ -208,10 +207,12 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+			return acc;
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			return null;
 		}
 	}
 
@@ -256,7 +257,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 			if (compAccountCard.verifyFields(false, null))
 			{
-				compAccountCard.save();
+				acc = compAccountCard.saveAccount();
 				this.dialogShell.close();
 			}
 		}
@@ -266,27 +267,5 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 
-	/** Auto-generated event handler method */
-	protected void toolDeleteWidgetSelected(SelectionEvent evt)
-	{
-		MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-		MessageBox msg2 = new MessageBox(this.getParent(), SWT.OK | SWT.CANCEL);
-		try
-		{
-			msg2.setMessage(Messages.getString("AccUIAccountUpdate.15")); //$NON-NLS-1$
-			int result = msg2.open();
-			if (result == SWT.OK)
-			{
-				AccBLAccountUpdate.deleteAccount(account);
-				msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
-				msg.open();
-				this.dialogShell.close();
-				this.dialogShell.dispose();
-			}
-		}
-		catch (Exception ex)
-		{
-			ex.printStackTrace();
-		}
-	}
+	
 }

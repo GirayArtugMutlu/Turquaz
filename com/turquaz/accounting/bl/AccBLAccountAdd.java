@@ -127,7 +127,7 @@ public class AccBLAccountAdd
 		}
 	}
 
-	public static void saveAccount(String accountName, String accountCode, Object parent) throws Exception
+	public static TurqAccountingAccount saveAccount(String accountName, String accountCode, Object parent) throws Exception
 	{
 		try
 		{
@@ -159,6 +159,7 @@ public class AccBLAccountAdd
 				account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());
 			}
 			EngDALCommon.saveObject(account);
+			return account;
 		}
 		catch (Exception ex)
 		{

@@ -299,6 +299,42 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 		txtParentAccount.setFocus();
 		txtParentAccount.setSelection(txtParentAccount.getText().length());
 	}
+	
+	public TurqAccountingAccount saveAccount()
+	{
+		try{
+			if (verifyFields(false, null))
+			{
+				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+				TurqAccountingAccount parent = (TurqAccountingAccount) txtParentAccount.getData();
+				List accTrans = AccBLAccountUpdate.getAccountTransColumns(parent);
+				if (accTrans.size() > 0)
+				{
+					msg.setMessage(Messages.getString("AccUIAddAccounts.6")); //$NON-NLS-1$
+					msg.open();
+					return null;
+				}
+				String accountName = txtAccAcountName.getText().trim();
+				String accountCode = txtAccAccountCode.getText().trim();
+				TurqAccountingAccount account = AccBLAccountAdd.saveAccount(accountName, accountCode, parent);
+				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
+				msg.open();
+				EngBLAccountingAccounts.RefreshContentAsistantMap();
+				asistant.refreshContentAssistant(0);
+				clearFields();
+				return account;
+			}
+			return null;
+			
+		}
+		catch(Exception ex)
+		{
+			
+			ex.printStackTrace();
+			return null;
+		}
+		
+	}
 
 	public void save()
 	{
