@@ -61,8 +61,6 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLSearchTransaction;
-
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 /**

@@ -31,7 +31,10 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
+
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -44,6 +47,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import com.turquaz.cheque.Messages;
+import com.turquaz.cheque.bl.CheBLSaveChequeTransaction;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 
@@ -285,17 +289,9 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
      try{
          
         if(verifyFields()){ 
-        List chequeList = new ArrayList();
-        int count = tableCheques.getItemCount();
-        for(int i=0;i<count;i++)
-        {
-            chequeList.add(tableCheques.getItem(i).getData());
-            
-        }
-        /**
-         * TODO new save function...
-         */
-       // CheBLSaveChequeTransaction.saveChequeRoll((TurqCurrentCard)currentPicker.getData(),null,txtRollNo.getText().trim(),datePicker1.getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_IN,btnSumTotals.getSelection());
+      
+      
+        CheBLSaveChequeTransaction.saveChequeRoll((TurqCurrentCard)currentPicker.getData(),null,txtRollNo.getText().trim(),datePicker1.getDate(),cheques,EngBLCommon.CHEQUE_TRANS_OUT_CURRENT,btnSumTotals.getSelection());
         EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
         newForm();
         }
