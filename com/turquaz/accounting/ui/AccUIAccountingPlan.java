@@ -39,14 +39,9 @@ import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.custom.TableTreeItem;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.Messages;
-import com.turquaz.accounting.bl.AccBLAccountAdd;
-import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import com.turquaz.engine.bl.EngBLAccountingAccounts;
-import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqViewAccTotal;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.cloudgarden.resource.SWTResourceManager;
 
@@ -153,6 +148,8 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 	/** Add your post-init code in here */
 	public void postInitGUI()
 	{
+		try
+		{
 		tableTreeAccountingPlan.getTable().addMouseListener(new MouseAdapter()
 		{
 			public void mouseDoubleClick(MouseEvent evt)
@@ -170,6 +167,13 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 		col2.setText(Messages.getString("AccUIAccountingPlan.1")); //$NON-NLS-1$
 		col2.setWidth(200);
 		fillTree(-1, ""); //$NON-NLS-1$
+		}
+		catch(Exception ex)
+		{
+			Logger loger = Logger.getLogger(this.getClass());
+			ex.printStackTrace();
+			loger.error(this, ex);
+		}
 	}
 
 	/**
@@ -177,7 +181,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 	 *             Parent Account
 	 * @param codeCrit
 	 */
-	public void fillTree(int parent, String codeCrit)
+	public void fillTree(int parent, String codeCrit)throws Exception
 	{
 		try
 		{
@@ -254,10 +258,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			loger.error(this, ex);
+			throw ex;
 		}
 	}
 
