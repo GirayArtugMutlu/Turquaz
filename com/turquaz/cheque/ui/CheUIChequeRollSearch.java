@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -259,49 +260,70 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite
 			TableItem selection[] = tableChequeRolls.getSelection();
 			if (selection.length > 0) {
 				Integer rollId = (Integer) selection[0].getData();
-				if (rollId != null) {
-					boolean isUpdated = false;
-					TurqChequeRoll roll = CheBLUpdateChequeRoll
-							.initializeChequeRoll(rollId);
-
-					if (roll.getTurqChequeTransactionType()
-							.getId().intValue() == EngBLCommon.CHEQUE_TRANS_IN) {
-						isUpdated = new CheUIChequeInPayrollUpdate(getShell(),
-								SWT.NULL, roll).open();
-					} else if (roll.getTurqChequeTransactionType()
-							.getId().intValue() == EngBLCommon.CHEQUE_TRANS_OUT_CURRENT) {
-						isUpdated = new CheUIChequeOutPayrollCurrentUpdate(
-								getShell(), SWT.NULL, roll).open();
-					} else if (roll.getTurqChequeTransactionType()
-							.getId().intValue() == EngBLCommon.CHEQUE_TRANS_OUT_BANK) {
-						isUpdated = new CheUIChequeOutPayrollBankUpdate(
-								getShell(), SWT.NULL, roll).open();
-					}
-					else if (roll.getTurqChequeTransactionType()
-							.getId().intValue() == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_BANK) {
-						isUpdated = new CheUIChequeCollectFromBankUpdate(
-								getShell(), SWT.NULL, roll).open();
-					}
-					else if (roll.getTurqChequeTransactionType()
-							.getId().intValue() == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_CURRENT) {
-						isUpdated = new CheUIChequeCollectUpdate(
-								getShell(), SWT.NULL, roll).open();
-					}
-
-					if (isUpdated) {
+				boolean isUpdated=rollUpdate(rollId, this.getShell());
+				if (isUpdated)
+				{
 						search();
-					}
 				}
 			}
-		} catch (Exception ex) {
+		} 
+		catch (Exception ex) 
+		{
 			ex.printStackTrace();
 		}
 
 	}
 
-	public void delete() {
-		// TODO Auto-generated method stub
+	public static boolean rollUpdate(Integer rollId, Shell updateShell)
+	{
+		try
+		{
+			if (rollId != null)
+			{
+				boolean isUpdated = false;
+				TurqChequeRoll roll = CheBLUpdateChequeRoll
+						.initializeChequeRoll(rollId);
 
+				if (roll.getTurqChequeTransactionType()
+						.getId().intValue() == EngBLCommon.CHEQUE_TRANS_IN) {
+					isUpdated = new CheUIChequeInPayrollUpdate(updateShell,
+							SWT.NULL, roll).open();
+				} else if (roll.getTurqChequeTransactionType()
+						.getId().intValue() == EngBLCommon.CHEQUE_TRANS_OUT_CURRENT) {
+					isUpdated = new CheUIChequeOutPayrollCurrentUpdate(
+							updateShell, SWT.NULL, roll).open();
+				} else if (roll.getTurqChequeTransactionType()
+						.getId().intValue() == EngBLCommon.CHEQUE_TRANS_OUT_BANK) {
+					isUpdated = new CheUIChequeOutPayrollBankUpdate(
+							updateShell, SWT.NULL, roll).open();
+				}
+				else if (roll.getTurqChequeTransactionType()
+						.getId().intValue() == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_BANK) {
+					isUpdated = new CheUIChequeCollectFromBankUpdate(
+							updateShell, SWT.NULL, roll).open();
+				}
+				else if (roll.getTurqChequeTransactionType()
+						.getId().intValue() == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_CURRENT) {
+					isUpdated = new CheUIChequeCollectUpdate(
+							updateShell, SWT.NULL, roll).open();
+				}
+				
+				return isUpdated;
+			}
+			else
+				return false;
+
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return true;
+		}
+	}
+	
+	public void delete()
+	{
+		
 	}
 
 	public void exportToExcel() {

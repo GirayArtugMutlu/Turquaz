@@ -29,7 +29,6 @@ import org.eclipse.swt.layout.GridData;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchCheques;
 import com.turquaz.cheque.bl.CheBLUpdateCheque;
-import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeRoll;
@@ -495,35 +494,10 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 			if (selection.length > 0) 
 			{
 				Integer rollId = (Integer) selection[0].getData();
-				if (rollId != null)
+				boolean isUpdatedRoll=CheUIChequeRollSearch.rollUpdate(rollId,this.getParent());
+				if (isUpdatedRoll)
 				{
-					boolean isUpdatedRoll = false;
-					TurqChequeRoll roll = CheBLUpdateChequeRoll.initializeChequeRoll(rollId);
-
-					if (roll.getTurqChequeTransactionType().getId().intValue() == EngBLCommon.CHEQUE_TRANS_IN)
-					{
-						isUpdatedRoll = new CheUIChequeInPayrollUpdate(this.getParent(),SWT.NULL, roll).open();
-					} 
-					else if (roll.getTurqChequeTransactionType().getId().intValue() == EngBLCommon.CHEQUE_TRANS_OUT_CURRENT)
-					{
-						isUpdatedRoll = new CheUIChequeOutPayrollCurrentUpdate(this.getParent(), SWT.NULL, roll).open();
-					} 
-					else if (roll.getTurqChequeTransactionType().getId().intValue() == EngBLCommon.CHEQUE_TRANS_OUT_BANK) 
-					{
-						isUpdatedRoll = new CheUIChequeOutPayrollBankUpdate(this.getParent(), SWT.NULL, roll).open();
-					}
-					else if (roll.getTurqChequeTransactionType().getId().intValue() == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_BANK)
-					{
-						isUpdatedRoll = new CheUIChequeCollectFromBankUpdate(this.getParent(), SWT.NULL, roll).open();
-					}
-					else if	(roll.getTurqChequeTransactionType().getId().intValue() == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_CURRENT)
-					{
-						isUpdatedRoll = new CheUIChequeCollectUpdate(this.getParent(), SWT.NULL, roll).open();
-					}
-
-					if (isUpdatedRoll) {
-						FillHistory();
-					}
+					FillHistory();
 				}
 			}
 		}
