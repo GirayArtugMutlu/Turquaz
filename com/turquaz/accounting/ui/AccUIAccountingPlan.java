@@ -149,7 +149,7 @@ SearchComposite, SecureComposite{
 		 //Add popup menu to add favorites
 	     popup = new Menu(getShell(),SWT.POP_UP);
 	     MenuItem item = new MenuItem (popup, SWT.PUSH);
-		 item.setText("Sil");    	 
+		 item.setText(Messages.getString("AccUIAccountingPlan.2"));    	  //$NON-NLS-1$
 		
 		 item.addListener(SWT.Selection, new Listener () {
 					public void handleEvent (Event e) {					
@@ -158,7 +158,7 @@ SearchComposite, SecureComposite{
 					}
 		 });
 		 item = new MenuItem(popup, SWT.PUSH);
-		 item.setText("Yeni Hesap Ekle");  	
+		 item.setText(Messages.getString("AccUIAccountingPlan.3"));  	 //$NON-NLS-1$
 		 
 		 item.addListener(SWT.Selection, new Listener () {
 			public void handleEvent (Event e) {					
@@ -166,7 +166,7 @@ SearchComposite, SecureComposite{
 				if (items.length > 0)
 				{
 					new AccUIAddAccountDialog(getShell(),SWT.NULL,(TurqAccountingAccount)items[0].getData()).open();
-					fillTree(-1,"");
+					fillTree(-1,""); //$NON-NLS-1$
 				}
 				}
 		 
@@ -310,7 +310,7 @@ public void fillTree(int parent, String codeCrit){
 	//	if(account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId().intValue()!=-1)
 	//	{
 		    new AccUIAccountUpdate(this.getShell(),SWT.NULL,account).open();
-		    fillTree(-1,"");
+		    fillTree(-1,""); //$NON-NLS-1$
 	//	}
 		
 		
@@ -344,7 +344,7 @@ public void fillTree(int parent, String codeCrit){
 				blAccountUpdate.deleteAccount(account);
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 				msg.open();
-				fillTree(-1,"");
+				fillTree(-1,""); //$NON-NLS-1$
 				
 			}
 
