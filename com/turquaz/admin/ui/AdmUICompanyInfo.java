@@ -13,6 +13,7 @@ import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
@@ -140,6 +141,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 			argMap.put(AdmKeys.ADM_COMPANY_FAX,txtCompanyPhone.getText().trim());
 			
 			EngTXCommon.doTransactionTX(AdmBLCompanyInfo.class.getName(),"updateCompany",argMap);
+			EngUIMainFrame.shell.setText("Turquaz - " + txtCompanyName.getText().trim());
 			msg.setMessage(Messages.getString("AdmUICompanyInfo.4")); //$NON-NLS-1$
 			msg.open();
 		}
