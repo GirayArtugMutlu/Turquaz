@@ -63,6 +63,7 @@ import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.inventory.ui.InvUITransactionTableRow;
 
 import org.eclipse.swt.widgets.Button;
 
@@ -950,6 +951,25 @@ implements SecureComposite{
 			txtConsignment.setFocus();
 			return false;
 		}
+		
+		boolean isExistEntry=false;
+		TableItem items[] = tableConsignmentRows.getItems();
+		for(int k=0; k<items.length ; k++)
+		{
+			InvUITransactionTableRow row = (InvUITransactionTableRow)items[k].getData();
+			if (row.okToSave())
+			{
+				isExistEntry=true;
+				break;
+			}
+		}
+		if (!isExistEntry)
+		{
+			msg.setMessage(Messages.getString("BillUIAddBill.39")); //$NON-NLS-1$
+			msg.open();
+			return false;
+		}
+		
 		Boolean isCurrent=(Boolean)comboPaymentType.getData(comboPaymentType.getText());
 		if (isCurrent.booleanValue())
 		{

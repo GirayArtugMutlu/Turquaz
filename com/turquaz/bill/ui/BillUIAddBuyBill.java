@@ -1322,7 +1322,7 @@ public class BillUIAddBuyBill extends Composite
 		MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING);
 
 		if (txtCurrentCard.getData() == null) {
-			msg.setMessage(""); //$NON-NLS-1$
+			msg.setMessage(Messages.getString("BillUIAddBuyBill.14")); //$NON-NLS-1$
 			msg.open();
 			txtCurrentCard.setFocus();
 			return false;
@@ -1332,6 +1332,23 @@ public class BillUIAddBuyBill extends Composite
 			msg.setMessage(Messages.getString("BillUIAddBill.39")); //$NON-NLS-1$
 			msg.open();
 			cursor.setFocus();
+			return false;
+		}
+		boolean isExistEntry=false;
+		TableItem items[] = tableConsignmentRows.getItems();
+		for(int k=0; k<items.length ; k++)
+		{
+			InvUITransactionTableRow row = (InvUITransactionTableRow)items[k].getData();
+			if (row.okToSave())
+			{
+				isExistEntry=true;
+				break;
+			}
+		}
+		if (!isExistEntry)
+		{
+			msg.setMessage(Messages.getString("BillUIAddBill.39")); //$NON-NLS-1$
+			msg.open();
 			return false;
 		}
 		

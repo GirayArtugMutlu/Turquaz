@@ -180,10 +180,18 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 11 : // Special VAT percent 
-				if (invTrans.getTurqInventoryCard().isSpecVatForEach())
-					result =invTrans.getTransactionsVatSpecialEach().toString();					
+				TurqInventoryCard invCard=invTrans.getTurqInventoryCard();
+				if (invCard==null)
+				{
+					result="0";
+				}
 				else
-					result = invTrans.getTransactionsVatSpecial().toString();
+				{
+					if (invTrans.getTurqInventoryCard().isSpecVatForEach())
+						result =invTrans.getTransactionsVatSpecialEach().toString();					
+					else
+						result = invTrans.getTransactionsVatSpecial().toString();
+				}
 				break;
 				
 			case 12 : // Specail VAT Total 
@@ -217,7 +225,8 @@ public class InvUITransactionTableRow implements ITableRow {
         //ÖTV Yuzdesi
         
         invTrans.setTransactionsVatSpecial(new BigDecimal(invCard.getCardSpecialVat()));
-        
+        invTrans.setTransactionsVatSpecialEach(invCard.getCardSpecialVatEach());
+     
         
         //Birimleri doldur
         List unit_list = new ArrayList();            
@@ -445,11 +454,14 @@ public class InvUITransactionTableRow implements ITableRow {
 			    if(formatted.equals("")){
 			 	    formatted="0";
 			 	}
-			 	if (invTrans.getTurqInventoryCard().isSpecVatForEach())
-			 		invTrans.setTransactionsVatSpecialEach(new BigDecimal(formatted));
-				else
-			 		invTrans.setTransactionsVatSpecial(new BigDecimal(formatted));
-			    
+			    TurqInventoryCard invCard=invTrans.getTurqInventoryCard();
+			    if (invCard!=null)
+			    {
+			    	if (invCard.isSpecVatForEach())
+			    		invTrans.setTransactionsVatSpecialEach(new BigDecimal(formatted));
+			    	else
+			    		invTrans.setTransactionsVatSpecial(new BigDecimal(formatted));
+			    }			    
 				break;
 				
 			case 12 : // Specail VAT Total 
