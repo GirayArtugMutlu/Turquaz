@@ -316,7 +316,7 @@
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value="Transaction Type"/>
-							<Property name="width" type="int" value="115"/>
+							<Property name="width" type="int" value="130"/>
 						</Properties>
 					</Component>
 					<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnDocumentNo" style="0">
@@ -327,7 +327,7 @@
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value="Document No"/>
-							<Property name="width" type="int" value="114"/>
+							<Property name="width" type="int" value="126"/>
 						</Properties>
 					</Component>
 					<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnDate" style="0">

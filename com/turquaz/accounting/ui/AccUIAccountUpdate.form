@@ -22,7 +22,7 @@
 		</Layout>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[457, 262]"/>
+				<Dimension value="[487, 301]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -45,7 +45,7 @@
 				</Events>
 				<Properties>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 5, 447, 38]"/>
+						<Rectangle value="[5, 5, 477, 38]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
@@ -113,8 +113,8 @@
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
-						<Property name="widthHint" type="int" value="430"/>
-						<Property name="heightHint" type="int" value="209"/>
+						<Property name="widthHint" type="int" value="452"/>
+						<Property name="heightHint" type="int" value="116"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
 						<Property name="verticalSpan" type="int" value="1"/>
@@ -126,12 +126,209 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[430, 209]"/>
+						<Dimension value="[452, 116]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 48, 430, 209]"/>
+						<Rectangle value="[5, 48, 452, 116]"/>
 					</Property>
 				</Properties>
+			</Component>
+			<Component class="org.eclipse.swt.widgets.Group" name="groupAccountBalance" style="0">
+				<Constraints>
+					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+						<Property name="verticalAlignment" type="int" value="4"/>
+						<Property name="horizontalAlignment" type="int" value="4"/>
+						<Property name="widthHint" type="int" value="-1"/>
+						<Property name="heightHint" type="int" value="-1"/>
+						<Property name="horizontalIndent" type="int" value="0"/>
+						<Property name="horizontalSpan" type="int" value="1"/>
+						<Property name="verticalSpan" type="int" value="1"/>
+						<Property name="grabExcessHorizontalSpace" type="boolean" value="true"/>
+						<Property name="grabExcessVerticalSpace" type="boolean" value="true"/>
+					</LayoutConstraint>
+				</Constraints>
+				<Layout class="Grid">
+					<Property name="marginWidth" type="int" value="5"/>
+					<Property name="marginHeight" type="int" value="5"/>
+					<Property name="numColumns" type="int" value="2"/>
+					<Property name="makeColumnsEqualWidth" type="boolean" value="false"/>
+					<Property name="horizontalSpacing" type="int" value="5"/>
+					<Property name="verticalSpacing" type="int" value="5"/>
+				</Layout>
+				<Events>
+				</Events>
+				<Properties>
+					<Property name="text" type="String" value="Balances"/>
+					<Property name="size" type="Dimension">
+						<Dimension value="[477, 127]"/>
+					</Property>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[5, 169, 477, 127]"/>
+					</Property>
+				</Properties>
+				<SubComponents>
+					<Component class="org.eclipse.swt.custom.CLabel" name="lblTotalDept" style="0">
+						<Constraints>
+							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+								<Property name="verticalAlignment" type="int" value="2"/>
+								<Property name="horizontalAlignment" type="int" value="1"/>
+								<Property name="widthHint" type="int" value="84"/>
+								<Property name="heightHint" type="int" value="19"/>
+								<Property name="horizontalIndent" type="int" value="0"/>
+								<Property name="horizontalSpan" type="int" value="1"/>
+								<Property name="verticalSpan" type="int" value="1"/>
+								<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+								<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+							</LayoutConstraint>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="Total Dept"/>
+							<Property name="size" type="Dimension">
+								<Dimension value="[84, 19]"/>
+							</Property>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[8, 18, 84, 19]"/>
+							</Property>
+						</Properties>
+					</Component>
+					<Component class="org.eclipse.swt.widgets.Text" name="txtTotalDept" style="0">
+						<Constraints>
+							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+								<Property name="verticalAlignment" type="int" value="2"/>
+								<Property name="horizontalAlignment" type="int" value="1"/>
+								<Property name="widthHint" type="int" value="198"/>
+								<Property name="heightHint" type="int" value="17"/>
+								<Property name="horizontalIndent" type="int" value="0"/>
+								<Property name="horizontalSpan" type="int" value="1"/>
+								<Property name="verticalSpan" type="int" value="1"/>
+								<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+								<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+							</LayoutConstraint>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="editable" type="boolean" value="false"/>
+							<Property name="size" type="Dimension">
+								<Dimension value="[204, 17]"/>
+							</Property>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[97, 19, 204, 17]"/>
+							</Property>
+							<Property name="visible" type="boolean" value="true"/>
+							<Property name="background" type="Color">
+								<Color red="ff" green="ff" blue="ff"/>
+							</Property>
+						</Properties>
+					</Component>
+					<Component class="org.eclipse.swt.custom.CLabel" name="lblTotalCredit" style="0">
+						<Constraints>
+							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+								<Property name="verticalAlignment" type="int" value="2"/>
+								<Property name="horizontalAlignment" type="int" value="1"/>
+								<Property name="widthHint" type="int" value="-1"/>
+								<Property name="heightHint" type="int" value="-1"/>
+								<Property name="horizontalIndent" type="int" value="0"/>
+								<Property name="horizontalSpan" type="int" value="1"/>
+								<Property name="verticalSpan" type="int" value="1"/>
+								<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+								<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+							</LayoutConstraint>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="Total Credit"/>
+						</Properties>
+					</Component>
+					<Component class="org.eclipse.swt.widgets.Text" name="txtTotalCredit" style="0">
+						<Constraints>
+							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+								<Property name="verticalAlignment" type="int" value="2"/>
+								<Property name="horizontalAlignment" type="int" value="1"/>
+								<Property name="widthHint" type="int" value="197"/>
+								<Property name="heightHint" type="int" value="16"/>
+								<Property name="horizontalIndent" type="int" value="0"/>
+								<Property name="horizontalSpan" type="int" value="1"/>
+								<Property name="verticalSpan" type="int" value="1"/>
+								<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+								<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+							</LayoutConstraint>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="editable" type="boolean" value="false"/>
+							<Property name="size" type="Dimension">
+								<Dimension value="[203, 16]"/>
+							</Property>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[97, 43, 203, 16]"/>
+							</Property>
+							<Property name="visible" type="boolean" value="true"/>
+							<Property name="background" type="Color">
+								<Color red="ff" green="ff" blue="ff"/>
+							</Property>
+						</Properties>
+					</Component>
+					<Component class="org.eclipse.swt.custom.CLabel" name="lblBalance" style="0">
+						<Constraints>
+							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+								<Property name="verticalAlignment" type="int" value="2"/>
+								<Property name="horizontalAlignment" type="int" value="1"/>
+								<Property name="widthHint" type="int" value="59"/>
+								<Property name="heightHint" type="int" value="18"/>
+								<Property name="horizontalIndent" type="int" value="0"/>
+								<Property name="horizontalSpan" type="int" value="1"/>
+								<Property name="verticalSpan" type="int" value="1"/>
+								<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+								<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+							</LayoutConstraint>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="Balance"/>
+							<Property name="size" type="Dimension">
+								<Dimension value="[59, 18]"/>
+							</Property>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[8, 66, 59, 18]"/>
+							</Property>
+						</Properties>
+					</Component>
+					<Component class="org.eclipse.swt.widgets.Text" name="txtBalance" style="0">
+						<Constraints>
+							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+								<Property name="verticalAlignment" type="int" value="2"/>
+								<Property name="horizontalAlignment" type="int" value="1"/>
+								<Property name="widthHint" type="int" value="196"/>
+								<Property name="heightHint" type="int" value="16"/>
+								<Property name="horizontalIndent" type="int" value="0"/>
+								<Property name="horizontalSpan" type="int" value="1"/>
+								<Property name="verticalSpan" type="int" value="1"/>
+								<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+								<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+							</LayoutConstraint>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="editable" type="boolean" value="false"/>
+							<Property name="size" type="Dimension">
+								<Dimension value="[202, 16]"/>
+							</Property>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[97, 67, 202, 16]"/>
+							</Property>
+							<Property name="background" type="Color">
+								<Color red="ff" green="ff" blue="ff"/>
+							</Property>
+						</Properties>
+					</Component>
+				</SubComponents>
 			</Component>
 		</SubComponents>
 	</Component>

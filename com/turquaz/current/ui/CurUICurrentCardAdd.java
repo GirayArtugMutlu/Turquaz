@@ -1219,7 +1219,7 @@ public class CurUICurrentCardAdd extends SecureComposite {
 			tabItemCurrentGroups.setControl(compCurrentGroups);
 			tabItemCurrentGroups.setText("Current Groups");
 	
-			compCurrentGroups.setSize(new org.eclipse.swt.graphics.Point(395,283));
+			compCurrentGroups.setSize(new org.eclipse.swt.graphics.Point(584,435));
 	
 			GridData compRegisterGroupLData = new GridData();
 			compRegisterGroupLData.verticalAlignment = GridData.BEGINNING;

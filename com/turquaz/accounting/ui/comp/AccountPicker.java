@@ -62,7 +62,6 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 			text1.setEnabled(false);
 			final Color text1background = new Color(Display.getDefault(),255,255,255);
 			text1.setBackground(text1background);
-	
 			GridData button1LData = new GridData();
 			button1LData.verticalAlignment = GridData.FILL;
 			button1LData.horizontalAlignment = GridData.BEGINNING;
@@ -112,7 +111,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 	public void setData(Object obj){
 		super.setData(obj);
 		TurqAccountingAccount account = (TurqAccountingAccount)obj;
-		text1.setText(account.getAccountCode()+" "+account.getAccountName());
+		text1.setText(account.getAccountCode()+"-"+account.getAccountName());
 		
 		
 	}

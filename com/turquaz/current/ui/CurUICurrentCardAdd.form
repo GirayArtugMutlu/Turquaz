@@ -1426,7 +1426,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[395, 283]"/>
+										<Dimension value="[584, 435]"/>
 									</Property>
 								</Properties>
 								<SubComponents>

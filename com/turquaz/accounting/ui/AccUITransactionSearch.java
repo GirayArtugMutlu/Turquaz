@@ -238,10 +238,10 @@ public class AccUITransactionSearch extends SecureComposite {
 			});
 	
 			tableColumnTransType.setText("Transaction Type");
-			tableColumnTransType.setWidth(115);
+			tableColumnTransType.setWidth(130);
 	
 			tableColumnDocumentNo.setText("Document No");
-			tableColumnDocumentNo.setWidth(114);
+			tableColumnDocumentNo.setWidth(126);
 	
 			tableColumnDate.setText("Date");
 			tableColumnDate.setWidth(118);
