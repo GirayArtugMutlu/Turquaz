@@ -65,8 +65,6 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog {
 	private ToolItem toolSave;
 	private ToolBar toolBar1;
 
-	AccBLAccountUpdate blAccount = new AccBLAccountUpdate();
-
 	public AccUIAddAccountDialog(Shell parent, int style) {
 		super(parent, style);
 	}
@@ -317,7 +315,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog {
 			int result = msg2.open();
 
 			if (result == SWT.OK) {
-				blAccount.deleteAccount(account);
+				AccBLAccountUpdate.deleteAccount(account);
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.close();

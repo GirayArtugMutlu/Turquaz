@@ -23,6 +23,4 @@ package com.turquaz.accounting.dal;
 
 public class AccDALTransactionAdd {
 
-
-
 }

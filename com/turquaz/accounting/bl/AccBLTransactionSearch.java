@@ -21,14 +21,9 @@ package com.turquaz.accounting.bl;
 * @version  $Id$
 */
 
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-
-
-import com.turquaz.accounting.dal.AccDALTransactionAdd;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
 
 
@@ -41,22 +36,18 @@ import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 
 
 public class AccBLTransactionSearch {
-	
-	private AccDALTransactionSearch dalTransSearch = new AccDALTransactionSearch();
-	AccDALTransactionAdd dalTransAdd = new AccDALTransactionAdd();
-	Calendar cal = Calendar.getInstance();
-	
+		
 	public AccBLTransactionSearch(){
 		
 	}
-	public List searchAccTransaction(String docNo, Object startDate, Object endDate,
+	public static List searchAccTransaction(String docNo, Object startDate, Object endDate,
 			boolean isGeneralTrans, boolean isCollect, boolean isPayment)
 	throws Exception
 	{
 		try
 		{
 		
-			return dalTransSearch.searchTransaction(docNo,startDate,endDate,isGeneralTrans,isCollect,isPayment);
+			return AccDALTransactionSearch.searchTransaction(docNo,startDate,endDate,isGeneralTrans,isCollect,isPayment);
 				
 		}
 		catch(Exception ex)
@@ -121,28 +112,28 @@ public class AccBLTransactionSearch {
 	
 	
 	
-	public List searchAccTransactionsColumns(TurqAccountingAccount acc,Object startDate, Object endDate)throws Exception{
+	public static List searchAccTransactionsColumns(TurqAccountingAccount acc,Object startDate, Object endDate)throws Exception{
 		try{
 			
-			return dalTransSearch.searchAccTransactionsColumns(acc,startDate,endDate);					
+			return AccDALTransactionSearch.searchAccTransactionsColumns(acc,startDate,endDate);					
 		}
 		catch(Exception ex){
 			throw ex;
 		}		
 }
-	public Object[] getAccTransactionBalance(TurqAccountingAccount acc,Object startDate, Object endDate)throws Exception{
+	public static Object[] getAccTransactionBalance(TurqAccountingAccount acc,Object startDate, Object endDate)throws Exception{
 		try{
 			
-			return dalTransSearch.getAccTransactionBalance(acc,startDate,endDate);					
+			return AccDALTransactionSearch.getAccTransactionBalance(acc,startDate,endDate);					
 		}
 		catch(Exception ex){
 			throw ex;
 		}		
 }
-	public List getTransactionTypes()throws Exception{
+	public static List getTransactionTypes()throws Exception{
 		try{
 			
-			return dalTransSearch.getTransactionTypes();
+			return AccDALTransactionSearch.getTransactionTypes();
 					
 		}
 		catch(Exception ex){
@@ -150,11 +141,11 @@ public class AccBLTransactionSearch {
 		}
 	}
 	
-	public List searchTransactionRows(TurqAccountingTransaction trans, boolean isCredit)throws Exception{
+	public static List searchTransactionRows(TurqAccountingTransaction trans, boolean isCredit)throws Exception{
 		try{
 			
 			
-			return dalTransSearch.searchTransactionRows(trans,isCredit);
+			return AccDALTransactionSearch.searchTransactionRows(trans,isCredit);
 			
 			
 		}
@@ -164,10 +155,10 @@ public class AccBLTransactionSearch {
 		
 		
 	}
-	public void removeTransactionRows(TurqAccountingTransaction transaction)throws Exception{
+	public static void removeTransactionRows(TurqAccountingTransaction transaction)throws Exception{
 		try{
 
-           dalTransSearch.removeTransactionRows(transaction);
+			AccDALTransactionSearch.removeTransactionRows(transaction);
 			
 			
 		}
@@ -179,10 +170,10 @@ public class AccBLTransactionSearch {
 	}
 	
 	//-Muhasebele?tirilmemi? fi?leri getirir...
-	public List getUnsavedTransactions()throws Exception{
+	public static List getUnsavedTransactions()throws Exception{
 	    try{
 	        
-	      return dalTransSearch.getUnsavedTransactions();   
+	      return AccDALTransactionSearch.getUnsavedTransactions();   
 	        
 	    }
 	    catch(Exception ex){
@@ -191,7 +182,7 @@ public class AccBLTransactionSearch {
 	    
 	    
 	}
-	public void addToJournal(TurqAccountingTransaction trans,Date journalDate)throws Exception
+	public static void addToJournal(TurqAccountingTransaction trans,Date journalDate)throws Exception
 	{
 	    try{
 	        
@@ -199,14 +190,15 @@ public class AccBLTransactionSearch {
 	       journal.setCreatedBy(System.getProperty("user"));
 	       journal.setUpdatedBy(System.getProperty("user"));
 			
-	       journal.setLastModified(new java.sql.Date( cal.getTime().getTime()));
-	       journal.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
+	       Calendar cal=Calendar.getInstance();
+	       journal.setLastModified(cal.getTime());
+	       journal.setCreationDate(cal.getTime());
 		   journal.setJournalDate(journalDate);
 		   EngDALCommon.saveObject(journal);
 	       
 			    
 	       trans.setTurqAccountingJournal(journal);
-	       trans.setLastModified(new java.sql.Date( cal.getTime().getTime()));
+	       trans.setLastModified(cal.getTime());
 	       trans.setUpdatedBy(System.getProperty("user"));
 	       EngDALCommon.updateObject(trans);
 	        
@@ -218,22 +210,22 @@ public class AccBLTransactionSearch {
 	    }
 	}
 	
-	public List getTransactions(Object firstAccount, Object secondAccount,boolean initialAccounts,
+	public static List getTransactions(Object firstAccount, Object secondAccount,boolean initialAccounts,
 			 Date startDate, Date endDate)throws Exception
 	{
 		try{
 			
-			return dalTransSearch.getTransactions(firstAccount,secondAccount,initialAccounts, 
+			return AccDALTransactionSearch.getTransactions(firstAccount,secondAccount,initialAccounts, 
 					 startDate, endDate);
 		}
 		catch(Exception ex){
 			throw ex;
 		}		
 	}
-	
-	
-	public void removeAccountingTransaction(TurqAccountingTransaction accTrans)throws Exception{
-		dalTransSearch.deleteTransaction(accTrans);		
+
+	public static void removeAccountingTransaction(TurqAccountingTransaction accTrans)throws Exception{
+		AccDALTransactionSearch.deleteTransaction(accTrans);
+
 	}
 		
 	

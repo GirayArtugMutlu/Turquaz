@@ -353,7 +353,7 @@ public class CheBLUpdateChequeRoll {
 	        while(it.hasNext()){
 	        
 	        	TurqAccountingTransaction accTrans = (TurqAccountingTransaction)it.next();
-	        	new AccBLTransactionSearch().removeAccountingTransaction(accTrans);
+	        	AccBLTransactionSearch.removeAccountingTransaction(accTrans);
 	            
 	        }
 	        //Delete roll Account 

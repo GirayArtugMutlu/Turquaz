@@ -186,7 +186,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	    	if(it.hasNext())
 	    	{
 	    		TurqAccountingTransaction accTrans = (TurqAccountingTransaction)it.next();
-	    		new AccBLTransactionUpdate().initiliazeTransactionRows(accTrans);
+	    		AccBLTransactionUpdate.initiliazeTransactionRows(accTrans);
 	    		Iterator accIt = accTrans.getTurqAccountingTransactionColumns().iterator();
 	    		while(accIt.hasNext())
 	    		{
@@ -218,7 +218,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	    	while(it.hasNext())
 	    	{
 	    		TurqAccountingTransaction accTrans = (TurqAccountingTransaction)it.next();
-	    	new AccBLTransactionSearch().removeAccountingTransaction(accTrans);	    	
+	    		AccBLTransactionSearch.removeAccountingTransaction(accTrans);	    	
 	    	
 	    	}
 	    	CurBLTransactionUpdate.delete(curTrans);
@@ -256,7 +256,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 		    	while(it.hasNext())
 		    	{
 		    		TurqAccountingTransaction accTrans = (TurqAccountingTransaction)it.next();
-		    	new AccBLTransactionSearch().removeAccountingTransaction(accTrans);	    	
+		    		AccBLTransactionSearch.removeAccountingTransaction(accTrans);	    	
 		    	
 		    	}
 	        	updated=true;

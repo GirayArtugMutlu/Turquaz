@@ -46,7 +46,7 @@ public class AccDALTransactionSearch {
 
 	}
 
-	public List getTransactionTypes() throws Exception {
+	public static List getTransactionTypes() throws Exception {
 
 		try {
 			Session session = EngDALSessionFactory.openSession();
@@ -177,7 +177,7 @@ public class AccDALTransactionSearch {
 	}
 	
 
-	public List searchTransaction(String docNo, Object startDate,
+	public static List searchTransaction(String docNo, Object startDate,
 			Object endDate, boolean isGeneralTrans, boolean isCollect, boolean isPayment) throws Exception {
 		try {
 
@@ -258,7 +258,7 @@ public class AccDALTransactionSearch {
 		}
 
 	}
-	public void deleteTransaction(TurqAccountingTransaction trans)throws Exception
+	public static void deleteTransaction(TurqAccountingTransaction trans)throws Exception
 	{
 	    try {
 	        removeTransactionRows(trans);
@@ -281,7 +281,7 @@ public class AccDALTransactionSearch {
 	    
 	}
 
-	public void removeTransactionRows(TurqAccountingTransaction transaction)
+	public static void removeTransactionRows(TurqAccountingTransaction transaction)
 			throws Exception {
 		try {
 			Session session = EngDALSessionFactory.openSession();
@@ -307,7 +307,7 @@ public class AccDALTransactionSearch {
 	}
 
 	
-	public List searchTransactionRows(TurqAccountingTransaction trans,
+	public static List searchTransactionRows(TurqAccountingTransaction trans,
 			boolean isCredit) throws Exception {
 		try {
 
@@ -335,7 +335,7 @@ public class AccDALTransactionSearch {
 			throw ex;
 		}
 	}
-	public Object[] getAccTransactionBalance(TurqAccountingAccount acc,
+	public static Object[] getAccTransactionBalance(TurqAccountingAccount acc,
 			Object startDate, Object endDate) throws Exception {
 		try {
 			
@@ -378,7 +378,7 @@ public class AccDALTransactionSearch {
 		}
 	}
 
-	public List searchAccTransactionsColumns(TurqAccountingAccount acc,
+	public static List searchAccTransactionsColumns(TurqAccountingAccount acc,
 			Object startDate, Object endDate) throws Exception {
 		try {
 
@@ -422,7 +422,7 @@ public class AccDALTransactionSearch {
 
 	}
 
-	public List getUnsavedTransactions() throws Exception {
+	public static List getUnsavedTransactions() throws Exception {
 		try {
 			Session session = EngDALSessionFactory.openSession();
 			String query = "select accTrans from TurqAccountingTransaction as accTrans"
@@ -452,7 +452,7 @@ public class AccDALTransactionSearch {
 		}
 	}
 
-	public List getTransactions(Object firstAccount, Object secondAccount,boolean initialAccounts, 
+	public static List getTransactions(Object firstAccount, Object secondAccount,boolean initialAccounts, 
 			Date startDate, Date endDate) throws Exception {
 		try {
 			Session session = EngDALSessionFactory.openSession();

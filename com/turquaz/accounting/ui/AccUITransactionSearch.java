@@ -79,45 +79,24 @@ public class AccUITransactionSearch extends Composite implements
 		//handle the obtaining and disposing of resources
 		SWTResourceManager.registerResourceUser(this);
 	}
-
 	private TableColumn tableColumnTotalAmount;
-
 	private TableColumn tableColumnDate;
-
 	private TableColumn tableColumnDocumentNo;
-
 	private TableColumn tableColumnModuleName;
-
 	private Button btnPayment;
-
 	private Button btnCollect;
-
 	private TableColumn tableColumnTransType;
-
 	private DatePicker dateEndDate;
-
 	private CLabel lblEndDate;
-
 	private DatePicker dateStartDate;
-
 	private CLabel lblStartDate;
-
 	private Button btnAccTrans;
-
 	private Group groupTransTypes;
-
 	private TableColumn tableColumnDefinition;
-
 	private Text txtDocumentNo;
-
 	private CLabel lblDocumentNo;
-
 	private Table tableTransactions;
-
 	private Composite compAccTransactionSearch;
-
-	private AccBLTransactionSearch blTransSearch = new AccBLTransactionSearch();
-
 	private Calendar cal = Calendar.getInstance();
 
 	public AccUITransactionSearch(Composite parent, int style) {
@@ -370,7 +349,7 @@ public class AccUITransactionSearch extends Composite implements
 
 				if (result == SWT.OK) {
 
-					blUpdate.initiliazeTransactionRows(accTrans);
+					AccBLTransactionUpdate.initiliazeTransactionRows(accTrans);
 
 					Iterator it = accTrans.getTurqAccountingTransactionColumns().iterator();
 					while (it.hasNext()) {
@@ -401,7 +380,7 @@ public class AccUITransactionSearch extends Composite implements
 		try {
 			tableTransactions.removeAll();
 
-			List result = blTransSearch.searchAccTransaction(txtDocumentNo
+			List result = AccBLTransactionSearch.searchAccTransaction(txtDocumentNo
 					.getText().trim(),
 
 			dateStartDate.getDate(), dateEndDate.getDate(), btnAccTrans
@@ -469,8 +448,7 @@ public class AccUITransactionSearch extends Composite implements
 
 				TurqAccountingTransaction accTrans = (TurqAccountingTransaction) selection[0]
 						.getData();
-				new AccBLTransactionUpdate()
-						.initiliazeTransactionRows(accTrans);
+				AccBLTransactionUpdate.initiliazeTransactionRows(accTrans);
 				int type = accTrans.getTurqAccountingTransactionType()
 						.getId().intValue();
 				boolean updated;

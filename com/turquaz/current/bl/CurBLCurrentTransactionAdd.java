@@ -161,7 +161,7 @@ public class CurBLCurrentTransactionAdd {
 				 Map creditAccounts=new HashMap();
 				 Map deptAccounts=new HashMap();
 				 prepareAccountingMaps(curCard,isCredit,amount,account,deptAccounts,creditAccounts);
-			     blAcc.saveAccTransaction(transDate,
+				 AccBLTransactionAdd.saveAccTransaction(transDate,
 			     			documentNo,
 			         		EngBLCommon.ACCOUNTING_TRANS_GENERAL,
 							EngBLCommon.MODULE_CURRENT,
@@ -234,7 +234,7 @@ public class CurBLCurrentTransactionAdd {
 				Map creditAccounts=new HashMap();
 				Map deptAccounts=new HashMap();
 		 		prepareAccountingMaps(curCard,isCredit,amount,account,deptAccounts,creditAccounts);
-         		blAcc.saveAccTransaction(transDate,documentNo,
+		 		AccBLTransactionAdd.saveAccTransaction(transDate,documentNo,
          		accTransactionType,4,seq.getId(),transDefinition,
 				exchangeRate,creditAccounts,deptAccounts,true);
         

@@ -102,7 +102,7 @@ public class BankBLTransactionUpdate {
                     .getTurqAccountingTransactions().iterator();
 
             while (it.hasNext()) {
-                dalAcc.deleteTransaction((TurqAccountingTransaction) it.next());
+            	AccDALTransactionSearch.deleteTransaction((TurqAccountingTransaction) it.next());
 
             }
             
@@ -166,15 +166,7 @@ public class BankBLTransactionUpdate {
             
             EngDALCommon.saveObject(transRowCredit);
             EngDALCommon.saveObject(transRowDebit);
-            /**
-             * 
-             * Save accounting transactions...
-             * 
-             */
-            /*
-             * Create Accounting transaction
-             */
-            AccBLTransactionAdd blAccTran = new AccBLTransactionAdd();
+
            
             TurqAccountingAccount creditAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCardWithCredit,EngBLCommon.BANK_ACC_TYPE_GENERAL);
             TurqAccountingAccount deptAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCardWithDept,EngBLCommon.BANK_ACC_TYPE_GENERAL);
@@ -189,7 +181,7 @@ public class BankBLTransactionUpdate {
             
             String accounting_definition ="Banka Virman - "+definition;
 
-           blAccTran.saveAccTransaction(transDate, docNo,
+            AccBLTransactionAdd.saveAccTransaction(transDate, docNo,
                     accTransType,
                     bankTransBill.getTurqEngineSequence().getTurqModule().getId().intValue(),
 					bankTransBill.getTurqEngineSequence().getId(), 
@@ -259,7 +251,7 @@ public class BankBLTransactionUpdate {
                     .getTurqAccountingTransactions().iterator();
 
             while (it.hasNext()) {
-                dalAcc.deleteTransaction((TurqAccountingTransaction) it.next());
+            	AccDALTransactionSearch.deleteTransaction((TurqAccountingTransaction) it.next());
 
             }
 
@@ -343,12 +335,6 @@ public class BankBLTransactionUpdate {
             transRow.setTurqCurrencyExchangeRate(exchangeRate);
             EngDALCommon.saveObject(transRow);
 
-            /**
-             * 
-             * 
-             *  
-             */
-            AccBLTransactionAdd blAccTran = new AccBLTransactionAdd();
             CurBLCurrentTransactionAdd blCurTrans = new CurBLCurrentTransactionAdd();
 
             /**
@@ -368,7 +354,7 @@ public class BankBLTransactionUpdate {
              *  
              */
 
-            blAccTran.saveAccTransaction(transDate, docNo,
+            AccBLTransactionAdd.saveAccTransaction(transDate, docNo,
                     accTransType, bankTransBill.getTurqEngineSequence()
                             .getTurqModule().getId().intValue(),
                     bankTransBill.getTurqEngineSequence()
@@ -402,7 +388,7 @@ public class BankBLTransactionUpdate {
                     .getTurqAccountingTransactions().iterator();
 
             while (it.hasNext()) {
-                dalAcc.deleteTransaction((TurqAccountingTransaction) it.next());
+            	AccDALTransactionSearch.deleteTransaction((TurqAccountingTransaction) it.next());
 
             }
 
@@ -472,16 +458,12 @@ public class BankBLTransactionUpdate {
             transRow.setTurqBanksTransactionBill(bankTransBill);
             transRow.setTurqCurrencyExchangeRate(exchangeRate);
             EngDALCommon.saveObject(transRow);
-            
-            AccBLTransactionAdd blAccTran = new AccBLTransactionAdd();
-
-
             /**
              * Save Accounting Transaction
              *  
              */
 
-            blAccTran.saveAccTransaction(transDate, docNo,
+            AccBLTransactionAdd.saveAccTransaction(transDate, docNo,
                     accTransType, bankTransBill.getTurqEngineSequence()
                             .getTurqModule().getId().intValue(),
                     bankTransBill.getTurqEngineSequence().getId(),
@@ -536,7 +518,7 @@ public class BankBLTransactionUpdate {
                     .getTurqAccountingTransactions().iterator();
 
             while (it.hasNext()) {
-                dalAcc.deleteTransaction((TurqAccountingTransaction) it.next());
+            	AccDALTransactionSearch.deleteTransaction((TurqAccountingTransaction) it.next());
 
             }
 
@@ -616,8 +598,6 @@ public class BankBLTransactionUpdate {
             transRow.setTurqCurrencyExchangeRate(exchangeRate);
             EngDALCommon.saveObject(transRow);
 
-
-            AccBLTransactionAdd blAccTran = new AccBLTransactionAdd();
             CurBLCurrentTransactionAdd blCurTrans = new CurBLCurrentTransactionAdd();
 
             /**
@@ -635,7 +615,7 @@ public class BankBLTransactionUpdate {
              *  
              */
 
-            blAccTran.saveAccTransaction(transDate, docNo,
+            AccBLTransactionAdd.saveAccTransaction(transDate, docNo,
                     accTransType, bankTransBill.getTurqEngineSequence()
                             .getTurqModule().getId().intValue(),
                     bankTransBill.getTurqEngineSequence().getId(),
@@ -685,7 +665,7 @@ public class BankBLTransactionUpdate {
                     .getTurqAccountingTransactions().iterator();
 
             while (it.hasNext()) {
-                dalAcc.deleteTransaction((TurqAccountingTransaction) it.next());
+            	AccDALTransactionSearch.deleteTransaction((TurqAccountingTransaction) it.next());
 
             }
 

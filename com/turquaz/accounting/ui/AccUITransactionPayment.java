@@ -103,8 +103,6 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
         //handle the obtaining and disposing of resources
         SWTResourceManager.registerResourceUser(this);
     }
-
-	private AccBLTransactionAdd blTransAdd= new AccBLTransactionAdd();
 	
 	private TurqCurrency baseCurrency;
 	private TurqCurrency exchangeCurrency;
@@ -541,7 +539,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	Map deptAccounts = new HashMap();
 	prepareAccountingMaps(creditAccounts,deptAccounts);
 	
-	blTransAdd.saveAccTransaction(datePickerTransactionDate.getDate(),
+	AccBLTransactionAdd.saveAccTransaction(datePickerTransactionDate.getDate(),
 			txtDocumentNo.getText().trim(),1,1,null,
 			txtDefinition.getText().trim(),exchangeRate,creditAccounts,deptAccounts,false);
 	

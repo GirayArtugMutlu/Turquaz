@@ -42,8 +42,6 @@ public class EngBLAccountingAccounts {
 	
 	static EngBLAccountingAccounts _instance;
 	
-	public AccBLAccountAdd blAccount = new AccBLAccountAdd();
-	
 	public EngBLAccountingAccounts()throws Exception{
 		try{
 		fillAccountList();
@@ -55,11 +53,11 @@ public class EngBLAccountingAccounts {
 	
 	public void fillAccountList()throws Exception{
 		try{
-		 accountList = blAccount.getAllAccounts();
+		 accountList = AccBLAccountAdd.getAllAccounts();
 		 accountListForAccountPickers = AccBLAccountAdd.getAccountsForAccountPickers();
 		 allAccountList=AccBLAccountAdd.getAllAccountsForAccountPickerAll();
 		 
-	     cashAccountList =blAccount.getCashAccounts();
+	     cashAccountList =AccBLAccountAdd.getCashAccounts();
 		 accountMap.clear();
 		 
 		 TurqAccountingAccount account;
@@ -182,7 +180,7 @@ public class EngBLAccountingAccounts {
 			}
 			
 			 
-			return _instance.blAccount.getLeafAccount(accountCode);
+			return AccBLAccountAdd.getLeafAccount(accountCode);
 			
 			
 	        

@@ -44,7 +44,7 @@ public class AccUIAccountsTree{
 	try{
 
 	TreeItem item;
-	List mainBranches = blAccount.getAccount(parent, codeCrit);
+	List mainBranches = AccBLAccountAdd.getAccount(parent, codeCrit);
 	TurqAccountingAccount account;
 	for(int i =0; i< mainBranches.size();i++){
 	
@@ -70,7 +70,7 @@ public class AccUIAccountsTree{
 			
 		
 			TreeItem item;
-			List mainBranches = blAccount.getAccount(parent_id, codeCriteria);
+			List mainBranches = AccBLAccountAdd.getAccount(parent_id, codeCriteria);
 			TurqAccountingAccount account;
 			for(int i =0; i< mainBranches.size();i++){
 			

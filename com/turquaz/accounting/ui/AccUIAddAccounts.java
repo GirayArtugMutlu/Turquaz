@@ -324,7 +324,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 			{
 				MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 				TurqAccountingAccount parent=(TurqAccountingAccount)txtParentAccount.getData();
-				List accTrans=blAccountUpdate.getAccountTransColumns(parent);
+				List accTrans=AccBLAccountUpdate.getAccountTransColumns(parent);
 				if (accTrans.size() > 0)
 				{
 					msg.setMessage(Messages.getString("AccUIAddAccounts.6")); //$NON-NLS-1$
@@ -333,7 +333,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 				}
 				String accountName = txtAccAcountName.getText().trim();
 				String accountCode = txtAccAccountCode.getText().trim();				
-				blAccountAdd.saveAccount(accountName,accountCode,parent);	
+				AccBLAccountAdd.saveAccount(accountName,accountCode,parent);	
 				
 				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
 				msg.open();    

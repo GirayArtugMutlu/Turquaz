@@ -142,7 +142,6 @@ public class BankBLTransactionAdd {
             /*
              * Create Accounting transaction
              */
-            AccBLTransactionAdd blAccTran = new AccBLTransactionAdd();
             
             TurqAccountingTransactionColumn accTransRowDept = new TurqAccountingTransactionColumn();
             TurqAccountingTransactionColumn accTransRowCredit = new TurqAccountingTransactionColumn();
@@ -171,7 +170,7 @@ public class BankBLTransactionAdd {
             Map deptAccounts=new HashMap();
             BankBLTransactionUpdate.prepareAccountingMaps(deptAccount.getId(),
             		creditAccount.getId(),totalAmount,creditAccounts,deptAccounts);
-            blAccTran.saveAccTransaction(transDate, docNo,accTransType,
+            AccBLTransactionAdd.saveAccTransaction(transDate, docNo,accTransType,
                     seq.getTurqModule().getId().intValue(), seq.getId(),
 					accounting_definition, exchangeRate,creditAccounts,
 					deptAccounts,true);
@@ -357,7 +356,6 @@ public class BankBLTransactionAdd {
              * 
              *  
              */
-            AccBLTransactionAdd blAccTran = new AccBLTransactionAdd();
             CurBLCurrentTransactionAdd blCurTrans = new CurBLCurrentTransactionAdd();
 
             /**
@@ -375,7 +373,7 @@ public class BankBLTransactionAdd {
              * Save Accounting Transaction
              *  
              */
-            blAccTran.saveAccTransaction(transDate, docNo, accTransType,
+            AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType,
                     seq.getTurqModule().getId().intValue(), seq.getId(),
 					definition,exchangeRate,creditAccounts,deptAccounts,true);
 
@@ -491,7 +489,6 @@ public class BankBLTransactionAdd {
              * 
              *  
              */
-            AccBLTransactionAdd blAccTran = new AccBLTransactionAdd();
             CurBLCurrentTransactionAdd blCurTrans = new CurBLCurrentTransactionAdd();
 
             /**
@@ -507,7 +504,7 @@ public class BankBLTransactionAdd {
              *  
              */
 
-            blAccTran.saveAccTransaction(transDate, docNo, accTransType,
+            AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType,
                     seq.getTurqModule().getId().intValue(), seq.getId(),
 					definition,exchangeRate,creditAccounts,deptAccounts,true);
         } 
@@ -616,18 +613,11 @@ public class BankBLTransactionAdd {
             EngDALCommon.saveObject(transRow);
 
             /**
-             * 
-             * 
-             *  
-             */
-            AccBLTransactionAdd blAccTran = new AccBLTransactionAdd();
-
-            /**
              * Save Accounting Transaction
              *  
              */
 
-            blAccTran.saveAccTransaction(transDate, docNo, accTransType,
+            AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType,
                     seq.getTurqModule().getId().intValue(), seq.getId(),
 					definition,exchangeRate,creditAccounts,deptAccounts,true);
 

@@ -34,7 +34,7 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 public class AccDALAccountAdd {
 	
 
-	public List getAccounts(int parentid, String codeCriteria)throws Exception{
+	public static List getAccounts(int parentid, String codeCriteria)throws Exception{
 		
 		try{
 			Session session = EngDALSessionFactory.openSession();
@@ -91,7 +91,7 @@ public class AccDALAccountAdd {
 		
 	}
 	
-	public List getAllAccounts()throws Exception{
+	public static List getAllAccounts()throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
 	
@@ -192,7 +192,7 @@ public class AccDALAccountAdd {
 	    }
 	}
 	
-	public TurqAccountingAccount getLeafAccount(String code)throws Exception{
+	public static TurqAccountingAccount getLeafAccount(String code)throws Exception{
 		try{
 			Session session =  EngDALSessionFactory.openSession();
 	
@@ -251,7 +251,7 @@ public class AccDALAccountAdd {
 	}
 	
 	
-	public List getCashAccounts()throws Exception{
+	public static List getCashAccounts()throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
 		
@@ -274,5 +274,27 @@ public class AccDALAccountAdd {
 	    catch(Exception ex){
 	        throw ex;
 	    }
+	}
+	public static List getTransactionColumns(int type, Object startDate, Object endDate)throws Exception{
+		
+		try{
+			Session session = EngDALSessionFactory.openSession();						
+			String query="Select transColumn from TurqAccountingTransactionColumn as transColumn" +
+					" where transColumn.turqAccountingTransaction.transactionsDate >= :startDate" +
+					" and transColumn.turqAccountingTransaction.transactionsDate <= :endDate";
+			if (type!=-1)
+				query+=" and transColumn.turqAccountingTransaction.turqAccountingTransactionType.id ="+type;
+			Query q = session.createQuery(query); 
+			q.setParameter("endDate",endDate);
+			q.setParameter("startDate",startDate);
+			
+			List list = q.list();
+			session.close();			
+			return list;			
+		}
+		
+		catch(Exception ex){
+			throw ex;			
+		}
 	}
 }

@@ -328,7 +328,7 @@ public class CheBLUpdateCheque {
         while(it.hasNext()){
         
         	TurqAccountingTransaction accTrans = (TurqAccountingTransaction)it.next();
-        	new AccBLTransactionSearch().removeAccountingTransaction(accTrans);
+        	AccBLTransactionSearch.removeAccountingTransaction(accTrans);
             
         }
        

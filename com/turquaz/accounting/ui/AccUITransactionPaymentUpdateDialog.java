@@ -309,7 +309,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		 	
 		 	compTransactionPayment.prepareAccountingMaps(creditAccounts,deptAccounts);
 		 	
-		 	blTransUpdate.updateTransaction(accTrans,compTransactionPayment.getTxtDocumentNo().getText().trim(),
+		 	AccBLTransactionUpdate.updateTransaction(accTrans,compTransactionPayment.getTxtDocumentNo().getText().trim(),
 										compTransactionPayment.getDatePickerTransactionDate().getData(),compTransactionPayment.getTxtDefinition().getText().trim(),
 										compTransactionPayment.getExchangeRate(),creditAccounts,deptAccounts,false);
 	
@@ -340,7 +340,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		try{
 		updated=true;
 		
-		new AccBLTransactionSearch().removeAccountingTransaction(accTrans);
+		AccBLTransactionSearch.removeAccountingTransaction(accTrans);
 		
 		msg.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.9")); //$NON-NLS-1$
 		msg.open();	

@@ -63,7 +63,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Button;
 
 import com.turquaz.accounting.Messages;
-import com.turquaz.accounting.dal.AccDALAccountingBalanceSub;
+import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
@@ -120,9 +120,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 	
 	private void btnShowSingleClick(){
 		try{
-			
-			AccDALAccountingBalanceSub accBalanceSub=new AccDALAccountingBalanceSub();
-			List transColumns=accBalanceSub.getTransactionColumns(3,datePickerBeginDate.getDate(),datePickerEndDate.getDate());
+			List transColumns=AccBLAccountAdd.getTransactionColumns(3,datePickerBeginDate.getDate(),datePickerEndDate.getDate());
 			BigDecimal totalCredit=new BigDecimal(0);
 			BigDecimal totalDept=new BigDecimal(0);
 			for(int k=0; k<transColumns.size(); k++)

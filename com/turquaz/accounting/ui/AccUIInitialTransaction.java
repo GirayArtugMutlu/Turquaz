@@ -128,9 +128,6 @@ public class AccUIInitialTransaction extends Composite implements
 
     private AccBLTransactionAdd blTransAdd = new AccBLTransactionAdd();
 
-    private AccBLTransactionUpdate blTransUpdate = new AccBLTransactionUpdate();
-    
-	
 	private TurqCurrency baseCurrency;
 	private TurqCurrency exchangeCurrency;
 	private BigDecimal exchangeRatio;
@@ -377,7 +374,7 @@ public class AccUIInitialTransaction extends Composite implements
             thisLayout.numColumns = 4;
             tableTransactionColumns.setEnabled(true);
             this.layout();
-            accTrans = blTransUpdate.getInitialTransaction();
+            accTrans = AccBLTransactionUpdate.getInitialTransaction();
             postInitGUI();
            
 
@@ -429,7 +426,7 @@ public class AccUIInitialTransaction extends Composite implements
                 txtDocumentNo.setText(accTrans.getTransactionDocumentNo());
                 txtTransDefinition.setText(accTrans.getTransactionDescription());
                 dateTransactionDate.setDate(accTrans.getTransactionsDate());
-                blTransUpdate.initiliazeTransactionRows(accTrans);
+                AccBLTransactionUpdate.initiliazeTransactionRows(accTrans);
 
                 Set transactionRows = accTrans
                         .getTurqAccountingTransactionColumns();
@@ -566,7 +563,7 @@ public class AccUIInitialTransaction extends Composite implements
                         .getData();
                 //TODO acc trans column exRate
                 if (row.okToSave()) {
-                    blTransAdd
+                	AccBLTransactionAdd
                             .registerAccTransactionRow(
                                     (TurqAccountingTransactionColumn) row
                                             .getDBObject(), transId,EngBLCommon.getBaseCurrencyExchangeRate());
@@ -596,7 +593,7 @@ public class AccUIInitialTransaction extends Composite implements
             
             prepareAccountingMaps(creditAccounts,deptAccounts);
             
-            blTransUpdate.updateTransaction(accTrans, txtDocumentNo
+            AccBLTransactionUpdate.updateTransaction(accTrans, txtDocumentNo
                         .getText().trim(), dateTransactionDate.getData(),
                         txtTransDefinition.getText().trim(),EngBLCommon.getBaseCurrencyExchangeRate(),creditAccounts,deptAccounts,false);
            

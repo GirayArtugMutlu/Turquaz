@@ -36,8 +36,6 @@ import com.turquaz.inventory.bl.InvBLCardSearch;
 public class BillBLAddBill {
 	private static BillDALAddBill dalBill = new BillDALAddBill();
 
-	private static AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
-
 	public BillBLAddBill() {
 
 	}
@@ -450,7 +448,7 @@ public class BillBLAddBill {
 		/**
 		 * TODO exRate
 		 */
-		boolean isSaved = blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(), 2,EngBLCommon.MODULE_BILL,bill.getTurqEngineSequence().getId(),billDefinition,EngBLCommon.getBaseCurrencyExchangeRate(),creditAccounts,deptAccounts,true);
+		boolean isSaved = AccBLTransactionAdd.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(), 2,EngBLCommon.MODULE_BILL,bill.getTurqEngineSequence().getId(),billDefinition,EngBLCommon.getBaseCurrencyExchangeRate(),creditAccounts,deptAccounts,true);
 		
 		
 	}

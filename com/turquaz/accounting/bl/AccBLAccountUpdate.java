@@ -21,10 +21,8 @@ package com.turquaz.accounting.bl;
 * @version  $Id$
 */
 
-
 import java.util.Calendar;
 import java.util.List;
-
 
 import com.turquaz.accounting.dal.AccDALAccountUpdate;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
@@ -33,14 +31,11 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 
 
 public class AccBLAccountUpdate {
-	private AccDALAccountUpdate dalAccountUpdate = new AccDALAccountUpdate();
-	Calendar cal = Calendar.getInstance();
-     /**
-	 * 
-	 */
+
 	public AccBLAccountUpdate() {
 	}
-	public void updateAccount(TurqAccountingAccount account, String accountName, String accountCode, Object parent)throws Exception
+	
+	public static void updateAccount(TurqAccountingAccount account, String accountName, String accountCode, Object parent)throws Exception
 	{
 		try
 		{
@@ -50,7 +45,9 @@ public class AccBLAccountUpdate {
 			account.setAccountCode(accountCode);
 	
 			account.setUpdatedBy(System.getProperty("user"));
-			account.setUpdateDate(new java.sql.Date( cal.getTime().getTime()));
+			
+			Calendar cal=Calendar.getInstance();
+			account.setUpdateDate(cal.getTime());
 	
 			account.setTurqAccountingAccountByParentAccount(parentAccount);
 			if(parentAccount.getId().intValue()==-1)
@@ -63,7 +60,7 @@ public class AccBLAccountUpdate {
 			}
 			EngDALCommon.updateObject(account);		
 			
-			dalAccountUpdate.updateAccountCodeOfSubAccs(account,accCode);
+			AccDALAccountUpdate.updateAccountCodeOfSubAccs(account,accCode);
 			EngBLAccountingAccounts.RefreshContentAsistantMap();
 	
 		}
@@ -73,14 +70,14 @@ public class AccBLAccountUpdate {
 		}	
 	}
 	
-	public void updateTopAccount(TurqAccountingAccount toUpdate, TurqAccountingAccount topAccount)
+	public static void updateTopAccount(TurqAccountingAccount toUpdate, TurqAccountingAccount topAccount)
 		throws Exception
 	{
 		try
 		{
 			System.out.println("updateTOoOp");
 			toUpdate.setTurqAccountingAccountByTopAccount(topAccount);
-			List subAccounts=dalAccountUpdate.getSubAccounts(toUpdate);
+			List subAccounts=AccDALAccountUpdate.getSubAccounts(toUpdate);
 			for (int k=0; k<subAccounts.size(); k++)
 			{
 				TurqAccountingAccount subAcc=(TurqAccountingAccount)subAccounts.get(k);
@@ -94,11 +91,11 @@ public class AccBLAccountUpdate {
 		
 	}
 	
-	public List getSubAccounts (TurqAccountingAccount parentAcc) throws Exception
+	public static List getSubAccounts (TurqAccountingAccount parentAcc) throws Exception
 	{
 		try
 		{
-			return dalAccountUpdate.getSubAccounts(parentAcc);
+			return AccDALAccountUpdate.getSubAccounts(parentAcc);
 		}
 		catch(Exception ex)
 		{
@@ -106,11 +103,11 @@ public class AccBLAccountUpdate {
 		}
 	}
 	
-	public List getAccountTransColumns(TurqAccountingAccount account) throws Exception
+	public static List getAccountTransColumns(TurqAccountingAccount account) throws Exception
 	{
 		try
 		{
-			return dalAccountUpdate.getAccountTransColumns(account);
+			return AccDALAccountUpdate.getAccountTransColumns(account);
 		}
 		catch(Exception ex)
 		{
@@ -118,7 +115,7 @@ public class AccBLAccountUpdate {
 		}
 		
 	}
-	public void deleteAccount(Object obj)throws Exception{
+	public static void deleteAccount(Object obj)throws Exception{
 		try{
 			
 			EngDALCommon.deleteObject(obj);			
@@ -128,10 +125,10 @@ public class AccBLAccountUpdate {
 		}		
 	}
 	
-	public List getTotalDeptAndCredit(Object obj)throws Exception{
+	public static List getTotalDeptAndCredit(Object obj)throws Exception{
 		
 		try{
-		return dalAccountUpdate.getTotalDeptAndCredit((TurqAccountingAccount)obj);
+		return AccDALAccountUpdate.getTotalDeptAndCredit((TurqAccountingAccount)obj);
 			
 			
 		}

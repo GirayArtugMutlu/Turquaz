@@ -37,7 +37,7 @@ import com.turquaz.engine.dal.TurqAccountingTransaction;
 public class AccDALTransactionUpdate {
 	
 
-	public void initializeTransactionRows(TurqAccountingTransaction accTrans)throws Exception{
+	public static void initializeTransactionRows(TurqAccountingTransaction accTrans)throws Exception{
 	   try{
 	        
 	       Session session = EngDALSessionFactory.openSession();
@@ -57,7 +57,7 @@ public class AccDALTransactionUpdate {
 	    }
 	    
 	}
-	public TurqAccountingTransaction getInitialTransaction()throws Exception{
+	public static TurqAccountingTransaction getInitialTransaction()throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
 

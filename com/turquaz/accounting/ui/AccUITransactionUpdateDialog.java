@@ -319,7 +319,7 @@ public void showDialog(TurqAccountingTransaction accTrans){
 				Map deptAccounts = new HashMap();
 				compTransactionAdd.prepareAccountingMaps(creditAccounts,deptAccounts);
 				
-			 blTransUpdate.updateTransaction(accTrans,compTransactionAdd.getTxtDocumentNo().getText().trim(),
+				AccBLTransactionUpdate.updateTransaction(accTrans,compTransactionAdd.getTxtDocumentNo().getText().trim(),
 										compTransactionAdd.getDateTransactionDate().getData(),compTransactionAdd.getTxtTransDefinition().getText().trim(),
 										compTransactionAdd.getExchangeRate(),creditAccounts,deptAccounts,false);
 
@@ -349,7 +349,7 @@ public void showDialog(TurqAccountingTransaction accTrans){
 		try{
 		updated=true;
 		
-		new AccBLTransactionSearch().removeAccountingTransaction(accTrans);
+		AccBLTransactionSearch.removeAccountingTransaction(accTrans);
 		
 		msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.5")); //$NON-NLS-1$
 		msg.open();	

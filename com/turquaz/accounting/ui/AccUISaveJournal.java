@@ -55,7 +55,6 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 	private TableColumn tableColumnTotalAmount;
 	private TableColumn tableColumnDocumentNo;
 	private TableColumn tableColumnTransType;
-	AccBLTransactionSearch blSearch = new AccBLTransactionSearch();
 
 	/**
 	* Auto-generated main method to display this 
@@ -189,7 +188,7 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 	    try
 		{
 	    	tableAccountingTransaction.removeAll();  
-	    	  List result = blSearch.getUnsavedTransactions();
+	    	  List result = AccBLTransactionSearch.getUnsavedTransactions();
 	     	 TableItem item;
 	  	
 	     	 int listSize = result.size();
@@ -236,7 +235,7 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 	        for(int i=0;i<items.length;i++){
 	            
 	           if( items[i].getChecked()){
-	               blSearch.addToJournal((TurqAccountingTransaction)items[i].getData(),datePickerJournalDate.getDate());
+	           	AccBLTransactionSearch.addToJournal((TurqAccountingTransaction)items[i].getData(),datePickerJournalDate.getDate());
 	              
 	           }
 	            

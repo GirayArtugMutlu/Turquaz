@@ -165,7 +165,7 @@ public class BankUIOtherTransInUpdate extends org.eclipse.swt.widgets.Dialog {
 		if(it.hasNext()){
 		    TurqAccountingTransaction accTrans = (TurqAccountingTransaction) it.next();
 		    try{
-		    new AccBLTransactionUpdate().initiliazeTransactionRows(accTrans);
+		    	AccBLTransactionUpdate.initiliazeTransactionRows(accTrans);
 		    Iterator it2 = accTrans.getTurqAccountingTransactionColumns().iterator();
 		    while(it2.hasNext())
 		    {

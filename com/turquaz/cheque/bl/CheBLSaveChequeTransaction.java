@@ -656,7 +656,7 @@ public class CheBLSaveChequeTransaction {
     	
     	//  Save Accounting Transaction
     	//    		TODO cheq exRate
-    	blAccTran.saveAccTransaction(roll.getChequeRollsDate(),
+    	AccBLTransactionAdd.saveAccTransaction(roll.getChequeRollsDate(),
     				roll.getChequeRollNo(), accTransType, roll.getTurqEngineSequence().getTurqModule()
     						.getId().intValue(), roll.getTurqEngineSequence()
     						.getId(), definition,exchangeRate,creditAccountsMap,deptAccountsMap,true);

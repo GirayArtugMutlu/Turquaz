@@ -63,9 +63,6 @@ import com.turquaz.engine.dal.TurqModule;
 */
 public class CashBLCashTransactionAdd {
 	CashDALCashCard dalCash = new CashDALCashCard();
-
-	AccBLTransactionAdd blAccTran = new AccBLTransactionAdd();
-
 	CurBLCurrentTransactionAdd blCurTrans = new CurBLCurrentTransactionAdd();
 
 	private Calendar cal = Calendar.getInstance();
@@ -299,7 +296,7 @@ public class CashBLCashTransactionAdd {
 			 * Save Accounting Transaction
 			 *  
 			 */
-			blAccTran.saveAccTransaction(transDate,	document_no, accTransType,
+			AccBLTransactionAdd.saveAccTransaction(transDate,	document_no, accTransType,
 					seq.getTurqModule().getId().intValue(), seq.getId(),
 					definition,exchangeRate,creditAccounts,deptAccounts,true);
 		}
@@ -422,7 +419,7 @@ public class CashBLCashTransactionAdd {
 			 * Save Accounting Transaction
 			 *  
 			 */
-			blAccTran.saveAccTransaction(transDate,	document_no, accTransType,
+			AccBLTransactionAdd.saveAccTransaction(transDate,	document_no, accTransType,
 					seq.getTurqModule().getId().intValue(), seq.getId(),
 					definition, exchangeRate,creditAccounts,deptAccounts,true);
 
@@ -540,7 +537,7 @@ public class CashBLCashTransactionAdd {
 					cashCardWithCredit.getTurqAccountingAccount().getId(),
 					totalAmount,creditAccounts,deptAccounts);
 
-			blAccTran.saveAccTransaction(transDate,	document_no, accTransType,
+			AccBLTransactionAdd.saveAccTransaction(transDate,	document_no, accTransType,
 					seq.getTurqModule().getId().intValue(), seq.getId(),
 					definition,exchangeRate,creditAccounts,deptAccounts,true);
 

@@ -101,7 +101,6 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 	private TableColumn tableColumnTotalDept;
 	private TableColumn tableColumnAccountName;
 	private TableColumn tableColumnAccountCode;
-	private AccBLTransactionSearch blSearch=new AccBLTransactionSearch();
 	private Map treeItems;
 
 	/**
@@ -365,7 +364,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			treeItems = new HashMap();		
 		
 
-			List allAccounts = blSearch.getTransactions(accountPickerStart.getData(),accountPickerEnd.getData(),checkInitialAccounts.getSelection(),
+			List allAccounts = AccBLTransactionSearch.getTransactions(accountPickerStart.getData(),accountPickerEnd.getData(),checkInitialAccounts.getSelection(),
 				
 				 datePickerStart.getDate() ,
 				 datePickerEnd.getDate() );

@@ -20,8 +20,6 @@ package com.turquaz.accounting.bl;
 * @author  Onsel Armagan
 * @version  $Id$
 */
-
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -29,19 +27,17 @@ import com.turquaz.accounting.dal.AccDALAccountAdd;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
-public class AccBLAccountAdd {
-	private AccDALAccountAdd dalAccountAdd;
-	Calendar cal = Calendar.getInstance();
+public class AccBLAccountAdd {	
+
 	public AccBLAccountAdd(){
 	
-		dalAccountAdd = new AccDALAccountAdd();
 		
 	}
 	
-	public List getAccount(int parentid, String codeCrit)throws Exception{
+	public static List getAccount(int parentid, String codeCrit)throws Exception{
 		try{
 			
-			return dalAccountAdd.getAccounts(parentid,codeCrit);
+			return AccDALAccountAdd.getAccounts(parentid,codeCrit);
 			
 		}
 		catch(Exception ex){
@@ -50,10 +46,10 @@ public class AccBLAccountAdd {
 		
 	}
 	
-	public TurqAccountingAccount getLeafAccount(String codeCrit)throws Exception{
+	public static TurqAccountingAccount getLeafAccount(String codeCrit)throws Exception{
 		try{
 			
-			return dalAccountAdd.getLeafAccount(codeCrit);
+			return AccDALAccountAdd.getLeafAccount(codeCrit);
 			
 		}
 		catch(Exception ex){
@@ -74,10 +70,10 @@ public class AccBLAccountAdd {
 		
 	}
 	
-	public List getAllAccounts()throws Exception{
+	public static List getAllAccounts()throws Exception{
 		try{
 			
-			return dalAccountAdd.getAllAccounts();
+			return AccDALAccountAdd.getAllAccounts();
 			
 		}
 		catch(Exception ex){
@@ -123,10 +119,10 @@ public class AccBLAccountAdd {
 	}
 	
 	
-	public List getCashAccounts()throws Exception{
+	public static List getCashAccounts()throws Exception{
 	    try{
 	        
-	        return dalAccountAdd.getCashAccounts();
+	        return AccDALAccountAdd.getCashAccounts();
 	        
 	    }
 	    catch(Exception ex){
@@ -135,7 +131,7 @@ public class AccBLAccountAdd {
 	    
 	}
 	
-	public void saveAccount(String accountName, String accountCode, Object parent)throws Exception{
+	public static void saveAccount(String accountName, String accountCode, Object parent)throws Exception{
 		try{
 		
 		
@@ -153,8 +149,10 @@ public class AccBLAccountAdd {
 		account.setAccountCode(accountCode);
 		account.setCreatedBy(System.getProperty("user"));
 		account.setUpdatedBy(System.getProperty("user"));
-		account.setUpdateDate(new java.sql.Date( cal.getTime().getTime()));
-		account.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
+		
+		Calendar cal=Calendar.getInstance();
+		account.setUpdateDate(cal.getTime());
+		account.setCreationDate(cal.getTime());
 		
 		account.setTurqAccountingAccountByParentAccount(parentAccount);
 		if(parentAccount.getId().intValue()==-1){
@@ -169,6 +167,17 @@ public class AccBLAccountAdd {
 		
 		catch(Exception ex){
 			throw ex;
+		}
+	}
+	
+	public static List getTransactionColumns(int type, Object startDate, Object endDate)throws Exception{
+		
+		try{
+			return AccDALAccountAdd.getTransactionColumns(type,startDate,endDate);			
+		}
+		
+		catch(Exception ex){
+			throw ex;			
 		}
 	}
 	

@@ -27,8 +27,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-
-
 import com.turquaz.accounting.dal.AccDALTransactionUpdate;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -39,14 +37,12 @@ import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 
 public class AccBLTransactionUpdate {
 	
-	private AccDALTransactionUpdate dalTransUpdate = new AccDALTransactionUpdate();
-	Calendar cal = Calendar.getInstance();
 	public AccBLTransactionUpdate(){
 		
 	}
 	
 	//TODO DONE
-	public void updateTransaction(TurqAccountingTransaction transaction,String docNo, Object transDate, String definition, TurqCurrencyExchangeRate exchangeRate,Map creditAccounts, Map deptAccounts, boolean isSumRows)
+	public static void updateTransaction(TurqAccountingTransaction transaction,String docNo, Object transDate, String definition, TurqCurrencyExchangeRate exchangeRate,Map creditAccounts, Map deptAccounts, boolean isSumRows)
 	throws Exception{
 	
 		Date date = new Date(((java.util.Date)transDate).getTime());
@@ -55,12 +51,14 @@ public class AccBLTransactionUpdate {
 		transaction.setTransactionDescription(definition);
 		transaction.setTurqCurrencyExchangeRate(exchangeRate);
 		transaction.setUpdatedBy(System.getProperty("user"));
-		transaction.setLastModified(new java.sql.Date( cal.getTime().getTime()));
+		
+		Calendar cal=Calendar.getInstance();
+		transaction.setLastModified(cal.getTime());
 	   	try{
 		
 	   		EngDALCommon.updateObject(transaction);
 	   		deleteTransactionRows(transaction);
-	   		new AccBLTransactionAdd().saveAccTransactionRows(deptAccounts,creditAccounts,transaction.getId(),isSumRows,definition,exchangeRate);
+	   		AccBLTransactionAdd.saveAccTransactionRows(deptAccounts,creditAccounts,transaction.getId(),isSumRows,definition,exchangeRate);
 	   		
 	   		
 		
@@ -71,7 +69,7 @@ public class AccBLTransactionUpdate {
 	
 	}
 	
-	private void deleteTransactionRows(TurqAccountingTransaction transaction)throws Exception
+	private static void deleteTransactionRows(TurqAccountingTransaction transaction)throws Exception
 	{
 		 Set transactionRows = transaction.getTurqAccountingTransactionColumns();
 	     Iterator it = transactionRows.iterator();
@@ -83,17 +81,17 @@ public class AccBLTransactionUpdate {
 		}
 	}
 	
-	public TurqAccountingTransaction getInitialTransaction()throws Exception{
+	public static TurqAccountingTransaction getInitialTransaction()throws Exception{
 	    try{
 	 
-	      return dalTransUpdate.getInitialTransaction();
+	      return AccDALTransactionUpdate.getInitialTransaction();
 	        
 	    }
 	    catch(Exception ex){
 	        throw ex;
 	    }
 	}
-	public void updateTransaction(TurqAccountingTransaction transaction,String docNo, java.util.Date transDate,
+	public static void updateTransaction(TurqAccountingTransaction transaction,String docNo, java.util.Date transDate,
 				int transType, String definition,TurqCurrencyExchangeRate exchangeRate)
 	throws Exception{
 	
@@ -105,7 +103,9 @@ public class AccBLTransactionUpdate {
 		transaction.setTransactionDescription(definition);
 		transaction.setTurqCurrencyExchangeRate(exchangeRate);
 		transaction.setUpdatedBy(System.getProperty("user"));
-		transaction.setLastModified(new java.sql.Date( cal.getTime().getTime()));
+		
+		Calendar cal=Calendar.getInstance();
+		transaction.setLastModified(cal.getTime());
 	   	try{
 	   		EngDALCommon.updateObject(transaction);
 		
@@ -118,21 +118,19 @@ public class AccBLTransactionUpdate {
 	
 
 	
-	public void delete(Object obj)throws Exception{
+	public static void delete(Object obj)throws Exception{
 		try{
 			
-			EngDALCommon.deleteObject(obj);
-			
-			
+			EngDALCommon.deleteObject(obj);	
 		}
 		catch(Exception ex){
 			throw ex;
 		}
 		
 	}
-	public void initiliazeTransactionRows(TurqAccountingTransaction trans)throws Exception{
+	public static void initiliazeTransactionRows(TurqAccountingTransaction trans)throws Exception{
 	    try{
-	        dalTransUpdate.initializeTransactionRows(trans);
+	        AccDALTransactionUpdate.initializeTransactionRows(trans);
 	    }
 	    catch(Exception ex){
 	        throw ex;

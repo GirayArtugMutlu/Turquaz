@@ -96,7 +96,6 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 	private TableColumn tableColumnTotalDept;
 	private TableColumn tableColumnAccountName;
 	private TableColumn tableColumnAccountCode;
-	private AccBLTransactionSearch blSearch=new AccBLTransactionSearch();
 	private static String[] months={Messages.getString("AccUIAccountingMonthlyBalance.0"),Messages.getString("AccUIAccountingMonthlyBalance.1"),Messages.getString("AccUIAccountingMonthlyBalance.2"),Messages.getString("AccUIAccountingMonthlyBalance.3"),Messages.getString("AccUIAccountingMonthlyBalance.4"),Messages.getString("AccUIAccountingMonthlyBalance.5"),Messages.getString("AccUIAccountingMonthlyBalance.6"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 			Messages.getString("AccUIAccountingMonthlyBalance.7"),Messages.getString("AccUIAccountingMonthlyBalance.8"),Messages.getString("AccUIAccountingMonthlyBalance.10"),Messages.getString("AccUIAccountingMonthlyBalance.11"),Messages.getString("AccUIAccountingMonthlyBalance.12")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	private Calendar cal=Calendar.getInstance();
@@ -358,7 +357,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 			endCal.set(endCal.get(Calendar.YEAR),month-1,1);
 			endCal.add(2,1);
 			endCal.add(Calendar.DATE,-1);
-			List allAccounts = blSearch.getTransactions(accountPickerStart.getData(),accountPickerEnd.getData(),false,
+			List allAccounts = AccBLTransactionSearch.getTransactions(accountPickerStart.getData(),accountPickerEnd.getData(),false,
 				 startCal.getTime() ,
 				 endCal.getTime() );
 	
