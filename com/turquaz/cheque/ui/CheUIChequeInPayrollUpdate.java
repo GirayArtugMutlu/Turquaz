@@ -112,28 +112,32 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
                         }
                     });
                 }
-                {
-                    toolDelete = new ToolItem(toolBar1, SWT.NONE);
-                    toolDelete.setText(Messages.getString("CheUIChequeInPayrollUpdate.2")); //$NON-NLS-1$
-                    toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
-                    toolDelete.addSelectionListener(new SelectionAdapter() {
-                        public void widgetSelected(SelectionEvent evt) {
-                         delete();
-                        }
-                    });
-                }
-                {
-                    toolCancel = new ToolItem(toolBar1, SWT.NONE);
-                    toolCancel.setText(Messages.getString("CheUIChequeInPayrollUpdate.4")); //$NON-NLS-1$
-                    toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
-                    toolCancel.addSelectionListener(new SelectionAdapter() {
-                        public void widgetSelected(SelectionEvent evt) {
-                          
-                            dialogShell.close();
-                            
-                        }
-                    });
-                }
+				{
+					toolDelete = new ToolItem(toolBar1, SWT.NONE);
+					toolDelete.setText(Messages
+						.getString("CheUIChequeInPayrollUpdate.2")); //$NON-NLS-1$
+					toolDelete.setImage(SWTResourceManager
+						.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+					toolDelete.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							delete();
+						}
+					});
+				}
+				{
+					toolCancel = new ToolItem(toolBar1, SWT.NONE);
+					toolCancel.setText(Messages
+						.getString("CheUIChequeInPayrollUpdate.4")); //$NON-NLS-1$
+					toolCancel.setImage(SWTResourceManager
+						.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+					toolCancel.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+
+							dialogShell.close();
+
+						}
+					});
+				}
             }
             {
                 compChequeRoll = new CheUIChequeInPayroll(dialogShell, SWT.NONE);
@@ -166,6 +170,9 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
 	        compChequeRoll.getTxtRollNo().setText(chequeRoll.getChequeRollNo());
 	        compChequeRoll.getDatePicker1().setDate(chequeRoll.getChequeRollsDate());
 	        compChequeRoll.getCurrentPicker().setText(chequeRoll.getTurqCurrentCard().getCardsName()+" {"+chequeRoll.getTurqCurrentCard().getCardsCurrentCode()+"}"); //$NON-NLS-1$ //$NON-NLS-2$
+	        compChequeRoll.getToolItemAdd().setEnabled(false);
+	        compChequeRoll.getToolItemDelete().setEnabled(false);
+	        compChequeRoll.getToolItemUpdate().setEnabled(false);
 	        
 	        TableItem item;
 	        
@@ -210,7 +217,11 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
 	        
 	        if(EngUICommon.okToDelete(getParent()))
 	        {
-	            
+	          if(compChequeRoll.getTableCheques().getItemCount()>0)
+	          {
+	          	 EngUICommon.showMessageBox(getParent(),"Çek bulunan bordrolar? silemezsiniz!",SWT.ICON_WARNING); 
+	             return;
+	          }
 	            CheBLUpdateChequeRoll.deleteChequeRollIn(chequeRoll);
 	            EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeInPayrollUpdate.8"),SWT.ICON_INFORMATION); //$NON-NLS-1$
 	            isUpdated=true;
@@ -238,7 +249,7 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
 	           
 	           
 	            
-	           CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,(TurqCurrentCard)compChequeRoll.getCurrentPicker().getData(),null,compChequeRoll.getTxtRollNo().getText().trim(),compChequeRoll.getDatePicker1().getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_IN);
+	           CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,(TurqCurrentCard)compChequeRoll.getCurrentPicker().getData(),null,compChequeRoll.getTxtRollNo().getText().trim(),compChequeRoll.getDatePicker1().getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_IN,compChequeRoll.getBtnSumTotals().getSelection());
 	           EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
 	           isUpdated=true;
 	           dialogShell.close();
