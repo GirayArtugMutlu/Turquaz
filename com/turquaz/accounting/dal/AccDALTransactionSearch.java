@@ -176,6 +176,48 @@ public class AccDALTransactionSearch {
 			throw ex;
 		}
 	}
+	public Object[] getAccTransactionBalance(TurqAccountingAccount acc,
+			Object startDate, Object endDate) throws Exception {
+		try {
+			
+			Session session = EngDALSessionFactory.openSession();
+
+			String query = "select sum(transRow.deptAmount),sum(transRow.creditAmount) from TurqAccountingTransactionColumn as transRow"
+					+ " where transRow.turqAccountingAccount = :acc ";
+
+			if (startDate != null) {
+				query += " and transRow.turqAccountingTransaction.transactionsDate >= :startDate";
+			}
+
+			if (endDate != null) {
+				query += " and transRow.turqAccountingTransaction.transactionsDate <= :endDate";
+			}
+			
+			Query q = session.createQuery(query);
+			q.setParameter("acc", acc);
+
+			if (startDate != null) {
+				Date date = (Date) startDate;
+				java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+				q.setParameter("startDate", sqlDate);
+			}
+
+			if (endDate != null) {
+				Date date = (Date) endDate;
+				java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+				q.setParameter("endDate", sqlDate);
+			}
+			List list = q.list();
+			Object sums[] = (Object[])list.get(0);
+			
+			session.close();
+
+
+			return sums;
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
 
 	public List searchAccTransactionsColumns(TurqAccountingAccount acc,
 			Object startDate, Object endDate) throws Exception {
@@ -208,8 +250,8 @@ public class AccDALTransactionSearch {
 				java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 				q.setParameter("endDate", sqlDate);
 			}
-
 			List list = q.list();
+
 			session.close();
 
 			return list;

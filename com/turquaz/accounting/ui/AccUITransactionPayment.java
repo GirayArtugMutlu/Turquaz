@@ -621,7 +621,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 		
 		TurqAccountingTransactionColumn column = (TurqAccountingTransactionColumn)((AccUITransactionPaymentTableRow)items[i].getData()).getDBObject();
 		if(column!=null){
-			totalCredit = totalCredit.add(column.getCreditAmount());
+			totalCredit = totalCredit.add(column.getDeptAmount());
 		}
 		}
    	

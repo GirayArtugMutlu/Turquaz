@@ -69,7 +69,15 @@ public class AccBLTransactionSearch {
 			throw ex;
 		}		
 }
-	
+	public Object[] getAccTransactionBalance(TurqAccountingAccount acc,Object startDate, Object endDate)throws Exception{
+		try{
+			
+			return dalTransSearch.getAccTransactionBalance(acc,startDate,endDate);					
+		}
+		catch(Exception ex){
+			throw ex;
+		}		
+}
 	public List getTransactionTypes()throws Exception{
 		try{
 			

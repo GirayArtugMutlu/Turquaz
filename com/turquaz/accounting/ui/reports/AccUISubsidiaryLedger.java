@@ -17,7 +17,7 @@ package com.turquaz.accounting.ui.reports;
 /************************************************************************/
 
 /**
- * @author  Onsel Armagan
+ * @author  Huseyin Ergun
  * @version  $Id$
  */
 
@@ -98,6 +98,8 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 	private TableColumn tableColumnDefinition;
 
 	private AccountPicker txtAccount;
+	private TableColumn tableColumnCreditBalance;
+	private TableColumn tableColumnDeptBalance;
 
 	private CLabel lblAccNo;
 
@@ -116,6 +118,8 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 	 * Initializes the GUI. Auto-generated code - any changes you make will
 	 * disappear.
 	 */
+	Calendar cal = Calendar.getInstance();
+	
 	public void initGUI() {
 		try {
 			preInitGUI();
@@ -169,7 +173,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 					dateStartDate.setSize(new org.eclipse.swt.graphics.Point(
 							174, 24));
 					dateStartDate.layout();
-					Calendar cal = Calendar.getInstance();
+					
 					
 					dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
 				}
@@ -192,50 +196,80 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 				}
 				compAccTransactionSearch.layout();
 			}
-			tableTransactions = new Table(this, SWT.MULTI | SWT.FULL_SELECTION);
-			tableColumnDate = new TableColumn(tableTransactions, SWT.NULL);
+			{
+				tableTransactions = new Table(this, SWT.MULTI | SWT.FULL_SELECTION);
+				GridData tableTransactionsLData = new GridData();
+				tableTransactionsLData.verticalAlignment = GridData.FILL;
+				tableTransactionsLData.horizontalAlignment = GridData.FILL;
+				tableTransactionsLData.grabExcessHorizontalSpace = true;
+				tableTransactionsLData.grabExcessVerticalSpace = true;
+				tableTransactions.setLayoutData(tableTransactionsLData);
+				tableTransactions.setHeaderVisible(true);
+				tableTransactions.setLinesVisible(true);
+				{
+					tableColumnDate = new TableColumn(
+						tableTransactions,
+						SWT.NONE);
+					tableColumnDate.setText(Messages
+						.getString("AccUISubsidiaryLedger.3")); //$NON-NLS-1$
+					tableColumnDate.setWidth(118);
+				}
+				{
+					tableColumnDocumentNo = new TableColumn(
+						tableTransactions,
+						SWT.NONE);
+					tableColumnDocumentNo.setText(Messages
+						.getString("AccUISubsidiaryLedger.4")); //$NON-NLS-1$
+					tableColumnDocumentNo.setWidth(126);
+				}
+				{
+					tableColumnDefinition = new TableColumn(
+						tableTransactions,
+						SWT.NONE);
+					tableColumnDefinition.setText(Messages
+						.getString("AccUISubsidiaryLedger.5")); //$NON-NLS-1$
+					tableColumnDefinition.setWidth(150);
+				}
+				{
+					tableColumnDept = new TableColumn(
+						tableTransactions,
+						SWT.NONE);
+					tableColumnDept.setText(Messages
+						.getString("AccUISubsidiaryLedger.6")); //$NON-NLS-1$
+					tableColumnDept.setWidth(118);
+
+				}
+				{
+					tableColumnCredit = new TableColumn(
+						tableTransactions,
+						SWT.NONE);
+					tableColumnCredit.setText(Messages
+						.getString("AccUISubsidiaryLedger.7")); //$NON-NLS-1$
+					tableColumnCredit.setWidth(118);
+				}
+				{
+					tableColumnDeptBalance = new TableColumn(
+						tableTransactions,
+						SWT.NONE);
+					tableColumnDeptBalance.setText("Borç Bakiye");
+					tableColumnDeptBalance.setWidth(80);
+				}
+				{
+					tableColumnCreditBalance = new TableColumn(
+						tableTransactions,
+						SWT.NONE);
+					tableColumnCreditBalance.setText("Alacak Bakiye");
+					tableColumnCreditBalance.setWidth(80);
+				}
+				tableTransactions.addMouseListener(new MouseAdapter() {
+					public void mouseDoubleClick(MouseEvent evt) {
+						tableTransactionsMouseDoubleClick(evt);
+					}
+				});
+			}
 
 			this.setSize(new org.eclipse.swt.graphics.Point(646, 513));
 
-			GridData tableTransactionsLData = new GridData();
-			tableTransactionsLData.verticalAlignment = GridData.FILL;
-			tableTransactionsLData.horizontalAlignment = GridData.FILL;
-			tableTransactionsLData.grabExcessHorizontalSpace = true;
-			tableTransactionsLData.grabExcessVerticalSpace = true;
-			tableTransactions.setLayoutData(tableTransactionsLData);
-			tableTransactions.setHeaderVisible(true);
-			tableTransactions.setLinesVisible(true);
-			tableTransactions.addMouseListener(new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
-					tableTransactionsMouseDoubleClick(evt);
-				}
-			});
-
-			tableColumnDate.setText(Messages.getString("AccUISubsidiaryLedger.3"));  //$NON-NLS-1$
-			tableColumnDate.setWidth(118);
-			{
-				tableColumnDocumentNo = new TableColumn(tableTransactions,
-						SWT.NONE);
-				tableColumnDocumentNo.setText(Messages.getString("AccUISubsidiaryLedger.4")); //$NON-NLS-1$
-				tableColumnDocumentNo.setWidth(126);
-			}
-			{
-				tableColumnDefinition = new TableColumn(tableTransactions,
-						SWT.NONE);
-				tableColumnDefinition.setText(Messages.getString("AccUISubsidiaryLedger.5")); //$NON-NLS-1$
-				tableColumnDefinition.setWidth(150);
-			}
-			{
-				tableColumnDept = new TableColumn(tableTransactions, SWT.NONE);
-				tableColumnDept.setText(Messages.getString("AccUISubsidiaryLedger.6"));  //$NON-NLS-1$
-				tableColumnDept.setWidth(118);
-
-			}
-			{
-				tableColumnCredit = new TableColumn(tableTransactions, SWT.NONE);
-				tableColumnCredit.setText(Messages.getString("AccUISubsidiaryLedger.7")); //$NON-NLS-1$
-				tableColumnCredit.setWidth(118);
-			}
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
@@ -289,25 +323,61 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 			List result = blTransSearch.searchAccTransactionsColumns(
 					(TurqAccountingAccount) txtAccount.getData(), dateStartDate
 							.getData(), dateEndDate.getData());
-
+			
+			BigDecimal balance = new BigDecimal(0); //balance shown in table
+			
+			// if start date is after beginning of the year
+			// get the sum of previous transactions
+			if (dateStartDate.getDate().after(new Date(cal.getTime().getYear(),0,1)) )
+			{
+				// get previous date (any better suggestions :) )
+				Date date = dateStartDate.getDate();
+				long time = date.getTime();
+				time -= 86400000;
+				date.setTime(time);
+				
+				Object sums[] = blTransSearch.getAccTransactionBalance((TurqAccountingAccount) txtAccount.getData(),
+						new Date(cal.getTime().getYear(),0,1),date);
+				if (sums[0]!= null)
+				{
+					balance = balance.subtract((BigDecimal)sums[0]);
+				}
+				if (sums[1] != null)
+				{
+					balance = balance.add((BigDecimal)sums[1]);
+				}
+			}
+			
 			TableItem item;
-
 			int listSize = result.size();
+			
+			
 			for (int i = 0; i < listSize; i++) {
 
 				TurqAccountingTransactionColumn accTransColumn = (TurqAccountingTransactionColumn) result
 						.get(i);
-
+				
+				
 				item = new TableItem(tableTransactions, SWT.NULL);
 				item.setData(accTransColumn.getTurqAccountingTransaction());
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
 				BigDecimal total = new BigDecimal(0);
-
+				
+				balance = balance.add(accTransColumn.getCreditAmount());
+				balance = balance.subtract(accTransColumn.getDeptAmount());
+				
 				String transDate = formatter.format(accTransColumn
 						.getTurqAccountingTransaction().getTransactionsDate());
+				
 				item.setText(new String[] { transDate,
 						accTransColumn.getTurqAccountingTransaction().getTransactionDocumentNo(),
-						accTransColumn.getTransactionDefinition(),accTransColumn.getDeptAmount().toString(),accTransColumn.getCreditAmount().toString() });
+						accTransColumn.getTransactionDefinition(),
+						
+						// if it is zero does not print to the table
+						(accTransColumn.getDeptAmount().equals(new BigDecimal(0))) ? "": accTransColumn.getDeptAmount().toString(),
+						(accTransColumn.getCreditAmount().equals(new BigDecimal(0))) ? "": accTransColumn.getCreditAmount().toString(),
+						(balance.compareTo(new BigDecimal(0))<0) ? balance.multiply(new BigDecimal(-1)).toString(): "",
+						(balance.compareTo(new BigDecimal(0))>0) ? balance.toString(): "" }); 
 			}
 
 		} catch (Exception ex) {
