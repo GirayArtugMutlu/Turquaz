@@ -2,12 +2,18 @@ package com.turquaz.cheque.ui;
 
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
+
+import com.turquaz.cheque.Messages;
+import com.turquaz.engine.dal.TurqChequeCheque;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -50,12 +56,17 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 	private Text txtChequeNo;
 	private CLabel lblChequeNo;
 	private Text txtPortfoyNo;
+	TurqChequeCheque cheque = null;
 
 	public CheUICustomerChequeAddDialog(Shell parent, int style) {
 		super(parent, style);
 	}
 
-	public void open() {
+	public TurqChequeCheque open(TurqChequeCheque cheque) {
+	    this.cheque = cheque;
+	    return open();
+	}
+	public TurqChequeCheque open() {
 		try {
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
@@ -72,7 +83,8 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShellLayout.numColumns = 2;
 			dialogShell.layout();
 			dialogShell.pack();
-			dialogShell.setSize(523, 360);
+			dialogShell.setText(Messages.getString("CheUICustomerChequeAddDialog.1")); //$NON-NLS-1$
+			dialogShell.setSize(507, 303);
             {
                 toolBar1 = new ToolBar(dialogShell, SWT.NONE);
                 GridData toolBar1LData = new GridData();
@@ -82,18 +94,30 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
                 toolBar1.setLayoutData(toolBar1LData);
                 {
                     toolSave = new ToolItem(toolBar1, SWT.NONE);
-                    toolSave.setText("Kaydet");
-                    toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+                    toolSave.setText(Messages.getString("CheUICustomerChequeAddDialog.0")); //$NON-NLS-1$
+                    toolSave.setImage(SWTResourceManager
+                        .getImage("icons/save_edit.gif")); //$NON-NLS-1$
+                    toolSave.addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                            save();
+                        }
+                    });
                 }
                 {
                     toolCancel = new ToolItem(toolBar1, SWT.NONE);
-                    toolCancel.setText("?ptal");
-                    toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg"));
+                    toolCancel.setText(Messages.getString("CheUICustomerChequeAddDialog.2")); //$NON-NLS-1$
+                    toolCancel.setImage(SWTResourceManager
+                        .getImage("icons/cancel.jpg")); //$NON-NLS-1$
+                    toolCancel.addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                          dialogShell.close();
+                        }
+                    });
                 }
             }
             {
                 lblPortfolioNo = new CLabel(dialogShell, SWT.NONE);
-                lblPortfolioNo.setText("Portföy Numaras?");
+                lblPortfolioNo.setText(Messages.getString("CheUICustomerChequeAddDialog.4")); //$NON-NLS-1$
             }
             {
                 txtPortfoyNo = new Text(dialogShell, SWT.NONE);
@@ -104,7 +128,7 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
             }
             {
                 lblChequeNo = new CLabel(dialogShell, SWT.NONE);
-                lblChequeNo.setText("Çek Numaras?");
+                lblChequeNo.setText(Messages.getString("CheUICustomerChequeAddDialog.5")); //$NON-NLS-1$
             }
             {
                 txtChequeNo = new Text(dialogShell, SWT.NONE);
@@ -115,29 +139,29 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
             }
             {
                 lblBankName = new CLabel(dialogShell, SWT.NONE);
-                lblBankName.setText("Banka Ad?");
+                lblBankName.setText(Messages.getString("CheUICustomerChequeAddDialog.6")); //$NON-NLS-1$
             }
             {
                 txtBankName = new Text(dialogShell, SWT.NONE);
                 GridData txtBankNameLData = new GridData();
-                txtBankNameLData.widthHint = 117;
-                txtBankNameLData.heightHint = 18;
+                txtBankNameLData.widthHint = 118;
+                txtBankNameLData.heightHint = 19;
                 txtBankName.setLayoutData(txtBankNameLData);
             }
             {
                 lblBankBranch = new CLabel(dialogShell, SWT.NONE);
-                lblBankBranch.setText("Banka ?ubesi");
+                lblBankBranch.setText(Messages.getString("CheUICustomerChequeAddDialog.7")); //$NON-NLS-1$
             }
             {
                 txtBankBranch = new Text(dialogShell, SWT.NONE);
                 GridData txtBankBranchLData = new GridData();
                 txtBankBranchLData.widthHint = 117;
-                txtBankBranchLData.heightHint = 17;
+                txtBankBranchLData.heightHint = 18;
                 txtBankBranch.setLayoutData(txtBankBranchLData);
             }
             {
                 lblDueDate = new CLabel(dialogShell, SWT.NONE);
-                lblDueDate.setText("Vade Tarihi");
+                lblDueDate.setText(Messages.getString("CheUICustomerChequeAddDialog.8")); //$NON-NLS-1$
             }
             {
                 datePickValueDate = new DatePicker(dialogShell, SWT.NONE);
@@ -148,7 +172,7 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
             }
             {
                 lblDeptor = new CLabel(dialogShell, SWT.NONE);
-                lblDeptor.setText("Borçlu");
+                lblDeptor.setText(Messages.getString("CheUICustomerChequeAddDialog.9")); //$NON-NLS-1$
                 GridData lblDeptorLData = new GridData();
                 lblDeptorLData.widthHint = 42;
                 lblDeptorLData.heightHint = 19;
@@ -157,13 +181,13 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
             {
                 txtDeptor = new Text(dialogShell, SWT.NONE);
                 GridData txtDeptorLData = new GridData();
-                txtDeptorLData.widthHint = 201;
-                txtDeptorLData.heightHint = 18;
+                txtDeptorLData.widthHint = 190;
+                txtDeptorLData.heightHint = 17;
                 txtDeptor.setLayoutData(txtDeptorLData);
             }
             {
                 lblPaymentPlace = new CLabel(dialogShell, SWT.NONE);
-                lblPaymentPlace.setText("Ödeme Yeri");
+                lblPaymentPlace.setText(Messages.getString("CheUICustomerChequeAddDialog.10")); //$NON-NLS-1$
             }
             {
                 txtPaymentPlace = new Text(dialogShell, SWT.NONE);
@@ -174,7 +198,7 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
             }
             {
                 lblAmount = new CLabel(dialogShell, SWT.NONE);
-                lblAmount.setText("Tutar?");
+                lblAmount.setText(Messages.getString("CheUICustomerChequeAddDialog.11")); //$NON-NLS-1$
             }
             {
                 curText = new CurrencyText(dialogShell, SWT.NONE);
@@ -183,15 +207,50 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
                 curTextLData.heightHint = 19;
                 curText.setLayoutData(curTextLData);
             }
+            postInitGUI();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+			return cheque;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
+	}
+	public void postInitGUI(){
+	    EngUICommon.centreWindow(dialogShell);
+	    if(cheque!=null){
+	        txtBankBranch.setText(cheque.getBankBranchName());
+	        txtBankName.setText(cheque.getBankName());
+	        txtChequeNo.setText(cheque.getChequesNo());
+	        txtDeptor.setText(cheque.getChequesDebtor());
+	        txtPaymentPlace.setText(cheque.getChequesPaymentPlace());
+	        txtPortfoyNo.setText(cheque.getChequesPortfolioNo());
+	        datePickValueDate.setDate(cheque.getChequesDueDate());
+	        curText.setText(cheque.getChequesAmount());
+	        
+	    }
+	    
+	}
+	
+	public void save(){
+	    if(cheque == null){
+	        cheque = new TurqChequeCheque();
+	    }
+	    cheque.setBankBranchName(txtBankBranch.getText().trim());
+	    cheque.setBankName(txtBankName.getText().trim());
+	    cheque.setChequesPortfolioNo(txtPortfoyNo.getText().trim());
+	    cheque.setChequesNo(txtChequeNo.getText().trim());
+	    cheque.setChequesDueDate(datePickValueDate.getDate());
+	    cheque.setChequesValueDate(datePickValueDate.getDate());
+	    cheque.setChequesDebtor(txtDeptor.getText().trim());
+	    cheque.setChequesPaymentPlace(txtPaymentPlace.getText().trim());
+	    cheque.setChequesAmount(curText.getBigDecimalValue());	    
+	    dialogShell.close();
+	    
 	}
 	
 }

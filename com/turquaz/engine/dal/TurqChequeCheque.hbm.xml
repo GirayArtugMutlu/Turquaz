@@ -100,6 +100,20 @@
         not-null="true"
         length="4"
     />
+    <property
+        name="bankName"
+        type="java.lang.String"
+        column="bank_name"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="bankBranchName"
+        type="java.lang.String"
+        column="bank_branch_name"
+        not-null="true"
+        length="100"
+    />
 
     <!-- Associations -->
   

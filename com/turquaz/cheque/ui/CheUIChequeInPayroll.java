@@ -9,8 +9,10 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.custom.CLabel;
 
+import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -64,6 +66,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 	private Table tableCheques;
 	private ToolItem toolItemUpdate;
 	private ToolItem toolItemDelete;
+	TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 
 	public CheUIChequeInPayroll(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
@@ -129,7 +132,13 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
                     toolItemAdd = new ToolItem(toolBarButtons, SWT.NONE);
                     toolItemAdd.setText(Messages.getString("CheUIChequeInPayroll.0")); //$NON-NLS-1$
                     toolItemAdd.setImage(SWTResourceManager.getImage("icons/plus.gif")); //$NON-NLS-1$
-                    
+                    toolItemAdd.addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                            addCheque();
+                            
+                        }
+                    });
+
                 }
                 {
                     toolItemDelete = new ToolItem(toolBarButtons, SWT.NONE);
@@ -150,6 +159,12 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
                     toolItemUpdate = new ToolItem(toolBarButtons, SWT.NONE);
                     toolItemUpdate.setText(Messages.getString("CheUIChequeInPayroll.4")); //$NON-NLS-1$
                     toolItemUpdate.setImage(SWTResourceManager.getImage("icons/Refresh16.gif")); //$NON-NLS-1$
+                    toolItemUpdate.addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                            updateCheque();
+                            
+                        }
+                    });
                 }
             }
             {
@@ -216,6 +231,53 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
         }
         
         
+        
+    }
+  
+    public void updateCheque(){
+        
+        TableItem selection[]= tableCheques.getSelection();
+        TurqChequeCheque cheque=null;
+        if(selection.length>0){
+            
+         cheque = new CheUICustomerChequeAddDialog(getShell(),SWT.NULL).open((TurqChequeCheque)selection[0].getData());
+         if(cheque!=null){
+            
+             selection[0].setData(cheque);
+             selection[0].setText(new String[]{
+             cheque.getChequesPortfolioNo(),
+             DatePicker.formatter.format(cheque.getChequesDueDate()),
+             cheque.getChequesPaymentPlace(),
+             cheque.getChequesDebtor(),
+             cf.format(cheque.getChequesAmount())            
+             });
+             
+         }
+         
+            
+        }
+         
+       
+    
+        
+    
+    
+    }    
+    public void addCheque(){
+        TableItem item;
+        TurqChequeCheque cheque = new CheUICustomerChequeAddDialog(getShell(),SWT.NULL).open();
+        if(cheque!=null){
+            item = new TableItem(tableCheques,SWT.NULL);
+            item.setData(cheque);
+            item.setText(new String[]{
+            cheque.getChequesPortfolioNo(),
+            DatePicker.formatter.format(cheque.getChequesDueDate()),
+            cheque.getChequesPaymentPlace(),
+            cheque.getChequesDebtor(),
+            cf.format(cheque.getChequesAmount())            
+            });
+            
+        }
         
     }
     
