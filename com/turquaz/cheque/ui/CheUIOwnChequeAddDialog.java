@@ -102,9 +102,8 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.numColumns = 2;
 			dialogShell.layout();
-			dialogShell.setText(Messages.getString("CheUICustomerChequeAddDialog.3")); //$NON-NLS-1$
+			dialogShell.setText(Messages.getString("CheUIOwnChequeAddDialog.5")); //$NON-NLS-1$
 			dialogShell.pack();
-			dialogShell.setText(Messages.getString("CheUICustomerChequeAddDialog.1")); //$NON-NLS-1$
 			dialogShell.setSize(507, 303);
             {
                 toolBar1 = new ToolBar(dialogShell, SWT.NONE);

@@ -143,6 +143,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			datePickerLData.widthHint = 137;
 			datePickerLData.heightHint = 20;
 			datePickerStartDueDate.setLayoutData(datePickerLData);
+			datePickerStartDueDate.setFirstDayOfYear();
 			//END <<  datePickerStartDueDate
 			//START >>  lblDueDateEnd
 			lblDueDateEnd = new CLabel(compSearchPanle, SWT.NONE);
@@ -165,6 +166,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			datePickerStartEnterDateLData.widthHint = 137;
 			datePickerStartEnterDateLData.heightHint = 20;
 			datePickerStartEnterDate.setLayoutData(datePickerStartEnterDateLData);
+			datePickerStartEnterDate.setFirstDayOfYear();
 			//END <<  datePickerStartEnterDate
 			//START >>  lblEnterDateEnd
 			lblEnterDateEnd = new CLabel(compSearchPanle, SWT.NONE);
