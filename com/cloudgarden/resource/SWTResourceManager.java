@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Widget;
 public class SWTResourceManager {
 
 	private static HashMap resources = new HashMap();
-	private static Vector users = new Vector();
+	public static Vector users = new Vector();
 	private static SWTResourceManager instance = new SWTResourceManager();
 
 	private static DisposeListener disposeListener = new DisposeListener() {

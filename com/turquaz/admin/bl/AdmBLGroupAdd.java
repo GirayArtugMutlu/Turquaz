@@ -24,12 +24,10 @@ package com.turquaz.admin.bl;
 import java.util.Calendar;
 
 import com.turquaz.admin.dal.AdmDALGroupAdd;
-import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqGroup;
 
 
 public class AdmBLGroupAdd {
-	private EngDALCommon dalCommon = new EngDALCommon();
 	private AdmDALGroupAdd dalAdmin = new AdmDALGroupAdd();
 	Calendar cal = Calendar.getInstance();
 	public AdmBLGroupAdd(){
