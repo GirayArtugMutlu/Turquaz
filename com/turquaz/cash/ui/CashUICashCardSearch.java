@@ -60,7 +60,7 @@ import org.eclipse.swt.layout.GridLayout;
 /**
  * 
  * @author onsel
- * @version Id: $$
+ * @version $Id$
 */
 
 public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite implements SearchComposite{

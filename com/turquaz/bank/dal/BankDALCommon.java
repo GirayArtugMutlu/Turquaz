@@ -17,7 +17,7 @@ package com.turquaz.bank.dal;
 /************************************************************************/
 
 /**
- * @author Ceday
+ * @author Onsel
  * @version $Id$
  */
 

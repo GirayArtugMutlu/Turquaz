@@ -44,7 +44,8 @@ public class BankDALBankCardSearch {
 		
 		String query = "Select bankCard from TurqBanksCard as bankCard where" + //$NON-NLS-1$
 		" bankCard.bankName like '"+bankName+"%' and bankCard.bankBranchName like '"+bankBranchName+"%' "+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		" and bankCard.bankAccountNo like '"+bankAccountNo+"%'"; //$NON-NLS-1$ //$NON-NLS-2$
+		" and bankCard.bankAccountNo like '"+bankAccountNo+"%'" +
+		" and bankCard.banksCardsId <> -1"; //$NON-NLS-1$ //$NON-NLS-2$
 		
 		if (currency!=null){
 			query +=" and bankCard.turqCurrency = :currency"; //$NON-NLS-1$

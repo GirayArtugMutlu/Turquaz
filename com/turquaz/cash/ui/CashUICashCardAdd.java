@@ -1,6 +1,5 @@
 package com.turquaz.cash.ui;
 
-
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -17,6 +16,10 @@ package com.turquaz.cash.ui;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
+/**
+* @author  Onsel
+* @version  $Id$
+*/
 import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.custom.CLabel;
@@ -33,13 +36,6 @@ import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.ui.component.SecureComposite;
 
-/**
- * 
- * @author onsel
- * @version Id: $$
- *
- *  
- */
 
 /**
 * This code was generated using CloudGarden's Jigloo
