@@ -61,6 +61,9 @@ public class TurqCurrentCard implements Serializable {
     private Set turqChequeRolls;
 
     /** persistent field */
+    private Set turqInventoryTransactions;
+
+    /** persistent field */
     private Set turqCurrentContacts;
 
     /** persistent field */
@@ -88,7 +91,7 @@ public class TurqCurrentCard implements Serializable {
     private Set turqBills;
 
     /** full constructor */
-    public TurqCurrentCard(java.lang.String cardsCurrentCode, java.lang.String cardsName, java.lang.String cardsDefinition, java.lang.String cardsAddress, java.math.BigDecimal cardsDiscountRate, java.math.BigDecimal cardsDiscountPayment, java.math.BigDecimal cardsCreditLimit, java.math.BigDecimal cardsRiskLimit, java.lang.String cardsTaxDepartment, java.lang.String cardsTaxNumber, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, int daysToValue, Set turqChequeRolls, Set turqCurrentContacts, Set turqConsignments, Set turqOrders, Set turqCurrentTransactions, Set turqTradebillRolls, Set turqCurrentCardsGroups, Set turqCurrentAccountingAccounts, Set turqCurrentCardsPhones, Set turqBills) {
+    public TurqCurrentCard(java.lang.String cardsCurrentCode, java.lang.String cardsName, java.lang.String cardsDefinition, java.lang.String cardsAddress, java.math.BigDecimal cardsDiscountRate, java.math.BigDecimal cardsDiscountPayment, java.math.BigDecimal cardsCreditLimit, java.math.BigDecimal cardsRiskLimit, java.lang.String cardsTaxDepartment, java.lang.String cardsTaxNumber, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, int daysToValue, Set turqChequeRolls, Set turqInventoryTransactions, Set turqCurrentContacts, Set turqConsignments, Set turqOrders, Set turqCurrentTransactions, Set turqTradebillRolls, Set turqCurrentCardsGroups, Set turqCurrentAccountingAccounts, Set turqCurrentCardsPhones, Set turqBills) {
         this.cardsCurrentCode = cardsCurrentCode;
         this.cardsName = cardsName;
         this.cardsDefinition = cardsDefinition;
@@ -105,6 +108,7 @@ public class TurqCurrentCard implements Serializable {
         this.lastModified = lastModified;
         this.daysToValue = daysToValue;
         this.turqChequeRolls = turqChequeRolls;
+        this.turqInventoryTransactions = turqInventoryTransactions;
         this.turqCurrentContacts = turqCurrentContacts;
         this.turqConsignments = turqConsignments;
         this.turqOrders = turqOrders;
@@ -121,7 +125,7 @@ public class TurqCurrentCard implements Serializable {
     }
 
     /** minimal constructor */
-    public TurqCurrentCard(java.lang.String cardsCurrentCode, java.lang.String cardsName, java.lang.String cardsDefinition, java.lang.String cardsAddress, java.math.BigDecimal cardsDiscountRate, java.math.BigDecimal cardsDiscountPayment, java.math.BigDecimal cardsCreditLimit, java.math.BigDecimal cardsRiskLimit, java.lang.String cardsTaxDepartment, java.lang.String cardsTaxNumber, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqChequeRolls, Set turqCurrentContacts, Set turqConsignments, Set turqOrders, Set turqCurrentTransactions, Set turqTradebillRolls, Set turqCurrentCardsGroups, Set turqCurrentAccountingAccounts, Set turqCurrentCardsPhones, Set turqBills) {
+    public TurqCurrentCard(java.lang.String cardsCurrentCode, java.lang.String cardsName, java.lang.String cardsDefinition, java.lang.String cardsAddress, java.math.BigDecimal cardsDiscountRate, java.math.BigDecimal cardsDiscountPayment, java.math.BigDecimal cardsCreditLimit, java.math.BigDecimal cardsRiskLimit, java.lang.String cardsTaxDepartment, java.lang.String cardsTaxNumber, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqChequeRolls, Set turqInventoryTransactions, Set turqCurrentContacts, Set turqConsignments, Set turqOrders, Set turqCurrentTransactions, Set turqTradebillRolls, Set turqCurrentCardsGroups, Set turqCurrentAccountingAccounts, Set turqCurrentCardsPhones, Set turqBills) {
         this.cardsCurrentCode = cardsCurrentCode;
         this.cardsName = cardsName;
         this.cardsDefinition = cardsDefinition;
@@ -137,6 +141,7 @@ public class TurqCurrentCard implements Serializable {
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
         this.turqChequeRolls = turqChequeRolls;
+        this.turqInventoryTransactions = turqInventoryTransactions;
         this.turqCurrentContacts = turqCurrentContacts;
         this.turqConsignments = turqConsignments;
         this.turqOrders = turqOrders;
@@ -282,6 +287,14 @@ public class TurqCurrentCard implements Serializable {
 
     public void setTurqChequeRolls(java.util.Set turqChequeRolls) {
         this.turqChequeRolls = turqChequeRolls;
+    }
+
+    public java.util.Set getTurqInventoryTransactions() {
+        return this.turqInventoryTransactions;
+    }
+
+    public void setTurqInventoryTransactions(java.util.Set turqInventoryTransactions) {
+        this.turqInventoryTransactions = turqInventoryTransactions;
     }
 
     public java.util.Set getTurqCurrentContacts() {

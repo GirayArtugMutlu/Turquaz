@@ -813,7 +813,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				postFinalizeGui();
 				toolItemBack.setEnabled(false);
 				//Generate Jasper Report
-				//GenerateJasper(list);
+				GenerateJasper(list);
 			}
 		}
 		catch (Exception ex)

@@ -257,6 +257,14 @@
     >
         <column name="inventory_cards_id" />
     </many-to-one>
+    <!-- bi-directional many-to-one association to TurqCurrentCard -->
+    <many-to-one
+        name="turqCurrentCard"
+        class="com.turquaz.engine.dal.TurqCurrentCard"
+        not-null="true"
+    >
+        <column name="current_cards_id" />
+    </many-to-one>
 
 </class>
 </hibernate-mapping>

@@ -44,7 +44,7 @@ public class BillBLAddBill
 		billInEng.setTurqEngineSequence(engSeq);
 		billInEng.setTurqBill(bill);
 		EngDALCommon.saveObject(billInEng);
-		InvBLSaveTransaction.saveInventoryTransactions(invTransactions,engSeq.getId(),type,billsDate,definition,billDocNo,exchangeRate);
+		InvBLSaveTransaction.saveInventoryTransactions(invTransactions,engSeq.getId(),type,billsDate,definition,billDocNo,exchangeRate,currentCard);
 		saveCurrentTransaction(bill,engSeq,totalAmount,discountAmount);
 		saveAccountingTransaction(bill,engSeq, cashAccount,totalAmount);
 		saveBillGroups(bill.getId(), billGroups);		

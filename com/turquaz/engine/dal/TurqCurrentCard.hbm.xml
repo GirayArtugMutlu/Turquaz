@@ -146,6 +146,20 @@
             class="com.turquaz.engine.dal.TurqChequeRoll"
         />
     </set>
+    <!-- bi-directional one-to-many association to TurqInventoryTransaction -->
+    <set
+        name="turqInventoryTransactions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="current_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryTransaction"
+        />
+    </set>
     <!-- bi-directional one-to-many association to TurqCurrentContact -->
     <set
         name="turqCurrentContacts"

@@ -254,14 +254,18 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 					TurqInventoryTransaction invTrans = InvBLSearchTransaction.getInvTransByTransId(transId);
 					TurqEngineSequence seq = invTrans.getTurqEngineSequence();
 					TurqBill bill = InvBLSearchTransaction.getBill(seq);
+					TurqConsignment cons;
 					if (bill != null)
 					{
 						updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill).open();
 					}
+					else if ((cons = InvBLSearchTransaction.getConsignment(seq)) != null)
+					{						
+						updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons).open();
+					}
 					else
 					{
-						TurqConsignment cons = InvBLSearchTransaction.getConsignment(seq);
-						updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons).open();
+						//TODO Uretimten gelen stok hareketi. Uretim fisini acmali..
 					}
 					if (updated)
 						search();

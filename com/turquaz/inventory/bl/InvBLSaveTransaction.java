@@ -13,6 +13,7 @@ import java.util.List;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
@@ -72,12 +73,16 @@ public class InvBLSaveTransaction
 		invTrans.setLastModified(cal.getTime());
 		invTrans.setCreationDate(cal.getTime());	
 		
+		TurqCurrentCard curCard=new TurqCurrentCard();
+		curCard.setId(new Integer(-1));
+		invTrans.setTurqCurrentCard(curCard);
+		
 		EngDALCommon.saveObject(invTrans);
 	}
 	
 	private static void registerInventoryTransaction(TurqInventoryTransaction invTrans,
 			Integer engSeqId, int type, Date transDate, String definition,
-			String docNo, TurqCurrencyExchangeRate exchangeRate) throws Exception
+			String docNo, TurqCurrencyExchangeRate exchangeRate, TurqCurrentCard curCard) throws Exception
 	{
 		Calendar cal = Calendar.getInstance();
 		TurqEngineSequence engSequence=new TurqEngineSequence();
@@ -90,6 +95,7 @@ public class InvBLSaveTransaction
 		invTrans.setTransactionsDate(transDate);
 		invTrans.setDefinition(definition);
 		invTrans.setDocumentNo(docNo);
+		invTrans.setTurqCurrentCard(curCard);
 		
 		BigDecimal unitPriceInBase=invTrans.getUnitPriceInForeignCurrency().multiply(exchangeRate.getExchangeRatio()).setScale(4,EngBLCommon.ROUNDING_METHOD);
 		invTrans.setUnitPrice(unitPriceInBase);
@@ -133,12 +139,12 @@ public class InvBLSaveTransaction
 	
 	public static void saveInventoryTransactions(List invTransactions,
 			Integer engSeqId, int type, Date transDate, String definition,
-			String docNo, TurqCurrencyExchangeRate exchangeRate) throws Exception
+			String docNo, TurqCurrencyExchangeRate exchangeRate, TurqCurrentCard curCard) throws Exception
 	{
 		for(int k=0; k<invTransactions.size(); k++)
 		{
 			TurqInventoryTransaction invTrans=(TurqInventoryTransaction)invTransactions.get(k);
-			registerInventoryTransaction(invTrans,engSeqId,type,transDate,definition,docNo,exchangeRate);
+			registerInventoryTransaction(invTrans,engSeqId,type,transDate,definition,docNo,exchangeRate,curCard);
 		}
 	}
 }

@@ -107,8 +107,11 @@ public class TurqInventoryTransaction implements Serializable {
     /** persistent field */
     private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
 
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard;
+
     /** full constructor */
-    public TurqInventoryTransaction(java.math.BigDecimal amountIn, java.math.BigDecimal unitPrice, java.math.BigDecimal totalPrice, java.math.BigDecimal discountRate, java.math.BigDecimal discountAmount, java.math.BigDecimal vatAmount, java.math.BigDecimal vatSpecialUnitPrice, java.math.BigDecimal vatSpecialRate, java.math.BigDecimal vatSpecialAmount, java.math.BigDecimal cumilativePrice, java.math.BigDecimal amountOut, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.util.Date transactionsDate, java.lang.String documentNo, java.lang.String definition, java.math.BigDecimal vatRate, java.math.BigDecimal unitPriceInForeignCurrency, java.math.BigDecimal totalPriceInForeignCurrency, java.math.BigDecimal discountAmountInForeignCurrency, java.math.BigDecimal vatAmountInForeignCurrency, java.math.BigDecimal vatSpecialUnitPriceInForeignCurrency, java.math.BigDecimal vatSpecialAmountInForeignCurrency, java.math.BigDecimal cumilativePriceInForeignCurrency, com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous, com.turquaz.engine.dal.TurqInventoryTransactionType turqInventoryTransactionType, com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
+    public TurqInventoryTransaction(java.math.BigDecimal amountIn, java.math.BigDecimal unitPrice, java.math.BigDecimal totalPrice, java.math.BigDecimal discountRate, java.math.BigDecimal discountAmount, java.math.BigDecimal vatAmount, java.math.BigDecimal vatSpecialUnitPrice, java.math.BigDecimal vatSpecialRate, java.math.BigDecimal vatSpecialAmount, java.math.BigDecimal cumilativePrice, java.math.BigDecimal amountOut, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.util.Date transactionsDate, java.lang.String documentNo, java.lang.String definition, java.math.BigDecimal vatRate, java.math.BigDecimal unitPriceInForeignCurrency, java.math.BigDecimal totalPriceInForeignCurrency, java.math.BigDecimal discountAmountInForeignCurrency, java.math.BigDecimal vatAmountInForeignCurrency, java.math.BigDecimal vatSpecialUnitPriceInForeignCurrency, java.math.BigDecimal vatSpecialAmountInForeignCurrency, java.math.BigDecimal cumilativePriceInForeignCurrency, com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous, com.turquaz.engine.dal.TurqInventoryTransactionType turqInventoryTransactionType, com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
         this.amountIn = amountIn;
         this.unitPrice = unitPrice;
         this.totalPrice = totalPrice;
@@ -141,6 +144,7 @@ public class TurqInventoryTransaction implements Serializable {
         this.turqInventoryUnit = turqInventoryUnit;
         this.turqEngineSequence = turqEngineSequence;
         this.turqInventoryCard = turqInventoryCard;
+        this.turqCurrentCard = turqCurrentCard;
     }
 
     /** default constructor */
@@ -409,6 +413,14 @@ public class TurqInventoryTransaction implements Serializable {
 
     public void setTurqInventoryCard(com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
         this.turqInventoryCard = turqInventoryCard;
+    }
+
+    public com.turquaz.engine.dal.TurqCurrentCard getTurqCurrentCard() {
+        return this.turqCurrentCard;
+    }
+
+    public void setTurqCurrentCard(com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
+        this.turqCurrentCard = turqCurrentCard;
     }
 
     public String toString() {

@@ -60,7 +60,7 @@ public class ConBLAddConsignment
 			consignment.setBillDocumentNo("");
 			EngDALCommon.saveObject(consignment);
 			// Then Save Inventory Transactions
-			InvBLSaveTransaction.saveInventoryTransactions(invTransactions,engSeq.getId(),type,consignmentDate,definition,docNo,exchangeRate);
+			InvBLSaveTransaction.saveInventoryTransactions(invTransactions,engSeq.getId(),type,consignmentDate,definition,docNo,exchangeRate,curCard);
 			if (groups != null)
 			{
 				for (int i = 0; i < groups.size(); i++)

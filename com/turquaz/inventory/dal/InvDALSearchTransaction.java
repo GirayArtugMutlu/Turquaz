@@ -30,6 +30,7 @@ import com.turquaz.consignment.dal.ConDALUpdateConsignment;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
+import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
@@ -45,28 +46,24 @@ public class InvDALSearchTransaction
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select transaction.id,transaction.transactionsDate,transaction.transactionsAmountIn,"
-					+ "transaction.transactionsTotalAmountOut, transaction.transactionsTotalPrice,"
+			String query = "Select transaction.id,transaction.transactionsDate,transaction.amountIn,"
+					+ "transaction.amountOut, transaction.totalPrice,"
 					+ " transaction.turqInventoryCard.cardInventoryCode, "
-					+ " transaction.turqInventoryCard.cardName from TurqInventoryTransaction as transaction,"
-					+ " TurqConsignment as consignment where" + " consignment.turqEngineSequence = transaction.turqEngineSequence "
-					+ " and consignment.consignmentsDate >= :startDate" + " and consignment.consignmentsDate <= :endDate";
-			/*
-			 * String query = "Select transaction, consignment.consignmentsDate from TurqInventoryTransaction as transaction," + "
-			 * TurqConsignment as consignment where" + " consignment.turqEngineSequence = transaction.turqEngineSequence " + " and
-			 * consignment.consignmentsDate >= :startDate" + " and consignment.consignmentsDate <= :endDate";
-			 */
-			if (type != EngBLCommon.COMMON_ALL_INT)
-				query += " and consignment.consignmentsType =" + type;
+					+ " transaction.turqInventoryCard.cardName from TurqInventoryTransaction as transaction"
+					+ " where transaction.transactionsDate >= :startDate" + " and transaction.transactionsDate <= :endDate";
+			if (type == EngBLCommon.COMMON_BUY_INT)	
+				query += " and transaction.amountIn > 0";
+			else if (type == EngBLCommon.COMMON_SELL_INT)
+				query += " and transaction.amountOut > 0";
 			if (curCard != null)
 			{
-				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard = :curCard";
+				query += " and transaction.turqCurrentCard = :curCard";
 			}
 			if (invCard != null)
 			{
 				query += " and transaction.turqInventoryCard = :invCard";
 			}
-			query += " order by consignment.consignmentsDate";
+			query += " order by transaction.transactionsDate";
 			Query q = session.createQuery(query);
 			q.setParameter("startDate", startDate);
 			q.setParameter("endDate", endDate);
@@ -156,11 +153,11 @@ public class InvDALSearchTransaction
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select transaction.id," + "transaction.transactionsDate," + "transaction.transactionsAmountIn,"
-					+ "transaction.transactionsTotalAmountOut," + " transaction.transactionsTotalPrice,"
+			String query = "Select transaction.id," + "transaction.transactionsDate," + "transaction.amountIn,"
+					+ "transaction.amountOut," + " transaction.totalPrice,"
 					+ " transaction.turqInventoryCard.cardInventoryCode, " + " transaction.turqInventoryCard.cardName,"
-					+ " consignment.turqBillConsignmentCommon.turqCurrentCard.cardsName," + " transaction.turqInventoryCard.id,"
-					+ " consignment.turqBillConsignmentCommon.billDocumentNo";
+					+ " transaction.turqCurrentCard.cardsName," + " transaction.turqInventoryCard.id,"
+					+ " transaction.documentNo";
 			if (invMainGroup != null)
 			{
 				query += ", cardGroup.turqInventoryGroup.groupsName," + " cardGroup.turqInventoryGroup.id";
@@ -170,15 +167,15 @@ public class InvDALSearchTransaction
 			{
 				query += " left join transaction.turqInventoryCard.turqInventoryCardGroups as cardGroup";
 			}
-			query += " ,TurqConsignment as consignment";
-			query += " where consignment.turqEngineSequence = transaction.turqEngineSequence "
-					+ " and consignment.consignmentsDate >= :startDate" + " and consignment.consignmentsDate <= :endDate";
+			query += " where transaction.transactionsDate >= :startDate" + " and transaction.transactionsDate <= :endDate";
 			if (invMainGroup != null)
 			{
 				query += " and cardGroup.turqInventoryGroup.turqInventoryGroup.id=" + invMainGroup.getId();
 			}
-			if (type != EngBLCommon.COMMON_ALL_INT)
-				query += " and consignment.consignmentsType =" + type;
+			if (type == EngBLCommon.COMMON_BUY_INT)
+				query += " and transaction.amountIn > 0";
+			else if (type == EngBLCommon.COMMON_SELL_INT)
+				query += " and transaction.amountOut > 0";
 			if (!invCardCodeStart.equals("") && !invCardCodeEnd.equals(""))
 			{
 				query += "  and transaction.turqInventoryCard.cardInventoryCode >= '" + invCardCodeStart + "'";
@@ -207,18 +204,18 @@ public class InvDALSearchTransaction
 			}
 			if (curCardStart != null && curCardEnd != null)
 			{
-				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard.cardsCurrentCode >= '"
+				query += " and transaction.turqCurrentCard.cardsCurrentCode >= '"
 						+ curCardStart.getCardsCurrentCode() + "'";
-				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard.cardsCurrentCode <= '"
+				query += " and transaction.turqCurrentCard.cardsCurrentCode <= '"
 						+ curCardEnd.getCardsCurrentCode() + "'";
 			}
 			else if (curCardStart != null)
 			{
-				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard = :curCardStart";
+				query += " and transaction.turqCurrentCard = :curCardStart";
 			}
 			else if (curCardEnd != null)
 			{
-				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard = :curCardEnd";
+				query += " and transaction.turqCurrentCard = :curCardEnd";
 			}
 			if (invMainGroup != null)
 			{
@@ -354,7 +351,7 @@ public class InvDALSearchTransaction
 			TurqBill bill=null;
 			if (it.hasNext())
 			{
-				bill=(TurqBill)it.next();
+				bill=((TurqBillInEngineSequence)it.next()).getTurqBill();
 				BillDALSearchBill.initializeBill(bill);
 			}
 			session.close();

@@ -76,7 +76,7 @@ public class ConBLUpdateConsignment
 			{
 				EngDALCommon.deleteObject(it2.next());
 			}
-			InvBLSaveTransaction.saveInventoryTransactions(invTransactions,consignment.getTurqEngineSequence().getId(),type,consignmentDate,definition,docNo,exchangeRate);
+			InvBLSaveTransaction.saveInventoryTransactions(invTransactions,consignment.getTurqEngineSequence().getId(),type,consignmentDate,definition,docNo,exchangeRate,curCard);
 			consignment.setConsignmentsDate(consignmentDate);
 			consignment.setConsignmentsDefinition(definition);
 			consignment.setConsignmentsType(type);
