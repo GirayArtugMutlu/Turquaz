@@ -47,9 +47,9 @@
         length="4"
     />
     <property
-        name="transactionsTotalAmount"
+        name="transactionsTotalCredit"
         type="java.math.BigDecimal"
-        column="transactions_total_amount"
+        column="transactions_total_credit"
         not-null="true"
         length="65535"
     />
@@ -87,6 +87,13 @@
         column="created_by"
         not-null="true"
         length="50"
+    />
+    <property
+        name="transactionsTotalDept"
+        type="java.math.BigDecimal"
+        column="transactions_total_dept"
+        not-null="true"
+        length="65535"
     />
 
     <!-- Associations -->

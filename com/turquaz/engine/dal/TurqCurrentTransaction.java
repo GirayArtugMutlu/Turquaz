@@ -22,7 +22,7 @@ public class TurqCurrentTransaction implements Serializable {
     private int currentTransactionTypesId;
 
     /** persistent field */
-    private java.math.BigDecimal transactionsTotalAmount;
+    private java.math.BigDecimal transactionsTotalCredit;
 
     /** persistent field */
     private java.math.BigDecimal transactionsTotalDiscount;
@@ -40,6 +40,9 @@ public class TurqCurrentTransaction implements Serializable {
     private java.lang.String createdBy;
 
     /** persistent field */
+    private java.math.BigDecimal transactionsTotalDept;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqCurrency turqCurrency;
 
     /** persistent field */
@@ -52,16 +55,17 @@ public class TurqCurrentTransaction implements Serializable {
     private Set turqCurrentTransactionBillsByCurrentTransactionsIdOpen;
 
     /** full constructor */
-    public TurqCurrentTransaction(java.util.Date transactionsDate, java.lang.String transactionsDocumentNo, int currentTransactionTypesId, java.math.BigDecimal transactionsTotalAmount, java.math.BigDecimal transactionsTotalDiscount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String updatedBy, java.lang.String createdBy, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqCurrentTransactionBillsByCurrentTransactionsIdClose, Set turqCurrentTransactionBillsByCurrentTransactionsIdOpen) {
+    public TurqCurrentTransaction(java.util.Date transactionsDate, java.lang.String transactionsDocumentNo, int currentTransactionTypesId, java.math.BigDecimal transactionsTotalCredit, java.math.BigDecimal transactionsTotalDiscount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String updatedBy, java.lang.String createdBy, java.math.BigDecimal transactionsTotalDept, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqCurrentTransactionBillsByCurrentTransactionsIdClose, Set turqCurrentTransactionBillsByCurrentTransactionsIdOpen) {
         this.transactionsDate = transactionsDate;
         this.transactionsDocumentNo = transactionsDocumentNo;
         this.currentTransactionTypesId = currentTransactionTypesId;
-        this.transactionsTotalAmount = transactionsTotalAmount;
+        this.transactionsTotalCredit = transactionsTotalCredit;
         this.transactionsTotalDiscount = transactionsTotalDiscount;
         this.creationDate = creationDate;
         this.lastModified = lastModified;
         this.updatedBy = updatedBy;
         this.createdBy = createdBy;
+        this.transactionsTotalDept = transactionsTotalDept;
         this.turqCurrency = turqCurrency;
         this.turqCurrentCard = turqCurrentCard;
         this.turqCurrentTransactionBillsByCurrentTransactionsIdClose = turqCurrentTransactionBillsByCurrentTransactionsIdClose;
@@ -104,12 +108,12 @@ public class TurqCurrentTransaction implements Serializable {
         this.currentTransactionTypesId = currentTransactionTypesId;
     }
 
-    public java.math.BigDecimal getTransactionsTotalAmount() {
-        return this.transactionsTotalAmount;
+    public java.math.BigDecimal getTransactionsTotalCredit() {
+        return this.transactionsTotalCredit;
     }
 
-    public void setTransactionsTotalAmount(java.math.BigDecimal transactionsTotalAmount) {
-        this.transactionsTotalAmount = transactionsTotalAmount;
+    public void setTransactionsTotalCredit(java.math.BigDecimal transactionsTotalCredit) {
+        this.transactionsTotalCredit = transactionsTotalCredit;
     }
 
     public java.math.BigDecimal getTransactionsTotalDiscount() {
@@ -150,6 +154,14 @@ public class TurqCurrentTransaction implements Serializable {
 
     public void setCreatedBy(java.lang.String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public java.math.BigDecimal getTransactionsTotalDept() {
+        return this.transactionsTotalDept;
+    }
+
+    public void setTransactionsTotalDept(java.math.BigDecimal transactionsTotalDept) {
+        this.transactionsTotalDept = transactionsTotalDept;
     }
 
     public com.turquaz.engine.dal.TurqCurrency getTurqCurrency() {
