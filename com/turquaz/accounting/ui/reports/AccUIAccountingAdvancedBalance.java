@@ -222,7 +222,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				}
 				//START >>  label1
 				label1 = new Label(compAdvanced, SWT.SEPARATOR | SWT.HORIZONTAL);
-				label1.setText("label1");
+				label1.setText("label1"); //$NON-NLS-1$
 				GridData label1LData = new GridData();
 				label1LData.widthHint = 644;
 				label1LData.heightHint = 2;
@@ -550,7 +550,15 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableTreeAccounts.getTable(), Messages.getString("AccUIAccountingAdvancedBalance.9")); //$NON-NLS-1$
+		Calendar cal = Calendar.getInstance();
+		Map props = new HashMap();
+		props.put("start_account_code",accountPickerStart.getText()); //$NON-NLS-1$
+		props.put("end_account_code",accountPickerEnd.getText()); //$NON-NLS-1$
+		props.put("start_date",DatePicker.formatter.format(datePickerStart.getDate())); //$NON-NLS-1$
+		props.put("end_date",DatePicker.formatter.format(datePickerEnd.getDate())); //$NON-NLS-1$
+		props.put("report_date",DatePicker.formatter.format(cal.getTime())); //$NON-NLS-1$
+		
+		EngBLUtils.printAccountingBalance(tableTreeAccounts.getTable(),Messages.getString("AccUIAccountingAdvancedBalance.23"),props);  //$NON-NLS-1$
 	}
 
 	public void exportToExcel()

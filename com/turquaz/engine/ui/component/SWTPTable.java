@@ -43,10 +43,11 @@ public class SWTPTable
 		double width = parent.getPossibleWidth();
 		for (int j = 0; j < table.getColumnCount(); j++)
 		{
+			int height = table.getHeaderHeight();
 			int style = PBox.POS_RIGHT | PBox.ROW_ALIGN;
 			if (j == 0)
 				style = PBox.POS_BELOW | PBox.ROW_ALIGN;
-			PBox box = boxProvider.createBox(parent, style, j, 0, table.getColumn(j).getWidth(), true, table.getColumn(j).getText());
+			PBox box = boxProvider.createBox(parent, style, j, 0, table.getColumn(j).getWidth(), height,true, table.getColumn(j).getText());
 			
 			((PLittleTextBox) box).getTextStyle().textAlign = PTextStyle.ALIGN_CENTER;
 			
@@ -66,11 +67,12 @@ public class SWTPTable
 			for (int j = 0; j < table.getColumnCount(); j++)
 			{
 				//System.out.println(" Zeile "+j);
+				int height = table.getHeaderHeight();
 				int style = PBox.POS_RIGHT | PBox.ROW_ALIGN;
 				if (j == 0)
 					style = PBox.POS_BELOW | PBox.ROW_ALIGN;
 				PBox box = boxProvider
-						.createBox(parent, style, j, i, table.getColumn(j).getWidth(), false, table.getItem(i).getText(j));
+						.createBox(parent, style, j, i, table.getColumn(j).getWidth(),height, false, table.getItem(i).getText(j));
 				if (table.getColumn(j).getStyle() == SWT.RIGHT)
 				{
 					((PLittleTextBox) box).getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;

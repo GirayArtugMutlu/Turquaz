@@ -115,7 +115,7 @@ public class EngBLUtils
 						c = r.createCell(j);
 						// set the cell's string value
 						c.setEncoding(HSSFCell.ENCODING_UTF_16);
-						Pattern alphabet = Pattern.compile("[A-Za-z]+");
+						Pattern alphabet = Pattern.compile("[A-Za-z]+"); //$NON-NLS-1$
 						Matcher matcher = alphabet.matcher(cell_value);
 						if (matcher.find())
 						{
@@ -209,7 +209,92 @@ public class EngBLUtils
 		PrintPreview pr = new PrintPreview(null, title, IconSource.getImage("print"), doc); //$NON-NLS-1$
 		pr.open();
 	}
-
+	public static void printMonthlyAccountingBalance(Table table, String title, Map props)
+	{
+//		create a document with default settings from PageSetup
+		PDocument doc = new PDocument("Turquaz Printing"); //$NON-NLS-1$
+		// put some header text on it
+		PTextBox t;
+		t = new PTextBox(doc);
+		t.setText(title);
+		t.getTextStyle().textAlign = PTextStyle.ALIGN_CENTER;
+		new PVSpace(doc, 0.1);
+		new PHLine(doc, 0.02, SWT.COLOR_BLACK);
+		new PVSpace(doc, 0.1);
+		t = new PTextBox(doc);
+		t.setText(Messages.getString("EngBLUtils.2")+ props.get("start_account_code"));  //$NON-NLS-1$ //$NON-NLS-2$
+		t.getTextStyle().fontSize = 8;
+		t.getTextStyle().fontStyle = SWT.BOLD;
+		t = new PTextBox(doc, PBox.GRAB | PBox.POS_RIGHT);
+		t.setText(Messages.getString("EngBLUtils.0")+ props.get("month"));   //$NON-NLS-1$ //$NON-NLS-2$
+		t.getTextStyle().fontSize = 8;
+		t.getTextStyle().fontStyle = SWT.BOLD;
+		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
+		t = new PTextBox(doc);
+		t.setText(Messages.getString("EngBLUtils.6") + props.get("end_account_code")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.getTextStyle().fontSize = 8;
+		t.getTextStyle().fontStyle = SWT.BOLD;
+		t = new PTextBox(doc);
+		t.setText(Messages.getString("EngBLUtils.13") + props.get("report_date"));  //$NON-NLS-1$ //$NON-NLS-2$
+		t.getTextStyle().fontSize = 8;
+		t.getTextStyle().fontStyle = SWT.BOLD;
+		new PVSpace(doc, 0.1);
+		new PHLine(doc, 0.02, SWT.COLOR_BLACK);
+		new PVSpace(doc, 0.5);
+		// create the table
+		SWTPTable ptable = new SWTPTable(doc);
+		ptable.setTable(table);
+		ptable.setBoxProvider(new PTableBoxProvider());
+		PrintPreview pr = new PrintPreview(null, title, IconSource.getImage("print"), doc); //$NON-NLS-1$
+		pr.open();
+		
+	}
+	
+	public static void printAccountingBalance(Table table, String title, Map props)
+	{
+//		create a document with default settings from PageSetup
+		PDocument doc = new PDocument("Turquaz Printing"); //$NON-NLS-1$
+		// put some header text on it
+		PTextBox t;
+		t = new PTextBox(doc);
+		t.setText(title);
+		t.getTextStyle().textAlign = PTextStyle.ALIGN_CENTER;
+		new PVSpace(doc, 0.1);
+		new PHLine(doc, 0.02, SWT.COLOR_BLACK);
+		new PVSpace(doc, 0.1);
+		t = new PTextBox(doc);
+		t.setText(Messages.getString("EngBLUtils.2")+ props.get("start_account_code"));  //$NON-NLS-1$ //$NON-NLS-2$
+		t.getTextStyle().fontSize = 8;
+		t.getTextStyle().fontStyle = SWT.BOLD;
+		t = new PTextBox(doc, PBox.GRAB | PBox.POS_RIGHT);
+		t.setText(Messages.getString("EngBLUtils.4")+ props.get("start_date"));  //$NON-NLS-1$ //$NON-NLS-2$
+		t.getTextStyle().fontSize = 8;
+		t.getTextStyle().fontStyle = SWT.BOLD;
+		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
+		t = new PTextBox(doc);
+		t.setText(Messages.getString("EngBLUtils.6") + props.get("end_account_code")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.getTextStyle().fontSize = 8;
+		t.getTextStyle().fontStyle = SWT.BOLD;
+		t = new PTextBox(doc, PBox.GRAB | PBox.POS_RIGHT);
+		t.setText(Messages.getString("EngBLUtils.9") + props.get("end_date"));  //$NON-NLS-1$ //$NON-NLS-2$
+		t.getTextStyle().fontSize = 8;
+		t.getTextStyle().fontStyle = SWT.BOLD;
+		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
+		t = new PTextBox(doc);
+		t.setText(Messages.getString("EngBLUtils.13") + props.get("report_date"));  //$NON-NLS-1$ //$NON-NLS-2$
+		t.getTextStyle().fontSize = 8;
+		t.getTextStyle().fontStyle = SWT.BOLD;
+		new PVSpace(doc, 0.1);
+		new PHLine(doc, 0.02, SWT.COLOR_BLACK);
+		new PVSpace(doc, 0.5);
+		// create the table
+		SWTPTable ptable = new SWTPTable(doc);
+		ptable.setTable(table);
+		ptable.setBoxProvider(new PTableBoxProvider());
+		PrintPreview pr = new PrintPreview(null, title, IconSource.getImage("print"), doc); //$NON-NLS-1$
+		pr.open();
+		
+	}
 	public static void printBill(TurqBill bill, boolean balance)
 	{
 		try
@@ -222,9 +307,9 @@ public class EngBLUtils
 			SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
 			Map parameters = new HashMap();
 			String sqlparam = "Select invTrans.id as inventory_transactions_id," + //$NON-NLS-1$
-					" invCardUnits.card_units_factor, "
+					" invCardUnits.card_units_factor, " //$NON-NLS-1$
 					+ //$NON-NLS-1$
-					" invCard.card_inventory_code, invCard.card_name, units.units_name,"
+					" invCard.card_inventory_code, invCard.card_name, units.units_name," //$NON-NLS-1$
 					+ //$NON-NLS-1$
 					((bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_BUY)
 							? "invTrans.transactions_amount_in as amount," : "invTrans.transactions_total_amount_out as amount,") + //$NON-NLS-1$ //$NON-NLS-2$
@@ -305,9 +390,9 @@ public class EngBLUtils
 			SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
 			Map parameters = new HashMap();
 			String sqlparam = "Select invTrans.inventory_transactions_id," + //$NON-NLS-1$
-					" invCardUnits.card_units_factor, "
+					" invCardUnits.card_units_factor, " //$NON-NLS-1$
 					+ //$NON-NLS-1$
-					" invCard.card_inventory_code, invCard.card_name, units.units_name,"
+					" invCard.card_inventory_code, invCard.card_name, units.units_name," //$NON-NLS-1$
 					+ //$NON-NLS-1$
 					((cons.getConsignmentsType() == EngBLCommon.CONSIGNMENT_TRANS_TYPE_BUY)
 							? "invTrans.transactions_amount_in as amount," : "invTrans.transactions_total_amount_out as amount,") + //$NON-NLS-1$ //$NON-NLS-2$

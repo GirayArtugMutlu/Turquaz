@@ -49,6 +49,7 @@ import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.widgets.TableColumn;
@@ -198,7 +199,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				GridLayout groupRemainderLayout = new GridLayout();
 				groupRemainderLayout.numColumns = 4;
 				groupRemainderLayout.horizontalSpacing = 4;
-				groupRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.14"));
+				groupRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.14")); //$NON-NLS-1$
 				GridData groupRemainderLData = new GridData();
 				groupRemainder.setLayout(groupRemainderLayout);
 				groupRemainderLData.widthHint = 256;
@@ -207,12 +208,12 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				groupRemainder.setLayoutData(groupRemainderLData);
 				//START >> radioUseMainAccounts
 				radioUseMainAccounts = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
-				radioUseMainAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.15"));
+				radioUseMainAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.15")); //$NON-NLS-1$
 				radioUseMainAccounts.setSelection(true);
 				//END << radioUseMainAccounts
 				//START >> radioUseRemainder
 				radioUseRemainder = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
-				radioUseRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.16"));
+				radioUseRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.16")); //$NON-NLS-1$
 				GridData radioUseRemainderLData = new GridData();
 				radioUseRemainderLData.widthHint = 103;
 				radioUseRemainderLData.heightHint = 13;
@@ -418,7 +419,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					TableTreeItem titem = allitems[k];
 					String remain = titem.getText(4);
 					BigDecimal initRemain;
-					if (remain != null && !remain.equals(""))
+					if (remain != null && !remain.equals("")) //$NON-NLS-1$
 						initRemain = cf.getBigDecimal(remain).negate();
 					else
 						initRemain = cf.getBigDecimal(titem.getText(5));
@@ -430,7 +431,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 			}
 			TableTreeItem dummy = new TableTreeItem(tableTreeAccounts, SWT.NULL);
 			TableTreeItem totals = new TableTreeItem(tableTreeAccounts, SWT.RIGHT);
-			totals.setText(1, "TOPLAM");
+			totals.setText(1, Messages.getString("AccUIAccountingMonthlyBalance.26")); //$NON-NLS-1$
 			totals.setText(2, cf.format(totalDept));
 			totals.setText(3, cf.format(totalCredit));
 			totals.setText(4, cf.format(totalDeptRemain.abs()));
@@ -515,9 +516,15 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 		}
 	}
 
-	public void printTable()
+	public void printTable()	
 	{
-		EngBLUtils.printTable(tableTreeAccounts.getTable(), ""); //$NON-NLS-1$
+		Calendar cal = Calendar.getInstance();
+		Map props = new HashMap();
+		props.put("start_account_code",accountPickerStart.getText()); //$NON-NLS-1$
+		props.put("end_account_code",accountPickerEnd.getText()); //$NON-NLS-1$
+		props.put("report_date",DatePicker.formatter.format(cal.getTime())); //$NON-NLS-1$
+		props.put("month",comboMonth.getText()); //$NON-NLS-1$
+		EngBLUtils.printMonthlyAccountingBalance(tableTreeAccounts.getTable(),Messages.getString("AccUIAccountingMonthlyBalance.27"),props);  //$NON-NLS-1$
 	}
 
 	public void exportToExcel()
