@@ -24,7 +24,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.text.TabExpander;
 
 import org.eclipse.swt.layout.GridLayout;
 
