@@ -47,7 +47,6 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.consignment.bl.ConBLAddGroups;
 import com.turquaz.current.Messages;
-import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 
 
