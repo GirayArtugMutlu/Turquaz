@@ -7,192 +7,177 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqConsignment implements Serializable
-{
-	/** identifier field */
-	private java.lang.Integer id;
-	/** persistent field */
-	private java.util.Date consignmentsDate;
-	/** persistent field */
-	private java.lang.String consignmentsDefinition;
-	/** persistent field */
-	private int consignmentsType;
-	/** persistent field */
-	private boolean consignmentsPrinted;
-	/** persistent field */
-	private java.lang.String createdBy;
-	/** persistent field */
-	private java.util.Date creationDate;
-	/** persistent field */
-	private java.lang.String updatedBy;
-	/** persistent field */
-	private java.util.Date lastModified;
-	/** persistent field */
-	private com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon;
-	/** persistent field */
-	private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
-	/** persistent field */
-	private Set turqConsignmentsInGroups;
+public class TurqConsignment implements Serializable {
 
-	/** full constructor */
-	public TurqConsignment(java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, int consignmentsType,
-			boolean consignmentsPrinted, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy,
-			java.util.Date lastModified, com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon,
-			com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqConsignmentsInGroups)
-	{
-		this.consignmentsDate = consignmentsDate;
-		this.consignmentsDefinition = consignmentsDefinition;
-		this.consignmentsType = consignmentsType;
-		this.consignmentsPrinted = consignmentsPrinted;
-		this.createdBy = createdBy;
-		this.creationDate = creationDate;
-		this.updatedBy = updatedBy;
-		this.lastModified = lastModified;
-		this.turqBillConsignmentCommon = turqBillConsignmentCommon;
-		this.turqEngineSequence = turqEngineSequence;
-		this.turqConsignmentsInGroups = turqConsignmentsInGroups;
-	}
+    /** identifier field */
+    private java.lang.Integer id;
 
-	/** default constructor */
-	public TurqConsignment()
-	{
-	}
+    /** persistent field */
+    private java.util.Date consignmentsDate;
 
-	public java.lang.Integer getId()
-	{
-		return this.id;
-	}
+    /** persistent field */
+    private java.lang.String consignmentsDefinition;
 
-	public void setId(java.lang.Integer id)
-	{
-		this.id = id;
-	}
+    /** persistent field */
+    private int consignmentsType;
 
-	public java.util.Date getConsignmentsDate()
-	{
-		return this.consignmentsDate;
-	}
+    /** persistent field */
+    private boolean consignmentsPrinted;
 
-	public void setConsignmentsDate(java.util.Date consignmentsDate)
-	{
-		this.consignmentsDate = consignmentsDate;
-	}
+    /** persistent field */
+    private java.lang.String createdBy;
 
-	public java.lang.String getConsignmentsDefinition()
-	{
-		return this.consignmentsDefinition;
-	}
+    /** persistent field */
+    private java.util.Date creationDate;
 
-	public void setConsignmentsDefinition(java.lang.String consignmentsDefinition)
-	{
-		this.consignmentsDefinition = consignmentsDefinition;
-	}
+    /** persistent field */
+    private java.lang.String updatedBy;
 
-	public int getConsignmentsType()
-	{
-		return this.consignmentsType;
-	}
+    /** persistent field */
+    private java.util.Date lastModified;
 
-	public void setConsignmentsType(int consignmentsType)
-	{
-		this.consignmentsType = consignmentsType;
-	}
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon;
 
-	public boolean isConsignmentsPrinted()
-	{
-		return this.consignmentsPrinted;
-	}
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
 
-	public void setConsignmentsPrinted(boolean consignmentsPrinted)
-	{
-		this.consignmentsPrinted = consignmentsPrinted;
-	}
+    /** persistent field */
+    private Set turqConsignmentsInGroups;
 
-	public java.lang.String getCreatedBy()
-	{
-		return this.createdBy;
-	}
+    /** full constructor */
+    public TurqConsignment(java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, int consignmentsType, boolean consignmentsPrinted, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqConsignmentsInGroups) {
+        this.consignmentsDate = consignmentsDate;
+        this.consignmentsDefinition = consignmentsDefinition;
+        this.consignmentsType = consignmentsType;
+        this.consignmentsPrinted = consignmentsPrinted;
+        this.createdBy = createdBy;
+        this.creationDate = creationDate;
+        this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
+        this.turqBillConsignmentCommon = turqBillConsignmentCommon;
+        this.turqEngineSequence = turqEngineSequence;
+        this.turqConsignmentsInGroups = turqConsignmentsInGroups;
+    }
 
-	public void setCreatedBy(java.lang.String createdBy)
-	{
-		this.createdBy = createdBy;
-	}
+    /** default constructor */
+    public TurqConsignment() {
+    }
 
-	public java.util.Date getCreationDate()
-	{
-		return this.creationDate;
-	}
+    public java.lang.Integer getId() {
+        return this.id;
+    }
 
-	public void setCreationDate(java.util.Date creationDate)
-	{
-		this.creationDate = creationDate;
-	}
+    public void setId(java.lang.Integer id) {
+        this.id = id;
+    }
 
-	public java.lang.String getUpdatedBy()
-	{
-		return this.updatedBy;
-	}
+    public java.util.Date getConsignmentsDate() {
+        return this.consignmentsDate;
+    }
 
-	public void setUpdatedBy(java.lang.String updatedBy)
-	{
-		this.updatedBy = updatedBy;
-	}
+    public void setConsignmentsDate(java.util.Date consignmentsDate) {
+        this.consignmentsDate = consignmentsDate;
+    }
 
-	public java.util.Date getLastModified()
-	{
-		return this.lastModified;
-	}
+    public java.lang.String getConsignmentsDefinition() {
+        return this.consignmentsDefinition;
+    }
 
-	public void setLastModified(java.util.Date lastModified)
-	{
-		this.lastModified = lastModified;
-	}
+    public void setConsignmentsDefinition(java.lang.String consignmentsDefinition) {
+        this.consignmentsDefinition = consignmentsDefinition;
+    }
 
-	public com.turquaz.engine.dal.TurqBillConsignmentCommon getTurqBillConsignmentCommon()
-	{
-		return this.turqBillConsignmentCommon;
-	}
+    public int getConsignmentsType() {
+        return this.consignmentsType;
+    }
 
-	public void setTurqBillConsignmentCommon(com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon)
-	{
-		this.turqBillConsignmentCommon = turqBillConsignmentCommon;
-	}
+    public void setConsignmentsType(int consignmentsType) {
+        this.consignmentsType = consignmentsType;
+    }
 
-	public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence()
-	{
-		return this.turqEngineSequence;
-	}
+    public boolean isConsignmentsPrinted() {
+        return this.consignmentsPrinted;
+    }
 
-	public void setTurqEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence)
-	{
-		this.turqEngineSequence = turqEngineSequence;
-	}
+    public void setConsignmentsPrinted(boolean consignmentsPrinted) {
+        this.consignmentsPrinted = consignmentsPrinted;
+    }
 
-	public java.util.Set getTurqConsignmentsInGroups()
-	{
-		return this.turqConsignmentsInGroups;
-	}
+    public java.lang.String getCreatedBy() {
+        return this.createdBy;
+    }
 
-	public void setTurqConsignmentsInGroups(java.util.Set turqConsignmentsInGroups)
-	{
-		this.turqConsignmentsInGroups = turqConsignmentsInGroups;
-	}
+    public void setCreatedBy(java.lang.String createdBy) {
+        this.createdBy = createdBy;
+    }
 
-	public String toString()
-	{
-		return new ToStringBuilder(this).append("id", getId()).toString();
-	}
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
 
-	public boolean equals(Object other)
-	{
-		if (!(other instanceof TurqConsignment))
-			return false;
-		TurqConsignment castOther = (TurqConsignment) other;
-		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
-	}
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
+    }
 
-	public int hashCode()
-	{
-		return new HashCodeBuilder().append(getId()).toHashCode();
-	}
+    public java.lang.String getUpdatedBy() {
+        return this.updatedBy;
+    }
+
+    public void setUpdatedBy(java.lang.String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public java.util.Date getLastModified() {
+        return this.lastModified;
+    }
+
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    public com.turquaz.engine.dal.TurqBillConsignmentCommon getTurqBillConsignmentCommon() {
+        return this.turqBillConsignmentCommon;
+    }
+
+    public void setTurqBillConsignmentCommon(com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon) {
+        this.turqBillConsignmentCommon = turqBillConsignmentCommon;
+    }
+
+    public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence() {
+        return this.turqEngineSequence;
+    }
+
+    public void setTurqEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence) {
+        this.turqEngineSequence = turqEngineSequence;
+    }
+
+    public java.util.Set getTurqConsignmentsInGroups() {
+        return this.turqConsignmentsInGroups;
+    }
+
+    public void setTurqConsignmentsInGroups(java.util.Set turqConsignmentsInGroups) {
+        this.turqConsignmentsInGroups = turqConsignmentsInGroups;
+    }
+
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("id", getId())
+            .toString();
+    }
+
+    public boolean equals(Object other) {
+        if ( !(other instanceof TurqConsignment) ) return false;
+        TurqConsignment castOther = (TurqConsignment) other;
+        return new EqualsBuilder()
+            .append(this.getId(), castOther.getId())
+            .isEquals();
+    }
+
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
 }

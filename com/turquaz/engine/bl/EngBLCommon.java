@@ -142,6 +142,17 @@ public class EngBLCommon
 	// modulu
 	public final static int MODULE_CHEQUE = 9; //cek
 	// modulu
+	
+	
+	public final static int INV_TRANS_INITIAL = 0; 
+	
+	public final static int INV_TRANS_BUY_SELL =1;
+	
+	public final static int INV_TRANS_OTHER = 2;
+	
+	public final static int INV_TRANS_MANUFACTURING = 3;
+	
+	
 	public final static Integer CHEQUE_TRANS_IN = new Integer(0); //Cek
 	// Giris
 	// Bordrosu

@@ -7,341 +7,307 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqChequeCheque implements Serializable
-{
-	/** identifier field */
-	private java.lang.Integer id;
-	/** persistent field */
-	private java.lang.String chequesPortfolioNo;
-	/** persistent field */
-	private java.lang.String chequesNo;
-	/** persistent field */
-	private java.util.Date chequesDueDate;
-	/** persistent field */
-	private java.lang.String chequesDebtor;
-	/** nullable persistent field */
-	private java.lang.String chequesPaymentPlace;
-	/** persistent field */
-	private java.util.Date chequesValueDate;
-	/** persistent field */
-	private java.math.BigDecimal chequesAmount;
-	/** persistent field */
-	private java.lang.String createdBy;
-	/** persistent field */
-	private java.util.Date creationDate;
-	/** persistent field */
-	private java.lang.String updatedBy;
-	/** persistent field */
-	private java.util.Date lastModified;
-	/** persistent field */
-	private java.lang.String bankName;
-	/** persistent field */
-	private java.lang.String bankBranchName;
-	/** persistent field */
-	private int chequesType;
-	/** nullable persistent field */
-	private java.lang.String bankAccountNo;
-	/** persistent field */
-	private java.math.BigDecimal chequesAmountInForeignCurrency;
-	/** persistent field */
-	private com.turquaz.engine.dal.TurqCurrency turqCurrency;
-	/** persistent field */
-	private com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate;
-	/** persistent field */
-	private com.turquaz.engine.dal.TurqBanksCard turqBanksCard;
-	/** persistent field */
-	private Set turqChequeChequeInRolls;
+public class TurqChequeCheque implements Serializable {
 
-	/** full constructor */
-	public TurqChequeCheque(java.lang.String chequesPortfolioNo, java.lang.String chequesNo, java.util.Date chequesDueDate,
-			java.lang.String chequesDebtor, java.lang.String chequesPaymentPlace, java.util.Date chequesValueDate,
-			java.math.BigDecimal chequesAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy,
-			java.util.Date lastModified, java.lang.String bankName, java.lang.String bankBranchName, int chequesType,
-			java.lang.String bankAccountNo, java.math.BigDecimal chequesAmountInForeignCurrency,
-			com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate,
-			com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqChequeChequeInRolls)
-	{
-		this.chequesPortfolioNo = chequesPortfolioNo;
-		this.chequesNo = chequesNo;
-		this.chequesDueDate = chequesDueDate;
-		this.chequesDebtor = chequesDebtor;
-		this.chequesPaymentPlace = chequesPaymentPlace;
-		this.chequesValueDate = chequesValueDate;
-		this.chequesAmount = chequesAmount;
-		this.createdBy = createdBy;
-		this.creationDate = creationDate;
-		this.updatedBy = updatedBy;
-		this.lastModified = lastModified;
-		this.bankName = bankName;
-		this.bankBranchName = bankBranchName;
-		this.chequesType = chequesType;
-		this.bankAccountNo = bankAccountNo;
-		this.chequesAmountInForeignCurrency = chequesAmountInForeignCurrency;
-		this.turqCurrency = turqCurrency;
-		this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
-		this.turqBanksCard = turqBanksCard;
-		this.turqChequeChequeInRolls = turqChequeChequeInRolls;
-	}
+    /** identifier field */
+    private java.lang.Integer id;
 
-	/** default constructor */
-	public TurqChequeCheque()
-	{
-	}
+    /** persistent field */
+    private java.lang.String chequesPortfolioNo;
 
-	/** minimal constructor */
-	public TurqChequeCheque(java.lang.String chequesPortfolioNo, java.lang.String chequesNo, java.util.Date chequesDueDate,
-			java.lang.String chequesDebtor, java.util.Date chequesValueDate, java.math.BigDecimal chequesAmount,
-			java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified,
-			java.lang.String bankName, java.lang.String bankBranchName, int chequesType,
-			java.math.BigDecimal chequesAmountInForeignCurrency, com.turquaz.engine.dal.TurqCurrency turqCurrency,
-			com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate,
-			com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqChequeChequeInRolls)
-	{
-		this.chequesPortfolioNo = chequesPortfolioNo;
-		this.chequesNo = chequesNo;
-		this.chequesDueDate = chequesDueDate;
-		this.chequesDebtor = chequesDebtor;
-		this.chequesValueDate = chequesValueDate;
-		this.chequesAmount = chequesAmount;
-		this.createdBy = createdBy;
-		this.creationDate = creationDate;
-		this.updatedBy = updatedBy;
-		this.lastModified = lastModified;
-		this.bankName = bankName;
-		this.bankBranchName = bankBranchName;
-		this.chequesType = chequesType;
-		this.chequesAmountInForeignCurrency = chequesAmountInForeignCurrency;
-		this.turqCurrency = turqCurrency;
-		this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
-		this.turqBanksCard = turqBanksCard;
-		this.turqChequeChequeInRolls = turqChequeChequeInRolls;
-	}
+    /** persistent field */
+    private java.lang.String chequesNo;
 
-	public java.lang.Integer getId()
-	{
-		return this.id;
-	}
+    /** persistent field */
+    private java.util.Date chequesDueDate;
 
-	public void setId(java.lang.Integer id)
-	{
-		this.id = id;
-	}
+    /** persistent field */
+    private java.lang.String chequesDebtor;
 
-	public java.lang.String getChequesPortfolioNo()
-	{
-		return this.chequesPortfolioNo;
-	}
+    /** nullable persistent field */
+    private java.lang.String chequesPaymentPlace;
 
-	public void setChequesPortfolioNo(java.lang.String chequesPortfolioNo)
-	{
-		this.chequesPortfolioNo = chequesPortfolioNo;
-	}
+    /** persistent field */
+    private java.util.Date chequesValueDate;
 
-	public java.lang.String getChequesNo()
-	{
-		return this.chequesNo;
-	}
+    /** persistent field */
+    private java.math.BigDecimal chequesAmount;
 
-	public void setChequesNo(java.lang.String chequesNo)
-	{
-		this.chequesNo = chequesNo;
-	}
+    /** persistent field */
+    private java.lang.String createdBy;
 
-	public java.util.Date getChequesDueDate()
-	{
-		return this.chequesDueDate;
-	}
+    /** persistent field */
+    private java.util.Date creationDate;
 
-	public void setChequesDueDate(java.util.Date chequesDueDate)
-	{
-		this.chequesDueDate = chequesDueDate;
-	}
+    /** persistent field */
+    private java.lang.String updatedBy;
 
-	public java.lang.String getChequesDebtor()
-	{
-		return this.chequesDebtor;
-	}
+    /** persistent field */
+    private java.util.Date lastModified;
 
-	public void setChequesDebtor(java.lang.String chequesDebtor)
-	{
-		this.chequesDebtor = chequesDebtor;
-	}
+    /** persistent field */
+    private java.lang.String bankName;
 
-	public java.lang.String getChequesPaymentPlace()
-	{
-		return this.chequesPaymentPlace;
-	}
+    /** persistent field */
+    private java.lang.String bankBranchName;
 
-	public void setChequesPaymentPlace(java.lang.String chequesPaymentPlace)
-	{
-		this.chequesPaymentPlace = chequesPaymentPlace;
-	}
+    /** persistent field */
+    private int chequesType;
 
-	public java.util.Date getChequesValueDate()
-	{
-		return this.chequesValueDate;
-	}
+    /** nullable persistent field */
+    private java.lang.String bankAccountNo;
 
-	public void setChequesValueDate(java.util.Date chequesValueDate)
-	{
-		this.chequesValueDate = chequesValueDate;
-	}
+    /** persistent field */
+    private java.math.BigDecimal chequesAmountInForeignCurrency;
 
-	public java.math.BigDecimal getChequesAmount()
-	{
-		return this.chequesAmount;
-	}
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqCurrency turqCurrency;
 
-	public void setChequesAmount(java.math.BigDecimal chequesAmount)
-	{
-		this.chequesAmount = chequesAmount;
-	}
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate;
 
-	public java.lang.String getCreatedBy()
-	{
-		return this.createdBy;
-	}
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqBanksCard turqBanksCard;
 
-	public void setCreatedBy(java.lang.String createdBy)
-	{
-		this.createdBy = createdBy;
-	}
+    /** persistent field */
+    private Set turqChequeChequeInRolls;
 
-	public java.util.Date getCreationDate()
-	{
-		return this.creationDate;
-	}
+    /** full constructor */
+    public TurqChequeCheque(java.lang.String chequesPortfolioNo, java.lang.String chequesNo, java.util.Date chequesDueDate, java.lang.String chequesDebtor, java.lang.String chequesPaymentPlace, java.util.Date chequesValueDate, java.math.BigDecimal chequesAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String bankName, java.lang.String bankBranchName, int chequesType, java.lang.String bankAccountNo, java.math.BigDecimal chequesAmountInForeignCurrency, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqChequeChequeInRolls) {
+        this.chequesPortfolioNo = chequesPortfolioNo;
+        this.chequesNo = chequesNo;
+        this.chequesDueDate = chequesDueDate;
+        this.chequesDebtor = chequesDebtor;
+        this.chequesPaymentPlace = chequesPaymentPlace;
+        this.chequesValueDate = chequesValueDate;
+        this.chequesAmount = chequesAmount;
+        this.createdBy = createdBy;
+        this.creationDate = creationDate;
+        this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
+        this.bankName = bankName;
+        this.bankBranchName = bankBranchName;
+        this.chequesType = chequesType;
+        this.bankAccountNo = bankAccountNo;
+        this.chequesAmountInForeignCurrency = chequesAmountInForeignCurrency;
+        this.turqCurrency = turqCurrency;
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
+        this.turqBanksCard = turqBanksCard;
+        this.turqChequeChequeInRolls = turqChequeChequeInRolls;
+    }
 
-	public void setCreationDate(java.util.Date creationDate)
-	{
-		this.creationDate = creationDate;
-	}
+    /** default constructor */
+    public TurqChequeCheque() {
+    }
 
-	public java.lang.String getUpdatedBy()
-	{
-		return this.updatedBy;
-	}
+    /** minimal constructor */
+    public TurqChequeCheque(java.lang.String chequesPortfolioNo, java.lang.String chequesNo, java.util.Date chequesDueDate, java.lang.String chequesDebtor, java.util.Date chequesValueDate, java.math.BigDecimal chequesAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String bankName, java.lang.String bankBranchName, int chequesType, java.math.BigDecimal chequesAmountInForeignCurrency, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqChequeChequeInRolls) {
+        this.chequesPortfolioNo = chequesPortfolioNo;
+        this.chequesNo = chequesNo;
+        this.chequesDueDate = chequesDueDate;
+        this.chequesDebtor = chequesDebtor;
+        this.chequesValueDate = chequesValueDate;
+        this.chequesAmount = chequesAmount;
+        this.createdBy = createdBy;
+        this.creationDate = creationDate;
+        this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
+        this.bankName = bankName;
+        this.bankBranchName = bankBranchName;
+        this.chequesType = chequesType;
+        this.chequesAmountInForeignCurrency = chequesAmountInForeignCurrency;
+        this.turqCurrency = turqCurrency;
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
+        this.turqBanksCard = turqBanksCard;
+        this.turqChequeChequeInRolls = turqChequeChequeInRolls;
+    }
 
-	public void setUpdatedBy(java.lang.String updatedBy)
-	{
-		this.updatedBy = updatedBy;
-	}
+    public java.lang.Integer getId() {
+        return this.id;
+    }
 
-	public java.util.Date getLastModified()
-	{
-		return this.lastModified;
-	}
+    public void setId(java.lang.Integer id) {
+        this.id = id;
+    }
 
-	public void setLastModified(java.util.Date lastModified)
-	{
-		this.lastModified = lastModified;
-	}
+    public java.lang.String getChequesPortfolioNo() {
+        return this.chequesPortfolioNo;
+    }
 
-	public java.lang.String getBankName()
-	{
-		return this.bankName;
-	}
+    public void setChequesPortfolioNo(java.lang.String chequesPortfolioNo) {
+        this.chequesPortfolioNo = chequesPortfolioNo;
+    }
 
-	public void setBankName(java.lang.String bankName)
-	{
-		this.bankName = bankName;
-	}
+    public java.lang.String getChequesNo() {
+        return this.chequesNo;
+    }
 
-	public java.lang.String getBankBranchName()
-	{
-		return this.bankBranchName;
-	}
+    public void setChequesNo(java.lang.String chequesNo) {
+        this.chequesNo = chequesNo;
+    }
 
-	public void setBankBranchName(java.lang.String bankBranchName)
-	{
-		this.bankBranchName = bankBranchName;
-	}
+    public java.util.Date getChequesDueDate() {
+        return this.chequesDueDate;
+    }
 
-	public int getChequesType()
-	{
-		return this.chequesType;
-	}
+    public void setChequesDueDate(java.util.Date chequesDueDate) {
+        this.chequesDueDate = chequesDueDate;
+    }
 
-	public void setChequesType(int chequesType)
-	{
-		this.chequesType = chequesType;
-	}
+    public java.lang.String getChequesDebtor() {
+        return this.chequesDebtor;
+    }
 
-	public java.lang.String getBankAccountNo()
-	{
-		return this.bankAccountNo;
-	}
+    public void setChequesDebtor(java.lang.String chequesDebtor) {
+        this.chequesDebtor = chequesDebtor;
+    }
 
-	public void setBankAccountNo(java.lang.String bankAccountNo)
-	{
-		this.bankAccountNo = bankAccountNo;
-	}
+    public java.lang.String getChequesPaymentPlace() {
+        return this.chequesPaymentPlace;
+    }
 
-	public java.math.BigDecimal getChequesAmountInForeignCurrency()
-	{
-		return this.chequesAmountInForeignCurrency;
-	}
+    public void setChequesPaymentPlace(java.lang.String chequesPaymentPlace) {
+        this.chequesPaymentPlace = chequesPaymentPlace;
+    }
 
-	public void setChequesAmountInForeignCurrency(java.math.BigDecimal chequesAmountInForeignCurrency)
-	{
-		this.chequesAmountInForeignCurrency = chequesAmountInForeignCurrency;
-	}
+    public java.util.Date getChequesValueDate() {
+        return this.chequesValueDate;
+    }
 
-	public com.turquaz.engine.dal.TurqCurrency getTurqCurrency()
-	{
-		return this.turqCurrency;
-	}
+    public void setChequesValueDate(java.util.Date chequesValueDate) {
+        this.chequesValueDate = chequesValueDate;
+    }
 
-	public void setTurqCurrency(com.turquaz.engine.dal.TurqCurrency turqCurrency)
-	{
-		this.turqCurrency = turqCurrency;
-	}
+    public java.math.BigDecimal getChequesAmount() {
+        return this.chequesAmount;
+    }
 
-	public com.turquaz.engine.dal.TurqCurrencyExchangeRate getTurqCurrencyExchangeRate()
-	{
-		return this.turqCurrencyExchangeRate;
-	}
+    public void setChequesAmount(java.math.BigDecimal chequesAmount) {
+        this.chequesAmount = chequesAmount;
+    }
 
-	public void setTurqCurrencyExchangeRate(com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate)
-	{
-		this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
-	}
+    public java.lang.String getCreatedBy() {
+        return this.createdBy;
+    }
 
-	public com.turquaz.engine.dal.TurqBanksCard getTurqBanksCard()
-	{
-		return this.turqBanksCard;
-	}
+    public void setCreatedBy(java.lang.String createdBy) {
+        this.createdBy = createdBy;
+    }
 
-	public void setTurqBanksCard(com.turquaz.engine.dal.TurqBanksCard turqBanksCard)
-	{
-		this.turqBanksCard = turqBanksCard;
-	}
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
 
-	public java.util.Set getTurqChequeChequeInRolls()
-	{
-		return this.turqChequeChequeInRolls;
-	}
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
+    }
 
-	public void setTurqChequeChequeInRolls(java.util.Set turqChequeChequeInRolls)
-	{
-		this.turqChequeChequeInRolls = turqChequeChequeInRolls;
-	}
+    public java.lang.String getUpdatedBy() {
+        return this.updatedBy;
+    }
 
-	public String toString()
-	{
-		return new ToStringBuilder(this).append("id", getId()).toString();
-	}
+    public void setUpdatedBy(java.lang.String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 
-	public boolean equals(Object other)
-	{
-		if (!(other instanceof TurqChequeCheque))
-			return false;
-		TurqChequeCheque castOther = (TurqChequeCheque) other;
-		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
-	}
+    public java.util.Date getLastModified() {
+        return this.lastModified;
+    }
 
-	public int hashCode()
-	{
-		return new HashCodeBuilder().append(getId()).toHashCode();
-	}
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    public java.lang.String getBankName() {
+        return this.bankName;
+    }
+
+    public void setBankName(java.lang.String bankName) {
+        this.bankName = bankName;
+    }
+
+    public java.lang.String getBankBranchName() {
+        return this.bankBranchName;
+    }
+
+    public void setBankBranchName(java.lang.String bankBranchName) {
+        this.bankBranchName = bankBranchName;
+    }
+
+    public int getChequesType() {
+        return this.chequesType;
+    }
+
+    public void setChequesType(int chequesType) {
+        this.chequesType = chequesType;
+    }
+
+    public java.lang.String getBankAccountNo() {
+        return this.bankAccountNo;
+    }
+
+    public void setBankAccountNo(java.lang.String bankAccountNo) {
+        this.bankAccountNo = bankAccountNo;
+    }
+
+    public java.math.BigDecimal getChequesAmountInForeignCurrency() {
+        return this.chequesAmountInForeignCurrency;
+    }
+
+    public void setChequesAmountInForeignCurrency(java.math.BigDecimal chequesAmountInForeignCurrency) {
+        this.chequesAmountInForeignCurrency = chequesAmountInForeignCurrency;
+    }
+
+    public com.turquaz.engine.dal.TurqCurrency getTurqCurrency() {
+        return this.turqCurrency;
+    }
+
+    public void setTurqCurrency(com.turquaz.engine.dal.TurqCurrency turqCurrency) {
+        this.turqCurrency = turqCurrency;
+    }
+
+    public com.turquaz.engine.dal.TurqCurrencyExchangeRate getTurqCurrencyExchangeRate() {
+        return this.turqCurrencyExchangeRate;
+    }
+
+    public void setTurqCurrencyExchangeRate(com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate) {
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
+    }
+
+    public com.turquaz.engine.dal.TurqBanksCard getTurqBanksCard() {
+        return this.turqBanksCard;
+    }
+
+    public void setTurqBanksCard(com.turquaz.engine.dal.TurqBanksCard turqBanksCard) {
+        this.turqBanksCard = turqBanksCard;
+    }
+
+    public java.util.Set getTurqChequeChequeInRolls() {
+        return this.turqChequeChequeInRolls;
+    }
+
+    public void setTurqChequeChequeInRolls(java.util.Set turqChequeChequeInRolls) {
+        this.turqChequeChequeInRolls = turqChequeChequeInRolls;
+    }
+
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("id", getId())
+            .toString();
+    }
+
+    public boolean equals(Object other) {
+        if ( !(other instanceof TurqChequeCheque) ) return false;
+        TurqChequeCheque castOther = (TurqChequeCheque) other;
+        return new EqualsBuilder()
+            .append(this.getId(), castOther.getId())
+            .isEquals();
+    }
+
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
 }

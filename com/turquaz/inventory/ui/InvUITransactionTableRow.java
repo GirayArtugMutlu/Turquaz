@@ -14,6 +14,7 @@ import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.dal.TurqInventoryTransactionType;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
@@ -84,7 +85,11 @@ public class InvUITransactionTableRow implements ITableRow
 		invTrans.setTransactionsCumilativePrice(new BigDecimal(0));
 		invTrans.setTransactionsDiscount(new BigDecimal(0));
 		invTrans.setTransactionsDiscountAmount(new BigDecimal(0));
-		invTrans.setTransactionType(EngBLCommon.INVENTORY_TRANS_CONSIGNMENT);
+		
+		TurqInventoryTransactionType transType = new TurqInventoryTransactionType();
+		transType.setId(new Integer(EngBLCommon.INV_TRANS_BUY_SELL));
+		invTrans.setTurqInventoryTransactionType(transType);
+	
 	}
 
 	/**

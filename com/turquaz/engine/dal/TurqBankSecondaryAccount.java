@@ -7,138 +7,129 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqBankSecondaryAccount implements Serializable
-{
-	/** identifier field */
-	private java.lang.Integer id;
-	/** persistent field */
-	private java.lang.String accountName;
-	/** persistent field */
-	private java.lang.String accountCode;
-	/** persistent field */
-	private java.lang.String createdBy;
-	/** persistent field */
-	private java.util.Date creationDate;
-	/** persistent field */
-	private java.lang.String updatedBy;
-	/** persistent field */
-	private java.util.Date lastModified;
-	/** persistent field */
-	private Set turqBankCardsSecondaryAccounts;
+public class TurqBankSecondaryAccount implements Serializable {
 
-	/** full constructor */
-	public TurqBankSecondaryAccount(java.lang.String accountName, java.lang.String accountCode, java.lang.String createdBy,
-			java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqBankCardsSecondaryAccounts)
-	{
-		this.accountName = accountName;
-		this.accountCode = accountCode;
-		this.createdBy = createdBy;
-		this.creationDate = creationDate;
-		this.updatedBy = updatedBy;
-		this.lastModified = lastModified;
-		this.turqBankCardsSecondaryAccounts = turqBankCardsSecondaryAccounts;
-	}
+    /** identifier field */
+    private java.lang.Integer id;
 
-	/** default constructor */
-	public TurqBankSecondaryAccount()
-	{
-	}
+    /** persistent field */
+    private java.lang.String accountName;
 
-	public java.lang.Integer getId()
-	{
-		return this.id;
-	}
+    /** persistent field */
+    private java.lang.String accountCode;
 
-	public void setId(java.lang.Integer id)
-	{
-		this.id = id;
-	}
+    /** persistent field */
+    private java.lang.String createdBy;
 
-	public java.lang.String getAccountName()
-	{
-		return this.accountName;
-	}
+    /** persistent field */
+    private java.util.Date creationDate;
 
-	public void setAccountName(java.lang.String accountName)
-	{
-		this.accountName = accountName;
-	}
+    /** persistent field */
+    private java.lang.String updatedBy;
 
-	public java.lang.String getAccountCode()
-	{
-		return this.accountCode;
-	}
+    /** persistent field */
+    private java.util.Date lastModified;
 
-	public void setAccountCode(java.lang.String accountCode)
-	{
-		this.accountCode = accountCode;
-	}
+    /** persistent field */
+    private Set turqBankCardsSecondaryAccounts;
 
-	public java.lang.String getCreatedBy()
-	{
-		return this.createdBy;
-	}
+    /** full constructor */
+    public TurqBankSecondaryAccount(java.lang.String accountName, java.lang.String accountCode, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqBankCardsSecondaryAccounts) {
+        this.accountName = accountName;
+        this.accountCode = accountCode;
+        this.createdBy = createdBy;
+        this.creationDate = creationDate;
+        this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
+        this.turqBankCardsSecondaryAccounts = turqBankCardsSecondaryAccounts;
+    }
 
-	public void setCreatedBy(java.lang.String createdBy)
-	{
-		this.createdBy = createdBy;
-	}
+    /** default constructor */
+    public TurqBankSecondaryAccount() {
+    }
 
-	public java.util.Date getCreationDate()
-	{
-		return this.creationDate;
-	}
+    public java.lang.Integer getId() {
+        return this.id;
+    }
 
-	public void setCreationDate(java.util.Date creationDate)
-	{
-		this.creationDate = creationDate;
-	}
+    public void setId(java.lang.Integer id) {
+        this.id = id;
+    }
 
-	public java.lang.String getUpdatedBy()
-	{
-		return this.updatedBy;
-	}
+    public java.lang.String getAccountName() {
+        return this.accountName;
+    }
 
-	public void setUpdatedBy(java.lang.String updatedBy)
-	{
-		this.updatedBy = updatedBy;
-	}
+    public void setAccountName(java.lang.String accountName) {
+        this.accountName = accountName;
+    }
 
-	public java.util.Date getLastModified()
-	{
-		return this.lastModified;
-	}
+    public java.lang.String getAccountCode() {
+        return this.accountCode;
+    }
 
-	public void setLastModified(java.util.Date lastModified)
-	{
-		this.lastModified = lastModified;
-	}
+    public void setAccountCode(java.lang.String accountCode) {
+        this.accountCode = accountCode;
+    }
 
-	public java.util.Set getTurqBankCardsSecondaryAccounts()
-	{
-		return this.turqBankCardsSecondaryAccounts;
-	}
+    public java.lang.String getCreatedBy() {
+        return this.createdBy;
+    }
 
-	public void setTurqBankCardsSecondaryAccounts(java.util.Set turqBankCardsSecondaryAccounts)
-	{
-		this.turqBankCardsSecondaryAccounts = turqBankCardsSecondaryAccounts;
-	}
+    public void setCreatedBy(java.lang.String createdBy) {
+        this.createdBy = createdBy;
+    }
 
-	public String toString()
-	{
-		return new ToStringBuilder(this).append("id", getId()).toString();
-	}
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
 
-	public boolean equals(Object other)
-	{
-		if (!(other instanceof TurqBankSecondaryAccount))
-			return false;
-		TurqBankSecondaryAccount castOther = (TurqBankSecondaryAccount) other;
-		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
-	}
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
+    }
 
-	public int hashCode()
-	{
-		return new HashCodeBuilder().append(getId()).toHashCode();
-	}
+    public java.lang.String getUpdatedBy() {
+        return this.updatedBy;
+    }
+
+    public void setUpdatedBy(java.lang.String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public java.util.Date getLastModified() {
+        return this.lastModified;
+    }
+
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    public java.util.Set getTurqBankCardsSecondaryAccounts() {
+        return this.turqBankCardsSecondaryAccounts;
+    }
+
+    public void setTurqBankCardsSecondaryAccounts(java.util.Set turqBankCardsSecondaryAccounts) {
+        this.turqBankCardsSecondaryAccounts = turqBankCardsSecondaryAccounts;
+    }
+
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("id", getId())
+            .toString();
+    }
+
+    public boolean equals(Object other) {
+        if ( !(other instanceof TurqBankSecondaryAccount) ) return false;
+        TurqBankSecondaryAccount castOther = (TurqBankSecondaryAccount) other;
+        return new EqualsBuilder()
+            .append(this.getId(), castOther.getId())
+            .isEquals();
+    }
+
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
 }

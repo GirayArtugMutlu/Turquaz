@@ -143,13 +143,6 @@
         not-null="true"
         length="4"
     />
-    <property
-        name="transactionType"
-        type="int"
-        column="transaction_type"
-        not-null="true"
-        length="4"
-    />
 
     <!-- Associations -->
   
@@ -160,6 +153,14 @@
         not-null="true"
     >
         <column name="inventory_warehouses_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqInventoryTransactionType -->
+    <many-to-one
+        name="turqInventoryTransactionType"
+        class="com.turquaz.engine.dal.TurqInventoryTransactionType"
+        not-null="true"
+    >
+        <column name="transaction_type" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqInventoryUnit -->
     <many-to-one
