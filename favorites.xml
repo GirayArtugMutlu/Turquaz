@@ -1,8 +1,6 @@
 <tree>
-<treeitem text="Stok Hareketi" class="com.turquaz.inventory.ui.InvUITransactionAdd"  >
+<treeitem text="Cash Transaction" class="com.turquaz.current.ui.CurUITransactionAdd"  >
 </treeitem>
-<treeitem text="Depo Ekle" class="com.turquaz.inventory.ui.InvUIWarehouseAdd"  >
-</treeitem>
-<treeitem text="Current Card Add" class="com.turquaz.current.ui.CurUICurrentCardAdd"  >
+<treeitem text="Transaction Search" class="com.turquaz.current.ui.CurUITransactionSearch"  >
 </treeitem>
 </tree>

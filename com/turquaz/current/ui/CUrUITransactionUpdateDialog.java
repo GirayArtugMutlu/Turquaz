@@ -18,12 +18,13 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
-import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.current.ui.CurUITransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
 
 /**
@@ -75,7 +76,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			toolDelete = new ToolItem(toolBar1,SWT.NULL);
 			compTransactionAdd = new CurUITransactionAdd(dialogShell,SWT.NULL);
 	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(546,284));
+			dialogShell.setSize(new org.eclipse.swt.graphics.Point(546,279));
 	
 			GridData coolBar1LData = new GridData();
 			coolBar1LData.verticalAlignment = GridData.FILL;
@@ -98,6 +99,11 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			toolUpdate.setText("Update");
 			final org.eclipse.swt.graphics.Image toolUpdateimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
 			toolUpdate.setImage(toolUpdateimage);
+			toolUpdate.addSelectionListener( new SelectionAdapter() {
+				public void widgetDefaultSelected(SelectionEvent evt) {
+					toolUpdateWidgetDefaultSelected(evt);
+				}
+			});
 	
 			toolDelete.setText("Delete");
 			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
@@ -114,7 +120,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			compTransactionAddLData.grabExcessHorizontalSpace = true;
 			compTransactionAddLData.grabExcessVerticalSpace = true;
 			compTransactionAdd.setLayoutData(compTransactionAddLData);
-			compTransactionAdd.setSize(new org.eclipse.swt.graphics.Point(536,231));
+			compTransactionAdd.setSize(new org.eclipse.swt.graphics.Point(536,226));
 			compTransactionAdd.layout();
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
@@ -131,7 +137,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 					toolDeleteimage.dispose();
 				}
 			});
-			Rectangle bounds = dialogShell.computeTrim(0, 0, 546,284);
+			Rectangle bounds = dialogShell.computeTrim(0, 0, 546,279);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
 			dialogShell.open();
@@ -206,5 +212,12 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	}
 	}
 	
+	/** Auto-generated event handler method */
+	protected void toolUpdateWidgetDefaultSelected(SelectionEvent evt){
 	
+	
+		
+		
+		
+	}
 }

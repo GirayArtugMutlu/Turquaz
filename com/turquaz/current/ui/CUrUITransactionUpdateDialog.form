@@ -22,7 +22,7 @@
 		</Layout>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[546, 284]"/>
+				<Dimension value="[546, 279]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -84,6 +84,7 @@
 											<LayoutConstraint/>
 										</Constraints>
 										<Events>
+											<EventHandler event="widgetDefaultSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolUpdateWidgetDefaultSelected"/>
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Update"/>
@@ -130,10 +131,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[536, 231]"/>
+						<Dimension value="[536, 226]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 48, 536, 231]"/>
+						<Rectangle value="[5, 48, 536, 226]"/>
 					</Property>
 				</Properties>
 			</Component>

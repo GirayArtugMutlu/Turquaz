@@ -6,11 +6,14 @@
  */
 package com.turquaz.current.bl;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import com.turquaz.current.dal.CurDALSearchTransaction;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
 /**
@@ -41,6 +44,33 @@ public class CurBLSearchTransaction {
 		}
 		
 		
+	}
+	
+	public void updateCurrentTransaction(TurqCurrentCard curCard,java.util.Date transDate,
+			String documentNo,boolean isCredit,BigDecimal amount,
+			TurqAccountingAccount account,TurqCurrentTransaction curTrans)throws Exception{
+	try{
+		
+		curTrans.setTurqCurrentCard(curCard);
+		curTrans.setTransactionsDate(transDate);
+		curTrans.setTransactionsDocumentNo(documentNo);
+		
+		
+		
+		
+		
+			
+			
+			
+			
+	}
+	catch(Exception ex){
+		throw ex;
+	}
+		
+		
+		
+	
 	}
 	
 	
