@@ -277,7 +277,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			{
 				account = (TurqAccountingAccount)((Object[])allAccounts.get(i))[0];
 				BigDecimal transDept=(BigDecimal)((Object[])allAccounts.get(i))[1];
-				BigDecimal transCredit=(BigDecimal)((Object[])allAccounts.get(i))[1];
+				BigDecimal transCredit=(BigDecimal)((Object[])allAccounts.get(i))[2];
 				parentId = account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId();
 		
 				if(parentId.intValue()==-1){
