@@ -457,7 +457,18 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				TurqAccountingAccount parentAcc=account.getTurqAccountingAccountByParentAccount();
 				LocateAccountToTable(parentAcc);
 				TableTreeItem parentItem=(TableTreeItem)treeItems.get(parentId);
-				TableTreeItem item = new TableTreeItem(parentItem,SWT.NULL);	
+				
+				int k;
+				String accCode=account.getAccountCode();
+				TableTreeItem parentItems[]=parentItem.getItems();
+				for(k=0; k<parentItems.length; k++)
+				{
+					TableTreeItem pItem=parentItems[k];
+					if (accCode.compareTo(pItem.getText(0)) < 0)
+						break;
+				}
+				
+				TableTreeItem item = new TableTreeItem(parentItem,SWT.NULL,k);	
 				item.setText(0,account.getAccountCode());
 				item.setText(1,account.getAccountName());
 				item.setText(2,"0.00"); //$NON-NLS-1$
