@@ -90,7 +90,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 	private Text txtDocumentNo;
 	private CLabel lblDocumentNo;
 	private Table tableTransactions;
-	private Composite composite1;
+	private Composite compAccTransactionSearch;
 	private AccBLTransactionSearch blTransSearch = new AccBLTransactionSearch();
 	public AccUITransactionSearch(Composite parent, int style) {
 		super(parent, style);
@@ -106,7 +106,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 			preInitGUI();
 
 			{
-				composite1 = new Composite(this, SWT.NONE);
+				compAccTransactionSearch = new Composite(this, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout(2, true);
 				composite1Layout.marginWidth = 5;
 				composite1Layout.marginHeight = 5;
@@ -118,10 +118,10 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 				composite1LData.horizontalAlignment = GridData.FILL;
 				composite1LData.heightHint = 127;
 				composite1LData.grabExcessHorizontalSpace = true;
-				composite1.setLayoutData(composite1LData);
-				composite1.setLayout(composite1Layout);
+				compAccTransactionSearch.setLayoutData(composite1LData);
+				compAccTransactionSearch.setLayout(composite1Layout);
 				{
-					lblDocumentNo = new CLabel(composite1, SWT.NONE);
+					lblDocumentNo = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblDocumentNoLData = new GridData();
 					lblDocumentNoLData.widthHint = 99;
 					lblDocumentNoLData.heightHint = 24;
@@ -133,7 +133,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 						24));
 				}
 				{
-					txtDocumentNo = new Text(composite1, SWT.NONE);
+					txtDocumentNo = new Text(compAccTransactionSearch, SWT.NONE);
 					GridData txtDocumentNoLData = new GridData();
 					txtDocumentNoLData.widthHint = 135;
 					txtDocumentNoLData.heightHint = 17;
@@ -143,7 +143,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 						17));
 				}
 				{
-					lblTransactionType = new CLabel(composite1, SWT.NONE);
+					lblTransactionType = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblTransactionTypeLData = new GridData();
 					lblTransactionTypeLData.widthHint = 100;
 					lblTransactionTypeLData.heightHint = 20;
@@ -154,7 +154,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 						.setSize(new org.eclipse.swt.graphics.Point(100, 20));
 				}
 				{
-					comboTransType = new CCombo(composite1, SWT.READ_ONLY);
+					comboTransType = new CCombo(compAccTransactionSearch, SWT.READ_ONLY);
 					GridData comboTransTypeLData = new GridData();
 					comboTransTypeLData.widthHint = 99;
 					comboTransTypeLData.heightHint = 19;
@@ -171,14 +171,14 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 						19));
 				}
 				{
-					lblStartDate = new CLabel(composite1, SWT.NONE);
+					lblStartDate = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblStartDateLData = new GridData();
 					lblStartDate.setLayoutData(lblStartDateLData);
 					lblStartDate.setText(Messages
 						.getString("AccUITransactionSearch.3")); //$NON-NLS-1$
 				}
 				{
-					dateStartDate = new DatePicker(composite1, SWT.NONE);
+					dateStartDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
 					GridData dateStartDateLData = new GridData();
 					dateStartDateLData.widthHint = 174;
 					dateStartDateLData.heightHint = 24;
@@ -189,14 +189,14 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 					dateStartDate.layout();
 				}
 				{
-					lblEndDate = new CLabel(composite1, SWT.NONE);
+					lblEndDate = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblEndDateLData = new GridData();
 					lblEndDate.setLayoutData(lblEndDateLData);
 					lblEndDate.setText(Messages
 						.getString("AccUITransactionSearch.4")); //$NON-NLS-1$
 				}
 				{
-					dateEndDate = new DatePicker(composite1, SWT.NONE);
+					dateEndDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
 					GridData dateEndDateLData = new GridData();
 					dateEndDateLData.widthHint = 173;
 					dateEndDateLData.heightHint = 25;
@@ -206,7 +206,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 						25));
 					dateEndDate.layout();
 				}
-				composite1.layout();
+				compAccTransactionSearch.layout();
 			}
 			tableTransactions = new Table(this,SWT.MULTI| SWT.FULL_SELECTION);
 			tableColumnTransType = new TableColumn(tableTransactions,SWT.NULL);

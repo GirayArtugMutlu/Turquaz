@@ -107,6 +107,17 @@ public class InvBLCardUpdate {
 		}
 		
 	}
+	public boolean hasTransactions (TurqInventoryCard card) throws Exception{
+		
+		try{	
+			
+		return cardUpdate.hasTransactions(card);
+		
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
 	
 	
 

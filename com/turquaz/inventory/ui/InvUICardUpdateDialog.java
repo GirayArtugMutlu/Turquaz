@@ -540,6 +540,15 @@ public class InvUICardUpdateDialog extends Dialog{
       msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
       if (msg.open()==SWT.NO)
        return;
+     
+     // if the inventory card contains transactions 
+     if(cardUpdate.hasTransactions(invCard))
+     {
+     	MessageBox msg2 = new MessageBox(this.getParent(),SWT.ICON_WARNING);
+    	msg2.setMessage("Inventory card contains transactions and \ncan not be deleted. Delete them first. ");  //$NON-NLS-1$
+		msg2.open();
+		return;
+     }
     //First Delete Groups
     deleteInvGroups();
     //delete Units
@@ -547,7 +556,7 @@ public class InvUICardUpdateDialog extends Dialog{
     // delete Prices
     deletePrices();
     // delete invCard
- 
+    
     cardUpdate.deleteObject(invCard);
     msg = new MessageBox(this.getParent(),SWT.NULL);
 	msg.setMessage(Messages.getString("InvUICardUpdateDialog.6"));	 //$NON-NLS-1$
