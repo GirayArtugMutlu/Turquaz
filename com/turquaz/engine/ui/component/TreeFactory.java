@@ -34,7 +34,8 @@ import com.turquaz.accounting.ui.AccUITransactionAdd;
 import com.turquaz.accounting.ui.AccUITransactionCollect;
 import com.turquaz.accounting.ui.AccUITransactionPayment;
 import com.turquaz.accounting.ui.AccUITransactionSearch;
-import com.turquaz.accounting.ui.reports.AccUIAccountingBalance;
+import com.turquaz.accounting.ui.reports.AccUIAccountingAdvancedBalance;
+
 import com.turquaz.accounting.ui.reports.AccUIAccountingGeneralLedger;
 import com.turquaz.accounting.ui.reports.AccUIAccountingJournal;
 import com.turquaz.accounting.ui.reports.AccUISubsidiaryLedger;
@@ -221,10 +222,10 @@ public final class TreeFactory {
 		TreeItem actionReports = new TreeItem(tree,SWT.NULL);
 		actionReports.setText(Messages.getString("TreeFactory.39"));  //$NON-NLS-1$
 		
-		if(EngBLPermissions.getPermission(AccUIAccountingBalance.class.getName())>0){
+		if(EngBLPermissions.getPermission(AccUIAccountingAdvancedBalance.class.getName())>0){
 			item = new TreeItem(actionReports,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.29")); //$NON-NLS-1$
-			item.setData(AccUIAccountingBalance.class.getName());
+			item.setData(AccUIAccountingAdvancedBalance.class.getName());
 			}
 		
 		books.setExpanded(true);

@@ -64,16 +64,16 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.SearchComposite;
+
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Composite {
+public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Composite implements SearchComposite {
 	private TableColumn tableColumnTotalCredit;
 	private TableTree tableTreeAccounts;
 	private Composite compTable;
-	private Button btnShow;
 	private DatePicker datePickerEnd;
 	private DatePicker datePickerStart;
 	private Button checkDateRange;
@@ -191,16 +191,6 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				{
 					datePickerEnd = new DatePicker(compAdvanced, SWT.NONE);
 				}
-				{
-					btnShow = new Button(compAdvanced, SWT.PUSH | SWT.CENTER);
-					btnShow.setText(Messages
-						.getString("AccUIAccountingAdvancedBalance.4")); //$NON-NLS-1$
-						btnShow.addMouseListener(new MouseAdapter() {
-							public void mouseUp(MouseEvent evt) {
-								btnShowSingleClick();
-							}
-						});
-				}
 			}
 			{
 				compTable = new Composite(this, SWT.NONE);
@@ -265,7 +255,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 		}
 	}
 	
-	public void btnShowSingleClick()
+	public void search()
 	{
 		try
 		{
@@ -378,7 +368,11 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 	}
 	public void exportToExcel(){
 		
-		EngBLUtils.Export2Excel(tableTreeAccounts.getTable());
+		EngBLUtils.Export2Excel(tableTreeAccounts.getTable());		
+	}
+	
+	public void delete()
+	{
 		
-	 }
+	}
 }
