@@ -22,6 +22,8 @@ package com.turquaz.inventory.dal;
 import java.util.List;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
+import net.sf.hibernate.Transaction;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqInventoryCard;
 
@@ -40,7 +42,8 @@ public class InvDALCardUpdate
 		{
 			Session session = EngDALSessionFactory.openSession();
 			String query = "Select transactions from TurqInventoryTransaction as transactions "
-					+ "where transactions.turqInventoryCard = :invCard ";
+					+ "where transactions.turqInventoryCard = :invCard" +
+					 " and transactions.turqInventoryTransactionType.id <>" +EngBLCommon.INV_TRANS_INITIAL;
 			Query q = session.createQuery(query);
 			q.setParameter("invCard", card);
 			List list = q.list();
@@ -53,6 +56,32 @@ public class InvDALCardUpdate
 			{
 				return false;
 			}
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	public static void deleteInitialTransactions(TurqInventoryCard invCard) throws Exception
+	{
+		try
+		{
+
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			String query = "Select invTrans from TurqInventoryTransaction as invTrans "
+					+ " where invTrans.turqInventoryTransactionType.id = " + EngBLCommon.INV_TRANS_INITIAL
+					+ " and invTrans.turqInventoryCard = :invCard ";
+			Query q = session.createQuery(query);
+			q.setParameter("invCard", invCard);
+			List list = q.list();
+			for (int i = 0; i < list.size(); i++)
+			{
+				session.delete(list.get(i));
+			}
+			session.flush();
+			tx.commit();
+			session.close();
 		}
 		catch (Exception ex)
 		{

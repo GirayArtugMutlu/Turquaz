@@ -122,8 +122,7 @@ public class InvDALCardAdd
 			q.setParameter("invCard",invCard);
 			List list = q.list();
 			session.close();
-			return list;
-			
+			return list;			
 			
 		}
 		catch(Exception ex)

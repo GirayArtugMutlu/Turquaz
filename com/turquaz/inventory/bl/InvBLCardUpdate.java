@@ -84,7 +84,7 @@ public class InvBLCardUpdate
 	{
 		try
 		{
-			deleteInvCardUnits(session, invCard);
+			deleteInvCardPrices(session, invCard);
 			session.flush();
 			InvBLCardAdd.saveInvCardPrices(session, invCard, invPrices);
 		}
@@ -153,6 +153,12 @@ public class InvBLCardUpdate
 		Transaction tx = session.beginTransaction();
 		try
 		{
+			deleteInvCardAccounts(session,card);
+			deleteInvCardGroups(session,card);
+			deleteInvCardPrices(session,card);
+			deleteInvCardUnits(session,card);
+			InvDALCardUpdate.deleteInitialTransactions(card);
+			EngDALCommon.deleteObject(session,card);
 			session.flush();
 			tx.commit();
 			session.close();

@@ -274,6 +274,7 @@ public class InvDALSearchTransaction
 			String query = "Select transaction from TurqInventoryTransaction as transaction" + " where transaction.id=" + transId;
 			Query q = session.createQuery(query);
 			List list = q.list();
+			session.close();
 			return (TurqInventoryTransaction) list.get(0);
 		}
 		catch (Exception ex)
@@ -297,7 +298,7 @@ public class InvDALSearchTransaction
 				cons = (TurqConsignment) it.next();
 				ConDALUpdateConsignment.initiliazeConsignment(cons);
 			}
-		
+		    session.close();
 			return cons;
 		}
 		catch (Exception ex)
