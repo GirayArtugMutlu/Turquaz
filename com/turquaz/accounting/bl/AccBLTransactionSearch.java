@@ -28,8 +28,12 @@ package com.turquaz.accounting.bl;
 
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import com.turquaz.accounting.dal.AccDALTransactionAdd;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
+import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 
 /**
@@ -41,6 +45,7 @@ import com.turquaz.engine.dal.TurqAccountingTransaction;
 public class AccBLTransactionSearch {
 	
 	private AccDALTransactionSearch dalTransSearch = new AccDALTransactionSearch();
+	AccDALTransactionAdd dalTransAdd = new AccDALTransactionAdd();
 	Calendar cal = Calendar.getInstance();
 	
 	public AccBLTransactionSearch(){
@@ -111,6 +116,32 @@ public class AccBLTransactionSearch {
 	    }
 	    
 	    
+	}
+	public void addToJournal(TurqAccountingTransaction trans,Date journalDate)throws Exception
+	{
+	    try{
+	        
+	       TurqAccountingJournal journal = new TurqAccountingJournal();
+	       journal.setCreatedBy(System.getProperty("user"));
+	       journal.setUpdatedBy(System.getProperty("user"));
+			
+	       journal.setLastModified(new java.sql.Date( cal.getTime().getTime()));
+	       journal.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
+		   journal.setJournalDate(journalDate);
+		   dalTransAdd.save(journal);
+	       
+			    
+	       trans.setTurqAccountingJournal(journal);
+	       trans.setLastModified(new java.sql.Date( cal.getTime().getTime()));
+	       trans.setUpdatedBy(System.getProperty("user"));
+			dalTransAdd.update(trans);
+	        
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
 	}
 	
 	

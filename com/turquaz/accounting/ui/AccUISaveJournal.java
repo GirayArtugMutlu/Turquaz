@@ -13,6 +13,10 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.engine.ui.component.DatePicker;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.graphics.Rectangle;
@@ -41,6 +45,8 @@ import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 	private Table tableAccountingTransaction;
 	private TableColumn tableColumnDate;
+	private CLabel lblJournalDate;
+	private DatePicker datePickerJournalDate;
 	private Button btnSaveJournal;
 	private TableColumn tableColumnDefinition;
 	private TableColumn tableColumnTotalAmount;
@@ -92,16 +98,17 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 	private void initGUI() {
 		try {
 			this.setLayout(new GridLayout());
-			this.setSize(569, 305);
+			this.setSize(568, 311);
             {
                 tableAccountingTransaction = new Table(this, SWT.CHECK | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
                 GridData tableAccountingTransactionLData = new GridData();
                 tableAccountingTransaction.setHeaderVisible(true);
                 tableAccountingTransaction.setLinesVisible(true);
                 tableAccountingTransactionLData.grabExcessHorizontalSpace = true;
-                tableAccountingTransactionLData.grabExcessVerticalSpace = true;
-                tableAccountingTransactionLData.horizontalAlignment = GridData.FILL;
                 tableAccountingTransactionLData.verticalAlignment = GridData.FILL;
+                tableAccountingTransactionLData.horizontalSpan = 2;
+                tableAccountingTransactionLData.horizontalAlignment = GridData.FILL;
+                tableAccountingTransactionLData.grabExcessVerticalSpace = true;
                 tableAccountingTransaction.setLayoutData(tableAccountingTransactionLData);
                 {
                     tableColumnTransType = new TableColumn(
@@ -140,8 +147,30 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
                 }
             }
             {
+                lblJournalDate = new CLabel(this, SWT.NONE);
+                lblJournalDate.setText("Yevmiye Tarihi");
+                GridData lblJournalDateLData = new GridData();
+                lblJournalDateLData.widthHint = 92;
+                lblJournalDateLData.heightHint = 19;
+                lblJournalDate.setLayoutData(lblJournalDateLData);
+            }
+            {
+                datePickerJournalDate = new DatePicker(this, SWT.NONE);
+                GridData datePickerJournalDateLData = new GridData();
+                datePickerJournalDateLData.widthHint = 159;
+                datePickerJournalDateLData.heightHint = 24;
+                datePickerJournalDate.setLayoutData(datePickerJournalDateLData);
+            }
+            {
                 btnSaveJournal = new Button(this, SWT.PUSH | SWT.CENTER);
                 btnSaveJournal.setText(Messages.getString("AccUISaveJournal.5")); //$NON-NLS-1$
+                btnSaveJournal.addMouseListener(new MouseAdapter() {
+                    public void mouseUp(MouseEvent evt) {
+                    
+                        saveJournalItems();
+                    
+                    }
+                });
             }
             fillTable();
 			this.layout();
@@ -152,7 +181,7 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 	
 	public void fillTable(){
 	    try{
-	        
+	      tableAccountingTransaction.removeAll();  
 	      List result = blSearch.getUnsavedTransactions();
 	      TableItem item;
 	  	
@@ -187,5 +216,26 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 	    
 	    
 	}
-
+	public void saveJournalItems(){
+	    try{
+	        TableItem items[] = tableAccountingTransaction.getItems();
+	        for(int i=0;i<items.length;i++){
+	            
+	           if( items[i].getChecked()){
+	               blSearch.addToJournal((TurqAccountingTransaction)items[i].getData(),datePickerJournalDate.getDate());
+	              
+	           }
+	            
+	            
+	        }
+	         
+	        fillTable();
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
+	    
+	}
 }
