@@ -1,5 +1,8 @@
 package com.turquaz.admin.ui;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -24,15 +27,18 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.custom.CCombo;
 
+import org.eclipse.swt.layout.GridData;
+
+
+import com.turquaz.admin.bl.AdmBLUserAdd;
+import com.turquaz.engine.dal.TurqCurrentGroup;
+import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
-public class AdmUIUserAdd extends Composite {
+public class AdmUIUserAdd extends Composite implements SecureComposite {
 	private CLabel lblUsername;
 	private Text txtUsername;
 	private Text txtPassword;
@@ -45,15 +51,8 @@ public class AdmUIUserAdd extends Composite {
 	private CLabel lblRealName;
 	private CLabel lblReTypePassword;
 	private CLabel lblPassWord;
+    private AdmBLUserAdd blUserAdd = new AdmBLUserAdd();
 
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		showGUI();
-	}
-		
 	/**
 	* Auto-generated method to display this 
 	* org.eclipse.swt.widgets.Composite inside a new Shell.
@@ -92,7 +91,7 @@ public class AdmUIUserAdd extends Composite {
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(418, 319);
+			this.setSize(452, 320);
 			{
 				lblUsername = new CLabel(this, SWT.NONE);
 				GridData lblUsernameLData = new GridData();
@@ -104,7 +103,7 @@ public class AdmUIUserAdd extends Composite {
 			{
 				txtUsername = new Text(this, SWT.NONE);
 				GridData txtUsernameLData = new GridData();
-				txtUsernameLData.heightHint = 15;
+				txtUsernameLData.heightHint = 17;
 				txtUsernameLData.widthHint = 190;
 				txtUsername.setLayoutData(txtUsernameLData);
 			}
@@ -115,8 +114,7 @@ public class AdmUIUserAdd extends Composite {
 			{
 				txtPassword = new Text(this, SWT.NONE);
 				GridData txtPasswordLData = new GridData();
-				txtPassword.setSize(160, 16);
-				txtPasswordLData.heightHint = 16;
+				txtPasswordLData.heightHint = 18;
 				txtPasswordLData.horizontalAlignment = GridData.FILL;
 				txtPassword.setLayoutData(txtPasswordLData);
 			}
@@ -131,8 +129,7 @@ public class AdmUIUserAdd extends Composite {
 			{
 				txtRePassword = new Text(this, SWT.NONE);
 				GridData txtRePasswordLData = new GridData();
-				txtRePassword.setSize(160, 16);
-				txtRePasswordLData.heightHint = 16;
+				txtRePasswordLData.heightHint = 18;
 				txtRePasswordLData.horizontalAlignment = GridData.FILL;
 				txtRePassword.setLayoutData(txtRePasswordLData);
 			}
@@ -147,9 +144,8 @@ public class AdmUIUserAdd extends Composite {
 			{
 				txtRealName = new Text(this, SWT.NONE);
 				GridData txtRealNameLData = new GridData();
-				txtRealName.setSize(160, 16);
 				txtRealNameLData.horizontalAlignment = GridData.FILL;
-				txtRealNameLData.heightHint = 16;
+				txtRealNameLData.heightHint = 17;
 				txtRealName.setLayoutData(txtRealNameLData);
 			}
 			{
@@ -200,11 +196,24 @@ public class AdmUIUserAdd extends Composite {
 	}
 	
 	public void postInitGUI(){
+	
+		try{
+		HashMap groupMap = new HashMap(); 
 		
+		List list = blUserAdd.getGroups();
+		TurqGroup group;
 		
-	//registeredGroups.fillTableAllGroups();
+		for(int i=0; i<list.size();i++){
+		group = (TurqGroup)list.get(i);
+		groupMap.put(group.getGroupsName(),group);
+		}
+		registeredGroups.fillTableAllGroups(groupMap);
 		
-		
+		}
+		catch(Exception ex){
+			
+			ex.printStackTrace();
+		}
 		
 		
 		

@@ -451,10 +451,6 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	}
 	
 
-	/** Auto-generated main method */
-	public static void main(String[] args){
-		showGUI();
-	}
 
 	/**
 	* This static method creates a new instance of this class and shows

@@ -1206,10 +1206,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	protected void rootWidgetDisposed(DisposeEvent evt){
 		this.dispose();
 	}
-	/** Auto-generated main method */
-	public static void main(String[] args){
-		showGUI2();
-	}
-
+	
 	
 }

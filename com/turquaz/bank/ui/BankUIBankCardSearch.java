@@ -310,11 +310,6 @@ public class BankUIBankCardSearch extends  Composite implements SecureComposite 
 		}
 	}
 
-	/** Auto-generated main method */
-	public static void main(String[] args){
-		showGUI();
-	}
-	
 	public void delete(){
 	}
 	

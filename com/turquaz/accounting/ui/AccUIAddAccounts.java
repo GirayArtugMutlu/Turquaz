@@ -287,11 +287,6 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	public void newForm(){
 	}
 
-	/** Auto-generated main method */
-	public static void main(String[] args){
-		showGUI();
-	}
-
 	/**
 	* This static method creates a new instance of this class and shows
 	* it inside a new Shell.

@@ -251,11 +251,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 	public void postInitGUI(){
 	}
 
-	/** Auto-generated main method */
-	public static void main(String[] args){
-		showGUI();
-	}
-
+	
 	
 	boolean verifyFields(){
 		

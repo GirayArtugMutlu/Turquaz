@@ -90,5 +90,22 @@ public class EngDALCommon {
 			throw ex;
 		}
 	}
+	public List getGroups()throws Exception {
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			String query = "from TurqGroup as group";
+			Query q = session.createQuery(query); 
+			List list = q.list();
+			tx.commit();
+			session.close();
+			return list;
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
 
 }
