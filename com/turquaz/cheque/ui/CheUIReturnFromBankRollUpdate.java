@@ -157,6 +157,8 @@ public class CheUIReturnFromBankRollUpdate extends
 			compChequeRoll.getToolItemAdd().setEnabled(false);
 			compChequeRoll.getToolItemDelete().setEnabled(false);
 
+			compChequeRoll.getAccountPicker().setData(chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount());
+			
 			EngUICommon.centreWindow(dialogShell);
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 

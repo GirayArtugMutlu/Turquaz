@@ -12,6 +12,7 @@ import java.util.Iterator;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
+import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.dal.CheDALSave;
 import com.turquaz.cheque.dal.CheDALUpdate;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
@@ -173,7 +174,7 @@ public class CheBLUpdateCheque {
 													new BigDecimal(0),
 													EngBLCommon.CURRENT_TRANS_CHEQUE,
 													chequeRoll.getTurqEngineSequence().getId(),
-													"Çek Portföy No:"+chequeInRoll.getTurqChequeCheque().getChequesPortfolioNo() ,exchangeRate);
+													Messages.getString("CheBLUpdateCheque.0")+chequeInRoll.getTurqChequeCheque().getChequesPortfolioNo() ,exchangeRate); //$NON-NLS-1$
 	             }
 				
 			    
@@ -197,7 +198,7 @@ public class CheBLUpdateCheque {
 													new BigDecimal(0),
 													EngBLCommon.CURRENT_TRANS_CHEQUE,
 													chequeRoll.getTurqEngineSequence().getId(),
-													"Çek Portföy No:"+chequeInRoll.getTurqChequeCheque().getChequesPortfolioNo(),
+													Messages.getString("CheBLUpdateCheque.1")+chequeInRoll.getTurqChequeCheque().getChequesPortfolioNo(), //$NON-NLS-1$
 													exchangeRate);
 	             }
 				
@@ -244,7 +245,7 @@ public class CheBLUpdateCheque {
 					 											chequeRoll.getTurqEngineSequence(),
 					 											chequeInRoll.getTurqChequeCheque().getChequesAmount(),
 																chequeRoll.getChequeRollsDate(),
-																"Çek Portfoy No:"+chequeInRoll.getTurqChequeCheque().getChequesPortfolioNo(),
+																Messages.getString("CheBLUpdateCheque.2")+chequeInRoll.getTurqChequeCheque().getChequesPortfolioNo(), //$NON-NLS-1$
 																chequeRoll.getChequeRollNo(),chequeInRoll.getTurqChequeCheque().getTurqCurrencyExchangeRate());
 		              			
 				}
@@ -292,7 +293,7 @@ public class CheBLUpdateCheque {
         	
         	TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(chequeRoll.getTurqCurrentCard(),EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
 //       TODO acc trans exRate
-        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,curAccount,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
+        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,curAccount,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateCheque.3")+chequeRoll.getChequeRollNo()); //$NON-NLS-1$
         	
         }
         
@@ -301,7 +302,7 @@ public class CheBLUpdateCheque {
         	TurqAccountingAccount rollAccount = chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount();
         
         
-        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
+        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateCheque.4")+chequeRoll.getChequeRollNo()); //$NON-NLS-1$
         }
         
         
@@ -310,25 +311,25 @@ public class CheBLUpdateCheque {
         
         	TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(chequeRoll.getTurqCurrentCard(),EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
         	
-        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(curAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
+        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(curAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateCheque.5")+chequeRoll.getChequeRollNo()); //$NON-NLS-1$
         
         }
 
         else if(rollType == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_BANK)
     	{
         	
-        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(null,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
+        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(null,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateCheque.6") +chequeRoll.getChequeRollNo()); //$NON-NLS-1$
                  	
     	}
         else if(rollType == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_CURRENT)
     	{
         	
-        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount(),null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
+        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount(),null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateCheque.7") +chequeRoll.getChequeRollNo()); //$NON-NLS-1$
                    	
     	}
         else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_FROM_BANK)
         {
-        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount(),null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
+        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount(),null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateCheque.8") +chequeRoll.getChequeRollNo()); //$NON-NLS-1$
             
         	
         }
