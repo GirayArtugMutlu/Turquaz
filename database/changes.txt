@@ -619,5 +619,5 @@ ALTER TABLE public.turq_current_transactions ADD CONSTRAINT ex_rate FOREIGN KEY 
 
 
 ***********************************************************
-
+ *** 03/03/2005 hsqldb database updated v1.49 ***
 
