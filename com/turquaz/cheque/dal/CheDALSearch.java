@@ -45,11 +45,11 @@ public class CheDALSearch {
 
 			Session session = EngDALSessionFactory.openSession();
 
-			String query = "select chequeRoll.chequeRollsId, " +
+			String query = "select chequeRoll.id, " +
 					" chequeRoll.chequeRollsDate, chequeRoll.chequeRollNo," +
 					" chequeRoll.turqChequeTransactionType.transactionTypsName," +
 					" chequeRoll.turqCurrentCard.cardsName, chequeRoll.turqBanksCard.bankCode," +
-					" chequeRoll.turqCurrentCard.currentCardsId,chequeRoll.turqBanksCard.banksCardsId," +
+					" chequeRoll.turqCurrentCard.id,chequeRoll.turqBanksCard.id," +
 					" sum(chequesInRolls.turqChequeCheque.chequesAmount)" +
 					" from TurqChequeRoll as chequeRoll" +
 					" left join chequeRoll.turqChequeChequeInRolls as chequesInRolls "
@@ -64,10 +64,10 @@ public class CheDALSearch {
 
 		
 
-			query += " group by chequeRoll.chequeRollsId,chequeRoll.chequeRollsDate, chequeRoll.chequeRollNo," +
+			query += " group by chequeRoll.id,chequeRoll.chequeRollsDate, chequeRoll.chequeRollNo," +
 					" chequeRoll.turqChequeTransactionType.transactionTypsName," +
 					" chequeRoll.turqCurrentCard.cardsName, chequeRoll.turqBanksCard.bankCode," +
-					" chequeRoll.turqCurrentCard.currentCardsId,chequeRoll.turqBanksCard.banksCardsId";
+					" chequeRoll.turqCurrentCard.id,chequeRoll.turqBanksCard.id";
 			query += " order by chequeRoll.chequeRollsDate ";
 			Query q = session.createQuery(query);
 
@@ -111,8 +111,8 @@ public class CheDALSearch {
 			TurqViewChequeStatus chequeStatus = null;
 
 			String query = "Select cheque, currentCard.cardsName from TurqChequeCheque as cheque, TurqViewChequeStatus as chequeStatus, TurqCurrentCard currentCard "
-					+ "where cheque.chequeChequesId = chequeStatus.chequeChequesId "
-					+ " and currentCard.currentCardsId =  chequeStatus.currentCardsId "
+					+ "where cheque.id = chequeStatus.chequeChequesId "
+					+ " and currentCard.id =  chequeStatus.currentCardsId "
 					+ " and chequeStatus.chequeTransactionTypesId ="
 					+ EngBLCommon.CHEQUE_TRANS_IN;
 
@@ -136,8 +136,8 @@ public class CheDALSearch {
 			TurqViewChequeStatus chequeStatus = null;
 
 			String query = "Select cheque, currentCard.cardsName from TurqChequeCheque as cheque, TurqViewChequeStatus as chequeStatus, TurqCurrentCard currentCard "
-					+ "where cheque.chequeChequesId = chequeStatus.chequeChequesId "
-					+ " and currentCard.currentCardsId =  chequeStatus.currentCardsId "
+					+ "where cheque.id = chequeStatus.chequeChequesId "
+					+ " and currentCard.id =  chequeStatus.currentCardsId "
 					+ " and chequeStatus.chequeTransactionTypesId ="
 					+ EngBLCommon.CHEQUE_TRANS_OUT_BANK;
 
@@ -174,7 +174,7 @@ public class CheDALSearch {
 			Session session = EngDALSessionFactory.openSession();
 			TurqViewChequeStatus chequeStatus = null;
 
-			String query = "Select cheque.chequeChequesId, cheque.chequesPortfolioNo,chequeInRolls.turqChequeRoll.chequeRollsDate,"
+			String query = "Select cheque.id, cheque.chequesPortfolioNo,chequeInRolls.turqChequeRoll.chequeRollsDate,"
 					+ " chequeInRolls.turqChequeRoll.turqCurrentCard.cardsName, cheque.chequesDueDate,status.chequeTransactionTypesId,"
 					+ " cheque.chequesAmount"
 					+ " from TurqChequeCheque as cheque"
@@ -187,9 +187,9 @@ public class CheDALSearch {
 					+ " and cheque.chequesDueDate <= :endDueDate "
 					+ " and chequeInRolls.turqChequeRoll.chequeRollsDate >= :startEnterDate"
 					+ " and chequeInRolls.turqChequeRoll.chequeRollsDate <= :endEnterDate"
-					+ " and chequeInRolls.turqChequeRoll.turqChequeTransactionType.chequeTransactionTypesId ="
+					+ " and chequeInRolls.turqChequeRoll.turqChequeTransactionType.id ="
 					+ EngBLCommon.CHEQUE_TRANS_IN
-					+ " and status.chequeChequesId = cheque.chequeChequesId ";
+					+ " and status.chequeChequesId = cheque.id ";
 
 			if (curCard != null) {
 				query += " and chequeInRolls.turqChequeRoll.turqCurrentCard = :curCard";
@@ -229,7 +229,7 @@ public class CheDALSearch {
 			Session session = EngDALSessionFactory.openSession();
 			TurqViewChequeStatus chequeStatus = null;
 
-			String query = "Select cheque.chequeChequesId, chequeInRolls.turqChequeRoll.chequeRollsDate,"
+			String query = "Select cheque.id, chequeInRolls.turqChequeRoll.chequeRollsDate,"
 					+ " chequeInRolls.turqChequeRoll.turqCurrentCard.cardsName, cheque.chequesDueDate,status.chequeTransactionTypesId,"
 					+ " cheque.chequesAmount, cheque.turqBanksCard.bankCode, cheque.chequesNo "
 					+ " from TurqChequeCheque as cheque"
@@ -241,9 +241,9 @@ public class CheDALSearch {
 					+ " and cheque.chequesDueDate <= :endDueDate "
 					+ " and chequeInRolls.turqChequeRoll.chequeRollsDate >= :startEnterDate"
 					+ " and chequeInRolls.turqChequeRoll.chequeRollsDate <= :endEnterDate"
-					+ " and chequeInRolls.turqChequeRoll.turqChequeTransactionType.chequeTransactionTypesId ="
+					+ " and chequeInRolls.turqChequeRoll.turqChequeTransactionType.id ="
 					+ EngBLCommon.CHEQUE_TRANS_OUT_CURRENT
-					+ " and status.chequeChequesId = cheque.chequeChequesId ";
+					+ " and status.chequeChequesId = cheque.id ";
 
 			if (curCard != null) {
 				query += " and chequeInRolls.turqChequeRoll.turqCurrentCard = :curCard";
