@@ -359,8 +359,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 			endCal.add(2,1);
 			endCal.add(Calendar.DATE,-1);
 			List allAccounts = blSearch.getTransactions(accountPickerStart.getData(),accountPickerEnd.getData(),false,
-				false,
-				startCal.getTime() ,
+				 startCal.getTime() ,
 				 endCal.getTime() );
 	
 			TurqAccountingAccount account;

@@ -363,10 +363,10 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 		{
 			tableTreeAccounts.removeAll();
 			treeItems = new HashMap();		
-			TableTreeItem item;
+		
 
 			List allAccounts = blSearch.getTransactions(accountPickerStart.getData(),accountPickerEnd.getData(),checkInitialAccounts.getSelection(),
-				checkFinalAccounts.getSelection(),
+				
 				 datePickerStart.getDate() ,
 				 datePickerEnd.getDate() );
 	
@@ -492,7 +492,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				}
 			}
 			
-			TableTreeItem dummy = new TableTreeItem(tableTreeAccounts,SWT.NULL);
+			new TableTreeItem(tableTreeAccounts,SWT.NULL);
 			TableTreeItem totals = new TableTreeItem(tableTreeAccounts,SWT.RIGHT);
 			totals.setText(1,Messages.getString("AccUIAccountingAdvancedBalance.19")); //$NON-NLS-1$
 			totals.setText(2,cf.format(totalDept));
@@ -512,9 +512,10 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 		}
 		catch(Exception ex){
 			MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
+    		msg.setMessage(ex.getMessage());
+			msg.open();
 			ex.printStackTrace();
-			//msg.setMessage(ex.getMessage());
-			//msg.open();
+			
 		}
 	}
 	

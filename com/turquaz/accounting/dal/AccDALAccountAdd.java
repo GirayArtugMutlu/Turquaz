@@ -95,7 +95,7 @@ public class AccDALAccountAdd {
 			if(list.size()>0){
 				return (TurqAccountingAccount)list.get(0); 
 			}
-			else
+		
 				return null;
 			
 			
@@ -227,7 +227,7 @@ public class AccDALAccountAdd {
 			if(list.size()>0){
 				return (TurqAccountingAccount)list.get(0); 
 			}
-			else
+			
 				return null;			
 			
 			
@@ -256,7 +256,7 @@ public class AccDALAccountAdd {
 			if(list.size()>0){
 				return (TurqAccountingAccount)list.get(0); 
 			}
-			else
+		
 				return null;			
 			
 			

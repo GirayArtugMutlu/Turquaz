@@ -451,7 +451,7 @@ public class AccDALTransactionSearch {
 		}
 	}
 
-	public List getTransactions(Object firstAccount, Object secondAccount,boolean initialAccounts, boolean finalAccounts,
+	public List getTransactions(Object firstAccount, Object secondAccount,boolean initialAccounts, 
 			Date startDate, Date endDate) throws Exception {
 		try {
 			Session session = EngDALSessionFactory.openSession();
