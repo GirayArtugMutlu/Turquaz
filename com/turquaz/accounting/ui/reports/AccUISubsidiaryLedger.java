@@ -21,10 +21,12 @@ package com.turquaz.accounting.ui.reports;
  * @version  $Id$
  */
 
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -305,7 +307,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 				" and transColumns.accounting_transactions_id=trans.accounting_transactions_id"+ //$NON-NLS-1$
 				" and trans.transactions_date >="+"'"+dformat.format(dateStartDate.getDate())+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				" and trans.transactions_date <="+"'"+dformat.format(dateEndDate.getDate())+"'"+//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				" order by accounts.accounting_accounts_id,trans.transactions_date";//$NON-NLS-1$
+				" order by accounts.account_code,trans.transactions_date";//$NON-NLS-1$
 			}
 			else
 			{
@@ -325,7 +327,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 					" and accounts.account_code <="+"'"+account2.getAccountCode()+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					" and trans.transactions_date >="+"'"+dformat.format(dateStartDate.getDate())+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					" and trans.transactions_date <="+"'"+dformat.format(dateEndDate.getDate())+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					" order by accounts.accounting_accounts_id,trans.transactions_date"; //$NON-NLS-1$
+					" order by accounts.account_code,trans.transactions_date"; //$NON-NLS-1$
 			}	
 			//System.out.println(sqlparam);
 			SimpleDateFormat dformat2=new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
@@ -340,6 +342,17 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 			formatter.setMaximumFractionDigits(2);
 			formatter.setMinimumFractionDigits(2);
 			parameters.put("formatter", new TurkishCurrencyFormat()); //$NON-NLS-1$
+			
+			List balances = AccBLTransactionSearch.getCurrentBalances(account,account2,dateStartDate.getDate());
+			HashMap balanceList=new HashMap();
+			for (int k=0; k < balances.size(); k++)
+			{
+				Object[] balanceArr=(Object[])balances.get(k);
+				balanceList.put((String)balanceArr[0],((BigDecimal)balanceArr[2]).subtract(((BigDecimal)balanceArr[1])));
+			}
+			parameters.put("balanceList",balanceList); //$NON-NLS-1$
+			
+
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
 			

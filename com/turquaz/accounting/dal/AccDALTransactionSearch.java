@@ -32,11 +32,13 @@ import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
+
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqCurrency;
+
 
 public class AccDALTransactionSearch {
 
@@ -138,6 +140,49 @@ public class AccDALTransactionSearch {
 		}
 	}
 	
+
+	
+	public static List getCurrentBalances(TurqAccountingAccount accountStart,TurqAccountingAccount accountEnd,Date startDate) throws Exception {
+	    try{
+	        
+	    	Session session = EngDALSessionFactory.openSession(); 
+	    	String query="Select acc.accountCode," +
+	    			"sum(transcolumn.rowsDeptInBaseCurrency)," +
+	    			"sum(transcolumn.rowsCreditInBaseCurrency)" +
+	    			" from TurqAccountingAccount acc," +
+	    			" TurqAccountingTransactionColumn transcolumn," +
+	    			" TurqAccountingTransaction trans" +
+	    			" where transcolumn.turqAccountingTransaction.accountingTransactionsId=trans.accountingTransactionsId" +
+	    			" and trans.transactionsDate < :startDate" +
+	    			" and acc.accountingAccountsId=transcolumn.turqAccountingAccount.accountingAccountsId";
+	    	
+	    	if (accountEnd==null)
+	    	{
+	    		query += " and acc.accountingAccountsId="+accountStart.getAccountingAccountsId();
+	    	}
+	    	else
+	    	{
+	    		query += " and acc.accountCode >= '"+accountStart.getAccountCode()+"'";
+	    		query += " and acc.accountCode <= '"+accountEnd.getAccountCode()+"'";
+	    	}
+	    	query += " group by acc.accountCode";
+	    
+	    	Query q = session.createQuery(query); 
+	    	q.setParameter("startDate",startDate);
+	    	
+	    	List list = q.list();
+	    	session.close();
+	    	return list;
+	    	
+	        
+	    }
+	    catch(Exception ex){
+	        
+	        throw ex;
+	    }
+	    
+	      
+	}
 	
 
 	public List searchTransaction(String docNo, Object startDate,

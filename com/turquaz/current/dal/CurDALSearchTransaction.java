@@ -158,7 +158,7 @@ public class CurDALSearchTransaction {
 		
 		
 	}
-	public List getCurrentBalances(TurqCurrentCard curCard, TurqCurrentCard curCard2,Date endDate) throws Exception {
+	public static List getCurrentBalances(TurqCurrentCard curCard, TurqCurrentCard curCard2,Date endDate) throws Exception {
 	    try{
 	        
 	    	Session session = EngDALSessionFactory.openSession(); 

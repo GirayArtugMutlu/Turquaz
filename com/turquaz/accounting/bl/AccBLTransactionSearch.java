@@ -32,6 +32,7 @@ import java.util.List;
 import com.turquaz.accounting.dal.AccDALTransactionAdd;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
 
+
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -48,18 +49,32 @@ public class AccBLTransactionSearch {
 		
 	}
 	public List searchAccTransaction(String docNo, Object startDate, Object endDate,
-			boolean isGeneralTrans, boolean isCollect, boolean isPayment)throws Exception{
-	try{
+			boolean isGeneralTrans, boolean isCollect, boolean isPayment)
+	throws Exception
+	{
+		try
+		{
 		
-		return dalTransSearch.searchTransaction(docNo,startDate,endDate,isGeneralTrans,isCollect,isPayment);
+			return dalTransSearch.searchTransaction(docNo,startDate,endDate,isGeneralTrans,isCollect,isPayment);
 				
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}	
 	}
-	catch(Exception ex){
-		throw ex;
-	}
 	
 	
-	
+	public static List getCurrentBalances(TurqAccountingAccount accountStart,TurqAccountingAccount accountEnd,Date startDate)throws Exception{
+	    try{
+	        
+	        return AccDALTransactionSearch.getCurrentBalances(accountStart,accountEnd,startDate);
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }	    
 	}
 	
 	
