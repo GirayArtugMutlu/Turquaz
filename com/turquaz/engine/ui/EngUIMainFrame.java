@@ -108,7 +108,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private Composite compModulesHelp;
 	private Tree treeBank;
 	private Tree treeAccounting;
-	public  static CTabFolder tabfldMain;
+	private static CTabFolder tabfldMain;
 	private static ToolItem toolSearch;
 	private static ToolItem toolDelete;
 	private static ToolItem toolSave;
@@ -1183,7 +1183,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	//save favorite items to the 
 	public static void saveFavoritesTree(){
 		try{
-		System.out.println("ssgsfg");
+		
 		  OutputStream output = null;
           PrintStream out = null;
           output = new FileOutputStream("favorites.xml");
