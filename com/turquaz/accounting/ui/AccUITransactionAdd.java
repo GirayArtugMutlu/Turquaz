@@ -310,12 +310,12 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
                 table1LData.horizontalSpan = 4;
                 table1LData.horizontalAlignment = GridData.END;
                 table1LData.grabExcessHorizontalSpace = true;
-                table1LData.widthHint = 212;
+                table1LData.widthHint = 247;
                 table1LData.heightHint = 59;
                 table1.setLayoutData(table1LData);
                 {
                     tableColumnTitle = new TableColumn(table1, SWT.NONE);
-                    tableColumnTitle.setWidth(100);
+                    tableColumnTitle.setWidth(80);
                 }
                 {
                     tableColumnAmount = new TableColumn(table1, SWT.RIGHT);
