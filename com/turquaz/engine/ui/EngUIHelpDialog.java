@@ -89,7 +89,7 @@ public class EngUIHelpDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			{
 				lblVarsion = new CLabel(dialogShell, SWT.NONE);
-				lblVarsion.setText("0.6 Alpha 3 "); //$NON-NLS-1$
+				lblVarsion.setText("0.7.0 Alpha 1"); //$NON-NLS-1$
 				GridData lblVarsionLData = new GridData();
 				lblVarsionLData.horizontalAlignment = GridData.CENTER;
 				lblVarsionLData.widthHint = 89;

@@ -75,6 +75,7 @@ public class InvBLSaveTransaction
 		invTrans.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		invTrans.setLastModified(cal.getTime());
 		invTrans.setCreationDate(cal.getTime());
+		invTrans.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
 		TurqCurrentCard curCard = new TurqCurrentCard();
 		curCard.setId(new Integer(-1));
 		invTrans.setTurqCurrentCard(curCard);

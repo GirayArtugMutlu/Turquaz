@@ -290,7 +290,7 @@ public class BankUICashFromBank extends org.eclipse.swt.widgets.Composite implem
 			Logger loger = Logger.getLogger(this.getClass());
 			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(), ex.getMessage(), SWT.ICON_ERROR);
+			EngUICommon.showMessageBox(getShell(),"Hata Olustu!", SWT.ICON_ERROR);
 		}
 	}
 

@@ -1208,9 +1208,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			Logger loger = Logger.getLogger(this.getClass());
 			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-			msg.setMessage(ex.getMessage());
-			msg.open();
+			
 		}
 	}
 

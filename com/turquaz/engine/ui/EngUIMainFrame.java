@@ -263,7 +263,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			lblFavoritesTab = new CLabel(compFavoritesSelection, SWT.NULL);
 			treeFavorites = new Tree(compFavoritesTab, SWT.NULL);
 			compMainInRight = new Composite(sashMainHorizontal, SWT.NULL);
-			this.setSize(793, 572);
+			this.setSize(797, 582);
 			GridData compMainLData = new GridData();
 			compMainLData.verticalAlignment = GridData.FILL;
 			compMainLData.horizontalAlignment = GridData.FILL;
