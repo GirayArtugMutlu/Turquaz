@@ -53,15 +53,10 @@ import com.turquaz.engine.Messages;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.InvUICardSearch;
 import com.turquaz.inventory.ui.InvUITransactionAdd;
+import com.turquaz.inventory.ui.InvUITransactionSearch;
 import com.turquaz.inventory.ui.InvUIWarehouseAdd;
 import com.turquaz.inventory.ui.InvUIWarehouseSearch;
 
-/**
- * @author onsel
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public final class TreeFactory {
 	
 	public static Tree createInventoryTree(Tree tree){
@@ -82,6 +77,9 @@ public final class TreeFactory {
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.5"));  //$NON-NLS-1$
 		item.setData(InvUIWarehouseSearch.class.getName());
+		item = new TreeItem(root,SWT.NULL);
+		item.setText("Inventory Transactions");  //$NON-NLS-1$
+		item.setData(InvUITransactionSearch.class.getName());
 	
 		return tree;
 	}
@@ -185,6 +183,7 @@ public final class TreeFactory {
 		item.setText(Messages.getString("TreeFactory.34")); //$NON-NLS-1$
 		item.setData(ConUIConsignmentSearch.class.getName());
 		return tree;
+		
 	}
 	
 	
