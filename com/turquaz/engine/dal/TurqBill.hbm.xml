@@ -55,13 +55,6 @@
         length="250"
     />
     <property
-        name="billsPrinted"
-        type="short"
-        column="bills_printed"
-        not-null="true"
-        length="2"
-    />
-    <property
         name="billsDiscountRate"
         type="int"
         column="bills_discount_rate"
@@ -131,6 +124,20 @@
         not-null="true"
         length="50"
     />
+    <property
+        name="billsPrinted"
+        type="boolean"
+        column="bills_printed"
+        not-null="true"
+        length="1"
+    />
+    <property
+        name="billsSpecialVatAmount"
+        type="java.math.BigDecimal"
+        column="bills_special_vat_amount"
+        not-null="true"
+        length="65535"
+    />
 
     <!-- Associations -->
   
@@ -184,6 +191,14 @@
             class="com.turquaz.engine.dal.TurqOrder"
         />
     </set>
+    <!-- bi-directional many-to-one association to TurqConsignment -->
+    <many-to-one
+        name="turqConsignment"
+        class="com.turquaz.engine.dal.TurqConsignment"
+        not-null="true"
+    >
+        <column name="consignments_id" />
+    </many-to-one>
     <!-- bi-directional many-to-one association to TurqCurrentCard -->
     <many-to-one
         name="turqCurrentCard"

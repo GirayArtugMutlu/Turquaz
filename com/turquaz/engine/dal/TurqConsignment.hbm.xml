@@ -185,6 +185,20 @@
             class="com.turquaz.engine.dal.TurqConsignmentsInGroup"
         />
     </set>
+    <!-- bi-directional one-to-many association to TurqBill -->
+    <set
+        name="turqBills"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="consignments_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBill"
+        />
+    </set>
     <!-- bi-directional many-to-one association to TurqCurrentCard -->
     <many-to-one
         name="turqCurrentCard"

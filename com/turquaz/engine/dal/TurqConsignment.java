@@ -75,8 +75,11 @@ public class TurqConsignment implements Serializable {
     /** persistent field */
     private Set turqConsignmentsInGroups;
 
+    /** persistent field */
+    private Set turqBills;
+
     /** full constructor */
-    public TurqConsignment(java.lang.String consignmentsBillDocumentNo, java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, int condignmentsDiscountRate, java.math.BigDecimal consignmentsDiscountAmount, java.math.BigDecimal consignmentsCharges, java.math.BigDecimal consignmentsVatAmount, java.math.BigDecimal consignmentsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, int consignmentsType, boolean consignmentsPrinted, java.lang.String consignmentsDocumentNo, java.math.BigDecimal consignmentsSpecialVatAmount, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqBill turqBill, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqInventoryTransactions, Set turqConsignmentsInGroups) {
+    public TurqConsignment(java.lang.String consignmentsBillDocumentNo, java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, int condignmentsDiscountRate, java.math.BigDecimal consignmentsDiscountAmount, java.math.BigDecimal consignmentsCharges, java.math.BigDecimal consignmentsVatAmount, java.math.BigDecimal consignmentsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, int consignmentsType, boolean consignmentsPrinted, java.lang.String consignmentsDocumentNo, java.math.BigDecimal consignmentsSpecialVatAmount, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqBill turqBill, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqInventoryTransactions, Set turqConsignmentsInGroups, Set turqBills) {
         this.consignmentsBillDocumentNo = consignmentsBillDocumentNo;
         this.consignmentsDate = consignmentsDate;
         this.consignmentsDefinition = consignmentsDefinition;
@@ -98,6 +101,7 @@ public class TurqConsignment implements Serializable {
         this.turqCurrentCard = turqCurrentCard;
         this.turqInventoryTransactions = turqInventoryTransactions;
         this.turqConsignmentsInGroups = turqConsignmentsInGroups;
+        this.turqBills = turqBills;
     }
 
     /** default constructor */
@@ -278,6 +282,14 @@ public class TurqConsignment implements Serializable {
 
     public void setTurqConsignmentsInGroups(java.util.Set turqConsignmentsInGroups) {
         this.turqConsignmentsInGroups = turqConsignmentsInGroups;
+    }
+
+    public java.util.Set getTurqBills() {
+        return this.turqBills;
+    }
+
+    public void setTurqBills(java.util.Set turqBills) {
+        this.turqBills = turqBills;
     }
 
     public String toString() {
