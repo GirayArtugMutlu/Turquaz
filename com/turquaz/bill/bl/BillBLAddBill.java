@@ -34,9 +34,9 @@ public class BillBLAddBill
 {
 	//Bill from Bill
 	public static TurqBill saveBillFromBill(String consignemtDocNo, String definition, boolean isPrinted, Date billsDate, int type,
-			TurqCurrentCard currentCard, Date dueDate, BigDecimal discountAmount,
-			String billDocNo, BigDecimal totalVat, BigDecimal specialVat, BigDecimal totalAmount, TurqCurrencyExchangeRate exchangeRate,
-			List billGroups, List invTransactions) throws Exception
+			TurqCurrentCard currentCard, Date dueDate, BigDecimal discountAmount, String billDocNo, BigDecimal totalVat,
+			BigDecimal specialVat, BigDecimal totalAmount, TurqCurrencyExchangeRate exchangeRate, List billGroups, List invTransactions)
+			throws Exception
 	{
 		TurqBill bill = registerBill(billDocNo, definition, isPrinted, billsDate, type, dueDate, currentCard, exchangeRate);
 		TurqEngineSequence engSeq = EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_BILL);
@@ -46,8 +46,8 @@ public class BillBLAddBill
 		EngDALCommon.saveObject(billInEng);
 		InvBLSaveTransaction.saveInventoryTransactions(invTransactions, engSeq.getId(), type, billsDate, definition, billDocNo,
 				exchangeRate, currentCard);
-		saveCurrentTransaction(bill,totalAmount, discountAmount);
-		saveAccountingTransaction(bill, totalAmount);
+		saveCurrentTransaction(bill, totalAmount, discountAmount);
+		int saved=saveAccountingTransaction(bill, totalAmount);
 		saveBillGroups(bill.getId(), billGroups);
 		return bill;
 	}
@@ -69,7 +69,7 @@ public class BillBLAddBill
 		try
 		{
 			// Save Bill
-			TurqBill bill = registerBill(docNo, definition, isPrinted, billsDate, type,  dueDate, cons.getTurqCurrentCard(), cons
+			TurqBill bill = registerBill(docNo, definition, isPrinted, billsDate, type, dueDate, cons.getTurqCurrentCard(), cons
 					.getTurqCurrencyExchangeRate());
 			//Then Save Bill Groups
 			saveBillGroups(bill.getId(), billGroups);
@@ -94,8 +94,8 @@ public class BillBLAddBill
 	 * @return
 	 * @throws Exception
 	 */
-	private static TurqBill registerBill(String docNo, String definition, boolean isPrinted, Date billsDate, int type, 
-			Date dueDate, TurqCurrentCard curCard, TurqCurrencyExchangeRate exchangeRate) throws Exception
+	private static TurqBill registerBill(String docNo, String definition, boolean isPrinted, Date billsDate, int type, Date dueDate,
+			TurqCurrentCard curCard, TurqCurrencyExchangeRate exchangeRate) throws Exception
 	{
 		try
 		{
@@ -128,8 +128,7 @@ public class BillBLAddBill
 	 * @param bill
 	 * @throws Exception
 	 */
-	public static void saveCurrentTransaction(TurqBill bill, BigDecimal totalAmount, BigDecimal discountAmount)
-			throws Exception
+	public static void saveCurrentTransaction(TurqBill bill, BigDecimal totalAmount, BigDecimal discountAmount) throws Exception
 	{
 		try
 		{
@@ -175,128 +174,159 @@ public class BillBLAddBill
 	 * @param currentAccount
 	 * @throws Exception
 	 */
-	public static void prepareAccountsForAccountingIntgretion(TurqBill bill, Map creditAccounts,
-			Map deptAccounts, BigDecimal totalAmount) throws Exception
+	//1 is OK, -1 there is not accounting information, 0 for other errors
+	public static int prepareAccountsForAccountingIntgretion(TurqBill bill, Map creditAccounts, Map deptAccounts, BigDecimal totalAmount)
+			throws Exception
 	{
-		creditAccounts.clear();
-		deptAccounts.clear();
-		Map invRows = null;
-		Map currentRows = null;
-		int INV_ACCOUNT = -1;
-		int INV_VAT_ACCOUNT = -1;
-		int INV_SPEC_VAT_ACCOUNT = -1;
-		int INV_DISCOUNT_ACCOUNT = -1;
-		String discountAccount = "";
-		//Alis Faturasi
-		if (bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_BUY)
+		try
 		{
-			invRows = deptAccounts;
-			currentRows = creditAccounts;
-			INV_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_BUY;
-			INV_VAT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_VAT_BUY;
-			INV_SPEC_VAT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_SPEC_VAT_BUY;
-			INV_DISCOUNT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_DISCOUNT_BUY;
-			discountAccount = "649";
-		}
-		//Satis Faturasi
-		else if (bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_SELL)
-		{
-			invRows = creditAccounts;
-			currentRows = deptAccounts;
-			INV_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_SELL;
-			INV_VAT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_VAT_SELL;
-			INV_SPEC_VAT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_SPEC_VAT_SELL;
-			INV_DISCOUNT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_DISCOUNT_SELL;
-			discountAccount = "611";
-		}
-		TurqInventoryTransaction invTrans = null;
-		EngDALCommon.initializeObject(bill, "getTurqBillInEngineSequences");
-		Iterator it = bill.getTurqBillInEngineSequences().iterator();
-		BigDecimal totals = new BigDecimal(0);
-		while (it.hasNext())
-		{
-			TurqBillInEngineSequence billInEng = (TurqBillInEngineSequence) it.next();
-			EngDALCommon.initializeObject(billInEng.getTurqEngineSequence(), "getTurqInventoryTransactions");
-			Iterator it2 = billInEng.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
-			while (it2.hasNext())
+			creditAccounts.clear();
+			deptAccounts.clear();
+			Map invRows = null;
+			Map currentRows = null;
+			int INV_ACCOUNT = -1;
+			int INV_VAT_ACCOUNT = -1;
+			int INV_SPEC_VAT_ACCOUNT = -1;
+			int INV_DISCOUNT_ACCOUNT = -1;
+			String discountAccount = "";
+			//Alis Faturasi
+			if (bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_BUY)
 			{
-				invTrans = (TurqInventoryTransaction) it2.next();
-				TurqAccountingAccount buyAccount = InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
-						INV_ACCOUNT);
-				if (!invRows.containsKey(buyAccount.getId()))
-				{
-					invRows.put(buyAccount.getId(), new ArrayList());
-				}
-				List ls = (List) invRows.get(buyAccount.getId());
-				ls.add(invTrans.getTotalPriceInForeignCurrency());
-				invRows.put(buyAccount.getId(), ls);
-				/*
-				 * VAT ROWs
-				 */
-				TurqAccountingAccount buyVATAccount = InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
-						INV_VAT_ACCOUNT);
-				if (!invRows.containsKey(buyVATAccount.getId()))
-				{
-					invRows.put(buyVATAccount.getId(), new ArrayList());
-				}
-				List vatList = (List) invRows.get(buyVATAccount.getId());
-				vatList.add(invTrans.getVatAmountInForeignCurrency());
-				invRows.put(buyVATAccount.getId(), vatList);
-				/*
-				 * Special VAT Rows
-				 */
-				TurqAccountingAccount specialVATBuyAccount = InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard()
-						.getId(), INV_SPEC_VAT_ACCOUNT);
-				if (!invRows.containsKey(specialVATBuyAccount.getId()))
-				{
-					invRows.put(specialVATBuyAccount.getId(), new ArrayList());
-				}
-				List specVatList = (List) invRows.get(specialVATBuyAccount.getId());
-				specVatList.add(invTrans.getVatSpecialAmountInForeignCurrency());
-				invRows.put(specialVATBuyAccount.getId(), specVatList);
-				/*
-				 * DiscountRows
-				 */
-				TurqAccountingAccount discountBuyAccount = InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
-						INV_DISCOUNT_ACCOUNT);
-				if (discountBuyAccount == null)
-				{
-					discountBuyAccount = AccDALAccountAdd.getAccount(discountAccount);
-				}
-				if (!currentRows.containsKey(discountBuyAccount.getId()))
-				{
-					currentRows.put(discountBuyAccount.getId(), new ArrayList());
-				}
-				List discountList = (List) currentRows.get(discountBuyAccount.getId());
-				discountList.add(invTrans.getDiscountAmount());
-				currentRows.put(discountBuyAccount.getId(), discountList);
+				invRows = deptAccounts;
+				currentRows = creditAccounts;
+				INV_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_BUY;
+				INV_VAT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_VAT_BUY;
+				INV_SPEC_VAT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_SPEC_VAT_BUY;
+				INV_DISCOUNT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_DISCOUNT_BUY;
+				discountAccount = "649";
 			}
+			//Satis Faturasi
+			else if (bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_SELL)
+			{
+				invRows = creditAccounts;
+				currentRows = deptAccounts;
+				INV_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_SELL;
+				INV_VAT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_VAT_SELL;
+				INV_SPEC_VAT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_SPEC_VAT_SELL;
+				INV_DISCOUNT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_DISCOUNT_SELL;
+				discountAccount = "611";
+			}
+			TurqInventoryTransaction invTrans = null;
+			EngDALCommon.initializeObject(bill, "getTurqBillInEngineSequences");
+			Iterator it = bill.getTurqBillInEngineSequences().iterator();
+			BigDecimal totals = new BigDecimal(0);
+			while (it.hasNext())
+			{
+				TurqBillInEngineSequence billInEng = (TurqBillInEngineSequence) it.next();
+				EngDALCommon.initializeObject(billInEng.getTurqEngineSequence(), "getTurqInventoryTransactions");
+				Iterator it2 = billInEng.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+				while (it2.hasNext())
+				{
+					invTrans = (TurqInventoryTransaction) it2.next();
+					TurqAccountingAccount buyAccount = InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
+							INV_ACCOUNT);
+					if (buyAccount == null)
+					{
+						return -1; //error
+					}
+					if (!invRows.containsKey(buyAccount.getId()))
+					{
+						invRows.put(buyAccount.getId(), new ArrayList());
+					}
+					List ls = (List) invRows.get(buyAccount.getId());
+					ls.add(invTrans.getTotalPriceInForeignCurrency());
+					invRows.put(buyAccount.getId(), ls);
+					/*
+					 * VAT ROWs
+					 */
+					TurqAccountingAccount buyVATAccount = InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
+							INV_VAT_ACCOUNT);
+					if (buyVATAccount == null)
+					{
+						return -1; //error
+					}
+					if (!invRows.containsKey(buyVATAccount.getId()))
+					{
+						invRows.put(buyVATAccount.getId(), new ArrayList());
+					}
+					List vatList = (List) invRows.get(buyVATAccount.getId());
+					vatList.add(invTrans.getVatAmountInForeignCurrency());
+					invRows.put(buyVATAccount.getId(), vatList);
+					/*
+					 * Special VAT Rows
+					 */
+					TurqAccountingAccount specialVATBuyAccount = InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard()
+							.getId(), INV_SPEC_VAT_ACCOUNT);
+					if (specialVATBuyAccount == null)
+					{
+						return -1; //error
+					}
+					if (!invRows.containsKey(specialVATBuyAccount.getId()))
+					{
+						invRows.put(specialVATBuyAccount.getId(), new ArrayList());
+					}
+					List specVatList = (List) invRows.get(specialVATBuyAccount.getId());
+					specVatList.add(invTrans.getVatSpecialAmountInForeignCurrency());
+					invRows.put(specialVATBuyAccount.getId(), specVatList);
+					/*
+					 * DiscountRows
+					 */
+					TurqAccountingAccount discountBuyAccount = InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard()
+							.getId(), INV_DISCOUNT_ACCOUNT);
+					if (discountBuyAccount == null)
+					{
+						return -1;
+					}
+					if (discountBuyAccount == null)
+					{
+						discountBuyAccount = AccDALAccountAdd.getAccount(discountAccount);
+					}
+					if (!currentRows.containsKey(discountBuyAccount.getId()))
+					{
+						currentRows.put(discountBuyAccount.getId(), new ArrayList());
+					}
+					List discountList = (List) currentRows.get(discountBuyAccount.getId());
+					discountList.add(invTrans.getDiscountAmount());
+					currentRows.put(discountBuyAccount.getId(), discountList);
+				}
+			}
+			/*
+			 * Cari Kayitlari
+			 */
+			TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(bill.getTurqCurrentCard(),
+					EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
+			if (curAccount == null)
+			{
+				return -1; //error
+			}
+			List curList = (List) currentRows.get(curAccount.getId());
+			if (curList == null)
+			{
+				curList = new ArrayList();
+			}
+			curList.add(totalAmount);
+			currentRows.put(curAccount.getId(), curList);
+			return 1;
 		}
-		/*
-		 * Cari Kayitlari
-		 */
-		TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(bill.getTurqCurrentCard(),
-				EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
-		List curList = (List) currentRows.get(curAccount.getId());
-		if (curList == null)
+		catch (Exception ex)
 		{
-			curList = new ArrayList();
+			throw ex;
 		}
-		curList.add(totalAmount);
-		currentRows.put(curAccount.getId(), curList);
-		
 	}
 
-	public static void saveAccountingTransaction(TurqBill bill,
-			BigDecimal totalAmount) throws Exception
+	public static int saveAccountingTransaction(TurqBill bill, BigDecimal totalAmount) throws Exception
 	{
 		Map creditAccounts = new HashMap();
 		Map deptAccounts = new HashMap();
 		String billDefinition = "FT " + bill.getBillDocumentNo() + " " + bill.getTurqCurrentCard().getCardsName();
-		prepareAccountsForAccountingIntgretion(bill, creditAccounts, deptAccounts, totalAmount);
-		boolean isSaved = AccBLTransactionAdd.saveAccTransaction(bill.getBillsDate(), bill.getBillDocumentNo(), 2,
-				EngBLCommon.MODULE_BILL, bill.getTurqEngineSequence().getId(), billDefinition, bill.getTurqCurrencyExchangeRate(), creditAccounts,
-				deptAccounts, true);
+		int saved=prepareAccountsForAccountingIntgretion(bill, creditAccounts, deptAccounts, totalAmount);
+		if (saved == 1)
+		{
+			boolean isSaved = AccBLTransactionAdd.saveAccTransaction(bill.getBillsDate(), bill.getBillDocumentNo(), 2,
+					EngBLCommon.MODULE_BILL, bill.getTurqEngineSequence().getId(), billDefinition, bill.getTurqCurrencyExchangeRate(),
+					creditAccounts, deptAccounts, true);
+		}
+		return saved;
 	}
 
 	/**
