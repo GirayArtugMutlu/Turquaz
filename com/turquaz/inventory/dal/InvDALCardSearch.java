@@ -52,15 +52,15 @@ public class InvDALCardSearch {
 			
 				Session session = EngDALSessionFactory.openSession();
 				
-				String query = "Select distinct invCard from TurqInventoryCard as invCard " +
-								"left join invCard.turqInventoryCardGroups as cardGroup " +
-							   "where invCard.turqCompany.companiesId ="+System.getProperty("company")+" " +
-							   "and lower(invCard.cardName) like '"+cardName.toLowerCase()+"%' and invCard.cardInventoryCode like '"+cardCode+"%' ";
+				String query = "Select invView, invCard from TurqViewInventoryAmountTotal as invView," +
+						" TurqInventoryCard as invCard" +
+						" where invCard.inventoryCardsId = invView.inventoryCardsId and invCard.turqCompany.companiesId ="+System.getProperty("company")+" " +
+						" and lower(invCard.cardName) like '"+cardName.toLowerCase()+"%' and invCard.cardInventoryCode like '"+cardCode+"%' ";
 							
 							   	
 				if(invGroup!=null){
 					
-					query +="and cardGroup.turqInventoryGroup = :invGroup" ;
+					query +="and :invGroup in (Select myGroup.turqInventoryGroup From invCard.turqCardGroups as myGroup)" ;
 					
 				}
 				   

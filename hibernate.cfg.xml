@@ -58,12 +58,11 @@
 <mapping resource="com/turquaz/engine/dal/TurqUser.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqUserGroup.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqUserPermission.hbm.xml"/>
-<mapping resource="com/turquaz/engine/dal/ViewInventoryLevel.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqAccountingTransactionColumn.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqEngineSequence.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqBillConsignmentCommon.hbm.xml"/>
-
-											
+<mapping resource="com/turquaz/engine/dal/TurqViewInventoryAmountTotal.hbm.xml"/>
+<mapping resource="com/turquaz/engine/dal/TurqViewCurrentAmountTotal.hbm.xml"/>											
         
 
     </session-factory>

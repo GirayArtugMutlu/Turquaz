@@ -17,25 +17,27 @@
 >
 
     <composite-id>
-        <key-property 
+        <property 
             name="inventoryCardsId" 
             column="inventory_cards_id" 
             type="int"
             length="4"
+            insert="false"
+            update="false"
         />
-        <key-property 
+        <property 
             name="transactionsAmountIn" 
             column="transactions_amount_in" 
             type="java.math.BigDecimal"
             length="65535"
         />
-        <key-property 
+        <property 
             name="transactionsTotalAmountOut" 
             column="transactions_total_amount_out" 
             type="java.math.BigDecimal"
             length="65535"
         />
-        <key-property 
+        <property 
             name="transactionsTotalAmountNow" 
             column="transactions_total_amount_now" 
             type="java.math.BigDecimal"
@@ -43,14 +45,7 @@
         />
     </composite-id>    
 
- 	<many-to-one
-        name="turqInventoryCard"
-        class="com.turquaz.engine.dal.TurqInventoryCard"
-        not-null="true"
-    >
-        <column name="inventory_cards_id" />
-    </many-to-one>
-    <!-- Associations -->
+     <!-- Associations -->
     <!-- derived association(s) for compound key -->
     <!-- end of derived association(s) -->
   
