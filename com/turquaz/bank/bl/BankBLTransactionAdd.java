@@ -25,7 +25,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.bank.Messages;
@@ -165,17 +167,14 @@ public class BankBLTransactionAdd {
             
             
             String accounting_definition ="Banka Virman- "+definition;
-
-            Integer transId = blAccTran.saveAccTransaction(transDate, docNo,
-                    accTransType,
-                    seq.getTurqModule().getId().intValue(), seq
-                            .getId(), accounting_definition, exchangeRate);
-
-            blAccTran.registerAccTransactionRow(accTransRowCredit, transId,exchangeRate);
-            blAccTran.registerAccTransactionRow(accTransRowDept, transId,exchangeRate);
-            
-            
-            
+            Map creditAccounts=new HashMap();
+            Map deptAccounts=new HashMap();
+            BankBLTransactionUpdate.prepareAccountingMaps(deptAccount.getId(),
+            		creditAccount.getId(),totalAmount,creditAccounts,deptAccounts);
+            blAccTran.saveAccTransaction(transDate, docNo,accTransType,
+                    seq.getTurqModule().getId().intValue(), seq.getId(),
+					accounting_definition, exchangeRate,creditAccounts,
+					deptAccounts,true);
 
 
         } catch (Exception ex) {
@@ -298,21 +297,8 @@ public class BankBLTransactionAdd {
             
             transRow.setTurqBanksCard(bankCard);
 
-            /*
-             * Create Accounting transaction
-             */
-            TurqAccountingTransactionColumn accTransRowBank = new TurqAccountingTransactionColumn();
-            TurqAccountingTransactionColumn accTransRowCurrent = new TurqAccountingTransactionColumn();
-
             TurqAccountingAccount bankAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCard,EngBLCommon.BANK_ACC_TYPE_GENERAL);
-            
-            
-            accTransRowBank.setTransactionDefinition(definition);
-            accTransRowBank.setTurqAccountingAccount(bankAccount);
-
-            accTransRowCurrent.setTransactionDefinition(definition);
-            accTransRowCurrent.setTurqAccountingAccount(cashCard
-                    .getTurqAccountingAccount());
+            TurqAccountingAccount currentAccount=cashCard.getTurqAccountingAccount();
 
             String currentTransDefinition = ""; //$NON-NLS-1$
 
@@ -320,14 +306,15 @@ public class BankBLTransactionAdd {
 
             boolean currentTransType = false; // Credit or Debit
             int cashTransType = 0;
+            
+            Map creditAccounts=new HashMap();
+            Map deptAccounts=new HashMap();
 
             //Para yatirma
             if (type == EngBLCommon.BANK_TRANS_CASH_DEPOSIT) {
-                accTransRowBank.setDeptAmount(totalAmount);
-                accTransRowBank.setCreditAmount(new BigDecimal(0));
-
-                accTransRowCurrent.setDeptAmount(new BigDecimal(0));
-                accTransRowCurrent.setCreditAmount(totalAmount);
+            	BankBLTransactionUpdate.prepareAccountingMaps(
+            			currentAccount.getId(),bankAccount.getId(),
+						totalAmount,creditAccounts,deptAccounts);
 
                 transRow.setDeptAmountInForeignCurrency(totalAmount);
                 transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
@@ -340,12 +327,9 @@ public class BankBLTransactionAdd {
 
             //Para cekme
             else if (type == EngBLCommon.BANK_TRANS_CASH_DRAW) {
-
-                accTransRowBank.setDeptAmount(new BigDecimal(0));
-                accTransRowBank.setCreditAmount(totalAmount);
-
-                accTransRowCurrent.setDeptAmount(totalAmount);
-                accTransRowCurrent.setCreditAmount(new BigDecimal(0));
+            	BankBLTransactionUpdate.prepareAccountingMaps(
+            			bankAccount.getId(),currentAccount.getId(),
+						totalAmount,creditAccounts,deptAccounts);
 
                 transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
                 transRow.setDeptAmount(new BigDecimal(0));
@@ -391,14 +375,9 @@ public class BankBLTransactionAdd {
              * Save Accounting Transaction
              *  
              */
-
-            Integer transId = blAccTran.saveAccTransaction(transDate, docNo,
-                    accTransType,
-                    seq.getTurqModule().getId().intValue(), seq
-                            .getId(), definition,exchangeRate);
-
-            blAccTran.registerAccTransactionRow(accTransRowBank, transId,exchangeRate);
-            blAccTran.registerAccTransactionRow(accTransRowCurrent, transId,exchangeRate);
+            blAccTran.saveAccTransaction(transDate, docNo, accTransType,
+                    seq.getTurqModule().getId().intValue(), seq.getId(),
+					definition,exchangeRate,creditAccounts,deptAccounts,true);
 
         } catch (Exception ex) {
             throw ex;
@@ -452,34 +431,23 @@ public class BankBLTransactionAdd {
             
             transRow.setTurqBanksCard(bankCard);
 
-            /*
-             * Create Accounting transaction
-             */
-            TurqAccountingTransactionColumn accTransRowBank = new TurqAccountingTransactionColumn();
-            TurqAccountingTransactionColumn accTransRowCurrent = new TurqAccountingTransactionColumn();
-
-
             TurqAccountingAccount bankAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCard,EngBLCommon.BANK_ACC_TYPE_GENERAL);
-            
-            
-            accTransRowBank.setTransactionDefinition(definition);
-            accTransRowBank.setTurqAccountingAccount(bankAccount);
 
-            accTransRowCurrent.setTransactionDefinition(definition);
-            accTransRowCurrent.setTurqAccountingAccount(CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL));
+            TurqAccountingAccount currentAccount=CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
 
             String currentTransDefinition = ""; //$NON-NLS-1$
 
             int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
 
             boolean currentTransType = false; // Credit or Debit
+            
+            Map creditAccounts=new HashMap();
+            Map deptAccounts=new HashMap();
 
             if (type == EngBLCommon.BANK_TRANS_RECIEVE_MONEY) {
-                accTransRowBank.setDeptAmount(totalAmount);
-                accTransRowBank.setCreditAmount(new BigDecimal(0));
-
-                accTransRowCurrent.setDeptAmount(new BigDecimal(0));
-                accTransRowCurrent.setCreditAmount(totalAmount);
+            	BankBLTransactionUpdate.prepareAccountingMaps(
+            			currentAccount.getId(),bankAccount.getId(),
+						totalAmount,creditAccounts,deptAccounts);
 
                 transRow.setDeptAmountInForeignCurrency(totalAmount);
                 transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
@@ -491,14 +459,11 @@ public class BankBLTransactionAdd {
                 currentTransDefinition = bankCard.getBankCode()+" "+definition; //$NON-NLS-1$
 
             }
-
             else if (type == EngBLCommon.BANK_TRANS_SEND_MONEY) {
-
-                accTransRowBank.setDeptAmount(new BigDecimal(0));
-                accTransRowBank.setCreditAmount(totalAmount);
-
-                accTransRowCurrent.setDeptAmount(totalAmount);
-                accTransRowCurrent.setCreditAmount(new BigDecimal(0));
+            	
+            	BankBLTransactionUpdate.prepareAccountingMaps(
+            			bankAccount.getId(),currentAccount.getId(),
+						totalAmount,creditAccounts,deptAccounts);
 
                 transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
                 transRow.setDeptAmount(new BigDecimal(0));
@@ -507,7 +472,6 @@ public class BankBLTransactionAdd {
 
                 currentTransType = EngBLCommon.CURRENT_TRANS_DEBIT;
                 currentTransDefinition =  bankCard.getBankCode()+" "+definition; //$NON-NLS-1$
-
             }
 
             /**
@@ -543,15 +507,12 @@ public class BankBLTransactionAdd {
              *  
              */
 
-            Integer transId = blAccTran.saveAccTransaction(transDate, docNo,
-                    accTransType,
-                    seq.getTurqModule().getId().intValue(), seq
-                            .getId(), definition,exchangeRate);
-
-            blAccTran.registerAccTransactionRow(accTransRowBank, transId,exchangeRate);
-            blAccTran.registerAccTransactionRow(accTransRowCurrent, transId,exchangeRate);
-
-        } catch (Exception ex) {
+            blAccTran.saveAccTransaction(transDate, docNo, accTransType,
+                    seq.getTurqModule().getId().intValue(), seq.getId(),
+					definition,exchangeRate,creditAccounts,deptAccounts,true);
+        } 
+        catch (Exception ex) 
+		{
             throw ex;
         }
 
@@ -606,33 +567,20 @@ public class BankBLTransactionAdd {
            
             transRow.setTurqBanksCard(bankCard);
 
-            /*
-             * Create Accounting transaction
-             */
-            TurqAccountingTransactionColumn accTransRowBank = new TurqAccountingTransactionColumn();
-            TurqAccountingTransactionColumn accTransRowCurrent = new TurqAccountingTransactionColumn();
-            
-
             TurqAccountingAccount bankAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCard,EngBLCommon.BANK_ACC_TYPE_GENERAL);
-            
-
-            accTransRowBank.setTransactionDefinition(definition);
-            accTransRowBank.setTurqAccountingAccount(bankAccount);
-
-            accTransRowCurrent.setTransactionDefinition(definition);
-            accTransRowCurrent.setTurqAccountingAccount(account);
 
             String currentTransDefinition = ""; //$NON-NLS-1$
 
             int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
+            
+            Map creditAccounts=new HashMap();
+            Map deptAccounts=new HashMap();
 
             //Para yatirma
-            if (type == EngBLCommon.BANK_TRANS_OTHER_DEPOSIT) {
-                accTransRowBank.setDeptAmount(totalAmount);
-                accTransRowBank.setCreditAmount(new BigDecimal(0));
-
-                accTransRowCurrent.setDeptAmount(new BigDecimal(0));
-                accTransRowCurrent.setCreditAmount(totalAmount);
+            if (type == EngBLCommon.BANK_TRANS_OTHER_DEPOSIT)
+            {
+            	BankBLTransactionUpdate.prepareAccountingMaps(account.getId(),
+            			bankAccount.getId(),totalAmount,creditAccounts,deptAccounts);
 
                 transRow.setDeptAmountInForeignCurrency(totalAmount);
                 transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
@@ -644,11 +592,9 @@ public class BankBLTransactionAdd {
             //Para cekme
             else if (type == EngBLCommon.BANK_TRANS_OTHER_DRAW) {
 
-                accTransRowBank.setDeptAmount(new BigDecimal(0));
-                accTransRowBank.setCreditAmount(totalAmount);
-
-                accTransRowCurrent.setDeptAmount(totalAmount);
-                accTransRowCurrent.setCreditAmount(new BigDecimal(0));
+            	BankBLTransactionUpdate.prepareAccountingMaps(
+            			bankAccount.getId(),account.getId(),totalAmount,
+						creditAccounts,deptAccounts);
 
                 transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
                 transRow.setDeptAmount(new BigDecimal(0));
@@ -681,14 +627,13 @@ public class BankBLTransactionAdd {
              *  
              */
 
-            Integer transId = blAccTran.saveAccTransaction(transDate, docNo,
-                    accTransType,
-                    seq.getTurqModule().getId().intValue(), seq
-                            .getId(), definition,exchangeRate);
+            blAccTran.saveAccTransaction(transDate, docNo, accTransType,
+                    seq.getTurqModule().getId().intValue(), seq.getId(),
+					definition,exchangeRate,creditAccounts,deptAccounts,true);
 
-            blAccTran.registerAccTransactionRow(accTransRowBank, transId,exchangeRate);
-            blAccTran.registerAccTransactionRow(accTransRowCurrent, transId,exchangeRate);
-        } catch (Exception ex) {
+        } 
+        catch (Exception ex)
+		{
             throw ex;
         }
 
