@@ -34,9 +34,9 @@
 					<Constraint verticalAlignment=""/>
 					<Constraint grabExcessVerticalSpace=""/>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
-					<Constraint grabExcessHorizontalSpace=""/>
-					<Constraint horizontalSpan=""/>
 					<Constraint widthHint=""/>
+					<Constraint horizontalSpan=""/>
+					<Constraint grabExcessHorizontalSpace=""/>
 					<Constraint horizontalIndent=""/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
@@ -131,9 +131,9 @@
 					<Constraint verticalAlignment=""/>
 					<Constraint grabExcessVerticalSpace=""/>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
-					<Constraint grabExcessHorizontalSpace=""/>
-					<Constraint horizontalSpan=""/>
 					<Constraint widthHint=""/>
+					<Constraint horizontalSpan=""/>
+					<Constraint grabExcessHorizontalSpace=""/>
 					<Constraint horizontalIndent=""/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>

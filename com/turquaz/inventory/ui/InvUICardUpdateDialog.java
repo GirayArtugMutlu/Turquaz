@@ -1,6 +1,7 @@
 package com.turquaz.inventory.ui;
 
 import java.util.Iterator;
+import java.util.Set;
 
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Session;
@@ -297,10 +298,7 @@ public class InvUICardUpdateDialog extends Dialog{
      catch(Exception ex){
      ex.printStackTrace();
      }
-     
-  
-     
-    
+        
     }
     public void removeRegisteredGroup(String groupName){
      TableItem items[] = compInvUICard.getTableInvCardAddGroupsAllGroups().getItems();
@@ -324,25 +322,105 @@ public class InvUICardUpdateDialog extends Dialog{
      
     } 
     
+    public void updateInvUnits(){
+    try{
+    
+   
+    //First remove groups then re-add them..
+	Iterator it = invCard.getTurqInventoryCardUnits().iterator();
+    TurqInventoryCardUnit cardUnit; 
+ 
+    while(it.hasNext()){   
+    
+     cardUnit = (TurqInventoryCardUnit)it.next();
+     cardUpdate.deleteObject(cardUnit);				
+	}
+   compInvUICard.saveInvUnits(invCard.getInventoryCardsId());
+   
+    }
+    
+    catch(Exception ex){
+    ex.printStackTrace();
+    }
+   }
+   
+   
+   public void updateInvGroups(){
+   try{
+   Iterator it = invCard.getTurqInventoryCardGroups().iterator();
+    TurqInventoryCardGroup cardGroup; 
+      
+    while(it.hasNext()){
+     
+     cardGroup = (TurqInventoryCardGroup)it.next();
+     cardUpdate.deleteObject(cardGroup);
+     }
+   
+    compInvUICard.saveInvGroups(invCard.getInventoryCardsId());
+   
+   }
+   catch(Exception ex){
+   ex.printStackTrace();
+   
+   }
+   
+   }
+   public void updatePrices(){
+   try{
+   Iterator it = invCard.getTurqInventoryPrices().iterator();
+   TurqInventoryPrice invPrice;
+	
+	while(it.hasNext()){
+     
+     invPrice = (TurqInventoryPrice)it.next();
+    
+     cardUpdate.deleteObject(invPrice);
+    
+              
+     }
+     compInvUICard.saveInvPrices(invCard.getInventoryCardsId());
+	
+   
+   
+   
+   
+   
+   
+   }
+   catch(Exception ex){
+   ex.printStackTrace();
+   }
+   
+   
+   
+   }
+   
+    
     public void update(){
-    	try {
+    try {
     
     
     // Update Inventory Card Fields
     int accountIdSell = ((Integer) compInvUICard.getTxtInvCardOutAcc().getData()).intValue();
 	int accountIdBuy = ((Integer) compInvUICard.getTxtInvCardInAcc().getData()).intValue();
+    
+	
+    
      
     cardUpdate.updateInvCard(compInvUICard.getTxtInvCardCode().getText()
 						.trim(), compInvUICard.getTxtInvCardSpecialCode().getText().trim(),
 						compInvUICard.getTxtInvCardName().getText().trim(), compInvUICard.getTxtInvCardDefinition().getText().trim(),
 						 compInvUICard.getTxtnumInvCardMin().getIntValue(),compInvUICard.getTxtnumInvCardMax().getIntValue(),
 						compInvUICard.getTxtInvCardVat().getIntValue(), compInvUICard.getTxtInvCardDiscount().getIntValue(), accountIdBuy, accountIdSell, invCard);	
-				
-				
-		
+	
+	 //Update Inventory Groups			
+	updateInvUnits();
+	updateInvGroups();
+	updatePrices();
 		
 		
 	}
+	
 		catch(Exception ex){
 		ex.printStackTrace();
 		

@@ -240,6 +240,9 @@ public class InvUICardAdd extends SecureComposite {
 	private CTabFolder tabfldInvCardAdd;
 	private List currencyList;
 	public InvUIPriceList priceList;
+	
+	
+	InvBLCardAdd blCardAdd = new InvBLCardAdd();
 
 	public InvUICardAdd(Composite parent, int style) {
 		super(parent, style);
@@ -1525,7 +1528,7 @@ decimalSymbol + "][0-9]+)?");
 	public void save() {
 		if (verifyFields()) {
 
-			InvBLCardAdd blCardAdd = new InvBLCardAdd();
+			
 			int accountIdSell = ((Integer) txtInvCardOutAcc.getData()).intValue();
 			int accountIdBuy = ((Integer) txtInvCardInAcc.getData()).intValue();
 			try {
@@ -1542,55 +1545,13 @@ decimalSymbol + "][0-9]+)?");
 				);
 
 				// Register its Groups
+                saveInvGroups(cardId);
 
-				int itemCount = tableInvCardAddGroupsRegisteredGroups
-						.getItemCount();
-				TableItem item;
-				for (int i = 0; i < itemCount; i++) {
-					item = tableInvCardAddGroupsRegisteredGroups.getItem(i);
-					blCardAdd.registerGroup(cardId, item.getData());
-				}
-
-				//Register its Base Units
-
-				Object invUnit = comboInvCardUnits.getData(comboInvCardUnits
-						.getText());
-				blCardAdd.registerUnits(cardId, invUnit, 1);
-
-				//Register Secondary Units
-				itemCount = tableInvCardAddRegisteredUnits.getItemCount();
-				TableEditor editor;
-				for (int i = 0; i < itemCount; i++) {
-					item = tableInvCardAddRegisteredUnits.getItem(i);
-					editor = (TableEditor) mapEditorsTableInvCardAddRegisteredUnits
-							.get(item.getText(0));
-					int factor = ((NumericText) editor.getEditor())
-							.getIntValue();
-					blCardAdd.registerUnits(cardId, item.getData(), factor);
-
-				}
+				//Register its Units
+                saveInvUnits(cardId);  
 				
 				// Save the price list now.
-		         
-		         itemCount =tableInvCardAddPrices.getItemCount();
-		        
-		         for(int i=0;i<itemCount;i++){
-		         item = tableInvCardAddPrices.getItem(i);
-		         String type = item.getText(0); 
-		         String amount = item.getText(1); 
-		         String abbrev = item.getText(2);
-		         	
-		         	if(!type.equals("")&&!abbrev.equals("")&&!amount.equals("")){
-		         	
-		         	boolean priceType =false;	
-		         		if(type.equals("Buy")){	
-		         			priceType=true;		         		
-		         		}
-		         		
-		         		blCardAdd.saveInvPrices(cardId,priceType,abbrev,amount);
-		         
-		         	}
-		         }
+		        saveInvPrices(cardId);
 		         
 		         } catch (Exception ex) {
 				ex.printStackTrace();
@@ -1599,6 +1560,77 @@ decimalSymbol + "][0-9]+)?");
 		}
 
 	}
+	
+	public void saveInvGroups(Integer cardId){
+
+	try{	
+		int itemCount = tableInvCardAddGroupsRegisteredGroups
+				.getItemCount();
+		TableItem item;
+		for (int i = 0; i < itemCount; i++) {
+			item = tableInvCardAddGroupsRegisteredGroups.getItem(i);
+			blCardAdd.registerGroup(cardId, item.getData());
+		}
+	}
+	catch(Exception ex){
+		ex.printStackTrace();
+	}
+	
+	}
+	public void saveInvUnits(Integer cardId){
+      try
+	  {
+		Object invUnit = comboInvCardUnits.getData(comboInvCardUnits
+				.getText());
+		blCardAdd.registerUnits(cardId, invUnit, 1);
+		TableItem item;
+		//Register Secondary Units
+		int itemCount = tableInvCardAddRegisteredUnits.getItemCount();
+		TableEditor editor;
+		for (int i = 0; i < itemCount; i++) {
+			item = tableInvCardAddRegisteredUnits.getItem(i);
+			editor = (TableEditor) mapEditorsTableInvCardAddRegisteredUnits
+					.get(item.getText(0));
+			int factor = ((NumericText) editor.getEditor())
+					.getIntValue();
+			blCardAdd.registerUnits(cardId, item.getData(), factor);
+
+		}
+	  }
+      catch(Exception ex){
+      	ex.printStackTrace();
+      }
+		
+	}
+	public void saveInvPrices(Integer cardId){
+		try{
+	   int itemCount =tableInvCardAddPrices.getItemCount();
+	   TableItem item;
+        for(int i=0;i<itemCount;i++){
+        item = tableInvCardAddPrices.getItem(i);
+        String type = item.getText(0); 
+        String amount = item.getText(1); 
+        String abbrev = item.getText(2);
+        	
+        	if(!type.equals("")&&!abbrev.equals("")&&!amount.equals("")){
+        	
+        	boolean priceType =false;	
+        		if(type.equals("Buy")){	
+        			priceType=true;		         		
+        		}
+        		
+        		blCardAdd.saveInvPrices(cardId,priceType,abbrev,amount);
+        
+        	}
+        }
+		
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+	}
+	
 
 	public void delete() {
 		System.out.println("Delete Button Pushed!");

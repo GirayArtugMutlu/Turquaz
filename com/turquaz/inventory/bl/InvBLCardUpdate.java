@@ -28,6 +28,21 @@ public class InvBLCardUpdate {
 	public InvBLCardUpdate(){
 		
 	}
+	/**
+	 * 
+	 * @param invCode
+	 * @param invSpecialCode
+	 * @param cardName
+	 * @param cardDefinition
+	 * @param minAmount
+	 * @param maxAmount
+	 * @param cardVat
+	 * @param discount
+	 * @param accountIdBuy
+	 * @param accountIdSell
+	 * @param card
+	 * @throws Exception
+	 */
 	public void updateInvCard(String invCode, String invSpecialCode,
 			String cardName, String cardDefinition, int minAmount,
 			int maxAmount, int cardVat, int discount, int accountIdBuy,
@@ -62,6 +77,23 @@ public class InvBLCardUpdate {
 		} catch (Exception ex) {
 			throw ex;
 		}
+	}
+	
+	/**
+	 * 
+	 * @param obj Serializable object
+	 */
+	
+	public void deleteObject(Object obj)throws Exception{
+ 		try{
+			
+ 			cardUpdate.deleteObject(obj);
+ 			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
 	}
 	
 	

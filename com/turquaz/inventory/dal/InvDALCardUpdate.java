@@ -40,6 +40,22 @@ public class InvDALCardUpdate {
 		
 		
 	}
+	public void deleteObject(Object obj)throws Exception{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+		
+			session.delete(obj);
+			session.flush();
+			tx.commit();
+			session.close();
+			
+			}
+			catch(Exception ex){
+				throw ex;
+			}
+		
+	}
 	
 	
 	
