@@ -24,7 +24,6 @@ package com.turquaz.engine.ui;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream; 
-import java.sql.Savepoint;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -50,7 +49,6 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.PaintEvent;
 
 import org.eclipse.swt.widgets.TreeItem;
@@ -66,20 +64,21 @@ import org.eclipse.swt.widgets.Listener;
 
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.CoolItem;
-import org.eclipse.swt.widgets.CoolBar;
+
 import org.eclipse.swt.widgets.Label;
 
 import org.eclipse.swt.SWT;
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
 
+import com.turquaz.engine.ui.component.LiveSashForm;
+import org.eclipse.swt.widgets.CoolBar;
+import org.eclipse.swt.widgets.CoolItem;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.dal.EngDALConnection;
-import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TreeFactory;
@@ -129,8 +128,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private static ToolItem toolSave;
 	private static ToolItem toolNew;
 	private ToolBar toolbarMainTop;
-	private CoolItem coolRightMain;
-	private CoolBar coolbarRightTop;
 	private Composite compMainInRight;
 	private static Tree treeFavorites;
 	private ToolBar toolbarFavoritesTab;
@@ -144,13 +141,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private CCombo comboModuleSelection;
 	private CLabel lblModuleSelection;
 	private Composite compModuleSelection;
+	private CoolItem coolItem1;
+	private CoolBar coolBar1;
 	private Tree treeBill;
 	private static ToolItem toolExportToExcel;
 	private Tree treeConsignment;
 	private Composite compModulesTab;
 	private CTabItem tabModules;
 	private CTabFolder tabfldMenu;
-	private SashForm sashMainHorizontal;
+	private LiveSashForm sashMainHorizontal;
 	private MenuItem mitEdit;
 	private SashForm sashMainVertical;
 	private Composite compMainIn;
@@ -190,7 +189,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			lblSeperatorLeft = new Label(compMain,SWT.SEPARATOR);
 			compMainIn = new Composite(compMain,SWT.NULL);
 			sashMainVertical = new SashForm(compMainIn,SWT.NULL);
-			sashMainHorizontal = new SashForm(sashMainVertical,SWT.NULL);
+			sashMainHorizontal = new LiveSashForm(sashMainVertical, SWT.NONE);
 			tabfldMenu = new CTabFolder(sashMainHorizontal,SWT.TOP| SWT.BORDER);
 			tabModules = new CTabItem(tabfldMenu,SWT.NULL);
 			compModulesTab = new Composite(tabfldMenu,SWT.NULL);
@@ -230,21 +229,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			toolbarFavoritesTab = new ToolBar(compFavoritesSelection,SWT.FLAT);
 			treeFavorites = new Tree(compFavoritesTab,SWT.NULL);
 			compMainInRight = new Composite(sashMainHorizontal,SWT.NULL);
-			coolbarRightTop = new CoolBar(compMainInRight,SWT.NULL);
-			coolRightMain = new CoolItem(coolbarRightTop,SWT.NULL);
-			toolbarMainTop = new ToolBar(coolbarRightTop,SWT.FLAT);
-			toolNew = new ToolItem(toolbarMainTop,SWT.PUSH);
-			toolSave = new ToolItem(toolbarMainTop,SWT.PUSH);
-			toolDelete = new ToolItem(toolbarMainTop,SWT.PUSH);
-			toolSearch = new ToolItem(toolbarMainTop,SWT.PUSH);
-			tabfldMain = new CTabFolder(compMainInRight, SWT.CLOSE | SWT.BORDER);
+			
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(800,600));
-			this.addPaintListener( new PaintListener() {
-				public void paintControl(PaintEvent evt) {
-					EngUIMainFramePaintControl(evt);
-				}
-			});
+			
 	
 			GridData lblSeperatorLData = new GridData();
 			lblSeperatorLData.verticalAlignment = GridData.CENTER;
@@ -534,15 +522,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			GridData treeFavoritesLData = new GridData();
 			treeFavoritesLData.verticalAlignment = GridData.FILL;
 			treeFavoritesLData.horizontalAlignment = GridData.FILL;
-			treeFavoritesLData.widthHint = -1;
-			treeFavoritesLData.heightHint = -1;
-			treeFavoritesLData.horizontalIndent = 0;
-			treeFavoritesLData.horizontalSpan = 1;
-			treeFavoritesLData.verticalSpan = 1;
-			treeFavoritesLData.grabExcessHorizontalSpace = false;
 			treeFavoritesLData.grabExcessVerticalSpace = true;
 			treeFavorites.setLayoutData(treeFavoritesLData);
-			treeFavorites.setSize(new org.eclipse.swt.graphics.Point(370,509));
 			treeFavorites.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeFavoritesMouseDoubleClick(evt);
@@ -559,81 +540,119 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compFavoritesTab.layout();
 			tabfldMenu.setLayout(null);
 			tabfldMenu.setSelection(0);
-	
-			compMainInRight.setSize(new org.eclipse.swt.graphics.Point(397,572));
-			compMainInRight.setBounds(new org.eclipse.swt.graphics.Rectangle(395,0,397,572));
-	
-			GridData coolbarRightTopLData = new GridData();
-			coolbarRightTopLData.verticalAlignment = GridData.CENTER;
-			coolbarRightTopLData.horizontalAlignment = GridData.FILL;
-			coolbarRightTopLData.widthHint = -1;
-			coolbarRightTopLData.heightHint = 40;
-			coolbarRightTopLData.horizontalIndent = 0;
-			coolbarRightTopLData.horizontalSpan = 1;
-			coolbarRightTopLData.verticalSpan = 1;
-			coolbarRightTopLData.grabExcessHorizontalSpace = false;
-			coolbarRightTopLData.grabExcessVerticalSpace = false;
-			coolbarRightTop.setLayoutData(coolbarRightTopLData);
-			coolbarRightTop.setSize(new org.eclipse.swt.graphics.Point(387,40));
-	
-			coolRightMain.setControl(toolbarMainTop);
-			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(127,36));
-			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(127,36));
-			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(127,36));
-			coolRightMain.setText("coolItem3"); //$NON-NLS-1$
-	
-			toolbarMainTop.setLocation(new org.eclipse.swt.graphics.Point(20,0));
-	
-			toolNew.setEnabled(true);
-			toolNew.setText(Messages.getString("EngUIMainFrame.8")); //$NON-NLS-1$
-			toolNew.setToolTipText(Messages.getString("EngUIMainFrame.9")); //$NON-NLS-1$
-			toolNew.setImage(SWTResourceManager.getImage("icons/new_wiz.gif")); //$NON-NLS-1$
-			toolNew.addSelectionListener( new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					toolNewWidgetSelected(evt);
-				}
-			});
-	
-			toolSave.setText(Messages.getString("EngUIMainFrame.11")); //$NON-NLS-1$
-			toolSave.setToolTipText(Messages.getString("EngUIMainFrame.12")); //$NON-NLS-1$
-			toolSave.setImage(SWTResourceManager.getImage("icons/save.jpg")); //$NON-NLS-1$
-			toolSave.addSelectionListener( new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					toolSaveWidgetSelected(evt);
-				}
-			});
-	
-			toolDelete.setText(Messages.getString("EngUIMainFrame.0")); //$NON-NLS-1$
-			toolDelete.setToolTipText(Messages.getString("EngUIMainFrame.15")); //$NON-NLS-1$
-			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
-			toolDelete.addSelectionListener( new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					toolDeleteWidgetSelected(evt);
-				}
-			});
-	
-			toolSearch.setText(Messages.getString("EngUIMainFrame.17")); //$NON-NLS-1$
-			toolSearch.setToolTipText(Messages.getString("EngUIMainFrame.18")); //$NON-NLS-1$
-			toolSearch.setImage(SWTResourceManager.getImage("icons/search.jpg")); //$NON-NLS-1$
-			toolSearch.setSelection(true);
-			{
-				toolExportToExcel = new ToolItem(toolbarMainTop, SWT.NONE);
-				toolExportToExcel.setText(Messages.getString("EngUIMainFrame.10")); //$NON-NLS-1$
-				toolExportToExcel.setImage(SWTResourceManager.getImage("icons/excel.jpeg")); //$NON-NLS-1$
-				toolExportToExcel.addSelectionListener(new SelectionAdapter() {
-					public void widgetSelected(SelectionEvent evt) {
-						exportToExcel();
-					}
-				});
-			}
-			toolSearch.addSelectionListener( new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					toolSearchWidgetSelected(evt);
-				}
-			});
-			toolbarMainTop.setLayout(null);
-			coolbarRightTop.setLayout(null);
-	
+
+			compMainInRight.setBounds(200, 2, 592, 572);
+
+			
+			
+			GridLayout compMainInRightLayout = new GridLayout();
+			compMainInRight.setLayout(compMainInRightLayout);
+            {
+                coolBar1 = new CoolBar(compMainInRight, SWT.NONE);
+                GridData coolBar1LData = new GridData();
+                coolBar1LData.grabExcessHorizontalSpace = true;
+                coolBar1LData.horizontalAlignment = GridData.FILL;
+                coolBar1.setLayoutData(coolBar1LData);
+                {
+                    coolItem1 = new CoolItem(coolBar1, SWT.NONE);
+                    coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 26));
+                    coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 26));
+                    coolItem1.setSize(45, 26);
+                    {
+                        toolbarMainTop = new ToolBar(coolBar1, SWT.FLAT
+                            | SWT.RIGHT);
+                        coolItem1.setControl(toolbarMainTop);
+                        toolbarMainTop
+                            .setLocation(new org.eclipse.swt.graphics.Point(
+                                20,
+                                0));
+
+                        {
+                            toolNew = new ToolItem(toolbarMainTop, SWT.RADIO);
+                            toolNew.setText(Messages
+                                .getString("EngUIMainFrame.8")); //$NON-NLS-1$
+                            toolNew.setToolTipText(Messages
+                                .getString("EngUIMainFrame.9")); //$NON-NLS-1$
+                            toolNew.setImage(SWTResourceManager
+                                .getImage("icons/new_wiz.gif"));
+
+                            toolNew
+                                .addSelectionListener(new SelectionAdapter() {
+                                    public void widgetSelected(
+                                        SelectionEvent evt) {
+                                        toolNewWidgetSelected(evt);
+                                    }
+                                });
+                        }
+                        {
+                            toolSave = new ToolItem(toolbarMainTop, SWT.PUSH);
+                            toolSave.setText(Messages
+                                .getString("EngUIMainFrame.11")); //$NON-NLS-1$
+                            toolSave.setToolTipText(Messages
+                                .getString("EngUIMainFrame.12")); //$NON-NLS-1$
+                            toolSave.setImage(SWTResourceManager
+                                .getImage("icons/save.jpg")); //$NON-NLS-1$
+                            toolSave
+                                .addSelectionListener(new SelectionAdapter() {
+                                    public void widgetSelected(
+                                        SelectionEvent evt) {
+                                        toolSaveWidgetSelected(evt);
+                                    }
+                                });
+                        }
+                        {
+                            toolDelete = new ToolItem(toolbarMainTop, SWT.PUSH);
+                            toolDelete.setText(Messages
+                                .getString("EngUIMainFrame.0")); //$NON-NLS-1$
+                            toolDelete.setToolTipText(Messages
+                                .getString("EngUIMainFrame.15")); //$NON-NLS-1$
+                            toolDelete.setImage(SWTResourceManager
+                                .getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+                            toolDelete
+                                .addSelectionListener(new SelectionAdapter() {
+                                    public void widgetSelected(
+                                        SelectionEvent evt) {
+                                        toolDeleteWidgetSelected(evt);
+                                    }
+                                });
+                        }
+                        {
+                            toolSearch = new ToolItem(toolbarMainTop, SWT.PUSH);
+                            toolSearch.setText(Messages
+                                .getString("EngUIMainFrame.17")); //$NON-NLS-1$
+                            toolSearch.setToolTipText(Messages
+                                .getString("EngUIMainFrame.18")); //$NON-NLS-1$
+                            toolSearch.setImage(SWTResourceManager
+                                .getImage("icons/search.jpg")); //$NON-NLS-1$
+                            toolSearch.setSelection(true);
+                            toolSearch
+                                .addSelectionListener(new SelectionAdapter() {
+                                    public void widgetSelected(
+                                        SelectionEvent evt) {
+                                        toolSearchWidgetSelected(evt);
+                                    }
+                                });
+                        }
+                        {
+                            toolExportToExcel = new ToolItem(
+                                toolbarMainTop,
+                                SWT.NONE);
+                            toolExportToExcel.setText(Messages
+                                .getString("EngUIMainFrame.10")); //$NON-NLS-1$
+                            toolExportToExcel.setImage(SWTResourceManager
+                                .getImage("icons/excel.jpeg")); //$NON-NLS-1$
+                            toolExportToExcel
+                                .addSelectionListener(new SelectionAdapter() {
+                                    public void widgetSelected(
+                                        SelectionEvent evt) {
+                                        exportToExcel();
+                                    }
+                                });
+                        }
+                    }
+                }
+            }
+            tabfldMain = new CTabFolder(compMainInRight, SWT.CLOSE | SWT.BORDER);
 			GridData tabfldMainLData = new GridData();
 			
 			tabfldMainLData.verticalAlignment = GridData.FILL;
@@ -664,16 +683,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				}
 			});
 			tabfldMain.setLayout(null);
-			GridLayout compMainInRightLayout = new GridLayout(1, true);
-			compMainInRight.setLayout(compMainInRightLayout);
-			compMainInRightLayout.marginWidth = 5;
-			compMainInRightLayout.marginHeight = 5;
-			compMainInRightLayout.numColumns = 1;
 			compMainInRightLayout.makeColumnsEqualWidth = true;
-			compMainInRightLayout.horizontalSpacing = 5;
-			compMainInRightLayout.verticalSpacing = 5;
+			compMainInRightLayout.verticalSpacing = 0;
+			compMainInRightLayout.marginHeight = 0;
 			compMainInRight.layout();
-			sashMainHorizontal.setLayout(null);
 			sashMainVertical.setLayout(null);
 			GridLayout compMainInLayout = new GridLayout(1, true);
 			compMainIn.setLayout(compMainInLayout);
@@ -845,7 +858,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		comboModuleSelection.add(Messages.getString("EngUIMainFrame.35")); //$NON-NLS-1$
 		comboModuleSelection.add(Messages.getString("EngUIMainFrame.1")); //$NON-NLS-1$
 		comboModuleSelection.add(Messages.getString("EngUIMainFrame.4"));	 //$NON-NLS-1$
-		tabfldMain.setTabHeight(25);
+		tabfldMain.setTabHeight(20);
 		tabfldMain.setSelectionBackground(new Color[]{Display.getDefault().getSystemColor(SWT.COLOR_WHITE)},
 														   new int[]{});
 		toolNew.setEnabled(false);

@@ -82,7 +82,7 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 		try {
 			preInitGUI();
 
-			this.setSize(new org.eclipse.swt.graphics.Point(276,35));
+			this.setSize(282, 27);
 			this.setEnabled(true);
 
 			
@@ -103,7 +103,7 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 			}
 			{
 				button1 = new Button(this, SWT.PUSH | SWT.BORDER);
-				button1.setImage(SWTResourceManager.getImage("icons/Calendar16.gif"));
+				button1.setImage(SWTResourceManager.getImage("icons/day_obj.gif"));
 				GridData button1LData = new GridData();
 				button1.addMouseListener(new MouseAdapter() {
 					public void mouseUp(MouseEvent evt) {
@@ -111,7 +111,7 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 					}
 				});
 				button1LData.verticalAlignment = GridData.FILL;
-				button1LData.widthHint = 31;
+				button1LData.widthHint = 37;
 				button1.setLayoutData(button1LData);
 			}
 			thisLayout.marginWidth = 0;
