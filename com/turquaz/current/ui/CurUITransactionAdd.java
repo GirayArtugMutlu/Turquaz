@@ -193,6 +193,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 			lblAmount.setSize(new org.eclipse.swt.graphics.Point(88,21));
 	
 			GridData decTxtAmountLData = new GridData();
+			decTxtAmount.setTextLimit(26);
 			decTxtAmountLData.verticalAlignment = GridData.CENTER;
 			decTxtAmountLData.horizontalAlignment = GridData.BEGINNING;
 			decTxtAmountLData.widthHint = 217;

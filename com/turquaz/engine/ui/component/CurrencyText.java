@@ -21,7 +21,10 @@ package com.turquaz.engine.ui.component;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+import java.awt.Cursor;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.text.NumberFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,15 +49,31 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 public class CurrencyText extends Composite {
  private Text text;
  public int textLimit;
+ VerifyListener listener;
 
  public CurrencyText(Composite arg0, int arg1) {
   super(arg0, SWT.NONE);
-  text = new Text(this, arg1);
-  textLimit =20;
-  text.setTextLimit(20);
+  text = new Text(this, SWT.RIGHT);
+  textLimit =26;
+  text.setTextLimit(textLimit);
 
   addListener(SWT.Resize, new Listener() {
    public void handleEvent(Event e) {
@@ -67,12 +86,12 @@ public class CurrencyText extends Composite {
     onFocusIn();
    }
   });
-  
-  text.addVerifyListener(new VerifyListener() {
+  listener = new VerifyListener() {
 	public void verifyText(VerifyEvent evt) {
 		text3VerifyText(evt);
 	}
-});
+};
+  text.addVerifyListener(listener);
 
  }
  public void setTextLimit(int a){
@@ -86,62 +105,64 @@ public class CurrencyText extends Composite {
  	char decimalSymbol ='.';
  	int numberOfDecimals =2;
  	Text control = (Text)e.widget;
-    String text = control.getText();
+    String textcontrol = control.getText();
     e.doit = false;
+    String newText = textcontrol.substring(0, e.start) + e.text + textcontrol.substring(e.end);
 
-    if (e.keyCode == SWT.BS || e.keyCode == SWT.DEL){
-     e.doit = true;
-     return;
-    }
-
-    String newText = text.substring(0, e.start) + e.text + text.substring(e.end);
-
+   /* if (e.keyCode == SWT.BS || e.keyCode == SWT.DEL){
+    	e.doit=true;
+    	
+      return;
+    }*/
+    if (newText.length() > textLimit)
+    	return;
+    
     if (newText.equals("")){
-     e.doit = true;
+     e.doit=true;
      return;
     }
-
+    newText=newText.replaceAll(",","");
     Pattern realNumberPattern = Pattern.compile("-?[0-9]+[0-9]*(([" +decimalSymbol + "][0-9]?[0-9]?)|(["+decimalSymbol+"]))?");
     Matcher matcher = realNumberPattern.matcher(newText);
     boolean valid = matcher.matches();
+    
 
-    e.doit = valid;
-/*
-    if (newText.length() > 2){
-     int pos = newText.indexOf('-');
-     if (pos != -1 && newText.indexOf('-', pos + 1) != -1){
-      e.doit = false;
-      return;
-     }
-     if (newText.charAt(0) == '-' && newText.charAt(1) == '0' &&
-       newText.charAt(2) != decimalSymbol){
-      e.doit = false;
-      return;
-     }
-     pos = newText.indexOf(decimalSymbol);
-     if (pos != -1) {
-      e.doit = true;
-      if (newText.indexOf(decimalSymbol, pos + 1) != -1){
-       e.doit = false;
-       return;
-      }
-
-      if (newText.substring(pos + 1).length() > numberOfDecimals){
-       e.doit = false;
-       return;
-      }
-     }
+    if (valid){
+    	text.removeVerifyListener(listener);
+    	boolean isLastSeperator=(newText.toCharArray()[newText.length()-1]==decimalSymbol) ? true : false;
+    	BigDecimal bd=new BigDecimal(newText);
+    	TurquazDecimalFormat tdf=new TurquazDecimalFormat();
+    	String formatted=tdf.format(bd);
+    	if (isLastSeperator)
+    		formatted +=".";
+    	text.setText(formatted);
+    	String s=textcontrol.substring(0,e.start)+e.text;
+    	s=s.replaceAll(",","");
+    	int index=newText.indexOf(".");
+    	int diff=0;
+    	if (index==-1)
+    	{
+    		int count=newText.length()/3;
+    		if (newText.length()%3 ==0)
+    			count--;
+    		int count2=(newText.length()-s.length())/3;
+    		diff=count-count2;
+    	}
+    	else
+    	{
+    		newText=newText.substring(0,index-1);
+    		int count=newText.length()/3;
+    		int count2=(newText.length()-s.length())/3;
+    		diff=count-count2;
+    	}
+    	int offset=s.length()+diff;
+    	text.setSelection(offset);
+    	text.addVerifyListener(listener);
     }
-    else {
-     if (newText.length() == 1 && newText.charAt(0) == '-'){
-      e.doit = true;
-     }
-    }
-    */
    }
   
  public void setText(String txt){
-  text.setText(txt);
+ 	text.setText(txt);	
  	
  }
  public void setBackground(Color c){
@@ -151,7 +172,8 @@ public class CurrencyText extends Composite {
  	return text.getBackground();
  }
  public String getText(){
- 	return text.getText();
+ 	String formatted=text.getText(); 	
+ 	return formatted.replaceAll(",","");
  }
  public void selectAll(){
  	text.selectAll();
