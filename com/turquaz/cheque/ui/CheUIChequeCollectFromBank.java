@@ -28,11 +28,10 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Table;
-import com.turquaz.bank.ui.comp.BankCardPicker;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -45,6 +44,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import com.turquaz.cheque.Messages;
+import com.turquaz.cheque.bl.CheBLSaveChequeTransaction;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 
@@ -74,14 +74,11 @@ public class CheUIChequeCollectFromBank extends org.eclipse.swt.widgets.Composit
 	private Composite compInfoPanel;
 	private ToolBar toolBarButtons;
 	private ToolItem toolItemAdd;
-	private Button btnSumTotals;
 	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnPaymentPlace;
 	private TableColumn tableColumnDeptor;
 	private TableColumn tableColumnDueDaye;
 	private TableColumn tableColumnNo;
-	private BankCardPicker bankCardPicker;
-	private CLabel lblCurrentCode;
 	private DatePicker datePicker1;
 	private CLabel lblRollDate;
 	private Text txtRollNo;
@@ -108,7 +105,7 @@ public class CheUIChequeCollectFromBank extends org.eclipse.swt.widgets.Composit
                 GridData compInfoPanelLData = new GridData();
                 compInfoPanelLData.grabExcessHorizontalSpace = true;
                 compInfoPanelLData.horizontalAlignment = GridData.FILL;
-                compInfoPanelLData.heightHint = 103;
+                compInfoPanelLData.heightHint = 58;
                 compInfoPanel.setLayoutData(compInfoPanelLData);
                 compInfoPanelLayout.numColumns = 2;
                 compInfoPanel.setLayout(compInfoPanelLayout);
@@ -135,22 +132,6 @@ public class CheUIChequeCollectFromBank extends org.eclipse.swt.widgets.Composit
                     datePicker1LData.widthHint = 143;
                     datePicker1LData.heightHint = 19;
                     datePicker1.setLayoutData(datePicker1LData);
-                }
-                {
-                    lblCurrentCode = new CLabel(compInfoPanel, SWT.NONE);
-                    lblCurrentCode.setText(Messages.getString("CheUIChequeOutPayrollBank.0")); //$NON-NLS-1$
-                }
-                {
-                    bankCardPicker = new BankCardPicker(compInfoPanel, SWT.NONE);
-                    GridData currentPickerLData = new GridData();
-                    currentPickerLData.widthHint = 330;
-                    currentPickerLData.heightHint = 15;
-                    bankCardPicker.setLayoutData(currentPickerLData);
-                }
-                {
-                    btnSumTotals = new Button(compInfoPanel, SWT.CHECK
-                        | SWT.LEFT);
-                    btnSumTotals.setText(Messages.getString("CheUIChequeOutPayrollBank.1")); //$NON-NLS-1$
                 }
             }
             {
@@ -233,7 +214,7 @@ public class CheUIChequeCollectFromBank extends org.eclipse.swt.widgets.Composit
 
     public void newForm() {
        
-        CheUIChequeOutPayrollBank  curCard = new CheUIChequeOutPayrollBank(this.getParent(),this.getStyle());
+        CheUIChequeCollectFromBank  curCard = new CheUIChequeCollectFromBank(this.getParent(),this.getStyle());
 		 CTabFolder tabfld = (CTabFolder)this.getParent();
 		 tabfld.getSelection().setControl(curCard);	 
 		 this.dispose();
@@ -242,13 +223,8 @@ public class CheUIChequeCollectFromBank extends org.eclipse.swt.widgets.Composit
 
     }
     public boolean verifyFields(){
-        if(bankCardPicker.getData()==null)
-        {
-            EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.11"),SWT.ICON_WARNING); //$NON-NLS-1$
-            bankCardPicker.setFocus();
-            return false;
-        }
-        else if(tableCheques.getItemCount()==0)
+      
+        if(tableCheques.getItemCount()==0)
         {
             EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.12"),SWT.ICON_WARNING); //$NON-NLS-1$
             toolItemAdd.setSelection(true);
@@ -262,14 +238,10 @@ public class CheUIChequeCollectFromBank extends org.eclipse.swt.widgets.Composit
      try{
          
         if(verifyFields()){ 
-
-            /**
-             * TODO new save function
-             */
-        	
-           //   CheBLSaveChequeTransaction.saveChequeRoll(null,null,bankCardPicker.getTurqBank(),txtRollNo.getText().trim(),datePicker1.getDate(),cheques,EngBLCommon.CHEQUE_TRANS_OUT_BANK,btnSumTotals.getSelection());
-              EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
-              newForm();
+       	
+           CheBLSaveChequeTransaction.saveCollectFromBank(txtRollNo.getText().trim(),datePicker1.getDate(),cheques);
+           EngUICommon.showSavedSuccesfullyMessage(getShell());  
+           newForm();
         }
          
      }
@@ -298,10 +270,7 @@ public class CheUIChequeCollectFromBank extends org.eclipse.swt.widgets.Composit
    
     public void addCheque(){
      
-    	/**
-    	 * TODO new add cheque function
-    	 */
-        cheques = new CheUICustomerChequeChooseDialog(getShell(),SWT.NULL,cheques).open();
+        cheques = new CheUIChequesInBankChooseDialog(getShell(),SWT.NULL,cheques).open();
         fillTable();
       
         
@@ -331,18 +300,7 @@ public class CheUIChequeCollectFromBank extends org.eclipse.swt.widgets.Composit
     }
     
     
-	/**
-	 * @return Returns the btnSumTotals.
-	 */
-	public Button getBtnSumTotals() {
-		return btnSumTotals;
-	}
-	/**
-	 * @param btnSumTotals The btnSumTotals to set.
-	 */
-	public void setBtnSumTotals(Button btnSumTotals) {
-		this.btnSumTotals = btnSumTotals;
-	}
+	
 	/**
 	 * @return Returns the toolItemAdd.
 	 */
@@ -367,12 +325,7 @@ public class CheUIChequeCollectFromBank extends org.eclipse.swt.widgets.Composit
 	public void setToolItemDelete(ToolItem toolItemDelete) {
 		this.toolItemDelete = toolItemDelete;
 	}
-    public BankCardPicker getBankCardPicker() {
-        return bankCardPicker;
-    }
-    public void setBankCardPicker(BankCardPicker currentPicker) {
-        this.bankCardPicker = currentPicker;
-    }
+  
     public DatePicker getDatePicker1() {
         return datePicker1;
     }

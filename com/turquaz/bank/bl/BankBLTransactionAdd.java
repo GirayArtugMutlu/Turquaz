@@ -660,9 +660,11 @@ public class BankBLTransactionAdd {
                 } catch (Exception ex) {
                     throw ex;
                 }
+            
             }
+            
             TurqBanksTransactionType transType = new TurqBanksTransactionType();
-            transType.setBankTransactionTypesId(new Integer(EngBLCommon.BANK_TRANS_CHEQUE_DEPOSIT));
+            transType.setBankTransactionTypesId(new Integer(EngBLCommon.BANK_TRANS_CHEQUE_COLLECT));
 
             TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
            
@@ -682,13 +684,14 @@ public class BankBLTransactionAdd {
              * Transaction Rows
              *  
              */
+          
             TurqBanksTransaction transRow = new TurqBanksTransaction();
             transRow.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
             transRow.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
             transRow.setLastModified(Calendar.getInstance().getTime());
             transRow.setCreationDate(Calendar.getInstance().getTime());
-           
             transRow.setTurqBanksCard(bankCard);
+           
             transRow.setDeptAmount(totalAmount);
             transRow.setCreditAmount(new BigDecimal(0));
          

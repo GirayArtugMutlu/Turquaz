@@ -221,7 +221,7 @@ public class CheBLUpdateCheque {
 				
 			}
 				
-			if(chequeRoll.getTurqChequeTransactionType().getChequeTransactionTypesId().intValue()==EngBLCommon.CHEQUE_TRANS_OUT_BANK)
+			if(chequeRoll.getTurqChequeTransactionType().getChequeTransactionTypesId().intValue()==EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_BANK)
 			{
 				it = chequeRoll.getTurqChequeChequeInRolls().iterator(); 
 				

@@ -27,7 +27,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import com.turquaz.cheque.dal.CheDALSave;
 import com.turquaz.cheque.dal.CheDALUpdate;
@@ -108,12 +107,13 @@ public class CheBLUpdateChequeRoll {
                
                
                }
-               if(bankCard!=null&&!sumTransTotal)
+            /*   if(bankCard!=null&&!sumTransTotal)
                {
                 
                BankBLTransactionAdd.saveChequeTransaction(bankCard,chequeRoll.getTurqEngineSequence(),cheque.getChequesAmount(),rollDate,"Çek Portfoy No:"+cheque.getChequesPortfolioNo(),rollNo);
                
                }
+            */
                totalAmount = totalAmount.add(cheque.getChequesAmount());
                
                
@@ -129,13 +129,14 @@ public class CheBLUpdateChequeRoll {
               	blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,false,totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getEngineSequencesId(),"Çek Bordro No:"+chequeRoll.getChequeRollNo());
               }
            }
-           if(bankCard!=null&&sumTransTotal)
+      
+           /*   if(bankCard!=null&&sumTransTotal)
            {
             
            BankBLTransactionAdd.saveChequeTransaction(bankCard,chequeRoll.getTurqEngineSequence(),totalAmount,rollDate,"Çek Bordro No:"+rollNo,rollNo);
            
            }
-            
+           */    
             
             
         }
@@ -144,6 +145,8 @@ public class CheBLUpdateChequeRoll {
             throw ex;
         }
     }
+    
+    
     public static void emptyCheckRollIn(TurqChequeRoll chequeRoll)throws Exception
     {
         try{

@@ -109,5 +109,9 @@ INSERT INTO turq_inventory_groups VALUES (-1, 'Varsayilan', 'Varsayilan', 'admin
 
 ALTER TABLE turq_cheque_cheques ADD COLUMN bank_account_no varchar(100);
 
+**** 15-02-2005 ****
+--- "turq_bank_transactions_type" ---> "Bankaya Gelen Cek" --> Tahsil Edilen Cek...
+
+
 
    

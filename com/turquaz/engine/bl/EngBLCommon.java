@@ -99,7 +99,7 @@ public class EngBLCommon {
     
     public final static int BANK_TRANS_BETWEEN_BANKS = 7; //Virman
     
-    public final static int BANK_TRANS_CHEQUE_DEPOSIT = 8; //Banka Cek girisi
+    public final static int BANK_TRANS_CHEQUE_COLLECT = 8; //Banka Cek Tahsili
     
     
     
@@ -125,7 +125,8 @@ public class EngBLCommon {
     public final static int CHEQUE_TRANS_IN = 0; //Cek Giris Bordrosu
     public final static int CHEQUE_TRANS_OUT_CURRENT = 1; //Cek Cari Cikis Bordrosu
     public final static int CHEQUE_TRANS_OUT_BANK = 2; //Cek bank Cikis bordrosu
-    
+    public final static int CHEQUE_TRANS_COLLECT_FROM_BANK = 3; //Bankadan Cek Tahsilati
+    public final static int CHEQUE_TRANS_COLLECT_FROM_CURRENT = 4; //Elden cek tahsilati
     
     public final static int CHEQUE_TYPE_CUSTOMER = 0; //mü?teri Ceki
     public final static int CHEQUE_TYPE_OWN = 1; //Firma Ceki

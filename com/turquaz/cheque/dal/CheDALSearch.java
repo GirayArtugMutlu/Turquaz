@@ -30,6 +30,9 @@ import net.sf.hibernate.Session;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.dal.TurqChequeCheque;
+import com.turquaz.engine.dal.TurqChequeChequeInRoll;
+import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.dal.TurqChequeTransactionType;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqViewChequeStatus;
@@ -258,4 +261,32 @@ public class CheDALSearch {
 			throw ex;
 		}
 	}
+	
+	public static TurqBanksCard getBankOfCustomerCheque(TurqChequeCheque cheque)throws Exception{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			TurqChequeChequeInRoll cv;
+			TurqChequeRoll asd;
+			
+			String query = "Select chequeRoll.turqChequeRoll.turqBanksCard from TurqChequeChequeInRoll as chequeRoll" +
+					" where chequeRoll.turqChequeCheque = :cheque and " +
+					" chequeRoll.turqChequeRoll.turqChequeTransactionType.chequeTransactionTypesId ="+EngBLCommon.CHEQUE_TRANS_OUT_BANK;
+
+			Query q = session.createQuery(query);
+			q.setParameter("cheque",cheque);
+			List list = q.list();
+			session.close();
+			if(list.size()>0)
+			{
+				return (TurqBanksCard)list.get(0);
+			}
+			 return null;
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
+	
+	
 }
