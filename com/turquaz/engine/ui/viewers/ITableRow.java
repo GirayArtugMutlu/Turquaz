@@ -9,4 +9,6 @@ public interface ITableRow {
     public void modify(int column_index, Object value);
     public Color getColor();
     public boolean canModify(int column_index);
-}
+    public void setRowIndex(int index);
+    public int getRowIndex();
+ }

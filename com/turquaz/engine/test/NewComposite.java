@@ -5,8 +5,7 @@ import java.util.List;
 
 
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.layout.FillLayout;
@@ -17,6 +16,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.custom.TableCursor;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Button;
@@ -28,12 +28,14 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
+import com.turquaz.engine.ui.editors.AccountingCellEditor;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.viewers.TableRowList;
+import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
 import com.turquaz.engine.ui.viewers.TurquazCellModifier;
 import com.turquaz.engine.ui.viewers.TurquazContentProvider;
 import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
-import com.turquaz.engine.ui.viewers.TurquazTableSorter;
+
 
 
 /**
@@ -52,24 +54,31 @@ import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 */
 public class NewComposite extends org.eclipse.swt.widgets.Composite {
 	private Table table;
+	private TableColumn tableColumn;
 	private Button button1;
 	private TableColumn tableColumn4;
 	private TableColumn tableColumn3;
 	private TableColumn tableColumn2;
 	private TableColumn tableColumn1;
-	TableViewer tableViewer;
-//	 Set the table column property names
+	public TableViewer tableViewer;
+
+	//	 Set the table column property names
 	private final String ACCOUNT_CODE 		= "Hesap Kodu";
 	private final String ACCOUNT_NAME   	= "Hesap Ad?";
+	private final String DEFINITION         = "Aç?klama";
 	private final String DEPT     			= "Borç";
 	private final String CREDIT 		    = "Alacak";
-
+	
+    TableCursor cursor;
+	
 	// Set column names
 	private String[] columnNames = new String[] { 
 			ACCOUNT_CODE, 
 			ACCOUNT_NAME,
+			DEFINITION,
 			DEPT,
 			CREDIT
+			
 			};
    private List columnList = new ArrayList();
    TableRowList rowList = new TableRowList();
@@ -86,6 +95,9 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
 	* org.eclipse.swt.widgets.Composite inside a new Shell.
 	*/
 	public static void showGUI() {
+	    
+	    System.setProperty("company","0");
+	    
 		Display display = Display.getDefault();
 		Shell shell = new Shell(display);
 		NewComposite inst = new NewComposite(shell, SWT.NULL);
@@ -117,26 +129,11 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
 	private void initGUI() {
 		try {
 			this.setLayout(new GridLayout());
-			this.setSize(492, 270);
+          
+			this.setSize(581, 275);
             {
                 table = new Table(this, SWT.FULL_SELECTION);
                 GridData tableLData = new GridData();
-                table.addKeyListener(new KeyAdapter() {
-                    public void keyReleased(KeyEvent evt) {
-                        if(evt.keyCode==SWT.CR){
-                        
-                        TableItem items[] = table.getSelection();
-                        if(items.length>0){
-                            int selectionIndex=table.getSelectionIndex();
-                            table.setSelection(selectionIndex+1);
-                        }
-                        
-                  
-        
-                    
-                        }
-                    }
-                });
                 table.setHeaderVisible(true);
                 table.setLinesVisible(true);
                 tableLData.grabExcessHorizontalSpace = true;
@@ -150,24 +147,29 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
                     tableColumn1.setWidth(100);
                     tableColumn1.addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
-                            tableViewer.setSorter(new TurquazTableSorter(0));    
+                            //      tableViewer.setSorter(new TurquazTableSorter(0));    
                         }
                     });
                 }
                 {
                     tableColumn2 = new TableColumn(table, SWT.NONE);
                     tableColumn2.setText(ACCOUNT_NAME);
-                    tableColumn2.setWidth(100);
+                    tableColumn2.setWidth(103);
+                }
+                {
+                    tableColumn = new TableColumn(table, SWT.NONE);
+                    tableColumn.setText(DEFINITION);
+                    tableColumn.setWidth(106);
                 }
                 {
                     tableColumn4 = new TableColumn(table, SWT.NONE);
                     tableColumn4.setText(DEPT);
-                    tableColumn4.setWidth(82);
+                    tableColumn4.setWidth(118);
                 }
                 {
                     tableColumn3 = new TableColumn(table, SWT.NONE);
                     tableColumn3.setText(CREDIT);
-                    tableColumn3.setWidth(100);
+                    tableColumn3.setWidth(126);
                 }
             }
             {
@@ -176,13 +178,39 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
                 button1.addMouseListener(new MouseAdapter() {
                     public void mouseUp(MouseEvent evt) {
                      
-                        rowList.addTask(new TableRowImpl(rowList));
+                        TableRowImpl row = new TableRowImpl(rowList);
+                        rowList.addTask(row);
+                        tableViewer.editElement(row,0);
                     
                     }
                 });
             }
+
             createTableViewer();
-			this.layout();
+//          create a TableCursor to navigate around the table
+    		 cursor = new TableCursor(table, SWT.NONE);
+    		 cursor.addSelectionListener(new SelectionAdapter() {
+    				// when the TableEditor is over a cell, select the corresponding rowtable
+    				public void widgetSelected(SelectionEvent e) {
+    	              
+    				}
+    		
+    				// when the user hits "ENTER" in the TableCursor, pop up a text/combo editor 
+    				// so that they can change the text of the cell for controlType=="input" || "select1"<br>
+    				// if controlType==TableViewerExample.TYPE_CHECKBOX, toogle it
+    				public void widgetDefaultSelected(SelectionEvent e) {
+    				tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
+    				if(table.getItemCount()>2){
+    				    if(table.getItem(0).getData().equals(table.getItem(1).getData())){
+    				        
+    				    }
+    				    
+    				}
+    				
+    				}
+    			});
+
+    		this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -190,17 +218,20 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
    public void createTableViewer(){
        columnList.add(ACCOUNT_CODE);
        columnList.add(ACCOUNT_NAME);
+       columnList.add(DEFINITION);
        columnList.add(DEPT);
        columnList.add(CREDIT);
+    
        tableViewer = new TableViewer(table);
        tableViewer.setUseHashlookup(true);
        tableViewer.setColumnProperties(columnNames);
        //     Create the cell editors
 	   CellEditor[] editors = new CellEditor[columnNames.length];
-       editors[0] = new TextCellEditor(table);
+       editors[0] = new AccountingCellEditor(table);
        editors[1] = new TextCellEditor(table);
-       editors[2] = new CurrencyCellEditor(table);
+       editors[2] = new TextCellEditor(table);
        editors[3] = new CurrencyCellEditor(table);
+       editors[4] = new CurrencyCellEditor(table);
     
        // Assign the cell editors to the viewer 
 		tableViewer.setCellEditors(editors);
@@ -213,7 +244,7 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
 		
 		tableViewer.setInput(rowList);
 		
-		tableViewer.setSorter(new TurquazTableSorter(0));
+	//	tableViewer.setSorter(new TurquazTableSorter(0));
        
    }
 

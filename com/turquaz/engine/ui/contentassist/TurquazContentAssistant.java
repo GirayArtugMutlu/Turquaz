@@ -55,10 +55,7 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant{
 
     public SubjectControlContentAssistant createContentAssistant() {
        SubjectControlContentAssistant contentAssistant = new SubjectControlContentAssistant();
-
-        
-        
-        return contentAssistant;
+       return contentAssistant;
     }
 
     private static void installCueLabelProvider(

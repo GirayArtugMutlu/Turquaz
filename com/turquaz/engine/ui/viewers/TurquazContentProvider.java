@@ -49,8 +49,9 @@ public void setTaskList(TableRowList taskList) {
 	/* (non-Javadoc)
 	 * @see ITaskListViewer#addTask(ExampleTask)
 	 */
-	public void addRow(ITableRow task) {
-		tableViewer.add(task);
+	public void addRow(ITableRow task) {	    
+	    
+	    tableViewer.add(task);
 	}
 
 	/* (non-Javadoc)

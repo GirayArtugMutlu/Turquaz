@@ -10,6 +10,7 @@ public class TableRowList {
     private final int COUNT = 10;
 	private Vector tasks = new Vector(COUNT);
 	private Set changeListeners = new HashSet();
+	int counter=0;
 	/**
 	 * Constructor
 	 */
@@ -39,6 +40,8 @@ public class TableRowList {
 	 * Add a new task to the collection of tasks
 	 */
 	public void addTask(ITableRow row) {
+	    counter++;
+	    row.setRowIndex(counter);
 		tasks.add(tasks.size(), row);
 		Iterator iterator = changeListeners.iterator();
 		while (iterator.hasNext())

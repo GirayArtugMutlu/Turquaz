@@ -161,6 +161,12 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 	    
 	    
 	}
+	public void setText(String arg0){
+	    text1.setText(arg0);
+	}
+	public String getText(){
+	    return text1.getText();
+	}
 	
 	public void setData(Object obj){
 		super.setData(obj);

@@ -1,28 +1,43 @@
 
 package com.turquaz.engine.test;
 
+
 import java.math.BigDecimal;
 
 import org.eclipse.swt.graphics.Color;
 
+import com.turquaz.engine.bl.EngBLAccountingAccounts;
+import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TableRowList;
 
-public class TableRowImpl implements ITableRow {
-    public String account_code ="";
-    public String account_name ="";
-    public String debt_amount ="0";
-    public String credit_amount = "0";
+public class TableRowImpl extends TurqAccountingTransactionColumn implements ITableRow {
     
+    String formatted ="";
     TableRowList rowList;
+    int row_index=0;
+    
     public TableRowImpl(TableRowList rowList){
         super();
-        this.rowList = rowList;        
+        this.rowList = rowList;  
+        setTransactionDefinition("");
+        setCreditAmount(new BigDecimal(0));
+        setDeptAmount(new BigDecimal(0));
+        setTransactionDefinition("");
     }
-
+  public void setRowIndex(int a){
+      row_index = a;
+      
+  }
+  public int getRowIndex(){
+      return row_index;
+  }
+    
     public Color getColor() {
-        // TODO Auto-generated method stub
+        
         return null;
+    
     }
     public boolean canModify(int column_index){
       
@@ -36,20 +51,25 @@ public class TableRowImpl implements ITableRow {
     
     public String getColumnText(int column_index) {
 
-        String result = null;
+        String result = "";
 		switch (column_index) {
-			case 0 : //Hesap Kodu
-				result = account_code;
+			case 0 : 
+			    if(getTurqAccountingAccount()!=null)
+				result = getTurqAccountingAccount().getAccountCode();
 				break;
-			case 1 : // DESCRIPTION_COLUMN 
-				result = account_name;
+			case 1 :  
+			    if(getTurqAccountingAccount()!=null)
+				result = getTurqAccountingAccount().getAccountName();
 				break;
-			case 2 : // OWNER_COLUMN 
-				result = debt_amount.toString();
+			case 3 :  
+				result = getDeptAmount().toString();
 			    
 				break;
-			case 3 : // PERCENT_COLUMN 
-				result = credit_amount.toString();
+			case 4 : 
+				result = getCreditAmount().toString();
+				break;
+			case 2 : 
+				result = getTransactionDefinition();
 				break;
 			default :
 				result = "";
@@ -61,22 +81,31 @@ public class TableRowImpl implements ITableRow {
     }
     public Object getValue(int column_index) {
         Object result = null;
-		switch (column_index) {
-			case 0 : //Hesap Kodu
-				result = account_code;
-				break;
-			case 1 : // DESCRIPTION_COLUMN 
-				result = account_name;
-				break;
-			case 2 : // OWNER_COLUMN 
-				result = debt_amount;
-			    
-				break;
-			case 3 : // PERCENT_COLUMN 
-				result = credit_amount;
-				break;
-			default :
-				result = "";
+    	switch (column_index) {
+		case 0 : 
+		    if(getTurqAccountingAccount()!=null){
+			result = getTurqAccountingAccount().getAccountCode();
+		    }
+		    else result="";
+			break;
+		case 1 :
+		    if(getTurqAccountingAccount()!=null){
+			result = getTurqAccountingAccount().getAccountName();
+		    }
+		    else result="";
+			break;
+		case 3 : 
+			result = getDeptAmount().toString();
+		    
+			break;
+		case 4 : 
+			result = getCreditAmount().toString();
+			break;
+		case 2 : 
+			result = getTransactionDefinition();
+			break;
+		default :
+			result = "";
 		}
         
         return result;
@@ -84,20 +113,58 @@ public class TableRowImpl implements ITableRow {
     public void modify(int column_index, Object value) {
       
         switch (column_index) {
-		case 0 : //Hesap Kodu
-			account_code = value.toString().trim();
+		
+        case 0 : //Hesap Kodu
+			try{
+			 TurqAccountingAccount account= EngBLAccountingAccounts.getAccount(value.toString().trim());
+			 if(account!=null){
+			  setTurqAccountingAccount(account);			  
+			 }	
+			}
+			catch(Exception ex){
+			    ex.printStackTrace();
+			}
 			break;
-		case 1 : // DESCRIPTION_COLUMN 
-			account_name = value.toString().trim();
+		
+		case 1 : 
+		   
 			break;
-		case 2 : // OWNER_COLUMN 
-			debt_amount = value.toString();
+		
+		case 3 :
 		    
+		    formatted = value.toString(); 	
+		 	formatted = formatted.replaceAll("\\.","");
+		 	formatted = formatted.replaceAll(",",".");
+			setDeptAmount(new BigDecimal(formatted));
 			break;
-		case 3 : // PERCENT_COLUMN 
-			credit_amount = value.toString();
+			
+		case 4 : 
+		    formatted = value.toString(); 	
+		    formatted = formatted.replaceAll("\\.","");
+		    formatted = formatted.replaceAll(",",".");
+		    setCreditAmount(new BigDecimal(formatted));
 			break;
-	}
+			
+		case 2 :
+		    setTransactionDefinition(value.toString());
+			break;
+	
+    }
         rowList.taskChanged(this);
     }
+    public boolean equals(Object other){
+       if(other instanceof TableRowImpl){
+          TableRowImpl row = (TableRowImpl)other;
+          if(getRowIndex()==row.getRowIndex()){
+              return true;
+          }
+          else
+              return false;
+       }
+       else return false;
+        
+        
+    }
+  
+    
 }
