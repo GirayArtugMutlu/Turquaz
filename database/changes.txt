@@ -334,3 +334,14 @@ WHERE cheqroll_inner.cheque_rolls_id = roll_inner.cheque_rolls_id AND cheqroll_i
 ) 
 
 **********************************************************************
+
+
+*******************New Default Values ***********************************
+INSERT INTO turq_module_components VALUES (77, 8, 'com.turquaz.cash.ui.CashUICashOtherCollectTransaction', 'Kasa Diger Tahsilat', 'admin', '2004-10-18', 'admin', '2004-10-18');
+INSERT INTO turq_module_components VALUES (78, 8, 'com.turquaz.cash.ui.CashUICashOtherPaymentTransaction', 'Kasa Diger Odeme', 'admin', '2004-10-18', 'admin', '2004-10-18');
+INSERT INTO turq_cash_transaction_types VALUES (2, 'Diger Tahsilat', 'admin', '2004-12-12', 'admin', '2004-12-12');
+INSERT INTO turq_cash_transaction_types VALUES (3, 'Diger Odeme', 'admin', '2004-12-12', 'admin', '2004-12-12');
+
+******************************************************************************
+
+

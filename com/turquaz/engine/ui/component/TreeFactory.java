@@ -70,6 +70,8 @@ import com.turquaz.cash.ui.CashUICashCardAdd;
 import com.turquaz.cash.ui.CashUICashCardDailyAbstract;
 import com.turquaz.cash.ui.CashUICashCardSearch;
 import com.turquaz.cash.ui.CashUICashCollectTransactionAdd;
+import com.turquaz.cash.ui.CashUICashOtherCollectTransaction;
+import com.turquaz.cash.ui.CashUICashOtherPaymentTransaction;
 import com.turquaz.cash.ui.CashUICashPaymentTransactionAdd;
 import com.turquaz.cash.ui.CashUICashTransactionSearch;
 import com.turquaz.cheque.ui.CheUIChequeCollectFromBank;
@@ -626,6 +628,16 @@ public final class TreeFactory {
 			item = new TreeItem(transRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.53"));  //$NON-NLS-1$
 			item.setData(CashUICashPaymentTransactionAdd.class.getName());
+	   }
+		   if(EngBLPermissions.getPermission(CashUICashOtherCollectTransaction.class.getName())>0){
+			item = new TreeItem(transRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.104"));   //$NON-NLS-1$
+			item.setData(CashUICashOtherCollectTransaction.class.getName());
+	   }
+		   if(EngBLPermissions.getPermission(CashUICashOtherPaymentTransaction.class.getName())>0){
+			item = new TreeItem(transRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.105"));   //$NON-NLS-1$
+			item.setData(CashUICashOtherPaymentTransaction.class.getName());
 	   }
 		   
 		    TreeItem searchRoot = new TreeItem(tree,SWT.NULL);

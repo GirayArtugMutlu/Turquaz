@@ -177,7 +177,7 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
 	}
 
     public void newForm() {
-        CashUICashCollectTransactionAdd curCard = new  CashUICashCollectTransactionAdd(this.getParent(),this.getStyle());
+        CashUICashOtherCollectTransaction curCard = new  CashUICashOtherCollectTransaction(this.getParent(),this.getStyle());
       	 CTabFolder tabfld = (CTabFolder)this.getParent();
       	 tabfld.getSelection().setControl(curCard);	 
       	 this.dispose();
@@ -224,7 +224,7 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
            return false;
         }
         else if(txtAccountingAccount.getData()==null){
-            msg.setMessage(Messages.getString("CashUICashCollectTransactionAdd.9")); //$NON-NLS-1$
+            msg.setMessage(Messages.getString("CashUICashOtherCollectTransaction.0"));  //$NON-NLS-1$
             msg.open();
             txtAccountingAccount.setFocus();
             return false;
