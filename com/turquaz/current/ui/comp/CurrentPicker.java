@@ -32,8 +32,13 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
+
+import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
+import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 import com.cloudgarden.resource.SWTResourceManager;
@@ -61,6 +66,9 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite {
 
 	private String filter="";
 	private Text text1;
+
+	private AccountPicker accountPicker =null;
+	private Integer pickerAccountType =null;
 	public CurrentPicker(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -167,14 +175,33 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite {
 		super.setData(obj);
 		if(obj==null)
 		{
-		    text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
+		    text1.setBackground(SWTResourceManager.getColor(255,150, 150));
 		}
 		else
 		{
 		    text1.setBackground(SWTResourceManager.getColor(198,255,198));
+		    if(accountPicker!=null)
+            {
+             try{
+             	TurqAccountingAccount account = CurBLCurrentCardSearch.getCurrentAccountingAccount((TurqCurrentCard)obj,pickerAccountType);
+             	
+             	if(account!=null)
+             	accountPicker.setData(account);
+             	
+             }
+             catch(Exception ex){
+             	ex.printStackTrace();
+             }
+            	
+            }
 		}
 		
 	}
+	public void setAccountPicker(AccountPicker picker, Integer Type){
+		accountPicker = picker;
+		pickerAccountType = Type;
+	}
+
 
 	
 }

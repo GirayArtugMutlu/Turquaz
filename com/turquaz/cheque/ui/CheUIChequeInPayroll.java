@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Table;
+import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
@@ -62,6 +63,8 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 	private Composite compInfoPanel;
 	private ToolBar toolBarButtons;
 	private ToolItem toolItemAdd;
+	private AccountPicker accountPicker;
+	private CLabel lblAccountingAccount;
 	private Button btnSumTotals;
 	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnPaymentPlace;
@@ -95,7 +98,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
                 GridData compInfoPanelLData = new GridData();
                 compInfoPanelLData.grabExcessHorizontalSpace = true;
                 compInfoPanelLData.horizontalAlignment = GridData.FILL;
-                compInfoPanelLData.heightHint = 103;
+                compInfoPanelLData.heightHint = 126;
                 compInfoPanel.setLayoutData(compInfoPanelLData);
                 compInfoPanelLayout.numColumns = 2;
                 compInfoPanel.setLayout(compInfoPanelLayout);
@@ -131,10 +134,21 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
                 {
                     currentPicker = new CurrentPicker(compInfoPanel, SWT.NONE);
                     GridData currentPickerLData = new GridData();
-                    currentPickerLData.widthHint = 330;
-                    currentPickerLData.heightHint = 15;
+                    currentPickerLData.widthHint = 327;
+                    currentPickerLData.heightHint = 20;
                     currentPicker.setLayoutData(currentPickerLData);
                 }
+				//START >>  lblAccountingAccount
+				lblAccountingAccount = new CLabel(compInfoPanel, SWT.NONE);
+				lblAccountingAccount.setText("Muhasebe Hesab\u0131");
+				//END <<  lblAccountingAccount
+				//START >>  accountPicker
+				accountPicker = new AccountPicker(compInfoPanel, SWT.NONE);
+				GridData accountPickerLData = new GridData();
+				accountPickerLData.widthHint = 327;
+				accountPickerLData.heightHint = 19;
+				accountPicker.setLayoutData(accountPickerLData);
+				//END <<  accountPicker
                 {
                     btnSumTotals = new Button(compInfoPanel, SWT.CHECK
                         | SWT.LEFT);
@@ -223,6 +237,11 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
                     tableColumnAmount.setText(Messages.getString("CheUIChequeInPayroll.10")); //$NON-NLS-1$
                     tableColumnAmount.setWidth(100);
                 }
+                
+                currentPicker.setAccountPicker(accountPicker,EngBLCommon.CURRENT_ACC_TYPE_CHEQUES_TAKEN);
+				
+                
+                
             }
 			this.layout();
 		} catch (Exception e) {
@@ -269,7 +288,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
             
         }
         
-        CheBLSaveChequeTransaction.saveChequeRoll(null,(TurqCurrentCard)currentPicker.getData(),null,txtRollNo.getText().trim(),datePicker1.getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_IN,btnSumTotals.getSelection());
+        CheBLSaveChequeTransaction.saveChequeRoll(accountPicker.getTurqAccountingAccount(),(TurqCurrentCard)currentPicker.getData(),null,txtRollNo.getText().trim(),datePicker1.getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_IN,btnSumTotals.getSelection());
         EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
         newForm();
         }

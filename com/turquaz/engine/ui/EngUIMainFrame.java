@@ -1330,6 +1330,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
    public static void openBrowserTab(){
    	CTabItem yeni = new CTabItem (tabfldMain,SWT.NULL );
 	yeni.setText(Messages.getString("EngUIMainFrame.14"));  //$NON-NLS-1$
+	yeni.setImage(SWTResourceManager.getImage("/icons/world.gif"));
 	BrowserPanel panel = new BrowserPanel(tabfldMain,true,false);
      yeni.setControl(panel);
      tabfldMain.setSelection(yeni);
