@@ -9,6 +9,7 @@ import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
@@ -30,6 +31,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLAddGroups;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
+import com.turquaz.current.ui.CurUITransactionAdd;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -180,10 +182,9 @@ implements SecureComposite{
 									.getColor(255, 255, 255));
 								txtCurrentCard.setEditable(false);
 								txtCurrentCardLData.widthHint = 232;
-								txtCurrentCardLData.heightHint = 34;
+								txtCurrentCardLData.heightHint = 37;
 								txtCurrentCardLData.horizontalSpan = 2;
-								txtCurrentCard
-									.setLayoutData(txtCurrentCardLData);
+								txtCurrentCard.setLayoutData(txtCurrentCardLData);
 							}
 							{
 								btnChooseCurrentCard = new Button(
@@ -238,8 +239,8 @@ implements SecureComposite{
 									compInfoPanel,
 									SWT.NONE);
 								GridData txtBillDocumentNoLData = new GridData();
-								txtBillDocumentNoLData.widthHint = 103;
-								txtBillDocumentNoLData.heightHint = 15;
+								txtBillDocumentNoLData.widthHint = 133;
+								txtBillDocumentNoLData.heightHint = 13;
 								txtBillDocumentNo.setLayoutData(txtBillDocumentNoLData);
 							}
 							{
@@ -686,6 +687,7 @@ implements SecureComposite{
 	public void btnAddConsignmentRowMouseUp(){
 		
 	TurqInventoryTransaction invTrans = new InvUITransactionAddDialog(this.getShell(),SWT.NULL).open();
+	if(invTrans!=null){
 	TableItem item = new TableItem(tableConsignmentRows,SWT.NULL);
 	
 	item.setData(invTrans);
@@ -702,12 +704,57 @@ implements SecureComposite{
 	
 		calculateTotals();
 	}
+	}
 	
 	
 	public boolean verifyFields(){
 		return true;
 	}
+	
+	public void saveConsignmentRows(Integer consignmentID){
+		try{
+			TableItem items[] = tableConsignmentRows.getItems();
+		     int type =0;
+				if(comboConsignmentType.getText().equals("Sell")){
+					type =1;
+				}
+			for(int i=0;i<items.length;i++){
+				blAddCondignmetn.saveConsignmentRow((TurqInventoryTransaction)items[i].getData(),consignmentID,type,txtDiscountRate.getIntValue());
+				
+						
+			}
+		
+			
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+		
+		
+		
+		
+	}
+	
+	public void saveGroups(Integer consignmentId){
+		try{
+			TableItem items[] = compRegisterGroup.getTableAllGroups().getItems();
+			for(int i=0;i<items.length;i++){
+				if(items[i].getChecked()){
+					blAddCondignmetn.registerGroup((TurqConsignmentGroup)items[i].getData(),consignmentId);
+				}
+				
+			}
+			
+			
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+	}
 	public void save(){
+		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 	try{	
 		if(verifyFields()){
 			TurqBill bill = new TurqBill();
@@ -717,7 +764,7 @@ implements SecureComposite{
 			type =1;
 		}
 	
-		blAddCondignmetn.saveConsignment(txtDocumentNo.getText(),
+		Integer consID =blAddCondignmetn.saveConsignment(txtDocumentNo.getText(),
 										txtDefinition.getText(),
 										false,
 										dateConsignmentDate.getDate(),
@@ -728,12 +775,18 @@ implements SecureComposite{
 										txtBillDocumentNo.getText(),
 										txtTotalVat.getBigDecimalValue(),
 										decSpecialVat.getBigDecimalValue(),
-										txtTotalAmount.getBigDecimalValue(),
-										type);
+										txtTotalAmount.getBigDecimalValue(),type);
+		saveConsignmentRows(consID);
+		saveGroups(consID);
+		msg.setMessage("Succesfully Saved!!");
+		msg.open();
+		newForm();
 		}
 	}
 	catch(Exception ex){
 		ex.printStackTrace();
+		msg.setMessage(ex.getMessage());
+		msg.open();
 	}
 		
 	}
@@ -744,6 +797,11 @@ implements SecureComposite{
 		
 	}
 	public void newForm(){
+		 ConUIAddConsignment cardAdd = new ConUIAddConsignment(this.getParent(),this.getStyle());
+		 CTabFolder tabfld = (CTabFolder)this.getParent();
+		 tabfld.getSelection().setControl(cardAdd);	 
+		 this.dispose();
+		
 		
 	}
 	

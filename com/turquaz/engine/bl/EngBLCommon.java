@@ -73,5 +73,14 @@ public class EngBLCommon {
 			throw ex;
 		}
 	}
+	public List getInventoryWarehouses()throws Exception{
+		try{
+			
+			return engDALCom.getInventoryWarehouses();
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
 
 }

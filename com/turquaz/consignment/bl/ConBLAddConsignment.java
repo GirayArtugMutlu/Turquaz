@@ -12,6 +12,7 @@ import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqConsignmentsInGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 /**
  * @author onsel
@@ -65,7 +66,37 @@ public class ConBLAddConsignment {
 			throw ex;
 		}
 	}
-	
+	public void saveConsignmentRow(TurqInventoryTransaction invTrans, Integer consID,int consType,int discountRate)throws Exception{
+		try{
+			TurqConsignment cons = new TurqConsignment();
+			cons.setConsignmentsId(consID);
+			
+			invTrans.setTransactionsDiscount(new BigDecimal(discountRate));
+			invTrans.setTurqConsignment(cons);
+			invTrans.setCreatedBy(System.getProperty("user"));
+			invTrans.setUpdatedBy(System.getProperty("user"));
+			invTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			invTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsCumilativePrice().multiply(new BigDecimal(discountRate)));
+			
+			//Al??
+			// total amount in ve total amount ayni girilmisti
+			// bir tanesi sifir yapmak gerek
+			if(consType==0){
+		     	invTrans.setTransactionsTotalAmountOut(0);
+			}
+		    //	Sat??
+			else {
+			invTrans.setTransactionsAmountIn(0);
+			}
+			dalConsignment.save(invTrans);
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
 	
 	public void registerGroup(TurqConsignmentGroup grp, Integer conId)throws Exception{
 	try{

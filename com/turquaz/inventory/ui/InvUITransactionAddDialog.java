@@ -16,6 +16,7 @@ import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryUnit;
+import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.DecimalTextWithButton;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -60,6 +61,8 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private Button btnSpecialVat;
 	private NumericText numSpecialVat;
 	private NumericText txtVat;
+	private CCombo comboWareHouses;
+	private CLabel lblWareHouse;
 	private Composite composite2;
 	private Button btnOk;
 	private Button btnCancel;
@@ -103,7 +106,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 			dialogShellLayout.marginHeight = 0;
 			dialogShellLayout.marginWidth = 0;
 			dialogShellLayout.verticalSpacing = 0;
-			dialogShell.setSize(544, 256);
+			dialogShell.setSize(544, 287);
 			{
 				composite1 = new Composite(dialogShell, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
@@ -241,6 +244,17 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 						| SWT.LEFT);
 				}
 				{
+					lblWareHouse = new CLabel(composite1, SWT.NONE);
+					lblWareHouse.setText("Warehouse");
+				}
+				{
+					comboWareHouses = new CCombo(composite1, SWT.NONE);
+					GridData comboWareHousesLData = new GridData();
+					comboWareHousesLData.widthHint = 181;
+					comboWareHousesLData.heightHint = 16;
+					comboWareHouses.setLayoutData(comboWareHousesLData);
+				}
+				{
 					lblSeperator = new Label(composite1, SWT.SEPARATOR | SWT.HORIZONTAL);
 					GridData lblSeperatorLData = new GridData();
 					lblSeperatorLData.heightHint = 13;
@@ -316,6 +330,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	public void postInitGui(){
 		
 		fillComboCurrency();
+		fillComboWarehouses();
 	}
 	
 	public void fillComboUnits(TurqInventoryCard invCard){
@@ -363,6 +378,31 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 		}
 		
 	}
+	
+	public void fillComboWarehouses(){
+		try{
+			comboWareHouses.removeAll();
+			List list = blCommon.getInventoryWarehouses();
+			
+			TurqInventoryWarehous warehouse;	
+			for(int i=0;i<list.size();i++){
+			
+			warehouse = (TurqInventoryWarehous)list.get(i);
+			comboWareHouses.add(warehouse.getWarehousesName());
+			comboWareHouses.setData(warehouse.getWarehousesName(),warehouse);
+			
+			
+			}
+			if(comboWareHouses.getItemCount()>0){
+				comboWareHouses.setText(comboWareHouses.getItem(0));
+			}
+			
+			
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
 	public void chooseInventoryPrice(){
 		if(txtInvCard.getData()!=null){
 			TurqInventoryCard invCard = (TurqInventoryCard)txtInvCard.getData();
@@ -403,6 +443,8 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 		
 		if(verifyFields()){
 		  invTrans = new TurqInventoryTransaction();
+		  invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouses.getData(comboWareHouses.getText()));
+		  
 		  invTrans.setTurqInventoryCard((TurqInventoryCard)txtInvCard.getData());
 
 		  
