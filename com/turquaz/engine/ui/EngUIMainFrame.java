@@ -135,6 +135,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private Composite compMainInRight;
 	private static Tree treeFavorites;
 	private CLabel lblFavoritesTab;
+	private MenuItem menuItemPreferences;
+	private Menu menuEdit;
 	private Label label2;
 	private Button btnCheque;
 	private Tree treeCheques;
@@ -986,8 +988,23 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
             }
 
 			mitEdit.setText(Messages.getString("EngUIMainFrame.21")); //$NON-NLS-1$
-            
-	
+            {
+                menuEdit = new Menu(mitEdit);
+                mitEdit.setMenu(menuEdit);
+                {
+                    menuItemPreferences = new MenuItem(menuEdit, SWT.PUSH);
+                    menuItemPreferences.setText("Özellikler");
+                    menuItemPreferences
+                        .addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                           
+                            new EngUIPreferences(getShell(),SWT.NULL).open();   
+                        
+                        }
+                        });
+                }
+            }
+
 			mitHelp.setEnabled(true);
 			mitHelp.setText(Messages.getString("EngUIMainFrame.22")); //$NON-NLS-1$
             {
