@@ -55,7 +55,6 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 	private TableColumn tableColumnCredit;
 	private TableColumn tableColumnDebit;
 	private TableColumn tableColumnTransGroup;
-	private TableColumn tableColumnCurrentCode;
 	static private ToolItem toolPrint;
 	static private ToolItem toolExportToExcel;
 
@@ -151,12 +150,12 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
                 tableCurrentTransactions
                     .setLayoutData(tableCurrentTransactionsLData);
                 {
-                    tableColumnCurrentCode = new TableColumn(
+                    tableColumnTransDate = new TableColumn(
                         tableCurrentTransactions,
                         SWT.NONE);
-                    tableColumnCurrentCode.setText(Messages
-                        .getString("CurUITransactionSearch.5")); //$NON-NLS-1$
-                    tableColumnCurrentCode.setWidth(107);
+                    tableColumnTransDate.setText(Messages
+                        .getString("CurUITransactionSearch.9")); //$NON-NLS-1$
+                    tableColumnTransDate.setWidth(100);
                 }
                 {
                     tableColumnTransGroup = new TableColumn(
@@ -181,14 +180,6 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
                     tableColumnCredit.setText(Messages
                         .getString("CurUITransactionSearch.8")); //$NON-NLS-1$
                     tableColumnCredit.setWidth(101);
-                }
-                {
-                    tableColumnTransDate = new TableColumn(
-                        tableCurrentTransactions,
-                        SWT.NONE);
-                    tableColumnTransDate.setText(Messages
-                        .getString("CurUITransactionSearch.9")); //$NON-NLS-1$
-                    tableColumnTransDate.setWidth(100);
                 }
             }
 			PostInit();
@@ -220,11 +211,11 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 		transaction = (TurqCurrentTransaction)results.get(i);
 		item = new TableItem(tableCurrentTransactions,SWT.NULL);
 		item.setData(transaction);
-		item.setText(new String[]{transaction.getTurqCurrentCard().getCardsCurrentCode(),
-								  transaction.getTurqCurrentTransactionType().getTransactionTypeName(),
+		item.setText(new String[]{DatePicker.formatter.format(transaction.getTransactionsDate()),
+		        				  transaction.getTurqCurrentTransactionType().getTransactionTypeName(),
 								  transaction.getTransactionsTotalDept().toString(),
 								  transaction.getTransactionsTotalCredit().toString(),
-								  DatePicker.formatter.format(transaction.getTransactionsDate())
+								  
 									});
 		
 	}
