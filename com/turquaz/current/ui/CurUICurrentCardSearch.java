@@ -23,6 +23,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
@@ -89,6 +93,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 	private Composite compCurrentCardSearch;
 	private EngBLCommon engBLCom=new EngBLCommon();
 	CurBLCurrentCardUpdate blUpdate = new CurBLCurrentCardUpdate();
+	Menu popup;
 	
 	public CurUICurrentCardSearch(Composite parent, int style) {
 		super(parent, style);
@@ -249,6 +254,22 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
 		try{
+			
+		     popup = new Menu(this.getShell(),SWT.POP_UP);
+		     MenuItem item = new MenuItem (popup, SWT.PUSH);
+			 item.setText("Cari kart hareketlerini getir");    	  
+			
+			 item.addListener(SWT.Selection, new Listener () {
+				public void handleEvent (Event e) {					
+					TableItem items[] = tableCurrentCardSearch.getSelection();
+					if (items.length > 0)
+					{
+						new CurUICurrentCardTransactions(getShell(),SWT.NULL,(TurqCurrentCard)items[0].getData()).open();
+					}
+					}
+			 });
+			 
+			tableCurrentCardSearch.setMenu(popup);
 			comboTurqGroupName.removeAll();
 			comboTurqGroupName.setText(""); //$NON-NLS-1$
 			List groups=engBLCom.getTurqCurrentGroups();

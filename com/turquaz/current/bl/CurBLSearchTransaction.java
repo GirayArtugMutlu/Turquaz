@@ -76,6 +76,16 @@ public class CurBLSearchTransaction {
 		
 	}
 	
+	public List getCurrentTransactions(TurqCurrentCard card)throws Exception {
+		try{
+
+			return 	dalSearch.getCurrentTransactions(card);
+			}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
+	
 	public void updateCurrentTransaction(TurqCurrentCard curCard,Date transDate,
 			String documentNo,boolean isCredit,BigDecimal amount,
 			TurqAccountingAccount account,TurqCurrentTransaction curTrans)throws Exception{
