@@ -20,11 +20,14 @@ package com.turquaz.engine.bl;
  * @version $Id$
  */
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.bill.bl.BillBLAddBill;
@@ -32,6 +35,7 @@ import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.bill.dal.BillDALSearchBill;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
@@ -331,6 +335,37 @@ public class EngBLCommon
 		{
 			throw ex;
 		}
+	}
+	
+	public static void insertBillInEngineSeq()
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction(); 
+			Statement stmt = session.connection().createStatement(); 
+			String query = "Select id,engine_sequences_id from turq_bills"; 
+			ResultSet result=stmt.executeQuery(query);
+			Statement stmt2 = session.connection().createStatement(); 
+			int k=0;
+			while(result.next())
+			{
+				int id=result.getInt(1);
+				int engineSeq=result.getInt(2);
+				query="Insert into turq_bill_in_engine_sequences values ("+k+","+engineSeq+","+id+")";
+				stmt2.execute(query);
+				k++;
+			}
+			session.flush();
+			tx.commit();			
+			session.close();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+		
 	}
 
 	public static boolean checkUserPass(String user, String pass) throws Exception

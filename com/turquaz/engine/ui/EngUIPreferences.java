@@ -36,6 +36,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 	private CCombo cCombo;
 	private Button btnCurrentCards;
 	private Button btnUpdateCashTrans;
+	private Button btnFillBillInEngineSeq;
 	private Button btnJiraBugReport;
 	private Button btnExportInvAccounts;
 	private Button btnExportBankCards;
@@ -233,6 +234,15 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 					}
 				});
 				//END << btnJiraBugReport
+				//START >>  btnFillBillInEngineSeq
+				btnFillBillInEngineSeq = new Button(composite1, SWT.PUSH | SWT.CENTER);
+				btnFillBillInEngineSeq.setText("Fill Bill In EngineSeq");
+				btnFillBillInEngineSeq.addMouseListener(new MouseAdapter() {
+					public void mouseUp(MouseEvent evt) {
+						btnFillBillInEngineSeqMouseUp(evt);
+					}
+				});
+				//END <<  btnFillBillInEngineSeq
 			}
 			fillBillTypeCombo();
 			EngUICommon.centreWindow(dialogShell);
@@ -291,6 +301,18 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 			 */
 		}
 		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	private void btnFillBillInEngineSeqMouseUp(MouseEvent evt) 
+	{
+		try
+		{
+			EngBLCommon.insertBillInEngineSeq();
+		}
+		catch(Exception ex)
 		{
 			ex.printStackTrace();
 		}
