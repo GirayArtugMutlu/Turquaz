@@ -10,6 +10,7 @@ import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqConsignment;
@@ -37,58 +38,105 @@ public class BillDALSearchBill {
 		
 	}
 	public List searchBill(TurqCurrentCard curCard,String docNo, Date startDate, Date endDate, int type)
-	throws Exception {
-	try{
-		Session session = EngDALSessionFactory.openSession();
+	throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
 		
-		String query = "Select bill from TurqBill as bill" +
+			String query = "Select bill.billsId, bill.billsDate, billcons.billDocumentNo," +
+				" curCard.cardsCurrentCode, curCard.cardsName," +
+				" billcons.totalAmount, billcons.vatAmount, billcons.specialVatAmount" +
+				" from TurqBill as bill, bill.turqBillConsignmentCommon as billcons," +
+				" bill.turqBillConsignmentCommon.turqCurrentCard as curCard" +
 				" where" +
 				" bill.billsDate >= :startDate" +
-				" and bill.billsDate <= :endDate" +
-				" and bill.billsType ="+type +""+
+				" and bill.billsDate <= :endDate" +				
 				" and bill.billsId <> -1 ";
+		
+			if (type != EngBLCommon.COMMON_ALL_INT)
+			{
+				query += " and bill.billsType ="+type;
+			}
 				
-		if (!docNo.equals(""))
-			query +=" and bill.turqBillConsignmentCommon.billDocumentNo like '"+docNo+"%'";
+			if (!docNo.equals(""))
+			{
+				query +=" and bill.turqBillConsignmentCommon.billDocumentNo like '"+docNo+"%'";
+			}
 		
-		if (curCard!=null){
-		    query +=" and bill.turqBillConsignmentCommon.turqCurrentCard = :curCard"; 
+			if (curCard!=null)
+			{
+				query +=" and bill.turqBillConsignmentCommon.turqCurrentCard = :curCard"; 
+			}
+			query += " order by bill.billsDate, bill.turqBillConsignmentCommon.billDocumentNo";
+		
+			Query q = session.createQuery(query); 	
+		
+			q.setParameter("startDate",startDate);
+			q.setParameter("endDate",endDate);
+		
+			if (curCard!=null)
+			{
+				q.setParameter("curCard",curCard);
+			}
+		
+		
+		
+			List list = q.list();
+			session.close();
+			return list;
+		
+		
+		
 		}
-		query += " order by bill.billsDate, bill.turqBillConsignmentCommon.billDocumentNo";
-		
-		Query q = session.createQuery(query); 	
-		
-		q.setParameter("startDate",startDate);
-		q.setParameter("endDate",endDate);
-		
-		if (curCard!=null){
-			q.setParameter("curCard",curCard);
-		}
-		
-		
-		
-		List list = q.list();
-	    session.close();
-		return list;
-		
-		
-		
-	}
-	catch(Exception ex){
+		catch(Exception ex)
+		{
 		throw ex;
+		}
 	}
+	
+	
+	public static TurqBill getBillByBillId(Integer billId) throws Exception
+	{
+		try {
+			Session session = EngDALSessionFactory.openSession();
+
+			String query = "Select bill from TurqBill as bill" +
+					" where bill.billsId="+billId; //$NON-NLS-1$
+
+
+			Query q = session.createQuery(query);
+
+			List list = q.list();
+
+			session.close();
+			return (TurqBill)list.get(0);
+
+		} 
+		catch (Exception ex) 
+		{
+			throw ex;
+		}
 	}
+	
+	
 	
 	public List searchBillAdvanced(TurqCurrentCard curCardStart,
 			TurqCurrentCard curCardEnd, Date startDate, Date endDate,
 			Date dueDateStart, Date dueDateEnd, BigDecimal minValue,
 			BigDecimal maxValue,String docNoStart, String docNoEnd,
 			int type)
-	throws Exception {
-	try{
-		Session session = EngDALSessionFactory.openSession();
+	throws Exception 
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
 		
-		String query = "Select bill from TurqBill as bill" +
+			String query = "Select bill.billsId, bill.billsDate, billcons.billDocumentNo," +
+				" curCard.cardsCurrentCode, curCard.cardsName," +
+				" billcons.totalAmount, billcons.vatAmount, billcons.specialVatAmount" +
+				" from TurqBill as bill, bill.turqBillConsignmentCommon as billcons," +
+				" bill.turqBillConsignmentCommon.turqCurrentCard as curCard" +
 				" where" +
 				" bill.billsDate >= :startDate" +
 				" and bill.billsDate <= :endDate" +
@@ -96,82 +144,81 @@ public class BillDALSearchBill {
 				" and bill.dueDate >= :dueDateStart"+
 				" and bill.dueDate <= :dueDateEnd";
 		
-		if (curCardStart != null && curCardEnd != null)
+			if (curCardStart != null && curCardEnd != null)
+			{
+				query +=" and bill.turqBillConsignmentCommon.turqCurrentCard.cardsCurrentCode >= '"+curCardStart.getCardsCurrentCode()+"'";
+				query +=" and bill.turqBillConsignmentCommon.turqCurrentCard.cardsCurrentCode <= '"+curCardEnd.getCardsCurrentCode()+"'";
+			}
+			else if (curCardStart != null)
+			{
+				query +=" and bill.turqBillConsignmentCommon.turqCurrentCard = :curCardStart";
+			}
+			else if (curCardEnd != null)
+			{
+				query +=" and bill.turqBillConsignmentCommon.turqCurrentCard = :curCardEnd";
+			}
+		
+			if (minValue.doubleValue() > 0)
+			{
+				query +=" and bill.turqBillConsignmentCommon.totalAmount >="+minValue;
+			}
+		
+			if (maxValue.doubleValue() > 0)
+			{
+				query +=" and bill.turqBillConsignmentCommon.totalAmount <="+maxValue;
+			}
+		
+			if (!docNoStart.equals("") && !docNoEnd.equals(""))
+			{
+				query+=" and bill.turqBillConsignmentCommon.billDocumentNo >= '"+docNoStart+"'";
+				query+=" and bill.turqBillConsignmentCommon.billDocumentNo <= '"+docNoEnd+"'";
+			}
+			else if (!docNoStart.equals(""))
+			{
+				query+=" and bill.turqBillConsignmentCommon.billDocumentNo like '"+docNoStart+"%'";
+			}
+			else if (!docNoEnd.equals(""))
+			{
+				query+=" and bill.turqBillConsignmentCommon.billDocumentNo like '"+docNoEnd+"%'";
+			}
+		
+			if (type != EngBLCommon.COMMON_ALL_INT)
+			{
+				query +=" and bill.billsType ="+type;
+			}
+		
+			query += " order by bill.billsDate";
+		
+			Query q = session.createQuery(query); 	
+		
+			q.setParameter("startDate",startDate);
+			q.setParameter("endDate",endDate);
+			q.setParameter("dueDateEnd",dueDateEnd);
+			q.setParameter("dueDateStart",dueDateStart);
+		
+			if (curCardStart != null && curCardEnd != null)
+			{			
+			}
+			else if (curCardStart!=null)
+			{
+				q.setParameter("curCardStart",curCardStart);
+			}
+			else if (curCardEnd != null)
+			{
+				q.setParameter("curCardEnd",curCardEnd);
+			}
+		
+		
+		
+			List list = q.list();
+			session.close();
+			return list;	
+		
+		}
+		catch(Exception ex)
 		{
-			query +=" and bill.turqBillConsignmentCommon.turqCurrentCard.cardsCurrentCode >= '"+curCardStart.getCardsCurrentCode()+"'";
-			query +=" and bill.turqBillConsignmentCommon.turqCurrentCard.cardsCurrentCode <= '"+curCardEnd.getCardsCurrentCode()+"'";
+			throw ex;
 		}
-		else if (curCardStart != null)
-		{
-			query +=" and bill.turqBillConsignmentCommon.turqCurrentCard = :curCardStart";
-		}
-		else if (curCardEnd != null)
-		{
-			query +=" and bill.turqBillConsignmentCommon.turqCurrentCard = :curCardEnd";
-		}
-		
-		if (minValue.doubleValue() > 0)
-		{
-			query +=" and bill.turqBillConsignmentCommon.totalAmount >="+minValue;
-		}
-		
-		if (maxValue.doubleValue() > 0)
-		{
-			query +=" and bill.turqBillConsignmentCommon.totalAmount <="+maxValue;
-		}
-		
-		if (!docNoStart.equals("") && !docNoEnd.equals(""))
-		{
-			query+=" and bill.turqBillConsignmentCommon.billDocumentNo >= '"+docNoStart+"'";
-			query+=" and bill.turqBillConsignmentCommon.billDocumentNo <= '"+docNoEnd+"'";
-		}
-		else if (!docNoStart.equals(""))
-		{
-			query+=" and bill.turqBillConsignmentCommon.billDocumentNo like '"+docNoStart+"%'";
-		}
-		else if (!docNoEnd.equals(""))
-		{
-			query+=" and bill.turqBillConsignmentCommon.billDocumentNo like '"+docNoEnd+"%'";
-		}
-		
-		if (type != 2)
-		{
-			query +=" and bill.billsType ="+type;
-		}
-		
-		query += " order by bill.billsDate";
-		
-		Query q = session.createQuery(query); 	
-		
-		q.setParameter("startDate",startDate);
-		q.setParameter("endDate",endDate);
-		q.setParameter("dueDateEnd",dueDateEnd);
-		q.setParameter("dueDateStart",dueDateStart);
-		
-		if (curCardStart != null && curCardEnd != null)
-		{			
-		}
-		else if (curCardStart!=null)
-		{
-			q.setParameter("curCardStart",curCardStart);
-		}
-		else if (curCardEnd != null)
-		{
-			q.setParameter("curCardEnd",curCardEnd);
-		}
-		
-		
-		
-		List list = q.list();
-	    session.close();
-		return list;
-		
-		
-		
-	}
-	catch(Exception ex){
-		throw ex;
-	}
 	}
 	
 	public void initializeBill(TurqBill bill)throws Exception{

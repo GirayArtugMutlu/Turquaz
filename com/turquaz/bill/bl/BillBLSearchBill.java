@@ -6,8 +6,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import net.sf.hibernate.Query;
+import net.sf.hibernate.Session;
+
 import com.turquaz.bill.dal.BillDALSearchBill;
 import com.turquaz.bill.dal.BillDALUpdateBill;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
@@ -31,6 +35,21 @@ public class BillBLSearchBill {
 		}
 		
 	}
+	
+	
+	public static TurqBill getBillByBillId(Integer billId) throws Exception
+	{
+		try {
+
+			return BillDALSearchBill.getBillByBillId(billId);
+
+		} 
+		catch (Exception ex) 
+		{
+			throw ex;
+		}
+	}
+	
 	
 	public List searchBillAdvanced(TurqCurrentCard curCardStart,
 			TurqCurrentCard curCardEnd, Date startDate, Date endDate,
