@@ -294,7 +294,7 @@ public class CurBLCurrentTransactionAdd {
 	  		//Cari Karta para verildiginde
 	  		//Kasaya alacak hareketi 
 		 	 //Cari kartin satici muhasebe hesabina borc hareketi 
-    		if(isCredit)
+    		if(!isCredit)
     		{    		
     			List creditRows=(List)creditAccounts.get(accountId);
     			if (creditRows==null)
