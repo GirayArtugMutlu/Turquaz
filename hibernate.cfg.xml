@@ -65,7 +65,7 @@
 <mapping resource="com/turquaz/engine/dal/TurqViewCurrentAmountTotal.hbm.xml"/>	
 <mapping resource="com/turquaz/engine/dal/TurqViewAccTransTotalAmount.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqViewInventoryTotal.hbm.xml"/>											
-        
+ <mapping resource="com/turquaz/engine/dal/TurqCashCard.hbm.xml"/>	       
 
     </session-factory>
 
