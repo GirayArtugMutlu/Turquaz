@@ -35,7 +35,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLInventoryCards;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 import com.cloudgarden.resource.SWTResourceManager;
@@ -162,9 +161,6 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite {
 	
 	public void setData(Object obj){
 		super.setData(obj);
-		TurqAccountingAccount account = (TurqAccountingAccount)obj;
-		text1.setText(account.getAccountCode());
-		
 	}
 	public void setData2(Object obj){
 		super.setData(obj);
