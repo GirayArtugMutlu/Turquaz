@@ -55,7 +55,7 @@ import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
 
-public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite implements SecureComposite
+public class CurUICurrentCardDeptVoucher extends org.eclipse.swt.widgets.Composite implements SecureComposite
 {
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -83,16 +83,14 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 	private CLabel lblCashTransType;
 	private CurrentPicker txtCurrentCard;
 	private CLabel lvlDate;
-	private CLabel lblDept;
-	private Text txtDefinition;
+	private CLabel lblCredit;
 	private CLabel lvlDefinition;
+	private Text txtDefinition;
 	private CCombo comboCurrencyType;
 	private CLabel lblCurrency;
 	private AccountPicker accountPicker;
 	private CLabel lblAcccountingAccount;
 	private CurrencyText txtCredit;
-	private CLabel lblCredit;
-	private CCombo comboType;
 	private DatePicker dateTransDate;
 	private CLabel lvlCurrentCard;
 	private TurqCurrency exchangeCurrency = null;
@@ -137,7 +135,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 		}
 	}
 
-	public CurUICurrentCardVoucher(org.eclipse.swt.widgets.Composite parent, int style)
+	public CurUICurrentCardDeptVoucher(org.eclipse.swt.widgets.Composite parent, int style)
 	{
 		super(parent, style);
 		initGUI();
@@ -150,10 +148,10 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(632, 269);
+			this.setSize(592, 241);
 			//START >>  lblCashTransType
 			lblCashTransType = new CLabel(this, SWT.NONE);
-			lblCashTransType.setText(Messages.getString("CurUICurrentCardVoucher.8")); //$NON-NLS-1$
+			lblCashTransType.setText(Messages.getString("CurUICurrentCardDeptVoucher.0")); //$NON-NLS-1$
 			lblCashTransType.setFont(SWTResourceManager.getFont("Tahoma", 14, 1, false, false)); //$NON-NLS-1$
 			GridData lblCashTransTypeLData = new GridData();
 			lblCashTransTypeLData.horizontalAlignment = GridData.CENTER;
@@ -189,20 +187,6 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			dateTransDateLData.heightHint = 23;
 			dateTransDate.setLayoutData(dateTransDateLData);
 			//END <<  dateTransDate
-			//START >>  lblDept
-			lblDept = new CLabel(this, SWT.NONE);
-			lblDept.setText("Borç / Alacak"); //$NON-NLS-1$
-			//END <<  lblDept
-			//START >>  comboType
-			comboType = new CCombo(this, SWT.NONE);
-			GridData txtDeptLData = new GridData();
-			comboType.setEditable(false);
-			comboType.setText(EngBLCommon.COMMON_DEPT_STRING);
-			comboType.setBackground(SWTResourceManager.getColor(255, 255, 255));
-			txtDeptLData.widthHint = 135;
-			txtDeptLData.heightHint = 17;
-			comboType.setLayoutData(txtDeptLData);
-			//END <<  comboType
 			//START >>  lblCredit
 			lblCredit = new CLabel(this, SWT.NONE);
 			GridData lblCreditLData = new GridData();
@@ -231,7 +215,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			//END <<  accountPicker
 			//START >>  lblCurrency
 			lblCurrency = new CLabel(this, SWT.NONE);
-			lblCurrency.setText(Messages.getString("CurUICurrentCardVoucher.5")); //$NON-NLS-1$
+			lblCurrency.setText(Messages.getString("CurUICurrentCardDeptVoucher.1")); //$NON-NLS-1$
 			//END <<  lblCurrency
 			//START >>  comboCurrencyType
 			comboCurrencyType = new CCombo(this, SWT.NONE);
@@ -251,8 +235,6 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			txtDefinitionLData.heightHint = 56;
 			txtDefinition.setLayoutData(txtDefinitionLData);
 			//END <<  txtDefinition
-			comboType.add(EngBLCommon.COMMON_DEPT_STRING);
-			comboType.add(EngBLCommon.COMMON_CREDIT_STRING);
 			this.layout();
 			PostInit();
 		}
@@ -308,10 +290,6 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			{
 				BigDecimal credit = txtCredit.getBigDecimalValue();
 				boolean isCredit = false;
-				if (comboType.getText().equals(EngBLCommon.COMMON_CREDIT_STRING))
-				{
-					isCredit = true;
-				}
 				TurqCurrentTransaction curtrans = CurBLCurrentTransactionAdd.saveOtherCurrentTransaction(
 						(TurqCurrentCard) txtCurrentCard.getData(), accountPicker.getTurqAccountingAccount(),
 						dateTransDate.getDate(), "", isCredit, credit, //$NON-NLS-1$
@@ -344,13 +322,6 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 				msg.setMessage(Messages.getString("CurUICurrentCardVoucher.10")); //$NON-NLS-1$
 				msg.open();
 				txtCurrentCard.setFocus();
-				return false;
-			}
-			else if (txtCredit.getText().equals("") && comboType.getText().equals("")) //$NON-NLS-1$ //$NON-NLS-2$
-			{
-				msg.setMessage(Messages.getString("CurUICurrentCardVoucher.13")); //$NON-NLS-1$
-				msg.open();
-				comboType.setFocus();
 				return false;
 			}
 			else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
@@ -405,11 +376,6 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 		return txtDefinition;
 	}
 
-
-	public CCombo getComboType()
-	{
-		return comboType;
-	}
 
 	/**
 	 * @return Returns the accountPicker.

@@ -86,8 +86,9 @@ import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurrentCardAbstract;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
+import com.turquaz.current.ui.CurUICurrentCardCreditVoucher;
+import com.turquaz.current.ui.CurUICurrentCardDeptVoucher;
 import com.turquaz.current.ui.CurUICurrentCardSearch;
-import com.turquaz.current.ui.CurUICurrentCardVoucher;
 import com.turquaz.current.ui.CurUIInitialTransaction;
 import com.turquaz.current.ui.CurUITransactionSearch;
 import com.turquaz.engine.Messages;
@@ -424,11 +425,17 @@ public final class TreeFactory
 		}
 		TreeItem transactionsRoot = new TreeItem(tree, SWT.NULL);
 		transactionsRoot.setText(Messages.getString("TreeFactory.82")); //$NON-NLS-1$
-		if (EngBLPermissions.getPermission(CurUICurrentCardVoucher.class.getName()) > 0)
+		if (EngBLPermissions.getPermission(CurUICurrentCardDeptVoucher.class.getName()) > 0)
 		{
 			item = new TreeItem(transactionsRoot, SWT.NULL);
-			item.setText(Messages.getString("TreeFactory.58")); //$NON-NLS-1$
-			item.setData(CurUICurrentCardVoucher.class.getName());
+			item.setText(Messages.getString("TreeFactory.58"));  //$NON-NLS-1$
+			item.setData(CurUICurrentCardDeptVoucher.class.getName());
+		}
+		if (EngBLPermissions.getPermission(CurUICurrentCardCreditVoucher.class.getName()) > 0)
+		{
+			item = new TreeItem(transactionsRoot, SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.119"));  //$NON-NLS-1$
+			item.setData(CurUICurrentCardCreditVoucher.class.getName());
 		}
 		TreeItem searchRoot = new TreeItem(tree, SWT.NULL);
 		searchRoot.setText(Messages.getString("TreeFactory.83")); //$NON-NLS-1$

@@ -60,8 +60,9 @@ import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurrentCardAbstract;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
+import com.turquaz.current.ui.CurUICurrentCardCreditVoucher;
+import com.turquaz.current.ui.CurUICurrentCardDeptVoucher;
 import com.turquaz.current.ui.CurUICurrentCardSearch;
-import com.turquaz.current.ui.CurUICurrentCardVoucher;
 import com.turquaz.current.ui.CurUIInitialTransaction;
 import com.turquaz.current.ui.CurUITransactionSearch;
 import com.turquaz.engine.bl.EngBLPermissions;
@@ -120,11 +121,18 @@ public class MenuFactory
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
 		sps = new MenuItem(currentMenu, SWT.SEPARATOR);
-		if (EngBLPermissions.getPermission(CurUICurrentCardVoucher.class.getName()) > 0)
+		if (EngBLPermissions.getPermission(CurUICurrentCardDeptVoucher.class.getName()) > 0)
 		{
 			mit = new MenuItem(currentMenu, SWT.PUSH);
 			mit.setText(Messages.getString("MenuFactory.2")); //$NON-NLS-1$
-			mit.setData(CurUICurrentCardVoucher.class.getName());
+			mit.setData(CurUICurrentCardDeptVoucher.class.getName());
+			mit.addSelectionListener(new MenuSelectionAdapter());
+		}
+		if (EngBLPermissions.getPermission(CurUICurrentCardCreditVoucher.class.getName()) > 0)
+		{
+			mit = new MenuItem(currentMenu, SWT.PUSH);
+			mit.setText(Messages.getString("MenuFactory.77")); //$NON-NLS-1$
+			mit.setData(CurUICurrentCardCreditVoucher.class.getName());
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
 		sps = new MenuItem(currentMenu, SWT.SEPARATOR);
