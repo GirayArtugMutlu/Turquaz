@@ -52,6 +52,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.events.KeyAdapter;
@@ -274,39 +275,41 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 
 	public void delete()
 	{
+		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		try
 		{
 			TableItem items[] = tableCurrentCardSearch.getSelection();
 			if (items.length > 0)
 			{
-				TurqCurrentCard currentCard = (TurqCurrentCard) items[0].getData();
-				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-				MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
-				List curCardTrans = CurBLCurrentCardSearch.getTransactions(currentCard);
-				if (curCardTrans.size() > 0)
+				Integer cardId = (Integer)((ITableRow) items[0].getData()).getDBObject();
+				if (cardId != null)
 				{
-					msg.setMessage(Messages.getString("CurUICurrentCardUpdate.15")); //$NON-NLS-1$
-					msg.open();
-					return;
+					TurqCurrentCard currentCard = CurBLCurrentCardSearch.initializeCurrentCard(cardId);
+					List curCardTrans = CurBLCurrentCardSearch.getTransactions(currentCard);
+					if (curCardTrans.size() > 0)
+					{
+						msg.setMessage(Messages.getString("CurUICurrentCardUpdate.15")); //$NON-NLS-1$
+						msg.open();
+						return;
+					}
+					msg.setMessage(Messages.getString("CurUICurrentCardUpdate.21")); //$NON-NLS-1$
+					int result = msg.open();
+					if (result == SWT.OK)
+					{
+						deleteRelations(currentCard);
+						CurBLCurrentCardUpdate.deleteObject(currentCard);
+						msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
+						msg.open();
+					}
+					search();
 				}
-				msg2.setMessage(Messages.getString("CurUICurrentCardUpdate.21")); //$NON-NLS-1$
-				int result = msg2.open();
-				if (result == SWT.OK)
-				{
-					deleteRelations(currentCard);
-					CurBLCurrentCardUpdate.deleteObject(currentCard);
-					msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
-					msg.open();
-				}
-				search();
 			}
 		}
 		catch (Exception ex)
 		{
-			MessageBox msg3 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
 			ex.printStackTrace();
-			msg3.setMessage(ex.getMessage());
-			msg3.open();
+			msg.setMessage(ex.getMessage());
+			msg.open();
 		}
 	}
 
@@ -424,7 +427,7 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 		{
 			try
 			{
-				Integer cardId = (Integer) selection[0].getData();
+				Integer cardId = (Integer)((ITableRow) selection[0].getData()).getDBObject();
 				if (cardId != null)
 				{
 					TurqCurrentCard card = CurBLCurrentCardSearch.initializeCurrentCard(cardId);

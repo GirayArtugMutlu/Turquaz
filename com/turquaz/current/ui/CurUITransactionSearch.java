@@ -39,6 +39,7 @@ import com.turquaz.engine.dal.TurqCurrentTransactionType;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.widgets.MessageBox;
@@ -374,7 +375,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 			TableItem items[] = tableCurrentTransactions.getSelection();
 			if (items.length > 0)
 			{
-				Integer transId = (Integer) items[0].getData();
+				Integer transId = (Integer)((ITableRow) items[0].getData()).getDBObject();
 				if (transId != null)
 				{
 					TurqCurrentTransaction trans = CurBLSearchTransaction.getCurTransByTransId(transId);

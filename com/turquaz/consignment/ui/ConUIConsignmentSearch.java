@@ -41,6 +41,9 @@ import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TableSorter;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
@@ -82,6 +85,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 	private TableColumn tableColumnCumulativePrice;
 	private TableColumn tableColumnConsignmentDate;
 	private Calendar cal = Calendar.getInstance();
+	private SearchTableViewer tableViewer=null;
 
 	/**
 	 * Auto-generated main method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
@@ -324,6 +328,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 		comboConsignmentType.setText(EngBLCommon.COMMON_ALL_STRING);
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		dateStartDate.setDate(cal.getTime());
+		createTableViewer();
 	}
 
 	public void currentCardChoose()
@@ -345,7 +350,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 	{
 		try
 		{
-			tableConsignments.removeAll();
+			tableViewer.removeAll();
 			int type = EngBLCommon.COMMON_ALL_INT;
 			if (comboConsignmentType.getText().equals(EngBLCommon.COMMON_SELL_STRING))
 			{
@@ -358,12 +363,10 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 			List list = ConBLSearchConsignment.searchConsignment((TurqCurrentCard) txtCurCard.getData(), dateStartDate.getDate(),
 					dateEndDate.getDate(), type, txtDocNo.getText().trim());
 			Object[] cons;
-			TableItem item;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			for (int i = 0; i < list.size(); i++)
 			{
 				cons = (Object[]) list.get(i);
-				item = new TableItem(tableConsignments, SWT.NULL);
 				Integer consId = (Integer) cons[0];
 				Date consDate = (Date) cons[1];
 				String curCardCode = (String) cons[2];
@@ -372,9 +375,8 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				BigDecimal totalAmount = (BigDecimal) cons[5];
 				BigDecimal vatAmount = (BigDecimal) cons[6];
 				BigDecimal specVatAmount = (BigDecimal) cons[7];
-				item.setData(consId);
-				item.setText(new String[]{DatePicker.formatter.format(consDate), curCardCode, curCardName, consDocNo,
-						cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)});
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(consDate), curCardCode, curCardName, consDocNo,
+						cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)},consId);
 			}
 		}
 		catch (Exception ex)
@@ -386,18 +388,30 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 	public void newForm()
 	{
 	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[7];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_DATE;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableConsignments, columnTypes);
+	}
 
 	public void delete()
 	{
-		ConBLUpdateConsignment blUpdate = new ConBLUpdateConsignment();
 		TableItem items[] = tableConsignments.getSelection();
 		if (items.length > 0)
 		{
-			TurqConsignment cons = (TurqConsignment) items[0].getData();
+			Integer consId = (Integer)((ITableRow) items[0].getData()).getDBObject();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			try
 			{
-				//first fill cons then delete..
+				TurqConsignment cons = ConBLSearchConsignment.getConsignmentByConsId(consId);
 				ConBLUpdateConsignment.initiliazeConsignment(cons);
 				if (cons.getTurqBillConsignmentCommon().getTurqBills().isEmpty())
 				{
@@ -441,7 +455,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 			TableItem items[] = tableConsignments.getSelection();
 			if (items.length > 0)
 			{
-				Integer consId = (Integer) items[0].getData();
+				Integer consId = (Integer)((ITableRow) items[0].getData()).getDBObject();
 				if (consId != null)
 				{
 					TurqConsignment cons = ConBLSearchConsignment.getConsignmentByConsId(consId);
