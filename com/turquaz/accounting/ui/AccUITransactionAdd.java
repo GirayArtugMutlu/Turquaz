@@ -23,6 +23,7 @@ package com.turquaz.accounting.ui;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 
 import org.eclipse.jface.viewers.CellEditor;
@@ -31,6 +32,7 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -44,6 +46,7 @@ import com.turquaz.engine.ui.viewers.TableRowList;
 import com.turquaz.engine.ui.viewers.TurquazCellModifier;
 import com.turquaz.engine.ui.viewers.TurquazContentProvider;
 import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
+import com.turquaz.inventory.ui.InvUITransactionTableRow;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CLabel;
@@ -149,7 +152,6 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnTitle;
 	private Table table1;
-	private CLabel lblTableWarning;
 	TableRowList rowList = new TableRowList();
 	// Set column names
 	private String[] columnNames = new String[] { 
@@ -248,17 +250,6 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 				text1LData.horizontalSpan = 3;
 				text1LData.widthHint = 365;
 				txtTransDefinition.setLayoutData(text1LData);
-			}
-			{
-				lblTableWarning = new CLabel(this, SWT.NONE);
-				lblTableWarning.setText(Messages.getString("AccUITransactionAdd.10")); //$NON-NLS-1$
-				GridData lblTableWarningLData = new GridData();
-				lblTableWarning.setFont(SWTResourceManager.getFont("Tahoma", 8, 1, false, false)); //$NON-NLS-1$
-				lblTableWarningLData.horizontalSpan = 4;
-				lblTableWarningLData.widthHint = 383;
-				lblTableWarningLData.heightHint = 19;
-				lblTableWarningLData.verticalSpan = 4;
-				lblTableWarning.setLayoutData(lblTableWarningLData);
 			}
 			{
 				tableTransactionColumns = new Table(this, SWT.FULL_SELECTION | SWT.HIDE_SELECTION);
@@ -453,8 +444,15 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 		 }
 		 
 		 
+		 
+		 
 		 });
 	
+		 for(int i=0;i<EngBLCommon.TABLE_ROW_COUNT;i++){
+//			enter empty table rows.
+	      AccUITransactionAddTableRow row = new AccUITransactionAddTableRow(rowList);
+	      rowList.addTask(row);
+		}
 	}
 	
 	
@@ -484,7 +482,36 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			tableViewer.setLabelProvider(new TurquazLabelProvider());			
 			tableViewer.setInput(rowList);
 		
-	        
+		    rowList.addChangeListener(new ITableRowListViewer(){
+			       public void updateRow(ITableRow row){
+			           
+			           calculateTotalDeptAndCredit();
+			          
+						
+			           Vector vec = rowList.getTasks();
+			           int index = vec.indexOf(row);
+			           if(index==vec.size()-1){
+			           		if(row.okToSave()){
+			           			
+			                    AccUITransactionAddTableRow row2 = new AccUITransactionAddTableRow(rowList);
+			                    rowList.addTask(row2);
+			                   
+			           			
+
+			           		}
+			           	
+			           }
+			           
+			      }
+			       public void removeRow(ITableRow row){
+			           calculateTotalDeptAndCredit();
+			                 
+			       }
+			       public void addRow(ITableRow row){
+			           calculateTotalDeptAndCredit();
+			       }
+			    });
+	
 	    
 	}
 	

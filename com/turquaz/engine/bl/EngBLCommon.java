@@ -92,7 +92,7 @@ public class EngBLCommon {
     public final static int BILL_TRANS_TYPE_BUY=0;
     public final static int BILL_TRANS_TYPE_SELL=1;
     
-    
+    public final static int TABLE_ROW_COUNT = 10;
     
     
     

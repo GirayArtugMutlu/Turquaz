@@ -44,6 +44,7 @@ import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.inventory.ui.InvUITransactionTableRow;
 
 
 import org.eclipse.swt.events.SelectionAdapter;
@@ -254,6 +255,9 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	
 	}
 	public void fillTable(){
+	
+	compTransactionAdd.rowList.removeAll();
+		
 	Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
 	
 	Iterator it = transactionRows.iterator();
@@ -264,9 +268,13 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	ITableRow row = new AccUITransactionAddTableRow(compTransactionAdd.rowList);
 	compTransactionAdd.rowList.addTask(row);
 	row.setDBObject(transRow);
-	compTransactionAdd.rowList.taskChanged(row);
 	
 	}
+	// add last empty row
+	AccUITransactionAddTableRow row2 = new AccUITransactionAddTableRow(compTransactionAdd.rowList);
+	compTransactionAdd.rowList.addTask(row2);
+	compTransactionAdd.calculateTotalDeptAndCredit();
+	
 	}
 	
 

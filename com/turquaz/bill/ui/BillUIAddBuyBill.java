@@ -1062,7 +1062,7 @@ public class BillUIAddBuyBill extends Composite
 	    
        
 	
-	for(int i=0;i<10;i++){
+	for(int i=0;i<EngBLCommon.TABLE_ROW_COUNT;i++){
 //		enter empty table rows.
       InvUITransactionTableRow row = new InvUITransactionTableRow(rowList,0,tableViewer);
       rowList.addTask(row);
