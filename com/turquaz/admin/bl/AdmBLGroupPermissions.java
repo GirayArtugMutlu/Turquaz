@@ -22,10 +22,33 @@ package com.turquaz.admin.bl;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
+import java.util.Calendar;
 import java.util.List;
 
+import com.turquaz.admin.dal.AdmDALUserPermissions;
 import com.turquaz.engine.dal.EngDALUserPerms;
+import com.turquaz.engine.dal.TurqGroup;
+import com.turquaz.engine.dal.TurqGroupPermission;
+import com.turquaz.engine.dal.TurqModule;
+import com.turquaz.engine.dal.TurqModuleComponent;
+import com.turquaz.engine.dal.TurqUser;
+import com.turquaz.engine.dal.TurqUserPermission;
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 /**
  * @author huseyin
  *
@@ -35,6 +58,8 @@ import com.turquaz.engine.dal.EngDALUserPerms;
 public class AdmBLGroupPermissions {
 
 		private EngDALUserPerms dalGroupPerms = new EngDALUserPerms();
+		private AdmDALUserPermissions dalAdminGroupPerms = new AdmDALUserPermissions();
+		Calendar cal = Calendar.getInstance();
 		public AdmBLGroupPermissions(){
 			
 		}
@@ -62,6 +87,38 @@ public class AdmBLGroupPermissions {
 			try{
 				
 				return dalGroupPerms.getModules();
+				
+			}
+			catch(Exception ex){
+				throw ex;
+			}
+		}
+		public void saveGroupPermission(Object group, Object module, Object moduleComp, int level)throws Exception{
+			try{
+				
+				TurqGroupPermission groupPerm = new TurqGroupPermission();
+				groupPerm.setTurqGroup((TurqGroup)group);
+				groupPerm.setTurqModule((TurqModule)module);
+				groupPerm.setTurqModuleComponent((TurqModuleComponent)moduleComp);
+				groupPerm.setGroupPermissionsLevel(level);
+				
+				groupPerm.setCreatedBy(System.getProperty("user"));
+				groupPerm.setUpdatedBy(System.getProperty("user"));
+				groupPerm.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
+				groupPerm.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+				
+				dalAdminGroupPerms.saveObject(groupPerm);
+				
+				
+			}
+			catch(Exception ex){
+				throw ex;
+			}
+		}
+		public void deleteObject(Object obj)throws Exception {
+			try{
+				
+				dalAdminGroupPerms.deleteObject(obj);			
 				
 			}
 			catch(Exception ex){

@@ -19,6 +19,7 @@ package com.turquaz.admin.ui;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
@@ -51,12 +52,14 @@ import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.dal.TurqModuleComponent;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.dal.TurqUserPermission;
+import com.turquaz.engine.ui.component.SecureComposite;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
 
-public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite {
+public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite
+implements SecureComposite{
 
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -66,7 +69,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite {
 
 	private Composite composite1;
 
-	private Table tableUserPermissions;
+	private Table tableGroupPermissions;
 
 	private CLabel lblModules;
 
@@ -88,7 +91,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite {
 
 	private CCombo comboModuleComponents;
 
-	private CCombo comboUsers;
+	private CCombo comboGroups;
 
 	private CLabel lblGroups;
 
@@ -162,14 +165,14 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite {
 					lblGroups.setLayoutData(lblUsersLData);
 				}
 				{
-					comboUsers = new CCombo(composite1, SWT.NONE);
+					comboGroups = new CCombo(composite1, SWT.NONE);
 					GridData comboUsersLData = new GridData();
-					comboUsers.setBackground(SWTResourceManager.getColor(255,
+					comboGroups.setBackground(SWTResourceManager.getColor(255,
 							255, 255));
-					comboUsers.setEditable(false);
+					comboGroups.setEditable(false);
 					comboUsersLData.widthHint = 118;
 					comboUsersLData.heightHint = 16;
-					comboUsers.setLayoutData(comboUsersLData);
+					comboGroups.setLayoutData(comboUsersLData);
 				}
 				{
 					lblModules = new CLabel(composite1, SWT.NONE);
@@ -230,36 +233,36 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite {
 				}
 			}
 			{
-				tableUserPermissions = new Table(this, SWT.NONE);
+				tableGroupPermissions = new Table(this, SWT.NONE);
 				GridData table1LData = new GridData();
-				tableUserPermissions.setLinesVisible(true);
-				tableUserPermissions.setHeaderVisible(true);
+				tableGroupPermissions.setLinesVisible(true);
+				tableGroupPermissions.setHeaderVisible(true);
 				table1LData.verticalAlignment = GridData.FILL;
 				table1LData.grabExcessHorizontalSpace = true;
 				table1LData.grabExcessVerticalSpace = true;
 				table1LData.horizontalAlignment = GridData.FILL;
-				tableUserPermissions.setLayoutData(table1LData);
+				tableGroupPermissions.setLayoutData(table1LData);
 				{
-					tableColumnGroup = new TableColumn(tableUserPermissions,
+					tableColumnGroup = new TableColumn(tableGroupPermissions,
 							SWT.NONE);
 					tableColumnGroup.setText("Group");
 					tableColumnGroup.setWidth(100);
 				}
 				{
-					tableColumnModule = new TableColumn(tableUserPermissions,
+					tableColumnModule = new TableColumn(tableGroupPermissions,
 							SWT.NONE);
 					tableColumnModule.setText("Module");
 					tableColumnModule.setWidth(109);
 				}
 				{
 					tableColumnModuleComponent = new TableColumn(
-							tableUserPermissions, SWT.NONE);
+							tableGroupPermissions, SWT.NONE);
 					tableColumnModuleComponent.setText("Module Component");
 					tableColumnModuleComponent.setWidth(120);
 				}
 				{
 					tableColumnPermissionLevel = new TableColumn(
-							tableUserPermissions, SWT.NONE);
+							tableGroupPermissions, SWT.NONE);
 					tableColumnPermissionLevel.setText("Permission Level");
 					tableColumnPermissionLevel.setWidth(104);
 				}
@@ -277,8 +280,8 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite {
 			java.util.List groupList = blGroups.getGroups();
 			for (int i = 0; i < groupList.size(); i++) {
 				TurqGroup group = (TurqGroup) groupList.get(i);
-				comboUsers.setData(group.getGroupsName(), group);
-				comboUsers.add(group.getGroupsName());
+				comboGroups.setData(group.getGroupsName(), group);
+				comboGroups.add(group.getGroupsName());
 
 			}
 
@@ -345,6 +348,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite {
 
 	public void fillTableUserPermissions() {
 		try {
+			tableGroupPermissions.removeAll();
 			java.util.List groupPermList = blGroupPerms.getGroupPermissions();
 			TableItem item;
 
@@ -369,7 +373,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite {
 				}
 				permLevel = groupPerm.getGroupPermissionsLevel() + "";
 
-				item = new TableItem(tableUserPermissions, SWT.NULL);
+				item = new TableItem(tableGroupPermissions, SWT.NULL);
 				item.setData(groupPerm);
 
 				item.setText(new String[] { groupname, module, moduleComp,
@@ -380,6 +384,97 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+	public boolean verifyFields(){
+		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+		
+		
+		if(comboGroups.getSelectionIndex()==-1){
+	    	msg.setMessage("Please Choose a Group !");
+			msg.open();
+			return false;
+		}
+	    else if(comboModules.getSelectionIndex()==-1){
+	    	msg.setMessage("Please Choose Module !");
+			msg.open();
+			return false;
+		}
+		else if(comboModuleComponents.getData(comboModuleComponents.getText())== null){
+			msg.setMessage("Please Choose Module Component!");
+			msg.open();
+			return false;
+		}
+		
+		else if(comboPermissionLevel.getText().trim().length()==0){
+			msg.setMessage("Please Choose a Permission Level");
+			msg.open();
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public void save(){
+		try{
+			if(verifyFields()){
+			blGroupPerms.saveGroupPermission(comboGroups.getData(comboGroups.getText()),
+										comboModules.getData(comboModules.getText()),
+										comboModuleComponents.getData(comboModuleComponents.getText()),
+										Integer.parseInt(comboPermissionLevel.getText()));	
+			
+			newForm();
+			fillTableUserPermissions();
+			
+			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+			msg.setMessage("Succesfully Saved!");
+			msg.open();
+			}
+			
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+		
+		
+	}
+	public void delete(){
+		MessageBox msg = new MessageBox(this.getShell(),SWT.OK|SWT.CANCEL);
+		MessageBox msg2 = new MessageBox(this.getShell(),SWT.NULL);
+		msg.setMessage("Really Delete?");
+		
+	try{
+		if(msg.open()==SWT.OK){
+			
+		
+		TableItem items[]=tableGroupPermissions.getSelection();
+		if(items.length>0){
+		blGroupPerms.deleteObject(items[0].getData());	
+		fillTableUserPermissions();
+		msg2.setMessage("Succesfully Deleted!..");
+	    msg2.open();
+		
+		}
+	}
+		
+		
+		
+		
+	}
+	catch(Exception ex){
+		ex.printStackTrace();
+		msg2.setMessage(ex.getMessage());
+	    msg2.open();
+	}
+		
+		
+		
+	}
+	public void search(){
+		
+	}
+	public void newForm(){
+		
 	}
 
 }

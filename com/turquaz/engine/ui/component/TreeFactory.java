@@ -123,9 +123,6 @@ public final class TreeFactory {
 		TreeItem root = new TreeItem(tree,SWT.NULL);
 		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.21")); //$NON-NLS-1$
 		TreeItem item = new TreeItem(root,SWT.NULL);
-		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.22")); //$NON-NLS-1$
-		item.setData(AdmUIPermPanel.class.getName());
-		item = new TreeItem(root,SWT.NULL);
 		item.setText(Messages.getString("TreeFactory.23")); //$NON-NLS-1$
 		item.setData(AdmUIUserAdd.class.getName());
 		item = new TreeItem(root,SWT.NULL);
@@ -141,7 +138,7 @@ public final class TreeFactory {
 		item.setText(Messages.getString("TreeFactory.27")); //$NON-NLS-1$
 		item.setData(AdmUIUserPermissions.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Group Permissions"); //$NON-NLS-1$
+		item.setText(Messages.getString("TreeFactory.22")); //$NON-NLS-1$
 		item.setData(AdmUIGroupPermissions.class.getName());
 		return tree;
 	}
