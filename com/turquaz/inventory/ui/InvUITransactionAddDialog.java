@@ -1,13 +1,14 @@
 package com.turquaz.inventory.ui;
 
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
 
-import com.turquaz.engine.EngConfiguration;
+
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryCard;
@@ -266,6 +267,11 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 					{
 						btnCancel = new Button(composite2, SWT.PUSH | SWT.CENTER);
 						GridData button1LData = new GridData();
+						btnCancel.addMouseListener(new MouseAdapter() {
+							public void mouseUp(MouseEvent evt) {
+								dialogShell.close();
+							}
+						});
 						btnCancel.setImage(SWTResourceManager.getImage("icons/Cancel24.gif"));
 						button1LData.widthHint = 69;
 						button1LData.heightHint = 35;
@@ -275,6 +281,11 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 					{
 						btnOk = new Button(composite2, SWT.PUSH | SWT.CENTER);
 						GridData button2LData = new GridData();
+						btnOk.addMouseListener(new MouseAdapter() {
+							public void mouseUp(MouseEvent evt) {
+								btnOkMouseUp();
+							}
+						});
 						btnOk.setImage(SWTResourceManager.getImage("icons/Ok24.gif"));
 						button2LData.widthHint = 69;
 						button2LData.heightHint = 34;
@@ -377,6 +388,64 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
      }
   
 
+	}
+	
+	boolean verifyFields(){
+		return true;
+	}
+	
+	public void btnOkMouseUp(){
+		
+		if(verifyFields()){
+		  invTrans = new TurqInventoryTransaction();
+		  invTrans.setTurqInventoryCard((TurqInventoryCard)txtInvCard.getData());
+
+		  
+		  TurqInventoryCardUnit unit=(TurqInventoryCardUnit)comboUnitType.getData(comboUnitType.getText());
+		  
+		  int vat = txtVat.getIntValue();
+		  int specialVat = numSpecialVat.getIntValue();
+		  
+		  int amount = numTxtAmount.getIntValue()*unit.getCardUnitsFactor();
+		  
+		  BigDecimal unitPrice = decTxtPrice.getBigDecimalValue();
+		  BigDecimal totalPrice = unitPrice.multiply(new BigDecimal(amount));
+		  
+		  
+		  double _vat = (double)vat/100;
+		  double _specialVat = (double)specialVat/100;
+		  BigDecimal VATAmount = totalPrice.multiply(new BigDecimal(_vat));
+          
+		   BigDecimal specialVATAmount = new BigDecimal(0);
+		  if(btnSpecialVat.getSelection()){
+		  	
+		  	specialVATAmount = totalPrice.multiply(new BigDecimal(_specialVat));
+		    invTrans.setTransactionsVatSpecialEach(new BigDecimal(0));
+		    invTrans.setTransactionsVatSpecial(new BigDecimal(specialVat));
+		  	
+		  }
+		  else{
+		  	specialVATAmount = numTxtSpecialVatEach.getBigDecimalValue().multiply(new BigDecimal(amount)); 
+            invTrans.setTransactionsVatSpecial(new BigDecimal(0));  
+            invTrans.setTransactionsVatSpecialEach(numTxtSpecialVatEach.getBigDecimalValue());
+		  }
+		  
+		  BigDecimal cumulativeTotal =totalPrice.add(VATAmount).add(specialVATAmount); 
+		  	  
+		  invTrans.setTransactionsVat(vat);
+		  invTrans.setTransactionsUnitPrice(unitPrice);
+		  invTrans.setTransactionsAmountIn(amount);
+		  invTrans.setTransactionsTotalAmountOut(amount);
+		  invTrans.setTransactionsTotalPrice(totalPrice);
+		  invTrans.setTransactionsVatAmount(VATAmount);
+		  invTrans.setTransactionsVatSpecialAmount(specialVATAmount);
+		  invTrans.setTransactionsCumilativePrice(cumulativeTotal);
+		  
+		  
+		  dialogShell.close();
+		  
+		}
+	
 	}
 	
 }
