@@ -111,5 +111,14 @@ public class BillBLUpdateBill {
 
 		}
 	}
+	public boolean canUpdateBill(TurqBill bill)throws Exception{
+	    try{
+	        
+	        return dalBill.canUpdateBill(bill);
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
 
 }

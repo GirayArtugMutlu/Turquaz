@@ -3,7 +3,9 @@ package com.turquaz.bill.dal;
 
 
 import java.util.Iterator;
+import java.util.List;
 
+import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
@@ -127,7 +129,36 @@ public class BillDALUpdateBill {
 	    
 	    
 	    
-	}	
+	}
+	
+	public boolean canUpdateBill(TurqBill bill)throws Exception{
+	  try{
+	      Session session = EngDALSessionFactory.openSession();
+			
+			String query = "Select accTrans from TurqAccountingTransaction as accTrans where " +
+					" accTrans.turqAccountingJournal.accountingJournalId <>-1" +
+					" and accTrans.turqEngineSequence = :billEngineSeq";
+
+			Query q = session.createQuery(query); 	
+			q.setParameter("billEngineSeq",bill.getTurqEngineSequence());
+
+			List list = q.list();
+			
+			if(list.size()==0){
+			    return true;
+			}
+			else return false;
+	      
+	  }
+	  catch(Exception ex){
+	     
+	   throw ex;
+	 
+	      
+	  }
+	 
+	}
+	
 	public void deleteObject(Object obj)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();

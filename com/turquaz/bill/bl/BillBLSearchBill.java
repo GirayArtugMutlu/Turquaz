@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.turquaz.bill.dal.BillDALSearchBill;
+import com.turquaz.bill.dal.BillDALUpdateBill;
+import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
 /**
@@ -17,6 +19,7 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 public class BillBLSearchBill {
 	Calendar cal = Calendar.getInstance();
 	BillDALSearchBill dalSearch = new BillDALSearchBill();
+	BillDALUpdateBill dalUpdate = new BillDALUpdateBill();
    
 	public BillBLSearchBill(){
    	
@@ -32,6 +35,15 @@ public class BillBLSearchBill {
 			throw ex;
 		}
 		
+	}
+	public boolean canUpdateBill(TurqBill bill)throws Exception{
+	    try{
+	        
+	        return dalUpdate.canUpdateBill(bill);
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
 	}
 	
 	

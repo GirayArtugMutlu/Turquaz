@@ -160,14 +160,23 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	        
 	        toolUpdate.setEnabled(false);
 			toolDelete.setEnabled(false);
-			    
-			if(EngBLPermissions.getPermission(compAddBill.getClass().getName())==2){
-			    toolUpdate.setEnabled(true); 
+			
+			if(!blUpdateBill.canUpdateBill(bill)){
+			    toolDelete.setEnabled(false);
+			    toolUpdate.setEnabled(false); 
 			}
-			else if(EngBLPermissions.getPermission(compAddBill.getClass().getName())==3){
-			    toolDelete.setEnabled(true);
-			    toolUpdate.setEnabled(true); 
-			}
+		    else{
+		        
+				if(EngBLPermissions.getPermission(compAddBill.getClass().getName())==2){
+				    toolUpdate.setEnabled(true); 
+				}
+				else if(EngBLPermissions.getPermission(compAddBill.getClass().getName())==3){
+				    toolDelete.setEnabled(true);
+				    toolUpdate.setEnabled(true); 
+				}
+		    }
+			
+			
 			
 			compAddBill.getTxtCurrentCard().setData(bill.getTurqBillConsignmentCommon().getTurqCurrentCard());
 			compAddBill.getTxtCurrentCard().setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode()+" - " +  //$NON-NLS-1$

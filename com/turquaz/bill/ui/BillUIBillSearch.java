@@ -1,5 +1,6 @@
 package com.turquaz.bill.ui;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
@@ -12,8 +13,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TableItem;
 
 import org.eclipse.swt.widgets.Composite;
-
 import com.turquaz.bill.bl.BillBLSearchBill;
+import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -30,6 +31,7 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
@@ -338,6 +340,59 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		
 	}
 	public void delete(){
+	    
+	MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+	BillBLUpdateBill blUpdateBill = new BillBLUpdateBill();
+	    try{
+	        TableItem items[] = tableBills.getSelection();
+	        if(items.length>0){
+	           
+	           TurqBill bill = (TurqBill)items[0].getData();
+	           if(blSearch.canUpdateBill(bill)){
+	               //delete Consignment Group
+	               MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
+	               msg2.setMessage("Silmek istedi?inize emin misiniz?");
+	               if(msg2.open()==SWT.OK){
+					
+	                Iterator it = bill.getTurqBillInGroups().iterator();
+					while(it.hasNext()){
+					    
+						blUpdateBill.deleteObject(it.next());
+					    				
+					}
+					
+					blUpdateBill.deleteAccountingTransactions(bill);
+					blUpdateBill.deleteCurrentTransactions(bill);
+				
+					blUpdateBill.deleteObject(bill); 
+					msg.setMessage("Ba?ar?yla Silindi.");
+	                msg.open();
+	                search();
+	               }
+	               
+	               
+	           
+	           }
+	           else{
+	               MessageBox msg3 = new MessageBox(this.getShell(),SWT.ICON_WARNING);
+	               msg3.setMessage("Bu faturan?n yevmiye kay?tlar? yap?lm??.\n O yüzden silinemez!");
+	               msg3.open();
+	               return;
+	           }
+	            
+	            
+	            
+	        }
+	        
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        
+	        ex.printStackTrace();
+	    }
+	    
+	    
 		
 	}
 	
