@@ -299,7 +299,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			compCurCardAdd.getDecTxtCreditLimit().setText(currentCard.getCardsCreditLimit().toString());
 			compCurCardAdd.getDecTxtDiscountAmount().setText(currentCard.getCardsDiscountPayment().toString());
 			compCurCardAdd.getTxtCardAddress().setText(currentCard.getCardsAddress());
-			
+			compCurCardAdd.getNumDueDays().setText(currentCard.getDaysToValue());
 			
 			
 			/************************************************************/
@@ -559,7 +559,8 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 				compCurCardAdd.getDecTxtRiskLimit().getBigDecimalValue(),
 				compCurCardAdd.getTxtTaxDepartmant().getText().trim(),
 				compCurCardAdd.getTxtTaxNumber().getText().trim(),
-				(TurqAccountingAccount)compCurCardAdd.getAccPickerCustomer().getData(),	currentCard);	
+				(TurqAccountingAccount)compCurCardAdd.getAccPickerCustomer().getData(),
+				compCurCardAdd.getNumDueDays().getIntValue(),currentCard);	
 				
 		deleteRelations();
 		compCurCardAdd.saveContact(currentCard.getCurrentCardsId());

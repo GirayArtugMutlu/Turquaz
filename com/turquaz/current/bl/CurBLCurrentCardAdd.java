@@ -45,9 +45,10 @@ public class CurBLCurrentCardAdd {
 								String cardAddress, BigDecimal cardDiscountRate,
 								BigDecimal cardDiscountPayment,	BigDecimal cardCreditLimit,
 								BigDecimal cardRiskLimit, String cardTaxDepartment,
-								String cardTaxNumber, TurqAccountingAccount accCode) throws Exception {
+								String cardTaxNumber, TurqAccountingAccount accCode, int daysToValue) throws Exception {
 		try{
 		
+		    
 			TurqCurrentCard currentCard=new TurqCurrentCard();
 			currentCard.setCardsCurrentCode(currentCode);
 			currentCard.setCardsName(cardName);
@@ -60,7 +61,8 @@ public class CurBLCurrentCardAdd {
 			currentCard.setCardsTaxDepartment(cardTaxDepartment);
 			currentCard.setCardsTaxNumber(cardTaxNumber);
 			currentCard.setTurqAccountingAccount(accCode);
-		
+		    currentCard.setDaysToValue(daysToValue);
+		    
 			currentCard.setCreatedBy(System.getProperty("user"));
 			currentCard.setUpdatedBy(System.getProperty("user"));
 			currentCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
