@@ -28,6 +28,8 @@ import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqInventoryCard;
 
 
 
@@ -39,6 +41,22 @@ public class InvDALCardAdd {
 	{
 			
 	}
+
+	public void saveOrUpdateInvCard(TurqInventoryCard invCard)throws Exception{
+		try{
+		Session session = EngDALSessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.saveOrUpdate(invCard);
+		session.flush();
+		tx.commit();
+		session.close();
+		
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
+	
 	
 	public List getInventoryGroups()throws Exception{
 	try{

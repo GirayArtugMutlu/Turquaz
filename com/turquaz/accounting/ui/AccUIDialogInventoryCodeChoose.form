@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form style="SWT" ide="eclipse" builder="jigloo" version="2.7.2">
+<NonVisualComponents>
+		<Component class="java.lang.Object" name="object1" style="0">
+			<Constraints>
+				<LayoutConstraint/>
+			</Constraints>
+			<Properties>
+			</Properties>
+		</Component></NonVisualComponents>
+	<Component class="org.eclipse.swt.widgets.Dialog" name="AccUIDialogInventoryCodeChoose" style="0">
+		<Constraints>
+			<LayoutConstraint/>
+		</Constraints>
+		<Layout class="Fill">
+			<Property name="type" type="int" value="256"/>
+			<Property name="marginWidth" type="int" value="0"/>
+			<Property name="marginHeight" type="int" value="0"/>
+			<Property name="spacing" type="int" value="0"/>
+		</Layout>
+		<Properties>
+			<Property name="size" type="Dimension">
+				<Dimension value="[304, 208]"/>
+			</Property>
+		</Properties>
+		<SubComponents>
+			<Component class="org.eclipse.swt.widgets.Tree" name="AccUIAccCodeTree" style="0">
+				<Constraints>
+					<LayoutConstraint/>
+				</Constraints>
+				<Events>
+				</Events>
+				<Properties>
+					<Property name="size" type="Dimension">
+						<Dimension value="[304, 208]"/>
+					</Property>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[0, 0, 304, 208]"/>
+					</Property>
+				</Properties>
+				<SubComponents>
+					<Component class="org.eclipse.swt.widgets.TreeItem" name="tim150" style="0">
+						<Constraints>
+							<LayoutConstraint/>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="150 -ilk madde ve malzeme"/>
+						</Properties>
+					</Component>
+					<Component class="org.eclipse.swt.widgets.TreeItem" name="tim151" style="0">
+						<Constraints>
+							<LayoutConstraint/>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="151- yarı mamüller"/>
+						</Properties>
+					</Component>
+					<Component class="org.eclipse.swt.widgets.TreeItem" name="tim152" style="0">
+						<Constraints>
+							<LayoutConstraint/>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="152 -Mamüller"/>
+						</Properties>
+					</Component>
+					<Component class="org.eclipse.swt.widgets.TreeItem" name="tim153" style="0">
+						<Constraints>
+							<LayoutConstraint/>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="153 -Tacari Mallar"/>
+						</Properties>
+					</Component>
+					<Component class="org.eclipse.swt.widgets.TreeItem" name="tim157" style="0">
+						<Constraints>
+							<LayoutConstraint/>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="157 -Diğer Stoklar"/>
+						</Properties>
+					</Component>
+				</SubComponents>
+			</Component>
+		</SubComponents>
+	</Component>
+</Form>

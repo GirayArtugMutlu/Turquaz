@@ -126,7 +126,7 @@ public class InvUICardAdd extends SecureComposite {
 	private CLabel lblInvCardOutAcc;
 	private TextWithButton txtInvCardInAcc;
 	private CLabel lblInvCardInAcc;
-	private Text txtnumInvCardMax;
+	private NumericText txtnumInvCardMax;
 	private CLabel lblInvCardMax;
 	private NumericText txtnumInvCardMin;
 	private Label lblInvCardMin;
@@ -175,7 +175,7 @@ public class InvUICardAdd extends SecureComposite {
 			lblInvCardMin = new Label(compInvCardDetails,SWT.RIGHT);
 			txtnumInvCardMin = new NumericText(compInvCardDetails,SWT.NULL);
 			lblInvCardMax = new CLabel(compInvCardDetails,SWT.RIGHT);
-			txtnumInvCardMax = new Text(compInvCardDetails,SWT.NULL);
+			txtnumInvCardMax = new NumericText(compInvCardDetails,SWT.NULL);
 			lblInvCardInAcc = new CLabel(compInvCardDetails,SWT.RIGHT);
 			txtInvCardInAcc = new TextWithButton(compInvCardDetails,SWT.NULL);
 			lblInvCardOutAcc = new CLabel(compInvCardDetails,SWT.RIGHT);
@@ -1240,6 +1240,26 @@ public class InvUICardAdd extends SecureComposite {
 	
 	public void save(){
 		if(verifyFields()){
+		
+		InvBLCardAdd blCardAdd = new InvBLCardAdd();
+		int accountIdSell =Integer.parseInt(txtInvCardOutAcc.getData().toString());
+		int accountIdBuy=Integer.parseInt(txtInvCardInAcc.getData().toString());
+		try{
+		blCardAdd.saveInvCard(txtInvCardCode.getText().trim(),txtInvCardSpecialCode.getText().trim(),
+				txtInvCardName.getText().trim(),txtInvCardDefinition.getText().trim(),
+				txtnumInvCardMin.getIntValue(),txtnumInvCardMax.getIntValue(),
+				txtInvCardVat.getIntValue(),txtInvCardDiscount.getIntValue(),
+				accountIdBuy,accountIdSell
+				
+				);
+		
+		
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+			
+			
 			
 		}
 		

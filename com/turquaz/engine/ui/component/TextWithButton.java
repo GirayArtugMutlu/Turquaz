@@ -26,6 +26,7 @@ public class TextWithButton extends org.eclipse.swt.widgets.Composite {
 
 	private Button button1;
 	private Text text1;
+	private Object data; 
 	public TextWithButton(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -110,6 +111,16 @@ public class TextWithButton extends org.eclipse.swt.widgets.Composite {
 		   });
 		 
 		
+	}
+	public String getText(){
+		return text1.getText();
+	}
+	
+	public void setData(Object obj){
+		data =obj;
+	}
+	public Object getData(){
+		return data;
 	}
     
 	public void addMouseListener(MouseAdapter adapter){

@@ -451,7 +451,7 @@
 											</Property>
 										</Properties>
 									</Component>
-									<Component class="org.eclipse.swt.widgets.Text" name="txtnumInvCardMax" style="0">
+									<Component class="com.turquaz.engine.ui.component.NumericText" name="txtnumInvCardMax" style="0">
 										<Constraints>
 											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -469,7 +469,6 @@
 										<Events>
 										</Events>
 										<Properties>
-											<Property name="text" type="String" value=""/>
 											<Property name="size" type="Dimension">
 												<Dimension value="[110, 18]"/>
 											</Property>
@@ -665,7 +664,7 @@
 											</Property>
 										</Properties>
 									</Component>
-									<Component class="com.turquaz.engine.ui.component.DecimalText" name="txtInvCardDiscount" style="0">
+									<Component class="com.turquaz.engine.ui.component.NumericText" name="txtInvCardDiscount" style="0">
 										<Constraints>
 											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">

@@ -47,6 +47,7 @@
         column="card_name"
         not-null="true"
         length="50"
+        unique="true"
     />
     <property
         name="cardDefinition"

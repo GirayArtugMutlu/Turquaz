@@ -85,6 +85,16 @@ public class NumericText extends Composite {
           }
 	}
 
+ public int getIntValue(){
+  if(text.getText().length()==0){
+  	return 0;
+  }
+  else {
+  	return Integer.parseInt(text.getText().trim());
+  }
+ 
+ }
+ 
  public void setText(int a){
  	text.setText(a+"");
  }

@@ -399,9 +399,9 @@
 																					<Constraint heightHint=""/>
 																					<Constraint verticalAlignment=""/>
 																					<Constraint grabExcessVerticalSpace=""/>
-																					<Constraint grabExcessHorizontalSpace=""/>
-																					<Constraint horizontalSpan=""/>
 																					<Constraint widthHint=""/>
+																					<Constraint horizontalSpan=""/>
+																					<Constraint grabExcessHorizontalSpace=""/>
 																					<Constraint horizontalIndent=""/>
 																					<LayoutConstraint/>
 																				</Constraints>
@@ -429,9 +429,9 @@
 																					<Constraint heightHint=""/>
 																					<Constraint verticalAlignment=""/>
 																					<Constraint grabExcessVerticalSpace=""/>
-																					<Constraint grabExcessHorizontalSpace=""/>
-																					<Constraint horizontalSpan=""/>
 																					<Constraint widthHint=""/>
+																					<Constraint horizontalSpan=""/>
+																					<Constraint grabExcessHorizontalSpace=""/>
 																					<Constraint horizontalIndent=""/>
 																					<LayoutConstraint/>
 																				</Constraints>
@@ -484,6 +484,8 @@
 																			</Property>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
 																		<SubComponents>
 																			<Component class="com.turquaz.inventory.ui.comp.InvUITree" name="treeInventory" style="0">
@@ -497,8 +499,28 @@
 																					<Property name="bounds" type="Rectangle">
 																						<Rectangle value="[0, 0, 230, 263]"/>
 																					</Property>
+																					<Property name="visible" type="boolean" value="true"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																				</Properties>
+																			</Component>
+																			<Component class="com.turquaz.accounting.ui.comp.AccUITree" name="treeAccounting" style="0">
+																				<Constraints>
+																					<LayoutConstraint/>
+																				</Constraints>
+																				<Events>
+																				</Events>
+																				<Properties>
+																					<Property name="size" type="Dimension">
+																						<Dimension value="[230, 263]"/>
+																					</Property>
+																					<Property name="bounds" type="Rectangle">
+																						<Rectangle value="[0, 0, 230, 263]"/>
+																					</Property>
 																				</Properties>
 																			</Component>
 																			<Component class="com.turquaz.admin.ui.comp.AdmUITree" name="treeAdmin" style="0">
@@ -509,9 +531,14 @@
 																					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="treeAdminMouseDoubleClick"/>
 																				</Events>
 																				<Properties>
+																					<Property name="size" type="Dimension">
+																						<Dimension value="[230, 263]"/>
+																					</Property>
 																					<Property name="bounds" type="Rectangle">
 																						<Rectangle value="[0, 0, 230, 263]"/>
 																					</Property>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -752,13 +779,13 @@
 																</Events>
 																<Properties>
 																	<Property name="size" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[29, 7]"/>
 																	</Property>
 																	<Property name="preferredSize" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[29, 7]"/>
 																	</Property>
 																	<Property name="minimumSize" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[29, 7]"/>
 																	</Property>
 																	<Property name="text" type="String" value="coolItem3"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -794,9 +821,6 @@
 																				</Events>
 																				<Properties>
 																					<Property name="enabled" type="boolean" value="true"/>
-																					<Property name="ımage" type="Image">
-																						<Image name="\icons\new_wiz.gif"/>
-																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -810,9 +834,6 @@
 																				</Events>
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
-																					<Property name="ımage" type="Image">
-																						<Image name="\icons\save.gif"/>
-																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -826,9 +847,6 @@
 																				</Events>
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
-																					<Property name="ımage" type="Image">
-																						<Image name="\icons\delete_edit.gif"/>
-																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -842,9 +860,6 @@
 																				</Events>
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
-																					<Property name="ımage" type="Image">
-																						<Image name="\icons\run_exec.gif"/>
-																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -858,8 +873,8 @@
 													<Component class="org.eclipse.swt.custom.CTabFolder" name="tabfldMain" style="2056">
 														<Constraints>
 															<Constraint right=""/>
-															<Constraint width=""/>
 															<Constraint top=""/>
+															<Constraint width=""/>
 															<Constraint height=""/>
 															<Constraint left="null"/>
 															<Constraint class="org.eclipse.swt.layout.GridData"/>
