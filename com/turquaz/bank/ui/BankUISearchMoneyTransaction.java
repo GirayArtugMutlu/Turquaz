@@ -21,6 +21,7 @@ package com.turquaz.bank.ui;
  */
 //TODO add curreny to bank sarch
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.eclipse.swt.widgets.Composite;
@@ -45,6 +46,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -74,6 +78,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 	private CLabel lblStartDate;
 	private Text txtDocNo;
 	private CLabel lblDocNo;
+	private SearchTableViewer tableViewer=null;
 
 	public BankUISearchMoneyTransaction(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -180,11 +185,32 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 				//END << tableColumnCreditAmount
 			}
 			this.layout();
+			PostInitGui();
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void PostInitGui()
+	{
+		Calendar cal=Calendar.getInstance();
+		cal.set(cal.get(Calendar.YEAR),0,1);
+		dateStart.setDate(cal.getTime());
+		createTableViewer();
+	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[6];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_DATE;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableMoneyTrans, columnTypes);
 	}
 
 	public void delete()
@@ -206,7 +232,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 	{
 		try
 		{
-			tableMoneyTrans.removeAll();
+			tableViewer.removeAll();
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			List ls = BankBLTransactionSearch.searchtransaction(txtDocNo.getText().trim(), dateStart.getDate(), dateEnd.getDate());
 			Object[] result;
@@ -217,7 +243,6 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 			String docNo = ""; //$NON-NLS-1$
 			String bankCode;
 			String transType;
-			TableItem item;
 			for (int i = 0; i < ls.size(); i++)
 			{
 				dept = new BigDecimal(0);
@@ -236,10 +261,8 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 				transDate = (Date) result[1];
 				docNo = result[4].toString();
 				String definition = result[3].toString();
-				item = new TableItem(tableMoneyTrans, SWT.NULL);
-				item.setData(transId);
-				item.setText(new String[]{DatePicker.formatter.format(transDate), docNo, transType, definition, cf.format(dept),
-						cf.format(credit)});
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), docNo, transType, definition, cf.format(dept),
+						cf.format(credit)},transId);
 			}
 		}
 		catch (Exception ex)
@@ -257,7 +280,8 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 			if (selection.length > 0)
 			{
 				boolean isUpdated = false;
-				TurqBanksTransactionBill transBill = BankBLTransactionUpdate.initializeTransaction((Integer) selection[0].getData());
+				Integer billId=(Integer)((ITableRow) selection[0].getData()).getDBObject();
+				TurqBanksTransactionBill transBill = BankBLTransactionUpdate.initializeTransaction(billId);
 				if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
 				{
 					isUpdated = new BankUIMoneyTransferInUpdate(getShell(), SWT.NULL, transBill).open();

@@ -136,7 +136,6 @@ public class BankDALCommon
 					+ bankCard.getId().intValue() + " and bankTrans.transaction_bill_date >= '" + frmt.format(startDate) + "' and "
 					+ " bankTrans.transaction_bill_date <= '" + frmt.format(endDate) + "' " + " and totals.banksId = bankCard.id"
 					+ " and type.id = bankTrans.banks_transaction_types_id" + " order by bankTrans.transaction_bill_date";
-			System.out.println(query);
 			Statement stmt = session.connection().createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			Object[] result;
