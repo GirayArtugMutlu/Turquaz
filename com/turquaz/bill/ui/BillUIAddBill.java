@@ -397,11 +397,11 @@ public class BillUIAddBill extends Composite
 	private final String INVENTORY_NAME   	        = Messages.getString("BillUIAddBill.8"); //$NON-NLS-1$
 	private final String TRANS_AMOUNT               = Messages.getString("BillUIAddBill.9"); //$NON-NLS-1$
 	private final String UNIT						= Messages.getString("BillUIAddBill.15"); //$NON-NLS-1$
-	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= "T. Brm Mik.";
+	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= Messages.getString("BillUIAddBill.10"); //$NON-NLS-1$
 	private final String BASE_UNIT 		            = Messages.getString("BillUIAddBill.17"); //$NON-NLS-1$
 	private final String UNIT_PRICE					= Messages.getString("BillUIAddBill.18"); //$NON-NLS-1$
 	private final String TOTAL_PRICE				= Messages.getString("BillUIAddBill.19"); //$NON-NLS-1$
-	private final String DISCOUNT_PERCENT           = "?nd. %";
+	private final String DISCOUNT_PERCENT           = Messages.getString("BillUIAddBill.16"); //$NON-NLS-1$
 	private final String VAT_PERCENT				= Messages.getString("BillUIAddBill.20"); //$NON-NLS-1$
 	private final String VAT_TOTAL					= Messages.getString("BillUIAddBill.21"); //$NON-NLS-1$
 	private final String SPECIAL_VAT_PERCENT		= Messages.getString("BillUIAddBill.22"); //$NON-NLS-1$
@@ -648,7 +648,7 @@ public class BillUIAddBill extends Composite
 								lblCashAccount = new CLabel(
 									compInfoPanel,
 									SWT.NONE);
-								lblCashAccount.setText("Kasa Hesab?");
+								lblCashAccount.setText(Messages.getString("BillUIAddBill.36")); //$NON-NLS-1$
 							}
 							{
 								accountPickerCurAcc = new AccountPicker(
@@ -1336,7 +1336,7 @@ public class BillUIAddBill extends Composite
 		{
 			if (accountPickerCurAcc.getData()==null)
 			{
-				msg.setMessage("Kasa hesab? seçmelisiniz!");
+				msg.setMessage(Messages.getString("BillUIAddBill.37")); //$NON-NLS-1$
 				msg.open();
 				accountPickerCurAcc.setFocus();
 				return false;

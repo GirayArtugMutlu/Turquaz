@@ -955,7 +955,7 @@ implements SecureComposite{
 		{
 			if (accountPickerCurAcc.getData()==null)
 			{
-				msg.setMessage("Kasa hesab? seçmelisiniz!");
+				msg.setMessage(Messages.getString("BillUIBillFromConsignment.36")); //$NON-NLS-1$
 				msg.open();
 				accountPickerCurAcc.setFocus();
 				return false;

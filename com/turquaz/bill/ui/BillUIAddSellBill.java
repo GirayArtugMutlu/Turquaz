@@ -396,11 +396,11 @@ public class BillUIAddSellBill extends Composite
 	private final String INVENTORY_NAME   	        = Messages.getString("BillUIAddSellBill.1"); //$NON-NLS-1$
 	private final String TRANS_AMOUNT               = Messages.getString("BillUIAddSellBill.2"); //$NON-NLS-1$
 	private final String UNIT						= Messages.getString("BillUIAddSellBill.3"); //$NON-NLS-1$
-	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= "T. Brm Mik.";
+	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= Messages.getString("BillUIAddSellBill.4"); //$NON-NLS-1$
 	private final String BASE_UNIT 		            = Messages.getString("BillUIAddSellBill.5"); //$NON-NLS-1$
 	private final String UNIT_PRICE					= Messages.getString("BillUIAddSellBill.6"); //$NON-NLS-1$
 	private final String TOTAL_PRICE				= Messages.getString("BillUIAddSellBill.7"); //$NON-NLS-1$
-	private final String DISCOUNT_PERCENT           = "?nd. %";
+	private final String DISCOUNT_PERCENT           = Messages.getString("BillUIAddSellBill.14"); //$NON-NLS-1$
 	private final String VAT_PERCENT				= Messages.getString("BillUIAddSellBill.8"); //$NON-NLS-1$
 	private final String VAT_TOTAL					= Messages.getString("BillUIAddSellBill.9"); //$NON-NLS-1$
 	private final String SPECIAL_VAT_PERCENT		= Messages.getString("BillUIAddSellBill.10"); //$NON-NLS-1$
@@ -646,7 +646,7 @@ public class BillUIAddSellBill extends Composite
 								lblCashAccount = new CLabel(
 									compInfoPanel,
 									SWT.NONE);
-								lblCashAccount.setText("Kasa Hesab?");
+								lblCashAccount.setText(Messages.getString("BillUIAddSellBill.15")); //$NON-NLS-1$
 							}
 							{
 								accountPickerCurAcc = new AccountPicker(
@@ -1204,7 +1204,7 @@ public class BillUIAddSellBill extends Composite
 	                         if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof TextCellEditor){
 	                             
 	                             TextCellEditor editor = ((TextCellEditor)tableViewer.getCellEditors()[cursor.getColumn()]);
-	                             ((Text)editor.getControl()).setText(""+e.character);
+	                             ((Text)editor.getControl()).setText(""+e.character); //$NON-NLS-1$
 	     						if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof CurrencyCellEditor 
 	     						  ){
 	     						    
@@ -1352,7 +1352,7 @@ public class BillUIAddSellBill extends Composite
 		{
 			if (accountPickerCurAcc.getData()==null)
 			{
-				msg.setMessage("Kasa hesab? seçmelisiniz!");
+				msg.setMessage(Messages.getString("BillUIAddSellBill.17")); //$NON-NLS-1$
 				msg.open();
 				accountPickerCurAcc.setFocus();
 				return false;
