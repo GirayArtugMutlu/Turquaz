@@ -336,6 +336,18 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	                
 	                
 	            }
+	            else if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_OTHER_COLLECT){
+	                
+	                updated=new CashUICashOtherCollectTransactionUpdate(this.getShell(),SWT.NULL,cashTrans).open();
+	                
+	                
+	            }
+	            else if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_OTHER_PAYMENT){
+	                
+	                updated=new CashUICashOtherPaymentTransactionUpdate(this.getShell(),SWT.NULL,cashTrans).open();
+	                
+	                
+	            }
 	            if (updated)
 	            	search();
 	            
