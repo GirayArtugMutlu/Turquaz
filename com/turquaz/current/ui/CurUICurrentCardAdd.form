@@ -24,10 +24,10 @@
 		</Events>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[592, 468]"/>
+				<Dimension value="[598, 467]"/>
 			</Property>
 			<Property name="bounds" type="Rectangle">
-				<Rectangle value="[0, 0, 592, 468]"/>
+				<Rectangle value="[0, 0, 598, 467]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -50,10 +50,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[582, 458]"/>
+						<Dimension value="[588, 457]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 5, 582, 458]"/>
+						<Rectangle value="[5, 5, 588, 457]"/>
 					</Property>
 				</Properties>
 				<SubComponents>
@@ -83,7 +83,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[578, 436]"/>
+										<Dimension value="[584, 435]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -188,10 +188,10 @@
 										<Properties>
 											<Property name="textLimit" type="int" value="250"/>
 											<Property name="size" type="Dimension">
-												<Dimension value="[445, 17]"/>
+												<Dimension value="[451, 17]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[128, 30, 445, 17]"/>
+												<Rectangle value="[128, 30, 451, 17]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -1041,7 +1041,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[578, 436]"/>
+										<Dimension value="[584, 435]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -1426,7 +1426,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[578, 436]"/>
+										<Dimension value="[584, 435]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -1437,7 +1437,7 @@
 												<Property name="verticalAlignment" type="int" value="1"/>
 												<Property name="horizontalAlignment" type="int" value="4"/>
 												<Property name="widthHint" type="int" value="-1"/>
-												<Property name="heightHint" type="int" value="182"/>
+												<Property name="heightHint" type="int" value="189"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
@@ -1449,10 +1449,10 @@
 										</Events>
 										<Properties>
 											<Property name="size" type="Dimension">
-												<Dimension value="[568, 182]"/>
+												<Dimension value="[574, 189]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 5, 568, 182]"/>
+												<Rectangle value="[5, 5, 574, 189]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
@@ -1481,7 +1481,7 @@
 												<Dimension value="[106, 37]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[15, 192, 106, 37]"/>
+												<Rectangle value="[15, 199, 106, 37]"/>
 											</Property>
 										</Properties>
 									</Component>

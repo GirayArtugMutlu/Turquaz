@@ -166,7 +166,7 @@ public class CurUICurrentCardAdd extends SecureComposite {
 			compRegisterGroup = new RegisterGroupComposite(compCurrentGroups,SWT.NULL);
 			btnUpdateGroups = new Button(compCurrentGroups,SWT.PUSH| SWT.CENTER);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(592,468));
+			this.setSize(new org.eclipse.swt.graphics.Point(598,467));
 	
 			GridData tbfCurrentCardAddLData = new GridData();
 			tbfCurrentCardAddLData.verticalAlignment = GridData.FILL;
@@ -179,12 +179,12 @@ public class CurUICurrentCardAdd extends SecureComposite {
 			tbfCurrentCardAddLData.grabExcessHorizontalSpace = true;
 			tbfCurrentCardAddLData.grabExcessVerticalSpace = true;
 			tbfCurrentCardAdd.setLayoutData(tbfCurrentCardAddLData);
-			tbfCurrentCardAdd.setSize(new org.eclipse.swt.graphics.Point(578,453));
+			tbfCurrentCardAdd.setSize(new org.eclipse.swt.graphics.Point(584,435));
 	
 			tabItemGeneralInfo.setControl(compCurrentGeneralInfo);
 			tabItemGeneralInfo.setText("General Info");
 	
-			compCurrentGeneralInfo.setSize(new org.eclipse.swt.graphics.Point(578,436));
+			compCurrentGeneralInfo.setSize(new org.eclipse.swt.graphics.Point(584,435));
 	
 			GridData lblCurrentCodeLData = new GridData();
 			lblCurrentCodeLData.verticalAlignment = GridData.CENTER;
@@ -240,7 +240,7 @@ public class CurUICurrentCardAdd extends SecureComposite {
 			txtCurrentNameLData.grabExcessVerticalSpace = false;
 			txtCurrentName.setLayoutData(txtCurrentNameLData);
 			txtCurrentName.setTextLimit(250);
-			txtCurrentName.setSize(new org.eclipse.swt.graphics.Point(439,17));
+			txtCurrentName.setSize(new org.eclipse.swt.graphics.Point(445,17));
 	
 			GridData lblCardDefinitionLData = new GridData();
 			lblCardDefinitionLData.verticalAlignment = GridData.BEGINNING;
@@ -683,7 +683,7 @@ public class CurUICurrentCardAdd extends SecureComposite {
 			tabItemContactInfo.setControl(compCurrentContactInfo);
 			tabItemContactInfo.setText("Contact Info");
 	
-			compCurrentContactInfo.setSize(new org.eclipse.swt.graphics.Point(578,436));
+			compCurrentContactInfo.setSize(new org.eclipse.swt.graphics.Point(584,435));
 	
 			GridData NameLData = new GridData();
 			NameLData.verticalAlignment = GridData.CENTER;
@@ -879,20 +879,20 @@ public class CurUICurrentCardAdd extends SecureComposite {
 			tabItemCurrentGroups.setControl(compCurrentGroups);
 			tabItemCurrentGroups.setText("Current Groups");
 	
-			compCurrentGroups.setSize(new org.eclipse.swt.graphics.Point(578,436));
+			compCurrentGroups.setSize(new org.eclipse.swt.graphics.Point(584,435));
 	
 			GridData compRegisterGroupLData = new GridData();
 			compRegisterGroupLData.verticalAlignment = GridData.BEGINNING;
 			compRegisterGroupLData.horizontalAlignment = GridData.FILL;
 			compRegisterGroupLData.widthHint = -1;
-			compRegisterGroupLData.heightHint = 182;
+			compRegisterGroupLData.heightHint = 189;
 			compRegisterGroupLData.horizontalIndent = 0;
 			compRegisterGroupLData.horizontalSpan = 1;
 			compRegisterGroupLData.verticalSpan = 1;
 			compRegisterGroupLData.grabExcessHorizontalSpace = true;
 			compRegisterGroupLData.grabExcessVerticalSpace = false;
 			compRegisterGroup.setLayoutData(compRegisterGroupLData);
-			compRegisterGroup.setSize(new org.eclipse.swt.graphics.Point(568,182));
+			compRegisterGroup.setSize(new org.eclipse.swt.graphics.Point(574,189));
 			compRegisterGroup.layout();
 	
 			GridData btnUpdateGroupsLData = new GridData();
