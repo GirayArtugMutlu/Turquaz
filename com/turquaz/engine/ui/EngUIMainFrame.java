@@ -153,13 +153,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private MenuItem mitHelpContents;
 	private Menu menuHelp;
 	private MenuItem menuItemModulBar;
-	private ToolItem timAdmin;
-	private ToolItem timBank;
-	private ToolItem timBill;
-	private ToolItem timConsignment;
-	private ToolItem timCurrent;
-	private ToolItem timInventory;
-	private ToolBar toolBar1;
 	private CoolItem coolItem2;
 	private CoolBar coolBarModules;
 	private static Tree treeHistory;
@@ -409,9 +402,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                         compModulesTree.layout();
                     }
                 });
-                btnInventory.setSize(191, 23);
                 btnInventory.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
-                button1LData.heightHint = 23;
                 button1LData.grabExcessHorizontalSpace = true;
                 button1LData.horizontalAlignment = GridData.FILL;
                 btnInventory.setLayoutData(button1LData);
@@ -443,7 +434,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 btnConsignment.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
                 button3LData.grabExcessHorizontalSpace = true;
                 button3LData.horizontalAlignment = GridData.FILL;
-                button3LData.heightHint = 23;
                 btnConsignment.setLayoutData(button3LData);
             }
             {
@@ -800,34 +790,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                         .setMinimumSize(new org.eclipse.swt.graphics.Point(
                             24,
                             24));
-                    {
-                        toolBar1 = new ToolBar(coolBarModules, SWT.NONE);
-                        coolItem2.setControl(toolBar1);
-                        {
-                            timInventory = new ToolItem(toolBar1, SWT.RADIO);
-                            timInventory.setText(Messages.getString("EngUIMainFrame.13")); //$NON-NLS-1$
-                        }
-                        {
-                            timCurrent = new ToolItem(toolBar1, SWT.NONE);
-                            timCurrent.setText(Messages.getString("EngUIMainFrame.23")); //$NON-NLS-1$
-                        }
-                        {
-                            timConsignment = new ToolItem(toolBar1, SWT.NONE);
-                            timConsignment.setText(Messages.getString("EngUIMainFrame.24")); //$NON-NLS-1$
-                        }
-                        {
-                            timBill = new ToolItem(toolBar1, SWT.NONE);
-                            timBill.setText(Messages.getString("EngUIMainFrame.25")); //$NON-NLS-1$
-                        }
-                        {
-                            timBank = new ToolItem(toolBar1, SWT.NONE);
-                            timBank.setText(Messages.getString("EngUIMainFrame.26")); //$NON-NLS-1$
-                        }
-                        {
-                            timAdmin = new ToolItem(toolBar1, SWT.NONE);
-                            timAdmin.setText(Messages.getString("EngUIMainFrame.29")); //$NON-NLS-1$
-                        }
-                    }
                 }
             }
 			GridLayout compMainInLayout = new GridLayout(1, true);

@@ -240,19 +240,11 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 			dateTransDate.layout();
 	
 			GridData lblCashAccountLData = new GridData();
-			lblCashAccountLData.verticalAlignment = GridData.CENTER;
-			lblCashAccountLData.horizontalAlignment = GridData.BEGINNING;
-			lblCashAccountLData.widthHint = 72;
+			lblCashAccountLData.widthHint = 88;
 			lblCashAccountLData.heightHint = 19;
-			lblCashAccountLData.horizontalIndent = 0;
-			lblCashAccountLData.horizontalSpan = 1;
-			lblCashAccountLData.verticalSpan = 1;
-			lblCashAccountLData.grabExcessHorizontalSpace = false;
-			lblCashAccountLData.grabExcessVerticalSpace = false;
 			lblCashAccount.setLayoutData(lblCashAccountLData);
 			lblCashAccount.setText(Messages.getString("CurUITransactionAdd.8")); //$NON-NLS-1$
-			lblCashAccount.setSize(new org.eclipse.swt.graphics.Point(72,19));
-	
+
 			GridData accPickerCashAccountLData = new GridData();
 			accPickerCashAccountLData.widthHint = 241;
 			accPickerCashAccountLData.heightHint = 20;

@@ -33,7 +33,6 @@ import org.eclipse.swt.widgets.TableItem;
 
 import org.eclipse.swt.widgets.Composite;
 
-import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -43,7 +42,6 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.component.SearchComposite;
-import com.turquaz.engine.ui.component.TextWithButton;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
@@ -51,8 +49,6 @@ import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
@@ -128,7 +124,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                 GridLayout composite1Layout = new GridLayout();
                 composite1Layout.numColumns = 4;
                 GridData composite1LData = new GridData();
-                composite1LData.heightHint = 116;
+                composite1LData.heightHint = 126;
                 composite1LData.grabExcessHorizontalSpace = true;
                 composite1LData.horizontalAlignment = GridData.FILL;
                 compInvTransactionSearch.setLayoutData(composite1LData);
