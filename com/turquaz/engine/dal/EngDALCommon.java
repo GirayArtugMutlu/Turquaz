@@ -8,6 +8,7 @@ package com.turquaz.engine.dal;
 
 import java.util.List;
 
+import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
@@ -101,6 +102,31 @@ public class EngDALCommon {
 			session.close();
 			return list;
 			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
+	public List getUsers()throws Exception {
+		try{
+			
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			String query = "from TurqUser as group";
+			Query q = session.createQuery(query); 
+			List list = q.list();
+			
+			for (int i =0;i<list.size();i++){
+				
+			TurqUser invCard = (TurqUser)list.get(i);
+			Hibernate.initialize(invCard.getTurqUserGroups());
+		
+			
+			}
+			tx.commit();
+			session.close();
+			return list;
 			
 		}
 		catch(Exception ex){

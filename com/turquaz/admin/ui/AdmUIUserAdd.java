@@ -8,6 +8,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
@@ -32,10 +33,12 @@ import org.eclipse.swt.layout.GridData;
 
 
 import com.turquaz.admin.bl.AdmBLUserAdd;
+import com.turquaz.current.ui.CurUITransactionAdd;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 public class AdmUIUserAdd extends Composite implements SecureComposite {
@@ -219,13 +222,59 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 		
 	}
 	
-	public void save(){
+	public boolean verifyFields(){
+		return true;
+	}
+	
+	public void saveUserGroups(Integer userid)throws Exception{
+		try{
+		TableItem items[]= registeredGroups.getTableAllGroups().getItems();
+		for(int i=0; i<items.length;i++){
+			if(items[i].getChecked()){
+			blUserAdd.saveUserGroups(userid,items[i].getData());	
+				
+			}
+			
+		}
 		
+		
+	
+	}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+		
+	}
+	
+	public void save(){
+		try{
+		if(verifyFields())
+		{
+			
+		Integer userId =blUserAdd.saveUser(txtUsername.getText(),txtPassword.getText(),
+						   txtRealName.getText(),txtDescription.getText());
+		saveUserGroups(userId);
+			
+		newForm();
+			
+		}	
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
 	}
 	public void search(){
 		
 	}
 	public void newForm(){
+		
+		 AdmUIUserAdd cardAdd = new AdmUIUserAdd(this.getParent(),this.getStyle());
+		 CTabFolder tabfld = (CTabFolder)this.getParent();
+		 tabfld.getSelection().setControl(cardAdd);	 
+		 this.dispose();
+		
+		
 		
 	}
 	public void delete(){

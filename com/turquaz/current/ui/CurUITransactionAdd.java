@@ -384,8 +384,6 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 		 tabfld.getSelection().setControl(cardAdd);	 
 		 this.dispose();
 		
-		
-		
 	
 	}
 	
