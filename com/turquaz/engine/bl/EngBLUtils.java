@@ -285,7 +285,7 @@ public class EngBLUtils {
 
 			SimpleDateFormat dformat=new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
 			Map parameters = new HashMap();
-			String sqlparam="Select invTrans.inventory_transactions_id," + //$NON-NLS-1$
+			String sqlparam="Select invTrans.id as inventory_transactions_id," + //$NON-NLS-1$
 					" invCardUnits.card_units_factor, " + //$NON-NLS-1$
 					" invCard.card_inventory_code, invCard.card_name, units.units_name,"+ //$NON-NLS-1$
 					((bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_BUY) ? 
@@ -298,11 +298,11 @@ public class EngBLUtils {
 					" turq_inventory_cards invCard, turq_inventory_card_units invCardUnits," + //$NON-NLS-1$
 					" turq_inventory_warehouses warehouse where" + //$NON-NLS-1$
 					" invTrans.engine_sequences_id="+cons.getTurqEngineSequence().getId().intValue()+ //$NON-NLS-1$
-					" and invTrans.inventory_cards_id=invCard.inventory_cards_id" + //$NON-NLS-1$
+					" and invTrans.inventory_cards_id=invCard.id" + //$NON-NLS-1$
 					" and invCardUnits.inventory_cards_id=invTrans.inventory_cards_id" + //$NON-NLS-1$
 					" and invCardUnits.inventory_units_id=invTrans.inventory_units_id" + //$NON-NLS-1$
-					" and warehouse.inventory_warehouses_id=invTrans.inventory_warehouses_id"+ //$NON-NLS-1$
-					" and units.inventory_units_id=invTrans.inventory_units_id"; //$NON-NLS-1$
+					" and warehouse.id=invTrans.inventory_warehouses_id"+ //$NON-NLS-1$
+					" and units.id=invTrans.inventory_units_id"; //$NON-NLS-1$
 			
 			
 
