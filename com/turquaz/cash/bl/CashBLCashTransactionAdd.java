@@ -372,7 +372,6 @@ public class CashBLCashTransactionAdd
 		
 	}
 
-	/
 	public static void saveTransferBetweenAccounts(HashMap argMap) throws Exception
 	{
 		TurqCashCard cashCardWithDebt= (TurqCashCard)argMap.get(CashKeys.CASH_CARD_WITH_DEPT);

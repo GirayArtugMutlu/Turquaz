@@ -134,7 +134,7 @@ public class CashBLCashTransactionUpdate
 		}
 	}
 
-	/
+	
 	public static void updateCashTrans(TurqCashTransaction cashTrans, TurqCashCard cashCard, TurqCurrentCard current,
 			BigDecimal totalAmount, Date transDate, String definition, String document_no, TurqCurrencyExchangeRate exchangeRate)
 			throws Exception
