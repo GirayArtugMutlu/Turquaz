@@ -172,20 +172,48 @@ public class EngDALCommon {
 		}
 	}
 	
-	public void deleteObject(Object obj)throws Exception{
-		try{
+	public void deleteObject(Object obj)throws Exception
+	{
 		Session session = EngDALSessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		session.delete(obj);
 		session.flush();
 		tx.commit();
 		session.close();
-		
-		}
-		catch(Exception ex){
-			throw ex;
-		}
 	}
-
-
+	
+	public void deleteObject(Session session,Object obj)throws Exception
+	{
+		session.delete(obj);
+	}
+	
+	public void updateObject(Object obj)throws Exception
+	{
+		Session session = EngDALSessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.update(obj);
+		session.flush();
+		tx.commit();
+		session.close();
+	}
+	
+	public void updateObject(Session session,Object obj)throws Exception
+	{
+		session.update(obj);
+	}
+	
+	public void saveObject(Object obj)throws Exception
+	{
+		Session session = EngDALSessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.save(obj);
+		session.flush();
+		tx.commit();
+		session.close();
+	}
+	
+	public void saveObject(Session session,Object obj)throws Exception
+	{
+		session.save(obj);
+	}
 }
