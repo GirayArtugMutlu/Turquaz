@@ -17,9 +17,13 @@ public class CurUIInitialTransTableRow implements ITableRow {
 
    TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
 
-    
+    public CurUIInitialTransTableRow(){
+        curTrans.setTransactionsTotalCredit(new BigDecimal(0));
+        curTrans.setTransactionsTotalDept(new BigDecimal(0));
+        
+    }
    public boolean canModify(int column_index) {
-      if(column_index ==1){
+      if(column_index ==0){
           return false;
       }
         return true;
@@ -102,6 +106,7 @@ public class CurUIInitialTransTableRow implements ITableRow {
 			 break;
 				
 			case 1 : 
+			    
 			    result = cf.format(curTrans.getTransactionsTotalDept());
 			    
 			    break;
@@ -174,11 +179,10 @@ public class CurUIInitialTransTableRow implements ITableRow {
     }
     public void setDBObject(Object obj) {
       
-        if(obj instanceof TurqInventoryTransaction)
+        if(obj instanceof TurqCurrentTransaction)
         {
-            curTrans = (TurqCurrentTransaction)obj;
-           
-         
+            curTrans = (TurqCurrentTransaction)obj;         
+            
             
         }
         

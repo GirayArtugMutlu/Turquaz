@@ -118,7 +118,7 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite {
 			this.setLayout(new GridLayout());
 			this.setSize(611, 459);
             {
-                tableInitialTrans = new Table(this, SWT.NONE);
+                tableInitialTrans = new Table(this, SWT.FULL_SELECTION | SWT.HIDE_SELECTION);
                 GridData tableInitialTransLData = new GridData();
                 tableInitialTrans.setHeaderVisible(true);
                 tableInitialTrans.setLinesVisible(true);
@@ -174,6 +174,7 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite {
 	            CurUIInitialTransTableRow row = new CurUIInitialTransTableRow();
 	            row.setDBObject(curTrans);
 	            rowList.addTask(row);
+	            rowList.taskChanged(row);
 	        }
 	        
 	        
@@ -197,7 +198,7 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite {
 		CellEditor[] editors = new CellEditor[columnNames.length];
 		editors[0] = new TextCellEditor(tableInitialTrans);
 		editors[1] = new CurrencyCellEditor(tableInitialTrans);
-		editors[2] = new TextCellEditor(tableInitialTrans);
+		editors[2] = new CurrencyCellEditor(tableInitialTrans);
 		
 		TurquazContentProvider contentProvider = new TurquazContentProvider(
 				tableViewer, rowList);
@@ -244,7 +245,9 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite {
 	       public void updateRow(ITableRow row){     
 	       
 	           try{
-	           CurBLTransactionUpdate.updateTrans(row.getDBObject());
+	           
+	               CurBLTransactionUpdate.updateTrans(row.getDBObject());
+	           
 	           }
 	           catch(Exception ex){
 	               ex.printStackTrace();
