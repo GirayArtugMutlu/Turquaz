@@ -81,6 +81,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
+import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.ui.component.SearchComposite;
@@ -1173,9 +1174,12 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	    tabfldMain.setSelectionForeground(
 	            display.getSystemColor(SWT.COLOR_TITLE_FOREGROUND));
 		
-		
-														   
-		
+		try{
+		EngBLInventoryCards.getInventoryCards();												   
+		}
+		catch(Exception ex){
+		    ex.printStackTrace();
+		}
 	}
 	
 	public void setPopUpMenus(){

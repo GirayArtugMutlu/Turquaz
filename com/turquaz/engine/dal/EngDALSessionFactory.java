@@ -46,7 +46,7 @@ public class EngDALSessionFactory {
 	 *
 	 */
 	public EngDALSessionFactory(){
-		
+	    Properties props = new Properties();
 		try{		
 		
 			String url = "notSet://";
@@ -58,11 +58,15 @@ public class EngDALSessionFactory {
 		
 		 url =  "jdbc:hsqldb:database/turquaz";		
 		driver = "org.hsqldb.jdbcDriver";
+		props.put("hibernate.dialect","net.sf.hibernate.dialect.HSQLDialect");
+		
 		}
 			else if (EngConfiguration.getString("dbType").startsWith("Postgresql"))
 			{
 				url = "jdbc:postgresql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort")+"/"+EngConfiguration.getString("dbName");
 				 driver = "org.postgresql.Driver";
+				 props.put("hibernate.dialect","net.sf.hibernate.dialect.PostgreSQLDialect");
+					
 			}
 		String username = EngConfiguration.getString("dbUsername");
 		String password = EngConfiguration.getString("dbPassword");
@@ -76,14 +80,13 @@ public class EngDALSessionFactory {
 		
 		Configuration cfg =new Configuration();
 			
-		Properties props = new Properties();
+		
 		
 		props.put("hibernate.connection.url",url);
 		props.put("hibernate.connection.driver_class",driver);
 		props.put("hibernate.connection.username",username);
 		props.put("hibernate.connection.password",password);
 		props.put("hibernate.show_sql","false");
-		props.put("hibernate.dialect","net.sf.hibernate.dialect.PostgreSQLDialect");
 		props.put("hibernate.schema","public");
 		
 			

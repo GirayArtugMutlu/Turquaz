@@ -83,6 +83,7 @@ public class TurquazContentAssistProcessors implements
 
                 for (int i = 0; i < list.size(); i++) {
                     TurqCurrentCard card = (TurqCurrentCard)((Object[]) list.get(i))[1];
+                    
                     proposed.add(new Proposal(card.getCardsCurrentCode(),card.getCardsName()));
                 }
 
@@ -188,6 +189,9 @@ public class TurquazContentAssistProcessors implements
 
         // Loop through all proposals
         for (int i = 0; i < proposedCodes.length; i++) {
+           if(propList.size()>100){
+               return;
+           }
             String startTag = proposedCodes[i].text;
             String info = proposedCodes[i].info;
 

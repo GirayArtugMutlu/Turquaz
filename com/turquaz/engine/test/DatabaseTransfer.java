@@ -1,6 +1,10 @@
 
 package com.turquaz.engine.test;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.sql.ResultSet;
 
 import com.turquaz.engine.dal.EngDALConnection;
@@ -9,13 +13,40 @@ public class DatabaseTransfer {
 	
 	public static void  main(String [] args)
 	{
-		EngDALConnection conn1 = new EngDALConnection("Postgresql","turquaz","","kulup.sabanciuniv.edu","turquaz_turkish_20041206");
-		EngDALConnection conn2 = new EngDALConnection("Postgresql","turquaz","","kulup.sabanciuniv.edu","turquaz_turkish");
+	//	EngDALConnection conn1 = new EngDALConnection("Postgresql","turquaz","","kulup.sabanciuniv.edu","turquaz_turkish_20041206");
+		EngDALConnection conn2 = new EngDALConnection("Postgresql","turquaz","","kulup.sabanciuniv.edu","turquaz");
 		
 		ResultSet first ;
 		try{
-		conn1.connect();
-		conn2.connect();
+		    
+		    conn2.connect();
+		    FileInputStream fstream = new FileInputStream("insert.sql");
+            // Convert our input stream to a
+            // DataInputStream
+		    DataInputStream in = new DataInputStream(fstream);
+
+		    BufferedReader d = new BufferedReader(new InputStreamReader(in));
+String sql ="";
+// Continue to read lines while
+// there are still some left to read
+while (in.available() !=0){
+
+sql = d.readLine();
+sql +=";";
+try{
+    conn2.execQuery(sql);
+    
+}
+catch(Exception ex){
+    
+}
+
+}
+		    
+		    
+		    
+/*
+		
 		String query1 = "select * from turq_accounting_accounts order by accounting_accounts_id";
 		first = conn1.getResultSet(query1);
 		first.next();
@@ -28,6 +59,7 @@ public class DatabaseTransfer {
 			conn2.execQuery(query2);
 		}
 		
+		*/
 		}
 		catch (Exception ex)
 		{
