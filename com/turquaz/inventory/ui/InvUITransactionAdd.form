@@ -110,6 +110,7 @@
 					</Component>
 					<Component class="org.eclipse.swt.widgets.Label" name="lblInvTransType" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -126,10 +127,14 @@
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value="Transaction Type"/>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[5, 31, 83, 13]"/>
+							</Property>
 						</Properties>
 					</Component>
 					<Component class="org.eclipse.swt.custom.CCombo" name="combpInvTransType" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -145,10 +150,14 @@
 						<Events>
 						</Events>
 						<Properties>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[86, 29, 86, 16]"/>
+							</Property>
 						</Properties>
 					</Component>
 					<Component class="org.eclipse.swt.widgets.Label" name="lblInvTransAmount" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -165,10 +174,14 @@
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value="Amount"/>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[5, 52, 37, 13]"/>
+							</Property>
 						</Properties>
 					</Component>
 					<Component class="org.eclipse.swt.widgets.Text" name="txtNumInvTransAmount" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -184,10 +197,14 @@
 						<Events>
 						</Events>
 						<Properties>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[86, 52, 70, 13]"/>
+							</Property>
 						</Properties>
 					</Component>
 					<Component class="org.eclipse.swt.custom.CCombo" name="comboInvTransUnit" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -203,10 +220,14 @@
 						<Events>
 						</Events>
 						<Properties>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[167, 50, 86, 16]"/>
+							</Property>
 						</Properties>
 					</Component>
 					<Component class="org.eclipse.swt.widgets.Label" name="lblInvTransWhSelect" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -223,10 +244,14 @@
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value="Warehouse"/>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[5, 73, 55, 13]"/>
+							</Property>
 						</Properties>
 					</Component>
 					<Component class="org.eclipse.swt.custom.CCombo" name="comboInvTransWhSelect" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -242,6 +267,9 @@
 						<Events>
 						</Events>
 						<Properties>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[86, 71, 86, 16]"/>
+							</Property>
 						</Properties>
 					</Component>
 				</SubComponents>

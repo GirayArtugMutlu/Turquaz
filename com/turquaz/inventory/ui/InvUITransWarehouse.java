@@ -41,6 +41,7 @@ import org.eclipse.swt.SWT;
 public class InvUITransWarehouse extends org.eclipse.swt.widgets.Composite {
 
 	private CCombo comboInvTransWhUnit;
+	private CLabel lblInvTransWareUnit;
 	private Text txtNumInvTransWhAmount;
 	private CLabel lblInvTransWhAmount;
 	private CCombo comboInvTransWhTo;
@@ -72,6 +73,7 @@ public class InvUITransWarehouse extends org.eclipse.swt.widgets.Composite {
 			comboInvTransWhTo = new CCombo(compInvTransWare,SWT.NULL);
 			lblInvTransWhAmount = new CLabel(compInvTransWare,SWT.NULL);
 			txtNumInvTransWhAmount = new Text(compInvTransWare,SWT.NULL);
+			lblInvTransWareUnit = new CLabel(compInvTransWare,SWT.NULL);
 			comboInvTransWhUnit = new CCombo(compInvTransWare,SWT.NULL);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(329,223));
@@ -177,13 +179,26 @@ public class InvUITransWarehouse extends org.eclipse.swt.widgets.Composite {
 			txtNumInvTransWhAmountLData.grabExcessVerticalSpace = false;
 			txtNumInvTransWhAmount.setLayoutData(txtNumInvTransWhAmountLData);
 	
+			GridData lblInvTransWareUnitLData = new GridData();
+			lblInvTransWareUnitLData.verticalAlignment = GridData.CENTER;
+			lblInvTransWareUnitLData.horizontalAlignment = GridData.BEGINNING;
+			lblInvTransWareUnitLData.widthHint = -1;
+			lblInvTransWareUnitLData.heightHint = -1;
+			lblInvTransWareUnitLData.horizontalIndent = 0;
+			lblInvTransWareUnitLData.horizontalSpan = 1;
+			lblInvTransWareUnitLData.verticalSpan = 1;
+			lblInvTransWareUnitLData.grabExcessHorizontalSpace = false;
+			lblInvTransWareUnitLData.grabExcessVerticalSpace = false;
+			lblInvTransWareUnit.setLayoutData(lblInvTransWareUnitLData);
+			lblInvTransWareUnit.setText("Unit");
+	
 			GridData comboInvTransWhUnitLData = new GridData();
 			comboInvTransWhUnitLData.verticalAlignment = GridData.CENTER;
 			comboInvTransWhUnitLData.horizontalAlignment = GridData.BEGINNING;
 			comboInvTransWhUnitLData.widthHint = -1;
 			comboInvTransWhUnitLData.heightHint = -1;
 			comboInvTransWhUnitLData.horizontalIndent = 0;
-			comboInvTransWhUnitLData.horizontalSpan = 2;
+			comboInvTransWhUnitLData.horizontalSpan = 1;
 			comboInvTransWhUnitLData.verticalSpan = 1;
 			comboInvTransWhUnitLData.grabExcessHorizontalSpace = false;
 			comboInvTransWhUnitLData.grabExcessVerticalSpace = false;

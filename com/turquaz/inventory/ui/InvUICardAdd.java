@@ -941,6 +941,9 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardAddPricesAddPriceLData.grabExcessHorizontalSpace = false;
 			btnInvCardAddPricesAddPriceLData.grabExcessVerticalSpace = false;
 			btnInvCardAddPricesAddPrice.setLayoutData(btnInvCardAddPricesAddPriceLData);
+			final org.eclipse.swt.graphics.Image btnInvCardAddPricesAddPriceýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/plus.gif"));
+			btnInvCardAddPricesAddPriceýmage.setBackground(btnInvCardAddPricesAddPrice.getBackground());
+			btnInvCardAddPricesAddPrice.setImage(btnInvCardAddPricesAddPriceýmage);
 			btnInvCardAddPricesAddPrice.setSize(new org.eclipse.swt.graphics.Point(30,24));
 			btnInvCardAddPricesAddPrice.addMouseListener( new MouseAdapter() {
 				public void mouseDown(MouseEvent evt) {
@@ -959,6 +962,9 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardAddPricesRemovePriceLData.grabExcessHorizontalSpace = false;
 			btnInvCardAddPricesRemovePriceLData.grabExcessVerticalSpace = false;
 			btnInvCardAddPricesRemovePrice.setLayoutData(btnInvCardAddPricesRemovePriceLData);
+			final org.eclipse.swt.graphics.Image btnInvCardAddPricesRemovePriceýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif"));
+			btnInvCardAddPricesRemovePriceýmage.setBackground(btnInvCardAddPricesRemovePrice.getBackground());
+			btnInvCardAddPricesRemovePrice.setImage(btnInvCardAddPricesRemovePriceýmage);
 			btnInvCardAddPricesRemovePrice.setSize(new org.eclipse.swt.graphics.Point(30,24));
 			btnInvCardAddPricesRemovePrice.addMouseListener( new MouseAdapter() {
 				public void mouseDown(MouseEvent evt) {
@@ -1226,6 +1232,8 @@ public class InvUICardAdd extends SecureComposite {
 				public void widgetDisposed(DisposeEvent e) {
 					InvUICardAddbackground.dispose();
 					comboInvCardUnitsbackground.dispose();
+					btnInvCardAddPricesAddPriceýmage.dispose();
+					btnInvCardAddPricesRemovePriceýmage.dispose();
 				}
 			});
 	
@@ -1616,11 +1624,16 @@ public class InvUICardAdd extends SecureComposite {
 	/** Auto-generated event handler method */
 	protected void btnInvCardPricesNextMouseUp(MouseEvent evt) {
 		//TODO add your handler code here
+		int next = tabfldInvCardAdd.getSelectionIndex() + 1;
+		tabfldInvCardAdd.setSelection(next);
+		
 	}
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardNextMouseUp(MouseEvent evt) {
 		//TODO add your handler code here
+		int next = tabfldInvCardAdd.getSelectionIndex() + 1;
+		tabfldInvCardAdd.setSelection(next);
 	}
 
 	/** Auto-generated event handler method */
@@ -1638,17 +1651,23 @@ public class InvUICardAdd extends SecureComposite {
 	/** Auto-generated event handler method */
 	protected void btnInvCardDetPreMouseUp(MouseEvent evt) {
 		//TODO add your handler code here
+		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
+		tabfldInvCardAdd.setSelection(next);
 	}
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardUnitsPreMouseUp(MouseEvent evt) {
 		//TODO add your handler code here
+		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
+		tabfldInvCardAdd.setSelection(next);
 
 	}
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardPricesPreMouseUp(MouseEvent evt) {
 		//TODO add your handler code here
+		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
+		tabfldInvCardAdd.setSelection(next);
 	}
 
 	/** Auto-generated event handler method */
@@ -1659,6 +1678,8 @@ public class InvUICardAdd extends SecureComposite {
 	/** Auto-generated event handler method */
 	protected void btnInvCardGroupsPreMouseUp(MouseEvent evt) {
 		//TODO add your handler code here
+		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
+		tabfldInvCardAdd.setSelection(next);
 	}
 
 	/** Auto-generated event handler method */

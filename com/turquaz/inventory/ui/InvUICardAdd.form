@@ -1266,6 +1266,9 @@
 														</Events>
 														<Properties>
 															<Property name="text" type="String" value=""/>
+															<Property name="ımage" type="Image">
+																<Image name="\icons\plus.gif"/>
+															</Property>
 															<Property name="size" type="Dimension">
 																<Dimension value="[30, 24]"/>
 															</Property>
@@ -1295,6 +1298,9 @@
 														</Events>
 														<Properties>
 															<Property name="text" type="String" value=""/>
+															<Property name="ımage" type="Image">
+																<Image name="\icons\minus.gif"/>
+															</Property>
 															<Property name="size" type="Dimension">
 																<Dimension value="[30, 24]"/>
 															</Property>

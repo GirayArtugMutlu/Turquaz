@@ -123,6 +123,17 @@ public class InvUITransactionAdd extends SecureComposite {
 			comboInvTransCardLData.grabExcessVerticalSpace = false;
 			comboInvTransCard.setLayoutData(comboInvTransCardLData);
 	
+			GridData lblInvTransTypeLData = new GridData();
+			lblInvTransTypeLData.verticalAlignment = GridData.CENTER;
+			lblInvTransTypeLData.horizontalAlignment = GridData.BEGINNING;
+			lblInvTransTypeLData.widthHint = -1;
+			lblInvTransTypeLData.heightHint = -1;
+			lblInvTransTypeLData.horizontalIndent = 0;
+			lblInvTransTypeLData.horizontalSpan = 1;
+			lblInvTransTypeLData.verticalSpan = 1;
+			lblInvTransTypeLData.grabExcessHorizontalSpace = false;
+			lblInvTransTypeLData.grabExcessVerticalSpace = false;
+			lblInvTransType.setLayoutData(lblInvTransTypeLData);
 			lblInvTransType.setText("Transaction Type");
 	
 			GridData combpInvTransTypeLData = new GridData();
@@ -137,8 +148,30 @@ public class InvUITransactionAdd extends SecureComposite {
 			combpInvTransTypeLData.grabExcessVerticalSpace = false;
 			combpInvTransType.setLayoutData(combpInvTransTypeLData);
 	
+			GridData lblInvTransAmountLData = new GridData();
+			lblInvTransAmountLData.verticalAlignment = GridData.CENTER;
+			lblInvTransAmountLData.horizontalAlignment = GridData.BEGINNING;
+			lblInvTransAmountLData.widthHint = -1;
+			lblInvTransAmountLData.heightHint = -1;
+			lblInvTransAmountLData.horizontalIndent = 0;
+			lblInvTransAmountLData.horizontalSpan = 1;
+			lblInvTransAmountLData.verticalSpan = 1;
+			lblInvTransAmountLData.grabExcessHorizontalSpace = false;
+			lblInvTransAmountLData.grabExcessVerticalSpace = false;
+			lblInvTransAmount.setLayoutData(lblInvTransAmountLData);
 			lblInvTransAmount.setText("Amount");
 	
+			GridData txtNumInvTransAmountLData = new GridData();
+			txtNumInvTransAmountLData.verticalAlignment = GridData.CENTER;
+			txtNumInvTransAmountLData.horizontalAlignment = GridData.BEGINNING;
+			txtNumInvTransAmountLData.widthHint = -1;
+			txtNumInvTransAmountLData.heightHint = -1;
+			txtNumInvTransAmountLData.horizontalIndent = 0;
+			txtNumInvTransAmountLData.horizontalSpan = 1;
+			txtNumInvTransAmountLData.verticalSpan = 1;
+			txtNumInvTransAmountLData.grabExcessHorizontalSpace = false;
+			txtNumInvTransAmountLData.grabExcessVerticalSpace = false;
+			txtNumInvTransAmount.setLayoutData(txtNumInvTransAmountLData);
 	
 			GridData comboInvTransUnitLData = new GridData();
 			comboInvTransUnitLData.verticalAlignment = GridData.CENTER;
@@ -152,6 +185,17 @@ public class InvUITransactionAdd extends SecureComposite {
 			comboInvTransUnitLData.grabExcessVerticalSpace = false;
 			comboInvTransUnit.setLayoutData(comboInvTransUnitLData);
 	
+			GridData lblInvTransWhSelectLData = new GridData();
+			lblInvTransWhSelectLData.verticalAlignment = GridData.CENTER;
+			lblInvTransWhSelectLData.horizontalAlignment = GridData.BEGINNING;
+			lblInvTransWhSelectLData.widthHint = -1;
+			lblInvTransWhSelectLData.heightHint = -1;
+			lblInvTransWhSelectLData.horizontalIndent = 0;
+			lblInvTransWhSelectLData.horizontalSpan = 1;
+			lblInvTransWhSelectLData.verticalSpan = 1;
+			lblInvTransWhSelectLData.grabExcessHorizontalSpace = false;
+			lblInvTransWhSelectLData.grabExcessVerticalSpace = false;
+			lblInvTransWhSelect.setLayoutData(lblInvTransWhSelectLData);
 			lblInvTransWhSelect.setText("Warehouse");
 	
 			GridData comboInvTransWhSelectLData = new GridData();
