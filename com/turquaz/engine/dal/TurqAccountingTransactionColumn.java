@@ -18,6 +18,18 @@ public class TurqAccountingTransactionColumn implements Serializable {
     private java.math.BigDecimal creditAmount;
 
     /** persistent field */
+    private java.util.Date creationDate;
+
+    /** persistent field */
+    private java.lang.String createdBy;
+
+    /** persistent field */
+    private java.util.Date lastModified;
+
+    /** persistent field */
+    private java.lang.String updatedBy;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountIdDeptor;
 
     /** persistent field */
@@ -27,9 +39,13 @@ public class TurqAccountingTransactionColumn implements Serializable {
     private com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction;
 
     /** full constructor */
-    public TurqAccountingTransactionColumn(java.math.BigDecimal deptAmount, java.math.BigDecimal creditAmount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountIdDeptor, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountIdCreditor, com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction) {
+    public TurqAccountingTransactionColumn(java.math.BigDecimal deptAmount, java.math.BigDecimal creditAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountIdDeptor, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountIdCreditor, com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction) {
         this.deptAmount = deptAmount;
         this.creditAmount = creditAmount;
+        this.creationDate = creationDate;
+        this.createdBy = createdBy;
+        this.lastModified = lastModified;
+        this.updatedBy = updatedBy;
         this.turqAccountingAccountByAccountIdDeptor = turqAccountingAccountByAccountIdDeptor;
         this.turqAccountingAccountByAccountIdCreditor = turqAccountingAccountByAccountIdCreditor;
         this.turqAccountingTransaction = turqAccountingTransaction;
@@ -61,6 +77,38 @@ public class TurqAccountingTransactionColumn implements Serializable {
 
     public void setCreditAmount(java.math.BigDecimal creditAmount) {
         this.creditAmount = creditAmount;
+    }
+
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public java.lang.String getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public void setCreatedBy(java.lang.String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public java.util.Date getLastModified() {
+        return this.lastModified;
+    }
+
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    public java.lang.String getUpdatedBy() {
+        return this.updatedBy;
+    }
+
+    public void setUpdatedBy(java.lang.String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountIdDeptor() {
