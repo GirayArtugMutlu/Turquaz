@@ -276,8 +276,14 @@ public class InvDALSearchTransaction {
 							" where invGr.turqInventoryGroup.inventoryGroupsId="+invMainGroup.getInventoryGroupsId()+")))";
 				}
 			}
-
-			query += " order by transaction.turqInventoryCard.inventoryCardsId,transaction.transactionsDate";
+			if (invMainGroup != null)
+			{
+				query += " order by cardGroup.turqInventoryGroup.inventoryGroupsId,transaction.transactionsDate";
+			}
+			else
+			{
+				query += " order by transaction.turqInventoryCard.inventoryCardsId,transaction.transactionsDate";
+			}
 			
 			Query q = session.createQuery(query);
 			q.setParameter("startDate", startDate);
