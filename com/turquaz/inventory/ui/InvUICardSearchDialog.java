@@ -140,8 +140,8 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					txtInvName = new Text(compInvCardSearchPanel, SWT.NONE);
 					GridData txtInvNameLData = new GridData();
-					txtInvNameLData.widthHint = 162;
-					txtInvNameLData.heightHint = 13;
+					txtInvNameLData.widthHint = 166;
+					txtInvNameLData.heightHint = 18;
 					txtInvName.setLayoutData(txtInvNameLData);
 				}
 				{
@@ -156,9 +156,8 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					txtInvCode = new Text(compInvCardSearchPanel, SWT.NONE);
 					GridData txtInvCodeLData = new GridData();
-					txtInvCode.setSize(162, 13);
-					txtInvCodeLData.widthHint = 162;
-					txtInvCodeLData.heightHint = 13;
+					txtInvCodeLData.widthHint = 166;
+					txtInvCodeLData.heightHint = 18;
 					txtInvCode.setLayoutData(txtInvCodeLData);
 				}
 				{
@@ -175,12 +174,9 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 				{
 					comboInvGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
-					comboInvGroup.setSize(new org.eclipse.swt.graphics.Point(
-						119,
-						16));
 					GridData comboInvGroupLData = new GridData();
-					comboInvGroupLData.widthHint = 97;
-					comboInvGroupLData.heightHint = 16;
+					comboInvGroupLData.widthHint = 98;
+					comboInvGroupLData.heightHint = 18;
 					comboInvGroup.setLayoutData(comboInvGroupLData);
 				}
 				{

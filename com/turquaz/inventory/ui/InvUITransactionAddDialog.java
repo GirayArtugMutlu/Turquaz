@@ -25,11 +25,15 @@ import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
+import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.custom.VerifyKeyListener;
 
 
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
@@ -41,11 +45,17 @@ import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.DecimalTextWithButton;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.VerifyEvent;
+
 import com.turquaz.engine.ui.component.CurrencyText;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.ui.component.TextWithButton;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.turquaz.inventory.Messages;
 
 import org.eclipse.swt.custom.CLabel;
@@ -95,7 +105,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private CCombo comboCurrency;
 	private CLabel lblPrice;
 	private CCombo comboUnitType;
-	private TextWithButton txtInvCard;
+	private Text txtInvCard;
 	private CLabel lblInvVard;
 	private EngBLCommon blCommon = new EngBLCommon();
 	TurqInventoryTransaction invTrans;
@@ -149,13 +159,22 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 					lblInvVard.setLayoutData(lblInvVardLData);
 				}
 				{
-					txtInvCard = new TextWithButton(composite1, SWT.NONE);
+					txtInvCard = new Text(composite1, SWT.NONE);
+					  txtInvCard.addModifyListener(new ModifyListener() {
+	                       public void modifyText(ModifyEvent ev){
+	                           try{
+	                             txtInvCard.setData( EngBLInventoryCards.getAccount(txtInvCard.getText().trim()));
+	                              chooseInventoryCard((TurqInventoryCard)txtInvCard.getData());
+	                             
+	                           }
+	                           catch(Exception ex){
+	                               ex.printStackTrace();
+	                           }
+	                           
+	                           
+	                       }
+	                    });
 					GridData txtInvCardLData = new GridData();
-					txtInvCard.addMouseListener(new MouseAdapter() {
-						public void mouseUp(MouseEvent evt) {
-						chooseInventoryCard();
-						}
-					});
 					txtInvCardLData.widthHint = 334;
 					txtInvCardLData.heightHint = 21;
 					txtInvCardLData.horizontalSpan = 2;
@@ -353,6 +372,31 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 		
 		fillComboCurrency();
 		fillComboWarehouses();
+//		Content Assistant for Inventory Code
+		/****************************************************/
+		  TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtInvCard);
+		    
+		 final SubjectControlContentAssistant asistant= new TurquazContentAssistant(adapter,1);
+		   
+		     adapter.appendVerifyKeyListener(
+		             new VerifyKeyListener() {
+		                 public void verifyKey(VerifyEvent event) {
+
+		                 // Check for Ctrl+Spacebar
+		                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
+		             
+		                  asistant.showPossibleCompletions();              
+		                   event.doit = false;
+
+		                 }
+		              }
+		           });
+		 	
+		  /******************************************************************/
+		
+		
+		
+		
 	}
 	
 	public void fillComboUnits(TurqInventoryCard invCard){
@@ -441,18 +485,18 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 		}
 		
 	}
-	public void chooseInventoryCard(){
 	
-	TurqInventoryCard invCard =new InvUICardSearchDialog(this.getParent(),SWT.NULL).open();
-     if(invCard!=null){
-    	txtInvCard.setData(invCard);
-    	txtInvCard.setText(invCard.getCardInventoryCode()+" - "+invCard.getCardName()); //$NON-NLS-1$
+	
+	public void chooseInventoryCard(TurqInventoryCard invCard){
+	
+        if(invCard!=null){
     	fillComboUnits(invCard);
     	txtVat.setText(invCard.getCardVat());
     	numSpecialVat.setText(invCard.getCardSpecialVat());
         numTxtSpecialVatEach.setText(invCard.getCardSpecialVatEach().toString());
     	   	
-     }
+        }
+       
   
 
 	}
