@@ -1,11 +1,20 @@
 package com.turquaz.bank.ui;
+import java.math.BigDecimal;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
+
+import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.bank.Messages;
+import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
@@ -28,6 +37,8 @@ import org.eclipse.swt.SWT;
 public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite implements SecureComposite {
 	private CLabel lblBankCard;
 	private Text txtDefinition;
+	private Text txtDocNo;
+	private CLabel lblDocNo;
 	private DatePicker datePick;
 	private CLabel lblDate;
 	private CLabel lblDefinition;
@@ -49,7 +60,18 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(502, 255);
+			this.setSize(458, 261);
+            {
+                lblDocNo = new CLabel(this, SWT.NONE);
+                lblDocNo.setText("Belge No");
+            }
+            {
+                txtDocNo = new Text(this, SWT.NONE);
+                GridData txtDocNoLData = new GridData();
+                txtDocNoLData.widthHint = 190;
+                txtDocNoLData.heightHint = 16;
+                txtDocNo.setLayoutData(txtDocNoLData);
+            }
             {
                 lblDate = new CLabel(this, SWT.NONE);
                 lblDate.setText(Messages.getString("BankUIMoneyTransferOut.0")); //$NON-NLS-1$
@@ -114,11 +136,61 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
 	}
 	
     public void newForm() {
-        // TODO Auto-generated method stub
+        BankUIMoneyTransferOut curCard = new BankUIMoneyTransferOut(this.getParent(),this.getStyle());
+      	 CTabFolder tabfld = (CTabFolder)this.getParent();
+      	 tabfld.getSelection().setControl(curCard);	 
+      	 this.dispose();
 
     }
+    public boolean verifyFields()
+    {
+        if(txtBankCard.getData()==null){
+           EngUICommon.showMessageBox(getShell(),"Lütfen önce banka kart? seçiniz!",SWT.ICON_WARNING);
+           txtBankCard.setFocus();
+           return false;
+            
+        }
+        if(currentPicker.getData()==null){
+            EngUICommon.showMessageBox(getShell(),"Lütfen önce cari kart seçiniz!",SWT.ICON_WARNING);
+            currentPicker.setFocus();
+            return false;
+             
+         }
+        if(curAmount.getBigDecimalValue().compareTo(new BigDecimal(0))!=1)
+        {
+            EngUICommon.showMessageBox(getShell(),"Lütfen Tutar Giriniz!",SWT.ICON_WARNING);
+             curAmount.setFocus();
+            return false;
+            
+        }
+        return true;
+        
+    }
+    
     public void save() {
-        // TODO Auto-generated method stub
+        try
+        {
+            if(verifyFields())
+            {
+                BankBLTransactionAdd.saveTransaction((TurqBanksCard)txtBankCard.getData(),
+                        							   (TurqCurrentCard)currentPicker.getData(),
+                        							   EngBLCommon.BANK_TRANS_SEND_MONEY,
+                        							   null,
+                        							   curAmount.getBigDecimalValue(),
+                        							  datePick.getDate(),
+                        							  txtDefinition.getText(),
+                        							  txtDocNo.getText()
+                        							  );
+                EngUICommon.showMessageBox(getShell(),"Ba?ar?yla Kaydedildi",SWT.ICON_INFORMATION);
+                newForm();
+            }         
+            
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+            EngUICommon.showMessageBox(getShell(),ex.getMessage(),SWT.ICON_ERROR);
+        }
 
     }
 }
