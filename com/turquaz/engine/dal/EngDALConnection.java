@@ -119,6 +119,29 @@ public class EngDALConnection {
   public void createTables()throws Exception{
   try{
   	stmt.execute(getGetCreateScript());
+  	String sql="";
+    // Open the file that is the first
+    // command line parameter
+   FileInputStream fstream = new FileInputStream("sql/seq.sql");
+                              // Convert our input stream to a
+                              // DataInputStream
+   DataInputStream in = new DataInputStream(fstream);
+
+    // Continue to read lines while
+    // there are still some left to read
+    while (in.available() !=0){
+   
+    	sql = in.readLine();
+    	if(sql.trim().startsWith("SELECT"));{
+    	    stmt.execute(sql);
+    	}
+     
+    }
+    in.close();
+    
+   
+     
+
   	
   	
   }
@@ -131,6 +154,8 @@ public class EngDALConnection {
   public Connection getCon() {
 	return this.con;
   }
+  
+  
   private String getGetCreateScript()throws Exception{
 
     try

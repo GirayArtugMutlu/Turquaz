@@ -67,14 +67,15 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 	public boolean performFinish(){
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 		try{
-		
-		String dbType = page1.getComboDBServer().getText().trim();
-		String username= page2.getTxtUsername().getText().trim();
-		String password=  page2.getTxtPassword().getText().trim();
-		String serverAddress= page2.getTxtServerAddress().getText().trim();
-		String serverPort = page2.getTxtServerPort().getText().trim();
-		String dbName = page3.getComboDatabases().getText().trim();
+
+		String dbType = page1.getComboDBServer().getText();
+		String username= page2.getTxtUsername().getText();
+		String password=  page2.getTxtPassword().getText();
+		String serverAddress= page2.getTxtServerAddress().getText();
+		String serverPort = page2.getTxtServerPort().getText();
+		String dbName = page3.getComboDatabases().getText(); 
 		password = new String(org.eclipse.core.internal.preferences.Base64.encode(password.getBytes()));
+ 
 		
 	   Properties props = new Properties();	
 		props.setProperty("dbType",dbType); //$NON-NLS-1$
