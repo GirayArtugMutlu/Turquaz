@@ -118,6 +118,48 @@ public class BankBLTransactionAdd {
             transRowDebit.setTurqBanksTransactionBill(bankTransBill);
             BankDALCommon.saveObject(transRowCredit);
             BankDALCommon.saveObject(transRowDebit);
+            
+            /**
+             * 
+             * Save accounting transactions...
+             * 
+             */
+            /*
+             * Create Accounting transaction
+             */
+            AccBLTransactionAdd blAccTran = new AccBLTransactionAdd();
+            
+            TurqAccountingTransactionColumn accTransRowDept = new TurqAccountingTransactionColumn();
+            TurqAccountingTransactionColumn accTransRowCredit = new TurqAccountingTransactionColumn();
+
+            accTransRowDept.setTransactionDefinition(definition);
+            accTransRowDept.setTurqAccountingAccount(bankCardWithCredit
+                    .getTurqAccountingAccount());
+
+            accTransRowCredit.setTransactionDefinition(definition);
+            accTransRowCredit.setTurqAccountingAccount(bankCardWithDept
+                    .getTurqAccountingAccount());
+
+            int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
+            
+            accTransRowCredit.setDeptAmount(new BigDecimal(0));
+            accTransRowCredit.setCreditAmount(totalAmount);
+
+            accTransRowDept.setDeptAmount(totalAmount);
+            accTransRowDept.setCreditAmount(new BigDecimal(0));
+            
+            
+            String accounting_definition ="Banka Virman. "+definition;
+            
+            Integer transId = blAccTran.saveAccTransaction(transDate, docNo,
+                    accTransType,
+                    seq.getTurqModule().getModulesId().intValue(), seq
+                            .getEngineSequencesId(), accounting_definition);
+            blAccTran.saveAccTransactionRow(accTransRowCredit, transId);
+            blAccTran.saveAccTransactionRow(accTransRowDept, transId);
+            
+            
+            
 
 
         } catch (Exception ex) {
@@ -415,8 +457,7 @@ public class BankBLTransactionAdd {
                 transRow.setCreditAmount(new BigDecimal(0));
 
                 currentTransType = EngBLCommon.CURRENT_TRANS_CREDIT;
-                currentTransDefinition = curCard.getCardsName()
-                        + Messages.getString("BankBLTransactionAdd.16"); //$NON-NLS-1$
+                currentTransDefinition = bankCard.getBankCode()+" "+definition; //$NON-NLS-1$
 
             }
 
@@ -432,8 +473,7 @@ public class BankBLTransactionAdd {
                 transRow.setCreditAmount(totalAmount);
 
                 currentTransType = EngBLCommon.CURRENT_TRANS_DEBIT;
-                currentTransDefinition = curCard.getCardsName()
-                        + Messages.getString("BankBLTransactionAdd.17"); //$NON-NLS-1$
+                currentTransDefinition =  bankCard.getBankCode()+" "+definition; //$NON-NLS-1$
 
             }
 

@@ -87,6 +87,16 @@ public class BankBLTransactionUpdate {
 
             }
             
+            //delete accounting transactions
+            AccDALTransactionSearch dalAcc = new AccDALTransactionSearch();
+            it = bankTransBill.getTurqEngineSequence()
+                    .getTurqAccountingTransactions().iterator();
+
+            while (it.hasNext()) {
+                dalAcc.deleteTransaction((TurqAccountingTransaction) it.next());
+
+            }
+            
             TurqBanksTransactionType transType = new TurqBanksTransactionType();
             transType.setBankTransactionTypesId(new Integer(EngBLCommon.BANK_TRANS_BETWEEN_BANKS));
 
@@ -141,6 +151,44 @@ public class BankBLTransactionUpdate {
             transRowDebit.setTurqBanksTransactionBill(bankTransBill);
             BankDALCommon.saveObject(transRowCredit);
             BankDALCommon.saveObject(transRowDebit);
+            /**
+             * 
+             * Save accounting transactions...
+             * 
+             */
+            /*
+             * Create Accounting transaction
+             */
+            AccBLTransactionAdd blAccTran = new AccBLTransactionAdd();
+            
+            TurqAccountingTransactionColumn accTransRowDept = new TurqAccountingTransactionColumn();
+            TurqAccountingTransactionColumn accTransRowCredit = new TurqAccountingTransactionColumn();
+
+            accTransRowDept.setTransactionDefinition(definition);
+            accTransRowDept.setTurqAccountingAccount(bankCardWithCredit
+                    .getTurqAccountingAccount());
+
+            accTransRowCredit.setTransactionDefinition(definition);
+            accTransRowCredit.setTurqAccountingAccount(bankCardWithDept
+                    .getTurqAccountingAccount());
+
+            int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
+            
+            accTransRowCredit.setDeptAmount(new BigDecimal(0));
+            accTransRowCredit.setCreditAmount(totalAmount);
+
+            accTransRowDept.setDeptAmount(totalAmount);
+            accTransRowDept.setCreditAmount(new BigDecimal(0));
+            
+            
+            String accounting_definition ="Banka Virman. "+definition;
+            
+            Integer transId = blAccTran.saveAccTransaction(transDate, docNo,
+                    accTransType,
+                    bankTransBill.getTurqEngineSequence().getTurqModule().getModulesId().intValue(),bankTransBill.getTurqEngineSequence()
+                            .getEngineSequencesId(), accounting_definition);
+            blAccTran.saveAccTransactionRow(accTransRowCredit, transId);
+            blAccTran.saveAccTransactionRow(accTransRowDept, transId);
 
 
         } catch (Exception ex) {
