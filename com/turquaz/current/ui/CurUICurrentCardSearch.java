@@ -174,9 +174,8 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 				{
 					comboTurqGroupName = new CCombo(compCurrentCardSearch, SWT.NONE);
 					GridData comboTurqGroupNameLData = new GridData();
-					comboTurqGroupNameLData.widthHint = 150;
-					comboTurqGroupNameLData.heightHint = 29;
-					comboTurqGroupName.setSize(150, 29);
+					comboTurqGroupNameLData.widthHint = 221;
+					comboTurqGroupNameLData.heightHint = 14;
 
 					comboTurqGroupName.setLayoutData(comboTurqGroupNameLData);
 				}
