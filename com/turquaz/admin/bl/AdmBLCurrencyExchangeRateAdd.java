@@ -8,6 +8,7 @@ package com.turquaz.admin.bl;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import com.turquaz.admin.dal.AdmDALCurrencyExchangeRateAdd;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -33,4 +34,16 @@ public class AdmBLCurrencyExchangeRateAdd {
 		AdmDALCurrencyExchangeRateAdd.saveObject(newExchangeRate);
 	}
 
+	
+	public static List getCurrencyExchangeRates() throws Exception
+	{
+		try
+		{
+			return AdmDALCurrencyExchangeRateAdd.getCurrencyExchangeRates();
+		}
+		catch(Exception ex )
+		{
+			throw ex;
+		}
+	}
 }

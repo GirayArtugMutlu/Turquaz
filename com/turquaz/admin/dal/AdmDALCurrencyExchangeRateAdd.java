@@ -6,6 +6,9 @@
  */
 package com.turquaz.admin.dal;
 
+import java.util.List;
+
+import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
@@ -51,6 +54,29 @@ public class AdmDALCurrencyExchangeRateAdd {
 				tx.rollback();
 			throw ex;
 
+		}
+	}
+	
+	public static List getCurrencyExchangeRates() throws Exception
+	{
+		try {
+			Session session = EngDALSessionFactory.openSession();
+
+			String query = "Select exchangeRate.exchangeRatesId," +
+					" exchangeRate.exhangeRatesDate," +
+					" exchangeRate.turqCurrencyByExchangeCurrencyId.currenciesAbbreviation," +
+					" exchangeRate.exchangeRatio" +
+					" from TurqCurrencyExchangeRate as exchangeRate" +
+					" order by exchangeRate.exhangeRatesDate";
+			Query q = session.createQuery(query);
+			List list = q.list();
+			session.close();
+
+			return list;
+
+		} catch (Exception ex)
+		{
+			throw ex;
 		}
 	}
 
