@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.Dialog;
 
+import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardUpdate;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUIPrice;
@@ -109,15 +110,15 @@ public class InvUICardUpdateDialog extends Dialog{
 			coolTop.setMinimumSize(new org.eclipse.swt.graphics.Point(88,27));
 	
 	
-			toolUpdate.setText("Update");
+			toolUpdate.setText(Messages.getString("InvUICardUpdateDialog.0")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
 				}
 			});
 	
-			toolDelete.setText("Delete");
-			toolDelete.setToolTipText("Delete");
+			toolDelete.setText(Messages.getString("InvUICardUpdateDialog.1")); //$NON-NLS-1$
+			toolDelete.setToolTipText(Messages.getString("InvUICardUpdateDialog.2")); //$NON-NLS-1$
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -231,9 +232,9 @@ public class InvUICardUpdateDialog extends Dialog{
      
      invPrice = (TurqInventoryPrice)it.next();
      InvUIPrice price = new InvUIPrice();
-     price.priceType="Sell";
+     price.priceType=Messages.getString("InvUICardUpdateDialog.3"); //$NON-NLS-1$
      if(invPrice.isPricesType()){
-     price.priceType ="Buy";
+     price.priceType =Messages.getString("InvUICardUpdateDialog.4"); //$NON-NLS-1$
      }
      price.amount =invPrice.getPricesAmount().toString();
      price.abrev = invPrice.getTurqCurrency().getCurrenciesAbbreviation();
@@ -474,7 +475,7 @@ public class InvUICardUpdateDialog extends Dialog{
 	updateInvGroups();
 	updatePrices();
 	MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
-	msg.setMessage("Updated Succesfully");	
+	msg.setMessage(Messages.getString("InvUICardUpdateDialog.5"));	 //$NON-NLS-1$
 	msg.open();	
 	}
 	
@@ -497,7 +498,7 @@ public class InvUICardUpdateDialog extends Dialog{
  
     cardUpdate.deleteObject(invCard);
     MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
-	msg.setMessage("Deleted Succesfully");	
+	msg.setMessage(Messages.getString("InvUICardUpdateDialog.6"));	 //$NON-NLS-1$
 	msg.open();	 
 	this.dialogShell.dispose(); 
        

@@ -10,6 +10,8 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
+import com.turquaz.inventory.Messages;
+
 /**
  * @author onsel
  *
@@ -21,7 +23,7 @@ public class InvUIPriceLabelProvider extends LabelProvider implements ITableLabe
 		return null;
 	}
 	public String getColumnText(Object element, int columnIndex) {
-		String result = "";
+		String result = ""; //$NON-NLS-1$
 		InvUIPrice price = (InvUIPrice) element;
 		switch (columnIndex) {
 		

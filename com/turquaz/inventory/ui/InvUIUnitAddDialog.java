@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.dal.TurqInventoryUnit;
+import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 
 /**
@@ -116,7 +117,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 			});
 	
-			tableColumnName.setText("Unit Name");
+			tableColumnName.setText(Messages.getString("InvUIUnitAddDialog.0")); //$NON-NLS-1$
 			tableColumnName.setWidth(200);
 	
 			GridData composite1LData = new GridData();
@@ -145,7 +146,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 			cLabel1LData.grabExcessHorizontalSpace = false;
 			cLabel1LData.grabExcessVerticalSpace = false;
 			cLabel1.setLayoutData(cLabel1LData);
-			cLabel1.setText("Unit Name");
+			cLabel1.setText(Messages.getString("InvUIUnitAddDialog.1")); //$NON-NLS-1$
 			cLabel1.setSize(new org.eclipse.swt.graphics.Point(56,20));
 	
 			GridData txtUnitNameLData = new GridData();
@@ -172,7 +173,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 			btnDeleteLData.grabExcessHorizontalSpace = false;
 			btnDeleteLData.grabExcessVerticalSpace = false;
 			btnDelete.setLayoutData(btnDeleteLData);
-			btnDelete.setText("Delete");
+			btnDelete.setText(Messages.getString("InvUIUnitAddDialog.2")); //$NON-NLS-1$
 			btnDelete.setSize(new org.eclipse.swt.graphics.Point(50,30));
 			btnDelete.setEnabled(false);
 			btnDelete.addMouseListener( new MouseAdapter() {
@@ -192,7 +193,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 			btnUpdateLData.grabExcessHorizontalSpace = false;
 			btnUpdateLData.grabExcessVerticalSpace = false;
 			btnUpdate.setLayoutData(btnUpdateLData);
-			btnUpdate.setText("Update");
+			btnUpdate.setText(Messages.getString("InvUIUnitAddDialog.3")); //$NON-NLS-1$
 			btnUpdate.setSize(new org.eclipse.swt.graphics.Point(50,30));
 			btnUpdate.setEnabled(false);
 			btnUpdate.addMouseListener( new MouseAdapter() {
@@ -212,7 +213,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 			btnUnitAddLData.grabExcessHorizontalSpace = false;
 			btnUnitAddLData.grabExcessVerticalSpace = false;
 			btnUnitAdd.setLayoutData(btnUnitAddLData);
-			btnUnitAdd.setText("Add");
+			btnUnitAdd.setText(Messages.getString("InvUIUnitAddDialog.4")); //$NON-NLS-1$
 			btnUnitAdd.setSize(new org.eclipse.swt.graphics.Point(42,27));
 			btnUnitAdd.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -309,7 +310,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 		MessageBox msg = new MessageBox(this.getParent(),SWT.OK|SWT.CANCEL);
 		MessageBox msg2 = new MessageBox(this.getParent());
 	    try{
-	    msg.setMessage("Really delete inventory group?");
+	    msg.setMessage(Messages.getString("InvUIUnitAddDialog.5")); //$NON-NLS-1$
 	    int result = msg.open();
 	    if(result==SWT.OK){
 	   
@@ -319,9 +320,9 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	    btnDelete.setEnabled(false);
 	    btnUpdate.setEnabled(false);
 	    btnUnitAdd.setEnabled(true);
-	    txtUnitName.setText("");
+	    txtUnitName.setText(""); //$NON-NLS-1$
 	
-	    msg2.setMessage("Succesfully Deleted!");
+	    msg2.setMessage(Messages.getString("InvUIUnitAddDialog.7")); //$NON-NLS-1$
 		msg2.open();
 		fillTable();
 	    
@@ -332,9 +333,9 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 			 btnDelete.setEnabled(false);
 			    btnUpdate.setEnabled(false);
 			    btnUnitAdd.setEnabled(true);
-			    txtUnitName.setText("");
+			    txtUnitName.setText(""); //$NON-NLS-1$
 			 	
-		msg2.setMessage("Can not delete inventory group!");	
+		msg2.setMessage(Messages.getString("InvUIUnitAddDialog.9"));	 //$NON-NLS-1$
 		msg2.open();
 		ex.printStackTrace();
 		}
@@ -345,15 +346,15 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	protected void btnUpdateMouseUp(MouseEvent evt){
 		MessageBox msg = new MessageBox(this.getParent());
 	try{
-		 if(txtUnitName.getText().trim().equals("")){
+		 if(txtUnitName.getText().trim().equals("")){ //$NON-NLS-1$
 		    
-		    msg.setMessage("Please fill the name field!!");
+		    msg.setMessage(Messages.getString("InvUIUnitAddDialog.11")); //$NON-NLS-1$
 		    msg.open();
 		    }
 	else{
 		
 	TurqInventoryUnit invUnit = (TurqInventoryUnit)txtUnitName.getData();
-	invUnit.setUpdatedBy(System.getProperty("user"));
+	invUnit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 	invUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 	invUnit.setUnitsName(txtUnitName.getText().trim());
 	
@@ -362,9 +363,9 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	btnDelete.setEnabled(false);
 	btnUpdate.setEnabled(false);
 	btnUnitAdd.setEnabled(true);
-	txtUnitName.setText("");
+	txtUnitName.setText(""); //$NON-NLS-1$
 	
-	msg.setMessage("Succesfully Updated!");
+	msg.setMessage(Messages.getString("InvUIUnitAddDialog.14")); //$NON-NLS-1$
 	msg.open();
 	fillTable();
 		    }
@@ -375,8 +376,8 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	btnDelete.setEnabled(false);
 	btnUpdate.setEnabled(false);
 	btnUnitAdd.setEnabled(true);
-	txtUnitName.setText("");
-	msg.setMessage("There is an unknown error!");
+	txtUnitName.setText(""); //$NON-NLS-1$
+	msg.setMessage(Messages.getString("InvUIUnitAddDialog.16")); //$NON-NLS-1$
 	msg.open();
 	ex.printStackTrace();
 	}
@@ -393,16 +394,16 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 		try{
 		
 		
-	    if(txtUnitName.getText().trim().equals("")){
+	    if(txtUnitName.getText().trim().equals("")){ //$NON-NLS-1$
 	    
-	    msg.setMessage("Please fill the name field!!");
+	    msg.setMessage(Messages.getString("InvUIUnitAddDialog.18")); //$NON-NLS-1$
 	    msg.open();
 	    }
 	    else{
 	    
 	    blCardAdd.saveUnit(txtUnitName.getText().trim());
-	    msg.setMessage("Inventory Unit succesfully added!");
-	    txtUnitName.setText("");
+	    msg.setMessage(Messages.getString("InvUIUnitAddDialog.19")); //$NON-NLS-1$
+	    txtUnitName.setText(""); //$NON-NLS-1$
 	    fillTable();
 	    msg.open();	    
 	    }		
@@ -410,7 +411,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 		}
 		catch(HibernateException ex){
 		ex.printStackTrace();
-		msg.setText("Please specify a different name!");
+		msg.setText(Messages.getString("InvUIUnitAddDialog.21")); //$NON-NLS-1$
 	    msg.open();
 		}
 		catch(Exception ex){

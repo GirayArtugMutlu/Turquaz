@@ -23,6 +23,7 @@ package com.turquaz.inventory.ui.comp;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.*;
 
+import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.InvUICardSearch;
 import com.turquaz.inventory.ui.InvUITransactionAdd;
@@ -39,21 +40,21 @@ public class InvUITree extends Tree {
 	public InvUITree(org.eclipse.swt.widgets.Composite comp, int style){
 		super(comp,style);
 		TreeItem root = new TreeItem(this,SWT.NULL);
-		root.setText("Inventory");
+		root.setText(Messages.getString("InvUITree.0")); //$NON-NLS-1$
 		TreeItem item = new TreeItem(root,SWT.NULL);
-		item.setText("Inventory Card");
+		item.setText(Messages.getString("InvUITree.1")); //$NON-NLS-1$
 		item.setData(InvUICardAdd.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Inventory Transaction");
+		item.setText(Messages.getString("InvUITree.2")); //$NON-NLS-1$
 		item.setData(InvUITransactionAdd.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Inventory Search");
+		item.setText(Messages.getString("InvUITree.3")); //$NON-NLS-1$
 		item.setData(InvUICardSearch.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Add Warehouse");
+		item.setText(Messages.getString("InvUITree.4")); //$NON-NLS-1$
 		item.setData(InvUIWarehouseAdd.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Search Warehouse");
+		item.setText(Messages.getString("InvUITree.5")); //$NON-NLS-1$
 		item.setData(InvUIWarehouseSearch.class.getName());
 	  	}
 	

@@ -13,6 +13,7 @@ import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.ui.component.TTableCellEditorCombo;
 import com.turquaz.engine.ui.component.TTableCellEditorDecimalText;
 import com.turquaz.engine.ui.component.TTableModel;
+import com.turquaz.inventory.Messages;
 
 import de.kupzog.ktable.KTableCellEditor;
 import de.kupzog.ktable.KTableCellEditorText;
@@ -47,12 +48,12 @@ public class TTableInvPricesModel extends TTableModel {
 		else if (col==1)
 		{	
 			TTableCellEditorDecimalText e = new TTableCellEditorDecimalText();
-			this.setContentAt(col,row,0+"");
+			this.setContentAt(col,row,0+""); //$NON-NLS-1$
 			return e;
 		}	
 		else if(col==0){
 			TTableCellEditorCombo e = new TTableCellEditorCombo();
-			e.setItems(new String[]{"Buy","Sell"});
+			e.setItems(new String[]{Messages.getString("TTableInvPricesModel.1"),Messages.getString("TTableInvPricesModel.2")}); //$NON-NLS-1$ //$NON-NLS-2$
 			
 			return e;
 		}

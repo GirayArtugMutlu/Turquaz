@@ -11,6 +11,8 @@ import java.util.Arrays;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.swt.widgets.TableItem;
 
+import com.turquaz.inventory.Messages;
+
 /**
  * @author onsel
  *
@@ -24,7 +26,7 @@ public class InvUIPriceCellModifier implements ICellModifier{
 		priceList = list;
 	}
 	
-	private String[] columnNames=new String[]{"Price Type", "Amount", "Currency"};
+	private String[] columnNames=new String[]{Messages.getString("InvUIPriceCellModifier.0"), Messages.getString("InvUIPriceCellModifier.1"), Messages.getString("InvUIPriceCellModifier.2")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 	public boolean canModify(Object element, String property) {
 		return true;
@@ -89,7 +91,7 @@ public class InvUIPriceCellModifier implements ICellModifier{
 				result = new Integer(j);					
 				break;
 			default :
-				result = "";
+				result = ""; //$NON-NLS-1$
 		}
 		return result;
 	}

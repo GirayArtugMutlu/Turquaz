@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 
+import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseUpdate;
 import com.turquaz.inventory.ui.InvUIWarehouseAdd;
 
@@ -85,15 +86,15 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(87,38));
 	
 	
-			toolUpdate.setText("Update");
+			toolUpdate.setText(Messages.getString("InvUIWarehouseUpdate.0")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
 				}
 			});
 	
-			toolDelete.setText("delete");
-			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setText(Messages.getString("InvUIWarehouseUpdate.1")); //$NON-NLS-1$
+			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
 			toolDelete.setImage(toolDeleteimage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
@@ -179,12 +180,12 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 	whUpdate.updateWarehouse(warehouse,compInvUIWarehouse.getTxtWarehouseAdres().getText().trim(),
 	compInvUIWarehouse.getTxtTelephone().getText().trim(),compInvUIWarehouse.getTxtWarehouseCity().getText().trim(),
 	compInvUIWarehouse.getTxtWarehouseDescription().getText().trim(),compInvUIWarehouse.getTxtWarehouseName().getText().trim() );
-	msg.setMessage("Succesfully Updated!!");
+	msg.setMessage(Messages.getString("InvUIWarehouseUpdate.3")); //$NON-NLS-1$
 	}
 	catch(Exception ex){
 	
 	ex.printStackTrace();
-	msg.setMessage("An error occured");
+	msg.setMessage(Messages.getString("InvUIWarehouseUpdate.4")); //$NON-NLS-1$
 	
 	}
 	msg.open();	
@@ -198,12 +199,12 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 	MessageBox msg2 = new MessageBox(this.getParent(),SWT.OK|SWT.CANCEL);
 	MessageBox msg = new MessageBox(this.getParent());
 	 try{
-	  msg2.setMessage("Really delete inventory group?");
+	  msg2.setMessage(Messages.getString("InvUIWarehouseUpdate.5")); //$NON-NLS-1$
 	    int result = msg2.open();
 	    if(result==SWT.OK){
 	 
 	 	whUpdate.deleteObject(warehouse);
-	 	msg.setMessage("Succesfully Deleted!!");
+	 	msg.setMessage(Messages.getString("InvUIWarehouseUpdate.6")); //$NON-NLS-1$
 	 	msg.open();
 	    }
 	
@@ -213,7 +214,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 	 }
 	 catch(Exception ex){
 	 ex.printStackTrace();
-	 msg.setMessage("An error occured");
+	 msg.setMessage(Messages.getString("InvUIWarehouseUpdate.7")); //$NON-NLS-1$
 	  msg.open();
 	 }
 	

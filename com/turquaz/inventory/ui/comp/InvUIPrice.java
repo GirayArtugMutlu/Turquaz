@@ -6,6 +6,8 @@
  */
 package com.turquaz.inventory.ui.comp;
 
+import com.turquaz.inventory.Messages;
+
 /**
  * @author onsel
  *
@@ -13,9 +15,9 @@ package com.turquaz.inventory.ui.comp;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class InvUIPrice {
-	public String priceType="Buy";
-    public String amount="0.0";
-    public String abrev ="YTL";
+	public String priceType=Messages.getString("InvUIPrice.0"); //$NON-NLS-1$
+    public String amount="0.0"; //$NON-NLS-1$
+    public String abrev ="YTL"; //$NON-NLS-1$
     public InvUIPrice(){
     	super();
     }

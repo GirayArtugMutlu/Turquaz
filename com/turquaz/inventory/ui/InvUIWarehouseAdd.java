@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.SWT;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseAdd;
 
 
@@ -104,7 +105,7 @@ public class InvUIWarehouseAdd extends SecureComposite {
 			lblWarehouseNameLData.grabExcessHorizontalSpace = false;
 			lblWarehouseNameLData.grabExcessVerticalSpace = false;
 			lblWarehouseName.setLayoutData(lblWarehouseNameLData);
-			lblWarehouseName.setText("Warehouse Name");
+			lblWarehouseName.setText(Messages.getString("InvUIWarehouseAdd.0")); //$NON-NLS-1$
 	
 			GridData txtWarehouseNameLData = new GridData();
 			txtWarehouseNameLData.verticalAlignment = GridData.CENTER;
@@ -131,7 +132,7 @@ public class InvUIWarehouseAdd extends SecureComposite {
 			lblWarehouseAdresLData.grabExcessHorizontalSpace = false;
 			lblWarehouseAdresLData.grabExcessVerticalSpace = false;
 			lblWarehouseAdres.setLayoutData(lblWarehouseAdresLData);
-			lblWarehouseAdres.setText("Address");
+			lblWarehouseAdres.setText(Messages.getString("InvUIWarehouseAdd.1")); //$NON-NLS-1$
 	
 			GridData txtWarehouseAdresLData = new GridData();
 			txtWarehouseAdresLData.verticalAlignment = GridData.CENTER;
@@ -158,7 +159,7 @@ public class InvUIWarehouseAdd extends SecureComposite {
 			lblWareHouseCityLData.grabExcessHorizontalSpace = false;
 			lblWareHouseCityLData.grabExcessVerticalSpace = false;
 			lblWareHouseCity.setLayoutData(lblWareHouseCityLData);
-			lblWareHouseCity.setText("City");
+			lblWareHouseCity.setText(Messages.getString("InvUIWarehouseAdd.2")); //$NON-NLS-1$
 	
 			GridData txtWarehouseCityLData = new GridData();
 			txtWarehouseCityLData.verticalAlignment = GridData.CENTER;
@@ -185,7 +186,7 @@ public class InvUIWarehouseAdd extends SecureComposite {
 			lblWarehouseTelephoneLData.grabExcessHorizontalSpace = false;
 			lblWarehouseTelephoneLData.grabExcessVerticalSpace = false;
 			lblWarehouseTelephone.setLayoutData(lblWarehouseTelephoneLData);
-			lblWarehouseTelephone.setText("Telephone");
+			lblWarehouseTelephone.setText(Messages.getString("InvUIWarehouseAdd.3")); //$NON-NLS-1$
 			lblWarehouseTelephone.setSize(new org.eclipse.swt.graphics.Point(56,19));
 	
 			GridData txtTelephoneLData = new GridData();
@@ -212,7 +213,7 @@ public class InvUIWarehouseAdd extends SecureComposite {
 			lblDescriptionLData.grabExcessHorizontalSpace = false;
 			lblDescriptionLData.grabExcessVerticalSpace = false;
 			lblDescription.setLayoutData(lblDescriptionLData);
-			lblDescription.setText("Description");
+			lblDescription.setText(Messages.getString("InvUIWarehouseAdd.4")); //$NON-NLS-1$
 	
 			GridData txtWarehouseDescriptionLData = new GridData();
 			txtWarehouseDescriptionLData.verticalAlignment = GridData.CENTER;
@@ -260,8 +261,8 @@ public class InvUIWarehouseAdd extends SecureComposite {
 		
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 		
-	  if(txtWarehouseName.getText().trim().equals("")){
-	  	msg.setMessage("Please fill Warehouse Name!");
+	  if(txtWarehouseName.getText().trim().equals("")){ //$NON-NLS-1$
+	  	msg.setMessage(Messages.getString("InvUIWarehouseAdd.6")); //$NON-NLS-1$
 	  	msg.open();
 	  	return false;
 	  }
@@ -271,11 +272,11 @@ public class InvUIWarehouseAdd extends SecureComposite {
 	public void delete(){
 	}
 	public void clearFields(){
-		txtWarehouseName.setText("");
-		txtWarehouseDescription.setText("");
-		txtTelephone.setText("");
-		txtWarehouseAdres.setText("");
-		txtWarehouseCity.setText("");
+		txtWarehouseName.setText(""); //$NON-NLS-1$
+		txtWarehouseDescription.setText(""); //$NON-NLS-1$
+		txtTelephone.setText(""); //$NON-NLS-1$
+		txtWarehouseAdres.setText(""); //$NON-NLS-1$
+		txtWarehouseCity.setText(""); //$NON-NLS-1$
 		
 		
 	}
@@ -289,7 +290,7 @@ public class InvUIWarehouseAdd extends SecureComposite {
 						 txtTelephone.getText().trim(),
 						 txtWarehouseCity.getText().trim());
 	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-	msg.setMessage("Succesfully Saved!");
+	msg.setMessage(Messages.getString("InvUIWarehouseAdd.12")); //$NON-NLS-1$
 	msg.open();
 	clearFields();
 		}

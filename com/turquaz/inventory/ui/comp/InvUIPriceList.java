@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
 
+import com.turquaz.inventory.Messages;
+
 /**
  * @author onsel
  *
@@ -25,7 +27,7 @@ public class InvUIPriceList {
 
 	// Combo box choices
 	String[] CURRENCIES ;
-	String[] PRICE_TYPES =new String[]{"Buy","Sell"};
+	String[] PRICE_TYPES =new String[]{Messages.getString("InvUIPriceList.0"),Messages.getString("InvUIPriceList.1")}; //$NON-NLS-1$ //$NON-NLS-2$
 	
 	
 	/**
