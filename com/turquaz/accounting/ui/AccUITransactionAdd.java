@@ -292,19 +292,12 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			tableColumnDept.setWidth(106);
 	
 			GridData lblTotalCreditLData = new GridData();
-			lblTotalCreditLData.verticalAlignment = GridData.CENTER;
 			lblTotalCreditLData.horizontalAlignment = GridData.END;
-			lblTotalCreditLData.widthHint = 62;
-			lblTotalCreditLData.heightHint = 19;
-			lblTotalCreditLData.horizontalIndent = 0;
-			lblTotalCreditLData.horizontalSpan = 1;
-			lblTotalCreditLData.verticalSpan = 1;
-			lblTotalCreditLData.grabExcessHorizontalSpace = false;
-			lblTotalCreditLData.grabExcessVerticalSpace = false;
+			lblTotalCreditLData.widthHint = 83;
+			lblTotalCreditLData.heightHint = 17;
 			lblTotalCredit.setLayoutData(lblTotalCreditLData);
 			lblTotalCredit.setText(Messages.getString("AccUITransactionAdd.8")); //$NON-NLS-1$
-			lblTotalCredit.setSize(new org.eclipse.swt.graphics.Point(62,19));
-	
+
 			GridData lblTotalCreditAmountLData = new GridData();
 			lblTotalCreditAmountLData.verticalAlignment = GridData.CENTER;
 			lblTotalCreditAmountLData.horizontalAlignment = GridData.BEGINNING;
@@ -320,19 +313,12 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			lblTotalCreditAmount.setSize(new org.eclipse.swt.graphics.Point(321,15));
 	
 			GridData cLabel1LData = new GridData();
-			cLabel1LData.verticalAlignment = GridData.CENTER;
 			cLabel1LData.horizontalAlignment = GridData.END;
-			cLabel1LData.widthHint = 58;
+			cLabel1LData.widthHint = 81;
 			cLabel1LData.heightHint = 19;
-			cLabel1LData.horizontalIndent = 0;
-			cLabel1LData.horizontalSpan = 1;
-			cLabel1LData.verticalSpan = 1;
-			cLabel1LData.grabExcessHorizontalSpace = false;
-			cLabel1LData.grabExcessVerticalSpace = false;
 			cLabel1.setLayoutData(cLabel1LData);
-			cLabel1.setText(Messages.getString("AccUITransactionAdd.10")); //$NON-NLS-1$
-			cLabel1.setSize(new org.eclipse.swt.graphics.Point(58,19));
-	
+			cLabel1.setText("Toplam Borç"); //$NON-NLS-1$
+
 			GridData lblTotalDeptAmountLData = new GridData();
 			lblTotalDeptAmountLData.verticalAlignment = GridData.CENTER;
 			lblTotalDeptAmountLData.horizontalAlignment = GridData.BEGINNING;
