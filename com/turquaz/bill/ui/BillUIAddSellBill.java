@@ -1090,7 +1090,8 @@ public class BillUIAddSellBill extends Composite
 		});
 
 	    createTableViewer();
-		for(int i=0;i<10;i++){
+
+	    for(int i=0;i<10;i++){
 //			enter empty table rows.
 	      InvUITransactionTableRow row = new InvUITransactionTableRow(rowList,1,tableViewer);
 	      rowList.addTask(row);

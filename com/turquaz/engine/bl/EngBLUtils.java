@@ -282,6 +282,10 @@ public class EngBLUtils {
 	    t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 	    
 	    
+	    t = new PTextBox(doc,style_below,0,5);
+	    t.getTextStyle().fontSize = 10;
+	    t.getTextStyle().fontStyle = SWT.BOLD;
+	    
 	    
 	    
 	    PrintPreview pr = new PrintPreview(parent, "", IconSource.getImage("print"), doc); //$NON-NLS-1$
