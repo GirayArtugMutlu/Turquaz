@@ -126,5 +126,150 @@ ALTER TABLE turq_cheque_rolls
 
 
 
+************* 17 FEBRUARY 0.6 ALPHA5 NEW VERSION RELEASED **********
 
-   
+
+******CHANGES ON ACCOUNTING TABLES********
+
+CREATE TABLE turq_accounting_account_classes (
+    accounting_classes_id integer NOT NULL,
+    accounting_classes_name character varying(50) NOT NULL,
+    accounting_classes_definition character varying(50) NOT NULL,
+    created_by character varying(25) NOT NULL,
+    creation_date date NOT NULL,
+    updated_by character varying(25) NOT NULL,
+    last_modified date NOT NULL
+);
+
+ALTER TABLE turq_accounting_account_classes ADD PRIMARY KEY (accounting_classes_id);
+
+
+CREATE TABLE turq_accounting_account_types (
+    accounting_types_id integer NOT NULL,
+    accounting_types_name character varying(50) NOT NULL,
+    accounting_types_definition character varying(250) NOT NULL,
+    created_by character varying(25) NOT NULL,
+    creation_date date NOT NULL,
+    updated_by character varying(25) NOT NULL,
+    last_modified date NOT NULL
+);
+
+ALTER TABLE turq_accounting_account_types ADD PRIMARY KEY (accounting_types_id);
+
+
+
+
+insert into turq_accounting_account_classes values (1,'DONEN VARLIKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_classes values (2,'DURAN VARLIKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_classes values (3,'KISA VADELI YABANCI KAYNAKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_classes values (4,'UZUN VADELI YABANCI KAYNAKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_classes values (5,'OZKAYNAKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_classes values (6,'GELIR TABLOSU HESAPLARI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_classes values (7,'MALIYET HESAPLARI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_classes values (8,'YONETIM MUHASEBESI HESAPLARI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_classes values (9,'NAZIM HESAPLAR','','admin','02-17-2005','admin','02-17-2005');
+
+
+
+
+
+
+insert into turq_accounting_account_types values (1,'HAZIR DEGERLER','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (2,'MENKUL KIYMETLER','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (3,'TICARI ALACAKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (4,'DIGER ALACAKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (5,'STOKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (6,'YILLARA YAYGIN INSAAT VE ONARIM MALIYETLERI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (7,'GELECEK AYLARA AIT GIDERLER VE GELIR TAAHHUKLARI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (8,'DIGER DONEN VARLIKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (9,'MALI DURAN VARLIKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (10,'MADDI DURAN VARLIKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (11,'MADDI OLMAYAN DURAN VARLIKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (12,'OZEL TUKENMEYE TABI VARLIKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (13,'GELECEK YILLARA AIT GIDERLER VE GELIR TAAHHUKLARI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (14,'DIGER DURAN VARLIKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (15,'MALI BORCLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (16,'TICARI BORCLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (17,'DIGER BORCLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (18,'ALINAN AVANSLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (19,'BORC VE DIGER KARSILIKLARI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (20,'GELECEK YILLARA AIT GELIRLER VE GIDER TAAHHUKLARI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (21,'DIGER UZUN VADELI YABANCI KAYNAKLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (22,'GELECEK AYLARA AIT GELIR VE GIDER TAAHHUKLARI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (23,'ODENMIS SERMAYE','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (24,'SERMAYE YEDEKLERI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (25,'KAR YEDEKLERI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (26,'GECMIS YILLAR KARLARI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (27,'GECMIS YILLAR ZARARLARI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (28,'DONEM NET KARI(ZARARI)','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (29,'BRUT SATISLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (30,'SATIS INDIRIMLERI (-)','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (31,'SATISLARIN MALIYETLERI (-)','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (32,'FAALIYET GIDERLERI (-)','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (33,'DIGER FAALIYETLERDEN OLAGAN GELIR VE KARLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (34,'DIGER FAALIYETLERDEN OLAGAN GIDER VE ZARARLAR (-)','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (35,'FINANSMAN GIDERLERI(-)','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (36,'OLAGANDISI GELIR VE KARLAR','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (37,'OLAGANDISI GIDER VE ZARARLAR(-)','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (38,'MALIYET MUHASEBES BAGLANTI HESAPLARI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (39,'DIREKT ILKMADDE VE MALZEME GIDERLERI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (40,'DIREKT ISCILIK GIDERLERI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (41,'GENEL URETIM GIDERLERI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (42,'HIZMET URETIM MALIYETLERI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (43,'ARASTIRMA VE GELISTIRME GIDERLERI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (44,'PAZARLAMA SATIS VE DAGITIM GIDERLERI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (45,'GENEL YONETIM GIDERLERI','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (46,'FINANSMAN GIDERLERI (-)','','admin','02-17-2005','admin','02-17-2005');
+insert into turq_accounting_account_types values (47,'FINANSMAN GIDERLERI ','','admin','02-17-2005','admin','02-17-2005');
+
+ALTER TABLE turq_accounting_transaction_columns ADD COLUMN rows_currency_type int4;
+
+update turq_accounting_transaction_columns set rows_currency_type = 1;
+
+ALTER TABLE turq_accounting_transaction_columns ALTER COLUMN rows_currency_type SET NOT NULL;
+
+
+
+
+ALTER TABLE turq_accounting_transaction_columns ADD COLUMN rows_dept_in_base_currency numeric;
+update turq_accounting_transaction_columns set rows_dept_in_base_currency = dept_amount;
+ALTER TABLE turq_accounting_transaction_columns ALTER COLUMN rows_dept_in_base_currency SET NOT NULL;
+
+
+
+ALTER TABLE turq_accounting_transaction_columns ADD COLUMN rows_credit_in_base_currency numeric;
+update turq_accounting_transaction_columns set rows_credit_in_base_currency = credit_amount;
+ALTER TABLE turq_accounting_transaction_columns ALTER COLUMN rows_credit_in_base_currency SET NOT NULL;
+
+
+
+ALTER TABLE turq_accounting_accounts
+   ADD COLUMN accounting_types_id int4;
+
+ALTER TABLE turq_accounting_accounts
+   ADD COLUMN accounting_class_id int4;
+
+
+update turq_accounting_accounts set accounting_types_id = 1;
+update turq_accounting_accounts set accounting_class_id = 1;
+
+
+
+
+
+ALTER TABLE turq_accounting_transaction_columns ADD CONSTRAINT ac1 FOREIGN KEY (rows_currency_type) REFERENCES turq_currencies (currencies_id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+ALTER TABLE turq_currencies
+   ADD COLUMN default_currency bool;
+
+update turq_currencies set default_currency = false;
+
+ALTER TABLE turq_currencies
+   ALTER COLUMN default_currency SET NOT NULL;
+
+ALTER TABLE turq_accounting_accounts ADD CONSTRAINT at1 FOREIGN KEY (accounting_types_id) REFERENCES turq_accounting_account_types (accounting_types_id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+ALTER TABLE turq_accounting_accounts ADD CONSTRAINT ac1 FOREIGN KEY (accounting_class_id) REFERENCES turq_accounting_account_classes (accounting_classes_id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+  
