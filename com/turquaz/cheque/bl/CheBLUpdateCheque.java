@@ -9,12 +9,16 @@ package com.turquaz.cheque.bl;
 import java.math.BigDecimal;
 import java.util.Iterator;
 
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import com.turquaz.cheque.dal.CheDALSave;
 import com.turquaz.cheque.dal.CheDALUpdate;
+import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
@@ -121,6 +125,8 @@ public class CheBLUpdateCheque {
 			updateCurrentTransactions(chequeRoll, exchangeRate);
 			
 			updateBankTransactions(chequeRoll);
+			
+			updateAccountingTransactions(chequeRoll);
 			
 			
 			
@@ -253,6 +259,62 @@ public class CheBLUpdateCheque {
 		{
 			throw ex;
 		}
+	}
+	public static void updateAccountingTransactions(TurqChequeRoll chequeRoll)throws Exception {
+		 //Delete Accounting Transactions..
+        Iterator it = chequeRoll.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
+       
+        while(it.hasNext()){
+        
+        	TurqAccountingTransaction accTrans = (TurqAccountingTransaction)it.next();
+        	new AccBLTransactionSearch().removeAccountingTransaction(accTrans);
+            
+        }
+       
+        
+        int rollType = chequeRoll.getTurqChequeTransactionType().getId().intValue();
+        
+        TurqAccountingAccount rollAccount = chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount();
+         
+        BigDecimal totalAmount = new BigDecimal(0);
+        it = chequeRoll.getTurqChequeChequeInRolls().iterator();
+		while(it.hasNext())
+		{
+			TurqChequeCheque cheque = ((TurqChequeChequeInRoll)it.next()).getTurqChequeCheque();
+		
+			totalAmount = totalAmount.add(cheque.getChequesAmount());
+		}
+        
+        
+        
+        
+        
+        if(rollType==EngBLCommon.CHEQUE_TRANS_IN)
+        {
+        	TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(chequeRoll.getTurqCurrentCard(),EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
+//       TODO acc trans exRate
+        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,curAccount,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
+        	
+        }
+        else if(rollType==EngBLCommon.CHEQUE_TRANS_OUT_BANK)
+        {
+        
+        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
+        }
+        
+        else if(rollType==EngBLCommon.CHEQUE_TRANS_OUT_CURRENT)
+        {
+        
+        	TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(chequeRoll.getTurqCurrentCard(),EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
+        	
+        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(curAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
+        
+        }
+        
+        
+        
+        
+		
 	}
 
 }

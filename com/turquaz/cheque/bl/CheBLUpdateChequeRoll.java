@@ -223,6 +223,7 @@ public class CheBLUpdateChequeRoll {
            
            	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
            }
+           
            else if(rollType==EngBLCommon.CHEQUE_TRANS_OUT_CURRENT)
            {
            
