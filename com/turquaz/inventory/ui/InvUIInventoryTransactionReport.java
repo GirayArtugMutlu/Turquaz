@@ -88,6 +88,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 	private Table tableTransactions;
 
 	private TableColumn tableColumnTotalAmountOut;
+	private TableColumn tableColumnInventoryName;
 	private Text txtInvName;
 	private CLabel lblInvName;
 	private CCombo comboInvGroup;
@@ -289,8 +290,15 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					tableColumnInventoryCode = new TableColumn(
 						tableTransactions,
 						SWT.NONE);
-					tableColumnInventoryCode.setText(Messages.getString("InvUIInventoryTransactionReport.11")); //$NON-NLS-1$
+					tableColumnInventoryCode.setText("Stok Kodu");
 					tableColumnInventoryCode.setWidth(109);
+				}
+				{
+					tableColumnInventoryName = new TableColumn(
+						tableTransactions,
+						SWT.NONE);
+					tableColumnInventoryName.setText("Stok Cinsi");
+					tableColumnInventoryName.setWidth(100);
 				}
 				{
 					tableColumnTotalAmountIn = new TableColumn(
@@ -468,6 +476,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				Date transDate = (Date)result[1];
 				item.setText(new String[] {
 								DatePicker.formatter.format(transDate),
+								transactions.getTurqInventoryCard().getCardInventoryCode(),
 								transactions.getTurqInventoryCard().getCardName(),
 								cf.format(transactions.getTransactionsAmountIn())+"", //$NON-NLS-1$								
 								cf.format(priceIn),
@@ -478,7 +487,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			
 			item=new TableItem(tableTransactions,SWT.NULL);
 			item=new TableItem(tableTransactions,SWT.NULL);
-			item.setText(new String[]{"",Messages.getString("InvUIInventoryTransactionReport.24"),cf.format(totalAmountIn), //$NON-NLS-1$ //$NON-NLS-2$
+			item.setText(new String[]{"","",Messages.getString("InvUIInventoryTransactionReport.24"),cf.format(totalAmountIn), //$NON-NLS-1$ //$NON-NLS-2$
 					cf.format(totalPriceIn),cf.format(totalAmountOut),
 					cf.format(totalPriceOut)});
 

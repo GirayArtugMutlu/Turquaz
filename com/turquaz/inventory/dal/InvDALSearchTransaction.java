@@ -65,7 +65,7 @@ public class InvDALSearchTransaction {
 				query += " and transaction.turqInventoryCard = :invCard";
 			}
 			
-
+			query +=" order by consignment.consignmentsDate";
 			Query q = session.createQuery(query);
 
 			q.setParameter("startDate", startDate);
