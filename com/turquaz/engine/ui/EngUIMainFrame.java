@@ -69,6 +69,7 @@ import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUITree;
 import com.turquaz.admin.ui.comp.AdmUITree;
 import com.turquaz.accounting.ui.comp.AccUITree;
+import com.turquaz.bank.ui.comp.BankUITree;
 import com.turquaz.inventory.ui.InvUITransactionAdd;
 
 /**
@@ -105,6 +106,7 @@ import com.turquaz.inventory.ui.InvUITransactionAdd;
 
 
 public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
+	private BankUITree treeBank;
 	private AccUITree treeAccounting;
 	private CTabFolder tabfldMain;
 	private ToolItem toolSearch;
@@ -175,6 +177,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			lblModuleSelection = new CLabel(compModuleSelection,SWT.LEFT);
 			comboModuleSelection = new CCombo(compModuleSelection,SWT.FLAT| SWT.READ_ONLY| SWT.H_SCROLL| SWT.V_SCROLL);
 			compModulesTree = new Composite(compModulesTab,SWT.NULL);
+			treeBank = new BankUITree(compModulesTree,SWT.NULL);
 			treeInventory = new InvUITree(compModulesTree,SWT.NULL);
 			treeAccounting = new AccUITree(compModulesTree,SWT.NULL);
 			treeAdmin = new AdmUITree(compModulesTree,SWT.NULL);
@@ -276,7 +279,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabModules.setControl(compModulesTab);
 			tabModules.setText("Modules");
 	
-			compModulesTab.setSize(new org.eclipse.swt.graphics.Point(230,296));
+			compModulesTab.setSize(new org.eclipse.swt.graphics.Point(230,298));
 	
 			GridData compModuleSelectionLData = new GridData();
 			compModuleSelectionLData.verticalAlignment = GridData.CENTER;
@@ -328,20 +331,27 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesTreeLData.grabExcessVerticalSpace = true;
 			compModulesTree.setLayoutData(compModulesTreeLData);
 	
+			treeBank.setSize(new org.eclipse.swt.graphics.Point(214,247));
+			treeBank.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					treeBankMouseDoubleClick(evt);
+				}
+			});
+	
 			treeInventory.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeInventoryMouseDoubleClick(evt);
 				}
 			});
 	
-			treeAccounting.setSize(new org.eclipse.swt.graphics.Point(214,245));
+			treeAccounting.setSize(new org.eclipse.swt.graphics.Point(214,247));
 			treeAccounting.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeAccountingMouseDoubleClick(evt);
 				}
 			});
 	
-			treeAdmin.setSize(new org.eclipse.swt.graphics.Point(214,245));
+			treeAdmin.setSize(new org.eclipse.swt.graphics.Point(214,247));
 			treeAdmin.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeAdminMouseDoubleClick(evt);
@@ -614,6 +624,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	    comboModuleSelection.add("Stok");
 		comboModuleSelection.add("Y�netici");
 		comboModuleSelection.add("Accounting");
+		comboModuleSelection.add("Bank");
 		
 			
 		tabfldMain.setTabHeight(25);
@@ -684,6 +695,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			   {
 			   	compo4layout.topControl = treeAccounting;
 			   }
+			   else if(text.equals("Bank")){
+			   	compo4layout.topControl = treeBank;
+			   }
+			   
 			   compModulesTree.layout();
 	}
 
@@ -910,4 +925,12 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 
 
+
+	/** Auto-generated event handler method */
+	protected void treeBankMouseDoubleClick(MouseEvent evt){
+	TreeItem item = treeAdmin.getSelection()[0];
+		if(item.getItemCount()==0){
+			openNewTab(item.getText(),item.getData().toString());
+		}
+	}
 }
