@@ -58,7 +58,7 @@ public class InvDALCardSearch {
 							   	
 				if(invGroup!=null){
 					
-					query +="and :invGroup in (Select myGroup.turqInventoryGroup From invCard.turqCardGroups as myGroup)" ;
+					query +="and :invGroup in (Select myGroup.turqInventoryGroup From invCard.turqInventoryCardGroups as myGroup)" ;
 					
 				}
 				   
