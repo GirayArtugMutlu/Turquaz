@@ -304,7 +304,8 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			Object args[] = new Object[2];
 			args[0]=new Integer(parent_id);
 			args[1]=codeCriteria;
-			List mainBranches = (List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAccount",args);
+			List mainBranches = AccBLAccountAdd.getAccount((Integer)args[0],codeCriteria);
+			
 			TurqAccountingAccount account;
 			for (int i = 0; i < mainBranches.size(); i++)
 			{
@@ -366,14 +367,14 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 			try
 			{
-				List accTrans = (List)EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",new Object[]{account});
+				List accTrans = AccBLAccountUpdate.getAccountTransColumns(account);
 				if (accTrans.size() > 0)
 				{
 					msg.setMessage(Messages.getString("AccUIAccountingPlan.6")); //$NON-NLS-1$
 					msg.open();
 					return;
 				}
-				List subAccs = (List)EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getSubAccounts",new Object[]{account});
+				List subAccs = AccBLAccountUpdate.getSubAccounts(account);
 				if (subAccs.size() > 0)
 				{
 					msg.setMessage(Messages.getString("AccUIAccountingPlan.5")); //$NON-NLS-1$
@@ -384,7 +385,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 				int result = msg2.open();
 				if (result == SWT.OK)
 				{
-					EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"deleteAccount",new Object[]{account});
+					AccBLAccountUpdate.deleteAccount(account);
 					msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 					msg.open();
 					EngTXCommon.doSingleTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);

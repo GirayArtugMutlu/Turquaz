@@ -49,7 +49,6 @@ import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.DatabaseThread;
-import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.wizards.EngUIDatabaseConnectionWizard;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.MouseAdapter;
@@ -374,7 +373,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		try
 		{
-			Boolean result = (Boolean)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"checkUserPass",new Object[]{txtUserName.getText(), txtPassword.getText()});
+			Boolean result = EngBLCommon.checkUserPass(txtUserName.getText(), txtPassword.getText());
 			if (result.booleanValue())
 			{
 				showMainFrame();

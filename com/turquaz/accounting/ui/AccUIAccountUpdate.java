@@ -302,13 +302,11 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 			if (compAccountCard.verifyFields(true, account))
 			{
-				Object args[] = new Object[4];
-				args[0] = account;
-				args[1] =compAccountCard.getTxtAccAcountName().getText().trim();
-				args[2] =compAccountCard.getTxtAccAccountCode().getText().trim();
-				args[3]	=compAccountCard.getTxtParentAccount().getData();
 				
-				EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"updateAccount",args);
+				
+				AccBLAccountUpdate.updateAccount(account,compAccountCard.getTxtAccAcountName().getText().trim(),
+												compAccountCard.getTxtAccAccountCode().getText().trim(),
+												(TurqAccountingAccount)compAccountCard.getTxtParentAccount().getData());
 				
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.14")); //$NON-NLS-1$
 				msg.open();
@@ -336,7 +334,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 			int result = msg2.open();
 			if (result == SWT.OK)
 			{
-				EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"deleteAccount",new Object[]{account});
+				AccBLAccountUpdate.deleteAccount(account);
 				
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 				msg.open();

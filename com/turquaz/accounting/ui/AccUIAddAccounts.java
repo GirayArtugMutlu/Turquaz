@@ -314,7 +314,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 								
 				 
 				
-				 List accTrans =(List)EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",new Object[]{parent});
+				 List accTrans =AccBLAccountUpdate.getAccountTransColumns(parent);
 				
 				if (accTrans.size() > 0)
 				{
@@ -325,7 +325,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				String accountName = txtAccAcountName.getText().trim();
 				String accountCode = txtAccAccountCode.getText().trim();
 				
-				TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",new Object[]{accountName,accountCode,parent});
+				TurqAccountingAccount account = AccBLAccountAdd.saveAccount(accountName,accountCode,parent);
 				
 				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
 				msg.open();
@@ -354,7 +354,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 			{
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				TurqAccountingAccount parent = (TurqAccountingAccount) txtParentAccount.getData();
-				List accTrans =(List)EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",new Object[]{parent});
+				List accTrans =AccBLAccountUpdate.getAccountTransColumns(parent);
 				
 				if (accTrans.size() > 0)
 				{
@@ -364,7 +364,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				}
 				String accountName = txtAccAcountName.getText().trim();
 				String accountCode = txtAccAccountCode.getText().trim();
-				TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",new Object[]{accountName,accountCode,parent});
+				TurqAccountingAccount account = AccBLAccountAdd.saveAccount(accountName,accountCode,parent);
 				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
 				msg.open();
 				EngTXCommon.doSingleTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
