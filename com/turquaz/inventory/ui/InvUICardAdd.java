@@ -1797,8 +1797,7 @@ decimalSymbol + "][0-9]+)?");
 		int selectedIndex = tableInvCardAddGroupsAllGroups.getSelectionIndex();
 
 		if (selectedIndex >= 0) {
-			TableItem registeredItem = new TableItem(
-					tableInvCardAddGroupsRegisteredGroups, SWT.NULL);
+			TableItem registeredItem = new TableItem(tableInvCardAddGroupsRegisteredGroups, SWT.NULL);
 			registeredItem.setText(tableInvCardAddGroupsAllGroups.getItem(
 					selectedIndex).getText());
 			registeredItem.setData(tableInvCardAddGroupsAllGroups.getItem(
