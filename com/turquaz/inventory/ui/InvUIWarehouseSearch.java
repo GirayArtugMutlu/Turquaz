@@ -1,5 +1,10 @@
 package com.turquaz.inventory.ui;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;
@@ -52,7 +57,9 @@ public class InvUIWarehouseSearch extends org.eclipse.swt.widgets.Composite {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
-	}
+	 
+		
+		}
 
 	/** Auto-generated main method */
 	public static void main(String[] args){

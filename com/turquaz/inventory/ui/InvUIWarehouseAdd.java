@@ -58,156 +58,6 @@ public class InvUIWarehouseAdd extends SecureComposite {
 		try {
 			preInitGUI();
 	
-			compInvTransWare = new Composite(this,SWT.NULL);
-			lblInvTransWhCard = new CLabel(compInvTransWare,SWT.NULL);
-			comboInvTransWhCard = new CCombo(compInvTransWare,SWT.NULL);
-			lblInvTransWhFrom = new Label(compInvTransWare,SWT.NULL);
-			comboInvTransWhFrom = new CCombo(compInvTransWare,SWT.NULL);
-			lblInvTransWhTo = new CLabel(compInvTransWare,SWT.NULL);
-			comboInvTransWhTo = new CCombo(compInvTransWare,SWT.NULL);
-			lblInvTransWhAmount = new CLabel(compInvTransWare,SWT.NULL);
-			txtNumInvTransWhAmount = new Text(compInvTransWare,SWT.NULL);
-			lblInvTransWareUnit = new CLabel(compInvTransWare,SWT.NULL);
-			comboInvTransWhUnit = new CCombo(compInvTransWare,SWT.NULL);
-	
-			this.setSize(new org.eclipse.swt.graphics.Point(329,223));
-	
-	
-			GridData lblInvTransWhCardLData = new GridData();
-			lblInvTransWhCardLData.verticalAlignment = GridData.CENTER;
-			lblInvTransWhCardLData.horizontalAlignment = GridData.BEGINNING;
-			lblInvTransWhCardLData.widthHint = -1;
-			lblInvTransWhCardLData.heightHint = -1;
-			lblInvTransWhCardLData.horizontalIndent = 0;
-			lblInvTransWhCardLData.horizontalSpan = 1;
-			lblInvTransWhCardLData.verticalSpan = 1;
-			lblInvTransWhCardLData.grabExcessHorizontalSpace = false;
-			lblInvTransWhCardLData.grabExcessVerticalSpace = false;
-			lblInvTransWhCard.setLayoutData(lblInvTransWhCardLData);
-			lblInvTransWhCard.setText("Inventory Card");
-	
-			GridData comboInvTransWhCardLData = new GridData();
-			comboInvTransWhCardLData.verticalAlignment = GridData.CENTER;
-			comboInvTransWhCardLData.horizontalAlignment = GridData.BEGINNING;
-			comboInvTransWhCardLData.widthHint = -1;
-			comboInvTransWhCardLData.heightHint = -1;
-			comboInvTransWhCardLData.horizontalIndent = 0;
-			comboInvTransWhCardLData.horizontalSpan = 3;
-			comboInvTransWhCardLData.verticalSpan = 1;
-			comboInvTransWhCardLData.grabExcessHorizontalSpace = false;
-			comboInvTransWhCardLData.grabExcessVerticalSpace = false;
-			comboInvTransWhCard.setLayoutData(comboInvTransWhCardLData);
-	
-			GridData lblInvTransWhFromLData = new GridData();
-			lblInvTransWhFromLData.verticalAlignment = GridData.CENTER;
-			lblInvTransWhFromLData.horizontalAlignment = GridData.BEGINNING;
-			lblInvTransWhFromLData.widthHint = -1;
-			lblInvTransWhFromLData.heightHint = -1;
-			lblInvTransWhFromLData.horizontalIndent = 0;
-			lblInvTransWhFromLData.horizontalSpan = 1;
-			lblInvTransWhFromLData.verticalSpan = 1;
-			lblInvTransWhFromLData.grabExcessHorizontalSpace = false;
-			lblInvTransWhFromLData.grabExcessVerticalSpace = false;
-			lblInvTransWhFrom.setLayoutData(lblInvTransWhFromLData);
-			lblInvTransWhFrom.setText("From:");
-	
-			GridData comboInvTransWhFromLData = new GridData();
-			comboInvTransWhFromLData.verticalAlignment = GridData.CENTER;
-			comboInvTransWhFromLData.horizontalAlignment = GridData.BEGINNING;
-			comboInvTransWhFromLData.widthHint = -1;
-			comboInvTransWhFromLData.heightHint = -1;
-			comboInvTransWhFromLData.horizontalIndent = 0;
-			comboInvTransWhFromLData.horizontalSpan = 3;
-			comboInvTransWhFromLData.verticalSpan = 1;
-			comboInvTransWhFromLData.grabExcessHorizontalSpace = false;
-			comboInvTransWhFromLData.grabExcessVerticalSpace = false;
-			comboInvTransWhFrom.setLayoutData(comboInvTransWhFromLData);
-	
-			GridData lblInvTransWhToLData = new GridData();
-			lblInvTransWhToLData.verticalAlignment = GridData.CENTER;
-			lblInvTransWhToLData.horizontalAlignment = GridData.BEGINNING;
-			lblInvTransWhToLData.widthHint = -1;
-			lblInvTransWhToLData.heightHint = -1;
-			lblInvTransWhToLData.horizontalIndent = 0;
-			lblInvTransWhToLData.horizontalSpan = 1;
-			lblInvTransWhToLData.verticalSpan = 1;
-			lblInvTransWhToLData.grabExcessHorizontalSpace = false;
-			lblInvTransWhToLData.grabExcessVerticalSpace = false;
-			lblInvTransWhTo.setLayoutData(lblInvTransWhToLData);
-			lblInvTransWhTo.setText("To:");
-	
-			GridData comboInvTransWhToLData = new GridData();
-			comboInvTransWhToLData.verticalAlignment = GridData.CENTER;
-			comboInvTransWhToLData.horizontalAlignment = GridData.BEGINNING;
-			comboInvTransWhToLData.widthHint = -1;
-			comboInvTransWhToLData.heightHint = -1;
-			comboInvTransWhToLData.horizontalIndent = 0;
-			comboInvTransWhToLData.horizontalSpan = 3;
-			comboInvTransWhToLData.verticalSpan = 1;
-			comboInvTransWhToLData.grabExcessHorizontalSpace = false;
-			comboInvTransWhToLData.grabExcessVerticalSpace = false;
-			comboInvTransWhTo.setLayoutData(comboInvTransWhToLData);
-	
-			GridData lblInvTransWhAmountLData = new GridData();
-			lblInvTransWhAmountLData.verticalAlignment = GridData.CENTER;
-			lblInvTransWhAmountLData.horizontalAlignment = GridData.BEGINNING;
-			lblInvTransWhAmountLData.widthHint = -1;
-			lblInvTransWhAmountLData.heightHint = -1;
-			lblInvTransWhAmountLData.horizontalIndent = 0;
-			lblInvTransWhAmountLData.horizontalSpan = 1;
-			lblInvTransWhAmountLData.verticalSpan = 1;
-			lblInvTransWhAmountLData.grabExcessHorizontalSpace = false;
-			lblInvTransWhAmountLData.grabExcessVerticalSpace = false;
-			lblInvTransWhAmount.setLayoutData(lblInvTransWhAmountLData);
-			lblInvTransWhAmount.setText("Amount");
-	
-			GridData txtNumInvTransWhAmountLData = new GridData();
-			txtNumInvTransWhAmountLData.verticalAlignment = GridData.CENTER;
-			txtNumInvTransWhAmountLData.horizontalAlignment = GridData.BEGINNING;
-			txtNumInvTransWhAmountLData.widthHint = -1;
-			txtNumInvTransWhAmountLData.heightHint = -1;
-			txtNumInvTransWhAmountLData.horizontalIndent = 0;
-			txtNumInvTransWhAmountLData.horizontalSpan = 1;
-			txtNumInvTransWhAmountLData.verticalSpan = 1;
-			txtNumInvTransWhAmountLData.grabExcessHorizontalSpace = false;
-			txtNumInvTransWhAmountLData.grabExcessVerticalSpace = false;
-			txtNumInvTransWhAmount.setLayoutData(txtNumInvTransWhAmountLData);
-	
-			GridData lblInvTransWareUnitLData = new GridData();
-			lblInvTransWareUnitLData.verticalAlignment = GridData.CENTER;
-			lblInvTransWareUnitLData.horizontalAlignment = GridData.BEGINNING;
-			lblInvTransWareUnitLData.widthHint = -1;
-			lblInvTransWareUnitLData.heightHint = -1;
-			lblInvTransWareUnitLData.horizontalIndent = 0;
-			lblInvTransWareUnitLData.horizontalSpan = 1;
-			lblInvTransWareUnitLData.verticalSpan = 1;
-			lblInvTransWareUnitLData.grabExcessHorizontalSpace = false;
-			lblInvTransWareUnitLData.grabExcessVerticalSpace = false;
-			lblInvTransWareUnit.setLayoutData(lblInvTransWareUnitLData);
-			lblInvTransWareUnit.setText("Unit");
-	
-			GridData comboInvTransWhUnitLData = new GridData();
-			comboInvTransWhUnitLData.verticalAlignment = GridData.CENTER;
-			comboInvTransWhUnitLData.horizontalAlignment = GridData.BEGINNING;
-			comboInvTransWhUnitLData.widthHint = 64;
-			comboInvTransWhUnitLData.heightHint = 16;
-			comboInvTransWhUnitLData.horizontalIndent = 0;
-			comboInvTransWhUnitLData.horizontalSpan = 1;
-			comboInvTransWhUnitLData.verticalSpan = 1;
-			comboInvTransWhUnitLData.grabExcessHorizontalSpace = false;
-			comboInvTransWhUnitLData.grabExcessVerticalSpace = false;
-			comboInvTransWhUnit.setLayoutData(comboInvTransWhUnitLData);
-			comboInvTransWhUnit.setSize(new org.eclipse.swt.graphics.Point(64,16));
-			GridLayout compInvTransWareLayout = new GridLayout(4, true);
-			compInvTransWare.setLayout(compInvTransWareLayout);
-			compInvTransWareLayout.marginWidth = 5;
-			compInvTransWareLayout.marginHeight = 5;
-			compInvTransWareLayout.numColumns = 4;
-			compInvTransWareLayout.makeColumnsEqualWidth = true;
-			compInvTransWareLayout.horizontalSpacing = 5;
-			compInvTransWareLayout.verticalSpacing = 5;
-			compInvTransWare.layout();
-			FillLayout thisLayout = new FillLayout(256);
 			lblWarehouseName = new CLabel(this,SWT.NULL);
 			txtWarehouseName = new Text(this,SWT.NULL);
 			lblWarehouseAdres = new CLabel(this,SWT.NULL);
@@ -221,11 +71,29 @@ public class InvUIWarehouseAdd extends SecureComposite {
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(593,343));
 	
+			GridData lblWarehouseNameLData = new GridData();
+			lblWarehouseNameLData.verticalAlignment = GridData.CENTER;
+			lblWarehouseNameLData.horizontalAlignment = GridData.BEGINNING;
+			lblWarehouseNameLData.widthHint = -1;
+			lblWarehouseNameLData.heightHint = -1;
+			lblWarehouseNameLData.horizontalIndent = 0;
+			lblWarehouseNameLData.horizontalSpan = 1;
+			lblWarehouseNameLData.verticalSpan = 1;
+			lblWarehouseNameLData.grabExcessHorizontalSpace = false;
+			lblWarehouseNameLData.grabExcessVerticalSpace = false;
+			lblWarehouseName.setLayoutData(lblWarehouseNameLData);
 			lblWarehouseName.setText("Warehouse Name");
 	
 			GridData txtWarehouseNameLData = new GridData();
+			txtWarehouseNameLData.verticalAlignment = GridData.CENTER;
+			txtWarehouseNameLData.horizontalAlignment = GridData.BEGINNING;
 			txtWarehouseNameLData.widthHint = 259;
 			txtWarehouseNameLData.heightHint = 17;
+			txtWarehouseNameLData.horizontalIndent = 0;
+			txtWarehouseNameLData.horizontalSpan = 1;
+			txtWarehouseNameLData.verticalSpan = 1;
+			txtWarehouseNameLData.grabExcessHorizontalSpace = false;
+			txtWarehouseNameLData.grabExcessVerticalSpace = false;
 			txtWarehouseName.setLayoutData(txtWarehouseNameLData);
 			txtWarehouseName.setTextLimit(50);
 			txtWarehouseName.setSize(new org.eclipse.swt.graphics.Point(259,17));
@@ -244,31 +112,70 @@ public class InvUIWarehouseAdd extends SecureComposite {
 			lblWarehouseAdres.setText("Address");
 	
 			GridData txtWarehouseAdresLData = new GridData();
+			txtWarehouseAdresLData.verticalAlignment = GridData.CENTER;
+			txtWarehouseAdresLData.horizontalAlignment = GridData.BEGINNING;
 			txtWarehouseAdresLData.widthHint = 323;
 			txtWarehouseAdresLData.heightHint = 74;
+			txtWarehouseAdresLData.horizontalIndent = 0;
+			txtWarehouseAdresLData.horizontalSpan = 1;
+			txtWarehouseAdresLData.verticalSpan = 1;
+			txtWarehouseAdresLData.grabExcessHorizontalSpace = false;
+			txtWarehouseAdresLData.grabExcessVerticalSpace = false;
 			txtWarehouseAdres.setLayoutData(txtWarehouseAdresLData);
 			txtWarehouseAdres.setTextLimit(250);
 			txtWarehouseAdres.setSize(new org.eclipse.swt.graphics.Point(323,74));
 	
+			GridData lblWareHouseCityLData = new GridData();
+			lblWareHouseCityLData.verticalAlignment = GridData.CENTER;
+			lblWareHouseCityLData.horizontalAlignment = GridData.BEGINNING;
+			lblWareHouseCityLData.widthHint = -1;
+			lblWareHouseCityLData.heightHint = -1;
+			lblWareHouseCityLData.horizontalIndent = 0;
+			lblWareHouseCityLData.horizontalSpan = 1;
+			lblWareHouseCityLData.verticalSpan = 1;
+			lblWareHouseCityLData.grabExcessHorizontalSpace = false;
+			lblWareHouseCityLData.grabExcessVerticalSpace = false;
+			lblWareHouseCity.setLayoutData(lblWareHouseCityLData);
 			lblWareHouseCity.setText("City");
 	
 			GridData txtWarehouseCityLData = new GridData();
+			txtWarehouseCityLData.verticalAlignment = GridData.CENTER;
+			txtWarehouseCityLData.horizontalAlignment = GridData.BEGINNING;
 			txtWarehouseCityLData.widthHint = 153;
 			txtWarehouseCityLData.heightHint = 17;
+			txtWarehouseCityLData.horizontalIndent = 0;
+			txtWarehouseCityLData.horizontalSpan = 1;
+			txtWarehouseCityLData.verticalSpan = 1;
+			txtWarehouseCityLData.grabExcessHorizontalSpace = false;
+			txtWarehouseCityLData.grabExcessVerticalSpace = false;
 			txtWarehouseCity.setLayoutData(txtWarehouseCityLData);
 			txtWarehouseCity.setTextLimit(50);
 			txtWarehouseCity.setSize(new org.eclipse.swt.graphics.Point(153,17));
 	
 			GridData lblWarehouseTelephoneLData = new GridData();
+			lblWarehouseTelephoneLData.verticalAlignment = GridData.CENTER;
+			lblWarehouseTelephoneLData.horizontalAlignment = GridData.BEGINNING;
 			lblWarehouseTelephoneLData.widthHint = 56;
 			lblWarehouseTelephoneLData.heightHint = 19;
+			lblWarehouseTelephoneLData.horizontalIndent = 0;
+			lblWarehouseTelephoneLData.horizontalSpan = 1;
+			lblWarehouseTelephoneLData.verticalSpan = 1;
+			lblWarehouseTelephoneLData.grabExcessHorizontalSpace = false;
+			lblWarehouseTelephoneLData.grabExcessVerticalSpace = false;
 			lblWarehouseTelephone.setLayoutData(lblWarehouseTelephoneLData);
 			lblWarehouseTelephone.setText("Telephone");
 			lblWarehouseTelephone.setSize(new org.eclipse.swt.graphics.Point(56,19));
 	
 			GridData txtTelephoneLData = new GridData();
+			txtTelephoneLData.verticalAlignment = GridData.CENTER;
+			txtTelephoneLData.horizontalAlignment = GridData.BEGINNING;
 			txtTelephoneLData.widthHint = 153;
 			txtTelephoneLData.heightHint = 17;
+			txtTelephoneLData.horizontalIndent = 0;
+			txtTelephoneLData.horizontalSpan = 1;
+			txtTelephoneLData.verticalSpan = 1;
+			txtTelephoneLData.grabExcessHorizontalSpace = false;
+			txtTelephoneLData.grabExcessVerticalSpace = false;
 			txtTelephone.setLayoutData(txtTelephoneLData);
 			txtTelephone.setSize(new org.eclipse.swt.graphics.Point(153,17));
 	
@@ -286,8 +193,15 @@ public class InvUIWarehouseAdd extends SecureComposite {
 			lblDescription.setText("Description");
 	
 			GridData txtWarehouseDescriptionLData = new GridData();
+			txtWarehouseDescriptionLData.verticalAlignment = GridData.CENTER;
+			txtWarehouseDescriptionLData.horizontalAlignment = GridData.BEGINNING;
 			txtWarehouseDescriptionLData.widthHint = 347;
 			txtWarehouseDescriptionLData.heightHint = 93;
+			txtWarehouseDescriptionLData.horizontalIndent = 0;
+			txtWarehouseDescriptionLData.horizontalSpan = 1;
+			txtWarehouseDescriptionLData.verticalSpan = 1;
+			txtWarehouseDescriptionLData.grabExcessHorizontalSpace = false;
+			txtWarehouseDescriptionLData.grabExcessVerticalSpace = false;
 			txtWarehouseDescription.setLayoutData(txtWarehouseDescriptionLData);
 			txtWarehouseDescription.setTextLimit(50);
 			txtWarehouseDescription.setSize(new org.eclipse.swt.graphics.Point(347,93));
@@ -323,6 +237,8 @@ public class InvUIWarehouseAdd extends SecureComposite {
 	boolean verifyFields(){
 	  return true;
 	 
+	}
+	public void delete(){
 	}
 	
 	public void save(){

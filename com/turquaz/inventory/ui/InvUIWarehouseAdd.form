@@ -33,6 +33,7 @@
 		<SubComponents>
 			<Component class="org.eclipse.swt.custom.CLabel" name="lblWarehouseName" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -49,10 +50,14 @@
 				</Events>
 				<Properties>
 					<Property name="text" type="String" value="Warehouse Name"/>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[5, 5, 91, 19]"/>
+					</Property>
 				</Properties>
 			</Component>
 			<Component class="org.eclipse.swt.widgets.Text" name="txtWarehouseName" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -79,6 +84,7 @@
 			</Component>
 			<Component class="org.eclipse.swt.custom.CLabel" name="lblWarehouseAdres" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="1"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -95,11 +101,15 @@
 				</Events>
 				<Properties>
 					<Property name="text" type="String" value="Address"/>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[5, 39, 45, 19]"/>
+					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
 			</Component>
 			<Component class="org.eclipse.swt.widgets.Text" name="txtWarehouseAdres" style="834">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -127,6 +137,7 @@
 			</Component>
 			<Component class="org.eclipse.swt.custom.CLabel" name="lblWareHouseCity" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -143,10 +154,14 @@
 				</Events>
 				<Properties>
 					<Property name="text" type="String" value="City"/>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[5, 144, 25, 19]"/>
+					</Property>
 				</Properties>
 			</Component>
 			<Component class="org.eclipse.swt.widgets.Text" name="txtWarehouseCity" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -173,6 +188,7 @@
 			</Component>
 			<Component class="org.eclipse.swt.custom.CLabel" name="lblWarehouseTelephone" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -199,6 +215,7 @@
 			</Component>
 			<Component class="org.eclipse.swt.widgets.Text" name="txtTelephone" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -224,6 +241,7 @@
 			</Component>
 			<Component class="org.eclipse.swt.custom.CLabel" name="lblDescription" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="1"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -240,10 +258,14 @@
 				</Events>
 				<Properties>
 					<Property name="text" type="String" value="Description"/>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[5, 212, 59, 19]"/>
+					</Property>
 				</Properties>
 			</Component>
 			<Component class="org.eclipse.swt.widgets.Text" name="txtWarehouseDescription" style="834">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
