@@ -26,6 +26,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
@@ -49,8 +50,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
 
+import sun.misc.Cleaner;
+
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroups;
+import com.turquaz.current.ui.CurUICurrentCardAdd;
 
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqGroup;
@@ -111,7 +115,10 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 		
 	}
 	public void newForm(){
-		EngUIMainFrame.newForm();
+		 AdmUIGroups  curCard = new AdmUIGroups(this.getParent(),this.getStyle());
+		 CTabFolder tabfld = (CTabFolder)this.getParent();
+		 tabfld.getSelection().setControl(curCard);	 
+		 this.dispose();
 		
 	}
 	public void search(){

@@ -545,7 +545,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	public void search(){
 	}
 	public void newForm(){
-		EngUIMainFrame.newForm();
+		clearFields();
 	}
 	public void delete(){
 	}

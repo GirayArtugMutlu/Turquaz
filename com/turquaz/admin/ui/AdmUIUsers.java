@@ -51,11 +51,14 @@ import org.eclipse.swt.widgets.TableColumn;
 
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUsers;
+import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
+
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements SecureComposite,SearchComposite {
@@ -112,7 +115,10 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 		
 	}
 	public void newForm(){
-		EngUIMainFrame.newForm();
+		 AdmUIUsers  curCard = new AdmUIUsers(this.getParent(),this.getStyle());
+		 CTabFolder tabfld = (CTabFolder)this.getParent();
+		 tabfld.getSelection().setControl(curCard);	 
+		 this.dispose();
 		
 	}
 	public void search(){

@@ -550,7 +550,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	}
 	
 	public void newForm(){
-	EngUIMainFrame.newForm();
+		clearFields();
 	}
 	
 	public void search(){
