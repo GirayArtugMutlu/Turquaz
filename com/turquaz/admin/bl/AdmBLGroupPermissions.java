@@ -22,6 +22,10 @@ package com.turquaz.admin.bl;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
+/**
+* @author  Onsel Armagan
+* @version  $Id$
+*/
 import java.util.Calendar;
 import java.util.List;
 

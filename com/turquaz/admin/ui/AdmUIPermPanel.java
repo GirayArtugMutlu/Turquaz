@@ -16,6 +16,10 @@ package com.turquaz.admin.ui;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
+/**
+* @author  Onsel Armagan
+* @version  $Id$
+*/
 
 
 

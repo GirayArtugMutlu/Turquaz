@@ -1,3 +1,6 @@
+
+package com.turquaz.engine.bl;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -14,9 +17,10 @@
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
-package com.turquaz.engine.bl;
-
-
+/**
+* @author  Onsel Armagan
+* @version  $Id$
+*/
 import java.util.*;
 
 

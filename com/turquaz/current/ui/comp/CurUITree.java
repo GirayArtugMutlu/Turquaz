@@ -1,4 +1,7 @@
 
+
+package com.turquaz.current.ui.comp;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -15,8 +18,10 @@
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
-package com.turquaz.current.ui.comp;
-
+/**
+* @author  Onsel Armagan
+* @version  $Id$
+*/
 
 
 import org.eclipse.swt.widgets.*;
