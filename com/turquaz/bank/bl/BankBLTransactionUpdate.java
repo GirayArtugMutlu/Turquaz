@@ -192,7 +192,7 @@ public class BankBLTransactionUpdate {
         /**
          * Save transaction bill
          */
-        BankDALCommon.saveObject(bankTransBill);
+        BankDALCommon.updateObject(bankTransBill);
         
         /**
          * Save transaction row

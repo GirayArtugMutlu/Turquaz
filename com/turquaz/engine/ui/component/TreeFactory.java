@@ -313,7 +313,7 @@ public final class TreeFactory {
 		}
 		if(EngBLPermissions.getPermission(AccUIAccountingMonthlyBalance.class.getName())>0){
 			item = new TreeItem(actionReports,SWT.NULL);
-			item.setText(Messages.getString("TreeFactory.68")); //$NON-NLS-1$
+			item.setText(Messages.getString("TreeFactory.70"));  //$NON-NLS-1$
 			item.setData(AccUIAccountingMonthlyBalance.class.getName());
 		}
 		

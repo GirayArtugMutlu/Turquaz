@@ -235,6 +235,7 @@ public class BankUIMoneyTransferInUpdate extends org.eclipse.swt.widgets.Dialog 
 	    {
 	        ex.printStackTrace();
 	        EngUICommon.showMessageBox(getParent(),ex.getMessage().toString(),SWT.ICON_ERROR);
+	        
 	    }
 	}
 	

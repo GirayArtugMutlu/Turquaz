@@ -25,6 +25,7 @@ import java.util.Iterator;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
@@ -178,6 +179,12 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	
 	public void postInitGUI()
 	{
+	    if(cashTrans.getTurqEngineSequence().getEngineSequencesId().intValue()!= EngBLCommon.MODULE_CASH)
+	    {	    
+	     toolUpdate.setEnabled(false);
+	     tooldelete.setEnabled(false);
+	        
+	    }
 	    compTransAdd.getTxtDocumentNo().setText(cashTrans.getDocumentNo());
 	    compTransAdd.getDatePicker().setDate(cashTrans.getTransactionDate());
 	    compTransAdd.getTxtCashCard().setText(cashTrans.getTurqCashCard().getCashCardName());

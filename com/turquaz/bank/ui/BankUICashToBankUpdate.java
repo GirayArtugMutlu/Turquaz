@@ -35,20 +35,7 @@ public class BankUICashToBankUpdate extends org.eclipse.swt.widgets.Dialog {
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
 
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Dialog inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		try {
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			BankUICashFromBankUpdate inst = new BankUICashFromBankUpdate(shell, SWT.NULL);
-			inst.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	public BankUICashToBankUpdate(Shell parent, int style) {
 		super(parent, style);
@@ -110,6 +97,10 @@ public class BankUICashToBankUpdate extends org.eclipse.swt.widgets.Dialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void postInitGui(){
+	    
 	}
 	
 }

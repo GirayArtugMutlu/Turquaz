@@ -294,8 +294,8 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
    try{
       TableItem selection[] =tableMoneyTrans.getSelection();
       if(selection.length>0){
-       
-          boolean isUpdated = false;
+          
+        boolean isUpdated = false;
        TurqBanksTransactionBill transBill = BankBLTransactionUpdate.initializeTransaction((Integer)selection[0].getData()); 
        if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
        {
@@ -305,6 +305,11 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
        else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_SEND_MONEY)
        {
            isUpdated  = new BankUIMoneyTransferOutUpdate(getShell(),SWT.NULL,transBill).open();
+           
+       }
+       else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_CASH_DRAW)
+       {
+           isUpdated  = new BankUICashFromBankUpdate(getShell(),SWT.NULL,transBill).open();
            
        }
        

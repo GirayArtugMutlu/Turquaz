@@ -71,9 +71,9 @@ public class EngBLCommon {
     
     public final static int BANK_TRANS_SEND_MONEY =2;    // Giden havale
     
-    public final static int BANK_TRANS_CASH_DRAW =3; // Para Çekme
+    public final static int BANK_TRANS_CASH_DRAW =4; // Para Çekme
     
-    public final static int BANK_TRANS_CASH_DEPOSIT =4; //Para yatirma 
+    public final static int BANK_TRANS_CASH_DEPOSIT =3; //Para yatirma 
     
     
     
