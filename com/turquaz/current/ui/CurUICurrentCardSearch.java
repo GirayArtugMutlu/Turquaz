@@ -385,7 +385,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 			tableCurrentCardSearch.removeAll();
 			List listCurrentCards=curBLCurrentCardSearch.searchCurrentCard(txtCurrentCode.getText().trim(),
 																		txtCurrentName.getText().trim(),(TurqCurrentGroup)comboTurqGroupName.getData(comboTurqGroupName.getText()));
-			TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
+			TurkishCurrencyFormat cf=new TurkishCurrencyFormat(2);
 			for(int k=0; k<listCurrentCards.size(); k++){
 				TurqCurrentCard aCurrentCard=(TurqCurrentCard)((Object[])listCurrentCards.get(k))[1];
 				TurqViewCurrentAmountTotal currentView=(TurqViewCurrentAmountTotal)((Object[])listCurrentCards.get(k))[0];

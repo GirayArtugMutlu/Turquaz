@@ -342,7 +342,7 @@ public class AccUITransactionCollect extends Composite implements
 		editors[0] = new AccountingCellEditor(tableTransactionRows);
 		editors[1] = new TextCellEditor(tableTransactionRows);
 		editors[2] = new TextCellEditor(tableTransactionRows);
-		editors[3] = new CurrencyCellEditor(tableTransactionRows);
+		editors[3] = new CurrencyCellEditor(tableTransactionRows,2);
 
 		// Assign the cell editors to the viewer
 		tableViewer.setCellEditors(editors);

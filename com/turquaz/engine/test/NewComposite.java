@@ -404,13 +404,13 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
        editors[3] = new TextCellEditor(table);
        editors[4] = new NumericCellEditor(table);
        editors[5] = new TextCellEditor(table);
-       editors[6] = new CurrencyCellEditor(table);
-       editors[7] = new CurrencyCellEditor(table);
+       editors[6] = new CurrencyCellEditor(table,2);
+       editors[7] = new CurrencyCellEditor(table,2);
        editors[8] = new NumericCellEditor(table);
-       editors[9] = new CurrencyCellEditor(table);
+       editors[9] = new CurrencyCellEditor(table,2);
        editors[10] = new NumericCellEditor(table);
-       editors[11] = new CurrencyCellEditor(table);
-       editors[12] = new CurrencyCellEditor(table);
+       editors[11] = new CurrencyCellEditor(table,2);
+       editors[12] = new CurrencyCellEditor(table,2);
     
        // Assign the cell editors to the viewer 
 		tableViewer.setCellEditors(editors);

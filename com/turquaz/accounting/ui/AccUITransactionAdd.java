@@ -386,8 +386,8 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	       editors[0] = new AccountingCellEditor(tableTransactionColumns);
 	       editors[1] = new TextCellEditor(tableTransactionColumns);
 	       editors[2] = new TextCellEditor(tableTransactionColumns);
-	       editors[3] = new CurrencyCellEditor(tableTransactionColumns);
-	       editors[4] = new CurrencyCellEditor(tableTransactionColumns);
+	       editors[3] = new CurrencyCellEditor(tableTransactionColumns,2);
+	       editors[4] = new CurrencyCellEditor(tableTransactionColumns,2);
 	    
 	       // Assign the cell editors to the viewer 
 			tableViewer.setCellEditors(editors);

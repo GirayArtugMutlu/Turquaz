@@ -514,7 +514,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	}
 	
 	
-	
+	TurkishCurrencyFormat format = new TurkishCurrencyFormat();
 	
 	item.setText(new String[]{invCode,
 							  invName,
@@ -522,8 +522,8 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 							  totalAmountOut.toString(),
 							  balanceAmountIn.toString(),
 							  balanceAmountOut.toString(),
-							  TurkishCurrencyFormat.formatBD(totalPriceIn),
-							  TurkishCurrencyFormat.formatBD(totalPriceOut)
+							  format.format(totalPriceIn),
+							  format.format(totalPriceOut)
 							  });
 	
 	

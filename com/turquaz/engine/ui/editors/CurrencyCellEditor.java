@@ -21,10 +21,13 @@ import com.turquaz.engine.ui.component.TurquazDecimalFormat;
 public class CurrencyCellEditor extends TextCellEditor{
     VerifyListener listener;
     Text text;
-    public CurrencyCellEditor(Composite parent) {
-		super(parent,SWT.RIGHT);
-		
-	}
+    int numberOfDecimal =2;
+    public CurrencyCellEditor(Composite parent,int numOfDec) {
+	
+        super(parent,SWT.RIGHT);
+		numberOfDecimal = numOfDec;		
+	
+    }
   
     protected void doSetValue(Object object) {
 		// Workaround for 32926
@@ -68,17 +71,11 @@ public class CurrencyCellEditor extends TextCellEditor{
 	}
 
 	protected void text3VerifyText(VerifyEvent e){
-		char decimalSymbol ='.';
-	 	int numberOfDecimals =2;
-	    String textcontrol = text.getText();
+	    char decimalSymbol ='.';
+	 	Text control = (Text)e.widget;
+	    String textcontrol = control.getText();
 	    e.doit = false;
-	    String newText="";
-	    try{
-	    newText = textcontrol.substring(0, e.start) + e.text + textcontrol.substring(e.end);
-	    }
-	    catch(Exception ex){
-	        return;
-	    }
+	    String newText = textcontrol.substring(0, e.start) + e.text + textcontrol.substring(e.end);
 	    String tempnewText=newText.replaceAll("\\.","");
 	    if (tempnewText.equals("") && !tempnewText.equals(newText))
 	    {
@@ -91,13 +88,13 @@ public class CurrencyCellEditor extends TextCellEditor{
 	   int maxdecimaldigit=15;
 	   int indexof=newText.indexOf(".");
 	   if (indexof==-1){
-	   	if (newText.length() > maxdecimaldigit)
-	   		return;
+	   		if (newText.length() > maxdecimaldigit)
+	   			return;
 	   }
 	   else
 	   {
-	   	if (newText.substring(0,indexof).length() > maxdecimaldigit)
-	   		return;
+	   		if (newText.substring(0,indexof).length() > maxdecimaldigit)
+	   			return;
 	   }
 	  
 	    
@@ -105,7 +102,7 @@ public class CurrencyCellEditor extends TextCellEditor{
 	     e.doit=true;
 	     return;
 	    }
-	    Pattern realNumberPattern = Pattern.compile("-?[0-9]+[0-9]*(([" +decimalSymbol + "][0-9]?[0-9]?)|(["+decimalSymbol+"]))?");
+	    Pattern realNumberPattern = Pattern.compile("-?[0-9]+[0-9]*([" +decimalSymbol + "][0-9]{0,"+numberOfDecimal+"})?");
 	    Matcher matcher = realNumberPattern.matcher(newText);
 	    boolean valid = matcher.matches();
 	    
@@ -113,39 +110,24 @@ public class CurrencyCellEditor extends TextCellEditor{
 	    if (valid){
 	    	text.removeVerifyListener(listener);
 	    	boolean isLastSeperator=(newText.toCharArray()[newText.length()-1]==decimalSymbol) ? true : false;
-	    	int indexPoint=newText.indexOf(".");
-	    	boolean isLastZero=false;
-	    	boolean addSeperator=false;
-	    	boolean addSecondZero=false;
+	    	String formatted="";
+	    	TurquazDecimalFormat tdf=new TurquazDecimalFormat();
+	    	String tempText=newText.replaceAll("\\.",",");
+	        int indexPoint=tempText.indexOf(",");
 	    	if (indexPoint > 0)
 	    	{
-	    		isLastZero=(newText.toCharArray()[newText.length()-1]=='0') ? true : false;
-	    		if (isLastZero)
-	    		{
-	    			if (newText.toCharArray()[newText.length()-2]=='0') 
-	    			{
-	    				addSeperator=true;
-	    				addSecondZero=true;
-	    			}
-	    			else
-	    				addSeperator=(indexPoint==newText.length()-2) ? true : false;
-	    		}
+	    		BigDecimal bd=new BigDecimal(tempText.substring(0,indexPoint));        	
+	        	formatted=tdf.format(bd);
+	        	formatted += tempText.substring(indexPoint);
 	    	}
-	    	BigDecimal bd=new BigDecimal(newText);
-	    	TurquazDecimalFormat tdf=new TurquazDecimalFormat();
-	    	String formatted=tdf.format(bd);
-	    	if (isLastSeperator)
-	    		formatted +=",";
-	    	if (addSeperator)
-	    		formatted+=",";
-	    	if (isLastZero)
-	    		formatted +="0";
-	    	if (addSecondZero)
-	    		formatted +="0";
-	    
-	    	text.setText(formatted);
-	    	
+	    	else
+	    	{
+	    		BigDecimal bd=new BigDecimal(tempText);
+	    		formatted=tdf.format(bd);
+	    	}
+
 	    	String s=textcontrol.substring(0,e.start)+e.text;
+	    	int sepIndex=s.indexOf(",");
 	        s=s.replaceAll("\\.","");
 	        s=s.replaceAll(",",".");
 	    	int index=newText.indexOf(".");
@@ -160,12 +142,54 @@ public class CurrencyCellEditor extends TextCellEditor{
 	    	}
 	    	else
 	    	{
-	    		newText=newText.substring(0,index-1);
+	    		newText=newText.substring(0,index);
 	    		int count=newText.length()/3;
 	    		int count2=(newText.length()-s.length())/3;
 	    		diff=count-count2;
 	    	}
-	    	int offset=s.length()+diff;
+	    	
+	    	int offset;
+	    	if (sepIndex!=-1 && sepIndex < e.start)
+	    		offset=e.start+e.text.length();
+	    	else
+	    		offset=s.length()+diff;
+	    	if (SWT.getPlatform().equals("gtk"))
+	    	{
+	    		/*
+	    		text.setText("");
+	    		String toSetEvent="";
+	    		String toSetBox="";
+	    		if (formatted.length() > offset)
+	    		{
+	    			toSetEvent=formatted.substring(0,offset);
+	    			toSetBox=formatted.substring(offset);
+	    			//System.out.println(toSetEvent);
+	    			//System.out.println(toSetBox);
+	    		}
+	    		else
+	    		{
+	    			toSetEvent=formatted;
+	    		}
+	    		e.text=toSetEvent;
+	    		text.setText(toSetBox);
+	    		//System.out.println(text.getText());
+	    		e.start=-1;
+	    		e.end=-1;
+	    		e.doit=true;
+	    		//System.out.println(text.getText());*/
+	    		
+	    		
+	    		text.setText("");
+	    		e.text=formatted;
+	    		e.doit=true;
+	    		
+	    		
+	    		text.addVerifyListener(listener);
+	    		
+	    		return;
+	    		
+	    	}
+	    	text.setText(formatted);
 	    	text.setSelection(offset);
 	    	text.addVerifyListener(listener);
 	    }

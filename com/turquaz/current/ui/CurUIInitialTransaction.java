@@ -197,8 +197,8 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite {
 		//     Create the cell editors
 		CellEditor[] editors = new CellEditor[columnNames.length];
 		editors[0] = new TextCellEditor(tableInitialTrans);
-		editors[1] = new CurrencyCellEditor(tableInitialTrans);
-		editors[2] = new CurrencyCellEditor(tableInitialTrans);
+		editors[1] = new CurrencyCellEditor(tableInitialTrans,2);
+		editors[2] = new CurrencyCellEditor(tableInitialTrans,2);
 		
 		TurquazContentProvider contentProvider = new TurquazContentProvider(
 				tableViewer, rowList);

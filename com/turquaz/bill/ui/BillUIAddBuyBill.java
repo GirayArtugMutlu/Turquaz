@@ -1093,14 +1093,14 @@ public class BillUIAddBuyBill extends Composite
 	     
 	       editors[4] = new NumericCellEditor(tableConsignmentRows);
 	       editors[5] = new TextCellEditor(tableConsignmentRows);
-	       editors[6] = new CurrencyCellEditor(tableConsignmentRows);
-	       editors[7] = new CurrencyCellEditor(tableConsignmentRows);
+	       editors[6] = new CurrencyCellEditor(tableConsignmentRows,2);
+	       editors[7] = new CurrencyCellEditor(tableConsignmentRows,2);
 	       editors[8] = new NumericCellEditor(tableConsignmentRows);
 	       editors[9] = new NumericCellEditor(tableConsignmentRows);
-	       editors[10] = new CurrencyCellEditor(tableConsignmentRows);
-	       editors[11] = new CurrencyCellEditor(tableConsignmentRows);
-	       editors[12] = new CurrencyCellEditor(tableConsignmentRows);
-	       editors[13] = new CurrencyCellEditor(tableConsignmentRows);
+	       editors[10] = new CurrencyCellEditor(tableConsignmentRows,2);
+	       editors[11] = new CurrencyCellEditor(tableConsignmentRows,4);
+	       editors[12] = new CurrencyCellEditor(tableConsignmentRows,2);
+	       editors[13] = new CurrencyCellEditor(tableConsignmentRows,2);
 	    
 	       // Assign the cell editors to the viewer 
 			tableViewer.setCellEditors(editors);
