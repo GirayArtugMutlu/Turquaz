@@ -1,6 +1,8 @@
 package com.turquaz.consignment.ui;
 
 
+import java.util.List;
+
 import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.widgets.Composite;
@@ -19,6 +21,7 @@ import org.eclipse.swt.custom.CTabItem;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.consignment.bl.ConBLAddGroups;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -92,6 +95,7 @@ implements SecureComposite{
 	private TableColumn tableColumnUnit;
 	private Button buttonConsignmentRemove;
 	private Table tableConsignmentRows;
+	ConBLAddGroups blAddGroup = new ConBLAddGroups();
 
 	
 	public ConUIAddConsignment(org.eclipse.swt.widgets.Composite parent, int style) {
@@ -216,11 +220,9 @@ implements SecureComposite{
 									compInfoPanel,
 									SWT.EMBEDDED);
 								GridData dateConsignmentDateLData = new GridData();
-								dateConsignmentDate.setSize(113, 15);
 								dateConsignmentDateLData.widthHint = 113;
-								dateConsignmentDateLData.heightHint = 15;
-								dateConsignmentDate
-									.setLayoutData(dateConsignmentDateLData);
+								dateConsignmentDateLData.heightHint = 17;
+								dateConsignmentDate.setLayoutData(dateConsignmentDateLData);
 							}
 							{
 								lblType = new CLabel(compInfoPanel, SWT.NONE);
@@ -517,6 +519,22 @@ implements SecureComposite{
 			e.printStackTrace();
 		}
 	}
+	public void postInitGui(){
+		try{
+			
+		List ls = blAddGroup.getConsignmentGroups();
+		
+		
+		
+		}
+		catch(Exception ex){
+		
+			ex.printStackTrace();
+		}
+	}
+	
+	
+	
 	public void btnChooseMouseUp(){
 		Object data = new CurUICurrentCardSearchDialog(this.getShell(),SWT.NULL).open();
 	    if(data!=null){
@@ -528,6 +546,7 @@ implements SecureComposite{
 		txtDiscountRate.setText(curCard.getCardsDiscountRate().intValue());
 	    }
 	}
+	
 	public void save(){
 		
 	}

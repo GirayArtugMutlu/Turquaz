@@ -32,6 +32,7 @@ import com.turquaz.accounting.ui.AccUITransactionCollect;
 import com.turquaz.accounting.ui.AccUITransactionPayment;
 import com.turquaz.accounting.ui.AccUITransactionSearch;
 import com.turquaz.accounting.ui.reports.AccUIAccountingBalance;
+import com.turquaz.accounting.ui.reports.AccUIAccountingGeneralLedger;
 import com.turquaz.accounting.ui.reports.AccUIAccountingJournal;
 import com.turquaz.admin.ui.AdmUIGroupAdd;
 import com.turquaz.admin.ui.AdmUIGroupPermissions;
@@ -126,6 +127,9 @@ public final class TreeFactory {
 		item = new TreeItem(report,SWT.NULL);
 		item.setText(Messages.getString("TreeFactory.29")); //$NON-NLS-1$
 		item.setData(AccUIAccountingBalance.class.getName());
+		item = new TreeItem(report,SWT.NULL);
+		item.setText(Messages.getString("Defter-i Kebir")); //$NON-NLS-1$
+		item.setData(AccUIAccountingGeneralLedger.class.getName());
 		
 		
 		return tree;
