@@ -19,9 +19,8 @@ public class InvDALProfitAnalysis {
         try{
            
             Session session = EngDALSessionFactory.openSession();
-            String query = "select invCard,totalsIn,totalsOut from  TurqInventoryCard as invCard " +
-            		"left outer join TurqViewInventoryTotalsOut as totalsOut on invCard.inventoryCardsId = totalsOut.inventoryCardsId " +
-            		"left outer join TurqViewInventoryTotalsIn as totalsIn on invCard.inventoryCardsId = totalsIn.inventoryCardsId ";
+            String query = "select invCard, invTotal from TurqInventoryCard as invCard, TurqViewInventoryTotal as invTotal" +
+            		" where invCard.inventoryCardsId = invTotal.inventoryCardsId";
 
             
             Query q = session.createQuery(query);
