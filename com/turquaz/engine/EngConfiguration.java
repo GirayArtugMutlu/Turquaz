@@ -23,6 +23,8 @@ package com.turquaz.engine;
 */
 import java.io.FileInputStream;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Properties;
 
 
@@ -30,13 +32,15 @@ public class EngConfiguration {
 	private static final String filename = "config/turquaz.properties";//$NON-NLS-1$
     private Properties props ;
     public static String logoURL ="";
+    public Date currentDate;
 	
 
 	private static EngConfiguration _instance;
 	private EngConfiguration() {
 	    try{
-	        
-      FileInputStream fis = new FileInputStream(filename);
+	    
+	   currentDate  = Calendar.getInstance().getTime();    
+       FileInputStream fis = new FileInputStream(filename);
 	   props = new Properties();
 	   props.load(fis);
 	   logoURL=props.getProperty("logoURL");
@@ -67,6 +71,24 @@ public class EngConfiguration {
 		}
 	    return props.getProperty(Key);
 	    
+	}
+	public static Date getCurrentDate()
+	{
+	    if(_instance==null){
+		    _instance = new EngConfiguration();
+		}
+	    
+	    return _instance.currentDate;
+	    
+	}
+	public static void setCurrentDate(Date d)
+	{
+	   
+	    if(_instance==null){
+		    _instance = new EngConfiguration();
+		}
+	    
+	  _instance.currentDate = d;;
 	}
 	
 }

@@ -37,8 +37,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.graphics.DeviceData;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
@@ -75,6 +73,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -90,6 +89,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	}
 
 	private CLabel lblUserName;
+	private DatePicker datePicker;
+	private CLabel lblWorkingDate;
 	private Text txtUserName;
 	private CCombo comboLanguage;
 	private CLabel lblLanguage;
@@ -151,7 +152,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			String database = EngConfiguration.getString("serverAddress"); //$NON-NLS-1$
 			database = database.trim();
 			
-			if (database ==null||database.equals("") || database.equals("localhost") || database.equals("127.0.0.1"))
+			if (database ==null||database.equals("") || database.equals("localhost") || database.equals("127.0.0.1")) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			{
 		    DatabaseThread dbThread = new DatabaseThread();
 		    dbThread.start();
@@ -169,7 +170,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
 			thisLayout.marginHeight = 20;
-			this.setSize(376, 178);
+			this.setSize(385, 202);
 			{
 				lblUserName = new CLabel(this, SWT.NONE);
 				lblUserName.setText(Messages.getString("EngUIEntryFrame.1")); //$NON-NLS-1$
@@ -242,6 +243,17 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 				comboLanguageLData.heightHint = 16;
 				comboLanguage.setLayoutData(comboLanguageLData);
 			}
+            {
+                lblWorkingDate = new CLabel(this, SWT.NONE);
+                lblWorkingDate.setText(Messages.getString("EngUIEntryFrame.10")); //$NON-NLS-1$
+            }
+            {
+                datePicker = new DatePicker(this, SWT.NONE);
+                GridData datePickerLData = new GridData();
+                datePickerLData.widthHint = 123;
+                datePickerLData.heightHint = 19;
+                datePicker.setLayoutData(datePickerLData);
+            }
 			
 
 			{
@@ -343,7 +355,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		/** Shell containing the splash */
 		shell = new Shell(getShell(), SWT.ON_TOP);
 		Label label = new Label(shell, SWT.NONE);
-		label.setImage(SWTResourceManager.getImage("icons/splash.gif"));
+		label.setImage(SWTResourceManager.getImage("icons/splash.gif")); //$NON-NLS-1$
 		
 		label.addDisposeListener(new DisposeListener(){
 		    
@@ -367,7 +379,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		shell.pack();
 
 		/** Problem on Linux: Shell is shown in Taskbar, so set title */
-		shell.setText("Turquaz");
+		shell.setText("Turquaz"); //$NON-NLS-1$
 
 		/** Center the splashscreen */
 	    EngUICommon.centreWindow(shell);
@@ -451,7 +463,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		try{
 		if(blCommon.checkUserPass(txtUserName.getText(),txtPassword.getText())){
 			
-		 
+		     EngConfiguration.setCurrentDate(datePicker.getDate());
 			showSplashScreen();
 			
 			

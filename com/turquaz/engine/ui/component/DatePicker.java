@@ -21,6 +21,7 @@ package com.turquaz.engine.ui.component;
 * @version  $Id$
 */
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.engine.EngConfiguration;
 
 
 import java.text.ParseException;
@@ -158,7 +159,8 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
 	
-		setDate(calendar.getTime());
+		setDate(EngConfiguration.getCurrentDate());
+		
 	}
 	
 	public Date getDate(){
