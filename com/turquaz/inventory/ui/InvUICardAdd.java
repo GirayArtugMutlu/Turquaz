@@ -570,16 +570,16 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					btnUpdateUnits = new Button(compInvCardUnit, SWT.PUSH
 						| SWT.CENTER);
 					GridData btnUpdateUnitsLData = new GridData();
-					btnUpdateUnitsLData.horizontalSpan = 2;
-					btnUpdateUnitsLData.widthHint = 128;
-					btnUpdateUnitsLData.heightHint = 29;
-					btnUpdateUnits.setLayoutData(btnUpdateUnitsLData);
-					btnUpdateUnits.setText(Messages.getString("InvUICardAdd.18")); //$NON-NLS-1$
 					btnUpdateUnits.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
 							btnUpdateUnitsMouseUp(evt);
 						}
 					});
+					btnUpdateUnitsLData.horizontalSpan = 2;
+					btnUpdateUnitsLData.widthHint = 128;
+					btnUpdateUnitsLData.heightHint = 29;
+					btnUpdateUnits.setLayoutData(btnUpdateUnitsLData);
+					btnUpdateUnits.setText(Messages.getString("InvUICardAdd.18")); //$NON-NLS-1$
 				}
 				{
 					lblInvCardSecondaryUnits = new CLabel(
@@ -660,17 +660,17 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								compInvCardAddUnitsButtons,
 								SWT.PUSH | SWT.CENTER);
 							GridData btnRegisterInvUnitLData = new GridData();
+							btnRegisterInvUnit
+								.addMouseListener(new MouseAdapter() {
+								public void mouseUp(MouseEvent evt) {
+									btnRegisterInvUnitMouseUp(evt);
+								}
+								});
 							btnRegisterInvUnitLData.horizontalAlignment = GridData.CENTER;
 							btnRegisterInvUnitLData.widthHint = 41;
 							btnRegisterInvUnitLData.heightHint = 30;
 							btnRegisterInvUnit.setLayoutData(btnRegisterInvUnitLData);
 							btnRegisterInvUnit.setText(">>"); //$NON-NLS-1$
-							btnRegisterInvUnit
-								.addMouseListener(new MouseAdapter() {
-									public void mouseUp(MouseEvent evt) {
-										btnRegisterInvUnitMouseUp(evt);
-									}
-								});
 						}
 						{
 							btnRemoveRegisteredInvUnit = new Button(
@@ -1050,6 +1050,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								compInvCardAddGroupsButtons,
 								SWT.PUSH | SWT.CENTER);
 							GridData btnInvCardAddNewLData = new GridData();
+							btnInvCardAddNew
+								.addMouseListener(new MouseAdapter() {
+								public void mouseUp(MouseEvent evt) {
+									btnInvCardAddNewMouseUp(evt);
+								}
+								});
 							btnInvCardAddNewLData.widthHint = 129;
 							btnInvCardAddNewLData.heightHint = 41;
 							btnInvCardAddNewLData.horizontalSpan = 2;
@@ -1061,12 +1067,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								.setSize(new org.eclipse.swt.graphics.Point(
 									129,
 									41));
-							btnInvCardAddNew
-								.addMouseListener(new MouseAdapter() {
-									public void mouseUp(MouseEvent evt) {
-										btnInvCardAddNewMouseUp(evt);
-									}
-								});
 						}
 						compInvCardAddGroupsButtons.layout();
 					}
@@ -1758,6 +1758,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			MessageBox box = new MessageBox(this.getShell());
 			box.setMessage(Messages.getString("InvUICardAdd.32")); //$NON-NLS-1$
 			box.open();
+			comboInvCardUnits.setFocus();
+			
 		}
 
 	}

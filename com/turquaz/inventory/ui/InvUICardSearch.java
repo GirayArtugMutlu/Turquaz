@@ -54,6 +54,8 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
 
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -139,6 +141,12 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 					{
 						txtInvCode = new Text(compInvCardSearchPanel, SWT.NONE);
 						GridData txtInvCodeLData = new GridData();
+						txtInvCode.addKeyListener(new KeyAdapter() {
+							public void keyReleased(KeyEvent evt) {
+								if(evt.keyCode==SWT.CR)
+									search();
+							}
+						});
 						txtInvCodeLData.widthHint = 141;
 						txtInvCodeLData.heightHint = 17;
 						txtInvCode.setLayoutData(txtInvCodeLData);
@@ -162,6 +170,12 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 							168,
 							16));
 						GridData txtInvNameLData = new GridData();
+						txtInvName.addKeyListener(new KeyAdapter() {
+							public void keyReleased(KeyEvent evt) {
+								if (evt.keyCode==SWT.CR)
+									search();
+							}
+						});
 						txtInvNameLData.widthHint = 162;
 						txtInvNameLData.heightHint = 16;
 						txtInvName.setLayoutData(txtInvNameLData);
@@ -183,6 +197,12 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 						comboInvGroup
 							.setSize(new org.eclipse.swt.graphics.Point(119, 16));
 						GridData comboInvGroupLData = new GridData();
+						comboInvGroup.addKeyListener(new KeyAdapter() {
+							public void keyReleased(KeyEvent evt) {
+								if (evt.keyCode==SWT.CR)
+									search();
+							}
+						});
 						comboInvGroupLData.widthHint = 97;
 						comboInvGroupLData.heightHint = 16;
 						comboInvGroup.setLayoutData(comboInvGroupLData);
@@ -285,7 +305,6 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 	tableSearcResults.removeAll();
 	InvBLCardSearch cardSearch = new InvBLCardSearch();
 	List result;
-	this.txtInvName.setFocus();
 	try{
 	if(comboInvGroup.getSelectionIndex()==-1){
 	result = cardSearch.searchCards(txtInvName.getText().trim(),txtInvCode.getText().trim(),null);

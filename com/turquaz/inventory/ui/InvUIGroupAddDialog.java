@@ -57,6 +57,8 @@ import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.cloudgarden.resource.SWTResourceManager;
 
 
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -151,6 +153,12 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			lblGroupName.setSize(new org.eclipse.swt.graphics.Point(56,20));
 	
 			GridData txtGroupNameLData = new GridData();
+			txtGroupName.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if (evt.keyCode==SWT.CR)
+						btnGroupAddMouseUp();
+				}
+			});
 			txtGroupNameLData.widthHint = 112;
 			txtGroupNameLData.heightHint = 15;
 			txtGroupNameLData.horizontalSpan = 2;
@@ -211,6 +219,11 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			});
 	
 			GridData btnGroupAddLData = new GridData();
+			btnGroupAdd.addMouseListener(new MouseAdapter() {
+				public void mouseUp(MouseEvent evt) {
+					btnGroupAddMouseUp();
+				}
+			});
 			btnGroupAddLData.verticalAlignment = GridData.CENTER;
 			btnGroupAddLData.horizontalAlignment = GridData.BEGINNING;
 			btnGroupAddLData.widthHint = -1;
@@ -222,11 +235,6 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			btnGroupAddLData.grabExcessVerticalSpace = false;
 			btnGroupAdd.setLayoutData(btnGroupAddLData);
 			btnGroupAdd.setText(Messages.getString("InvUIGroupAddDialog.4")); //$NON-NLS-1$
-			btnGroupAdd.addMouseListener(new MouseAdapter() {
-				public void mouseUp(MouseEvent evt) {
-					btnGroupAddMouseUp(evt);
-				}
-			});
 			GridLayout compGroupAddDialogLayout = new GridLayout(3, true);
 			compGroupAddDialog.setLayout(compGroupAddDialogLayout);
 			compGroupAddDialogLayout.marginWidth = 5;
@@ -338,7 +346,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 	
 
 	/** Auto-generated event handler method */
-	protected void btnGroupAddMouseUp(MouseEvent evt){
+	protected void btnGroupAddMouseUp(){
 		MessageBox msg = new MessageBox(this.getParent());
 		try{
 		

@@ -51,6 +51,8 @@ import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.custom.CCombo;
 
 
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -140,6 +142,12 @@ public class BankUIBankCardSearch extends  Composite implements SecureComposite,
 			lblBankName.setText(Messages.getString("BankUIBankCardSearch.0")); //$NON-NLS-1$
 	
 			GridData txtBankNameLData = new GridData();
+			txtBankName.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if (evt.keyCode==SWT.CR)
+						search();
+				}
+			});
 			txtBankNameLData.verticalAlignment = GridData.CENTER;
 			txtBankNameLData.horizontalAlignment = GridData.BEGINNING;
 			txtBankNameLData.widthHint = 254;
@@ -166,6 +174,12 @@ public class BankUIBankCardSearch extends  Composite implements SecureComposite,
 			lblBankBranchName.setText(Messages.getString("BankUIBankCardSearch.1")); //$NON-NLS-1$
 	
 			GridData txtBankBranchNameLData = new GridData();
+			txtBankBranchName.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if (evt.keyCode == SWT.CR)
+						search();
+				}
+			});
 			txtBankBranchNameLData.verticalAlignment = GridData.CENTER;
 			txtBankBranchNameLData.horizontalAlignment = GridData.BEGINNING;
 			txtBankBranchNameLData.widthHint = 254;
@@ -192,6 +206,12 @@ public class BankUIBankCardSearch extends  Composite implements SecureComposite,
 			lblBankAccountNo.setText(Messages.getString("BankUIBankCardSearch.2")); //$NON-NLS-1$
 	
 			GridData txtBankAccountNoLData = new GridData();
+			txtBankAccountNo.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if (evt.keyCode==SWT.CR)
+						search();
+				}
+			});
 			txtBankAccountNoLData.verticalAlignment = GridData.CENTER;
 			txtBankAccountNoLData.horizontalAlignment = GridData.BEGINNING;
 			txtBankAccountNoLData.widthHint = 254;
@@ -218,8 +238,8 @@ public class BankUIBankCardSearch extends  Composite implements SecureComposite,
 			lblCurrency.setText(Messages.getString("BankUIBankCardSearch.3")); //$NON-NLS-1$
 	
 			GridData comboCurrencyLData = new GridData();
-			comboCurrencyLData.widthHint = 34;
-			comboCurrencyLData.heightHint = 30;
+			comboCurrencyLData.widthHint = 67;
+			comboCurrencyLData.heightHint = 16;
 			comboCurrency.setLayoutData(comboCurrencyLData);
 			GridLayout composite1Layout = new GridLayout(2, true);
 			composite1.setLayout(composite1Layout);

@@ -28,6 +28,8 @@ import com.turquaz.engine.dal.TurqCurrentContact;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 
 
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -110,6 +112,12 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					txtCurrentCode = new Text(compCurrentCardSearch, SWT.NONE);
 					GridData txtCurrentCodeLData = new GridData();
+					txtCurrentCode.addKeyListener(new KeyAdapter() {
+						public void keyReleased(KeyEvent evt) {
+							if (evt.keyCode==SWT.CR)
+								search();
+						}
+					});
 					txtCurrentCodeLData.widthHint = 234;
 					txtCurrentCodeLData.heightHint = 15;
 					txtCurrentCode.setLayoutData(txtCurrentCodeLData);
@@ -124,6 +132,12 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					txtCurrentName = new Text(compCurrentCardSearch, SWT.NONE);
 					GridData txtCurrentNameLData = new GridData();
+					txtCurrentName.addKeyListener(new KeyAdapter() {
+						public void keyReleased(KeyEvent evt) {
+							if (evt.keyCode==SWT.CR)
+								search();
+						}
+					});
 					txtCurrentName.setSize(234, 15);
 					txtCurrentNameLData.widthHint = 234;
 					txtCurrentNameLData.heightHint = 15;

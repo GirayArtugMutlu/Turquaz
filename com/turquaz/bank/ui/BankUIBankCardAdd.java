@@ -187,15 +187,8 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 			lblCurrency.setText(Messages.getString("BankUIBankCardAdd.3")); //$NON-NLS-1$
 	
 			GridData comboCurrencyLData = new GridData();
-			comboCurrencyLData.verticalAlignment = GridData.CENTER;
-			comboCurrencyLData.horizontalAlignment = GridData.BEGINNING;
-			comboCurrencyLData.widthHint = -1;
-			comboCurrencyLData.heightHint = -1;
-			comboCurrencyLData.horizontalIndent = 0;
-			comboCurrencyLData.horizontalSpan = 1;
-			comboCurrencyLData.verticalSpan = 1;
-			comboCurrencyLData.grabExcessHorizontalSpace = false;
-			comboCurrencyLData.grabExcessVerticalSpace = false;
+			comboCurrencyLData.widthHint = 109;
+			comboCurrencyLData.heightHint = 16;
 			comboCurrency.setLayoutData(comboCurrencyLData);
 			comboCurrency.setText(Messages.getString("BankUIBankCardAdd.4")); //$NON-NLS-1$
 			GridLayout thisLayout = new GridLayout(2, true);

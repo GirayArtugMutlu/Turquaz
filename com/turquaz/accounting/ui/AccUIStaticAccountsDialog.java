@@ -41,6 +41,9 @@ import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Color;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 
+import com.cloudgarden.resource.SWTResourceManager;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyAdapter;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -77,25 +80,38 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 	
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+
+				{
+					//Register as a resource user - SWTResourceManager will
+					//handle the obtaining and disposing of resources
+					SWTResourceManager.registerResourceUser(dialogShell);
+				}
+
 			dialogShell.setText(getText());
-			composite1 = new Composite(dialogShell,SWT.NULL);
-	
+
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(387,260));
-	
-			composite1.setSize(new org.eclipse.swt.graphics.Point(387,260));
-			final Color composite1background = new Color(Display.getDefault(),255,255,255);
-			composite1.setBackground(composite1background);
-			GridLayout composite1Layout = new GridLayout(1, true);
-			composite1.setLayout(composite1Layout);
-			composite1Layout.marginWidth = 5;
-			composite1Layout.marginHeight = 5;
-			composite1Layout.numColumns = 1;
-			composite1Layout.makeColumnsEqualWidth = true;
-			composite1Layout.horizontalSpacing = 5;
-			composite1Layout.verticalSpacing = 5;
-			composite1.layout();
+
 			FillLayout dialogShellLayout = new FillLayout(256);
 			dialogShell.setLayout(dialogShellLayout);
+			{
+				composite1 = new Composite(dialogShell, SWT.NONE);
+				GridLayout composite1Layout = new GridLayout(1, true);
+				composite1Layout.marginWidth = 5;
+				composite1Layout.marginHeight = 5;
+				composite1Layout.numColumns = 1;
+				composite1Layout.makeColumnsEqualWidth = true;
+				composite1Layout.horizontalSpacing = 5;
+				composite1Layout.verticalSpacing = 5;
+				composite1
+					.setSize(new org.eclipse.swt.graphics.Point(387, 260));
+				composite1.setBackground(SWTResourceManager.getColor(
+					255,
+					255,
+					255));
+				
+				composite1.setLayout(composite1Layout);
+				composite1.layout();
+			}
 			dialogShellLayout.type = SWT.HORIZONTAL;
 			dialogShellLayout.marginWidth = 0;
 			dialogShellLayout.marginHeight = 0;
@@ -103,7 +119,6 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					composite1background.dispose();
 				}
 			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 387,260);
@@ -136,7 +151,14 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 			accountTree.setSize(new org.eclipse.swt.graphics.Point(298,192));
 			accountTree.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
-					accountTreeMouseDoubleClick(evt);
+					accountTreeMouseDoubleClick();
+				}
+			});
+			accountTree.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if (evt.keyCode == SWT.CR) {
+						accountTreeMouseDoubleClick();
+					}
 				}
 			});
 			FillLayout dialogShellLayout = new FillLayout(256);
@@ -211,7 +233,7 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 		}
 	}
 	/** Auto-generated event handler method */
-	protected void accountTreeMouseDoubleClick(MouseEvent evt){
+	protected void accountTreeMouseDoubleClick(){
 	 returnObj[0]=accountTree.getSelection()[0].getText();
 	 returnObj[1]=accountTree.getSelection()[0].getData();
 	 dialogShell.close();

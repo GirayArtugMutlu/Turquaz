@@ -124,7 +124,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 						btnShowSingleClick();
 					}
 				});
-				btnShowLData.widthHint = 96;
+				btnShowLData.widthHint = 101;
 				btnShowLData.heightHint = 23;
 				btnShow.setLayoutData(btnShowLData);
 			}

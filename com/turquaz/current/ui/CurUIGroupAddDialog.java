@@ -50,6 +50,9 @@ import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 
 
+import com.cloudgarden.resource.SWTResourceManager;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -94,6 +97,13 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 	
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+
+				{
+					//Register as a resource user - SWTResourceManager will
+					//handle the obtaining and disposing of resources
+					SWTResourceManager.registerResourceUser(dialogShell);
+				}
+
 			dialogShell.setText(getText());
 			compGroupAddDialog = new Composite(dialogShell,SWT.NULL);
 			lblGroupName = new CLabel(compGroupAddDialog,SWT.NULL);
@@ -121,8 +131,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			compGroupAddDialogLData.grabExcessVerticalSpace = false;
 			compGroupAddDialog.setLayoutData(compGroupAddDialogLData);
 			compGroupAddDialog.setSize(new org.eclipse.swt.graphics.Point(433,85));
-			final Color compGroupAddDialogbackground = new Color(Display.getDefault(),255,255,255);
-			compGroupAddDialog.setBackground(compGroupAddDialogbackground);
+			compGroupAddDialog.setBackground(SWTResourceManager.getColor(255, 255, 255));
 	
 			GridData lblGroupNameLData = new GridData();
 			lblGroupNameLData.verticalAlignment = GridData.CENTER;
@@ -139,6 +148,12 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			lblGroupName.setSize(new org.eclipse.swt.graphics.Point(56,20));
 	
 			GridData txtGroupNameLData = new GridData();
+			txtGroupName.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if (evt.keyCode==SWT.CR)
+						btnGroupAddMouseUp();
+				}
+			});
 			txtGroupNameLData.verticalAlignment = GridData.CENTER;
 			txtGroupNameLData.horizontalAlignment = GridData.BEGINNING;
 			txtGroupNameLData.widthHint = 124;
@@ -220,7 +235,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			GridData btnGroupAddLData = new GridData();
 			btnGroupAdd.addMouseListener(new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
-					btnGroupAddMouseUp(evt);
+					btnGroupAddMouseUp();
 				}
 			});
 			btnGroupAddLData.verticalAlignment = GridData.CENTER;
@@ -280,7 +295,6 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					compGroupAddDialogbackground.dispose();
 				}
 			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 433,229);
@@ -420,7 +434,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 
 
 	/** Auto-generated event handler method */
-	protected void btnGroupAddMouseUp(MouseEvent evt){
+	protected void btnGroupAddMouseUp(){
 		MessageBox msg = new MessageBox(this.getParent());
 		try{
 		

@@ -52,7 +52,32 @@ import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
+import com.cloudgarden.resource.SWTResourceManager;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyAdapter;
 public class InvUIWarehouseSearch extends  Composite implements SecureComposite,SearchComposite {
+
+	{
+		//Register as a resource user - SWTResourceManager will
+		//handle the obtaining and disposing of resources
+		SWTResourceManager.registerResourceUser(this);
+	}
+
 
 	private TableColumn tableColumnDescription;
 	private TableColumn tableColumnTelephone;
@@ -104,8 +129,7 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 			composite1LData.grabExcessVerticalSpace = false;
 			composite1.setLayoutData(composite1LData);
 			composite1.setSize(new org.eclipse.swt.graphics.Point(608,92));
-			final Color composite1background = new Color(Display.getDefault(),255,255,255);
-			composite1.setBackground(composite1background);
+			composite1.setBackground(SWTResourceManager.getColor(255, 255, 255));
 	
 			GridData lblWarehouseNameLData = new GridData();
 			lblWarehouseNameLData.verticalAlignment = GridData.CENTER;
@@ -122,6 +146,12 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 			lblWarehouseName.setSize(new org.eclipse.swt.graphics.Point(105,20));
 	
 			GridData txtWarehouseNameLData = new GridData();
+			txtWarehouseName.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if (evt.keyCode==SWT.CR)
+						search();
+				}
+			});
 			txtWarehouseNameLData.verticalAlignment = GridData.CENTER;
 			txtWarehouseNameLData.horizontalAlignment = GridData.BEGINNING;
 			txtWarehouseNameLData.widthHint = 117;
@@ -148,6 +178,12 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 			lblWarehouseCity.setText(Messages.getString("InvUIWarehouseSearch.1")); //$NON-NLS-1$
 	
 			GridData txtCityLData = new GridData();
+			txtCity.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if (evt.keyCode==SWT.CR)
+						search();
+				}
+			});
 			txtCityLData.verticalAlignment = GridData.CENTER;
 			txtCityLData.horizontalAlignment = GridData.BEGINNING;
 			txtCityLData.widthHint = 114;
@@ -211,7 +247,6 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 			this.layout();
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					composite1background.dispose();
 				}
 			});
 	

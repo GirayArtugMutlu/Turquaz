@@ -67,6 +67,8 @@ import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.cloudgarden.resource.SWTResourceManager;
 
 
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	
 	private Text txtUnitName;
@@ -147,6 +149,14 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					txtUnitName = new Text(composite1, SWT.BORDER);
 					GridData txtUnitNameLData = new GridData();
+					txtUnitName.addKeyListener(new KeyAdapter() {
+						public void keyReleased(KeyEvent evt) {
+							if (evt.keyCode==SWT.CR)
+							{
+								btnUnitAddMouseUp();								
+							}
+						}
+					});
 					txtUnitNameLData.widthHint = 110;
 					txtUnitNameLData.heightHint = 16;
 					txtUnitNameLData.horizontalSpan = 2;
@@ -155,6 +165,11 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					btnDelete = new Button(composite1, SWT.PUSH | SWT.CENTER);
 					GridData btnDeleteLData = new GridData();
+					btnDelete.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+							btnDeleteMouseUp(evt);
+						}
+					});
 					btnDeleteLData.horizontalAlignment = GridData.END;
 					btnDeleteLData.widthHint = 50;
 					btnDeleteLData.heightHint = 30;
@@ -164,15 +179,15 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 					btnDelete
 						.setSize(new org.eclipse.swt.graphics.Point(50, 30));
 					btnDelete.setEnabled(false);
-					btnDelete.addMouseListener(new MouseAdapter() {
-						public void mouseUp(MouseEvent evt) {
-							btnDeleteMouseUp(evt);
-						}
-					});
 				}
 				{
 					btnUpdate = new Button(composite1, SWT.PUSH | SWT.CENTER);
 					GridData btnUpdateLData = new GridData();
+					btnUpdate.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+							btnUpdateMouseUp(evt);
+						}
+					});
 					btnUpdateLData.horizontalAlignment = GridData.END;
 					btnUpdateLData.widthHint = 50;
 					btnUpdateLData.heightHint = 30;
@@ -182,18 +197,13 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 					btnUpdate
 						.setSize(new org.eclipse.swt.graphics.Point(50, 30));
 					btnUpdate.setEnabled(false);
-					btnUpdate.addMouseListener(new MouseAdapter() {
-						public void mouseUp(MouseEvent evt) {
-							btnUpdateMouseUp(evt);
-						}
-					});
 				}
 				{
 					btnUnitAdd = new Button(composite1, SWT.PUSH | SWT.CENTER);
 					GridData btnUnitAddLData = new GridData();
 					btnUnitAdd.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
-							btnUnitAddMouseUp(evt);
+							btnUnitAddMouseUp();
 						}
 					});
 					btnUnitAddLData.widthHint = 42;
@@ -354,6 +364,8 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 		    
 		    msg.setMessage(Messages.getString("InvUIUnitAddDialog.11")); //$NON-NLS-1$
 		    msg.open();
+		    txtUnitName.setFocus();
+		    return;
 		    }
 	else{
 		
@@ -393,7 +405,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	}
 
 	/** Auto-generated event handler method */
-	protected void btnUnitAddMouseUp(MouseEvent evt){
+	protected void btnUnitAddMouseUp(){
 		MessageBox msg = new MessageBox(this.getParent());
 		try{
 		

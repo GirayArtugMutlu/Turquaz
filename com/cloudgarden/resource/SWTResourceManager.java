@@ -1,4 +1,3 @@
-
 package com.cloudgarden.resource;
 
 import java.util.HashMap;

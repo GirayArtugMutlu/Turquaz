@@ -51,6 +51,8 @@ import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -112,7 +114,7 @@ private TableColumn tableColumnContactName;
 	
 			GridData compCurrentCardSearchLData = new GridData();
 			compCurrentCardSearchLData.widthHint = 380;
-			compCurrentCardSearchLData.heightHint = 121;
+			compCurrentCardSearchLData.heightHint = 80;
 			compCurrentCardSearch.setLayoutData(compCurrentCardSearchLData);
 
 			GridData lblCurrentCodeLData = new GridData();
@@ -129,6 +131,12 @@ private TableColumn tableColumnContactName;
 			lblCurrentCode.setText(Messages.getString("CurUICurrentCardSearch.0")); //$NON-NLS-1$
 	
 			GridData txtCurrentCodeLData = new GridData();
+			txtCurrentCode.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if (evt.keyCode==SWT.CR)
+						search();
+				}
+			});
 			txtCurrentCodeLData.widthHint = 238;
 			txtCurrentCodeLData.heightHint = 16;
 			txtCurrentCode.setLayoutData(txtCurrentCodeLData);
@@ -147,6 +155,12 @@ private TableColumn tableColumnContactName;
 			lblCurrentName.setText(Messages.getString("CurUICurrentCardSearch.1")); //$NON-NLS-1$
 	
 			GridData txtCurrentNameLData = new GridData();
+			txtCurrentName.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if (evt.keyCode==SWT.CR)
+						search();
+				}
+			});
 			txtCurrentNameLData.widthHint = 238;
 			txtCurrentNameLData.heightHint = 19;
 			txtCurrentName.setLayoutData(txtCurrentNameLData);
@@ -183,17 +197,11 @@ private TableColumn tableColumnContactName;
 			GridData tableCurrentCardSearchLData = new GridData();
 			tableCurrentCardSearchLData.verticalAlignment = GridData.FILL;
 			tableCurrentCardSearchLData.horizontalAlignment = GridData.FILL;
-			tableCurrentCardSearchLData.widthHint = -1;
-			tableCurrentCardSearchLData.heightHint = -1;
-			tableCurrentCardSearchLData.horizontalIndent = 0;
-			tableCurrentCardSearchLData.horizontalSpan = 1;
-			tableCurrentCardSearchLData.verticalSpan = 1;
 			tableCurrentCardSearchLData.grabExcessHorizontalSpace = true;
 			tableCurrentCardSearchLData.grabExcessVerticalSpace = true;
 			tableCurrentCardSearch.setLayoutData(tableCurrentCardSearchLData);
 			tableCurrentCardSearch.setHeaderVisible(true);
 			tableCurrentCardSearch.setLinesVisible(true);
-			tableCurrentCardSearch.setSize(new org.eclipse.swt.graphics.Point(409,168));
 			tableCurrentCardSearch.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					tableCurrentCardSearchMouseDoubleClick(evt);
