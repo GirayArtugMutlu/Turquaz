@@ -6,6 +6,7 @@
  */
 package com.turquaz.engine.ui;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -32,6 +33,17 @@ public class EngUITableProperties
 	
 	public EngUITableProperties()throws Exception
 	{
+		File file = new File("config/table_props.xml");
+		if(!file.exists())
+		{
+			XMLOutputter outputter = new XMLOutputter();	
+			OutputStream output = null;
+			output = new FileOutputStream("config/table_props.xml"); //$NON-NLS-1$
+			Element root = new Element("props");
+			outputter.output(root, output);
+			output.close();	
+			
+		}
 		
 		SAXBuilder myBuilder = new SAXBuilder();
 		InputSource input = new InputSource("config/table_props.xml");
