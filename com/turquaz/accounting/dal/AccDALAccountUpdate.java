@@ -78,7 +78,7 @@ public class AccDALAccountUpdate {
 			Session session = EngDALSessionFactory.openSession();
 		
 			String query = "from TurqAccountingAccount as accounts " +
-					"where accounts.turqAccountingAccountByParentAccount.accountingAccountsId ="+parentAcc.getId(); 
+					"where accounts.turqAccountingAccountByParentAccount.id ="+parentAcc.getId(); 
 
 			Query q = session.createQuery(query); 
 			List list = q.list();
@@ -128,7 +128,7 @@ public class AccDALAccountUpdate {
 			Session session = EngDALSessionFactory.openSession();
 			
 			String query = "Select transColumns from TurqAccountingTransactionColumn as transColumns " +
-			"where transColumns.turqAccountingAccount.accountingAccountsId ="+account.getId();
+			"where transColumns.turqAccountingAccount.id ="+account.getId();
 			
 	        Query q = session.createQuery(query); 
 			List list = q.list();

@@ -98,7 +98,7 @@ public class AccDALTransactionUpdate {
 	        Session session = EngDALSessionFactory.openSession();
 
 			String query = "select accTrans from TurqAccountingTransaction as accTrans"
-					+ " where accTrans.turqAccountingTransactionType.accountingTransactionTypesId ="+EngBLCommon.ACCOUNTING_TRANS_OPENING;
+					+ " where accTrans.turqAccountingTransactionType.id ="+EngBLCommon.ACCOUNTING_TRANS_OPENING;
 
 			Query q = session.createQuery(query);
 			

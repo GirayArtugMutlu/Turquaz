@@ -58,10 +58,10 @@ public class AccDALAccountAdd {
 			Session session = EngDALSessionFactory.openSession();
 		
 			String query = "from TurqAccountingAccount as accounts " +
-					"where  accounts.turqAccountingAccountByParentAccount.accountingAccountsId ="+parentid+"" +
+					"where  accounts.turqAccountingAccountByParentAccount.id ="+parentid+"" +
 							" and accounts.accountCode like '"+codeCriteria+"%'" +
-							" and accounts.accountingAccountsId <> -1" +
-							" order by accounts.accountingAccountsId";   
+							" and accounts.id <> -1" +
+							" order by accounts.id";   
 
 			Query q = session.createQuery(query); 
 			
@@ -84,7 +84,7 @@ public class AccDALAccountAdd {
 	
 			String query = "from TurqAccountingAccount as accounts " +
 					"where accounts.accountCode ='"+code+"'" +
-							" and accounts.accountingAccountsId <> -1";
+							" and accounts.id <> -1";
 						
 
 			Query q = session.createQuery(query); 
@@ -140,8 +140,8 @@ public class AccDALAccountAdd {
 	
 			String query = "Select account, accView from" +
 					" TurqAccountingAccount account, TurqViewAccTotal accView" +
-					" where account.accountingAccountsId=accView.accountingAccountsId" + 
-					" order by account.accountingAccountsId";
+					" where account.id=accView.accountingAccountsId" + 
+					" order by account.id";
 			//includes "accounting plan" id=-1
 
 			Query q = session.createQuery(query); 
@@ -216,7 +216,7 @@ public class AccDALAccountAdd {
 	
 			String query = "from TurqAccountingAccount as accounts " +
 					"where accounts.accountCode ='"+code+"'" +
-							" and accounts.accountingAccountsId <> -1" +
+							" and accounts.id <> -1" +
 							" and accounts.turqAccountingAccountsByParentAccount.size=0";
 						
 
@@ -246,7 +246,7 @@ public class AccDALAccountAdd {
 	
 			String query = "Select account from TurqAccountingAccount as account " +
 					"where account.accountCode ='"+code+"'" +
-							" and account.accountingAccountsId <> -1";
+							" and account.id <> -1";
 						
 
 			Query q = session.createQuery(query); 

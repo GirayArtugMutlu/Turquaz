@@ -49,7 +49,7 @@ public class AccDALAccountingBalanceSub {
 					" where transColumn.turqAccountingTransaction.transactionsDate >= :startDate" +
 					" and transColumn.turqAccountingTransaction.transactionsDate <= :endDate";
 			if (type!=-1)
-				query+=" and transColumn.turqAccountingTransaction.turqAccountingTransactionType.accountingTransactionTypesId ="+type;
+				query+=" and transColumn.turqAccountingTransaction.turqAccountingTransactionType.id ="+type;
 			Query q = session.createQuery(query); 
 			q.setParameter("endDate",endDate);
 			q.setParameter("startDate",startDate);
@@ -64,20 +64,5 @@ public class AccDALAccountingBalanceSub {
 			
 		}
 	}
-	public List getAccounts()throws Exception{
-		
-		try{
-			Session session = EngDALSessionFactory.openSession();			
-			String query = "Select * from turq_accounting_accounts ORDER BY accounting_accounts_id";
-			Query q = session.createQuery(query); 
-			List list = q.list();
-			session.close();			
-			return list;			
-		}
-		
-		catch(Exception ex){
-			throw ex;
-			
-		}
-	}
+	
 }

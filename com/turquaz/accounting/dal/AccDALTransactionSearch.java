@@ -152,13 +152,13 @@ public class AccDALTransactionSearch {
 	    			" from TurqAccountingAccount acc," +
 	    			" TurqAccountingTransactionColumn transcolumn," +
 	    			" TurqAccountingTransaction trans" +
-	    			" where transcolumn.turqAccountingTransaction.accountingTransactionsId=trans.accountingTransactionsId" +
+	    			" where transcolumn.turqAccountingTransaction=trans" +
 	    			" and trans.transactionsDate < :startDate" +
-	    			" and acc.accountingAccountsId=transcolumn.turqAccountingAccount.accountingAccountsId";
+	    			" and acc=transcolumn.turqAccountingAccount";
 	    	
 	    	if (accountEnd==null)
 	    	{
-	    		query += " and acc.accountingAccountsId="+accountStart.getId();
+	    		query += " and acc.id="+accountStart.getId();
 	    	}
 	    	else
 	    	{
@@ -191,7 +191,7 @@ public class AccDALTransactionSearch {
 
 			Session session = EngDALSessionFactory.openSession();
 
-			String query = "select accTrans.accountingTransactionsId," +
+			String query = "select accTrans.id," +
 					" accTrans.transactionsDate," +
 					"accTrans.transactionDocumentNo," +
 					"accTrans.turqAccountingTransactionType.typesName," +
@@ -213,24 +213,24 @@ public class AccDALTransactionSearch {
 			}
 			
 			
-			query += " and ( accTrans.turqAccountingTransactionType.accountingTransactionTypesId = -1 ";
+			query += " and ( accTrans.turqAccountingTransactionType.id = -1 ";
 			
 			if(isGeneralTrans)
 			{
 			
-				query += " or accTrans.turqAccountingTransactionType.accountingTransactionTypesId ="+EngBLCommon.ACCOUNTING_TRANS_GENERAL;
+				query += " or accTrans.turqAccountingTransactionType.id ="+EngBLCommon.ACCOUNTING_TRANS_GENERAL;
 				
 			}
 			if(isCollect)
 			{
 
-				query += " or accTrans.turqAccountingTransactionType.accountingTransactionTypesId ="+EngBLCommon.ACCOUNTING_TRANS_COLLECT;
+				query += " or accTrans.turqAccountingTransactionType.id ="+EngBLCommon.ACCOUNTING_TRANS_COLLECT;
 				
 			}
 			if(isPayment)
 			{
 
-				query += " or accTrans.turqAccountingTransactionType.accountingTransactionTypesId ="+EngBLCommon.ACCOUNTING_TRANS_PAYMENT;
+				query += " or accTrans.turqAccountingTransactionType.id ="+EngBLCommon.ACCOUNTING_TRANS_PAYMENT;
 				
 			}
 			query += " )";
@@ -238,7 +238,7 @@ public class AccDALTransactionSearch {
 			
 			
 			
-			query +=" group by  accTrans.accountingTransactionsId, accTrans.transactionsDate,accTrans.transactionDocumentNo,accTrans.turqAccountingTransactionType.typesName,accTrans.transactionDescription,accTrans.turqModule.moduleDescription";
+			query +=" group by  accTrans.id, accTrans.transactionsDate,accTrans.transactionDocumentNo,accTrans.turqAccountingTransactionType.typesName,accTrans.transactionDescription,accTrans.turqModule.moduleDescription";
             query +=" order by accTrans.transactionsDate";   
 			
 			Query q = session.createQuery(query);
@@ -297,7 +297,7 @@ public class AccDALTransactionSearch {
 
 			session
 					.delete("select row from TurqAccountingTransactionColumn as row where"
-							+ " row.turqAccountingTransaction.accountingTransactionsId ="
+							+ " row.turqAccountingTransaction.id ="
 							+ transaction.getId()
 									.intValue());
 
@@ -435,7 +435,7 @@ public class AccDALTransactionSearch {
 			String query = "select accTrans from TurqAccountingTransaction as accTrans"
 					+
 
-					" where accTrans.turqAccountingJournal.accountingJournalId = -1";
+					" where accTrans.turqAccountingJournal.id = -1";
 
 			Query q = session.createQuery(query);
 
@@ -468,8 +468,8 @@ public class AccDALTransactionSearch {
 					+ " sum(transColumns.rowsCreditInBaseCurrency) from TurqAccountingAccount accounts,"
 					+ " TurqAccountingTransaction as accTrans,"
 					+ " TurqAccountingTransactionColumn as transColumns"
-					+ " where transColumns.turqAccountingTransaction.accountingTransactionsId=accTrans.accountingTransactionsId"
-					+ " and accounts.accountingAccountsId=transColumns.turqAccountingAccount.accountingAccountsId";
+					+ " where transColumns.turqAccountingTransaction=accTrans"
+					+ " and accounts=transColumns.turqAccountingAccount";
 			
 			if (firstAccount !=null && secondAccount !=null)
 			{
@@ -501,14 +501,14 @@ public class AccDALTransactionSearch {
 				query += " and accTrans.turqAccountingTransactionType <>"
 						+ new Integer(3);
 			}
-			query += " group by accounts.accountingAccountsId,accounts.accountName,"
+			query += " group by accounts.id,accounts.accountName,"
 					+ " accounts.accountCode, accounts.createdBy, accounts.creationDate,"
 					+ " accounts.updatedBy, accounts.updateDate,"
 					+ " accounts.turqAccountingAccountByParentAccount,"
 					+ " accounts.turqAccountingAccountByTopAccount,"
 					+ " accounts.turqAccountingAccountClass,"
 					+ " accounts.turqAccountingAccountType"
-					+ " order by accounts.turqAccountingAccountByTopAccount.accountingAccountsId";
+					+ " order by accounts.turqAccountingAccountByTopAccount.id";
 			Query q = session.createQuery(query);
 
 			if (startDate != null) {
