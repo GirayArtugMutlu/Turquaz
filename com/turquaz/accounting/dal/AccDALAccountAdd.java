@@ -135,20 +135,11 @@ public class AccDALAccountAdd {
 		try{
 			Session session = EngDALSessionFactory.openSession();
 	
-			String query = "Select account, sum( transCol.rowsDeptInBaseCurrency )," +
-					" sum (transCol.rowsCreditInBaseCurrency) from TurqAccountingAccount as account," +
-					" TurqAccountingTransactionColumn transCol" +
-					" left join transCol" +
-					" where transCol.turqAccountingAccount.accountingAccountsId=account.accountingAccountsId" +
-					" group by account.accountingAccountsId," +
-					" account.accountName, account.accountCode, account.createdBy," +
-					" account.updatedBy, account.creationDate, account.updateDate," +
-					" account.turqAccountingAccountClass, account.turqAccountingAccountType," +
-					" account.turqAccountingAccountByTopAccount ";
-					
-					// was removing accounting plan	
-					//	" and accounts.accountingAccountsId <> -1" +
-						//	" order by account.accountingAccountsId";   
+			String query = "Select account, accView from" +
+					" TurqAccountingAccount account, TurqViewAccTotal accView" +
+					" where account.accountingAccountsId=accView.accountingAccountsId" + 
+					" order by account.accountingAccountsId";
+			//includes "accounting plan" id=-1
 
 			Query q = session.createQuery(query); 
 			List list = q.list();

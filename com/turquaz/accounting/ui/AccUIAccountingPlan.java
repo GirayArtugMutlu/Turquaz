@@ -21,6 +21,7 @@ package com.turquaz.accounting.ui;
  * @version  $Id$
  */
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -53,6 +54,7 @@ import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqViewAccTotal;
 import com.turquaz.engine.ui.component.SearchComposite;
 
 import com.cloudgarden.resource.SWTResourceManager;
@@ -84,6 +86,8 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
 	private AccBLAccountAdd blAccount = new AccBLAccountAdd();
 
 	private AccBLAccountUpdate blAccountUpdate = new AccBLAccountUpdate();
+
+	private HashMap accountTotals;
 
 	public AccUIAccountingPlan(Composite parent, int style) {
 		super(parent, style);
@@ -208,25 +212,39 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
 			tableTreeAccountingPlan.removeAll();
 			TableTreeItem item;
 
-			List mainBranches = blAccount.getAllAccounts();
+			List mainBranches = AccBLAccountAdd.getAllAccountsWithSum();
 
 			TurqAccountingAccount account;
+			TurqViewAccTotal accView;
 
 			Integer parentId;
-
+			accountTotals = new HashMap();
 			for (int i = 0; i < mainBranches.size(); i++) {
-				account = (TurqAccountingAccount) mainBranches.get(i);
-
+				account = (TurqAccountingAccount) ((Object[]) mainBranches
+						.get(i))[0];
+				accView = (TurqViewAccTotal) ((Object[]) mainBranches.get(i))[1];
 				parentId = account.getTurqAccountingAccountByParentAccount()
 						.getAccountingAccountsId();
 
-				if (parentId.intValue() == -1) {
+				BigDecimal totalDept = (accView.getTotaldeptamount() == null) ? new BigDecimal(
+						0)
+						: accView.getTotaldeptamount();
+				BigDecimal totalCredit = (accView.getTotalcreditamount() == null) ? new BigDecimal(
+						0)
+						: accView.getTotalcreditamount();
+
+				BigDecimal[] totals = { totalCredit, totalDept };
+				accountTotals.put(
+						new Integer(accView.getAccountingAccountsId()), totals);
+				if (parentId.intValue() == -1)
+				{
 
 					TableTreeItem[] parentItems = tableTreeAccountingPlan
 							.getItems();
 					String accId = account.getAccountCode();
 					int k;
-					for (k = 0; k < parentItems.length; k++) {
+					for (k = 0; k < parentItems.length; k++) 
+					{
 						TableTreeItem pItem = parentItems[k];
 						if (pItem.getText(0).equals("HESAP PLANI")) //$NON-NLS-1$
 							continue;
@@ -244,40 +262,57 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
 					treeItems.put(account.getAccountingAccountsId(), item);
 
 				}
-
-				else {
+				else
+				{
 
 					TableTreeItem parentItem = (TableTreeItem) treeItems
 							.get(parentId);
 
-					if (parentItem == null) {
-						System.out
-								.println("Error in Constructing tree: " + account.getAccountCode()); //$NON-NLS-1$
+					parentItem.setFont(SWTResourceManager.getFont(
+							"Tahoma", 9, 1, false, false)); //$NON-NLS-1$
+
+					{
+						//Register as a resource user - SWTResourceManager
+						// will
+						//handle the obtaining and disposing of resources
+						SWTResourceManager.registerResourceUser(parentItem);
 					}
-
-					else {
-						parentItem.setFont(SWTResourceManager.getFont(
-								"Tahoma", 9, 1, false, false)); //$NON-NLS-1$
-
+					TableTreeItem[] parentItems = parentItem.getItems();
+					String accId = account.getAccountCode();
+					int k;
+					for (k = 0; k < parentItems.length; k++)
+					{
+						TableTreeItem pItem = parentItems[k];
+						if (accId.compareTo(pItem.getText(0)) < 0)
+							break;
+					}
+					item = new TableTreeItem(parentItem, SWT.NULL, k);
+					treeItems.put(account.getAccountingAccountsId(), item);
+					item.setText(0, account.getAccountCode());
+					item.setText(1, account.getAccountName());
+					item.setData(account);
+					
+					while (parentId.intValue() != -1)
+					{
+						//if (parentId.intValue()==account.getAccountingAccountsId().intValue())
+						//	break;
+						BigDecimal[] parentTotals=(BigDecimal[])accountTotals.get(parentId);
+						if (account.getTurqAccountingAccountByTopAccount().getAccountingAccountsId().intValue() ==2)
 						{
-							//Register as a resource user - SWTResourceManager
-							// will
-							//handle the obtaining and disposing of resources
-							SWTResourceManager.registerResourceUser(parentItem);
+							System.out.println("AccID:"+account.getAccountingAccountsId());
+							System.out.println("ParentID:"+parentId);
+							System.out.println(parentTotals[0]);
+							System.out.println(parentTotals[1]);
 						}
-						TableTreeItem[] parentItems = parentItem.getItems();
-						String accId = account.getAccountCode();
-						int k;
-						for (k = 0; k < parentItems.length; k++) {
-							TableTreeItem pItem = parentItems[k];
-							if (accId.compareTo(pItem.getText(0)) < 0)
-								break;
+						parentTotals[0]=parentTotals[0].add(totalCredit);
+						parentTotals[1]=parentTotals[1].add(totalDept);
+						if (account.getTurqAccountingAccountByTopAccount().getAccountingAccountsId().intValue() ==2)
+						{
+							System.out.println(parentTotals[0]);
+							System.out.println(parentTotals[1]);
 						}
-						item = new TableTreeItem(parentItem, SWT.NULL, k);
-						treeItems.put(account.getAccountingAccountsId(), item);
-						item.setText(0, account.getAccountCode());
-						item.setText(1, account.getAccountName());
-						item.setData(account);
+						account=account.getTurqAccountingAccountByParentAccount();
+						parentId=account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId();
 					}
 
 				}
@@ -334,7 +369,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
 			//	if(account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId().intValue()!=-1)
 			//	{
 			boolean result = new AccUIAccountUpdate(this.getShell(), SWT.NULL,
-					account).open();
+					account,(BigDecimal[])accountTotals.get(account.getAccountingAccountsId())).open();
 			if (result) {
 				fillTree(-1, ""); //$NON-NLS-1$
 			}

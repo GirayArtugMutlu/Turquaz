@@ -76,6 +76,7 @@
      <mapping resource="com/turquaz/engine/dal/TurqCurrencyExchangeRate.hbm.xml"/>
      <mapping resource="com/turquaz/engine/dal/TurqCurrentAccountingAccount.hbm.xml"/>
      <mapping resource="com/turquaz/engine/dal/TurqCurrentAccountingType.hbm.xml"/>
+     <mapping resource="com/turquaz/engine/dal/TurqViewAccTotal.hbm.xml"/>
      
     </session-factory>
     
