@@ -144,7 +144,6 @@
     >
         <column name="accounting_accounts_id_buy" />
     </many-to-one>
-        
     <!-- bi-directional one-to-many association to TurqInventoryPrice -->
     <set
         name="turqInventoryPrices"

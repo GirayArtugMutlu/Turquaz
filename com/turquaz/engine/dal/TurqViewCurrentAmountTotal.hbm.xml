@@ -22,8 +22,6 @@
             column="current_cards_id" 
             type="int"
             length="4"
-             insert="false"
-            update="false"
         />
         <key-property 
             name="transactionsTotalDept" 

@@ -20,16 +20,12 @@ public class TurqViewInventoryAmountTotal implements Serializable {
     /** identifier field */
     private java.math.BigDecimal transactionsTotalAmountNow;
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
-
     /** full constructor */
-    public TurqViewInventoryAmountTotal(int inventoryCardsId, java.math.BigDecimal transactionsAmountIn, java.math.BigDecimal transactionsTotalAmountOut, java.math.BigDecimal transactionsTotalAmountNow, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
+    public TurqViewInventoryAmountTotal(int inventoryCardsId, java.math.BigDecimal transactionsAmountIn, java.math.BigDecimal transactionsTotalAmountOut, java.math.BigDecimal transactionsTotalAmountNow) {
         this.inventoryCardsId = inventoryCardsId;
         this.transactionsAmountIn = transactionsAmountIn;
         this.transactionsTotalAmountOut = transactionsTotalAmountOut;
         this.transactionsTotalAmountNow = transactionsTotalAmountNow;
-        this.turqInventoryCard = turqInventoryCard;
     }
 
     /** default constructor */
@@ -66,14 +62,6 @@ public class TurqViewInventoryAmountTotal implements Serializable {
 
     public void setTransactionsTotalAmountNow(java.math.BigDecimal transactionsTotalAmountNow) {
         this.transactionsTotalAmountNow = transactionsTotalAmountNow;
-    }
-
-    public com.turquaz.engine.dal.TurqInventoryCard getTurqInventoryCard() {
-        return this.turqInventoryCard;
-    }
-
-    public void setTurqInventoryCard(com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
-        this.turqInventoryCard = turqInventoryCard;
     }
 
     public String toString() {
