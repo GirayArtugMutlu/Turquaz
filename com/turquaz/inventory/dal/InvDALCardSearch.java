@@ -51,7 +51,7 @@ public class InvDALCardSearch {
 			
 				Session session = EngDALSessionFactory.openSession();
 				
-				String query = "Select invCard from TurqInventoryCard as invCard " +
+				String query = "Select distinct invCard from TurqInventoryCard as invCard " +
 								"left join invCard.turqInventoryCardGroups as cardGroup " +
 							   "where invCard.turqCompany.companiesId ="+System.getProperty("company")+" " +
 							   "and invCard.cardName like '"+cardName+"%' and invCard.cardInventoryCode like '"+cardCode+"%' ";
