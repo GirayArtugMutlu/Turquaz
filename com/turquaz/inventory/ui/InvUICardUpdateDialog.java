@@ -124,7 +124,7 @@ public class InvUICardUpdateDialog extends Dialog{
 			compMain = new Composite(dialogShell,SWT.NULL);
 			compInvUICard = new InvUICardAdd(compMain,SWT.NULL);
 	
-			dialogShell.setSize(613, 367);
+			dialogShell.setSize(634, 368);
 	
 			GridData coolBarTopLData = new GridData();
 			coolBarTopLData.horizontalAlignment = GridData.FILL;

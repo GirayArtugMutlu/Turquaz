@@ -71,11 +71,11 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	private AccBLTransactionUpdate blTransUpdate = new AccBLTransactionUpdate();
 	private CoolItem coolItem1;
 	private ToolItem toolUpdate;
-	private AccUITransactionCollect compTransactionCollect;
-	private ToolItem toolDelete;
-	private ToolBar toolTransactionCollect;
 	private ToolItem toolCancel;
+	private ToolItem toolDelete;
+	private ToolBar toolBar1;
 	private CoolBar coolBar1;
+	private AccUITransactionCollect compTransactionCollect;
 
 	public AccUITransactionCollectUpdateDialog(Shell parent, int style,TurqAccountingTransaction trans) {
 		super(parent, style);
@@ -101,7 +101,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 
 			dialogShell.setText(getText());
 
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(574,434));
+			dialogShell.setSize(636, 433);
 
 
 			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
@@ -116,55 +116,61 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 				coolBar1.setLayoutData(coolBar1LData);
 				{
 					coolItem1 = new CoolItem(coolBar1, SWT.NONE);
+					coolItem1.setSize(142, 49);
 					coolItem1
 						.setPreferredSize(new org.eclipse.swt.graphics.Point(
-							74,
-							38));
+							142,
+							49));
 					coolItem1
 						.setMinimumSize(new org.eclipse.swt.graphics.Point(
-							74,
-							38));
+							142,
+							49));
 					{
-						toolTransactionCollect = new ToolBar(coolBar1, SWT.NONE);
-						coolItem1.setControl(toolTransactionCollect);
+						toolBar1 = new ToolBar(coolBar1, SWT.NONE);
+						coolItem1.setControl(toolBar1);
 						{
-							toolUpdate = new ToolItem(toolTransactionCollect, SWT.NONE);
-							toolUpdate
-								.setText(Messages
-									.getString("AccUITransactionCollectUpdateDialog.0")); //$NON-NLS-1$
+							toolUpdate = new ToolItem(toolBar1, SWT.NONE);
+							toolUpdate.setEnabled(false);
+							toolUpdate.setText("Güncelle");
 							toolUpdate.setImage(SWTResourceManager
-								.getImage("icons/save_edit.gif")); //$NON-NLS-1$
+								.getImage("icons/save_edit.gif"));
 							toolUpdate
 								.addSelectionListener(new SelectionAdapter() {
-								public void widgetSelected(SelectionEvent evt) {
-									toolUpdateWidgetSelected(evt);
-								}
+									public void widgetSelected(
+										SelectionEvent evt) {
+										toolUpdateWidgetSelected(evt);
+									}
 								});
 						}
 						{
-							toolDelete = new ToolItem(toolTransactionCollect, SWT.NONE);
+							toolDelete = new ToolItem(toolBar1, SWT.NONE);
+							toolDelete.setEnabled(false);
 							toolDelete
 								.setText(Messages
-									.getString("AccUITransactionCollectUpdateDialog.2")); //$NON-NLS-1$
-							toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
+									.getString("AccUITransactionPaymentUpdateDialog.2"));
+							toolDelete.setImage(SWTResourceManager
+								.getImage("icons/Delete16.gif"));
 							toolDelete
 								.addSelectionListener(new SelectionAdapter() {
-								public void widgetSelected(SelectionEvent evt) {
-									toolDeleteWidgetSelected(evt);
-								}
+									public void widgetSelected(
+										SelectionEvent evt) {
+										toolDeleteWidgetSelected(evt);
+									}
 								});
 						}
 						{
-							toolCancel = new ToolItem(
-								toolTransactionCollect,
-								SWT.NONE);
-							toolCancel.setText(Messages.getString("AccUITransactionCollectUpdateDialog.1")); //$NON-NLS-1$
-							toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$ 
+							toolCancel = new ToolItem(toolBar1, SWT.NONE);
+							toolCancel
+								.setText(Messages
+									.getString("AccUITransactionPaymentUpdateDialog.3"));
+							toolCancel.setImage(SWTResourceManager
+								.getImage("icons/cancel.jpg"));
 							toolCancel
 								.addSelectionListener(new SelectionAdapter() {
-								public void widgetSelected(SelectionEvent evt) {
-									dialogShell.close();
-								}
+									public void widgetSelected(
+										SelectionEvent evt) {
+										dialogShell.close();
+									}
 								});
 						}
 					}

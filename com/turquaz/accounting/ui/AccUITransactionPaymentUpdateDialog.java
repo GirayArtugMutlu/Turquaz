@@ -125,9 +125,9 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 			coolBar1.setLayoutData(coolBar1LData);
 	
 			coolItem1.setControl(toolBar1);
-			coolItem1.setSize(new org.eclipse.swt.graphics.Point(88,38));
-			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88,38));
-			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,38));
+			coolItem1.setSize(42, 52);
+			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(42, 52));
+			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(42, 52));
 	
 	
 			toolUpdate.setText("Güncelle"); 

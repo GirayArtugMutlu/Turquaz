@@ -147,7 +147,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 			
 			preInitGUI();
 
-			this.setSize(new org.eclipse.swt.graphics.Point(520,452));
+			this.setSize(544, 451);
 
 
 			
@@ -199,7 +199,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 				lblCreditor.setText(Messages
 					.getString("AccUITransactionPayment.2")); //$NON-NLS-1$
 				GridData lblCreditorLData = new GridData();
-				lblCreditorLData.widthHint = 94;
+				lblCreditorLData.widthHint = 105;
 				lblCreditorLData.heightHint = 19;
 				lblCreditor.setLayoutData(lblCreditorLData);
 			}

@@ -231,12 +231,10 @@ public class AccUITransactionCollect extends Composite implements
 			}
 			{
 				lblTransDefinition = new CLabel(this, SWT.NONE);
-				lblTransDefinition.setText(Messages
-						.getString("AccUITransactionCollect.1")); //$NON-NLS-1$
+				lblTransDefinition.setText(Messages.getString("AccUITransactionCollect.1")); //$NON-NLS-1$
 				GridData lblTransDefinitionLData = new GridData();
-				lblTransDefinitionLData.widthHint = 59;
+				lblTransDefinitionLData.widthHint = 78;
 				lblTransDefinitionLData.heightHint = 19;
-				lblTransDefinitionLData.verticalAlignment = GridData.BEGINNING;
 				lblTransDefinition.setLayoutData(lblTransDefinitionLData);
 			}
 			{

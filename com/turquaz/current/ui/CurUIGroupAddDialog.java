@@ -114,9 +114,6 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 				compGroupAddDialog = new Composite(dialogShell, SWT.NONE);
 				GridLayout compGroupAddDialogLayout = new GridLayout();
 				compGroupAddDialogLayout.numColumns = 3;
-				compGroupAddDialog.setSize(new org.eclipse.swt.graphics.Point(
-					433,
-					85));
 				GridData compGroupAddDialogLData = new GridData();
 				compGroupAddDialog.setLayout(compGroupAddDialogLayout);
 				compGroupAddDialog.setBackground(SWTResourceManager.getColor(
@@ -124,7 +121,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 					255,
 					255));
 				compGroupAddDialogLData.horizontalAlignment = GridData.FILL;
-				compGroupAddDialogLData.heightHint = 85;
+				compGroupAddDialogLData.heightHint = 98;
 				compGroupAddDialogLData.grabExcessHorizontalSpace = true;
 				compGroupAddDialog.setLayoutData(compGroupAddDialogLData);
 				{
@@ -142,9 +139,6 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 				{
 					txtGroupName = new Text(compGroupAddDialog, SWT.BORDER);
-					txtGroupName.setSize(new org.eclipse.swt.graphics.Point(
-						124,
-						13));
 					GridData txtGroupNameLData = new GridData();
 					txtGroupName.addKeyListener(new KeyAdapter() {
 						public void keyReleased(KeyEvent evt) {
@@ -152,8 +146,8 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 								btnGroupAddMouseUp();
 						}
 					});
-					txtGroupNameLData.widthHint = 111;
-					txtGroupNameLData.heightHint = 6;
+					txtGroupNameLData.widthHint = 118;
+					txtGroupNameLData.heightHint = 8;
 					txtGroupNameLData.horizontalSpan = 2;
 					txtGroupName.setLayoutData(txtGroupNameLData);
 				}
@@ -162,19 +156,16 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 					GridData lblDescriptionLData = new GridData();
 					lblDescriptionLData.verticalAlignment = GridData.BEGINNING;
 					lblDescriptionLData.horizontalAlignment = GridData.END;
-					lblDescriptionLData.widthHint = 47;
-					lblDescriptionLData.heightHint = 19;
+					lblDescriptionLData.widthHint = 72;
+					lblDescriptionLData.heightHint = 23;
 					lblDescription.setLayoutData(lblDescriptionLData);
 					lblDescription.setText(Messages.getString("CurUIGroupAddDialog.1")); //$NON-NLS-1$
 				}
 				{
 					txtDescription = new Text(compGroupAddDialog, SWT.SINGLE | SWT.BORDER);
-					txtDescription.setSize(new org.eclipse.swt.graphics.Point(
-						312,
-						13));
 					GridData txtDescriptionLData = new GridData();
-					txtDescriptionLData.widthHint = 299;
-					txtDescriptionLData.heightHint = 6;
+					txtDescriptionLData.widthHint = 303;
+					txtDescriptionLData.heightHint = 10;
 					txtDescriptionLData.horizontalSpan = 2;
 					txtDescription.setLayoutData(txtDescriptionLData);
 				}
@@ -182,8 +173,6 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 					btnDelete = new Button(compGroupAddDialog, SWT.PUSH | SWT.CENTER);
 					btnDelete.setText(Messages
 						.getString("CurUIGroupAddDialog.2"));
-					btnDelete
-						.setSize(new org.eclipse.swt.graphics.Point(50, 23));
 					GridData btnDeleteLData = new GridData();
 					btnDelete.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
@@ -192,16 +181,14 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 					});
 					btnDelete.setEnabled(false);
 					btnDeleteLData.horizontalAlignment = GridData.END;
-					btnDeleteLData.widthHint = 50;
-					btnDeleteLData.heightHint = 23;
+					btnDeleteLData.widthHint = 54;
+					btnDeleteLData.heightHint = 31;
 					btnDelete.setLayoutData(btnDeleteLData);
 				}
 				{
 					btnUpdate = new Button(compGroupAddDialog, SWT.PUSH | SWT.CENTER);
 					btnUpdate.setText(Messages
 						.getString("CurUIGroupAddDialog.3"));
-					btnUpdate
-						.setSize(new org.eclipse.swt.graphics.Point(47, 23));
 					GridData btnUpdateLData = new GridData();
 					btnUpdate.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
@@ -210,8 +197,8 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 					});
 					btnUpdate.setEnabled(false);
 					btnUpdateLData.horizontalAlignment = GridData.END;
-					btnUpdateLData.widthHint = 47;
-					btnUpdateLData.heightHint = 23;
+					btnUpdateLData.widthHint = 84;
+					btnUpdateLData.heightHint = 32;
 					btnUpdate.setLayoutData(btnUpdateLData);
 				}
 				{

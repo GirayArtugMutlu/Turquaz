@@ -478,39 +478,6 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	
 			tbfCurrentCardAdd = new CTabFolder(this,SWT.NULL);
 			tabItemGeneralInfo = new CTabItem(tbfCurrentCardAdd,SWT.NULL);
-			compCurrentGeneralInfo = new Composite(tbfCurrentCardAdd,SWT.NULL);
-			lblCurrentCode = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			txtCurrentCode = new Text(compCurrentGeneralInfo,SWT.NULL);
-			lblCurrentName = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			txtCurrentName = new Text(compCurrentGeneralInfo,SWT.NULL);
-			lblCardDefinition = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			txtCardDefinition = new Text(compCurrentGeneralInfo,SWT.MULTI| SWT.WRAP| SWT.V_SCROLL);
-			lblCardAddress = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			txtCardAddress = new Text(compCurrentGeneralInfo,SWT.MULTI| SWT.WRAP| SWT.V_SCROLL);
-			lblTelephone1 = new Label(compCurrentGeneralInfo,SWT.NULL);
-			composite1 = new Composite(compCurrentGeneralInfo,SWT.NULL);
-			numtxtCountryCode = new NumericText(composite1,SWT.NULL);
-			numTxtCityCode = new NumericText(composite1,SWT.NULL);
-			numTxtNumber = new NumericText(composite1,SWT.NULL);
-			lblTelephone2 = new Label(compCurrentGeneralInfo,SWT.NULL);
-			composite2 = new Composite(compCurrentGeneralInfo,SWT.NULL);
-			numTxtCountryCode2 = new NumericText(composite2,SWT.NULL);
-			numTxtCityCode2 = new NumericText(composite2,SWT.NULL);
-			numTxtNumber2 = new NumericText(composite2,SWT.NULL);
-			lblTaxDepartment = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			txtTaxDepartmant = new Text(compCurrentGeneralInfo,SWT.NULL);
-			lblTaxNumber = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			txtTaxNumber = new Text(compCurrentGeneralInfo,SWT.NULL);
-			lblRiskLimit = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			decTxtRiskLimit = new CurrencyText(compCurrentGeneralInfo,SWT.NULL);
-			lblCreditLimit = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			decTxtCreditLimit = new CurrencyText(compCurrentGeneralInfo,SWT.NULL);
-			lblDiscountRate = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			numTextDiscountRate = new NumericText(compCurrentGeneralInfo,SWT.NULL);
-			lblDiscountAMount = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			decTxtDiscountAmount = new CurrencyText(compCurrentGeneralInfo,SWT.NULL);
-			lblAccountingCodeCustomer = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			accPickerCustomer = new AccountPicker(compCurrentGeneralInfo, SWT.NONE);
 			tabItemContactInfo = new CTabItem(tbfCurrentCardAdd,SWT.NULL);
 			compCurrentContactInfo = new Composite(tbfCurrentCardAdd,SWT.NULL);
 			Name = new CLabel(compCurrentContactInfo,SWT.NULL);
@@ -546,482 +513,439 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			tbfCurrentCardAddLData.grabExcessVerticalSpace = true;
 			tbfCurrentCardAdd.setLayoutData(tbfCurrentCardAddLData);
 			tbfCurrentCardAdd.setSize(new org.eclipse.swt.graphics.Point(584,452));
-	
-			tabItemGeneralInfo.setControl(compCurrentGeneralInfo);
+
 			tabItemGeneralInfo.setText(Messages.getString("CurUICurrentCardAdd.0")); //$NON-NLS-1$
-	
-			compCurrentGeneralInfo.setSize(new org.eclipse.swt.graphics.Point(584,435));
-	
-			GridData lblCurrentCodeLData = new GridData();
-			lblCurrentCodeLData.widthHint = 93;
-			lblCurrentCodeLData.heightHint = 20;
-			lblCurrentCode.setLayoutData(lblCurrentCodeLData);
-			lblCurrentCode.setText(Messages.getString("CurUICurrentCardAdd.1")); //$NON-NLS-1$
-
-			GridData txtCurrentCodeLData = new GridData();
-			txtCurrentCodeLData.verticalAlignment = GridData.CENTER;
-			txtCurrentCodeLData.horizontalAlignment = GridData.BEGINNING;
-			txtCurrentCodeLData.widthHint = 154;
-			txtCurrentCodeLData.heightHint = 14;
-			txtCurrentCodeLData.horizontalIndent = 0;
-			txtCurrentCodeLData.horizontalSpan = 3;
-			txtCurrentCodeLData.verticalSpan = 1;
-			txtCurrentCodeLData.grabExcessHorizontalSpace = false;
-			txtCurrentCodeLData.grabExcessVerticalSpace = false;
-			txtCurrentCode.setLayoutData(txtCurrentCodeLData);
-			txtCurrentCode.setTextLimit(50);
-			txtCurrentCode.setSize(new org.eclipse.swt.graphics.Point(154,14));
-	
-			GridData lblCurrentNameLData = new GridData();
-			lblCurrentNameLData.verticalAlignment = GridData.CENTER;
-			lblCurrentNameLData.horizontalAlignment = GridData.BEGINNING;
-			lblCurrentNameLData.widthHint = 73;
-			lblCurrentNameLData.heightHint = 19;
-			lblCurrentNameLData.horizontalIndent = 0;
-			lblCurrentNameLData.horizontalSpan = 1;
-			lblCurrentNameLData.verticalSpan = 1;
-			lblCurrentNameLData.grabExcessHorizontalSpace = false;
-			lblCurrentNameLData.grabExcessVerticalSpace = false;
-			lblCurrentName.setLayoutData(lblCurrentNameLData);
-			lblCurrentName.setText(Messages.getString("CurUICurrentCardAdd.2")); //$NON-NLS-1$
-			lblCurrentName.setSize(new org.eclipse.swt.graphics.Point(73,19));
-	
-			GridData txtCurrentNameLData = new GridData();
-			txtCurrentNameLData.verticalAlignment = GridData.CENTER;
-			txtCurrentNameLData.horizontalAlignment = GridData.FILL;
-			txtCurrentNameLData.widthHint = -1;
-			txtCurrentNameLData.heightHint = 17;
-			txtCurrentNameLData.horizontalIndent = 0;
-			txtCurrentNameLData.horizontalSpan = 3;
-			txtCurrentNameLData.verticalSpan = 1;
-			txtCurrentNameLData.grabExcessHorizontalSpace = true;
-			txtCurrentNameLData.grabExcessVerticalSpace = false;
-			txtCurrentName.setLayoutData(txtCurrentNameLData);
-			txtCurrentName.setTextLimit(250);
-			txtCurrentName.setSize(new org.eclipse.swt.graphics.Point(445,17));
-	
-			GridData lblCardDefinitionLData = new GridData();
-			lblCardDefinitionLData.verticalAlignment = GridData.BEGINNING;
-			lblCardDefinitionLData.horizontalAlignment = GridData.BEGINNING;
-			lblCardDefinitionLData.widthHint = -1;
-			lblCardDefinitionLData.heightHint = -1;
-			lblCardDefinitionLData.horizontalIndent = 0;
-			lblCardDefinitionLData.horizontalSpan = 1;
-			lblCardDefinitionLData.verticalSpan = 1;
-			lblCardDefinitionLData.grabExcessHorizontalSpace = false;
-			lblCardDefinitionLData.grabExcessVerticalSpace = false;
-			lblCardDefinition.setLayoutData(lblCardDefinitionLData);
-			lblCardDefinition.setText(Messages.getString("CurUICurrentCardAdd.3")); //$NON-NLS-1$
-	
-			GridData txtCardDefinitionLData = new GridData();
-			txtCardDefinition.addVerifyListener(new VerifyListener() {
-				public void verifyText(VerifyEvent evt) {
-					if (evt.keyCode == SWT.TAB) {
-						txtCardAddress.setFocus();
-						evt.doit = false;
-						
-					}
+			{
+				compCurrentGeneralInfo = new Composite(
+					tbfCurrentCardAdd,
+					SWT.NONE);
+				tabItemGeneralInfo.setControl(compCurrentGeneralInfo);
+				GridLayout compCurrentGeneralInfoLayout = new GridLayout(
+					4,
+					true);
+				compCurrentGeneralInfoLayout.marginWidth = 5;
+				compCurrentGeneralInfoLayout.marginHeight = 5;
+				compCurrentGeneralInfoLayout.numColumns = 4;
+				compCurrentGeneralInfoLayout.makeColumnsEqualWidth = false;
+				compCurrentGeneralInfoLayout.horizontalSpacing = 5;
+				compCurrentGeneralInfoLayout.verticalSpacing = 5;
+				compCurrentGeneralInfo
+					.setSize(new org.eclipse.swt.graphics.Point(584, 435));
+				compCurrentGeneralInfo.setLayout(compCurrentGeneralInfoLayout);
+				{
+					lblCurrentCode = new CLabel(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData lblCurrentCodeLData = new GridData();
+					lblCurrentCodeLData.widthHint = 93;
+					lblCurrentCodeLData.heightHint = 20;
+					lblCurrentCode.setLayoutData(lblCurrentCodeLData);
+					lblCurrentCode.setText(Messages
+						.getString("CurUICurrentCardAdd.1")); //$NON-NLS-1$
 				}
-			});
-			txtCardDefinition.addTraverseListener(new TraverseListener() {
-				public void keyTraversed(TraverseEvent evt) {
-					if (evt.keyCode == SWT.TAB) {
-						txtCardAddress.setFocus();
-						evt.doit = false;
-					}
+				{
+					txtCurrentCode = new Text(compCurrentGeneralInfo, SWT.NONE);
+					GridData txtCurrentCodeLData = new GridData();
+					txtCurrentCodeLData.widthHint = 148;
+					txtCurrentCodeLData.heightHint = 8;
+					txtCurrentCodeLData.horizontalSpan = 3;
+					txtCurrentCode.setLayoutData(txtCurrentCodeLData);
+					txtCurrentCode.setTextLimit(50);
+					txtCurrentCode.setSize(new org.eclipse.swt.graphics.Point(
+						154,
+						14));
 				}
-			});
-			txtCardDefinitionLData.verticalAlignment = GridData.CENTER;
-			txtCardDefinitionLData.horizontalAlignment = GridData.BEGINNING;
-			txtCardDefinitionLData.widthHint = 403;
-			txtCardDefinitionLData.heightHint = 53;
-			txtCardDefinitionLData.horizontalIndent = 0;
-			txtCardDefinitionLData.horizontalSpan = 3;
-			txtCardDefinitionLData.verticalSpan = 1;
-			txtCardDefinitionLData.grabExcessHorizontalSpace = false;
-			txtCardDefinitionLData.grabExcessVerticalSpace = false;
-			txtCardDefinition.setLayoutData(txtCardDefinitionLData);
-			txtCardDefinition.setTextLimit(250);
-			txtCardDefinition.setSize(new org.eclipse.swt.graphics.Point(403,53));
-	
-			GridData lblCardAddressLData = new GridData();
-			lblCardAddressLData.verticalAlignment = GridData.BEGINNING;
-			lblCardAddressLData.horizontalAlignment = GridData.BEGINNING;
-			lblCardAddressLData.widthHint = -1;
-			lblCardAddressLData.heightHint = -1;
-			lblCardAddressLData.horizontalIndent = 0;
-			lblCardAddressLData.horizontalSpan = 1;
-			lblCardAddressLData.verticalSpan = 1;
-			lblCardAddressLData.grabExcessHorizontalSpace = false;
-			lblCardAddressLData.grabExcessVerticalSpace = false;
-			lblCardAddress.setLayoutData(lblCardAddressLData);
-			lblCardAddress.setText(Messages.getString("CurUICurrentCardAdd.4")); //$NON-NLS-1$
-	
-			GridData txtCardAddressLData = new GridData();
-			txtCardAddress.addVerifyListener(new VerifyListener() {
-				public void verifyText(VerifyEvent evt) {
-					if (evt.keyCode == SWT.TAB) {
-						composite1.setFocus();
-						evt.doit = false;
-
-					}
+				{
+					lblCurrentName = new CLabel(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData lblCurrentNameLData = new GridData();
+					lblCurrentNameLData.widthHint = 73;
+					lblCurrentNameLData.heightHint = 19;
+					lblCurrentName.setLayoutData(lblCurrentNameLData);
+					lblCurrentName.setText(Messages
+						.getString("CurUICurrentCardAdd.2")); //$NON-NLS-1$
+					lblCurrentName.setSize(new org.eclipse.swt.graphics.Point(
+						73,
+						19));
 				}
-			});
-			txtCardAddress.addTraverseListener(new TraverseListener() {
-				public void keyTraversed(TraverseEvent evt) {
-					if (evt.keyCode == SWT.TAB) {
-						numtxtCountryCode.setFocus();
-						evt.doit = false;
-					}
+				{
+					txtCurrentName = new Text(compCurrentGeneralInfo, SWT.NONE);
+					GridData txtCurrentNameLData = new GridData();
+					txtCurrentNameLData.horizontalAlignment = GridData.FILL;
+					txtCurrentNameLData.heightHint = 11;
+					txtCurrentNameLData.horizontalSpan = 3;
+					txtCurrentNameLData.grabExcessHorizontalSpace = true;
+					txtCurrentName.setLayoutData(txtCurrentNameLData);
+					txtCurrentName.setTextLimit(250);
+					txtCurrentName.setSize(new org.eclipse.swt.graphics.Point(
+						445,
+						17));
 				}
-			});
-			txtCardAddressLData.verticalAlignment = GridData.CENTER;
-			txtCardAddressLData.horizontalAlignment = GridData.BEGINNING;
-			txtCardAddressLData.widthHint = 403;
-			txtCardAddressLData.heightHint = 53;
-			txtCardAddressLData.horizontalIndent = 0;
-			txtCardAddressLData.horizontalSpan = 3;
-			txtCardAddressLData.verticalSpan = 1;
-			txtCardAddressLData.grabExcessHorizontalSpace = false;
-			txtCardAddressLData.grabExcessVerticalSpace = false;
-			txtCardAddress.setLayoutData(txtCardAddressLData);
-			txtCardAddress.setTextLimit(250);
-			txtCardAddress.setSize(new org.eclipse.swt.graphics.Point(403,53));
-	
-			GridData lblTelephone1LData = new GridData();
-			lblTelephone1LData.verticalAlignment = GridData.CENTER;
-			lblTelephone1LData.horizontalAlignment = GridData.BEGINNING;
-			lblTelephone1LData.widthHint = 82;
-			lblTelephone1LData.heightHint = 16;
-			lblTelephone1LData.horizontalIndent = 0;
-			lblTelephone1LData.horizontalSpan = 1;
-			lblTelephone1LData.verticalSpan = 1;
-			lblTelephone1LData.grabExcessHorizontalSpace = false;
-			lblTelephone1LData.grabExcessVerticalSpace = false;
-			lblTelephone1.setLayoutData(lblTelephone1LData);
-			lblTelephone1.setText(Messages.getString("CurUICurrentCardAdd.5")); //$NON-NLS-1$
-			lblTelephone1.setSize(new org.eclipse.swt.graphics.Point(82,16));
-	
-			GridData composite1LData = new GridData();
-			composite1LData.verticalAlignment = GridData.CENTER;
-			composite1LData.horizontalAlignment = GridData.BEGINNING;
-			composite1LData.widthHint = 222;
-			composite1LData.heightHint = 18;
-			composite1LData.horizontalIndent = 0;
-			composite1LData.horizontalSpan = 3;
-			composite1LData.verticalSpan = 1;
-			composite1LData.grabExcessHorizontalSpace = false;
-			composite1LData.grabExcessVerticalSpace = false;
-			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(222,18));
-	
-			GridData numtxtCountryCodeLData = new GridData();
-			numtxtCountryCodeLData.verticalAlignment = GridData.CENTER;
-			numtxtCountryCodeLData.horizontalAlignment = GridData.BEGINNING;
-			numtxtCountryCodeLData.widthHint = 30;
-			numtxtCountryCodeLData.heightHint = 16;
-			numtxtCountryCodeLData.horizontalIndent = 0;
-			numtxtCountryCodeLData.horizontalSpan = 1;
-			numtxtCountryCodeLData.verticalSpan = 1;
-			numtxtCountryCodeLData.grabExcessHorizontalSpace = false;
-			numtxtCountryCodeLData.grabExcessVerticalSpace = false;
-			numtxtCountryCode.setLayoutData(numtxtCountryCodeLData);
-			numtxtCountryCode.setTextLimit(5);
-			numtxtCountryCode.setSize(new org.eclipse.swt.graphics.Point(30,16));
-	
-			GridData numTxtCityCodeLData = new GridData();
-			numTxtCityCodeLData.verticalAlignment = GridData.CENTER;
-			numTxtCityCodeLData.horizontalAlignment = GridData.BEGINNING;
-			numTxtCityCodeLData.widthHint = 36;
-			numTxtCityCodeLData.heightHint = 16;
-			numTxtCityCodeLData.horizontalIndent = 0;
-			numTxtCityCodeLData.horizontalSpan = 1;
-			numTxtCityCodeLData.verticalSpan = 1;
-			numTxtCityCodeLData.grabExcessHorizontalSpace = false;
-			numTxtCityCodeLData.grabExcessVerticalSpace = false;
-			numTxtCityCode.setLayoutData(numTxtCityCodeLData);
-			numTxtCityCode.setTextLimit(3);
-			numTxtCityCode.setSize(new org.eclipse.swt.graphics.Point(36,16));
-	
-			GridData numTxtNumberLData = new GridData();
-			numTxtNumberLData.verticalAlignment = GridData.CENTER;
-			numTxtNumberLData.horizontalAlignment = GridData.BEGINNING;
-			numTxtNumberLData.widthHint = 78;
-			numTxtNumberLData.heightHint = 16;
-			numTxtNumberLData.horizontalIndent = 0;
-			numTxtNumberLData.horizontalSpan = 1;
-			numTxtNumberLData.verticalSpan = 1;
-			numTxtNumberLData.grabExcessHorizontalSpace = false;
-			numTxtNumberLData.grabExcessVerticalSpace = false;
-			numTxtNumber.setLayoutData(numTxtNumberLData);
-			numTxtNumber.setTextLimit(9);
-			numTxtNumber.setSize(new org.eclipse.swt.graphics.Point(78,16));
-			GridLayout composite1Layout = new GridLayout(3, true);
-			composite1.setLayout(composite1Layout);
-			composite1Layout.marginWidth = 0;
-			composite1Layout.marginHeight = 0;
-			composite1Layout.numColumns = 3;
-			composite1Layout.makeColumnsEqualWidth = false;
-			composite1Layout.horizontalSpacing = 5;
-			composite1Layout.verticalSpacing = 0;
-			composite1.layout();
-	
-			GridData lblTelephone2LData = new GridData();
-			lblTelephone2LData.verticalAlignment = GridData.CENTER;
-			lblTelephone2LData.horizontalAlignment = GridData.BEGINNING;
-			lblTelephone2LData.widthHint = 82;
-			lblTelephone2LData.heightHint = 16;
-			lblTelephone2LData.horizontalIndent = 0;
-			lblTelephone2LData.horizontalSpan = 1;
-			lblTelephone2LData.verticalSpan = 1;
-			lblTelephone2LData.grabExcessHorizontalSpace = false;
-			lblTelephone2LData.grabExcessVerticalSpace = false;
-			lblTelephone2.setLayoutData(lblTelephone2LData);
-			lblTelephone2.setText(Messages.getString("CurUICurrentCardAdd.6")); //$NON-NLS-1$
-			lblTelephone2.setSize(new org.eclipse.swt.graphics.Point(82,16));
-	
-			GridData composite2LData = new GridData();
-			composite2LData.verticalAlignment = GridData.CENTER;
-			composite2LData.horizontalAlignment = GridData.BEGINNING;
-			composite2LData.widthHint = 222;
-			composite2LData.heightHint = 18;
-			composite2LData.horizontalIndent = 0;
-			composite2LData.horizontalSpan = 3;
-			composite2LData.verticalSpan = 1;
-			composite2LData.grabExcessHorizontalSpace = false;
-			composite2LData.grabExcessVerticalSpace = false;
-			composite2.setLayoutData(composite2LData);
-			composite2.setSize(new org.eclipse.swt.graphics.Point(222,18));
-	
-			GridData numTxtCountryCode2LData = new GridData();
-			numTxtCountryCode2LData.verticalAlignment = GridData.CENTER;
-			numTxtCountryCode2LData.horizontalAlignment = GridData.BEGINNING;
-			numTxtCountryCode2LData.widthHint = 30;
-			numTxtCountryCode2LData.heightHint = 16;
-			numTxtCountryCode2LData.horizontalIndent = 0;
-			numTxtCountryCode2LData.horizontalSpan = 1;
-			numTxtCountryCode2LData.verticalSpan = 1;
-			numTxtCountryCode2LData.grabExcessHorizontalSpace = false;
-			numTxtCountryCode2LData.grabExcessVerticalSpace = false;
-			numTxtCountryCode2.setLayoutData(numTxtCountryCode2LData);
-			numTxtCountryCode2.setTextLimit(5);
-			numTxtCountryCode2.setSize(new org.eclipse.swt.graphics.Point(30,16));
-	
-			GridData numTxtCityCode2LData = new GridData();
-			numTxtCityCode2LData.verticalAlignment = GridData.CENTER;
-			numTxtCityCode2LData.horizontalAlignment = GridData.BEGINNING;
-			numTxtCityCode2LData.widthHint = 36;
-			numTxtCityCode2LData.heightHint = 16;
-			numTxtCityCode2LData.horizontalIndent = 0;
-			numTxtCityCode2LData.horizontalSpan = 1;
-			numTxtCityCode2LData.verticalSpan = 1;
-			numTxtCityCode2LData.grabExcessHorizontalSpace = false;
-			numTxtCityCode2LData.grabExcessVerticalSpace = false;
-			numTxtCityCode2.setLayoutData(numTxtCityCode2LData);
-			numTxtCityCode2.setTextLimit(3);
-			numTxtCityCode2.setSize(new org.eclipse.swt.graphics.Point(36,16));
-	
-			GridData numTxtNumber2LData = new GridData();
-			numTxtNumber2LData.verticalAlignment = GridData.CENTER;
-			numTxtNumber2LData.horizontalAlignment = GridData.BEGINNING;
-			numTxtNumber2LData.widthHint = 78;
-			numTxtNumber2LData.heightHint = 16;
-			numTxtNumber2LData.horizontalIndent = 0;
-			numTxtNumber2LData.horizontalSpan = 1;
-			numTxtNumber2LData.verticalSpan = 1;
-			numTxtNumber2LData.grabExcessHorizontalSpace = false;
-			numTxtNumber2LData.grabExcessVerticalSpace = false;
-			numTxtNumber2.setLayoutData(numTxtNumber2LData);
-			numTxtNumber2.setTextLimit(9);
-			numTxtNumber2.setSize(new org.eclipse.swt.graphics.Point(78,16));
-			GridLayout composite2Layout = new GridLayout(3, true);
-			composite2.setLayout(composite2Layout);
-			composite2Layout.marginWidth = 0;
-			composite2Layout.marginHeight = 0;
-			composite2Layout.numColumns = 3;
-			composite2Layout.makeColumnsEqualWidth = false;
-			composite2Layout.horizontalSpacing = 5;
-			composite2Layout.verticalSpacing = 0;
-			composite2.layout();
-	
-			GridData lblTaxDepartmentLData = new GridData();
-			lblTaxDepartmentLData.verticalAlignment = GridData.CENTER;
-			lblTaxDepartmentLData.horizontalAlignment = GridData.BEGINNING;
-			lblTaxDepartmentLData.widthHint = 84;
-			lblTaxDepartmentLData.heightHint = 19;
-			lblTaxDepartmentLData.horizontalIndent = 0;
-			lblTaxDepartmentLData.horizontalSpan = 1;
-			lblTaxDepartmentLData.verticalSpan = 1;
-			lblTaxDepartmentLData.grabExcessHorizontalSpace = false;
-			lblTaxDepartmentLData.grabExcessVerticalSpace = false;
-			lblTaxDepartment.setLayoutData(lblTaxDepartmentLData);
-			lblTaxDepartment.setText(Messages.getString("CurUICurrentCardAdd.7")); //$NON-NLS-1$
-			lblTaxDepartment.setSize(new org.eclipse.swt.graphics.Point(84,19));
-	
-			GridData txtTaxDepartmantLData = new GridData();
-			txtTaxDepartmantLData.verticalAlignment = GridData.CENTER;
-			txtTaxDepartmantLData.horizontalAlignment = GridData.BEGINNING;
-			txtTaxDepartmantLData.widthHint = 147;
-			txtTaxDepartmantLData.heightHint = 15;
-			txtTaxDepartmantLData.horizontalIndent = 0;
-			txtTaxDepartmantLData.horizontalSpan = 1;
-			txtTaxDepartmantLData.verticalSpan = 1;
-			txtTaxDepartmantLData.grabExcessHorizontalSpace = false;
-			txtTaxDepartmantLData.grabExcessVerticalSpace = false;
-			txtTaxDepartmant.setLayoutData(txtTaxDepartmantLData);
-			txtTaxDepartmant.setTextLimit(50);
-			txtTaxDepartmant.setSize(new org.eclipse.swt.graphics.Point(147,15));
-	
-			GridData lblTaxNumberLData = new GridData();
-			lblTaxNumberLData.widthHint = 90;
-			lblTaxNumberLData.heightHint = 21;
-			lblTaxNumber.setLayoutData(lblTaxNumberLData);
-			lblTaxNumber.setText(Messages.getString("CurUICurrentCardAdd.8")); //$NON-NLS-1$
+				{
+					lblCardDefinition = new CLabel(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData lblCardDefinitionLData = new GridData();
+					lblCardDefinitionLData.verticalAlignment = GridData.BEGINNING;
+					lblCardDefinition.setLayoutData(lblCardDefinitionLData);
+					lblCardDefinition.setText(Messages
+						.getString("CurUICurrentCardAdd.3")); //$NON-NLS-1$
+				}
+				{
+					txtCardDefinition = new Text(
+						compCurrentGeneralInfo,
+						SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
+					GridData txtCardDefinitionLData = new GridData();
+					txtCardDefinitionLData.widthHint = 383;
+					txtCardDefinitionLData.heightHint = 51;
+					txtCardDefinitionLData.horizontalSpan = 3;
+					txtCardDefinition.addVerifyListener(new VerifyListener() {
+						public void verifyText(VerifyEvent evt) {
+							if (evt.keyCode == SWT.TAB) {
+								txtCardAddress.setFocus();
+								evt.doit = false;
 
-			GridData txtTaxNumberLData = new GridData();
-			txtTaxNumberLData.verticalAlignment = GridData.CENTER;
-			txtTaxNumberLData.horizontalAlignment = GridData.BEGINNING;
-			txtTaxNumberLData.widthHint = 174;
-			txtTaxNumberLData.heightHint = 16;
-			txtTaxNumberLData.horizontalIndent = 0;
-			txtTaxNumberLData.horizontalSpan = 1;
-			txtTaxNumberLData.verticalSpan = 1;
-			txtTaxNumberLData.grabExcessHorizontalSpace = false;
-			txtTaxNumberLData.grabExcessVerticalSpace = false;
-			txtTaxNumber.setLayoutData(txtTaxNumberLData);
-			txtTaxNumber.setTextLimit(50);
-			txtTaxNumber.setSize(new org.eclipse.swt.graphics.Point(174,16));
-	
-			GridData lblRiskLimitLData = new GridData();
-			lblRiskLimitLData.verticalAlignment = GridData.CENTER;
-			lblRiskLimitLData.horizontalAlignment = GridData.BEGINNING;
-			lblRiskLimitLData.widthHint = -1;
-			lblRiskLimitLData.heightHint = -1;
-			lblRiskLimitLData.horizontalIndent = 0;
-			lblRiskLimitLData.horizontalSpan = 1;
-			lblRiskLimitLData.verticalSpan = 1;
-			lblRiskLimitLData.grabExcessHorizontalSpace = false;
-			lblRiskLimitLData.grabExcessVerticalSpace = false;
-			lblRiskLimit.setLayoutData(lblRiskLimitLData);
-			lblRiskLimit.setText(Messages.getString("CurUICurrentCardAdd.9")); //$NON-NLS-1$
-	
-			GridData decTxtRiskLimitLData = new GridData();
-			decTxtRiskLimitLData.verticalAlignment = GridData.CENTER;
-			decTxtRiskLimitLData.horizontalAlignment = GridData.BEGINNING;
-			decTxtRiskLimitLData.widthHint = 145;
-			decTxtRiskLimitLData.heightHint = 16;
-			decTxtRiskLimitLData.horizontalIndent = 0;
-			decTxtRiskLimitLData.horizontalSpan = 1;
-			decTxtRiskLimitLData.verticalSpan = 1;
-			decTxtRiskLimitLData.grabExcessHorizontalSpace = false;
-			decTxtRiskLimitLData.grabExcessVerticalSpace = false;
-			decTxtRiskLimit.setLayoutData(decTxtRiskLimitLData);
-			decTxtRiskLimit.setSize(new org.eclipse.swt.graphics.Point(145,16));
-	
-			GridData lblCreditLimitLData = new GridData();
-			lblCreditLimitLData.verticalAlignment = GridData.CENTER;
-			lblCreditLimitLData.horizontalAlignment = GridData.BEGINNING;
-			lblCreditLimitLData.widthHint = 74;
-			lblCreditLimitLData.heightHint = 19;
-			lblCreditLimitLData.horizontalIndent = 0;
-			lblCreditLimitLData.horizontalSpan = 1;
-			lblCreditLimitLData.verticalSpan = 1;
-			lblCreditLimitLData.grabExcessHorizontalSpace = false;
-			lblCreditLimitLData.grabExcessVerticalSpace = false;
-			lblCreditLimit.setLayoutData(lblCreditLimitLData);
-			lblCreditLimit.setText(Messages.getString("CurUICurrentCardAdd.10")); //$NON-NLS-1$
-			lblCreditLimit.setSize(new org.eclipse.swt.graphics.Point(74,19));
-	
-			GridData decTxtCreditLimitLData = new GridData();
-			decTxtCreditLimitLData.verticalAlignment = GridData.CENTER;
-			decTxtCreditLimitLData.horizontalAlignment = GridData.BEGINNING;
-			decTxtCreditLimitLData.widthHint = 175;
-			decTxtCreditLimitLData.heightHint = 15;
-			decTxtCreditLimitLData.horizontalIndent = 0;
-			decTxtCreditLimitLData.horizontalSpan = 1;
-			decTxtCreditLimitLData.verticalSpan = 1;
-			decTxtCreditLimitLData.grabExcessHorizontalSpace = false;
-			decTxtCreditLimitLData.grabExcessVerticalSpace = false;
-			decTxtCreditLimit.setLayoutData(decTxtCreditLimitLData);
-			decTxtCreditLimit.setSize(new org.eclipse.swt.graphics.Point(175,15));
-	
-			GridData lblDiscountRateLData = new GridData();
-			lblDiscountRateLData.verticalAlignment = GridData.CENTER;
-			lblDiscountRateLData.horizontalAlignment = GridData.BEGINNING;
-			lblDiscountRateLData.widthHint = -1;
-			lblDiscountRateLData.heightHint = -1;
-			lblDiscountRateLData.horizontalIndent = 0;
-			lblDiscountRateLData.horizontalSpan = 1;
-			lblDiscountRateLData.verticalSpan = 1;
-			lblDiscountRateLData.grabExcessHorizontalSpace = false;
-			lblDiscountRateLData.grabExcessVerticalSpace = false;
-			lblDiscountRate.setLayoutData(lblDiscountRateLData);
-			lblDiscountRate.setText(Messages.getString("CurUICurrentCardAdd.11")); //$NON-NLS-1$
-	
-			GridData numTextDiscountRateLData = new GridData();
-			numTextDiscountRateLData.verticalAlignment = GridData.CENTER;
-			numTextDiscountRateLData.horizontalAlignment = GridData.BEGINNING;
-			numTextDiscountRateLData.widthHint = 72;
-			numTextDiscountRateLData.heightHint = 14;
-			numTextDiscountRateLData.horizontalIndent = 0;
-			numTextDiscountRateLData.horizontalSpan = 1;
-			numTextDiscountRateLData.verticalSpan = 1;
-			numTextDiscountRateLData.grabExcessHorizontalSpace = false;
-			numTextDiscountRateLData.grabExcessVerticalSpace = false;
-			numTextDiscountRate.setLayoutData(numTextDiscountRateLData);
-			numTextDiscountRate.setTextLimit(2);
-			numTextDiscountRate.setSize(new org.eclipse.swt.graphics.Point(72,14));
-	
-			GridData lblDiscountAMountLData = new GridData();
-			lblDiscountAMountLData.verticalAlignment = GridData.CENTER;
-			lblDiscountAMountLData.horizontalAlignment = GridData.BEGINNING;
-			lblDiscountAMountLData.widthHint = 94;
-			lblDiscountAMountLData.heightHint = 17;
-			lblDiscountAMountLData.horizontalIndent = 0;
-			lblDiscountAMountLData.horizontalSpan = 1;
-			lblDiscountAMountLData.verticalSpan = 1;
-			lblDiscountAMountLData.grabExcessHorizontalSpace = false;
-			lblDiscountAMountLData.grabExcessVerticalSpace = false;
-			lblDiscountAMount.setLayoutData(lblDiscountAMountLData);
-			lblDiscountAMount.setText(Messages.getString("CurUICurrentCardAdd.12")); //$NON-NLS-1$
-			lblDiscountAMount.setSize(new org.eclipse.swt.graphics.Point(94,17));
-	
-			GridData decTxtDiscountAmountLData = new GridData();
-			decTxtDiscountAmountLData.verticalAlignment = GridData.CENTER;
-			decTxtDiscountAmountLData.horizontalAlignment = GridData.BEGINNING;
-			decTxtDiscountAmountLData.widthHint = 173;
-			decTxtDiscountAmountLData.heightHint = 15;
-			decTxtDiscountAmountLData.horizontalIndent = 0;
-			decTxtDiscountAmountLData.horizontalSpan = 1;
-			decTxtDiscountAmountLData.verticalSpan = 1;
-			decTxtDiscountAmountLData.grabExcessHorizontalSpace = false;
-			decTxtDiscountAmountLData.grabExcessVerticalSpace = false;
-			decTxtDiscountAmount.setLayoutData(decTxtDiscountAmountLData);
-			decTxtDiscountAmount.setSize(new org.eclipse.swt.graphics.Point(173,15));
-	
-			GridData lblAccountingCodeCustomerLData = new GridData();
-			lblAccountingCodeCustomerLData.widthHint = 117;
-			lblAccountingCodeCustomerLData.heightHint = 18;
-			lblAccountingCodeCustomer.setLayoutData(lblAccountingCodeCustomerLData);
-			lblAccountingCodeCustomer.setText(Messages.getString("CurUICurrentCardAdd.13")); //$NON-NLS-1$
+							}
+						}
+					});
+					txtCardDefinition
+						.addTraverseListener(new TraverseListener() {
+							public void keyTraversed(TraverseEvent evt) {
+								if (evt.keyCode == SWT.TAB) {
+									txtCardAddress.setFocus();
+									evt.doit = false;
+								}
+							}
+						});
+					txtCardDefinition.setLayoutData(txtCardDefinitionLData);
+					txtCardDefinition.setTextLimit(250);
+					txtCardDefinition
+						.setSize(new org.eclipse.swt.graphics.Point(403, 53));
+				}
+				{
+					lblCardAddress = new CLabel(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData lblCardAddressLData = new GridData();
+					lblCardAddressLData.verticalAlignment = GridData.BEGINNING;
+					lblCardAddress.setLayoutData(lblCardAddressLData);
+					lblCardAddress.setText(Messages
+						.getString("CurUICurrentCardAdd.4")); //$NON-NLS-1$
+				}
+				{
+					txtCardAddress = new Text(compCurrentGeneralInfo, SWT.MULTI
+						| SWT.WRAP
+						| SWT.V_SCROLL);
+					GridData txtCardAddressLData = new GridData();
+					txtCardAddressLData.widthHint = 383;
+					txtCardAddressLData.heightHint = 51;
+					txtCardAddressLData.horizontalSpan = 3;
+					txtCardAddress.addVerifyListener(new VerifyListener() {
+						public void verifyText(VerifyEvent evt) {
+							if (evt.keyCode == SWT.TAB) {
+								composite1.setFocus();
+								evt.doit = false;
 
-			GridData accPickerCustomerLData = new GridData();
-			accPickerCustomerLData.widthHint = 236;
-			accPickerCustomerLData.heightHint = 21;
-			accPickerCustomerLData.horizontalSpan = 3;
-			accPickerCustomer.setLayoutData(accPickerCustomerLData);
-			accPickerCustomer.setSize(new org.eclipse.swt.graphics.Point(236,21));
+							}
+						}
+					});
+					txtCardAddress.addTraverseListener(new TraverseListener() {
+						public void keyTraversed(TraverseEvent evt) {
+							if (evt.keyCode == SWT.TAB) {
+								numtxtCountryCode.setFocus();
+								evt.doit = false;
+							}
+						}
+					});
+					txtCardAddress.setLayoutData(txtCardAddressLData);
+					txtCardAddress.setTextLimit(250);
+					txtCardAddress.setSize(new org.eclipse.swt.graphics.Point(
+						403,
+						53));
+				}
+				{
+					lblTelephone1 = new Label(compCurrentGeneralInfo, SWT.NONE);
+					GridData lblTelephone1LData = new GridData();
+					lblTelephone1LData.widthHint = 82;
+					lblTelephone1LData.heightHint = 16;
+					lblTelephone1.setLayoutData(lblTelephone1LData);
+					lblTelephone1.setText(Messages
+						.getString("CurUICurrentCardAdd.5")); //$NON-NLS-1$
+					lblTelephone1.setSize(new org.eclipse.swt.graphics.Point(
+						82,
+						16));
+				}
+				{
+					composite1 = new Composite(compCurrentGeneralInfo, SWT.NONE);
+					GridLayout composite1Layout = new GridLayout(3, true);
+					composite1Layout.marginWidth = 0;
+					composite1Layout.marginHeight = 0;
+					composite1Layout.numColumns = 3;
+					composite1Layout.makeColumnsEqualWidth = false;
+					composite1Layout.horizontalSpacing = 5;
+					composite1Layout.verticalSpacing = 0;
+					GridData composite1LData = new GridData();
+					composite1LData.widthHint = 222;
+					composite1LData.heightHint = 18;
+					composite1LData.horizontalSpan = 3;
+					composite1.setLayoutData(composite1LData);
+					composite1.setSize(new org.eclipse.swt.graphics.Point(
+						222,
+						18));
+					composite1.setLayout(composite1Layout);
+					{
+						numtxtCountryCode = new NumericText(
+							composite1,
+							SWT.NONE);
+						GridData numtxtCountryCodeLData = new GridData();
+						numtxtCountryCodeLData.widthHint = 24;
+						numtxtCountryCodeLData.heightHint = 10;
+						numtxtCountryCode.setLayoutData(numtxtCountryCodeLData);
+						numtxtCountryCode.setTextLimit(5);
+						numtxtCountryCode
+							.setSize(new org.eclipse.swt.graphics.Point(30, 16));
+					}
+					{
+						numTxtCityCode = new NumericText(composite1, SWT.NONE);
+						GridData numTxtCityCodeLData = new GridData();
+						numTxtCityCodeLData.widthHint = 30;
+						numTxtCityCodeLData.heightHint = 10;
+						numTxtCityCode.setLayoutData(numTxtCityCodeLData);
+						numTxtCityCode.setTextLimit(3);
+						numTxtCityCode
+							.setSize(new org.eclipse.swt.graphics.Point(36, 16));
+					}
+					{
+						numTxtNumber = new NumericText(composite1, SWT.NONE);
+						GridData numTxtNumberLData = new GridData();
+						numTxtNumberLData.widthHint = 72;
+						numTxtNumberLData.heightHint = 10;
+						numTxtNumber.setLayoutData(numTxtNumberLData);
+						numTxtNumber.setTextLimit(9);
+						numTxtNumber
+							.setSize(new org.eclipse.swt.graphics.Point(78, 16));
+					}
+					composite1.layout();
+				}
+				{
+					lblTelephone2 = new Label(compCurrentGeneralInfo, SWT.NONE);
+					GridData lblTelephone2LData = new GridData();
+					lblTelephone2LData.widthHint = 82;
+					lblTelephone2LData.heightHint = 16;
+					lblTelephone2.setLayoutData(lblTelephone2LData);
+					lblTelephone2.setText(Messages
+						.getString("CurUICurrentCardAdd.6")); //$NON-NLS-1$
+					lblTelephone2.setSize(new org.eclipse.swt.graphics.Point(
+						82,
+						16));
+				}
+				{
+					composite2 = new Composite(compCurrentGeneralInfo, SWT.NONE);
+					GridLayout composite2Layout = new GridLayout(3, true);
+					composite2Layout.marginWidth = 0;
+					composite2Layout.marginHeight = 0;
+					composite2Layout.numColumns = 3;
+					composite2Layout.makeColumnsEqualWidth = false;
+					composite2Layout.horizontalSpacing = 5;
+					composite2Layout.verticalSpacing = 0;
+					GridData composite2LData = new GridData();
+					composite2LData.widthHint = 222;
+					composite2LData.heightHint = 18;
+					composite2LData.horizontalSpan = 3;
+					composite2.setLayoutData(composite2LData);
+					composite2.setSize(new org.eclipse.swt.graphics.Point(
+						222,
+						18));
+					composite2.setLayout(composite2Layout);
+					{
+						numTxtCountryCode2 = new NumericText(
+							composite2,
+							SWT.NONE);
+						GridData numTxtCountryCode2LData = new GridData();
+						numTxtCountryCode2LData.widthHint = 24;
+						numTxtCountryCode2LData.heightHint = 10;
+						numTxtCountryCode2
+							.setLayoutData(numTxtCountryCode2LData);
+						numTxtCountryCode2.setTextLimit(5);
+						numTxtCountryCode2
+							.setSize(new org.eclipse.swt.graphics.Point(30, 16));
+					}
+					{
+						numTxtCityCode2 = new NumericText(composite2, SWT.NONE);
+						GridData numTxtCityCode2LData = new GridData();
+						numTxtCityCode2LData.widthHint = 30;
+						numTxtCityCode2LData.heightHint = 10;
+						numTxtCityCode2.setLayoutData(numTxtCityCode2LData);
+						numTxtCityCode2.setTextLimit(3);
+						numTxtCityCode2
+							.setSize(new org.eclipse.swt.graphics.Point(36, 16));
+					}
+					{
+						numTxtNumber2 = new NumericText(composite2, SWT.NONE);
+						GridData numTxtNumber2LData = new GridData();
+						numTxtNumber2LData.widthHint = 72;
+						numTxtNumber2LData.heightHint = 10;
+						numTxtNumber2.setLayoutData(numTxtNumber2LData);
+						numTxtNumber2.setTextLimit(9);
+						numTxtNumber2
+							.setSize(new org.eclipse.swt.graphics.Point(78, 16));
+					}
+					composite2.layout();
+				}
+				{
+					lblTaxDepartment = new CLabel(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData lblTaxDepartmentLData = new GridData();
+					lblTaxDepartmentLData.widthHint = 84;
+					lblTaxDepartmentLData.heightHint = 19;
+					lblTaxDepartment.setLayoutData(lblTaxDepartmentLData);
+					lblTaxDepartment.setText(Messages
+						.getString("CurUICurrentCardAdd.7")); //$NON-NLS-1$
+					lblTaxDepartment
+						.setSize(new org.eclipse.swt.graphics.Point(84, 19));
+				}
+				{
+					txtTaxDepartmant = new Text(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData txtTaxDepartmantLData = new GridData();
+					txtTaxDepartmantLData.widthHint = 141;
+					txtTaxDepartmantLData.heightHint = 9;
+					txtTaxDepartmant.setLayoutData(txtTaxDepartmantLData);
+					txtTaxDepartmant.setTextLimit(50);
+					txtTaxDepartmant
+						.setSize(new org.eclipse.swt.graphics.Point(147, 15));
+				}
+				{
+					lblTaxNumber = new CLabel(compCurrentGeneralInfo, SWT.NONE);
+					GridData lblTaxNumberLData = new GridData();
+					lblTaxNumberLData.widthHint = 105;
+					lblTaxNumberLData.heightHint = 22;
+					lblTaxNumber.setLayoutData(lblTaxNumberLData);
+					lblTaxNumber.setText(Messages.getString("CurUICurrentCardAdd.8")); //$NON-NLS-1$
+				}
+				{
+					txtTaxNumber = new Text(compCurrentGeneralInfo, SWT.NONE);
+					GridData txtTaxNumberLData = new GridData();
+					txtTaxNumberLData.widthHint = 168;
+					txtTaxNumberLData.heightHint = 10;
+					txtTaxNumber.setLayoutData(txtTaxNumberLData);
+					txtTaxNumber.setTextLimit(50);
+					txtTaxNumber.setSize(new org.eclipse.swt.graphics.Point(
+						174,
+						16));
+				}
+				{
+					lblRiskLimit = new CLabel(compCurrentGeneralInfo, SWT.NONE);
+					GridData lblRiskLimitLData = new GridData();
+					lblRiskLimit.setLayoutData(lblRiskLimitLData);
+					lblRiskLimit.setText(Messages
+						.getString("CurUICurrentCardAdd.9")); //$NON-NLS-1$
+				}
+				{
+					decTxtRiskLimit = new CurrencyText(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData decTxtRiskLimitLData = new GridData();
+					decTxtRiskLimitLData.widthHint = 139;
+					decTxtRiskLimitLData.heightHint = 10;
+					decTxtRiskLimit.setLayoutData(decTxtRiskLimitLData);
+					decTxtRiskLimit.setSize(new org.eclipse.swt.graphics.Point(
+						145,
+						16));
+				}
+				{
+					lblCreditLimit = new CLabel(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData lblCreditLimitLData = new GridData();
+					lblCreditLimitLData.widthHint = 90;
+					lblCreditLimitLData.heightHint = 20;
+					lblCreditLimit.setLayoutData(lblCreditLimitLData);
+					lblCreditLimit.setText(Messages.getString("CurUICurrentCardAdd.10")); //$NON-NLS-1$
+				}
+				{
+					decTxtCreditLimit = new CurrencyText(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData decTxtCreditLimitLData = new GridData();
+					decTxtCreditLimitLData.widthHint = 169;
+					decTxtCreditLimitLData.heightHint = 9;
+					decTxtCreditLimit.setLayoutData(decTxtCreditLimitLData);
+					decTxtCreditLimit
+						.setSize(new org.eclipse.swt.graphics.Point(175, 15));
+				}
+				{
+					lblDiscountRate = new CLabel(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData lblDiscountRateLData = new GridData();
+					lblDiscountRate.setLayoutData(lblDiscountRateLData);
+					lblDiscountRate.setText(Messages
+						.getString("CurUICurrentCardAdd.11")); //$NON-NLS-1$
+				}
+				{
+					numTextDiscountRate = new NumericText(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData numTextDiscountRateLData = new GridData();
+					numTextDiscountRateLData.widthHint = 69;
+					numTextDiscountRateLData.heightHint = 10;
+					numTextDiscountRate.setLayoutData(numTextDiscountRateLData);
+					numTextDiscountRate.setTextLimit(2);
+				}
+				{
+					lblDiscountAMount = new CLabel(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData lblDiscountAMountLData = new GridData();
+					lblDiscountAMountLData.widthHint = 102;
+					lblDiscountAMountLData.heightHint = 16;
+					lblDiscountAMount.setLayoutData(lblDiscountAMountLData);
+					lblDiscountAMount.setText(Messages.getString("CurUICurrentCardAdd.12")); //$NON-NLS-1$
+				}
+				{
+					decTxtDiscountAmount = new CurrencyText(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData decTxtDiscountAmountLData = new GridData();
+					decTxtDiscountAmountLData.widthHint = 167;
+					decTxtDiscountAmountLData.heightHint = 9;
+					decTxtDiscountAmount
+						.setLayoutData(decTxtDiscountAmountLData);
+					decTxtDiscountAmount
+						.setSize(new org.eclipse.swt.graphics.Point(173, 15));
+				}
+				{
+					lblAccountingCodeCustomer = new CLabel(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData lblAccountingCodeCustomerLData = new GridData();
+					lblAccountingCodeCustomerLData.widthHint = 127;
+					lblAccountingCodeCustomerLData.heightHint = 17;
+					lblAccountingCodeCustomer
+						.setLayoutData(lblAccountingCodeCustomerLData);
+					lblAccountingCodeCustomer.setText(Messages
+						.getString("CurUICurrentCardAdd.13")); //$NON-NLS-1$
+				}
+				{
+					accPickerCustomer = new AccountPicker(
+						compCurrentGeneralInfo,
+						SWT.NONE);
+					GridData accPickerCustomerLData = new GridData();
+					accPickerCustomerLData.widthHint = 236;
+					accPickerCustomerLData.heightHint = 21;
+					accPickerCustomerLData.horizontalSpan = 3;
+					accPickerCustomer.setLayoutData(accPickerCustomerLData);
+					accPickerCustomer
+						.setSize(new org.eclipse.swt.graphics.Point(236, 21));
+				}
+				compCurrentGeneralInfo.layout();
 
-			GridLayout compCurrentGeneralInfoLayout = new GridLayout(4, true);
-			compCurrentGeneralInfo.setLayout(compCurrentGeneralInfoLayout);
-			compCurrentGeneralInfoLayout.marginWidth = 5;
-			compCurrentGeneralInfoLayout.marginHeight = 5;
-			compCurrentGeneralInfoLayout.numColumns = 4;
-			compCurrentGeneralInfoLayout.makeColumnsEqualWidth = false;
-			compCurrentGeneralInfoLayout.horizontalSpacing = 5;
-			compCurrentGeneralInfoLayout.verticalSpacing = 5;
-			compCurrentGeneralInfo.layout();
-	
+			}
+
 			tabItemContactInfo.setControl(compCurrentContactInfo);
 			tabItemContactInfo.setText(Messages.getString("CurUICurrentCardAdd.15")); //$NON-NLS-1$
 	
@@ -1263,18 +1187,11 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			compRegisterGroup.layout();
 	
 			GridData btnUpdateGroupsLData = new GridData();
-			btnUpdateGroupsLData.verticalAlignment = GridData.CENTER;
-			btnUpdateGroupsLData.horizontalAlignment = GridData.BEGINNING;
-			btnUpdateGroupsLData.widthHint = 106;
-			btnUpdateGroupsLData.heightHint = 37;
+			btnUpdateGroupsLData.widthHint = 142;
+			btnUpdateGroupsLData.heightHint = 36;
 			btnUpdateGroupsLData.horizontalIndent = 10;
-			btnUpdateGroupsLData.horizontalSpan = 1;
-			btnUpdateGroupsLData.verticalSpan = 1;
-			btnUpdateGroupsLData.grabExcessHorizontalSpace = false;
-			btnUpdateGroupsLData.grabExcessVerticalSpace = false;
 			btnUpdateGroups.setLayoutData(btnUpdateGroupsLData);
 			btnUpdateGroups.setText(Messages.getString("CurUICurrentCardAdd.24")); //$NON-NLS-1$
-			btnUpdateGroups.setSize(new org.eclipse.swt.graphics.Point(106,37));
 			btnUpdateGroups.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
 					btnUpdateGroupsMouseUp(evt);

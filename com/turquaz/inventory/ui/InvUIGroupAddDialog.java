@@ -125,17 +125,10 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(433,229));
 	
 			GridData compGroupAddDialogLData = new GridData();
-			compGroupAddDialogLData.verticalAlignment = GridData.CENTER;
 			compGroupAddDialogLData.horizontalAlignment = GridData.FILL;
-			compGroupAddDialogLData.widthHint = -1;
-			compGroupAddDialogLData.heightHint = 85;
-			compGroupAddDialogLData.horizontalIndent = 0;
-			compGroupAddDialogLData.horizontalSpan = 1;
-			compGroupAddDialogLData.verticalSpan = 1;
+			compGroupAddDialogLData.heightHint = 98;
 			compGroupAddDialogLData.grabExcessHorizontalSpace = true;
-			compGroupAddDialogLData.grabExcessVerticalSpace = false;
 			compGroupAddDialog.setLayoutData(compGroupAddDialogLData);
-			compGroupAddDialog.setSize(new org.eclipse.swt.graphics.Point(433,85));
 			compGroupAddDialog.setBackground(SWTResourceManager.getColor(255, 255, 255));
 	
 			GridData lblGroupNameLData = new GridData();
@@ -167,8 +160,8 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			GridData lblDescriptionLData = new GridData();
 			lblDescriptionLData.verticalAlignment = GridData.BEGINNING;
 			lblDescriptionLData.horizontalAlignment = GridData.END;
-			lblDescriptionLData.widthHint = 59;
-			lblDescriptionLData.heightHint = 20;
+			lblDescriptionLData.widthHint = 96;
+			lblDescriptionLData.heightHint = 21;
 			lblDescription.setLayoutData(lblDescriptionLData);
 			lblDescription.setText(Messages.getString("InvUIGroupAddDialog.1")); //$NON-NLS-1$
 	
@@ -179,18 +172,11 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			txtDescription.setLayoutData(txtDescriptionLData);
 
 			GridData btnDeleteLData = new GridData();
-			btnDeleteLData.verticalAlignment = GridData.CENTER;
 			btnDeleteLData.horizontalAlignment = GridData.END;
-			btnDeleteLData.widthHint = 50;
-			btnDeleteLData.heightHint = 23;
-			btnDeleteLData.horizontalIndent = 0;
-			btnDeleteLData.horizontalSpan = 1;
-			btnDeleteLData.verticalSpan = 1;
-			btnDeleteLData.grabExcessHorizontalSpace = false;
-			btnDeleteLData.grabExcessVerticalSpace = false;
+			btnDeleteLData.widthHint = 56;
+			btnDeleteLData.heightHint = 31;
 			btnDelete.setLayoutData(btnDeleteLData);
 			btnDelete.setText(Messages.getString("InvUIGroupAddDialog.2")); //$NON-NLS-1$
-			btnDelete.setSize(new org.eclipse.swt.graphics.Point(50,23));
 			btnDelete.setEnabled(false);
 			btnDelete.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -199,18 +185,11 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			});
 	
 			GridData btnUpdateLData = new GridData();
-			btnUpdateLData.verticalAlignment = GridData.CENTER;
 			btnUpdateLData.horizontalAlignment = GridData.END;
-			btnUpdateLData.widthHint = 47;
-			btnUpdateLData.heightHint = 23;
-			btnUpdateLData.horizontalIndent = 0;
-			btnUpdateLData.horizontalSpan = 1;
-			btnUpdateLData.verticalSpan = 1;
-			btnUpdateLData.grabExcessHorizontalSpace = false;
-			btnUpdateLData.grabExcessVerticalSpace = false;
+			btnUpdateLData.widthHint = 82;
+			btnUpdateLData.heightHint = 30;
 			btnUpdate.setLayoutData(btnUpdateLData);
 			btnUpdate.setText(Messages.getString("InvUIGroupAddDialog.3")); //$NON-NLS-1$
-			btnUpdate.setSize(new org.eclipse.swt.graphics.Point(47,23));
 			btnUpdate.setEnabled(false);
 			btnUpdate.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {

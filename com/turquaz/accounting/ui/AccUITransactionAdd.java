@@ -209,8 +209,8 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 				dateTransactionDate = new DatePicker(this, SWT.NONE);
 				GridData dateTransactionDateLData = new GridData();
 				dateTransactionDateLData.verticalAlignment = GridData.BEGINNING;
-				dateTransactionDateLData.widthHint = 159;
-				dateTransactionDateLData.heightHint = 26;
+				dateTransactionDateLData.widthHint = 170;
+				dateTransactionDateLData.heightHint = 24;
 				dateTransactionDate.setLayoutData(dateTransactionDateLData);
 			}
 			{
