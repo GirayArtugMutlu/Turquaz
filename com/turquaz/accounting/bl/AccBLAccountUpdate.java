@@ -27,6 +27,7 @@ import java.util.List;
 
 
 import com.turquaz.accounting.dal.AccDALAccountUpdate;
+import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
 
@@ -53,7 +54,8 @@ public class AccBLAccountUpdate {
 			account.setTurqAccountingAccountByParentAccount(parentAccount);
 			account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());
 
-	
+			EngBLAccountingAccounts.RefreshContentAsistantMap();
+		    	
 			dalAccountUpdate.updateObject(account);		
 	
 		}

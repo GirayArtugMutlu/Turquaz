@@ -39,6 +39,7 @@ import com.turquaz.current.bl.CurBLCurrentCardUpdate;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import org.eclipse.swt.layout.GridData;
 
+import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -567,6 +568,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 		compCurCardAdd.savePhones(currentCard.getCurrentCardsId());
 		compCurCardAdd.saveGroups(currentCard.getCurrentCardsId());
 		
+		EngBLCurrentCards.RefreshContentAsistantMap();
 		 msg.setMessage(Messages.getString("CurUICurrentCardUpdate.26")); //$NON-NLS-1$
 		 msg.open();
 			
