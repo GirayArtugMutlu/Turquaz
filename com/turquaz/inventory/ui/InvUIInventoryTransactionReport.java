@@ -85,7 +85,7 @@ import com.turquaz.current.ui.comp.CurrentCodePicker;
 public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Composite implements SearchComposite
 {
 	private Composite compInvTransactionSearch;
-	private Table tableTransactions;
+	private Table tableInvTransactions;
 	private TableColumn tableColumnTotalAmountOut;
 	private TableColumn tableColumnUnitPriceOut;
 	private TableColumn tableColumnUnitPriceIn;
@@ -329,65 +329,65 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			tabItemSearch = new CTabItem(tabFolder, SWT.NONE);
 			tabItemSearch.setText(Messages.getString("InvUIInventoryTransactionReport.22")); //$NON-NLS-1$
 			{
-				tableTransactions = new Table(tabFolder, SWT.FULL_SELECTION);
-				tabItemSearch.setControl(tableTransactions);
+				tableInvTransactions = new Table(tabFolder, SWT.FULL_SELECTION);
+				tabItemSearch.setControl(tableInvTransactions);
 				GridData tableConsignmentsLData = new GridData();
-				tableTransactions.addMouseListener(new MouseAdapter()
+				tableInvTransactions.addMouseListener(new MouseAdapter()
 				{
 					public void mouseDoubleClick(MouseEvent evt)
 					{
 						showConsignment();
 					}
 				});
-				tableTransactions.setHeaderVisible(true);
-				tableTransactions.setLinesVisible(true);
+				tableInvTransactions.setHeaderVisible(true);
+				tableInvTransactions.setLinesVisible(true);
 				tableConsignmentsLData.grabExcessHorizontalSpace = true;
 				tableConsignmentsLData.horizontalAlignment = GridData.FILL;
 				tableConsignmentsLData.verticalAlignment = GridData.FILL;
 				tableConsignmentsLData.grabExcessVerticalSpace = true;
-				tableTransactions.setLayoutData(tableConsignmentsLData);
+				tableInvTransactions.setLayoutData(tableConsignmentsLData);
 				{
-					tableColumnTransactionDate = new TableColumn(tableTransactions, SWT.NONE);
+					tableColumnTransactionDate = new TableColumn(tableInvTransactions, SWT.NONE);
 					tableColumnTransactionDate.setText(Messages.getString("InvUIInventoryTransactionReport.10")); //$NON-NLS-1$
 					tableColumnTransactionDate.setWidth(88);
 				}
 				{
-					tableColumnInventoryCode = new TableColumn(tableTransactions, SWT.NONE);
+					tableColumnInventoryCode = new TableColumn(tableInvTransactions, SWT.NONE);
 					tableColumnInventoryCode.setText(Messages.getString("InvUIInventoryTransactionReport.23")); //$NON-NLS-1$
 					tableColumnInventoryCode.setWidth(109);
 				}
 				{
-					tableColumnInventoryName = new TableColumn(tableTransactions, SWT.NONE);
+					tableColumnInventoryName = new TableColumn(tableInvTransactions, SWT.NONE);
 					tableColumnInventoryName.setText(Messages.getString("InvUIInventoryTransactionReport.24")); //$NON-NLS-1$
 					tableColumnInventoryName.setWidth(100);
 				}
 				{
-					tableColumnTotalAmountIn = new TableColumn(tableTransactions, SWT.RIGHT);
+					tableColumnTotalAmountIn = new TableColumn(tableInvTransactions, SWT.RIGHT);
 					tableColumnTotalAmountIn.setText(Messages.getString("InvUIInventoryTransactionReport.12")); //$NON-NLS-1$
 					tableColumnTotalAmountIn.setWidth(100);
 				}
 				{
-					tableColumnTotalPriceIn = new TableColumn(tableTransactions, SWT.RIGHT);
+					tableColumnTotalPriceIn = new TableColumn(tableInvTransactions, SWT.RIGHT);
 					tableColumnTotalPriceIn.setText(Messages.getString("InvUIInventoryTransactionReport.14")); //$NON-NLS-1$
 					tableColumnTotalPriceIn.setWidth(100);
 				}
 				//START >>  tableColumnUnitPriceIn
-				tableColumnUnitPriceIn = new TableColumn(tableTransactions, SWT.RIGHT);
+				tableColumnUnitPriceIn = new TableColumn(tableInvTransactions, SWT.RIGHT);
 				tableColumnUnitPriceIn.setText("Gir. Birim Fiyat");
 				tableColumnUnitPriceIn.setWidth(100);
 				//END <<  tableColumnUnitPriceIn
 				{
-					tableColumnTotalAmountOut = new TableColumn(tableTransactions, SWT.RIGHT);
+					tableColumnTotalAmountOut = new TableColumn(tableInvTransactions, SWT.RIGHT);
 					tableColumnTotalAmountOut.setText(Messages.getString("InvUIInventoryTransactionReport.13")); //$NON-NLS-1$
 					tableColumnTotalAmountOut.setWidth(100);
 				}
 				{
-					tableColumnTotalPriceOut = new TableColumn(tableTransactions, SWT.RIGHT);
+					tableColumnTotalPriceOut = new TableColumn(tableInvTransactions, SWT.RIGHT);
 					tableColumnTotalPriceOut.setText(Messages.getString("InvUIInventoryTransactionReport.16")); //$NON-NLS-1$
 					tableColumnTotalPriceOut.setWidth(100);
 				}
 				//START >>  tableColumnUnitPriceOut
-				tableColumnUnitPriceOut = new TableColumn(tableTransactions, SWT.RIGHT);
+				tableColumnUnitPriceOut = new TableColumn(tableInvTransactions, SWT.RIGHT);
 				tableColumnUnitPriceOut.setText("Ç\u0131k. Birim Fiyat");
 				tableColumnUnitPriceOut.setWidth(100);
 				//END <<  tableColumnUnitPriceOut
@@ -551,7 +551,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 	{
 		try
 		{
-			TableItem items[] = tableTransactions.getSelection();
+			TableItem items[] = tableInvTransactions.getSelection();
 			if (items.length > 0)
 			{
 				Integer transId = (Integer)((ITableRow) items[0].getData()).getDBObject();
@@ -601,6 +601,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				comboInvMainGroup.add(gr.getGroupsName());
 				comboInvMainGroup.setData(gr.getGroupsName(), gr);
 			}
+			tableInvTransactions.setData("table_name","tableInvTransactions");
 			createTableViewer();
 		}
 		catch (Exception ex)
@@ -722,7 +723,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[8] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableTransactions, columnTypes);
+		tableViewer = new SearchTableViewer(tableInvTransactions, columnTypes);
 	}
 
 	public void delete()
@@ -732,12 +733,12 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableTransactions);
+		EngBLUtils.Export2Excel(tableInvTransactions);
 	}
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableTransactions, ""); //$NON-NLS-1$
+		EngBLUtils.printTable(tableInvTransactions, ""); //$NON-NLS-1$
 	}
 
 	private void comboInvMainGroupWidgetSelected(SelectionEvent evt)

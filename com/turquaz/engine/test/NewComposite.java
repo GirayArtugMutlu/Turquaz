@@ -2,7 +2,9 @@ package com.turquaz.engine.test;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
@@ -18,6 +20,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
 import com.turquaz.engine.dal.TurqCompany;
+import com.turquaz.engine.ui.EngUITableProperties;
 import com.turquaz.engine.ui.component.DateMask;
 import com.turquaz.engine.ui.viewers.TableRowList;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
@@ -109,6 +112,20 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite
 	{
 		super(parent, style);
 		initGUI();
+		try{
+		Map map = EngUITableProperties.getTableWidthMap("tableInvTransactions"); 
+		Iterator it =map.keySet().iterator();
+			while(it.hasNext())
+			{
+			Object key = it.next();
+			System.out.println(key +" : "+map.get(key));	
+			}
+		
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	private void initGUI()
@@ -141,8 +158,7 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite
 			item = new TableItem(tableViewer1.getTable(),SWT.NONE);
 			item.setText("ddfdfadfadfad");
 			
-		    tableViewer1.setSorter(new TurquazTableSorter(0,TurquazTableSorter.COLUMN_TYPE_STRING));
-			//END <<  tableViewer1
+		    //END <<  tableViewer1
 			//          create a TableCursor to navigate around the table
 			this.layout();
 		}

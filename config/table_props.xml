@@ -1,0 +1,10 @@
+<props>
+	<tableInvTransactions>
+		<column index="0" width="100"/>		
+		<column index="1" width="123"/>
+		<column index="2" width="1456"/>	
+	</tableInvTransactions>
+	<tableInv>
+		<column index="0" width="100"/>		
+	</tableInv>
+</props>
