@@ -1,18 +1,32 @@
 package com.turquaz.inventory.ui;
 
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
+
+import com.turquaz.engine.EngConfiguration;
+import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqInventoryCard;
+import com.turquaz.engine.dal.TurqInventoryCardUnit;
+import com.turquaz.engine.dal.TurqInventoryPrice;
+import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.DecimalTextWithButton;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.ui.component.TextWithButton;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
@@ -49,12 +63,13 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private Label lblSeperator;
 	private CLabel lblSpecialVAT;
 	private CLabel lblVat;
-	private DecimalTextWithButton comboPrices;
+	private DecimalTextWithButton decTxtPrice;
 	private CCombo comboCurrency;
 	private CLabel lblPrice;
 	private CCombo comboUnitType;
 	private TextWithButton txtInvCard;
 	private CLabel lblInvVard;
+	private EngBLCommon blCommon = new EngBLCommon();
 
 	/**
 	* Auto-generated main method to display this 
@@ -106,6 +121,11 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					txtInvCard = new TextWithButton(composite1, SWT.NONE);
 					GridData txtInvCardLData = new GridData();
+					txtInvCard.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+						chooseInventoryCard();
+						}
+					});
 					txtInvCardLData.widthHint = 334;
 					txtInvCardLData.heightHint = 21;
 					txtInvCardLData.horizontalSpan = 2;
@@ -142,17 +162,18 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 					lblPrice.setLayoutData(lblPriceLData);
 				}
 				{
-					comboPrices = new DecimalTextWithButton(
+					decTxtPrice = new DecimalTextWithButton(
 						composite1,
 						SWT.NONE);
 					GridData comboPricesLData = new GridData();
-					comboPrices.setBackground(SWTResourceManager.getColor(
-						255,
-						255,
-						255));
 					comboPricesLData.heightHint = 18;
 					comboPricesLData.horizontalAlignment = GridData.FILL;
-					comboPrices.setLayoutData(comboPricesLData);
+					decTxtPrice.setLayoutData(comboPricesLData);
+					decTxtPrice.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+							chooseInventoryPrice();
+							}
+						});
 				}
 				{
 					comboCurrency = new CCombo(composite1, SWT.NONE);
@@ -260,6 +281,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 
 			}
+			postInitGui();
 			dialogShell.layout();
 
 			dialogShell.pack();
@@ -272,6 +294,80 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+	}
+	public void postInitGui(){
+		
+		fillComboCurrency();
+	}
+	
+	public void fillComboUnits(TurqInventoryCard invCard){
+		comboUnitType.removeAll();		
+		Iterator it = invCard.getTurqInventoryCardUnits().iterator();
+		
+		while(it.hasNext()){
+			
+			TurqInventoryCardUnit unit = (TurqInventoryCardUnit)it.next();
+			comboUnitType.add(unit.getTurqInventoryUnit().getUnitsName());
+			comboUnitType.setData(unit.getTurqInventoryUnit().getUnitsName(),unit);
+			
+		
+		}
+		
+		if(comboUnitType.getItemCount()>0){
+			comboUnitType.setText(comboUnitType.getItem(0));
+		}
+		
+		
+		
+	}
+	
+	public void fillComboCurrency(){
+		try{
+		comboCurrency.removeAll();	
+		List currencies = blCommon.getCurrencies();
+		TurqCurrency currency;	
+		for(int i=0;i<currencies.size();i++){
+		
+		currency = (TurqCurrency)currencies.get(i);
+		comboCurrency.add(currency.getCurrenciesAbbreviation());
+		comboCurrency.setData(currency.getCurrenciesAbbreviation(),currency);
+		
+		
+		}
+		if(comboCurrency.getItemCount()>0){
+			comboCurrency.setText(comboCurrency.getItem(0));
+		}
+	}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+	}
+	public void chooseInventoryPrice(){
+		if(txtInvCard.getData()!=null){
+			TurqInventoryCard invCard = (TurqInventoryCard)txtInvCard.getData();
+			TurqInventoryPrice price = new InvUIPriceChooseDialog(this.getParent(),SWT.NULL,invCard).open();
+			decTxtPrice.setText(price.getPricesAmount().toString());
+			comboCurrency.setText(price.getTurqCurrency().getCurrenciesAbbreviation());
+    	}
+		else{
+			MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+			msg.setMessage("Önce Stok Kart? bölümünü doldurunuz!");
+			msg.open();
+		}
+		
+	}
+	public void chooseInventoryCard(){
+	
+	TurqInventoryCard invCard =new InvUICardSearchDialog(this.getParent(),SWT.NULL).open();
+     if(invCard!=null){
+    	txtInvCard.setData(invCard);
+    	txtInvCard.setText(invCard.getCardInventoryCode()+" - "+invCard.getCardName());
+    	fillComboUnits(invCard);
+     }
+  
+
 	}
 	
 }

@@ -42,7 +42,7 @@ import com.turquaz.inventory.bl.InvBLCardSearch;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class InvUIICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
+public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 
 	private Shell dialogShell;
 	private Composite compInvCardSearchPanel;
@@ -68,14 +68,14 @@ public class InvUIICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 		try {
 			Display display = Display.getDefault();
 			Shell shell = new Shell(display);
-			InvUIICardSearchDialog inst = new InvUIICardSearchDialog(shell, SWT.NULL);
+			InvUICardSearchDialog inst = new InvUICardSearchDialog(shell, SWT.NULL);
 			inst.open();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public InvUIICardSearchDialog(Shell parent, int style) {
+	public InvUICardSearchDialog(Shell parent, int style) {
 		super(parent, style);
 	}
 
