@@ -1130,9 +1130,9 @@ public class BillUIAddBuyBill extends Composite
 	             cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE,tableViewer);
 	             cursor.setEnabled(true);
 	        	 cursor.addKeyListener(new KeyAdapter(){
-	    		     public void keyReleased(KeyEvent evt){
+	    		     public void keyReleased(KeyEvent e){
 	    		         
-	                     if (evt.keyCode == SWT.INSERT){
+	                     if (e.keyCode == SWT.INSERT){
 	                         int type =0;
 	         				
 	                         InvUITransactionTableRow row = new InvUITransactionTableRow(rowList,type,tableViewer);
@@ -1148,7 +1148,7 @@ public class BillUIAddBuyBill extends Composite
 	                       
 	                        
 	                     }
-	                     else if(evt.keyCode==SWT.DEL){
+	                     else if(e.keyCode==SWT.DEL){
 	                       
 	                         if(cursor.getRow()!=null){
 	                             ITableRow row = (ITableRow)cursor.getRow().getData();
@@ -1160,6 +1160,30 @@ public class BillUIAddBuyBill extends Composite
 	                         }
 	                        
 	                        
+	                     }
+	                     // F2 edit
+	                     else if(e.keyCode == 16777227 && e.stateMask == 0){
+	                         tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
+
+	     				// any character
+	     				} 
+	                     //any character
+	                     else if((e.keyCode<0x10000 || e.character!='\0') && e.keyCode>0x1f && e.keyCode!=127 
+	         					|| e.keyCode==0x00 && (e.stateMask==0 || e.stateMask==SWT.SHIFT)){
+	                         tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
+	                         if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof TextCellEditor){
+	                             
+	                             TextCellEditor editor = ((TextCellEditor)tableViewer.getCellEditors()[cursor.getColumn()]);
+	                             ((Text)editor.getControl()).setText(""+e.character);
+	     						if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof CurrencyCellEditor 
+	     						  ){
+	     						    
+	     						}
+	     						else{
+	     						    ((Text)editor.getControl()).setSelection(1);
+	     						}
+	                             
+	                         }
 	                     }
 	    		         
 	    		     }});
