@@ -4,6 +4,7 @@ package com.turquaz.consignment.bl;
 import java.util.Calendar;
 import java.util.List;
 
+import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.dal.ConDALAddGroups;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
@@ -39,10 +40,10 @@ public class ConBLAddGroups {
 		group.setGroupsName(name);
 		
 		TurqCompany company = new TurqCompany();	
-		company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
+		company.setCompaniesId(Integer.valueOf(System.getProperty("company"))); //$NON-NLS-1$
 		group.setTurqCompany(company);
-		group.setCreatedBy(System.getProperty("user"));
-		group.setUpdatedBy(System.getProperty("user"));
+		group.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+		group.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		group.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 		group.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 		
@@ -60,7 +61,7 @@ public class ConBLAddGroups {
 		group.setGroupsDescription(description);
 		group.setGroupsName(name);
 	
-		group.setUpdatedBy(System.getProperty("user"));
+		group.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		group.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 	
 		dalAddGroups.update(group);	

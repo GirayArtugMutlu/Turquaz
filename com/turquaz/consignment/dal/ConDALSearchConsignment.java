@@ -8,6 +8,7 @@ import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
+import com.turquaz.consignment.Messages;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -28,26 +29,26 @@ public class ConDALSearchConsignment {
 	try{
 		Session session = EngDALSessionFactory.openSession();
 		
-		String query = "Select consignment from TurqConsignment as consignment where" +
-				" consignment.turqCompany.companiesId ="+System.getProperty("company")+
-				" and consignment.consignmentsDate >= :startDate" +
-				" and consignment.consignmentsDate <= :endDate" +
-				" and consignment.consignmentsType ="+type +
-				" and consignment.consignmentsId <> -1 ";
+		String query = "Select consignment from TurqConsignment as consignment where" + //$NON-NLS-1$
+				" consignment.turqCompany.companiesId ="+System.getProperty("company")+ //$NON-NLS-1$ //$NON-NLS-2$
+				" and consignment.consignmentsDate >= :startDate" + //$NON-NLS-1$
+				" and consignment.consignmentsDate <= :endDate" + //$NON-NLS-1$
+				" and consignment.consignmentsType ="+type + //$NON-NLS-1$
+				" and consignment.consignmentsId <> -1 "; //$NON-NLS-1$
 		
 		
 		if (curCard!=null){
-			query +=" and consignment.turqCurrentCard = :curCard";
+			query +=" and consignment.turqCurrentCard = :curCard"; //$NON-NLS-1$
 		}
-		query += " order by consignment.consignmentsDate";
+		query += " order by consignment.consignmentsDate"; //$NON-NLS-1$
 		
 		Query q = session.createQuery(query); 	
 		
-		q.setParameter("startDate",startDate);
-		q.setParameter("endDate",endDate);
+		q.setParameter("startDate",startDate); //$NON-NLS-1$
+		q.setParameter("endDate",endDate); //$NON-NLS-1$
 		
 		if (curCard!=null){
-			q.setParameter("curCard",curCard);
+			q.setParameter("curCard",curCard); //$NON-NLS-1$
 		}
 		
 		
@@ -80,27 +81,27 @@ public class ConDALSearchConsignment {
 	try{
 		Session session = EngDALSessionFactory.openSession();
 		
-		String query = "Select consignment from TurqConsignment as consignment where" +
-				" consignment.turqCompany.companiesId ="+System.getProperty("company")+
-				" and consignment.consignmentsDate >= :startDate" +
-				" and consignment.consignmentsDate <= :endDate" +
-				" and consignment.consignmentsType ="+type +
-				" and consignment.consignmentsId <> -1 "+
-				" and consignment.turqBill.billsId =-1";
+		String query = "Select consignment from TurqConsignment as consignment where" + //$NON-NLS-1$
+				" consignment.turqCompany.companiesId ="+System.getProperty("company")+ //$NON-NLS-1$ //$NON-NLS-2$
+				" and consignment.consignmentsDate >= :startDate" + //$NON-NLS-1$
+				" and consignment.consignmentsDate <= :endDate" + //$NON-NLS-1$
+				" and consignment.consignmentsType ="+type + //$NON-NLS-1$
+				" and consignment.consignmentsId <> -1 "+ //$NON-NLS-1$
+				" and consignment.turqBill.billsId =-1"; //$NON-NLS-1$
 		
 		
 		if (curCard!=null){
-			query +=" and consignment.turqCurrentCard = :curCard";
+			query +=" and consignment.turqCurrentCard = :curCard"; //$NON-NLS-1$
 		}
-		query += " order by consignment.consignmentsDate";
+		query += " order by consignment.consignmentsDate"; //$NON-NLS-1$
 		
 		Query q = session.createQuery(query); 	
 		
-		q.setParameter("startDate",startDate);
-		q.setParameter("endDate",endDate);
+		q.setParameter("startDate",startDate); //$NON-NLS-1$
+		q.setParameter("endDate",endDate); //$NON-NLS-1$
 		
 		if (curCard!=null){
-			q.setParameter("curCard",curCard);
+			q.setParameter("curCard",curCard); //$NON-NLS-1$
 		}
 		
 		

@@ -10,6 +10,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
+import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -121,7 +122,7 @@ SecureComposite, SearchComposite{
 				composite1.setLayout(composite1Layout);
 				{
 					lblCurrentCard = new CLabel(composite1, SWT.NONE);
-					lblCurrentCard.setText("CurrentCard");
+					lblCurrentCard.setText(Messages.getString("ConUIConsignmentSearch.0")); //$NON-NLS-1$
 					GridData lblCurrentCardLData = new GridData();
 					lblCurrentCardLData.widthHint = 109;
 					lblCurrentCardLData.heightHint = 18;
@@ -141,7 +142,7 @@ SecureComposite, SearchComposite{
 				}
 				{
 					lblStartDate = new CLabel(composite1, SWT.NONE);
-					lblStartDate.setText("Start Date");
+					lblStartDate.setText(Messages.getString("ConUIConsignmentSearch.1")); //$NON-NLS-1$
 					GridData lblStartDateLData = new GridData();
 					lblStartDateLData.widthHint = 109;
 					lblStartDateLData.heightHint = 17;
@@ -156,7 +157,7 @@ SecureComposite, SearchComposite{
 				}
 				{
 					lblEndDate = new CLabel(composite1, SWT.NONE);
-					lblEndDate.setText("End Date");
+					lblEndDate.setText(Messages.getString("ConUIConsignmentSearch.2")); //$NON-NLS-1$
 					GridData lblEndDateLData = new GridData();
 					lblEndDateLData.widthHint = 105;
 					lblEndDateLData.heightHint = 19;
@@ -171,7 +172,7 @@ SecureComposite, SearchComposite{
 				}
 				{
 					lblType = new CLabel(composite1, SWT.NONE);
-					lblType.setText("Type");
+					lblType.setText(Messages.getString("ConUIConsignmentSearch.3")); //$NON-NLS-1$
 					GridData lblTypeLData = new GridData();
 					lblTypeLData.widthHint = 74;
 					lblTypeLData.heightHint = 21;
@@ -180,7 +181,7 @@ SecureComposite, SearchComposite{
 				{
 					comboConsignmentType = new CCombo(composite1, SWT.NONE);
 					GridData comboConsignmentTypeLData = new GridData();
-					comboConsignmentType.setText("Buy");
+					comboConsignmentType.setText(Messages.getString("ConUIConsignmentSearch.4")); //$NON-NLS-1$
 					comboConsignmentTypeLData.widthHint = 72;
 					comboConsignmentTypeLData.heightHint = 14;
 					comboConsignmentType.setLayoutData(comboConsignmentTypeLData);
@@ -205,35 +206,35 @@ SecureComposite, SearchComposite{
 					tableColumnConsignmentDate = new TableColumn(
 						tableConsignments,
 						SWT.NONE);
-					tableColumnConsignmentDate.setText("Date");
+					tableColumnConsignmentDate.setText(Messages.getString("ConUIConsignmentSearch.5")); //$NON-NLS-1$
 					tableColumnConsignmentDate.setWidth(104);
 				}
 				{
 					tableColumnCurrentName = new TableColumn(
 						tableConsignments,
 						SWT.NONE);
-					tableColumnCurrentName.setText("Current Name");
+					tableColumnCurrentName.setText(Messages.getString("ConUIConsignmentSearch.6")); //$NON-NLS-1$
 					tableColumnCurrentName.setWidth(150);
 				}
 				{
 					tableColumnCumulativePrice = new TableColumn(
 						tableConsignments,
 						SWT.NONE);
-					tableColumnCumulativePrice.setText("Cumulative Price");
+					tableColumnCumulativePrice.setText(Messages.getString("ConUIConsignmentSearch.7")); //$NON-NLS-1$
 					tableColumnCumulativePrice.setWidth(100);
 				}
 				{
 					tableColumnVatAmount = new TableColumn(
 						tableConsignments,
 						SWT.NONE);
-					tableColumnVatAmount.setText("VAT amount");
+					tableColumnVatAmount.setText(Messages.getString("ConUIConsignmentSearch.8")); //$NON-NLS-1$
 					tableColumnVatAmount.setWidth(100);
 				}
 				{
 					tableColumnSpecialVatAmount = new TableColumn(
 						tableConsignments,
 						SWT.NONE);
-					tableColumnSpecialVatAmount.setText("Special VAT");
+					tableColumnSpecialVatAmount.setText(Messages.getString("ConUIConsignmentSearch.9")); //$NON-NLS-1$
 					tableColumnSpecialVatAmount.setWidth(100);
 				}
 			}
@@ -244,8 +245,8 @@ SecureComposite, SearchComposite{
 		}
 	}
 	public void postInitGui(){
-		comboConsignmentType.add("Buy");
-		comboConsignmentType.add("Sell");
+		comboConsignmentType.add(Messages.getString("ConUIConsignmentSearch.10")); //$NON-NLS-1$
+		comboConsignmentType.add(Messages.getString("ConUIConsignmentSearch.11")); //$NON-NLS-1$
 	}
 	
 	
@@ -255,7 +256,7 @@ SecureComposite, SearchComposite{
 	    
 	    System.out.println(data.getClass().getName());
 		TurqCurrentCard curCard = (TurqCurrentCard)data;
-	    txtCurCard.setText(curCard.getCardsCurrentCode()+" - "+curCard.getCardsName());
+	    txtCurCard.setText(curCard.getCardsCurrentCode()+" - "+curCard.getCardsName()); //$NON-NLS-1$
 		txtCurCard.setData(curCard);
 		
 	    }
@@ -272,7 +273,7 @@ SecureComposite, SearchComposite{
 			
 		tableConsignments.removeAll();	
 		int type=0;
-		if(comboConsignmentType.getText().equals("Sell"))
+		if(comboConsignmentType.getText().equals(Messages.getString("ConUIConsignmentSearch.13"))) //$NON-NLS-1$
 		{
 			type =1;
 		}

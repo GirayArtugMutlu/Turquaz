@@ -4,6 +4,7 @@ package com.turquaz.consignment.ui;
 import java.util.Iterator;
 
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.dal.TurqConsignment;
 
@@ -89,8 +90,8 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 						coolItem1.setControl(toolBar1);
 						{
 							toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-							toolUpdate.setText("Update");
-							toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+							toolUpdate.setText(Messages.getString("ConUIConsignmentUpdateDialog.0")); //$NON-NLS-1$
+							toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 							toolUpdate
 								.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt) {
@@ -100,8 +101,8 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 						}
 						{
 							toolDelete = new ToolItem(toolBar1, SWT.NONE);
-							toolDelete.setText("Delete");
-							toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
+							toolDelete.setText(Messages.getString("ConUIConsignmentUpdateDialog.2")); //$NON-NLS-1$
+							toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
 							toolDelete
 								.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt) {
@@ -138,16 +139,16 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	}
 	public void postInitGui(){
 		compAddConsignment.getTxtCurrentCard().setData(consignment.getTurqCurrentCard());
-		compAddConsignment.getTxtCurrentCard().setText(consignment.getTurqCurrentCard().getCardsCurrentCode()+" - " +
+		compAddConsignment.getTxtCurrentCard().setText(consignment.getTurqCurrentCard().getCardsCurrentCode()+Messages.getString("ConUIConsignmentUpdateDialog.4") + //$NON-NLS-1$
 														consignment.getTurqCurrentCard().getCardsName());
 		;
 		compAddConsignment.getTxtBillDocumentNo().setText(consignment.getConsignmentsBillDocumentNo());
 		compAddConsignment.getDateConsignmentDate().setDate(consignment.getConsignmentsDate());
 		if(consignment.getConsignmentsType()==0){
-		compAddConsignment.getComboConsignmentType().setText("Buy");
+		compAddConsignment.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.5")); //$NON-NLS-1$
 		}
 		else{
-	    compAddConsignment.getComboConsignmentType().setText("Sell");
+	    compAddConsignment.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.6")); //$NON-NLS-1$
 		}
 	
 		compAddConsignment.getTxtDefinition().setText(consignment.getConsignmentsDefinition());
@@ -183,11 +184,11 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			item.setData(invTrans);
 			item.setText(new String[]{invTrans.getTurqInventoryCard().getCardInventoryCode(),
 									   invTrans.getTurqInventoryCard().getCardName(),
-									   invTrans.getTransactionsAmountIn()+"",
+									   invTrans.getTransactionsAmountIn()+"", //$NON-NLS-1$
 									   invTrans.getTurqInventoryUnit().getUnitsName(),
 									   invTrans.getTransactionsUnitPrice().toString(),
 									   invTrans.getTransactionsTotalPrice().toString(),
-									   invTrans.getTransactionsVat()+"",
+									   invTrans.getTransactionsVat()+"", //$NON-NLS-1$
 									   invTrans.getTransactionsVatAmount().toString(),
 									   invTrans.getTransactionsVatSpecialAmount().toString(),
 									   invTrans.getTransactionsCumilativePrice().toString()});
@@ -199,7 +200,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	public void delete(){
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 		MessageBox msg2 = new MessageBox(this.getParent(),SWT.CANCEL|SWT.OK);
-		msg2.setMessage("Really Delete?");
+		msg2.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.9")); //$NON-NLS-1$
 		try{
 			if(msg2.open()==SWT.OK){
 				
@@ -219,7 +220,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				
 				blCons.deleteObject(consignment);
 				
-				msg.setMessage("Deleted Succesfully!");
+				msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
 				msg.open();
 				
 				dialogShell.close();			
@@ -261,7 +262,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			
 			//Now we can update consignment
 		 int type = 0;
-		 if(compAddConsignment.getComboConsignmentType().getText().equals("Sell"))
+		 if(compAddConsignment.getComboConsignmentType().getText().equals(Messages.getString("ConUIConsignmentUpdateDialog.11"))) //$NON-NLS-1$
                 type =1;
 		 	
 			blCons.updateConsignment(consignment,
@@ -276,7 +277,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 									compAddConsignment.getDecSpecialVat().getBigDecimalValue(),
 									compAddConsignment.getTxtTotalAmount().getBigDecimalValue(),
 									type);
-			msg.setMessage("Succesfully Updated!!");
+			msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.12")); //$NON-NLS-1$
 			msg.open();
 			dialogShell.close();
 			

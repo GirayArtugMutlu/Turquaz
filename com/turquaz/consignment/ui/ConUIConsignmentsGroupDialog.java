@@ -69,7 +69,7 @@ import com.turquaz.engine.dal.TurqConsignmentGroup;
 public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialog {
 	private TableColumn tableColumnDescription;
 	private TableColumn tableColumnName;
-	private Label label1;
+	private Label lblSeperator;
 	private Table tableCurGroups;
 	private Button btnGroupAdd;
 	private Button btnUpdate;
@@ -151,14 +151,13 @@ public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialo
 			txtDescriptionLData.horizontalSpan = 2;
 			txtDescription.setLayoutData(txtDescriptionLData);
 			{
-				label1 = new Label(compGroupAddDialog, SWT.SEPARATOR
+				lblSeperator = new Label(compGroupAddDialog, SWT.SEPARATOR
 					| SWT.HORIZONTAL);
-				label1.setText("label1");
 				GridData label1LData = new GridData();
 				label1LData.heightHint = 2;
 				label1LData.horizontalSpan = 3;
 				label1LData.horizontalAlignment = GridData.FILL;
-				label1.setLayoutData(label1LData);
+				lblSeperator.setLayoutData(label1LData);
 			}
 
 			GridData btnDeleteLData = new GridData();
@@ -324,7 +323,7 @@ public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialo
 			 btnDelete.setEnabled(false);
 			    btnUpdate.setEnabled(false);
 			    btnGroupAdd.setEnabled(true);
-			    txtGroupName.setText(""); 
+			    txtGroupName.setText("");  //$NON-NLS-1$
 			    txtDescription.setText("");	 //$NON-NLS-1$
 		msg2.setMessage(Messages.getString("CurUIGroupAddDialog.13"));	 //$NON-NLS-1$
 		msg2.open();

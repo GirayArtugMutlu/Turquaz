@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
 
+import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.dal.TurqConsignment;
@@ -104,7 +105,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				composite1.setLayoutData(composite1LData);
 				{
 					lblCurrentCard = new CLabel(composite1, SWT.NONE);
-					lblCurrentCard.setText("CurrentCard");
+					lblCurrentCard.setText(Messages.getString("ConUIConsignmentSearchDialog.0")); //$NON-NLS-1$
 					GridData lblCurrentCardLData = new GridData();
 					lblCurrentCardLData.widthHint = 96;
 					lblCurrentCardLData.heightHint = 16;
@@ -125,7 +126,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					lblStartDate = new CLabel(composite1, SWT.NONE);
-					lblStartDate.setText("Start Date");
+					lblStartDate.setText(Messages.getString("ConUIConsignmentSearchDialog.1")); //$NON-NLS-1$
 					GridData lblStartDateLData = new GridData();
 					lblStartDateLData.widthHint = 109;
 					lblStartDateLData.heightHint = 17;
@@ -140,7 +141,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					lblEndDate = new CLabel(composite1, SWT.NONE);
-					lblEndDate.setText("End Date");
+					lblEndDate.setText(Messages.getString("ConUIConsignmentSearchDialog.2")); //$NON-NLS-1$
 					GridData lblEndDateLData = new GridData();
 					lblEndDateLData.widthHint = 105;
 					lblEndDateLData.heightHint = 19;
@@ -155,7 +156,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					lblType = new CLabel(composite1, SWT.NONE);
-					lblType.setText("Type");
+					lblType.setText(Messages.getString("ConUIConsignmentSearchDialog.3")); //$NON-NLS-1$
 					GridData lblTypeLData = new GridData();
 					lblTypeLData.widthHint = 74;
 					lblTypeLData.heightHint = 21;
@@ -163,7 +164,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					comboConsignmentType = new CCombo(composite1, SWT.NONE);
-					comboConsignmentType.setText("Buy");
+					comboConsignmentType.setText(Messages.getString("ConUIConsignmentSearchDialog.4")); //$NON-NLS-1$
 					GridData comboConsignmentTypeLData = new GridData();
 					comboConsignmentTypeLData.widthHint = 72;
 					comboConsignmentTypeLData.heightHint = 14;
@@ -180,7 +181,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					btnSearch = new Button(composite1, SWT.PUSH | SWT.CENTER);
-					btnSearch.setImage(SWTResourceManager.getImage("icons/Find24.gif"));
+					btnSearch.setImage(SWTResourceManager.getImage("icons/Find24.gif")); //$NON-NLS-1$
 					GridData btnSearchLData = new GridData();
 					btnSearch.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
@@ -211,35 +212,35 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 					tableColumnConsignmentDate = new TableColumn(
 						tableConsignments,
 						SWT.NONE);
-					tableColumnConsignmentDate.setText("Date");
+					tableColumnConsignmentDate.setText(Messages.getString("ConUIConsignmentSearchDialog.6")); //$NON-NLS-1$
 					tableColumnConsignmentDate.setWidth(104);
 				}
 				{
 					tableColumnCurrentName = new TableColumn(
 						tableConsignments,
 						SWT.NONE);
-					tableColumnCurrentName.setText("Current Name");
+					tableColumnCurrentName.setText(Messages.getString("ConUIConsignmentSearchDialog.7")); //$NON-NLS-1$
 					tableColumnCurrentName.setWidth(150);
 				}
 				{
 					tableColumnCumulativePrice = new TableColumn(
 						tableConsignments,
 						SWT.NONE);
-					tableColumnCumulativePrice.setText("Cumulative Price");
+					tableColumnCumulativePrice.setText(Messages.getString("ConUIConsignmentSearchDialog.8")); //$NON-NLS-1$
 					tableColumnCumulativePrice.setWidth(100);
 				}
 				{
 					tableColumnVatAmount = new TableColumn(
 						tableConsignments,
 						SWT.NONE);
-					tableColumnVatAmount.setText("VAT amount");
+					tableColumnVatAmount.setText(Messages.getString("ConUIConsignmentSearchDialog.9")); //$NON-NLS-1$
 					tableColumnVatAmount.setWidth(100);
 				}
 				{
 					tableColumnSpecialVatAmount = new TableColumn(
 						tableConsignments,
 						SWT.NONE);
-					tableColumnSpecialVatAmount.setText("Special VAT");
+					tableColumnSpecialVatAmount.setText(Messages.getString("ConUIConsignmentSearchDialog.10")); //$NON-NLS-1$
 					tableColumnSpecialVatAmount.setWidth(100);
 				}
 			}
@@ -263,7 +264,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 	    
 	    System.out.println(data.getClass().getName());
 		TurqCurrentCard curCard = (TurqCurrentCard)data;
-	    txtCurCard.setText(curCard.getCardsCurrentCode()+" - "+curCard.getCardsName());
+	    txtCurCard.setText(curCard.getCardsCurrentCode()+" - "+curCard.getCardsName()); //$NON-NLS-1$
 		txtCurCard.setData(curCard);
 		
 	    }
@@ -284,7 +285,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 			
 		tableConsignments.removeAll();	
 		int type=0;
-		if(comboConsignmentType.getText().equals("Sell"))
+		if(comboConsignmentType.getText().equals(Messages.getString("ConUIConsignmentSearchDialog.5"))) //$NON-NLS-1$
 		{
 			type =1;
 		}

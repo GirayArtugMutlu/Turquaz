@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.dal.ConDALAddConsignment;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCompany;
@@ -50,10 +51,10 @@ public class ConBLAddConsignment {
 			consignment.setTurqCurrentCard(curCard);
 					
 			TurqCompany company = new TurqCompany();	
-			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
+			company.setCompaniesId(Integer.valueOf(System.getProperty("company"))); //$NON-NLS-1$
 			consignment.setTurqCompany(company);
-			consignment.setCreatedBy(System.getProperty("user"));
-			consignment.setUpdatedBy(System.getProperty("user"));
+			consignment.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			consignment.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			consignment.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			consignment.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
@@ -73,8 +74,8 @@ public class ConBLAddConsignment {
 			
 			invTrans.setTransactionsDiscount(new BigDecimal(discountRate));
 			invTrans.setTurqConsignment(cons);
-			invTrans.setCreatedBy(System.getProperty("user"));
-			invTrans.setUpdatedBy(System.getProperty("user"));
+			invTrans.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			invTrans.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			invTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			invTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsCumilativePrice().multiply(new BigDecimal(discountRate)));
@@ -107,8 +108,8 @@ public class ConBLAddConsignment {
 		cardGroup.setTurqConsignment(card);
 		cardGroup.setTurqConsignmentGroup(group);
 
-		cardGroup.setCreatedBy(System.getProperty("user"));
-		cardGroup.setUpdatedBy(System.getProperty("user"));
+		cardGroup.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+		cardGroup.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		cardGroup.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 		cardGroup.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 

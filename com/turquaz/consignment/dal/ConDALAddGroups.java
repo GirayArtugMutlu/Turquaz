@@ -7,6 +7,7 @@ import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
+import com.turquaz.consignment.Messages;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 
 
@@ -68,8 +69,8 @@ public class ConDALAddGroups {
 			
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			String query = "from TurqConsignmentGroup as gr " +
-					"where gr.turqCompany.companiesId ="+System.getProperty("company");	
+			String query = "from TurqConsignmentGroup as gr " + //$NON-NLS-1$
+					"where gr.turqCompany.companiesId ="+System.getProperty("company");	 //$NON-NLS-1$ //$NON-NLS-2$
 			Query q = session.createQuery(query); 
 			List list = q.list();
 			tx.commit();

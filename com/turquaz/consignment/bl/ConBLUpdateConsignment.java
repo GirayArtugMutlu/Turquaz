@@ -4,14 +4,16 @@ package com.turquaz.consignment.bl;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+
+import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.dal.ConDALUpdateConsignment;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
 /**
- * @author onsel
- *
- * Window - Preferences - Java - Code Style - Code Templates
+ * @author Huseyin Ergun
+ * @version 
+ * 
  */
 public class ConBLUpdateConsignment {
 	private Calendar cal = Calendar.getInstance();
@@ -40,7 +42,7 @@ public class ConBLUpdateConsignment {
 		consignment.setConsignmentsVatAmount(vatAmount);
 		consignment.setConsignmentsSpecialVatAmount(specialVatAmount);
 		consignment.setTurqCurrentCard(curCard);		
-		consignment.setUpdatedBy(System.getProperty("user"));
+		consignment.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		consignment.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 		dalCons.updateConsignment(consignment);
 		
