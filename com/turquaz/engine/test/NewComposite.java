@@ -1,6 +1,7 @@
 package com.turquaz.engine.test;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -30,6 +31,8 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
+import com.turquaz.admin.bl.AdmBLCompanyInfo;
+import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.component.DateMask;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.editors.InventoryCellEditor;
@@ -182,6 +185,15 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
 
 	private void initGUI() {
 		try {
+		    AdmBLCompanyInfo companyInf = new AdmBLCompanyInfo();
+		    TurqCompany comp = companyInf.getCompany();
+		    Calendar cal = Calendar.getInstance();
+		    cal.setTime(comp.getUpdateDate());
+		    System.out.println(cal.get(cal.get(Calendar.MINUTE))+" - "+cal.get(Calendar.HOUR_OF_DAY));
+		    
+		    
+		    
+		    
 		    dateMask.setMask("##/##/####");
 			this.setLayout(new GridLayout());
           

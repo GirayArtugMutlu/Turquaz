@@ -48,6 +48,17 @@ public class AccBLAccountAdd {
 		}
 		
 	}
+	public TurqAccountingAccount getLeafAccount(String codeCrit)throws Exception{
+		try{
+			
+			return dalAccountAdd.getLeafAccount(codeCrit);
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
 	
 	public List getAllAccounts()throws Exception{
 		try{

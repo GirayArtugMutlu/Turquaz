@@ -40,7 +40,7 @@ public class EngBLAccountingAccounts {
 	
 	static EngBLAccountingAccounts _instance;
 	
-	private AccBLAccountAdd blAccount = new AccBLAccountAdd();
+	public AccBLAccountAdd blAccount = new AccBLAccountAdd();
 	
 	public EngBLAccountingAccounts()throws Exception{
 		try{
@@ -145,6 +145,27 @@ public class EngBLAccountingAccounts {
 			catch(Exception ex){
 				throw ex;
 			}
+	}
+	public static TurqAccountingAccount getLeafAccount(String accountCode)throws Exception {
+	    try{
+	        
+	        if (_instance == null) {
+	              
+				_instance = new EngBLAccountingAccounts();
+			
+
+			}
+			
+			 
+			return _instance.blAccount.getLeafAccount(accountCode);
+			
+			
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	    
 	}
 	
 	

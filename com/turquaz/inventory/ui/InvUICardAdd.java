@@ -1416,8 +1416,29 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		fillInvCardUnits();
 		fillTableInvAllGroups();
 		initTableInvPrices();
+		
+		fillDefaultValues();
+	
 
 	}
+	
+	public void fillDefaultValues(){
+	    
+	    txtInvCardInAcc.setText("153"); //Alis Muhasebe Kodu
+	    txtInvCardOutAcc.setText("600"); //Satis Muhasebe Kodu
+	    
+        accountPickerSpecVAT.setText("193"); // Alis OTV Kodu
+        accountPickerSpecVatSell.setText("360"); //Satis OTV Kodu
+        
+        accountPickerVAT.setText("191");     //Alis K.D.V
+        accountPickerVATSell.setText("391"); //Satis K.D.V
+        
+        
+        
+	    
+	}
+	
+	
 
 	public void initTableInvPrices() {
 		tableInvPricesViewer = new TableViewer(tableInvCardAddPrices);

@@ -98,7 +98,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
                             try {
                                 
                                setData2(EngBLAccountingAccounts
-                                    .getAccount(text1.getText().trim()));
+                                    .getLeafAccount(text1.getText().trim()));
                           
                                                            
                                 

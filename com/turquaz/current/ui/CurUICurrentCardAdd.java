@@ -427,6 +427,8 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	private Text txtContactName;
 	private CLabel Name;
 	private NumericText numTxtNumber2;
+	private NumericText numDueDays;
+	private CLabel lblDueDays;
 	private NumericText numTxtCityCode2;
 	private NumericText numTxtCountryCode2;
 	private Composite composite2;
@@ -481,22 +483,6 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	
 			tbfCurrentCardAdd = new CTabFolder(this,SWT.NULL);
 			tabItemGeneralInfo = new CTabItem(tbfCurrentCardAdd,SWT.NULL);
-			tabItemContactInfo = new CTabItem(tbfCurrentCardAdd,SWT.NULL);
-			compCurrentContactInfo = new Composite(tbfCurrentCardAdd,SWT.NULL);
-			Name = new CLabel(compCurrentContactInfo,SWT.NULL);
-			txtContactName = new Text(compCurrentContactInfo,SWT.NULL);
-			lblContactAddress = new CLabel(compCurrentContactInfo,SWT.NULL);
-			txtContactAddress = new Text(compCurrentContactInfo,SWT.MULTI| SWT.WRAP| SWT.H_SCROLL);
-			lblPhone1 = new CLabel(compCurrentContactInfo,SWT.NULL);
-			txtContactPhone = new Text(compCurrentContactInfo,SWT.NULL);
-			lblPhone2 = new CLabel(compCurrentContactInfo,SWT.NULL);
-			txtContactPhone2 = new Text(compCurrentContactInfo,SWT.NULL);
-			lblContactFax = new CLabel(compCurrentContactInfo,SWT.NULL);
-			txtFaxNumber = new Text(compCurrentContactInfo,SWT.NULL);
-			cLabel1 = new CLabel(compCurrentContactInfo,SWT.NULL);
-			txtContactEmail = new Text(compCurrentContactInfo,SWT.NULL);
-			cLabel2 = new CLabel(compCurrentContactInfo,SWT.NULL);
-			txtContactWebSite = new Text(compCurrentContactInfo,SWT.NULL);
 			tabItemCurrentGroups = new CTabItem(tbfCurrentCardAdd,SWT.NULL);
 			compCurrentGroups = new Composite(tbfCurrentCardAdd,SWT.NULL);
 			compRegisterGroup = new RegisterGroupComposite(compCurrentGroups,SWT.NULL);
@@ -518,10 +504,184 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			tbfCurrentCardAdd.setSize(new org.eclipse.swt.graphics.Point(584,452));
 
 			tabItemGeneralInfo.setText(Messages.getString("CurUICurrentCardAdd.0")); //$NON-NLS-1$
+            {
+                tabItemContactInfo = new CTabItem(tbfCurrentCardAdd, SWT.NONE);
+                tabItemContactInfo.setText(Messages
+                    .getString("CurUICurrentCardAdd.15")); //$NON-NLS-1$
+                {
+                    compCurrentContactInfo = new Composite(
+                        tbfCurrentCardAdd,
+                        SWT.NONE);
+                    tabItemContactInfo.setControl(compCurrentContactInfo);
+                    GridLayout compCurrentContactInfoLayout = new GridLayout(
+                        2,
+                        true);
+                    compCurrentContactInfoLayout.marginWidth = 5;
+                    compCurrentContactInfoLayout.marginHeight = 5;
+                    compCurrentContactInfoLayout.numColumns = 2;
+                    compCurrentContactInfoLayout.makeColumnsEqualWidth = false;
+                    compCurrentContactInfoLayout.horizontalSpacing = 5;
+                    compCurrentContactInfoLayout.verticalSpacing = 5;
+                    compCurrentContactInfo
+                        .setSize(new org.eclipse.swt.graphics.Point(584, 435));
+                    compCurrentContactInfo
+                        .setLayout(compCurrentContactInfoLayout);
+                    {
+                        Name = new CLabel(compCurrentContactInfo, SWT.NONE);
+                        GridData NameLData = new GridData();
+                        Name.setLayoutData(NameLData);
+                        Name.setText(Messages
+                            .getString("CurUICurrentCardAdd.16")); //$NON-NLS-1$
+                    }
+                    {
+                        txtContactName = new Text(
+                            compCurrentContactInfo,
+                            SWT.NONE);
+                        GridData txtContactNameLData = new GridData();
+                        txtContactNameLData.widthHint = 192;
+                        txtContactNameLData.heightHint = 18;
+                        txtContactName.setLayoutData(txtContactNameLData);
+                        txtContactName
+                            .setSize(new org.eclipse.swt.graphics.Point(198, 18));
+                    }
+                    {
+                        lblContactAddress = new CLabel(
+                            compCurrentContactInfo,
+                            SWT.NONE);
+                        GridData lblContactAddressLData = new GridData();
+                        lblContactAddressLData.verticalAlignment = GridData.BEGINNING;
+                        lblContactAddress.setLayoutData(lblContactAddressLData);
+                        lblContactAddress.setText(Messages
+                            .getString("CurUICurrentCardAdd.17")); //$NON-NLS-1$
+                    }
+                    {
+                        txtContactAddress = new Text(
+                            compCurrentContactInfo,
+                            SWT.MULTI | SWT.WRAP | SWT.H_SCROLL);
+                        GridData txtContactAddressLData = new GridData();
+                        txtContactAddressLData.widthHint = 362;
+                        txtContactAddressLData.heightHint = 34;
+                        txtContactAddress
+                            .addVerifyListener(new VerifyListener() {
+                                public void verifyText(VerifyEvent evt) {
+                                    if (evt.keyCode == SWT.TAB) {
+                                        txtContactPhone.setFocus();
+                                        evt.doit = false;
+
+                                    }
+                                }
+                            });
+                        txtContactAddress
+                            .addTraverseListener(new TraverseListener() {
+                                public void keyTraversed(TraverseEvent evt) {
+                                    if (evt.keyCode == SWT.TAB) {
+                                        txtContactPhone.setFocus();
+                                        evt.doit = false;
+                                    }
+                                }
+                            });
+                        txtContactAddress.setLayoutData(txtContactAddressLData);
+                        txtContactAddress
+                            .setSize(new org.eclipse.swt.graphics.Point(369, 50));
+                    }
+                    {
+                        lblPhone1 = new CLabel(compCurrentContactInfo, SWT.NONE);
+                        GridData lblPhone1LData = new GridData();
+                        lblPhone1.setLayoutData(lblPhone1LData);
+                        lblPhone1.setText(Messages
+                            .getString("CurUICurrentCardAdd.18")); //$NON-NLS-1$
+                    }
+                    {
+                        txtContactPhone = new Text(
+                            compCurrentContactInfo,
+                            SWT.NONE);
+                        GridData txtContactPhoneLData = new GridData();
+                        txtContactPhoneLData.widthHint = 185;
+                        txtContactPhoneLData.heightHint = 19;
+                        txtContactPhone.setLayoutData(txtContactPhoneLData);
+                    }
+                    {
+                        lblPhone2 = new CLabel(compCurrentContactInfo, SWT.NONE);
+                        GridData lblPhone2LData = new GridData();
+                        lblPhone2.setLayoutData(lblPhone2LData);
+                        lblPhone2.setText(Messages
+                            .getString("CurUICurrentCardAdd.19")); //$NON-NLS-1$
+                    }
+                    {
+                        txtContactPhone2 = new Text(
+                            compCurrentContactInfo,
+                            SWT.NONE);
+                        GridData txtContactPhone2LData = new GridData();
+                        txtContactPhone2LData.widthHint = 185;
+                        txtContactPhone2LData.heightHint = 19;
+                        txtContactPhone2.setLayoutData(txtContactPhone2LData);
+                    }
+                    {
+                        lblContactFax = new CLabel(
+                            compCurrentContactInfo,
+                            SWT.NONE);
+                        GridData lblContactFaxLData = new GridData();
+                        lblContactFax.setLayoutData(lblContactFaxLData);
+                        lblContactFax.setText(Messages
+                            .getString("CurUICurrentCardAdd.20")); //$NON-NLS-1$
+                    }
+                    {
+                        txtFaxNumber = new Text(
+                            compCurrentContactInfo,
+                            SWT.NONE);
+                        GridData txtFaxNumberLData = new GridData();
+                        txtFaxNumberLData.widthHint = 179;
+                        txtFaxNumberLData.heightHint = 19;
+                        txtFaxNumber.setSize(185, 19);
+                        txtFaxNumber.setLayoutData(txtFaxNumberLData);
+                    }
+                    {
+                        cLabel1 = new CLabel(compCurrentContactInfo, SWT.NONE);
+                        GridData cLabel1LData = new GridData();
+                        cLabel1.setLayoutData(cLabel1LData);
+                        cLabel1.setText(Messages
+                            .getString("CurUICurrentCardAdd.21")); //$NON-NLS-1$
+                    }
+                    {
+                        txtContactEmail = new Text(
+                            compCurrentContactInfo,
+                            SWT.NONE);
+                        GridData txtContactEmailLData = new GridData();
+                        txtContactEmailLData.widthHint = 179;
+                        txtContactEmailLData.heightHint = 19;
+                        txtContactEmail.setLayoutData(txtContactEmailLData);
+                        txtContactEmail.setSize(185, 19);
+                    }
+                    {
+                        cLabel2 = new CLabel(compCurrentContactInfo, SWT.NONE);
+                        GridData cLabel2LData = new GridData();
+                        cLabel2.setLayoutData(cLabel2LData);
+                        cLabel2.setText(Messages
+                            .getString("CurUICurrentCardAdd.22")); //$NON-NLS-1$
+                    }
+                    {
+                        txtContactWebSite = new Text(
+                            compCurrentContactInfo,
+                            SWT.NONE);
+                        GridData txtContactWebSiteLData = new GridData();
+                        txtContactWebSiteLData.widthHint = 179;
+                        txtContactWebSiteLData.heightHint = 19;
+                        txtContactWebSite.addKeyListener(new KeyAdapter() {
+                            public void keyReleased(KeyEvent evt) {
+                                if (evt.keyCode == SWT.TAB) {
+                                    tbfCurrentCardAdd
+                                        .setSelection(tabItemCurrentGroups);
+                                }
+                            }
+                        });
+                        txtContactWebSite.setLayoutData(txtContactWebSiteLData);
+                        txtContactWebSite.setSize(185, 19);
+                    }
+                    compCurrentContactInfo.layout();
+                }
+            }
 			{
-				compCurrentGeneralInfo = new Composite(
-					tbfCurrentCardAdd,
-					SWT.NONE);
+				compCurrentGeneralInfo = new Composite(tbfCurrentCardAdd, SWT.NONE);
 				tabItemGeneralInfo.setControl(compCurrentGeneralInfo);
 				GridLayout compCurrentGeneralInfoLayout = new GridLayout(
 					4,
@@ -754,10 +914,9 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 							SWT.NONE);
 						GridData numTxtCountryCode2LData = new GridData();
 						numTxtCountryCode2LData.widthHint = 25;
-						numTxtCountryCode2LData.heightHint = 21;
+						numTxtCountryCode2LData.heightHint = 18;
 						numTxtCountryCode2.setLayoutData(numTxtCountryCode2LData);
 						numTxtCountryCode2.setTextLimit(5);
-						numTxtCountryCode2.setSize(25, 21);
 					}
 					{
 						numTxtCityCode2 = new NumericText(composite2, SWT.NONE);
@@ -771,11 +930,10 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 					{
 						numTxtNumber2 = new NumericText(composite2, SWT.NONE);
 						GridData numTxtNumber2LData = new GridData();
-						numTxtNumber2LData.widthHint = 83;
-						numTxtNumber2LData.heightHint = 21;
+						numTxtNumber2LData.widthHint = 82;
+						numTxtNumber2LData.heightHint = 20;
 						numTxtNumber2.setLayoutData(numTxtNumber2LData);
 						numTxtNumber2.setTextLimit(9);
-						numTxtNumber2.setSize(83, 21);
 					}
 					composite2.layout();
 				}
@@ -891,6 +1049,24 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 					decTxtDiscountAmountLData.heightHint = 22;
 					decTxtDiscountAmount.setLayoutData(decTxtDiscountAmountLData);
 				}
+                {
+                    lblDueDays = new CLabel(compCurrentGeneralInfo, SWT.NONE);
+                    lblDueDays.setText("Valör Gün");
+                    GridData lblDueDaysLData = new GridData();
+                    lblDueDaysLData.widthHint = 56;
+                    lblDueDaysLData.heightHint = 19;
+                    lblDueDays.setLayoutData(lblDueDaysLData);
+                }
+                {
+                    numDueDays = new NumericText(
+                        compCurrentGeneralInfo,
+                        SWT.NONE);
+                    GridData numDueDaysLData = new GridData();
+                    numDueDaysLData.widthHint = 65;
+                    numDueDaysLData.heightHint = 18;
+                    numDueDaysLData.horizontalSpan = 3;
+                    numDueDays.setLayoutData(numDueDaysLData);
+                }
 				{
 					lblAccountingCodeCustomer = new CLabel(
 						compCurrentGeneralInfo,
@@ -917,193 +1093,9 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 
 			}
 
-			tabItemContactInfo.setControl(compCurrentContactInfo);
-			tabItemContactInfo.setText(Messages.getString("CurUICurrentCardAdd.15")); //$NON-NLS-1$
-	
-			compCurrentContactInfo.setSize(new org.eclipse.swt.graphics.Point(584,435));
-	
-			GridData NameLData = new GridData();
-			NameLData.verticalAlignment = GridData.CENTER;
-			NameLData.horizontalAlignment = GridData.BEGINNING;
-			NameLData.widthHint = -1;
-			NameLData.heightHint = -1;
-			NameLData.horizontalIndent = 0;
-			NameLData.horizontalSpan = 1;
-			NameLData.verticalSpan = 1;
-			NameLData.grabExcessHorizontalSpace = false;
-			NameLData.grabExcessVerticalSpace = false;
-			Name.setLayoutData(NameLData);
-			Name.setText(Messages.getString("CurUICurrentCardAdd.16")); //$NON-NLS-1$
-	
-			GridData txtContactNameLData = new GridData();
-			txtContactNameLData.verticalAlignment = GridData.CENTER;
-			txtContactNameLData.horizontalAlignment = GridData.BEGINNING;
-			txtContactNameLData.widthHint = 198;
-			txtContactNameLData.heightHint = 18;
-			txtContactNameLData.horizontalIndent = 0;
-			txtContactNameLData.horizontalSpan = 1;
-			txtContactNameLData.verticalSpan = 1;
-			txtContactNameLData.grabExcessHorizontalSpace = false;
-			txtContactNameLData.grabExcessVerticalSpace = false;
-			txtContactName.setLayoutData(txtContactNameLData);
-			txtContactName.setSize(new org.eclipse.swt.graphics.Point(198,18));
-	
-			GridData lblContactAddressLData = new GridData();
-			lblContactAddressLData.verticalAlignment = GridData.BEGINNING;
-			lblContactAddressLData.horizontalAlignment = GridData.BEGINNING;
-			lblContactAddressLData.widthHint = -1;
-			lblContactAddressLData.heightHint = -1;
-			lblContactAddressLData.horizontalIndent = 0;
-			lblContactAddressLData.horizontalSpan = 1;
-			lblContactAddressLData.verticalSpan = 1;
-			lblContactAddressLData.grabExcessHorizontalSpace = false;
-			lblContactAddressLData.grabExcessVerticalSpace = false;
-			lblContactAddress.setLayoutData(lblContactAddressLData);
-			lblContactAddress.setText(Messages.getString("CurUICurrentCardAdd.17")); //$NON-NLS-1$
-	
-			GridData txtContactAddressLData = new GridData();
-			txtContactAddress.addVerifyListener(new VerifyListener() {
-				public void verifyText(VerifyEvent evt) {
-					if (evt.keyCode == SWT.TAB) {
-						txtContactPhone.setFocus();
-						evt.doit = false;
-
-					}
-				}
-			});
-			txtContactAddress.addTraverseListener(new TraverseListener() {
-				public void keyTraversed(TraverseEvent evt) {
-					if (evt.keyCode == SWT.TAB) {
-						txtContactPhone.setFocus();
-						evt.doit = false;
-					}
-				}
-			});
-			txtContactAddressLData.verticalAlignment = GridData.CENTER;
-			txtContactAddressLData.horizontalAlignment = GridData.BEGINNING;
-			txtContactAddressLData.widthHint = 369;
-			txtContactAddressLData.heightHint = 50;
-			txtContactAddressLData.horizontalIndent = 0;
-			txtContactAddressLData.horizontalSpan = 1;
-			txtContactAddressLData.verticalSpan = 1;
-			txtContactAddressLData.grabExcessHorizontalSpace = false;
-			txtContactAddressLData.grabExcessVerticalSpace = false;
-			txtContactAddress.setLayoutData(txtContactAddressLData);
-			txtContactAddress.setSize(new org.eclipse.swt.graphics.Point(369,50));
-	
-			GridData lblPhone1LData = new GridData();
-			lblPhone1LData.verticalAlignment = GridData.CENTER;
-			lblPhone1LData.horizontalAlignment = GridData.BEGINNING;
-			lblPhone1LData.widthHint = -1;
-			lblPhone1LData.heightHint = -1;
-			lblPhone1LData.horizontalIndent = 0;
-			lblPhone1LData.horizontalSpan = 1;
-			lblPhone1LData.verticalSpan = 1;
-			lblPhone1LData.grabExcessHorizontalSpace = false;
-			lblPhone1LData.grabExcessVerticalSpace = false;
-			lblPhone1.setLayoutData(lblPhone1LData);
-			lblPhone1.setText(Messages.getString("CurUICurrentCardAdd.18")); //$NON-NLS-1$
-	
-			GridData txtContactPhoneLData = new GridData();
-			txtContactPhoneLData.widthHint = 185;
-			txtContactPhoneLData.heightHint = 19;
-			txtContactPhone.setLayoutData(txtContactPhoneLData);
-
-			GridData lblPhone2LData = new GridData();
-			lblPhone2LData.verticalAlignment = GridData.CENTER;
-			lblPhone2LData.horizontalAlignment = GridData.BEGINNING;
-			lblPhone2LData.widthHint = -1;
-			lblPhone2LData.heightHint = -1;
-			lblPhone2LData.horizontalIndent = 0;
-			lblPhone2LData.horizontalSpan = 1;
-			lblPhone2LData.verticalSpan = 1;
-			lblPhone2LData.grabExcessHorizontalSpace = false;
-			lblPhone2LData.grabExcessVerticalSpace = false;
-			lblPhone2.setLayoutData(lblPhone2LData);
-			lblPhone2.setText(Messages.getString("CurUICurrentCardAdd.19")); //$NON-NLS-1$
-	
-			GridData txtContactPhone2LData = new GridData();
-			txtContactPhone2LData.widthHint = 185;
-			txtContactPhone2LData.heightHint = 19;
-			txtContactPhone2.setLayoutData(txtContactPhone2LData);
-
-			GridData lblContactFaxLData = new GridData();
-			lblContactFaxLData.verticalAlignment = GridData.CENTER;
-			lblContactFaxLData.horizontalAlignment = GridData.BEGINNING;
-			lblContactFaxLData.widthHint = -1;
-			lblContactFaxLData.heightHint = -1;
-			lblContactFaxLData.horizontalIndent = 0;
-			lblContactFaxLData.horizontalSpan = 1;
-			lblContactFaxLData.verticalSpan = 1;
-			lblContactFaxLData.grabExcessHorizontalSpace = false;
-			lblContactFaxLData.grabExcessVerticalSpace = false;
-			lblContactFax.setLayoutData(lblContactFaxLData);
-			lblContactFax.setText(Messages.getString("CurUICurrentCardAdd.20")); //$NON-NLS-1$
-	
-			GridData txtFaxNumberLData = new GridData();
-			txtFaxNumber.setSize(185, 19);
-			txtFaxNumberLData.widthHint = 185;
-			txtFaxNumberLData.heightHint = 19;
-			txtFaxNumber.setLayoutData(txtFaxNumberLData);
-
-			GridData cLabel1LData = new GridData();
-			cLabel1LData.verticalAlignment = GridData.CENTER;
-			cLabel1LData.horizontalAlignment = GridData.BEGINNING;
-			cLabel1LData.widthHint = -1;
-			cLabel1LData.heightHint = -1;
-			cLabel1LData.horizontalIndent = 0;
-			cLabel1LData.horizontalSpan = 1;
-			cLabel1LData.verticalSpan = 1;
-			cLabel1LData.grabExcessHorizontalSpace = false;
-			cLabel1LData.grabExcessVerticalSpace = false;
-			cLabel1.setLayoutData(cLabel1LData);
-			cLabel1.setText(Messages.getString("CurUICurrentCardAdd.21")); //$NON-NLS-1$
-	
-			GridData txtContactEmailLData = new GridData();
-			txtContactEmailLData.widthHint = 185;
-			txtContactEmailLData.heightHint = 19;
-			txtContactEmail.setLayoutData(txtContactEmailLData);
-			txtContactEmail.setSize(185, 19);
-	
-			GridData cLabel2LData = new GridData();
-			cLabel2LData.verticalAlignment = GridData.CENTER;
-			cLabel2LData.horizontalAlignment = GridData.BEGINNING;
-			cLabel2LData.widthHint = -1;
-			cLabel2LData.heightHint = -1;
-			cLabel2LData.horizontalIndent = 0;
-			cLabel2LData.horizontalSpan = 1;
-			cLabel2LData.verticalSpan = 1;
-			cLabel2LData.grabExcessHorizontalSpace = false;
-			cLabel2LData.grabExcessVerticalSpace = false;
-			cLabel2.setLayoutData(cLabel2LData);
-			cLabel2.setText(Messages.getString("CurUICurrentCardAdd.22")); //$NON-NLS-1$
-	
-			GridData txtContactWebSiteLData = new GridData();
-			txtContactWebSite.addKeyListener(new KeyAdapter() {
-				public void keyReleased(KeyEvent evt) {
-					if (evt.keyCode==SWT.TAB)
-					{
-						tbfCurrentCardAdd.setSelection(tabItemCurrentGroups);
-					}
-				}
-			});
-			txtContactWebSiteLData.widthHint = 185;
-			txtContactWebSiteLData.heightHint = 19;
-			txtContactWebSite.setLayoutData(txtContactWebSiteLData);
-			txtContactWebSite.setSize(185, 19);
-			GridLayout compCurrentContactInfoLayout = new GridLayout(2, true);
-			compCurrentContactInfo.setLayout(compCurrentContactInfoLayout);
-			compCurrentContactInfoLayout.marginWidth = 5;
-			compCurrentContactInfoLayout.marginHeight = 5;
-			compCurrentContactInfoLayout.numColumns = 2;
-			compCurrentContactInfoLayout.makeColumnsEqualWidth = false;
-			compCurrentContactInfoLayout.horizontalSpacing = 5;
-			compCurrentContactInfoLayout.verticalSpacing = 5;
-			compCurrentContactInfo.layout();
-	
 			tabItemCurrentGroups.setControl(compCurrentGroups);
 			tabItemCurrentGroups.setText(Messages.getString("CurUICurrentCardAdd.23")); //$NON-NLS-1$
-	
+
 			compCurrentGroups.setSize(new org.eclipse.swt.graphics.Point(584,435));
 	
 			GridData compRegisterGroupLData = new GridData();
@@ -1162,7 +1154,7 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	
 	public void postInitGUI(){
 	fillGroups();
-	accPickerCustomer.setFilter("120"); //$NON-NLS-1$
+	accPickerCustomer.setText("320");
 
 	
 	

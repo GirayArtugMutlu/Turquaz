@@ -99,7 +99,7 @@ public class CashAccountPicker extends org.eclipse.swt.widgets.Composite {
                             try {
                                 
                                setData2(EngBLAccountingAccounts
-                                    .getAccount(text1.getText().trim()));
+                                    .getLeafAccount(text1.getText().trim()));
                           
                                                            
                                 
@@ -164,15 +164,17 @@ public class CashAccountPicker extends org.eclipse.swt.widgets.Composite {
 	
 	public void verifyData(){
 	    try{
+	        
 	        setData2(EngBLAccountingAccounts
-                    .getAccount(text1.getText().trim()));
-          
+                    .getAccount(text1.getText().trim()));          
+	    
 	    }
 	    catch(Exception ex){
 	        ex.printStackTrace();
 	    }
 	    
 	}
+	
 	public void setText(String arg0){
 	    text1.setText(arg0);
 	}
