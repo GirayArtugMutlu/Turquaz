@@ -80,7 +80,7 @@ public class SearchTableViewer
 
 	public void removeAll()
 	{
-		rowList.removeAll();
+		rowList.removeAll(this);
 	}
 	
 	

@@ -1,4 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <props>
-<com.turquaz.accounting.ui.AccUITransactionSearch><column index="3" width="85"></column><column index="5" width="100"></column><column index="2" width="70"></column><column index="0" width="61"></column><column index="4" width="96"></column><column index="1" width="74"></column></com.turquaz.accounting.ui.AccUITransactionSearch>
-<com.turquaz.inventory.ui.InvUICardSearch><column index="3" width="60"></column><column index="5" width="71"></column><column index="7" width="76"></column><column index="2" width="60"></column><column index="0" width="67"></column><column index="4" width="69"></column><column index="6" width="75"></column><column index="1" width="70"></column></com.turquaz.inventory.ui.InvUICardSearch></props>
+  <com.turquaz.accounting.ui.AccUITransactionSearch>
+    <column index="3" width="101" />
+    <column index="5" width="121" />
+    <column index="2" width="81" />
+    <column index="0" width="137" />
+    <column index="4" width="227" />
+    <column index="1" width="78" />
+  </com.turquaz.accounting.ui.AccUITransactionSearch>
+  <com.turquaz.inventory.ui.InvUICardSearch>
+    <column index="3" width="60" />
+    <column index="5" width="71" />
+    <column index="7" width="76" />
+    <column index="2" width="60" />
+    <column index="0" width="69" />
+    <column index="4" width="69" />
+    <column index="6" width="75" />
+    <column index="1" width="98" />
+  </com.turquaz.inventory.ui.InvUICardSearch>
+  <com.turquaz.inventory.ui.InvUITransactionSearch>
+    <column index="3" width="100" />
+    <column index="5" width="100" />
+    <column index="2" width="100" />
+    <column index="0" width="73" />
+    <column index="4" width="100" />
+    <column index="6" width="100" />
+    <column index="1" width="93" />
+  </com.turquaz.inventory.ui.InvUITransactionSearch>
+  <com.turquaz.bill.ui.BillUIBillSearch>
+    <column index="3" width="150" />
+    <column index="5" width="100" />
+    <column index="2" width="100" />
+    <column index="0" width="72" />
+    <column index="4" width="100" />
+    <column index="6" width="100" />
+    <column index="1" width="74" />
+  </com.turquaz.bill.ui.BillUIBillSearch>
+</props>
+

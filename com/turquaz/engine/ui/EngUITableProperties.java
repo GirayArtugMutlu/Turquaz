@@ -15,6 +15,7 @@ import java.util.Map;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
+import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.xml.sax.InputSource;
 
@@ -116,9 +117,14 @@ public class EngUITableProperties
 	public static void saveToFile()
 	{
 		try{
-		XMLOutputter outputter = new XMLOutputter();
-		outputter.setExpandEmptyElements(true);
-		outputter.setNewlines(false);	
+			if(_instance == null)
+			{
+				_instance = new EngUITableProperties();
+			}
+	
+	    
+		Format format = Format.getPrettyFormat();
+		XMLOutputter outputter = new XMLOutputter(format);	
 		OutputStream output = null;
 		output = new FileOutputStream("config/table_props.xml"); //$NON-NLS-1$
 		outputter.output(_instance.tableDoc, output);

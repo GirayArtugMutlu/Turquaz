@@ -80,13 +80,24 @@ public class TableRowList
 	}
 
 	public void removeAll()
-	{
-		Vector v = (Vector) tasks.clone();
-		Iterator it = v.iterator();
-		while (it.hasNext())
+	{		
+		for (int k=0; k<tasks.size(); k++)
 		{
-			removeTask((ITableRow) it.next());
+			ITableRow task=(ITableRow)tasks.get(k);
+			Iterator iterator = changeListeners.iterator();
+			while (iterator.hasNext())
+				((ITableRowListViewer) iterator.next()).removeRow(task);
+			
 		}
+		tasks=new Vector(COUNT);	
+		counter=0;
+	}
+	
+	public void removeAll(SearchTableViewer tableViewer)
+	{		
+		tasks=new Vector(COUNT);	
+		tableViewer.viewer.refresh();
+		counter=0;
 	}
 
 	/**
