@@ -91,5 +91,26 @@ public class CurDALCurrentCardSearch {
 			throw ex;
 		}
 	}
+	
+	public List getTransactions(TurqCurrentCard curCard) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			
+			String query = "Select curTrans from TurqCurrentTransaction as curTrans" +
+					" where curTrans.turqCurrentCard.currentCardsId="+curCard.getCurrentCardsId();
+
+			Query q = session.createQuery(query); 	
+			List list = q.list();
+			session.close();
+			return list;
+			
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+	}	
 
 }

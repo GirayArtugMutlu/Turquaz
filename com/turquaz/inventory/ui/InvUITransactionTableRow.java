@@ -473,8 +473,16 @@ public class InvUITransactionTableRow implements ITableRow {
         		invTrans.setTransactionsTotalAmountOut(transAmountinBaseUnit);
         	}
         	
-        	invTrans.setTransactionsVatSpecialAmount(totalPriceAfterDiscount.multiply(invTrans.getTransactionsVatSpecial()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
-        
+        	
+        	if (invTrans.getTurqInventoryCard().isSpecVatForEach())
+        	{
+        		BigDecimal vatSpecialAmount=invTrans.getTurqInventoryCard().getCardSpecialVatEach().multiply(BigDecimal.valueOf(transAmountinBaseUnit));
+        		invTrans.setTransactionsVatSpecialAmount(vatSpecialAmount);
+        	}
+        	else
+        	{
+        		invTrans.setTransactionsVatSpecialAmount(totalPriceAfterDiscount.multiply(invTrans.getTransactionsVatSpecial()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
+        	}
         	BigDecimal totalPriceAfterDiscountAddedSpecVAT = totalPriceAfterDiscount.add(invTrans.getTransactionsVatSpecialAmount());
         
         	invTrans.setTransactionsVatAmount(totalPriceAfterDiscountAddedSpecVAT.multiply(new BigDecimal(invTrans.getTransactionsVat())).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));

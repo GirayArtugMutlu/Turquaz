@@ -21,6 +21,7 @@ package com.turquaz.current.ui;
 */
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.List;
 
 
 import org.eclipse.swt.widgets.Display;
@@ -33,6 +34,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
+import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import org.eclipse.swt.layout.GridData;
@@ -91,6 +93,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
 	private TurqCurrentCard currentCard;
 	private CurBLCurrentCardUpdate currentUpdate=new CurBLCurrentCardUpdate();
+	private CurBLCurrentCardSearch currentSearch=new CurBLCurrentCardSearch();
 	private CurBLCurrentCardAdd currentAdd=new CurBLCurrentCardAdd();
 	private ToolItem toolCancel;
 	private ToolItem toolDelete;
@@ -407,7 +410,6 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
     
 	if(sums[0]!=null){
 	  
-	System.out.println(sums[1].toString());	
 		
 	  credit =(BigDecimal)sums[1];
 	  debt = (BigDecimal)sums[0];
@@ -449,35 +451,41 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	/** Auto-generated main method */
 
 	/** Auto-generated event handler method */
-	protected void toolDeleteWidgetSelected(SelectionEvent evt){
+	protected void toolDeleteWidgetSelected(SelectionEvent evt)
+	{
 	   
-		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
-		MessageBox msg2 = new MessageBox(this.getParent(),SWT.OK|SWT.CANCEL);
-		try{
-		 msg2.setMessage(Messages.getString("CurUICurrentCardUpdate.21")); //$NON-NLS-1$
-	    int result = msg2.open();
+		
+		try
+		{
+			MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+			MessageBox msg2 = new MessageBox(this.getParent(),SWT.OK|SWT.CANCEL);
+			List curCardTrans=currentSearch.getTransactions(currentCard);
+			if (curCardTrans.size() > 0)
+			{
+				msg.setMessage(Messages.getString("CurUICurrentCardUpdate.15")); //$NON-NLS-1$
+				msg.open();
+				return;
+			}
+			msg2.setMessage(Messages.getString("CurUICurrentCardUpdate.21")); //$NON-NLS-1$
+			int result = msg2.open();
 	    
-	    if(result==SWT.OK){	 
-			
-			deleteRelations();
-			
-			currentUpdate.deleteObject(currentCard);
-			
-			 msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
-			 msg.open();
-			
-			this.dialogShell.close();
-		 }
-		
-		
+			if(result==SWT.OK)
+			{	 		
+				deleteRelations();			
+				currentUpdate.deleteObject(currentCard);			
+				msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
+				msg.open();			
+				this.dialogShell.close();
+			}		
 		}
-		catch(Exception ex){
+		catch(Exception ex)
+		{
 		    MessageBox msg3 = new MessageBox(this.getParent(),SWT.ICON_WARNING);
 			ex.printStackTrace();
-			msg3.setMessage(Messages.getString("CurUICurrentCardUpdate.15")); //$NON-NLS-1$
+			msg3.setMessage(ex.getMessage());
 			msg3.open();
 		}
-	    }
+	}
 	
 	
 	//Delete card Phones

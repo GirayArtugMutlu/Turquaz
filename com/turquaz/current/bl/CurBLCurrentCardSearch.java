@@ -23,6 +23,7 @@ package com.turquaz.current.bl;
 import java.util.List;
 
 import com.turquaz.current.dal.CurDALCurrentCardSearch;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 
 public class CurBLCurrentCardSearch {
@@ -44,5 +45,18 @@ public class CurBLCurrentCardSearch {
 			throw ex;
 		}
 	}
+	
+	public List getTransactions(TurqCurrentCard curCard) throws Exception
+	{
+		try
+		{
+			return curDALCurrentCardSearch.getTransactions(curCard);
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+	}	
+	
 
 }
