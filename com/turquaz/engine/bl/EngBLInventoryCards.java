@@ -41,7 +41,7 @@ import com.turquaz.inventory.bl.InvBLCardSearch;
  */
 public class EngBLInventoryCards{
 	public List cardList;
-	public static HashMap cardMap = new HashMap();
+	public HashMap cardMap = new HashMap();
 
 	
 	static EngBLInventoryCards _instance;
@@ -99,13 +99,20 @@ public class EngBLInventoryCards{
 	public static TurqInventoryCard getAccount(String accountCode)throws Exception{
 	    try{
 	        
-	        return (TurqInventoryCard)cardMap.get(accountCode);
+	    	if (_instance == null) {
+	              
+				_instance = new EngBLInventoryCards();
+
+			}
+			       	 
+			return (TurqInventoryCard)_instance.cardMap.get(accountCode);
+			
+			}
+			catch(Exception ex){
+				throw ex;
+			}
 	        
-	        
-	    }
-	    catch(Exception ex){
-	        throw ex;
-	    }
+	    
 	    
 	    
 	}
