@@ -122,6 +122,7 @@ public class EngBLCommon {
     public final static int CONTENT_ASSIST_ACCOUNTING_CASH =5;
     public final static int CONTENT_ASSIST_CURRENT_CODE =6;
     public final static int CONTENT_ASSIST_BANK =7;
+    public final static int CONTENT_ASSIST_INVENTORY_GROUPS =8;
     
     
     public final static int BILL_TRANS_TYPE_BUY=0;

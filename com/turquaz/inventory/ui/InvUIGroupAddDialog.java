@@ -337,7 +337,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 	    }
 	    else{
 	    
-	    blCardAdd.saveInvGroup(txtGroupName.getText().trim(),txtDescription.getText().trim());
+	    blCardAdd.saveInvGroup(txtGroupName.getText().trim(),txtDescription.getText().trim(),null);
 	    msg.setMessage(Messages.getString("InvUIGroupAddDialog.9")); //$NON-NLS-1$
 	    txtGroupName.setText(""); //$NON-NLS-1$
 	    txtDescription.setText(""); //$NON-NLS-1$
