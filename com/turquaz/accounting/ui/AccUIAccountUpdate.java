@@ -100,8 +100,15 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			});
 	
 			GridData compAccountCardLData = new GridData();
+			compAccountCardLData.verticalAlignment = GridData.CENTER;
+			compAccountCardLData.horizontalAlignment = GridData.BEGINNING;
 			compAccountCardLData.widthHint = 459;
 			compAccountCardLData.heightHint = 250;
+			compAccountCardLData.horizontalIndent = 0;
+			compAccountCardLData.horizontalSpan = 1;
+			compAccountCardLData.verticalSpan = 1;
+			compAccountCardLData.grabExcessHorizontalSpace = false;
+			compAccountCardLData.grabExcessVerticalSpace = false;
 			compAccountCard.setLayoutData(compAccountCardLData);
 			compAccountCard.setSize(new org.eclipse.swt.graphics.Point(459,250));
 			compAccountCard.layout();

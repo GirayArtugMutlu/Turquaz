@@ -37,6 +37,9 @@ public class TurqBanksCard implements Serializable {
     private com.turquaz.engine.dal.TurqCompany turqCompany;
 
     /** persistent field */
+    private com.turquaz.engine.dal.TurqCurrency turqCurrency;
+
+    /** persistent field */
     private Set turqChequeRolls;
 
     /** persistent field */
@@ -52,7 +55,7 @@ public class TurqBanksCard implements Serializable {
     private Set turqTradebillRolls;
 
     /** full constructor */
-    public TurqBanksCard(java.lang.String bankName, java.lang.String bankBranchName, java.lang.String bankAccountNo, java.lang.String createdBy, java.lang.String updatedBy, java.util.Date creationDate, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqChequeRolls, Set turqChequeCheques, Set turqBankCardsSecondaryAccounts, Set turqBanksTransactionBills, Set turqTradebillRolls) {
+    public TurqBanksCard(java.lang.String bankName, java.lang.String bankBranchName, java.lang.String bankAccountNo, java.lang.String createdBy, java.lang.String updatedBy, java.util.Date creationDate, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqCurrency turqCurrency, Set turqChequeRolls, Set turqChequeCheques, Set turqBankCardsSecondaryAccounts, Set turqBanksTransactionBills, Set turqTradebillRolls) {
         this.bankName = bankName;
         this.bankBranchName = bankBranchName;
         this.bankAccountNo = bankAccountNo;
@@ -61,6 +64,7 @@ public class TurqBanksCard implements Serializable {
         this.creationDate = creationDate;
         this.lastModified = lastModified;
         this.turqCompany = turqCompany;
+        this.turqCurrency = turqCurrency;
         this.turqChequeRolls = turqChequeRolls;
         this.turqChequeCheques = turqChequeCheques;
         this.turqBankCardsSecondaryAccounts = turqBankCardsSecondaryAccounts;
@@ -142,6 +146,14 @@ public class TurqBanksCard implements Serializable {
 
     public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
         this.turqCompany = turqCompany;
+    }
+
+    public com.turquaz.engine.dal.TurqCurrency getTurqCurrency() {
+        return this.turqCurrency;
+    }
+
+    public void setTurqCurrency(com.turquaz.engine.dal.TurqCurrency turqCurrency) {
+        this.turqCurrency = turqCurrency;
     }
 
     public java.util.Set getTurqChequeRolls() {

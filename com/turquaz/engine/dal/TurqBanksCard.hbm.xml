@@ -86,6 +86,14 @@
     >
         <column name="companies_id" />
     </many-to-one>
+    <!-- bi-directional many-to-one association to TurqCurrency -->
+    <many-to-one
+        name="turqCurrency"
+        class="com.turquaz.engine.dal.TurqCurrency"
+        not-null="true"
+    >
+        <column name="currencies_id" />
+    </many-to-one>
     <!-- bi-directional one-to-many association to TurqChequeRoll -->
     <set
         name="turqChequeRolls"
