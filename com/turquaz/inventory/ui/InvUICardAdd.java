@@ -2068,4 +2068,21 @@ decimalSymbol + "][0-9]+)?"); //$NON-NLS-1$
 	public void setTxtInvCardSpecialCode(Text txtInvCardSpecialCode) {
 		this.txtInvCardSpecialCode = txtInvCardSpecialCode;
 	}
+
+	/**
+	* This is an auto-generated method which you can alter,
+	* e.g. to point to a different property file, to modify the key by
+	* by prefixing the name of this class, etc.
+	*
+	* By default, it expects a file called "messages.properties" to exist in the
+	* current package, and returns the value of the property defined
+	* in that file for the given key
+	*/
+	public String getExternalizedString(String key){
+		try {
+			return java.util.ResourceBundle.getBundle("com.turquaz.inventory.ui.InvUICardAddMessages").getString(key);
+		} catch (java.util.MissingResourceException e) {
+			return '!' + key + '!';
+		}
+	}
 }

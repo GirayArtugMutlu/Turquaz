@@ -61,6 +61,8 @@
 					<Property name="bounds" type="Rectangle">
 						<Rectangle value="[5, 2, 645, 426]"/>
 					</Property>
+					<Property name="externalizeStrings" type="boolean" value="false"/>
+					<Property name="externalizeStrings" type="boolean" value="false"/>
 				</Properties>
 				<SubComponents>
 					<Component class="org.eclipse.swt.custom.CTabItem" name="tabInvCardGeneral" style="0">
@@ -71,6 +73,8 @@
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value="General Information"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
 						</Properties>
 						<SubComponents>
 							<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardGeneral" style="0">
@@ -91,6 +95,8 @@
 									<Property name="size" type="Dimension">
 										<Dimension value="[641, 404]"/>
 									</Property>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
 								</Properties>
 								<SubComponents>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardName" style="0">
@@ -118,6 +124,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[5, 5, 96, 20]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardName" style="0">
@@ -145,6 +153,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[110, 7, 144, 16]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardSpecialCode" style="0">
@@ -172,6 +182,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[259, 6, 73, 18]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardSpecialCode" style="0">
@@ -199,6 +211,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[337, 6, 95, 18]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardCode" style="0">
@@ -226,6 +240,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[5, 30, 100, 23]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardCode" style="0">
@@ -253,6 +269,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[110, 34, 142, 15]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardDefinition" style="0">
@@ -280,6 +298,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[5, 85, 76, 17]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardDefinition" style="834">
@@ -307,6 +327,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[110, 58, 203, 71]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardGeneral" style="16777224">
@@ -335,6 +357,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[365, 134, 67, 23]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 								</SubComponents>
@@ -349,6 +373,8 @@
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value="Details"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
 						</Properties>
 						<SubComponents>
 							<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardDetails" style="0">
@@ -369,6 +395,8 @@
 									<Property name="size" type="Dimension">
 										<Dimension value="[641, 404]"/>
 									</Property>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
 								</Properties>
 								<SubComponents>
 									<Component class="org.eclipse.swt.widgets.Label" name="lblInvCardMin" style="131072">
@@ -396,6 +424,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[5, 6, 115, 16]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="com.turquaz.engine.ui.component.NumericText" name="txtnumInvCardMin" style="0">
@@ -422,6 +452,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[125, 5, 97, 18]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardMax" style="131072">
@@ -449,6 +481,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[272, 5, 101, 19]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="com.turquaz.engine.ui.component.NumericText" name="txtnumInvCardMax" style="0">
@@ -475,6 +509,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[378, 5, 110, 18]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardInAcc" style="131072">
@@ -502,6 +538,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[5, 30, 115, 16]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="com.turquaz.engine.ui.component.TextWithButton" name="txtInvCardInAcc" style="0">
@@ -529,6 +567,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[125, 30, 139, 16]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardOutAcc" style="131072">
@@ -556,6 +596,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[269, 29, 104, 19]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="com.turquaz.engine.ui.component.TextWithButton" name="txtInvCardOutAcc" style="0">
@@ -584,6 +626,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[378, 30, 163, 17]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardVat" style="131072">
@@ -611,6 +655,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[5, 54, 115, 16]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="com.turquaz.engine.ui.component.NumericText" name="txtInvCardVat" style="0">
@@ -637,6 +683,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[125, 54, 67, 17]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardDiscount" style="131072">
@@ -664,6 +712,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[326, 53, 47, 19]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="com.turquaz.engine.ui.component.NumericText" name="txtInvCardDiscount" style="0">
@@ -690,6 +740,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[378, 53, 110, 18]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardDetPre" style="16777224">
@@ -718,6 +770,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[5, 87, 82, 25]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardNext" style="16777224">
@@ -746,6 +800,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[480, 87, 61, 25]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 								</SubComponents>
@@ -760,6 +816,8 @@
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value="Units"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
 						</Properties>
 						<SubComponents>
 							<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardUnit" style="0">
@@ -780,6 +838,8 @@
 									<Property name="size" type="Dimension">
 										<Dimension value="[641, 404]"/>
 									</Property>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
 								</Properties>
 								<SubComponents>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardUnit" style="0">
@@ -807,6 +867,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[5, 10, 51, 19]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.custom.CCombo" name="comboInvCardUnits" style="8388616">
@@ -837,6 +899,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[164, 5, 126, 29]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Button" name="btnUpdateUnits" style="16777224">
@@ -863,6 +927,8 @@
 												<Rectangle value="[323, 8, 74, 23]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardSecondaryUnits" style="0">
@@ -887,6 +953,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[5, 39, 84, 19]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardAddSecondaryUnits" style="0">
@@ -922,6 +990,8 @@
 												<Rectangle value="[164, 39, 422, 139]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 										<SubComponents>
 											<Component class="org.eclipse.swt.widgets.Table" name="tableInvCardAddAllUnits" style="2564">
@@ -950,6 +1020,8 @@
 													<Property name="bounds" type="Rectangle">
 														<Rectangle value="[0, 5, 136, 120]"/>
 													</Property>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
 												</Properties>
 												<SubComponents>
 													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumn1" style="0">
@@ -961,6 +1033,8 @@
 														<Properties>
 															<Property name="text" type="String" value="Units"/>
 															<Property name="width" type="int" value="112"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 												</SubComponents>
@@ -997,6 +1071,8 @@
 													<Property name="bounds" type="Rectangle">
 														<Rectangle value="[141, 33, 64, 64]"/>
 													</Property>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
 												</Properties>
 												<SubComponents>
 													<Component class="org.eclipse.swt.widgets.Button" name="btnRegisterInvUnit" style="16777224">
@@ -1026,6 +1102,8 @@
 																<Rectangle value="[13, 5, 39, 19]"/>
 															</Property>
 															<Property name="visible" type="boolean" value="true"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 													<Component class="org.eclipse.swt.widgets.Button" name="btnRemoveRegisteredInvUnit" style="16777224">
@@ -1054,6 +1132,8 @@
 															<Property name="bounds" type="Rectangle">
 																<Rectangle value="[13, 29, 39, 19]"/>
 															</Property>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 												</SubComponents>
@@ -1084,6 +1164,8 @@
 													<Property name="bounds" type="Rectangle">
 														<Rectangle value="[210, 5, 180, 121]"/>
 													</Property>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
 												</Properties>
 												<SubComponents>
 													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumn2" style="0">
@@ -1095,6 +1177,8 @@
 														<Properties>
 															<Property name="text" type="String" value="Registered Units"/>
 															<Property name="width" type="int" value="110"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnUnitCoefficient" style="0">
@@ -1106,6 +1190,8 @@
 														<Properties>
 															<Property name="text" type="String" value="Factor"/>
 															<Property name="width" type="int" value="50"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 												</SubComponents>
@@ -1138,6 +1224,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[5, 193, 82, 25]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardUnitsNxt" style="16777224">
@@ -1166,6 +1254,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[575, 193, 61, 25]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 								</SubComponents>
@@ -1180,6 +1270,8 @@
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value="Prices"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
 						</Properties>
 						<SubComponents>
 							<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardPrices" style="0">
@@ -1200,6 +1292,8 @@
 									<Property name="size" type="Dimension">
 										<Dimension value="[641, 404]"/>
 									</Property>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
 								</Properties>
 								<SubComponents>
 									<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardPricesTable" style="0">
@@ -1235,6 +1329,8 @@
 												<Rectangle value="[5, 5, 534, 207]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 										<SubComponents>
 											<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardPricesAdd" style="0">
@@ -1270,6 +1366,8 @@
 														<Rectangle value="[5, 71, 45, 67]"/>
 													</Property>
 													<Property name="visible" type="boolean" value="true"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
 												</Properties>
 												<SubComponents>
 													<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardAddPricesAddPrice" style="16777224">
@@ -1299,6 +1397,8 @@
 																<Rectangle value="[5, 5, 30, 24]"/>
 															</Property>
 															<Property name="visible" type="boolean" value="true"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 													<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardAddPricesRemovePrice" style="16777224">
@@ -1327,6 +1427,8 @@
 															<Property name="bounds" type="Rectangle">
 																<Rectangle value="[5, 34, 30, 24]"/>
 															</Property>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 												</SubComponents>
@@ -1357,6 +1459,8 @@
 													<Property name="bounds" type="Rectangle">
 														<Rectangle value="[55, 5, 441, 198]"/>
 													</Property>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
 												</Properties>
 												<SubComponents>
 													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnPriceType" style="0">
@@ -1368,6 +1472,8 @@
 														<Properties>
 															<Property name="text" type="String" value="Price Type"/>
 															<Property name="width" type="int" value="120"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnAmount" style="0">
@@ -1379,6 +1485,8 @@
 														<Properties>
 															<Property name="text" type="String" value="Amount"/>
 															<Property name="width" type="int" value="150"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnCurrency" style="0">
@@ -1390,6 +1498,8 @@
 														<Properties>
 															<Property name="text" type="String" value="Currency"/>
 															<Property name="width" type="int" value="162"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 												</SubComponents>
@@ -1422,6 +1532,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[5, 217, 82, 25]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardPricesNext" style="16777224">
@@ -1450,6 +1562,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[575, 217, 61, 25]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 								</SubComponents>
@@ -1464,6 +1578,8 @@
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value="Groups"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
 						</Properties>
 						<SubComponents>
 							<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardAddGroups" style="0">
@@ -1484,6 +1600,8 @@
 									<Property name="size" type="Dimension">
 										<Dimension value="[641, 404]"/>
 									</Property>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
 								</Properties>
 								<SubComponents>
 									<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardAddGroupsSelection" style="0">
@@ -1519,6 +1637,8 @@
 												<Rectangle value="[5, 5, 448, 184]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 										<SubComponents>
 											<Component class="org.eclipse.swt.widgets.Table" name="tableInvCardAddGroupsAllGroups" style="67588">
@@ -1547,6 +1667,8 @@
 													<Property name="bounds" type="Rectangle">
 														<Rectangle value="[5, 5, 161, 161]"/>
 													</Property>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
 												</Properties>
 												<SubComponents>
 													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnInvCardAddGroupAllGroups" style="0">
@@ -1558,6 +1680,8 @@
 														<Properties>
 															<Property name="text" type="String" value="Groups"/>
 															<Property name="width" type="int" value="141"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 												</SubComponents>
@@ -1594,6 +1718,8 @@
 													<Property name="bounds" type="Rectangle">
 														<Rectangle value="[171, 26, 136, 118]"/>
 													</Property>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
 												</Properties>
 												<SubComponents>
 													<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardAddGroupsRegister" style="16777224">
@@ -1623,6 +1749,8 @@
 																<Rectangle value="[46, 5, 44, 29]"/>
 															</Property>
 															<Property name="visible" type="boolean" value="true"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 													<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardAddGroupsRemove" style="16777224">
@@ -1651,6 +1779,8 @@
 															<Property name="bounds" type="Rectangle">
 																<Rectangle value="[44, 39, 48, 31]"/>
 															</Property>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 													<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardAddNew" style="16777224">
@@ -1680,6 +1810,8 @@
 																<Rectangle value="[5, 75, 129, 41]"/>
 															</Property>
 															<Property name="visible" type="boolean" value="true"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 												</SubComponents>
@@ -1710,6 +1842,8 @@
 													<Property name="bounds" type="Rectangle">
 														<Rectangle value="[312, 5, 170, 161]"/>
 													</Property>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
 												</Properties>
 												<SubComponents>
 													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnRegisteredGroups" style="0">
@@ -1721,6 +1855,8 @@
 														<Properties>
 															<Property name="text" type="String" value="Registered Groups"/>
 															<Property name="width" type="int" value="146"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 												</SubComponents>
@@ -1750,6 +1886,8 @@
 											<Property name="bounds" type="Rectangle">
 												<Rectangle value="[5, 194, 53, 23]"/>
 											</Property>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
 								</SubComponents>
