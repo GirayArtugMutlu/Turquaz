@@ -289,7 +289,7 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 		{
 			comboCurrency.removeAll();
 			comboCurrency.setText(""); //$NON-NLS-1$
-			List currencies = EngBLCommon.getCurrencies();
+			List currencies =(List)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"getCurrencies",null);
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);

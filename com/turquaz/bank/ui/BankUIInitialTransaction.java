@@ -1,6 +1,7 @@
 package com.turquaz.bank.ui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.CellEditor;
@@ -15,7 +16,8 @@ import org.eclipse.swt.layout.GridLayout;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionSearch;
-import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
@@ -191,7 +193,9 @@ public class BankUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 			{
 				try
 				{
-					EngDALCommon.updateObject(row.getDBObject());
+					HashMap argMap=new HashMap();
+					argMap.put(EngKeys.OBJECT,row.getDBObject());
+					EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"update",argMap);
 				}
 				catch (Exception ex)
 				{

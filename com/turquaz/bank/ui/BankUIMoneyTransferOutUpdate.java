@@ -82,7 +82,7 @@ public class BankUIMoneyTransferOutUpdate extends org.eclipse.swt.widgets.Dialog
 			dialogShell.layout();
 			dialogShell.pack();
 			dialogShell.setText(Messages.getString("BankUIMoneyTransferOutUpdate.0")); //$NON-NLS-1$
-			dialogShell.setSize(548, 642);
+			dialogShell.setSize(526, 296);
 			{
 				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
 				GridData toolBar1LData = new GridData();

@@ -245,8 +245,11 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 		catch (Exception ex)
 		{
 			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-			msg.setMessage(ex.getMessage());
-			msg.open();
+			if (ex.getMessage()!=null)
+			{
+				msg.setMessage(ex.getMessage());
+				msg.open();
+			}
 			Logger loger = Logger.getLogger(this.getClass());
 			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
@@ -259,7 +262,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 		{
 			CCombo comboCurrency = compBankCard.getComboCurrency();
 			comboCurrency.removeAll();
-			List currencies = EngBLCommon.getCurrencies();
+			List currencies = (List)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"getCurrencies",null);
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);

@@ -15,6 +15,7 @@ package com.turquaz.engine;
 public class EngKeys
 {	
 
+	public final static String OBJECT="object";
 	public final static String EXCHANGE_RATE = "exchangeRate";
 	public final static String DATE="date";
 	public final static String DATE_START="dateStart";

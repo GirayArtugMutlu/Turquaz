@@ -22,6 +22,7 @@ import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
+import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.bank.BankKeys;
@@ -31,9 +32,12 @@ import com.turquaz.bank.ui.comp.BankCardPicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import com.jasperassistant.designer.viewer.ViewerComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
@@ -153,6 +157,13 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 			tableAbstract = new Table(compDesign, SWT.SINGLE | SWT.FULL_SELECTION);
 			tableAbstract.setLinesVisible(true);
 			tableAbstract.setHeaderVisible(true);
+			tableAbstract.addMouseListener(new MouseAdapter()
+					{
+						public void mouseDoubleClick(MouseEvent evt)
+						{
+							tableBankCardsMouseDoubleClick(evt);
+						}
+					});
 			GridData tableAbstractLData = new GridData();
 			tableAbstractLData.verticalAlignment = GridData.FILL;
 			tableAbstractLData.horizontalAlignment = GridData.FILL;
@@ -268,6 +279,34 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 	{
 		EngBLUtils.printTable(tableAbstract, Messages.getString("BankUIBankCardAbstract.9")); //$NON-NLS-1$
 	}
+	
+	protected void tableBankCardsMouseDoubleClick(MouseEvent evt)
+	{
+		try
+		{
+			TableItem selection[] = tableAbstract.getSelection();
+			if (selection.length > 0)
+			{
+				boolean isUpdated = false;
+				Integer transId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
+				if (transId != null)
+				{
+					isUpdated = BankUISearchMoneyTransaction.updateTransaction(transId, getShell());
+					if (isUpdated)
+					{
+						search();
+					}
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
+			ex.printStackTrace();
+			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
+		}
+	}
 
 	public boolean verifyFields()
 	{
@@ -367,19 +406,20 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 					{
 						credit = (BigDecimal) results[4];
 					}
+					Integer transId=(Integer)results[6];
 					total_dept = total_dept.add(dept);
 					total_credit = total_credit.add(credit);
 					balance = balance.add(dept).subtract(credit);
 					if (balance.doubleValue() > 0)
 					{
 						tableViewer.addRow(new String[]{DatePicker.formatter.format((Date) results[0]), results[5].toString(),
-								results[2].toString(), cf.format(dept), cf.format(credit), cf.format(balance), cf.format(0)}, null);
+								results[2].toString(), cf.format(dept), cf.format(credit), cf.format(balance), cf.format(0)},transId);
 					}
 					else
 					{
 						tableViewer.addRow(new String[]{DatePicker.formatter.format((Date) results[0]), results[5].toString(),
 								results[2].toString(), cf.format(dept), cf.format(credit), cf.format(0),
-								cf.format(balance.negate())}, null);
+								cf.format(balance.negate())},transId);
 					}
 				}
 				tableViewer.addRow(new String[]{"", "", "", "", "", "", ""}, null);

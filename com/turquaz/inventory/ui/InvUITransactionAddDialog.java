@@ -348,7 +348,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			comboCurrency.removeAll();
-			List currencies = EngBLCommon.getCurrencies();
+			List currencies = (List)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"getCurrencies",null);
 			TurqCurrency currency;
 			for (int i = 0; i < currencies.size(); i++)
 			{
