@@ -42,6 +42,7 @@ import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
+import com.turquaz.engine.dal.TurqBanksTransactionType;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -66,6 +67,80 @@ public class BankBLTransactionUpdate {
         try {
 
             BankDALCommon.initializeTransaction(transBill);
+
+        } catch (Exception ex) {
+            throw ex;
+        }
+
+    }
+    public static void updateTransferBetweenBanks( TurqBanksTransactionBill bankTransBill,TurqBanksCard bankCardWithDept,
+            TurqBanksCard bankCardWithCredit,
+            BigDecimal totalAmount, Date transDate, String definition,
+            String docNo) throws Exception {
+        try {
+            
+            // delete transactions
+
+            Iterator it = bankTransBill.getTurqBanksTransactions().iterator();
+            while (it.hasNext()) {
+                BankDALCommon.deleteObject(it.next());
+
+            }
+            
+            TurqBanksTransactionType transType = new TurqBanksTransactionType();
+            transType.setBankTransactionTypesId(new Integer(EngBLCommon.BANK_TRANS_BETWEEN_BANKS));
+
+           
+           
+            bankTransBill.setTransactionBillDate(transDate);
+            bankTransBill.setTransactionBillDefinition(definition);
+            bankTransBill.setTransactionBillNo(docNo);
+            bankTransBill.setTurqBanksTransactionType(transType);
+
+            bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+            bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+            bankTransBill.setLastModified(Calendar.getInstance().getTime());
+            bankTransBill.setCreationDate(Calendar.getInstance().getTime());
+
+            /*
+             * Transaction Rows
+             *  
+             */
+            TurqBanksTransaction transRowCredit = new TurqBanksTransaction();
+            transRowCredit.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+            transRowCredit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+            transRowCredit.setLastModified(Calendar.getInstance().getTime());
+            transRowCredit.setCreationDate(Calendar.getInstance().getTime());
+            transRowCredit.setTurqAccountingAccount(bankCardWithCredit
+                    .getTurqAccountingAccount());
+            transRowCredit.setTurqBanksCard(bankCardWithDept);
+            transRowCredit.setCreditAmount(totalAmount);
+            transRowCredit.setDeptAmount(new BigDecimal(0));
+
+            TurqBanksTransaction transRowDebit = new TurqBanksTransaction();
+            transRowDebit.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+            transRowDebit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+            transRowDebit.setLastModified(Calendar.getInstance().getTime());
+            transRowDebit.setCreationDate(Calendar.getInstance().getTime());
+            transRowDebit.setTurqAccountingAccount(bankCardWithDept
+                    .getTurqAccountingAccount());
+            transRowDebit.setTurqBanksCard(bankCardWithCredit);
+            transRowDebit.setCreditAmount(new BigDecimal(0));
+            transRowDebit.setDeptAmount(totalAmount);
+           
+
+            /**
+             * Save transaction bill
+             */
+            BankDALCommon.updateObject(bankTransBill);
+
+            /**
+             * Save transaction row
+             */
+            transRowCredit.setTurqBanksTransactionBill(bankTransBill);
+            transRowDebit.setTurqBanksTransactionBill(bankTransBill);
+            BankDALCommon.saveObject(transRowCredit);
+
 
         } catch (Exception ex) {
             throw ex;
