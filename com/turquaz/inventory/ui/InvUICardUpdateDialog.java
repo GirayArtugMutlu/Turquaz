@@ -41,6 +41,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.CoolItem;
+import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.Dialog;
 
@@ -82,6 +83,13 @@ import org.eclipse.swt.events.SelectionEvent;
 * *************************************
 */
 public class InvUICardUpdateDialog extends Dialog{
+
+	{
+		//Register as a resource user - SWTResourceManager will
+		//handle the obtaining and disposing of resources
+		SWTResourceManager.registerResourceUser(this.getParent());
+	}
+
 	private InvUICardAdd compInvUICard;
 	private Composite compMain;
 	private ToolItem toolDelete;
@@ -119,36 +127,31 @@ public class InvUICardUpdateDialog extends Dialog{
 			compMain = new Composite(dialogShell,SWT.NULL);
 			compInvUICard = new InvUICardAdd(compMain,SWT.NULL);
 	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(613,348));
+			dialogShell.setSize(613, 367);
 	
 			GridData coolBarTopLData = new GridData();
-			coolBarTopLData.verticalAlignment = GridData.CENTER;
 			coolBarTopLData.horizontalAlignment = GridData.FILL;
-			coolBarTopLData.widthHint = -1;
-			coolBarTopLData.heightHint = 27;
-			coolBarTopLData.horizontalIndent = 0;
-			coolBarTopLData.horizontalSpan = 1;
-			coolBarTopLData.verticalSpan = 1;
+			coolBarTopLData.heightHint = 52;
 			coolBarTopLData.grabExcessHorizontalSpace = true;
-			coolBarTopLData.grabExcessVerticalSpace = false;
 			coolBarTop.setLayoutData(coolBarTopLData);
-			coolBarTop.setSize(new org.eclipse.swt.graphics.Point(603,27));
-	
+
 			coolTop.setControl(toolBarTop);
-			coolTop.setSize(new org.eclipse.swt.graphics.Point(88,27));
-			coolTop.setPreferredSize(new org.eclipse.swt.graphics.Point(88,27));
-			coolTop.setMinimumSize(new org.eclipse.swt.graphics.Point(88,27));
+			coolTop.setSize(45, 49);
+			coolTop.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 49));
+			coolTop.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 49));
 	
 	
 			toolUpdate.setText(Messages.getString("InvUICardUpdateDialog.0")); //$NON-NLS-1$
+			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
 				}
 			});
 	
-			toolDelete.setText(Messages.getString("InvUICardUpdateDialog.1")); //$NON-NLS-1$
+			toolDelete.setText(Messages.getString("InvUICardUpdateDialog.9")); //$NON-NLS-1$
 			toolDelete.setToolTipText(Messages.getString("InvUICardUpdateDialog.1")); //$NON-NLS-1$
+			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -229,6 +232,8 @@ public class InvUICardUpdateDialog extends Dialog{
 	compInvUICard.getTxtInvCardVat().setText(invCard.getCardVat());
 	compInvUICard.getTxtnumInvCardMax().setText(invCard.getCardMaximumAmount());
 	compInvUICard.getTxtnumInvCardMin().setText(invCard.getCardMinimumAmount());
+	compInvUICard.getNumTextSpecailVATPercent().setText(invCard.getCardSpecialVat());
+	compInvUICard.getDecTextSpecialVatAmount().setText(invCard.getCardSpecialVatEach().toString());
 	fillUnits();
 	fillGroups();
 	fillPrices();

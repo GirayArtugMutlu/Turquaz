@@ -13,6 +13,7 @@ import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryPrice;
+import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.DecimalTextWithButton;
@@ -20,6 +21,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.engine.ui.component.DecimalText;
 import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.ui.component.TextWithButton;
 import org.eclipse.swt.custom.CLabel;
@@ -52,7 +54,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private CLabel invAmount;
 	private NumericText numTxtAmount;
 	private Button btnSpecialButtonEach;
-	private NumericText numTxtSpecialVatEach;
+	private DecimalText numTxtSpecialVatEach;
 	private CLabel lblSpecialVatEach;
 	private Button btnSpecialVat;
 	private NumericText numSpecialVat;
@@ -70,6 +72,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private TextWithButton txtInvCard;
 	private CLabel lblInvVard;
 	private EngBLCommon blCommon = new EngBLCommon();
+	TurqInventoryTransaction invTrans;
 
 	/**
 	* Auto-generated main method to display this 
@@ -80,7 +83,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 		super(parent, style);
 	}
 
-	public void open() {
+	public TurqInventoryTransaction open() {
 		try {
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
@@ -225,7 +228,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 					lblSpecialVatEach.setText("Special VAT Each");
 				}
 				{
-					numTxtSpecialVatEach = new NumericText(composite1, SWT.NONE);
+					numTxtSpecialVatEach = new DecimalText(composite1, SWT.NONE);
 					GridData numTxtSpecialVatEachLData = new GridData();
 					numTxtSpecialVatEachLData.horizontalAlignment = GridData.FILL;
 					numTxtSpecialVatEachLData.heightHint = 16;
@@ -291,8 +294,10 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+			return invTrans;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 		
 	}
@@ -365,6 +370,10 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
     	txtInvCard.setData(invCard);
     	txtInvCard.setText(invCard.getCardInventoryCode()+" - "+invCard.getCardName());
     	fillComboUnits(invCard);
+    	txtVat.setText(invCard.getCardVat());
+    	numSpecialVat.setText(invCard.getCardSpecialVat());
+        numTxtSpecialVatEach.setText(invCard.getCardSpecialVatEach().toString());
+    	   	
      }
   
 
