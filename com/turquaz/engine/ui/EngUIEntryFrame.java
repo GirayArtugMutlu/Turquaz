@@ -63,6 +63,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblUserName;
 	private Text txtUserName;
@@ -118,6 +120,13 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		try {
 			preInitGui();
 			GridLayout thisLayout = new GridLayout();
+			this.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if(evt.character == SWT.CR){
+						btnOkMouseUp();
+					}
+				}
+			});
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
 			this.setSize(417, 145);
@@ -178,7 +187,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 				GridData btnOkLData = new GridData();
 				btnOk.addMouseListener(new MouseAdapter() {
 					public void mouseUp(MouseEvent evt) {
-						btnOkMouseUp(evt);
+						btnOkMouseUp();
 					}
 				});
 				btnOkLData.horizontalAlignment = GridData.END;
@@ -198,7 +207,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		
 		this.getShell().dispose();
 	}
-	public void btnOkMouseUp(MouseEvent e){
+	public void btnOkMouseUp(){
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 		try{
 		if(blCommon.checkUserPass(txtUserName.getText(),txtPassword.getText())){
@@ -255,6 +264,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	}
 	
 	public void postInitGui(){
+		btnOk.setFocus();
 	String username = EngConfiguration.getString("username");
 	String password = EngConfiguration.getString("password");
 	
