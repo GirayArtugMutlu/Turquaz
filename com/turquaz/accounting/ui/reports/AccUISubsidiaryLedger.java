@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -110,6 +111,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 
 	private AccBLTransactionSearch blTransSearch = new AccBLTransactionSearch();
 
+	TurqAccountingAccount account;
 	public AccUISubsidiaryLedger(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -120,6 +122,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 	 * disappear.
 	 */
 	Calendar cal = Calendar.getInstance();
+	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
 	
 	public void initGUI() {
 		try {
@@ -227,7 +230,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 						SWT.NONE);
 					tableColumnDefinition.setText(Messages
 						.getString("AccUISubsidiaryLedger.5")); //$NON-NLS-1$
-					tableColumnDefinition.setWidth(126);
+					tableColumnDefinition.setWidth(120);
 				}
 				{
 					tableColumnDept = new TableColumn(tableTransactions, SWT.RIGHT);
@@ -311,8 +314,9 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 		    	txtAccount.setFocus();
 		    	return ; 
 			}
+			account = (TurqAccountingAccount) txtAccount.getData();
 			List result = blTransSearch.searchAccTransactionsColumns(
-					(TurqAccountingAccount) txtAccount.getData(), dateStartDate
+					account, dateStartDate
 							.getData(), dateEndDate.getData());
 			
 			TurquazDecimalFormat df = new TurquazDecimalFormat();
@@ -374,7 +378,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 				
 				item = new TableItem(tableTransactions, SWT.NULL);
 				item.setData(accTransColumn.getTurqAccountingTransaction());
-				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
+				
 				BigDecimal total = new BigDecimal(0);
 				
 				balance = balance.add(accTransColumn.getCreditAmount());
@@ -406,6 +410,8 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 			        (balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "",
 					(balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "" });
 			
+			
+			
 		} catch (Exception ex) {
 
 			ex.printStackTrace();
@@ -419,7 +425,14 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 	}
 
 	public void printTable() {
-		EngBLUtils.printTable(tableTransactions, Messages.getString("AccUISubsidiaryLedger.8"));  //$NON-NLS-1$
+	    
+	    Properties prop = new Properties();
+	    prop.put("account_code",account.getAccountCode());
+	    prop.put("account_name",account.getAccountName());
+	    prop.put("top_account",account.getTurqAccountingAccountByTopAccount().getAccountName());
+		prop.put("start_date",formatter.format(dateStartDate.getDate()));
+		prop.put("end_date",formatter.format(dateEndDate.getDate()));
+	    EngBLUtils.printSubsidiaryLedgerTable(tableTransactions, Messages.getString("AccUISubsidiaryLedger.8"),prop);  //$NON-NLS-1$
 
 	}
 
