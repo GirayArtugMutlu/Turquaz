@@ -26,10 +26,7 @@ import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLUpdateCheque;
-import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
-import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.widgets.ToolBar;
@@ -311,6 +308,7 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog {
         
         CheBLUpdateCheque.updateCheque(cheque);
         
+        EngUICommon.showSavedSuccesfullyMessage(getParent());
         isUpdated =true;
 	    
 	    dialogShell.close();
@@ -323,9 +321,14 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 	private void toolDeleteWidgetSelected(SelectionEvent evt) {
 		try{
+		if(EngUICommon.okToDelete(getParent()))
+		{
 		CheBLUpdateCheque.deleteCheque(cheque);
+		EngUICommon.showMessageBox(getParent(),"Ba?ar?yla Silindi!",SWT.ICON_INFORMATION);
+		
 		isUpdated = true;
 		dialogShell.close();
+		}
 		}
 		catch(Exception ex)
 		{
