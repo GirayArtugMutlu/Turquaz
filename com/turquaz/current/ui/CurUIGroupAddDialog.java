@@ -363,7 +363,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 		    }
 	else{
 		
-	TurqInventoryGroup invGroup = (TurqInventoryGroup)txtGroupName.getData();
+	TurqCurrentGroup invGroup = (TurqCurrentGroup)txtGroupName.getData();
 	invGroup.setUpdatedBy(System.getProperty("user"));
 	invGroup.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 	invGroup.setGroupsName(txtGroupName.getText().trim());

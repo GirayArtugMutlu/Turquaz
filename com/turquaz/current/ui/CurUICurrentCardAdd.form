@@ -1426,7 +1426,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[584, 435]"/>
+										<Dimension value="[395, 283]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -1435,13 +1435,13 @@
 											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="1"/>
-												<Property name="horizontalAlignment" type="int" value="4"/>
-												<Property name="widthHint" type="int" value="-1"/>
-												<Property name="heightHint" type="int" value="189"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
+												<Property name="widthHint" type="int" value="188"/>
+												<Property name="heightHint" type="int" value="182"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="true"/>
+												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
 												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
 											</LayoutConstraint>
 										</Constraints>
@@ -1449,10 +1449,10 @@
 										</Events>
 										<Properties>
 											<Property name="size" type="Dimension">
-												<Dimension value="[574, 189]"/>
+												<Dimension value="[188, 182]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 5, 574, 189]"/>
+												<Rectangle value="[5, 5, 188, 182]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
@@ -1481,7 +1481,7 @@
 												<Dimension value="[106, 37]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[15, 199, 106, 37]"/>
+												<Rectangle value="[15, 192, 106, 37]"/>
 											</Property>
 										</Properties>
 									</Component>

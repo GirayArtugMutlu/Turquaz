@@ -25,6 +25,7 @@ import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Composite;
 
 
@@ -37,8 +38,9 @@ import org.eclipse.swt.widgets.Composite;
 */
 public class CurUICurrentCardAdd extends SecureComposite {
 
-	private Button btnUpdateGroups;
 	private RegisterGroupComposite compRegisterGroup;
+	private Table table1;
+	private Button btnUpdateGroups;
 	private Text txtContactWebSite;
 	private CLabel cLabel2;
 	private Text txtContactEmail;
@@ -179,7 +181,7 @@ public class CurUICurrentCardAdd extends SecureComposite {
 			tbfCurrentCardAddLData.grabExcessHorizontalSpace = true;
 			tbfCurrentCardAddLData.grabExcessVerticalSpace = true;
 			tbfCurrentCardAdd.setLayoutData(tbfCurrentCardAddLData);
-			tbfCurrentCardAdd.setSize(new org.eclipse.swt.graphics.Point(584,435));
+			tbfCurrentCardAdd.setSize(new org.eclipse.swt.graphics.Point(584,452));
 	
 			tabItemGeneralInfo.setControl(compCurrentGeneralInfo);
 			tabItemGeneralInfo.setText("General Info");
@@ -879,20 +881,20 @@ public class CurUICurrentCardAdd extends SecureComposite {
 			tabItemCurrentGroups.setControl(compCurrentGroups);
 			tabItemCurrentGroups.setText("Current Groups");
 	
-			compCurrentGroups.setSize(new org.eclipse.swt.graphics.Point(584,435));
+			compCurrentGroups.setSize(new org.eclipse.swt.graphics.Point(395,283));
 	
 			GridData compRegisterGroupLData = new GridData();
 			compRegisterGroupLData.verticalAlignment = GridData.BEGINNING;
-			compRegisterGroupLData.horizontalAlignment = GridData.FILL;
-			compRegisterGroupLData.widthHint = -1;
-			compRegisterGroupLData.heightHint = 189;
+			compRegisterGroupLData.horizontalAlignment = GridData.BEGINNING;
+			compRegisterGroupLData.widthHint = 188;
+			compRegisterGroupLData.heightHint = 182;
 			compRegisterGroupLData.horizontalIndent = 0;
 			compRegisterGroupLData.horizontalSpan = 1;
 			compRegisterGroupLData.verticalSpan = 1;
-			compRegisterGroupLData.grabExcessHorizontalSpace = true;
+			compRegisterGroupLData.grabExcessHorizontalSpace = false;
 			compRegisterGroupLData.grabExcessVerticalSpace = false;
 			compRegisterGroup.setLayoutData(compRegisterGroupLData);
-			compRegisterGroup.setSize(new org.eclipse.swt.graphics.Point(574,189));
+			compRegisterGroup.setSize(new org.eclipse.swt.graphics.Point(188,182));
 			compRegisterGroup.layout();
 	
 			GridData btnUpdateGroupsLData = new GridData();
@@ -983,11 +985,12 @@ public class CurUICurrentCardAdd extends SecureComposite {
 	
 	public void saveGroups(Integer cardID)throws Exception{
 	try{
-	TableItem items[] = compRegisterGroup.getTableRegisteredGroups().getItems();
+	TableItem items[] = compRegisterGroup.getTableAllGroups().getItems();
 	
 	for(int i=0;i<items.length;i++){
-	currentAdd.registerGroup(cardID, items[i].getData());
-	
+		if(items[i].getChecked()){
+			currentAdd.registerGroup(cardID, items[i].getData());
+		}
 	}
 	
 		

@@ -881,8 +881,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			saveFavoritesTree();
 		}
 	});
-			shell.open();
-			
+			shell.open();		
 			
 			while (!shell.isDisposed()){
 				
