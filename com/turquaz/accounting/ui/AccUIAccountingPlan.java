@@ -44,6 +44,14 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 
 
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a
+* for-profit company or business) then you should purchase
+* a license - please visit www.cloudgarden.com for details.
+*/
 public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite {
 
 	private TableTree tableTreeAccountingPlan;

@@ -1531,7 +1531,16 @@ decimalSymbol + "][0-9]+)?");
 	}
 
 	public boolean verifyFields() {
-
+		
+		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+		//If inventory name is not given
+		if (txtInvCardName.getText().trim().equals("")) {
+		
+		msg.setMessage("Please Fill Inventory Name!");
+		msg.open();
+		return false;
+		}
+		
 		return true;
 	}
 
