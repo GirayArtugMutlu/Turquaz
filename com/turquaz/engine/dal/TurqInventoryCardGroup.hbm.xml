@@ -12,28 +12,20 @@
 -->
 
 <class 
-    name="com.turquaz.engine.dal.TurqInventoryGroup" 
-    table="turq_inventory_groups"
+    name="com.turquaz.engine.dal.TurqInventoryCardGroup" 
+    table="turq_inventory_card_groups"
 >
 
     <id
-        name="inventoryGroupsId"
+        name="inventoryCardGroupsId"
         type="int"
-        column="inventory_groups_id"
+        column="inventory_card_groups_id"
     >
         <generator class="sequence">
-            <param name="sequence">seq_inventory_groups</param>
+            <param name="sequence">seq_inventory_card_groups</param>
         </generator>
     </id>
 
-    <property
-        name="groupsName"
-        type="java.lang.String"
-        column="groups_name"
-        not-null="true"
-        unique="true"
-        length="50"
-    />
     <property
         name="createdBy"
         type="java.lang.String"
@@ -65,28 +57,22 @@
 
     <!-- Associations -->
   
-    <!-- bi-directional many-to-one association to TurqCompany -->
+    <!-- bi-directional many-to-one association to TurqInventoryGroup -->
     <many-to-one
-        name="turqCompany"
-        class="com.turquaz.engine.dal.TurqCompany"
+        name="turqInventoryGroup"
+        class="com.turquaz.engine.dal.TurqInventoryGroup"
         not-null="true"
     >
-        <column name="companies_id" />
+        <column name="inventory_groups_id" />
     </many-to-one>
-    <!-- bi-directional one-to-many association to TurqInventoryCardGroup -->
-    <set
-        name="turqInventoryCardGroups"
-        lazy="true"
-        inverse="true"
-		cascade="none"
+    <!-- bi-directional many-to-one association to TurqInventoryCard -->
+    <many-to-one
+        name="turqInventoryCard"
+        class="com.turquaz.engine.dal.TurqInventoryCard"
+        not-null="true"
     >
-        <key>
-            <column name="inventory_groups_id" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqInventoryCardGroup"
-        />
-    </set>
+        <column name="inventory_cards_id" />
+    </many-to-one>
 
 </class>
 </hibernate-mapping>

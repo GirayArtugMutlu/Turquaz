@@ -1,19 +1,15 @@
 package com.turquaz.engine.dal;
 
 import java.io.Serializable;
-import java.util.Set;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqInventoryGroup implements Serializable {
+public class TurqInventoryCardGroup implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer inventoryGroupsId;
-
-    /** persistent field */
-    private java.lang.String groupsName;
+    private java.lang.Integer inventoryCardGroupsId;
 
     /** persistent field */
     private java.lang.String createdBy;
@@ -28,40 +24,31 @@ public class TurqInventoryGroup implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCompany turqCompany;
+    private com.turquaz.engine.dal.TurqInventoryGroup turqInventoryGroup;
 
     /** persistent field */
-    private Set turqInventoryCardGroups;
+    private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
 
     /** full constructor */
-    public TurqInventoryGroup(java.lang.String groupsName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryCardGroups) {
-        this.groupsName = groupsName;
+    public TurqInventoryCardGroup(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqInventoryGroup turqInventoryGroup, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.turqCompany = turqCompany;
-        this.turqInventoryCardGroups = turqInventoryCardGroups;
+        this.turqInventoryGroup = turqInventoryGroup;
+        this.turqInventoryCard = turqInventoryCard;
     }
 
     /** default constructor */
-    public TurqInventoryGroup() {
+    public TurqInventoryCardGroup() {
     }
 
-    public java.lang.Integer getInventoryGroupsId() {
-        return this.inventoryGroupsId;
+    public java.lang.Integer getInventoryCardGroupsId() {
+        return this.inventoryCardGroupsId;
     }
 
-    public void setInventoryGroupsId(java.lang.Integer inventoryGroupsId) {
-        this.inventoryGroupsId = inventoryGroupsId;
-    }
-
-    public java.lang.String getGroupsName() {
-        return this.groupsName;
-    }
-
-    public void setGroupsName(java.lang.String groupsName) {
-        this.groupsName = groupsName;
+    public void setInventoryCardGroupsId(java.lang.Integer inventoryCardGroupsId) {
+        this.inventoryCardGroupsId = inventoryCardGroupsId;
     }
 
     public java.lang.String getCreatedBy() {
@@ -96,39 +83,39 @@ public class TurqInventoryGroup implements Serializable {
         this.lastModified = lastModified;
     }
 
-    public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
-        return this.turqCompany;
+    public com.turquaz.engine.dal.TurqInventoryGroup getTurqInventoryGroup() {
+        return this.turqInventoryGroup;
     }
 
-    public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.turqCompany = turqCompany;
+    public void setTurqInventoryGroup(com.turquaz.engine.dal.TurqInventoryGroup turqInventoryGroup) {
+        this.turqInventoryGroup = turqInventoryGroup;
     }
 
-    public java.util.Set getTurqInventoryCardGroups() {
-        return this.turqInventoryCardGroups;
+    public com.turquaz.engine.dal.TurqInventoryCard getTurqInventoryCard() {
+        return this.turqInventoryCard;
     }
 
-    public void setTurqInventoryCardGroups(java.util.Set turqInventoryCardGroups) {
-        this.turqInventoryCardGroups = turqInventoryCardGroups;
+    public void setTurqInventoryCard(com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
+        this.turqInventoryCard = turqInventoryCard;
     }
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("inventoryGroupsId", getInventoryGroupsId())
+            .append("inventoryCardGroupsId", getInventoryCardGroupsId())
             .toString();
     }
 
     public boolean equals(Object other) {
-        if ( !(other instanceof TurqInventoryGroup) ) return false;
-        TurqInventoryGroup castOther = (TurqInventoryGroup) other;
+        if ( !(other instanceof TurqInventoryCardGroup) ) return false;
+        TurqInventoryCardGroup castOther = (TurqInventoryCardGroup) other;
         return new EqualsBuilder()
-            .append(this.getInventoryGroupsId(), castOther.getInventoryGroupsId())
+            .append(this.getInventoryCardGroupsId(), castOther.getInventoryCardGroupsId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getInventoryGroupsId())
+            .append(getInventoryCardGroupsId())
             .toHashCode();
     }
 

@@ -39,6 +39,7 @@
         type="java.lang.String"
         column="card_special_code"
         not-null="true"
+        unique="true"
         length="25"
     />
     <property
@@ -46,8 +47,8 @@
         type="java.lang.String"
         column="card_name"
         not-null="true"
-        length="50"
         unique="true"
+        length="50"
     />
     <property
         name="cardDefinition"
@@ -165,6 +166,20 @@
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqInventoryTransaction"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqInventoryCardGroup -->
+    <set
+        name="turqInventoryCardGroups"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="inventory_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryCardGroup"
         />
     </set>
     <!-- bi-directional one-to-many association to TurqInventoryCardUnit -->

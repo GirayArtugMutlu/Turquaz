@@ -33,8 +33,11 @@ public class InvBLCardAdd {
 	}
 	
 	
-	public void registerGroup()throws Exception{
+	public void registerGroup(Integer cardId, Object group)throws Exception{
 	try{
+		
+		
+		
 		
 		
 		

@@ -1255,6 +1255,8 @@ public class InvUICardAdd extends SecureComposite {
 		int accountIdSell =((Integer)txtInvCardOutAcc.getData()).intValue();
 		int accountIdBuy=((Integer)txtInvCardInAcc.getData()).intValue();
 		try{
+			
+		// Save inventory card
 		Integer cardId = blCardAdd.saveInvCard(txtInvCardCode.getText().trim(),txtInvCardSpecialCode.getText().trim(),
 				txtInvCardName.getText().trim(),txtInvCardDefinition.getText().trim(),
 				txtnumInvCardMin.getIntValue(),txtnumInvCardMax.getIntValue(),
@@ -1262,6 +1264,18 @@ public class InvUICardAdd extends SecureComposite {
 				accountIdBuy,accountIdSell
 				
 		);
+		
+		// Register its Groups
+		
+		int itemCount = tableInvCardAddGroupsRegisteredGroups.getItemCount();
+		TableItem item;
+		for(int i=0;i<itemCount;i++){
+		item = tableInvCardAddGroupsRegisteredGroups.getItem(i);
+		blCardAdd.registerGroup(cardId,item.getData());
+		
+		
+		
+		}
 		
 		
 		
