@@ -302,7 +302,7 @@ SecureComposite, SearchComposite{
 			
 		tableConsignments.removeAll();	
 		int type=0;
-		if(comboConsignmentType.getText().equals(Messages.getString("ConUIConsignmentSearch.13"))) //$NON-NLS-1$
+		if(comboConsignmentType.getText().equals(Messages.getString("ConUIConsignmentSearch.12"))) //$NON-NLS-1$
 		{
 			type =1;
 		}
@@ -360,7 +360,7 @@ SecureComposite, SearchComposite{
 		    }
 		    else{
 		       MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_INFORMATION);
-		       msg.setMessage(Messages.getString("ConUIConsignmentSearch.12")); //$NON-NLS-1$
+		       msg.setMessage(Messages.getString("ConUIConsignmentSearch.13")); //$NON-NLS-1$
 		       msg.open();
 		    }
 		}

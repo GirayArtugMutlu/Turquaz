@@ -153,7 +153,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	    
 	    
 		compAddConsignment.getTxtCurrentCard().setData(consignment.getTurqBillConsignmentCommon().getTurqCurrentCard());
-		compAddConsignment.getTxtCurrentCard().setText(consignment.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode()+Messages.getString("ConUIConsignmentUpdateDialog.4") + //$NON-NLS-1$
+		compAddConsignment.getTxtCurrentCard().setText(consignment.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode()+" - " + //$NON-NLS-1$
 														consignment.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName());
 		;
 		compAddConsignment.getTxtBillDocumentNo().setText(consignment.getTurqBillConsignmentCommon().getBillDocumentNo());
