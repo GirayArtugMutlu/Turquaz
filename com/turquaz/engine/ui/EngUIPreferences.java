@@ -212,6 +212,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 				btnExportInvAccounts = new Button(composite1, SWT.PUSH
 					| SWT.CENTER);
 				btnExportInvAccounts.setText("ExportInvAccounts");
+				btnExportInvAccounts.setVisible(false);
 				btnExportInvAccounts.addMouseListener(new MouseAdapter() {
 					public void mouseUp(MouseEvent evt) {
 						try
