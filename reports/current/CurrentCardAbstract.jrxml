@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="Unnamed" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="currentCard1" class="java.lang.String">
@@ -18,6 +18,8 @@
 	<parameter name="sqlparam" class="java.lang.String">
 	</parameter>
 	<parameter name="balanceList" class="java.util.HashMap">
+	</parameter>
+	<parameter name="currency" class="com.turquaz.engine.ui.component.TurkishCurrencyFormat">
 	</parameter>
 	<queryString><![CDATA[$P!{sqlparam}]]></queryString>
 	<field name="transactions_date" class="java.util.Date">
@@ -54,7 +56,87 @@
 		<variableExpression><![CDATA[$F{transactions_total_credit}]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
+	<variable name="generalDept" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{transactions_total_dept}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="generalCredit" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{transactions_total_credit}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="generalBalance" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{transactions_total_credit}.subtract($F{transactions_total_dept})]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="generalInitialBalance" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{initialBalance}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal (0)]]></initialValueExpression>
+	</variable>
 	<group name="design">
+		<groupFooter>
+		<band height="50">
+			<staticText>
+				<reportElement positionType="Float" x="267" y="22" width="112" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GENEL TOPLAM : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="246" y="3" width="133" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GENEL EKSTRE TOPLAMI : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="383" y="3" width="100" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currency}.formatCurrency($V{generalDept})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="488" y="3" width="100" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currency}.formatCurrency($V{generalCredit})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="383" y="22" width="100" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currency}.formatCurrency(($V{generalInitialBalance}.doubleValue() < 0) ? $V{generalDept}.add($V{generalInitialBalance}.multiply(new BigDecimal(-1)) ): $V{generalDept}) ]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="488" y="22" width="100" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currency}.formatCurrency(($V{generalInitialBalance}.doubleValue() > 0) ? $V{generalCredit}.add($V{generalInitialBalance}): $V{generalCredit})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="593" y="22" width="100" height="14">
+					<printWhenExpression><![CDATA[($V{generalBalance}.add($V{generalInitialBalance}).doubleValue() <= 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currency}.formatCurrency($V{generalBalance}.add($V{generalInitialBalance}).multiply(new BigDecimal(-1)))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="698" y="22" width="100" height="14">
+					<printWhenExpression><![CDATA[($V{generalBalance}.add($V{generalInitialBalance}).doubleValue() >= 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currency}.formatCurrency($V{generalBalance}.add($V{generalInitialBalance}))]]></textFieldExpression>
+			</textField>
+		</band>
+		</groupFooter>
 	</group>
 	<group name="current">
 		<groupExpression><![CDATA[$F{cards_current_code}]]></groupExpression>
@@ -232,7 +314,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TOPLAM :]]></text>
+				<text><![CDATA[TOPLAM : ]]></text>
 			</staticText>
 			<textField>
 				<reportElement positionType="Float" x="593" y="23" width="100" height="14">
@@ -241,7 +323,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{Balance}.add($V{initialBalance}).multiply(new BigDecimal(-1)))]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currency}.formatCurrency($V{Balance}.add($V{initialBalance}).multiply(new BigDecimal(-1)))]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="698" y="23" width="100" height="14">
@@ -250,21 +332,21 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{Balance}.add($V{initialBalance}))]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currency}.formatCurrency($V{Balance}.add($V{initialBalance}))]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="383" y="23" width="100" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format(($V{initialBalance}.doubleValue() < 0 ) ? $V{totalDept}.add($V{initialBalance}.multiply(new BigDecimal(-1))) : $V{totalDept})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currency}.formatCurrency(($V{initialBalance}.doubleValue() < 0 ) ? $V{totalDept}.add($V{initialBalance}.multiply(new BigDecimal(-1))) : $V{totalDept})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="488" y="23" width="100" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format(($V{initialBalance}.doubleValue() > 0 ) ? $V{totalCredit}.add($V{initialBalance}) : $V{totalCredit})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currency}.formatCurrency(($V{initialBalance}.doubleValue() > 0 ) ? $V{totalCredit}.add($V{initialBalance}) : $V{totalCredit})]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement positionType="Float" x="1" y="1" width="801" height="20"/>
@@ -275,21 +357,21 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{totalDept})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currency}.formatCurrency($V{totalDept})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="489" y="3" width="100" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{totalCredit})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currency}.formatCurrency($V{totalCredit})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="284" y="3" width="95" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[EKSTRE TOPLAMI :]]></text>
+				<text><![CDATA[EKSTRE TOPLAMI : ]]></text>
 			</staticText>
 		</band>
 		</groupFooter>

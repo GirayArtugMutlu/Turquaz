@@ -41,8 +41,32 @@ public class TurkishCurrencyFormat extends DecimalFormat {
 		this.setGroupingUsed(true);
 		
 		}
+	public TurkishCurrencyFormat(int minFraction, String currencySymbol){
+		super();
+		DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+		dfs.setCurrencySymbol(currencySymbol);
+		dfs.setGroupingSeparator('.');
+		dfs.setDecimalSeparator(',');
+		dfs.setInternationalCurrencySymbol(currencySymbol);
+		this.setDecimalFormatSymbols(dfs);
+		this.setGroupingSize(3);
+		this.setMinimumFractionDigits(minFraction);
+		this.setMaximumFractionDigits(minFraction);
+		this.setGroupingUsed(true);
 		
+		}
+		
+	public String formatCurrency(BigDecimal dc)
+	{
+		String formatted=super.format(dc);
+		return formatted.concat(" "+this.getDecimalFormatSymbols().getCurrencySymbol());
+	}
 	
+	public String formatCurrency(BigDecimal dc, String currencySymbol)
+	{
+		String formatted=super.format(dc);
+		return formatted.concat(" "+currencySymbol);
+	}
 	
 	
 	public BigDecimal getBigDecimal(String str)
