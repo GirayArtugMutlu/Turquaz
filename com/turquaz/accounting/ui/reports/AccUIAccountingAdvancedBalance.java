@@ -76,6 +76,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Label;
 public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Composite implements SearchComposite {
 	private TableColumn tableColumnTotalCredit;
+	private TableColumn tableColumnRemain;
 	private Label lblEndDate;
 	private CLabel lblStartDate;
 	private TableTree tableTreeAccounts;
@@ -263,6 +264,12 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					tableTreeAccounts.setLayoutData(tableTreeAccountsLData);
 					tableTreeAccounts.getTable().setLinesVisible(true);
 					tableTreeAccounts.getTable().setHeaderVisible(true);
+					{
+						tableColumnRemain = new TableColumn(tableTreeAccounts
+							.getTable(), SWT.NONE);
+						tableColumnRemain.setText("Bakiye ( Borç )");
+						tableColumnRemain.setWidth(120);
+					}
 				}
 			}
 			this.layout();
@@ -305,6 +312,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 						item.setText(1,account.getAccountName());
 						item.setText(2,transDept.toString());
 						item.setText(3,transCredit.toString());
+						item.setText(4,transDept.subtract(transCredit).toString());
 						item.setData(account);	
 						treeItems.put(account.getAccountingAccountsId(),item);
 					}
@@ -313,8 +321,11 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 						item=(TableTreeItem)treeItems.get(account.getAccountingAccountsId());
 						BigDecimal dept=new BigDecimal(item.getText(2));
 						BigDecimal credit=new BigDecimal(item.getText(3));
-						item.setText(2,dept.add(transDept).toString());
-						item.setText(3,dept.add(transCredit).toString());
+						dept=dept.add(transDept);
+						credit=credit.add(transCredit);
+						item.setText(2,dept.toString());
+						item.setText(3,credit.toString());
+						item.setText(4,dept.subtract(credit).toString());
 					}
 				}
 				else
@@ -330,6 +341,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 						item.setText(1,account.getAccountName());
 						item.setText(2,transDept.toString());
 						item.setText(3,transCredit.toString());
+						item.setText(4,transDept.subtract(transCredit).toString());
 						item.setData(account);	
 						
 						while ((parentAccount=account.getTurqAccountingAccountByParentAccount()).getAccountingAccountsId().intValue()!=-1)
@@ -337,8 +349,11 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 							parentItem=(TableTreeItem)treeItems.get(parentAccount.getAccountingAccountsId());	
 							BigDecimal dept=new BigDecimal(parentItem.getText(2));
 							BigDecimal credit=new BigDecimal(parentItem.getText(3));
-							parentItem.setText(2,dept.add(transDept).toString());
-							parentItem.setText(3,dept.add(transCredit).toString());
+							dept=dept.add(transDept);
+							credit=credit.add(transCredit);
+							parentItem.setText(2,dept.toString());
+							parentItem.setText(3,credit.toString());
+							parentItem.setText(4,dept.subtract(credit).toString());
 							parentAccount=parentAccount.getTurqAccountingAccountByParentAccount();
 						}
 					}
@@ -347,15 +362,21 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 						item=(TableTreeItem)treeItems.get(account.getAccountingAccountsId());
 						BigDecimal dept=new BigDecimal(item.getText(2));
 						BigDecimal credit=new BigDecimal(item.getText(3));
-						item.setText(2,dept.add(transDept).toString());
-						item.setText(3,dept.add(transCredit).toString());
+						dept=dept.add(transDept);
+						credit=credit.add(transCredit);
+						item.setText(2,dept.toString());
+						item.setText(3,credit.toString());
+						item.setText(4,dept.subtract(credit).toString());
 						while ((parentAccount=account.getTurqAccountingAccountByParentAccount()).getAccountingAccountsId().intValue()!=-1)
 						{
 							parentItem=(TableTreeItem)treeItems.get(parentAccount.getAccountingAccountsId());	
 							dept=new BigDecimal(parentItem.getText(2));
 							credit=new BigDecimal(parentItem.getText(3));
-							parentItem.setText(2,dept.add(transDept).toString());
-							parentItem.setText(3,dept.add(transCredit).toString());
+							dept=dept.add(transDept);
+							credit=credit.add(transCredit);
+							parentItem.setText(2,dept.toString());
+							parentItem.setText(3,credit.toString());
+							parentItem.setText(4,dept.subtract(credit).toString());
 							parentAccount=parentAccount.getTurqAccountingAccountByParentAccount();
 						}
 					}
