@@ -346,7 +346,7 @@ public class CurUITransactionAdd extends SecureComposite {
 	
 	//Transaction Type is Cash 
 	//4,at the end means cash, it is a cash Transaction 
-	blTransAdd.saveCurrentTransaction((TurqCurrentCard)comboCurrentCode.getData(comboCurrentCode.getText()),
+	blTransAdd.saveCurrentCashTransaction((TurqCurrentCard)comboCurrentCode.getData(comboCurrentCode.getText()),
 									  dateTransDate.getDate(),txtDocumentNo.getText().trim(),isCredit,
 									  decTxtAmount.getBigDecimalValue(),new BigDecimal(0),4,(TurqAccountingAccount)accPickerCashAccount.getData());
 	
