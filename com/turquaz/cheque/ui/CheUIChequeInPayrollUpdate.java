@@ -140,7 +140,6 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
 	}
 	
 	public void postInitGUI(){
-	    toolUpdate.setEnabled(false);
 	    try{
 	        EngUICommon.centreWindow(dialogShell);
 	        TurkishCurrencyFormat cf = new TurkishCurrencyFormat();

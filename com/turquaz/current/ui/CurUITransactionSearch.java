@@ -386,8 +386,8 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	/** Auto-generated event handler method */
 	protected void tableCurrentTransactionsMouseDoubleClick(MouseEvent evt){
 		TableItem items[] = tableCurrentTransactions.getSelection();
-		if(items.length >0)
-	//	if(false)
+		if(items.length >0){
+		if(items[0].getData()!=null)
 		{
 		TurqCurrentTransaction trans = (TurqCurrentTransaction)items[0].getData();
 			//nakit hareketi ise izin ver
@@ -401,6 +401,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 			msg.setMessage(Messages.getString("CurUITransactionSearch.11"));  //$NON-NLS-1$
 			msg.open();
+		}
 		}
 		}
 	}

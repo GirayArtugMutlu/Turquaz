@@ -64,7 +64,7 @@ public class CheBLUpdateChequeRoll {
           
                 
            TurqChequeCheque cheque;
-           TurqChequeCheque cheque_old;
+         
            TurqChequeChequeInRoll chequeInRoll;
            CurBLCurrentTransactionAdd blCurrent = new CurBLCurrentTransactionAdd();
            
@@ -72,8 +72,8 @@ public class CheBLUpdateChequeRoll {
                
                chequeInRoll = new TurqChequeChequeInRoll();
                
-               cheque_old = (TurqChequeCheque)chequeList.get(i);
-               cheque = new TurqChequeCheque();
+               cheque = (TurqChequeCheque)chequeList.get(i);
+           
                
              
                
