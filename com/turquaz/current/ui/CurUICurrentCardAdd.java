@@ -42,7 +42,7 @@ import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
-import com.turquaz.inventory.ui.InvUICardAdd;
+
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;

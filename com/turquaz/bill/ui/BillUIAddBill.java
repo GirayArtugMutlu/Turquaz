@@ -55,7 +55,7 @@ import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqConsignmentGroup;
+
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 

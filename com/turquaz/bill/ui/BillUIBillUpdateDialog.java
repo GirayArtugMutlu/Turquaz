@@ -11,7 +11,6 @@ import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqConsignmentsInGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 
