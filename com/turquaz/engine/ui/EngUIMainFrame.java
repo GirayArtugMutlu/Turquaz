@@ -213,8 +213,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			}
 			{
 				treeBill = new Tree(compModulesTree, SWT.NONE);
+				
 				treeBill.addMouseListener(new MouseAdapter() {
-					public void mouseDoubleClick() {
+					public void mouseDoubleClick(MouseEvent evt) {
 						treeBillMouseDoubleClick();
 					}
 				});
@@ -650,37 +651,33 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                     }
                 }
             }
-            tabfldMain = new CTabFolder(compMainInRight, SWT.CLOSE | SWT.BORDER);
-			GridData tabfldMainLData = new GridData();
-			
-			tabfldMainLData.verticalAlignment = GridData.FILL;
-			tabfldMainLData.horizontalAlignment = GridData.FILL;
-			tabfldMainLData.widthHint = -1;
-			tabfldMainLData.heightHint = -1;
-			tabfldMainLData.horizontalIndent = 0;
-			tabfldMainLData.horizontalSpan = 1;
-			tabfldMainLData.verticalSpan = 1;
-			tabfldMainLData.grabExcessHorizontalSpace = false;
-			tabfldMainLData.grabExcessVerticalSpace = true;
-			tabfldMain.setLayoutData(tabfldMainLData);
-			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(381,511));
-			tabfldMain.addCTabFolder2Listener(new CTabFolder2Adapter() {
-				public void close(CTabFolderEvent evt) {
-					tabfldMainItemClosed(evt);
-				}
-				public void itemClosed(CTabFolderEvent evt) {
-					tabfldMainItemClosed(evt);
-				}
-			});
-			tabfldMain.addSelectionListener(new SelectionAdapter() {
-				public void widgetDefaultSelected(SelectionEvent evt) {
-					tabfldMainWidgetDefaultSelected(evt);
-				}
-				public void widgetSelected(SelectionEvent evt) {
-					tabfldMainWidgetSelected(evt);
-				}
-			});
-			tabfldMain.setLayout(null);
+            {
+                tabfldMain = new CTabFolder(compMainInRight, SWT.CLOSE
+                    | SWT.BORDER);
+                GridData tabfldMainLData = new GridData();
+                tabfldMainLData.verticalAlignment = GridData.FILL;
+                tabfldMainLData.horizontalAlignment = GridData.FILL;
+                tabfldMainLData.grabExcessVerticalSpace = true;
+                tabfldMain.setLayoutData(tabfldMainLData);
+                tabfldMain.addCTabFolder2Listener(new CTabFolder2Adapter() {
+                    public void close(CTabFolderEvent evt) {
+                        tabfldMainItemClosed(evt);
+                    }
+                    public void itemClosed(CTabFolderEvent evt) {
+                        tabfldMainItemClosed(evt);
+                    }
+                });
+                tabfldMain.addSelectionListener(new SelectionAdapter() {
+                    public void widgetDefaultSelected(SelectionEvent evt) {
+                        tabfldMainWidgetDefaultSelected(evt);
+                    }
+                    public void widgetSelected(SelectionEvent evt) {
+                        tabfldMainWidgetSelected(evt);
+                    }
+                });
+                tabfldMain.setLayout(null);
+
+            }
 			compMainInRightLayout.makeColumnsEqualWidth = true;
 			compMainInRightLayout.verticalSpacing = 0;
 			compMainInRightLayout.marginHeight = 0;
