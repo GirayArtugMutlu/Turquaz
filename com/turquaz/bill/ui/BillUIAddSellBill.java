@@ -22,6 +22,7 @@ package com.turquaz.bill.ui;
  */
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,6 +51,14 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ComboBoxCellEditor;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -59,20 +68,34 @@ import com.turquaz.bill.bl.BillBLAddGroups;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqConsignment;
+import com.turquaz.engine.dal.TurqInventoryWarehous;
 
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
+import com.turquaz.engine.ui.editors.CurrencyCellEditor;
+import com.turquaz.engine.ui.editors.InventoryCellEditor;
+import com.turquaz.engine.ui.editors.NumericCellEditor;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.ITableRowListViewer;
+import com.turquaz.engine.ui.viewers.TableRowList;
+import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
+import com.turquaz.engine.ui.viewers.TurquazCellModifier;
+import com.turquaz.engine.ui.viewers.TurquazContentProvider;
+import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
 import com.turquaz.inventory.ui.InvUITransactionAddDialog;
+import com.turquaz.inventory.ui.InvUITransactionTableRow;
 
 import org.eclipse.swt.widgets.Button;
 
 import org.eclipse.swt.SWT;
+
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
@@ -85,7 +108,7 @@ import org.eclipse.swt.SWT;
  * used legally for any corporate or commercial purpose.
  * *************************************
  */
-public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
+public class BillUIAddSellBill extends Composite
 		implements SecureComposite {
 
 	/**
@@ -291,20 +314,6 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 
 	private Composite compInfoPanel;
 
-	private Composite compbuttons;
-
-	private Button btnAddConsignmentRow;
-
-	private TableColumn tableColumnVatAmount;
-
-	private TableColumn tableColumnVat;
-
-	private TableColumn tableColumnTotalPrice;
-
-	private TableColumn tableColumnUnitPrice;
-
-	private TableColumn tableColumnAmount;
-
 	private Composite compTotalsPanel;
 
 	private NumericText txtDiscountRate;
@@ -316,6 +325,23 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 	private Text txtConsignmentDocumentNo;
 
 	private CLabel lblInventoryPrice;
+	private CCombo comboWareHouse;
+	private CLabel lblWareHouse;
+	public TableViewer tableViewer;
+	private TableColumn tableColumn12;
+	private TableColumn tableColumn11;
+	private TableColumn tableColumn10;
+	private TableColumn tableColumn9;
+	private TableColumn tableColumn8;
+	private TableColumn tableColumn7;
+	private TableColumn tableColumn6;
+	private TableColumn tableColumn3;
+	private TableColumn tableColumn4;
+	private TableColumn tableColumn5;
+	private TableColumn tableColumn;
+	private TableColumn tableColumn2;
+	private TableColumn tableColumn1;
+	private Table tableConsignmentRows;
 
 	private CLabel lblBillDocumentNo;
 
@@ -326,8 +352,6 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 	private CurrencyText decSpecialVat;
 
 	private Label lblSpecialVAT;
-
-	private TableColumn tableColumnCumulative;
 
 	private Button btnUpdateGroups;
 
@@ -371,23 +395,52 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 
 	private CLabel lblCurrentCard;
 
-	private TableColumn tableColumnInventoryName;
-
-	private TableColumn tableColumnInventoryCode;
-
-	private TableColumn TableColumnVATSpecial;
-
-	private TableColumn tableColumnUnit;
-
-	private Button buttonConsignmentRemove;
-
-	private Table tableConsignmentRows;
-
 	BillBLAddGroups blAddGroup = new BillBLAddGroups();
 
 	BillBLAddBill blAddBill = new BillBLAddBill();
 
 	ConBLAddConsignment blAddConsignment = new ConBLAddConsignment();
+	
+	private final int BILL_TYPE = 1;
+	
+//	 Set the table column property names
+	private final String INVENTORY_CODE             = "Stok Kodu";
+	private final String INVENTORY_NAME   	        = "Stok Cinsi";
+	private final String TRANS_AMOUNT               = "Miktar?";
+	private final String UNIT						= "Birimi";
+	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= "Temel Birim Miktar?";
+	private final String BASE_UNIT 		            = "Temel Birim";
+	private final String UNIT_PRICE					= "Birim Fiyat?";
+	private final String TOTAL_PRICE				= "Toplam Tutar";
+	private final String VAT_PERCENT				= "KDV %";
+	private final String VAT_TOTAL					= "KDV Tutar?";
+	private final String SPECIAL_VAT_PERCENT		= "ÖTV %";
+	private final String SPECIAL_VAT_TOTAL			= "ÖTV Tutar?";
+	private final String ROW_TOTAL 					= "Sat?r Toplam?";	
+	   int last_row_index=0;
+    TableSpreadsheetCursor cursor;
+	
+	// Set column names
+	private String[] columnNames = new String[] { 
+			INVENTORY_CODE, 
+			INVENTORY_NAME,
+			TRANS_AMOUNT,
+			UNIT,
+			TRANS_AMOUNT_IN_BASE_UNIT,
+			BASE_UNIT,
+			UNIT_PRICE,
+			TOTAL_PRICE,
+			VAT_PERCENT,
+			VAT_TOTAL,
+			SPECIAL_VAT_PERCENT,
+			SPECIAL_VAT_TOTAL,
+			ROW_TOTAL
+			
+			};
+   private List columnList = new ArrayList();
+   public TableRowList rowList = new TableRowList();
+	
+	
 
 	public BillUIAddSellBill(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
@@ -397,6 +450,7 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 	private void initGUI() {
 		try {
 			GridLayout thisLayout = new GridLayout();
+			
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
 			this.setSize(645, 526);
@@ -430,24 +484,19 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
                             GridData compInfoPanelLData = new GridData();
                             compInfoPanelLData.horizontalSpan = 2;
                             compInfoPanelLData.horizontalAlignment = GridData.FILL;
-                            compInfoPanelLData.heightHint = 108;
+                            compInfoPanelLData.heightHint = 106;
                             compInfoPanelLData.grabExcessHorizontalSpace = true;
                             compInfoPanel.setLayoutData(compInfoPanelLData);
                             compInfoPanelLayout.numColumns = 4;
                             compInfoPanel.setLayout(compInfoPanelLayout);
                             {
-                                lblCurrentCard = new CLabel(
-                                    compInfoPanel,
-                                    SWT.NONE);
-                                lblCurrentCard.setText(Messages
-                                    .getString("BillUIAddBill.3")); //$NON-NLS-1$
+                                lblCurrentCard = new CLabel(compInfoPanel, SWT.LEFT);
+                                lblCurrentCard.setText(Messages.getString("BillUIAddBill.3")); //$NON-NLS-1$
                                 GridData lblCurrentCardLData1 = new GridData();
-                                lblCurrentCard.setSize(88, 19);
-                                lblCurrentCardLData1.widthHint = 88;
+                                lblCurrentCardLData1.widthHint = 85;
                                 lblCurrentCardLData1.heightHint = 19;
                                 lblCurrentCardLData1.verticalAlignment = GridData.BEGINNING;
-                                lblCurrentCard
-                                    .setLayoutData(lblCurrentCardLData1);
+                                lblCurrentCard.setLayoutData(lblCurrentCardLData1);
                             }
                             {
                                 txtCurrentCard = new Text(
@@ -473,19 +522,16 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
                                     .getColor(255, 255, 255));
                                 txtCurrentCardLData.widthHint = 109;
                                 txtCurrentCardLData.heightHint = 15;
-                                txtCurrentCardLData.horizontalSpan = 3;
-                                txtCurrentCard
-                                    .setLayoutData(txtCurrentCardLData);
+                                txtCurrentCard.setLayoutData(txtCurrentCardLData);
                             }
                             {
                                 lblDocumentNo = new CLabel(
                                     compInfoPanel,
                                     SWT.NONE);
-                                lblDocumentNo.setText(Messages
-                                    .getString("BillUIAddBill.5")); //$NON-NLS-1$
+                                lblDocumentNo.setText(Messages.getString("BillUIAddBill.5")); //$NON-NLS-1$
                                 GridData lblDocumentNoLData = new GridData();
-                                lblDocumentNoLData.widthHint = 107;
-                                lblDocumentNoLData.heightHint = 15;
+                                lblDocumentNoLData.widthHint = 88;
+                                lblDocumentNoLData.heightHint = 17;
                                 lblDocumentNo.setLayoutData(lblDocumentNoLData);
                             }
                             {
@@ -498,17 +544,12 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
                                 txtDocumentNo.setLayoutData(txtDocumentNoLData);
                             }
                             {
-                                lblBillDocumentNo = new CLabel(
-                                    compInfoPanel,
-                                    SWT.RIGHT);
-                                lblBillDocumentNo.setText(Messages
-                                    .getString("BillUIAddBill.6")); //$NON-NLS-1$
+                                lblBillDocumentNo = new CLabel(compInfoPanel, SWT.LEFT);
+                                lblBillDocumentNo.setText(Messages.getString("BillUIAddBill.6")); //$NON-NLS-1$
                                 GridData lblBillDocumentNoLData = new GridData();
-                                lblBillDocumentNoLData.widthHint = 134;
-                                lblBillDocumentNoLData.heightHint = 17;
-                                lblBillDocumentNoLData.horizontalAlignment = GridData.END;
-                                lblBillDocumentNo
-                                    .setLayoutData(lblBillDocumentNoLData);
+                                lblBillDocumentNoLData.widthHint = 99;
+                                lblBillDocumentNoLData.heightHint = 16;
+                                lblBillDocumentNo.setLayoutData(lblBillDocumentNoLData);
                             }
                             {
                                 txtConsignmentDocumentNo = new Text(
@@ -540,16 +581,13 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
                                     .setLayoutData(dateConsignmentDateLData);
                             }
                             {
-                                lblDefinition = new CLabel(
-                                    compInfoPanel,
-                                    SWT.RIGHT);
+                                lblDefinition = new CLabel(compInfoPanel, SWT.LEFT);
                                 lblDefinition.setText(Messages
                                     .getString("BillUIAddBill.11")); //$NON-NLS-1$
                                 GridData lblDefinitionLData = new GridData();
                                 lblDefinitionLData.widthHint = 108;
                                 lblDefinitionLData.heightHint = 20;
                                 lblDefinitionLData.verticalAlignment = GridData.BEGINNING;
-                                lblDefinitionLData.horizontalAlignment = GridData.END;
                                 lblDefinition.setLayoutData(lblDefinitionLData);
                             }
                             {
@@ -557,8 +595,8 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
                                     compInfoPanel,
                                     SWT.NONE);
                                 GridData txtDefinitionLData = new GridData();
-                                txtDefinitionLData.widthHint = 246;
-                                txtDefinitionLData.heightHint = 15;
+                                txtDefinitionLData.widthHint = 211;
+                                txtDefinitionLData.heightHint = 17;
                                 txtDefinition.setLayoutData(txtDefinitionLData);
                             }
                             {
@@ -591,17 +629,11 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
                                     .setLayoutData(txtDiscountRateLData);
                             }
                             {
-                                lblPaymentType = new Label(
-                                    compInfoPanel,
-                                    SWT.RIGHT);
+                                lblPaymentType = new Label(compInfoPanel, SWT.LEFT);
                                 lblPaymentType.setText(Messages
                                     .getString("BillUIAddBill.12")); //$NON-NLS-1$
                                 GridData lblPaymentTypeLData = new GridData();
                                 lblPaymentTypeLData.horizontalAlignment = GridData.END;
-                                lblPaymentTypeLData.widthHint = 84;
-                                lblPaymentTypeLData.heightHint = 15;
-                                lblPaymentType
-                                    .setLayoutData(lblPaymentTypeLData);
                             }
                             {
                                 comboPaymentType = new CCombo(
@@ -619,145 +651,142 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
                                 comboPaymentType
                                     .setLayoutData(comboPaymentTypeLData);
                             }
+                            {
+                                lblWareHouse = new CLabel(
+                                    compInfoPanel,
+                                    SWT.NONE);
+                                lblWareHouse.setText("Depo");
+                                GridData lblWareHouseLData = new GridData();
+                                lblWareHouseLData.widthHint = 52;
+                                lblWareHouseLData.heightHint = 19;
+                                lblWareHouse.setLayoutData(lblWareHouseLData);
+                            }
+                            {
+                                comboWareHouse = new CCombo(
+                                    compInfoPanel,
+                                    SWT.NONE);
+                                GridData comboWareHouseLData = new GridData();
+                                comboWareHouseLData.widthHint = 89;
+                                comboWareHouseLData.heightHint = 14;
+                                comboWareHouse.setLayoutData(comboWareHouseLData);
+                            }
 
-                        }
-                        {
-                            compbuttons = new Composite(compGeneral, SWT.NONE);
-                            GridLayout composite1Layout = new GridLayout();
-                            GridData composite1LData = new GridData();
-                            composite1LData.widthHint = 43;
-                            composite1LData.heightHint = 81;
-                            composite1LData.verticalAlignment = GridData.BEGINNING;
-                            compbuttons.setLayoutData(composite1LData);
-                            composite1Layout.makeColumnsEqualWidth = true;
-                            compbuttons.setLayout(composite1Layout);
-                            {
-                                btnAddConsignmentRow = new Button(
-                                    compbuttons,
-                                    SWT.PUSH | SWT.CENTER);
-                                btnAddConsignmentRow
-                                    .setImage(SWTResourceManager
-                                        .getImage("icons/plus.gif")); //$NON-NLS-1$
-                                btnAddConsignmentRow
-                                    .addMouseListener(new MouseAdapter() {
-                                        public void mouseUp(MouseEvent evt) {
-                                            btnAddConsignmentRowMouseUp();
-                                        }
-                                    });
-                            }
-                            {
-                                buttonConsignmentRemove = new Button(
-                                    compbuttons,
-                                    SWT.PUSH | SWT.CENTER);
-                                buttonConsignmentRemove
-                                    .setImage(SWTResourceManager
-                                        .getImage("icons/minus.gif")); //$NON-NLS-1$
-                                buttonConsignmentRemove
-                                    .addMouseListener(new MouseAdapter() {
-                                        public void mouseUp(MouseEvent evt) {
-                                            TableItem selection[] = tableConsignmentRows
-                                                .getSelection();
-                                            if (selection.length > 0) {
-                                                selection[0].dispose();
-                                            }
-                                        }
-                                    });
-                            }
                         }
                         {
                             tableConsignmentRows = new Table(
                                 compGeneral,
-                                SWT.SINGLE | SWT.FULL_SELECTION | SWT.BORDER);
-                            GridData tableConsignmentRowsLData = new GridData();
-                            tableConsignmentRows.setLinesVisible(true);
+                                SWT.FULL_SELECTION
+                                    | SWT.HIDE_SELECTION
+                                    | SWT.BORDER);
                             tableConsignmentRows.setHeaderVisible(true);
-                            tableConsignmentRowsLData.grabExcessHorizontalSpace = true;
-                            tableConsignmentRowsLData.grabExcessVerticalSpace = true;
-                            tableConsignmentRowsLData.horizontalAlignment = GridData.FILL;
-                            tableConsignmentRowsLData.verticalAlignment = GridData.FILL;
-                            tableConsignmentRows
-                                .setLayoutData(tableConsignmentRowsLData);
+                            tableConsignmentRows.setLinesVisible(true);
+                            GridData tableLData = new GridData();
+                            tableLData.verticalAlignment = GridData.FILL;
+                            tableLData.horizontalAlignment = GridData.FILL;
+                            tableLData.horizontalSpan = 2;
+                            tableLData.grabExcessHorizontalSpace = true;
+                            tableLData.grabExcessVerticalSpace = true;
+                            tableConsignmentRows.setLayoutData(tableLData);
                             {
-                                tableColumnInventoryCode = new TableColumn(
+                                tableColumn1 = new TableColumn(
                                     tableConsignmentRows,
                                     SWT.NONE);
-                                tableColumnInventoryCode.setText(Messages
-                                    .getString("BillUIAddBill.15")); //$NON-NLS-1$
-                                tableColumnInventoryCode.setWidth(98);
+                                tableColumn1.setText(INVENTORY_CODE);
+                                tableColumn1.setWidth(100);
+                                tableColumn1
+                                    .addSelectionListener(new SelectionAdapter() {
+                                        public void widgetSelected(
+                                            SelectionEvent evt) {
+                                            //      tableViewer.setSorter(new TurquazTableSorter(0));    
+                                        }
+                                    });
                             }
                             {
-                                tableColumnInventoryName = new TableColumn(
+                                tableColumn2 = new TableColumn(
                                     tableConsignmentRows,
                                     SWT.NONE);
-                                tableColumnInventoryName.setText(Messages
-                                    .getString("BillUIAddBill.16")); //$NON-NLS-1$
-                                tableColumnInventoryName.setWidth(106);
+                                tableColumn2.setText(INVENTORY_NAME);
+                                tableColumn2.setWidth(103);
                             }
                             {
-                                tableColumnAmount = new TableColumn(
+                                tableColumn = new TableColumn(
                                     tableConsignmentRows,
                                     SWT.NONE);
-                                tableColumnAmount.setText(Messages
-                                    .getString("BillUIAddBill.17")); //$NON-NLS-1$
-                                tableColumnAmount.setWidth(99);
+                                tableColumn.setText(TRANS_AMOUNT);
+                                tableColumn.setWidth(106);
                             }
                             {
-                                tableColumnUnit = new TableColumn(
+                                tableColumn5 = new TableColumn(
                                     tableConsignmentRows,
                                     SWT.NONE);
-                                tableColumnUnit.setText(Messages
-                                    .getString("BillUIAddBill.18")); //$NON-NLS-1$
-                                tableColumnUnit.setWidth(54);
+                                tableColumn5.setText(UNIT);
+                                tableColumn5.setWidth(100);
                             }
                             {
-                                tableColumnUnitPrice = new TableColumn(
+                                tableColumn4 = new TableColumn(
                                     tableConsignmentRows,
                                     SWT.NONE);
-                                tableColumnUnitPrice.setText(Messages
-                                    .getString("BillUIAddBill.19")); //$NON-NLS-1$
-                                tableColumnUnitPrice.setWidth(84);
+                                tableColumn4.setText(TRANS_AMOUNT_IN_BASE_UNIT);
+                                tableColumn4.setWidth(121);
                             }
                             {
-                                tableColumnTotalPrice = new TableColumn(
+                                tableColumn3 = new TableColumn(
                                     tableConsignmentRows,
                                     SWT.NONE);
-                                tableColumnTotalPrice.setText(Messages
-                                    .getString("BillUIAddBill.20")); //$NON-NLS-1$
-                                tableColumnTotalPrice.setWidth(94);
+                                tableColumn3.setText(BASE_UNIT);
+                                tableColumn3.setWidth(126);
                             }
                             {
-                                tableColumnVat = new TableColumn(
+                                tableColumn6 = new TableColumn(
                                     tableConsignmentRows,
                                     SWT.NONE);
-                                tableColumnVat.setText(Messages
-                                    .getString("BillUIAddBill.21")); //$NON-NLS-1$
-                                tableColumnVat.setWidth(50);
+                                tableColumn6.setText(UNIT_PRICE);
+                                tableColumn6.setWidth(100);
                             }
                             {
-                                tableColumnVatAmount = new TableColumn(
+                                tableColumn7 = new TableColumn(
                                     tableConsignmentRows,
                                     SWT.NONE);
-                                tableColumnVatAmount.setText(Messages
-                                    .getString("BillUIAddBill.22")); //$NON-NLS-1$
-                                tableColumnVatAmount.setWidth(90);
+                                tableColumn7.setText(TOTAL_PRICE);
+                                tableColumn7.setWidth(100);
                             }
                             {
-                                TableColumnVATSpecial = new TableColumn(
+                                tableColumn8 = new TableColumn(
                                     tableConsignmentRows,
                                     SWT.NONE);
-                                TableColumnVATSpecial.setText(Messages
-                                    .getString("BillUIAddBill.23")); //$NON-NLS-1$
-                                TableColumnVATSpecial.setWidth(100);
+                                tableColumn8.setText(VAT_PERCENT);
+                                tableColumn8.setWidth(100);
                             }
                             {
-                                tableColumnCumulative = new TableColumn(
+                                tableColumn9 = new TableColumn(
                                     tableConsignmentRows,
                                     SWT.NONE);
-                                tableColumnCumulative.setText(Messages
-                                    .getString("BillUIAddBill.24")); //$NON-NLS-1$
-                                tableColumnCumulative.setWidth(100);
+                                tableColumn9.setText(VAT_TOTAL);
+                                tableColumn9.setWidth(100);
+                            }
+                            {
+                                tableColumn10 = new TableColumn(
+                                    tableConsignmentRows,
+                                    SWT.NONE);
+                                tableColumn10.setText(SPECIAL_VAT_PERCENT);
+                                tableColumn10.setWidth(110);
+                            }
+                            {
+                                tableColumn11 = new TableColumn(
+                                    tableConsignmentRows,
+                                    SWT.NONE);
+                                tableColumn11.setText(SPECIAL_VAT_TOTAL);
+                                tableColumn11.setWidth(101);
+                            }
+                            {
+                                tableColumn12 = new TableColumn(
+                                    tableConsignmentRows,
+                                    SWT.NONE);
+                                tableColumn12.setText(ROW_TOTAL);
+                                tableColumn12.setWidth(114);
                             }
                         }
+
                         {
                             compTotalsPanel = new Composite(
                                 compGeneral,
@@ -767,7 +796,7 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
                             composite1LData1.grabExcessHorizontalSpace = true;
                             composite1LData1.horizontalSpan = 2;
                             composite1LData1.horizontalAlignment = GridData.FILL;
-                            composite1LData1.heightHint = 118;
+                            composite1LData1.heightHint = 111;
                             compTotalsPanel.setLayoutData(composite1LData1);
                             composite1Layout1.numColumns = 4;
                             compTotalsPanel.setLayout(composite1Layout1);
@@ -788,11 +817,7 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
                                     compTotalsPanel,
                                     SWT.NONE);
                                 GridData txtDiscountAmountLData = new GridData();
-                                txtDiscountAmount
-                                    .setBackground(SWTResourceManager.getColor(
-                                        255,
-                                        255,
-                                        255));
+                                txtDiscountAmount.setBackground(SWTResourceManager.getColor(255,255,255));
                                 txtDiscountAmount.setEditable(false);
                                 txtDiscountAmountLData.widthHint = 191;
                                 txtDiscountAmountLData.heightHint = 18;
@@ -819,10 +844,9 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
                                 txtTotalAmount.setBackground(SWTResourceManager
                                     .getColor(255, 255, 255));
                                 txtTotalAmount.setEditable(false);
-                                txtTotalAmountLData.widthHint = 197;
-                                txtTotalAmountLData.heightHint = 17;
-                                txtTotalAmount
-                                    .setLayoutData(txtTotalAmountLData);
+                                txtTotalAmountLData.widthHint = 158;
+                                txtTotalAmountLData.heightHint = 19;
+                                txtTotalAmount.setLayoutData(txtTotalAmountLData);
                             }
                             {
                                 lblInventoryPrice = new CLabel(
@@ -947,6 +971,28 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 			e.printStackTrace();
 		}
 	}
+	
+	public void updateComboBoxEditor(){
+	    try{
+	       
+	       InvUITransactionTableRow table_row =(InvUITransactionTableRow) cursor.getRow().getData(); 
+	       ComboBoxCellEditor editor =(ComboBoxCellEditor) tableViewer.getCellEditors()[3];
+	       
+	       if(table_row.getUnits()!=null){ 
+	       editor.setItems(table_row.getUnits());
+	       }
+	       
+	       else {
+	       editor.setItems(new String[]{});
+	           
+	       }
+	       
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
+	}
+	
 
 	public void btnUpdateGroupsClick() {
 
@@ -954,6 +1000,32 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 
 		fillGroupsTable();
 
+	}
+	
+	private EngBLCommon blCommon = new EngBLCommon();
+	public void fillComboWarehouses(){
+		try{
+			comboWareHouse.removeAll();
+			List list = blCommon.getInventoryWarehouses();
+			
+			TurqInventoryWarehous warehouse;	
+			for(int i=0;i<list.size();i++){
+			
+			warehouse = (TurqInventoryWarehous)list.get(i);
+			comboWareHouse.add(warehouse.getWarehousesName());
+			comboWareHouse.setData(warehouse.getWarehousesName(),warehouse);
+			
+			
+			}
+			if(comboWareHouse.getItemCount()>0){
+				comboWareHouse.setText(comboWareHouse.getItem(0));
+			}
+			
+			
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
 	}
 
 	public void fillGroupsTable() {
@@ -981,6 +1053,7 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 	}
 
 	public void postInitGui() {
+	    
 		cTabFolder1.setSelection(tabItemGeneral);
 
 		fillGroupsTable();
@@ -1013,8 +1086,155 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 			}
 		});
 
+	    createTableViewer();
+	    
+	    //fill combo ware houses
+	    fillComboWarehouses();
 	}
 
+	 public void createTableViewer(){
+	       columnList.add(INVENTORY_CODE);
+	       columnList.add(INVENTORY_NAME);
+	       columnList.add(TRANS_AMOUNT);
+	       columnList.add(UNIT);
+	       columnList.add(TRANS_AMOUNT_IN_BASE_UNIT);
+	       columnList.add(BASE_UNIT);
+	       columnList.add(UNIT_PRICE);
+	       columnList.add(TOTAL_PRICE);
+	       columnList.add(VAT_PERCENT);
+	       columnList.add(VAT_TOTAL);
+	       columnList.add(SPECIAL_VAT_PERCENT);
+	       columnList.add(SPECIAL_VAT_TOTAL);
+	       columnList.add(ROW_TOTAL);
+	         
+	    
+	       tableViewer = new TableViewer(tableConsignmentRows);
+	       tableViewer.setUseHashlookup(true);
+	       tableViewer.setColumnProperties(columnNames);
+	       //     Create the cell editors
+		   CellEditor[] editors = new CellEditor[columnNames.length];
+	       editors[0] = new InventoryCellEditor(tableConsignmentRows); //Stok Kodu
+	       editors[1] = new TextCellEditor(tableConsignmentRows);      //Stok Adi
+	       editors[2] = new NumericCellEditor(tableConsignmentRows);   // mikatri     
+	       editors[3] = new ComboBoxCellEditor(tableConsignmentRows,new String[]{},SWT.READ_ONLY);
+	     
+	       editors[4] = new NumericCellEditor(tableConsignmentRows);
+	       editors[5] = new TextCellEditor(tableConsignmentRows);
+	       editors[6] = new CurrencyCellEditor(tableConsignmentRows);
+	       editors[7] = new CurrencyCellEditor(tableConsignmentRows);
+	       editors[8] = new NumericCellEditor(tableConsignmentRows);
+	       editors[9] = new CurrencyCellEditor(tableConsignmentRows);
+	       editors[10] = new NumericCellEditor(tableConsignmentRows);
+	       editors[11] = new CurrencyCellEditor(tableConsignmentRows);
+	       editors[12] = new CurrencyCellEditor(tableConsignmentRows);
+	    
+	       // Assign the cell editors to the viewer 
+			tableViewer.setCellEditors(editors);
+	       
+			TurquazContentProvider contentProvider = new TurquazContentProvider(tableViewer,rowList);
+			
+			tableViewer.setCellModifier(new TurquazCellModifier(columnList,contentProvider));    
+			tableViewer.setContentProvider(contentProvider);
+			tableViewer.setLabelProvider(new TurquazLabelProvider());
+			
+			tableViewer.setInput(rowList);
+			 
+	             cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE,tableViewer);
+	             cursor.setEnabled(true);
+	        	 cursor.addKeyListener(new KeyAdapter(){
+	    		     public void keyReleased(KeyEvent evt){
+	    		         
+	                     if (evt.keyCode == SWT.INSERT){
+	                         int type =BILL_TYPE;
+	         				
+	                         InvUITransactionTableRow row = new InvUITransactionTableRow(rowList,type,tableViewer);
+	                         rowList.addTask(row);
+	                        
+	                         
+	                         
+	                         cursor.setSelection(tableConsignmentRows
+	                                 .getItemCount() - 1, 0);
+	                         tableViewer.editElement(row, 0);
+
+	                         
+	                       
+	                        
+	                     }
+	                     else if(evt.keyCode==SWT.DEL){
+	                       
+	                         if(cursor.getRow()!=null){
+	                             ITableRow row = (ITableRow)cursor.getRow().getData();
+	                             rowList.removeTask(row);
+	                             int itemCount =tableConsignmentRows.getItemCount();
+	                            if(itemCount>0){
+	                                cursor.setSelection(itemCount-1,0);
+	                            }
+	                         }
+	                        
+	                        
+	                     }
+	    		         
+	    		     }});
+			
+	        	 
+	             cursor.addSelectionListener(new SelectionAdapter() {
+	                     public void widgetDefaultSelected(
+	                      SelectionEvent evt) {
+	                        tableViewer.getCellEditors()[cursor.getColumn()].deactivate();
+	                        TableItem item = cursor.getRow();
+	                        int column_number = cursor.getColumn();
+	                         tableViewer.editElement(cursor
+	                             .getRow().getData(), cursor
+	                             .getColumn());
+	                                         
+
+	                     }
+	                     public void widgetSelected(
+	                       SelectionEvent evt) {
+	                         
+	                         tableConsignmentRows.setSelection(new TableItem[] {cursor.getRow() });
+	                    	 
+	                         
+	                         int current_row_index = ((InvUITransactionTableRow) cursor
+	                             .getRow().getData())
+	                             .getRowIndex();
+	                         if (current_row_index != last_row_index) {
+	                             last_row_index = current_row_index;
+	                             updateComboBoxEditor();
+	                         }
+	                         cursor.redraw();                     
+	                         
+	 
+	                     }
+	                 });
+	          
+	         
+	    //   To refresh the cell combo cell editor
+	             for(int i=0;i<editors.length;i++){
+	             editors[i].addListener(this.cursor);
+	             }
+	    	
+		//	tableViewer.setSorter(new TurquazTableSorter(0));
+	       
+	    // Listener for rowList
+	    rowList.addChangeListener(new ITableRowListViewer(){
+	       public void updateRow(ITableRow row){
+	           
+	           calculateTotals();
+	           
+	      }
+	       public void removeRow(ITableRow row){
+	           calculateTotals();
+	                 
+	       }
+	       public void addRow(ITableRow row){
+	           calculateTotals();
+	       }
+	    });
+	             
+	             
+	   }
+	   
 	public void btnChooseMouseUp() {
 		Object data = new CurUICurrentCardSearchDialog(this.getShell(),
 				SWT.NULL).open();
@@ -1032,7 +1252,7 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 	public void btnAddConsignmentRowMouseUp() {
 
 		TurqInventoryTransaction invTrans = new InvUITransactionAddDialog(this
-				.getShell(), SWT.NULL, false).open();
+				.getShell(), SWT.NULL, true).open();
 		if (invTrans != null) {
 			TableItem item = new TableItem(tableConsignmentRows, SWT.NULL);
 
@@ -1066,7 +1286,7 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 		if (tableConsignmentRows.getItemCount() == 0) {
 			msg.setMessage(Messages.getString("BillUIAddBill.39")); //$NON-NLS-1$
 			msg.open();
-			btnAddConsignmentRow.setFocus();
+			cursor.setFocus();
 			return false;
 		}
 		return true;
@@ -1076,13 +1296,22 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 		try {
 			TableItem items[] = tableConsignmentRows.getItems();
 
-			int type = 1;
+			// sell bill
+			int type = BILL_TYPE;
 
+			System.out.println("fuck "+items.length);
 			for (int i = 0; i < items.length; i++) {
-				blAddConsignment.saveConsignmentRow(
-						(TurqInventoryTransaction) items[i].getData(),
-						consignmentID, type, txtDiscountRate.getIntValue());
+			    
 
+			    InvUITransactionTableRow row = (InvUITransactionTableRow)items[i].getData();
+			   
+			    TurqInventoryTransaction invTrans = (TurqInventoryTransaction)row.getDBObject();
+			    invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouse.getData(comboWareHouse.getText()));
+				
+			    if(row.okToSave()){
+			      blAddConsignment.saveConsignmentRow(invTrans,
+						consignmentID, type, txtDiscountRate.getIntValue());
+			    }
 			}
 
 		} catch (Exception ex) {
@@ -1111,8 +1340,8 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 
 	public TurqConsignment saveConsignment() throws Exception {
 		try {
-
-			int type = 1;
+			// sell bill
+			int type = BILL_TYPE;
 
 			TurqConsignment cons = blAddConsignment.saveConsignment(
 					txtConsignmentDocumentNo.getText(),
@@ -1137,7 +1366,8 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 		try {
 			if (verifyFields()) {
 
-				int type = 1;
+				// buy bill
+				int type = BILL_TYPE;
 
 				//First save its consignment..
 
@@ -1157,8 +1387,7 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			msg.setMessage(ex.getMessage());
-			msg.open();
+		
 		}
 
 	}
@@ -1172,7 +1401,7 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 	}
 
 	public void newForm() {
-	    BillUIAddSellBill curCard = new BillUIAddSellBill(this.getParent(),this.getStyle());
+	    BillUIAddBuyBill  curCard = new BillUIAddBuyBill(this.getParent(),this.getStyle());
 		 CTabFolder tabfld = (CTabFolder)this.getParent();
 		 tabfld.getSelection().setControl(curCard);	 
 		 this.dispose();
@@ -1188,12 +1417,12 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 		BigDecimal generalTotal = new BigDecimal(0);
 		BigDecimal discountTotal = new BigDecimal(0);
 
-		for (int i = 0; i < items.length; i++) {
-			subTotal = subTotal.add(new BigDecimal(items[i].getText(5)));
-			totalVAT = totalVAT.add(new BigDecimal(items[i].getText(7)));
-			totalSpecVAT = totalSpecVAT
-					.add(new BigDecimal(items[i].getText(8)));
-
+		for(int i =0;i<items.length;i++){
+		    TurqInventoryTransaction invTrans = (TurqInventoryTransaction)((InvUITransactionTableRow)(items[i].getData())).getDBObject();
+			subTotal = subTotal.add(invTrans.getTransactionsTotalPrice());
+			totalVAT = totalVAT.add(invTrans.getTransactionsVatAmount());
+			totalSpecVAT = totalSpecVAT.add(invTrans.getTransactionsVatSpecialAmount());
+			
 		}
 
 		generalTotal = subTotal.add(totalVAT).add(totalSpecVAT);
@@ -1218,7 +1447,8 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 		txtTotalVat.setText(totalVAT.toString());
 		decSpecialVat.setText(totalSpecVAT.toString());
 		txtTotalAmount.setText(generalTotal.subtract(discountTotal).toString());
-
+	
+		
 	}
 
 	/**

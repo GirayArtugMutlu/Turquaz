@@ -13,6 +13,7 @@ import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.inventory.ui.InvUITransactionTableRow;
 
 
 import org.eclipse.swt.events.SelectionAdapter;
@@ -136,7 +137,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
                 }
             }
             {
-                compAddBill = new BillUIAddBill(dialogShell, SWT.NONE);
+                compAddBill = new BillUIAddBill(dialogShell, SWT.NONE,bill.getBillsType());
                 GridData compBillUIAddDialogLData = new GridData();
                 compBillUIAddDialogLData.grabExcessHorizontalSpace = true;
                 compBillUIAddDialogLData.horizontalAlignment = GridData.FILL;
@@ -194,12 +195,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 		    
 			
 			
-			if(bill.getBillsType()==0){
-			compAddBill.getComboConsignmentType().setText(Messages.getString("BillUIBillUpdateDialog.5"));  //$NON-NLS-1$
-			}
-			else{
-		    compAddBill.getComboConsignmentType().setText(Messages.getString("BillUIBillUpdateDialog.6"));  //$NON-NLS-1$
-			}
+			
 		
 			compAddBill.getTxtDefinition().setText(bill.getBillsDefinition());
 			compAddBill.getTxtDiscountRate().setText(bill.getTurqBillConsignmentCommon().getDiscountRate());
@@ -236,20 +232,9 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			
 		    invTrans = (TurqInventoryTransaction)it2.next();
 			
-			item = new TableItem(compAddBill.getTableConsignmentRows(),SWT.NULL);
-			
-			item.setData(invTrans);
-			item.setText(new String[]{invTrans.getTurqInventoryCard().getCardInventoryCode(),
-									   invTrans.getTurqInventoryCard().getCardName(),
-									   invTrans.getTransactionsAmountIn()+"",  //$NON-NLS-1$
-									   invTrans.getTurqInventoryUnit().getUnitsName(),
-									   invTrans.getTransactionsUnitPrice().toString(),
-									   invTrans.getTransactionsTotalPrice().toString(),
-									   invTrans.getTransactionsVat()+"",  //$NON-NLS-1$
-									   invTrans.getTransactionsVatAmount().toString(),
-									   invTrans.getTransactionsVatSpecialAmount().toString(),
-									   invTrans.getTransactionsCumilativePrice().toString()});
-			
+		    InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.rowList,compAddBill.BILL_TYPE,compAddBill.tableViewer);
+            row.setDBObject(invTrans);
+			compAddBill.rowList.addTask(row);
 		}
 		}
 		compAddBill.calculateTotals();
@@ -276,16 +261,11 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	MessageBox msg;
 	try{
 	   if(compAddBill.verifyFields()){
-	       int type=0;
-			if(compAddBill.getComboConsignmentType().getText().equals(Messages.getString("BillUIBillUpdateDialog.9")))   //$NON-NLS-1$
-			{
-				type =1;
-			}
 	       
 	       Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
 			
 	       //update the consignment
-	       
+	       int type = compAddBill.BILL_TYPE;
 			if(it.hasNext()){
 		    TurqConsignment cons = (TurqConsignment)it.next();
 	        blUpdateCons.updateConsignment(cons,

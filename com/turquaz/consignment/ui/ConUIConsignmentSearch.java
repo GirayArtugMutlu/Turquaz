@@ -377,10 +377,13 @@ SearchComposite{
 		
 	}
 	public void delete(){
+	    
 	    ConBLUpdateConsignment blUpdate = new ConBLUpdateConsignment();
+	   
 	    TableItem items[] = tableConsignments.getSelection();
 		if(items.length>0){
 		    TurqConsignment cons = (TurqConsignment)items[0].getData();
+		   
 		    if(cons.getTurqBillConsignmentCommon().getTurqBills().isEmpty()){
 		    	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 				MessageBox msg2 = new MessageBox(this.getShell(),SWT.CANCEL|SWT.OK);
@@ -389,7 +392,7 @@ SearchComposite{
 					if(msg2.open()==SWT.OK){
 						
 					    //first fill cons then delete..
-					    blUpdate.initiliazeConsignment(cons);
+					 
 					    
 						//delete Consignment Group
 						Iterator it = cons.getTurqConsignmentsInGroups().iterator();
