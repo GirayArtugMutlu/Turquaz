@@ -1,6 +1,7 @@
 
 package com.turquaz.inventory.ui;
 
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;
@@ -70,29 +71,11 @@ public class InvUIWarehouseAdd extends SecureComposite {
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(593,343));
 	
-			GridData lblWarehouseNameLData = new GridData();
-			lblWarehouseNameLData.verticalAlignment = GridData.CENTER;
-			lblWarehouseNameLData.horizontalAlignment = GridData.BEGINNING;
-			lblWarehouseNameLData.widthHint = -1;
-			lblWarehouseNameLData.heightHint = -1;
-			lblWarehouseNameLData.horizontalIndent = 0;
-			lblWarehouseNameLData.horizontalSpan = 1;
-			lblWarehouseNameLData.verticalSpan = 1;
-			lblWarehouseNameLData.grabExcessHorizontalSpace = false;
-			lblWarehouseNameLData.grabExcessVerticalSpace = false;
-			lblWarehouseName.setLayoutData(lblWarehouseNameLData);
 			lblWarehouseName.setText("Warehouse Name");
 	
 			GridData txtWarehouseNameLData = new GridData();
-			txtWarehouseNameLData.verticalAlignment = GridData.CENTER;
-			txtWarehouseNameLData.horizontalAlignment = GridData.BEGINNING;
 			txtWarehouseNameLData.widthHint = 259;
 			txtWarehouseNameLData.heightHint = 17;
-			txtWarehouseNameLData.horizontalIndent = 0;
-			txtWarehouseNameLData.horizontalSpan = 1;
-			txtWarehouseNameLData.verticalSpan = 1;
-			txtWarehouseNameLData.grabExcessHorizontalSpace = false;
-			txtWarehouseNameLData.grabExcessVerticalSpace = false;
 			txtWarehouseName.setLayoutData(txtWarehouseNameLData);
 			txtWarehouseName.setTextLimit(50);
 			txtWarehouseName.setSize(new org.eclipse.swt.graphics.Point(259,17));
@@ -111,70 +94,31 @@ public class InvUIWarehouseAdd extends SecureComposite {
 			lblWarehouseAdres.setText("Address");
 	
 			GridData txtWarehouseAdresLData = new GridData();
-			txtWarehouseAdresLData.verticalAlignment = GridData.CENTER;
-			txtWarehouseAdresLData.horizontalAlignment = GridData.BEGINNING;
 			txtWarehouseAdresLData.widthHint = 323;
 			txtWarehouseAdresLData.heightHint = 74;
-			txtWarehouseAdresLData.horizontalIndent = 0;
-			txtWarehouseAdresLData.horizontalSpan = 1;
-			txtWarehouseAdresLData.verticalSpan = 1;
-			txtWarehouseAdresLData.grabExcessHorizontalSpace = false;
-			txtWarehouseAdresLData.grabExcessVerticalSpace = false;
 			txtWarehouseAdres.setLayoutData(txtWarehouseAdresLData);
 			txtWarehouseAdres.setTextLimit(250);
 			txtWarehouseAdres.setSize(new org.eclipse.swt.graphics.Point(323,74));
 	
-			GridData lblWareHouseCityLData = new GridData();
-			lblWareHouseCityLData.verticalAlignment = GridData.CENTER;
-			lblWareHouseCityLData.horizontalAlignment = GridData.BEGINNING;
-			lblWareHouseCityLData.widthHint = -1;
-			lblWareHouseCityLData.heightHint = -1;
-			lblWareHouseCityLData.horizontalIndent = 0;
-			lblWareHouseCityLData.horizontalSpan = 1;
-			lblWareHouseCityLData.verticalSpan = 1;
-			lblWareHouseCityLData.grabExcessHorizontalSpace = false;
-			lblWareHouseCityLData.grabExcessVerticalSpace = false;
-			lblWareHouseCity.setLayoutData(lblWareHouseCityLData);
 			lblWareHouseCity.setText("City");
 	
 			GridData txtWarehouseCityLData = new GridData();
-			txtWarehouseCityLData.verticalAlignment = GridData.CENTER;
-			txtWarehouseCityLData.horizontalAlignment = GridData.BEGINNING;
 			txtWarehouseCityLData.widthHint = 153;
 			txtWarehouseCityLData.heightHint = 17;
-			txtWarehouseCityLData.horizontalIndent = 0;
-			txtWarehouseCityLData.horizontalSpan = 1;
-			txtWarehouseCityLData.verticalSpan = 1;
-			txtWarehouseCityLData.grabExcessHorizontalSpace = false;
-			txtWarehouseCityLData.grabExcessVerticalSpace = false;
 			txtWarehouseCity.setLayoutData(txtWarehouseCityLData);
 			txtWarehouseCity.setTextLimit(50);
 			txtWarehouseCity.setSize(new org.eclipse.swt.graphics.Point(153,17));
 	
 			GridData lblWarehouseTelephoneLData = new GridData();
-			lblWarehouseTelephoneLData.verticalAlignment = GridData.CENTER;
-			lblWarehouseTelephoneLData.horizontalAlignment = GridData.BEGINNING;
 			lblWarehouseTelephoneLData.widthHint = 56;
 			lblWarehouseTelephoneLData.heightHint = 19;
-			lblWarehouseTelephoneLData.horizontalIndent = 0;
-			lblWarehouseTelephoneLData.horizontalSpan = 1;
-			lblWarehouseTelephoneLData.verticalSpan = 1;
-			lblWarehouseTelephoneLData.grabExcessHorizontalSpace = false;
-			lblWarehouseTelephoneLData.grabExcessVerticalSpace = false;
 			lblWarehouseTelephone.setLayoutData(lblWarehouseTelephoneLData);
 			lblWarehouseTelephone.setText("Telephone");
 			lblWarehouseTelephone.setSize(new org.eclipse.swt.graphics.Point(56,19));
 	
 			GridData txtTelephoneLData = new GridData();
-			txtTelephoneLData.verticalAlignment = GridData.CENTER;
-			txtTelephoneLData.horizontalAlignment = GridData.BEGINNING;
 			txtTelephoneLData.widthHint = 153;
 			txtTelephoneLData.heightHint = 17;
-			txtTelephoneLData.horizontalIndent = 0;
-			txtTelephoneLData.horizontalSpan = 1;
-			txtTelephoneLData.verticalSpan = 1;
-			txtTelephoneLData.grabExcessHorizontalSpace = false;
-			txtTelephoneLData.grabExcessVerticalSpace = false;
 			txtTelephone.setLayoutData(txtTelephoneLData);
 			txtTelephone.setSize(new org.eclipse.swt.graphics.Point(153,17));
 	
@@ -192,15 +136,8 @@ public class InvUIWarehouseAdd extends SecureComposite {
 			lblDescription.setText("Description");
 	
 			GridData txtWarehouseDescriptionLData = new GridData();
-			txtWarehouseDescriptionLData.verticalAlignment = GridData.CENTER;
-			txtWarehouseDescriptionLData.horizontalAlignment = GridData.BEGINNING;
 			txtWarehouseDescriptionLData.widthHint = 347;
 			txtWarehouseDescriptionLData.heightHint = 93;
-			txtWarehouseDescriptionLData.horizontalIndent = 0;
-			txtWarehouseDescriptionLData.horizontalSpan = 1;
-			txtWarehouseDescriptionLData.verticalSpan = 1;
-			txtWarehouseDescriptionLData.grabExcessHorizontalSpace = false;
-			txtWarehouseDescriptionLData.grabExcessVerticalSpace = false;
 			txtWarehouseDescription.setLayoutData(txtWarehouseDescriptionLData);
 			txtWarehouseDescription.setTextLimit(50);
 			txtWarehouseDescription.setSize(new org.eclipse.swt.graphics.Point(347,93));
@@ -234,12 +171,28 @@ public class InvUIWarehouseAdd extends SecureComposite {
 
 	
 	boolean verifyFields(){
+		
+		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+		
+	  if(txtWarehouseName.getText().trim().equals("")){
+	  	msg.setMessage("Please fill Warehouse Name!");
+	  	msg.open();
+	  	return false;
+	  }
 	  return true;
 	 
 	}
 	public void delete(){
 	}
-	
+	public void clearFields(){
+		txtWarehouseName.setText("");
+		txtWarehouseDescription.setText("");
+		txtTelephone.setText("");
+		txtWarehouseAdres.setText("");
+		txtWarehouseCity.setText("");
+		
+		
+	}
 	public void save(){
 	try{
 	
@@ -249,7 +202,12 @@ public class InvUIWarehouseAdd extends SecureComposite {
 						 txtWarehouseAdres.getText().trim(),
 						 txtTelephone.getText().trim(),
 						 txtWarehouseCity.getText().trim());
+	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+	msg.setMessage("Succesfully Saved!");
+	msg.open();
+	clearFields();
 		}
+	
 	}
 	catch(Exception ex){
 	ex.printStackTrace();

@@ -33,6 +33,7 @@ import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.InvUICardSearch;
 import com.turquaz.inventory.ui.InvUITransactionAdd;
 import com.turquaz.inventory.ui.InvUIWarehouseAdd;
+import com.turquaz.inventory.ui.InvUIWarehouseSearch;
 
 /**
  * @author onsel
@@ -57,6 +58,9 @@ public class InvUITree extends Tree {
 		item = new TreeItem(root,SWT.NULL);
 		item.setText("Add Warehouse");
 		item.setData(InvUIWarehouseAdd.class.getName());
+		item = new TreeItem(root,SWT.NULL);
+		item.setText("Search Warehouse");
+		item.setData(InvUIWarehouseSearch.class.getName());
 	  	}
 	
 	

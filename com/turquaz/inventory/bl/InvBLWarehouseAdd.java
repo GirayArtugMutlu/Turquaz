@@ -28,7 +28,7 @@ public class InvBLWarehouseAdd {
 	
 	public void saveWarehouse(String whName, String whDescription,
 							String whAddress, String whTelephone,
-							String whCity          )throws Exception {
+							String whCity )throws Exception {
 	  try{
 		TurqInventoryWarehous warehouse = new TurqInventoryWarehous();
 		warehouse.setWarehousesAddress(whAddress);
@@ -47,7 +47,7 @@ public class InvBLWarehouseAdd {
 		
 		warehouse.setTurqCompany(company);
 		whDALAdd.saveObject(warehouse);	
-		//sfbk?msfb?ksmf?b
+		//sfbk?msfbthth?ksmf?b
 			
 	
 	  }
