@@ -11,9 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import net.sf.jasperreports.engine.JasperManager;
+import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -22,7 +23,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
@@ -221,7 +221,7 @@ public class EngBLUtils {
 		
 	}
 	
-	public static void printBill(TurqBill bill,Shell parent){
+	public static void printBill(TurqBill bill){
 	    
 		try{
 			TurqConsignment cons = (TurqConsignment)bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator().next();
@@ -283,16 +283,15 @@ public class EngBLUtils {
             parameters.put("formatter",formatter); 
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
-			JasperReport jasperReport = JasperManager.loadReport("reports/invoice/template1.jasper"); 
-			final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
 			
-			ViewerApp viewerApp = new ViewerApp();
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/invoice/template1.jasper"); 
+	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
 			
-			viewerApp.getReportViewer().setDocument(jasperPrint);
-			viewerApp.open();
+			ViewerApp viewer = new ViewerApp();
+			viewer.getReportViewer().setDocument(jasperPrint);
+			viewer.open();			
 			
-			//reportViewer.getReportViewer().setDocument(jasperPrint);
-			}
+		   }
 			catch(Exception ex){
                   ex.printStackTrace();
 			}

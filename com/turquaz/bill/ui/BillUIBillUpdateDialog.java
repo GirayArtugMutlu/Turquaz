@@ -142,9 +142,9 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
                             toolPrint
                                 .addSelectionListener(new SelectionAdapter() {
                                 public void widgetSelected(SelectionEvent evt) {
-                                
-                                    EngBLUtils.printBill(bill,getParent());
-                                
+                                    dialogShell.close();
+                                    EngBLUtils.printBill(bill);
+                                 
                                 }
                                 });
                         }

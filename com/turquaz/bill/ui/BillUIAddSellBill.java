@@ -1455,7 +1455,7 @@ public class BillUIAddSellBill extends Composite
 				
 				if(answer == SWT.YES)
 				{
-				    EngBLUtils.printBill(bill,getShell());
+				    EngBLUtils.printBill(bill);
 				    
 				}
 				
