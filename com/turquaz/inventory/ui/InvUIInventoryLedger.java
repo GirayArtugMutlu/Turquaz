@@ -43,8 +43,8 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	private Composite compFilter;
 	private TableColumn tableColumnInvCode;
 	private TableColumn tableColumnInvName;
-	private Button btnWithoutDepts;
 	private Button btnWithBalance;
+	private Button btnWithTrans;
 	private Button btnAll;
 	private Group groupInv;
 	private InventoryPicker txtInvCode;
@@ -58,8 +58,8 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	InvBLInventoryLedger blLedger = new InvBLInventoryLedger();
 	
 	final int INV_ALL = 0;
-	final int INV_WITH_BALANCE = 1;
-	final int INV_WITHOUT_BALANCE = 2;
+	final int INV_WITH_TRANS = 1;
+	final int INV_WITH_BALANCE = 2;
 
     /**
      * Bu Class Envanter Defterinin Cikarilmasini Saglar..
@@ -121,14 +121,14 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
                         btnAll.setSelection(true);
                     }
                     {
+                        btnWithTrans = new Button(groupInv, SWT.RADIO
+                            | SWT.LEFT);
+                        btnWithTrans.setText("Hareketliler");
+                    }
+                    {
                         btnWithBalance = new Button(groupInv, SWT.RADIO
                             | SWT.LEFT);
                         btnWithBalance.setText("Bakiyeliler");
-                    }
-                    {
-                        btnWithoutDepts = new Button(groupInv, SWT.RADIO
-                            | SWT.LEFT);
-                        btnWithoutDepts.setText("Çal\u0131\u015fmayanlar");
                     }
                 }
                 {
@@ -209,19 +209,22 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	      TableItem item;
 	      
 	      int reportType =INV_ALL;
-	      if(btnAll.getSelection()==true){
+	      if(btnAll.getSelection()==true)
+	      {
 	          reportType = INV_ALL;
+	      }
+	      else if(btnWithTrans.getSelection() == true)
+	      {
+	          reportType = INV_WITH_TRANS;
 	      }
 	      else if(btnWithBalance.getSelection() == true)
 	      {
 	          reportType = INV_WITH_BALANCE;
 	      }
-	      else if(btnWithoutDepts.getSelection() == true){
-	          reportType = INV_WITHOUT_BALANCE;
-	      }
 	      
 	      
-	      for(int i=0;i<list.size();i++){
+	      for(int i=0;i<list.size();i++)
+	      {
 	          
 	          result = (Object[])list.get(i);
 	          invCode = result[0].toString();
@@ -231,21 +234,26 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	          amountOut = (BigDecimal)result[4];
 	          
 	          
-	          if(reportType == INV_ALL){
+	          if(reportType == INV_ALL)
+	          {
 	            
-	              if(priceIn == null){
+	              if(priceIn == null)
+	              {
 	                   
 	                  priceIn = new BigDecimal(0);
 	              }
-	              if(amountOut==null){
+	              if(amountOut==null)
+	              {
 	                  amountOut = new BigDecimal(0);
 	              }
-	              if(amountIn==null){
+	              if(amountIn==null)
+	              {
 		              
 		                  amountIn  = new BigDecimal(0);    
 		                  avgPrice = new BigDecimal(0);
 		           }
-	              else{
+	              else
+	              {
 	                  avgPrice = priceIn.divide(amountIn,2,BigDecimal.ROUND_HALF_DOWN);		              
 	              }
 	              
@@ -254,52 +262,56 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	              
 	              
 	          }
-	          else if(reportType == INV_WITH_BALANCE){
-	              if(amountIn!=null){
-		              if(amountOut==null){
+	          else if(reportType == INV_WITH_TRANS)
+	          {
+	              if(amountIn!=null)
+	              {	        
+		              if(amountOut==null)
+		              {
 		                  amountOut = new BigDecimal(0);
 		              }
 		              avgPrice = priceIn.divide(amountIn,2,BigDecimal.ROUND_HALF_DOWN);
 		                        
 		              balanceAmount = amountIn.subtract(amountOut);
 		              totalPrice = avgPrice.multiply(balanceAmount).setScale(2,BigDecimal.ROUND_HALF_DOWN);
-			       }
-	              else{
+			      }
+	              else
+	              {
 	                  continue;
-	              }
-	              
+	              }	              
 	          }
-	          else if(reportType == INV_WITHOUT_BALANCE){
-	              if(amountIn!=null){
+	          else if(reportType == INV_WITH_BALANCE)
+	          {
+	              if(amountIn!=null)
+	              {
 		             continue;
-			       }
-	              else{
+			      }
+	              else
+	              {
 	                  
 	                  amountIn = new BigDecimal(0);
-	                  if(amountOut==null){
+	                  if(amountOut==null)
+	                  {
 		                  amountOut = new BigDecimal(0);
 		              }
-		              avgPrice = new BigDecimal(0);
-		              
-		              balanceAmount = amountIn.subtract(amountOut);
-		            
+		              avgPrice = new BigDecimal(0);		              
+		              balanceAmount = amountIn.subtract(amountOut);	
+		              if (balanceAmount.doubleValue() ==0 )
+		              	continue;
 		              totalPrice = avgPrice.multiply(balanceAmount).setScale(2,BigDecimal.ROUND_HALF_DOWN);
 	              }
 	              
 	          }
 	          
 	          
-	              item = new TableItem(tableInventories,SWT.NULL);
-	              item.setText(new String[]{
+	          item = new TableItem(tableInventories,SWT.NULL);
+	          item.setText(new String[]{
 	                        invCode,
 	                        invName,
 	                        balanceAmount.toString(),
 	                        curFormat.format(avgPrice),
 	                        curFormat.format(totalPrice)
-	              			});     
-	         
-	          
-	          
+	              			});     	
 	          
 	          
 	      }
@@ -309,7 +321,8 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	    
 	    
 	    }
-	    catch(Exception ex){
+	    catch(Exception ex)
+		{
 	        
 	        ex.printStackTrace();
 	    

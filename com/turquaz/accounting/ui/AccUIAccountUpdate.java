@@ -22,7 +22,6 @@ package com.turquaz.accounting.ui;
  */
 
 import java.math.BigDecimal;
-import java.util.List;
 
 
 import org.eclipse.swt.graphics.Point;
