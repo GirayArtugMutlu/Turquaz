@@ -55,7 +55,6 @@ public class CurrencyCellEditor extends TextCellEditor{
 					// traversing to the button
 
 					e.doit = true;
-					text.setText(text.getText());
 				}
 			});
 		

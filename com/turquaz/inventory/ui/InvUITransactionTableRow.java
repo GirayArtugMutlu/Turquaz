@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import org.eclipse.swt.graphics.Color;
 
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.engine.bl.EngBLInventoryCards;
+import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TableRowList;
@@ -99,7 +101,7 @@ public class InvUITransactionTableRow implements ITableRow {
 			        result="";
 			    }
 			    else{
-			       // result =invTrans.getTurqInventoryCard().gett;
+			       result = getBaseUnit(invTrans.getTurqInventoryCard());
 			    }
 			    break;
 			    
@@ -107,22 +109,28 @@ public class InvUITransactionTableRow implements ITableRow {
 			    result = invTrans.getTransactionsUnitPrice().toString();
 				break;
 				
-			case 7 : // total Price 
+			case 7 : // total Price
+			    result = invTrans.getTransactionsTotalPrice().toString();
 				break;
 			
-			case 8 : // VAT percent			    
+			case 8 : // VAT percent		
+			    result = invTrans.getTransactionsVat()+"";
 				break;
 				
 			case 9 : // VAT total 
+			    result = invTrans.getTransactionsVatAmount().toString();
 				break;
 				
 			case 10 : // Special VAT percent 
+			    result = invTrans.getTransactionsVatSpecial().toString();
 				break;
 				
 			case 11 : // Specail VAT Total 
+			    result = invTrans.getTransactionsVatAmount().toString();
 				break;
 				
 			case 12 : //Cumulative Price
+			    result = invTrans.getTransactionsCumilativePrice().toString();
 			    break;
 				
 			default :
@@ -134,54 +142,100 @@ public class InvUITransactionTableRow implements ITableRow {
         
     }
 
- 
+    public String getBaseUnit(TurqInventoryCard invCard){
+        try{
+            
+            return "base_unit";
+                  
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
+    
     public Object getValue(int column_index) {
         String result = "";
-		switch (column_index) {
+        switch (column_index) {
 		
 			case 0 : // inventory code 
+			    if(invTrans.getTurqInventoryCard()==null){
+			        result="";
+			    }
+			    else{
+			        result =invTrans.getTurqInventoryCard().getCardInventoryCode();
+			    }
+			    
 			 break;
 				
 			case 1 : //inventory name
-			    
+			    if(invTrans.getTurqInventoryCard()==null){
+			        result="";
+			    }
+			    else{
+			        result =invTrans.getTurqInventoryCard().getCardName();
+			    }
 			    break;
 			    
 			case 2 :  //Amount
+			    if(transType==0){
+			    result = invTrans.getTransactionsAmountIn()+"";
+			    }
+			    else{
+			        result = invTrans.getTransactionsTotalAmountOut()+"";
+			    }
 				break;
 			    
 			case 3 :  //Unit
+			    result =unit_name;
 			    break;
 			    
-			case 4 :  //
+			case 4 :  //Unit Price
+			    result = invTrans.getTransactionsUnitPrice().toString();
 				break;
 				
 			case 5 :  //Base Unit
+			    if(invTrans.getTurqInventoryCard()==null){
+			        result="";
+			    }
+			    else{
+			       result = getBaseUnit(invTrans.getTurqInventoryCard());
+			    }
 			    break;
 			    
 			case 6 :  //Unit Price
+			    result = invTrans.getTransactionsUnitPrice().toString();
 				break;
 				
-			case 7 : // total Price 
+			case 7 : // total Price
+			    result = invTrans.getTransactionsTotalPrice().toString();
 				break;
 			
-			case 8 : // VAT percent			    
+			case 8 : // VAT percent		
+			    result = invTrans.getTransactionsVat()+"";
 				break;
 				
 			case 9 : // VAT total 
+			    result = invTrans.getTransactionsVatAmount().toString();
 				break;
 				
 			case 10 : // Special VAT percent 
+			    result = invTrans.getTransactionsVatSpecial().toString();
 				break;
 				
 			case 11 : // Specail VAT Total 
+			    result = invTrans.getTransactionsVatAmount().toString();
 				break;
 				
 			case 12 : //Cumulative Price
+			    result = invTrans.getTransactionsCumilativePrice().toString();
 			    break;
 				
 			default :
 				result = "";
 		}
+        
         
         return result;
         
@@ -189,10 +243,19 @@ public class InvUITransactionTableRow implements ITableRow {
 
    
     public void modify(int column_index, Object value) {
-      
+      String formatted ="";
 		switch (column_index) {
 		
 			case 0 : // inventory code 
+			    try{
+					 TurqInventoryCard invCard= EngBLInventoryCards.getCard(value.toString().trim());
+					 if(invCard!=null){
+					    invTrans.setTurqInventoryCard(invCard);		  
+					 }	
+					}
+					catch(Exception ex){
+					    ex.printStackTrace();
+					}
 			 break;
 				
 			case 1 : //inventory name
@@ -200,30 +263,69 @@ public class InvUITransactionTableRow implements ITableRow {
 			    break;
 			    
 			case 2 :  //Amount
+			    formatted = value.toString(); 	
+			 	if(formatted.equals("")){
+			 	    formatted="0";
+			 	}
+			 	if(transType==0){
+				    invTrans.setTransactionsAmountIn(Long.parseLong(formatted));
+				}
+				else{
+				    invTrans.setTransactionsTotalAmountOut(Long.parseLong(formatted));
+				 }
 				break;
 			    
 			case 3 :  //Unit
+			    unit_name = value.toString();
+			    break;
+			  
+			case 4 :  //Base Unit Amount
+				break;
+				
+			case 5 :  //Base Unit
 			    break;
 			    
-			case 4 :  //Unit Price
+			case 6 :  //Unit Price
+			    formatted = value.toString(); 	
+			 	formatted = formatted.replaceAll("\\.","");
+			 	formatted = formatted.replaceAll(",",".");
+			 	if(formatted.equals("")){
+			 	    formatted="0";
+			 	}
 				break;
 				
-			case 5 : // total Price 
+			case 7 : // total Price 
 				break;
 			
-			case 6 : // VAT percent			    
+			case 8 : // VAT percent		
+			    formatted = value.toString(); 	
+			 	
+			    if(formatted.equals("")){
+			 	    formatted="0";
+			 	}
+			 	
+			    invTrans.setTransactionsVat(Integer.parseInt(formatted));
+			    
 				break;
 				
-			case 7 : // VAT total 
+			case 9 : // VAT total 
 				break;
 				
-			case 8 : // Special VAT percent 
+			case 10 : // Special VAT percent 
+			    formatted = value.toString(); 	
+			 	
+			    if(formatted.equals("")){
+			 	    formatted="0";
+			 	}
+			 	
+			    invTrans.setTransactionsVatSpecial(new BigDecimal(formatted));
+			    
 				break;
 				
-			case 9 : // Specail VAT Total 
+			case 11 : // Specail VAT Total 
 				break;
 				
-			case 10 : //Cumulative Price
+			case 12 : //Cumulative Price
 			    break;
 				
 			default :
