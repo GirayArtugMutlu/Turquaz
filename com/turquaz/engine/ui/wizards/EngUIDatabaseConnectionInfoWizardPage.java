@@ -35,6 +35,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import com.turquaz.engine.Messages;
+
 public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 
 	/**
@@ -123,9 +125,9 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 	private Text txtPassword;
 
 	public EngUIDatabaseConnectionInfoWizardPage(ISelection selection) {
-		super("Database Connector");
-		setTitle("Database Wizard");
-		setDescription("This wizard creates a new database connection");
+		super("Database Connector"); //$NON-NLS-1$
+		setTitle(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.1")); //$NON-NLS-1$
+		setDescription(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.2")); //$NON-NLS-1$
 		this.selection = selection;
 		setPageComplete(true);
 
@@ -144,10 +146,10 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 		layout.verticalSpacing = 9;
 
 		Label label = new Label(container, SWT.NULL);
-		label.setText("&Server Address:");
+		label.setText("&Server Address:"); //$NON-NLS-1$
 
 		txtServerAddress = new Text(container, SWT.BORDER | SWT.SINGLE);
-		txtServerAddress.setText("localhost");
+		txtServerAddress.setText("localhost"); //$NON-NLS-1$
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		txtServerAddress.setLayoutData(gd);
 		txtServerAddress.addModifyListener(new ModifyListener() {
@@ -157,10 +159,10 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 		});
 
 		label = new Label(container, SWT.NULL);
-		label.setText("&Port:");
+		label.setText("&Port:"); //$NON-NLS-1$
 
 		txtServerPort = new Text(container, SWT.BORDER | SWT.SINGLE);
-		txtServerPort.setText("5432");
+		txtServerPort.setText("5432"); //$NON-NLS-1$
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		txtServerPort.setLayoutData(gd);
 		txtServerPort.addModifyListener(new ModifyListener() {
@@ -170,10 +172,10 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 		});
 
 		label = new Label(container, SWT.NULL);
-		label.setText("&Username:");
+		label.setText("&Username:"); //$NON-NLS-1$
 
 		txtUsername = new Text(container, SWT.BORDER | SWT.SINGLE);
-		txtUsername.setText("postgres");
+		txtUsername.setText("postgres"); //$NON-NLS-1$
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		txtUsername.setLayoutData(gd);
 		txtUsername.addModifyListener(new ModifyListener() {
@@ -184,7 +186,7 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 		});
 
 		label = new Label(container, SWT.NULL);
-		label.setText("&Password:");
+		label.setText("&Password:"); //$NON-NLS-1$
 
 		txtPassword = new Text(container, SWT.BORDER | SWT.SINGLE
 				| SWT.PASSWORD);
@@ -208,11 +210,11 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 
 	private void dialogChanged() {
 		if (txtServerAddress.getText().length() == 0) {
-			updateStatus("Server Address must be specified");
+			updateStatus(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.10")); //$NON-NLS-1$
 
 			return;
 		} else if (txtUsername.getText().length() == 0) {
-			updateStatus("Username must be specified.");
+			updateStatus(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.11")); //$NON-NLS-1$
 
 			return;
 		}

@@ -34,6 +34,7 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 
+import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
 public class EngUIDatabaseConnectionWizard extends Wizard {
     
@@ -76,27 +77,27 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 		password = org.eclipse.core.internal.preferences.Base64.encode(password.getBytes()).toString();
 		
 	   Properties props = new Properties();	
-		props.setProperty("dbType",dbType);
-		props.setProperty("dbUsername",username);
-		props.setProperty("dbPassword",password);
-		props.setProperty("serverAddress",serverAddress);
-		props.setProperty("serverPort",serverPort);
-		props.setProperty("dbName",dbName);
-		props.setProperty("remember_password","false");
+		props.setProperty("dbType",dbType); //$NON-NLS-1$
+		props.setProperty("dbUsername",username); //$NON-NLS-1$
+		props.setProperty("dbPassword",password); //$NON-NLS-1$
+		props.setProperty("serverAddress",serverAddress); //$NON-NLS-1$
+		props.setProperty("serverPort",serverPort); //$NON-NLS-1$
+		props.setProperty("dbName",dbName); //$NON-NLS-1$
+		props.setProperty("remember_password","false"); //$NON-NLS-1$ //$NON-NLS-2$
 	  
-		FileOutputStream fileout = new FileOutputStream("config/turquaz.properties");
-	    props.save(fileout,"Turquaz Properties File");
+		FileOutputStream fileout = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$
+	    props.save(fileout,"Turquaz Properties File"); //$NON-NLS-1$
 		
 		
 	  if(page4.getButtonYes().getSelection()){
 	
 			EngDALConnection conn = new EngDALConnection(dbType,username,password,
-														serverAddress+":"+serverPort,
+														serverAddress+":"+serverPort, //$NON-NLS-1$
 														dbName);
 			conn.connect();
 			
 			conn.createTables();
-			msg.setMessage("Tables Succesfully Created");
+			msg.setMessage(Messages.getString("EngUIDatabaseConnectionWizard.11")); //$NON-NLS-1$
 			msg.open();
 			
 			

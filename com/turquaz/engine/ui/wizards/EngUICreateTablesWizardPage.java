@@ -41,6 +41,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 
+import com.turquaz.engine.Messages;
+
 public class EngUICreateTablesWizardPage extends WizardPage {
 
 	 private ISelection selection;
@@ -49,9 +51,9 @@ public class EngUICreateTablesWizardPage extends WizardPage {
 	 private Button btnNo;
 	public EngUICreateTablesWizardPage(ISelection selection)
     {		
-        super("Database Connector");
-        setTitle("Database Wizard");
-        setDescription("This wizard creates a new database connection");
+        super("Database Connector"); //$NON-NLS-1$
+        setTitle(Messages.getString("EngUICreateTablesWizardPage.1")); //$NON-NLS-1$
+        setDescription(Messages.getString("EngUICreateTablesWizardPage.2")); //$NON-NLS-1$
         this.selection = selection;
         setPageComplete(true);
      
@@ -77,11 +79,11 @@ public class EngUICreateTablesWizardPage extends WizardPage {
 	        if(!checkTables()){
 
 	        Label label = new Label(container, SWT.NULL);
-	        label.setText("Could not find tables? Would you like to create?");
+	        label.setText(Messages.getString("EngUICreateTablesWizardPage.3")); //$NON-NLS-1$
 
 	        btnYes = new Button(container, SWT.RADIO | SWT.LEFT);
 	        btnYes.setSelection(true);
-			btnYes.setText("Yes, create tables now!(Recommended)");
+			btnYes.setText(Messages.getString("EngUICreateTablesWizardPage.4")); //$NON-NLS-1$
 			btnYes.addSelectionListener(new SelectionAdapter(){
 			
 				public void widgetSelected(SelectionEvent e){
@@ -94,7 +96,7 @@ public class EngUICreateTablesWizardPage extends WizardPage {
 			
 			
 			btnNo = new Button(container, SWT.RADIO | SWT.LEFT);
-		    btnNo.setText("No, I will create manually!");
+		    btnNo.setText(Messages.getString("EngUICreateTablesWizardPage.5")); //$NON-NLS-1$
 		    btnNo.addSelectionListener(new SelectionAdapter(){
 				
 					public void widgetSelected(SelectionEvent e){
@@ -108,7 +110,7 @@ public class EngUICreateTablesWizardPage extends WizardPage {
 	        }
 	        else{
 	        	   Label label = new Label(container, SWT.NULL);	
-	        	   label.setText("Congratulations! You finished database configuration..");
+	        	   label.setText(Messages.getString("EngUICreateTablesWizardPage.6")); //$NON-NLS-1$
 	        }
 	        container.layout();
 	

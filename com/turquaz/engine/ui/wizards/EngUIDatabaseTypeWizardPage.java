@@ -35,6 +35,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
+import com.turquaz.engine.Messages;
+
 
 
 /**
@@ -57,9 +59,9 @@ public class EngUIDatabaseTypeWizardPage extends WizardPage {
 	 private CCombo comboDBServer;
 	public EngUIDatabaseTypeWizardPage(ISelection selection)
 	    {
-	        super("Database Connector");
-	        setTitle("Database Wizard");
-	        setDescription("This wizard creates a new database connection\n Please select your database server. ");
+	        super(Messages.getString("EngUIDatabaseTypeWizardPage.0")); //$NON-NLS-1$
+	        setTitle(Messages.getString("EngUIDatabaseTypeWizardPage.1")); //$NON-NLS-1$
+	        setDescription(Messages.getString("EngUIDatabaseTypeWizardPage.2")); //$NON-NLS-1$
 	        this.selection = selection;
 	        setPageComplete(false);
 	    }
@@ -72,11 +74,11 @@ public class EngUIDatabaseTypeWizardPage extends WizardPage {
 	        layout.verticalSpacing = 9;
 
 	        Label label = new Label(container, SWT.NULL);
-	        label.setText("&Database Server:");
+	        label.setText("&Database Server:"); //$NON-NLS-1$
 
 	        comboDBServer = new CCombo(container, SWT.WRAP);
 
-	        comboDBServer.add("Postgresql RDBM"); 
+	        comboDBServer.add("Postgresql RDBM");  //$NON-NLS-1$
 	         
 	        GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 	        comboDBServer.setLayoutData(gd);

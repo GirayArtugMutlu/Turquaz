@@ -49,6 +49,7 @@ import org.eclipse.swt.widgets.Text;
 
 
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
 
 public class EngUIDatabaseSelectionWizardPage extends WizardPage {
@@ -57,9 +58,9 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 	 private EngDALConnection connection;
 	public EngUIDatabaseSelectionWizardPage( ISelection selection){
 
-        super("Database Connector");
-        setTitle("Database Wizard");
-        setDescription("This wizard creates a new database connection \n asdasd");
+        super(""); //$NON-NLS-1$
+        setTitle(Messages.getString("EngUIDatabaseSelectionWizardPage.1")); //$NON-NLS-1$
+        setDescription(Messages.getString("EngUIDatabaseSelectionWizardPage.2")); //$NON-NLS-1$
         this.selection = selection;
         setPageComplete(false);
      }
@@ -90,7 +91,7 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 		     layout.verticalSpacing = 9;
 
 		        Label label = new Label(container, SWT.NULL);
-		        label.setText("&Database Name:");
+		        label.setText("&Database Name:"); //$NON-NLS-1$
 
 		        comboDatabases = new CCombo(container, SWT.FLAT);
 		        comboDatabases.setEditable(false);
@@ -107,23 +108,23 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 		            });
 		        
 		        Label lbldbName = new Label(container,SWT.NULL);
-		        lbldbName.setText("&New Database");
+		        lbldbName.setText("&New Database"); //$NON-NLS-1$
 		        
 		        GridData gd2 = new GridData(GridData.FILL_HORIZONTAL);
 		       final Text txtNewDatabase = new Text(container,SWT.FLAT);
 		        txtNewDatabase.setLayoutData(gd2);
 		        
 		        Button btnCreate = new Button(container,SWT.NULL);
-		        btnCreate.setText("Create");
+		        btnCreate.setText(Messages.getString("EngUIDatabaseSelectionWizardPage.5")); //$NON-NLS-1$
 		        btnCreate.addMouseListener(new MouseAdapter()
 		        		{
 		        	       public void mouseUp(MouseEvent evt){
-		        	       if(connection !=null&&!txtNewDatabase.getText().trim().equals("")){
+		        	       if(connection !=null&&!txtNewDatabase.getText().trim().equals("")){ //$NON-NLS-1$
 		        	       	try{
 		        	       	
-		        	       	connection.execQuery("create database "+txtNewDatabase.getText().trim()+" template template0");
+		        	       	connection.execQuery("create database "+txtNewDatabase.getText().trim()+" template template0"); //$NON-NLS-1$ //$NON-NLS-2$
 		        	       	MessageBox msg = new MessageBox(getShell(),SWT.NULL);
-	        	       		msg.setMessage("New Database Succesfully Created!");
+	        	       		msg.setMessage(Messages.getString("EngUIDatabaseSelectionWizardPage.9")); //$NON-NLS-1$
 	        	       		msg.open();
 	        	       		fillCombo();
 		        	       	}
@@ -151,8 +152,8 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 		  }
 			
 			else{
-			setErrorMessage("Can not establish database connection .Check connection information!\n" +
-					"and be sure that your database server is running!");
+			setErrorMessage(Messages.getString("EngUIDatabaseSelectionWizardPage.10") + //$NON-NLS-1$
+					Messages.getString("EngUIDatabaseSelectionWizardPage.11")); //$NON-NLS-1$
 				
 			}
 	}
@@ -161,9 +162,9 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 		comboDatabases.removeAll();
 		if(connection!=null){
 			try{
-			ResultSet rs = connection.getResultSet("SELECT d.datname as name FROM pg_database d where d.datistemplate ='false'");
+			ResultSet rs = connection.getResultSet("SELECT d.datname as name FROM pg_database d where d.datistemplate ='false'"); //$NON-NLS-1$
 			while(rs.next()){
-			comboDatabases.add(rs.getString("name"));		
+			comboDatabases.add(rs.getString("name"));		 //$NON-NLS-1$
 			}
 			rs.close();
 			
@@ -183,9 +184,9 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 	   connection = new EngDALConnection(page1.getComboDBServer().getText().trim(),
 	   									 page2.getTxtUsername().getText().trim(),
 										 page2.getTxtPassword().getText(),
-										 page2.getTxtServerAddress().getText().trim()+":"+
+										 page2.getTxtServerAddress().getText().trim()+":"+ //$NON-NLS-1$
 										 page2.getTxtServerPort().getText().trim(),
-										 "template1");
+										 "template1"); //$NON-NLS-1$
 	   
 	   	try{
 	   	    connection.connect();
@@ -208,7 +209,7 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 	{
 	        if (comboDatabases.getText().length() == 0)
 	        {
-	            updateStatus("Username must be specified.");
+	            updateStatus(Messages.getString("EngUIDatabaseSelectionWizardPage.0")); //$NON-NLS-1$
 
 	            return;
 	        }
