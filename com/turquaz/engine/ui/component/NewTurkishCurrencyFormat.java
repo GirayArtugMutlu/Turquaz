@@ -29,7 +29,7 @@ public class NewTurkishCurrencyFormat extends DecimalFormat {
 	
 	}
 	
-	private String format(BigDecimal dc){
+	public String format(BigDecimal dc){
 		
 		String formatted = super.format(dc);
 		formatted +=" "+this.getDecimalFormatSymbols().getCurrencySymbol();

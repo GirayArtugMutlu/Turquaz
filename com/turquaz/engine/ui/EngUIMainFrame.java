@@ -107,7 +107,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		//handle the obtaining and disposing of resources
 		SWTResourceManager.registerResourceUser(this);
 	}
-
+  
 	private Tree treeCurrent;
 	private Label label1;
 	private Composite composite1;

@@ -270,10 +270,6 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		}
 		
 		
-		
-		System.out.println(NewTurkishCurrencyFormat.formatBD(new BigDecimal("134141134134134.13")));
-		
-		
 		EngDALSessionFactory.init();
 		
 		
