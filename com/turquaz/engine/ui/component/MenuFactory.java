@@ -720,7 +720,7 @@ public class MenuFactory
 		Menu menu = new Menu(tabfld.getShell(),SWT.POP_UP);
 		
 		MenuItem mit = new MenuItem(menu,SWT.PUSH);
-		mit.setText("Kapat");
+		mit.setText(Messages.getString("MenuFactory.78")); //$NON-NLS-1$
 		mit.addSelectionListener(new SelectionAdapter(){
 			
 			public void widgetSelected(SelectionEvent arg0)
@@ -741,7 +741,7 @@ public class MenuFactory
 		
 		
 		 mit = new MenuItem(menu,SWT.PUSH);
-		mit.setText("Hepsini Kapat");
+		mit.setText(Messages.getString("MenuFactory.79")); //$NON-NLS-1$
 		mit.addSelectionListener(new SelectionAdapter(){
 			
 			public void widgetSelected(SelectionEvent arg0)
@@ -759,6 +759,29 @@ public class MenuFactory
 			
 			});
 		
+		 mit = new MenuItem(menu,SWT.PUSH);
+			mit.setText(Messages.getString("MenuFactory.80")); //$NON-NLS-1$
+			mit.addSelectionListener(new SelectionAdapter(){
+				
+				public void widgetSelected(SelectionEvent arg0)
+				{
+					int index = tabfld.getSelectionIndex();
+					CTabItem items[] =tabfld.getItems();
+				    for(int i=0;i<items.length;i++)
+				    {
+				    	if(i!=index)
+				    	{
+				    	EngUIMainFrame.tabfldMainItemClosed(items[i]);
+				    	items[i].dispose();
+				    	}
+				    	
+				    }
+				    EngUIMainFrame.arrangeIcons();
+				
+				}
+				
+				});
+			
 		tabfld.setMenu(menu);
 		
 		
