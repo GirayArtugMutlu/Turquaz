@@ -115,40 +115,45 @@ public final class TreeFactory {
 	
 	public static Tree createInventoryTree(Tree tree){
 		
-		TreeItem root = new TreeItem(tree,SWT.NULL);
+		TreeItem cardsRoot = new TreeItem(tree,SWT.NULL);
 		
-		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.0"));  //$NON-NLS-1$
+		cardsRoot.setText("Kartlar");  
 		
 		TreeItem item;
 		
 		if(EngBLPermissions.getPermission(InvUICardAdd.class.getName())>0){
-	    item = new TreeItem(root,SWT.NULL);
+	    item = new TreeItem(cardsRoot,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.1"));  //$NON-NLS-1$
 		item.setData(InvUICardAdd.class.getName());
 		
 		}
-			
-		if(EngBLPermissions.getPermission(InvUICardSearch.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.3"));  //$NON-NLS-1$
-		item.setData(InvUICardSearch.class.getName());
-		}
-		
+
 		if(EngBLPermissions.getPermission(InvUIWarehouseAdd.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
+		item = new TreeItem(cardsRoot,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.4"));  //$NON-NLS-1$
 		item.setData(InvUIWarehouseAdd.class.getName());
 		}
-		if(EngBLPermissions.getPermission(InvUIWarehouseSearch.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.5"));  //$NON-NLS-1$
-		item.setData(InvUIWarehouseSearch.class.getName());
+		
+		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
+		searchRoot.setText("Arama");  
+			
+		if(EngBLPermissions.getPermission(InvUICardSearch.class.getName())>0){
+		item = new TreeItem(searchRoot,SWT.NULL);
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.3"));  //$NON-NLS-1$
+		item.setData(InvUICardSearch.class.getName());
 		}
+			
 		if(EngBLPermissions.getPermission(InvUITransactionSearch.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
+		item = new TreeItem(searchRoot,SWT.NULL);
 		item.setText(Messages.getString("TreeFactory.35"));  //$NON-NLS-1$
 		item.setData(InvUITransactionSearch.class.getName());
 		}
+		
+		if(EngBLPermissions.getPermission(InvUIWarehouseSearch.class.getName())>0){
+			item = new TreeItem(searchRoot,SWT.NULL);
+			item.setText(com.turquaz.engine.Messages.getString("TreeFactory.5"));  //$NON-NLS-1$
+			item.setData(InvUIWarehouseSearch.class.getName());
+			}
 		
 		TreeItem reports = new TreeItem(tree,SWT.NULL);
 		reports.setText(Messages.getString("TreeFactory.67")); //$NON-NLS-1$
@@ -177,281 +182,344 @@ public final class TreeFactory {
 			item.setData(InvUITransactionsTotalReport.class.getName());
 			}
 		
+		TreeItem adminRoot = new TreeItem(tree,SWT.NULL);
+
+		adminRoot.setText("Ayarlar");  
 		
 		reports.setExpanded(true);
-		root.setExpanded(true);
+		cardsRoot.setExpanded(true);
+		searchRoot.setExpanded(true);
 		return tree;
 	}
 	
 	public static Tree createBankTree(Tree tree){
-		TreeItem root = new TreeItem(tree,SWT.NULL);
 		
-		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.6")); //$NON-NLS-1$
+		TreeItem accountsRoot = new TreeItem(tree,SWT.NULL);
+		accountsRoot.setText("Hesaplar"); 
 		
 		TreeItem item;
 		if(EngBLPermissions.getPermission(BankUIBankCardAdd.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
+		item = new TreeItem(accountsRoot,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.7")); //$NON-NLS-1$
 		item.setData(BankUIBankCardAdd.class.getName());
 		}
 		
+		TreeItem transactionsRoot = new TreeItem(tree,SWT.NULL);
+		transactionsRoot.setText("Ýþlemler"); 
 		
-		TreeItem bankTrans = new TreeItem(root,SWT.NULL);
-		bankTrans.setText(Messages.getString("TreeFactory.61")); //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(BankUIMoneyTransferIn.class.getName())>0){
-			item = new TreeItem(bankTrans,SWT.NULL);
+			item = new TreeItem(transactionsRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.62")); //$NON-NLS-1$
 			item.setData(BankUIMoneyTransferIn.class.getName());
 		}
 		
-		if(EngBLPermissions.getPermission(BankUIBankCardSearch.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);
-			item.setText(com.turquaz.engine.Messages.getString("TreeFactory.8")); //$NON-NLS-1$
-			item.setData(BankUIBankCardSearch.class.getName());
-			}
-		
 		if(EngBLPermissions.getPermission(BankUIMoneyTransferOut.class.getName())>0){
-			item = new TreeItem(bankTrans,SWT.NULL);
+			item = new TreeItem(transactionsRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.63")); //$NON-NLS-1$
 			item.setData(BankUIMoneyTransferOut.class.getName());
 		}
 		
 		if(EngBLPermissions.getPermission(BankUICashFromBank.class.getName())>0){
-			item = new TreeItem(bankTrans,SWT.NULL);
+			item = new TreeItem(transactionsRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.68"));  //$NON-NLS-1$
 			item.setData(BankUICashFromBank.class.getName());
 		}
 		if(EngBLPermissions.getPermission(BankUICashToBank.class.getName())>0){
-			item = new TreeItem(bankTrans,SWT.NULL);
+			item = new TreeItem(transactionsRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.69"));  //$NON-NLS-1$
 			item.setData(BankUICashToBank.class.getName());
 		}
 		if(EngBLPermissions.getPermission(BankUIOtherTransIn.class.getName())>0){
-			item = new TreeItem(bankTrans,SWT.NULL);
+			item = new TreeItem(transactionsRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.71"));  //$NON-NLS-1$
 			item.setData(BankUIOtherTransIn.class.getName());
 		}
 		if(EngBLPermissions.getPermission(BankUIOtherTransOut.class.getName())>0){
-			item = new TreeItem(bankTrans,SWT.NULL);
+			item = new TreeItem(transactionsRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.72"));  //$NON-NLS-1$
 			item.setData(BankUIOtherTransOut.class.getName());
 		}
 		if(EngBLPermissions.getPermission(BankUITransferBetweenAccounts.class.getName())>0){
-			item = new TreeItem(bankTrans,SWT.NULL);
+			item = new TreeItem(transactionsRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.76"));   //$NON-NLS-1$
 			item.setData(BankUITransferBetweenAccounts.class.getName());
 		}
-		if(EngBLPermissions.getPermission(BankUIInitialTransaction.class.getName())>0){
-			item = new TreeItem(bankTrans,SWT.NULL);
-			item.setText(Messages.getString("TreeFactory.74"));   //$NON-NLS-1$
-			item.setData(BankUIInitialTransaction.class.getName());
+		
+		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
+		searchRoot.setText("Arama"); 
+		
+		if(EngBLPermissions.getPermission(BankUIBankCardSearch.class.getName())>0){
+			item = new TreeItem(searchRoot,SWT.NULL);
+			item.setText(com.turquaz.engine.Messages.getString("TreeFactory.8")); //$NON-NLS-1$
+			item.setData(BankUIBankCardSearch.class.getName());
+			}
+		
+		if(EngBLPermissions.getPermission(BankUISearchMoneyTransaction.class.getName())>0){
+			item = new TreeItem(searchRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.60")); //$NON-NLS-1$
+			item.setData(BankUISearchMoneyTransaction.class.getName());
 		}
 		
-		bankTrans.setExpanded(true);
+		TreeItem reportsRoot = new TreeItem(tree,SWT.NULL);
+		reportsRoot.setText("Raporlar"); 
 		
-		
-			
-			if(EngBLPermissions.getPermission(BankUISearchMoneyTransaction.class.getName())>0){
-				item = new TreeItem(root,SWT.NULL);
-				item.setText(Messages.getString("TreeFactory.60")); //$NON-NLS-1$
-				item.setData(BankUISearchMoneyTransaction.class.getName());
-			}
-
 			if(EngBLPermissions.getPermission(BankUIBankCardAbstract.class.getName())>0){
-				item = new TreeItem(root,SWT.NULL);
+				item = new TreeItem(reportsRoot,SWT.NULL);
 				item.setText(Messages.getString("TreeFactory.64"));  //$NON-NLS-1$
 				item.setData(BankUIBankCardAbstract.class.getName());
 			}
 		
+			TreeItem confRoot = new TreeItem(tree,SWT.NULL);
+			confRoot.setText("Ayarlar"); 
+			
+			if(EngBLPermissions.getPermission(BankUIInitialTransaction.class.getName())>0){
+				item = new TreeItem(confRoot,SWT.NULL);
+				item.setText(Messages.getString("TreeFactory.74"));   //$NON-NLS-1$
+				item.setData(BankUIInitialTransaction.class.getName());
+			}
 		
+		accountsRoot.setExpanded(true);
+		transactionsRoot.setExpanded(true);
+		searchRoot.setExpanded(true);
+		reportsRoot.setExpanded(true);
+		confRoot.setExpanded(true);
 		
-		root.setExpanded(true);
 		return tree;
 	}
 	
 	public static Tree createAccountingTree(Tree tree){
-		TreeItem root = new TreeItem(tree,SWT.NULL);
 		
-		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.9")); //$NON-NLS-1$
+		TreeItem accountsRoot = new TreeItem(tree,SWT.NULL);
+		accountsRoot.setText("Hesaplar"); 
 		
 		TreeItem item;
+		
+		if(EngBLPermissions.getPermission(AccUIAccountingPlan.class.getName())>0){
+			item = new TreeItem(accountsRoot,SWT.NULL);
+			item.setText(com.turquaz.engine.Messages.getString("TreeFactory.11")); //$NON-NLS-1$
+			item.setData(AccUIAccountingPlan.class.getName());
+			}
 		if(EngBLPermissions.getPermission(AccUIAddAccounts.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
+		item = new TreeItem(accountsRoot,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.10")); //$NON-NLS-1$
 		item.setData(AccUIAddAccounts.class.getName());
 		}
-		if(EngBLPermissions.getPermission(AccUIAccountingPlan.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.11")); //$NON-NLS-1$
-		item.setData(AccUIAccountingPlan.class.getName());
-		}
+		
+		TreeItem voucherRoot = new TreeItem(tree,SWT.NULL);
+		voucherRoot.setText("Fiþler"); 
+		
+		
 		if(EngBLPermissions.getPermission(AccUITransactionAdd.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
+		item = new TreeItem(voucherRoot,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.12")); //$NON-NLS-1$
 		item.setData(AccUITransactionAdd.class.getName());	
 		}
 		if(EngBLPermissions.getPermission(AccUITransactionCollect.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
+		item = new TreeItem(voucherRoot,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.13")); //$NON-NLS-1$
 		item.setData(AccUITransactionCollect.class.getName());	
 		}
 		
 		if(EngBLPermissions.getPermission(AccUITransactionPayment.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
+		item = new TreeItem(voucherRoot,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.14")); //$NON-NLS-1$
 		item.setData(AccUITransactionPayment.class.getName());	
 		}
 		
-		if(EngBLPermissions.getPermission(AccUIInitialTransaction.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);
-			item.setText(Messages.getString("TreeFactory.40"));  //$NON-NLS-1$
-			item.setData(AccUIInitialTransaction.class.getName());
-		}
+		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
+		searchRoot.setText("Arama");
 		
 		if(EngBLPermissions.getPermission(AccUITransactionSearch.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.15")); //$NON-NLS-1$
-		item.setData(AccUITransactionSearch.class.getName());
-		}
-		
-		if(EngBLPermissions.getPermission(AccUITransactionSearch.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);
-			item.setText(Messages.getString("TreeFactory.41")); //$NON-NLS-1$
-			item.setData(AccUISaveJournal.class.getName());
-		}
-		
-		
-		TreeItem books = new TreeItem(tree,SWT.NULL);
-		
-		books.setText(Messages.getString("TreeFactory.32")); //$NON-NLS-1$
-		
-		if(EngBLPermissions.getPermission(AccUIAccountingJournal.class.getName())>0){
-		item = new TreeItem(books,SWT.NULL);
-		item.setText(Messages.getString("TreeFactory.28")); //$NON-NLS-1$
-		item.setData(AccUIAccountingJournal.class.getName());
-		}
-		if(EngBLPermissions.getPermission(AccUISubsidiaryLedger.class.getName())>0){
-			item = new TreeItem(books,SWT.NULL);
-			item.setText(Messages.getString("TreeFactory.43"));  //$NON-NLS-1$
-			item.setData(AccUISubsidiaryLedger.class.getName());
+			item = new TreeItem(searchRoot,SWT.NULL);
+			item.setText(com.turquaz.engine.Messages.getString("TreeFactory.15")); //$NON-NLS-1$
+			item.setData(AccUITransactionSearch.class.getName());
 			}
 		
-		if(EngBLPermissions.getPermission(AccUIAccountingGeneralLedger.class.getName())>0){
-		item = new TreeItem(books,SWT.NULL);
-		item.setText(Messages.getString("TreeFactory.33")); //$NON-NLS-1$
-		item.setData(AccUIAccountingGeneralLedger.class.getName());
-		}
+		TreeItem booksRoot = new TreeItem(tree,SWT.NULL);
+		booksRoot.setText("Defterler");
 		
-		TreeItem actionReports = new TreeItem(tree,SWT.NULL);
-		actionReports.setText(Messages.getString("TreeFactory.39"));  //$NON-NLS-1$
+		if(EngBLPermissions.getPermission(AccUIAccountingJournal.class.getName())>0){
+			item = new TreeItem(booksRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.28")); //$NON-NLS-1$
+			item.setData(AccUIAccountingJournal.class.getName());
+			}
+			if(EngBLPermissions.getPermission(AccUISubsidiaryLedger.class.getName())>0){
+				item = new TreeItem(booksRoot,SWT.NULL);
+				item.setText(Messages.getString("TreeFactory.43"));  //$NON-NLS-1$
+				item.setData(AccUISubsidiaryLedger.class.getName());
+				}
+			
+			if(EngBLPermissions.getPermission(AccUIAccountingGeneralLedger.class.getName())>0){
+			item = new TreeItem(booksRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.33")); //$NON-NLS-1$
+			item.setData(AccUIAccountingGeneralLedger.class.getName());
+			}
+			
+		TreeItem reportsRoot = new TreeItem(tree,SWT.NULL);
+		reportsRoot.setText("Durum Raporlarý");
 		
 		if(EngBLPermissions.getPermission(AccUIAccountingAdvancedBalance.class.getName())>0){
-			item = new TreeItem(actionReports,SWT.NULL);
+			item = new TreeItem(reportsRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.29")); //$NON-NLS-1$
 			item.setData(AccUIAccountingAdvancedBalance.class.getName());
 		}
 		if(EngBLPermissions.getPermission(AccUIAccountingMonthlyBalance.class.getName())>0){
-			item = new TreeItem(actionReports,SWT.NULL);
+			item = new TreeItem(reportsRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.70"));  //$NON-NLS-1$
 			item.setData(AccUIAccountingMonthlyBalance.class.getName());
 		}
 		
-		books.setExpanded(true);
-		root.setExpanded(true);
-		actionReports.setExpanded(true);
+		TreeItem settingsRoot = new TreeItem(tree,SWT.NULL);
+		settingsRoot.setText("Ayarlar");
+		
+		if(EngBLPermissions.getPermission(AccUIInitialTransaction.class.getName())>0){
+			item = new TreeItem(settingsRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.40"));  //$NON-NLS-1$
+			item.setData(AccUIInitialTransaction.class.getName());
+		}
+		if(EngBLPermissions.getPermission(AccUITransactionSearch.class.getName())>0){
+			item = new TreeItem(settingsRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.41")); //$NON-NLS-1$
+			item.setData(AccUISaveJournal.class.getName());
+		}
+		
+		accountsRoot.setExpanded(true);
+		voucherRoot.setExpanded(true);
+		searchRoot.setExpanded(true);
+		booksRoot.setExpanded(true);
+		reportsRoot.setExpanded(true);
+		settingsRoot.setExpanded(true);
+		
 		return tree;
 	}
 	public static Tree createCurrentTree(Tree tree){
-		TreeItem root = new TreeItem(tree,SWT.NULL);
 		
-		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.16")); //$NON-NLS-1$
+		TreeItem accountsRoot = new TreeItem(tree,SWT.NULL);
+		accountsRoot.setText("Hesaplar"); 
 		
 		TreeItem item;
 		if(EngBLPermissions.getPermission(CurUICurrentCardAdd.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
+		item = new TreeItem(accountsRoot,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.17")); //$NON-NLS-1$
 		item.setData(CurUICurrentCardAdd.class.getName());
 		}
-		if(EngBLPermissions.getPermission(CurUICurrentCardSearch.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.18")); //$NON-NLS-1$
-		item.setData(CurUICurrentCardSearch.class.getName());
+		
+		TreeItem transactionsRoot = new TreeItem(tree,SWT.NULL);
+		transactionsRoot.setText("Ýþlemler"); 
+		
+		if(EngBLPermissions.getPermission(CurUICurrentCardVoucher.class.getName())>0){
+			item = new TreeItem(transactionsRoot,SWT.NULL);			
+			item.setText(Messages.getString("TreeFactory.58")); //$NON-NLS-1$
+			item.setData(CurUICurrentCardVoucher.class.getName());		
 		}
+		
+		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
+		searchRoot.setText("Arama"); 
+		
+		if(EngBLPermissions.getPermission(CurUICurrentCardSearch.class.getName())>0){
+			item = new TreeItem(searchRoot,SWT.NULL);
+			item.setText(com.turquaz.engine.Messages.getString("TreeFactory.18")); //$NON-NLS-1$
+			item.setData(CurUICurrentCardSearch.class.getName());
+			}
+		
+		if(EngBLPermissions.getPermission(CurUITransactionSearch.class.getName())>0){
+			item = new TreeItem(searchRoot,SWT.NULL);
+			item.setText(com.turquaz.engine.Messages.getString("TreeFactory.20")); //$NON-NLS-1$
+			item.setData(CurUITransactionSearch.class.getName());
+			}
+		
+		TreeItem reportsRoot = new TreeItem(tree,SWT.NULL);
+		reportsRoot.setText("Raporlar"); 
+		
 		if(EngBLPermissions.getPermission(CurUICurrentCardAbstract.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);
+			item = new TreeItem(reportsRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.48")); //$NON-NLS-1$
 			item.setData(CurUICurrentCardAbstract.class.getName());
 		}
-	/*	if(EngBLPermissions.getPermission(CurUITransactionAdd.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.19")); //$NON-NLS-1$
-		item.setData(CurUITransactionAdd.class.getName());
-		}
-   */
-		if(EngBLPermissions.getPermission(CurUITransactionSearch.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.20")); //$NON-NLS-1$
-		item.setData(CurUITransactionSearch.class.getName());
-		}
+
+		TreeItem settingsRoot = new TreeItem(tree,SWT.NULL);
+		settingsRoot.setText("Ayarlar"); 
 		
 		if(EngBLPermissions.getPermission(CurUIInitialTransaction.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);			
+			item = new TreeItem(settingsRoot,SWT.NULL);			
 			item.setText(Messages.getString("TreeFactory.55"));  //$NON-NLS-1$			
 			item.setData(CurUIInitialTransaction.class.getName());		
 		}
 		
-		if(EngBLPermissions.getPermission(CurUICurrentCardVoucher.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);			
-			item.setText(Messages.getString("TreeFactory.58")); //$NON-NLS-1$
-			item.setData(CurUICurrentCardVoucher.class.getName());		
-		}
-		root.setExpanded(true);
+
+		accountsRoot.setExpanded(true);
+		transactionsRoot.setExpanded(true);
+		searchRoot.setExpanded(true);
+		reportsRoot.setExpanded(true);
+		settingsRoot.setExpanded(true);
+		
 		return tree;
 	}
 	public static Tree createAdminTree(Tree tree){
-		TreeItem root = new TreeItem(tree,SWT.NULL);
 		
-		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.21")); //$NON-NLS-1$
+		
+		TreeItem usersRoot = new TreeItem(tree,SWT.NULL);
+		usersRoot.setText("Kullanýcý/Gruplar"); 
 		
 		TreeItem item;
 		
 		if(EngBLPermissions.getPermission(AdmUIUserAdd.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
+		item = new TreeItem(usersRoot,SWT.NULL);
 		item.setText(Messages.getString("TreeFactory.23")); //$NON-NLS-1$
 		item.setData(AdmUIUserAdd.class.getName());
 		}
-		if(EngBLPermissions.getPermission(AdmUIUsers.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("TreeFactory.24")); //$NON-NLS-1$
-		item.setData(AdmUIUsers.class.getName());
-		}
 		if(EngBLPermissions.getPermission(AdmUIGroupAdd.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
+		item = new TreeItem(usersRoot,SWT.NULL);
 		item.setText(Messages.getString("TreeFactory.25")); //$NON-NLS-1$
 		item.setData(AdmUIGroupAdd.class.getName());
 		}
-		if(EngBLPermissions.getPermission(AdmUIGroups.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("TreeFactory.26")); //$NON-NLS-1$
-		item.setData(AdmUIGroups.class.getName());
-		}
+		
+		TreeItem permissionsRoot = new TreeItem(tree,SWT.NULL);
+		permissionsRoot.setText("Ýzinler"); 
+		
 		if(EngBLPermissions.getPermission(AdmUIUserPermissions.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("TreeFactory.27")); //$NON-NLS-1$
-		item.setData(AdmUIUserPermissions.class.getName());
-		}
+			item = new TreeItem(permissionsRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.27")); //$NON-NLS-1$
+			item.setData(AdmUIUserPermissions.class.getName());
+			}
+		
 		if(EngBLPermissions.getPermission(AdmUIGroupPermissions.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("TreeFactory.22")); //$NON-NLS-1$
-		item.setData(AdmUIGroupPermissions.class.getName());
-		}
+			item = new TreeItem(permissionsRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.22")); //$NON-NLS-1$
+			item.setData(AdmUIGroupPermissions.class.getName());
+			}
+		
+		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
+		searchRoot.setText("Arama");
+		
+
+		if(EngBLPermissions.getPermission(AdmUIUsers.class.getName())>0){
+			item = new TreeItem(searchRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.24")); //$NON-NLS-1$
+			item.setData(AdmUIUsers.class.getName());
+			}
+		
+		if(EngBLPermissions.getPermission(AdmUIGroups.class.getName())>0){
+			item = new TreeItem(searchRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.26")); //$NON-NLS-1$
+			item.setData(AdmUIGroups.class.getName());
+			}
+		
+		TreeItem settingsRoot = new TreeItem(tree,SWT.NULL);
+		settingsRoot.setText("Ayarlar");
+		
 		if(EngBLPermissions.getPermission(AdmUICompanyInfo.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);
+			item = new TreeItem(settingsRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.54"));  //$NON-NLS-1$
 			item.setData(AdmUICompanyInfo.class.getName());
 			}
-		root.setExpanded(true);
+		
+		usersRoot.setExpanded(true);
+		permissionsRoot.setExpanded(true);
+		searchRoot.setExpanded(true);
+		settingsRoot.setExpanded(true);
+		
 		return tree;
 	}
 	public static Tree createConsignmetTree(Tree tree){
@@ -475,111 +543,113 @@ public final class TreeFactory {
 		
 	}
 	public static Tree createBillTree(Tree tree){
-		TreeItem root = new TreeItem(tree,SWT.NULL);
 		
-		root.setText(Messages.getString("TreeFactory.36")); //$NON-NLS-1$
+		TreeItem invoiceRoot = new TreeItem(tree,SWT.NULL);
+		invoiceRoot.setText("Faturalar");
 		
 		TreeItem item;
 		
-		if(EngBLPermissions.getPermission(BillUIBillFromConsignment.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("TreeFactory.37")); //$NON-NLS-1$
-		item.setData(BillUIBillFromConsignment.class.getName());
-		}
-	    if(EngBLPermissions.getPermission(BillUIBillSearch.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("TreeFactory.2")); //$NON-NLS-1$
-		item.setData(BillUIBillSearch.class.getName());
-	    }
-	    /*
-		if(EngBLPermissions.getPermission(BillUIAddBill.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("TreeFactory.38")); //$NON-NLS-1$
-		item.setData(BillUIAddBill.class.getName());
-		} */
 		if(EngBLPermissions.getPermission(BillUIAddBuyBill.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);
+			item = new TreeItem(invoiceRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.38")); //$NON-NLS-1$
 			item.setData(BillUIAddBuyBill.class.getName());
 			}
 		if(EngBLPermissions.getPermission(BillUIAddSellBill.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);
+			item = new TreeItem(invoiceRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.42"));  //$NON-NLS-1$
 			item.setData(BillUIAddSellBill.class.getName());
 			}
-		TreeItem reports=new TreeItem(root,SWT.NULL);
-		reports.setText(Messages.getString("TreeFactory.77")); //$NON-NLS-1$
+		if(EngBLPermissions.getPermission(BillUIBillFromConsignment.class.getName())>0){
+		item = new TreeItem(invoiceRoot,SWT.NULL);
+		item.setText(Messages.getString("TreeFactory.37")); //$NON-NLS-1$
+		item.setData(BillUIBillFromConsignment.class.getName());
+		}
+		
+		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
+		searchRoot.setText("Arama");
+		
+	    if(EngBLPermissions.getPermission(BillUIBillSearch.class.getName())>0){
+		item = new TreeItem(searchRoot,SWT.NULL);
+		item.setText(Messages.getString("TreeFactory.2")); //$NON-NLS-1$
+		item.setData(BillUIBillSearch.class.getName());
+	    }
+
+		TreeItem reportsRoot=new TreeItem(tree,SWT.NULL);
+		reportsRoot.setText(Messages.getString("TreeFactory.77")); //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(BillUIBillReport.class.getName())>0){
-			item = new TreeItem(reports,SWT.NULL);
+			item = new TreeItem(reportsRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.78")); //$NON-NLS-1$
 			item.setData(BillUIBillReport.class.getName());
 			}
 		
-		root.setExpanded(true);
-		reports.setExpanded(true);
+		invoiceRoot.setExpanded(true);
+		searchRoot.setExpanded(true);
+		reportsRoot.setExpanded(true);
+		
 		return tree;
 		
 	}
 	
 	public static Tree createCashTree(Tree tree){
-	    TreeItem root = new TreeItem(tree,SWT.NULL);
 		
-		root.setText(Messages.getString("TreeFactory.45"));  //$NON-NLS-1$
+	    TreeItem accountsRoot = new TreeItem(tree,SWT.NULL);
+		accountsRoot.setText("Hesaplar");  
 		
 		TreeItem item;
 		if(EngBLPermissions.getPermission(CashUICashCardAdd.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);
+			item = new TreeItem(accountsRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.46"));  //$NON-NLS-1$
 			item.setData(CashUICashCardAdd.class.getName());
 		}
+		
+	    TreeItem transRoot = new TreeItem(tree,SWT.NULL);
+		transRoot.setText("Ýþlemler"); 
+		
+		   if(EngBLPermissions.getPermission(CashUICashCollectTransactionAdd.class.getName())>0){
+			item = new TreeItem(transRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.51"));  //$NON-NLS-1$
+			item.setData(CashUICashCollectTransactionAdd.class.getName());
+	   }
+		   if(EngBLPermissions.getPermission(CashUICashPaymentTransactionAdd.class.getName())>0){
+			item = new TreeItem(transRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.53"));  //$NON-NLS-1$
+			item.setData(CashUICashPaymentTransactionAdd.class.getName());
+	   }
+		   
+		    TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
+			searchRoot.setText("Arama"); 
+			
 		if(EngBLPermissions.getPermission(CashUICashCardSearch.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);
+			item = new TreeItem(searchRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.47"));  //$NON-NLS-1$
 			item.setData(CashUICashCardSearch.class.getName());
 		}
 		
 		if(EngBLPermissions.getPermission(CashUICashTransactionSearch.class.getName())>0){
-		
-		    item = new TreeItem(root,SWT.NULL);
-			
+		    item = new TreeItem(searchRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.49")); //$NON-NLS-1$
-			
 			item.setData(CashUICashTransactionSearch.class.getName());
-		
 		}
+		
+	    TreeItem reportsRoot = new TreeItem(tree,SWT.NULL);
+		reportsRoot.setText("Raporlar"); 
+		
 		if(EngBLPermissions.getPermission(CashUICashCardAbstract.class.getName())>0){
 			
-			    item = new TreeItem(root,SWT.NULL);
-				
+			    item = new TreeItem(reportsRoot,SWT.NULL);
 				item.setText(Messages.getString("TreeFactory.59"));  //$NON-NLS-1$
-				
 				item.setData(CashUICashCardAbstract.class.getName());
-			
 			}
-		root.setExpanded(true);
+	
 		
-		root = new TreeItem(tree,SWT.NULL);
-		root.setText(Messages.getString("TreeFactory.50")); //$NON-NLS-1$
-		
-		
-	   if(EngBLPermissions.getPermission(CashUICashCollectTransactionAdd.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);
-			item.setText(Messages.getString("TreeFactory.51"));  //$NON-NLS-1$
-			item.setData(CashUICashCollectTransactionAdd.class.getName());
-	   }
-	    root.setExpanded(true);
-	   
-	    root = new TreeItem(tree,SWT.NULL);
-		root.setText(Messages.getString("TreeFactory.52")); //$NON-NLS-1$
 
-		   if(EngBLPermissions.getPermission(CashUICashPaymentTransactionAdd.class.getName())>0){
-				item = new TreeItem(root,SWT.NULL);
-				item.setText(Messages.getString("TreeFactory.53"));  //$NON-NLS-1$
-				item.setData(CashUICashPaymentTransactionAdd.class.getName());
-		   }
 		
-		root.setExpanded(true);
+		accountsRoot.setExpanded(true);
+		transRoot.setExpanded(true);
+		searchRoot.setExpanded(true);
+		reportsRoot.setExpanded(true);
+		
 		return tree;
 	    
 	}
