@@ -71,8 +71,8 @@
      <mapping resource="com/turquaz/engine/dal/TurqCashTransactionRow.hbm.xml"/>  
    <mapping resource="com/turquaz/engine/dal/TurqViewChequeStatus.hbm.xml"/> 
  <mapping resource="com/turquaz/engine/dal/TurqChequeRollAccountingAccount.hbm.xml"/> 
- <mapping resource="com/turquaz/engine/dal/TurqAccountingClass.hbm.xml"/> 
-     <mapping resource="com/turquaz/engine/dal/TurqAccountingType.hbm.xml"/> 
+ <mapping resource="com/turquaz/engine/dal/TurqAccountingAccountClass.hbm.xml"/> 
+     <mapping resource="com/turquaz/engine/dal/TurqAccountingAccountType.hbm.xml"/> 
     </session-factory>
     
 
