@@ -57,11 +57,14 @@ public class TurqBill implements Serializable {
     /** persistent field */
     private java.math.BigDecimal billsSpecialVatAmount;
 
-    /** nullable persistent field */
+    /** persistent field */
     private boolean isOpen;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqCompany turqCompany;
+
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqConsignment turqConsignment;
@@ -79,7 +82,7 @@ public class TurqBill implements Serializable {
     private Set turqOrders;
 
     /** full constructor */
-    public TurqBill(int billsType, java.lang.String billDocumentNo, java.util.Date billsDate, java.lang.String billsDefinition, int billsDiscountRate, java.math.BigDecimal billsDiscountAmount, java.math.BigDecimal billsCharges, java.math.BigDecimal billsVatAmount, java.math.BigDecimal billsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, boolean billsPrinted, java.math.BigDecimal billsSpecialVatAmount, boolean isOpen, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqConsignment turqConsignment, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqBillInGroups, Set turqConsignments, Set turqOrders) {
+    public TurqBill(int billsType, java.lang.String billDocumentNo, java.util.Date billsDate, java.lang.String billsDefinition, int billsDiscountRate, java.math.BigDecimal billsDiscountAmount, java.math.BigDecimal billsCharges, java.math.BigDecimal billsVatAmount, java.math.BigDecimal billsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, boolean billsPrinted, java.math.BigDecimal billsSpecialVatAmount, boolean isOpen, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqConsignment turqConsignment, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqBillInGroups, Set turqConsignments, Set turqOrders) {
         this.billsType = billsType;
         this.billDocumentNo = billDocumentNo;
         this.billsDate = billsDate;
@@ -97,6 +100,7 @@ public class TurqBill implements Serializable {
         this.billsSpecialVatAmount = billsSpecialVatAmount;
         this.isOpen = isOpen;
         this.turqCompany = turqCompany;
+        this.turqEngineSequence = turqEngineSequence;
         this.turqConsignment = turqConsignment;
         this.turqCurrentCard = turqCurrentCard;
         this.turqBillInGroups = turqBillInGroups;
@@ -106,31 +110,6 @@ public class TurqBill implements Serializable {
 
     /** default constructor */
     public TurqBill() {
-    }
-
-    /** minimal constructor */
-    public TurqBill(int billsType, java.lang.String billDocumentNo, java.util.Date billsDate, java.lang.String billsDefinition, int billsDiscountRate, java.math.BigDecimal billsDiscountAmount, java.math.BigDecimal billsCharges, java.math.BigDecimal billsVatAmount, java.math.BigDecimal billsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, boolean billsPrinted, java.math.BigDecimal billsSpecialVatAmount, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqConsignment turqConsignment, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqBillInGroups, Set turqConsignments, Set turqOrders) {
-        this.billsType = billsType;
-        this.billDocumentNo = billDocumentNo;
-        this.billsDate = billsDate;
-        this.billsDefinition = billsDefinition;
-        this.billsDiscountRate = billsDiscountRate;
-        this.billsDiscountAmount = billsDiscountAmount;
-        this.billsCharges = billsCharges;
-        this.billsVatAmount = billsVatAmount;
-        this.billsTotalAmount = billsTotalAmount;
-        this.creationDate = creationDate;
-        this.createdBy = createdBy;
-        this.lastModified = lastModified;
-        this.updatedBy = updatedBy;
-        this.billsPrinted = billsPrinted;
-        this.billsSpecialVatAmount = billsSpecialVatAmount;
-        this.turqCompany = turqCompany;
-        this.turqConsignment = turqConsignment;
-        this.turqCurrentCard = turqCurrentCard;
-        this.turqBillInGroups = turqBillInGroups;
-        this.turqConsignments = turqConsignments;
-        this.turqOrders = turqOrders;
     }
 
     public java.lang.Integer getBillsId() {
@@ -275,6 +254,14 @@ public class TurqBill implements Serializable {
 
     public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
         this.turqCompany = turqCompany;
+    }
+
+    public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence() {
+        return this.turqEngineSequence;
+    }
+
+    public void setTurqEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence) {
+        this.turqEngineSequence = turqEngineSequence;
     }
 
     public com.turquaz.engine.dal.TurqConsignment getTurqConsignment() {

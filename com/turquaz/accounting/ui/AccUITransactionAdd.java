@@ -428,7 +428,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
 	try{
 	
-	Integer transId =blTransAdd.saveAccTransaction(dateTransactionDate.getDate(),txtDocumentNo.getText().trim(),2,1);
+	Integer transId =blTransAdd.saveAccTransaction(dateTransactionDate.getDate(),txtDocumentNo.getText().trim(),2,1,null);
 	
 	saveTransactionRows(transId);
 	msg.setMessage(Messages.getString("AccUITransactionAdd.16")); //$NON-NLS-1$

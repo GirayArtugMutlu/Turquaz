@@ -402,7 +402,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	* 2- Mahsup Fisi	
 	*
 	**/
-	Integer transId =blTransAdd.saveAccTransaction(datePickerTransactionDate.getDate(),txtDocumentNo.getText().trim(),1,1);
+	Integer transId =blTransAdd.saveAccTransaction(datePickerTransactionDate.getDate(),txtDocumentNo.getText().trim(),1,1,null);
 	
 	saveTransactionRows(transId);
 	msg.setMessage(Messages.getString("AccUITransactionPayment.18")); //$NON-NLS-1$

@@ -136,6 +136,14 @@
     >
         <column name="current_transaction_types_id" />
     </many-to-one>
+    <!-- bi-directional many-to-one association to TurqEngineSequence -->
+    <many-to-one
+        name="turqEngineSequence"
+        class="com.turquaz.engine.dal.TurqEngineSequence"
+        not-null="true"
+    >
+        <column name="engine_sequences_id" />
+    </many-to-one>
     <!-- bi-directional many-to-one association to TurqCurrentCard -->
     <many-to-one
         name="turqCurrentCard"

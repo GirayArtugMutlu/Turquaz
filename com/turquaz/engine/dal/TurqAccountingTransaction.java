@@ -40,10 +40,13 @@ public class TurqAccountingTransaction implements Serializable {
     private com.turquaz.engine.dal.TurqModule turqModule;
 
     /** persistent field */
+    private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
+
+    /** persistent field */
     private Set turqAccountingTransactionColumns;
 
     /** full constructor */
-    public TurqAccountingTransaction(java.util.Date transactionsDate, java.lang.String transactionDocumentNo, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqAccountingJournal turqAccountingJournal, com.turquaz.engine.dal.TurqAccountingTransactionType turqAccountingTransactionType, com.turquaz.engine.dal.TurqModule turqModule, Set turqAccountingTransactionColumns) {
+    public TurqAccountingTransaction(java.util.Date transactionsDate, java.lang.String transactionDocumentNo, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqAccountingJournal turqAccountingJournal, com.turquaz.engine.dal.TurqAccountingTransactionType turqAccountingTransactionType, com.turquaz.engine.dal.TurqModule turqModule, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqAccountingTransactionColumns) {
         this.transactionsDate = transactionsDate;
         this.transactionDocumentNo = transactionDocumentNo;
         this.creationDate = creationDate;
@@ -53,6 +56,7 @@ public class TurqAccountingTransaction implements Serializable {
         this.turqAccountingJournal = turqAccountingJournal;
         this.turqAccountingTransactionType = turqAccountingTransactionType;
         this.turqModule = turqModule;
+        this.turqEngineSequence = turqEngineSequence;
         this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
     }
 
@@ -138,6 +142,14 @@ public class TurqAccountingTransaction implements Serializable {
 
     public void setTurqModule(com.turquaz.engine.dal.TurqModule turqModule) {
         this.turqModule = turqModule;
+    }
+
+    public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence() {
+        return this.turqEngineSequence;
+    }
+
+    public void setTurqEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence) {
+        this.turqEngineSequence = turqEngineSequence;
     }
 
     public java.util.Set getTurqAccountingTransactionColumns() {

@@ -5,14 +5,17 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.bill.dal.BillDALAddBill;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
+import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqEngineSequence;
 
 
 /**
@@ -54,6 +57,12 @@ public class BillBLAddBill {
 			bill.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			bill.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			bill.setIsOpen(isOpen);
+			
+			TurqEngineSequence seqDocId = new TurqEngineSequence();
+			
+			dalBill.save(seqDocId);
+			
+			bill.setTurqEngineSequence(seqDocId);
 		
 			
 			dalBill.save(bill);
@@ -77,22 +86,22 @@ public class BillBLAddBill {
 	
 	//Al?? Faturas? 
 	if(bill.getBillsType()==0){
-		curBLTrans.saveCurrentTransaction(bill.getTurqCurrentCard(),bill.getBillsDate(),bill.getBillDocumentNo(),true,bill.getBillsTotalAmount(),bill.getBillsDiscountAmount(),1);
+		curBLTrans.saveCurrentTransaction(bill.getTurqCurrentCard(),bill.getBillsDate(),bill.getBillDocumentNo(),true,bill.getBillsTotalAmount(),bill.getBillsDiscountAmount(),1,bill.getTurqEngineSequence().getEngineSequencesId());
 		
 		//Kapal? Fatura
 		if(!bill.isIsOpen()){
-	 	  curBLTrans.saveCurrentTransaction(bill.getTurqCurrentCard(),bill.getBillsDate(),bill.getBillDocumentNo(),false,bill.getBillsTotalAmount(),bill.getBillsDiscountAmount(),4);
+	 	  curBLTrans.saveCurrentTransaction(bill.getTurqCurrentCard(),bill.getBillsDate(),bill.getBillDocumentNo(),false,bill.getBillsTotalAmount(),bill.getBillsDiscountAmount(),4,bill.getTurqEngineSequence().getEngineSequencesId());
 		}	  
 	 
 	}
 	
 	//Sat?? Faturas?	
 	else if(bill.getBillsType()==1){
-		curBLTrans.saveCurrentTransaction(bill.getTurqCurrentCard(),bill.getBillsDate(),bill.getBillDocumentNo(),false,bill.getBillsTotalAmount(),bill.getBillsDiscountAmount(),1);
+		curBLTrans.saveCurrentTransaction(bill.getTurqCurrentCard(),bill.getBillsDate(),bill.getBillDocumentNo(),false,bill.getBillsTotalAmount(),bill.getBillsDiscountAmount(),1,bill.getTurqEngineSequence().getEngineSequencesId());
 		
 		//Kapal? Fatura
 		if(!bill.isIsOpen()){
-	 	  curBLTrans.saveCurrentTransaction(bill.getTurqCurrentCard(),bill.getBillsDate(),bill.getBillDocumentNo(),true,bill.getBillsTotalAmount(),bill.getBillsDiscountAmount(),4);
+	 	  curBLTrans.saveCurrentTransaction(bill.getTurqCurrentCard(),bill.getBillsDate(),bill.getBillDocumentNo(),true,bill.getBillsTotalAmount(),bill.getBillsDiscountAmount(),4,bill.getTurqEngineSequence().getEngineSequencesId());
 		}	
 	}
 		
@@ -108,30 +117,34 @@ public class BillBLAddBill {
 		try	{
 		
 		
+		
 		//Al?? Faturas? 
 		if(bill.getBillsType()==0){
-		  if(bill.isIsOpen()){
-		  	
-		  
-		  }	  
-		  else{
-		  	
-		  
-		  }
+
+			AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
+			
+			Integer transID=blAcc.saveAccTransaction(bill.getBillsDate(),bill.getBillDocumentNo(),2,7,bill.getTurqEngineSequence().getEngineSequencesId());
+			
+			TurqAccountingTransactionColumn transRow = new TurqAccountingTransactionColumn();
+	
+			
+			
+			//Kapal? Fatura
+			if(!bill.isIsOpen()){
+			
+				
+		 	  
+			}
 		}
 		
 		
 		//Sat?? Faturas?	
 		else if(bill.getBillsType()==1){
-			  if(bill.isIsOpen()){
+			  if(!bill.isIsOpen()){
 			  	
 			  
 			  }
 			  
-			  else{
-			  	
-			  
-			  }
 			
 		}
 			

@@ -40,6 +40,7 @@ import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
+import com.turquaz.engine.dal.TurqEngineSequence;
 
 public class CurBLCurrentTransactionAdd {
 
@@ -51,13 +52,25 @@ public class CurBLCurrentTransactionAdd {
 	
 	
 	public void saveCurrentTransaction(TurqCurrentCard curCard,java.util.Date transDate, String documentNo,
-			boolean isCredit,BigDecimal amount, BigDecimal totalDiscount, int type)throws Exception{
+			boolean isCredit,BigDecimal amount, BigDecimal totalDiscount, int type,Integer seqDocNo)throws Exception{
 		try{
+			
+			TurqEngineSequence docSeq =new TurqEngineSequence();;	
+			
+			if(seqDocNo==null){
+				dalCurrentTrans.saveObject(docSeq);
+			}
+			else
+			{
+				docSeq.setEngineSequencesId(seqDocNo);
+			}
+			
 			TurqCurrentTransaction curTrans = new TurqCurrentTransaction();
 			curTrans.setTurqCurrentCard(curCard);
 			curTrans.setTransactionsDate(transDate);
 			curTrans.setTransactionsDocumentNo(documentNo);
 			curTrans.setTransactionsTotalDiscount(totalDiscount);
+			
 		
 			if(isCredit){
 			curTrans.setTransactionsTotalCredit(amount);
@@ -130,7 +143,10 @@ public class CurBLCurrentTransactionAdd {
          AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
         
          //4-Cari modulu id si.. 
-         Integer transId = blAcc.saveAccTransaction(transDate,documentNo,accTransactionType,4);
+         TurqEngineSequence seq= new TurqEngineSequence();
+         dalCurrentTrans.saveObject(seq);
+         
+         Integer transId = blAcc.saveAccTransaction(transDate,documentNo,accTransactionType,4,seq.getEngineSequencesId());
          
          //muhasebe fisi kalemlerini de ekleyelim.. 
          saveAccountingCashTransactionRows(curCard,isCredit,amount,account,transId);           
@@ -142,7 +158,7 @@ public class CurBLCurrentTransactionAdd {
  		curTrans.setTransactionsDate(transDate);
  		curTrans.setTransactionsDocumentNo(documentNo);
  		curTrans.setTurqCurrentCard(curCard);
- 	    
+ 	    curTrans.setTurqEngineSequence(seq);
 		
  		TurqAccountingTransaction accTrans = new TurqAccountingTransaction();
  		accTrans.setAccountingTransactionsId(transId);

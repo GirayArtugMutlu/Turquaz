@@ -109,6 +109,14 @@
             class="com.turquaz.engine.dal.TurqAccountingTransactionColumn"
         />
     </set>
+    <!-- bi-directional many-to-one association to TurqEngineSequence -->
+    <many-to-one
+        name="turqEngineSequence"
+        class="com.turquaz.engine.dal.TurqEngineSequence"
+        not-null="true"
+    >
+        <column name="engine_sequences_id" />
+    </many-to-one>
 
 </class>
 </hibernate-mapping>

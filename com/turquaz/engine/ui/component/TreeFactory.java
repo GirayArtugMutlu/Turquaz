@@ -51,6 +51,7 @@ import com.turquaz.current.ui.CurUICurrentCardSearch;
 import com.turquaz.current.ui.CurUITransactionAdd;
 import com.turquaz.current.ui.CurUITransactionSearch;
 import com.turquaz.engine.Messages;
+import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.InvUICardSearch;
 import com.turquaz.inventory.ui.InvUITransactionAdd;
@@ -63,24 +64,44 @@ public final class TreeFactory {
 	public static Tree createInventoryTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
 		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.0"));  //$NON-NLS-1$
-		TreeItem item = new TreeItem(root,SWT.NULL);
+		
+		TreeItem item;
+		
+		if(EngBLPermissions.getPermission(InvUICardAdd.class.getName())>0){
+	    item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.1"));  //$NON-NLS-1$
 		item.setData(InvUICardAdd.class.getName());
+		
+		}
+		
+		if(EngBLPermissions.getPermission(InvUITransactionAdd.class.getName())>0){
 		item = new TreeItem(root,SWT.NULL);
-		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.2"));  //$NON-NLS-1$
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.2"));  //$NON-NLS-1$		
 		item.setData(InvUITransactionAdd.class.getName());
+		
+		}
+		
+		if(EngBLPermissions.getPermission(InvUICardSearch.class.getName())>0){
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.3"));  //$NON-NLS-1$
 		item.setData(InvUICardSearch.class.getName());
+		}
+		
+		if(EngBLPermissions.getPermission(InvUIWarehouseAdd.class.getName())>0){
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.4"));  //$NON-NLS-1$
 		item.setData(InvUIWarehouseAdd.class.getName());
+		}
+		if(EngBLPermissions.getPermission(InvUIWarehouseSearch.class.getName())>0){
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.5"));  //$NON-NLS-1$
 		item.setData(InvUIWarehouseSearch.class.getName());
+		}
+		if(EngBLPermissions.getPermission(InvUITransactionSearch.class.getName())>0){
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(Messages.getString("TreeFactory.35"));  //$NON-NLS-1$
 		item.setData(InvUITransactionSearch.class.getName());
+		}
 	
 		return tree;
 	}

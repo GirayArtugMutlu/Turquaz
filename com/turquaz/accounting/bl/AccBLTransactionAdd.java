@@ -34,6 +34,7 @@ import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqAccountingTransactionType;
+import com.turquaz.engine.dal.TurqEngineSequence;
 
 import com.turquaz.engine.dal.TurqModule;
 
@@ -75,11 +76,25 @@ public class AccBLTransactionAdd {
 	}
 	}
 	
-	public Integer saveAccTransaction(Date date, String documentNo,int type,int moduleId) throws Exception
+	public Integer saveAccTransaction(Date date, String documentNo,int type,int moduleId,Integer docSeqId) throws Exception
 	{
 		try{
+			
+		TurqEngineSequence docSeq =new TurqEngineSequence();;	
+		
+		if(docSeqId==null){
+			dalTransAdd.save(docSeq);
+		}
+		else
+		{
+			docSeq.setEngineSequencesId(docSeqId);
+		}
+		
 		
 		TurqAccountingTransaction trans = new TurqAccountingTransaction();
+		 trans.setTurqEngineSequence(docSeq);
+		
+		
 		trans.setTransactionDocumentNo(documentNo);
 		trans.setTransactionsDate(new java.sql.Date(date.getTime()));
 		
@@ -104,6 +119,8 @@ public class AccBLTransactionAdd {
 		
 		trans.setLastModified(new java.sql.Date( cal.getTime().getTime()));
 		trans.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
+		
+		
 		
 		dalTransAdd.save(trans);
 			

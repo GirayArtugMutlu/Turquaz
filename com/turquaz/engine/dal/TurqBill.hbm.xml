@@ -135,6 +135,7 @@
         name="isOpen"
         type="boolean"
         column="is_open"
+        not-null="true"
         length="1"
     />
 
@@ -147,6 +148,14 @@
         not-null="true"
     >
         <column name="companies_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqEngineSequence -->
+    <many-to-one
+        name="turqEngineSequence"
+        class="com.turquaz.engine.dal.TurqEngineSequence"
+        not-null="true"
+    >
+        <column name="engine_sequences_id" />
     </many-to-one>
     <!-- bi-directional one-to-many association to TurqBillInGroup -->
     <set

@@ -77,7 +77,8 @@ public class ConBLAddConsignment {
 			invTrans.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			invTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			invTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-			invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsCumilativePrice().multiply(new BigDecimal(discountRate)));
+			
+			invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsCumilativePrice().multiply(new BigDecimal(discountRate)).divide(new BigDecimal(100),2));
 			
 			//Al??
 			// total amount in ve total amount ayni girilmisti
