@@ -295,7 +295,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
     public void fillTable(){
     try{
     tableInvGroups.removeAll();
-    List list = blCardAdd.getInventoryGroups();
+    List list = InvBLCardAdd.getInventoryGroups();
     
     TurqInventoryGroup invGroup;
     TableItem item;

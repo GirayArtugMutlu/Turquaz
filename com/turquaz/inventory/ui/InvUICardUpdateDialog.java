@@ -41,9 +41,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.CoolItem;
 import com.cloudgarden.resource.SWTResourceManager;
-import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.Dialog;
 
 import com.turquaz.inventory.Messages;
