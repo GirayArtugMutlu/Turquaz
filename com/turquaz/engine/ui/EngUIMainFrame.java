@@ -108,11 +108,11 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private Composite compModulesHelp;
 	private Tree treeBank;
 	private Tree treeAccounting;
-	private CTabFolder tabfldMain;
-	private ToolItem toolSearch;
-	private ToolItem toolDelete;
-	private ToolItem toolSave;
-	private ToolItem toolNew;
+	public  static CTabFolder tabfldMain;
+	private static ToolItem toolSearch;
+	private static ToolItem toolDelete;
+	private static ToolItem toolSave;
+	private static ToolItem toolNew;
 	private ToolBar toolbarMainTop;
 	private CoolItem coolRightMain;
 	private CoolBar coolbarRightTop;
@@ -943,7 +943,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
    
 
 	
-	public void openNewTab (String Name, String classname){
+	public static void openNewTab (String Name, String classname){
 		
 				CTabItem yeni = new CTabItem (tabfldMain,SWT.NULL );
 				yeni.setText(Name);
@@ -986,7 +986,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 
 	/** Auto-generated event handler method */
 	
-	private void arrangeIcons(){
+	private static void arrangeIcons(){
 		Composite c = (Composite)tabfldMain.getSelection().getControl();
 				if(c instanceof SecureComposite){
 					int level = ((SecureComposite)c ).getPermission(c.getClass().getName());

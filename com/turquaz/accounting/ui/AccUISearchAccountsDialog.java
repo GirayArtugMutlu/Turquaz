@@ -54,7 +54,7 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 	private AccBLAccountAdd blAccount;
 	Object returnObj[] = new Object[2];
 			
-	public AccUISearchAccountsDialog(Shell parent, int style) {
+	 public AccUISearchAccountsDialog(Shell parent, int style) {
 		super(parent, style);
 	}
 
@@ -164,7 +164,7 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 	/** Add your post-init code in here */
 	public void postInitGUI(String filter){
 	
-	 Point parentLocation =this.getParent().getLocation();
+	Point parentLocation =this.getParent().getLocation();
 	Point parentSize = this.getParent().getSize();	
     Point dialogSize = dialogShell.getSize();
      
@@ -174,8 +174,6 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
     dialogShell.setLocation(location_X,location_Y);
     AccUIAccountsTree treeFactory = new AccUIAccountsTree();
 	accountTree = treeFactory.fillTree(-1,filter,accountTree);
-			
-	
 	}
 
   

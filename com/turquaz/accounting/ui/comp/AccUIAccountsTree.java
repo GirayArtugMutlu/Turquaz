@@ -24,10 +24,13 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
  */
 public class AccUIAccountsTree{
 	private AccBLAccountAdd blAccount = new AccBLAccountAdd();
+	
 	public AccUIAccountsTree(){
 	
 		
 	}
+	
+		
 	public Tree fillTree(int parent, String codeCrit,Tree tree){
 	try{	
 	TreeItem item;

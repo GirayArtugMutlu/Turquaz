@@ -108,6 +108,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+		
 	}
 	
 	public void setData(Object obj){
@@ -115,14 +116,14 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 		TurqAccountingAccount account = (TurqAccountingAccount)obj;
 		text1.setText(account.getAccountCode()+"-"+account.getAccountName());
 		
-		
 	}
 
 	/** Auto-generated event handler method */
 	protected void button1MouseUp(MouseEvent evt){
 	
 	Object[] obj = new AccUISearchAccountsDialog(this.getShell(),SWT.NULL).showDialog(filter);
-		if (obj[0] != null) {
+
+	if (obj[0] != null) {
 			this.setData(obj[1]);
 			text1.setText(obj[0].toString());
 		}
