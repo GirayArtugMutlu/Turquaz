@@ -65,42 +65,7 @@ implements SecureComposite{
 	private Button buttonConsignmentRemove;
 	private Table tableConsignmentRows;
 
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		showGUI();
-	}
-		
-	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		ConUIAddConsignment inst = new ConUIAddConsignment(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if(size.x == 0 && size.y == 0) {
-			inst.pack();
-			shell.pack();
-		} else {
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
-
+	
 	public ConUIAddConsignment(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -134,6 +99,7 @@ implements SecureComposite{
 				{
 					txtCurrentCard = new Text(compInfoPanel, SWT.NONE);
 					GridData txtCurrentCardLData = new GridData();
+					txtCurrentCard.setBackground(SWTResourceManager.getColor(255,255, 255));
 					txtCurrentCard.setEditable(false);
 					txtCurrentCardLData.widthHint = 346;
 					txtCurrentCardLData.heightHint = 18;
@@ -269,9 +235,13 @@ implements SecureComposite{
 	}
 	public void btnChooseMouseUp(){
 		Object data = new CurUICurrentCardSearchDialog(this.getShell(),SWT.NULL).open();
-	    TurqCurrentCard curCard = (TurqCurrentCard)data;
+	    if(data!=null){
+	    
+	    System.out.println(data.getClass().getName());
+		TurqCurrentCard curCard = (TurqCurrentCard)data;
 	    txtCurrentCard.setText(curCard.getCardsCurrentCode()+" - "+curCard.getCardsName());
 		txtCurrentCard.setData(curCard);
+	    }
 	}
 	public void save(){
 		

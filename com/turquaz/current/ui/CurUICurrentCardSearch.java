@@ -135,18 +135,10 @@ private TableColumn tableColumnContactName;
 			lblCurrentCode.setText(Messages.getString("CurUICurrentCardSearch.0")); //$NON-NLS-1$
 	
 			GridData txtCurrentCodeLData = new GridData();
-			txtCurrentCodeLData.verticalAlignment = GridData.CENTER;
-			txtCurrentCodeLData.horizontalAlignment = GridData.BEGINNING;
-			txtCurrentCodeLData.widthHint = 244;
-			txtCurrentCodeLData.heightHint = 13;
-			txtCurrentCodeLData.horizontalIndent = 0;
-			txtCurrentCodeLData.horizontalSpan = 1;
-			txtCurrentCodeLData.verticalSpan = 1;
-			txtCurrentCodeLData.grabExcessHorizontalSpace = false;
-			txtCurrentCodeLData.grabExcessVerticalSpace = false;
+			txtCurrentCodeLData.widthHint = 238;
+			txtCurrentCodeLData.heightHint = 16;
 			txtCurrentCode.setLayoutData(txtCurrentCodeLData);
-			txtCurrentCode.setSize(new org.eclipse.swt.graphics.Point(244,13));
-	
+
 			GridData lblCurrentNameLData = new GridData();
 			lblCurrentNameLData.verticalAlignment = GridData.CENTER;
 			lblCurrentNameLData.horizontalAlignment = GridData.BEGINNING;
@@ -161,18 +153,10 @@ private TableColumn tableColumnContactName;
 			lblCurrentName.setText(Messages.getString("CurUICurrentCardSearch.1")); //$NON-NLS-1$
 	
 			GridData txtCurrentNameLData = new GridData();
-			txtCurrentNameLData.verticalAlignment = GridData.CENTER;
-			txtCurrentNameLData.horizontalAlignment = GridData.BEGINNING;
-			txtCurrentNameLData.widthHint = 244;
-			txtCurrentNameLData.heightHint = 13;
-			txtCurrentNameLData.horizontalIndent = 0;
-			txtCurrentNameLData.horizontalSpan = 1;
-			txtCurrentNameLData.verticalSpan = 1;
-			txtCurrentNameLData.grabExcessHorizontalSpace = false;
-			txtCurrentNameLData.grabExcessVerticalSpace = false;
+			txtCurrentNameLData.widthHint = 238;
+			txtCurrentNameLData.heightHint = 19;
 			txtCurrentName.setLayoutData(txtCurrentNameLData);
-			txtCurrentName.setSize(new org.eclipse.swt.graphics.Point(244,13));
-	
+
 			GridData lblTurqGroupNameLData = new GridData();
 			lblTurqGroupNameLData.verticalAlignment = GridData.CENTER;
 			lblTurqGroupNameLData.horizontalAlignment = GridData.BEGINNING;

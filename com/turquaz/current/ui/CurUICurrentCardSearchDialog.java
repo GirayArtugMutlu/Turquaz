@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
+import org.eclipse.swt.widgets.Button;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -56,6 +57,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 	private CLabel lblCurrentName;
 	private CLabel lblCurrentCode;
 	private CurBLCurrentCardSearch curBLCurrentCardSearch=new CurBLCurrentCardSearch();
+	private Button btnSearch;
 	private EngBLCommon engBLCom=new EngBLCommon();
 	 Object returnData=null;
 	/**
@@ -87,20 +89,20 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.layout();
 			dialogShell.pack();
-			dialogShell.setSize(438, 619);
+			dialogShell.setSize(439, 375);
 			{
 				compCurrentCardSearch = new Composite(dialogShell, SWT.NONE);
 				GridLayout compCurrentCardSearchLayout = new GridLayout();
 				compCurrentCardSearchLayout.numColumns = 2;
 				GridData compCurrentCardSearchLData = new GridData();
 				compCurrentCardSearch.setLayout(compCurrentCardSearchLayout);
-				compCurrentCardSearchLData.heightHint = 114;
+				compCurrentCardSearchLData.heightHint = 117;
 				compCurrentCardSearchLData.grabExcessHorizontalSpace = true;
 				compCurrentCardSearchLData.horizontalAlignment = GridData.FILL;
 				compCurrentCardSearch.setLayoutData(compCurrentCardSearchLData);
 				{
 					lblCurrentCode = new CLabel(compCurrentCardSearch, SWT.NONE);
-					lblCurrentCode.setText(Messages.getString("CurUICurrentCardSearch.0"));
+					lblCurrentCode.setText(Messages.getString("CurUICurrentCardSearch.0")); //$NON-NLS-1$
 					GridData lblCurrentCodeLData = new GridData();
 					lblCurrentCode.setLayoutData(lblCurrentCodeLData);
 				}
@@ -117,7 +119,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					lblCurrentName = new CLabel(compCurrentCardSearch, SWT.NONE);
 					lblCurrentName.setText(Messages
-						.getString("CurUICurrentCardSearch.1"));
+						.getString("CurUICurrentCardSearch.1")); //$NON-NLS-1$
 					GridData lblCurrentNameLData = new GridData();
 					lblCurrentName.setLayoutData(lblCurrentNameLData);
 				}
@@ -134,7 +136,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					lblTurqGroupName = new CLabel(compCurrentCardSearch, SWT.NONE);
 					lblTurqGroupName.setText(Messages
-						.getString("CurUICurrentCardSearch.2"));
+						.getString("CurUICurrentCardSearch.2")); //$NON-NLS-1$
 					lblTurqGroupName
 						.setSize(new org.eclipse.swt.graphics.Point(65, 19));
 					GridData lblTurqGroupNameLData = new GridData();
@@ -147,6 +149,20 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 					GridData comboTurqGroupNameLData = new GridData();
 					comboTurqGroupName.setLayoutData(comboTurqGroupNameLData);
 				}
+				{
+					btnSearch = new Button(compCurrentCardSearch, SWT.PUSH
+						| SWT.CENTER);
+					btnSearch.setText(Messages.getString("CurUICurrentCardSearchDialog.0")); //$NON-NLS-1$
+					GridData btnSearchLData = new GridData();
+					btnSearch.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+							search();
+						}
+					});
+					btnSearchLData.widthHint = 67;
+					btnSearchLData.heightHint = 23;
+					btnSearch.setLayoutData(btnSearchLData);
+				}
 			}
 			{
 				tableCurrentCardSearch = new Table(dialogShell, SWT.FULL_SELECTION | SWT.H_SCROLL);
@@ -158,7 +174,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				tableCurrentCardSearch.addMouseListener(new MouseAdapter() {
 					public void mouseDoubleClick(MouseEvent evt) {
 						if (tableCurrentCardSearch.getSelection().length > 0) {
-							returnData = tableCurrentCardSearch.getSelection()[0];
+							returnData = tableCurrentCardSearch.getSelection()[0].getData();
 							dialogShell.close();
 							
 						}
@@ -175,7 +191,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 						tableCurrentCardSearch,
 						SWT.NONE);
 					tableColumnCurrentCode.setText(Messages
-						.getString("CurUICurrentCardSearch.0"));
+						.getString("CurUICurrentCardSearch.0")); //$NON-NLS-1$
 					tableColumnCurrentCode.setWidth(120);
 				}
 				{
@@ -183,16 +199,17 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 						tableCurrentCardSearch,
 						SWT.NONE);
 					tableColumnCurrentName.setText(Messages
-						.getString("CurUICurrentCardSearch.1"));
+						.getString("CurUICurrentCardSearch.1")); //$NON-NLS-1$
 					tableColumnCurrentName.setWidth(120);
 				}
 				{
 					tableColumnContactName = new TableColumn(tableCurrentCardSearch, SWT.NONE);
 					tableColumnContactName.setText(Messages
-						.getString("CurUICurrentCardSearch.5"));
+						.getString("CurUICurrentCardSearch.5")); //$NON-NLS-1$
 					tableColumnContactName.setWidth(120);
 				}
 			}
+			postInitGui();
 			dialogShell.open();
 			
 			Display display = dialogShell.getDisplay();
@@ -242,6 +259,26 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			msg.open();
 			
 		}
+	}
+	public void postInitGui(){
+		try{
+			comboTurqGroupName.removeAll();
+			comboTurqGroupName.setText(""); //$NON-NLS-1$
+			List groups=engBLCom.getTurqCurrentGroups();
+			for(int k=0; k<groups.size(); k++){
+				TurqCurrentGroup group=(TurqCurrentGroup)groups.get(k);
+				comboTurqGroupName.add(group.getGroupsName());
+				comboTurqGroupName.setData(group.getGroupsName(),group);
+			}
+		}
+		catch(Exception ex){
+			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
+			msg.setMessage(ex.getMessage());
+			msg.open();
+			ex.printStackTrace();
+		}
+		
+		
 	}
 	
 }
