@@ -355,8 +355,6 @@
 																	<Property name="visible" type="boolean" value="true"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																</Properties>
 																<SubComponents>
 																	<Component class="org.eclipse.swt.widgets.Composite" name="compModuleSelection" style="2048">
@@ -392,8 +390,6 @@
 																			<Property name="visible" type="boolean" value="true"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
 																		<SubComponents>
 																			<Component class="org.eclipse.swt.custom.CLabel" name="lblModuleSelection" style="16384">
@@ -422,8 +418,6 @@
 																						<Rectangle value="[0, 0, 113, 16]"/>
 																					</Property>
 																					<Property name="visible" type="boolean" value="true"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -458,8 +452,6 @@
 																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
 																		</SubComponents>
@@ -490,10 +482,6 @@
 																			<Property name="bounds" type="Rectangle">
 																				<Rectangle value="[0, 30, 230, 263]"/>
 																			</Property>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
@@ -528,10 +516,6 @@
 																					<Property name="visible" type="boolean" value="true"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
 																			<Component class="com.turquaz.accounting.ui.comp.AccUITree" name="treeAccounting" style="0">
@@ -564,12 +548,6 @@
 																					<Property name="bounds" type="Rectangle">
 																						<Rectangle value="[0, 0, 230, 263]"/>
 																					</Property>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -810,13 +788,13 @@
 																</Events>
 																<Properties>
 																	<Property name="size" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[76, 22]"/>
 																	</Property>
 																	<Property name="preferredSize" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[76, 22]"/>
 																	</Property>
 																	<Property name="minimumSize" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[76, 22]"/>
 																	</Property>
 																	<Property name="text" type="String" value="coolItem3"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -853,7 +831,7 @@
 																				<Properties>
 																					<Property name="enabled" type="boolean" value="true"/>
 																					<Property name="toolTipText" type="String" value="New"/>
-																					<Property name="image" type="Image">
+																					<Property name="ımage" type="Image">
 																						<Image name="\icons\new_wiz.gif"/>
 																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -870,8 +848,8 @@
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
 																					<Property name="toolTipText" type="String" value="Save"/>
-																					<Property name="image" type="Image">
-																						<Image name="\icons\save.gif"/>
+																					<Property name="ımage" type="Image">
+																						<Image name="\icons\save_edit.gif"/>
 																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -887,7 +865,7 @@
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
 																					<Property name="toolTipText" type="String" value="Delete"/>
-																					<Property name="image" type="Image">
+																					<Property name="ımage" type="Image">
 																						<Image name="\icons\delete_edit.gif"/>
 																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -904,7 +882,7 @@
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
 																					<Property name="toolTipText" type="String" value="Search"/>
-																					<Property name="image" type="Image">
+																					<Property name="ımage" type="Image">
 																						<Image name="\icons\run_exec.gif"/>
 																					</Property>
 																					<Property name="selection" type="boolean" value="true"/>

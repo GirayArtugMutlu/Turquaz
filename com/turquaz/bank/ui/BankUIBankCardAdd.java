@@ -50,34 +50,84 @@ public class BankUIBankCardAdd extends SecureComposite {
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(456,312));
 	
+			GridData lblBankNameLData = new GridData();
+			lblBankNameLData.verticalAlignment = GridData.CENTER;
+			lblBankNameLData.horizontalAlignment = GridData.BEGINNING;
+			lblBankNameLData.widthHint = -1;
+			lblBankNameLData.heightHint = -1;
+			lblBankNameLData.horizontalIndent = 0;
+			lblBankNameLData.horizontalSpan = 1;
+			lblBankNameLData.verticalSpan = 1;
+			lblBankNameLData.grabExcessHorizontalSpace = false;
+			lblBankNameLData.grabExcessVerticalSpace = false;
+			lblBankName.setLayoutData(lblBankNameLData);
 			lblBankName.setText("Bank Name");
 	
 			GridData txtBankNameLData = new GridData();
+			txtBankNameLData.verticalAlignment = GridData.CENTER;
+			txtBankNameLData.horizontalAlignment = GridData.BEGINNING;
 			txtBankNameLData.widthHint = 254;
 			txtBankNameLData.heightHint = 13;
+			txtBankNameLData.horizontalIndent = 0;
+			txtBankNameLData.horizontalSpan = 1;
+			txtBankNameLData.verticalSpan = 1;
+			txtBankNameLData.grabExcessHorizontalSpace = false;
+			txtBankNameLData.grabExcessVerticalSpace = false;
 			txtBankName.setLayoutData(txtBankNameLData);
 			txtBankName.setTextLimit(50);
 			txtBankName.setSize(new org.eclipse.swt.graphics.Point(254,13));
 	
 			GridData lblBankBranchNameLData = new GridData();
+			lblBankBranchNameLData.verticalAlignment = GridData.CENTER;
+			lblBankBranchNameLData.horizontalAlignment = GridData.BEGINNING;
 			lblBankBranchNameLData.widthHint = 95;
 			lblBankBranchNameLData.heightHint = 19;
+			lblBankBranchNameLData.horizontalIndent = 0;
+			lblBankBranchNameLData.horizontalSpan = 1;
+			lblBankBranchNameLData.verticalSpan = 1;
+			lblBankBranchNameLData.grabExcessHorizontalSpace = false;
+			lblBankBranchNameLData.grabExcessVerticalSpace = false;
 			lblBankBranchName.setLayoutData(lblBankBranchNameLData);
 			lblBankBranchName.setText("Bank Branch Name");
 			lblBankBranchName.setSize(new org.eclipse.swt.graphics.Point(95,19));
 	
 			GridData txtBankBranchNameLData = new GridData();
+			txtBankBranchNameLData.verticalAlignment = GridData.CENTER;
+			txtBankBranchNameLData.horizontalAlignment = GridData.BEGINNING;
 			txtBankBranchNameLData.widthHint = 254;
 			txtBankBranchNameLData.heightHint = 13;
+			txtBankBranchNameLData.horizontalIndent = 0;
+			txtBankBranchNameLData.horizontalSpan = 1;
+			txtBankBranchNameLData.verticalSpan = 1;
+			txtBankBranchNameLData.grabExcessHorizontalSpace = false;
+			txtBankBranchNameLData.grabExcessVerticalSpace = false;
 			txtBankBranchName.setLayoutData(txtBankBranchNameLData);
 			txtBankBranchName.setTextLimit(50);
 			txtBankBranchName.setSize(new org.eclipse.swt.graphics.Point(254,13));
 	
+			GridData lvlBanckAccountNoLData = new GridData();
+			lvlBanckAccountNoLData.verticalAlignment = GridData.CENTER;
+			lvlBanckAccountNoLData.horizontalAlignment = GridData.BEGINNING;
+			lvlBanckAccountNoLData.widthHint = -1;
+			lvlBanckAccountNoLData.heightHint = -1;
+			lvlBanckAccountNoLData.horizontalIndent = 0;
+			lvlBanckAccountNoLData.horizontalSpan = 1;
+			lvlBanckAccountNoLData.verticalSpan = 1;
+			lvlBanckAccountNoLData.grabExcessHorizontalSpace = false;
+			lvlBanckAccountNoLData.grabExcessVerticalSpace = false;
+			lvlBanckAccountNo.setLayoutData(lvlBanckAccountNoLData);
 			lvlBanckAccountNo.setText("Bank Account No");
 	
 			GridData txtBankAccountNoLData = new GridData();
+			txtBankAccountNoLData.verticalAlignment = GridData.CENTER;
+			txtBankAccountNoLData.horizontalAlignment = GridData.BEGINNING;
 			txtBankAccountNoLData.widthHint = 254;
 			txtBankAccountNoLData.heightHint = 13;
+			txtBankAccountNoLData.horizontalIndent = 0;
+			txtBankAccountNoLData.horizontalSpan = 1;
+			txtBankAccountNoLData.verticalSpan = 1;
+			txtBankAccountNoLData.grabExcessHorizontalSpace = false;
+			txtBankAccountNoLData.grabExcessVerticalSpace = false;
 			txtBankAccountNo.setLayoutData(txtBankAccountNoLData);
 			txtBankAccountNo.setTextLimit(50);
 			txtBankAccountNo.setSize(new org.eclipse.swt.graphics.Point(254,13));
@@ -143,6 +193,9 @@ public class BankUIBankCardAdd extends SecureComposite {
 		}
 		catch(Exception ex)
 		{
+			MessageBox msg= new MessageBox(this.getShell(),SWT.NULL);
+			msg.setMessage(ex.getMessage());	
+			msg.open();
 			ex.printStackTrace();
 		}
 	}

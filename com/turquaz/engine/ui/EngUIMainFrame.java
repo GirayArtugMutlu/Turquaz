@@ -468,17 +468,17 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			coolbarRightTop.setSize(new org.eclipse.swt.graphics.Point(232,30));
 	
 			coolRightMain.setControl(toolbarMainTop);
-			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(92,22));
-			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(92,22));
-			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(92,22));
+			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(76,22));
+			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(76,22));
+			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(76,22));
 			coolRightMain.setText("coolItem3");
 	
 			toolbarMainTop.setLocation(new org.eclipse.swt.graphics.Point(20,0));
 	
 			toolNew.setEnabled(true);
 			toolNew.setToolTipText("New");
-			final org.eclipse.swt.graphics.Image toolNewimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/new_wiz.gif"));
-			toolNew.setImage(toolNewimage);
+			final org.eclipse.swt.graphics.Image toolNewýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/new_wiz.gif"));
+			toolNew.setImage(toolNewýmage);
 			toolNew.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolNewWidgetSelected(evt);
@@ -486,8 +486,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			});
 	
 			toolSave.setToolTipText("Save");
-			final org.eclipse.swt.graphics.Image toolSaveimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save.gif"));
-			toolSave.setImage(toolSaveimage);
+			final org.eclipse.swt.graphics.Image toolSaveýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
+			toolSave.setImage(toolSaveýmage);
 			toolSave.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolSaveWidgetSelected(evt);
@@ -495,8 +495,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			});
 	
 			toolDelete.setToolTipText("Delete");
-			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			toolDelete.setImage(toolDeleteimage);
+			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setImage(toolDeleteýmage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -504,8 +504,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			});
 	
 			toolSearch.setToolTipText("Search");
-			final org.eclipse.swt.graphics.Image toolSearchimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/run_exec.gif"));
-			toolSearch.setImage(toolSearchimage);
+			final org.eclipse.swt.graphics.Image toolSearchýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/run_exec.gif"));
+			toolSearch.setImage(toolSearchýmage);
 			toolSearch.setSelection(true);
 			toolSearch.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
@@ -595,10 +595,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
 					comboModuleSelectionbackground.dispose();
-					toolNewimage.dispose();
-					toolSaveimage.dispose();
-					toolDeleteimage.dispose();
-					toolSearchimage.dispose();
+					toolNewýmage.dispose();
+					toolSaveýmage.dispose();
+					toolDeleteýmage.dispose();
+					toolSearchýmage.dispose();
 				}
 			});
 	
