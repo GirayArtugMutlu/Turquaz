@@ -638,7 +638,7 @@ implements SecureComposite{
 							{
 								tableColumnUnitPrice = new TableColumn(
 									tableConsignmentRows,
-									SWT.NONE);
+									SWT.RIGHT);
 								tableColumnUnitPrice.setText(Messages
 									.getString("BillUIBillFromConsignment.17")); //$NON-NLS-1$
 								tableColumnUnitPrice.setWidth(70);
@@ -646,7 +646,7 @@ implements SecureComposite{
 							{
 								tableColumnTotalPrice = new TableColumn(
 									tableConsignmentRows,
-									SWT.NONE);
+									SWT.RIGHT);
 								tableColumnTotalPrice.setText(Messages
 									.getString("BillUIBillFromConsignment.18")); //$NON-NLS-1$
 								tableColumnTotalPrice.setWidth(77);
@@ -654,7 +654,7 @@ implements SecureComposite{
 							{
 								tableColumnVat = new TableColumn(
 									tableConsignmentRows,
-									SWT.NONE);
+									SWT.RIGHT);
 								tableColumnVat.setText(Messages
 									.getString("BillUIBillFromConsignment.19")); //$NON-NLS-1$
 								tableColumnVat.setWidth(50);
@@ -662,7 +662,7 @@ implements SecureComposite{
 							{
 								tableColumnVatAmount = new TableColumn(
 									tableConsignmentRows,
-									SWT.NONE);
+									SWT.RIGHT);
 								tableColumnVatAmount.setText(Messages
 									.getString("BillUIBillFromConsignment.20")); //$NON-NLS-1$
 								tableColumnVatAmount.setWidth(90);
@@ -670,7 +670,7 @@ implements SecureComposite{
 							{
 								TableColumnVATSpecial = new TableColumn(
 									tableConsignmentRows,
-									SWT.NONE);
+									SWT.RIGHT);
 								TableColumnVATSpecial.setText(Messages
 									.getString("BillUIBillFromConsignment.21")); //$NON-NLS-1$
 								TableColumnVATSpecial.setWidth(100);
@@ -678,7 +678,7 @@ implements SecureComposite{
 							{
 								tableColumnCumulative = new TableColumn(
 									tableConsignmentRows,
-									SWT.NONE);
+									SWT.RIGHT);
 								tableColumnCumulative.setText(Messages
 									.getString("BillUIBillFromConsignment.22")); //$NON-NLS-1$
 								tableColumnCumulative.setWidth(100);

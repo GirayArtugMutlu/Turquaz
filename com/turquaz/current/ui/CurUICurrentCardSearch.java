@@ -219,21 +219,21 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 				{
 					tableColumnTotalCredit = new TableColumn(
 						tableCurrentCardSearch,
-						SWT.NONE);
+						SWT.RIGHT);
 					tableColumnTotalCredit.setText("Toplam Borç");
 					tableColumnTotalCredit.setWidth(120);
 				}
 				{
 					tableColumnTotalDept = new TableColumn(
 						tableCurrentCardSearch,
-						SWT.NONE);
+						SWT.RIGHT);
 					tableColumnTotalDept.setText("Toplam Alacak");
 					tableColumnTotalDept.setWidth(120);
 				}
 				{
 					tableColumnBalance = new TableColumn(
 						tableCurrentCardSearch,
-						SWT.NONE);
+						SWT.RIGHT);
 					tableColumnBalance.setText("Bakiye");
 					tableColumnBalance.setWidth(120);
 				}

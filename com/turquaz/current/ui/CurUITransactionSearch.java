@@ -248,14 +248,14 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				{
 					tableColumnDebit = new TableColumn(
 						tableCurrentTransactions,
-						SWT.NONE);
+						SWT.RIGHT);
 					tableColumnDebit.setText(Messages.getString("CurUITransactionSearch.7")); //$NON-NLS-1$
 					tableColumnDebit.setWidth(106);
 				}
 				{
 					tableColumnCredit = new TableColumn(
 						tableCurrentTransactions,
-						SWT.NONE);
+						SWT.RIGHT);
 					tableColumnCredit.setText(Messages.getString("CurUITransactionSearch.8")); //$NON-NLS-1$
 					tableColumnCredit.setWidth(101);
 				}

@@ -290,14 +290,14 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 				{
 					tableColumnTotalAmountIn = new TableColumn(
 						tableTransactions,
-						SWT.NONE);
+						SWT.RIGHT);
 					tableColumnTotalAmountIn.setText(Messages.getString("InvUITransactionSearch.7"));  //$NON-NLS-1$
 					tableColumnTotalAmountIn.setWidth(100);
 				}
 				{
 					tableColumnTotalAmountOut = new TableColumn(
 						tableTransactions,
-						SWT.NONE);
+						SWT.RIGHT);
 					tableColumnTotalAmountOut.setText(Messages.getString("InvUITransactionSearch.10"));  //$NON-NLS-1$
 					tableColumnTotalAmountOut.setWidth(100);
 				}

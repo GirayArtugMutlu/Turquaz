@@ -219,7 +219,7 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 			}
 			tableColumnDocumentNo = new TableColumn(tableTransactions,SWT.NULL);
 			tableColumnTransType = new TableColumn(tableTransactions,SWT.NULL);
-			tableColumnTotalAmount = new TableColumn(tableTransactions,SWT.NULL);
+			tableColumnTotalAmount = new TableColumn(tableTransactions,SWT.RIGHT);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(646,513));
 

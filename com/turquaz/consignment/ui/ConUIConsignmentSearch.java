@@ -254,7 +254,7 @@ SearchComposite{
 				{
 					tableColumnCumulativePrice = new TableColumn(
 						tableConsignments,
-						SWT.NONE);
+						SWT.RIGHT);
 					tableColumnCumulativePrice.setText(Messages.getString("ConUIConsignmentSearch.7")); //$NON-NLS-1$
 					tableColumnCumulativePrice.setWidth(100);
 					tableColumnCumulativePrice.addListener(SWT.Selection, new Listener() {
@@ -266,7 +266,7 @@ SearchComposite{
 				{
 					tableColumnVatAmount = new TableColumn(
 						tableConsignments,
-						SWT.NONE);
+						SWT.RIGHT);
 					tableColumnVatAmount.setText(Messages.getString("ConUIConsignmentSearch.8")); //$NON-NLS-1$
 					tableColumnVatAmount.setWidth(100);
 					tableColumnVatAmount.addListener(SWT.Selection, new Listener() {
@@ -278,7 +278,7 @@ SearchComposite{
 				{
 					tableColumnSpecialVatAmount = new TableColumn(
 						tableConsignments,
-						SWT.NONE);
+						SWT.RIGHT);
 					tableColumnSpecialVatAmount.setText(Messages.getString("ConUIConsignmentSearch.9")); //$NON-NLS-1$
 					tableColumnSpecialVatAmount.setWidth(100);
 					tableColumnSpecialVatAmount.addListener(SWT.Selection, new Listener() {

@@ -218,7 +218,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				{
 					tableColumnCumulativePrice = new TableColumn(
 						tableBills,
-						SWT.NONE);
+						SWT.RIGHT);
 					tableColumnCumulativePrice.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.7"));  //$NON-NLS-1$
 					tableColumnCumulativePrice.setWidth(100);
 					tableColumnCumulativePrice.addListener(SWT.Selection, new Listener() {
@@ -230,7 +230,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				{
 					tableColumnVatAmount = new TableColumn(
 						tableBills,
-						SWT.NONE);
+						SWT.RIGHT);
 					tableColumnVatAmount.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.8"));  //$NON-NLS-1$
 					tableColumnVatAmount.setWidth(100);
 					tableColumnVatAmount.addListener(SWT.Selection, new Listener() {
@@ -242,7 +242,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				{
 					tableColumnSpecialVatAmount = new TableColumn(
 						tableBills,
-						SWT.NONE);
+						SWT.RIGHT);
 					tableColumnSpecialVatAmount.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.9"));  //$NON-NLS-1$
 					tableColumnSpecialVatAmount.setWidth(100);
 					tableColumnSpecialVatAmount.addListener(SWT.Selection, new Listener() {
