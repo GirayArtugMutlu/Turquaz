@@ -105,7 +105,7 @@ public class InvUIInitialTransacions extends org.eclipse.swt.widgets.Composite
 			thisLayout.verticalSpacing = 0;
 			this.setSize(534, 364);
 			//START >> tableInitialTransactions
-			tableInitialTransactions = new Table(this, SWT.NONE);
+			tableInitialTransactions = new Table(this, SWT.FULL_SELECTION | SWT.HIDE_SELECTION);
 			GridData tableInitialTransactionsLData = new GridData();
 			tableInitialTransactions.setLinesVisible(true);
 			tableInitialTransactions.setHeaderVisible(true);

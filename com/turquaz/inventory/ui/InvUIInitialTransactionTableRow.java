@@ -247,7 +247,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 					{
 						formatted = "0";
 					}
-					invTrans.setTransactionsAmountIn(new BigDecimal(formatted));
+					invTrans.setTransactionsTotalPrice(new BigDecimal(formatted));
 					
 				}
 				break;

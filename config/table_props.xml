@@ -5,7 +5,7 @@
     <column index="5" width="118" />
     <column index="2" width="74" />
     <column index="0" width="57" />
-    <column index="4" width="101" />
+    <column index="4" width="149" />
     <column index="1" width="80" />
   </com.turquaz.accounting.ui.AccUITransactionSearch>
   <com.turquaz.inventory.ui.InvUICardSearch>
@@ -36,5 +36,48 @@
     <column index="6" width="100" />
     <column index="1" width="74" />
   </com.turquaz.bill.ui.BillUIBillSearch>
+  <com.turquaz.inventory.ui.InvUIProfitAnalysis>
+    <column index="3" width="122" />
+    <column index="5" width="82" />
+    <column index="7" width="75" />
+    <column index="2" width="81" />
+    <column index="0" width="113" />
+    <column index="4" width="103" />
+    <column index="6" width="75" />
+    <column index="1" width="142" />
+  </com.turquaz.inventory.ui.InvUIProfitAnalysis>
+  <com.turquaz.inventory.ui.InvUITransactionsTotalReport>
+    <column index="3" width="82" />
+    <column index="7" width="107" />
+    <column index="2" width="109" />
+    <column index="0" width="69" />
+    <column index="1" width="76" />
+    <column index="6" width="75" />
+    <column index="10" width="76" />
+    <column index="5" width="60" />
+    <column index="9" width="76" />
+    <column index="11" width="69" />
+    <column index="4" width="108" />
+    <column index="8" width="60" />
+    <column index="12" width="71" />
+  </com.turquaz.inventory.ui.InvUITransactionsTotalReport>
+  <com.turquaz.inventory.ui.InvUIInventoryLedger>
+    <column index="3" width="108" />
+    <column index="2" width="100" />
+    <column index="0" width="87" />
+    <column index="4" width="100" />
+    <column index="1" width="88" />
+  </com.turquaz.inventory.ui.InvUIInventoryLedger>
+  <com.turquaz.inventory.ui.InvUIInventoryTransactionReport>
+    <column index="3" width="100" />
+    <column index="5" width="100" />
+    <column index="7" width="93" />
+    <column index="2" width="100" />
+    <column index="0" width="88" />
+    <column index="4" width="100" />
+    <column index="8" width="94" />
+    <column index="6" width="86" />
+    <column index="1" width="109" />
+  </com.turquaz.inventory.ui.InvUIInventoryTransactionReport>
 </props>
 
