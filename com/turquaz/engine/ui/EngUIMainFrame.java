@@ -6,7 +6,8 @@ package com.turquaz.engine.ui;
 /* Copyright (c) 2004 by Turquaz Software Development Group			    */
 /*																		*/
 /* This program is free software. You can redistribute it and/or modify */
-/* it under the terms of the GNU General Public License as published by */
+/* it under the 
+ * terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License, or    */
 /* (at your option) any later version.       							*/
 /* 																		*/
@@ -1727,10 +1728,11 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	    try{
 	    
 	    Class c = Class.forName(tabfldMain.getSelection().getControl().getClass().getName());
-	    tabfldMain.getSelection().getControl().dispose();   
+	 
 	    Composite comp =(Composite)c.getConstructor(new Class[]{Composite.class, int.class})
 		.newInstance(new Object[]{tabfldMain,Integer.valueOf(SWT.NULL+"")}); //$NON-NLS-1$
-	  	 tabfldMain.getSelection().setControl(comp);	 
+	    tabfldMain.getSelection().getControl().dispose();   
+	    tabfldMain.getSelection().setControl(comp);	 
 	    }
 	    catch(Exception ex){
 	        ex.printStackTrace();
