@@ -21,22 +21,23 @@ package com.turquaz.accounting.ui;
 */
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-
-import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import com.cloudgarden.resource.SWTResourceManager;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.TableItem;
 
 import com.turquaz.accounting.Messages;
@@ -47,15 +48,27 @@ import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.engine.ui.editors.AccountingCellEditor;
+import com.turquaz.engine.ui.editors.CurrencyCellEditor;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.TableRowList;
+import com.turquaz.engine.ui.viewers.TurquazCellModifier;
+import com.turquaz.engine.ui.viewers.TurquazContentProvider;
+import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
 
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.custom.TableCursor;
 import org.eclipse.swt.SWT;
 
 /**
 *		Tahsil Fisi 
 */
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 /**
@@ -84,15 +97,12 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	private AccBLTransactionAdd blTransAdd= new AccBLTransactionAdd();
 	private CLabel lblDate;
 	private CCombo comboDeptor;
-	private Composite composite2;
 	private TableItem item;
 	private TableColumn txtTransactionDefinition;
 	private TableColumn tableColumnCreditAmount;
 	private TableColumn tableColumnAccountName;
 	private TableColumn tableColumnAccountCode;
 	private Table tableTransactionRows;
-	private Button btnRemoveTransactionRow;
-	private Button btnAddTransactionRow;
 	private Text txtTransDefinition;
 	private CLabel lblTransDefinition;
 	private CLabel lblDeptor;
@@ -100,6 +110,25 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	private CLabel lbldocumentNo;
 	private DatePicker datePickerTransactionDate;
 	private BigDecimal totalDept;
+//	 Set the table column property names
+	private final String ACCOUNT_CODE 		= "Hesap Kodu";
+	private final String ACCOUNT_NAME   	= "Hesap Ad?";
+	private final String DEFINITION         = "Aç?klama";
+	private final String CREDIT 		    = "Alacak";
+	TableCursor cursor;
+	private List columnList = new ArrayList();
+	TableRowList rowList = new TableRowList();
+	// Set column names
+	private String[] columnNames = new String[] { 
+			ACCOUNT_CODE, 
+			ACCOUNT_NAME,
+			DEFINITION,
+			CREDIT
+			
+			};
+	public TableViewer tableViewer;
+	
+	
 	public AccUITransactionCollect(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -113,7 +142,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 		try {
 			preInitGUI();
 
-			this.setSize(new org.eclipse.swt.graphics.Point(520,452));
+			this.setSize(722, 471);
 
 
 			
@@ -192,7 +221,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 				txtTransDefinition.addVerifyListener(new VerifyListener() {
 					public void verifyText(VerifyEvent evt) {
 						if (evt.character == SWT.TAB) {
-							btnAddTransactionRow.setFocus();
+							tableTransactionRows.setFocus();
 							evt.doit = false;
 						}
 					}
@@ -203,55 +232,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 				txtTransDefinition.setLayoutData(txtTransDefinitionLData);
 			}
 			{
-				composite2 = new Composite(this, SWT.NONE);
-				GridLayout composite2Layout = new GridLayout();
-				composite2Layout.makeColumnsEqualWidth = true;
-				composite2.setSize(new org.eclipse.swt.graphics.Point(70, 72));
-				GridData composite2LData = new GridData();
-				composite2.setLayout(composite2Layout);
-				composite2LData.verticalAlignment = GridData.BEGINNING;
-				composite2LData.widthHint = 70;
-				composite2LData.heightHint = 72;
-				composite2.setLayoutData(composite2LData);
-				{
-					btnAddTransactionRow = new Button(composite2, SWT.PUSH | SWT.CENTER);
-					btnAddTransactionRow.setImage(SWTResourceManager
-						.getImage("icons/plus.gif")); //$NON-NLS-1$
-					btnAddTransactionRow
-						.setSize(new org.eclipse.swt.graphics.Point(26, 24));
-					GridData btnAddTransactionRowLData = new GridData();
-					btnAddTransactionRow.addMouseListener(new MouseAdapter() {
-						public void mouseUp(MouseEvent evt) {
-							btnAddTransactionRowMouseUp(evt);
-						}
-					});
-					btnAddTransactionRowLData.horizontalAlignment = GridData.CENTER;
-					btnAddTransactionRowLData.widthHint = 26;
-					btnAddTransactionRowLData.heightHint = 24;
-					btnAddTransactionRow.setLayoutData(btnAddTransactionRowLData);
-				}
-				{
-					btnRemoveTransactionRow = new Button(composite2, SWT.PUSH | SWT.CENTER);
-					//$NON-NLS-1$
-					GridData btnRemoveTransactionRowLData = new GridData();
-					btnRemoveTransactionRow.setImage(SWTResourceManager
-						.getImage("icons/minus.gif")); //$NON-NLS-1$
-					btnRemoveTransactionRow
-						.addMouseListener(new MouseAdapter() {
-							public void mouseUp(MouseEvent evt) {
-								btnRemoveTransactionRowMouseUp(evt);
-							}
-						});
-					btnRemoveTransactionRowLData.horizontalAlignment = GridData.CENTER;
-					btnRemoveTransactionRowLData.widthHint = 28;
-					btnRemoveTransactionRowLData.heightHint = 23;
-					btnRemoveTransactionRow.setLayoutData(btnRemoveTransactionRowLData);
-				}
-				composite2.layout();
-			}
-			{
-				tableTransactionRows = new Table(this, SWT.FULL_SELECTION
-					| SWT.BORDER);
+				tableTransactionRows = new Table(this, SWT.FULL_SELECTION | SWT.HIDE_SELECTION | SWT.BORDER);
 				tableTransactionRows.setHeaderVisible(true);
 				tableTransactionRows.setLinesVisible(true);
 				tableTransactionRows
@@ -259,7 +240,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 				GridData tableTransactionRowsLData = new GridData();
 				tableTransactionRowsLData.verticalAlignment = GridData.FILL;
 				tableTransactionRowsLData.horizontalAlignment = GridData.FILL;
-				tableTransactionRowsLData.horizontalSpan = 3;
+				tableTransactionRowsLData.horizontalSpan = 4;
 				tableTransactionRowsLData.verticalSpan = 3;
 				tableTransactionRowsLData.grabExcessHorizontalSpace = true;
 				tableTransactionRowsLData.grabExcessVerticalSpace = true;
@@ -269,32 +250,29 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 					tableColumnAccountCode = new TableColumn(
 						tableTransactionRows,
 						SWT.NONE);
-					tableColumnAccountCode.setText(Messages
-						.getString("AccUITransactionCollect.5")); //$NON-NLS-1$
+					tableColumnAccountCode.setText(ACCOUNT_CODE); //$NON-NLS-1$
 					tableColumnAccountCode.setWidth(126);
 				}
 				{
 					tableColumnAccountName = new TableColumn(
 						tableTransactionRows,
 						SWT.NONE);
-					tableColumnAccountName.setText(Messages
-						.getString("AccUITransactionCollect.6")); //$NON-NLS-1$
+					tableColumnAccountName.setText(ACCOUNT_NAME); //$NON-NLS-1$
 					tableColumnAccountName.setWidth(150);
 				}
+                {
+                    txtTransactionDefinition = new TableColumn(
+                        tableTransactionRows,
+                        SWT.NONE);
+                    txtTransactionDefinition.setText(DEFINITION); //$NON-NLS-1$
+                    txtTransactionDefinition.setWidth(150);
+                }
 				{
 					tableColumnCreditAmount = new TableColumn(
 						tableTransactionRows,
 						SWT.NONE);
-					tableColumnCreditAmount.setText(Messages
-						.getString("AccUITransactionCollect.7")); //$NON-NLS-1$
+					tableColumnCreditAmount.setText(CREDIT); //$NON-NLS-1$
 					tableColumnCreditAmount.setWidth(100);
-				}
-				{
-					txtTransactionDefinition = new TableColumn(
-						tableTransactionRows,
-						SWT.NONE);
-					txtTransactionDefinition.setText(Messages.getString("AccUITransactionCollect.4")); //$NON-NLS-1$
-					txtTransactionDefinition.setWidth(150);
 				}
 			}
 			thisLayout.numColumns = 4;
@@ -316,7 +294,83 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	totalDept = new BigDecimal(0);
 	fillCombo();
 	
+	createTableViewer();
 	
+	
+	}
+	
+	public void createTableViewer(){
+	       columnList.add(ACCOUNT_CODE);
+	       columnList.add(ACCOUNT_NAME);
+	       columnList.add(DEFINITION);
+	       columnList.add(CREDIT);
+	       tableViewer = new TableViewer(tableTransactionRows);
+	       tableViewer.setUseHashlookup(true);
+	       tableViewer.setColumnProperties(columnNames);
+	       //     Create the cell editors
+		   CellEditor[] editors = new CellEditor[columnNames.length];
+	       editors[0] = new AccountingCellEditor(tableTransactionRows);
+	       editors[1] = new TextCellEditor(tableTransactionRows);
+	       editors[2] = new TextCellEditor(tableTransactionRows);
+	       editors[3] = new CurrencyCellEditor(tableTransactionRows);
+	    
+	       // Assign the cell editors to the viewer 
+			tableViewer.setCellEditors(editors);
+	       
+			TurquazContentProvider contentProvider = new TurquazContentProvider(tableViewer,rowList);
+			tableViewer.setCellModifier(new TurquazCellModifier(columnList,contentProvider));    
+			tableViewer.setContentProvider(contentProvider);
+			tableViewer.setLabelProvider(new TurquazLabelProvider());			
+			tableViewer.setInput(rowList);
+			
+			 // create a TableCursor to navigate around the table
+			 cursor = new TableCursor(tableTransactionRows, SWT.NONE);
+	         cursor.setEnabled(true);
+			 cursor.addKeyListener(new KeyAdapter(){
+			     public void keyReleased(KeyEvent evt){
+			         
+	                 if (evt.keyCode == SWT.INSERT){
+	                     AccUITransactionCollectTableRow row = new AccUITransactionCollectTableRow(
+	                         rowList);
+	                     rowList.addTask(row);
+	                     tableViewer.editElement(row, 0);
+	                     cursor.setSelection(tableTransactionRows
+	                         .getItemCount() - 1, 0);
+	                     cursor.setVisible(true);
+	                    
+	                 }
+	                 else if(evt.keyCode==SWT.DEL){
+	                    ITableRow row = (ITableRow)cursor.getRow().getData();
+	                     if(row!=null){
+	                         rowList.removeTask(row);
+	                         int itemCount =tableTransactionRows.getItemCount();
+	                        if(itemCount>0){
+	                            cursor.setSelection(itemCount-1,0);
+	                        }
+	                     }
+	                    
+	                    
+	                 }
+			         
+			     }});
+			 cursor.addSelectionListener(new SelectionAdapter() {
+					// when the TableEditor is over a cell, select the corresponding rowtable
+					public void widgetSelected(SelectionEvent e) {
+		              
+					}		
+					// when the user hits "ENTER" in the TableCursor, pop up a text/combo editor 
+					// so that they can change the text of the cell for controlType=="input" || "select1"<br>
+					// if controlType==TableViewerExample.TYPE_CHECKBOX, toogle it
+					public void widgetDefaultSelected(SelectionEvent e) {
+					 
+					    tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
+					
+					}
+				});
+	  
+		
+	        
+	    
 	}
 	
 	public void fillCombo(){
@@ -457,8 +511,11 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
      
     //Save the table rows    
     for(int i=0; i<items.length;i++){
-    blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn)items[i].getData(),transId);
+    AccUITransactionCollectTableRow row =(AccUITransactionCollectTableRow)items[i].getData();
     
+    if(row.okToSave()){
+        blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId);
+    }
     }
     
     
@@ -546,7 +603,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
     
 		for(int i=0; i<items.length;i++){
 		
-		totalDept = totalDept.add(new BigDecimal(items[i].getText(2)));
+		totalDept = totalDept.add(new BigDecimal(items[i].getText(3)));
     
 		}
    	
@@ -575,18 +632,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	public Text getTxtDocumentNo() {
 		return txtDocumentNo;
 	}
-	/**
-	 * @return Returns the btnAddTransactionRow.
-	 */
-	public Button getBtnAddTransactionRow() {
-		return btnAddTransactionRow;
-	}
-	/**
-	 * @return Returns the btnRemoveTransactionRow.
-	 */
-	public Button getBtnRemoveTransactionRow() {
-		return btnRemoveTransactionRow;
-	}
+	
 	/**
 	 * @param comboDeptor The comboDeptor to set.
 	 */

@@ -44,9 +44,7 @@ import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
-import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqAccountingTransactionType;
 
 import com.turquaz.engine.ui.component.DatePicker;
@@ -396,18 +394,9 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 	for(int i =0; i<listSize;i++){
 	TurqAccountingTransaction accTrans = (TurqAccountingTransaction)result.get(i);
 	item = new TableItem(tableTransactions,SWT.NULL);
-	item.setData(accTrans);
-	
+	item.setData(accTrans);	
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
-	
-	
-	BigDecimal total = new BigDecimal(0);
-	Iterator it = accTrans.getTurqAccountingTransactionColumns().iterator();
-	while(it.hasNext()){
-		TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn)it.next();
-		total = total.add(transColumn.getCreditAmount());
-	}
-	
+    BigDecimal total = new BigDecimal(0);
 	String transDate =formatter.format(accTrans.getTransactionsDate());
 	item.setText(new String[]{accTrans.getTurqAccountingTransactionType().getTypesName(),
 					accTrans.getTransactionDocumentNo(),transDate,total.toString(),accTrans.getTransactionDescription()}); //$NON-NLS-1$
