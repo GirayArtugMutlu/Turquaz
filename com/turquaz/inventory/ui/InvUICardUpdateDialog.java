@@ -204,6 +204,7 @@ public class InvUICardUpdateDialog extends Dialog{
 	fillGroups();
 	fillPrices();
 	
+	
 		
 	}
 	public void setButtonPermissions(){

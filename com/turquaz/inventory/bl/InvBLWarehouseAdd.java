@@ -47,6 +47,7 @@ public class InvBLWarehouseAdd {
 		
 		warehouse.setTurqCompany(company);
 		whDALAdd.saveObject(warehouse);	
+		//sfbk?msfb?ksmf?b
 			
 	
 	  }
