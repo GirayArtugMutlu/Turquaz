@@ -47,7 +47,6 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
 import com.turquaz.engine.ui.component.SearchComposite;
-import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.custom.CCombo;
 
 
@@ -67,7 +66,7 @@ import org.eclipse.swt.events.KeyEvent;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class BankUIBankCardSearch extends  Composite implements SecureComposite,SearchComposite {
+public class BankUIBankCardSearch extends  Composite implements SearchComposite {
 
 	private CCombo comboCurrency;
 	private CLabel lblCurrency;
