@@ -46,6 +46,8 @@ import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.DecimalText;
 import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.ui.component.TextWithButton;
+import com.turquaz.inventory.Messages;
+
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -140,7 +142,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 				composite1.setLayout(composite1Layout);
 				{
 					lblInvVard = new CLabel(composite1, SWT.NONE);
-					lblInvVard.setText("Inventory Card ");
+					lblInvVard.setText(Messages.getString("InvUITransactionAddDialog.0")); //$NON-NLS-1$
 					GridData lblInvVardLData = new GridData();
 					lblInvVardLData.widthHint = 110;
 					lblInvVardLData.heightHint = 21;
@@ -161,7 +163,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 				{
 					invAmount = new CLabel(composite1, SWT.NONE);
-					invAmount.setText("Amount");
+					invAmount.setText(Messages.getString("InvUITransactionAddDialog.1")); //$NON-NLS-1$
 					GridData invAmountLData = new GridData();
 					invAmountLData.widthHint = 75;
 					invAmountLData.heightHint = 20;
@@ -183,7 +185,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 				{
 					lblPrice = new CLabel(composite1, SWT.NONE);
-					lblPrice.setText("Price");
+					lblPrice.setText(Messages.getString("InvUITransactionAddDialog.2")); //$NON-NLS-1$
 					GridData lblPriceLData = new GridData();
 					lblPriceLData.widthHint = 67;
 					lblPriceLData.heightHint = 19;
@@ -212,7 +214,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 				{
 					lblVat = new CLabel(composite1, SWT.NONE);
-					lblVat.setText("VAT");
+					lblVat.setText(Messages.getString("InvUITransactionAddDialog.3")); //$NON-NLS-1$
 					GridData lblVatLData = new GridData();
 					lblVatLData.widthHint = 43;
 					lblVatLData.heightHint = 19;
@@ -230,7 +232,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 				{
 					lblSpecialVAT = new CLabel(composite1, SWT.NONE);
-					lblSpecialVAT.setText("Special VAT");
+					lblSpecialVAT.setText(Messages.getString("InvUITransactionAddDialog.4")); //$NON-NLS-1$
 					GridData lblSpecialVATLData = new GridData();
 					lblSpecialVATLData.widthHint = 86;
 					lblSpecialVATLData.heightHint = 19;
@@ -250,7 +252,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 				{
 					lblSpecialVatEach = new CLabel(composite1, SWT.NONE);
-					lblSpecialVatEach.setText("Special VAT Each");
+					lblSpecialVatEach.setText(Messages.getString("InvUITransactionAddDialog.5")); //$NON-NLS-1$
 				}
 				{
 					numTxtSpecialVatEach = new DecimalText(composite1, SWT.NONE);
@@ -265,7 +267,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 				{
 					lblWareHouse = new CLabel(composite1, SWT.NONE);
-					lblWareHouse.setText("Warehouse");
+					lblWareHouse.setText(Messages.getString("InvUITransactionAddDialog.6")); //$NON-NLS-1$
 				}
 				{
 					comboWareHouses = new CCombo(composite1, SWT.NONE);
@@ -307,7 +309,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 								dialogShell.close();
 							}
 						});
-						btnCancel.setImage(SWTResourceManager.getImage("icons/Cancel24.gif"));
+						btnCancel.setImage(SWTResourceManager.getImage("icons/Cancel24.gif")); //$NON-NLS-1$
 						button1LData.widthHint = 69;
 						button1LData.heightHint = 35;
 						button1LData.verticalAlignment = GridData.BEGINNING;
@@ -321,7 +323,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 								btnOkMouseUp();
 							}
 						});
-						btnOk.setImage(SWTResourceManager.getImage("icons/Ok24.gif"));
+						btnOk.setImage(SWTResourceManager.getImage("icons/Ok24.gif")); //$NON-NLS-1$
 						button2LData.widthHint = 69;
 						button2LData.heightHint = 34;
 						button2LData.verticalAlignment = GridData.BEGINNING;
@@ -434,7 +436,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
     	}
 		else{
 			MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
-			msg.setMessage("Önce Stok Kart? bölümünü doldurunuz!");
+			msg.setMessage(Messages.getString("InvUITransactionAddDialog.9")); //$NON-NLS-1$
 			msg.open();
 		}
 		
@@ -444,7 +446,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	TurqInventoryCard invCard =new InvUICardSearchDialog(this.getParent(),SWT.NULL).open();
      if(invCard!=null){
     	txtInvCard.setData(invCard);
-    	txtInvCard.setText(invCard.getCardInventoryCode()+" - "+invCard.getCardName());
+    	txtInvCard.setText(invCard.getCardInventoryCode()+" - "+invCard.getCardName()); //$NON-NLS-1$
     	fillComboUnits(invCard);
     	txtVat.setText(invCard.getCardVat());
     	numSpecialVat.setText(invCard.getCardSpecialVat());
@@ -482,12 +484,12 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 		  double _vat = (double)vat/100;
 		  double _specialVat = (double)specialVat/100;
 		  System.out.println(_vat);
-		  BigDecimal VATAmount = totalPrice.multiply(new BigDecimal(_vat+""));
+		  BigDecimal VATAmount = totalPrice.multiply(new BigDecimal(_vat+"")); //$NON-NLS-1$
           
 		   BigDecimal specialVATAmount = new BigDecimal(0);
 		  if(btnSpecialVat.getSelection()){
 		  	
-		  	specialVATAmount = totalPrice.multiply(new BigDecimal(_specialVat+""));
+		  	specialVATAmount = totalPrice.multiply(new BigDecimal(_specialVat+"")); //$NON-NLS-1$
 		    invTrans.setTransactionsVatSpecialEach(new BigDecimal(0));
 		    invTrans.setTransactionsVatSpecial(new BigDecimal(specialVat));
 		  	
