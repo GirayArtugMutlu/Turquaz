@@ -43,7 +43,7 @@ import net.sf.hibernate.Transaction;
 /**
  * 
  * @author onsel
- * @version Id: $$
+ * @version $Id$
  */
 
 public class CashDALCashCard {

@@ -18,7 +18,7 @@
 
 /**
  * @author onsel
- * @version Id: $$
+ * @version $Id$
  */
 package com.turquaz.cash.bl;
 

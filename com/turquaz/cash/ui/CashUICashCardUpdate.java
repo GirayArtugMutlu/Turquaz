@@ -54,7 +54,7 @@ import org.eclipse.swt.SWT;
 /**
  * 
  * @author onsel
- * @version Id: $$
+ * @version $Id$
  *
  */
 public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog {

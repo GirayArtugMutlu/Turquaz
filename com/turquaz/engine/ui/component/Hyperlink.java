@@ -1,15 +1,24 @@
-/*******************************************************************************
- * Copyright (c) 2004 Stefan Zeiger and others.
- * All rights reserved. This program and the accompanying materials 
- * are made available under the terms of the Common Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.novocode.com/legal/cpl-v10.html
- * 
- * Contributors:
- *     Stefan Zeiger (szeiger@novocode.com) - initial API and implementation
- *     IBM Corporation - original SWT CLabel implementation on which this class is based
- *******************************************************************************/
 
+/************************************************************************/
+/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
+/* ============================================                         */
+/* Copyright (c) 2004 by Turquaz Software Development Group			    */
+/*																		*/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License, or    */
+/* (at your option) any later version.       							*/
+/* 																		*/
+/* This program is distributed in the hope that it will be useful,		*/
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
+/* GNU General Public License for more details.         				*/
+/************************************************************************/
+
+/**
+* @author  Onsel
+* @version  $Id$
+*/
 package com.turquaz.engine.ui.component;
 
 import org.eclipse.swt.*;
@@ -38,9 +47,6 @@ import org.eclipse.swt.events.*;
  * </dl>
  * </p>
  * 
- * @author Stefan Zeiger (szeiger@novocode.com)
- * @since Mar 2, 2004
- * @version $Id$
  */
 
 public final class Hyperlink extends Canvas
