@@ -231,6 +231,12 @@ public class AccBLTransactionSearch {
 			throw ex;
 		}		
 	}
+	
+	
+	public void removeAccountingTransaction(TurqAccountingTransaction accTrans)throws Exception{
+		dalTransSearch.deleteTransaction(accTrans);
+		
+	}
 		
 	
 	
