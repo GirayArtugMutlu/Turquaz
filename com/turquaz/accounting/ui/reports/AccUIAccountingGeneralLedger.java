@@ -149,8 +149,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 			sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
 					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"//$NON-NLS-1$ //$NON-NLS-2$
-					+" and trans.accounting_journal_id > 0"; 
-					
+					+" and trans.accounting_journal_id > 0"; 	
 			//String sqlparam2=sqlparam;
 			//String sqlparam3=sqlparam;
 			//sqlparam3 +=" and transcolumns.dept_amount > 0";

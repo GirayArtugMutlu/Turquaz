@@ -48,8 +48,6 @@
 	</field>
 	<field name="credit_amount" class="java.math.BigDecimal">
 	</field>
-	<field name="companies_id" class="java.lang.Integer">
-	</field>
 	<field name="account_name" class="java.lang.String">
 	</field>
 	<field name="account_code" class="java.lang.String">
