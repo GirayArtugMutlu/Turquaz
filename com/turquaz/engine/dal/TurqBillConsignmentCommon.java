@@ -43,10 +43,10 @@ public class TurqBillConsignmentCommon implements Serializable {
     private java.math.BigDecimal specialVatAmount;
 
     /** persistent field */
-    private int currentCardsId;
+    private java.lang.String billDocumentNo;
 
     /** persistent field */
-    private java.lang.String billDocumentNo;
+    private com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard;
 
     /** persistent field */
     private Set turqConsignments;
@@ -55,7 +55,7 @@ public class TurqBillConsignmentCommon implements Serializable {
     private Set turqBills;
 
     /** full constructor */
-    public TurqBillConsignmentCommon(int discountRate, java.math.BigDecimal discountAmount, java.math.BigDecimal vatAmount, java.math.BigDecimal charges, java.math.BigDecimal totalAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.math.BigDecimal specialVatAmount, int currentCardsId, java.lang.String billDocumentNo, Set turqConsignments, Set turqBills) {
+    public TurqBillConsignmentCommon(int discountRate, java.math.BigDecimal discountAmount, java.math.BigDecimal vatAmount, java.math.BigDecimal charges, java.math.BigDecimal totalAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.math.BigDecimal specialVatAmount, java.lang.String billDocumentNo, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqConsignments, Set turqBills) {
         this.discountRate = discountRate;
         this.discountAmount = discountAmount;
         this.vatAmount = vatAmount;
@@ -66,8 +66,8 @@ public class TurqBillConsignmentCommon implements Serializable {
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
         this.specialVatAmount = specialVatAmount;
-        this.currentCardsId = currentCardsId;
         this.billDocumentNo = billDocumentNo;
+        this.turqCurrentCard = turqCurrentCard;
         this.turqConsignments = turqConsignments;
         this.turqBills = turqBills;
     }
@@ -164,20 +164,20 @@ public class TurqBillConsignmentCommon implements Serializable {
         this.specialVatAmount = specialVatAmount;
     }
 
-    public int getCurrentCardsId() {
-        return this.currentCardsId;
-    }
-
-    public void setCurrentCardsId(int currentCardsId) {
-        this.currentCardsId = currentCardsId;
-    }
-
     public java.lang.String getBillDocumentNo() {
         return this.billDocumentNo;
     }
 
     public void setBillDocumentNo(java.lang.String billDocumentNo) {
         this.billDocumentNo = billDocumentNo;
+    }
+
+    public com.turquaz.engine.dal.TurqCurrentCard getTurqCurrentCard() {
+        return this.turqCurrentCard;
+    }
+
+    public void setTurqCurrentCard(com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
+        this.turqCurrentCard = turqCurrentCard;
     }
 
     public java.util.Set getTurqConsignments() {

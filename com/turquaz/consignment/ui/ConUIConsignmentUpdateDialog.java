@@ -138,11 +138,11 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 	public void postInitGui(){
-		compAddConsignment.getTxtCurrentCard().setData(consignment.getTurqCurrentCard());
-		compAddConsignment.getTxtCurrentCard().setText(consignment.getTurqCurrentCard().getCardsCurrentCode()+Messages.getString("ConUIConsignmentUpdateDialog.4") + //$NON-NLS-1$
-														consignment.getTurqCurrentCard().getCardsName());
+		compAddConsignment.getTxtCurrentCard().setData(consignment.getTurqBillConsignmentCommon().getTurqCurrentCard());
+		compAddConsignment.getTxtCurrentCard().setText(consignment.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode()+Messages.getString("ConUIConsignmentUpdateDialog.4") + //$NON-NLS-1$
+														consignment.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName());
 		;
-		compAddConsignment.getTxtBillDocumentNo().setText(consignment.getConsignmentsBillDocumentNo());
+		compAddConsignment.getTxtBillDocumentNo().setText(consignment.getTurqBillConsignmentCommon().getBillDocumentNo());
 		compAddConsignment.getDateConsignmentDate().setDate(consignment.getConsignmentsDate());
 		if(consignment.getConsignmentsType()==0){
 		compAddConsignment.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.5")); //$NON-NLS-1$
@@ -152,7 +152,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 	
 		compAddConsignment.getTxtDefinition().setText(consignment.getConsignmentsDefinition());
-		compAddConsignment.getTxtDiscountRate().setText(consignment.getCondignmentsDiscountRate());
+		compAddConsignment.getTxtDiscountRate().setText(consignment.getTurqBillConsignmentCommon().getDiscountRate());
 		fillInvTransactionColumns();
 		fillRegisteredGroup();
 	}

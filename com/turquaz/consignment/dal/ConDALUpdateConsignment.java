@@ -33,6 +33,20 @@ public class ConDALUpdateConsignment {
 			throw ex;
 		}
 	}
+	public void update(Object obj)throws Exception{
+		try{
+		Session session = EngDALSessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.update(obj);
+		session.flush();
+		tx.commit();
+		session.close();
+		
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
 	public void updateConsignment(TurqConsignment obj)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();

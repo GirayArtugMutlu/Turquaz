@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.turquaz.consignment.dal.ConDALAddConsignment;
-import com.turquaz.engine.dal.TurqBill;
+import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
@@ -28,26 +28,18 @@ public class ConBLAddConsignment {
 	}
 	public Integer saveConsignment(String docNo, String definition, boolean isPrinted, Date consignmentDate,
 								   TurqCurrentCard curCard, int discountRate,BigDecimal discountAmount,
-								   TurqBill bill, String billDocNo, BigDecimal vatAmount,BigDecimal specialVatAmount,
+								   String billDocNo, BigDecimal vatAmount,BigDecimal specialVatAmount,
 								   BigDecimal totalAmount,int type)throws Exception {
 		try{
 		
 			
 			TurqConsignment consignment = new TurqConsignment();
-			consignment.setCondignmentsDiscountRate(discountRate);
-			consignment.setConsignmentsBillDocumentNo(billDocNo);
-			consignment.setConsignmentsCharges(new BigDecimal(0));
+					
 			consignment.setConsignmentsDate(consignmentDate);
 			consignment.setConsignmentsDefinition(definition);
-			consignment.setConsignmentsDiscountAmount(discountAmount);
 			consignment.setConsignmentsDocumentNo(docNo);
 			consignment.setConsignmentsPrinted(isPrinted);
-			consignment.setConsignmentsTotalAmount(totalAmount);
 			consignment.setConsignmentsType(type);
-			consignment.setConsignmentsVatAmount(vatAmount);
-			consignment.setConsignmentsSpecialVatAmount(specialVatAmount);
-			consignment.setTurqBill(bill);
-			consignment.setTurqCurrentCard(curCard);
 					
 			TurqCompany company = new TurqCompany();	
 			company.setCompaniesId(Integer.valueOf(System.getProperty("company"))); //$NON-NLS-1$
@@ -56,6 +48,26 @@ public class ConBLAddConsignment {
 			consignment.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			consignment.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			consignment.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			
+			
+			TurqBillConsignmentCommon common = new TurqBillConsignmentCommon();
+			
+			common.setBillDocumentNo(billDocNo);
+			common.setCharges(new BigDecimal(0));
+			common.setTotalAmount(totalAmount);
+			common.setDiscountAmount(discountAmount);
+			common.setVatAmount(vatAmount);
+			common.setSpecialVatAmount(specialVatAmount);
+			common.setDiscountRate(discountRate);
+			common.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			common.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			common.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			common.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			common.setTurqCurrentCard(curCard);
+			
+			dalConsignment.save(common);
+			
+			consignment.setTurqBillConsignmentCommon(common);
 			
 			dalConsignment.save(consignment);
 			

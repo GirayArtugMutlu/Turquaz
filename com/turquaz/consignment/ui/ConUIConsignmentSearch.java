@@ -289,10 +289,10 @@ SecureComposite, SearchComposite{
 			item = new TableItem(tableConsignments,SWT.NULL);
 			item.setData(cons);
 			item.setText(new String[]{DatePicker.formatter.format(cons.getConsignmentsDate()),
-									cons.getTurqCurrentCard().getCardsName(),
-									cons.getConsignmentsTotalAmount().toString(),
-									cons.getConsignmentsVatAmount().toString(),
-									cons.getConsignmentsSpecialVatAmount().toString()});
+									cons.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName(),
+									cons.getTurqBillConsignmentCommon().getTotalAmount().toString(),
+									cons.getTurqBillConsignmentCommon().getVatAmount().toString(),
+									cons.getTurqBillConsignmentCommon().getSpecialVatAmount().toString()});
 			
 		}
 			

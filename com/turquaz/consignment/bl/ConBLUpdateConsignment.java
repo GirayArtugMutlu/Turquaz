@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import com.turquaz.consignment.dal.ConDALUpdateConsignment;
+import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
@@ -28,20 +29,32 @@ public class ConBLUpdateConsignment {
 			   BigDecimal totalAmount,int type)throws Exception{
 		try{
 		
-		consignment.setCondignmentsDiscountRate(discountRate);
-		consignment.setConsignmentsBillDocumentNo(billDocNo);
-		consignment.setConsignmentsCharges(new BigDecimal(0));
+	
 		consignment.setConsignmentsDate(consignmentDate);
 		consignment.setConsignmentsDefinition(definition);
-		consignment.setConsignmentsDiscountAmount(discountAmount);
+		
 		consignment.setConsignmentsDocumentNo(docNo);
-		consignment.setConsignmentsTotalAmount(totalAmount);
+	
 		consignment.setConsignmentsType(type);
-		consignment.setConsignmentsVatAmount(vatAmount);
-		consignment.setConsignmentsSpecialVatAmount(specialVatAmount);
-		consignment.setTurqCurrentCard(curCard);		
+				
 		consignment.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		consignment.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+		
+		TurqBillConsignmentCommon common = consignment.getTurqBillConsignmentCommon();
+		
+		common.setBillDocumentNo(billDocNo);
+		common.setCharges(new BigDecimal(0));
+		common.setTotalAmount(totalAmount);
+		common.setDiscountAmount(discountAmount);
+		common.setVatAmount(vatAmount);
+		common.setSpecialVatAmount(specialVatAmount);
+		common.setDiscountRate(discountRate);
+		common.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+		common.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+		common.setTurqCurrentCard(curCard);
+	  
+		dalCons.update(common);
+		
 		dalCons.updateConsignment(consignment);
 		
 		

@@ -73,6 +73,9 @@ public class TurqCurrentCard implements Serializable {
     private Set turqCurrentTransactions;
 
     /** persistent field */
+    private Set turqBillConsignmentCommons;
+
+    /** persistent field */
     private Set turqTradebillRolls;
 
     /** persistent field */
@@ -85,7 +88,7 @@ public class TurqCurrentCard implements Serializable {
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqCurrentCard(java.lang.String cardsCurrentCode, java.lang.String cardsName, java.lang.String cardsDefinition, java.lang.String cardsAddress, java.math.BigDecimal cardsDiscountRate, java.math.BigDecimal cardsDiscountPayment, java.math.BigDecimal cardsCreditLimit, java.math.BigDecimal cardsRiskLimit, java.lang.String cardsTaxDepartment, java.lang.String cardsTaxNumber, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqChequeRolls, Set turqCurrentContacts, Set turqOrders, Set turqCurrentTransactions, Set turqTradebillRolls, Set turqCurrentCardsGroups, Set turqCurrentCardsPhones, Set turqBanksTransactions) {
+    public TurqCurrentCard(java.lang.String cardsCurrentCode, java.lang.String cardsName, java.lang.String cardsDefinition, java.lang.String cardsAddress, java.math.BigDecimal cardsDiscountRate, java.math.BigDecimal cardsDiscountPayment, java.math.BigDecimal cardsCreditLimit, java.math.BigDecimal cardsRiskLimit, java.lang.String cardsTaxDepartment, java.lang.String cardsTaxNumber, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqChequeRolls, Set turqCurrentContacts, Set turqOrders, Set turqCurrentTransactions, Set turqBillConsignmentCommons, Set turqTradebillRolls, Set turqCurrentCardsGroups, Set turqCurrentCardsPhones, Set turqBanksTransactions) {
         this.cardsCurrentCode = cardsCurrentCode;
         this.cardsName = cardsName;
         this.cardsDefinition = cardsDefinition;
@@ -106,6 +109,7 @@ public class TurqCurrentCard implements Serializable {
         this.turqCurrentContacts = turqCurrentContacts;
         this.turqOrders = turqOrders;
         this.turqCurrentTransactions = turqCurrentTransactions;
+        this.turqBillConsignmentCommons = turqBillConsignmentCommons;
         this.turqTradebillRolls = turqTradebillRolls;
         this.turqCurrentCardsGroups = turqCurrentCardsGroups;
         this.turqCurrentCardsPhones = turqCurrentCardsPhones;
@@ -282,6 +286,14 @@ public class TurqCurrentCard implements Serializable {
 
     public void setTurqCurrentTransactions(java.util.Set turqCurrentTransactions) {
         this.turqCurrentTransactions = turqCurrentTransactions;
+    }
+
+    public java.util.Set getTurqBillConsignmentCommons() {
+        return this.turqBillConsignmentCommons;
+    }
+
+    public void setTurqBillConsignmentCommons(java.util.Set turqBillConsignmentCommons) {
+        this.turqBillConsignmentCommons = turqBillConsignmentCommons;
     }
 
     public java.util.Set getTurqTradebillRolls() {

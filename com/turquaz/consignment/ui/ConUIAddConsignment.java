@@ -32,7 +32,6 @@ import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLAddGroups;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
-import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
@@ -931,9 +930,8 @@ implements SecureComposite{
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 	try{	
 		if(verifyFields()){
-			TurqBill bill = new TurqBill();
-			bill.setBillsId(new Integer(-1));
-	        int type =0;
+		
+		int type =0;
 		if(comboConsignmentType.getText().equals(Messages.getString("ConUIAddConsignment.35"))){ //$NON-NLS-1$
 			type =1;
 		}
@@ -945,7 +943,6 @@ implements SecureComposite{
 										(TurqCurrentCard)txtCurrentCard.getData(),
 										txtDiscountRate.getIntValue(),
 										txtDiscountAmount.getBigDecimalValue(),
-										bill,
 										txtBillDocumentNo.getText(),
 										txtTotalVat.getBigDecimalValue(),
 										decSpecialVat.getBigDecimalValue(),
