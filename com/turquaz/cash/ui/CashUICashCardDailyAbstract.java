@@ -26,18 +26,25 @@ import org.eclipse.swt.layout.GridLayout;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cash.ui.comp.CashCardPicker;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 
@@ -61,6 +68,7 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 	private DatePicker datePicker;
 	private CLabel lblStartDate;
 	private CashCardPicker cashCardPicker;
+	private SearchTableViewer tableViewer=null;
 	{
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
@@ -114,8 +122,13 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 				}
 			}
 			{
-				tableCashTrans = new Table(this, SWT.NONE);
+				tableCashTrans = new Table(this, SWT.FULL_SELECTION);
 				GridData tableCashTransLData = new GridData();
+				tableCashTrans.addMouseListener(new MouseAdapter() {
+					public void mouseDoubleClick(MouseEvent evt) {
+						tableCashTransMouseDoubleClick(evt);
+					}
+				});
 				tableCashTrans.setHeaderVisible(true);
 				tableCashTrans.setLinesVisible(true);
 				tableCashTransLData.grabExcessHorizontalSpace = true;
@@ -150,11 +163,17 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 				}
 			}
 			this.layout();
+			PostInitGui();
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void PostInitGui()
+	{
+		createTableViewer();
 	}
 
 	public boolean verifyFields()
@@ -167,9 +186,71 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 		}
 		return true;
 	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[5];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_DATE;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableCashTrans, columnTypes);
+	}
+	
+	private void tableCashTransMouseDoubleClick(MouseEvent evt)
+	{
+		try
+		{
+			TableItem selection[] = tableCashTrans.getSelection();
+			if (selection.length > 0)
+			{
+				TableItem item = selection[0];
+				Integer id = (Integer)((ITableRow) item.getData()).getDBObject();
+				if (id == null)
+				{
+					return;
+				}
+				TurqCashTransaction cashTrans = CashBLCashTransactionSearch.initializeCashTransaction(id);
+				if (cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue() != EngBLCommon.MODULE_CASH)
+				{
+					EngUICommon.showMessageBox(this.getShell(), Messages.getString("CashUICashTransactionSearch.7")); //$NON-NLS-1$
+					return;
+				}
+				boolean updated = false;
+				if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_CURRENT_COLLECT)
+				{
+					updated = new CashUICashCollectTransactionUpdate(this.getShell(), SWT.NULL, cashTrans).open();
+				}
+				else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_CURRENT_PAYMENT)
+				{
+					updated = new CashUICashPaymentTransactionUpdate(this.getShell(), SWT.NULL, cashTrans).open();
+				}
+				else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_OTHER_COLLECT)
+				{
+					updated = new CashUICashOtherCollectTransactionUpdate(this.getShell(), SWT.NULL, cashTrans).open();
+				}
+				else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_OTHER_PAYMENT)
+				{
+					updated = new CashUICashOtherPaymentTransactionUpdate(this.getShell(), SWT.NULL, cashTrans).open();
+				}
+				else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_TRANSFER_BETWEEN_CARDS)
+				{
+					updated = new CashUICashTransferBetweenCardsUpdate(this.getShell(), SWT.NULL, cashTrans).open();
+				}
+				if (updated)
+					search();
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 
 	public void delete()
 	{
+		//TODO should be implemented..
 	}
 
 	public void exportToExcel()
@@ -188,9 +269,8 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 		{
 			try
 			{
-				tableCashTrans.removeAll();
+				tableViewer.removeAll();
 				TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-				TableItem item = new TableItem(tableCashTrans, SWT.NULL);
 				BigDecimal total_dept = new BigDecimal(0);
 				BigDecimal total_credit = new BigDecimal(0);
 				BigDecimal deferred_dept = new BigDecimal(0);
@@ -212,16 +292,8 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 						credit = credit.subtract(dept);
 						dept = new BigDecimal(0);
 					}
-					item.setText(new String[]{
-							"", "", Messages.getString("CashUICashCardAbstract.12"), cf.format(dept), cf.format(credit) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-							});
 					deferred_dept = deferred_dept.add(dept);
 					deferred_credit = deferred_credit.add(credit);
-				}
-				else
-				{
-					item.setText(new String[]{"", "", Messages.getString("CashUICashCardAbstract.15"), cf.format(0), cf.format(0) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-							});
 				}
 				List ls = CashBLCashTransactionSearch.getTransactions((TurqCashCard) cashCardPicker.getData(), datePicker.getDate(),
 						datePicker.getDate());
@@ -240,28 +312,19 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 					{
 						credit = (BigDecimal) results[4];
 					}
-					item = new TableItem(tableCashTrans, SWT.NULL);
-					item.setText(new String[]{DatePicker.formatter.format((Date) results[1]), results[5].toString(),
-							results[2].toString(), cf.format(dept), cf.format(credit),});
+					Integer id=(Integer)results[0];
+					tableViewer.addRow(new String[]{DatePicker.formatter.format((Date) results[1]), results[5].toString(),
+							results[2].toString(), cf.format(dept), cf.format(credit)},id);
 					total_dept = total_dept.add(dept);
 					total_credit = total_credit.add(credit);
 				}
-				item = new TableItem(tableCashTrans, SWT.NULL);
-				item = new TableItem(tableCashTrans, SWT.NULL);
-				item.setText(new String[]{"", //$NON-NLS-1$
-						"", //$NON-NLS-1$
-						Messages.getString("CashUICashCardAbstract.18"), //$NON-NLS-1$
-						cf.format(total_dept), cf.format(total_credit)});
-				item = new TableItem(tableCashTrans, SWT.NULL);
-				item.setText(new String[]{"", //$NON-NLS-1$
-						"", //$NON-NLS-1$
-						Messages.getString("CashUICashCardAbstract.21"), //$NON-NLS-1$
-						cf.format(deferred_dept), cf.format(deferred_credit)});
-				item = new TableItem(tableCashTrans, SWT.NULL);
-				item.setText(new String[]{"", //$NON-NLS-1$
-						"", //$NON-NLS-1$
-						Messages.getString("CashUICashCardAbstract.24"), //$NON-NLS-1$
-						cf.format(deferred_dept.add(total_dept)), cf.format(deferred_credit.add(total_credit))});
+				tableViewer.addRow(new String[]{"","","","",""},null);
+				tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardAbstract.18"), //$NON-NLS-1$
+						cf.format(total_dept), cf.format(total_credit)},null);
+				tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardAbstract.21"), //$NON-NLS-1$
+						cf.format(deferred_dept), cf.format(deferred_credit)},null);
+				tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardAbstract.24"), //$NON-NLS-1$
+						cf.format(deferred_dept.add(total_dept)), cf.format(deferred_credit.add(total_credit))},null);
 			}
 			catch (Exception ex)
 			{

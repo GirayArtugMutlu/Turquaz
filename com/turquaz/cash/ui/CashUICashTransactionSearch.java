@@ -35,6 +35,9 @@ import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -69,6 +72,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	private CLabel lblDefinition;
 	private Table tableCashTransactions;
 	private Calendar cal = Calendar.getInstance();
+	private SearchTableViewer tableViewer=null;
 
 	public CashUICashTransactionSearch(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -193,6 +197,17 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 		//datePickerStart.setDate(new Date(cal.getTime().getYear(),0,1));
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		datePickerStart.setDate(cal.getTime());
+		createTableViewer();
+	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[4];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_DATE;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableCashTransactions, columnTypes);
 	}
 
 	public void delete()
@@ -214,11 +229,10 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	{
 		try
 		{
-			tableCashTransactions.removeAll();
+			tableViewer.removeAll();
 			List list = CashBLCashTransactionSearch.searchCashTransactions(txtCashCard.getTurqCashCard(), datePickerStart.getDate(),
 					datePickerEnd.getDate(), txtDefinition.getText());
 			Object[] row;
-			TableItem item;
 			BigDecimal deptAmount = new BigDecimal(0);
 			BigDecimal creditAmount = new BigDecimal(0);
 			BigDecimal amount;
@@ -229,9 +243,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 			for (int i = 0; i < list.size(); i++)
 			{
 				row = (Object[]) list.get(i);
-				item = new TableItem(tableCashTransactions, SWT.NULL);
 				id = (Integer) row[0];
-				item.setData(id);
 				// cardName = row[1].toString();
 				type = row[1].toString();
 				if (row[2] != null)
@@ -250,7 +262,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 				}
 				transDefinition = row[5].toString();
 				TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-				item.setText(new String[]{DatePicker.formatter.format(transDate), transDefinition, type, cf.format(amount)});
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), transDefinition, type, cf.format(amount)},id);
 			}
 		}
 		catch (Exception ex)
@@ -267,7 +279,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 			if (selection.length > 0)
 			{
 				TableItem item = selection[0];
-				Integer id = (Integer) item.getData();
+				Integer id = (Integer) ((ITableRow)item.getData()).getDBObject();
 				TurqCashTransaction cashTrans = CashBLCashTransactionSearch.initializeCashTransaction(id);
 				if (cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue() != EngBLCommon.MODULE_CASH)
 				{

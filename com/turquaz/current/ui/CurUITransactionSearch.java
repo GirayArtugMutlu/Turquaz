@@ -360,7 +360,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 
 	public void delete()
 	{
-		//should be implemented..
+		//TODO should be implemented..
 	}
 
 	public void newForm()

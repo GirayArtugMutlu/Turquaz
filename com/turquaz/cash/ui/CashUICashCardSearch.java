@@ -67,7 +67,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 	private Table tableCashCards;
 	private AccountPicker accountPicker;
 	private Text txtCardCode;
-	SearchTableViewer tableViewer = null;
+	private SearchTableViewer tableViewer = null;
 
 	public CashUICashCardSearch(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -150,11 +150,17 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 			}
 			createTableViewer();
 			this.layout();
+			PostInitGui();
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void PostInitGui()
+	{
+		createTableViewer();
 	}
 
 	public void createTableViewer()
@@ -168,7 +174,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 	}
 	public void delete()
 	{
-		// TODO Auto-generated method stub
+		// TODO should be implemented..
 	}
 
 	public void exportToExcel()
@@ -208,8 +214,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 		if (selection.length > 0)
 		{
 			TableItem item = selection[0];
-			ITableRow row = (ITableRow)item.getData();
-			
+			ITableRow row = (ITableRow)item.getData();			
 			new CashUICashCardUpdate(this.getShell(), SWT.NULL, (TurqCashCard)row.getDBObject()).open();
 			search();
 		}
