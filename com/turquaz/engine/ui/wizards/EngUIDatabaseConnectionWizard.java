@@ -12,6 +12,9 @@ package com.turquaz.engine.ui.wizards;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
+import java.io.FileOutputStream;
+import java.util.Properties;
+
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
@@ -47,8 +50,9 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 		
 	}
 	public boolean performFinish(){
-		
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+		try{
+		
 		String dbType = page1.getComboDBServer().getText();
 		String username= page2.getTxtUsername().getText();
 		String password=  page2.getTxtPassword().getText();
@@ -56,8 +60,20 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 		String serverPort = page2.getTxtServerPort().getText();
 		String dbName = page3.getComboDatabases().getText();
 		
+	   Properties props = new Properties();	
+		props.setProperty("dbType",dbType);
+		props.setProperty("username",username);
+		props.setProperty("password",password);
+		props.setProperty("serverAddress",serverAddress);
+		props.setProperty("serverPort",serverPort);
+		props.setProperty("dbName",dbName);
+	  
+		FileOutputStream fileout = new FileOutputStream("config/turquaz.properties");
+	    props.save(fileout,"Turquaz Properties File");
+		
+		
 	  if(page4.getButtonYes().getSelection()){
-		try{
+	
 			EngDALConnection conn = new EngDALConnection(dbType,username,password,
 														serverAddress+":"+serverPort,
 														dbName);
@@ -69,13 +85,9 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 			
 			
 		}
-		catch(Exception ex){
-			ex.printStackTrace();
-			msg.setMessage(ex.getMessage());
-			msg.open();
-		}		
 		
-	  }
+		
+	  
 	  else{
 			
 		System.exit(-1);		
@@ -85,6 +97,13 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 			
 		
 		return true;
+	}
+	 catch(Exception ex){
+			ex.printStackTrace();
+			msg.setMessage(ex.getMessage());
+			msg.open();
+		return false;
+	 }	
 	}
 	/**
 	 * @return Returns the page1.
