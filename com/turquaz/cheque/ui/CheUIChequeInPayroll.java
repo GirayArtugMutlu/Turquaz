@@ -165,7 +165,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
                 {
                     tableColumnNo = new TableColumn(tableCheques, SWT.NONE);
                     tableColumnNo.setText(Messages.getString("CheUIChequeInPayroll.6")); //$NON-NLS-1$
-                    tableColumnNo.setWidth(58);
+                    tableColumnNo.setWidth(59);
                 }
                 {
                     tableColumnDueDaye = new TableColumn(tableCheques, SWT.NONE);
@@ -185,7 +185,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
                     tableColumnDeptor.setWidth(145);
                 }
                 {
-                    tableColumnAmount = new TableColumn(tableCheques, SWT.NONE);
+                    tableColumnAmount = new TableColumn(tableCheques, SWT.RIGHT);
                     tableColumnAmount.setText(Messages.getString("CheUIChequeInPayroll.10")); //$NON-NLS-1$
                     tableColumnAmount.setWidth(100);
                 }
