@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created using an evaluation version of JasperAssistant (http://www.jasperassistant.com) -->
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport name="Unnamed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
+	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<parameter name="currentName" class="java.lang.String">
+	</parameter>
+	<parameter name="currentAddress" class="java.lang.String">
+	</parameter>
+	<parameter name="currentTaxDepartment" class="java.lang.String">
+	</parameter>
+	<parameter name="currentTaxNumber" class="java.lang.String">
+	</parameter>
+	<parameter name="invoiceDate" class="java.lang.String">
+	</parameter>
+	<parameter name="dueDate" class="java.lang.String">
+	</parameter>
+	<parameter name="despatchNoteDate" class="java.lang.String">
+	</parameter>
+	<parameter name="despatchNoteId" class="java.lang.String">
+	</parameter>
+	<parameter name="currentId" class="java.lang.String">
+	</parameter>
+	<parameter name="invoiceSum" class="java.math.BigDecimal">
+	</parameter>
+	<parameter name="invoiceDiscount" class="java.math.BigDecimal">
+	</parameter>
+	<parameter name="invoiceTotal" class="java.math.BigDecimal">
+	</parameter>
+	<parameter name="invoiceVAT" class="java.math.BigDecimal">
+	</parameter>
+	<parameter name="invoiceGrandTotal" class="java.math.BigDecimal">
+	</parameter>
+	<parameter name="invoiceGrandTotalText" class="java.lang.String">
+	</parameter>
+	<parameter name="currentBalance" class="java.math.BigDecimal">
+	</parameter>
+	<parameter name="currentNewBalance" class="java.math.BigDecimal">
+	</parameter>
+	<parameter name="sqlparam" class="java.lang.String">
+	</parameter>
+	<parameter name="definition" class="java.lang.String">
+	</parameter>
+	<parameter name="billType" class="java.lang.Integer">
+	</parameter>
+	<queryString><![CDATA[$P!{sqlparam}]]></queryString>
+	<field name="card_units_factor" class="java.lang.Integer">
+	</field>
+	<field name="card_inventory_code" class="java.lang.String">
+	</field>
+	<field name="card_name" class="java.lang.String">
+	</field>
+	<field name="amount" class="java.lang.Long">
+	</field>
+	<field name="transactions_unit_price" class="java.math.BigDecimal">
+	</field>
+	<field name="transactions_total_price" class="java.math.BigDecimal">
+	</field>
+	<field name="inventory_transactions_id" class="java.lang.Integer">
+	</field>
+	<field name="units_name" class="java.lang.String">
+	</field>
+	<field name="warehouses_name" class="java.lang.String">
+	</field>
+	<group name="info">
+		<groupHeader>
+		<band height="5">
+		</band>
+		</groupHeader>
+		<groupFooter>
+		<band height="130">
+			<textField>
+				<reportElement positionType="Float" x="486" y="17" width="65" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceSum})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="485" y="33" width="65" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceDiscount})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="486" y="51" width="65" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceTotal})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="486" y="71" width="65" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceVAT})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="486" y="90" width="65" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceGrandTotal})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="400" y="17" width="80" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[TOPLAM : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="400" y="33" width="80" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[İNDİRİMLER : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="400" y="51" width="80" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[NET TOPLAM : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="400" y="71" width="80" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[K.D.V : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="400" y="90" width="80" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[GENEL TOPLAM : ]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="400" y="49" width="150" height="1"/>
+				<graphicElement/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="400" y="88" width="150" height="1"/>
+				<graphicElement/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="400" y="110" width="150" height="1"/>
+				<graphicElement/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="400" y="112" width="150" height="1"/>
+				<graphicElement/>
+			</line>
+			<textField>
+				<reportElement positionType="Float" x="5" y="114" width="547" height="14"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{invoiceGrandTotalText}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="400" y="13" width="150" height="1"/>
+				<graphicElement/>
+			</line>
+		</band>
+		</groupFooter>
+	</group>
+	<group name="invTrans">
+		<groupExpression><![CDATA[$F{inventory_transactions_id}]]></groupExpression>
+		<groupHeader>
+		<band height="13">
+			<textField>
+				<reportElement positionType="Float" x="10" y="1" width="89" height="11"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{card_inventory_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="105" y="1" width="141" height="11"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{card_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="250" y="1" width="48" height="11"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="370" y="1" width="87" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{transactions_unit_price})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="462" y="1" width="88" height="11"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{transactions_total_price})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="300" y="1" width="61" height="11"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{units_name}]]></textFieldExpression>
+			</textField>
+		</band>
+		</groupHeader>
+		<groupFooter>
+		<band>
+		</band>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="280">
+			<textField>
+				<reportElement positionType="Float" x="135" y="222" width="196" height="14"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentTaxDepartment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="295" y="24" width="100" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{invoiceDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="295" y="40" width="100" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{despatchNoteId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="11" y="109" width="85" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[MÜŞTERİ KODU : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="11" y="130" width="85" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[MÜŞTERİ ÜNVANI : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="11" y="153" width="85" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[MÜŞTERİ ADRESİ : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="100" y="130" width="150" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="100" y="109" width="150" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="100" y="154" width="150" height="50"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="202" y="8" width="90" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[FATURA TAKİP NO : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="202" y="24" width="90" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[TARİH : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="202" y="40" width="90" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[BELGE NO : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="202" y="56" width="90" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[FATURA TÜRÜ : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="295" y="8" width="100" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{despatchNoteId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="295" y="56" width="100" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{billType}.intValue()==1) ? "Alış" : "Satış"+" faturası"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="202" y="72" width="90" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[AMBAR ADI : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="295" y="72" width="100" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{warehouses_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="11" y="222" width="120" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[MÜŞTERİ VERGİ DAİRESİ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="11" y="245" width="120" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[MÜŞTERİ VERGİ NO : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="135" y="245" width="196" height="14"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentTaxNumber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band height="98">
+			<textField>
+				<reportElement positionType="Float" x="136" y="4" width="136" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{currentNewBalance}.doubleValue() >= 0 ) ? ((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{currentNewBalance}):((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{currentNewBalance}.multiply(new BigDecimal(-1)))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="3" y="4" width="130" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[SON CARİ HESAP BAKİYESİ : ]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

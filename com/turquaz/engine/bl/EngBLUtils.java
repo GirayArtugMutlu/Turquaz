@@ -258,13 +258,17 @@ public class EngBLUtils {
 					((bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_BUY) ? 
 					"invTrans.transactions_amount_in as amount," : "invTrans.transactions_total_amount_out as amount,")+ //$NON-NLS-1$ //$NON-NLS-2$
 					" invTrans.transactions_unit_price, invTrans.transactions_total_price,"+ //$NON-NLS-1$
+					" warehouse.warehouses_name,"+ //$NON-NLS-1$
+					" invTrans.transactions_unit_price, invTrans.transactions_total_price,"+ //$NON-NLS-1$
 					" invTrans.transactions_vat"+ //$NON-NLS-1$
 					" from turq_inventory_transactions invTrans, turq_inventory_units units," + //$NON-NLS-1$
-					" turq_inventory_cards invCard, turq_inventory_card_units invCardUnits where" + //$NON-NLS-1$
+					" turq_inventory_cards invCard, turq_inventory_card_units invCardUnits," + //$NON-NLS-1$
+					" turq_inventory_warehouses warehouse where" + //$NON-NLS-1$
 					" invTrans.engine_sequences_id="+cons.getTurqEngineSequence().getEngineSequencesId().intValue()+ //$NON-NLS-1$
 					" and invTrans.inventory_cards_id=invCard.inventory_cards_id" + //$NON-NLS-1$
 					" and invCardUnits.inventory_cards_id=invTrans.inventory_cards_id" + //$NON-NLS-1$
 					" and invCardUnits.inventory_units_id=invTrans.inventory_units_id" + //$NON-NLS-1$
+					" and warehouse.inventory_warehouses_id=invTrans.inventory_warehouses_id"+ //$NON-NLS-1$
 					" and units.inventory_units_id=invTrans.inventory_units_id"; //$NON-NLS-1$
 			
 			
@@ -296,7 +300,7 @@ public class EngBLUtils {
 	
 			parameters.put("despatchNoteDate",dformat.format(cons.getConsignmentsDate())); //$NON-NLS-1$
 			parameters.put("despatchNoteId",billCommon.getConsignmentDocumentNo()); //$NON-NLS-1$
-			
+			parameters.put("billType",(bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_BUY) ? new Integer(1) : new Integer(0));
 			TurqViewCurrentAmountTotal currentView=curBLCurCardSearch.getCurrentCardView(curCard);
 			BigDecimal allTotal=currentView.getTransactionsBalanceNow();
 			allTotal = allTotal.multiply(new BigDecimal(-1));
@@ -315,7 +319,7 @@ public class EngBLUtils {
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
 			
-			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/invoice/template2.jasper");  //$NON-NLS-1$
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/invoice/template3.jasper");  //$NON-NLS-1$
 	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
 			
 			ViewerApp viewer = new ViewerApp();
@@ -470,7 +474,7 @@ public class EngBLUtils {
 		new PVSpace(doc, 0.1);
 		
 		t = new PTextBox(doc);
-	    t.setText(Messages.getString("EngBLUtils.93")+"      ");  //$NON-NLS-1$
+	    t.setText(Messages.getString("EngBLUtils.93")+"      ");  //$NON-NLS-1$ //$NON-NLS-2$
 	    t.getTextStyle().fontSize = 10;
 	    t.getTextStyle().fontStyle = SWT.BOLD;
 	    
@@ -482,7 +486,7 @@ public class EngBLUtils {
 	    new PVSpace(doc, space);
 	    
 	    t = new PTextBox(doc);
-	    t.setText(Messages.getString("EngBLUtils.94")+"    ");  //$NON-NLS-1$
+	    t.setText(Messages.getString("EngBLUtils.94")+"    ");  //$NON-NLS-1$ //$NON-NLS-2$
 	    t.getTextStyle().fontSize = 10;
 	    t.getTextStyle().fontStyle = SWT.BOLD;
 	    
@@ -496,7 +500,7 @@ public class EngBLUtils {
 	    
 	    
 	    t = new PTextBox(doc);
-	    t.setText(Messages.getString("EngBLUtils.95")+"     ");  //$NON-NLS-1$
+	    t.setText(Messages.getString("EngBLUtils.95")+"     ");  //$NON-NLS-1$ //$NON-NLS-2$
 	    t.getTextStyle().fontSize = 10;
 	    t.getTextStyle().fontStyle = SWT.BOLD;
 	    
@@ -510,7 +514,7 @@ public class EngBLUtils {
 	    
 	    
 	    t = new PTextBox(doc);
-	    t.setText(Messages.getString("EngBLUtils.96")+"       ");  //$NON-NLS-1$
+	    t.setText(Messages.getString("EngBLUtils.96")+"       ");  //$NON-NLS-1$ //$NON-NLS-2$
 	    t.getTextStyle().fontSize = 10;
 	    t.getTextStyle().fontStyle = SWT.BOLD;
 	    
@@ -524,7 +528,7 @@ public class EngBLUtils {
 	    
 	    
 	    t = new PTextBox(doc);
-	    t.setText(Messages.getString("EngBLUtils.97")+"      ");  //$NON-NLS-1$
+	    t.setText(Messages.getString("EngBLUtils.97")+"      ");  //$NON-NLS-1$ //$NON-NLS-2$
 	    t.getTextStyle().fontSize = 10;
 	    t.getTextStyle().fontStyle = SWT.BOLD;
 	    
@@ -539,7 +543,7 @@ public class EngBLUtils {
 	    
 	    
 	    t = new PTextBox(doc);
-	    t.setText(Messages.getString("EngBLUtils.98")+"  ");  //$NON-NLS-1$
+	    t.setText(Messages.getString("EngBLUtils.98")+"  ");  //$NON-NLS-1$ //$NON-NLS-2$
 	    t.getTextStyle().fontSize = 10;
 	    t.getTextStyle().fontStyle = SWT.BOLD;
 	    
