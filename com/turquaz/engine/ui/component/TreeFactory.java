@@ -59,6 +59,7 @@ import com.turquaz.bank.ui.BankUIMoneyTransferOut;
 import com.turquaz.bank.ui.BankUIOtherTransIn;
 import com.turquaz.bank.ui.BankUIOtherTransOut;
 import com.turquaz.bank.ui.BankUISearchMoneyTransaction;
+import com.turquaz.bank.ui.BankUITransferBetweenAccounts;
 import com.turquaz.bill.ui.BillUIAddBuyBill;
 import com.turquaz.bill.ui.BillUIAddSellBill;
 import com.turquaz.bill.ui.BillUIBillFromConsignment;
@@ -234,6 +235,11 @@ public final class TreeFactory {
 			item = new TreeItem(bankTrans,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.72"));  //$NON-NLS-1$
 			item.setData(BankUIOtherTransOut.class.getName());
+		}
+		if(EngBLPermissions.getPermission(BankUITransferBetweenAccounts.class.getName())>0){
+			item = new TreeItem(bankTrans,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.76"));   //$NON-NLS-1$
+			item.setData(BankUITransferBetweenAccounts.class.getName());
 		}
 		if(EngBLPermissions.getPermission(BankUIInitialTransaction.class.getName())>0){
 			item = new TreeItem(bankTrans,SWT.NULL);
