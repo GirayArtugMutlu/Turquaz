@@ -66,6 +66,7 @@ public class EngDALSessionFactory {
 				url = "jdbc:postgresql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort")+"/"+EngConfiguration.getString("dbName");
 				 driver = "org.postgresql.Driver";
 				 props.put("hibernate.dialect","net.sf.hibernate.dialect.PostgreSQLDialect");
+				 props.put("hibernate.schema","public");
 					
 			}
 		String username = EngConfiguration.getString("dbUsername");
@@ -85,7 +86,7 @@ public class EngDALSessionFactory {
 		props.put("hibernate.connection.username",username);
 		props.put("hibernate.connection.password",password);
 		props.put("hibernate.show_sql","false");
-		props.put("hibernate.schema","public");
+		
 		
 			
 		cfg = cfg.configure();

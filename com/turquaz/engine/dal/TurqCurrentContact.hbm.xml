@@ -21,7 +21,7 @@
         type="int"
         column="current_contacts_id"
     >
-        <generator class="increment" />
+        <generator class="native" />
     </id>
 
     <property

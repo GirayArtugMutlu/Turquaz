@@ -21,7 +21,7 @@
         type="int"
         column="user_permissions_id"
     >
-        <generator class="increment" />
+        <generator class="native" />
     </id>
 
     <property

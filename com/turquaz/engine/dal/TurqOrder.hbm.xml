@@ -21,7 +21,7 @@
         type="int"
         column="orders_id"
     >
-        <generator class="increment" />
+        <generator class="native" />
     </id>
 
     <property

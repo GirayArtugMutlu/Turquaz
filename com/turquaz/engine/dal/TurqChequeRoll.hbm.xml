@@ -21,7 +21,7 @@
         type="int"
         column="cheque_rolls_id"
     >
-        <generator class="increment" />
+        <generator class="native" />
     </id>
 
     <property

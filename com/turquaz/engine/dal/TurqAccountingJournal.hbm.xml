@@ -21,7 +21,7 @@
         type="int"
         column="accounting_journal_id"
     >
-        <generator class="increment" />
+        <generator class="native" />
     </id>
 
     <property

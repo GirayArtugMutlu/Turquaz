@@ -21,7 +21,7 @@
         type="int"
         column="bill_consignment_common_id"
     >
-        <generator class="increment" />
+        <generator class="native" />
     </id>
 
     <property

@@ -2,16 +2,13 @@ package com.turquaz.cheque.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.swt.layout.GridLayout;
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.custom.CLabel;
-
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -24,7 +21,6 @@ import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
-
 import com.turquaz.cheque.Messages;
 import com.turquaz.engine.ui.component.SecureComposite;
 

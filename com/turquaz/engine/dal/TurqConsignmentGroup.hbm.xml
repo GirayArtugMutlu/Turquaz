@@ -21,7 +21,7 @@
         type="int"
         column="consignment_groups_id"
     >
-        <generator class="increment" />
+        <generator class="native" />
     </id>
 
     <property

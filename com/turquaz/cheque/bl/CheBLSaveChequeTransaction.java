@@ -18,6 +18,8 @@ public class CheBLSaveChequeTransaction {
       try{
           TurqChequeRoll chequeRoll = new TurqChequeRoll();
           chequeRoll.setChequeRollsDate(rollDate);
+          chequeRoll.setChequeRollNo(rollNo);
+       
       
           
             
