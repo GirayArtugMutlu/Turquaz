@@ -36,6 +36,7 @@ import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqInventoryCard;
+import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 
 import com.turquaz.engine.dal.TurqInventoryGroup;
 
@@ -103,6 +104,29 @@ public class InvDALCardSearch {
 	    }
 	}
 	
+	public TurqViewInventoryAmountTotal getView (TurqInventoryCard invCard)throws Exception
+	{
+		
+		try{
+			
+				Session session = EngDALSessionFactory.openSession();
+				
+				String query = "Select invView from TurqViewInventoryAmountTotal as invView"+
+						" where  invView.inventoryCardsId ="+invCard.getInventoryCardsId();					
+					
+				   
+				Query q = session.createQuery(query); 
+
+			
+				List list = q.list();			
+			    session.close();			
+				return (TurqViewInventoryAmountTotal)list.get(0);
+				
+			}
+			catch(Exception ex){
+				throw ex;
+			}
+	}
 	
 
 }

@@ -72,10 +72,12 @@ public class NumericText extends Composite {
 
  }
  protected void text3VerifyText(VerifyEvent evt){
-    Pattern pattern = Pattern.compile("[0-9]*");
+ 	Text control = (Text)evt.widget;
+    String textcontrol = control.getText();
+ 	String newText = textcontrol.substring(0, evt.start) + evt.text + textcontrol.substring(evt.end);
+ 		Pattern pattern = Pattern.compile("[0-9]{0,9}");
 
-       Matcher m = pattern.matcher(evt.text);
-
+ 		Matcher m = pattern.matcher(newText);
        // ONLY NUMERICAL VALUES ARE ACCEPTED    .
 
        if (!m.matches()) {

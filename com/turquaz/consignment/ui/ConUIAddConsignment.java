@@ -896,8 +896,12 @@ implements SecureComposite{
 	    }
 	}
 	public void btnAddConsignmentRowMouseUp(){
-		
-	TurqInventoryTransaction invTrans = new InvUITransactionAddDialog(this.getShell(),SWT.NULL).open();
+		int type =0;
+		if(comboConsignmentType.getText().equals(Messages.getString("ConUIAddConsignment.35"))){ //$NON-NLS-1$
+			type =1;
+		}
+		boolean buy=(type==0) ? true : false;
+	TurqInventoryTransaction invTrans = new InvUITransactionAddDialog(this.getShell(),SWT.NULL, buy).open();
 	if(invTrans!=null){
 	TableItem item = new TableItem(tableConsignmentRows,SWT.NULL);
 	

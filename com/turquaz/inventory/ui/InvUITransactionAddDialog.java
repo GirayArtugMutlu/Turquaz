@@ -42,6 +42,7 @@ import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
+import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.DecimalTextWithButton;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -109,6 +110,8 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private Text txtInvCard;
 	private CLabel lblInvVard;
 	private EngBLCommon blCommon = new EngBLCommon();
+	private InvBLCardSearch blCardSearch=new InvBLCardSearch();
+	private boolean BUY;
 	TurqInventoryTransaction invTrans;
 	TurqInventoryUnit defaultUnit;
 
@@ -117,8 +120,9 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	* org.eclipse.swt.widgets.Dialog inside a new Shell.
 	*/
 	
-	public InvUITransactionAddDialog(Shell parent, int style) {
+	public InvUITransactionAddDialog(Shell parent, int style, boolean buy) {
 		super(parent, style);
+		BUY=buy;
 	}
 
 	public TurqInventoryTransaction open() {
@@ -520,72 +524,116 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 			msg.setMessage(Messages.getString("InvUITransactionAddDialog.7")); //$NON-NLS-1$
 			msg.open();
 			return false;
-		}
+		}		
 		return true;
 	}
 	
 	public void btnOkMouseUp(){
 		
 		if(verifyFields()){
-		  invTrans = new TurqInventoryTransaction();
-		  invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouses.getData(comboWareHouses.getText()));
+			try{
+				
+				TurqInventoryCard invCard=(TurqInventoryCard)txtInvCard.getData();
+				TurqViewInventoryAmountTotal invView=blCardSearch.getView(invCard);
+				int Now=(invView.getTransactionsTotalAmountNow()==null) ? 0 : invView.getTransactionsTotalAmountNow().intValue();
+				int Max=invCard.getCardMaximumAmount();
+				int Min=invCard.getCardMinimumAmount();
+				int request=txtVat.getIntValue();
+				boolean check=(Max==0)? false : true;
+				if (check)
+				{
+					if (BUY)
+					{
+						if (Now+request > Max)
+						{
+							MessageBox msg=new MessageBox(this.getParent(), SWT.YES | SWT.CANCEL);
+							msg.setMessage("Uyar?: Stok kart?n?n maximum miktar?n? a??yorsunuz.\nDevam etmek istiyor musunuz?");
+							if (msg.open()==SWT.CANCEL)
+								return;
+						}
+					}
+					else
+					{
+						if (Now-request < Min)
+						{
+							MessageBox msg=new MessageBox(this.getParent(), SWT.YES | SWT.CANCEL);
+							msg.setMessage("Uyar?: Stok kart?n?n minumum miktar?n?n alt?na iniyorsunuz.\nDevam etmek istiyor musunuz?");
+							if (msg.open()==SWT.CANCEL)
+								return;
+						}
+					}
+					
+				}
+				
+
+				invTrans = new TurqInventoryTransaction();
+		  		invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouses.getData(comboWareHouses.getText()));
 		  
-		  invTrans.setTurqInventoryCard((TurqInventoryCard)txtInvCard.getData());
+		  		invTrans.setTurqInventoryCard((TurqInventoryCard)txtInvCard.getData());
 
 		  
-		  TurqInventoryCardUnit unit=(TurqInventoryCardUnit)comboUnitType.getData(comboUnitType.getText());
+		  		TurqInventoryCardUnit unit=(TurqInventoryCardUnit)comboUnitType.getData(comboUnitType.getText());
 		  
-		  int vat = txtVat.getIntValue();
-		  int specialVat = numSpecialVat.getIntValue();
+		  		int vat = txtVat.getIntValue();
+		  		int specialVat = numSpecialVat.getIntValue();
 		  
-		  int amount = numTxtAmount.getIntValue()*unit.getCardUnitsFactor();
+		  		int amount = numTxtAmount.getIntValue()*unit.getCardUnitsFactor();
 		  
-		  BigDecimal unitPrice = decTxtPrice.getBigDecimalValue();
+		  		BigDecimal unitPrice = decTxtPrice.getBigDecimalValue();
 		  
-		  if(comboCurrency.getText().equals("TL")){
-		      unitPrice = unitPrice.divide(new BigDecimal("1000000"),2,BigDecimal.ROUND_HALF_DOWN);
+		  		if(comboCurrency.getText().equals("TL")){
+		  			unitPrice = unitPrice.divide(new BigDecimal("1000000"),2,BigDecimal.ROUND_HALF_DOWN);
 		      
-		  }
+		  		}
 		
 		  
-		  BigDecimal totalPrice = unitPrice.multiply(new BigDecimal(amount));
+		  		BigDecimal totalPrice = unitPrice.multiply(new BigDecimal(amount));
 		  
 		  
-		  double _vat = (double)vat/100;
-		  double _specialVat = (double)specialVat/100;
+		  		double _vat = (double)vat/100;
+		  		double _specialVat = (double)specialVat/100;
 		
-		  BigDecimal VATAmount = totalPrice.multiply(new BigDecimal(_vat+"")); //$NON-NLS-1$
+		  		BigDecimal VATAmount = totalPrice.multiply(new BigDecimal(_vat+"")); //$NON-NLS-1$
           
-		   BigDecimal specialVATAmount = new BigDecimal(0);
-		  if(btnSpecialVat.getSelection()){
+		  		BigDecimal specialVATAmount = new BigDecimal(0);
+		  		if(btnSpecialVat.getSelection()){
 		  	
-		  	specialVATAmount = totalPrice.multiply(new BigDecimal(_specialVat+"")); //$NON-NLS-1$
-		    invTrans.setTransactionsVatSpecialEach(new BigDecimal(0));
-		    invTrans.setTransactionsVatSpecial(new BigDecimal(specialVat));
+		  			specialVATAmount = totalPrice.multiply(new BigDecimal(_specialVat+"")); //$NON-NLS-1$
+		  			invTrans.setTransactionsVatSpecialEach(new BigDecimal(0));
+		  			invTrans.setTransactionsVatSpecial(new BigDecimal(specialVat));
 		  	
-		  }
-		  else{
-		  	specialVATAmount = numTxtSpecialVatEach.getBigDecimalValue().multiply(new BigDecimal(amount)); 
-            invTrans.setTransactionsVatSpecial(new BigDecimal(0));  
-            invTrans.setTransactionsVatSpecialEach(numTxtSpecialVatEach.getBigDecimalValue());
-		  }
+		  		}
+		  		else{
+		  			specialVATAmount = numTxtSpecialVatEach.getBigDecimalValue().multiply(new BigDecimal(amount)); 
+		  			invTrans.setTransactionsVatSpecial(new BigDecimal(0));  
+		  			invTrans.setTransactionsVatSpecialEach(numTxtSpecialVatEach.getBigDecimalValue());
+		  		}
 		  
-		  BigDecimal cumulativeTotal =totalPrice.add(VATAmount).add(specialVATAmount); 
+		  		BigDecimal cumulativeTotal =totalPrice.add(VATAmount).add(specialVATAmount); 
 		  	  
-		  invTrans.setTransactionsVat(vat);
-		  invTrans.setTransactionsUnitPrice(unitPrice);
-		  invTrans.setTransactionsAmountIn(amount);
-		  invTrans.setTransactionsTotalAmountOut(amount);
-		  invTrans.setTransactionsTotalPrice(totalPrice);
-		  invTrans.setTransactionsVatAmount(VATAmount);
-		  invTrans.setTransactionsVatSpecialAmount(specialVATAmount);
-		  invTrans.setTransactionsCumilativePrice(cumulativeTotal);
-		  invTrans.setTurqInventoryUnit(defaultUnit);
+		  		invTrans.setTransactionsVat(vat);
+		  		invTrans.setTransactionsUnitPrice(unitPrice);
+		  		invTrans.setTransactionsAmountIn(amount);
+		  		invTrans.setTransactionsTotalAmountOut(amount);
+		  		invTrans.setTransactionsTotalPrice(totalPrice);
+		  		invTrans.setTransactionsVatAmount(VATAmount);
+		  		invTrans.setTransactionsVatSpecialAmount(specialVATAmount);
+		 		invTrans.setTransactionsCumilativePrice(cumulativeTotal);
+		 		invTrans.setTurqInventoryUnit(defaultUnit);
 		  
 		  
-		  dialogShell.close();
+		 		 dialogShell.close();
+				}
+				catch(Exception ex)
+				{
+					MessageBox msg=new MessageBox(this.getParent(), SWT.NULL);
+					ex.printStackTrace();
+					msg.setMessage(ex.getMessage());
+					msg.open();
+					
+				}
 		  
-		}
+			}
 	
 	}
 	

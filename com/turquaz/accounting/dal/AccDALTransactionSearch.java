@@ -93,7 +93,6 @@ public class AccDALTransactionSearch {
 	
 	public List searchTransaction(String docNo,Object type,Object startDate, Object endDate)throws Exception {
     try{
-        System.out.println("deneme");
         
     	Session session = EngDALSessionFactory.openSession();
 		

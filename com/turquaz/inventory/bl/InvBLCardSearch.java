@@ -31,6 +31,7 @@ import java.util.List;
 
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 
 import com.turquaz.inventory.dal.InvDALCardSearch;
 
@@ -64,6 +65,18 @@ public class InvBLCardSearch {
 	    catch(Exception ex){
 	        throw ex;
 	    }
+	}
+	
+	public TurqViewInventoryAmountTotal getView (TurqInventoryCard invCard)throws Exception
+	{
+		try{
+			return cardSearch.getView(invCard);
+			
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
 	}
 	
 	

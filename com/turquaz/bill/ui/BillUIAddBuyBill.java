@@ -1033,7 +1033,7 @@ public class BillUIAddBuyBill extends Composite
 	public void btnAddConsignmentRowMouseUp() {
 
 		TurqInventoryTransaction invTrans = new InvUITransactionAddDialog(this
-				.getShell(), SWT.NULL).open();
+				.getShell(), SWT.NULL, true).open();
 		if (invTrans != null) {
 			TableItem item = new TableItem(tableConsignmentRows, SWT.NULL);
 
