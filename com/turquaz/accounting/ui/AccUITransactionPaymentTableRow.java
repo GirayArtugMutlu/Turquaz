@@ -10,7 +10,8 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
-import com.turquaz.engine.ui.component.TurquazDecimalFormat;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TableRowList;
 
@@ -62,7 +63,7 @@ public class AccUITransactionPaymentTableRow implements ITableRow {
     
     public String getColumnText(int column_index) {
 
-    	TurquazDecimalFormat df=new TurquazDecimalFormat();
+    	TurkishCurrencyFormat df=new TurkishCurrencyFormat();
 
         String result = "";
 		switch (column_index) {

@@ -141,6 +141,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	public HashMap mapEditorsTableInvCardAddRegisteredUnits;
 
 	private TableColumn tableColumnUnitCoefficient;
+	private Button radioSpecialVatAmount;
+	private Button radioSpecialVatPercent;
 	private AccountPicker accountPickerSpecVatSell;
 	private CLabel cLabel2;
 	private AccountPicker accountPickerVATSell;
@@ -259,9 +261,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	private CLabel lblInvCardCode;
 
 	private CurrencyText decTextSpecialVatAmount;
-	private Label lblSpecialVatAmount;
 	private NumericText numTextSpecailVATPercent;
-	private Label lblSpecialVATPercent;
 	private Label label5;
 	private Label label4;
 	private Label label3;
@@ -530,16 +530,14 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						.setSize(new org.eclipse.swt.graphics.Point(104, 18));
 				}
 				{
-					lblSpecialVATPercent = new Label(
-						compInvCardDetails,
-						SWT.RIGHT);
-					lblSpecialVATPercent.setText(Messages.getString("InvUICardAdd.34")); //$NON-NLS-1$
-					GridData lblSpecialVATPercentLData = new GridData();
-					lblSpecialVATPercentLData.widthHint = 63;
-					lblSpecialVATPercentLData.heightHint = 18;
-					lblSpecialVATPercentLData.horizontalAlignment = GridData.END;
-					lblSpecialVATPercent
-						.setLayoutData(lblSpecialVATPercentLData);
+					radioSpecialVatPercent = new Button(compInvCardDetails, SWT.RADIO
+						| SWT.LEFT);
+					GridData radioOTVpercLData1 = new GridData();
+					radioSpecialVatPercent.setText("ÖTV%");
+					radioOTVpercLData1.horizontalAlignment = GridData.END;
+					radioSpecialVatPercent.setLayoutData(radioOTVpercLData1);
+					GridData radioOTVpercLData = new GridData();
+					radioOTVpercLData.horizontalSpan = 0;
 				}
 				{
 					numTextSpecailVATPercent = new NumericText(
@@ -552,15 +550,14 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					numTextSpecailVATPercent.setLayoutData(numTextSpecailVATPercentLData);
 				}
 				{
-					lblSpecialVatAmount = new Label(
+					radioSpecialVatAmount = new Button(
 						compInvCardDetails,
-						SWT.RIGHT);
-					lblSpecialVatAmount.setText(Messages.getString("InvUICardAdd.35")); //$NON-NLS-1$
-					GridData lblSpecialVatAmountLData = new GridData();
-					lblSpecialVatAmountLData.horizontalAlignment = GridData.END;
-					lblSpecialVatAmountLData.widthHint = 107;
-					lblSpecialVatAmountLData.heightHint = 13;
-					lblSpecialVatAmount.setLayoutData(lblSpecialVatAmountLData);
+						SWT.RADIO | SWT.LEFT);
+					radioSpecialVatAmount.setText("Birim ÖTV Tutar?");
+					GridData radioSpecialVatAmountLData = new GridData();
+					radioSpecialVatAmount.setSelection(true);
+					radioSpecialVatAmountLData.horizontalAlignment = GridData.END;
+					radioSpecialVatAmount.setLayoutData(radioSpecialVatAmountLData);
 				}
 				{
 					decTextSpecialVatAmount = new CurrencyText(
@@ -569,17 +566,18 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					GridData decTextSpecialVatAmountLData = new GridData();
 					decTextSpecialVatAmount
 						.addTraverseListener(new TraverseListener() {
-						public void keyTraversed(TraverseEvent evt) {
-							if (evt.keyCode==SWT.TAB)
-							{
-								tabfldInvCardAdd.setSelection(tabInvCardUnits);
-								evt.doit=false;
+							public void keyTraversed(TraverseEvent evt) {
+								if (evt.keyCode == SWT.TAB) {
+									tabfldInvCardAdd
+										.setSelection(tabInvCardUnits);
+									evt.doit = false;
+								}
 							}
-						}
 						});
 					decTextSpecialVatAmountLData.widthHint = 91;
 					decTextSpecialVatAmountLData.heightHint = 16;
-					decTextSpecialVatAmount.setLayoutData(decTextSpecialVatAmountLData);
+					decTextSpecialVatAmount
+						.setLayoutData(decTextSpecialVatAmountLData);
 				}
 				{
 					label3 = new Label(compInvCardDetails, SWT.SEPARATOR
@@ -1677,6 +1675,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			comboInvCardUnits.setFocus();
 			return false;
 		}
+
 		return true;
 		}
 		catch(Exception ex)
@@ -1712,7 +1711,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								.getIntValue(), accountIdBuy, accountIdSell,numTextSpecailVATPercent.getIntValue()
 								,decTextSpecialVatAmount.getBigDecimalValue(),
 								accountIdVAt, accountIdSpecialVAT,
-								accountIdVAtSell,accountIdSpecialVATSell);
+								accountIdVAtSell,accountIdSpecialVATSell,
+								radioSpecialVatAmount.getSelection());
 
 				
 
@@ -2208,5 +2208,17 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	 */
 	public void setAccountPickerVATSell(AccountPicker accountPickerVATSell) {
 		this.accountPickerVATSell = accountPickerVATSell;
+	}
+	public Button getRadioSpecialVatAmount() {
+		return radioSpecialVatAmount;
+	}
+	public void setRadioSpecialVatAmount(Button radioSpecialVatAmount) {
+		this.radioSpecialVatAmount = radioSpecialVatAmount;
+	}
+	public Button getRadioSpecialVatPercent() {
+		return radioSpecialVatPercent;
+	}
+	public void setRadioSpecialVatPercent(Button radioSpecialVatPercent) {
+		this.radioSpecialVatPercent = radioSpecialVatPercent;
 	}
 }

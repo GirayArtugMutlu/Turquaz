@@ -13,6 +13,7 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 
 import org.eclipse.swt.widgets.TableColumn;
@@ -164,17 +165,13 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
                     tableColumnTransGroup.setWidth(114);
                 }
                 {
-                    tableColumnDebit = new TableColumn(
-                        tableCurrentTransactions,
-                        SWT.NONE);
+                    tableColumnDebit = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
                     tableColumnDebit.setText(Messages
                         .getString("CurUITransactionSearch.7")); //$NON-NLS-1$
                     tableColumnDebit.setWidth(106);
                 }
                 {
-                    tableColumnCredit = new TableColumn(
-                        tableCurrentTransactions,
-                        SWT.NONE);
+                    tableColumnCredit = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
                     tableColumnCredit.setText(Messages
                         .getString("CurUITransactionSearch.8")); //$NON-NLS-1$
                     tableColumnCredit.setWidth(101);
@@ -203,7 +200,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 		
 		TurqCurrentTransaction transaction;
 		TableItem item;
-		
+		TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
 		for(int i=0;i<results.size();i++){
 		
 		transaction = (TurqCurrentTransaction)results.get(i);
@@ -211,8 +208,8 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 		item.setData(transaction);
 		item.setText(new String[]{DatePicker.formatter.format(transaction.getTransactionsDate()),
 		        				  transaction.getTurqCurrentTransactionType().getTransactionTypeName(),
-								  transaction.getTransactionsTotalDept().toString(),
-								  transaction.getTransactionsTotalCredit().toString(),
+								  cf.format(transaction.getTransactionsTotalDept()),
+								  cf.format(transaction.getTransactionsTotalCredit()),
 								  
 									});
 		

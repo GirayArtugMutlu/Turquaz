@@ -21,10 +21,7 @@ package com.turquaz.engine.dal;
  * @version $Id$
  */
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 
-import org.hsqldb.Server;
 
 public class DatabaseThread extends Thread {
 

@@ -40,5 +40,11 @@ public class TurkishCurrencyFormat extends DecimalFormat {
 		
 	}
 	
+	public BigDecimal getBigDecimal(String str)
+	{
+		str=str.replaceAll("\\.","");
+		str=str.replace(',','.');
+		return new BigDecimal(str);
+	}
 
 }

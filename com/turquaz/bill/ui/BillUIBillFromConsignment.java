@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.hibernate.property.Getter;
+
 
 import org.eclipse.swt.layout.GridLayout;
 

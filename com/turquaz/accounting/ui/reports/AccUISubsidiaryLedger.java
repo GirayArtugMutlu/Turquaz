@@ -49,7 +49,8 @@ import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
-import com.turquaz.engine.ui.component.TurquazDecimalFormat;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+
 
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.DisposeEvent;
@@ -320,7 +321,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 					account, dateStartDate
 							.getData(), dateEndDate.getData());
 			
-			TurquazDecimalFormat df = new TurquazDecimalFormat();
+			TurkishCurrencyFormat df = new TurkishCurrencyFormat();
 			
 			BigDecimal balance = new BigDecimal(0); //balance shown in table
 			BigDecimal totalDept = new BigDecimal(0); //total dept

@@ -52,6 +52,7 @@ import com.turquaz.engine.dal.TurqAccountingTransactionType;
 
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.DisposeEvent;
@@ -394,6 +395,7 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 	TableItem item;
 	
 	int listSize = result.size();
+	TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
 	for(int i =0; i<listSize;i++){
 		
 		TurqAccountingTransaction accTrans = (TurqAccountingTransaction)result.get(i);
@@ -407,12 +409,10 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 	  		TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn)it.next();
 	  		total = total.add(transColumn.getCreditAmount());
 	  	}
-
-		
 		
 		String transDate =formatter.format(accTrans.getTransactionsDate());
 		item.setText(new String[]{transDate,accTrans.getTransactionDocumentNo(),accTrans.getTurqAccountingTransactionType().getTypesName(),
-					total.toString(),accTrans.getTransactionDescription()}); //$NON-NLS-1$
+					cf.format(total),accTrans.getTransactionDescription()}); //$NON-NLS-1$
 	
 	}
 	

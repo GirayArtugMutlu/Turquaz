@@ -256,6 +256,8 @@ public class InvUICardUpdateDialog extends Dialog{
 	compInvUICard.getAccountPickerSpecVAT().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSpecialVat());
 	compInvUICard.getAccountPickerVATSell().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdVatSell());
 	compInvUICard.getAccountPickerSpecVatSell().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSpecialVatSell());
+	compInvUICard.getRadioSpecialVatAmount().setSelection(invCard.isSpecVatForEach());
+	compInvUICard.getRadioSpecialVatPercent().setSelection(!invCard.isSpecVatForEach());
 	fillUnits();
 	fillGroups();
 	fillPrices();

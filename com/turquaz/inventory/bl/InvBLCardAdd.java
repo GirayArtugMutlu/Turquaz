@@ -185,7 +185,8 @@ public class InvBLCardAdd {
 			int maxAmount, int cardVat, int discount,TurqAccountingAccount accountBuy,
 			TurqAccountingAccount accountSell,int cardSpecialVat, BigDecimal cardSpecialVatEach,
 			TurqAccountingAccount accountVAT, TurqAccountingAccount accountSpecialVAT, 
-			TurqAccountingAccount accountVATSell, TurqAccountingAccount accountSpecialVATSell
+			TurqAccountingAccount accountVATSell, TurqAccountingAccount accountSpecialVATSell,
+			boolean isSpecAmount
 	        ) throws Exception {
 
 		try {			
@@ -210,6 +211,7 @@ public class InvBLCardAdd {
             card.setTurqAccountingAccountByAccountingAccountsIdSpecialVat(accountSpecialVAT);
             card.setTurqAccountingAccountByAccountingAccountsIdSpecialVatSell(accountSpecialVATSell);
             card.setTurqAccountingAccountByAccountingAccountsIdVatSell(accountVATSell);
+            card.setSpecVatForEach(isSpecAmount);
 			cardAdd.saveOrUpdateInvCard(card);
 
 			return card.getInventoryCardsId();

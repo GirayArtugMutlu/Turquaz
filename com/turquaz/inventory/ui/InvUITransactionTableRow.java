@@ -16,7 +16,8 @@ import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryUnit;
-import com.turquaz.engine.ui.component.TurquazDecimalFormat;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TableRowList;
 import com.turquaz.inventory.bl.InvBLCardSearch;
@@ -49,7 +50,7 @@ public class InvUITransactionTableRow implements ITableRow {
     TableViewer tableViewer ;
     long transAmount = 0;
     long transAmountinBaseUnit=0;
-    TurquazDecimalFormat decFormat = new TurquazDecimalFormat();
+    TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
     /*
      * type 0 = Buy 
      * type 1 = Sell
@@ -144,11 +145,11 @@ public class InvUITransactionTableRow implements ITableRow {
 			    break;
 			    
 			case 6 :  //Unit Price
-			    result = decFormat.format(invTrans.getTransactionsUnitPrice());
+			    result = cf.format(invTrans.getTransactionsUnitPrice());
 				break;
 				
 			case 7 : // total Price
-			    result = decFormat.format(invTrans.getTransactionsTotalPrice());
+			    result = cf.format(invTrans.getTransactionsTotalPrice());
 				break;
 				
 			case 8 : // discount %	
@@ -160,7 +161,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 10 : // VAT total 
-			    result = decFormat.format(invTrans.getTransactionsVatAmount());
+			    result = cf.format(invTrans.getTransactionsVatAmount());
 				break;
 				
 			case 11 : // Special VAT percent 
@@ -168,11 +169,11 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 12 : // Specail VAT Total 
-			    result = decFormat.format(invTrans.getTransactionsVatSpecialAmount());
+			    result = cf.format(invTrans.getTransactionsVatSpecialAmount());
 				break;
 				
 			case 13 : //Cumulative Price
-			    result = decFormat.format(invTrans.getTransactionsCumilativePrice());
+			    result = cf.format(invTrans.getTransactionsCumilativePrice());
 			    break;
 				
 			default :
@@ -291,12 +292,12 @@ public class InvUITransactionTableRow implements ITableRow {
 			    break;
 			    
 			case 6 :  //Unit Price
-			    result = decFormat.format(invTrans.getTransactionsUnitPrice());
+			    result = cf.format(invTrans.getTransactionsUnitPrice());
 				
 			    break;
 				
 			case 7 : // total Price
-			    result = decFormat.format(invTrans.getTransactionsTotalPrice());
+			    result = cf.format(invTrans.getTransactionsTotalPrice());
 				break;
 			
 			case 8 : // Discount percent	
@@ -307,7 +308,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 10 : // VAT total 
-			    result = decFormat.format(invTrans.getTransactionsVatAmount());
+			    result = cf.format(invTrans.getTransactionsVatAmount());
 				break;
 				
 			case 11 : // Special VAT percent 
@@ -315,11 +316,11 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 12 : // Specail VAT Total 
-			    result = decFormat.format(invTrans.getTransactionsVatSpecialAmount().toString());
+			    result = cf.format(invTrans.getTransactionsVatSpecialAmount().toString());
 				break;
 				
 			case 13 : //Cumulative Price
-			    result = decFormat.format(invTrans.getTransactionsCumilativePrice().toString());
+			    result = cf.format(invTrans.getTransactionsCumilativePrice().toString());
 			    break;
 				
 			default :

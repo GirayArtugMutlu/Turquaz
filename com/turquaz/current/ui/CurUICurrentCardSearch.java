@@ -59,6 +59,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -372,7 +373,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 			tableCurrentCardSearch.removeAll();
 			List listCurrentCards=curBLCurrentCardSearch.searchCurrentCard(txtCurrentCode.getText().trim(),
 																		txtCurrentName.getText().trim(),(TurqCurrentGroup)comboTurqGroupName.getData(comboTurqGroupName.getText()));
-
+			TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
 			for(int k=0; k<listCurrentCards.size(); k++){
 				TurqCurrentCard aCurrentCard=(TurqCurrentCard)((Object[])listCurrentCards.get(k))[1];
 				TurqViewCurrentAmountTotal currentView=(TurqViewCurrentAmountTotal)((Object[])listCurrentCards.get(k))[0];
@@ -392,7 +393,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
  				}
  					
  				
- 				item.setText(new String[]{aCurrentCard.getCardsCurrentCode(),aCurrentCard.getCardsName(),totalDept,totalCredit,balance, contactName});
+ 				item.setText(new String[]{aCurrentCard.getCardsCurrentCode(),aCurrentCard.getCardsName(),cf.format(totalDept),cf.format(totalCredit),cf.format(balance), contactName});
                   			
 			}
 		

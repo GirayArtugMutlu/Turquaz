@@ -25,6 +25,8 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TableSorter;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.VerifyKeyListener;
@@ -325,6 +327,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 												dateEndDate.getDate(),type);
 		TurqBill bill;
 		TableItem item;
+		TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
 		for(int i=0;i<list.size();i++){
 			
 			bill = (TurqBill)list.get(i);
@@ -332,9 +335,9 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 			item.setData(bill);
 			item.setText(new String[]{DatePicker.formatter.format(bill.getBillsDate()),
 									bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName(),
-									bill.getTurqBillConsignmentCommon().getTotalAmount().toString(),
-									bill.getTurqBillConsignmentCommon().getVatAmount().toString(),
-									bill.getTurqBillConsignmentCommon().getSpecialVatAmount().toString()});
+									cf.format(bill.getTurqBillConsignmentCommon().getTotalAmount()),
+									cf.format(bill.getTurqBillConsignmentCommon().getVatAmount()),
+									cf.format(bill.getTurqBillConsignmentCommon().getSpecialVatAmount())});
 			
 		}
 			

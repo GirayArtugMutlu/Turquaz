@@ -26,6 +26,8 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TableSorter;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
@@ -351,6 +353,7 @@ SearchComposite{
 												dateEndDate.getDate(),type);
 		TurqConsignment cons;
 		TableItem item;
+		TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
 		for(int i=0;i<list.size();i++){
 			
 			cons = (TurqConsignment)list.get(i);
@@ -358,9 +361,9 @@ SearchComposite{
 			item.setData(cons);
 			item.setText(new String[]{DatePicker.formatter.format(cons.getConsignmentsDate()),
 									cons.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName(),
-									cons.getTurqBillConsignmentCommon().getTotalAmount().toString(),
-									cons.getTurqBillConsignmentCommon().getVatAmount().toString(),
-									cons.getTurqBillConsignmentCommon().getSpecialVatAmount().toString()});
+									cf.format(cons.getTurqBillConsignmentCommon().getTotalAmount()),
+									cf.format(cons.getTurqBillConsignmentCommon().getVatAmount()),
+									cf.format(cons.getTurqBillConsignmentCommon().getSpecialVatAmount())});
 			
 		}
 			

@@ -60,7 +60,7 @@ import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.current.ui.CurUICurrentCardSearch;
-import com.turquaz.current.ui.CurUITransactionAdd;
+
 import com.turquaz.current.ui.CurUITransactionSearch;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLPermissions;

@@ -17,6 +17,8 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Button;
@@ -189,6 +191,7 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 	      TableItem item;
 	  	
 	  	int listSize = result.size();
+	  	TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
 	  	for(int i =0; i<listSize;i++){
 	  	TurqAccountingTransaction accTrans = (TurqAccountingTransaction)result.get(i);
 	  	item = new TableItem(tableAccountingTransaction,SWT.NULL);
@@ -206,7 +209,7 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 	  	
 	  	String transDate =formatter.format(accTrans.getTransactionsDate());
 	  	item.setText(new String[]{accTrans.getTurqAccountingTransactionType().getTypesName(),
-	  					accTrans.getTransactionDocumentNo(),transDate,total.toString(),accTrans.getTransactionDescription()}); //$NON-NLS-1$
+	  					accTrans.getTransactionDocumentNo(),transDate,cf.format(total),accTrans.getTransactionDescription()}); //$NON-NLS-1$
 	  	
 	  	}
 	        
