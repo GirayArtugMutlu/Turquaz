@@ -1,10 +1,19 @@
 package com.turquaz.bill.ui;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+
 import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.widgets.Event;
@@ -56,6 +65,7 @@ import org.eclipse.swt.SWT;
 
 
 import com.turquaz.engine.ui.component.CurrencyText;
+import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
 /**
@@ -537,6 +547,12 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 								bill=BillBLSearchBill.getBillByBillId(billId);
 								initializeBill(bill);
 								postFinalizeGui();
+								if (currentIndex==0)
+									toolItemBack.setEnabled(false);
+								
+								if (currentIndex < list.size()-1)
+									toolItemForward.setEnabled(true);
+									
 							}
 						}
 					}
@@ -565,6 +581,12 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 								bill=BillBLSearchBill.getBillByBillId(billId);
 								initializeBill(bill);
 								postFinalizeGui();
+								
+								if (currentIndex==list.size()-1)
+									toolItemForward.setEnabled(false);
+								
+								if (currentIndex > 0)
+									toolItemBack.setEnabled(true);
 							}
 						}
 					}
@@ -845,6 +867,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			item=new TableItem(tableBills,SWT.NULL);
 			item.setText(new String[]{"","","",Messages.getString("BillUIBillReport.14"),cf.format(total),cf.format(VAT),cf.format(SpecialVAT)}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			
+			
 			currentIndex=0;
 			if (list.size() > 0)
 			{
@@ -853,6 +876,12 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				bill=BillBLSearchBill.getBillByBillId(billId);
 				initializeBill(bill);
 				postFinalizeGui();
+				
+				toolItemBack.setEnabled(false);
+				
+				//Generate Jasper Report
+				GenerateJasper(list);
+				
 			}
 			
 			
@@ -860,11 +889,49 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
-		}
-		
-		
-		
+		}		
 	}
+	
+	 public void GenerateJasper(List list)
+	 {
+    	try
+		{
+    		Map parameters=new HashMap();
+    		SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+    		parameters.put("reportDate", sdf.format(Calendar.getInstance().getTime()));
+    		parameters.put("startDate",sdf.format(dateStartDate.getDate()));
+    		parameters.put("endDate", sdf.format(dateEndDate.getDate()));
+    		parameters.put("dueDateStart", sdf.format(dateDueDateStart.getDate()));
+    		parameters.put("dueDateEnd", sdf.format(dateDueDateEnd.getDate()));
+    		parameters.put("dateFormatter",sdf);
+    		parameters.put("currencyFormatter", new TurkishCurrencyFormat());
+    		
+    		
+    		String []fields = new String[]{"id",
+    				"bills_date",
+					"bill_document_no",
+					"cards_current_code",
+					"cards_name",
+					"total_amount",
+					"vat_amount",		
+					"special_vat_amount"
+    		};  	
+    	
+    		HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list,fields);
+    		JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/bill/BillReport.jasper");   //$NON-NLS-1$
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
+			viewer.getReportViewer().setDocument(jasperPrint);
+		}
+    	catch(Exception ex)
+		{
+    		ex.printStackTrace();
+		}
+    	
+    	
+    }
+	
+	
+	
 	public void newForm(){
 		
 	}

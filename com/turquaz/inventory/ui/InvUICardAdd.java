@@ -1235,7 +1235,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			
 			tableViewer.setInput(rowList);
 			 
-	             cursor = new TableSpreadsheetCursor(tableInvAccounts, SWT.NONE,tableViewer,rowList,true);
+	             cursor = new TableSpreadsheetCursor(tableInvAccounts, SWT.NONE,tableViewer,rowList,false);
 	             cursor.setEnabled(true);
 
 	             cursor.addSelectionListener(new SelectionAdapter() {
