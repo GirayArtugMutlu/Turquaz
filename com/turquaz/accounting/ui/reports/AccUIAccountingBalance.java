@@ -141,20 +141,20 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			
 
 			String sqlparam="Select mytab.deptsum,mytab.creditsum,mytab.top_account,accs.account_name,accs.account_code," + //$NON-NLS-1$
-					" accs.accounting_accounts_id from turq_accounting_accounts accs,"+ //$NON-NLS-1$
+					" accs.id as accounting_accounts_id from turq_accounting_accounts accs,"+ //$NON-NLS-1$
 					"(Select SUM(transcolumns.dept_amount) as deptsum," + //$NON-NLS-1$
 					"SUM(transcolumns.credit_amount) as creditsum," + //$NON-NLS-1$
 					" accounts.top_account" + //$NON-NLS-1$
 					" from turq_accounting_accounts accounts," + //$NON-NLS-1$
 					" turq_accounting_transaction_columns transcolumns, " + //$NON-NLS-1$
 					" turq_accounting_transactions trans" + //$NON-NLS-1$
-					" where transcolumns.accounting_accounts_id=accounts.accounting_accounts_id" + //$NON-NLS-1$
-					" and transcolumns.accounting_transactions_id=trans.accounting_transactions_id"; //$NON-NLS-1$
+					" where transcolumns.accounting_accounts_id=accounts.id" + //$NON-NLS-1$
+					" and transcolumns.accounting_transactions_id=trans.id"; //$NON-NLS-1$
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 			 sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
 					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
 					+" GROUP BY accounts.top_account)" + //$NON-NLS-1$
-					" as mytab where mytab.top_account=accs.accounting_accounts_id ORDER BY mytab.top_account"; //$NON-NLS-1$
+					" as mytab where mytab.top_account=accs.id ORDER BY mytab.top_account"; //$NON-NLS-1$
 			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
 			parameters.put("sqlparam",sqlparam);		 //$NON-NLS-1$
 			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate())); //$NON-NLS-1$

@@ -291,7 +291,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 			if (account2==null)
 			{
-				sqlparam="Select transColumns.accounting_transaction_columns_id as columnId, " + //$NON-NLS-1$
+				sqlparam="Select transColumns.id as columnId, " + //$NON-NLS-1$
 						"transColumns.rows_dept_in_base_currency,transColumns.rows_credit_in_base_currency," + //$NON-NLS-1$
 						"transColumns.transaction_definition, accounts.account_name as accName," + //$NON-NLS-1$
 						"accounts.account_code as accCode, topacc.account_name as topAccName, topacc.account_code as topAccCode," + //$NON-NLS-1$
@@ -300,17 +300,17 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 						" turq_accounting_accounts accounts," + //$NON-NLS-1$
 						" turq_accounting_accounts topacc," + //$NON-NLS-1$
 						" turq_accounting_transactions trans" + //$NON-NLS-1$
-				" where transColumns.accounting_accounts_id=accounts.accounting_accounts_id"+ //$NON-NLS-1$
-				" and accounts.top_account=topacc.accounting_accounts_id" + //$NON-NLS-1$
-				" and accounts.accounting_accounts_id="+account.getId().intValue()+ //$NON-NLS-1$
-				" and transColumns.accounting_transactions_id=trans.accounting_transactions_id"+ //$NON-NLS-1$
+				" where transColumns.accounting_accounts_id=accounts.id"+ //$NON-NLS-1$
+				" and accounts.top_account=topacc.id" + //$NON-NLS-1$
+				" and accounts.id="+account.getId().intValue()+ //$NON-NLS-1$
+				" and transColumns.accounting_transactions_id=trans.id"+ //$NON-NLS-1$
 				" and trans.transactions_date >="+"'"+dformat.format(dateStartDate.getDate())+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				" and trans.transactions_date <="+"'"+dformat.format(dateEndDate.getDate())+"'"+//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				" order by accounts.account_code,trans.transactions_date,trans.transaction_document_no";//$NON-NLS-1$
 			}
 			else
 			{
-				sqlparam="Select transColumns.accounting_transaction_columns_id as columnId," + //$NON-NLS-1$
+				sqlparam="Select transColumns.id as columnId," + //$NON-NLS-1$
 				"transColumns.rows_dept_in_base_currency,transColumns.rows_credit_in_base_currency," + //$NON-NLS-1$
 				"transColumns.transaction_definition, accounts.account_name as accName," + //$NON-NLS-1$
 				"accounts.account_code as accCode, topacc.account_name as topAccName, topacc.account_code as topAccCode," + //$NON-NLS-1$
@@ -319,9 +319,9 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 				" turq_accounting_accounts accounts, " + //$NON-NLS-1$
 				"turq_accounting_accounts topacc," + //$NON-NLS-1$
 				" turq_accounting_transactions trans" + //$NON-NLS-1$
-					" where transColumns.accounting_accounts_id=accounts.accounting_accounts_id" + //$NON-NLS-1$
-					" and accounts.top_account=topacc.accounting_accounts_id"+ //$NON-NLS-1$
-					" and transColumns.accounting_transactions_id=trans.accounting_transactions_id"+ //$NON-NLS-1$
+					" where transColumns.accounting_accounts_id=accounts.id" + //$NON-NLS-1$
+					" and accounts.top_account=topacc.id"+ //$NON-NLS-1$
+					" and transColumns.accounting_transactions_id=trans.id"+ //$NON-NLS-1$
 					" and accounts.account_code >="+"'"+account.getAccountCode()+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					" and accounts.account_code <="+"'"+account2.getAccountCode()+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					" and trans.transactions_date >="+"'"+dformat.format(dateStartDate.getDate())+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

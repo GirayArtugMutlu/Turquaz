@@ -216,12 +216,12 @@ public class AccUIAccountingGeneralLedger extends
 					" transcolumns.rows_dept_in_base_currency," +
 					" transcolumns.rows_credit_in_base_currency," +
 					" transcolumns.transaction_definition," +//$NON-NLS-1$
-					" trans.accounting_journal_id, accounts.accounting_accounts_id"+ //$NON-NLS-1$
+					" trans.accounting_journal_id, accounts.id as accounting_accounts_id"+ //$NON-NLS-1$
 					" from turq_accounting_accounts accounts," +
 					" turq_accounting_transactions trans,"+ //$NON-NLS-1$
 					" turq_accounting_transaction_columns transcolumns" +
-					" where accounts.accounting_accounts_id=transcolumns.accounting_accounts_id"+ //$NON-NLS-1$
-					" and transcolumns.accounting_transactions_id=trans.accounting_transactions_id"; //$NON-NLS-1$
+					" where accounts.id=transcolumns.accounting_accounts_id"+ //$NON-NLS-1$
+					" and transcolumns.accounting_transactions_id=trans.id"; //$NON-NLS-1$
 			SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 			sqlparam += " and trans.transactions_date >= '" + dformat.format(datePickerBeginDate.getDate()) + "'" //$NON-NLS-1$ //$NON-NLS-2$
 					+ " and trans.transactions_date <= '" + dformat.format(datePickerEndDate.getDate()) + "'";//$NON-NLS-1$ //$NON-NLS-2$
@@ -238,11 +238,11 @@ public class AccUIAccountingGeneralLedger extends
 			}
 			else if (accountStart !=null && accountEnd ==null)
 			{
-				sqlparam += " and accounts.accounting_accounts_id="+accountStart.getId();
+				sqlparam += " and accounts.id="+accountStart.getId();
 			}
 			else if (accountStart == null && accountEnd != null)
 			{
-				sqlparam += " and accounts.accounting_accounts_id="+accountEnd.getId();
+				sqlparam += " and accounts.id="+accountEnd.getId();
 			}
 
 			sqlparam += " ORDER BY accounts.top_account,trans.transactions_date"; //$NON-NLS-1$

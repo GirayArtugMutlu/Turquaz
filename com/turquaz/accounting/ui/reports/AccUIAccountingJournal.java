@@ -198,8 +198,8 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 			String sqlparam="Select * from turq_accounting_transactions trans," + //$NON-NLS-1$
 					"turq_accounting_transaction_columns transcolumns," + //$NON-NLS-1$
 					"turq_accounting_accounts accounts where " + //$NON-NLS-1$
-					"trans.accounting_transactions_id=transcolumns.accounting_transactions_id" + //$NON-NLS-1$
-					" and transcolumns.accounting_accounts_id=accounts.accounting_accounts_id"; //$NON-NLS-1$
+					"trans.id=transcolumns.accounting_transactions_id" + //$NON-NLS-1$
+					" and transcolumns.accounting_accounts_id=accounts.id"; //$NON-NLS-1$
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 			 sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
 					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"; //$NON-NLS-1$ //$NON-NLS-2$
