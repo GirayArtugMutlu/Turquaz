@@ -69,6 +69,7 @@ public class ConBLUpdateConsignment {
 		
 		Calendar cal = Calendar.getInstance();
 		
+		if(groups!=null){
 //		Update its groups
 		Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
 		while(it.hasNext()){
@@ -85,6 +86,7 @@ public class ConBLUpdateConsignment {
 				
 			}			
 			
+		}
 		}
 		
 	

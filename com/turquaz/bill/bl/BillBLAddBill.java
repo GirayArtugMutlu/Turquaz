@@ -18,7 +18,6 @@ import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqBillGroup;
@@ -239,618 +238,196 @@ public class BillBLAddBill {
 	 * @param currentAccount
 	 * @throws Exception
 	 */
-	public void saveAccountingTransaction(TurqBill bill, TurqAccountingAccount cashAccount)
-			throws Exception {
-		try {
-
-			TurqBillConsignmentCommon common = bill
-					.getTurqBillConsignmentCommon();
-			String billDefinition = "FT "
-					+ bill.getTurqBillConsignmentCommon().getBillDocumentNo()
-					+ " "
-					+ bill.getTurqBillConsignmentCommon().getTurqCurrentCard()
-							.getCardsName();
-
+	
+	public void prepareAccountsForAccountingIntgretion(TurqBill bill, TurqAccountingAccount cashAccount, Map creditAccounts, Map deptAccounts)throws Exception
+	{
+	
+		creditAccounts.clear();
+		deptAccounts.clear();
+		TurqBillConsignmentCommon common = bill
+		.getTurqBillConsignmentCommon();
+		
+		Map invRows = null ;
+		Map currentRows = null;
+		
+		int INV_ACCOUNT =-1;
+		int INV_VAT_ACCOUNT =-1;
+		int INV_SPEC_VAT_ACCOUNT = -1;
+		int INV_DISCOUNT_ACCOUNT = -1;
+		String discountAccount ="";
+		
+		
+		//Alis Faturasi
+		if (bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_BUY) 
+		{
+			invRows = deptAccounts;
+			currentRows = creditAccounts;
 			
-			TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(bill
-					.getTurqBillConsignmentCommon().getTurqCurrentCard(),EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
+			INV_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_BUY;
+			INV_VAT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_SPEC_VAT_BUY;
+			INV_SPEC_VAT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_SPEC_VAT_BUY;
+			INV_DISCOUNT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_DISCOUNT_BUY;
+			discountAccount = "649";
 			
 			
-			Map VATList = new HashMap();
-			Map ROWList = new HashMap();
 			
-			//Al?? Faturas?
-			if (bill.getBillsType() == 0) {
-
-				/**
-				 * 1- Stok muhasebe kayitlarini gir. 2- Kdv muhasebe kayitlari
-				 * 3- Cari Hesap kay?d? 4- ?skonto..
-				 */
-
-				AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
-				 //TODO bank exRate
-				Integer transID = blAcc.saveAccTransaction(bill.getBillsDate(),
-						common.getBillDocumentNo(), 2, 7,
-						bill.getTurqEngineSequence().getId(),
-						billDefinition,EngBLCommon.getBaseCurrencyExchangeRate());
-
-				TurqAccountingTransactionColumn transRow = null;
-				TurqInventoryTransaction invTrans = null;
-
-				/**
-				 * 1- stoklarin muhasebe kay?tlarini yap
-				 */
-				Iterator it = getInventoryTransactions(bill).iterator();
-
-				while (it.hasNext()) {
-
-					invTrans = (TurqInventoryTransaction) it.next();
-					TurqAccountingAccount buyAccount=InvBLCardSearch.getInventoryAccount(invTrans
-									.getTurqInventoryCard().getId(),EngBLCommon.INVENTORY_ACCOUNT_TYPE_BUY);
-					BigDecimal transRowAmount =(BigDecimal) ROWList.get(buyAccount.getId());
-					
-					if(transRowAmount==null)
-					{						
-						transRowAmount = new BigDecimal(0);						
-					}
-					transRowAmount = transRowAmount.add(invTrans.getTransactionsTotalPrice());
-					
-					ROWList.put(buyAccount.getId(),transRowAmount);
-					
-					
-
-					/**
-					 * 2-Kdv hesabini gir
-					 */
-					if (invTrans.getTransactionsVatAmount().compareTo(
-							new BigDecimal(0)) == 1) {
-						TurqAccountingAccount buyVAT=InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
-								EngBLCommon.INVENTORY_ACCOUNT_TYPE_VAT_BUY);
-						BigDecimal vatAmount = (BigDecimal) VATList
-								.get(buyVAT.getId());
-
-						if (vatAmount == null) {
-							vatAmount = new BigDecimal(0);
-						}
-
-						vatAmount = vatAmount.add(invTrans
-								.getTransactionsVatAmount());
-						VATList.put(buyVAT.getId(),vatAmount);
-
-					}
-
-					/**
-					 * OTV Hesabini gir.
-					 */
-					if (invTrans.getTransactionsVatSpecialAmount().compareTo(
-							new BigDecimal(0)) == 1) {
-						transRow = new TurqAccountingTransactionColumn();
-						TurqAccountingAccount specialVATBuy=InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
-								EngBLCommon.INVENTORY_ACCOUNT_TYPE_SPEC_VAT_BUY);
-						transRow.setTurqAccountingAccount(specialVATBuy);
-
-						transRow.setCreditAmount(new BigDecimal(0));
-						transRow.setDeptAmount(invTrans
-								.getTransactionsVatSpecialAmount());
-
-						//				 set Transaction Row Definition
-						transRow.setTransactionDefinition("Fat."
-								+ bill.getTurqBillConsignmentCommon()
-										.getBillDocumentNo()
-								+ " "
-								+ DatePicker.formatter.format(bill
-										.getBillsDate()));
-						transRow.setCreatedBy(System.getProperty("user"));
-						transRow.setUpdatedBy(System.getProperty("user"));
-						transRow.setLastModified(new java.sql.Date(cal
-								.getTime().getTime()));
-						transRow.setCreationDate(new java.sql.Date(cal
-								.getTime().getTime()));
-//						TODO acc trans column exRate
-						blAcc.saveAccTransactionRow(transRow, transID,
-								EngBLCommon.getBaseCurrencyExchangeRate());
-					}
-
-				}
-				
-				/***
-				 * 1-Stok Muhasebe kay?tlar?
-				 * 
-				 */
-				
-				Iterator rowIt = ROWList.keySet().iterator();
-				while(rowIt.hasNext())
-				{
-					transRow = new TurqAccountingTransactionColumn();
-					
-								Integer rowId = (Integer)rowIt.next();
-								TurqAccountingAccount account = new TurqAccountingAccount();
-								account.setId(rowId);
-								transRow
-										.setTurqAccountingAccount(account);
-
-								transRow.setCreditAmount(new BigDecimal(0));
-
-								//mal bedeli
-								transRow
-										.setDeptAmount((BigDecimal)ROWList.get(rowId));
-
-								// set Transaction Row Definition
-								transRow.setTransactionDefinition(billDefinition);
-
-								transRow.setCreatedBy(System.getProperty("user"));
-								transRow.setUpdatedBy(System.getProperty("user"));
-								transRow.setLastModified(new java.sql.Date(cal.getTime()
-										.getTime()));
-								transRow.setCreationDate(new java.sql.Date(cal.getTime()
-										.getTime()));
-//								TODO acc trans column exRate
-								blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-										.getBaseCurrencyExchangeRate());
-				}
-				
-				
-				/**
-				 * 
-				 * 2-KDV
-				 *  
-				 */
-				Iterator vatIt = VATList.keySet().iterator();
-				while (vatIt.hasNext()) {
-
-					transRow = new TurqAccountingTransactionColumn();
-
-					Integer accountId = (Integer)vatIt.next();
-					TurqAccountingAccount account = new TurqAccountingAccount();
-					account.setId(accountId);
-					transRow.setTurqAccountingAccount(account);
-
-					transRow.setCreditAmount(new BigDecimal(0));
-					transRow.setDeptAmount((BigDecimal) VATList.get(accountId));
-
-					//					 set Transaction Row Definition
-					transRow.setTransactionDefinition("Fat."
-							+ bill.getTurqBillConsignmentCommon()
-									.getBillDocumentNo() + " "
-							+ DatePicker.formatter.format(bill.getBillsDate()));
-
-					transRow.setCreatedBy(System.getProperty("user"));
-					transRow.setUpdatedBy(System.getProperty("user"));
-					transRow.setLastModified(new java.sql.Date(cal.getTime()
-							.getTime()));
-					transRow.setCreationDate(new java.sql.Date(cal.getTime()
-							.getTime()));
-//					TODO acc trans column exRate
-					blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-							.getBaseCurrencyExchangeRate());
-
-				}
-
-				/**
-				 * 3-Cari Kayd?n? Yap
-				 * 
-				 *  
-				 */
-
-				
-				transRow = new TurqAccountingTransactionColumn();
-
-				
-				transRow.setTurqAccountingAccount(curAccount);
-
-				transRow.setCreditAmount(common.getTotalAmount());
-				transRow.setDeptAmount(new BigDecimal(0));
-
-				//			 set Transaction Row Definition
-				transRow.setTransactionDefinition(billDefinition);
-
-				transRow.setCreatedBy(System.getProperty("user"));
-				transRow.setUpdatedBy(System.getProperty("user"));
-				transRow.setLastModified(new java.sql.Date(cal.getTime()
-						.getTime()));
-				transRow.setCreationDate(new java.sql.Date(cal.getTime()
-						.getTime()));
-//				TODO acc trans column exRate
-				blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-						.getBaseCurrencyExchangeRate());
-
-				/**
-				 * 4- iskontoyu save et
-				 */
-
-				transRow = new TurqAccountingTransactionColumn();
-
-				transRow.setTurqAccountingAccount(AccDALAccountAdd
-						.getAccount("649"));
-
-				transRow.setCreditAmount(common.getDiscountAmount());
-				transRow.setDeptAmount(new BigDecimal(0));
-
-				//			 set Transaction Row Definition
-				transRow.setTransactionDefinition(billDefinition);
-
-				transRow.setCreatedBy(System.getProperty("user"));
-				transRow.setUpdatedBy(System.getProperty("user"));
-				transRow.setLastModified(new java.sql.Date(cal.getTime()
-						.getTime()));
-				transRow.setCreationDate(new java.sql.Date(cal.getTime()
-						.getTime()));
-//				TODO acc trans column exRate
-				blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-						.getBaseCurrencyExchangeRate());
-
-				//Kapal? Fatura
-				/**
-				 * 1 -Cari Muhasebe hareketi isle 2- Kasa Muhasebe hareketi isle
-				 */
-				if (!bill.isIsOpen()) {
-					 //TODO bill exRate
-					if(cashAccount!=null){
-					transID = blAcc.saveAccTransaction(bill.getBillsDate(),
-							common.getBillDocumentNo(), 1, 7, bill
-									.getTurqEngineSequence()
-									.getId(), billDefinition,EngBLCommon.getBaseCurrencyExchangeRate());
-
-					/**
-					 * 1-Cari Muhasebe Satiri
-					 */
-
-					transRow = new TurqAccountingTransactionColumn();
-
-					transRow.setTurqAccountingAccount(curAccount);
-
-					transRow.setCreditAmount(new BigDecimal(0));
-					transRow.setDeptAmount(invTrans
-							.getTransactionsCumilativePrice());
-
-					//				 set Transaction Row Definition
-					transRow.setTransactionDefinition(billDefinition);
-
-					transRow.setCreatedBy(System.getProperty("user"));
-					transRow.setUpdatedBy(System.getProperty("user"));
-					transRow.setLastModified(new java.sql.Date(cal.getTime()
-							.getTime()));
-					transRow.setCreationDate(new java.sql.Date(cal.getTime()
-							.getTime()));
-//					TODO acc trans column exRate
-					blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-							.getBaseCurrencyExchangeRate());
-
-					/**
-					 * 2- Kasa Muhasebe Hareketi
-					 */
-					transRow = new TurqAccountingTransactionColumn();
-
-					transRow
-							.setTurqAccountingAccount(cashAccount);
-
-					transRow.setCreditAmount(invTrans
-							.getTransactionsCumilativePrice());
-					transRow.setDeptAmount(new BigDecimal(0));
-
-					//					 set Transaction Row Definition
-					transRow.setTransactionDefinition(billDefinition);
-
-					transRow.setCreatedBy(System.getProperty("user"));
-					transRow.setUpdatedBy(System.getProperty("user"));
-					transRow.setLastModified(new java.sql.Date(cal.getTime()
-							.getTime()));
-					transRow.setCreationDate(new java.sql.Date(cal.getTime()
-							.getTime()));
-//					TODO acc trans column exRate
-					blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-							.getBaseCurrencyExchangeRate());
-					}
-
-				}
-			}
-
-			//Sat?? Faturas?
-			else if (bill.getBillsType() == 1) {
-
-				/**
-				 * 1- Stok muhasebe kayitlarini gir. 2- Kdv muhasebe kayitlari
-				 * 3- Ötv muhasebe kayitlari 4- Cari Hesap kay?d? 5- iskonto
-				 * kaydi
-				 */
-
-				AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
-//				TODO bill exRate
-				Integer transID = blAcc.saveAccTransaction(bill.getBillsDate(),
-						common.getBillDocumentNo(), 2, 7,
-						bill.getTurqEngineSequence().getId(),
-						"FT "
-								+ bill.getTurqBillConsignmentCommon()
-										.getBillDocumentNo()
-								+ " "
-								+ bill.getTurqBillConsignmentCommon()
-										.getTurqCurrentCard().getCardsName(),EngBLCommon.getBaseCurrencyExchangeRate());
-
-				TurqAccountingTransactionColumn transRow = null;
-				TurqInventoryTransaction invTrans = null;
-
-				/**
-				 * 1- stoklarin muhasebe kay?tlarini yap
-				 */
-				Iterator it = getInventoryTransactions(bill).iterator();
-
-				while (it.hasNext()) {
-
-					invTrans = (TurqInventoryTransaction) it.next();
-					TurqAccountingAccount sellAccount=InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
-							EngBLCommon.INVENTORY_ACCOUNT_TYPE_SELL);
-					BigDecimal transRowAmount =(BigDecimal) ROWList.get(sellAccount.getId());
-			
-			if(transRowAmount==null)
-			{
-				
-				transRowAmount = new BigDecimal(0);
-				
-			}
-			transRowAmount = transRowAmount.add(invTrans.getTransactionsTotalPrice());
-			
-			ROWList.put(sellAccount.getId(),transRowAmount);
-			
-					
-					/**
-					 * 2-Kdv hesabini gir
-					 */
-					if (invTrans.getTransactionsVatAmount().compareTo(
-							new BigDecimal(0)) == 1) {
-						TurqAccountingAccount sellVAT=InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
-								EngBLCommon.INVENTORY_ACCOUNT_TYPE_VAT_SELL);
-						BigDecimal vatAmount = (BigDecimal) VATList
-								.get(sellVAT.getId());
-
-						if (vatAmount == null) {
-							vatAmount = new BigDecimal(0);
-						}
-
-						vatAmount = vatAmount.add(invTrans
-								.getTransactionsVatAmount());
-						VATList
-								.put(sellVAT.getId(),vatAmount);
-
-					}
-
-					/**
-					 * 3- Ötv hesabini gir
-					 */
-					if (invTrans.getTransactionsVatSpecialAmount().compareTo(
-							new BigDecimal(0)) == 1) {
-						transRow = new TurqAccountingTransactionColumn();
-
-						TurqAccountingAccount specialVATSell=InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
-								EngBLCommon.INVENTORY_ACCOUNT_TYPE_SPEC_VAT_SELL);
-						transRow.setTurqAccountingAccount(specialVATSell);
-
-						transRow.setCreditAmount(invTrans
-								.getTransactionsVatSpecialAmount());
-						transRow.setDeptAmount(new BigDecimal(0));
-
-						//				 set Transaction Row Definition
-						transRow.setTransactionDefinition("FT "
-								+ bill.getTurqBillConsignmentCommon()
-										.getBillDocumentNo()
-								+ " "
-								+ bill.getTurqBillConsignmentCommon()
-										.getTurqCurrentCard().getCardsName());
-
-						transRow.setCreatedBy(System.getProperty("user"));
-						transRow.setUpdatedBy(System.getProperty("user"));
-						transRow.setLastModified(new java.sql.Date(cal
-								.getTime().getTime()));
-						transRow.setCreationDate(new java.sql.Date(cal
-								.getTime().getTime()));
-//						TODO acc trans column exRate
-						blAcc.saveAccTransactionRow(transRow, transID,
-								EngBLCommon.getBaseCurrencyExchangeRate());
-					}
-				}
-				/***
-				 * 1-Stok Muhasebe kay?tlar?
-				 * 
-				 */
-				
-				Iterator rowIt = ROWList.keySet().iterator();
-				while(rowIt.hasNext())
-				{
-					transRow = new TurqAccountingTransactionColumn();
-					
-								Integer rowId = (Integer)rowIt.next();
-								TurqAccountingAccount account = new TurqAccountingAccount();
-								account.setId(rowId);
-								transRow
-										.setTurqAccountingAccount(account);
-
-								transRow.setCreditAmount((BigDecimal)ROWList.get(rowId));
-								transRow.setDeptAmount(new BigDecimal(0));
-
-								//			 set Transaction Row Definition
-								transRow.setTransactionDefinition("FT "
-										+ bill.getTurqBillConsignmentCommon()
-												.getBillDocumentNo()
-										+ " "
-										+ bill.getTurqBillConsignmentCommon()
-												.getTurqCurrentCard().getCardsName());
-
-								transRow.setCreatedBy(System.getProperty("user"));
-								transRow.setUpdatedBy(System.getProperty("user"));
-								transRow.setLastModified(new java.sql.Date(cal.getTime()
-										.getTime()));
-								transRow.setCreationDate(new java.sql.Date(cal.getTime()
-										.getTime()));
-//								TODO acc trans column exRate
-								blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-										.getBaseCurrencyExchangeRate());
-				}
-
-				/**
-				 * 
-				 * 2-KDV
-				 *  
-				 */
-				Iterator vatIt = VATList.keySet().iterator();
-				while (vatIt.hasNext()) {
-                     
-					Integer accountId = (Integer)vatIt.next();
-					TurqAccountingAccount account = new TurqAccountingAccount();
-					account.setId(accountId);
-					transRow.setTurqAccountingAccount(account);
-					
-					transRow.setCreditAmount((BigDecimal) VATList.get(accountId));
-					transRow.setDeptAmount(new BigDecimal(0));
-
-					//					 set Transaction Row Definition
-					transRow.setTransactionDefinition("Fat."
-							+ bill.getTurqBillConsignmentCommon()
-									.getBillDocumentNo() + " "
-							+ DatePicker.formatter.format(bill.getBillsDate()));
-
-					transRow.setCreatedBy(System.getProperty("user"));
-					transRow.setUpdatedBy(System.getProperty("user"));
-					transRow.setLastModified(new java.sql.Date(cal.getTime()
-							.getTime()));
-					transRow.setCreationDate(new java.sql.Date(cal.getTime()
-							.getTime()));
-//					TODO acc trans column exRate
-					blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-							.getBaseCurrencyExchangeRate());
-
-				}
-
-				/**
-				 * 4- Cari Kayd?n? Yap
-				 * 
-				 *  
-				 */
-				transRow = new TurqAccountingTransactionColumn();
-
-				transRow.setTurqAccountingAccount(curAccount);
-
-				transRow.setCreditAmount(new BigDecimal(0));
-				transRow.setDeptAmount(common.getTotalAmount());
-
-				//			 set Transaction Row Definition
-				transRow.setTransactionDefinition("FT "
-						+ bill.getTurqBillConsignmentCommon()
-								.getBillDocumentNo()
-						+ " "
-						+ bill.getTurqBillConsignmentCommon()
-								.getTurqCurrentCard().getCardsName());
-
-				transRow.setCreatedBy(System.getProperty("user"));
-				transRow.setUpdatedBy(System.getProperty("user"));
-				transRow.setLastModified(new java.sql.Date(cal.getTime()
-						.getTime()));
-				transRow.setCreationDate(new java.sql.Date(cal.getTime()
-						.getTime()));
-//				TODO acc trans column exRate
-				blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-						.getBaseCurrencyExchangeRate());
-
-				/**
-				 * 5- iskonto Kayd?
-				 */
-				transRow = new TurqAccountingTransactionColumn();
-
-				transRow.setTurqAccountingAccount(AccDALAccountAdd
-						.getAccount("611"));
-
-				transRow.setCreditAmount(new BigDecimal(0));
-				transRow.setDeptAmount(common.getDiscountAmount());
-
-				//			 set Transaction Row Definition
-				transRow.setTransactionDefinition("FT "
-						+ bill.getTurqBillConsignmentCommon()
-								.getBillDocumentNo()
-						+ " "
-						+ bill.getTurqBillConsignmentCommon()
-								.getTurqCurrentCard().getCardsName());
-
-				transRow.setCreatedBy(System.getProperty("user"));
-				transRow.setUpdatedBy(System.getProperty("user"));
-				transRow.setLastModified(new java.sql.Date(cal.getTime()
-						.getTime()));
-				transRow.setCreationDate(new java.sql.Date(cal.getTime()
-						.getTime()));
-//				TODO acc trans column exRate
-				blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-						.getBaseCurrencyExchangeRate());
-
-				//Kapal? Fatura
-				/**
-				 * 1 -Cari Muhasebe hareketi isle 2- Kasa Muhasebe hareketi isle
-				 */
-				if (!bill.isIsOpen()) {
-//					TODO bill exRate
-					if(cashAccount!=null){
-					transID = blAcc.saveAccTransaction(bill.getBillsDate(),
-							common.getBillDocumentNo(), 0, 7, bill
-									.getTurqEngineSequence()
-									.getId(), billDefinition,EngBLCommon.getBaseCurrencyExchangeRate());
-
-					/**
-					 * 1-Cari Muhasebe Satiri
-					 */
-
-					transRow = new TurqAccountingTransactionColumn();
-
-					transRow.setTurqAccountingAccount(curAccount);
-
-					transRow.setCreditAmount(invTrans
-							.getTransactionsCumilativePrice());
-					transRow.setDeptAmount(new BigDecimal(0));
-
-					//				 set Transaction Row Definition
-					transRow.setTransactionDefinition(billDefinition);
-
-					transRow.setCreatedBy(System.getProperty("user"));
-					transRow.setUpdatedBy(System.getProperty("user"));
-					transRow.setLastModified(new java.sql.Date(cal.getTime()
-							.getTime()));
-					transRow.setCreationDate(new java.sql.Date(cal.getTime()
-							.getTime()));
-//					TODO acc trans column exRate
-					blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-							.getBaseCurrencyExchangeRate());
-
-					/**
-					 * 2- Kasa Muhasebe Hareketi
-					 */
-					transRow = new TurqAccountingTransactionColumn();
-
-					transRow
-							.setTurqAccountingAccount(cashAccount);
-
-					transRow.setCreditAmount(new BigDecimal(0));
-					transRow.setDeptAmount(invTrans
-							.getTransactionsCumilativePrice());
-
-					//					 set Transaction Row Definition
-					transRow.setTransactionDefinition(billDefinition);
-
-					transRow.setCreatedBy(System.getProperty("user"));
-					transRow.setUpdatedBy(System.getProperty("user"));
-					transRow.setLastModified(new java.sql.Date(cal.getTime()
-							.getTime()));
-					transRow.setCreationDate(new java.sql.Date(cal.getTime()
-							.getTime()));
-//					TODO acc trans column exRate
-					blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-							.getBaseCurrencyExchangeRate());
-					}
-
-				}
-
-			}
-
-		} catch (Exception ex) {
-			throw ex;
 		}
+		//Satis Faturasi
+		else if(bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_SELL)
+		{
+			invRows = creditAccounts;
+			currentRows = deptAccounts;
+			
+			INV_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_SELL;
+			INV_VAT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_SPEC_VAT_SELL;
+			INV_SPEC_VAT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_SPEC_VAT_SELL;
+			INV_DISCOUNT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_DISCOUNT_SELL;
+			discountAccount ="611";
+			
+		}
+		
+		TurqInventoryTransaction invTrans = null;
+		
+		Iterator it = getInventoryTransactions(bill).iterator();
+		BigDecimal totals = new BigDecimal(0);
+	
+		while (it.hasNext()) {		
+			
+			/*
+			 * Inventory Rows
+			 */
+			invTrans = (TurqInventoryTransaction)it.next();
+			
+			TurqAccountingAccount buyAccount=InvBLCardSearch.getInventoryAccount(invTrans
+					.getTurqInventoryCard().getId(),INV_ACCOUNT);
+	
+			BigDecimal transRowAmount =(BigDecimal) invRows.get(buyAccount.getId());
+	
+				if(transRowAmount==null)
+				{						
+					transRowAmount = new BigDecimal(0);						
+				}
+				
+	       transRowAmount = transRowAmount.add(invTrans.getTransactionsTotalPrice());
+	
+	       invRows.put(buyAccount.getId(),transRowAmount);
+	      
+	       /*
+	        * VAT ROWs
+	        */
+	       
+	       TurqAccountingAccount buyVATAccount =InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
+				INV_VAT_ACCOUNT);
+	       
+	       BigDecimal vatAmount = (BigDecimal)invRows.get(buyVATAccount.getId());
 
+	       if (vatAmount == null) {
+	       		vatAmount = new BigDecimal(0);
+	       }
+
+	       vatAmount = vatAmount.add(invTrans.getTransactionsVatAmount());
+	       
+	       invRows.put(buyVATAccount.getId(),vatAmount);
+			
+	
+		   /*
+		    * Special VAT Rows
+		    */
+	       
+	       TurqAccountingAccount specialVATBuyAccount=InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
+				INV_SPEC_VAT_ACCOUNT);
+	       
+	       BigDecimal specVatAmount = (BigDecimal)invRows.get(specialVATBuyAccount.getId());
+	       
+	       if(specVatAmount==null)
+	       {
+	       		specVatAmount = new BigDecimal(0);
+	       }
+	       
+	       specVatAmount = specVatAmount.add(invTrans.getTransactionsVatSpecialAmount());
+	       
+	       invRows.put(specialVATBuyAccount.getId(),specVatAmount);
+	       
+	       /*
+	        * DiscountRows
+	        * 
+	        */
+	      
+	       TurqAccountingAccount discountBuyAccount=InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
+				INV_DISCOUNT_ACCOUNT);
+	       if(discountBuyAccount==null)
+	       {
+	       	discountBuyAccount = AccDALAccountAdd.getAccount(discountAccount);
+	       }
+	       
+	       BigDecimal discountAmount = (BigDecimal)currentRows.get(discountBuyAccount.getId());
+	       
+	       if(discountAmount==null)
+	       {
+	       	discountAmount = new BigDecimal(0);
+	       }
+	       
+	       discountAmount = discountAmount.add(invTrans.getTransactionsDiscountAmount());
+	       
+	      currentRows.put(discountBuyAccount.getId(),discountAmount);
+	      	       
+	   }	
+		
+		/*
+		 * Cari Kayitlari
+		 * 
+		 * 		
+		 */
+		
+		
+		TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(bill
+				.getTurqBillConsignmentCommon().getTurqCurrentCard(),EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
+		
+		
+		currentRows.put(curAccount.getId(),common.getTotalAmount());
+		
+		
+		//Kapali Fatura 
+		
+		if (!bill.isIsOpen()&&cashAccount!=null) {
+		
+		invRows.put(curAccount.getId(),common.getTotalAmount());
+		currentRows.put(cashAccount.getId(),common.getTotalAmount());
+			
+		}		
+		
+		
+		
+		
 	}
+	
+	public void saveAccountingTransaction(TurqBill bill, TurqAccountingAccount cashAccount) throws Exception
+	{
+		
+		Map creditAccounts = new HashMap();
+		Map deptAccounts = new HashMap();
+		TurqBillConsignmentCommon common = bill.getTurqBillConsignmentCommon();
 
+		String billDefinition = "FT "
+		
+		+ bill.getTurqBillConsignmentCommon().getBillDocumentNo()
+		+ " "
+		+ bill.getTurqBillConsignmentCommon().getTurqCurrentCard()
+				.getCardsName();
+		
+		
+		prepareAccountsForAccountingIntgretion(bill,cashAccount,creditAccounts, deptAccounts);
+		
+		/**
+		 * TODO exRate
+		 */
+		boolean isSaved = blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(), 2,EngBLCommon.MODULE_BILL,bill.getTurqEngineSequence().getId(),billDefinition,EngBLCommon.getBaseCurrencyExchangeRate(),creditAccounts,deptAccounts);
+		
+		
+	}
+	
+	
+	
 	/**
 	 * 
 	 * @param grp
