@@ -135,6 +135,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private Composite compMainInRight;
 	private static Tree treeFavorites;
 	private CLabel lblFavoritesTab;
+	private CLabel lblActiveModul;
 	private MenuItem menuItemPreferences;
 	private Menu menuEdit;
 	private Label label2;
@@ -161,8 +162,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private MenuItem mitHelpContents;
 	private Menu menuHelp;
 	private MenuItem menuItemModulBar;
-	private CoolItem coolItem2;
-	private CoolBar coolBarModules;
 	private static Tree treeHistory;
 	private CLabel lblHistory;
 	private Composite compHistoryTab;
@@ -210,7 +209,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 
             {
                 label2 = new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
-                label2.setText("label2");
+                label2.setText("label2"); //$NON-NLS-1$
                 GridData label2LData = new GridData();
                 label2LData.grabExcessHorizontalSpace = true;
                 label2LData.horizontalAlignment = GridData.FILL;
@@ -219,23 +218,32 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compMain = new Composite(this,SWT.NULL);
 			compMainIn = new Composite(compMain,SWT.NULL);
 			sashMainVertical = new SashForm(compMainIn,SWT.NULL);
-			  coolBarModules = new CoolBar(sashMainVertical, SWT.NONE);
-			  coolBarModules.setBounds(-2, 0, 794, 25);
 			sashMainHorizontal = new LiveSashForm(sashMainVertical, SWT.SMOOTH);
 			
 			tabfldMenu = new CTabFolder(sashMainHorizontal,SWT.TOP| SWT.BORDER|SWT.CLOSE);
 			tabModules = new CTabItem(tabfldMenu,SWT.NULL);
 			compModulesTab = new Composite(tabfldMenu,SWT.NULL);
+            {
+                lblActiveModul = new CLabel(compModulesTab, SWT.NONE);
+                GridData lblActiveModulLData = new GridData();
+                lblActiveModul.setFont(SWTResourceManager.getFont("Tahoma", 12, 1, false, false));
+                lblActiveModul.setForeground(SWTResourceManager.getColor(255, 255, 255));
+                lblActiveModul.setBackground(SWTResourceManager.getColor(128, 128, 128));
+                lblActiveModulLData.grabExcessHorizontalSpace = true;
+                lblActiveModulLData.horizontalAlignment = GridData.FILL;
+                lblActiveModulLData.heightHint = 26;
+                lblActiveModul.setLayoutData(lblActiveModulLData);
+            }
 			compModulesTree = new Composite(compModulesTab,SWT.NULL);
 			treeBank = new Tree(compModulesTree,SWT.NULL);
 			treeInventory = new Tree(compModulesTree,SWT.NULL);
 			treeAccounting = new Tree(compModulesTree,SWT.NULL);
 			treeAdmin = new Tree(compModulesTree,SWT.NULL);
 			treeCurrent = new Tree(compModulesTree,SWT.NULL);
-			treeCurrent.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
+			treeCurrent.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false)); //$NON-NLS-1$
 			{
 				treeConsignment = new Tree(compModulesTree, SWT.NONE);
-				treeConsignment.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
+				treeConsignment.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false)); //$NON-NLS-1$
 				treeConsignment.addMouseListener(new MouseAdapter() {
 					public void mouseDoubleClick(MouseEvent evt) {
 						 treeConsignmentMouseDoubleClick();
@@ -244,7 +252,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			}
 			{
 				treeBill = new Tree(compModulesTree, SWT.NONE);
-				treeBill.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
+				treeBill.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false)); //$NON-NLS-1$
 
 				treeBill.addMouseListener(new MouseAdapter() {
 					public void mouseDoubleClick(MouseEvent evt) {
@@ -254,7 +262,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			}
             {
                 treeCash = new Tree(compModulesTree, SWT.NONE);
-                treeCash.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
+                treeCash.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false)); //$NON-NLS-1$
                 treeCash.addMouseListener(new MouseAdapter() {
                     public void mouseDoubleClick(MouseEvent evt) {
                     treeCashMouseDoubleClick();    
@@ -264,7 +272,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
             }
             {
                 treeCheques = new Tree(compModulesTree, SWT.NONE);
-                treeCheques.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
+                treeCheques.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false)); //$NON-NLS-1$
                 treeCheques.addMouseListener(new MouseAdapter() {
                     public void mouseDoubleClick(MouseEvent evt) {
                     treeChequeMouseDoubleClick();    
@@ -282,7 +290,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compMainInRight = new Composite(sashMainHorizontal,SWT.NULL);
 			
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(800,600));
+			this.setSize(793, 572);
 
 			GridData compMainLData = new GridData();
 			compMainLData.verticalAlignment = GridData.FILL;
@@ -339,7 +347,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesTree.setLayoutData(compModulesTreeLData);
 
 			treeBank.setSize(new org.eclipse.swt.graphics.Point(370,251));
-			treeBank.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
+			treeBank.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false)); //$NON-NLS-1$
 			treeBank.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeBankMouseDoubleClick();
@@ -347,7 +355,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			});
 	
 			treeInventory.setSize(new org.eclipse.swt.graphics.Point(370,251));
-			treeInventory.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
+			treeInventory.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false)); //$NON-NLS-1$
 			treeInventory.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeInventoryMouseDoubleClick();
@@ -355,7 +363,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			});
 	
 			treeAccounting.setSize(new org.eclipse.swt.graphics.Point(370,251));
-			treeAccounting.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
+			treeAccounting.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false)); //$NON-NLS-1$
 			treeAccounting.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeAccountingMouseDoubleClick();
@@ -363,7 +371,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			});
 	
 			treeAdmin.setSize(new org.eclipse.swt.graphics.Point(370,251));
-			treeAdmin.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
+			treeAdmin.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false)); //$NON-NLS-1$
 			treeAdmin.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeAdminMouseDoubleClick();
@@ -415,6 +423,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                     public void mouseUp(MouseEvent evt) {
                         compModulesTreeLayout.topControl = treeInventory;
                         compModulesTree.layout();
+                        lblActiveModul.setText(Messages.getString("EngUIMainFrame.42")); //$NON-NLS-1$
                     }
                 });
                 btnInventory.setFont(SWTResourceManager.getFont("Tahoma",10,1,false,false)); //$NON-NLS-1$
@@ -431,6 +440,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                     public void mouseUp(MouseEvent evt) {
                         compModulesTreeLayout.topControl =treeCurrent;
                         compModulesTree.layout();
+                        lblActiveModul.setText(Messages.getString("EngUIMainFrame.43")); //$NON-NLS-1$
                     }
                 });
                 btnCurrent.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
@@ -445,7 +455,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 btnConsignment.addMouseListener(new MouseAdapter() {
                     public void mouseUp(MouseEvent evt) {
                         compModulesTreeLayout.topControl =treeConsignment;
-                        compModulesTree.layout();}
+                        compModulesTree.layout();
+                        lblActiveModul.setText(Messages.getString("EngUIMainFrame.44")); //$NON-NLS-1$
+                        }
+                    
                 });
                 btnConsignment.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
                 button3LData.grabExcessHorizontalSpace = true;
@@ -460,6 +473,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                     public void mouseUp(MouseEvent evt) {
                         compModulesTreeLayout.topControl =treeBill;
                         compModulesTree.layout();
+                        lblActiveModul.setText(Messages.getString("EngUIMainFrame.45")); //$NON-NLS-1$
                     }
                 });
                 btnBill.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
@@ -469,16 +483,17 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
             }
             {
                 btnCheque = new Button(compModulesHelp, SWT.FLAT | SWT.LEFT | SWT.BORDER);
-                btnCheque.setText("Çek-Senet");
+                btnCheque.setText(Messages.getString("EngUIMainFrame.46")); //$NON-NLS-1$
                 GridData btnChequeLData = new GridData();
                 btnCheque.addMouseListener(new MouseAdapter() {
                     public void mouseUp(MouseEvent evt) {
                         
                         compModulesTreeLayout.topControl =treeCheques;
                         compModulesTree.layout();
+                        lblActiveModul.setText(Messages.getString("EngUIMainFrame.47")); //$NON-NLS-1$
                     }
                 });
-                btnCheque.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false));
+                btnCheque.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
                 btnChequeLData.grabExcessHorizontalSpace = true;
                 btnChequeLData.horizontalAlignment = GridData.FILL;
                 btnCheque.setLayoutData(btnChequeLData);
@@ -491,6 +506,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                     public void mouseUp(MouseEvent evt) {
                         compModulesTreeLayout.topControl =treeBank;
                         compModulesTree.layout();
+                        lblActiveModul.setText(Messages.getString("EngUIMainFrame.49")); //$NON-NLS-1$
                     }
                 });
                 btnBank.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
@@ -505,6 +521,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                     public void mouseUp(MouseEvent evt) {
                         compModulesTreeLayout.topControl =treeCash;
                         compModulesTree.layout(); 
+                        lblActiveModul.setText(Messages.getString("EngUIMainFrame.51")); //$NON-NLS-1$
                     }
                 });
                 btnCash.setFont(SWTResourceManager.getFont(
@@ -525,6 +542,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                     public void mouseUp(MouseEvent evt) {
                         compModulesTreeLayout.topControl = treeAccounting;
                         compModulesTree.layout();
+                        lblActiveModul.setText(Messages.getString("EngUIMainFrame.52")); //$NON-NLS-1$
                     }
                 });
                 btnAccounting.setFont(SWTResourceManager.getFont("Tahoma",10,1,false,false)); //$NON-NLS-1$
@@ -539,6 +557,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                     public void mouseUp(MouseEvent evt) {
                         compModulesTreeLayout.topControl =treeAdmin;
                         compModulesTree.layout();
+                        lblActiveModul.setText(Messages.getString("EngUIMainFrame.53")); //$NON-NLS-1$
                     }
                 });
                 btnAdmin.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
@@ -610,7 +629,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compFavoritesSelection.setSize(new org.eclipse.swt.graphics.Point(386,24));
 	
 			GridData lblFavoritesTabLData = new GridData();
-			lblFavoritesTab.setImage(SWTResourceManager.getImage("icons/favorites.gif"));
+			lblFavoritesTab.setImage(SWTResourceManager.getImage("icons/favorites.gif")); //$NON-NLS-1$
 			lblFavoritesTab.setBackground(SWTResourceManager.getColor(255, 255, 255));
 			lblFavoritesTabLData.verticalAlignment = GridData.CENTER;
 			lblFavoritesTabLData.horizontalAlignment = GridData.FILL;
@@ -825,17 +844,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			sashMainVertical.setLayout(null);
             {
 
-                {
-                    coolItem2 = new CoolItem(coolBarModules, SWT.DROP_DOWN);
-                    coolItem2
-                        .setPreferredSize(new org.eclipse.swt.graphics.Point(
-                            24,
-                            24));
-                    coolItem2
-                        .setMinimumSize(new org.eclipse.swt.graphics.Point(
-                            24,
-                            24));
-                }
             }
 			GridLayout compMainInLayout = new GridLayout(1, true);
 			compMainIn.setLayout(compMainInLayout);
@@ -998,7 +1006,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 mitEdit.setMenu(menuEdit);
                 {
                     menuItemPreferences = new MenuItem(menuEdit, SWT.PUSH);
-                    menuItemPreferences.setText("Özellikler");
+                    menuItemPreferences.setText(Messages.getString("EngUIMainFrame.55")); //$NON-NLS-1$
                     menuItemPreferences
                         .addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
@@ -1162,8 +1170,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	public void postInitGUI(){
 		StackLayout compo4layout =(StackLayout)compModulesTree.getLayout();
 		compo4layout.topControl = treeAccounting;
+		lblActiveModul.setText(Messages.getString("EngUIMainFrame.56")); //$NON-NLS-1$
 		sashMainHorizontal.setWeights(new int[]{20,80});
-		sashMainVertical.setWeights(new int[] {5,95});
 		sashMainVertical.setMaximizedControl(sashMainHorizontal);
 	    tabfldMain.setTabHeight(20);
 		tabfldMain.setSelectionBackground(new Color[]{Display.getDefault().getSystemColor(SWT.COLOR_WHITE)},
@@ -1678,7 +1686,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 
 	/** Auto-generated event handler method */
 	protected void treeAccountingMouseDoubleClick(){
-			TreeItem item = treeAccounting.getSelection()[0];
+	    TreeItem item = treeAccounting.getSelection()[0];
 		if(item.getItemCount()==0){
 			openNewTab(item);
 		}
