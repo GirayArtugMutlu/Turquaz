@@ -56,6 +56,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.ui.component.DatePicker;
+import org.eclipse.swt.events.TraverseListener;
+import org.eclipse.swt.events.TraverseEvent;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
@@ -169,10 +171,11 @@ implements SecureComposite{
 				lvlDefinition.setText(Messages.getString("CurUICurrentCardVoucher.2")); //$NON-NLS-1$
 			}
 			{
-				txtDefinition = new Text(this, SWT.MULTI | SWT.WRAP | SWT.H_SCROLL);
+				txtDefinition = new Text(this, SWT.NONE);
 				GridData txtDefinitionLData = new GridData();
-				txtDefinitionLData.widthHint = 379;
-				txtDefinitionLData.heightHint = 29;
+               
+				txtDefinitionLData.widthHint = 395;
+				txtDefinitionLData.heightHint = 18;
 				txtDefinition.setLayoutData(txtDefinitionLData);
 			}
 			{
@@ -247,7 +250,7 @@ implements SecureComposite{
 			msg.open();
 		}
 	}
-	private boolean verifyFields()
+	public boolean verifyFields()
 	{
 		MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
 		if (txtCurrentCard.getData()==null)

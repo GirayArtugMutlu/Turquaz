@@ -40,5 +40,15 @@ public class CurBLTransactionUpdate {
         }
         
     }
+    public static void delete(Object obj)throws Exception{
+        try{
+            
+            dalUpdate.deleteObject(obj);
+            
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+    }
     
 }

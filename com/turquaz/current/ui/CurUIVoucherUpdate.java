@@ -1,7 +1,11 @@
 package com.turquaz.current.ui;
 
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.current.Messages;
+import com.turquaz.current.bl.CurBLTransactionUpdate;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.layout.GridData;
@@ -70,18 +74,39 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
                     toolUpdate.setText(Messages.getString("CurUIVoucherUpdate.0")); //$NON-NLS-1$
                     toolUpdate.setImage(SWTResourceManager
                         .getImage("icons/save_edit.gif")); //$NON-NLS-1$
+                        toolUpdate.addSelectionListener(new SelectionAdapter() {
+                            public void widgetSelected(SelectionEvent evt) {
+                              
+                            update();
+                            dialogShell.close();
+                            }
+                        });
                 }
                 {
                     toolDelete = new ToolItem(toolBar1, SWT.NONE);
                     toolDelete.setText(Messages.getString("CurUIVoucherUpdate.2")); //$NON-NLS-1$
                     toolDelete.setImage(SWTResourceManager
                         .getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+                        toolDelete.addSelectionListener(new SelectionAdapter() {
+                            public void widgetSelected(SelectionEvent evt) {
+                                
+                              delete();
+                              dialogShell.close();
+                              }
+                        
+                        
+                        });
                 }
                 {
                     toolCancel = new ToolItem(toolBar1, SWT.NONE);
                     toolCancel.setText(Messages.getString("CurUIVoucherUpdate.4")); //$NON-NLS-1$
                     toolCancel.setImage(SWTResourceManager
                         .getImage("icons/cancel.jpg")); //$NON-NLS-1$
+                        toolCancel.addSelectionListener(new SelectionAdapter() {
+                            public void widgetSelected(SelectionEvent evt) {
+                            dialogShell.close(); 
+                            }
+                        });
                 }
             }
             {
@@ -123,6 +148,38 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	    compVoucher.getTxtCurrentCard().setText(curTrans.getTurqCurrentCard().getCardsName()+" {"+curTrans.getTurqCurrentCard().getCardsCurrentCode()+"}"); //$NON-NLS-1$ //$NON-NLS-2$
 	    compVoucher.getTxtDefinition().setText(curTrans.getTransactionsDefinition());
 	    
+	}
+	
+	public void update(){
+	if(compVoucher.verifyFields())
+	{
+	    curTrans.setTurqCurrentCard((TurqCurrentCard)compVoucher.getTxtCurrentCard().getData());
+	    curTrans.setTransactionsDate(compVoucher.getDateTransDate().getDate());
+	    curTrans.setTransactionsDefinition(compVoucher.getTxtDefinition().getText().trim());
+	    curTrans.setTransactionsTotalCredit(compVoucher.getTxtCredit().getBigDecimalValue());
+	    curTrans.setTransactionsTotalDept(compVoucher.getTxtDept().getBigDecimalValue());
+	    try{
+	       CurBLTransactionUpdate.updateTrans(curTrans);
+	       EngUICommon.showMessageBox(getParent(),Messages.getString("CurUIVoucherUpdate.1")); //$NON-NLS-1$
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
+	}
+	    
+	    
+	}
+	public void delete(){
+	    try{
+	        
+	        if(EngUICommon.okToDelete(getParent()))
+	        {
+	            CurBLTransactionUpdate.delete(curTrans);
+	        }
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
 	}
 	
 }
