@@ -30,9 +30,9 @@ public class MenuManager {
 
 	public static Menu createMainMenu(final Menu menuMain){
 		
-		MenuItem mitFile = new MenuItem(menuMain,SWT.CASCADE);
-		
+		createFileMenu (menuMain);
 		createEditMenu(menuMain);
+		
 		
 		MenuItem mitFinance = new MenuItem(menuMain,SWT.CASCADE);
 		mitFinance.setText(Messages.getString("MenuManager.0")); //$NON-NLS-1$
@@ -44,21 +44,7 @@ public class MenuManager {
 		MenuItem mitHelp = new MenuItem(menuMain,SWT.CASCADE);
   
 
-		mitFile.setText(Messages.getString("EngUIMainFrame.20")); //$NON-NLS-1$
-      
-            Menu menuFile = new Menu(mitFile);
-            mitFile.setMenu(menuFile);
-            {
-              MenuItem  mitExit = new MenuItem(menuFile, SWT.PUSH);
-                mitExit.setText(Messages.getString("EngUIMainFrame.36")); //$NON-NLS-1$
-                mitExit.setImage(SWTResourceManager.getImage("icons/Exit16.gif")); //$NON-NLS-1$
-                mitExit.addSelectionListener(new SelectionAdapter() {
-                    public void widgetSelected(SelectionEvent evt) {
-                    menuMain.getShell().close();  
-                    
-                    }
-                });
-            }
+	
     
 
 	
@@ -90,6 +76,37 @@ public class MenuManager {
 		return menuMain;
 		
 	}
+	
+	static void createFinanceMenu(final Menu menuMain){
+		
+	}
+	
+	static void createFileMenu(final Menu menuMain){
+	
+
+		MenuItem mitFile = new MenuItem(menuMain,SWT.CASCADE);
+		mitFile.setText(Messages.getString("EngUIMainFrame.20")); //$NON-NLS-1$
+	      
+	            Menu menuFile = new Menu(mitFile);
+	            mitFile.setMenu(menuFile);
+	            {
+	              MenuItem  mitExit = new MenuItem(menuFile, SWT.PUSH);
+	                mitExit.setText(Messages.getString("EngUIMainFrame.36")); //$NON-NLS-1$
+	                mitExit.setImage(SWTResourceManager.getImage("icons/Exit16.gif")); //$NON-NLS-1$
+	                mitExit.addSelectionListener(new SelectionAdapter() {
+	                    public void widgetSelected(SelectionEvent evt) {
+	                    menuMain.getShell().close();  
+	                    
+	                    }
+	                });
+	            }
+		
+		
+		
+	}
+	
+	
+	
 	
 	
 	static void createEditMenu(final Menu menuMain){
