@@ -212,7 +212,7 @@ public class InvBLCardAdd {
             card.setTurqAccountingAccountByAccountingAccountsIdSpecialVatSell(accountSpecialVATSell);
             card.setTurqAccountingAccountByAccountingAccountsIdVatSell(accountVATSell);
             card.setSpecVatForEach(isSpecAmount);
-			cardAdd.saveOrUpdateInvCard(card);
+            InvDALCardAdd.saveOrUpdateInvCard(card);
 
 			return card.getInventoryCardsId();
 

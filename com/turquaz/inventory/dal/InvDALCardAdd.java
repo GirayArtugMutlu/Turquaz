@@ -48,7 +48,7 @@ public class InvDALCardAdd {
 			
 	}
 
-	public void saveOrUpdateInvCard(TurqInventoryCard invCard)throws Exception{
+	public static void saveOrUpdateInvCard(TurqInventoryCard invCard)throws Exception{
 		try{
 		Session session = EngDALSessionFactory.openSession();
 		Transaction tx = session.beginTransaction();

@@ -36,6 +36,7 @@ import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryCard;
+import com.turquaz.engine.dal.TurqInventoryGroup;
 public class InvDALSearchTransaction {
 	public InvDALSearchTransaction() {
 
@@ -48,7 +49,7 @@ public class InvDALSearchTransaction {
 			Session session = EngDALSessionFactory.openSession();
   
                  			
-			String query = "Select distinct transaction, consignment.consignmentsDate from TurqInventoryTransaction as transaction," +
+			String query = "Select transaction, consignment.consignmentsDate from TurqInventoryTransaction as transaction," +
 					 " TurqConsignment as consignment where" +
 					 " consignment.turqEngineSequence = transaction.turqEngineSequence "
 					+ " and consignment.consignmentsDate >= :startDate"
@@ -82,6 +83,82 @@ public class InvDALSearchTransaction {
 			return list;
 
 		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	public List searchTransactionsAdvanced(String invCardCode, String invCardName, 
+			TurqCurrentCard curCardStart, TurqCurrentCard curCardEnd, 
+			Date startDate,Date endDate, int type, TurqInventoryGroup invGroup)throws Exception{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "Select transaction, consignment.consignmentsDate from TurqInventoryTransaction as transaction," +
+			 " TurqConsignment as consignment where" +
+			 " consignment.turqEngineSequence = transaction.turqEngineSequence "
+			+ " and consignment.consignmentsDate >= :startDate"
+			+ " and consignment.consignmentsDate <= :endDate";
+			if (type != 2)
+				query+=" and consignment.consignmentsType ="+ type;
+			
+
+			if (!invCardCode.equals(""))
+			{
+				query += " and transaction.turqInventoryCard.cardInventoryCode like '"+invCardCode+"%'";
+			}
+			
+			
+			if(!invCardName.equals(""))
+			{
+				query+=" and transaction.turqInventoryCard.cardName like '"+invCardName+"%'";
+			}
+			
+			
+			if (curCardStart != null && curCardEnd != null)
+			{
+				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard.cardsCurrentCode >= '"+curCardStart.getCardsCurrentCode()+"'";
+				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard.cardsCurrentCode <= '"+curCardEnd.getCardsCurrentCode()+"'";
+			}
+			else if (curCardStart != null)
+			{
+				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard = :curCardStart";
+			}		
+			else if (curCardEnd != null)
+			{
+				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard = :curCardEnd";
+			}
+			
+			if (invGroup != null)
+			{
+				query+=" and :invGroup in (Select gr.turqInventoryGroup from transaction.turqInventoryCard.turqInventoryCardGroups as gr)";
+				
+			}			
+
+	
+
+			Query q = session.createQuery(query);
+
+			q.setParameter("startDate", startDate);
+			q.setParameter("endDate", endDate);
+			
+			if (curCardStart != null && curCardEnd != null)
+			{
+
+			}
+			else if (curCardStart!=null)
+				q.setParameter("curCardStart",curCardStart);				
+			else if (curCardEnd != null)
+				q.setParameter("curCardEnd",curCardEnd);
+			
+			if (invGroup != null)
+				q.setParameter("invGroup", invGroup);
+	
+			List list=q.list();
+			return list;
+			
+		}
+		catch(Exception ex)
+		{
 			throw ex;
 		}
 	}
