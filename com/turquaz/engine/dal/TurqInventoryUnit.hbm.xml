@@ -29,6 +29,7 @@
         type="java.lang.String"
         column="units_name"
         not-null="true"
+        unique="true"
         length="50"
     />
     <property
