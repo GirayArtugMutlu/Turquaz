@@ -164,11 +164,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	
 		Integer trModule=accTrans.getTurqModule().getModulesId();
 		if (trModule.intValue()!=1){ //1=Transaction, only view is allowed for other modules..
-		
-			toolUpdate.setEnabled(false);
-			toolDelete.setEnabled(false);
-			compTransactionPayment.getBtnAddTransactionRow().setEnabled(false);
-			compTransactionPayment.getBtnRemoveTransactionRow().setEnabled(false);
+			compTransactionPayment.setEnabled(false);
 		}
 	}
 	

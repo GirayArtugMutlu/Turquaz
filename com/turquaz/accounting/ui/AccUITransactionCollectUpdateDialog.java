@@ -158,11 +158,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	fillTableAndCombo();
 		Integer trModule=accTrans.getTurqModule().getModulesId();
 	if (trModule.intValue()!=1){ //1=Transaction, only view is allowed for other modules..
-		
-		toolUpdate.setEnabled(false);
-		toolDelete.setEnabled(false);
-		compTransactionCollect.getBtnAddTransactionRow().setEnabled(false);
-		compTransactionCollect.getBtnRemoveTransactionRow().setEnabled(false);
+		compTransactionCollect.setEnabled(false);
 	}
 	
 	}

@@ -159,12 +159,7 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	compTransactionAdd.calculateTotalDeptAndCredit();
 	Integer trModule=accTrans.getTurqModule().getModulesId();
 	if (trModule.intValue()!=1){ //1=Transaction, only view is allowed for other modules..
-		
-		toolUpdate.setEnabled(false);
-		toolDelete.setEnabled(false);
-		compTransactionAdd.getBtnAddTransactionRow().setEnabled(false);
-		compTransactionAdd.getBtnRemoveTransactionRow().setEnabled(false);
-		
+		compTransactionAdd.setEnabled(false);		
 	}
 		
 	
