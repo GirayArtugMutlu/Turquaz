@@ -159,12 +159,12 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
                 }
                 {
                     tableColumnCollect = new TableColumn(tableCashTrans, SWT.RIGHT);
-                    tableColumnCollect.setText(Messages.getString("CashUICashCardAbstract.6")); //$NON-NLS-1$
+                    tableColumnCollect.setText(Messages.getString("CashUICashCardDailyAbstract.0")); //$NON-NLS-1$
                     tableColumnCollect.setWidth(100);
                 }
                 {
                     tableColumnPayment = new TableColumn(tableCashTrans, SWT.RIGHT);
-                    tableColumnPayment.setText(Messages.getString("CashUICashCardAbstract.7")); //$NON-NLS-1$
+                    tableColumnPayment.setText(Messages.getString("CashUICashCardDailyAbstract.1")); //$NON-NLS-1$
                     tableColumnPayment.setWidth(100);
                 }
             }
