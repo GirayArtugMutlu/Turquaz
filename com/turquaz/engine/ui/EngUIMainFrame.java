@@ -74,6 +74,7 @@ import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLPermissions;
+import com.turquaz.engine.bl.EngBLVersionValidate;
 import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.component.MenuFactory;
@@ -680,8 +681,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					toolNew.setText(Messages.getString("EngUIMainFrame.8")); //$NON-NLS-1$
 					toolNew.setToolTipText(Messages.getString("EngUIMainFrame.9")); //$NON-NLS-1$
 					toolNew.setImage(SWTResourceManager.getImage("icons/new_wiz.gif")); //$NON-NLS-1$
-					toolNew.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					toolNew.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							toolNewWidgetSelected(evt);
 						}
 					});
@@ -691,8 +694,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					toolSave.setText(Messages.getString("EngUIMainFrame.11")); //$NON-NLS-1$
 					toolSave.setToolTipText(Messages.getString("EngUIMainFrame.12")); //$NON-NLS-1$
 					toolSave.setImage(SWTResourceManager.getImage("icons/save.jpg")); //$NON-NLS-1$
-					toolSave.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					toolSave.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							toolSaveWidgetSelected(evt);
 						}
 					});
@@ -702,8 +707,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					toolDelete.setText(Messages.getString("EngUIMainFrame.0")); //$NON-NLS-1$
 					toolDelete.setToolTipText(Messages.getString("EngUIMainFrame.15")); //$NON-NLS-1$
 					toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
-					toolDelete.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					toolDelete.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							toolDeleteWidgetSelected(evt);
 						}
 					});
@@ -714,8 +721,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					toolSearch.setToolTipText(Messages.getString("EngUIMainFrame.18")); //$NON-NLS-1$
 					toolSearch.setImage(SWTResourceManager.getImage("icons/search.jpg")); //$NON-NLS-1$
 					toolSearch.setSelection(true);
-					toolSearch.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					toolSearch.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							toolSearchWidgetSelected(evt);
 						}
 					});
@@ -724,8 +733,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					toolExportToExcel = new ToolItem(toolbarMainTop, SWT.NONE);
 					toolExportToExcel.setText(Messages.getString("EngUIMainFrame.10")); //$NON-NLS-1$
 					toolExportToExcel.setImage(SWTResourceManager.getImage("icons/excel.jpeg")); //$NON-NLS-1$
-					toolExportToExcel.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					toolExportToExcel.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							exportToExcel();
 						}
 					});
@@ -734,8 +745,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					toolPrint = new ToolItem(toolbarMainTop, SWT.NONE);
 					toolPrint.setText(Messages.getString("EngUIMainFrame.19")); //$NON-NLS-1$
 					toolPrint.setImage(SWTResourceManager.getImage("icons/Print16.gif")); //$NON-NLS-1$
-					toolPrint.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					toolPrint.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							printTable();
 						}
 					});
@@ -744,8 +757,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 				toolBrowser = new ToolItem(toolbarMainTop, SWT.NONE);
 				toolBrowser.setText("Turquaz Ana Sayfa"); //$NON-NLS-1$
 				toolBrowser.setImage(SWTResourceManager.getImage("icons/browserview.gif")); //$NON-NLS-1$
-				toolBrowser.addSelectionListener(new SelectionAdapter() {
-					public void widgetSelected(SelectionEvent evt) {
+				toolBrowser.addSelectionListener(new SelectionAdapter()
+				{
+					public void widgetSelected(SelectionEvent evt)
+					{
 						openBrowserTab();
 					}
 				});
@@ -759,23 +774,28 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 				tabfldMainLData.horizontalAlignment = GridData.FILL;
 				tabfldMainLData.grabExcessVerticalSpace = true;
 				tabfldMain.setLayoutData(tabfldMainLData);
-				tabfldMain.addCTabFolder2Listener(new CTabFolder2Adapter() {
-				
-					public void close(CTabFolderEvent evt) {
-						tabfldMainItemClosed((CTabItem)evt.item);
+				tabfldMain.addCTabFolder2Listener(new CTabFolder2Adapter()
+				{
+					public void close(CTabFolderEvent evt)
+					{
+						tabfldMainItemClosed((CTabItem) evt.item);
 					}
 
-					public void itemClosed(CTabFolderEvent evt) {
-						tabfldMainItemClosed((CTabItem)evt.item);
+					public void itemClosed(CTabFolderEvent evt)
+					{
+						tabfldMainItemClosed((CTabItem) evt.item);
 					}
 				});
 				MenuFactory.addTabFolderMenu(tabfldMain);
-				tabfldMain.addSelectionListener(new SelectionAdapter() {
-					public void widgetDefaultSelected(SelectionEvent evt) {
+				tabfldMain.addSelectionListener(new SelectionAdapter()
+				{
+					public void widgetDefaultSelected(SelectionEvent evt)
+					{
 						tabfldMainWidgetDefaultSelected(evt);
 					}
 
-					public void widgetSelected(SelectionEvent evt) {
+					public void widgetSelected(SelectionEvent evt)
+					{
 						tabfldMainWidgetSelected(evt);
 					}
 				});
@@ -821,9 +841,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			getShell().setMenuBar(menuMain);
 			postInitGUI();
 			//		initialize accounts
-			
-			EngTXCommon.doSingleTX(EngBLAccountingAccounts.class.getName(),"getAccounts",null);
-			
+			EngTXCommon.doSingleTX(EngBLAccountingAccounts.class.getName(), "getAccounts", null);
 		}
 		catch (Exception e)
 		{
@@ -849,99 +867,114 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 	public void preInitGUI()
 	{
 		//init user permissions
-		try{
-			EngTXCommon.doSingleTX(EngBLPermissions.class.getName(),"init",null);
-		
-		//Add popup menu to add favorites
-		popupTreeAddFavorites = new Menu(getShell(), SWT.POP_UP);
-		final MenuItem item = new MenuItem(popupTreeAddFavorites, SWT.PUSH);
-		item.setText(Messages.getString("EngUIMainFrame.27")); //$NON-NLS-1$
-		//Add popu menu to remove favorites
-		popupTreeRemoveFavorites = new Menu(getShell(), SWT.POP_UP);
-		final MenuItem itemRemove = new MenuItem(popupTreeRemoveFavorites, SWT.PUSH);
-		itemRemove.setText(Messages.getString("EngUIMainFrame.28")); //$NON-NLS-1$
-		item.addListener(SWT.Selection, new Listener()
+		try
 		{
-			public void handleEvent(Event e)
+			Boolean isVersionUpdated=(Boolean)EngTXCommon.doSingleTX(EngBLVersionValidate.class.getName(),"checkVersion",null);		
+			if (!isVersionUpdated.booleanValue())
 			{
-				if (item.getData() != null)
+				EngUICommon.showMessageBox(getShell(),"Veritabanýnýz yeni versiyon için otomatik güncellenecektir");
+				Boolean successfull=(Boolean)EngTXCommon.doTransactionTX(EngBLVersionValidate.class.getName(),"validateVersion",null);
+				if (successfull.booleanValue())
 				{
-					TreeItem selectedItem = (TreeItem) item.getData();
-					TreeItem favoriteItem = new TreeItem(treeFavorites, SWT.NULL);
-					favoriteItem.setText(selectedItem.getText());
-					favoriteItem.setData(selectedItem.getData());
+					EngUICommon.showMessageBox(getShell(),"Veritabaný baþarýyla güncellendi!");
+				}
+				else
+				{
+					EngUICommon.showMessageBox(getShell(),"Veritabaný güncellemesi yapýlamadý!");
+					System.exit(1);
 				}
 			}
-		});
-		itemRemove.addListener(SWT.Selection, new Listener()
-		{
-			public void handleEvent(Event e)
+			EngTXCommon.doSingleTX(EngBLPermissions.class.getName(), "init", null);
+			//Add popup menu to add favorites
+			popupTreeAddFavorites = new Menu(getShell(), SWT.POP_UP);
+			final MenuItem item = new MenuItem(popupTreeAddFavorites, SWT.PUSH);
+			item.setText(Messages.getString("EngUIMainFrame.27")); //$NON-NLS-1$
+			//Add popu menu to remove favorites
+			popupTreeRemoveFavorites = new Menu(getShell(), SWT.POP_UP);
+			final MenuItem itemRemove = new MenuItem(popupTreeRemoveFavorites, SWT.PUSH);
+			itemRemove.setText(Messages.getString("EngUIMainFrame.28")); //$NON-NLS-1$
+			item.addListener(SWT.Selection, new Listener()
 			{
-				if (itemRemove.getData() != null)
+				public void handleEvent(Event e)
 				{
-					TreeItem selectedItem = (TreeItem) itemRemove.getData();
-					selectedItem.dispose();
+					if (item.getData() != null)
+					{
+						TreeItem selectedItem = (TreeItem) item.getData();
+						TreeItem favoriteItem = new TreeItem(treeFavorites, SWT.NULL);
+						favoriteItem.setText(selectedItem.getText());
+						favoriteItem.setData(selectedItem.getData());
+					}
 				}
-			}
-		});
-		popupTreeAddFavorites.addListener(SWT.Show, new Listener()
-		{
-			public void handleEvent(Event event)
+			});
+			itemRemove.addListener(SWT.Selection, new Listener()
 			{
-				StackLayout stackLayout = (StackLayout) compModulesTree.getLayout();
-				Tree topTree = (Tree) stackLayout.topControl;
-				if (topTree.getSelection().length > 0)
+				public void handleEvent(Event e)
 				{
-					TreeItem selectedItem = topTree.getSelection()[0];
+					if (itemRemove.getData() != null)
+					{
+						TreeItem selectedItem = (TreeItem) itemRemove.getData();
+						selectedItem.dispose();
+					}
+				}
+			});
+			popupTreeAddFavorites.addListener(SWT.Show, new Listener()
+			{
+				public void handleEvent(Event event)
+				{
+					StackLayout stackLayout = (StackLayout) compModulesTree.getLayout();
+					Tree topTree = (Tree) stackLayout.topControl;
+					if (topTree.getSelection().length > 0)
+					{
+						TreeItem selectedItem = topTree.getSelection()[0];
+						if (selectedItem.getItemCount() > 0)
+						{
+							//if it has childeren then do not show menu
+							event.doit = false;
+							popupTreeAddFavorites.setVisible(false);
+							item.setData(null);
+						}
+						else
+						{
+							event.doit = true;
+							item.setData(selectedItem);
+						}
+					}
+					else
+					{
+						item.setData(null);
+					}
+				}
+			});
+			popupTreeRemoveFavorites.addListener(SWT.Show, new Listener()
+			{
+				public void handleEvent(Event event)
+				{
+					if (treeFavorites.getSelection().length == 0)
+					{
+						//					if it has childeren then do not show menu
+						event.doit = false;
+						popupTreeAddFavorites.setVisible(false);
+						itemRemove.setData(null);
+						return;
+					}
+					TreeItem selectedItem = treeFavorites.getSelection()[0];
 					if (selectedItem.getItemCount() > 0)
 					{
 						//if it has childeren then do not show menu
 						event.doit = false;
 						popupTreeAddFavorites.setVisible(false);
-						item.setData(null);
+						itemRemove.setData(null);
 					}
 					else
 					{
 						event.doit = true;
-						item.setData(selectedItem);
+						itemRemove.setData(selectedItem);
+						System.out.println("show"); //$NON-NLS-1$
 					}
 				}
-				else
-				{
-					item.setData(null);
-				}
-			}
-		});
-		popupTreeRemoveFavorites.addListener(SWT.Show, new Listener()
-		{
-			public void handleEvent(Event event)
-			{
-				if (treeFavorites.getSelection().length == 0)
-				{
-					//					if it has childeren then do not show menu
-					event.doit = false;
-					popupTreeAddFavorites.setVisible(false);
-					itemRemove.setData(null);
-					return;
-				}
-				TreeItem selectedItem = treeFavorites.getSelection()[0];
-				if (selectedItem.getItemCount() > 0)
-				{
-					//if it has childeren then do not show menu
-					event.doit = false;
-					popupTreeAddFavorites.setVisible(false);
-					itemRemove.setData(null);
-				}
-				else
-				{
-					event.doit = true;
-					itemRemove.setData(selectedItem);
-					System.out.println("show"); //$NON-NLS-1$
-				}
-			}
-		});
+			});
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			ex.printStackTrace();
 		}
@@ -1003,7 +1036,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		tabfldMain.setSelectionForeground(display.getSystemColor(SWT.COLOR_TITLE_FOREGROUND));
 		try
 		{
-			EngTXCommon.doSingleTX(EngBLInventoryCards.class.getName(),"getInventoryCards",null);
+			EngTXCommon.doSingleTX(EngBLInventoryCards.class.getName(), "getInventoryCards", null);
 		}
 		catch (Exception ex)
 		{
@@ -1140,24 +1173,22 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			File prop_dir = new File(System.getProperty("user.home")+"/.turquaz");
-			if(!prop_dir.exists())
+			File prop_dir = new File(System.getProperty("user.home") + "/.turquaz");
+			if (!prop_dir.exists())
 			{
 				prop_dir.mkdir();
 			}
-			File file = new File(System.getProperty("user.home")+"/.turquaz/favorites.xml");
+			File file = new File(System.getProperty("user.home") + "/.turquaz/favorites.xml");
 			if (!file.exists())
 			{
 				XMLOutputter outputter = new XMLOutputter();
 				OutputStream output = null;
-				output = new FileOutputStream(System.getProperty("user.home")+"/.turquaz/favorites.xml"); //$NON-NLS-1$
+				output = new FileOutputStream(System.getProperty("user.home") + "/.turquaz/favorites.xml"); //$NON-NLS-1$
 				Element root = new Element("tree");
 				outputter.output(root, output);
 				output.close();
 			}
-			
-			
-			EngBLXmlParser xmlParser = new EngBLXmlParser(System.getProperty("user.home")+"/.turquaz/favorites.xml"); //$NON-NLS-1$
+			EngBLXmlParser xmlParser = new EngBLXmlParser(System.getProperty("user.home") + "/.turquaz/favorites.xml"); //$NON-NLS-1$
 			Map treeInfo = xmlParser.createMap();
 			Iterator it = treeInfo.keySet().iterator();
 			String text = ""; //$NON-NLS-1$
@@ -1195,8 +1226,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
 			Rectangle shellBounds = shell.computeTrim(0, 0, 800, 580);
 			shell.setImage(SWTResourceManager.getImage("icons/turquaz_paw.gif")); //$NON-NLS-1$
-			
-			TurqCompany company = (TurqCompany)EngTXCommon.doSingleTX(AdmBLCompanyInfo.class.getName(),"getCompany",null);
+			TurqCompany company = (TurqCompany) EngTXCommon.doSingleTX(AdmBLCompanyInfo.class.getName(), "getCompany", null);
 			shell.setText("Turquaz - " + company.getCompanyName()); //$NON-NLS-1$
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.addListener(SWT.Close, new Listener()
@@ -1326,7 +1356,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			if(tabfldMain.getSelection()==null)
+			if (tabfldMain.getSelection() == null)
 			{
 				toolExportToExcel.setEnabled(false);
 				toolPrint.setEnabled(false);
@@ -1625,7 +1655,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		{
 			XMLOutputter outputter = new XMLOutputter();
 			OutputStream output = null;
-			output = new FileOutputStream(System.getProperty("user.home")+"/.turquaz/favorites.xml"); //$NON-NLS-1$
+			output = new FileOutputStream(System.getProperty("user.home") + "/.turquaz/favorites.xml"); //$NON-NLS-1$
 			TreeItem items[] = treeFavorites.getItems();
 			Element root = new Element("tree"); //$NON-NLS-1$
 			Element treeItem;
@@ -1666,6 +1696,4 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		SearchComposite sc = (SearchComposite) tabfldMain.getSelection().getControl();
 		sc.printTable();
 	}
-	
-	
 }

@@ -26,6 +26,26 @@ public class EngDALCommon
 			throw ex;
 		}
 	}
+	
+	public static TurqSetting getTurqSetting() throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+		
+			String query = "Select setting from TurqSetting as setting";
+			Query q = session.createQuery(query);
+			List list = q.list();
+			if (list.size()==0)
+				return null;
+			else
+				return (TurqSetting)list.get(0);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
 	public static void initializeObject(Object obj, String myMethod) throws Exception
 	{
@@ -136,11 +156,9 @@ public class EngDALCommon
 
 	public static void updateObject(Object obj) throws Exception
 	{
-		Session session = EngDALSessionFactory.getSession();
-		
+		Session session = EngDALSessionFactory.getSession();		
 		session.update(obj);
-		session.flush();
-		
+		session.flush();		
 	}
 
 	

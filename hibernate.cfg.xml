@@ -86,6 +86,7 @@
        <mapping resource="com/turquaz/engine/dal/TurqViewInvPriceTotal.hbm.xml"/>
        <mapping resource="com/turquaz/engine/dal/TurqViewBillTransTotal.hbm.xml"/>
        <mapping resource="com/turquaz/engine/dal/TurqUserPermissionLevel.hbm.xml"/>
+       <mapping resource="com/turquaz/engine/dal/TurqSetting.hbm.xml"/>
        </session-factory>
     
 

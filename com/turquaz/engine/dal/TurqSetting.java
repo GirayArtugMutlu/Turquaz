@@ -9,6 +9,9 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqSetting implements Serializable {
 
     /** identifier field */
+    private java.lang.Integer id;
+
+    /** persistent field */
     private java.lang.String databaseVersion;
 
     /** full constructor */
@@ -18,6 +21,14 @@ public class TurqSetting implements Serializable {
 
     /** default constructor */
     public TurqSetting() {
+    }
+
+    public java.lang.Integer getId() {
+        return this.id;
+    }
+
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getDatabaseVersion() {
@@ -30,7 +41,7 @@ public class TurqSetting implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("databaseVersion", getDatabaseVersion())
+            .append("id", getId())
             .toString();
     }
 
@@ -38,13 +49,13 @@ public class TurqSetting implements Serializable {
         if ( !(other instanceof TurqSetting) ) return false;
         TurqSetting castOther = (TurqSetting) other;
         return new EqualsBuilder()
-            .append(this.getDatabaseVersion(), castOther.getDatabaseVersion())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getDatabaseVersion())
+            .append(getId())
             .toHashCode();
     }
 

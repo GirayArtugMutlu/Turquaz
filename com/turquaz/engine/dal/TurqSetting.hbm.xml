@@ -16,19 +16,23 @@
     table="turq_settings"
 >
 
-    <composite-id>
-        <key-property 
-            name="databaseVersion" 
-            column="database_version" 
-            type="java.lang.String"
-            length="50"
-        />
-    </composite-id>    
+    <id
+        name="id"
+        type="int"
+        column="id"
+    >
+        <generator class="native" />
+    </id>
 
+    <property
+        name="databaseVersion"
+        type="java.lang.String"
+        column="database_version"
+        not-null="true"
+        length="50"
+    />
 
     <!-- Associations -->
-    <!-- derived association(s) for compound key -->
-    <!-- end of derived association(s) -->
   
 
 </class>

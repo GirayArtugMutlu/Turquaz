@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqEngineMenu" 
+    table="turq_engine_menu"
+>
+
+    <id
+        name="id"
+        type="int"
+        column="id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="menuName"
+        type="java.lang.String"
+        column="menu_name"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="menuImage"
+        type="java.lang.String"
+        column="menu_image"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="menuType"
+        type="int"
+        column="menu_type"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="menuModuleComponent"
+        type="int"
+        column="menu_module_component"
+        not-null="true"
+        length="4"
+    />
+
+    <!-- Associations -->
+  
+
+</class>
+</hibernate-mapping>
