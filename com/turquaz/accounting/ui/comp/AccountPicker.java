@@ -94,7 +94,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 				text1.setEditable(true);
 				text1.setSize(new org.eclipse.swt.graphics.Point(358,22));
 				GridData text1LData = new GridData();
-				text1.setBackground(SWTResourceManager.getColor(255, 215, 215));
+				 text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
                 text1.addModifyListener(new ModifyListener() {
                     public void modifyText(ModifyEvent evt) {
                       
