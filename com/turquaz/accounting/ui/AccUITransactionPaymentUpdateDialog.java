@@ -130,7 +130,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(42, 52));
 	
 	
-			toolUpdate.setText("&Güncelle"); 
+			toolUpdate.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.0"));  //$NON-NLS-1$
 			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {

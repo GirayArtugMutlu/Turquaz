@@ -24,6 +24,7 @@ import java.util.List;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -108,6 +109,41 @@ public class CashDALCashCard {
         }
     } 
     
+    public void deleteAccountingTransaction(TurqCashTransaction cashTrans)throws Exception{
+        try{
+            Session session = EngDALSessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
+            
+            session.refresh(cashTrans);
+            
+            Iterator it = cashTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
+            while(it.hasNext()){
+                
+              TurqAccountingTransaction accTran =(TurqAccountingTransaction)it.next();
+              Iterator it2 = accTran.getTurqAccountingTransactionColumns().iterator();
+              while(it2.hasNext()){
+                  session.delete(it2.next());
+                  
+              }
+              session.delete(accTran);
+              
+            }
+            
+            tx.commit();
+            session.flush();
+            session.close();
+            
+            
+            
+            
+            
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+        
+    }
+    
     public List searchCashCard(TurqAccountingAccount account, String name)throws Exception{
      try{
          Session session = EngDALSessionFactory.openSession();
@@ -180,15 +216,14 @@ public class CashDALCashCard {
             
             TurqCashTransaction cashTrans =(TurqCashTransaction)session.load(TurqCashTransaction.class, id);
             
-            if(cashTrans.getTurqEngineSequence().getTurqModule().getModulesId().intValue()==EngBLCommon.CASH_CURRENT_COLLECT
-                    ||cashTrans.getTurqEngineSequence().getTurqModule().getModulesId().intValue()==EngBLCommon.CASH_CURRENT_PAYMENT ){
+            if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_CURRENT_COLLECT
+                    ||cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_CURRENT_PAYMENT ){
                 
                 Hibernate.initialize(cashTrans.getTurqEngineSequence().getTurqCurrentTransactions());
             }
                 
             Hibernate.initialize(cashTrans.getTurqCashTransactionRows());
-            
-            
+            Hibernate.initialize(cashTrans.getTurqEngineSequence().getTurqAccountingTransactions());
             
             session.close();
             return cashTrans;

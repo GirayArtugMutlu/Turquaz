@@ -154,6 +154,7 @@ public class CashBLCashTransactionAdd {
 		 */  
 	
 	    cashTransRow.setTurqCashTransaction(cashTrans);
+	    
 	    dalCash.save(cashTransRow);
 	    
 	    

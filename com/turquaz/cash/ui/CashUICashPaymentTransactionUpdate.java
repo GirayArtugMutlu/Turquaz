@@ -4,12 +4,15 @@ import java.math.BigDecimal;
 import java.util.Iterator;
 
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
+import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.CoolItem;
@@ -67,7 +70,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 
 
 			dialogShell.setLayout(new GridLayout());
-			dialogShell.setImage(SWTResourceManager.getImage("icons/Editor16.gif"));
+			dialogShell.setImage(SWTResourceManager.getImage("icons/Editor16.gif")); //$NON-NLS-1$
 			dialogShell.layout();
 			dialogShell.setSize(636, 591);
             {
@@ -87,15 +90,22 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
                         coolItem1.setControl(toolBar1);
                         {
                             toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-                            toolUpdate.setText("Güncelle");
+                            toolUpdate.setText(Messages.getString("CashUICashPaymentTransactionUpdate.1")); //$NON-NLS-1$
                             toolUpdate.setImage(SWTResourceManager
-                                .getImage("icons/save_edit.gif"));
+                                .getImage("icons/save_edit.gif")); //$NON-NLS-1$
+                            toolUpdate
+                            .addSelectionListener(new SelectionAdapter() {
+                            public void widgetSelected(SelectionEvent evt) {
+                               
+                            update();
+                            }
+                            });
                         }
                         {
                             tooldelete = new ToolItem(toolBar1, SWT.NONE);
-                            tooldelete.setText("Sil");
+                            tooldelete.setText(Messages.getString("CashUICashPaymentTransactionUpdate.3")); //$NON-NLS-1$
                             tooldelete.setImage(SWTResourceManager
-                                .getImage("icons/delete_edit.gif"));
+                                .getImage("icons/delete_edit.gif")); //$NON-NLS-1$
                             tooldelete
                                 .addSelectionListener(new SelectionAdapter() {
                                 public void widgetSelected(SelectionEvent evt) {
@@ -106,9 +116,9 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
                         }
                         {
                             toolCancel = new ToolItem(toolBar1, SWT.NONE);
-                            toolCancel.setText("?ptal");
+                            toolCancel.setText(Messages.getString("CashUICashPaymentTransactionUpdate.5")); //$NON-NLS-1$
                             toolCancel.setImage(SWTResourceManager
-                                .getImage("icons/cancel.jpg"));
+                                .getImage("icons/cancel.jpg")); //$NON-NLS-1$
                             toolCancel
                                 .addSelectionListener(new SelectionAdapter() {
                                 public void widgetSelected(SelectionEvent evt) {
@@ -192,15 +202,48 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	
 	public void delete(){
 	    try{
+	        MessageBox msg = new MessageBox(this.getParent(),SWT.ICON_QUESTION|SWT.YES|SWT.NO);
+	        msg.setMessage(Messages.getString("CashUICashPaymentTransactionUpdate.7")); //$NON-NLS-1$
+	        int answer = msg.open();
 	        
-	        blUpdate.deleteCashTrans(cashTrans);
-	        dialogShell.close();
+	        if(answer == SWT.YES){
+	          blUpdate.deleteCashTrans(cashTrans);
+	          MessageBox msg2 = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
+	          msg2.setMessage(Messages.getString("CashUICashPaymentTransactionUpdate.8")); //$NON-NLS-1$
+	          msg2.open();          
+	          
+	          dialogShell.close();
+	        }
+	        
+	        
 	        
 	    }
 	    catch(Exception ex){
 	        ex.printStackTrace();
 	    }
 	    
+	}
+	public void update(){
+	    try{
+	        MessageBox msg = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
+	        if(compTransAdd.verifyFields()){
+	        
+	        blUpdate.updateCashTrans(cashTrans,(TurqCashCard)compTransAdd.getTxtCashCard().getData(),
+	                                (TurqCurrentCard)compTransAdd.getTxtCurrentAccount().getData(),
+	                                compTransAdd.getCurTextTotalAmount().getBigDecimalValue(),
+	                                compTransAdd.getDatePicker().getDate(),
+	                                compTransAdd.getTxtDefinition().getText(),
+	                                compTransAdd.getTxtDocumentNo().getText());
+	        }
+	        msg.setText(Messages.getString("CashUICashPaymentTransactionUpdate.9")); //$NON-NLS-1$
+	        msg.open();
+	        
+	        dialogShell.close();
+	        
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
 	}
 	
 }
