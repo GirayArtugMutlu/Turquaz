@@ -87,7 +87,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
 	private InvBLCardAdd blCardAdd = new InvBLCardAdd();
     Calendar cal = Calendar.getInstance();
-
+    private List list;
 	public InvUIUnitAddDialog(Shell parent, int style) {
 		super(parent, style);
 	}
@@ -295,7 +295,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
     public void fillTable(){
     try{
     tableInvUnits.removeAll();
-    List list = blCardAdd.getInventoryUnits();
+    list = blCardAdd.getInventoryUnits();
     
     TurqInventoryUnit invUnit;
     TableItem item;
@@ -417,15 +417,30 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	    txtUnitName.setFocus();
 	    return;
 	    }
-	    else{
+	    String unit=txtUnitName.getText().trim();
+	    boolean exist=false;
+	    for(int k=0; k<list.size(); k++)
+	    {
+	    	TurqInventoryUnit InvUnit=(TurqInventoryUnit)list.get(k);
+	    	if (InvUnit.getUnitsName().equals(unit))
+	    	{
+	    		exist=true;
+	    		break;
+	    	}
+	    }
+	    if (exist)
+	    {
+	    	msg.setMessage("Daha önce varolan bir birimi giremezsiniz!");
+	    	msg.open();
+	    	return;
+	    }
 	    
 	    blCardAdd.saveUnit(txtUnitName.getText().trim());
 	    msg.setMessage(Messages.getString("InvUIUnitAddDialog.19")); //$NON-NLS-1$
 	    txtUnitName.setText(""); //$NON-NLS-1$
 	    fillTable();
 	    msg.open();	    
-	    txtUnitName.setFocus();
-	    }		
+	    txtUnitName.setFocus();		
 		
 		}
 		catch(HibernateException ex){
