@@ -244,7 +244,10 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 										
 				}
 				
+				Object o = consignment.getTurqBillConsignmentCommon();
+			
 				blCons.deleteObject(consignment);
+				blCons.deleteObject(o);
 				
 				msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
 				msg.open();

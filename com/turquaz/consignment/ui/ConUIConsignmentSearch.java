@@ -1,5 +1,6 @@
 package com.turquaz.consignment.ui;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
@@ -16,6 +17,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
+import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -375,6 +377,66 @@ SearchComposite{
 		
 	}
 	public void delete(){
+	    ConBLUpdateConsignment blUpdate = new ConBLUpdateConsignment();
+	    TableItem items[] = tableConsignments.getSelection();
+		if(items.length>0){
+		    TurqConsignment cons = (TurqConsignment)items[0].getData();
+		    if(cons.getTurqBillConsignmentCommon().getTurqBills().isEmpty()){
+		    	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+				MessageBox msg2 = new MessageBox(this.getShell(),SWT.CANCEL|SWT.OK);
+				msg2.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.9")); //$NON-NLS-1$
+				try{
+					if(msg2.open()==SWT.OK){
+						
+						//delete Consignment Group
+						Iterator it = cons.getTurqConsignmentsInGroups().iterator();
+						while(it.hasNext()){
+							blUpdate.deleteObject(it.next());
+												
+						}
+						
+//						delete Inventory Transaction
+						it = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+						while(it.hasNext()){
+							blUpdate.deleteObject(it.next());
+												
+						}						
+						
+						Object o = cons.getTurqBillConsignmentCommon();
+						
+							blUpdate.deleteObject(cons);
+							blUpdate.deleteObject(o);
+						
+						msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
+						msg.open();
+						
+						
+						
+						//delete consignment 
+						
+					}
+					
+					
+					
+				}
+				catch(Exception ex){
+					
+					ex.printStackTrace();
+					msg.setMessage(ex.getMessage());
+					msg.open();
+				}
+		        
+		        
+		    }
+		    else{
+		       MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_INFORMATION);
+		       msg.setMessage(Messages.getString("ConUIConsignmentSearch.13")); //$NON-NLS-1$
+		       msg.open();
+		    }
+		}  
+	    
+	    
+	    
 		
 	}
 	
