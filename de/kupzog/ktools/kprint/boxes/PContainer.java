@@ -134,8 +134,8 @@ public class PContainer {
 		for (Iterator iter = row.iterator(); iter.hasNext();) {
 			PBox element = (PBox) iter.next();
 			
-			int height = element.layoutHowMuchWouldYouOccupyOf(spaceLeft, page);
-			if (!element.layoutWouldYouFinishWithin(spaceLeft, page))
+			int height = element.layoutHowMuchWouldYouOccupyOf(spaceLeft);
+			if (!element.layoutWouldYouFinishWithin(spaceLeft))
 				pageBreakNeccessary = true;
 			if (height < 0)
 			{
@@ -150,7 +150,7 @@ public class PContainer {
 		{
 			for (Iterator iter = row.iterator(); iter.hasNext();) {
 				PBox element = (PBox) iter.next();
-				element.layoutOccupy(origin, spaceLeft, page);
+				element.layoutOccupy(origin, page);
 				if (element.rowAlign) element.setForcedHeight(max);
 				origin.x += element.getWidth();
 			}

@@ -231,7 +231,6 @@ extends PContainer
 		layoutResetTuning();
 		int offsetX = 0, offsetY = 0;
 		
-		Rectangle clientArea = PBox.device.getClientArea();
 		if ( PBox.device instanceof Printer)
 		{
 			/*

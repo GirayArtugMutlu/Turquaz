@@ -227,7 +227,7 @@ public class MenuManager {
 			}
 		}
 
-		MenuItem seperator = new MenuItem(menuEdit, SWT.SEPARATOR);
+		new MenuItem(menuEdit, SWT.SEPARATOR);
 
 		MenuItem mitGoToRightTab = new MenuItem(menuEdit, SWT.PUSH);
 		mitGoToRightTab.setText(Messages.getString("MenuManager.1")); //$NON-NLS-1$

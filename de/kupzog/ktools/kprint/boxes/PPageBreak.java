@@ -45,7 +45,7 @@ public class PPageBreak extends PBox {
 	/* 
 	 * overridden from superclass
 	 */
-	public int layoutHowMuchWouldYouOccupyOf(Point spaceLeft, int page) {
+	public int layoutHowMuchWouldYouOccupyOf(Point spaceLeft) {
 		return -1;
 	}
 	

@@ -41,7 +41,6 @@ public class PTableBoxProvider {
 		int col, 
 		int row,
 		int widthFromModel,
-		int heightFromModel, 
 		boolean fixed, 
 		Object content)
 	{

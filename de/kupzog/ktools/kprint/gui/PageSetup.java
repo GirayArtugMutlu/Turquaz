@@ -128,7 +128,7 @@ extends KDialog
 			butPortrait.setSelection(portrait);
 		}
 		{
-			final Label label = new Label(root, SWT.NONE);
+			new Label(root, SWT.NONE);
 		}
 		{
 			butLandscape = new Button(root, SWT.RADIO);

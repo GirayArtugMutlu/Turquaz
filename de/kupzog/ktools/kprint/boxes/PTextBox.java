@@ -109,7 +109,7 @@ public class PTextBox extends PBox {
 	}
 	
 
-	public int layoutHowMuchWouldYouOccupyOf(Point spaceLeft, int page) {
+	public int layoutHowMuchWouldYouOccupyOf(Point spaceLeft) {
 		if (textLines.size() == 0) splitIntoLines();
 		if (unplacedLines == 0) return 0;
 
@@ -133,7 +133,7 @@ public class PTextBox extends PBox {
 	/* 
 	 * overridden from superclass
 	 */
-	public boolean layoutWouldYouFinishWithin(Point spaceLeft, int page) {
+	public boolean layoutWouldYouFinishWithin(Point spaceLeft) {
 		gc.setFont(textStyle.getFont());
 		int lineHeight = gc.stringExtent("A").y;
 		return ((unplacedLines * lineHeight) <= spaceLeft.y);

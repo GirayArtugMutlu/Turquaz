@@ -35,7 +35,6 @@ import org.eclipse.jface.text.contentassist.ContextInformationValidator;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
-import org.eclipse.swt.graphics.Point;
 
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLBankCards;
@@ -53,10 +52,10 @@ import com.turquaz.engine.dal.TurqInventoryGroup;
 public class TurquazContentAssistProcessors implements
         ISubjectControlContentAssistProcessor {
 
-    int type = -1;
+    int contentType = -1;
 
     public TurquazContentAssistProcessors(int type) {
-        this.type = type;
+        this.contentType = type;
         fillProposalArray(type);
 
     }
@@ -208,8 +207,6 @@ public class TurquazContentAssistProcessors implements
         // Retrieve current document
         IDocument doc = viewer.getDocument();
 
-        // Retrieve current selection range
-        Point selectedRange = viewer.getSelectedRange();
         List propList = new ArrayList();
 
         String qualifier = getQualifier(doc, documentOffset);
@@ -236,8 +233,6 @@ public class TurquazContentAssistProcessors implements
         // Retrieve current document
         IDocument doc = viewer.getDocument();
 
-        // Retrieve current selection range
-        Point selectedRange = viewer.getSelectedRange();
         List propList = new ArrayList();
 
         String qualifier = getQualifier(doc, documentOffset);

@@ -118,7 +118,7 @@ public class PImageBox extends PBox {
 	/* 
 	 * overridden from superclass
 	 */
-	public int layoutHowMuchWouldYouOccupyOf(Point spaceLeft, int page) {
+	public int layoutHowMuchWouldYouOccupyOf(Point spaceLeft) {
 		if (layoutAlreadyFinished()) return 0;
 		if (sizeCalculatedfor != scalingPercent  || image == null)
 		{
@@ -155,7 +155,7 @@ public class PImageBox extends PBox {
 	/* 
 	 * overridden from superclass
 	 */
-	public int layoutOccupy(Point origin, Point spaceLeft, int page) {
+	public int layoutOccupy(Point origin, int page) {
 		if (layoutAlreadyFinished()) return 0;
 		if (sizeCalculatedfor != scalingPercent  || image == null)
 		{

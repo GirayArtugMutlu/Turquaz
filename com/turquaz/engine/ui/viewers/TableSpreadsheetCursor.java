@@ -173,10 +173,8 @@ public class TableSpreadsheetCursor extends TableCursor implements ICellEditorLi
 	       if(msg.open()==SWT.OK){
 	           return true;
 	       }
-	       else
-	       {
-	           return false;
-	       }
+	      return false;
+
 	       
 	       
 	}

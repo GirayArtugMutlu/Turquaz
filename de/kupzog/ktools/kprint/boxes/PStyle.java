@@ -46,15 +46,6 @@ public class PStyle {
 		
 		//setDebugStyle();
 	}
-	
-	private void setDebugStyle()
-	{
-		lines[0] = 0.01;
-		lines[1] = 0.01;
-		lines[2] = 0.01;
-		lines[3] = 0.01;
-		lineColor = SWT.COLOR_GRAY;
-	}
 
 	
 	public static PStyle getDefaultStyle()

@@ -58,8 +58,6 @@ public class SWTPTable {
 		double width = parent.getPossibleWidth();
 		
 		for (int j = 0; j < table.getColumnCount(); j++) {
-			//System.out.println("  Zeile "+j);
-			int height = table.getHeaderHeight();
 		
 			int style = PBox.POS_RIGHT | PBox.ROW_ALIGN;				
 			if(j==0)style = PBox.POS_BELOW | PBox.ROW_ALIGN;
@@ -69,7 +67,6 @@ public class SWTPTable {
 				j,
 				0,
 				table.getColumn(j).getWidth(),
-				height,
 				true,
 				table.getColumn(j).getText()
 			);
@@ -84,8 +81,7 @@ public class SWTPTable {
 		}
 		
 		for (int i = 0; i < table.getItemCount(); i++) {
-			//System.out.println("Spalte "+i);
-			int height = table.getItemHeight();			
+		
 			width = parent.getPossibleWidth();	
 			
 			// Spalten
@@ -99,7 +95,6 @@ public class SWTPTable {
 					j,
 					i,
 					table.getColumn(j).getWidth(),
-					height,
 					false,
 					table.getItem(i).getText(j)
 				);
@@ -129,9 +124,7 @@ public class SWTPTable {
 			
 			double width = parent.getPossibleWidth();
 			
-			for (int j = 0; j < table.getColumnCount(); j++) {
-				//System.out.println("  Zeile "+j);
-				int height = table.getHeaderHeight();			
+			for (int j = 0; j < table.getColumnCount(); j++) {			
 				double boxWidth = Math.max(0,table.getColumn(j).getWidth()*0.03);
 				width -= boxWidth;
 				if (width < 0)

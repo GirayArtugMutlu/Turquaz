@@ -47,7 +47,7 @@ public class MsgBox {
     private Shell s;
     private Label bild, meldung;
     private Control additionalControl;
-    private boolean ende;
+    public boolean ende;
      
     /**
      * Der Text des Buttons, der vom Benutzer betätigt wurde

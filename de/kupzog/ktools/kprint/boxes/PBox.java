@@ -255,7 +255,7 @@ public class  PBox {
 	 * @return int
 	 * -1, if the element deciedes not to have any part on the given page
 	 */
-	public int layoutHowMuchWouldYouOccupyOf(Point spaceLeft, int page)
+	public int layoutHowMuchWouldYouOccupyOf(Point spaceLeft)
 	{
 		if (layoutAlreadyFinished()) return 0;
 		if (getHeight() > spaceLeft.y) return -1;
@@ -274,7 +274,7 @@ public class  PBox {
 	 * but only until layoutOccupy is called once for this page. 
 	 * @param spaceLeft
 	 */
-	public boolean layoutWouldYouFinishWithin(Point spaceLeft, int page)
+	public boolean layoutWouldYouFinishWithin(Point spaceLeft)
 	{
 		if (getHeight() > spaceLeft.y) return false;
 		return true;
@@ -290,7 +290,7 @@ public class  PBox {
 	 * @param spaceLeft
 	 * @return int
 	 */
-	public int layoutOccupy(Point origin, Point spaceLeft, int page)
+	public int layoutOccupy(Point origin, int page)
 	{
 		if (!layoutAlreadyFinished())
 		{

@@ -88,7 +88,7 @@ public class NumericText extends Composite {
   if(text.getText().trim().length()==0){
   	return 0;
   }
-  else {
+
   	try{
   		int a = Integer.parseInt(text.getText().trim());
   	return a;
@@ -97,7 +97,7 @@ public class NumericText extends Composite {
   		ex.printStackTrace();
   		return 0;
   	}
-  }
+
  
  }
  public void addModifyListener(ModifyListener listener){

@@ -41,10 +41,8 @@ public class TableRowImpl extends TurqAccountingTransactionColumn implements ITa
             return SWTResourceManager.getColor(255,198,198);
             
         }
-        else
-        {
-           return SWTResourceManager.getColor(198,255,198);
-        }
+        return SWTResourceManager.getColor(198,255,198);
+
      
     
     }
@@ -167,10 +165,9 @@ public class TableRowImpl extends TurqAccountingTransactionColumn implements ITa
           if(getRowIndex()==row.getRowIndex()){
               return true;
           }
-          else
-              return false;
+          return false;
        }
-       else return false;
+       return false;
         
         
     }

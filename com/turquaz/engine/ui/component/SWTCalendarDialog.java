@@ -53,7 +53,7 @@ import java.util.Date;
 * *************************************
 */
 public class SWTCalendarDialog {
-    private Shell shell;
+    public Shell shell;
     private SWTCalendar swtcal;
     private Display display;
  

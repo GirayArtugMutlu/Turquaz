@@ -154,7 +154,7 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant{
         adapter.setContentAssistCueProvider(labelProvider);
     }
 
-    private static final DefaultInformationControl.IInformationPresenter presenter = new DefaultInformationControl.IInformationPresenter() {
+    public static final DefaultInformationControl.IInformationPresenter presenter = new DefaultInformationControl.IInformationPresenter() {
         public String updatePresentation(Display display, String infoText,
                 TextPresentation presentation, int maxWidth, int maxHeight) {
 
