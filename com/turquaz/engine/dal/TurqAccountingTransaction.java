@@ -42,8 +42,11 @@ public class TurqAccountingTransaction implements Serializable {
     /** persistent field */
     private Set turqAccountingTransactionColumns;
 
+    /** persistent field */
+    private Set turqCurrentTransactions;
+
     /** full constructor */
-    public TurqAccountingTransaction(java.util.Date transactionsDate, java.lang.String transactionDocumentNo, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqAccountingJournal turqAccountingJournal, com.turquaz.engine.dal.TurqAccountingTransactionType turqAccountingTransactionType, com.turquaz.engine.dal.TurqModule turqModule, Set turqAccountingTransactionColumns) {
+    public TurqAccountingTransaction(java.util.Date transactionsDate, java.lang.String transactionDocumentNo, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqAccountingJournal turqAccountingJournal, com.turquaz.engine.dal.TurqAccountingTransactionType turqAccountingTransactionType, com.turquaz.engine.dal.TurqModule turqModule, Set turqAccountingTransactionColumns, Set turqCurrentTransactions) {
         this.transactionsDate = transactionsDate;
         this.transactionDocumentNo = transactionDocumentNo;
         this.creationDate = creationDate;
@@ -54,6 +57,7 @@ public class TurqAccountingTransaction implements Serializable {
         this.turqAccountingTransactionType = turqAccountingTransactionType;
         this.turqModule = turqModule;
         this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
+        this.turqCurrentTransactions = turqCurrentTransactions;
     }
 
     /** default constructor */
@@ -146,6 +150,14 @@ public class TurqAccountingTransaction implements Serializable {
 
     public void setTurqAccountingTransactionColumns(java.util.Set turqAccountingTransactionColumns) {
         this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
+    }
+
+    public java.util.Set getTurqCurrentTransactions() {
+        return this.turqCurrentTransactions;
+    }
+
+    public void setTurqCurrentTransactions(java.util.Set turqCurrentTransactions) {
+        this.turqCurrentTransactions = turqCurrentTransactions;
     }
 
     public String toString() {

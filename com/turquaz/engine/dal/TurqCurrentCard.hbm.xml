@@ -31,6 +31,7 @@
         type="java.lang.String"
         column="cards_current_code"
         not-null="true"
+        unique="true"
         length="25"
     />
     <property

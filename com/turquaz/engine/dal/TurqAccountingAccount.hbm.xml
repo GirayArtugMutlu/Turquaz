@@ -31,7 +31,7 @@
         type="java.lang.String"
         column="account_name"
         not-null="true"
-        length="50"
+        length="100"
     />
     <property
         name="accountCode"

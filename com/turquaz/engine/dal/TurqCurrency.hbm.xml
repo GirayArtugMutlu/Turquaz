@@ -75,6 +75,12 @@
         not-null="true"
         length="4"
     />
+    <property
+        name="exchangeRate"
+        type="java.math.BigDecimal"
+        column="exchange_rate"
+        length="65535"
+    />
 
     <!-- Associations -->
   
