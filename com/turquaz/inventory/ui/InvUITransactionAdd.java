@@ -36,7 +36,6 @@ import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.inventory.Messages;
 
@@ -208,7 +207,6 @@ public class InvUITransactionAdd extends  Composite implements SecureComposite {
 		
 	}
 	public void newForm(){
-		EngUIMainFrame.newForm();
 		
 	}
 	public void search(){

@@ -322,7 +322,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	
 	}
 	public void newForm(){
-	    EngUIMainFrame.newForm();	    
+	    clearFields();	    
 	}
 
 	/**

@@ -1717,21 +1717,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	    SearchComposite sc = (SearchComposite)tabfldMain.getSelection().getControl();
 		sc.printTable();
 	}
-	public static void newForm(){
-	    try{
-	    
-	    Class c = Class.forName(tabfldMain.getSelection().getControl().getClass().getName());
-	 
-	    Composite comp =(Composite)c.getConstructor(new Class[]{Composite.class, int.class})
-		.newInstance(new Object[]{tabfldMain,Integer.valueOf(SWT.NULL+"")}); //$NON-NLS-1$
-	    tabfldMain.getSelection().getControl().dispose();   
-	    tabfldMain.getSelection().setControl(comp);	 
-	    }
-	    catch(Exception ex){
-	        ex.printStackTrace();
-	    }
-	    
-	}
+	
 	
 	
 }

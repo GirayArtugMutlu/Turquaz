@@ -57,6 +57,7 @@ import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
+import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.TurqBillGroup;
@@ -1171,7 +1172,10 @@ public class BillUIAddSellBill extends org.eclipse.swt.widgets.Composite
 	}
 
 	public void newForm() {
-		EngUIMainFrame.newForm();
+	    BillUIAddSellBill curCard = new BillUIAddSellBill(this.getParent(),this.getStyle());
+		 CTabFolder tabfld = (CTabFolder)this.getParent();
+		 tabfld.getSelection().setControl(curCard);	 
+		 this.dispose();
 
 	}
 

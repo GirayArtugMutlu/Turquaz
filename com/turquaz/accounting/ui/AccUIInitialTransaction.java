@@ -9,12 +9,13 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
-import com.turquaz.engine.ui.EngUIMainFrame;
+
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -258,7 +259,11 @@ public class AccUIInitialTransaction extends org.eclipse.swt.widgets.Composite i
 	    
 		}
 		public void newForm(){
-	   	 EngUIMainFrame.newForm();
+		    
+		    AccUIInitialTransaction  curCard = new AccUIInitialTransaction(this.getParent(),this.getStyle());
+			 CTabFolder tabfld = (CTabFolder)this.getParent();
+			 tabfld.getSelection().setControl(curCard);	 
+			 this.dispose();
 	    
 	}
 
