@@ -272,8 +272,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	public void currentCardChoose(){
 		Object data = new CurUICurrentCardSearchDialog(this.getShell(),SWT.NULL).open();
 	    if(data!=null){
-	    
-	    System.out.println(data.getClass().getName());
+	   
 		TurqCurrentCard curCard = (TurqCurrentCard)data;
 	    txtCurCard.setText(curCard.getCardsCurrentCode()+" - "+curCard.getCardsName());  //$NON-NLS-1$
 		txtCurCard.setData(curCard);

@@ -1193,7 +1193,6 @@ public class BillUIAddBill extends Composite
 				SWT.NULL).open();
 		if (data != null) {
 
-			//System.out.println(data.getClass().getName());
 			TurqCurrentCard curCard = (TurqCurrentCard) data;
 			txtCurrentCard.setText(curCard.getCardsCurrentCode()
 					+ " - " + curCard.getCardsName()); //$NON-NLS-1$

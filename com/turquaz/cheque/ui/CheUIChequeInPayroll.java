@@ -1,5 +1,8 @@
 package com.turquaz.cheque.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.widgets.Composite;
@@ -216,7 +219,23 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 
     }
     public void save() {
-        // TODO Auto-generated method stub
+     try{
+         
+        List chequeList = new ArrayList();
+        int count = tableCheques.getItemCount();
+        for(int i=0;i<count;i++)
+        {
+            chequeList.add(tableCheques.getItem(i).getData());
+            
+        }
+        
+        
+         
+     }
+     catch(Exception ex){
+         ex.printStackTrace();
+         EngUICommon.showMessageBox(getShell(),ex.getMessage().toString(),SWT.ICON_ERROR);
+     }
 
     }
     public void deleteTableRow(){

@@ -47,9 +47,7 @@ public class BillBLAddBill {
 			bill.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			bill.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			bill.setIsOpen(isOpen);
-			bill.setDueDate(dueDate);
-			
-			
+			bill.setDueDate(dueDate);		
 			
 			TurqBillConsignmentCommon common = cons.getTurqBillConsignmentCommon();
 			common.setBillDocumentNo(docNo);

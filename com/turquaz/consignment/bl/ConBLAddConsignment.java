@@ -131,6 +131,7 @@ public class ConBLAddConsignment {
 			else {
 			invTrans.setTransactionsAmountIn(0);
 			}
+			
 			dalConsignment.save(invTrans);
 			
 			

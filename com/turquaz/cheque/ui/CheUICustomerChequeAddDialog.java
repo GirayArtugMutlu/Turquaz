@@ -4,7 +4,9 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.cheque.Messages;
+import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
+import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.widgets.ToolBar;
@@ -232,6 +234,7 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 	        datePickValueDate.setDate(cheque.getChequesDueDate());
 	        curText.setText(cheque.getChequesAmount());
 	        
+	        
 	    }
 	    
 	}
@@ -248,7 +251,16 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 	    cheque.setChequesValueDate(datePickValueDate.getDate());
 	    cheque.setChequesDebtor(txtDeptor.getText().trim());
 	    cheque.setChequesPaymentPlace(txtPaymentPlace.getText().trim());
-	    cheque.setChequesAmount(curText.getBigDecimalValue());	    
+	    cheque.setChequesAmount(curText.getBigDecimalValue());	   
+	    
+	    TurqBanksCard bankCard = new TurqBanksCard();
+	    bankCard.setBanksCardsId(new Integer(-1));
+	    cheque.setTurqBanksCard(bankCard);
+	    
+	    TurqCurrency cur = new TurqCurrency();
+	    cur.setCurrenciesId(new Integer(1));
+	    cheque.setTurqCurrency(cur);
+	    
 	    dialogShell.close();
 	    
 	}

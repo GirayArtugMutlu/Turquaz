@@ -61,7 +61,7 @@ public class BillDALAddBill {
 		  TurqConsignment cons = (TurqConsignment)it.next();	
 		
 		  Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
-		  System.out.println(cons.getTurqEngineSequence().getTurqInventoryTransactions());
+		
 		  
 		  session.close();
 		

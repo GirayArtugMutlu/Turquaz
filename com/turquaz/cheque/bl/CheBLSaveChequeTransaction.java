@@ -1,7 +1,11 @@
 
 package com.turquaz.cheque.bl;
 
-import com.turquaz.cheque.dal.CheDALSave;
+import java.util.Date;
+import java.util.List;
+
+import com.turquaz.engine.dal.TurqChequeRoll;
+import com.turquaz.engine.dal.TurqCurrentCard;
 
 public class CheBLSaveChequeTransaction {
     
@@ -9,10 +13,15 @@ public class CheBLSaveChequeTransaction {
         
     }
     
-    public void saveTransaction(Object obj)throws Exception {
-        try{
+    public void saveChequeRoll(TurqCurrentCard curCard, String rollNo,Date rollDate,List chequeList)throws Exception {
+     
+      try{
+          TurqChequeRoll chequeRoll = new TurqChequeRoll();
+          chequeRoll.setChequeRollsDate(rollDate);
+      
+          
             
-            CheDALSave.save(obj);
+           
             
             
         }
