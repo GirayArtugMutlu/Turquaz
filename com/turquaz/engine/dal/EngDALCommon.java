@@ -200,7 +200,7 @@ public class EngDALCommon
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			session.refresh(seq);
 			Hibernate.initialize(seq.getTurqBillInEngineSequences());
 			Iterator it = seq.getTurqBillInEngineSequences().iterator();
@@ -220,7 +220,7 @@ public class EngDALCommon
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			session.refresh(seq);
 			Hibernate.initialize(seq.getTurqCashTransactions());
 			Iterator it = seq.getTurqCashTransactions().iterator();

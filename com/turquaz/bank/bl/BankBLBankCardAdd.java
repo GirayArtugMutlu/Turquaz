@@ -20,7 +20,6 @@ package com.turquaz.bank.bl;
  * @version $Id$
  */
 import com.turquaz.engine.dal.EngDALCommon;
-import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBankAccountingAccount;
 import com.turquaz.engine.dal.TurqBankAccountingType;
@@ -29,8 +28,6 @@ import com.turquaz.engine.dal.TurqCurrency;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Map;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 
 public class BankBLBankCardAdd
 {
@@ -41,22 +38,16 @@ public class BankBLBankCardAdd
 	public static void saveBankCard(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency,
 			String definition, String bankCode, Map accountingAccounts) throws Exception
 	{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		
 		try
 		{
 			TurqBanksCard bankCard = registerBankCard( bankName, bankBranchName, bankAccountNo, currency, definition, bankCode);
 			saveBankAccountingAccounts(bankCard, accountingAccounts);
-			session.flush();
-			tx.commit();
-			session.close();
+			
 		}
 		catch (Exception ex)
 		{
-			if (tx != null)
-				tx.rollback();
-			if (session != null)
-				session.close();
+			
 			throw ex;
 		}
 	}
@@ -76,7 +67,7 @@ public class BankBLBankCardAdd
 		Calendar cal = Calendar.getInstance();
 		bankCard.setLastModified(cal.getTime());
 		bankCard.setCreationDate(cal.getTime());
-		EngDALCommon.saveObject(session, bankCard);
+		EngDALCommon.saveObject( bankCard);
 		return bankCard;
 	}
 
@@ -99,7 +90,7 @@ public class BankBLBankCardAdd
 				TurqBankAccountingType accType = new TurqBankAccountingType();
 				accType.setId(type);
 				bankAccount.setTurqBankAccountingType(accType);
-				EngDALCommon.saveObject(session, bankAccount);
+				EngDALCommon.saveObject(bankAccount);
 			}
 		}
 	}

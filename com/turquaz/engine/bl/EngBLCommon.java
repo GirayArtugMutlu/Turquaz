@@ -349,7 +349,7 @@ public class EngBLCommon
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.openSession2();
 			Transaction tx = session.beginTransaction();
 			Statement stmt = session.connection().createStatement();
 			String query = "Select id,engine_sequences_id from turq_bills";

@@ -22,12 +22,9 @@ package com.turquaz.bank.bl;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Map;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 import com.turquaz.bank.dal.BankDALBankCardUpdate;
 import com.turquaz.bank.dal.BankDALCommon;
 import com.turquaz.engine.dal.EngDALCommon;
-import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 
@@ -40,32 +37,26 @@ public class BankBLBankCardUpdate
 	public static void updateBankCard(TurqBanksCard bankCard, String bankName, String bankBranchName, String bankAccountNo,
 			TurqCurrency currency, String definition, String bankCode, Map accountingAccounts) throws Exception
 	{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		
 		try
 		{
-			updateBankCardInfo(session, bankCard, bankName, bankBranchName, bankAccountNo, currency, definition, bankCode);
-			if (!checkInitialTransaction(session, bankCard))
+			updateBankCardInfo( bankCard, bankName, bankBranchName, bankAccountNo, currency, definition, bankCode);
+			if (!checkInitialTransaction( bankCard))
 			{
 				//TODO Transaction save should use SESSION!
 				BankBLTransactionAdd.saveInitialBankTransaction(bankCard);
 			}
-			updateBankAccountingAccounts(session, bankCard, accountingAccounts);
-			session.flush();
-			tx.commit();
-			session.close();
+			updateBankAccountingAccounts( bankCard, accountingAccounts);
+			
 		}
 		catch (Exception ex)
 		{
-			if (tx != null)
-				tx.rollback();
-			if (session != null)
-				session.close();
+			
 			throw ex;
 		}
 	}
 
-	public static void updateBankCardInfo(Session session, TurqBanksCard bankCard, String bankName, String bankBranchName,
+	public static void updateBankCardInfo( TurqBanksCard bankCard, String bankName, String bankBranchName,
 			String bankAccountNo, TurqCurrency currency, String definition, String bankCode) throws Exception
 	{
 		bankCard.setBankName(bankName);
@@ -77,14 +68,14 @@ public class BankBLBankCardUpdate
 		bankCard.setLastModified(cal.getTime());
 		bankCard.setBankDefinition(definition);
 		bankCard.setBankCode(bankCode);
-		EngDALCommon.updateObject(session, bankCard);
+		EngDALCommon.updateObject( bankCard);
 	}
 
-	public static boolean checkInitialTransaction(Session session, TurqBanksCard bankCard) throws Exception
+	public static boolean checkInitialTransaction( TurqBanksCard bankCard) throws Exception
 	{
 		try
 		{
-			return BankDALCommon.checkInitialTransaction(session, bankCard);
+			return BankDALCommon.checkInitialTransaction( bankCard);
 		}
 		catch (Exception ex)
 		{
@@ -92,7 +83,7 @@ public class BankBLBankCardUpdate
 		}
 	}
 
-	public static void updateBankAccountingAccounts(Session session, TurqBanksCard curCard, Map accounts) throws Exception
+	public static void updateBankAccountingAccounts(TurqBanksCard curCard, Map accounts) throws Exception
 	{
 		Iterator it = curCard.getTurqBankAccountingAccounts().iterator();
 		while (it.hasNext())
@@ -100,7 +91,7 @@ public class BankBLBankCardUpdate
 			//TODO SESSION
 			EngDALCommon.deleteObject(it.next());
 		}
-		BankBLBankCardAdd.saveBankAccountingAccounts(session, curCard, accounts);
+		BankBLBankCardAdd.saveBankAccountingAccounts( curCard, accounts);
 	}
 
 	public static boolean hasTransaction(TurqBanksCard bankCard) throws Exception

@@ -24,14 +24,13 @@ public class EngDALUserPerms
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			Session session = EngDALSessionFactory.getSession();
+			
 			String query = "select perms from TurqGroupPermission as perms," + "TurqUserGroup as ug "
 					+ "where ug.turqGroup =perms.turqGroup and " + "ug.turqUser.username ='" + username + "'";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			tx.commit();
-			session.close();
+		
 			return list;
 		}
 		/*
@@ -49,13 +48,13 @@ public class EngDALUserPerms
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			Session session = EngDALSessionFactory.getSession();
+			
 			String query = "select perms from TurqGroupPermission as perms";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			tx.commit();
-			session.close();
+		
+			
 			return list;
 		}
 		/*
@@ -80,13 +79,12 @@ public class EngDALUserPerms
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			Session session = EngDALSessionFactory.getSession();
+			
 			String query = "select perms from TurqUserPermission as perms where " + "perms.turqUser.username ='" + username + "'";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			tx.commit();
-			session.close();
+		
 			return list;
 			/*
 			 * String query ="select DISTINCT UP.modules_id, UP.components_id,UP.user_permissions_level"; query +=" from
@@ -104,13 +102,12 @@ public class EngDALUserPerms
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			Session session = EngDALSessionFactory.getSession();
+			
 			String query = "select perms from TurqUserPermission as perms";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			tx.commit();
-			session.close();
+		
 			return list;
 			/*
 			 * String query ="select DISTINCT UP.modules_id, UP.components_id,UP.user_permissions_level"; query +=" from
@@ -137,15 +134,14 @@ public class EngDALUserPerms
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			Transaction tx = session.beginTransaction();
 			String query = "select comp.componentsName from TurqModuleComponent as comp" + " where comp.id= " + component_id
 					+ " and comp.id=" + module_id;
 			Query q = session.createQuery(query);
 			List lst = q.list();
 			String s = lst.get(0).toString();
-			tx.commit();
-			session.close();
+						
 			return s;
 			/*
 			 * String query ="select components_name from turq_module_components"; query+=" where modules_id="+module_id+" AND
@@ -168,14 +164,13 @@ public class EngDALUserPerms
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			Transaction tx = session.beginTransaction();
 			//	Query q = session.createQuery("from TurqModuleComponent comp "+
 			//			"where comp.moduleComponentsId > -1");
 			Criteria cri = session.createCriteria(TurqModuleComponent.class).add(Expression.gt("id", new Integer(-1)));
 			List list = cri.list();
-			tx.commit();
-			session.close();
+			
 			return list;
 		}
 		catch (Exception e)
@@ -194,13 +189,12 @@ public class EngDALUserPerms
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			Session session = EngDALSessionFactory.getSession();
+			
 			String query=" Select modComp from TurqModuleComponent modComp where modComp.turqModule.id="+module_id;
 			Query q = session.createQuery(query);
 			List list = q.list();
-			tx.commit();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception e)
@@ -213,13 +207,13 @@ public class EngDALUserPerms
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			Transaction tx = session.beginTransaction();
 			String query = "select module from TurqModule as module order by module.id";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			tx.commit();
-			session.close();
+		
+			
 			return list;
 		}
 		catch (Exception ex)
@@ -232,13 +226,13 @@ public class EngDALUserPerms
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			Session session = EngDALSessionFactory.getSession();
+		
 			String query = "select permissionlvl from TurqUserPermissionLevel permissionlvl order by permissionlvl.id";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			tx.commit();
-			session.close();
+			
+		
 			return list;
 		}
 		catch (Exception ex)

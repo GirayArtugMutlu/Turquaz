@@ -201,10 +201,11 @@ public class BankDALCommon
 		}
 	}
 
-	public static boolean checkInitialTransaction(Session session, TurqBanksCard bankCard) throws Exception
+	public static boolean checkInitialTransaction( TurqBanksCard bankCard) throws Exception
 	{
 		try
 		{
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select bankTrans.id from TurqBanksTransaction as bankTrans "
 					+ " where bankTrans.turqBanksCard = :bankCard and bankTrans.turqBanksTransactionBill.turqBanksTransactionType.id="
 					+ EngBLCommon.BANK_TRANS_INITIAL;
