@@ -16,6 +16,7 @@ public class InvUITransactionTableRow implements ITableRow {
     TableRowList rowList;
     int row_index=0;
     int transType = 0;
+    String unit_name ="";
     /*
      * type 0 = Buy 
      * type 1 = Sell
@@ -41,13 +42,15 @@ public class InvUITransactionTableRow implements ITableRow {
      * 1 - Stok Cinsi      //cant modify
      * 2 - Miktar
      * 3 - Birim
-     * 4 - Birim Fiyat?
-     * 5 - Toplam Tutar    //cant modify
-     * 6 - Kdv %     
-     * 7 - Kdv Tutari      //cantModify
-     * 8 - Ötv %
-     * 9 - Ötv Tutari      //cant Modify
-     * 10 - Sat?r Toplam?  //cant Modify
+     * 4 - Temel Birim Miktar? //cant modify
+     * 5 - Tamel Birimi        //cant modify  
+     * 6 - Birim Fiyat?
+     * 7 - Toplam Tutar    //cant modify
+     * 8 - Kdv %     
+     * 9 - Kdv Tutari      //cantModify
+     * 10 - Ötv %
+     * 11 - Ötv Tutari      //cant Modify
+     * 12 - Sat?r Toplam?  //cant Modify
      */
      
   
@@ -84,28 +87,42 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 			    
 			case 3 :  //Unit
-			    
+			    result =unit_name;
 			    break;
 			    
 			case 4 :  //Unit Price
+			    result = invTrans.getTransactionsUnitPrice().toString();
 				break;
 				
-			case 5 : // total Price 
+			case 5 :  //Base Unit
+			    if(invTrans.getTurqInventoryCard()==null){
+			        result="";
+			    }
+			    else{
+			       // result =invTrans.getTurqInventoryCard().gett;
+			    }
+			    break;
+			    
+			case 6 :  //Unit Price
+			    result = invTrans.getTransactionsUnitPrice().toString();
+				break;
+				
+			case 7 : // total Price 
 				break;
 			
-			case 6 : // VAT percent			    
+			case 8 : // VAT percent			    
 				break;
 				
-			case 7 : // VAT total 
+			case 9 : // VAT total 
 				break;
 				
-			case 8 : // Special VAT percent 
+			case 10 : // Special VAT percent 
 				break;
 				
-			case 9 : // Specail VAT Total 
+			case 11 : // Specail VAT Total 
 				break;
 				
-			case 10 : //Cumulative Price
+			case 12 : //Cumulative Price
 			    break;
 				
 			default :
@@ -135,25 +152,31 @@ public class InvUITransactionTableRow implements ITableRow {
 			case 3 :  //Unit
 			    break;
 			    
-			case 4 :  //Unit Price
+			case 4 :  //
 				break;
 				
-			case 5 : // total Price 
+			case 5 :  //Base Unit
+			    break;
+			    
+			case 6 :  //Unit Price
+				break;
+				
+			case 7 : // total Price 
 				break;
 			
-			case 6 : // VAT percent			    
+			case 8 : // VAT percent			    
 				break;
 				
-			case 7 : // VAT total 
+			case 9 : // VAT total 
 				break;
 				
-			case 8 : // Special VAT percent 
+			case 10 : // Special VAT percent 
 				break;
 				
-			case 9 : // Specail VAT Total 
+			case 11 : // Specail VAT Total 
 				break;
 				
-			case 10 : //Cumulative Price
+			case 12 : //Cumulative Price
 			    break;
 				
 			default :
@@ -225,7 +248,8 @@ public class InvUITransactionTableRow implements ITableRow {
  
     public boolean canModify(int column_index) {
     
-        if(column_index==1 ||column_index==5 || column_index==7 || column_index == 9 || column_index==10)
+        if(column_index==1 ||column_index==4 || column_index==5 || column_index == 7 || column_index==9
+                ||column_index==11||column_index==12)
     	{
         	return false;
     	}

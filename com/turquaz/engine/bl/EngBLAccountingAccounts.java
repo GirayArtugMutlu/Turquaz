@@ -43,6 +43,7 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
  */
 public class EngBLAccountingAccounts {
 	public List accountList;
+	public List accountListForAccountPickers;
 	public HashMap accountMap = new HashMap();
 
 	
@@ -62,6 +63,7 @@ public class EngBLAccountingAccounts {
 	public void fillAccountList()throws Exception{
 		try{
 		 accountList = blAccount.getAllAccounts();
+		 accountListForAccountPickers = blAccount.getAccountsForAccountPickers();
 		 accountMap.clear();
 		 
 		 TurqAccountingAccount account;
@@ -87,13 +89,32 @@ public class EngBLAccountingAccounts {
 		if (_instance == null) {
               
 			_instance = new EngBLAccountingAccounts();
+			
 
-		}
-		
-        //Not really static 
-		
-		 
+		}      
 		return _instance.accountList;
+		
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+
+	}
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public static synchronized List getAccountsForAccountPickers() throws Exception{
+		try{
+		if (_instance == null) {
+              
+			_instance = new EngBLAccountingAccounts();
+			
+
+		}      
+		return _instance.accountListForAccountPickers;
+		
 		}
 		catch(Exception ex){
 			throw ex;
@@ -105,6 +126,7 @@ public class EngBLAccountingAccounts {
 	        if (_instance == null) {
 	              
 				_instance = new EngBLAccountingAccounts();
+			
 
 			}
 			
@@ -116,6 +138,7 @@ public class EngBLAccountingAccounts {
 			}
 	}
 	
+	
 	public static void RefreshContentAsistantMap()throws Exception
 	{
 		try
@@ -123,6 +146,7 @@ public class EngBLAccountingAccounts {
 			if (_instance == null)
 			{
 				_instance = new EngBLAccountingAccounts();
+				
 				return;
 			}
 			_instance.fillAccountList();

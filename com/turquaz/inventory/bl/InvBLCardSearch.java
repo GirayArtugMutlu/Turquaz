@@ -29,6 +29,7 @@ package com.turquaz.inventory.bl;
 import java.util.Calendar;
 import java.util.List;
 
+import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 
 import com.turquaz.inventory.dal.InvDALCardSearch;
@@ -53,6 +54,16 @@ public class InvBLCardSearch {
 		catch(Exception ex){
 			throw ex;
 		}
+	}
+	public void initializeInventoryCard(TurqInventoryCard invCard)throws Exception{
+	    try{
+	        
+	        cardSearch.initializeInventoryCard(invCard);
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
 	}
 	
 	

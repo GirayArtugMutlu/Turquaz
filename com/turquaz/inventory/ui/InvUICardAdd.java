@@ -1342,9 +1342,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		//Content Assistant for Inventory Code
 		/****************************************************/
 		  TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtInvCardCode);
-		    
-		
-		  asistant = new TurquazContentAssistant(adapter,1);
+		   asistant = new TurquazContentAssistant(adapter,1);
 		     adapter.appendVerifyKeyListener(
 		             new VerifyKeyListener() {
 		                 public void verifyKey(VerifyEvent event) {

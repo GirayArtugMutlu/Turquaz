@@ -93,6 +93,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	private Text txtInvCode;
 	private CLabel lblInvCode;
 	private Composite compInvCardSearchPanel;
+	InvBLCardSearch cardSearch = new InvBLCardSearch();
 	public InvUICardSearch(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -418,7 +419,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	}
 	public void search(){
 	tableSearcResults.removeAll();
-	InvBLCardSearch cardSearch = new InvBLCardSearch();
+	
 	List result;
 	try{
 	if(comboInvGroup.getSelectionIndex()==-1){
@@ -486,11 +487,15 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
     TableItem [] selection= tableSearcResults.getSelection();	
 	
 	if(selection.length>0){
-	
+	try{
 	TurqInventoryCard card = (TurqInventoryCard)selection[0].getData();
+	cardSearch.initializeInventoryCard(card);
 	new InvUICardUpdateDialog(this.getShell(),SWT.NULL,card).open();
 	search();
-	
+	}
+	catch(Exception ex){
+	    ex.printStackTrace();
+	}
 	}
 	}
 	public void exportToExcel(){
