@@ -29,11 +29,22 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
 
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a
+* for-profit company or business) then you should purchase
+* a license - please visit www.cloudgarden.com for details.
+*/
 public class InvUICardAdd extends SecureComposite {
 
+	private CLabel cLabel3;
+	private CLabel cLabel2;
 	private CLabel cLabel1;
 	public InvUICardAdd(Composite parent, int style) {
 		super(parent, style);
@@ -49,11 +60,35 @@ public class InvUICardAdd extends SecureComposite {
 			preInitGUI();
 	
 			cLabel1 = new CLabel(this,SWT.NULL);
+			cLabel2 = new CLabel(this,SWT.NULL);
+			cLabel3 = new CLabel(this,SWT.NULL);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(329,223));
+			this.setSize(new org.eclipse.swt.graphics.Point(500,400));
 	
-			cLabel1.setText("Stok Kartý Ekle");
-			cLabel1.setSize(new org.eclipse.swt.graphics.Point(258,96));
+			GridData cLabel1LData = new GridData();
+			cLabel1LData.widthHint = 77;
+			cLabel1LData.heightHint = 21;
+			cLabel1.setLayoutData(cLabel1LData);
+			cLabel1.setText("Stok Kart? Ekle");
+			cLabel1.setSize(new org.eclipse.swt.graphics.Point(77,21));
+	
+			cLabel2.setText("cLabel2");
+	
+			GridData cLabel3LData = new GridData();
+			cLabel3LData.widthHint = 42;
+			cLabel3LData.heightHint = 19;
+			cLabel3.setLayoutData(cLabel3LData);
+			cLabel3.setText("cLabel3");
+			cLabel3.setSize(new org.eclipse.swt.graphics.Point(42,19));
+			GridLayout thisLayout = new GridLayout(1, true);
+			this.setLayout(thisLayout);
+			thisLayout.marginWidth = 5;
+			thisLayout.marginHeight = 5;
+			thisLayout.numColumns = 1;
+			thisLayout.makeColumnsEqualWidth = true;
+			thisLayout.horizontalSpacing = 5;
+			thisLayout.verticalSpacing = 5;
+			this.layout();
 	
 			postInitGUI();
 		} catch (Exception e) {
@@ -85,7 +120,7 @@ public class InvUICardAdd extends SecureComposite {
 			Shell shell = new Shell(display);
 			InvUICardAdd inst = new InvUICardAdd(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0,0,329,223);
+			Rectangle shellBounds = shell.computeTrim(0,0,500,400);
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.open();
 			while (!shell.isDisposed()) {
