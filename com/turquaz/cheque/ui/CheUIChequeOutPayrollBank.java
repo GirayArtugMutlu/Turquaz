@@ -32,6 +32,8 @@ import com.turquaz.bank.ui.comp.BankCardPicker;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
+
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -44,6 +46,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import com.turquaz.cheque.Messages;
+import com.turquaz.cheque.bl.CheBLSaveChequeTransaction;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 
@@ -86,9 +89,10 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 	private Text txtRollNo;
 	private CLabel lblRollNo;
 	private Table tableCheques;
-	private ToolItem toolItemUpdate;
 	private ToolItem toolItemDelete;
+	List cheques = new ArrayList();
 	TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+
 
 	public CheUIChequeOutPayrollBank(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
@@ -99,7 +103,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 		try {
 			this.setLayout(new GridLayout());
 			this.setBackground(SWTResourceManager.getColor(255, 255, 255));
-			this.setSize(663, 373);
+			this.setSize(666, 401);
             {
                 compInfoPanel = new Composite(this, SWT.NONE);
                 GridLayout compInfoPanelLayout = new GridLayout();
@@ -184,17 +188,6 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
                             }
                             });
                 }
-                {
-                    toolItemUpdate = new ToolItem(toolBarButtons, SWT.NONE);
-                    toolItemUpdate.setText(Messages.getString("CheUIChequeInPayroll.4")); //$NON-NLS-1$
-                    toolItemUpdate.setImage(SWTResourceManager.getImage("icons/Refresh16.gif")); //$NON-NLS-1$
-                    toolItemUpdate.addSelectionListener(new SelectionAdapter() {
-                        public void widgetSelected(SelectionEvent evt) {
-                            updateCheque();
-                            
-                        }
-                    });
-                }
             }
             {
                 tableCheques = new Table(this, SWT.FULL_SELECTION);
@@ -271,20 +264,11 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
      try{
          
         if(verifyFields()){ 
-        List chequeList = new ArrayList();
-        int count = tableCheques.getItemCount();
-        for(int i=0;i<count;i++)
-        {
-            chequeList.add(tableCheques.getItem(i).getData());
+
             
-        }
-        
-        /**
-         * TODO new save function
-         */
-       // CheBLSaveChequeTransaction.saveChequeRoll((TurqCurrentCard)bankCardPicker.getData(),null,txtRollNo.getText().trim(),datePicker1.getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_IN,btnSumTotals.getSelection());
-        EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
-        newForm();
+              CheBLSaveChequeTransaction.saveChequeRoll(null,bankCardPicker.getTurqBank(),txtRollNo.getText().trim(),datePicker1.getDate(),cheques,EngBLCommon.CHEQUE_TRANS_OUT_BANK,btnSumTotals.getSelection());
+              EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
+              newForm();
         }
          
      }
@@ -307,58 +291,37 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
         
         
         
-    }
-  
-    public void updateCheque(){
-        
-        TableItem selection[]= tableCheques.getSelection();
-        TurqChequeCheque cheque=null;
-        if(selection.length>0){
-           /**
-            * TODO new update dialog
-            */ 
-     //    cheque = new CheUICustomerChequeAddDialog(getShell(),SWT.NULL).open((TurqChequeCheque)selection[0].getData());
-         if(cheque!=null){
-            
-             selection[0].setData(cheque);
-             selection[0].setText(new String[]{
-             cheque.getChequesPortfolioNo(),
-             DatePicker.formatter.format(cheque.getChequesDueDate()),
-             cheque.getChequesPaymentPlace(),
-             cheque.getChequesDebtor(),
-             cf.format(cheque.getChequesAmount())            
-             });
-             
-         }
-         
-            
-        }
-         
-       
-    
-        
-    
-    
-    }    
+    } 
+   
     public void addCheque(){
-        TableItem item;
-        /**
-         * TODO new add dialog
-         */
-        TurqChequeCheque cheque = null;
-        if(cheque!=null){
-            item = new TableItem(tableCheques,SWT.NULL);
-            item.setData(cheque);
-            item.setText(new String[]{
-            cheque.getChequesPortfolioNo(),
-            DatePicker.formatter.format(cheque.getChequesDueDate()),
-            cheque.getChequesPaymentPlace(),
-            cheque.getChequesDebtor(),
-            cf.format(cheque.getChequesAmount())            
-            });
-            
+     
+        cheques = new CheUICustomerChequeChooseDialog(getShell(),SWT.NULL,cheques).open();
+        fillTable();
+      
+        
+    }
+    public void fillTable(){
+        tableCheques.removeAll();
+        for(int i= 0;i<cheques.size();i++)
+        { 
+            TableItem item;
+            TurqChequeCheque cheque = (TurqChequeCheque) cheques.get(i);
+            if(cheque!=null){
+                item = new TableItem(tableCheques,SWT.NULL);
+                item.setData(cheque);
+                item.setText(new String[]{
+                cheque.getChequesPortfolioNo(),
+                DatePicker.formatter.format(cheque.getChequesDueDate()),
+                cheque.getChequesPaymentPlace(),
+                cheque.getChequesDebtor(),
+                cf.format(cheque.getChequesAmount())            
+                });
+                
+                
+            }
         }
         
+    
     }
     
     

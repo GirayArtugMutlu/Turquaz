@@ -288,12 +288,14 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
     public void save() {
      try{
          
-        if(verifyFields()){ 
-      
-      
+        if(verifyFields()){      
+        
+            
         CheBLSaveChequeTransaction.saveChequeRoll((TurqCurrentCard)currentPicker.getData(),null,txtRollNo.getText().trim(),datePicker1.getDate(),cheques,EngBLCommon.CHEQUE_TRANS_OUT_CURRENT,btnSumTotals.getSelection());
         EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
         newForm();
+        
+        
         }
          
      }

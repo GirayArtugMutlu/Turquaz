@@ -73,6 +73,7 @@ import com.turquaz.cash.ui.CashUICashCollectTransactionAdd;
 import com.turquaz.cash.ui.CashUICashPaymentTransactionAdd;
 import com.turquaz.cash.ui.CashUICashTransactionSearch;
 import com.turquaz.cheque.ui.CheUIChequeInPayroll;
+import com.turquaz.cheque.ui.CheUIChequeOutPayrollBank;
 import com.turquaz.cheque.ui.CheUIChequeOutPayrollCurrent;
 import com.turquaz.cheque.ui.CheUIChequeRollSearch;
 import com.turquaz.consignment.ui.ConUIAddConsignment;
@@ -99,21 +100,6 @@ import com.turquaz.inventory.ui.InvUITransactionsTotalReport;
 import com.turquaz.inventory.ui.InvUIWarehouseAdd;
 import com.turquaz.inventory.ui.InvUIWarehouseSearch;
 
-
-/**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
 public final class TreeFactory {
 	
 	
@@ -704,6 +690,11 @@ public final class TreeFactory {
 			item = new TreeItem(root,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.66"));  //$NON-NLS-1$
 			item.setData(CheUIChequeOutPayrollCurrent.class.getName());
+	    }
+		if(EngBLPermissions.getPermission(CheUIChequeOutPayrollBank.class.getName())>0){
+			item = new TreeItem(root,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.100"));   //$NON-NLS-1$
+			item.setData(CheUIChequeOutPayrollBank.class.getName());
 	    }
 		
 		root.setExpanded(true);
