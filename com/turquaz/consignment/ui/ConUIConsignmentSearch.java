@@ -14,6 +14,7 @@ package com.turquaz.consignment.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -293,7 +294,7 @@ SearchComposite{
 	public void postInitGui(){
 		comboConsignmentType.add(Messages.getString("ConUIConsignmentSearch.10")); //$NON-NLS-1$
 		comboConsignmentType.add(Messages.getString("ConUIConsignmentSearch.11")); //$NON-NLS-1$
-	
+		dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
 		
 	
 	}
