@@ -39,7 +39,7 @@ public class AccDALAccountAdd {
 		Transaction tx=null;
 		try{
 		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		tx = session.beginTransaction();
 		session.saveOrUpdate(account);
 		session.flush();
 		tx.commit();
