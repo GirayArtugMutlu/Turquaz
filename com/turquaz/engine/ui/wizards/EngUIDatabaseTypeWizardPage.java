@@ -52,7 +52,6 @@ public class EngUIDatabaseTypeWizardPage extends WizardPage {
 	        setDescription("This wizard creates a new database connection");
 	        this.selection = selection;
 	        setPageComplete(false);
-	       
 	    }
 	 public void createControl(Composite parent)
 	  {
