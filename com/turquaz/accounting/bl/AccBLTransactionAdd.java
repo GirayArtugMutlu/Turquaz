@@ -22,7 +22,7 @@ package com.turquaz.accounting.bl;
 /************************************************************************/
 
 /**
-* @author  Onsel Armagan
+* @author  Ehad Karacam
 * @version  $Id$
 */
 
