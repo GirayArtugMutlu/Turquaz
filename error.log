@@ -144,3 +144,46 @@ Caused by: Batch entry 0 insert into turq_accounting_accounts (account_name, acc
 	at net.sf.hibernate.impl.BatchingBatcher.doExecuteBatch(BatchingBatcher.java:54)
 	at net.sf.hibernate.impl.BatcherImpl.executeBatch(BatcherImpl.java:118)
 	... 23 more
+2004-11-18 14:59:46,531 [main] ERROR hibernate.util.JDBCExceptionReporter(46)  -> ERROR: schema "consignment" does not exist
+
+2004-11-18 14:59:46,531 [main] ERROR hibernate.util.JDBCExceptionReporter(46)  -> ERROR: schema "consignment" does not exist
+
+2004-11-18 14:59:46,531 [main] ERROR hibernate.util.JDBCExceptionReporter(38)  -> Could not execute query
+org.postgresql.util.PSQLException: ERROR: schema "consignment" does not exist
+
+	at org.postgresql.util.PSQLException.parseServerError(PSQLException.java:139)
+	at org.postgresql.core.QueryExecutor.executeV3(QueryExecutor.java:152)
+	at org.postgresql.core.QueryExecutor.execute(QueryExecutor.java:100)
+	at org.postgresql.core.QueryExecutor.execute(QueryExecutor.java:43)
+	at org.postgresql.jdbc1.AbstractJdbc1Statement.execute(AbstractJdbc1Statement.java:517)
+	at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:50)
+	at org.postgresql.jdbc1.AbstractJdbc1Statement.executeQuery(AbstractJdbc1Statement.java:233)
+	at net.sf.hibernate.impl.BatcherImpl.getResultSet(BatcherImpl.java:83)
+	at net.sf.hibernate.loader.Loader.getResultSet(Loader.java:794)
+	at net.sf.hibernate.loader.Loader.doQuery(Loader.java:188)
+	at net.sf.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:132)
+	at net.sf.hibernate.loader.Loader.doList(Loader.java:949)
+	at net.sf.hibernate.loader.Loader.list(Loader.java:940)
+	at net.sf.hibernate.hql.QueryTranslator.list(QueryTranslator.java:833)
+	at net.sf.hibernate.impl.SessionImpl.find(SessionImpl.java:1475)
+	at net.sf.hibernate.impl.QueryImpl.list(QueryImpl.java:39)
+	at com.turquaz.bill.dal.BillDALSearchBill.searchBill(BillDALSearchBill.java:57)
+	at com.turquaz.bill.bl.BillBLSearchBill.searchBill(BillBLSearchBill.java:28)
+	at com.turquaz.bill.ui.BillUIBillSearch.search(BillUIBillSearch.java:273)
+	at com.turquaz.engine.ui.EngUIMainFrame.toolSearchWidgetSelected(EngUIMainFrame.java:1172)
+	at com.turquaz.engine.ui.EngUIMainFrame$15.widgetSelected(EngUIMainFrame.java:623)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:89)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:796)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:2772)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2431)
+	at com.turquaz.engine.ui.EngUIMainFrame.showGUI2(EngUIMainFrame.java:938)
+	at com.turquaz.engine.ui.EngUIEntryFrame.btnOkMouseUp(EngUIEntryFrame.java:291)
+	at com.turquaz.engine.ui.EngUIEntryFrame$3.mouseUp(EngUIEntryFrame.java:229)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:136)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:796)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:2772)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2431)
+	at com.turquaz.engine.ui.EngUIEntryFrame.showGUI(EngUIEntryFrame.java:123)
+	at com.turquaz.engine.ui.EngUIEntryFrame.main(EngUIEntryFrame.java:96)

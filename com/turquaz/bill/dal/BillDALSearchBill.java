@@ -34,11 +34,12 @@ public class BillDALSearchBill {
 				" bill.turqCompany.companiesId ="+System.getProperty("company")+
 				" and bill.billsDate >= :startDate" +
 				" and bill.billsDate <= :endDate" +
-				" and bill.billsType ="+type +"";
+				" and bill.billsType ="+type +""+
+				" and bill.billsId <> -1 ";
 		
 		
 		if (curCard!=null){
-			query +=" and bill.turqCurrentCard = :curCard";
+		    query +=" and bill.turqBillConsignmentCommon.turqCurrentCard = :curCard"; 
 		}
 		query += " order by bill.billsDate";
 		
