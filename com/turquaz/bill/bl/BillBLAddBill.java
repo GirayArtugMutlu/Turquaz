@@ -291,10 +291,162 @@ public class BillBLAddBill {
 		
 		//Sat?? Faturas?	
 		else if(bill.getBillsType()==1){
-			  if(!bill.isIsOpen()){
-			  	
-			  
-			  }
+			
+			
+			
+			/**
+			 * 1- Stok muhasebe kayitlarini gir.
+			 * 2- Kdv muhasebe kayitlari
+			 * 3- Ötv muhasebe kayitlari
+			 * 4- Cari Hesap kay?d?
+			 */
+
+			AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
+			
+			
+			Integer transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),2,7,bill.getTurqEngineSequence().getEngineSequencesId());
+		    
+			TurqAccountingTransaction accTrans = new TurqAccountingTransaction();
+		    accTrans.setAccountingTransactionsId(transID);			
+			
+			TurqAccountingTransactionColumn transRow =null;
+			TurqInventoryTransaction invTrans = null;
+	        
+			/**
+			 *1- stoklarin muhasebe kay?tlarini yap
+			 */
+			Iterator it = getInventoryTransactions(bill).iterator();
+	        
+			while(it.hasNext()){
+				
+			invTrans = (TurqInventoryTransaction)it.next();
+			transRow = new TurqAccountingTransactionColumn();
+			
+			transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdSell());
+			transRow.setTurqAccountingTransaction(accTrans);
+			
+			transRow.setCreditAmount(invTrans.getTransactionsTotalPrice());
+			transRow.setDeptAmount(new BigDecimal(0));
+			
+			transRow.setCreatedBy(System.getProperty("user"));
+			transRow.setUpdatedBy(System.getProperty("user"));
+			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			
+			dalBill.save(transRow);
+			
+	        }
+			
+			/**
+			 * 2-Kdv hesabini gir
+			 */
+			transRow = new TurqAccountingTransactionColumn();
+			
+			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("391"));
+			transRow.setTurqAccountingTransaction(accTrans);
+			
+			transRow.setCreditAmount(invTrans.getTransactionsVatAmount());
+			transRow.setDeptAmount(new BigDecimal(0));
+			
+			transRow.setCreatedBy(System.getProperty("user"));
+			transRow.setUpdatedBy(System.getProperty("user"));
+			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			
+			dalBill.save(transRow);
+			
+			
+			
+			/**
+			 *3- Ötv hesabini gir
+			 */
+			transRow = new TurqAccountingTransactionColumn();
+			
+			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("360"));
+			transRow.setTurqAccountingTransaction(accTrans);
+			
+			transRow.setCreditAmount(invTrans.getTransactionsVatSpecialAmount());
+			transRow.setDeptAmount(new BigDecimal(0));
+			
+			transRow.setCreatedBy(System.getProperty("user"));
+			transRow.setUpdatedBy(System.getProperty("user"));
+			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			
+			dalBill.save(transRow);
+			/**
+			 * Cari Kayd?n? Yap
+			 *  
+			 *
+			 */
+			transRow = new TurqAccountingTransactionColumn();
+			
+			transRow.setTurqAccountingAccount(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getTurqAccountingAccount());
+			transRow.setTurqAccountingTransaction(accTrans);
+			
+			transRow.setCreditAmount(new BigDecimal(0));
+			transRow.setDeptAmount(invTrans.getTransactionsCumilativePrice());
+			
+			transRow.setCreatedBy(System.getProperty("user"));
+			transRow.setUpdatedBy(System.getProperty("user"));
+			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			
+			dalBill.save(transRow);
+			
+			
+			
+			//Kapal? Fatura
+			/**
+			 * 1 -Cari Muhasebe hareketi isle
+			 * 2- Kasa Muhasebe hareketi isle
+			 */
+			if(!bill.isIsOpen()){
+				transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),0,7,bill.getTurqEngineSequence().getEngineSequencesId());
+			    
+				 accTrans = new TurqAccountingTransaction();
+			    accTrans.setAccountingTransactionsId(transID);	
+			    
+			    
+			    /**
+			     * 1-Cari Muhasebe Satiri
+			     */
+			    
+			    transRow = new TurqAccountingTransactionColumn();
+				
+				transRow.setTurqAccountingAccount(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getTurqAccountingAccount());
+				transRow.setTurqAccountingTransaction(accTrans);
+				transRow.setCreditAmount(invTrans.getTransactionsCumilativePrice());
+				transRow.setDeptAmount(new BigDecimal(0));
+				
+				transRow.setCreatedBy(System.getProperty("user"));
+				transRow.setUpdatedBy(System.getProperty("user"));
+				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+				transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+				
+				dalBill.save(transRow);
+				
+				/**
+				 * 2- Kasa Muhasebe Hareketi
+				 */
+				  transRow = new TurqAccountingTransactionColumn();
+					
+					transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("100"));
+					transRow.setTurqAccountingTransaction(accTrans);
+					
+					transRow.setCreditAmount(new BigDecimal(0));
+					transRow.setDeptAmount(invTrans.getTransactionsCumilativePrice());
+					
+					transRow.setCreatedBy(System.getProperty("user"));
+					transRow.setUpdatedBy(System.getProperty("user"));
+					transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+					transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+					
+					dalBill.save(transRow);
+				
+				
+		 	  
+			}
 			  
 			
 		}
