@@ -31,6 +31,7 @@ import com.turquaz.accounting.ui.AccUITransactionAdd;
 import com.turquaz.accounting.ui.AccUITransactionCollect;
 import com.turquaz.accounting.ui.AccUITransactionPayment;
 import com.turquaz.accounting.ui.AccUITransactionSearch;
+import com.turquaz.accounting.ui.reports.AccUIAccountingBalance;
 import com.turquaz.accounting.ui.reports.AccUIAccountingJournal;
 import com.turquaz.admin.ui.AdmUIGroupAdd;
 import com.turquaz.admin.ui.AdmUIGroupPermissions;
@@ -121,7 +122,9 @@ public final class TreeFactory {
 		item = new TreeItem(report,SWT.NULL);
 		item.setText("Yevmiye Defteri");
 		item.setData(AccUIAccountingJournal.class.getName());
-	
+		item = new TreeItem(report,SWT.NULL);
+		item.setText("Mizan");
+		item.setData(AccUIAccountingBalance.class.getName());
 		
 		
 		return tree;

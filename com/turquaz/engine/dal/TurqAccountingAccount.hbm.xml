@@ -82,7 +82,29 @@
     </many-to-one>
     <!-- bi-directional one-to-many association to TurqAccountingAccount -->
     <set
-        name="turqAccountingAccounts"
+        name="turqAccountingAccountsByTopAccount"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="top_account" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqAccountingAccount"
+        />
+    </set>
+    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
+    <many-to-one
+        name="turqAccountingAccountByTopAccount"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="top_account" />
+    </many-to-one>
+    <!-- bi-directional one-to-many association to TurqAccountingAccount -->
+    <set
+        name="turqAccountingAccountsByParentAccount"
         lazy="true"
         inverse="true"
 		cascade="none"
@@ -96,7 +118,7 @@
     </set>
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one
-        name="turqAccountingAccount"
+        name="turqAccountingAccountByParentAccount"
         class="com.turquaz.engine.dal.TurqAccountingAccount"
         not-null="true"
     >

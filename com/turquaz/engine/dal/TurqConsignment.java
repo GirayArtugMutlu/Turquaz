@@ -58,7 +58,7 @@ public class TurqConsignment implements Serializable {
     private short consignmentsPrinted;
 
     /** persistent field */
-    private String consignmentsDocumentNo;
+    private int consignmentsDocumentNo;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqCompany turqCompany;
@@ -76,7 +76,7 @@ public class TurqConsignment implements Serializable {
     private Set turqConsignmentsInGroups;
 
     /** full constructor */
-    public TurqConsignment(java.lang.String consignmentsBillDocumentNo, java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, int condignmentsDiscountRate, int consignmentsVat, java.math.BigDecimal consignmentsDiscountAmount, java.math.BigDecimal consignmentsCharges, java.math.BigDecimal consignmentsVatAmount, java.math.BigDecimal consignmentsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, int consignmentsType, short consignmentsPrinted, String consignmentsDocumentNo, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqBill turqBill, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqInventoryTransactions, Set turqConsignmentsInGroups) {
+    public TurqConsignment(java.lang.String consignmentsBillDocumentNo, java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, int condignmentsDiscountRate, int consignmentsVat, java.math.BigDecimal consignmentsDiscountAmount, java.math.BigDecimal consignmentsCharges, java.math.BigDecimal consignmentsVatAmount, java.math.BigDecimal consignmentsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, int consignmentsType, short consignmentsPrinted, int consignmentsDocumentNo, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqBill turqBill, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqInventoryTransactions, Set turqConsignmentsInGroups) {
         this.consignmentsBillDocumentNo = consignmentsBillDocumentNo;
         this.consignmentsDate = consignmentsDate;
         this.consignmentsDefinition = consignmentsDefinition;
@@ -232,11 +232,11 @@ public class TurqConsignment implements Serializable {
         this.consignmentsPrinted = consignmentsPrinted;
     }
 
-    public String getConsignmentsDocumentNo() {
+    public int getConsignmentsDocumentNo() {
         return this.consignmentsDocumentNo;
     }
 
-    public void setConsignmentsDocumentNo(String consignmentsDocumentNo) {
+    public void setConsignmentsDocumentNo(int consignmentsDocumentNo) {
         this.consignmentsDocumentNo = consignmentsDocumentNo;
     }
 

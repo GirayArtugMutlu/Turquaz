@@ -133,7 +133,7 @@
     />
     <property
         name="consignmentsDocumentNo"
-        type="java.lang.String"
+        type="int"
         column="consignments_document_no"
         not-null="true"
         length="50"
