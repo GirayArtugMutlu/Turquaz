@@ -232,8 +232,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			treeAccounting = new Tree(compModulesTree,SWT.NULL);
 			treeAdmin = new Tree(compModulesTree,SWT.NULL);
 			treeCurrent = new Tree(compModulesTree,SWT.NULL);
+			treeCurrent.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
 			{
 				treeConsignment = new Tree(compModulesTree, SWT.NONE);
+				treeConsignment.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
 				treeConsignment.addMouseListener(new MouseAdapter() {
 					public void mouseDoubleClick(MouseEvent evt) {
 						 treeConsignmentMouseDoubleClick();
@@ -242,7 +244,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			}
 			{
 				treeBill = new Tree(compModulesTree, SWT.NONE);
-				
+				treeBill.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
+
 				treeBill.addMouseListener(new MouseAdapter() {
 					public void mouseDoubleClick(MouseEvent evt) {
 						treeBillMouseDoubleClick();
@@ -251,6 +254,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			}
             {
                 treeCash = new Tree(compModulesTree, SWT.NONE);
+                treeCash.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
                 treeCash.addMouseListener(new MouseAdapter() {
                     public void mouseDoubleClick(MouseEvent evt) {
                     treeCashMouseDoubleClick();    
@@ -260,6 +264,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
             }
             {
                 treeCheques = new Tree(compModulesTree, SWT.NONE);
+                treeCheques.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
                 treeCheques.addMouseListener(new MouseAdapter() {
                     public void mouseDoubleClick(MouseEvent evt) {
                     treeChequeMouseDoubleClick();    
@@ -334,6 +339,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesTree.setLayoutData(compModulesTreeLData);
 
 			treeBank.setSize(new org.eclipse.swt.graphics.Point(370,251));
+			treeBank.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
 			treeBank.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeBankMouseDoubleClick();
@@ -341,6 +347,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			});
 	
 			treeInventory.setSize(new org.eclipse.swt.graphics.Point(370,251));
+			treeInventory.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
 			treeInventory.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeInventoryMouseDoubleClick();
@@ -348,6 +355,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			});
 	
 			treeAccounting.setSize(new org.eclipse.swt.graphics.Point(370,251));
+			treeAccounting.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
 			treeAccounting.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeAccountingMouseDoubleClick();
@@ -355,6 +363,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			});
 	
 			treeAdmin.setSize(new org.eclipse.swt.graphics.Point(370,251));
+			treeAdmin.setFont(SWTResourceManager.getFont("Verdana", 9, 0, false, false));
 			treeAdmin.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeAdminMouseDoubleClick();
@@ -397,7 +406,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesHelp.setLayout(compModulesHelpLayout);
             {
                 
-                btnInventory = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+                btnInventory = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
                 btnInventory.setText(Messages.getString("EngUIMainFrame.1")); //$NON-NLS-1$
             
                 GridData button1LData = new GridData();
@@ -415,7 +424,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 btnInventory.setLayoutData(button1LData);
             }
             {
-                btnCurrent = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+                btnCurrent = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
                 btnCurrent.setText(Messages.getString("EngUIMainFrame.4")); //$NON-NLS-1$
                 GridData button2LData = new GridData();
                 btnCurrent.addMouseListener(new MouseAdapter() {
@@ -430,7 +439,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 btnCurrent.setLayoutData(button2LData);
             }
             {
-                btnConsignment = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+                btnConsignment = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
                 btnConsignment.setText(Messages.getString("EngUIMainFrame.32")); //$NON-NLS-1$
                 GridData button3LData = new GridData();
                 btnConsignment.addMouseListener(new MouseAdapter() {
@@ -444,9 +453,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 btnConsignment.setLayoutData(button3LData);
             }
             {
-                btnBill = new Button(compModulesHelp, SWT.PUSH
-                    | SWT.FLAT
-                    | SWT.CENTER);
+                btnBill = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
                 btnBill.setText(Messages.getString("EngUIMainFrame.34")); //$NON-NLS-1$
                 GridData btnFaturaLData = new GridData();
                 btnBill.addMouseListener(new MouseAdapter() {
@@ -461,7 +468,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 btnBill.setLayoutData(btnFaturaLData);
             }
             {
-                btnCheque = new Button(compModulesHelp, SWT.FLAT);
+                btnCheque = new Button(compModulesHelp, SWT.FLAT | SWT.LEFT | SWT.BORDER);
                 btnCheque.setText("Çek-Senet");
                 GridData btnChequeLData = new GridData();
                 btnCheque.addMouseListener(new MouseAdapter() {
@@ -477,7 +484,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 btnCheque.setLayoutData(btnChequeLData);
             }
             {
-                btnBank = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+                btnBank = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
                 btnBank.setText(Messages.getString("EngUIMainFrame.37")); //$NON-NLS-1$
                 GridData btnBankLData = new GridData();
                 btnBank.addMouseListener(new MouseAdapter() {
@@ -491,23 +498,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 btnBank.setLayoutData(btnBankLData);
             }
             {
-                btnAccounting = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
-                btnAccounting.setText(Messages.getString("EngUIMainFrame.39")); //$NON-NLS-1$
-                GridData btnAccountingLData = new GridData();
-                btnAccounting.addMouseListener(new MouseAdapter() {
-                    public void mouseUp(MouseEvent evt) {
-                        compModulesTreeLayout.topControl =treeAccounting;
-                        compModulesTree.layout();    
-                    }
-                });
-                btnAccounting.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
-                btnAccountingLData.horizontalAlignment = GridData.FILL;
-                btnAccounting.setLayoutData(btnAccountingLData);
-            }
-            {
-                btnCash = new Button(compModulesHelp, SWT.PUSH
-                    | SWT.FLAT
-                    | SWT.CENTER);
+                btnCash = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
                 btnCash.setText(Messages.getString("EngUIMainFrame.23")); //$NON-NLS-1$
                 GridData btnCashLData = new GridData();
                 btnCash.addMouseListener(new MouseAdapter() {
@@ -527,7 +518,21 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 btnCash.setLayoutData(btnCashLData);
             }
             {
-                btnAdmin = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+                btnAccounting = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
+                btnAccounting.setText(Messages.getString("EngUIMainFrame.39")); //$NON-NLS-1$
+                GridData btnAccountingLData = new GridData();
+                btnAccounting.addMouseListener(new MouseAdapter() {
+                    public void mouseUp(MouseEvent evt) {
+                        compModulesTreeLayout.topControl = treeAccounting;
+                        compModulesTree.layout();
+                    }
+                });
+                btnAccounting.setFont(SWTResourceManager.getFont("Tahoma",10,1,false,false)); //$NON-NLS-1$
+                btnAccountingLData.horizontalAlignment = GridData.FILL;
+                btnAccounting.setLayoutData(btnAccountingLData);
+            }
+            {
+                btnAdmin = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
                 btnAdmin.setText(Messages.getString("EngUIMainFrame.3")); //$NON-NLS-1$
                 GridData btnAdminLData = new GridData();
                 btnAdmin.addMouseListener(new MouseAdapter() {
@@ -1157,7 +1162,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	public void postInitGUI(){
 		StackLayout compo4layout =(StackLayout)compModulesTree.getLayout();
 		compo4layout.topControl = treeAccounting;
-		sashMainHorizontal.setWeights(new int[]{25,75});
+		sashMainHorizontal.setWeights(new int[]{20,80});
 		sashMainVertical.setWeights(new int[] {5,95});
 		sashMainVertical.setMaximizedControl(sashMainHorizontal);
 	    tabfldMain.setTabHeight(20);
