@@ -267,6 +267,20 @@
             class="com.turquaz.engine.dal.TurqTradebillTransactionType"
         />
     </set>
+    <!-- bi-directional one-to-many association to TurqCashCard -->
+    <set
+        name="turqCashCards"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="accounting_accounts_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCashCard"
+        />
+    </set>
     <!-- bi-directional one-to-many association to TurqBanksTransaction -->
     <set
         name="turqBanksTransactions"
