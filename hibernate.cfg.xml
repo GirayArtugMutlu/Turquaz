@@ -73,6 +73,7 @@
  <mapping resource="com/turquaz/engine/dal/TurqChequeRollAccountingAccount.hbm.xml"/> 
  <mapping resource="com/turquaz/engine/dal/TurqAccountingAccountClass.hbm.xml"/> 
      <mapping resource="com/turquaz/engine/dal/TurqAccountingAccountType.hbm.xml"/> 
+     <mapping resource="com/turquaz/engine/dal/TurqCurrencyExchangeRate.hbm.xml"/>
     </session-factory>
     
 

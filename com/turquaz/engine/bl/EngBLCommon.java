@@ -24,8 +24,10 @@ package com.turquaz.engine.bl;
 
 import java.util.List;
 
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.TurqCurrency;
 
 
 public class EngBLCommon {
@@ -172,11 +174,26 @@ public class EngBLCommon {
     
     public final static int TABLE_ROW_COUNT = 10;
     
+    private static TurqCurrency baseCurrency=null;
     
+    public static TurqCurrency getBaseCurrency()
+    {
+    	try
+		{
+    		if (baseCurrency==null)
+    			baseCurrency=AccBLTransactionSearch.getBaseCurrency();
+    		return baseCurrency;
+		}
+    	catch(Exception ex)
+		{
+    		ex.printStackTrace();
+    		return null;
+		}
+    }
     
 	public EngBLCommon()
 	{
-		
+	
 	}
 	private EngDALCommon engDALCom=new EngDALCommon();
 	

@@ -34,7 +34,8 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
-import com.turquaz.engine.EngConfiguration;
+
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrency;
@@ -566,7 +567,7 @@ public class AccUIInitialTransaction extends Composite implements
                     blTransAdd
                             .saveAccTransactionRow(
                                     (TurqAccountingTransactionColumn) row
-                                            .getDBObject(), transId,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
+                                            .getDBObject(), transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
                 }
 
             }
