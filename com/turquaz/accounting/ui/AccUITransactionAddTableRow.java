@@ -174,6 +174,7 @@ public class AccUITransactionAddTableRow implements ITableRow {
 			break;
 	
     }
+        rowList.taskChanged(this);
         
     }
     public boolean equals(Object other){

@@ -102,7 +102,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShell.setText(getText());
 			coolBar1 = new CoolBar(dialogShell,SWT.NULL);
 
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(577,427));
+			dialogShell.setSize(666, 425);
 	
 			GridData coolBar1LData = new GridData();
 			coolBar1LData.horizontalAlignment = GridData.FILL;
@@ -183,8 +183,6 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShellLayout.horizontalSpacing = 5;
 			dialogShellLayout.verticalSpacing = 5;
 			dialogShell.layout();
-			Rectangle bounds = dialogShell.computeTrim(0, 0, 577,427);
-			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
@@ -266,14 +264,14 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	while(it.hasNext()){
 	transRow =(TurqAccountingTransactionColumn)it.next();
 	ITableRow row = new AccUITransactionAddTableRow(compTransactionAdd.rowList);
-	compTransactionAdd.rowList.addTask(row);
 	row.setDBObject(transRow);
+	compTransactionAdd.rowList.addTask(row);
+	
 	
 	}
 	// add last empty row
 	AccUITransactionAddTableRow row2 = new AccUITransactionAddTableRow(compTransactionAdd.rowList);
 	compTransactionAdd.rowList.addTask(row2);
-	compTransactionAdd.calculateTotalDeptAndCredit();
 	
 	}
 	

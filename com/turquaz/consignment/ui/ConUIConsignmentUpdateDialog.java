@@ -216,9 +216,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			
 			InvUITransactionTableRow row = new InvUITransactionTableRow(compAddConsignment.rowList,consignment.getConsignmentsType(),compAddConsignment.tableViewer);
             row.setDBObject(invTrans);
-			compAddConsignment.rowList.addTask(row);
-			
-            
+			compAddConsignment.rowList.addTask(row);       
 			
 			
 		}
