@@ -248,8 +248,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	else{
 		txtPassword.setText("admin");
 		txtUserName.setText("admin");
-		
-		
+	
 	}
 	
 	}

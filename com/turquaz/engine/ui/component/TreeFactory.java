@@ -20,6 +20,7 @@ import com.turquaz.admin.ui.AdmUIGroupAdd;
 import com.turquaz.admin.ui.AdmUIGroups;
 import com.turquaz.admin.ui.AdmUIPermPanel;
 import com.turquaz.admin.ui.AdmUIUserAdd;
+import com.turquaz.admin.ui.AdmUIUserPermissions;
 import com.turquaz.admin.ui.AdmUIUsers;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
 import com.turquaz.bank.ui.BankUIBankCardSearch;
@@ -135,6 +136,9 @@ public final class TreeFactory {
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(Messages.getString("TreeFactory.26")); //$NON-NLS-1$
 		item.setData(AdmUIGroups.class.getName());
+		item = new TreeItem(root,SWT.NULL);
+		item.setText(Messages.getString("TreeFactory.27")); //$NON-NLS-1$
+		item.setData(AdmUIUserPermissions.class.getName());
 		return tree;
 	}
 	

@@ -70,6 +70,32 @@ public class EngDALUserPerms {
 	{ throw e;
 }
 } 
+	public List getGroupPermissions()throws Exception{
+		try{
+		Session session = EngDALSessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		String query = "select perms from TurqGroupPermission as perms";		   
+		
+		Query q = session.createQuery(query); 
+		List list = q.list();
+		tx.commit();
+		session.close();
+		
+		return list;
+		}
+		 	
+		/* String query ="select DISTINCT GP.modules_id, GP.module_components_id,	 GP.group_permissions_level";
+		 query +=" from turq_group_permissions GP,	 turq_users U, turq_user_group UG";
+		 query +=" where U.username='"+username+"'AND U.users_id = UG.users_id";
+		 query +=" AND GP.groups_id = UG.groups_id order by GP.group_permissions_id";
+		 
+		*/ 
+		 
+		 
+		catch(Exception e)
+		{ throw e;
+	}
+	} 
 	 
 /**
  * 
@@ -78,8 +104,8 @@ public class EngDALUserPerms {
  * @throws Exception HiberNate Exception
  */
 	
- public List getUserPermissions(String username)throws Exception{
- 	try{
+ public List getUserPermissions(String username)throws Exception{ 
+ try{
 	 
  		Session session = EngDALSessionFactory.openSession();
  		Transaction tx = session.beginTransaction();
@@ -94,6 +120,35 @@ public class EngDALUserPerms {
  		
  		return list;
  		
+ 	
+ 	/*
+ 	String query ="select DISTINCT UP.modules_id, UP.components_id,UP.user_permissions_level"; query +=" from turq_user_permissions UP,
+	 turq_users U where UP.users_id = U.users_id"; query +=" AND U.username
+	 ='"+username+"' order by UP.user_permissions_id";
+	 
+	 
+	 ResultSet rs = connection.getResultSet(query); return rs;
+	*/ 
+	 
+	 
+	  }
+ 	catch(Exception e){
+ 		throw e; 
+ 		} 
+ 	}
+ 
+ public List getUserPermissions()throws Exception{
+ 	try{
+	 
+ 		Session session = EngDALSessionFactory.openSession();
+ 		Transaction tx = session.beginTransaction();
+ 		String query = "select perms from TurqUserPermission as perms"; 		
+ 		Query q = session.createQuery(query); 
+ 		List list = q.list();
+ 		tx.commit();
+ 		session.close();
+ 		
+ 		return list;	
  	
  	/*
  	String query ="select DISTINCT UP.modules_id, UP.components_id,UP.user_permissions_level"; query +=" from turq_user_permissions UP,
@@ -186,7 +241,7 @@ public class EngDALUserPerms {
 			//			"where comp.moduleComponentsId > -1");
 			Criteria cri = session.createCriteria(TurqModuleComponent.class)
 					.add(Expression.gt("moduleComponentsId", new Integer(-1)))
-					.add(Expression.eq("modulesId",new Integer(module_id)));
+					.add(Expression.eq("turqModule.modulesId",new Integer(module_id)));
 			List list = cri.list();
 			tx.commit();
 			session.close();
@@ -198,6 +253,25 @@ public class EngDALUserPerms {
 			throw e;
 		}
 	}
+	  
+	  public List getModules()throws Exception {
+	  	try{
+	  		
+	  		Session session = EngDALSessionFactory.openSession();
+	 		Transaction tx = session.beginTransaction();
+	 		String query = "select module from TurqModule as module"; 		
+	 		Query q = session.createQuery(query); 
+	 		List list = q.list();
+	 		tx.commit();
+	 		session.close();
+	 		
+	 		return list;	
+	  		
+	  	}
+	  	catch(Exception ex){
+	  		throw ex;
+	  	}
+	  }
 }
 	  
 	 
