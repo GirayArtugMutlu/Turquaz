@@ -727,7 +727,7 @@ implements SecureComposite{
 									SWT.NONE);
 								lblSpecialVAT.setText(Messages.getString("ConUIAddConsignment.26")); //$NON-NLS-1$
 								GridData lblSpecialVATLData = new GridData();
-								lblSpecialVATLData.widthHint = 102;
+								lblSpecialVATLData.widthHint = 94;
 								lblSpecialVATLData.heightHint = 16;
 								lblSpecialVAT.setLayoutData(lblSpecialVATLData);
 							}

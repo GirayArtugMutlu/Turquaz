@@ -177,11 +177,8 @@ public class CurUITransactionSearch extends Composite implements SecureComposite
 				{
 					lblStartDate = new CLabel(composite1, SWT.NONE);
 					lblStartDate.setText(Messages.getString("CurUITransactionSearch.3")); //$NON-NLS-1$
-					lblStartDate.setSize(new org.eclipse.swt.graphics.Point(
-						69,
-						19));
 					GridData lblStartDateLData = new GridData();
-					lblStartDateLData.widthHint = 69;
+					lblStartDateLData.widthHint = 84;
 					lblStartDateLData.heightHint = 19;
 					lblStartDate.setLayoutData(lblStartDateLData);
 				}
