@@ -43,6 +43,7 @@ import com.turquaz.engine.dal.TurqChequeTransactionType;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -78,6 +79,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite
 	private CLabel lblEndDate;
 
 	private CLabel lblType;
+	private TableColumn tableColumnAmount;
 
 	private CCombo comboRollType;
 
@@ -212,6 +214,11 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite
 							.getString("CheUIChequeRollSearch.8")); //$NON-NLS-1$
 					tableColumnOwner.setWidth(102);
 				}
+				//START >>  tableColumnAmount
+				tableColumnAmount = new TableColumn(tableChequeRolls, SWT.RIGHT);
+				tableColumnAmount.setText("Bordro Tutar\u0131");
+				tableColumnAmount.setWidth(100);
+				//END <<  tableColumnAmount
 			}
 			postInitGUI();
 			this.layout();
@@ -302,6 +309,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite
 
 	public void search() {
 		try {
+			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			tableChequeRolls.removeAll();
 			List ls = CheBLSearchChequeRoll.searchChequeRoll(txtRollNo
 					.getText().trim(), dateStartDate.getDate(), dateEndDate
@@ -335,7 +343,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite
 
 				item.setText(new String[] {
 						DatePicker.formatter.format(cheqRollDate), cheqRollNo,
-						transTypeName, owner });
+						transTypeName, owner,cf.format(roll[8]) });
 
 			}
 

@@ -49,8 +49,10 @@ public class CheDALSearch {
 					" chequeRoll.chequeRollsDate, chequeRoll.chequeRollNo," +
 					" chequeRoll.turqChequeTransactionType.transactionTypsName," +
 					" chequeRoll.turqCurrentCard.cardsName, chequeRoll.turqBanksCard.bankCode," +
-					" chequeRoll.turqCurrentCard.currentCardsId,chequeRoll.turqBanksCard.banksCardsId" +
-					" from TurqChequeRoll as chequeRoll "
+					" chequeRoll.turqCurrentCard.currentCardsId,chequeRoll.turqBanksCard.banksCardsId," +
+					" sum(chequesInRolls.turqChequeCheque.chequesAmount)" +
+					" from TurqChequeRoll as chequeRoll" +
+					" left join chequeRoll.turqChequeChequeInRolls as chequesInRolls "
 					+ "where chequeRoll.chequeRollsDate >= :startDate and chequeRoll.chequeRollsDate <=:endDate "
 					+ "and chequeRoll.chequeRollNo like '" + rollNo + "%'";
 
@@ -60,8 +62,13 @@ public class CheDALSearch {
 
 			}
 
-			query += " order by chequeRoll.chequeRollsDate ";
+		
 
+			query += " group by chequeRoll.chequeRollsId,chequeRoll.chequeRollsDate, chequeRoll.chequeRollNo," +
+					" chequeRoll.turqChequeTransactionType.transactionTypsName," +
+					" chequeRoll.turqCurrentCard.cardsName, chequeRoll.turqBanksCard.bankCode," +
+					" chequeRoll.turqCurrentCard.currentCardsId,chequeRoll.turqBanksCard.banksCardsId";
+			query += " order by chequeRoll.chequeRollsDate ";
 			Query q = session.createQuery(query);
 
 			q.setParameter("startDate", startDate); //$NON-NLS-1$

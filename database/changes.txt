@@ -320,7 +320,17 @@ FROM turq_cheque_rolls roll_inner, turq_cheque_cheque_in_rolls cheqroll_inner, t
 WHERE cheqroll_inner.cheque_rolls_id = roll_inner.cheque_rolls_id AND cheqroll_inner.cheque_cheques_id = cheq_inner.cheque_cheques_id AND cheqroll_inner.cheque_cheques_id = cheq.cheque_cheques_id));
 
 ******************** ***************************************
-   
-
-
   
+********************* New Table Added *****************************   
+--turq_cheuqe_roll_accounting_accounts-----
+
+  CREATE TABLE turq_cheque_roll_accounting_accounts
+(
+  cheque_rolls_id integer NOT NULL,
+  accounting_accounts_id integer NOT NULL,
+  CONSTRAINT turq_cheque_roll_accounting_accounts_pkey PRIMARY KEY (cheque_rolls_id),
+  CONSTRAINT crac1 FOREIGN KEY (accounting_accounts_id) REFERENCES turq_accounting_accounts (accounting_accounts_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT crac2 FOREIGN KEY (cheque_rolls_id) REFERENCES turq_cheque_rolls (cheque_rolls_id) ON UPDATE RESTRICT ON DELETE RESTRICT
+) 
+
+**********************************************************************
