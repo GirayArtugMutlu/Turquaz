@@ -16,7 +16,7 @@ package com.turquaz.inventory.ui;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
-import org.eclipse.jface.contentassist.ComboContentAssistSubjectAdapter;
+
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;

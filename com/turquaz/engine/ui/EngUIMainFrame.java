@@ -78,9 +78,16 @@ import com.turquaz.inventory.ui.InvUITransactionAdd;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
 
 
@@ -161,6 +168,11 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			comboModuleSelection = new CCombo(compModuleSelection,SWT.FLAT| SWT.READ_ONLY| SWT.H_SCROLL| SWT.V_SCROLL);
 			compModulesTree = new Composite(compModulesTab,SWT.NULL);
 			treeInventory = new InvUITree(compModulesTree,SWT.NULL);
+			treeInventory.addMouseListener(new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					treeInventoryMouseDoubleClick(evt);
+				}
+			});
 			treeAccounting = new AccUITree(compModulesTree,SWT.NULL);
 			treeAdmin = new AdmUITree(compModulesTree,SWT.NULL);
 			tabFavorites = new CTabItem(tabfldMenu,SWT.NULL);
@@ -261,7 +273,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabModules.setControl(compModulesTab);
 			tabModules.setText("Modules");
 	
-			compModulesTab.setSize(new org.eclipse.swt.graphics.Point(230,298));
+			compModulesTab.setSize(new org.eclipse.swt.graphics.Point(230,296));
 	
 			GridData compModuleSelectionLData = new GridData();
 			compModuleSelectionLData.verticalAlignment = GridData.CENTER;
@@ -282,7 +294,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			final Color comboModuleSelectionbackground = new Color(Display.getDefault(),236,233,216);
 			comboModuleSelection.setBackground(comboModuleSelectionbackground);
-			comboModuleSelection.setSize(new org.eclipse.swt.graphics.Point(91,16));
+			comboModuleSelection.setSize(new org.eclipse.swt.graphics.Point(78,3));
 			comboModuleSelection.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					comboModuleSelectionWidgetSelected(evt);
@@ -313,25 +325,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesTreeLData.grabExcessVerticalSpace = true;
 			compModulesTree.setLayoutData(compModulesTreeLData);
 	
-			treeInventory.addMouseListener( new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
-					treeInventoryMouseDoubleClick(evt);
-				}
-			});
 	
-			treeAccounting.setSize(new org.eclipse.swt.graphics.Point(214,247));
-			treeAccounting.addMouseListener( new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
-					treeAccountingMouseDoubleClick(evt);
-				}
-			});
+			treeAccounting.setSize(new org.eclipse.swt.graphics.Point(212,243));
 	
-			treeAdmin.setSize(new org.eclipse.swt.graphics.Point(214,247));
-			treeAdmin.addMouseListener( new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
-					treeAdminMouseDoubleClick(evt);
-				}
-			});
+			treeAdmin.setSize(new org.eclipse.swt.graphics.Point(212,243));
 			StackLayout compModulesTreeLayout = new StackLayout();
 			compModulesTree.setLayout(compModulesTreeLayout);
 			compModulesTreeLayout.marginWidth = 0;
@@ -377,7 +374,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			lblFavoritesTabLData.grabExcessVerticalSpace = false;
 			lblFavoritesTab.setLayoutData(lblFavoritesTabLData);
 			lblFavoritesTab.setText("Favorite Items");
-			lblFavoritesTab.setSize(new org.eclipse.swt.graphics.Point(202,20));
+			lblFavoritesTab.setSize(new org.eclipse.swt.graphics.Point(226,20));
 			lblFavoritesTab.setLayout(null);
 	
 			GridData toolbarFavoritesTabLData = new GridData();
@@ -413,7 +410,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			treeFavoritesLData.grabExcessHorizontalSpace = false;
 			treeFavoritesLData.grabExcessVerticalSpace = true;
 			treeFavorites.setLayoutData(treeFavoritesLData);
-			treeFavorites.setSize(new org.eclipse.swt.graphics.Point(214,258));
+			treeFavorites.setSize(new org.eclipse.swt.graphics.Point(212,254));
 			GridLayout compFavoritesTabLayout = new GridLayout(1, true);
 			compFavoritesTab.setLayout(compFavoritesTabLayout);
 			compFavoritesTabLayout.marginWidth = 0;
@@ -433,19 +430,19 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			coolbarRightTopLData.verticalAlignment = GridData.CENTER;
 			coolbarRightTopLData.horizontalAlignment = GridData.FILL;
 			coolbarRightTopLData.widthHint = -1;
-			coolbarRightTopLData.heightHint = 24;
+			coolbarRightTopLData.heightHint = 30;
 			coolbarRightTopLData.horizontalIndent = 0;
 			coolbarRightTopLData.horizontalSpan = 1;
 			coolbarRightTopLData.verticalSpan = 1;
 			coolbarRightTopLData.grabExcessHorizontalSpace = false;
 			coolbarRightTopLData.grabExcessVerticalSpace = false;
 			coolbarRightTop.setLayoutData(coolbarRightTopLData);
-			coolbarRightTop.setSize(new org.eclipse.swt.graphics.Point(232,24));
+			coolbarRightTop.setSize(new org.eclipse.swt.graphics.Point(232,30));
 	
 			coolRightMain.setControl(toolbarMainTop);
-			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(92,22));
-			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(92,22));
-			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(92,22));
+			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(121,30));
+			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(121,30));
+			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(121,30));
 			coolRightMain.setText("coolItem3");
 	
 			toolbarMainTop.setLocation(new org.eclipse.swt.graphics.Point(20,0));
@@ -497,7 +494,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabfldMainLData.grabExcessHorizontalSpace = false;
 			tabfldMainLData.grabExcessVerticalSpace = true;
 			tabfldMain.setLayoutData(tabfldMainLData);
-			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(226,276));
+			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(226,270));
 			tabfldMain.addCTabFolderListener( new CTabFolderAdapter() {
 				public void itemClosed(CTabFolderEvent evt) {
 					tabfldMainItemClosed(evt);
@@ -593,7 +590,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		sashMainHorizontal.setWeights(new int[]{25,75});
 	    
 	    comboModuleSelection.add("Stok");
-		comboModuleSelection.add("Yönetici");
+		comboModuleSelection.add("Yï¿½netici");
 		comboModuleSelection.add("Accounting");
 		
 			
@@ -657,7 +654,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				compo4layout.topControl = treeInventory;
 		
 			   }
-			   else if(text.equals("Yönetici")){
+			   else if(text.equals("Yï¿½netici")){
 				compo4layout.topControl = treeAdmin;
 	
 			   }
@@ -675,7 +672,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		TreeItem item = treeInventory.getSelection()[0];
 		
 				if(item.getItemCount()==0){
-					if(item.getText().equals("Stok Kartý")){
+					if(item.getText().equals("Stok Kartï¿½")){
 						openNewTab("Stok Ekle",InvUICardAdd.class.getName());
 					}
 					else if(item.getText().equals("Stok Hareketi")){

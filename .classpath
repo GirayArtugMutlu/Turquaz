@@ -2,22 +2,23 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/cglib2.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/commons-collections.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/commons-dbcp.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/commons-lang.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/commons-logging.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/commons-pool.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/dom4j.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/ehcache.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/hibernate2.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/jta.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/log4j-1.2.8.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/mysql.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/odmg.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/pg74.214.jdbc2.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.swt.win32_3.0.0/ws/win32/swt.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.jface.text_3.0.0/jfacetext.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/plugins/org.eclipse.swt.gtk_3.0.0/ws/gtk/swt.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/cglib2.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/commons-dbcp.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/commons-pool.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/dom4j.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/ehcache.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/hibernate2.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/jta.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/mysql.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/odmg.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/workspace/Turquaz/lib/pg74.214.jdbc2.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/plugins/org.eclipse.swt.gtk_3.0.0/ws/gtk/swt-mozilla.jar"/>
+	<classpathentry kind="lib" path="/home/onsel/ECLIPSE/eclipse/plugins/org.eclipse.swt.gtk_3.0.0/ws/gtk/swt-pi.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
