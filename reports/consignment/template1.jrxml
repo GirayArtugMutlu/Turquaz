@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="Unnamed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="currentName" class="java.lang.String">
@@ -158,7 +158,7 @@
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="28" y="25" width="305" height="38"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{definition}]]></textFieldExpression>
 			</textField>
 			<line>
@@ -180,14 +180,14 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{card_inventory_code}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="130" y="1" width="57" height="11"/>
+				<reportElement positionType="Float" x="130" y="1" width="137" height="11"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{card_name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="294" y="1" width="48" height="11"/>
+				<reportElement positionType="Float" x="270" y="1" width="48" height="11"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
@@ -208,8 +208,8 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{transactions_total_price})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="340" y="1" width="61" height="11"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement positionType="Float" x="330" y="1" width="61" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{units_name}]]></textFieldExpression>
@@ -224,30 +224,37 @@
 	<pageHeader>
 		<band height="280">
 			<textField>
-				<reportElement positionType="Float" x="46" y="45" width="174" height="120"/>
+				<reportElement positionType="Float" x="30" y="75" width="171" height="99"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentName}+"\n\n"+$P{currentAddress}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="49" y="182" width="134" height="15"/>
+				<reportElement positionType="Float" x="15" y="208" width="134" height="15"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentTaxDepartment}+"\t"+$P{currentTaxNumber}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="370" y="102" width="91" height="14"/>
+				<reportElement positionType="Float" x="405" y="115" width="91" height="14"/>
 				<textElement>
-					<font size="9"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{despatchNoteDate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="247" y="180" width="90" height="16"/>
+				<reportElement positionType="Float" x="245" y="208" width="90" height="16"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="405" y="127" width="91" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{despatchNoteDate}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
