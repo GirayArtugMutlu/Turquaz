@@ -82,7 +82,7 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 	private CCombo comboInvGroup;
 	private CLabel lblInvGroup;
 	private Text txtInvCode;
-	private CLabel cLabel2;
+	private CLabel lblInvCode;
 	private Text txtInvName;
 	private Composite compInvCardSearchPanel;
 	public InvUICardSearch(Composite parent, int style) {
@@ -102,8 +102,6 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 			compInvCardSearchPanel = new Composite(compInvCardSearch,SWT.NULL);
 			lblInvName = new CLabel(compInvCardSearchPanel,SWT.NULL);
 			txtInvName = new Text(compInvCardSearchPanel,SWT.NULL);
-			cLabel2 = new CLabel(compInvCardSearchPanel,SWT.NULL);
-			txtInvCode = new Text(compInvCardSearchPanel,SWT.NULL);
 			lblInvGroup = new CLabel(compInvCardSearchPanel,SWT.NULL);
 			comboInvGroup = new CCombo(compInvCardSearchPanel,SWT.NULL);
 			tableSearcResults = new Table(compInvCardSearch,SWT.FULL_SELECTION| SWT.H_SCROLL| SWT.V_SCROLL| SWT.BORDER);
@@ -129,18 +127,11 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 			compInvCardSearchPanel.setSize(new org.eclipse.swt.graphics.Point(563,84));
 	
 			GridData lblInvNameLData = new GridData();
-			lblInvNameLData.verticalAlignment = GridData.CENTER;
-			lblInvNameLData.horizontalAlignment = GridData.BEGINNING;
-			lblInvNameLData.widthHint = 114;
+			lblInvNameLData.widthHint = 100;
 			lblInvNameLData.heightHint = 18;
-			lblInvNameLData.horizontalIndent = 0;
-			lblInvNameLData.horizontalSpan = 1;
-			lblInvNameLData.verticalSpan = 1;
-			lblInvNameLData.grabExcessHorizontalSpace = false;
-			lblInvNameLData.grabExcessVerticalSpace = false;
 			lblInvName.setLayoutData(lblInvNameLData);
 			lblInvName.setText(Messages.getString("InvUICardSearch.0")); //$NON-NLS-1$
-			lblInvName.setSize(new org.eclipse.swt.graphics.Point(114,18));
+			lblInvName.setSize(100, 18);
 	
 			GridData txtInvNameLData = new GridData();
 			txtInvNameLData.verticalAlignment = GridData.CENTER;
@@ -154,34 +145,7 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 			txtInvNameLData.grabExcessVerticalSpace = false;
 			txtInvName.setLayoutData(txtInvNameLData);
 			txtInvName.setSize(new org.eclipse.swt.graphics.Point(168,16));
-	
-			GridData cLabel2LData = new GridData();
-			cLabel2LData.verticalAlignment = GridData.CENTER;
-			cLabel2LData.horizontalAlignment = GridData.BEGINNING;
-			cLabel2LData.widthHint = 97;
-			cLabel2LData.heightHint = 17;
-			cLabel2LData.horizontalIndent = 0;
-			cLabel2LData.horizontalSpan = 1;
-			cLabel2LData.verticalSpan = 1;
-			cLabel2LData.grabExcessHorizontalSpace = false;
-			cLabel2LData.grabExcessVerticalSpace = false;
-			cLabel2.setLayoutData(cLabel2LData);
-			cLabel2.setText(Messages.getString("InvUICardSearch.1")); //$NON-NLS-1$
-			cLabel2.setSize(new org.eclipse.swt.graphics.Point(97,17));
-	
-			GridData txtInvCodeLData = new GridData();
-			txtInvCodeLData.verticalAlignment = GridData.CENTER;
-			txtInvCodeLData.horizontalAlignment = GridData.BEGINNING;
-			txtInvCodeLData.widthHint = 147;
-			txtInvCodeLData.heightHint = 17;
-			txtInvCodeLData.horizontalIndent = 0;
-			txtInvCodeLData.horizontalSpan = 1;
-			txtInvCodeLData.verticalSpan = 1;
-			txtInvCodeLData.grabExcessHorizontalSpace = false;
-			txtInvCodeLData.grabExcessVerticalSpace = false;
-			txtInvCode.setLayoutData(txtInvCodeLData);
-			txtInvCode.setSize(new org.eclipse.swt.graphics.Point(147,17));
-	
+
 			GridData lblInvGroupLData = new GridData();
 			lblInvGroupLData.verticalAlignment = GridData.CENTER;
 			lblInvGroupLData.horizontalAlignment = GridData.BEGINNING;
@@ -210,6 +174,23 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 			comboInvGroup.setSize(new org.eclipse.swt.graphics.Point(119,16));
 			GridLayout compInvCardSearchPanelLayout = new GridLayout(4, true);
 			compInvCardSearchPanel.setLayout(compInvCardSearchPanelLayout);
+			{
+				lblInvCode = new CLabel(compInvCardSearchPanel, SWT.NONE);
+				GridData cLabel2LData = new GridData();
+				cLabel2LData.widthHint = 97;
+				cLabel2LData.heightHint = 17;
+				lblInvCode.setLayoutData(cLabel2LData);
+				lblInvCode.setText(Messages.getString("InvUICardSearch.1")); //$NON-NLS-1$
+				lblInvCode.setSize(new org.eclipse.swt.graphics.Point(97, 17));
+			}
+			{
+				txtInvCode = new Text(compInvCardSearchPanel, SWT.NONE);
+				GridData txtInvCodeLData = new GridData();
+				txtInvCodeLData.widthHint = 141;
+				txtInvCodeLData.heightHint = 17;
+				txtInvCode.setLayoutData(txtInvCodeLData);
+				txtInvCode.setSize(new org.eclipse.swt.graphics.Point(147, 17));
+			}
 			compInvCardSearchPanelLayout.marginWidth = 5;
 			compInvCardSearchPanelLayout.marginHeight = 5;
 			compInvCardSearchPanelLayout.numColumns = 4;
@@ -238,10 +219,10 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 				}
 			});
 	
-			tableColumnInvName.setText(Messages.getString("InvUICardSearch.0")); //$NON-NLS-1$
+			tableColumnInvName.setText("Stok Kodu"); //$NON-NLS-1$
 			tableColumnInvName.setWidth(115);
 	
-			tableColumnInventoryCode.setText(Messages.getString("InvUICardSearch.1")); //$NON-NLS-1$
+			tableColumnInventoryCode.setText("Stok Adý"); //$NON-NLS-1$
 			tableColumnInventoryCode.setWidth(107);
 	
 			tableColumnAmount.setText(Messages.getString("InvUICardSearch.5")); //$NON-NLS-1$
@@ -313,6 +294,7 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 	tableSearcResults.removeAll();
 	InvBLCardSearch cardSearch = new InvBLCardSearch();
 	List result;
+	this.txtInvName.setFocus();
 	try{
 	if(comboInvGroup.getSelectionIndex()==-1){
 	result = cardSearch.searchCards(txtInvName.getText().trim(),txtInvCode.getText().trim(),null);
@@ -329,7 +311,7 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 	TurqInventoryCard card = (TurqInventoryCard)result.get(i);
 	item = new TableItem(tableSearcResults,SWT.NULL);
 	item.setData(card);
-	item.setText(new String[]{card.getCardName(),card.getCardInventoryCode()});
+	item.setText(new String[]{card.getCardInventoryCode(),card.getCardName()});
 	
 	
 	}
