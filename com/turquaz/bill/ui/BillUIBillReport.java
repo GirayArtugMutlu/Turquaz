@@ -1,5 +1,6 @@
 package com.turquaz.bill.ui;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -109,13 +110,13 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				composite1.setLayout(composite1Layout);
 				{
 					lblCurrentCard = new CLabel(composite1, SWT.NONE);
-					lblCurrentCard.setText("Cari Kart - Ba?lang?ç"); //$NON-NLS-1$
+					lblCurrentCard.setText(Messages.getString("BillUIBillReport.12")); //$NON-NLS-1$
 				}
 				{
 					txtCurCardStart = new CurrentCodePicker(composite1, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
 					GridData txtCurCardStartLData = new GridData();
-					txtCurCardStartLData.widthHint = 150;
+					txtCurCardStartLData.widthHint = 156;
 					txtCurCardStartLData.heightHint = 17;
 					txtCurCardStart.setLayoutData(txtCurCardStartLData);
 				}
@@ -127,7 +128,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				{
 					txtCurCardEnd = new CurrentCodePicker(composite1, SWT.NONE);
 					GridData txtCurCardEndLData = new GridData();
-					txtCurCardEndLData.widthHint = 150;
+					txtCurCardEndLData.widthHint = 156;
 					txtCurCardEndLData.heightHint = 17;
 					txtCurCardEnd.setLayoutData(txtCurCardEndLData);
 				}
@@ -237,8 +238,8 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				{
 					comboBillType = new CCombo(composite1, SWT.NONE);
 					GridData comboConsignmentTypeLData = new GridData();
-					comboBillType.setText("Hepsi"); //$NON-NLS-1$
-					comboConsignmentTypeLData.widthHint = 100;
+					comboBillType.setText(Messages.getString("BillUIBillReport.11")); //$NON-NLS-1$
+					comboConsignmentTypeLData.widthHint = 130;
 					comboConsignmentTypeLData.heightHint = 14;
 					comboBillType.setLayoutData(comboConsignmentTypeLData);
 				}
@@ -427,19 +428,33 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		TurqBill bill;
 		TableItem item;
 		TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
+		BigDecimal total=new BigDecimal(0);
+		BigDecimal VAT=new BigDecimal(0);
+		BigDecimal SpecialVAT=new BigDecimal(0);
+		
 		for(int i=0;i<list.size();i++){
 			
 			bill = (TurqBill)list.get(i);
 			item = new TableItem(tableBills,SWT.NULL);
 			item.setData(bill);
+			BigDecimal transTotal=bill.getTurqBillConsignmentCommon().getTotalAmount();
+			BigDecimal transVAT=bill.getTurqBillConsignmentCommon().getVatAmount();
+			BigDecimal transSpecialVAT=bill.getTurqBillConsignmentCommon().getSpecialVatAmount();
+			total=total.add(transTotal);
+			VAT=VAT.add(transVAT);
+			SpecialVAT=SpecialVAT.add(transSpecialVAT);
 			item.setText(new String[]{DatePicker.formatter.format(bill.getBillsDate()),
 			        			bill.getTurqBillConsignmentCommon().getBillDocumentNo(),
 									bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName(),
-									cf.format(bill.getTurqBillConsignmentCommon().getTotalAmount()),
-									cf.format(bill.getTurqBillConsignmentCommon().getVatAmount()),
-									cf.format(bill.getTurqBillConsignmentCommon().getSpecialVatAmount())});
+									cf.format(transTotal),
+									cf.format(transVAT),
+									cf.format(transSpecialVAT)});
 			
 		}
+		
+		item=new TableItem(tableBills,SWT.NULL);
+		item=new TableItem(tableBills,SWT.NULL);
+		item.setText(new String[]{"","",Messages.getString("BillUIBillReport.14"),cf.format(total),cf.format(VAT),cf.format(SpecialVAT)}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			
 			
 			
@@ -541,20 +556,19 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	
 	
 	
-	public void tableMouseDoubleClick(){
+	public void tableMouseDoubleClick()
+	{
 		TableItem items[] = tableBills.getSelection();
-		if(items.length>0){
-		TurqBill bill = (TurqBill)items[0].getData();
-		initializeBill(bill);
-		boolean updated=new BillUIBillUpdateDialog(this.getShell(),SWT.NULL,bill).open();
-		if (updated)
-			
-			
-			search();
-		    
-		    
-		    
-		   
+		if(items.length>0)
+		{
+			TurqBill bill = (TurqBill)items[0].getData();
+			if (bill!=null)
+			{
+				initializeBill(bill);
+				boolean updated=new BillUIBillUpdateDialog(this.getShell(),SWT.NULL,bill).open();
+				if (updated)
+					search();    		   
+			}
 		}
 	}
 	public void printTable(){

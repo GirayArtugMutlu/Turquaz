@@ -54,7 +54,7 @@ public class BillDALSearchBill {
 		if (curCard!=null){
 		    query +=" and bill.turqBillConsignmentCommon.turqCurrentCard = :curCard"; 
 		}
-		query += " order by bill.billsDate,bill.turqBillConsignmentCommon.billDocumentNo ";
+		query += " order by bill.billsDate, bill.turqBillConsignmentCommon.billDocumentNo";
 		
 		Query q = session.createQuery(query); 	
 		
@@ -92,27 +92,72 @@ public class BillDALSearchBill {
 				" where" +
 				" bill.billsDate >= :startDate" +
 				" and bill.billsDate <= :endDate" +
-				" and bill.billsId <> -1 ";
+				" and bill.billsId <> -1 "+
+				" and bill.dueDate >= :dueDateStart"+
+				" and bill.dueDate <= :dueDateEnd";
 		
-			
-		//" and bill.turqBillConsignmentCommon.billDocumentNo like '"+docNoStart+"%'";
+		if (curCardStart != null && curCardEnd != null)
+		{
+			query +=" and bill.turqBillConsignmentCommon.turqCurrentCard.cardsCurrentCode >= '"+curCardStart.getCardsCurrentCode()+"'";
+			query +=" and bill.turqBillConsignmentCommon.turqCurrentCard.cardsCurrentCode <= '"+curCardEnd.getCardsCurrentCode()+"'";
+		}
+		else if (curCardStart != null)
+		{
+			query +=" and bill.turqBillConsignmentCommon.turqCurrentCard = :curCardStart";
+		}
+		else if (curCardEnd != null)
+		{
+			query +=" and bill.turqBillConsignmentCommon.turqCurrentCard = :curCardEnd";
+		}
+		
+		if (minValue.doubleValue() > 0)
+		{
+			query +=" and bill.turqBillConsignmentCommon.totalAmount >="+minValue;
+		}
+		
+		if (maxValue.doubleValue() > 0)
+		{
+			query +=" and bill.turqBillConsignmentCommon.totalAmount <="+maxValue;
+		}
+		
+		if (!docNoStart.equals("") && !docNoEnd.equals(""))
+		{
+			query+=" and bill.turqBillConsignmentCommon.billDocumentNo >= '"+docNoStart+"'";
+			query+=" and bill.turqBillConsignmentCommon.billDocumentNo <= '"+docNoEnd+"'";
+		}
+		else if (!docNoStart.equals(""))
+		{
+			query+=" and bill.turqBillConsignmentCommon.billDocumentNo like '"+docNoStart+"%'";
+		}
+		else if (!docNoEnd.equals(""))
+		{
+			query+=" and bill.turqBillConsignmentCommon.billDocumentNo like '"+docNoEnd+"%'";
+		}
+		
 		if (type != 2)
 		{
 			query +=" and bill.billsType ="+type;
 		}
 		
-		if (curCardStart!=null){
-		    query +=" and bill.turqBillConsignmentCommon.turqCurrentCard = :curCard"; 
-		}
 		query += " order by bill.billsDate";
 		
 		Query q = session.createQuery(query); 	
 		
 		q.setParameter("startDate",startDate);
 		q.setParameter("endDate",endDate);
+		q.setParameter("dueDateEnd",dueDateEnd);
+		q.setParameter("dueDateStart",dueDateStart);
 		
-		if (curCardStart!=null){
-			q.setParameter("curCard",curCardStart);
+		if (curCardStart != null && curCardEnd != null)
+		{			
+		}
+		else if (curCardStart!=null)
+		{
+			q.setParameter("curCardStart",curCardStart);
+		}
+		else if (curCardEnd != null)
+		{
+			q.setParameter("curCardEnd",curCardEnd);
 		}
 		
 		
