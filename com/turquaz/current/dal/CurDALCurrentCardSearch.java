@@ -139,7 +139,8 @@ public class CurDALCurrentCardSearch {
 	    try{
 	        
 	        Session session = EngDALSessionFactory.openSession();
-	        String query = "Select curCard.cardsCurrentCode, curCard.cardsName from TurqCurrentCard as curCard" ;
+	        String query = "Select curCard.cardsCurrentCode, curCard.cardsName from TurqCurrentCard as curCard " +
+	        		" where curCard.currentCardsId <> -1" ;
 		 
 	        Query q = session.createQuery(query);
 	        

@@ -46,7 +46,7 @@ public class TurquazContentAssistProcessors implements
     /**
      * 0 -accounting 1- inventory 2-accounting leaves 3 customers
      *  
-     */
+    */
     public void fillProposalArray(int type) {
         try {
             List proposed = new ArrayList();
@@ -85,13 +85,16 @@ public class TurquazContentAssistProcessors implements
            		
                 List list = EngBLCurrentCards.getCurrentCards();
 
+                
                 for (int i = 0; i < list.size(); i++) {
                     Object[] result = ((Object[]) list.get(i));
                     
-                    proposed.add(new Proposal(result[0].toString(),result[1].toString()));
+                    proposed.add(new Proposal(result[1].toString()+" {"+result[0].toString()+"}",null));
+                
                 }
 
             }
+           
            else if(type==EngBLCommon.CONTENT_ASSIST_CASH){
                
                List list = EngBLCashCards.getCashCards();
@@ -220,9 +223,15 @@ public class TurquazContentAssistProcessors implements
                 int cursor = startTag.length();
 
                 // Construct proposal
-
-                CompletionProposal proposal = new CompletionProposal(text,
+                CompletionProposal proposal=null;
+ 
+                if(info!=null){
+                proposal= new CompletionProposal(text,
                         documentOffset - qlen, qlen, cursor,null,text+" - "+info,null,null);
+                }
+                else{
+                    proposal= new CompletionProposal(text,documentOffset - qlen, qlen, cursor);
+                }
 
                 // and add to result list
                 propList.add(proposal);

@@ -30,6 +30,7 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant{
         this.setContentAssistProcessor(processor,
                 IDocument.DEFAULT_CONTENT_TYPE);
         this.enableAutoActivation(true);
+        this.enableAutoInsert(true);
         this.setAutoActivationDelay(500);
 
         this.setContextInformationPopupOrientation(IContentAssistant.CONTEXT_INFO_ABOVE);

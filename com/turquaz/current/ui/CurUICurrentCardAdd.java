@@ -355,13 +355,13 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	/**
 	 * @return Returns the txtCurrentCode.
 	 */
-	public CurrentPicker getTxtCurrentCode() {
+	public Text getTxtCurrentCode() {
 		return txtCurrentCode;
 	}
 	/**
 	 * @param txtCurrentCode The txtCurrentCode to set.
 	 */
-	public void setTxtCurrentCode(CurrentPicker txtCurrentCode) {
+	public void setTxtCurrentCode(Text txtCurrentCode) {
 		this.txtCurrentCode = txtCurrentCode;
 	}
 	/**
@@ -459,7 +459,7 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	private CLabel lblCardDefinition;
 	private Text txtCurrentName;
 	private CLabel lblCurrentName;
-	private CurrentPicker txtCurrentCode;
+	private Text txtCurrentCode;
 	private CLabel lblCurrentCode;
 	private Composite compCurrentGroups;
 	private Composite compCurrentContactInfo;
@@ -550,7 +550,7 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 						.getString("CurUICurrentCardAdd.1")); //$NON-NLS-1$
 				}
 				{
-					txtCurrentCode = new CurrentPicker(compCurrentGeneralInfo, SWT.NONE);
+					txtCurrentCode = new Text(compCurrentGeneralInfo, SWT.NONE);
 					GridData txtCurrentCodeLData = new GridData();
 					txtCurrentCodeLData.widthHint = 148;
 					txtCurrentCodeLData.heightHint = 17;
@@ -1163,8 +1163,6 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	public void preInitGUI(){
 	}
 	
-	TurquazContentAssistant assistant;
-	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
 	fillGroups();
 	accPickerCustomer.setFilter("120"); //$NON-NLS-1$
@@ -1328,7 +1326,6 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	savePhones(cardId);
 	saveContact(cardId);
 	saveGroups(cardId);
-	assistant.refreshContentAssistant(3);
 	EngBLCurrentCards.RefreshContentAsistantMap();
 	MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
 	msg.setMessage(Messages.getString("CurUICurrentCardAdd.14")); //$NON-NLS-1$

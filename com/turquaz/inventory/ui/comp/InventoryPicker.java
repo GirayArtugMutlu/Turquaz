@@ -130,11 +130,12 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite {
 	public void preInitGUI(){
 	}
 
+	public TurquazContentAssistant asistant;
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
 	    TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(text1);
 	    
-	 	final SubjectControlContentAssistant asistant= new TurquazContentAssistant(adapter,EngBLCommon.CONTENT_ASSIST_INVENTORY);
+	    asistant= new TurquazContentAssistant(adapter,EngBLCommon.CONTENT_ASSIST_INVENTORY);
 	   
 	     adapter.appendVerifyKeyListener(
 	             new VerifyKeyListener() {

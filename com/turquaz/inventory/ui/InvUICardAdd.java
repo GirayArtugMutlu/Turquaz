@@ -297,8 +297,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	public InvUIPriceList priceList;
 
-	TurquazContentAssistant asistant;
-
 	InvBLCardAdd blCardAdd = new InvBLCardAdd();
 
 	EngBLCommon engCardAdd = new EngBLCommon();
@@ -1779,10 +1777,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				saveInvUnits(cardId);
 
 				// Save the price list now.
-				saveInvPrices(cardId);
-				asistant.refreshContentAssistant(1);
-				EngBLInventoryCards.RefreshContentAsistantMap();
-				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+
+		        saveInvPrices(cardId);
+		        txtInvCardCode.asistant.refreshContentAssistant(1);
+		        EngBLInventoryCards.RefreshContentAsistantMap();
+		    	MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
+
 				msg.setMessage(Messages.getString("InvUICardAdd.36")); //$NON-NLS-1$
 				msg.open();
 
