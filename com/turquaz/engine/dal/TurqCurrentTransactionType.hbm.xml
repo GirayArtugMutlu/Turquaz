@@ -72,6 +72,20 @@
     >
         <column name="companies_id" />
     </many-to-one>
+    <!-- bi-directional one-to-many association to TurqCurrentTransaction -->
+    <set
+        name="turqCurrentTransactions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="current_transaction_types_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrentTransaction"
+        />
+    </set>
 
 </class>
 </hibernate-mapping>

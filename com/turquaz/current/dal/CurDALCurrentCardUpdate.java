@@ -13,6 +13,8 @@ import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
 /**
  * @author Ceday
@@ -77,6 +79,32 @@ public class CurDALCurrentCardUpdate {
 					
 		}
 		catch (Exception ex){
+			throw ex;
+		}
+	}
+	public List getCurrentTransactionBalances(TurqCurrentTransactionType type,TurqCurrentCard card)throws Exception{
+		try{
+			
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			String query = "select sum(trans.transactionsTotalDept),sum(trans.transactionsTotalCredit)" +
+					" from TurqCurrentTransaction as trans " +
+					"where trans.turqCurrentCard = :curCard and trans.turqCurrentTransactionType = :transType ";
+			Query q = session.createQuery(query);
+			q.setParameter("transType",type);
+			q.setParameter("curCard",card);
+			
+			List list= q.list();
+			tx.commit();
+			session.close();
+			
+			return list;
+			
+			
+			
+			
+		}
+		catch(Exception ex){
 			throw ex;
 		}
 	}

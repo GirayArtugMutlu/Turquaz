@@ -40,13 +40,6 @@
         not-null="true"
     />
     <property
-        name="currentTransactionTypesId"
-        type="int"
-        column="current_transaction_types_id"
-        not-null="true"
-        length="4"
-    />
-    <property
         name="transactionsTotalCredit"
         type="java.math.BigDecimal"
         column="transactions_total_credit"
@@ -133,6 +126,14 @@
         not-null="true"
     >
         <column name="currencies_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqCurrentTransactionType -->
+    <many-to-one
+        name="turqCurrentTransactionType"
+        class="com.turquaz.engine.dal.TurqCurrentTransactionType"
+        not-null="true"
+    >
+        <column name="current_transaction_types_id" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqCurrentCard -->
     <many-to-one

@@ -1,4 +1,4 @@
 <tree>
-  <treeitem text="Card Search" class="com.turquaz.inventory.ui.InvUICardSearch" />
-
+<treeitem text="Current Card Add" class="com.turquaz.current.ui.CurUICurrentCardAdd"  >
+</treeitem>
 </tree>

@@ -1,6 +1,7 @@
 package com.turquaz.engine.dal;
 
 import java.io.Serializable;
+import java.util.Set;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -29,14 +30,18 @@ public class TurqCurrentTransactionType implements Serializable {
     /** persistent field */
     private com.turquaz.engine.dal.TurqCompany turqCompany;
 
+    /** persistent field */
+    private Set turqCurrentTransactions;
+
     /** full constructor */
-    public TurqCurrentTransactionType(java.lang.String transactionTypeName, java.lang.String createdBy, java.lang.String updatedBy, java.util.Date creationDate, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany) {
+    public TurqCurrentTransactionType(java.lang.String transactionTypeName, java.lang.String createdBy, java.lang.String updatedBy, java.util.Date creationDate, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqCurrentTransactions) {
         this.transactionTypeName = transactionTypeName;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
         this.creationDate = creationDate;
         this.lastModified = lastModified;
         this.turqCompany = turqCompany;
+        this.turqCurrentTransactions = turqCurrentTransactions;
     }
 
     /** default constructor */
@@ -97,6 +102,14 @@ public class TurqCurrentTransactionType implements Serializable {
 
     public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
         this.turqCompany = turqCompany;
+    }
+
+    public java.util.Set getTurqCurrentTransactions() {
+        return this.turqCurrentTransactions;
+    }
+
+    public void setTurqCurrentTransactions(java.util.Set turqCurrentTransactions) {
+        this.turqCurrentTransactions = turqCurrentTransactions;
     }
 
     public String toString() {

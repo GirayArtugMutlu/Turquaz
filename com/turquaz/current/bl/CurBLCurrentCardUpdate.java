@@ -18,6 +18,7 @@ import com.turquaz.engine.dal.TurqCurrentCardsGroup;
 import com.turquaz.engine.dal.TurqCurrentCardsPhone;
 import com.turquaz.engine.dal.TurqCurrentContact;
 import com.turquaz.engine.dal.TurqCurrentGroup;
+import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
 /**
  * @author Ceday
@@ -143,8 +144,23 @@ public class CurBLCurrentCardUpdate {
 		contact.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 		contact.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 		currentUpdate.saveObject(contact);
+	}
+	
+	public List getCurrentTransactionBalances(TurqCurrentCard curCard, int type)throws Exception{
+	
+		try{
+		TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
+		transType.setCurrentTransactionTypesId(new Integer(type));
+		
+		return currentUpdate.getCurrentTransactionBalances(transType,curCard);
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
 		
 	}
+	
 	public void deleteObject(Object obj) throws Exception{
  		try{
 			

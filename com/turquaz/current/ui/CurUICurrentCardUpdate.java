@@ -1,5 +1,6 @@
 package com.turquaz.current.ui;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -23,6 +24,7 @@ import com.turquaz.engine.dal.TurqCurrentCardsGroup;
 import com.turquaz.engine.dal.TurqCurrentCardsPhone;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.CoolItem;
@@ -32,6 +34,18 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormAttachment;
 import com.turquaz.engine.dal.TurqCurrentContact;
 
 /**
@@ -42,12 +56,22 @@ import com.turquaz.engine.dal.TurqCurrentContact;
 * a license - please visit www.cloudgarden.com for details.
 */
 public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
+	private TableColumn tableColumnBalanceDept;
+	private TableColumn tableColumnBalanceCredit;
+	private TableColumn tableColumnTotalDept;
+	private TableColumn tableColumnTotalCredit;
+	private TableColumn tableColumnTransactionType;
+	private Table tableCurrentBalances;
+	private Composite composite1;
+	private CTabItem cTabItem2;
+	private CurUICurrentCardAdd compCurCardAdd;
+	private CTabItem cTabItem1;
+	private CTabFolder cTabFolder1;
 	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
 	private ToolBar toolBar1;
 	private CoolItem coolItem1;
 	private CoolBar coolBar1;
-	private CurUICurrentCardAdd compCurCardAdd;
 	private Shell dialogShell;
 	private TurqCurrentCard currentCard;
 	private CurBLCurrentCardUpdate currentUpdate=new CurBLCurrentCardUpdate();
@@ -74,9 +98,19 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			toolBar1 = new ToolBar(coolBar1,SWT.NULL);
 			toolUpdate = new ToolItem(toolBar1,SWT.NULL);
 			toolDelete = new ToolItem(toolBar1,SWT.NULL);
-			compCurCardAdd = new CurUICurrentCardAdd(dialogShell,SWT.NULL);
+			cTabFolder1 = new CTabFolder(dialogShell,SWT.NULL);
+			cTabItem1 = new CTabItem(cTabFolder1,SWT.NULL);
+			compCurCardAdd = new CurUICurrentCardAdd(cTabFolder1,SWT.NULL);
+			cTabItem2 = new CTabItem(cTabFolder1,SWT.NULL);
+			composite1 = new Composite(cTabFolder1,SWT.NULL);
+			tableCurrentBalances = new Table(composite1,SWT.NULL);
+			tableColumnTransactionType = new TableColumn(tableCurrentBalances,SWT.NULL);
+			tableColumnTotalCredit = new TableColumn(tableCurrentBalances,SWT.NULL);
+			tableColumnTotalDept = new TableColumn(tableCurrentBalances,SWT.NULL);
+			tableColumnBalanceCredit = new TableColumn(tableCurrentBalances,SWT.NULL);
+			tableColumnBalanceDept = new TableColumn(tableCurrentBalances,SWT.NULL);
 	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(600,434));
+			dialogShell.setSize(new org.eclipse.swt.graphics.Point(713,497));
 	
 			GridData coolBar1LData = new GridData();
 			coolBar1LData.verticalAlignment = GridData.CENTER;
@@ -96,30 +130,82 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 	
 			toolUpdate.setText("Update");
+			final org.eclipse.swt.graphics.Image toolUpdateimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
+			toolUpdate.setImage(toolUpdateimage);
 	
 			toolDelete.setText("Delete");
-			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			toolDelete.setImage(toolDeleteýmage);
+			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setImage(toolDeleteimage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
 				}
 			});
 	
-			GridData compCurCardAddLData = new GridData();
-			compCurCardAddLData.verticalAlignment = GridData.FILL;
-			compCurCardAddLData.horizontalAlignment = GridData.FILL;
-			compCurCardAddLData.widthHint = -1;
-			compCurCardAddLData.heightHint = -1;
-			compCurCardAddLData.horizontalIndent = 0;
-			compCurCardAddLData.horizontalSpan = 1;
-			compCurCardAddLData.verticalSpan = 1;
-			compCurCardAddLData.grabExcessHorizontalSpace = true;
-			compCurCardAddLData.grabExcessVerticalSpace = true;
-			compCurCardAdd.setLayoutData(compCurCardAddLData);
-			compCurCardAdd.setSize(new org.eclipse.swt.graphics.Point(590,381));
+			GridData cTabFolder1LData = new GridData();
+			cTabFolder1LData.verticalAlignment = GridData.FILL;
+			cTabFolder1LData.horizontalAlignment = GridData.FILL;
+			cTabFolder1LData.widthHint = -1;
+			cTabFolder1LData.heightHint = -1;
+			cTabFolder1LData.horizontalIndent = 0;
+			cTabFolder1LData.horizontalSpan = 1;
+			cTabFolder1LData.verticalSpan = 1;
+			cTabFolder1LData.grabExcessHorizontalSpace = true;
+			cTabFolder1LData.grabExcessVerticalSpace = true;
+			cTabFolder1.setLayoutData(cTabFolder1LData);
+			cTabFolder1.setSize(new org.eclipse.swt.graphics.Point(699,439));
+	
+			cTabItem1.setControl(compCurCardAdd);
+			cTabItem1.setText("Card Information");
+	
+			compCurCardAdd.setSize(new org.eclipse.swt.graphics.Point(699,422));
 			compCurCardAdd.setEnabled(true);
 			compCurCardAdd.layout();
+	
+			cTabItem2.setControl(composite1);
+			cTabItem2.setText("Card Balances");
+	
+			composite1.setSize(new org.eclipse.swt.graphics.Point(699,422));
+	
+			GridData tableCurrentBalancesLData = new GridData();
+			tableCurrentBalancesLData.verticalAlignment = GridData.BEGINNING;
+			tableCurrentBalancesLData.horizontalAlignment = GridData.FILL;
+			tableCurrentBalancesLData.widthHint = -1;
+			tableCurrentBalancesLData.heightHint = 198;
+			tableCurrentBalancesLData.horizontalIndent = 0;
+			tableCurrentBalancesLData.horizontalSpan = 2;
+			tableCurrentBalancesLData.verticalSpan = 1;
+			tableCurrentBalancesLData.grabExcessHorizontalSpace = true;
+			tableCurrentBalancesLData.grabExcessVerticalSpace = false;
+			tableCurrentBalances.setLayoutData(tableCurrentBalancesLData);
+			tableCurrentBalances.setHeaderVisible(true);
+			tableCurrentBalances.setLinesVisible(true);
+			tableCurrentBalances.setSize(new org.eclipse.swt.graphics.Point(673,198));
+	
+			tableColumnTransactionType.setText("Transaction Type");
+			tableColumnTransactionType.setWidth(134);
+	
+			tableColumnTotalCredit.setText("Credit");
+			tableColumnTotalCredit.setWidth(132);
+	
+			tableColumnTotalDept.setText("Dept");
+			tableColumnTotalDept.setWidth(109);
+	
+			tableColumnBalanceCredit.setText("Balance Credit");
+			tableColumnBalanceCredit.setWidth(137);
+	
+			tableColumnBalanceDept.setText("Balance Dept");
+			tableColumnBalanceDept.setWidth(131);
+			GridLayout composite1Layout = new GridLayout(2, true);
+			composite1.setLayout(composite1Layout);
+			composite1Layout.marginWidth = 5;
+			composite1Layout.marginHeight = 5;
+			composite1Layout.numColumns = 2;
+			composite1Layout.makeColumnsEqualWidth = false;
+			composite1Layout.horizontalSpacing = 5;
+			composite1Layout.verticalSpacing = 5;
+			composite1.layout();
+			cTabFolder1.setSelection(0);
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.marginWidth = 5;
@@ -131,10 +217,11 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					toolDeleteýmage.dispose();
+					toolUpdateimage.dispose();
+					toolDeleteimage.dispose();
 				}
 			});
-			Rectangle bounds = dialogShell.computeTrim(0, 0, 600,434);
+			Rectangle bounds = dialogShell.computeTrim(0, 0, 713,497);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
 			dialogShell.open();
@@ -210,7 +297,9 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			
 			compCurCardAdd.getAccPickerCustomer().setData(currentCard.getTurqAccountingAccountByAccountingCodeIdCustomer());
 			compCurCardAdd.getAccPickerSupplierAccCode().setData(currentCard.getTurqAccountingAccountByAccountingCodeIdSupplier());
-	
+	       
+	       
+	        fillCurrentBalances();
 			
 		}
 		catch(Exception ex){
@@ -222,6 +311,68 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 		}
 		
 		
+	}
+	
+	public void fillCurrentBalances()throws Exception{
+	try{
+		TableItem item;
+	
+		
+	String type[] = new String[5];
+	type[0]="Bill"; 
+	type[1]="Cheque";
+	type[2]="TradeBill";
+	type[3]="Cash";
+	type[4]="Bank Note";
+	
+	BigDecimal totalCredit = new BigDecimal(0);
+	BigDecimal totalDept = new BigDecimal(0);
+	
+	
+	for(int i=1;i<6;i++){
+	
+	Object sums[]=(Object [])currentUpdate.getCurrentTransactionBalances(currentCard,i).get(0);
+    
+    item = new TableItem(tableCurrentBalances,SWT.NULL);
+    BigDecimal credit;
+    BigDecimal debt;
+    
+	if(sums[0]!=null){
+	
+		credit =(BigDecimal)sums[1];
+		debt = (BigDecimal)sums[0];
+	  totalCredit = totalCredit.add(credit);
+	  totalDept = totalDept.add(debt);
+	  
+	  if(credit.compareTo(debt)==1){
+	   	
+	  item.setText(new String[]{type[i-1],credit.toString(),debt.toString(),credit.subtract(debt).toString(),"0"});
+	  	
+	  }
+	  else {
+	  	item.setText(new String[]{type[i-1],credit.toString(),debt.toString(),"0",debt.subtract(credit).toString()});
+	  	
+	  }
+	  
+	  
+	  
+	
+	}
+	else {
+		
+		item.setText(new String[]{type[i-1],"0","0","0","0"});	
+	}
+	
+	}
+		
+	}
+	catch(Exception ex){
+	
+	throw ex;
+	
+	}
+	
+	
 	}
 
 	/** Auto-generated main method */

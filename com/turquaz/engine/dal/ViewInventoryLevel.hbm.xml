@@ -18,6 +18,12 @@
 
     <composite-id>
         <key-property 
+            name="inventoryCardsId" 
+            column="inventory_cards_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
             name="amount" 
             column="amount" 
             type="java.math.BigDecimal"
