@@ -419,12 +419,13 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 		  
 		  double _vat = (double)vat/100;
 		  double _specialVat = (double)specialVat/100;
-		  BigDecimal VATAmount = totalPrice.multiply(new BigDecimal(_vat));
+		  System.out.println(_vat);
+		  BigDecimal VATAmount = totalPrice.multiply(new BigDecimal(_vat+""));
           
 		   BigDecimal specialVATAmount = new BigDecimal(0);
 		  if(btnSpecialVat.getSelection()){
 		  	
-		  	specialVATAmount = totalPrice.multiply(new BigDecimal(_specialVat));
+		  	specialVATAmount = totalPrice.multiply(new BigDecimal(_specialVat+""));
 		    invTrans.setTransactionsVatSpecialEach(new BigDecimal(0));
 		    invTrans.setTransactionsVatSpecial(new BigDecimal(specialVat));
 		  	

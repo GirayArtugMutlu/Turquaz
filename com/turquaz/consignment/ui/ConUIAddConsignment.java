@@ -314,9 +314,7 @@ implements SecureComposite{
 							}
 						}
 						{
-							tableConsignmentRows = new Table(
-								compGeneral,
-								SWT.BORDER);
+							tableConsignmentRows = new Table(compGeneral, SWT.SINGLE | SWT.FULL_SELECTION | SWT.BORDER);
 							GridData tableConsignmentRowsLData = new GridData();
 							tableConsignmentRows.setLinesVisible(true);
 							tableConsignmentRows.setHeaderVisible(true);
