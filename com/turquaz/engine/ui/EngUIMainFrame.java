@@ -299,7 +299,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			tabModules.setControl(compModulesTab);
 			tabModules.setText(Messages.getString("EngUIMainFrame.2")); //$NON-NLS-1$
-			tabModules.setImage(SWTResourceManager.getImage("icons/Process16.gif"));
+			tabModules.setImage(SWTResourceManager.getImage("icons/Process16.gif")); //$NON-NLS-1$
 
 			compModulesTab.setSize(new org.eclipse.swt.graphics.Point(386,549));
 	
@@ -462,7 +462,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			tabFavorites.setControl(compFavoritesTab);
 			tabFavorites.setText(Messages.getString("EngUIMainFrame.5")); //$NON-NLS-1$
-			tabFavorites.setImage(SWTResourceManager.getImage("icons/favorites.gif"));
+			tabFavorites.setImage(SWTResourceManager.getImage("icons/favorites.gif")); //$NON-NLS-1$
 
 			GridData compFavoritesSelectionLData = new GridData();
 			compFavoritesSelectionLData.verticalAlignment = GridData.CENTER;
@@ -579,7 +579,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			toolSave.setText(Messages.getString("EngUIMainFrame.11")); //$NON-NLS-1$
 			toolSave.setToolTipText(Messages.getString("EngUIMainFrame.12")); //$NON-NLS-1$
-			toolSave.setImage(SWTResourceManager.getImage("icons/save.gif")); //$NON-NLS-1$
+			toolSave.setImage(SWTResourceManager.getImage("icons/save.jpg")); //$NON-NLS-1$
 			toolSave.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolSaveWidgetSelected(evt);
@@ -597,12 +597,12 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			toolSearch.setText(Messages.getString("EngUIMainFrame.17")); //$NON-NLS-1$
 			toolSearch.setToolTipText(Messages.getString("EngUIMainFrame.18")); //$NON-NLS-1$
-			toolSearch.setImage(SWTResourceManager.getImage("icons/run_exec.gif")); //$NON-NLS-1$
+			toolSearch.setImage(SWTResourceManager.getImage("icons/search.jpg")); //$NON-NLS-1$
 			toolSearch.setSelection(true);
 			{
 				toolExportToExcel = new ToolItem(toolbarMainTop, SWT.NONE);
-				toolExportToExcel.setText("Export");
-				toolExportToExcel.setImage(SWTResourceManager.getImage("icons/excel.jpeg"));
+				toolExportToExcel.setText(Messages.getString("EngUIMainFrame.10")); //$NON-NLS-1$
+				toolExportToExcel.setImage(SWTResourceManager.getImage("icons/excel.jpeg")); //$NON-NLS-1$
 				toolExportToExcel.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent evt) {
 						exportToExcel();
