@@ -279,7 +279,7 @@ public class CurUICurrentCardCreditVoucher extends org.eclipse.swt.widgets.Compo
 
 	public void newForm()
 	{
-		CurUICurrentCardVoucher curCard = new CurUICurrentCardVoucher(this.getParent(), this.getStyle());
+		CurUICurrentCardCreditVoucher curCard = new CurUICurrentCardCreditVoucher(this.getParent(), this.getStyle());
 		CTabFolder tabfld = (CTabFolder) this.getParent();
 		tabfld.getSelection().setControl(curCard);
 		this.dispose();
