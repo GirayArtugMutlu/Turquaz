@@ -24,6 +24,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.text.TabExpander;
+
 import org.eclipse.swt.layout.GridLayout;
 
 import com.turquaz.cash.Messages;
@@ -219,7 +221,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
      if(verifyFields())
      {
      try{
-        
+      tableCashTrans.removeAll();
       TurkishCurrencyFormat cf = new TurkishCurrencyFormat();   
       TableItem item = new TableItem(tableCashTrans,SWT.NULL);   
       

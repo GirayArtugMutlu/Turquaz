@@ -204,7 +204,7 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
      if(verifyFields())
      {
      try{
-        
+     tableCashTrans.removeAll();
       TurkishCurrencyFormat cf = new TurkishCurrencyFormat();   
       TableItem item = new TableItem(tableCashTrans,SWT.NULL);   
       
