@@ -431,11 +431,10 @@ implements SecureComposite{
 							{
 								txtCurrentCard = new CurrentPicker(compInfoPanel, SWT.NONE);
 								GridData txtCurrentCardLData = new GridData();
-								
-								txtCurrentCard.setSize(183, 16);
+
 								txtCurrentCard.setBackground(SWTResourceManager.getColor(255,255,255));
-								txtCurrentCardLData.widthHint = 177;
-								txtCurrentCardLData.heightHint = 16;
+								txtCurrentCardLData.widthHint = 198;
+								txtCurrentCardLData.heightHint = 15;
 								txtCurrentCard.setLayoutData(txtCurrentCardLData);
 							}
 							{

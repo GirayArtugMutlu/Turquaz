@@ -487,8 +487,8 @@ public class BillUIAddBuyBill extends Composite
                                 GridData txtCurrentCardLData = new GridData();
                                
                                 txtCurrentCard.setBackground(SWTResourceManager.getColor(255,255,255));
-                                txtCurrentCardLData.widthHint = 114;
-                                txtCurrentCardLData.heightHint = 14;
+                                txtCurrentCardLData.widthHint = 219;
+                                txtCurrentCardLData.heightHint = 15;
                                 txtCurrentCard.setLayoutData(txtCurrentCardLData);
                             }
                             {
