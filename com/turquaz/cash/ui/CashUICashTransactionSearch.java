@@ -16,10 +16,10 @@ import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
+import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
@@ -125,7 +125,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
                 compSearchPanel.setLayout(compSearchPanelLayout);
                 {
                     lblCashCard = new CLabel(compSearchPanel, SWT.NONE);
-                    lblCashCard.setText("Kasa Kart?");
+                    lblCashCard.setText(Messages.getString("CashUICashTransactionSearch.0")); //$NON-NLS-1$
                     GridData lblCashCardLData = new GridData();
                     lblCashCardLData.widthHint = 59;
                     lblCashCardLData.heightHint = 18;
@@ -154,7 +154,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
                 }
                 {
                     lblStartDate = new CLabel(compSearchPanel, SWT.NONE);
-                    lblStartDate.setText("Ba?lang?ç Tarihi");
+                    lblStartDate.setText(Messages.getString("CashUICashTransactionSearch.1")); //$NON-NLS-1$
                 }
                 {
                     datePickerStart = new DatePicker(compSearchPanel, SWT.NONE);
@@ -165,7 +165,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
                 }
                 {
                     lblEndDate = new CLabel(compSearchPanel, SWT.NONE);
-                    lblEndDate.setText("Biti? Tarihi");
+                    lblEndDate.setText(Messages.getString("CashUICashTransactionSearch.2")); //$NON-NLS-1$
                 }
                 {
                     datePickerEnd = new DatePicker(compSearchPanel, SWT.NONE);
@@ -195,27 +195,27 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
                     tableColumnDate = new TableColumn(
                         tableCashTransactions,
                         SWT.NONE);
-                    tableColumnDate.setText("Tarih");
+                    tableColumnDate.setText(Messages.getString("CashUICashTransactionSearch.3")); //$NON-NLS-1$
                     tableColumnDate.setWidth(95);
                 }
                 {
                     tableColumnCashCard = new TableColumn(
                         tableCashTransactions,
                         SWT.NONE);
-                    tableColumnCashCard.setText("Kasa Kart?");
+                    tableColumnCashCard.setText(Messages.getString("CashUICashTransactionSearch.4")); //$NON-NLS-1$
                     tableColumnCashCard.setWidth(100);
                 }
                 {
                     tableColumnType = new TableColumn(
                         tableCashTransactions,
                         SWT.NONE);
-                    tableColumnType.setText("Tipi");
+                    tableColumnType.setText(Messages.getString("CashUICashTransactionSearch.5")); //$NON-NLS-1$
                     tableColumnType.setWidth(95);
                 }
                 {
                     tableColumnTotal = new TableColumn(tableCashTransactions, SWT.RIGHT);
                     tableColumnTotal.setWidth(103);
-                    tableColumnTotal.setText("Tutar?");
+                    tableColumnTotal.setText(Messages.getString("CashUICashTransactionSearch.6")); //$NON-NLS-1$
                 }
             }
             postInitGUI();

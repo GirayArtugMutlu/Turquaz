@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Iterator;
 import org.eclipse.swt.layout.GridLayout;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
@@ -86,13 +87,13 @@ public class CashUICashCollectTransactionUpdate extends Dialog {
                         coolItem1.setControl(toolBar1);
                         {
                             toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-                            toolUpdate.setText("Güncelle");
-                            toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+                            toolUpdate.setText(Messages.getString("CashUICashCollectTransactionUpdate.0")); //$NON-NLS-1$
+                            toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
                         }
                         {
                             tooldelete = new ToolItem(toolBar1, SWT.NONE);
-                            tooldelete.setText("Sil");
-                            tooldelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
+                            tooldelete.setText(Messages.getString("CashUICashCollectTransactionUpdate.2")); //$NON-NLS-1$
+                            tooldelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
                             tooldelete
                                 .addSelectionListener(new SelectionAdapter() {
                                 public void widgetSelected(SelectionEvent evt) {
@@ -103,8 +104,8 @@ public class CashUICashCollectTransactionUpdate extends Dialog {
                         }
                         {
                             toolCancel = new ToolItem(toolBar1, SWT.NONE);
-                            toolCancel.setText("?ptal");
-                            toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg"));
+                            toolCancel.setText(Messages.getString("CashUICashCollectTransactionUpdate.4")); //$NON-NLS-1$
+                            toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
                             toolCancel
                                 .addSelectionListener(new SelectionAdapter() {
                                 public void widgetSelected(SelectionEvent evt) {
