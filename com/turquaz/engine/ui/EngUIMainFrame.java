@@ -23,6 +23,7 @@ package com.turquaz.engine.ui;
 
 import java.io.FileOutputStream;
 import java.io.OutputStream; 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -165,6 +166,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private Menu menuMain;
 	Menu popupTreeAddFavorites;
 	Menu popupTreeRemoveFavorites;
+	static Map mapList = new HashMap();
 
 	public EngUIMainFrame(Composite parent, int style) {
 		super(parent, style);
@@ -997,6 +999,13 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 	public static void openNewTab (String Name, String classname){
 		
+				if (mapList.containsKey(classname))
+				{
+					//if the tab is already open
+					tabfldMain.setSelection((CTabItem)mapList.get(classname));
+				}
+				else
+				{	
 				CTabItem yeni = new CTabItem (tabfldMain,SWT.NULL );
 				yeni.setText(Name);
 			    try{
@@ -1007,10 +1016,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				yeni.setControl(comp);
 				tabfldMain.setSelection(yeni);
 				arrangeIcons();
+				
+				// put into the tab hashmap 
+				mapList.put(classname,yeni);
 			    }
 			    catch(Exception ex){
 			    	ex.printStackTrace();
 			    }
+				}
 				
 				//Button tus = new Button(tabfldMain,1);
 				//Form.setParent(tabfldMain); 
@@ -1019,6 +1032,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 					
 	}
 	public void openNewTab(TreeItem item){
+		// if the class name is set
 		
 		if(item.getData()!=null){
 		openNewTab(item.getText(),item.getData().toString());	
@@ -1148,6 +1162,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			toolSearch.setEnabled(false);
 			toolExportToExcel.setEnabled(false);
 		}
+		mapList.remove(((CTabItem)evt.item).getControl().getClass().getName());
+		
+		//System.out.println(evt.getSource());
 	}
 
 	
