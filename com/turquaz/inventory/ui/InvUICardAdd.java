@@ -69,10 +69,13 @@ import java.util.regex.Pattern;
 */
 public class InvUICardAdd extends SecureComposite {
 
-	private TableItem tableItem1;
+	private Button button1;
+	private Button button2;
+	private TableColumn tableColumn3;
+	private Table table2;
+	private Composite composite2;
 	private TableColumn tableColumn2;
 	private TableColumn tableColumn1;
-	private Button button1;
 	private Table table1;
 	private Composite composite1;
 	private CLabel cLabel8;
@@ -119,11 +122,14 @@ public class InvUICardAdd extends SecureComposite {
 			text5 = new Text(this,SWT.MULTI| SWT.WRAP| SWT.H_SCROLL| SWT.V_SCROLL);
 			cLabel8 = new CLabel(this,SWT.RIGHT);
 			composite1 = new Composite(this,SWT.NULL);
-			table1 = new Table(composite1,SWT.NULL);
-			tableColumn1 = new TableColumn(table1,SWT.NULL);
-			tableColumn2 = new TableColumn(table1,SWT.NULL);
-			tableItem1 = new TableItem(table1,SWT.NULL);
-			button1 = new Button(composite1,SWT.PUSH| SWT.CENTER);
+			table2 = new Table(composite1,SWT.BORDER);
+			tableColumn3 = new TableColumn(table2,SWT.NULL);
+			composite2 = new Composite(composite1,SWT.NULL);
+			button1 = new Button(composite2,SWT.PUSH| SWT.CENTER);
+			button2 = new Button(composite2,SWT.PUSH| SWT.CENTER);
+			table1 = new Table(composite1,SWT.SINGLE| SWT.FULL_SELECTION| SWT.BORDER);
+			tableColumn1 = new TableColumn(table1,SWT.CENTER);
+			tableColumn2 = new TableColumn(table1,SWT.CENTER);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(519,426));
 			final Color InvUICardAddbackground = new Color(Display.getDefault(),128,128,255);
@@ -335,16 +341,77 @@ public class InvUICardAdd extends SecureComposite {
 	
 			GridData composite1LData = new GridData();
 			composite1LData.verticalAlignment = GridData.CENTER;
-			composite1LData.horizontalAlignment = GridData.FILL;
-			composite1LData.widthHint = -1;
-			composite1LData.heightHint = 100;
+			composite1LData.horizontalAlignment = GridData.BEGINNING;
+			composite1LData.widthHint = 390;
+			composite1LData.heightHint = 127;
 			composite1LData.horizontalIndent = 0;
 			composite1LData.horizontalSpan = 1;
 			composite1LData.verticalSpan = 1;
 			composite1LData.grabExcessHorizontalSpace = false;
 			composite1LData.grabExcessVerticalSpace = false;
 			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(393,100));
+			composite1.setSize(new org.eclipse.swt.graphics.Point(390,127));
+	
+			GridData table2LData = new GridData();
+			table2LData.verticalAlignment = GridData.FILL;
+			table2LData.horizontalAlignment = GridData.BEGINNING;
+			table2LData.widthHint = 113;
+			table2LData.heightHint = -1;
+			table2LData.horizontalIndent = 0;
+			table2LData.horizontalSpan = 1;
+			table2LData.verticalSpan = 1;
+			table2LData.grabExcessHorizontalSpace = false;
+			table2LData.grabExcessVerticalSpace = false;
+			table2.setLayoutData(table2LData);
+			table2.setHeaderVisible(true);
+			table2.setLinesVisible(true);
+			table2.setSize(new org.eclipse.swt.graphics.Point(113,97));
+	
+			tableColumn3.setText("Birimler");
+			tableColumn3.setWidth(125);
+	
+			GridData composite2LData = new GridData();
+			composite2LData.widthHint = 65;
+			composite2LData.heightHint = 61;
+			composite2.setLayoutData(composite2LData);
+			composite2.setSize(new org.eclipse.swt.graphics.Point(65,61));
+	
+			GridData button1LData = new GridData();
+			button1LData.verticalAlignment = GridData.CENTER;
+			button1LData.horizontalAlignment = GridData.FILL;
+			button1LData.widthHint = -1;
+			button1LData.heightHint = 23;
+			button1LData.horizontalIndent = 0;
+			button1LData.horizontalSpan = 1;
+			button1LData.verticalSpan = 1;
+			button1LData.grabExcessHorizontalSpace = false;
+			button1LData.grabExcessVerticalSpace = false;
+			button1.setLayoutData(button1LData);
+			button1.setText("Ekle >>");
+			button1.setSize(new org.eclipse.swt.graphics.Point(55,23));
+	
+			GridData button2LData = new GridData();
+			button2LData.verticalAlignment = GridData.CENTER;
+			button2LData.horizontalAlignment = GridData.FILL;
+			button2LData.widthHint = -1;
+			button2LData.heightHint = 23;
+			button2LData.horizontalIndent = 0;
+			button2LData.horizontalSpan = 1;
+			button2LData.verticalSpan = 1;
+			button2LData.grabExcessHorizontalSpace = false;
+			button2LData.grabExcessVerticalSpace = false;
+			button2.setLayoutData(button2LData);
+			button2.setText("<< Çýkar");
+			button2.setSize(new org.eclipse.swt.graphics.Point(55,23));
+			GridLayout composite2Layout = new GridLayout(1, true);
+			composite2.setLayout(composite2Layout);
+			composite2Layout.marginWidth = 5;
+			composite2Layout.marginHeight = 5;
+			composite2Layout.numColumns = 1;
+			composite2Layout.makeColumnsEqualWidth = true;
+			composite2Layout.horizontalSpacing = 5;
+			composite2Layout.verticalSpacing = 5;
+			composite2.layout();
 	
 			GridData table1LData = new GridData();
 			table1LData.verticalAlignment = GridData.FILL;
@@ -354,33 +421,23 @@ public class InvUICardAdd extends SecureComposite {
 			table1LData.horizontalIndent = 0;
 			table1LData.horizontalSpan = 1;
 			table1LData.verticalSpan = 1;
-			table1LData.grabExcessHorizontalSpace = true;
+			table1LData.grabExcessHorizontalSpace = false;
 			table1LData.grabExcessVerticalSpace = true;
 			table1.setLayoutData(table1LData);
+			table1.setHeaderVisible(true);
+			table1.setLinesVisible(true);
+			table1.setSize(new org.eclipse.swt.graphics.Point(152,97));
 	
 			tableColumn1.setText("Birim");
+			tableColumn1.setWidth(79);
 	
 			tableColumn2.setText("Katsayý");
-	
-			tableItem1.setText("tableItem1");
-	
-			GridData button1LData = new GridData();
-			button1LData.verticalAlignment = GridData.BEGINNING;
-			button1LData.horizontalAlignment = GridData.BEGINNING;
-			button1LData.widthHint = -1;
-			button1LData.heightHint = -1;
-			button1LData.horizontalIndent = 0;
-			button1LData.horizontalSpan = 1;
-			button1LData.verticalSpan = 1;
-			button1LData.grabExcessHorizontalSpace = false;
-			button1LData.grabExcessVerticalSpace = false;
-			button1.setLayoutData(button1LData);
-			button1.setText("button1");
-			GridLayout composite1Layout = new GridLayout(2, true);
+			tableColumn2.setWidth(73);
+			GridLayout composite1Layout = new GridLayout(3, true);
 			composite1.setLayout(composite1Layout);
 			composite1Layout.marginWidth = 5;
 			composite1Layout.marginHeight = 5;
-			composite1Layout.numColumns = 2;
+			composite1Layout.numColumns = 3;
 			composite1Layout.makeColumnsEqualWidth = false;
 			composite1Layout.horizontalSpacing = 5;
 			composite1Layout.verticalSpacing = 5;
@@ -411,42 +468,13 @@ public class InvUICardAdd extends SecureComposite {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	
+	tableItem1.setText(new String[]{"sfgsg","5"});
+	
 		
 		
 	}
 	public void save(){
-		System.out.println("Save Button Pushed!");
-		try{
-		 // Open the file that is the first 
-        // command line parameter
-        FileInputStream fstream = new FileInputStream("sayi.txt");
-
-        // Convert our input stream to a
-        // DataInputStream
-        DataInputStream in = new DataInputStream(fstream);
-
-        // Continue to read lines while 
-        // there are still some left to read
-        int a =0;
-        long total=0;
-        while (in.available() !=0)
-        {
-          String s = in.readLine();
-          try{
-           a = Integer.parseInt(s);
-           total+=a;
-          }
-          catch(Exception ex){
-          	
-          }
-          
-        }
-        System.out.println(total);
-        
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
-		}
 		
 		
 	}
