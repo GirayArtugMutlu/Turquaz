@@ -70,6 +70,7 @@ import com.turquaz.inventory.ui.comp.InvUITree;
 import com.turquaz.admin.ui.comp.AdmUITree;
 import com.turquaz.accounting.ui.comp.AccUITree;
 import com.turquaz.bank.ui.comp.BankUITree;
+import com.turquaz.current.ui.comp.CurUITree;
 import com.turquaz.inventory.ui.InvUITransactionAdd;
 
 /**
@@ -94,6 +95,7 @@ import com.turquaz.inventory.ui.InvUITransactionAdd;
 
 
 public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
+	private CurUITree treeCurrent;
 	private Label label1;
 	private Composite composite1;
 	private Composite compModulesHelp;
@@ -174,6 +176,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			treeInventory = new InvUITree(compModulesTree,SWT.NULL);
 			treeAccounting = new AccUITree(compModulesTree,SWT.NULL);
 			treeAdmin = new AdmUITree(compModulesTree,SWT.NULL);
+			treeCurrent = new CurUITree(compModulesTree,SWT.NULL);
 			label1 = new Label(compModulesTab,SWT.SEPARATOR| SWT.HORIZONTAL);
 			compModulesHelp = new Composite(compModulesTab,SWT.NULL);
 			composite1 = new Composite(compModulesHelp,SWT.NULL);
@@ -355,6 +358,12 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			treeAdmin.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeAdminMouseDoubleClick(evt);
+				}
+			});
+	
+			treeCurrent.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					treeCurrentMouseDoubleClick(evt);
 				}
 			});
 			StackLayout compModulesTreeLayout = new StackLayout();
@@ -788,6 +797,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		comboModuleSelection.add("Accounting");
 		comboModuleSelection.add("Bank");
 		comboModuleSelection.add("Administrator");
+		comboModuleSelection.add("Current");
 		
 			
 		tabfldMain.setTabHeight(25);
@@ -806,6 +816,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		treeAdmin.setMenu(popupTreeAddFavorites);
 		treeBank.setMenu(popupTreeAddFavorites);
 		treeInventory.setMenu(popupTreeAddFavorites);
+		treeCurrent.setMenu(popupTreeAddFavorites);
+		
 		
 		treeFavorites.setMenu(popupTreeRemoveFavorites);
 		
@@ -869,6 +881,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			   }
 			   else if(text.equals("Bank")){
 			   	compo4layout.topControl = treeBank;
+			   }
+			   else if(text.equals("Current")){
+			   	compo4layout.topControl = treeCurrent;
 			   }
 			   
 			   compModulesTree.layout();
@@ -1116,6 +1131,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	/** Auto-generated event handler method */
 	protected void treeFavoritesMouseDoubleClick(MouseEvent evt){
 		TreeItem item = treeFavorites.getSelection()[0];
+		if(item.getItemCount()==0){
+			openNewTab(item.getText(),item.getData().toString());
+		}
+	}
+
+	/** Auto-generated event handler method */
+	protected void treeCurrentMouseDoubleClick(MouseEvent evt){
+		TreeItem item = treeCurrent.getSelection()[0];
 		if(item.getItemCount()==0){
 			openNewTab(item.getText(),item.getData().toString());
 		}
