@@ -37,7 +37,7 @@ public class TableSpreadsheetCursor extends TableCursor implements ICellEditorLi
 		super(table, style);
 		this.tableViewer = viewer;
 		this.rowList = rowList;
-		table = viewer.getTable();
+		this.table =table;
 		
 		this.addKeyListener(new KeyAdapter(){
 		     public void keyReleased(KeyEvent e){
