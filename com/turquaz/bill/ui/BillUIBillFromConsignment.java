@@ -902,6 +902,14 @@ implements SecureComposite{
 	
 	
 	public boolean verifyFields(){
+		MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+		if (txtConsignment.getData()==null)
+		{
+			msg.setMessage("Lütfen Ýrsaliye Döküman No Seçiniz!");
+			msg.open();
+			txtConsignment.setFocus();
+			return false;
+		}
 		return true;
 	}
 	

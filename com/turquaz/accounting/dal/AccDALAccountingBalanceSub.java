@@ -25,7 +25,7 @@ public class AccDALAccountingBalanceSub {
 	
 	}
 	
-	public List getTransactionColumns(Object startDate, Object endDatee)throws Exception{
+	public List getTransactionColumns(int type, Object startDate, Object endDate)throws Exception{
 		
 		try{
 			Session session = EngDALSessionFactory.openSession();			
@@ -39,10 +39,16 @@ public class AccDALAccountingBalanceSub {
 			" transcolumns where transcolumns.accounting_accounts_id=accounts.accounting_accounts_id" +
 			" and transcolumns.accounting_transactions_id=trans.accounting_transactions_id" +
 			" ORDER BY accounts.accounting_accounts_id";*/
+			
 			String query="Select transColumn from TurqAccountingTransactionColumn as transColumn" +
 					" where transColumn.turqAccountingTransaction.transactionsDate >= :startDate" +
 					" and transColumn.turqAccountingTransaction.transactionsDate <= :endDate";
+			if (type!=-1)
+				query+=" and transColumn.turqAccountingTransaction.turqAccountingTransactionType.accountingTransactionTypesId ="+type;
 			Query q = session.createQuery(query); 
+			q.setParameter("endDate",endDate);
+			q.setParameter("startDate",startDate);
+			
 			List list = q.list();
 			session.close();			
 			return list;			

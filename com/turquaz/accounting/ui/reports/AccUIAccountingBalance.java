@@ -1,9 +1,11 @@
 package com.turquaz.accounting.ui.reports;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -43,8 +45,10 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Button;
 
 import com.turquaz.accounting.Messages;
+import com.turquaz.accounting.dal.AccDALAccountingBalanceSub;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.dal.EngDALConnection;
+import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.layout.GridData;
@@ -100,6 +104,22 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 	private void btnShowSingleClick(){
 		try{
 			
+			AccDALAccountingBalanceSub accBalanceSub=new AccDALAccountingBalanceSub();
+			List transColumns=accBalanceSub.getTransactionColumns(3,datePickerBeginDate.getDate(),datePickerEndDate.getDate());
+			BigDecimal totalCredit=new BigDecimal(0);
+			BigDecimal totalDept=new BigDecimal(0);
+			for(int k=0; k<transColumns.size(); k++)
+			{
+				TurqAccountingTransactionColumn column=(TurqAccountingTransactionColumn)transColumns.get(k);
+				totalCredit=totalCredit.add(column.getCreditAmount());
+				totalDept=totalDept.add(column.getDeptAmount());
+			}
+			if (!totalDept.equals(totalCredit))
+			{
+				MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+				msg.setMessage("Açýlýþ Fiþlerindeki Alacak/Borç Toplamlarý Tutarsýz!");
+				msg.open();
+			}
 			Map parameters = new HashMap();
 			parameters.put("ReportTitle", "GENEL GEÇÝCÝ MÝZAN"); //$NON-NLS-1$ //$NON-NLS-2$
 			TurqCompany company = new TurqCompany();
