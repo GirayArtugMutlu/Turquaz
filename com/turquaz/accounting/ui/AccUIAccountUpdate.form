@@ -20,7 +20,7 @@
 		</Layout>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[479, 322]"/>
+				<Dimension value="[509, 313]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -85,6 +85,7 @@
 											<LayoutConstraint/>
 										</Constraints>
 										<Events>
+											<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolDeleteWidgetSelected"/>
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Delete"/>

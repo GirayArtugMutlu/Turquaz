@@ -62,7 +62,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			toolDelete = new ToolItem(toolBar1,SWT.NULL);
 			compAccountCard = new AccUIAddAccounts(dialogShell,SWT.NULL);
 	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(479,322));
+			dialogShell.setSize(new org.eclipse.swt.graphics.Point(509,313));
 	
 			GridData coolBar1LData = new GridData();
 			coolBar1LData.verticalAlignment = GridData.CENTER;
@@ -93,6 +93,11 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			toolDelete.setToolTipText("Delete");
 			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
 			toolDelete.setImage(toolDeleteimage);
+			toolDelete.addSelectionListener( new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					toolDeleteWidgetSelected(evt);
+				}
+			});
 	
 			GridData compAccountCardLData = new GridData();
 			compAccountCardLData.widthHint = 459;
@@ -114,7 +119,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 					toolDeleteimage.dispose();
 				}
 			});
-			Rectangle bounds = dialogShell.computeTrim(0, 0, 479,322);
+			Rectangle bounds = dialogShell.computeTrim(0, 0, 509,313);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
 			dialogShell.open();
@@ -162,5 +167,34 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 		catch(Exception ex){
 		ex.printStackTrace();
 		}
+	}
+
+	/** Auto-generated event handler method */
+	protected void toolDeleteWidgetSelected(SelectionEvent evt){
+		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+		MessageBox msg2 = new MessageBox(this.getParent(),SWT.OK|SWT.CANCEL);
+		try{
+		 msg2.setMessage("Really delete inventory group?");
+	    int result = msg2.open();
+	    
+	    if(result==SWT.OK){	 
+	   	blAccount.deleteAccount(account);
+		msg.setMessage("Deleted Succesfully!");
+		msg.open();		
+		this.dialogShell.close();
+		this.dialogShell.dispose();	 
+	    }
+		
+		
+		
+		
+		}
+		catch(Exception ex){
+		ex.printStackTrace();
+		
+		}
+		
+		
+		
 	}
 }
