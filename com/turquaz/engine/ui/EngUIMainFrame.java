@@ -85,7 +85,7 @@ import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
-import com.turquaz.engine.ui.component.MenuFactory;
+import com.turquaz.engine.ui.component.MenuManager;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TreeFactory;
@@ -138,15 +138,13 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private static Tree treeFavorites;
 	private CLabel lblFavoritesTab;
 	private CLabel lblActiveModul;
-	private MenuItem menuItemPreferences;
-	private Menu menuEdit;
 	private Label label2;
 	private Button btnCheque;
 	private Tree treeCheques;
 	private Tree treeCash;
 	private Button btnCash;
 	private Composite compFavoritesSelection;
-	private Composite compFavoritesTab;
+	public static Composite compFavoritesTab;
 	private CTabItem tabFavorites;
 	private Tree treeAdmin;
 	private Tree treeInventory;
@@ -159,35 +157,22 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private Button btnCurrent;
 	private Button btnInventory;
 	private static ToolItem toolPrint;
-	private MenuItem mitExit;
-	private Menu menuFile;
-	private MenuItem mitHelpContents;
-	private Menu menuHelp;
-	private MenuItem menuItemModulBar;
 	private static Tree treeHistory;
 	private CLabel lblHistory;
-	private Composite compHistoryTab;
+	public static Composite compHistoryTab;
 	private CTabItem tabHistory;
-	private MenuItem mitHistory;
-	private MenuItem mitFavorites;
-	private MenuItem mitModules;
-	private Menu menuView;
-	private MenuItem mitView;
 	private CoolItem coolItem1;
 	private CoolBar coolBar1;
 	private Tree treeBill;
 	private static ToolItem toolExportToExcel;
 	private Tree treeConsignment;
-	private Composite compModulesTab;
+	public static Composite compModulesTab;
 	private CTabItem tabModules;
-	private CTabFolder tabfldMenu;
-	private LiveSashForm sashMainHorizontal;
-	private MenuItem mitEdit;
-	private SashForm sashMainVertical;
+	public static CTabFolder tabfldMenu;
+	public static LiveSashForm sashMainHorizontal;
+	public static SashForm sashMainVertical;
 	private Composite compMainIn;
 	private Composite compMain;
-	private MenuItem mitHelp;
-	private MenuItem mitFile;
 	private Menu menuMain;
 	Menu popupTreeAddFavorites;
 	Menu popupTreeRemoveFavorites;
@@ -889,174 +874,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			thisLayout.verticalSpacing = 0;
 			this.layout();
 			menuMain = new Menu(getShell(),SWT.BAR);
-			mitFile = new MenuItem(menuMain,SWT.CASCADE);
-			mitEdit = new MenuItem(menuMain,SWT.CASCADE);
-			MenuItem mitFinance = new MenuItem(menuMain,SWT.CASCADE);
-			mitFinance.setText("&Finans");
-			mitFinance = MenuFactory.createFinanceMenu(mitFinance);
-			
-			{
-                mitView = new MenuItem(menuMain, SWT.CASCADE);
-                mitView.setText(Messages.getString("EngUIMainFrame.14"));  //$NON-NLS-1$
-                {
-                    menuView = new Menu(mitView);
-                    mitView.setMenu(menuView);
-                    {
-                        mitModules = new MenuItem(menuView, SWT.PUSH);
-                        mitModules.setText(Messages
-                            .getString("EngUIMainFrame.2"));//$NON-NLS-1$
-                        mitModules.setImage(SWTResourceManager
-                            .getImage("icons/Process16.gif"));//$NON-NLS-1$
-                        mitModules.addSelectionListener(new SelectionAdapter() {
-                            public void widgetSelected(SelectionEvent evt) {
-
-                                if (checkTabMenu(compModulesTab) == -1) {
-                                    CTabItem item = new CTabItem(
-                                        tabfldMenu,
-                                        SWT.NULL);
-                                    item.setControl(compModulesTab);
-                                    item.setText(Messages
-                                        .getString("EngUIMainFrame.2"));//$NON-NLS-1$
-                                    item.setImage(SWTResourceManager
-                                        .getImage("icons/Process16.gif")); //$NON-NLS-1$
-                                    tabfldMenu.setSelection(item);
-                                    sashMainHorizontal
-                                        .setMaximizedControl(null);
-                                
-                                    
-
-                                }
-
-                            }
-                        });
-                    }
-                    {
-                        mitFavorites = new MenuItem(menuView, SWT.PUSH);
-                        mitFavorites.setText(Messages
-                            .getString("EngUIMainFrame.5"));//$NON-NLS-1$
-                        mitFavorites.setImage(SWTResourceManager
-                            .getImage("icons/favorites.gif"));//$NON-NLS-1$
-                        mitFavorites
-                            .addSelectionListener(new SelectionAdapter() {
-                                public void widgetSelected(SelectionEvent evt) {
-                                    if (checkTabMenu(compFavoritesTab) == -1) {
-                                        CTabItem item = new CTabItem(
-                                            tabfldMenu,
-                                            SWT.NULL);
-                                        item.setControl(compFavoritesTab);
-                                        item.setText(Messages
-                                            .getString("EngUIMainFrame.5"));//$NON-NLS-1$
-                                        item.setImage(SWTResourceManager
-                                            .getImage("icons/favorites.gif")); //$NON-NLS-1$
-                                        tabfldMenu.setSelection(item);
-                                        sashMainHorizontal
-                                            .setMaximizedControl(null);
-                                    }
-
-                                }
-                            });
-                    }
-                    {
-                        mitHistory = new MenuItem(menuView, SWT.PUSH);
-                        mitHistory.setText(Messages.getString("EngUIMainFrame.16")); //$NON-NLS-1$
-                        mitHistory.setImage(SWTResourceManager
-                            .getImage("icons/history.png"));//$NON-NLS-1$
-                        mitHistory.addSelectionListener(new SelectionAdapter() {
-                            public void widgetSelected(SelectionEvent evt) {
-                                if (checkTabMenu(compHistoryTab) == -1) {
-                                    CTabItem item = new CTabItem(
-                                        tabfldMenu,
-                                        SWT.NULL);
-                                    item.setControl(compHistoryTab);
-                                    item.setText(Messages
-                                        .getString("EngUIMainFrame.16")); //$NON-NLS-1$
-                                    item.setImage(SWTResourceManager
-                                        .getImage("icons/history.png")); //$NON-NLS-1$
-                                    tabfldMenu.setSelection(item);
-                                    sashMainHorizontal
-                                        .setMaximizedControl(null);
-                                }
-                            }
-                        });
-                    }
-                    {
-                        menuItemModulBar = new MenuItem(menuView, SWT.CHECK);
-                        menuItemModulBar.setText(Messages.getString("EngUIMainFrame.30")); //$NON-NLS-1$
-                        menuItemModulBar.setSelection(false);
-                        menuItemModulBar.setEnabled(false);
-                        menuItemModulBar
-                            .addSelectionListener(new SelectionAdapter() {
-                            public void widgetSelected(SelectionEvent evt) {
-                            if(!menuItemModulBar.getSelection()){
-                                sashMainVertical.setMaximizedControl(sashMainHorizontal);
-                            }
-                            else{
-                                sashMainVertical.setMaximizedControl(null);
-                            }
-                            }
-                            });
-                    }
-                }
-            }
-			
-			mitHelp = new MenuItem(menuMain,SWT.CASCADE);
-	
+			menuMain = MenuManager.createMainMenu(menuMain);
 			getShell().setMenuBar(menuMain);
 	
-			mitFile.setText(Messages.getString("EngUIMainFrame.20")); //$NON-NLS-1$
-            {
-                menuFile = new Menu(mitFile);
-                mitFile.setMenu(menuFile);
-                {
-                    mitExit = new MenuItem(menuFile, SWT.PUSH);
-                    mitExit.setText(Messages.getString("EngUIMainFrame.36")); //$NON-NLS-1$
-                    mitExit.setImage(SWTResourceManager.getImage("icons/Exit16.gif")); //$NON-NLS-1$
-                    mitExit.addSelectionListener(new SelectionAdapter() {
-                        public void widgetSelected(SelectionEvent evt) {
-                        getShell().close();  
-                        
-                        }
-                    });
-                }
-            }
-
-			mitEdit.setText(Messages.getString("EngUIMainFrame.21")); //$NON-NLS-1$
-            {
-                menuEdit = new Menu(mitEdit);
-                mitEdit.setMenu(menuEdit);
-                {
-                    menuItemPreferences = new MenuItem(menuEdit, SWT.PUSH);
-                    menuItemPreferences.setText(Messages.getString("EngUIMainFrame.55")); //$NON-NLS-1$
-                    menuItemPreferences
-                        .addSelectionListener(new SelectionAdapter() {
-                        public void widgetSelected(SelectionEvent evt) {
-                           
-                            new EngUIPreferences(getShell(),SWT.NULL).open();   
-                        
-                        }
-                        });
-                }
-            }
-
-			mitHelp.setEnabled(true);
-			mitHelp.setText(Messages.getString("EngUIMainFrame.22")); //$NON-NLS-1$
-            {
-                menuHelp = new Menu(mitHelp);
-                mitHelp.setMenu(menuHelp);
-                {
-                    mitHelpContents = new MenuItem(menuHelp, SWT.PUSH);
-                    mitHelpContents.setText(Messages.getString("EngUIMainFrame.50"));  //$NON-NLS-1$
-                    mitHelpContents
-                        .addSelectionListener(new SelectionAdapter() {
-                        public void widgetSelected(SelectionEvent evt) {
-                        
-                            new EngUIHelpDialog(getShell(),SWT.NULL).open();
-                        
-                        }
-                        });
-                }
-            }
-
 			postInitGUI();
 //			initialize accounts			
 			EngBLAccountingAccounts.getAccounts();
@@ -1066,7 +886,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		}
 	}
 	
-    int checkTabMenu(Composite comp){
+   public static int checkTabMenu(Composite comp){
 	   CTabItem items[] = tabfldMenu.getItems();
 	   
 	    for(int i= 0; i<items.length;i++){
