@@ -87,14 +87,8 @@ public class InvBLCardUpdate {
 			List invAccounts) throws Exception
 	{
 		try
-		{
-	   		Iterator it=invCard.getTurqInventoryAccountingAccounts().iterator();
-	   		TurqInventoryAccountingAccount invAccount;
-	   		while (it.hasNext())
-	   		{
-	   			invAccount=(TurqInventoryAccountingAccount)it.next();
-	   			InvDALCardUpdate.deleteObject(session,invAccount);
-	   		}	
+		{	
+	   		deleteInvCardAccounts(session,invCard);
 	   		session.flush();
 	   		InvBLCardAdd.saveInvAccounts(session,invCard,invAccounts);
 		}
@@ -109,14 +103,7 @@ public class InvBLCardUpdate {
 	{
 	   	try
 		{
-	   		Iterator it = invCard.getTurqInventoryPrices().iterator();
-	   		TurqInventoryPrice invPrice;
-		
-	   		while(it.hasNext())
-	   		{     
-	   			invPrice = (TurqInventoryPrice)it.next();    
-	   			InvDALCardUpdate.deleteObject(session,invPrice);             
-	   		}
+	   		deleteInvCardUnits(session,invCard);
 	   		session.flush();
 	   		InvBLCardAdd.saveInvPrices(session,invCard,invPrices);
 		}
@@ -131,13 +118,7 @@ public class InvBLCardUpdate {
     {
         try
 		{       
-        	Iterator it = invCard.getTurqInventoryCardUnits().iterator();
-        	TurqInventoryCardUnit cardUnit;      
-        	while(it.hasNext())
-        	{           
-        		cardUnit = (TurqInventoryCardUnit)it.next();
-        		InvDALCardUpdate.deleteObject(session,cardUnit);				
-        	}
+        	deleteInvCardUnits(session,invCard);
         	session.flush();
         	InvBLCardAdd.saveInvCardUnits(session,invCard,invCardUnits);
        
@@ -153,14 +134,7 @@ public class InvBLCardUpdate {
 	{
 	   		try
 			{
-	   			Iterator it = invCard.getTurqInventoryCardGroups().iterator();
-	   			TurqInventoryCardGroup cardGroup; 	      
-	   			while(it.hasNext())	   
-	   			{
-	     
-	   				cardGroup = (TurqInventoryCardGroup)it.next();
-	   				InvDALCardUpdate.deleteObject(session,cardGroup);
-	   			}
+	   			deleteInvCardGroups(session,invCard);
 	   			session.flush();
 	   			InvBLCardAdd.saveInvGroups(session,invCard,invGroups);   
 			} 
