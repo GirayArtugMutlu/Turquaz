@@ -62,9 +62,9 @@
 
     <!-- Associations -->
   
-    <!-- bi-directional one-to-many association to TurqChequeChequesRoll -->
+    <!-- bi-directional one-to-many association to TurqChequeChequeInRoll -->
     <set
-        name="turqChequeChequesRolls"
+        name="turqChequeChequeInRolls"
         lazy="true"
         inverse="true"
 		cascade="none"
@@ -73,7 +73,7 @@
             <column name="cheque_rolls_id" />
         </key>
         <one-to-many 
-            class="com.turquaz.engine.dal.TurqChequeChequesRoll"
+            class="com.turquaz.engine.dal.TurqChequeChequeInRoll"
         />
     </set>
     <!-- bi-directional many-to-one association to TurqChequeTransactionType -->
@@ -84,21 +84,13 @@
     >
         <column name="cheque_transaction_types_id" />
     </many-to-one>
-    <!-- bi-directional many-to-one association to TurqBanksCard -->
+    <!-- bi-directional many-to-one association to TurqEngineSequence -->
     <many-to-one
-        name="turqBanksCard"
-        class="com.turquaz.engine.dal.TurqBanksCard"
+        name="turqEngineSequence"
+        class="com.turquaz.engine.dal.TurqEngineSequence"
         not-null="true"
     >
-        <column name="banks_cards_id" />
-    </many-to-one>
-    <!-- bi-directional many-to-one association to TurqCurrentCard -->
-    <many-to-one
-        name="turqCurrentCard"
-        class="com.turquaz.engine.dal.TurqCurrentCard"
-        not-null="true"
-    >
-        <column name="current_cards_id" />
+        <column name="engine_sequences_id" />
     </many-to-one>
 
 </class>

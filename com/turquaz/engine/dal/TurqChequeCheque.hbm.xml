@@ -119,9 +119,9 @@
     >
         <column name="banks_id" />
     </many-to-one>
-    <!-- bi-directional one-to-many association to TurqChequeChequesRoll -->
+    <!-- bi-directional one-to-many association to TurqChequeChequeInRoll -->
     <set
-        name="turqChequeChequesRolls"
+        name="turqChequeChequeInRolls"
         lazy="true"
         inverse="true"
 		cascade="none"
@@ -130,7 +130,7 @@
             <column name="cheque_cheques_id" />
         </key>
         <one-to-many 
-            class="com.turquaz.engine.dal.TurqChequeChequesRoll"
+            class="com.turquaz.engine.dal.TurqChequeChequeInRoll"
         />
     </set>
 

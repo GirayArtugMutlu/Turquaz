@@ -141,20 +141,6 @@
     >
         <column name="accounting_code_id" />
     </many-to-one>
-    <!-- bi-directional one-to-many association to TurqChequeRoll -->
-    <set
-        name="turqChequeRolls"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="current_cards_id" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqChequeRoll"
-        />
-    </set>
     <!-- bi-directional one-to-many association to TurqCurrentContact -->
     <set
         name="turqCurrentContacts"

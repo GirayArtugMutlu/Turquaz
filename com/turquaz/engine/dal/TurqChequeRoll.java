@@ -31,25 +31,21 @@ public class TurqChequeRoll implements Serializable {
     private com.turquaz.engine.dal.TurqChequeTransactionType turqChequeTransactionType;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqBanksCard turqBanksCard;
+    private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard;
-
-    /** persistent field */
-    private Set turqChequeChequesRolls;
+    private Set turqChequeChequeInRolls;
 
     /** full constructor */
-    public TurqChequeRoll(java.util.Date chequeRollsDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqChequeTransactionType turqChequeTransactionType, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqChequeChequesRolls) {
+    public TurqChequeRoll(java.util.Date chequeRollsDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqChequeTransactionType turqChequeTransactionType, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqChequeChequeInRolls) {
         this.chequeRollsDate = chequeRollsDate;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
         this.turqChequeTransactionType = turqChequeTransactionType;
-        this.turqBanksCard = turqBanksCard;
-        this.turqCurrentCard = turqCurrentCard;
-        this.turqChequeChequesRolls = turqChequeChequesRolls;
+        this.turqEngineSequence = turqEngineSequence;
+        this.turqChequeChequeInRolls = turqChequeChequeInRolls;
     }
 
     /** default constructor */
@@ -112,28 +108,20 @@ public class TurqChequeRoll implements Serializable {
         this.turqChequeTransactionType = turqChequeTransactionType;
     }
 
-    public com.turquaz.engine.dal.TurqBanksCard getTurqBanksCard() {
-        return this.turqBanksCard;
+    public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence() {
+        return this.turqEngineSequence;
     }
 
-    public void setTurqBanksCard(com.turquaz.engine.dal.TurqBanksCard turqBanksCard) {
-        this.turqBanksCard = turqBanksCard;
+    public void setTurqEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence) {
+        this.turqEngineSequence = turqEngineSequence;
     }
 
-    public com.turquaz.engine.dal.TurqCurrentCard getTurqCurrentCard() {
-        return this.turqCurrentCard;
+    public java.util.Set getTurqChequeChequeInRolls() {
+        return this.turqChequeChequeInRolls;
     }
 
-    public void setTurqCurrentCard(com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
-        this.turqCurrentCard = turqCurrentCard;
-    }
-
-    public java.util.Set getTurqChequeChequesRolls() {
-        return this.turqChequeChequesRolls;
-    }
-
-    public void setTurqChequeChequesRolls(java.util.Set turqChequeChequesRolls) {
-        this.turqChequeChequesRolls = turqChequeChequesRolls;
+    public void setTurqChequeChequeInRolls(java.util.Set turqChequeChequeInRolls) {
+        this.turqChequeChequeInRolls = turqChequeChequeInRolls;
     }
 
     public String toString() {

@@ -6,7 +6,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqChequeChequesRoll implements Serializable {
+public class TurqChequeChequeInRoll implements Serializable {
 
     /** identifier field */
     private java.lang.Integer chequeChequesRollsId;
@@ -30,7 +30,8 @@ public class TurqChequeChequesRoll implements Serializable {
     private com.turquaz.engine.dal.TurqChequeCheque turqChequeCheque;
 
     /** full constructor */
-    public TurqChequeChequesRoll(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqChequeRoll turqChequeRoll, com.turquaz.engine.dal.TurqChequeCheque turqChequeCheque) {
+    public TurqChequeChequeInRoll(java.lang.Integer chequeChequesRollsId, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqChequeRoll turqChequeRoll, com.turquaz.engine.dal.TurqChequeCheque turqChequeCheque) {
+        this.chequeChequesRollsId = chequeChequesRollsId;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
@@ -40,7 +41,7 @@ public class TurqChequeChequesRoll implements Serializable {
     }
 
     /** default constructor */
-    public TurqChequeChequesRoll() {
+    public TurqChequeChequeInRoll() {
     }
 
     public java.lang.Integer getChequeChequesRollsId() {
@@ -106,8 +107,8 @@ public class TurqChequeChequesRoll implements Serializable {
     }
 
     public boolean equals(Object other) {
-        if ( !(other instanceof TurqChequeChequesRoll) ) return false;
-        TurqChequeChequesRoll castOther = (TurqChequeChequesRoll) other;
+        if ( !(other instanceof TurqChequeChequeInRoll) ) return false;
+        TurqChequeChequeInRoll castOther = (TurqChequeChequeInRoll) other;
         return new EqualsBuilder()
             .append(this.getChequeChequesRollsId(), castOther.getChequeChequesRollsId())
             .isEquals();

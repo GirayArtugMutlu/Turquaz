@@ -12,8 +12,8 @@
 -->
 
 <class 
-    name="com.turquaz.engine.dal.TurqChequeChequesRoll" 
-    table="turq_cheque_cheques_rolls"
+    name="com.turquaz.engine.dal.TurqChequeChequeInRoll" 
+    table="turq_cheque_cheque_in_rolls"
 >
 
     <id
@@ -21,7 +21,7 @@
         type="int"
         column="cheque_cheques_rolls_id"
     >
-        <generator class="increment" />
+        <generator class="assigned" />
     </id>
 
     <property
