@@ -157,6 +157,20 @@ public class BillUIAddBill extends Composite implements SecureComposite
 	}
 
 	/**
+	 * @return Returns the txtConsignmentDate.
+	 */
+	public Text getTxtConsignmentDate()
+	{
+		return txtConsignmentDate;
+	}
+	/**
+	 * @param txtConsignmentDate The txtConsignmentDate to set.
+	 */
+	public void setTxtConsignmentDate(Text txtConsignmentDate)
+	{
+		this.txtConsignmentDate = txtConsignmentDate;
+	}
+	/**
 	 * @return Returns the txtConsignmentDocumentNo.
 	 */
 	public Text getTxtConsignmentDocumentNo()
@@ -310,6 +324,8 @@ public class BillUIAddBill extends Composite implements SecureComposite
 	private Composite compTotalsPanel;
 	private Text txtConsignmentDocumentNo;
 	private CLabel lblInventoryPrice;
+	private Text txtConsignmentDate;
+	private CLabel lblConsignmentDate;
 	private TableColumn tableColumnAmountAfterDiscount;
 	private DatePicker dateDueDate;
 	private CLabel lbDueDate;
@@ -430,7 +446,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 							GridData compInfoPanelLData = new GridData();
 							compInfoPanelLData.horizontalSpan = 2;
 							compInfoPanelLData.horizontalAlignment = GridData.FILL;
-							compInfoPanelLData.heightHint = 112;
+							compInfoPanelLData.heightHint = 149;
 							compInfoPanelLData.grabExcessHorizontalSpace = true;
 							compInfoPanel.setLayoutData(compInfoPanelLData);
 							compInfoPanelLayout.numColumns = 4;
@@ -453,6 +469,21 @@ public class BillUIAddBill extends Composite implements SecureComposite
 								txtCurrentCard.setLayoutData(txtCurrentCardLData);
 							}
 							{
+								lblDate = new CLabel(compInfoPanel, SWT.LEFT);
+								lblDate.setText(Messages.getString("BillUIAddBill.7")); //$NON-NLS-1$
+								GridData lblDateLData = new GridData();
+								lblDateLData.widthHint = 90;
+								lblDateLData.heightHint = 22;
+								lblDate.setLayoutData(lblDateLData);
+							}
+							{
+								dateConsignmentDate = new DatePicker(compInfoPanel, SWT.NONE);
+								GridData dateConsignmentDateLData = new GridData();
+								dateConsignmentDateLData.widthHint = 157;
+								dateConsignmentDateLData.heightHint = 23;
+								dateConsignmentDate.setLayoutData(dateConsignmentDateLData);
+							}
+							{
 								lblDocumentNo = new CLabel(compInfoPanel, SWT.NONE);
 								lblDocumentNo.setText(Messages.getString("BillUIAddBill.5")); //$NON-NLS-1$
 								GridData lblDocumentNoLData = new GridData();
@@ -467,21 +498,6 @@ public class BillUIAddBill extends Composite implements SecureComposite
 								txtDocumentNoLData.widthHint = 150;
 								txtDocumentNoLData.heightHint = 17;
 								txtDocumentNo.setLayoutData(txtDocumentNoLData);
-							}
-							{
-								lblDate = new CLabel(compInfoPanel, SWT.LEFT);
-								lblDate.setText(Messages.getString("BillUIAddBill.7")); //$NON-NLS-1$
-								GridData lblDateLData = new GridData();
-								lblDateLData.widthHint = 90;
-								lblDateLData.heightHint = 22;
-								lblDate.setLayoutData(lblDateLData);
-							}
-							{
-								dateConsignmentDate = new DatePicker(compInfoPanel, SWT.NONE);
-								GridData dateConsignmentDateLData = new GridData();
-								dateConsignmentDateLData.widthHint = 157;
-								dateConsignmentDateLData.heightHint = 23;
-								dateConsignmentDate.setLayoutData(dateConsignmentDateLData);
 							}
 							{
 								lbDueDate = new CLabel(compInfoPanel, SWT.NONE);
@@ -516,6 +532,19 @@ public class BillUIAddBill extends Composite implements SecureComposite
 								txtBillDocumentNoLData.heightHint = 17;
 								txtConsignmentDocumentNo.setLayoutData(txtBillDocumentNoLData);
 							}
+							//START >>  lblConsignmentDate
+							lblConsignmentDate = new CLabel(compInfoPanel, SWT.NONE);
+							lblConsignmentDate.setText("\u0130rsaliye Tarihi");
+							//END <<  lblConsignmentDate
+							//START >>  txtConsignmentDate
+							GridData txtConsignmentDateLData = new GridData();
+							txtConsignmentDateLData.widthHint = 150;
+							txtConsignmentDateLData.heightHint = 17;
+							txtConsignmentDate = new Text(compInfoPanel, SWT.NONE);
+							txtConsignmentDate.setLayoutData(txtConsignmentDateLData);
+							txtConsignmentDate.setEditable(false);
+							txtConsignmentDate.setBackground(SWTResourceManager.getColor(255,255,255));
+							//END <<  txtConsignmentDate
 							{
 								lblWareHouse = new CLabel(compInfoPanel, SWT.NONE);
 								lblWareHouse.setText(Messages.getString("BillUIAddBill.33")); //$NON-NLS-1$
@@ -529,6 +558,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 								GridData comboWareHouseLData = new GridData();
 								comboWareHouseLData.widthHint = 135;
 								comboWareHouseLData.heightHint = 17;
+								comboWareHouseLData.horizontalSpan = 3;
 								comboWareHouse.setLayoutData(comboWareHouseLData);
 							}
 							{

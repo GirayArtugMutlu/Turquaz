@@ -15,6 +15,7 @@ import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.EngUICommon;
+import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -160,7 +161,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			return true;
 		}
 	}
-
+	
 	public void postInitGui()
 	{
 		try
@@ -220,6 +221,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			if (it2.hasNext())
 			{
 				TurqConsignment cons = (TurqConsignment) it2.next();
+				compAddBill.getTxtConsignmentDate().setText(DatePicker.formatter.format(cons.getConsignmentsDate()));
 				if (!cons.getConsignmentDocumentNo().equals("")) //$NON-NLS-1$
 					compAddBill.getTxtConsignmentDocumentNo().append("[" + cons.getConsignmentDocumentNo() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
 			}

@@ -395,6 +395,8 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								txtBillDocumentNoLData.widthHint = 150;
 								txtBillDocumentNoLData.heightHint = 17;
 								txtConsignmentDocumentNo.setLayoutData(txtBillDocumentNoLData);
+								txtConsignmentDocumentNo.setEnabled(false);
+								txtConsignmentDocumentNo.setBackground(SWTResourceManager.getColor(255,255,255));
 							}
 							{
 								lblWareHouse = new CLabel(compInfoPanel, SWT.NONE);
