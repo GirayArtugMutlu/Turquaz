@@ -36,6 +36,9 @@ import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
@@ -79,6 +82,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 	private DatePicker datePickerStartDueDate;
 	private CLabel lblDueDate;
 	private CLabel lblPortfoyNo;
+	private SearchTableViewer tableViewer=null;
 	{
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
@@ -287,11 +291,29 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			//END <<  tabItemReport
 			//END <<  tabFolder
 			this.layout();
+			PostInitGui();
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void PostInitGui()
+	{
+		createTableViewer();
+	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[6];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_DATE;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DATE;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableCheques, columnTypes);
 	}
 
 	public void delete()
@@ -311,7 +333,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 
 	public void search()
 	{
-		tableCheques.removeAll();
+		tableViewer.removeAll();
 		try
 		{
 			Integer cheStat = null;
@@ -323,7 +345,6 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			List ls = CheBLSearchCheques.searchCheque(txtPortFoyNo.getText().trim(), (TurqCurrentCard) currentPicker.getData(), cheStat,
 					datePickerStartEnterDate.getDate(), datePickerEndEnterDate.getDate(), datePickerStartDueDate.getDate(),
 					datePickerEndDueDate.getDate(),btnRadioEntryDate.getSelection());
-			TableItem item;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			BigDecimal total = new BigDecimal(0);
 			for (int i = 0; i < ls.size(); i++)
@@ -335,15 +356,13 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 				{
 					status = statusMap.get(result[5]).toString();
 				}
-				item = new TableItem(tableCheques, SWT.NULL);
-				item.setData(result[0]);
-				item.setText(new String[]{result[1].toString(), DatePicker.formatter.format(result[2]), result[3].toString(),
-						DatePicker.formatter.format(result[4]), status, cf.format(result[6])});
+				Integer id=(Integer)result[0];
+				tableViewer.addRow(new String[]{result[1].toString(), DatePicker.formatter.format(result[2]), result[3].toString(),
+						DatePicker.formatter.format(result[4]), status, cf.format(result[6])},id);
 				total = total.add((BigDecimal) result[6]);
 			}
-			item = new TableItem(tableCheques, SWT.NULL);
-			item = new TableItem(tableCheques, SWT.NULL);
-			item.setText(new String[]{"", "", "", "", "Toplam", cf.format(total)});
+			tableViewer.addRow(new String[]{"","","","","",""},null);
+			tableViewer.addRow(new String[]{"", "", "", "", "Toplam", cf.format(total)},null);
 			if (ls.size() > 0)
 				GenerateJasper(ls);
 		}
@@ -388,14 +407,14 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			TableItem[] selection = tableCheques.getSelection();
 			if (selection.length > 0)
 			{
-				if (selection[0].getData() == null)
+				Integer cheqId=(Integer)((ITableRow) selection[0].getData()).getDBObject();
+				if (cheqId != null)
 				{
-					return;
+					TurqChequeCheque cheque = CheDALUpdate.initializeCheque(cheqId);
+					boolean isUpdated = new CheUICustomerChequeUpdate(getShell(), SWT.NULL, cheque).open();
+					if (isUpdated)
+						search();
 				}
-				TurqChequeCheque cheque = CheDALUpdate.initializeCheque((Integer) selection[0].getData());
-				boolean isUpdated = new CheUICustomerChequeUpdate(getShell(), SWT.NULL, cheque).open();
-				if (isUpdated)
-					search();
 			}
 		}
 		catch (Exception ex)

@@ -298,7 +298,6 @@ public class InvUICardSearch extends Composite implements SearchComposite
 		tableViewer = new SearchTableViewer(tableSearcResults, columnTypes);
 	}
 
-
 	private void comboInvMainGroupWidgetSelected(SelectionEvent evt)
 	{
 		comboInvSubGroup.removeAll();

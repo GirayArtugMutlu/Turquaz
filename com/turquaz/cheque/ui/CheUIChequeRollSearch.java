@@ -43,6 +43,9 @@ import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
@@ -77,6 +80,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 	private TableColumn tableColumnOwner;
 	private TableColumn tableColumnType;
 	private TableColumn tableColumnRolNo;
+	private SearchTableViewer tableViewer=null;
 
 	public CheUIChequeRollSearch(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -213,6 +217,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 			}
 			dateEndDate.setLastDayOfYear();
 			dateStartDate.setFirstDayOfYear();
+			createTableViewer();
 		}
 		catch (Exception ex)
 		{
@@ -228,7 +233,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 			TableItem selection[] = tableChequeRolls.getSelection();
 			if (selection.length > 0)
 			{
-				Integer rollId = (Integer) selection[0].getData();
+				Integer rollId = (Integer)((ITableRow) selection[0].getData()).getDBObject();
 				boolean isUpdated = rollUpdate(rollId, this.getShell());
 				if (isUpdated)
 				{
@@ -298,6 +303,17 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 			return true;
 		}
 	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[5];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_DATE;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableChequeRolls, columnTypes);
+	}
 
 	public void delete()
 	{
@@ -318,17 +334,15 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 		try
 		{
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			tableChequeRolls.removeAll();
+			tableViewer.removeAll();
 			List ls = CheBLSearchChequeRoll.searchChequeRoll(txtRollNo.getText().trim(), dateStartDate.getDate(), dateEndDate.getDate(),
 					(TurqChequeTransactionType) comboRollType.getData(comboRollType.getText().trim()));
-			TableItem item;
 			Object[] roll;
 			String owner = ""; //$NON-NLS-1$
 			BigDecimal total = new BigDecimal(0);
 			for (int i = 0; i < ls.size(); i++)
 			{
 				roll = (Object[]) ls.get(i);
-				item = new TableItem(tableChequeRolls, SWT.NULL);
 				Integer rollId = (Integer) roll[0];
 				Date cheqRollDate = (Date) roll[1];
 				String cheqRollNo = (String) roll[2];
@@ -337,7 +351,6 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 				String bankCode = (String) roll[5];
 				Integer curCardId = (Integer) roll[6];
 				Integer bankCardId = (Integer) roll[7];
-				item.setData(rollId);
 				if (curCardId.intValue() != -1)
 				{
 					owner = cardName;
@@ -346,13 +359,12 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 				{
 					owner = bankCode;
 				}
-				item.setText(new String[]{DatePicker.formatter.format(cheqRollDate), cheqRollNo, transTypeName, owner,
-						cf.format(roll[8])});
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(cheqRollDate), cheqRollNo, transTypeName, owner,
+						cf.format(roll[8])},rollId);
 				total = total.add((BigDecimal) roll[8]);
 			}
-			item = new TableItem(tableChequeRolls, SWT.NULL);
-			item = new TableItem(tableChequeRolls, SWT.NULL);
-			item.setText(new String[]{"", "", "", "Toplam", cf.format(total)});
+			tableViewer.addRow(new String[]{"","","","",""},null);
+			tableViewer.addRow(new String[]{"", "", "", "Toplam", cf.format(total)},null);
 		}
 		catch (Exception ex)
 		{
