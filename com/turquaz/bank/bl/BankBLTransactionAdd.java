@@ -42,7 +42,9 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
 
+
 public class BankBLTransactionAdd {
+    
     
     public static void saveCashTransaction(TurqBanksCard bankCard, TurqCashCard cashCard, 
             								int type, TurqEngineSequence seq,

@@ -50,6 +50,8 @@ import com.turquaz.admin.ui.AdmUIUsers;
 import com.turquaz.bank.ui.BankUIBankCardAbstract;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
 import com.turquaz.bank.ui.BankUIBankCardSearch;
+import com.turquaz.bank.ui.BankUICashFromBank;
+import com.turquaz.bank.ui.BankUICashToBank;
 import com.turquaz.bank.ui.BankUIMoneyTransferIn;
 import com.turquaz.bank.ui.BankUIMoneyTransferOut;
 import com.turquaz.bank.ui.BankUISearchMoneyTransaction;
@@ -141,7 +143,7 @@ public final class TreeFactory {
 		}
 		
 		TreeItem reports = new TreeItem(tree,SWT.NULL);
-		reports.setText("Raporlar");
+		reports.setText(Messages.getString("TreeFactory.67")); //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(InvUIProfitAnalysis.class.getName())>0){
 			item = new TreeItem(reports,SWT.NULL);
@@ -192,6 +194,17 @@ public final class TreeFactory {
 			item = new TreeItem(bankTrans,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.63")); //$NON-NLS-1$
 			item.setData(BankUIMoneyTransferOut.class.getName());
+		}
+		
+		if(EngBLPermissions.getPermission(BankUICashFromBank.class.getName())>0){
+			item = new TreeItem(bankTrans,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.68"));  //$NON-NLS-1$
+			item.setData(BankUICashFromBank.class.getName());
+		}
+		if(EngBLPermissions.getPermission(BankUICashToBank.class.getName())>0){
+			item = new TreeItem(bankTrans,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.69"));  //$NON-NLS-1$
+			item.setData(BankUICashToBank.class.getName());
 		}
 		
 		bankTrans.setExpanded(true);

@@ -205,7 +205,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 				}
 			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 486,208);
-			dialogShell.setSize(bounds.width, bounds.height);
+			dialogShell.setSize(523, 338);
 			postInitGUI();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();

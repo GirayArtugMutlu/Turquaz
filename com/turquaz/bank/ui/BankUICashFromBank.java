@@ -1,8 +1,12 @@
 package com.turquaz.bank.ui;
 
+import java.math.BigDecimal;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
+
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.cash.ui.comp.CashCardPicker;
@@ -127,6 +131,31 @@ public class BankUICashFromBank extends org.eclipse.swt.widgets.Composite implem
 		}
 	}
 	
+	public boolean verifyFields(){
+	   
+	        if(txtBankCard.getData()==null){
+	           EngUICommon.showMessageBox(getShell(),"Lütfen Önce Banka Kart? Seçiniz!",SWT.ICON_WARNING); //$NON-NLS-1$
+	           txtBankCard.setFocus();
+	           return false;
+	            
+	        }
+	        if(currentPicker.getData()==null){
+	            EngUICommon.showMessageBox(getShell(),"Lütfen Önce Kasa Kart? Seçiniz!",SWT.ICON_WARNING); //$NON-NLS-1$
+	            currentPicker.setFocus();
+	            return false;
+	             
+	         }
+	        if(curAmount.getBigDecimalValue().compareTo(new BigDecimal(0))!=1)
+	        {
+	            EngUICommon.showMessageBox(getShell(),Messages.getString("BankUIMoneyTransferIn.8"),SWT.ICON_WARNING); //$NON-NLS-1$
+	             curAmount.setFocus();
+	            return false;
+	            
+	        }
+	        return true;
+	        
+	    
+	}
 
     public void newForm() {
         // TODO Auto-generated method stub

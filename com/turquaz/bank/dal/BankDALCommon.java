@@ -140,6 +140,7 @@ public class BankDALCommon {
 	        Hibernate.initialize(trans.getTurqBanksTransactions());
 	        Hibernate.initialize(trans.getTurqEngineSequence().getTurqCurrentTransactions());
 	        Hibernate.initialize(trans.getTurqEngineSequence().getTurqAccountingTransactions());
+	        Hibernate.initialize(trans.getTurqEngineSequence().getTurqCashTransactions());
 	        session.close();
 	        return trans;
 	        
@@ -160,6 +161,7 @@ public class BankDALCommon {
 	        Hibernate.initialize(trans.getTurqBanksTransactions());
 	        Hibernate.initialize(trans.getTurqEngineSequence().getTurqCurrentTransactions());
 	        Hibernate.initialize(trans.getTurqEngineSequence().getTurqAccountingTransactions());
+	        Hibernate.initialize(trans.getTurqEngineSequence().getTurqCashTransactions());
 	        session.close();
 	  
 	        
