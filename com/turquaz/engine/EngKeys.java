@@ -25,4 +25,6 @@ public class EngKeys
 	public final static String DEFINITION="definition";
 	public final static String DOCUMENT_NO="documentNo";	
 	public final static String CURRENT_CARD="currentCard";
+	public final static String AMOUNT_IN="amountIn";
+	public final static String AMOUNT_OUT="amountOut";
 }
