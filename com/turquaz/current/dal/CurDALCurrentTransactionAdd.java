@@ -51,11 +51,10 @@ public class CurDALCurrentTransactionAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqCurrentCard as curCard ";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -68,11 +67,10 @@ public class CurDALCurrentTransactionAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqCurrentTransactionType as curCard ";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)

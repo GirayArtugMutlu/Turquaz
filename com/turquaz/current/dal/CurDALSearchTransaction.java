@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Locale;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -49,7 +48,7 @@ public class CurDALSearchTransaction
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select transaction.id," + " transaction.transactionsDate," + " transaction.transactionsDocumentNo,"
 					+ " curCard.cardsCurrentCode, curCard.cardsName, transType.transactionTypeName,"
 					+ " transaction.transactionsDefinition, transaction.transactionsTotalDept,"
@@ -79,7 +78,6 @@ public class CurDALSearchTransaction
 				q.setParameter("type", type);
 			}
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -92,7 +90,7 @@ public class CurDALSearchTransaction
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select transaction from TurqCurrentTransaction as transaction" + " where transaction.id=" + transId;
 			Query q = session.createQuery(query);
 			List list = q.list();
@@ -108,7 +106,7 @@ public class CurDALSearchTransaction
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select transaction from TurqCurrentTransaction as transaction where"
 					+ " transaction.turqCurrentCard= :curCard";
 			if (startDate != null && endDate != null)
@@ -123,7 +121,6 @@ public class CurDALSearchTransaction
 			}
 			q.setParameter("curCard", curCard);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -136,7 +133,7 @@ public class CurDALSearchTransaction
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "";
 			if (curCard == null)
 			{
@@ -168,7 +165,6 @@ public class CurDALSearchTransaction
 				q.setParameter("curCard", curCard);
 			q.setParameter("endDate", endDate);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -181,13 +177,12 @@ public class CurDALSearchTransaction
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select bankTrans from TurqCurrentTransaction as bankTrans "
 					+ " where bankTrans.turqCurrentTransactionType.id = " + EngBLCommon.CURRENT_TRANS_INITIAL
 					+ " order by bankTrans.turqCurrentCard.cardsCurrentCode";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -200,8 +195,7 @@ public class CurDALSearchTransaction
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select bankTrans from TurqCurrentTransaction as bankTrans "
 					+ " where bankTrans.turqCurrentTransactionType.id = " + EngBLCommon.CURRENT_TRANS_INITIAL
 					+ " and bankTrans.turqCurrentCard = :curCard " + " order by bankTrans.turqCurrentCard.cardsCurrentCode";
@@ -213,8 +207,6 @@ public class CurDALSearchTransaction
 				session.delete(list.get(i));
 			}
 			session.flush();
-			tx.commit();
-			session.close();
 		}
 		catch (Exception ex)
 		{

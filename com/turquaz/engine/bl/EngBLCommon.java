@@ -456,8 +456,7 @@ public class EngBLCommon
 		try
 		{
 			List ls = InvDALCardSearch.getInventoryCardsAndAccounts();
-			Session session = EngDALSessionFactory.openSession();
-			tx = session.beginTransaction();
+			Session session = EngDALSessionFactory.getSession();
 			Statement stmt = session.connection().createStatement();
 			String query = "";
 			int i = 0;
@@ -490,9 +489,8 @@ public class EngBLCommon
 				stmt.execute(query);
 				key++;
 			}
-			tx.commit();
 			session.flush();
-			session.close();
+
 		}
 		catch (Exception ex)
 		{

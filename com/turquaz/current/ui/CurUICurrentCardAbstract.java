@@ -309,12 +309,12 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 						+ ") or (curView.transactionsTotalDept >=" + minAmount.doubleValue() + "))";
 			}
 			query += " order by curCard.cardsCurrentCode, curTrans.transactionsDate"; //$NON-NLS-1$
-			Session session = EngDALSessionFactory.openSession();
+			//XXX Trans should go to BL
+			Session session = EngDALSessionFactory.getSession();
 			Query q = session.createQuery(query);
 			q.setParameter("startDate", datePickerStartDate.getDate());
 			q.setParameter("endDate", datePickerEndDate.getDate());
 			List list = q.list();
-			session.close();
 			Map parameters = new HashMap();
 			SimpleDateFormat dformat2 = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
 			parameters.put("startDate", dformat2.format(datePickerStartDate.getDate())); //$NON-NLS-1$
