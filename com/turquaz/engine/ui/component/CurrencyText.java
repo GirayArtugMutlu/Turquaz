@@ -87,7 +87,10 @@ public class CurrencyText extends Composite {
   });
   listener = new VerifyListener() {
 	public void verifyText(VerifyEvent evt) {
-		text3VerifyText(evt);
+		if (SWT.getPlatform().equals("gtk"))
+			gtkTextVerify(evt);
+		else
+			text3VerifyText(evt);
 	}
 };
   text.addVerifyListener(listener);
@@ -101,6 +104,31 @@ public class CurrencyText extends Composite {
  public int getTextLimit(){
  	return textLimit;
  }
+ protected void gtkTextVerify(VerifyEvent e)
+ {
+ 	char decimalSymbol=',';
+ 	Text control = (Text)e.widget;
+    String textcontrol = control.getText();
+    e.doit = false;
+    String newText = textcontrol.substring(0, e.start) + e.text + textcontrol.substring(e.end);
+    
+    if (newText.equals(""))
+    {
+    	e.doit=true;
+    	return;
+    }
+
+    Pattern realNumberPattern = Pattern.compile("-?[0-9][0-9]{0,14}(([" +decimalSymbol + "][0-9]?[0-9]?)|(["+decimalSymbol+"]))?");
+    Matcher matcher = realNumberPattern.matcher(newText);
+    boolean valid = matcher.matches();
+    
+    if (valid)
+    {
+    	e.doit=true;    	
+    }
+ 	
+ }
+ 
  protected void text3VerifyText(VerifyEvent e){
  	char decimalSymbol ='.';
  	int numberOfDecimals =2;
