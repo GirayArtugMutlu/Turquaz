@@ -19,6 +19,7 @@ package com.turquaz.admin.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
@@ -91,7 +92,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				composite1LData.verticalAlignment = GridData.BEGINNING;
-				composite1LData.heightHint = 144;
+				composite1LData.heightHint = 102;
 				composite1.setLayoutData(composite1LData);
 				composite1Layout.numColumns = 2;
 				composite1Layout.verticalSpacing = 3;
@@ -109,8 +110,8 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 					GridData comboUsersLData = new GridData();
 					comboUsers.setBackground(SWTResourceManager.getColor(255, 255, 255));
 					comboUsers.setEditable(false);
-					comboUsersLData.widthHint = 118;
-					comboUsersLData.heightHint = 16;
+					comboUsersLData.widthHint = 135;
+					comboUsersLData.heightHint = 17;
 					comboUsers.setLayoutData(comboUsersLData);
 				}
 				{
@@ -133,8 +134,8 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 							moduleSelected(evt);
 						}
 					});
-					comboModulesLData.widthHint = 174;
-					comboModulesLData.heightHint = 16;
+					comboModulesLData.widthHint = 135;
+					comboModulesLData.heightHint = 17;
 					comboModules.setLayoutData(comboModulesLData);
 				}
 				{
@@ -150,8 +151,8 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 					GridData comboModuleComponentsLData = new GridData();
 					comboModuleComponents.setBackground(SWTResourceManager.getColor(255, 255, 255));
 					comboModuleComponents.setEditable(false);
-					comboModuleComponentsLData.widthHint = 176;
-					comboModuleComponentsLData.heightHint = 14;
+					comboModuleComponentsLData.widthHint = 135;
+					comboModuleComponentsLData.heightHint = 17;
 					comboModuleComponents.setLayoutData(comboModuleComponentsLData);
 				}
 				{
@@ -163,7 +164,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 					GridData comboPermissionLevelLData = new GridData();
 					comboPermissionLevel.setBackground(SWTResourceManager.getColor(255, 255, 255));
 					comboPermissionLevel.setEditable(false);
-					comboPermissionLevelLData.widthHint = 85;
+					comboPermissionLevelLData.widthHint = 135;
 					comboPermissionLevelLData.heightHint = 17;
 					comboPermissionLevel.setLayoutData(comboPermissionLevelLData);
 				}
@@ -212,14 +213,14 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 	{
 		try
 		{
-			java.util.List userList = AdmBLUsers.getUsers();
+			List userList = AdmBLUsers.getUsers();
 			for (int i = 0; i < userList.size(); i++)
 			{
 				TurqUser user = (TurqUser) userList.get(i);
 				comboUsers.setData(user.getUsername(), user);
 				comboUsers.add(user.getUsername());
 			}
-			java.util.List moduleList = AdmBLUserPermissions.getModules();
+			List moduleList = AdmBLUserPermissions.getModules();
 			for (int i = 0; i < moduleList.size(); i++)
 			{
 				TurqModule module = (TurqModule) moduleList.get(i);
