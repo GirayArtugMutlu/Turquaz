@@ -39,8 +39,6 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.widgets.CoolBar;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
@@ -139,10 +137,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog {
 						}
 					});
 
-			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(
-					Display.getDefault(), getClass().getClassLoader()
-							.getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
-			{
+		{
 				toolCancel = new ToolItem(toolbarAccountUpdate, SWT.NONE);
 				toolCancel.setText(Messages.getString("AccUIAccountUpdate.6")); //$NON-NLS-1$
 				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
@@ -178,11 +173,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog {
 			dialogShellLayout.horizontalSpacing = 5;
 			dialogShellLayout.verticalSpacing = 5;
 			dialogShell.layout();
-			dialogShell.addDisposeListener(new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
-					toolDeleteýmage.dispose();
-				}
-			});
+		
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 487, 301);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
