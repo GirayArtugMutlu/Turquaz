@@ -24,6 +24,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
 
 /**
@@ -260,6 +262,11 @@ public class CurUITransactionSearch extends SecureComposite {
 			tableCurrentTransactions.setHeaderVisible(true);
 			tableCurrentTransactions.setLinesVisible(true);
 			tableCurrentTransactions.setSize(new org.eclipse.swt.graphics.Point(538,198));
+			tableCurrentTransactions.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					tableCurrentTransactionsMouseDoubleClick(evt);
+				}
+			});
 	
 			tableColumnCurrentCode.setText("Current Code");
 			tableColumnCurrentCode.setWidth(107);
@@ -391,5 +398,18 @@ public class CurUITransactionSearch extends SecureComposite {
 	}
 	public void newForm(){
 	
+	}
+
+	/** Auto-generated event handler method */
+	protected void tableCurrentTransactionsMouseDoubleClick(MouseEvent evt){
+		TableItem items[] = tableCurrentTransactions.getSelection();
+		if(items.length >0){
+		
+		TurqCurrentTransaction trans = (TurqCurrentTransaction)items[0].getData();
+		
+		if(trans.getTurqCurrentTransactionType().getCurrentTransactionTypesId().intValue()==4){
+		new CUrUITransactionUpdateDialog(this.getShell(),SWT.NULL,trans).open();
+		}
+		}
 	}
 }

@@ -426,6 +426,18 @@ public class CurUITransactionAdd extends SecureComposite {
 		this.comboTransType = comboTransType;
 	}
 	/**
+	 * @return Returns the dateTransDate.
+	 */
+	public DatePicker getDateTransDate() {
+		return dateTransDate;
+	}
+	/**
+	 * @param dateTransDate The dateTransDate to set.
+	 */
+	public void setDateTransDate(DatePicker dateTransDate) {
+		this.dateTransDate = dateTransDate;
+	}
+	/**
 	 * @return Returns the comboType.
 	 */
 	public CLabel getComboType() {

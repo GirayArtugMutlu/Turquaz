@@ -151,6 +151,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	
 	compTransactionAdd.getTxtDocumentNo().setText(transaction.getTransactionsDocumentNo());
 	compTransactionAdd.getComboCurrentCode().setText(transaction.getTurqCurrentCard().getCardsCurrentCode());
+	compTransactionAdd.getDateTransDate().setDate(transaction.getTransactionsDate());
 	if(transaction.getTransactionsTotalCredit().compareTo(transaction.getTransactionsTotalDept())==1){
 	compTransactionAdd.getComboTransType().setText("Credit");
 	compTransactionAdd.getDecTxtAmount().setText(transaction.getTransactionsTotalCredit().toString());

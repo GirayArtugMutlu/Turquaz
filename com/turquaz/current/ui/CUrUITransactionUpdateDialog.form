@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Form style="SWT" ide="eclipse" builder="jigloo" version="2.7.2">
 <NonVisualComponents>
-		<Component class="java.lang.Object" name="Non-visual components" style="0">
+		<Component class="java.lang.Object" name="object1" style="0">
 			<Constraints>
 				<LayoutConstraint/>
 			</Constraints>
+			<Properties>
+			</Properties>
 		</Component></NonVisualComponents>
 	<Component class="org.eclipse.swt.widgets.Dialog" name="CUrUITransactionUpdateDialog" style="0">
 		<Constraints>
@@ -26,6 +28,7 @@
 		<SubComponents>
 			<Component class="org.eclipse.swt.widgets.CoolBar" name="coolBar1" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
@@ -41,6 +44,9 @@
 				<Events>
 				</Events>
 				<Properties>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[5, 5, 536, 38]"/>
+					</Property>
 				</Properties>
 				<SubComponents>
 					<Component class="org.eclipse.swt.widgets.CoolItem" name="coolItem1" style="0">
@@ -107,6 +113,7 @@
 			</Component>
 			<Component class="com.turquaz.current.ui.CurUITransactionAdd" name="compTransactionAdd" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>

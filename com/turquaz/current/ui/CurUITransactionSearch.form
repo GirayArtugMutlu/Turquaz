@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Form style="SWT" ide="eclipse" builder="jigloo" version="2.7.2">
 <NonVisualComponents>
-		<Component class="java.lang.Object" name="Non-visual components" style="0">
+		<Component class="java.lang.Object" name="object1" style="0">
 			<Constraints>
 				<LayoutConstraint/>
 			</Constraints>
+			<Properties>
+			</Properties>
 		</Component></NonVisualComponents>
 	<Component class="org.eclipse.swt.widgets.Composite" name="CurUITransactionSearch" style="0">
 		<Constraints>
@@ -31,6 +33,7 @@
 		<SubComponents>
 			<Component class="org.eclipse.swt.widgets.Composite" name="composite1" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
@@ -64,6 +67,7 @@
 				<SubComponents>
 					<Component class="org.eclipse.swt.custom.CLabel" name="lblCurrentCard" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -91,6 +95,7 @@
 					</Component>
 					<Component class="org.eclipse.swt.custom.CCombo" name="comboCurrentCards" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -116,6 +121,7 @@
 					</Component>
 					<Component class="org.eclipse.swt.custom.CLabel" name="lblTransactionGroup" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -142,6 +148,7 @@
 					</Component>
 					<Component class="org.eclipse.swt.custom.CCombo" name="comboTransactionGroup" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -167,6 +174,7 @@
 					</Component>
 					<Component class="org.eclipse.swt.custom.CLabel" name="lblDocumentNo" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -193,6 +201,7 @@
 					</Component>
 					<Component class="org.eclipse.swt.widgets.Text" name="txtDocumentNo" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -218,6 +227,7 @@
 					</Component>
 					<Component class="org.eclipse.swt.custom.CLabel" name="lblStartDate" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -244,6 +254,7 @@
 					</Component>
 					<Component class="com.turquaz.engine.ui.component.DatePicker" name="dateStartDate" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -269,6 +280,7 @@
 					</Component>
 					<Component class="org.eclipse.swt.custom.CLabel" name="lblEndDate" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -296,6 +308,7 @@
 					</Component>
 					<Component class="com.turquaz.engine.ui.component.DatePicker" name="dateEndDate" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -323,6 +336,7 @@
 			</Component>
 			<Component class="org.eclipse.swt.widgets.Table" name="tableCurrentTransactions" style="65536">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
@@ -336,6 +350,7 @@
 					</LayoutConstraint>
 				</Constraints>
 				<Events>
+					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="tableCurrentTransactionsMouseDoubleClick"/>
 				</Events>
 				<Properties>
 					<Property name="headerVisible" type="boolean" value="true"/>
