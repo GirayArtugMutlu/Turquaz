@@ -87,9 +87,9 @@ public class CurrencyText extends Composite {
   });
   listener = new VerifyListener() {
 	public void verifyText(VerifyEvent evt) {
-		if (SWT.getPlatform().equals("gtk"))
-			gtkTextVerify(evt);
-		else
+		//if (SWT.getPlatform().equals("gtk"))
+			//gtkTextVerify(evt);
+		//else
 			text3VerifyText(evt);
 	}
 };
@@ -135,6 +135,8 @@ public class CurrencyText extends Composite {
  	Text control = (Text)e.widget;
     String textcontrol = control.getText();
     e.doit = false;
+    System.out.println(e.start);
+    System.out.println(e.end);
     String newText = textcontrol.substring(0, e.start) + e.text + textcontrol.substring(e.end);
     String tempnewText=newText.replaceAll("\\.","");
     if (tempnewText.equals("") && !tempnewText.equals(newText))
@@ -199,7 +201,7 @@ public class CurrencyText extends Composite {
     		formatted +="0";
     	if (addSecondZero)
     		formatted +="0";
-    	text.setText(formatted);
+
     	String s=textcontrol.substring(0,e.start)+e.text;
         s=s.replaceAll("\\.","");
         s=s.replaceAll(",",".");
@@ -221,6 +223,43 @@ public class CurrencyText extends Composite {
     		diff=count-count2;
     	}
     	int offset=s.length()+diff;
+    	if (SWT.getPlatform().equals("gtk"))
+    	{
+    		/*
+    		text.setText("");
+    		String toSetEvent="";
+    		String toSetBox="";
+    		if (formatted.length() > offset)
+    		{
+    			toSetEvent=formatted.substring(0,offset);
+    			toSetBox=formatted.substring(offset);
+    			//System.out.println(toSetEvent);
+    			//System.out.println(toSetBox);
+    		}
+    		else
+    		{
+    			toSetEvent=formatted;
+    		}
+    		e.text=toSetEvent;
+    		text.setText(toSetBox);
+    		//System.out.println(text.getText());
+    		e.start=-1;
+    		e.end=-1;
+    		e.doit=true;
+    		//System.out.println(text.getText());*/
+    		
+    		
+    		text.setText("");
+    		e.text=formatted;
+    		e.doit=true;
+    		
+    		
+    		text.addVerifyListener(listener);
+    		
+    		return;
+    		
+    	}
+    	text.setText(formatted);
     	text.setSelection(offset);
     	text.addVerifyListener(listener);
     }
