@@ -182,8 +182,7 @@ public class AccUIInitialTransaction extends org.eclipse.swt.widgets.Composite i
             }
             {
                 lbDeptOrCredit = new CLabel(this, SWT.NONE);
-                lbDeptOrCredit.setText(Messages
-                    .getString("AccUITransactionRowAddDialog.1"));
+                lbDeptOrCredit.setText(Messages.getString("AccUIInitialTransaction.12"));  //$NON-NLS-1$
                 GridData lbDeptOrCreditLData = new GridData();
                 lbDeptOrCreditLData.widthHint = 76;
                 lbDeptOrCreditLData.heightHint = 18;
@@ -191,8 +190,13 @@ public class AccUIInitialTransaction extends org.eclipse.swt.widgets.Composite i
             }
             {
                 comboDeptOrCredit = new CCombo(this, SWT.READ_ONLY);
-                comboDeptOrCredit.setText(Messages
-                    .getString("AccUITransactionRowAddDialog.6"));
+                
+                comboDeptOrCredit.add(Messages.getString("AccUIInitialTransaction.6"));  //$NON-NLS-1$
+                comboDeptOrCredit.add(Messages.getString("AccUIInitialTransaction.7"));  //$NON-NLS-1$
+                comboDeptOrCredit.setData(Messages.getString("AccUIInitialTransaction.8"),new Integer(0));  //$NON-NLS-1$
+                comboDeptOrCredit.setData(Messages.getString("AccUIInitialTransaction.9"),new Integer(1));  //$NON-NLS-1$
+                
+                comboDeptOrCredit.setText(Messages.getString("AccUIInitialTransaction.10"));  //$NON-NLS-1$
                 comboDeptOrCredit.setBackground(SWTResourceManager.getColor(
                     255,
                     255,
@@ -222,12 +226,14 @@ public class AccUIInitialTransaction extends org.eclipse.swt.widgets.Composite i
 	      
 	      transRow.setTurqAccountingAccount((TurqAccountingAccount)accPicker.getData());	
 	   	
-	   	if(comboDeptOrCredit.getText().equals(Messages.getString("AccUITransactionRowAddDialog.6"))){ //$NON-NLS-1$
+	     int creditDebit = ((Integer)comboDeptOrCredit.getData(comboDeptOrCredit.getText())).intValue();
+	     
+	   	if(creditDebit == 0){ //$NON-NLS-1$
 	   	transRow.setCreditAmount(new BigDecimal(0));
 	    transRow.setDeptAmount(decInitialValue.getBigDecimalValue());
 	    }
 	   	
-	   	else {
+	   	else if(creditDebit == 1) {
 	   	transRow.setDeptAmount(new BigDecimal(0));
 	   	transRow.setCreditAmount(decInitialValue.getBigDecimalValue());
 	   	}	
@@ -235,7 +241,7 @@ public class AccUIInitialTransaction extends org.eclipse.swt.widgets.Composite i
 	    blTrans.saveAccTransactionRow(transRow,id); 
 	       
 	        
-	        msg.setMessage("Ba?ar?yla Kaydedildi!");
+	        msg.setMessage(Messages.getString("AccUIInitialTransaction.11"));  //$NON-NLS-1$
 	        msg.open();
 	        newForm();
 	    }
