@@ -187,7 +187,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{card_name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="270" y="1" width="48" height="11"/>
+				<reportElement positionType="Float" x="285" y="1" width="48" height="11"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
@@ -208,8 +208,8 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{transactions_total_price})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="330" y="1" width="61" height="11"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement positionType="Float" x="339" y="1" width="61" height="11"/>
+				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{units_name}]]></textFieldExpression>
@@ -222,35 +222,35 @@
 		</groupFooter>
 	</group>
 	<pageHeader>
-		<band height="280">
+		<band height="212">
 			<textField>
-				<reportElement positionType="Float" x="30" y="75" width="171" height="99"/>
+				<reportElement positionType="Float" x="40" y="65" width="157" height="99"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentName}+"\n\n"+$P{currentAddress}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="15" y="208" width="134" height="15"/>
+				<reportElement positionType="Float" x="15" y="193" width="134" height="15"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentTaxDepartment}+"\t"+$P{currentTaxNumber}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="405" y="115" width="91" height="14"/>
+				<reportElement positionType="Float" x="415" y="130" width="91" height="14"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{despatchNoteDate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="245" y="208" width="90" height="16"/>
+				<reportElement positionType="Float" x="245" y="193" width="90" height="16"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentId}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="405" y="127" width="91" height="14"/>
+				<reportElement positionType="Float" x="415" y="142" width="91" height="14"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
