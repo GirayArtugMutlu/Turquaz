@@ -831,6 +831,7 @@ insert into turq_cheque_transaction_type_groups values(2,'Ciro Edildi','');
 insert into turq_cheque_transaction_type_groups values(3,'Tahsil Edildi','');
 insert into turq_cheque_transaction_type_groups values(4,'Cariye Iade Edildi','');
 insert into turq_cheque_transaction_type_groups values(5,'Karsiliksiz','');
+insert into turq_cheque_transaction_type_groups values(6,'Tahsilde','');
 
 
 DROP VIEW turq_view_cheque_status;
@@ -848,6 +849,13 @@ ALTER TABLE turq_cheque_transaction_types DROP COLUMN accounting_accounts_id;
 update turq_cheque_transaction_types set transaction_types_parent =1;
 ALTER TABLE turq_cheque_transaction_types ADD CONSTRAINT type2groups FOREIGN KEY (transaction_types_parent) REFERENCES turq_cheque_transaction_type_groups (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
 
+update turq_cheque_transaction_types set transaction_types_parent=1 where id = 0; 
+update turq_cheque_transaction_types set transaction_types_parent=2 where id = 1;
+update turq_cheque_transaction_types set transaction_types_parent=6 where id = 2;
+update turq_cheque_transaction_types set transaction_types_parent=3 where id = 3;
+update turq_cheque_transaction_types set transaction_types_parent=3 where id = 4;
+update turq_cheque_transaction_types set transaction_types_parent=1 where id = 5;
+update turq_cheque_transaction_types set transaction_types_parent=4 where id = 6;
 
 
 
