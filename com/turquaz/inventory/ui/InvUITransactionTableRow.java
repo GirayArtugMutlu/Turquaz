@@ -100,12 +100,14 @@ public class InvUITransactionTableRow implements ITableRow {
      * 5 - Tamel Birimi        //cant modify  
      * 6 - Birim Fiyat?
      * 7 - Toplam Tutar        //cant modify
-     * 8 - iskonto %               
-     * 9 - Kdv %     
-     * 10 - Kdv Tutari      //cantModify
-     * 11 - Ötv %
-     * 12 - Ötv Tutari      //cant Modify
-     * 13 - Sat?r Toplam?  //cant Modify
+     * 8 - iskonto %             
+     * 9 - ?skonto sonrasi toplam  
+     * 10 - Kdv %     
+     * 11 - Kdv Tutari      //cantModify
+     * 12 - Ötv %
+     * 13 - Ötv Tutari      //cant Modify
+     * 14 - Sat?r Toplam?  //cant Modify
+     * 1
      */
      
   
@@ -171,18 +173,22 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 8 : // discount %	
-			    result = invTrans.getTransactionsDiscount().toString();
+			    result = cf.format(invTrans.getTransactionsDiscount());
 				break;	
+		    
+			case 9 : // Amount after discount				    
+			    result = cf.format(invTrans.getTransactionsTotalPrice().subtract(invTrans.getTransactionsDiscountAmount()));
+				break;		
 			
-			case 9 : // VAT percent		
+			case 10 : // VAT percent		
 			    result = invTrans.getTransactionsVat()+"";
 				break;
 				
-			case 10 : // VAT total 
+			case 11 : // VAT total 
 			    result = cf.format(invTrans.getTransactionsVatAmount());
 				break;
 				
-			case 11 : // Special VAT percent 
+			case 12 : // Special VAT percent 
 				TurqInventoryCard invCard=invTrans.getTurqInventoryCard();
 				if (invCard==null)
 				{
@@ -197,11 +203,11 @@ public class InvUITransactionTableRow implements ITableRow {
 				}
 				break;
 				
-			case 12 : // Specail VAT Total 
+			case 13 : // Specail VAT Total 
 			    result = cf.format(invTrans.getTransactionsVatSpecialAmount());
 				break;
 				
-			case 13 : //Cumulative Price
+			case 14 : //Cumulative Price
 			    result = cf.format(invTrans.getTransactionsCumilativePrice());
 			    break;
 				
@@ -384,17 +390,21 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 			
 			case 8 : // Discount percent	
-			    result = invTrans.getTransactionsDiscount()+"";
+			   result = cf.format(invTrans.getTransactionsDiscount());
 				break;
-			case 9 : // VAT percent		
+				
+			case 9 : // Amount after discount				    
+			    result = cf.format(invTrans.getTransactionsTotalPrice().subtract(invTrans.getTransactionsDiscountAmount()));
+				break;	
+			case 10 : // VAT percent		
 			    result = invTrans.getTransactionsVat()+"";
 				break;
 				
-			case 10 : // VAT total 
+			case 11 : // VAT total 
 			    result = cf.format(invTrans.getTransactionsVatAmount());
 				break;
 				
-			case 11 : // Special VAT percent 
+			case 12 : // Special VAT percent 
 			    
 			    if(invTrans.getTurqInventoryCard()==null){
 			        result="0";
@@ -406,11 +416,11 @@ public class InvUITransactionTableRow implements ITableRow {
 					result = invTrans.getTransactionsVatSpecial().toString();
 				break;
 				
-			case 12 : // Specail VAT Total 
+			case 13: // Specail VAT Total 
 			    result = cf.format(invTrans.getTransactionsVatSpecialAmount());
 				break;
 				
-			case 13 : //Cumulative Price
+			case 14 : //Cumulative Price
 			    result = cf.format(invTrans.getTransactionsCumilativePrice().toString());
 			    break;
 				
@@ -490,11 +500,33 @@ public class InvUITransactionTableRow implements ITableRow {
 			
 		
 			case 8 : // Discount %
-				invTrans.setTransactionsDiscount(new BigDecimal(value.toString()));
+			    formatted = value.toString(); 	
+			 	formatted = formatted.replaceAll("\\.","");
+			 	formatted = formatted.replaceAll(",",".");
+			 	if(formatted.equals("")){
+			 	    formatted="0";
+			 	}
+				invTrans.setTransactionsDiscount(new BigDecimal(formatted));
 				
 				break;
+				
+			case 9 : // Amount after discount
+			    formatted = value.toString(); 	
+			 	formatted = formatted.replaceAll("\\.","");
+			 	formatted = formatted.replaceAll(",",".");
+			 	if(formatted.equals("")){
+			 	    formatted="0";
+			 	}
+			    BigDecimal bdValue = new BigDecimal(formatted);
+			    BigDecimal discAmount = new BigDecimal(0);
+			    if(invTrans.getTransactionsTotalPrice().compareTo(bdValue)==1)
+			    {
+			        invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsTotalPrice().subtract(bdValue));
+			        invTrans.setTransactionsDiscount(bdValue.divide(invTrans.getTransactionsTotalPrice(),4,BigDecimal.ROUND_DOWN).multiply(new BigDecimal(100))); 
+			    }
+			    break;	
 			
-			case 9 : // VAT percent		
+			case 10 : // VAT percent		
 			    formatted = value.toString(); 	
 			 	
 			    if(formatted.equals("")){
@@ -505,10 +537,10 @@ public class InvUITransactionTableRow implements ITableRow {
 			    
 				break;
 				
-			case 10 : // VAT total 
+			case 11 : // VAT total 
 				break;
 				
-			case 11 : // Special VAT percent 
+			case 12 : // Special VAT percent 
 			    formatted = value.toString(); 	
 			 	formatted = formatted.replaceAll("\\.","");
 			 	formatted = formatted.replaceAll(",",".");	
@@ -526,10 +558,10 @@ public class InvUITransactionTableRow implements ITableRow {
 			    }	
 				break;
 				
-			case 12 : // Specail VAT Total 
+			case 13 : // Specail VAT Total 
 				break;
 				
-			case 13 : //Cumulative Price
+			case 14 : //Cumulative Price
 			    break;
 				
 			default :
@@ -610,8 +642,8 @@ public class InvUITransactionTableRow implements ITableRow {
  
     public boolean canModify(int column_index) {
     
-        if(column_index==1 ||column_index==4 || column_index==5 || column_index == 7 || column_index==10
-                ||column_index==12||column_index==13)
+        if(column_index==1 ||column_index==4 || column_index==5 || column_index == 7 || column_index==11
+                ||column_index==13||column_index==14)
     	{
         	return false;
     	}

@@ -308,6 +308,7 @@ public class BillUIAddBuyBill extends Composite
 	private Text txtConsignmentDocumentNo;
 
 	private CLabel lblInventoryPrice;
+	private TableColumn tableColumnPriceAfterDiscount;
 	private DatePicker dateDueDate;
 	private CLabel lblDueDate;
 	private AccountPicker accountPickerCurAcc;
@@ -397,6 +398,7 @@ public class BillUIAddBuyBill extends Composite
 	private final String UNIT_PRICE					= Messages.getString("BillUIAddBuyBill.6"); //$NON-NLS-1$
 	private final String TOTAL_PRICE				= Messages.getString("BillUIAddBuyBill.7"); //$NON-NLS-1$
 	private final String DISCOUNT_PERCENT           = Messages.getString("BillUIAddBuyBill.17");  //$NON-NLS-1$
+	private final String TOTAL_PRICE_AFTER_DISCOUNT = Messages.getString("BillUIAddBuyBill.20"); //$NON-NLS-1$
 	private final String VAT_PERCENT				= Messages.getString("BillUIAddBuyBill.8"); //$NON-NLS-1$
 	private final String VAT_TOTAL					= Messages.getString("BillUIAddBuyBill.9"); //$NON-NLS-1$
 	private final String SPECIAL_VAT_PERCENT		= Messages.getString("BillUIAddBuyBill.10"); //$NON-NLS-1$
@@ -417,6 +419,7 @@ public class BillUIAddBuyBill extends Composite
 			UNIT_PRICE,
 			TOTAL_PRICE,
 			DISCOUNT_PERCENT,
+			TOTAL_PRICE_AFTER_DISCOUNT,
 			VAT_PERCENT,
 			VAT_TOTAL,
 			SPECIAL_VAT_PERCENT,
@@ -702,7 +705,7 @@ public class BillUIAddBuyBill extends Composite
                                     tableConsignmentRows,
                                     SWT.NONE);
                                 tableColumn5.setText(UNIT);
-                                tableColumn5.setWidth(100);
+                                tableColumn5.setWidth(80);
                             }
                             {
                                 tableColumn4 = new TableColumn(tableConsignmentRows, SWT.RIGHT);
@@ -714,7 +717,7 @@ public class BillUIAddBuyBill extends Composite
                                     tableConsignmentRows,
                                     SWT.NONE);
                                 tableColumn3.setText(BASE_UNIT);
-                                tableColumn3.setWidth(126);
+                                tableColumn3.setWidth(97);
                             }
                             {
                                 tableColumn6 = new TableColumn(tableConsignmentRows, SWT.RIGHT);
@@ -730,6 +733,13 @@ public class BillUIAddBuyBill extends Composite
                                 tableColumnDiscountRate = new TableColumn(tableConsignmentRows, SWT.RIGHT);
                                 tableColumnDiscountRate.setText(DISCOUNT_PERCENT);
                                 tableColumnDiscountRate.setWidth(50);
+                            }
+                            {
+                                tableColumnPriceAfterDiscount = new TableColumn(
+                                    tableConsignmentRows,
+                                    SWT.NONE);
+                                tableColumnPriceAfterDiscount.setWidth(100);
+                                tableColumnPriceAfterDiscount.setText(TOTAL_PRICE_AFTER_DISCOUNT);
                             }
                             {
                                 tableColumn8 = new TableColumn(tableConsignmentRows, SWT.RIGHT);
@@ -1078,6 +1088,7 @@ public class BillUIAddBuyBill extends Composite
 	       columnList.add(UNIT_PRICE);
 	       columnList.add(TOTAL_PRICE);
 	       columnList.add(DISCOUNT_PERCENT);
+	       columnList.add(TOTAL_PRICE_AFTER_DISCOUNT);
 	       columnList.add(VAT_PERCENT);
 	       columnList.add(VAT_TOTAL);
 	       columnList.add(SPECIAL_VAT_PERCENT);
@@ -1099,12 +1110,13 @@ public class BillUIAddBuyBill extends Composite
 	       editors[5] = new TextCellEditor(tableConsignmentRows);
 	       editors[6] = new CurrencyCellEditor(tableConsignmentRows,4);
 	       editors[7] = new CurrencyCellEditor(tableConsignmentRows,4);
-	       editors[8] = new NumericCellEditor(tableConsignmentRows);
-	       editors[9] = new NumericCellEditor(tableConsignmentRows);
-	       editors[10] = new CurrencyCellEditor(tableConsignmentRows,4);
+	       editors[8] = new CurrencyCellEditor(tableConsignmentRows,2);
+	       editors[9] = new CurrencyCellEditor(tableConsignmentRows,2);
+	       editors[10] = new NumericCellEditor(tableConsignmentRows);
 	       editors[11] = new CurrencyCellEditor(tableConsignmentRows,4);
-	       editors[12] = new CurrencyCellEditor(tableConsignmentRows,2);
+	       editors[12] = new CurrencyCellEditor(tableConsignmentRows,4);
 	       editors[13] = new CurrencyCellEditor(tableConsignmentRows,2);
+	       editors[14] = new CurrencyCellEditor(tableConsignmentRows,2);
 	    
 	       // Assign the cell editors to the viewer 
 			tableViewer.setCellEditors(editors);
@@ -1119,9 +1131,7 @@ public class BillUIAddBuyBill extends Composite
 			 
 	             cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE,tableViewer,rowList);
 	             cursor.setEnabled(true);
-	        	 
-			
-	        	 
+
 	             cursor.addSelectionListener(new SelectionAdapter() {
 	                     public void widgetDefaultSelected(
 	                      SelectionEvent evt) {

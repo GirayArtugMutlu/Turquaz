@@ -164,6 +164,14 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite {
 	}
 	public void setData2(Object obj){
 		super.setData(obj);
+		if(obj==null)
+		{
+		    text1.setBackground(SWTResourceManager.getColor(255, 215, 215));
+		}
+		else
+		{
+		    text1.setBackground(SWTResourceManager.getColor(198,255,198));
+		}
 		
 	}
 
