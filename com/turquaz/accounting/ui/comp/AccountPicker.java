@@ -183,6 +183,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 	
 	public void setData(Object obj){
 		super.setData(obj);
+		text1.setText("");
 		if(obj!=null){
 		TurqAccountingAccount account = (TurqAccountingAccount)obj;
 		text1.setText(account.getAccountCode());

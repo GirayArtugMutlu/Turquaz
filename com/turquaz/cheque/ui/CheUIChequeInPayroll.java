@@ -435,4 +435,17 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
     public void setTxtRollNo(Text txtRollNo) {
         this.txtRollNo = txtRollNo;
     }
+    
+	/**
+	 * @return Returns the accountPicker.
+	 */
+	public AccountPicker getAccountPicker() {
+		return accountPicker;
+	}
+	/**
+	 * @param accountPicker The accountPicker to set.
+	 */
+	public void setAccountPicker(AccountPicker accountPicker) {
+		this.accountPicker = accountPicker;
+	}
 }

@@ -247,7 +247,7 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
 	            }   
 	           
 	            
-	           CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,null,(TurqCurrentCard)compChequeRoll.getCurrentPicker().getData(),null,compChequeRoll.getTxtRollNo().getText().trim(),compChequeRoll.getDatePicker1().getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_IN,compChequeRoll.getBtnSumTotals().getSelection());
+	           CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,compChequeRoll.getAccountPicker().getTurqAccountingAccount(),(TurqCurrentCard)compChequeRoll.getCurrentPicker().getData(),null,compChequeRoll.getTxtRollNo().getText().trim(),compChequeRoll.getDatePicker1().getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_IN,compChequeRoll.getBtnSumTotals().getSelection());
 	           EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
 	           isUpdated=true;
 	           dialogShell.close();
