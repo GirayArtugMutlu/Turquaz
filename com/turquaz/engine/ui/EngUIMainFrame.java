@@ -842,6 +842,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compMainInRightLayout.makeColumnsEqualWidth = true;
 			compMainInRightLayout.verticalSpacing = 0;
 			compMainInRightLayout.marginHeight = 0;
+			compMainInRightLayout.marginWidth = 0;
 			compMainInRight.layout();
 			sashMainVertical.setLayout(null);
             {
