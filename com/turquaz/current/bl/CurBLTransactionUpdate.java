@@ -1,7 +1,9 @@
 package com.turquaz.current.bl;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALCurrentCardUpdate;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -28,20 +30,19 @@ import com.turquaz.engine.dal.TurqCurrentTransaction;
  */
 public class CurBLTransactionUpdate
 {
-	public static void updateTrans(Object trans) throws Exception
+	public static void updateTrans(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		Object trans = argMap.get(CurKeys.CUR_TRANSACTION);
+		
 			EngDALCommon.updateObject(trans);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	
+			
 	}
 
-	public static void deleteCurTrans(TurqCurrentTransaction curTrans) throws Exception
+	public static void deleteCurTrans(HashMap argMap) throws Exception
 	{
+		TurqCurrentTransaction curTrans = (TurqCurrentTransaction)argMap.get(CurKeys.CUR_TRANSACTION);
 		Iterator it = curTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
 		while (it.hasNext())
 		{
@@ -52,15 +53,11 @@ public class CurBLTransactionUpdate
 		
 	}
 
-	public static void initCurTrans(TurqCurrentTransaction curTrans) throws Exception
+	public static void initCurTrans(HashMap argMap) throws Exception
 	{
-		try
-		{
-			CurDALCurrentCardUpdate.initCurrentTrans(curTrans);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
+		TurqCurrentTransaction curTrans = (TurqCurrentTransaction)argMap.get(CurKeys.CUR_TRANSACTION);
+		CurDALCurrentCardUpdate.initCurrentTrans(curTrans);
+		
 	}
 }

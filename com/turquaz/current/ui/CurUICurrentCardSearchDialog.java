@@ -15,6 +15,7 @@ package com.turquaz.current.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import org.apache.log4j.Logger;
@@ -34,11 +35,13 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentContact;
 import com.turquaz.engine.dal.TurqCurrentGroup;
+import com.turquaz.engine.tx.EngTXCommon;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 
@@ -243,8 +246,14 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			tableCurrentCardSearch.removeAll();
-			List listCurrentCards = CurBLCurrentCardSearch.searchCurrentCard(txtCurrentCode.getText().trim(), txtCurrentName.getText()
-					.trim(), (TurqCurrentGroup) comboTurqGroupName.getData(comboTurqGroupName.getText()));
+			HashMap argMap = new HashMap();
+			argMap.put(CurKeys.CUR_CURRENT_CODE,txtCurrentCode.getText().trim());
+			argMap.put(CurKeys.CUR_CURRENT_NAME,txtCurrentName.getText().trim());
+			argMap.put(CurKeys.CUR_GROUP, comboTurqGroupName.getData(comboTurqGroupName.getText()));
+			
+			
+			List listCurrentCards = (List)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"searchCurrentCard",argMap);
+			
 			for (int k = 0; k < listCurrentCards.size(); k++)
 			{
 				TurqCurrentCard aCurrentCard = (TurqCurrentCard) ((Object[]) listCurrentCards.get(k))[1];
@@ -277,7 +286,8 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 		{
 			comboTurqGroupName.removeAll();
 			comboTurqGroupName.setText(""); //$NON-NLS-1$
-			List groups = CurBLCurrentCardSearch.getTurqCurrentGroups();
+			List groups = (List)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getTurqCurrentGroups",null);
+			
 			for (int k = 0; k < groups.size(); k++)
 			{
 				TurqCurrentGroup group = (TurqCurrentGroup) groups.get(k);

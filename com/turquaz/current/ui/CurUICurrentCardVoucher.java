@@ -16,6 +16,7 @@ package com.turquaz.current.ui;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
@@ -36,6 +37,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrency;
@@ -48,10 +50,12 @@ import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.custom.CCombo;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
@@ -313,11 +317,22 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 				{
 					isCredit = true;
 				}
-				TurqCurrentTransaction curtrans = CurBLCurrentTransactionAdd.saveOtherCurrentTransaction(
-						(TurqCurrentCard) txtCurrentCard.getData(), accountPicker.getTurqAccountingAccount(),
-						dateTransDate.getDate(), "", isCredit, credit, //$NON-NLS-1$
-						new BigDecimal(0), EngBLCommon.CURRENT_TRANS_OTHERS, null, txtDefinition.getText(), exchangeRate);
-				if (EngUICommon.okToDelete(getShell(), Messages.getString("CurUICurrentCardVoucher.4"))) //$NON-NLS-1$
+				exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
+				HashMap argMap = new HashMap();
+				argMap.put(EngKeys.CURRENT_CARD,(TurqCurrentCard) txtCurrentCard.getData());
+				argMap.put(AccKeys.ACC_ACCOUNT, accountPicker.getTurqAccountingAccount());
+				argMap.put(EngKeys.DATE,dateTransDate.getDate());
+				argMap.put(EngKeys.DOCUMENT_NO,"");
+				argMap.put(CurKeys.CUR_IS_CREDIT,new Boolean(isCredit));
+				argMap.put(CurKeys.CUR_TRANS_AMOUNT,credit);
+				argMap.put(CurKeys.CUR_DISCOUNT_PAYMENT,new BigDecimal(0));
+				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.CURRENT_TRANS_OTHERS));
+				argMap.put(EngKeys.ENG_SEQ_ID,null);
+				argMap.put(EngKeys.DEFINITION, txtDefinition.getText());
+				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
+								
+				TurqCurrentTransaction curtrans = (TurqCurrentTransaction)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveOtherCurrentTransaction",argMap);
+					if (EngUICommon.okToDelete(getShell(), Messages.getString("CurUICurrentCardVoucher.4"))) //$NON-NLS-1$
 				{
 					EngBLUtils.printCurrentTrans(curtrans);
 				}

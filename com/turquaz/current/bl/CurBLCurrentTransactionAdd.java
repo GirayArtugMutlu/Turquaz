@@ -27,8 +27,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALCurrentTransactionAdd;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.EngDALCommon;
@@ -42,16 +45,7 @@ import com.turquaz.engine.ui.component.DatePicker;
 
 public class CurBLCurrentTransactionAdd
 {
-	public CurBLCurrentTransactionAdd()
-	{
-	}
-
-	public static void saveInitialTransaction(TurqCurrentCard curCard) throws Exception
-	{
-		saveCurrentTransaction(curCard, DatePicker.getFirstDayOfYear(), "", true, new BigDecimal(0), new BigDecimal(0),
-				EngBLCommon.CURRENT_TRANS_INITIAL, new Integer(-1), "", EngBLCommon.getBaseCurrencyExchangeRate());
-	}
-
+	
 	public static TurqCurrentTransaction saveCurrentTransaction(TurqCurrentCard curCard, Date transDate, String documentNo,
 			boolean isCredit, BigDecimal amount, BigDecimal totalDiscount, int type, Integer seqDocNo, String definition,
 			TurqCurrencyExchangeRate exchangeRate) throws Exception
@@ -59,7 +53,7 @@ public class CurBLCurrentTransactionAdd
 		try
 		{
 			TurqEngineSequence docSeq = new TurqEngineSequence();
-			;
+			
 			if (seqDocNo == null)
 			{
 				TurqModule module = new TurqModule();
@@ -114,15 +108,26 @@ public class CurBLCurrentTransactionAdd
 		}
 	}
 
-	//TODO DONE
-	public static TurqCurrentTransaction saveOtherCurrentTransaction(TurqCurrentCard curCard, TurqAccountingAccount account,
-			Date transDate, String documentNo, boolean isCredit, BigDecimal amount, BigDecimal totalDiscount, int type,
-			Integer seqDocNo, String definition, TurqCurrencyExchangeRate exchangeRate) throws Exception
+	
+	public static TurqCurrentTransaction saveOtherCurrentTransaction(HashMap argMap) throws Exception
 	{
-		try
-		{
-			TurqCurrentTransaction curTrans = saveCurrentTransaction(curCard, transDate, documentNo, isCredit, amount, totalDiscount,
-					type, seqDocNo, definition, exchangeRate);
+		
+		
+		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+		Date transDate = (Date)argMap.get(EngKeys.DATE);
+		String documentNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		Boolean isCredit = (Boolean)argMap.get(CurKeys.CUR_IS_CREDIT);
+		BigDecimal amount = (BigDecimal)argMap.get(CurKeys.CUR_TRANS_AMOUNT);
+		BigDecimal totalDiscount = (BigDecimal)argMap.get(CurKeys.CUR_DISCOUNT_PAYMENT);
+		Integer type = (Integer)argMap.get(EngKeys.TYPE);
+		Integer seqDocNo = (Integer)argMap.get(EngKeys.ENG_SEQ_ID);
+		String definition = (String)argMap.get(EngKeys.DEFINITION);
+		TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+		
+		
+			TurqCurrentTransaction curTrans = saveCurrentTransaction(curCard, transDate, documentNo, isCredit.booleanValue(), amount, totalDiscount,
+					type.intValue(), seqDocNo, definition, exchangeRate);
 			if (account == null)
 			{
 				return curTrans;
@@ -135,17 +140,13 @@ public class CurBLCurrentTransactionAdd
 				String transDefinition = "Cari Borc/Alacak " + DatePicker.formatter.format(transDate) + " " + documentNo;
 				Map creditAccounts = new HashMap();
 				Map deptAccounts = new HashMap();
-				prepareAccountingMaps(curCard, isCredit, amount, account, deptAccounts, creditAccounts);
+				prepareAccountingMaps(curCard, isCredit.booleanValue(), amount, account, deptAccounts, creditAccounts);
 				AccBLTransactionAdd.saveAccTransaction(transDate, documentNo, EngBLCommon.ACCOUNTING_TRANS_GENERAL,
 						EngBLCommon.MODULE_CURRENT, curTrans.getTurqEngineSequence().getId(), transDefinition, exchangeRate,
 						creditAccounts, deptAccounts, true);
 				return curTrans;
 			}
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	/**
@@ -163,17 +164,26 @@ public class CurBLCurrentTransactionAdd
 	 * @throws Exception
 	 */
 	//DONE
-	public static void saveCurrentCashTransaction(TurqCurrentCard curCard, Date transDate, String documentNo, boolean isCredit,
-			BigDecimal amount, BigDecimal totalDiscount, int type, TurqAccountingAccount account, TurqCurrencyExchangeRate exchangeRate)
+	public static void saveCurrentCashTransaction(HashMap argMap)
 			throws Exception
 	{
-		try
-		{
+
+		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+		Date transDate = (Date)argMap.get(EngKeys.DATE);
+		String documentNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		Boolean isCredit = (Boolean)argMap.get(CurKeys.CUR_IS_CREDIT);
+		BigDecimal amount = (BigDecimal)argMap.get(CurKeys.CUR_TRANS_AMOUNT);
+		BigDecimal totalDiscount = (BigDecimal)argMap.get(CurKeys.CUR_DISCOUNT_PAYMENT);
+		Integer type = (Integer)argMap.get(EngKeys.TYPE);
+		Integer seqDocNo = (Integer)argMap.get(EngKeys.ENG_SEQ_ID);
+		TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+		
 			//Accounting Integration
 			//Eger bir Nakit hareketi ise Muhasebe kaydini yap
 			//Daha sonra cari hareketi ekle
 			//Nakit hareketi degilse hic birsey yapma.
-			if (type == 4)
+			if (type.intValue() == 4)
 			{
 				int accTransactionType = 1; //0-Tahsil, 1-Tediye, 2-Mahsup
 				// 0 = collect
@@ -181,7 +191,7 @@ public class CurBLCurrentTransactionAdd
 				// 2 = general transaction
 				//Cari Karta para verildiginde
 				//Kasaya alacak hareketi (Tediye fisi)
-				if (isCredit)
+				if (isCredit.booleanValue())
 				{
 					accTransactionType = 1;
 				}
@@ -202,7 +212,7 @@ public class CurBLCurrentTransactionAdd
 				String transDefinition = "Cari " + DatePicker.formatter.format(transDate) + " " + documentNo;
 				Map creditAccounts = new HashMap();
 				Map deptAccounts = new HashMap();
-				prepareAccountingMaps(curCard, isCredit, amount, account, deptAccounts, creditAccounts);
+				prepareAccountingMaps(curCard, isCredit.booleanValue(), amount, account, deptAccounts, creditAccounts);
 				AccBLTransactionAdd.saveAccTransaction(transDate, documentNo, accTransactionType, 4, seq.getId(), transDefinition,
 						exchangeRate, creditAccounts, deptAccounts, true);
 				//Simdi Cari Hareketi Kaydedebiliriz.
@@ -214,7 +224,7 @@ public class CurBLCurrentTransactionAdd
 				curTrans.setTurqEngineSequence(seq);
 				curTrans.setTurqCurrencyExchangeRate(exchangeRate);
 				TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
-				transType.setId(new Integer(type));
+				transType.setId(type);
 				curTrans.setTransactionsTotalDiscount(totalDiscount.multiply(exchangeRate.getExchangeRatio()).setScale(2,
 						EngBLCommon.ROUNDING_METHOD));
 				curTrans.setTotalDiscountInForeignCurrency(totalDiscount);
@@ -227,11 +237,7 @@ public class CurBLCurrentTransactionAdd
 				curTrans.setCreationDate(cal.getTime());
 				EngDALCommon.saveObject(curTrans);
 			}
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	/**
@@ -247,7 +253,7 @@ public class CurBLCurrentTransactionAdd
 	 *             Accounting transaction id
 	 */
 	//TODO DONE
-	public static void prepareAccountingMaps(TurqCurrentCard curCard, boolean isCredit, BigDecimal amount, TurqAccountingAccount account,
+	private static void prepareAccountingMaps(TurqCurrentCard curCard, boolean isCredit, BigDecimal amount, TurqAccountingAccount account,
 			Map deptAccounts, Map creditAccounts) throws Exception
 	{
 		try
@@ -318,6 +324,7 @@ public class CurBLCurrentTransactionAdd
 		}
 	}
 
+	
 	public static List getCurrentTransactionTypes() throws Exception
 	{
 		try

@@ -29,5 +29,10 @@ public class CurKeys
 	public final static String CUR_CONTACT_INFO ="contactInfo";
 	public final static String CUR_GROUP_LIST ="groupList";
 	public final static String CUR_GROUP="currentGroup";
+	public final static String CUR_GROUP_NAME="currentGroupName";
+	public final static String CUR_CARD_ID ="currentCardId";
+	public final static String CUR_TRANSACTION ="currentTransaction";
+	public final static String CUR_IS_CREDIT ="isCredit";
+	public final static String CUR_TRANS_AMOUNT = "transAmount";
 	
 }

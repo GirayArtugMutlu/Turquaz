@@ -20,7 +20,7 @@ package com.turquaz.current.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Menu;
@@ -40,12 +40,13 @@ import com.turquaz.current.ui.comp.CurrentCodePicker;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqCurrentCardsGroup;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 import org.eclipse.swt.widgets.Table;
@@ -53,6 +54,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
@@ -254,7 +256,9 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 		{
 			comboTurqGroupName.removeAll();
 			comboTurqGroupName.setText(""); //$NON-NLS-1$
-			List groups = CurBLCurrentCardSearch.getTurqCurrentGroups();
+			
+			List groups = (List)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getTurqCurrentGroups",null);
+						
 			for (int k = 0; k < groups.size(); k++)
 			{
 				TurqCurrentGroup group = (TurqCurrentGroup) groups.get(k);
@@ -296,8 +300,18 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 				Integer cardId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (cardId != null)
 				{
-					TurqCurrentCard currentCard = CurBLCurrentCardSearch.initializeCurrentCard(cardId);
-					List curCardTrans = CurBLCurrentCardSearch.getTransactions(currentCard);
+					
+					
+					HashMap argMap = new HashMap();
+					argMap.put(CurKeys.CUR_CARD_ID,cardId);
+					TurqCurrentCard currentCard =(TurqCurrentCard)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"initializeCurrentCard",argMap);
+					
+					
+					argMap = new HashMap();
+					argMap.put(EngKeys.CURRENT_CARD,currentCard);
+					
+					List curCardTrans = (List)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getTransactions",argMap);
+					
 					if (curCardTrans.size() > 0)
 					{
 						msg.setMessage(Messages.getString("CurUICurrentCardUpdate.15")); //$NON-NLS-1$
@@ -308,8 +322,11 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 					int result = msg.open();
 					if (result == SWT.OK)
 					{
-						deleteRelations(currentCard);
-						CurBLCurrentCardUpdate.deleteObject(currentCard);
+						
+						 argMap = new HashMap();
+						argMap.put(EngKeys.CURRENT_CARD,currentCard);
+						EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"deleteCurrentCard",argMap);
+					
 						msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
 						msg.open();
 					}
@@ -327,43 +344,22 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 		}
 	}
 
-	//	Delete card Phones
-	//Delete Contacts
-	//Delete registered group relations
-	public void deleteRelations(TurqCurrentCard currentCard) throws Exception
-	{
-		try
-		{
-			Iterator it = currentCard.getTurqCurrentCardsGroups().iterator();
-			while (it.hasNext())
-			{
-				TurqCurrentCardsGroup currentGroup = (TurqCurrentCardsGroup) it.next();
-				CurBLCurrentCardUpdate.deleteObject(currentGroup);
-			}
-			it = currentCard.getTurqCurrentCardsPhones().iterator();
-			while (it.hasNext())
-			{
-				CurBLCurrentCardUpdate.deleteObject(it.next());
-			}
-			it = currentCard.getTurqCurrentContacts().iterator();
-			while (it.hasNext())
-			{
-				CurBLCurrentCardUpdate.deleteObject(it.next());
-			}
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
+	
 	public void search()
 	{
 		try
 		{
 			tableViewer.removeAll();
-			List listCurrentCards = CurBLCurrentCardSearch.searchCurrentCard(txtCurrentCode.getText().trim(), txtCurrentName.getText()
-					.trim(), (TurqCurrentGroup) comboTurqGroupName.getData(comboTurqGroupName.getText()));
+			
+			HashMap argMap = new HashMap();
+			argMap.put(CurKeys.CUR_CURRENT_CODE,txtCurrentCode.getText().trim());
+			argMap.put(CurKeys.CUR_CURRENT_NAME,txtCurrentName.getText().trim());
+			argMap.put(CurKeys.CUR_GROUP, comboTurqGroupName.getData(comboTurqGroupName.getText()));
+			
+			
+			List listCurrentCards = (List)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"searchCurrentCard",argMap);
+			
+			
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat(2);
 			BigDecimal generalCredit = new BigDecimal(0);
 			BigDecimal generalDept = new BigDecimal(0);
@@ -447,8 +443,10 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 				Integer cardId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cardId != null)
 				{
-					TurqCurrentCard card = CurBLCurrentCardSearch.initializeCurrentCard(cardId);
-					boolean updated = new CurUICurrentCardUpdate(this.getShell(), SWT.NULL, card).open();
+					HashMap argMap = new HashMap();
+					argMap.put(CurKeys.CUR_CARD_ID,cardId);
+					TurqCurrentCard currentCard =(TurqCurrentCard)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"initializeCurrentCard",argMap);
+					boolean updated = new CurUICurrentCardUpdate(this.getShell(), SWT.NULL, currentCard).open();
 					if (updated)
 						search();
 				}
@@ -482,8 +480,10 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 				Integer cardId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cardId != null)
 				{
-					TurqCurrentCard card = CurBLCurrentCardSearch.initializeCurrentCard(cardId);
-					new CurUICurrentCardTransactions(getShell(), SWT.NONE, card).open();
+					HashMap argMap = new HashMap();
+					argMap.put(CurKeys.CUR_CARD_ID,cardId);
+					TurqCurrentCard currentCard =(TurqCurrentCard)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"initializeCurrentCard",argMap);
+					new CurUICurrentCardTransactions(getShell(), SWT.NONE, currentCard).open();
 				}
 			}
 			catch (Exception ex)

@@ -254,10 +254,12 @@ public class CurBLCurrentCardAdd
 		
 	}
 
-	public static void saveCurrentGroup(String groupName, String groupDescription) throws Exception
+	public static void saveCurrentGroup(HashMap argMap) throws Exception
 	{
-		try
-		{
+	
+		 	String groupName = (String)argMap.get(CurKeys.CUR_GROUP);
+		    String groupDescription = (String)argMap.get(EngKeys.DEFINITION);
+			
 			TurqCurrentGroup curGroup = new TurqCurrentGroup();
 			curGroup.setGroupsName(groupName);
 			curGroup.setGroupsDescription(groupDescription);
@@ -267,46 +269,36 @@ public class CurBLCurrentCardAdd
 			curGroup.setLastModified(cal.getTime());
 			curGroup.setCreationDate(cal.getTime());
 			EngDALCommon.saveObject(curGroup);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	
 	}
 
-	public static void updateObject(Object obj) throws Exception
+	public static void updateGroup(HashMap argMap) throws Exception
 	{
-		try
-		{
-			EngDALCommon.updateObject(obj);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		TurqCurrentGroup invGroup = (TurqCurrentGroup)argMap.get(CurKeys.CUR_GROUP);
+		String name = (String)argMap.get(CurKeys.CUR_GROUP_NAME);
+		String definition = (String)argMap.get(EngKeys.DEFINITION);
+	
+		Calendar cal = Calendar.getInstance();
+		invGroup.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+		invGroup.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+		invGroup.setGroupsName(name);
+		invGroup.setGroupsDescription(definition);
+		EngDALCommon.updateObject(invGroup);
 	}
 
-	public static boolean isCurrentCodePresent(String Code) throws Exception
+	public static Boolean isCurrentCodePresent(HashMap argMap) throws Exception
 	{
-		try
-		{
-			return CurDALCurrentCardAdd.isCurrentCodePresent(Code);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		String Code = (String)argMap.get(CurKeys.CUR_CURRENT_CODE);
+		
+		
+			return new Boolean(CurDALCurrentCardAdd.isCurrentCodePresent(Code));
+	
 	}
 
-	public static boolean isCurrentNamePresent(String name) throws Exception
+	public static Boolean isCurrentNamePresent(HashMap argMap) throws Exception
 	{
-		try
-		{
-			return CurDALCurrentCardAdd.isCurrentNamePresent(name);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		String name = (String)argMap.get(CurKeys.CUR_CURRENT_NAME);
+			return new Boolean(CurDALCurrentCardAdd.isCurrentNamePresent(name));
+		
 	}
 }

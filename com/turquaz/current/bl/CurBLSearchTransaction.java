@@ -22,10 +22,12 @@ package com.turquaz.current.bl;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.accounting.AccKeys;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALSearchTransaction;
-import com.turquaz.current.dal.CurDALTransactionUpdate;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.EngDALCommon;
@@ -36,57 +38,54 @@ import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
 public class CurBLSearchTransaction
 {
-	CurDALTransactionUpdate dalUpdate = new CurDALTransactionUpdate();
-	AccBLTransactionSearch blAccSearch = new AccBLTransactionSearch();
-	CurBLCurrentTransactionAdd blTransAdd = new CurBLCurrentTransactionAdd();
-
-	public CurBLSearchTransaction()
-	{
-	}
-
-	public static List searchCurrentTransaction(Object curCard, Object type, String docNo, String definition, Date startDate, Date endDate)
+	
+	public static List searchCurrentTransaction(HashMap argMap )
 			throws Exception
 	{
-		try
-		{
-			return CurDALSearchTransaction.searchTransaction((TurqCurrentCard) curCard, (TurqCurrentTransactionType) type, docNo,
+		
+		 Object curCard = argMap.get(EngKeys.CURRENT_CARD);
+		 Object type = argMap.get(EngKeys.TYPE);
+		 String docNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		 String definition = (String)argMap.get(EngKeys.DEFINITION);
+		 Date startDate = (Date)argMap.get(EngKeys.DATE_START);
+		 Date endDate = (Date)argMap.get(EngKeys.DATE_END);
+	
+		return CurDALSearchTransaction.searchTransaction((TurqCurrentCard) curCard, (TurqCurrentTransactionType) type, docNo,
 					definition, startDate, endDate);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
-	public static TurqCurrentTransaction getCurTransByTransId(Integer transId) throws Exception
+	public static TurqCurrentTransaction getCurTransByTransId(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		Integer transId = (Integer)argMap.get(EngKeys.TRANS_ID);
+		
 			return CurDALSearchTransaction.getCurTransByTransId(transId);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
-	public static List getCurrentTransactions(TurqCurrentCard card, Date startDate, Date endDate) throws Exception
+	public static List getCurrentTransactions(HashMap argMap) throws Exception
 	{
-		try
-		{
-			return CurDALSearchTransaction.getCurrentTransactions(card, startDate, endDate);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
+		TurqCurrentCard card = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		Date startDate = (Date)argMap.get(EngKeys.DATE_START);
+		Date endDate = (Date)argMap.get(EngKeys.DATE_END);
+		return CurDALSearchTransaction.getCurrentTransactions(card, startDate, endDate);
+		
 	}
 
-	public static void updateCurrentTransaction(TurqCurrentCard curCard, Date transDate, String documentNo, boolean isCredit,
-			BigDecimal amount, TurqAccountingAccount account, TurqCurrentTransaction curTrans) throws Exception
+	public static void updateCurrentTransaction(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		
+		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		Date transDate = (Date)argMap.get(EngKeys.DATE);
+		String documentNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		Boolean isCredit =  (Boolean)argMap.get(CurKeys.CUR_IS_CREDIT);
+		BigDecimal amount = (BigDecimal)argMap.get(CurKeys.CUR_TRANS_AMOUNT);
+		TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+		TurqCurrentTransaction curTrans = (TurqCurrentTransaction)argMap.get(CurKeys.CUR_TRANSACTION); 
+		
 			Calendar cal = Calendar.getInstance();
 			TurqCurrency currency = EngBLCommon.getBaseCurrency();
 			curTrans.setTurqCurrentCard(curCard);
@@ -95,7 +94,7 @@ public class CurBLSearchTransaction
 			curTrans.setUpdatedBy(System.getProperty("user"));
 			curTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			int accTransType;
-			if (isCredit)
+			if (isCredit.booleanValue())
 			{
 				accTransType = 1;
 				curTrans.setTransactionsTotalCredit(amount);
@@ -122,39 +121,19 @@ public class CurBLSearchTransaction
 			 * blTransAdd.saveAccountingCashTransactionRows(curCard,isCredit,amount,account,
 			 * bankTrans.getTurqAccountingTransaction().getAccountingTransactionsId());
 			 */
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
-	public static void deleteCurrentTransaction(TurqCurrentTransaction curTrans) throws Exception
-	{
-		try
-		{
-			/*
-			 * //remove accounting transaction rows blAccSearch.removeTransactionRows(bankTrans.getTurqAccountingTransaction()); //remove
-			 * accounting transaction dalUpdate.deleteObject(bankTrans);
-			 * dalUpdate.deleteObject(bankTrans.getTurqAccountingTransaction()); //remove currren transaction
-			 */
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
 
-	public static List getCurrentBalances(TurqCurrentCard curCard, TurqCurrentCard curCard2, Date startDate) throws Exception
+
+	public static List getCurrentBalances(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD_START);
+		TurqCurrentCard curCard2 = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD_END);
+		Date startDate = (Date)argMap.get(EngKeys.DATE_START);
 			return CurDALSearchTransaction.getCurrentBalances(curCard, curCard2, startDate);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	public static List getInitialTransactions() throws Exception
@@ -169,7 +148,7 @@ public class CurBLSearchTransaction
 		}
 	}
 
-	public static void deleteInitialTransactions(TurqCurrentCard curCard) throws Exception
+	private static void deleteInitialTransactions(TurqCurrentCard curCard) throws Exception
 	{
 		try
 		{

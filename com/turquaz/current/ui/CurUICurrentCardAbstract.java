@@ -47,6 +47,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
+import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
@@ -325,7 +327,15 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			parameters.put("formatter", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
 			parameters.put("currency", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
 			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
-			List balances = CurBLSearchTransaction.getCurrentBalances(currentCard, currentCard2, datePickerStartDate.getDate());
+			
+			
+			HashMap argMap = new HashMap();
+			
+			argMap.put(EngKeys.CURRENT_CARD_START,currentCard);
+			argMap.put(EngKeys.CURRENT_CARD_END,currentCard2);
+			argMap.put(EngKeys.DATE_START,datePickerStartDate.getDate());
+			
+			List balances =(List)EngTXCommon.doSingleTX(CurBLSearchTransaction.class.getName(),"getCurrentBalances",argMap);
 			if (currentCard2 == null)
 			{
 				parameters.put("showGeneralTotal", new Boolean(true));
@@ -441,7 +451,14 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			parameters.put("formatter", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
 			parameters.put("currency", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
 			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
-			List balances = CurBLSearchTransaction.getCurrentBalances(currentCard, currentCard2, datePickerStartDate.getDate());
+			
+			HashMap argMap = new HashMap();
+			argMap.put(EngKeys.CURRENT_CARD_START,currentCard);
+			argMap.put(EngKeys.CURRENT_CARD_END,currentCard2);
+			argMap.put(EngKeys.DATE_START,datePickerStartDate.getDate());
+			
+			List balances =(List)EngTXCommon.doSingleTX(CurBLSearchTransaction.class.getName(),"getCurrentBalances",argMap);
+			
 			HashMap balanceList = new HashMap();
 			for (int k = 0; k < balances.size(); k++)
 			{

@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALCurrentCardSearch;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
@@ -30,46 +31,27 @@ import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 
 public class CurBLCurrentCardSearch
 {
-	public CurBLCurrentCardSearch()
-	{
-	}
 
-	public static List searchCurrentCard(String currentCode, String currentName, TurqCurrentGroup currentGroup) throws Exception
+	public static List searchCurrentCard(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		String currentCode = (String)argMap.get(CurKeys.CUR_CURRENT_CODE);
+		String currentName = (String)argMap.get(CurKeys.CUR_CURRENT_NAME);
+		TurqCurrentGroup currentGroup = (TurqCurrentGroup)argMap.get(CurKeys.CUR_GROUP);
+		
+		
 			return CurDALCurrentCardSearch.searchCurrentCards(currentCode, currentName, currentGroup);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
-	public static TurqViewCurrentAmountTotal getCurrentCardView(TurqCurrentCard currentCard) throws Exception
+	public static TurqViewCurrentAmountTotal getCurrentCardView(HashMap argMap) throws Exception
 	{
-		try
-		{
-			return CurDALCurrentCardSearch.getCurrentCardView(currentCard);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
+		TurqCurrentCard currentCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		
+		return CurDALCurrentCardSearch.getCurrentCardView(currentCard);
+		
 	}
-
-	public static List getTransactions(TurqCurrentCard curCard) throws Exception
-	{
-		try
-		{
-			return CurDALCurrentCardSearch.getTransactions(curCard);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
 	public static List getCurrentCards() throws Exception
 	{
 		try
@@ -81,6 +63,17 @@ public class CurBLCurrentCardSearch
 			throw ex;
 		}
 	}
+	
+	public static List getTransactions(HashMap argMap) throws Exception
+	{
+		
+		
+		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		
+		return CurDALCurrentCardSearch.getTransactions(curCard);
+		
+	}
+
 
 	public static TurqCurrentCard getCurrentCard(HashMap argMap) throws Exception
 	{
@@ -95,39 +88,34 @@ public class CurBLCurrentCardSearch
 		}
 	}
 
-	public static TurqCurrentCard initializeCurrentCard(Integer curCardId) throws Exception
+	public static TurqCurrentCard initializeCurrentCard(HashMap argMap) throws Exception
 	{
-		try
-		{
-			return CurDALCurrentCardSearch.initializeCurrentCard(curCardId);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+		
+		return CurDALCurrentCardSearch.initializeCurrentCard(curCardId);
+	
 	}
 
-	public static TurqAccountingAccount getCurrentAccountingAccount(TurqCurrentCard curCard, Integer type) throws Exception
+	
+	
+	public static TurqAccountingAccount getCurrentAccountingAccount(HashMap argMap) throws Exception
 	{
-		try
-		{
-			return CurDALCurrentCardSearch.getCurrentAccountingAccount(curCard, type);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	
+	   TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+	   Integer type = (Integer)argMap.get(EngKeys.TYPE);	   	
+		return CurDALCurrentCardSearch.getCurrentAccountingAccount(curCard, type);
+		
+	}
+	
+	public static TurqAccountingAccount getCurrentAccountingAccount(TurqCurrentCard curCard, Integer type) throws Exception
+	{	
+	
+		return CurDALCurrentCardSearch.getCurrentAccountingAccount(curCard, type);
+		
 	}
 
 	public static List getTurqCurrentGroups() throws Exception
 	{
-		try
-		{
-			return CurDALCurrentCardSearch.getTurqCurrentGroups();
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		return CurDALCurrentCardSearch.getTurqCurrentGroups();
 	}
 }

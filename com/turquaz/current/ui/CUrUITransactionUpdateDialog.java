@@ -19,6 +19,7 @@ package com.turquaz.current.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
@@ -32,17 +33,20 @@ import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
+import com.turquaz.current.bl.CurBLTransactionUpdate;
 import com.turquaz.current.ui.CurUITransactionAdd;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.tx.EngTXCommon;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
@@ -269,11 +273,20 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				else if (compTransactionAdd.getComboTransType().getText().equals(Messages.getString("CUrUITransactionUpdateDialog.4"))) { //$NON-NLS-1$
 					isCredit = true;
 				}
-				CurBLSearchTransaction.updateCurrentTransaction((TurqCurrentCard) compTransactionAdd.getTxtCurrentCode().getData(
-						compTransactionAdd.getTxtCurrentCode().getText()), compTransactionAdd.getDateTransDate().getDate(),
-						compTransactionAdd.getTxtDocumentNo().getText(), isCredit, compTransactionAdd.getDecTxtAmount()
-								.getBigDecimalValue(), (TurqAccountingAccount) compTransactionAdd.getAccPickerCashAccount()
-								.getData(), transaction);
+				
+				HashMap argMap = new HashMap();
+				argMap.put(EngKeys.CURRENT_CARD, compTransactionAdd.getTxtCurrentCode().getData(
+						compTransactionAdd.getTxtCurrentCode().getText()));
+				argMap.put(EngKeys.DATE,compTransactionAdd.getDateTransDate().getDate());
+				argMap.put(EngKeys.DOCUMENT_NO,compTransactionAdd.getTxtDocumentNo().getText());
+				argMap.put(CurKeys.CUR_IS_CREDIT,new Boolean(isCredit));
+				argMap.put(CurKeys.CUR_TRANS_AMOUNT,compTransactionAdd.getDecTxtAmount()
+						.getBigDecimalValue());
+				argMap.put(AccKeys.ACC_ACCOUNT,compTransactionAdd.getAccPickerCashAccount()
+						.getData());
+				argMap.put(CurKeys.CUR_TRANSACTION,transaction);
+				EngTXCommon.doTransactionTX(CurBLSearchTransaction.class.getName(),"updateCurrentTransaction",argMap);
+				
 				msg.setMessage(Messages.getString("CUrUITransactionUpdateDialog.10")); //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.close();
@@ -290,7 +303,10 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 		try
 		{
-			CurBLSearchTransaction.deleteCurrentTransaction(transaction);
+			HashMap argMap = new HashMap();
+			argMap.put(CurKeys.CUR_TRANSACTION,transaction);
+			EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"deleteCurTrans",argMap);
+			
 			msg.setMessage(Messages.getString("CUrUITransactionUpdateDialog.11")); //$NON-NLS-1$
 			msg.open();
 			this.dialogShell.close();

@@ -19,6 +19,7 @@ package com.turquaz.current.ui.comp;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
@@ -34,10 +35,10 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
-import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
 
@@ -183,10 +184,15 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite
 			{
 				try
 				{
-					TurqAccountingAccount account = CurBLCurrentCardSearch.getCurrentAccountingAccount((TurqCurrentCard) obj,
-							pickerAccountType);
-					if (account != null)
-						accountPicker.setData(account);
+
+					HashMap argMap = new HashMap();
+					argMap.put(EngKeys.CURRENT_CARD, obj);
+					argMap.put(EngKeys.TYPE,pickerAccountType);
+					
+					
+					accountPicker
+							.setData(EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentAccountingAccount",argMap));
+				    
 				}
 				catch (Exception ex)
 				{

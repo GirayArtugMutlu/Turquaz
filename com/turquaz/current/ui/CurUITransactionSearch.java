@@ -22,6 +22,7 @@ package com.turquaz.current.ui;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
@@ -37,11 +38,13 @@ import com.turquaz.cheque.ui.CheUIChequeRollSearch;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLSearchTransaction;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -285,7 +288,9 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	{
 		try
 		{
-			List list = CurBLCurrentTransactionAdd.getCurrentTransactionTypes();
+			List list =(List)EngTXCommon.doSingleTX(CurBLCurrentTransactionAdd.class.getName(),"getCurrentTransactionTypes",null);
+		
+			
 			TurqCurrentTransactionType type;
 			comboTransactionGroup.add("Hepsi");
 			comboTransactionGroup.setData("Hepsi", null);
@@ -319,9 +324,17 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 			tableViewer.removeAll();
 			BigDecimal totalDept = new BigDecimal(0);
 			BigDecimal totalCredit = new BigDecimal(0);
-			List results = CurBLSearchTransaction.searchCurrentTransaction(txtCurCard.getData(), comboTransactionGroup
-					.getData(comboTransactionGroup.getText()),
-					"", txtDefinition.getText().trim(), dateStartDate.getDate(), dateEndDate.getDate()); //$NON-NLS-1$
+			
+			HashMap argMap = new HashMap();
+			argMap.put(EngKeys.CURRENT_CARD,txtCurCard.getData());
+			argMap.put(EngKeys.TYPE,comboTransactionGroup.getData(comboTransactionGroup.getText()));
+			argMap.put(EngKeys.DOCUMENT_NO,"");
+			argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
+			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
+			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
+			
+			
+			List results = (List)EngTXCommon.doSingleTX(CurBLSearchTransaction.class.getName(),"searchCurrentTransaction",argMap); 
 			Object[] transaction;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			for (int i = 0; i < results.size(); i++)
@@ -387,7 +400,10 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				Integer transId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (transId != null)
 				{
-					TurqCurrentTransaction trans = CurBLSearchTransaction.getCurTransByTransId(transId);
+					
+					HashMap argMap = new HashMap();
+					argMap.put(EngKeys.TRANS_ID,transId);
+					TurqCurrentTransaction trans = (TurqCurrentTransaction)EngTXCommon.doSingleTX(CurBLSearchTransaction.class.getName(),"getCurTransByTransId",argMap);
 					//nakit hareketi ise izin ver
 					int type = trans.getTurqCurrentTransactionType().getId().intValue();
 					if (type == EngBLCommon.CURRENT_TRANS_OTHERS)

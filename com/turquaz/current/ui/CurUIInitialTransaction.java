@@ -1,6 +1,7 @@
 package com.turquaz.current.ui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.CellEditor;
@@ -16,9 +17,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.SWT;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.ITableRowListViewer;
@@ -107,7 +110,7 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			List list = CurBLSearchTransaction.getInitialTransactions();
+			List list =(List)EngTXCommon.doSingleTX(CurBLSearchTransaction.class.getName(),"getInitialTransactions",null);
 			TurqCurrentTransaction curTrans;
 			for (int i = 0; i < list.size(); i++)
 			{
@@ -181,7 +184,9 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 			{
 				try
 				{
-					CurBLTransactionUpdate.updateTrans(row.getDBObject());
+					HashMap argMap = new HashMap();
+					argMap.put(CurKeys.CUR_TRANSACTION,row.getDBObject());
+					EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"updateTrans",argMap);
 				}
 				catch (Exception ex)
 				{

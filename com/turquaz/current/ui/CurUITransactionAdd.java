@@ -20,6 +20,7 @@ package com.turquaz.current.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
@@ -27,11 +28,13 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.SWT;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.VerifyEvent;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import org.eclipse.swt.custom.CLabel;
@@ -39,12 +42,13 @@ import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.layout.GridData;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -392,9 +396,22 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 				}
 				//Transaction Type is Cash
 				//4,at the end means cash, it is a cash Transaction
-				CurBLCurrentTransactionAdd.saveCurrentCashTransaction((TurqCurrentCard) txtCurrentCode.getData(), dateTransDate
-						.getDate(), txtDocumentNo.getText().trim(), isCredit, decTxtAmount.getBigDecimalValue(), new BigDecimal(0),
-						4, (TurqAccountingAccount) accPickerCashAccount.getData(), exchangeRate);
+				exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
+				HashMap argMap = new HashMap();
+				argMap.put(EngKeys.CURRENT_CARD,(TurqCurrentCard) txtCurrentCode.getData());
+				argMap.put(AccKeys.ACC_ACCOUNT, accPickerCashAccount.getData());
+				argMap.put(EngKeys.DATE,dateTransDate.getDate());
+				argMap.put(EngKeys.DOCUMENT_NO,"");
+				argMap.put(CurKeys.CUR_IS_CREDIT,new Boolean(isCredit));
+				argMap.put(CurKeys.CUR_TRANS_AMOUNT,decTxtAmount.getBigDecimalValue());
+				argMap.put(CurKeys.CUR_DISCOUNT_PAYMENT,new BigDecimal(0));
+				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.CURRENT_TRANS_OTHERS));
+				argMap.put(EngKeys.ENG_SEQ_ID,null);
+				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
+								
+				TurqCurrentTransaction curtrans = (TurqCurrentTransaction)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveCurrentCashTransaction",argMap);
+				
+				
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(Messages.getString("CurUITransactionAdd.19")); //$NON-NLS-1$
 				msg.open();

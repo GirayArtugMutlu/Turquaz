@@ -21,11 +21,14 @@ package com.turquaz.current.bl;
  */
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALCurrentCardUpdate;
 import com.turquaz.current.dal.CurDALSearchTransaction;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -36,31 +39,41 @@ import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
 public class CurBLCurrentCardUpdate
 {
-	public CurBLCurrentCardUpdate()
-	{
-	}
+	
 
-	public static void updateCurrentCard(TurqCurrentCard currentCard, String currentCode, String cardName, String cardDefinition,
-			String cardAddress, BigDecimal cardDiscountRate, BigDecimal cardDiscountPayment, BigDecimal cardCreditLimit,
-			BigDecimal cardRiskLimit, String cardTaxDepartment, String cardTaxNumber, int daysToValue, Map accountingAccounts,
-			List phoneList, Map contactInfo, List groupList) throws Exception
+	public static void updateCurrentCard(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		 TurqCurrentCard currentCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD); 
+		 String currentCode = (String)argMap.get(CurKeys.CUR_CURRENT_CODE);	
+		 String cardName = (String)argMap.get(CurKeys.CUR_CURRENT_NAME);
+		 String cardDefinition = (String)argMap.get(EngKeys.DEFINITION);
+		 String cardAddress = (String)argMap.get(CurKeys.CUR_ADDRESS);
+		 BigDecimal cardDiscountRate = (BigDecimal)argMap.get(CurKeys.CUR_DISCOUNT_RATE);
+		 BigDecimal cardDiscountPayment = (BigDecimal)argMap.get(CurKeys.CUR_DISCOUNT_PAYMENT);
+		 BigDecimal cardCreditLimit = (BigDecimal)argMap.get(CurKeys.CUR_CREDIT_LIMIT);
+		 BigDecimal cardRiskLimit = (BigDecimal)argMap.get(CurKeys.CUR_RISK_LIMIT);
+		 String cardTaxDepartment = (String)argMap.get(CurKeys.CUR_TAX_DEPARTMENT);
+		 String cardTaxNumber = (String)argMap.get(CurKeys.CUR_TAX_NUMBER);
+		 Integer daysToValue = (Integer)argMap.get(CurKeys.CUR_DAYS_TO_VALUE);
+		 Map accountingAccounts = (Map)argMap.get(CurKeys.CUR_ACCOUNTING_LIST);
+		 List phoneList = (List)argMap.get(CurKeys.CUR_PHONE_LIST);
+		 Map contactInfo = (Map)argMap.get(CurKeys.CUR_CONTACT_INFO);
+		 List groupList = (List)argMap.get(CurKeys.CUR_GROUP_LIST);
+		
+		
+		
+		
 			updateCurrentCardInfo(currentCard, currentCode, cardName, cardDefinition, cardAddress, cardDiscountRate,
-					cardDiscountPayment, cardCreditLimit, cardRiskLimit, cardTaxDepartment, cardTaxNumber, daysToValue);
+					cardDiscountPayment, cardCreditLimit, cardRiskLimit, cardTaxDepartment, cardTaxNumber, daysToValue.intValue());
 			updateCurrentCardAccounts(currentCard, accountingAccounts);
 			updateCurrentCardPhones(currentCard, phoneList);
 			updateCurrentCardContact(currentCard, contactInfo);
 			updateCurrentCardGroups(currentCard, groupList);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	
 	}
 
-	public static void updateCurrentCardInfo(TurqCurrentCard currentCard, String currentCode, String cardName,
+	private static void updateCurrentCardInfo(TurqCurrentCard currentCard, String currentCode, String cardName,
 			String cardDefinition, String cardAddress, BigDecimal cardDiscountRate, BigDecimal cardDiscountPayment,
 			BigDecimal cardCreditLimit, BigDecimal cardRiskLimit, String cardTaxDepartment, String cardTaxNumber, int daysToValue)
 			throws Exception
@@ -89,13 +102,13 @@ public class CurBLCurrentCardUpdate
 		}
 	}
 
-	public static void updateCurrentCardAccounts(TurqCurrentCard currentCard, Map accounts) throws Exception
+	private static void updateCurrentCardAccounts(TurqCurrentCard currentCard, Map accounts) throws Exception
 	{
 		deleteCurrentCardAccounts(currentCard);
 		CurBLCurrentCardAdd.saveCurrentAccountingAccounts(currentCard, accounts);
 	}
 
-	public static void deleteCurrentCardAccounts(TurqCurrentCard currentCard) throws Exception
+	private static void deleteCurrentCardAccounts(TurqCurrentCard currentCard) throws Exception
 	{
 		Iterator it = currentCard.getTurqCurrentAccountingAccounts().iterator();
 		while (it.hasNext())
@@ -105,13 +118,13 @@ public class CurBLCurrentCardUpdate
 		}
 	}
 
-	public static void updateCurrentCardPhones(TurqCurrentCard currentCard, List phoneList) throws Exception
+	private static void updateCurrentCardPhones(TurqCurrentCard currentCard, List phoneList) throws Exception
 	{
 		deleteCurrentCardPhones(currentCard);
 		CurBLCurrentCardAdd.saveCurrentCardPhones(currentCard.getId(), phoneList);
 	}
 
-	public static void deleteCurrentCardPhones(TurqCurrentCard currentCard) throws Exception
+	private static void deleteCurrentCardPhones(TurqCurrentCard currentCard) throws Exception
 	{
 		Iterator it = currentCard.getTurqCurrentCardsPhones().iterator();
 		while (it.hasNext())
@@ -121,13 +134,13 @@ public class CurBLCurrentCardUpdate
 		}
 	}
 
-	public static void updateCurrentCardContact(TurqCurrentCard currentCard, Map contactInfo) throws Exception
+	private static void updateCurrentCardContact(TurqCurrentCard currentCard, Map contactInfo) throws Exception
 	{
 		deleteCurrentCardContact(currentCard);
 		CurBLCurrentCardAdd.saveCurrentCardContact(currentCard.getId(), contactInfo);
 	}
 
-	public static void deleteCurrentCardContact(TurqCurrentCard currentCard) throws Exception
+	private static void deleteCurrentCardContact(TurqCurrentCard currentCard) throws Exception
 	{
 		Iterator it = currentCard.getTurqCurrentContacts().iterator();
 		while (it.hasNext())
@@ -137,13 +150,13 @@ public class CurBLCurrentCardUpdate
 		}
 	}
 
-	public static void updateCurrentCardGroups(TurqCurrentCard currentCard, List groupList) throws Exception
+	private static void updateCurrentCardGroups(TurqCurrentCard currentCard, List groupList) throws Exception
 	{
 		deleteCurrentCardGroups(currentCard);
 		CurBLCurrentCardAdd.saveCurrentCardGroups(currentCard.getId(), groupList);
 	}
 
-	public static void deleteCurrentCardGroups(TurqCurrentCard currentCard) throws Exception
+	private static void deleteCurrentCardGroups(TurqCurrentCard currentCard) throws Exception
 	{
 		Iterator it = currentCard.getTurqCurrentCardsGroups().iterator();
 		while (it.hasNext())
@@ -153,58 +166,31 @@ public class CurBLCurrentCardUpdate
 		}
 	}
 
-	public static void deleteCurrentCard(TurqCurrentCard currentCard) throws Exception
+	public static void deleteCurrentCard(HashMap argMap) throws Exception
 	{
-		try
-		{
+		TurqCurrentCard currentCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		
 			deleteCurrentCardAccounts(currentCard);
 			deleteCurrentCardContact(currentCard);
 			deleteCurrentCardGroups(currentCard);
 			deleteCurrentCardPhones(currentCard);
 			CurDALSearchTransaction.deleteInitialTransactions(currentCard);
 			EngDALCommon.deleteObject(currentCard);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	
 	}
 
-	public static List getCurrentGroups() throws Exception
-	{
-		try
-		{
-			return CurDALCurrentCardUpdate.getCurrentGroups();
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
 
-	public static List getCurrentTransactionBalances(TurqCurrentCard curCard, int type) throws Exception
+
+	public static List getCurrentTransactionBalances(HashMap argMap) throws Exception
 	{
-		try
-		{
+		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		Integer type = (Integer)argMap.get(EngKeys.TYPE);
+		
 			TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
-			transType.setId(new Integer(type));
+			transType.setId(type);
 			return CurDALCurrentCardUpdate.getCurrentTransactionBalances(transType, curCard);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
-	public static void deleteObject(Object obj) throws Exception
-	{
-		try
-		{
-			EngDALCommon.deleteObject(obj);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
+	
 }

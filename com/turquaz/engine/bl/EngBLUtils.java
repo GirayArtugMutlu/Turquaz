@@ -49,6 +49,7 @@ import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.EngConfiguration;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -60,6 +61,7 @@ import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqViewBillTransTotal;
 import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 import com.turquaz.engine.dal.TurqViewInvPriceTotal;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SWTPTable;
@@ -355,7 +357,16 @@ public class EngBLUtils
 				
 			}
 			parameters.put("billType", (bill.getBillsType() ==EngBLCommon.BILL_TRANS_TYPE_BUY) ? new Integer(1) : new Integer(0)); 
-			TurqViewCurrentAmountTotal currentView =CurBLCurrentCardSearch.getCurrentCardView(curCard);
+			
+			
+			 argMap = new HashMap();
+			argMap.put(EngKeys.CURRENT_CARD,curCard);
+
+			
+			TurqViewCurrentAmountTotal currentView =			(TurqViewCurrentAmountTotal)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCardView",argMap);
+			
+			
+			
 			BigDecimal allTotal = currentView.getTransactionsBalanceNow();
 			allTotal =allTotal.multiply(new BigDecimal(-1)); 
 			BigDecimal oldAllTotal = allTotal.subtract(grandTotal);
@@ -418,7 +429,16 @@ public class EngBLUtils
 			parameters.put("currentId", curCard.getCardsCurrentCode());
 			parameters.put("despatchNoteDate", dformat.format(cons.getConsignmentsDate()));
 			parameters.put("despatchNoteId", cons.getConsignmentDocumentNo());
-			TurqViewCurrentAmountTotal currentView = CurBLCurrentCardSearch.getCurrentCardView(curCard);
+			
+			argMap = new HashMap();
+			argMap.put(EngKeys.CURRENT_CARD,curCard);
+
+			
+			TurqViewCurrentAmountTotal currentView =(TurqViewCurrentAmountTotal)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCardView",argMap);
+			
+			
+			
+			
 			BigDecimal allTotal = (currentView.getTransactionsBalanceNow() == null) ? new BigDecimal(0) : currentView
 					.getTransactionsBalanceNow();
 			BigDecimal oldAllTotal = allTotal.subtract(grandTotal);
