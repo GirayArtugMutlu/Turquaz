@@ -98,14 +98,6 @@
     >
         <column name="currencies_id" />
     </many-to-one>
-    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
-    <many-to-one
-        name="turqAccountingAccount"
-        class="com.turquaz.engine.dal.TurqAccountingAccount"
-        not-null="true"
-    >
-        <column name="accounting_accounts_id" />
-    </many-to-one>
     <!-- bi-directional one-to-many association to TurqChequeRoll -->
     <set
         name="turqChequeRolls"
@@ -118,6 +110,20 @@
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqChequeRoll"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqBankAccountingAccount -->
+    <set
+        name="turqBankAccountingAccounts"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="banks_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBankAccountingAccount"
         />
     </set>
     <!-- bi-directional one-to-many association to TurqChequeCheque -->

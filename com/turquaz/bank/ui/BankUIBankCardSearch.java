@@ -404,6 +404,7 @@ public class BankUIBankCardSearch extends  Composite implements SearchComposite 
 			{
 				Integer bankId=(Integer)selection[0].getData();
 				TurqBanksCard card = BankBLBankCardSearch.getBankCardByBankCardId(bankId);
+				BankBLBankCardSearch.initializeBankCard(card);
 				boolean updated=new BankUIBankCardUpdate(this.getShell(),SWT.NULL,card).open();
 				if (updated)
 					search();

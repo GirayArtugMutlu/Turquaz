@@ -23,10 +23,11 @@ package com.turquaz.bank.bl;
 
 
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.Map;
 
 import com.turquaz.bank.dal.BankDALBankCardUpdate;
 import com.turquaz.bank.dal.BankDALCommon;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 
@@ -48,7 +49,7 @@ public class BankBLBankCardUpdate {
 	 * @param aCard TurqBanksCard
 	 */
 	
-	public void updateBankCard(String bankName, String bankBranchName, String bankAccountNo,TurqCurrency currency, String definition, String bankCode, TurqAccountingAccount account, TurqBanksCard aCard)
+	public void updateBankCard(String bankName, String bankBranchName, String bankAccountNo,TurqCurrency currency, String definition, String bankCode, Map accountingAccounts, TurqBanksCard aCard)
 	throws Exception{
 		try{
 			aCard.setBankName(bankName);
@@ -59,7 +60,7 @@ public class BankBLBankCardUpdate {
 			aCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			aCard.setBankDefinition(definition);
 			aCard.setBankCode(bankCode);
-			aCard.setTurqAccountingAccount(account);
+			
 			bankDALBankCardUpdate.updateObject(aCard);
 			
 			if(!checkInitialTransaction(aCard))
@@ -68,6 +69,7 @@ public class BankBLBankCardUpdate {
 			   BankBLTransactionAdd.saveInitialBankTransaction(aCard);
 			    
 			}
+			updateBankAccountingAccounts(aCard,accountingAccounts);
 		
 			
 		}
@@ -91,6 +93,20 @@ public class BankBLBankCardUpdate {
 	    
 	    
 	    
+	}
+	
+	public void updateBankAccountingAccounts(TurqBanksCard curCard, Map accounts)throws Exception{
+		
+		Iterator it = curCard.getTurqBankAccountingAccounts().iterator();
+		while(it.hasNext()){
+		BankDALCommon.deleteObject(it.next());
+		}
+		
+		new BankBLBankCardAdd().saveBankAccountingAccounts(curCard,accounts);
+		
+		
+		
+		
 	}
 	
 	/**

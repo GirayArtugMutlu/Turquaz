@@ -190,6 +190,7 @@ public class CheBLSaveChequeTransaction {
          	saveRollAccountingTransactions(rollAccount,curAccount,chequeRoll,totalAmount,currency,exchangeRate);
          	
          }
+        
           
        /*   if(bankCard!=null&&sumTransTotal)
           {

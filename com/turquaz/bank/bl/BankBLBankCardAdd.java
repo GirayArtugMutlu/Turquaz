@@ -23,10 +23,13 @@ package com.turquaz.bank.bl;
 
 import com.turquaz.bank.dal.BankDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqBankAccountingAccount;
+import com.turquaz.engine.dal.TurqBankAccountingType;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
-
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.Map;
 
 
 public class BankBLBankCardAdd {
@@ -38,7 +41,7 @@ public class BankBLBankCardAdd {
 	
 	Calendar cal=Calendar.getInstance();
 	
-	public void saveBankCard(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency, String definition, String bankCode, TurqAccountingAccount account )
+	public void saveBankCard(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency, String definition, String bankCode, Map accountingAccounts)
 	throws Exception
 	{
 		try
@@ -50,19 +53,65 @@ public class BankBLBankCardAdd {
 			bankCard.setTurqCurrency(currency);
 			bankCard.setBankDefinition(definition);
 			bankCard.setBankCode(bankCode);
-			bankCard.setTurqAccountingAccount(account);
 			bankCard.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			bankCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			bankCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			bankCard.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
 			BankDALCommon.saveObject(bankCard);	
-			
+			if(accountingAccounts!=null)
+			{
+				saveBankAccountingAccounts(bankCard,accountingAccounts);
+			}
 		}
 		catch(Exception ex)
 		{
 			throw ex;
 		}
+	}
+	
+	public void saveBankAccountingAccounts(TurqBanksCard bankCard, Map accounts)throws Exception{
+		
+	
+		Iterator it = accounts.keySet().iterator();
+		while(it.hasNext())
+		{
+			
+			Integer type = (Integer)it.next();
+			
+			if(accounts.get(type)!=null)
+			{
+				
+			
+		    TurqBankAccountingAccount bankAccount = new TurqBankAccountingAccount();
+			
+			bankAccount.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankAccount.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankAccount.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			bankAccount.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			
+			bankAccount.setTurqBanksCard(bankCard);
+			bankAccount.setTurqAccountingAccount((TurqAccountingAccount)accounts.get(type));
+			
+			TurqBankAccountingType accType = new TurqBankAccountingType();
+			accType.setBankAccoutingTypesId(type);
+			
+			bankAccount.setTurqBankAccountingType(accType);
+			
+			
+			BankDALCommon.saveObject(bankAccount);
+			
+			
+			
+			}
+			
+			
+			
+		}
+		
+		
+		
+		
 	}
 
 }

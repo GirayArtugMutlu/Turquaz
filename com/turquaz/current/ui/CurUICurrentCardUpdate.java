@@ -355,8 +355,6 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			    Integer type = (Integer) curAccount.getTurqCurrentAccountingType().getCurrentAccoutingTypesId();
 			    AccountPicker picker = (AccountPicker)fieldMap.get(type);
 			    picker.setData(curAccount.getTurqAccountingAccount());
-			
-				
 				
 			
 				

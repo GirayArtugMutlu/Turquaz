@@ -31,6 +31,7 @@ import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.bank.dal.BankDALBankCardSearch;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.bill.dal.BillDALSearchBill;
@@ -140,6 +141,12 @@ public class EngBLCommon {
     
     public final static int BANK_TRANS_CHEQUE_COLLECT = 8; //Banka Cek Tahsili
     
+    
+    public final static Integer BANK_ACC_TYPE_GENERAL = new Integer(0); //banka muhasebe hesabi
+    
+    public final static Integer BANK_ACC_TYPE_CHEQUES_COLLECT = new Integer(1); //tahsildeki cekler
+    
+    public final static Integer BANK_ACC_TYPE_CHEQUES_GIVEN = new Integer(2); //verilen cekler
     
     
     public final static int MODULE_INVENTORY = 0;  //Stok Modulu
@@ -363,5 +370,42 @@ public class EngBLCommon {
 		
 	}
 	
+	public static void exportBankCardAccs() throws Exception{
+		
+		Transaction tx = null;
+		try{
+		
+			
+		List ls = BankDALBankCardSearch.getBankCardsAndAccounts();
+		
+		Session session = EngDALSessionFactory.openSession();
+		tx = session.beginTransaction();
+		
+		 Statement stmt = session.connection().createStatement();
+		 String query =""; //$NON-NLS-1$
+		 
+		 for(int i=0;i<ls.size();i++){
+		 	Object result[] = (Object[])ls.get(i);
+		 	query = "insert into turq_bank_accounting_accounts values("+result[0]+","+result[0]+","+result[1] //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+														  +","+0+","+"'admin','2005-01-01','admin','2005-01-01')"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		 	stmt.execute(query);
+		 }
+		
+		tx.commit();
+		session.flush();
+		session.close();
+		
+		
+			
+			
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+			tx.rollback();
+		}
+		
+		
+		
+	}
 
 }

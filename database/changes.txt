@@ -475,3 +475,43 @@ CREATE OR REPLACE VIEW public.turq_view_acc_totals AS
 **currencies unique index added*************
 alter table turq_currencies add CONSTRAINT uniq_cur_abbr UNIQUE (currencies_abbreviation);
 ****************************************
+
+********************* 01-03-2005 ****************
+--------New Tables For Bank Accountings ------------
+CREATE TABLE turq_bank_accounting_types
+(
+  bank_accouting_types_id int4 NOT NULL,
+  type_name varchar(100) NOT NULL,
+  definition varchar(100) NOT NULL,
+  CONSTRAINT turq_bank_accounting_types_pkey PRIMARY KEY (bank_accouting_types_id)
+) 
+
+INSERT INTO turq_bank_accounting_types VALUES (0, 'Banka Muhasebe Hesabi', ' ');
+INSERT INTO turq_bank_accounting_types VALUES (1, 'Tahsile Gelen Cekler Hesabi', ' ');
+INSERT INTO turq_bank_accounting_types VALUES (2, 'Verilen Cekler Hesai', ' ');
+
+CREATE TABLE turq_bank_accounting_accounts
+(
+  bank_accounting_accounts_id int4 NOT NULL,
+  banks_cards_id int4 NOT NULL,
+  accounting_accounts_id int4 NOT NULL,
+  bank_accounting_types_id int4 NOT NULL,
+  created_by varchar(50) NOT NULL,
+  creation_date date NOT NULL,
+  updated_by varchar(50) NOT NULL,
+  last_modified date NOT NULL,
+  CONSTRAINT turq_bank_accounting_accounts_pkey PRIMARY KEY (bank_accounting_accounts_id),
+  CONSTRAINT "bankAcc1" FOREIGN KEY (accounting_accounts_id) REFERENCES turq_accounting_accounts (accounting_accounts_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT "bankAcc2" FOREIGN KEY (bank_accounting_types_id) REFERENCES turq_bank_accounting_types (bank_accouting_types_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT "bankAcc3" FOREIGN KEY (banks_cards_id) REFERENCES turq_banks_cards (banks_cards_id) ON UPDATE RESTRICT ON DELETE RESTRICT
+) 
+
+!!!!!!!!!!!!!!!!IMPORTANTT!!!!!!!!!!!!!!!!
+In the preferences section of program,  export bank card data to new Tables.. 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ALTER TABLE turq_banks_cards DROP COLUMN accounting_accounts_id;
+
+*********************************************************************
+*********************************************************************
+

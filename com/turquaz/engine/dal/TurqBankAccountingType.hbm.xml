@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqBankAccountingType" 
+    table="turq_bank_accounting_types"
+>
+
+    <id
+        name="bankAccoutingTypesId"
+        type="int"
+        column="bank_accouting_types_id"
+    >
+        <generator class="native" />
+    </id>
+
+    <property
+        name="typeName"
+        type="java.lang.String"
+        column="type_name"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="definition"
+        type="java.lang.String"
+        column="definition"
+        not-null="true"
+        length="100"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional one-to-many association to TurqBankAccountingAccount -->
+    <set
+        name="turqBankAccountingAccounts"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="bank_accounting_types_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBankAccountingAccount"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

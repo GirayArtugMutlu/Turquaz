@@ -81,8 +81,10 @@ public class CurBLCurrentCardUpdate {
 	public void updateAccounts(TurqCurrentCard curCard, Map accounts)throws Exception{
 		
 		Iterator it = curCard.getTurqCurrentAccountingAccounts().iterator();
-		currentUpdate.deleteObject(it.next());
 		
+		while(it.hasNext()){
+			currentUpdate.deleteObject(it.next());
+		}
 		new CurBLCurrentCardAdd().saveCurrentAccountingAccounts(curCard,accounts);
 		
 		

@@ -22,12 +22,15 @@ package com.turquaz.bank.dal;
 * @version  $Id$
 */
 
+import java.util.Iterator;
 import java.util.List;
 
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqBankAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 
@@ -120,6 +123,58 @@ public class BankDALBankCardSearch {
 		} 
 		catch (Exception ex) 
 		{
+			throw ex;
+		}
+	}
+	
+	
+	public static List getBankCardsAndAccounts()
+	throws Exception
+	{
+		try 
+		{
+			Session session = EngDALSessionFactory.openSession();
+
+			String query = "Select bankCard.banksCardsId, bankCard.turqAccountingAccount.accountingAccountsId  from TurqBanksCard as bankCard" +
+					" where bankCard.banksCardsId <> -1";
+
+
+			Query q = session.createQuery(query);
+
+			List list = q.list();
+
+			session.close();
+			return list;
+
+		} 
+		catch (Exception ex) 
+		{
+			throw ex;
+		}
+	}
+	
+	public static TurqAccountingAccount getCurrentAccountingAccount(TurqBanksCard curCard, Integer type)throws Exception{
+		try{
+			
+			Session session = EngDALSessionFactory.openSession();
+			session.refresh(curCard);
+			Iterator it = curCard.getTurqBankAccountingAccounts().iterator();
+			while(it.hasNext())
+			{
+				TurqBankAccountingAccount curAccount = (TurqBankAccountingAccount)it.next();
+				
+				if(curAccount.getTurqBankAccountingType().getBankAccoutingTypesId().intValue()==type.intValue())
+				{
+					return curAccount.getTurqAccountingAccount();
+				}
+				
+			}
+			
+			return null;
+			
+			
+		}
+		catch(Exception ex){
 			throw ex;
 		}
 	}

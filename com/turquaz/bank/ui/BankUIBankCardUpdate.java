@@ -22,7 +22,9 @@ package com.turquaz.bank.ui;
 */
 
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 import org.eclipse.swt.widgets.Display;
@@ -33,12 +35,13 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 
+import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLBankCardUpdate;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
-import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqBankAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.ui.EngUICommon;
@@ -244,8 +247,23 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			compBankCard.getTxtBankAccountNo().setText(bankCard.getBankAccountNo());
 			compBankCard.getTxtDefinition().setText(bankCard.getBankDefinition());
 			compBankCard.getTxtBankCode().setText(bankCard.getBankCode());
-			compBankCard.getAccountPicker().setData(bankCard.getTurqAccountingAccount());
+	
 			FillCurrencyCombo();
+			
+			Iterator it = bankCard.getTurqBankAccountingAccounts().iterator();
+			Map fieldMap = compBankCard.getAccountingFields();
+			while(it.hasNext())
+			{
+				TurqBankAccountingAccount bankAccount = (TurqBankAccountingAccount)it.next();
+			    Integer type = (Integer) bankAccount.getTurqBankAccountingType().getBankAccoutingTypesId();
+			    AccountPicker picker = (AccountPicker)fieldMap.get(type);
+			    picker.setData(bankAccount.getTurqAccountingAccount());
+				
+			
+				
+			}
+			
+			
 		}
 		catch(Exception ex){
 			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
@@ -290,8 +308,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 											compBankCard.getTxtBankAccountNo().getText(),
 											(TurqCurrency)(compBankCard.getComboCurrency().getData(compBankCard.getComboCurrency().getText())),
 											compBankCard.getTxtDefinition().getText().trim(),
-											compBankCard.getTxtBankCode().getText().trim(),
-											(TurqAccountingAccount)compBankCard.getAccountPicker().getData(),
+											compBankCard.getTxtBankCode().getText().trim(),compBankCard.createAccountingMap(),
 											bankCard);
 		
 			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);

@@ -45,6 +45,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 	private Composite composite1;
 	private CCombo cCombo;
 	private Button btnCurrentCards;
+	private Button btnExportBankCards;
 	private Button btnUpdateBills;
 	private CLabel lblBillFormat;
 	private DatePicker datePicker;
@@ -171,6 +172,24 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 					}
 				});
 				//END <<  btnCurrentCards
+				//START >>  btnExportBankCards
+				btnExportBankCards = new Button(composite1, SWT.PUSH
+					| SWT.CENTER);
+				btnExportBankCards.setText("Banka Muhasebe Hesaplarini Aktar");
+				btnExportBankCards.addMouseListener(new MouseAdapter() {
+					
+					public void mouseUp(MouseEvent evt) {
+					try{
+						EngBLCommon.exportBankCardAccs();
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();
+					}
+					}
+					
+				});
+				//END <<  btnExportBankCards
             }
             fillBillTypeCombo();
             EngUICommon.centreWindow(dialogShell);

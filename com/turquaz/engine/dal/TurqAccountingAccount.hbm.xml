@@ -213,6 +213,20 @@
             class="com.turquaz.engine.dal.TurqInventoryCard"
         />
     </set>
+    <!-- bi-directional one-to-many association to TurqBankAccountingAccount -->
+    <set
+        name="turqBankAccountingAccounts"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="accounting_accounts_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBankAccountingAccount"
+        />
+    </set>
     <!-- bi-directional one-to-many association to TurqAccountingTransactionColumn -->
     <set
         name="turqAccountingTransactionColumns"
@@ -239,20 +253,6 @@
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqChequeTransactionType"
-        />
-    </set>
-    <!-- bi-directional one-to-many association to TurqBanksCard -->
-    <set
-        name="turqBanksCards"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="accounting_accounts_id" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqBanksCard"
         />
     </set>
     <!-- bi-directional one-to-many association to TurqBankCardsSecondaryAccount -->

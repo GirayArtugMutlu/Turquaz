@@ -24,6 +24,7 @@ package com.turquaz.bank.bl;
 import java.util.List;
 
 import com.turquaz.bank.dal.BankDALBankCardSearch;
+import com.turquaz.bank.dal.BankDALCommon;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 
@@ -77,6 +78,12 @@ public class BankBLBankCardSearch {
 		{
 			throw ex;
 		}
+	}
+	public static void initializeBankCard(TurqBanksCard bankCard)throws Exception
+	{
+	
+		BankDALCommon.initializeBankCard(bankCard);
+		
 	}
 
 }

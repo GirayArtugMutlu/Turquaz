@@ -77,8 +77,9 @@
      <mapping resource="com/turquaz/engine/dal/TurqCurrentAccountingAccount.hbm.xml"/>
      <mapping resource="com/turquaz/engine/dal/TurqCurrentAccountingType.hbm.xml"/>
      <mapping resource="com/turquaz/engine/dal/TurqViewAccTotal.hbm.xml"/>
-     
-    </session-factory>
+       <mapping resource="com/turquaz/engine/dal/TurqBankAccountingAccount.hbm.xml"/>
+         <mapping resource="com/turquaz/engine/dal/TurqBankAccountingType.hbm.xml"/>
+       </session-factory>
     
 
 </hibernate-configuration>

@@ -36,6 +36,7 @@
         type="java.lang.String"
         column="currencies_abbreviation"
         not-null="true"
+        unique="true"
         length="5"
     />
     <property
