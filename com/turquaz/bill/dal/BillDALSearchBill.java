@@ -27,7 +27,7 @@ public class BillDALSearchBill
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select bill.id, bill.billsDate, bill.billDocumentNo,"
 					+ " bill.turqCurrentCard.cardsCurrentCode, bill.turqCurrentCard.cardsName,"
 					+ " billview.totalprice, billview.vatamount, billview.specialvatamount, bill.turqCurrencyExchangeRate.turqCurrencyByExchangeCurrencyId.currenciesAbbreviation"
@@ -56,7 +56,6 @@ public class BillDALSearchBill
 				q.setParameter("curCard", curCard);
 			}
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -69,11 +68,10 @@ public class BillDALSearchBill
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select bill from TurqBill as bill" + " where bill.id=" + billId; //$NON-NLS-1$
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return (TurqBill) list.get(0);
 		}
 		catch (Exception ex)
@@ -86,7 +84,7 @@ public class BillDALSearchBill
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query="Select invTrans.id, cardUnit.cardUnitsFactor, invTrans.turqInventoryCard.cardInventoryCode," +
 					" invTrans.turqInventoryCard.cardName, invTrans.turqInventoryUnit.unitsName," +
 					((bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_BUY)
@@ -101,7 +99,7 @@ public class BillDALSearchBill
 					" and cardUnit.turqInventoryUnit=invTrans.turqInventoryUnit";	
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+			
 			return list;
 		}
 		catch (Exception ex)
@@ -114,12 +112,12 @@ public class BillDALSearchBill
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select billview from TurqViewBillTransTotal as billview" +
 					" where billview.billsId=" + billId;
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+			
 			return (TurqViewBillTransTotal) list.get(0);
 		}
 		catch (Exception ex)
@@ -134,7 +132,7 @@ public class BillDALSearchBill
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select bill.id, bill.billsDate, bill.billDocumentNo,"
 					+ " bill.turqCurrentCard.cardsCurrentCode, bill.turqCurrentCard.cardsName,"
 					+ " billview.totalprice, billview.vatamount, billview.specialvatamount,bill.turqCurrencyExchangeRate.turqCurrencyByExchangeCurrencyId.currenciesAbbreviation"
@@ -197,7 +195,6 @@ public class BillDALSearchBill
 				q.setParameter("curCardEnd", curCardEnd);
 			}
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -210,7 +207,7 @@ public class BillDALSearchBill
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			session.refresh(bill);
 			Hibernate.initialize(bill.getTurqBillInGroups());
 			Hibernate.initialize(bill.getTurqBillInEngineSequences());
@@ -221,7 +218,7 @@ public class BillDALSearchBill
 				Hibernate.initialize(billInEng.getTurqEngineSequence().getTurqConsignments());
 				Hibernate.initialize(billInEng.getTurqEngineSequence().getTurqInventoryTransactions());
 			}
-			session.close();
+			
 		}
 		catch (Exception ex)
 		{

@@ -15,11 +15,11 @@ public class BillDALAddGroups
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqBillGroup as gr ";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+			
 			return list;
 		}
 		catch (Exception ex)

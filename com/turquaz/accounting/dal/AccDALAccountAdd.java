@@ -31,13 +31,13 @@ public class AccDALAccountAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqAccountingAccount as accounts " + "where  accounts.turqAccountingAccountByParentAccount.id ="
 					+ parentid + "" + " and accounts.accountCode like '" + codeCriteria + "%'" + " and accounts.id <> -1"
 					+ " order by accounts.id";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)
@@ -50,12 +50,12 @@ public class AccDALAccountAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqAccountingAccount as accounts " + "where accounts.accountCode ='" + code + "'"
 					+ " and accounts.id <> -1";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+			
 			if (list.size() > 0)
 			{
 				return (TurqAccountingAccount) list.get(0);
@@ -72,14 +72,14 @@ public class AccDALAccountAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqAccountingAccount as accounts " +
 			// was removing accounting plan
 					//	" and accounts.accountingAccountsId <> -1" +
 					" order by accounts.id";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+			
 			return list;
 		}
 		catch (Exception ex)
@@ -92,13 +92,13 @@ public class AccDALAccountAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select account, accView from" + " TurqAccountingAccount account, TurqViewAccTotal accView"
 					+ " where account.id=accView.accountingAccountsId" + " order by account.id";
 			//includes "accounting plan" id=-1
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)
@@ -111,12 +111,12 @@ public class AccDALAccountAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqAccountingAccount as accounts " + "where accounts.id <> -1"
 					+ " and accounts.turqAccountingAccountsByParentAccount.size=0" + " order by accounts.accountCode";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)
@@ -129,13 +129,13 @@ public class AccDALAccountAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select account from TurqAccountingAccount as account " + "where account.id<> -1" +
 			//" and account.turqAccountingAccountsByParentAccount.accountingAccountsId=-1" +
 					" order by account.accountCode";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)
@@ -148,12 +148,12 @@ public class AccDALAccountAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqAccountingAccount as accounts " + "where accounts.accountCode ='" + code + "'"
 					+ " and accounts.id <> -1" + " and accounts.turqAccountingAccountsByParentAccount.size=0";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			if (list.size() > 0)
 			{
 				return (TurqAccountingAccount) list.get(0);
@@ -170,12 +170,12 @@ public class AccDALAccountAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select account from TurqAccountingAccount as account " + "where account.accountCode ='" + code + "'"
 					+ " and account.id <> -1";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+	
 			if (list.size() > 0)
 			{
 				return (TurqAccountingAccount) list.get(0);
@@ -192,7 +192,7 @@ public class AccDALAccountAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select accounts.accountCode, accounts.accountName from TurqAccountingAccount as accounts "
 					+ "where accounts.id <> -1" + " and accounts.turqAccountingAccountsByParentAccount.size=0"
 					+ " and accounts.accountCode like '100%'" + " order by accounts.accountCode";
@@ -211,7 +211,7 @@ public class AccDALAccountAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select transColumn from TurqAccountingTransactionColumn as transColumn"
 					+ " where transColumn.turqAccountingTransaction.transactionsDate >= :startDate"
 					+ " and transColumn.turqAccountingTransaction.transactionsDate <= :endDate";
@@ -221,7 +221,7 @@ public class AccDALAccountAdd
 			q.setParameter("endDate", endDate);
 			q.setParameter("startDate", startDate);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)

@@ -24,7 +24,6 @@ import java.util.List;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -42,11 +41,11 @@ public class AccDALTransactionSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select distinct transType from TurqAccountingTransactionType as transType";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+	
 			return list;
 		}
 		catch (Exception ex)
@@ -59,11 +58,11 @@ public class AccDALTransactionSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select currency from TurqCurrency as currency" + " where currency.defaultCurrency=true";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+
 			return (TurqCurrency) list.get(0);
 		}
 		catch (Exception ex)
@@ -76,11 +75,11 @@ public class AccDALTransactionSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select exRate from TurqCurrencyExchangeRate as exRate" + " where exRate.id=-1";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+			
 			return (TurqCurrencyExchangeRate) list.get(0);
 		}
 		catch (Exception ex)
@@ -93,11 +92,11 @@ public class AccDALTransactionSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select currency from TurqCurrency as currency where currency.id=1";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)
@@ -111,7 +110,7 @@ public class AccDALTransactionSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select acc.accountCode," + "sum(transcolumn.rowsDeptInBaseCurrency),"
 					+ "sum(transcolumn.rowsCreditInBaseCurrency)" + " from TurqAccountingAccount acc,"
 					+ " TurqAccountingTransactionColumn transcolumn," + " TurqAccountingTransaction trans"
@@ -130,7 +129,7 @@ public class AccDALTransactionSearch
 			Query q = session.createQuery(query);
 			q.setParameter("startDate", startDate);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)
@@ -144,7 +143,7 @@ public class AccDALTransactionSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select accTrans.id," + " accTrans.transactionsDate," + "accTrans.transactionDocumentNo,"
 					+ "accTrans.turqAccountingTransactionType.typesName," + "accTrans.transactionDescription, "
 					+ "sum(transRow.creditAmount)," + "accTrans.turqModule.moduleDescription "
@@ -185,7 +184,7 @@ public class AccDALTransactionSearch
 				q.setParameter("endDate", endDate);
 			}
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)
@@ -199,12 +198,11 @@ public class AccDALTransactionSearch
 		try
 		{
 			removeTransactionRows(trans);
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tr = session.beginTransaction();
+			Session session = EngDALSessionFactory.getSession();
+		
 			session.delete(trans);
 			session.flush();
-			tr.commit();
-			session.close();
+	
 		}
 		catch (Exception ex)
 		{
@@ -216,13 +214,12 @@ public class AccDALTransactionSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tr = session.beginTransaction();
+			Session session = EngDALSessionFactory.getSession();
+		
 			session.delete("select row from TurqAccountingTransactionColumn as row where" + " row.turqAccountingTransaction.id ="
 					+ transaction.getId().intValue());
 			session.flush();
-			tr.commit();
-			session.close();
+			
 		}
 		catch (Exception ex)
 		{
@@ -234,7 +231,7 @@ public class AccDALTransactionSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select transRow from TurqAccountingTransactionColumn as transRow"
 					+ " where transRow.turqAccountingTransaction = :trans";
 			//Tahsil Fisi
@@ -250,7 +247,7 @@ public class AccDALTransactionSearch
 			Query q = session.createQuery(query);
 			q.setParameter("trans", trans);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)
@@ -263,7 +260,7 @@ public class AccDALTransactionSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select sum(transRow.deptAmount),sum(transRow.creditAmount) from TurqAccountingTransactionColumn as transRow"
 					+ " where transRow.turqAccountingAccount = :acc ";
 			if (startDate != null)
@@ -290,7 +287,7 @@ public class AccDALTransactionSearch
 			}
 			List list = q.list();
 			Object sums[] = (Object[]) list.get(0);
-			session.close();
+		
 			return sums;
 		}
 		catch (Exception ex)
@@ -303,7 +300,7 @@ public class AccDALTransactionSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select transRow from TurqAccountingTransactionColumn as transRow"
 					+ " where transRow.turqAccountingAccount = :acc ";
 			if (startDate != null)
@@ -330,7 +327,6 @@ public class AccDALTransactionSearch
 				q.setParameter("endDate", sqlDate);
 			}
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -343,7 +339,7 @@ public class AccDALTransactionSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select accTrans from TurqAccountingTransaction as accTrans"
 					+ " where accTrans.turqAccountingJournal.id = -1";
 			Query q = session.createQuery(query);
@@ -353,7 +349,6 @@ public class AccDALTransactionSearch
 				TurqAccountingTransaction accTrans = (TurqAccountingTransaction) list.get(i);
 				Hibernate.initialize(accTrans.getTurqAccountingTransactionColumns());
 			}
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -367,7 +362,7 @@ public class AccDALTransactionSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select accounts, sum(transColumns.rowsDeptInBaseCurrency),"
 					+ " sum(transColumns.rowsCreditInBaseCurrency) from TurqAccountingAccount accounts,"
 					+ " TurqAccountingTransaction as accTrans," + " TurqAccountingTransactionColumn as transColumns"
@@ -417,7 +412,6 @@ public class AccDALTransactionSearch
 				q.setParameter("endDate", sqlDate);
 			}
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)

@@ -29,7 +29,6 @@ import com.turquaz.engine.dal.TurqEngineSequence;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 
 /**
  * @author onsel
@@ -45,8 +44,8 @@ public class CashDALCashCard
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			Session session = EngDALSessionFactory.getSession();
+		
 			session.refresh(cashTrans);
 			Iterator it = cashTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
 			while (it.hasNext())
@@ -59,9 +58,9 @@ public class CashDALCashCard
 				}
 				session.delete(accTran);
 			}
-			tx.commit();
+		
 			session.flush();
-			session.close();
+			
 		}
 		catch (Exception ex)
 		{
@@ -73,7 +72,7 @@ public class CashDALCashCard
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select cashCard from TurqCashCard as cashCard " + " where cashCard.cashCardName like '" + name + "%' ";
 			if (account != null)
 			{
@@ -85,7 +84,7 @@ public class CashDALCashCard
 				q.setParameter("account", account);
 			}
 			List lst = q.list();
-			session.close();
+		
 			return lst;
 		}
 		catch (Exception ex)
@@ -98,7 +97,7 @@ public class CashDALCashCard
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select distinct cashTrans.id,"
 					+ " cashTrans.turqCashTransactionType.cashTransationTypeName, sum(transRow.deptAmount),sum(transRow.creditAmount),cashTrans.transactionDate, cashTrans.transactionDefinition from TurqCashTransaction as cashTrans"
 					+ " left join cashTrans.turqCashTransactionRows as transRow "
@@ -133,12 +132,12 @@ public class CashDALCashCard
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqCashTransaction cashTrans = (TurqCashTransaction) session.load(TurqCashTransaction.class, id);
 			Hibernate.initialize(cashTrans.getTurqEngineSequence().getTurqCurrentTransactions());
 			Hibernate.initialize(cashTrans.getTurqCashTransactionRows());
 			Hibernate.initialize(cashTrans.getTurqEngineSequence().getTurqAccountingTransactions());
-			session.close();
+			
 			return cashTrans;
 		}
 		catch (Exception ex)
@@ -151,10 +150,10 @@ public class CashDALCashCard
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			session.refresh(cashTrans);
 			Hibernate.initialize(cashTrans.getTurqCashTransactionRows());
-			session.close();
+			
 		}
 		catch (Exception ex)
 		{
@@ -166,7 +165,7 @@ public class CashDALCashCard
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			session.refresh(seq);
 			Hibernate.initialize(seq.getTurqCurrentTransactions());
 			Iterator it = seq.getTurqCurrentTransactions().iterator();
@@ -176,7 +175,7 @@ public class CashDALCashCard
 				session.close();
 				return curTrans.getTurqCurrentCard();
 			}
-			session.close();
+			
 			return null;
 		}
 		catch (Exception ex)
@@ -189,7 +188,7 @@ public class CashDALCashCard
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select trans.id, trans.transactionDate, trans.transactionDefinition,"
 					+ " transRow.deptAmount,transRow.creditAmount, trans.turqCashTransactionType.cashTransationTypeName"
 					+ " from TurqCashTransaction as trans left join trans.turqCashTransactionRows as transRow "
@@ -201,7 +200,7 @@ public class CashDALCashCard
 			q.setParameter("startDate", startDate);
 			q.setParameter("endDate", endDate);
 			List ls = q.list();
-			session.close();
+			
 			return ls;
 		}
 		catch (Exception ex)
@@ -215,7 +214,7 @@ public class CashDALCashCard
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select sum(row.deptAmount),sum(row.creditAmount)"
 					+ " from TurqCashTransactionRow as row where row.turqCashTransaction.transactionDate < :endDate"
 					+ " and row.turqCashCard = :cashCard" + " group by row.turqCashCard";
@@ -223,7 +222,7 @@ public class CashDALCashCard
 			q.setParameter("endDate", endDate);
 			q.setParameter("cashCard", cashCard);
 			List ls = q.list();
-			session.close();
+			
 			return ls;
 		}
 		catch (Exception ex)

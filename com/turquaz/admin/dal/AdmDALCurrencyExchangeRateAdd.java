@@ -34,13 +34,13 @@ public class AdmDALCurrencyExchangeRateAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select exchangeRate.id," + " exchangeRate.exhangeRatesDate,"
 					+ " exchangeRate.turqCurrencyByExchangeCurrencyId.currenciesAbbreviation," + " exchangeRate.exchangeRatio"
 					+ " from TurqCurrencyExchangeRate as exchangeRate" + " order by exchangeRate.exhangeRatesDate";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)

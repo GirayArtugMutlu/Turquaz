@@ -31,12 +31,12 @@ public class AccDALAccountUpdate
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqAccountingAccount as accounts " + "where accounts.turqAccountingAccountByParentAccount.id ="
 					+ parentAcc.getId();
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)
@@ -52,14 +52,13 @@ public class AccDALAccountUpdate
 			List subAccounts = getSubAccounts(parentAcc);
 			for (int k = 0; k < subAccounts.size(); k++)
 			{
-				Session session = EngDALSessionFactory.openSession();
+				Session session = EngDALSessionFactory.getSession();
 				TurqAccountingAccount subAcc = (TurqAccountingAccount) subAccounts.get(k);
 				String remainingCode = subAcc.getAccountCode().substring(firstAccCode.length());
 				String firstSubAccCode = subAcc.getAccountCode();
 				subAcc.setAccountCode(parentAcc.getAccountCode().concat(remainingCode));
 				session.update(subAcc);
 				session.flush();
-				session.close();
 				updateAccountCodeOfSubAccs(subAcc, firstSubAccCode);
 			}
 		}
@@ -73,12 +72,12 @@ public class AccDALAccountUpdate
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select transColumns from TurqAccountingTransactionColumn as transColumns "
 					+ "where transColumns.turqAccountingAccount.id =" + account.getId();
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+			
 			return list;
 		}
 		catch (Exception ex)
@@ -91,13 +90,13 @@ public class AccDALAccountUpdate
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select sum(transaction.rowsDeptInBaseCurrency), sum(transaction.rowsCreditInBaseCurrency) from TurqAccountingTransactionColumn as transaction "
 					+ "where transaction.turqAccountingAccount= :account";
 			Query q = session.createQuery(query);
 			q.setParameter("account", account);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)

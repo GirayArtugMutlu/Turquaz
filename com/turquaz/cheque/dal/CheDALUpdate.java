@@ -31,9 +31,9 @@ public class CheDALUpdate
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqChequeCheque cheque = (TurqChequeCheque) session.load(TurqChequeCheque.class, chequeId);
-			session.close();
+		
 			return cheque;
 		}
 		catch (Exception ex)
@@ -46,7 +46,7 @@ public class CheDALUpdate
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			session.refresh(chequeRoll);
 			Hibernate.initialize(chequeRoll.getTurqChequeChequeInRolls());
 			Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqCurrentTransactions());
@@ -54,7 +54,7 @@ public class CheDALUpdate
 			Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqCashTransactions());
 			Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqAccountingTransactions());
 			chequeRoll.getTurqChequeRollAccountingAccount();
-			session.close();
+		
 		}
 		catch (Exception ex)
 		{
@@ -66,9 +66,9 @@ public class CheDALUpdate
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqChequeRoll cheqRoll = (TurqChequeRoll) session.load(TurqChequeRoll.class, chequeRollId);
-			session.close();
+		
 			return cheqRoll;
 		}
 		catch (Exception ex)
@@ -81,10 +81,10 @@ public class CheDALUpdate
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			session.refresh(cheque);
 			Hibernate.initialize(cheque.getTurqChequeChequeInRolls());
-			session.close();
+		
 		}
 		catch (Exception ex)
 		{

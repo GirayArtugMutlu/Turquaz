@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqBill;
@@ -18,8 +17,8 @@ public class BillDALUpdateBill
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			Session session = EngDALSessionFactory.getSession();
+		
 			Iterator iter = session
 					.iterate("select trans from TurqAccountingTransaction as trans"
 							+ ", TurqBill as bill where bill.id="
@@ -36,8 +35,8 @@ public class BillDALUpdateBill
 				session.delete(trans);
 			}
 			session.flush();
-			tx.commit();
-			session.close();
+		
+			
 		}
 		catch (Exception ex)
 		{
@@ -49,8 +48,8 @@ public class BillDALUpdateBill
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			Session session = EngDALSessionFactory.getSession();
+			
 			Iterator iter = session
 					.iterate("select trans from TurqCurrentTransaction as trans,"
 							+ " TurqBill as bill where"
@@ -62,8 +61,8 @@ public class BillDALUpdateBill
 				session.delete(iter.next());
 			}
 			session.flush();
-			tx.commit();
-			session.close();
+		
+			
 		}
 		catch (Exception ex)
 		{
@@ -76,7 +75,7 @@ public class BillDALUpdateBill
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select accTrans from TurqAccountingTransaction as accTrans,"
 					+ " TurqBill as bill where "
 					+ " accTrans.turqAccountingJournal.id <>-1"

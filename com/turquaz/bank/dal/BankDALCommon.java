@@ -43,10 +43,10 @@ public class BankDALCommon
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			session.refresh(bankCard);
 			Hibernate.initialize(bankCard.getTurqBankAccountingAccounts());
-			session.close();
+		
 		}
 		catch (Exception ex)
 		{
@@ -58,7 +58,7 @@ public class BankDALCommon
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select bankTrans.id, bankTrans.transactionBillDate,"
 					+ " bankTrans.turqBanksTransactionType.transactionTypeName,"
 					+ " bankTrans.transactionBillDefinition, bankTrans.transactionBillNo, sum(transRow.deptAmount),sum(transRow.creditAmount)"
@@ -73,7 +73,7 @@ public class BankDALCommon
 			q.setParameter("startDate", startDate);
 			q.setParameter("endDate", endDate);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)
@@ -86,13 +86,13 @@ public class BankDALCommon
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqBanksTransactionBill trans = (TurqBanksTransactionBill) session.load(TurqBanksTransactionBill.class, transId);
 			Hibernate.initialize(trans.getTurqBanksTransactions());
 			Hibernate.initialize(trans.getTurqEngineSequence().getTurqCurrentTransactions());
 			Hibernate.initialize(trans.getTurqEngineSequence().getTurqAccountingTransactions());
 			Hibernate.initialize(trans.getTurqEngineSequence().getTurqCashTransactions());
-			session.close();
+			
 			return trans;
 		}
 		catch (Exception ex)
@@ -105,13 +105,13 @@ public class BankDALCommon
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			session.refresh(trans);
 			Hibernate.initialize(trans.getTurqBanksTransactions());
 			Hibernate.initialize(trans.getTurqEngineSequence().getTurqCurrentTransactions());
 			Hibernate.initialize(trans.getTurqEngineSequence().getTurqAccountingTransactions());
 			Hibernate.initialize(trans.getTurqEngineSequence().getTurqCashTransactions());
-			session.close();
+			
 		}
 		catch (Exception ex)
 		{
@@ -123,7 +123,7 @@ public class BankDALCommon
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			SimpleDateFormat frmt = new SimpleDateFormat("yyyy-MM-dd");
 			String query = "SELECT bankTrans.transaction_bill_date,"
 					+ " bankCard.bank_code, bankTrans.transaction_bill_definition,"
@@ -152,7 +152,7 @@ public class BankDALCommon
 				result[6] = rs.getObject(7);
 				ls.add(result);
 			}
-			session.close();
+			
 			return ls;
 		}
 		catch (Exception ex)
@@ -166,7 +166,7 @@ public class BankDALCommon
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select sum(row.deptAmount),sum(row.creditAmount)"
 					+ " from TurqBanksTransaction as row where row.turqBanksTransactionBill.transactionBillDate < :endDate"
 					+ " and row.turqBanksCard = :cashCard" + " group by row.turqBanksCard";
@@ -187,7 +187,7 @@ public class BankDALCommon
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select bankTrans from TurqBanksTransaction as bankTrans "
 					+ " where bankTrans.turqBanksTransactionBill.turqBanksTransactionType.id =" + EngBLCommon.BANK_TRANS_INITIAL;
 			Query q = session.createQuery(query);

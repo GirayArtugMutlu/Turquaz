@@ -43,7 +43,7 @@ public class BankDALBankCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select bankCard.id," + " bankCard.bankName, bankCard.bankBranchName,"
 					+ " bankCard.bankAccountNo,turqCur.currenciesAbbreviation,"
 					+ " bankCard.bankDefinition from TurqBanksCard as bankCard," + " bankCard.turqCurrency as turqCur where" + //$NON-NLS-1$
@@ -59,7 +59,7 @@ public class BankDALBankCardSearch
 				q.setParameter("currency", currency); //$NON-NLS-1$
 			}
 			List list = q.list();
-			session.close();
+			
 			return list;
 		}
 		catch (Exception ex)
@@ -72,11 +72,11 @@ public class BankDALBankCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select bankCard from TurqBanksCard as bankCard" + " where bankCard.id=" + bankId; //$NON-NLS-1$
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+			
 			return (TurqBanksCard) list.get(0);
 		}
 		catch (Exception ex)
@@ -89,11 +89,11 @@ public class BankDALBankCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select bankCard from TurqBanksCard as bankCard" + " where bankCard.id <> -1";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)
@@ -106,7 +106,7 @@ public class BankDALBankCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select bankCard.id, bankCard.accounting_accounts_id from turq_banks_cards bankCard "
 					+ " where bankCard.id <> -1";
 			Statement stmt = session.connection().createStatement();
@@ -119,7 +119,6 @@ public class BankDALBankCardSearch
 				result[1] = rs.getString(2);
 				list.add(result);
 			}
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -132,7 +131,7 @@ public class BankDALBankCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			session.refresh(bankCard);
 			Iterator it = bankCard.getTurqBankAccountingAccounts().iterator();
 			while (it.hasNext())

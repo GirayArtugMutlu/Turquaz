@@ -23,7 +23,6 @@ import java.util.List;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -34,13 +33,12 @@ public class AccDALTransactionUpdate
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			Session session = EngDALSessionFactory.getSession();
+			
 			session.refresh(accTrans);
 			Hibernate.initialize(accTrans.getTurqAccountingTransactionColumns());
-			session.flush();
-			tx.commit();
-			session.close();
+			
+		
 		}
 		catch (Exception ex)
 		{
@@ -52,12 +50,12 @@ public class AccDALTransactionUpdate
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select accTrans from TurqAccountingTransaction as accTrans"
 					+ " where accTrans.turqAccountingTransactionType.id =" + EngBLCommon.ACCOUNTING_TRANS_OPENING;
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			if (list.size() > 0)
 			{
 				return (TurqAccountingTransaction) list.get(0);

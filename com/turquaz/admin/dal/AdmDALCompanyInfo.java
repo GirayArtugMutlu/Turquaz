@@ -12,11 +12,11 @@ public class AdmDALCompanyInfo
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqCompany as company";
 			Query q = session.createQuery(query);
 			List lst = q.list();
-			session.close();
+			
 			if (lst.size() > 0)
 			{
 				return (TurqCompany) lst.get(0);

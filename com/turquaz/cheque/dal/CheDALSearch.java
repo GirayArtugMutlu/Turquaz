@@ -40,7 +40,7 @@ public class CheDALSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select chequeRoll.id, " + " chequeRoll.chequeRollsDate, chequeRoll.chequeRollNo,"
 					+ " chequeRoll.turqChequeTransactionType.transactionTypsName,"
 					+ " chequeRoll.turqCurrentCard.cardsName, chequeRoll.turqBanksCard.bankCode,"
@@ -66,7 +66,6 @@ public class CheDALSearch
 				q.setParameter("type", type);
 			}
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -79,13 +78,13 @@ public class CheDALSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select cheqInRoll.turqChequeRoll from TurqChequeChequeInRoll cheqInRoll"
 					+ " where cheqInRoll.turqChequeCheque.id=" + cheque.getId()
 					+ " order by cheqInRoll.turqChequeRoll.chequeRollsDate";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)
@@ -98,10 +97,10 @@ public class CheDALSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			Query q = session.createQuery("select transType from TurqChequeTransactionType as transType");
 			List list = q.list();
-			session.close();
+			
 			return list;
 		}
 		catch (Exception ex)
@@ -115,7 +114,7 @@ public class CheDALSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqViewChequeStatus chequeStatus = null;
 			String query = "Select cheque from TurqChequeCheque as cheque, TurqViewChequeStatus as chequeStatus, TurqCurrentCard currentCard "
 					+ "where cheque.id = chequeStatus.chequeChequesId "
@@ -123,7 +122,7 @@ public class CheDALSearch
 					+ " and chequeStatus.transactionTypesParent =" + EngBLCommon.CHEQUE_STATUS_PORTFOY;
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+
 			return list;
 		}
 		catch (Exception ex)
@@ -137,7 +136,7 @@ public class CheDALSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqViewChequeStatus chequeStatus = null;
 			String query = "Select cheque from TurqChequeCheque as cheque, TurqViewChequeStatus as chequeStatus, TurqCurrentCard currentCard "
 					+ "where cheque.id = chequeStatus.chequeChequesId "
@@ -147,7 +146,7 @@ public class CheDALSearch
 					+ " and cheque.chequesType = " + EngBLCommon.CHEQUE_TYPE_CUSTOMER;
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)
@@ -161,7 +160,7 @@ public class CheDALSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqViewChequeStatus chequeStatus = null;
 			String query = "Select cheque, currentCard.cardsName from TurqChequeCheque as cheque, TurqViewChequeStatus as chequeStatus, TurqCurrentCard currentCard "
 					+ "where cheque.id = chequeStatus.chequeChequesId "
@@ -169,7 +168,7 @@ public class CheDALSearch
 					+ " and chequeStatus.chequeTransactionTypesId =" + EngBLCommon.CHEQUE_TRANS_OUT_BANK;
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)
@@ -194,7 +193,7 @@ public class CheDALSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqViewChequeStatus chequeStatus = null;
 			String query = "Select cheque.id, cheque.chequesPortfolioNo,chequeInRolls.turqChequeRoll.chequeRollsDate,"
 					+ " chequeInRolls.turqChequeRoll.turqCurrentCard.cardsName, cheque.chequesDueDate,status.chequeTransactionTypesId,"
@@ -232,7 +231,6 @@ public class CheDALSearch
 				q.setParameter("curCard", curCard);
 			}
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -249,7 +247,7 @@ public class CheDALSearch
 			/**
 			 * TODO Bankaya teminata cek verilmesi dusunulmeden Cheque_trans_out_current kullanildi.
 			 */
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqViewChequeStatus chequeStatus = null;
 			String query = "Select cheque.id, chequeInRolls.turqChequeRoll.chequeRollsDate,"
 					+ " chequeInRolls.turqChequeRoll.turqCurrentCard.cardsName, cheque.chequesDueDate,status.chequeTransactionTypesId,"
@@ -283,7 +281,6 @@ public class CheDALSearch
 				q.setParameter("bankCard", bankCard);
 			}
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -296,7 +293,7 @@ public class CheDALSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqChequeChequeInRoll cv;
 			TurqChequeRoll asd;
 			String query = "Select chequeRoll.turqChequeRoll.turqBanksCard from TurqChequeChequeInRoll as chequeRoll"
@@ -305,7 +302,6 @@ public class CheDALSearch
 			Query q = session.createQuery(query);
 			q.setParameter("cheque", cheque);
 			List list = q.list();
-			session.close();
 			if (list.size() > 0)
 			{
 				return (TurqBanksCard) list.get(0);
@@ -325,7 +321,7 @@ public class CheDALSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqChequeChequeInRoll cv;
 			TurqChequeRoll asd;
 			String query = "Select chequeRoll.turqChequeRoll.turqCurrentCard from TurqChequeChequeInRoll as chequeRoll"
@@ -334,7 +330,6 @@ public class CheDALSearch
 			Query q = session.createQuery(query);
 			q.setParameter("cheque", cheque);
 			List list = q.list();
-			session.close();
 			if (list.size() > 0)
 			{
 				return (TurqCurrentCard) list.get(0);
@@ -354,7 +349,7 @@ public class CheDALSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqChequeChequeInRoll cv;
 			TurqChequeRoll asd;
 			String query = "Select chequeRoll.turqChequeRoll.turqCurrentCard from TurqChequeChequeInRoll as chequeRoll"
@@ -363,7 +358,6 @@ public class CheDALSearch
 			Query q = session.createQuery(query);
 			q.setParameter("cheque", cheque);
 			List list = q.list();
-			session.close();
 			if (list.size() > 0)
 			{
 				return (TurqCurrentCard) list.get(0);
@@ -380,14 +374,13 @@ public class CheDALSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select chequeRoll.turqChequeRollAccountingAccount.turqAccountingAccount from TurqChequeRoll as chequeRoll "
 					+ " left join chequeRoll.turqChequeChequeInRolls chequeInRoll "
 					+ " where chequeInRoll.turqChequeCheque = :cheque " + " and chequeRoll.turqChequeTransactionType.id =" + rollType;
 			Query q = session.createQuery(query);
 			q.setParameter("cheque", cheque);
 			List list = q.list();
-			session.close();
 			if (list.size() > 0)
 			{
 				return (TurqAccountingAccount) list.get(0);
