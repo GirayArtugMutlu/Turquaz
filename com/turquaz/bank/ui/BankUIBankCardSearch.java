@@ -362,7 +362,7 @@ public class BankUIBankCardSearch extends  Composite implements SearchComposite 
 				item.setData(aBankCard);
 				item.setText(new String[]{aBankCard.getBankName(),aBankCard.getBankBranchName(),aBankCard.getBankAccountNo(),aBankCard.getTurqCurrency().getCurrenciesAbbreviation(),aBankCard.getBankDefinition()});
 			}
-			System.out.println(listBankCards.size());
+
 		}
 		catch(Exception ex){
 			MessageBox msg= new MessageBox(this.getShell(),SWT.NULL);

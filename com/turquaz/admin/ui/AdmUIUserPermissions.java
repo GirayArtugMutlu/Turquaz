@@ -264,7 +264,6 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 			}
 
 			java.util.List moduleList = blUserPerms.getModules();
-			System.out.println(moduleList.size());
 			for (int i = 0; i < moduleList.size(); i++) {
 				TurqModule module = (TurqModule) moduleList.get(i);
 				comboModules.setData(module.getModulesName(), module);

@@ -258,10 +258,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
      
 		
 	}
-	else {
-		System.out.println("Something went wrong at "+this.getClass().getName()); //$NON-NLS-1$
-		System.out.println("in line 177"); //$NON-NLS-1$
-	}
+	
 
 	
 	*/

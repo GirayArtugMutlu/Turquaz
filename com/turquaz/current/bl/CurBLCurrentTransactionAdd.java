@@ -52,7 +52,6 @@ public class CurBLCurrentTransactionAdd {
 			boolean isCredit,BigDecimal amount, BigDecimal totalDiscount, int type,Integer seqDocNo,String definition)throws Exception{
 	  
 	    try{
-			 System.out.println(type);
 			
 			TurqEngineSequence docSeq =new TurqEngineSequence();;	
 			
@@ -92,7 +91,7 @@ public class CurBLCurrentTransactionAdd {
 	        TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
 	        
 	        transType.setCurrentTransactionTypesId(new Integer(type));
-	        System.out.println(type);
+	     
 	        
 	        curTrans.setTurqCurrentTransactionType(transType);	
 	        

@@ -322,8 +322,11 @@ public void fillTree(int parent, String codeCrit){
 		// was, now can be edited
 	//	if(account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId().intValue()!=-1)
 	//	{
-		    new AccUIAccountUpdate(this.getShell(),SWT.NULL,account).open();
-		    fillTree(-1,""); //$NON-NLS-1$
+		   boolean result = new AccUIAccountUpdate(this.getShell(),SWT.NULL,account).open();
+		   if(result) 
+		    {
+		       fillTree(-1,""); //$NON-NLS-1$
+		    }
 	//	}
 		
 		

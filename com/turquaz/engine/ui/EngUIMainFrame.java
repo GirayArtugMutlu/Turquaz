@@ -1070,7 +1070,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			
 				TreeItem selectedItem = (TreeItem)itemRemove.getData();
 				selectedItem.dispose();
-				System.out.println("disposed"); //$NON-NLS-1$
+
 						
 			}
 										

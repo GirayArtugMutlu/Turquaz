@@ -267,7 +267,6 @@ public class EngBLUtils {
 			
 			
 
-			//System.out.println(sqlparam);
 			parameters.put("sqlparam",sqlparam);	
 		
 			TurqBillConsignmentCommon billCommon=bill.getTurqBillConsignmentCommon();
@@ -292,7 +291,7 @@ public class EngBLUtils {
 			parameters.put("currentTaxDepartment",curCard.getCardsTaxDepartment());
 			parameters.put("currentId", curCard.getCardsCurrentCode());
 			parameters.put("totalSpecVAT",billCommon.getSpecialVatAmount());
-			//System.out.println(billCommon.getSpecialVatAmount());
+			
 			parameters.put("despatchNoteDate",dformat.format(cons.getConsignmentsDate()));
 			parameters.put("despatchNoteId",billCommon.getConsignmentDocumentNo());
 			
@@ -348,7 +347,6 @@ public class EngBLUtils {
 			
 			
 
-			//System.out.println(sqlparam);
 			parameters.put("sqlparam",sqlparam);	
 			TurqBillConsignmentCommon billCommon=cons.getTurqBillConsignmentCommon();
 			BigDecimal invoiceSum=billCommon.getTotalAmount().add(billCommon.getSpecialVatAmount());
@@ -420,7 +418,6 @@ public class EngBLUtils {
 					" and transColumns.accounting_transactions_id="+trans.getAccountingTransactionsId().intValue()+
 					" order by topAccountCode";
 
-			System.out.println(sqlparam);
 			parameters.put("sqlparam",sqlparam);	
 	
 			TurqCompany company=admBLComInfo.getCompany();

@@ -85,7 +85,9 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 	private AccUIAddAccounts compAccountCard;
 
 	AccBLAccountUpdate blAccount = new AccBLAccountUpdate();
-
+   
+	boolean updateOccured = false;
+	
 	public AccUIAccountUpdate(Shell parent, int style, TurqAccountingAccount acc) {
 		super(parent, style);
 		account = acc;
@@ -95,7 +97,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 	 * Opens the Dialog Shell. Auto-generated code - any changes you make will
 	 * disappear.
 	 */
-	public void open() {
+	public boolean open() {
 		try {
 			preInitGUI();
 
@@ -181,6 +183,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 								.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(
 										SelectionEvent evt) {
+									    updateOccured = false;
 										dialogShell.close();
 									}
 								});
@@ -273,8 +276,12 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+		
+			return updateOccured;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 
@@ -325,7 +332,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 	public void fillBalances() {
 		try {
 			List list = blAccount.getTotalDeptAndCredit(account);
-			System.out.println(list.size());
+			
 			if (list.size() > 0) {
 				Object[] sums = (Object[]) list.get(0);
 				if (sums[0] != null) {
@@ -373,6 +380,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 										.getTxtParentAccount().getData());
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.14")); //$NON-NLS-1$
 				msg.open();
+				updateOccured = true;
 				this.dialogShell.close();
 
 			}
@@ -395,6 +403,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 				msg.open();
 				EngBLAccountingAccounts.RefreshContentAsistantMap();
+				updateOccured = true;
 				this.dialogShell.close();
 				this.dialogShell.dispose();
 			}

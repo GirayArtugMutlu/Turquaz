@@ -328,7 +328,6 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 				SWT.NULL).open();
 		if (data != null) {
 
-			System.out.println(data.getClass().getName());
 			TurqCurrentCard curCard = (TurqCurrentCard) data;
 			txtCurrentCard.setText(curCard.getCardsCurrentCode() + " - " //$NON-NLS-1$
 					+ curCard.getCardsName());
@@ -343,7 +342,6 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 				SWT.NULL).open();
 		if (data != null) {
 
-			System.out.println(data.getClass().getName());
 			TurqInventoryCard invCard = (TurqInventoryCard) data;
 			txtInvCard.setText(invCard.getCardInventoryCode() + " - " //$NON-NLS-1$
 					+ invCard.getCardName());

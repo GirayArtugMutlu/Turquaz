@@ -116,7 +116,6 @@ public class EngBLPermissions {
 		     compMap.put(comp.getComponentsName(),0+"");
 		    }
 		
-		//	System.out.println("Finished filling "+compMap.size());
 		List ls = dbaccess.getGroupPermissions(username);
 		calculateGroupPerms(ls);
 		

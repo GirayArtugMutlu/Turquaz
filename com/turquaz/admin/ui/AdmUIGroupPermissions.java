@@ -292,7 +292,7 @@ implements SecureComposite,SearchComposite{
 			}
 
 			java.util.List moduleList = blGroupPerms.getModules();
-			System.out.println(moduleList.size());
+			
 			for (int i = 0; i < moduleList.size(); i++) {
 				TurqModule module = (TurqModule) moduleList.get(i);
 				comboModules.setData(module.getModulesName(), module);

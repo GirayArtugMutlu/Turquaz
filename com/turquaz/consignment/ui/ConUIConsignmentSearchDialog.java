@@ -282,7 +282,6 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 		Object data = new CurUICurrentCardSearchDialog(this.getParent(),SWT.NULL).open();
 	    if(data!=null){
 	    
-	    System.out.println(data.getClass().getName());
 		TurqCurrentCard curCard = (TurqCurrentCard)data;
 	    txtCurCard.setText(curCard.getCardsCurrentCode()+" - "+curCard.getCardsName()); //$NON-NLS-1$
 		txtCurCard.setData(curCard);

@@ -106,7 +106,6 @@ public class EngBLCurrencyToWords {
         int YTL = Integer.parseInt(nums[0]) ;
         
         int YKRS = Integer.parseInt(nums[1]);
-        System.out.println(YKRS);
         
         String words = convert(YTL)+" YTL, "+convert(YKRS)+" YKr ";  
         

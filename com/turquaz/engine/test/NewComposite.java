@@ -189,7 +189,6 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
 		    TurqCompany comp = companyInf.getCompany();
 		    Calendar cal = Calendar.getInstance();
 		    cal.setTime(comp.getUpdateDate());
-		    System.out.println(cal.get(cal.get(Calendar.MINUTE))+" - "+cal.get(Calendar.HOUR_OF_DAY));
 		    
 		    
 		    
