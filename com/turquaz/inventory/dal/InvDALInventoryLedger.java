@@ -3,6 +3,7 @@ package com.turquaz.inventory.dal;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +20,8 @@ public class InvDALInventoryLedger {
     public List getInventoryLedger(Date date)throws Exception{
     
         try{
+            SimpleDateFormat frmt = new SimpleDateFormat("yyyy-MM-dd");
+            String date_str = frmt.format(date);
            Session session = EngDALSessionFactory.openSession(); 
            
            Statement stmt = session.connection().createStatement();
@@ -27,11 +30,11 @@ public class InvDALInventoryLedger {
            		" FROM turq_inventory_cards trans " +
            		" LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id, sum(turq_inventory_transactions.transactions_total_price) AS totalpricein, sum(turq_inventory_transactions.transactions_amount_in) AS totalamountin " +
            		" FROM turq_inventory_transactions " +
-           		" WHERE turq_inventory_transactions.transactions_amount_in <> 0 and turq_inventory_transactions.transactions_date <= '2004-12-12' " +
+           		" WHERE turq_inventory_transactions.transactions_amount_in <> 0 and turq_inventory_transactions.transactions_date <= '"+date_str+"' " +
            		" GROUP BY turq_inventory_transactions.inventory_cards_id) transin ON trans.inventory_cards_id = transin.inventory_cards_id " +
            		" LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id, sum(turq_inventory_transactions.transactions_total_price) AS totalpriceout, sum(turq_inventory_transactions.transactions_total_amount_out) AS totalamountout " +
            		" FROM turq_inventory_transactions " +
-           		" WHERE turq_inventory_transactions.transactions_total_amount_out <> 0 and turq_inventory_transactions.transactions_date <= '2004-12-12' " +
+           		" WHERE turq_inventory_transactions.transactions_total_amount_out <> 0 and turq_inventory_transactions.transactions_date <=  '"+date_str+"' "  +
            		" GROUP BY turq_inventory_transactions.inventory_cards_id) transout ON trans.inventory_cards_id = transout.inventory_cards_id " ;
            
           ResultSet rs = stmt.executeQuery(query);

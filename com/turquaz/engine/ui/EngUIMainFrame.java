@@ -1178,7 +1178,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		try{
 		EngBLInventoryCards.getInventoryCards();	
 		InvDALInventoryLedger dalLEdger = new InvDALInventoryLedger();
-		dalLEdger.getInventoryLedger(null);
 		
 		}
 		catch(Exception ex){
