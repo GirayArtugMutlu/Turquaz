@@ -52,7 +52,7 @@ public class CurDALCurrentCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select currentView, currentCard.cardsCurrentCode," + " currentCard.cardsName, currentCard.id"
 					+ " from TurqViewCurrentAmountTotal as currentView," + " TurqCurrentCard as currentCard";
 			if (cardGroup != null)
@@ -74,12 +74,6 @@ public class CurDALCurrentCardSearch
 			}
 			q.setMaxResults(1000);
 			List list = q.list();
-			/*
-			 * for (int i =0;i <list.size();i++){ TurqCurrentCard curCard= (TurqCurrentCard)((Object[])list.get(i))[1];
-			 * //Hibernate.initialize(curCard.getTurqCurrentCardsGroups()); Hibernate.initialize(curCard.getTurqCurrentContacts());
-			 * Hibernate.initialize(curCard.getTurqCurrentCardsPhones()); }
-			 */
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -92,12 +86,11 @@ public class CurDALCurrentCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select currentView from TurqViewCurrentAmountTotal as currentView," + " where currentView.currentCardsId="
 					+ currentCard.getId();
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return ((TurqViewCurrentAmountTotal) list.get(0));
 		}
 		catch (Exception ex)
@@ -110,12 +103,11 @@ public class CurDALCurrentCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select bankTrans from TurqCurrentTransaction as bankTrans" + " where bankTrans.turqCurrentCard.id="
 					+ curCard.getId() + " and bankTrans.turqCurrentTransactionType.id <>" + EngBLCommon.CURRENT_TRANS_INITIAL;
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -128,12 +120,11 @@ public class CurDALCurrentCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select curCard.cardsCurrentCode, curCard.cardsName from TurqCurrentCard as curCard "
 					+ " where curCard.id <> -1";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -146,7 +137,7 @@ public class CurDALCurrentCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select curCard.id, curCard.accounting_code_id from turq_current_cards curCard " + " where curCard.id <> -1";
 			Statement stmt = session.connection().createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -158,7 +149,6 @@ public class CurDALCurrentCardSearch
 				result[1] = rs.getString(2);
 				list.add(result);
 			}
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -171,12 +161,11 @@ public class CurDALCurrentCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select curCard from TurqCurrentCard as curCard " + " where curCard.cardsCurrentCode=:cardCode";
 			Query q = session.createQuery(query);
 			q.setParameter("cardCode", cardCode.trim());
 			List list = q.list();
-			session.close();
 			if (list.size() > 0)
 			{
 				return (TurqCurrentCard) list.get(0);
@@ -196,13 +185,12 @@ public class CurDALCurrentCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqCurrentCard curCard = (TurqCurrentCard) session.load(TurqCurrentCard.class, curCardId);
 			Hibernate.initialize(curCard.getTurqCurrentCardsPhones());
 			Hibernate.initialize(curCard.getTurqCurrentContacts());
 			Hibernate.initialize(curCard.getTurqCurrentCardsGroups());
 			Hibernate.initialize(curCard.getTurqCurrentAccountingAccounts());
-			session.close();
 			return curCard;
 		}
 		catch (Exception ex)
@@ -215,7 +203,7 @@ public class CurDALCurrentCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			session.refresh(curCard);
 			Iterator it = curCard.getTurqCurrentAccountingAccounts().iterator();
 			while (it.hasNext())
@@ -238,11 +226,10 @@ public class CurDALCurrentCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqCurrentGroup as gr ";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)

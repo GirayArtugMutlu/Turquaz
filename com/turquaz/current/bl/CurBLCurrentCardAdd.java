@@ -24,12 +24,9 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 import com.turquaz.current.dal.CurDALCurrentCardAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
-import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentAccountingType;
@@ -50,35 +47,24 @@ public class CurBLCurrentCardAdd
 			String cardTaxDepartment, String cardTaxNumber, int daysToValue, Map accountingAccounts, List phoneList, Map contactInfo,
 			List groupList) throws Exception
 	{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
 		try
 		{
-			TurqCurrentCard currentCard = registerCurrentCard(session, currentCode, cardName, cardDefinition, cardAddress,
+			TurqCurrentCard currentCard = registerCurrentCard(currentCode, cardName, cardDefinition, cardAddress,
 					cardDiscountRate, cardDiscountPayment, cardCreditLimit, cardRiskLimit, cardTaxDepartment, cardTaxNumber,
 					daysToValue);
-			session.flush();
-			saveCurrentAccountingAccounts(session, currentCard, accountingAccounts);
-			saveCurrentCardPhones(session, currentCard.getId(), phoneList);
-			saveCurrentCardContact(session, currentCard.getId(), contactInfo);
-			saveCurrentCardGroups(session, currentCard.getId(), groupList);
-			session.flush();
-			tx.commit();
-			session.close();
-			//			TODO SESSIONNNN
+			saveCurrentAccountingAccounts(currentCard, accountingAccounts);
+			saveCurrentCardPhones(currentCard.getId(), phoneList);
+			saveCurrentCardContact(currentCard.getId(), contactInfo);
+			saveCurrentCardGroups( currentCard.getId(), groupList);
 			createInitialTransaction(currentCard);
 		}
 		catch (Exception ex)
 		{
-			if (tx != null)
-				tx.rollback();
-			if (session != null)
-				session.close();
 			throw ex;
 		}
 	}
 
-	public static TurqCurrentCard registerCurrentCard(Session session, String currentCode, String cardName, String cardDefinition,
+	public static TurqCurrentCard registerCurrentCard(String currentCode, String cardName, String cardDefinition,
 			String cardAddress, BigDecimal cardDiscountRate, BigDecimal cardDiscountPayment, BigDecimal cardCreditLimit,
 			BigDecimal cardRiskLimit, String cardTaxDepartment, String cardTaxNumber, int daysToValue) throws Exception
 	{
@@ -101,7 +87,7 @@ public class CurBLCurrentCardAdd
 			Calendar cal = Calendar.getInstance();
 			currentCard.setLastModified(cal.getTime());
 			currentCard.setCreationDate(cal.getTime());
-			EngDALCommon.saveObject(session, currentCard);
+			EngDALCommon.saveObject(currentCard);
 			return currentCard;
 		}
 		catch (Exception ex)
@@ -127,16 +113,16 @@ public class CurBLCurrentCardAdd
 		}
 	}
 
-	public static void saveCurrentCardPhones(Session session, Integer curCardId, List phoneList) throws Exception
+	public static void saveCurrentCardPhones(Integer curCardId, List phoneList) throws Exception
 	{
 		for (int k = 0; k < phoneList.size(); k++)
 		{
 			int[] phoneInfo = (int[]) phoneList.get(k);
-			registerCurrentCardPhone(session, curCardId, phoneInfo[0], phoneInfo[1], phoneInfo[2]);
+			registerCurrentCardPhone(curCardId, phoneInfo[0], phoneInfo[1], phoneInfo[2]);
 		}
 	}
 
-	public static void registerCurrentCardPhone(Session session, Integer curCardId, int countryCode, int cityCode, int phoneNumber)
+	public static void registerCurrentCardPhone(Integer curCardId, int countryCode, int cityCode, int phoneNumber)
 			throws Exception
 	{
 		try
@@ -154,7 +140,7 @@ public class CurBLCurrentCardAdd
 			Calendar cal = Calendar.getInstance();
 			phone.setLastModified(cal.getTime());
 			phone.setCreationDate(cal.getTime());
-			EngDALCommon.saveObject(session, phone);
+			EngDALCommon.saveObject(phone);
 		}
 		catch (Exception ex)
 		{
@@ -162,7 +148,7 @@ public class CurBLCurrentCardAdd
 		}
 	}
 
-	public static void saveCurrentAccountingAccounts(Session session, TurqCurrentCard curCard, Map accounts) throws Exception
+	public static void saveCurrentAccountingAccounts(TurqCurrentCard curCard, Map accounts) throws Exception
 	{
 		Iterator it = accounts.keySet().iterator();
 		while (it.hasNext())
@@ -181,12 +167,12 @@ public class CurBLCurrentCardAdd
 				TurqCurrentAccountingType accType = new TurqCurrentAccountingType();
 				accType.setId(type);
 				curAccount.setTurqCurrentAccountingType(accType);
-				EngDALCommon.saveObject(session, curAccount);
+				EngDALCommon.saveObject(curAccount);
 			}
 		}
 	}
 
-	public static void saveCurrentCardContact(Session session, Integer currentCardId, Map contactInfo) throws Exception
+	public static void saveCurrentCardContact(Integer currentCardId, Map contactInfo) throws Exception
 	{
 		TurqCurrentCard card = new TurqCurrentCard();
 		card.setId(currentCardId);
@@ -204,19 +190,19 @@ public class CurBLCurrentCardAdd
 		Calendar cal = Calendar.getInstance();
 		contact.setLastModified(cal.getTime());
 		contact.setCreationDate(cal.getTime());
-		EngDALCommon.saveObject(session, contact);
+		EngDALCommon.saveObject(contact);
 	}
 
-	public static void saveCurrentCardGroups(Session session, Integer curCardId, List groupList) throws Exception
+	public static void saveCurrentCardGroups(Integer curCardId, List groupList) throws Exception
 	{
 		for (int k = 0; k < groupList.size(); k++)
 		{
 			TurqCurrentGroup curGroup = (TurqCurrentGroup) groupList.get(k);
-			registerCurrentCardGroup(session, curCardId, curGroup);
+			registerCurrentCardGroup(curCardId, curGroup);
 		}
 	}
 
-	public static void registerCurrentCardGroup(Session session, Integer curCardId, TurqCurrentGroup group) throws Exception
+	public static void registerCurrentCardGroup(Integer curCardId, TurqCurrentGroup group) throws Exception
 	{
 		try
 		{
@@ -230,7 +216,7 @@ public class CurBLCurrentCardAdd
 			Calendar cal = Calendar.getInstance();
 			cardGroup.setLastModified(cal.getTime());
 			cardGroup.setCreationDate(cal.getTime());
-			EngDALCommon.saveObject(session, cardGroup);
+			EngDALCommon.saveObject(cardGroup);
 		}
 		catch (Exception ex)
 		{
@@ -264,8 +250,6 @@ public class CurBLCurrentCardAdd
 
 	public static void saveCurrentGroup(String groupName, String groupDescription) throws Exception
 	{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
 		try
 		{
 			TurqCurrentGroup curGroup = new TurqCurrentGroup();
@@ -276,17 +260,10 @@ public class CurBLCurrentCardAdd
 			Calendar cal = Calendar.getInstance();
 			curGroup.setLastModified(cal.getTime());
 			curGroup.setCreationDate(cal.getTime());
-			EngDALCommon.saveObject(session, curGroup);
-			session.flush();
-			tx.commit();
-			session.close();
+			EngDALCommon.saveObject(curGroup);
 		}
 		catch (Exception ex)
 		{
-			if (tx != null)
-				tx.rollback();
-			if (session != null)
-				session.close();
 			throw ex;
 		}
 	}

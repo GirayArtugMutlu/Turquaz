@@ -24,12 +24,9 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 import com.turquaz.current.dal.CurDALCurrentCardUpdate;
 import com.turquaz.current.dal.CurDALSearchTransaction;
 import com.turquaz.engine.dal.EngDALCommon;
-import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentCardsGroup;
@@ -48,31 +45,22 @@ public class CurBLCurrentCardUpdate
 			BigDecimal cardRiskLimit, String cardTaxDepartment, String cardTaxNumber, int daysToValue, Map accountingAccounts,
 			List phoneList, Map contactInfo, List groupList) throws Exception
 	{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
 		try
 		{
-			updateCurrentCardInfo(session, currentCard, currentCode, cardName, cardDefinition, cardAddress, cardDiscountRate,
+			updateCurrentCardInfo(currentCard, currentCode, cardName, cardDefinition, cardAddress, cardDiscountRate,
 					cardDiscountPayment, cardCreditLimit, cardRiskLimit, cardTaxDepartment, cardTaxNumber, daysToValue);
-			updateCurrentCardAccounts(session, currentCard, accountingAccounts);
-			updateCurrentCardPhones(session, currentCard, phoneList);
-			updateCurrentCardContact(session, currentCard, contactInfo);
-			updateCurrentCardGroups(session, currentCard, groupList);
-			session.flush();
-			tx.commit();
-			session.close();
+			updateCurrentCardAccounts(currentCard, accountingAccounts);
+			updateCurrentCardPhones(currentCard, phoneList);
+			updateCurrentCardContact(currentCard, contactInfo);
+			updateCurrentCardGroups(currentCard, groupList);
 		}
 		catch (Exception ex)
 		{
-			if (tx != null)
-				tx.rollback();
-			if (session != null)
-				session.close();
 			throw ex;
 		}
 	}
 
-	public static void updateCurrentCardInfo(Session session, TurqCurrentCard currentCard, String currentCode, String cardName,
+	public static void updateCurrentCardInfo(TurqCurrentCard currentCard, String currentCode, String cardName,
 			String cardDefinition, String cardAddress, BigDecimal cardDiscountRate, BigDecimal cardDiscountPayment,
 			BigDecimal cardCreditLimit, BigDecimal cardRiskLimit, String cardTaxDepartment, String cardTaxNumber, int daysToValue)
 			throws Exception
@@ -93,7 +81,7 @@ public class CurBLCurrentCardUpdate
 			currentCard.setUpdatedBy(System.getProperty("user"));
 			Calendar cal = Calendar.getInstance();
 			currentCard.setLastModified(cal.getTime());
-			EngDALCommon.updateObject(session, currentCard);
+			EngDALCommon.updateObject(currentCard);
 		}
 		catch (Exception ex)
 		{
@@ -101,96 +89,83 @@ public class CurBLCurrentCardUpdate
 		}
 	}
 
-	public static void updateCurrentCardAccounts(Session session, TurqCurrentCard currentCard, Map accounts) throws Exception
+	public static void updateCurrentCardAccounts(TurqCurrentCard currentCard, Map accounts) throws Exception
 	{
-		deleteCurrentCardAccounts(session, currentCard);
-		session.flush();
-		CurBLCurrentCardAdd.saveCurrentAccountingAccounts(session, currentCard, accounts);
+		deleteCurrentCardAccounts(currentCard);
+		CurBLCurrentCardAdd.saveCurrentAccountingAccounts(currentCard, accounts);
 	}
 
-	public static void deleteCurrentCardAccounts(Session session, TurqCurrentCard currentCard) throws Exception
+	public static void deleteCurrentCardAccounts(TurqCurrentCard currentCard) throws Exception
 	{
 		Iterator it = currentCard.getTurqCurrentAccountingAccounts().iterator();
 		while (it.hasNext())
 		{
 			TurqCurrentAccountingAccount curAcc = (TurqCurrentAccountingAccount) it.next();
-			EngDALCommon.deleteObject(session, curAcc);
+			EngDALCommon.deleteObject(curAcc);
 		}
 	}
 
-	public static void updateCurrentCardPhones(Session session, TurqCurrentCard currentCard, List phoneList) throws Exception
+	public static void updateCurrentCardPhones(TurqCurrentCard currentCard, List phoneList) throws Exception
 	{
-		deleteCurrentCardPhones(session, currentCard);
-		session.flush();
-		CurBLCurrentCardAdd.saveCurrentCardPhones(session, currentCard.getId(), phoneList);
+		deleteCurrentCardPhones(currentCard);
+		CurBLCurrentCardAdd.saveCurrentCardPhones(currentCard.getId(), phoneList);
 	}
 
-	public static void deleteCurrentCardPhones(Session session, TurqCurrentCard currentCard) throws Exception
+	public static void deleteCurrentCardPhones(TurqCurrentCard currentCard) throws Exception
 	{
 		Iterator it = currentCard.getTurqCurrentCardsPhones().iterator();
 		while (it.hasNext())
 		{
 			TurqCurrentCardsPhone curPhone = (TurqCurrentCardsPhone) it.next();
-			EngDALCommon.deleteObject(session, curPhone);
+			EngDALCommon.deleteObject( curPhone);
 		}
 	}
 
-	public static void updateCurrentCardContact(Session session, TurqCurrentCard currentCard, Map contactInfo) throws Exception
+	public static void updateCurrentCardContact(TurqCurrentCard currentCard, Map contactInfo) throws Exception
 	{
-		deleteCurrentCardContact(session, currentCard);
-		session.flush();
-		CurBLCurrentCardAdd.saveCurrentCardContact(session, currentCard.getId(), contactInfo);
+		deleteCurrentCardContact(currentCard);
+		CurBLCurrentCardAdd.saveCurrentCardContact(currentCard.getId(), contactInfo);
 	}
 
-	public static void deleteCurrentCardContact(Session session, TurqCurrentCard currentCard) throws Exception
+	public static void deleteCurrentCardContact(TurqCurrentCard currentCard) throws Exception
 	{
 		Iterator it = currentCard.getTurqCurrentContacts().iterator();
 		while (it.hasNext())
 		{
 			TurqCurrentContact curContact = (TurqCurrentContact) it.next();
-			EngDALCommon.deleteObject(session, curContact);
+			EngDALCommon.deleteObject(curContact);
 		}
 	}
 
-	public static void updateCurrentCardGroups(Session session, TurqCurrentCard currentCard, List groupList) throws Exception
+	public static void updateCurrentCardGroups(TurqCurrentCard currentCard, List groupList) throws Exception
 	{
-		deleteCurrentCardGroups(session, currentCard);
-		session.flush();
-		CurBLCurrentCardAdd.saveCurrentCardGroups(session, currentCard.getId(), groupList);
+		deleteCurrentCardGroups(currentCard);
+		CurBLCurrentCardAdd.saveCurrentCardGroups(currentCard.getId(), groupList);
 	}
 
-	public static void deleteCurrentCardGroups(Session session, TurqCurrentCard currentCard) throws Exception
+	public static void deleteCurrentCardGroups(TurqCurrentCard currentCard) throws Exception
 	{
 		Iterator it = currentCard.getTurqCurrentCardsGroups().iterator();
 		while (it.hasNext())
 		{
 			TurqCurrentCardsGroup curGroup = (TurqCurrentCardsGroup) it.next();
-			EngDALCommon.deleteObject(session, curGroup);
+			EngDALCommon.deleteObject(curGroup);
 		}
 	}
 
 	public static void deleteCurrentCard(TurqCurrentCard currentCard) throws Exception
 	{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
 		try
 		{
-			deleteCurrentCardAccounts(session, currentCard);
-			deleteCurrentCardContact(session, currentCard);
-			deleteCurrentCardGroups(session, currentCard);
-			deleteCurrentCardPhones(session, currentCard);
+			deleteCurrentCardAccounts(currentCard);
+			deleteCurrentCardContact(currentCard);
+			deleteCurrentCardGroups(currentCard);
+			deleteCurrentCardPhones(currentCard);
 			CurDALSearchTransaction.deleteInitialTransactions(currentCard);
-			EngDALCommon.deleteObject(session, currentCard);
-			session.flush();
-			tx.commit();
-			session.close();
+			EngDALCommon.deleteObject(currentCard);
 		}
 		catch (Exception ex)
 		{
-			if (tx != null)
-				tx.rollback();
-			if (session != null)
-				session.close();
 			throw ex;
 		}
 	}
