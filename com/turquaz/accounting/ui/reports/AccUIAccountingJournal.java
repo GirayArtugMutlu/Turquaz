@@ -38,6 +38,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.engine.dal.EngDALConnection;
+import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
@@ -129,11 +130,14 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 			Map parameters = new HashMap();
 			parameters.put("ReportTitle", "YEVMÝYE DEFTERÝ");
 			
+			TurqCompany company = new TurqCompany();
+			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
 			String sqlparam="Select * from turq_accounting_transactions trans," +
 					"turq_accounting_transaction_columns transcolumns," +
 					"turq_accounting_accounts accounts where " +
 					"trans.accounting_transactions_id=transcolumns.accounting_transactions_id" +
-					" and transcolumns.accounting_accounts_id=accounts.accounting_accounts_id";
+					" and transcolumns.accounting_accounts_id=accounts.accounting_accounts_id" +
+					" and accounts.companies_id="+company.getCompaniesId().toString();
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");
 			 sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'"
 					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"
