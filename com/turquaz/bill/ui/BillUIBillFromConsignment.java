@@ -22,6 +22,7 @@ package com.turquaz.bill.ui;
 */
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -977,23 +978,6 @@ implements SecureComposite{
 	}
 	
 	
-	public void saveGroups(Integer consignmentId){
-		try{
-			TableItem items[] = compRegisterGroup.getTableAllGroups().getItems();
-			for(int i=0;i<items.length;i++){
-				if(items[i].getChecked()){
-					blAddBill.registerGroup((TurqBillGroup)items[i].getData(),consignmentId);
-				}
-				
-			}
-			
-			
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
-		}
-		
-	}
 	public void save()
 	{
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
@@ -1018,9 +1002,11 @@ implements SecureComposite{
 										type,
 										!paymentType.booleanValue(),
 										accountPickerCurAcc.getTurqAccountingAccount() ,
-										 dateDueDate.getDate());
+										 dateDueDate.getDate(),
+										 getBillGroups());
 		
-				saveGroups(bill.getId());
+				
+				
 				msg.setMessage(Messages.getString("BillUIBillFromConsignment.34")); //$NON-NLS-1$
 				msg.open();
 				newForm();
@@ -1034,6 +1020,21 @@ implements SecureComposite{
 		}
 		
 	}
+	public List getBillGroups()
+	{
+		List list = new ArrayList();
+		TableItem items[] = compRegisterGroup.getTableAllGroups().getItems();
+		for (int i = 0; i < items.length; i++) {
+			if (items[i].getChecked()) {
+				list.add(items[i].getData());
+			}
+
+		}
+		return list;
+		
+		
+	}
+	
 	public void delete(){
 		
 	}

@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -42,14 +43,15 @@ public class BillBLAddBill {
 
 	}
 	
-	public void saveBill(String consignemtDocNo, String definition,
+	
+	public TurqBill saveBill(String consignemtDocNo, String definition,
 						boolean isPrinted, Date billsDate,int type,
 						boolean isOpen, TurqCurrentCard currentCard,
 						TurqAccountingAccount cashAccount,
 						Date dueDate,BigDecimal discountAmount, String billDocNo,
 						BigDecimal vatAmount, BigDecimal specialVatAmount,
 						BigDecimal totalAmount,TurqCurrencyExchangeRate exRate,
-						java.util.List billGroups,java.util.List invTransactions )throws Exception{
+						List billGroups,List invTransactions )throws Exception{
 		
 	ConBLAddConsignment blConsAdd = new ConBLAddConsignment();
 	
@@ -75,8 +77,38 @@ public class BillBLAddBill {
 		
 	}
 	
+	return bill;
+	
 	}
 	
+	/****************************************************************************/
+	
+    public TurqBill saveBill(String docNo, String definition,
+			boolean isPrinted, Date billsDate, TurqConsignment cons, int type,
+			boolean isOpen, TurqAccountingAccount cashAccount, Date dueDate,List billGroups)
+			throws Exception {
+	try {
+		
+		// Save Bill 
+		
+		TurqBill bill = saveBill(docNo,definition,isPrinted,billsDate,cons,type,isOpen,cashAccount,dueDate);
+		
+		//Then Save Bill Groups
+		
+		for(int i=0;i<billGroups.size();i++)
+		{
+			TurqBillGroup group = (TurqBillGroup)billGroups.get(i);
+			registerGroup(group,bill.getId());
+			
+		}
+		
+		return bill;
+
+	} catch (Exception ex) {
+		throw ex;
+	}
+}
+	/*****************************************************************************/
 	/**
 	 * 
 	 * @param docNo
@@ -91,7 +123,7 @@ public class BillBLAddBill {
 	 * @return
 	 * @throws Exception
 	 */
-	public TurqBill saveBill(String docNo, String definition,
+	private TurqBill saveBill(String docNo, String definition,
 				boolean isPrinted, Date billsDate, TurqConsignment cons, int type,
 				boolean isOpen, TurqAccountingAccount cashAccount, Date dueDate)
 				throws Exception {

@@ -65,7 +65,6 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
-import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
@@ -989,7 +988,46 @@ public class BillUIAddSellBill extends Composite
 	        ex.printStackTrace();
 	    }
 	}
-	
+	public List getBillGroups()
+	{
+		List list = new ArrayList();
+		TableItem items[] = compRegisterGroup.getTableAllGroups().getItems();
+		for (int i = 0; i < items.length; i++) {
+			if (items[i].getChecked()) {
+				list.add(items[i].getData());
+			}
+
+		}
+		return list;
+		
+		
+	}
+	public List getInventoryTransactions(){
+		List invTransactions = new ArrayList();
+		
+		TableItem items[] = tableConsignmentRows.getItems();
+		for (int i = 0; i < items.length; i++) {
+		    
+
+		    InvUITransactionTableRow row = (InvUITransactionTableRow)items[i].getData();
+		   
+		    TurqInventoryTransaction invTrans = (TurqInventoryTransaction)row.getDBObject();
+		    invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouse.getData(comboWareHouse.getText()));
+			
+		    if(row.okToSave())
+		    {
+		       
+		    	invTransactions.add(invTrans);
+		    	
+		    }
+		}
+		
+		
+		return invTransactions;
+		
+		
+	}
+
 
 	public void btnUpdateGroupsClick() {
 
@@ -1292,35 +1330,7 @@ public class BillUIAddSellBill extends Composite
 		return true;
 	}
 
-	public void saveConsignmentRows(Integer consignmentID) {
-		try {
-			TableItem items[] = tableConsignmentRows.getItems();
-
-			// sell bill
-			int type = BILL_TYPE;
-			boolean stable=true;
-			for (int i = 0; i < items.length; i++) {
-			    
-
-			    InvUITransactionTableRow row = (InvUITransactionTableRow)items[i].getData();
-			   
-			    TurqInventoryTransaction invTrans = (TurqInventoryTransaction)row.getDBObject();
-			    invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouse.getData(comboWareHouse.getText()));
-				
-			    if(row.okToSave()){
-			      blAddConsignment.saveConsignmentRow(invTrans,consignmentID, type);
-			      if (stable)
-			      	stable=checkStabilityInventoryLevel(invTrans.getTurqInventoryCard());  
-			    }
-			}
-			if (!stable)
-				EngUICommon.showMessageBox(this.getShell(),Messages.getString("BillUIAddSellBill.19"),SWT.ICON_WARNING); //$NON-NLS-1$
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-	}
+	
 	public boolean checkStabilityInventoryLevel(TurqInventoryCard invCard ){
 	    try
 		{	     
@@ -1342,46 +1352,6 @@ public class BillUIAddSellBill extends Composite
 	    }		
 	}
 
-	public void saveGroups(Integer consignmentId) {
-		try {
-			TableItem items[] = compRegisterGroup.getTableAllGroups()
-					.getItems();
-			for (int i = 0; i < items.length; i++) {
-				if (items[i].getChecked()) {
-					blAddBill.registerGroup((TurqBillGroup) items[i].getData(),
-							consignmentId);
-				}
-
-			}
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-	}
-
-	public TurqConsignment saveConsignment() throws Exception {
-		try {
-			// sell bill
-			int type = BILL_TYPE;
-
-			TurqConsignment cons = blAddConsignment.saveConsignment(
-					txtConsignmentDocumentNo.getText(),
-					txtDefinition.getText(), false, dateConsignmentDate
-							.getDate(), (TurqCurrentCard) txtCurrentCard
-							.getData(),
-					txtDiscountAmount.getBigDecimalValue(), txtDocumentNo
-							.getText(), txtTotalVat.getBigDecimalValue(),
-					decSpecialVat.getBigDecimalValue(), txtTotalAmount
-							.getBigDecimalValue(), type,EngBLCommon.getBaseCurrencyExchangeRate());
-			saveConsignmentRows(cons.getId());
-
-			return cons;
-		} catch (Exception ex) {
-			throw ex;
-		}
-
-	}
 
 	public void save() {
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
@@ -1389,22 +1359,16 @@ public class BillUIAddSellBill extends Composite
 		try {
 			if (verifyFields()) {
 
-				// buy bill
+				// sell bill
 				int type = BILL_TYPE;
 
-				//First save its consignment..
-
-				TurqConsignment cons = saveConsignment();
+				
 
 				Boolean paymentType = (Boolean) comboPaymentType
 						.getData(comboPaymentType.getText());
 
-				TurqBill bill = blAddBill.saveBill(txtDocumentNo.getText(),
-						txtDefinition.getText(), false, dateConsignmentDate
-								.getDate(), cons, type, !paymentType
-								.booleanValue(),accountPickerCurAcc.getTurqAccountingAccount(),
-								 dateDueDate.getDate());
-				saveGroups(bill.getId());
+				TurqBill bill = blAddBill.saveBill(txtConsignmentDocumentNo.getText(),txtDefinition.getText(), false, dateConsignmentDate.getDate(),type,!paymentType.booleanValue(),(TurqCurrentCard)txtCurrentCard.getData(),accountPickerCurAcc.getTurqAccountingAccount(),dateDueDate.getDate(),txtDiscountAmount.getBigDecimalValue(), txtDocumentNo.getText(), txtTotalVat.getBigDecimalValue(),decSpecialVat.getBigDecimalValue(), txtTotalAmount.getBigDecimalValue(),EngBLCommon.getBaseCurrencyExchangeRate(),getBillGroups(),getInventoryTransactions());
+				
 				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				msg.open();
 				msg2.setMessage(Messages.getString("BillUIAddSellBill.16")); //$NON-NLS-1$

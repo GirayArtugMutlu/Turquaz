@@ -63,7 +63,6 @@ import com.turquaz.consignment.bl.ConBLAddConsignment;
 
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqInventoryCard;
@@ -1400,12 +1399,8 @@ public class BillUIAddBill extends Composite
 				Boolean paymentType = (Boolean) comboPaymentType
 						.getData(comboPaymentType.getText());
 
-				TurqBill bill = blAddBill.saveBill(txtDocumentNo.getText(),
-						txtDefinition.getText(), false, dateConsignmentDate
-								.getDate(), cons, type, !paymentType
-								.booleanValue(),accountPickerCurAcc.getTurqAccountingAccount(),
-								   dateDueDate.getDate());
-				saveGroups(bill.getId());
+				blAddBill.saveBill(txtConsignmentDocumentNo.getText(),txtDefinition.getText(), false, dateConsignmentDate.getDate(),type,!paymentType.booleanValue(),(TurqCurrentCard)txtCurrentCard.getData(),null,dateDueDate.getDate(),txtDiscountAmount.getBigDecimalValue(), txtDocumentNo.getText(), txtTotalVat.getBigDecimalValue(),decSpecialVat.getBigDecimalValue(), txtTotalAmount.getBigDecimalValue(),EngBLCommon.getBaseCurrencyExchangeRate(),getBillGroups(),getInventoryTransactions());
+				
 				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				msg.open();
 				newForm();
@@ -1416,6 +1411,47 @@ public class BillUIAddBill extends Composite
 		}
 
 	}
+	
+	public List getBillGroups()
+	{
+		List list = new ArrayList();
+		TableItem items[] = compRegisterGroup.getTableAllGroups().getItems();
+		for (int i = 0; i < items.length; i++) {
+			if (items[i].getChecked()) {
+				list.add(items[i].getData());
+			}
+
+		}
+		return list;
+		
+		
+	}
+	public List getInventoryTransactions(){
+		List invTransactions = new ArrayList();
+		
+		TableItem items[] = tableConsignmentRows.getItems();
+		for (int i = 0; i < items.length; i++) {
+		    
+
+		    InvUITransactionTableRow row = (InvUITransactionTableRow)items[i].getData();
+		   
+		    TurqInventoryTransaction invTrans = (TurqInventoryTransaction)row.getDBObject();
+		    invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouse.getData(comboWareHouse.getText()));
+			
+		    if(row.okToSave())
+		    {
+		       
+		    	invTransactions.add(invTrans);
+		    	
+		    }
+		}
+		
+		
+		return invTransactions;
+		
+		
+	}
+
 
 	public void delete() {
 
