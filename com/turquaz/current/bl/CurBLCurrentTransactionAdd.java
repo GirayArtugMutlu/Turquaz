@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 
+import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.current.dal.CurDALCurrentCardUpdate;
 import com.turquaz.current.dal.CurDALCurrentTransactionAdd;
 import com.turquaz.engine.dal.TurqCurrency;
@@ -58,6 +59,26 @@ public class CurBLCurrentTransactionAdd {
 		curTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 		curTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
         dalCurrentTrans.saveObject(curTrans);
+       
+        //Accounting Integration 
+        //Eger bir Nakit hareketi ise Muhasebe kaydini yap
+        if(type == 4){
+        	//Borc ya da alacak hareketi mi? 
+            //
+           
+           int accTransactionType = 1; //Tediye
+           
+           AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
+           Integer transId = blAcc.saveAccTransaction(transDate,documentNo,accTransactionType,4);
+           
+           
+        }
+        
+        
+        
+        
+        
+        
 		}
 		catch(Exception ex){
 			throw ex;

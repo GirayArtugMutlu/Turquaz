@@ -238,11 +238,12 @@ public class AccUIAddAccounts extends SecureComposite{
     return false;
     }
     
-	else if(txtParentAccount.getText().trim().equals("")){
+/*	else if(txtParentAccount.getText().trim().equals("")){
 	  msg.setMessage("Please Fill Parent Account");
     msg.open();	
     return false;
 	}
+	*/
 	
 	return true;
 	
@@ -262,9 +263,9 @@ public class AccUIAddAccounts extends SecureComposite{
 	if(verifyFields()){
 	String accountName = txtAccAcountName.getText().trim();
 	String accountCode = txtAccAccountCode.getText().trim();
-    int parentId = ((Integer)txtParentAccount.getData()).intValue();
+  
 		
-    blAccountAdd.saveAccount(accountName,accountCode,parentId);	
+    blAccountAdd.saveAccount(accountName,accountCode,txtParentAccount.getData());	
     MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
     msg.setMessage("Succesfully Saved!");
     msg.open();
@@ -275,7 +276,7 @@ public class AccUIAddAccounts extends SecureComposite{
 	catch(Exception ex){
 		ex.printStackTrace();
 		 MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-		 msg.setMessage("An Error occured");
+		 msg.setMessage(ex.getMessage());
 		 msg.open();
 		
 	}
