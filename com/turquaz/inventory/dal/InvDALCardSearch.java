@@ -54,8 +54,11 @@ public class InvDALCardSearch {
 				if(invGroup!=null){
 					q.setParameter("invGroup",invGroup);
 				}
+				
 				List list = q.list();
+				
 				for (int i =0;i<list.size();i++){
+					
 				TurqInventoryCard invCard = (TurqInventoryCard)list.get(i);
 				Hibernate.initialize(invCard.getTurqInventoryCardGroups());
 				Hibernate.initialize(invCard.getTurqInventoryCardUnits());
