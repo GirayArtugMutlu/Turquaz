@@ -8,6 +8,7 @@ import java.util.List;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
@@ -225,11 +226,11 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 
 	/** Auto-generated event handler method */
 	protected void toolUpdateWidgetSelected(SelectionEvent evt){
-		try
+		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+	try
 	{
-	 System.out.println("deneme");
 		
-		if(compTransactionAdd.verifyFields()){
+			if(compTransactionAdd.verifyFields()){
 			boolean isCredit =false;
 			if(compTransactionAdd.getComboTransType().getText().equals("Debit")){
 				isCredit =false;
@@ -247,13 +248,17 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 											  compTransactionAdd.getDecTxtAmount().getBigDecimalValue(),
 											  (TurqAccountingAccount)compTransactionAdd.getAccPickerCashAccount().getData(),
 											  	transaction);
-						
+			 msg.setMessage("Succesfully Updated!");
+			 msg.open();	
+			 this.dialogShell.close();
 		}
 		
 		
 	}
 	catch(Exception ex){
 		ex.printStackTrace();
+		 msg.setMessage(ex.getMessage());
+		 msg.open();	
 	}
 	
 		
