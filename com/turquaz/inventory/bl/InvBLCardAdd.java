@@ -250,6 +250,8 @@ public class InvBLCardAdd {
 					minAmount,maxAmount,cardVat,discount,cardSpecialVat,cardSpecialVatEach,
 					isSpecAmount);
 			
+			session.flush();
+			
 			saveInvCardGroups(session,card,invGroups);
 			saveInvCardUnits(session,card,invCardUnits);
 			saveInvCardPrices(session,card,invPrices);

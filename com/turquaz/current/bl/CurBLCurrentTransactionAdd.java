@@ -23,6 +23,7 @@ package com.turquaz.current.bl;
 import java.math.BigDecimal;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -47,7 +48,6 @@ import com.turquaz.engine.ui.component.DatePicker;
 public class CurBLCurrentTransactionAdd {
 
 	private CurDALCurrentTransactionAdd dalCurrentTrans=new CurDALCurrentTransactionAdd();	
-	private Calendar cal=Calendar.getInstance();
 	public CurBLCurrentTransactionAdd(){
 		
 	}
@@ -58,8 +58,12 @@ public class CurBLCurrentTransactionAdd {
 		
 		
 	}
-	public TurqCurrentTransaction saveCurrentTransaction(TurqCurrentCard curCard,java.util.Date transDate, String documentNo,
-			boolean isCredit,BigDecimal amount, BigDecimal totalDiscount, int type,Integer seqDocNo,String definition, TurqCurrencyExchangeRate exchangeRate)throws Exception{
+	public TurqCurrentTransaction saveCurrentTransaction(TurqCurrentCard curCard,
+			Date transDate, String documentNo,	boolean isCredit,
+			BigDecimal amount, BigDecimal totalDiscount, int type,
+			Integer seqDocNo,String definition, 
+			TurqCurrencyExchangeRate exchangeRate)throws Exception
+	{
 	  
 	    try{
 			
@@ -90,17 +94,19 @@ public class CurBLCurrentTransactionAdd {
 		
 			
 		
-			if(isCredit){
+			if(isCredit)
+			{
 			
-			curTrans.setTransactionsTotalCredit(amount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
-			curTrans.setTotalCreditInForeignCurrency(amount);
+				curTrans.setTransactionsTotalCredit(amount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
+				curTrans.setTotalCreditInForeignCurrency(amount);
 			
-			curTrans.setTransactionsTotalDept(new BigDecimal(0));			
-            curTrans.setTotalDeptInForeignCurrency(new BigDecimal(0));
+				curTrans.setTransactionsTotalDept(new BigDecimal(0));			
+				curTrans.setTotalDeptInForeignCurrency(new BigDecimal(0));
 			
 			
 			}		
-			else{
+			else
+			{
 				curTrans.setTransactionsTotalCredit(new BigDecimal(0));
 			    curTrans.setTotalCreditInForeignCurrency(new BigDecimal(0));
 			    
@@ -121,8 +127,10 @@ public class CurBLCurrentTransactionAdd {
 	        
 	        curTrans.setCreatedBy(System.getProperty("user"));
 	 		curTrans.setUpdatedBy(System.getProperty("user"));
-	 		curTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-	 		curTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+	 		
+	 		Calendar cal=Calendar.getInstance();
+	 		curTrans.setLastModified(cal.getTime());
+	 		curTrans.setCreationDate(cal.getTime());
 			
 	        dalCurrentTrans.saveObject(curTrans);
 			return curTrans;
@@ -278,8 +286,10 @@ public class CurBLCurrentTransactionAdd {
  		
  		curTrans.setCreatedBy(System.getProperty("user"));
  		curTrans.setUpdatedBy(System.getProperty("user"));
- 		curTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
- 		curTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+ 		
+ 		Calendar cal=Calendar.getInstance();
+ 		curTrans.setLastModified(cal.getTime());
+ 		curTrans.setCreationDate(cal.getTime());
          
  		
  		

@@ -26,10 +26,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-
-
-
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
@@ -44,7 +40,6 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 import com.turquaz.current.Messages;
-import com.turquaz.accounting.ui.AccUIAddAccountDialog;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -1083,7 +1078,6 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	
 	public void postInitGUI(){
 	fillGroups();
-	accPickerCustomer.setText("320");
 
 	
 	
@@ -1182,70 +1176,44 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 		 this.dispose();
 	}
 	
-	public boolean verifyFields(boolean save)throws Exception{
-	try{
-		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-	 
-		if(txtCurrentCode.getText().trim().equals("")){ //$NON-NLS-1$
-			msg.setMessage(Messages.getString("CurUICurrentCardAdd.28")); //$NON-NLS-1$
-			msg.open();
-			txtCurrentCode.setFocus();
-			return false;
-		} 
-		else if (save && EngBLCurrentCards.getCards(txtCurrentCode.getText().trim()) != null)
+	public boolean verifyFields(boolean save)throws Exception
+	{
+		try
 		{
-			msg.setMessage("Daha önce varolan bir cari kart kodu giremezsiniz!");
-			msg.open();
-			txtCurrentCode.setFocus();
-			return false;
-		}
-		else if(txtCurrentName.getText().trim().equals("")){ //$NON-NLS-1$
-			msg.setMessage(Messages.getString("CurUICurrentCardAdd.30")); //$NON-NLS-1$
-			msg.open();
-			txtCurrentName.setFocus();
-			return false;
-		}
-		
-		/*
-		 * WARNING !.. do not add another check after this else if  
-		 * add upper instead
-		 */
-		else if(accPickerCustomer.getData()==null){
-			
-			if (accPickerCustomer.getText().trim().length() > 0)
+			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+	 
+			if(txtCurrentCode.getText().trim().equals("")){ //$NON-NLS-1$
+				msg.setMessage(Messages.getString("CurUICurrentCardAdd.28")); //$NON-NLS-1$
+				msg.open();
+				txtCurrentCode.setFocus();
+				return false;
+			} 
+			else if (save && EngBLCurrentCards.getCards(txtCurrentCode.getText().trim()) != null)
 			{
-				MessageBox newAcc = new MessageBox(this.getShell(),SWT.YES|SWT.NO);
-				
-				newAcc.setMessage("Böyle bir Muhasebe Hesabý yok. Þimdi Oluþturulsun mu?"); 
-				if (newAcc.open() == SWT.YES)
-				{
-					new AccUIAddAccountDialog(this.getShell(),SWT.NULL).open(accPickerCustomer.getText().trim(),txtCurrentName.getText().trim());
-					
-					accPickerCustomer.verifyData();
-					
-					if (accPickerCustomer.getData()!=null)
-					{
-						return true;
-					}
-				}
-				
+				msg.setMessage("Daha önce varolan bir cari kart kodu giremezsiniz!");
+				msg.open();
+				txtCurrentCode.setFocus();
+				return false;
 			}
-			
-			msg.setMessage(Messages.getString("CurUICurrentCardAdd.31")); //$NON-NLS-1$
-			msg.open();
-			accPickerCustomer.setFocus();
-			return false;
+			else if(txtCurrentName.getText().trim().equals("")){ //$NON-NLS-1$
+					msg.setMessage(Messages.getString("CurUICurrentCardAdd.30")); //$NON-NLS-1$
+					msg.open();
+					txtCurrentName.setFocus();
+					return false;
+			}
+		
+			/*
+			 * WARNING !.. do not add another check after this else if  
+			 * add upper instead
+			 */
+			return true;
 		}
-		 
-	
-	return true;
-	}
-	catch(Exception ex){
-	throw ex;
+		catch(Exception ex)
+		{
+			throw ex;
+		}	
 	}
 	
-	
-	}
 	
 	public Map getAccountingFields(){
 		Map map = new Hashtable();

@@ -28,8 +28,6 @@ import java.util.Map;
 
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
-
-import com.turquaz.current.Messages;
 import com.turquaz.current.dal.CurDALCurrentCardAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
@@ -69,8 +67,8 @@ public class CurBLCurrentCardAdd {
 					cardDiscountPayment,cardCreditLimit,cardRiskLimit,
 					cardTaxDepartment,cardTaxNumber,daysToValue);
 			
-			//TODO SESSIONNNN
-			createInitialTransaction(currentCard);
+			session.flush();
+			
 			saveCurrentAccountingAccounts(session,currentCard,accountingAccounts);
 			saveCurrentCardPhones(session,currentCard.getId(),phoneList);
 			saveCurrentCardContact(session,currentCard.getId(),contactInfo);
@@ -79,7 +77,10 @@ public class CurBLCurrentCardAdd {
 			
 			session.flush();
 			tx.commit();
+			
 			session.close();
+//			TODO SESSIONNNN
+			createInitialTransaction(currentCard);
 			
 		}
 		catch(Exception ex)
@@ -90,10 +91,7 @@ public class CurBLCurrentCardAdd {
 				session.close();
 			throw ex;
 		}
-	}
-	
-	
-	
+	}	
 	
 	public static TurqCurrentCard registerCurrentCard(Session session, String currentCode, 
 			String cardName, String cardDefinition,String cardAddress, 
@@ -143,7 +141,8 @@ public class CurBLCurrentCardAdd {
 			blTransAdd.saveCurrentTransaction(currentCard,
 				cal.getTime(),"",false,new BigDecimal(0),new BigDecimal(0),
 				EngBLCommon.CURRENT_TRANS_INITIAL,new Integer(-1),
-				Messages.getString("CurBLCurrentCardAdd.3"),//$NON-NLS-1$ //$NON-NLS-2$
+				"sads",
+				//Messages.getString("CurBLCurrentCardAdd.3"),//$NON-NLS-1$ //$NON-NLS-2$
 				EngBLCommon.getBaseCurrencyExchangeRate()); 
 		}
 		catch(Exception ex)

@@ -496,11 +496,6 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			msg.open();
 			return false;
 		}
-		else if(compCurCardAdd.getAccPickerCustomer().getData()==null){
-			msg.setMessage(Messages.getString("CurUICurrentCardUpdate.24")); //$NON-NLS-1$
-			msg.open();
-			return false;
-		}
 		return true;
 		}
 		catch(Exception ex){
