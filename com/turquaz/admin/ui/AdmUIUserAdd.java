@@ -29,9 +29,22 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CCombo;
 
 import com.turquaz.engine.ui.component.SecureComposite;
+import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.widgets.Text;
+import com.turquaz.engine.ui.component.RegisterGroupComposite;
 public class AdmUIUserAdd extends Composite {
-	private Table table1;
-	private CCombo cCombo1;
+	private CLabel lblUsername;
+	private Text txtUsername;
+	private Text txtPassword;
+	private Text txtRePassword;
+	private Text txtDescription;
+	private RegisterGroupComposite registeredGroups;
+	private CLabel lblGroups;
+	private CLabel lblDescription;
+	private Text txtRealName;
+	private CLabel lblRealName;
+	private CLabel lblReTypePassword;
+	private CLabel lblPassWord;
 
 	/**
 	* Auto-generated main method to display this 
@@ -76,30 +89,127 @@ public class AdmUIUserAdd extends Composite {
 
 	private void initGUI() {
 		try {
-			this.setLayout(new GridLayout());
-			this.setSize(218, 172);
+			GridLayout thisLayout = new GridLayout();
+			this.setLayout(thisLayout);
+			thisLayout.numColumns = 2;
+			this.setSize(418, 319);
 			{
-				table1 = new Table(this, SWT.NONE);
-				GridData table1LData = new GridData();
-				table1.setHeaderVisible(true);
-				table1.setLinesVisible(true);
-				table1LData.widthHint = 172;
-				table1LData.heightHint = 72;
-				table1.setLayoutData(table1LData);
+				lblUsername = new CLabel(this, SWT.NONE);
+				GridData lblUsernameLData = new GridData();
+				lblUsername.setText("Username");
+				lblUsernameLData.widthHint = 104;
+				lblUsernameLData.heightHint = 20;
+				lblUsername.setLayoutData(lblUsernameLData);
 			}
 			{
-				cCombo1 = new CCombo(this, SWT.NONE);
-				cCombo1.setText("cCombo1");
-				GridData cCombo1LData = new GridData();
-				cCombo1LData.widthHint = 171;
-				cCombo1LData.heightHint = 19;
-				cCombo1.setLayoutData(cCombo1LData);
+				txtUsername = new Text(this, SWT.NONE);
+				GridData txtUsernameLData = new GridData();
+				txtUsernameLData.heightHint = 15;
+				txtUsernameLData.widthHint = 190;
+				txtUsername.setLayoutData(txtUsernameLData);
+			}
+			{
+				lblPassWord = new CLabel(this, SWT.NONE);
+				lblPassWord.setText("Password");
+			}
+			{
+				txtPassword = new Text(this, SWT.NONE);
+				GridData txtPasswordLData = new GridData();
+				txtPassword.setSize(160, 16);
+				txtPasswordLData.heightHint = 16;
+				txtPasswordLData.horizontalAlignment = GridData.FILL;
+				txtPassword.setLayoutData(txtPasswordLData);
+			}
+			{
+				lblReTypePassword = new CLabel(this, SWT.NONE);
+				lblReTypePassword.setText("Re-Type Password");
+				GridData lblReTypePasswordLData = new GridData();
+				lblReTypePasswordLData.widthHint = 114;
+				lblReTypePasswordLData.heightHint = 19;
+				lblReTypePassword.setLayoutData(lblReTypePasswordLData);
+			}
+			{
+				txtRePassword = new Text(this, SWT.NONE);
+				GridData txtRePasswordLData = new GridData();
+				txtRePassword.setSize(160, 16);
+				txtRePasswordLData.heightHint = 16;
+				txtRePasswordLData.horizontalAlignment = GridData.FILL;
+				txtRePassword.setLayoutData(txtRePasswordLData);
+			}
+			{
+				lblRealName = new CLabel(this, SWT.NONE);
+				lblRealName.setText("Real Name");
+				GridData lblRealNameLData = new GridData();
+				lblRealNameLData.widthHint = 90;
+				lblRealNameLData.heightHint = 17;
+				lblRealName.setLayoutData(lblRealNameLData);
+			}
+			{
+				txtRealName = new Text(this, SWT.NONE);
+				GridData txtRealNameLData = new GridData();
+				txtRealName.setSize(160, 16);
+				txtRealNameLData.horizontalAlignment = GridData.FILL;
+				txtRealNameLData.heightHint = 16;
+				txtRealName.setLayoutData(txtRealNameLData);
+			}
+			{
+				lblDescription = new CLabel(this, SWT.NONE);
+				lblDescription.setText("Description");
+				GridData lblDescriptionLData = new GridData();
+				lblDescriptionLData.widthHint = 107;
+				lblDescriptionLData.heightHint = 17;
+				lblDescriptionLData.verticalAlignment = GridData.BEGINNING;
+				lblDescription.setLayoutData(lblDescriptionLData);
+			}
+			{
+				txtDescription = new Text(this, SWT.MULTI | SWT.V_SCROLL);
+				GridData txtDescriptionLData = new GridData();
+				txtDescriptionLData.horizontalAlignment = GridData.FILL;
+				txtDescriptionLData.heightHint = 59;
+				txtDescription.setLayoutData(txtDescriptionLData);
+			}
+			{
+				lblGroups = new CLabel(this, SWT.NONE);
+				lblGroups.setText("Groups");
+				GridData lblGroupsLData = new GridData();
+				lblGroupsLData.widthHint = 105;
+				lblGroupsLData.heightHint = 34;
+				lblGroupsLData.verticalAlignment = GridData.BEGINNING;
+				lblGroups.setLayoutData(lblGroupsLData);
+			}
+			{
+				registeredGroups = new RegisterGroupComposite(
+					this,
+					SWT.NONE);
+				GridData tableAllGroupsLData = new GridData();
+				tableAllGroupsLData.widthHint = 139;
+				tableAllGroupsLData.heightHint = 92;
+				GridData registerGroupComposite1LData = new GridData();
+				registerGroupComposite1LData.widthHint = 191;
+				registerGroupComposite1LData.heightHint = 127;
+				registeredGroups.setLayoutData(registerGroupComposite1LData);
+				registeredGroups.getTableAllGroups().setLayoutData(tableAllGroupsLData);
+				
+				postInitGUI();
+				
 			}
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public void postInitGUI(){
+		
+		
+	//registeredGroups.fillTableAllGroups();
+		
+		
+		
+		
+		
+	}
+	
 	public void save(){
 		
 	}
