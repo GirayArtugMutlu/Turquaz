@@ -37,6 +37,8 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.tx.EngTXCommon;
+import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.widgets.Composite;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
@@ -51,6 +53,9 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 	private CLabel lblCardName;
 	private CLabel lblCardDefinition;
 	private Text txtDefinition;
+	private Composite compCardInfo;
+	private CTabItem cTabItem1;
+	private CTabFolder TabFolderCardInfo;
 	private CashAccountPicker accountPicker;
 	private CLabel lblAccountingCode;
 	private Text txtCardCode;
@@ -68,41 +73,61 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(539, 251);
+			this.setSize(527, 147);
+			//START >>  TabFolderCardInfo
+			TabFolderCardInfo = new CTabFolder(this, SWT.NONE);
+			//START >>  cTabItem1
+			cTabItem1 = new CTabItem(TabFolderCardInfo, SWT.NONE);
+			cTabItem1.setText("Kasa Kart\u0131 Bilgileri");
+			//START >>  compCardInfo
+			compCardInfo = new Composite(TabFolderCardInfo, SWT.NONE);
+			GridLayout compCardInfoLayout = new GridLayout();
+			compCardInfoLayout.numColumns = 2;
+			compCardInfo.setLayout(compCardInfoLayout);
+			cTabItem1.setControl(compCardInfo);
 			{
-				lblCardName = new CLabel(this, SWT.NONE);
+				lblCardName = new CLabel(compCardInfo, SWT.NONE);
 				lblCardName.setText(Messages.getString("CashUICashCardAdd.0")); //$NON-NLS-1$
 			}
 			{
-				txtCardCode = new Text(this, SWT.NONE);
+				txtCardCode = new Text(compCardInfo, SWT.NONE);
 				GridData txtCardCodeLData = new GridData();
-				txtCardCodeLData.widthHint = 155;
-				txtCardCodeLData.heightHint = 15;
+				txtCardCodeLData.widthHint = 150;
+				txtCardCodeLData.heightHint = 17;
 				txtCardCode.setLayoutData(txtCardCodeLData);
 			}
 			{
-				lblCardDefinition = new CLabel(this, SWT.NONE);
-				lblCardDefinition.setText(Messages.getString("CashUICashCardAdd.1")); //$NON-NLS-1$
-			}
-			{
-				txtDefinition = new Text(this, SWT.NONE);
-				GridData txtDefinitionLData = new GridData();
-				txtDefinitionLData.widthHint = 390;
-				txtDefinitionLData.heightHint = 15;
-				txtDefinition.setLayoutData(txtDefinitionLData);
-			}
-			{
-				lblAccountingCode = new CLabel(this, SWT.NONE);
+				lblAccountingCode = new CLabel(compCardInfo, SWT.NONE);
 				lblAccountingCode.setText(Messages.getString("CashUICashCardAdd.2")); //$NON-NLS-1$
 			}
 			{
-				accountPicker = new CashAccountPicker(this, SWT.NONE);
+				accountPicker = new CashAccountPicker(compCardInfo, SWT.NONE);
 				GridData accountPickerLData = new GridData();
-				accountPicker.setSize(161, 15);
-				accountPickerLData.widthHint = 161;
-				accountPickerLData.heightHint = 15;
+				accountPickerLData.widthHint = 157;
+				accountPickerLData.heightHint = 17;
 				accountPicker.setLayoutData(accountPickerLData);
 			}
+			{
+				lblCardDefinition = new CLabel(compCardInfo, SWT.NONE);
+				lblCardDefinition.setText(Messages.getString("CashUICashCardAdd.1")); //$NON-NLS-1$
+			}
+			{
+				txtDefinition = new Text(compCardInfo, SWT.WRAP | SWT.V_SCROLL);
+				GridData txtDefinitionLData = new GridData();
+				txtDefinitionLData.widthHint = 315;
+				txtDefinitionLData.heightHint = 37;
+				txtDefinition.setLayoutData(txtDefinitionLData);
+			}
+			//END <<  compCardInfo
+			TabFolderCardInfo.setSelection(0);
+			GridData TabFolderCardInfoLData = new GridData();
+			TabFolderCardInfoLData.grabExcessHorizontalSpace = true;
+			TabFolderCardInfoLData.grabExcessVerticalSpace = true;
+			TabFolderCardInfoLData.horizontalAlignment = GridData.FILL;
+			TabFolderCardInfoLData.verticalAlignment = GridData.FILL;
+			TabFolderCardInfo.setLayoutData(TabFolderCardInfoLData);
+			//END <<  cTabItem1
+			//END <<  TabFolderCardInfo
 			this.layout();
 		}
 		catch (Exception e)

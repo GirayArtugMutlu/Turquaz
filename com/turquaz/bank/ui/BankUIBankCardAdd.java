@@ -156,7 +156,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 				txtBankCode = new Text(compGeneralInfo, SWT.NONE);
 				GridData txtBankCodeLData = new GridData();
 				txtBankCodeLData.widthHint = 255;
-				txtBankCodeLData.heightHint = 19;
+				txtBankCodeLData.heightHint = 17;
 				txtBankCode.setLayoutData(txtBankCodeLData);
 			}
 			{
@@ -170,7 +170,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 				txtBankName.setTextLimit(50);
 				GridData txtBankNameLData = new GridData();
 				txtBankNameLData.widthHint = 255;
-				txtBankNameLData.heightHint = 19;
+				txtBankNameLData.heightHint = 17;
 				txtBankName.setLayoutData(txtBankNameLData);
 			}
 			{
@@ -187,7 +187,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 				txtBankBranchName.setTextLimit(50);
 				GridData txtBankBranchNameLData = new GridData();
 				txtBankBranchNameLData.widthHint = 255;
-				txtBankBranchNameLData.heightHint = 19;
+				txtBankBranchNameLData.heightHint = 17;
 				txtBankBranchName.setLayoutData(txtBankBranchNameLData);
 			}
 			{
@@ -201,8 +201,25 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 				txtBankAccountNo.setTextLimit(50);
 				GridData txtBankAccountNoLData = new GridData();
 				txtBankAccountNoLData.widthHint = 255;
-				txtBankAccountNoLData.heightHint = 19;
+				txtBankAccountNoLData.heightHint = 17;
 				txtBankAccountNo.setLayoutData(txtBankAccountNoLData);
+			}
+			{
+				lblDefinition = new CLabel(compGeneralInfo, SWT.NONE);
+				lblDefinition.setText(Messages.getString("BankUIBankCardAdd.7")); //$NON-NLS-1$
+				GridData lblDefinitionLData = new GridData();
+				lblDefinitionLData.widthHint = 68;
+				lblDefinitionLData.heightHint = 19;
+				lblDefinitionLData.verticalSpan = 2;
+				lblDefinition.setLayoutData(lblDefinitionLData);
+			}
+			{
+				txtDefinition = new Text(compGeneralInfo, SWT.MULTI | SWT.V_SCROLL);
+				GridData txtDefinitionLData = new GridData();
+				txtDefinitionLData.horizontalAlignment = GridData.FILL;
+				txtDefinitionLData.verticalSpan = 2;
+				txtDefinitionLData.heightHint = 49;
+				txtDefinition.setLayoutData(txtDefinitionLData);
 			}
 			{
 				lblCurrency = new CLabel(compGeneralInfo, SWT.NONE);
@@ -214,25 +231,9 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 				comboCurrency = new CCombo(compGeneralInfo, SWT.NONE);
 				comboCurrency.setText(Messages.getString("BankUIBankCardAdd.16"));//$NON-NLS-1$
 				GridData comboCurrencyLData = new GridData();
-				comboCurrencyLData.widthHint = 109;
-				comboCurrencyLData.heightHint = 16;
+				comboCurrencyLData.widthHint = 135;
+				comboCurrencyLData.heightHint = 17;
 				comboCurrency.setLayoutData(comboCurrencyLData);
-			}
-			{
-				lblDefinition = new CLabel(compGeneralInfo, SWT.NONE);
-				lblDefinition.setText(Messages.getString("BankUIBankCardAdd.7")); //$NON-NLS-1$
-				GridData lblDefinitionLData = new GridData();
-				lblDefinitionLData.widthHint = 68;
-				lblDefinitionLData.heightHint = 19;
-				lblDefinition.setLayoutData(lblDefinitionLData);
-			}
-			{
-				txtDefinition = new Text(compGeneralInfo, SWT.MULTI | SWT.V_SCROLL);
-				GridData txtDefinitionLData = new GridData();
-				txtDefinitionLData.horizontalAlignment = GridData.FILL;
-				txtDefinitionLData.verticalSpan = 2;
-				txtDefinitionLData.heightHint = 49;
-				txtDefinition.setLayoutData(txtDefinitionLData);
 			}
 			//END << compGeneralInfo
 			GridData cTabFolder1LData = new GridData();
@@ -259,7 +260,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 				accountPicker = new AccountPicker(composite, SWT.NONE);
 				GridData accountPickerLData = new GridData();
 				accountPickerLData.widthHint = 255;
-				accountPickerLData.heightHint = 19;
+				accountPickerLData.heightHint = 17;
 				accountPicker.setLayoutData(accountPickerLData);
 			}
 			//START >> lblChequesGiven
@@ -270,7 +271,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			accountPickerChequesGiven = new AccountPicker(composite, SWT.NONE);
 			GridData accountPickerChequesGivenLData = new GridData();
 			accountPickerChequesGivenLData.widthHint = 255;
-			accountPickerChequesGivenLData.heightHint = 19;
+			accountPickerChequesGivenLData.heightHint = 17;
 			accountPickerChequesGiven.setLayoutData(accountPickerChequesGivenLData);
 			//END << accountPickerChequesGiven
 			//START >> lblChequesCollect
@@ -281,7 +282,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			accountPickerChequesCollect = new AccountPicker(composite, SWT.NONE);
 			GridData accountPickerChequesCollectLData = new GridData();
 			accountPickerChequesCollectLData.widthHint = 253;
-			accountPickerChequesCollectLData.heightHint = 19;
+			accountPickerChequesCollectLData.heightHint = 17;
 			accountPickerChequesCollect.setLayoutData(accountPickerChequesCollectLData);
 			//END << accountPickerChequesCollect
 			//END << composite

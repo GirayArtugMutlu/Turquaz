@@ -97,7 +97,7 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 				GridLayout compSearchPanelLayout = new GridLayout();
 				compSearchPanelLayout.numColumns = 2;
 				GridData compSearchPanelLData = new GridData();
-				compSearchPanelLData.heightHint = 84;
+				compSearchPanelLData.heightHint = 72;
 				compSearchPanelLData.grabExcessHorizontalSpace = true;
 				compSearchPanelLData.horizontalAlignment = GridData.FILL;
 				compSearchPanel.setLayoutData(compSearchPanelLData);
@@ -109,8 +109,8 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 				{
 					cashCardPicker = new CashCardPicker(compSearchPanel, SWT.NONE);
 					GridData cashCardPickerLData = new GridData();
-					cashCardPickerLData.widthHint = 249;
-					cashCardPickerLData.heightHint = 20;
+					cashCardPickerLData.widthHint = 157;
+					cashCardPickerLData.heightHint = 17;
 					cashCardPicker.setLayoutData(cashCardPickerLData);
 				}
 				{
@@ -120,8 +120,8 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 				{
 					datePicker = new DatePicker(compSearchPanel, SWT.NONE);
 					GridData datePickerLData = new GridData();
-					datePickerLData.widthHint = 119;
-					datePickerLData.heightHint = 19;
+					datePickerLData.widthHint = 157;
+					datePickerLData.heightHint = 23;
 					datePicker.setLayoutData(datePickerLData);
 				}
 			}

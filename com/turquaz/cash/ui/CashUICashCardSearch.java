@@ -89,7 +89,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 				composite1 = new Composite(this, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
 				GridData composite1LData = new GridData();
-				composite1LData.heightHint = 75;
+				composite1LData.heightHint = 68;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				composite1.setLayoutData(composite1LData);
@@ -102,9 +102,8 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 				{
 					txtCardCode = new Text(composite1, SWT.NONE);
 					GridData txtCardCodeLData = new GridData();
-					txtCardCode.setSize(138, 14);
-					txtCardCodeLData.widthHint = 138;
-					txtCardCodeLData.heightHint = 14;
+					txtCardCodeLData.widthHint = 150;
+					txtCardCodeLData.heightHint = 17;
 					txtCardCode.setLayoutData(txtCardCodeLData);
 				}
 				{
@@ -114,8 +113,8 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 				{
 					accountPicker = new AccountPicker(composite1, SWT.NONE);
 					GridData accountPickerLData = new GridData();
-					accountPickerLData.widthHint = 144;
-					accountPickerLData.heightHint = 14;
+					accountPickerLData.widthHint = 157;
+					accountPickerLData.heightHint = 17;
 					accountPicker.setLayoutData(accountPickerLData);
 				}
 			}

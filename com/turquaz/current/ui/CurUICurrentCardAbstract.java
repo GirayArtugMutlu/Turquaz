@@ -153,8 +153,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				{
 					txtCurrentCard = new CurrentCodePicker(compSearch, SWT.NONE);
 					GridData txtCurrentCardLData = new GridData();
-					txtCurrentCardLData.widthHint = 237;
-					txtCurrentCardLData.heightHint = 15;
+					txtCurrentCardLData.widthHint = 157;
+					txtCurrentCardLData.heightHint = 17;
 					txtCurrentCard.setLayoutData(txtCurrentCardLData);
 				}
 				{
@@ -164,9 +164,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				{
 					txtCurrentCard2 = new CurrentCodePicker(compSearch, SWT.NONE);
 					GridData txtCurrentCard2LData = new GridData();
-					txtCurrentCard2.setSize(237, 15);
-					txtCurrentCard2LData.widthHint = 237;
-					txtCurrentCard2LData.heightHint = 15;
+					txtCurrentCard2LData.widthHint = 157;
+					txtCurrentCard2LData.heightHint = 17;
 					txtCurrentCard2.setLayoutData(txtCurrentCard2LData);
 				}
 				{
@@ -180,8 +179,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				{
 					datePickerStartDate = new DatePicker(compSearch, SWT.NONE);
 					GridData datePickerStartDateLData = new GridData();
-					datePickerStartDateLData.widthHint = 140;
-					datePickerStartDateLData.heightHint = 22;
+					datePickerStartDateLData.widthHint = 157;
+					datePickerStartDateLData.heightHint = 23;
 					datePickerStartDate.setLayoutData(datePickerStartDateLData);
 				}
 				{
@@ -195,20 +194,9 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				{
 					datePickerEndDate = new DatePicker(compSearch, SWT.NONE);
 					GridData datePickerEndDateLData = new GridData();
-					datePickerEndDateLData.widthHint = 140;
-					datePickerEndDateLData.heightHint = 22;
+					datePickerEndDateLData.widthHint = 157;
+					datePickerEndDateLData.heightHint = 23;
 					datePickerEndDate.setLayoutData(datePickerEndDateLData);
-				}
-				{
-					lblDefinition = new CLabel(compSearch, SWT.NONE);
-					lblDefinition.setText(Messages.getString("CurUICurrentCardAbstract.5")); //$NON-NLS-1$
-				}
-				{
-					txtDefinition = new Text(compSearch, SWT.NONE);
-					GridData txtDefinitionLData = new GridData();
-					txtDefinitionLData.widthHint = 229;
-					txtDefinitionLData.heightHint = 15;
-					txtDefinition.setLayoutData(txtDefinitionLData);
 				}
 				//START >> lblAmount
 				lblAmount = new CLabel(compSearch, SWT.NONE);
@@ -217,10 +205,21 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				//START >> txtTransAmount
 				txtTransAmount = new CurrencyText(compSearch, SWT.NONE);
 				GridData txtTransAmountLData = new GridData();
-				txtTransAmountLData.widthHint = 133;
-				txtTransAmountLData.heightHint = 18;
+				txtTransAmountLData.widthHint = 150;
+				txtTransAmountLData.heightHint = 17;
 				txtTransAmount.setLayoutData(txtTransAmountLData);
 				//END << txtTransAmount
+				{
+					lblDefinition = new CLabel(compSearch, SWT.NONE);
+					lblDefinition.setText(Messages.getString("CurUICurrentCardAbstract.5")); //$NON-NLS-1$
+				}
+				{
+					txtDefinition = new Text(compSearch, SWT.WRAP | SWT.V_SCROLL);
+					GridData txtDefinitionLData = new GridData();
+					txtDefinitionLData.widthHint = 270;
+					txtDefinitionLData.heightHint = 23;
+					txtDefinition.setLayoutData(txtDefinitionLData);
+				}
 			}
 			{
 				viewer = new ViewerComposite(this, SWT.NONE);

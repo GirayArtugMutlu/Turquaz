@@ -426,10 +426,9 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					{
 						txtContactName = new Text(compCurrentContactInfo, SWT.NONE);
 						GridData txtContactNameLData = new GridData();
-						txtContactNameLData.widthHint = 192;
-						txtContactNameLData.heightHint = 18;
+						txtContactNameLData.widthHint = 250;
+						txtContactNameLData.heightHint = 17;
 						txtContactName.setLayoutData(txtContactNameLData);
-						txtContactName.setSize(new org.eclipse.swt.graphics.Point(198, 18));
 					}
 					{
 						lblContactAddress = new CLabel(compCurrentContactInfo, SWT.NONE);
@@ -439,10 +438,10 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 						lblContactAddress.setText(Messages.getString("CurUICurrentCardAdd.17")); //$NON-NLS-1$
 					}
 					{
-						txtContactAddress = new Text(compCurrentContactInfo, SWT.MULTI | SWT.WRAP | SWT.H_SCROLL);
+						txtContactAddress = new Text(compCurrentContactInfo, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 						GridData txtContactAddressLData = new GridData();
-						txtContactAddressLData.widthHint = 362;
-						txtContactAddressLData.heightHint = 34;
+						txtContactAddressLData.widthHint = 360;
+						txtContactAddressLData.heightHint = 40;
 						txtContactAddress.addVerifyListener(new VerifyListener()
 						{
 							public void verifyText(VerifyEvent evt)
@@ -466,7 +465,6 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 							}
 						});
 						txtContactAddress.setLayoutData(txtContactAddressLData);
-						txtContactAddress.setSize(new org.eclipse.swt.graphics.Point(369, 50));
 					}
 					{
 						lblPhone1 = new CLabel(compCurrentContactInfo, SWT.NONE);
@@ -477,8 +475,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					{
 						txtContactPhone = new Text(compCurrentContactInfo, SWT.NONE);
 						GridData txtContactPhoneLData = new GridData();
-						txtContactPhoneLData.widthHint = 185;
-						txtContactPhoneLData.heightHint = 19;
+						txtContactPhoneLData.widthHint = 150;
+						txtContactPhoneLData.heightHint = 17;
 						txtContactPhone.setLayoutData(txtContactPhoneLData);
 					}
 					{
@@ -490,8 +488,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					{
 						txtContactPhone2 = new Text(compCurrentContactInfo, SWT.NONE);
 						GridData txtContactPhone2LData = new GridData();
-						txtContactPhone2LData.widthHint = 185;
-						txtContactPhone2LData.heightHint = 19;
+						txtContactPhone2LData.widthHint = 150;
+						txtContactPhone2LData.heightHint = 17;
 						txtContactPhone2.setLayoutData(txtContactPhone2LData);
 					}
 					{
@@ -503,9 +501,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					{
 						txtFaxNumber = new Text(compCurrentContactInfo, SWT.NONE);
 						GridData txtFaxNumberLData = new GridData();
-						txtFaxNumberLData.widthHint = 179;
-						txtFaxNumberLData.heightHint = 19;
-						txtFaxNumber.setSize(185, 19);
+						txtFaxNumberLData.widthHint = 150;
+						txtFaxNumberLData.heightHint = 17;
 						txtFaxNumber.setLayoutData(txtFaxNumberLData);
 					}
 					{
@@ -517,10 +514,9 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					{
 						txtContactEmail = new Text(compCurrentContactInfo, SWT.NONE);
 						GridData txtContactEmailLData = new GridData();
-						txtContactEmailLData.widthHint = 179;
-						txtContactEmailLData.heightHint = 19;
+						txtContactEmailLData.widthHint = 150;
+						txtContactEmailLData.heightHint = 17;
 						txtContactEmail.setLayoutData(txtContactEmailLData);
-						txtContactEmail.setSize(185, 19);
 					}
 					{
 						cLabel2 = new CLabel(compCurrentContactInfo, SWT.NONE);
@@ -531,8 +527,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					{
 						txtContactWebSite = new Text(compCurrentContactInfo, SWT.NONE);
 						GridData txtContactWebSiteLData = new GridData();
-						txtContactWebSiteLData.widthHint = 179;
-						txtContactWebSiteLData.heightHint = 19;
+						txtContactWebSiteLData.widthHint = 150;
+						txtContactWebSiteLData.heightHint = 17;
 						txtContactWebSite.addKeyListener(new KeyAdapter()
 						{
 							public void keyReleased(KeyEvent evt)
@@ -544,7 +540,6 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 							}
 						});
 						txtContactWebSite.setLayoutData(txtContactWebSiteLData);
-						txtContactWebSite.setSize(185, 19);
 					}
 					compCurrentContactInfo.layout();
 				}
@@ -577,8 +572,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			//START >> accPickerCustomer
 			accPickerCustomer = new AccountPicker(compaccountingAccounts, SWT.NONE);
 			GridData accountPickerCustomerLData = new GridData();
-			accountPickerCustomerLData.widthHint = 179;
-			accountPickerCustomerLData.heightHint = 20;
+			accountPickerCustomerLData.widthHint = 157;
+			accountPickerCustomerLData.heightHint = 17;
 			accPickerCustomer.setLayoutData(accountPickerCustomerLData);
 			//END << accPickerCustomer
 			//START >> lblChequeTaken
@@ -592,8 +587,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			//START >> accountPickerChequesGiven
 			accountPickerChequesGiven = new AccountPicker(compaccountingAccounts, SWT.NONE);
 			GridData accountPickerChequesGivenLData = new GridData();
-			accountPickerChequesGivenLData.widthHint = 178;
-			accountPickerChequesGivenLData.heightHint = 19;
+			accountPickerChequesGivenLData.widthHint = 157;
+			accountPickerChequesGivenLData.heightHint = 17;
 			accountPickerChequesGiven.setLayoutData(accountPickerChequesGivenLData);
 			//END << accountPickerChequesGiven
 			//START >> lblChequesGiven
@@ -603,8 +598,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			//START >> accountPickerChequesTaken
 			accountPickerChequesTaken = new AccountPicker(compaccountingAccounts, SWT.NONE);
 			GridData accountPicker1LData = new GridData();
-			accountPicker1LData.widthHint = 178;
-			accountPicker1LData.heightHint = 20;
+			accountPicker1LData.widthHint = 157;
+			accountPicker1LData.heightHint = 17;
 			accountPickerChequesTaken.setLayoutData(accountPicker1LData);
 			//END << accountPickerChequesTaken
 			//END << compaccountingAccounts
@@ -633,7 +628,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				{
 					txtCurrentCode = new Text(compCurrentGeneralInfo, SWT.NONE);
 					GridData txtCurrentCodeLData = new GridData();
-					txtCurrentCodeLData.widthHint = 148;
+					txtCurrentCodeLData.widthHint = 150;
 					txtCurrentCodeLData.heightHint = 17;
 					txtCurrentCodeLData.horizontalSpan = 3;
 					txtCurrentCode.setLayoutData(txtCurrentCodeLData);
@@ -650,9 +645,9 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				{
 					txtCurrentName = new Text(compCurrentGeneralInfo, SWT.NONE);
 					GridData txtCurrentNameLData = new GridData();
-					txtCurrentNameLData.horizontalAlignment = GridData.FILL;
-					txtCurrentNameLData.heightHint = 19;
+					txtCurrentNameLData.heightHint = 17;
 					txtCurrentNameLData.horizontalSpan = 3;
+					txtCurrentNameLData.widthHint = 395;
 					txtCurrentName.setLayoutData(txtCurrentNameLData);
 					txtCurrentName.setTextLimit(250);
 				}
@@ -666,8 +661,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				{
 					txtCardDefinition = new Text(compCurrentGeneralInfo, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 					GridData txtCardDefinitionLData = new GridData();
-					txtCardDefinitionLData.widthHint = 383;
-					txtCardDefinitionLData.heightHint = 51;
+					txtCardDefinitionLData.widthHint = 381;
+					txtCardDefinitionLData.heightHint = 50;
 					txtCardDefinitionLData.horizontalSpan = 3;
 					txtCardDefinition.addVerifyListener(new VerifyListener()
 					{
@@ -693,7 +688,6 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					});
 					txtCardDefinition.setLayoutData(txtCardDefinitionLData);
 					txtCardDefinition.setTextLimit(250);
-					txtCardDefinition.setSize(new org.eclipse.swt.graphics.Point(403, 53));
 				}
 				{
 					lblCardAddress = new CLabel(compCurrentGeneralInfo, SWT.NONE);
@@ -705,8 +699,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				{
 					txtCardAddress = new Text(compCurrentGeneralInfo, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 					GridData txtCardAddressLData = new GridData();
-					txtCardAddressLData.widthHint = 383;
-					txtCardAddressLData.heightHint = 51;
+					txtCardAddressLData.widthHint = 381;
+					txtCardAddressLData.heightHint = 50;
 					txtCardAddressLData.horizontalSpan = 3;
 					txtCardAddress.addVerifyListener(new VerifyListener()
 					{
@@ -732,7 +726,6 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					});
 					txtCardAddress.setLayoutData(txtCardAddressLData);
 					txtCardAddress.setTextLimit(250);
-					txtCardAddress.setSize(new org.eclipse.swt.graphics.Point(403, 53));
 				}
 				{
 					lblTelephone1 = new Label(compCurrentGeneralInfo, SWT.NONE);
@@ -763,24 +756,23 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 						numtxtCountryCode = new NumericText(composite1, SWT.NONE);
 						GridData numtxtCountryCodeLData = new GridData();
 						numtxtCountryCodeLData.widthHint = 25;
-						numtxtCountryCodeLData.heightHint = 21;
+						numtxtCountryCodeLData.heightHint = 17;
 						numtxtCountryCode.setLayoutData(numtxtCountryCodeLData);
 						numtxtCountryCode.setTextLimit(5);
 					}
 					{
 						numTxtCityCode = new NumericText(composite1, SWT.NONE);
 						GridData numTxtCityCodeLData = new GridData();
-						numTxtCityCode.setSize(30, 21);
-						numTxtCityCodeLData.widthHint = 30;
-						numTxtCityCodeLData.heightHint = 21;
+						numTxtCityCodeLData.widthHint = 24;
+						numTxtCityCodeLData.heightHint = 17;
 						numTxtCityCode.setLayoutData(numTxtCityCodeLData);
 						numTxtCityCode.setTextLimit(3);
 					}
 					{
 						numTxtNumber = new NumericText(composite1, SWT.NONE);
 						GridData numTxtNumberLData = new GridData();
-						numTxtNumberLData.widthHint = 83;
-						numTxtNumberLData.heightHint = 21;
+						numTxtNumberLData.widthHint = 79;
+						numTxtNumberLData.heightHint =17;
 						numTxtNumber.setLayoutData(numTxtNumberLData);
 						numTxtNumber.setTextLimit(9);
 					}
@@ -815,24 +807,23 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 						numTxtCountryCode2 = new NumericText(composite2, SWT.NONE);
 						GridData numTxtCountryCode2LData = new GridData();
 						numTxtCountryCode2LData.widthHint = 25;
-						numTxtCountryCode2LData.heightHint = 18;
+						numTxtCountryCode2LData.heightHint = 17;
 						numTxtCountryCode2.setLayoutData(numTxtCountryCode2LData);
 						numTxtCountryCode2.setTextLimit(5);
 					}
 					{
 						numTxtCityCode2 = new NumericText(composite2, SWT.NONE);
 						GridData numTxtCityCode2LData = new GridData();
-						numTxtCityCode2LData.widthHint = 30;
-						numTxtCityCode2LData.heightHint = 21;
+						numTxtCityCode2LData.widthHint = 24;
+						numTxtCityCode2LData.heightHint = 18;
 						numTxtCityCode2.setLayoutData(numTxtCityCode2LData);
 						numTxtCityCode2.setTextLimit(3);
-						numTxtCityCode2.setSize(30, 21);
 					}
 					{
 						numTxtNumber2 = new NumericText(composite2, SWT.NONE);
 						GridData numTxtNumber2LData = new GridData();
-						numTxtNumber2LData.widthHint = 82;
-						numTxtNumber2LData.heightHint = 20;
+						numTxtNumber2LData.widthHint = 79;
+						numTxtNumber2LData.heightHint = 17;
 						numTxtNumber2.setLayoutData(numTxtNumber2LData);
 						numTxtNumber2.setTextLimit(9);
 					}
@@ -850,8 +841,9 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				{
 					txtTaxDepartmant = new Text(compCurrentGeneralInfo, SWT.NONE);
 					GridData txtTaxDepartmantLData = new GridData();
-					txtTaxDepartmantLData.widthHint = 139;
-					txtTaxDepartmantLData.heightHint = 22;
+					txtTaxDepartmantLData.widthHint = 150;
+					txtTaxDepartmantLData.heightHint = 17;
+					txtTaxDepartmantLData.horizontalSpan = 3;
 					txtTaxDepartmant.setLayoutData(txtTaxDepartmantLData);
 					txtTaxDepartmant.setTextLimit(50);
 				}
@@ -866,8 +858,9 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				{
 					txtTaxNumber = new Text(compCurrentGeneralInfo, SWT.NONE);
 					GridData txtTaxNumberLData = new GridData();
-					txtTaxNumberLData.widthHint = 165;
-					txtTaxNumberLData.heightHint = 21;
+					txtTaxNumberLData.widthHint = 150;
+					txtTaxNumberLData.heightHint = 17;
+					txtTaxNumberLData.horizontalSpan = 3;
 					txtTaxNumber.setLayoutData(txtTaxNumberLData);
 					txtTaxNumber.setTextLimit(50);
 				}
@@ -880,8 +873,9 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				{
 					decTxtRiskLimit = new CurrencyText(compCurrentGeneralInfo, SWT.NONE);
 					GridData decTxtRiskLimitLData = new GridData();
-					decTxtRiskLimitLData.widthHint = 139;
-					decTxtRiskLimitLData.heightHint = 21;
+					decTxtRiskLimitLData.widthHint = 150;
+					decTxtRiskLimitLData.heightHint = 17;
+					decTxtRiskLimitLData.horizontalSpan = 3;
 					decTxtRiskLimit.setLayoutData(decTxtRiskLimitLData);
 				}
 				{
@@ -895,23 +889,10 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				{
 					decTxtCreditLimit = new CurrencyText(compCurrentGeneralInfo, SWT.NONE);
 					GridData decTxtCreditLimitLData = new GridData();
-					decTxtCreditLimitLData.widthHint = 167;
-					decTxtCreditLimitLData.heightHint = 21;
+					decTxtCreditLimitLData.widthHint = 150;
+					decTxtCreditLimitLData.heightHint = 17;
+					decTxtCreditLimitLData.horizontalSpan = 3;
 					decTxtCreditLimit.setLayoutData(decTxtCreditLimitLData);
-				}
-				{
-					lblDiscountRate = new CLabel(compCurrentGeneralInfo, SWT.NONE);
-					GridData lblDiscountRateLData = new GridData();
-					lblDiscountRate.setLayoutData(lblDiscountRateLData);
-					lblDiscountRate.setText(Messages.getString("CurUICurrentCardAdd.11")); //$NON-NLS-1$
-				}
-				{
-					numTextDiscountRate = new CurrencyTextAdvanced(compCurrentGeneralInfo, SWT.NONE);
-					GridData numTextDiscountRateLData = new GridData();
-					numTextDiscountRateLData.widthHint = 65;
-					numTextDiscountRateLData.heightHint = 16;
-					numTextDiscountRate.setLayoutData(numTextDiscountRateLData);
-					numTextDiscountRate.setTextLimit(2);
 				}
 				{
 					lblDiscountAMount = new CLabel(compCurrentGeneralInfo, SWT.NONE);
@@ -924,9 +905,25 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				{
 					decTxtDiscountAmount = new CurrencyText(compCurrentGeneralInfo, SWT.NONE);
 					GridData decTxtDiscountAmountLData = new GridData();
-					decTxtDiscountAmountLData.widthHint = 165;
-					decTxtDiscountAmountLData.heightHint = 22;
+					decTxtDiscountAmountLData.widthHint = 150;
+					decTxtDiscountAmountLData.heightHint = 17;
+					decTxtDiscountAmountLData.horizontalSpan = 3;
 					decTxtDiscountAmount.setLayoutData(decTxtDiscountAmountLData);
+				}
+				{
+					lblDiscountRate = new CLabel(compCurrentGeneralInfo, SWT.NONE);
+					GridData lblDiscountRateLData = new GridData();
+					lblDiscountRate.setLayoutData(lblDiscountRateLData);
+					lblDiscountRate.setText(Messages.getString("CurUICurrentCardAdd.11")); //$NON-NLS-1$
+				}
+				{
+					numTextDiscountRate = new CurrencyTextAdvanced(compCurrentGeneralInfo, SWT.NONE);
+					GridData numTextDiscountRateLData = new GridData();
+					numTextDiscountRateLData.widthHint = 65;
+					numTextDiscountRateLData.heightHint = 17;
+					numTextDiscountRateLData.horizontalSpan = 3;
+					numTextDiscountRate.setLayoutData(numTextDiscountRateLData);
+					numTextDiscountRate.setTextLimit(2);
 				}
 				{
 					lblDueDays = new CLabel(compCurrentGeneralInfo, SWT.NONE);
@@ -940,7 +937,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					numDueDays = new NumericText(compCurrentGeneralInfo, SWT.NONE);
 					GridData numDueDaysLData = new GridData();
 					numDueDaysLData.widthHint = 65;
-					numDueDaysLData.heightHint = 18;
+					numDueDaysLData.heightHint = 17;
 					numDueDaysLData.horizontalSpan = 3;
 					numDueDays.setLayoutData(numDueDaysLData);
 				}
