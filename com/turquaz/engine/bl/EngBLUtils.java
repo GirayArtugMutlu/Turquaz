@@ -36,8 +36,10 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.FileDialog;
 
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
@@ -447,5 +449,23 @@ public class EngBLUtils {
 		}
 
 	}
+	public static void
+	  centreWindow(
+	  	Shell	shell )
+	  {
+	    Rectangle displayRect;
+	    try {
+	    	displayRect = shell.getMonitor().getClientArea();
+	    } catch (NoSuchMethodError e) {
+	      displayRect = shell.getDisplay().getClientArea();
+	    }
+
+	    Rectangle shellRect = shell.getBounds();
+		
+	    int x = (displayRect.width - shellRect.width) / 2;
+	    int y = (displayRect.height - shellRect.height) / 2;
+
+	    shell.setLocation(x, y);
+	  }  
 
 }

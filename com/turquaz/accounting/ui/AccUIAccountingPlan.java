@@ -235,7 +235,10 @@ public void fillTree(int parent, String codeCrit){
 		item = new TableTreeItem(tableTreeAccountingPlan,SWT.NULL);
 		item.setText(0,account.getAccountCode());
 		item.setText(1,account.getAccountName());
-		item.setData(account);	
+		
+		
+		item.setData(account);
+		
 		treeItems.put(account.getAccountingAccountsId(),item);
 	
 		}
@@ -245,10 +248,18 @@ public void fillTree(int parent, String codeCrit){
 		TableTreeItem parentItem = (TableTreeItem)treeItems.get(parentId);
 		
 		if(parentItem == null){
-		   System.out.println(account.getAccountCode()+" "+parentId.intValue()); //$NON-NLS-1$
+		   System.out.println("Error in Constructing tree: " + account.getAccountCode()); //$NON-NLS-1$
 		}
 		
 		else{
+			parentItem.setFont(SWTResourceManager.getFont("Tahoma", 9, 1, false, false));
+		
+			 {
+	             //Register as a resource user - SWTResourceManager will
+	             //handle the obtaining and disposing of resources
+	             SWTResourceManager.registerResourceUser(parentItem);
+	         }
+		
 		item = new TableTreeItem(parentItem,SWT.NULL);	
 		treeItems.put(account.getAccountingAccountsId(),item);
 		item.setText(0,account.getAccountCode());

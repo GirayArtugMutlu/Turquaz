@@ -215,7 +215,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			compAddBill.getTxtDefinition().setText(bill.getBillsDefinition());
 			fillInvTransactionColumns();
 			fillRegisteredGroup();  
-	        
+	        EngBLUtils.centreWindow(dialogShell);
 	        
 	    
 	    }	    
