@@ -127,17 +127,34 @@ public class CurDALSearchTransaction {
 		
 		
 	}
-	public List getCurrentBalances(TurqCurrentCard curCard, Date endDate) throws Exception {
+	public List getCurrentBalances(TurqCurrentCard curCard, TurqCurrentCard curCard2,Date endDate) throws Exception {
 	    try{
 	        
 	    	Session session = EngDALSessionFactory.openSession(); 
-	    	String query = "Select sum(transaction.transactionsTotalDept),sum(transaction.transactionsTotalCredit) from TurqCurrentTransaction as transaction where" +
-			" transaction.turqCurrentCard= :curCard and" +
-			" transaction.transactionsDate < :endDate";
+	    	String query="";
+	    	if (curCard2==null)
+	    	{
+	    		query = "Select transaction.turqCurrentCard.cardsCurrentCode,sum(transaction.transactionsTotalDept)," +
+				"sum(transaction.transactionsTotalCredit) from TurqCurrentTransaction as transaction where" +
+				" transaction.turqCurrentCard= :curCard and" +
+				" transaction.transactionsDate < :endDate"+
+	    		" group by transaction.turqCurrentCard.cardsCurrentCode";
+	    	}
+	    	else
+	    	{
+	    		query="Select transaction.turqCurrentCard.cardsCurrentCode,sum(transaction.transactionsTotalDept)," +
+				"sum(transaction.transactionsTotalCredit) from TurqCurrentTransaction as transaction where" +
+				" transaction.turqCurrentCard.cardsCurrentCode >="+"'"+curCard.getCardsCurrentCode()+"'"+
+				" and transaction.turqCurrentCard.cardsCurrentCode <="+"'"+curCard2.getCardsCurrentCode()+"'"+
+				" and transaction.transactionsDate < :endDate" +
+				" group by transaction.turqCurrentCard.cardsCurrentCode"+
+				" order by transaction.turqCurrentCard.cardsCurrentCode";
+	    	}
 	    
 	    	Query q = session.createQuery(query); 
 	    	
-	    	q.setParameter("curCard",curCard);
+	    	if (curCard2==null)
+	    		q.setParameter("curCard",curCard);
 	    	q.setParameter("endDate",endDate);
 	    	
 	    	List list = q.list();

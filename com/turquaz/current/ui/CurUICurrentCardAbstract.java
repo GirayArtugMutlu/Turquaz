@@ -1,9 +1,35 @@
 package com.turquaz.current.ui;
+/************************************************************************/
+/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
+/* ============================================                         */
+/* Copyright (c) 2004 by Turquaz Software Development Group			    */
+/*																		*/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License, or    */
+/* (at your option) any later version.       							*/
+/* 																		*/
+/* This program is distributed in the hope that it will be useful,		*/
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
+/* GNU General Public License for more details.         				*/
+/************************************************************************/
+
+
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -29,44 +55,36 @@ import org.eclipse.swt.SWT;
 */
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableItem;
+
 
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
-import com.turquaz.engine.bl.EngBLUtils;
+import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 import org.eclipse.swt.custom.CLabel;
 
 import com.turquaz.engine.ui.component.DatePicker;
+import com.jasperassistant.designer.viewer.ViewerComposite;
 public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite implements SearchComposite{
 	private Composite compSearch;
-	private Table tableCurrentTransactions;
-	private TableColumn tableColumnCreditBalance;
-	private TableColumn tableColumnDebitBalance;
-	private TableColumn tableColumnDefinition;
-	private TableColumn tableColumnDocumentNo;
+	private CurrentPicker txtCurrentCard2;
+	private CLabel lblCurCard2;
 	private CLabel lblCurrentCard;
-	private TableColumn tableColumnTransGroup;
 	private CurrentPicker txtCurrentCard;
 	private DatePicker datePickerEndDate;
+	private ViewerComposite viewer;
 	private CLabel lblEndDate;
 	private DatePicker datePickerStartDate;
 	private CLabel lblStartDate;
-	private TableColumn tableColumnCredit;
-	private TableColumn tableColumnDebit;
-	private TableColumn tableColumnTransDate;
-	private Composite compResult;
 	private CurBLSearchTransaction BLsearch=new CurBLSearchTransaction();
 	private TurqCurrentCard currentCard=null;
+	private TurqCurrentCard currentCard2=null;
 	private Calendar cal=Calendar.getInstance();
 
 	/**
@@ -137,9 +155,20 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					GridData txtCurrentCardLData = new GridData();
 					txtCurrentCardLData.widthHint = 237;
 					txtCurrentCardLData.heightHint = 15;
-					txtCurrentCardLData.horizontalSpan = 3;
 					txtCurrentCard.setLayoutData(txtCurrentCardLData);
 					
+				}
+				{
+					lblCurCard2 = new CLabel(compSearch, SWT.NONE);
+					lblCurCard2.setText(Messages.getString("CurUICurrentCardAbstract.3")); //$NON-NLS-1$
+				}
+				{
+					txtCurrentCard2 = new CurrentPicker(compSearch, SWT.NONE);
+					GridData txtCurrentCard2LData = new GridData();
+					txtCurrentCard2.setSize(237, 15);
+					txtCurrentCard2LData.widthHint = 237;
+					txtCurrentCard2LData.heightHint = 15;
+					txtCurrentCard2.setLayoutData(txtCurrentCard2LData);
 				}
 				{
 					lblStartDate = new CLabel(compSearch, SWT.NONE);
@@ -172,85 +201,16 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					datePickerEndDate.setLayoutData(datePickerEndDateLData);
 				}
 				}
-			
-			{
-				compResult = new Composite(this, SWT.NONE);
-				GridLayout compResultLayout2 = new GridLayout();
-				GridData compResultLData = new GridData();
-				compResultLData.grabExcessVerticalSpace = true;
-				compResultLData.horizontalAlignment = GridData.FILL;
-				compResultLData.verticalAlignment = GridData.FILL;
-				compResult.setLayoutData(compResultLData);
-				compResultLayout2.makeColumnsEqualWidth = true;
-				compResult.setLayout(compResultLayout2);
 				{
-					tableCurrentTransactions = new Table(compResult, SWT.FULL_SELECTION);
-					tableCurrentTransactions.setHeaderVisible(true);
-					tableCurrentTransactions.setLinesVisible(true);
-					GridData tableCurrentTransactionsLData = new GridData();
-					tableCurrentTransactionsLData.verticalAlignment = GridData.FILL;
-					tableCurrentTransactionsLData.horizontalAlignment = GridData.FILL;
-					tableCurrentTransactionsLData.grabExcessHorizontalSpace = true;
-					tableCurrentTransactionsLData.grabExcessVerticalSpace = true;
-					tableCurrentTransactions.setLayoutData(tableCurrentTransactionsLData);
-					{
-						tableColumnTransDate = new TableColumn(
-							tableCurrentTransactions,
-							SWT.NONE);
-						tableColumnTransDate.setText(Messages
-							.getString("CurUITransactionSearch.9"));//$NON-NLS-1$
-						tableColumnTransDate.setWidth(100);
-					}
-					{
-						tableColumnTransGroup = new TableColumn(
-							tableCurrentTransactions,
-							SWT.NONE);
-						tableColumnTransGroup.setText(Messages
-							.getString("CurUITransactionSearch.6"));//$NON-NLS-1$
-						tableColumnTransGroup.setWidth(103);
-					}
-					{
-						tableColumnDocumentNo = new TableColumn(
-							tableCurrentTransactions,
-							SWT.NONE);
-						tableColumnDocumentNo.setText(Messages.getString("CurUICurrentCardAbstract.4")); //$NON-NLS-1$
-						tableColumnDocumentNo.setWidth(89);
-					}
-                    {
-                        tableColumnDefinition = new TableColumn(
-                            tableCurrentTransactions,
-                            SWT.NONE);
-                        tableColumnDefinition.setText(Messages.getString("CurUICurrentCardAbstract.5")); //$NON-NLS-1$
-                        tableColumnDefinition.setWidth(156);
-                    }
-					{
-						tableColumnDebit = new TableColumn(
-							tableCurrentTransactions,
-							SWT.RIGHT);
-						tableColumnDebit.setText(Messages
-							.getString("CurUITransactionSearch.7"));//$NON-NLS-1$
-						tableColumnDebit.setWidth(106);
-					}
-					{
-						tableColumnCredit = new TableColumn(
-							tableCurrentTransactions,
-							SWT.RIGHT);
-						tableColumnCredit.setText(Messages
-							.getString("CurUITransactionSearch.8"));//$NON-NLS-1$
-						tableColumnCredit.setWidth(101);
-					}
-                    {
-                        tableColumnDebitBalance = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
-                        tableColumnDebitBalance.setText(Messages.getString("CurUICurrentCardAbstract.6")); //$NON-NLS-1$
-                        tableColumnDebitBalance.setWidth(100);
-                    }
-                    {
-                        tableColumnCreditBalance = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
-                        tableColumnCreditBalance.setText(Messages.getString("CurUICurrentCardAbstract.7")); //$NON-NLS-1$
-                        tableColumnCreditBalance.setWidth(100);
-                    }
+					viewer = new ViewerComposite(this, SWT.NONE);
+					GridData viewerLData = new GridData();
+					viewerLData.grabExcessHorizontalSpace = true;
+					viewerLData.horizontalAlignment = GridData.FILL;
+					viewerLData.grabExcessVerticalSpace = true;
+					viewerLData.verticalAlignment = GridData.FILL;
+					viewer.setLayoutData(viewerLData);
 				}
-			}
+
 			postInitGui();
 			this.layout();
 		} catch (Exception e) {
@@ -266,7 +226,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableCurrentTransactions);
+		
 	}
 	
 	public void delete()
@@ -276,6 +236,106 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	
 	public void search()
 	{
+		try
+		{
+			MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+			currentCard=null;
+			currentCard2=null;
+			if (txtCurrentCard.getData()== null && txtCurrentCard2.getData()== null)
+			{
+		    	msg.setMessage(Messages.getString("CurUICurrentCardAbstract.4")); //$NON-NLS-1$
+		    	msg.open();
+		    	txtCurrentCard.setFocus();
+		    	return ; 
+			}
+			else if (txtCurrentCard.getData()==null)
+			{
+				currentCard=(TurqCurrentCard)txtCurrentCard2.getData();
+				currentCard2=null;
+			}
+			else if (txtCurrentCard2.getData()==null)
+			{
+				currentCard=(TurqCurrentCard)txtCurrentCard.getData();
+				currentCard2=null;
+			}
+			else
+			{
+				currentCard=(TurqCurrentCard)txtCurrentCard.getData();
+				currentCard2=(TurqCurrentCard)txtCurrentCard2.getData();
+			}			
+			Map parameters = new HashMap();		
+			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");  //$NON-NLS-1$
+			String sqlparam="Select trans.transactions_date, trans.transactions_document_no," + //$NON-NLS-1$
+			" trans.current_transactions_id as transId, " + //$NON-NLS-1$
+			" transtype.transaction_type_name, trans.transactions_definition," + //$NON-NLS-1$
+			" trans.transactions_total_dept, trans.transactions_total_credit," + //$NON-NLS-1$
+			" curCard.cards_current_code, curCard.cards_name" + //$NON-NLS-1$
+			" from turq_current_transactions trans, turq_current_transaction_types transtype," + //$NON-NLS-1$
+			" turq_current_cards curCard" + //$NON-NLS-1$
+			" where trans.current_transaction_types_id=transtype.current_transaction_types_id" + //$NON-NLS-1$
+			" and trans.current_cards_id=curCard.current_cards_id"+ //$NON-NLS-1$
+			" and trans.transactions_date >="+"'"+dformat.format(datePickerStartDate.getDate())+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			" and trans.transactions_date <="+"'"+dformat.format(datePickerEndDate.getDate())+"'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			if (currentCard2==null)
+			{
+				sqlparam +=
+					" and curCard.current_cards_id="+currentCard.getCurrentCardsId().intValue(); //$NON-NLS-1$
+			}
+			else
+			{
+				sqlparam+=
+					" and curCard.cards_current_code >= "+"'"+currentCard.getCardsCurrentCode()+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					" and curCard.cards_current_code <= "+"'"+currentCard2.getCardsCurrentCode()+"'";				 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			}
+			sqlparam += " order by curCard.cards_current_code"; //$NON-NLS-1$
+			System.out.println(sqlparam);
+			SimpleDateFormat dformat2=new SimpleDateFormat("dd/MM/yyyy");  //$NON-NLS-1$
+			parameters.put("sqlparam",sqlparam);  //$NON-NLS-1$
+			parameters.put("startDate",dformat2.format(datePickerStartDate.getDate()));  //$NON-NLS-1$
+			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate())); 			  //$NON-NLS-1$
+			parameters.put("dformat",dformat2);  //$NON-NLS-1$
+			parameters.put("currentCard1",currentCard.getCardsCurrentCode()); //$NON-NLS-1$
+			parameters.put("currentCard2",(currentCard2==null)? "" : currentCard2.getCardsCurrentCode());  //$NON-NLS-1$ //$NON-NLS-2$
+			parameters.put("formatter", new TurkishCurrencyFormat());  //$NON-NLS-1$
+			
+			List balances = BLsearch.getCurrentBalances(currentCard,currentCard2,datePickerStartDate.getDate());
+			HashMap balanceList=new HashMap();
+			for (int k=0; k < balances.size(); k++)
+			{
+				Object[] balanceArr=(Object[])balances.get(k);
+				balanceList.put((String)balanceArr[0],((BigDecimal)balanceArr[2]).subtract(((BigDecimal)balanceArr[1])));
+			}
+			parameters.put("balanceList",balanceList); //$NON-NLS-1$
+			//parameters.put("balances",balances);
+			EngDALConnection db=new EngDALConnection();
+			db.connect();
+		
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/current/CurrentCardAbstract.jasper");   //$NON-NLS-1$
+	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());	
+			
+			viewer.getReportViewer().setDocument(jasperPrint);	
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+			msg.setMessage(ex.getMessage());
+			msg.open();
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
 		try
 		{
 			MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
@@ -350,9 +410,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	                    });
 			}
 			
-			
-			
-			
+						
 			List results =BLsearch.getCurrentTransactions(currentCard, startDate, endDate);
 		
 			TurqCurrentTransaction transaction;
@@ -390,17 +448,13 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			msg.open();
 			
 		}
-		
+		*/
 		
 	}
 	
 	public void printTable()
 	{
-		if (currentCard!=null)
-		{
-			String title=Messages.getString("CurUICurrentCardAbstract.20")+Messages.getString("CurUICurrentCardAbstract.21")+currentCard.getCardsCurrentCode()+Messages.getString("CurUICurrentCardAbstract.22")+currentCard.getCardsName(); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			EngBLUtils.printTable(tableCurrentTransactions,title);
-		}
+
 	}
 
 }

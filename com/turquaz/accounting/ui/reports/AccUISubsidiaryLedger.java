@@ -263,7 +263,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 			account2=null;
 			if (txtAccount.getData()== null && txtAccount2.getData()== null)
 			{
-		    	msg.setMessage("?lk önce en az bir tane hesap kodu seçmelisiniz!"); 
+		    	msg.setMessage(Messages.getString("AccUISubsidiaryLedger.3"));  //$NON-NLS-1$
 		    	msg.open();
 		    	txtAccount.setFocus();
 		    	return ; 
@@ -286,61 +286,61 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 			
 			Map parameters = new HashMap();		
 			String sqlparam;
-			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 			if (account2==null)
 			{
-				sqlparam="Select transColumns.accounting_transaction_columns_id as columnId, " +
-						"transColumns.dept_amount,transColumns.credit_amount," +
-						"transColumns.transaction_definition, accounts.account_name as accName," +
-						"accounts.account_code as accCode, topacc.account_name as topAccName, topacc.account_code as topAccCode," +
-						" trans.transactions_date, trans.transaction_document_no" +
-						" from turq_accounting_transaction_columns transColumns," +
-						" turq_accounting_accounts accounts," +
-						" turq_accounting_accounts topacc," +
-						" turq_accounting_transactions trans" +
-				" where transColumns.accounting_accounts_id=accounts.accounting_accounts_id"+
-				" and accounts.top_account=topacc.accounting_accounts_id" +
-				" and accounts.accounting_accounts_id="+account.getAccountingAccountsId().intValue()+
-				" and transColumns.accounting_transactions_id=trans.accounting_transactions_id"+
-				" and trans.transactions_date >="+"'"+dformat.format(dateStartDate.getDate())+"'"+
-				" and trans.transactions_date <="+"'"+dformat.format(dateEndDate.getDate())+"'";
+				sqlparam="Select transColumns.accounting_transaction_columns_id as columnId, " + //$NON-NLS-1$
+						"transColumns.dept_amount,transColumns.credit_amount," + //$NON-NLS-1$
+						"transColumns.transaction_definition, accounts.account_name as accName," + //$NON-NLS-1$
+						"accounts.account_code as accCode, topacc.account_name as topAccName, topacc.account_code as topAccCode," + //$NON-NLS-1$
+						" trans.transactions_date, trans.transaction_document_no" + //$NON-NLS-1$
+						" from turq_accounting_transaction_columns transColumns," + //$NON-NLS-1$
+						" turq_accounting_accounts accounts," + //$NON-NLS-1$
+						" turq_accounting_accounts topacc," + //$NON-NLS-1$
+						" turq_accounting_transactions trans" + //$NON-NLS-1$
+				" where transColumns.accounting_accounts_id=accounts.accounting_accounts_id"+ //$NON-NLS-1$
+				" and accounts.top_account=topacc.accounting_accounts_id" + //$NON-NLS-1$
+				" and accounts.accounting_accounts_id="+account.getAccountingAccountsId().intValue()+ //$NON-NLS-1$
+				" and transColumns.accounting_transactions_id=trans.accounting_transactions_id"+ //$NON-NLS-1$
+				" and trans.transactions_date >="+"'"+dformat.format(dateStartDate.getDate())+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				" and trans.transactions_date <="+"'"+dformat.format(dateEndDate.getDate())+"'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			}
 			else
 			{
-				sqlparam="Select transColumns.accounting_transaction_columns_id as columnId," +
-				"transColumns.dept_amount,transColumns.credit_amount," +
-				"transColumns.transaction_definition, accounts.account_name as accName," +
-				"accounts.account_code as accCode, topacc.account_name as topAccName, topacc.account_code as topAccCode," +
-				" trans.transactions_date, trans.transaction_document_no" +
-				" from turq_accounting_transaction_columns transColumns," +
-				" turq_accounting_accounts accounts, " +
-				"turq_accounting_accounts topacc," +
-				" turq_accounting_transactions trans" +
-					" where transColumns.accounting_accounts_id=accounts.accounting_accounts_id" +
-					" and accounts.top_account=topacc.accounting_accounts_id"+
-					" and transColumns.accounting_transactions_id=trans.accounting_transactions_id"+
-					" and accounts.account_code >="+"'"+account.getAccountCode()+"'"+
-					" and accounts.account_code <="+"'"+account2.getAccountCode()+"'"+
-					" and trans.transactions_date >="+"'"+dformat.format(dateStartDate.getDate())+"'"+
-					" and trans.transactions_date <="+"'"+dformat.format(dateEndDate.getDate())+"'"+
-					" order by accounts.accounting_accounts_id";
+				sqlparam="Select transColumns.accounting_transaction_columns_id as columnId," + //$NON-NLS-1$
+				"transColumns.dept_amount,transColumns.credit_amount," + //$NON-NLS-1$
+				"transColumns.transaction_definition, accounts.account_name as accName," + //$NON-NLS-1$
+				"accounts.account_code as accCode, topacc.account_name as topAccName, topacc.account_code as topAccCode," + //$NON-NLS-1$
+				" trans.transactions_date, trans.transaction_document_no" + //$NON-NLS-1$
+				" from turq_accounting_transaction_columns transColumns," + //$NON-NLS-1$
+				" turq_accounting_accounts accounts, " + //$NON-NLS-1$
+				"turq_accounting_accounts topacc," + //$NON-NLS-1$
+				" turq_accounting_transactions trans" + //$NON-NLS-1$
+					" where transColumns.accounting_accounts_id=accounts.accounting_accounts_id" + //$NON-NLS-1$
+					" and accounts.top_account=topacc.accounting_accounts_id"+ //$NON-NLS-1$
+					" and transColumns.accounting_transactions_id=trans.accounting_transactions_id"+ //$NON-NLS-1$
+					" and accounts.account_code >="+"'"+account.getAccountCode()+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					" and accounts.account_code <="+"'"+account2.getAccountCode()+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					" and trans.transactions_date >="+"'"+dformat.format(dateStartDate.getDate())+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					" and trans.transactions_date <="+"'"+dformat.format(dateEndDate.getDate())+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					" order by accounts.accounting_accounts_id"; //$NON-NLS-1$
 			}	
 			//System.out.println(sqlparam);
-			SimpleDateFormat dformat2=new SimpleDateFormat("dd/MM/yyyy");
-			parameters.put("sqlparam",sqlparam);
-			parameters.put("beginDate",dformat2.format(dateStartDate.getDate()));
-			parameters.put("endDate",dformat2.format(dateEndDate.getDate())); 			
-			parameters.put("dformat",dformat2);
-			parameters.put("account1",account.getAccountCode());
-			parameters.put("account2",(account2==null)? "" : account2.getAccountCode());
+			SimpleDateFormat dformat2=new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
+			parameters.put("sqlparam",sqlparam); //$NON-NLS-1$
+			parameters.put("beginDate",dformat2.format(dateStartDate.getDate())); //$NON-NLS-1$
+			parameters.put("endDate",dformat2.format(dateEndDate.getDate())); 			 //$NON-NLS-1$
+			parameters.put("dformat",dformat2); //$NON-NLS-1$
+			parameters.put("account1",account.getAccountCode()); //$NON-NLS-1$
+			parameters.put("account2",(account2==null)? "" : account2.getAccountCode()); //$NON-NLS-1$ //$NON-NLS-2$
 			NumberFormat formatter=NumberFormat.getNumberInstance();
 			formatter.setMaximumFractionDigits(2);
 			formatter.setMinimumFractionDigits(2);
-			parameters.put("formatter", new TurkishCurrencyFormat());
+			parameters.put("formatter", new TurkishCurrencyFormat()); //$NON-NLS-1$
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
 			
-			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingSubsidiaryLedger.jasper"); 
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingSubsidiaryLedger.jasper");  //$NON-NLS-1$
 	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
 			
 			

@@ -143,10 +143,10 @@ public class CurBLSearchTransaction {
 			throw ex;
 		}
 	}
-	public List getCurrentBalances(TurqCurrentCard curCard, Date startDate)throws Exception{
+	public List getCurrentBalances(TurqCurrentCard curCard,TurqCurrentCard curCard2,Date startDate)throws Exception{
 	    try{
 	        
-	        return dalSearch.getCurrentBalances(curCard,startDate);
+	        return dalSearch.getCurrentBalances(curCard,curCard2,startDate);
 	        
 	        
 	    }
