@@ -23,4 +23,7 @@ public class BankKeys
 	public static String BANK_ACCOUNT_NO="bankAccountNo";
 	public static String BANK_CURRENCY="bankCurrency";
 	public static String BANK_ACCOUNTING_ACCOUNTS="bankAccountingAccounts";
+	public static String BANK_CARD_WITH_DEPT="bankCardWithDept";
+	public static String BANK_CARD_WITH_CREDIT="bankCardWithCredit";
+	public static String BANK_TRANS_BILL="bankTransBill";
 }

@@ -20,6 +20,7 @@ package com.turquaz.bank.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.custom.CCombo;
@@ -29,16 +30,16 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
@@ -286,9 +287,20 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
 		{
 			if (verifyFields())
 			{
-				BankBLTransactionAdd.saveTransaction((TurqBanksCard) txtBankCard.getData(), (TurqCurrentCard) currentPicker.getData(),
-						EngBLCommon.BANK_TRANS_SEND_MONEY, null, curAmount.getBigDecimalValue(), datePick.getDate(), txtDefinition
-								.getText(), txtDocNo.getText(), exchangeRate);
+				HashMap argMap=new HashMap();
+				
+				argMap.put(BankKeys.BANK,txtBankCard.getTurqBank());
+				argMap.put(EngKeys.CURRENT_CARD,currentPicker.getData());
+				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.BANK_TRANS_SEND_MONEY));
+				argMap.put(EngKeys.ENG_SEQ,null);
+				argMap.put(EngKeys.TOTAL_AMOUNT,curAmount.getBigDecimalValue());
+				argMap.put(EngKeys.TRANS_DATE,datePick.getDate());
+				argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
+				argMap.put(EngKeys.DOCUMENT_NO,txtDocNo.getText().trim());
+				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
+				
+				
+				EngTXCommon.doTransactionTX(BankBLTransactionAdd.class.getName(),"saveTransaction",argMap);
 				EngUICommon.showMessageBox(getShell(), Messages.getString("BankUIMoneyTransferOut.9"), SWT.ICON_INFORMATION); //$NON-NLS-1$
 				newForm();
 			}

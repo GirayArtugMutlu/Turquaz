@@ -20,16 +20,22 @@ package com.turquaz.bank.bl;
  * @version $Id$
  */
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.dal.BankDALCommon;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqBanksCard;
 
 public class BankBLTransactionSearch
 {
-	public static List searchtransaction(String docNo, Date startDate, Date endDate) throws Exception
+	public static List searchtransaction(HashMap argMap) throws Exception
 	{
 		try
 		{
+			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
+			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
+			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
 			return BankDALCommon.searchBankTransactions(docNo, startDate, endDate);
 		}
 		catch (Exception ex)
@@ -38,10 +44,13 @@ public class BankBLTransactionSearch
 		}
 	}
 
-	public static List getTransactions(TurqBanksCard bankCard, Date startDate, Date endDate) throws Exception
+	public static List getTransactions(HashMap argMap) throws Exception
 	{
 		try
 		{
+			TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
+			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
+			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
 			return BankDALCommon.getTransactions(bankCard, startDate, endDate);
 		}
 		catch (Exception ex)
@@ -51,11 +60,13 @@ public class BankBLTransactionSearch
 	}
 
 	//Devreden Toplam
-	public static List getDeferredTotal(TurqBanksCard cashCard, Date endDate) throws Exception
+	public static List getDeferredTotal(HashMap argMap) throws Exception
 	{
 		try
 		{
-			return BankDALCommon.getDeferredTotal(cashCard, endDate);
+			TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
+			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
+			return BankDALCommon.getDeferredTotal(bankCard, endDate);
 		}
 		catch (Exception ex)
 		{

@@ -39,5 +39,6 @@ public class EngKeys
 	public final static String PASSWORD ="password";
 	public final static String MIN_VALUE="minValue";
 	public final static String MAX_VALUE="maxValue";
+	public final static String TOTAL_AMOUNT="totalAmount";
 	
 }

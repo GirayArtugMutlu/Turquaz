@@ -104,15 +104,17 @@ public class BankBLBankCardUpdate
 		BankBLBankCardAdd.saveBankAccountingAccounts( curCard, accounts);
 	}
 
-	public static Boolean hasTransaction(TurqBanksCard bankCard) throws Exception
+	public static Boolean hasTransaction(HashMap argMap) throws Exception
 	{
+		TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
 		return BankDALBankCardUpdate.hasTransaction(bankCard);
 	}
 
-	public static void deleteBankCard(TurqBanksCard bankCard) throws Exception
+	public static void deleteBankCard(HashMap argMap) throws Exception
 	{
 		try
 		{
+			TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
 			Iterator it = bankCard.getTurqBankAccountingAccounts().iterator();
 			while (it.hasNext())
 			{

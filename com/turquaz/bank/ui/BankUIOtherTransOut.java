@@ -1,23 +1,27 @@
 package com.turquaz.bank.ui;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.SWT;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.bank.ui.comp.BankCardPicker;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.widgets.Text;
@@ -263,9 +267,20 @@ public class BankUIOtherTransOut extends org.eclipse.swt.widgets.Composite imple
 		{
 			if (verifyFields())
 			{
-				BankBLTransactionAdd.saveOtherTransaction(txtBankCard.getTurqBank(), currentPicker.getTurqAccountingAccount(),
-						EngBLCommon.BANK_TRANS_OTHER_DRAW, null, curAmount.getBigDecimalValue(), datePick.getDate(), txtDefinition
-								.getText().trim(), txtDocNo.getText().trim(), exchangeRate);
+				HashMap argMap=new HashMap();
+				
+				argMap.put(BankKeys.BANK,txtBankCard.getTurqBank());
+				argMap.put(AccKeys.ACC_ACCOUNT,currentPicker.getTurqAccountingAccount());
+				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.BANK_TRANS_OTHER_DRAW));
+				argMap.put(EngKeys.ENG_SEQ,null);
+				argMap.put(EngKeys.TOTAL_AMOUNT,curAmount.getBigDecimalValue());
+				argMap.put(EngKeys.TRANS_DATE,datePick.getDate());
+				argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
+				argMap.put(EngKeys.DOCUMENT_NO,txtDocNo.getText().trim());
+				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
+				
+				
+				EngTXCommon.doTransactionTX(BankBLTransactionAdd.class.getName(),"saveOtherTransaction",argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
 			}

@@ -7,10 +7,12 @@ import org.eclipse.swt.widgets.ToolBar;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqBanksTransaction;
@@ -186,10 +188,19 @@ public class BankUIOtherTransInUpdate extends org.eclipse.swt.widgets.Dialog
 		{
 			if (compCashTrans.verifyFields())
 			{
-				BankBLTransactionUpdate.updateOtherTransactionBill(transBill, compCashTrans.getTxtBankCard().getTurqBank(),
-						compCashTrans.getCurrentPicker().getTurqAccountingAccount(), compCashTrans.getCurAmount()
-								.getBigDecimalValue(), compCashTrans.getDatePick().getDate(), compCashTrans.getTxtDefinition()
-								.getText().trim(), compCashTrans.getTxtDocNo().getText().trim(), compCashTrans.getExchangeRate());
+				HashMap argMap=new HashMap();
+				
+				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
+				argMap.put(BankKeys.BANK,compCashTrans.getTxtBankCard().getTurqBank());
+				argMap.put(AccKeys.ACC_ACCOUNT,compCashTrans.getCurrentPicker().getTurqAccountingAccount());
+				argMap.put(EngKeys.TOTAL_AMOUNT,compCashTrans.getCurAmount().getBigDecimalValue());
+				argMap.put(EngKeys.TRANS_DATE,compCashTrans.getDatePick().getDate());
+				argMap.put(EngKeys.DEFINITION,compCashTrans.getTxtDefinition().getText().trim());
+				argMap.put(EngKeys.DOCUMENT_NO,compCashTrans.getTxtDocNo().getText().trim());
+				argMap.put(EngKeys.EXCHANGE_RATE,compCashTrans.getExchangeRate());
+				
+				
+				EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"updateOtherTransactionBill",argMap);
 				EngUICommon.showMessageBox(getParent(), Messages.getString("BankUIOtherTransInUpdate.0")); //$NON-NLS-1$
 				isUpdated = true;
 				dialogShell.close();
@@ -210,7 +221,9 @@ public class BankUIOtherTransInUpdate extends org.eclipse.swt.widgets.Dialog
 		{
 			if (EngUICommon.okToDelete(getParent()))
 			{
-				BankBLTransactionUpdate.deleteTransaction(transBill);
+				HashMap argMap=new HashMap();
+				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
+				EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"deleteTransaction",argMap);
 				EngUICommon.showMessageBox(getParent(), Messages.getString("BankUIMoneyTransferInUpdate.5"), SWT.ICON_INFORMATION); //$NON-NLS-1$
 				isUpdated = true;
 				dialogShell.close();

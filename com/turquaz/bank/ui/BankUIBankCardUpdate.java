@@ -323,10 +323,13 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 		{
 			if (EngUICommon.okToDelete(getParent()))
 			{
-				if (!BankBLBankCardUpdate.hasTransaction(bankCard).booleanValue())
+				HashMap argMap=new HashMap();
+				argMap.put(BankKeys.BANK,bankCard);
+				Boolean hasTx=(Boolean)EngTXCommon.doSingleTX(BankBLBankCardUpdate.class.getName(),"hasTransaction",argMap);
+				if (!hasTx.booleanValue())
 				{
 					updated = true;
-					BankBLBankCardUpdate.deleteBankCard(bankCard);
+					EngTXCommon.doTransactionTX(BankBLBankCardUpdate.class.getName(),"deleteBankCard",argMap);
 					this.dialogShell.close();
 				}
 				else

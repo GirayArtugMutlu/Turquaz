@@ -17,6 +17,7 @@ import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionSearch;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqBanksTransaction;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
@@ -214,7 +215,7 @@ public class BankUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			List list = BankBLTransactionSearch.getBankInitialTransactions();
+			List list =(List)EngTXCommon.doSingleTX(BankBLTransactionSearch.class.getName(),"getBankInitialTransactions",null);
 			TurqBanksTransaction curTrans;
 			for (int i = 0; i < list.size(); i++)
 			{

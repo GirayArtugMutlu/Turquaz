@@ -23,6 +23,7 @@ package com.turquaz.bank.ui;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
@@ -33,9 +34,11 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.TableColumn;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -236,7 +239,12 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 		{
 			tableViewer.removeAll();
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			List ls = BankBLTransactionSearch.searchtransaction(txtDocNo.getText().trim(), dateStart.getDate(), dateEnd.getDate());
+			
+			HashMap argMap=new HashMap();
+			argMap.put(EngKeys.DOCUMENT_NO,txtDocNo.getText().trim());
+			argMap.put(EngKeys.DATE_START,dateStart.getDate());
+			argMap.put(EngKeys.DATE_END,dateEnd.getDate());
+			List ls =(List) EngTXCommon.doSingleTX(BankBLTransactionSearch.class.getName(),"searchtransaction",argMap);
 			Object[] result;
 			Integer transId;
 			Date transDate;
@@ -279,7 +287,9 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 	public static boolean updateTransaction(Integer billId, Shell shell) throws Exception
 	{
 		boolean isUpdated = false;
-		TurqBanksTransactionBill transBill = BankBLTransactionUpdate.initializeTransaction(billId);
+		HashMap argMap=new HashMap();
+		argMap.put(EngKeys.TRANS_ID,billId);
+		TurqBanksTransactionBill transBill =(TurqBanksTransactionBill)EngTXCommon.doSingleTX(BankBLTransactionUpdate.class.getName(),"initializeTransaction",argMap);
 		if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
 		{
 			isUpdated = new BankUIMoneyTransferInUpdate(shell, SWT.NULL, transBill).open();

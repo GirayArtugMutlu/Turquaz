@@ -1,5 +1,6 @@
 package com.turquaz.bank.ui;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.ToolBar;
@@ -8,10 +9,13 @@ import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -154,10 +158,19 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 		{
 			if (compTransfer.verifyFields())
 			{
-				BankBLTransactionUpdate.updateTransferBetweenBanks(transBill, compTransfer.getBankCardPickerWithDept().getTurqBank(),
-						compTransfer.getBankCardPickerWithCredit().getTurqBank(), compTransfer.getCurAmount().getBigDecimalValue(),
-						compTransfer.getDatePick().getDate(), compTransfer.getTxtDefinition().getText().trim(), compTransfer
-								.getTxtDocNo().getText().trim(), compTransfer.getExchangeRate());
+				HashMap argMap=new HashMap();
+				
+				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
+				argMap.put(BankKeys.BANK_CARD_WITH_DEPT,compTransfer.getBankCardPickerWithDept().getTurqBank());
+				argMap.put(BankKeys.BANK_CARD_WITH_CREDIT,compTransfer.getBankCardPickerWithCredit().getTurqBank());
+				argMap.put(EngKeys.ENG_SEQ,null);
+				argMap.put(EngKeys.TOTAL_AMOUNT,compTransfer.getCurAmount().getBigDecimalValue());
+				argMap.put(EngKeys.TRANS_DATE,compTransfer.getDatePick().getDate());
+				argMap.put(EngKeys.DEFINITION,compTransfer.getTxtDefinition().getText().trim());
+				argMap.put(EngKeys.DOCUMENT_NO,compTransfer.getTxtDocNo().getText().trim());
+				argMap.put(EngKeys.EXCHANGE_RATE,compTransfer.getExchangeRate());				
+				
+				EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"updateTransferBetweenBanks",argMap);
 				EngUICommon.showMessageBox(getParent(), Messages.getString("BankUIOtherTransInUpdate.0")); //$NON-NLS-1$
 				isUpdated = true;
 				dialogShell.close();
@@ -178,7 +191,9 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 		{
 			if (EngUICommon.okToDelete(getParent()))
 			{
-				BankBLTransactionUpdate.deleteTransaction(transBill);
+				HashMap argMap=new HashMap();
+				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
+				EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"deleteTransaction",argMap);
 				EngUICommon.showMessageBox(getParent(), "Ba?ar?yla Silindi!", SWT.ICON_INFORMATION);
 				isUpdated = true;
 				dialogShell.close();

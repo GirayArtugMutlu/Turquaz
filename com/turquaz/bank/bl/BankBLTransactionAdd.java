@@ -26,12 +26,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.dal.BankDALBankCardSearch;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -48,12 +52,19 @@ import com.turquaz.engine.dal.TurqModule;
 
 public class BankBLTransactionAdd
 {
-	public static void saveTransferBetweenBanks(TurqBanksCard bankCardWithDept, TurqBanksCard bankCardWithCredit, TurqEngineSequence seq,
-			BigDecimal totalAmount, Date transDate, String definition, String docNo, TurqCurrencyExchangeRate exchangeRate)
+	public static void saveTransferBetweenBanks(HashMap argMap)
 			throws Exception
 	{
 		try
 		{
+			TurqBanksCard bankCardWithDept=(TurqBanksCard)argMap.get(BankKeys.BANK_CARD_WITH_DEPT);
+			TurqBanksCard bankCardWithCredit=(TurqBanksCard)argMap.get(BankKeys.BANK_CARD_WITH_CREDIT);
+			TurqEngineSequence seq=(TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
+			BigDecimal totalAmount=(BigDecimal)argMap.get(EngKeys.TOTAL_AMOUNT);
+			Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
+			String definition=(String)argMap.get(EngKeys.DEFINITION);
+			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
+			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 			if (seq == null)
 			{
 				try
@@ -208,12 +219,21 @@ public class BankBLTransactionAdd
 		}
 	}
 
-	public static void saveCashTransaction(TurqBanksCard bankCard, TurqCashCard cashCard, int type, TurqEngineSequence seq,
-			BigDecimal totalAmount, Date transDate, String definition, String docNo, TurqCurrencyExchangeRate exchangeRate)
+	public static void saveCashTransaction(HashMap argMap)
 			throws Exception
 	{
 		try
 		{
+			TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
+			TurqCashCard cashCard=(TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+			Integer type=(Integer)argMap.get(EngKeys.TYPE);
+			TurqEngineSequence seq=(TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
+			BigDecimal totalAmount=(BigDecimal)argMap.get(EngKeys.TOTAL_AMOUNT);
+			Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
+			String definition=(String)argMap.get(EngKeys.DEFINITION);
+			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
+			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+			
 			if (seq == null)
 			{
 				try
@@ -230,7 +250,7 @@ public class BankBLTransactionAdd
 				}
 			}
 			TurqBanksTransactionType transType = new TurqBanksTransactionType();
-			transType.setId(new Integer(type));
+			transType.setId(type);
 			TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
 			bankTransBill.setTurqEngineSequence(seq);
 			bankTransBill.setTransactionBillDate(transDate);
@@ -260,7 +280,7 @@ public class BankBLTransactionAdd
 			Map creditAccounts = new HashMap();
 			Map deptAccounts = new HashMap();
 			//Para yatirma
-			if (type == EngBLCommon.BANK_TRANS_CASH_DEPOSIT)
+			if (type.intValue() == EngBLCommon.BANK_TRANS_CASH_DEPOSIT)
 			{
 				BankBLTransactionUpdate.prepareAccountingMaps(currentAccount.getId(), bankAccount.getId(), totalAmount, creditAccounts,
 						deptAccounts);
@@ -271,7 +291,7 @@ public class BankBLTransactionAdd
 				cashTransType = EngBLCommon.CASH_CURRENT_PAYMENT;
 			}
 			//Para cekme
-			else if (type == EngBLCommon.BANK_TRANS_CASH_DRAW)
+			else if (type.intValue() == EngBLCommon.BANK_TRANS_CASH_DRAW)
 			{
 				BankBLTransactionUpdate.prepareAccountingMaps(bankAccount.getId(), currentAccount.getId(), totalAmount, creditAccounts,
 						deptAccounts);
@@ -319,12 +339,21 @@ public class BankBLTransactionAdd
 	}
 
 
-	public static void saveTransaction(TurqBanksCard bankCard, TurqCurrentCard curCard, int type, TurqEngineSequence seq,
-			BigDecimal totalAmount, Date transDate, String definition, String docNo, TurqCurrencyExchangeRate exchangeRate)
+	public static void saveTransaction(HashMap argMap)
 			throws Exception
 	{
 		try
 		{
+			TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
+			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			Integer type=(Integer)argMap.get(EngKeys.TYPE);
+			TurqEngineSequence seq=(TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
+			BigDecimal totalAmount=(BigDecimal)argMap.get(EngKeys.TOTAL_AMOUNT);
+			Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
+			String definition=(String)argMap.get(EngKeys.DEFINITION);
+			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
+			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+			
 			if (seq == null)
 			{
 				try
@@ -341,7 +370,7 @@ public class BankBLTransactionAdd
 				}
 			}
 			TurqBanksTransactionType transType = new TurqBanksTransactionType();
-			transType.setId(new Integer(type));
+			transType.setId(type);
 			TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
 			bankTransBill.setTurqEngineSequence(seq);
 			bankTransBill.setTransactionBillDate(transDate);
@@ -370,7 +399,7 @@ public class BankBLTransactionAdd
 			boolean currentTransType = false; // Credit or Debit
 			Map creditAccounts = new HashMap();
 			Map deptAccounts = new HashMap();
-			if (type == EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
+			if (type.intValue() == EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
 			{
 				BankBLTransactionUpdate.prepareAccountingMaps(currentAccount.getId(), bankAccount.getId(), totalAmount, creditAccounts,
 						deptAccounts);
@@ -381,7 +410,7 @@ public class BankBLTransactionAdd
 				currentTransType = EngBLCommon.CURRENT_TRANS_CREDIT;
 				currentTransDefinition = bankCard.getBankCode() + " " + definition; //$NON-NLS-1$
 			}
-			else if (type == EngBLCommon.BANK_TRANS_SEND_MONEY)
+			else if (type.intValue() == EngBLCommon.BANK_TRANS_SEND_MONEY)
 			{
 				BankBLTransactionUpdate.prepareAccountingMaps(bankAccount.getId(), currentAccount.getId(), totalAmount, creditAccounts,
 						deptAccounts);
@@ -425,12 +454,22 @@ public class BankBLTransactionAdd
 	}
 
 	
-	public static void saveOtherTransaction(TurqBanksCard bankCard, TurqAccountingAccount account, int type, TurqEngineSequence seq,
-			BigDecimal totalAmount, Date transDate, String definition, String docNo, TurqCurrencyExchangeRate exchangeRate)
+	public static void saveOtherTransaction(HashMap argMap)
 			throws Exception
 	{
 		try
 		{
+			TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
+			TurqAccountingAccount account=(TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+			Integer type=(Integer)argMap.get(EngKeys.TYPE);
+			TurqEngineSequence seq=(TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
+			BigDecimal totalAmount=(BigDecimal)argMap.get(EngKeys.TOTAL_AMOUNT);
+			Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
+			String definition=(String)argMap.get(EngKeys.DEFINITION);
+			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
+			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+			
+			
 			if (seq == null)
 			{
 				try
@@ -447,7 +486,7 @@ public class BankBLTransactionAdd
 				}
 			}
 			TurqBanksTransactionType transType = new TurqBanksTransactionType();
-			transType.setId(new Integer(type));
+			transType.setId(type);
 			TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
 			bankTransBill.setTurqEngineSequence(seq);
 			bankTransBill.setTransactionBillDate(transDate);
@@ -474,7 +513,7 @@ public class BankBLTransactionAdd
 			Map creditAccounts = new HashMap();
 			Map deptAccounts = new HashMap();
 			//Para yatirma
-			if (type == EngBLCommon.BANK_TRANS_OTHER_DEPOSIT)
+			if (type.intValue() == EngBLCommon.BANK_TRANS_OTHER_DEPOSIT)
 			{
 				BankBLTransactionUpdate.prepareAccountingMaps(account.getId(), bankAccount.getId(), totalAmount, creditAccounts,
 						deptAccounts);
@@ -484,7 +523,7 @@ public class BankBLTransactionAdd
 				transRow.setCreditAmount(new BigDecimal(0));
 			}
 			//Para cekme
-			else if (type == EngBLCommon.BANK_TRANS_OTHER_DRAW)
+			else if (type.intValue() == EngBLCommon.BANK_TRANS_OTHER_DRAW)
 			{
 				BankBLTransactionUpdate.prepareAccountingMaps(bankAccount.getId(), account.getId(), totalAmount, creditAccounts,
 						deptAccounts);

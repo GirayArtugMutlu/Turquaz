@@ -13,8 +13,10 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
@@ -22,6 +24,7 @@ import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionSearch;
 import com.turquaz.bank.ui.comp.BankCardPicker;
@@ -291,7 +294,11 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 				BigDecimal deferred_credit = new BigDecimal(0);
 				BigDecimal balance = new BigDecimal(0);
 				TurqBanksCard bankCard = (TurqBanksCard) bankPicker.getData();
-				List deferred = BankBLTransactionSearch.getDeferredTotal(bankCard, dateStartDate.getDate());
+				
+				HashMap argMap=new HashMap();
+				argMap.put(BankKeys.BANK,bankCard);
+				argMap.put(EngKeys.DATE_END,dateStartDate.getDate());
+				List deferred =(List)EngTXCommon.doSingleTX(BankBLTransactionSearch.class.getName(),"getDeferredTotal",argMap);
 				Map parameters = new HashMap();
 				SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 				parameters.put("reportDate", dateFormatter.format(Calendar.getInstance().getTime()));
@@ -339,8 +346,12 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 					parameters.put("initialCredit", new BigDecimal(0));
 					parameters.put("initialBalance", new BigDecimal(0));
 				}
-				List ls = BankBLTransactionSearch.getTransactions((TurqBanksCard) bankPicker.getData(), dateStartDate.getDate(),
-						dateEndDate.getDate());
+				argMap=new HashMap();
+				argMap.put(BankKeys.BANK, bankPicker.getData());
+				argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
+				argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
+				
+				List ls =(List)EngTXCommon.doSingleTX(BankBLTransactionSearch.class.getName(),"getTransactions",argMap);
 				BigDecimal credit;
 				BigDecimal dept;
 				for (int i = 0; i < ls.size(); i++)

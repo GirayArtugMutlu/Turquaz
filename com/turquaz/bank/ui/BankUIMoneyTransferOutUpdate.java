@@ -19,21 +19,24 @@ package com.turquaz.bank.ui;
  * @author  Onsel
  * @version  $Id$
  */
+import java.util.HashMap;
 import java.util.Iterator;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -183,11 +186,19 @@ public class BankUIMoneyTransferOutUpdate extends org.eclipse.swt.widgets.Dialog
 		{
 			if (compMoneyTransferIn.verifyFields())
 			{
-				BankBLTransactionUpdate.updateTransactionBill(transBill,
-						(TurqBanksCard) compMoneyTransferIn.getTxtBankCard().getData(), (TurqCurrentCard) compMoneyTransferIn
-								.getCurrentPicker().getData(), compMoneyTransferIn.getCurAmount().getBigDecimalValue(),
-						compMoneyTransferIn.getDatePick().getDate(), compMoneyTransferIn.getTxtDefinition().getText().trim(),
-						compMoneyTransferIn.getTxtDocNo().getText().trim(), compMoneyTransferIn.getExchangeRate());
+				HashMap argMap=new HashMap();
+				
+				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
+				argMap.put(BankKeys.BANK,compMoneyTransferIn.getTxtBankCard().getData());
+				argMap.put(EngKeys.CURRENT_CARD,compMoneyTransferIn.getCurrentPicker().getData());
+				argMap.put(EngKeys.TOTAL_AMOUNT,compMoneyTransferIn.getCurAmount().getBigDecimalValue());
+				argMap.put(EngKeys.TRANS_DATE,compMoneyTransferIn.getDatePick().getDate());
+				argMap.put(EngKeys.DEFINITION,compMoneyTransferIn.getTxtDefinition().getText().trim());
+				argMap.put(EngKeys.DOCUMENT_NO,compMoneyTransferIn.getTxtDocNo().getText().trim());
+				argMap.put(EngKeys.EXCHANGE_RATE,compMoneyTransferIn.getExchangeRate());
+				
+				
+				EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"updateTransactionBill",argMap);
 				EngUICommon.showMessageBox(getParent(), Messages.getString("BankUIMoneyTransferOutUpdate.5")); //$NON-NLS-1$
 				isUpdated = true;
 				dialogShell.close();
@@ -208,7 +219,9 @@ public class BankUIMoneyTransferOutUpdate extends org.eclipse.swt.widgets.Dialog
 		{
 			if (EngUICommon.okToDelete(getParent()))
 			{
-				BankBLTransactionUpdate.deleteTransaction(transBill);
+				HashMap argMap=new HashMap();
+				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
+				EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"deleteTransaction",argMap);
 				EngUICommon.showMessageBox(getParent(), Messages.getString("BankUIMoneyTransferOutUpdate.6"), SWT.ICON_INFORMATION); //$NON-NLS-1$
 				isUpdated = true;
 				dialogShell.close();

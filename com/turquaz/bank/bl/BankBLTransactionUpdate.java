@@ -27,14 +27,18 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.dal.BankDALBankCardSearch;
 import com.turquaz.bank.dal.BankDALCommon;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -47,13 +51,15 @@ import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqEngineSequence;
 
 public class BankBLTransactionUpdate
 {
-	public static TurqBanksTransactionBill initializeTransaction(Integer transId) throws Exception
+	public static TurqBanksTransactionBill initializeTransaction(HashMap argMap) throws Exception
 	{
 		try
 		{
+			Integer transId=(Integer)argMap.get(EngKeys.TRANS_ID);
 			return BankDALCommon.initializeTransaction(transId);
 		}
 		catch (Exception ex)
@@ -75,12 +81,20 @@ public class BankBLTransactionUpdate
 	}
 
 	
-	public static void updateTransferBetweenBanks(TurqBanksTransactionBill bankTransBill, TurqBanksCard bankCardWithDept,
-			TurqBanksCard bankCardWithCredit, BigDecimal totalAmount, Date transDate, String definition, String docNo,
-			TurqCurrencyExchangeRate exchangeRate) throws Exception
+	public static void updateTransferBetweenBanks(HashMap argMap) throws Exception
 	{
 		try
 		{
+			TurqBanksTransactionBill bankTransBill=(TurqBanksTransactionBill)argMap.get(BankKeys.BANK_TRANS_BILL);
+			TurqBanksCard bankCardWithDept=(TurqBanksCard)argMap.get(BankKeys.BANK_CARD_WITH_DEPT);
+			TurqBanksCard bankCardWithCredit=(TurqBanksCard)argMap.get(BankKeys.BANK_CARD_WITH_CREDIT);
+			TurqEngineSequence seq=(TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
+			BigDecimal totalAmount=(BigDecimal)argMap.get(EngKeys.TOTAL_AMOUNT);
+			Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
+			String definition=(String)argMap.get(EngKeys.DEFINITION);
+			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
+			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);			
+			
 			// delete transactions
 			Iterator it = bankTransBill.getTurqBanksTransactions().iterator();
 			while (it.hasNext())
@@ -180,12 +194,20 @@ public class BankBLTransactionUpdate
 	}
 
 	
-	public static void updateCashTransactionBill(TurqBanksTransactionBill bankTransBill, TurqBanksCard bankCard, TurqCashCard cashCard,
-			BigDecimal totalAmount, Date transDate, String definition, String docNo, TurqCurrencyExchangeRate exchangeRate)
+	public static void updateCashTransactionBill(HashMap argMap)
 			throws Exception
 	{
 		try
 		{
+			TurqBanksTransactionBill bankTransBill=(TurqBanksTransactionBill)argMap.get(BankKeys.BANK_TRANS_BILL);
+			TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
+			TurqCashCard cashCard=(TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+			BigDecimal totalAmount=(BigDecimal)argMap.get(EngKeys.TOTAL_AMOUNT);
+			Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
+			String definition=(String)argMap.get(EngKeys.DEFINITION);
+			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
+			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);	
+			
 			//delete transactions
 			Iterator it = bankTransBill.getTurqBanksTransactions().iterator();
 			while (it.hasNext())
@@ -284,12 +306,20 @@ public class BankBLTransactionUpdate
 	}
 
 	
-	public static void updateOtherTransactionBill(TurqBanksTransactionBill bankTransBill, TurqBanksCard bankCard,
-			TurqAccountingAccount account, BigDecimal totalAmount, Date transDate, String definition, String docNo,
-			TurqCurrencyExchangeRate exchangeRate) throws Exception
+	public static void updateOtherTransactionBill(HashMap argMap) throws Exception
 	{
 		try
 		{
+			TurqBanksTransactionBill bankTransBill=(TurqBanksTransactionBill)argMap.get(BankKeys.BANK_TRANS_BILL);
+			TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
+			TurqAccountingAccount account=(TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+			BigDecimal totalAmount=(BigDecimal)argMap.get(EngKeys.TOTAL_AMOUNT);
+			Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
+			String definition=(String)argMap.get(EngKeys.DEFINITION);
+			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
+			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);	
+			
+			
 			//delete transactions
 			Iterator it = bankTransBill.getTurqBanksTransactions().iterator();
 			while (it.hasNext())
@@ -368,12 +398,20 @@ public class BankBLTransactionUpdate
 	}
 
 	
-	public static void updateTransactionBill(TurqBanksTransactionBill bankTransBill, TurqBanksCard bankCard, TurqCurrentCard curCard,
-			BigDecimal totalAmount, Date transDate, String definition, String docNo, TurqCurrencyExchangeRate exchangeRate)
+	public static void updateTransactionBill(HashMap argMap)
 			throws Exception
 	{
 		try
 		{
+			TurqBanksTransactionBill bankTransBill=(TurqBanksTransactionBill)argMap.get(BankKeys.BANK_TRANS_BILL);
+			TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
+			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			BigDecimal totalAmount=(BigDecimal)argMap.get(EngKeys.TOTAL_AMOUNT);
+			Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
+			String definition=(String)argMap.get(EngKeys.DEFINITION);
+			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
+			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);	
+			
 			//delete transactions
 			Iterator it = bankTransBill.getTurqBanksTransactions().iterator();
 			while (it.hasNext())
@@ -505,6 +543,19 @@ public class BankBLTransactionUpdate
 			}
 			//delete transaction..
 			EngDALCommon.deleteObject(bankTransBill);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static void deleteTransaction(HashMap argMap) throws Exception
+	{
+		try
+		{
+			TurqBanksTransactionBill bankTransBill=(TurqBanksTransactionBill)argMap.get(BankKeys.BANK_TRANS_BILL);
+			deleteTransaction(bankTransBill);
 		}
 		catch (Exception ex)
 		{
