@@ -360,9 +360,11 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
     BigDecimal debt;
     
 	if(sums[0]!=null){
-	
-		credit =(BigDecimal)sums[1];
-		debt = (BigDecimal)sums[0];
+	  
+	System.out.println(sums[1].toString());	
+		
+	  credit =(BigDecimal)sums[1];
+	  debt = (BigDecimal)sums[0];
 	  totalCredit = totalCredit.add(credit);
 	  totalDept = totalDept.add(debt);
 	  

@@ -53,24 +53,24 @@
 					<Property name="text" type="String" value=""/>
 					<Property name="editable" type="boolean" value="true"/>
 					<Property name="size" type="Dimension">
-						<Dimension value="[244, 35]"/>
+						<Dimension value="[250, 35]"/>
 					</Property>
 					<Property name="enabled" type="boolean" value="false"/>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[0, 0, 244, 35]"/>
+						<Rectangle value="[0, 0, 250, 35]"/>
 					</Property>
 					<Property name="background" type="Color">
 						<Color red="ff" green="ff" blue="ff"/>
 					</Property>
 				</Properties>
 			</Component>
-			<Component class="org.eclipse.swt.widgets.Button" name="button1" style="16779272">
+			<Component class="org.eclipse.swt.widgets.Button" name="button1" style="2056">
 				<Constraints>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
-						<Property name="widthHint" type="int" value="28"/>
+						<Property name="widthHint" type="int" value="22"/>
 						<Property name="heightHint" type="int" value="-1"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
@@ -88,10 +88,10 @@
 						<Image name="\icons\Calendar16.gif"/>
 					</Property>
 					<Property name="size" type="Dimension">
-						<Dimension value="[32, 35]"/>
+						<Dimension value="[26, 35]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[244, 0, 32, 35]"/>
+						<Rectangle value="[250, 0, 26, 35]"/>
 					</Property>
 				</Properties>
 			</Component>

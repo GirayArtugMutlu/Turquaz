@@ -46,7 +46,7 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 			preInitGUI();
 	
 			text1 = new Text(this,SWT.NULL);
-			button1 = new Button(this,SWT.PUSH| SWT.CENTER| SWT.BORDER);
+			button1 = new Button(this,SWT.PUSH| SWT.BORDER);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(276,35));
 			this.setEnabled(true);
@@ -63,7 +63,7 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 			text1LData.grabExcessVerticalSpace = true;
 			text1.setLayoutData(text1LData);
 			text1.setEditable(true);
-			text1.setSize(new org.eclipse.swt.graphics.Point(238,35));
+			text1.setSize(new org.eclipse.swt.graphics.Point(244,35));
 			text1.setEnabled(false);
 			final Color text1background = new Color(Display.getDefault(),255,255,255);
 			text1.setBackground(text1background);
@@ -71,7 +71,7 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 			GridData button1LData = new GridData();
 			button1LData.verticalAlignment = GridData.FILL;
 			button1LData.horizontalAlignment = GridData.BEGINNING;
-			button1LData.widthHint = 28;
+			button1LData.widthHint = 22;
 			button1LData.heightHint = -1;
 			button1LData.horizontalIndent = 0;
 			button1LData.horizontalSpan = 1;
@@ -82,7 +82,7 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 			final org.eclipse.swt.graphics.Image button1image = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/Calendar16.gif"));
 			button1image.setBackground(button1.getBackground());
 			button1.setImage(button1image);
-			button1.setSize(new org.eclipse.swt.graphics.Point(28,31));
+			button1.setSize(new org.eclipse.swt.graphics.Point(22,31));
 			button1.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
 					button1MouseUp(evt);
