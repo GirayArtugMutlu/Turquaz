@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
+import com.turquaz.accounting.ui.AccUIAccountingPlan;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
 
 
@@ -28,5 +29,10 @@ public class AccUITree extends Tree {
 		TreeItem item = new TreeItem(root,SWT.NULL);
 		item.setText("New Account");
 		item.setData(AccUIAddAccounts.class.getName());
+		item = new TreeItem(root,SWT.NULL);
+		item.setText("Accounting Plan");
+		item.setData(AccUIAccountingPlan.class.getName());
+		
+		
 	}
 }

@@ -1,7 +1,9 @@
 package com.turquaz.accounting.ui;
 
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -18,6 +20,8 @@ import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.engine.ui.component.TextWithButton;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
@@ -56,7 +60,7 @@ public class AccUIAddAccounts extends SecureComposite{
 			cLabel2 = new CLabel(this,SWT.NULL);
 			txtParentAccount = new TextWithButton(this,SWT.NULL);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(448,326));
+			this.setSize(new org.eclipse.swt.graphics.Point(544,343));
 	
 			GridData label1LData = new GridData();
 			label1LData.verticalAlignment = GridData.CENTER;
@@ -111,6 +115,8 @@ public class AccUIAddAccounts extends SecureComposite{
 			txtAccAccountCodeLData.grabExcessVerticalSpace = false;
 			txtAccAccountCode.setLayoutData(txtAccAccountCodeLData);
 			txtAccAccountCode.setSize(new org.eclipse.swt.graphics.Point(144,17));
+			final Color txtAccAccountCodebackground = new Color(Display.getDefault(),255,255,255);
+			txtAccAccountCode.setBackground(txtAccAccountCodebackground);
 	
 			GridData cLabel2LData = new GridData();
 			cLabel2LData.verticalAlignment = GridData.CENTER;
@@ -126,10 +132,10 @@ public class AccUIAddAccounts extends SecureComposite{
 			cLabel2.setText("Parent Account");
 	
 			GridData txtParentAccountLData = new GridData();
-			txtParentAccountLData.widthHint = 146;
-			txtParentAccountLData.heightHint = 21;
+			txtParentAccountLData.widthHint = 147;
+			txtParentAccountLData.heightHint = 17;
 			txtParentAccount.setLayoutData(txtParentAccountLData);
-			txtParentAccount.setSize(new org.eclipse.swt.graphics.Point(146,21));
+			txtParentAccount.setSize(new org.eclipse.swt.graphics.Point(147,17));
 			txtParentAccount.setEnabled(true);
 			txtParentAccount.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -146,6 +152,11 @@ public class AccUIAddAccounts extends SecureComposite{
 			thisLayout.horizontalSpacing = 5;
 			thisLayout.verticalSpacing = 20;
 			this.layout();
+			addDisposeListener(new DisposeListener() {
+				public void widgetDisposed(DisposeEvent e) {
+					txtAccAccountCodebackground.dispose();
+				}
+			});
 	
 			postInitGUI();
 		} catch (Exception e) {
@@ -160,20 +171,67 @@ public class AccUIAddAccounts extends SecureComposite{
 	public void postInitGUI(){
 	}
 	
+	
+	public boolean verifyFields(){
+	
+	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+   
+    boolean valid = false;
+   
+    if(txtAccAcountName.getText().trim().equals("")){
+	  msg.setMessage("Please Fill Account Name!");
+    msg.open();	
+    return false;
+	}
+	
+	else if(txtAccAccountCode.getText().trim().equals("")){
+    msg.setMessage("Please Fill Account Code!");
+    msg.open();	
+    return false;
+    }
+    
+	else if(txtParentAccount.getText().trim().equals("")){
+	  msg.setMessage("Please Fill Parent Account");
+    msg.open();	
+    return false;
+	}
+	
+	return true;
+	
+	}
+	public void clearFields(){
+	txtAccAccountCode.setText("");
+	txtAccAcountName.setText("");
+	txtParentAccount.setText("");
+	txtParentAccount.setData("");
+	
+	}
+	
+	
 	public void save(){
 		try{
 			
-	
+	if(verifyFields()){
 	String accountName = txtAccAcountName.getText().trim();
 	String accountCode = txtAccAccountCode.getText().trim();
-    int parentId = Integer.parseInt(txtParentAccount.getText().trim());
+    int parentId = ((Integer)txtParentAccount.getData()).intValue();
 		
     blAccountAdd.saveAccount(accountName,accountCode,parentId);	
-	
+    MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+    msg.setMessage("Succesfully Saved!");
+    msg.open();
+    
+    clearFields();
+	}
 	}
 	catch(Exception ex){
 		ex.printStackTrace();
+		 MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+		 msg.setMessage("An Error occured");
+		 msg.open();
+		
 	}
+	
 		
 	}
 	public void search(){
@@ -204,7 +262,7 @@ public class AccUIAddAccounts extends SecureComposite{
 			Shell shell = new Shell(display);
 			AccUIAddAccounts inst = new AccUIAddAccounts(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0,0,448,326);
+			Rectangle shellBounds = shell.computeTrim(0,0,544,343);
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.open();
 			while (!shell.isDisposed()) {
@@ -217,8 +275,13 @@ public class AccUIAddAccounts extends SecureComposite{
 	}
 	/** Auto-generated event handler method */
 	protected void txtParentAccountMouseUp(MouseEvent evt){
-	new AccUISearchAccountsDialog(this.getShell(),SWT.NULL).showDialog("");
 	
+	
+	Object[] obj = new AccUISearchAccountsDialog(this.getShell(),SWT.NULL).showDialog("");
+		if (obj[0] != null) {
+			txtParentAccount.setData(obj[1]);
+			txtParentAccount.setText(obj[0].toString());
+		}
 	
 	
 	}

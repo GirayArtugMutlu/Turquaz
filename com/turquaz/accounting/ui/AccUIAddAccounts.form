@@ -24,10 +24,10 @@
 		</Events>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[448, 326]"/>
+				<Dimension value="[544, 343]"/>
 			</Property>
 			<Property name="bounds" type="Rectangle">
-				<Rectangle value="[0, 0, 448, 326]"/>
+				<Rectangle value="[0, 0, 544, 343]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -137,6 +137,9 @@
 					<Property name="bounds" type="Rectangle">
 						<Rectangle value="[101, 44, 150, 17]"/>
 					</Property>
+					<Property name="background" type="Color">
+						<Color red="ff" green="ff" blue="ff"/>
+					</Property>
 				</Properties>
 			</Component>
 			<Component class="org.eclipse.swt.custom.CLabel" name="cLabel2" style="0">
@@ -159,7 +162,7 @@
 				<Properties>
 					<Property name="text" type="String" value="Parent Account"/>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 82, 80, 19]"/>
+						<Rectangle value="[5, 81, 80, 19]"/>
 					</Property>
 				</Properties>
 			</Component>
@@ -168,8 +171,8 @@
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
-						<Property name="widthHint" type="int" value="146"/>
-						<Property name="heightHint" type="int" value="21"/>
+						<Property name="widthHint" type="int" value="147"/>
+						<Property name="heightHint" type="int" value="17"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
 						<Property name="verticalSpan" type="int" value="1"/>
@@ -182,11 +185,11 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[146, 21]"/>
+						<Dimension value="[147, 17]"/>
 					</Property>
 					<Property name="enabled" type="boolean" value="true"/>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[101, 81, 146, 21]"/>
+						<Rectangle value="[101, 82, 147, 17]"/>
 					</Property>
 				</Properties>
 			</Component>
