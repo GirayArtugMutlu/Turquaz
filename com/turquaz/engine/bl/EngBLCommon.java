@@ -21,17 +21,26 @@ public class EngBLCommon {
 	{
 		
 	}
-	private EngDALCommon cardAdd=new EngDALCommon();
+	private EngDALCommon engDALCom=new EngDALCommon();
 	
 	public List getCurrencies() throws Exception {
 		try {
 
-			return cardAdd.getCurrencies();
+			return engDALCom.getCurrencies();
 
 		} catch (Exception ex) {
 			throw ex;
 		}
 
+	}
+	
+	public List getTurqCurrentGroups() throws Exception {
+		try{
+			return engDALCom.getTurqCurrentGroups();			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
 	}
 
 }
