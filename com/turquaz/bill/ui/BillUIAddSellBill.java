@@ -639,7 +639,7 @@ public class BillUIAddSellBill extends Composite
 							}
                             {
                                 lblDueDate = new CLabel(compInfoPanel, SWT.NONE);
-                                lblDueDate.setText("Vade Tarihi");
+                                lblDueDate.setText(Messages.getString("BillUIAddSellBill.18")); //$NON-NLS-1$
                             }
                             {
                                 dateDueDate = new DatePicker(
@@ -1335,7 +1335,7 @@ public class BillUIAddSellBill extends Composite
 				if (Now< Min)
 				{
 					MessageBox msg=new MessageBox(this.getShell(), SWT.ICON_WARNING);
-					msg.setMessage("Uyar?: Stok kart?n?n minimum miktar?n alt?na iniyorsunuz!");
+					msg.setMessage(Messages.getString("BillUIAddSellBill.19")); //$NON-NLS-1$
 					msg.open();
 				}
 			
