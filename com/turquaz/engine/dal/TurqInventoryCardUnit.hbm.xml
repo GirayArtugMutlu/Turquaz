@@ -29,7 +29,7 @@
         type="int"
         column="card_units_factor"
         not-null="true"
-        length="4"
+        length="65535"
     />
     <property
         name="createdBy"
