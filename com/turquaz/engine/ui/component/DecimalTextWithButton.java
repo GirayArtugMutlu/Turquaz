@@ -21,9 +21,8 @@ package com.turquaz.engine.ui.component;
 * @version  $Id$
 */
 import java.math.BigDecimal;
-import java.util.regex.Matcher;
 import com.cloudgarden.resource.SWTResourceManager;
-import java.util.regex.Pattern;
+
 
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.graphics.Color;
@@ -32,9 +31,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.events.VerifyListener;
-import org.eclipse.swt.events.VerifyEvent;
+
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.DisposeEvent;
@@ -65,7 +62,7 @@ public class DecimalTextWithButton extends org.eclipse.swt.widgets.Composite {
 
 
 	private Button button1;
-	private Text text1;
+	private CurrencyText text1;
 	private Object data; 
 	public DecimalTextWithButton(Composite parent, int style) {
 		super(parent, style);
@@ -80,7 +77,7 @@ public class DecimalTextWithButton extends org.eclipse.swt.widgets.Composite {
 		try {
 			preInitGUI();
 	
-			text1 = new Text(this,SWT.NULL);
+			text1 = new CurrencyText(this,SWT.NULL);
 			button1 = new Button(this,SWT.PUSH| SWT.CENTER);
 	
 			this.setSize(296, 19);
@@ -88,37 +85,7 @@ public class DecimalTextWithButton extends org.eclipse.swt.widgets.Composite {
 	
 			GridData text1LData = new GridData();
 			text1.setBackground(SWTResourceManager.getColor(255, 255, 255));
-			text1.addVerifyListener(new VerifyListener() {
-				public void verifyText(VerifyEvent e) {
-					
-					char decimalSymbol ='.';
-				 	int numberOfDecimals =2;
-				 	Text control = (Text)e.widget;
-				    String text = control.getText();
-				    e.doit = false;
-
-				    if (e.keyCode == SWT.BS || e.keyCode == SWT.DEL){
-				     e.doit = true;
-				     return;
-				    }
-
-				    String newText = text.substring(0, e.start) + e.text + text.substring(e.end);
-
-				    if (newText.equals("")){
-				     e.doit = true;
-				     return;
-				    }
-
-				    Pattern realNumberPattern = Pattern.compile("-?[0-9]+[0-9]*(([" +decimalSymbol + "][0-9]?[0-9]?)|(["+decimalSymbol+"]))?");
-				    Matcher matcher = realNumberPattern.matcher(newText);
-				    boolean valid = matcher.matches();
-
-				    e.doit = valid;
-				
-					
-					
-				}
-			});
+			
 			text1LData.verticalAlignment = GridData.FILL;
 			text1LData.horizontalAlignment = GridData.FILL;
 			text1LData.widthHint = -1;
@@ -237,11 +204,8 @@ public class DecimalTextWithButton extends org.eclipse.swt.widgets.Composite {
 		 }
 		 
 		 public BigDecimal getBigDecimalValue(){
-		 	String text = this.text1.getText();
-		 	if(text.equals("")){
-		 		return new BigDecimal(0);
-		 	}
-		 	return new BigDecimal(text);
+		 	
+		 	return this.text1.getBigDecimalValue();
 		 	
 		 	
 		 }
