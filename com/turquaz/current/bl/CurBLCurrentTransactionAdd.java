@@ -164,12 +164,13 @@ public class CurBLCurrentTransactionAdd {
          seq.setTurqModule(module);
          
          dalCurrentTrans.saveObject(seq);
-         
-         Integer transId = blAcc.saveAccTransaction(transDate,documentNo,accTransactionType,4,seq.getEngineSequencesId(),"cari "+DatePicker.formatter.format(transDate) +" " + documentNo);
+         String transDefinition="cari "+DatePicker.formatter.format(transDate) +" " + documentNo;
+         Integer transId = blAcc.saveAccTransaction(transDate,documentNo,
+         		accTransactionType,4,seq.getEngineSequencesId(),transDefinition);
          
          //muhasebe fisi kalemlerini de ekleyelim.. 
          // add accounting bill rows
-         saveAccountingCashTransactionRows(curCard,isCredit,amount,account,transId);           
+         saveAccountingCashTransactionRows(curCard,isCredit,amount,account,transId,transDefinition);           
          
          
         //Simdi Cari Hareketi Kaydedebiliriz. 
@@ -241,13 +242,13 @@ public class CurBLCurrentTransactionAdd {
 	 */
 	public void saveAccountingCashTransactionRows(TurqCurrentCard curCard, 
 			boolean isCredit,BigDecimal amount,TurqAccountingAccount account,
-			Integer AccTransId){
+			Integer AccTransId, String definition) throws Exception{
 	  try{
 			   
         	
           TurqAccountingTransactionColumn transRowCash = new TurqAccountingTransactionColumn();
           TurqAccountingTransactionColumn transRowCurrent = new TurqAccountingTransactionColumn();
-          
+
           //Kasa muhasebe kodunu girelim
           transRowCash.setTurqAccountingAccount(account);
     	
@@ -287,12 +288,14 @@ public class CurBLCurrentTransactionAdd {
            
          
          //fis kalemlerini de ekleyelim.. 
+         transRowCash.setTransactionDefinition(definition);
+         transRowCurrent.setTransactionDefinition(definition);
          blAcc.saveAccTransactionRow(transRowCash,AccTransId);
          blAcc.saveAccTransactionRow(transRowCurrent,AccTransId);
        
 		}
 		catch(Exception ex){
-			
+			throw ex;
 		}
 		
 	}

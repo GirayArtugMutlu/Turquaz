@@ -68,7 +68,6 @@ public class AccBLTransactionAdd {
 		
 		transRow.setLastModified(new java.sql.Date( cal.getTime().getTime()));
 		transRow.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
-		
 		dalTransAdd.save(transRow);
 	}
 	catch(Exception ex){
@@ -125,7 +124,7 @@ public class AccBLTransactionAdd {
 		
 		trans.setLastModified(new java.sql.Date( cal.getTime().getTime()));
 		trans.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
-		
+		trans.setTransactionDescription(definition);
 		
 	
 		dalTransAdd.save(trans);
