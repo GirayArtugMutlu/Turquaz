@@ -47,7 +47,7 @@ import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.DatePicker;
-import com.turquaz.engine.ui.component.TurquazDecimalFormat;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 
 import org.eclipse.swt.custom.CLabel;
@@ -299,16 +299,19 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					tableColumnTotalAmountIn.setWidth(100);
 				}
 				{
+					tableColumnTotalPriceIn = new TableColumn(
+						tableTransactions,
+						SWT.RIGHT);
+					tableColumnTotalPriceIn.setText(Messages
+						.getString("InvUIInventoryTransactionReport.14")); //$NON-NLS-1$
+					tableColumnTotalPriceIn.setWidth(100);
+				}
+				{
 					tableColumnTotalAmountOut = new TableColumn(
 						tableTransactions,
 						SWT.RIGHT);
 					tableColumnTotalAmountOut.setText(Messages.getString("InvUIInventoryTransactionReport.13")); //$NON-NLS-1$
 					tableColumnTotalAmountOut.setWidth(100);
-				}
-				{
-					tableColumnTotalPriceIn = new TableColumn(tableTransactions, SWT.RIGHT);
-					tableColumnTotalPriceIn.setText(Messages.getString("InvUIInventoryTransactionReport.14")); //$NON-NLS-1$
-					tableColumnTotalPriceIn.setWidth(100);
 				}
 				{
 					tableColumnTotalPriceOut = new TableColumn(tableTransactions, SWT.RIGHT);
@@ -332,13 +335,17 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 		TableItem items[] = tableTransactions.getSelection();
 		if (items.length > 0)
 		{
-			TurqInventoryTransaction invTrans = (TurqInventoryTransaction)items[0].getData();
-			TurqEngineSequence seq = invTrans.getTurqEngineSequence();
 			
-			TurqConsignment cons = blSearch.getConsignment(seq);
-			boolean updated=new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
-			if (updated)
-				search();
+			TurqInventoryTransaction invTrans = (TurqInventoryTransaction)items[0].getData();
+			if (invTrans != null)
+			{
+				TurqEngineSequence seq = invTrans.getTurqEngineSequence();
+			
+				TurqConsignment cons = blSearch.getConsignment(seq);
+				boolean updated=new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
+				if (updated)
+					search();
+			}
 		}
 		}
 		catch (Exception ex)
@@ -410,7 +417,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 
 		try {
 
-			TurquazDecimalFormat df = new TurquazDecimalFormat();
+			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			tableTransactions.removeAll();
 			int type = 0;
 			if (comboTransactionsType.getText().equals(Messages.getString("InvUIInventoryTransactionReport.21"))) //$NON-NLS-1$
@@ -426,51 +433,53 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					(TurqInventoryGroup)comboInvGroup.getData(comboInvGroup.getText()));
 			TurqInventoryTransaction transactions;
 			TableItem item;
+			
+			BigDecimal totalAmountIn=new BigDecimal(0);
+			BigDecimal totalAmountOut=new BigDecimal(0);
+			BigDecimal totalPriceIn=new BigDecimal(0);
+			BigDecimal totalPriceOut=new BigDecimal(0);
+			
 			for (int i = 0; i < list.size(); i++) {
 
 				Object result[] = (Object[])list.get(i);
 				transactions = (TurqInventoryTransaction) result[0];
 				item = new TableItem(tableTransactions, SWT.NULL);
 				item.setData(transactions);
-			/*
-				Iterator it = transactions.getTurqEngineSequence().getTurqConsignments().iterator();
-			
-				TurqConsignment cons = null;
-				
-				if(it.hasNext()){
-					cons = (TurqConsignment)it.next();
-					
-				}
-				else{
-					throw new Exception(Messages.getString("InvUIInventoryTransactionReport.17")); //$NON-NLS-1$
-				}
-				
-		    */		
+	
 				BigDecimal priceIn = new BigDecimal(0);
 				BigDecimal priceOut = new BigDecimal(0);
 				
+				
 				if(transactions.getTransactionsAmountIn().doubleValue()==0){
-					priceOut = transactions.getTransactionsTotalPrice();
-					
+					priceOut = transactions.getTransactionsTotalPrice();	
+					totalPriceOut=totalPriceOut.add(transactions.getTransactionsTotalPrice());
 					
 				}
 				else
 				{
 					priceIn = transactions.getTransactionsTotalPrice();
+					totalPriceIn=totalPriceIn.add(transactions.getTransactionsTotalPrice());
 				}
-				
+				totalAmountIn=totalAmountIn.add(transactions.getTransactionsAmountIn());
+				totalAmountOut=totalAmountOut.add(transactions.getTransactionsTotalAmountOut());
 				
 				
 				Date transDate = (Date)result[1];
 				item.setText(new String[] {
 								DatePicker.formatter.format(transDate),
 								transactions.getTurqInventoryCard().getCardName(),
-								transactions.getTransactionsAmountIn()+"", //$NON-NLS-1$
-								transactions.getTransactionsTotalAmountOut()+"", //$NON-NLS-1$
-								df.format(priceIn),
-								df.format(priceOut)});
+								cf.format(transactions.getTransactionsAmountIn())+"", //$NON-NLS-1$								
+								cf.format(priceIn),
+								cf.format(transactions.getTransactionsTotalAmountOut())+"", //$NON-NLS-1$
+								cf.format(priceOut)});
 
 			}
+			
+			item=new TableItem(tableTransactions,SWT.NULL);
+			item=new TableItem(tableTransactions,SWT.NULL);
+			item.setText(new String[]{"",Messages.getString("InvUIInventoryTransactionReport.24"),cf.format(totalAmountIn), //$NON-NLS-1$ //$NON-NLS-2$
+					cf.format(totalPriceIn),cf.format(totalAmountOut),
+					cf.format(totalPriceOut)});
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
