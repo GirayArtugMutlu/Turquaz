@@ -16,20 +16,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
 
-/**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
 public class EngUIHelpDialog extends org.eclipse.swt.widgets.Dialog {
 
 	private Shell dialogShell;
@@ -65,8 +51,7 @@ public class EngUIHelpDialog extends org.eclipse.swt.widgets.Dialog {
 
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.setText(Messages.getString("EngUIHelpDialog.0")); //$NON-NLS-1$
-			dialogShell.layout();
-			dialogShell.pack();
+			
 			dialogShell.setSize(319, 192);
             {
                 lblMessage = new Label(dialogShell, SWT.CENTER | SWT.WRAP);
@@ -100,7 +85,7 @@ public class EngUIHelpDialog extends org.eclipse.swt.widgets.Dialog {
             }
             {
                 lblVarsion = new CLabel(dialogShell, SWT.NONE);
-                lblVarsion.setText("0.4.1 Alpha 3"); //$NON-NLS-1$
+                lblVarsion.setText("0.4.2 Alpha 4"); //$NON-NLS-1$
                 GridData lblVarsionLData = new GridData();
                 lblVarsionLData.horizontalAlignment = GridData.CENTER;
                 lblVarsionLData.widthHint = 89;
@@ -131,6 +116,8 @@ public class EngUIHelpDialog extends org.eclipse.swt.widgets.Dialog {
                 hyperGPL.setLayoutData(hyperGPLLData);
             }
             postInitGUI();
+            dialogShell.layout();
+			dialogShell.pack();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {
