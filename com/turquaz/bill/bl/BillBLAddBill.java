@@ -22,7 +22,6 @@ import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
-import com.turquaz.engine.dal.TurqModule;
 
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -58,13 +57,15 @@ public class BillBLAddBill {
 			bill.setTurqBillConsignmentCommon(common);
 			
 			
-			TurqEngineSequence seqDocId = new TurqEngineSequence();
-			TurqModule module = new TurqModule();
+		TurqEngineSequence seqDocId = cons.getTurqEngineSequence();
+		/*	
+		 * TODO Incelenmesi gerek	
+		 * 	TurqModule module = new TurqModule();
 			module.setModulesId(new Integer(7));
 			seqDocId.setTurqModule(module);
-			
+		*/
 			dalBill.save(seqDocId);
-			
+		
 			bill.setTurqEngineSequence(seqDocId);
 		
 			
