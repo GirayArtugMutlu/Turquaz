@@ -117,7 +117,7 @@ public final class TreeFactory {
 		
 		TreeItem cardsRoot = new TreeItem(tree,SWT.NULL);
 		
-		cardsRoot.setText("Kartlar");  
+		cardsRoot.setText(Messages.getString("TreeFactory.0"));   //$NON-NLS-1$
 		
 		TreeItem item;
 		
@@ -135,7 +135,7 @@ public final class TreeFactory {
 		}
 		
 		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
-		searchRoot.setText("Arama");  
+		searchRoot.setText(Messages.getString("TreeFactory.6"));   //$NON-NLS-1$
 			
 		if(EngBLPermissions.getPermission(InvUICardSearch.class.getName())>0){
 		item = new TreeItem(searchRoot,SWT.NULL);
@@ -184,7 +184,7 @@ public final class TreeFactory {
 		
 		TreeItem adminRoot = new TreeItem(tree,SWT.NULL);
 
-		adminRoot.setText("Ayarlar");  
+		adminRoot.setText(Messages.getString("TreeFactory.9"));   //$NON-NLS-1$
 		
 		reports.setExpanded(true);
 		cardsRoot.setExpanded(true);
@@ -195,7 +195,7 @@ public final class TreeFactory {
 	public static Tree createBankTree(Tree tree){
 		
 		TreeItem accountsRoot = new TreeItem(tree,SWT.NULL);
-		accountsRoot.setText("Hesaplar"); 
+		accountsRoot.setText(Messages.getString("TreeFactory.16"));  //$NON-NLS-1$
 		
 		TreeItem item;
 		if(EngBLPermissions.getPermission(BankUIBankCardAdd.class.getName())>0){
@@ -205,7 +205,7 @@ public final class TreeFactory {
 		}
 		
 		TreeItem transactionsRoot = new TreeItem(tree,SWT.NULL);
-		transactionsRoot.setText("Ýþlemler"); 
+		transactionsRoot.setText(Messages.getString("TreeFactory.21"));  //$NON-NLS-1$
 		
 		
 		if(EngBLPermissions.getPermission(BankUIMoneyTransferIn.class.getName())>0){
@@ -247,7 +247,7 @@ public final class TreeFactory {
 		}
 		
 		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
-		searchRoot.setText("Arama"); 
+		searchRoot.setText(Messages.getString("TreeFactory.32"));  //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(BankUIBankCardSearch.class.getName())>0){
 			item = new TreeItem(searchRoot,SWT.NULL);
@@ -262,7 +262,7 @@ public final class TreeFactory {
 		}
 		
 		TreeItem reportsRoot = new TreeItem(tree,SWT.NULL);
-		reportsRoot.setText("Raporlar"); 
+		reportsRoot.setText(Messages.getString("TreeFactory.36"));  //$NON-NLS-1$
 		
 			if(EngBLPermissions.getPermission(BankUIBankCardAbstract.class.getName())>0){
 				item = new TreeItem(reportsRoot,SWT.NULL);
@@ -271,7 +271,7 @@ public final class TreeFactory {
 			}
 		
 			TreeItem confRoot = new TreeItem(tree,SWT.NULL);
-			confRoot.setText("Ayarlar"); 
+			confRoot.setText(Messages.getString("TreeFactory.39"));  //$NON-NLS-1$
 			
 			if(EngBLPermissions.getPermission(BankUIInitialTransaction.class.getName())>0){
 				item = new TreeItem(confRoot,SWT.NULL);
@@ -291,7 +291,7 @@ public final class TreeFactory {
 	public static Tree createAccountingTree(Tree tree){
 		
 		TreeItem accountsRoot = new TreeItem(tree,SWT.NULL);
-		accountsRoot.setText("Hesaplar"); 
+		accountsRoot.setText(Messages.getString("TreeFactory.45"));  //$NON-NLS-1$
 		
 		TreeItem item;
 		
@@ -307,7 +307,7 @@ public final class TreeFactory {
 		}
 		
 		TreeItem voucherRoot = new TreeItem(tree,SWT.NULL);
-		voucherRoot.setText("Fiþler"); 
+		voucherRoot.setText(Messages.getString("TreeFactory.50"));  //$NON-NLS-1$
 		
 		
 		if(EngBLPermissions.getPermission(AccUITransactionAdd.class.getName())>0){
@@ -328,7 +328,7 @@ public final class TreeFactory {
 		}
 		
 		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
-		searchRoot.setText("Arama");
+		searchRoot.setText(Messages.getString("TreeFactory.52")); //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(AccUITransactionSearch.class.getName())>0){
 			item = new TreeItem(searchRoot,SWT.NULL);
@@ -337,7 +337,7 @@ public final class TreeFactory {
 			}
 		
 		TreeItem booksRoot = new TreeItem(tree,SWT.NULL);
-		booksRoot.setText("Defterler");
+		booksRoot.setText(Messages.getString("TreeFactory.61")); //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(AccUIAccountingJournal.class.getName())>0){
 			item = new TreeItem(booksRoot,SWT.NULL);
@@ -357,7 +357,7 @@ public final class TreeFactory {
 			}
 			
 		TreeItem reportsRoot = new TreeItem(tree,SWT.NULL);
-		reportsRoot.setText("Durum Raporlarý");
+		reportsRoot.setText(Messages.getString("TreeFactory.79")); //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(AccUIAccountingAdvancedBalance.class.getName())>0){
 			item = new TreeItem(reportsRoot,SWT.NULL);
@@ -371,7 +371,7 @@ public final class TreeFactory {
 		}
 		
 		TreeItem settingsRoot = new TreeItem(tree,SWT.NULL);
-		settingsRoot.setText("Ayarlar");
+		settingsRoot.setText(Messages.getString("TreeFactory.80")); //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(AccUIInitialTransaction.class.getName())>0){
 			item = new TreeItem(settingsRoot,SWT.NULL);
@@ -396,7 +396,7 @@ public final class TreeFactory {
 	public static Tree createCurrentTree(Tree tree){
 		
 		TreeItem accountsRoot = new TreeItem(tree,SWT.NULL);
-		accountsRoot.setText("Hesaplar"); 
+		accountsRoot.setText(Messages.getString("TreeFactory.81"));  //$NON-NLS-1$
 		
 		TreeItem item;
 		if(EngBLPermissions.getPermission(CurUICurrentCardAdd.class.getName())>0){
@@ -406,7 +406,7 @@ public final class TreeFactory {
 		}
 		
 		TreeItem transactionsRoot = new TreeItem(tree,SWT.NULL);
-		transactionsRoot.setText("Ýþlemler"); 
+		transactionsRoot.setText(Messages.getString("TreeFactory.82"));  //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(CurUICurrentCardVoucher.class.getName())>0){
 			item = new TreeItem(transactionsRoot,SWT.NULL);			
@@ -415,7 +415,7 @@ public final class TreeFactory {
 		}
 		
 		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
-		searchRoot.setText("Arama"); 
+		searchRoot.setText(Messages.getString("TreeFactory.83"));  //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(CurUICurrentCardSearch.class.getName())>0){
 			item = new TreeItem(searchRoot,SWT.NULL);
@@ -430,7 +430,7 @@ public final class TreeFactory {
 			}
 		
 		TreeItem reportsRoot = new TreeItem(tree,SWT.NULL);
-		reportsRoot.setText("Raporlar"); 
+		reportsRoot.setText(Messages.getString("TreeFactory.84"));  //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(CurUICurrentCardAbstract.class.getName())>0){
 			item = new TreeItem(reportsRoot,SWT.NULL);
@@ -439,7 +439,7 @@ public final class TreeFactory {
 		}
 
 		TreeItem settingsRoot = new TreeItem(tree,SWT.NULL);
-		settingsRoot.setText("Ayarlar"); 
+		settingsRoot.setText(Messages.getString("TreeFactory.85"));  //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(CurUIInitialTransaction.class.getName())>0){
 			item = new TreeItem(settingsRoot,SWT.NULL);			
@@ -460,7 +460,7 @@ public final class TreeFactory {
 		
 		
 		TreeItem usersRoot = new TreeItem(tree,SWT.NULL);
-		usersRoot.setText("Kullanýcý/Gruplar"); 
+		usersRoot.setText(Messages.getString("TreeFactory.86"));  //$NON-NLS-1$
 		
 		TreeItem item;
 		
@@ -476,7 +476,7 @@ public final class TreeFactory {
 		}
 		
 		TreeItem permissionsRoot = new TreeItem(tree,SWT.NULL);
-		permissionsRoot.setText("Ýzinler"); 
+		permissionsRoot.setText(Messages.getString("TreeFactory.87"));  //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(AdmUIUserPermissions.class.getName())>0){
 			item = new TreeItem(permissionsRoot,SWT.NULL);
@@ -491,7 +491,7 @@ public final class TreeFactory {
 			}
 		
 		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
-		searchRoot.setText("Arama");
+		searchRoot.setText(Messages.getString("TreeFactory.88")); //$NON-NLS-1$
 		
 
 		if(EngBLPermissions.getPermission(AdmUIUsers.class.getName())>0){
@@ -507,7 +507,7 @@ public final class TreeFactory {
 			}
 		
 		TreeItem settingsRoot = new TreeItem(tree,SWT.NULL);
-		settingsRoot.setText("Ayarlar");
+		settingsRoot.setText(Messages.getString("TreeFactory.89")); //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(AdmUICompanyInfo.class.getName())>0){
 			item = new TreeItem(settingsRoot,SWT.NULL);
@@ -545,7 +545,7 @@ public final class TreeFactory {
 	public static Tree createBillTree(Tree tree){
 		
 		TreeItem invoiceRoot = new TreeItem(tree,SWT.NULL);
-		invoiceRoot.setText("Faturalar");
+		invoiceRoot.setText(Messages.getString("TreeFactory.90")); //$NON-NLS-1$
 		
 		TreeItem item;
 		
@@ -566,7 +566,7 @@ public final class TreeFactory {
 		}
 		
 		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
-		searchRoot.setText("Arama");
+		searchRoot.setText(Messages.getString("TreeFactory.91")); //$NON-NLS-1$
 		
 	    if(EngBLPermissions.getPermission(BillUIBillSearch.class.getName())>0){
 		item = new TreeItem(searchRoot,SWT.NULL);
@@ -594,7 +594,7 @@ public final class TreeFactory {
 	public static Tree createCashTree(Tree tree){
 		
 	    TreeItem accountsRoot = new TreeItem(tree,SWT.NULL);
-		accountsRoot.setText("Hesaplar");  
+		accountsRoot.setText(Messages.getString("TreeFactory.92"));   //$NON-NLS-1$
 		
 		TreeItem item;
 		if(EngBLPermissions.getPermission(CashUICashCardAdd.class.getName())>0){
@@ -604,7 +604,7 @@ public final class TreeFactory {
 		}
 		
 	    TreeItem transRoot = new TreeItem(tree,SWT.NULL);
-		transRoot.setText("Ýþlemler"); 
+		transRoot.setText(Messages.getString("TreeFactory.93"));  //$NON-NLS-1$
 		
 		   if(EngBLPermissions.getPermission(CashUICashCollectTransactionAdd.class.getName())>0){
 			item = new TreeItem(transRoot,SWT.NULL);
@@ -618,7 +618,7 @@ public final class TreeFactory {
 	   }
 		   
 		    TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
-			searchRoot.setText("Arama"); 
+			searchRoot.setText(Messages.getString("TreeFactory.94"));  //$NON-NLS-1$
 			
 		if(EngBLPermissions.getPermission(CashUICashCardSearch.class.getName())>0){
 			item = new TreeItem(searchRoot,SWT.NULL);
@@ -633,7 +633,7 @@ public final class TreeFactory {
 		}
 		
 	    TreeItem reportsRoot = new TreeItem(tree,SWT.NULL);
-		reportsRoot.setText("Raporlar"); 
+		reportsRoot.setText(Messages.getString("TreeFactory.95"));  //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(CashUICashCardAbstract.class.getName())>0){
 			

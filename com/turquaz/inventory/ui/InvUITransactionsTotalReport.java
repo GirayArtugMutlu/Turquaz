@@ -190,7 +190,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 						lblCurCardStart = new CLabel(
 							compInvCardSearchPanel,
 							SWT.NONE);
-						lblCurCardStart.setText("Cari Kart - Ba?lang?ç");
+						lblCurCardStart.setText(Messages.getString("InvUITransactionsTotalReport.4")); //$NON-NLS-1$
 					}
 					{
 						txtCurCardStart = new CurrentCodePicker(compInvCardSearchPanel, SWT.NONE);
@@ -203,7 +203,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 						lblCurCardEnd = new CLabel(
 							compInvCardSearchPanel,
 							SWT.NONE);
-						lblCurCardEnd.setText("Cari Kart - Biti?");
+						lblCurCardEnd.setText(Messages.getString("InvUITransactionsTotalReport.5")); //$NON-NLS-1$
 					}
 					{
 						txtCurCardEnd = new CurrentCodePicker(
@@ -246,7 +246,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 						lblTransType = new CLabel(
 							compInvCardSearchPanel,
 							SWT.NONE);
-						lblTransType.setText("Tipi");
+						lblTransType.setText(Messages.getString("InvUITransactionsTotalReport.6")); //$NON-NLS-1$
 						GridData lblTransTypeLData = new GridData();
 						lblTransTypeLData.widthHint = 48;
 						lblTransTypeLData.heightHint = 17;
@@ -256,7 +256,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 						comboTransType = new CCombo(
 							compInvCardSearchPanel,
 							SWT.NONE);
-						comboTransType.setText("Hepsi");
+						comboTransType.setText(Messages.getString("InvUITransactionsTotalReport.7")); //$NON-NLS-1$
 					}
 				}
 				{
