@@ -190,9 +190,9 @@ public class InvUITransactionTableRow implements ITableRow {
 				else
 				{
 					if (invTrans.getTurqInventoryCard().isSpecVatForEach())
-						result =invTrans.getTransactionsVatSpecialEach().toString();					
+						result =cf.format(invTrans.getTransactionsVatSpecialEach());					
 					else
-						result = invTrans.getTransactionsVatSpecial().toString();
+						result = cf.format(invTrans.getTransactionsVatSpecial());
 				}
 				break;
 				
@@ -508,6 +508,8 @@ public class InvUITransactionTableRow implements ITableRow {
 				
 			case 11 : // Special VAT percent 
 			    formatted = value.toString(); 	
+			 	formatted = formatted.replaceAll("\\.","");
+			 	formatted = formatted.replaceAll(",",".");	
 			 	
 			    if(formatted.equals("")){
 			 	    formatted="0";

@@ -1103,7 +1103,7 @@ public class BillUIAddBill extends Composite
 	       editors[8] = new NumericCellEditor(tableConsignmentRows);
 	       editors[9] = new NumericCellEditor(tableConsignmentRows);
 	       editors[10] = new CurrencyCellEditor(tableConsignmentRows);
-	       editors[11] = new NumericCellEditor(tableConsignmentRows);
+	       editors[11] = new CurrencyCellEditor(tableConsignmentRows);
 	       editors[12] = new CurrencyCellEditor(tableConsignmentRows);
 	       editors[13] = new CurrencyCellEditor(tableConsignmentRows);
 	    

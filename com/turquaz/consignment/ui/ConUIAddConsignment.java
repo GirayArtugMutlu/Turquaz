@@ -651,7 +651,7 @@ implements SecureComposite{
                                     tableConsignmentRows,
                                     SWT.NONE);
                                 tableColumn10.setText(SPECIAL_VAT_PERCENT);
-                                tableColumn10.setWidth(54);
+                                tableColumn10.setWidth(59);
                             }
                             {
                                 tableColumn11 = new TableColumn(tableConsignmentRows, SWT.RIGHT);
@@ -905,7 +905,7 @@ implements SecureComposite{
        editors[8] = new NumericCellEditor(tableConsignmentRows);
        editors[9] = new NumericCellEditor(tableConsignmentRows);
        editors[10] = new CurrencyCellEditor(tableConsignmentRows);
-       editors[11] = new NumericCellEditor(tableConsignmentRows);
+       editors[11] = new CurrencyCellEditor(tableConsignmentRows);
        editors[12] = new CurrencyCellEditor(tableConsignmentRows);
        editors[13] = new CurrencyCellEditor(tableConsignmentRows);
     
