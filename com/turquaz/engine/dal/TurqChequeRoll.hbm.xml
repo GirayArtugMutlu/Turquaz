@@ -91,6 +91,14 @@
     >
         <column name="cheque_transaction_types_id" />
     </many-to-one>
+    <!-- bi-directional many-to-one association to TurqBanksCard -->
+    <many-to-one
+        name="turqBanksCard"
+        class="com.turquaz.engine.dal.TurqBanksCard"
+        not-null="true"
+    >
+        <column name="banks_cards_id" />
+    </many-to-one>
     <!-- bi-directional many-to-one association to TurqEngineSequence -->
     <many-to-one
         name="turqEngineSequence"
@@ -98,6 +106,14 @@
         not-null="true"
     >
         <column name="engine_sequences_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqCurrentCard -->
+    <many-to-one
+        name="turqCurrentCard"
+        class="com.turquaz.engine.dal.TurqCurrentCard"
+        not-null="true"
+    >
+        <column name="current_cards_id" />
     </many-to-one>
 
 </class>

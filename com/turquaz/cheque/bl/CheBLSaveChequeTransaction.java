@@ -49,7 +49,24 @@ public class CheBLSaveChequeTransaction {
           chequeRoll.setLastModified(Calendar.getInstance().getTime());
           chequeRoll.setCreationDate(Calendar.getInstance().getTime());
           
-          
+          if(curCard!=null)
+          {
+           chequeRoll.setTurqCurrentCard(curCard);
+           
+           TurqBanksCard bankCardEmpty = new TurqBanksCard();
+           bankCardEmpty.setBanksCardsId(new Integer(-1));
+           chequeRoll.setTurqBanksCard(bankCardEmpty);
+              
+          }
+          else if(bankCard!=null)
+          {
+              chequeRoll.setTurqBanksCard(bankCard);
+              
+              TurqCurrentCard curCardEmpty = new TurqCurrentCard();
+              curCardEmpty.setCurrentCardsId(new Integer(-1));
+              chequeRoll.setTurqCurrentCard(curCardEmpty);
+              
+          }
           
           chequeRoll.setTurqEngineSequence(seq);
           

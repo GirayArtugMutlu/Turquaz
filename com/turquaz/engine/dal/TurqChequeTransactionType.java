@@ -19,7 +19,7 @@ public class TurqChequeTransactionType implements Serializable {
     private short transactionTypesParent;
 
     /** persistent field */
-    private java.util.Date createdBy;
+    private java.lang.String createdBy;
 
     /** persistent field */
     private java.util.Date creationDate;
@@ -37,7 +37,7 @@ public class TurqChequeTransactionType implements Serializable {
     private Set turqChequeRolls;
 
     /** full constructor */
-    public TurqChequeTransactionType(java.lang.String transactionTypsName, short transactionTypesParent, java.util.Date createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqChequeRolls) {
+    public TurqChequeTransactionType(java.lang.String transactionTypsName, short transactionTypesParent, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqChequeRolls) {
         this.transactionTypsName = transactionTypsName;
         this.transactionTypesParent = transactionTypesParent;
         this.createdBy = createdBy;
@@ -76,11 +76,11 @@ public class TurqChequeTransactionType implements Serializable {
         this.transactionTypesParent = transactionTypesParent;
     }
 
-    public java.util.Date getCreatedBy() {
+    public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
 
-    public void setCreatedBy(java.util.Date createdBy) {
+    public void setCreatedBy(java.lang.String createdBy) {
         this.createdBy = createdBy;
     }
 

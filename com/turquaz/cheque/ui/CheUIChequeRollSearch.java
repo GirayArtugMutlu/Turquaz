@@ -1,20 +1,23 @@
 package com.turquaz.cheque.ui;
 
-import org.eclipse.swt.layout.FillLayout;
+import java.util.List;
+
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.custom.CCombo;
+
+import com.turquaz.cheque.bl.CheBLSearchChequeRoll;
+import com.turquaz.engine.dal.TurqChequeTransactionType;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.SearchComposite;
+
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
 
@@ -32,7 +35,7 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite {
+public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite implements SearchComposite{
 
     {
         //Register as a resource user - SWTResourceManager will
@@ -47,49 +50,15 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblType;
 	private CCombo comboRollType;
 	private DatePicker dateEndDate;
-	private DatePicker datePicker1;
-	private CLabel dateStartDate;
+	private DatePicker dateStartDate;
+	private CLabel lblStartDate;
 	private Text txtRollNo;
 	private CLabel lblRollNo;
 	private TableColumn tableColumnOwner;
 	private TableColumn tableColumnType;
 	private TableColumn tableColumnRolNo;
 
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		showGUI();
-	}
-		
-	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		CheUIChequeRollSearch inst = new CheUIChequeRollSearch(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if(size.x == 0 && size.y == 0) {
-			inst.pack();
-			shell.pack();
-		} else {
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
+	
 
 	public CheUIChequeRollSearch(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
@@ -123,15 +92,15 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite {
                     txtRollNo.setLayoutData(txtRollNoLData);
                 }
                 {
-                    dateStartDate = new CLabel(compSearchPanel, SWT.NONE);
-                    dateStartDate.setText("Ba?lang?ç Tarihi");
+                    lblStartDate = new CLabel(compSearchPanel, SWT.NONE);
+                    lblStartDate.setText("Ba?lang?ç Tarihi");
                 }
                 {
-                    datePicker1 = new DatePicker(compSearchPanel, SWT.NONE);
+                    dateStartDate = new DatePicker(compSearchPanel, SWT.NONE);
                     GridData datePicker1LData = new GridData();
                     datePicker1LData.widthHint = 116;
                     datePicker1LData.heightHint = 22;
-                    datePicker1.setLayoutData(datePicker1LData);
+                    dateStartDate.setLayoutData(datePicker1LData);
                 }
                 {
                     lblEndDate = new CLabel(compSearchPanel, SWT.NONE);
@@ -187,17 +156,70 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite {
                     tableColumnType.setWidth(75);
                 }
                 {
-                    tableColumnOwner = new TableColumn(
-                        tableChequeRolls,
-                        SWT.NONE);
+                    tableColumnOwner = new TableColumn(tableChequeRolls, SWT.NONE);
                     tableColumnOwner.setText("Bordro Sahibi");
-                    tableColumnOwner.setWidth(101);
+                    tableColumnOwner.setWidth(102);
                 }
             }
+            postInitGUI();
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public void postInitGUI(){
+	    try
+	    {
+	        comboRollType.add("Hepsi");
+	        List ls = CheBLSearchChequeRoll.getTransactionTypes();
+	        for(int i= 0;i< ls.size();i++)
+	        {
+	            TurqChequeTransactionType type = (TurqChequeTransactionType)ls.get(i);
+	            comboRollType.add(type.getTransactionTypsName());
+	            comboRollType.setData(type.getTransactionTypsName(),type);       
+	            
+	            
+	            
+	            
+	            
+	        }
+	        
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        
+	        ex.printStackTrace();
+	        EngUICommon.showMessageBox(getShell(),ex.getMessage().toString(),SWT.ICON_ERROR);
+	    }
+	    
+	    
+	}
 
+    public void delete() {
+        // TODO Auto-generated method stub
+
+    }
+    public void exportToExcel() {
+        // TODO Auto-generated method stub
+
+    }
+    public void printTable() {
+        // TODO Auto-generated method stub
+
+    }
+    public void search() {
+      try
+      {
+        List ls = CheBLSearchChequeRoll.searchChequeRoll(txtRollNo.getText().trim(),dateStartDate.getDate(),dateEndDate.getDate(),(TurqChequeTransactionType)comboRollType.getData(comboRollType.getText().trim()));
+          
+      }
+      catch(Exception ex)
+      {
+          ex.printStackTrace();
+          EngUICommon.showMessageBox(getShell(),ex.getMessage(),SWT.ICON_ERROR);
+      }
+
+    }
 }

@@ -31,8 +31,6 @@
 	<classpathentry kind="lib" path="lib/mysql.jar"/>
 	<classpathentry kind="lib" path="lib/odmg.jar"/>
 	<classpathentry kind="lib" path="lib/osgi.jar"/>
-	<classpathentry kind="lib" path="lib/pg74.214.jdbc2.jar"/>
-	<classpathentry kind="lib" path="lib/pg80b1.308.jdbc3.jar"/>
 	<classpathentry kind="lib" path="lib/poi-2.5.1-final-20040804.jar"/>
 	<classpathentry kind="lib" path="lib/poi-contrib-2.5.1-final-20040804.jar"/>
 	<classpathentry kind="lib" path="lib/poi-scratchpad-2.5.1-final-20040804.jar"/>
@@ -46,5 +44,6 @@
 	<classpathentry kind="lib" path="lib/jasperreports-0.6.3.jar"/>
 	<classpathentry kind="lib" path="lib/swtjasperviewer.jar"/>
 	<classpathentry kind="lib" path="lib/swt-nl.jar"/>
+	<classpathentry kind="lib" path="lib/postgresql-8.0.309.jdbc3.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
