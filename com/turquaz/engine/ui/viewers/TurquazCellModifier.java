@@ -17,7 +17,9 @@ public class TurquazCellModifier implements ICellModifier{
 	}
     
     public boolean canModify(Object element, String property) {
-		return true;
+        int columnIndex = columnNames.indexOf(property);
+    	ITableRow task = (ITableRow) element;
+        return task.canModify(columnIndex);
 	}
     public Object getValue(Object element, String property) {
 
@@ -32,7 +34,6 @@ public class TurquazCellModifier implements ICellModifier{
 	}
     public void modify(Object element, String property, Object value) {	
 
-	
     	// Find the index of the column
 		int columnIndex = columnNames.indexOf(property);
 			
@@ -40,6 +41,7 @@ public class TurquazCellModifier implements ICellModifier{
 		ITableRow task = (ITableRow) item.getData();
 		task.modify(columnIndex,value);
 		contentProvider.getTaskList().taskChanged(task);
+		
 	}
 
     

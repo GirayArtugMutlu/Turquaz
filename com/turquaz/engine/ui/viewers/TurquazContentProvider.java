@@ -21,15 +21,17 @@ public TableRowList getTaskList() {
 public void setTaskList(TableRowList taskList) {
     this.taskList = taskList;
 }
-   private TableRowList taskList = new TableRowList(); 
+   private TableRowList taskList; 
    
-    public TurquazContentProvider(TableViewer tableViewer){
+   
+    public TurquazContentProvider(TableViewer tableViewer,TableRowList taskList){
         super();
         this.tableViewer = tableViewer;
+        this.taskList = taskList;
         
     }
     public void inputChanged(Viewer v, Object oldInput, Object newInput) {
-		if (newInput != null)
+        if (newInput != null)
 			((TableRowList) newInput).addChangeListener(this);
 		if (oldInput != null)
 			((TableRowList) oldInput).removeChangeListener(this);
