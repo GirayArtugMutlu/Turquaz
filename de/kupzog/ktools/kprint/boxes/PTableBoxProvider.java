@@ -36,11 +36,11 @@ public class PTableBoxProvider
 		PLittleTextBox box = new PLittleTextBox(parent, style, 0, widthFromModel * 0.03);
 		// set its border lines
 		PStyle boxStyle = PStyle.getDefaultStyle();
-		boxStyle.lines = new double[]{0.005, 0.01, 0.005, 0.0};
+		boxStyle.lines = new double[]{0.001, 0.0, 0.001, 0.0};
 		if (row == 0)
-			boxStyle.lines[0] = 0.02;
+			boxStyle.lines[0] = 0.01;
 		if (col == 0)
-			boxStyle.lines[3] = 0.01;
+			boxStyle.lines[3] = 0.00;
 		box.setBoxStyle(boxStyle);
 		// set the font
 		PTextStyle textStyle = PTextStyle.getDefaultStyle();

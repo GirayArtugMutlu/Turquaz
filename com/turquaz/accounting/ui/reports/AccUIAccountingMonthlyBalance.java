@@ -151,39 +151,19 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				compAdvancedLayout.numColumns = 4;
 				compAdvanced.setLayout(compAdvancedLayout);
 				{
-					checkSubAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
-					checkSubAccounts.setText(Messages.getString("AccUIAccountingMonthlyBalance.13")); //$NON-NLS-1$
-					GridData checkSubAccountsLData = new GridData();
-					checkSubAccountsLData.widthHint = 133;
-					checkSubAccountsLData.heightHint = 17;
-					checkSubAccounts.setLayoutData(checkSubAccountsLData);
-					checkSubAccounts.addSelectionListener(new SelectionAdapter()
-					{
-						public void widgetSelected(SelectionEvent evt)
-						{
-							boolean expand = checkSubAccounts.getSelection();
-							TableTreeItem[] subItems = tableTreeAccounts.getItems();
-							for (int k = 0; k < subItems.length; k++)
-							{
-								expandTree(subItems[k], expand);
-							}
-						}
-					});
-				}
-				{
 					lblMonth = new CLabel(compAdvanced, SWT.NONE);
 					lblMonth.setText(Messages.getString("AccUIAccountingMonthlyBalance.14")); //$NON-NLS-1$
 					GridData lblMonthLData = new GridData();
-					lblMonthLData.widthHint = 66;
+					lblMonthLData.widthHint = 68;
 					lblMonthLData.heightHint = 16;
 					lblMonth.setLayoutData(lblMonthLData);
 				}
 				{
 					comboMonth = new CCombo(compAdvanced, SWT.NONE);
 					GridData comboMonthLData = new GridData();
-					comboMonthLData.horizontalSpan = 2;
 					comboMonthLData.widthHint = 89;
-					comboMonthLData.heightHint = 14;
+					comboMonthLData.heightHint = 16;
+					comboMonthLData.horizontalSpan = 3;
 					comboMonth.setLayoutData(comboMonthLData);
 				}
 				{
@@ -193,51 +173,72 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				{
 					accountPickerStart = new AccountPicker(compAdvanced, SWT.NONE);
 					GridData accountPickerStartLData = new GridData();
-					accountPickerStartLData.widthHint = 105;
-					accountPickerStartLData.heightHint = 13;
+					accountPickerStartLData.widthHint = 248;
+					accountPickerStartLData.heightHint = 18;
+					accountPickerStartLData.horizontalSpan = 3;
 					accountPickerStart.setLayoutData(accountPickerStartLData);
 				}
 				{
 					lblAccEnd = new CLabel(compAdvanced, SWT.NONE);
 					lblAccEnd.setText(Messages.getString("AccUIAccountingMonthlyBalance.16")); //$NON-NLS-1$
 					GridData lblAccEndLData = new GridData();
-					lblAccEndLData.widthHint = 139;
-					lblAccEndLData.heightHint = 16;
+				
 					lblAccEnd.setLayoutData(lblAccEndLData);
 				}
 				{
 					accountPickerEnd = new AccountPicker(compAdvanced, SWT.NONE);
 					GridData accountPickerEndLData = new GridData();
-					accountPickerEndLData.widthHint = 102;
-					accountPickerEndLData.heightHint = 13;
+					accountPickerEndLData.widthHint = 249;
+					accountPickerEndLData.heightHint = 17;
+					accountPickerEndLData.horizontalSpan = 3;
 					accountPickerEnd.setLayoutData(accountPickerEndLData);
 				}
+				//START >> groupRemainder
+				groupRemainder = new Group(compAdvanced, SWT.NONE);
+				GridLayout groupRemainderLayout = new GridLayout();
+				groupRemainderLayout.numColumns = 4;
+				groupRemainderLayout.horizontalSpacing = 4;
+				groupRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.14"));
+				GridData groupRemainderLData = new GridData();
+				groupRemainder.setLayout(groupRemainderLayout);
+				groupRemainderLData.widthHint = 256;
+				groupRemainderLData.heightHint = 32;
+				groupRemainderLData.horizontalSpan = 2;
+				groupRemainder.setLayoutData(groupRemainderLData);
+				//START >> radioUseMainAccounts
+				radioUseMainAccounts = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
+				radioUseMainAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.15"));
+				radioUseMainAccounts.setSelection(true);
+				//END << radioUseMainAccounts
+				//START >> radioUseRemainder
+				radioUseRemainder = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
+				radioUseRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.16"));
+				GridData radioUseRemainderLData = new GridData();
+				radioUseRemainderLData.widthHint = 103;
+				radioUseRemainderLData.heightHint = 13;
+				radioUseRemainder.setLayoutData(radioUseRemainderLData);
+				//END << radioUseRemainder
+				//END << groupRemainder
+				{
+					checkSubAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
+					checkSubAccounts.setText(Messages.getString("AccUIAccountingMonthlyBalance.13")); //$NON-NLS-1$
+					GridData checkSubAccountsLData = new GridData();
+					checkSubAccountsLData.horizontalSpan = 2;
+					checkSubAccountsLData.widthHint = 116;
+					checkSubAccountsLData.heightHint = 16;
+
+					checkSubAccounts.setLayoutData(checkSubAccountsLData);
+					checkSubAccounts.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							boolean expand = checkSubAccounts.getSelection();
+							TableTreeItem[] subItems = tableTreeAccounts.getItems();
+							for (int k = 0; k < subItems.length; k++) {
+								expandTree(subItems[k], expand);
+							}
+						}
+					});
+				}
 			}
-			//START >> groupRemainder
-			groupRemainder = new Group(this, SWT.NONE);
-			GridLayout groupRemainderLayout = new GridLayout();
-			groupRemainderLayout.numColumns = 4;
-			groupRemainderLayout.horizontalSpacing = 4;
-			groupRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.14"));
-			GridData groupRemainderLData = new GridData();
-			groupRemainder.setLayout(groupRemainderLayout);
-			groupRemainderLData.widthHint = 253;
-			groupRemainderLData.heightHint = 25;
-			groupRemainder.setLayoutData(groupRemainderLData);
-			//START >> radioUseMainAccounts
-			radioUseMainAccounts = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
-			radioUseMainAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.15"));
-			radioUseMainAccounts.setSelection(true);
-			//END << radioUseMainAccounts
-			//START >> radioUseRemainder
-			radioUseRemainder = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
-			radioUseRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.16"));
-			GridData radioUseRemainderLData = new GridData();
-			radioUseRemainderLData.widthHint = 103;
-			radioUseRemainderLData.heightHint = 13;
-			radioUseRemainder.setLayoutData(radioUseRemainderLData);
-			//END << radioUseRemainder
-			//END << groupRemainder
 			{
 				compTable = new Composite(this, SWT.NONE);
 				GridLayout compTableLayout = new GridLayout();
@@ -256,22 +257,22 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					{
 						tableColumnAccountCode = new TableColumn(tableTreeAccounts.getTable(), SWT.NONE);
 						tableColumnAccountCode.setText(Messages.getString("AccUIAccountingMonthlyBalance.17")); //$NON-NLS-1$
-						tableColumnAccountCode.setWidth(120);
+						tableColumnAccountCode.setWidth(100);
 					}
 					{
 						tableColumnAccountName = new TableColumn(tableTreeAccounts.getTable(), SWT.NONE);
 						tableColumnAccountName.setText(Messages.getString("AccUIAccountingMonthlyBalance.18")); //$NON-NLS-1$
-						tableColumnAccountName.setWidth(120);
+						tableColumnAccountName.setWidth(150);
 					}
 					{
 						tableColumnTotalDept = new TableColumn(tableTreeAccounts.getTable(), SWT.RIGHT);
 						tableColumnTotalDept.setText(Messages.getString("AccUIAccountingMonthlyBalance.19")); //$NON-NLS-1$
-						tableColumnTotalDept.setWidth(120);
+						tableColumnTotalDept.setWidth(85);
 					}
 					{
 						tableColumnTotalCredit = new TableColumn(tableTreeAccounts.getTable(), SWT.RIGHT);
 						tableColumnTotalCredit.setText(Messages.getString("AccUIAccountingMonthlyBalance.20")); //$NON-NLS-1$
-						tableColumnTotalCredit.setWidth(120);
+						tableColumnTotalCredit.setWidth(85);
 					}
 					tableTreeAccountsLData.grabExcessHorizontalSpace = true;
 					tableTreeAccountsLData.grabExcessVerticalSpace = true;
@@ -283,12 +284,12 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					{
 						tableColumnRemain = new TableColumn(tableTreeAccounts.getTable(), SWT.RIGHT);
 						tableColumnRemain.setText(Messages.getString("AccUIAccountingMonthlyBalance.21")); //$NON-NLS-1$
-						tableColumnRemain.setWidth(120);
+						tableColumnRemain.setWidth(85);
 					}
 					{
 						tableColumnCreditRemaining = new TableColumn(tableTreeAccounts.getTable(), SWT.RIGHT);
 						tableColumnCreditRemaining.setText(Messages.getString("AccUIAccountingMonthlyBalance.22")); //$NON-NLS-1$
-						tableColumnCreditRemaining.setWidth(120);
+						tableColumnCreditRemaining.setWidth(85);
 					}
 				}
 			}

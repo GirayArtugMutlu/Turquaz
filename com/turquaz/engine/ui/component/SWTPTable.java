@@ -47,6 +47,9 @@ public class SWTPTable
 			if (j == 0)
 				style = PBox.POS_BELOW | PBox.ROW_ALIGN;
 			PBox box = boxProvider.createBox(parent, style, j, 0, table.getColumn(j).getWidth(), true, table.getColumn(j).getText());
+			
+			((PLittleTextBox) box).getTextStyle().textAlign = PTextStyle.ALIGN_CENTER;
+			
 			double boxWidth = Math.max(box.minCm, parent.getPossibleWidth() * box.hWeight);
 			width -= boxWidth;
 			if (width < 0)
