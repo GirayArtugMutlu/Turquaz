@@ -134,8 +134,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private ToolBar toolbarMainTop;
 	private Composite compMainInRight;
 	private static Tree treeFavorites;
-	private ToolBar toolbarFavoritesTab;
 	private CLabel lblFavoritesTab;
+	private Label label2;
 	private Button btnCheque;
 	private Tree treeCheques;
 	private Tree treeCash;
@@ -182,9 +182,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private MenuItem mitEdit;
 	private SashForm sashMainVertical;
 	private Composite compMainIn;
-	private Label lblSeperatorLeft;
 	private Composite compMain;
-	private Label lblSeperator;
 	private MenuItem mitHelp;
 	private MenuItem mitFile;
 	private Menu menuMain;
@@ -207,15 +205,21 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	public void initGUI(){
 		try {
 			preInitGUI();
-			
-			lblSeperator = new Label(this,SWT.SEPARATOR| SWT.HORIZONTAL);
+
+            {
+                label2 = new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
+                label2.setText("label2");
+                GridData label2LData = new GridData();
+                label2LData.grabExcessHorizontalSpace = true;
+                label2LData.horizontalAlignment = GridData.FILL;
+                label2.setLayoutData(label2LData);
+            }
 			compMain = new Composite(this,SWT.NULL);
-			lblSeperatorLeft = new Label(compMain,SWT.SEPARATOR);
 			compMainIn = new Composite(compMain,SWT.NULL);
 			sashMainVertical = new SashForm(compMainIn,SWT.NULL);
 			  coolBarModules = new CoolBar(sashMainVertical, SWT.NONE);
 			  coolBarModules.setBounds(-2, 0, 794, 25);
-			sashMainHorizontal = new LiveSashForm(sashMainVertical, SWT.NONE);
+			sashMainHorizontal = new LiveSashForm(sashMainVertical, SWT.SMOOTH);
 			
 			tabfldMenu = new CTabFolder(sashMainHorizontal,SWT.TOP| SWT.BORDER|SWT.CLOSE);
 			tabModules = new CTabItem(tabfldMenu,SWT.NULL);
@@ -267,27 +271,12 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compFavoritesTab = new Composite(tabfldMenu,SWT.NULL);
 			compFavoritesSelection = new Composite(compFavoritesTab,SWT.NULL);
 			lblFavoritesTab = new CLabel(compFavoritesSelection,SWT.NULL);
-			toolbarFavoritesTab = new ToolBar(compFavoritesSelection,SWT.FLAT);
 			treeFavorites = new Tree(compFavoritesTab,SWT.NULL);
 			compMainInRight = new Composite(sashMainHorizontal,SWT.NULL);
 			
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(800,600));
-			
-	
-			GridData lblSeperatorLData = new GridData();
-			lblSeperatorLData.verticalAlignment = GridData.CENTER;
-			lblSeperatorLData.horizontalAlignment = GridData.FILL;
-			lblSeperatorLData.widthHint = -1;
-			lblSeperatorLData.heightHint = -1;
-			lblSeperatorLData.horizontalIndent = 0;
-			lblSeperatorLData.horizontalSpan = 1;
-			lblSeperatorLData.verticalSpan = 1;
-			lblSeperatorLData.grabExcessHorizontalSpace = false;
-			lblSeperatorLData.grabExcessVerticalSpace = false;
-			lblSeperator.setLayoutData(lblSeperatorLData);
-			lblSeperator.setText("label1"); //$NON-NLS-1$
-	
+
 			GridData compMainLData = new GridData();
 			compMainLData.verticalAlignment = GridData.FILL;
 			compMainLData.horizontalAlignment = GridData.FILL;
@@ -300,21 +289,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compMainLData.grabExcessVerticalSpace = true;
 			compMain.setLayoutData(compMainLData);
 			compMain.setSize(new org.eclipse.swt.graphics.Point(800,578));
-	
-			GridData lblSeperatorLeftLData = new GridData();
-			lblSeperatorLeftLData.verticalAlignment = GridData.FILL;
-			lblSeperatorLeftLData.horizontalAlignment = GridData.BEGINNING;
-			lblSeperatorLeftLData.widthHint = 2;
-			lblSeperatorLeftLData.heightHint = -1;
-			lblSeperatorLeftLData.horizontalIndent = 0;
-			lblSeperatorLeftLData.horizontalSpan = 1;
-			lblSeperatorLeftLData.verticalSpan = 1;
-			lblSeperatorLeftLData.grabExcessHorizontalSpace = false;
-			lblSeperatorLeftLData.grabExcessVerticalSpace = true;
-			lblSeperatorLeft.setLayoutData(lblSeperatorLeftLData);
-			lblSeperatorLeft.setText("label2"); //$NON-NLS-1$
-			lblSeperatorLeft.setSize(new org.eclipse.swt.graphics.Point(2,578));
-	
+
 			GridData compMainInLData = new GridData();
 			compMainInLData.verticalAlignment = GridData.FILL;
 			compMainInLData.horizontalAlignment = GridData.FILL;
@@ -344,7 +319,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			sashMainHorizontal.setSize(new org.eclipse.swt.graphics.Point(792,572));
 			sashMainHorizontal.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,792,572));
 
-			tabfldMenu.setBounds(0, -1, 202, 573);
+			tabfldMenu.setBounds(0, 0, 191, 572);
 	
 			tabModules.setControl(compModulesTab);
 			tabModules.setText(Messages.getString("EngUIMainFrame.2")); //$NON-NLS-1$
@@ -390,6 +365,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				}
 			});
 			final StackLayout compModulesTreeLayout = new StackLayout();
+			compModulesTree.setBackground(SWTResourceManager.getColor(255, 255, 255));
 			compModulesTree.setLayout(compModulesTreeLayout);
 			compModulesTreeLayout.marginWidth = 0;
 			compModulesTreeLayout.marginHeight = 0;
@@ -423,6 +399,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 btnInventory.setText(Messages.getString("EngUIMainFrame.1")); //$NON-NLS-1$
             
                 GridData button1LData = new GridData();
+                btnInventory.setBackground(SWTResourceManager.getColor(255, 255, 255));
                 btnInventory.addMouseListener(new MouseAdapter() {
                     public void mouseUp(MouseEvent evt) {
                         compModulesTreeLayout.topControl = treeInventory;
@@ -572,6 +549,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesTabLayout.marginWidth = 0;
 			compModulesTabLayout.makeColumnsEqualWidth = true;
 			compModulesTabLayout.verticalSpacing = 0;
+			compModulesTabLayout.marginHeight = 0;
+			compModulesTabLayout.horizontalSpacing = 0;
 			compModulesTab.layout();
 	
 			tabFavorites.setControl(compFavoritesTab);
@@ -624,6 +603,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compFavoritesSelection.setSize(new org.eclipse.swt.graphics.Point(386,24));
 	
 			GridData lblFavoritesTabLData = new GridData();
+			lblFavoritesTab.setImage(SWTResourceManager.getImage("icons/favorites.gif"));
+			lblFavoritesTab.setBackground(SWTResourceManager.getColor(255, 255, 255));
 			lblFavoritesTabLData.verticalAlignment = GridData.CENTER;
 			lblFavoritesTabLData.horizontalAlignment = GridData.FILL;
 			lblFavoritesTabLData.widthHint = -1;
@@ -637,19 +618,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			lblFavoritesTab.setText(Messages.getString("EngUIMainFrame.6")); //$NON-NLS-1$
 			lblFavoritesTab.setSize(new org.eclipse.swt.graphics.Point(358,20));
 			lblFavoritesTab.setLayout(null);
-	
-			GridData toolbarFavoritesTabLData = new GridData();
-			toolbarFavoritesTabLData.verticalAlignment = GridData.CENTER;
-			toolbarFavoritesTabLData.horizontalAlignment = GridData.BEGINNING;
-			toolbarFavoritesTabLData.widthHint = -1;
-			toolbarFavoritesTabLData.heightHint = -1;
-			toolbarFavoritesTabLData.horizontalIndent = 0;
-			toolbarFavoritesTabLData.horizontalSpan = 1;
-			toolbarFavoritesTabLData.verticalSpan = 1;
-			toolbarFavoritesTabLData.grabExcessHorizontalSpace = false;
-			toolbarFavoritesTabLData.grabExcessVerticalSpace = false;
-			toolbarFavoritesTab.setLayoutData(toolbarFavoritesTabLData);
-			toolbarFavoritesTab.setLayout(null);
+
 			GridLayout compFavoritesSelectionLayout = new GridLayout(2, true);
 			compFavoritesSelection.setLayout(compFavoritesSelectionLayout);
 			compFavoritesSelectionLayout.marginWidth = 2;
@@ -681,6 +650,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compFavoritesTab.layout();
 			tabfldMenu.setLayout(null);
 			tabfldMenu.setSelection(0);
+			tabfldMenu.setBackground(SWTResourceManager.getColor(224, 238, 238));
+			tabfldMenu.setUnselectedCloseVisible(false);
             tabfldMenu.addCTabFolder2Listener(new CTabFolder2Adapter() {
                 public void close(CTabFolderEvent evt) {
                    ((CTabItem)evt.item).setControl(null);

@@ -25,6 +25,7 @@ package com.turquaz.bank.bl;
 import java.util.Calendar;
 
 import com.turquaz.bank.dal.BankDALBankCardUpdate;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 
@@ -46,7 +47,7 @@ public class BankBLBankCardUpdate {
 	 * @param aCard TurqBanksCard
 	 */
 	
-	public void updateBankCard(String bankName, String bankBranchName, String bankAccountNo,TurqCurrency currency, String definition, TurqBanksCard aCard)
+	public void updateBankCard(String bankName, String bankBranchName, String bankAccountNo,TurqCurrency currency, String definition, String bankCode, TurqAccountingAccount account, TurqBanksCard aCard)
 	throws Exception{
 		try{
 			aCard.setBankName(bankName);
@@ -56,6 +57,8 @@ public class BankBLBankCardUpdate {
 			aCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			aCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			aCard.setBankDefinition(definition);
+			aCard.setBankCode(bankCode);
+			aCard.setTurqAccountingAccount(account);
 			bankDALBankCardUpdate.updateObject(aCard);
 			
 		}

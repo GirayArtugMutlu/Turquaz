@@ -80,6 +80,13 @@
         not-null="true"
         length="250"
     />
+    <property
+        name="bankCode"
+        type="java.lang.String"
+        column="bank_code"
+        not-null="true"
+        length="100"
+    />
 
     <!-- Associations -->
   
@@ -90,6 +97,14 @@
         not-null="true"
     >
         <column name="currencies_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
+    <many-to-one
+        name="turqAccountingAccount"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="accounting_accounts_id" />
     </many-to-one>
     <!-- bi-directional one-to-many association to TurqChequeCheque -->
     <set

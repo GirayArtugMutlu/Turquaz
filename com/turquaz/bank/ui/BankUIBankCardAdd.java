@@ -23,6 +23,7 @@ package com.turquaz.bank.ui;
 
 import java.util.List;
 
+import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
@@ -34,6 +35,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrency;
 
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -66,8 +68,6 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 	public CCombo getComboCurrency() {
 		return comboCurrency;
 	}
-	private CCombo comboCurrency;
-	private CLabel lblCurrency;
 	/**
 	 * @return Returns the txtBankAccountNo.
 	 */
@@ -86,21 +86,39 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 	public Text getTxtBankName() {
 		return txtBankName;
 	}
-	private Text txtBankAccountNo;
-	private CLabel lvlBanckAccountNo;
-	private Text txtBankBranchName;
-	private CLabel lblBankBranchName;
-	private Text txtBankName;
-	private CLabel lblBankName;
 	public BankUIBankCardAdd(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
 	}
 	
+    public AccountPicker getAccountPicker() {
+        return accountPicker;
+    }
+    public void setAccountPicker(AccountPicker accountPicker) {
+        this.accountPicker = accountPicker;
+    }
+    public Text getTxtBankCode() {
+        return txtBankCode;
+    }
+    public void setTxtBankCode(Text txtBankCode) {
+        this.txtBankCode = txtBankCode;
+    }
 	private BankBLBankCardAdd bankBLBankCardAdd=new BankBLBankCardAdd();
-	private EngBLCommon engBLCom= new EngBLCommon();
+	private CLabel lblBankName;
 	private Text txtDefinition;
 	private CLabel lblDefinition;
+	private AccountPicker accountPicker;
+	private CLabel lblAccCode;
+	private CCombo comboCurrency;
+	private CLabel lblCurrency;
+	private Text txtBankAccountNo;
+	private CLabel lvlBanckAccountNo;
+	private Text txtBankBranchName;
+	private CLabel lblBankBranchName;
+	private Text txtBankName;
+	private Text txtBankCode;
+	private CLabel lblBankCode;
+	private EngBLCommon engBLCom= new EngBLCommon();
 	/**
 	* Initializes the GUI.
 	* Auto-generated code - any changes you make will disappear.
@@ -108,113 +126,116 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 	public void initGUI(){
 		try {
 			preInitGUI();
-	
-			lblBankName = new CLabel(this,SWT.NULL);
-			txtBankName = new Text(this,SWT.NULL);
-			lblBankBranchName = new CLabel(this,SWT.NULL);
-			txtBankBranchName = new Text(this,SWT.NULL);
-			lvlBanckAccountNo = new CLabel(this,SWT.NULL);
-			txtBankAccountNo = new Text(this,SWT.NULL);
-			lblCurrency = new CLabel(this,SWT.NULL);
-			comboCurrency = new CCombo(this,SWT.NULL);
-	
-			this.setSize(new org.eclipse.swt.graphics.Point(456,312));
-	
-			GridData lblBankNameLData = new GridData();
-			lblBankNameLData.verticalAlignment = GridData.CENTER;
-			lblBankNameLData.horizontalAlignment = GridData.BEGINNING;
-			lblBankNameLData.widthHint = -1;
-			lblBankNameLData.heightHint = -1;
-			lblBankNameLData.horizontalIndent = 0;
-			lblBankNameLData.horizontalSpan = 1;
-			lblBankNameLData.verticalSpan = 1;
-			lblBankNameLData.grabExcessHorizontalSpace = false;
-			lblBankNameLData.grabExcessVerticalSpace = false;
-			lblBankName.setLayoutData(lblBankNameLData);
-			lblBankName.setText(Messages.getString("BankUIBankCardAdd.0")); //$NON-NLS-1$
-	
-			GridData txtBankNameLData = new GridData();
-			txtBankNameLData.widthHint = 248;
-			txtBankNameLData.heightHint = 13;
-			txtBankName.setLayoutData(txtBankNameLData);
-			txtBankName.setTextLimit(50);
 
-			GridData lblBankBranchNameLData = new GridData();
-			lblBankBranchNameLData.verticalAlignment = GridData.CENTER;
-			lblBankBranchNameLData.horizontalAlignment = GridData.BEGINNING;
-			lblBankBranchNameLData.widthHint = 95;
-			lblBankBranchNameLData.heightHint = 19;
-			lblBankBranchNameLData.horizontalIndent = 0;
-			lblBankBranchNameLData.horizontalSpan = 1;
-			lblBankBranchNameLData.verticalSpan = 1;
-			lblBankBranchNameLData.grabExcessHorizontalSpace = false;
-			lblBankBranchNameLData.grabExcessVerticalSpace = false;
-			lblBankBranchName.setLayoutData(lblBankBranchNameLData);
-			lblBankBranchName.setText(Messages.getString("BankUIBankCardAdd.1")); //$NON-NLS-1$
-			lblBankBranchName.setSize(new org.eclipse.swt.graphics.Point(95,19));
-	
-			GridData txtBankBranchNameLData = new GridData();
-			txtBankBranchNameLData.widthHint = 249;
-			txtBankBranchNameLData.heightHint = 13;
-			txtBankBranchName.setLayoutData(txtBankBranchNameLData);
-			txtBankBranchName.setTextLimit(50);
+			this.setSize(496, 254);
 
-			GridData lvlBanckAccountNoLData = new GridData();
-			lvlBanckAccountNoLData.verticalAlignment = GridData.CENTER;
-			lvlBanckAccountNoLData.horizontalAlignment = GridData.BEGINNING;
-			lvlBanckAccountNoLData.widthHint = -1;
-			lvlBanckAccountNoLData.heightHint = -1;
-			lvlBanckAccountNoLData.horizontalIndent = 0;
-			lvlBanckAccountNoLData.horizontalSpan = 1;
-			lvlBanckAccountNoLData.verticalSpan = 1;
-			lvlBanckAccountNoLData.grabExcessHorizontalSpace = false;
-			lvlBanckAccountNoLData.grabExcessVerticalSpace = false;
-			lvlBanckAccountNo.setLayoutData(lvlBanckAccountNoLData);
-			lvlBanckAccountNo.setText(Messages.getString("BankUIBankCardAdd.2")); //$NON-NLS-1$
-	
-			GridData txtBankAccountNoLData = new GridData();
-			txtBankAccountNoLData.widthHint = 247;
-			txtBankAccountNoLData.heightHint = 13;
-			txtBankAccountNo.setLayoutData(txtBankAccountNoLData);
-			txtBankAccountNo.setTextLimit(50);
 
-			GridData lblCurrencyLData = new GridData();
-			lblCurrencyLData.verticalAlignment = GridData.CENTER;
-			lblCurrencyLData.horizontalAlignment = GridData.BEGINNING;
-			lblCurrencyLData.widthHint = -1;
-			lblCurrencyLData.heightHint = -1;
-			lblCurrencyLData.horizontalIndent = 0;
-			lblCurrencyLData.horizontalSpan = 1;
-			lblCurrencyLData.verticalSpan = 1;
-			lblCurrencyLData.grabExcessHorizontalSpace = false;
-			lblCurrencyLData.grabExcessVerticalSpace = false;
-			lblCurrency.setLayoutData(lblCurrencyLData);
-			lblCurrency.setText(Messages.getString("BankUIBankCardAdd.3")); //$NON-NLS-1$
-	
-			GridData comboCurrencyLData = new GridData();
-			comboCurrencyLData.widthHint = 109;
-			comboCurrencyLData.heightHint = 16;
-			comboCurrency.setLayoutData(comboCurrencyLData);
-			comboCurrency.setText(Messages.getString("BankUIBankCardAdd.4")); //$NON-NLS-1$
-			{
-				lblDefinition = new CLabel(this, SWT.NONE);
-				lblDefinition.setText(Messages.getString("BankUIBankCardAdd.7")); //$NON-NLS-1$
-				GridData lblDefinitionLData = new GridData();
-				lblDefinitionLData.widthHint = 68;
-				lblDefinitionLData.heightHint = 19;
-				lblDefinition.setLayoutData(lblDefinitionLData);
-			}
-			{
-				txtDefinition = new Text(this, SWT.MULTI | SWT.V_SCROLL);
-				GridData txtDefinitionLData = new GridData();
-				txtDefinition.setSize(233, 26);
-				txtDefinitionLData.horizontalAlignment = GridData.FILL;
-				txtDefinitionLData.verticalSpan = 2;
-				txtDefinitionLData.heightHint = 26;
-				txtDefinition.setLayoutData(txtDefinitionLData);
-			}
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
+            {
+                lblBankCode = new CLabel(this, SWT.NONE);
+                lblBankCode.setText(Messages.getString("BankUIBankCardAdd.9")); //$NON-NLS-1$
+            }
+            {
+                txtBankCode = new Text(this, SWT.NONE);
+                GridData txtBankCodeLData = new GridData();
+              
+                txtBankCodeLData.widthHint = 255;
+                txtBankCodeLData.heightHint = 19;
+                txtBankCode.setLayoutData(txtBankCodeLData);
+            }
+            {
+                lblBankName = new CLabel(this, SWT.NONE);
+                lblBankName.setText(Messages.getString("BankUIBankCardAdd.0"));//$NON-NLS-1$
+                GridData lblBankNameLData = new GridData();
+                lblBankName.setLayoutData(lblBankNameLData);
+            }
+            {
+                txtBankName = new Text(this, SWT.NONE);
+                txtBankName.setTextLimit(50);
+                GridData txtBankNameLData = new GridData();
+                txtBankNameLData.widthHint = 255;
+                txtBankNameLData.heightHint = 19;
+                txtBankName.setLayoutData(txtBankNameLData);
+            }
+            {
+                lblBankBranchName = new CLabel(this, SWT.NONE);
+                lblBankBranchName.setText(Messages
+                    .getString("BankUIBankCardAdd.1"));//$NON-NLS-1$
+                lblBankBranchName.setSize(new org.eclipse.swt.graphics.Point(
+                    95,
+                    19));
+                GridData lblBankBranchNameLData = new GridData();
+                lblBankBranchNameLData.widthHint = 95;
+                lblBankBranchNameLData.heightHint = 19;
+                lblBankBranchName.setLayoutData(lblBankBranchNameLData);
+            }
+            {
+                txtBankBranchName = new Text(this, SWT.NONE);
+                txtBankBranchName.setTextLimit(50);
+                GridData txtBankBranchNameLData = new GridData();
+                txtBankBranchNameLData.widthHint = 255;
+                txtBankBranchNameLData.heightHint = 19;
+                txtBankBranchName.setLayoutData(txtBankBranchNameLData);
+            }
+            {
+                lvlBanckAccountNo = new CLabel(this, SWT.NONE);
+                lvlBanckAccountNo.setText(Messages
+                    .getString("BankUIBankCardAdd.2"));//$NON-NLS-1$
+                GridData lvlBanckAccountNoLData = new GridData();
+                lvlBanckAccountNo.setLayoutData(lvlBanckAccountNoLData);
+            }
+            {
+                txtBankAccountNo = new Text(this, SWT.NONE);
+                txtBankAccountNo.setTextLimit(50);
+                GridData txtBankAccountNoLData = new GridData();
+                txtBankAccountNoLData.widthHint = 255;
+                txtBankAccountNoLData.heightHint = 19;
+                txtBankAccountNo.setLayoutData(txtBankAccountNoLData);
+            }
+            {
+                lblCurrency = new CLabel(this, SWT.NONE);
+                lblCurrency.setText(Messages.getString("BankUIBankCardAdd.3"));//$NON-NLS-1$
+                GridData lblCurrencyLData = new GridData();
+                lblCurrency.setLayoutData(lblCurrencyLData);
+            }
+            {
+                comboCurrency = new CCombo(this, SWT.NONE);
+                comboCurrency.setText(Messages
+                    .getString("BankUIBankCardAdd.16"));//$NON-NLS-1$
+                GridData comboCurrencyLData = new GridData();
+                comboCurrencyLData.widthHint = 109;
+                comboCurrencyLData.heightHint = 16;
+                comboCurrency.setLayoutData(comboCurrencyLData);
+            }
+            {
+                lblAccCode = new CLabel(this, SWT.NONE);
+                lblAccCode.setText(Messages.getString("BankUIBankCardAdd.10")); //$NON-NLS-1$
+            }
+            {
+                accountPicker = new AccountPicker(this, SWT.NONE);
+                GridData accountPickerLData = new GridData();
+                accountPickerLData.widthHint = 255;
+                accountPickerLData.heightHint = 19;
+                accountPicker.setLayoutData(accountPickerLData);
+            }
+            {
+                lblDefinition = new CLabel(this, SWT.NONE);
+                lblDefinition
+                    .setText(Messages.getString("BankUIBankCardAdd.7")); //$NON-NLS-1$
+                GridData lblDefinitionLData = new GridData();
+                lblDefinitionLData.widthHint = 68;
+                lblDefinitionLData.heightHint = 19;
+                lblDefinition.setLayoutData(lblDefinitionLData);
+            }
+            {
+                txtDefinition = new Text(this, SWT.MULTI | SWT.V_SCROLL);
+                GridData txtDefinitionLData = new GridData();
+                txtDefinitionLData.horizontalAlignment = GridData.FILL;
+                txtDefinitionLData.verticalSpan = 2;
+                txtDefinitionLData.heightHint = 49;
+                txtDefinition.setLayoutData(txtDefinitionLData);
+            }
 			thisLayout.marginWidth = 5;
 			thisLayout.marginHeight = 5;
 			thisLayout.numColumns = 2;
@@ -231,7 +252,13 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 private boolean verifyfields()
 	{
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-		if (txtBankName.getText().trim().equals("")){ //$NON-NLS-1$
+	    if (txtBankCode.getText().trim().equals("")){ //$NON-NLS-1$
+			msg.setMessage(Messages.getString("BankUIBankCardAdd.13"));  //$NON-NLS-1$
+			msg.open();
+			txtBankCode.setFocus();
+			return false;
+			}
+		else if (txtBankName.getText().trim().equals("")){ //$NON-NLS-1$
 			msg.setMessage(Messages.getString("BankUIBankCardAdd.6")); //$NON-NLS-1$
 			msg.open();
 			txtBankName.setFocus();
@@ -255,6 +282,13 @@ private boolean verifyfields()
 			comboCurrency.setFocus();
 			return false;
 			}
+		else if (accountPicker.getData()==null){
+			msg.setMessage(Messages.getString("BankUIBankCardAdd.14"));  //$NON-NLS-1$
+			msg.open();
+			accountPicker.setFocus();
+			return false;
+			}
+		
 		else
 			return true;
 		
@@ -266,7 +300,7 @@ private boolean verifyfields()
 			txtBankName.setText(""); //$NON-NLS-1$
 			txtBankBranchName.setText(""); //$NON-NLS-1$
 			txtBankAccountNo.setText(""); //$NON-NLS-1$
-			txtDefinition.setText("");
+			txtDefinition.setText(""); //$NON-NLS-1$
 			comboCurrency.setText(Messages.getString("BankUIBankCardAdd.15")); //$NON-NLS-1$
 		}
 		catch(Exception ex){
@@ -304,7 +338,8 @@ private boolean verifyfields()
 				bankBLBankCardAdd.saveBankCard(txtBankName.getText().trim(),
 												txtBankBranchName.getText().trim(),
 													txtBankAccountNo.getText().trim(),
-													(TurqCurrency)(comboCurrency.getData(comboCurrency.getText())),txtDefinition.getText().trim());
+													(TurqCurrency)(comboCurrency.getData(comboCurrency.getText())),txtDefinition.getText().trim(),
+													txtBankCode.getText().trim(),(TurqAccountingAccount)accountPicker.getData());
 													
 				MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 				msg.setMessage(Messages.getString("BankUIBankCardAdd.17")); //$NON-NLS-1$
@@ -322,6 +357,7 @@ private boolean verifyfields()
 	}
 	
 	public void search(){
+	    
 	}
 	
 	public void newForm(){

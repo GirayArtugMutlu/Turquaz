@@ -38,8 +38,10 @@ import com.turquaz.bank.bl.BankBLBankCardUpdate;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.ui.EngUICommon;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CCombo;
@@ -224,6 +226,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
 		try{
+		    EngUICommon.centreWindow(dialogShell);
 			toolUpdate.setEnabled(false);
 			toolDelete.setEnabled(false);
 			    
@@ -240,6 +243,8 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			compBankCard.getTxtBankBranchName().setText(bankCard.getBankBranchName());
 			compBankCard.getTxtBankAccountNo().setText(bankCard.getBankAccountNo());
 			compBankCard.getTxtDefinition().setText(bankCard.getBankDefinition());
+			compBankCard.getTxtBankCode().setText(bankCard.getBankCode());
+			compBankCard.getAccountPicker().setData(bankCard.getTurqAccountingAccount());
 			FillCurrencyCombo();
 		}
 		catch(Exception ex){
@@ -283,7 +288,10 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			bankBLBankCardUpdate.updateBankCard(compBankCard.getTxtBankName().getText(),
 											compBankCard.getTxtBankBranchName().getText(),
 											compBankCard.getTxtBankAccountNo().getText(),
-											(TurqCurrency)(compBankCard.getComboCurrency().getData(compBankCard.getComboCurrency().getText())),compBankCard.getTxtDefinition().getText().trim(),
+											(TurqCurrency)(compBankCard.getComboCurrency().getData(compBankCard.getComboCurrency().getText())),
+											compBankCard.getTxtDefinition().getText().trim(),
+											compBankCard.getTxtBankCode().getText().trim(),
+											(TurqAccountingAccount)compBankCard.getAccountPicker().getData(),
 											bankCard);
 		
 			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
@@ -306,9 +314,12 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 	private void delete(){
 		try{
+		    if(EngUICommon.okToDelete(getParent()))
+		    {
 			updated=true;
 			bankBLBankCardUpdate.deleteObject(bankCard);
 			this.dialogShell.close();
+		    }
 		}
 		catch(Exception ex){
 			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
