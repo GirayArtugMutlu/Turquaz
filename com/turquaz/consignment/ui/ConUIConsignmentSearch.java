@@ -383,15 +383,18 @@ SearchComposite{
 	    TableItem items[] = tableConsignments.getSelection();
 		if(items.length>0){
 		    TurqConsignment cons = (TurqConsignment)items[0].getData();
-		   
+			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+			try{
+			    //first fill cons then delete..
+			   blUpdate.initiliazeConsignment(cons); 
 		    if(cons.getTurqBillConsignmentCommon().getTurqBills().isEmpty()){
-		    	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+		    
 				MessageBox msg2 = new MessageBox(this.getShell(),SWT.CANCEL|SWT.OK);
 				msg2.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.9")); //$NON-NLS-1$
-				try{
+		
 					if(msg2.open()==SWT.OK){
 						
-					    //first fill cons then delete..
+					  
 					 
 					    
 						//delete Consignment Group
@@ -415,7 +418,7 @@ SearchComposite{
 						
 						msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
 						msg.open();
-						
+						search();
 						
 						
 						//delete consignment 
@@ -424,21 +427,22 @@ SearchComposite{
 					
 					
 					
-				}
-				catch(Exception ex){
-					
-					ex.printStackTrace();
-					msg.setMessage(ex.getMessage());
-					msg.open();
-				}
+				
 		        
 		        
 		    }
 		    else{
-		       MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_INFORMATION);
+		       msg = new MessageBox(this.getShell(),SWT.ICON_INFORMATION);
 		       msg.setMessage(Messages.getString("ConUIConsignmentSearch.13")); //$NON-NLS-1$
 		       msg.open();
 		    }
+			}
+			catch(Exception ex){
+				
+				ex.printStackTrace();
+				msg.setMessage(ex.getMessage());
+				msg.open();
+			}
 		}  
 	    
 	    
@@ -477,7 +481,7 @@ SearchComposite{
 		}
 	}
 	public void printTable(){
-	    EngBLUtils.printTable(tableConsignments,"?rsaliyeler");
+	    EngBLUtils.printTable(tableConsignments,Messages.getString("ConUIConsignmentSearch.14")); //$NON-NLS-1$
 	    
 	}
 }
