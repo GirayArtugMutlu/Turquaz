@@ -87,7 +87,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
 	private InvBLCardAdd blCardAdd = new InvBLCardAdd();
     Calendar cal = Calendar.getInstance();
-    private List list;
+
 	public InvUIUnitAddDialog(Shell parent, int style) {
 		super(parent, style);
 	}
@@ -295,10 +295,11 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
     public void fillTable(){
     try{
     tableInvUnits.removeAll();
-    list = blCardAdd.getInventoryUnits();
+    List list = blCardAdd.getInventoryUnits();
     
     TurqInventoryUnit invUnit;
     TableItem item;
+    
     for(int i=0;i<list.size();i++){
     invUnit = (TurqInventoryUnit)list.get(i);
     item = new TableItem(tableInvUnits,SWT.NULL);
@@ -357,52 +358,72 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	}
 
 	/** Auto-generated event handler method */
-	protected void btnUpdateMouseUp(MouseEvent evt){
+	protected void btnUpdateMouseUp(MouseEvent evt)
+	{
 		MessageBox msg = new MessageBox(this.getParent());
-	try{
-		 if(txtUnitName.getText().trim().equals("")){ //$NON-NLS-1$
+		try
+		{
+			if(txtUnitName.getText().trim().equals("")){ //$NON-NLS-1$
 		    
-		    msg.setMessage(Messages.getString("InvUIUnitAddDialog.11")); //$NON-NLS-1$
-		    msg.open();
-		    txtUnitName.setFocus();
-		    return;
+				msg.setMessage(Messages.getString("InvUIUnitAddDialog.11")); //$NON-NLS-1$
+				msg.open();
+				txtUnitName.setFocus();
+				return;
 		    }
-	else{
+			else
+			{
 		
-	TurqInventoryUnit invUnit = (TurqInventoryUnit)txtUnitName.getData();
-	invUnit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-	invUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-	invUnit.setUnitsName(txtUnitName.getText().trim());
+				List list = blCardAdd.getInventoryUnits();
+				String unit=txtUnitName.getText().trim();	   
+				boolean exist=false;
+				for(int k=0; k<list.size(); k++)
+				{
+					TurqInventoryUnit InvUnit=(TurqInventoryUnit)list.get(k);
+					if (InvUnit.getUnitsName().equals(unit))
+					{
+							exist=true;
+							break;
+					}
+				}
+				if (exist)
+				{
+					msg.setMessage(Messages.getString("InvUIUnitAddDialog.6")); //$NON-NLS-1$
+					msg.open();
+					return;
+				}
+		
+				TurqInventoryUnit invUnit = (TurqInventoryUnit)txtUnitName.getData();
+				invUnit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+				invUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+				invUnit.setUnitsName(txtUnitName.getText().trim());
 	
-	blCardAdd.saveOrUpdateObject(invUnit);
+				blCardAdd.saveOrUpdateObject(invUnit);
 	
-	btnDelete.setEnabled(false);
-	btnUpdate.setEnabled(false);
-	btnUnitAdd.setEnabled(true);
-	txtUnitName.setText(""); //$NON-NLS-1$
+				btnDelete.setEnabled(false);
+				btnUpdate.setEnabled(false);
+				btnUnitAdd.setEnabled(true);
+				txtUnitName.setText(""); //$NON-NLS-1$
 	
-	msg.setMessage(Messages.getString("InvUIUnitAddDialog.14")); //$NON-NLS-1$
-	msg.open();
-	fillTable();
-		    }
+				msg.setMessage(Messages.getString("InvUIUnitAddDialog.14")); //$NON-NLS-1$
+				msg.open();
+				fillTable();
+			}
 	
 	
-	}
-	catch(Exception ex){
-	btnDelete.setEnabled(false);
-	btnUpdate.setEnabled(false);
-	btnUnitAdd.setEnabled(true);
-	txtUnitName.setText(""); //$NON-NLS-1$
-	msg.setMessage(Messages.getString("InvUIUnitAddDialog.16")); //$NON-NLS-1$
-	msg.open();
-	ex.printStackTrace();
-	}
+		}
+		catch(Exception ex)
+		{
+			btnDelete.setEnabled(false);
+			btnUpdate.setEnabled(false);
+			btnUnitAdd.setEnabled(true);
+			txtUnitName.setText(""); //$NON-NLS-1$
+			msg.setMessage(Messages.getString("InvUIUnitAddDialog.16")); //$NON-NLS-1$
+			msg.open();
+			ex.printStackTrace();
+		}
 	}
 
-	/** Auto-generated event handler method */
-	protected void btnGroupAddMouseDoubleClick(MouseEvent evt){
-		//TODO add your handler code here
-	}
+
 
 	/** Auto-generated event handler method */
 	protected void btnUnitAddMouseUp(){
@@ -417,7 +438,8 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	    txtUnitName.setFocus();
 	    return;
 	    }
-	    String unit=txtUnitName.getText().trim();
+	    List list = blCardAdd.getInventoryUnits();
+	    String unit=txtUnitName.getText().trim();	   
 	    boolean exist=false;
 	    for(int k=0; k<list.size(); k++)
 	    {
@@ -430,7 +452,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	    }
 	    if (exist)
 	    {
-	    	msg.setMessage("Daha önce varolan bir birimi giremezsiniz!");
+	    	msg.setMessage(Messages.getString("InvUIUnitAddDialog.8")); //$NON-NLS-1$
 	    	msg.open();
 	    	return;
 	    }
@@ -472,18 +494,8 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 		
 	}
 
-	/** Auto-generated event handler method */
-	protected void btnGroupAddMouseUp(MouseEvent evt){
-		//TODO add your handler code here
-	}
 
-	/** Auto-generated event handler method */
-	protected void tableInvGroupsMouseDoubleClick(MouseEvent evt){
-		//TODO add your handler code here
-	}
 
-	/** Auto-generated event handler method */
-	protected void composite1MouseUp(MouseEvent evt){
-		//TODO add your handler code here
-	}
+
+
 }
