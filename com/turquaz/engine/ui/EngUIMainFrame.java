@@ -136,6 +136,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private static Tree treeFavorites;
 	private ToolBar toolbarFavoritesTab;
 	private CLabel lblFavoritesTab;
+	private Button btnCheque;
+	private Tree treeCheques;
 	private Tree treeCash;
 	private Button btnCash;
 	private Composite compFavoritesSelection;
@@ -246,6 +248,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 treeCash.addMouseListener(new MouseAdapter() {
                     public void mouseDoubleClick(MouseEvent evt) {
                     treeCashMouseDoubleClick();    
+                    
+                    }
+                });
+            }
+            {
+                treeCheques = new Tree(compModulesTree, SWT.NONE);
+                treeCheques.addMouseListener(new MouseAdapter() {
+                    public void mouseDoubleClick(MouseEvent evt) {
+                    treeChequeMouseDoubleClick();    
                     
                     }
                 });
@@ -387,7 +398,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			GridData label1LData = new GridData();
 			label1LData.horizontalAlignment = GridData.FILL;
-			label1LData.heightHint = 5;
+			label1LData.heightHint = 3;
 			label1.setLayoutData(label1LData);
 			label1.setText("label1"); //$NON-NLS-1$
 	
@@ -418,9 +429,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                         compModulesTree.layout();
                     }
                 });
-                btnInventory.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
+                btnInventory.setFont(SWTResourceManager.getFont("Tahoma",10,1,false,false)); //$NON-NLS-1$
                 button1LData.grabExcessHorizontalSpace = true;
                 button1LData.horizontalAlignment = GridData.FILL;
+                button1LData.heightHint = 31;
                 btnInventory.setLayoutData(button1LData);
             }
             {
@@ -468,6 +480,22 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 btnFaturaLData.grabExcessHorizontalSpace = true;
                 btnFaturaLData.horizontalAlignment = GridData.FILL;
                 btnBill.setLayoutData(btnFaturaLData);
+            }
+            {
+                btnCheque = new Button(compModulesHelp, SWT.FLAT);
+                btnCheque.setText("Çek-Senet");
+                GridData btnChequeLData = new GridData();
+                btnCheque.addMouseListener(new MouseAdapter() {
+                    public void mouseUp(MouseEvent evt) {
+                        
+                        compModulesTreeLayout.topControl =treeCheques;
+                        compModulesTree.layout();
+                    }
+                });
+                btnCheque.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false));
+                btnChequeLData.grabExcessHorizontalSpace = true;
+                btnChequeLData.horizontalAlignment = GridData.FILL;
+                btnCheque.setLayoutData(btnChequeLData);
             }
             {
                 btnBank = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
@@ -1163,6 +1191,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		treeConsignment = TreeFactory.createConsignmetTree(treeConsignment);
 		treeBill = TreeFactory.createBillTree(treeBill);
 		treeCash = TreeFactory.createCashTree(treeCash);
+		treeCheques = TreeFactory.createChequesTree(treeCheques);
 		
 		
 		addKeyEventAccounting(treeAccounting);
@@ -1173,6 +1202,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		addKeyEventConsignment(treeConsignment);
 		addKeyEventBill(treeBill);
 		addKeyEventCash(treeCash);
+		addKeyEventCheque(treeCheques);
 		fillFavoritesTree();
 		
 		/**********Set Button Cursors*************************/
@@ -1185,6 +1215,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		btnBill.setCursor(cursor);
 		btnCurrent.setCursor(cursor);	
 		btnCash.setCursor(cursor);
+		btnCheque.setCursor(cursor);
 		
 		
 		
@@ -1232,6 +1263,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	treeFavorites.setMenu(popupTreeRemoveFavorites);
 	treeBill.setMenu(popupTreeAddFavorites);
 	treeCash.setMenu(popupTreeAddFavorites);
+	treeCheques.setMenu(popupTreeAddFavorites);
 	
 	
 	}
@@ -1330,6 +1362,17 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			public void keyPressed(KeyEvent evt) {				
 				if (evt.keyCode==SWT.CR)
 					treeCashMouseDoubleClick();
+					
+			}
+		});
+		
+	}
+	public void addKeyEventCheque(Tree tree)
+	{
+		tree.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {				
+				if (evt.keyCode==SWT.CR)
+					treeChequeMouseDoubleClick();
 					
 			}
 		});
@@ -1641,6 +1684,13 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	/** Auto-generated event handler method */
 	protected void treeAccountingMouseDoubleClick(){
 			TreeItem item = treeAccounting.getSelection()[0];
+		if(item.getItemCount()==0){
+			openNewTab(item);
+		}
+	}
+	/** Auto-generated event handler method */
+	protected void treeChequeMouseDoubleClick(){
+			TreeItem item = treeCheques.getSelection()[0];
 		if(item.getItemCount()==0){
 			openNewTab(item);
 		}

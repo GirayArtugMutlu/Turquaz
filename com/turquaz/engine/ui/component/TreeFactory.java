@@ -452,5 +452,15 @@ public final class TreeFactory {
 		return tree;
 	    
 	}
+	public static Tree createChequesTree(Tree tree){
+		TreeItem root = new TreeItem(tree,SWT.NULL);
+		
+		root.setText(Messages.getString("TreeFactory.56"));  //$NON-NLS-1$
+		TreeItem item;
+		
+		root.setExpanded(true);
+		return tree;
+		
+	}
 
 }
