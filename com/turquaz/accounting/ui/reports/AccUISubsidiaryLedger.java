@@ -353,7 +353,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 					balance = balance.add((BigDecimal)sums[1]);
 					totalCredit = totalCredit.add((BigDecimal)sums[1]);
 				}
-				// total
+				
 				item = new TableItem(tableTransactions, SWT.NULL);
 				item.setText(new String[]{"","",Messages.getString("AccUISubsidiaryLedger.14"), //$NON-NLS-1$ 
 				        (balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "", //$NON-NLS-1$

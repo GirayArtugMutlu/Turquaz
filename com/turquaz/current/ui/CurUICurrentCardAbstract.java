@@ -1,5 +1,6 @@
 package com.turquaz.current.ui;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -49,6 +50,9 @@ import com.turquaz.engine.ui.component.DatePicker;
 public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite implements SearchComposite{
 	private Composite compSearch;
 	private Table tableCurrentTransactions;
+	private TableColumn tableColumnCreditBalance;
+	private TableColumn tableColumnDebitBalance;
+	private TableColumn tableColumnDefinition;
 	private TableColumn tableColumnDocumentNo;
 	private CLabel lblCurrentCard;
 	private TableColumn tableColumnTransGroup;
@@ -109,7 +113,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	private void initGUI() {
 		try {
 			this.setLayout(new GridLayout());
-			this.setSize(622, 282);
+			this.setSize(880, 283);
 			{
 				compSearch = new Composite(this, SWT.NONE);
 				GridLayout compSearchLayout = new GridLayout();
@@ -196,15 +200,22 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 							SWT.NONE);
 						tableColumnTransGroup.setText(Messages
 							.getString("CurUITransactionSearch.6"));//$NON-NLS-1$
-						tableColumnTransGroup.setWidth(114);
+						tableColumnTransGroup.setWidth(103);
 					}
 					{
 						tableColumnDocumentNo = new TableColumn(
 							tableCurrentTransactions,
 							SWT.NONE);
 						tableColumnDocumentNo.setText("Belge No");
-						tableColumnDocumentNo.setWidth(120);
+						tableColumnDocumentNo.setWidth(89);
 					}
+                    {
+                        tableColumnDefinition = new TableColumn(
+                            tableCurrentTransactions,
+                            SWT.NONE);
+                        tableColumnDefinition.setText("Aç?klama");
+                        tableColumnDefinition.setWidth(156);
+                    }
 					{
 						tableColumnDebit = new TableColumn(
 							tableCurrentTransactions,
@@ -221,6 +232,16 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 							.getString("CurUITransactionSearch.8"));//$NON-NLS-1$
 						tableColumnCredit.setWidth(101);
 					}
+                    {
+                        tableColumnDebitBalance = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
+                        tableColumnDebitBalance.setText("Borç Bakiye");
+                        tableColumnDebitBalance.setWidth(100);
+                    }
+                    {
+                        tableColumnCreditBalance = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
+                        tableColumnCreditBalance.setText("Alacak Bakiye");
+                        tableColumnCreditBalance.setWidth(100);
+                    }
 				}
 			}
 			postInitGui();
@@ -229,6 +250,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			e.printStackTrace();
 		}
 	}
+	
 	public void postInitGui(){
 	    
 		datePickerStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
@@ -256,16 +278,78 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				msg.open();
 				return;			
 			}
+			
+			
+
+			TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
+			
 			currentCard=(TurqCurrentCard)txtCurrentCard.getData();
 			tableCurrentTransactions.removeAll();
 			Date startDate=datePickerStartDate.getDate();
 			Date endDate=datePickerEndDate.getDate();
 		
+			
+			
+			List balances = BLsearch.getCurrentBalances(currentCard,startDate);
+			
+			TableItem item;
+			
+			BigDecimal balance = new BigDecimal(0);
+			BigDecimal totalDept = new BigDecimal(0);
+			BigDecimal totalCredit = new BigDecimal(0);
+			BigDecimal balanceCredit = new BigDecimal(0);
+			BigDecimal balanceDept = new BigDecimal(0);
+			
+			if(balances.size()>0){
+			    item = new TableItem(tableCurrentTransactions,SWT.NULL);
+			    
+			    if(((Object[])balances.get(0))[0]!=null){
+			        
+			        totalDept =(BigDecimal)((Object[])balances.get(0))[0];
+			        balance = balance.subtract(totalDept);
+			    }
+			    
+			    if(((Object[])balances.get(0))[1]!=null){
+			        
+			        totalCredit =(BigDecimal)((Object[])balances.get(0))[1];
+			        balance.add(totalCredit);
+			    }
+			         		
+			    item.setText(new String[]{
+			                    "",
+			                    "",
+			                    "",
+			                    "-----DEV?R-----",
+			                    cf.format(totalDept),
+			                    cf.format(totalCredit),
+			                    (balance.compareTo(new BigDecimal(0))<0) ? cf.format(balance.multiply(new BigDecimal(-1))) : "", //$NON-NLS-1$
+			                    (balance.compareTo(new BigDecimal(0))>0) ? cf.format(balance): ""  //$NON-NLS-1$
+			    });
+			    
+			    
+			    
+			}
+			else{
+			    item = new TableItem(tableCurrentTransactions,SWT.NULL);
+			    item.setText(new String[]{
+	                    "",
+	                    "",
+	                    "",
+	                    "",
+	                    "0,00",
+	                    "0,00",
+	                    "0,00",
+	                    "0,00"
+	                    });
+			}
+			
+			
+			
+			
 			List results =BLsearch.getCurrentTransactions(currentCard, startDate, endDate);
 		
 			TurqCurrentTransaction transaction;
-			TableItem item;
-			TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
+			
 			for(int i=0;i<results.size();i++)
 			{
 		
@@ -280,10 +364,14 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 								  
 									});
 			}
+			
 		
 		}
+		
 		catch(Exception ex)
 		{
+		   
+		    
 			MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());

@@ -86,6 +86,13 @@
         not-null="true"
         length="4"
     />
+    <property
+        name="transactionsDefinition"
+        type="java.lang.String"
+        column="transactions_definition"
+        not-null="true"
+        length="250"
+    />
 
     <!-- Associations -->
   

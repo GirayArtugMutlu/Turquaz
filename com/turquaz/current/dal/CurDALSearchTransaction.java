@@ -20,6 +20,7 @@ package com.turquaz.current.dal;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +31,21 @@ import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 public class CurDALSearchTransaction {
 	
 	public CurDALSearchTransaction(){
@@ -109,6 +125,34 @@ public class CurDALSearchTransaction {
 		}
 		
 		
+	}
+	public List getCurrentBalances(TurqCurrentCard curCard, Date endDate) throws Exception {
+	    try{
+	        
+	    	Session session = EngDALSessionFactory.openSession(); 
+	    	String query = "Select sum(transaction.transactionsTotalDept),sum(transaction.transactionsTotalCredit) from TurqCurrentTransaction as transaction where" +
+			" transaction.turqCurrentCard= :curCard" +
+			" transaction.transactionsDate < :endDate";
+	    
+	    	Query q = session.createQuery(query); 
+	    	
+	    	q.setParameter("curCard",curCard);
+	    	q.setParameter("endDate",endDate);
+	    	
+	    	List list = q.list();
+	    	session.close();
+	    	return list;
+	    	
+	        
+	    }
+	    catch(Exception ex){
+	        
+	        throw ex;
+	    }
+	    
+	    
+	    
+	    
 	}
 	
 	

@@ -162,7 +162,7 @@ public class CashBLCashTransactionUpdate {
             	 accTransRowCurrent.setTransactionDefinition(definition);
             	 accTransRowCurrent.setTurqAccountingAccount(current.getTurqAccountingAccount());
             	 
-            	 
+            	 String currentTransDefinition="";
                  
             	 int accTransType = 0;
                  
@@ -182,6 +182,9 @@ public class CashBLCashTransactionUpdate {
                     accTransType = EngBLCommon.ACCOUNTING_TRANS_COLLECT;
                     currentTransType = EngBLCommon.CURRENT_TRANS_CREDIT;
                     
+
+                    currentTransDefinition = current.getCardsName()+" 'den Nakit";
+                    
                  }
                  
                  else if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_CURRENT_PAYMENT)
@@ -199,6 +202,9 @@ public class CashBLCashTransactionUpdate {
                               
                      accTransType = EngBLCommon.ACCOUNTING_TRANS_PAYMENT;
                      currentTransType = EngBLCommon.CURRENT_TRANS_DEBIT;
+                     
+
+                     currentTransDefinition = current.getCardsName()+" 'e Nakit";
                      
                  } 
 
@@ -227,7 +233,7 @@ public class CashBLCashTransactionUpdate {
             	    
             	    blCurTrans.saveCurrentTransaction(current, transDate,document_no,currentTransType,
             	            						  totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CASH,
-            	            						 cashTrans.getTurqEngineSequence().getEngineSequencesId());
+            	            						 cashTrans.getTurqEngineSequence().getEngineSequencesId(),currentTransDefinition);
             	
             		    
             	    

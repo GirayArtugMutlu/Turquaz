@@ -1739,6 +1739,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		OutputStream output = null;
         
           output = new FileOutputStream("favorites.xml"); //$NON-NLS-1$
+         
+          
           
           TreeItem items[] = treeFavorites.getItems();
           

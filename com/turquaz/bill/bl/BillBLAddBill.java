@@ -89,26 +89,29 @@ public class BillBLAddBill {
     TurqBillConsignmentCommon common= bill.getTurqBillConsignmentCommon();
 	CurBLCurrentTransactionAdd curBLTrans = new CurBLCurrentTransactionAdd();
 	
+	String curTransDef = DatePicker.formatter.format(bill.getBillsDate())+" " +
+			common.getBillDocumentNo()+" Ref. Fatura";
+	
 	
 	//Al?? Faturas? 
 	if(bill.getBillsType()==0){
 		
-		 curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),bill.getBillsDate(),common.getBillDocumentNo(),true,common.getTotalAmount(),common.getDiscountAmount(),1,bill.getTurqEngineSequence().getEngineSequencesId());
+		 curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),bill.getBillsDate(),common.getBillDocumentNo(),true,common.getTotalAmount(),common.getDiscountAmount(),1,bill.getTurqEngineSequence().getEngineSequencesId(),curTransDef);
 		
 		//Kapal? Fatura
 		if(!bill.isIsOpen()){
-	 	  curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),bill.getBillsDate(),common.getBillDocumentNo(),false,common.getTotalAmount(),common.getDiscountAmount(),4,bill.getTurqEngineSequence().getEngineSequencesId());
+	 	  curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),bill.getBillsDate(),common.getBillDocumentNo(),false,common.getTotalAmount(),common.getDiscountAmount(),4,bill.getTurqEngineSequence().getEngineSequencesId(),curTransDef);
 		}	  
 	 
 	}
 	
 	//Sat?? Faturas?	
 	else if(bill.getBillsType()==1){
-		curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),bill.getBillsDate(),common.getBillDocumentNo(),false,common.getTotalAmount(),common.getDiscountAmount(),1,bill.getTurqEngineSequence().getEngineSequencesId());
+		curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),bill.getBillsDate(),common.getBillDocumentNo(),false,common.getTotalAmount(),common.getDiscountAmount(),1,bill.getTurqEngineSequence().getEngineSequencesId(),curTransDef);
 		
 		//Kapal? Fatura
 		if(!bill.isIsOpen()){
-	 	  curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),bill.getBillsDate(),common.getBillDocumentNo(),true,common.getTotalAmount(),common.getDiscountAmount(),4,bill.getTurqEngineSequence().getEngineSequencesId());
+	 	  curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),bill.getBillsDate(),common.getBillDocumentNo(),true,common.getTotalAmount(),common.getDiscountAmount(),4,bill.getTurqEngineSequence().getEngineSequencesId(),curTransDef);
 		}	
 	}
 		
