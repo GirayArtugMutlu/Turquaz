@@ -6,6 +6,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.engine.ui.component.TextWithButton;
+import com.turquaz.engine.ui.component.DatePicker;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
@@ -35,6 +38,12 @@ SecureComposite{
 	private Table tableConsignments;
 	private TableColumn tableColumnCurrentName;
 	private TableColumn tableColumnVatAmount;
+	private TextWithButton txtCurCard;
+	private CLabel lblEndDate;
+	private DatePicker dateEndDate;
+	private DatePicker dateStartDate;
+	private CLabel lblStartDate;
+	private CLabel lblCurrentCard;
 	private TableColumn tableColumnSpecialVatAmount;
 	private TableColumn tableColumnCumulativePrice;
 	private TableColumn tableColumnConsignmentDate;
@@ -87,13 +96,58 @@ SecureComposite{
 			{
 				composite1 = new Composite(this, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
+				composite1Layout.numColumns = 2;
 				GridData composite1LData = new GridData();
-				composite1LData.heightHint = 106;
+				composite1LData.heightHint = 120;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				composite1.setLayoutData(composite1LData);
-				composite1Layout.makeColumnsEqualWidth = true;
 				composite1.setLayout(composite1Layout);
+				{
+					lblCurrentCard = new CLabel(composite1, SWT.NONE);
+					lblCurrentCard.setText("CurrentCard");
+					GridData lblCurrentCardLData = new GridData();
+					lblCurrentCardLData.widthHint = 109;
+					lblCurrentCardLData.heightHint = 18;
+					lblCurrentCard.setLayoutData(lblCurrentCardLData);
+				}
+				{
+					txtCurCard = new TextWithButton(composite1, SWT.NONE);
+					GridData txtCurCardLData = new GridData();
+					txtCurCardLData.widthHint = 208;
+					txtCurCardLData.heightHint = 20;
+					txtCurCard.setLayoutData(txtCurCardLData);
+				}
+				{
+					lblStartDate = new CLabel(composite1, SWT.NONE);
+					lblStartDate.setText("Start Date");
+					GridData lblStartDateLData = new GridData();
+					lblStartDateLData.widthHint = 109;
+					lblStartDateLData.heightHint = 17;
+					lblStartDate.setLayoutData(lblStartDateLData);
+				}
+				{
+					dateStartDate = new DatePicker(composite1, SWT.NONE);
+					GridData dateStartDateLData = new GridData();
+					dateStartDateLData.widthHint = 141;
+					dateStartDateLData.heightHint = 22;
+					dateStartDate.setLayoutData(dateStartDateLData);
+				}
+				{
+					lblEndDate = new CLabel(composite1, SWT.NONE);
+					lblEndDate.setText("End Date");
+					GridData lblEndDateLData = new GridData();
+					lblEndDateLData.widthHint = 105;
+					lblEndDateLData.heightHint = 19;
+					lblEndDate.setLayoutData(lblEndDateLData);
+				}
+				{
+					dateEndDate = new DatePicker(composite1, SWT.NONE);
+					GridData dateEndDateLData = new GridData();
+					dateEndDateLData.widthHint = 140;
+					dateEndDateLData.heightHint = 22;
+					dateEndDate.setLayoutData(dateEndDateLData);
+				}
 			}
 			{
 				tableConsignments = new Table(this, SWT.FULL_SELECTION);
