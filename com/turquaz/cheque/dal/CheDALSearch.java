@@ -200,7 +200,7 @@ public class CheDALSearch
 			TurqViewChequeStatus chequeStatus = null;
 			String query = "Select cheque.id, cheque.chequesPortfolioNo,chequeInRolls.turqChequeRoll.chequeRollsDate,"
 					+ " chequeInRolls.turqChequeRoll.turqCurrentCard.cardsName, cheque.chequesDueDate,status.chequeTransactionTypesId,"
-					+ " cheque.chequesAmount,chequeInRolls.turqChequeRoll.turqChequeTransactionType.transactionTypsName"
+					+ " cheque.chequesAmount,status.transactionTypsName"
 					+ " from TurqChequeCheque as cheque" + " left join cheque.turqChequeChequeInRolls as chequeInRolls ,"
 					+ " TurqViewChequeStatus as status " + " where cheque.chequesPortfolioNo like '" + portfoyNo + "%'"
 					+ " and cheque.chequesDueDate >= :startDueDate " + " and cheque.chequesDueDate <= :endDueDate "
