@@ -14,13 +14,13 @@ public class DatabaseTransfer {
 		//	EngDALConnection conn1 = new
 		// EngDALConnection("Postgresql","turquaz","","kulup.sabanciuniv.edu","turquaz_turkish_20041206");
 		EngDALConnection conn2 = new EngDALConnection("Postgresql", "postgres",
-				"", "kulup.sabanciuniv.edu", "turquaz");
+				"", "kulup.sabanciuniv.edu", "alpercam_20050108");
 
 		ResultSet first;
 		try {
 
 			conn2.connect();
-			FileInputStream fstream = new FileInputStream("database/turquaz.script");
+			FileInputStream fstream = new FileInputStream("C:\\stok_insert.csv");
 			// Convert our input stream to a
 			// DataInputStream
 			DataInputStream in = new DataInputStream(fstream);
@@ -33,32 +33,32 @@ public class DatabaseTransfer {
 
 			// below parses the accounting plan and inserts to the database
 			int counter = 15;
+			
 			while (in.available() != 0) {
+				
+				String code = "";
 			    try{
-			      data = d.readLine();
-			      if(data.startsWith("INSERT"))
-			      conn2.execQuery(data);   
-			    }
-			    catch(Exception ex)
-			    {
-			        ex.printStackTrace();
-			    }
-			    
-			    
-
-			/*	data = d.readLine();
+			     
+			    	
+			    data = d.readLine();
 				System.out.println(data);
 				String rest = "";
 				int a = data.indexOf(",");
-				String code = data.substring(0, a);
+				 code = data.substring(0, a);
 				code = code.trim();
 				rest = data.substring(a + 1);
 
+				String amount = rest.trim();
+				
+				Integer amt = new Integer(Integer.parseInt(amount));
+				
+				/*
 				a = rest.indexOf(",");
 				String def = rest.substring(0, a);
 				def = def.trim();
 				rest = rest.substring(a + 1);
 
+				/*
 				a = rest.indexOf(",");
 				String unit = rest.substring(0, a);
 				unit = unit.trim();
@@ -75,14 +75,15 @@ public class DatabaseTransfer {
 				
 				if (code =="" || def == "" || group == "")
 				{
-				
+				*/
 				System.out.println(code);
-				System.out.println(def);
-				System.out.println(group);
+				System.out.println(amount);
+				
+				/*
 				}
 				*/
 				
-
+/*
 					try {
 						/*
 						String query = "Select accounting_accounts_id from turq_accounting_accounts where account_code = '"
@@ -196,7 +197,7 @@ public class DatabaseTransfer {
 
 					} catch (Exception ex) {
 						
-						//System.out.println(code);
+						System.out.println(code);
 					//System.out.println(accCode);
 						ex.printStackTrace();
 					}
