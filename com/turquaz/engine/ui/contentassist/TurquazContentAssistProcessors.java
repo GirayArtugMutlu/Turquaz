@@ -22,6 +22,7 @@ package com.turquaz.engine.ui.contentassist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.eclipse.jface.contentassist.IContentAssistSubjectControl;
 import org.eclipse.jface.contentassist.ISubjectControlContentAssistProcessor;
@@ -279,17 +280,21 @@ public class TurquazContentAssistProcessors implements
             int documentOffset, List propList) {
         int qlen = qualifier.length();
 
+        qualifier = qualifier.toLowerCase(Locale.getDefault());
         // Loop through all proposals
         for (int i = 0; i < proposedCodes.length; i++) {
-           if(propList.size()>100){
+           if(propList.size()>1000){
                return;
            }
             String startTag = proposedCodes[i].text;
             String info = proposedCodes[i].info;
-
+           
+             
             String text = startTag;
+            String lower_text = text.toLowerCase(Locale.getDefault());
+           
             // Yes -- compute whole proposal text
-            if (text.startsWith(qualifier)) {
+            if (lower_text.startsWith(qualifier)) {
 
                 // Derive cursor position
                 int cursor = startTag.length();
