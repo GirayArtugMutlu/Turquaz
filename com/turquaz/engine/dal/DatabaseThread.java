@@ -1,5 +1,12 @@
 package com.turquaz.engine.dal;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+import org.hsqldb.Server;
+
+import com.turquaz.engine.EngConfiguration;
+
 
 
 
@@ -29,9 +36,18 @@ package com.turquaz.engine.dal;
 
 public class DatabaseThread extends Thread {
 
-	/*
+
 	public void run() {
 
+		if(EngConfiguration.getString("db.gui")==null)
+		{
+			return;
+		}
+		if(!EngConfiguration.getString("db.gui").equals("true"))
+		{
+			return;
+		}
+		
 		String[] args = { "-database", "database/turquaz", "-port",
 				String.valueOf(8877), "-no_system_exit", "true" };
 
@@ -55,6 +71,6 @@ public class DatabaseThread extends Thread {
 			ex.printStackTrace();
 		} 
 
-	} */
+	} 
 
 }

@@ -585,6 +585,7 @@ ALTER TABLE turq_current_cards RENAME current_cards_id  TO id;
 
 ***************02-03-2005***********************
 -added column exchange_rate_id to acc_transactions and trans_columns***
+
 ALTER TABLE turq_accounting_transaction_columns ADD COLUMN exchange_rate_id int4;
 ALTER TABLE turq_accounting_transaction_columns DROP COLUMN rows_currency_type;
 update turq_accounting_transaction_columns set exchange_rate_id=-1;
