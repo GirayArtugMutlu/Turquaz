@@ -19,6 +19,7 @@ package com.turquaz.admin.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
@@ -39,10 +40,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUsers;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqUser;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -122,7 +125,9 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 			if (delete)
 			{
 				TurqUser user=(TurqUser)((ITableRow) selection[0].getData()).getDBObject();
-				AdmBLUsers.deleteUser(user);
+				HashMap argMap=new HashMap();
+				argMap.put(AdmKeys.ADM_USER,user);
+				EngTXCommon.doTransactionTX(AdmBLUsers.class.getName(),"deleteUser",argMap);
 				fillTable();
 			}
 		}
@@ -209,7 +214,7 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 		try
 		{
 			tableViewer.removeAll();
-			List list = AdmBLUsers.getUsers();
+			List list = (List)EngTXCommon.doSingleTX(AdmBLUsers.class.getName(),"getUsers",null);
 			TurqUser user;
 			for (int i = 0; i < list.size(); i++)
 			{

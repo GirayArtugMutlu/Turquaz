@@ -1,16 +1,20 @@
 package com.turquaz.admin.ui;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUserUpdate;
 import com.turquaz.admin.bl.AdmBLUsers;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.dal.TurqUserGroup;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.layout.GridData;
@@ -156,7 +160,9 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			if (delete)
 			{
 				updated = true;
-				AdmBLUsers.deleteUser(user);
+				HashMap argMap=new HashMap();
+				argMap.put(AdmKeys.ADM_USER,user);
+				EngTXCommon.doTransactionTX(AdmBLUsers.class.getName(),"deleteUser",argMap);
 				EngUICommon.showMessageBox(this.getParent(),Messages.getString("AdmUIUserUpdateDialog.7")); //$NON-NLS-1$
 				this.dialogShell.close();
 			}
@@ -176,8 +182,15 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			if (compUserAdd.verifyFields())
 			{
 				updated = true;
-				AdmBLUserUpdate.updateUser(compUserAdd.getTxtPassword().getText(), compUserAdd.getTxtRealName().getText(), compUserAdd
-						.getTxtDescription().getText(), user, compUserAdd.getUserGroups());
+				
+				HashMap argMap=new HashMap();
+				argMap.put(AdmKeys.ADM_PASSWORD,compUserAdd.getTxtPassword().getText().trim());
+				argMap.put(AdmKeys.ADM_REALNAME,compUserAdd.getTxtRealName().getText().trim());
+				argMap.put(EngKeys.DESCRIPTION,compUserAdd.getTxtDescription().getText().trim());
+				argMap.put(AdmKeys.ADM_USER,user);
+				argMap.put(AdmKeys.ADM_USER_GROUPS,compUserAdd.getUserGroups());
+				
+				EngTXCommon.doTransactionTX(AdmBLUserUpdate.class.getName(),"updateUser",argMap);
 				EngUICommon.showMessageBox(this.getParent(),Messages.getString("AdmUIUserUpdateDialog.8")); //$NON-NLS-1$
 				dialogShell.close();
 			}

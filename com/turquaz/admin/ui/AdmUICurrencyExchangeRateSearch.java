@@ -20,6 +20,7 @@ import org.eclipse.swt.SWT;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyExchangeRateAdd;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 /**
@@ -145,7 +146,7 @@ public class AdmUICurrencyExchangeRateSearch extends org.eclipse.swt.widgets.Com
 	{
 		try
 		{
-			List exchangeRates = AdmBLCurrencyExchangeRateAdd.getCurrencyExchangeRates();
+			List exchangeRates =(List)EngTXCommon.doSingleTX(AdmBLCurrencyExchangeRateAdd.class.getName(),"getCurrencyExchangeRates",null);
 			TableItem item;
 			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();

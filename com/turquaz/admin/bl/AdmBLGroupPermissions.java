@@ -20,7 +20,9 @@ package com.turquaz.admin.bl;
  * @version  $Id$
  */
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALUserPerms;
 import com.turquaz.engine.dal.TurqGroup;
@@ -37,10 +39,6 @@ import com.turquaz.engine.dal.TurqModuleComponent;
  */
 public class AdmBLGroupPermissions
 {
-	public AdmBLGroupPermissions()
-	{
-	}
-
 	public static List getGroupPermissions() throws Exception
 	{
 		try
@@ -53,11 +51,12 @@ public class AdmBLGroupPermissions
 		}
 	}
 
-	public static List getModuleComponents(int moduleId) throws Exception
+	public static List getModuleComponents(HashMap argMap) throws Exception
 	{
 		try
 		{
-			return EngDALUserPerms.getModuleComponents(moduleId);
+			Integer moduleId=(Integer)argMap.get(AdmKeys.ADM_MODULE_ID);
+			return EngDALUserPerms.getModuleComponents(moduleId.intValue());
 		}
 		catch (Exception ex)
 		{
@@ -77,33 +76,26 @@ public class AdmBLGroupPermissions
 		}
 	}
 
-	public static void saveGroupPermission(Object group, Object module, Object moduleComp, int level) throws Exception
+	public static void saveGroupPermission(HashMap argMap) throws Exception
 	{
 		try
 		{
+			TurqGroup group=(TurqGroup)argMap.get(AdmKeys.ADM_GROUP);
+			TurqModule module=(TurqModule)argMap.get(AdmKeys.ADM_MODULE);
+			TurqModuleComponent moduleComp=(TurqModuleComponent)argMap.get(AdmKeys.ADM_MODULE_COMP);
+			Integer level=(Integer)argMap.get(AdmKeys.ADM_LEVEL);
+			
 			Calendar cal = Calendar.getInstance();
 			TurqGroupPermission groupPerm = new TurqGroupPermission();
-			groupPerm.setTurqGroup((TurqGroup) group);
-			groupPerm.setTurqModule((TurqModule) module);
-			groupPerm.setTurqModuleComponent((TurqModuleComponent) moduleComp);
-			groupPerm.setGroupPermissionsLevel(level);
+			groupPerm.setTurqGroup(group);
+			groupPerm.setTurqModule(module);
+			groupPerm.setTurqModuleComponent(moduleComp);
+			groupPerm.setGroupPermissionsLevel(level.intValue());
 			groupPerm.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			groupPerm.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-			groupPerm.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
-			groupPerm.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			groupPerm.setUpdateDate(cal.getTime());
+			groupPerm.setCreationDate(cal.getTime());
 			EngDALCommon.saveObject(groupPerm);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static void deleteObject(Object obj) throws Exception
-	{
-		try
-		{
-			EngDALCommon.deleteObject(obj);
 		}
 		catch (Exception ex)
 		{

@@ -98,9 +98,19 @@ public class AccBLTransactionSearch
 			return AccDALTransactionSearch.getCurrencies();	
 		
 	}
-
-
-
+	
+	public static List getAccTransInfo(Integer transId) throws Exception
+	{
+		try
+		{
+			return AccDALTransactionSearch.getAccTransInfo(transId);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
 	//-Muhasebele?tirilmemi? fi?leri getirir...
 	public static List getUnsavedTransactions() throws Exception
 	{

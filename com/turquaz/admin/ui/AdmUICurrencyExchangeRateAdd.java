@@ -1,6 +1,7 @@
 package com.turquaz.admin.ui;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
@@ -15,6 +16,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyExchangeRateAdd;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -226,8 +228,13 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 		{
 			if (verifyFields())
 			{
-				AdmBLCurrencyExchangeRateAdd.saveExchangeRate((TurqCurrency) comboExchangeCurrency.getData(comboExchangeCurrency
-						.getText()), txtExchangeRatio.getBigDecimalValue(), dateExchangeDate.getDate());
+				HashMap argMap=new HashMap();
+				
+				argMap.put(EngKeys.EXCHANGE_CURRENCY,comboExchangeCurrency.getData(comboExchangeCurrency.getText()));
+				argMap.put(EngKeys.EXCHANGE_RATIO,txtExchangeRatio.getBigDecimalValue());
+				argMap.put(EngKeys.EXCHANGE_DATE,dateExchangeDate.getDate());
+				
+				EngTXCommon.doTransactionTX(AdmBLCurrencyExchangeRateAdd.class.getName(),"saveExchangeRate",argMap);
 				msg.setMessage(Messages.getString("AdmUICurrencyExchangeRateAdd.7")); //$NON-NLS-1$
 				msg.open();
 				newForm();

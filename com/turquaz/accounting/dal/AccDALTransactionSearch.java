@@ -357,6 +357,31 @@ public class AccDALTransactionSearch
 			throw ex;
 		}
 	}
+	
+	public static List getAccTransInfo(Integer transId) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			String query = "Select account.accountName, account.accountCode," + 
+					" topacc.accountName, topacc.accountCode," + 
+					" transColumn.deptAmount,transColumn.creditAmount, " + 
+					" transColumn.transactionDefinition, transColumn.id" + 
+					" from TurqAccountingTransactionColumn transColumn," +
+					" transColumn.turqAccountingAccount as account," +
+					" account.turqAccountingAccountByTopAccount as topacc" +  
+					" where transColumn.turqAccountingTransaction.id=" + transId.intValue() +
+					" order by topacc.accountCode";
+			Query q = session.createQuery(query);
+			
+			List list = q.list();
+			return list;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
 	public static List getTransactions(Object firstAccount, Object secondAccount, boolean initialAccounts, Date startDate, Date endDate)
 			throws Exception

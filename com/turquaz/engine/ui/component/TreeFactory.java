@@ -35,9 +35,6 @@ import com.turquaz.accounting.ui.reports.AccUIAccountingJournal;
 import com.turquaz.accounting.ui.reports.AccUIAccountingMonthlyBalance;
 import com.turquaz.accounting.ui.reports.AccUISubsidiaryLedger;
 import com.turquaz.admin.ui.AdmUICompanyInfo;
-import com.turquaz.admin.ui.AdmUICurrencyAdd;
-import com.turquaz.admin.ui.AdmUICurrencyExchangeRateAdd;
-import com.turquaz.admin.ui.AdmUICurrencyExchangeRateSearch;
 import com.turquaz.admin.ui.AdmUIGroupAdd;
 import com.turquaz.admin.ui.AdmUIGroupPermissions;
 import com.turquaz.admin.ui.AdmUIGroups;
@@ -528,7 +525,7 @@ public final class TreeFactory
 			item.setText(Messages.getString("TreeFactory.54")); //$NON-NLS-1$
 			item.setData(AdmUICompanyInfo.class.getName());
 		}
-		TreeItem currencyRoot = new TreeItem(tree, SWT.NULL);
+		/*TreeItem currencyRoot = new TreeItem(tree, SWT.NULL);
 		currencyRoot.setText(Messages.getString("TreeFactory.41")); //$NON-NLS-1$
 		if (EngBLPermissions.getPermission(AdmUICurrencyAdd.class.getName()) > 0)
 		{
@@ -547,12 +544,12 @@ public final class TreeFactory
 			item = new TreeItem(currencyRoot, SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.110")); //$NON-NLS-1$
 			item.setData(AdmUICurrencyExchangeRateSearch.class.getName());
-		}
+		}*/
 		usersRoot.setExpanded(true);
 		permissionsRoot.setExpanded(true);
 		searchRoot.setExpanded(true);
 		settingsRoot.setExpanded(true);
-		currencyRoot.setExpanded(true);
+		//currencyRoot.setExpanded(true);
 		return tree;
 	}
 

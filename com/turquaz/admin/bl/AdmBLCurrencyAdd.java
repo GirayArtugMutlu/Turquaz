@@ -7,6 +7,8 @@
 package com.turquaz.admin.bl;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 
@@ -15,8 +17,11 @@ import com.turquaz.engine.dal.TurqCurrency;
  */
 public class AdmBLCurrencyAdd
 {
-	public static void saveCurrency(String currencyName, String currencyAbbr, String currencyCountry) throws Exception
+	public static void saveCurrency(HashMap argMap) throws Exception
 	{
+		String currencyName=(String)argMap.get(AdmKeys.ADM_CURRENCY_NAME);
+		String currencyAbbr=(String)argMap.get(AdmKeys.ADM_CURRENCY_ABBR);
+		String currencyCountry=(String)argMap.get(AdmKeys.ADM_CURRENCY_COUNTRY);
 		Calendar cal = Calendar.getInstance();
 		TurqCurrency newCurrency = new TurqCurrency();
 		newCurrency.setCurrenciesName(currencyName);
@@ -24,8 +29,8 @@ public class AdmBLCurrencyAdd
 		newCurrency.setCurrenciesCountry(currencyCountry);
 		newCurrency.setCreatedBy(System.getProperty("user"));
 		newCurrency.setUpdatedBy(System.getProperty("user"));
-		newCurrency.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-		newCurrency.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+		newCurrency.setLastModified(cal.getTime());
+		newCurrency.setCreationDate(cal.getTime());
 		EngDALCommon.saveObject(newCurrency);
 	}
 }

@@ -19,6 +19,8 @@ package com.turquaz.admin.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.HashMap;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
@@ -42,14 +44,18 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroupPermissions;
 import com.turquaz.admin.bl.AdmBLGroups;
+import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.dal.TurqGroupPermission;
 import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.dal.TurqModuleComponent;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -258,19 +264,19 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 	{
 		try
 		{
-			java.util.List groupList = AdmBLGroups.getGroups();
+			List groupList =(List)EngTXCommon.doSingleTX(AdmBLGroups.class.getName(),"getGroups",null);
 			for (int i = 0; i < groupList.size(); i++)
 			{
 				TurqGroup group = (TurqGroup) groupList.get(i);
-				comboGroups.setData(group.getGroupsName(), group);
-				comboGroups.add(group.getGroupsName());
+				comboGroups.setData(group.getGroupsDescription(), group);
+				comboGroups.add(group.getGroupsDescription());
 			}
-			java.util.List moduleList = AdmBLGroupPermissions.getModules();
+			List moduleList =(List)EngTXCommon.doSingleTX(AdmBLGroupPermissions.class.getName(),"getModules",null);
 			for (int i = 0; i < moduleList.size(); i++)
 			{
 				TurqModule module = (TurqModule) moduleList.get(i);
-				comboModules.setData(module.getModulesName(), module);
-				comboModules.add(module.getModulesName());
+				comboModules.setData(module.getModuleDescription(), module);
+				comboModules.add(module.getModuleDescription());
 			}
 			comboPermissionLevel.add("None"); //$NON-NLS-1$
 			comboPermissionLevel.setData("None", new Integer(0)); //$NON-NLS-1$
@@ -319,7 +325,9 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 	{
 		try
 		{
-			java.util.List compList = AdmBLGroupPermissions.getModuleComponents(module_id);
+			HashMap argMap=new HashMap();
+			argMap.put(AdmKeys.ADM_MODULE_ID,new Integer(module_id));
+			List compList =(List)EngTXCommon.doSingleTX(AdmBLGroupPermissions.class.getName(),"getModuleComponents",argMap);
 			for (int i = 0; i < compList.size(); i++)
 			{
 				TurqModuleComponent group = (TurqModuleComponent) compList.get(i);
@@ -340,7 +348,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 		try
 		{
 			tableGroupPermissions.removeAll();
-			java.util.List groupPermList = AdmBLGroupPermissions.getGroupPermissions();
+			List groupPermList =(List)EngTXCommon.doSingleTX(AdmBLGroupPermissions.class.getName(),"getGroupPermissions",null);
 			TableItem item;
 			String groupname;
 			String module;
@@ -350,7 +358,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 			{
 				TurqGroupPermission groupPerm = (TurqGroupPermission) groupPermList.get(i);
 				groupname = groupPerm.getTurqGroup().getGroupsName();
-				module = groupPerm.getTurqModule().getModulesName();
+				module = groupPerm.getTurqModule().getModuleDescription();
 				if (module.trim().equals("*")) { //$NON-NLS-1$
 					moduleComp = "*"; //$NON-NLS-1$
 				}
@@ -425,10 +433,14 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 		{
 			if (verifyFields())
 			{
-				AdmBLGroupPermissions.saveGroupPermission(comboGroups.getData(comboGroups.getText().trim()), comboModules
-						.getData(comboModules.getText().trim()), comboModuleComponents
-						.getData(comboModuleComponents.getText().trim()), ((Integer) comboPermissionLevel
-						.getData(comboPermissionLevel.getText().trim())).intValue());
+				HashMap argMap=new HashMap();
+				
+				argMap.put(AdmKeys.ADM_GROUP,comboGroups.getData(comboGroups.getText().trim()));
+				argMap.put(AdmKeys.ADM_MODULE,comboModules.getData(comboModules.getText().trim()));
+				argMap.put(AdmKeys.ADM_MODULE_COMP,comboModuleComponents.getData(comboModuleComponents.getText().trim()));
+				argMap.put(AdmKeys.ADM_LEVEL,comboPermissionLevel.getData(comboPermissionLevel.getText().trim()));
+				
+				EngTXCommon.doTransactionTX(AdmBLGroupPermissions.class.getName(),"saveGroupPermission",argMap);
 				newForm();
 				fillTableUserPermissions();
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
@@ -456,7 +468,9 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 				TableItem items[] = tableGroupPermissions.getSelection();
 				if (items.length > 0)
 				{
-					AdmBLGroupPermissions.deleteObject(items[0].getData());
+					HashMap argMap=new HashMap();
+					argMap.put(EngKeys.OBJECT,items[0].getData());
+					EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap);
 					fillTableUserPermissions();
 					msg2.setMessage(Messages.getString("AdmUIGroupPermissions.25")); //$NON-NLS-1$
 					msg2.open();

@@ -42,6 +42,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import com.jasperassistant.designer.viewer.ViewerApp;
+import com.turquaz.accounting.AccKeys;
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLSearchBill;
@@ -52,7 +54,6 @@ import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.Messages;
-import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
@@ -478,24 +479,15 @@ public class EngBLUtils
 		}
 	}
 
-	public static void PrintTransaction(TurqAccountingTransaction trans)
+	public static void PrintTransaction(HashMap argMap)
 	{
 		try
 		{
-			SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
-			Map parameters = new HashMap();
-			String sqlparam = "Select account.account_name as accountName, account.account_code as accountCode," + //$NON-NLS-1$
-					" topacc.account_name as topAccountName,topacc.account_code as topAccountCode," + //$NON-NLS-1$
-					" transColumns.dept_amount,transColumns.credit_amount, " + //$NON-NLS-1$
-					" transColumns.transaction_definition, transColumns.accounting_transaction_columns_id as columnId" + //$NON-NLS-1$
-					" from turq_accounting_transaction_columns transColumns," + //$NON-NLS-1$
-					" turq_accounting_accounts topacc, turq_accounting_accounts account" + //$NON-NLS-1$
-					" where account.accounting_accounts_id=transColumns.accounting_accounts_id" + //$NON-NLS-1$
-					" and topacc.accounting_accounts_id=account.top_account" + //$NON-NLS-1$
-					" and transColumns.accounting_transactions_id=" + trans.getId().intValue() + //$NON-NLS-1$
-					" order by topAccountCode"; //$NON-NLS-1$
-			parameters.put("sqlparam", sqlparam); //$NON-NLS-1$
+			TurqAccountingTransaction trans=(TurqAccountingTransaction)argMap.get(AccKeys.ACC_TRANSACTION);
+			SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$	
+			List list=AccBLTransactionSearch.getAccTransInfo(trans.getId());
 			TurqCompany company = AdmBLCompanyInfo.getCompany();
+			Map parameters = new HashMap();
 			parameters.put("companyName", company.getCompanyName()); //$NON-NLS-1$
 			parameters.put("transDate", dformat.format(trans.getTransactionsDate())); //$NON-NLS-1$
 			parameters.put("transNo", trans.getTransactionDocumentNo()); //$NON-NLS-1$
@@ -503,13 +495,15 @@ public class EngBLUtils
 			formatter.setMaximumFractionDigits(2);
 			formatter.setMinimumFractionDigits(2);
 			parameters.put("formatter", formatter); //$NON-NLS-1$
-			EngDALConnection db = new EngDALConnection();
-			db.connect();
+
+			String[] fields = new String[]{"accountName", "accountCode", "topAccountName",
+					"topAccountCode", "dept_amount", "credit_amount", "transaction_definition", "columnId"};
+			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/accounting/AccountingTransaction.jasper"); //$NON-NLS-1$
-			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, db.getCon());
-			ViewerApp viewerApp = new ViewerApp();
-			viewerApp.getReportViewer().setDocument(jasperPrint);
-			viewerApp.open();
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
+			ViewerApp viewer = new ViewerApp();
+			viewer.getReportViewer().setDocument(jasperPrint);
+			viewer.open();
 		}
 		catch (Exception ex)
 		{

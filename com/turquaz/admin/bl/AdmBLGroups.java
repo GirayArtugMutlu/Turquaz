@@ -24,10 +24,6 @@ import com.turquaz.engine.dal.EngDALCommon;
 
 public class AdmBLGroups
 {
-	public AdmBLGroups()
-	{
-	}
-
 	public static List getGroups() throws Exception
 	{
 		try

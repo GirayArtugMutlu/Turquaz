@@ -20,16 +20,25 @@ package com.turquaz.admin.bl;
  * @version $Id$
  */
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqUser;
 
 public class AdmBLUserUpdate
 {
-	public static void updateUser(String password, String realname, String description, TurqUser user,List userGroups) throws Exception
+	public static void updateUser(HashMap argMap) throws Exception
 	{
 		try
 		{
+			String password=(String)argMap.get(AdmKeys.ADM_PASSWORD);
+			String realname=(String)argMap.get(AdmKeys.ADM_REALNAME);
+			String description=(String)argMap.get(EngKeys.DESCRIPTION);
+			TurqUser user=(TurqUser)argMap.get(AdmKeys.ADM_USER);
+			List userGroups=(List)argMap.get(AdmKeys.ADM_USER_GROUPS);
+			
 			Calendar cal = Calendar.getInstance();
 			user.setUsersPassword(password);
 			user.setUsersRealName(realname);
@@ -46,7 +55,7 @@ public class AdmBLUserUpdate
 		}
 	}
 	
-	public static void updateUserGroups(TurqUser user, List userGroups)throws Exception
+	private static void updateUserGroups(TurqUser user, List userGroups)throws Exception
 	{
 		AdmBLUsers.deleteUserGroups(user);
 		AdmBLUserAdd.saveUserGroups(user.getId(),userGroups);		

@@ -160,8 +160,19 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					public void widgetSelected(SelectionEvent evt)
 					{
-						dialogShell.close();
-						EngBLUtils.PrintTransaction(accTrans);
+						try
+						{
+							dialogShell.close();
+							HashMap argMap=new HashMap();
+							argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
+							EngTXCommon.doSingleTX(EngBLUtils.class.getName(),"PrintTransaction",argMap);
+							
+						}
+						catch(Exception ex)
+						{
+							ex.printStackTrace();
+						}
+						
 					}
 				});
 			}

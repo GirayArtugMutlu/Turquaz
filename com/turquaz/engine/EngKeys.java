@@ -41,5 +41,9 @@ public class EngKeys
 	public final static String MIN_VALUE="minValue";
 	public final static String MAX_VALUE="maxValue";
 	public final static String TOTAL_AMOUNT="totalAmount";
+	public final static String EXCHANGE_CURRENCY="exchangeCurrency";
+	public final static String EXCHANGE_RATIO="exchangeRatio";
+	public final static String EXCHANGE_DATE="exchangeDate";
+	public final static String DESCRIPTION="description";
 	
 }

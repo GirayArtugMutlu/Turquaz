@@ -1,5 +1,6 @@
 package com.turquaz.admin.ui;
 
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
@@ -7,9 +8,11 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
 import com.turquaz.engine.dal.TurqCompany;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
@@ -105,7 +108,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 	{
 		try
 		{
-			company = AdmBLCompanyInfo.getCompany();
+			company =(TurqCompany)EngTXCommon.doSingleTX(AdmBLCompanyInfo.class.getName(),"getCompany",null);
 			txtCompanyName.setText(company.getCompanyName());
 			txtCompanyAddress.setText(company.getCompanyAddress());
 			txtCompanyFax.setText(company.getCompanyFax());
@@ -128,8 +131,15 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		try
 		{
-			AdmBLCompanyInfo.updateCompany(company, txtCompanyName.getText().trim(), txtCompanyAddress.getText().trim(), txtCompanyPhone
-					.getText().trim(), txtCompanyPhone.getText().trim());
+			HashMap argMap = new HashMap();
+			
+			argMap.put(AdmKeys.ADM_COMPANY,company);
+			argMap.put(AdmKeys.ADM_COMPANY_NAME,txtCompanyName.getText().trim());
+			argMap.put(AdmKeys.ADM_COMPANY_ADDRESS,txtCompanyAddress.getText().trim());
+			argMap.put(AdmKeys.ADM_COMPANY_PHONE,txtCompanyPhone.getText().trim());
+			argMap.put(AdmKeys.ADM_COMPANY_FAX,txtCompanyPhone.getText().trim());
+			
+			EngTXCommon.doTransactionTX(AdmBLCompanyInfo.class.getName(),"updateCompany",argMap);
 			msg.setMessage(Messages.getString("AdmUICompanyInfo.4")); //$NON-NLS-1$
 			msg.open();
 		}

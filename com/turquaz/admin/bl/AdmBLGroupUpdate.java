@@ -25,10 +25,6 @@ import com.turquaz.engine.dal.TurqGroup;
 
 public class AdmBLGroupUpdate
 {
-	public AdmBLGroupUpdate()
-	{
-	}
-
 	public static void updateGroup(String name, String description, TurqGroup group) throws Exception
 	{
 		try
@@ -36,22 +32,9 @@ public class AdmBLGroupUpdate
 			Calendar cal = Calendar.getInstance();
 			group.setGroupsName(name);
 			group.setGroupsDescription(description);
-			;
 			group.setUpdateDate(cal.getTime());
 			group.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			EngDALCommon.updateObject(group);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static void deleteObject(Object obj) throws Exception
-	{
-		try
-		{
-			EngDALCommon.deleteObject(obj);
 		}
 		catch (Exception ex)
 		{

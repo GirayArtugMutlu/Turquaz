@@ -1,5 +1,6 @@
 package com.turquaz.admin.ui;
 
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
@@ -13,8 +14,10 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyAdd;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
@@ -160,7 +163,13 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 		{
 			if (verifyFields())
 			{
-				AdmBLCurrencyAdd.saveCurrency(txtCurrencyName.getText(), txtCurrencyAbbr.getText(), txtCurrencyCountry.getText());
+				HashMap argMap=new HashMap();
+				
+				argMap.put(AdmKeys.ADM_CURRENCY_NAME,txtCurrencyName.getText().trim());
+				argMap.put(AdmKeys.ADM_CURRENCY_ABBR,txtCurrencyAbbr.getText().trim());
+				argMap.put(AdmKeys.ADM_CURRENCY_COUNTRY,txtCurrencyCountry.getText().trim());
+				
+				EngTXCommon.doTransactionTX(AdmBLCurrencyAdd.class.getName(),"saveCurrency",argMap);
 				msg.setMessage(Messages.getString("AdmUICurrencyAdd.7")); //$NON-NLS-1$
 				msg.open();
 				newForm();
