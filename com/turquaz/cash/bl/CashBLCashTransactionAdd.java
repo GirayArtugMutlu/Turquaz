@@ -214,7 +214,14 @@ public class CashBLCashTransactionAdd
 				cashTransRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
 				accTransType = EngBLCommon.ACCOUNTING_TRANS_COLLECT;
 				currentTransType = EngBLCommon.CURRENT_TRANS_CREDIT;
-				currentTransDefinition = current.getCardsName() + " 'den Nakit";
+				if (definition.equals(""))
+				{
+					currentTransDefinition = current.getCardsName() + " 'den Nakit";
+				}
+				else
+				{
+					currentTransDefinition = definition;
+				}
 			}
 			else if (type == EngBLCommon.CASH_CURRENT_PAYMENT)
 			{
@@ -227,7 +234,15 @@ public class CashBLCashTransactionAdd
 				cashTransRow.setCreditAmountInForeignCurrency(totalAmount);
 				accTransType = EngBLCommon.ACCOUNTING_TRANS_PAYMENT;
 				currentTransType = EngBLCommon.CURRENT_TRANS_DEBIT;
-				currentTransDefinition = current.getCardsName() + " 'e Nakit";
+				
+				if (definition.equals(""))
+				{
+					currentTransDefinition = current.getCardsName() + " 'e Nakit";
+				}
+				else
+				{
+					currentTransDefinition = definition;
+				}
 			}
 			/**
 			 * Save Cash Transaction
