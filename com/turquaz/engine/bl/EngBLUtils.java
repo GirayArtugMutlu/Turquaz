@@ -3,6 +3,7 @@ package com.turquaz.engine.bl;
 
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,6 +15,7 @@ import net.sf.jasperreports.engine.JasperManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
+import org.apache.log4j.ConsoleAppender;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -223,20 +225,23 @@ public class EngBLUtils {
 	public static void printBill(TurqBill bill,Shell parent){
 	    
 		try{
+			TurqConsignment cons = (TurqConsignment)bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator().next();
+
 			SimpleDateFormat dformat=new SimpleDateFormat("dd-MM-yyyy");
 			Map parameters = new HashMap();
 			String sqlparam="Select invTrans.inventory_transactions_id," +
 					" invCardUnits.card_units_factor, " +
-					" invCard.card_inventory_code, invCard.card_name,"+
+					" invCard.card_inventory_code, invCard.card_name, units.units_name,"+
 					((bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_BUY) ? 
 					"invTrans.transactions_amount_in as amount," : "invTrans.transactions_total_amount_out as amount,")+
 					" invTrans.transactions_unit_price, invTrans.transactions_total_price"+
-					" from turq_inventory_transactions invTrans," +
+					" from turq_inventory_transactions invTrans, turq_inventory_units units," +
 					" turq_inventory_cards invCard, turq_inventory_card_units invCardUnits where" +
-					" invTrans.engine_sequences_id="+bill.getTurqEngineSequence().getEngineSequencesId().intValue()+
+					" invTrans.engine_sequences_id="+cons.getTurqEngineSequence().getEngineSequencesId().intValue()+
 					" and invTrans.inventory_cards_id=invCard.inventory_cards_id" +
 					" and invCardUnits.inventory_cards_id=invTrans.inventory_cards_id" +
-					" and invCardUnits.inventory_units_id=invTrans.inventory_units_id";
+					" and invCardUnits.inventory_units_id=invTrans.inventory_units_id" +
+					" and units.inventory_units_id=invTrans.inventory_units_id";
 			
 			
 
@@ -261,20 +266,18 @@ public class EngBLUtils {
 			parameters.put("currentTaxNumber",curCard.getCardsTaxNumber());
 			parameters.put("currentTaxDepartment",curCard.getCardsTaxDepartment());
 			parameters.put("currentId", curCard.getCardsCurrentCode());
-			
-			TurqConsignment cons = (TurqConsignment)bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator().next();
-
+					
 			parameters.put("despatchNoteDate",dformat.format(cons.getConsignmentsDate()));
 			parameters.put("despatchNoteId",billCommon.getConsignmentDocumentNo());
 			
 			TurqViewCurrentAmountTotal currentView=curBLCurCardSearch.getCurrentCardView(curCard);
-			BigDecimal allTotal=currentView.getTransactionsBalanceNow();
+			BigDecimal allTotal=(currentView.getTransactionsBalanceNow()==null) ? new BigDecimal(0): currentView.getTransactionsBalanceNow();
 			BigDecimal oldAllTotal=allTotal.subtract(grandTotal);
 			
 			parameters.put("currentBalance", oldAllTotal);
 			parameters.put("currentNewBalance", allTotal);
-			
-			NumberFormat formatter =NumberFormat.getNumberInstance();
+			parameters.put("definition",bill.getBillsDefinition());
+			NumberFormat formatter =DecimalFormat.getInstance();
             formatter.setMaximumFractionDigits(2);
             formatter.setMinimumFractionDigits(2);
             parameters.put("formatter",formatter); 
@@ -284,6 +287,7 @@ public class EngBLUtils {
 			final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
 			
 			ViewerApp viewerApp = new ViewerApp();
+			
 			viewerApp.getReportViewer().setDocument(jasperPrint);
 			viewerApp.open();
 			
