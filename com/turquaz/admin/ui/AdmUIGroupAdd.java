@@ -105,7 +105,7 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 			thisLayout.verticalSpacing = 20;
 			thisLayout.marginHeight = 20;
 			this.setLayout(thisLayout);
-			this.setSize(438, 167);
+			this.setSize(438, 170);
 			{
 				lblAdmGroupName = new CLabel(this, SWT.NONE);
 				lblAdmGroupName.setText("Group Name");
