@@ -173,6 +173,34 @@
             class="com.turquaz.engine.dal.TurqCurrentTransaction"
         />
     </set>
+    <!-- bi-directional one-to-many association to TurqCurrencyExchangeRate -->
+    <set
+        name="turqCurrencyExchangeRatesByBaseCurrencyId"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="base_currency_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrencyExchangeRate"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqCurrencyExchangeRate -->
+    <set
+        name="turqCurrencyExchangeRatesByExchangeCurrencyId"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="exchange_currency_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrencyExchangeRate"
+        />
+    </set>
 
 </class>
 </hibernate-mapping>
