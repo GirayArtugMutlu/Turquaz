@@ -5,15 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
 import com.turquaz.cash.Messages;
@@ -34,7 +30,6 @@ import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
 
@@ -68,41 +63,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	private Table tableCashTransactions;
 	CashBLCashTransactionSearch blSearch = new CashBLCashTransactionSearch();
 
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		showGUI();
-	}
-		
-	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		CashUICashTransactionSearch inst = new CashUICashTransactionSearch(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if(size.x == 0 && size.y == 0) {
-			inst.pack();
-			shell.pack();
-		} else {
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
+	
 
 	public CashUICashTransactionSearch(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);

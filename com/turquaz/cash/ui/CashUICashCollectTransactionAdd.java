@@ -1,37 +1,25 @@
 package com.turquaz.cash.ui;
 
 import java.math.BigDecimal;
-
-import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.graphics.Point;
 import com.turquaz.current.ui.comp.CurrentPicker;
+import com.turquaz.cash.ui.comp.CashCardPicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
-import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
-import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
 
@@ -69,45 +57,10 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 	private CLabel lblTotalAmount;
 	private CurrentPicker txtCurrentAccount;
 	private CLabel lblCurrentCard;
-	private Text txtCashCard;
+	private CashCardPicker txtCashCard;
 	CashBLCashTransactionAdd blTrans = new CashBLCashTransactionAdd();
 
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		showGUI();
-	}
-		
-	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		CashUICashCollectTransactionAdd inst = new CashUICashCollectTransactionAdd(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if(size.x == 0 && size.y == 0) {
-			inst.pack();
-			shell.pack();
-		} else {
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
-
+	
 	public CashUICashCollectTransactionAdd(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -159,25 +112,10 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
                 lblCashCard.setText(Messages.getString("CashUICashCollectTransactionAdd.4")); //$NON-NLS-1$
             }
             {
-                txtCashCard = new Text(this, SWT.NONE);
+                txtCashCard = new CashCardPicker(this, SWT.NONE);
                 GridData txtCashCardLData = new GridData();
                 txtCashCardLData.widthHint = 164;
                 txtCashCardLData.heightHint = 19;
-                txtCashCard
-				.addModifyListener(new ModifyListener() {
-				public void modifyText(ModifyEvent evt) {
-					try {
-						txtCashCard
-							.setData(EngBLCashCards
-								.getCard(txtCashCard
-									.getText().trim()));
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-
-				}
-				});
-               
 
                 txtCashCard.setLayoutData(txtCashCardLData);
             }
@@ -227,27 +165,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 	}
 	
 	public void postInitGUI(){
-	    
-
-		
-			TextContentAssistSubjectAdapter adapter2 = new TextContentAssistSubjectAdapter(
-					txtCashCard);
-			final TurquazContentAssistant assistant2 = new TurquazContentAssistant(
-					adapter2, EngBLCommon.CONTENT_ASSIST_CASH);
-			adapter2.appendVerifyKeyListener(new VerifyKeyListener() {
-				public void verifyKey(VerifyEvent event) {
-
-					// Check for Ctrl+Spacebar
-					if (event.stateMask == SWT.CTRL && event.character == ' ') {
-
-						assistant2.showPossibleCompletions();
-						event.doit = false;
-
-					}
-				}
-			});
-		    
-	    
+	   
 	    
 	}
 
@@ -325,10 +243,10 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
     public void setDatePicker(DatePicker datePicker) {
         this.datePicker = datePicker;
     }
-    public Text getTxtCashCard() {
+    public CashCardPicker getTxtCashCard() {
         return txtCashCard;
     }
-    public void setTxtCashCard(Text txtCashCard) {
+    public void setTxtCashCard(CashCardPicker txtCashCard) {
         this.txtCashCard = txtCashCard;
     }
     public CurrentPicker getTxtCurrentAccount() {
