@@ -316,8 +316,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			parameters.put("currentCard1",currentCard.getCardsCurrentCode()); //$NON-NLS-1$
 			parameters.put("currentCard2",(currentCard2==null)? "" : currentCard2.getCardsCurrentCode());  //$NON-NLS-1$ //$NON-NLS-2$
 			parameters.put("formatter", new TurkishCurrencyFormat(2));  //$NON-NLS-1$
-			parameters.put("currency", new TurkishCurrencyFormat(2));
-			
+			parameters.put("currency", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
+			parameters.put("currentDate",dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
 			List balances = BLsearch.getCurrentBalances(currentCard,currentCard2,datePickerStartDate.getDate());
 			HashMap balanceList=new HashMap();
 			for (int k=0; k < balances.size(); k++)

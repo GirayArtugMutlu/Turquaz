@@ -20,6 +20,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -158,6 +159,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			parameters.put("sqlparam",sqlparam);		 //$NON-NLS-1$
 			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate())); //$NON-NLS-1$
 			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate())); //$NON-NLS-1$
+			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
 			NumberFormat formatter =NumberFormat.getNumberInstance();
             formatter.setMaximumFractionDigits(2);
             parameters.put("formatter",formatter); //$NON-NLS-1$

@@ -141,7 +141,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			
 			Map parameters = new HashMap();
 			String sqlparam="Select accounts.top_account,accounts.account_name," + //$NON-NLS-1$
-					" accounts.account_code," +
+					" accounts.account_code," + //$NON-NLS-1$
 					" trans.transactions_date,trans.transaction_document_no," + //$NON-NLS-1$
 					" transcolumns.dept_amount, transcolumns.credit_amount, transcolumns.transaction_definition," + //$NON-NLS-1$
 					" trans.accounting_journal_id, accounts.accounting_accounts_id" + //$NON-NLS-1$
@@ -152,7 +152,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 			sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
 					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"//$NON-NLS-1$ //$NON-NLS-2$
-					+" and trans.accounting_journal_id > 0"; 	
+					+" and trans.accounting_journal_id > 0"; 	 //$NON-NLS-1$
 
 			sqlparam +=" ORDER BY accounts.top_account,trans.transactions_date"; //$NON-NLS-1$
 			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
@@ -160,12 +160,13 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			parameters.put("sqlparam",sqlparam);	 //$NON-NLS-1$
 			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate())); //$NON-NLS-1$
 			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate())); //$NON-NLS-1$
+			parameters.put("currentDate",dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
 			NumberFormat formatter =NumberFormat.getNumberInstance();
             formatter.setMaximumFractionDigits(2);
             parameters.put("formatter",formatter); //$NON-NLS-1$
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
-			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingGeneralLedger.jasper"); 
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingGeneralLedger.jasper");  //$NON-NLS-1$
 	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
 			
 			

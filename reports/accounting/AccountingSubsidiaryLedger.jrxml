@@ -19,6 +19,8 @@
 	</parameter>
 	<parameter name="account2" class="java.lang.String">
 	</parameter>
+	<parameter name="currentDate" class="java.lang.String">
+	</parameter>
 	<queryString><![CDATA[$P!{sqlparam}]]></queryString>
 	<field name="accName" class="java.lang.String">
 	</field>
@@ -255,14 +257,14 @@
 		<band height="16">
 			<textField>
 				<reportElement positionType="Float" x="2" y="1" width="66" height="14"/>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[((SimpleDateFormat)$P{REPORT_PARAMETERS_MAP}.get("dformat")).format($F{transactions_date})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="69" y="1" width="52" height="14"/>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{transaction_document_no}]]></textFieldExpression>
@@ -342,7 +344,7 @@
 		</groupHeader>
 	</group>
 	<title>
-		<band height="47">
+		<band height="58">
 			<staticText>
 				<reportElement positionType="Float" x="4" y="5" width="177" height="16"/>
 				<textElement>
@@ -358,32 +360,46 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[($P{account2}.equals("")) ?$P{account1} : $P{account1}+" - "+$P{account2}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="383" y="6" width="91" height="15"/>
+				<reportElement positionType="Float" x="384" y="23" width="91" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Başlangıç Tarihi :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="383" y="26" width="91" height="14"/>
+				<reportElement positionType="Float" x="384" y="41" width="91" height="14"/>
 				<textElement textAlignment="Right">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Bitiş Tarihi :]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="474" y="6" width="79" height="15"/>
+				<reportElement positionType="Float" x="475" y="23" width="79" height="15"/>
 				<textElement>
 					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{beginDate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="474" y="26" width="78" height="15"/>
+				<reportElement positionType="Float" x="475" y="41" width="78" height="15"/>
 				<textElement>
 					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{endDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="384" y="5" width="91" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rapor Tarihi :]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="475" y="5" width="79" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentDate}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="Unnamed" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="currentCard1" class="java.lang.String">
@@ -20,6 +20,8 @@
 	<parameter name="balanceList" class="java.util.HashMap">
 	</parameter>
 	<parameter name="currency" class="com.turquaz.engine.ui.component.TurkishCurrencyFormat">
+	</parameter>
+	<parameter name="currentDate" class="java.lang.String">
 	</parameter>
 	<queryString><![CDATA[$P!{sqlparam}]]></queryString>
 	<field name="transactions_date" class="java.util.Date">
@@ -80,14 +82,14 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[GENEL TOPLAM : ]]></text>
+				<text><![CDATA[GENEL TOPLAM :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="246" y="3" width="133" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[GENEL EKSTRE TOPLAMI : ]]></text>
+				<text><![CDATA[GENEL EKSTRE TOPLAMI :]]></text>
 			</staticText>
 			<textField>
 				<reportElement positionType="Float" x="383" y="3" width="100" height="14"/>
@@ -108,7 +110,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{currency}.formatCurrency(($V{generalInitialBalance}.doubleValue() < 0) ? $V{generalDept}.add($V{generalInitialBalance}.multiply(new BigDecimal(-1)) ): $V{generalDept}) ]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currency}.formatCurrency(($V{generalInitialBalance}.doubleValue() < 0) ? $V{generalDept}.add($V{generalInitialBalance}.multiply(new BigDecimal(-1)) ): $V{generalDept})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="488" y="22" width="100" height="14"/>
@@ -314,7 +316,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TOPLAM : ]]></text>
+				<text><![CDATA[TOPLAM :]]></text>
 			</staticText>
 			<textField>
 				<reportElement positionType="Float" x="593" y="23" width="100" height="14">
@@ -371,7 +373,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[EKSTRE TOPLAMI : ]]></text>
+				<text><![CDATA[EKSTRE TOPLAMI :]]></text>
 			</staticText>
 		</band>
 		</groupFooter>
@@ -482,6 +484,16 @@
 				<reportElement positionType="Float" x="732" y="42" width="67" height="14"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{endDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="629" y="10" width="97" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Ekstre Tarihi :]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="732" y="10" width="67" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentDate}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

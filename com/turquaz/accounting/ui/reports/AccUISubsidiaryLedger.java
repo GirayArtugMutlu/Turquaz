@@ -334,6 +334,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 			parameters.put("dformat",dformat2); //$NON-NLS-1$
 			parameters.put("account1",account.getAccountCode()); //$NON-NLS-1$
 			parameters.put("account2",(account2==null)? "" : account2.getAccountCode()); //$NON-NLS-1$ //$NON-NLS-2$
+			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
 			NumberFormat formatter=NumberFormat.getNumberInstance();
 			formatter.setMaximumFractionDigits(2);
 			formatter.setMinimumFractionDigits(2);
