@@ -1474,7 +1474,7 @@ public class BillUIAddSellBill extends Composite
 				saveGroups(bill.getBillsId());
 				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				msg.open();
-				msg2.setMessage("Faturay? Yazdirmak ?ster misiniz?");
+				msg2.setMessage(Messages.getString("BillUIAddSellBill.16")); //$NON-NLS-1$
 				int answer = msg2.open();
 				
 				if(answer == SWT.YES)

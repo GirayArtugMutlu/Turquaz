@@ -137,8 +137,8 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 						}
                         {
                             toolPrint = new ToolItem(toolBar1, SWT.NONE);
-                            toolPrint.setText("Yazd?r");
-                            toolPrint.setImage(SWTResourceManager.getImage("gfx/print.gif"));
+                            toolPrint.setText(Messages.getString("BillUIBillUpdateDialog.5")); //$NON-NLS-1$
+                            toolPrint.setImage(SWTResourceManager.getImage("gfx/print.gif")); //$NON-NLS-1$
                             toolPrint
                                 .addSelectionListener(new SelectionAdapter() {
                                 public void widgetSelected(SelectionEvent evt) {
