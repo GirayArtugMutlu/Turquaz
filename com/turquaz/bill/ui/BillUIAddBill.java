@@ -984,7 +984,21 @@ public class BillUIAddBill extends Composite
 	    }
 	}
 	
-
+	public boolean okToDelete(){
+	    
+	    MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_WARNING|SWT.OK|SWT.CANCEL);
+	       msg.setMessage(Messages.getString("BillUIAddBill.34"));  //$NON-NLS-1$
+	       if(msg.open()==SWT.OK){
+	           return true;
+	       }
+	       else
+	       {
+	           return false;
+	       }
+	       
+	       
+	}
+	
 	public void btnUpdateGroupsClick() {
 
 		new BillUIBillsGroupDialog(this.getShell(), SWT.NULL).open();
@@ -1154,12 +1168,14 @@ public class BillUIAddBill extends Composite
 	                     else if(e.keyCode==SWT.DEL){
 	                       
 	                         if(cursor.getRow()!=null){
+	                             if(okToDelete()){
 	                             ITableRow row = (ITableRow)cursor.getRow().getData();
 	                             rowList.removeTask(row);
 	                             int itemCount =tableConsignmentRows.getItemCount();
-	                            if(itemCount>0){
+	                             	if(itemCount>0){
 	                                cursor.setSelection(itemCount-1,0);
-	                            }
+	                             	}
+	                             }
 	                         }
 	                        
 	                        
@@ -1177,7 +1193,7 @@ public class BillUIAddBill extends Composite
 	                         if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof TextCellEditor){
 	                             
 	                             TextCellEditor editor = ((TextCellEditor)tableViewer.getCellEditors()[cursor.getColumn()]);
-	                             ((Text)editor.getControl()).setText(""+e.character);
+	                             ((Text)editor.getControl()).setText(""+e.character); //$NON-NLS-1$
 	     						if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof CurrencyCellEditor 
 	     						 ){
 	     						    
