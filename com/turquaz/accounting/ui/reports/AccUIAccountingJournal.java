@@ -150,7 +150,9 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 			 sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
 					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
-					+" ORDER BY trans.transactions_date"; //$NON-NLS-1$
+					+" and trans.accounting_journal_id > 0" //$NON-NLS-1$
+					+" ORDER BY trans.accounting_journal_id"; //$NON-NLS-1$
+					
 			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
 			parameters.put("sqlparam",sqlparam);		 //$NON-NLS-1$
 			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate())); //$NON-NLS-1$
