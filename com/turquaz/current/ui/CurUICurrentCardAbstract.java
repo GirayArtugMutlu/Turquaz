@@ -321,7 +321,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	{
 		if (currentCard!=null)
 		{
-			String title="Cari Kart Extresi: \n"+"Cari Kart Kod:"+currentCard.getCardsCurrentCode();
+			String title="Cari Kart Extresi:\t"+"Kod:"+currentCard.getCardsCurrentCode()+"\tAd:"+currentCard.getCardsName();
 			EngBLUtils.printTable(tableCurrentTransactions,title);
 		}
 	}
