@@ -26,8 +26,8 @@ public class ConBLAddConsignment {
 		
 	}
 	public Integer saveConsignment(String docNo, String definition, boolean isPrinted, Date consignmentDate,
-								   TurqCurrentCard curCard, int discountRate, int vat, BigDecimal discountAmount,
-								   TurqBill bill, String billDocNo, BigDecimal charges, BigDecimal vatAmount,
+								   TurqCurrentCard curCard, int discountRate,BigDecimal discountAmount,
+								   TurqBill bill, String billDocNo, BigDecimal vatAmount,BigDecimal specialVatAmount,
 								   BigDecimal totalAmount,int type)throws Exception {
 		try{
 		
@@ -35,7 +35,7 @@ public class ConBLAddConsignment {
 			TurqConsignment consignment = new TurqConsignment();
 			consignment.setCondignmentsDiscountRate(discountRate);
 			consignment.setConsignmentsBillDocumentNo(billDocNo);
-			consignment.setConsignmentsCharges(charges);
+			consignment.setConsignmentsCharges(new BigDecimal(0));
 			consignment.setConsignmentsDate(consignmentDate);
 			consignment.setConsignmentsDefinition(definition);
 			consignment.setConsignmentsDiscountAmount(discountAmount);
@@ -43,12 +43,11 @@ public class ConBLAddConsignment {
 			consignment.setConsignmentsPrinted(isPrinted);
 			consignment.setConsignmentsTotalAmount(totalAmount);
 			consignment.setConsignmentsType(type);
-			consignment.setConsignmentsVat(vat);
 			consignment.setConsignmentsVatAmount(vatAmount);
+			consignment.setConsignmentsSpecialVatAmount(specialVatAmount);
 			consignment.setTurqBill(bill);
 			consignment.setTurqCurrentCard(curCard);
-			
-			
+					
 			TurqCompany company = new TurqCompany();	
 			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
 			consignment.setTurqCompany(company);
@@ -79,10 +78,8 @@ public class ConBLAddConsignment {
 
 		cardGroup.setCreatedBy(System.getProperty("user"));
 		cardGroup.setUpdatedBy(System.getProperty("user"));
-		cardGroup
-				.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-		cardGroup
-				.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+		cardGroup.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+		cardGroup.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 
 		dalConsignment.save(cardGroup);
 	

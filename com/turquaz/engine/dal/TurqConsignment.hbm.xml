@@ -55,13 +55,6 @@
         length="4"
     />
     <property
-        name="consignmentsVat"
-        type="int"
-        column="consignments_vat"
-        not-null="true"
-        length="4"
-    />
-    <property
         name="consignmentsDiscountAmount"
         type="java.math.BigDecimal"
         column="consignments_discount_amount"
@@ -137,6 +130,13 @@
         column="consignments_document_no"
         not-null="true"
         length="50"
+    />
+    <property
+        name="consignmentsSpecialVatAmount"
+        type="java.math.BigDecimal"
+        column="consignments_special_vat_amount"
+        not-null="true"
+        length="65535"
     />
 
     <!-- Associations -->

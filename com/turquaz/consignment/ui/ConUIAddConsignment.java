@@ -1,6 +1,7 @@
 package com.turquaz.consignment.ui;
 
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -20,11 +23,14 @@ import com.turquaz.engine.ui.component.DecimalText;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.widgets.Label;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLAddGroups;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
+import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
@@ -70,7 +76,13 @@ implements SecureComposite{
 	private TableColumn tableColumnAmount;
 	private Composite compTotalsPanel;
 	private NumericText txtDiscountRate;
+	private Text txtBillDocumentNo;
 	private CLabel lblInventoryPrice;
+	private CLabel lblBillDocumentNo;
+	private Text txtDefinition;
+	private CLabel lblDefinition;
+	private DecimalText decSpecialVat;
+	private Label lblSpecialVAT;
 	private TableColumn tableColumnCumulative;
 	private Button btnUpdateGroups;
 	private RegisterGroupComposite compRegisterGroup;
@@ -103,6 +115,7 @@ implements SecureComposite{
 	private Button buttonConsignmentRemove;
 	private Table tableConsignmentRows;
 	ConBLAddGroups blAddGroup = new ConBLAddGroups();
+	ConBLAddConsignment blAddCondignmetn = new ConBLAddConsignment();
 
 	
 	public ConUIAddConsignment(org.eclipse.swt.widgets.Composite parent, int style) {
@@ -115,7 +128,7 @@ implements SecureComposite{
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(651, 560);
+			this.setSize(690, 587);
 			{
 				cTabFolder1 = new CTabFolder(this, SWT.NONE);
 				cTabFolder1.setSize(56, 25);
@@ -140,7 +153,7 @@ implements SecureComposite{
 							GridData compInfoPanelLData = new GridData();
 							compInfoPanelLData.horizontalSpan = 2;
 							compInfoPanelLData.horizontalAlignment = GridData.FILL;
-							compInfoPanelLData.heightHint = 127;
+							compInfoPanelLData.heightHint = 142;
 							compInfoPanelLData.grabExcessHorizontalSpace = true;
 							compInfoPanel.setLayoutData(compInfoPanelLData);
 							compInfoPanelLayout.numColumns = 4;
@@ -166,8 +179,9 @@ implements SecureComposite{
 								txtCurrentCard.setBackground(SWTResourceManager
 									.getColor(255, 255, 255));
 								txtCurrentCard.setEditable(false);
-								txtCurrentCardLData.widthHint = 211;
-								txtCurrentCardLData.heightHint = 48;
+								txtCurrentCardLData.widthHint = 232;
+								txtCurrentCardLData.heightHint = 34;
+								txtCurrentCardLData.horizontalSpan = 2;
 								txtCurrentCard
 									.setLayoutData(txtCurrentCardLData);
 							}
@@ -179,15 +193,14 @@ implements SecureComposite{
 								GridData button1LData = new GridData();
 								btnChooseCurrentCard
 									.addMouseListener(new MouseAdapter() {
-									public void mouseUp(MouseEvent evt) {
+										public void mouseUp(MouseEvent evt) {
 
-										btnChooseMouseUp();
+											btnChooseMouseUp();
 
-									}
+										}
 									});
 								button1LData.widthHint = 56;
 								button1LData.heightHint = 23;
-								button1LData.horizontalSpan = 2;
 								button1LData.verticalAlignment = GridData.BEGINNING;
 								btnChooseCurrentCard
 									.setLayoutData(button1LData);
@@ -207,18 +220,34 @@ implements SecureComposite{
 									compInfoPanel,
 									SWT.NONE);
 								GridData txtDocumentNoLData = new GridData();
-								txtDocumentNoLData.widthHint = 207;
-								txtDocumentNoLData.heightHint = 17;
+								txtDocumentNoLData.widthHint = 106;
+								txtDocumentNoLData.heightHint = 16;
 								txtDocumentNo.setLayoutData(txtDocumentNoLData);
 							}
 							{
-								lblDate = new CLabel(compInfoPanel, SWT.RIGHT);
+								lblBillDocumentNo = new CLabel(compInfoPanel, SWT.RIGHT);
+								lblBillDocumentNo.setText("Bill Document No ");
+								GridData lblBillDocumentNoLData = new GridData();
+								lblBillDocumentNoLData.widthHint = 120;
+								lblBillDocumentNoLData.heightHint = 17;
+								lblBillDocumentNoLData.horizontalAlignment = GridData.END;
+								lblBillDocumentNo.setLayoutData(lblBillDocumentNoLData);
+							}
+							{
+								txtBillDocumentNo = new Text(
+									compInfoPanel,
+									SWT.NONE);
+								GridData txtBillDocumentNoLData = new GridData();
+								txtBillDocumentNoLData.widthHint = 103;
+								txtBillDocumentNoLData.heightHint = 15;
+								txtBillDocumentNo.setLayoutData(txtBillDocumentNoLData);
+							}
+							{
+								lblDate = new CLabel(compInfoPanel, SWT.LEFT);
 								lblDate.setText("Date");
 								GridData lblDateLData = new GridData();
-								lblDate.setSize(36, 25);
-								lblDateLData.widthHint = 36;
-								lblDateLData.heightHint = 25;
-								lblDateLData.horizontalAlignment = GridData.END;
+								lblDateLData.widthHint = 100;
+								lblDateLData.heightHint = 22;
 								lblDate.setLayoutData(lblDateLData);
 							}
 							{
@@ -227,15 +256,16 @@ implements SecureComposite{
 									SWT.EMBEDDED);
 								GridData dateConsignmentDateLData = new GridData();
 								dateConsignmentDateLData.widthHint = 113;
-								dateConsignmentDateLData.heightHint = 17;
+								dateConsignmentDateLData.heightHint = 20;
 								dateConsignmentDate.setLayoutData(dateConsignmentDateLData);
 							}
 							{
-								lblType = new CLabel(compInfoPanel, SWT.NONE);
+								lblType = new CLabel(compInfoPanel, SWT.RIGHT);
 								lblType.setText("Type");
 								GridData lblTypeLData = new GridData();
-								lblTypeLData.widthHint = 40;
-								lblTypeLData.heightHint = 18;
+								lblTypeLData.widthHint = 68;
+								lblTypeLData.heightHint = 15;
+								lblTypeLData.horizontalAlignment = GridData.END;
 								lblType.setLayoutData(lblTypeLData);
 							}
 							{
@@ -243,15 +273,14 @@ implements SecureComposite{
 									compInfoPanel,
 									SWT.NONE);
 								GridData comboConsignmentTypeLData = new GridData();
+								comboConsignmentType.setText("Buy");
 								comboConsignmentTypeLData.widthHint = 85;
 								comboConsignmentTypeLData.heightHint = 17;
 								comboConsignmentType
 									.setLayoutData(comboConsignmentTypeLData);
 							}
 							{
-								lblDiscountRate = new CLabel(
-									compInfoPanel,
-									SWT.RIGHT);
+								lblDiscountRate = new CLabel(compInfoPanel, SWT.LEFT);
 								lblDiscountRate.setText("Discount Rate");
 								GridData lblDiscountRateLData = new GridData();
 								lblDiscountRateLData.widthHint = 79;
@@ -260,15 +289,34 @@ implements SecureComposite{
 									.setLayoutData(lblDiscountRateLData);
 							}
 							{
-								txtDiscountRate = new NumericText(
-									compInfoPanel,
-									SWT.NONE);
+								txtDiscountRate = new NumericText(compInfoPanel, SWT.NONE);
+								txtDiscountRate.addModifyListener(new ModifyListener(){
+									public void modifyText(ModifyEvent evt){
+										calculateTotals();
+									}
+								});
 								GridData txtDiscountRateLData = new GridData();
 								txtDiscountRate.setTextLimit(2);
-								txtDiscountRateLData.widthHint = 107;
-								txtDiscountRateLData.heightHint = 15;
-								txtDiscountRate
-									.setLayoutData(txtDiscountRateLData);
+								txtDiscountRateLData.widthHint = 105;
+								txtDiscountRateLData.heightHint = 17;
+								txtDiscountRate.setLayoutData(txtDiscountRateLData);
+							}
+							{
+								lblDefinition = new CLabel(compInfoPanel, SWT.RIGHT);
+								lblDefinition.setText("Definition");
+								GridData lblDefinitionLData = new GridData();
+								lblDefinitionLData.widthHint = 108;
+								lblDefinitionLData.heightHint = 20;
+								lblDefinitionLData.verticalAlignment = GridData.BEGINNING;
+								lblDefinitionLData.horizontalAlignment = GridData.END;
+								lblDefinition.setLayoutData(lblDefinitionLData);
+							}
+							{
+								txtDefinition = new Text(compInfoPanel, SWT.NONE);
+								GridData txtDefinitionLData = new GridData();
+								txtDefinitionLData.widthHint = 246;
+								txtDefinitionLData.heightHint = 15;
+								txtDefinition.setLayoutData(txtDefinitionLData);
 							}
 						}
 						{
@@ -314,7 +362,9 @@ implements SecureComposite{
 							}
 						}
 						{
-							tableConsignmentRows = new Table(compGeneral, SWT.SINGLE | SWT.FULL_SELECTION | SWT.BORDER);
+							tableConsignmentRows = new Table(
+								compGeneral,
+								SWT.SINGLE | SWT.FULL_SELECTION | SWT.BORDER);
 							GridData tableConsignmentRowsLData = new GridData();
 							tableConsignmentRows.setLinesVisible(true);
 							tableConsignmentRows.setHeaderVisible(true);
@@ -393,14 +443,13 @@ implements SecureComposite{
 								tableColumnCumulative = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnCumulative.setText("Cumulative Total");
+								tableColumnCumulative
+									.setText("Cumulative Total");
 								tableColumnCumulative.setWidth(100);
 							}
 						}
 						{
-							compTotalsPanel = new Composite(
-								compGeneral,
-								SWT.NONE);
+							compTotalsPanel = new Composite(compGeneral, SWT.NONE);
 							GridLayout composite1Layout1 = new GridLayout();
 							GridData composite1LData1 = new GridData();
 							composite1LData1.grabExcessHorizontalSpace = true;
@@ -408,53 +457,51 @@ implements SecureComposite{
 							composite1LData1.horizontalAlignment = GridData.FILL;
 							composite1LData1.heightHint = 118;
 							compTotalsPanel.setLayoutData(composite1LData1);
-							composite1Layout1.numColumns = 2;
+							composite1Layout1.numColumns = 4;
 							compTotalsPanel.setLayout(composite1Layout1);
 							{
 								lblDiscountAmount = new CLabel(
 									compTotalsPanel,
 									SWT.NONE);
-								lblDiscountAmount.setText("Discount Amount");
+								lblDiscountAmount.setText("Discount Amount:");
+								GridData lblDiscountAmountLData = new GridData();
+								lblDiscountAmountLData.widthHint = 105;
+								lblDiscountAmountLData.heightHint = 19;
+								lblDiscountAmount.setLayoutData(lblDiscountAmountLData);
 							}
 							{
 								txtDiscountAmount = new DecimalText(
 									compTotalsPanel,
 									SWT.NONE);
 								GridData txtDiscountAmountLData = new GridData();
-								txtDiscountAmount
-									.setBackground(SWTResourceManager.getColor(
-										255,
-										255,
-										255));
+								txtDiscountAmount.setBackground(SWTResourceManager.getColor(255,255,255));
 								txtDiscountAmount.setEditable(false);
-								txtDiscountAmountLData.widthHint = 245;
+								txtDiscountAmountLData.widthHint = 191;
 								txtDiscountAmountLData.heightHint = 18;
-								txtDiscountAmount
-									.setLayoutData(txtDiscountAmountLData);
+								txtDiscountAmount.setLayoutData(txtDiscountAmountLData);
 							}
 							{
-								lblTotalVat = new CLabel(
+								lblTotalAmount = new CLabel(
 									compTotalsPanel,
 									SWT.NONE);
-								lblTotalVat.setText("Total VAT :");
-								GridData lblTotalVatLData = new GridData();
-								lblTotalVat.setSize(87, 19);
-								lblTotalVatLData.widthHint = 87;
-								lblTotalVatLData.heightHint = 19;
-								lblTotalVat.setLayoutData(lblTotalVatLData);
+								lblTotalAmount.setText("General Total:");
+								GridData lblTotalAmountLData = new GridData();
+								lblTotalAmount.setSize(87, 19);
+								lblTotalAmountLData.widthHint = 87;
+								lblTotalAmountLData.heightHint = 19;
+								lblTotalAmount.setLayoutData(lblTotalAmountLData);
 							}
 							{
-								txtTotalVat = new DecimalText(
+								txtTotalAmount = new DecimalText(
 									compTotalsPanel,
 									SWT.NONE);
-								GridData txtTotalVatLData = new GridData();
-								txtTotalVat.setSize(251, 18);
-								txtTotalVat.setBackground(SWTResourceManager
+								GridData txtTotalAmountLData = new GridData();
+								txtTotalAmount.setBackground(SWTResourceManager
 									.getColor(255, 255, 255));
-								txtTotalVat.setEditable(false);
-								txtTotalVatLData.widthHint = 245;
-								txtTotalVatLData.heightHint = 18;
-								txtTotalVat.setLayoutData(txtTotalVatLData);
+								txtTotalAmount.setEditable(false);
+								txtTotalAmountLData.widthHint = 197;
+								txtTotalAmountLData.heightHint = 17;
+								txtTotalAmount.setLayoutData(txtTotalAmountLData);
 							}
 							{
 								lblInventoryPrice = new CLabel(
@@ -473,39 +520,56 @@ implements SecureComposite{
 									compTotalsPanel,
 									SWT.NONE);
 								GridData text1LData = new GridData();
-								txtSubTotal.setSize(251, 18);
 								txtSubTotal.setBackground(SWTResourceManager
 									.getColor(255, 255, 255));
 								txtSubTotal.setEditable(false);
-								text1LData.widthHint = 245;
-								text1LData.heightHint = 18;
+								text1LData.widthHint = 190;
+								text1LData.heightHint = 19;
+								text1LData.horizontalSpan = 3;
 								txtSubTotal.setLayoutData(text1LData);
 							}
 							{
-								lblTotalAmount = new CLabel(
+								lblTotalVat = new CLabel(
 									compTotalsPanel,
 									SWT.NONE);
-								lblTotalAmount.setText("Total Amount :");
-								GridData lblTotalAmountLData = new GridData();
-								lblTotalAmount.setSize(87, 19);
-								lblTotalAmountLData.widthHint = 87;
-								lblTotalAmountLData.heightHint = 19;
-								lblTotalAmount
-									.setLayoutData(lblTotalAmountLData);
+								lblTotalVat.setText("Total VAT :");
+								GridData lblTotalVatLData = new GridData();
+								lblTotalVat.setSize(87, 19);
+								lblTotalVatLData.widthHint = 87;
+								lblTotalVatLData.heightHint = 19;
+								lblTotalVat.setLayoutData(lblTotalVatLData);
 							}
 							{
-								txtTotalAmount = new DecimalText(
+								txtTotalVat = new DecimalText(
 									compTotalsPanel,
 									SWT.NONE);
-								GridData txtTotalAmountLData = new GridData();
-								txtTotalAmount.setSize(251, 18);
-								txtTotalAmount.setBackground(SWTResourceManager
-									.getColor(255, 255, 255));
-								txtTotalAmount.setEditable(false);
-								txtTotalAmountLData.widthHint = 245;
-								txtTotalAmountLData.heightHint = 18;
-								txtTotalAmount
-									.setLayoutData(txtTotalAmountLData);
+								GridData txtTotalVatLData = new GridData();
+								txtTotalVat.setBackground(SWTResourceManager.getColor(255,255,255));
+								txtTotalVat.setEditable(false);
+								txtTotalVatLData.widthHint = 190;
+								txtTotalVatLData.heightHint = 19;
+								txtTotalVatLData.horizontalSpan = 3;
+								txtTotalVat.setLayoutData(txtTotalVatLData);
+							}
+							{
+								lblSpecialVAT = new Label(
+									compTotalsPanel,
+									SWT.NONE);
+								lblSpecialVAT.setText("Special VAT:");
+								GridData lblSpecialVATLData = new GridData();
+								lblSpecialVATLData.widthHint = 104;
+								lblSpecialVATLData.heightHint = 16;
+								lblSpecialVAT.setLayoutData(lblSpecialVATLData);
+							}
+							{
+								decSpecialVat = new DecimalText(
+									compTotalsPanel,
+									SWT.NONE);
+								GridData decSpecialVatLData = new GridData();
+								decSpecialVatLData.widthHint = 191;
+								decSpecialVatLData.heightHint = 19;
+								decSpecialVatLData.horizontalSpan = 3;
+								decSpecialVat.setLayoutData(decSpecialVatLData);
 							}
 						}
 					}
@@ -635,12 +699,42 @@ implements SecureComposite{
 							   invTrans.getTransactionsVatAmount().toString(),
 							   invTrans.getTransactionsVatSpecialAmount().toString(),
 							   invTrans.getTransactionsCumilativePrice().toString()});
-		
+	
+		calculateTotals();
 	}
 	
 	
-	
+	public boolean verifyFields(){
+		return true;
+	}
 	public void save(){
+	try{	
+		if(verifyFields()){
+			TurqBill bill = new TurqBill();
+			bill.setBillsId(new Integer(-1));
+	        int type =0;
+		if(comboConsignmentType.getText().equals("Sell")){
+			type =1;
+		}
+	
+		blAddCondignmetn.saveConsignment(txtDocumentNo.getText(),
+										txtDefinition.getText(),
+										false,
+										dateConsignmentDate.getDate(),
+										(TurqCurrentCard)txtCurrentCard.getData(),
+										txtDiscountRate.getIntValue(),
+										txtDiscountAmount.getBigDecimalValue(),
+										bill,
+										txtBillDocumentNo.getText(),
+										txtTotalVat.getBigDecimalValue(),
+										decSpecialVat.getBigDecimalValue(),
+										txtTotalAmount.getBigDecimalValue(),
+										type);
+		}
+	}
+	catch(Exception ex){
+		ex.printStackTrace();
+	}
 		
 	}
 	public void delete(){
@@ -650,6 +744,45 @@ implements SecureComposite{
 		
 	}
 	public void newForm(){
+		
+	}
+	
+	public void calculateTotals(){
+		
+	TableItem items[] = tableConsignmentRows.getItems();
+	BigDecimal subTotal = new BigDecimal(0);
+	BigDecimal totalVAT = new BigDecimal(0);
+	BigDecimal totalSpecVAT = new BigDecimal(0);
+	BigDecimal generalTotal = new BigDecimal(0);
+	BigDecimal discountTotal = new BigDecimal(0);
+	
+	
+	for(int i =0;i<items.length;i++){
+		subTotal = subTotal.add(new BigDecimal(items[i].getText(5)));
+		totalVAT = totalVAT.add(new BigDecimal(items[i].getText(7)));
+		totalSpecVAT = totalSpecVAT.add(new BigDecimal(items[i].getText(8)));
+		
+	}
+	
+	generalTotal = subTotal.add(totalVAT).add(totalSpecVAT);
+    double discountRate = (double)txtDiscountRate.getIntValue()/100;
+  
+   
+ 
+    discountTotal = generalTotal.multiply(new BigDecimal(discountRate+"")).setScale(2, BigDecimal.ROUND_DOWN);;
+       
+    totalSpecVAT = totalSpecVAT.subtract(totalSpecVAT.multiply(new BigDecimal(discountRate+""))).setScale(2,BigDecimal.ROUND_DOWN);
+    
+    subTotal = subTotal.subtract(subTotal.multiply(new BigDecimal(discountRate+""))).setScale(2, BigDecimal.ROUND_DOWN);
+    
+    totalVAT = totalVAT.subtract(totalVAT.multiply(new BigDecimal(discountRate+""))).setScale(2, BigDecimal.ROUND_DOWN);
+    
+    txtDiscountAmount.setText(discountTotal.toString());    
+	txtSubTotal.setText(subTotal.toString());
+	txtTotalVat.setText(totalVAT.toString());
+	decSpecialVat.setText(totalSpecVAT.toString());
+	txtTotalAmount.setText(generalTotal.subtract(discountTotal).toString());	
+		
 		
 	}
 

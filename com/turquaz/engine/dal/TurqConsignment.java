@@ -25,9 +25,6 @@ public class TurqConsignment implements Serializable {
     private int condignmentsDiscountRate;
 
     /** persistent field */
-    private int consignmentsVat;
-
-    /** persistent field */
     private java.math.BigDecimal consignmentsDiscountAmount;
 
     /** persistent field */
@@ -61,6 +58,9 @@ public class TurqConsignment implements Serializable {
     private java.lang.String consignmentsDocumentNo;
 
     /** persistent field */
+    private java.math.BigDecimal consignmentsSpecialVatAmount;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqCompany turqCompany;
 
     /** persistent field */
@@ -76,12 +76,11 @@ public class TurqConsignment implements Serializable {
     private Set turqConsignmentsInGroups;
 
     /** full constructor */
-    public TurqConsignment(java.lang.String consignmentsBillDocumentNo, java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, int condignmentsDiscountRate, int consignmentsVat, java.math.BigDecimal consignmentsDiscountAmount, java.math.BigDecimal consignmentsCharges, java.math.BigDecimal consignmentsVatAmount, java.math.BigDecimal consignmentsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, int consignmentsType, boolean consignmentsPrinted, java.lang.String consignmentsDocumentNo, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqBill turqBill, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqInventoryTransactions, Set turqConsignmentsInGroups) {
+    public TurqConsignment(java.lang.String consignmentsBillDocumentNo, java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, int condignmentsDiscountRate, java.math.BigDecimal consignmentsDiscountAmount, java.math.BigDecimal consignmentsCharges, java.math.BigDecimal consignmentsVatAmount, java.math.BigDecimal consignmentsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, int consignmentsType, boolean consignmentsPrinted, java.lang.String consignmentsDocumentNo, java.math.BigDecimal consignmentsSpecialVatAmount, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqBill turqBill, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqInventoryTransactions, Set turqConsignmentsInGroups) {
         this.consignmentsBillDocumentNo = consignmentsBillDocumentNo;
         this.consignmentsDate = consignmentsDate;
         this.consignmentsDefinition = consignmentsDefinition;
         this.condignmentsDiscountRate = condignmentsDiscountRate;
-        this.consignmentsVat = consignmentsVat;
         this.consignmentsDiscountAmount = consignmentsDiscountAmount;
         this.consignmentsCharges = consignmentsCharges;
         this.consignmentsVatAmount = consignmentsVatAmount;
@@ -93,6 +92,7 @@ public class TurqConsignment implements Serializable {
         this.consignmentsType = consignmentsType;
         this.consignmentsPrinted = consignmentsPrinted;
         this.consignmentsDocumentNo = consignmentsDocumentNo;
+        this.consignmentsSpecialVatAmount = consignmentsSpecialVatAmount;
         this.turqCompany = turqCompany;
         this.turqBill = turqBill;
         this.turqCurrentCard = turqCurrentCard;
@@ -142,14 +142,6 @@ public class TurqConsignment implements Serializable {
 
     public void setCondignmentsDiscountRate(int condignmentsDiscountRate) {
         this.condignmentsDiscountRate = condignmentsDiscountRate;
-    }
-
-    public int getConsignmentsVat() {
-        return this.consignmentsVat;
-    }
-
-    public void setConsignmentsVat(int consignmentsVat) {
-        this.consignmentsVat = consignmentsVat;
     }
 
     public java.math.BigDecimal getConsignmentsDiscountAmount() {
@@ -238,6 +230,14 @@ public class TurqConsignment implements Serializable {
 
     public void setConsignmentsDocumentNo(java.lang.String consignmentsDocumentNo) {
         this.consignmentsDocumentNo = consignmentsDocumentNo;
+    }
+
+    public java.math.BigDecimal getConsignmentsSpecialVatAmount() {
+        return this.consignmentsSpecialVatAmount;
+    }
+
+    public void setConsignmentsSpecialVatAmount(java.math.BigDecimal consignmentsSpecialVatAmount) {
+        this.consignmentsSpecialVatAmount = consignmentsSpecialVatAmount;
     }
 
     public com.turquaz.engine.dal.TurqCompany getTurqCompany() {

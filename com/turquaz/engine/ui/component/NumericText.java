@@ -25,6 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.widgets.Composite;
@@ -98,6 +99,9 @@ public class NumericText extends Composite {
   	}
   }
  
+ }
+ public void addModifyListener(ModifyListener listener){
+ 	text.addModifyListener(listener);	
  }
  public void setTextLimit(int a){
  	textLimit = a;
