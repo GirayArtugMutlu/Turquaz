@@ -126,10 +126,11 @@ public class AccUIAddAccounts extends SecureComposite{
 			cLabel2.setText("Parent Account");
 	
 			GridData txtParentAccountLData = new GridData();
-			txtParentAccountLData.widthHint = 145;
-			txtParentAccountLData.heightHint = 22;
+			txtParentAccountLData.widthHint = 146;
+			txtParentAccountLData.heightHint = 21;
 			txtParentAccount.setLayoutData(txtParentAccountLData);
-			txtParentAccount.setSize(new org.eclipse.swt.graphics.Point(145,22));
+			txtParentAccount.setSize(new org.eclipse.swt.graphics.Point(146,21));
+			txtParentAccount.setEnabled(true);
 			txtParentAccount.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
 					txtParentAccountMouseUp(evt);
@@ -166,8 +167,8 @@ public class AccUIAddAccounts extends SecureComposite{
 	String accountName = txtAccAcountName.getText().trim();
 	String accountCode = txtAccAccountCode.getText().trim();
     int parentId = Integer.parseInt(txtParentAccount.getText().trim());
-		blAccountAdd.saveAccount(accountName,accountCode,parentId);
-	
+		
+    blAccountAdd.saveAccount(accountName,accountCode,parentId);	
 	
 	}
 	catch(Exception ex){
@@ -216,7 +217,7 @@ public class AccUIAddAccounts extends SecureComposite{
 	}
 	/** Auto-generated event handler method */
 	protected void txtParentAccountMouseUp(MouseEvent evt){
-	
+	new AccUISearchAccountsDialog(this.getShell(),SWT.NULL).showDialog("");
 	
 	
 	

@@ -1,13 +1,24 @@
 package com.turquaz.accounting.ui;
 
+
+
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.SWT;
+
+import com.turquaz.accounting.ui.comp.AccUIAccountsTree;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.graphics.Color;
+import com.turquaz.accounting.bl.AccBLAccountAdd;
 
 /**
 * This code was generated using CloudGarden's Jigloo
@@ -19,7 +30,10 @@ import org.eclipse.swt.SWT;
 public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 	private Composite composite1;
 	private Shell dialogShell;
-
+	private AccUIAccountsTree accountTree;
+	private AccBLAccountAdd blAccount;
+	Object returnObj[] = new Object[2];
+			
 	public AccUISearchAccountsDialog(Shell parent, int style) {
 		super(parent, style);
 	}
@@ -40,6 +54,8 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(387,260));
 	
 			composite1.setSize(new org.eclipse.swt.graphics.Point(387,260));
+			final Color composite1background = new Color(Display.getDefault(),255,255,255);
+			composite1.setBackground(composite1background);
 			GridLayout composite1Layout = new GridLayout(1, true);
 			composite1.setLayout(composite1Layout);
 			composite1Layout.marginWidth = 5;
@@ -56,6 +72,11 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 			dialogShellLayout.marginHeight = 0;
 			dialogShellLayout.spacing = 0;
 			dialogShell.layout();
+			dialogShell.addDisposeListener(new DisposeListener() {
+				public void widgetDisposed(DisposeEvent e) {
+					composite1background.dispose();
+				}
+			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 387,260);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
@@ -69,19 +90,68 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 			e.printStackTrace();
 		}
 	}
+	/**
+	* Opens the Dialog Shell.
+	* Auto-generated code - any changes you make will disappear.
+	*/	
+	public Object[] showDialog(String filter){
+		try {
+			preInitGUI();
+	
+			Shell parent = getParent();
+			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+			dialogShell.setText(getText());
+			accountTree = new AccUIAccountsTree(dialogShell,SWT.NULL);
+	
+			dialogShell.setSize(new org.eclipse.swt.graphics.Point(304,208));
+	
+			accountTree.setSize(new org.eclipse.swt.graphics.Point(288,192));
+			accountTree.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					accountTreeMouseDoubleClick(evt);
+				}
+			});
+			FillLayout dialogShellLayout = new FillLayout(256);
+			dialogShell.setLayout(dialogShellLayout);
+			dialogShellLayout.type = SWT.HORIZONTAL;
+			dialogShellLayout.marginWidth = 0;
+			dialogShellLayout.marginHeight = 0;
+			dialogShellLayout.spacing = 0;
+			dialogShell.layout();
+			Rectangle bounds = dialogShell.computeTrim(0, 0, 304,208);
+			dialogShell.setSize(bounds.width, bounds.height);
+			postInitGUI(filter);
+			dialogShell.open();
+			
+			
+			
+			Display display = dialogShell.getDisplay();
+			while (!dialogShell.isDisposed()) {
+				if (!display.readAndDispatch())
+					display.sleep();
+			}
+			return returnObj;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	/** Add your pre-init code in here 	*/
 	public void preInitGUI(){
+	
+	blAccount = new AccBLAccountAdd();
+	
 	}
 
-	/** Add your post-init code in here 	*/
-	public void postInitGUI(){
+	/** Add your post-init code in here */
+	public void postInitGUI(String filter){
+	
+	accountTree.fillTree(-1,filter);		
+	
 	}
 
-	/** Auto-generated main method */
-	public static void main(String[] args){
-		showGUI();
-	}
-
+  
 	/**
 	* This static method creates a new instance of this class and shows
 	* it inside a new Shell.
@@ -100,5 +170,15 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	/** Auto-generated event handler method */
+	protected void accountTreeMouseDoubleClick(MouseEvent evt){
+	 returnObj[0]=accountTree.getSelection()[0].getText();
+			returnObj[1]=accountTree.getSelection()[0].getData();
+		dialogShell.close();
+	}
+
+	/** Add your post-init code in here 	*/
+	public void postInitGUI(){
 	}
 }

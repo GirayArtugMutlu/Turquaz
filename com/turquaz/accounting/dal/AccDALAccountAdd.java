@@ -45,7 +45,8 @@ public class AccDALAccountAdd {
 			String query = "from TurqAccountingAccount as accounts " +
 					"where accounts.turqCompany.companiesId ="+System.getProperty("company")+" and" +
 							" accounts.turqAccountingAccount.accountingAccountsId ="+parentid+"" +
-							" and accounts.accountCode like '"+codeCriteria+"%'";		   
+							" and accounts.accountCode like '"+codeCriteria+"%'" +
+							" and accounts.accountingAccountsId <> -1";		   
 			   
 
 			Query q = session.createQuery(query); 

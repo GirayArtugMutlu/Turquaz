@@ -159,7 +159,7 @@
 				<Properties>
 					<Property name="text" type="String" value="Parent Account"/>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 83, 80, 19]"/>
+						<Rectangle value="[5, 82, 80, 19]"/>
 					</Property>
 				</Properties>
 			</Component>
@@ -168,8 +168,8 @@
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
-						<Property name="widthHint" type="int" value="145"/>
-						<Property name="heightHint" type="int" value="22"/>
+						<Property name="widthHint" type="int" value="146"/>
+						<Property name="heightHint" type="int" value="21"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
 						<Property name="verticalSpan" type="int" value="1"/>
@@ -182,10 +182,11 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[145, 22]"/>
+						<Dimension value="[146, 21]"/>
 					</Property>
+					<Property name="enabled" type="boolean" value="true"/>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[101, 81, 145, 22]"/>
+						<Rectangle value="[101, 81, 146, 21]"/>
 					</Property>
 				</Properties>
 			</Component>
