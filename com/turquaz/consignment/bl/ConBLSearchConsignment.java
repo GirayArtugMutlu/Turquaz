@@ -34,6 +34,18 @@ public class ConBLSearchConsignment {
 		}
 		
 	}
+	public List chooseConsignment(TurqCurrentCard card,Date startDate,Date endDate, int type)throws Exception{
+		try{
+			
+			return dalSearch.chooseConsignments(card,startDate,endDate,type);
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
+	
 	
 	
 }

@@ -32,7 +32,61 @@ public class ConDALSearchConsignment {
 				" consignment.turqCompany.companiesId ="+System.getProperty("company")+
 				" and consignment.consignmentsDate >= :startDate" +
 				" and consignment.consignmentsDate <= :endDate" +
-				" and consignment.consignmentsType ="+type +"";
+				" and consignment.consignmentsType ="+type +
+				" and consignment.consignmentsId <> -1 ";
+		
+		
+		if (curCard!=null){
+			query +=" and consignment.turqCurrentCard = :curCard";
+		}
+		query += " order by consignment.consignmentsDate";
+		
+		Query q = session.createQuery(query); 	
+		
+		q.setParameter("startDate",startDate);
+		q.setParameter("endDate",endDate);
+		
+		if (curCard!=null){
+			q.setParameter("curCard",curCard);
+		}
+		
+		
+		
+		List list = q.list();
+		
+		TurqConsignment cons;
+		for(int i=0;i<list.size();i++){
+			
+		cons= (TurqConsignment)list.get(i);
+		Hibernate.initialize(cons.getTurqConsignmentsInGroups());
+		Hibernate.initialize(cons.getTurqInventoryTransactions());
+			
+		}
+		
+		session.close();
+		return list;
+		
+		
+		
+	}
+	catch(Exception ex){
+		throw ex;
+	}
+	}
+	
+	//?rsaliyeden faturalstirma da kullaniliyo..
+	public List chooseConsignments(TurqCurrentCard curCard, Date startDate, Date endDate, int type)
+	throws Exception {
+	try{
+		Session session = EngDALSessionFactory.openSession();
+		
+		String query = "Select consignment from TurqConsignment as consignment where" +
+				" consignment.turqCompany.companiesId ="+System.getProperty("company")+
+				" and consignment.consignmentsDate >= :startDate" +
+				" and consignment.consignmentsDate <= :endDate" +
+				" and consignment.consignmentsType ="+type +
+				" and consignment.consignmentsId <> -1 "+
+				" and consignment.turqBill.billsId <> -1";
 		
 		
 		if (curCard!=null){

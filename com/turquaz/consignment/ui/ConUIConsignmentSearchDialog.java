@@ -1,34 +1,33 @@
 package com.turquaz.consignment.ui;
 
+
 import java.util.List;
 
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.custom.CCombo;
 
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
-import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.ui.component.SearchComposite;
-import com.turquaz.engine.ui.component.TextWithButton;
 import com.turquaz.engine.ui.component.DatePicker;
-import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseAdapter;
+import com.cloudgarden.resource.SWTResourceManager;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
+
+import com.turquaz.engine.ui.component.TextWithButton;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
-import com.turquaz.engine.ui.component.SecureComposite;
 
 
 /**
@@ -45,80 +44,61 @@ import com.turquaz.engine.ui.component.SecureComposite;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite implements
-SecureComposite, SearchComposite{
+public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog {
+
+	private Shell dialogShell;
 	private Composite composite1;
-	private Table tableConsignments;
-	private TableColumn tableColumnCurrentName;
-	private TableColumn tableColumnVatAmount;
 	private TextWithButton txtCurCard;
+	private Button btnSearch;
+	private Label lblSeperator;
+	private TableColumn tableColumnSpecialVatAmount;
+	private TableColumn tableColumnVatAmount;
+	private TableColumn tableColumnCumulativePrice;
+	private CLabel lblEndDate;
+	private TableColumn tableColumnCurrentName;
+	private TableColumn tableColumnConsignmentDate;
+	private Table tableConsignments;
 	private CCombo comboConsignmentType;
 	private CLabel lblType;
-	private CLabel lblEndDate;
 	private DatePicker dateEndDate;
 	private DatePicker dateStartDate;
 	private CLabel lblStartDate;
 	private CLabel lblCurrentCard;
-	private TableColumn tableColumnSpecialVatAmount;
-	private TableColumn tableColumnCumulativePrice;
-	private TableColumn tableColumnConsignmentDate;
+	private TurqConsignment cons =null;
 	private ConBLSearchConsignment blSearch = new ConBLSearchConsignment();
 
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		showGUI();
-	}
-		
-	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		ConUIConsignmentSearch inst = new ConUIConsignmentSearch(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if(size.x == 0 && size.y == 0) {
-			inst.pack();
-			shell.pack();
-		} else {
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
+	
 
-	public ConUIConsignmentSearch(org.eclipse.swt.widgets.Composite parent, int style) {
+	public ConUIConsignmentSearchDialog(Shell parent, int style) {
 		super(parent, style);
-		initGUI();
 	}
 
-	private void initGUI() {
+	public TurqConsignment open() {
 		try {
-			this.setLayout(new GridLayout());
-			this.setSize(591, 344);
+			Shell parent = getParent();
+			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+
+				{
+					//Register as a resource user - SWTResourceManager will
+					//handle the obtaining and disposing of resources
+					SWTResourceManager.registerResourceUser(dialogShell);
+				}
+
+
+			dialogShell.setLayout(new GridLayout());
+			dialogShell.layout();
+			dialogShell.pack();
+			dialogShell.setSize(587, 323);
 			{
-				composite1 = new Composite(this, SWT.NONE);
+				composite1 = new Composite(dialogShell, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
 				composite1Layout.numColumns = 2;
 				GridData composite1LData = new GridData();
-				composite1LData.heightHint = 124;
-				composite1LData.grabExcessHorizontalSpace = true;
-				composite1LData.horizontalAlignment = GridData.FILL;
-				composite1.setLayoutData(composite1LData);
 				composite1.setLayout(composite1Layout);
+				composite1LData.horizontalAlignment = GridData.FILL;
+				composite1LData.heightHint = 158;
+				composite1LData.grabExcessHorizontalSpace = true;
+				composite1.setLayoutData(composite1LData);
 				{
 					lblCurrentCard = new CLabel(composite1, SWT.NONE);
 					lblCurrentCard.setText("CurrentCard");
@@ -179,26 +159,48 @@ SecureComposite, SearchComposite{
 				}
 				{
 					comboConsignmentType = new CCombo(composite1, SWT.NONE);
-					GridData comboConsignmentTypeLData = new GridData();
 					comboConsignmentType.setText("Buy");
+					GridData comboConsignmentTypeLData = new GridData();
 					comboConsignmentTypeLData.widthHint = 72;
 					comboConsignmentTypeLData.heightHint = 14;
-					comboConsignmentType.setLayoutData(comboConsignmentTypeLData);
+					comboConsignmentType
+						.setLayoutData(comboConsignmentTypeLData);
+				}
+				{
+					lblSeperator = new Label(composite1, SWT.SEPARATOR | SWT.HORIZONTAL);
+					GridData lblSeperatorLData = new GridData();
+					lblSeperatorLData.horizontalAlignment = GridData.FILL;
+					lblSeperatorLData.grabExcessHorizontalSpace = true;
+					lblSeperatorLData.horizontalSpan = 2;
+					lblSeperator.setLayoutData(lblSeperatorLData);
+				}
+				{
+					btnSearch = new Button(composite1, SWT.PUSH | SWT.CENTER);
+					btnSearch.setImage(SWTResourceManager.getImage("icons/Find24.gif"));
+					GridData btnSearchLData = new GridData();
+					btnSearch.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+						search();	
+						}
+					});
+					btnSearchLData.widthHint = 62;
+					btnSearchLData.heightHint = 30;
+					btnSearch.setLayoutData(btnSearchLData);
 				}
 			}
 			{
-				tableConsignments = new Table(this, SWT.FULL_SELECTION);
+				tableConsignments = new Table(dialogShell, SWT.FULL_SELECTION);
+				tableConsignments.setHeaderVisible(true);
+				tableConsignments.setLinesVisible(true);
 				GridData tableConsignmentsLData = new GridData();
 				tableConsignments.addMouseListener(new MouseAdapter() {
 					public void mouseDoubleClick(MouseEvent evt) {
-						tableMouseDoubleClick();
+						tableDoubleMouseClick();
 					}
 				});
-				tableConsignments.setHeaderVisible(true);
-				tableConsignments.setLinesVisible(true);
-				tableConsignmentsLData.grabExcessHorizontalSpace = true;
-				tableConsignmentsLData.horizontalAlignment = GridData.FILL;
 				tableConsignmentsLData.verticalAlignment = GridData.FILL;
+				tableConsignmentsLData.horizontalAlignment = GridData.FILL;
+				tableConsignmentsLData.grabExcessHorizontalSpace = true;
 				tableConsignmentsLData.grabExcessVerticalSpace = true;
 				tableConsignments.setLayoutData(tableConsignmentsLData);
 				{
@@ -237,20 +239,21 @@ SecureComposite, SearchComposite{
 					tableColumnSpecialVatAmount.setWidth(100);
 				}
 			}
-			postInitGui();
-			this.layout();
+			dialogShell.open();
+			Display display = dialogShell.getDisplay();
+			while (!dialogShell.isDisposed()) {
+				if (!display.readAndDispatch())
+					display.sleep();
+			}
+			return cons;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 	}
-	public void postInitGui(){
-		comboConsignmentType.add("Buy");
-		comboConsignmentType.add("Sell");
-	}
-	
 	
 	public void currentCardChoose(){
-		Object data = new CurUICurrentCardSearchDialog(this.getShell(),SWT.NULL).open();
+		Object data = new CurUICurrentCardSearchDialog(this.getParent(),SWT.NULL).open();
 	    if(data!=null){
 	    
 	    System.out.println(data.getClass().getName());
@@ -261,9 +264,13 @@ SecureComposite, SearchComposite{
 	    }
 		
 	}
-	
-	
-	public void save(){
+	public void tableDoubleMouseClick(){
+		
+		TableItem items[] =tableConsignments.getSelection();
+		if(items.length>0){
+			cons = (TurqConsignment)items[0].getData();
+			dialogShell.close();
+		}
 		
 	}
 	public void search(){
@@ -277,7 +284,7 @@ SecureComposite, SearchComposite{
 			type =1;
 		}
 			
-		List list = blSearch.searchConsignment((TurqCurrentCard)txtCurCard.getData(),
+		List list = blSearch.chooseConsignment((TurqCurrentCard)txtCurCard.getData(),
 												dateStartDate.getDate(),
 												dateEndDate.getDate(),type);
 		TurqConsignment cons;
@@ -307,25 +314,5 @@ SecureComposite, SearchComposite{
 		
 		
 	}
-	public void newForm(){
-		
-	}
-	public void delete(){
-		
-	}
 	
-	public void exportToExcel(){
-		
-		EngBLUtils.Export2Excel(tableConsignments);
-		
-	}
-	
-	public void tableMouseDoubleClick(){
-		TableItem items[] = tableConsignments.getSelection();
-		if(items.length>0){
-		
-		new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,(TurqConsignment)items[0].getData()).open();
-		}
-	}
-
 }
