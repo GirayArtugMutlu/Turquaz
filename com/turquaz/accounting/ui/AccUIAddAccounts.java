@@ -24,6 +24,8 @@ package com.turquaz.accounting.ui;
 
 
 
+import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
+import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
@@ -34,7 +36,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.accounting.Messages;
@@ -44,7 +49,12 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.VerifyEvent;
+
+import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistProcessors;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 
 
@@ -87,13 +97,13 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	/**
 	 * @return Returns the txtParentAccount.
 	 */
-	public DynamicAccountPicker getTxtParentAccount() {
+	public Text getTxtParentAccount() {
 		return txtParentAccount;
 	}
 	private AccBLAccountAdd blAccountAdd = new AccBLAccountAdd();
 	private CLabel cLabel1;
 	private Text txtAccAcountName;
-	private DynamicAccountPicker txtParentAccount;
+	private Text txtParentAccount;
 	private CLabel cLabel2;
 	private Label label1;
 	private Text txtAccAccountCode;
@@ -113,7 +123,42 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(435,204));
+			this.setSize(413, 176);
+            {
+                cLabel2 = new CLabel(this, SWT.NONE);
+                GridData cLabel2LData = new GridData();
+                cLabel2.setText(Messages.getString("AccUIAddAccounts.2"));
+                cLabel2.setLayoutData(cLabel2LData);
+            }
+            {
+                txtParentAccount = new Text(this, SWT.NONE);
+                GridData txtParentAccountLData = new GridData();
+                txtParentAccount.addModifyListener(new ModifyListener() {
+                    public void modifyText(ModifyEvent evt) {
+                        try {
+                            txtParentAccount.setData(EngBLAccountingAccounts
+                                .getAccount(txtParentAccount.getText().trim()));
+                            
+                            
+                            if(txtParentAccount.getData()!=null){
+                             txtAccAccountCode.setText(txtParentAccount.getText().trim()+".");
+                                                   
+                            }
+                            else{
+                                txtAccAccountCode.setText("");
+                            }
+                            
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+
+                    }
+                });
+                txtParentAccountLData.widthHint = 252;
+                txtParentAccountLData.heightHint = 22;
+                txtParentAccount.setLayoutData(txtParentAccountLData);
+                txtParentAccount.setEnabled(true);
+            }
 			{
 				cLabel1 = new CLabel(this, SWT.NONE);
 				cLabel1.setSize(new org.eclipse.swt.graphics.Point(83, 17));
@@ -125,13 +170,10 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 			}
 			{
 				txtAccAccountCode = new Text(this, SWT.NONE);
-				txtAccAccountCode.setSize(new org.eclipse.swt.graphics.Point(
-					255,
-					17));
 				GridData txtAccAccountCodeLData = new GridData();
 				
-				txtAccAccountCodeLData.widthHint = 249;
-				txtAccAccountCodeLData.heightHint = 17;
+				txtAccAccountCodeLData.widthHint = 250;
+				txtAccAccountCodeLData.heightHint = 20;
 				txtAccAccountCode.setLayoutData(txtAccAccountCodeLData);
 			}
 			{
@@ -145,34 +187,10 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 			}
 			{
 				txtAccAcountName = new Text(this, SWT.NONE);
-				txtAccAcountName.setSize(new org.eclipse.swt.graphics.Point(
-					256,
-					17));
 				GridData txtAccAcountNameLData = new GridData();
-				txtAccAcountNameLData.widthHint = 250;
-				txtAccAcountNameLData.heightHint = 17;
+				txtAccAcountNameLData.widthHint = 251;
+				txtAccAcountNameLData.heightHint = 19;
 				txtAccAcountName.setLayoutData(txtAccAcountNameLData);
-			}
-			{
-				cLabel2 = new CLabel(this, SWT.NONE);
-				GridData cLabel2LData = new GridData();
-				cLabel2.setText(Messages.getString("AccUIAddAccounts.2"));
-				cLabel2.setLayoutData(cLabel2LData);
-			}
-			{
-				txtParentAccount = new DynamicAccountPicker(this, SWT.NONE);
-				GridData txtParentAccountLData = new GridData();
-				txtParentAccountLData.widthHint = 233;
-				txtParentAccountLData.heightHint = 18;
-				txtParentAccount.setFilter(""); //$NON-NLS-1$
-				txtParentAccount.setLayoutData(txtParentAccountLData);
-				txtParentAccount.setEnabled(true);
-				txtParentAccount.addMouseListener(new MouseAdapter() {
-					public void mouseUp(MouseEvent evt) {
-						txtParentAccountMouseUp(evt);
-					}
-				});
-				txtParentAccount.layout();
 			}
 
 			final Color txtAccAccountCodebackground = new Color(Display.getDefault(),255,255,255);
@@ -201,6 +219,25 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	    TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtParentAccount);
+	    
+	 	final SubjectControlContentAssistant asistant= TurquazContentAssistant.createContentAssistant(adapter,"accounting");
+	   
+	     adapter.appendVerifyKeyListener(
+	             new VerifyKeyListener() {
+	                 public void verifyKey(VerifyEvent event) {
+
+	                 // Check for Ctrl+Spacebar
+	                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
+	             
+	                  asistant.showPossibleCompletions();              
+	                   event.doit = false;
+
+	                 }
+	              }
+	           });
+	    
+	    
 	}
 	
 	
@@ -233,8 +270,8 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	txtAccAccountCode.setText(""); //$NON-NLS-1$
 	txtAccAcountName.setText(""); //$NON-NLS-1$
 	
-	txtParentAccount.setData(null);
-	txtAccAccountCode.setFocus();
+	txtParentAccount.setFocus();
+	txtParentAccount.setSelection(txtParentAccount.getText().length());
 	}
 	
 	
@@ -250,6 +287,8 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
     MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
     msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
     msg.open();
+    
+    TurquazContentAssistProcessors.fillProposalArray("accounting");
     
     clearFields();
 	}

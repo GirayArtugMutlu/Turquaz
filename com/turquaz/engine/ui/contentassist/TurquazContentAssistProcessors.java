@@ -13,13 +13,48 @@ import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Point;
 
+import com.turquaz.engine.bl.EngBLAccountingAccounts;
+import com.turquaz.engine.dal.TurqAccountingAccount;
+
 
 
 public class TurquazContentAssistProcessors implements ISubjectControlContentAssistProcessor {
 
+    String type = "";
+    public TurquazContentAssistProcessors(String type){
+       this.type = type;  
+       fillProposalArray(type);
+    
+    }
     /* (non-Javadoc)
      * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#computeCompletionProposals(org.eclipse.jface.text.ITextViewer, int)
      */
+    
+    
+    public static void fillProposalArray(String type){
+        try{
+        if(type.equals("accounting")){
+            System.out.println("filling proposals");
+         List list= EngBLAccountingAccounts.getAccounts();
+         List proposed = new ArrayList();
+         for(int i=0;i<list.size();i++){
+             TurqAccountingAccount acc = (TurqAccountingAccount)list.get(i);
+             proposed.add(acc.getAccountCode());
+         }
+         System.out.println("Total Proposals:"+proposed.size());
+         proposedCodes = new String[proposed.size()];
+         proposed.toArray(proposedCodes);              
+            
+        }
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+        
+        
+        
+    }
+    
     public ICompletionProposal[] computeCompletionProposals(IContentAssistSubjectControl viewer,
         
             int documentOffset) {
@@ -102,8 +137,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
      }
     
 //  Proposal part before cursor
-    private final static String[] STRUCTTAGS1 =
-       new String[] {"a", "ab", "ab.c", "ab.cd",  "ab.cd.ef",  "ab.cd.ef.gh" };
+    private static String[] proposedCodes;
 
 
     
@@ -112,8 +146,8 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
         int qlen = qualifier.length();
 
         // Loop through all proposals
-        for (int i = 0; i < STRUCTTAGS1.length; i++) {
-           String startTag = STRUCTTAGS1[i];
+        for (int i = 0; i < proposedCodes.length; i++) {
+           String startTag = proposedCodes[i];
 
            
            String text = startTag;

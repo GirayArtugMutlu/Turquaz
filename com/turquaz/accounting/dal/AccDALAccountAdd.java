@@ -111,6 +111,7 @@ public class AccDALAccountAdd {
 		}
 		
 	}
+	
 	public List getAllAccounts()throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();

@@ -127,10 +127,10 @@ public class ContentAsistantSnippet extends org.eclipse.swt.widgets.Composite {
 	
 	//Content Assistant Code Here...  
 	public void postInitGUI(){
-	    
+	    System.setProperty("company","0");
 	    TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(text1);
 	    
-	 	final SubjectControlContentAssistant asistant= TurquazContentAssistant.createContentAssistant(adapter);
+	 	final SubjectControlContentAssistant asistant= TurquazContentAssistant.createContentAssistant(adapter,"accounting");
 	   
 	     adapter.appendVerifyKeyListener(
 	             new VerifyKeyListener() {

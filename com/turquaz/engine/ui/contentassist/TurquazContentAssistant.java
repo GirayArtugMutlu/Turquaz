@@ -23,13 +23,13 @@ public class TurquazContentAssistant {
     }    
 
     public static SubjectControlContentAssistant createContentAssistant(
-            TextContentAssistSubjectAdapter adapter) {
+            TextContentAssistSubjectAdapter adapter,String type) {
         final SubjectControlContentAssistant contentAssistant = new SubjectControlContentAssistant();
 
-        IContentAssistProcessor processor = new TurquazContentAssistProcessors();
+        IContentAssistProcessor processor = new TurquazContentAssistProcessors(type);
         contentAssistant.setContentAssistProcessor(processor,
                 IDocument.DEFAULT_CONTENT_TYPE);
-
+        
         contentAssistant.enableAutoActivation(true);
         contentAssistant.setAutoActivationDelay(500);
 
