@@ -124,8 +124,8 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
                 lblCashTransType.setText(Messages.getString("CashUICashCollectTransactionAdd.0")); //$NON-NLS-1$
                 GridData lblCashTransTypeLData = new GridData();
                 lblCashTransType.setFont(SWTResourceManager.getFont("Tahoma", 14, 1, false, false)); //$NON-NLS-1$
-                lblCashTransTypeLData.widthHint = 180;
-                lblCashTransTypeLData.heightHint = 42;
+                lblCashTransTypeLData.widthHint = 166;
+                lblCashTransTypeLData.heightHint = 43;
                 lblCashTransTypeLData.horizontalAlignment = GridData.CENTER;
                 lblCashTransTypeLData.horizontalSpan = 2;
                 lblCashTransTypeLData.grabExcessHorizontalSpace = true;

@@ -1,19 +1,32 @@
 package com.turquaz.cash.ui;
 
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+
+import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
-import com.turquaz.cash.bl.CashBLCashCardSearch;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
+import com.turquaz.engine.bl.EngBLCashCards;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.layout.GridData;
@@ -117,9 +130,23 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
                 {
                     txtCashCard = new Text(compSearchPanel, SWT.NONE);
                     GridData txtCashCardLData = new GridData();
-                    txtCashCardLData.widthHint = 115;
+                    txtCashCardLData.widthHint = 118;
                     txtCashCardLData.heightHint = 16;
                     txtCashCard.setLayoutData(txtCashCardLData);
+                    txtCashCard
+    				.addModifyListener(new ModifyListener() {
+    				public void modifyText(ModifyEvent evt) {
+    					try {
+    						txtCashCard
+    							.setData(EngBLCashCards
+    								.getCard(txtCashCard
+    									.getText().trim()));
+    					} catch (Exception ex) {
+    						ex.printStackTrace();
+    					}
+
+    				}
+    				});
                 }
                 {
                     lblStartDate = new CLabel(compSearchPanel, SWT.NONE);
@@ -173,18 +200,42 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
                         tableCashTransactions,
                         SWT.NONE);
                     tableColumnType.setText("Tipi");
-                    tableColumnType.setWidth(89);
+                    tableColumnType.setWidth(95);
                 }
                 {
                     tableColumnTotal = new TableColumn(tableCashTransactions, SWT.RIGHT);
-                    tableColumnTotal.setWidth(100);
+                    tableColumnTotal.setWidth(103);
                     tableColumnTotal.setText("Tutar?");
                 }
             }
+            postInitGUI();
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void postInitGUI(){
+	    
+//		  content assistant
+		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(
+				txtCashCard);
+		final TurquazContentAssistant assistant = new TurquazContentAssistant(
+				adapter, EngBLCommon.CONTENT_ASSIST_CASH);
+		adapter.appendVerifyKeyListener(new VerifyKeyListener() {
+			public void verifyKey(VerifyEvent event) {
+
+				// Check for Ctrl+Spacebar
+				if (event.stateMask == SWT.CTRL && event.character == ' ') {
+
+					assistant.showPossibleCompletions();
+					event.doit = false;
+
+				}
+			}
+		});
+		
+	    
 	}
 	
 	
@@ -202,9 +253,69 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	    }
 	    public void search() {
 	        try{
+	           
+	            tableCashTransactions.removeAll();
 	            
-	            blSearch.searchCashTransactions(null,datePickerStart.getDate(),datePickerEnd.getDate());	
-	            
+	          List list = blSearch.searchCashTransactions(null,datePickerStart.getDate(),datePickerEnd.getDate());	
+	          
+	          Object[] row ;
+	          TableItem item;
+	          BigDecimal deptAmount = new BigDecimal(0);
+	          BigDecimal creditAmount = new BigDecimal(0);
+	          BigDecimal amount;
+	          String cardName;
+	          Date transDate = null;
+	          String type;
+	          Integer id;
+	          for(int i = 0;i<list.size();i++){
+	              
+	              row = (Object[])list.get(i);
+	              item = new TableItem(tableCashTransactions,SWT.NULL);
+	              id = (Integer)row[0];
+	              item.setData(id);
+	              
+	              
+	              cardName = row[1].toString();
+	              type = row[2].toString();
+	              
+	              if(row[3]!=null){
+	                  deptAmount = (BigDecimal)row[3];
+	                  
+	              }
+	              if(row[4]!=null){
+	                  creditAmount =(BigDecimal) row[4];
+	              }
+	              
+	              transDate = (Date)row[5];
+	              
+	              amount = creditAmount;
+	              if(deptAmount.compareTo(new BigDecimal(0))==1){
+	                  amount = deptAmount;
+	                  
+	              }
+	              
+	              TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+	              item.setText(new String[]{
+	                      		
+	                      DatePicker.formatter.format(transDate),
+	                      cardName,
+	                      type,
+	                      cf.format(amount)
+	                      
+	                      
+	              });
+	              
+	              
+	              
+	          }
+	          
+	          
+	          
+	          
+	          
+	          
+	          
+	          
 	          }
 	        catch(Exception ex){
 	            ex.printStackTrace();
