@@ -42,7 +42,6 @@ import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.AccUIStaticAccountsDialog;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 import com.cloudgarden.resource.SWTResourceManager;

@@ -64,8 +64,7 @@ public class BankBLTransactionAdd {
            
            TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
            System.out.println(Calendar.getInstance().getTime());
-           
-           bankTransBill.setTurqBanksCard(bankCard);           
+                     
            bankTransBill.setTurqEngineSequence(seq);
            
            Calendar cal = Calendar.getInstance();
@@ -92,7 +91,7 @@ public class BankBLTransactionAdd {
         	transRow.setLastModified(Calendar.getInstance().getTime());
           	transRow.setCreationDate(Calendar.getInstance().getTime());
           	transRow.setTurqAccountingAccount(bankCard.getTurqAccountingAccount());
-       
+            transRow.setTurqBanksCard(bankCard); 
           	
           	transRow.setDeptAmount(new BigDecimal(0));
             transRow.setCreditAmount(new BigDecimal(0));
@@ -147,7 +146,7 @@ public class BankBLTransactionAdd {
             TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
             System.out.println(Calendar.getInstance().getTime());
             
-            bankTransBill.setTurqBanksCard(bankCard);           
+                      
             bankTransBill.setTurqEngineSequence(seq);
             bankTransBill.setTransactionBillDate(transDate);
             bankTransBill.setTransactionBillDefinition(definition);
@@ -171,7 +170,7 @@ public class BankBLTransactionAdd {
         	transRow.setLastModified(Calendar.getInstance().getTime());
           	transRow.setCreationDate(Calendar.getInstance().getTime());
           	transRow.setTurqAccountingAccount(cashCard.getTurqAccountingAccount());
-       
+          	transRow.setTurqBanksCard(bankCard);
          
          	
         	
@@ -318,7 +317,7 @@ public class BankBLTransactionAdd {
             TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
             System.out.println(Calendar.getInstance().getTime());
             
-            bankTransBill.setTurqBanksCard(bankCard);           
+                    
             bankTransBill.setTurqEngineSequence(seq);
             bankTransBill.setTransactionBillDate(transDate);
             bankTransBill.setTransactionBillDefinition(definition);
@@ -342,7 +341,7 @@ public class BankBLTransactionAdd {
         	transRow.setLastModified(Calendar.getInstance().getTime());
           	transRow.setCreationDate(Calendar.getInstance().getTime());
           	transRow.setTurqAccountingAccount(curCard.getTurqAccountingAccount());
-       
+            transRow.setTurqBanksCard(bankCard); 
          
          	
         	
@@ -483,7 +482,7 @@ transType.setBankTransactionTypesId(new Integer(type));
 TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
 System.out.println(Calendar.getInstance().getTime());
 
-bankTransBill.setTurqBanksCard(bankCard);           
+          
 bankTransBill.setTurqEngineSequence(seq);
 bankTransBill.setTransactionBillDate(transDate);
 bankTransBill.setTransactionBillDefinition(definition);
@@ -507,9 +506,7 @@ transRow.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 transRow.setLastModified(Calendar.getInstance().getTime());
 transRow.setCreationDate(Calendar.getInstance().getTime());
 transRow.setTurqAccountingAccount(account);
-
-
-
+transRow.setTurqBanksCard(bankCard); 
 
 /*
 * Create Accounting transaction

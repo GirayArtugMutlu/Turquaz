@@ -85,6 +85,14 @@
     >
         <column name="accounting_accounts_id" />
     </many-to-one>
+    <!-- bi-directional many-to-one association to TurqBanksCard -->
+    <many-to-one
+        name="turqBanksCard"
+        class="com.turquaz.engine.dal.TurqBanksCard"
+        not-null="true"
+    >
+        <column name="banks_cards_id" />
+    </many-to-one>
 
 </class>
 </hibernate-mapping>

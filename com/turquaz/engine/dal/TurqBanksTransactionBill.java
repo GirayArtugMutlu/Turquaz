@@ -34,9 +34,6 @@ public class TurqBanksTransactionBill implements Serializable {
     private java.lang.String transactionBillNo;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqBanksCard turqBanksCard;
-
-    /** persistent field */
     private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
 
     /** persistent field */
@@ -46,7 +43,7 @@ public class TurqBanksTransactionBill implements Serializable {
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqBanksTransactionBill(java.util.Date transactionBillDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String transactionBillDefinition, java.lang.String transactionBillNo, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType, Set turqBanksTransactions) {
+    public TurqBanksTransactionBill(java.util.Date transactionBillDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String transactionBillDefinition, java.lang.String transactionBillNo, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType, Set turqBanksTransactions) {
         this.transactionBillDate = transactionBillDate;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
@@ -54,7 +51,6 @@ public class TurqBanksTransactionBill implements Serializable {
         this.lastModified = lastModified;
         this.transactionBillDefinition = transactionBillDefinition;
         this.transactionBillNo = transactionBillNo;
-        this.turqBanksCard = turqBanksCard;
         this.turqEngineSequence = turqEngineSequence;
         this.turqBanksTransactionType = turqBanksTransactionType;
         this.turqBanksTransactions = turqBanksTransactions;
@@ -126,14 +122,6 @@ public class TurqBanksTransactionBill implements Serializable {
 
     public void setTransactionBillNo(java.lang.String transactionBillNo) {
         this.transactionBillNo = transactionBillNo;
-    }
-
-    public com.turquaz.engine.dal.TurqBanksCard getTurqBanksCard() {
-        return this.turqBanksCard;
-    }
-
-    public void setTurqBanksCard(com.turquaz.engine.dal.TurqBanksCard turqBanksCard) {
-        this.turqBanksCard = turqBanksCard;
     }
 
     public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence() {

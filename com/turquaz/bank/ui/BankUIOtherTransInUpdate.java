@@ -136,7 +136,6 @@ public class BankUIOtherTransInUpdate extends org.eclipse.swt.widgets.Dialog {
 	    EngUICommon.centreWindow(dialogShell);
 	    compCashTrans.getTxtDocNo().setText(transBill.getTransactionBillNo());
 		compCashTrans.getTxtDefinition().setText(transBill.getTransactionBillDefinition());
-		compCashTrans.getTxtBankCard().setText(transBill.getTurqBanksCard().getBankCode());
 		compCashTrans.getDatePick().setDate(transBill.getTransactionBillDate());
 		
 		
@@ -145,7 +144,8 @@ public class BankUIOtherTransInUpdate extends org.eclipse.swt.widgets.Dialog {
 		if(it.hasNext())
 		   {
 		       TurqBanksTransaction bankTrans = (TurqBanksTransaction)it.next();
-		     
+		       compCashTrans.getTxtBankCard().setText(bankTrans.getTurqBanksCard().getBankCode());
+				
 		       compCashTrans.getCurAmount().setText(bankTrans.getCreditAmount());
 		       if(bankTrans.getCreditAmount().compareTo(bankTrans.getDeptAmount())<1)
 		       {

@@ -45,7 +45,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow {
 			case 0 : // inventory code 
 			    if(okToSave()){
 			      
-			        result = bankTrans.getTurqBanksTransactionBill().getTurqBanksCard().getBankCode();
+			        result = bankTrans.getTurqBanksCard().getBankCode();
 			        
 			    }
 			    else{
@@ -58,7 +58,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow {
 			case 1 : 
 			    if(okToSave()){
 				      
-				        result = bankTrans.getTurqBanksTransactionBill().getTurqBanksCard().getBankName();
+				        result = bankTrans.getTurqBanksCard().getBankName();
 				        
 				    }
 				    else{
@@ -70,7 +70,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow {
 			case 2 : 
 			    if(okToSave()){
 				      
-				        result = bankTrans.getTurqBanksTransactionBill().getTurqBanksCard().getBankBranchName();
+				        result = bankTrans.getTurqBanksCard().getBankBranchName();
 				        
 				    }
 				    else{
@@ -82,7 +82,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow {
 			case 3 : 
 			    if(okToSave()){
 				      
-				        result = bankTrans.getTurqBanksTransactionBill().getTurqBanksCard().getBankAccountNo();
+				        result = bankTrans.getTurqBanksCard().getBankAccountNo();
 				        
 				    }
 				    else{
@@ -131,7 +131,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow {
 			case 0 : // inventory code 
 			    if(okToSave()){
 			      
-			        result = bankTrans.getTurqBanksTransactionBill().getTurqBanksCard().getBankCode();
+			        result = bankTrans.getTurqBanksCard().getBankCode();
 			        
 			    }
 			    else{
@@ -144,7 +144,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow {
 			case 1 : 
 			    if(okToSave()){
 				      
-				        result = bankTrans.getTurqBanksTransactionBill().getTurqBanksCard().getBankName();
+				        result = bankTrans.getTurqBanksCard().getBankName();
 				        
 				    }
 				    else{
@@ -156,7 +156,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow {
 			case 2 : 
 			    if(okToSave()){
 				      
-				        result = bankTrans.getTurqBanksTransactionBill().getTurqBanksCard().getBankBranchName();
+				        result = bankTrans.getTurqBanksCard().getBankBranchName();
 				        
 				    }
 				    else{
@@ -168,7 +168,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow {
 			case 3 : 
 			    if(okToSave()){
 				      
-				        result = bankTrans.getTurqBanksTransactionBill().getTurqBanksCard().getBankAccountNo();
+				        result = bankTrans.getTurqBanksCard().getBankAccountNo();
 				        
 				    }
 				    else{

@@ -55,13 +55,13 @@ public class TurqBanksCard implements Serializable {
     private Set turqBankCardsSecondaryAccounts;
 
     /** persistent field */
-    private Set turqBanksTransactionBills;
-
-    /** persistent field */
     private Set turqTradebillRolls;
 
+    /** persistent field */
+    private Set turqBanksTransactions;
+
     /** full constructor */
-    public TurqBanksCard(java.lang.String bankName, java.lang.String bankBranchName, java.lang.String bankAccountNo, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String bankDefinition, java.lang.String bankCode, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqChequeRolls, Set turqChequeCheques, Set turqBankCardsSecondaryAccounts, Set turqBanksTransactionBills, Set turqTradebillRolls) {
+    public TurqBanksCard(java.lang.String bankName, java.lang.String bankBranchName, java.lang.String bankAccountNo, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String bankDefinition, java.lang.String bankCode, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqChequeRolls, Set turqChequeCheques, Set turqBankCardsSecondaryAccounts, Set turqTradebillRolls, Set turqBanksTransactions) {
         this.bankName = bankName;
         this.bankBranchName = bankBranchName;
         this.bankAccountNo = bankAccountNo;
@@ -76,8 +76,8 @@ public class TurqBanksCard implements Serializable {
         this.turqChequeRolls = turqChequeRolls;
         this.turqChequeCheques = turqChequeCheques;
         this.turqBankCardsSecondaryAccounts = turqBankCardsSecondaryAccounts;
-        this.turqBanksTransactionBills = turqBanksTransactionBills;
         this.turqTradebillRolls = turqTradebillRolls;
+        this.turqBanksTransactions = turqBanksTransactions;
     }
 
     /** default constructor */
@@ -204,20 +204,20 @@ public class TurqBanksCard implements Serializable {
         this.turqBankCardsSecondaryAccounts = turqBankCardsSecondaryAccounts;
     }
 
-    public java.util.Set getTurqBanksTransactionBills() {
-        return this.turqBanksTransactionBills;
-    }
-
-    public void setTurqBanksTransactionBills(java.util.Set turqBanksTransactionBills) {
-        this.turqBanksTransactionBills = turqBanksTransactionBills;
-    }
-
     public java.util.Set getTurqTradebillRolls() {
         return this.turqTradebillRolls;
     }
 
     public void setTurqTradebillRolls(java.util.Set turqTradebillRolls) {
         this.turqTradebillRolls = turqTradebillRolls;
+    }
+
+    public java.util.Set getTurqBanksTransactions() {
+        return this.turqBanksTransactions;
+    }
+
+    public void setTurqBanksTransactions(java.util.Set turqBanksTransactions) {
+        this.turqBanksTransactions = turqBanksTransactions;
     }
 
     public String toString() {

@@ -109,7 +109,7 @@ public class BankBLTransactionUpdate {
 
             }
 
-            bankTransBill.setTurqBanksCard(bankCard);
+          
             bankTransBill.setTransactionBillDate(transDate);
             bankTransBill.setTransactionBillDefinition(definition);
             bankTransBill.setTransactionBillNo(docNo);
@@ -128,6 +128,7 @@ public class BankBLTransactionUpdate {
             transRow.setCreationDate(Calendar.getInstance().getTime());
             transRow.setTurqAccountingAccount(cashCard
                     .getTurqAccountingAccount());
+            transRow.setTurqBanksCard(bankCard);
 
             /*
              * Create Accounting transaction
@@ -257,7 +258,7 @@ public class BankBLTransactionUpdate {
 
             }
 
-            bankTransBill.setTurqBanksCard(bankCard);
+          
             bankTransBill.setTransactionBillDate(transDate);
             bankTransBill.setTransactionBillDefinition(definition);
             bankTransBill.setTransactionBillNo(docNo);
@@ -275,6 +276,7 @@ public class BankBLTransactionUpdate {
             transRow.setLastModified(Calendar.getInstance().getTime());
             transRow.setCreationDate(Calendar.getInstance().getTime());
             transRow.setTurqAccountingAccount(account);
+            transRow.setTurqBanksCard(bankCard);
 
             /*
              * Create Accounting transaction
@@ -410,7 +412,7 @@ public class BankBLTransactionUpdate {
 
             }
 
-            bankTransBill.setTurqBanksCard(bankCard);
+         
             bankTransBill.setTransactionBillDate(transDate);
             bankTransBill.setTransactionBillDefinition(definition);
             bankTransBill.setTransactionBillNo(docNo);
@@ -429,6 +431,7 @@ public class BankBLTransactionUpdate {
             transRow.setCreationDate(Calendar.getInstance().getTime());
             transRow.setTurqAccountingAccount(curCard
                     .getTurqAccountingAccount());
+            transRow.setTurqBanksCard(bankCard);
 
             /*
              * Create Accounting transaction

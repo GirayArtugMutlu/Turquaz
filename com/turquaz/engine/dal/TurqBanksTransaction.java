@@ -35,8 +35,11 @@ public class TurqBanksTransaction implements Serializable {
     /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
 
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqBanksCard turqBanksCard;
+
     /** full constructor */
-    public TurqBanksTransaction(java.math.BigDecimal deptAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.math.BigDecimal creditAmount, com.turquaz.engine.dal.TurqBanksTransactionBill turqBanksTransactionBill, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
+    public TurqBanksTransaction(java.math.BigDecimal deptAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.math.BigDecimal creditAmount, com.turquaz.engine.dal.TurqBanksTransactionBill turqBanksTransactionBill, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksCard turqBanksCard) {
         this.deptAmount = deptAmount;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
@@ -45,6 +48,7 @@ public class TurqBanksTransaction implements Serializable {
         this.creditAmount = creditAmount;
         this.turqBanksTransactionBill = turqBanksTransactionBill;
         this.turqAccountingAccount = turqAccountingAccount;
+        this.turqBanksCard = turqBanksCard;
     }
 
     /** default constructor */
@@ -121,6 +125,14 @@ public class TurqBanksTransaction implements Serializable {
 
     public void setTurqAccountingAccount(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
         this.turqAccountingAccount = turqAccountingAccount;
+    }
+
+    public com.turquaz.engine.dal.TurqBanksCard getTurqBanksCard() {
+        return this.turqBanksCard;
+    }
+
+    public void setTurqBanksCard(com.turquaz.engine.dal.TurqBanksCard turqBanksCard) {
+        this.turqBanksCard = turqBanksCard;
     }
 
     public String toString() {

@@ -161,7 +161,6 @@ public class BankUIMoneyTransferInUpdate extends org.eclipse.swt.widgets.Dialog 
 	    
 	   compMoneyTransferIn.getTxtDocNo().setText(transBill.getTransactionBillNo());
 	   compMoneyTransferIn.getTxtDefinition().setText(transBill.getTransactionBillDefinition());
-	   compMoneyTransferIn.getTxtBankCard().setText(transBill.getTurqBanksCard().getBankCode());
 	   compMoneyTransferIn.getDatePick().setDate(transBill.getTransactionBillDate());
 	  
 	   Iterator it = transBill.getTurqBanksTransactions().iterator();
@@ -169,7 +168,8 @@ public class BankUIMoneyTransferInUpdate extends org.eclipse.swt.widgets.Dialog 
 	   if(it.hasNext())
 	   {
 	       TurqBanksTransaction bankTrans = (TurqBanksTransaction)it.next();
-	      
+	       compMoneyTransferIn.getTxtBankCard().setText(bankTrans.getTurqBanksCard().getBankCode());
+	   	
 	       compMoneyTransferIn.getCurAmount().setText(bankTrans.getCreditAmount());
 	       if(bankTrans.getCreditAmount().compareTo(bankTrans.getDeptAmount())<1)
 	       {
