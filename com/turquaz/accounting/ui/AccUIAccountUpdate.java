@@ -1,5 +1,6 @@
 package com.turquaz.accounting.ui;
 
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -149,6 +150,16 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
     compAccountCard.getTxtAccAcountName().setText(account.getAccountName());
     compAccountCard.getTxtParentAccount().setText(account.getTurqAccountingAccount().getAccountCode());
     compAccountCard.getTxtParentAccount().setData(account.getTurqAccountingAccount().getAccountingAccountsId());
+	
+	 Point parentLocation =this.getParent().getLocation();
+	Point parentSize = this.getParent().getSize();	
+    Point dialogSize = dialogShell.getSize();
+     
+    int location_X = (parentLocation.x + parentSize.x)/2 - (dialogSize.x/2);
+    int location_Y = (parentLocation.y + parentSize.y)/2 - (dialogSize.y/2);
+    
+    dialogShell.setLocation(location_X,location_Y);
+	
 	
 	
 	}

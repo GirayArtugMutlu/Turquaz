@@ -1,6 +1,7 @@
 package com.turquaz.inventory.ui;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
@@ -111,7 +112,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 			compInvUIWarehouseLData.grabExcessHorizontalSpace = true;
 			compInvUIWarehouseLData.grabExcessVerticalSpace = true;
 			compInvUIWarehouse.setLayoutData(compInvUIWarehouseLData);
-			compInvUIWarehouse.setSize(new org.eclipse.swt.graphics.Point(508,375));
+			compInvUIWarehouse.setSize(new org.eclipse.swt.graphics.Point(504,371));
 			compInvUIWarehouse.layout();
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
@@ -152,6 +153,17 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 	compInvUIWarehouse.getTxtWarehouseCity().setText(warehouse.getWarehousesCity());
 	compInvUIWarehouse.getTxtWarehouseName().setText(warehouse.getWarehousesName());
 	compInvUIWarehouse.getTxtWarehouseDescription().setText(warehouse.getWarehousesDescription());
+	
+	Point parentLocation =this.getParent().getLocation();
+	Point parentSize = this.getParent().getSize();	
+    Point dialogSize = dialogShell.getSize();
+     
+    int location_X = (parentLocation.x + parentSize.x)/2 - (dialogSize.x/2);
+    int location_Y = (parentLocation.y + parentSize.y)/2 - (dialogSize.y/2);
+    
+    dialogShell.setLocation(location_X,location_Y);
+	
+	
 	
 	}
 

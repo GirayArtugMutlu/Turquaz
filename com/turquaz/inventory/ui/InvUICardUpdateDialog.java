@@ -6,6 +6,7 @@ import java.util.Set;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Session;
 
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -98,7 +99,7 @@ public class InvUICardUpdateDialog extends Dialog{
 			coolBarTopLData.verticalAlignment = GridData.CENTER;
 			coolBarTopLData.horizontalAlignment = GridData.FILL;
 			coolBarTopLData.widthHint = -1;
-			coolBarTopLData.heightHint = 42;
+			coolBarTopLData.heightHint = 27;
 			coolBarTopLData.horizontalIndent = 0;
 			coolBarTopLData.horizontalSpan = 1;
 			coolBarTopLData.verticalSpan = 1;
@@ -139,9 +140,9 @@ public class InvUICardUpdateDialog extends Dialog{
 			compMainLData.grabExcessHorizontalSpace = true;
 			compMainLData.grabExcessVerticalSpace = true;
 			compMain.setLayoutData(compMainLData);
-			compMain.setSize(new org.eclipse.swt.graphics.Point(603,291));
+			compMain.setSize(new org.eclipse.swt.graphics.Point(603,306));
 	
-			compInvUICard.setSize(new org.eclipse.swt.graphics.Point(603,291));
+			compInvUICard.setSize(new org.eclipse.swt.graphics.Point(603,306));
 			compInvUICard.layout();
 			FillLayout compMainLayout = new FillLayout(256);
 			compMain.setLayout(compMainLayout);
@@ -178,6 +179,15 @@ public class InvUICardUpdateDialog extends Dialog{
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	
+	Point parentLocation =this.getParent().getLocation();
+	Point parentSize = this.getParent().getSize();	
+    Point dialogSize = dialogShell.getSize();
+     
+    int location_X = (parentLocation.x + parentSize.x)/2 - (dialogSize.x/2);
+    int location_Y = (parentLocation.y + parentSize.y)/2 - (dialogSize.y/2);
+    
+    dialogShell.setLocation(location_X,location_Y);
 	
 	setButtonPermissions();
 		

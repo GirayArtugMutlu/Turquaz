@@ -111,10 +111,10 @@
 		</Events>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[489, 349]"/>
+				<Dimension value="[800, 600]"/>
 			</Property>
 			<Property name="bounds" type="Rectangle">
-				<Rectangle value="[0, 0, 489, 349]"/>
+				<Rectangle value="[0, 0, 800, 600]"/>
 			</Property>
 			<Property name="externalizeStrings" type="boolean" value="false"/>
 			<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -140,7 +140,7 @@
 				<Properties>
 					<Property name="text" type="String" value="label1"/>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[0, 0, 489, 2]"/>
+						<Rectangle value="[0, 0, 800, 2]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 					<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -174,10 +174,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[489, 327]"/>
+						<Dimension value="[800, 578]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[0, 2, 489, 327]"/>
+						<Rectangle value="[0, 2, 800, 578]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 					<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -204,10 +204,10 @@
 						<Properties>
 							<Property name="text" type="String" value="label2"/>
 							<Property name="size" type="Dimension">
-								<Dimension value="[2, 327]"/>
+								<Dimension value="[2, 578]"/>
 							</Property>
 							<Property name="bounds" type="Rectangle">
-								<Rectangle value="[0, 0, 2, 327]"/>
+								<Rectangle value="[0, 0, 2, 578]"/>
 							</Property>
 							<Property name="visible" type="boolean" value="true"/>
 							<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -241,7 +241,7 @@
 						</Events>
 						<Properties>
 							<Property name="bounds" type="Rectangle">
-								<Rectangle value="[4, 0, 483, 327]"/>
+								<Rectangle value="[4, 0, 794, 578]"/>
 							</Property>
 							<Property name="visible" type="boolean" value="true"/>
 							<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -270,10 +270,10 @@
 								<Properties>
 									<Property name="orientation" type="int" value="512"/>
 									<Property name="size" type="Dimension">
-										<Dimension value="[481, 321]"/>
+										<Dimension value="[792, 572]"/>
 									</Property>
 									<Property name="bounds" type="Rectangle">
-										<Rectangle value="[1, 3, 481, 321]"/>
+										<Rectangle value="[1, 3, 792, 572]"/>
 									</Property>
 									<Property name="visible" type="boolean" value="true"/>
 									<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -291,10 +291,10 @@
 										</Events>
 										<Properties>
 											<Property name="size" type="Dimension">
-												<Dimension value="[481, 321]"/>
+												<Dimension value="[792, 572]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[0, 0, 481, 321]"/>
+												<Rectangle value="[0, 0, 792, 572]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
 											<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -312,10 +312,10 @@
 												</Events>
 												<Properties>
 													<Property name="size" type="Dimension">
-														<Dimension value="[236, 321]"/>
+														<Dimension value="[392, 572]"/>
 													</Property>
 													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[0, 0, 236, 321]"/>
+														<Rectangle value="[0, 0, 392, 572]"/>
 													</Property>
 													<Property name="visible" type="boolean" value="true"/>
 													<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -350,9 +350,15 @@
 																</Events>
 																<Properties>
 																	<Property name="size" type="Dimension">
-																		<Dimension value="[230, 298]"/>
+																		<Dimension value="[386, 549]"/>
 																	</Property>
 																	<Property name="visible" type="boolean" value="true"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																</Properties>
@@ -382,12 +388,20 @@
 																		</Events>
 																		<Properties>
 																			<Property name="size" type="Dimension">
-																				<Dimension value="[230, 20]"/>
+																				<Dimension value="[386, 20]"/>
 																			</Property>
 																			<Property name="bounds" type="Rectangle">
-																				<Rectangle value="[0, 5, 230, 20]"/>
+																				<Rectangle value="[0, 5, 386, 20]"/>
 																			</Property>
 																			<Property name="visible" type="boolean" value="true"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
@@ -412,12 +426,20 @@
 																				<Properties>
 																					<Property name="text" type="String" value="Active Module"/>
 																					<Property name="size" type="Dimension">
-																						<Dimension value="[113, 16]"/>
+																						<Dimension value="[191, 16]"/>
 																					</Property>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[0, 0, 113, 16]"/>
+																						<Rectangle value="[0, 0, 191, 16]"/>
 																					</Property>
 																					<Property name="visible" type="boolean" value="true"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -445,11 +467,19 @@
 																						<Color red="ec" green="e9" blue="d8"/>
 																					</Property>
 																					<Property name="size" type="Dimension">
-																						<Dimension value="[113, 16]"/>
+																						<Dimension value="[191, 16]"/>
 																					</Property>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[113, 0, 113, 16]"/>
+																						<Rectangle value="[191, 0, 191, 16]"/>
 																					</Property>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -479,9 +509,20 @@
 																		<Events>
 																		</Events>
 																		<Properties>
-																			<Property name="bounds" type="Rectangle">
-																				<Rectangle value="[0, 30, 230, 263]"/>
+																			<Property name="size" type="Dimension">
+																				<Dimension value="[386, 267]"/>
 																			</Property>
+																			<Property name="bounds" type="Rectangle">
+																				<Rectangle value="[0, 30, 386, 267]"/>
+																			</Property>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
@@ -495,10 +536,10 @@
 																				</Events>
 																				<Properties>
 																					<Property name="size" type="Dimension">
-																						<Dimension value="[230, 263]"/>
+																						<Dimension value="[386, 267]"/>
 																					</Property>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[0, 0, 230, 263]"/>
+																						<Rectangle value="[0, 0, 386, 267]"/>
 																					</Property>
 																				</Properties>
 																			</Component>
@@ -511,9 +552,17 @@
 																				</Events>
 																				<Properties>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[0, 0, 230, 263]"/>
+																						<Rectangle value="[0, 0, 386, 267]"/>
 																					</Property>
 																					<Property name="visible" type="boolean" value="true"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -527,10 +576,10 @@
 																				</Events>
 																				<Properties>
 																					<Property name="size" type="Dimension">
-																						<Dimension value="[230, 263]"/>
+																						<Dimension value="[386, 267]"/>
 																					</Property>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[0, 0, 230, 263]"/>
+																						<Rectangle value="[0, 0, 386, 267]"/>
 																					</Property>
 																				</Properties>
 																			</Component>
@@ -543,13 +592,111 @@
 																				</Events>
 																				<Properties>
 																					<Property name="size" type="Dimension">
-																						<Dimension value="[230, 263]"/>
+																						<Dimension value="[386, 267]"/>
 																					</Property>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[0, 0, 230, 263]"/>
+																						<Rectangle value="[0, 0, 386, 267]"/>
 																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																				</Properties>
+																			</Component>
+																		</SubComponents>
+																	</Component>
+																	<Component class="org.eclipse.swt.widgets.Label" name="label1" style="258">
+																		<Constraints>
+																			<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+																				<Property name="verticalAlignment" type="int" value="2"/>
+																				<Property name="horizontalAlignment" type="int" value="4"/>
+																				<Property name="widthHint" type="int" value="-1"/>
+																				<Property name="heightHint" type="int" value="-1"/>
+																				<Property name="horizontalIndent" type="int" value="0"/>
+																				<Property name="horizontalSpan" type="int" value="1"/>
+																				<Property name="verticalSpan" type="int" value="1"/>
+																				<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+																				<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+																			</LayoutConstraint>
+																		</Constraints>
+																		<Events>
+																		</Events>
+																		<Properties>
+																			<Property name="text" type="String" value="label1"/>
+																			<Property name="bounds" type="Rectangle">
+																				<Rectangle value="[0, 302, 386, 2]"/>
+																			</Property>
+																			<Property name="visible" type="boolean" value="true"/>
+																		</Properties>
+																	</Component>
+																	<Component class="org.eclipse.swt.widgets.Composite" name="compModulesHelp" style="0">
+																		<Constraints>
+																			<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+																				<Property name="verticalAlignment" type="int" value="4"/>
+																				<Property name="horizontalAlignment" type="int" value="4"/>
+																				<Property name="widthHint" type="int" value="-1"/>
+																				<Property name="heightHint" type="int" value="-1"/>
+																				<Property name="horizontalIndent" type="int" value="0"/>
+																				<Property name="horizontalSpan" type="int" value="1"/>
+																				<Property name="verticalSpan" type="int" value="1"/>
+																				<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+																				<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+																			</LayoutConstraint>
+																		</Constraints>
+																		<Layout class="Grid">
+																			<Property name="marginWidth" type="int" value="5"/>
+																			<Property name="marginHeight" type="int" value="5"/>
+																			<Property name="numColumns" type="int" value="1"/>
+																			<Property name="makeColumnsEqualWidth" type="boolean" value="true"/>
+																			<Property name="horizontalSpacing" type="int" value="5"/>
+																			<Property name="verticalSpacing" type="int" value="5"/>
+																		</Layout>
+																		<Events>
+																		</Events>
+																		<Properties>
+																			<Property name="size" type="Dimension">
+																				<Dimension value="[386, 235]"/>
+																			</Property>
+																			<Property name="bounds" type="Rectangle">
+																				<Rectangle value="[0, 309, 386, 235]"/>
+																			</Property>
+																		</Properties>
+																		<SubComponents>
+																			<Component class="org.eclipse.swt.widgets.Composite" name="composite1" style="0">
+																				<Constraints>
+																					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+																						<Property name="verticalAlignment" type="int" value="2"/>
+																						<Property name="horizontalAlignment" type="int" value="1"/>
+																						<Property name="widthHint" type="int" value="123"/>
+																						<Property name="heightHint" type="int" value="225"/>
+																						<Property name="horizontalIndent" type="int" value="0"/>
+																						<Property name="horizontalSpan" type="int" value="1"/>
+																						<Property name="verticalSpan" type="int" value="1"/>
+																						<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+																						<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+																					</LayoutConstraint>
+																				</Constraints>
+																				<Layout class="Form">
+																					<Property name="marginWidth" type="int" value="0"/>
+																					<Property name="marginHeight" type="int" value="0"/>
+																					<Property name="spacing" type="int" value="0"/>
+																				</Layout>
+																				<Events>
+																				</Events>
+																				<Properties>
+																					<Property name="size" type="Dimension">
+																						<Dimension value="[123, 225]"/>
+																					</Property>
+																					<Property name="bounds" type="Rectangle">
+																						<Rectangle value="[5, 5, 123, 225]"/>
+																					</Property>
+																					<Property name="visible" type="boolean" value="true"/>
 																				</Properties>
 																			</Component>
 																		</SubComponents>
@@ -740,10 +887,10 @@
 												</Events>
 												<Properties>
 													<Property name="size" type="Dimension">
-														<Dimension value="[242, 321]"/>
+														<Dimension value="[397, 572]"/>
 													</Property>
 													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[239, 0, 242, 321]"/>
+														<Rectangle value="[395, 0, 397, 572]"/>
 													</Property>
 													<Property name="externalizeStrings" type="boolean" value="false"/>
 													<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -770,10 +917,10 @@
 														</Events>
 														<Properties>
 															<Property name="size" type="Dimension">
-																<Dimension value="[232, 30]"/>
+																<Dimension value="[387, 30]"/>
 															</Property>
 															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[5, 5, 232, 30]"/>
+																<Rectangle value="[5, 5, 387, 30]"/>
 															</Property>
 															<Property name="visible" type="boolean" value="true"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -926,10 +1073,10 @@
 														</Events>
 														<Properties>
 															<Property name="size" type="Dimension">
-																<Dimension value="[232, 276]"/>
+																<Dimension value="[387, 527]"/>
 															</Property>
 															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[5, 40, 232, 276]"/>
+																<Rectangle value="[5, 40, 387, 527]"/>
 															</Property>
 															<Property name="visible" type="boolean" value="true"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>

@@ -12,6 +12,7 @@ import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Display;
@@ -262,6 +263,18 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	
+    Point parentLocation =this.getParent().getLocation();
+	Point parentSize = this.getParent().getSize();	
+    Point dialogSize = dialogShell.getSize();
+     
+    int location_X = (parentLocation.x + parentSize.x)/2 - (dialogSize.x/2);
+    int location_Y = (parentLocation.y + parentSize.y)/2 - (dialogSize.y/2);
+    
+    dialogShell.setLocation(location_X,location_Y);
+   
+	
+		
 	fillTable();
 	}
 	

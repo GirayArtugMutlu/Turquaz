@@ -106,6 +106,9 @@ import com.turquaz.inventory.ui.InvUITransactionAdd;
 
 
 public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
+	private Label label1;
+	private Composite composite1;
+	private Composite compModulesHelp;
 	private BankUITree treeBank;
 	private AccUITree treeAccounting;
 	private CTabFolder tabfldMain;
@@ -181,6 +184,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			treeInventory = new InvUITree(compModulesTree,SWT.NULL);
 			treeAccounting = new AccUITree(compModulesTree,SWT.NULL);
 			treeAdmin = new AdmUITree(compModulesTree,SWT.NULL);
+			label1 = new Label(compModulesTab,SWT.SEPARATOR| SWT.HORIZONTAL);
+			compModulesHelp = new Composite(compModulesTab,SWT.NULL);
+			composite1 = new Composite(compModulesHelp,SWT.NULL);
 			tabFavorites = new CTabItem(tabfldMenu,SWT.NULL);
 			compFavoritesTab = new Composite(tabfldMenu,SWT.NULL);
 			compFavoritesSelection = new Composite(compFavoritesTab,SWT.NULL);
@@ -197,7 +203,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			toolSearch = new ToolItem(toolbarMainTop,SWT.PUSH);
 			tabfldMain = new CTabFolder(compMainInRight,SWT.BORDER);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(489,349));
+			this.setSize(new org.eclipse.swt.graphics.Point(800,600));
 			this.addPaintListener( new PaintListener() {
 				public void paintControl(PaintEvent evt) {
 					EngUIMainFramePaintControl(evt);
@@ -228,7 +234,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compMainLData.grabExcessHorizontalSpace = false;
 			compMainLData.grabExcessVerticalSpace = true;
 			compMain.setLayoutData(compMainLData);
-			compMain.setSize(new org.eclipse.swt.graphics.Point(489,327));
+			compMain.setSize(new org.eclipse.swt.graphics.Point(800,578));
 	
 			GridData lblSeperatorLeftLData = new GridData();
 			lblSeperatorLeftLData.verticalAlignment = GridData.FILL;
@@ -242,7 +248,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			lblSeperatorLeftLData.grabExcessVerticalSpace = true;
 			lblSeperatorLeft.setLayoutData(lblSeperatorLeftLData);
 			lblSeperatorLeft.setText("label2");
-			lblSeperatorLeft.setSize(new org.eclipse.swt.graphics.Point(2,327));
+			lblSeperatorLeft.setSize(new org.eclipse.swt.graphics.Point(2,578));
 	
 			GridData compMainInLData = new GridData();
 			compMainInLData.verticalAlignment = GridData.FILL;
@@ -268,18 +274,18 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			sashMainVerticalLData.grabExcessVerticalSpace = true;
 			sashMainVertical.setLayoutData(sashMainVerticalLData);
 			sashMainVertical.setOrientation(SWT.VERTICAL);
-			sashMainVertical.setSize(new org.eclipse.swt.graphics.Point(481,321));
+			sashMainVertical.setSize(new org.eclipse.swt.graphics.Point(792,572));
 	
-			sashMainHorizontal.setSize(new org.eclipse.swt.graphics.Point(481,321));
-			sashMainHorizontal.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,481,321));
+			sashMainHorizontal.setSize(new org.eclipse.swt.graphics.Point(792,572));
+			sashMainHorizontal.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,792,572));
 	
-			tabfldMenu.setSize(new org.eclipse.swt.graphics.Point(230,315));
-			tabfldMenu.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,236,321));
+			tabfldMenu.setSize(new org.eclipse.swt.graphics.Point(386,549));
+			tabfldMenu.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,392,572));
 	
 			tabModules.setControl(compModulesTab);
 			tabModules.setText("Modules");
 	
-			compModulesTab.setSize(new org.eclipse.swt.graphics.Point(230,298));
+			compModulesTab.setSize(new org.eclipse.swt.graphics.Point(386,549));
 	
 			GridData compModuleSelectionLData = new GridData();
 			compModuleSelectionLData.verticalAlignment = GridData.CENTER;
@@ -292,15 +298,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModuleSelectionLData.grabExcessHorizontalSpace = true;
 			compModuleSelectionLData.grabExcessVerticalSpace = false;
 			compModuleSelection.setLayoutData(compModuleSelectionLData);
-			compModuleSelection.setSize(new org.eclipse.swt.graphics.Point(226,16));
+			compModuleSelection.setSize(new org.eclipse.swt.graphics.Point(382,16));
 	
 			lblModuleSelection.setText("Active Module");
-			lblModuleSelection.setSize(new org.eclipse.swt.graphics.Point(113,16));
+			lblModuleSelection.setSize(new org.eclipse.swt.graphics.Point(191,16));
 			lblModuleSelection.setLayout(null);
 	
 			final Color comboModuleSelectionbackground = new Color(Display.getDefault(),236,233,216);
 			comboModuleSelection.setBackground(comboModuleSelectionbackground);
-			comboModuleSelection.setSize(new org.eclipse.swt.graphics.Point(91,16));
+			comboModuleSelection.setSize(new org.eclipse.swt.graphics.Point(169,16));
 			comboModuleSelection.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					comboModuleSelectionWidgetSelected(evt);
@@ -330,8 +336,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesTreeLData.grabExcessHorizontalSpace = false;
 			compModulesTreeLData.grabExcessVerticalSpace = true;
 			compModulesTree.setLayoutData(compModulesTreeLData);
+			compModulesTree.setSize(new org.eclipse.swt.graphics.Point(386,267));
 	
-			treeBank.setSize(new org.eclipse.swt.graphics.Point(214,247));
+			treeBank.setSize(new org.eclipse.swt.graphics.Point(370,251));
 			treeBank.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeBankMouseDoubleClick(evt);
@@ -344,14 +351,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				}
 			});
 	
-			treeAccounting.setSize(new org.eclipse.swt.graphics.Point(214,247));
+			treeAccounting.setSize(new org.eclipse.swt.graphics.Point(370,251));
 			treeAccounting.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeAccountingMouseDoubleClick(evt);
 				}
 			});
 	
-			treeAdmin.setSize(new org.eclipse.swt.graphics.Point(214,247));
+			treeAdmin.setSize(new org.eclipse.swt.graphics.Point(370,251));
 			treeAdmin.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeAdminMouseDoubleClick(evt);
@@ -363,6 +370,53 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesTreeLayout.marginHeight = 0;
 			compModulesTreeLayout.topControl = null;
 			compModulesTree.layout();
+	
+			GridData label1LData = new GridData();
+			label1LData.verticalAlignment = GridData.CENTER;
+			label1LData.horizontalAlignment = GridData.FILL;
+			label1LData.widthHint = -1;
+			label1LData.heightHint = -1;
+			label1LData.horizontalIndent = 0;
+			label1LData.horizontalSpan = 1;
+			label1LData.verticalSpan = 1;
+			label1LData.grabExcessHorizontalSpace = false;
+			label1LData.grabExcessVerticalSpace = false;
+			label1.setLayoutData(label1LData);
+			label1.setText("label1");
+	
+			GridData compModulesHelpLData = new GridData();
+			compModulesHelpLData.verticalAlignment = GridData.FILL;
+			compModulesHelpLData.horizontalAlignment = GridData.FILL;
+			compModulesHelpLData.widthHint = -1;
+			compModulesHelpLData.heightHint = -1;
+			compModulesHelpLData.horizontalIndent = 0;
+			compModulesHelpLData.horizontalSpan = 1;
+			compModulesHelpLData.verticalSpan = 1;
+			compModulesHelpLData.grabExcessHorizontalSpace = false;
+			compModulesHelpLData.grabExcessVerticalSpace = false;
+			compModulesHelp.setLayoutData(compModulesHelpLData);
+			compModulesHelp.setSize(new org.eclipse.swt.graphics.Point(386,235));
+	
+			GridData composite1LData = new GridData();
+			composite1LData.widthHint = 123;
+			composite1LData.heightHint = 225;
+			composite1.setLayoutData(composite1LData);
+			composite1.setSize(new org.eclipse.swt.graphics.Point(123,225));
+			FormLayout composite1Layout = new FormLayout();
+			composite1.setLayout(composite1Layout);
+			composite1Layout.marginWidth = 0;
+			composite1Layout.marginHeight = 0;
+			composite1Layout.spacing = 0;
+			composite1.layout();
+			GridLayout compModulesHelpLayout = new GridLayout(1, true);
+			compModulesHelp.setLayout(compModulesHelpLayout);
+			compModulesHelpLayout.marginWidth = 5;
+			compModulesHelpLayout.marginHeight = 5;
+			compModulesHelpLayout.numColumns = 1;
+			compModulesHelpLayout.makeColumnsEqualWidth = true;
+			compModulesHelpLayout.horizontalSpacing = 5;
+			compModulesHelpLayout.verticalSpacing = 5;
+			compModulesHelp.layout();
 			GridLayout compModulesTabLayout = new GridLayout(1, true);
 			compModulesTab.setLayout(compModulesTabLayout);
 			compModulesTabLayout.marginWidth = 0;
@@ -451,8 +505,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabfldMenu.setLayout(null);
 			tabfldMenu.setSelection(0);
 	
-			compMainInRight.setSize(new org.eclipse.swt.graphics.Point(242,321));
-			compMainInRight.setBounds(new org.eclipse.swt.graphics.Rectangle(239,0,242,321));
+			compMainInRight.setSize(new org.eclipse.swt.graphics.Point(397,572));
+			compMainInRight.setBounds(new org.eclipse.swt.graphics.Rectangle(395,0,397,572));
 	
 			GridData coolbarRightTopLData = new GridData();
 			coolbarRightTopLData.verticalAlignment = GridData.CENTER;
@@ -465,7 +519,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			coolbarRightTopLData.grabExcessHorizontalSpace = false;
 			coolbarRightTopLData.grabExcessVerticalSpace = false;
 			coolbarRightTop.setLayoutData(coolbarRightTopLData);
-			coolbarRightTop.setSize(new org.eclipse.swt.graphics.Point(232,30));
+			coolbarRightTop.setSize(new org.eclipse.swt.graphics.Point(387,30));
 	
 			coolRightMain.setControl(toolbarMainTop);
 			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(44,22));
@@ -526,7 +580,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabfldMainLData.grabExcessHorizontalSpace = false;
 			tabfldMainLData.grabExcessVerticalSpace = true;
 			tabfldMain.setLayoutData(tabfldMainLData);
-			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(226,270));
+			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(381,521));
 			tabfldMain.addCTabFolderListener( new CTabFolderAdapter() {
 				public void itemClosed(CTabFolderEvent evt) {
 					tabfldMainItemClosed(evt);
@@ -663,7 +717,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			Shell shell = new Shell(display);
 			EngUIMainFrame inst = new EngUIMainFrame(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0,0,489,329);
+			Rectangle shellBounds = shell.computeTrim(0,0,800,580);
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.open();
 			while (!shell.isDisposed()) {

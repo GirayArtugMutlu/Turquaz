@@ -34,15 +34,15 @@
 					<Constraint verticalAlignment=""/>
 					<Constraint grabExcessVerticalSpace=""/>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
-					<Constraint widthHint=""/>
-					<Constraint horizontalSpan=""/>
 					<Constraint grabExcessHorizontalSpace=""/>
+					<Constraint horizontalSpan=""/>
+					<Constraint widthHint=""/>
 					<Constraint horizontalIndent=""/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
 						<Property name="widthHint" type="int" value="-1"/>
-						<Property name="heightHint" type="int" value="42"/>
+						<Property name="heightHint" type="int" value="27"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
 						<Property name="verticalSpan" type="int" value="1"/>
@@ -128,9 +128,9 @@
 					<Constraint verticalAlignment=""/>
 					<Constraint grabExcessVerticalSpace=""/>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
-					<Constraint widthHint=""/>
-					<Constraint horizontalSpan=""/>
 					<Constraint grabExcessHorizontalSpace=""/>
+					<Constraint horizontalSpan=""/>
+					<Constraint widthHint=""/>
 					<Constraint horizontalIndent=""/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>
@@ -154,10 +154,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[603, 291]"/>
+						<Dimension value="[603, 306]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 52, 603, 291]"/>
+						<Rectangle value="[5, 37, 603, 306]"/>
 					</Property>
 				</Properties>
 				<SubComponents>
@@ -169,10 +169,10 @@
 						</Events>
 						<Properties>
 							<Property name="size" type="Dimension">
-								<Dimension value="[603, 291]"/>
+								<Dimension value="[603, 306]"/>
 							</Property>
 							<Property name="bounds" type="Rectangle">
-								<Rectangle value="[0, 0, 603, 291]"/>
+								<Rectangle value="[0, 0, 603, 306]"/>
 							</Property>
 						</Properties>
 					</Component>

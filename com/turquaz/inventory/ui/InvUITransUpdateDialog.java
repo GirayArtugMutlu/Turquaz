@@ -1,6 +1,7 @@
 package com.turquaz.inventory.ui;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
@@ -61,6 +62,14 @@ public class InvUITransUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	 Point parentLocation =this.getParent().getLocation();
+	Point parentSize = this.getParent().getSize();	
+    Point dialogSize = dialogShell.getSize();
+     
+    int location_X = (parentLocation.x + parentSize.x)/2 - (dialogSize.x/2);
+    int location_Y = (parentLocation.y + parentSize.y)/2 - (dialogSize.y/2);
+    
+    dialogShell.setLocation(location_X,location_Y);
 	}
 
 	/** Auto-generated main method */
