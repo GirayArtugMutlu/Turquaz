@@ -135,8 +135,6 @@ public class CurrencyText extends Composite {
  	Text control = (Text)e.widget;
     String textcontrol = control.getText();
     e.doit = false;
-    System.out.println(e.start);
-    System.out.println(e.end);
     String newText = textcontrol.substring(0, e.start) + e.text + textcontrol.substring(e.end);
     String tempnewText=newText.replaceAll("\\.","");
     if (tempnewText.equals("") && !tempnewText.equals(newText))
