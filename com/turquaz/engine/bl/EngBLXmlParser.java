@@ -26,7 +26,7 @@ package com.turquaz.engine.bl;
 * @author  Onsel Armagan
 * @version  $Id$
 */
-import java.io.*;
+
 import org.xml.sax.InputSource;
 import java.util.List;
 import java.util.*;
@@ -48,7 +48,7 @@ public class EngBLXmlParser {
 	  public EngBLXmlParser(String myFile) {
 		try {
 		  SAXBuilder myBuilder = new SAXBuilder();
-		  InputSource input = new InputSource(new FileReader(myFile));
+		  InputSource input = new InputSource(myFile);
 		  myDocument = myBuilder.build(input);
 		  createMap();
 		 

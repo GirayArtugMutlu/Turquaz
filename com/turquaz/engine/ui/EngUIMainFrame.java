@@ -24,6 +24,7 @@ package com.turquaz.engine.ui;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -68,6 +69,8 @@ import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.Label;
 
 import org.eclipse.swt.SWT;
+import org.jdom.Element;
+import org.jdom.output.XMLOutputter;
 
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLPermissions;
@@ -1145,28 +1148,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		}
 	}
 
-	/**
-	* This is an auto-generated method which you can alter,
-	* e.g. to point to a different property file, to modify the key by
-	* by prefixing the name of this class, etc.
-	*
-	* By default, it expects a file called "messages.properties" to exist in the
-	* current package, and returns the value of the property defined
-	* in that file for the given key
-	*/
-	public String getExternalizedString(String key){
-		try {
-			return java.util.ResourceBundle.getBundle("com.turquaz.engine.ui.EngUIMainFrameMessages").getString(key); //$NON-NLS-1$
-		} catch (java.util.MissingResourceException e) {
-			return '!' + key + '!';
-		}
-	}
 
-	/** Auto-generated event handler method */
-	
-
-	/** Auto-generated event handler method */
-	
 
 	/** Auto-generated event handler method */
 	protected void treeAccountingMouseDoubleClick(MouseEvent evt){
@@ -1224,19 +1206,27 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	public static void saveFavoritesTree(){
 		try{
 		
-		  OutputStream output = null;
-          PrintStream out = null;
+		XMLOutputter outputter = new XMLOutputter();
+		  
+		OutputStream output = null;
+        
           output = new FileOutputStream("favorites.xml"); //$NON-NLS-1$
-          out = new PrintStream(output);
+          
           TreeItem items[] = treeFavorites.getItems();
-          out.println("<tree>"); //$NON-NLS-1$
+          
+         Element root = new Element("tree");        
+         
+      
+         Element treeItem;
           for(int i=0;i<items.length;i++){
-          out.println("<treeitem text=\""+items[i].getText()+"\" class=\""+items[i].getData().toString()+"\"  >"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-           
-           out.println("</treeitem>"); //$NON-NLS-1$
+         
+          	treeItem = new Element("treeitem");
+          	treeItem.setAttribute("text",items[i].getText());
+          	treeItem.setAttribute("class",items[i].getData().toString());
+            root.addContent(treeItem);            
           
           }
-          out.println("</tree>"); //$NON-NLS-1$
+          outputter.output(root,output);
           
           
 		 }
