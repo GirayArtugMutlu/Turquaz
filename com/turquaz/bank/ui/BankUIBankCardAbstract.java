@@ -63,29 +63,28 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
         SWTResourceManager.registerResourceUser(this);
     }
 
-	private Composite compSearchPanel;
-	private TableColumn tableColumnDate;
+	private Calendar cal=Calendar.getInstance();
 	private CLabel lblBankCard;
 	private ViewerComposite viewer;
 	private Composite compViewer;
 	private CTabItem tabItemReport;
+	private TableColumn tableColumnBalanceCredit;
+	private TableColumn tableColumnBalanceDept;
+	private TableColumn tableColumnCredit;
+	private TableColumn tableColumnDebit;
+	private TableColumn tableColumnDefinition;
+	private TableColumn tableColumnTransType;
+	private TableColumn tableColumnDate;
+	private Table tableAbstract;
 	private Composite compDesign;
 	private CTabItem tabItemSearch;
 	private CTabFolder tabFolder;
-	private TableColumn tableColumnBalanceCredit;
-	private TableColumn tableColumnBalanceDept;
-	private TableColumn tableColumnTransType;
 	private DatePicker dateEndDate;
 	private CLabel lblEndDate;
 	private DatePicker dateStartDate;
 	private CLabel lblStartDate;
 	private BankCardPicker bankPicker;
-	private TableColumn tableColumnCredit;
-	private TableColumn tableColumnDebit;
-	private TableColumn tableColumnDefinition;
-	private Table tableAbstract;
-	
-	private Calendar cal=Calendar.getInstance();
+	private Composite compSearchPanel;
 
 	public BankUIBankCardAbstract(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
@@ -94,11 +93,61 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 
 	private void initGUI() {
 		try {
-			this.setLayout(new GridLayout());
+			GridLayout thisLayout = new GridLayout();
+			this.setLayout(thisLayout);
+			thisLayout.horizontalSpacing = 0;
+			thisLayout.marginWidth = 0;
+			thisLayout.verticalSpacing = 0;
+			thisLayout.marginHeight = 0;
 			this.setBackground(SWTResourceManager.getColor(255, 255, 255));
 			this.setSize(659, 387);
+			//START >>  compSearchPanel
+			compSearchPanel = new Composite(this, SWT.NONE);
+			GridLayout compSearchPanelLayout = new GridLayout();
+			compSearchPanelLayout.numColumns = 2;
+			GridData compSearchPanelLData = new GridData();
+			compSearchPanelLData.horizontalAlignment = GridData.FILL;
+			compSearchPanelLData.verticalAlignment = GridData.FILL;
+			compSearchPanel.setLayoutData(compSearchPanelLData);
+			compSearchPanel.setLayout(compSearchPanelLayout);
+			//START >>  lblBankCard
+			lblBankCard = new CLabel(compSearchPanel, SWT.NONE);
+			lblBankCard.setText(Messages.getString("BankUIBankCardAbstract.0")); //$NON-NLS-1$
+			//END <<  lblBankCard
+			//START >>  bankPicker
+			bankPicker = new BankCardPicker(compSearchPanel, SWT.NONE);
+			GridData bankPickerLData = new GridData();
+			bankPickerLData.widthHint = 157;
+			bankPickerLData.heightHint = 17;
+			bankPicker.setLayoutData(bankPickerLData);
+			//END <<  bankPicker
+			//START >>  lblStartDate
+			lblStartDate = new CLabel(compSearchPanel, SWT.NONE);
+			lblStartDate
+				.setText(Messages.getString("BankUIBankCardAbstract.1")); //$NON-NLS-1$
+			//END <<  lblStartDate
+			//START >>  dateStartDate
+			dateStartDate = new DatePicker(compSearchPanel, SWT.NONE);
+			GridData dateStartDateLData = new GridData();
+			dateStartDateLData.widthHint = 157;
+			dateStartDateLData.heightHint = 23;
+			dateStartDate.setLayoutData(dateStartDateLData);
+			//END <<  dateStartDate
+			//START >>  lblEndDate
+			lblEndDate = new CLabel(compSearchPanel, SWT.NONE);
+			lblEndDate.setText(Messages.getString("BankUIBankCardAbstract.2")); //$NON-NLS-1$
+			//END <<  lblEndDate
+			//START >>  dateEndDate
+			dateEndDate = new DatePicker(compSearchPanel, SWT.NONE);
+			GridData dateEndDateLData = new GridData();
+			dateEndDateLData.widthHint = 157;
+			dateEndDateLData.heightHint = 23;
+			dateEndDate.setLayoutData(dateEndDateLData);
+			//END <<  dateEndDate
+			//END <<  compSearchPanel
 			//START >>  tabFolder
 			tabFolder = new CTabFolder(this, SWT.NONE);
+			
 			//START >>  tabItemSearch
 			tabItemSearch = new CTabItem(tabFolder, SWT.NONE);
 			tabItemSearch.setText("Arama");
@@ -108,113 +157,60 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 			GridLayout compDesignLayout = new GridLayout();
 			compDesignLayout.makeColumnsEqualWidth = true;
 			compDesign.setLayout(compDesignLayout);
-			{
-				compSearchPanel = new Composite(compDesign, SWT.NONE);
-				GridLayout compSearchPanelLayout = new GridLayout();
-				compSearchPanelLayout.numColumns = 2;
-				GridData compSearchPanelLData = new GridData();
-				compSearchPanelLData.horizontalAlignment = GridData.FILL;
-				compSearchPanelLData.verticalAlignment = GridData.FILL;
-				compSearchPanel.setLayoutData(compSearchPanelLData);
-				compSearchPanel.setLayout(compSearchPanelLayout);
-				{
-					lblBankCard = new CLabel(compSearchPanel, SWT.NONE);
-					lblBankCard.setText(Messages
-						.getString("BankUIBankCardAbstract.0")); //$NON-NLS-1$
-				}
-				{
-					bankPicker = new BankCardPicker(compSearchPanel, SWT.NONE);
-					GridData bankPickerLData = new GridData();
-					bankPickerLData.widthHint = 157;
-					bankPickerLData.heightHint = 17;
-					bankPicker.setLayoutData(bankPickerLData);
-				}
-				{
-					lblStartDate = new CLabel(compSearchPanel, SWT.NONE);
-					lblStartDate.setText(Messages
-						.getString("BankUIBankCardAbstract.1")); //$NON-NLS-1$
-				}
-				{
-					dateStartDate = new DatePicker(compSearchPanel, SWT.NONE);
-					GridData dateStartDateLData = new GridData();
-					dateStartDateLData.widthHint = 157;
-					dateStartDateLData.heightHint = 23;
-					dateStartDate.setLayoutData(dateStartDateLData);
-				}
-				{
-					lblEndDate = new CLabel(compSearchPanel, SWT.NONE);
-					lblEndDate.setText(Messages
-						.getString("BankUIBankCardAbstract.2")); //$NON-NLS-1$
-				}
-				{
-					dateEndDate = new DatePicker(compSearchPanel, SWT.NONE);
-					GridData dateEndDateLData = new GridData();
-					dateEndDateLData.widthHint = 157;
-					dateEndDateLData.heightHint = 23;
-					dateEndDate.setLayoutData(dateEndDateLData);
-				}
-			}
-			{
-				tableAbstract = new Table(compDesign, SWT.SINGLE
-					| SWT.FULL_SELECTION);
-				tableAbstract.setLinesVisible(true);
-				tableAbstract.setHeaderVisible(true);
-				GridData tableAbstractLData = new GridData();
-				tableAbstractLData.verticalAlignment = GridData.FILL;
-				tableAbstractLData.horizontalAlignment = GridData.FILL;
-				tableAbstractLData.grabExcessVerticalSpace = true;
-				tableAbstractLData.grabExcessHorizontalSpace = true;
-				tableAbstract.setLayoutData(tableAbstractLData);
-				{
-					tableColumnDate = new TableColumn(tableAbstract, SWT.NONE);
-					tableColumnDate.setText(Messages
-						.getString("BankUIBankCardAbstract.3")); //$NON-NLS-1$
-					tableColumnDate.setWidth(83);
-				}
-				//START >>  tableColumnTransType
-				tableColumnTransType = new TableColumn(tableAbstract, SWT.NONE);
-				tableColumnTransType.setText("HareketTipi");
-				tableColumnTransType.setWidth(97);
-				//END <<  tableColumnTransType
-				{
-					tableColumnDefinition = new TableColumn(
-						tableAbstract,
-						SWT.NONE);
-					tableColumnDefinition.setText(Messages
-						.getString("BankUIBankCardAbstract.5")); //$NON-NLS-1$
-					tableColumnDefinition.setWidth(110);
-				}
-				{
-					tableColumnDebit = new TableColumn(tableAbstract, SWT.RIGHT);
-					tableColumnDebit.setText(Messages
-						.getString("BankUIBankCardAbstract.6")); //$NON-NLS-1$
-					tableColumnDebit.setWidth(62);
-				}
-				{
-					tableColumnCredit = new TableColumn(
-						tableAbstract,
-						SWT.RIGHT);
-					tableColumnCredit.setText(Messages
-						.getString("BankUIBankCardAbstract.7")); //$NON-NLS-1$
-					tableColumnCredit.setWidth(67);
-				}
-				//START >>  tableColumnBalanceDept
-				tableColumnBalanceDept = new TableColumn(
-					tableAbstract,
-					SWT.RIGHT);
-				tableColumnBalanceDept.setText("Bakiye Borç");
-				tableColumnBalanceDept.setWidth(84);
-				//END <<  tableColumnBalanceDept
-				//START >>  tableColumnBalanceCredit
-				tableColumnBalanceCredit = new TableColumn(
-					tableAbstract,
-					SWT.RIGHT);
-				tableColumnBalanceCredit.setText("Bakiye Alacak");
-				tableColumnBalanceCredit.setWidth(84);
-				//END <<  tableColumnBalanceCredit
-			}
+			//START >>  tableAbstract
+			tableAbstract = new Table(compDesign, SWT.SINGLE
+				| SWT.FULL_SELECTION);
+			tableAbstract.setLinesVisible(true);
+			tableAbstract.setHeaderVisible(true);
+			GridData tableAbstractLData = new GridData();
+			tableAbstractLData.verticalAlignment = GridData.FILL;
+			tableAbstractLData.horizontalAlignment = GridData.FILL;
+			tableAbstractLData.grabExcessVerticalSpace = true;
+			tableAbstractLData.grabExcessHorizontalSpace = true;
+			tableAbstract.setLayoutData(tableAbstractLData);
+			//START >>  tableColumnDate
+			tableColumnDate = new TableColumn(tableAbstract, SWT.NONE);
+			tableColumnDate.setText(Messages
+				.getString("BankUIBankCardAbstract.3")); //$NON-NLS-1$
+			tableColumnDate.setWidth(83);
+			//END <<  tableColumnDate
+			//START >>  tableColumnTransType
+			tableColumnTransType = new TableColumn(tableAbstract, SWT.NONE);
+			tableColumnTransType.setText("HareketTipi");
+			tableColumnTransType.setWidth(97);
+			//END <<  tableColumnTransType
+			//START >>  tableColumnDefinition
+			tableColumnDefinition = new TableColumn(tableAbstract, SWT.NONE);
+			tableColumnDefinition.setText(Messages
+				.getString("BankUIBankCardAbstract.5")); //$NON-NLS-1$
+			tableColumnDefinition.setWidth(110);
+			//END <<  tableColumnDefinition
+			//START >>  tableColumnDebit
+			tableColumnDebit = new TableColumn(tableAbstract, SWT.RIGHT);
+			tableColumnDebit.setText(Messages
+				.getString("BankUIBankCardAbstract.6")); //$NON-NLS-1$
+			tableColumnDebit.setWidth(62);
+			//END <<  tableColumnDebit
+			//START >>  tableColumnCredit
+			tableColumnCredit = new TableColumn(tableAbstract, SWT.RIGHT);
+			tableColumnCredit.setText(Messages
+				.getString("BankUIBankCardAbstract.7")); //$NON-NLS-1$
+			tableColumnCredit.setWidth(67);
+			//END <<  tableColumnCredit
+			//START >>  tableColumnBalanceDept
+			tableColumnBalanceDept = new TableColumn(tableAbstract, SWT.RIGHT);
+			tableColumnBalanceDept.setText("Bakiye Borç");
+			tableColumnBalanceDept.setWidth(84);
+			//END <<  tableColumnBalanceDept
+			//START >>  tableColumnBalanceCredit
+			tableColumnBalanceCredit = new TableColumn(tableAbstract, SWT.RIGHT);
+			tableColumnBalanceCredit.setText("Bakiye Alacak");
+			tableColumnBalanceCredit.setWidth(84);
+			//END <<  tableColumnBalanceCredit
+			//END <<  tableAbstract
 			//END <<  compDesign
 			GridData tabFolderLData = new GridData();
+			tabFolder.setSelection(0);
 			tabFolderLData.grabExcessHorizontalSpace = true;
 			tabFolderLData.grabExcessVerticalSpace = true;
 			tabFolderLData.horizontalAlignment = GridData.FILL;
@@ -224,6 +220,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 			//START >>  tabItemReport
 			tabItemReport = new CTabItem(tabFolder, SWT.NONE);
 			tabItemReport.setText("Rapor");
+			tabFolder.setSelection(0);
 			//START >>  compViewer
 			compViewer = new Composite(tabFolder, SWT.NONE);
 			tabItemReport.setControl(compViewer);
@@ -240,7 +237,6 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 			viewer.setLayoutData(viewerLData);
 			//END <<  viewer
 			//END <<  compViewer
-			tabFolder.setSelection(0);
 			//END <<  tabItemReport
 			//END <<  tabFolder
 			this.layout();
