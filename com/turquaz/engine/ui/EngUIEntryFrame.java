@@ -131,6 +131,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 	{
 		super(parent, style);
 		initGUI();
+	
 	}
 
 	private void initGUI()

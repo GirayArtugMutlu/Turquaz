@@ -20,6 +20,8 @@ package com.turquaz.current.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -41,6 +43,7 @@ import com.turquaz.current.ui.CurUICurrentCardAdd;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCurrentCards;
+import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -273,7 +276,11 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				compCurCardAdd.getTxtContactPhone2().setText(curContact.getContactsPhone2());
 			}
 			/** ************************************************ */
-			it = currentCard.getTurqCurrentCardsPhones().iterator();
+			
+			List phoneList = new ArrayList(currentCard.getTurqCurrentCardsPhones()); 
+			EngBLHibernateComparer comp = new EngBLHibernateComparer();
+			Collections.sort(phoneList,comp);
+			it = phoneList.iterator();
 			int phones = 0;
 			while (it.hasNext())
 			{

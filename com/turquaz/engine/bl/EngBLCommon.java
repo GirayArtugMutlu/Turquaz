@@ -49,6 +49,9 @@ import com.turquaz.inventory.dal.InvDALCardSearch;
 public class EngBLCommon
 {
 	
+	public static String VERSION = "0.7.0 Alpha2";
+	
+	
 	public static int BILL_ERR_TOO_MANY_CONS = -1;
 	public static int BILL_SAVED_SUCCESFULLY = 1;
 	public static int BILL_ERR_OTHER = 0;

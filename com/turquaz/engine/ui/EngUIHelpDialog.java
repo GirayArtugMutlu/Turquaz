@@ -3,6 +3,7 @@ package com.turquaz.engine.ui;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.Messages;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.ui.component.Hyperlink;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -89,7 +90,7 @@ public class EngUIHelpDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			{
 				lblVarsion = new CLabel(dialogShell, SWT.NONE);
-				lblVarsion.setText("0.7.0 Alpha 1"); //$NON-NLS-1$
+				lblVarsion.setText(EngBLCommon.VERSION); //$NON-NLS-1$
 				GridData lblVarsionLData = new GridData();
 				lblVarsionLData.horizontalAlignment = GridData.CENTER;
 				lblVarsionLData.widthHint = 89;
