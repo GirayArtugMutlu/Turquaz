@@ -45,7 +45,8 @@ public class EngConfiguration {
 	private static EngConfiguration _instance;
 	private EngConfiguration() {
 	    try{
-     FileInputStream fis = new FileInputStream(filename);
+	        
+      FileInputStream fis = new FileInputStream(filename);
 	   props = new Properties();
 	   props.load(fis);
 	    

@@ -132,7 +132,9 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 
 	private void initGUI() {
 		try {
-			preInitGui();
+		    
+		    
+		  
 			GridLayout thisLayout = new GridLayout();
 			this.addKeyListener(new KeyAdapter() {
 				public void keyReleased(KeyEvent evt) {
@@ -150,7 +152,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 				lblUserName.setText(Messages.getString("EngUIEntryFrame.1")); //$NON-NLS-1$
 			}
 			{
-				txtUserName = new Text(this, SWT.NONE);
+			    txtUserName = new Text(this, SWT.NONE);
 				GridData txtUserNameLData = new GridData();
 				txtUserNameLData.heightHint = 16;
 				txtUserNameLData.grabExcessHorizontalSpace = true;
@@ -163,13 +165,16 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 				lblPassword.setText(Messages.getString("EngUIEntryFrame.2")); //$NON-NLS-1$
 			}
 			{
-				txtPassword = new Text(this, SWT.PASSWORD);
+			    txtPassword = new Text(this, SWT.PASSWORD);
 				GridData txtPasswordLData = new GridData();
 				txtPassword.setSize(305, 16);
 				txtPasswordLData.heightHint = 16;
 				txtPasswordLData.horizontalAlignment = GridData.FILL;
 				txtPassword.setLayoutData(txtPasswordLData);
 			}
+			  preInitGui();
+			
+			
 			{
 				checkRememberPassword = new Button(this, SWT.CHECK | SWT.LEFT);
 				checkRememberPassword.setText(Messages.getString("EngUIEntryFrame.3")); //$NON-NLS-1$

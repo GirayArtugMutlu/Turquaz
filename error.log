@@ -1,0 +1,28 @@
+2004-11-19 10:57:23,609 [main] ERROR hibernate.util.JDBCExceptionReporter(46)  -> Backend start-up failed: org.postgresql.util.PSQLException: FATAL: database "deneme3" does not exist
+
+2004-11-19 10:57:23,625 [main] ERROR hibernate.util.JDBCExceptionReporter(38)  -> Cannot open connection
+org.postgresql.util.PSQLException: Backend start-up failed: org.postgresql.util.PSQLException: FATAL: database "deneme3" does not exist
+
+	at org.postgresql.jdbc1.AbstractJdbc1Connection.openConnectionV3(AbstractJdbc1Connection.java:449)
+	at org.postgresql.jdbc1.AbstractJdbc1Connection.openConnection(AbstractJdbc1Connection.java:213)
+	at org.postgresql.Driver.connect(Driver.java:139)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at net.sf.hibernate.connection.DriverManagerConnectionProvider.getConnection(DriverManagerConnectionProvider.java:95)
+	at net.sf.hibernate.impl.BatcherImpl.openConnection(BatcherImpl.java:257)
+	at net.sf.hibernate.impl.SessionImpl.connect(SessionImpl.java:3157)
+	at net.sf.hibernate.impl.SessionImpl.connection(SessionImpl.java:3140)
+	at net.sf.hibernate.transaction.JDBCTransaction.begin(JDBCTransaction.java:40)
+	at net.sf.hibernate.transaction.JDBCTransactionFactory.beginTransaction(JDBCTransactionFactory.java:19)
+	at net.sf.hibernate.impl.SessionImpl.beginTransaction(SessionImpl.java:2158)
+	at com.turquaz.engine.dal.EngDALCommon.checkUserPass(EngDALCommon.java:72)
+	at com.turquaz.engine.bl.EngBLCommon.checkUserPass(EngBLCommon.java:69)
+	at com.turquaz.engine.ui.EngUIEntryFrame.btnOkMouseUp(EngUIEntryFrame.java:259)
+	at com.turquaz.engine.ui.EngUIEntryFrame$3.mouseUp(EngUIEntryFrame.java:234)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:136)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:796)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:2772)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2431)
+	at com.turquaz.engine.ui.EngUIEntryFrame.showGUI(EngUIEntryFrame.java:123)
+	at com.turquaz.engine.ui.EngUIEntryFrame.main(EngUIEntryFrame.java:96)
