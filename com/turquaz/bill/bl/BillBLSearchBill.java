@@ -19,10 +19,10 @@ public class BillBLSearchBill {
    	
    
 	}
-	public List searchBill(TurqCurrentCard card,Date startDate,Date endDate, int type)throws Exception{
+	public List searchBill(TurqCurrentCard card,String docNo,Date startDate,Date endDate, int type)throws Exception{
 		try{
 			
-			return dalSearch.searchBill(card,startDate,endDate,type);
+			return dalSearch.searchBill(card,docNo,startDate,endDate,type);
 			
 		}
 		catch(Exception ex){

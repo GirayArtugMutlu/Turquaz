@@ -24,6 +24,7 @@ import com.turquaz.engine.ui.component.TableSorter;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.current.ui.comp.CurrentPicker;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.MouseAdapter;
@@ -57,6 +58,9 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	private TableColumn tableColumnCurrentName;
 	private TableColumn tableColumnVatAmount;
 	private CurrentPicker txtCurCard;
+	private TableColumn tableColumnDocNo;
+	private Text txtDocNo;
+	private CLabel lblDocNo;
 	private CCombo comboBillType;
 	private CLabel lblType;
 	private CLabel lblEndDate;
@@ -84,11 +88,23 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				GridLayout composite1Layout = new GridLayout();
 				composite1Layout.numColumns = 4;
 				GridData composite1LData = new GridData();
-				composite1LData.heightHint = 83;
+				composite1LData.heightHint = 96;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				composite1.setLayoutData(composite1LData);
 				composite1.setLayout(composite1Layout);
+                {
+                    lblDocNo = new CLabel(composite1, SWT.NONE);
+                    lblDocNo.setText("Belge No");
+                }
+                {
+                    txtDocNo = new Text(composite1, SWT.NONE);
+                    GridData txtDocNoLData = new GridData();
+                    txtDocNoLData.horizontalSpan = 3;
+                    txtDocNoLData.widthHint = 115;
+                    txtDocNoLData.heightHint = 15;
+                    txtDocNo.setLayoutData(txtDocNoLData);
+                }
 				{
 					lblCurrentCard = new CLabel(composite1, SWT.NONE);
 					lblCurrentCard.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.0"));  //$NON-NLS-1$
@@ -181,6 +197,11 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 					    }
 					});
 				}
+                {
+                    tableColumnDocNo = new TableColumn(tableBills, SWT.NONE);
+                    tableColumnDocNo.setText("Belge No");
+                    tableColumnDocNo.setWidth(74);
+                }
 				{
 					tableColumnCurrentName = new TableColumn(
 						tableBills,
@@ -284,6 +305,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		}
 			
 		List list = blSearch.searchBill((TurqCurrentCard)txtCurCard.getData(),
+		        								txtDocNo.getText().trim(),
 												dateStartDate.getDate(),
 												dateEndDate.getDate(),type);
 		TurqBill bill;
@@ -295,6 +317,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 			item = new TableItem(tableBills,SWT.NULL);
 			item.setData(bill);
 			item.setText(new String[]{DatePicker.formatter.format(bill.getBillsDate()),
+			        			bill.getTurqBillConsignmentCommon().getBillDocumentNo(),
 									bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName(),
 									cf.format(bill.getTurqBillConsignmentCommon().getTotalAmount()),
 									cf.format(bill.getTurqBillConsignmentCommon().getVatAmount()),

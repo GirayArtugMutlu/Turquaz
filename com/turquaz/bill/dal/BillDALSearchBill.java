@@ -35,7 +35,7 @@ public class BillDALSearchBill {
 		
 		
 	}
-	public List searchBill(TurqCurrentCard curCard, Date startDate, Date endDate, int type)
+	public List searchBill(TurqCurrentCard curCard,String docNo, Date startDate, Date endDate, int type)
 	throws Exception {
 	try{
 		Session session = EngDALSessionFactory.openSession();
@@ -45,7 +45,8 @@ public class BillDALSearchBill {
 				" bill.billsDate >= :startDate" +
 				" and bill.billsDate <= :endDate" +
 				" and bill.billsType ="+type +""+
-				" and bill.billsId <> -1 ";
+				" and bill.billsId <> -1 " +
+				" and bill.turqBillConsignmentCommon.billDocumentNo like '"+docNo+"%'";
 		
 		
 		if (curCard!=null){
