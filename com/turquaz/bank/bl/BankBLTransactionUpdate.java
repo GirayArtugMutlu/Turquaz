@@ -54,8 +54,6 @@ import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
 public class BankBLTransactionUpdate {
-	//TODO remove me
-    static CashBLCashTransactionUpdate blCashUpdate = new CashBLCashTransactionUpdate();
 
     public static TurqBanksTransactionBill initializeTransaction(Integer transId)
             throws Exception {
@@ -241,7 +239,7 @@ public class BankBLTransactionUpdate {
 
             while (it.hasNext()) {
 
-                blCashUpdate.deleteOnlyCashTransaction((TurqCashTransaction) it
+            	CashBLCashTransactionUpdate.deleteOnlyCashTransaction((TurqCashTransaction) it
                         .next());
 
             }
@@ -344,9 +342,7 @@ public class BankBLTransactionUpdate {
 
             List totals = new ArrayList();
             totals.add(totalAmount);
-            CashBLCashTransactionAdd blCash = new CashBLCashTransactionAdd();
-
-            blCash.saveCashTransaction(cashCard, bankTransBill
+            CashBLCashTransactionAdd.saveCashTransaction(cashCard, bankTransBill
                     .getTurqEngineSequence(), cashTransType, transDate,
                     definition, docNo, totals, bankAccount,exchangeRate);
 
@@ -498,7 +494,7 @@ public class BankBLTransactionUpdate {
 
             while (it.hasNext()) {
 
-                blCashUpdate.deleteOnlyCashTransaction((TurqCashTransaction) it
+            	CashBLCashTransactionUpdate.deleteOnlyCashTransaction((TurqCashTransaction) it
                         .next());
 
             }
@@ -599,13 +595,11 @@ public class BankBLTransactionUpdate {
             transRow.setTurqCurrencyExchangeRate(exchangeRate);
             EngDALCommon.saveObject(transRow);
 
-            CurBLCurrentTransactionAdd blCurTrans = new CurBLCurrentTransactionAdd();
-
             /**
              * Save Current transaction
              */
 
-            blCurTrans.saveCurrentTransaction(curCard, transDate, docNo,
+            CurBLCurrentTransactionAdd.saveCurrentTransaction(curCard, transDate, docNo,
                     currentTransType, totalAmount, new BigDecimal(0),
                     EngBLCommon.CURRENT_TRANS_BANK, bankTransBill
                             .getTurqEngineSequence().getId(),
@@ -655,7 +649,7 @@ public class BankBLTransactionUpdate {
 
             while (it.hasNext()) {
 
-                blCashUpdate.deleteOnlyCashTransaction((TurqCashTransaction) it
+            	CashBLCashTransactionUpdate.deleteOnlyCashTransaction((TurqCashTransaction) it
                         .next());
 
             }

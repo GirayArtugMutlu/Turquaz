@@ -34,8 +34,6 @@ public class EngBLCurrentCards {
 
 	static EngBLCurrentCards _instance;
 
-	private CurBLCurrentCardSearch blCurrentCards = new CurBLCurrentCardSearch();
-
 	public EngBLCurrentCards() throws Exception {
 		try {
 			fillCurrentCards();
@@ -47,7 +45,7 @@ public class EngBLCurrentCards {
 	public void fillCurrentCards() throws Exception {
 		try {
 		    
-			currentList = blCurrentCards.getCurrentCards();
+			currentList = CurBLCurrentCardSearch.getCurrentCards();
 			
 		} catch (Exception ex) {
 			throw ex;
@@ -117,7 +115,7 @@ public class EngBLCurrentCards {
 	public TurqCurrentCard getCurrentCard(String currentCode)throws Exception {
 	 try{
 	     
-	     return blCurrentCards.getCurrentCard(currentCode);
+	     return CurBLCurrentCardSearch.getCurrentCard(currentCode);
 	 }
 	 catch(Exception ex){
 	     throw ex;

@@ -26,7 +26,7 @@ public class EngBLCashCards {
 
 	public void fillCashCards() throws Exception {
 		try {
-			currentList = blCurrentCards.searchCashCard(null,"");
+			currentList = CashBLCashCardSearch.searchCashCard(null,"");
 			cardMap.clear();
 
 			TurqCashCard cashCard;

@@ -1333,9 +1333,8 @@ public class BillUIAddSellBill extends Composite
 	
 	public boolean checkStabilityInventoryLevel(TurqInventoryCard invCard ){
 	    try
-		{	     
-	    	InvBLCardSearch blCardSearch = new InvBLCardSearch();    
-	    	TurqViewInventoryAmountTotal invView=blCardSearch.getView(invCard);
+		{	        
+	    	TurqViewInventoryAmountTotal invView=InvBLCardSearch.getView(invCard);
 	    	int Now=(invView.getTransactionsTotalAmountNow()==null) ? 0 : invView.getTransactionsTotalAmountNow().intValue();
 	    	int Max=invCard.getCardMaximumAmount();
 			int Min=invCard.getCardMinimumAmount();	

@@ -364,9 +364,7 @@ public class BankBLTransactionAdd {
 
             List totals = new ArrayList();
             totals.add(totalAmount);
-            CashBLCashTransactionAdd blCash = new CashBLCashTransactionAdd();
-
-            blCash.saveCashTransaction(cashCard, seq, cashTransType, transDate,
+            CashBLCashTransactionAdd.saveCashTransaction(cashCard, seq, cashTransType, transDate,
                     definition, docNo, totals, bankAccount,exchangeRate);
 
             /**
@@ -485,16 +483,9 @@ public class BankBLTransactionAdd {
             EngDALCommon.saveObject(transRow);
 
             /**
-             * 
-             * 
-             *  
-             */
-            CurBLCurrentTransactionAdd blCurTrans = new CurBLCurrentTransactionAdd();
-
-            /**
              * Save Current transaction
              */
-            blCurTrans.saveCurrentTransaction(curCard, transDate, docNo,
+            CurBLCurrentTransactionAdd.saveCurrentTransaction(curCard, transDate, docNo,
                     currentTransType, totalAmount, new BigDecimal(0),
                     EngBLCommon.CURRENT_TRANS_BANK, seq.getId(),
                     currentTransDefinition, exchangeRate);

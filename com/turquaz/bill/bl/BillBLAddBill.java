@@ -174,8 +174,6 @@ public class BillBLAddBill {
 
 			TurqBillConsignmentCommon common = bill
 					.getTurqBillConsignmentCommon();
-			CurBLCurrentTransactionAdd curBLTrans = new CurBLCurrentTransactionAdd();
-
 			String curTransDef = DatePicker.formatter.format(bill
 					.getBillsDate())
 					+ " " + common.getBillDocumentNo() + " Ref. Fatura";
@@ -183,7 +181,7 @@ public class BillBLAddBill {
 			//Al?? Faturas?
 			if (bill.getBillsType() == 0) {
 //	          TODO current trans exRate
-				curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),
+				CurBLCurrentTransactionAdd.saveCurrentTransaction(common.getTurqCurrentCard(),
 						bill.getBillsDate(), common.getBillDocumentNo(), true,
 						common.getTotalAmount(), common.getDiscountAmount(), 1,
 						bill.getTurqEngineSequence().getId(),
@@ -192,7 +190,7 @@ public class BillBLAddBill {
 				//Kapal? Fatura
 				if (!bill.isIsOpen()) {
 //		          TODO current trans exRate
-					curBLTrans
+					CurBLCurrentTransactionAdd
 							.saveCurrentTransaction(
 									common.getTurqCurrentCard(), bill
 											.getBillsDate(), common
@@ -209,7 +207,7 @@ public class BillBLAddBill {
 			//Sat?? Faturas?
 			else if (bill.getBillsType() == 1) {
 //	          TODO current trans exRate
-				curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),
+				CurBLCurrentTransactionAdd.saveCurrentTransaction(common.getTurqCurrentCard(),
 						bill.getBillsDate(), common.getBillDocumentNo(), false,
 						common.getTotalAmount(), common.getDiscountAmount(), 1,
 						bill.getTurqEngineSequence().getId(),
@@ -218,7 +216,7 @@ public class BillBLAddBill {
 				//Kapal? Fatura
 				if (!bill.isIsOpen()) {
 //		          TODO current trans exRate
-					curBLTrans.saveCurrentTransaction(common
+					CurBLCurrentTransactionAdd.saveCurrentTransaction(common
 							.getTurqCurrentCard(), bill.getBillsDate(), common
 							.getBillDocumentNo(), true,
 							common.getTotalAmount(),

@@ -193,7 +193,7 @@ public class CheUIChequeCollectUpdate extends
 			if(it.hasNext())
 			{
 				TurqCashTransaction cashTrans =(TurqCashTransaction)it.next();
-				new CashBLCashTransactionSearch().initializeCashTransaction(cashTrans);
+				CashBLCashTransactionSearch.initializeCashTransaction(cashTrans);
 				
 				Iterator it2 = cashTrans.getTurqCashTransactionRows().iterator();
 				while(it2.hasNext())

@@ -63,7 +63,6 @@ import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SWTPTable;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
-import com.turquaz.inventory.bl.InvBLCardSearch;
 
 import de.kupzog.ktools.kprint.boxes.PBox;
 import de.kupzog.ktools.kprint.boxes.PDocument;
@@ -85,10 +84,6 @@ import de.kupzog.ktools.kprint.gui.PrintPreview;
 public class EngBLUtils {
 	
 	public static String logoURL;
-	private static CurBLCurrentCardSearch curBLCurCardSearch=new CurBLCurrentCardSearch();
-	private static InvBLCardSearch blCardSearch=new InvBLCardSearch();
-	//private static ViewerComposite reportViewer;
-	
 	
 	public static void Export2Excel(Table table){
 		 try{
@@ -331,7 +326,7 @@ public class EngBLUtils {
 			parameters.put("despatchNoteDate",dformat.format(cons.getConsignmentsDate())); //$NON-NLS-1$
 			parameters.put("despatchNoteId",billCommon.getConsignmentDocumentNo()); //$NON-NLS-1$
 			parameters.put("billType",(bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_BUY) ? new Integer(1) : new Integer(0)); //$NON-NLS-1$
-			TurqViewCurrentAmountTotal currentView=curBLCurCardSearch.getCurrentCardView(curCard);
+			TurqViewCurrentAmountTotal currentView=CurBLCurrentCardSearch.getCurrentCardView(curCard);
 			
 			BigDecimal allTotal=currentView.getTransactionsBalanceNow();
 			allTotal = allTotal.multiply(new BigDecimal(-1));
@@ -412,7 +407,7 @@ public class EngBLUtils {
 			parameters.put("despatchNoteDate",dformat.format(cons.getConsignmentsDate())); //$NON-NLS-1$
 			parameters.put("despatchNoteId",billCommon.getConsignmentDocumentNo()); //$NON-NLS-1$
 			
-			TurqViewCurrentAmountTotal currentView=curBLCurCardSearch.getCurrentCardView(curCard);
+			TurqViewCurrentAmountTotal currentView=CurBLCurrentCardSearch.getCurrentCardView(curCard);
 			BigDecimal allTotal=(currentView.getTransactionsBalanceNow()==null) ? new BigDecimal(0): currentView.getTransactionsBalanceNow();
 			BigDecimal oldAllTotal=allTotal.subtract(grandTotal);
 			

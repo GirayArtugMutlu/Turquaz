@@ -127,7 +127,7 @@ public class CheBLUpdateChequeRoll {
             
             account.setId(new Integer(-1));
 //          TODO cheq exRate
-            new CashBLCashTransactionAdd().saveCashTransaction(cashCard,
+            CashBLCashTransactionAdd.saveCashTransaction(cashCard,
             		chequeRoll.getTurqEngineSequence(),EngBLCommon.CASH_CHEQUE_COLLECT,
 					rollDate,Messages.getString("CheBLSaveChequeTransaction.5"),rollNo, //$NON-NLS-1$
 					totals,account,EngBLCommon.getBaseCurrencyExchangeRate()); //$NON-NLS-1$
@@ -189,8 +189,6 @@ public class CheBLUpdateChequeRoll {
            TurqChequeCheque cheque;
          
            TurqChequeChequeInRoll chequeInRoll;
-          
-           CurBLCurrentTransactionAdd blCurrent = new CurBLCurrentTransactionAdd();
            BigDecimal totalAmount = new BigDecimal(0);
            
            for(int i = 0; i<chequeList.size();i++){
@@ -203,10 +201,10 @@ public class CheBLUpdateChequeRoll {
                if(curCard!=null&&!sumTransTotal)
                {
                   if(rollType == EngBLCommon.CHEQUE_TRANS_IN.intValue()){
-                    blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.2")+cheque.getChequesPortfolioNo(),exchangeRate ); //$NON-NLS-1$
+                  	CurBLCurrentTransactionAdd.saveCurrentTransaction(curCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.2")+cheque.getChequesPortfolioNo(),exchangeRate ); //$NON-NLS-1$
                 }
                 else if(rollType == EngBLCommon.CHEQUE_TRANS_OUT_CURRENT.intValue()){
-                	 blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,false,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.3")+cheque.getChequesPortfolioNo(),exchangeRate ); //$NON-NLS-1$
+                	CurBLCurrentTransactionAdd.saveCurrentTransaction(curCard,rollDate,rollNo,false,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.3")+cheque.getChequesPortfolioNo(),exchangeRate ); //$NON-NLS-1$
                 }
                
                
@@ -216,7 +214,7 @@ public class CheBLUpdateChequeRoll {
                {
                          
                TurqCurrentCard currentCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque);
-               blCurrent.saveCurrentTransaction(currentCard,rollDate,rollNo,false,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.11")+cheque.getChequesPortfolioNo(),exchangeRate); //$NON-NLS-1$
+               CurBLCurrentTransactionAdd.saveCurrentTransaction(currentCard,rollDate,rollNo,false,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.11")+cheque.getChequesPortfolioNo(),exchangeRate); //$NON-NLS-1$
                              	
                }
                else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT.intValue())
@@ -224,7 +222,7 @@ public class CheBLUpdateChequeRoll {
                          
                TurqCurrentCard currentCard = CheDALSearch.getCurrentCardOfGivenCheque(cheque);
              
-               blCurrent.saveCurrentTransaction(currentCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.12")+cheque.getChequesPortfolioNo(),exchangeRate); //$NON-NLS-1$
+               CurBLCurrentTransactionAdd.saveCurrentTransaction(currentCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.12")+cheque.getChequesPortfolioNo(),exchangeRate); //$NON-NLS-1$
                              	
                }
                
@@ -245,10 +243,10 @@ public class CheBLUpdateChequeRoll {
            {
               
                if(rollType == EngBLCommon.CHEQUE_TRANS_IN.intValue()){
-                blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.4")+chequeRoll.getChequeRollNo(),exchangeRate); //$NON-NLS-1$
+                CurBLCurrentTransactionAdd.saveCurrentTransaction(curCard,rollDate,rollNo,true,totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.4")+chequeRoll.getChequeRollNo(),exchangeRate); //$NON-NLS-1$
               }
               else if(rollType == EngBLCommon.CHEQUE_TRANS_OUT_CURRENT.intValue()){
-              	blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,false,totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.5")+chequeRoll.getChequeRollNo(),exchangeRate); //$NON-NLS-1$
+              	CurBLCurrentTransactionAdd.saveCurrentTransaction(curCard,rollDate,rollNo,false,totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.5")+chequeRoll.getChequeRollNo(),exchangeRate); //$NON-NLS-1$
               }
            }
            
@@ -341,9 +339,9 @@ public class CheBLUpdateChequeRoll {
 	        while(it.hasNext()){
 	        
 	        	TurqCashTransaction cashTrans = (TurqCashTransaction)it.next();
-	        	new CashBLCashTransactionSearch().initializeCashTransaction(cashTrans);
+	        	CashBLCashTransactionSearch.initializeCashTransaction(cashTrans);
 	            
-	           new CashBLCashTransactionUpdate().deleteChequeCashTrans(cashTrans);
+	            CashBLCashTransactionUpdate.deleteChequeCashTrans(cashTrans);
 	            
 	        }
 	      

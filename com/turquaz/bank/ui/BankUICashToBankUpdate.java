@@ -164,7 +164,7 @@ public class BankUICashToBankUpdate extends org.eclipse.swt.widgets.Dialog {
 		       	try{
 		           TurqCashTransaction curTrans = (TurqCashTransaction)it2.next();
 		           
-		           new CashBLCashTransactionSearch().initializeCashTransaction(curTrans);
+		           CashBLCashTransactionSearch.initializeCashTransaction(curTrans);
 		           
 		           Iterator it3 = curTrans.getTurqCashTransactionRows().iterator();
 		          

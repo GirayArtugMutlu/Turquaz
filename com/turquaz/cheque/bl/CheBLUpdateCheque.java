@@ -147,8 +147,6 @@ public class CheBLUpdateCheque {
 	private static void updateCurrentTransactions(TurqChequeRoll chequeRoll, TurqCurrencyExchangeRate exchangeRate)throws Exception{
 
 		try{
-			CurBLCurrentTransactionAdd blCurrent = new CurBLCurrentTransactionAdd();
-			
 			// Delete Current transactions first
 			Iterator it = chequeRoll.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
 			
@@ -168,7 +166,7 @@ public class CheBLUpdateCheque {
 					
 					TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll)it.next();
 					//TODO cheq current exRate
-					blCurrent.saveCurrentTransaction(chequeRoll.getTurqCurrentCard(),
+					CurBLCurrentTransactionAdd.saveCurrentTransaction(chequeRoll.getTurqCurrentCard(),
 													chequeRoll.getChequeRollsDate(),
 													chequeRoll.getChequeRollNo(),
 													true, //Credit
@@ -192,7 +190,7 @@ public class CheBLUpdateCheque {
 					
 					TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll)it.next();
 //		          TODO cheq trans exRate
-					blCurrent.saveCurrentTransaction(chequeRoll.getTurqCurrentCard(),
+					CurBLCurrentTransactionAdd.saveCurrentTransaction(chequeRoll.getTurqCurrentCard(),
 													chequeRoll.getChequeRollsDate(),
 													chequeRoll.getChequeRollNo(),
 													false, //Dept
@@ -221,7 +219,7 @@ public class CheBLUpdateCheque {
 				
 					TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(chequeInRoll.getTurqChequeCheque());
 					
-					blCurrent.saveCurrentTransaction(curCard,
+					CurBLCurrentTransactionAdd.saveCurrentTransaction(curCard,
 													chequeRoll.getChequeRollsDate(),
 													chequeRoll.getChequeRollNo(),
 													false, //Dept
@@ -250,7 +248,7 @@ public class CheBLUpdateCheque {
 				
 					TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfGivenCheque(chequeInRoll.getTurqChequeCheque());
 					
-					blCurrent.saveCurrentTransaction(curCard,
+					CurBLCurrentTransactionAdd.saveCurrentTransaction(curCard,
 													chequeRoll.getChequeRollsDate(),
 													chequeRoll.getChequeRollNo(),
 													false, //Dept
