@@ -6,6 +6,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.custom.CLabel;
 import com.turquaz.accounting.ui.comp.AccountPicker;
@@ -232,6 +233,21 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 	}
 
     boolean verifyFields(){
+
+    MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);	
+   if(accountPicker.getData()==null){
+   		msg.setMessage("Please choose account first");	
+   		msg.open();
+   		return false;
+   
+   }
+   else if(decTextAmount.getBigDecimalValue().toString().equals("0")){
+   	msg.setMessage("Please enter an amount");
+	msg.open();
+	return false;
+   }
+    	
+  
     
     return true;
     

@@ -20,6 +20,7 @@ package com.turquaz.accounting.ui;
 * @version  $Id$
 */
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 import org.eclipse.swt.layout.GridLayout;
@@ -32,6 +33,7 @@ import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Table;
@@ -60,7 +62,7 @@ public class AccUITransactionAdd extends SecureComposite {
 
 	private CLabel lblTotalDeptAmount;
 	private CLabel lblTotalCredit;
-	private CLabel cLabel2;
+	private CLabel lblTotalCreditAmount;
 	private CLabel cLabel1;
 	private Button btnRemoveTransactionRow;
 	private Button btnAddTransactionRow;
@@ -75,6 +77,10 @@ public class AccUITransactionAdd extends SecureComposite {
 	private CLabel lblDocumentNo;
 	private DatePicker dateTransactionDate;
 	private AccBLTransactionAdd blTransAdd = new AccBLTransactionAdd();
+	BigDecimal totalCredit ;
+	BigDecimal totalDept ;
+	
+	
 	public AccUITransactionAdd(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -101,7 +107,7 @@ public class AccUITransactionAdd extends SecureComposite {
 			tableColumnCredit = new TableColumn(tableTransactionColumns,SWT.NULL);
 			tableColumnDept = new TableColumn(tableTransactionColumns,SWT.NULL);
 			lblTotalCredit = new CLabel(this,SWT.NULL);
-			cLabel2 = new CLabel(this,SWT.NULL);
+			lblTotalCreditAmount = new CLabel(this,SWT.NULL);
 			cLabel1 = new CLabel(this,SWT.NULL);
 			lblTotalDeptAmount = new CLabel(this,SWT.NULL);
 	
@@ -264,18 +270,19 @@ public class AccUITransactionAdd extends SecureComposite {
 			lblTotalCredit.setText("Total Credit");
 			lblTotalCredit.setSize(new org.eclipse.swt.graphics.Point(62,19));
 	
-			GridData cLabel2LData = new GridData();
-			cLabel2LData.verticalAlignment = GridData.CENTER;
-			cLabel2LData.horizontalAlignment = GridData.BEGINNING;
-			cLabel2LData.widthHint = -1;
-			cLabel2LData.heightHint = -1;
-			cLabel2LData.horizontalIndent = 0;
-			cLabel2LData.horizontalSpan = 1;
-			cLabel2LData.verticalSpan = 1;
-			cLabel2LData.grabExcessHorizontalSpace = false;
-			cLabel2LData.grabExcessVerticalSpace = false;
-			cLabel2.setLayoutData(cLabel2LData);
-			cLabel2.setText("0");
+			GridData lblTotalCreditAmountLData = new GridData();
+			lblTotalCreditAmountLData.verticalAlignment = GridData.CENTER;
+			lblTotalCreditAmountLData.horizontalAlignment = GridData.BEGINNING;
+			lblTotalCreditAmountLData.widthHint = 321;
+			lblTotalCreditAmountLData.heightHint = 15;
+			lblTotalCreditAmountLData.horizontalIndent = 0;
+			lblTotalCreditAmountLData.horizontalSpan = 1;
+			lblTotalCreditAmountLData.verticalSpan = 1;
+			lblTotalCreditAmountLData.grabExcessHorizontalSpace = false;
+			lblTotalCreditAmountLData.grabExcessVerticalSpace = false;
+			lblTotalCreditAmount.setLayoutData(lblTotalCreditAmountLData);
+			lblTotalCreditAmount.setText("0");
+			lblTotalCreditAmount.setSize(new org.eclipse.swt.graphics.Point(321,15));
 	
 			GridData cLabel1LData = new GridData();
 			cLabel1LData.verticalAlignment = GridData.CENTER;
@@ -294,8 +301,8 @@ public class AccUITransactionAdd extends SecureComposite {
 			GridData lblTotalDeptAmountLData = new GridData();
 			lblTotalDeptAmountLData.verticalAlignment = GridData.CENTER;
 			lblTotalDeptAmountLData.horizontalAlignment = GridData.BEGINNING;
-			lblTotalDeptAmountLData.widthHint = -1;
-			lblTotalDeptAmountLData.heightHint = -1;
+			lblTotalDeptAmountLData.widthHint = 345;
+			lblTotalDeptAmountLData.heightHint = 17;
 			lblTotalDeptAmountLData.horizontalIndent = 0;
 			lblTotalDeptAmountLData.horizontalSpan = 1;
 			lblTotalDeptAmountLData.verticalSpan = 1;
@@ -303,6 +310,7 @@ public class AccUITransactionAdd extends SecureComposite {
 			lblTotalDeptAmountLData.grabExcessVerticalSpace = false;
 			lblTotalDeptAmount.setLayoutData(lblTotalDeptAmountLData);
 			lblTotalDeptAmount.setText("0");
+			lblTotalDeptAmount.setSize(new org.eclipse.swt.graphics.Point(345,17));
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
@@ -334,12 +342,43 @@ public class AccUITransactionAdd extends SecureComposite {
 	}
 	public boolean verifyFields(){
 	
+	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+	
+	calculateTotalDeptAndCredit();
+	
+	if(totalCredit.doubleValue()!=totalDept.doubleValue()){
+	msg.setMessage("Total credit must be equal to total dept!");
+	
+	msg.open();
+	
+	return false;
+	}
+	else if(tableTransactionColumns.getItems().length==0){
+	msg.setMessage("You hava to add rows to table!");
+	
+	msg.open();
+	
+	return false;
+	
+	}
+	else if(dateTransactionDate.getData()==null){
+	msg.setMessage("Please Enter Transaction Date");
+	
+	msg.open();
+	
+	return false;
+	}
+	
+	else{
 	return true;
+	}
+	
+	
 	
 	
 	}
 
-    public void saveTransactionRows(Integer transId){
+    public void saveTransactionRows(Integer transId)throws Exception{
     try{
     
     TableItem items[] = tableTransactionColumns.getItems();
@@ -353,35 +392,65 @@ public class AccUITransactionAdd extends SecureComposite {
     
     }
     catch(Exception ex){
-    ex.printStackTrace();
+    throw ex;
+    
     }
     
     
     }
+    
+    public void clearFields(){
+    txtDocumentNo.setText("");
+    tableTransactionColumns.removeAll();
+    calculateTotalDeptAndCredit();
+    }
+    
     
 	public void save(){
 	
 	if(verifyFields()){
 	
+	MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
 	try{
 	
 	Integer transId =blTransAdd.saveAccTransaction(dateTransactionDate.getDate(),txtDocumentNo.getText().trim(),2,1);
-	saveTransactionRows(transId);
 	
+	saveTransactionRows(transId);
+	msg.setMessage("Successfully saved!");
+	msg.open();
+	clearFields();
 	}
 
 	catch(Exception ex){
 	ex.printStackTrace();
-	}
-	
-	
-	
-	
-	
+	msg.setMessage("An error occurred!");
+	msg.open();
 	
 	}
 	
 	
+	
+	
+	
+	
+	}
+	
+	
+	
+	}
+	
+	void calculateTotalDeptAndCredit(){
+	TableItem items[] = tableTransactionColumns.getItems();
+    totalCredit=new BigDecimal(0);
+    totalDept =new BigDecimal(0);
+    
+		for(int i=0; i<items.length;i++){
+		totalCredit =totalCredit.add(new BigDecimal(items[i].getText(2)));
+		totalDept = totalDept.add(new BigDecimal(items[i].getText(3)));
+    
+		}
+    lblTotalDeptAmount.setText(totalDept.toString());
+    lblTotalCreditAmount.setText(totalCredit.toString());
 	
 	}
 	
@@ -415,6 +484,7 @@ public class AccUITransactionAdd extends SecureComposite {
 							 accTransRow.getCreditAmount().toString(),
 							 accTransRow.getDeptAmount().toString()});
 	
+	calculateTotalDeptAndCredit();
 	
 	}
 	
@@ -427,6 +497,8 @@ public class AccUITransactionAdd extends SecureComposite {
 		TableItem selection[] = tableTransactionColumns.getSelection();
 		if(selection.length>0){
 		selection[0].dispose();
+		calculateTotalDeptAndCredit();
+		
 		}
 		
 		

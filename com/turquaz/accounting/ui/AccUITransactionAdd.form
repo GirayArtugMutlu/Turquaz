@@ -333,14 +333,14 @@
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
 			</Component>
-			<Component class="org.eclipse.swt.custom.CLabel" name="cLabel2" style="0">
+			<Component class="org.eclipse.swt.custom.CLabel" name="lblTotalCreditAmount" style="0">
 				<Constraints>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
-						<Property name="widthHint" type="int" value="-1"/>
-						<Property name="heightHint" type="int" value="-1"/>
+						<Property name="widthHint" type="int" value="321"/>
+						<Property name="heightHint" type="int" value="15"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
 						<Property name="verticalSpan" type="int" value="1"/>
@@ -352,8 +352,11 @@
 				</Events>
 				<Properties>
 					<Property name="text" type="String" value="0"/>
+					<Property name="size" type="Dimension">
+						<Dimension value="[321, 15]"/>
+					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[80, 483, 12, 19]"/>
+						<Rectangle value="[80, 485, 321, 15]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
@@ -391,8 +394,8 @@
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
-						<Property name="widthHint" type="int" value="-1"/>
-						<Property name="heightHint" type="int" value="-1"/>
+						<Property name="widthHint" type="int" value="345"/>
+						<Property name="heightHint" type="int" value="17"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
 						<Property name="verticalSpan" type="int" value="1"/>
@@ -404,8 +407,11 @@
 				</Events>
 				<Properties>
 					<Property name="text" type="String" value="0"/>
+					<Property name="size" type="Dimension">
+						<Dimension value="[345, 17]"/>
+					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[80, 507, 12, 19]"/>
+						<Rectangle value="[80, 508, 345, 17]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
