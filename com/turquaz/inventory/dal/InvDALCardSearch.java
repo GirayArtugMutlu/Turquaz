@@ -38,7 +38,7 @@ public class InvDALCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select invView, invCard.cardInventoryCode, invCard.cardName, invCard.id from TurqViewInventoryTotal as invView,"
 					+ " TurqInventoryCard as invCard"
 					+ " where invCard.id = invView.inventoryCardsId and "
@@ -55,7 +55,6 @@ public class InvDALCardSearch
 			}
 			q.setMaxResults(1000);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -68,13 +67,12 @@ public class InvDALCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select invAcc.turqAccountingAccount from TurqInventoryAccountingAccount as invAcc"
 					+ " where invAcc.turqInventoryCard.id=" + invCardId.intValue() + " and invAcc.turqInventoryAccountingType="
 					+ invAccTypeId;
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			if (list.size() == 0)
 				return null;
 			else
@@ -90,12 +88,11 @@ public class InvDALCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select invAcc from TurqInventoryAccountingAccount as invAcc" + " where invAcc.turqInventoryCard.id="
 					+ invCardId.intValue();
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -109,7 +106,7 @@ public class InvDALCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select invView, invCard.cardInventoryCode, invCard.cardName, invCard.id from TurqViewInventoryTotal as invView,"
 					+ " TurqInventoryCard as invCard" + " where invCard.id = invView.inventoryCardsId";
 			if (!cardNameStart.equals("") && !cardNameEnd.equals(""))
@@ -150,7 +147,6 @@ public class InvDALCardSearch
 			}
 			q.setMaxResults(1000);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -163,12 +159,11 @@ public class InvDALCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select invCard.cardInventoryCode,invCard.cardName from TurqInventoryCard as invCard"
 					+ " order by invCard.cardInventoryCode";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -181,11 +176,10 @@ public class InvDALCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select invCard from TurqInventoryCard as invCard";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -198,11 +192,10 @@ public class InvDALCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select invAccType from TurqInventoryAccountingType as invAccType";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -215,12 +208,11 @@ public class InvDALCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select invCard from TurqInventoryCard as invCard " + " where invCard.cardInventoryCode = :cardCode";
 			Query q = session.createQuery(query);
 			q.setParameter("cardCode", cardCode);
 			List list = q.list();
-			session.close();
 			if (list.size() > 0)
 			{
 				return (TurqInventoryCard) list.get(0);
@@ -240,13 +232,12 @@ public class InvDALCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqInventoryCard invCard = (TurqInventoryCard) session.load(TurqInventoryCard.class, cardId);
 			Hibernate.initialize(invCard.getTurqInventoryCardGroups());
 			Hibernate.initialize(invCard.getTurqInventoryPrices());
 			Hibernate.initialize(invCard.getTurqInventoryCardUnits());
 			Hibernate.initialize(invCard.getTurqInventoryAccountingAccounts());
-			session.close();
 			return invCard;
 		}
 		catch (Exception ex)
@@ -259,13 +250,12 @@ public class InvDALCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			session.refresh(invCard);
 			Hibernate.initialize(invCard.getTurqInventoryCardGroups());
 			Hibernate.initialize(invCard.getTurqInventoryPrices());
 			Hibernate.initialize(invCard.getTurqInventoryCardUnits());
 			Hibernate.initialize(invCard.getTurqInventoryAccountingAccounts());
-			session.close();
 			return invCard;
 		}
 		catch (Exception ex)
@@ -278,12 +268,11 @@ public class InvDALCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select invView from TurqViewInventoryAmountTotal as invView" + " where  invView.inventoryCardsId ="
 					+ invCard.getId();
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return (TurqViewInventoryAmountTotal) list.get(0);
 		}
 		catch (Exception ex)
@@ -296,10 +285,9 @@ public class InvDALCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqInventoryCard invCard = (TurqInventoryCard) session.load(TurqInventoryCard.class, cardId);
 			session.flush();
-			session.close();
 			return invCard;
 		}
 		catch (Exception ex)
@@ -312,7 +300,7 @@ public class InvDALCardSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select invCard.id, invCard.accounting_accounts_id_buy,"
 					+ " invCard.accounting_accounts_id_sell,invCard.accounting_accounts_id_vat,"
 					+ "invCard.accounting_accounts_id_vat_sell, invCard.accounting_accounts_id_special_vat,"
@@ -332,7 +320,6 @@ public class InvDALCardSearch
 				result[6] = rs.getString(7);
 				list.add(result);
 			}
-			session.close();
 			return list;
 		}
 		catch (Exception ex)

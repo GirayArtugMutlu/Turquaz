@@ -24,10 +24,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 import com.turquaz.engine.dal.EngDALCommon;
-import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
@@ -41,41 +38,31 @@ public class InvBLCardUpdate
 			int cardVat, int discount, int cardSpecialVat, BigDecimal cardSpecialVatEach, TurqInventoryCard card, Map invGroups,
 			List invCardUnits, List invPrices, List invAccounts) throws Exception
 	{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
 		try
 		{
-			updateInvCard(session, invCode, cardName, cardDefinition, minAmount, maxAmount, cardVat, discount, cardSpecialVat,
+			updateInvCard(invCode, cardName, cardDefinition, minAmount, maxAmount, cardVat, discount, cardSpecialVat,
 					cardSpecialVatEach, card);
-			updateInvGroups(session, card, invGroups);
-			updateInvCardUnits(session, card, invCardUnits);
-			updateInvPrices(session, card, invPrices);
-			updateInvAccounts(session, card, invAccounts);
+			updateInvGroups(card, invGroups);
+			updateInvCardUnits(card, invCardUnits);
+			updateInvPrices(card, invPrices);
+			updateInvAccounts(card, invAccounts);
 			if (!InvDALCardUpdate.hasInitialTransaction(card))
 			{
-				InvBLCardAdd.saveInitialTransaction(card, InvBLCardAdd.getBaseUnitFromCardUnits(invCardUnits), session);
+				InvBLCardAdd.saveInitialTransaction(card, InvBLCardAdd.getBaseUnitFromCardUnits(invCardUnits));
 			}
-			session.flush();
-			tx.commit();
-			session.close();
 		}
 		catch (Exception ex)
 		{
-			if (tx != null)
-				tx.rollback();
-			if (session != null)
-				session.close();
 			throw ex;
 		}
 	}
 
-	public static void updateInvAccounts(Session session, TurqInventoryCard invCard, List invAccounts) throws Exception
+	public static void updateInvAccounts(TurqInventoryCard invCard, List invAccounts) throws Exception
 	{
 		try
 		{
-			deleteInvCardAccounts(session, invCard);
-			session.flush();
-			InvBLCardAdd.saveInvCardAccounts(session, invCard, invAccounts);
+			deleteInvCardAccounts(invCard);
+			InvBLCardAdd.saveInvCardAccounts(invCard, invAccounts);
 		}
 		catch (Exception ex)
 		{
@@ -83,13 +70,12 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void updateInvPrices(Session session, TurqInventoryCard invCard, List invPrices) throws Exception
+	public static void updateInvPrices(TurqInventoryCard invCard, List invPrices) throws Exception
 	{
 		try
 		{
-			deleteInvCardPrices(session, invCard);
-			session.flush();
-			InvBLCardAdd.saveInvCardPrices(session, invCard, invPrices);
+			deleteInvCardPrices(invCard);
+			InvBLCardAdd.saveInvCardPrices(invCard, invPrices);
 		}
 		catch (Exception ex)
 		{
@@ -97,13 +83,12 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void updateInvCardUnits(Session session, TurqInventoryCard invCard, List invCardUnits) throws Exception
+	public static void updateInvCardUnits(TurqInventoryCard invCard, List invCardUnits) throws Exception
 	{
 		try
 		{
-			deleteInvCardUnits(session, invCard);
-			session.flush();
-			InvBLCardAdd.saveInvCardUnits(session, invCard, invCardUnits);
+			deleteInvCardUnits(invCard);
+			InvBLCardAdd.saveInvCardUnits(invCard, invCardUnits);
 		}
 		catch (Exception ex)
 		{
@@ -111,13 +96,12 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void updateInvGroups(Session session, TurqInventoryCard invCard, Map invGroups) throws Exception
+	public static void updateInvGroups(TurqInventoryCard invCard, Map invGroups) throws Exception
 	{
 		try
 		{
-			deleteInvCardGroups(session, invCard);
-			session.flush();
-			InvBLCardAdd.saveInvCardGroups(session, invCard, invGroups);
+			deleteInvCardGroups(invCard);
+			InvBLCardAdd.saveInvCardGroups(invCard, invGroups);
 		}
 		catch (Exception ex)
 		{
@@ -125,7 +109,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void updateInvCard(Session session, String invCode, String cardName, String cardDefinition, int minAmount,
+	public static void updateInvCard(String invCode, String cardName, String cardDefinition, int minAmount,
 			int maxAmount, int cardVat, int discount, int cardSpecialVat, BigDecimal cardSpecialVatEach, TurqInventoryCard card)
 			throws Exception
 	{
@@ -142,7 +126,7 @@ public class InvBLCardUpdate
 			card.setCardSpecialVatEach(cardSpecialVatEach);
 			card.setUpdatedBy(System.getProperty("user"));
 			card.setUpdateDate(Calendar.getInstance().getTime());
-			EngDALCommon.updateObject(session, card);
+			EngDALCommon.updateObject(card);
 		}
 		catch (Exception ex)
 		{
@@ -152,31 +136,22 @@ public class InvBLCardUpdate
 
 	public static void deleteInventoryCard(TurqInventoryCard card) throws Exception
 	{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
 		try
 		{
-			deleteInvCardAccounts(session, card);
-			deleteInvCardGroups(session, card);
-			deleteInvCardPrices(session, card);
-			deleteInvCardUnits(session, card);
+			deleteInvCardAccounts(card);
+			deleteInvCardGroups(card);
+			deleteInvCardPrices(card);
+			deleteInvCardUnits(card);
 			InvDALCardUpdate.deleteInitialTransactions(card);
-			EngDALCommon.deleteObject(session, card);
-			session.flush();
-			tx.commit();
-			session.close();
+			EngDALCommon.deleteObject(card);
 		}
 		catch (Exception ex)
 		{
-			if (tx != null)
-				tx.rollback();
-			if (session != null)
-				session.close();
 			throw ex;
 		}
 	}
 
-	public static void deleteInvCardGroups(Session session, TurqInventoryCard invCard) throws Exception
+	public static void deleteInvCardGroups(TurqInventoryCard invCard) throws Exception
 	{
 		try
 		{
@@ -185,7 +160,7 @@ public class InvBLCardUpdate
 			while (it.hasNext())
 			{
 				cardGroup = (TurqInventoryCardGroup) it.next();
-				EngDALCommon.deleteObject(session, cardGroup);
+				EngDALCommon.deleteObject(cardGroup);
 			}
 		}
 		catch (Exception ex)
@@ -194,7 +169,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void deleteInvCardAccounts(Session session, TurqInventoryCard invCard) throws Exception
+	public static void deleteInvCardAccounts(TurqInventoryCard invCard) throws Exception
 	{
 		try
 		{
@@ -203,7 +178,7 @@ public class InvBLCardUpdate
 			while (it.hasNext())
 			{
 				invAccount = (TurqInventoryAccountingAccount) it.next();
-				EngDALCommon.deleteObject(session, invAccount);
+				EngDALCommon.deleteObject(invAccount);
 			}
 		}
 		catch (Exception ex)
@@ -212,7 +187,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void deleteInvCardUnits(Session session, TurqInventoryCard invCard) throws Exception
+	public static void deleteInvCardUnits(TurqInventoryCard invCard) throws Exception
 	{
 		try
 		{
@@ -221,7 +196,7 @@ public class InvBLCardUpdate
 			while (it.hasNext())
 			{
 				cardUnit = (TurqInventoryCardUnit) it.next();
-				EngDALCommon.deleteObject(session, cardUnit);
+				EngDALCommon.deleteObject(cardUnit);
 			}
 		}
 		catch (Exception ex)
@@ -230,7 +205,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void deleteInvCardPrices(Session session, TurqInventoryCard invCard) throws Exception
+	public static void deleteInvCardPrices(TurqInventoryCard invCard) throws Exception
 	{
 		try
 		{
@@ -239,7 +214,7 @@ public class InvBLCardUpdate
 			while (it.hasNext())
 			{
 				invPrice = (TurqInventoryPrice) it.next();
-				EngDALCommon.deleteObject(session, invPrice);
+				EngDALCommon.deleteObject(invPrice);
 			}
 		}
 		catch (Exception ex)

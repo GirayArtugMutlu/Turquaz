@@ -13,13 +13,11 @@ public class InvDALProfitAnalysis
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "select invCard.cardInventoryCode,invCard.cardName, invTotal.totalAmountIn,"
 					+ " invTotal.totalAmountOut, invTotal.totalPriceIn, invTotal.totalPriceOut from TurqInventoryCard as invCard, TurqViewInventoryTotal as invTotal"
 					+ " where invCard.id = invTotal.inventoryCardsId" + " order by invCard.cardInventoryCode";
 			Query q = session.createQuery(query);
-			//q.setParameter("startDate",startDate);
-			//q.setParameter("endDate",endDate);
 			List list = q.list();
 			return list;
 		}

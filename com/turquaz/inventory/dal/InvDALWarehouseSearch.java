@@ -30,12 +30,11 @@ public class InvDALWarehouseSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select wh from TurqInventoryWarehous as wh " + "where wh.warehousesName like '" + name
 					+ "%' and wh.warehousesCity like '" + city + "%' ";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -48,11 +47,10 @@ public class InvDALWarehouseSearch
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqInventoryWarehous as wh";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)

@@ -17,7 +17,7 @@ public class InvDALInventoryLedger
 		{
 			SimpleDateFormat frmt = new SimpleDateFormat("yyyy-MM-dd");
 			String date_str = frmt.format(date);
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			Statement stmt = session.connection().createStatement();
 			String query = "SELECT invCard.card_inventory_code,invCard.card_name, transin.totalamountin AS total_amount_in, transin.totalpricein AS total_price_in, transout.totalamountout AS total_amount_out "
 					+ " FROM turq_inventory_cards invCard "
@@ -47,7 +47,6 @@ public class InvDALInventoryLedger
 				result[4] = rs.getObject(5);
 				ls.add(result);
 			}
-			session.close();
 			return ls;
 		}
 		catch (Exception ex)

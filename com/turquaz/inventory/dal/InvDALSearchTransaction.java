@@ -45,7 +45,7 @@ public class InvDALSearchTransaction
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select transaction.id,transaction.transactionsDate,transaction.amountIn,"
 					+ "transaction.amountOut, transaction.totalPrice," + " transaction.turqInventoryCard.cardInventoryCode, "
 					+ " transaction.turqInventoryCard.cardName from TurqInventoryTransaction as transaction"
@@ -75,7 +75,6 @@ public class InvDALSearchTransaction
 				q.setParameter("invCard", invCard);
 			}
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -89,7 +88,7 @@ public class InvDALSearchTransaction
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select transaction.id," + "transaction.transactionsDate," + "transaction.amountIn,"
 					+ "transaction.amountOut, transaction.totalPrice," + " transaction.turqInventoryCard.cardInventoryCode, "
 					+ " transaction.turqInventoryCard.cardName," + " transaction.turqCurrentCard.cardsName,"
@@ -137,7 +136,6 @@ public class InvDALSearchTransaction
 				q.setParameter("invCardEnd", invCardEnd);
 			}
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -152,7 +150,7 @@ public class InvDALSearchTransaction
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select transaction.id," + "transaction.transactionsDate," + "transaction.amountIn,"
 					+ "transaction.amountOut," + " transaction.totalPrice," + " transaction.turqInventoryCard.cardInventoryCode, "
 					+ " transaction.turqInventoryCard.cardName," + " transaction.turqCurrentCard.cardsName,"
@@ -264,11 +262,10 @@ public class InvDALSearchTransaction
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select transaction from TurqInventoryTransaction as transaction" + " where transaction.id=" + transId;
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return (TurqInventoryTransaction) list.get(0);
 		}
 		catch (Exception ex)
@@ -282,7 +279,7 @@ public class InvDALSearchTransaction
 		Session session = null;
 		try
 		{
-			session = EngDALSessionFactory.openSession();
+			session = EngDALSessionFactory.getSession();
 			session.refresh(seq);
 			Hibernate.initialize(seq.getTurqConsignments());
 			Iterator it = seq.getTurqConsignments().iterator();
@@ -292,7 +289,6 @@ public class InvDALSearchTransaction
 				cons = (TurqConsignment) it.next();
 				ConDALUpdateConsignment.initiliazeConsignment(cons);
 			}
-			session.close();
 			return cons;
 		}
 		catch (Exception ex)
@@ -313,7 +309,7 @@ public class InvDALSearchTransaction
 		Session session = null;
 		try
 		{
-			session = EngDALSessionFactory.openSession();
+			session = EngDALSessionFactory.getSession();
 			String query = "Select invTrans from TurqInventoryTransaction as invTrans "
 					+ " where invTrans.turqInventoryTransactionType.id = " + EngBLCommon.INV_TRANS_INITIAL;
 			Query q = session.createQuery(query);
@@ -323,13 +319,6 @@ public class InvDALSearchTransaction
 		{
 			throw ex;
 		}
-		finally
-		{
-			if (session != null)
-			{
-				session.close();
-			}
-		}
 	}
 
 	public static TurqBill getBill(TurqEngineSequence seq) throws Exception
@@ -337,7 +326,7 @@ public class InvDALSearchTransaction
 		Session session = null;
 		try
 		{
-			session = EngDALSessionFactory.openSession();
+			session = EngDALSessionFactory.getSession();
 			session.refresh(seq);
 			Hibernate.initialize(seq.getTurqConsignments());
 			Iterator it = seq.getTurqBillInEngineSequences().iterator();
@@ -347,7 +336,6 @@ public class InvDALSearchTransaction
 				bill = ((TurqBillInEngineSequence) it.next()).getTurqBill();
 				BillDALSearchBill.initializeBill(bill);
 			}
-			session.close();
 			return bill;
 		}
 		catch (Exception ex)

@@ -34,12 +34,11 @@ public class InvDALCardAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqCurrency as currency " + "where currency.currenciesAbbreviation =:abbrev";
 			Query q = session.createQuery(query);
 			q.setParameter("abbrev", abbrev);
 			List list = q.list();
-			session.close();
 			if (list.size() == 0)
 			{
 				throw new Exception("No such abbreviation");
@@ -59,11 +58,10 @@ public class InvDALCardAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqInventoryGroup as invGroup " + " where invGroup.turqInventoryGroup.id <> -1";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -76,7 +74,7 @@ public class InvDALCardAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqInventoryGroup as invGroup " + " where invGroup.turqInventoryGroup.id = -1 and"
 					+ " invGroup.id <> -1";
 			Query q = session.createQuery(query);
@@ -86,7 +84,6 @@ public class InvDALCardAdd
 				TurqInventoryGroup invGroup = (TurqInventoryGroup) list.get(i);
 				Hibernate.initialize(invGroup.getTurqInventoryGroups());
 			}
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -99,11 +96,10 @@ public class InvDALCardAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqInventoryUnit as invUnit ";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -116,13 +112,12 @@ public class InvDALCardAdd
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select cardUnit.turqInventoryUnit from TurqInventoryCardUnit cardUnit"
 					+ "	where cardUnit.turqInventoryCard = :invCard";
 			Query q = session.createQuery(query);
 			q.setParameter("invCard", invCard);
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)

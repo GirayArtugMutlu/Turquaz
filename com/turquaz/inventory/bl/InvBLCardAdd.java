@@ -24,11 +24,8 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
-import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
@@ -48,7 +45,7 @@ import com.turquaz.inventory.dal.InvDALCardAdd;
 
 public class InvBLCardAdd
 {
-	public static void registerInvCardGroup(Session session, TurqInventoryCard card, TurqInventoryGroup group) throws Exception
+	public static void registerInvCardGroup(TurqInventoryCard card, TurqInventoryGroup group) throws Exception
 	{
 		try
 		{
@@ -60,7 +57,7 @@ public class InvBLCardAdd
 			Calendar cal = Calendar.getInstance();
 			cardGroup.setLastModified(cal.getTime());
 			cardGroup.setCreationDate(cal.getTime());
-			EngDALCommon.saveObject(session, cardGroup);
+			EngDALCommon.saveObject(cardGroup);
 		}
 		catch (Exception ex)
 		{
@@ -83,37 +80,37 @@ public class InvBLCardAdd
 		return null;
 	}
 
-	public static void saveInvCardUnits(Session session, TurqInventoryCard card, List invCardUnits) throws Exception
+	public static void saveInvCardUnits(TurqInventoryCard card, List invCardUnits) throws Exception
 	{
 		for (int k = 0; k < invCardUnits.size(); k++)
 		{
 			Object[] invCardUnit = (Object[]) invCardUnits.get(k);
 			TurqInventoryUnit invUnit = (TurqInventoryUnit) invCardUnit[0];
 			BigDecimal factor = (BigDecimal) invCardUnit[1];
-			registerInvCardUnit(session, card, invUnit, factor);
+			registerInvCardUnit(card, invUnit, factor);
 		}
 	}
 
-	public static void saveInvCardPrices(Session session, TurqInventoryCard card, List invPrices) throws Exception
+	public static void saveInvCardPrices(TurqInventoryCard card, List invPrices) throws Exception
 	{
 		for (int k = 0; k < invPrices.size(); k++)
 		{
 			Object[] invPrice = (Object[]) invPrices.get(k);
-			registerInvCardPrice(session, card, ((Boolean) invPrice[0]).booleanValue(), (String) invPrice[1], (String) invPrice[2]);
+			registerInvCardPrice(card, ((Boolean) invPrice[0]).booleanValue(), (String) invPrice[1], (String) invPrice[2]);
 		}
 	}
 
-	public static void saveInvCardAccounts(Session session, TurqInventoryCard card, List invAccounts) throws Exception
+	public static void saveInvCardAccounts(TurqInventoryCard card, List invAccounts) throws Exception
 	{
 		for (int k = 0; k < invAccounts.size(); k++)
 		{
 			TurqInventoryAccountingAccount invAcc = (TurqInventoryAccountingAccount) invAccounts.get(k);
 			invAcc.setTurqInventoryCard(card);
-			registerInvCardAccount(session, invAcc, card);
+			registerInvCardAccount(invAcc, card);
 		}
 	}
 
-	public static void registerInvCardUnit(Session session, TurqInventoryCard card, TurqInventoryUnit unit, BigDecimal factor)
+	public static void registerInvCardUnit(TurqInventoryCard card, TurqInventoryUnit unit, BigDecimal factor)
 			throws Exception
 	{
 		TurqInventoryCardUnit cardUnit = new TurqInventoryCardUnit();
@@ -125,10 +122,10 @@ public class InvBLCardAdd
 		Calendar cal = Calendar.getInstance();
 		cardUnit.setLastModified(cal.getTime());
 		cardUnit.setCreationDate(cal.getTime());
-		EngDALCommon.saveObject(session, cardUnit);
+		EngDALCommon.saveObject(cardUnit);
 	}
 
-	public static void registerInvCardPrice(Session session, TurqInventoryCard card, boolean price_type, String currency_abrev,
+	public static void registerInvCardPrice(TurqInventoryCard card, boolean price_type, String currency_abrev,
 			String amount) throws Exception
 	{
 		try
@@ -144,7 +141,7 @@ public class InvBLCardAdd
 			Calendar cal = Calendar.getInstance();
 			invPrice.setLastModified(cal.getTime());
 			invPrice.setCreationDate(cal.getTime());
-			EngDALCommon.saveObject(session, invPrice);
+			EngDALCommon.saveObject(invPrice);
 		}
 		catch (Exception ex)
 		{
@@ -152,7 +149,7 @@ public class InvBLCardAdd
 		}
 	}
 
-	public static void registerInvCardAccount(Session session, TurqInventoryAccountingAccount invAcc, TurqInventoryCard card)
+	public static void registerInvCardAccount(TurqInventoryAccountingAccount invAcc, TurqInventoryCard card)
 			throws Exception
 	{
 		try
@@ -163,7 +160,7 @@ public class InvBLCardAdd
 			Calendar cal = Calendar.getInstance();
 			invAcc.setLastModified(cal.getTime());
 			invAcc.setCreationDate(cal.getTime());
-			EngDALCommon.saveObject(session, invAcc);
+			EngDALCommon.saveObject(invAcc);
 		}
 		catch (Exception ex)
 		{
@@ -241,7 +238,7 @@ public class InvBLCardAdd
 		}
 	}
 
-	public static void saveInitialTransaction(TurqInventoryCard invCard, TurqInventoryUnit unit, Session session) throws Exception
+	public static void saveInitialTransaction(TurqInventoryCard invCard, TurqInventoryUnit unit) throws Exception
 	{
 		try
 		{
@@ -288,7 +285,7 @@ public class InvBLCardAdd
 			invTrans.setLastModified(cal.getTime());
 			invTrans.setCreationDate(cal.getTime());
 			invTrans.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
-			EngDALCommon.saveObject(session, invTrans);
+			EngDALCommon.saveObject(invTrans);
 		}
 		catch (Exception ex)
 		{
@@ -300,33 +297,24 @@ public class InvBLCardAdd
 			int cardVat, int discount, int cardSpecialVat, BigDecimal cardSpecialVatEach, boolean isSpecAmount, Map invGroups,
 			List invCardUnits, List invPrices, List invAccounts) throws Exception
 	{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
 		try
 		{
-			TurqInventoryCard card = registerInventoryCard(session, invCode, cardName, cardDefinition, minAmount, maxAmount, cardVat,
+			TurqInventoryCard card = registerInventoryCard(invCode, cardName, cardDefinition, minAmount, maxAmount, cardVat,
 					discount, cardSpecialVat, cardSpecialVatEach, isSpecAmount);
-			session.flush();
-			saveInvCardGroups(session, card, invGroups);
-			saveInvCardUnits(session, card, invCardUnits);
-			saveInvCardPrices(session, card, invPrices);
-			saveInvCardAccounts(session, card, invAccounts);
-			saveInitialTransaction(card, getBaseUnitFromCardUnits(invCardUnits), session);
-			session.flush();
-			tx.commit();
-			session.close();
+
+			saveInvCardGroups(card, invGroups);
+			saveInvCardUnits(card, invCardUnits);
+			saveInvCardPrices(card, invPrices);
+			saveInvCardAccounts(card, invAccounts);
+			saveInitialTransaction(card, getBaseUnitFromCardUnits(invCardUnits));
 		}
 		catch (Exception ex)
 		{
-			if (tx != null)
-				tx.rollback();
-			if (session != null)
-				session.close();
 			throw ex;
 		}
 	}
 
-	public static void saveInvCardGroups(Session session, TurqInventoryCard card, Map groupMap) throws Exception
+	public static void saveInvCardGroups(TurqInventoryCard card, Map groupMap) throws Exception
 	{
 		try
 		{
@@ -336,7 +324,7 @@ public class InvBLCardAdd
 				TurqInventoryGroup group = (TurqInventoryGroup) it.next();
 				if (group != null)
 				{
-					registerInvCardGroup(session, card, group);
+					registerInvCardGroup(card, group);
 				}
 			}
 		}
@@ -346,7 +334,7 @@ public class InvBLCardAdd
 		}
 	}
 
-	public static TurqInventoryCard registerInventoryCard(Session session, String invCode, String cardName, String cardDefinition,
+	public static TurqInventoryCard registerInventoryCard(String invCode, String cardName, String cardDefinition,
 			int minAmount, int maxAmount, int cardVat, int discount, int cardSpecialVat, BigDecimal cardSpecialVatEach,
 			boolean isSpecAmount) throws Exception
 	{
@@ -368,7 +356,7 @@ public class InvBLCardAdd
 			card.setUpdateDate(cal.getTime());
 			card.setCreationDate(cal.getTime());
 			card.setSpecVatForEach(isSpecAmount);
-			EngDALCommon.saveObject(session, card);
+			EngDALCommon.saveObject(card);
 			return card;
 		}
 		catch (Exception ex)

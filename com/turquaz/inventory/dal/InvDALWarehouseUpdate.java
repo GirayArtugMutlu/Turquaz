@@ -31,13 +31,12 @@ public class InvDALWarehouseUpdate
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select transactions from TurqInventoryTransaction as transactions "
 					+ "where transactions.turqInventoryWarehous = :warehouse ";
 			Query q = session.createQuery(query);
 			q.setParameter("warehouse", warehouse);
 			List list = q.list();
-			session.close();
 			if (list.size() > 0)
 			{
 				return true;
