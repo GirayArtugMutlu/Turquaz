@@ -128,7 +128,7 @@ public final class TreeFactory {
 		item.setText(Messages.getString("TreeFactory.29")); //$NON-NLS-1$
 		item.setData(AccUIAccountingBalance.class.getName());
 		item = new TreeItem(report,SWT.NULL);
-		item.setText(Messages.getString("Defter-i Kebir")); //$NON-NLS-1$
+		item.setText(Messages.getString("TreeFactory.33")); //$NON-NLS-1$
 		item.setData(AccUIAccountingGeneralLedger.class.getName());
 		
 		
