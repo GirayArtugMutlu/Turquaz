@@ -328,12 +328,12 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
     int location_Y = (parentLocation.y + parentSize.y)/2 - (dialogSize.y/2);
     
     dialogShell.setLocation(location_X,location_Y);
-	if(account.getTurqAccountingAccount().getAccountingAccountsId().intValue()==-1){
+/*	if(account.getTurqAccountingAccount().getAccountingAccountsId().intValue()==-1){
 	toolDelete.setEnabled(false);
 	toolUpdate.setEnabled(false);
 	
 	}
-  
+*/  
 	
 	}
 	
