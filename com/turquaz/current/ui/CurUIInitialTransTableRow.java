@@ -7,6 +7,7 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 
 public class CurUIInitialTransTableRow implements ITableRow
 {
@@ -158,5 +159,19 @@ public class CurUIInitialTransTableRow implements ITableRow
 
 	public void setRowIndex(int index)
 	{
+	}
+	int columnTypes[] =null;
+	public int getColumnType(int index)
+	{
+		if(columnTypes == null)
+		{
+			return TurquazTableSorter.COLUMN_TYPE_STRING;
+		}
+		else 
+			return columnTypes[index];
+	}
+	public void setColumnTypes(int []types)
+	{
+         columnTypes = types	;	
 	}
 }

@@ -19,23 +19,85 @@ package com.turquaz.engine.ui.viewers;
  * @author Onsel
  * @version $Id$
  */
+import java.math.BigDecimal;
+import java.util.Date;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
+import com.turquaz.engine.ui.component.DatePicker;
 
 public class TurquazTableSorter extends ViewerSorter
 {
+	public final static int COLUMN_TYPE_STRING = 0;
+	public final static int COLUMN_TYPE_INT = 1;
+	public final static int COLUMN_TYPE_DATE = 2;
+	public final static int COLUMN_TYPE_DECIMAL = 3;
 	int columnIndex;
+	int columnType;
 
-	public TurquazTableSorter(int criteria)
+	public TurquazTableSorter(int creteria, int type)
 	{
 		super();
-		this.columnIndex = criteria;
+		this.columnIndex = creteria;
+		columnType = type;
 	}
 
 	public int compare(Viewer arg0, Object arg1, Object arg2)
 	{
-		ITableRow row1 = (ITableRow) arg1;
-		ITableRow row2 = (ITableRow) arg2;
-		return collator.compare(row1.getColumnText(columnIndex), row2.getValue(columnIndex));
+		try
+		{
+			System.out.println(arg1.getClass().getName());
+			
+			ITableRow row1 = (ITableRow) arg1;
+			ITableRow row2 = (ITableRow) arg2;
+			if (columnType == TurquazTableSorter.COLUMN_TYPE_STRING)
+			{
+				return collator.compare(row1.getColumnText(columnIndex), row2.getColumnText(columnIndex));
+			}
+			else if (columnType == TurquazTableSorter.COLUMN_TYPE_INT)
+			{
+				Integer num1 = new Integer(row1.getColumnText(columnIndex));
+				Integer num2 = new Integer(row2.getColumnText(columnIndex));
+				return num1.compareTo(num2);
+			}
+			else if (columnType == TurquazTableSorter.COLUMN_TYPE_DECIMAL)
+			{
+				String num1str = row1.getColumnText(columnIndex);
+				String num2str = row2.getColumnText(columnIndex);
+				BigDecimal dec1;
+				BigDecimal dec2;
+				num1str = num1str.replaceAll("\\.", "");
+				num1str = num1str.replaceAll(",", ".");
+				if (num1str.equals(""))
+				{
+					num1str = "0";
+				}
+				dec1 = new BigDecimal(num1str);
+				num2str = num2str.replaceAll("\\.", "");
+				num2str = num2str.replaceAll(",", ".");
+				if (num2str.equals(""))
+				{
+					num2str = "0";
+				}
+				dec2 = new BigDecimal(num2str);
+				return dec1.compareTo(dec2);
+			}
+			else if (columnType == TurquazTableSorter.COLUMN_TYPE_DATE)
+			{
+				String num1str = row1.getColumnText(columnIndex);
+				String num2str = row2.getColumnText(columnIndex);
+				Date date1 = DatePicker.formatter.parse(num1str);
+				Date date2 = DatePicker.formatter.parse(num2str);
+				return date1.compareTo(date2);
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			return 0;
+		}
 	}
 }

@@ -234,6 +234,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					tableColumnDebit = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
 					tableColumnDebit.setText(Messages.getString("CurUITransactionSearch.7")); //$NON-NLS-1$
 					tableColumnDebit.setWidth(62);
+					
 				}
 				{
 					tableColumnCredit = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
@@ -269,6 +270,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 		dateStartDate.setDate(cal.getTime());
 		fillComboTypes();
 	}
+	
 
 	public void fillComboTypes()
 	{

@@ -30,11 +30,11 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 public class CheBLSearchCheques
 {
 	public static List searchCheque(String portfoliNo, TurqCurrentCard curCard, Integer status, Date startEnterDate, Date endEnterDate,
-			Date startDueDate, Date endDueDate) throws Exception
+			Date startDueDate, Date endDueDate, boolean isSortEntryDate) throws Exception
 	{
 		try
 		{
-			return CheDALSearch.searchCheque(portfoliNo, curCard, status, startEnterDate, endEnterDate, startDueDate, endDueDate);
+			return CheDALSearch.searchCheque(portfoliNo, curCard, status, startEnterDate, endEnterDate, startDueDate, endDueDate,isSortEntryDate);
 		}
 		catch (Exception ex)
 		{

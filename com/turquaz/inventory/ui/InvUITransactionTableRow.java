@@ -18,6 +18,7 @@ import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TableRowList;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 
 /**
@@ -635,5 +636,19 @@ public class InvUITransactionTableRow implements ITableRow
 		}
 		else
 			return false;
+	}
+	int columnTypes[] =null;
+	public int getColumnType(int index)
+	{
+		if(columnTypes == null)
+		{
+			return TurquazTableSorter.COLUMN_TYPE_STRING;
+		}
+		else 
+			return columnTypes[index];
+	}
+	public void setColumnTypes(int []types)
+	{
+         columnTypes = types	;	
 	}
 }

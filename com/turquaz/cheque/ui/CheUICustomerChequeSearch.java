@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchCheques;
@@ -40,6 +41,8 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 {
 	private Composite compSearchPanle;
 	private Text txtPortFoyNo;
+	private Button btnRadioDueDate;
+	private Button btnRadioEntryDate;
 	private CurrentPicker currentPicker;
 	private DatePicker datePickerEndEnterDate;
 	private CLabel lblEnterDateEnd;
@@ -83,7 +86,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			compSearchPanle = new Composite(this, SWT.NONE);
 			GridLayout compSearchPanleLayout = new GridLayout();
 			GridData compSearchPanleLData = new GridData();
-			compSearchPanleLData.heightHint = 110;
+			compSearchPanleLData.heightHint = 124;
 			compSearchPanleLData.grabExcessHorizontalSpace = true;
 			compSearchPanleLData.horizontalAlignment = GridData.FILL;
 			compSearchPanle.setLayoutData(compSearchPanleLData);
@@ -176,6 +179,15 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			datePickerEndEnterDateLData.heightHint = 21;
 			datePickerEndEnterDate.setLayoutData(datePickerEndEnterDateLData);
 			//END << datePickerEndEnterDate
+			//START >>  btnRadioEntryDate
+			btnRadioEntryDate = new Button(compSearchPanle, SWT.RADIO | SWT.LEFT);
+			btnRadioEntryDate.setText("Giri\u015f Tarihine göre S\u0131ral\u0131");
+			btnRadioEntryDate.setSelection(true);
+			//END <<  btnRadioEntryDate
+			//START >>  btnRadioDueDate
+			btnRadioDueDate = new Button(compSearchPanle, SWT.RADIO | SWT.LEFT);
+			btnRadioDueDate.setText("Vade Tarihine Göre S\u0131ral\u0131");
+			//END <<  btnRadioDueDate
 			//END << compSearchPanle
 			//START >> tableCheques
 			tableCheques = new Table(this, SWT.SINGLE | SWT.FULL_SELECTION);
@@ -261,7 +273,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			}
 			List ls = CheBLSearchCheques.searchCheque(txtPortFoyNo.getText().trim(), (TurqCurrentCard) currentPicker.getData(), cheStat,
 					datePickerStartEnterDate.getDate(), datePickerEndEnterDate.getDate(), datePickerStartDueDate.getDate(),
-					datePickerEndDueDate.getDate());
+					datePickerEndDueDate.getDate(),btnRadioEntryDate.getSelection());
 			TableItem item;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			BigDecimal total = new BigDecimal(0);

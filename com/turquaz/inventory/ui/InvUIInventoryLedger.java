@@ -65,7 +65,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 		try
 		{
 			this.setLayout(new GridLayout());
-			this.setSize(609, 281);
+			this.setSize(667, 356);
 			{
 				compFilter = new Composite(this, SWT.NONE);
 				GridLayout compFilterLayout = new GridLayout();
@@ -199,6 +199,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 			BigDecimal totalPrice = new BigDecimal(0);
 			TableItem item;
 			int reportType = INV_ALL;
+			
 			if (btnAll.getSelection() == true)
 			{
 				reportType = INV_ALL;
@@ -253,6 +254,14 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 						balanceAmount = amountIn.subtract(amountOut);
 						totalPrice = avgPrice.multiply(balanceAmount).setScale(2, BigDecimal.ROUND_HALF_DOWN);
 					}
+					else if(amountOut !=null)
+					{
+						amountIn = new BigDecimal(0);
+						avgPrice = new BigDecimal(0);
+						balanceAmount = amountIn.subtract(amountOut);
+						totalPrice = avgPrice.multiply(balanceAmount).setScale(2, BigDecimal.ROUND_HALF_DOWN);
+							
+					}
 					else
 					{
 						continue;
@@ -260,23 +269,25 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 				}
 				else if (reportType == INV_WITH_BALANCE)
 				{
-					if (amountIn != null)
+					if (amountIn == null)
 					{
-						continue;
+						amountIn = new BigDecimal(0);
+						avgPrice = new BigDecimal(0);
 					}
 					else
 					{
-						amountIn = new BigDecimal(0);
-						if (amountOut == null)
-						{
-							amountOut = new BigDecimal(0);
-						}
-						avgPrice = new BigDecimal(0);
-						balanceAmount = amountIn.subtract(amountOut);
+						avgPrice = priceIn.divide(amountIn, 2, BigDecimal.ROUND_HALF_DOWN);
+						
+					}
+					if(amountOut==null)
+					{
+						amountOut = new BigDecimal(0);
+					}
+					balanceAmount = amountIn.subtract(amountOut);
 						if (balanceAmount.doubleValue() == 0)
 							continue;
 						totalPrice = avgPrice.multiply(balanceAmount).setScale(2, BigDecimal.ROUND_HALF_DOWN);
-					}
+					
 				}
 				item = new TableItem(tableInventories, SWT.NULL);
 				item.setText(new String[]{invCode, invName, balanceAmount.toString(), curFormat.format(avgPrice),

@@ -25,6 +25,10 @@ public interface ITableRow
 {
 	//Get column Text
 	public String getColumnText(int column_index);
+	
+//	public int getColumnType(int column_index);
+	
+//	public void setColumnTypes(int []columnTypes);
 
 	//Get column Value
 	public Object getValue(int column_index);

@@ -9,11 +9,13 @@ import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TableRowList;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 
 public class AccUITransactionAddTableRow implements ITableRow
 {
 	String formatted = "";
 	TableRowList rowList;
+	int columnTypes[] = null;
 	int row_index = 0;
 	private TurqAccountingTransactionColumn transRow = new TurqAccountingTransactionColumn();
 
@@ -31,6 +33,7 @@ public class AccUITransactionAddTableRow implements ITableRow
 	{
 		row_index = a;
 	}
+	
 
 	public int getRowIndex()
 	{
@@ -212,5 +215,18 @@ public class AccUITransactionAddTableRow implements ITableRow
 		{
 			return true;
 		}
+	}
+	public int getColumnType(int index)
+	{
+		if(columnTypes == null)
+		{
+			return TurquazTableSorter.COLUMN_TYPE_STRING;
+		}
+		else 
+			return columnTypes[index];
+	}
+	public void setColumnTypes(int []types)
+	{
+         columnTypes = types	;	
 	}
 }
