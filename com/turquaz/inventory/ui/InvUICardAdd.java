@@ -1343,8 +1343,7 @@ public class InvUICardAdd extends SecureComposite {
 		if (verifyFields()) {
 
 			InvBLCardAdd blCardAdd = new InvBLCardAdd();
-			int accountIdSell = ((Integer) txtInvCardOutAcc.getData())
-					.intValue();
+			int accountIdSell = ((Integer) txtInvCardOutAcc.getData()).intValue();
 			int accountIdBuy = ((Integer) txtInvCardInAcc.getData()).intValue();
 			try {
 

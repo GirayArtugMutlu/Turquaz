@@ -252,8 +252,21 @@ public class InvBLCardAdd {
 
 		} catch (Exception ex) {
 			throw ex;
-		}
+		} 
 
+	}
+	public List searchInventoryCards(TurqInventoryGroup invGroup, String invName, String invCode){
+		try{
+			String query ="from TurqInventoryCard as invCard";
+			return null;
+			
+		}
+		catch(Exception ex){
+			
+			return null;
+		}
+		
+		
 	}
 
 	public List getCurrencies() throws Exception {
