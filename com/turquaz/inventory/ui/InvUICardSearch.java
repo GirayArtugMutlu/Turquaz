@@ -44,6 +44,8 @@ import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 import com.turquaz.inventory.Messages;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.bl.InvBLCardUpdate;
@@ -86,6 +88,10 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	InvBLCardUpdate cardUpdate = new InvBLCardUpdate();
 	private Composite compInvCardSearch;
 	private CLabel lblInvName;
+	private CLabel lblInvSubGroup;
+	private CCombo comboInvSubGroup;
+	private CCombo comboInvMainGroup;
+	private CLabel lblInvGroup;
 	private TableColumn tableColumnInvName;
 	private TableColumn tableColumnAmountIn;
 	private TableColumn tableColumnInventoryCode;
@@ -95,8 +101,6 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	private TableColumn tableColumnPriceIn;
 	private TableColumn tableColumnPriceOut;
 	private Table tableSearcResults;
-	private CCombo comboInvGroup;
-	private CLabel lblInvGroup;
 	private Text txtInvName;
 	private InventoryPicker txtInvCode;
 	private CLabel lblInvCode;
@@ -168,9 +172,6 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 					}
 					{
 						txtInvName = new Text(compInvCardSearchPanel, SWT.NONE);
-						txtInvName.setSize(new org.eclipse.swt.graphics.Point(
-							168,
-							16));
 						GridData txtInvNameLData = new GridData();
 						txtInvName.addKeyListener(new KeyAdapter() {
 							public void keyReleased(KeyEvent evt) {
@@ -178,37 +179,44 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 									search();
 							}
 						});
-						txtInvNameLData.widthHint = 162;
-						txtInvNameLData.heightHint = 16;
+						txtInvNameLData.widthHint = 141;
+						txtInvNameLData.heightHint = 17;
 						txtInvName.setLayoutData(txtInvNameLData);
 					}
-					{
-						lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
-						lblInvGroup.setText(Messages
-							.getString("InvUICardSearch.2")); //$NON-NLS-1$
-						lblInvGroup.setSize(new org.eclipse.swt.graphics.Point(
-							110,
-							17));
-						GridData lblInvGroupLData = new GridData();
-						lblInvGroupLData.widthHint = 110;
-						lblInvGroupLData.heightHint = 17;
-						lblInvGroup.setLayoutData(lblInvGroupLData);
-					}
-					{
-						comboInvGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
-						comboInvGroup
-							.setSize(new org.eclipse.swt.graphics.Point(119, 16));
-						GridData comboInvGroupLData = new GridData();
-						comboInvGroup.addKeyListener(new KeyAdapter() {
-							public void keyReleased(KeyEvent evt) {
-								if (evt.keyCode == SWT.CR)
-									search();
-							}
+					//START >>  lblInvGroup
+					lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
+					lblInvGroup.setText("Stok Ana Grup");
+					GridData lblInvGroupLData = new GridData();
+					lblInvGroupLData.widthHint = 85;
+					lblInvGroupLData.heightHint = 19;
+					lblInvGroup.setLayoutData(lblInvGroupLData);
+					//END <<  lblInvGroup
+					//START >>  comboInvMainGroup
+					comboInvMainGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
+					GridData comboInvGroupLData = new GridData();
+					comboInvMainGroup
+						.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							comboInvMainGroupWidgetSelected(evt);
+						}
 						});
-						comboInvGroupLData.widthHint = 97;
-						comboInvGroupLData.heightHint = 16;
-						comboInvGroup.setLayoutData(comboInvGroupLData);
-					}
+					comboInvGroupLData.widthHint = 127;
+					comboInvGroupLData.heightHint = 18;
+					comboInvMainGroup.setLayoutData(comboInvGroupLData);
+					//END <<  comboInvMainGroup
+					//START >>  lblInvSubGroup
+					lblInvSubGroup = new CLabel(
+						compInvCardSearchPanel,
+						SWT.NONE);
+					lblInvSubGroup.setText("Stok Alt Grup");
+					//END <<  lblInvSubGroup
+					//START >>  comboInvSubGroup
+					comboInvSubGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
+					GridData comboInvSubGroupLData = new GridData();
+					comboInvSubGroupLData.widthHint = 125;
+					comboInvSubGroupLData.heightHint = 13;
+					comboInvSubGroup.setLayoutData(comboInvSubGroupLData);
+					//END <<  comboInvSubGroup
 				}
 				{
 					tableSearcResults = new Table(compInvCardSearch, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
@@ -309,20 +317,45 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 		
 				
 	}
-	public void fillComboGroup(){
-	try {
-			java.util.List groupLst = InvBLCardAdd.getInventoryGroups();
-			TableItem item = null;
-			TurqInventoryGroup trqInvGroup;
-			for (int i = 0; i < groupLst.size(); i++) {
-				trqInvGroup = (TurqInventoryGroup) groupLst.get(i);
-				comboInvGroup.add(trqInvGroup.getGroupsName());
-				comboInvGroup.setData(trqInvGroup.getGroupsName(), trqInvGroup);
-					
+	
+	private void comboInvMainGroupWidgetSelected(SelectionEvent evt) {
+		
+		comboInvSubGroup.removeAll();
+		if (comboInvMainGroup.getSelectionIndex()==-1)
+			return;
+		TurqInventoryGroup invMainGr=(TurqInventoryGroup)comboInvMainGroup.getData(comboInvMainGroup.getText());
+		if (invMainGr != null)
+		{
+			Iterator it = invMainGr.getTurqInventoryGroups().iterator();
+			while(it.hasNext())
+			{
+				TurqInventoryGroup invGr=(TurqInventoryGroup)it.next();
+				comboInvSubGroup.add(invGr.getGroupsName());
+				comboInvSubGroup.setData(invGr.getGroupsName(),invGr);
+			}
+			if (comboInvSubGroup.getItemCount() > 0)
+				comboInvSubGroup.setText(comboInvSubGroup.getItem(0));
+		}
+	}
 
+
+
+	public void fillComboGroup()
+	{
+		try 
+		{
+			List groupList=InvBLCardAdd.getParentInventoryGroups();
+			comboInvMainGroup.add("");
+			for(int k=0; k<groupList.size(); k++)
+			{
+				TurqInventoryGroup gr=(TurqInventoryGroup)groupList.get(k);
+				comboInvMainGroup.add(gr.getGroupsName());
+				comboInvMainGroup.setData(gr.getGroupsName(),gr);
 			}
 
-		} catch (Exception ex) {
+		}
+		catch (Exception ex) 
+		{
 			ex.printStackTrace();
 		}
 	
@@ -456,59 +489,57 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	public void newForm(){
 		
 	}
-	public void search(){
+	public void search()
+	{
 		
-	tableSearcResults.removeAll();
+		tableSearcResults.removeAll();
 	
-	List result;
-	try{
-	if(comboInvGroup.getSelectionIndex()==-1){
-	result = cardSearch.searchCards(txtInvName.getText().trim(),txtInvCode.getText().trim(),null);
+		try
+		{
+			
+			List result = cardSearch.searchCards(txtInvName.getText().trim(),txtInvCode.getText().trim(),(TurqInventoryGroup)comboInvSubGroup.getData(comboInvSubGroup.getText()));
+
 	
-	}
-	else{
-	result = cardSearch.searchCards(txtInvName.getText().trim(),txtInvCode.getText().trim(),(TurqInventoryGroup)comboInvGroup.getData(comboInvGroup.getText()));
-	
-	}
-	
-	TableItem item;
-	int listSize = result.size();
-	for(int i =0; i<listSize;i++){
-	Object[] objs=(Object[])result.get(i);
+			TableItem item;
+			int listSize = result.size();
+			for(int i =0; i<listSize;i++)
+			{
+				Object[] objs=(Object[])result.get(i);
 	
 	
-	String invCode = objs[1].toString();
-	String invName = objs[2].toString();
-	Integer cardId = (Integer)objs[3];
+				String invCode = objs[1].toString();
+				String invName = objs[2].toString();
+				Integer cardId = (Integer)objs[3];
 	
-	TurqViewInventoryTotal invView=(TurqViewInventoryTotal)((Object[])result.get(i))[0];
-	item = new TableItem(tableSearcResults,SWT.NULL);
+				TurqViewInventoryTotal invView=(TurqViewInventoryTotal)((Object[])result.get(i))[0];
+				item = new TableItem(tableSearcResults,SWT.NULL);
 	
-	item.setData(cardId);
+				item.setData(cardId);
 	
-	BigDecimal totalAmountIn =(invView.getTotalAmountIn()==null) ? new BigDecimal(0): invView.getTotalAmountIn();
-	BigDecimal totalAmountOut = (invView.getTotalAmountOut()==null) ? new BigDecimal(0) : invView.getTotalAmountOut();
-	BigDecimal totalPriceIn = (invView.getTotalPriceIn()==null) ? new BigDecimal(0) : invView.getTotalPriceIn();
-	BigDecimal totalPriceOut = (invView.getTotalPriceOut()==null)?new BigDecimal(0) : invView.getTotalPriceOut();
+				BigDecimal totalAmountIn =(invView.getTotalAmountIn()==null) ? new BigDecimal(0): invView.getTotalAmountIn();
+				BigDecimal totalAmountOut = (invView.getTotalAmountOut()==null) ? new BigDecimal(0) : invView.getTotalAmountOut();
+				BigDecimal totalPriceIn = (invView.getTotalPriceIn()==null) ? new BigDecimal(0) : invView.getTotalPriceIn();
+				BigDecimal totalPriceOut = (invView.getTotalPriceOut()==null)?new BigDecimal(0) : invView.getTotalPriceOut();
 	
-	BigDecimal balanceAmountIn = new BigDecimal(0);
-	BigDecimal balanceAmountOut = new BigDecimal(0);
+				BigDecimal balanceAmountIn = new BigDecimal(0);
+				BigDecimal balanceAmountOut = new BigDecimal(0);
 	
-	if((totalAmountIn.subtract(totalAmountOut).doubleValue()<=0)){
-		balanceAmountOut = totalAmountOut.subtract(totalAmountIn);
+				if((totalAmountIn.subtract(totalAmountOut).doubleValue()<=0))
+				{
+					balanceAmountOut = totalAmountOut.subtract(totalAmountIn);
 		
 		
-	}
-	
-	else{
-		balanceAmountIn = totalAmountIn.subtract(totalAmountOut);
+				}	
+				else
+				{
+					balanceAmountIn = totalAmountIn.subtract(totalAmountOut);
 		
-	}
+				}
 	
 	
-	TurkishCurrencyFormat format = new TurkishCurrencyFormat();
+				TurkishCurrencyFormat format = new TurkishCurrencyFormat();
 	
-	item.setText(new String[]{invCode,
+				item.setText(new String[]{invCode,
 							  invName,
 					          totalAmountIn.toString(),
 							  totalAmountOut.toString(),
@@ -519,13 +550,13 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 							  });
 	
 	
-	}
+			}
 	
-	}
-	catch(Exception ex){
-	ex.printStackTrace();
-	}
-	
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	
 	
 	

@@ -802,6 +802,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 	private void comboInvMainGroupWidgetSelected(SelectionEvent evt) {
 		
 		comboInvSubGroup.removeAll();
+		if (comboInvMainGroup.getSelectionIndex()==-1)
+			return;
 		TurqInventoryGroup invMainGr=(TurqInventoryGroup)comboInvMainGroup.getData(comboInvMainGroup.getText());
 		if (invMainGr != null)
 		{
