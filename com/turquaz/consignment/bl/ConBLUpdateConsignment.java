@@ -18,6 +18,8 @@ package com.turquaz.consignment.bl;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
+
 import com.turquaz.consignment.dal.ConDALUpdateConsignment;
 import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqConsignment;
@@ -75,6 +77,37 @@ public class ConBLUpdateConsignment {
 		}
 	
 	
+	}
+	public void deleteConsignment(TurqConsignment consignment)throws Exception{
+	    try{
+	        
+//	      delete Consignment Group
+	        initiliazeConsignment(consignment);
+			Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
+			while(it.hasNext()){
+				deleteObject(it.next());
+									
+			}
+			
+//			delete Inventory Transaction
+			it = consignment.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+			while(it.hasNext()){
+				deleteObject(it.next());
+									
+			}
+			
+			Object o = consignment.getTurqBillConsignmentCommon();
+		
+			deleteObject(consignment);
+			deleteObject(o);
+			
+	        
+	        
+	    }
+	    catch(Exception ex)
+	    {
+	        throw ex;
+	    }
 	}
 	
 	public void deleteObject(Object obj)throws Exception{

@@ -291,25 +291,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			if(msg2.open()==SWT.OK){
 				
 			    updated=true;
-				//delete Consignment Group
-				Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
-				while(it.hasNext()){
-					blCons.deleteObject(it.next());
-										
-				}
-				
-//				delete Inventory Transaction
-				it = consignment.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
-				while(it.hasNext()){
-					blCons.deleteObject(it.next());
-										
-				}
-				
-				Object o = consignment.getTurqBillConsignmentCommon();
-			
-				blCons.deleteObject(consignment);
-				blCons.deleteObject(o);
-				
+				blCons.deleteConsignment(consignment);
 				msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
 				msg.open();
 				

@@ -237,6 +237,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	
 
 	
+	
 	public void fillInvTransactionColumns(){
 		
 		compAddBill.rowList.removeAll();
@@ -392,6 +393,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 				
 				
+				
 				blUpdateBill.deleteAccountingTransactions(bill);
 				blUpdateBill.deleteCurrentTransactions(bill);
 
@@ -400,6 +402,17 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 				
 				msg.setMessage(Messages.getString("BillUIBillUpdateDialog.1")); //$NON-NLS-1$
 				msg.open();
+				
+				
+				if(EngUICommon.okToDelete(getParent(),Messages.getString("BillUIBillUpdateDialog.9"))){ //$NON-NLS-1$
+				it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
+				
+				if(it.hasNext()){
+			    TurqConsignment cons = (TurqConsignment)it.next();
+			    blUpdateCons.deleteConsignment(cons);
+				
+				}
+				}
 				
 				dialogShell.close();			
 				
