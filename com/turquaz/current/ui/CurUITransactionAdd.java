@@ -22,19 +22,27 @@ package com.turquaz.current.ui;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.SWT;
 
 
+import com.turquaz.accounting.ui.comp.AccountPicker;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.VerifyEvent;
+
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.layout.GridData;
 
+import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -42,6 +50,7 @@ import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Text;
 
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.turquaz.accounting.ui.comp.DynamicAccountPicker;
 
 
@@ -61,7 +70,7 @@ import com.turquaz.accounting.ui.comp.DynamicAccountPicker;
 */
 public class CurUITransactionAdd extends Composite implements SecureComposite{
     
-	private DynamicAccountPicker accPickerCashAccount;
+	private AccountPicker accPickerCashAccount;
 	private CLabel lblCashAccount;
 	private Text txtDocumentNo;
 	private CLabel lblDocumentNo;
@@ -71,7 +80,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 	private CLabel lblAmount;
 	private CCombo comboTransType;
 	private CLabel comboType;
-	private CCombo comboCurrentCode;
+	private Text txtCurrentCode;
 	private CLabel lblCurrentCode;
     private CurBLCurrentTransactionAdd blTransAdd = new CurBLCurrentTransactionAdd();
 	public CurUITransactionAdd(Composite parent, int style) {
@@ -101,15 +110,24 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 					16));
 			}
 			{
-				comboCurrentCode = new CCombo(this, SWT.NONE);
+				txtCurrentCode = new Text(this, SWT.NONE);
 				GridData comboCurrentCodeLData = new GridData();
-				comboCurrentCodeLData.widthHint = 185;
+                txtCurrentCode.addModifyListener(new ModifyListener() {
+                    public void modifyText(ModifyEvent evt) {
+                        try {
+							txtCurrentCode
+								.setData(EngBLCurrentCards
+									.getCards(txtCurrentCode
+										.getText().trim()));
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+                   }
+                });
+				txtCurrentCode.setSize(235, 20);
+				comboCurrentCodeLData.widthHint = 235;
 				comboCurrentCodeLData.heightHint = 20;
-				comboCurrentCode.setLayoutData(comboCurrentCodeLData);
-				comboCurrentCode.setText(Messages.getString("CurUITransactionAdd.1")); //$NON-NLS-1$
-				comboCurrentCode.setSize(new org.eclipse.swt.graphics.Point(
-					207,
-					20));
+				txtCurrentCode.setLayoutData(comboCurrentCodeLData);
 			}
 			lblDocumentNo = new CLabel(this,SWT.NULL);
 			txtDocumentNo = new Text(this,SWT.NULL);
@@ -120,7 +138,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 			lblTransDate = new CLabel(this,SWT.NULL);
 			dateTransDate = new DatePicker(this,SWT.NULL);
 			lblCashAccount = new CLabel(this,SWT.NULL);
-			accPickerCashAccount = new DynamicAccountPicker(this,SWT.NULL);
+			accPickerCashAccount = new AccountPicker(this, SWT.NONE);
 	
 			this.setSize(476, 357);
 
@@ -138,17 +156,10 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 			lblDocumentNo.setText(Messages.getString("CurUITransactionAdd.2")); //$NON-NLS-1$
 	
 			GridData txtDocumentNoLData = new GridData();
-			txtDocumentNoLData.verticalAlignment = GridData.CENTER;
-			txtDocumentNoLData.horizontalAlignment = GridData.BEGINNING;
-			txtDocumentNoLData.widthHint = 220;
+			txtDocumentNoLData.widthHint = 235;
 			txtDocumentNoLData.heightHint = 20;
-			txtDocumentNoLData.horizontalIndent = 0;
-			txtDocumentNoLData.horizontalSpan = 1;
-			txtDocumentNoLData.verticalSpan = 1;
-			txtDocumentNoLData.grabExcessHorizontalSpace = false;
-			txtDocumentNoLData.grabExcessVerticalSpace = false;
 			txtDocumentNo.setLayoutData(txtDocumentNoLData);
-			txtDocumentNo.setSize(new org.eclipse.swt.graphics.Point(220,20));
+			txtDocumentNo.setSize(235, 20);
 	
 			GridData comboTypeLData = new GridData();
 			comboTypeLData.verticalAlignment = GridData.CENTER;
@@ -194,18 +205,11 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 	
 			GridData decTxtAmountLData = new GridData();
 			decTxtAmount.setTextLimit(26);
-			decTxtAmountLData.verticalAlignment = GridData.CENTER;
-			decTxtAmountLData.horizontalAlignment = GridData.BEGINNING;
-			decTxtAmountLData.widthHint = 217;
-			decTxtAmountLData.heightHint = 19;
-			decTxtAmountLData.horizontalIndent = 0;
-			decTxtAmountLData.horizontalSpan = 1;
-			decTxtAmountLData.verticalSpan = 1;
-			decTxtAmountLData.grabExcessHorizontalSpace = false;
-			decTxtAmountLData.grabExcessVerticalSpace = false;
+			decTxtAmountLData.widthHint = 235;
+			decTxtAmountLData.heightHint = 20;
 			decTxtAmount.setLayoutData(decTxtAmountLData);
 			decTxtAmount.setText(Messages.getString("CurUITransactionAdd.6")); //$NON-NLS-1$
-			decTxtAmount.setSize(new org.eclipse.swt.graphics.Point(217,19));
+			decTxtAmount.setSize(235, 20);
 	
 			GridData lblTransDateLData = new GridData();
 			lblTransDateLData.verticalAlignment = GridData.CENTER;
@@ -250,18 +254,10 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 			lblCashAccount.setSize(new org.eclipse.swt.graphics.Point(72,19));
 	
 			GridData accPickerCashAccountLData = new GridData();
-			accPickerCashAccountLData.verticalAlignment = GridData.CENTER;
-			accPickerCashAccountLData.horizontalAlignment = GridData.BEGINNING;
 			accPickerCashAccountLData.widthHint = 241;
 			accPickerCashAccountLData.heightHint = 20;
-			accPickerCashAccountLData.horizontalIndent = 0;
-			accPickerCashAccountLData.horizontalSpan = 1;
-			accPickerCashAccountLData.verticalSpan = 1;
-			accPickerCashAccountLData.grabExcessHorizontalSpace = false;
-			accPickerCashAccountLData.grabExcessVerticalSpace = false;
 			accPickerCashAccount.setLayoutData(accPickerCashAccountLData);
 			accPickerCashAccount.setSize(new org.eclipse.swt.graphics.Point(241,20));
-			accPickerCashAccount.layout();
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
@@ -285,49 +281,36 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 	public void postInitGUI(){
 	comboTransType.add(Messages.getString("CurUITransactionAdd.4")); //$NON-NLS-1$
 	comboTransType.add(Messages.getString("CurUITransactionAdd.10")); //$NON-NLS-1$
-	accPickerCashAccount.setFilter("100"); //$NON-NLS-1$
-	fillComboCurrentCodes();
-	
-	}
-	
-	
-	
-	public void fillComboCurrentCodes(){
-	try{
-	List list = blTransAdd.getCurrentCards();
-	TurqCurrentCard curCard ;	
-	for(int i =0;i<list.size();i++){
+//	content assistant
+	TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtCurrentCode);
+	final TurquazContentAssistant assistant = new TurquazContentAssistant(adapter,3);
+	adapter.appendVerifyKeyListener( new VerifyKeyListener() {
+                 public void verifyKey(VerifyEvent event) {
 
-	curCard = (TurqCurrentCard)list.get(i);
-	comboCurrentCode.add(curCard.getCardsCurrentCode());
-	comboCurrentCode.setData(curCard.getCardsCurrentCode(),curCard);	
+                 // Check for Ctrl+Spacebar
+                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
+             
+                  assistant.showPossibleCompletions();    
+                   event.doit = false;
+
+                 }
+              }
+	});
+
+
 	
 	}
 	
-	
-	
-	
-	
-	
-	}
-	catch(Exception ex){
-	ex.printStackTrace();
-	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-    msg.setMessage(ex.getMessage());
-	msg.open();
-	}
-	
-	
-	}
+
 	
 	 public boolean verifyFields(){
 	 
 	 MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-	if(comboCurrentCode.getSelectionIndex()==-1){
+	if(txtCurrentCode.getData()==null){
 	
 	msg.setMessage(Messages.getString("CurUITransactionAdd.12")); //$NON-NLS-1$
     msg.open();	
-    comboCurrentCode.setFocus();
+    txtCurrentCode.setFocus();
 	
 	return false;
 	}
@@ -372,7 +355,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 	
 	//Transaction Type is Cash 
 	//4,at the end means cash, it is a cash Transaction 
-	blTransAdd.saveCurrentCashTransaction((TurqCurrentCard)comboCurrentCode.getData(comboCurrentCode.getText()),
+	blTransAdd.saveCurrentCashTransaction((TurqCurrentCard)txtCurrentCode.getData(txtCurrentCode.getText()),
 									  dateTransDate.getDate(),txtDocumentNo.getText().trim(),isCredit,
 									  decTxtAmount.getBigDecimalValue(),new BigDecimal(0),4,(TurqAccountingAccount)accPickerCashAccount.getData());
 	
@@ -415,27 +398,27 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 	/**
 	 * @return Returns the accPickerCashAccount.
 	 */
-	public DynamicAccountPicker getAccPickerCashAccount() {
+	public AccountPicker getAccPickerCashAccount() {
 		return accPickerCashAccount;
 	}
 	/**
 	 * @param accPickerCashAccount The accPickerCashAccount to set.
 	 */
 	public void setAccPickerCashAccount(
-			DynamicAccountPicker accPickerCashAccount) {
+			AccountPicker accPickerCashAccount) {
 		this.accPickerCashAccount = accPickerCashAccount;
 	}
 	/**
-	 * @return Returns the comboCurrentCode.
+	 * @return Returns the txtCurrentCode.
 	 */
-	public CCombo getComboCurrentCode() {
-		return comboCurrentCode;
+	public Text getTxtCurrentCode() {
+		return txtCurrentCode;
 	}
 	/**
-	 * @param comboCurrentCode The comboCurrentCode to set.
+	 * @param txtCurrentCode The txtCurrentCode to set.
 	 */
-	public void setComboCurrentCode(CCombo comboCurrentCode) {
-		this.comboCurrentCode = comboCurrentCode;
+	public void setTxtCurrentCode(Text comboCurrentCode) {
+		this.txtCurrentCode = comboCurrentCode;
 	}
 	/**
 	 * @return Returns the comboTransType.

@@ -550,19 +550,11 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			compCurrentGeneralInfo.setSize(new org.eclipse.swt.graphics.Point(584,435));
 	
 			GridData lblCurrentCodeLData = new GridData();
-			lblCurrentCodeLData.verticalAlignment = GridData.CENTER;
-			lblCurrentCodeLData.horizontalAlignment = GridData.BEGINNING;
-			lblCurrentCodeLData.widthHint = 71;
-			lblCurrentCodeLData.heightHint = 19;
-			lblCurrentCodeLData.horizontalIndent = 0;
-			lblCurrentCodeLData.horizontalSpan = 1;
-			lblCurrentCodeLData.verticalSpan = 1;
-			lblCurrentCodeLData.grabExcessHorizontalSpace = false;
-			lblCurrentCodeLData.grabExcessVerticalSpace = false;
+			lblCurrentCodeLData.widthHint = 93;
+			lblCurrentCodeLData.heightHint = 20;
 			lblCurrentCode.setLayoutData(lblCurrentCodeLData);
 			lblCurrentCode.setText(Messages.getString("CurUICurrentCardAdd.1")); //$NON-NLS-1$
-			lblCurrentCode.setSize(new org.eclipse.swt.graphics.Point(71,19));
-	
+
 			GridData txtCurrentCodeLData = new GridData();
 			txtCurrentCodeLData.verticalAlignment = GridData.CENTER;
 			txtCurrentCodeLData.horizontalAlignment = GridData.BEGINNING;

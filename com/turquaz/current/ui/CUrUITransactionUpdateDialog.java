@@ -225,7 +225,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	//else fill the composite
 	
 	compTransactionAdd.getTxtDocumentNo().setText(transaction.getTransactionsDocumentNo());
-	compTransactionAdd.getComboCurrentCode().setText(transaction.getTurqCurrentCard().getCardsCurrentCode());
+	compTransactionAdd.getTxtCurrentCode().setText(transaction.getTurqCurrentCard().getCardsCurrentCode());
 	compTransactionAdd.getDateTransDate().setDate(transaction.getTransactionsDate());
 	
 	/*TurqAccountingTransaction accTrans = transaction.getTurqAccountingTransaction();
@@ -295,7 +295,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			
 			
-			blSearch.updateCurrentTransaction((TurqCurrentCard)compTransactionAdd.getComboCurrentCode().getData(compTransactionAdd.getComboCurrentCode().getText()),
+			blSearch.updateCurrentTransaction((TurqCurrentCard)compTransactionAdd.getTxtCurrentCode().getData(compTransactionAdd.getTxtCurrentCode().getText()),
 											  compTransactionAdd.getDateTransDate().getDate(),
 											  compTransactionAdd.getTxtDocumentNo().getText(),
 											  isCredit,

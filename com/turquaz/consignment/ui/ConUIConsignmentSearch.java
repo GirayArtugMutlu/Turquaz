@@ -2,6 +2,7 @@ package com.turquaz.consignment.ui;
 
 import java.util.List;
 
+import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -16,6 +17,7 @@ import org.eclipse.swt.widgets.Composite;
 import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
+import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -23,10 +25,15 @@ import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TableSorter;
 import com.turquaz.engine.ui.component.TextWithButton;
 import com.turquaz.engine.ui.component.DatePicker;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.custom.VerifyKeyListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
@@ -34,6 +41,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 
 /**
@@ -56,7 +64,7 @@ SecureComposite, SearchComposite{
 	private Table tableConsignments;
 	private TableColumn tableColumnCurrentName;
 	private TableColumn tableColumnVatAmount;
-	private TextWithButton txtCurCard;
+	private Text txtCurCard;
 	private CCombo comboConsignmentType;
 	private CLabel lblType;
 	private CLabel lblEndDate;
@@ -119,7 +127,6 @@ SecureComposite, SearchComposite{
 				GridLayout composite1Layout = new GridLayout();
 				composite1Layout.numColumns = 2;
 				composite1Layout.horizontalSpacing = 0;
-				composite1Layout.verticalSpacing = 0;
 				GridData composite1LData = new GridData();
 				composite1LData.heightHint = 152;
 				composite1LData.grabExcessHorizontalSpace = true;
@@ -135,16 +142,25 @@ SecureComposite, SearchComposite{
 					lblCurrentCard.setLayoutData(lblCurrentCardLData);
 				}
 				{
-					txtCurCard = new TextWithButton(composite1, SWT.NONE);
+					txtCurCard = new Text(composite1, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
-					txtCurCard.addMouseListener(new MouseAdapter() {
-						public void mouseUp(MouseEvent evt) {
-							currentCardChoose();
-						}
-					});
-					txtCurCardLData.widthHint = 217;
-					txtCurCardLData.heightHint = 26;
+					txtCurCardLData.widthHint = 229;
+					txtCurCardLData.heightHint = 21;
 					txtCurCard.setLayoutData(txtCurCardLData);
+					txtCurCard
+					.addModifyListener(new ModifyListener() {
+					public void modifyText(ModifyEvent evt) {
+						try {
+							txtCurCard
+								.setData(EngBLCurrentCards
+									.getCards(txtCurCard
+										.getText().trim()));
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+
+					}
+					});
 				}
 				{
 					lblStartDate = new CLabel(composite1, SWT.NONE);
@@ -188,8 +204,8 @@ SecureComposite, SearchComposite{
 					comboConsignmentType = new CCombo(composite1, SWT.NONE);
 					GridData comboConsignmentTypeLData = new GridData();
 					comboConsignmentType.setText(Messages.getString("ConUIConsignmentSearch.4")); //$NON-NLS-1$
-					comboConsignmentTypeLData.widthHint = 72;
-					comboConsignmentTypeLData.heightHint = 14;
+					comboConsignmentTypeLData.widthHint = 73;
+					comboConsignmentTypeLData.heightHint = 18;
 					comboConsignmentType.setLayoutData(comboConsignmentTypeLData);
 				}
 			}
@@ -278,6 +294,24 @@ SecureComposite, SearchComposite{
 	public void postInitGui(){
 		comboConsignmentType.add(Messages.getString("ConUIConsignmentSearch.10")); //$NON-NLS-1$
 		comboConsignmentType.add(Messages.getString("ConUIConsignmentSearch.11")); //$NON-NLS-1$
+	
+		//content assistant
+		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtCurCard);
+		final TurquazContentAssistant assistant = new TurquazContentAssistant(adapter,3);
+		adapter.appendVerifyKeyListener( new VerifyKeyListener() {
+	                 public void verifyKey(VerifyEvent event) {
+
+	                 // Check for Ctrl+Spacebar
+	                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
+	             
+	                  assistant.showPossibleCompletions();    
+	                   event.doit = false;
+
+	                 }
+	              }
+		});
+	
+	
 	}
 	
 	

@@ -99,10 +99,6 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 
 			dialogShell.setText(getText());
 			coolBar1 = new CoolBar(dialogShell,SWT.NULL);
-			coolItem1 = new CoolItem(coolBar1,SWT.NULL);
-			toolBar1 = new ToolBar(coolBar1,SWT.NULL);
-			toolUpdate = new ToolItem(toolBar1,SWT.NULL);
-			toolDelete = new ToolItem(toolBar1,SWT.NULL);
 
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(577,427));
 	
@@ -110,6 +106,20 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			coolBar1LData.horizontalAlignment = GridData.FILL;
 			coolBar1LData.heightHint = 44;
 			coolBar1.setLayoutData(coolBar1LData);
+            {
+                coolItem1 = new CoolItem(coolBar1, SWT.NONE);
+                coolItem1.setSize(45, 51);
+                coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(
+                    45,
+                    51));
+                coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(
+                    45,
+                    51));
+                {
+                    toolBar1 = new ToolBar(coolBar1, SWT.NONE);
+                    coolItem1.setControl(toolBar1);
+                }
+            }
             {
                 compTransactionAdd = new AccUITransactionAdd(
                     dialogShell,
@@ -125,28 +135,32 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
                     389));
                 compTransactionAdd.layout();
             }
-	
-			coolItem1.setControl(toolBar1);
-			coolItem1.setSize(45, 51);
-			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 51));
-			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 51));
-	
-	
-			toolUpdate.setText(Messages.getString("AccUITransactionUpdateDialog.0")); //$NON-NLS-1$
-			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
-			toolUpdate.addSelectionListener( new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					toolUpdateWidgetSelected(evt);
-				}
-			});
-	
-			toolDelete.setText(Messages.getString("AccUITransactionUpdateDialog.1")); //$NON-NLS-1$
-			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
-			toolDelete.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					toolDeleteWidgetSelected(evt);
-				}
-			});
+
+            {
+                toolUpdate = new ToolItem(toolBar1, SWT.NONE);
+                toolUpdate.setText(Messages
+                    .getString("AccUITransactionUpdateDialog.0")); //$NON-NLS-1$
+                toolUpdate.setImage(SWTResourceManager
+                    .getImage("icons/save_edit.gif")); //$NON-NLS-1$
+                toolUpdate.addSelectionListener(new SelectionAdapter() {
+                    public void widgetSelected(SelectionEvent evt) {
+                        toolUpdateWidgetSelected(evt);
+                    }
+                });
+
+            }
+            {
+                toolDelete = new ToolItem(toolBar1, SWT.NONE);
+                toolDelete.setText(Messages
+                    .getString("AccUITransactionUpdateDialog.1")); //$NON-NLS-1$
+                toolDelete.setImage(SWTResourceManager
+                    .getImage("icons/Delete16.gif")); //$NON-NLS-1$
+                toolDelete.addSelectionListener(new SelectionAdapter() {
+                    public void widgetSelected(SelectionEvent evt) {
+                        toolDeleteWidgetSelected(evt);
+                    }
+                });
+            }
 			{
 				toolCancel = new ToolItem(toolBar1, SWT.NONE);
 				toolCancel.setText(Messages.getString("AccUITransactionUpdateDialog.8")); //$NON-NLS-1$

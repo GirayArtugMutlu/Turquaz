@@ -145,6 +145,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private CCombo comboModuleSelection;
 	private CLabel lblModuleSelection;
 	private Composite compModuleSelection;
+	private MenuItem mitExit;
+	private Menu menuFile;
 	private MenuItem mitHelpContents;
 	private Menu menuHelp;
 	private MenuItem menuItemModulBar;
@@ -753,27 +755,27 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                         coolItem2.setControl(toolBar1);
                         {
                             timInventory = new ToolItem(toolBar1, SWT.RADIO);
-                            timInventory.setText("Stok");
+                            timInventory.setText(Messages.getString("EngUIMainFrame.13")); //$NON-NLS-1$
                         }
                         {
                             timCurrent = new ToolItem(toolBar1, SWT.NONE);
-                            timCurrent.setText("Cari");
+                            timCurrent.setText(Messages.getString("EngUIMainFrame.23")); //$NON-NLS-1$
                         }
                         {
                             timConsignment = new ToolItem(toolBar1, SWT.NONE);
-                            timConsignment.setText("?rsaliye");
+                            timConsignment.setText(Messages.getString("EngUIMainFrame.24")); //$NON-NLS-1$
                         }
                         {
                             timBill = new ToolItem(toolBar1, SWT.NONE);
-                            timBill.setText("Fatura");
+                            timBill.setText(Messages.getString("EngUIMainFrame.25")); //$NON-NLS-1$
                         }
                         {
                             timBank = new ToolItem(toolBar1, SWT.NONE);
-                            timBank.setText("Banka");
+                            timBank.setText(Messages.getString("EngUIMainFrame.26")); //$NON-NLS-1$
                         }
                         {
                             timAdmin = new ToolItem(toolBar1, SWT.NONE);
-                            timAdmin.setText("Yönetim");
+                            timAdmin.setText(Messages.getString("EngUIMainFrame.29")); //$NON-NLS-1$
                         }
                     }
                 }
@@ -810,7 +812,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			mitEdit = new MenuItem(menuMain,SWT.CASCADE);
 			{
                 mitView = new MenuItem(menuMain, SWT.CASCADE);
-                mitView.setText(Messages.getString("EngUIMainFrame.14")); //$NON-NLS-1$
+                mitView.setText(Messages.getString("EngUIMainFrame.14"));  //$NON-NLS-1$
                 {
                     menuView = new Menu(mitView);
                     mitView.setMenu(menuView);
@@ -869,8 +871,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                     }
                     {
                         mitHistory = new MenuItem(menuView, SWT.PUSH);
-                        mitHistory.setText(Messages
-                            .getString("EngUIMainFrame.16")); //$NON-NLS-1$
+                        mitHistory.setText(Messages.getString("EngUIMainFrame.16")); //$NON-NLS-1$
                         mitHistory.setImage(SWTResourceManager
                             .getImage("icons/history.png"));//$NON-NLS-1$
                         mitHistory.addSelectionListener(new SelectionAdapter() {
@@ -881,7 +882,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                                         SWT.NULL);
                                     item.setControl(compHistoryTab);
                                     item.setText(Messages
-                                        .getString("EngUIMainFrame.19")); //$NON-NLS-1$
+                                        .getString("EngUIMainFrame.16")); //$NON-NLS-1$
                                     item.setImage(SWTResourceManager
                                         .getImage("icons/history.png")); //$NON-NLS-1$
                                     tabfldMenu.setSelection(item);
@@ -893,8 +894,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                     }
                     {
                         menuItemModulBar = new MenuItem(menuView, SWT.CHECK);
-                        menuItemModulBar.setText("Modül Listesi");
+                        menuItemModulBar.setText(Messages.getString("EngUIMainFrame.30")); //$NON-NLS-1$
                         menuItemModulBar.setSelection(false);
+                        menuItemModulBar.setEnabled(false);
                         menuItemModulBar
                             .addSelectionListener(new SelectionAdapter() {
                             public void widgetSelected(SelectionEvent evt) {
@@ -915,7 +917,21 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			getShell().setMenuBar(menuMain);
 	
 			mitFile.setText(Messages.getString("EngUIMainFrame.20")); //$NON-NLS-1$
-	
+            {
+                menuFile = new Menu(mitFile);
+                mitFile.setMenu(menuFile);
+                {
+                    mitExit = new MenuItem(menuFile, SWT.PUSH);
+                    mitExit.setText(Messages.getString("EngUIMainFrame.36")); //$NON-NLS-1$
+                    mitExit.addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                        System.exit(-1);   
+                        
+                        }
+                    });
+                }
+            }
+
 			mitEdit.setText(Messages.getString("EngUIMainFrame.21")); //$NON-NLS-1$
             
 	
@@ -926,7 +942,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 mitHelp.setMenu(menuHelp);
                 {
                     mitHelpContents = new MenuItem(menuHelp, SWT.PUSH);
-                    mitHelpContents.setText("About");
+                    mitHelpContents.setText(Messages.getString("EngUIMainFrame.50"));  //$NON-NLS-1$
                     mitHelpContents
                         .addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
