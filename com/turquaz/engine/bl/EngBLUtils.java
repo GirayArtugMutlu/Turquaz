@@ -2,7 +2,17 @@
 package com.turquaz.engine.bl;
 
 import java.io.FileOutputStream;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
+
+import net.sf.jasperreports.engine.JasperManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -10,13 +20,21 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
+import com.jasperassistant.designer.viewer.ViewerApp;
+import com.jasperassistant.designer.viewer.ViewerComposite;
+import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.Messages;
+import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqBill;
+import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqConsignment;
+import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SWTPTable;
 
@@ -40,6 +58,9 @@ import de.kupzog.ktools.kprint.gui.PrintPreview;
 public class EngBLUtils {
 	
 	public static String logoURL;
+	private static CurBLCurrentCardSearch curBLCurCardSearch=new CurBLCurrentCardSearch();
+	private static Calendar cal=Calendar.getInstance();
+	//private static ViewerComposite reportViewer;
 	
 	
 	public static void Export2Excel(Table table){
@@ -201,95 +222,78 @@ public class EngBLUtils {
 	
 	public static void printBill(TurqBill bill,Shell parent){
 	    
-	    PDocument doc = new PDocument("Turquaz Printing");
-	    new PVSpace(doc,8);
-	    PTextBox t;
-	    
-	    int style_below = PBox.POS_BELOW | PBox.ROW_ALIGN;
-	    int style_right = PBox.POS_RIGHT | PBox.ROW_ALIGN;
-	    int style_grab_right =PBox.GRAB|PBox.POS_RIGHT;
-	    
-	    new PHSpace(doc,style_below,3);
-	    t = new PTextBox(doc,style_right,0,5);
-	    
-	    t.setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName()); 
-	    t.getTextStyle().fontSize = 10;
-	    
-	    
-	    t = new PTextBox(doc,style_grab_right);
-	    
-	    t.setText(DatePicker.formatter.format(bill.getBillsDate())); 
-	    t.getTextStyle().fontSize = 10;
-	    t.getTextStyle().fontStyle = SWT.BOLD;
-	    t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;	    
-	    
-	    
-	    TurqConsignment cons = (TurqConsignment)bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator().next();
-	    
-	    new PVSpace(doc,0.2);    
-	    
-	    t = new PTextBox(doc,style_grab_right);
-	    
-	    t.setText(DatePicker.formatter.format(cons.getConsignmentsDate())); 
-	    t.getTextStyle().fontSize = 10;
-	    t.getTextStyle().fontStyle = SWT.BOLD;
-	    t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;	
-	    
-	    
-	    new PHSpace(doc,style_below,3);   
-	    
-	    
-	    t = new PTextBox(doc,style_right,0,5);
-	    
-	    t.setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsAddress()); 
-	    t.getTextStyle().fontSize = 10;
-	    
-	    new PVSpace(doc,0.08);  
-	    
-	    t = new PTextBox(doc,style_grab_right);
-	    
-	    t.setText(bill.getTurqBillConsignmentCommon().getConsignmentDocumentNo()); 
-	    t.getTextStyle().fontSize = 10;
-	    t.getTextStyle().fontStyle = SWT.BOLD;
-	    t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;	
-	    
-	   
-	    new PVSpace(doc,0.1);
-	    
-	    new PHSpace(doc,style_below,3);
-	    
-	    t = new PTextBox(doc,style_right,0,5);
-	    
-	    t.setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsTaxDepartment()+" "
-	             +bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsTaxNumber() ); 
-	    t.getTextStyle().fontSize = 8;
-	    
-	   
-	    t = new PTextBox(doc,style_grab_right);
-	    
-	    t.setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode()); 
-	    t.getTextStyle().fontSize = 10;
-	    t.getTextStyle().fontStyle = SWT.BOLD;
-	    t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;	
-	    
-	    new PVSpace(doc,8);
-	        
-	    t = new PTextBox(doc,style_grab_right);
-	    
-	    t.setText(bill.getTurqBillConsignmentCommon().getTotalAmount().toString()); 
-	    t.getTextStyle().fontSize = 10;
-	    t.getTextStyle().fontStyle = SWT.BOLD;
-	    t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
-	    
-	    
-	    t = new PTextBox(doc,style_below,0,5);
-	    t.getTextStyle().fontSize = 10;
-	    t.getTextStyle().fontStyle = SWT.BOLD;
-	    
-	    
-	    
-	    PrintPreview pr = new PrintPreview(parent, "", IconSource.getImage("print"), doc); //$NON-NLS-1$
-		pr.open();    
+		try{
+			SimpleDateFormat dformat=new SimpleDateFormat("dd-MM-yyyy");
+			Map parameters = new HashMap();
+			String sqlparam="Select invTrans.inventory_transactions_id," +
+					" invCardUnits.cards_units_factor, " +
+					" invCard.card_inventory_code, invCard.card_name,"+
+					((bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_BUY) ? 
+					"invTrans.transactions_amount_in as amount," : "invTrans.transactions_total_amount_out as amount,")+
+					" invTrans.transactions_unit_price, invTrans.transactions_total_price"+
+					" from turq_inventory_transations invTrans," +
+					" turq_inventory_cards invCard, turq_inventory_card_units invCardUnits where" +
+					" invTrans.engine_sequences_id="+bill.getTurqEngineSequence().getEngineSequencesId()+
+					" and invTrans.inventory_cards_id=invCard.inventory_cards_id" +
+					" and invCardUnits.inventory_cards_id=invTrans.inventory_cards_id" +
+					" and invCardUnits.inventory_units_id=invTrans.inventory_units_id";
+			
+			
+
+			
+			parameters.put("sqlparam",sqlparam);	
+			TurqBillConsignmentCommon billCommon=bill.getTurqBillConsignmentCommon();
+			BigDecimal invoiceSum=billCommon.getTotalAmount().add(billCommon.getSpecialVatAmount());
+			BigDecimal discount=billCommon.getDiscountAmount();
+			BigDecimal specialVAT=billCommon.getSpecialVatAmount();
+			BigDecimal invoiceTotal=invoiceSum.subtract(discount);
+			BigDecimal grandTotal=invoiceTotal.add(specialVAT);
+			parameters.put("invoiceSum",invoiceSum);
+			parameters.put("invoiceTotal",invoiceTotal);
+			parameters.put("invoiceDiscount",discount);
+			parameters.put("invoiceVAT",specialVAT);
+			parameters.put("invoiceGrandTotal",grandTotal);
+			parameters.put("invoiceGrandTotalText",EngBLCurrencyToWords.getTurkishCarrencyInWords(grandTotal));
+			parameters.put("invoiceDate",dformat.format(bill.getBillsDate()));
+			TurqCurrentCard curCard=billCommon.getTurqCurrentCard();
+			parameters.put("currentName",curCard.getCardsName());
+			parameters.put("currentAddress",curCard.getCardsAddress());
+			parameters.put("currentTaxNumber",curCard.getCardsTaxNumber());
+			parameters.put("currentTaxDepartment",curCard.getCardsTaxDepartment());
+			parameters.put("currentId", curCard.getCardsCurrentCode());
+			
+			TurqConsignment cons = (TurqConsignment)bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator().next();
+
+			parameters.put("despatchNoteDate",cons.getConsignmentsDate());
+			parameters.put("despatchNoteId",billCommon.getConsignmentDocumentNo());
+			
+			TurqViewCurrentAmountTotal currentView=curBLCurCardSearch.getCurrentCardView(curCard);
+			BigDecimal allTotal=currentView.getTransactionsBalanceNow();
+			BigDecimal oldAllTotal=allTotal.subtract(grandTotal);
+			
+			parameters.put("currentBalance", oldAllTotal);
+			parameters.put("currentNewBalance", allTotal);
+			
+			NumberFormat formatter =NumberFormat.getNumberInstance();
+            formatter.setMaximumFractionDigits(2);
+            formatter.setMinimumFractionDigits(2);
+            parameters.put("formatter",formatter); 
+			EngDALConnection db=new EngDALConnection();
+			db.connect();
+			JasperReport jasperReport = JasperManager.loadReport("reports/invoice/template1.jasper"); 
+			final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
+			
+			ViewerApp viewerApp = new ViewerApp();
+			viewerApp.getReportViewer().setDocument(jasperPrint);
+			viewerApp.open();
+			
+			//reportViewer.getReportViewer().setDocument(jasperPrint);
+			
+					
+			}
+			catch(Exception ex){
+                  ex.printStackTrace();
+			}
 	
 	}
 

@@ -29,6 +29,7 @@ import net.sf.hibernate.Session;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
+import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 
 
 
@@ -91,6 +92,26 @@ public class CurDALCurrentCardSearch {
 		catch(Exception ex){
 			throw ex;
 		}
+	}
+	
+	public TurqViewCurrentAmountTotal getCurrentCardView (TurqCurrentCard currentCard)
+	throws Exception	
+	{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+		
+			String query = "Select currentView from TurqViewCurrentAmountTotal as currentView," +
+					" where currentView.currentCardsId="+currentCard.getCurrentCardsId();
+	
+			Query q = session.createQuery(query); 	
+			List list = q.list();			
+			session.close();
+			return ((TurqViewCurrentAmountTotal)list.get(0));
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
 	}
 	
 	public List getTransactions(TurqCurrentCard curCard) throws Exception

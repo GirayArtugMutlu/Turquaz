@@ -25,6 +25,7 @@ import java.util.List;
 import com.turquaz.current.dal.CurDALCurrentCardSearch;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
+import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 
 public class CurBLCurrentCardSearch {
 	
@@ -42,6 +43,19 @@ public class CurBLCurrentCardSearch {
 
 		}
 		catch(Exception ex){
+			throw ex;
+		}
+	}
+	
+	public TurqViewCurrentAmountTotal getCurrentCardView (TurqCurrentCard currentCard)
+	throws Exception	
+	{
+		try
+		{
+			return curDALCurrentCardSearch.getCurrentCardView(currentCard);
+		}
+		catch(Exception ex)
+		{
 			throw ex;
 		}
 	}
