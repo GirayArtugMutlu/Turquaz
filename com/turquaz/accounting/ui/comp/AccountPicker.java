@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.accounting.ui.AccUISearchAccountsDialog;
+import com.turquaz.accounting.ui.AccUIStaticAccountsDialog;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
 /**
@@ -121,7 +122,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 	/** Auto-generated event handler method */
 	protected void button1MouseUp(MouseEvent evt){
 	
-	Object[] obj = new AccUISearchAccountsDialog(this.getShell(),SWT.NULL).showDialog(filter);
+	Object[] obj = new AccUIStaticAccountsDialog(this.getShell(),SWT.NULL).showDialog(filter);
 
 	if (obj[0] != null) {
 			this.setData(obj[1]);

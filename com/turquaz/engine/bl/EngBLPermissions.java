@@ -103,7 +103,6 @@ public class EngBLPermissions {
 					
 			
 			
-			
 			dbaccess = new EngDALUserPerms();
 			dbaccess2 = new EngDALUserPerms();
 			List list = dbaccess.getModuleComponents();

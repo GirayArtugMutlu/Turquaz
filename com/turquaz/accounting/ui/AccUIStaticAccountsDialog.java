@@ -47,15 +47,16 @@ import com.turquaz.accounting.bl.AccBLAccountAdd;
 * for-profit company or business) then you should purchase
 * a license - please visit www.cloudgarden.com for details.
 */
-public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
+public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 	private Composite composite1;
 	private Shell dialogShell;
-	private Tree accountTree;
+	private static Tree accountTree;
 	private AccBLAccountAdd blAccount;
 	Object returnObj[] = new Object[2];
 			
-	 public AccUISearchAccountsDialog(Shell parent, int style) {
+	 public AccUIStaticAccountsDialog(Shell parent, int style) {
 		super(parent, style);
+		
 	 }
 	
 	/**
@@ -121,9 +122,8 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 			dialogShell.setText(getText());
-			accountTree = new Tree(dialogShell,SWT.NULL);
-	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(304,208));
+		    accountTree = new Tree(dialogShell,SWT.NULL);
+	       	dialogShell.setSize(new org.eclipse.swt.graphics.Point(304,208));
 	
 			accountTree.setSize(new org.eclipse.swt.graphics.Point(298,192));
 			accountTree.addMouseListener( new MouseAdapter() {
@@ -172,8 +172,7 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
     int location_Y = (parentLocation.y + parentSize.y)/2 - (dialogSize.y/2);
     
     dialogShell.setLocation(location_X,location_Y);
-    AccUIAccountsTree treeFactory = new AccUIAccountsTree();
-	accountTree = treeFactory.fillTree(-1,filter,accountTree);
+    
 	}
 
   
@@ -207,3 +206,4 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 	public void postInitGUI(){
 	}
 }
+
