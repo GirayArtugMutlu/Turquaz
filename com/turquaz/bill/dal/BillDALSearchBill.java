@@ -82,13 +82,41 @@ public class BillDALSearchBill
 		}
 	}
 	
+	public static List getBillInfo(TurqBill bill) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query="Select invTrans.id, cardUnit.cardUnitsFactor, invTrans.turqInventoryCard.cardInventoryCode," +
+					" invTrans.turqInventoryCard.cardName, invTrans.turqInventoryUnit.unitsName," +
+					((bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_BUY)
+							? "invTrans.amountIn ," : "invTrans.amountOut ,")+
+					" invTrans.unitPriceInForeignCurrency,invTrans.totalPriceInForeignCurrency," +
+					" invTrans.turqInventoryWarehous.warehousesName,invTrans.vatRate"+
+					" from TurqInventoryTransaction invTrans" +
+					" left join invTrans.turqInventoryCard.turqInventoryCardUnits as cardUnit," +
+					" TurqBill bill " +
+					" where invTrans.turqEngineSequence.id in (Select billIn.turqEngineSequence.id from bill.turqBillInEngineSequences as billIn)" +
+					" and bill.id="+bill.getId()+
+					" and cardUnit.turqInventoryUnit=invTrans.turqInventoryUnit";	
+			Query q = session.createQuery(query);
+			List list = q.list();
+			session.close();
+			return list;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
 	public static TurqViewBillTransTotal getBillView(Integer billId) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
 			String query = "Select billview from TurqViewBillTransTotal as billview" +
-					" where billview.bills.id=" + billId; //$NON-NLS-1$
+					" where billview.billsId=" + billId;
 			Query q = session.createQuery(query);
 			List list = q.list();
 			session.close();

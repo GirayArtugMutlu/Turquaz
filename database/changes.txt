@@ -900,4 +900,178 @@ INSERT INTO turq_module_components VALUES (87, 0, 'com.turquaz.inventory.ui.InvU
 INSERT INTO turq_module_components VALUES (88, 0, 'com.turquaz.inventory.ui.InvUIOtherTransactionOut', 'Diger Cikis Hareketi', 'cem', '2005-02-28', 'cem', '2005-02-28');
 
 
+**********************************************************************************
+***********************************29-03-2005***************************************
+CREATE TABLE turq_bill_in_engine_sequences
+(engine_sequences_id int4 NOT NULL,
+  bills_id int4 NOT NULL,
+  id int4 NOT NULL,
+  CONSTRAINT p_iddd PRIMARY KEY (id),
+  CONSTRAINT f_bill_id FOREIGN KEY (bills_id) REFERENCES turq_bills (id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT f_en_id FOREIGN KEY (engine_sequences_id) REFERENCES turq_engine_sequences (id) ON UPDATE RESTRICT ON DELETE RESTRICT);
 
+************************************************************************************************
+************************************************************************************************
+***********************************!!!!!!!!IMPORTANT!!!!!!!!!!!!********************************
+************************************************************************************************
+******************************Yukardaki tabloyu olusturduktan sonra*****************************
+******************************ozellikler kismindaki FillBillInEngineSeq*************************
+****************************************calistirilmali******************************************
+************************************************************************************************
+************************************************************************************************
+************************************************************************************************
+
+
+
+ALTER TABLE turq_inventory_transactions RENAME transactions_unit_price  TO unit_price;
+ALTER TABLE turq_inventory_transactions RENAME transactions_total_price  TO total_price;
+ALTER TABLE turq_inventory_transactions RENAME transactions_discount  TO discount_rate;
+ALTER TABLE turq_inventory_transactions RENAME transactions_discount_amount  TO discount_amount;
+ALTER TABLE turq_inventory_transactions RENAME transactions_vat_amount  TO vat_amount;
+ALTER TABLE turq_inventory_transactions RENAME transactions_vat_special_each  TO vat_special_unit_price;
+ALTER TABLE turq_inventory_transactions RENAME transactions_vat_special  TO vat_special_rate;
+ALTER TABLE turq_inventory_transactions RENAME transactions_vat_special_amount  TO vat_special_amount;
+ALTER TABLE turq_inventory_transactions RENAME transactions_cumilative_price  TO cumilative_price;
+ALTER TABLE turq_inventory_transactions RENAME transactions_total_amount_out  TO total_amount_out;
+ALTER TABLE turq_inventory_transactions ADD COLUMN exchange_rate_id int4;
+ALTER TABLE turq_inventory_transactions ADD COLUMN vat_rate numeric;
+
+ALTER TABLE turq_consignments ADD COLUMN current_cards_id int4;
+ALTER TABLE turq_consignments ADD COLUMN consignment_document_no varchar(50);
+
+ALTER TABLE turq_bills ADD COLUMN bill_document_no varchar(50);
+ALTER TABLE turq_bills ADD COLUMN current_cards_id int4;
+
+update turq_inventory_transactions set exchange_rate_id=-1;
+update turq_inventory_transactions set vat_rate=transactions_vat;
+
+ALTER TABLE turq_inventory_transactions DROP COLUMN transactions_vat;
+
+update turq_consignments set current_cards_id=turq_bill_consignment_commons.current_cards_id
+where bill_consignment_common_id=turq_bill_consignment_commons.id;
+
+update turq_consignments set consignment_document_no=turq_bill_consignment_commons.consignment_document_no
+where bill_consignment_common_id=turq_bill_consignment_commons.id;
+
+update turq_bills set bill_document_no=turq_bill_consignment_commons.bill_document_no
+where bill_consignment_commons_id=turq_bill_consignment_commons.id;
+
+update turq_bills set current_cards_id=turq_bill_consignment_commons.current_cards_id
+where bill_consignment_commons_id=turq_bill_consignment_commons.id;
+
+ALTER TABLE turq_bills
+   ALTER COLUMN bill_document_no SET NOT NULL;
+ALTER TABLE turq_bills
+   ALTER COLUMN current_cards_id SET NOT NULL;
+
+ALTER TABLE turq_consignments
+   ALTER COLUMN current_cards_id SET NOT NULL;
+ALTER TABLE turq_consignments
+   ALTER COLUMN consignment_document_no SET NOT NULL;
+ALTER TABLE turq_consignments ADD CONSTRAINT f_cur_card FOREIGN KEY (current_cards_id) 
+REFERENCES turq_current_cards (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+ALTER TABLE turq_inventory_transactions
+   ALTER COLUMN exchange_rate_id SET NOT NULL;
+ALTER TABLE turq_inventory_transactions
+   ALTER COLUMN vat_rate SET NOT NULL;
+ALTER TABLE turq_inventory_transactions ADD CONSTRAINT f_ex_rate FOREIGN KEY (exchange_rate_id) 
+REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+ALTER TABLE turq_bills ADD CONSTRAINT f_cur_card FOREIGN KEY (current_cards_id) 
+REFERENCES turq_current_cards (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+ALTER TABLE turq_bills DROP COLUMN bill_consignment_commons_id;
+ALTER TABLE turq_consignments DROP COLUMN bill_consignment_common_id;
+
+drop table turq_bill_consignment_commons;
+
+ALTER TABLE turq_inventory_transactions RENAME transactions_amount_in  TO amount_in;
+ALTER TABLE turq_inventory_transactions RENAME total_amount_out  TO amount_out;
+
+ALTER TABLE turq_inventory_transactions ADD COLUMN unit_price_in_foreign_currency numeric;
+ALTER TABLE turq_inventory_transactions ADD COLUMN total_price_in_foreign_currency numeric;
+ALTER TABLE turq_inventory_transactions ADD COLUMN discount_amount_in_foreign_currency numeric;
+ALTER TABLE turq_inventory_transactions ADD COLUMN vat_amount_in_foreign_currency numeric;
+ALTER TABLE turq_inventory_transactions ADD COLUMN vat_special_unit_price_in_foreign_currency numeric;
+ALTER TABLE turq_inventory_transactions ADD COLUMN vat_special_amount_in_foreign_currency numeric;
+ALTER TABLE turq_inventory_transactions ADD COLUMN cumilative_price_in_foreign_currency numeric;
+
+update turq_inventory_transactions set unit_price__in_foreign_currency=unit_price;
+update turq_inventory_transactions set total_price_in_foreign_currency=total_price;
+update turq_inventory_transactions set cumilative_price_in_foreign_currency=cumilative_price;
+update turq_inventory_transactions set discount_amount_in_foreign_currency=discount_amount;
+update turq_inventory_transactions set vat_amount_in_foreign_currency=vat_amount;
+update turq_inventory_transactions set vat_special_unit_price_in_foreign_currency=vat_special_unit_price;
+update turq_inventory_transactions set vat_special_amount_in_foreign_currency=vat_special_amount;
+
+ALTER TABLE turq_bills ADD COLUMN exchange_rate_id int4;
+ALTER TABLE turq_consignments ADD COLUMN exchange_rate_id int4;
+
+update turq_bills set exchange_rate_id=-1;
+update turq_consignments set exchange_rate_id=-1;
+
+ALTER TABLE turq_bills
+   ALTER COLUMN exchange_rate_id SET NOT NULL;
+ALTER TABLE turq_bills ADD CONSTRAINT f_ex_rate FOREIGN KEY (exchange_rate_id) 
+REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+ALTER TABLE turq_consignments
+   ALTER COLUMN exchange_rate_id SET NOT NULL;
+ALTER TABLE turq_consignments ADD CONSTRAINT f_ex_rate FOREIGN KEY (exchange_rate_id) 
+REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+ALTER TABLE turq_inventory_transactions
+   ALTER COLUMN unit_price_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_inventory_transactions
+   ALTER COLUMN total_price_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_inventory_transactions
+   ALTER COLUMN discount_amount_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_inventory_transactions
+   ALTER COLUMN vat_amount_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_inventory_transactions
+   ALTER COLUMN vat_special_unit_price_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_inventory_transactions
+   ALTER COLUMN vat_special_amount_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_inventory_transactions
+   ALTER COLUMN cumilative_price_in_foreign_currency SET NOT NULL;
+
+ALTER TABLE turq_consignments ADD COLUMN bill_document_no varchar(50);
+update turq_consignments set bill_document_no='';
+update turq_consignments set bill_document_no=turq_bills.bill_document_no
+where turq_consignments.engine_sequences_id=turq_bill_in_engine_sequences.engine_sequences_id
+and turq_bill_in_engine_sequences.bills_id=turq_bills.id;
+
+ALTER TABLE turq_consignments
+   ALTER COLUMN bill_document_no SET NOT NULL;
+
+CREATE OR REPLACE VIEW turq_view_bill_trans_total AS 
+ SELECT billin.bills_id, sum(invtrans.total_price_in_foreign_currency) AS totalprice,
+ sum(invtrans.vat_amount_in_foreign_currency) AS vatamount, 
+sum(invtrans.vat_special_amount_in_foreign_currency) AS specialvatamount,
+ sum(invtrans.discount_amount_in_foreign_currency) AS discountamount
+   FROM turq_inventory_transactions invtrans, turq_bill_in_engine_sequences billin
+  WHERE invtrans.engine_sequences_id = billin.engine_sequences_id
+  GROUP BY billin.bills_id;
+
+ALTER TABLE turq_inventory_transactions ADD COLUMN current_cards_id int4;
+
+update turq_inventory_transactions set current_cards_id=-1;
+
+update turq_inventory_transactions set current_cards_id=turq_consignments.current_cards_id
+where engine_sequences_id=turq_consignments.engine_sequences_id;
+
+update turq_inventory_transactions set current_cards_id=turq_bills.current_cards_id
+where engine_sequences_id=turq_bill_in_engine_sequences.engine_sequences_id
+and turq_bill_in_engine_sequences.bills_id=turq_bills.id;
+
+ALTER TABLE turq_inventory_transactions
+   ALTER COLUMN current_cards_id SET NOT NULL;
+
+ALTER TABLE turq_inventory_transactions 
+ADD CONSTRAINT f_cur_id FOREIGN KEY (current_cards_id) REFERENCES turq_current_cards (id)
+    ON UPDATE RESTRICT ON DELETE RESTRICT;
+    
+ CREATE TABLE turq_settings( database_version varchar(50) NOT NULL);
+ insert into turq_settings values('0.7.0');
+
+**********************************************************************************

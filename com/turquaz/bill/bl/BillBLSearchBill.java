@@ -22,6 +22,18 @@ public class BillBLSearchBill
 			throw ex;
 		}
 	}
+	
+	public static List getBillInfo(TurqBill bill) throws Exception
+	{
+		try
+		{
+			return BillDALSearchBill.getBillInfo(bill);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
 	public static TurqBill getBillByBillId(Integer billId) throws Exception
 	{
