@@ -68,12 +68,12 @@ extends KDialog{
 		percent = 100;
 		layoutNeccessary = true;
 
-		addToolItem("print", "Drucken ...", IconSource.getImage("print"));
-		addToolItem("first", "erste Seite", IconSource.getImage("i2"));
-		addToolItem("prev", "vorherige Seite", IconSource.getImage("i3"));
-		addToolItem("next", "nächste Seite", IconSource.getImage("i4"));
-		addToolItem("last", "letzte Seite", IconSource.getImage("i5"));
-		Button close = addButtonRight("&Schließen","");
+		addToolItem("print", Messages.getString("PrintPreview.1"), IconSource.getImage("print")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		addToolItem("first", Messages.getString("PrintPreview.4"), IconSource.getImage("i2")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		addToolItem("prev", Messages.getString("PrintPreview.7"), IconSource.getImage("i3")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		addToolItem("next", Messages.getString("PrintPreview.10"), IconSource.getImage("i4")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		addToolItem("last", Messages.getString("PrintPreview.13"), IconSource.getImage("i5")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		Button close = addButtonRight(Messages.getString("PrintPreview.15"),""); //$NON-NLS-1$ //$NON-NLS-2$
 		//addButtonRight("Seite &einrichten","");
 		close.setFocus();
 		
@@ -86,20 +86,20 @@ extends KDialog{
 		Composite comp = new Composite(guiToolBarArea, SWT.BORDER);
 		comp.setLayout(new FillLayout());
 		guiPageLabel = new CLabel(comp, SWT.NONE);
-		guiPageLabel.setText(guiPageLabel.getText()+"        ");
+		guiPageLabel.setText(guiPageLabel.getText()+"        "); //$NON-NLS-1$
 		guiPageLabel.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 		adjustToToolBar(comp);
 		
 		guiZoom = new Combo(guiToolBarArea, SWT.BORDER | SWT.READ_ONLY);
-		guiZoom.add("500%");
-		guiZoom.add("200%");
-		guiZoom.add("100%");
-		guiZoom.add("80%");
-		guiZoom.add("50%");
-		guiZoom.add("20%");
-		guiZoom.add("passend");
+		guiZoom.add("500%"); //$NON-NLS-1$
+		guiZoom.add("200%"); //$NON-NLS-1$
+		guiZoom.add("100%"); //$NON-NLS-1$
+		guiZoom.add("80%"); //$NON-NLS-1$
+		guiZoom.add("50%"); //$NON-NLS-1$
+		guiZoom.add("20%"); //$NON-NLS-1$
+		guiZoom.add(Messages.getString("PrintPreview.24")); //$NON-NLS-1$
 		adjustToToolBar(guiZoom);
-		guiZoom.setToolTipText("Vorschaugröße");
+		guiZoom.setToolTipText(Messages.getString("PrintPreview.25")); //$NON-NLS-1$
 		guiZoom.select(2);
 		guiZoom.addSelectionListener(
 			new SelectionAdapter() {
@@ -114,7 +114,7 @@ extends KDialog{
 		guiScrollArea.setContent(guiImageLabel);
 		if (guiImageLabel.getImage()!= null) guiImageLabel.getImage().dispose();
 		guiImageLabel.setImage(getPageImage(page));
-		guiPageLabel.setText(" Seite "+page+" von "+ document.getNumOfPages()+ "       ");
+		guiPageLabel.setText(Messages.getString("PrintPreview.26")+page+Messages.getString("PrintPreview.27")+ document.getNumOfPages()+ "       "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		guiImageLabel.setSize(guiImageLabel.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		
 	}
@@ -177,7 +177,7 @@ extends KDialog{
 	
 	protected void onCombo(String text)
 	{
-		if (text.startsWith("passend"))
+		if (text.startsWith(Messages.getString("PrintPreview.29"))) //$NON-NLS-1$
 		{
 			long ypixel = Math.round(document.getPageHeight()/2.54*Display.getCurrent().getDPI().y);
 			long xpixel = Math.round(document.getPageWidth()/2.54*Display.getCurrent().getDPI().x);
@@ -194,7 +194,7 @@ extends KDialog{
 			try {
 				percent = Integer.parseInt(text);	
 			} catch (Exception e1) {
-				MsgBox.show("'"+text+"' ist keine gültige Zahl.");
+				MsgBox.show("'"+text+Messages.getString("PrintPreview.0")); //$NON-NLS-1$ //$NON-NLS-2$
 				guiZoom.select(3);
 			}
 		}
@@ -206,49 +206,49 @@ extends KDialog{
 	}
 	
 	protected void onToolItem(ToolItem toolitem, String name) {
-		if (name.equals("next"))
+		if (name.equals("next")) //$NON-NLS-1$
 		{
 			if (page < document.getNumOfPages())
 			{
 				page++;
 				if (guiImageLabel.getImage()!= null) guiImageLabel.getImage().dispose();
 				guiImageLabel.setImage(getPageImage(page));
-				guiPageLabel.setText(" Seite "+page+" von "+ document.getNumOfPages());
+				guiPageLabel.setText(Messages.getString("PrintPreview.2")+page+Messages.getString("PrintPreview.34")+ document.getNumOfPages()); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		}
-		else if (name.equals("prev"))
+		else if (name.equals("prev")) //$NON-NLS-1$
 		{
 			if (page > 1)
 			{
 				page--;
 				if (guiImageLabel.getImage()!= null) guiImageLabel.getImage().dispose();
 				guiImageLabel.setImage(getPageImage(page));
-				guiPageLabel.setText(" Seite "+page+" von "+ document.getNumOfPages());
+				guiPageLabel.setText(Messages.getString("PrintPreview.3")+page+Messages.getString("PrintPreview.37")+ document.getNumOfPages()); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		}
-		else if (name.equals("first"))
+		else if (name.equals("first")) //$NON-NLS-1$
 		{
 			page = 1;
 			if (guiImageLabel.getImage()!= null) guiImageLabel.getImage().dispose();
 			guiImageLabel.setImage(getPageImage(page));
-			guiPageLabel.setText(" Seite "+page+" von "+ document.getNumOfPages());
+			guiPageLabel.setText(Messages.getString("PrintPreview.39")+page+Messages.getString("PrintPreview.40")+ document.getNumOfPages()); //$NON-NLS-1$ //$NON-NLS-2$
 		}
-		else if (name.equals("last"))
+		else if (name.equals("last")) //$NON-NLS-1$
 		{
 			page = document.getNumOfPages();
 			if (guiImageLabel.getImage()!= null) guiImageLabel.getImage().dispose();
 			guiImageLabel.setImage(getPageImage(page));
-			guiPageLabel.setText(" Seite "+page+" von "+ document.getNumOfPages());
+			guiPageLabel.setText(Messages.getString("PrintPreview.42")+page+Messages.getString("PrintPreview.43")+ document.getNumOfPages()); //$NON-NLS-1$ //$NON-NLS-2$
 		}
-		else if (name.equals("print"))
+		else if (name.equals("print")) //$NON-NLS-1$
 		{
 			onPrint();
 		}
 	}
 	
 	protected void onButton(Button button, String buttonText) {
-		if (buttonText.startsWith("&Schlie")) onClose();
-		else if (buttonText.startsWith("Seite")) onPageSetup();
+		if (buttonText.startsWith(Messages.getString("PrintPreview.45"))) onClose(); //$NON-NLS-1$
+		else if (buttonText.startsWith(Messages.getString("PrintPreview.46"))) onPageSetup(); //$NON-NLS-1$
 	}
 	
 	protected void onClose()
@@ -282,12 +282,12 @@ extends KDialog{
 		if (data == null) return;
 		if (data.printToFile) {
 			FileDialog d = new FileDialog (guiShell, SWT.SAVE);
-			d.setFilterNames (new String [] {"All Files (*.*)"});
-			d.setFilterExtensions (new String [] {"*.*"}); //Windows wild cards
-			d.setFilterPath ("c:\\"); //Windows path
-			d.setFileName ("");
+			d.setFilterNames (new String [] {Messages.getString("PrintPreview.47")}); //$NON-NLS-1$
+			d.setFilterExtensions (new String [] {"*.*"}); //Windows wild cards //$NON-NLS-1$
+			d.setFilterPath ("c:\\"); //Windows path //$NON-NLS-1$
+			d.setFileName (""); //$NON-NLS-1$
 			d.open ();
-			data.fileName = d.getFilterPath() + "\\" + d.getFileName();
+			data.fileName = d.getFilterPath() + "\\" + d.getFileName(); //$NON-NLS-1$
 			
 		}
 	

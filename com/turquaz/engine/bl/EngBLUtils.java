@@ -12,12 +12,13 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
+import com.turquaz.engine.ui.component.SWTPTable;
+
 import de.kupzog.ktools.kprint.boxes.PDocument;
 import de.kupzog.ktools.kprint.boxes.PHLine;
 import de.kupzog.ktools.kprint.boxes.PTableBoxProvider;
 import de.kupzog.ktools.kprint.boxes.PTextBox;
 import de.kupzog.ktools.kprint.boxes.PVSpace;
-import de.kupzog.ktools.kprint.boxes.SWTPTable;
 import de.kupzog.ktools.kprint.gui.IconSource;
 import de.kupzog.ktools.kprint.gui.PrintPreview;
 

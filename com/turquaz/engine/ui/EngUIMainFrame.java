@@ -1476,7 +1476,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		}
 		else{
 			toolExportToExcel.setEnabled(false);
-			toolPrint.setEnabled(true);
+			toolPrint.setEnabled(false);
 		}
 				
 	}
@@ -1539,6 +1539,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			toolDelete.setEnabled(false);
 			toolSearch.setEnabled(false);
 			toolExportToExcel.setEnabled(false);
+			toolPrint.setEnabled(false);
 		}
 		mapList.remove(((CTabItem)evt.item).getControl().getClass().getName());
 		
