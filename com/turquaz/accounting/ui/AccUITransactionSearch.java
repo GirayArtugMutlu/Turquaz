@@ -246,7 +246,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 				tableColumnDefinition = new TableColumn(
 					tableTransactions,
 					SWT.NONE);
-				tableColumnDefinition.setText("Aç?klama");
+				tableColumnDefinition.setText(Messages.getString("AccUITransactionSearch.5")); //$NON-NLS-1$
 				tableColumnDefinition.setWidth(150);
 			}
 			GridLayout thisLayout = new GridLayout(1, true);
@@ -328,12 +328,12 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 	item = new TableItem(tableTransactions,SWT.NULL);
 	item.setData(accTrans);
 	
-	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
 	
 	
 	String transDate =formatter.format(accTrans.getTransactionsDate());
 	item.setText(new String[]{accTrans.getTurqAccountingTransactionType().getTypesName(),
-					accTrans.getTransactionDocumentNo(),transDate,"Cemcim selamlar",accTrans.getTransactionDescription()});
+					accTrans.getTransactionDocumentNo(),transDate,Messages.getString("AccUITransactionSearch.9"),accTrans.getTransactionDescription()}); //$NON-NLS-1$
 	
 	}
 	
