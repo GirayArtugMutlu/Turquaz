@@ -43,6 +43,7 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
+
 public class AccUIInitialTransaction extends org.eclipse.swt.widgets.Composite implements SecureComposite {
 
     {
