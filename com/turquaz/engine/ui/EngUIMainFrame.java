@@ -338,10 +338,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			}
 			{
 				comboModuleSelection = new CCombo(compModuleSelection, SWT.FLAT | SWT.READ_ONLY | SWT.H_SCROLL | SWT.V_SCROLL);
-				comboModuleSelection.setBackground(SWTResourceManager.getColor(
-					236,
-					233,
-					216));
+				comboModuleSelection.setBackground(SWTResourceManager.getColor(255, 255, 255));
 				GridData comboModuleSelectionLData = new GridData();
 				comboModuleSelection
 					.addSelectionListener(new SelectionAdapter() {
@@ -349,8 +346,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 						comboModuleSelectionWidgetSelected(evt);
 					}
 					});
-				comboModuleSelectionLData.widthHint = 70;
 				comboModuleSelectionLData.heightHint = 20;
+				comboModuleSelectionLData.horizontalAlignment = GridData.FILL;
+				comboModuleSelectionLData.grabExcessHorizontalSpace = true;
 				comboModuleSelection.setLayoutData(comboModuleSelectionLData);
 				
 			}
@@ -568,7 +566,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                                 0));
 
                         {
-                            toolNew = new ToolItem(toolbarMainTop, SWT.RADIO);
+                            toolNew = new ToolItem(toolbarMainTop, SWT.PUSH);
                             toolNew.setText(Messages
                                 .getString("EngUIMainFrame.8")); //$NON-NLS-1$
                             toolNew.setToolTipText(Messages
@@ -1283,7 +1281,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		    input.close();
 		    
 		   // props.put("logo","dfaf");
-		    props.put("logoURL",EngConfiguration.logoURL);
+		   props.put("logoURL",EngConfiguration.logoURL);
 		    
 		    FileOutputStream output = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$
 		    props.save(output,"Turquaz Configuration"); //$NON-NLS-1$

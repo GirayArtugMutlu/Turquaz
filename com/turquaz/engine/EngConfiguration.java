@@ -51,6 +51,9 @@ public class EngConfiguration {
 	   props = new Properties();
 	   props.load(fis);
 	   logoURL=props.getProperty("logoURL");
+	   if(logoURL ==null){
+	       logoURL ="";
+	   }
 	    
 	    }
 	    catch(Exception ex){
