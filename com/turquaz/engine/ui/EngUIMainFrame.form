@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Form style="SWT" ide="eclipse" builder="jigloo" version="2.7.2">
 <ExtraComponents>
-		<Component class="org.eclipse.swt.widgets.Menu" name="menu1" style="2">
+		<Component class="org.eclipse.swt.widgets.Menu" name="menuMain" style="2">
 			<Constraints>
 				<LayoutConstraint/>
 			</Constraints>
@@ -23,9 +23,12 @@
 			</Events>
 			<Properties>
 				<Property name="visible" type="boolean" value="true"/>
+				<Property name="externalizeStrings" type="boolean" value="true"/>
+				<Property name="externalizeStrings" type="boolean" value="true"/>
+				<Property name="externalizeStrings" type="boolean" value="true"/>
 			</Properties>
 			<SubComponents>
-				<Component class="org.eclipse.swt.widgets.MenuItem" name="fileMenuItem" style="64">
+				<Component class="org.eclipse.swt.widgets.MenuItem" name="mitFile" style="64">
 					<Constraints>
 						<Constraint class="org.eclipse.swt.layout.RowData"/>
 						<LayoutConstraint class="org.eclipse.swt.layout.RowData">
@@ -39,137 +42,11 @@
 					</Events>
 					<Properties>
 						<Property name="text" type="String" value="&amp;File"/>
+						<Property name="externalizeStrings" type="boolean" value="true"/>
+						<Property name="externalizeStrings" type="boolean" value="true"/>
 					</Properties>
-					<SubComponents>
-						<Component class="org.eclipse.swt.widgets.Menu" name="menu3" style="4">
-							<Constraints>
-								<LayoutConstraint/>
-							</Constraints>
-							<Layout class="Absolute">
-							</Layout>
-							<Events>
-							</Events>
-							<Properties>
-								<Property name="visible" type="boolean" value="true"/>
-							</Properties>
-							<SubComponents>
-								<Component class="org.eclipse.swt.widgets.MenuItem" name="newMenuItem" style="64">
-									<Constraints>
-										<LayoutConstraint/>
-									</Constraints>
-									<Layout class="Absolute">
-									</Layout>
-									<Events>
-									</Events>
-									<Properties>
-										<Property name="text" type="String" value="&amp;New"/>
-									</Properties>
-									<SubComponents>
-										<Component class="org.eclipse.swt.widgets.Menu" name="menu5" style="4">
-											<Constraints>
-												<LayoutConstraint/>
-											</Constraints>
-											<Layout class="Absolute">
-											</Layout>
-											<Events>
-											</Events>
-											<Properties>
-												<Property name="visible" type="boolean" value="true"/>
-											</Properties>
-											<SubComponents>
-												<Component class="org.eclipse.swt.widgets.MenuItem" name="projectItem" style="8">
-													<Constraints>
-														<LayoutConstraint/>
-													</Constraints>
-													<Layout class="Absolute">
-													</Layout>
-													<Events>
-													</Events>
-													<Properties>
-														<Property name="text" type="String" value="Project"/>
-													</Properties>
-												</Component>
-												<Component class="org.eclipse.swt.widgets.MenuItem" name="menuItem5" style="2">
-													<Constraints>
-														<LayoutConstraint/>
-													</Constraints>
-													<Layout class="Absolute">
-													</Layout>
-													<Events>
-													</Events>
-													<Properties>
-														<Property name="text" type="String" value=""/>
-													</Properties>
-												</Component>
-												<Component class="org.eclipse.swt.widgets.MenuItem" name="packageItem" style="8">
-													<Constraints>
-														<LayoutConstraint/>
-													</Constraints>
-													<Layout class="Absolute">
-													</Layout>
-													<Events>
-													</Events>
-													<Properties>
-														<Property name="text" type="String" value="Package"/>
-													</Properties>
-												</Component>
-											</SubComponents>
-										</Component>
-									</SubComponents>
-								</Component>
-								<Component class="org.eclipse.swt.widgets.MenuItem" name="separator11" style="2">
-									<Constraints>
-										<LayoutConstraint/>
-									</Constraints>
-									<Layout class="Absolute">
-									</Layout>
-									<Events>
-									</Events>
-									<Properties>
-										<Property name="text" type="String" value=""/>
-									</Properties>
-								</Component>
-								<Component class="org.eclipse.swt.widgets.MenuItem" name="closeMenuItem" style="8">
-									<Constraints>
-										<LayoutConstraint/>
-									</Constraints>
-									<Layout class="Absolute">
-									</Layout>
-									<Events>
-									</Events>
-									<Properties>
-										<Property name="text" type="String" value="&amp;Close"/>
-									</Properties>
-								</Component>
-								<Component class="org.eclipse.swt.widgets.MenuItem" name="saveMenuItem" style="8">
-									<Constraints>
-										<LayoutConstraint/>
-									</Constraints>
-									<Layout class="Absolute">
-									</Layout>
-									<Events>
-									</Events>
-									<Properties>
-										<Property name="text" type="String" value="&amp;Save"/>
-									</Properties>
-								</Component>
-								<Component class="org.eclipse.swt.widgets.MenuItem" name="exitMenuItem" style="8">
-									<Constraints>
-										<LayoutConstraint/>
-									</Constraints>
-									<Layout class="Absolute">
-									</Layout>
-									<Events>
-									</Events>
-									<Properties>
-										<Property name="text" type="String" value="&amp;Exit"/>
-									</Properties>
-								</Component>
-							</SubComponents>
-						</Component>
-					</SubComponents>
 				</Component>
-				<Component class="org.eclipse.swt.widgets.MenuItem" name="editMenuItem" style="64">
+				<Component class="org.eclipse.swt.widgets.MenuItem" name="mitEdit" style="64">
 					<Constraints>
 						<Constraint class="org.eclipse.swt.layout.RowData"/>
 						<LayoutConstraint class="org.eclipse.swt.layout.RowData">
@@ -183,97 +60,11 @@
 					</Events>
 					<Properties>
 						<Property name="text" type="String" value="&amp;Edit"/>
+						<Property name="externalizeStrings" type="boolean" value="true"/>
+						<Property name="externalizeStrings" type="boolean" value="true"/>
 					</Properties>
-					<SubComponents>
-						<Component class="org.eclipse.swt.widgets.Menu" name="menu15" style="4">
-							<Constraints>
-								<LayoutConstraint/>
-							</Constraints>
-							<Layout class="Absolute">
-							</Layout>
-							<Events>
-							</Events>
-							<Properties>
-								<Property name="visible" type="boolean" value="true"/>
-							</Properties>
-							<SubComponents>
-								<Component class="org.eclipse.swt.widgets.MenuItem" name="undoMenuItem" style="8">
-									<Constraints>
-										<LayoutConstraint/>
-									</Constraints>
-									<Layout class="Absolute">
-									</Layout>
-									<Events>
-									</Events>
-									<Properties>
-										<Property name="text" type="String" value="Undo"/>
-									</Properties>
-								</Component>
-								<Component class="org.eclipse.swt.widgets.MenuItem" name="redoMenuItem" style="8">
-									<Constraints>
-										<LayoutConstraint/>
-									</Constraints>
-									<Layout class="Absolute">
-									</Layout>
-									<Events>
-									</Events>
-									<Properties>
-										<Property name="text" type="String" value="Redo"/>
-									</Properties>
-								</Component>
-								<Component class="org.eclipse.swt.widgets.MenuItem" name="separator1" style="2">
-									<Constraints>
-										<LayoutConstraint/>
-									</Constraints>
-									<Layout class="Absolute">
-									</Layout>
-									<Events>
-									</Events>
-									<Properties>
-										<Property name="text" type="String" value="menuItem27"/>
-									</Properties>
-								</Component>
-								<Component class="org.eclipse.swt.widgets.MenuItem" name="cutMenuItem" style="8">
-									<Constraints>
-										<LayoutConstraint/>
-									</Constraints>
-									<Layout class="Absolute">
-									</Layout>
-									<Events>
-									</Events>
-									<Properties>
-										<Property name="text" type="String" value="Cut"/>
-									</Properties>
-								</Component>
-								<Component class="org.eclipse.swt.widgets.MenuItem" name="pasteMenuItem" style="8">
-									<Constraints>
-										<LayoutConstraint/>
-									</Constraints>
-									<Layout class="Absolute">
-									</Layout>
-									<Events>
-									</Events>
-									<Properties>
-										<Property name="text" type="String" value="Paste"/>
-									</Properties>
-								</Component>
-								<Component class="org.eclipse.swt.widgets.MenuItem" name="copyMenuItem" style="8">
-									<Constraints>
-										<LayoutConstraint/>
-									</Constraints>
-									<Layout class="Absolute">
-									</Layout>
-									<Events>
-									</Events>
-									<Properties>
-										<Property name="text" type="String" value="Copy"/>
-									</Properties>
-								</Component>
-							</SubComponents>
-						</Component>
-					</SubComponents>
 				</Component>
-				<Component class="org.eclipse.swt.widgets.MenuItem" name="helpMenuItem" style="64">
+				<Component class="org.eclipse.swt.widgets.MenuItem" name="mitHelp" style="64">
 					<Constraints>
 						<Constraint class="org.eclipse.swt.layout.RowData"/>
 						<LayoutConstraint class="org.eclipse.swt.layout.RowData">
@@ -288,35 +79,9 @@
 					<Properties>
 						<Property name="enabled" type="boolean" value="true"/>
 						<Property name="text" type="String" value="&amp;Help"/>
+						<Property name="externalizeStrings" type="boolean" value="true"/>
+						<Property name="externalizeStrings" type="boolean" value="true"/>
 					</Properties>
-					<SubComponents>
-						<Component class="org.eclipse.swt.widgets.Menu" name="menu20" style="4">
-							<Constraints>
-								<LayoutConstraint/>
-							</Constraints>
-							<Layout class="Absolute">
-							</Layout>
-							<Events>
-							</Events>
-							<Properties>
-								<Property name="visible" type="boolean" value="true"/>
-							</Properties>
-							<SubComponents>
-								<Component class="org.eclipse.swt.widgets.MenuItem" name="helpContMenuItem" style="8">
-									<Constraints>
-										<LayoutConstraint/>
-									</Constraints>
-									<Layout class="Absolute">
-									</Layout>
-									<Events>
-									</Events>
-									<Properties>
-										<Property name="text" type="String" value="Help &amp;Contents"/>
-									</Properties>
-								</Component>
-							</SubComponents>
-						</Component>
-					</SubComponents>
 				</Component>
 			</SubComponents>
 		</Component></ExtraComponents>
@@ -326,6 +91,7 @@
 				<LayoutConstraint/>
 			</Constraints>
 			<Properties>
+				<Property name="externalizeStrings" type="boolean" value="true"/>
 			</Properties>
 		</Component></NonVisualComponents>
 	<Component class="org.eclipse.swt.widgets.Composite" name="EngUIMainFrame" style="0">
@@ -350,9 +116,11 @@
 			<Property name="bounds" type="Rectangle">
 				<Rectangle value="[0, 0, 489, 349]"/>
 			</Property>
+			<Property name="externalizeStrings" type="boolean" value="true"/>
+			<Property name="externalizeStrings" type="boolean" value="true"/>
 		</Properties>
 		<SubComponents>
-			<Component class="org.eclipse.swt.widgets.Label" name="label1" style="258">
+			<Component class="org.eclipse.swt.widgets.Label" name="lblSeperator" style="258">
 				<Constraints>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -375,9 +143,11 @@
 						<Rectangle value="[0, 0, 489, 2]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
+					<Property name="externalizeStrings" type="boolean" value="true"/>
+					<Property name="externalizeStrings" type="boolean" value="true"/>
 				</Properties>
 			</Component>
-			<Component class="org.eclipse.swt.widgets.Composite" name="composite8" style="0">
+			<Component class="org.eclipse.swt.widgets.Composite" name="compMain" style="0">
 				<Constraints>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -410,9 +180,11 @@
 						<Rectangle value="[0, 2, 489, 327]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
+					<Property name="externalizeStrings" type="boolean" value="true"/>
+					<Property name="externalizeStrings" type="boolean" value="true"/>
 				</Properties>
 				<SubComponents>
-					<Component class="org.eclipse.swt.widgets.Label" name="label2" style="2">
+					<Component class="org.eclipse.swt.widgets.Label" name="lblSeperatorLeft" style="2">
 						<Constraints>
 							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -438,9 +210,11 @@
 								<Rectangle value="[0, 0, 2, 327]"/>
 							</Property>
 							<Property name="visible" type="boolean" value="true"/>
+							<Property name="externalizeStrings" type="boolean" value="true"/>
+							<Property name="externalizeStrings" type="boolean" value="true"/>
 						</Properties>
 					</Component>
-					<Component class="org.eclipse.swt.widgets.Composite" name="composite6" style="0">
+					<Component class="org.eclipse.swt.widgets.Composite" name="compMainIn" style="0">
 						<Constraints>
 							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -470,9 +244,13 @@
 								<Rectangle value="[4, 0, 483, 327]"/>
 							</Property>
 							<Property name="visible" type="boolean" value="true"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
 						</Properties>
 						<SubComponents>
-							<Component class="org.eclipse.swt.custom.SashForm" name="sashForm2" style="0">
+							<Component class="org.eclipse.swt.custom.SashForm" name="sashMainVertical" style="0">
 								<Constraints>
 									<Constraint class="org.eclipse.swt.layout.GridData"/>
 									<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -500,9 +278,15 @@
 										<Rectangle value="[1, 3, 481, 321]"/>
 									</Property>
 									<Property name="visible" type="boolean" value="true"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
 								</Properties>
 								<SubComponents>
-									<Component class="org.eclipse.swt.custom.SashForm" name="sashForm3" style="0">
+									<Component class="org.eclipse.swt.custom.SashForm" name="sashMainHorizontal" style="0">
 										<Constraints>
 											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint/>
@@ -519,9 +303,15 @@
 												<Rectangle value="[0, 0, 481, 321]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
+											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 										<SubComponents>
-											<Component class="org.eclipse.swt.custom.CTabFolder" name="cTabFolder2" style="2184">
+											<Component class="org.eclipse.swt.custom.CTabFolder" name="tabfldMenu" style="2184">
 												<Constraints>
 													<Constraint class="org.eclipse.swt.layout.FormData"/>
 													<LayoutConstraint/>
@@ -538,19 +328,31 @@
 														<Rectangle value="[0, 0, 236, 321]"/>
 													</Property>
 													<Property name="visible" type="boolean" value="true"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
 												</Properties>
 												<SubComponents>
-													<Component class="org.eclipse.swt.custom.CTabItem" name="cTabItem5" style="0">
+													<Component class="org.eclipse.swt.custom.CTabItem" name="tabModules" style="0">
 														<Constraints>
 															<LayoutConstraint/>
 														</Constraints>
 														<Events>
 														</Events>
 														<Properties>
-															<Property name="text" type="String" value="Modüller"/>
+															<Property name="text" type="String" value="Modules"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 														<SubComponents>
-															<Component class="org.eclipse.swt.widgets.Composite" name="composite10" style="0">
+															<Component class="org.eclipse.swt.widgets.Composite" name="compModulesTab" style="0">
 																<Constraints>
 																	<LayoutConstraint/>
 																</Constraints>
@@ -569,9 +371,15 @@
 																		<Dimension value="[230, 298]"/>
 																	</Property>
 																	<Property name="visible" type="boolean" value="true"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																</Properties>
 																<SubComponents>
-																	<Component class="org.eclipse.swt.widgets.Composite" name="composite11" style="2048">
+																	<Component class="org.eclipse.swt.widgets.Composite" name="compModuleSelection" style="2048">
 																		<Constraints>
 																			<Constraint class="org.eclipse.swt.layout.GridData"/>
 																			<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -602,9 +410,15 @@
 																				<Rectangle value="[0, 5, 230, 20]"/>
 																			</Property>
 																			<Property name="visible" type="boolean" value="true"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
 																		<SubComponents>
-																			<Component class="org.eclipse.swt.custom.CLabel" name="cLabel5" style="16384">
+																			<Component class="org.eclipse.swt.custom.CLabel" name="lblModuleSelection" style="16384">
 																				<Constraints>
 																					<Constraint verticalSpan=""/>
 																					<Constraint horizontalAlignment=""/>
@@ -622,7 +436,7 @@
 																				<Events>
 																				</Events>
 																				<Properties>
-																					<Property name="text" type="String" value="Aktif Modul"/>
+																					<Property name="text" type="String" value="Active Module"/>
 																					<Property name="size" type="Dimension">
 																						<Dimension value="[113, 16]"/>
 																					</Property>
@@ -630,9 +444,15 @@
 																						<Rectangle value="[0, 0, 113, 16]"/>
 																					</Property>
 																					<Property name="visible" type="boolean" value="true"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
-																			<Component class="org.eclipse.swt.custom.CCombo" name="cCombo1" style="8389384">
+																			<Component class="org.eclipse.swt.custom.CCombo" name="comboModuleSelection" style="8389384">
 																				<Constraints>
 																					<Constraint verticalSpan=""/>
 																					<Constraint horizontalAlignment=""/>
@@ -646,8 +466,8 @@
 																					<LayoutConstraint/>
 																				</Constraints>
 																				<Events>
-																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="cCombo1WidgetSelected"/>
-																					<EventHandler event="widgetDisposed" listener="org.eclipse.swt.events.DisposeListener" handler="cCombo1WidgetDisposed"/>
+																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="comboModuleSelectionWidgetSelected"/>
+																					<EventHandler event="widgetDisposed" listener="org.eclipse.swt.events.DisposeListener" handler="comboModuleSelectionWidgetDisposed"/>
 																				</Events>
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
@@ -660,11 +480,17 @@
 																					<Property name="bounds" type="Rectangle">
 																						<Rectangle value="[113, 0, 113, 16]"/>
 																					</Property>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
 																		</SubComponents>
 																	</Component>
-																	<Component class="org.eclipse.swt.widgets.Composite" name="composite4" style="0">
+																	<Component class="org.eclipse.swt.widgets.Composite" name="compModulesTree" style="0">
 																		<Constraints>
 																			<Constraint class="org.eclipse.swt.layout.GridData"/>
 																			<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -690,32 +516,50 @@
 																			<Property name="bounds" type="Rectangle">
 																				<Rectangle value="[0, 30, 230, 263]"/>
 																			</Property>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
 																		<SubComponents>
-																			<Component class="com.turquaz.inventory.ui.comp.InvUITree" name="inv_tree" style="0">
+																			<Component class="com.turquaz.inventory.ui.comp.InvUITree" name="treeInventory" style="0">
 																				<Constraints>
 																					<LayoutConstraint/>
 																				</Constraints>
 																				<Events>
-																					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="inv_treeMouseDoubleClick"/>
+																					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="treeInventoryMouseDoubleClick"/>
 																				</Events>
 																				<Properties>
 																					<Property name="bounds" type="Rectangle">
 																						<Rectangle value="[0, 0, 230, 263]"/>
 																					</Property>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
-																			<Component class="com.turquaz.admin.ui.comp.AdmUITree" name="admin_tree" style="0">
+																			<Component class="com.turquaz.admin.ui.comp.AdmUITree" name="treeAdmin" style="0">
 																				<Constraints>
 																					<LayoutConstraint/>
 																				</Constraints>
 																				<Events>
-																					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="admin_treeMouseDoubleClick"/>
+																					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="treeAdminMouseDoubleClick"/>
 																				</Events>
 																				<Properties>
 																					<Property name="bounds" type="Rectangle">
 																						<Rectangle value="[0, 0, 230, 263]"/>
 																					</Property>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
 																		</SubComponents>
@@ -724,17 +568,23 @@
 															</Component>
 														</SubComponents>
 													</Component>
-													<Component class="org.eclipse.swt.custom.CTabItem" name="cTabItem4" style="0">
+													<Component class="org.eclipse.swt.custom.CTabItem" name="tabFavorites" style="0">
 														<Constraints>
 															<LayoutConstraint/>
 														</Constraints>
 														<Events>
 														</Events>
 														<Properties>
-															<Property name="text" type="String" value="Sık Kullanılanlar"/>
+															<Property name="text" type="String" value="Favorites"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 														<SubComponents>
-															<Component class="org.eclipse.swt.widgets.Composite" name="composite7" style="0">
+															<Component class="org.eclipse.swt.widgets.Composite" name="compFavoritesTab" style="0">
 																<Constraints>
 																	<LayoutConstraint/>
 																</Constraints>
@@ -750,9 +600,15 @@
 																</Events>
 																<Properties>
 																	<Property name="visible" type="boolean" value="true"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																</Properties>
 																<SubComponents>
-																	<Component class="org.eclipse.swt.widgets.Composite" name="composite9" style="0">
+																	<Component class="org.eclipse.swt.widgets.Composite" name="compFavoritesSelection" style="0">
 																		<Constraints>
 																			<Constraint class="org.eclipse.swt.layout.GridData"/>
 																			<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -785,9 +641,15 @@
 																				<Rectangle value="[0, 0, 230, 24]"/>
 																			</Property>
 																			<Property name="visible" type="boolean" value="true"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
 																		<SubComponents>
-																			<Component class="org.eclipse.swt.custom.CLabel" name="cLabel4" style="0">
+																			<Component class="org.eclipse.swt.custom.CLabel" name="lblFavoritesTab" style="0">
 																				<Constraints>
 																					<Constraint class="org.eclipse.swt.layout.GridData"/>
 																					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -807,17 +669,23 @@
 																				<Events>
 																				</Events>
 																				<Properties>
-																					<Property name="text" type="String" value="Sık Kulanılan Nesneler"/>
+																					<Property name="text" type="String" value="Favorite Items"/>
 																					<Property name="size" type="Dimension">
-																						<Dimension value="[212, 20]"/>
+																						<Dimension value="[202, 20]"/>
 																					</Property>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[2, 2, 212, 20]"/>
+																						<Rectangle value="[2, 3, 202, 20]"/>
 																					</Property>
 																					<Property name="visible" type="boolean" value="true"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
-																			<Component class="org.eclipse.swt.widgets.ToolBar" name="toolBar5" style="8388608">
+																			<Component class="org.eclipse.swt.widgets.ToolBar" name="toolbarFavoritesTab" style="8388608">
 																				<Constraints>
 																					<Constraint class="org.eclipse.swt.layout.GridData"/>
 																					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -838,52 +706,24 @@
 																				</Events>
 																				<Properties>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[214, 9, 14, 7]"/>
+																						<Rectangle value="[204, 2, 24, 22]"/>
 																					</Property>
 																					<Property name="visible" type="boolean" value="true"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
-																				<SubComponents>
-																					<Component class="org.eclipse.swt.widgets.ToolItem" name="toolItem3" style="0">
-																						<Constraints>
-																							<LayoutConstraint/>
-																						</Constraints>
-																						<Layout class="Grid">
-																							<Property name="marginWidth" type="int" value="5"/>
-																							<Property name="marginHeight" type="int" value="5"/>
-																							<Property name="numColumns" type="int" value="1"/>
-																							<Property name="makeColumnsEqualWidth" type="boolean" value="true"/>
-																							<Property name="horizontalSpacing" type="int" value="5"/>
-																							<Property name="verticalSpacing" type="int" value="5"/>
-																						</Layout>
-																						<Events>
-																						</Events>
-																						<Properties>
-																							<Property name="text" type="String" value=""/>
-																						</Properties>
-																					</Component>
-																					<Component class="org.eclipse.swt.widgets.ToolItem" name="toolItem4" style="0">
-																						<Constraints>
-																							<LayoutConstraint/>
-																						</Constraints>
-																						<Layout class="Grid">
-																							<Property name="marginWidth" type="int" value="5"/>
-																							<Property name="marginHeight" type="int" value="5"/>
-																							<Property name="numColumns" type="int" value="1"/>
-																							<Property name="makeColumnsEqualWidth" type="boolean" value="true"/>
-																							<Property name="horizontalSpacing" type="int" value="5"/>
-																							<Property name="verticalSpacing" type="int" value="5"/>
-																						</Layout>
-																						<Events>
-																						</Events>
-																						<Properties>
-																							<Property name="text" type="String" value=""/>
-																						</Properties>
-																					</Component>
-																				</SubComponents>
 																			</Component>
 																		</SubComponents>
 																	</Component>
-																	<Component class="org.eclipse.swt.widgets.Tree" name="tree3" style="0">
+																	<Component class="org.eclipse.swt.widgets.Tree" name="treeFavorites" style="0">
 																		<Constraints>
 																			<Constraint class="org.eclipse.swt.layout.GridData"/>
 																			<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -908,6 +748,12 @@
 																				<Rectangle value="[0, 24, 230, 274]"/>
 																			</Property>
 																			<Property name="visible" type="boolean" value="true"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
 																	</Component>
 																</SubComponents>
@@ -916,7 +762,7 @@
 													</Component>
 												</SubComponents>
 											</Component>
-											<Component class="org.eclipse.swt.widgets.Composite" name="composite5" style="0">
+											<Component class="org.eclipse.swt.widgets.Composite" name="compMainInRight" style="0">
 												<Constraints>
 													<LayoutConstraint/>
 												</Constraints>
@@ -937,16 +783,22 @@
 													<Property name="bounds" type="Rectangle">
 														<Rectangle value="[239, 0, 242, 321]"/>
 													</Property>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
+													<Property name="externalizeStrings" type="boolean" value="false"/>
 												</Properties>
 												<SubComponents>
-													<Component class="org.eclipse.swt.widgets.CoolBar" name="coolBar1" style="0">
+													<Component class="org.eclipse.swt.widgets.CoolBar" name="coolbarRightTop" style="0">
 														<Constraints>
 															<Constraint class="org.eclipse.swt.layout.GridData"/>
 															<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 																<Property name="verticalAlignment" type="int" value="2"/>
 																<Property name="horizontalAlignment" type="int" value="4"/>
 																<Property name="widthHint" type="int" value="-1"/>
-																<Property name="heightHint" type="int" value="24"/>
+																<Property name="heightHint" type="int" value="7"/>
 																<Property name="horizontalIndent" type="int" value="0"/>
 																<Property name="horizontalSpan" type="int" value="1"/>
 																<Property name="verticalSpan" type="int" value="1"/>
@@ -960,15 +812,21 @@
 														</Events>
 														<Properties>
 															<Property name="size" type="Dimension">
-																<Dimension value="[232, 24]"/>
+																<Dimension value="[232, 7]"/>
 															</Property>
 															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[5, 5, 232, 24]"/>
+																<Rectangle value="[5, 5, 232, 7]"/>
 															</Property>
 															<Property name="visible" type="boolean" value="true"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 														<SubComponents>
-															<Component class="org.eclipse.swt.widgets.CoolItem" name="coolItem3" style="4">
+															<Component class="org.eclipse.swt.widgets.CoolItem" name="coolRightMain" style="4">
 																<Constraints>
 																	<LayoutConstraint/>
 																</Constraints>
@@ -976,18 +834,24 @@
 																</Events>
 																<Properties>
 																	<Property name="size" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[29, 7]"/>
 																	</Property>
 																	<Property name="preferredSize" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[29, 7]"/>
 																	</Property>
 																	<Property name="minimumSize" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[29, 7]"/>
 																	</Property>
 																	<Property name="text" type="String" value="coolItem3"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
+																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																</Properties>
 																<SubComponents>
-																	<Component class="org.eclipse.swt.widgets.ToolBar" name="toolBar2" style="8388608">
+																	<Component class="org.eclipse.swt.widgets.ToolBar" name="toolbarMainTop" style="8388608">
 																		<Constraints>
 																			<LayoutConstraint/>
 																		</Constraints>
@@ -1003,62 +867,80 @@
 																				<Dimension value="[20, 0]"/>
 																			</Property>
 																			<Property name="visible" type="boolean" value="true"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
+																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
 																		<SubComponents>
-																			<Component class="org.eclipse.swt.widgets.ToolItem" name="item_new" style="8">
+																			<Component class="org.eclipse.swt.widgets.ToolItem" name="toolNew" style="8">
 																				<Constraints>
 																					<LayoutConstraint/>
 																				</Constraints>
 																				<Events>
-																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="item_newWidgetSelected"/>
+																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolNewWidgetSelected"/>
 																				</Events>
 																				<Properties>
 																					<Property name="enabled" type="boolean" value="true"/>
-																					<Property name="image" type="Image">
-																						<Image name="\icons\new_wiz.gif"/>
-																					</Property>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
-																			<Component class="org.eclipse.swt.widgets.ToolItem" name="item_save" style="8">
+																			<Component class="org.eclipse.swt.widgets.ToolItem" name="toolSave" style="8">
 																				<Constraints>
 																					<LayoutConstraint/>
 																				</Constraints>
 																				<Events>
-																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="item_saveWidgetSelected"/>
+																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolSaveWidgetSelected"/>
 																				</Events>
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
-																					<Property name="image" type="Image">
-																						<Image name="\icons\save.gif"/>
-																					</Property>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
-																			<Component class="org.eclipse.swt.widgets.ToolItem" name="item_delete" style="8">
+																			<Component class="org.eclipse.swt.widgets.ToolItem" name="toolDelete" style="8">
 																				<Constraints>
 																					<LayoutConstraint/>
 																				</Constraints>
 																				<Events>
-																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="item_deleteWidgetSelected"/>
+																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolDeleteWidgetSelected"/>
 																				</Events>
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
-																					<Property name="image" type="Image">
-																						<Image name="\icons\delete_edit.gif"/>
-																					</Property>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
-																			<Component class="org.eclipse.swt.widgets.ToolItem" name="item_examine" style="8">
+																			<Component class="org.eclipse.swt.widgets.ToolItem" name="toolSearch" style="8">
 																				<Constraints>
 																					<LayoutConstraint/>
 																				</Constraints>
 																				<Events>
-																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="item_examineWidgetSelected"/>
+																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolSearchWidgetSelected"/>
 																				</Events>
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
-																					<Property name="image" type="Image">
-																						<Image name="\icons\run_exec.gif"/>
-																					</Property>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
 																		</SubComponents>
@@ -1067,7 +949,7 @@
 															</Component>
 														</SubComponents>
 													</Component>
-													<Component class="org.eclipse.swt.custom.CTabFolder" name="cTabFolder3" style="2056">
+													<Component class="org.eclipse.swt.custom.CTabFolder" name="tabfldMain" style="2056">
 														<Constraints>
 															<Constraint right=""/>
 															<Constraint width=""/>
@@ -1091,18 +973,24 @@
 														<Layout class="Absolute">
 														</Layout>
 														<Events>
-															<EventHandler event="itemClosed" listener="org.eclipse.swt.custom.CTabFolderListener" handler="cTabFolder3ItemClosed"/>
-															<EventHandler event="widgetDefaultSelected" listener="org.eclipse.swt.events.SelectionListener" handler="cTabFolder3WidgetDefaultSelected"/>
-															<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="cTabFolder3WidgetSelected"/>
+															<EventHandler event="itemClosed" listener="org.eclipse.swt.custom.CTabFolderListener" handler="tabfldMainİtemClosed"/>
+															<EventHandler event="widgetDefaultSelected" listener="org.eclipse.swt.events.SelectionListener" handler="tabfldMainWidgetDefaultSelected"/>
+															<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="tabfldMainWidgetSelected"/>
 														</Events>
 														<Properties>
 															<Property name="size" type="Dimension">
-																<Dimension value="[232, 282]"/>
+																<Dimension value="[232, 299]"/>
 															</Property>
 															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[5, 34, 232, 282]"/>
+																<Rectangle value="[5, 17, 232, 299]"/>
 															</Property>
 															<Property name="visible" type="boolean" value="true"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
+															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 													</Component>
 												</SubComponents>

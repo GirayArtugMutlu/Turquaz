@@ -85,70 +85,48 @@ import com.turquaz.inventory.ui.InvUITransactionAdd;
 
 
 public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
-	private AdmUITree admin_tree;
-	private CTabFolder cTabFolder3;
-	private InvUITree inv_tree;
-	private Composite composite4;
-	private ToolItem item_examine;
-	private ToolItem item_delete;
-	private ToolItem item_save;
-	private ToolItem item_new;
-	private ToolBar toolBar2;
-	private CoolItem coolItem3;
-	private CoolBar coolBar1;
-
-	private Composite composite5;
-	private MenuItem helpContMenuItem;
-	private Menu menu20;
-	private MenuItem copyMenuItem;
-	private MenuItem pasteMenuItem;
-	private MenuItem cutMenuItem;
-	private MenuItem separator1;
-	private MenuItem redoMenuItem;
-	private MenuItem undoMenuItem;
-	private Menu menu15;
-	private MenuItem editMenuItem;
-	private MenuItem saveMenuItem;
-	private MenuItem closeMenuItem;
-	private MenuItem separator11;
-	private MenuItem packageItem;
-	private MenuItem menuItem5;
-	private MenuItem projectItem;
-	private Menu menu5;
-	private MenuItem newMenuItem;
-	private Menu menu3;
-	private Tree tree3;
-	private ToolItem toolItem4;
-	private ToolItem toolItem3;
-	private ToolBar toolBar5;
-	private CLabel cLabel4;
-	private Composite composite9;
-	private Composite composite7;
-	private CTabItem cTabItem4;
-	private CCombo cCombo1;
-	private CLabel cLabel5;
-	private Composite composite11;
-	private Composite composite10;
-	private CTabItem cTabItem5;
-	private CTabFolder cTabFolder2;
-	private SashForm sashForm3;
-	private SashForm sashForm2;
-	private Composite composite6;
-	private Label label2;
-	private Composite composite8;
-	private Label label1;
+	private CTabFolder tabfldMain;
+	private ToolItem toolSearch;
+	private ToolItem toolDelete;
+	private ToolItem toolSave;
+	private ToolItem toolNew;
+	private ToolBar toolbarMainTop;
+	private CoolItem coolRightMain;
+	private CoolBar coolbarRightTop;
+	private Composite compMainInRight;
+	private Tree treeFavorites;
+	private ToolBar toolbarFavoritesTab;
+	private CLabel lblFavoritesTab;
+	private Composite compFavoritesSelection;
+	private Composite compFavoritesTab;
+	private CTabItem tabFavorites;
+	private AdmUITree treeAdmin;
+	private InvUITree treeInventory;
+	private Composite compModulesTree;
+	private CCombo comboModuleSelection;
+	private CLabel lblModuleSelection;
+	private Composite compModuleSelection;
+	private Composite compModulesTab;
+	private CTabItem tabModules;
+	private CTabFolder tabfldMenu;
+	private SashForm sashMainHorizontal;
+	private MenuItem mitEdit;
+	private SashForm sashMainVertical;
+	private Composite compMainIn;
+	private Label lblSeperatorLeft;
+	private Composite compMain;
+	private Label lblSeperator;
 	private MenuItem aboutMenuItem;
 	private MenuItem contentsMenuItem;
 	private Menu helpMenu;
-	private MenuItem helpMenuItem;
-	private MenuItem exitMenuItem;
+	private MenuItem mitHelp;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
 	private MenuItem newFileMenuItem;
 	private MenuItem openFileMenuItem;
 	private Menu fileMenu;
-	private MenuItem fileMenuItem;
-	private Menu menu1;
+	private MenuItem mitFile;
+	private Menu menuMain;
 
 	public EngUIMainFrame(Composite parent, int style) {
 		super(parent, style);
@@ -163,38 +141,36 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		try {
 			preInitGUI();
 	
-			label1 = new Label(this,SWT.SEPARATOR| SWT.HORIZONTAL);
-			composite8 = new Composite(this,SWT.NULL);
-			label2 = new Label(composite8,SWT.SEPARATOR);
-			composite6 = new Composite(composite8,SWT.NULL);
-			sashForm2 = new SashForm(composite6,SWT.NULL);
-			sashForm3 = new SashForm(sashForm2,SWT.NULL);
-			cTabFolder2 = new CTabFolder(sashForm3,SWT.TOP| SWT.BORDER);
-			cTabItem5 = new CTabItem(cTabFolder2,SWT.NULL);
-			composite10 = new Composite(cTabFolder2,SWT.NULL);
-			composite11 = new Composite(composite10,SWT.BORDER);
-			cLabel5 = new CLabel(composite11,SWT.LEFT);
-			cCombo1 = new CCombo(composite11,SWT.FLAT| SWT.READ_ONLY| SWT.H_SCROLL| SWT.V_SCROLL);
-			composite4 = new Composite(composite10,SWT.NULL);
-			inv_tree = new InvUITree(composite4,SWT.NULL);
-			admin_tree = new AdmUITree(composite4,SWT.NULL);
-			cTabItem4 = new CTabItem(cTabFolder2,SWT.NULL);
-			composite7 = new Composite(cTabFolder2,SWT.NULL);
-			composite9 = new Composite(composite7,SWT.NULL);
-			cLabel4 = new CLabel(composite9,SWT.NULL);
-			toolBar5 = new ToolBar(composite9,SWT.FLAT);
-			toolItem3 = new ToolItem(toolBar5,SWT.NULL);
-			toolItem4 = new ToolItem(toolBar5,SWT.NULL);
-			tree3 = new Tree(composite7,SWT.NULL);
-			composite5 = new Composite(sashForm3,SWT.NULL);
-			coolBar1 = new CoolBar(composite5,SWT.NULL);
-			coolItem3 = new CoolItem(coolBar1,SWT.DROP_DOWN);
-			toolBar2 = new ToolBar(coolBar1,SWT.FLAT);
-			item_new = new ToolItem(toolBar2,SWT.PUSH);
-			item_save = new ToolItem(toolBar2,SWT.PUSH);
-			item_delete = new ToolItem(toolBar2,SWT.PUSH);
-			item_examine = new ToolItem(toolBar2,SWT.PUSH);
-			cTabFolder3 = new CTabFolder(composite5,SWT.BORDER);
+			lblSeperator = new Label(this,SWT.SEPARATOR| SWT.HORIZONTAL);
+			compMain = new Composite(this,SWT.NULL);
+			lblSeperatorLeft = new Label(compMain,SWT.SEPARATOR);
+			compMainIn = new Composite(compMain,SWT.NULL);
+			sashMainVertical = new SashForm(compMainIn,SWT.NULL);
+			sashMainHorizontal = new SashForm(sashMainVertical,SWT.NULL);
+			tabfldMenu = new CTabFolder(sashMainHorizontal,SWT.TOP| SWT.BORDER);
+			tabModules = new CTabItem(tabfldMenu,SWT.NULL);
+			compModulesTab = new Composite(tabfldMenu,SWT.NULL);
+			compModuleSelection = new Composite(compModulesTab,SWT.BORDER);
+			lblModuleSelection = new CLabel(compModuleSelection,SWT.LEFT);
+			comboModuleSelection = new CCombo(compModuleSelection,SWT.FLAT| SWT.READ_ONLY| SWT.H_SCROLL| SWT.V_SCROLL);
+			compModulesTree = new Composite(compModulesTab,SWT.NULL);
+			treeInventory = new InvUITree(compModulesTree,SWT.NULL);
+			treeAdmin = new AdmUITree(compModulesTree,SWT.NULL);
+			tabFavorites = new CTabItem(tabfldMenu,SWT.NULL);
+			compFavoritesTab = new Composite(tabfldMenu,SWT.NULL);
+			compFavoritesSelection = new Composite(compFavoritesTab,SWT.NULL);
+			lblFavoritesTab = new CLabel(compFavoritesSelection,SWT.NULL);
+			toolbarFavoritesTab = new ToolBar(compFavoritesSelection,SWT.FLAT);
+			treeFavorites = new Tree(compFavoritesTab,SWT.NULL);
+			compMainInRight = new Composite(sashMainHorizontal,SWT.NULL);
+			coolbarRightTop = new CoolBar(compMainInRight,SWT.NULL);
+			coolRightMain = new CoolItem(coolbarRightTop,SWT.DROP_DOWN);
+			toolbarMainTop = new ToolBar(coolbarRightTop,SWT.FLAT);
+			toolNew = new ToolItem(toolbarMainTop,SWT.PUSH);
+			toolSave = new ToolItem(toolbarMainTop,SWT.PUSH);
+			toolDelete = new ToolItem(toolbarMainTop,SWT.PUSH);
+			toolSearch = new ToolItem(toolbarMainTop,SWT.PUSH);
+			tabfldMain = new CTabFolder(compMainInRight,SWT.BORDER);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(489,349));
 			this.addPaintListener( new PaintListener() {
@@ -203,354 +179,344 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				}
 			});
 	
-			GridData label1LData = new GridData();
-			label1LData.verticalAlignment = GridData.CENTER;
-			label1LData.horizontalAlignment = GridData.FILL;
-			label1LData.widthHint = -1;
-			label1LData.heightHint = -1;
-			label1LData.horizontalIndent = 0;
-			label1LData.horizontalSpan = 1;
-			label1LData.verticalSpan = 1;
-			label1LData.grabExcessHorizontalSpace = false;
-			label1LData.grabExcessVerticalSpace = false;
-			label1.setLayoutData(label1LData);
-			label1.setText("label1");
+			GridData lblSeperatorLData = new GridData();
+			lblSeperatorLData.verticalAlignment = GridData.CENTER;
+			lblSeperatorLData.horizontalAlignment = GridData.FILL;
+			lblSeperatorLData.widthHint = -1;
+			lblSeperatorLData.heightHint = -1;
+			lblSeperatorLData.horizontalIndent = 0;
+			lblSeperatorLData.horizontalSpan = 1;
+			lblSeperatorLData.verticalSpan = 1;
+			lblSeperatorLData.grabExcessHorizontalSpace = false;
+			lblSeperatorLData.grabExcessVerticalSpace = false;
+			lblSeperator.setLayoutData(lblSeperatorLData);
+			lblSeperator.setText(getExternalizedString("label1")); //$NON-NLS-1$
 	
-			GridData composite8LData = new GridData();
-			composite8LData.verticalAlignment = GridData.FILL;
-			composite8LData.horizontalAlignment = GridData.FILL;
-			composite8LData.widthHint = -1;
-			composite8LData.heightHint = -1;
-			composite8LData.horizontalIndent = 0;
-			composite8LData.horizontalSpan = 1;
-			composite8LData.verticalSpan = 1;
-			composite8LData.grabExcessHorizontalSpace = false;
-			composite8LData.grabExcessVerticalSpace = true;
-			composite8.setLayoutData(composite8LData);
-			composite8.setSize(new org.eclipse.swt.graphics.Point(489,327));
+			GridData compMainLData = new GridData();
+			compMainLData.verticalAlignment = GridData.FILL;
+			compMainLData.horizontalAlignment = GridData.FILL;
+			compMainLData.widthHint = -1;
+			compMainLData.heightHint = -1;
+			compMainLData.horizontalIndent = 0;
+			compMainLData.horizontalSpan = 1;
+			compMainLData.verticalSpan = 1;
+			compMainLData.grabExcessHorizontalSpace = false;
+			compMainLData.grabExcessVerticalSpace = true;
+			compMain.setLayoutData(compMainLData);
+			compMain.setSize(new org.eclipse.swt.graphics.Point(489,327));
 	
-			GridData label2LData = new GridData();
-			label2LData.verticalAlignment = GridData.FILL;
-			label2LData.horizontalAlignment = GridData.BEGINNING;
-			label2LData.widthHint = 2;
-			label2LData.heightHint = -1;
-			label2LData.horizontalIndent = 0;
-			label2LData.horizontalSpan = 1;
-			label2LData.verticalSpan = 1;
-			label2LData.grabExcessHorizontalSpace = false;
-			label2LData.grabExcessVerticalSpace = true;
-			label2.setLayoutData(label2LData);
-			label2.setText("label2");
-			label2.setSize(new org.eclipse.swt.graphics.Point(2,327));
+			GridData lblSeperatorLeftLData = new GridData();
+			lblSeperatorLeftLData.verticalAlignment = GridData.FILL;
+			lblSeperatorLeftLData.horizontalAlignment = GridData.BEGINNING;
+			lblSeperatorLeftLData.widthHint = 2;
+			lblSeperatorLeftLData.heightHint = -1;
+			lblSeperatorLeftLData.horizontalIndent = 0;
+			lblSeperatorLeftLData.horizontalSpan = 1;
+			lblSeperatorLeftLData.verticalSpan = 1;
+			lblSeperatorLeftLData.grabExcessHorizontalSpace = false;
+			lblSeperatorLeftLData.grabExcessVerticalSpace = true;
+			lblSeperatorLeft.setLayoutData(lblSeperatorLeftLData);
+			lblSeperatorLeft.setText(getExternalizedString("label2")); //$NON-NLS-1$
+			lblSeperatorLeft.setSize(new org.eclipse.swt.graphics.Point(2,327));
 	
-			GridData composite6LData = new GridData();
-			composite6LData.verticalAlignment = GridData.FILL;
-			composite6LData.horizontalAlignment = GridData.FILL;
-			composite6LData.widthHint = -1;
-			composite6LData.heightHint = -1;
-			composite6LData.horizontalIndent = 0;
-			composite6LData.horizontalSpan = 1;
-			composite6LData.verticalSpan = 1;
-			composite6LData.grabExcessHorizontalSpace = true;
-			composite6LData.grabExcessVerticalSpace = true;
-			composite6.setLayoutData(composite6LData);
+			GridData compMainInLData = new GridData();
+			compMainInLData.verticalAlignment = GridData.FILL;
+			compMainInLData.horizontalAlignment = GridData.FILL;
+			compMainInLData.widthHint = -1;
+			compMainInLData.heightHint = -1;
+			compMainInLData.horizontalIndent = 0;
+			compMainInLData.horizontalSpan = 1;
+			compMainInLData.verticalSpan = 1;
+			compMainInLData.grabExcessHorizontalSpace = true;
+			compMainInLData.grabExcessVerticalSpace = true;
+			compMainIn.setLayoutData(compMainInLData);
 	
-			GridData sashForm2LData = new GridData();
-			sashForm2LData.verticalAlignment = GridData.FILL;
-			sashForm2LData.horizontalAlignment = GridData.FILL;
-			sashForm2LData.widthHint = -1;
-			sashForm2LData.heightHint = -1;
-			sashForm2LData.horizontalIndent = 0;
-			sashForm2LData.horizontalSpan = 1;
-			sashForm2LData.verticalSpan = 1;
-			sashForm2LData.grabExcessHorizontalSpace = true;
-			sashForm2LData.grabExcessVerticalSpace = true;
-			sashForm2.setLayoutData(sashForm2LData);
-			sashForm2.setOrientation(SWT.VERTICAL);
-			sashForm2.setSize(new org.eclipse.swt.graphics.Point(481,321));
+			GridData sashMainVerticalLData = new GridData();
+			sashMainVerticalLData.verticalAlignment = GridData.FILL;
+			sashMainVerticalLData.horizontalAlignment = GridData.FILL;
+			sashMainVerticalLData.widthHint = -1;
+			sashMainVerticalLData.heightHint = -1;
+			sashMainVerticalLData.horizontalIndent = 0;
+			sashMainVerticalLData.horizontalSpan = 1;
+			sashMainVerticalLData.verticalSpan = 1;
+			sashMainVerticalLData.grabExcessHorizontalSpace = true;
+			sashMainVerticalLData.grabExcessVerticalSpace = true;
+			sashMainVertical.setLayoutData(sashMainVerticalLData);
+			sashMainVertical.setOrientation(SWT.VERTICAL);
+			sashMainVertical.setSize(new org.eclipse.swt.graphics.Point(481,321));
 	
-			sashForm3.setSize(new org.eclipse.swt.graphics.Point(481,321));
-			sashForm3.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,481,321));
+			sashMainHorizontal.setSize(new org.eclipse.swt.graphics.Point(481,321));
+			sashMainHorizontal.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,481,321));
 	
-			cTabFolder2.setSize(new org.eclipse.swt.graphics.Point(230,315));
-			cTabFolder2.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,236,321));
+			tabfldMenu.setSize(new org.eclipse.swt.graphics.Point(230,315));
+			tabfldMenu.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,236,321));
 	
-			cTabItem5.setControl(composite10);
-			cTabItem5.setText("Modüller");
+			tabModules.setControl(compModulesTab);
+			tabModules.setText("Modules");
 	
-			composite10.setSize(new org.eclipse.swt.graphics.Point(230,298));
+			compModulesTab.setSize(new org.eclipse.swt.graphics.Point(230,298));
 	
-			GridData composite11LData = new GridData();
-			composite11LData.verticalAlignment = GridData.CENTER;
-			composite11LData.horizontalAlignment = GridData.FILL;
-			composite11LData.widthHint = -1;
-			composite11LData.heightHint = 16;
-			composite11LData.horizontalIndent = 0;
-			composite11LData.horizontalSpan = 5;
-			composite11LData.verticalSpan = 1;
-			composite11LData.grabExcessHorizontalSpace = true;
-			composite11LData.grabExcessVerticalSpace = false;
-			composite11.setLayoutData(composite11LData);
-			composite11.setSize(new org.eclipse.swt.graphics.Point(226,16));
+			GridData compModuleSelectionLData = new GridData();
+			compModuleSelectionLData.verticalAlignment = GridData.CENTER;
+			compModuleSelectionLData.horizontalAlignment = GridData.FILL;
+			compModuleSelectionLData.widthHint = -1;
+			compModuleSelectionLData.heightHint = 16;
+			compModuleSelectionLData.horizontalIndent = 0;
+			compModuleSelectionLData.horizontalSpan = 5;
+			compModuleSelectionLData.verticalSpan = 1;
+			compModuleSelectionLData.grabExcessHorizontalSpace = true;
+			compModuleSelectionLData.grabExcessVerticalSpace = false;
+			compModuleSelection.setLayoutData(compModuleSelectionLData);
+			compModuleSelection.setSize(new org.eclipse.swt.graphics.Point(226,16));
 	
-			cLabel5.setText("Aktif Modul");
-			cLabel5.setSize(new org.eclipse.swt.graphics.Point(113,16));
-			cLabel5.setLayout(null);
+			lblModuleSelection.setText("Active Module");
+			lblModuleSelection.setSize(new org.eclipse.swt.graphics.Point(113,16));
+			lblModuleSelection.setLayout(null);
 	
-			final Color cCombo1background = new Color(Display.getDefault(),236,233,216);
-			cCombo1.setBackground(cCombo1background);
-			cCombo1.setSize(new org.eclipse.swt.graphics.Point(91,16));
-			cCombo1.addSelectionListener( new SelectionAdapter() {
+			final Color comboModuleSelectionbackground = new Color(Display.getDefault(),236,233,216);
+			comboModuleSelection.setBackground(comboModuleSelectionbackground);
+			comboModuleSelection.setSize(new org.eclipse.swt.graphics.Point(91,16));
+			comboModuleSelection.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
-					cCombo1WidgetSelected(evt);
+					comboModuleSelectionWidgetSelected(evt);
 				}
 			});
-			cCombo1.addDisposeListener( new DisposeListener() {
+			comboModuleSelection.addDisposeListener( new DisposeListener() {
 				public void widgetDisposed(DisposeEvent evt) {
-					cCombo1WidgetDisposed(evt);
+					comboModuleSelectionWidgetDisposed(evt);
 				}
 			});
-			FillLayout composite11Layout = new FillLayout(256);
-			composite11.setLayout(composite11Layout);
-			composite11Layout.type = SWT.HORIZONTAL;
-			composite11Layout.marginWidth = 0;
-			composite11Layout.marginHeight = 0;
-			composite11Layout.spacing = 0;
-			composite11.layout();
+			FillLayout compModuleSelectionLayout = new FillLayout(256);
+			compModuleSelection.setLayout(compModuleSelectionLayout);
+			compModuleSelectionLayout.type = SWT.HORIZONTAL;
+			compModuleSelectionLayout.marginWidth = 0;
+			compModuleSelectionLayout.marginHeight = 0;
+			compModuleSelectionLayout.spacing = 0;
+			compModuleSelection.layout();
 	
-			GridData composite4LData = new GridData();
-			composite4LData.verticalAlignment = GridData.FILL;
-			composite4LData.horizontalAlignment = GridData.FILL;
-			composite4LData.widthHint = -1;
-			composite4LData.heightHint = -1;
-			composite4LData.horizontalIndent = 0;
-			composite4LData.horizontalSpan = 1;
-			composite4LData.verticalSpan = 1;
-			composite4LData.grabExcessHorizontalSpace = false;
-			composite4LData.grabExcessVerticalSpace = true;
-			composite4.setLayoutData(composite4LData);
+			GridData compModulesTreeLData = new GridData();
+			compModulesTreeLData.verticalAlignment = GridData.FILL;
+			compModulesTreeLData.horizontalAlignment = GridData.FILL;
+			compModulesTreeLData.widthHint = -1;
+			compModulesTreeLData.heightHint = -1;
+			compModulesTreeLData.horizontalIndent = 0;
+			compModulesTreeLData.horizontalSpan = 1;
+			compModulesTreeLData.verticalSpan = 1;
+			compModulesTreeLData.grabExcessHorizontalSpace = false;
+			compModulesTreeLData.grabExcessVerticalSpace = true;
+			compModulesTree.setLayoutData(compModulesTreeLData);
 	
-			inv_tree.addMouseListener( new MouseAdapter() {
+			treeInventory.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
-					inv_treeMouseDoubleClick(evt);
+					treeInventoryMouseDoubleClick(evt);
 				}
 			});
 	
-			admin_tree.addMouseListener( new MouseAdapter() {
+			treeAdmin.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
-					admin_treeMouseDoubleClick(evt);
+					treeAdminMouseDoubleClick(evt);
 				}
 			});
-			StackLayout composite4Layout = new StackLayout();
-			composite4.setLayout(composite4Layout);
-			composite4Layout.marginWidth = 0;
-			composite4Layout.marginHeight = 0;
-			composite4Layout.topControl = null;
-			composite4.layout();
-			GridLayout composite10Layout = new GridLayout(1, true);
-			composite10.setLayout(composite10Layout);
-			composite10Layout.marginWidth = 0;
-			composite10Layout.marginHeight = 5;
-			composite10Layout.numColumns = 1;
-			composite10Layout.makeColumnsEqualWidth = true;
-			composite10Layout.horizontalSpacing = 5;
-			composite10Layout.verticalSpacing = 5;
-			composite10.layout();
+			StackLayout compModulesTreeLayout = new StackLayout();
+			compModulesTree.setLayout(compModulesTreeLayout);
+			compModulesTreeLayout.marginWidth = 0;
+			compModulesTreeLayout.marginHeight = 0;
+			compModulesTreeLayout.topControl = null;
+			compModulesTree.layout();
+			GridLayout compModulesTabLayout = new GridLayout(1, true);
+			compModulesTab.setLayout(compModulesTabLayout);
+			compModulesTabLayout.marginWidth = 0;
+			compModulesTabLayout.marginHeight = 5;
+			compModulesTabLayout.numColumns = 1;
+			compModulesTabLayout.makeColumnsEqualWidth = true;
+			compModulesTabLayout.horizontalSpacing = 5;
+			compModulesTabLayout.verticalSpacing = 5;
+			compModulesTab.layout();
 	
-			cTabItem4.setControl(composite7);
-			cTabItem4.setText("S?k Kullan?lanlar");
-	
-	
-			GridData composite9LData = new GridData();
-			composite9LData.verticalAlignment = GridData.CENTER;
-			composite9LData.horizontalAlignment = GridData.FILL;
-			composite9LData.widthHint = -1;
-			composite9LData.heightHint = 24;
-			composite9LData.horizontalIndent = 0;
-			composite9LData.horizontalSpan = 1;
-			composite9LData.verticalSpan = 1;
-			composite9LData.grabExcessHorizontalSpace = true;
-			composite9LData.grabExcessVerticalSpace = false;
-			composite9.setLayoutData(composite9LData);
-			composite9.setSize(new org.eclipse.swt.graphics.Point(230,24));
-	
-			GridData cLabel4LData = new GridData();
-			cLabel4LData.verticalAlignment = GridData.CENTER;
-			cLabel4LData.horizontalAlignment = GridData.FILL;
-			cLabel4LData.widthHint = -1;
-			cLabel4LData.heightHint = 20;
-			cLabel4LData.horizontalIndent = 0;
-			cLabel4LData.horizontalSpan = 1;
-			cLabel4LData.verticalSpan = 1;
-			cLabel4LData.grabExcessHorizontalSpace = true;
-			cLabel4LData.grabExcessVerticalSpace = false;
-			cLabel4.setLayoutData(cLabel4LData);
-			cLabel4.setText("S?k Kulan?lan Nesneler");
-			cLabel4.setSize(new org.eclipse.swt.graphics.Point(212,20));
-			cLabel4.setLayout(null);
-	
-			GridData toolBar5LData = new GridData();
-			toolBar5LData.verticalAlignment = GridData.CENTER;
-			toolBar5LData.horizontalAlignment = GridData.BEGINNING;
-			toolBar5LData.widthHint = -1;
-			toolBar5LData.heightHint = -1;
-			toolBar5LData.horizontalIndent = 0;
-			toolBar5LData.horizontalSpan = 1;
-			toolBar5LData.verticalSpan = 1;
-			toolBar5LData.grabExcessHorizontalSpace = false;
-			toolBar5LData.grabExcessVerticalSpace = false;
-			toolBar5.setLayoutData(toolBar5LData);
+			tabFavorites.setControl(compFavoritesTab);
+			tabFavorites.setText("Favorites");
 	
 	
-			toolBar5.setLayout(null);
-			GridLayout composite9Layout = new GridLayout(2, true);
-			composite9.setLayout(composite9Layout);
-			composite9Layout.marginWidth = 2;
-			composite9Layout.marginHeight = 2;
-			composite9Layout.numColumns = 2;
-			composite9Layout.makeColumnsEqualWidth = false;
-			composite9Layout.horizontalSpacing = 0;
-			composite9Layout.verticalSpacing = 0;
-			composite9.layout();
+			GridData compFavoritesSelectionLData = new GridData();
+			compFavoritesSelectionLData.verticalAlignment = GridData.CENTER;
+			compFavoritesSelectionLData.horizontalAlignment = GridData.FILL;
+			compFavoritesSelectionLData.widthHint = -1;
+			compFavoritesSelectionLData.heightHint = 24;
+			compFavoritesSelectionLData.horizontalIndent = 0;
+			compFavoritesSelectionLData.horizontalSpan = 1;
+			compFavoritesSelectionLData.verticalSpan = 1;
+			compFavoritesSelectionLData.grabExcessHorizontalSpace = true;
+			compFavoritesSelectionLData.grabExcessVerticalSpace = false;
+			compFavoritesSelection.setLayoutData(compFavoritesSelectionLData);
+			compFavoritesSelection.setSize(new org.eclipse.swt.graphics.Point(230,24));
 	
-			GridData tree3LData = new GridData();
-			tree3LData.verticalAlignment = GridData.FILL;
-			tree3LData.horizontalAlignment = GridData.FILL;
-			tree3LData.widthHint = -1;
-			tree3LData.heightHint = -1;
-			tree3LData.horizontalIndent = 0;
-			tree3LData.horizontalSpan = 1;
-			tree3LData.verticalSpan = 1;
-			tree3LData.grabExcessHorizontalSpace = false;
-			tree3LData.grabExcessVerticalSpace = true;
-			tree3.setLayoutData(tree3LData);
-			tree3.setSize(new org.eclipse.swt.graphics.Point(214,258));
-			GridLayout composite7Layout = new GridLayout(1, true);
-			composite7.setLayout(composite7Layout);
-			composite7Layout.marginWidth = 0;
-			composite7Layout.marginHeight = 0;
-			composite7Layout.numColumns = 1;
-			composite7Layout.makeColumnsEqualWidth = true;
-			composite7Layout.horizontalSpacing = 0;
-			composite7Layout.verticalSpacing = 0;
-			composite7.layout();
-			cTabFolder2.setLayout(null);
-			cTabFolder2.setSelection(0);
+			GridData lblFavoritesTabLData = new GridData();
+			lblFavoritesTabLData.verticalAlignment = GridData.CENTER;
+			lblFavoritesTabLData.horizontalAlignment = GridData.FILL;
+			lblFavoritesTabLData.widthHint = -1;
+			lblFavoritesTabLData.heightHint = 20;
+			lblFavoritesTabLData.horizontalIndent = 0;
+			lblFavoritesTabLData.horizontalSpan = 1;
+			lblFavoritesTabLData.verticalSpan = 1;
+			lblFavoritesTabLData.grabExcessHorizontalSpace = true;
+			lblFavoritesTabLData.grabExcessVerticalSpace = false;
+			lblFavoritesTab.setLayoutData(lblFavoritesTabLData);
+			lblFavoritesTab.setText("Favorite Items");
+			lblFavoritesTab.setSize(new org.eclipse.swt.graphics.Point(202,20));
+			lblFavoritesTab.setLayout(null);
 	
-			composite5.setSize(new org.eclipse.swt.graphics.Point(242,321));
-			composite5.setBounds(new org.eclipse.swt.graphics.Rectangle(239,0,242,321));
+			GridData toolbarFavoritesTabLData = new GridData();
+			toolbarFavoritesTabLData.verticalAlignment = GridData.CENTER;
+			toolbarFavoritesTabLData.horizontalAlignment = GridData.BEGINNING;
+			toolbarFavoritesTabLData.widthHint = -1;
+			toolbarFavoritesTabLData.heightHint = -1;
+			toolbarFavoritesTabLData.horizontalIndent = 0;
+			toolbarFavoritesTabLData.horizontalSpan = 1;
+			toolbarFavoritesTabLData.verticalSpan = 1;
+			toolbarFavoritesTabLData.grabExcessHorizontalSpace = false;
+			toolbarFavoritesTabLData.grabExcessVerticalSpace = false;
+			toolbarFavoritesTab.setLayoutData(toolbarFavoritesTabLData);
+			toolbarFavoritesTab.setLayout(null);
+			GridLayout compFavoritesSelectionLayout = new GridLayout(2, true);
+			compFavoritesSelection.setLayout(compFavoritesSelectionLayout);
+			compFavoritesSelectionLayout.marginWidth = 2;
+			compFavoritesSelectionLayout.marginHeight = 2;
+			compFavoritesSelectionLayout.numColumns = 2;
+			compFavoritesSelectionLayout.makeColumnsEqualWidth = false;
+			compFavoritesSelectionLayout.horizontalSpacing = 0;
+			compFavoritesSelectionLayout.verticalSpacing = 0;
+			compFavoritesSelection.layout();
 	
-			GridData coolBar1LData = new GridData();
-			coolBar1LData.verticalAlignment = GridData.CENTER;
-			coolBar1LData.horizontalAlignment = GridData.FILL;
-			coolBar1LData.widthHint = -1;
-			coolBar1LData.heightHint = 24;
-			coolBar1LData.horizontalIndent = 0;
-			coolBar1LData.horizontalSpan = 1;
-			coolBar1LData.verticalSpan = 1;
-			coolBar1LData.grabExcessHorizontalSpace = false;
-			coolBar1LData.grabExcessVerticalSpace = false;
-			coolBar1.setLayoutData(coolBar1LData);
-			coolBar1.setSize(new org.eclipse.swt.graphics.Point(232,24));
+			GridData treeFavoritesLData = new GridData();
+			treeFavoritesLData.verticalAlignment = GridData.FILL;
+			treeFavoritesLData.horizontalAlignment = GridData.FILL;
+			treeFavoritesLData.widthHint = -1;
+			treeFavoritesLData.heightHint = -1;
+			treeFavoritesLData.horizontalIndent = 0;
+			treeFavoritesLData.horizontalSpan = 1;
+			treeFavoritesLData.verticalSpan = 1;
+			treeFavoritesLData.grabExcessHorizontalSpace = false;
+			treeFavoritesLData.grabExcessVerticalSpace = true;
+			treeFavorites.setLayoutData(treeFavoritesLData);
+			treeFavorites.setSize(new org.eclipse.swt.graphics.Point(214,258));
+			GridLayout compFavoritesTabLayout = new GridLayout(1, true);
+			compFavoritesTab.setLayout(compFavoritesTabLayout);
+			compFavoritesTabLayout.marginWidth = 0;
+			compFavoritesTabLayout.marginHeight = 0;
+			compFavoritesTabLayout.numColumns = 1;
+			compFavoritesTabLayout.makeColumnsEqualWidth = true;
+			compFavoritesTabLayout.horizontalSpacing = 0;
+			compFavoritesTabLayout.verticalSpacing = 0;
+			compFavoritesTab.layout();
+			tabfldMenu.setLayout(null);
+			tabfldMenu.setSelection(0);
 	
-			coolItem3.setControl(toolBar2);
-			coolItem3.setSize(new org.eclipse.swt.graphics.Point(92,22));
-			coolItem3.setPreferredSize(new org.eclipse.swt.graphics.Point(92,22));
-			coolItem3.setMinimumSize(new org.eclipse.swt.graphics.Point(92,22));
-			coolItem3.setText("coolItem3");
+			compMainInRight.setSize(new org.eclipse.swt.graphics.Point(242,321));
+			compMainInRight.setBounds(new org.eclipse.swt.graphics.Rectangle(239,0,242,321));
 	
-			toolBar2.setLocation(new org.eclipse.swt.graphics.Point(20,0));
+			GridData coolbarRightTopLData = new GridData();
+			coolbarRightTopLData.verticalAlignment = GridData.CENTER;
+			coolbarRightTopLData.horizontalAlignment = GridData.FILL;
+			coolbarRightTopLData.widthHint = -1;
+			coolbarRightTopLData.heightHint = 7;
+			coolbarRightTopLData.horizontalIndent = 0;
+			coolbarRightTopLData.horizontalSpan = 1;
+			coolbarRightTopLData.verticalSpan = 1;
+			coolbarRightTopLData.grabExcessHorizontalSpace = false;
+			coolbarRightTopLData.grabExcessVerticalSpace = false;
+			coolbarRightTop.setLayoutData(coolbarRightTopLData);
+			coolbarRightTop.setSize(new org.eclipse.swt.graphics.Point(232,7));
 	
-			item_new.setEnabled(true);
-			final org.eclipse.swt.graphics.Image item_newimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/new_wiz.gif"));
-			item_new.setImage(item_newimage);
-			item_new.addSelectionListener( new SelectionAdapter() {
+			coolRightMain.setControl(toolbarMainTop);
+			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(29,7));
+			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(29,7));
+			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(29,7));
+			coolRightMain.setText("coolItem3");
+	
+			toolbarMainTop.setLocation(new org.eclipse.swt.graphics.Point(20,0));
+	
+			toolNew.setEnabled(true);
+			toolNew.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
-					item_newWidgetSelected(evt);
+					toolNewWidgetSelected(evt);
 				}
 			});
 	
-			final org.eclipse.swt.graphics.Image item_saveimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save.gif"));
-			item_save.setImage(item_saveimage);
-			item_save.addSelectionListener( new SelectionAdapter() {
+			toolSave.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
-					item_saveWidgetSelected(evt);
+					toolSaveWidgetSelected(evt);
 				}
 			});
 	
-			final org.eclipse.swt.graphics.Image item_deleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			item_delete.setImage(item_deleteimage);
-			item_delete.addSelectionListener( new SelectionAdapter() {
+			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
-					item_deleteWidgetSelected(evt);
+					toolDeleteWidgetSelected(evt);
 				}
 			});
 	
-			final org.eclipse.swt.graphics.Image item_examineimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/run_exec.gif"));
-			item_examine.setImage(item_examineimage);
-			item_examine.addSelectionListener( new SelectionAdapter() {
+			toolSearch.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
-					item_examineWidgetSelected(evt);
+					toolSearchWidgetSelected(evt);
 				}
 			});
-			toolBar2.setLayout(null);
-			coolBar1.setLayout(null);
+			toolbarMainTop.setLayout(null);
+			coolbarRightTop.setLayout(null);
 	
-			GridData cTabFolder3LData = new GridData();
-			cTabFolder3LData.verticalAlignment = GridData.FILL;
-			cTabFolder3LData.horizontalAlignment = GridData.FILL;
-			cTabFolder3LData.widthHint = -1;
-			cTabFolder3LData.heightHint = -1;
-			cTabFolder3LData.horizontalIndent = 0;
-			cTabFolder3LData.horizontalSpan = 1;
-			cTabFolder3LData.verticalSpan = 1;
-			cTabFolder3LData.grabExcessHorizontalSpace = false;
-			cTabFolder3LData.grabExcessVerticalSpace = true;
-			cTabFolder3.setLayoutData(cTabFolder3LData);
-			cTabFolder3.setSize(new org.eclipse.swt.graphics.Point(226,276));
-			cTabFolder3.addCTabFolderListener( new CTabFolderAdapter() {
+			GridData tabfldMainLData = new GridData();
+			tabfldMainLData.verticalAlignment = GridData.FILL;
+			tabfldMainLData.horizontalAlignment = GridData.FILL;
+			tabfldMainLData.widthHint = -1;
+			tabfldMainLData.heightHint = -1;
+			tabfldMainLData.horizontalIndent = 0;
+			tabfldMainLData.horizontalSpan = 1;
+			tabfldMainLData.verticalSpan = 1;
+			tabfldMainLData.grabExcessHorizontalSpace = false;
+			tabfldMainLData.grabExcessVerticalSpace = true;
+			tabfldMain.setLayoutData(tabfldMainLData);
+			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(226,293));
+			tabfldMain.addCTabFolderListener( new CTabFolderAdapter() {
 				public void itemClosed(CTabFolderEvent evt) {
-					cTabFolder3ItemClosed(evt);
+					tabfldMainÝtemClosed(evt);
 				}
 			});
-			cTabFolder3.addSelectionListener( new SelectionAdapter() {
+			tabfldMain.addSelectionListener( new SelectionAdapter() {
 				public void widgetDefaultSelected(SelectionEvent evt) {
-					cTabFolder3WidgetDefaultSelected(evt);
+					tabfldMainWidgetDefaultSelected(evt);
 				}
 				public void widgetSelected(SelectionEvent evt) {
-					cTabFolder3WidgetSelected(evt);
+					tabfldMainWidgetSelected(evt);
 				}
 			});
-			cTabFolder3.setLayout(null);
-			GridLayout composite5Layout = new GridLayout(1, true);
-			composite5.setLayout(composite5Layout);
-			composite5Layout.marginWidth = 5;
-			composite5Layout.marginHeight = 5;
-			composite5Layout.numColumns = 1;
-			composite5Layout.makeColumnsEqualWidth = true;
-			composite5Layout.horizontalSpacing = 5;
-			composite5Layout.verticalSpacing = 5;
-			composite5.layout();
-			sashForm3.setLayout(null);
-			sashForm2.setLayout(null);
-			GridLayout composite6Layout = new GridLayout(1, true);
-			composite6.setLayout(composite6Layout);
-			composite6Layout.marginWidth = 1;
-			composite6Layout.marginHeight = 3;
-			composite6Layout.numColumns = 1;
-			composite6Layout.makeColumnsEqualWidth = true;
-			composite6Layout.horizontalSpacing = 2;
-			composite6Layout.verticalSpacing = 2;
-			composite6.layout();
-			GridLayout composite8Layout = new GridLayout(3, true);
-			composite8.setLayout(composite8Layout);
-			composite8Layout.marginWidth = 0;
-			composite8Layout.marginHeight = 0;
-			composite8Layout.numColumns = 3;
-			composite8Layout.makeColumnsEqualWidth = false;
-			composite8Layout.horizontalSpacing = 2;
-			composite8Layout.verticalSpacing = 0;
-			composite8.layout();
+			tabfldMain.setLayout(null);
+			GridLayout compMainInRightLayout = new GridLayout(1, true);
+			compMainInRight.setLayout(compMainInRightLayout);
+			compMainInRightLayout.marginWidth = 5;
+			compMainInRightLayout.marginHeight = 5;
+			compMainInRightLayout.numColumns = 1;
+			compMainInRightLayout.makeColumnsEqualWidth = true;
+			compMainInRightLayout.horizontalSpacing = 5;
+			compMainInRightLayout.verticalSpacing = 5;
+			compMainInRight.layout();
+			sashMainHorizontal.setLayout(null);
+			sashMainVertical.setLayout(null);
+			GridLayout compMainInLayout = new GridLayout(1, true);
+			compMainIn.setLayout(compMainInLayout);
+			compMainInLayout.marginWidth = 1;
+			compMainInLayout.marginHeight = 3;
+			compMainInLayout.numColumns = 1;
+			compMainInLayout.makeColumnsEqualWidth = true;
+			compMainInLayout.horizontalSpacing = 2;
+			compMainInLayout.verticalSpacing = 2;
+			compMainIn.layout();
+			GridLayout compMainLayout = new GridLayout(3, true);
+			compMain.setLayout(compMainLayout);
+			compMainLayout.marginWidth = 0;
+			compMainLayout.marginHeight = 0;
+			compMainLayout.numColumns = 3;
+			compMainLayout.makeColumnsEqualWidth = false;
+			compMainLayout.horizontalSpacing = 2;
+			compMainLayout.verticalSpacing = 0;
+			compMain.layout();
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 0;
@@ -560,81 +526,22 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			thisLayout.horizontalSpacing = 0;
 			thisLayout.verticalSpacing = 0;
 			this.layout();
-			menu1 = new Menu(getShell(),SWT.BAR);
-			fileMenuItem = new MenuItem(menu1,SWT.CASCADE);
-			menu3 = new Menu(fileMenuItem);
-			newMenuItem = new MenuItem(menu3,SWT.CASCADE);
-			menu5 = new Menu(newMenuItem);
-			projectItem = new MenuItem(menu5,SWT.PUSH);
-			menuItem5 = new MenuItem(menu5,SWT.SEPARATOR);
-			packageItem = new MenuItem(menu5,SWT.PUSH);
-			separator11 = new MenuItem(menu3,SWT.SEPARATOR);
-			closeMenuItem = new MenuItem(menu3,SWT.PUSH);
-			saveMenuItem = new MenuItem(menu3,SWT.PUSH);
-			exitMenuItem = new MenuItem(menu3,SWT.PUSH);
-			editMenuItem = new MenuItem(menu1,SWT.CASCADE);
-			menu15 = new Menu(editMenuItem);
-			undoMenuItem = new MenuItem(menu15,SWT.PUSH);
-			redoMenuItem = new MenuItem(menu15,SWT.PUSH);
-			separator1 = new MenuItem(menu15,SWT.SEPARATOR);
-			cutMenuItem = new MenuItem(menu15,SWT.PUSH);
-			pasteMenuItem = new MenuItem(menu15,SWT.PUSH);
-			copyMenuItem = new MenuItem(menu15,SWT.PUSH);
-			helpMenuItem = new MenuItem(menu1,SWT.CASCADE);
-			menu20 = new Menu(helpMenuItem);
-			helpContMenuItem = new MenuItem(menu20,SWT.PUSH);
+			menuMain = new Menu(getShell(),SWT.BAR);
+			mitFile = new MenuItem(menuMain,SWT.CASCADE);
+			mitEdit = new MenuItem(menuMain,SWT.CASCADE);
+			mitHelp = new MenuItem(menuMain,SWT.CASCADE);
 	
-			getShell().setMenuBar(menu1);
+			getShell().setMenuBar(menuMain);
 	
-			fileMenuItem.setText("&File");
+			mitFile.setText(getExternalizedString("&File")); //$NON-NLS-1$
 	
-			fileMenuItem.setMenu(menu3);
+			mitEdit.setText(getExternalizedString("&Edit")); //$NON-NLS-1$
 	
-			newMenuItem.setText("&New");
-	
-			newMenuItem.setMenu(menu5);
-	
-			projectItem.setText("Project");
-	
-	
-			packageItem.setText("Package");
-	
-	
-			closeMenuItem.setText("&Close");
-	
-			saveMenuItem.setText("&Save");
-	
-			exitMenuItem.setText("&Exit");
-	
-			editMenuItem.setText("&Edit");
-	
-			editMenuItem.setMenu(menu15);
-	
-			undoMenuItem.setText("Undo");
-	
-			redoMenuItem.setText("Redo");
-	
-			separator1.setText("menuItem27");
-	
-			cutMenuItem.setText("Cut");
-	
-			pasteMenuItem.setText("Paste");
-	
-			copyMenuItem.setText("Copy");
-	
-			helpMenuItem.setEnabled(true);
-			helpMenuItem.setText("&Help");
-	
-			helpMenuItem.setMenu(menu20);
-	
-			helpContMenuItem.setText("Help &Contents");
+			mitHelp.setEnabled(true);
+			mitHelp.setText(getExternalizedString("&Help")); //$NON-NLS-1$
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					cCombo1background.dispose();
-					item_newimage.dispose();
-					item_saveimage.dispose();
-					item_deleteimage.dispose();
-					item_examineimage.dispose();
+					comboModuleSelectionbackground.dispose();
 				}
 			});
 	
@@ -651,21 +558,21 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
-		StackLayout compo4layout =(StackLayout)composite4.getLayout();
-		compo4layout.topControl = inv_tree;
-		sashForm3.setWeights(new int[]{25,75});
+		StackLayout compo4layout =(StackLayout)compModulesTree.getLayout();
+		compo4layout.topControl = treeInventory;
+		sashMainHorizontal.setWeights(new int[]{25,75});
 	    
-	    cCombo1.add("Stok");
-		cCombo1.add("Yönetici");
+	    comboModuleSelection.add("Stok");
+		comboModuleSelection.add("Yönetici");
 		
 			
-		cTabFolder3.setTabHeight(25);
-		cTabFolder3.setSelectionBackground(new Color[]{Display.getDefault().getSystemColor(SWT.COLOR_WHITE)},
+		tabfldMain.setTabHeight(25);
+		tabfldMain.setSelectionBackground(new Color[]{Display.getDefault().getSystemColor(SWT.COLOR_WHITE)},
 														   new int[]{});
-		item_new.setEnabled(false);
-		item_save.setEnabled(false);
-		item_delete.setEnabled(false);
-		item_examine.setEnabled(false);
+		toolNew.setEnabled(false);
+		toolSave.setEnabled(false);
+		toolDelete.setEnabled(false);
+		toolSearch.setEnabled(false);
 		
 		System.setProperty("company","1");
 		System.setProperty("user","admin");
@@ -710,28 +617,28 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 /** Auto-generated event handler method */
 	
 	/** Auto-generated event handler method */
-	protected void cCombo1WidgetSelected(SelectionEvent evt){
+	protected void comboModuleSelectionWidgetSelected(SelectionEvent evt){
 		
-		String text = cCombo1.getItem(cCombo1.getSelectionIndex());
-		StackLayout compo4layout =(StackLayout)composite4.getLayout();
+		String text = comboModuleSelection.getItem(comboModuleSelection.getSelectionIndex());
+		StackLayout compo4layout =(StackLayout)compModulesTree.getLayout();
 	
 			   if(text.equals("Stok"))
 			   {
-				compo4layout.topControl = inv_tree;
+				compo4layout.topControl = treeInventory;
 		
 			   }
 			   else if(text.equals("Yönetici")){
-				compo4layout.topControl = admin_tree;
+				compo4layout.topControl = treeAdmin;
 	
 			   }
-			   composite4.layout();
+			   compModulesTree.layout();
 	}
 
 
 
 	/** Auto-generated event handler method */
 	protected void tree4MouseDoubleClick(MouseEvent evt){
-		TreeItem item = inv_tree.getSelection()[0];
+		TreeItem item = treeInventory.getSelection()[0];
 		
 				if(item.getItemCount()==0){
 					if(item.getText().equals("Stok Kartý")){
@@ -748,23 +655,23 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	}
 	public void Form_Ekle (String Name, String classname){
 		
-				CTabItem yeni = new CTabItem (cTabFolder3,SWT.NULL );
+				CTabItem yeni = new CTabItem (tabfldMain,SWT.NULL );
 				yeni.setText(Name);
 			    try{
 			    
 				Class c = Class.forName(classname);
 				Composite comp =(Composite)c.getConstructor(new Class[]{Composite.class, int.class})
-				.newInstance(new Object[]{cTabFolder3,Integer.valueOf(SWT.NONE+"")});
+				.newInstance(new Object[]{tabfldMain,Integer.valueOf(SWT.NONE+"")});
 				yeni.setControl(comp);
-				cTabFolder3.setSelection(yeni);
+				tabfldMain.setSelection(yeni);
 				arrangeIcons();
 			    }
 			    catch(Exception ex){
 			    	ex.printStackTrace();
 			    }
 				
-				//Button tus = new Button(cTabFolder3,1);
-				//Form.setParent(cTabFolder3); 
+				//Button tus = new Button(tabfldMain,1);
+				//Form.setParent(tabfldMain); 
 			 
 				
 					
@@ -773,11 +680,11 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 
 	/** Auto-generated event handler method */
 	protected void cTabFolder3ÝtemClosed(CTabFolderEvent evt){
-		 if(cTabFolder3.getItemCount()==1){
-			item_new.setEnabled(false);
-			item_save.setEnabled(false);
-			item_delete.setEnabled(false);
-			item_examine.setEnabled(false);
+		 if(tabfldMain.getItemCount()==1){
+			toolNew.setEnabled(false);
+			toolSave.setEnabled(false);
+			toolDelete.setEnabled(false);
+			toolSearch.setEnabled(false);
 		 	
 		 }
 	}
@@ -790,68 +697,68 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	/** Auto-generated event handler method */
 	
 	private void arrangeIcons(){
-		Composite c = (Composite)cTabFolder3.getSelection().getControl();
+		Composite c = (Composite)tabfldMain.getSelection().getControl();
 				if(c instanceof SecureComposite){
 					int level = ((SecureComposite)c ).getPermission(c.getClass().getName());
 					System.out.println(level);
 					if(level==3)
 					{
-						item_new.setEnabled(true);
-						item_save.setEnabled(true);
-						item_delete.setEnabled(true);
-						item_examine.setEnabled(true);
+						toolNew.setEnabled(true);
+						toolSave.setEnabled(true);
+						toolDelete.setEnabled(true);
+						toolSearch.setEnabled(true);
 					}
 					else if (level==2){
-						item_new.setEnabled(true);
-						item_save.setEnabled(true);
-						item_delete.setEnabled(false);
-						item_examine.setEnabled(true);
+						toolNew.setEnabled(true);
+						toolSave.setEnabled(true);
+						toolDelete.setEnabled(false);
+						toolSearch.setEnabled(true);
 					}
 					else if(level==1){
-						item_new.setEnabled(true);
-						item_save.setEnabled(false);
-						item_delete.setEnabled(false);
-						item_examine.setEnabled(true);
+						toolNew.setEnabled(true);
+						toolSave.setEnabled(false);
+						toolDelete.setEnabled(false);
+						toolSearch.setEnabled(true);
 					}
 					else 
 					{
-						item_new.setEnabled(false);
-						item_save.setEnabled(false);
-						item_delete.setEnabled(false);
-						item_examine.setEnabled(false);
+						toolNew.setEnabled(false);
+						toolSave.setEnabled(false);
+						toolDelete.setEnabled(false);
+						toolSearch.setEnabled(false);
 				
 					}
 				}
 				else
 				{
-					item_new.setEnabled(false);
-					item_save.setEnabled(false);
-					item_delete.setEnabled(false);
-					item_examine.setEnabled(false);
+					toolNew.setEnabled(false);
+					toolSave.setEnabled(false);
+					toolDelete.setEnabled(false);
+					toolSearch.setEnabled(false);
 				
 				}
 		
 		
 	}
 	
-	protected void cTabFolder3WidgetSelected(SelectionEvent evt){
+	protected void tabfldMainWidgetSelected(SelectionEvent evt){
 	
 		arrangeIcons();
 	}
 
 	/** Auto-generated event handler method */
-	protected void cTabFolder3WidgetDefaultSelected(SelectionEvent evt){
+	protected void tabfldMainWidgetDefaultSelected(SelectionEvent evt){
 		arrangeIcons();
 	}
 
 	/** Auto-generated event handler method */
-	protected void cCombo1WidgetDisposed(DisposeEvent evt){
+	protected void comboModuleSelectionWidgetDisposed(DisposeEvent evt){
 		//TODO add your handler code here
 	}
 
 	/** Auto-generated event handler method */
-	protected void inv_treeMouseDoubleClick(MouseEvent evt){
-		TreeItem item = inv_tree.getSelection()[0];
+	protected void treeInventoryMouseDoubleClick(MouseEvent evt){
+		TreeItem item = treeInventory.getSelection()[0];
 		
 		if(item.getItemCount()==0){
 			Form_Ekle(item.getText(),item.getData().toString());
@@ -863,20 +770,20 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	}
 
 	/** Auto-generated event handler method */
-	protected void admin_treeMouseDoubleClick(MouseEvent evt){
-		TreeItem item = admin_tree.getSelection()[0];
+	protected void treeAdminMouseDoubleClick(MouseEvent evt){
+		TreeItem item = treeAdmin.getSelection()[0];
 		if(item.getItemCount()==0){
 			Form_Ekle(item.getText(),item.getData().toString());
 			}
 	}
 
 	/** Auto-generated event handler method */
-	protected void cTabFolder3ItemClosed(CTabFolderEvent evt){
-		if(cTabFolder3.getItemCount()==1){
-			item_new.setEnabled(false);
-			item_save.setEnabled(false);
-			item_delete.setEnabled(false);
-			item_examine.setEnabled(false);
+	protected void tabfldMainÝtemClosed(CTabFolderEvent evt){
+		if(tabfldMain.getItemCount()==1){
+			toolNew.setEnabled(false);
+			toolSave.setEnabled(false);
+			toolDelete.setEnabled(false);
+			toolSearch.setEnabled(false);
 		}
 	}
 
@@ -884,34 +791,51 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 
 	/** Auto-generated event handler method */
-	protected void item_newWidgetSelected(SelectionEvent evt){
-		Composite c = (Composite)cTabFolder3.getSelection().getControl();
+	protected void toolNewWidgetSelected(SelectionEvent evt){
+		Composite c = (Composite)tabfldMain.getSelection().getControl();
 		if(c instanceof SecureComposite){
 		((SecureComposite)c).newForm();
 		}
 	}
 
 	/** Auto-generated event handler method */
-	protected void item_saveWidgetSelected(SelectionEvent evt){
-		Composite c = (Composite)cTabFolder3.getSelection().getControl();
+	protected void toolSaveWidgetSelected(SelectionEvent evt){
+		Composite c = (Composite)tabfldMain.getSelection().getControl();
 		if(c instanceof SecureComposite){
 		((SecureComposite)c).save();
 		}
 	}
 
 	/** Auto-generated event handler method */
-	protected void item_deleteWidgetSelected(SelectionEvent evt){
-		Composite c = (Composite)cTabFolder3.getSelection().getControl();
+	protected void toolDeleteWidgetSelected(SelectionEvent evt){
+		Composite c = (Composite)tabfldMain.getSelection().getControl();
 		if(c instanceof SecureComposite){
 		((SecureComposite)c).delete();
 		}
 	}
 
 	/** Auto-generated event handler method */
-	protected void item_examineWidgetSelected(SelectionEvent evt){
-		Composite c = (Composite)cTabFolder3.getSelection().getControl();
+	protected void toolSearchWidgetSelected(SelectionEvent evt){
+		Composite c = (Composite)tabfldMain.getSelection().getControl();
 		if(c instanceof SecureComposite){
 		((SecureComposite)c).search();
+		}
+	}
+
+	/**
+	* This is an auto-generated method which you can alter,
+	* e.g. to point to a different property file, to modify the key by
+	* by prefixing the name of this class, etc.
+	*
+	* By default, it expects a file called "messages.properties" to exist in the
+	* current package, and returns the value of the property defined
+	* in that file for the given key
+	*/
+	public String getExternalizedString(String key){
+		try {
+			return java.util.ResourceBundle.getBundle("com.turquaz.engine.ui.EngUIMainFrameMessages").getString(key);
+		} catch (java.util.MissingResourceException e) {
+			return '!' + key + '!';
 		}
 	}
 }

@@ -125,7 +125,7 @@ public class InvUICardAdd extends SecureComposite {
 		try {
 			preInitGUI();
 	
-			cTabFolder1 = new CTabFolder(this,SWT.NULL);
+			cTabFolder1 = new CTabFolder(this,SWT.H_SCROLL| SWT.V_SCROLL);
 			cTabItem1 = new CTabItem(cTabFolder1,SWT.NULL);
 			comp_general_info = new Composite(cTabFolder1,SWT.NULL);
 			cLabel1 = new CLabel(comp_general_info,SWT.RIGHT);
