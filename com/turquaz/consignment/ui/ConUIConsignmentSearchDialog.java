@@ -86,9 +86,12 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 
 
 			dialogShell.setLayout(new GridLayout());
-			dialogShell.layout();
+		    dialogShell.layout();
 			dialogShell.pack();
-			dialogShell.setSize(587, 323);
+			dialogShell.setSize(566, 350);
+		
+		
+			
 			{
 				composite1 = new Composite(dialogShell, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
@@ -103,18 +106,19 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 					lblCurrentCard = new CLabel(composite1, SWT.NONE);
 					lblCurrentCard.setText("CurrentCard");
 					GridData lblCurrentCardLData = new GridData();
-					lblCurrentCardLData.widthHint = 109;
-					lblCurrentCardLData.heightHint = 18;
+					lblCurrentCardLData.widthHint = 96;
+					lblCurrentCardLData.heightHint = 16;
 					lblCurrentCard.setLayoutData(lblCurrentCardLData);
 				}
 				{
 					txtCurCard = new TextWithButton(composite1, SWT.NONE);
-					GridData txtCurCardLData = new GridData();
+				
 					txtCurCard.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
 							currentCardChoose();
 						}
 					});
+					GridData txtCurCardLData = new GridData();
 					txtCurCardLData.widthHint = 208;
 					txtCurCardLData.heightHint = 20;
 					txtCurCard.setLayoutData(txtCurCardLData);
@@ -239,6 +243,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 					tableColumnSpecialVatAmount.setWidth(100);
 				}
 			}
+			composite1.layout();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {

@@ -68,9 +68,11 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 					//handle the obtaining and disposing of resources
 					SWTResourceManager.registerResourceUser(dialogShell);
 				}
-
+				 dialogShell.setLayout(new GridLayout());
+				dialogShell.layout();
+				dialogShell.pack();
 				dialogShell.setSize(663, 593);
-			 dialogShell.setLayout(new GridLayout());
+			
 			 {
 				coolBar1 = new CoolBar(dialogShell, SWT.NONE);
 				GridData coolBar1LData = new GridData();
@@ -119,15 +121,11 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				compAddConsignmentLData.verticalAlignment = GridData.FILL;
 				compAddConsignmentLData.grabExcessVerticalSpace = true;
 				compAddConsignment.setLayoutData(compAddConsignmentLData);
-				compAddConsignment.getTxtDocumentNo().setBounds(129, 77, 112, 17);
-				compAddConsignment.getTableConsignmentRows().setBounds(60, 177, 557, 106);
-				compAddConsignment.getTxtBillDocumentNo().setBounds(372, 79, 137, 14);
+	            
 			}
 			
 			postInitGui();
-			
-			dialogShell.layout();
-			dialogShell.pack();
+		
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {

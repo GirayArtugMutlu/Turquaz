@@ -86,7 +86,7 @@ public class ConDALSearchConsignment {
 				" and consignment.consignmentsDate <= :endDate" +
 				" and consignment.consignmentsType ="+type +
 				" and consignment.consignmentsId <> -1 "+
-				" and consignment.turqBill.billsId <> -1";
+				" and consignment.turqBill.billsId =-1";
 		
 		
 		if (curCard!=null){

@@ -290,7 +290,7 @@ implements SecureComposite{
 			thisLayout.marginHeight = 0;
 			thisLayout.marginWidth = 0;
 			thisLayout.verticalSpacing = 0;
-			this.setSize(651, 526);
+			this.setSize(633, 527);
 			{
 				cTabFolder1 = new CTabFolder(this, SWT.NONE);
 				cTabFolder1.setSize(56, 25);
@@ -980,6 +980,7 @@ implements SecureComposite{
 	public void chooseConsignmentMouseUp(){
 	TurqConsignment cons = new ConUIConsignmentSearchDialog(this.getShell(),SWT.NULL).open();
 	
+	if(cons!=null){
 	txtCurrentCard.setText(cons.getTurqCurrentCard().getCardsCurrentCode()+" - "+cons.getTurqCurrentCard().getCardsName());
 	txtCurrentCard.setData(cons.getTurqCurrentCard());
 	txtDocumentNo.setText(cons.getConsignmentsBillDocumentNo());
@@ -992,7 +993,7 @@ implements SecureComposite{
 	comboConsignmentType.setText(type);
 	
 	
-	
+	}
 	
 	
 	

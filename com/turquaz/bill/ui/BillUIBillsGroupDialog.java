@@ -102,31 +102,11 @@ public class BillUIBillsGroupDialog extends  org.eclipse.swt.widgets.Dialog {
 				}
 
 			dialogShell.setText(getText());
-			tableCurGroups = new Table(dialogShell,SWT.FULL_SELECTION| SWT.H_SCROLL| SWT.V_SCROLL| SWT.BORDER);
-			tableColumnName = new TableColumn(tableCurGroups,SWT.NULL);
-			tableColumnDescription = new TableColumn(tableCurGroups,SWT.NULL);
+			
 	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(433,229));
+			dialogShell.setSize(434, 245);
 
-			GridData tableCurGroupsLData = new GridData();
-			tableCurGroupsLData.verticalAlignment = GridData.FILL;
-			tableCurGroupsLData.horizontalAlignment = GridData.FILL;
-			tableCurGroupsLData.grabExcessHorizontalSpace = true;
-			tableCurGroupsLData.grabExcessVerticalSpace = true;
-			tableCurGroups.setLayoutData(tableCurGroupsLData);
-			tableCurGroups.setHeaderVisible(true);
-			tableCurGroups.setLinesVisible(true);
-			tableCurGroups.addMouseListener( new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
-					tableCurGroupsMouseDoubleClick(evt);
-				}
-			});
-	
-			tableColumnName.setText(Messages.getString("CurUIGroupAddDialog.0")); //$NON-NLS-1$
-			tableColumnName.setWidth(150);
-	
-			tableColumnDescription.setText(Messages.getString("CurUIGroupAddDialog.1")); //$NON-NLS-1$
-			tableColumnDescription.setWidth(269);
+			
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
 			{
@@ -248,6 +228,29 @@ public class BillUIBillsGroupDialog extends  org.eclipse.swt.widgets.Dialog {
 				}
 				compGroupAddDialog.layout();
 			}
+			tableCurGroups = new Table(dialogShell,SWT.FULL_SELECTION| SWT.H_SCROLL| SWT.V_SCROLL| SWT.BORDER);
+			tableColumnName = new TableColumn(tableCurGroups,SWT.NULL);
+			tableColumnDescription = new TableColumn(tableCurGroups,SWT.NULL);
+			
+			GridData tableCurGroupsLData = new GridData();
+			tableCurGroupsLData.verticalAlignment = GridData.FILL;
+			tableCurGroupsLData.horizontalAlignment = GridData.FILL;
+			tableCurGroupsLData.grabExcessHorizontalSpace = true;
+			tableCurGroupsLData.grabExcessVerticalSpace = true;
+			tableCurGroups.setLayoutData(tableCurGroupsLData);
+			tableCurGroups.setHeaderVisible(true);
+			tableCurGroups.setLinesVisible(true);
+			tableCurGroups.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					tableCurGroupsMouseDoubleClick(evt);
+				}
+			});
+	
+			tableColumnName.setText(Messages.getString("CurUIGroupAddDialog.0")); //$NON-NLS-1$
+			tableColumnName.setWidth(150);
+	
+			tableColumnDescription.setText(Messages.getString("CurUIGroupAddDialog.1")); //$NON-NLS-1$
+			tableColumnDescription.setWidth(269);
 			dialogShellLayout.marginWidth = 0;
 			dialogShellLayout.marginHeight = 0;
 			dialogShellLayout.numColumns = 1;
