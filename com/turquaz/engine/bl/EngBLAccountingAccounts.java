@@ -21,8 +21,10 @@ package com.turquaz.engine.bl;
  */
 import java.util.HashMap;
 import java.util.List;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.tx.EngTXCommon;
 
 public class EngBLAccountingAccounts
 {
@@ -50,10 +52,10 @@ public class EngBLAccountingAccounts
 		try
 		{
 			
-			accountList = AccBLAccountAdd.getAllAccounts();
-			accountListForAccountPickers = AccBLAccountAdd.getAccountsForAccountPickers();
-			allAccountList = AccBLAccountAdd.getAllAccountsForAccountPickerAll();
-			cashAccountList = AccBLAccountAdd.getCashAccounts();
+			accountList = (List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAllAccounts",null);
+			accountListForAccountPickers = (List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAccountsForAccountPickers",null);
+			allAccountList = (List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAllAccountsForAccountPickerAll",null);
+			cashAccountList = (List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getCashAccounts",null);
 			accountMap.clear();
 			TurqAccountingAccount account;
 			for (int i = 0; i < accountList.size(); i++)
@@ -164,7 +166,11 @@ public class EngBLAccountingAccounts
 			{
 				_instance = new EngBLAccountingAccounts();
 			}
-			return AccBLAccountAdd.getLeafAccount(accountCode);
+			
+			HashMap argMap = new HashMap();
+			argMap.put(AccKeys.ACC_CODE_CRITERIA,accountCode);
+			TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getLeafAccount",argMap);
+			return account;
 		}
 		catch (Exception ex)
 		{
@@ -176,7 +182,10 @@ public class EngBLAccountingAccounts
 	{
 		try
 		{
-			return AccBLAccountAdd.getAllAccounts(accountCode);
+			HashMap argMap = new HashMap();
+			argMap.put(AccKeys.ACC_CODE_CRITERIA,accountCode);
+			TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAllAccounts",argMap);
+			return account;
 		}
 		catch (Exception ex)
 		{
