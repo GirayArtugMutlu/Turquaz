@@ -173,7 +173,7 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
     
     dialogShell.setLocation(location_X,location_Y);
     AccUIAccountsTree treeFactory = new AccUIAccountsTree();
-	accountTree = treeFactory.fillTree(-1,"",accountTree);
+	accountTree = treeFactory.fillTree(-1,filter,accountTree);
 			
 	
 	}

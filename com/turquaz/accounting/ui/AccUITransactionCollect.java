@@ -141,11 +141,29 @@ public class AccUITransactionCollect extends SecureComposite {
 			datePickerTransactionDate.setSize(new org.eclipse.swt.graphics.Point(157,25));
 			datePickerTransactionDate.layout();
 	
+			GridData lblDeptorLData = new GridData();
+			lblDeptorLData.verticalAlignment = GridData.CENTER;
+			lblDeptorLData.horizontalAlignment = GridData.BEGINNING;
+			lblDeptorLData.widthHint = -1;
+			lblDeptorLData.heightHint = -1;
+			lblDeptorLData.horizontalIndent = 0;
+			lblDeptorLData.horizontalSpan = 1;
+			lblDeptorLData.verticalSpan = 1;
+			lblDeptorLData.grabExcessHorizontalSpace = false;
+			lblDeptorLData.grabExcessVerticalSpace = false;
+			lblDeptor.setLayoutData(lblDeptorLData);
 			lblDeptor.setText("Deptor");
 	
 			GridData comboDeptorLData = new GridData();
+			comboDeptorLData.verticalAlignment = GridData.CENTER;
+			comboDeptorLData.horizontalAlignment = GridData.BEGINNING;
 			comboDeptorLData.widthHint = 136;
 			comboDeptorLData.heightHint = 16;
+			comboDeptorLData.horizontalIndent = 0;
+			comboDeptorLData.horizontalSpan = 1;
+			comboDeptorLData.verticalSpan = 1;
+			comboDeptorLData.grabExcessHorizontalSpace = false;
+			comboDeptorLData.grabExcessVerticalSpace = false;
 			comboDeptor.setLayoutData(comboDeptorLData);
 			comboDeptor.setSize(new org.eclipse.swt.graphics.Point(136,16));
 	

@@ -14,6 +14,7 @@ import java.util.List;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.current.dal.CurDALCurrentCardUpdate;
 import com.turquaz.current.dal.CurDALCurrentTransactionAdd;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
@@ -35,7 +36,7 @@ public class CurBLCurrentTransactionAdd {
 	
 	public void saveCurrentTransaction(TurqCurrentCard curCard,java.util.Date transDate, String documentNo,
 									BigDecimal totalDept, BigDecimal totalCredit,BigDecimal totalDiscount,
-									int type) throws Exception{
+									int type, TurqAccountingAccount account) throws Exception{
 		try{
 		TurqCurrency currency = new TurqCurrency();
         currency.setCurrenciesId(new Integer(1));
@@ -63,15 +64,18 @@ public class CurBLCurrentTransactionAdd {
         //Accounting Integration 
         //Eger bir Nakit hareketi ise Muhasebe kaydini yap
         if(type == 4){
-        	//Borc ya da alacak hareketi mi? 
-            //
-           
-           int accTransactionType = 1; //Tediye
-           
-           AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
-           Integer transId = blAcc.saveAccTransaction(transDate,documentNo,accTransactionType,4);
-           
-           
+       
+        
+        //Borc ya da alacak hareketi mi? 
+       
+        int accTransactionType = 1; //Tediye
+        
+        AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
+        
+        
+        Integer transId = blAcc.saveAccTransaction(transDate,documentNo,accTransactionType,4);
+      
+        
         }
         
         

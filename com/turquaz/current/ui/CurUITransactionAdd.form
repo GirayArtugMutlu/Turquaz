@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Form style="SWT" ide="eclipse" builder="jigloo" version="2.7.2">
 <NonVisualComponents>
-		<Component class="java.lang.Object" name="Non-visual components" style="0">
+		<Component class="java.lang.Object" name="object1" style="0">
 			<Constraints>
 				<LayoutConstraint/>
 			</Constraints>
+			<Properties>
+			</Properties>
 		</Component></NonVisualComponents>
 	<Component class="org.eclipse.swt.widgets.Composite" name="CurUITransactionAdd" style="0">
 		<Constraints>
@@ -22,15 +24,16 @@
 		</Events>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[529, 214]"/>
+				<Dimension value="[539, 242]"/>
 			</Property>
 			<Property name="bounds" type="Rectangle">
-				<Rectangle value="[0, 0, 529, 214]"/>
+				<Rectangle value="[0, 0, 539, 242]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
 			<Component class="org.eclipse.swt.custom.CLabel" name="lblCurrentCode" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -57,6 +60,7 @@
 			</Component>
 			<Component class="org.eclipse.swt.custom.CCombo" name="comboCurrentCode" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -83,6 +87,7 @@
 			</Component>
 			<Component class="org.eclipse.swt.custom.CLabel" name="lblDocumentNo" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -99,11 +104,15 @@
 				</Events>
 				<Properties>
 					<Property name="text" type="String" value="Document No"/>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[5, 31, 70, 19]"/>
+					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
 			</Component>
 			<Component class="org.eclipse.swt.widgets.Text" name="txtDocumentNo" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -130,6 +139,7 @@
 			</Component>
 			<Component class="org.eclipse.swt.custom.CLabel" name="comboType" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -146,10 +156,14 @@
 				</Events>
 				<Properties>
 					<Property name="text" type="String" value="Debit / Credit"/>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[5, 55, 70, 19]"/>
+					</Property>
 				</Properties>
 			</Component>
 			<Component class="org.eclipse.swt.custom.CCombo" name="comboTransType" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -176,6 +190,7 @@
 			</Component>
 			<Component class="org.eclipse.swt.custom.CLabel" name="lblAmount" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -202,6 +217,7 @@
 			</Component>
 			<Component class="com.turquaz.engine.ui.component.DecimalText" name="decTxtAmount" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -228,6 +244,7 @@
 			</Component>
 			<Component class="org.eclipse.swt.custom.CLabel" name="lblTransDate" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -254,6 +271,7 @@
 			</Component>
 			<Component class="com.turquaz.engine.ui.component.DatePicker" name="dateTransDate" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -274,6 +292,57 @@
 					</Property>
 					<Property name="bounds" type="Rectangle">
 						<Rectangle value="[112, 105, 152, 25]"/>
+					</Property>
+				</Properties>
+			</Component>
+			<Component class="org.eclipse.swt.custom.CLabel" name="lblCashAccount" style="0">
+				<Constraints>
+					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+						<Property name="verticalAlignment" type="int" value="2"/>
+						<Property name="horizontalAlignment" type="int" value="1"/>
+						<Property name="widthHint" type="int" value="72"/>
+						<Property name="heightHint" type="int" value="19"/>
+						<Property name="horizontalIndent" type="int" value="0"/>
+						<Property name="horizontalSpan" type="int" value="1"/>
+						<Property name="verticalSpan" type="int" value="1"/>
+						<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+						<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+					</LayoutConstraint>
+				</Constraints>
+				<Events>
+				</Events>
+				<Properties>
+					<Property name="text" type="String" value="Cash Account"/>
+					<Property name="size" type="Dimension">
+						<Dimension value="[72, 19]"/>
+					</Property>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[5, 135, 72, 19]"/>
+					</Property>
+				</Properties>
+			</Component>
+			<Component class="com.turquaz.accounting.ui.comp.AccountPicker" name="accPickerCashAccount" style="0">
+				<Constraints>
+					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+						<Property name="verticalAlignment" type="int" value="2"/>
+						<Property name="horizontalAlignment" type="int" value="1"/>
+						<Property name="widthHint" type="int" value="241"/>
+						<Property name="heightHint" type="int" value="19"/>
+						<Property name="horizontalIndent" type="int" value="0"/>
+						<Property name="horizontalSpan" type="int" value="1"/>
+						<Property name="verticalSpan" type="int" value="1"/>
+						<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+						<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+					</LayoutConstraint>
+				</Constraints>
+				<Events>
+				</Events>
+				<Properties>
+					<Property name="size" type="Dimension">
+						<Dimension value="[241, 19]"/>
+					</Property>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[112, 135, 241, 19]"/>
 					</Property>
 				</Properties>
 			</Component>

@@ -32,7 +32,7 @@
 			</Property>
 		</Properties>
 		<SubComponents>
-			<Component class="org.eclipse.swt.widgets.Text" name="text1" style="131072">
+			<Component class="org.eclipse.swt.widgets.Text" name="text1" style="16384">
 				<Constraints>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">

@@ -27,6 +27,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 
 	private Button button1;
 	private Text text1;
+	private String filter="";
 	public AccountPicker(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -40,7 +41,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 		try {
 			preInitGUI();
 	
-			text1 = new Text(this,SWT.RIGHT);
+			text1 = new Text(this,SWT.LEFT);
 			button1 = new Button(this,SWT.PUSH| SWT.CENTER| SWT.BORDER);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(397,22));
@@ -62,6 +63,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 			text1.setEnabled(false);
 			final Color text1background = new Color(Display.getDefault(),255,255,255);
 			text1.setBackground(text1background);
+	
 			GridData button1LData = new GridData();
 			button1LData.verticalAlignment = GridData.FILL;
 			button1LData.horizontalAlignment = GridData.BEGINNING;
@@ -119,12 +121,24 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 	/** Auto-generated event handler method */
 	protected void button1MouseUp(MouseEvent evt){
 	
-	Object[] obj = new AccUISearchAccountsDialog(this.getShell(),SWT.NULL).showDialog("");
+	Object[] obj = new AccUISearchAccountsDialog(this.getShell(),SWT.NULL).showDialog(filter);
 		if (obj[0] != null) {
 			this.setData(obj[1]);
 			text1.setText(obj[0].toString());
 		}
 	
 	
+	}
+	/**
+	 * @return Returns the filter.
+	 */
+	public String getFilter() {
+		return filter;
+	}
+	/**
+	 * @param filter The filter to set.
+	 */
+	public void setFilter(String filter) {
+		this.filter = filter;
 	}
 }

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Form style="SWT" ide="eclipse" builder="jigloo" version="2.7.2">
 <NonVisualComponents>
-		<Component class="java.lang.Object" name="Non-visual components" style="0">
+		<Component class="java.lang.Object" name="object1" style="0">
 			<Constraints>
 				<LayoutConstraint/>
 			</Constraints>
+			<Properties>
+			</Properties>
 		</Component></NonVisualComponents>
 	<Component class="org.eclipse.swt.widgets.Composite" name="AccUITransactionCollect" style="0">
 		<Constraints>
@@ -135,6 +137,7 @@
 			</Component>
 			<Component class="org.eclipse.swt.custom.CLabel" name="lblDeptor" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -151,11 +154,15 @@
 				</Events>
 				<Properties>
 					<Property name="text" type="String" value="Deptor"/>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[5, 59, 39, 19]"/>
+					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
 			</Component>
 			<Component class="org.eclipse.swt.custom.CCombo" name="comboDeptor" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
