@@ -805,7 +805,7 @@
 												<Dimension value="[51, 19]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 5, 51, 19]"/>
+												<Rectangle value="[5, 7, 51, 19]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -818,7 +818,7 @@
 												<Property name="widthHint" type="int" value="104"/>
 												<Property name="heightHint" type="int" value="16"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="3"/>
+												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
 												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
 												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
@@ -835,8 +835,30 @@
 												<Dimension value="[126, 16]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[150, 6, 126, 16]"/>
+												<Rectangle value="[150, 8, 126, 16]"/>
 											</Property>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.widgets.Button" name="btnUpdateUnits" style="16777224">
+										<Constraints>
+											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+												<Property name="verticalAlignment" type="int" value="2"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
+												<Property name="widthHint" type="int" value="-1"/>
+												<Property name="heightHint" type="int" value="-1"/>
+												<Property name="horizontalIndent" type="int" value="0"/>
+												<Property name="horizontalSpan" type="int" value="2"/>
+												<Property name="verticalSpan" type="int" value="1"/>
+												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+											</LayoutConstraint>
+										</Constraints>
+										<Events>
+											<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="btnUpdateUnitsMouseUp"/>
+										</Events>
+										<Properties>
+											<Property name="text" type="String" value="Update Units"/>
+											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardSecondaryUnits" style="0">
@@ -859,7 +881,7 @@
 										<Properties>
 											<Property name="text" type="String" value="Secondary Units"/>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 29, 84, 19]"/>
+												<Rectangle value="[5, 33, 84, 19]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -893,7 +915,7 @@
 												<Dimension value="[422, 139]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[150, 29, 422, 139]"/>
+												<Rectangle value="[150, 33, 422, 139]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
@@ -1110,7 +1132,7 @@
 												<Dimension value="[82, 25]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 183, 82, 25]"/>
+												<Rectangle value="[5, 187, 82, 25]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -1138,7 +1160,7 @@
 												<Dimension value="[61, 25]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[519, 183, 61, 25]"/>
+												<Rectangle value="[519, 187, 61, 25]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -1266,9 +1288,6 @@
 														</Events>
 														<Properties>
 															<Property name="text" type="String" value=""/>
-															<Property name="ımage" type="Image">
-																<Image name="\icons\plus.gif"/>
-															</Property>
 															<Property name="size" type="Dimension">
 																<Dimension value="[30, 24]"/>
 															</Property>
@@ -1298,9 +1317,6 @@
 														</Events>
 														<Properties>
 															<Property name="text" type="String" value=""/>
-															<Property name="ımage" type="Image">
-																<Image name="\icons\minus.gif"/>
-															</Property>
 															<Property name="size" type="Dimension">
 																<Dimension value="[30, 24]"/>
 															</Property>

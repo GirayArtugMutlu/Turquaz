@@ -78,6 +78,7 @@ import org.eclipse.swt.widgets.Label;
  * please visit www.cloudgarden.com for details.
  */
 public class InvUICardAdd extends SecureComposite {
+	private Button btnUpdateUnits;
 	private Button btnInvCardAddNew;
 	private Button btnInvCardGroupsPre;
 
@@ -260,6 +261,7 @@ public class InvUICardAdd extends SecureComposite {
 			compInvCardUnit = new Composite(tabfldInvCardAdd,SWT.NULL);
 			lblInvCardUnit = new CLabel(compInvCardUnit,SWT.NULL);
 			comboInvCardUnits = new CCombo(compInvCardUnit,SWT.FLAT| SWT.READ_ONLY);
+			btnUpdateUnits = new Button(compInvCardUnit,SWT.PUSH| SWT.CENTER);
 			lblInvCardSecondaryUnits = new CLabel(compInvCardUnit,SWT.NULL);
 			compInvCardAddSecondaryUnits = new Composite(compInvCardUnit,SWT.NULL);
 			tableInvCardAddAllUnits = new Table(compInvCardAddSecondaryUnits,SWT.SINGLE| SWT.V_SCROLL| SWT.BORDER);
@@ -708,7 +710,7 @@ public class InvUICardAdd extends SecureComposite {
 			comboInvCardUnitsLData.widthHint = 104;
 			comboInvCardUnitsLData.heightHint = 16;
 			comboInvCardUnitsLData.horizontalIndent = 0;
-			comboInvCardUnitsLData.horizontalSpan = 3;
+			comboInvCardUnitsLData.horizontalSpan = 1;
 			comboInvCardUnitsLData.verticalSpan = 1;
 			comboInvCardUnitsLData.grabExcessHorizontalSpace = false;
 			comboInvCardUnitsLData.grabExcessVerticalSpace = false;
@@ -717,6 +719,24 @@ public class InvUICardAdd extends SecureComposite {
 			final Color comboInvCardUnitsbackground = new Color(Display.getDefault(),255,255,255);
 			comboInvCardUnits.setBackground(comboInvCardUnitsbackground);
 			comboInvCardUnits.setSize(new org.eclipse.swt.graphics.Point(104,16));
+	
+			GridData btnUpdateUnitsLData = new GridData();
+			btnUpdateUnitsLData.verticalAlignment = GridData.CENTER;
+			btnUpdateUnitsLData.horizontalAlignment = GridData.BEGINNING;
+			btnUpdateUnitsLData.widthHint = -1;
+			btnUpdateUnitsLData.heightHint = -1;
+			btnUpdateUnitsLData.horizontalIndent = 0;
+			btnUpdateUnitsLData.horizontalSpan = 2;
+			btnUpdateUnitsLData.verticalSpan = 1;
+			btnUpdateUnitsLData.grabExcessHorizontalSpace = false;
+			btnUpdateUnitsLData.grabExcessVerticalSpace = false;
+			btnUpdateUnits.setLayoutData(btnUpdateUnitsLData);
+			btnUpdateUnits.setText("Update Units");
+			btnUpdateUnits.addMouseListener( new MouseAdapter() {
+				public void mouseUp(MouseEvent evt) {
+					btnUpdateUnitsMouseUp(evt);
+				}
+			});
 	
 			GridData lblInvCardSecondaryUnitsLData = new GridData();
 			lblInvCardSecondaryUnitsLData.verticalAlignment = GridData.BEGINNING;
@@ -941,9 +961,6 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardAddPricesAddPriceLData.grabExcessHorizontalSpace = false;
 			btnInvCardAddPricesAddPriceLData.grabExcessVerticalSpace = false;
 			btnInvCardAddPricesAddPrice.setLayoutData(btnInvCardAddPricesAddPriceLData);
-			final org.eclipse.swt.graphics.Image btnInvCardAddPricesAddPriceýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/plus.gif"));
-			btnInvCardAddPricesAddPriceýmage.setBackground(btnInvCardAddPricesAddPrice.getBackground());
-			btnInvCardAddPricesAddPrice.setImage(btnInvCardAddPricesAddPriceýmage);
 			btnInvCardAddPricesAddPrice.setSize(new org.eclipse.swt.graphics.Point(30,24));
 			btnInvCardAddPricesAddPrice.addMouseListener( new MouseAdapter() {
 				public void mouseDown(MouseEvent evt) {
@@ -962,9 +979,6 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardAddPricesRemovePriceLData.grabExcessHorizontalSpace = false;
 			btnInvCardAddPricesRemovePriceLData.grabExcessVerticalSpace = false;
 			btnInvCardAddPricesRemovePrice.setLayoutData(btnInvCardAddPricesRemovePriceLData);
-			final org.eclipse.swt.graphics.Image btnInvCardAddPricesRemovePriceýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif"));
-			btnInvCardAddPricesRemovePriceýmage.setBackground(btnInvCardAddPricesRemovePrice.getBackground());
-			btnInvCardAddPricesRemovePrice.setImage(btnInvCardAddPricesRemovePriceýmage);
 			btnInvCardAddPricesRemovePrice.setSize(new org.eclipse.swt.graphics.Point(30,24));
 			btnInvCardAddPricesRemovePrice.addMouseListener( new MouseAdapter() {
 				public void mouseDown(MouseEvent evt) {
@@ -1232,8 +1246,6 @@ public class InvUICardAdd extends SecureComposite {
 				public void widgetDisposed(DisposeEvent e) {
 					InvUICardAddbackground.dispose();
 					comboInvCardUnitsbackground.dispose();
-					btnInvCardAddPricesAddPriceýmage.dispose();
-					btnInvCardAddPricesRemovePriceýmage.dispose();
 				}
 			});
 	
@@ -1698,5 +1710,11 @@ public class InvUICardAdd extends SecureComposite {
 	protected void btnInvCardAddNewMouseUp(MouseEvent evt){
 		new InvUIGroupAddDialog(this.getShell(),SWT.NULL).open();
 		fillTableInvAllGroups();
+	}
+
+	/** Auto-generated event handler method */
+	protected void btnUpdateUnitsMouseUp(MouseEvent evt){
+	 new InvUIUnitAddDialog(this.getShell(),SWT.NULL).open();
+	 fillInvCardUnits();
 	}
 }

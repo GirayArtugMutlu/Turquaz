@@ -33,7 +33,7 @@
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
 						<Property name="widthHint" type="int" value="-1"/>
-						<Property name="heightHint" type="int" value="92"/>
+						<Property name="heightHint" type="int" value="70"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
 						<Property name="verticalSpan" type="int" value="1"/>
@@ -53,17 +53,17 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[252, 92]"/>
+						<Dimension value="[252, 70]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[0, 0, 252, 92]"/>
+						<Rectangle value="[0, 0, 252, 70]"/>
 					</Property>
 					<Property name="background" type="Color">
 						<Color red="ff" green="ff" blue="ff"/>
 					</Property>
 				</Properties>
 				<SubComponents>
-					<Component class="org.eclipse.swt.custom.CLabel" name="cLabel1" style="0">
+					<Component class="org.eclipse.swt.custom.CLabel" name="lblUnitName" style="0">
 						<Constraints>
 							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -91,7 +91,7 @@
 							<Property name="visible" type="boolean" value="true"/>
 						</Properties>
 					</Component>
-					<Component class="org.eclipse.swt.widgets.Text" name="txtGroupName" style="2048">
+					<Component class="org.eclipse.swt.widgets.Text" name="txtUnitName" style="2048">
 						<Constraints>
 							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -175,14 +175,14 @@
 							</Property>
 						</Properties>
 					</Component>
-					<Component class="org.eclipse.swt.widgets.Button" name="btnGroupAdd" style="16777224">
+					<Component class="org.eclipse.swt.widgets.Button" name="btnUnitAdd" style="16777224">
 						<Constraints>
 							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
-								<Property name="widthHint" type="int" value="-1"/>
-								<Property name="heightHint" type="int" value="-1"/>
+								<Property name="widthHint" type="int" value="31"/>
+								<Property name="heightHint" type="int" value="23"/>
 								<Property name="horizontalIndent" type="int" value="0"/>
 								<Property name="horizontalSpan" type="int" value="1"/>
 								<Property name="verticalSpan" type="int" value="1"/>
@@ -191,10 +191,13 @@
 							</LayoutConstraint>
 						</Constraints>
 						<Events>
-							<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="btnGroupAddMouseUp"/>
+							<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="btnUnitAddMouseUp"/>
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value="Add"/>
+							<Property name="size" type="Dimension">
+								<Dimension value="[31, 23]"/>
+							</Property>
 							<Property name="bounds" type="Rectangle">
 								<Rectangle value="[118, 30, 31, 23]"/>
 							</Property>
@@ -202,7 +205,7 @@
 					</Component>
 				</SubComponents>
 			</Component>
-			<Component class="org.eclipse.swt.widgets.Table" name="tableInvGroups" style="68352">
+			<Component class="org.eclipse.swt.widgets.Table" name="tableInvUnits" style="68352">
 				<Constraints>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -218,16 +221,16 @@
 					</LayoutConstraint>
 				</Constraints>
 				<Events>
-					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="tableInvGroupsMouseDoubleClick"/>
+					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="tableInvUnitsMouseDoubleClick"/>
 				</Events>
 				<Properties>
 					<Property name="headerVisible" type="boolean" value="true"/>
 					<Property name="linesVisible" type="boolean" value="true"/>
 					<Property name="size" type="Dimension">
-						<Dimension value="[252, 137]"/>
+						<Dimension value="[252, 159]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[0, 92, 252, 137]"/>
+						<Rectangle value="[0, 70, 252, 159]"/>
 					</Property>
 				</Properties>
 				<SubComponents>

@@ -125,6 +125,32 @@ public class InvBLCardAdd {
 		}
 		
 	}
+	public void saveUnit(String unitName)throws Exception {
+		try {
+			TurqInventoryUnit invUnit = new TurqInventoryUnit();
+			TurqCompany company = new TurqCompany();	
+			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
+			invUnit.setTurqCompany(company);
+			invUnit.setUnitsName(unitName);
+			//invGroup.setGroupsDescription(groupDescription);
+			
+			invUnit.setCreatedBy(System.getProperty("user"));
+			invUnit.setUpdatedBy(System.getProperty("user"));
+			invUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			invUnit.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			
+			cardAdd.saveOrUpdateObject(invUnit);	
+			
+			
+			
+
+		} catch (Exception ex) {
+			throw ex;
+		}
+		
+		
+		
+	}
 	public void saveInvGroup(String groupName, String groupDescription)
 			throws Exception {
 		try {
