@@ -42,6 +42,7 @@ import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
+import com.turquaz.inventory.ui.InvUICardAdd;
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
@@ -1340,6 +1341,10 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	}
 	
 	public void clearFields(){
+		 CurUICurrentCardAdd  curCard = new CurUICurrentCardAdd(this.getParent(),this.getStyle());
+		 CTabFolder tabfld = (CTabFolder)this.getParent();
+		 tabfld.getSelection().setControl(curCard);	 
+		 this.dispose();
 	}
 	
 	public boolean verifyFields()throws Exception{
@@ -1392,6 +1397,11 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	saveContact(cardId);
 	saveGroups(cardId);
 	
+	MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
+	msg.setMessage(Messages.getString("CurUICurrentCardAdd.14")); //$NON-NLS-1$
+	msg.open();
+	
+    clearFields();
 	
 	
 	}

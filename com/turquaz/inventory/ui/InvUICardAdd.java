@@ -1563,6 +1563,10 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				// Save the price list now.
 		        saveInvPrices(cardId);
 		        
+		    	MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
+				msg.setMessage(Messages.getString("InvUICardAdd.36")); //$NON-NLS-1$
+				msg.open();
+				
 		        clearFields();
 		        	         
 		         } catch (Exception ex) {
