@@ -1174,8 +1174,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						lblInvCardNameLData.widthHint = 96;
 						lblInvCardNameLData.heightHint = 20;
 						lblInvCardName.setLayoutData(lblInvCardNameLData);
-						lblInvCardName.setText(Messages
-							.getString("InvUICardAdd.1")); //$NON-NLS-1$
+						lblInvCardName.setText("Stok Cinsi"); //$NON-NLS-1$
 						lblInvCardName
 							.setSize(new org.eclipse.swt.graphics.Point(96, 20));
 					}
