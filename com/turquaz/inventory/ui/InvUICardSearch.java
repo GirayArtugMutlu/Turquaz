@@ -380,4 +380,8 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 		EngBLUtils.Export2Excel(tableSearcResults);
 		
 	}
+	public void printTable(){
+	    EngBLUtils.printTable(tableSearcResults,"Cari Kartlar");
+	    
+	}
 }

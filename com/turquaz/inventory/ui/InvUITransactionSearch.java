@@ -436,5 +436,9 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 		EngBLUtils.Export2Excel(tableTransactions);
 
 	}
+	public void printTable(){
+	    EngBLUtils.printTable(tableTransactions,"Stok Hareketleri");
+	    
+	}
 
 }

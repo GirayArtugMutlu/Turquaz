@@ -10,4 +10,5 @@ package com.turquaz.engine.ui.component;
 public interface SearchComposite {
 
 	public void exportToExcel();
+	public void printTable();
 }

@@ -381,4 +381,8 @@ public class BankUIBankCardSearch extends  Composite implements SecureComposite,
 		search();
 		}
 	}
+	public void printTable(){
+	    EngBLUtils.printTable(tableBankCards,"Banka Kartlar?");
+	    
+	}
 }

@@ -335,4 +335,8 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 		EngBLUtils.Export2Excel(tableInvUIWarehouses);
 		
 	}
+	public void printTable(){
+	    EngBLUtils.printTable(tableInvUIWarehouses,"Depolar");
+	    
+	}
 }
