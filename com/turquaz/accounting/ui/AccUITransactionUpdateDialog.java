@@ -40,9 +40,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.CoolItem;
 import com.cloudgarden.resource.SWTResourceManager;
-import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.accounting.Messages;
@@ -55,6 +53,7 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.viewers.ITableRow;
 
 
@@ -83,8 +82,6 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolPrint;
 	private ToolItem toolCancel;
 	private ToolBar toolBar1;
-	private CoolItem coolItem1;
-	private CoolBar coolBar1;
 	private Shell dialogShell;
 	private AccBLTransactionUpdate blTransUpdate = new AccBLTransactionUpdate();
 	private boolean updated=false;
@@ -113,38 +110,28 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
                 }
 
 			dialogShell.setText(Messages.getString("AccUITransactionUpdateDialog.9")); //$NON-NLS-1$
-			coolBar1 = new CoolBar(dialogShell,SWT.NULL);
-
-			dialogShell.setSize(666, 425);
-	
-			GridData coolBar1LData = new GridData();
-			coolBar1LData.horizontalAlignment = GridData.FILL;
-			coolBar1LData.heightHint = 44;
-			coolBar1.setLayoutData(coolBar1LData);
+			{
+				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
+				GridData toolBar1LData = new GridData();
+				toolBar1LData.horizontalAlignment = GridData.FILL;
+				toolBar1LData.grabExcessHorizontalSpace = true;
+				toolBar1.setLayoutData(toolBar1LData);
+			}
 			{
 				compTransactionAdd = new AccUITransactionAdd(
 					dialogShell,
 					SWT.NONE);
 				GridData compTransactionAddLData = new GridData();
-				compTransactionAddLData.widthHint = 567;
-				compTransactionAddLData.heightHint = 389;
+				compTransactionAddLData.grabExcessHorizontalSpace = true;
+				compTransactionAddLData.horizontalAlignment = GridData.FILL;
+				compTransactionAddLData.grabExcessVerticalSpace = true;
+				compTransactionAddLData.verticalAlignment = GridData.FILL;
 				compTransactionAdd.setLayoutData(compTransactionAddLData);
-				compTransactionAdd.setSize(new org.eclipse.swt.graphics.Point(
-					567,
-					389));
 				compTransactionAdd.getTxtDocumentNo().setBounds(80, 5, 150, 17);
 				compTransactionAdd.layout();
 			}
-            {
-                coolItem1 = new CoolItem(coolBar1, SWT.NONE);
-                coolItem1.setSize(45, 44);
-                coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 44));
-                coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 44));
-                {
-                    toolBar1 = new ToolBar(coolBar1, SWT.NONE);
-                    coolItem1.setControl(toolBar1);
-                }
-            }
+
+			dialogShell.setSize(667, 479);
 
             {
                 toolUpdate = new ToolItem(toolBar1, SWT.NONE);
@@ -232,6 +219,9 @@ public void showDialog(TurqAccountingTransaction accTrans){
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+		
+		EngUICommon.centreWindow(dialogShell);
+		
 		toolUpdate.setEnabled(false);
 		toolDelete.setEnabled(false);
 		    

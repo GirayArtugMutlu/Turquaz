@@ -170,9 +170,17 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 	        compChequeRoll.getDatePicker1().setDate(chequeRoll.getChequeRollsDate());
 	        compChequeRoll.getBankCardPicker().setText(chequeRoll.getTurqBanksCard().getBankCode()); 
 	       
-	        compChequeRoll.getToolItemDelete().setEnabled(false);
-	       
+	        compChequeRoll.getToolItemDelete().setEnabled(false);	       
 	        compChequeRoll.getToolItemAdd().setEnabled(false);
+	        
+	        if(chequeRoll.getTurqChequeRollAccountingAccount()==null)
+	        {
+	        	compChequeRoll.getAccountPicker().setData(null);
+	        }
+	        else
+	        {
+	        	compChequeRoll.getAccountPicker().setData(chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount());
+	        }
 	        
 	        TableItem item;
 	        
@@ -245,14 +253,14 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 	           
 	           
 //		          TODO cheq trans exRate
-	           CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,
-	           		null,
+	            	CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,
+	           		compChequeRoll.getAccountPicker().getTurqAccountingAccount(),
 					null,
 					compChequeRoll.getBankCardPicker().getTurqBank(),
 					compChequeRoll.getTxtRollNo().getText().trim(),
 					compChequeRoll.getDatePicker1().getDate(),
 					chequeList,
-					EngBLCommon.CHEQUE_TRANS_OUT_CURRENT,
+					EngBLCommon.CHEQUE_TRANS_OUT_BANK,
 					compChequeRoll.getBtnSumTotals().getSelection(),
 					EngBLCommon.getBaseCurrencyExchangeRate());
 	           EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$

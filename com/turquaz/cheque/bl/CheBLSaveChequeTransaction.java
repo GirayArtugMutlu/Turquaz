@@ -63,7 +63,6 @@ public class CheBLSaveChequeTransaction {
     public static void saveChequeRoll(TurqAccountingAccount rollAccount, TurqCurrentCard curCard,TurqBanksCard bankCard, String rollNo,Date rollDate,List chequeList, int rollType, boolean sumTransTotal, TurqCurrencyExchangeRate exchangeRate)throws Exception {
      
       try{
-          
       	
  
       	
@@ -430,6 +429,7 @@ public class CheBLSaveChequeTransaction {
     			
     			if(chequeAccount == null)
     			{
+    				System.out.println("daaf");
     				return ;
     			}
     			if(accountMap.containsKey(chequeAccount.getId()))

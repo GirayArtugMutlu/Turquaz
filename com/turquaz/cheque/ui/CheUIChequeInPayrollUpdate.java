@@ -174,6 +174,14 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
 	        compChequeRoll.getToolItemDelete().setEnabled(false);
 	        compChequeRoll.getToolItemUpdate().setEnabled(false);
 	        
+	        if(chequeRoll.getTurqChequeRollAccountingAccount()==null)
+	        {
+	        	compChequeRoll.getAccountPicker().setData(null);
+	        }
+	        else
+	        {
+	        	compChequeRoll.getAccountPicker().setData(chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount());
+	        }
 	        TableItem item;
 	        
 	        Iterator it = chequeRoll.getTurqChequeChequeInRolls().iterator();

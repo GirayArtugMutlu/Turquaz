@@ -216,7 +216,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
                 {
                     tableColumnNo = new TableColumn(tableCheques, SWT.NONE);
                     tableColumnNo.setText(Messages.getString("CheUIChequeInPayroll.6")); //$NON-NLS-1$
-                    tableColumnNo.setWidth(59);
+                    tableColumnNo.setWidth(72);
                 }
                 {
                     tableColumnDueDaye = new TableColumn(tableCheques, SWT.NONE);
@@ -410,4 +410,17 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
     public void setTxtRollNo(Text txtRollNo) {
         this.txtRollNo = txtRollNo;
     }
+    
+	/**
+	 * @return Returns the accountPicker.
+	 */
+	public AccountPicker getAccountPicker() {
+		return accountPicker;
+	}
+	/**
+	 * @param accountPicker The accountPicker to set.
+	 */
+	public void setAccountPicker(AccountPicker accountPicker) {
+		this.accountPicker = accountPicker;
+	}
 }

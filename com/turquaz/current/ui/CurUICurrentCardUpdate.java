@@ -53,8 +53,6 @@ import com.turquaz.engine.dal.TurqCurrentCardsPhone;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.CoolItem;
-import org.eclipse.swt.widgets.CoolBar;
 
 
 import org.eclipse.swt.events.SelectionAdapter;
@@ -66,6 +64,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
 import com.turquaz.engine.dal.TurqCurrentContact;
+import com.turquaz.engine.ui.EngUICommon;
 
 import com.cloudgarden.resource.SWTResourceManager;
 /**
@@ -103,8 +102,6 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
 	private ToolBar toolBarTop;
-	private CoolItem coolTop;
-	private CoolBar coolBarTop;
 	private TurqCurrentContact curContact=null;
 	private boolean updated=false;
 
@@ -131,72 +128,53 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 				}
 
 			dialogShell.setText(Messages.getString("CurUICurrentCardUpdate.1")); //$NON-NLS-1$
-			
 			{
-				coolBarTop = new CoolBar(dialogShell, SWT.NONE);
-				GridData coolBarTopLData = new GridData();
-				coolBarTopLData.horizontalAlignment = GridData.FILL;
-				coolBarTopLData.heightHint = 52;
-				coolBarTopLData.grabExcessHorizontalSpace = true;
-				coolBarTop.setLayoutData(coolBarTopLData);
+				toolBarTop = new ToolBar(dialogShell, SWT.NONE);
+				GridData toolBarTopLData = new GridData();
+				toolBarTopLData.horizontalAlignment = GridData.FILL;
+				toolBarTopLData.grabExcessHorizontalSpace = true;
+				toolBarTop.setLayoutData(toolBarTopLData);
 				{
-					coolTop = new CoolItem(coolBarTop, SWT.DROP_DOWN);
-					coolTop.setSize(172, 49);
-					coolTop
-						.setPreferredSize(new org.eclipse.swt.graphics.Point(
-							172,
-							49));
-					coolTop.setMinimumSize(new org.eclipse.swt.graphics.Point(
-						172,
-						49));
-					{
-						toolBarTop = new ToolBar(coolBarTop, SWT.SHADOW_OUT);
-						coolTop.setControl(toolBarTop);
-						{
-							toolUpdate = new ToolItem(toolBarTop, SWT.NONE);
-							toolUpdate.setEnabled(true);
-							toolUpdate.setText(Messages.getString("CurUICurrentCardUpdate.0")); //$NON-NLS-1$
-							toolUpdate.setImage(SWTResourceManager
-								.getImage("icons/save_edit.gif")); //$NON-NLS-1$
-							toolUpdate
-								.addSelectionListener(new SelectionAdapter() {
-									public void widgetSelected(
-										SelectionEvent evt) {
-										toolUpdateWidgetSelected(evt);
-									}
-								});
+					toolUpdate = new ToolItem(toolBarTop, SWT.NONE);
+					toolUpdate.setEnabled(true);
+					toolUpdate.setText(Messages
+						.getString("CurUICurrentCardUpdate.0")); //$NON-NLS-1$
+					toolUpdate.setImage(SWTResourceManager
+						.getImage("icons/save_edit.gif")); //$NON-NLS-1$
+					toolUpdate.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							toolUpdateWidgetSelected(evt);
 						}
-						{
-							toolDelete = new ToolItem(toolBarTop, SWT.NONE);
-							toolDelete.setEnabled(true);
-							toolDelete.setText(Messages.getString("CurUICurrentCardUpdate.16")); //$NON-NLS-1$
-							
-							toolDelete.setImage(SWTResourceManager
-								.getImage("icons/Delete16.gif")); //$NON-NLS-1$
-							toolDelete
-								.addSelectionListener(new SelectionAdapter() {
-									public void widgetSelected(
-										SelectionEvent evt) {
-										toolDeleteWidgetSelected(evt);
-									}
-								});
+					});
+				}
+				{
+					toolDelete = new ToolItem(toolBarTop, SWT.NONE);
+					toolDelete.setEnabled(true);
+					toolDelete.setText(Messages
+						.getString("CurUICurrentCardUpdate.16")); //$NON-NLS-1$
+
+					toolDelete.setImage(SWTResourceManager
+						.getImage("icons/Delete16.gif")); //$NON-NLS-1$
+					toolDelete.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							toolDeleteWidgetSelected(evt);
 						}
-						{
-							toolCancel = new ToolItem(toolBarTop, SWT.NONE);
-							toolCancel.setText(Messages.getString("CurUICurrentCardUpdate.19")); //$NON-NLS-1$
-							toolCancel.setImage(SWTResourceManager
-								.getImage("icons/cancel.jpg")); //$NON-NLS-1$
-							toolCancel
-								.addSelectionListener(new SelectionAdapter() {
-									public void widgetSelected(
-										SelectionEvent evt) {
-										dialogShell.close();
-									}
-								});
+					});
+				}
+				{
+					toolCancel = new ToolItem(toolBarTop, SWT.NONE);
+					toolCancel.setText(Messages
+						.getString("CurUICurrentCardUpdate.19")); //$NON-NLS-1$
+					toolCancel.setImage(SWTResourceManager
+						.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+					toolCancel.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							dialogShell.close();
 						}
-					}
+					});
 				}
 			}
+			
 			
 			cTabFolder1 = new CTabFolder(dialogShell,SWT.NULL);
 			cTabItem1 = new CTabItem(cTabFolder1,SWT.NULL);
@@ -209,7 +187,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			tableColumnBalanceCredit = new TableColumn(tableCurrentBalances,SWT.NULL);
 			tableColumnBalanceDept = new TableColumn(tableCurrentBalances,SWT.NULL);
 	
-			dialogShell.setSize(712, 509);
+			dialogShell.setSize(736, 509);
 
 			GridData cTabFolder1LData = new GridData();
 			cTabFolder1LData.verticalAlignment = GridData.FILL;
@@ -284,6 +262,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
 		try{
+			EngUICommon.centreWindow(dialogShell);
 			toolUpdate.setEnabled(false);
 			toolDelete.setEnabled(false);
 			    
