@@ -124,11 +124,16 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 		else return null;
 		
 	}
-
+	
+	public void setDate(Date date){
+		text1.setText(formatter.format(date));
+		this.setData(date);	
+	}
+	 
 	/** Auto-generated event handler method */
 	protected void button1MouseUp(MouseEvent evt){
+		final SWTCalendarDialog cal = new SWTCalendarDialog(this.getDisplay());
 	
-		 final SWTCalendarDialog cal = new SWTCalendarDialog(this.getDisplay());
 		 
          final Composite comp = this;
           cal.addDateChangedListener(new SWTCalendarListener() {

@@ -60,6 +60,30 @@ import org.eclipse.swt.SWT;
 */
 public class AccUITransactionAdd extends SecureComposite {
 
+	/**
+	 * @return Returns the tableTransactionColumns.
+	 */
+	public Table getTableTransactionColumns() {
+		return tableTransactionColumns;
+	}
+	/**
+	 * @return Returns the totalCredit.
+	 */
+	public BigDecimal getTotalCredit() {
+		return totalCredit;
+	}
+	/**
+	 * @return Returns the totalDept.
+	 */
+	public BigDecimal getTotalDept() {
+		return totalDept;
+	}
+	/**
+	 * @return Returns the txtDocumentNo.
+	 */
+	public Text getTxtDocumentNo() {
+		return txtDocumentNo;
+	}
 	private CLabel lblTotalDeptAmount;
 	private CLabel lblTotalCredit;
 	private CLabel lblTotalCreditAmount;
@@ -504,5 +528,11 @@ public class AccUITransactionAdd extends SecureComposite {
 		}
 		
 		
+	}
+	/**
+	 * @return Returns the dateTransactionDate.
+	 */
+	public DatePicker getDateTransactionDate() {
+		return dateTransactionDate;
 	}
 }

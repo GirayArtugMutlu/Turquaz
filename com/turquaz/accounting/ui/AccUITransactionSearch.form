@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Form style="SWT" ide="eclipse" builder="jigloo" version="2.7.2">
 <NonVisualComponents>
-		<Component class="java.lang.Object" name="Non-visual components" style="0">
+		<Component class="java.lang.Object" name="object1" style="0">
 			<Constraints>
 				<LayoutConstraint/>
 			</Constraints>
+			<Properties>
+			</Properties>
 		</Component></NonVisualComponents>
 	<Component class="org.eclipse.swt.widgets.Composite" name="AccUITransactionSearch" style="0">
 		<Constraints>
@@ -31,11 +33,12 @@
 		<SubComponents>
 			<Component class="org.eclipse.swt.widgets.Composite" name="composite1" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
 						<Property name="widthHint" type="int" value="-1"/>
-						<Property name="heightHint" type="int" value="125"/>
+						<Property name="heightHint" type="int" value="128"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
 						<Property name="verticalSpan" type="int" value="1"/>
@@ -55,15 +58,16 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[636, 125]"/>
+						<Dimension value="[636, 128]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 5, 636, 125]"/>
+						<Rectangle value="[5, 5, 636, 128]"/>
 					</Property>
 				</Properties>
 				<SubComponents>
 					<Component class="org.eclipse.swt.custom.CLabel" name="lblDocumentNo" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -91,6 +95,7 @@
 					</Component>
 					<Component class="org.eclipse.swt.widgets.Text" name="txtDocumentNo" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -116,6 +121,7 @@
 					</Component>
 					<Component class="org.eclipse.swt.custom.CLabel" name="lblTransactionType" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -142,6 +148,7 @@
 					</Component>
 					<Component class="org.eclipse.swt.custom.CCombo" name="comboTransType" style="8">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -172,6 +179,7 @@
 					</Component>
 					<Component class="org.eclipse.swt.custom.CLabel" name="lblStartDate" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -195,11 +203,12 @@
 					</Component>
 					<Component class="com.turquaz.engine.ui.component.DatePicker" name="dateStartDate" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
-								<Property name="widthHint" type="int" value="172"/>
-								<Property name="heightHint" type="int" value="25"/>
+								<Property name="widthHint" type="int" value="174"/>
+								<Property name="heightHint" type="int" value="24"/>
 								<Property name="horizontalIndent" type="int" value="0"/>
 								<Property name="horizontalSpan" type="int" value="1"/>
 								<Property name="verticalSpan" type="int" value="1"/>
@@ -211,15 +220,16 @@
 						</Events>
 						<Properties>
 							<Property name="size" type="Dimension">
-								<Dimension value="[172, 25]"/>
+								<Dimension value="[174, 24]"/>
 							</Property>
 							<Property name="bounds" type="Rectangle">
-								<Rectangle value="[110, 59, 172, 25]"/>
+								<Rectangle value="[110, 59, 174, 24]"/>
 							</Property>
 						</Properties>
 					</Component>
 					<Component class="org.eclipse.swt.custom.CLabel" name="lblEndDate" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -237,16 +247,17 @@
 						<Properties>
 							<Property name="text" type="String" value="End Date"/>
 							<Property name="bounds" type="Rectangle">
-								<Rectangle value="[5, 92, 50, 19]"/>
+								<Rectangle value="[5, 91, 50, 19]"/>
 							</Property>
 						</Properties>
 					</Component>
 					<Component class="com.turquaz.engine.ui.component.DatePicker" name="dateEndDate" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
-								<Property name="widthHint" type="int" value="171"/>
+								<Property name="widthHint" type="int" value="173"/>
 								<Property name="heightHint" type="int" value="25"/>
 								<Property name="horizontalIndent" type="int" value="0"/>
 								<Property name="horizontalSpan" type="int" value="1"/>
@@ -259,10 +270,10 @@
 						</Events>
 						<Properties>
 							<Property name="size" type="Dimension">
-								<Dimension value="[171, 25]"/>
+								<Dimension value="[173, 25]"/>
 							</Property>
 							<Property name="bounds" type="Rectangle">
-								<Rectangle value="[110, 89, 171, 25]"/>
+								<Rectangle value="[110, 88, 173, 25]"/>
 							</Property>
 						</Properties>
 					</Component>
@@ -270,6 +281,7 @@
 			</Component>
 			<Component class="org.eclipse.swt.widgets.Table" name="tableTransactions" style="65538">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
@@ -283,15 +295,16 @@
 					</LayoutConstraint>
 				</Constraints>
 				<Events>
+					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="tableTransactionsMouseDoubleClick"/>
 				</Events>
 				<Properties>
 					<Property name="headerVisible" type="boolean" value="true"/>
 					<Property name="linesVisible" type="boolean" value="true"/>
 					<Property name="size" type="Dimension">
-						<Dimension value="[636, 373]"/>
+						<Dimension value="[636, 370]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 135, 636, 373]"/>
+						<Rectangle value="[5, 138, 636, 370]"/>
 					</Property>
 				</Properties>
 				<SubComponents>

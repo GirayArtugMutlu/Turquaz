@@ -26,6 +26,8 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
 
 /**
@@ -86,38 +88,66 @@ public class AccUITransactionSearch extends SecureComposite {
 			composite1LData.verticalAlignment = GridData.CENTER;
 			composite1LData.horizontalAlignment = GridData.FILL;
 			composite1LData.widthHint = -1;
-			composite1LData.heightHint = 125;
+			composite1LData.heightHint = 128;
 			composite1LData.horizontalIndent = 0;
 			composite1LData.horizontalSpan = 1;
 			composite1LData.verticalSpan = 1;
 			composite1LData.grabExcessHorizontalSpace = true;
 			composite1LData.grabExcessVerticalSpace = false;
 			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(636,125));
+			composite1.setSize(new org.eclipse.swt.graphics.Point(636,128));
 	
 			GridData lblDocumentNoLData = new GridData();
+			lblDocumentNoLData.verticalAlignment = GridData.CENTER;
+			lblDocumentNoLData.horizontalAlignment = GridData.BEGINNING;
 			lblDocumentNoLData.widthHint = 99;
 			lblDocumentNoLData.heightHint = 24;
+			lblDocumentNoLData.horizontalIndent = 0;
+			lblDocumentNoLData.horizontalSpan = 1;
+			lblDocumentNoLData.verticalSpan = 1;
+			lblDocumentNoLData.grabExcessHorizontalSpace = false;
+			lblDocumentNoLData.grabExcessVerticalSpace = false;
 			lblDocumentNo.setLayoutData(lblDocumentNoLData);
 			lblDocumentNo.setText("Document No");
 			lblDocumentNo.setSize(new org.eclipse.swt.graphics.Point(99,24));
 	
 			GridData txtDocumentNoLData = new GridData();
+			txtDocumentNoLData.verticalAlignment = GridData.CENTER;
+			txtDocumentNoLData.horizontalAlignment = GridData.BEGINNING;
 			txtDocumentNoLData.widthHint = 141;
 			txtDocumentNoLData.heightHint = 17;
+			txtDocumentNoLData.horizontalIndent = 0;
+			txtDocumentNoLData.horizontalSpan = 1;
+			txtDocumentNoLData.verticalSpan = 1;
+			txtDocumentNoLData.grabExcessHorizontalSpace = false;
+			txtDocumentNoLData.grabExcessVerticalSpace = false;
 			txtDocumentNo.setLayoutData(txtDocumentNoLData);
 			txtDocumentNo.setSize(new org.eclipse.swt.graphics.Point(141,17));
 	
 			GridData lblTransactionTypeLData = new GridData();
+			lblTransactionTypeLData.verticalAlignment = GridData.CENTER;
+			lblTransactionTypeLData.horizontalAlignment = GridData.BEGINNING;
 			lblTransactionTypeLData.widthHint = 100;
 			lblTransactionTypeLData.heightHint = 20;
+			lblTransactionTypeLData.horizontalIndent = 0;
+			lblTransactionTypeLData.horizontalSpan = 1;
+			lblTransactionTypeLData.verticalSpan = 1;
+			lblTransactionTypeLData.grabExcessHorizontalSpace = false;
+			lblTransactionTypeLData.grabExcessVerticalSpace = false;
 			lblTransactionType.setLayoutData(lblTransactionTypeLData);
 			lblTransactionType.setText("Transaction Type");
 			lblTransactionType.setSize(new org.eclipse.swt.graphics.Point(100,20));
 	
 			GridData comboTransTypeLData = new GridData();
+			comboTransTypeLData.verticalAlignment = GridData.CENTER;
+			comboTransTypeLData.horizontalAlignment = GridData.BEGINNING;
 			comboTransTypeLData.widthHint = 121;
 			comboTransTypeLData.heightHint = 19;
+			comboTransTypeLData.horizontalIndent = 0;
+			comboTransTypeLData.horizontalSpan = 1;
+			comboTransTypeLData.verticalSpan = 1;
+			comboTransTypeLData.grabExcessHorizontalSpace = false;
+			comboTransTypeLData.grabExcessVerticalSpace = false;
 			comboTransType.setLayoutData(comboTransTypeLData);
 			comboTransType.setText("Choose Type");
 			final Color comboTransTypebackground = new Color(Display.getDefault(),255,255,255);
@@ -125,22 +155,58 @@ public class AccUITransactionSearch extends SecureComposite {
 			comboTransType.setEditable(false);
 			comboTransType.setSize(new org.eclipse.swt.graphics.Point(121,19));
 	
+			GridData lblStartDateLData = new GridData();
+			lblStartDateLData.verticalAlignment = GridData.CENTER;
+			lblStartDateLData.horizontalAlignment = GridData.BEGINNING;
+			lblStartDateLData.widthHint = -1;
+			lblStartDateLData.heightHint = -1;
+			lblStartDateLData.horizontalIndent = 0;
+			lblStartDateLData.horizontalSpan = 1;
+			lblStartDateLData.verticalSpan = 1;
+			lblStartDateLData.grabExcessHorizontalSpace = false;
+			lblStartDateLData.grabExcessVerticalSpace = false;
+			lblStartDate.setLayoutData(lblStartDateLData);
 			lblStartDate.setText("Start Date");
 	
 			GridData dateStartDateLData = new GridData();
-			dateStartDateLData.widthHint = 172;
-			dateStartDateLData.heightHint = 25;
+			dateStartDateLData.verticalAlignment = GridData.CENTER;
+			dateStartDateLData.horizontalAlignment = GridData.BEGINNING;
+			dateStartDateLData.widthHint = 174;
+			dateStartDateLData.heightHint = 24;
+			dateStartDateLData.horizontalIndent = 0;
+			dateStartDateLData.horizontalSpan = 1;
+			dateStartDateLData.verticalSpan = 1;
+			dateStartDateLData.grabExcessHorizontalSpace = false;
+			dateStartDateLData.grabExcessVerticalSpace = false;
 			dateStartDate.setLayoutData(dateStartDateLData);
-			dateStartDate.setSize(new org.eclipse.swt.graphics.Point(172,25));
+			dateStartDate.setSize(new org.eclipse.swt.graphics.Point(174,24));
 			dateStartDate.layout();
 	
+			GridData lblEndDateLData = new GridData();
+			lblEndDateLData.verticalAlignment = GridData.CENTER;
+			lblEndDateLData.horizontalAlignment = GridData.BEGINNING;
+			lblEndDateLData.widthHint = -1;
+			lblEndDateLData.heightHint = -1;
+			lblEndDateLData.horizontalIndent = 0;
+			lblEndDateLData.horizontalSpan = 1;
+			lblEndDateLData.verticalSpan = 1;
+			lblEndDateLData.grabExcessHorizontalSpace = false;
+			lblEndDateLData.grabExcessVerticalSpace = false;
+			lblEndDate.setLayoutData(lblEndDateLData);
 			lblEndDate.setText("End Date");
 	
 			GridData dateEndDateLData = new GridData();
-			dateEndDateLData.widthHint = 171;
+			dateEndDateLData.verticalAlignment = GridData.CENTER;
+			dateEndDateLData.horizontalAlignment = GridData.BEGINNING;
+			dateEndDateLData.widthHint = 173;
 			dateEndDateLData.heightHint = 25;
+			dateEndDateLData.horizontalIndent = 0;
+			dateEndDateLData.horizontalSpan = 1;
+			dateEndDateLData.verticalSpan = 1;
+			dateEndDateLData.grabExcessHorizontalSpace = false;
+			dateEndDateLData.grabExcessVerticalSpace = false;
 			dateEndDate.setLayoutData(dateEndDateLData);
-			dateEndDate.setSize(new org.eclipse.swt.graphics.Point(171,25));
+			dateEndDate.setSize(new org.eclipse.swt.graphics.Point(173,25));
 			dateEndDate.layout();
 			GridLayout composite1Layout = new GridLayout(2, true);
 			composite1.setLayout(composite1Layout);
@@ -165,7 +231,12 @@ public class AccUITransactionSearch extends SecureComposite {
 			tableTransactions.setLayoutData(tableTransactionsLData);
 			tableTransactions.setHeaderVisible(true);
 			tableTransactions.setLinesVisible(true);
-			tableTransactions.setSize(new org.eclipse.swt.graphics.Point(620,357));
+			tableTransactions.setSize(new org.eclipse.swt.graphics.Point(620,354));
+			tableTransactions.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					tableTransactionsMouseDoubleClick(evt);
+				}
+			});
 	
 			tableColumnTransType.setText("Transaction Type");
 			tableColumnTransType.setWidth(115);
@@ -288,4 +359,35 @@ public class AccUITransactionSearch extends SecureComposite {
 	
 	}
 
+
+	/** Auto-generated event handler method */
+	protected void tableTransactionsMouseDoubleClick(MouseEvent evt){
+		
+    TableItem selection[] = tableTransactions.getSelection();
+    
+    if(selection.length>0){
+    
+    TurqAccountingTransaction accTrans = (TurqAccountingTransaction)selection[0].getData();
+    
+    int type =accTrans.getTurqAccountingTransactionType().getAccountingTransactionTypesId().intValue();
+    if(type==2){
+    new AccUITransactionUpdateDialog(this.getShell(),SWT.NULL,accTrans).open();
+    
+    
+    }
+    else if(type==1){
+    
+    }
+    else if(type==0) {
+    
+    
+    }
+    
+    
+    
+    }
+
+
+
+	}
 }
