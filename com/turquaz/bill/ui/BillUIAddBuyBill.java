@@ -39,6 +39,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
 
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
@@ -65,7 +66,9 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqConsignment;
+import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
+import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
@@ -81,6 +84,7 @@ import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
 import com.turquaz.engine.ui.viewers.TurquazCellModifier;
 import com.turquaz.engine.ui.viewers.TurquazContentProvider;
 import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
+import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.ui.InvUITransactionAddDialog;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 
@@ -398,6 +402,7 @@ public class BillUIAddBuyBill extends Composite
 	private final String SPECIAL_VAT_PERCENT		= Messages.getString("BillUIAddBuyBill.10"); //$NON-NLS-1$
 	private final String SPECIAL_VAT_TOTAL			= Messages.getString("BillUIAddBuyBill.11"); //$NON-NLS-1$
 	private final String ROW_TOTAL 					= Messages.getString("BillUIAddBuyBill.12");	 //$NON-NLS-1$
+	private final int BILL_TYPE=0;
 	   int last_row_index=0;
     TableSpreadsheetCursor cursor;
 	
@@ -634,7 +639,7 @@ public class BillUIAddBuyBill extends Composite
 							}
                             {
                                 lblDueDate = new CLabel(compInfoPanel, SWT.NONE);
-                                lblDueDate.setText("Vade Tarihi");
+                                lblDueDate.setText(Messages.getString("BillUIAddBuyBill.18")); //$NON-NLS-1$
                                 GridData lblDueDateLData = new GridData();
                                 
                                 lblDueDate.setLayoutData(lblDueDateLData);
@@ -1277,7 +1282,7 @@ public class BillUIAddBuyBill extends Composite
 			// buy bill
 			int type = 0;
 
-			
+			boolean stable=true;
 			for (int i = 0; i < items.length; i++) {
 			    
 
@@ -1286,16 +1291,41 @@ public class BillUIAddBuyBill extends Composite
 			    TurqInventoryTransaction invTrans = (TurqInventoryTransaction)row.getDBObject();
 			    invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouse.getData(comboWareHouse.getText()));
 				
-			    if(row.okToSave()){
-			      blAddConsignment.saveConsignmentRow(invTrans,
-						consignmentID, type);
+			    if(row.okToSave())
+			    {
+			    	blAddConsignment.saveConsignmentRow(invTrans,consignmentID, type);
+			    	if (stable)
+			    		stable=checkStabilityInventoryLevel(invTrans.getTurqInventoryCard());
 			    }
 			}
+			if (!stable)
+				EngUICommon.showMessageBox(this.getShell(),Messages.getString("BillUIAddBuyBill.19"),SWT.ICON_WARNING); //$NON-NLS-1$
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
+	}
+	
+	public boolean checkStabilityInventoryLevel(TurqInventoryCard invCard ){
+	    try
+		{	     
+	    	InvBLCardSearch blCardSearch = new InvBLCardSearch();    
+	    	TurqViewInventoryAmountTotal invView=blCardSearch.getView(invCard);
+	    	int Now=(invView.getTransactionsTotalAmountNow()==null) ? 0 : invView.getTransactionsTotalAmountNow().intValue();
+	    	int Max=invCard.getCardMaximumAmount();
+			int Min=invCard.getCardMinimumAmount();	
+			if (BILL_TYPE==EngBLCommon.BILL_TRANS_TYPE_SELL && Now< Min)
+				return false;
+			else if (BILL_TYPE==EngBLCommon.BILL_TRANS_TYPE_BUY && Max != 0 && Now> Max)
+				return false;
+			return true;
+			
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	        return false;
+	    }		
 	}
 
 	public void saveGroups(Integer consignmentId) {

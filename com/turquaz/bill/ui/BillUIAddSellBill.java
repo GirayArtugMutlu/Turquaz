@@ -1202,7 +1202,7 @@ public class BillUIAddSellBill extends Composite
 				SWT.NULL).open();
 		if (data != null) {
 
-			System.out.println(data.getClass().getName());
+			//System.out.println(data.getClass().getName());
 			TurqCurrentCard curCard = (TurqCurrentCard) data;
 			txtCurrentCard.setText(curCard.getCardsCurrentCode()
 					+ " - " + curCard.getCardsName()); //$NON-NLS-1$
@@ -1290,7 +1290,7 @@ public class BillUIAddSellBill extends Composite
 
 			// sell bill
 			int type = BILL_TYPE;
-
+			boolean stable=true;
 			for (int i = 0; i < items.length; i++) {
 			    
 
@@ -1301,39 +1301,37 @@ public class BillUIAddSellBill extends Composite
 				
 			    if(row.okToSave()){
 			      blAddConsignment.saveConsignmentRow(invTrans,consignmentID, type);
-			      checkInventoryLevel(invTrans.getTurqInventoryCard());  
+			      if (stable)
+			      	stable=checkStabilityInventoryLevel(invTrans.getTurqInventoryCard());  
 			    }
 			}
+			if (!stable)
+				EngUICommon.showMessageBox(this.getShell(),Messages.getString("BillUIAddSellBill.19"),SWT.ICON_WARNING); //$NON-NLS-1$
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
 	}
-	public void checkInventoryLevel(TurqInventoryCard invCard ){
-	    try{
-	     
-	    InvBLCardSearch blCardSearch = new InvBLCardSearch();    
-		TurqViewInventoryAmountTotal invView=blCardSearch.getView(invCard);
-		int Now=(invView.getTransactionsTotalAmountNow()==null) ? 0 : invView.getTransactionsTotalAmountNow().intValue();
-		int Max=invCard.getCardMaximumAmount();
-		int Min=invCard.getCardMinimumAmount();
-	
-		
-			
-				if (Now< Min)
-				{
-					MessageBox msg=new MessageBox(this.getShell(), SWT.ICON_WARNING);
-					msg.setMessage(Messages.getString("BillUIAddSellBill.19")); //$NON-NLS-1$
-					msg.open();
-				}
+	public boolean checkStabilityInventoryLevel(TurqInventoryCard invCard ){
+	    try
+		{	     
+	    	InvBLCardSearch blCardSearch = new InvBLCardSearch();    
+	    	TurqViewInventoryAmountTotal invView=blCardSearch.getView(invCard);
+	    	int Now=(invView.getTransactionsTotalAmountNow()==null) ? 0 : invView.getTransactionsTotalAmountNow().intValue();
+	    	int Max=invCard.getCardMaximumAmount();
+			int Min=invCard.getCardMinimumAmount();	
+			if (BILL_TYPE==EngBLCommon.BILL_TRANS_TYPE_SELL && Now< Min)
+				return false;
+			else if (BILL_TYPE==EngBLCommon.BILL_TRANS_TYPE_BUY && Max != 0 && Now> Max)
+				return false;
+			return true;
 			
 	    }
 	    catch(Exception ex){
 	        ex.printStackTrace();
-	    }
-	    
-		
+	        return false;
+	    }		
 	}
 
 	public void saveGroups(Integer consignmentId) {
@@ -1407,7 +1405,7 @@ public class BillUIAddSellBill extends Composite
 				
 				if(answer == SWT.YES)
 				{
-					boolean result = EngUICommon.okToDelete(getShell(),"Bakiye Faturada Gösterilsin mi?");
+					boolean result = EngUICommon.okToDelete(getShell(),Messages.getString("BillUIAddSellBill.20")); //$NON-NLS-1$
 					EngBLUtils.printBill(bill,result);
 				    
 				}

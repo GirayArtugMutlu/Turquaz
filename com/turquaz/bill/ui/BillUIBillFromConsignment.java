@@ -991,20 +991,23 @@ implements SecureComposite{
 		}
 		
 	}
-	public void save(){
+	public void save()
+	{
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-	try{	
-		if(verifyFields()){
+		try
+		{	
+			if(verifyFields())
+			{
 			
-	        int type =0;
-		if(comboConsignmentType.getText().equals(Messages.getString("BillUIBillFromConsignment.33"))){ //$NON-NLS-1$
-			type =1;
-		}
-	     TurqConsignment consignment = (TurqConsignment)txtConsignment.getData();
+				int type =0;
+				if(comboConsignmentType.getText().equals(Messages.getString("BillUIBillFromConsignment.33"))){ //$NON-NLS-1$
+					type =1;
+				}
+				TurqConsignment consignment = (TurqConsignment)txtConsignment.getData();
 	     
-	     Boolean paymentType = (Boolean)comboPaymentType.getData(comboPaymentType.getText());
+				Boolean paymentType = (Boolean)comboPaymentType.getData(comboPaymentType.getText());
 	     
-		TurqBill bill =blAddBill.saveBill(txtDocumentNo.getText(),
+				TurqBill bill =blAddBill.saveBill(txtDocumentNo.getText(),
 										txtDefinition.getText(),
 										false,
 										dateBillDate.getDate(),
@@ -1014,17 +1017,18 @@ implements SecureComposite{
 										paymentType.booleanValue() ? accountPickerCurAcc.getData() : null,
 										 dateDueDate.getDate());
 		
-		saveGroups(bill.getBillsId());
-		msg.setMessage(Messages.getString("BillUIBillFromConsignment.34")); //$NON-NLS-1$
-		msg.open();
-		newForm();
+				saveGroups(bill.getBillsId());
+				msg.setMessage(Messages.getString("BillUIBillFromConsignment.34")); //$NON-NLS-1$
+				msg.open();
+				newForm();
+			}
 		}
-	}
-	catch(Exception ex){
-		ex.printStackTrace();
-		msg.setMessage(ex.getMessage());
-		msg.open();
-	}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			msg.setMessage(ex.getMessage());
+			msg.open();
+		}
 		
 	}
 	public void delete(){
