@@ -38,6 +38,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
@@ -57,6 +58,7 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SWTPTable;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -249,6 +251,10 @@ public class EngBLUtils {
 	public static void printBill(TurqBill bill, boolean balance){
 	    
 		try{
+		    if(EngConfiguration.getString("invoice_template")==null){ //$NON-NLS-1$
+		        EngUICommon.showMessageBox(Display.getCurrent().getActiveShell(),Messages.getString("EngBLUtils.1"),SWT.ICON_WARNING); //$NON-NLS-1$
+		        return;
+		    }
 			TurqConsignment cons = (TurqConsignment)bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator().next();
 
 			SimpleDateFormat dformat=new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
@@ -301,7 +307,7 @@ public class EngBLUtils {
 	
 			parameters.put("despatchNoteDate",dformat.format(cons.getConsignmentsDate())); //$NON-NLS-1$
 			parameters.put("despatchNoteId",billCommon.getConsignmentDocumentNo()); //$NON-NLS-1$
-			parameters.put("billType",(bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_BUY) ? new Integer(1) : new Integer(0));
+			parameters.put("billType",(bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_BUY) ? new Integer(1) : new Integer(0)); //$NON-NLS-1$
 			TurqViewCurrentAmountTotal currentView=curBLCurCardSearch.getCurrentCardView(curCard);
 			BigDecimal allTotal=currentView.getTransactionsBalanceNow();
 			allTotal = allTotal.multiply(new BigDecimal(-1));
@@ -324,7 +330,7 @@ public class EngBLUtils {
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
 			
-			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/invoice/"+EngConfiguration.getString("invoice_template"));  //$NON-NLS-1$
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/invoice/"+EngConfiguration.getString("invoice_template"));  //$NON-NLS-1$ //$NON-NLS-2$
 	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
 			
 			ViewerApp viewer = new ViewerApp();
