@@ -56,6 +56,12 @@ public class EngDALSessionFactory {
 		password = new String(Base64.decode(password.getBytes()));
 		String driver = "org.postgresql.Driver";
 		
+		System.setProperty("Url",url);
+		System.setProperty("dbLogin",username);
+		System.setProperty("dbPass",password);
+		
+		
+		
 		Configuration cfg =new Configuration();
 			
 		Properties props = new Properties();
