@@ -365,11 +365,9 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					txtnumInvCardMin = new NumericText(compInvCardDetails,
 							SWT.NONE);
 					GridData txtnumInvCardMinLData = new GridData();
-					txtnumInvCardMinLData.widthHint = 85;
-					txtnumInvCardMinLData.heightHint = 18;
+					txtnumInvCardMinLData.widthHint = 135;
+					txtnumInvCardMinLData.heightHint = 17;
 					txtnumInvCardMin.setLayoutData(txtnumInvCardMinLData);
-					txtnumInvCardMin
-							.setSize(new org.eclipse.swt.graphics.Point(91, 18));
 				}
 				{
 					lblInvCardMax = new CLabel(compInvCardDetails, SWT.RIGHT);
@@ -384,11 +382,9 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					txtnumInvCardMax = new NumericText(compInvCardDetails,
 							SWT.NONE);
 					GridData txtnumInvCardMaxLData = new GridData();
-					txtnumInvCardMaxLData.widthHint = 98;
-					txtnumInvCardMaxLData.heightHint = 18;
+					txtnumInvCardMaxLData.widthHint = 135;
+					txtnumInvCardMaxLData.heightHint = 17;
 					txtnumInvCardMax.setLayoutData(txtnumInvCardMaxLData);
-					txtnumInvCardMax
-							.setSize(new org.eclipse.swt.graphics.Point(104, 18));
 				}
 				{
 					lblInvCardInAcc = new CLabel(compInvCardDetails, SWT.RIGHT);
@@ -403,8 +399,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					txtInvCardInAcc = new AccountPicker(compInvCardDetails,
 							SWT.NONE);
 					GridData txtInvCardInAccLData = new GridData();
-					txtInvCardInAccLData.widthHint = 144;
-					txtInvCardInAccLData.heightHint = 19;
+					txtInvCardInAccLData.widthHint = 142;
+					txtInvCardInAccLData.heightHint = 17;
 					txtInvCardInAcc.setLayoutData(txtInvCardInAccLData);
 				}
 				{
@@ -421,8 +417,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					txtInvCardOutAcc = new AccountPicker(compInvCardDetails,
 							SWT.NONE);
 					GridData txtInvCardOutAccLData = new GridData();
-					txtInvCardOutAccLData.widthHint = 161;
-					txtInvCardOutAccLData.heightHint = 18;
+					txtInvCardOutAccLData.widthHint = 142;
+					txtInvCardOutAccLData.heightHint = 17;
 					txtInvCardOutAcc.setLayoutData(txtInvCardOutAccLData);
 					txtInvCardOutAcc.setEnabled(true);
 				}
@@ -438,8 +434,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					accountPickerVAT = new AccountPicker(compInvCardDetails,
 							SWT.NONE);
 					GridData accountPickerVATLData = new GridData();
-					accountPickerVATLData.widthHint = 143;
-					accountPickerVATLData.heightHint = 19;
+					accountPickerVATLData.widthHint = 142;
+					accountPickerVATLData.heightHint = 17;
 					accountPickerVAT.setLayoutData(accountPickerVATLData);
 				}
 				{
@@ -455,10 +451,9 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					accountPickerSpecVAT = new AccountPicker(
 							compInvCardDetails, SWT.NONE);
 					GridData accountPickerSpecVATLData = new GridData();
-					accountPickerSpecVATLData.widthHint = 156;
-					accountPickerSpecVATLData.heightHint = 14;
-					accountPickerSpecVAT
-							.setLayoutData(accountPickerSpecVATLData);
+					accountPickerSpecVATLData.widthHint = 142;
+					accountPickerSpecVATLData.heightHint = 17;
+					accountPickerSpecVAT.setLayoutData(accountPickerSpecVATLData);
 				}
 				{
 					cLabel1 = new CLabel(compInvCardDetails, SWT.RIGHT);
@@ -472,8 +467,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					accountPickerVATSell = new AccountPicker(
 							compInvCardDetails, SWT.NONE);
 					GridData accountPicker1LData = new GridData();
-					accountPicker1LData.widthHint = 143;
-					accountPicker1LData.heightHint = 19;
+					accountPicker1LData.widthHint = 142;
+					accountPicker1LData.heightHint = 17;
 					accountPickerVATSell.setLayoutData(accountPicker1LData);
 				}
 				{
@@ -488,8 +483,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					accountPickerSpecVatSell = new AccountPicker(
 							compInvCardDetails, SWT.NONE);
 					GridData accountPicker2LData = new GridData();
-					accountPicker2LData.widthHint = 156;
-					accountPicker2LData.heightHint = 14;
+					accountPicker2LData.widthHint = 142;
+					accountPicker2LData.heightHint = 17;
 					accountPickerSpecVatSell.setLayoutData(accountPicker2LData);
 				}
 				{
@@ -505,11 +500,9 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					txtInvCardVat = new NumericText(compInvCardDetails,
 							SWT.NONE);
 					GridData txtInvCardVatLData = new GridData();
-					txtInvCardVatLData.widthHint = 55;
+					txtInvCardVatLData.widthHint = 135;
 					txtInvCardVatLData.heightHint = 17;
 					txtInvCardVat.setLayoutData(txtInvCardVatLData);
-					txtInvCardVat.setSize(new org.eclipse.swt.graphics.Point(
-							61, 17));
 				}
 				{
 					lblInvCardDiscount = new CLabel(compInvCardDetails,
@@ -526,11 +519,9 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					txtInvCardDiscount = new NumericText(compInvCardDetails,
 							SWT.NONE);
 					GridData txtInvCardDiscountLData = new GridData();
-					txtInvCardDiscountLData.widthHint = 98;
-					txtInvCardDiscountLData.heightHint = 18;
+					txtInvCardDiscountLData.widthHint = 135;
+					txtInvCardDiscountLData.heightHint = 17;
 					txtInvCardDiscount.setLayoutData(txtInvCardDiscountLData);
-					txtInvCardDiscount
-							.setSize(new org.eclipse.swt.graphics.Point(104, 18));
 				}
 				{
 					radioSpecialVatPercent = new Button(compInvCardDetails,
@@ -576,10 +567,9 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 									}
 								}
 							});
-					decTextSpecialVatAmountLData.widthHint = 91;
-					decTextSpecialVatAmountLData.heightHint = 16;
-					decTextSpecialVatAmount
-							.setLayoutData(decTextSpecialVatAmountLData);
+					decTextSpecialVatAmountLData.widthHint = 135;
+					decTextSpecialVatAmountLData.heightHint = 17;
+					decTextSpecialVatAmount.setLayoutData(decTextSpecialVatAmountLData);
 				}
 				{
 					label3 = new Label(compInvCardDetails, SWT.SEPARATOR
@@ -1090,8 +1080,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 				tabInvCardGeneral.setText(Messages.getString("InvUICardAdd.0")); //$NON-NLS-1$
 				{
-					compInvCardGeneral = new Composite(tabfldInvCardAdd,
-							SWT.NONE);
+					compInvCardGeneral = new Composite(tabfldInvCardAdd, SWT.NONE);
 					tabInvCardGeneral.setControl(compInvCardGeneral);
 					GridLayout compInvCardGeneralLayout = new GridLayout(4,
 							true);
@@ -1119,13 +1108,10 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						txtInvCardCode = new InventoryPicker(
 								compInvCardGeneral, SWT.NONE);
 						GridData txtInvCardCodeLData = new GridData();
-						txtInvCardCodeLData.widthHint = 130;
-						txtInvCardCodeLData.heightHint = 15;
+						txtInvCardCodeLData.widthHint = 207;
+						txtInvCardCodeLData.heightHint = 18;
 						txtInvCardCodeLData.horizontalSpan = 3;
 						txtInvCardCode.setLayoutData(txtInvCardCodeLData);
-						txtInvCardCode
-								.setSize(new org.eclipse.swt.graphics.Point(
-										136, 15));
 					}
 					{
 						lblInvCardName = new CLabel(compInvCardGeneral,
@@ -1143,14 +1129,11 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					{
 						txtInvCardName = new Text(compInvCardGeneral, SWT.NONE);
 						GridData txtInvCardNameLData = new GridData();
-						txtInvCardNameLData.widthHint = 132;
-						txtInvCardNameLData.heightHint = 16;
+						txtInvCardNameLData.widthHint = 200;
+						txtInvCardNameLData.heightHint = 17;
 						txtInvCardNameLData.horizontalSpan = 3;
 						txtInvCardName.setLayoutData(txtInvCardNameLData);
 						txtInvCardName.setTextLimit(50);
-						txtInvCardName
-								.setSize(new org.eclipse.swt.graphics.Point(
-										138, 16));
 					}
 					{
 						lblInvCardDefinition = new CLabel(compInvCardGeneral,
@@ -1182,11 +1165,10 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 									}
 								});
 
-						txtInvCardDefinitionLData.widthHint = 187;
+						txtInvCardDefinitionLData.widthHint = 183;
 						txtInvCardDefinitionLData.heightHint = 46;
 						txtInvCardDefinitionLData.horizontalSpan = 3;
-						txtInvCardDefinition
-								.setLayoutData(txtInvCardDefinitionLData);
+						txtInvCardDefinition.setLayoutData(txtInvCardDefinitionLData);
 						txtInvCardDefinition.setTextLimit(250);
 					}
 					{
