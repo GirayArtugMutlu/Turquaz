@@ -323,7 +323,7 @@ public class AccDALTransactionSearch {
 					+ " accounts.updatedBy, accounts.updateDate,"
 					+ " accounts.turqAccountingAccountByParentAccount,"
 					+ " accounts.turqAccountingAccountByTopAccount"
-					+ " order by accounts.accountingAccountsId";
+					+ " order by accounts.turqAccountingAccountByTopAccount.accountingAccountsId";
 			Query q = session.createQuery(query);
 
 			if (startDate != null) {

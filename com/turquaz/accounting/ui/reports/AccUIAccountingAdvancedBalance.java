@@ -91,6 +91,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 	private TableColumn tableColumnAccountName;
 	private TableColumn tableColumnAccountCode;
 	private AccBLTransactionSearch blSearch=new AccBLTransactionSearch();
+	private Map treeItems;
 
 	/**
 	* Auto-generated main method to display this 
@@ -284,7 +285,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 		try
 		{
 			tableTreeAccounts.removeAll();
-			Map treeItems = new HashMap();		
+			treeItems = new HashMap();		
 			TableTreeItem item;
 
 			List allAccounts = blSearch.getTransactions(checkInitialAccounts.getSelection(),
@@ -294,7 +295,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 	
 			TurqAccountingAccount account;
 
-			Integer parentId;
+			Integer parentId,accountId;
 		
 		
 			for(int i =0; i< allAccounts.size();i++)
@@ -303,83 +304,30 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				BigDecimal transDept=(BigDecimal)((Object[])allAccounts.get(i))[1];
 				BigDecimal transCredit=(BigDecimal)((Object[])allAccounts.get(i))[2];
 				parentId = account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId();
-		
-				if(parentId.intValue()==-1){
-					if (!treeItems.containsKey(account.getAccountingAccountsId()))
-					{
-						item = new TableTreeItem(tableTreeAccounts,SWT.NULL);						
-						item.setText(0,account.getAccountCode());
-						item.setText(1,account.getAccountName());
-						item.setText(2,transDept.toString());
-						item.setText(3,transCredit.toString());
-						item.setText(4,transDept.subtract(transCredit).toString());
-						item.setData(account);	
-						treeItems.put(account.getAccountingAccountsId(),item);
-					}
-					else
-					{
-						item=(TableTreeItem)treeItems.get(account.getAccountingAccountsId());
-						BigDecimal dept=new BigDecimal(item.getText(2));
-						BigDecimal credit=new BigDecimal(item.getText(3));
-						dept=dept.add(transDept);
-						credit=credit.add(transCredit);
-						item.setText(2,dept.toString());
-						item.setText(3,credit.toString());
-						item.setText(4,dept.subtract(credit).toString());
-					}
-				}
-				else
-				{
-				
-					TableTreeItem parentItem = (TableTreeItem)treeItems.get(parentId);
-					TurqAccountingAccount parentAccount;
-					if (!treeItems.containsKey(account.getAccountingAccountsId()))
-					{
-						item = new TableTreeItem(parentItem,SWT.NULL);	
-						treeItems.put(account.getAccountingAccountsId(),item);
-						item.setText(0,account.getAccountCode());
-						item.setText(1,account.getAccountName());
-						item.setText(2,transDept.toString());
-						item.setText(3,transCredit.toString());
-						item.setText(4,transDept.subtract(transCredit).toString());
-						item.setData(account);	
-						
-						while ((parentAccount=account.getTurqAccountingAccountByParentAccount()).getAccountingAccountsId().intValue()!=-1)
-						{
-							parentItem=(TableTreeItem)treeItems.get(parentAccount.getAccountingAccountsId());	
-							BigDecimal dept=new BigDecimal(parentItem.getText(2));
-							BigDecimal credit=new BigDecimal(parentItem.getText(3));
-							dept=dept.add(transDept);
-							credit=credit.add(transCredit);
-							parentItem.setText(2,dept.toString());
-							parentItem.setText(3,credit.toString());
-							parentItem.setText(4,dept.subtract(credit).toString());
-							parentAccount=parentAccount.getTurqAccountingAccountByParentAccount();
-						}
-					}
-					else
-					{
-						item=(TableTreeItem)treeItems.get(account.getAccountingAccountsId());
-						BigDecimal dept=new BigDecimal(item.getText(2));
-						BigDecimal credit=new BigDecimal(item.getText(3));
-						dept=dept.add(transDept);
-						credit=credit.add(transCredit);
-						item.setText(2,dept.toString());
-						item.setText(3,credit.toString());
-						item.setText(4,dept.subtract(credit).toString());
-						while ((parentAccount=account.getTurqAccountingAccountByParentAccount()).getAccountingAccountsId().intValue()!=-1)
-						{
-							parentItem=(TableTreeItem)treeItems.get(parentAccount.getAccountingAccountsId());	
-							dept=new BigDecimal(parentItem.getText(2));
-							credit=new BigDecimal(parentItem.getText(3));
-							dept=dept.add(transDept);
-							credit=credit.add(transCredit);
-							parentItem.setText(2,dept.toString());
-							parentItem.setText(3,credit.toString());
-							parentItem.setText(4,dept.subtract(credit).toString());
-							parentAccount=parentAccount.getTurqAccountingAccountByParentAccount();
-						}
-					}
+				accountId=account.getAccountingAccountsId();
+				LocateAccountToTable(account);
+				//System.out.println("AccountID" +accountId);
+				TableTreeItem accountItem=(TableTreeItem)treeItems.get(accountId);
+				BigDecimal dept=new BigDecimal(accountItem.getText(2));
+				BigDecimal credit=new BigDecimal(accountItem.getText(3));
+				dept=dept.add(transDept);
+				credit=credit.add(transCredit);
+				accountItem.setText(2,dept.toString());
+				accountItem.setText(3,credit.toString());
+				accountItem.setText(4,dept.subtract(credit).toString());
+				TurqAccountingAccount parentAcc=account.getTurqAccountingAccountByParentAccount();
+				while(parentId.intValue()!=-1)
+				{					
+					accountItem=(TableTreeItem)treeItems.get(parentId);
+					dept=new BigDecimal(accountItem.getText(2));
+					credit=new BigDecimal(accountItem.getText(3));
+					dept=dept.add(transDept);
+					credit=credit.add(transCredit);
+					accountItem.setText(2,dept.toString());
+					accountItem.setText(3,credit.toString());
+					accountItem.setText(4,dept.subtract(credit).toString());
+					parentAcc=parentAcc.getTurqAccountingAccountByParentAccount();
+					parentId=parentAcc.getAccountingAccountsId();
 				}
 			}
 			boolean expand=checkSubAccounts.getSelection();
@@ -395,8 +343,46 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 		catch(Exception ex){
 			MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
 			ex.printStackTrace();
-			msg.setMessage(ex.getMessage());
-			msg.open();
+			//msg.setMessage(ex.getMessage());
+			//msg.open();
+		}
+	}
+	
+	private void LocateAccountToTable(TurqAccountingAccount account)
+	{
+		//System.out.println("Locate: "+account.getAccountingAccountsId().toString());
+		if (!treeItems.containsKey(account.getAccountingAccountsId()))
+		{
+			//System.out.println("NOT");
+			Integer parentId=account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId();
+			if (parentId.intValue()!=-1)
+			{
+				TurqAccountingAccount parentAcc=account.getTurqAccountingAccountByParentAccount();
+				LocateAccountToTable(parentAcc);
+				TableTreeItem parentItem=(TableTreeItem)treeItems.get(parentId);
+				TableTreeItem item = new TableTreeItem(parentItem,SWT.NULL);	
+				item.setText(0,account.getAccountCode());
+				item.setText(1,account.getAccountName());
+				item.setText(2,"0");
+				item.setText(3,"0");
+				item.setText(4,"0");
+				item.setData(account);	
+				treeItems.put(account.getAccountingAccountsId(),item);
+				//System.out.println("PUT:"+account.getAccountingAccountsId().toString());
+				
+			}
+			else
+			{
+				TableTreeItem item = new TableTreeItem(tableTreeAccounts,SWT.NULL);						
+				item.setText(0,account.getAccountCode());
+				item.setText(1,account.getAccountName());
+				item.setText(2,"0");
+				item.setText(3,"0");
+				item.setText(4,"0");
+				item.setData(account);	
+				treeItems.put(account.getAccountingAccountsId(),item);	
+				//System.out.println("PUT:"+account.getAccountingAccountsId().toString());
+			}
 		}
 	}
 	
