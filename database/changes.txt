@@ -101,4 +101,13 @@ INSERT INTO turq_inventory_groups VALUES (-1, 'Varsayilan', 'Varsayilan', 'admin
 
 **** 09-02-2005 *****
 --- "turq_banks_transactions"  ----> "accounting_accounts_id" removed... 
+
+
+
+**** 14-02-2005 *****
+--- "turq_cheque_cheques" -----> "bank_account_no" column added...
+
+ALTER TABLE turq_cheque_cheques ADD COLUMN bank_account_no varchar(100);
+
+
    
