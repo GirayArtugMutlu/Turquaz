@@ -39,6 +39,8 @@ import org.eclipse.swt.SWT;
  */
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroups;
@@ -136,6 +138,11 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 				tableUsersLData.horizontalAlignment = GridData.FILL;
 				tableUsersLData.verticalAlignment = GridData.FILL;
 				tableGroups.setLayoutData(tableUsersLData);
+				tableGroups.addMouseListener(new MouseAdapter() {
+					public void mouseDoubleClick(MouseEvent evt) {
+						tableGroupsMouseDoubleClick(evt);
+					}
+				});
 				{
 					tableColumnGroupname = new TableColumn(tableGroups, SWT.NONE);
 					tableColumnGroupname.setText(Messages.getString("AdmUIGroups.0")); //$NON-NLS-1$
@@ -161,7 +168,7 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 		try
 		{
 			tableGroups.removeAll();
-			List list =(List)EngTXCommon.doSingleTX(AdmBLGroups.class.getName(),"getGroups",null);
+			List list =(List)EngTXCommon.doSingleTX(AdmBLGroups.class.getName(),"getGroups",null); //$NON-NLS-1$
 			TurqGroup group;
 			TableItem item;
 			for (int i = 0; i < list.size(); i++)
@@ -175,7 +182,7 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -187,6 +194,18 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableGroups, "Kullan?c? Gruplar?");
+		EngBLUtils.printTable(tableGroups, Messages.getString("AdmUIGroups.4")); //$NON-NLS-1$
+	}
+	
+	private void tableGroupsMouseDoubleClick(MouseEvent evt) {
+		TableItem items[] = tableGroups.getSelection();
+		if(items.length>0)
+		{
+			new AdmUIGroupUpdateDialog(getShell(),SWT.NULL,(TurqGroup)items[0].getData()).open();	
+			tableGroups.removeAll();
+			fillTable();
+			
+		}	
+		
 	}
 }

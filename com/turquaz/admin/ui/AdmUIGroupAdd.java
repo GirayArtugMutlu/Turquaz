@@ -216,4 +216,18 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 	public void delete()
 	{
 	}
+	/**
+	 * @return Returns the txtAdmGroupDesc.
+	 */
+	public Text getTxtAdmGroupDesc()
+	{
+		return txtAdmGroupDesc;
+	}
+	/**
+	 * @return Returns the txtAdmGroupName.
+	 */
+	public Text getTxtAdmGroupName()
+	{
+		return txtAdmGroupName;
+	}
 }

@@ -25,6 +25,7 @@ import java.util.List;
 import com.turquaz.admin.AdmKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.dal.TurqUser;
 
 public class AdmBLUserUpdate
@@ -54,6 +55,32 @@ public class AdmBLUserUpdate
 			throw ex;
 		}
 	}
+	public static void updateGroup(HashMap argMap) throws Exception
+	{
+		try
+		{
+		
+			String realname=(String)argMap.get(AdmKeys.ADM_GROUP_NAME);
+			String description=(String)argMap.get(AdmKeys.ADM_GROUP_DESCRIPTION);
+			TurqGroup group=(TurqGroup)argMap.get(AdmKeys.ADM_GROUP);
+			List userGroups=(List)argMap.get(AdmKeys.ADM_USER_GROUPS);
+			
+			Calendar cal = Calendar.getInstance();
+			
+			group.setGroupsName(realname);
+			group.setGroupsDescription(description);
+			group.setUpdateDate(cal.getTime());
+			group.setUpdatedBy(System.getProperty("user"));
+			EngDALCommon.updateObject(group);
+			
+			
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
 	
 	private static void updateUserGroups(TurqUser user, List userGroups)throws Exception
 	{

@@ -72,6 +72,7 @@ import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.editors.InventoryCellEditor;
+import com.turquaz.engine.ui.editors.InventoryNameCellEditor;
 import com.turquaz.engine.ui.editors.NumericCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.ITableRowListViewer;
@@ -844,7 +845,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		//     Create the cell editors
 		CellEditor[] editors = new CellEditor[columnNames.length];
 		editors[0] = new InventoryCellEditor(tableConsignmentRows); //Stok Kodu
-		editors[1] = new TextCellEditor(tableConsignmentRows); //Stok Adi
+		editors[1] = new InventoryNameCellEditor(tableConsignmentRows); //Stok Adi
 		editors[2] = new CurrencyCellEditor(tableConsignmentRows, 2); // mikatri
 		editors[3] = new ComboBoxCellEditor(tableConsignmentRows, new String[]{}, SWT.READ_ONLY);
 		editors[4] = new CurrencyCellEditor(tableConsignmentRows, 2);

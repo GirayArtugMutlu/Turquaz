@@ -163,4 +163,16 @@ public class InvBLCardSearch
 			throw ex;
 		}
 	}
+	public static TurqInventoryCard getInventoryCardFromName(HashMap argMap) throws Exception
+	{
+		try
+		{
+			String invCode=(String)argMap.get(InvKeys.INV_CARD_NAME);
+			return InvDALCardSearch.getInventoryCardFromName(invCode);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }

@@ -161,6 +161,15 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 					proposed.add(new Proposal(acc.getAccountCode(), acc.getAccountName()));
 				}
 			}
+			else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY_NAME)
+			{
+				List list = EngBLInventoryCards.getInventoryCards();
+				for (int i = 0; i < list.size(); i++) 
+				{
+					Object[] result = (Object[]) list.get(i);
+					proposed.add(new Proposal(result[1].toString(),result[0].toString()));
+				}
+			}
 			proposedCodes = new Proposal[proposed.size()];
 			proposed.toArray(proposedCodes);
 		}

@@ -419,7 +419,32 @@ public class InvUITransactionTableRow implements ITableRow
 					ex.printStackTrace();
 				}
 				break;
-			case 1 : //inventory name
+			case 1 :
+				try
+				{
+					TurqInventoryCard invCard = EngBLInventoryCards.getInvFromCardName(value.toString().trim());
+					if (invCard != null)
+					{
+						if (invTrans.getTurqInventoryCard() == null)
+						{
+							invTrans.setTurqInventoryCard(invCard);
+							fillDefaults(invCard);
+							updateComboBoxEditor();
+						}
+						else if (invTrans.getTurqInventoryCard().getId().intValue() != invCard.getId().intValue())
+						{
+							invTrans.setTurqInventoryCard(invCard);
+							fillDefaults(invCard);
+							updateComboBoxEditor();
+						}
+					}
+				}
+				catch (Exception ex)
+				{
+					Logger loger = Logger.getLogger(this.getClass());
+					loger.error("Exception Caught", ex);
+					ex.printStackTrace();
+				}
 				break;
 			case 2 : //Amount
 				formatted = value.toString();
@@ -576,7 +601,7 @@ public class InvUITransactionTableRow implements ITableRow
 
 	public boolean canModify(int column_index)
 	{
-		if (column_index == 1 || column_index == 4 || column_index == 5 || column_index == 7 || column_index == 11 || column_index == 13
+		if ( column_index == 4 || column_index == 5 || column_index == 7 || column_index == 11 || column_index == 13
 				|| column_index == 14)
 		{
 			return false;

@@ -91,6 +91,25 @@ public class EngBLInventoryCards
 			throw ex;
 		}
 	}
+	public static TurqInventoryCard getInvFromCardName(String cardName) throws Exception
+	{
+		try
+		{
+			if (_instance == null)
+			{
+				_instance = new EngBLInventoryCards();
+			}
+			HashMap argMap=new HashMap();
+			argMap.put(InvKeys.INV_CARD_NAME,cardName);
+			
+			
+			return  (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getInventoryCardFromName",argMap);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
 	public TurqInventoryCard getCard(String invCode) throws Exception
 	{
@@ -105,6 +124,7 @@ public class EngBLInventoryCards
 			throw ex;
 		}
 	}
+	
 
 	public static void RefreshContentAsistantMap() throws Exception
 	{

@@ -211,6 +211,29 @@ public class InvDALCardSearch
 			throw ex;
 		}
 	}
+	public static TurqInventoryCard getInventoryCardFromName(String cardName) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			String query = "Select invCard from TurqInventoryCard as invCard " + " where invCard.cardName = :cardName";
+			Query q = session.createQuery(query);
+			q.setParameter("cardName", cardName);
+			List list = q.list();
+			if (list.size() > 0)
+			{
+				return (TurqInventoryCard) list.get(0);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
 	public static TurqInventoryCard initializeInventoryCard(Integer cardId) throws Exception
 	{

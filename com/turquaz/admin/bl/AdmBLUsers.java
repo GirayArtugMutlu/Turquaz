@@ -25,6 +25,8 @@ import java.util.List;
 import com.turquaz.admin.AdmKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.dal.TurqUser;
 
 public class AdmBLUsers
@@ -38,6 +40,19 @@ public class AdmBLUsers
 		catch (Exception ex)
 		{
 			throw ex;
+		}
+	}
+	public static void deleteGroup(HashMap argMap)throws Exception
+	{
+		try
+		{	
+			TurqGroup group=(TurqGroup)argMap.get(AdmKeys.ADM_GROUP);
+			deleteGroupPermissions(group);
+			EngBLCommon.delete(group);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
 		}
 	}
 	
@@ -55,7 +70,16 @@ public class AdmBLUsers
 			ex.printStackTrace();
 		}
 	}
-	
+	private static void deleteGroupPermissions(TurqGroup user)throws Exception
+	{
+		EngDALSessionFactory.getSession().refresh(user);
+		
+		Iterator it=user.getTurqGroupPermissions().iterator();
+		while (it.hasNext())
+		{
+			EngBLCommon.delete(it.next());
+		}
+	}
 	private static void deleteUserPermissions(TurqUser user)throws Exception
 	{
 		Iterator it=user.getTurqUserPermissions().iterator();
