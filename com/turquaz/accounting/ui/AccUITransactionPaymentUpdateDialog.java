@@ -47,6 +47,7 @@ import com.turquaz.accounting.ui.AccUITransactionPayment;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.ui.viewers.ITableRow;
 
 import org.eclipse.swt.events.SelectionAdapter;
@@ -235,6 +236,8 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	    
 		compTransactionPayment.getTxtDocumentNo().setText(accTrans.getTransactionDocumentNo());
 		compTransactionPayment.getTxtDefinition().setText(accTrans.getTransactionDescription());
+		compTransactionPayment.getComboCurrencyType().setText(accTrans.getTurqCurrency().getCurrenciesAbbreviation());
+
 		Date date = new Date(accTrans.getTransactionsDate().getTime());
 		compTransactionPayment.getDatePickerTransactionDate().setDate(date);
 		
@@ -285,7 +288,8 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		try{
 		 if(compTransactionPayment.verifyFields()){
 		 blTransUpdate.updateTransaction(accTrans,compTransactionPayment.getTxtDocumentNo().getText().trim(),
-										compTransactionPayment.getDatePickerTransactionDate().getData(),compTransactionPayment.getTxtDefinition().getText().trim());
+										compTransactionPayment.getDatePickerTransactionDate().getData(),compTransactionPayment.getTxtDefinition().getText().trim(),
+										(TurqCurrency)compTransactionPayment.getComboCurrencyType().getData(compTransactionPayment.getComboCurrencyType().getText()));
 		 updateTransactionRows();
 		 msg.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.6")); //$NON-NLS-1$
 		 msg.open();

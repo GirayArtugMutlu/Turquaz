@@ -112,6 +112,10 @@ public class AccBLTransactionAdd {
 		trans.setTransactionDescription(definition);
 		trans.setTransactionsDate(new java.sql.Date(date.getTime()));
 		
+		/**
+		 * TODO Will Change in next version
+		 */
+		trans.setTurqCurrency(EngBLCommon.getBaseCurrency());
 		
 		//Hangi modulde kaydedildigi
 		TurqModule module = new TurqModule();

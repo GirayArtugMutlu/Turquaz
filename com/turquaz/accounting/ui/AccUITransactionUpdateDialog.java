@@ -42,6 +42,7 @@ import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.ui.viewers.ITableRow;
 
 
@@ -256,6 +257,9 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	    
 	compTransactionAdd.getTxtDocumentNo().setText(accTrans.getTransactionDocumentNo());
 	compTransactionAdd.getTxtTransDefinition().setText(accTrans.getTransactionDescription());
+	compTransactionAdd.getComboCurrencyType().setText(accTrans.getTurqCurrency().getCurrenciesAbbreviation());
+
+	
 	Date date = new Date(accTrans.getTransactionsDate().getTime());
 	compTransactionAdd.getDateTransactionDate().setDate(date);
 	fillTable();
@@ -278,8 +282,11 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	Iterator it = transactionRows.iterator();
 	TurqAccountingTransactionColumn transRow;
 	TableItem item;
+	boolean isCurrencySet = false;
 	while(it.hasNext()){
 	transRow =(TurqAccountingTransactionColumn)it.next();
+
+	
 	ITableRow row = new AccUITransactionAddTableRow(compTransactionAdd.rowList);
 	row.setDBObject(transRow);
 	compTransactionAdd.rowList.addTask(row);
@@ -304,7 +311,8 @@ public void showDialog(TurqAccountingTransaction accTrans){
 			{
 				updated=true;
 			 blTransUpdate.updateTransaction(accTrans,compTransactionAdd.getTxtDocumentNo().getText().trim(),
-										compTransactionAdd.getDateTransactionDate().getData(),compTransactionAdd.getTxtTransDefinition().getText().trim());
+										compTransactionAdd.getDateTransactionDate().getData(),compTransactionAdd.getTxtTransDefinition().getText().trim(),
+										(TurqCurrency)compTransactionAdd.getComboCurrencyType().getData(compTransactionAdd.getComboCurrencyType().getText()));
 			 updateTransactionRows();
 			 msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$
 			 msg.open();

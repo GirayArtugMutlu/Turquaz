@@ -590,7 +590,7 @@ public class AccUIInitialTransaction extends Composite implements
 
                 blTransUpdate.updateTransaction(accTrans, txtDocumentNo
                         .getText().trim(), dateTransactionDate.getData(),
-                        txtTransDefinition.getText().trim());
+                        txtTransDefinition.getText().trim(),EngBLCommon.getBaseCurrency());
                 updateTransactionRows();
                 msg.setMessage(Messages
                         .getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$

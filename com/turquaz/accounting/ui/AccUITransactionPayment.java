@@ -683,6 +683,18 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 		return txtDocumentNo;
 	}
 	/**
+	 * @return Returns the comboCurrencyType.
+	 */
+	public CCombo getComboCurrencyType() {
+		return comboCurrencyType;
+	}
+	/**
+	 * @param comboCurrencyType The comboCurrencyType to set.
+	 */
+	public void setComboCurrencyType(CCombo comboCurrencyType) {
+		this.comboCurrencyType = comboCurrencyType;
+	}
+	/**
 	 * @return Returns the comboCreditor.
 	 */
 	public CashAccountPicker getComboCreditor() {

@@ -686,6 +686,18 @@ public class AccUITransactionCollect extends Composite implements
 	}
 
 	/**
+	 * @return Returns the comboCurrencyType.
+	 */
+	public CCombo getComboCurrencyType() {
+		return comboCurrencyType;
+	}
+	/**
+	 * @param comboCurrencyType The comboCurrencyType to set.
+	 */
+	public void setComboCurrencyType(CCombo comboCurrencyType) {
+		this.comboCurrencyType = comboCurrencyType;
+	}
+	/**
 	 * @return Returns the datePickerTransactionDate.
 	 */
 	public DatePicker getDatePickerTransactionDate() {
