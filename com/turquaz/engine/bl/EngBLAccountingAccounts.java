@@ -54,7 +54,7 @@ public class EngBLAccountingAccounts {
 	public void fillAccountList()throws Exception{
 		try{
 		 accountList = blAccount.getAllAccounts();
-		 accountListForAccountPickers = blAccount.getAccountsForAccountPickers();
+		 accountListForAccountPickers = AccBLAccountAdd.getAccountsForAccountPickers();
 		 
 	     cashAccountList =blAccount.getCashAccounts();
 		 accountMap.clear();

@@ -129,7 +129,7 @@ public class AccDALAccountAdd {
 		}
 		
 	}
-	public List getAccountsForAccountPickers()throws Exception{
+	public static List getAccountsForAccountPickers()throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
 		

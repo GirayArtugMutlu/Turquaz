@@ -71,10 +71,10 @@ public class AccBLAccountAdd {
 		}
 		
 	}
-	public List getAccountsForAccountPickers()throws Exception{
+	public static List getAccountsForAccountPickers()throws Exception{
 		try{
 			
-			return dalAccountAdd.getAccountsForAccountPickers();
+			return AccDALAccountAdd.getAccountsForAccountPickers();
 			
 		}
 		catch(Exception ex){
