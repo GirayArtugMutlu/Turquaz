@@ -1143,30 +1143,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					compInvCardGeneralLayout.verticalSpacing = 5;
 					compInvCardGeneral.setLayout(compInvCardGeneralLayout);
 					{
-						lblInvCardName = new CLabel(
-							compInvCardGeneral,
-							SWT.NONE);
-						GridData lblInvCardNameLData = new GridData();
-						lblInvCardNameLData.widthHint = 96;
-						lblInvCardNameLData.heightHint = 20;
-						lblInvCardName.setLayoutData(lblInvCardNameLData);
-						lblInvCardName.setText(Messages
-							.getString("InvUICardAdd.1")); //$NON-NLS-1$
-						lblInvCardName
-							.setSize(new org.eclipse.swt.graphics.Point(96, 20));
-					}
-					{
-						txtInvCardName = new Text(compInvCardGeneral, SWT.NONE);
-						GridData txtInvCardNameLData = new GridData();
-						txtInvCardNameLData.widthHint = 132;
-						txtInvCardNameLData.heightHint = 16;
-						txtInvCardNameLData.horizontalSpan = 3;
-						txtInvCardName.setLayoutData(txtInvCardNameLData);
-						txtInvCardName.setTextLimit(50);
-						txtInvCardName
-							.setSize(new org.eclipse.swt.graphics.Point(138, 16));
-					}
-					{
 						lblInvCardCode = new CLabel(
 							compInvCardGeneral,
 							SWT.NONE);
@@ -1189,6 +1165,30 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						txtInvCardCode.setTextLimit(25);
 						txtInvCardCode
 							.setSize(new org.eclipse.swt.graphics.Point(136, 15));
+					}
+					{
+						lblInvCardName = new CLabel(
+							compInvCardGeneral,
+							SWT.NONE);
+						GridData lblInvCardNameLData = new GridData();
+						lblInvCardNameLData.widthHint = 96;
+						lblInvCardNameLData.heightHint = 20;
+						lblInvCardName.setLayoutData(lblInvCardNameLData);
+						lblInvCardName.setText(Messages
+							.getString("InvUICardAdd.1")); //$NON-NLS-1$
+						lblInvCardName
+							.setSize(new org.eclipse.swt.graphics.Point(96, 20));
+					}
+					{
+						txtInvCardName = new Text(compInvCardGeneral, SWT.NONE);
+						GridData txtInvCardNameLData = new GridData();
+						txtInvCardNameLData.widthHint = 132;
+						txtInvCardNameLData.heightHint = 16;
+						txtInvCardNameLData.horizontalSpan = 3;
+						txtInvCardName.setLayoutData(txtInvCardNameLData);
+						txtInvCardName.setTextLimit(50);
+						txtInvCardName
+							.setSize(new org.eclipse.swt.graphics.Point(138, 16));
 					}
 					{
 						lblInvCardDefinition = new CLabel(
