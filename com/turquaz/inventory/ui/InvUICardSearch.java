@@ -23,7 +23,6 @@ package com.turquaz.inventory.ui;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.MessageBox;

@@ -44,13 +44,13 @@ import org.eclipse.swt.widgets.Listener;
  */
 
 
-public class CurrencyText extends Composite {
+public class CurrencyTextAdvanced extends Composite {
  private Text text;
  public int textLimit;
  VerifyListener listener;
  int numberOfDecimal;
 
- public CurrencyText(Composite arg0, int arg1, int numOfDec) {
+ public CurrencyTextAdvanced(Composite arg0, int arg1, int numOfDec) {
   super(arg0, SWT.NONE);
   text = new Text(this, SWT.RIGHT);
   textLimit =24;
@@ -81,7 +81,7 @@ public class CurrencyText extends Composite {
 
  }
  
- public CurrencyText(Composite arg0, int arg1) {
+ public CurrencyTextAdvanced(Composite arg0, int arg1) {
  	  super(arg0, SWT.NONE);
  	  text = new Text(this, SWT.RIGHT);
  	  textLimit =24;
