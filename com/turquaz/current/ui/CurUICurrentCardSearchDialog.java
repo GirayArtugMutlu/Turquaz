@@ -77,7 +77,6 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 	private Text txtCurrentName;
 	private CLabel lblCurrentName;
 	private CLabel lblCurrentCode;
-	private CurBLCurrentCardSearch curBLCurrentCardSearch=new CurBLCurrentCardSearch();
 	private Button btnSearch;
 
 	 Object returnData=null;
@@ -264,7 +263,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 	public void search(){
 		try{
 			tableCurrentCardSearch.removeAll();
-			List listCurrentCards=curBLCurrentCardSearch.searchCurrentCard(txtCurrentCode.getText().trim(),
+			List listCurrentCards=CurBLCurrentCardSearch.searchCurrentCard(txtCurrentCode.getText().trim(),
 																		txtCurrentName.getText().trim(),(TurqCurrentGroup)comboTurqGroupName.getData(comboTurqGroupName.getText()));
 
 			for(int k=0; k<listCurrentCards.size(); k++){

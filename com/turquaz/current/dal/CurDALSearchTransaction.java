@@ -54,7 +54,7 @@ public class CurDALSearchTransaction {
 	public CurDALSearchTransaction(){
 		
 	}
-	public List searchTransaction(TurqCurrentCard curCard, TurqCurrentTransactionType type,
+	public static List searchTransaction(TurqCurrentCard curCard, TurqCurrentTransactionType type,
 			String docNo ,String definition, Date startDate, Date endDate)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
@@ -126,7 +126,7 @@ public class CurDALSearchTransaction {
 		}
 	}
 	
-	public List getCurrentTransactions(TurqCurrentCard curCard, Date startDate, Date endDate)throws Exception{
+	public static List getCurrentTransactions(TurqCurrentCard curCard, Date startDate, Date endDate)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
 			
@@ -213,7 +213,7 @@ public class CurDALSearchTransaction {
 	    
 	    
 	}
-	public List getInitialTransactions()throws Exception {
+	public static List getInitialTransactions()throws Exception {
 	    try{
 	        
 	        Session session = EngDALSessionFactory.openSession();

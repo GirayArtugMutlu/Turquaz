@@ -71,9 +71,6 @@ public class CashUICashTransferBetweenCardsUpdate extends Dialog {
 	private CashUICashTransferBetweenCards compTransAdd;
 	private ToolItem toolCancel;
 	private ToolBar toolBar1;
-
-	private CashBLCashTransactionUpdate  blUpdate = new CashBLCashTransactionUpdate();
-	
     private	TurqCashTransaction cashTrans ;  
     private boolean updated=false;
 
@@ -232,7 +229,7 @@ public class CashUICashTransferBetweenCardsUpdate extends Dialog {
 	        if(answer == SWT.YES)
 	        {
 	        	updated=true;
-	        	blUpdate.deleteCashTrans(cashTrans);
+	        	CashBLCashTransactionUpdate.deleteCashTrans(cashTrans);
 	         	MessageBox msg2 = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
 	         	msg2.setMessage(Messages.getString("CashUICashCollectTransactionUpdate.3")); //$NON-NLS-1$
 	         	msg2.open();         
@@ -250,7 +247,7 @@ public class CashUICashTransferBetweenCardsUpdate extends Dialog {
 	        
 	        if(compTransAdd.verifyFields()){
 	        updated=true;
-	        blUpdate.updateTransBetweenCards(cashTrans,(TurqCashCard)compTransAdd.getTxtCashCardWithDept().getData(),
+	        CashBLCashTransactionUpdate.updateTransBetweenCards(cashTrans,(TurqCashCard)compTransAdd.getTxtCashCardWithDept().getData(),
 	                                compTransAdd.getTxtCashCardWithCredit().getTurqCashCard(),
 	                                compTransAdd.getCurTextTotalAmount().getBigDecimalValue(),
 	                                compTransAdd.getDatePicker().getDate(),

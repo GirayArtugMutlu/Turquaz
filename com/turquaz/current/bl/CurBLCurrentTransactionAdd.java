@@ -49,18 +49,17 @@ import com.turquaz.engine.ui.component.DatePicker;
 
 public class CurBLCurrentTransactionAdd {
 
-	private CurDALCurrentTransactionAdd dalCurrentTrans=new CurDALCurrentTransactionAdd();	
 	public CurBLCurrentTransactionAdd(){
 		
 	}
 	
-	public void saveInitialTransaction(TurqCurrentCard curCard)throws Exception{
+	public static void saveInitialTransaction(TurqCurrentCard curCard)throws Exception{
 		
 		saveCurrentTransaction(curCard,DatePicker.getFirstDayOfYear(),"",true,new BigDecimal(0),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_INITIAL,new Integer(-1),"",EngBLCommon.getBaseCurrencyExchangeRate());
 		
 		
 	}
-	public TurqCurrentTransaction saveCurrentTransaction(TurqCurrentCard curCard,
+	public static TurqCurrentTransaction saveCurrentTransaction(TurqCurrentCard curCard,
 			Date transDate, String documentNo,	boolean isCredit,
 			BigDecimal amount, BigDecimal totalDiscount, int type,
 			Integer seqDocNo,String definition, 
@@ -139,7 +138,7 @@ public class CurBLCurrentTransactionAdd {
 	}
 	
 	//TODO DONE
-	public TurqCurrentTransaction saveOtherCurrentTransaction(
+	public static TurqCurrentTransaction saveOtherCurrentTransaction(
 			TurqCurrentCard curCard,TurqAccountingAccount account,
 			Date transDate, String documentNo,boolean isCredit,
 			BigDecimal amount, BigDecimal totalDiscount,int type,
@@ -190,7 +189,7 @@ public class CurBLCurrentTransactionAdd {
 	 * @throws Exception
 	 */
 	//DONE
-	public void saveCurrentCashTransaction(TurqCurrentCard curCard,Date transDate, String documentNo,
+	public static void saveCurrentCashTransaction(TurqCurrentCard curCard,Date transDate, String documentNo,
 		boolean isCredit,BigDecimal amount, BigDecimal totalDiscount,
 		int type, TurqAccountingAccount account,
 		TurqCurrencyExchangeRate exchangeRate) throws Exception
@@ -283,7 +282,7 @@ public class CurBLCurrentTransactionAdd {
 	 * @param AccTransId Accounting transaction id
 	 */
 	//TODO DONE
-	public void prepareAccountingMaps(TurqCurrentCard curCard, 
+	public static void prepareAccountingMaps(TurqCurrentCard curCard, 
 			boolean isCredit,BigDecimal amount,TurqAccountingAccount account,
 			Map deptAccounts, Map creditAccounts) throws Exception
 	{
@@ -349,10 +348,10 @@ public class CurBLCurrentTransactionAdd {
 	 * @return butun cari kartlar listesi
 	 * @throws Exception
 	 */
-	public List getCurrentCards() throws Exception {
+	public static List getCurrentCards() throws Exception {
 		try{
 			
-			return dalCurrentTrans.getCurrentCards();
+			return CurDALCurrentTransactionAdd.getCurrentCards();
 			
 			
 		}
@@ -360,10 +359,10 @@ public class CurBLCurrentTransactionAdd {
 			throw ex;
 		}
 	}
-	public List getCurrentTransactionTypes() throws Exception {
+	public static List getCurrentTransactionTypes() throws Exception {
 		try{
 			
-			return dalCurrentTrans.getTransactionTypes();
+			return CurDALCurrentTransactionAdd.getTransactionTypes();
 			
 			
 		}

@@ -53,7 +53,7 @@ public class CurDALCurrentTransactionAdd {
 		
 	}
 
-	public List getCurrentCards()throws Exception {
+	public static List getCurrentCards()throws Exception {
 	try{
 		
 		Session session = EngDALSessionFactory.openSession();
@@ -71,7 +71,7 @@ public class CurDALCurrentTransactionAdd {
 	
 	}	
 
-	public List getTransactionTypes()throws Exception {
+	public static List getTransactionTypes()throws Exception {
 		try{
 			
 			Session session = EngDALSessionFactory.openSession();

@@ -47,7 +47,7 @@ public class CurDALCurrentCardAdd {
 	public CurDALCurrentCardAdd(){
 	}
 	
-	public List getCurrentGroups() throws Exception {
+	public static List getCurrentGroups() throws Exception {
 	try{
 		Session session = EngDALSessionFactory.openSession();
 	
@@ -64,7 +64,7 @@ public class CurDALCurrentCardAdd {
 	}
 	
 	}
-	public boolean isCurrentCodePresent(String code)throws Exception{
+	public static boolean isCurrentCodePresent(String code)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
 	
@@ -86,7 +86,7 @@ public class CurDALCurrentCardAdd {
 		}
 		
 	}
-	public boolean isCurrentNamePresent(String code)throws Exception{
+	public static boolean isCurrentNamePresent(String code)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
 		

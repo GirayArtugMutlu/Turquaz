@@ -31,15 +31,16 @@ import com.turquaz.engine.dal.TurqCashCard;
  *
  */
 public class CashBLCashCardAdd {
-    Calendar cal=Calendar.getInstance();
+   
     CashDALCashCard dalCash = new CashDALCashCard();
     
     public CashBLCashCardAdd(){
         
     }
-    public void saveCashCard(String name, String definition, TurqAccountingAccount cashAccount)throws Exception {
+    public static void saveCashCard(String name, String definition, TurqAccountingAccount cashAccount)throws Exception {
         try{
             
+        	Calendar cal=Calendar.getInstance();
           TurqCashCard cashCard = new TurqCashCard();
           
           cashCard.setCashCardName(name);

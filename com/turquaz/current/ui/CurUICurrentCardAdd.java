@@ -346,7 +346,6 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	private CTabItem tabItemContactInfo;
 	private CTabItem tabItemGeneralInfo;
 	private CTabFolder tbfCurrentCardAdd;
-	private CurBLCurrentCardAdd currentAdd= new CurBLCurrentCardAdd();
 	public CurUICurrentCardAdd(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -1086,7 +1085,7 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	try{
 	HashMap groupMap = new HashMap(); 
 	
-	List list = currentAdd.getCurrentGroups();
+	List list = CurBLCurrentCardAdd.getCurrentGroups();
 	TurqCurrentGroup curGroup;
 	
 	for(int i=0; i<list.size();i++){

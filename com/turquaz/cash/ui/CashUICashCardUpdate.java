@@ -68,7 +68,6 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	private ToolBar toolBar1;
 	private CoolBar coolBar1;
     TurqCashCard cashCard ;
-    CashBLCashCardUpdate blUpdate = new CashBLCashCardUpdate();
 	public CashUICashCardUpdate(Shell parent, int style, TurqCashCard card) {
 		super(parent, style);
 		cashCard = card;
@@ -177,7 +176,7 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	public void toolDeleteSelected(){
 	    MessageBox msg = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
 	    try{
-	    blUpdate.delete(cashCard);
+	    CashBLCashCardUpdate.delete(cashCard);
 	    msg.setMessage(Messages.getString("CashUICashCardUpdate.1")); //$NON-NLS-1$
  	    msg.open();
  	    
@@ -204,7 +203,7 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	    try{
 	
 	       if(compCashCard.verifyFields()){
-	           blUpdate.updateCashCard(cashCard,compCashCard.getTxtCardCode().getText().trim(),compCashCard.getTxtDefinition().getText().trim(),
+	           CashBLCashCardUpdate.updateCashCard(cashCard,compCashCard.getTxtCardCode().getText().trim(),compCashCard.getTxtDefinition().getText().trim(),
 	                   (TurqAccountingAccount)compCashCard.getAccountPicker().getData());
 	           
 	           msg.setMessage(Messages.getString("CashUICashCardUpdate.3")); //$NON-NLS-1$

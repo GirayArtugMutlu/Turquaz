@@ -29,16 +29,15 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 
 
 public class CashBLCashCardSearch {
-    CashDALCashCard dalCash = new CashDALCashCard();
     
     public CashBLCashCardSearch(){
         
         
     }
-    public List searchCashCard(TurqAccountingAccount account, String cardName)throws Exception {
+    public static List searchCashCard(TurqAccountingAccount account, String cardName)throws Exception {
         try{
             
-           return dalCash.searchCashCard(account,cardName); 
+           return CashDALCashCard.searchCashCard(account,cardName); 
             
         }
         

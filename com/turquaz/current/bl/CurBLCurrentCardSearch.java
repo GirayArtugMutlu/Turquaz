@@ -35,13 +35,12 @@ public class CurBLCurrentCardSearch {
 	
 	}
 	
-	private CurDALCurrentCardSearch curDALCurrentCardSearch=new CurDALCurrentCardSearch();
 	
-	public List searchCurrentCard(String currentCode, String currentName,
+	public static List searchCurrentCard(String currentCode, String currentName,
 									TurqCurrentGroup currentGroup)
 	throws Exception{
 		try{
-			return curDALCurrentCardSearch.searchCurrentCards(currentCode,currentName,currentGroup);
+			return CurDALCurrentCardSearch.searchCurrentCards(currentCode,currentName,currentGroup);
 
 		}
 		catch(Exception ex){
@@ -49,12 +48,12 @@ public class CurBLCurrentCardSearch {
 		}
 	}
 	
-	public TurqViewCurrentAmountTotal getCurrentCardView (TurqCurrentCard currentCard)
+	public static TurqViewCurrentAmountTotal getCurrentCardView (TurqCurrentCard currentCard)
 	throws Exception	
 	{
 		try
 		{
-			return curDALCurrentCardSearch.getCurrentCardView(currentCard);
+			return CurDALCurrentCardSearch.getCurrentCardView(currentCard);
 		}
 		catch(Exception ex)
 		{
@@ -62,11 +61,11 @@ public class CurBLCurrentCardSearch {
 		}
 	}
 	
-	public List getTransactions(TurqCurrentCard curCard) throws Exception
+	public static List getTransactions(TurqCurrentCard curCard) throws Exception
 	{
 		try
 		{
-			return curDALCurrentCardSearch.getTransactions(curCard);
+			return CurDALCurrentCardSearch.getTransactions(curCard);
 		}
 		catch(Exception ex)
 		{
@@ -74,10 +73,10 @@ public class CurBLCurrentCardSearch {
 		}
 	}	
 	
-	public List getCurrentCards()throws Exception {
+	public static List getCurrentCards()throws Exception {
 	    try{
 	        
-	        return curDALCurrentCardSearch.getCurrentCards();
+	        return CurDALCurrentCardSearch.getCurrentCards();
 	        
 	    }
 	    catch(Exception ex){
@@ -85,18 +84,18 @@ public class CurBLCurrentCardSearch {
 	    }
 	    
 	}
-	public TurqCurrentCard getCurrentCard(String cardCode)throws Exception{
+	public static TurqCurrentCard getCurrentCard(String cardCode)throws Exception{
 	    try{
-	        return curDALCurrentCardSearch.getCurrentCard(cardCode);
+	        return CurDALCurrentCardSearch.getCurrentCard(cardCode);
 	    }
 	    catch(Exception ex){
 	        throw ex;
 	    }
 	    
 	}
-	public TurqCurrentCard initializeCurrentCard(Integer curCardId)throws Exception {
+	public static TurqCurrentCard initializeCurrentCard(Integer curCardId)throws Exception {
 		try{
-			 return curDALCurrentCardSearch.initializeCurrentCard(curCardId);
+			 return CurDALCurrentCardSearch.initializeCurrentCard(curCardId);
 		}
 		catch(Exception ex){
 			throw ex;

@@ -97,7 +97,6 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 	private CLabel lblCurrentCard;
 	private CashCardPicker txtCashCardWithDept;
 	
-	private CashBLCashTransactionAdd blTrans = new CashBLCashTransactionAdd();
 	
 	private TurqCurrency baseCurrency=EngBLCommon.getBaseCurrency();
 	private TurqCurrencyExchangeRate exchangeRate=null;
@@ -250,7 +249,7 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
            if(verifyFields()){
            
                
-               blTrans.saveTransferBetweenAccounts((TurqCashCard)txtCashCardWithDept.getData(),
+               CashBLCashTransactionAdd.saveTransferBetweenAccounts((TurqCashCard)txtCashCardWithDept.getData(),
                        						 txtCashCardWithCredit.getTurqCashCard(),
                        						  EngBLCommon.CASH_TRANSFER_BETWEEN_CARDS,
                        						  null,

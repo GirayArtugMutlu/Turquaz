@@ -28,7 +28,6 @@ import com.turquaz.engine.dal.TurqCurrentTransaction;
 
 public class CurBLTransactionUpdate {
 
-    static CurDALCurrentCardUpdate dalUpdate = new CurDALCurrentCardUpdate();
     
     public static void updateTrans(Object trans)throws Exception{
         try{
@@ -53,7 +52,7 @@ public class CurBLTransactionUpdate {
     }
     public static void initCurTrans(TurqCurrentTransaction curTrans)throws Exception {
     	try{
-    		dalUpdate.initCurrentTrans(curTrans);
+    		CurDALCurrentCardUpdate.initCurrentTrans(curTrans);
     	}
     	catch(Exception ex){
     		throw ex;

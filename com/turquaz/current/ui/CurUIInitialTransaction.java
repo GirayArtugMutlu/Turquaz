@@ -123,9 +123,8 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite {
 	
 	public void fillTable(){
 	    try{
-	        CurBLSearchTransaction blSearch = new CurBLSearchTransaction();
 	        
-	        List list = blSearch.getInitialTransactions();
+	        List list = CurBLSearchTransaction.getInitialTransactions();
 	        
 	        TurqCurrentTransaction curTrans;
 	        for(int i=0;i<list.size();i++){

@@ -52,7 +52,7 @@ public class CashDALCashCard {
     
     
     
-    public void deleteAccountingTransaction(TurqCashTransaction cashTrans)throws Exception{
+    public static void deleteAccountingTransaction(TurqCashTransaction cashTrans)throws Exception{
         try{
             Session session = EngDALSessionFactory.openSession();
             Transaction tx = session.beginTransaction();
@@ -87,7 +87,7 @@ public class CashDALCashCard {
         
     }
     
-    public List searchCashCard(TurqAccountingAccount account, String name)throws Exception{
+    public static List searchCashCard(TurqAccountingAccount account, String name)throws Exception{
      try{
          Session session = EngDALSessionFactory.openSession();
          
@@ -114,7 +114,7 @@ public class CashDALCashCard {
      }
         
     }
-    public List searchCashTransaction(TurqCashCard cashCard, Date startdate, Date endDate, String definition)throws Exception{
+    public static List searchCashTransaction(TurqCashCard cashCard, Date startdate, Date endDate, String definition)throws Exception{
         try{
             
             Session session = EngDALSessionFactory.openSession();
@@ -158,7 +158,7 @@ public class CashDALCashCard {
         
         
     }
-    public TurqCashTransaction initiliazeCashTrans(Integer id)throws Exception{
+    public static TurqCashTransaction initiliazeCashTrans(Integer id)throws Exception{
         try{
             Session session = EngDALSessionFactory.openSession();
             
@@ -181,7 +181,7 @@ public class CashDALCashCard {
         
         
     }
-    public void initiliazeCashTrans(TurqCashTransaction cashTrans)throws Exception{
+    public static void initiliazeCashTrans(TurqCashTransaction cashTrans)throws Exception{
         try{
             
             Session session = EngDALSessionFactory.openSession();
@@ -203,7 +203,7 @@ public class CashDALCashCard {
         
         
     }
-    public TurqCurrentCard getCurrentCard (TurqEngineSequence seq)throws Exception{
+    public static TurqCurrentCard getCurrentCard (TurqEngineSequence seq)throws Exception{
         try{
             Session session = EngDALSessionFactory.openSession();
             session.refresh(seq);

@@ -476,7 +476,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 	            	return;
 	            }
 	            
-	            TurqCashTransaction cashTrans = new CashBLCashTransactionSearch().initializeCashTransaction(id);
+	            TurqCashTransaction cashTrans = CashBLCashTransactionSearch.initializeCashTransaction(id);
 	            
 	            
 	            if(cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue()!=EngBLCommon.MODULE_CASH){	                

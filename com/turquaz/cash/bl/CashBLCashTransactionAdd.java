@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
-import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 
@@ -62,21 +61,20 @@ import com.turquaz.engine.dal.TurqModule;
 * *************************************
 */
 public class CashBLCashTransactionAdd {
-	CashDALCashCard dalCash = new CashDALCashCard();
-	CurBLCurrentTransactionAdd blCurTrans = new CurBLCurrentTransactionAdd();
 
-	private Calendar cal = Calendar.getInstance();
+	
 
 	public CashBLCashTransactionAdd() {
 
 	}
 	
 	//TODO DONE
-	public void saveCashTransaction(TurqCashCard cashCard,
+	public static void saveCashTransaction(TurqCashCard cashCard,
 			TurqEngineSequence seq, int type, Date transDate,
 			String definition, String documentNo, List totals,
 			TurqAccountingAccount account, TurqCurrencyExchangeRate exchangeRate) throws Exception {
 		try {
+			Calendar cal = Calendar.getInstance();
 			if (seq == null) {
 				try {
 					TurqModule module = new TurqModule();
@@ -176,12 +174,12 @@ public class CashBLCashTransactionAdd {
 	 * @throws Exception
 	 */
 	//TODO DONE
-	public void saveCurrentTransaction(TurqCashCard cashCard,
+	public  static void saveCurrentTransaction(TurqCashCard cashCard,
 			TurqCurrentCard current, int type, TurqEngineSequence seq,
 			BigDecimal totalAmount, Date transDate, String definition,
 			String document_no, TurqCurrencyExchangeRate exchangeRate) throws Exception {
 		try {
-
+			Calendar cal = Calendar.getInstance();
 			if (seq == null) {
 				try {
 					TurqModule module = new TurqModule();
@@ -287,7 +285,7 @@ public class CashBLCashTransactionAdd {
 			/**
 			 * Save Current transaction
 			 */
-			blCurTrans.saveCurrentTransaction(current, transDate, document_no,
+			CurBLCurrentTransactionAdd.saveCurrentTransaction(current, transDate, document_no,
 					currentTransType, totalAmount, new BigDecimal(0),
 					EngBLCommon.CURRENT_TRANS_CASH, seq.getId(),
 					currentTransDefinition,exchangeRate);
@@ -307,12 +305,12 @@ public class CashBLCashTransactionAdd {
 	}
 
 	//TODO DONE
-	public void saveOtherTransaction(TurqCashCard cashCard,
+	public static void saveOtherTransaction(TurqCashCard cashCard,
 			TurqAccountingAccount account, int type, TurqEngineSequence seq,
 			BigDecimal totalAmount, Date transDate, String definition,
 			String document_no, TurqCurrencyExchangeRate exchangeRate) throws Exception {
 		try {
-
+			Calendar cal = Calendar.getInstance();
 			if (seq == null) {
 				try {
 					TurqModule module = new TurqModule();
@@ -431,12 +429,12 @@ public class CashBLCashTransactionAdd {
 	}
 	
 	//TODO DONE
-	public void saveTransferBetweenAccounts(TurqCashCard cashCardWithDebt,
+	public static void saveTransferBetweenAccounts(TurqCashCard cashCardWithDebt,
 			TurqCashCard cashCardWithCredit , int type, TurqEngineSequence seq,
 			BigDecimal totalAmount, Date transDate, String definition,
 			String document_no, TurqCurrencyExchangeRate exchangeRate) throws Exception {
 		try {
-
+			Calendar cal = Calendar.getInstance();
 			if (seq == null) {
 				try {
 					TurqModule module = new TurqModule();

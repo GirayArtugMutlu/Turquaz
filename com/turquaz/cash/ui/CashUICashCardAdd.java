@@ -59,7 +59,6 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 	private CashAccountPicker accountPicker;
 	private CLabel lblAccountingCode;
 	private Text txtCardCode;
-	CashBLCashCardAdd blCardAdd = new CashBLCashCardAdd();
 
 	public CashUICashCardAdd(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
@@ -128,7 +127,7 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
        try{
            
            if(verifyFields()){
-               blCardAdd.saveCashCard(txtCardCode.getText().trim(),
+               CashBLCashCardAdd.saveCashCard(txtCardCode.getText().trim(),
                        				  txtDefinition.getText().trim(),
                        				  (TurqAccountingAccount)accountPicker.getData());
                 

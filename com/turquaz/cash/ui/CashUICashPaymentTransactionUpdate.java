@@ -70,7 +70,6 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	private ToolBar toolBar1;
 	private CoolBar coolBar1;
 	private TurqCashTransaction cashTrans;
-	private CashBLCashTransactionUpdate blUpdate = new CashBLCashTransactionUpdate();
 	private boolean updated=false;
 
 	public CashUICashPaymentTransactionUpdate(Shell parent, int style,TurqCashTransaction cashTrans) {
@@ -192,7 +191,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	    
 	   
         try{
-        TurqCurrentCard curCard = blUpdate.getCurrentCard(cashTrans.getTurqEngineSequence());
+        TurqCurrentCard curCard = CashBLCashTransactionUpdate.getCurrentCard(cashTrans.getTurqEngineSequence());
         
         if(curCard!=null){
         compTransAdd.getTxtCurrentAccount().setText(curCard.getCardsName()+" {"+curCard.getCardsCurrentCode()+"}");
@@ -238,7 +237,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	        if(answer == SWT.YES)
 	        {
 	        	updated=true;
-	        	blUpdate.deleteCashTrans(cashTrans);
+	        	CashBLCashTransactionUpdate.deleteCashTrans(cashTrans);
 	        	MessageBox msg2 = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
 	        	msg2.setMessage(Messages.getString("CashUICashPaymentTransactionUpdate.8")); //$NON-NLS-1$
 	        	msg2.open();          
@@ -260,7 +259,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	        if(compTransAdd.verifyFields())
 	        {
 	        	updated=true;
-	        	blUpdate.updateCashTrans(cashTrans,(TurqCashCard)compTransAdd.getTxtCashCard().getData(),
+	        	CashBLCashTransactionUpdate.updateCashTrans(cashTrans,(TurqCashCard)compTransAdd.getTxtCashCard().getData(),
 	                                (TurqCurrentCard)compTransAdd.getTxtCurrentAccount().getData(),
 	                                compTransAdd.getCurTextTotalAmount().getBigDecimalValue(),
 	                                compTransAdd.getDatePicker().getDate(),

@@ -30,7 +30,7 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
 
 public class CashBLCashCardUpdate {
-    Calendar cal=Calendar.getInstance();
+  
     CashDALCashCard dalCash = new CashDALCashCard();
     
     public CashBLCashCardUpdate(){
@@ -38,10 +38,10 @@ public class CashBLCashCardUpdate {
     }
     
     
-    public void updateCashCard(TurqCashCard cashCard, String name, String definition, TurqAccountingAccount cashAccount)throws Exception {
+    public static void updateCashCard(TurqCashCard cashCard, String name, String definition, TurqAccountingAccount cashAccount)throws Exception {
         try{
             
-          
+          Calendar cal=Calendar.getInstance();
           cashCard.setCashCardName(name);
           cashCard.setCashCardDefinition(definition);
           cashCard.setTurqAccountingAccount(cashAccount);
@@ -62,7 +62,7 @@ public class CashBLCashCardUpdate {
         
         
     }
-    public void delete(TurqCashCard card)throws Exception{
+    public static void delete(TurqCashCard card)throws Exception{
         
         try{
         	EngDALCommon.deleteObject(card);

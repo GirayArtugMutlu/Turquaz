@@ -231,7 +231,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 			    isCredit=true;
 			}
 			
-			TurqCurrentTransaction curtrans =new CurBLCurrentTransactionAdd().saveOtherCurrentTransaction((TurqCurrentCard)compVoucher.getTxtCurrentCard().getData(),
+			TurqCurrentTransaction curtrans =CurBLCurrentTransactionAdd.saveOtherCurrentTransaction((TurqCurrentCard)compVoucher.getTxtCurrentCard().getData(),
 				compVoucher.getAccountPicker().getTurqAccountingAccount(),compVoucher.getDateTransDate().getDate(),"",isCredit, credit , //$NON-NLS-1$
 						new BigDecimal(0),EngBLCommon.CURRENT_TRANS_OTHERS,
 						null,compVoucher.getTxtDefinition().getText(),

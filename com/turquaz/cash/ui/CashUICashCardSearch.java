@@ -73,7 +73,6 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 	private Table tableCashCards;
 	private AccountPicker accountPicker;
 	private Text txtCardCode;
-	CashBLCashCardSearch blSearch = new CashBLCashCardSearch();
 
 	public CashUICashCardSearch(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
@@ -183,7 +182,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
       try
 	  {
          tableCashCards.removeAll();
-         List ls = blSearch.searchCashCard((TurqAccountingAccount)accountPicker.getData(),txtCardCode.getText().trim());
+         List ls = CashBLCashCardSearch.searchCashCard((TurqAccountingAccount)accountPicker.getData(),txtCardCode.getText().trim());
          TableItem item;
          TurqCashCard card;
          for(int i=0;i<ls.size();i++)

@@ -94,9 +94,6 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	private CTabFolder cTabFolder1;
 	private Shell dialogShell;
 	private TurqCurrentCard currentCard;
-	private CurBLCurrentCardUpdate currentUpdate=new CurBLCurrentCardUpdate();
-	private CurBLCurrentCardSearch currentSearch=new CurBLCurrentCardSearch();
-	private CurBLCurrentCardAdd currentAdd=new CurBLCurrentCardAdd();
 	private ToolItem toolCancel;
 	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
@@ -399,7 +396,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 	for(int i=1;i<6;i++){
 	
-	Object sums[]=(Object [])currentUpdate.getCurrentTransactionBalances(currentCard,i).get(0);
+	Object sums[]=(Object [])CurBLCurrentCardUpdate.getCurrentTransactionBalances(currentCard,i).get(0);
     
     item = new TableItem(tableCurrentBalances,SWT.NULL);
     BigDecimal credit;
@@ -455,7 +452,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 		{
 			MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 			MessageBox msg2 = new MessageBox(this.getParent(),SWT.OK|SWT.CANCEL);
-			List curCardTrans=currentSearch.getTransactions(currentCard);
+			List curCardTrans=CurBLCurrentCardSearch.getTransactions(currentCard);
 			if (curCardTrans.size() > 0)
 			{
 				msg.setMessage(Messages.getString("CurUICurrentCardUpdate.15")); //$NON-NLS-1$
@@ -490,7 +487,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			return false;
 		}
 		else if((!currentCard.getCardsCurrentCode().equals(compCurCardAdd.getTxtCurrentCode().getText().trim()))
-				&&currentAdd.isCurrentCodePresent(compCurCardAdd.getTxtCurrentCode().getText().trim())){
+				&&CurBLCurrentCardAdd.isCurrentCodePresent(compCurCardAdd.getTxtCurrentCode().getText().trim())){
 			
 			msg.setMessage(Messages.getString("CurUICurrentCardUpdate.23")); //$NON-NLS-1$
 			msg.open();

@@ -29,17 +29,16 @@ import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 
 public class CashBLCashTransactionSearch {
-    CashDALCashCard dalCash = new CashDALCashCard();
 
     public CashBLCashTransactionSearch(){
         
     }
     
-   public List searchCashTransactions(TurqCashCard cashCard, Date startDate, Date endDate, String definition)throws Exception{
+   public static List searchCashTransactions(TurqCashCard cashCard, Date startDate, Date endDate, String definition)throws Exception{
        try{
            
            
-           return dalCash.searchCashTransaction(cashCard,startDate,endDate, definition);
+           return CashDALCashCard.searchCashTransaction(cashCard,startDate,endDate, definition);
            
            
        }
@@ -48,11 +47,11 @@ public class CashBLCashTransactionSearch {
        }
        
    }
-   public TurqCashTransaction initializeCashTransaction(Integer id)throws Exception
+   public static TurqCashTransaction initializeCashTransaction(Integer id)throws Exception
    {
        try{
                     
-           return dalCash.initiliazeCashTrans(id);
+           return CashDALCashCard.initiliazeCashTrans(id);
            
            
        }
@@ -61,11 +60,11 @@ public class CashBLCashTransactionSearch {
        }
    }
    
-   public void initializeCashTransaction(TurqCashTransaction cashTrans)throws Exception
+   public static void initializeCashTransaction(TurqCashTransaction cashTrans)throws Exception
    {
        try{
                     
-       dalCash.initiliazeCashTrans(cashTrans);
+       	CashDALCashCard.initiliazeCashTrans(cashTrans);
            
            
        }

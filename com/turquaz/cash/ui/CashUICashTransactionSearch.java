@@ -81,7 +81,6 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	private TableColumn tableColumnDefinition;
 	private CLabel lblDefinition;
 	private Table tableCashTransactions;
-	CashBLCashTransactionSearch blSearch = new CashBLCashTransactionSearch();
 	private Calendar cal=Calendar.getInstance();
 
 	
@@ -231,7 +230,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	           
 	          tableCashTransactions.removeAll();
 	            
-	          List list = blSearch.searchCashTransactions(txtCashCard.getTurqCashCard(),datePickerStart.getDate(),datePickerEnd.getDate(),txtDefinition.getText());	
+	          List list = CashBLCashTransactionSearch.searchCashTransactions(txtCashCard.getTurqCashCard(),datePickerStart.getDate(),datePickerEnd.getDate(),txtDefinition.getText());	
 	          
 	          Object[] row ;
 	          TableItem item;
@@ -308,7 +307,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	           
 	            Integer id = (Integer)item.getData();
 	            
-	            TurqCashTransaction cashTrans = blSearch.initializeCashTransaction(id);
+	            TurqCashTransaction cashTrans = CashBLCashTransactionSearch.initializeCashTransaction(id);
 	            
 	            
 	            if(cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue()!=EngBLCommon.MODULE_CASH){	                

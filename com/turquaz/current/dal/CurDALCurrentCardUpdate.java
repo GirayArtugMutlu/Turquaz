@@ -38,7 +38,7 @@ public class CurDALCurrentCardUpdate {
 		
 	}
 
-	public List getCurrentGroups() throws Exception {
+	public static List getCurrentGroups() throws Exception {
 		try{
 			Session session = EngDALSessionFactory.openSession();
 		
@@ -54,7 +54,7 @@ public class CurDALCurrentCardUpdate {
 			throw ex;
 		}
 	}
-	public List getCurrentTransactionBalances(TurqCurrentTransactionType type,TurqCurrentCard card)throws Exception{
+	public static List getCurrentTransactionBalances(TurqCurrentTransactionType type,TurqCurrentCard card)throws Exception{
 		try{
 			
 			Session session = EngDALSessionFactory.openSession();
@@ -103,7 +103,7 @@ public class CurDALCurrentCardUpdate {
 		
 	}
 	
-	public void initCurrentTrans(TurqCurrentTransaction curTrans)throws Exception{
+	public static void initCurrentTrans(TurqCurrentTransaction curTrans)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
 		

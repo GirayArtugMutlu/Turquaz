@@ -28,7 +28,6 @@ import java.util.List;
 import net.sf.hibernate.Session;
 
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
-import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 
 import com.turquaz.current.dal.CurDALSearchTransaction;
 import com.turquaz.current.dal.CurDALTransactionUpdate;
@@ -42,21 +41,19 @@ import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
 public class CurBLSearchTransaction {
-	private CurDALSearchTransaction dalSearch = new CurDALSearchTransaction();
-	private AccBLTransactionUpdate accDalUpdate = new AccBLTransactionUpdate();
 	CurDALTransactionUpdate dalUpdate = new CurDALTransactionUpdate();
 	AccBLTransactionSearch blAccSearch = new AccBLTransactionSearch();
 	CurBLCurrentTransactionAdd blTransAdd = new CurBLCurrentTransactionAdd();
-	Calendar cal = Calendar.getInstance();
+	
 	public CurBLSearchTransaction(){
 		
 	}
-	public List searchCurrentTransaction(Object curCard,
+	public static List searchCurrentTransaction(Object curCard,
 										Object type, String docNo, String definition, Date startDate,
 										Date endDate)throws Exception {
 		try{
 		
-		return 	dalSearch.searchTransaction((TurqCurrentCard)curCard,
+		return CurDALSearchTransaction.searchTransaction((TurqCurrentCard)curCard,
 											(TurqCurrentTransactionType)type,
 											docNo,definition,startDate, endDate);
 			
@@ -82,21 +79,21 @@ public class CurBLSearchTransaction {
 		}
 	}
 	
-	public List getCurrentTransactions(TurqCurrentCard card, Date startDate, Date endDate)throws Exception {
+	public static List getCurrentTransactions(TurqCurrentCard card, Date startDate, Date endDate)throws Exception {
 		try{
 
-			return 	dalSearch.getCurrentTransactions(card, startDate, endDate);
+			return 	CurDALSearchTransaction.getCurrentTransactions(card, startDate, endDate);
 			}
 		catch(Exception ex){
 			throw ex;
 		}
 	}
 	
-	public void updateCurrentTransaction(TurqCurrentCard curCard,Date transDate,
+	public static void updateCurrentTransaction(TurqCurrentCard curCard,Date transDate,
 			String documentNo,boolean isCredit,BigDecimal amount,
 			TurqAccountingAccount account,TurqCurrentTransaction curTrans)throws Exception{
 	try{
-		
+		Calendar cal = Calendar.getInstance();
 		TurqCurrency currency = EngBLCommon.getBaseCurrency();
 		
 		curTrans.setTurqCurrentCard(curCard);
@@ -150,7 +147,7 @@ public class CurBLSearchTransaction {
 	}
 
 	}
-	public void deleteCurrentTransaction(TurqCurrentTransaction curTrans)throws Exception{
+	public static void deleteCurrentTransaction(TurqCurrentTransaction curTrans)throws Exception{
 		try{
 			
 	/*		//remove accounting transaction rows
@@ -183,10 +180,10 @@ public class CurBLSearchTransaction {
 	        throw ex;
 	    }	    
 	}
-	public List getInitialTransactions()throws Exception{
+	public static List getInitialTransactions()throws Exception{
 	    try{
 	        
-	        return dalSearch.getInitialTransactions();
+	        return CurDALSearchTransaction.getInitialTransactions();
 	        
 	        
 	    }
@@ -195,7 +192,7 @@ public class CurBLSearchTransaction {
 	    }
 	    
 	}
-	public void deleteInitialTransactions(Session session,TurqCurrentCard curCard)throws Exception {
+	public static void deleteInitialTransactions(Session session,TurqCurrentCard curCard)throws Exception {
 	    try{
 	    
 	    	CurDALSearchTransaction.deleteInitialTransactions(session,curCard);

@@ -47,9 +47,6 @@ public class CurBLCurrentCardAdd {
 	public CurBLCurrentCardAdd(){
 	}
 	
-	private CurDALCurrentCardAdd currentAdd=new CurDALCurrentCardAdd();
-	//TODO remove private static
-	private static CurBLCurrentTransactionAdd blTransAdd = new CurBLCurrentTransactionAdd();
 	
 	public static void saveCurrentCard(String currentCode, String cardName,
 			String cardDefinition,String cardAddress, BigDecimal cardDiscountRate,
@@ -139,7 +136,7 @@ public class CurBLCurrentCardAdd {
 		{
 			Calendar cal=Calendar.getInstance();
 			cal.set(cal.get(Calendar.YEAR),0,1);
-			blTransAdd.saveCurrentTransaction(currentCard,
+			CurBLCurrentTransactionAdd.saveCurrentTransaction(currentCard,
 				cal.getTime(),"",false,new BigDecimal(0),new BigDecimal(0),
 				EngBLCommon.CURRENT_TRANS_INITIAL,new Integer(-1),
 				"sads",
@@ -289,11 +286,11 @@ public class CurBLCurrentCardAdd {
 		}
 	}
 	
-	public List getCurrentGroups() throws Exception {
+	public static List getCurrentGroups() throws Exception {
 
 		try {
 
-			return currentAdd.getCurrentGroups();
+			return CurDALCurrentCardAdd.getCurrentGroups();
 
 		} catch (Exception ex) {
 			throw ex;
@@ -301,7 +298,7 @@ public class CurBLCurrentCardAdd {
 
 	}
 
-	public void deleteObject(Object obj)throws Exception{
+	public static void deleteObject(Object obj)throws Exception{
 		try{
 			
 			EngDALCommon.deleteObject(obj);	
@@ -350,7 +347,7 @@ public class CurBLCurrentCardAdd {
 		}
 	} 
 	
-	public void updateObject(Object obj)throws Exception
+	public static void updateObject(Object obj)throws Exception
 	{
 		try
 		{			
@@ -363,11 +360,11 @@ public class CurBLCurrentCardAdd {
 		
 	}
 
-	public boolean isCurrentCodePresent(String Code)throws Exception
+	public static boolean isCurrentCodePresent(String Code)throws Exception
 	{
 		try
 		{		
-			return currentAdd.isCurrentCodePresent(Code);
+			return CurDALCurrentCardAdd.isCurrentCodePresent(Code);
 		}
 		catch(Exception ex)
 		{
@@ -375,10 +372,10 @@ public class CurBLCurrentCardAdd {
 		}
 	}
 	
-	public boolean isCurrentNamePresent(String name)throws Exception{
+	public static boolean isCurrentNamePresent(String name)throws Exception{
 		try
 		{			
-			return currentAdd.isCurrentNamePresent(name);
+			return CurDALCurrentCardAdd.isCurrentNamePresent(name);
 		}
 		catch(Exception ex)
 		{

@@ -77,8 +77,6 @@ import com.turquaz.current.ui.comp.CurrentPicker;
 */
 public class CurUITransactionSearch extends Composite implements SearchComposite {
 
-	private CurBLSearchTransaction blSearch = new CurBLSearchTransaction();
-	private CurBLCurrentTransactionAdd blTransAdd = new CurBLCurrentTransactionAdd();
 	private CLabel lblCurrentCard;
 	private CLabel lblTransactionGroup;
 	private Table tableCurrentTransactions;
@@ -315,7 +313,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 
 	public void fillComboTypes(){
 	try{
-	List list = blTransAdd.getCurrentTransactionTypes();
+	List list = CurBLCurrentTransactionAdd.getCurrentTransactionTypes();
 	TurqCurrentTransactionType type ;	
 	comboTransactionGroup.add("Hepsi");
 	comboTransactionGroup.setData("Hepsi",null);
@@ -349,7 +347,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 			BigDecimal totalDept = new BigDecimal(0);
 			BigDecimal totalCredit = new BigDecimal(0);
 	
-			List results =blSearch.searchCurrentTransaction(txtCurCard.getData(),
+			List results =CurBLSearchTransaction.searchCurrentTransaction(txtCurCard.getData(),
 									 comboTransactionGroup.getData(comboTransactionGroup.getText()),
 									 "",txtDefinition.getText().trim(),dateStartDate.getDate(),dateEndDate.getDate()); //$NON-NLS-1$
 	

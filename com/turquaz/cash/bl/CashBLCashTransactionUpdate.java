@@ -47,22 +47,17 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 
 public class CashBLCashTransactionUpdate {
-
-    CashDALCashCard dalCash = new CashDALCashCard();
     
-    AccBLTransactionAdd blAccTran = new AccBLTransactionAdd();
-    CurBLCurrentTransactionAdd blCurTrans = new CurBLCurrentTransactionAdd();
 	
-    private Calendar cal=Calendar.getInstance();
     
     public CashBLCashTransactionUpdate(){
         
     }
     
-    public TurqCurrentCard getCurrentCard(TurqEngineSequence seq) throws Exception{
+    public static TurqCurrentCard getCurrentCard(TurqEngineSequence seq) throws Exception{
         try{
             
-            return dalCash.getCurrentCard(seq);
+            return CashDALCashCard.getCurrentCard(seq);
             
             
         }
@@ -72,10 +67,10 @@ public class CashBLCashTransactionUpdate {
         
         
     }
-    public void deleteOnlyCashTransaction(TurqCashTransaction cashTrans) throws Exception{
+    public static void deleteOnlyCashTransaction(TurqCashTransaction cashTrans) throws Exception{
         try
         {
-            dalCash.initiliazeCashTrans(cashTrans);
+        	CashDALCashCard.initiliazeCashTrans(cashTrans);
             Iterator it = cashTrans.getTurqCashTransactionRows().iterator();
             while(it.hasNext()){
                 
@@ -97,7 +92,7 @@ public class CashBLCashTransactionUpdate {
         
     }
     
-    public void deleteChequeCashTrans(TurqCashTransaction cashTrans)throws Exception{
+    public static void deleteChequeCashTrans(TurqCashTransaction cashTrans)throws Exception{
         try{
             
             // if it is a current transaction the delete Current Transactions
@@ -139,7 +134,7 @@ public class CashBLCashTransactionUpdate {
         
     }
     
-    public void deleteCashTrans(TurqCashTransaction cashTrans)throws Exception{
+    public static void deleteCashTrans(TurqCashTransaction cashTrans)throws Exception{
         try{
             
             // if it is a current transaction the delete Current Transactions
@@ -170,7 +165,7 @@ public class CashBLCashTransactionUpdate {
             
             
             //delete accounting transactions 
-            dalCash.deleteAccountingTransaction(cashTrans);
+            CashDALCashCard.deleteAccountingTransaction(cashTrans);
            
             
             EngDALCommon.deleteObject(cashTrans);
@@ -187,12 +182,12 @@ public class CashBLCashTransactionUpdate {
     }
     
     //TODO DONE
-    public void updateCashTrans(TurqCashTransaction cashTrans, TurqCashCard cashCard, TurqCurrentCard current, 
+    public static void updateCashTrans(TurqCashTransaction cashTrans, TurqCashCard cashCard, TurqCurrentCard current, 
 					BigDecimal totalAmount, Date transDate,
 					String definition, String document_no,TurqCurrencyExchangeRate exchangeRate)throws Exception {
         try{
             
-        
+        	Calendar cal=Calendar.getInstance();
             
                 
            //delete current Transactions..      
@@ -217,7 +212,7 @@ public class CashBLCashTransactionUpdate {
              
              //delete accounting transactions 
              
-             dalCash.deleteAccountingTransaction(cashTrans);
+             CashDALCashCard.deleteAccountingTransaction(cashTrans);
              
              
              
@@ -317,7 +312,7 @@ public class CashBLCashTransactionUpdate {
             	   * Save Current transaction
             	  */
             	    
-            	    blCurTrans.saveCurrentTransaction(current, transDate,document_no,currentTransType,
+            	    CurBLCurrentTransactionAdd.saveCurrentTransaction(current, transDate,document_no,currentTransType,
             	            						  totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CASH,
             	            						 cashTrans.getTurqEngineSequence().getId(),currentTransDefinition,
 													 exchangeRate);
@@ -366,12 +361,12 @@ public class CashBLCashTransactionUpdate {
 	}
     
     //TODO DONE
-    public void updateOtherTrans(TurqCashTransaction cashTrans, TurqCashCard cashCard, TurqAccountingAccount account, 
+    public static void updateOtherTrans(TurqCashTransaction cashTrans, TurqCashCard cashCard, TurqAccountingAccount account, 
 			BigDecimal totalAmount, Date transDate,
 			String definition, String document_no, TurqCurrencyExchangeRate exchangeRate)throws Exception {
 try{
     
-
+	Calendar cal=Calendar.getInstance();
     
         
    //delete current Transactions..      
@@ -395,7 +390,7 @@ try{
      
      //delete accounting transactions 
      
-     dalCash.deleteAccountingTransaction(cashTrans);
+     CashDALCashCard.deleteAccountingTransaction(cashTrans);
      
      
      
@@ -508,13 +503,13 @@ catch(Exception ex){
 }
     
     //TODO DONE
-    public void updateTransBetweenCards(TurqCashTransaction cashTrans, TurqCashCard cashCardWithDebt, TurqCashCard cashCardWithCredit, 
+    public static void updateTransBetweenCards(TurqCashTransaction cashTrans, TurqCashCard cashCardWithDebt, TurqCashCard cashCardWithCredit, 
 			BigDecimal totalAmount, Date transDate,
 			String definition, String document_no, TurqCurrencyExchangeRate exchangeRate)throws Exception {
 try{
     
     
-        
+	Calendar cal=Calendar.getInstance();
    //delete current Transactions..      
  
         Iterator it = cashTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
@@ -537,7 +532,7 @@ try{
      
      //delete accounting transactions 
      
-     dalCash.deleteAccountingTransaction(cashTrans);
+     CashDALCashCard.deleteAccountingTransaction(cashTrans);
      
      
      

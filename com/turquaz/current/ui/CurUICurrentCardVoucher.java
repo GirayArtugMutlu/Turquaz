@@ -67,6 +67,8 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
+
+
 public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite
 implements SecureComposite{
 
@@ -103,8 +105,6 @@ implements SecureComposite{
 	public TurqCurrencyExchangeRate getExchangeRate() {
 		return exchangeRate;
 	}
-	private CurBLCurrentTransactionAdd curBLTransAdd=new CurBLCurrentTransactionAdd();
-	
 	private TurqCurrency baseCurrency=EngBLCommon.getBaseCurrency();
 	private TurqCurrencyExchangeRate exchangeRate=null;
 	private TurqCurrency exchangeCurrency=null;
@@ -313,7 +313,7 @@ implements SecureComposite{
 				    isCredit=true;
 				}
 
-				TurqCurrentTransaction curtrans = curBLTransAdd.saveOtherCurrentTransaction((TurqCurrentCard)txtCurrentCard.getData(),
+				TurqCurrentTransaction curtrans = CurBLCurrentTransactionAdd.saveOtherCurrentTransaction((TurqCurrentCard)txtCurrentCard.getData(),
 					accountPicker.getTurqAccountingAccount(),dateTransDate.getDate(),"",isCredit,credit, //$NON-NLS-1$
 							new BigDecimal(0),EngBLCommon.CURRENT_TRANS_OTHERS,
 							null,txtDefinition.getText(),exchangeRate);

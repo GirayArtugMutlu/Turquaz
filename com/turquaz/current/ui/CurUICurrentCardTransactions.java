@@ -45,7 +45,6 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 
 	private Shell dialogShell;
 	private TurqCurrentCard currentCard;
-	private CurBLSearchTransaction BLSearch = new CurBLSearchTransaction();
 	private Table tableCurrentTransactions;
 	private TableColumn tableColumnDocumentNo;
 	private ToolBar toolBar1;
@@ -204,7 +203,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 		try{
 		tableCurrentTransactions.removeAll();
 		
-		List results =BLSearch.getCurrentTransactions(currentCard, null, null);
+		List results =CurBLSearchTransaction.getCurrentTransactions(currentCard, null, null);
 		
 		TurqCurrentTransaction transaction;
 		TableItem item;

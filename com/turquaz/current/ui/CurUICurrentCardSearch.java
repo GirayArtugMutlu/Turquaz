@@ -84,7 +84,6 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
     }
 
 
-	private CurBLCurrentCardSearch curBLCurrentCardSearch=new CurBLCurrentCardSearch();
 	private MenuItem item;
 	private Menu popup;
 	private TableColumn tableColumnBalance;
@@ -100,8 +99,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 	private CurrentCodePicker txtCurrentCode;
 	private CLabel lblCurrentCode;
 	private Composite compCurrentCardSearch;
-	private CurBLCurrentCardUpdate blUpdate = new CurBLCurrentCardUpdate();
-	private CurBLCurrentCardSearch currentSearch=new CurBLCurrentCardSearch();
+
 
 	public CurUICurrentCardSearch(Composite parent, int style) {
 		super(parent, style);
@@ -295,7 +293,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 	   	 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 				MessageBox msg2 = new MessageBox(this.getShell(),SWT.OK|SWT.CANCEL);
 				
-				List curCardTrans=currentSearch.getTransactions(currentCard);
+				List curCardTrans=CurBLCurrentCardSearch.getTransactions(currentCard);
 				if (curCardTrans.size() > 0)
 				{
 					msg.setMessage(Messages.getString("CurUICurrentCardUpdate.15")); //$NON-NLS-1$
@@ -311,7 +309,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 			
 					deleteRelations(currentCard);
 				
-					blUpdate.deleteObject(currentCard);
+					CurBLCurrentCardUpdate.deleteObject(currentCard);
 				
 					msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
 					msg.open();
@@ -340,18 +338,18 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 	 Iterator it=currentCard.getTurqCurrentCardsGroups().iterator();
 	 while(it.hasNext()){
 				TurqCurrentCardsGroup currentGroup=(TurqCurrentCardsGroup)it.next();
-				blUpdate.deleteObject(currentGroup);
+				CurBLCurrentCardUpdate.deleteObject(currentGroup);
 			}
 			 it=currentCard.getTurqCurrentCardsPhones().iterator();
 			while(it.hasNext()){
 				
-				blUpdate.deleteObject(it.next());
+				CurBLCurrentCardUpdate.deleteObject(it.next());
 			}
 	
 			it=currentCard.getTurqCurrentContacts().iterator();
 			while(it.hasNext()){
 				
-				blUpdate.deleteObject(it.next());
+				CurBLCurrentCardUpdate.deleteObject(it.next());
 			}
 	}
 	catch(Exception ex ){
@@ -365,7 +363,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 		try
 		{
 			tableCurrentCardSearch.removeAll();
-			List listCurrentCards=curBLCurrentCardSearch.searchCurrentCard(txtCurrentCode.getText().trim(),
+			List listCurrentCards=CurBLCurrentCardSearch.searchCurrentCard(txtCurrentCode.getText().trim(),
 																		txtCurrentName.getText().trim(),(TurqCurrentGroup)comboTurqGroupName.getData(comboTurqGroupName.getText()));
 			TurkishCurrencyFormat cf=new TurkishCurrencyFormat(2);
 			TableItem item;
@@ -457,7 +455,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 	         	Integer cardId=(Integer)selection[0].getData();
 	         	if (cardId != null)
 	         	{
-	         		TurqCurrentCard card = currentSearch.initializeCurrentCard( cardId);
+	         		TurqCurrentCard card = CurBLCurrentCardSearch.initializeCurrentCard( cardId);
 
 	         		boolean updated=new CurUICurrentCardUpdate(this.getShell(),SWT.NULL,card).open();
 	         		if (updated)
