@@ -369,7 +369,13 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		cal.set(cal.get(Calendar.YEAR),0,1);
 		dateStartDate.setDate(cal.getTime());
 
+		cal.set(cal.get(Calendar.YEAR),0,1);
+		dateDueDateStart.setDate(cal.getTime());
 		
+		cal.add(Calendar.YEAR,1);
+		cal.add(Calendar.DATE,-1);
+		
+		dateDueDateEnd.setDate(cal.getTime());
 		
 		
 	
