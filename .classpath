@@ -38,7 +38,7 @@
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/swtcalendar.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/xml-apis.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/windows/swt.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/TurquazSF/lib/hsqldb.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/workspace/TurquazSF/lib/pg80b1.308.jdbc3.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/pg80b1.308.jdbc3.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
