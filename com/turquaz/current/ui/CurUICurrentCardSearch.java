@@ -362,13 +362,19 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 	
 	}
 	
-	public void search(){
-		try{
+	public void search()
+	{
+		try
+		{
 			tableCurrentCardSearch.removeAll();
 			List listCurrentCards=curBLCurrentCardSearch.searchCurrentCard(txtCurrentCode.getText().trim(),
 																		txtCurrentName.getText().trim(),(TurqCurrentGroup)comboTurqGroupName.getData(comboTurqGroupName.getText()));
 			TurkishCurrencyFormat cf=new TurkishCurrencyFormat(2);
-			for(int k=0; k<listCurrentCards.size(); k++){
+			TableItem item;
+			BigDecimal generalCredit=new BigDecimal(0);
+			BigDecimal generalDept=new BigDecimal(0);
+			for(int k=0; k<listCurrentCards.size(); k++)
+			{
 				
 				Object result[] = (Object[])listCurrentCards.get(k);
 				
@@ -379,7 +385,11 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 				BigDecimal totalCredit=(currentView.getTransactionsTotalCredit()==null) ? new BigDecimal(0) : currentView.getTransactionsTotalCredit();
 				BigDecimal totalDept=(currentView.getTransactionsTotalDept()==null) ? new BigDecimal(0) : currentView.getTransactionsTotalDept();
 				BigDecimal balance=(currentView.getTransactionsBalanceNow()== null) ? new BigDecimal(0) : currentView.getTransactionsBalanceNow();
-				TableItem item=new TableItem(tableCurrentCardSearch, SWT.NULL);
+				
+				generalCredit=generalCredit.add(totalCredit);
+				generalDept=generalDept.add(totalDept);
+				
+				item=new TableItem(tableCurrentCardSearch, SWT.NULL);
 				item.setData(result[3]);			
  				
  					
@@ -387,6 +397,12 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
  				item.setText(new String[]{curCode,curName,cf.format(totalDept),cf.format(totalCredit),cf.format(balance)});
                   			
 			}
+			item=new TableItem(tableCurrentCardSearch, SWT.NULL);
+			item=new TableItem(tableCurrentCardSearch, SWT.RIGHT);
+			item.setText(new String[]{"","TOPLAM",cf.format(generalDept),cf.format(generalCredit),cf.format(generalCredit.subtract(generalDept))});
+			
+			
+			
 		
 	
 		}
@@ -436,15 +452,22 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 		
 		TableItem [] selection= tableCurrentCardSearch.getSelection();	
 	
-		if(selection.length>0){
-	         try{
-			TurqCurrentCard card = currentSearch.initializeCurrentCard( (Integer)selection[0].getData());
+		if(selection.length>0)
+		{
+	         try
+			 {
+	         	Integer cardId=(Integer)selection[0].getData();
+	         	if (cardId != null)
+	         	{
+	         		TurqCurrentCard card = currentSearch.initializeCurrentCard( cardId);
 
-			boolean updated=new CurUICurrentCardUpdate(this.getShell(),SWT.NULL,card).open();
-			if (updated)
-				search();
-	         }
-	         catch(Exception ex){
+	         		boolean updated=new CurUICurrentCardUpdate(this.getShell(),SWT.NULL,card).open();
+	         		if (updated)
+	         			search();
+	         	}
+			 }
+	         catch(Exception ex)
+			 {
 	         	ex.printStackTrace();
 	         }
 		}
