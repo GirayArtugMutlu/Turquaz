@@ -26,6 +26,14 @@ import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a
+* for-profit company or business) then you should purchase
+* a license - please visit www.cloudgarden.com for details.
+*/
 public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
 
 	private DatePicker datePicker1;
