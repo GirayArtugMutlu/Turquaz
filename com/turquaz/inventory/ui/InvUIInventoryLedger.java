@@ -14,6 +14,7 @@ import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLInventoryLedger;
 
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Table;
@@ -39,6 +40,8 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	private Composite compFilter;
 	private TableColumn tableColumnInvCode;
 	private TableColumn tableColumnInvName;
+	private Text txtInvCode;
+	private CLabel lblInvCode;
 	private TableColumn tableColumnTotalPrice;
 	private TableColumn tableColumnAvgPrice;
 	private TableColumn tableColumnLastAmount;
@@ -67,7 +70,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
                 GridLayout compFilterLayout = new GridLayout();
                 compFilterLayout.numColumns = 2;
                 GridData compFilterLData = new GridData();
-                compFilterLData.heightHint = 39;
+                compFilterLData.heightHint = 64;
                 compFilterLData.grabExcessHorizontalSpace = true;
                 compFilterLData.horizontalAlignment = GridData.FILL;
                 compFilter.setLayoutData(compFilterLData);
@@ -86,6 +89,21 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
                     datePickerLData.widthHint = 149;
                     datePickerLData.heightHint = 21;
                     datePicker.setLayoutData(datePickerLData);
+                }
+                {
+                    lblInvCode = new CLabel(compFilter, SWT.NONE);
+                    lblInvCode.setText("Stok Kodu");
+                    GridData lblInvCodeLData = new GridData();
+                    lblInvCodeLData.widthHint = 54;
+                    lblInvCodeLData.heightHint = 19;
+                    lblInvCode.setLayoutData(lblInvCodeLData);
+                }
+                {
+                    txtInvCode = new Text(compFilter, SWT.NONE);
+                    GridData txtInvCodeLData = new GridData();
+                    txtInvCodeLData.widthHint = 76;
+                    txtInvCodeLData.heightHint = 13;
+                    txtInvCode.setLayoutData(txtInvCodeLData);
                 }
             }
             {
@@ -134,7 +152,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	       
 	        tableInventories.removeAll();
 	      TurkishCurrencyFormat curFormat = new TurkishCurrencyFormat();  
-	      List list = blLedger.getInventoryLedger(datePicker.getDate()); 
+	      List list = blLedger.getInventoryLedger(datePicker.getDate(),txtInvCode.getText().trim()); 
 	      Object[]result;
 	      String invCode = ""; //$NON-NLS-1$
 	      String invName = ""; //$NON-NLS-1$

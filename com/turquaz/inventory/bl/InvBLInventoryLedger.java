@@ -37,11 +37,11 @@ public class InvBLInventoryLedger {
         
     }
     
-    public List getInventoryLedger(Date date)throws Exception {
+    public List getInventoryLedger(Date date, String invCode)throws Exception {
         
     try{
         
-        return dalInvLedger.getInventoryLedger(date);
+        return dalInvLedger.getInventoryLedger(date, invCode);
         
         
     }

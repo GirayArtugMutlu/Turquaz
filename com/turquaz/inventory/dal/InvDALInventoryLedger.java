@@ -17,7 +17,7 @@ public class InvDALInventoryLedger {
         
     }
     
-    public List getInventoryLedger(Date date)throws Exception{
+    public List getInventoryLedger(Date date, String invCode)throws Exception{
     
         try{
             SimpleDateFormat frmt = new SimpleDateFormat("yyyy-MM-dd");
@@ -35,7 +35,8 @@ public class InvDALInventoryLedger {
            		" LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id, sum(turq_inventory_transactions.transactions_total_price) AS totalpriceout, sum(turq_inventory_transactions.transactions_total_amount_out) AS totalamountout " +
            		" FROM turq_inventory_transactions " +
            		" WHERE turq_inventory_transactions.transactions_total_amount_out <> 0 and turq_inventory_transactions.transactions_date <=  '"+date_str+"' "  +
-           		" GROUP BY turq_inventory_transactions.inventory_cards_id) transout ON trans.inventory_cards_id = transout.inventory_cards_id " ;
+           		" GROUP BY turq_inventory_transactions.inventory_cards_id) transout ON trans.inventory_cards_id = transout.inventory_cards_id" +
+           		" WHERE trans.card_inventory_code like '%"+invCode+"%'" ;
            
           ResultSet rs = stmt.executeQuery(query);
           Object [] result;
