@@ -66,7 +66,7 @@ public final class TreeFactory {
 	public static Tree createInventoryTree(Tree tree){
 		
 		TreeItem root = new TreeItem(tree,SWT.NULL);
-		root.setExpanded(true);
+		
 		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.0"));  //$NON-NLS-1$
 		
 		TreeItem item;
@@ -99,13 +99,13 @@ public final class TreeFactory {
 		item.setText(Messages.getString("TreeFactory.35"));  //$NON-NLS-1$
 		item.setData(InvUITransactionSearch.class.getName());
 		}
-	
+		root.setExpanded(true);
 		return tree;
 	}
 	
 	public static Tree createBankTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
-		root.setExpanded(true);
+		
 		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.6")); //$NON-NLS-1$
 		
 		TreeItem item;
@@ -120,13 +120,13 @@ public final class TreeFactory {
 		item.setData(BankUIBankCardSearch.class.getName());
 		}
 		
-		
+		root.setExpanded(true);
 		return tree;
 	}
 	
 	public static Tree createAccountingTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
-		root.setExpanded(true);
+		
 		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.9")); //$NON-NLS-1$
 		
 		TreeItem item;
@@ -161,33 +161,38 @@ public final class TreeFactory {
 		item.setData(AccUITransactionSearch.class.getName());
 		}
 		
-		TreeItem report = new TreeItem(tree,SWT.NULL);
-		report.setExpanded(true);
-		report.setText(Messages.getString("TreeFactory.32")); //$NON-NLS-1$
+		TreeItem books = new TreeItem(tree,SWT.NULL);
+		
+		books.setText(Messages.getString("TreeFactory.32")); //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(AccUIAccountingJournal.class.getName())>0){
-		item = new TreeItem(report,SWT.NULL);
+		item = new TreeItem(books,SWT.NULL);
 		item.setText(Messages.getString("TreeFactory.28")); //$NON-NLS-1$
 		item.setData(AccUIAccountingJournal.class.getName());
 		}
 		
 		if(EngBLPermissions.getPermission(AccUIAccountingBalance.class.getName())>0){
-		item = new TreeItem(report,SWT.NULL);
+		item = new TreeItem(books,SWT.NULL);
 		item.setText(Messages.getString("TreeFactory.29")); //$NON-NLS-1$
 		item.setData(AccUIAccountingBalance.class.getName());
 		}
 		
 		if(EngBLPermissions.getPermission(AccUIAccountingGeneralLedger.class.getName())>0){
-		item = new TreeItem(report,SWT.NULL);
+		item = new TreeItem(books,SWT.NULL);
 		item.setText(Messages.getString("TreeFactory.33")); //$NON-NLS-1$
 		item.setData(AccUIAccountingGeneralLedger.class.getName());
 		}
 		
+		//TreeItem books = new TreeItem(tree,SWT.NULL);
+		
+		
+		books.setExpanded(true);
+		root.setExpanded(true);
 		return tree;
 	}
 	public static Tree createCurrentTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
-		root.setExpanded(true);
+		
 		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.16")); //$NON-NLS-1$
 		
 		TreeItem item;
@@ -212,11 +217,12 @@ public final class TreeFactory {
 		item.setData(CurUITransactionSearch.class.getName());
 		}
 		
+		root.setExpanded(true);
 		return tree;
 	}
 	public static Tree createAdminTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
-		root.setExpanded(true);
+		
 		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.21")); //$NON-NLS-1$
 		
 		TreeItem item;
@@ -251,11 +257,12 @@ public final class TreeFactory {
 		item.setText(Messages.getString("TreeFactory.22")); //$NON-NLS-1$
 		item.setData(AdmUIGroupPermissions.class.getName());
 		}
+		root.setExpanded(true);
 		return tree;
 	}
 	public static Tree createConsignmetTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
-		root.setExpanded(true);
+		
 		root.setText(Messages.getString("TreeFactory.31")); //$NON-NLS-1$
 		
 		TreeItem item;
@@ -269,12 +276,13 @@ public final class TreeFactory {
 		item.setText(Messages.getString("TreeFactory.34")); //$NON-NLS-1$
 		item.setData(ConUIConsignmentSearch.class.getName());
 		}
+		root.setExpanded(true);
 		return tree;
 		
 	}
 	public static Tree createBillTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
-		root.setExpanded(true);
+		
 		root.setText(Messages.getString("TreeFactory.36")); //$NON-NLS-1$
 		
 		TreeItem item;
@@ -294,6 +302,7 @@ public final class TreeFactory {
 		item.setText(Messages.getString("TreeFactory.38")); //$NON-NLS-1$
 		item.setData(BillUIAddBill.class.getName());
 		}
+		root.setExpanded(true);
 		return tree;
 		
 	}

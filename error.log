@@ -584,3 +584,4 @@ Caused by: java.sql.BatchUpdateException: failed batch
 	at net.sf.hibernate.impl.BatcherImpl.executeBatch(BatcherImpl.java:118)
 	... 30 more
 2004-11-22 23:51:53,468 [main] FATAL hibernate.connection.DriverManagerConnectionProvider(57)  -> JDBC Driver class not found: noteSet
+2004-11-23 10:13:30,343 [main] FATAL hibernate.connection.DriverManagerConnectionProvider(57)  -> JDBC Driver class not found: noteSet
