@@ -70,6 +70,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private CoolBar coolBar1;
 	private Shell dialogShell;
 	TurqCurrentTransaction transaction;
+	private ToolItem toolCancel;
 	CurBLSearchTransaction blSearch = new CurBLSearchTransaction();
 	
 
@@ -141,7 +142,17 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			});
 	
 			toolDelete.setText(Messages.getString("CUrUITransactionUpdateDialog.2")); //$NON-NLS-1$
-			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
+			{
+				toolCancel = new ToolItem(toolBar1, SWT.NONE);
+				toolCancel.setText(Messages.getString("CUrUITransactionUpdateDialog.1")); //$NON-NLS-1$
+				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+				toolCancel.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						dialogShell.close();
+					}
+				});
+			}
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);

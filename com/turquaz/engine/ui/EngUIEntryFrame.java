@@ -151,7 +151,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
 			thisLayout.marginHeight = 20;
-			this.setSize(377, 148);
+			this.setSize(377, 162);
 			{
 				lblUserName = new CLabel(this, SWT.NONE);
 				lblUserName.setText(Messages.getString("EngUIEntryFrame.1")); //$NON-NLS-1$
@@ -205,7 +205,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 				GridLayout composite1Layout = new GridLayout();
 				GridData composite1LData = new GridData();
 				composite1LData.widthHint = 164;
-				composite1LData.heightHint = 40;
+				composite1LData.heightHint = 44;
 				composite1LData.horizontalSpan = 2;
 				composite1LData.horizontalAlignment = GridData.END;
 				compEngUIMainFrame.setLayoutData(composite1LData);

@@ -62,6 +62,7 @@ import org.eclipse.swt.widgets.TableColumn;
 
 import com.turquaz.engine.dal.TurqCurrentContact;
 
+import com.cloudgarden.resource.SWTResourceManager;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -97,6 +98,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	private TurqCurrentCard currentCard;
 	private CurBLCurrentCardUpdate currentUpdate=new CurBLCurrentCardUpdate();
 	private CurBLCurrentCardAdd currentAdd=new CurBLCurrentCardAdd();
+	private ToolItem toolCancel;
 	private TurqCurrentContact curContact=null;
 
 	public CurUICurrentCardUpdate(Shell parent, int style, TurqCurrentCard curCard) {
@@ -114,6 +116,13 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+
+				{
+					//Register as a resource user - SWTResourceManager will
+					//handle the obtaining and disposing of resources
+					SWTResourceManager.registerResourceUser(dialogShell);
+				}
+
 			dialogShell.setText(getText());
 			coolBar1 = new CoolBar(dialogShell,SWT.NULL);
 			coolItem1 = new CoolItem(coolBar1,SWT.NULL);
@@ -151,6 +160,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 	
 			toolUpdate.setText(Messages.getString("CurUICurrentCardUpdate.0")); //$NON-NLS-1$
+			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
@@ -158,6 +168,17 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			});
 
 			toolDelete.setText(Messages.getString("CurUICurrentCardUpdate.1")); //$NON-NLS-1$
+			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
+			{
+				toolCancel = new ToolItem(toolBar1, SWT.NONE);
+				toolCancel.setText(Messages.getString("CurUICurrentCardUpdate.17")); //$NON-NLS-1$
+				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+				toolCancel.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						dialogShell.close();
+					}
+				});
+			}
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);

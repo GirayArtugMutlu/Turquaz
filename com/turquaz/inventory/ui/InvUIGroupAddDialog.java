@@ -56,6 +56,21 @@ import com.turquaz.inventory.bl.InvBLCardAdd;
 
 import com.cloudgarden.resource.SWTResourceManager;
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private Button btnGroupAdd;
 	private Button btnUpdate;

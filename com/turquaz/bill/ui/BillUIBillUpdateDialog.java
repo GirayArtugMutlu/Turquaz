@@ -49,6 +49,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
 	private CoolItem coolItem1;
 	private ToolItem toolUpdate;
+	private ToolItem toolCancel;
 	private BillUIAddBill compAddBill;
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
@@ -112,7 +113,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
                         {
                             toolDelete = new ToolItem(toolBar1, SWT.NONE);
                             toolDelete.setText(Messages.getString("BillUIBillUpdateDialog.2")); //$NON-NLS-1$
-                            toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+                            toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
                             toolDelete
                                 .addSelectionListener(new SelectionAdapter() {
                                 public void widgetSelected(SelectionEvent evt) {
@@ -120,6 +121,17 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
                                 }
                                 });
                         }
+						{
+							toolCancel = new ToolItem(toolBar1, SWT.NONE);
+							toolCancel.setText(Messages.getString("BillUIBillUpdateDialog.4")); //$NON-NLS-1$
+							toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+							toolCancel
+								.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									dialogShell.close();
+								}
+								});
+						}
                     }
                 }
             }
@@ -166,10 +178,10 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			compAddBill.getTxtConsignmentDocumentNo().setText(bill.getTurqBillConsignmentCommon().getConsignmentDocumentNo());
 			if (bill.isIsOpen())
 			{
-				compAddBill.getComboPaymentType().setText("Cari");
+				compAddBill.getComboPaymentType().setText(Messages.getString("BillUIBillUpdateDialog.8")); //$NON-NLS-1$
 			}
 			else {
-				compAddBill.getComboPaymentType().setText("Nakit");
+				compAddBill.getComboPaymentType().setText(Messages.getString("BillUIBillUpdateDialog.11")); //$NON-NLS-1$
 			}
 		    
 			

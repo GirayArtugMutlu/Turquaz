@@ -48,6 +48,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private CoolItem coolItem1;
 	private ToolItem toolUpdate;
 	private ConUIAddConsignment compAddConsignment;
+	private ToolItem toolCancel;
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
 	private CoolBar coolBar1;
@@ -103,11 +104,22 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 						{
 							toolDelete = new ToolItem(toolBar1, SWT.NONE);
 							toolDelete.setText(Messages.getString("ConUIConsignmentUpdateDialog.2")); //$NON-NLS-1$
-							toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+							toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 							toolDelete
 								.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt) {
 									delete();
+								}
+								});
+						}
+						{
+							toolCancel = new ToolItem(toolBar1, SWT.NONE);
+							toolCancel.setText(Messages.getString("ConUIConsignmentUpdateDialog.1")); //$NON-NLS-1$
+							toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+							toolCancel
+								.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									dialogShell.close();
 								}
 								});
 						}

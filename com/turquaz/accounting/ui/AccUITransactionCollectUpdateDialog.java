@@ -72,7 +72,8 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	private ToolItem toolUpdate;
 	private AccUITransactionCollect compTransactionCollect;
 	private ToolItem toolDelete;
-	private ToolBar toolBar1;
+	private ToolBar toolTransactionCollect;
+	private ToolItem toolCancel;
 	private CoolBar coolBar1;
 
 	public AccUITransactionCollectUpdateDialog(Shell parent, int style,TurqAccountingTransaction trans) {
@@ -123,15 +124,15 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 							74,
 							38));
 					{
-						toolBar1 = new ToolBar(coolBar1, SWT.NONE);
-						coolItem1.setControl(toolBar1);
+						toolTransactionCollect = new ToolBar(coolBar1, SWT.NONE);
+						coolItem1.setControl(toolTransactionCollect);
 						{
-							toolUpdate = new ToolItem(toolBar1, SWT.NONE);
+							toolUpdate = new ToolItem(toolTransactionCollect, SWT.NONE);
 							toolUpdate
 								.setText(Messages
-									.getString("AccUITransactionCollectUpdateDialog.0"));
+									.getString("AccUITransactionCollectUpdateDialog.0")); //$NON-NLS-1$
 							toolUpdate.setImage(SWTResourceManager
-								.getImage("icons/save_edit.gif"));
+								.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 							toolUpdate
 								.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt) {
@@ -140,16 +141,28 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 								});
 						}
 						{
-							toolDelete = new ToolItem(toolBar1, SWT.NONE);
+							toolDelete = new ToolItem(toolTransactionCollect, SWT.NONE);
 							toolDelete
 								.setText(Messages
-									.getString("AccUITransactionCollectUpdateDialog.2"));
-							toolDelete.setImage(SWTResourceManager
-								.getImage("icons/delete_edit.gif"));
+									.getString("AccUITransactionCollectUpdateDialog.2")); //$NON-NLS-1$
+							toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 							toolDelete
 								.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt) {
 									toolDeleteWidgetSelected(evt);
+								}
+								});
+						}
+						{
+							toolCancel = new ToolItem(
+								toolTransactionCollect,
+								SWT.NONE);
+							toolCancel.setText(Messages.getString("AccUITransactionCollectUpdateDialog.1")); //$NON-NLS-1$
+							toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$ 
+							toolCancel
+								.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									dialogShell.close();
 								}
 								});
 						}

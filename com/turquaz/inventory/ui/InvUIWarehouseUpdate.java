@@ -45,6 +45,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
 
+import com.cloudgarden.resource.SWTResourceManager;
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
  * which is free for non-commercial use. If Jigloo is being used commercially
@@ -72,6 +73,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
 
 	private TurqInventoryWarehous warehouse;
+	private ToolItem toolCancel;
 
 	private InvBLWarehouseUpdate whUpdate = new InvBLWarehouseUpdate();
 
@@ -93,6 +95,13 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM
 					| SWT.APPLICATION_MODAL);
+
+				{
+					//Register as a resource user - SWTResourceManager will
+					//handle the obtaining and disposing of resources
+					SWTResourceManager.registerResourceUser(dialogShell);
+				}
+
 			dialogShell.setText(getText());
 			coolBarInvUIWarehouse = new CoolBar(dialogShell, SWT.NULL);
 			coolWarehouseUpdate = new CoolItem(coolBarInvUIWarehouse, SWT.NULL);
@@ -138,7 +147,17 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(
 					Display.getDefault(), getClass().getClassLoader()
 							.getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
-			toolDelete.setImage(toolDeleteýmage);
+			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
+			{
+				toolCancel = new ToolItem(toolWarehouseUpdate, SWT.NONE);
+				toolCancel.setText(Messages.getString("InvUIWarehouseUpdate.8")); //$NON-NLS-1$
+				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+				toolCancel.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						dialogShell.close();
+					}
+				});
+			}
 			toolDelete.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);

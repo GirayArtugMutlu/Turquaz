@@ -74,7 +74,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 
 	private ToolItem toolUpdate;
 
-	private ToolBar toolBar1;
+	private ToolBar toolbarAccountUpdate;
 
 	private CoolItem coolItem1;
 
@@ -87,6 +87,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 	private TurqAccountingAccount account;
 
 	private TableColumn tableColCredit;
+	private ToolItem toolCancel;
 
 	private TableItem tableItemBalance;
 
@@ -124,9 +125,9 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.setText(getText());
 			coolBar1 = new CoolBar(dialogShell, SWT.NULL);
 			coolItem1 = new CoolItem(coolBar1, SWT.NULL);
-			toolBar1 = new ToolBar(coolBar1, SWT.NULL);
-			toolUpdate = new ToolItem(toolBar1, SWT.NULL);
-			toolDelete = new ToolItem(toolBar1, SWT.NULL);
+			toolbarAccountUpdate = new ToolBar(coolBar1, SWT.NULL);
+			toolUpdate = new ToolItem(toolbarAccountUpdate, SWT.NULL);
+			toolDelete = new ToolItem(toolbarAccountUpdate, SWT.NULL);
 			compAccountCard = new AccUIAddAccounts(dialogShell, SWT.NULL);
 
 			dialogShell.setSize(487, 336);
@@ -143,7 +144,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			coolBar1LData.grabExcessVerticalSpace = false;
 			coolBar1.setLayoutData(coolBar1LData);
 
-			coolItem1.setControl(toolBar1);
+			coolItem1.setControl(toolbarAccountUpdate);
 			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88,
 					38));
 			coolItem1
@@ -166,8 +167,17 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(
 					Display.getDefault(), getClass().getClassLoader()
 							.getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
-			toolDelete.setImage(SWTResourceManager
-					.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
+			{
+				toolCancel = new ToolItem(toolbarAccountUpdate, SWT.NONE);
+				toolCancel.setText(Messages.getString("AccUIAccountUpdate.6")); //$NON-NLS-1$
+				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+				toolCancel.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						dialogShell.close();
+					}
+				});
+			}
 			toolDelete.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);

@@ -69,6 +69,7 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	}
 
 	private TurqUser user;
+	private ToolItem toolCancel;
 	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
 	private ToolBar toolBar1;
@@ -118,7 +119,18 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 						{
 							toolDelete = new ToolItem(toolBar1, SWT.NONE);
 							toolDelete.setText(Messages.getString("AdmUIUserUpdateDialog.2")); //$NON-NLS-1$
-							toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+							toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
+						}
+						{
+							toolCancel = new ToolItem(toolBar1, SWT.NONE);
+							toolCancel.setText(Messages.getString("AdmUIUserUpdateDialog.1")); //$NON-NLS-1$
+							toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+							toolCancel
+								.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									dialogShell.close();
+								}
+								});
 						}
 					}
 				}

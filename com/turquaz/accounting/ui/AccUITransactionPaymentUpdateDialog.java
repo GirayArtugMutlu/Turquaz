@@ -68,6 +68,7 @@ import org.eclipse.swt.SWT;
 */
 public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	private AccUITransactionPayment compTransactionPayment;
+	private ToolItem toolCancel;
 	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
 	private ToolBar toolBar1;
@@ -128,8 +129,8 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,38));
 	
 	
-			toolUpdate.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.0")); //$NON-NLS-1$
-			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+			toolUpdate.setText("Güncelle"); //$NON-NLS-1$
+			toolUpdate.setImage(SWTResourceManager.getImage(Messages.getString("AccUITransactionPaymentUpdateDialog.0"))); //$NON-NLS-1$
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
@@ -138,7 +139,17 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	
 			toolDelete.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.2")); //$NON-NLS-1$
 			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
-			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
+			toolDelete.setImage(SWTResourceManager.getImage(Messages.getString("AccUITransactionPaymentUpdateDialog.1"))); //$NON-NLS-1$
+			{
+				toolCancel = new ToolItem(toolBar1, SWT.NONE);
+				toolCancel.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.3")); //$NON-NLS-1$
+				toolCancel.setImage(SWTResourceManager.getImage(Messages.getString("AccUITransactionPaymentUpdateDialog.4"))); //$NON-NLS-1$
+				toolCancel.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						dialogShell.close();
+					}
+				});
+			}
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);

@@ -88,6 +88,7 @@ public class InvUICardUpdateDialog extends Dialog{
 
 	private InvUICardAdd compInvUICard;
 	private Composite compMain;
+	private ToolItem toolCancel;
 	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
 	private ToolBar toolBarTop;
@@ -147,7 +148,17 @@ public class InvUICardUpdateDialog extends Dialog{
 	
 			toolDelete.setText(Messages.getString("InvUICardUpdateDialog.9")); //$NON-NLS-1$
 			toolDelete.setToolTipText(Messages.getString("InvUICardUpdateDialog.1")); //$NON-NLS-1$
-			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
+			{
+				toolCancel = new ToolItem(toolBarTop, SWT.NONE);
+				toolCancel.setText(Messages.getString("InvUICardUpdateDialog.2")); //$NON-NLS-1$
+				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+				toolCancel.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						dialogShell.close();
+					}
+				});
+			}
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
