@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -330,7 +331,6 @@ public class EngBLUtils {
             parameters.put("formatter2",formatter2);  //$NON-NLS-1$
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
-			
 			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/invoice/"+EngConfiguration.getString("invoice_template"));  //$NON-NLS-1$ //$NON-NLS-2$
 	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
 			
