@@ -689,9 +689,7 @@ public class BillUIAddSellBill extends Composite
                                 tableColumn2.setWidth(103);
                             }
                             {
-                                tableColumn = new TableColumn(
-                                    tableConsignmentRows,
-                                    SWT.NONE);
+                                tableColumn = new TableColumn(tableConsignmentRows, SWT.RIGHT);
                                 tableColumn.setText(TRANS_AMOUNT);
                                 tableColumn.setWidth(106);
                             }
@@ -703,9 +701,7 @@ public class BillUIAddSellBill extends Composite
                                 tableColumn5.setWidth(100);
                             }
                             {
-                                tableColumn4 = new TableColumn(
-                                    tableConsignmentRows,
-                                    SWT.NONE);
+                                tableColumn4 = new TableColumn(tableConsignmentRows, SWT.RIGHT);
                                 tableColumn4.setText(TRANS_AMOUNT_IN_BASE_UNIT);
                                 tableColumn4.setWidth(121);
                             }
