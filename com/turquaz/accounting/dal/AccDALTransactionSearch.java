@@ -32,7 +32,6 @@ import net.sf.hibernate.Transaction;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
-import com.turquaz.engine.dal.TurqAccountingTransactionType;
 
 public class AccDALTransactionSearch {
 
@@ -65,8 +64,8 @@ public class AccDALTransactionSearch {
 
 			Session session = EngDALSessionFactory.openSession();
 
-			String query = "select accTrans from TurqAccountingTransaction as accTrans"
-					+ " where accTrans.transactionDocumentNo like '"
+			String query = "select accTrans.accountingTransactionsId, accTrans.transactionsDate,accTrans.transactionDocumentNo,accTrans.turqAccountingTransactionType.typesName,accTrans.transactionDescription, sum(transRow.creditAmount) from TurqAccountingTransaction as accTrans"
+					+ " left join accTrans.turqAccountingTransactionColumns as transRow where accTrans.transactionDocumentNo like '"
 					+ docNo
 					+ "%' ";
 
@@ -82,36 +81,31 @@ public class AccDALTransactionSearch {
 			if (type != null) {
 				query += " and accTrans.turqAccountingTransactionType= :transType";
 			}
-
+			
+			
+			query +=" group by  accTrans.accountingTransactionsId, accTrans.transactionsDate,accTrans.transactionDocumentNo,accTrans.turqAccountingTransactionType.typesName,accTrans.transactionDescription";
+            query +=" order by accTrans.transactionsDate";   
+			
 			Query q = session.createQuery(query);
 
 			if (startDate != null) {
-				Date date = (Date) startDate;
-				java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-				q.setParameter("startDate", sqlDate);
+				
+				q.setParameter("startDate", startDate);
 			}
 
 			if (endDate != null) {
-				Date date = (Date) endDate;
-				java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-				q.setParameter("endDate", sqlDate);
+				
+				q.setParameter("endDate",endDate);
 			}
 
 			if (type != null) {
-				TurqAccountingTransactionType transType = (TurqAccountingTransactionType) type;
-				q.setParameter("transType", transType);
+				
+				q.setParameter("transType", type);
 
 			}
 
 			List list = q.list();
-			for (int i = 0; i < list.size(); i++) {
-
-				TurqAccountingTransaction accTrans = (TurqAccountingTransaction) list
-						.get(i);
-				Hibernate.initialize(accTrans
-						.getTurqAccountingTransactionColumns());
-
-			}
+			
 			session.close();
 
 			return list;

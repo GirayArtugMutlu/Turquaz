@@ -47,7 +47,6 @@ import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
-import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqAccountingTransactionType;
 
 
@@ -210,6 +209,14 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 			}
 			tableColumnDocumentNo = new TableColumn(tableTransactions,SWT.NULL);
 			tableColumnTransType = new TableColumn(tableTransactions,SWT.NULL);
+			{
+				tableColumnDefinition = new TableColumn(
+					tableTransactions,
+					SWT.NONE);
+				tableColumnDefinition.setText(Messages
+					.getString("AccUITransactionSearch.5")); //$NON-NLS-1$
+				tableColumnDefinition.setWidth(150);
+			}
 			tableColumnTotalAmount = new TableColumn(tableTransactions,SWT.RIGHT);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(646,513));
@@ -237,13 +244,6 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 
 			tableColumnTotalAmount.setText(Messages.getString("AccUITransactionSearch.8")); //$NON-NLS-1$
 			tableColumnTotalAmount.setWidth(118);
-			{
-				tableColumnDefinition = new TableColumn(
-					tableTransactions,
-					SWT.NONE);
-				tableColumnDefinition.setText(Messages.getString("AccUITransactionSearch.5")); //$NON-NLS-1$
-				tableColumnDefinition.setWidth(150);
-			}
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
@@ -390,21 +390,27 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 	TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
 	for(int i =0; i<listSize;i++){
 		
-		TurqAccountingTransaction accTrans = (TurqAccountingTransaction)result.get(i);
+		TurqAccountingTransaction accTran = new TurqAccountingTransaction();
+		
+		Object[] accTransValues = (Object[])result.get(i);
+		
+		accTran.setAccountingTransactionsId((Integer)accTransValues[0]);
+		
 		
 		item = new TableItem(tableTransactions,SWT.NULL);
-		item.setData(accTrans);	
+		item.setData(accTran);	
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
-		BigDecimal total = new BigDecimal(0);
-	  	Iterator it = accTrans.getTurqAccountingTransactionColumns().iterator();
-	  	while(it.hasNext()){
-	  		TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn)it.next();
-	  		total = total.add(transColumn.getCreditAmount());
-	  	}
 		
-		String transDate =formatter.format(accTrans.getTransactionsDate());
-		item.setText(new String[]{transDate,accTrans.getTransactionDocumentNo(),accTrans.getTurqAccountingTransactionType().getTypesName(),
-					cf.format(total),accTrans.getTransactionDescription()}); //$NON-NLS-1$
+		BigDecimal total = new BigDecimal(0);
+		if(accTransValues[5]!=null)
+		{
+			total = (BigDecimal)accTransValues[5];
+		}
+		
+		String transDate =formatter.format(accTransValues[1]);
+		item.setText(new String[]{transDate,accTransValues[2].toString(),
+				  accTransValues[3].toString()
+			,accTransValues[4].toString(),cf.format(total)}); //$NON-NLS-1$
 	
 	}
 	
@@ -439,12 +445,14 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 	/** Auto-generated event handler method */
 	protected void tableTransactionsMouseDoubleClick(MouseEvent evt){
 		
+	try{
+		
     TableItem selection[] = tableTransactions.getSelection();
     
     if(selection.length>0){
     
     TurqAccountingTransaction accTrans = (TurqAccountingTransaction)selection[0].getData();
-    
+    new AccBLTransactionUpdate().initiliazeTransactionRows(accTrans);
     int type =accTrans.getTurqAccountingTransactionType().getAccountingTransactionTypesId().intValue();
     if(type==2){
     boolean updated=new AccUITransactionUpdateDialog(this.getShell(),SWT.NULL,accTrans).open();
@@ -465,6 +473,10 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
     
     
     }
+	}
+	catch(Exception ex){
+		ex.printStackTrace();
+	}
 
 
 

@@ -199,12 +199,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	}
 /** Add your pre-init code in here 	*/
 	public void preInitGUI(){
-	    try{
-	    blTransUpdate.initiliazeTransactionRows(accTrans);
-	    }
-	    catch(Exception ex){
-	        ex.printStackTrace();
-	    }
+	   
 	}
 
 	/** Add your post-init code in here 	*/

@@ -241,7 +241,7 @@ public void showDialog(TurqAccountingTransaction accTrans){
 			toolDelete.setEnabled(false);		    
 		}
 	try{
-		blTransUpdate.initiliazeTransactionRows(accTrans);
+		
 	/* Check if it is entered from accountingmodule
 	 * 
 	 */

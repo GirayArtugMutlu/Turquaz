@@ -23,7 +23,6 @@ package com.turquaz.current.ui;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
@@ -49,7 +48,6 @@ import com.turquaz.engine.bl.EngBLUtils;
 
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentCardsGroup;
-import com.turquaz.engine.dal.TurqCurrentContact;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 

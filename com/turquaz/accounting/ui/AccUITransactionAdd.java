@@ -60,8 +60,6 @@ import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
@@ -342,24 +340,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	public void postInitGUI(){
 	   
 	 createTableViewer();   
-	 // create a TableCursor to navigate around the table
-		 cursor = new TableSpreadsheetCursor(tableTransactionColumns, SWT.NONE,tableViewer,rowList);
-         cursor.setEnabled(true);
-		
-		 cursor.addSelectionListener(new SelectionAdapter() {
-				// when the TableEditor is over a cell, select the corresponding rowtable
-				public void widgetSelected(SelectionEvent e) {
-	              
-				}		
-				// when the user hits "ENTER" in the TableCursor, pop up a text/combo editor 
-				// so that they can change the text of the cell for controlType=="input" || "select1"<br>
-				// if controlType==TableViewerExample.TYPE_CHECKBOX, toogle it
-				public void widgetDefaultSelected(SelectionEvent e) {				 
-				    
-				
-				}
-			});
-		 
+	
 		
   
 	
@@ -396,6 +377,10 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			tableViewer.setContentProvider(contentProvider);
 			tableViewer.setLabelProvider(new TurquazLabelProvider());			
 			tableViewer.setInput(rowList);
+			
+			// create a TableCursor to navigate around the table
+			 cursor = new TableSpreadsheetCursor(tableTransactionColumns, SWT.NONE,tableViewer,rowList);
+	         cursor.setEnabled(true);	 
 		
 		    rowList.addChangeListener(new ITableRowListViewer(){
 			       public void updateRow(ITableRow row){
