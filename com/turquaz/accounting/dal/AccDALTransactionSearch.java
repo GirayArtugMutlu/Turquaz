@@ -412,8 +412,8 @@ public class AccDALTransactionSearch {
 		try {
 			Session session = EngDALSessionFactory.openSession();
 
-			String query = "select accounts, sum(transColumns.deptAmount),"
-					+ " sum(transColumns.creditAmount) from TurqAccountingAccount accounts,"
+			String query = "select accounts, sum(transColumns.rowsDeptInBaseCurrency),"
+					+ " sum(transColumns.rowsCreditInBaseCurrency) from TurqAccountingAccount accounts,"
 					+ " TurqAccountingTransaction as accTrans,"
 					+ " TurqAccountingTransactionColumn as transColumns"
 					+ " where transColumns.turqAccountingTransaction.accountingTransactionsId=accTrans.accountingTransactionsId"
@@ -453,7 +453,9 @@ public class AccDALTransactionSearch {
 					+ " accounts.accountCode, accounts.createdBy, accounts.creationDate,"
 					+ " accounts.updatedBy, accounts.updateDate,"
 					+ " accounts.turqAccountingAccountByParentAccount,"
-					+ " accounts.turqAccountingAccountByTopAccount"
+					+ " accounts.turqAccountingAccountByTopAccount,"
+					+ " accounts.turqAccountingAccountClass,"
+					+ " accounts.turqAccountingAccountType"
 					+ " order by accounts.turqAccountingAccountByTopAccount.accountingAccountsId";
 			Query q = session.createQuery(query);
 

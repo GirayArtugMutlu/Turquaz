@@ -34,21 +34,13 @@
 	</field>
 	<field name="transaction_document_no" class="java.lang.String">
 	</field>
-	<field name="creation_date" class="java.util.Date">
-	</field>
-	<field name="created_by" class="java.lang.String">
-	</field>
-	<field name="last_modified" class="java.util.Date">
-	</field>
-	<field name="updated_by" class="java.lang.String">
-	</field>
 	<field name="accounting_transaction_columns_id" class="java.lang.Integer">
 	</field>
 	<field name="accounting_accounts_id" class="java.lang.Integer">
 	</field>
-	<field name="dept_amount" class="java.math.BigDecimal">
+	<field name="rows_dept_in_base_currency" class="java.math.BigDecimal">
 	</field>
-	<field name="credit_amount" class="java.math.BigDecimal">
+	<field name="rows_credit_in_base_currency" class="java.math.BigDecimal">
 	</field>
 	<field name="account_name" class="java.lang.String">
 	</field>
@@ -57,6 +49,10 @@
 	<field name="parent_account" class="java.lang.Integer">
 	</field>
 	<field name="update_date" class="java.util.Date">
+	</field>
+	<field name="dept_amount" class="java.math.BigDecimal">
+	</field>
+	<field name="credit_amount" class="java.math.BigDecimal">
 	</field>
 	<group name="Transaction">
 		<groupExpression><![CDATA[$F{accounting_transactions_id}]]></groupExpression>
@@ -116,16 +112,16 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{dept_amount})+" "]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{rows_dept_in_base_currency})+" "]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
 				<reportElement key="textField" positionType="Float" mode="Opaque" x="470" y="0" width="83" height="11">
-					<printWhenExpression><![CDATA[($F{credit_amount}.doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{rows_credit_in_base_currency}.doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{credit_amount})+" "]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{rows_credit_in_base_currency})+" "]]></textFieldExpression>
 			</textField>
 		</band>
 		</groupHeader>

@@ -143,7 +143,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			String sqlparam="Select accounts.top_account,accounts.account_name," + //$NON-NLS-1$
 					" accounts.account_code," + //$NON-NLS-1$
 					" trans.transactions_date,trans.transaction_document_no," + //$NON-NLS-1$
-					" transcolumns.dept_amount, transcolumns.credit_amount, transcolumns.transaction_definition," + //$NON-NLS-1$
+					" transcolumns.rows_dept_in_base_currency, transcolumns.rows_credit_in_base_currency, transcolumns.transaction_definition," + //$NON-NLS-1$
 					" trans.accounting_journal_id, accounts.accounting_accounts_id" + //$NON-NLS-1$
 					" from turq_accounting_accounts accounts, turq_accounting_transactions trans," + //$NON-NLS-1$
 					" turq_accounting_transaction_columns transcolumns where" + //$NON-NLS-1$

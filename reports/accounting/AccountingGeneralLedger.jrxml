@@ -24,9 +24,9 @@
 	</field>
 	<field name="transaction_document_no" class="java.lang.String">
 	</field>
-	<field name="dept_amount" class="java.math.BigDecimal">
+	<field name="rows_dept_in_base_currency" class="java.math.BigDecimal">
 	</field>
-	<field name="credit_amount" class="java.math.BigDecimal">
+	<field name="rows_credit_in_base_currency" class="java.math.BigDecimal">
 	</field>
 	<field name="accounting_journal_id" class="java.lang.Integer">
 	</field>
@@ -35,11 +35,11 @@
 	<field name="transaction_definition" class="java.lang.String">
 	</field>
 	<variable name="totaldept" class="java.math.BigDecimal" resetType="Group" resetGroup="Account" calculation="Sum">
-		<variableExpression><![CDATA[$F{dept_amount}]]></variableExpression>
+		<variableExpression><![CDATA[$F{rows_dept_in_base_currency}]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="totalcredit" class="java.math.BigDecimal" resetType="Group" resetGroup="Account" calculation="Sum">
-		<variableExpression><![CDATA[$F{credit_amount}]]></variableExpression>
+		<variableExpression><![CDATA[$F{rows_credit_in_base_currency}]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<group name="Account" isStartNewPage="true">
@@ -168,7 +168,7 @@
 			</staticText>
 			<textField>
 				<reportElement positionType="Float" x="201" y="21" width="77" height="17">
-					<printWhenExpression><![CDATA[$F{credit_amount}.doubleValue() < $F{dept_amount}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{rows_credit_in_base_currency}.doubleValue() < $F{rows_dept_in_base_currency}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
@@ -177,7 +177,7 @@
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="479" y="21" width="77" height="17">
-					<printWhenExpression><![CDATA[$F{credit_amount}.doubleValue() >= $F{dept_amount}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{rows_credit_in_base_currency}.doubleValue() >= $F{rows_dept_in_base_currency}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
@@ -197,7 +197,7 @@
 			</line>
 			<textField>
 				<reportElement positionType="Float" x="1" y="1" width="54" height="15">
-					<printWhenExpression><![CDATA[$F{credit_amount}.doubleValue() < $F{dept_amount}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{rows_credit_in_base_currency}.doubleValue() < $F{rows_dept_in_base_currency}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
@@ -206,7 +206,7 @@
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="55" y="1" width="55" height="15">
-					<printWhenExpression><![CDATA[$F{credit_amount}.doubleValue() < $F{dept_amount}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{rows_credit_in_base_currency}.doubleValue() < $F{rows_dept_in_base_currency}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
@@ -215,7 +215,7 @@
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="112" y="1" width="27" height="15">
-					<printWhenExpression><![CDATA[$F{credit_amount}.doubleValue() < $F{dept_amount}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{rows_credit_in_base_currency}.doubleValue() < $F{rows_dept_in_base_currency}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
@@ -224,16 +224,16 @@
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="198" y="1" width="81" height="15">
-					<printWhenExpression><![CDATA[$F{credit_amount}.doubleValue() < $F{dept_amount}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{rows_credit_in_base_currency}.doubleValue() < $F{rows_dept_in_base_currency}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{dept_amount})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{rows_dept_in_base_currency})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="281" y="1" width="56" height="15">
-					<printWhenExpression><![CDATA[$F{credit_amount}.doubleValue() >$F{dept_amount}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{rows_credit_in_base_currency}.doubleValue() >$F{rows_dept_in_base_currency}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
@@ -242,7 +242,7 @@
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="337" y="1" width="53" height="15">
-					<printWhenExpression><![CDATA[$F{credit_amount}.doubleValue() >$F{dept_amount}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{rows_credit_in_base_currency}.doubleValue() >$F{rows_dept_in_base_currency}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
@@ -251,7 +251,7 @@
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="392" y="1" width="28" height="15">
-					<printWhenExpression><![CDATA[$F{credit_amount}.doubleValue() >$F{dept_amount}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{rows_credit_in_base_currency}.doubleValue() >$F{rows_dept_in_base_currency}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
@@ -260,16 +260,16 @@
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="479" y="1" width="76" height="15">
-					<printWhenExpression><![CDATA[$F{credit_amount}.doubleValue() >$F{dept_amount}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{rows_credit_in_base_currency}.doubleValue() >$F{rows_dept_in_base_currency}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{credit_amount})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{rows_credit_in_base_currency})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="140" y="1" width="57" height="15">
-					<printWhenExpression><![CDATA[$F{credit_amount}.doubleValue() < $F{dept_amount}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{rows_credit_in_base_currency}.doubleValue() < $F{rows_dept_in_base_currency}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
@@ -278,7 +278,7 @@
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="421" y="1" width="57" height="15">
-					<printWhenExpression><![CDATA[$F{credit_amount}.doubleValue() >$F{dept_amount}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{rows_credit_in_base_currency}.doubleValue() >$F{rows_dept_in_base_currency}.doubleValue()? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
