@@ -103,6 +103,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 	private Table tableTransactions;
 
 	private TableColumn tableColumnTotalAmountOut;
+	private CCombo comboInvSubGroup;
+	private CLabel lblInvSubGroup;
 	private ViewerComposite viewer;
 	private CTabItem tabItemReport;
 	private CTabItem tabItemSearch;
@@ -114,7 +116,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 	private TableColumn tableColumnInventoryName;
 	private Text txtInvNameStart;
 	private CLabel lblInvName;
-	private CCombo comboInvGroup;
+	private CCombo comboInvMainGroup;
 	private CLabel lblInvGroup;
 	private CurrentCodePicker txtCurCardEnd;
 	private CLabel lblCurCarEnd;
@@ -164,7 +166,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				GridLayout composite1Layout = new GridLayout();
 				composite1Layout.numColumns = 4;
 				GridData composite1LData = new GridData();
-				composite1LData.heightHint = 136;
+				composite1LData.heightHint = 159;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				compInvTransactionSearch.setLayoutData(composite1LData);
@@ -277,6 +279,36 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					dateEndDate.setLayoutData(dateEndDateLData);
 				}
 				{
+					lblInvGroup = new CLabel(compInvTransactionSearch, SWT.NONE);
+					lblInvGroup.setText("Stok Ana Grup");
+					GridData lblInvGroupLData = new GridData();
+					lblInvGroupLData.widthHint = 85;
+					lblInvGroupLData.heightHint = 19;
+					lblInvGroup.setLayoutData(lblInvGroupLData);
+				}
+				{
+					comboInvMainGroup = new CCombo(
+						compInvTransactionSearch,
+						SWT.NONE);
+					comboInvMainGroup.setText(Messages
+						.getString("InvUIInventoryTransactionReport.9")); //$NON-NLS-1$
+					GridData comboInvGroupLData = new GridData();
+					comboInvGroupLData.widthHint = 127;
+					comboInvGroupLData.heightHint = 18;
+					comboInvMainGroup.setLayoutData(comboInvGroupLData);
+				}
+				//START >>  lblInvSubGroup
+				lblInvSubGroup = new CLabel(compInvTransactionSearch, SWT.NONE);
+				lblInvSubGroup.setText("Stok Alt Grup");
+				//END <<  lblInvSubGroup
+				//START >>  comboInvSubGroup
+				comboInvSubGroup = new CCombo(compInvTransactionSearch, SWT.NONE);
+				GridData comboInvSubGroupLData = new GridData();
+				comboInvSubGroupLData.widthHint = 125;
+				comboInvSubGroupLData.heightHint = 13;
+				comboInvSubGroup.setLayoutData(comboInvSubGroupLData);
+				//END <<  comboInvSubGroup
+				{
 					lblType = new CLabel(compInvTransactionSearch, SWT.NONE);
 					lblType.setText(Messages.getString("InvUIInventoryTransactionReport.6")); //$NON-NLS-1$
 					GridData lblTypeLData = new GridData();
@@ -289,24 +321,12 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 						compInvTransactionSearch,
 						SWT.NONE);
 					GridData comboConsignmentTypeLData = new GridData();
-					comboTransactionsType.setText(Messages.getString("InvUIInventoryTransactionReport.7")); //$NON-NLS-1$
+					comboTransactionsType.setText(Messages
+						.getString("InvUIInventoryTransactionReport.7")); //$NON-NLS-1$
 					comboConsignmentTypeLData.widthHint = 127;
 					comboConsignmentTypeLData.heightHint = 18;
-					comboTransactionsType.setLayoutData(comboConsignmentTypeLData);
-				}
-				{
-					lblInvGroup = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblInvGroup.setText(Messages.getString("InvUIInventoryTransactionReport.8")); //$NON-NLS-1$
-				}
-				{
-					comboInvGroup = new CCombo(
-						compInvTransactionSearch,
-						SWT.NONE);
-					comboInvGroup.setText(Messages.getString("InvUIInventoryTransactionReport.9")); //$NON-NLS-1$
-					GridData comboInvGroupLData = new GridData();
-					comboInvGroupLData.widthHint = 127;
-					comboInvGroupLData.heightHint = 18;
-					comboInvGroup.setLayoutData(comboInvGroupLData);
+					comboTransactionsType
+						.setLayoutData(comboConsignmentTypeLData);
 				}
 			}
 			//START >>  tabFolder
@@ -450,7 +470,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			
 			
 			
-			TurqInventoryGroup invGroup=(TurqInventoryGroup)comboInvGroup.getData(comboInvGroup.getText());
+			TurqInventoryGroup invGroup=(TurqInventoryGroup)comboInvMainGroup.getData(comboInvMainGroup.getText());
 			if (invGroup != null)
 			{
 				sqlparam += " and "+invGroup.getInventoryGroupsId()+ //$NON-NLS-1$
@@ -601,10 +621,10 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			for(int k=0; k<groupList.size(); k++)
 			{
 				TurqInventoryGroup gr=(TurqInventoryGroup)groupList.get(k);
-				comboInvGroup.add(gr.getGroupsName());
-				comboInvGroup.setData(gr.getGroupsName(),gr);
+				comboInvMainGroup.add(gr.getGroupsName());
+				comboInvMainGroup.setData(gr.getGroupsName(),gr);
 			}
-			comboInvGroup.setText(Messages.getString("InvUIInventoryTransactionReport.15")); //$NON-NLS-1$
+			comboInvMainGroup.setText(Messages.getString("InvUIInventoryTransactionReport.15")); //$NON-NLS-1$
 		}
 		catch (Exception ex)
 		{
@@ -664,7 +684,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					txtInvNameEnd.getText().trim(),(TurqCurrentCard)txtCurCardStart.getData(),
 					(TurqCurrentCard)txtCurCardEnd.getData(),dateStartDate.getDate(),
 					dateEndDate.getDate(),type,
-					(TurqInventoryGroup)comboInvGroup.getData(comboInvGroup.getText()));
+					(TurqInventoryGroup)comboInvMainGroup.getData(comboInvMainGroup.getText()));
 			TurqInventoryTransaction transactions;
 			TableItem item;
 			BigDecimal totalAmountIn=new BigDecimal(0);
