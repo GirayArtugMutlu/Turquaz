@@ -86,6 +86,10 @@ public class CurrencyText extends Composite {
  {
  	text.addModifyListener(listener);
  }
+ public void removeModifyListener(ModifyListener listener){
+     text.removeModifyListener(listener);
+ }
+ 
  public CurrencyText(Composite arg0, int arg1) {
  	  super(arg0, SWT.NONE);
  	  text = new Text(this, SWT.RIGHT);
@@ -153,7 +157,13 @@ public class CurrencyText extends Composite {
  	Text control = (Text)e.widget;
     String textcontrol = control.getText();
     e.doit = false;
-    String newText = textcontrol.substring(0, e.start) + e.text + textcontrol.substring(e.end);
+    String newText="";
+    try{
+     newText = textcontrol.substring(0, e.start) + e.text + textcontrol.substring(e.end);
+    }
+    catch(Exception ex){
+        return;
+    }
     String tempnewText=newText.replaceAll("\\.","");
     if (tempnewText.equals("") && !tempnewText.equals(newText))
     {

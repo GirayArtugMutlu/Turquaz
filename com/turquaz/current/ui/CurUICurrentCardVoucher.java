@@ -50,7 +50,6 @@ import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.CurrencyText;
-import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 import org.eclipse.swt.events.ModifyEvent;
@@ -115,6 +114,23 @@ implements SecureComposite{
 		initGUI();
 	}
 
+	
+	ModifyListener listenerCredit = new ModifyListener(){
+	    public void modifyText(ModifyEvent arg0) {
+			txtDept.removeModifyListener(listenerDept);
+			txtDept.setText(new BigDecimal(0)); //$NON-NLS-1$
+			txtDept.addModifyListener(listenerDept);
+		}
+	    
+	};
+	ModifyListener listenerDept = new ModifyListener(){
+	    public void modifyText(ModifyEvent arg0) {
+			txtCredit.removeModifyListener(listenerCredit);
+			txtCredit.setText(new BigDecimal(0)); //$NON-NLS-1$
+            txtCredit.addModifyListener(listenerCredit); 
+		}
+	    
+	};
 	private void initGUI() {
 		try {
 			GridLayout thisLayout = new GridLayout();
@@ -132,8 +148,9 @@ implements SecureComposite{
 			{
 				txtCurrentCard = new CurrentPicker(this, SWT.NONE);
 				GridData txtCurrentCardLData = new GridData();
-				txtCurrentCardLData.widthHint = 154;
-				txtCurrentCardLData.heightHint = 13;
+				txtCurrentCard.setSize(311, 19);
+				txtCurrentCardLData.widthHint = 311;
+				txtCurrentCardLData.heightHint = 19;
 				txtCurrentCard.setLayoutData(txtCurrentCardLData);
 			}
 			{
@@ -165,16 +182,9 @@ implements SecureComposite{
 			{
 				txtDept = new CurrencyText(this, SWT.NONE);
 				GridData txtDeptLData = new GridData();
-				txtDept.addModifyListener(new ModifyListener() {
-					public void modifyText(ModifyEvent arg0) {
-						if (!txtDept.getText().equals("")) //$NON-NLS-1$
-							txtCredit.setText(new BigDecimal(0)); //$NON-NLS-1$
-
-					}
-				});
-				txtDept.setSize(209, 14);
+				txtDept.addModifyListener(listenerDept);
 				txtDeptLData.widthHint = 203;
-				txtDeptLData.heightHint = 14;
+				txtDeptLData.heightHint = 19;
 				txtDept.setLayoutData(txtDeptLData);
 			}
 			{
@@ -188,16 +198,10 @@ implements SecureComposite{
 			{
 				txtCredit = new CurrencyText(this, SWT.NONE);
 				GridData txtCreditLData = new GridData();
-				txtCredit.addModifyListener(new ModifyListener() {
-					public void modifyText(ModifyEvent arg0) {
-						if (!txtCredit.getText().equals("")) //$NON-NLS-1$
-							txtDept.setText(new BigDecimal(0)); //$NON-NLS-1$
-
-					}
-				});
-				txtCredit.setSize(209, 14);
-				txtCreditLData.widthHint = 209;
-				txtCreditLData.heightHint = 14;
+				txtCredit.setSize(203, 19);
+				txtCredit.addModifyListener(listenerCredit);
+				txtCreditLData.widthHint = 203;
+				txtCreditLData.heightHint = 19;
 				txtCredit.setLayoutData(txtCreditLData);
 			}
 			this.layout();
@@ -223,7 +227,12 @@ implements SecureComposite{
 			{
 				BigDecimal credit=txtCredit.getBigDecimalValue();
 				BigDecimal dept=txtDept.getBigDecimalValue();
-				boolean isCredit=dept.equals(new BigDecimal(0));
+			
+				boolean isCredit = false;
+				if(dept.compareTo(new BigDecimal(0))<1){
+				    isCredit=true;
+				}
+				
 				curBLTransAdd.saveCurrentTransaction((TurqCurrentCard)txtCurrentCard.getData(),
 					dateTransDate.getDate(),"",isCredit,(isCredit)? credit : dept, //$NON-NLS-1$
 							new BigDecimal(0),EngBLCommon.CURRENT_TRANS_OTHERS,
