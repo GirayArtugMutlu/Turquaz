@@ -15,11 +15,18 @@
 */
 package com.turquaz.bank.ui;
 
+import java.util.Iterator;
+
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bank.Messages;
+import com.turquaz.engine.dal.TurqBanksTransaction;
+import com.turquaz.engine.dal.TurqBanksTransactionBill;
+import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.ui.EngUICommon;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -49,12 +56,15 @@ public class BankUIMoneyTransferOutUpdate extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolCancel;
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
+	private TurqBanksTransactionBill transBill;
+	boolean isUpdated = false;
 
-	public BankUIMoneyTransferOutUpdate(Shell parent, int style) {
+	public BankUIMoneyTransferOutUpdate(Shell parent, int style,TurqBanksTransactionBill transBill) {
 		super(parent, style);
+		this.transBill = transBill;
 	}
 
-	public void open() {
+	public boolean open() {
 		try {
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
@@ -102,14 +112,58 @@ public class BankUIMoneyTransferOutUpdate extends org.eclipse.swt.widgets.Dialog
                 compMoneyTransferIn.setLayoutData(compMoneyTransferInLData);
             }
 			dialogShell.open();
+			postInitGUI();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+			return isUpdated;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
+	}
+	public void postInitGUI(){
+	    
+	   EngUICommon.centreWindow(dialogShell);
+	    
+	   compMoneyTransferIn.getTxtDocNo().setText(transBill.getTransactionBillNo());
+	   compMoneyTransferIn.getTxtDefinition().setText(transBill.getTransactionBillDefinition());
+	   compMoneyTransferIn.getTxtBankCard().setText(transBill.getTurqBanksCard().getBankCode());
+	   compMoneyTransferIn.getDatePick().setDate(transBill.getTransactionBillDate());
+	  
+	   Iterator it = transBill.getTurqBanksTransactions().iterator();
+	   
+	   if(it.hasNext())
+	   {
+	       TurqBanksTransaction bankTrans = (TurqBanksTransaction)it.next();
+	      
+	       compMoneyTransferIn.getCurAmount().setText(bankTrans.getCreditAmount());
+	       if(bankTrans.getCreditAmount().compareTo(bankTrans.getDeptAmount())<1)
+	       {
+	           compMoneyTransferIn.getCurAmount().setText(bankTrans.getDeptAmount());          
+	           
+	       }
+	       
+	       Iterator it2 = transBill.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
+	       
+	       if(it2.hasNext())
+	       {
+	           TurqCurrentTransaction curTrans = (TurqCurrentTransaction)it2.next();
+	           TurqCurrentCard curCard = curTrans.getTurqCurrentCard();
+	           compMoneyTransferIn.getCurrentPicker().setText(curCard.getCardsName()+" {"+curCard.getCardsCurrentCode()+"}");
+	                    
+	           
+	       }
+	       
+	       
+	       
+	       
+	   }
+	   
+	    
+	    
 	}
 	
 }

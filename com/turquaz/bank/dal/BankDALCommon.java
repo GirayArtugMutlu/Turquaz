@@ -98,7 +98,7 @@ public class BankDALCommon {
 	        TurqBanksTransactionBill trans = (TurqBanksTransactionBill)session.load(TurqBanksTransactionBill.class,transId);
 	         
 	        Hibernate.initialize(trans.getTurqBanksTransactions());
-	        
+	        Hibernate.initialize(trans.getTurqEngineSequence().getTurqCurrentTransactions());
 	        session.close();
 	        return trans;
 	        

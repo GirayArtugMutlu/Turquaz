@@ -194,4 +194,41 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
         }
 
     }
+    
+    public CurrencyText getCurAmount() {
+        return curAmount;
+    }
+    public void setCurAmount(CurrencyText curAmount) {
+        this.curAmount = curAmount;
+    }
+    public CurrentPicker getCurrentPicker() {
+        return currentPicker;
+    }
+    public void setCurrentPicker(CurrentPicker currentPicker) {
+        this.currentPicker = currentPicker;
+    }
+    public DatePicker getDatePick() {
+        return datePick;
+    }
+    public void setDatePick(DatePicker datePick) {
+        this.datePick = datePick;
+    }
+    public BankCardPicker getTxtBankCard() {
+        return txtBankCard;
+    }
+    public void setTxtBankCard(BankCardPicker txtBankCard) {
+        this.txtBankCard = txtBankCard;
+    }
+    public Text getTxtDefinition() {
+        return txtDefinition;
+    }
+    public void setTxtDefinition(Text txtDefinition) {
+        this.txtDefinition = txtDefinition;
+    }
+    public Text getTxtDocNo() {
+        return txtDocNo;
+    }
+    public void setTxtDocNo(Text txtDocNo) {
+        this.txtDocNo = txtDocNo;
+    }
 }

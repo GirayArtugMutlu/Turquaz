@@ -13,12 +13,15 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.TableColumn;
 
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionSearch;
+import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import com.turquaz.bank.ui.comp.BankCardPicker;
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -266,9 +269,30 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
     
     public void tableMouseDoubleClick(){
    try{
+      TableItem selection[] =tableMoneyTrans.getSelection();
+      if(selection.length>0){
+       
+          boolean isUpdated = false;
+       TurqBanksTransactionBill transBill = BankBLTransactionUpdate.initializeTransaction((Integer)selection[0].getData()); 
+       if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
+       {
+         isUpdated  = new BankUIMoneyTransferInUpdate(getShell(),SWT.NULL,transBill).open();
+           
+       }
+       else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_SEND_MONEY)
+       {
+           isUpdated  = new BankUIMoneyTransferOutUpdate(getShell(),SWT.NULL,transBill).open();
+           
+       }
        
        
+       if(isUpdated){
+       search();
+           
+       }
        
+       
+      }
        
    }
    catch(Exception ex)
