@@ -26,6 +26,7 @@ public class TableRowImpl extends TurqAccountingTransactionColumn implements ITa
         setCreditAmount(new BigDecimal(0));
         setDeptAmount(new BigDecimal(0));
         setTransactionDefinition("");
+        
     }
   public void setRowIndex(int a){
       row_index = a;

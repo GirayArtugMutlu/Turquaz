@@ -56,6 +56,8 @@ import org.eclipse.swt.events.KeyEvent;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
+
+import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -400,6 +402,13 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 				
 				}
 			});
+		 
+		 cursor.addMouseListener(new MouseAdapter() {
+			public void mouseDoubleClick(MouseEvent arg0) {
+				tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
+
+			}
+		});
   
 	
 	}

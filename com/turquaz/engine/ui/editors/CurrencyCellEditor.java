@@ -22,7 +22,7 @@ public class CurrencyCellEditor extends TextCellEditor{
     VerifyListener listener;
     Text text;
     public CurrencyCellEditor(Composite parent) {
-		super(parent);
+		super(parent,SWT.RIGHT);
 		
 	}
   
@@ -34,7 +34,9 @@ public class CurrencyCellEditor extends TextCellEditor{
 		super.doSetValue(object);
 	}
     public Control createControl(Composite parent) {
-		  text = (Text) super.createControl(parent);
+		  text=(Text) super.createControl(parent);
+		  
+		  
 	
 		  listener = new VerifyListener() {
 		 	public void verifyText(VerifyEvent evt) {		 	    
@@ -72,7 +74,6 @@ public class CurrencyCellEditor extends TextCellEditor{
 		char decimalSymbol ='.';
 	 	int numberOfDecimals =2;
 	    String textcontrol = text.getText();
-	    System.out.println(textcontrol);
 	    e.doit = false;
 	    String newText="";
 	    try{

@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -452,6 +453,13 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 				
 				}
 			});
+		 
+		 cursor.addMouseListener(new MouseAdapter() {
+			public void mouseDoubleClick(MouseEvent arg0) {
+				tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
+
+			}
+		});
   
 	
         
