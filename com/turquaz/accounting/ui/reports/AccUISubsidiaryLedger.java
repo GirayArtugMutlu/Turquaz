@@ -27,7 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
+
 
 
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -38,42 +38,36 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.TableItem;
+
 
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Table;
+
 
 import com.cloudgarden.resource.SWTResourceManager;
-import com.jasperassistant.designer.viewer.ViewerApp;
+
 
 
 import org.eclipse.swt.custom.CLabel;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
-import com.turquaz.engine.bl.EngBLUtils;
 
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqAccountingTransaction;
 
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 
-import org.eclipse.swt.widgets.TableColumn;
+
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.SWT;
 
-import com.turquaz.accounting.ui.AccUITransactionCollectUpdateDialog;
-import com.turquaz.accounting.ui.AccUITransactionPaymentUpdateDialog;
-import com.turquaz.accounting.ui.AccUITransactionUpdateDialog;
+import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 
+import com.jasperassistant.designer.viewer.ViewerComposite;
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
  * which is free for non-commercial use. If Jigloo is being used commercially
@@ -93,33 +87,20 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 		SWTResourceManager.registerResourceUser(this);
 	}
 
-	private TableColumn tableColumnDept;
-
-	private TableColumn tableColumnDate;
-
 	private DatePicker dateEndDate;
 
 	private CLabel lblEndDate;
 
 	private DatePicker dateStartDate;
 
-	private TableColumn tableColumnDocumentNo;
-
-	private TableColumn tableColumnCredit;
-
 	private CLabel lblStartDate;
 
-	private TableColumn tableColumnDefinition;
-
 	private AccountPicker txtAccount;
+	private ViewerComposite viewer;
 	private CLabel lblAccountCode2;
 	private AccountPicker txtAccount2;
-	private TableColumn tableColumnCreditBalance;
-	private TableColumn tableColumnDeptBalance;
 
 	private CLabel lblAccNo;
-
-	private Table tableTransactions;
 
 	private Composite compAccTransactionSearch;
 
@@ -226,65 +207,13 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 				compAccTransactionSearch.layout();
 			}
 			{
-				tableTransactions = new Table(this, SWT.MULTI | SWT.FULL_SELECTION);
-				GridData tableTransactionsLData = new GridData();
-				tableTransactionsLData.verticalAlignment = GridData.FILL;
-				tableTransactionsLData.horizontalAlignment = GridData.FILL;
-				tableTransactionsLData.grabExcessHorizontalSpace = true;
-				tableTransactionsLData.grabExcessVerticalSpace = true;
-				tableTransactions.setLayoutData(tableTransactionsLData);
-				tableTransactions.setHeaderVisible(true);
-				tableTransactions.setLinesVisible(true);
-				{
-					tableColumnDate = new TableColumn(tableTransactions, SWT.LEFT);
-					tableColumnDate.setText(Messages
-						.getString("AccUISubsidiaryLedger.3")); //$NON-NLS-1$
-					tableColumnDate.setWidth(76);
-				}
-				{
-					tableColumnDocumentNo = new TableColumn(
-						tableTransactions,
-						SWT.NONE);
-					tableColumnDocumentNo.setText(Messages
-						.getString("AccUISubsidiaryLedger.4")); //$NON-NLS-1$
-					tableColumnDocumentNo.setWidth(87);
-				}
-				{
-					tableColumnDefinition = new TableColumn(
-						tableTransactions,
-						SWT.NONE);
-					tableColumnDefinition.setText(Messages
-						.getString("AccUISubsidiaryLedger.5")); //$NON-NLS-1$
-					tableColumnDefinition.setWidth(120);
-				}
-				{
-					tableColumnDept = new TableColumn(tableTransactions, SWT.RIGHT);
-					tableColumnDept.setText(Messages
-						.getString("AccUISubsidiaryLedger.6")); //$NON-NLS-1$
-					tableColumnDept.setWidth(88);
-
-				}
-				{
-					tableColumnCredit = new TableColumn(tableTransactions, SWT.RIGHT);
-					tableColumnCredit.setText(Messages
-						.getString("AccUISubsidiaryLedger.7")); //$NON-NLS-1$
-					tableColumnCredit.setWidth(83);
-				}
-				{
-					tableColumnDeptBalance = new TableColumn(tableTransactions, SWT.RIGHT);
-					tableColumnDeptBalance.setText(Messages.getString("AccUISubsidiaryLedger.10")); //$NON-NLS-1$
-					tableColumnDeptBalance.setWidth(80);
-				}
-				{
-					tableColumnCreditBalance = new TableColumn(tableTransactions, SWT.RIGHT);
-					tableColumnCreditBalance.setText(Messages.getString("AccUISubsidiaryLedger.11")); //$NON-NLS-1$
-					tableColumnCreditBalance.setWidth(80);
-				}
-				tableTransactions.addMouseListener(new MouseAdapter() {
-					public void mouseDoubleClick(MouseEvent evt) {
-						tableTransactionsMouseDoubleClick(evt);
-					}
-				});
+				viewer = new ViewerComposite(this, SWT.NONE);
+				GridData viewerLData = new GridData();
+				viewerLData.grabExcessHorizontalSpace = true;
+				viewerLData.horizontalAlignment = GridData.FILL;
+				viewerLData.grabExcessVerticalSpace = true;
+				viewerLData.verticalAlignment = GridData.FILL;
+				viewer.setLayoutData(viewerLData);
 			}
 
 			this.setSize(669, 511);
@@ -396,7 +325,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 					" and trans.transactions_date <="+"'"+dformat.format(dateEndDate.getDate())+"'"+
 					" order by accounts.accounting_accounts_id";
 			}	
-			System.out.println(sqlparam);
+			//System.out.println(sqlparam);
 			SimpleDateFormat dformat2=new SimpleDateFormat("dd/MM/yyyy");
 			parameters.put("sqlparam",sqlparam);
 			parameters.put("beginDate",dformat2.format(dateStartDate.getDate()));
@@ -413,10 +342,9 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 			
 			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingSubsidiaryLedger.jasper"); 
 	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
-			ViewerApp viewerApp = new ViewerApp();
 			
-			viewerApp.getReportViewer().setDocument(jasperPrint);
-			viewerApp.open();
+			
+			viewer.getReportViewer().setDocument(jasperPrint);
 
 			
 					
@@ -574,48 +502,12 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 
 	public void printTable() {
 	    
-	    Properties prop = new Properties();
-	    prop.put("account_code",account.getAccountCode()); //$NON-NLS-1$
-	    prop.put("account_name",account.getAccountName()); //$NON-NLS-1$
-	    prop.put("top_account",account.getTurqAccountingAccountByTopAccount().getAccountName()); //$NON-NLS-1$
-		prop.put("start_date",formatter.format(dateStartDate.getDate())); //$NON-NLS-1$
-		prop.put("end_date",formatter.format(dateEndDate.getDate())); //$NON-NLS-1$
-	    EngBLUtils.printSubsidiaryLedgerTable(tableTransactions, Messages.getString("AccUISubsidiaryLedger.8"),prop);  //$NON-NLS-1$
 
 	}
 
-	/** Auto-generated event handler method */
-	protected void tableTransactionsMouseDoubleClick(MouseEvent evt) {
-
-		TableItem selection[] = tableTransactions.getSelection();
-
-		if (selection.length > 0) {
-
-			TurqAccountingTransaction accTrans = (TurqAccountingTransaction) selection[0]
-					.getData();
-			int type = accTrans.getTurqAccountingTransactionType()
-					.getAccountingTransactionTypesId().intValue();
-		    if(type==2){
-			    new AccUITransactionUpdateDialog(this.getShell(),SWT.NULL,accTrans).open();
-			    search();
-			    
-			    }
-			    else if(type==1){
-			    new AccUITransactionPaymentUpdateDialog(this.getShell(),SWT.NULL,accTrans).open();
-			    search();
-			    }
-			    else if(type==0) {
-			    	new AccUITransactionCollectUpdateDialog(this.getShell(),SWT.NULL,accTrans).open();
-			        search();
-			    
-			    }
-		}
-
-	}
 
 	public void exportToExcel() {
 
-		EngBLUtils.Export2Excel(tableTransactions);
 
 	}
 
