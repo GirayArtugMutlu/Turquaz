@@ -1,12 +1,15 @@
 
 package com.turquaz.cheque.bl;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import com.turquaz.cheque.dal.CheDALSave;
+import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
@@ -21,7 +24,7 @@ public class CheBLSaveChequeTransaction {
         
     }
     
-    public static void saveChequeRoll(TurqCurrentCard curCard, String rollNo,Date rollDate,List chequeList, int rollType)throws Exception {
+    public static void saveChequeRoll(TurqCurrentCard curCard,TurqBanksCard bankCard, String rollNo,Date rollDate,List chequeList, int rollType)throws Exception {
      
       try{
           TurqChequeTransactionType type = new TurqChequeTransactionType();
@@ -56,12 +59,14 @@ public class CheBLSaveChequeTransaction {
           CheDALSave.save(chequeRoll);
           TurqChequeCheque cheque;
           TurqChequeChequeInRoll chequeInRoll;
+          CurBLCurrentTransactionAdd blCurrent = new CurBLCurrentTransactionAdd();
           
           for(int i = 0; i<chequeList.size();i++){
               
               chequeInRoll = new TurqChequeChequeInRoll();
               
               cheque = (TurqChequeCheque)chequeList.get(i);
+                     
               
               CheDALSave.saveOrUpdate(cheque);
               
@@ -71,9 +76,19 @@ public class CheBLSaveChequeTransaction {
               chequeInRoll.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
               chequeInRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
               chequeInRoll.setLastModified(Calendar.getInstance().getTime());
-              chequeInRoll.setCreationDate(Calendar.getInstance().getTime());                         
+              chequeInRoll.setCreationDate(Calendar.getInstance().getTime()); 
               
               CheDALSave.save(chequeInRoll);
+              
+              //save current transaction...
+              if(curCard!=null)
+              {
+                  blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getEngineSequencesId(),"Çek Portföy No:"+cheque.getChequesPortfolioNo() );
+              }
+              
+              
+              
+          
           }          
             
             
