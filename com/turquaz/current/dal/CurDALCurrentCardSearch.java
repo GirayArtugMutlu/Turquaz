@@ -58,7 +58,8 @@ public class CurDALCurrentCardSearch {
 					" currentCard.turqCurrentCardsGroups as gr where" +
 					" currentCard.cardsCurrentCode like '"+currentCode+"%' and" +
 					" currentCard.cardsName like '"+currentName+"%' and" +
-					" currentCard.turqCompany.companiesId ="+System.getProperty("company");
+					" currentCard.turqCompany.companiesId ="+System.getProperty("company")+
+					" and currentCard.currentCardsId <> -1";
 			if (cardGroup!=null){
 				query +=" and gr.turqCurrentGroup = :cardGroup";
 			}		

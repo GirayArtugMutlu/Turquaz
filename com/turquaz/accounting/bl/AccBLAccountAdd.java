@@ -98,7 +98,12 @@ public class AccBLAccountAdd {
 		account.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
 		
 		account.setTurqAccountingAccountByParentAccount(parentAccount);
+		if(parentAccount.getAccountingAccountsId().intValue()==-1){
+		 account.setTurqAccountingAccountByTopAccount(parentAccount); 
+		}
+		else{
 		account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());
+		}
 		account.setTurqCompany(company);
 	
 		dalAccountAdd.saveOrUpdateAccount(account);
