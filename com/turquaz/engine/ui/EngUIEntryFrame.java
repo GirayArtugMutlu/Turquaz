@@ -186,7 +186,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		}
 		}
 		catch(Exception ex){
-			
+			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();
 		}
@@ -195,15 +195,16 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		
 		
 		
-		File config = new File("config1.xml");
+		File config = new File("config/turquaz.properties");
 		if(!config.exists()){
 			EngUIDatabaseConnectionWizard wizard = new EngUIDatabaseConnectionWizard();
 			WizardDialog dialog = new WizardDialog(this.getShell(),wizard);
 			dialog.open();	
 		}
+		else{
 		
-		EngDALSessionFactory.init();
-		
+		    EngDALSessionFactory.init();
+		}
 		
 	}
 }

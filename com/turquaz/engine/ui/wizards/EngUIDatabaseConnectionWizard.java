@@ -62,8 +62,8 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 		
 	   Properties props = new Properties();	
 		props.setProperty("dbType",dbType);
-		props.setProperty("username",username);
-		props.setProperty("password",password);
+		props.setProperty("dbUsername",username);
+		props.setProperty("dbPassword",password);
 		props.setProperty("serverAddress",serverAddress);
 		props.setProperty("serverPort",serverPort);
 		props.setProperty("dbName",dbName);
