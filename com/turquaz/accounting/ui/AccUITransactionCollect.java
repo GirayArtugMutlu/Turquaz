@@ -24,6 +24,7 @@ package com.turquaz.accounting.ui;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TableViewer;
@@ -51,9 +52,10 @@ import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.editors.AccountingCellEditor;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
-import com.turquaz.engine.ui.editors.NumericCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.ITableRowListViewer;
 import com.turquaz.engine.ui.viewers.TableRowList;
+import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
 import com.turquaz.engine.ui.viewers.TurquazCellModifier;
 import com.turquaz.engine.ui.viewers.TurquazContentProvider;
 import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
@@ -64,12 +66,6 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.TableCursor;
 import org.eclipse.swt.SWT;
 
-/**
- *		Tahsil Fisi 
- */
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.VerifyListener;
@@ -360,62 +356,9 @@ public class AccUITransactionCollect extends Composite implements
 		tableViewer.setInput(rowList);
 
 		// create a TableCursor to navigate around the table
-		cursor = new TableCursor(tableTransactionRows, SWT.NONE);
+		cursor = new TableSpreadsheetCursor(tableTransactionRows, SWT.NONE,tableViewer,rowList);
 		cursor.setEnabled(true);
-		cursor.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
-
-				if (e.keyCode == SWT.INSERT) {
-					AccUITransactionCollectTableRow row = new AccUITransactionCollectTableRow(
-							rowList);
-					rowList.addTask(row);
-					tableViewer.editElement(row, 0);
-					cursor.setSelection(
-							tableTransactionRows.getItemCount() - 1, 0);
-
-				} else if (e.keyCode == SWT.DEL) {
-					if (cursor.getRow() != null) {
-					    if(okToDelete()){
-						ITableRow row = (ITableRow) cursor.getRow().getData();
-						rowList.removeTask(row);
-						int itemCount = tableTransactionRows.getItemCount();
-						if (itemCount > 0) {
-							cursor.setSelection(itemCount - 1, 0);
-						}
-					    }
-
-					}
-
-				}
-				 // F2 edit
-                else if(e.keyCode == 16777227 && e.stateMask == 0){
-                    tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
-
-				// any character
-				} 
-                //any character
-                else if((e.keyCode<0x10000 || e.character!='\0') && e.keyCode>0x1f && e.keyCode!=127 
-    					|| e.keyCode==0x00 && (e.stateMask==0 || e.stateMask==SWT.SHIFT)){
-                    if(cursor.getRow()!=null){
-                    tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
-                    if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof TextCellEditor){
-                        
-                        TextCellEditor editor = ((TextCellEditor)tableViewer.getCellEditors()[cursor.getColumn()]);
-                        ((Text)editor.getControl()).setText(""+e.character);
-						if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof CurrencyCellEditor 
-						 || tableViewer.getCellEditors()[cursor.getColumn()] instanceof NumericCellEditor ){
-						    
-						}
-						else{
-						    ((Text)editor.getControl()).setSelection(1);
-						}
-                        
-                    }
-                }
-                }
-
-			}
-		});
+		
 		cursor.addSelectionListener(new SelectionAdapter() {
 			// when the TableEditor is over a cell, select the corresponding
 			// rowtable
@@ -435,14 +378,36 @@ public class AccUITransactionCollect extends Composite implements
 
 			}
 		});
-		cursor.addMouseListener(new MouseAdapter() {
-			public void mouseDoubleClick(MouseEvent arg0) {
-				tableViewer.editElement(cursor.getRow().getData(), cursor
-						.getColumn());
+		 rowList.addChangeListener(new ITableRowListViewer(){
+		       public void updateRow(ITableRow row){
+		           
+		                   
+					
+		           Vector vec = rowList.getTasks();
+		           int index = vec.indexOf(row);
+		           if(index==vec.size()-1){
+		           		if(row.okToSave()){
+		           			
+		                    AccUITransactionCollectTableRow row2 = new AccUITransactionCollectTableRow(rowList);
+		                    rowList.addTask(row2);
+		                   
+		           			
 
-			}
-		});
-
+		           		}
+		           	
+		           }
+		           
+		      }
+		       public void removeRow(ITableRow row){
+		         
+		                 
+		       }
+		       public void addRow(ITableRow row){
+		           
+		       }
+		    });
+		
+		
 	}
 
 	

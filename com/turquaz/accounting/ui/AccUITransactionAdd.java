@@ -39,10 +39,10 @@ import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TurquazDecimalFormat;
 import com.turquaz.engine.ui.editors.AccountingCellEditor;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
-import com.turquaz.engine.ui.editors.NumericCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.ITableRowListViewer;
 import com.turquaz.engine.ui.viewers.TableRowList;
+import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
 import com.turquaz.engine.ui.viewers.TurquazCellModifier;
 import com.turquaz.engine.ui.viewers.TurquazContentProvider;
 import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
@@ -55,13 +55,10 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 
-import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -347,65 +344,9 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	   
 	 createTableViewer();   
 	 // create a TableCursor to navigate around the table
-		 cursor = new TableCursor(tableTransactionColumns, SWT.NONE);
+		 cursor = new TableSpreadsheetCursor(tableTransactionColumns, SWT.NONE,tableViewer,rowList);
          cursor.setEnabled(true);
-		 cursor.addKeyListener(new KeyAdapter(){
-		     public void keyReleased(KeyEvent e){
-		         
-                 if (e.keyCode == SWT.INSERT){
-                     AccUITransactionAddTableRow row = new AccUITransactionAddTableRow(rowList);
-                     rowList.addTask(row);
-                    
-                     tableViewer.editElement(row, 0);
-                     cursor.setSelection(tableTransactionColumns
-                         .getItemCount() - 1, 0);
-                     cursor.setVisible(true);
-                    
-                 }
-                 else if(e.keyCode==SWT.DEL){
-                   
-                     if(cursor.getRow()!=null){
-                         if(okToDelete()){
-                         ITableRow row = (ITableRow)cursor.getRow().getData();
-                         rowList.removeTask(row);
-                         int itemCount =tableTransactionColumns.getItemCount();
-                        if(itemCount>0){
-                            cursor.setSelection(itemCount-1,0);
-                        }
-                         }
-                     }
-                    
-                    
-                 }
-                 // F2 edit
-                 else if(e.keyCode == 16777227 && e.stateMask == 0){
-                     tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
-
- 				// any character
- 				} 
-                 //any character
-                 else if((e.keyCode<0x10000 || e.character!='\0') && e.keyCode>0x1f && e.keyCode!=127 
-     					|| e.keyCode==0x00 && (e.stateMask==0 || e.stateMask==SWT.SHIFT)){
-                     if(cursor.getRow()!=null){
-                     tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
-                     if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof TextCellEditor){
-                         
-                         TextCellEditor editor = ((TextCellEditor)tableViewer.getCellEditors()[cursor.getColumn()]);
-                         ((Text)editor.getControl()).setText(""+e.character); //$NON-NLS-1$
- 						if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof CurrencyCellEditor 
- 						 || tableViewer.getCellEditors()[cursor.getColumn()] instanceof NumericCellEditor ){
- 						    
- 						}
- 						else{
- 						    ((Text)editor.getControl()).setSelection(1);
- 						}
-                         
-                     }
-                 }
-                 }
-         
-		         
-		     }});
+		
 		 cursor.addSelectionListener(new SelectionAdapter() {
 				// when the TableEditor is over a cell, select the corresponding rowtable
 				public void widgetSelected(SelectionEvent e) {
@@ -414,38 +355,14 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 				// when the user hits "ENTER" in the TableCursor, pop up a text/combo editor 
 				// so that they can change the text of the cell for controlType=="input" || "select1"<br>
 				// if controlType==TableViewerExample.TYPE_CHECKBOX, toogle it
-				public void widgetDefaultSelected(SelectionEvent e) {
-				 
+				public void widgetDefaultSelected(SelectionEvent e) {				 
 				    
 				
 				}
 			});
 		 
-		 cursor.addMouseListener(new MouseAdapter() {
-			public void mouseDoubleClick(MouseEvent arg0) {
-				tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
-
-			}
-		});
+		
   
-		 rowList.addChangeListener(new ITableRowListViewer(){
-		 public void updateRow(ITableRow row){
-		     calculateTotalDeptAndCredit();
-		     
-		 }
-		 public void removeRow(ITableRow row){
-		     calculateTotalDeptAndCredit();
-		     
-		 }
-		 public void addRow(ITableRow row){
-		     calculateTotalDeptAndCredit();
-		     
-		 }
-		 
-		 
-		 
-		 
-		 });
 	
 		 for(int i=0;i<EngBLCommon.TABLE_ROW_COUNT;i++){
 //			enter empty table rows.

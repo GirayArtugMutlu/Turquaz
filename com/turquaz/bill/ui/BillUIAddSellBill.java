@@ -49,8 +49,6 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
@@ -1131,75 +1129,8 @@ public class BillUIAddSellBill extends Composite
 			
 			tableViewer.setInput(rowList);
 			 
-	             cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE,tableViewer);
+	             cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE,tableViewer,rowList);
 	             cursor.setEnabled(true);
-	        	 cursor.addKeyListener(new KeyAdapter(){
-	    		     public void keyReleased(KeyEvent e){
-	    		         
-	                     if (e.keyCode == SWT.INSERT){
-	                         int type =BILL_TYPE;
-	         				
-	                         InvUITransactionTableRow row = new InvUITransactionTableRow(rowList,type,tableViewer);
-	                         rowList.addTask(row);
-	                        
-	                         
-	                         
-	                         cursor.setSelection(tableConsignmentRows
-	                                 .getItemCount() - 1, 0);
-	                         tableViewer.editElement(row, 0);
-
-	                         
-	                       
-	                        
-	                     }
-	                     else if(e.keyCode==SWT.DEL){
-	                       
-	                         if(cursor.getRow()!=null){
-	                             if(okToDelete()){
-	                             ITableRow row = (ITableRow)cursor.getRow().getData();
-	                             rowList.removeTask(row);
-	                             int itemCount =tableConsignmentRows.getItemCount();
-	                            if(itemCount>0){
-	                                cursor.setSelection(itemCount-1,0);
-	                            }
-	                             }
-	                         }
-	                        
-	                        
-	                     }
-	                     // F2 edit
-	                     else if(e.keyCode == 16777227 && e.stateMask == 0){
-	                         tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
-
-	     				// any character
-	     				} 
-	                     else if(e.stateMask == SWT.CTRL){
-	                         tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
- 
-	                     }
-	                     //any character
-	                     else if((e.keyCode<0x10000 || e.character!='\0') && e.keyCode>0x1f && e.keyCode!=127 
-	         					|| e.keyCode==0x00 && (e.stateMask==0 || e.stateMask==SWT.SHIFT)){
-	                         if(cursor.getRow()!=null){
-	                         tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
-	                         if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof TextCellEditor){
-	                             
-	                             TextCellEditor editor = ((TextCellEditor)tableViewer.getCellEditors()[cursor.getColumn()]);
-	                             ((Text)editor.getControl()).setText(""+e.character); //$NON-NLS-1$
-	     						if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof CurrencyCellEditor 
-	     						  ){
-	     						    
-	     						}
-	     						else{
-	     						    ((Text)editor.getControl()).setSelection(1);
-	     						}
-	                             
-	                         }
-	                         }
-	                     }
-	    		         
-	    		     }});
-			
 	        	 
 	             cursor.addSelectionListener(new SelectionAdapter() {
 	                     public void widgetDefaultSelected(
