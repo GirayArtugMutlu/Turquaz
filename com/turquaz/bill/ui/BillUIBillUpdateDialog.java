@@ -179,8 +179,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			
 			
 			compAddBill.getTxtCurrentCard().setData(bill.getTurqBillConsignmentCommon().getTurqCurrentCard());
-			compAddBill.getTxtCurrentCard().setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode()+" - " +  //$NON-NLS-1$
-															bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName());
+			compAddBill.getTxtCurrentCard().setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode());
 			;
 			compAddBill.getTxtDocumentNo().setText(bill.getTurqBillConsignmentCommon().getBillDocumentNo());
 			compAddBill.getDateConsignmentDate().setDate(bill.getBillsDate());
@@ -205,11 +204,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			compAddBill.getTxtDefinition().setText(bill.getBillsDefinition());
 			compAddBill.getTxtDiscountRate().setText(bill.getTurqBillConsignmentCommon().getDiscountRate());
 			fillInvTransactionColumns();
-			fillRegisteredGroup();
-			
-			
-		    
-	        
+			fillRegisteredGroup();  
 	        
 	        
 	    

@@ -13,6 +13,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TableItem;
 
 import org.eclipse.swt.widgets.Composite;
+
+import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
@@ -362,7 +364,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	           if(blSearch.canUpdateBill(bill)){
 	               //delete Consignment Group
 	               MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
-	               msg2.setMessage("Silmek istedi?inize emin misiniz?");
+	               msg2.setMessage(Messages.getString("BillUIBillSearch.12")); //$NON-NLS-1$
 	               if(msg2.open()==SWT.OK){
 					initializeBill(bill);
 	                Iterator it = bill.getTurqBillInGroups().iterator();
@@ -376,7 +378,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 					blUpdateBill.deleteCurrentTransactions(bill);
 				
 					blUpdateBill.deleteObject(bill); 
-					msg.setMessage("Ba?ar?yla Silindi.");
+					msg.setMessage(Messages.getString("BillUIBillSearch.14")); //$NON-NLS-1$
 	                msg.open();
 	                search();
 	               }
@@ -386,7 +388,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	           }
 	           else{
 	               MessageBox msg3 = new MessageBox(this.getShell(),SWT.ICON_WARNING);
-	               msg3.setMessage("Bu faturan?n yevmiye kay?tlar? yap?lm??.\n O yüzden silinemez!");
+	               msg3.setMessage(Messages.getString("BillUIBillSearch.15")); //$NON-NLS-1$
 	               msg3.open();
 	               return;
 	           }
@@ -427,7 +429,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		}
 	}
 	public void printTable(){
-	    EngBLUtils.printTable(tableBills,"Faturalar");
+	    EngBLUtils.printTable(tableBills,Messages.getString("BillUIBillSearch.16")); //$NON-NLS-1$
 	    
 	}
 
