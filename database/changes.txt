@@ -78,6 +78,7 @@ CREATE OR REPLACE VIEW turq_view_inventory_amount_total AS
 
 
 *** 06-02-2005 *** 
+
 -- "turq_inventory_groups" ---> "parent_group" (integer) column added
 -- Foreign key from "parent_group" to "inventory_groups_id" in "turq_inventory_groups"
 
@@ -94,6 +95,7 @@ ALTER TABLE turq_inventory_groups
    
 ALTER TABLE turq_inventory_groups ADD CONSTRAINT ig1 FOREIGN KEY (parent_group) REFERENCES turq_inventory_groups (inventory_groups_id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
    
+INSERT INTO turq_inventory_groups VALUES (-1, 'Varsayilan', 'Varsayilan', 'admin', '2005-01-14', 'admin', '2005-01-14', -1);
 
 
    
