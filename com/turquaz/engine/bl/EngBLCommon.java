@@ -27,6 +27,34 @@ import com.turquaz.engine.dal.EngDALCommon;
 
 
 public class EngBLCommon {
+    
+    final static int CASH_CURRENT_COLLECT = 0; //Kasa Cari Tahsilat
+    
+    final static int CASH_CURRENT_PAYMENT = 1; // Kasa Cari Ödeme
+    
+    final static int CASH_ACCOUNTING_COLLECT =2; //Kasa Muhasebe Tahsilat
+    
+    final static int CASH_ACCOUNTING_PAYMENT =3; //Kasa Muhasebe Ödeme
+    
+    
+    final static int MODULE_INVENTORY = 0;  //Stok Modulu
+    
+    final static int MODULE_ACCOUNTING = 1; // muhasebe module
+    
+    final static int MODULE_BANKS = 3;   // Banka Modulu
+    
+    final static int MODULE_CURRENT = 4;  // Cari Modulu
+    
+    final static int MODULE_ADMIN = 5; //ayarlar modulu
+    
+    final static int MODULE_CONSIGNMENT = 6; //irsaliye Modulu
+    
+    final static int MODULE_BILL = 7; //fatura modulu
+    
+    final static int MODULE_CASH = 8; //kasa modulu
+    
+    
+    
 	public EngBLCommon()
 	{
 		
