@@ -17,6 +17,7 @@ import com.turquaz.accounting.ui.AccUITransactionCollect;
 import com.turquaz.accounting.ui.AccUITransactionPayment;
 import com.turquaz.accounting.ui.AccUITransactionSearch;
 import com.turquaz.admin.ui.AdmUIGroupAdd;
+import com.turquaz.admin.ui.AdmUIGroups;
 import com.turquaz.admin.ui.AdmUIPermPanel;
 import com.turquaz.admin.ui.AdmUIUserAdd;
 import com.turquaz.admin.ui.AdmUIUsers;
@@ -131,6 +132,9 @@ public final class TreeFactory {
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(Messages.getString("TreeFactory.25")); //$NON-NLS-1$
 		item.setData(AdmUIGroupAdd.class.getName());
+		item = new TreeItem(root,SWT.NULL);
+		item.setText(Messages.getString("TreeFactory.26")); //$NON-NLS-1$
+		item.setData(AdmUIGroups.class.getName());
 		return tree;
 	}
 	
