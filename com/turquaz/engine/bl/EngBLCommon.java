@@ -22,11 +22,16 @@ package com.turquaz.engine.bl;
 * @version  $Id$
 */
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.bill.bl.BillBLAddBill;
+import com.turquaz.bill.bl.BillBLUpdateBill;
+import com.turquaz.bill.dal.BillDALSearchBill;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrency;
 
 
@@ -245,6 +250,57 @@ public class EngBLCommon {
 	    catch(Exception ex){
 	        throw ex;
 	    }
+	}
+	
+	public static void updateAllBillAccountingTransactions(){
+		try{
+			Calendar calStart = Calendar.getInstance();
+			calStart.set(calStart.get(Calendar.YEAR),0,1);
+			
+			Calendar calEnd = Calendar.getInstance();
+			calEnd.set(calEnd.get(Calendar.YEAR),11,31);
+		
+			BillDALSearchBill dalBill =  new BillDALSearchBill();
+			BillBLUpdateBill updateBill = new BillBLUpdateBill();
+			BillBLAddBill addBill = new BillBLAddBill();
+			
+			List bills =dalBill.searchBill(null,"",calStart.getTime(),calEnd.getTime(),EngBLCommon.COMMON_ALL_INT);
+			
+			for(int i=0;i<bills.size();i++){
+			
+				Object[]result = (Object[])bills.get(i);
+				
+				TurqBill bill = BillDALSearchBill.getBillByBillId((Integer)result[0]);
+				
+				dalBill.initializeBill(bill);
+				updateBill.deleteAccountingTransactions(bill);
+				addBill.saveAccountingTransaction(bill,bill.getTurqBillConsignmentCommon().getTurqCurrentCard());
+					
+				
+				
+				
+				
+			
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+		
+		
+		
 	}
 	
 

@@ -209,6 +209,8 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 	    return getDate();
 	}
 	
+	
+	
 	public void setFirstDayOfYear(){
 
 		calendar.set(calendar.get(Calendar.YEAR),0,1);

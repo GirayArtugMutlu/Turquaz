@@ -13,8 +13,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -40,6 +44,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
 	private Composite composite1;
 	private CCombo cCombo;
+	private Button btnUpdateBills;
 	private CLabel lblBillFormat;
 	private DatePicker datePicker;
 	private CLabel lblWorkingDate;
@@ -133,6 +138,19 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
                     cComboLData.heightHint = 16;
                     cCombo.setLayoutData(cComboLData);
                 }
+				//START >>  btnUpdateBills
+				btnUpdateBills = new Button(composite1, SWT.PUSH | SWT.CENTER);
+				btnUpdateBills.setText("Fatura Muhasebele\u015ftir");
+				btnUpdateBills.setVisible(false);
+				btnUpdateBills.addMouseListener(new MouseAdapter() {
+					public void mouseUp(MouseEvent evt) {
+						
+						EngBLCommon.updateAllBillAccountingTransactions();
+						
+						
+					}
+				});
+				//END <<  btnUpdateBills
             }
             fillBillTypeCombo();
             EngUICommon.centreWindow(dialogShell);
