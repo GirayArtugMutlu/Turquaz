@@ -45,6 +45,7 @@ import com.turquaz.accounting.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.layout.GridData;
+import com.jasperassistant.designer.viewer.ViewerComposite;
 public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblDateRange;
 	private DatePicker datePickerBeginDate;
@@ -52,42 +53,13 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 	private CLabel lblDummy;
 	private Button btnShow;
 	private Calendar cal=Calendar.getInstance();
+	private ViewerComposite reportViewer;
 
 	/**
 	* Auto-generated main method to display this 
 	* org.eclipse.swt.widgets.Composite inside a new Shell.
 	*/
-	public static void main(String[] args) {
-		showGUI();
-	}
-		
-	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		AccUIAccountingGeneralLedger inst = new AccUIAccountingGeneralLedger(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if(size.x == 0 && size.y == 0) {
-			inst.pack();
-			shell.pack();
-		} else {
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
+	
 
 	public AccUIAccountingGeneralLedger(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
@@ -100,7 +72,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 3;
 			thisLayout.makeColumnsEqualWidth = true;
-			this.setSize(477, 200);
+			this.setSize(491, 251);
 			{
 				lblDateRange = new CLabel(this, SWT.NONE);
 				lblDateRange.setText(Messages.getString("AccUIAccountingGeneralLedger.0")); //$NON-NLS-1$
@@ -130,6 +102,16 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 				btnShowLData.widthHint = 120;
 				btnShowLData.heightHint = 29;
 				btnShow.setLayoutData(btnShowLData);
+			}
+			{
+				reportViewer = new ViewerComposite(this, SWT.NONE);
+				GridData reportViewerLData = new GridData();
+				reportViewerLData.horizontalSpan = 3;
+				reportViewerLData.grabExcessHorizontalSpace = true;
+				reportViewerLData.horizontalAlignment = GridData.FILL;
+				reportViewerLData.grabExcessVerticalSpace = true;
+				reportViewerLData.verticalAlignment = GridData.FILL;
+				reportViewer.setLayoutData(reportViewerLData);
 			}
 			this.layout();
 		} catch (Exception e) {
@@ -177,7 +159,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingGeneralLedger.jasper"); //$NON-NLS-1$
 			final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
 			
-			JasperViewer.viewReport(jasperPrint,false);
+			reportViewer.getReportViewer().setDocument(jasperPrint);
 			
 					
 			}

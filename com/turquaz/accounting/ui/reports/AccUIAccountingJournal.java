@@ -45,6 +45,7 @@ import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.jasperassistant.designer.viewer.ViewerComposite;
 public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblDateRange;
 	private DatePicker datePickerBeginDate;
@@ -52,6 +53,7 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblDummy;
 	private Button btnReports;
 	private Calendar cal=Calendar.getInstance();
+	private ViewerComposite reportViewer;
 
 	/**
 	* Auto-generated main method to display this 
@@ -128,6 +130,16 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 				btnReports.setLayoutData(btnReportsLData);
 
 			}
+			{
+				reportViewer = new ViewerComposite(this, SWT.NONE);
+				GridData reportViewerLData = new GridData();
+				reportViewerLData.horizontalAlignment = GridData.FILL;
+				reportViewerLData.grabExcessHorizontalSpace = true;
+				reportViewerLData.horizontalSpan = 3;
+				reportViewerLData.verticalAlignment = GridData.FILL;
+				reportViewerLData.grabExcessVerticalSpace = true;
+				reportViewer.setLayoutData(reportViewerLData);
+			}
 			this.layout();
 		}
 		catch (Exception e) {
@@ -165,8 +177,7 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 			db.connect();
 			JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingJournal.jasper"); //$NON-NLS-1$
 			final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
-			
-			JasperViewer.viewReport(jasperPrint,false);
+			reportViewer.getReportViewer().setDocument(jasperPrint);
 			
 					
 			}
