@@ -172,7 +172,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 				//START >>  tableColumnBalanceCredit
 				tableColumnBalanceCredit = new TableColumn(
 					tableAbstract,
-					SWT.NONE);
+					SWT.RIGHT);
 				tableColumnBalanceCredit.setText("Bakiye Alacak");
 				tableColumnBalanceCredit.setWidth(84);
 				//END <<  tableColumnBalanceCredit
