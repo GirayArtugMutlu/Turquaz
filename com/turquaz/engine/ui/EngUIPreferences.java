@@ -141,7 +141,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 				//START >>  btnUpdateBills
 				btnUpdateBills = new Button(composite1, SWT.PUSH | SWT.CENTER);
 				btnUpdateBills.setText("Fatura Muhasebele\u015ftir");
-				btnUpdateBills.setVisible(false);
+				btnUpdateBills.setVisible(true);
 				btnUpdateBills.addMouseListener(new MouseAdapter() {
 					public void mouseUp(MouseEvent evt) {
 						

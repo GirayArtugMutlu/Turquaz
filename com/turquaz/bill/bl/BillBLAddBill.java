@@ -158,6 +158,7 @@ public class BillBLAddBill {
 							.getCardsName();
 
 			Map VATList = new HashMap();
+			Map ROWList = new HashMap();
 			//Al?? Faturas?
 			if (bill.getBillsType() == 0) {
 
@@ -184,31 +185,24 @@ public class BillBLAddBill {
 				while (it.hasNext()) {
 
 					invTrans = (TurqInventoryTransaction) it.next();
-					transRow = new TurqAccountingTransactionColumn();
-
-					transRow
-							.setTurqAccountingAccount(invTrans
+					
+					BigDecimal transRowAmount =(BigDecimal) ROWList.get(invTrans
 									.getTurqInventoryCard()
-									.getTurqAccountingAccountByAccountingAccountsIdBuy());
-
-					transRow.setCreditAmount(new BigDecimal(0));
-
-					//mal bedeli
-					transRow
-							.setDeptAmount(invTrans.getTransactionsTotalPrice());
-
-					// set Transaction Row Definition
-					transRow.setTransactionDefinition(billDefinition);
-
-					transRow.setCreatedBy(System.getProperty("user"));
-					transRow.setUpdatedBy(System.getProperty("user"));
-					transRow.setLastModified(new java.sql.Date(cal.getTime()
-							.getTime()));
-					transRow.setCreationDate(new java.sql.Date(cal.getTime()
-							.getTime()));
-
-					blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-							.getBaseCurrency(), new BigDecimal(1));
+									.getTurqAccountingAccountByAccountingAccountsIdBuy().getAccountingAccountsId());
+					
+					if(transRowAmount==null)
+					{
+						
+						transRowAmount = new BigDecimal(0);
+						
+					}
+					transRowAmount = transRowAmount.add(invTrans.getTransactionsTotalPrice());
+					
+					ROWList.put(invTrans
+							.getTurqInventoryCard()
+							.getTurqAccountingAccountByAccountingAccountsIdBuy().getAccountingAccountsId(),transRowAmount);
+					
+					
 
 					/**
 					 * 2-Kdv hesabini gir
@@ -272,6 +266,44 @@ public class BillBLAddBill {
 					}
 
 				}
+				
+				/***
+				 * 1-Stok Muhasebe kay?tlar?
+				 * 
+				 */
+				
+				Iterator rowIt = ROWList.keySet().iterator();
+				while(rowIt.hasNext())
+				{
+					transRow = new TurqAccountingTransactionColumn();
+					
+								Integer rowId = (Integer)rowIt.next();
+								TurqAccountingAccount account = new TurqAccountingAccount();
+								account.setAccountingAccountsId(rowId);
+								transRow
+										.setTurqAccountingAccount(account);
+
+								transRow.setCreditAmount(new BigDecimal(0));
+
+								//mal bedeli
+								transRow
+										.setDeptAmount((BigDecimal)ROWList.get(rowId));
+
+								// set Transaction Row Definition
+								transRow.setTransactionDefinition(billDefinition);
+
+								transRow.setCreatedBy(System.getProperty("user"));
+								transRow.setUpdatedBy(System.getProperty("user"));
+								transRow.setLastModified(new java.sql.Date(cal.getTime()
+										.getTime()));
+								transRow.setCreationDate(new java.sql.Date(cal.getTime()
+										.getTime()));
+
+								blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
+										.getBaseCurrency(), new BigDecimal(1));
+				}
+				
+				
 				/**
 				 * 
 				 * 2-KDV
@@ -455,34 +487,24 @@ public class BillBLAddBill {
 				while (it.hasNext()) {
 
 					invTrans = (TurqInventoryTransaction) it.next();
-					transRow = new TurqAccountingTransactionColumn();
-
-					transRow
-							.setTurqAccountingAccount(invTrans
-									.getTurqInventoryCard()
-									.getTurqAccountingAccountByAccountingAccountsIdSell());
-
-					transRow.setCreditAmount(invTrans
-							.getTransactionsTotalPrice());
-					transRow.setDeptAmount(new BigDecimal(0));
-
-					//			 set Transaction Row Definition
-					transRow.setTransactionDefinition("FT "
-							+ bill.getTurqBillConsignmentCommon()
-									.getBillDocumentNo()
-							+ " "
-							+ bill.getTurqBillConsignmentCommon()
-									.getTurqCurrentCard().getCardsName());
-
-					transRow.setCreatedBy(System.getProperty("user"));
-					transRow.setUpdatedBy(System.getProperty("user"));
-					transRow.setLastModified(new java.sql.Date(cal.getTime()
-							.getTime()));
-					transRow.setCreationDate(new java.sql.Date(cal.getTime()
-							.getTime()));
-
-					blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-							.getBaseCurrency(), new BigDecimal(1));
+					
+					BigDecimal transRowAmount =(BigDecimal) ROWList.get(invTrans
+							.getTurqInventoryCard()
+							.getTurqAccountingAccountByAccountingAccountsIdSell().getAccountingAccountsId());
+			
+			if(transRowAmount==null)
+			{
+				
+				transRowAmount = new BigDecimal(0);
+				
+			}
+			transRowAmount = transRowAmount.add(invTrans.getTransactionsTotalPrice());
+			
+			ROWList.put(invTrans
+					.getTurqInventoryCard()
+					.getTurqAccountingAccountByAccountingAccountsIdSell().getAccountingAccountsId(),transRowAmount);
+			
+					
 					/**
 					 * 2-Kdv hesabini gir
 					 */
@@ -544,6 +566,43 @@ public class BillBLAddBill {
 								EngBLCommon.getBaseCurrency(),
 								new BigDecimal(1));
 					}
+				}
+				/***
+				 * 1-Stok Muhasebe kay?tlar?
+				 * 
+				 */
+				
+				Iterator rowIt = ROWList.keySet().iterator();
+				while(rowIt.hasNext())
+				{
+					transRow = new TurqAccountingTransactionColumn();
+					
+								Integer rowId = (Integer)rowIt.next();
+								TurqAccountingAccount account = new TurqAccountingAccount();
+								account.setAccountingAccountsId(rowId);
+								transRow
+										.setTurqAccountingAccount(account);
+
+								transRow.setCreditAmount((BigDecimal)ROWList.get(rowId));
+								transRow.setDeptAmount(new BigDecimal(0));
+
+								//			 set Transaction Row Definition
+								transRow.setTransactionDefinition("FT "
+										+ bill.getTurqBillConsignmentCommon()
+												.getBillDocumentNo()
+										+ " "
+										+ bill.getTurqBillConsignmentCommon()
+												.getTurqCurrentCard().getCardsName());
+
+								transRow.setCreatedBy(System.getProperty("user"));
+								transRow.setUpdatedBy(System.getProperty("user"));
+								transRow.setLastModified(new java.sql.Date(cal.getTime()
+										.getTime()));
+								transRow.setCreationDate(new java.sql.Date(cal.getTime()
+										.getTime()));
+
+								blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
+										.getBaseCurrency(), new BigDecimal(1));
 				}
 
 				/**

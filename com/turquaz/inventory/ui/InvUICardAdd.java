@@ -438,6 +438,23 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					accountPickerVAT.setLayoutData(accountPickerVATLData);
 				}
 				{
+					cLabel1 = new CLabel(compInvCardDetails, SWT.RIGHT);
+					cLabel1.setText(Messages.getString("InvUICardAdd.40")); //$NON-NLS-1$
+					GridData cLabel1LData = new GridData();
+					cLabel1LData.widthHint = 142;
+					cLabel1LData.heightHint = 19;
+					cLabel1.setLayoutData(cLabel1LData);
+				}
+				{
+					accountPickerVATSell = new AccountPicker(
+						compInvCardDetails,
+						SWT.NONE);
+					GridData accountPicker1LData = new GridData();
+					accountPicker1LData.widthHint = 142;
+					accountPicker1LData.heightHint = 17;
+					accountPickerVATSell.setLayoutData(accountPicker1LData);
+				}
+				{
 					lblAccSpecVAT = new CLabel(compInvCardDetails, SWT.RIGHT);
 					lblAccSpecVAT
 							.setText(Messages.getString("InvUICardAdd.39")); //$NON-NLS-1$
@@ -448,27 +465,13 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					accountPickerSpecVAT = new AccountPicker(
-							compInvCardDetails, SWT.NONE);
+						compInvCardDetails,
+						SWT.NONE);
 					GridData accountPickerSpecVATLData = new GridData();
 					accountPickerSpecVATLData.widthHint = 142;
 					accountPickerSpecVATLData.heightHint = 17;
-					accountPickerSpecVAT.setLayoutData(accountPickerSpecVATLData);
-				}
-				{
-					cLabel1 = new CLabel(compInvCardDetails, SWT.RIGHT);
-					cLabel1.setText(Messages.getString("InvUICardAdd.40")); //$NON-NLS-1$
-					GridData cLabel1LData = new GridData();
-					cLabel1LData.widthHint = 142;
-					cLabel1LData.heightHint = 19;
-					cLabel1.setLayoutData(cLabel1LData);
-				}
-				{
-					accountPickerVATSell = new AccountPicker(
-							compInvCardDetails, SWT.NONE);
-					GridData accountPicker1LData = new GridData();
-					accountPicker1LData.widthHint = 142;
-					accountPicker1LData.heightHint = 17;
-					accountPickerVATSell.setLayoutData(accountPicker1LData);
+					accountPickerSpecVAT
+						.setLayoutData(accountPickerSpecVATLData);
 				}
 				{
 					cLabel2 = new CLabel(compInvCardDetails, SWT.RIGHT);
