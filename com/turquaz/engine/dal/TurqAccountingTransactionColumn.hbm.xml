@@ -73,6 +73,27 @@
         not-null="true"
         length="4"
     />
+    <property
+        name="rowsCurrencyType"
+        type="int"
+        column="rows_currency_type"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="rowsDeptInBaseCurrency"
+        type="int"
+        column="rows_dept_in_base_currency"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="rowsCreditInBaseCurrency"
+        type="int"
+        column="rows_credit_in_base_currency"
+        not-null="true"
+        length="4"
+    />
 
     <!-- Associations -->
   

@@ -113,5 +113,18 @@ ALTER TABLE turq_cheque_cheques ADD COLUMN bank_account_no varchar(100);
 --- "turq_bank_transactions_type" ---> "Bankaya Gelen Cek" --> Tahsil Edilen Cek...
 
 
+**** 16-02-2005 **** 
+---- "turq_cheque_rolls" --> sum totals column added...
+
+ALTER TABLE turq_cheque_rolls
+   ADD COLUMN sum_cheque_amounts bool;
+   
+update turq_cheque_rolls set sum_cheque_amounts = false;
+   
+ALTER TABLE turq_cheque_rolls
+   ALTER COLUMN sum_cheque_amounts SET NOT NULL;
+
+
+
 
    

@@ -30,6 +30,9 @@ public class TurqChequeRoll implements Serializable {
     /** persistent field */
     private java.lang.String chequeRollNo;
 
+    /** persistent field */
+    private boolean sumChequeAmounts;
+
     /** nullable persistent field */
     private com.turquaz.engine.dal.TurqChequeRollAccountingAccount turqChequeRollAccountingAccount;
 
@@ -49,13 +52,14 @@ public class TurqChequeRoll implements Serializable {
     private Set turqChequeChequeInRolls;
 
     /** full constructor */
-    public TurqChequeRoll(java.util.Date chequeRollsDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String chequeRollNo, com.turquaz.engine.dal.TurqChequeRollAccountingAccount turqChequeRollAccountingAccount, com.turquaz.engine.dal.TurqChequeTransactionType turqChequeTransactionType, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqChequeChequeInRolls) {
+    public TurqChequeRoll(java.util.Date chequeRollsDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String chequeRollNo, boolean sumChequeAmounts, com.turquaz.engine.dal.TurqChequeRollAccountingAccount turqChequeRollAccountingAccount, com.turquaz.engine.dal.TurqChequeTransactionType turqChequeTransactionType, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqChequeChequeInRolls) {
         this.chequeRollsDate = chequeRollsDate;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
         this.chequeRollNo = chequeRollNo;
+        this.sumChequeAmounts = sumChequeAmounts;
         this.turqChequeRollAccountingAccount = turqChequeRollAccountingAccount;
         this.turqChequeTransactionType = turqChequeTransactionType;
         this.turqBanksCard = turqBanksCard;
@@ -69,13 +73,14 @@ public class TurqChequeRoll implements Serializable {
     }
 
     /** minimal constructor */
-    public TurqChequeRoll(java.util.Date chequeRollsDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String chequeRollNo, com.turquaz.engine.dal.TurqChequeTransactionType turqChequeTransactionType, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqChequeChequeInRolls) {
+    public TurqChequeRoll(java.util.Date chequeRollsDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String chequeRollNo, boolean sumChequeAmounts, com.turquaz.engine.dal.TurqChequeTransactionType turqChequeTransactionType, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqChequeChequeInRolls) {
         this.chequeRollsDate = chequeRollsDate;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
         this.chequeRollNo = chequeRollNo;
+        this.sumChequeAmounts = sumChequeAmounts;
         this.turqChequeTransactionType = turqChequeTransactionType;
         this.turqBanksCard = turqBanksCard;
         this.turqEngineSequence = turqEngineSequence;
@@ -137,6 +142,14 @@ public class TurqChequeRoll implements Serializable {
 
     public void setChequeRollNo(java.lang.String chequeRollNo) {
         this.chequeRollNo = chequeRollNo;
+    }
+
+    public boolean isSumChequeAmounts() {
+        return this.sumChequeAmounts;
+    }
+
+    public void setSumChequeAmounts(boolean sumChequeAmounts) {
+        this.sumChequeAmounts = sumChequeAmounts;
     }
 
     public com.turquaz.engine.dal.TurqChequeRollAccountingAccount getTurqChequeRollAccountingAccount() {
