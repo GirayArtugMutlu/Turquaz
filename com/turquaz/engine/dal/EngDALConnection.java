@@ -33,14 +33,16 @@ public class EngDALConnection {
   private Statement stmt;
 
   public EngDALConnection() {
-	loginUrl = "jdbc:mysql://" + System.getProperty("Url") + "/"+System.getProperty("dbName");
+	loginUrl = "jdbc:postgresql://" + System.getProperty("Url") + "/"+System.getProperty("dbName");
 	loginUser = System.getProperty("dbLogin");
 	loginPass = System.getProperty("dbPass");
   }
 
-  public EngDALConnection(String userName, String pass, String Url, String dbName) {
-	loginUrl = "jdbc:mysql://" +Url + "/"+dbName;
-   // loginUrl = "jdbc:postgresql://" + Url + "/turquaz";
+  public EngDALConnection(String dbType, String userName, String pass, String Url) {
+	
+  	 driver = "org.postgresql.Driver";
+  	loginUrl = "jdbc:postgresql://" +Url + "/template1";
+    //loginUrl = "jdbc:postgresql://" + Url + "/";
    // loginUrl = "jdbc:mysql://10.90.19.52/turquaz";
 	loginUser = userName;
 	loginPass = pass;
@@ -51,11 +53,7 @@ public class EngDALConnection {
   public void connect() throws Exception {
 	try {
 	   
-	   driver = "com.mysql.jdbc.Driver";
-	  loginUser = "turquaz2";
-	  loginPass ="turquaz";
-	  loginUrl = "jdbc:mysql://kulup.sabanciuniv.edu/turquaz";
-	   Class.forName(driver);
+	  Class.forName(driver);
 	  con = DriverManager.getConnection(loginUrl, loginUser, loginPass);
 	  stmt = con.createStatement();
 	}
