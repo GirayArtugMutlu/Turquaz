@@ -49,28 +49,20 @@ public class CurDALCurrentCardAdd {
 	public CurDALCurrentCardAdd(){
 	}
 	
-	public void saveObject(Object obj)throws Exception {
-		try{
-				
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-			
-			session.save(obj);
-			session.flush();
-			tx.commit();
-			session.close();
-				
-				
+	public static void saveObject(Session session, Object obj)throws Exception {
+		try
+		{
+			session.save(obj);			
 		}
-		catch(Exception ex){
-		
-			throw ex; 
-		
+		catch(Exception ex)
+		{		
+			throw ex; 		
 		}
 	}
+	
 	public void updateObject(Object obj)throws Exception {
 		try{
-				
+			//TODO check this method
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
 			
@@ -89,6 +81,7 @@ public class CurDALCurrentCardAdd {
 	}
 	public void deleteObject(Object obj)throws Exception{
 		try{
+//			TODO check this method
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
 			session.delete(obj);

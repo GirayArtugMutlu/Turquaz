@@ -303,13 +303,14 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	private void update(){
 		try{
 			updated=true;
-			bankBLBankCardUpdate.updateBankCard(compBankCard.getTxtBankName().getText(),
-											compBankCard.getTxtBankBranchName().getText(),
-											compBankCard.getTxtBankAccountNo().getText(),
-											(TurqCurrency)(compBankCard.getComboCurrency().getData(compBankCard.getComboCurrency().getText())),
-											compBankCard.getTxtDefinition().getText().trim(),
-											compBankCard.getTxtBankCode().getText().trim(),compBankCard.createAccountingMap(),
-											bankCard);
+			BankBLBankCardUpdate.updateBankCard(bankCard,
+					compBankCard.getTxtBankName().getText(),
+					compBankCard.getTxtBankBranchName().getText(),
+					compBankCard.getTxtBankAccountNo().getText(),
+					(TurqCurrency)(compBankCard.getComboCurrency().getData(compBankCard.getComboCurrency().getText())),
+					compBankCard.getTxtDefinition().getText().trim(),
+					compBankCard.getTxtBankCode().getText().trim(),compBankCard.createAccountingMap()
+					);
 		
 			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
 			msg.setMessage(Messages.getString("BankUIBankCardUpdate.3")); //$NON-NLS-1$
@@ -317,10 +318,13 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			this.dialogShell.close();
 		}
 		catch(Exception ex){
-			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
-			msg.setMessage(ex.getMessage());
-			msg.open();
 			ex.printStackTrace();
+			if (ex.getMessage()!=null)
+			{
+				MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
+				msg.setMessage(ex.getMessage());
+				msg.open();
+			}			
 		}
 	}
 	protected void toolUpdateWidgetSelected(SelectionEvent evt){

@@ -98,14 +98,8 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
     public AccountPicker getAccountPicker() {
         return accountPicker;
     }
-    public void setAccountPicker(AccountPicker accountPicker) {
-        this.accountPicker = accountPicker;
-    }
     public Text getTxtBankCode() {
         return txtBankCode;
-    }
-    public void setTxtBankCode(Text txtBankCode) {
-        this.txtBankCode = txtBankCode;
     }
 	private BankBLBankCardAdd bankBLBankCardAdd=new BankBLBankCardAdd();
 	private CLabel lblBankName;
@@ -392,7 +386,8 @@ private boolean verifyfields()
 	
 	}
 	
-	public Map getAccountingFields(){
+	public Map getAccountingFields()
+	{
 		Map map = new Hashtable();
 		map.put(EngBLCommon.BANK_ACC_TYPE_GENERAL,accountPicker);
 		map.put(EngBLCommon.BANK_ACC_TYPE_CHEQUES_GIVEN,accountPickerChequesGiven);
@@ -417,16 +412,10 @@ private boolean verifyfields()
 			if(picker.getTurqAccountingAccount()!=null)
 			{
 				map.put(type,picker.getTurqAccountingAccount());
-			}
-		
-			
-			
-			
-		}	
-		
+			}			
+		}			
 		return map;
-	}
-	
+	}	
 	
 	
 	public void save()
@@ -435,11 +424,13 @@ private boolean verifyfields()
 		{
 			if (verifyfields())
 			{
-				bankBLBankCardAdd.saveBankCard(txtBankName.getText().trim(),
-												txtBankBranchName.getText().trim(),
-													txtBankAccountNo.getText().trim(),
-													(TurqCurrency)(comboCurrency.getData(comboCurrency.getText())),txtDefinition.getText().trim(),
-													txtBankCode.getText().trim(),createAccountingMap());
+				BankBLBankCardAdd.saveBankCard(
+						txtBankName.getText().trim(),
+						txtBankBranchName.getText().trim(),
+						txtBankAccountNo.getText().trim(),
+						(TurqCurrency)(comboCurrency.getData(comboCurrency.getText())),txtDefinition.getText().trim(),
+						txtBankCode.getText().trim(),
+						createAccountingMap());
 													
 				MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 				msg.setMessage(Messages.getString("BankUIBankCardAdd.17")); //$NON-NLS-1$
@@ -492,10 +483,5 @@ private boolean verifyfields()
 	public Text getTxtDefinition() {
 		return txtDefinition;
 	}
-	/**
-	 * @param txtDefinition The txtDefinition to set.
-	 */
-	public void setTxtDefinition(Text txtDefinition) {
-		this.txtDefinition = txtDefinition;
-	}
+
 }

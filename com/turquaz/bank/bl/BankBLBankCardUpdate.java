@@ -26,8 +26,12 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Map;
 
+import net.sf.hibernate.Session;
+import net.sf.hibernate.Transaction;
+
 import com.turquaz.bank.dal.BankDALBankCardUpdate;
 import com.turquaz.bank.dal.BankDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 
@@ -38,76 +42,82 @@ public class BankBLBankCardUpdate {
 	}
 	
 	private BankDALBankCardUpdate bankDALBankCardUpdate=new BankDALBankCardUpdate();
-	private Calendar cal=Calendar.getInstance();
 	
 	
-	/**
-	 * 
-	 * @param bankName String
-	 * @param bankBranchName String
-	 * @param bankAccountNo String
-	 * @param aCard TurqBanksCard
-	 */
-	
-	public void updateBankCard(String bankName, String bankBranchName, String bankAccountNo,TurqCurrency currency, String definition, String bankCode, Map accountingAccounts, TurqBanksCard aCard)
-	throws Exception{
-		try{
-			aCard.setBankName(bankName);
-			aCard.setBankBranchName(bankBranchName);
-			aCard.setBankAccountNo(bankAccountNo);	
-			aCard.setTurqCurrency(currency);
-			aCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-			aCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			aCard.setBankDefinition(definition);
-			aCard.setBankCode(bankCode);
-			
-			bankDALBankCardUpdate.updateObject(aCard);
-			
-			if(!checkInitialTransaction(aCard))
-			{
-			
-			   BankBLTransactionAdd.saveInitialBankTransaction(aCard);
-			    
+	public static void updateBankCard(TurqBanksCard bankCard,String bankName,
+			String bankBranchName, String bankAccountNo,TurqCurrency currency,
+			String definition, String bankCode, Map accountingAccounts)throws Exception
+	{
+		Session session = EngDALSessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try
+		{
+			updateBankCardInfo(session,bankCard,bankName,bankBranchName,
+					bankAccountNo,currency,definition,bankCode);
+			if(!checkInitialTransaction(session,bankCard))
+			{			
+				//TODO Transaction save should use SESSION!
+			   BankBLTransactionAdd.saveInitialBankTransaction(bankCard);			    
 			}
-			updateBankAccountingAccounts(aCard,accountingAccounts);
-		
+			updateBankAccountingAccounts(session,bankCard,accountingAccounts);	
+			session.flush();
+			tx.commit();
+			session.close();
 			
 		}
-		catch(Exception ex){
+		catch(Exception ex)
+		{
+			if (tx != null)
+				tx.rollback();
+			if (session != null)
+				session.close();
 			throw ex;
 		}
 	}
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean checkInitialTransaction(TurqBanksCard bankCard) throws Exception{
-	   try{
-	       return BankDALCommon.checkInitialTransaction(bankCard);
+
+	public static void updateBankCardInfo(Session session, TurqBanksCard bankCard,
+			String bankName, String bankBranchName, String bankAccountNo,
+			TurqCurrency currency, String definition, String bankCode)throws Exception
+	{
+		bankCard.setBankName(bankName);
+		bankCard.setBankBranchName(bankBranchName);
+		bankCard.setBankAccountNo(bankAccountNo);	
+		bankCard.setTurqCurrency(currency);
+		bankCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+		Calendar cal=Calendar.getInstance();
+		bankCard.setLastModified(cal.getTime());
+		bankCard.setBankDefinition(definition);
+		bankCard.setBankCode(bankCode);		
+		BankDALBankCardUpdate.updateObject(session,bankCard);		
+	}
+	
+	
+	public static boolean checkInitialTransaction(Session session, TurqBanksCard bankCard) throws Exception{
+	   try
+	   {
+	       return BankDALCommon.checkInitialTransaction(session,bankCard);
 	   }
 	   catch(Exception ex)
 	   {
 	       throw ex;
-	   }
-	    
-	    
-	    
-	    
+	   }    
 	}
 	
-	public void updateBankAccountingAccounts(TurqBanksCard curCard, Map accounts)throws Exception{
+	public static void updateBankAccountingAccounts(Session session,
+			TurqBanksCard curCard, Map accounts)throws Exception
+	{
 		
 		Iterator it = curCard.getTurqBankAccountingAccounts().iterator();
-		while(it.hasNext()){
-		BankDALCommon.deleteObject(it.next());
+		while(it.hasNext())
+		{
+			//TODO SESSION
+			BankDALCommon.deleteObject(it.next());
 		}
 		
-		new BankBLBankCardAdd().saveBankAccountingAccounts(curCard,accounts);
-		
-		
-		
-		
+		BankBLBankCardAdd.saveBankAccountingAccounts(session,curCard,accounts);	
 	}
+	
+	
 	public boolean hasTransaction(TurqBanksCard bankCard)throws Exception {
 		
 		return bankDALBankCardUpdate.hasTransaction(bankCard);

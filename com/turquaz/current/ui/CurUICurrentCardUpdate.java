@@ -38,7 +38,6 @@ import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
-import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import org.eclipse.swt.layout.GridData;
 
@@ -450,8 +449,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 
 	/** Auto-generated event handler method */
 	protected void toolDeleteWidgetSelected(SelectionEvent evt)
-	{
-	   
+	{  
 		
 		try
 		{
@@ -470,9 +468,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			if(result==SWT.OK)
 			{	 		
 				updated=true;
-				deleteRelations();		
-				new CurBLSearchTransaction().deleteInitialTransactions(currentCard);
-				currentUpdate.deleteObject(currentCard);			
+				CurBLCurrentCardUpdate.deleteCurrentCard(currentCard);		
 				msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
 				msg.open();			
 				this.dialogShell.close();
@@ -485,53 +481,6 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			msg3.setMessage(ex.getMessage());
 			msg3.open();
 		}
-	}
-	
-	
-	//Delete card Phones
-	//Delete Contacts
-	//Delete registered group relations
-	public void deleteRelations()throws Exception{
-	try{
-	
-	 Iterator it=currentCard.getTurqCurrentCardsGroups().iterator();
-	 while(it.hasNext()){
-				TurqCurrentCardsGroup currentGroup=(TurqCurrentCardsGroup)it.next();
-				currentUpdate.deleteObject(currentGroup);
-			}
-			 it=currentCard.getTurqCurrentCardsPhones().iterator();
-			while(it.hasNext()){
-				
-				currentUpdate.deleteObject(it.next());
-			}
-	
-			it=currentCard.getTurqCurrentContacts().iterator();
-			while(it.hasNext()){
-				
-				currentUpdate.deleteObject(it.next());
-			}
-			
-			it = currentCard.getTurqCurrentAccountingAccounts().iterator();
-			
-			while(it.hasNext())
-			{
-				try{
-				TurqCurrentAccountingAccount crac = (TurqCurrentAccountingAccount)it.next();
-				currentUpdate.deleteObject(crac);
-				}
-				catch(Exception ex)
-				{
-					ex.printStackTrace();
-				}
-			}
-		
-		
-			
-	}
-	catch(Exception ex ){
-	throw ex;
-	}
-	
 	}
     
 	public boolean verifyFields()throws Exception{
@@ -560,58 +509,48 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	}
 	
 	/** Auto-generated event handler method */
-	protected void toolUpdateWidgetSelected(SelectionEvent evt){
+	protected void toolUpdateWidgetSelected(SelectionEvent evt)
+	{
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
-		try{
+		try
+		{
 			
-		if(verifyFields()){	
-		updated=true;
-		deleteRelations();
+			if(verifyFields())
+			{	
+				updated=true;
 		
-		currentUpdate.updateCurrentCard(compCurCardAdd.getTxtCurrentCode().getText().trim(),
-				compCurCardAdd.getTxtCurrentName().getText().trim(),
-				compCurCardAdd.getTxtCardDefinition().getText().trim(),
-				compCurCardAdd.getTxtCardAddress().getText().trim(),
-				new BigDecimal(compCurCardAdd.getNumTextDiscountRate().getIntValue()),
-				compCurCardAdd.getDecTxtDiscountAmount().getBigDecimalValue(),
-				compCurCardAdd.getDecTxtCreditLimit().getBigDecimalValue(),
-				compCurCardAdd.getDecTxtRiskLimit().getBigDecimalValue(),
-				compCurCardAdd.getTxtTaxDepartmant().getText().trim(),
-				compCurCardAdd.getTxtTaxNumber().getText().trim(),
-				compCurCardAdd.createAccountingMap(),
-				compCurCardAdd.getNumDueDays().getIntValue(),currentCard);	
+				CurBLCurrentCardUpdate.updateCurrentCard(currentCard,
+						compCurCardAdd.getTxtCurrentCode().getText().trim(),
+						compCurCardAdd.getTxtCurrentName().getText().trim(),
+						compCurCardAdd.getTxtCardDefinition().getText().trim(),
+						compCurCardAdd.getTxtCardAddress().getText().trim(),
+						//TODO numeric->currencyText
+						new BigDecimal(compCurCardAdd.getNumTextDiscountRate().getIntValue()),
+						compCurCardAdd.getDecTxtDiscountAmount().getBigDecimalValue(),
+						compCurCardAdd.getDecTxtCreditLimit().getBigDecimalValue(),
+						compCurCardAdd.getDecTxtRiskLimit().getBigDecimalValue(),
+						compCurCardAdd.getTxtTaxDepartmant().getText().trim(),
+						compCurCardAdd.getTxtTaxNumber().getText().trim(),				
+						compCurCardAdd.getNumDueDays().getIntValue(),
+						compCurCardAdd.createAccountingMap(),
+						compCurCardAdd.getPhoneList(),
+						compCurCardAdd.getContactInfo(),
+						compCurCardAdd.getGroupList());	
 				
-		
-		compCurCardAdd.saveContact(currentCard.getId());
-		compCurCardAdd.savePhones(currentCard.getId());
-		compCurCardAdd.saveGroups(currentCard.getId());
-		
-		EngBLCurrentCards.RefreshContentAsistantMap();
-		 msg.setMessage(Messages.getString("CurUICurrentCardUpdate.26")); //$NON-NLS-1$
-		 msg.open();
-			
-		this.dialogShell.close();
-		}
-		}
-		catch(Exception ex){
 
-			try{
-			ex.printStackTrace();
 		
-			    msg.setMessage(ex.getMessage());
-			    msg.open();
+				EngBLCurrentCards.RefreshContentAsistantMap();
+				msg.setMessage(Messages.getString("CurUICurrentCardUpdate.26")); //$NON-NLS-1$
+				msg.open();
 			
+				this.dialogShell.close();
 			}
-			catch(Exception ex1){
-			ex1.printStackTrace();
-			}
-			}
-			
-				
-		
 		}
-	
-	
+		catch(Exception ex)
+		{				
+			ex.printStackTrace();
+		}	
+	}
 }
 		
 		

@@ -45,23 +45,32 @@ public class BankDALCommon {
 	public BankDALCommon() {
 	}
 
+	public static void saveObject(Session session,Object obj) throws Exception {
+		try 
+		{
+			session.save(obj);
+		} 
+		catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	//TODO This method should be removed!!!
 	public static void saveObject(Object obj) throws Exception {
-		try {
-
+		try 
+		{
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-
 			session.save(obj);
 			session.flush();
 			tx.commit();
 			session.close();
-
-		} catch (Exception ex) {
-
+		} 
+		catch (Exception ex) {
 			throw ex;
-
 		}
 	}
+	
 	public static void updateObject(Object obj) throws Exception {
 		try {
 
@@ -273,8 +282,10 @@ public class BankDALCommon {
 	        
 	        
 	    }
-	    public static List getBankInitialTransactions()throws Exception {
-	    try{
+	    public static List getBankInitialTransactions()throws Exception
+		{
+	    try
+		{
 	        Session session = EngDALSessionFactory.openSession();
 	        
 	        String query = "Select bankTrans from TurqBanksTransaction as bankTrans " +
@@ -295,33 +306,24 @@ public class BankDALCommon {
 	    
 	    
 	    }
-	    public static boolean checkInitialTransaction(TurqBanksCard bankCard)throws Exception {
-	        try{
-	            Session session = EngDALSessionFactory.openSession();
+	    public static boolean checkInitialTransaction(Session session,TurqBanksCard bankCard)throws Exception {
+	        try
+			{
 	            String query = "select bankTrans.id from TurqBanksTransaction as bankTrans " +
 	            		" where bankTrans.turqBanksCard = :bankCard and bankTrans.turqBanksTransactionBill.turqBanksTransactionType.id="+EngBLCommon.BANK_TRANS_INITIAL;
 	            Query q = session.createQuery(query);
 		        q.setParameter("bankCard",bankCard);
-		        List ls = q.list();
-		        
-		        session.close();
-	            
-	           if(ls.size()==0){
+		        List ls = q.list();	            
+	           if(ls.size()==0)
+	           {
 	               return false;
-	           }
-	            
-	           return true;
-	            
-	            
-	            
-	            
-	            
+	           }	            
+	           return true;            
 	        }
-	        catch(Exception ex){
+	        catch(Exception ex)
+			{
 	            throw ex;
 	        }
-	    }
-	    
-	    
+	    }   
 	    
 }

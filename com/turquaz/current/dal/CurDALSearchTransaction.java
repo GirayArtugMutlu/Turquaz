@@ -233,10 +233,9 @@ public class CurDALSearchTransaction {
 	        throw ex;
 	    }
 	}
-	public void deleteInitialTransactions(TurqCurrentCard curCard)throws Exception {
+	public static void deleteInitialTransactions(Session session,TurqCurrentCard curCard)throws Exception {
 	    try{
 	        
-	        Session session = EngDALSessionFactory.openSession();
 	        String query = "Select bankTrans from TurqCurrentTransaction as bankTrans " +
 	        		" where bankTrans.turqCurrentTransactionType.id = "+EngBLCommon.CURRENT_TRANS_INITIAL+
 	        		" and bankTrans.turqCurrentCard = :curCard " +
@@ -247,16 +246,11 @@ public class CurDALSearchTransaction {
 	        q.setParameter("curCard",curCard);
 	    	List list = q.list();
 	        
-	        for(int i=0;i<list.size();i++){
-	        session.delete(list.get(i));	
-	        
+	        for(int i=0;i<list.size();i++)
+	        {
+	        	session.delete(list.get(i));		        
 	        }
-	        session.flush();
-	        
-	    	session.close();
-	    	
-	    	
-	        
+	        session.flush();	  	        
 	    }
 	    catch(Exception ex){
 	        

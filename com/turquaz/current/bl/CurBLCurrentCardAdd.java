@@ -26,9 +26,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.hibernate.Session;
+import net.sf.hibernate.Transaction;
+
 import com.turquaz.current.Messages;
 import com.turquaz.current.dal.CurDALCurrentCardAdd;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentAccountingType;
@@ -44,18 +48,62 @@ public class CurBLCurrentCardAdd {
 	public CurBLCurrentCardAdd(){
 	}
 	
-	
-	private Calendar cal=Calendar.getInstance();
 	private CurDALCurrentCardAdd currentAdd=new CurDALCurrentCardAdd();
-	CurBLCurrentTransactionAdd blTransAdd = new CurBLCurrentTransactionAdd();
-	public Integer saveCurrentCard(String currentCode, String cardName, String cardDefinition,
-								String cardAddress, BigDecimal cardDiscountRate,
-								BigDecimal cardDiscountPayment,	BigDecimal cardCreditLimit,
-								BigDecimal cardRiskLimit, String cardTaxDepartment,
-								String cardTaxNumber, Map accountingAccounts, int daysToValue) throws Exception {
-		try{
-		
-		    
+	//TODO remove private static
+	private static CurBLCurrentTransactionAdd blTransAdd = new CurBLCurrentTransactionAdd();
+	
+	public static void saveCurrentCard(String currentCode, String cardName,
+			String cardDefinition,String cardAddress, BigDecimal cardDiscountRate,
+			BigDecimal cardDiscountPayment,	BigDecimal cardCreditLimit,
+			BigDecimal cardRiskLimit, String cardTaxDepartment,
+			String cardTaxNumber, int daysToValue, Map accountingAccounts,
+			List phoneList, Map contactInfo, List groupList)
+	throws Exception
+	{
+		Session session = EngDALSessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try
+		{		
+			TurqCurrentCard currentCard=registerCurrentCard(session,currentCode,
+					cardName,cardDefinition,cardAddress,cardDiscountRate,
+					cardDiscountPayment,cardCreditLimit,cardRiskLimit,
+					cardTaxDepartment,cardTaxNumber,daysToValue);
+			
+			//TODO SESSIONNNN
+			createInitialTransaction(currentCard);
+			saveCurrentAccountingAccounts(session,currentCard,accountingAccounts);
+			saveCurrentCardPhones(session,currentCard.getId(),phoneList);
+			saveCurrentCardContact(session,currentCard.getId(),contactInfo);
+			saveCurrentCardGroups(session,currentCard.getId(),groupList);
+	
+			
+			session.flush();
+			tx.commit();
+			session.close();
+			
+		}
+		catch(Exception ex)
+		{
+			if (tx != null)
+				tx.rollback();
+			if (session != null)
+				session.close();
+			throw ex;
+		}
+	}
+	
+	
+	
+	
+	public static TurqCurrentCard registerCurrentCard(Session session, String currentCode, 
+			String cardName, String cardDefinition,String cardAddress, 
+			BigDecimal cardDiscountRate,BigDecimal cardDiscountPayment,
+			BigDecimal cardCreditLimit,	BigDecimal cardRiskLimit, 
+			String cardTaxDepartment,String cardTaxNumber,int daysToValue)
+		throws Exception
+	{
+		try
+		{	    
 			TurqCurrentCard currentCard=new TurqCurrentCard();
 			currentCard.setCardsCurrentCode(currentCode);
 			currentCard.setCardsName(cardName);
@@ -71,233 +119,270 @@ public class CurBLCurrentCardAdd {
 		    
 			currentCard.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			currentCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-			currentCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			currentCard.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			
+			Calendar cal=Calendar.getInstance();
+			currentCard.setLastModified(cal.getTime());
+			currentCard.setCreationDate(cal.getTime());
 		
-			currentAdd.saveObject(currentCard);	
-		
-			Calendar cal = Calendar.getInstance();
-			cal.set(cal.get(Calendar.YEAR),0,1);
-//	          TODO current trans exRate
-			blTransAdd.saveCurrentTransaction(currentCard,
-					cal.getTime(),"",false,new BigDecimal(0),new BigDecimal(0),
-					EngBLCommon.CURRENT_TRANS_INITIAL,new Integer(-1),
-					Messages.getString("CurBLCurrentCardAdd.3"),
-					EngBLCommon.getBaseCurrencyExchangeRate()); //$NON-NLS-1$ //$NON-NLS-2$
-			
-			saveCurrentAccountingAccounts(currentCard,accountingAccounts);
-			
-			//new CurBLCurrentTransactionAdd().saveInitialTransaction(currentCard);
-			
-			return currentCard.getId();
+			CurDALCurrentCardAdd.saveObject(session,currentCard);	
+			return currentCard;
+
 		}
 		catch(Exception ex){
 			throw ex;
 		}
 	}
-
 	
-	public void saveCurrentAccountingAccounts(TurqCurrentCard curCard, Map accounts)throws Exception{
-	
-		
-		Iterator it = accounts.keySet().iterator();
-		while(it.hasNext())
+	public static void createInitialTransaction(TurqCurrentCard currentCard)
+	throws Exception
+	{
+		try
 		{
-			
-			Integer type = (Integer)it.next();
-			
-			if(accounts.get(type)!=null)
-			{
-				
-			
-		    TurqCurrentAccountingAccount curAccount = new TurqCurrentAccountingAccount();
-			
-			curAccount.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-			curAccount.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-			curAccount.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			curAccount.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-			
-			curAccount.setTurqCurrentCard(curCard);
-			curAccount.setTurqAccountingAccount((TurqAccountingAccount)accounts.get(type));
-			
-			TurqCurrentAccountingType accType = new TurqCurrentAccountingType();
-			accType.setId(type);
-			
-			curAccount.setTurqCurrentAccountingType(accType);
-			
-			
-			currentAdd.saveObject(curAccount);	
-			
-			
-			
-			}
-			
-			
-			
+			Calendar cal=Calendar.getInstance();
+			cal.set(cal.get(Calendar.YEAR),0,1);
+			blTransAdd.saveCurrentTransaction(currentCard,
+				cal.getTime(),"",false,new BigDecimal(0),new BigDecimal(0),
+				EngBLCommon.CURRENT_TRANS_INITIAL,new Integer(-1),
+				Messages.getString("CurBLCurrentCardAdd.3"),//$NON-NLS-1$ //$NON-NLS-2$
+				EngBLCommon.getBaseCurrencyExchangeRate()); 
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static void saveCurrentCardPhones(Session session,
+			Integer curCardId, List phoneList)
+	throws Exception
+	{
+		for(int k=0; k<phoneList.size(); k++)
+		{
+			int[] phoneInfo=(int[])phoneList.get(k);
+			registerCurrentCardPhone(session,curCardId,phoneInfo[0],phoneInfo[1],phoneInfo[2]);
 		}
 		
-		
-		
-		
 	}
 	
-public void saveCardPhone(int countryCode, int cityCode, int phoneNumber, Integer curCard)
-throws Exception{
-	
-	try{
-	TurqCurrentCardsPhone phone = new TurqCurrentCardsPhone();
-	phone.setPhonesCityCode(cityCode);
-	phone.setPhonesCountryCode(countryCode);
-	phone.setPhonesNumber(phoneNumber);
-	phone.setPhonesType(""); //$NON-NLS-1$
-	TurqCurrentCard card = new TurqCurrentCard();
-	card.setId(curCard);
-	phone.setTurqCurrentCard(card);
-	phone.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-	phone.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-	phone.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-	phone.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-	
-	currentAdd.saveObject(phone);	
+	public static void registerCurrentCardPhone(Session session,Integer curCardId,
+			int countryCode, int cityCode, int phoneNumber)
+	throws Exception{
+		
+		try
+		{
+			TurqCurrentCardsPhone phone = new TurqCurrentCardsPhone();
+			phone.setPhonesCityCode(cityCode);
+			phone.setPhonesCountryCode(countryCode);
+			phone.setPhonesNumber(phoneNumber);
+			phone.setPhonesType(""); //$NON-NLS-1$
+			TurqCurrentCard card = new TurqCurrentCard();
+			card.setId(curCardId);
+			phone.setTurqCurrentCard(card);
+			phone.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			phone.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			
+			Calendar cal=Calendar.getInstance();
+			phone.setLastModified(cal.getTime());
+			phone.setCreationDate(cal.getTime());
+		
+			CurDALCurrentCardAdd.saveObject(session, phone);	
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}	
 	}
-	catch(Exception ex){
-		throw ex;
-	}
-	
-	
-}
-public void saveContact(Integer cardID, String name, String address, 
-						String phone1, String phone2, String faxNumber,
-						String email, String website)throws Exception
-						{
-	
-	TurqCurrentCard card = new TurqCurrentCard();
-	card.setId(cardID);
-	TurqCurrentContact contact = new TurqCurrentContact();
-	contact.setContactsName(name);
-	contact.setContactAddress(address);
-	contact.setContactsPhone1(phone1);
-	contact.setContactsPhone2(phone2);
-	contact.setContactsFaxNumber(faxNumber);
-	contact.setContactsEmail(email);
-	contact.setContactsWebSite(website);
-	contact.setTurqCurrentCard(card);
-	contact.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-	contact.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-	contact.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-	contact.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-	currentAdd.saveObject(contact);
-	
-}
+
 
 	
-public void registerGroup(Integer cardId, Object grp) throws Exception {
+	public static void saveCurrentAccountingAccounts(Session session,
+			TurqCurrentCard curCard, Map accounts)
+	throws Exception
+	{
+		Iterator it = accounts.keySet().iterator();
+		while(it.hasNext())
+		{			
+			Integer type = (Integer)it.next();			
+			if(accounts.get(type)!=null)
+			{
+				TurqCurrentAccountingAccount curAccount = new TurqCurrentAccountingAccount();
+			
+				curAccount.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+				curAccount.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+				
+				Calendar cal=Calendar.getInstance();
+				curAccount.setLastModified(cal.getTime());
+				curAccount.setCreationDate(cal.getTime());
+			
+				curAccount.setTurqCurrentCard(curCard);
+				curAccount.setTurqAccountingAccount((TurqAccountingAccount)accounts.get(type));
+			
+				TurqCurrentAccountingType accType = new TurqCurrentAccountingType();
+				accType.setId(type);
+			
+				curAccount.setTurqCurrentAccountingType(accType);			
+				CurDALCurrentCardAdd.saveObject(session,curAccount);			
+			}			
+		}		
+	}
+	
+	
+	public static void saveCurrentCardContact(Session session, Integer currentCardId,
+			Map contactInfo)throws Exception
+	{
+		
+		TurqCurrentCard card = new TurqCurrentCard();
+		card.setId(currentCardId);
+		TurqCurrentContact contact = new TurqCurrentContact();
+		contact.setContactsName((String)contactInfo.get("ContactName"));
+		contact.setContactAddress((String)contactInfo.get("ContactAddress"));
+		contact.setContactsPhone1((String)contactInfo.get("ContactPhone"));
+		contact.setContactsPhone2((String)contactInfo.get("ContactPhone2"));
+		contact.setContactsFaxNumber((String)contactInfo.get("ContactFaxNumber"));
+		contact.setContactsEmail((String)contactInfo.get("ContactEmail"));
+		contact.setContactsWebSite((String)contactInfo.get("ContactWebSite"));
+		contact.setTurqCurrentCard(card);
+		contact.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+		contact.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+		
+		Calendar cal=Calendar.getInstance();
+		contact.setLastModified(cal.getTime());
+		contact.setCreationDate(cal.getTime());
+		CurDALCurrentCardAdd.saveObject(session, contact);
+		
+	}
+	
+	public static void saveCurrentCardGroups(Session session, Integer curCardId,
+			List groupList) throws Exception
+	{
+		for(int k=0; k<groupList.size(); k++)
+		{
+			TurqCurrentGroup curGroup=(TurqCurrentGroup)groupList.get(k);
+			registerCurrentCardGroup(session,curCardId,curGroup);
+		}	
+	}
+	
+	public static void registerCurrentCardGroup(Session session, Integer curCardId,
+			TurqCurrentGroup group) throws Exception
+	{
 		try {
 
 			TurqCurrentCardsGroup cardGroup = new TurqCurrentCardsGroup();
-			TurqCurrentGroup group = (TurqCurrentGroup) grp;
 			TurqCurrentCard card = new TurqCurrentCard();
-			card.setId(cardId);
+			card.setId(curCardId);
 			cardGroup.setTurqCurrentCard(card);
 			cardGroup.setTurqCurrentGroup(group);
 
 			cardGroup.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			cardGroup.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-			cardGroup
-					.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			cardGroup
-					.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+				
+			Calendar cal=Calendar.getInstance();
+			cardGroup.setLastModified(cal.getTime());
+			cardGroup.setCreationDate(cal.getTime());
 
-			currentAdd.saveObject(cardGroup);
+			CurDALCurrentCardAdd.saveObject(session,cardGroup);
+
+		} 
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public List getCurrentGroups() throws Exception {
+
+		try {
+
+			return currentAdd.getCurrentGroups();
 
 		} catch (Exception ex) {
 			throw ex;
 		}
 
-	}	
-public List getCurrentGroups() throws Exception {
-
-	try {
-
-		return currentAdd.getCurrentGroups();
-
-	} catch (Exception ex) {
-		throw ex;
 	}
 
-}
-
-public void deleteObject(Object obj)throws Exception{
-	try{
-		
-	currentAdd.deleteObject(obj);	
-		
-		
-	}
-	catch(Exception ex){
-		throw ex;
-	}
-}
-
-public void saveCurGroup(String groupName, String groupDescription)
-throws Exception {
-try {
-	
-TurqCurrentGroup curGroup = new TurqCurrentGroup();
-
-curGroup.setGroupsName(groupName);
-curGroup.setGroupsDescription(groupDescription);
-
-curGroup.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-curGroup.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-curGroup.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-curGroup.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-
-currentAdd.saveObject(curGroup);
-
-
-
-
-
-} catch (Exception ex) {
-throw ex;
-}
-
-}
-public void updateObject(Object obj)throws Exception{
-	try{
-		
-	currentAdd.updateObject(obj);	
-		
-	}
-	catch(Exception ex){
-		throw ex;
+	public void deleteObject(Object obj)throws Exception{
+		try{
+			
+		currentAdd.deleteObject(obj);	
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
 	}
 	
-}
+	public static void saveCurrentGroup(String groupName,
+			String groupDescription)
+	throws Exception
+	{
+		Session session = EngDALSessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try
+		{	
+			TurqCurrentGroup curGroup = new TurqCurrentGroup();
 
-public boolean isCurrentCodePresent(String Code)throws Exception{
-try{
+			curGroup.setGroupsName(groupName);
+			curGroup.setGroupsDescription(groupDescription);
+
+			curGroup.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			curGroup.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			
+			Calendar cal=Calendar.getInstance();
+			curGroup.setLastModified(cal.getTime());
+			curGroup.setCreationDate(cal.getTime());
+			
+			CurDALCurrentCardAdd.saveObject(session,curGroup);	
+			
+			session.flush();
+			tx.commit();
+			session.close();
+			
+		}
+		catch(Exception ex)
+		{
+			if (tx != null)
+				tx.rollback();
+			if (session != null)
+				session.close();
+			throw ex;
+		}
+	} 
 	
-	return currentAdd.isCurrentCodePresent(Code);
-}
-
-catch(Exception ex){
-throw ex;
-
-}
-}
-public boolean isCurrentNamePresent(String name)throws Exception{
-	try{
+	public void updateObject(Object obj)throws Exception
+	{
+		try
+		{			
+			currentAdd.updateObject(obj);				
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
 		
-		return currentAdd.isCurrentNamePresent(name);
 	}
 
-	catch(Exception ex){
-	throw ex;
-
-	}
+	public boolean isCurrentCodePresent(String Code)throws Exception
+	{
+		try
+		{		
+			return currentAdd.isCurrentCodePresent(Code);
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
 	}
 	
-
+	public boolean isCurrentNamePresent(String name)throws Exception{
+		try
+		{			
+			return currentAdd.isCurrentNamePresent(name);
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+	}
 }

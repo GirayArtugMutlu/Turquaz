@@ -412,7 +412,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 	    }
 	    else{
 	    
-	    blCardAdd.saveCurGroup(txtGroupName.getText().trim(),txtDescription.getText().trim());
+	    CurBLCurrentCardAdd.saveCurrentGroup(txtGroupName.getText().trim(),txtDescription.getText().trim());
 	    msg.setMessage(Messages.getString("CurUIGroupAddDialog.25")); //$NON-NLS-1$
 	    txtGroupName.setText(""); //$NON-NLS-1$
 	    txtDescription.setText(""); //$NON-NLS-1$

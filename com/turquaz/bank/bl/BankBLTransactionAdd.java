@@ -197,8 +197,7 @@ public class BankBLTransactionAdd {
             transType.setId(new Integer(
                     EngBLCommon.BANK_TRANS_INITIAL));
 
-            TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
-       
+            TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();       
 
             bankTransBill.setTurqEngineSequence(seq);
 

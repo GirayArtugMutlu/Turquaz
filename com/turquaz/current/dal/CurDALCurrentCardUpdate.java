@@ -38,24 +38,21 @@ public class CurDALCurrentCardUpdate {
 		
 	}
 	
-	public void updateObject(Object obj)throws Exception{
-		try{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-			
+	public static void updateObject(Session session, Object obj)throws Exception{
+		try
+		{
+			//TODO All methods should send a session here
+			if (session==null)
+				session=EngDALSessionFactory.openSession();
 			session.update(obj);
-			session.flush();
-			tx.commit();
-			session.close();
-			
-			}
-			catch(Exception ex){
+		}
+		catch(Exception ex)
+		{
 				throw ex;
-			}
-		
-		
+		}		
 	}
 	
+	//TODO USE SESSION
 	public void saveObject(Object obj)throws Exception {
 		try{
 				
@@ -107,35 +104,25 @@ public class CurDALCurrentCardUpdate {
 	
 			session.close();
 			
-			return list;
-			
-			
-			
-			
+			return list;			
 		}
 		catch(Exception ex){
 			throw ex;
 		}
 	}
-	public void deleteObject(Object obj)throws Exception{
-		Transaction tx =null;
-		try{
-			Session session = EngDALSessionFactory.openSession();
-			tx= session.beginTransaction();
-		
-			session.delete(obj);
-			session.flush();
-			tx.commit();
-			session.close();
-			
-			}
-			catch(Exception ex){
-				if(tx!=null)
-				{
-					tx.rollback();
-				}
-				throw ex;
-			}
+	
+	public static void deleteObject(Session session,Object obj)throws Exception{
+		try
+		{		
+			//TODO All methods should send a session here
+			if (session==null)
+				session=EngDALSessionFactory.openSession();
+			session.delete(obj);			
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
 		
 	}
 	public void initCurrentTrans(TurqCurrentTransaction curTrans)throws Exception{

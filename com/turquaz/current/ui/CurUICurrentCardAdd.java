@@ -20,6 +20,7 @@ package com.turquaz.current.ui;
 * @version  $Id$
 */
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -107,60 +108,35 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	public Composite getCompCurrentContactInfo() {
 		return compCurrentContactInfo;
 	}
-	/**
-	 * @param compCurrentContactInfo The compCurrentContactInfo to set.
-	 */
-	public void setCompCurrentContactInfo(Composite compCurrentContactInfo) {
-		this.compCurrentContactInfo = compCurrentContactInfo;
-	}
+
 	/**
 	 * @return Returns the compCurrentGeneralInfo.
 	 */
 	public Composite getCompCurrentGeneralInfo() {
 		return compCurrentGeneralInfo;
 	}
-	/**
-	 * @param compCurrentGeneralInfo The compCurrentGeneralInfo to set.
-	 */
-	public void setCompCurrentGeneralInfo(Composite compCurrentGeneralInfo) {
-		this.compCurrentGeneralInfo = compCurrentGeneralInfo;
-	}
+
 	/**
 	 * @return Returns the decTxtCreditLimit.
 	 */
 	public CurrencyText getDecTxtCreditLimit() {
 		return decTxtCreditLimit;
 	}
-	/**
-	 * @param decTxtCreditLimit The decTxtCreditLimit to set.
-	 */
-	public void setDecTxtCreditLimit(CurrencyText decTxtCreditLimit) {
-		this.decTxtCreditLimit = decTxtCreditLimit;
-	}
+
 	/**
 	 * @return Returns the decTxtDiscountAmount.
 	 */
 	public CurrencyText getDecTxtDiscountAmount() {
 		return decTxtDiscountAmount;
 	}
-	/**
-	 * @param decTxtDiscountAmount The decTxtDiscountAmount to set.
-	 */
-	public void setDecTxtDiscountAmount(CurrencyText decTxtDiscountAmount) {
-		this.decTxtDiscountAmount = decTxtDiscountAmount;
-	}
+
 	/**
 	 * @return Returns the decTxtRiskLimit.
 	 */
 	public CurrencyText getDecTxtRiskLimit() {
 		return decTxtRiskLimit;
 	}
-	/**
-	 * @param decTxtRiskLimit The decTxtRiskLimit to set.
-	 */
-	public void setDecTxtRiskLimit(CurrencyText decTxtRiskLimit) {
-		this.decTxtRiskLimit = decTxtRiskLimit;
-	}
+
 	/**
 	 * @return Returns the name.
 	 */
@@ -168,47 +144,26 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 		return Name;
 	}
 	/**
-	 * @param name The name to set.
-	 */
-	public void setName(CLabel name) {
-		Name = name;
-	}
-	/**
 	 * @return Returns the numTextDiscountRate.
 	 */
 	public NumericText getNumTextDiscountRate() {
 		return numTextDiscountRate;
 	}
-	/**
-	 * @param numTextDiscountRate The numTextDiscountRate to set.
-	 */
-	public void setNumTextDiscountRate(NumericText numTextDiscountRate) {
-		this.numTextDiscountRate = numTextDiscountRate;
-	}
+
 	/**
 	 * @return Returns the numTxtCityCode.
 	 */
 	public NumericText getNumTxtCityCode() {
 		return numTxtCityCode;
 	}
-	/**
-	 * @param numTxtCityCode The numTxtCityCode to set.
-	 */
-	public void setNumTxtCityCode(NumericText numTxtCityCode) {
-		this.numTxtCityCode = numTxtCityCode;
-	}
+
 	/**
 	 * @return Returns the numTxtCityCode2.
 	 */
 	public NumericText getNumTxtCityCode2() {
 		return numTxtCityCode2;
 	}
-	/**
-	 * @param numTxtCityCode2 The numTxtCityCode2 to set.
-	 */
-	public void setNumTxtCityCode2(NumericText numTxtCityCode2) {
-		this.numTxtCityCode2 = numTxtCityCode2;
-	}
+
 	/**
 	 * @return Returns the numtxtCountryCode.
 	 */
@@ -216,29 +171,14 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 		return numtxtCountryCode;
 	}
 	/**
-	 * @param numtxtCountryCode The numtxtCountryCode to set.
-	 */
-	public void setNumtxtCountryCode(NumericText numtxtCountryCode) {
-		this.numtxtCountryCode = numtxtCountryCode;
-	}
-	/**
 	 * @return Returns the numTxtCountryCode2.
 	 */
 	public NumericText getNumTxtCountryCode2() {
 		return numTxtCountryCode2;
 	}
-	/**
-	 * @param numTxtCountryCode2 The numTxtCountryCode2 to set.
-	 */
-	public void setNumTxtCountryCode2(NumericText numTxtCountryCode2) {
-		this.numTxtCountryCode2 = numTxtCountryCode2;
-	}
 	
     public NumericText getNumDueDays() {
         return numDueDays;
-    }
-    public void setNumDueDays(NumericText numDueDays) {
-        this.numDueDays = numDueDays;
     }
 	/**
 	 * @return Returns the numTxtNumber.
@@ -246,180 +186,105 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	public NumericText getNumTxtNumber() {
 		return numTxtNumber;
 	}
-	/**
-	 * @param numTxtNumber The numTxtNumber to set.
-	 */
-	public void setNumTxtNumber(NumericText numTxtNumber) {
-		this.numTxtNumber = numTxtNumber;
-	}
+
 	/**
 	 * @return Returns the numTxtNumber2.
 	 */
 	public NumericText getNumTxtNumber2() {
 		return numTxtNumber2;
 	}
-	/**
-	 * @param numTxtNumber2 The numTxtNumber2 to set.
-	 */
-	public void setNumTxtNumber2(NumericText numTxtNumber2) {
-		this.numTxtNumber2 = numTxtNumber2;
-	}
+
 	/**
 	 * @return Returns the txtCardAddress.
 	 */
 	public Text getTxtCardAddress() {
 		return txtCardAddress;
 	}
-	/**
-	 * @param txtCardAddress The txtCardAddress to set.
-	 */
-	public void setTxtCardAddress(Text txtCardAddress) {
-		this.txtCardAddress = txtCardAddress;
-	}
+
 	/**
 	 * @return Returns the txtCardDefinition.
 	 */
 	public Text getTxtCardDefinition() {
 		return txtCardDefinition;
 	}
-	/**
-	 * @param txtCardDefinition The txtCardDefinition to set.
-	 */
-	public void setTxtCardDefinition(Text txtCardDefinition) {
-		this.txtCardDefinition = txtCardDefinition;
-	}
+
 	/**
 	 * @return Returns the txtContactAddress.
 	 */
 	public Text getTxtContactAddress() {
 		return txtContactAddress;
 	}
-	/**
-	 * @param txtContactAddress The txtContactAddress to set.
-	 */
-	public void setTxtContactAddress(Text txtContactAddress) {
-		this.txtContactAddress = txtContactAddress;
-	}
+
 	/**
 	 * @return Returns the txtContactEmail.
 	 */
 	public Text getTxtContactEmail() {
 		return txtContactEmail;
 	}
-	/**
-	 * @param txtContactEmail The txtContactEmail to set.
-	 */
-	public void setTxtContactEmail(Text txtContactEmail) {
-		this.txtContactEmail = txtContactEmail;
-	}
+
 	/**
 	 * @return Returns the txtContactName.
 	 */
 	public Text getTxtContactName() {
 		return txtContactName;
 	}
-	/**
-	 * @param txtContactName The txtContactName to set.
-	 */
-	public void setTxtContactName(Text txtContactName) {
-		this.txtContactName = txtContactName;
-	}
+
 	/**
 	 * @return Returns the txtContactPhone.
 	 */
 	public Text getTxtContactPhone() {
 		return txtContactPhone;
 	}
-	/**
-	 * @param txtContactPhone The txtContactPhone to set.
-	 */
-	public void setTxtContactPhone(Text txtContactPhone) {
-		this.txtContactPhone = txtContactPhone;
-	}
+
 	/**
 	 * @return Returns the txtContactPhone2.
 	 */
 	public Text getTxtContactPhone2() {
 		return txtContactPhone2;
 	}
-	/**
-	 * @param txtContactPhone2 The txtContactPhone2 to set.
-	 */
-	public void setTxtContactPhone2(Text txtContactPhone2) {
-		this.txtContactPhone2 = txtContactPhone2;
-	}
+
 	/**
 	 * @return Returns the txtContactWebSite.
 	 */
 	public Text getTxtContactWebSite() {
 		return txtContactWebSite;
 	}
-	/**
-	 * @param txtContactWebSite The txtContactWebSite to set.
-	 */
-	public void setTxtContactWebSite(Text txtContactWebSite) {
-		this.txtContactWebSite = txtContactWebSite;
-	}
+
 	/**
 	 * @return Returns the txtCurrentCode.
 	 */
 	public Text getTxtCurrentCode() {
 		return txtCurrentCode;
 	}
-	/**
-	 * @param txtCurrentCode The txtCurrentCode to set.
-	 */
-	public void setTxtCurrentCode(Text txtCurrentCode) {
-		this.txtCurrentCode = txtCurrentCode;
-	}
+
 	/**
 	 * @return Returns the txtCurrentName.
 	 */
 	public Text getTxtCurrentName() {
 		return txtCurrentName;
 	}
-	/**
-	 * @param txtCurrentName The txtCurrentName to set.
-	 */
-	public void setTxtCurrentName(Text txtCurrentName) {
-		this.txtCurrentName = txtCurrentName;
-	}
+
 	/**
 	 * @return Returns the txtFaxNumber.
 	 */
 	public Text getTxtFaxNumber() {
 		return txtFaxNumber;
 	}
-	/**
-	 * @param txtFaxNumber The txtFaxNumber to set.
-	 */
-	public void setTxtFaxNumber(Text txtFaxNumber) {
-		this.txtFaxNumber = txtFaxNumber;
-	}
+
 	/**
 	 * @return Returns the txtTaxDepartmant.
 	 */
 	public Text getTxtTaxDepartmant() {
 		return txtTaxDepartmant;
 	}
-	/**
-	 * @param txtTaxDepartmant The txtTaxDepartmant to set.
-	 */
-	public void setTxtTaxDepartmant(Text txtTaxDepartmant) {
-		this.txtTaxDepartmant = txtTaxDepartmant;
-	}
+	
 	/**
 	 * @return Returns the txtTaxNumber.
 	 */
 	public Text getTxtTaxNumber() {
 		return txtTaxNumber;
 	}
-	/**
-	 * @param txtTaxNumber The txtTaxNumber to set.
-	 */
-	public void setTxtTaxNumber(Text txtTaxNumber) {
-		this.txtTaxNumber = txtTaxNumber;
-	}
+
 	private RegisterGroupComposite compRegisterGroup;
 	private Table table1;
 	private Button btnUpdateGroups;
@@ -703,9 +568,7 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			tabItemCurrentGroups.setText(Messages
 				.getString("CurUICurrentCardAdd.23")); //$NON-NLS-1$
 				//START >>  tabItemAccountingAccounts
-				tabItemAccountingAccounts = new CTabItem(
-					tbfCurrentCardAdd,
-					SWT.NONE);
+				tabItemAccountingAccounts = new CTabItem(tbfCurrentCardAdd, SWT.NONE);
 				tabItemAccountingAccounts.setText("Muhasebe Hesaplar\u0131");
 				//START >>  compaccountingAccounts
 				compaccountingAccounts = new Composite(tbfCurrentCardAdd, SWT.NONE);
@@ -1246,51 +1109,73 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	
 	}
 	
-	public void saveContact(Integer cardID)throws Exception{
-	try{
-	currentAdd.saveContact(cardID,txtContactName.getText().trim(),txtContactAddress.getText().trim(), 
-						txtContactPhone.getText().trim(),txtContactPhone2.getText().trim(), txtFaxNumber.getText().trim(),
-						txtContactEmail.getText().trim(),txtContactWebSite.getText().trim());
+	public Map getContactInfo()
+	{
+		try
+		{
+			Map contactMap=new HashMap();	
+			contactMap.put("ContactName",txtContactName.getText().trim());
+			contactMap.put("ContactAddress",txtContactAddress.getText().trim());
+			contactMap.put("ContactPhone",txtContactPhone.getText().trim());
+			contactMap.put("ContactPhone2",txtContactPhone2.getText().trim());
+			contactMap.put("ContactFaxNumber",txtFaxNumber.getText().trim());
+			contactMap.put("ContactEmail",txtContactEmail.getText().trim());
+			contactMap.put("ContactWebSite",txtContactWebSite.getText().trim());
+			return contactMap;
 		}
-	catch(Exception ex){
-	throw ex;
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return null;
+		}	
 	}
 	
+	public List getGroupList()
+	{
+		try
+		{
+			List groupList=new ArrayList();
+			TableItem items[] = compRegisterGroup.getTableAllGroups().getItems();
+	
+			for(int i=0;i<items.length;i++)
+			{
+				if(items[i].getChecked())
+				{
+					groupList.add(items[i].getData());
+				}
+			}	
+			return groupList;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return null;			
+		}	
 	}
 	
-	public void saveGroups(Integer cardID)throws Exception{
-	try{
-	TableItem items[] = compRegisterGroup.getTableAllGroups().getItems();
-	
-	for(int i=0;i<items.length;i++){
-		if(items[i].getChecked()){
-			currentAdd.registerGroup(cardID, items[i].getData());
+	public List getPhoneList()
+	{
+		try
+		{
+			List phoneList=new ArrayList();
+			phoneList.add(new int[]{numtxtCountryCode.getIntValue(),				
+									numTxtCityCode.getIntValue(),
+									numTxtNumber.getIntValue()});
+		
+			phoneList.add(new int[]{numTxtCountryCode2.getIntValue(),
+									numTxtCityCode2.getIntValue(),
+									numTxtNumber2.getIntValue()});
+			return phoneList;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return null;		
 		}
 	}
 	
-		
-	}
-	catch(Exception ex){
-	throw ex;
-	}
-	
-	}
-	public void savePhones(Integer cardID)throws Exception{
-	try{
-		currentAdd.saveCardPhone(numtxtCountryCode.getIntValue(),numTxtCityCode.getIntValue(),
-								numTxtNumber.getIntValue(),cardID);
-		
-		currentAdd.saveCardPhone(numTxtCountryCode2.getIntValue(),numTxtCityCode2.getIntValue(),
-								numTxtNumber2.getIntValue(),cardID);
-		
-	}
-	catch(Exception ex){
-	throw ex;
-	}
-	
-	}
-	
-	public void clearFields(){
+	public void clearFields()
+	{
 		 CurUICurrentCardAdd  curCard = new CurUICurrentCardAdd(this.getParent(),this.getStyle());
 		 CTabFolder tabfld = (CTabFolder)this.getParent();
 		 tabfld.getSelection().setControl(curCard);	 
@@ -1386,55 +1271,52 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			if(picker.getTurqAccountingAccount()!=null)
 			{
 				map.put(type,picker.getTurqAccountingAccount());
-			}
-		
-			
-			
-			
+			}			
 		}	
 		
 		return map;
 	}
 	
-	public void save(){
-	try{
-	if(verifyFields(true))
+	public void save()
 	{
-	
+		try
+		{
+			if(verifyFields(true))
+			{
 		
-		
-		
-	Integer cardId = currentAdd.saveCurrentCard(txtCurrentCode.getText().trim(),
+				CurBLCurrentCardAdd.saveCurrentCard(
+							txtCurrentCode.getText().trim(),
 							txtCurrentName.getText().trim(),
 							txtCardDefinition.getText().trim(),
 							txtCardAddress.getText().trim(),
+							//TODO DiscountRate: numText->CurrencyText
 							new BigDecimal(numTextDiscountRate.getIntValue()),
 							decTxtDiscountAmount.getBigDecimalValue(),
 							decTxtCreditLimit.getBigDecimalValue(),
 							decTxtRiskLimit.getBigDecimalValue(),
 							txtTaxDepartmant.getText().trim(),
-							txtTaxNumber.getText().trim(),
+							txtTaxNumber.getText().trim(),							
+							numDueDays.getIntValue(),
 							createAccountingMap(),
-							numDueDays.getIntValue());	
-	savePhones(cardId);
-	saveContact(cardId);
-	saveGroups(cardId);
+							getPhoneList(),
+							getContactInfo(),
+							getGroupList());	
 	
-	EngBLCurrentCards.RefreshContentAsistantMap();
-	MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
-	msg.setMessage(Messages.getString("CurUICurrentCardAdd.14")); //$NON-NLS-1$
-	msg.open();
+				EngBLCurrentCards.RefreshContentAsistantMap();
+				MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
+				msg.setMessage(Messages.getString("CurUICurrentCardAdd.14")); //$NON-NLS-1$
+				msg.open();	
+				clearFields();
 	
-    clearFields();
-	
-	}
-	}
-	catch(Exception ex){
-		ex.printStackTrace();
-		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-		msg.setMessage(ex.getMessage());
-		msg.open();
-	}
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+			msg.setMessage(ex.getMessage());
+			msg.open();
+		}
 	}
 
 	
@@ -1462,10 +1344,5 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	public RegisterGroupComposite getCompRegisterGroup() {
 		return compRegisterGroup;
 	}
-	/**
-	 * @param compRegisterGroup The compRegisterGroup to set.
-	 */
-	public void setCompRegisterGroup(RegisterGroupComposite compRegisterGroup) {
-		this.compRegisterGroup = compRegisterGroup;
-	}
+
 }

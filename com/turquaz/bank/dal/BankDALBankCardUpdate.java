@@ -38,23 +38,17 @@ public class BankDALBankCardUpdate {
 	public BankDALBankCardUpdate(){
 	}
 
-	public void updateObject(Object obj)throws Exception{
-		try{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-			
+	public static void updateObject(Session session, Object obj)throws Exception{
+		try
+		{
 			session.update(obj);
-			session.flush();
-			tx.commit();
-			session.close();
-			
-			}
-			catch(Exception ex){
-				throw ex;
-			}
-		
-		
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}		
 	}
+	
 	public void deleteObject(Object obj)throws Exception{
 		
 		Transaction tx = null;

@@ -25,6 +25,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import net.sf.hibernate.Session;
+
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 
@@ -192,10 +194,10 @@ public class CurBLSearchTransaction {
 	    }
 	    
 	}
-	public void deleteInitialTransactions(TurqCurrentCard curCard)throws Exception {
+	public void deleteInitialTransactions(Session session,TurqCurrentCard curCard)throws Exception {
 	    try{
 	    
-	    	dalSearch.deleteInitialTransactions(curCard);
+	    	CurDALSearchTransaction.deleteInitialTransactions(session,curCard);
 	    	
 	    }
 	    catch(Exception ex){

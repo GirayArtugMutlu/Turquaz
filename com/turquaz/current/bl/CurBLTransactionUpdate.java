@@ -32,8 +32,8 @@ public class CurBLTransactionUpdate {
     public static void updateTrans(Object trans)throws Exception{
         try{
             
-        	
-          dalUpdate.updateObject(trans);  
+//        	TODO Should not send null
+          CurDALCurrentCardUpdate.updateObject(null,trans);  
             
             
         }
@@ -44,8 +44,8 @@ public class CurBLTransactionUpdate {
     }
     public static void delete(Object obj)throws Exception{
         try{
-            
-            dalUpdate.deleteObject(obj);
+//        	TODO Should not send null
+            CurDALCurrentCardUpdate.deleteObject(null,obj);
             
         }
         catch(Exception ex){

@@ -43,6 +43,7 @@ import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.inventory.dal.InvDALCardAdd;
 
+//TODO All methods should be static
 
 public class InvBLCardAdd {
 
@@ -58,7 +59,7 @@ public class InvBLCardAdd {
 
     }
 
-    public static void registerGroup(Session session,TurqInventoryCard card, TurqInventoryGroup group) throws Exception {
+    public static void registerInvCardGroup(Session session,TurqInventoryCard card, TurqInventoryGroup group) throws Exception {
         try {
 
             TurqInventoryCardGroup cardGroup = new TurqInventoryCardGroup();
@@ -93,25 +94,25 @@ public class InvBLCardAdd {
     	}
     }
     
-    public static void saveInvPrices(Session session,TurqInventoryCard card, List invPrices)
+    public static void saveInvCardPrices(Session session,TurqInventoryCard card, List invPrices)
     throws Exception {
 
     	for(int k=0; k<invPrices.size(); k++)
     	{
     		Object[] invPrice=(Object[])invPrices.get(k);    		
-    		registerInvPrice(session,card,((Boolean)invPrice[0]).booleanValue(),
+    		registerInvCardPrice(session,card,((Boolean)invPrice[0]).booleanValue(),
     				(String)invPrice[1],(String)invPrice[2]);
     	}
     }
     
-    public static void saveInvAccounts(Session session,TurqInventoryCard card, List invAccounts)
+    public static void saveInvCardAccounts(Session session,TurqInventoryCard card, List invAccounts)
     throws Exception {
 
     	for(int k=0; k<invAccounts.size(); k++)
     	{
     		TurqInventoryAccountingAccount invAcc=(TurqInventoryAccountingAccount)invAccounts.get(k);   
     		invAcc.setTurqInventoryCard(card);
-    		registerInvAccount(session,invAcc,card);
+    		registerInvCardAccount(session,invAcc,card);
     	}
     }
     
@@ -132,7 +133,7 @@ public class InvBLCardAdd {
 
     }
 
-    public static void registerInvPrice(Session session, TurqInventoryCard card, boolean price_type,
+    public static void registerInvCardPrice(Session session, TurqInventoryCard card, boolean price_type,
             String currency_abrev, String amount) throws Exception {
         try {
 
@@ -158,7 +159,7 @@ public class InvBLCardAdd {
 
     }
     
-    public static void registerInvAccount(Session session, TurqInventoryAccountingAccount invAcc,TurqInventoryCard card) throws Exception {
+    public static void registerInvCardAccount(Session session, TurqInventoryAccountingAccount invAcc,TurqInventoryCard card) throws Exception {
         try {
 
         	invAcc.setTurqInventoryCard(card);
@@ -245,14 +246,14 @@ public class InvBLCardAdd {
 		try
 		{		
 
-			TurqInventoryCard card=saveInvCard(session,invCode,cardName,cardDefinition,
+			TurqInventoryCard card=registerInventoryCard(session,invCode,cardName,cardDefinition,
 					minAmount,maxAmount,cardVat,discount,cardSpecialVat,cardSpecialVatEach,
 					isSpecAmount);
 			
-			saveInvGroups(session,card,invGroups);
+			saveInvCardGroups(session,card,invGroups);
 			saveInvCardUnits(session,card,invCardUnits);
-			saveInvPrices(session,card,invPrices);
-			saveInvAccounts(session,card,invAccounts);			
+			saveInvCardPrices(session,card,invPrices);
+			saveInvCardAccounts(session,card,invAccounts);			
 			
 			session.flush();
 			tx.commit();
@@ -269,7 +270,7 @@ public class InvBLCardAdd {
 		}
     }
     
-	public static void saveInvGroups(Session session,TurqInventoryCard card,
+	public static void saveInvCardGroups(Session session,TurqInventoryCard card,
 			Map groupMap)throws Exception
 	{
 		try
@@ -280,7 +281,7 @@ public class InvBLCardAdd {
 			{		
 				TurqInventoryGroup group = (TurqInventoryGroup)it.next();
 				if(group!=null){
-					registerGroup(session, card, group);
+					registerInvCardGroup(session, card, group);
 				}
 			}		
 		}
@@ -290,7 +291,7 @@ public class InvBLCardAdd {
 		}
 	}
 
-    public static TurqInventoryCard saveInvCard(Session session,String invCode, String cardName,
+    public static TurqInventoryCard registerInventoryCard(Session session,String invCode, String cardName,
             String cardDefinition, int minAmount, int maxAmount, int cardVat,
             int discount, int cardSpecialVat,
             BigDecimal cardSpecialVatEach, boolean isSpecAmount)
