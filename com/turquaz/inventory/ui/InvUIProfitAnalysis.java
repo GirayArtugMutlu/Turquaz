@@ -147,7 +147,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableInvTotals, columnTypes);
+		tableViewer = new SearchTableViewer(tableInvTotals, columnTypes,true);
 	}
 
 	public void search()

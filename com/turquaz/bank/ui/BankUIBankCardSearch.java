@@ -271,7 +271,7 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_STRING;
-		tableViewer = new SearchTableViewer(tableBankCards,columnTypes);
+		tableViewer = new SearchTableViewer(tableBankCards,columnTypes,true);
 		
 	}
 	private void FillCurrencyCombo() throws Exception

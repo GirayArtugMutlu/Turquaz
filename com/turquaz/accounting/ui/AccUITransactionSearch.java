@@ -263,7 +263,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableTransactions,columnTypes);
+		tableViewer = new SearchTableViewer(tableTransactions,columnTypes,true);
 	}
 	/** Add your pre-init code in here */
 	public void preInitGUI()

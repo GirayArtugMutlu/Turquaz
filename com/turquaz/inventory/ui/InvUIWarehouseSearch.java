@@ -258,7 +258,7 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_STRING;
-		tableViewer = new SearchTableViewer(tableInvUIWarehouses, columnTypes);
+		tableViewer = new SearchTableViewer(tableInvUIWarehouses, columnTypes,true);
 	}
 
 	public void delete()

@@ -197,7 +197,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableInventories, columnTypes);
+		tableViewer = new SearchTableViewer(tableInventories, columnTypes,true);
 	}
 
 	public void search()

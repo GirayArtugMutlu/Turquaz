@@ -110,7 +110,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableCashTrans, columnTypes);
+		tableViewer = new SearchTableViewer(tableCashTrans, columnTypes,true);
 	}
 
 	public void delete()

@@ -289,7 +289,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DATE;
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableCheques, columnTypes);
+		tableViewer = new SearchTableViewer(tableCheques, columnTypes,true);
 	}
 
 	public void delete()

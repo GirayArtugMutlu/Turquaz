@@ -355,7 +355,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableCurrentTransactions, columnTypes);
+		tableViewer = new SearchTableViewer(tableCurrentTransactions, columnTypes,true);
 	}
 
 	public void delete()

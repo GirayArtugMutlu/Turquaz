@@ -27,7 +27,7 @@ public class SearchTableViewer
 	TableViewer viewer = null;
 	int columnTypes[] = null;
 
-	public SearchTableViewer(Table table, int columnTypes[])
+	public SearchTableViewer(Table table, int columnTypes[],boolean isSortable)
 	{
 		this.columnTypes = columnTypes;
 		viewer = new TableViewer(table);
@@ -39,7 +39,10 @@ public class SearchTableViewer
 		{
 			columnNames[i] = columns[i].getText();
 			columnList.add(columns[i].getText());
-			columns[i].addListener(SWT.Selection, new SearchTableColumnListener(viewer, i, columnTypes[i]));
+			if(isSortable)
+			{
+				columns[i].addListener(SWT.Selection, new SearchTableColumnListener(viewer, i, columnTypes[i]));
+			}
 			columns[i].addControlListener(new ControlAdapter(){
 				public void controlResized(ControlEvent e)
 				{

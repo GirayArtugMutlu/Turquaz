@@ -195,7 +195,7 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableCashTrans, columnTypes);
+		tableViewer = new SearchTableViewer(tableCashTrans, columnTypes, true);
 	}
 	
 	private void tableCashTransMouseDoubleClick(MouseEvent evt)

@@ -689,7 +689,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableBills, columnTypes);
+		tableViewer = new SearchTableViewer(tableBills, columnTypes,true);
 	}
 
 	public void currentCardChoose()

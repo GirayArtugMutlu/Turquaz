@@ -207,7 +207,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableCashTransactions, columnTypes);
+		tableViewer = new SearchTableViewer(tableCashTransactions, columnTypes,true);
 	}
 
 	public void delete()

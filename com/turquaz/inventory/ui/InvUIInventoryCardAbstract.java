@@ -485,7 +485,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[8] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableTransactions, columnTypes);
+		tableViewer = new SearchTableViewer(tableTransactions, columnTypes,true);
 	}
 
 	public void delete()

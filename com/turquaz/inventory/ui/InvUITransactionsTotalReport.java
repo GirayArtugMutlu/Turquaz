@@ -376,7 +376,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		columnTypes[10] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[11] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[12] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableSearcResults, columnTypes);
+		tableViewer = new SearchTableViewer(tableSearcResults, columnTypes,true);
 	}
 
 	public void delete()

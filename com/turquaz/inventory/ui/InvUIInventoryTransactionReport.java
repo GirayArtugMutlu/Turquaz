@@ -723,7 +723,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[8] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableInvTransactions, columnTypes);
+		tableViewer = new SearchTableViewer(tableInvTransactions, columnTypes,true);
 	}
 
 	public void delete()

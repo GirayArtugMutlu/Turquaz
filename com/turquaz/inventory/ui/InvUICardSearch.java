@@ -295,7 +295,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableSearcResults, columnTypes);
+		tableViewer = new SearchTableViewer(tableSearcResults, columnTypes,true);
 	}
 
 	private void comboInvMainGroupWidgetSelected(SelectionEvent evt)

@@ -169,7 +169,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 		columnTypes[0] =TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[1] =TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[2] =TurquazTableSorter.COLUMN_TYPE_STRING;
-		tableViewer = new SearchTableViewer(tableCashCards,columnTypes);
+		tableViewer = new SearchTableViewer(tableCashCards,columnTypes,true);
 		
 	}
 	public void delete()

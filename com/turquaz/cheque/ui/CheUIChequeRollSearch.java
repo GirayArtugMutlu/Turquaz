@@ -312,7 +312,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableChequeRolls, columnTypes);
+		tableViewer = new SearchTableViewer(tableChequeRolls, columnTypes,true);
 	}
 
 	public void delete()

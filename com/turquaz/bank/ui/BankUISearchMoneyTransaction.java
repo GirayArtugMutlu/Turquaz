@@ -210,7 +210,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableMoneyTrans, columnTypes);
+		tableViewer = new SearchTableViewer(tableMoneyTrans, columnTypes,true);
 	}
 
 	public void delete()
