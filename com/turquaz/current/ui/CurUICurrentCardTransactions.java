@@ -9,6 +9,7 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -20,6 +21,13 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import com.cloudgarden.resource.SWTResourceManager;
+import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.widgets.CoolBar;
+import org.eclipse.swt.widgets.CoolItem;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -38,14 +46,20 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 
 	private Shell dialogShell;
 	private TurqCurrentCard currentCard;
+	private CurBLSearchTransaction BLSearch;
 	private Table tableCurrentTransactions;
-	private TableColumn tableColumnTransGroup;
+	private ToolBar toolBar1;
+	private CoolItem coolItem1;
+	private CoolBar coolBar1;
 	private TableColumn tableColumnTransDate;
 	private TableColumn tableColumnCredit;
 	private TableColumn tableColumnDebit;
+	private TableColumn tableColumnTransGroup;
 	private TableColumn tableColumnCurrentCode;
 	private Composite composite1;
-	private CurBLSearchTransaction BLSearch;
+	static private ToolItem toolPrint;
+	static private ToolItem toolExportToExcel;
+	private Composite compOutput;
 
 	/**
 	* Auto-generated main method to display this 
@@ -62,7 +76,89 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 
+				{
+					//Register as a resource user - SWTResourceManager will
+					//handle the obtaining and disposing of resources
+					SWTResourceManager.registerResourceUser(dialogShell);
+				}
+
+
 			dialogShell.setLayout(new GridLayout());
+			PostInit();
+			
+			dialogShell.layout();
+			dialogShell.pack();
+			dialogShell.setSize(574, 566);
+			{
+				compOutput = new Composite(dialogShell, SWT.NONE);
+				GridLayout compOutputLayout = new GridLayout();
+				GridData compOutputLData = new GridData();
+				compOutputLData.horizontalAlignment = GridData.FILL;
+				compOutputLData.grabExcessHorizontalSpace = true;
+				compOutputLData.heightHint = 48;
+				compOutput.setLayoutData(compOutputLData);
+				compOutput.setLayout(compOutputLayout);
+				{
+					coolBar1 = new CoolBar(compOutput, SWT.NONE);
+					GridData coolBar1LData = new GridData();
+					coolBar1LData.horizontalAlignment = GridData.FILL;
+					coolBar1LData.grabExcessHorizontalSpace = true;
+					coolBar1.setLayoutData(coolBar1LData);
+					{
+						coolItem1 = new CoolItem(coolBar1, SWT.NONE);
+						coolItem1
+							.setPreferredSize(new org.eclipse.swt.graphics.Point(
+								24,
+								24));
+						coolItem1
+							.setMinimumSize(new org.eclipse.swt.graphics.Point(
+								24,
+								24));
+						{
+							toolBar1 = new ToolBar(coolBar1, SWT.NONE);
+							coolItem1.setControl(toolBar1);
+							{
+								toolExportToExcel = new ToolItem(
+									toolBar1,
+									SWT.NONE);
+								toolExportToExcel.setText("Export");
+								toolExportToExcel.setImage(SWTResourceManager
+									.getImage("icons/excel.jpeg"));
+								toolExportToExcel.setWidth(68);
+								toolExportToExcel
+									.addSelectionListener(new SelectionAdapter() {
+										public void widgetSelected(
+											SelectionEvent evt) {
+											EngBLUtils
+												.Export2Excel(tableCurrentTransactions);
+										}
+									});
+							}
+							{
+								toolPrint = new ToolItem(toolBar1, SWT.NONE);
+								toolPrint.setText("Yazd?r");
+								toolPrint.setImage(SWTResourceManager
+									.getImage("icons/Print16.gif"));
+								toolPrint
+									.addSelectionListener(new SelectionAdapter() {
+										public void widgetSelected(
+											SelectionEvent evt) {
+											EngBLUtils.printTable(
+												tableCurrentTransactions,
+												"Cari Kart Hareketleri Listesi, Kart Kodu: "
+													+ currentCard
+														.getCardsCurrentCode()
+													+ " Kart Ad?: "
+													+ currentCard
+														.getCardsName());
+
+										}
+									});
+							}
+						}
+					}
+				}
+			}
 			{
 				composite1 = new Composite(dialogShell, SWT.NONE);
 				GridLayout composite1Layout1 = new GridLayout();
@@ -97,7 +193,8 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 						tableColumnTransGroup = new TableColumn(
 							tableCurrentTransactions,
 							SWT.NONE);
-						tableColumnTransGroup.setText(Messages.getString("CurUITransactionSearch.6"));
+						tableColumnTransGroup.setText(Messages
+							.getString("CurUITransactionSearch.6"));
 						tableColumnTransGroup.setWidth(114);
 					}
 					{
@@ -126,11 +223,6 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 					}
 				}
 			}
-			PostInit();
-			
-			dialogShell.layout();
-			dialogShell.pack();
-			dialogShell.setSize(574, 566);
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {
