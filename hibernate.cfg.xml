@@ -68,6 +68,8 @@
  <mapping resource="com/turquaz/engine/dal/TurqCashCard.hbm.xml"/>
   <mapping resource="com/turquaz/engine/dal/TurqCashTransaction.hbm.xml"/>	
    <mapping resource="com/turquaz/engine/dal/TurqCashTransactionType.hbm.xml"/>       
+     <mapping resource="com/turquaz/engine/dal/TurqCashTransactionRow.hbm.xml"/>  
+   
 
     </session-factory>
 

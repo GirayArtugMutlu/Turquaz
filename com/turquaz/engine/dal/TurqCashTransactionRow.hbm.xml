@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqCashTransactionRow" 
+    table="turq_cash_transaction_rows"
+>
+
+    <id
+        name="cashTransactionRowsId"
+        type="int"
+        column="cash_transaction_rows_id"
+    >
+        <generator class="increment" />
+    </id>
+
+    <property
+        name="deptAmount"
+        type="java.math.BigDecimal"
+        column="dept_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="creditAmount"
+        type="java.math.BigDecimal"
+        column="credit_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="transactionDefinition"
+        type="int"
+        column="transaction_definition"
+        length="4"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqCashTransaction -->
+    <many-to-one
+        name="turqCashTransaction"
+        class="com.turquaz.engine.dal.TurqCashTransaction"
+        not-null="true"
+    >
+        <column name="cash_transactions_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
+    <many-to-one
+        name="turqAccountingAccount"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="accounting_accounts_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

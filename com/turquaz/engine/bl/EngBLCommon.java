@@ -77,6 +77,15 @@ public class EngBLCommon {
     
     
     
+    public final static int CONTENT_ASSIST_ACCOUNTING = 0;
+    public final static int CONTENT_ASSIST_INVENTORY = 1;
+    public final static int CONTENT_ASSIST_ACCOUNT_LEAVES =2;
+    public final static int CONTENT_ASSIST_CURRENT =3;
+    public final static int CONTENT_ASSIST_CASH = 4;
+    
+    
+    
+    
     
 	public EngBLCommon()
 	{

@@ -25,20 +25,6 @@
     </id>
 
     <property
-        name="deptAmount"
-        type="java.math.BigDecimal"
-        column="dept_amount"
-        not-null="true"
-        length="65535"
-    />
-    <property
-        name="creditAmount"
-        type="java.math.BigDecimal"
-        column="credit_amount"
-        not-null="true"
-        length="65535"
-    />
-    <property
         name="transactionDate"
         type="java.sql.Date"
         column="transaction_date"
@@ -88,6 +74,20 @@
 
     <!-- Associations -->
   
+    <!-- bi-directional one-to-many association to TurqCashTransactionRow -->
+    <set
+        name="turqCashTransactionRows"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="cash_transactions_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCashTransactionRow"
+        />
+    </set>
     <!-- bi-directional many-to-one association to TurqCashCard -->
     <many-to-one
         name="turqCashCard"
@@ -103,14 +103,6 @@
         not-null="true"
     >
         <column name="cash_transactions_types_id" />
-    </many-to-one>
-    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
-    <many-to-one
-        name="turqAccountingAccount"
-        class="com.turquaz.engine.dal.TurqAccountingAccount"
-        not-null="true"
-    >
-        <column name="accounting_accounts_id" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqEngineSequence -->
     <many-to-one

@@ -29,6 +29,18 @@ public class CashBLCashTransactionAdd {
     }
     
  
+    /**
+     * TODO Update according to cash design changes
+     * @param cashCard
+     * @param current
+     * @param type
+     * @param seq
+     * @param totalAmount
+     * @param transDate
+     * @param definition
+     * @param document_no
+     * @throws Exception
+     */
  public void saveCurrentTransaction(TurqCashCard cashCard, TurqCurrentCard current, 
          							int type, TurqEngineSequence seq, 
          							BigDecimal totalAmount, Date transDate,
@@ -53,7 +65,6 @@ public class CashBLCashTransactionAdd {
     
      TurqCashTransaction cashTrans = new TurqCashTransaction();
      cashTrans.setTurqCashCard(cashCard);
-     cashTrans.setTurqAccountingAccount(current.getTurqAccountingAccount());
      cashTrans.setTurqCashTransactionType(transType);
      cashTrans.setTurqEngineSequence(seq);
      cashTrans.setTransactionDate(transDate);
@@ -85,8 +96,7 @@ public class CashBLCashTransactionAdd {
      
 	 if(type==EngBLCommon.CASH_CURRENT_COLLECT)
      {
-        cashTrans.setDeptAmount(totalAmount);
-        cashTrans.setCreditAmount(new BigDecimal(0));   
+         
         
         accTransRowCash.setDeptAmount(totalAmount);
         accTransRowCash.setCreditAmount(new BigDecimal(0));
@@ -101,8 +111,7 @@ public class CashBLCashTransactionAdd {
      
      else if(type==EngBLCommon.CASH_CURRENT_PAYMENT)
      {
-         cashTrans.setDeptAmount(new BigDecimal(0));
-         cashTrans.setCreditAmount(totalAmount);
+         
          
          accTransRowCash.setDeptAmount(new BigDecimal(0));
          accTransRowCash.setCreditAmount(totalAmount);
