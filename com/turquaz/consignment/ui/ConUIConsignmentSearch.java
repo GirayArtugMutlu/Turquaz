@@ -5,6 +5,8 @@ import java.util.List;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
@@ -17,6 +19,7 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.component.TableSorter;
 import com.turquaz.engine.ui.component.TextWithButton;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.custom.CLabel;
@@ -208,6 +211,11 @@ SecureComposite, SearchComposite{
 						SWT.NONE);
 					tableColumnConsignmentDate.setText(Messages.getString("ConUIConsignmentSearch.5")); //$NON-NLS-1$
 					tableColumnConsignmentDate.setWidth(104);
+					tableColumnConsignmentDate.addListener(SWT.Selection, new Listener() {
+					    public void handleEvent(Event e) {
+					    	TableSorter.sortTable(tableConsignments,tableColumnConsignmentDate);        
+					    }
+					});
 				}
 				{
 					tableColumnCurrentName = new TableColumn(
@@ -215,6 +223,11 @@ SecureComposite, SearchComposite{
 						SWT.NONE);
 					tableColumnCurrentName.setText(Messages.getString("ConUIConsignmentSearch.6")); //$NON-NLS-1$
 					tableColumnCurrentName.setWidth(150);
+					tableColumnCurrentName.addListener(SWT.Selection, new Listener() {
+					    public void handleEvent(Event e) {
+					    	TableSorter.sortTable(tableConsignments,tableColumnCurrentName);        
+					    }
+					});
 				}
 				{
 					tableColumnCumulativePrice = new TableColumn(
@@ -222,6 +235,11 @@ SecureComposite, SearchComposite{
 						SWT.NONE);
 					tableColumnCumulativePrice.setText(Messages.getString("ConUIConsignmentSearch.7")); //$NON-NLS-1$
 					tableColumnCumulativePrice.setWidth(100);
+					tableColumnCumulativePrice.addListener(SWT.Selection, new Listener() {
+					    public void handleEvent(Event e) {
+					    	TableSorter.sortTable(tableConsignments,tableColumnCumulativePrice);        
+					    }
+					});
 				}
 				{
 					tableColumnVatAmount = new TableColumn(
@@ -229,6 +247,11 @@ SecureComposite, SearchComposite{
 						SWT.NONE);
 					tableColumnVatAmount.setText(Messages.getString("ConUIConsignmentSearch.8")); //$NON-NLS-1$
 					tableColumnVatAmount.setWidth(100);
+					tableColumnVatAmount.addListener(SWT.Selection, new Listener() {
+					    public void handleEvent(Event e) {
+					    	TableSorter.sortTable(tableConsignments,tableColumnVatAmount);        
+					    }
+					});
 				}
 				{
 					tableColumnSpecialVatAmount = new TableColumn(
@@ -236,6 +259,11 @@ SecureComposite, SearchComposite{
 						SWT.NONE);
 					tableColumnSpecialVatAmount.setText(Messages.getString("ConUIConsignmentSearch.9")); //$NON-NLS-1$
 					tableColumnSpecialVatAmount.setWidth(100);
+					tableColumnSpecialVatAmount.addListener(SWT.Selection, new Listener() {
+					    public void handleEvent(Event e) {
+					    	TableSorter.sortTable(tableConsignments,tableColumnSpecialVatAmount);        
+					    }
+					});
 				}
 			}
 			postInitGui();

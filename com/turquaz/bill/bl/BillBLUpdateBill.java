@@ -7,7 +7,6 @@ import java.util.Date;
 import com.turquaz.bill.dal.BillDALUpdateBill;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillConsignmentCommon;
-import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
 /**

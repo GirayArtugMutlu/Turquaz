@@ -30,10 +30,21 @@ public static void sortTable(Table table, TableColumn column){
         for (int j = 0; j < i; j++){
             String value2 = items[j].getText(col_index);
             if (collator.compare(value1, value2) < 0) {
-                String[] values = {items[i].getText(0), items[i].getText(1)};
+                String[] values = new String[table.getColumnCount()];
+            	for(int k=0;i<table.getColumnCount();k++){
+             		values[k]=items[i].getText(k);
+             		
+             	}
+                
+                Object data = items[i].getData();
+               
+                
                 items[i].dispose();
                 TableItem item = new TableItem(table, SWT.NONE, j);
-                item.setText(values);
+                item.setText(values);               
+                
+                item.setData(data);
+                
                 items = table.getItems();
                 break;
             }

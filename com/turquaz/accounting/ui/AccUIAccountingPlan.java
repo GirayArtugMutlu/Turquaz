@@ -22,10 +22,10 @@ package com.turquaz.accounting.ui;
 
 
 
-import java.text.Collator;
+
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+
 import java.util.Map;
 
 
@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
+
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.layout.GridData;
@@ -152,19 +152,11 @@ SearchComposite{
   final TableColumn col = new TableColumn(tableTreeAccountingPlan.getTable(),SWT.LEFT);
    col.setText(Messages.getString("AccUIAccountingPlan.0")); //$NON-NLS-1$
    col.setWidth(200);
-   col.addListener(SWT.Selection, new Listener() {
-    public void handleEvent(Event e) {
-    	TableSorter.sortTable(tableTreeAccountingPlan.getTable(),col);        
-    }
-});
+
   final TableColumn col2 = new TableColumn(tableTreeAccountingPlan.getTable(),SWT.LEFT);
    col2.setText(Messages.getString("AccUIAccountingPlan.1")); //$NON-NLS-1$
    col2.setWidth(200);
-   col2.addListener(SWT.Selection, new Listener() {
-    public void handleEvent(Event e) {
-    	TableSorter.sortTable(tableTreeAccountingPlan.getTable(),col2);        
-    }
-});
+
    
    fillTree(-1,""); //$NON-NLS-1$
 	
@@ -267,11 +259,10 @@ public void fillTree(int parent, String codeCrit){
 		TurqAccountingAccount account =(TurqAccountingAccount)items[0].getData();
 		// it's not an main account
 		// main accounts cannot be edited
+		//if(account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId().intValue()!=-1)
 		new AccUIAccountUpdate(this.getShell(),SWT.NULL,account).open();
 		
-		items[0].setText(0,account.getAccountCode());
-		items[0].setText(1,account.getAccountName());
-		items[0].setData(account); 
+		fillTree(-1,"");
 	    
 	    
 		}
