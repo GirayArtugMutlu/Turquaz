@@ -59,6 +59,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
@@ -70,6 +71,8 @@ implements SecureComposite{
 	private DatePicker dateTransDate;
 	private CLabel lvlDefinition;
 	private Text txtDefinition;
+	private AccountPicker accountPicker;
+	private CLabel lblAcccountingAccount;
 	private CurrencyText txtDept;
 	private CLabel lblDept;
 	private CurrencyText txtCredit;
@@ -139,12 +142,12 @@ implements SecureComposite{
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(591, 269);
+			this.setSize(588, 229);
 			{
 				lvlCurrentCard = new CLabel(this, SWT.NONE);
 				lvlCurrentCard.setText(Messages.getString("CurUICurrentCardVoucher.0")); //$NON-NLS-1$
 				GridData lvlCurrentCardLData = new GridData();
-				lvlCurrentCardLData.widthHint = 101;
+				lvlCurrentCardLData.widthHint = 78;
 				lvlCurrentCardLData.heightHint = 15;
 				lvlCurrentCard.setLayoutData(lvlCurrentCardLData);
 			}
@@ -207,6 +210,17 @@ implements SecureComposite{
 				txtCreditLData.heightHint = 18;
 				txtCredit.setLayoutData(txtCreditLData);
 			}
+			//START >>  lblAcccountingAccount
+			lblAcccountingAccount = new CLabel(this, SWT.NONE);
+			lblAcccountingAccount.setText("Muhasebe Hesab\u0131");
+			//END <<  lblAcccountingAccount
+			//START >>  accountPicker
+			accountPicker = new AccountPicker(this, SWT.NONE);
+			GridData accountPickerLData = new GridData();
+			accountPickerLData.widthHint = 209;
+			accountPickerLData.heightHint = 18;
+			accountPicker.setLayoutData(accountPickerLData);
+			//END <<  accountPicker
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -236,8 +250,8 @@ implements SecureComposite{
 				    isCredit=true;
 				}
 				
-				TurqCurrentTransaction curtrans = curBLTransAdd.saveCurrentTransaction((TurqCurrentCard)txtCurrentCard.getData(),
-					dateTransDate.getDate(),"",isCredit,(isCredit)? credit : dept, //$NON-NLS-1$
+				TurqCurrentTransaction curtrans = curBLTransAdd.saveOtherCurrentTransaction((TurqCurrentCard)txtCurrentCard.getData(),
+					accountPicker.getTurqAccountingAccount(),dateTransDate.getDate(),"",isCredit,(isCredit)? credit : dept, //$NON-NLS-1$
 							new BigDecimal(0),EngBLCommon.CURRENT_TRANS_OTHERS,
 							new Integer(-1),txtDefinition.getText());
 				
@@ -306,4 +320,17 @@ implements SecureComposite{
     public void setTxtDept(CurrencyText txtDept) {
         this.txtDept = txtDept;
     }
+    
+	/**
+	 * @return Returns the accountPicker.
+	 */
+	public AccountPicker getAccountPicker() {
+		return accountPicker;
+	}
+	/**
+	 * @param accountPicker The accountPicker to set.
+	 */
+	public void setAccountPicker(AccountPicker accountPicker) {
+		this.accountPicker = accountPicker;
+	}
 }

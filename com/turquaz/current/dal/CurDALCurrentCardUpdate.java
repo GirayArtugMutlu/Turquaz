@@ -22,12 +22,14 @@ package com.turquaz.current.dal;
 */
 import java.util.List;
 
+import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
 public class CurDALCurrentCardUpdate {
@@ -129,6 +131,26 @@ public class CurDALCurrentCardUpdate {
 			catch(Exception ex){
 				throw ex;
 			}
+		
+	}
+	public void initCurrentTrans(TurqCurrentTransaction curTrans)throws Exception{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+		
+			
+			session.refresh(curTrans);
+			Hibernate.initialize(curTrans.getTurqEngineSequence().getTurqAccountingTransactions());
+			
+			
+			session.flush();
+		
+			session.close();
+			
+			}
+			catch(Exception ex){
+				throw ex;
+			}
+		
 		
 	}
 }

@@ -1,13 +1,20 @@
 package com.turquaz.current.ui;
 
-import java.util.Locale;
+import java.math.BigDecimal;
+import java.util.Iterator;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.current.Messages;
+import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
+import com.turquaz.engine.dal.TurqAccountingTransaction;
+import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.ui.EngUICommon;
@@ -153,6 +160,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	public void postInitGUI(){
         EngUICommon.centreWindow(dialogShell);
 	    
+	  
 	    
 	    if(curTrans.getTransactionsTotalDept().doubleValue()>0){
 	        compVoucher.getTxtDept().setText(curTrans.getTransactionsTotalDept());
@@ -166,6 +174,32 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	    compVoucher.getDateTransDate().setDate(curTrans.getTransactionsDate());
 	    compVoucher.getTxtCurrentCard().setText(curTrans.getTurqCurrentCard().getCardsName()+" {"+curTrans.getTurqCurrentCard().getCardsCurrentCode()+"}"); //$NON-NLS-1$ //$NON-NLS-2$
 	    compVoucher.getTxtDefinition().setText(curTrans.getTransactionsDefinition());
+	    try{
+	    	  
+	    	CurBLTransactionUpdate.initCurTrans(curTrans);
+	    	Iterator it = curTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
+	    	if(it.hasNext())
+	    	{
+	    		TurqAccountingTransaction accTrans = (TurqAccountingTransaction)it.next();
+	    		new AccBLTransactionUpdate().initiliazeTransactionRows(accTrans);
+	    		Iterator accIt = accTrans.getTurqAccountingTransactionColumns().iterator();
+	    		while(accIt.hasNext())
+	    		{
+	    			TurqAccountingTransactionColumn accRow = (TurqAccountingTransactionColumn)accIt.next();
+	    			if(!accRow.getTurqAccountingAccount().equals(curTrans.getTurqCurrentCard().getTurqAccountingAccount()))
+	    			{
+	    				compVoucher.getAccountPicker().setText(accRow.getTurqAccountingAccount().getAccountCode());
+	    				
+	    			}
+	    		}
+	    		
+	    	}
+	    	  
+	    }
+	    catch(Exception ex){
+	    	ex.printStackTrace();
+	    }
+	    
 	    
 	}
 	
@@ -173,13 +207,31 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	if(compVoucher.verifyFields())
 	{
 		updated=true;
-	    curTrans.setTurqCurrentCard((TurqCurrentCard)compVoucher.getTxtCurrentCard().getData());
-	    curTrans.setTransactionsDate(compVoucher.getDateTransDate().getDate());
-	    curTrans.setTransactionsDefinition(compVoucher.getTxtDefinition().getText().trim().toUpperCase(Locale.getDefault()));
-	    curTrans.setTransactionsTotalCredit(compVoucher.getTxtCredit().getBigDecimalValue());
-	    curTrans.setTransactionsTotalDept(compVoucher.getTxtDept().getBigDecimalValue());
+	   CurBLTransactionUpdate blUpdate = new CurBLTransactionUpdate();
 	    try{
-	       CurBLTransactionUpdate.updateTrans(curTrans);
+	    	Iterator it = curTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
+	    	if(it.hasNext())
+	    	{
+	    		TurqAccountingTransaction accTrans = (TurqAccountingTransaction)it.next();
+	    	new AccBLTransactionSearch().removeTransactionRows(accTrans);
+	    	CurBLTransactionUpdate.delete(accTrans);
+	    	
+	    	}
+	    	CurBLTransactionUpdate.delete(curTrans);
+	    	BigDecimal credit=compVoucher.getTxtCredit().getBigDecimalValue();
+			BigDecimal dept=compVoucher.getTxtDept().getBigDecimalValue();
+		
+			boolean isCredit = false;
+			if(dept.compareTo(new BigDecimal(0))<1){
+			    isCredit=true;
+			}
+			
+			
+			TurqCurrentTransaction curtrans =new CurBLCurrentTransactionAdd().saveOtherCurrentTransaction((TurqCurrentCard)compVoucher.getTxtCurrentCard().getData(),
+				compVoucher.getAccountPicker().getTurqAccountingAccount(),compVoucher.getDateTransDate().getDate(),"",isCredit,(isCredit)? credit : dept, //$NON-NLS-1$
+						new BigDecimal(0),EngBLCommon.CURRENT_TRANS_OTHERS,
+						new Integer(-1),compVoucher.getTxtDefinition().getText());
+			
 	       EngUICommon.showMessageBox(getParent(),Messages.getString("CurUIVoucherUpdate.1")); //$NON-NLS-1$
 	    }
 	    catch(Exception ex){

@@ -112,7 +112,34 @@ public class CurBLCurrentTransactionAdd {
 		}
 	}
 	
-	
+	public TurqCurrentTransaction saveOtherCurrentTransaction(TurqCurrentCard curCard,TurqAccountingAccount account,java.util.Date transDate, String documentNo,
+			boolean isCredit,BigDecimal amount, BigDecimal totalDiscount, int type,Integer seqDocNo,String definition)throws Exception{
+		try{
+		TurqCurrentTransaction curTrans=saveCurrentTransaction(curCard,transDate,documentNo,isCredit,amount,totalDiscount,type,seqDocNo,definition);
+			if(account==null)
+			{
+				return curTrans;
+			}			
+			else{
+				  AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
+				  //muhasebe fisi kalemlerini de ekleyelim.. 
+			         // add accounting bill rows
+				  String transDefinition="Cari Borc/Alacak "+DatePicker.formatter.format(transDate) +" " + documentNo;
+			         Integer transId = blAcc.saveAccTransaction(transDate,documentNo,
+			         		EngBLCommon.ACCOUNTING_TRANS_GENERAL,EngBLCommon.MODULE_CURRENT,curTrans.getTurqEngineSequence().getEngineSequencesId(),transDefinition);
+			         
+			         saveAccountingCashTransactionRows(curCard,isCredit,amount,account,transId,definition);           
+			         
+				return curTrans;
+			}
+			
+			
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+	}
 	/**
 	 * 
 	 * @param curCard
