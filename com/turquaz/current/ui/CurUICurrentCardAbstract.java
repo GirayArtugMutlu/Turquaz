@@ -326,6 +326,18 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			parameters.put("currency", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
 			parameters.put("currentDate",dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
 			List balances = CurBLSearchTransaction.getCurrentBalances(currentCard,currentCard2,datePickerStartDate.getDate());
+			if (currentCard2==null)
+			{
+				parameters.put("showGeneralTotal", new Boolean(false));
+			}
+			else if (currentCard.getCurrentCardsId().intValue()==currentCard2.getCurrentCardsId().intValue())
+			{
+				parameters.put("showGeneralTotal", new Boolean(false));
+			}
+			else
+			{
+				parameters.put("showGeneralTotal", new Boolean(true));
+			}
 			HashMap balanceList=new HashMap();
 			for (int k=0; k < balances.size(); k++)
 			{
