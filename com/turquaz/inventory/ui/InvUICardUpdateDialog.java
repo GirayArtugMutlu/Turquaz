@@ -26,6 +26,8 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.Dialog;
+
+import com.turquaz.inventory.bl.InvBLCardUpdate;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUIPrice;
 import com.turquaz.inventory.ui.comp.InvUIPriceList;
@@ -37,6 +39,8 @@ import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.component.NumericText;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.engine.ui.component.SecureDialog;
 
 /**
@@ -49,13 +53,14 @@ import com.turquaz.engine.ui.component.SecureDialog;
 public class InvUICardUpdateDialog extends Dialog{
 	private InvUICardAdd compInvUICard;
 	private Composite compMain;
-	private ToolItem toolItem2;
-	private ToolItem toolItem1;
+	private ToolItem timDelete;
+	private ToolItem timUpdate;
 	private ToolBar toolBar2;
 	private CoolItem coolItem1;
 	private CoolBar coolBar2;
 	private Shell dialogShell;
     private TurqInventoryCard invCard;
+    private InvBLCardUpdate cardUpdate = new InvBLCardUpdate();
 
 
 	
@@ -78,8 +83,8 @@ public class InvUICardUpdateDialog extends Dialog{
 			coolBar2 = new CoolBar(dialogShell,SWT.NULL);
 			coolItem1 = new CoolItem(coolBar2,SWT.DROP_DOWN);
 			toolBar2 = new ToolBar(coolBar2,SWT.SHADOW_OUT);
-			toolItem1 = new ToolItem(toolBar2,SWT.NULL);
-			toolItem2 = new ToolItem(toolBar2,SWT.NULL);
+			timUpdate = new ToolItem(toolBar2,SWT.NULL);
+			timDelete = new ToolItem(toolBar2,SWT.NULL);
 			compMain = new Composite(dialogShell,SWT.NULL);
 			compInvUICard = new InvUICardAdd(compMain,SWT.NULL);
 	
@@ -104,12 +109,22 @@ public class InvUICardUpdateDialog extends Dialog{
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,42));
 	
 	
-			toolItem1.setText("Update");
+			timUpdate.setText("Update");
+			timUpdate.addSelectionListener( new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					timUpdateWidgetSelected(evt);
+				}
+			});
 	
-			toolItem2.setText("Delete");
-			toolItem2.setToolTipText("Delete");
-			final org.eclipse.swt.graphics.Image toolItem2image = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			toolItem2.setImage(toolItem2image);
+			timDelete.setText("Delete");
+			timDelete.setToolTipText("Delete");
+			final org.eclipse.swt.graphics.Image timDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			timDelete.setImage(timDeleteimage);
+			timDelete.addSelectionListener( new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					timDeleteWidgetSelected(evt);
+				}
+			});
 	
 			GridData compMainLData = new GridData();
 			compMainLData.verticalAlignment = GridData.FILL;
@@ -144,7 +159,7 @@ public class InvUICardUpdateDialog extends Dialog{
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					toolItem2image.dispose();
+					timDeleteimage.dispose();
 				}
 			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 613,348);
@@ -170,8 +185,10 @@ public class InvUICardUpdateDialog extends Dialog{
 	compInvUICard.getTxtInvCardDefinition().setText(invCard.getCardDefinition());
 	compInvUICard.getTxtInvCardDiscount().setText(invCard.getCardDiscount());
 	compInvUICard.getTxtInvCardInAcc().setText(invCard.getTurqAccountingAccountByAccountingAccountsIdBuy().getAccountCode());
+	compInvUICard.getTxtInvCardInAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdBuy().getAccountingAccountsId());
 	compInvUICard.getTxtInvCardName().setText(invCard.getCardName());
-	compInvUICard.getTxtInvCardOutAcc().setText(invCard.getCardName());
+	compInvUICard.getTxtInvCardOutAcc().setText(invCard.getTurqAccountingAccountByAccountingAccountsIdSell().getAccountCode());
+	compInvUICard.getTxtInvCardOutAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSell().getAccountingAccountsId());
 	compInvUICard.getTxtInvCardSpecialCode().setText(invCard.getCardSpecialCode());
 	compInvUICard.getTxtInvCardVat().setText(invCard.getCardVat());
 	compInvUICard.getTxtnumInvCardMax().setText(invCard.getCardMaximumAmount());
@@ -185,6 +202,7 @@ public class InvUICardUpdateDialog extends Dialog{
 	
 	public void fillPrices(){
 	try {
+	
 	Iterator it = invCard.getTurqInventoryPrices().iterator();
 	TurqInventoryPrice invPrice;
 	InvUIPriceList priceList = compInvUICard.getPriceList();
@@ -198,8 +216,8 @@ public class InvUICardUpdateDialog extends Dialog{
      }
      price.amount =invPrice.getPricesAmount().toString();
      price.abrev = invPrice.getTurqCurrency().getCurrenciesAbbreviation();
-     priceList.addPrice(price); 
-     
+     priceList.addPrice(price);
+              
      }
 	
 	}
@@ -305,7 +323,53 @@ public class InvUICardUpdateDialog extends Dialog{
      
      
     } 
+    
+    public void update(){
+    	try {
+    
+    
+    // Update Inventory Card Fields
+    int accountIdSell = ((Integer) compInvUICard.getTxtInvCardOutAcc().getData()).intValue();
+	int accountIdBuy = ((Integer) compInvUICard.getTxtInvCardInAcc().getData()).intValue();
      
-	
-	
+    cardUpdate.updateInvCard(compInvUICard.getTxtInvCardCode().getText()
+						.trim(), compInvUICard.getTxtInvCardSpecialCode().getText().trim(),
+						compInvUICard.getTxtInvCardName().getText().trim(), compInvUICard.getTxtInvCardDefinition().getText().trim(),
+						 compInvUICard.getTxtnumInvCardMin().getIntValue(),compInvUICard.getTxtnumInvCardMax().getIntValue(),
+						compInvUICard.getTxtInvCardVat().getIntValue(), compInvUICard.getTxtInvCardDiscount().getIntValue(), accountIdBuy, accountIdSell, invCard);	
+				
+				
+		
+		
+		
+	}
+		catch(Exception ex){
+		ex.printStackTrace();
+		
+		}
+    
+    
+    
+    
+    
+    
+    
+    
+    }
+    
+    public void delete(){
+    
+    
+    }
+      
+
+	/** Auto-generated event handler method */
+	protected void timDeleteWidgetSelected(SelectionEvent evt){
+		delete();
+	}
+
+	/** Auto-generated event handler method */
+	protected void timUpdateWidgetSelected(SelectionEvent evt){
+		update();
+	}
 }

@@ -8,11 +8,13 @@ package com.turquaz.inventory.dal;
 
 import java.util.List;
 
+import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 
@@ -53,7 +55,17 @@ public class InvDALCardSearch {
 					q.setParameter("invGroup",invGroup);
 				}
 				List list = q.list();
-			
+				for (int i =0;i<list.size();i++){
+				TurqInventoryCard invCard = (TurqInventoryCard)list.get(i);
+				Hibernate.initialize(invCard.getTurqInventoryCardGroups());
+				Hibernate.initialize(invCard.getTurqInventoryCardUnits());
+				Hibernate.initialize(invCard.getTurqInventoryPrices());
+				
+				}
+				
+				
+				
+			    session.close();
 			
 				return list;	
 				
