@@ -130,6 +130,11 @@ public class EngBLCommon {
     public final static int CONSIGNMENT_TRANS_TYPE_SELL=1;
     public final static int CONSIGNMENT_TRANS_TYPE_ALL=2;
     
+    
+    public final static int INVENTORY_TRANS_INITIAL = 0;    
+    public final static int INVENTORY_TRANS_CONSIGNMENT =1;
+    
+    
     public final static int TABLE_ROW_COUNT = 10;
     
     
