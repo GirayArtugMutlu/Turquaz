@@ -7,12 +7,12 @@
 package com.turquaz.current.bl;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+
 import java.util.Calendar;
 import java.util.List;
 
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
-import com.turquaz.current.dal.CurDALCurrentCardUpdate;
+
 import com.turquaz.current.dal.CurDALCurrentTransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;

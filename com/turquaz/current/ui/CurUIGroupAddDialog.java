@@ -28,7 +28,7 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.engine.dal.TurqCurrentGroup;
-import com.turquaz.engine.dal.TurqInventoryGroup;
+
 
 /**
 * This code was generated using CloudGarden's Jigloo

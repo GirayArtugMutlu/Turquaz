@@ -32,7 +32,6 @@ import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.comp.AccUIAccountsTree;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Tree;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 

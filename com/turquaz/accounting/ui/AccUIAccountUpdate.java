@@ -23,7 +23,6 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;

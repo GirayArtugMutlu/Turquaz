@@ -15,10 +15,9 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 
-import com.turquaz.bank.ui.BankUIBankCardUpdate;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.dal.TurqBanksCard;
+
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentContact;
 import com.turquaz.engine.dal.TurqCurrentGroup;

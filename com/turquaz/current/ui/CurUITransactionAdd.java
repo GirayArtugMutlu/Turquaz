@@ -8,7 +8,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.SWT;
 
-import com.turquaz.accounting.bl.AccBLAccountAdd;
+
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
@@ -20,11 +20,10 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.DecimalText;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Group;
-import com.turquaz.accounting.ui.comp.AccountPicker;
+
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.accounting.ui.comp.DynamicAccountPicker;
-import com.turquaz.inventory.ui.InvUICardAdd;
+
 
 /**
 * This code was generated using CloudGarden's Jigloo

@@ -17,15 +17,13 @@ import com.turquaz.engine.dal.TurqCurrentTransactionType;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
 
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
+
 import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Tree;
+
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Group;
+
 import org.eclipse.swt.SWT;
 
 /**

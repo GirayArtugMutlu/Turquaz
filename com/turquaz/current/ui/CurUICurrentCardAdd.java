@@ -19,7 +19,6 @@ import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.ui.component.DecimalText;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.SecureComposite;
-import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 

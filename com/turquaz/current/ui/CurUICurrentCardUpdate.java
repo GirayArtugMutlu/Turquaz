@@ -2,9 +2,7 @@ package com.turquaz.current.ui;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
-import java.util.Set;
 
-import net.sf.hibernate.Hibernate;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
@@ -13,7 +11,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
-import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
@@ -25,30 +22,24 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentCardsGroup;
 import com.turquaz.engine.dal.TurqCurrentCardsPhone;
-import com.turquaz.engine.dal.TurqCurrentGroup;
+
 
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.widgets.CoolBar;
-import org.eclipse.swt.widgets.Button;
+
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
-import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.widgets.Group;
+
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
+
 import com.turquaz.engine.dal.TurqCurrentContact;
 
 /**

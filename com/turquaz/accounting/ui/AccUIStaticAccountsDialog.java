@@ -30,7 +30,6 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
-import com.turquaz.accounting.ui.comp.AccUIAccountsTree;
 import com.turquaz.accounting.ui.comp.AccUIStaticAccountsTree;
 
 import org.eclipse.swt.events.MouseAdapter;
