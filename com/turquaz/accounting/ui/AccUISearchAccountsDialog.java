@@ -23,6 +23,7 @@ package com.turquaz.accounting.ui;
 
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
@@ -49,7 +50,7 @@ import com.turquaz.accounting.bl.AccBLAccountAdd;
 public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 	private Composite composite1;
 	private Shell dialogShell;
-	private AccUIAccountsTree accountTree;
+	private Tree accountTree;
 	private AccBLAccountAdd blAccount;
 	Object returnObj[] = new Object[2];
 			
@@ -120,11 +121,11 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 			dialogShell.setText(getText());
-			accountTree = new AccUIAccountsTree(dialogShell,SWT.NULL);
+			accountTree = new Tree(dialogShell,SWT.NULL);
 	
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(304,208));
 	
-			accountTree.setSize(new org.eclipse.swt.graphics.Point(288,192));
+			accountTree.setSize(new org.eclipse.swt.graphics.Point(298,192));
 			accountTree.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					accountTreeMouseDoubleClick(evt);
@@ -141,20 +142,17 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI(filter);
 			dialogShell.open();
-			
-			
-			
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
 			return returnObj;
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+
 	}
 	/** Add your pre-init code in here 	*/
 	public void preInitGUI(){
@@ -174,8 +172,8 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
     int location_Y = (parentLocation.y + parentSize.y)/2 - (dialogSize.y/2);
     
     dialogShell.setLocation(location_X,location_Y);
-	
-	accountTree.fillTree(-1,filter);
+    AccUIAccountsTree treeFactory = new AccUIAccountsTree();
+	accountTree = treeFactory.fillTree(-1,"",accountTree);
 			
 	
 	}

@@ -268,7 +268,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 		if(compAccountCard.verifyFields()){
 		blAccount.updateAccount(account,compAccountCard.getTxtAccAcountName().getText().trim(),
 								compAccountCard.getTxtAccAccountCode().getText().trim(),
-								((Integer)compAccountCard.getTxtParentAccount().getData()).intValue());
+								compAccountCard.getTxtParentAccount());
 		msg.setMessage("Updated Succesfully!");
 		msg.open();		
 		this.dialogShell.close();

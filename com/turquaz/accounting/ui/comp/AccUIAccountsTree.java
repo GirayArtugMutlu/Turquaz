@@ -22,13 +22,13 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class AccUIAccountsTree extends Tree{
+public class AccUIAccountsTree{
 	private AccBLAccountAdd blAccount = new AccBLAccountAdd();
-	public AccUIAccountsTree(Composite comp, int style){
-		super(comp,style);
+	public AccUIAccountsTree(){
+	
 		
 	}
-	public void fillTree(int parent, String codeCrit){
+	public Tree fillTree(int parent, String codeCrit,Tree tree){
 	try{	
 	TreeItem item;
 	List mainBranches = blAccount.getAccount(parent, codeCrit);
@@ -36,16 +36,17 @@ public class AccUIAccountsTree extends Tree{
 	for(int i =0; i< mainBranches.size();i++){
 	
 	account = (TurqAccountingAccount)mainBranches.get(i);
-	item = new TreeItem(this,SWT.NULL);
+	item = new TreeItem(tree,SWT.NULL);
 	item.setText(account.getAccountCode()+" - "+account.getAccountName() );	
 	item.setData(account);	
 	fillBranch(item,account.getAccountingAccountsId().intValue(),"");
 	
 	}
-	
+	return tree;
 	}
 	catch(Exception ex){
 		ex.printStackTrace();
+		return tree;
 	}
 		
 	

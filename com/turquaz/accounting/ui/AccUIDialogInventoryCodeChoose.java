@@ -32,6 +32,8 @@ import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.comp.AccUIAccountsTree;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Tree;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 
 /**
@@ -43,7 +45,7 @@ import com.turquaz.accounting.bl.AccBLAccountAdd;
 */
 public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
-	private AccUIAccountsTree accountTree;
+	private Tree accountTree;
 	private AccBLAccountAdd blAccount;
 	Object returnObj[] = new Object[2];
 			
@@ -55,47 +57,6 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 	* Opens the Dialog Shell.
 	* Auto-generated code - any changes you make will disappear.
 	*/
-	public void open(){
-		try {
-			preInitGUI();
-	
-			Shell parent = getParent();
-			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-			dialogShell.setText(getText());
-			accountTree = new AccUIAccountsTree(dialogShell,SWT.NULL);
-	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(304,208));
-	
-			accountTree.setSize(new org.eclipse.swt.graphics.Point(288,192));
-			accountTree.addMouseListener( new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
-					accountTreeMouseDoubleClick(evt);
-				}
-			});
-			FillLayout dialogShellLayout = new FillLayout(256);
-			dialogShell.setLayout(dialogShellLayout);
-			dialogShellLayout.type = SWT.HORIZONTAL;
-			dialogShellLayout.marginWidth = 0;
-			dialogShellLayout.marginHeight = 0;
-			dialogShellLayout.spacing = 0;
-			dialogShell.layout();
-			Rectangle bounds = dialogShell.computeTrim(0, 0, 304,208);
-			dialogShell.setSize(bounds.width, bounds.height);
-			postInitGUI();
-			dialogShell.open();
-			Display display = dialogShell.getDisplay();
-			while (!dialogShell.isDisposed()) {
-				if (!display.readAndDispatch())
-					display.sleep();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	/**
-	* Opens the Dialog Shell.
-	* Auto-generated code - any changes you make will disappear.
-	*/	
 	public Object[] showDialog(){
 		try {
 			preInitGUI();
@@ -103,11 +64,11 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 			dialogShell.setText(getText());
-			accountTree = new AccUIAccountsTree(dialogShell,SWT.NULL);
+			accountTree = new Tree(dialogShell,SWT.NULL);
 	
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(304,208));
 	
-			accountTree.setSize(new org.eclipse.swt.graphics.Point(288,192));
+			accountTree.setSize(new org.eclipse.swt.graphics.Point(298,192));
 			accountTree.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					accountTreeMouseDoubleClick(evt);
@@ -124,21 +85,22 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
 			dialogShell.open();
-			
-			
-			
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
 			return returnObj;
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
+	/**
+	* Opens the Dialog Shell.
+	* Auto-generated code - any changes you make will disappear.
+	*/	
+	
 	/** Add your pre-init code in here 	*/
 	public void preInitGUI(){
 	
@@ -157,8 +119,9 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
     int location_Y = (parentLocation.y + parentSize.y)/2 - (dialogSize.y/2);
     
     dialogShell.setLocation(location_X,location_Y);
+	AccUIAccountsTree treeFactory = new AccUIAccountsTree();
+	accountTree= treeFactory.fillTree(-1,"15",accountTree);
 	
-	accountTree.fillTree(-1,"15");		
 	
 	}
 
@@ -187,5 +150,45 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 	 returnObj[0]=accountTree.getSelection()[0].getText();
 			returnObj[1]=accountTree.getSelection()[0].getData();
 		dialogShell.close();
+	}
+	/**
+	* Opens the Dialog Shell.
+	* Auto-generated code - any changes you make will disappear.
+	*/public void open(){
+		try {
+			preInitGUI();
+	
+			Shell parent = getParent();
+			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+			dialogShell.setText(getText());
+			accountTree = new Tree(dialogShell,SWT.NULL);
+	
+			dialogShell.setSize(new org.eclipse.swt.graphics.Point(304,208));
+	
+			accountTree.setSize(new org.eclipse.swt.graphics.Point(298,192));
+			accountTree.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					accountTreeMouseDoubleClick(evt);
+				}
+			});
+			FillLayout dialogShellLayout = new FillLayout(256);
+			dialogShell.setLayout(dialogShellLayout);
+			dialogShellLayout.type = SWT.HORIZONTAL;
+			dialogShellLayout.marginWidth = 0;
+			dialogShellLayout.marginHeight = 0;
+			dialogShellLayout.spacing = 0;
+			dialogShell.layout();
+			Rectangle bounds = dialogShell.computeTrim(0, 0, 304,208);
+			dialogShell.setSize(bounds.width, bounds.height);
+			postInitGUI();
+			dialogShell.open();
+			Display display = dialogShell.getDisplay();
+			while (!dialogShell.isDisposed()) {
+				if (!display.readAndDispatch())
+					display.sleep();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

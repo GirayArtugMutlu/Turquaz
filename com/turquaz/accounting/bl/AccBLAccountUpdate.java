@@ -48,12 +48,10 @@ public class AccBLAccountUpdate {
 	 */
 	public AccBLAccountUpdate() {
 	}
-	public void updateAccount(TurqAccountingAccount account, String accountName, String accountCode, int parent)throws Exception{
+	public void updateAccount(TurqAccountingAccount account, String accountName, String accountCode, Object parent)throws Exception{
 	try{
 		
-		TurqAccountingAccount parentAccount = new TurqAccountingAccount();
-	
-		parentAccount.setAccountingAccountsId(new Integer(parent));
+		TurqAccountingAccount parentAccount =(TurqAccountingAccount)parent; 
 		account.setAccountName(accountName);
 		account.setAccountCode(accountCode);
 	
