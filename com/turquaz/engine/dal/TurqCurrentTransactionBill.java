@@ -30,8 +30,7 @@ public class TurqCurrentTransactionBill implements Serializable {
     private com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdOpen;
 
     /** full constructor */
-    public TurqCurrentTransactionBill(java.lang.Integer currentTransactionBillId, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdClose, com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdOpen) {
-        this.currentTransactionBillId = currentTransactionBillId;
+    public TurqCurrentTransactionBill(java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdClose, com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdOpen) {
         this.creationDate = creationDate;
         this.lastModified = lastModified;
         this.createdBy = createdBy;

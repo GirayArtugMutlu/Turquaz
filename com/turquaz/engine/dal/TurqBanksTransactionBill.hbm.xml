@@ -21,7 +21,9 @@
         type="int"
         column="banks_transaction_bills_id"
     >
-        <generator class="assigned" />
+        <generator class="sequence">
+            <param name="sequence">seq_banks_transaction_bills</param>
+        </generator>
     </id>
 
     <property

@@ -39,8 +39,7 @@ public class TurqCurrentCardsPhone implements Serializable {
     private com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard;
 
     /** full constructor */
-    public TurqCurrentCardsPhone(java.lang.Integer currentCardsPhonesId, int phonesCountryCode, int phonesCityCode, int phonesNumber, java.lang.String phonesType, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
-        this.currentCardsPhonesId = currentCardsPhonesId;
+    public TurqCurrentCardsPhone(int phonesCountryCode, int phonesCityCode, int phonesNumber, java.lang.String phonesType, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
         this.phonesCountryCode = phonesCountryCode;
         this.phonesCityCode = phonesCityCode;
         this.phonesNumber = phonesNumber;
@@ -57,8 +56,7 @@ public class TurqCurrentCardsPhone implements Serializable {
     }
 
     /** minimal constructor */
-    public TurqCurrentCardsPhone(java.lang.Integer currentCardsPhonesId, int phonesCountryCode, int phonesCityCode, int phonesNumber, java.lang.String phonesType, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
-        this.currentCardsPhonesId = currentCardsPhonesId;
+    public TurqCurrentCardsPhone(int phonesCountryCode, int phonesCityCode, int phonesNumber, java.lang.String phonesType, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
         this.phonesCountryCode = phonesCountryCode;
         this.phonesCityCode = phonesCityCode;
         this.phonesNumber = phonesNumber;

@@ -31,8 +31,7 @@ public class TurqAccountingJournal implements Serializable {
     private Set turqAccountingTransactions;
 
     /** full constructor */
-    public TurqAccountingJournal(java.lang.Integer accountingJournalId, java.util.Date journalDate, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, Set turqAccountingTransactions) {
-        this.accountingJournalId = accountingJournalId;
+    public TurqAccountingJournal(java.util.Date journalDate, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, Set turqAccountingTransactions) {
         this.journalDate = journalDate;
         this.creationDate = creationDate;
         this.createdBy = createdBy;

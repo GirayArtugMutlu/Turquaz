@@ -21,7 +21,9 @@
         type="int"
         column="currencies_id"
     >
-        <generator class="assigned" />
+        <generator class="sequence">
+            <param name="sequence">seq_currencies</param>
+        </generator>
     </id>
 
     <property

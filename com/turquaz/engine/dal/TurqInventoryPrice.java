@@ -36,8 +36,7 @@ public class TurqInventoryPrice implements Serializable {
     private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
 
     /** full constructor */
-    public TurqInventoryPrice(java.lang.Integer inventoryPricesId, boolean pricesType, java.math.BigDecimal pricesAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
-        this.inventoryPricesId = inventoryPricesId;
+    public TurqInventoryPrice(boolean pricesType, java.math.BigDecimal pricesAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
         this.pricesType = pricesType;
         this.pricesAmount = pricesAmount;
         this.createdBy = createdBy;

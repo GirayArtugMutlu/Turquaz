@@ -37,8 +37,7 @@ public class TurqGroup implements Serializable {
     private Set turqGroupPermissions;
 
     /** full constructor */
-    public TurqGroup(java.lang.Integer groupsId, java.lang.String groupsName, java.lang.String groupsDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, Set turqUserGroups, Set turqGroupPermissions) {
-        this.groupsId = groupsId;
+    public TurqGroup(java.lang.String groupsName, java.lang.String groupsDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, Set turqUserGroups, Set turqGroupPermissions) {
         this.groupsName = groupsName;
         this.groupsDescription = groupsDescription;
         this.createdBy = createdBy;

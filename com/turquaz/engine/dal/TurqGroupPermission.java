@@ -36,8 +36,7 @@ public class TurqGroupPermission implements Serializable {
     private com.turquaz.engine.dal.TurqModule turqModule;
 
     /** full constructor */
-    public TurqGroupPermission(java.lang.Integer groupPermissionsId, int groupPermissionsLevel, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent, com.turquaz.engine.dal.TurqGroup turqGroup, com.turquaz.engine.dal.TurqModule turqModule) {
-        this.groupPermissionsId = groupPermissionsId;
+    public TurqGroupPermission(int groupPermissionsLevel, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent, com.turquaz.engine.dal.TurqGroup turqGroup, com.turquaz.engine.dal.TurqModule turqModule) {
         this.groupPermissionsLevel = groupPermissionsLevel;
         this.createdBy = createdBy;
         this.creationDate = creationDate;

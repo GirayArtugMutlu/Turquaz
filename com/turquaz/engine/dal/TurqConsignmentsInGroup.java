@@ -30,8 +30,7 @@ public class TurqConsignmentsInGroup implements Serializable {
     private com.turquaz.engine.dal.TurqConsignment turqConsignment;
 
     /** full constructor */
-    public TurqConsignmentsInGroup(java.lang.Integer consignmentsInGroupId, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqConsignmentGroup turqConsignmentGroup, com.turquaz.engine.dal.TurqConsignment turqConsignment) {
-        this.consignmentsInGroupId = consignmentsInGroupId;
+    public TurqConsignmentsInGroup(java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqConsignmentGroup turqConsignmentGroup, com.turquaz.engine.dal.TurqConsignment turqConsignment) {
         this.creationDate = creationDate;
         this.createdBy = createdBy;
         this.lastModified = lastModified;

@@ -36,8 +36,7 @@ public class TurqUserPermission implements Serializable {
     private com.turquaz.engine.dal.TurqModule turqModule;
 
     /** full constructor */
-    public TurqUserPermission(java.lang.Integer userPermissionsId, int userPermissionsLevel, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent, com.turquaz.engine.dal.TurqUser turqUser, com.turquaz.engine.dal.TurqModule turqModule) {
-        this.userPermissionsId = userPermissionsId;
+    public TurqUserPermission(int userPermissionsLevel, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent, com.turquaz.engine.dal.TurqUser turqUser, com.turquaz.engine.dal.TurqModule turqModule) {
         this.userPermissionsLevel = userPermissionsLevel;
         this.createdBy = createdBy;
         this.creationDate = creationDate;

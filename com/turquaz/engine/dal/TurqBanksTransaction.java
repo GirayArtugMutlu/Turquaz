@@ -42,8 +42,7 @@ public class TurqBanksTransaction implements Serializable {
     private com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard;
 
     /** full constructor */
-    public TurqBanksTransaction(java.lang.Integer bankTransactionsId, java.math.BigDecimal transactionAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqBanksTransactionBill turqBanksTransactionBill, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBankCardsSecondaryAccount turqBankCardsSecondaryAccount, com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
-        this.bankTransactionsId = bankTransactionsId;
+    public TurqBanksTransaction(java.math.BigDecimal transactionAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqBanksTransactionBill turqBanksTransactionBill, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBankCardsSecondaryAccount turqBankCardsSecondaryAccount, com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
         this.transactionAmount = transactionAmount;
         this.creationDate = creationDate;
         this.createdBy = createdBy;

@@ -58,8 +58,7 @@ public class TurqChequeCheque implements Serializable {
     private Set turqChequeChequesRolls;
 
     /** full constructor */
-    public TurqChequeCheque(java.lang.Integer chequeChequesId, java.lang.String chequesPortfolioNo, java.lang.String chequesNo, java.util.Date chequesDueDate, java.lang.String chequesDebtor, java.lang.String chequesPaymentPlace, java.util.Date chequesValueDate, java.math.BigDecimal chequesAmount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqChequeChequesRolls) {
-        this.chequeChequesId = chequeChequesId;
+    public TurqChequeCheque(java.lang.String chequesPortfolioNo, java.lang.String chequesNo, java.util.Date chequesDueDate, java.lang.String chequesDebtor, java.lang.String chequesPaymentPlace, java.util.Date chequesValueDate, java.math.BigDecimal chequesAmount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqChequeChequesRolls) {
         this.chequesPortfolioNo = chequesPortfolioNo;
         this.chequesNo = chequesNo;
         this.chequesDueDate = chequesDueDate;
@@ -82,8 +81,7 @@ public class TurqChequeCheque implements Serializable {
     }
 
     /** minimal constructor */
-    public TurqChequeCheque(java.lang.Integer chequeChequesId, java.lang.String chequesPortfolioNo, java.lang.String chequesNo, java.util.Date chequesDueDate, java.lang.String chequesDebtor, java.util.Date chequesValueDate, java.math.BigDecimal chequesAmount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqChequeChequesRolls) {
-        this.chequeChequesId = chequeChequesId;
+    public TurqChequeCheque(java.lang.String chequesPortfolioNo, java.lang.String chequesNo, java.util.Date chequesDueDate, java.lang.String chequesDebtor, java.util.Date chequesValueDate, java.math.BigDecimal chequesAmount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqChequeChequesRolls) {
         this.chequesPortfolioNo = chequesPortfolioNo;
         this.chequesNo = chequesNo;
         this.chequesDueDate = chequesDueDate;

@@ -37,8 +37,7 @@ public class TurqBillGroup implements Serializable {
     private Set turqBillInGroups;
 
     /** full constructor */
-    public TurqBillGroup(java.lang.Integer billGroupsId, java.lang.String groupsName, java.lang.String groupDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqBillInGroups) {
-        this.billGroupsId = billGroupsId;
+    public TurqBillGroup(java.lang.String groupsName, java.lang.String groupDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqBillInGroups) {
         this.groupsName = groupsName;
         this.groupDescription = groupDescription;
         this.createdBy = createdBy;

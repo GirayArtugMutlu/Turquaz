@@ -30,8 +30,7 @@ public class TurqUserGroup implements Serializable {
     private com.turquaz.engine.dal.TurqUser turqUser;
 
     /** full constructor */
-    public TurqUserGroup(java.lang.Integer userGroupId, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqGroup turqGroup, com.turquaz.engine.dal.TurqUser turqUser) {
-        this.userGroupId = userGroupId;
+    public TurqUserGroup(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqGroup turqGroup, com.turquaz.engine.dal.TurqUser turqUser) {
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;

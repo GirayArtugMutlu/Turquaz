@@ -30,8 +30,7 @@ public class TurqOrderInGroup implements Serializable {
     private com.turquaz.engine.dal.TurqOrderGroup turqOrderGroup;
 
     /** full constructor */
-    public TurqOrderInGroup(java.lang.Integer orderInGroupsId, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqOrder turqOrder, com.turquaz.engine.dal.TurqOrderGroup turqOrderGroup) {
-        this.orderInGroupsId = orderInGroupsId;
+    public TurqOrderInGroup(java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqOrder turqOrder, com.turquaz.engine.dal.TurqOrderGroup turqOrderGroup) {
         this.creationDate = creationDate;
         this.createdBy = createdBy;
         this.lastModified = lastModified;

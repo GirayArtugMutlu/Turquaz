@@ -43,8 +43,7 @@ public class TurqChequeRoll implements Serializable {
     private Set turqChequeChequesRolls;
 
     /** full constructor */
-    public TurqChequeRoll(java.lang.Integer chequeRollsId, java.util.Date chequeRollsDate, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqChequeTransactionType turqChequeTransactionType, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqChequeChequesRolls) {
-        this.chequeRollsId = chequeRollsId;
+    public TurqChequeRoll(java.util.Date chequeRollsDate, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqChequeTransactionType turqChequeTransactionType, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqChequeChequesRolls) {
         this.chequeRollsDate = chequeRollsDate;
         this.creationDate = creationDate;
         this.lastModified = lastModified;

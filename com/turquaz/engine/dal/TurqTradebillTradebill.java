@@ -55,8 +55,7 @@ public class TurqTradebillTradebill implements Serializable {
     private Set turqTradebillTradebillsRolls;
 
     /** full constructor */
-    public TurqTradebillTradebill(java.lang.Integer tradebillTradebillsId, java.lang.String tradebillsPortfolioNo, java.util.Date tradebillDueDate, java.lang.String tradebillDebtor, java.lang.String tradebillGuarantor, java.lang.String tradebillPaymentPlace, int tradebillValueDate, java.math.BigDecimal tradebillAmount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqCurrency turqCurrency, Set turqTradebillTradebillsRolls) {
-        this.tradebillTradebillsId = tradebillTradebillsId;
+    public TurqTradebillTradebill(java.lang.String tradebillsPortfolioNo, java.util.Date tradebillDueDate, java.lang.String tradebillDebtor, java.lang.String tradebillGuarantor, java.lang.String tradebillPaymentPlace, int tradebillValueDate, java.math.BigDecimal tradebillAmount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqCurrency turqCurrency, Set turqTradebillTradebillsRolls) {
         this.tradebillsPortfolioNo = tradebillsPortfolioNo;
         this.tradebillDueDate = tradebillDueDate;
         this.tradebillDebtor = tradebillDebtor;

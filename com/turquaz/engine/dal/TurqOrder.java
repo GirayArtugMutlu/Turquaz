@@ -76,8 +76,7 @@ public class TurqOrder implements Serializable {
     private Set turqOrderInGroups;
 
     /** full constructor */
-    public TurqOrder(java.lang.Integer ordersId, int ordersDocumentNo, java.util.Date ordersDate, java.lang.String ordersDefinition, int ordersDiscountRate, int ordersVat, java.math.BigDecimal ordersDiscountAmount, java.math.BigDecimal ordersCharges, java.math.BigDecimal ordersVatAmount, java.math.BigDecimal ordersTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, java.util.Date ordersDueDate, java.util.Date ordersDeliverDate, int ordersDelivered, int ordersType, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqBill turqBill, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqOrderInGroups) {
-        this.ordersId = ordersId;
+    public TurqOrder(int ordersDocumentNo, java.util.Date ordersDate, java.lang.String ordersDefinition, int ordersDiscountRate, int ordersVat, java.math.BigDecimal ordersDiscountAmount, java.math.BigDecimal ordersCharges, java.math.BigDecimal ordersVatAmount, java.math.BigDecimal ordersTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, java.util.Date ordersDueDate, java.util.Date ordersDeliverDate, int ordersDelivered, int ordersType, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqBill turqBill, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqOrderInGroups) {
         this.ordersDocumentNo = ordersDocumentNo;
         this.ordersDate = ordersDate;
         this.ordersDefinition = ordersDefinition;

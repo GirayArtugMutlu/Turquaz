@@ -58,6 +58,12 @@ public class TurqInventoryCard implements Serializable {
     private com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit;
 
     /** persistent field */
+    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell;
+
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy;
+
+    /** persistent field */
     private Set turqInventoryPrices;
 
     /** persistent field */
@@ -67,8 +73,7 @@ public class TurqInventoryCard implements Serializable {
     private Set turqInventoryCardUnits;
 
     /** full constructor */
-    public TurqInventoryCard(java.lang.Integer inventoryCardsId, java.lang.String cardInventoryCode, java.lang.String cardSpecialCode, java.lang.String cardName, java.lang.String cardDefinition, int cardMinimumAmount, int cardMaximumAmount, int cardVat, int cardDiscount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqInventoryGroup turqInventoryGroup, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, Set turqInventoryPrices, Set turqInventoryTransactions, Set turqInventoryCardUnits) {
-        this.inventoryCardsId = inventoryCardsId;
+    public TurqInventoryCard(java.lang.String cardInventoryCode, java.lang.String cardSpecialCode, java.lang.String cardName, java.lang.String cardDefinition, int cardMinimumAmount, int cardMaximumAmount, int cardVat, int cardDiscount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqInventoryGroup turqInventoryGroup, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy, Set turqInventoryPrices, Set turqInventoryTransactions, Set turqInventoryCardUnits) {
         this.cardInventoryCode = cardInventoryCode;
         this.cardSpecialCode = cardSpecialCode;
         this.cardName = cardName;
@@ -84,6 +89,8 @@ public class TurqInventoryCard implements Serializable {
         this.turqCompany = turqCompany;
         this.turqInventoryGroup = turqInventoryGroup;
         this.turqInventoryUnit = turqInventoryUnit;
+        this.turqAccountingAccountByAccountingAccountsIdSell = turqAccountingAccountByAccountingAccountsIdSell;
+        this.turqAccountingAccountByAccountingAccountsIdBuy = turqAccountingAccountByAccountingAccountsIdBuy;
         this.turqInventoryPrices = turqInventoryPrices;
         this.turqInventoryTransactions = turqInventoryTransactions;
         this.turqInventoryCardUnits = turqInventoryCardUnits;
@@ -219,6 +226,22 @@ public class TurqInventoryCard implements Serializable {
 
     public void setTurqInventoryUnit(com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit) {
         this.turqInventoryUnit = turqInventoryUnit;
+    }
+
+    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdSell() {
+        return this.turqAccountingAccountByAccountingAccountsIdSell;
+    }
+
+    public void setTurqAccountingAccountByAccountingAccountsIdSell(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell) {
+        this.turqAccountingAccountByAccountingAccountsIdSell = turqAccountingAccountByAccountingAccountsIdSell;
+    }
+
+    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdBuy() {
+        return this.turqAccountingAccountByAccountingAccountsIdBuy;
+    }
+
+    public void setTurqAccountingAccountByAccountingAccountsIdBuy(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy) {
+        this.turqAccountingAccountByAccountingAccountsIdBuy = turqAccountingAccountByAccountingAccountsIdBuy;
     }
 
     public java.util.Set getTurqInventoryPrices() {

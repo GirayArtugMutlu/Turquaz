@@ -37,8 +37,7 @@ public class TurqBanksTransactionBill implements Serializable {
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqBanksTransactionBill(java.lang.Integer banksTransactionBillsId, int transactionBillNo, java.util.Date transactionBillDate, java.util.Date creationDate, java.lang.String createdBy, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqBanksTransactions) {
-        this.banksTransactionBillsId = banksTransactionBillsId;
+    public TurqBanksTransactionBill(int transactionBillNo, java.util.Date transactionBillDate, java.util.Date creationDate, java.lang.String createdBy, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqBanksTransactions) {
         this.transactionBillNo = transactionBillNo;
         this.transactionBillDate = transactionBillDate;
         this.creationDate = creationDate;

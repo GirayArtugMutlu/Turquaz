@@ -43,8 +43,7 @@ public class TurqUser implements Serializable {
     private Set turqUserGroups;
 
     /** full constructor */
-    public TurqUser(java.lang.Integer usersId, java.lang.String username, java.lang.String usersPassword, java.lang.String usersRealName, java.lang.String usersDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, Set turqUserPermissions, Set turqUserGroups) {
-        this.usersId = usersId;
+    public TurqUser(java.lang.String username, java.lang.String usersPassword, java.lang.String usersRealName, java.lang.String usersDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, Set turqUserPermissions, Set turqUserGroups) {
         this.username = username;
         this.usersPassword = usersPassword;
         this.usersRealName = usersRealName;

@@ -51,8 +51,7 @@ public class TurqAccountingTransaction implements Serializable {
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountIdCreditor;
 
     /** full constructor */
-    public TurqAccountingTransaction(java.lang.Integer accountingTransactionsId, java.math.BigDecimal transactionsDeptAmount, java.math.BigDecimal transactionsCreditAmount, java.util.Date transactionsDate, java.lang.String transactionDocumentNo, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqAccountingJournal turqAccountingJournal, com.turquaz.engine.dal.TurqAccountingTransactionType turqAccountingTransactionType, com.turquaz.engine.dal.TurqModule turqModule, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountIdDeptor, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountIdCreditor) {
-        this.accountingTransactionsId = accountingTransactionsId;
+    public TurqAccountingTransaction(java.math.BigDecimal transactionsDeptAmount, java.math.BigDecimal transactionsCreditAmount, java.util.Date transactionsDate, java.lang.String transactionDocumentNo, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqAccountingJournal turqAccountingJournal, com.turquaz.engine.dal.TurqAccountingTransactionType turqAccountingTransactionType, com.turquaz.engine.dal.TurqModule turqModule, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountIdDeptor, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountIdCreditor) {
         this.transactionsDeptAmount = transactionsDeptAmount;
         this.transactionsCreditAmount = transactionsCreditAmount;
         this.transactionsDate = transactionsDate;

@@ -48,8 +48,7 @@ public class TurqCurrentContact implements Serializable {
     private com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard;
 
     /** full constructor */
-    public TurqCurrentContact(java.lang.Integer currentContactsId, java.lang.String contactsName, java.lang.String contactAddress, java.lang.String contactsPhone1, java.lang.String contactsPhone2, java.lang.String contactsFaxNumber, java.lang.String contactsEmail, java.lang.String contactsWebSite, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
-        this.currentContactsId = currentContactsId;
+    public TurqCurrentContact(java.lang.String contactsName, java.lang.String contactAddress, java.lang.String contactsPhone1, java.lang.String contactsPhone2, java.lang.String contactsFaxNumber, java.lang.String contactsEmail, java.lang.String contactsWebSite, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
         this.contactsName = contactsName;
         this.contactAddress = contactAddress;
         this.contactsPhone1 = contactsPhone1;
@@ -69,8 +68,7 @@ public class TurqCurrentContact implements Serializable {
     }
 
     /** minimal constructor */
-    public TurqCurrentContact(java.lang.Integer currentContactsId, java.lang.String contactsName, java.lang.String contactAddress, java.lang.String contactsPhone1, java.lang.String contactsPhone2, java.lang.String contactsFaxNumber, java.lang.String contactsEmail, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
-        this.currentContactsId = currentContactsId;
+    public TurqCurrentContact(java.lang.String contactsName, java.lang.String contactAddress, java.lang.String contactsPhone1, java.lang.String contactsPhone2, java.lang.String contactsFaxNumber, java.lang.String contactsEmail, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
         this.contactsName = contactsName;
         this.contactAddress = contactAddress;
         this.contactsPhone1 = contactsPhone1;

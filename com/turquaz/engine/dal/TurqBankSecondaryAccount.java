@@ -37,8 +37,7 @@ public class TurqBankSecondaryAccount implements Serializable {
     private Set turqBankCardsSecondaryAccounts;
 
     /** full constructor */
-    public TurqBankSecondaryAccount(java.lang.Integer bankSecondaryAccountsId, java.lang.String accountName, java.lang.String accountCode, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqBankCardsSecondaryAccounts) {
-        this.bankSecondaryAccountsId = bankSecondaryAccountsId;
+    public TurqBankSecondaryAccount(java.lang.String accountName, java.lang.String accountCode, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqBankCardsSecondaryAccounts) {
         this.accountName = accountName;
         this.accountCode = accountCode;
         this.creationDate = creationDate;

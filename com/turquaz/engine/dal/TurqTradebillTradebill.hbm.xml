@@ -21,7 +21,9 @@
         type="int"
         column="tradebill_tradebills_id"
     >
-        <generator class="assigned" />
+        <generator class="sequence">
+            <param name="sequence">seq_tradebill_tradebills</param>
+        </generator>
     </id>
 
     <property

@@ -34,8 +34,7 @@ public class TurqInventoryWarehous implements Serializable {
     private Set turqInventoryTransactions;
 
     /** full constructor */
-    public TurqInventoryWarehous(java.lang.Integer inventoryWarehousesId, java.lang.String warehousesName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryTransactions) {
-        this.inventoryWarehousesId = inventoryWarehousesId;
+    public TurqInventoryWarehous(java.lang.String warehousesName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryTransactions) {
         this.warehousesName = warehousesName;
         this.createdBy = createdBy;
         this.creationDate = creationDate;

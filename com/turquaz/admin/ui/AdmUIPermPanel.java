@@ -17,32 +17,27 @@ package com.turquaz.admin.ui;
 /************************************************************************/
 
 
-import javax.swing.table.TableColumn;
-
-import net.sf.hibernate.Session;
-import net.sf.hibernate.SessionFactory;
-import net.sf.hibernate.cfg.Configuration;
 
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.layout.FormLayout;
+
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
+
 import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.custom.TableTreeEditor;
+
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.widgets.Button;
+
 import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.custom.TableTreeItem;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.dal.TurqModule;
+import com.turquaz.engine.dal.TurqModuleComponent;
 
 /**
  * 
@@ -181,29 +176,12 @@ public class AdmUIPermPanel extends org.eclipse.swt.widgets.Composite {
 	public void preInitGUI(){
 	}
 
-	/** Add your post-init code in here 	*/
+	/** Add your post-init code in here  */
 	public void postInitGUI(){
-		try{
-		Configuration cfg =new Configuration().setProperty("connection_url","jdbc:postgresql://kulup.sabanciuniv.edu/turquaz");
-		SessionFactory factory = cfg.configure().buildSessionFactory();
-		Session session = factory.openSession();
-		net.sf.hibernate.Transaction tx = session.beginTransaction();
+	
 		
-		TurqModule module = new TurqModule();
-	/*	company.setGroupsName("deneme2");
-		company.setCreatedBy("adadf");
-		company.setUpdateDate(new java.sql.Date(2002,12,2));
-		company.setCreationDate(new java.sql.Date(2002,12,2));
-	    company.setGroupsDescription("vwvdwv");
-	    company.setUpdatedBy("wvrvwrv");
-		session.save(company);
-		session.flush();*/
-		tx.commit();
-		tx = session.beginTransaction();
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
-		}
+		
+		
 		
 			
 	}

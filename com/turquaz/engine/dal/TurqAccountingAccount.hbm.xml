@@ -21,7 +21,9 @@
         type="int"
         column="accounting_accounts_id"
     >
-        <generator class="assigned" />
+        <generator class="sequence">
+            <param name="sequence">seq_accounting_accounts</param>
+        </generator>
     </id>
 
     <property
@@ -100,6 +102,34 @@
     >
         <column name="parent_account" />
     </many-to-one>
+    <!-- bi-directional one-to-many association to TurqInventoryCard -->
+    <set
+        name="turqInventoryCardsByAccountingAccountsIdSell"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="accounting_accounts_id_sell" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryCard"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqInventoryCard -->
+    <set
+        name="turqInventoryCardsByAccountingAccountsIdBuy"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="accounting_accounts_id_buy" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryCard"
+        />
+    </set>
     <!-- bi-directional one-to-many association to TurqAccountingTransaction -->
     <set
         name="turqAccountingTransactionsByAccountIdDeptor"

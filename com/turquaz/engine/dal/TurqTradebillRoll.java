@@ -43,8 +43,7 @@ public class TurqTradebillRoll implements Serializable {
     private Set turqTradebillTradebillsRolls;
 
     /** full constructor */
-    public TurqTradebillRoll(java.lang.Integer tradebillRollsId, java.util.Date tradebillRollsDate, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, com.turquaz.engine.dal.TurqTradebillTransactionType turqTradebillTransactionType, Set turqTradebillTradebillsRolls) {
-        this.tradebillRollsId = tradebillRollsId;
+    public TurqTradebillRoll(java.util.Date tradebillRollsDate, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, com.turquaz.engine.dal.TurqTradebillTransactionType turqTradebillTransactionType, Set turqTradebillTradebillsRolls) {
         this.tradebillRollsDate = tradebillRollsDate;
         this.creationDate = creationDate;
         this.lastModified = lastModified;

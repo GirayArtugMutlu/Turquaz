@@ -52,8 +52,7 @@ public class TurqCurrentTransaction implements Serializable {
     private Set turqCurrentTransactionBillsByCurrentTransactionsIdOpen;
 
     /** full constructor */
-    public TurqCurrentTransaction(java.lang.Integer currentTransactionsId, java.util.Date transactionsDate, java.lang.String transactionsDocumentNo, int currentTransactionTypesId, java.math.BigDecimal transactionsTotalAmount, java.math.BigDecimal transactionsTotalDiscount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String updatedBy, java.lang.String createdBy, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqCurrentTransactionBillsByCurrentTransactionsIdClose, Set turqCurrentTransactionBillsByCurrentTransactionsIdOpen) {
-        this.currentTransactionsId = currentTransactionsId;
+    public TurqCurrentTransaction(java.util.Date transactionsDate, java.lang.String transactionsDocumentNo, int currentTransactionTypesId, java.math.BigDecimal transactionsTotalAmount, java.math.BigDecimal transactionsTotalDiscount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String updatedBy, java.lang.String createdBy, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqCurrentTransactionBillsByCurrentTransactionsIdClose, Set turqCurrentTransactionBillsByCurrentTransactionsIdOpen) {
         this.transactionsDate = transactionsDate;
         this.transactionsDocumentNo = transactionsDocumentNo;
         this.currentTransactionTypesId = currentTransactionTypesId;

@@ -37,8 +37,7 @@ public class TurqChequeTransactionType implements Serializable {
     private Set turqChequeRolls;
 
     /** full constructor */
-    public TurqChequeTransactionType(java.lang.Integer chequeTransactionTypesId, java.lang.String transactionTypsName, short transactionTypesParent, java.util.Date creationDate, java.util.Date createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqChequeRolls) {
-        this.chequeTransactionTypesId = chequeTransactionTypesId;
+    public TurqChequeTransactionType(java.lang.String transactionTypsName, short transactionTypesParent, java.util.Date creationDate, java.util.Date createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqChequeRolls) {
         this.transactionTypsName = transactionTypsName;
         this.transactionTypesParent = transactionTypesParent;
         this.creationDate = creationDate;

@@ -33,8 +33,7 @@ public class TurqInventoryCardUnit implements Serializable {
     private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
 
     /** full constructor */
-    public TurqInventoryCardUnit(java.lang.Integer inventoryCardUnitsId, int cardUnitsFactor, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
-        this.inventoryCardUnitsId = inventoryCardUnitsId;
+    public TurqInventoryCardUnit(int cardUnitsFactor, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
         this.cardUnitsFactor = cardUnitsFactor;
         this.createdBy = createdBy;
         this.creationDate = creationDate;

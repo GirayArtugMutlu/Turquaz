@@ -37,8 +37,7 @@ public class TurqBankCardsSecondaryAccount implements Serializable {
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqBankCardsSecondaryAccount(java.lang.Integer bankCardsSecondaryAccountsId, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqBankSecondaryAccount turqBankSecondaryAccount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqBanksTransactions) {
-        this.bankCardsSecondaryAccountsId = bankCardsSecondaryAccountsId;
+    public TurqBankCardsSecondaryAccount(java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqBankSecondaryAccount turqBankSecondaryAccount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqBanksTransactions) {
         this.creationDate = creationDate;
         this.lastModified = lastModified;
         this.createdBy = createdBy;
@@ -54,8 +53,7 @@ public class TurqBankCardsSecondaryAccount implements Serializable {
     }
 
     /** minimal constructor */
-    public TurqBankCardsSecondaryAccount(java.lang.Integer bankCardsSecondaryAccountsId, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqBankSecondaryAccount turqBankSecondaryAccount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqBanksTransactions) {
-        this.bankCardsSecondaryAccountsId = bankCardsSecondaryAccountsId;
+    public TurqBankCardsSecondaryAccount(java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqBankSecondaryAccount turqBankSecondaryAccount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqBanksTransactions) {
         this.lastModified = lastModified;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;

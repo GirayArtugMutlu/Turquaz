@@ -73,8 +73,7 @@ public class TurqBill implements Serializable {
     private Set turqOrders;
 
     /** full constructor */
-    public TurqBill(java.lang.Integer billsId, int billsType, java.lang.String billDocumentNo, java.util.Date billsDate, java.lang.String billsDefinition, short billsPrinted, int billsDiscountRate, java.math.BigDecimal billsDiscountAmount, java.math.BigDecimal billsCharges, int billsVat, java.math.BigDecimal billsVatAmount, java.math.BigDecimal billsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqBillInGroups, Set turqConsignments, Set turqOrders) {
-        this.billsId = billsId;
+    public TurqBill(int billsType, java.lang.String billDocumentNo, java.util.Date billsDate, java.lang.String billsDefinition, short billsPrinted, int billsDiscountRate, java.math.BigDecimal billsDiscountAmount, java.math.BigDecimal billsCharges, int billsVat, java.math.BigDecimal billsVatAmount, java.math.BigDecimal billsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqBillInGroups, Set turqConsignments, Set turqOrders) {
         this.billsType = billsType;
         this.billDocumentNo = billDocumentNo;
         this.billsDate = billsDate;

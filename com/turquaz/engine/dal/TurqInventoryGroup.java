@@ -34,8 +34,7 @@ public class TurqInventoryGroup implements Serializable {
     private Set turqInventoryCards;
 
     /** full constructor */
-    public TurqInventoryGroup(java.lang.Integer inventoryGroupsId, java.lang.String groupsName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryCards) {
-        this.inventoryGroupsId = inventoryGroupsId;
+    public TurqInventoryGroup(java.lang.String groupsName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryCards) {
         this.groupsName = groupsName;
         this.createdBy = createdBy;
         this.creationDate = creationDate;

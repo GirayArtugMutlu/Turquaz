@@ -40,6 +40,12 @@ public class TurqAccountingAccount implements Serializable {
     private Set turqAccountingAccounts;
 
     /** persistent field */
+    private Set turqInventoryCardsByAccountingAccountsIdSell;
+
+    /** persistent field */
+    private Set turqInventoryCardsByAccountingAccountsIdBuy;
+
+    /** persistent field */
     private Set turqAccountingTransactionsByAccountIdDeptor;
 
     /** persistent field */
@@ -64,8 +70,7 @@ public class TurqAccountingAccount implements Serializable {
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqAccountingAccount(java.lang.Integer accountingAccountsId, java.lang.String accountName, java.lang.String accountCode, java.util.Date creationDate, java.lang.String createdBy, java.util.Date updateDate, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqAccountingAccounts, Set turqAccountingTransactionsByAccountIdDeptor, Set turqAccountingTransactionsByAccountIdCreditor, Set turqChequeTransactionTypes, Set turqBankCardsSecondaryAccounts, Set turqCurrentCardsByAccountingCodeIdCustomer, Set turqCurrentCardsByAccountingCodeIdSupplier, Set turqTradebillTransactionTypes, Set turqBanksTransactions) {
-        this.accountingAccountsId = accountingAccountsId;
+    public TurqAccountingAccount(java.lang.String accountName, java.lang.String accountCode, java.util.Date creationDate, java.lang.String createdBy, java.util.Date updateDate, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqAccountingAccounts, Set turqInventoryCardsByAccountingAccountsIdSell, Set turqInventoryCardsByAccountingAccountsIdBuy, Set turqAccountingTransactionsByAccountIdDeptor, Set turqAccountingTransactionsByAccountIdCreditor, Set turqChequeTransactionTypes, Set turqBankCardsSecondaryAccounts, Set turqCurrentCardsByAccountingCodeIdCustomer, Set turqCurrentCardsByAccountingCodeIdSupplier, Set turqTradebillTransactionTypes, Set turqBanksTransactions) {
         this.accountName = accountName;
         this.accountCode = accountCode;
         this.creationDate = creationDate;
@@ -75,6 +80,8 @@ public class TurqAccountingAccount implements Serializable {
         this.turqCompany = turqCompany;
         this.turqAccountingAccount = turqAccountingAccount;
         this.turqAccountingAccounts = turqAccountingAccounts;
+        this.turqInventoryCardsByAccountingAccountsIdSell = turqInventoryCardsByAccountingAccountsIdSell;
+        this.turqInventoryCardsByAccountingAccountsIdBuy = turqInventoryCardsByAccountingAccountsIdBuy;
         this.turqAccountingTransactionsByAccountIdDeptor = turqAccountingTransactionsByAccountIdDeptor;
         this.turqAccountingTransactionsByAccountIdCreditor = turqAccountingTransactionsByAccountIdCreditor;
         this.turqChequeTransactionTypes = turqChequeTransactionTypes;
@@ -167,6 +174,22 @@ public class TurqAccountingAccount implements Serializable {
 
     public void setTurqAccountingAccounts(java.util.Set turqAccountingAccounts) {
         this.turqAccountingAccounts = turqAccountingAccounts;
+    }
+
+    public java.util.Set getTurqInventoryCardsByAccountingAccountsIdSell() {
+        return this.turqInventoryCardsByAccountingAccountsIdSell;
+    }
+
+    public void setTurqInventoryCardsByAccountingAccountsIdSell(java.util.Set turqInventoryCardsByAccountingAccountsIdSell) {
+        this.turqInventoryCardsByAccountingAccountsIdSell = turqInventoryCardsByAccountingAccountsIdSell;
+    }
+
+    public java.util.Set getTurqInventoryCardsByAccountingAccountsIdBuy() {
+        return this.turqInventoryCardsByAccountingAccountsIdBuy;
+    }
+
+    public void setTurqInventoryCardsByAccountingAccountsIdBuy(java.util.Set turqInventoryCardsByAccountingAccountsIdBuy) {
+        this.turqInventoryCardsByAccountingAccountsIdBuy = turqInventoryCardsByAccountingAccountsIdBuy;
     }
 
     public java.util.Set getTurqAccountingTransactionsByAccountIdDeptor() {

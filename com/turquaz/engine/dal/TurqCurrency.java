@@ -49,8 +49,7 @@ public class TurqCurrency implements Serializable {
     private Set turqCurrentTransactions;
 
     /** full constructor */
-    public TurqCurrency(java.lang.Integer currenciesId, java.lang.String currenciesName, java.lang.String currenciesAbbreviation, java.lang.String currenciesCountry, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryPrices, Set turqTradebillTradebills, Set turqChequeCheques, Set turqCurrentTransactions) {
-        this.currenciesId = currenciesId;
+    public TurqCurrency(java.lang.String currenciesName, java.lang.String currenciesAbbreviation, java.lang.String currenciesCountry, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryPrices, Set turqTradebillTradebills, Set turqChequeCheques, Set turqCurrentTransactions) {
         this.currenciesName = currenciesName;
         this.currenciesAbbreviation = currenciesAbbreviation;
         this.currenciesCountry = currenciesCountry;

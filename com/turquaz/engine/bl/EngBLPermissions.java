@@ -19,7 +19,14 @@ package com.turquaz.engine.bl;
 import java.sql.ResultSet;
 import java.util.*;
 
+import net.sf.hibernate.Session;
+import net.sf.hibernate.Transaction;
+
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.EngDALUserPerms;
+import com.turquaz.engine.dal.TurqGroupPermission;
+import com.turquaz.engine.dal.TurqModuleComponent;
+import com.turquaz.engine.dal.TurqUserPermission;
 
 /**
  * @author onsel
@@ -42,14 +49,15 @@ public class EngBLPermissions {
 	static EngBLPermissions _instance;
 
 	public EngBLPermissions(String username) {
-
+		
+		this.username = username;
 		fillCompMap();
 	}
 
 	public static synchronized int getPermission(String classname) {
 		if (_instance == null) {
 
-			_instance = new EngBLPermissions("admin");
+			_instance = new EngBLPermissions(System.getProperty("user"));
 
 		}
 
@@ -60,7 +68,7 @@ public class EngBLPermissions {
 	public static synchronized void init() {
 		if (_instance == null) {
 
-			_instance = new EngBLPermissions("admin");
+			_instance = new EngBLPermissions(System.getProperty("user"));
 
 		}
 
@@ -73,37 +81,47 @@ public class EngBLPermissions {
 	private void fillCompMap() {
 		try {
 			compMap = new HashMap();
+					
+			
+			
+			
 			dbaccess = new EngDALUserPerms();
 			dbaccess2 = new EngDALUserPerms();
-			ResultSet rs = dbaccess.getModuleComponents();
-			while (rs.next()) {
-				compMap.put(rs.getString(1), 0 + "");
-			}
-			rs.close();
-
-			//	System.out.println("Finished filling "+compMap.size());
-			rs = dbaccess.getGroupPermissions("admin");
-			calculateModulePerms(rs);
-			rs = dbaccess.getUserPermissions("admin");
-			calculateModulePerms(rs);
+			List list = dbaccess.getModuleComponents();
+			TurqModuleComponent comp = null;
+			for(int i= 0;i<list.size();i++){
+		     comp = (TurqModuleComponent)list.get(i);
+		     compMap.put(comp.getComponentsName(),0+"");
+		    }
+		
+		//	System.out.println("Finished filling "+compMap.size());
+		List ls = dbaccess.getGroupPermissions(username);
+		calculateGroupPerms(ls);
+		
+		
+		ls = dbaccess.getUserPermissions(username);
+		calculateUserPerms(ls);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 
-	private void calculateModulePerms(ResultSet rs) {
+	private void calculateGroupPerms(List list) {
 		try {
 
 			int module_id = -1;
 			int module_component_id = -1;
 			int perm_level = 0;
 			String component_name = "";
-			while (rs.next()) {
+			for(int i= 0;i<list.size();i++){
+				
+				TurqGroupPermission perms = (TurqGroupPermission)list.get(i);
 
-				module_id = rs.getInt(1);
-				module_component_id = rs.getInt(2);
-				perm_level = rs.getInt(3);
+				module_id = perms.getTurqModule().getModulesId().intValue();
+				module_component_id = perms.getTurqModuleComponent().getModuleComponentsId().intValue();
+				
+				perm_level = perms.getGroupPermissionsLevel();
 
 				if (perm_level > -1 && perm_level < 4) {
 
@@ -117,29 +135,29 @@ public class EngBLPermissions {
 
 					} else {
 						if (module_component_id == -1) {
-							ArrayList list = dbaccess2
-									.getModuleComponents(module_id);
-							for (int i = 0; i < list.size(); i++) {
-								compMap.put(list.get(i).toString(), perm_level
+							List lst = dbaccess2.getModuleComponents(module_id);
+							TurqModuleComponent modComp =null;
+							for (int j = 0; j < list.size(); i++) {
+								
+								modComp =(TurqModuleComponent)list.get(j);
+								compMap.put(modComp.getComponentsName(), perm_level
 										+ "");
 
 							}
 
 						} else {
-							component_name = dbaccess2.getModuleCompName(
-									module_id, module_component_id);
+							component_name = dbaccess2.getModuleCompName(module_id, module_component_id);
 							compMap.put(component_name, perm_level + "");
 						}
 
 					}
 
 				} else {
-					System.err
-							.println("Permission hatasý: level 1-3 arasý olmalý!");
+					System.err.println("Permission hatasi: level 1-3 arasý olmalý!");
 				}
 
 			}
-			rs.close();
+		
 			
 
 		} catch (Exception ex) {
@@ -147,7 +165,64 @@ public class EngBLPermissions {
 		}
 
 	}
+	private void calculateUserPerms(List list) {
+		try {
 
+			int module_id = -1;
+			int module_component_id = -1;
+			int perm_level = 0;
+			String component_name = "";
+			for(int i= 0;i<list.size();i++){
+				
+				TurqUserPermission perms = (TurqUserPermission)list.get(i);
+
+				module_id = perms.getTurqModule().getModulesId().intValue();
+				module_component_id = perms.getTurqModuleComponent().getModuleComponentsId().intValue();
+				
+				perm_level = perms.getUserPermissionsLevel();
+
+				if (perm_level > -1 && perm_level < 4) {
+
+					if (module_id == -1) {
+						// Iterate over the values in the map
+						Iterator it = compMap.keySet().iterator();
+						while (it.hasNext()) {
+							// Get value
+							compMap.put(it.next(), perm_level + "");
+						}
+
+					} else {
+						if (module_component_id == -1) {
+							List lst = dbaccess2.getModuleComponents(module_id);
+							TurqModuleComponent modComp =null;
+							for (int j = 0; j < list.size(); i++) {
+								
+								modComp =(TurqModuleComponent)list.get(j);
+								compMap.put(modComp.getComponentsName(), perm_level
+										+ "");
+
+							}
+
+						} else {
+							component_name = dbaccess2.getModuleCompName(module_id, module_component_id);
+							compMap.put(component_name, perm_level + "");
+						}
+
+					}
+
+				} else {
+					System.err.println("Permission hatasi: level 1-3 arasý olmalý!");
+				}
+
+			}
+		
+			
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
 	public int getPerm(String classname) {
 
 		String level = compMap.get(classname).toString();

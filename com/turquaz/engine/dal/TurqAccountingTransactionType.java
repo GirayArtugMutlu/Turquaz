@@ -31,8 +31,7 @@ public class TurqAccountingTransactionType implements Serializable {
     private Set turqAccountingTransactions;
 
     /** full constructor */
-    public TurqAccountingTransactionType(java.lang.Integer accountingTransactionTypesId, java.lang.String typesName, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, Set turqAccountingTransactions) {
-        this.accountingTransactionTypesId = accountingTransactionTypesId;
+    public TurqAccountingTransactionType(java.lang.String typesName, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, Set turqAccountingTransactions) {
         this.typesName = typesName;
         this.creationDate = creationDate;
         this.createdBy = createdBy;

@@ -37,8 +37,7 @@ public class TurqCurrentGroup implements Serializable {
     private Set turqCurrentCardsGroups;
 
     /** full constructor */
-    public TurqCurrentGroup(java.lang.Integer currentGroupsId, java.lang.String groupsName, java.lang.String groupsDescription, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqCurrentCardsGroups) {
-        this.currentGroupsId = currentGroupsId;
+    public TurqCurrentGroup(java.lang.String groupsName, java.lang.String groupsDescription, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqCurrentCardsGroups) {
         this.groupsName = groupsName;
         this.groupsDescription = groupsDescription;
         this.creationDate = creationDate;

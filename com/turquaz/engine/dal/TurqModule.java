@@ -43,8 +43,7 @@ public class TurqModule implements Serializable {
     private Set turqGroupPermissions;
 
     /** full constructor */
-    public TurqModule(java.lang.Integer modulesId, java.lang.String modulesName, java.lang.String moduleDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, Set turqUserPermissions, Set turqAccountingTransactions, Set turqModuleComponents, Set turqGroupPermissions) {
-        this.modulesId = modulesId;
+    public TurqModule(java.lang.String modulesName, java.lang.String moduleDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, Set turqUserPermissions, Set turqAccountingTransactions, Set turqModuleComponents, Set turqGroupPermissions) {
         this.modulesName = modulesName;
         this.moduleDescription = moduleDescription;
         this.createdBy = createdBy;

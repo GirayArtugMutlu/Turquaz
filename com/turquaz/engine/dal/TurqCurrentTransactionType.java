@@ -30,8 +30,7 @@ public class TurqCurrentTransactionType implements Serializable {
     private com.turquaz.engine.dal.TurqCompany turqCompany;
 
     /** full constructor */
-    public TurqCurrentTransactionType(java.lang.Integer currentTransactionTypesId, java.lang.String transactionTypeName, java.lang.String createdBy, java.lang.String updatedBy, java.util.Date creationDate, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.currentTransactionTypesId = currentTransactionTypesId;
+    public TurqCurrentTransactionType(java.lang.String transactionTypeName, java.lang.String createdBy, java.lang.String updatedBy, java.util.Date creationDate, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany) {
         this.transactionTypeName = transactionTypeName;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;

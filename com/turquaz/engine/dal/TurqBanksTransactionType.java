@@ -31,8 +31,7 @@ public class TurqBanksTransactionType implements Serializable {
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqBanksTransactionType(java.lang.Integer bankTransactionTypesId, java.lang.String transactionTypeName, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, Set turqBanksTransactions) {
-        this.bankTransactionTypesId = bankTransactionTypesId;
+    public TurqBanksTransactionType(java.lang.String transactionTypeName, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, Set turqBanksTransactions) {
         this.transactionTypeName = transactionTypeName;
         this.creationDate = creationDate;
         this.createdBy = createdBy;

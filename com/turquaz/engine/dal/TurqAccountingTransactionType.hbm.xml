@@ -21,7 +21,9 @@
         type="int"
         column="accounting _transaction_types_id"
     >
-        <generator class="assigned" />
+        <generator class="sequence">
+            <param name="sequence">seq_accounting_transaction_types</param>
+        </generator>
     </id>
 
     <property

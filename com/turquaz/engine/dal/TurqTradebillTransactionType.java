@@ -37,8 +37,7 @@ public class TurqTradebillTransactionType implements Serializable {
     private Set turqTradebillRolls;
 
     /** full constructor */
-    public TurqTradebillTransactionType(java.lang.Integer tradebillTransactionTypesId, java.lang.String transactionTypesName, short transactionTypesParent, java.util.Date creationDate, java.util.Date createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqTradebillRolls) {
-        this.tradebillTransactionTypesId = tradebillTransactionTypesId;
+    public TurqTradebillTransactionType(java.lang.String transactionTypesName, short transactionTypesParent, java.util.Date creationDate, java.util.Date createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqTradebillRolls) {
         this.transactionTypesName = transactionTypesName;
         this.transactionTypesParent = transactionTypesParent;
         this.creationDate = creationDate;

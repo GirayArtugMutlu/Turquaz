@@ -91,8 +91,7 @@ public class TurqCompany implements Serializable {
     private Set turqConsignmentGroups;
 
     /** full constructor */
-    public TurqCompany(java.lang.Integer companiesId, java.lang.String companyName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, Set turqAccountingAccounts, Set turqTradebillTradebills, Set turqChequeRolls, Set turqBanksCards, Set turqChequeCheques, Set turqInventoryGroups, Set turqOrderGroups, Set turqCurrencies, Set turqCurrentGroups, Set turqInventoryUnits, Set turqBills, Set turqInventoryCards, Set turqCurrentTransactionTypes, Set turqConsignments, Set turqCurrentCards, Set turqOrders, Set turqInventoryWarehouses, Set turqTradebillRolls, Set turqBankSecondaryAccounts, Set turqBillGroups, Set turqConsignmentGroups) {
-        this.companiesId = companiesId;
+    public TurqCompany(java.lang.String companyName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, Set turqAccountingAccounts, Set turqTradebillTradebills, Set turqChequeRolls, Set turqBanksCards, Set turqChequeCheques, Set turqInventoryGroups, Set turqOrderGroups, Set turqCurrencies, Set turqCurrentGroups, Set turqInventoryUnits, Set turqBills, Set turqInventoryCards, Set turqCurrentTransactionTypes, Set turqConsignments, Set turqCurrentCards, Set turqOrders, Set turqInventoryWarehouses, Set turqTradebillRolls, Set turqBankSecondaryAccounts, Set turqBillGroups, Set turqConsignmentGroups) {
         this.companyName = companyName;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
