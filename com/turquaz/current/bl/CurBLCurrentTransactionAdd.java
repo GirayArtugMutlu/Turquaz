@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -36,8 +37,6 @@ import com.turquaz.current.dal.CurDALCurrentTransactionAdd;
 
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqAccountingTransaction;
-import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -97,15 +96,12 @@ public class CurBLCurrentTransactionAdd {
 			
 		
 			if(isCredit)
-			{
-			
+			{			
 				curTrans.setTransactionsTotalCredit(amount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
 				curTrans.setTotalCreditInForeignCurrency(amount);
 			
 				curTrans.setTransactionsTotalDept(new BigDecimal(0));			
-				curTrans.setTotalDeptInForeignCurrency(new BigDecimal(0));
-			
-			
+				curTrans.setTotalDeptInForeignCurrency(new BigDecimal(0));			
 			}		
 			else
 			{
@@ -113,8 +109,7 @@ public class CurBLCurrentTransactionAdd {
 			    curTrans.setTotalCreditInForeignCurrency(new BigDecimal(0));
 			    
 				curTrans.setTotalDeptInForeignCurrency(amount);				
-				curTrans.setTransactionsTotalDept(amount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));	
-				
+				curTrans.setTransactionsTotalDept(amount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));		
 			}
 			
 
@@ -122,8 +117,7 @@ public class CurBLCurrentTransactionAdd {
 			
 	        TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
 	        
-	        transType.setId(new Integer(type));
-	     
+	        transType.setId(new Integer(type));	     
 	        
 	        curTrans.setTurqCurrentTransactionType(transType);	
 	        
@@ -150,8 +144,8 @@ public class CurBLCurrentTransactionAdd {
 			BigDecimal amount, BigDecimal totalDiscount,int type,
 			Integer seqDocNo,String definition, 
 			TurqCurrencyExchangeRate exchangeRate)throws Exception{
-		try{
-	
+		try
+		{	
 			TurqCurrentTransaction curTrans=saveCurrentTransaction(curCard,transDate,documentNo,isCredit,amount,totalDiscount,type,seqDocNo,definition,exchangeRate);
 			if(account==null)
 			{
@@ -163,15 +157,19 @@ public class CurBLCurrentTransactionAdd {
 				  //muhasebe fisi kalemlerini de ekleyelim.. 
 			         // add accounting bill rows
 				 String transDefinition="Cari Borc/Alacak "+DatePicker.formatter.format(transDate) +" " + documentNo;
-			     Integer transId = blAcc.saveAccTransaction(transDate,documentNo,
-			         		EngBLCommon.ACCOUNTING_TRANS_GENERAL,EngBLCommon.MODULE_CURRENT,curTrans.getTurqEngineSequence().getId(),transDefinition, exchangeRate);
-
-			         saveAccountingCashTransactionRows(curCard,isCredit,amount,account,transId,definition,exchangeRate);           
+				 Map creditAccounts=new HashMap();
+				 Map deptAccounts=new HashMap();
+				 prepareAccountingMaps(curCard,isCredit,amount,account,deptAccounts,creditAccounts);
+			     blAcc.saveAccTransaction(transDate,
+			     			documentNo,
+			         		EngBLCommon.ACCOUNTING_TRANS_GENERAL,
+							EngBLCommon.MODULE_CURRENT,
+							curTrans.getTurqEngineSequence().getId(),
+							transDefinition,
+							exchangeRate,creditAccounts,deptAccounts,true);          
 			         
 				return curTrans;
-			}
-			
-			
+			}			
 		}
 		catch(Exception ex)
 		{
@@ -191,123 +189,83 @@ public class CurBLCurrentTransactionAdd {
 	 * @throws Exception
 	 */
 	//DONE
-	public void saveCurrentCashTransaction(TurqCurrentCard curCard,java.util.Date transDate, String documentNo,
-									boolean isCredit,BigDecimal amount, BigDecimal totalDiscount,
-									int type, TurqAccountingAccount account,
-									TurqCurrencyExchangeRate exchangeRate) throws Exception{
-		try{
-			
-		//Accounting Integration 
-        //Eger bir Nakit hareketi ise Muhasebe kaydini yap
-		//Daha sonra cari hareketi ekle
-		//Nakit hareketi degilse hic birsey yapma.
-
-        if(type == 4){
+	public void saveCurrentCashTransaction(TurqCurrentCard curCard,Date transDate, String documentNo,
+		boolean isCredit,BigDecimal amount, BigDecimal totalDiscount,
+		int type, TurqAccountingAccount account,
+		TurqCurrencyExchangeRate exchangeRate) throws Exception
+	{
+		try
+		{			
+			//Accounting Integration 
+			//Eger bir Nakit hareketi ise Muhasebe kaydini yap
+			//Daha sonra cari hareketi ekle
+			//Nakit hareketi degilse hic birsey yapma.
+			if(type == 4)
+			{
           
-          int accTransactionType = 1; //0-Tahsil, 1-Tediye, 2-Mahsup
-          // 0 = collect
-          // 1 = payment
-          // 2 = general transaction
-    	  //Cari Karta para verildiginde
-		  //Kasaya alacak hareketi (Tediye fisi) 
-	
-    		if(isCredit){
-    			
-    			accTransactionType = 1;	    			
-    			
-    	   			
-    		}
-    	   //Cari Karttan para tahsil edildiginde
-  		   //Kasaya borc hareketi(Tahsil fisi) 
-    		else 
-    		{
-    			accTransactionType = 0;
-    		}
+				int accTransactionType = 1; //0-Tahsil, 1-Tediye, 2-Mahsup
+         	 // 0 = collect
+         	 // 1 = payment
+         	 // 2 = general transaction
+			//Cari Karta para verildiginde
+			//Kasaya alacak hareketi (Tediye fisi) 	
+				if(isCredit)
+				{    			
+					accTransactionType = 1;	     	   			
+				}
+				//Cari Karttan para tahsil edildiginde
+				//Kasaya borc hareketi(Tahsil fisi) 
+    			else 
+    			{
+    				accTransactionType = 0;
+    			}       
+				AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
         
+				//4-Cari modulu id si.. 
+				// current module id
+				TurqEngineSequence seq= new TurqEngineSequence();
+				TurqModule module = new TurqModule();
+				module.setId(new Integer(4));
+				seq.setTurqModule(module);
+         
+				dalCurrentTrans.saveObject(seq);
+				String transDefinition="Cari "+DatePicker.formatter.format(transDate) +" " + documentNo;
+				Map creditAccounts=new HashMap();
+				Map deptAccounts=new HashMap();
+		 		prepareAccountingMaps(curCard,isCredit,amount,account,deptAccounts,creditAccounts);
+         		blAcc.saveAccTransaction(transDate,documentNo,
+         		accTransactionType,4,seq.getId(),transDefinition,
+				exchangeRate,creditAccounts,deptAccounts,true);
         
-         AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
-        
-         //4-Cari modulu id si.. 
-         // current module id
-         TurqEngineSequence seq= new TurqEngineSequence();
-         TurqModule module = new TurqModule();
-         module.setId(new Integer(4));
-         seq.setTurqModule(module);
-         
-         dalCurrentTrans.saveObject(seq);
-         String transDefinition="Cari "+DatePicker.formatter.format(transDate) +" " + documentNo;
-         Integer transId = blAcc.saveAccTransaction(transDate,documentNo,
-         		accTransactionType,4,seq.getId(),transDefinition,exchangeRate);
-         
-         //muhasebe fisi kalemlerini de ekleyelim.. 
-         // add accounting bill rows
-         saveAccountingCashTransactionRows(curCard,isCredit,amount,
-         		account,transId,transDefinition,exchangeRate);           
-         
-         
-        //Simdi Cari Hareketi Kaydedebiliriz. 
-         // insert current transactions
-       	TurqCurrentTransaction curTrans = new TurqCurrentTransaction();
+         		//Simdi Cari Hareketi Kaydedebiliriz. 
+        	 // insert current transactions
+         		TurqCurrentTransaction curTrans = new TurqCurrentTransaction();
  		
- 		curTrans.setTransactionsDate(transDate);
- 		curTrans.setTransactionsDocumentNo(documentNo);
- 		curTrans.setTurqCurrentCard(curCard);
- 	    curTrans.setTurqEngineSequence(seq);
+         		curTrans.setTransactionsDate(transDate);
+         		curTrans.setTransactionsDocumentNo(documentNo);
+         		curTrans.setTurqCurrentCard(curCard);
+         		curTrans.setTurqEngineSequence(seq);
 
- 	    curTrans.setTurqCurrencyExchangeRate(exchangeRate);
+         		curTrans.setTurqCurrencyExchangeRate(exchangeRate);
 		
- 		TurqAccountingTransaction accTrans = new TurqAccountingTransaction();
- 		accTrans.setId(transId);
+         		TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
+         		transType.setId(new Integer(type));
  		
- 		 		
-		
- 		if(isCredit){		
- 			
-			curTrans.setTotalCreditInForeignCurrency(amount);
-			curTrans.setTransactionsTotalCredit(amount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
-			
-			curTrans.setTransactionsTotalDept(new BigDecimal(0));			
-            curTrans.setTotalDeptInForeignCurrency(new BigDecimal(0));
- 			
- 		}
- 		else 
- 		{
- 			curTrans.setTransactionsTotalCredit(new BigDecimal(0));
-		    curTrans.setTotalCreditInForeignCurrency(new BigDecimal(0));
+         		curTrans.setTransactionsTotalDiscount(totalDiscount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
+         		curTrans.setTotalDiscountInForeignCurrency(totalDiscount);
 
-			curTrans.setTotalDeptInForeignCurrency(amount);				
-			curTrans.setTransactionsTotalDept(amount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));	
+         		curTrans.setTurqCurrencyExchangeRate(exchangeRate);
+         		curTrans.setTurqCurrentTransactionType(transType);		
  		
- 		}
+         		curTrans.setCreatedBy(System.getProperty("user"));
+         		curTrans.setUpdatedBy(System.getProperty("user"));
+ 			
+         		Calendar cal=Calendar.getInstance();
+         		curTrans.setLastModified(cal.getTime());
+         		curTrans.setCreationDate(cal.getTime());		
  		
- 		
-         
-        TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
-        transType.setId(new Integer(type));
- 		
- 		curTrans.setTransactionsTotalDiscount(totalDiscount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
-		curTrans.setTotalDiscountInForeignCurrency(totalDiscount);
-
- 		curTrans.setTurqCurrencyExchangeRate(exchangeRate);
- 		curTrans.setTurqCurrentTransactionType(transType);		
- 		
- 		curTrans.setCreatedBy(System.getProperty("user"));
- 		curTrans.setUpdatedBy(System.getProperty("user"));
- 		
- 		Calendar cal=Calendar.getInstance();
- 		curTrans.setLastModified(cal.getTime());
- 		curTrans.setCreationDate(cal.getTime());
-         
- 		
- 		
- 		
- 		
- 		dalCurrentTrans.saveObject(curTrans);
-                 
-        }
-             
-        
-        
+         		dalCurrentTrans.saveObject(curTrans);                 
+			}            
 		}
 		catch(Exception ex){
 			throw ex;
@@ -325,7 +283,7 @@ public class CurBLCurrentTransactionAdd {
 	 */
 	//TODO DONE
 	public void prepareAccountingMaps(TurqCurrentCard curCard, 
-			boolean isCredit,boolean isSumRows,BigDecimal amount,TurqAccountingAccount account,
+			boolean isCredit,BigDecimal amount,TurqAccountingAccount account,
 			Map deptAccounts, Map creditAccounts) throws Exception
 	{
 		try
