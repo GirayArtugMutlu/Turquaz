@@ -372,12 +372,14 @@ public class AccUITransactionCollect extends Composite implements
 
 				} else if (e.keyCode == SWT.DEL) {
 					if (cursor.getRow() != null) {
+					    if(okToDelete()){
 						ITableRow row = (ITableRow) cursor.getRow().getData();
 						rowList.removeTask(row);
 						int itemCount = tableTransactionRows.getItemCount();
 						if (itemCount > 0) {
 							cursor.setSelection(itemCount - 1, 0);
 						}
+					    }
 
 					}
 
@@ -484,7 +486,20 @@ public class AccUITransactionCollect extends Composite implements
 		}
 
 	}
-
+	public boolean okToDelete(){
+	    
+	    MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_WARNING|SWT.OK|SWT.CANCEL);
+	       msg.setMessage(Messages.getString("AccUITransactionAdd.8"));   //$NON-NLS-1$
+	       if(msg.open()==SWT.OK){
+	           return true;
+	       }
+	       else
+	       {
+	           return false;
+	       }
+	       
+	       
+	}
 	public boolean verifyFields() {
 
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
