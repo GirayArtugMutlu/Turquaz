@@ -145,6 +145,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private CCombo comboModuleSelection;
 	private CLabel lblModuleSelection;
 	private Composite compModuleSelection;
+	private MenuItem mitHelpContents;
+	private Menu menuHelp;
 	private MenuItem menuItemModulBar;
 	private ToolItem timAdmin;
 	private ToolItem timBank;
@@ -179,15 +181,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private Label lblSeperatorLeft;
 	private Composite compMain;
 	private Label lblSeperator;
-	private MenuItem aboutMenuItem;
-	private MenuItem contentsMenuItem;
-	private Menu helpMenu;
 	private MenuItem mitHelp;
-	private MenuItem closeFileMenuItem;
-	private MenuItem saveFileMenuItem;
-	private MenuItem newFileMenuItem;
-	private MenuItem openFileMenuItem;
-	private Menu fileMenu;
 	private MenuItem mitFile;
 	private Menu menuMain;
 	Menu popupTreeAddFavorites;
@@ -927,6 +921,22 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			mitHelp.setEnabled(true);
 			mitHelp.setText(Messages.getString("EngUIMainFrame.22")); //$NON-NLS-1$
+            {
+                menuHelp = new Menu(mitHelp);
+                mitHelp.setMenu(menuHelp);
+                {
+                    mitHelpContents = new MenuItem(menuHelp, SWT.PUSH);
+                    mitHelpContents.setText("About");
+                    mitHelpContents
+                        .addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                        
+                            new EngUIHelpDialog(getShell(),SWT.NULL).open();
+                        
+                        }
+                        });
+                }
+            }
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
 				}
