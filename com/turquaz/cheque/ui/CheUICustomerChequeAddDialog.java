@@ -63,6 +63,8 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 	private Shell dialogShell;
 	private CLabel lblPortfolioNo;
 	private CurrencyText curText;
+	private CLabel lblBankAccount;
+	private Text txtBankAccountNO;
 	private ToolItem toolCancel;
 	private ToolItem toolSave;
 	private ToolBar toolBar1;
@@ -184,6 +186,17 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
                 txtBankBranchLData.heightHint = 18;
                 txtBankBranch.setLayoutData(txtBankBranchLData);
             }
+			//START >>  lblBankAccount
+			lblBankAccount = new CLabel(dialogShell, SWT.NONE);
+			lblBankAccount.setText("Hesap No");
+			//END <<  lblBankAccount
+			//START >>  txtBankAccountNO
+			txtBankAccountNO = new Text(dialogShell, SWT.NONE);
+			GridData txtBankAccountNOLData = new GridData();
+			txtBankAccountNOLData.widthHint = 118;
+			txtBankAccountNOLData.heightHint = 17;
+			txtBankAccountNO.setLayoutData(txtBankAccountNOLData);
+			//END <<  txtBankAccountNO
             {
                 lblDueDate = new CLabel(dialogShell, SWT.NONE);
                 lblDueDate.setText(Messages.getString("CheUICustomerChequeAddDialog.8")); //$NON-NLS-1$
@@ -256,7 +269,10 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 	        txtPortfoyNo.setText(cheque.getChequesPortfolioNo());
 	        datePickValueDate.setDate(cheque.getChequesDueDate());
 	        curText.setText(cheque.getChequesAmount());
-	        
+	      
+	        if(cheque.getBankAccountNo()!=null){
+	        txtBankAccountNO.setText(cheque.getBankAccountNo());
+	        }
 	        
 	    }
 	    
@@ -276,7 +292,7 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 	    cheque.setChequesDebtor(txtDeptor.getText().trim());
 	    cheque.setChequesPaymentPlace(txtPaymentPlace.getText().trim());
 	    cheque.setChequesAmount(curText.getBigDecimalValue());	  
-	    
+	    cheque.setBankAccountNo(txtBankAccountNO.getText().trim());
 	    cheque.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
         cheque.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
         cheque.setLastModified(Calendar.getInstance().getTime());
