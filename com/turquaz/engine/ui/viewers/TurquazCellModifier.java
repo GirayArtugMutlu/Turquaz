@@ -37,7 +37,7 @@ public class TurquazCellModifier implements ICellModifier{
     	// Find the index of the column
 		int columnIndex = columnNames.indexOf(property);
 			
-		TableItem item = (TableItem) element;
+		TableItem item = (TableItem) element;	
 		ITableRow task = (ITableRow) item.getData();
 		task.modify(columnIndex,value);
 		contentProvider.getTaskList().taskChanged(task);

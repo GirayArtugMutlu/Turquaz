@@ -35,9 +35,7 @@ public class CurrencyCellEditor extends TextCellEditor{
 	}
     public Control createControl(Composite parent) {
 		  text=(Text) super.createControl(parent);
-		  
-		  
-	
+		  System.out.println("deneme");
 		  listener = new VerifyListener() {
 		 	public void verifyText(VerifyEvent evt) {		 	    
 		 	  

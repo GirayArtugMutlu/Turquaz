@@ -12,6 +12,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
@@ -35,6 +36,7 @@ import com.turquaz.engine.ui.viewers.TableRowList;
 import com.turquaz.engine.ui.viewers.TurquazCellModifier;
 import com.turquaz.engine.ui.viewers.TurquazContentProvider;
 import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
+import com.turquaz.inventory.ui.InvUITransactionTableRow;
 
 
 
@@ -233,15 +235,14 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
                 button1.addMouseListener(new MouseAdapter() {
                     public void mouseUp(MouseEvent evt) {
                      
-                        TableRowImpl row = new TableRowImpl(rowList);
-                        rowList.addTask(row);
+                       InvUITransactionTableRow  row = new InvUITransactionTableRow(rowList,0);
+                  // ((ComboBoxCellEditor)tableViewer.getCellEditors()[3]).setItems();
+                       
+                      
+                       rowList.addTask(row);
+                       rowList.taskChanged(row);
                         tableViewer.editElement(row,0);
-                        PopupList popup = new PopupList(getShell());
-                        popup.setItems(new String[]{"fuck1","fuck2","fuck3"});
-                   
-                        Point p = button1.getLocation();
-                        p = button1.toDisplay(p);
-                        popup.open(new Rectangle(p.x,p.y,100,10));
+                        
                     
                     }
                 });

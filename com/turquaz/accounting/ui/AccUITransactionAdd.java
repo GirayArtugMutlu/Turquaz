@@ -32,7 +32,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
-import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.editors.AccountingCellEditor;
@@ -364,9 +363,9 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 		     public void keyReleased(KeyEvent evt){
 		         
                  if (evt.keyCode == SWT.INSERT){
-                     AccUITransactionAddTableRow row = new AccUITransactionAddTableRow(
-                         rowList);
+                     AccUITransactionAddTableRow row = new AccUITransactionAddTableRow(rowList);
                      rowList.addTask(row);
+                    
                      tableViewer.editElement(row, 0);
                      cursor.setSelection(tableTransactionColumns
                          .getItemCount() - 1, 0);
