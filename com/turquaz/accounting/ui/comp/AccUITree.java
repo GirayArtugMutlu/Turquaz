@@ -1,3 +1,4 @@
+
 /*
  * Created on Sep 28, 2004
  *
@@ -14,6 +15,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import com.turquaz.accounting.ui.AccUIAccountingPlan;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
 import com.turquaz.accounting.ui.AccUITransactionAdd;
+import com.turquaz.accounting.ui.AccUITransactionCollect;
 
 
 /**
@@ -35,7 +37,10 @@ public class AccUITree extends Tree {
 		item.setData(AccUIAccountingPlan.class.getName());
 		item = new TreeItem(root,SWT.NULL);
 		item.setText("Accounting Transaction Add");
-		item.setData(AccUITransactionAdd.class.getName());		
+		item.setData(AccUITransactionAdd.class.getName());	
+		item = new TreeItem(root,SWT.NULL);
+		item.setText("Collect Transaction");
+		item.setData(AccUITransactionCollect.class.getName());	
 	
 	}
 }

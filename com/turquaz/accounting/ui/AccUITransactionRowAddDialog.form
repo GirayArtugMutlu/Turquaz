@@ -22,7 +22,7 @@
 		</Layout>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[328, 129]"/>
+				<Dimension value="[354, 143]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -104,7 +104,7 @@
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
 			</Component>
-			<Component class="org.eclipse.swt.custom.CCombo" name="comboDeptOrCredit" style="0">
+			<Component class="org.eclipse.swt.custom.CCombo" name="comboDeptOrCredit" style="8">
 				<Constraints>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -123,6 +123,9 @@
 				</Events>
 				<Properties>
 					<Property name="text" type="String" value="Dept"/>
+					<Property name="background" type="Color">
+						<Color red="ff" green="ff" blue="ff"/>
+					</Property>
 					<Property name="size" type="Dimension">
 						<Dimension value="[93, 17]"/>
 					</Property>
@@ -205,7 +208,7 @@
 						<Dimension value="[44, 23]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 101, 44, 23]"/>
+						<Rectangle value="[5, 115, 44, 23]"/>
 					</Property>
 				</Properties>
 			</Component>
@@ -230,7 +233,7 @@
 				<Properties>
 					<Property name="text" type="String" value="OK"/>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[297, 101, 26, 23]"/>
+						<Rectangle value="[323, 115, 26, 23]"/>
 					</Property>
 				</Properties>
 			</Component>

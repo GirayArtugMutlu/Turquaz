@@ -116,8 +116,8 @@ public class AccUITransactionAdd extends SecureComposite {
 			GridData lblDocumentNoLData = new GridData();
 			lblDocumentNoLData.verticalAlignment = GridData.CENTER;
 			lblDocumentNoLData.horizontalAlignment = GridData.BEGINNING;
-			lblDocumentNoLData.widthHint = -1;
-			lblDocumentNoLData.heightHint = -1;
+			lblDocumentNoLData.widthHint = 70;
+			lblDocumentNoLData.heightHint = 19;
 			lblDocumentNoLData.horizontalIndent = 0;
 			lblDocumentNoLData.horizontalSpan = 1;
 			lblDocumentNoLData.verticalSpan = 1;
@@ -125,6 +125,7 @@ public class AccUITransactionAdd extends SecureComposite {
 			lblDocumentNoLData.grabExcessVerticalSpace = false;
 			lblDocumentNo.setLayoutData(lblDocumentNoLData);
 			lblDocumentNo.setText("Document No");
+			lblDocumentNo.setSize(new org.eclipse.swt.graphics.Point(70,19));
 	
 			GridData txtDocumentNoLData = new GridData();
 			txtDocumentNoLData.verticalAlignment = GridData.CENTER;
@@ -142,8 +143,8 @@ public class AccUITransactionAdd extends SecureComposite {
 			GridData lblDateLData = new GridData();
 			lblDateLData.verticalAlignment = GridData.CENTER;
 			lblDateLData.horizontalAlignment = GridData.BEGINNING;
-			lblDateLData.widthHint = -1;
-			lblDateLData.heightHint = -1;
+			lblDateLData.widthHint = 29;
+			lblDateLData.heightHint = 19;
 			lblDateLData.horizontalIndent = 0;
 			lblDateLData.horizontalSpan = 1;
 			lblDateLData.verticalSpan = 1;
@@ -151,19 +152,20 @@ public class AccUITransactionAdd extends SecureComposite {
 			lblDateLData.grabExcessVerticalSpace = false;
 			lblDate.setLayoutData(lblDateLData);
 			lblDate.setText("Date");
+			lblDate.setSize(new org.eclipse.swt.graphics.Point(29,19));
 	
 			GridData dateTransactionDateLData = new GridData();
 			dateTransactionDateLData.verticalAlignment = GridData.CENTER;
 			dateTransactionDateLData.horizontalAlignment = GridData.BEGINNING;
-			dateTransactionDateLData.widthHint = 163;
-			dateTransactionDateLData.heightHint = 27;
+			dateTransactionDateLData.widthHint = 159;
+			dateTransactionDateLData.heightHint = 23;
 			dateTransactionDateLData.horizontalIndent = 0;
 			dateTransactionDateLData.horizontalSpan = 1;
 			dateTransactionDateLData.verticalSpan = 1;
 			dateTransactionDateLData.grabExcessHorizontalSpace = false;
 			dateTransactionDateLData.grabExcessVerticalSpace = false;
 			dateTransactionDate.setLayoutData(dateTransactionDateLData);
-			dateTransactionDate.setSize(new org.eclipse.swt.graphics.Point(163,27));
+			dateTransactionDate.setSize(new org.eclipse.swt.graphics.Point(159,23));
 			dateTransactionDate.layout();
 	
 			GridData composite1LData = new GridData();
@@ -242,7 +244,7 @@ public class AccUITransactionAdd extends SecureComposite {
 			tableTransactionColumns.setLayoutData(tableTransactionColumnsLData);
 			tableTransactionColumns.setHeaderVisible(true);
 			tableTransactionColumns.setLinesVisible(true);
-			tableTransactionColumns.setSize(new org.eclipse.swt.graphics.Point(516,397));
+			tableTransactionColumns.setSize(new org.eclipse.swt.graphics.Point(516,401));
 	
 			tableColumnAccoutCode.setText("Account Code");
 			tableColumnAccoutCode.setWidth(121);
@@ -254,7 +256,7 @@ public class AccUITransactionAdd extends SecureComposite {
 			tableColumnCredit.setWidth(100);
 	
 			tableColumnDept.setText("Dept ");
-			tableColumnDept.setWidth(100);
+			tableColumnDept.setWidth(106);
 	
 			GridData lblTotalCreditLData = new GridData();
 			lblTotalCreditLData.verticalAlignment = GridData.CENTER;
@@ -471,7 +473,7 @@ public class AccUITransactionAdd extends SecureComposite {
 	/** Auto-generated event handler method */
 	protected void btnAddTransactionRowMouseUp(MouseEvent evt){
     
-    Object o = new AccUITransactionRowAddDialog(this.getShell(),SWT.NULL).showDialog();
+    Object o = new AccUITransactionRowAddDialog(this.getShell(),SWT.NULL,2).showDialog();
     
     if(o!=null){
     TurqAccountingTransactionColumn accTransRow = (TurqAccountingTransactionColumn)o;

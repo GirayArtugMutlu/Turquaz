@@ -19,6 +19,9 @@ import com.turquaz.engine.ui.component.DecimalText;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.SWT;
 
 /**
@@ -39,9 +42,11 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 	private CLabel lblAccount;
 	private Shell dialogShell;
 	private TurqAccountingTransactionColumn transactionRow;
+	private int transactionType=0;
 
-	public AccUITransactionRowAddDialog(Shell parent, int style) {
+	public AccUITransactionRowAddDialog(Shell parent, int style, int transType) {
 		super(parent, style);
+		transactionType=transType;
 	}
 
 	/**
@@ -58,13 +63,13 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			lblAccount = new CLabel(dialogShell,SWT.NULL);
 			accountPicker = new AccountPicker(dialogShell,SWT.NULL);
 			lbDeptOrCredit = new CLabel(dialogShell,SWT.NULL);
-			comboDeptOrCredit = new CCombo(dialogShell,SWT.NULL);
+			comboDeptOrCredit = new CCombo(dialogShell,SWT.READ_ONLY);
 			lblAmount = new CLabel(dialogShell,SWT.NULL);
 			decTextAmount = new DecimalText(dialogShell,SWT.NULL);
 			btnCancel = new Button(dialogShell,SWT.PUSH| SWT.CENTER);
 			btnOk = new Button(dialogShell,SWT.PUSH| SWT.CENTER);
 	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(328,129));
+			dialogShell.setSize(new org.eclipse.swt.graphics.Point(354,143));
 	
 			GridData lblAccountLData = new GridData();
 			lblAccountLData.verticalAlignment = GridData.CENTER;
@@ -119,6 +124,8 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			comboDeptOrCreditLData.grabExcessVerticalSpace = false;
 			comboDeptOrCredit.setLayoutData(comboDeptOrCreditLData);
 			comboDeptOrCredit.setText("Dept");
+			final Color comboDeptOrCreditbackground = new Color(Display.getDefault(),255,255,255);
+			comboDeptOrCredit.setBackground(comboDeptOrCreditbackground);
 			comboDeptOrCredit.setSize(new org.eclipse.swt.graphics.Point(71,17));
 	
 			GridData lblAmountLData = new GridData();
@@ -192,7 +199,12 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShellLayout.horizontalSpacing = 5;
 			dialogShellLayout.verticalSpacing = 5;
 			dialogShell.layout();
-			Rectangle bounds = dialogShell.computeTrim(0, 0, 328,129);
+			dialogShell.addDisposeListener(new DisposeListener() {
+				public void widgetDisposed(DisposeEvent e) {
+					comboDeptOrCreditbackground.dispose();
+				}
+			});
+			Rectangle bounds = dialogShell.computeTrim(0, 0, 354,143);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
 			dialogShell.open();
@@ -220,9 +232,20 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
     
     dialogShell.setLocation(location_X,location_Y);
 	transactionRow = null;
-	
+	if(transactionType==2){
 	comboDeptOrCredit.add("Dept");
 	comboDeptOrCredit.add("Credit");
+	comboDeptOrCredit.setText("Dept");
+	}
+	else if(transactionType==1){
+	comboDeptOrCredit.setText("Dept");
+	comboDeptOrCredit.add("Dept");
+	}
+	else if(transactionType ==0){
+	comboDeptOrCredit.setText("Credit");
+	comboDeptOrCredit.add("Credit");
+	
+	}
 	
 	
 	}
@@ -242,16 +265,17 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
    
    }
    else if(decTextAmount.getBigDecimalValue().toString().equals("0")){
+   
    	msg.setMessage("Please enter an amount");
 	msg.open();
 	return false;
+   
+   } 
+    
+   return true;
+    
+   
    }
-    	
-  
-    
-    return true;
-    
-    }
 	/** Auto-generated event handler method */
 	protected void btnOkMouseUp(MouseEvent evt){
 	
