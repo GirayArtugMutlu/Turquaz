@@ -25,6 +25,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.cheque.Messages;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqCurrency;
@@ -265,6 +266,7 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 	    if(cheque == null){
 	        cheque = new TurqChequeCheque();
 	    }
+	    cheque.setChequesType(EngBLCommon.CHEQUE_TYPE_CUSTOMER);
 	    cheque.setBankBranchName(txtBankBranch.getText().trim());
 	    cheque.setBankName(txtBankName.getText().trim());
 	    cheque.setChequesPortfolioNo(txtPortfoyNo.getText().trim());
