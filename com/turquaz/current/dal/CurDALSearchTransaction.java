@@ -19,6 +19,7 @@ package com.turquaz.current.dal;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -39,10 +40,6 @@ import com.turquaz.engine.dal.TurqCurrentTransactionType;
  */
 public class CurDALSearchTransaction
 {
-	public CurDALSearchTransaction()
-	{
-	}
-
 	public static List searchTransaction(TurqCurrentCard curCard, TurqCurrentTransactionType type, String docNo, String definition,
 			Date startDate, Date endDate) throws Exception
 	{
@@ -208,6 +205,56 @@ public class CurDALSearchTransaction
 			}
 			session.flush();
 			session.clear();
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static List getCurrentCardAbstract(TurqCurrentCard curCardStart,TurqCurrentCard curCardEnd, 
+			Date startDate, Date endDate, String definition,
+			BigDecimal minAmount) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			String query = "Select curCard.cardsCurrentCode, curCard.cardsName,"
+				+ " curTrans.turqCurrentTransactionType.transactionTypeName,"
+				+ " curTrans.transactionsDate, curTrans.transactionsDocumentNo,"
+				+ " curTrans.transactionsTotalCredit, curTrans.transactionsTotalDept," + " curTrans.id,"
+				+ " curTrans.transactionsDefinition" + " from TurqViewCurrentAmountTotal as curView,"
+				+ " TurqCurrentCard as curCard " + " left join" + " curCard.turqCurrentTransactions as curTrans"
+				+ " where curTrans.transactionsDate >= :startDate" + " and curTrans.transactionsDate <= :endDate "
+				+ " and curView.currentCardsId=curCard.id ";
+			
+			if (!definition.equals("")) //$NON-NLS-1$
+				query += " and curTrans.transactionsDefinition like '" + definition.toUpperCase(Locale.getDefault()) + "%'"; 
+			if (curCardStart != null && curCardEnd != null)
+			{
+				query += " and curCard.cardsCurrentCode >= " + "'" + curCardStart.getCardsCurrentCode() + "'" + 
+						" and curCard.cardsCurrentCode <= " + "'" + curCardEnd.getCardsCurrentCode() + "'"; 
+			}
+			else if (curCardStart == null)
+			{
+			}
+			else if (curCardEnd == null)
+			{
+				query += " and curCard.id=" + curCardStart.getId(); 
+			}
+			if (minAmount.doubleValue() > 0)
+			{
+				query += " and ((curView.transactionsTotalCredit >=" + minAmount.doubleValue()
+						+ ") or (curView.transactionsTotalDept >=" + minAmount.doubleValue() + "))";
+			}
+			query += " order by curCard.cardsCurrentCode, curTrans.transactionsDate";
+			Query q = session.createQuery(query);
+			
+			q.setParameter("startDate", startDate);
+			q.setParameter("endDate", endDate);
+			
+			List list = q.list();
+			return list;
 		}
 		catch (Exception ex)
 		{

@@ -15,15 +15,12 @@ package com.turquaz.current.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import net.sf.hibernate.Query;
-import net.sf.hibernate.Session;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -53,7 +50,6 @@ import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.dal.EngDALConnection;
-import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -282,41 +278,17 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				currentCard2 = (TurqCurrentCard) txtCurrentCard2.getData();
 			}
 			SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
-			String query = "Select curCard.cardsCurrentCode, curCard.cardsName,"
-					+ " curTrans.turqCurrentTransactionType.transactionTypeName,"
-					+ " curTrans.transactionsDate, curTrans.transactionsDocumentNo,"
-					+ " curTrans.transactionsTotalCredit, curTrans.transactionsTotalDept," + " curTrans.id,"
-					+ " curTrans.transactionsDefinition" + " from TurqViewCurrentAmountTotal as curView,"
-					+ " TurqCurrentCard as curCard " + " left join" + " curCard.turqCurrentTransactions as curTrans"
-					+ " where curTrans.transactionsDate >= :startDate" + " and curTrans.transactionsDate <= :endDate "
-					+ " and curView.currentCardsId=curCard.id ";
-			if (!txtDefinition.getText().equals("")) //$NON-NLS-1$
-				query += " and curTrans.transactionsDefinition like '" + txtDefinition.getText().toUpperCase(Locale.getDefault()) + "%'"; //$NON-NLS-1$ //$NON-NLS-2$
-			if (currentCard != null && currentCard2 != null)
-			{
-				query += " and curCard.cardsCurrentCode >= " + "'" + currentCard.getCardsCurrentCode() + "'" + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						" and curCard.cardsCurrentCode <= " + "'" + currentCard2.getCardsCurrentCode() + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			}
-			else if (currentCard == null)
-			{
-			}
-			else if (currentCard2 == null)
-			{
-				query += " and curCard.id=" + currentCard.getId(); //$NON-NLS-1$
-			}
-			BigDecimal minAmount = txtTransAmount.getBigDecimalValue();
-			if (minAmount.doubleValue() > 0)
-			{
-				query += " and ((curView.transactionsTotalCredit >=" + minAmount.doubleValue()
-						+ ") or (curView.transactionsTotalDept >=" + minAmount.doubleValue() + "))";
-			}
-			query += " order by curCard.cardsCurrentCode, curTrans.transactionsDate"; //$NON-NLS-1$
-			//XXX Trans should go to BL
-			Session session = EngDALSessionFactory.getSession();
-			Query q = session.createQuery(query);
-			q.setParameter("startDate", datePickerStartDate.getDate());
-			q.setParameter("endDate", datePickerEndDate.getDate());
-			List list = q.list();
+			
+			HashMap argMap = new HashMap();
+			
+			argMap.put(EngKeys.CURRENT_CARD_START,currentCard);
+			argMap.put(EngKeys.CURRENT_CARD_END,currentCard2);
+			argMap.put(EngKeys.DATE_START,datePickerStartDate.getDate());
+			argMap.put(EngKeys.DATE_END,datePickerEndDate.getDate());
+			argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
+			argMap.put(EngKeys.MIN_VALUE,txtTransAmount.getBigDecimalValue());			
+			
+			List list=(List)EngTXCommon.doSingleTX(CurBLSearchTransaction.class.getName(),"getCurrentCardAbstract",argMap);
 			Map parameters = new HashMap();
 			SimpleDateFormat dformat2 = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
 			parameters.put("startDate", dformat2.format(datePickerStartDate.getDate())); //$NON-NLS-1$
@@ -329,7 +301,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
 			
 			
-			HashMap argMap = new HashMap();
+			argMap = new HashMap();
 			
 			argMap.put(EngKeys.CURRENT_CARD_START,currentCard);
 			argMap.put(EngKeys.CURRENT_CARD_END,currentCard2);

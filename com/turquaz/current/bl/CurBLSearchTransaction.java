@@ -159,4 +159,22 @@ public class CurBLSearchTransaction
 			throw ex;
 		}
 	}
+	
+	public static List getCurrentCardAbstract(HashMap argMap) throws Exception
+	{
+		try
+		{
+			TurqCurrentCard curCardStart=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD_START);
+			TurqCurrentCard curCardEnd=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD_END);
+			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
+			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
+			String definition=(String)argMap.get(EngKeys.DEFINITION);
+			BigDecimal minAmount=(BigDecimal)argMap.get(EngKeys.MIN_VALUE);	
+			return CurDALSearchTransaction.getCurrentCardAbstract(curCardStart,curCardEnd, startDate, endDate, definition,minAmount);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }
