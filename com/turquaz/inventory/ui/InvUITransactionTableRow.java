@@ -7,13 +7,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.jface.viewers.ComboBoxCellEditor;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.graphics.Color;
-
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TableRowList;
 import com.turquaz.inventory.bl.InvBLCardSearch;
@@ -27,14 +29,18 @@ public class InvUITransactionTableRow implements ITableRow {
     Integer unit_index = new Integer(-1);
     String unit_text = "";
     String units [];
+    TurqInventoryCardUnit cardUnits[];
+    TurqInventoryUnit base_unit;
     InvBLCardSearch blCardSearch= new InvBLCardSearch();
-    
+    TableViewer tableViewer ;
+    int transAmount = 0;
     /*
      * type 0 = Buy 
      * type 1 = Sell
      */
     
-    public InvUITransactionTableRow(TableRowList rowList, int type){
+    public InvUITransactionTableRow(TableRowList rowList, int type, TableViewer viewer){
+        this.tableViewer = viewer;
         this.rowList = rowList;
         this.transType = type;
         invTrans.setTransactionsAmountIn(0);
@@ -85,33 +91,36 @@ public class InvUITransactionTableRow implements ITableRow {
 			        result="";
 			    }
 			    else{
-			        result =invTrans.getTurqInventoryCard().getCardName();
+			       result =invTrans.getTurqInventoryCard().getCardName();
 			    }
 			    break;
 			    
 			case 2 :  //Amount
-			    if(transType==0){
-			    result = invTrans.getTransactionsAmountIn()+"";
-			    }
-			    else{
-			        result = invTrans.getTransactionsTotalAmountOut()+"";
-			    }
-				break;
+				{
+			      result = transAmount+"";
+			      break;
+				}
 			    
 			case 3 :  //Unit
 			    result =unit_text;
 			    break;
 			    
-			case 4 :  //Unit Price
-			    result = invTrans.getTransactionsUnitPrice().toString();
-				break;
+			case 4 :  //Amount in Base Unit
+			    if(transType==0){
+				    result = invTrans.getTransactionsAmountIn()+"";
+				    }
+				    else{
+				        result = invTrans.getTransactionsTotalAmountOut()+"";
+				    }
+					break;
 				
 			case 5 :  //Base Unit
 			    if(invTrans.getTurqInventoryCard()==null){
 			        result="";
 			    }
 			    else{
-			       result = getBaseUnit(invTrans.getTurqInventoryCard());
+			       
+			       result = base_unit.getUnitsName();
 			    }
 			    break;
 			    
@@ -152,40 +161,34 @@ public class InvUITransactionTableRow implements ITableRow {
         
     }
 
-    public String getBaseUnit(TurqInventoryCard invCard){
-        try{
-            
-            return "base_unit";
-                  
-        }
-        catch(Exception ex){
-            ex.printStackTrace();
-            return null;
-        }
-    }
-    public String[] getUnits(TurqInventoryCard invCard){
-        try{
-            List unit_list = new ArrayList();
-             blCardSearch.initializeInventoryCard(invCard);
-            Set set = invCard.getTurqInventoryCardUnits();
-            Iterator it = set.iterator();
-            while(it.hasNext()){
-                TurqInventoryCardUnit cardUnit = (TurqInventoryCardUnit)it.next();
-                unit_list.add(cardUnit.getTurqInventoryUnit().getUnitsName());
+    
+    
+    public void fillUnits(TurqInventoryCard invCard){
+        List unit_list = new ArrayList();            
+        Set set = invCard.getTurqInventoryCardUnits();
+        Iterator it = set.iterator();
+        while(it.hasNext()){
+            TurqInventoryCardUnit cardUnit = (TurqInventoryCardUnit)it.next();
+            unit_list.add(cardUnit);
+            if(cardUnit.getCardUnitsFactor()==1){
+                base_unit = cardUnit.getTurqInventoryUnit(); 
             }
-            String unit_array[] = new String[unit_list.size()];
-            
-            unit_list.toArray(unit_array);
-            return unit_array;     
         }
-        catch(Exception ex){
+        
+        unit_index=new Integer(0);
+        unit_text = base_unit.getUnitsName();
+        
+        cardUnits = new TurqInventoryCardUnit[unit_list.size()];
+        units = new String[unit_list.size()];
             
-            ex.printStackTrace();
-            return new String []{};
+        unit_list.toArray(cardUnits);
+        
+        for(int i=0;i<unit_list.size();i++){
+            units[i] = cardUnits[i].getTurqInventoryUnit().getUnitsName();
         }
         
     }
-    
+       
     
     public Object getValue(int column_index) {
      Object result = "";
@@ -211,20 +214,21 @@ public class InvUITransactionTableRow implements ITableRow {
 			    break;
 			    
 			case 2 :  //Amount
-			    if(transType==0){
-			    result = invTrans.getTransactionsAmountIn()+"";
-			    }
-			    else{
-			        result = invTrans.getTransactionsTotalAmountOut()+"";
-			    }
+			     
+			     result = transAmount+"";
 				break;
 			    
 			case 3 :  //Unit
 			    result =unit_index;
 			    break;
 			    
-			case 4 :  //Unit Price
-			    result = invTrans.getTransactionsUnitPrice().toString();
+			case 4 :  //amount in base units
+			    if(transType==0){
+				    result = invTrans.getTransactionsAmountIn()+"";
+				    }
+				    else{
+				        result = invTrans.getTransactionsTotalAmountOut()+"";
+				    }
 				break;
 				
 			case 5 :  //Base Unit
@@ -232,7 +236,7 @@ public class InvUITransactionTableRow implements ITableRow {
 			        result="";
 			    }
 			    else{
-			       result = getBaseUnit(invTrans.getTurqInventoryCard());
+			       result = base_unit.getUnitsName();
 			    }
 			    break;
 			    
@@ -283,7 +287,9 @@ public class InvUITransactionTableRow implements ITableRow {
 					 TurqInventoryCard invCard= EngBLInventoryCards.getCard(value.toString().trim());
 					 if(invCard!=null){
 					    invTrans.setTurqInventoryCard(invCard);
-					    units = getUnits(invCard);
+					    blCardSearch.initializeInventoryCard(invCard);
+					    fillUnits(invCard);
+					    updateComboBoxEditor();
 					 }	
 					}
 					catch(Exception ex){
@@ -300,6 +306,7 @@ public class InvUITransactionTableRow implements ITableRow {
 			 	if(formatted.equals("")){
 			 	    formatted="0";
 			 	}
+			 	transAmount = Integer.parseInt(formatted);
 			 	if(transType==0){
 				    invTrans.setTransactionsAmountIn(Long.parseLong(formatted));
 				}
@@ -309,7 +316,12 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 			    
 			case 3 :  //Unit
-			    unit_index = (Integer)unit_index;
+			    unit_index = (Integer)value;
+			    if(unit_index.intValue()!=-1){
+			        unit_text = units[unit_index.intValue()];
+			    }
+			    else
+			        unit_text = "";
 			    break;
 			  
 			case 4 :  //Base Unit Amount
@@ -325,6 +337,7 @@ public class InvUITransactionTableRow implements ITableRow {
 			 	if(formatted.equals("")){
 			 	    formatted="0";
 			 	}
+			 	invTrans.setTransactionsUnitPrice(new BigDecimal(formatted));
 				break;
 				
 			case 7 : // total Price 
@@ -368,6 +381,7 @@ public class InvUITransactionTableRow implements ITableRow {
         
         
     }
+    
     public String[] getUnits(){
         return units;
         
@@ -434,5 +448,26 @@ public class InvUITransactionTableRow implements ITableRow {
       }
 
     }
+	public void updateComboBoxEditor(){
+	    try{
+	       
+	       
+	       ComboBoxCellEditor editor =(ComboBoxCellEditor) tableViewer.getCellEditors()[3];
+	       
+	       if(getUnits()!=null){ 
+	       editor.setItems(getUnits());
+	       }
+	       
+	       else {
+	       editor.setItems(new String[]{});
+	           
+	       }
+	       
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
+	}
+    
 
 }

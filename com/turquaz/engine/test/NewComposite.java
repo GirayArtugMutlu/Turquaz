@@ -233,7 +233,7 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
                 button1.addMouseListener(new MouseAdapter() {
                     public void mouseUp(MouseEvent evt) {
                      
-                       InvUITransactionTableRow  row = new InvUITransactionTableRow(rowList,0);
+                       InvUITransactionTableRow  row = new InvUITransactionTableRow(rowList,0,tableViewer);
                   // ((ComboBoxCellEditor)tableViewer.getCellEditors()[3]).setItems();
                        
                       
@@ -360,7 +360,7 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
        editors[0] = new InventoryCellEditor(table); //Stok Kodu
        editors[1] = new TextCellEditor(table);      //Stok Adi
        editors[2] = new NumericCellEditor(table);   // mikatri     
-       editors[3] = new ComboBoxCellEditor(table,new String[]{});
+       editors[3] = new ComboBoxCellEditor(table,new String[]{},SWT.READ_ONLY);
        editors[4] = new NumericCellEditor(table);
        editors[5] = new TextCellEditor(table);
        editors[6] = new CurrencyCellEditor(table);
