@@ -206,10 +206,10 @@ public class InvBLCardAdd {
 			card.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			card.setTurqAccountingAccountByAccountingAccountsIdBuy(accountBuy);
 			card.setTurqAccountingAccountByAccountingAccountsIdSell(accountSell);
-            card.setTurqAccountingAccountByAccountingAccountsIdVAT(accountVAT);
-            card.setTurqAccountingAccountByAccountingAccountsIdSpecialVAT(accountSpecialVAT);
-            card.setTurqAccountingAccountByAccountingAccountsIdSpecialVATSell(accountSpecialVATSell);
-            card.setTurqAccountingAccountByAccountingAccountsIdVATSell(accountVATSell);
+            card.setTurqAccountingAccountByAccountingAccountsIdVat(accountVAT);
+            card.setTurqAccountingAccountByAccountingAccountsIdSpecialVat(accountSpecialVAT);
+            card.setTurqAccountingAccountByAccountingAccountsIdSpecialVatSell(accountSpecialVATSell);
+            card.setTurqAccountingAccountByAccountingAccountsIdVatSell(accountVATSell);
 			cardAdd.saveOrUpdateInvCard(card);
 
 			return card.getInventoryCardsId();

@@ -52,24 +52,23 @@ public class TurqInventoryCard implements Serializable {
     private java.util.Date updateDate;
 
     /** persistent field */
+    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVat;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell;
 
     /** persistent field */
+    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSpecialVatSell;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy;
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVAT;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSpecialVAT;
+    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVatSell;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVATSell;
+    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSpecialVat;
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSpecialVATSell;
-  
-    
-    
     /** persistent field */
     private Set turqInventoryPrices;
 
@@ -83,7 +82,7 @@ public class TurqInventoryCard implements Serializable {
     private Set turqInventoryCardUnits;
 
     /** full constructor */
-    public TurqInventoryCard(java.lang.String cardInventoryCode, java.lang.String cardName, java.lang.String cardDefinition, int cardMinimumAmount, int cardMaximumAmount, int cardVat, int cardDiscount, int cardSpecialVat, java.math.BigDecimal cardSpecialVatEach, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy, Set turqInventoryPrices, Set turqInventoryTransactions, Set turqInventoryCardGroups, Set turqInventoryCardUnits) {
+    public TurqInventoryCard(java.lang.String cardInventoryCode, java.lang.String cardName, java.lang.String cardDefinition, int cardMinimumAmount, int cardMaximumAmount, int cardVat, int cardDiscount, int cardSpecialVat, java.math.BigDecimal cardSpecialVatEach, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVat, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSpecialVatSell, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVatSell, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSpecialVat, Set turqInventoryPrices, Set turqInventoryTransactions, Set turqInventoryCardGroups, Set turqInventoryCardUnits) {
         this.cardInventoryCode = cardInventoryCode;
         this.cardName = cardName;
         this.cardDefinition = cardDefinition;
@@ -97,8 +96,12 @@ public class TurqInventoryCard implements Serializable {
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.updateDate = updateDate;
+        this.turqAccountingAccountByAccountingAccountsIdVat = turqAccountingAccountByAccountingAccountsIdVat;
         this.turqAccountingAccountByAccountingAccountsIdSell = turqAccountingAccountByAccountingAccountsIdSell;
+        this.turqAccountingAccountByAccountingAccountsIdSpecialVatSell = turqAccountingAccountByAccountingAccountsIdSpecialVatSell;
         this.turqAccountingAccountByAccountingAccountsIdBuy = turqAccountingAccountByAccountingAccountsIdBuy;
+        this.turqAccountingAccountByAccountingAccountsIdVatSell = turqAccountingAccountByAccountingAccountsIdVatSell;
+        this.turqAccountingAccountByAccountingAccountsIdSpecialVat = turqAccountingAccountByAccountingAccountsIdSpecialVat;
         this.turqInventoryPrices = turqInventoryPrices;
         this.turqInventoryTransactions = turqInventoryTransactions;
         this.turqInventoryCardGroups = turqInventoryCardGroups;
@@ -221,12 +224,28 @@ public class TurqInventoryCard implements Serializable {
         this.updateDate = updateDate;
     }
 
+    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdVat() {
+        return this.turqAccountingAccountByAccountingAccountsIdVat;
+    }
+
+    public void setTurqAccountingAccountByAccountingAccountsIdVat(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVat) {
+        this.turqAccountingAccountByAccountingAccountsIdVat = turqAccountingAccountByAccountingAccountsIdVat;
+    }
+
     public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdSell() {
         return this.turqAccountingAccountByAccountingAccountsIdSell;
     }
 
     public void setTurqAccountingAccountByAccountingAccountsIdSell(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell) {
         this.turqAccountingAccountByAccountingAccountsIdSell = turqAccountingAccountByAccountingAccountsIdSell;
+    }
+
+    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdSpecialVatSell() {
+        return this.turqAccountingAccountByAccountingAccountsIdSpecialVatSell;
+    }
+
+    public void setTurqAccountingAccountByAccountingAccountsIdSpecialVatSell(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSpecialVatSell) {
+        this.turqAccountingAccountByAccountingAccountsIdSpecialVatSell = turqAccountingAccountByAccountingAccountsIdSpecialVatSell;
     }
 
     public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdBuy() {
@@ -236,50 +255,23 @@ public class TurqInventoryCard implements Serializable {
     public void setTurqAccountingAccountByAccountingAccountsIdBuy(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy) {
         this.turqAccountingAccountByAccountingAccountsIdBuy = turqAccountingAccountByAccountingAccountsIdBuy;
     }
-    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdVAT() {
-        return this.turqAccountingAccountByAccountingAccountsIdVAT;
+
+    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdVatSell() {
+        return this.turqAccountingAccountByAccountingAccountsIdVatSell;
     }
 
-    public void setTurqAccountingAccountByAccountingAccountsIdVAT(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVAT) {
-        this.turqAccountingAccountByAccountingAccountsIdVAT = turqAccountingAccountByAccountingAccountsIdVAT;
-    }
-    
-    
-    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdVATSell() {
-        return this.turqAccountingAccountByAccountingAccountsIdVATSell;
+    public void setTurqAccountingAccountByAccountingAccountsIdVatSell(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVatSell) {
+        this.turqAccountingAccountByAccountingAccountsIdVatSell = turqAccountingAccountByAccountingAccountsIdVatSell;
     }
 
-    public void setTurqAccountingAccountByAccountingAccountsIdVATSell(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVATSell) {
-        this.turqAccountingAccountByAccountingAccountsIdVATSell = turqAccountingAccountByAccountingAccountsIdSpecialVATSell;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdSpecialVAT() {
-        return this.turqAccountingAccountByAccountingAccountsIdSpecialVAT;
+    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdSpecialVat() {
+        return this.turqAccountingAccountByAccountingAccountsIdSpecialVat;
     }
 
-    public void setTurqAccountingAccountByAccountingAccountsIdSpecialVAT(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVAT) {
-        this.turqAccountingAccountByAccountingAccountsIdSpecialVAT = turqAccountingAccountByAccountingAccountsIdVAT;
-    }
-    
-    
-    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdSpecialVATSell() {
-        return this.turqAccountingAccountByAccountingAccountsIdSpecialVATSell;
+    public void setTurqAccountingAccountByAccountingAccountsIdSpecialVat(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSpecialVat) {
+        this.turqAccountingAccountByAccountingAccountsIdSpecialVat = turqAccountingAccountByAccountingAccountsIdSpecialVat;
     }
 
-    public void setTurqAccountingAccountByAccountingAccountsIdSpecialVATSell(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVAT) {
-        this.turqAccountingAccountByAccountingAccountsIdSpecialVATSell = turqAccountingAccountByAccountingAccountsIdVAT;
-    }
-    
-    
-    
-    
     public java.util.Set getTurqInventoryPrices() {
         return this.turqInventoryPrices;
     }

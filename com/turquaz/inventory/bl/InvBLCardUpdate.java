@@ -80,10 +80,10 @@ public class InvBLCardUpdate {
 		
 			card.setTurqAccountingAccountByAccountingAccountsIdBuy(accountBuy);
 			card.setTurqAccountingAccountByAccountingAccountsIdSell(accountSell);
-		    card.setTurqAccountingAccountByAccountingAccountsIdSpecialVAT(accountSpecialVAT);
-		    card.setTurqAccountingAccountByAccountingAccountsIdVAT(accountVAT);
-            card.setTurqAccountingAccountByAccountingAccountsIdSpecialVATSell(accountSpecialVATSell);
-            card.setTurqAccountingAccountByAccountingAccountsIdVATSell(accountVATSell);
+		    card.setTurqAccountingAccountByAccountingAccountsIdSpecialVat(accountSpecialVAT);
+		    card.setTurqAccountingAccountByAccountingAccountsIdVat(accountVAT);
+            card.setTurqAccountingAccountByAccountingAccountsIdSpecialVatSell(accountSpecialVATSell);
+            card.setTurqAccountingAccountByAccountingAccountsIdVatSell(accountVATSell);
             
 		    
 			cardUpdate.updateObject(card);

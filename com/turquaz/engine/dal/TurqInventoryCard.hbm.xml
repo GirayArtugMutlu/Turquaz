@@ -122,11 +122,27 @@
   
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one
+        name="turqAccountingAccountByAccountingAccountsIdVat"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="accounting_accounts_id_vat" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
+    <many-to-one
         name="turqAccountingAccountByAccountingAccountsIdSell"
         class="com.turquaz.engine.dal.TurqAccountingAccount"
         not-null="true"
     >
         <column name="accounting_accounts_id_sell" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
+    <many-to-one
+        name="turqAccountingAccountByAccountingAccountsIdSpecialVatSell"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="accounting_accounts_id_special_vat_sell" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one
@@ -136,40 +152,22 @@
     >
         <column name="accounting_accounts_id_buy" />
     </many-to-one>
-     <many-to-one
-        name="turqAccountingAccountByAccountingAccountsIdVAT"
-        class="com.turquaz.engine.dal.TurqAccountingAccount"
-        not-null="true"
-    >
-        <column name="accounting_accounts_id_vat" />
-    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one
-        name="turqAccountingAccountByAccountingAccountsIdSpecialVAT"
-        class="com.turquaz.engine.dal.TurqAccountingAccount"
-        not-null="true"
-    >
-        <column name="accounting_accounts_id_special_vat" />
-    </many-to-one>
-    
-    <many-to-one
-        name="turqAccountingAccountByAccountingAccountsIdVATSell"
+        name="turqAccountingAccountByAccountingAccountsIdVatSell"
         class="com.turquaz.engine.dal.TurqAccountingAccount"
         not-null="true"
     >
         <column name="accounting_accounts_id_vat_sell" />
     </many-to-one>
-    
+    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one
-        name="turqAccountingAccountByAccountingAccountsIdSpecialVATSell"
+        name="turqAccountingAccountByAccountingAccountsIdSpecialVat"
         class="com.turquaz.engine.dal.TurqAccountingAccount"
         not-null="true"
     >
-        <column name="accounting_accounts_id_special_vat_sell" />
+        <column name="accounting_accounts_id_special_vat" />
     </many-to-one>
-    
-    
-    
-    
     <!-- bi-directional one-to-many association to TurqInventoryPrice -->
     <set
         name="turqInventoryPrices"
