@@ -4,11 +4,11 @@ package com.turquaz.consignment.ui;
 import java.util.Iterator;
 
 import com.cloudgarden.resource.SWTResourceManager;
-import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.dal.TurqConsignment;
 
 import com.turquaz.engine.dal.TurqConsignmentsInGroup;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 import org.eclipse.swt.events.SelectionAdapter;
@@ -89,6 +89,12 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 							toolUpdate = new ToolItem(toolBar1, SWT.NONE);
 							toolUpdate.setText("Update");
 							toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+							toolUpdate
+								.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									update();
+								}
+								});
 						}
 						{
 							toolDelete = new ToolItem(toolBar1, SWT.NONE);
@@ -113,6 +119,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				compAddConsignmentLData.verticalAlignment = GridData.FILL;
 				compAddConsignmentLData.grabExcessVerticalSpace = true;
 				compAddConsignment.setLayoutData(compAddConsignmentLData);
+				compAddConsignment.getTxtDocumentNo().setBounds(129, 77, 112, 17);
 				compAddConsignment.getTableConsignmentRows().setBounds(60, 177, 557, 106);
 				compAddConsignment.getTxtBillDocumentNo().setBounds(372, 79, 137, 14);
 			}
@@ -135,7 +142,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		compAddConsignment.getTxtCurrentCard().setData(consignment.getTurqCurrentCard());
 		compAddConsignment.getTxtCurrentCard().setText(consignment.getTurqCurrentCard().getCardsCurrentCode()+" - " +
 														consignment.getTurqCurrentCard().getCardsName());
-		compAddConsignment.getTxtDocumentNo().setText(consignment.getConsignmentsDocumentNo());
+		;
 		compAddConsignment.getTxtBillDocumentNo().setText(consignment.getConsignmentsBillDocumentNo());
 		compAddConsignment.getDateConsignmentDate().setDate(consignment.getConsignmentsDate());
 		if(consignment.getConsignmentsType()==0){
@@ -228,10 +235,61 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch(Exception ex){
 			
+			ex.printStackTrace();
+			msg.setMessage(ex.getMessage());
+			msg.open();
 		}
 		
 	}
 	public void update(){
+		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+		try{
+		
+			//Update its groups
+			Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
+			while(it.hasNext()){
+				blCons.deleteObject(it.next());
+									
+			}
+			compAddConsignment.saveGroups(consignment.getConsignmentsId());
+		  
+			//Update Inventory Transactions
+			it = consignment.getTurqInventoryTransactions().iterator();
+			while(it.hasNext()){
+				blCons.deleteObject(it.next());
+									
+			}
+			compAddConsignment.saveConsignmentRows(consignment.getConsignmentsId());
+			
+			//Now we can update consignment
+		 int type = 0;
+		 if(compAddConsignment.getComboConsignmentType().getText().equals("Sell"))
+                type =1;
+		 	
+			blCons.updateConsignment(consignment,
+									compAddConsignment.getTxtDocumentNo().getText(),
+									compAddConsignment.getTxtDefinition().getText(),
+									compAddConsignment.getDateConsignmentDate().getDate(),
+									(TurqCurrentCard)compAddConsignment.getTxtCurrentCard().getData(),
+									compAddConsignment.getTxtDiscountRate().getIntValue(),
+									compAddConsignment.getTxtDiscountAmount().getBigDecimalValue(),
+									compAddConsignment.getTxtBillDocumentNo().getText(),
+									compAddConsignment.getTxtTotalVat().getBigDecimalValue(),
+									compAddConsignment.getDecSpecialVat().getBigDecimalValue(),
+									compAddConsignment.getTxtTotalAmount().getBigDecimalValue(),
+									type);
+			msg.setMessage("Succesfully Updated!!");
+			msg.open();
+			dialogShell.close();
+			
+			
+			
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+			msg.setMessage(ex.getMessage());
+			msg.open();
+		}
 		
 	}
 	
