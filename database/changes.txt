@@ -471,4 +471,7 @@ CREATE OR REPLACE VIEW public.turq_view_acc_totals AS
   ORDER BY account.accounting_accounts_id;
 
 
-
+********************28-02-2005**************
+**currencies unique index added*************
+alter table turq_currencies add CONSTRAINT uniq_cur_abbr UNIQUE (currencies_abbreviation);
+****************************************
