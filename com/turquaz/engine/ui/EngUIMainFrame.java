@@ -21,11 +21,13 @@ package com.turquaz.engine.ui;
 * @version  $Id$
 */
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream; 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
@@ -76,6 +78,7 @@ import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.dal.EngDALConnection;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TreeFactory;
@@ -1255,7 +1258,31 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		}
 	}
 
-	
+	//Save Options of the user...
+	public void saveProperties(){
+	    try{
+			FileInputStream input = new FileInputStream("config/turquaz.properties"); //$NON-NLS-1$
+		    Properties props = new Properties();
+		    props.load(input);
+		    input.close();
+		    
+		   // props.put("logo","dfaf");
+		    
+		    FileOutputStream output = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$
+		    props.save(output,"Turquaz Configuration"); //$NON-NLS-1$
+		    
+		    output.flush();
+		    output.close();
+		    
+		    
+			}
+			catch(Exception ex){
+				ex.printStackTrace();
+			}
+	    
+	    
+	    
+	}
 	//save favorite items to the 
 	public static void saveFavoritesTree(){
 		try{

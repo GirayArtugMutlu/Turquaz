@@ -16,7 +16,7 @@ public class DatabaseThread extends Thread {
        
         Server.main(args);
         
-      /*  
+    /*   
         try{
         // creates a connection to the internal database 
         String url = "jdbc:hsqldb:hsql://127.0.0.1:8877" ;
