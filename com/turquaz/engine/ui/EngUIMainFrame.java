@@ -69,13 +69,7 @@ import com.turquaz.inventory.ui.InvUITransactionAdd;
 * @author  Onsel Armagan
 * @version  $Id$
 */
-/**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
-*/
+
 
 
 
