@@ -28,7 +28,6 @@ import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TTable;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
-import java.sql.*;
 
 
 /**

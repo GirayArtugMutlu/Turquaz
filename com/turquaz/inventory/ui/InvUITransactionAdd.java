@@ -26,6 +26,14 @@ import org.eclipse.swt.SWT;
 
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
@@ -43,7 +51,16 @@ import com.turquaz.engine.ui.component.SecureComposite;
 
 public class InvUITransactionAdd extends SecureComposite {
 
-	private CLabel cLabel1;
+	private CCombo comboInvTransWhSelect;
+	private Label lblInvTransWhSelect;
+	private CCombo comboInvTransUnit;
+	private Text txtNumInvTransAmount;
+	private Label lblInvTransAmount;
+	private CCombo combpInvTransType;
+	private Label lblInvTransType;
+	private CCombo comboInvTransCard;
+	private CLabel lblInvTransCard;
+	private Composite compInvTransAdd;
 	public InvUITransactionAdd(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -57,31 +74,112 @@ public class InvUITransactionAdd extends SecureComposite {
 		try {
 			preInitGUI();
 	
-			cLabel1 = new CLabel(this,SWT.NULL);
+			compInvTransAdd = new Composite(this,SWT.NULL);
+			lblInvTransCard = new CLabel(compInvTransAdd,SWT.NULL);
+			comboInvTransCard = new CCombo(compInvTransAdd,SWT.NULL);
+			lblInvTransType = new Label(compInvTransAdd,SWT.NULL);
+			combpInvTransType = new CCombo(compInvTransAdd,SWT.NULL);
+			lblInvTransAmount = new Label(compInvTransAdd,SWT.NULL);
+			txtNumInvTransAmount = new Text(compInvTransAdd,SWT.NULL);
+			comboInvTransUnit = new CCombo(compInvTransAdd,SWT.NULL);
+			lblInvTransWhSelect = new Label(compInvTransAdd,SWT.NULL);
+			comboInvTransWhSelect = new CCombo(compInvTransAdd,SWT.NULL);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(329,223));
 	
-			GridData cLabel1LData = new GridData();
-			cLabel1LData.verticalAlignment = GridData.CENTER;
-			cLabel1LData.horizontalAlignment = GridData.BEGINNING;
-			cLabel1LData.widthHint = 157;
-			cLabel1LData.heightHint = 73;
-			cLabel1LData.horizontalIndent = 0;
-			cLabel1LData.horizontalSpan = 1;
-			cLabel1LData.verticalSpan = 1;
-			cLabel1LData.grabExcessHorizontalSpace = false;
-			cLabel1LData.grabExcessVerticalSpace = false;
-			cLabel1.setLayoutData(cLabel1LData);
-			cLabel1.setText("Stok Hareket Ekle");
-			cLabel1.setSize(new org.eclipse.swt.graphics.Point(157,73));
-			GridLayout thisLayout = new GridLayout(1, true);
+			compInvTransAdd.setSize(new org.eclipse.swt.graphics.Point(329,223));
+	
+			GridData lblInvTransCardLData = new GridData();
+			lblInvTransCardLData.verticalAlignment = GridData.CENTER;
+			lblInvTransCardLData.horizontalAlignment = GridData.BEGINNING;
+			lblInvTransCardLData.widthHint = -1;
+			lblInvTransCardLData.heightHint = -1;
+			lblInvTransCardLData.horizontalIndent = 0;
+			lblInvTransCardLData.horizontalSpan = 1;
+			lblInvTransCardLData.verticalSpan = 1;
+			lblInvTransCardLData.grabExcessHorizontalSpace = false;
+			lblInvTransCardLData.grabExcessVerticalSpace = false;
+			lblInvTransCard.setLayoutData(lblInvTransCardLData);
+			lblInvTransCard.setText("Inventory Card");
+			GridLayout lblInvTransCardLayout = new GridLayout(1, true);
+			lblInvTransCard.setLayout(lblInvTransCardLayout);
+			lblInvTransCardLayout.marginWidth = 5;
+			lblInvTransCardLayout.marginHeight = 5;
+			lblInvTransCardLayout.numColumns = 1;
+			lblInvTransCardLayout.makeColumnsEqualWidth = true;
+			lblInvTransCardLayout.horizontalSpacing = 5;
+			lblInvTransCardLayout.verticalSpacing = 5;
+			lblInvTransCard.layout();
+	
+			GridData comboInvTransCardLData = new GridData();
+			comboInvTransCardLData.verticalAlignment = GridData.CENTER;
+			comboInvTransCardLData.horizontalAlignment = GridData.BEGINNING;
+			comboInvTransCardLData.widthHint = -1;
+			comboInvTransCardLData.heightHint = -1;
+			comboInvTransCardLData.horizontalIndent = 0;
+			comboInvTransCardLData.horizontalSpan = 3;
+			comboInvTransCardLData.verticalSpan = 1;
+			comboInvTransCardLData.grabExcessHorizontalSpace = false;
+			comboInvTransCardLData.grabExcessVerticalSpace = false;
+			comboInvTransCard.setLayoutData(comboInvTransCardLData);
+	
+			lblInvTransType.setText("Transaction Type");
+	
+			GridData combpInvTransTypeLData = new GridData();
+			combpInvTransTypeLData.verticalAlignment = GridData.CENTER;
+			combpInvTransTypeLData.horizontalAlignment = GridData.BEGINNING;
+			combpInvTransTypeLData.widthHint = -1;
+			combpInvTransTypeLData.heightHint = -1;
+			combpInvTransTypeLData.horizontalIndent = 0;
+			combpInvTransTypeLData.horizontalSpan = 3;
+			combpInvTransTypeLData.verticalSpan = 1;
+			combpInvTransTypeLData.grabExcessHorizontalSpace = false;
+			combpInvTransTypeLData.grabExcessVerticalSpace = false;
+			combpInvTransType.setLayoutData(combpInvTransTypeLData);
+	
+			lblInvTransAmount.setText("Amount");
+	
+	
+			GridData comboInvTransUnitLData = new GridData();
+			comboInvTransUnitLData.verticalAlignment = GridData.CENTER;
+			comboInvTransUnitLData.horizontalAlignment = GridData.BEGINNING;
+			comboInvTransUnitLData.widthHint = -1;
+			comboInvTransUnitLData.heightHint = -1;
+			comboInvTransUnitLData.horizontalIndent = 0;
+			comboInvTransUnitLData.horizontalSpan = 2;
+			comboInvTransUnitLData.verticalSpan = 1;
+			comboInvTransUnitLData.grabExcessHorizontalSpace = false;
+			comboInvTransUnitLData.grabExcessVerticalSpace = false;
+			comboInvTransUnit.setLayoutData(comboInvTransUnitLData);
+	
+			lblInvTransWhSelect.setText("Warehouse");
+	
+			GridData comboInvTransWhSelectLData = new GridData();
+			comboInvTransWhSelectLData.verticalAlignment = GridData.CENTER;
+			comboInvTransWhSelectLData.horizontalAlignment = GridData.BEGINNING;
+			comboInvTransWhSelectLData.widthHint = -1;
+			comboInvTransWhSelectLData.heightHint = -1;
+			comboInvTransWhSelectLData.horizontalIndent = 0;
+			comboInvTransWhSelectLData.horizontalSpan = 3;
+			comboInvTransWhSelectLData.verticalSpan = 1;
+			comboInvTransWhSelectLData.grabExcessHorizontalSpace = false;
+			comboInvTransWhSelectLData.grabExcessVerticalSpace = false;
+			comboInvTransWhSelect.setLayoutData(comboInvTransWhSelectLData);
+			GridLayout compInvTransAddLayout = new GridLayout(4, true);
+			compInvTransAdd.setLayout(compInvTransAddLayout);
+			compInvTransAddLayout.marginWidth = 5;
+			compInvTransAddLayout.marginHeight = 5;
+			compInvTransAddLayout.numColumns = 4;
+			compInvTransAddLayout.makeColumnsEqualWidth = true;
+			compInvTransAddLayout.horizontalSpacing = 5;
+			compInvTransAddLayout.verticalSpacing = 5;
+			compInvTransAdd.layout();
+			FillLayout thisLayout = new FillLayout(256);
 			this.setLayout(thisLayout);
-			thisLayout.marginWidth = 5;
-			thisLayout.marginHeight = 5;
-			thisLayout.numColumns = 1;
-			thisLayout.makeColumnsEqualWidth = true;
-			thisLayout.horizontalSpacing = 5;
-			thisLayout.verticalSpacing = 5;
+			thisLayout.type = SWT.HORIZONTAL;
+			thisLayout.marginWidth = 0;
+			thisLayout.marginHeight = 0;
+			thisLayout.spacing = 0;
 			this.layout();
 	
 			postInitGUI();
