@@ -105,12 +105,12 @@ public class InvUICardUpdateDialog extends Dialog{
 			coolBarTopLData.grabExcessHorizontalSpace = true;
 			coolBarTopLData.grabExcessVerticalSpace = false;
 			coolBarTop.setLayoutData(coolBarTopLData);
-			coolBarTop.setSize(new org.eclipse.swt.graphics.Point(603,42));
+			coolBarTop.setSize(new org.eclipse.swt.graphics.Point(603,27));
 	
 			coolTop.setControl(toolBarTop);
-			coolTop.setSize(new org.eclipse.swt.graphics.Point(88,42));
-			coolTop.setPreferredSize(new org.eclipse.swt.graphics.Point(88,42));
-			coolTop.setMinimumSize(new org.eclipse.swt.graphics.Point(88,42));
+			coolTop.setSize(new org.eclipse.swt.graphics.Point(88,27));
+			coolTop.setPreferredSize(new org.eclipse.swt.graphics.Point(88,27));
+			coolTop.setMinimumSize(new org.eclipse.swt.graphics.Point(88,27));
 	
 	
 			toolUpdate.setText("Update");
@@ -122,8 +122,6 @@ public class InvUICardUpdateDialog extends Dialog{
 	
 			toolDelete.setText("Delete");
 			toolDelete.setToolTipText("Delete");
-			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			toolDelete.setImage(toolDeleteimage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -161,11 +159,6 @@ public class InvUICardUpdateDialog extends Dialog{
 			dialogShellLayout.horizontalSpacing = 5;
 			dialogShellLayout.verticalSpacing = 5;
 			dialogShell.layout();
-			dialogShell.addDisposeListener(new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
-					toolDeleteimage.dispose();
-				}
-			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 613,348);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();

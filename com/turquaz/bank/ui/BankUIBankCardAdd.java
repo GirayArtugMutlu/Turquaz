@@ -21,6 +21,24 @@ import com.turquaz.bank.bl.BankBLBankCardAdd;
 */
 public class BankUIBankCardAdd extends SecureComposite {
 
+	/**
+	 * @return Returns the txtBankAccountNo.
+	 */
+	public Text getTxtBankAccountNo() {
+		return txtBankAccountNo;
+	}
+	/**
+	 * @return Returns the txtBankBranchName.
+	 */
+	public Text getTxtBankBranchName() {
+		return txtBankBranchName;
+	}
+	/**
+	 * @return Returns the txtBankName.
+	 */
+	public Text getTxtBankName() {
+		return txtBankName;
+	}
 	private Text txtBankAccountNo;
 	private CLabel lvlBanckAccountNo;
 	private Text txtBankBranchName;

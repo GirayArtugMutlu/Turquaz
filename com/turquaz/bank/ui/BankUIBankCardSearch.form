@@ -217,7 +217,7 @@
 					</Component>
 				</SubComponents>
 			</Component>
-			<Component class="org.eclipse.swt.widgets.Table" name="tableBankCards" style="0">
+			<Component class="org.eclipse.swt.widgets.Table" name="tableBankCards" style="65538">
 				<Constraints>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -233,6 +233,7 @@
 					</LayoutConstraint>
 				</Constraints>
 				<Events>
+					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="tableBankCardsMouseDoubleClick"/>
 				</Events>
 				<Properties>
 					<Property name="headerVisible" type="boolean" value="true"/>

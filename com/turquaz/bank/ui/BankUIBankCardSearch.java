@@ -19,8 +19,13 @@ import org.eclipse.swt.widgets.TableItem;
 
 import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.dal.TurqInventoryCard;
+
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.inventory.ui.InvUICardUpdateDialog;
 
 /**
 * This code was generated using CloudGarden's Jigloo
@@ -64,7 +69,7 @@ public class BankUIBankCardSearch extends SecureComposite {
 			txtBankBranchName = new Text(composite1,SWT.NULL);
 			lblBankAccountNo = new CLabel(composite1,SWT.NULL);
 			txtBankAccountNo = new Text(composite1,SWT.NULL);
-			tableBankCards = new Table(this,SWT.NULL);
+			tableBankCards = new Table(this,SWT.MULTI| SWT.FULL_SELECTION);
 			tableColoumnBankName = new TableColumn(tableBankCards,SWT.NULL);
 			tableColumnBankBrancName = new TableColumn(tableBankCards,SWT.NULL);
 			tableColumnAccountNo = new TableColumn(tableBankCards,SWT.NULL);
@@ -185,6 +190,11 @@ public class BankUIBankCardSearch extends SecureComposite {
 			tableBankCards.setHeaderVisible(true);
 			tableBankCards.setLinesVisible(true);
 			tableBankCards.setSize(new org.eclipse.swt.graphics.Point(505,189));
+			tableBankCards.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					tableBankCardsMouseDoubleClick(evt);
+				}
+			});
 	
 			tableColoumnBankName.setText("Bank Name");
 			tableColoumnBankName.setWidth(150);
@@ -233,6 +243,7 @@ public class BankUIBankCardSearch extends SecureComposite {
 	
 	public void search(){
 		try{
+			tableBankCards.removeAll();
 			List listBankCards=bankBLBankCardSearch.searchBankCards(txtBankName.getText().trim(),
 																txtBankBranchName.getText().trim(),
 																txtBankAccountNo.getText().trim());
@@ -276,6 +287,18 @@ public class BankUIBankCardSearch extends SecureComposite {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	/** Auto-generated event handler method */
+	protected void tableBankCardsMouseDoubleClick(MouseEvent evt){
+		//TODO add your handler code here
+		TableItem [] selection= tableBankCards.getSelection();	
+	
+		if(selection.length>0){
+	
+			TurqBanksCard card = (TurqBanksCard)selection[0].getData();
+			new BankUIBankCardUpdate(this.getShell(),SWT.NULL,card).open();
+		search();
 		}
 	}
 }

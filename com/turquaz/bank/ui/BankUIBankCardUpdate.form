@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Form style="SWT" ide="eclipse" builder="jigloo" version="2.7.2">
 <NonVisualComponents>
-		<Component class="java.lang.Object" name="object1" style="0">
+		<Component class="java.lang.Object" name="Non-visual components" style="0">
 			<Constraints>
 				<LayoutConstraint/>
 			</Constraints>
-			<Properties>
-			</Properties>
 		</Component></NonVisualComponents>
-	<Component class="org.eclipse.swt.widgets.Dialog" name="InvUICardUpdateDialog" style="0">
+	<Component class="org.eclipse.swt.widgets.Dialog" name="BankUIBankCardUpdate" style="0">
 		<Constraints>
 			<LayoutConstraint/>
 		</Constraints>
@@ -22,72 +20,57 @@
 		</Layout>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[613, 348]"/>
+				<Dimension value="[486, 208]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
-			<Component class="org.eclipse.swt.widgets.CoolBar" name="coolBarTop" style="0">
+			<Component class="org.eclipse.swt.widgets.CoolBar" name="coolBar1" style="0">
 				<Constraints>
-					<Constraint verticalSpan=""/>
-					<Constraint horizontalAlignment=""/>
-					<Constraint heightHint=""/>
-					<Constraint verticalAlignment=""/>
-					<Constraint grabExcessVerticalSpace=""/>
-					<Constraint class="org.eclipse.swt.layout.GridData"/>
-					<Constraint widthHint=""/>
-					<Constraint horizontalSpan=""/>
-					<Constraint grabExcessHorizontalSpace=""/>
-					<Constraint horizontalIndent=""/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
 						<Property name="widthHint" type="int" value="-1"/>
-						<Property name="heightHint" type="int" value="42"/>
+						<Property name="heightHint" type="int" value="-1"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
 						<Property name="verticalSpan" type="int" value="1"/>
-						<Property name="grabExcessHorizontalSpace" type="boolean" value="true"/>
+						<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
 						<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
 					</LayoutConstraint>
 				</Constraints>
 				<Events>
 				</Events>
 				<Properties>
-					<Property name="size" type="Dimension">
-						<Dimension value="[603, 27]"/>
-					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 5, 603, 27]"/>
+						<Rectangle value="[5, 5, 476, 38]"/>
 					</Property>
+					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
 				<SubComponents>
-					<Component class="org.eclipse.swt.widgets.CoolItem" name="coolTop" style="4">
+					<Component class="org.eclipse.swt.widgets.CoolItem" name="coolItem1" style="0">
 						<Constraints>
 							<LayoutConstraint/>
 						</Constraints>
 						<Events>
 						</Events>
 						<Properties>
-							<Property name="size" type="Dimension">
-								<Dimension value="[88, 27]"/>
-							</Property>
 							<Property name="preferredSize" type="Dimension">
-								<Dimension value="[88, 27]"/>
+								<Dimension value="[88, 38]"/>
 							</Property>
 							<Property name="minimumSize" type="Dimension">
-								<Dimension value="[88, 27]"/>
+								<Dimension value="[88, 38]"/>
 							</Property>
 						</Properties>
 						<SubComponents>
-							<Component class="org.eclipse.swt.widgets.ToolBar" name="toolBarTop" style="8">
+							<Component class="org.eclipse.swt.widgets.ToolBar" name="toolBar1" style="0">
 								<Constraints>
 									<LayoutConstraint/>
 								</Constraints>
 								<Events>
 								</Events>
 								<Properties>
-									<Property name="size" type="Dimension">
-										<Dimension value="[177, 38]"/>
+									<Property name="bounds" type="Rectangle">
+										<Rectangle value="[5, 5, 88, 38]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -111,7 +94,9 @@
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Delete"/>
-											<Property name="toolTipText" type="String" value="Delete"/>
+											<Property name="ımage" type="Image">
+												<Image name="\icons\delete_edit.gif"/>
+											</Property>
 										</Properties>
 									</Component>
 								</SubComponents>
@@ -120,18 +105,8 @@
 					</Component>
 				</SubComponents>
 			</Component>
-			<Component class="org.eclipse.swt.widgets.Composite" name="compMain" style="0">
+			<Component class="com.turquaz.bank.ui.BankUIBankCardAdd" name="compBankCard" style="0">
 				<Constraints>
-					<Constraint verticalSpan=""/>
-					<Constraint horizontalAlignment=""/>
-					<Constraint heightHint=""/>
-					<Constraint verticalAlignment=""/>
-					<Constraint grabExcessVerticalSpace=""/>
-					<Constraint class="org.eclipse.swt.layout.GridData"/>
-					<Constraint widthHint=""/>
-					<Constraint horizontalSpan=""/>
-					<Constraint grabExcessHorizontalSpace=""/>
-					<Constraint horizontalIndent=""/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
@@ -144,39 +119,16 @@
 						<Property name="grabExcessVerticalSpace" type="boolean" value="true"/>
 					</LayoutConstraint>
 				</Constraints>
-				<Layout class="Fill">
-					<Property name="type" type="int" value="256"/>
-					<Property name="marginWidth" type="int" value="0"/>
-					<Property name="marginHeight" type="int" value="0"/>
-					<Property name="spacing" type="int" value="0"/>
-				</Layout>
 				<Events>
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[603, 291]"/>
+						<Dimension value="[476, 155]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 52, 603, 291]"/>
+						<Rectangle value="[5, 48, 476, 155]"/>
 					</Property>
 				</Properties>
-				<SubComponents>
-					<Component class="com.turquaz.inventory.ui.InvUICardAdd" name="compInvUICard" style="0">
-						<Constraints>
-							<LayoutConstraint/>
-						</Constraints>
-						<Events>
-						</Events>
-						<Properties>
-							<Property name="size" type="Dimension">
-								<Dimension value="[603, 291]"/>
-							</Property>
-							<Property name="bounds" type="Rectangle">
-								<Rectangle value="[0, 0, 603, 291]"/>
-							</Property>
-						</Properties>
-					</Component>
-				</SubComponents>
 			</Component>
 		</SubComponents>
 	</Component>
