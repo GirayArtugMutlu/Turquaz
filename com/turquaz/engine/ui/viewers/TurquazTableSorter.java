@@ -45,7 +45,6 @@ public class TurquazTableSorter extends ViewerSorter
 	{
 		try
 		{
-			System.out.println(arg1.getClass().getName());
 			
 			ITableRow row1 = (ITableRow) arg1;
 			ITableRow row2 = (ITableRow) arg2;
@@ -100,4 +99,5 @@ public class TurquazTableSorter extends ViewerSorter
 			return 0;
 		}
 	}
+	
 }

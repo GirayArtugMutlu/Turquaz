@@ -44,6 +44,9 @@ import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -84,6 +87,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 	private Table tableTransactions;
 	private Composite compAccTransactionSearch;
 	private Calendar cal = Calendar.getInstance();
+	SearchTableViewer tableViewer = null;
 
 	public AccUITransactionSearch(Composite parent, int style)
 	{
@@ -250,6 +254,17 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 		}
 	}
 
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[6];
+		columnTypes[0]= TurquazTableSorter.COLUMN_TYPE_DATE;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableTransactions,columnTypes);
+	}
 	/** Add your pre-init code in here */
 	public void preInitGUI()
 	{
@@ -261,6 +276,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 		//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		dateStartDate.setDate(cal.getTime());
+		createTableViewer();
 	}
 
 	public void save()
@@ -273,7 +289,8 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 		TableItem items[] = tableTransactions.getSelection();
 		if (items.length > 0)
 		{
-			TurqAccountingTransaction accTrans = (TurqAccountingTransaction) items[0].getData();
+			ITableRow row = (ITableRow)items[0].getData();
+			TurqAccountingTransaction accTrans = (TurqAccountingTransaction)row.getDBObject() ;
 			int status = 0;
 			/* Check if it has a journal entry */
 			if (accTrans.getTurqAccountingJournal().getId().intValue() != -1)
@@ -337,7 +354,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 			tableTransactions.removeAll();
 			List result = AccBLTransactionSearch.searchAccTransaction(txtDocumentNo.getText().trim(), dateStartDate.getDate(),
 					dateEndDate.getDate(), btnAccTrans.getSelection(), btnCollect.getSelection(), btnPayment.getSelection());
-			TableItem item;
+		
 			int listSize = result.size();
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			for (int i = 0; i < listSize; i++)
@@ -345,8 +362,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 				TurqAccountingTransaction accTran = new TurqAccountingTransaction();
 				Object[] accTransValues = (Object[]) result.get(i);
 				accTran.setId((Integer) accTransValues[0]);
-				item = new TableItem(tableTransactions, SWT.NULL);
-				item.setData(accTran);
+				
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
 				BigDecimal total = new BigDecimal(0);
 				if (accTransValues[5] != null)
@@ -354,11 +370,11 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 					total = (BigDecimal) accTransValues[5];
 				}
 				String transDate = formatter.format(accTransValues[1]);
-				item.setText(new String[]{transDate, accTransValues[2].toString(), //doc no
+				tableViewer.addRow(new String[]{transDate, accTransValues[2].toString(), //doc no
 						accTransValues[3].toString(), //type
 						accTransValues[6].toString(),//modele name
 						accTransValues[4].toString(), //definition
-						cf.format(total)}); //$NON-NLS-1$ 
+						cf.format(total)},accTran); //$NON-NLS-1$ 
 			}
 		}
 		catch (Exception ex)
@@ -384,7 +400,11 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 			TableItem selection[] = tableTransactions.getSelection();
 			if (selection.length > 0)
 			{
-				TurqAccountingTransaction accTrans = (TurqAccountingTransaction) selection[0].getData();
+				
+				ITableRow row = (ITableRow)selection[0].getData();
+				TurqAccountingTransaction accTrans = (TurqAccountingTransaction)row.getDBObject() ;
+				
+				
 				AccBLTransactionUpdate.initiliazeTransactionRows(accTrans);
 				int type = accTrans.getTurqAccountingTransactionType().getId().intValue();
 				boolean updated;

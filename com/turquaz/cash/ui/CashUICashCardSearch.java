@@ -28,6 +28,9 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
@@ -64,6 +67,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 	private Table tableCashCards;
 	private AccountPicker accountPicker;
 	private Text txtCardCode;
+	SearchTableViewer tableViewer = null;
 
 	public CashUICashCardSearch(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -144,6 +148,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 					tableColumnAccount.setWidth(125);
 				}
 			}
+			createTableViewer();
 			this.layout();
 		}
 		catch (Exception e)
@@ -152,6 +157,15 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 		}
 	}
 
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[3] ;
+		columnTypes[0] =TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[1] =TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] =TurquazTableSorter.COLUMN_TYPE_STRING;
+		tableViewer = new SearchTableViewer(tableCashCards,columnTypes);
+		
+	}
 	public void delete()
 	{
 		// TODO Auto-generated method stub
@@ -171,17 +185,15 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 	{
 		try
 		{
-			tableCashCards.removeAll();
+			tableViewer.removeAll();
 			List ls = CashBLCashCardSearch.searchCashCard((TurqAccountingAccount) accountPicker.getData(), txtCardCode.getText().trim());
-			TableItem item;
 			TurqCashCard card;
 			for (int i = 0; i < ls.size(); i++)
 			{
 				card = (TurqCashCard) ls.get(i);
-				item = new TableItem(tableCashCards, SWT.NULL);
-				item.setText(new String[]{card.getCashCardName(), card.getCashCardDefinition(),
-						card.getTurqAccountingAccount().getAccountCode()});
-				item.setData(card);
+				tableViewer.addRow(new String[]{card.getCashCardName(), card.getCashCardDefinition(),
+						card.getTurqAccountingAccount().getAccountCode()},card);
+			
 			}
 		}
 		catch (Exception ex)
@@ -196,7 +208,9 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 		if (selection.length > 0)
 		{
 			TableItem item = selection[0];
-			new CashUICashCardUpdate(this.getShell(), SWT.NULL, (TurqCashCard) item.getData()).open();
+			ITableRow row = (ITableRow)item.getData();
+			
+			new CashUICashCardUpdate(this.getShell(), SWT.NULL, (TurqCashCard)row.getDBObject()).open();
 			search();
 		}
 	}
