@@ -66,7 +66,7 @@ import com.turquaz.engine.dal.TurqBillGroup;
 public class BillUIBillsGroupDialog extends  org.eclipse.swt.widgets.Dialog {
 	private TableColumn tableColumnDescription;
 	private TableColumn tableColumnName;
-	private Label label1;
+	private Label seperator;
 	private Table tableCurGroups;
 	private Button btnGroupAdd;
 	private Button btnUpdate;
@@ -217,14 +217,14 @@ public class BillUIBillsGroupDialog extends  org.eclipse.swt.widgets.Dialog {
 					});
 				}
 				{
-					label1 = new Label(compGroupAddDialog, SWT.SEPARATOR
+					seperator = new Label(compGroupAddDialog, SWT.SEPARATOR
 						| SWT.HORIZONTAL);
-					label1.setText("label1");
+					seperator.setText("label1"); //$NON-NLS-1$
 					GridData label1LData = new GridData();
 					label1LData.heightHint = 2;
 					label1LData.horizontalSpan = 3;
 					label1LData.horizontalAlignment = GridData.FILL;
-					label1.setLayoutData(label1LData);
+					seperator.setLayoutData(label1LData);
 				}
 				compGroupAddDialog.layout();
 			}
@@ -344,7 +344,7 @@ public class BillUIBillsGroupDialog extends  org.eclipse.swt.widgets.Dialog {
 			 btnDelete.setEnabled(false);
 			    btnUpdate.setEnabled(false);
 			    btnGroupAdd.setEnabled(true);
-			    txtGroupName.setText(""); 
+			    txtGroupName.setText("");  //$NON-NLS-1$
 			    txtDescription.setText("");	 //$NON-NLS-1$
 		msg2.setMessage(Messages.getString("CurUIGroupAddDialog.13"));	 //$NON-NLS-1$
 		msg2.open();

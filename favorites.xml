@@ -1,1 +1,1 @@
-<tree><treeitem text="Stok Kartı Ekle" class="com.turquaz.inventory.ui.InvUICardAdd" /><treeitem text="Stok Kartı Arama" class="com.turquaz.inventory.ui.InvUICardSearch" /></tree>
+<tree><treeitem text="Stok Kartı Arama" class="com.turquaz.inventory.ui.InvUICardSearch" /><treeitem text="Stok Kartı Ekle" class="com.turquaz.inventory.ui.InvUICardAdd" /></tree>

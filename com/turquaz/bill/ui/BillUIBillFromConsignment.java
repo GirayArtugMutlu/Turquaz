@@ -1,5 +1,25 @@
 package com.turquaz.bill.ui;
 
+/************************************************************************/
+/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
+/* ============================================                         */
+/* Copyright (c) 2004 by Turquaz Software Development Group			    */
+/*																		*/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License, or    */
+/* (at your option) any later version.       							*/
+/* 																		*/
+/* This program is distributed in the hope that it will be useful,		*/
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
+/* GNU General Public License for more details.         				*/
+/************************************************************************/
+
+/**
+* @author  Onsel Armagan
+* @version  $Id$
+*/
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -30,6 +50,7 @@ import com.turquaz.engine.ui.component.TextWithButton;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
 import com.turquaz.consignment.ui.ConUIConsignmentSearchDialog;
@@ -302,8 +323,8 @@ implements SecureComposite{
 				cTabFolder1.setLayoutData(cTabFolder1LData);
 				{
 					tabItemGeneral = new CTabItem(cTabFolder1, SWT.NONE);
-					tabItemGeneral.setText("General");
-					tabItemGeneral.setImage(SWTResourceManager.getImage("icons/Home16.gif"));
+					tabItemGeneral.setText(Messages.getString("BillUIBillFromConsignment.0")); //$NON-NLS-1$
+					tabItemGeneral.setImage(SWTResourceManager.getImage(Messages.getString("BillUIBillFromConsignment.1"))); //$NON-NLS-1$
 					{
 						compGeneral = new Composite(cTabFolder1, SWT.NONE);
 						GridLayout compGeneralLayout = new GridLayout();
@@ -325,7 +346,7 @@ implements SecureComposite{
 									compInfoPanel,
 									SWT.NONE);
 								lblConsignmet
-									.setText("Consignment Document No");
+									.setText(Messages.getString("BillUIBillFromConsignment.2")); //$NON-NLS-1$
 								GridData lblConsignmetLData = new GridData();
 								lblConsignmetLData.widthHint = 149;
 								lblConsignmetLData.heightHint = 25;
@@ -343,7 +364,7 @@ implements SecureComposite{
 									}
 									});
 								txtConsignment
-									.setText("Please Choose Consignmet ");
+									.setText(Messages.getString("BillUIBillFromConsignment.3")); //$NON-NLS-1$
 								txtConsignmentLData.widthHint = 200;
 								txtConsignmentLData.heightHint = 21;
 								txtConsignment
@@ -353,7 +374,7 @@ implements SecureComposite{
 								lblConsignmentDate = new CLabel(
 									compInfoPanel,
 									SWT.NONE);
-								lblConsignmentDate.setText("Cons. Date");
+								lblConsignmentDate.setText(Messages.getString("BillUIBillFromConsignment.4")); //$NON-NLS-1$
 								GridData lblConsignmentDateLData = new GridData();
 								lblConsignmentDateLData.widthHint = 86;
 								lblConsignmentDateLData.heightHint = 18;
@@ -375,7 +396,7 @@ implements SecureComposite{
 								lblCurrentCard = new CLabel(
 									compInfoPanel,
 									SWT.NONE);
-								lblCurrentCard.setText("Current Card");
+								lblCurrentCard.setText(Messages.getString("BillUIBillFromConsignment.5")); //$NON-NLS-1$
 								GridData lblCurrentCardLData1 = new GridData();
 								lblCurrentCard.setSize(88, 19);
 								lblCurrentCardLData1.widthHint = 88;
@@ -402,7 +423,7 @@ implements SecureComposite{
 								lblDocumentNo = new CLabel(
 									compInfoPanel,
 									SWT.NONE);
-								lblDocumentNo.setText("Document No");
+								lblDocumentNo.setText(Messages.getString("BillUIBillFromConsignment.6")); //$NON-NLS-1$
 								GridData lblDocumentNoLData = new GridData();
 								lblDocumentNoLData.widthHint = 107;
 								lblDocumentNoLData.heightHint = 15;
@@ -421,7 +442,7 @@ implements SecureComposite{
 							}
 							{
 								lblDate = new CLabel(compInfoPanel, SWT.LEFT);
-								lblDate.setText("Date");
+								lblDate.setText(Messages.getString("BillUIBillFromConsignment.7")); //$NON-NLS-1$
 								GridData lblDateLData = new GridData();
 								lblDateLData.widthHint = 70;
 								lblDateLData.heightHint = 21;
@@ -439,7 +460,7 @@ implements SecureComposite{
 							}
 							{
 								lblType = new CLabel(compInfoPanel, SWT.LEFT);
-								lblType.setText("Type");
+								lblType.setText(Messages.getString("BillUIBillFromConsignment.8")); //$NON-NLS-1$
 								GridData lblTypeLData = new GridData();
 								lblTypeLData.widthHint = 62;
 								lblTypeLData.heightHint = 14;
@@ -458,7 +479,7 @@ implements SecureComposite{
 										255,
 										255));
 								comboConsignmentType.setEditable(false);
-								comboConsignmentType.setText("Buy");
+								comboConsignmentType.setText(Messages.getString("BillUIBillFromConsignment.9")); //$NON-NLS-1$
 								comboConsignmentTypeLData.widthHint = 80;
 								comboConsignmentTypeLData.heightHint = 16;
 								comboConsignmentType
@@ -468,7 +489,7 @@ implements SecureComposite{
 								lblDiscountRate = new CLabel(
 									compInfoPanel,
 									SWT.LEFT);
-								lblDiscountRate.setText("Discount Rate");
+								lblDiscountRate.setText(Messages.getString("BillUIBillFromConsignment.10")); //$NON-NLS-1$
 								GridData lblDiscountRateLData = new GridData();
 								lblDiscountRateLData.widthHint = 96;
 								lblDiscountRateLData.heightHint = 15;
@@ -497,7 +518,7 @@ implements SecureComposite{
 								lblDefinition = new CLabel(
 									compInfoPanel,
 									SWT.LEFT);
-								lblDefinition.setText("Definition");
+								lblDefinition.setText(Messages.getString("BillUIBillFromConsignment.11")); //$NON-NLS-1$
 								GridData lblDefinitionLData = new GridData();
 								lblDefinitionLData.widthHint = 108;
 								lblDefinitionLData.heightHint = 20;
@@ -517,7 +538,7 @@ implements SecureComposite{
 								checkClosedBill = new Button(
 									compInfoPanel,
 									SWT.CHECK | SWT.LEFT);
-								checkClosedBill.setText("Closed Bill?");
+								checkClosedBill.setText(Messages.getString("BillUIBillFromConsignment.12")); //$NON-NLS-1$
 								GridData checkClosedBillLData = new GridData();
 								checkClosedBillLData.widthHint = 166;
 								checkClosedBillLData.heightHint = 19;
@@ -543,7 +564,7 @@ implements SecureComposite{
 									tableConsignmentRows,
 									SWT.NONE);
 								tableColumnInventoryCode
-									.setText("Inventory Code");
+									.setText(Messages.getString("BillUIBillFromConsignment.13")); //$NON-NLS-1$
 								tableColumnInventoryCode.setWidth(98);
 							}
 							{
@@ -551,56 +572,56 @@ implements SecureComposite{
 									tableConsignmentRows,
 									SWT.NONE);
 								tableColumnInventoryName
-									.setText("Inventory Name");
+									.setText(Messages.getString("BillUIBillFromConsignment.14")); //$NON-NLS-1$
 								tableColumnInventoryName.setWidth(106);
 							}
 							{
 								tableColumnAmount = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnAmount.setText("Amount");
+								tableColumnAmount.setText(Messages.getString("BillUIBillFromConsignment.15")); //$NON-NLS-1$
 								tableColumnAmount.setWidth(99);
 							}
 							{
 								tableColumnUnit = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnUnit.setText("Unit");
+								tableColumnUnit.setText(Messages.getString("BillUIBillFromConsignment.16")); //$NON-NLS-1$
 								tableColumnUnit.setWidth(54);
 							}
 							{
 								tableColumnUnitPrice = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnUnitPrice.setText("Unit Price");
+								tableColumnUnitPrice.setText(Messages.getString("BillUIBillFromConsignment.17")); //$NON-NLS-1$
 								tableColumnUnitPrice.setWidth(70);
 							}
 							{
 								tableColumnTotalPrice = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnTotalPrice.setText("Total Price");
+								tableColumnTotalPrice.setText(Messages.getString("BillUIBillFromConsignment.18")); //$NON-NLS-1$
 								tableColumnTotalPrice.setWidth(77);
 							}
 							{
 								tableColumnVat = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnVat.setText("VAT");
+								tableColumnVat.setText(Messages.getString("BillUIBillFromConsignment.19")); //$NON-NLS-1$
 								tableColumnVat.setWidth(50);
 							}
 							{
 								tableColumnVatAmount = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnVatAmount.setText("VAT Amount");
+								tableColumnVatAmount.setText(Messages.getString("BillUIBillFromConsignment.20")); //$NON-NLS-1$
 								tableColumnVatAmount.setWidth(90);
 							}
 							{
 								TableColumnVATSpecial = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								TableColumnVATSpecial.setText("Special VAT");
+								TableColumnVATSpecial.setText(Messages.getString("BillUIBillFromConsignment.21")); //$NON-NLS-1$
 								TableColumnVATSpecial.setWidth(100);
 							}
 							{
@@ -608,7 +629,7 @@ implements SecureComposite{
 									tableConsignmentRows,
 									SWT.NONE);
 								tableColumnCumulative
-									.setText("Cumulative Total");
+									.setText(Messages.getString("BillUIBillFromConsignment.22")); //$NON-NLS-1$
 								tableColumnCumulative.setWidth(100);
 							}
 						}
@@ -627,7 +648,7 @@ implements SecureComposite{
 								lblDiscountAmount = new CLabel(
 									compTotalsPanel,
 									SWT.NONE);
-								lblDiscountAmount.setText("Discount Amount:");
+								lblDiscountAmount.setText(Messages.getString("BillUIBillFromConsignment.23")); //$NON-NLS-1$
 								GridData lblDiscountAmountLData = new GridData();
 								lblDiscountAmountLData.widthHint = 105;
 								lblDiscountAmountLData.heightHint = 19;
@@ -653,7 +674,7 @@ implements SecureComposite{
 								lblTotalAmount = new CLabel(
 									compTotalsPanel,
 									SWT.NONE);
-								lblTotalAmount.setText("General Total:");
+								lblTotalAmount.setText(Messages.getString("BillUIBillFromConsignment.24")); //$NON-NLS-1$
 								GridData lblTotalAmountLData = new GridData();
 								lblTotalAmount.setSize(87, 19);
 								lblTotalAmountLData.widthHint = 87;
@@ -677,7 +698,7 @@ implements SecureComposite{
 								lblInventoryPrice = new CLabel(
 									compTotalsPanel,
 									SWT.NONE);
-								lblInventoryPrice.setText("Sub Total :");
+								lblInventoryPrice.setText(Messages.getString("BillUIBillFromConsignment.25")); //$NON-NLS-1$
 								GridData lblInventoryPriceLData = new GridData();
 								lblInventoryPrice.setSize(87, 19);
 								lblInventoryPriceLData.widthHint = 87;
@@ -702,7 +723,7 @@ implements SecureComposite{
 								lblTotalVat = new CLabel(
 									compTotalsPanel,
 									SWT.NONE);
-								lblTotalVat.setText("Total VAT :");
+								lblTotalVat.setText(Messages.getString("BillUIBillFromConsignment.26")); //$NON-NLS-1$
 								GridData lblTotalVatLData = new GridData();
 								lblTotalVat.setSize(87, 19);
 								lblTotalVatLData.widthHint = 87;
@@ -725,7 +746,7 @@ implements SecureComposite{
 								lblSpecialVAT = new Label(
 									compTotalsPanel,
 									SWT.NONE);
-								lblSpecialVAT.setText("Special VAT:");
+								lblSpecialVAT.setText(Messages.getString("BillUIBillFromConsignment.27")); //$NON-NLS-1$
 								GridData lblSpecialVATLData = new GridData();
 								lblSpecialVATLData.widthHint = 104;
 								lblSpecialVATLData.heightHint = 16;
@@ -748,8 +769,8 @@ implements SecureComposite{
 				}
 				{
 					tabItemGroups = new CTabItem(cTabFolder1, SWT.NONE);
-					tabItemGroups.setText("Groups");
-					tabItemGroups.setImage(SWTResourceManager.getImage("icons/Multi16.gif"));
+					tabItemGroups.setText(Messages.getString("BillUIBillFromConsignment.28")); //$NON-NLS-1$
+					tabItemGroups.setImage(SWTResourceManager.getImage("icons/Multi16.gif")); //$NON-NLS-1$
 					{
 						composite1 = new Composite(cTabFolder1, SWT.NONE);
 						tabItemGroups.setControl(composite1);
@@ -768,7 +789,7 @@ implements SecureComposite{
 						{
 							btnUpdateGroups = new Button(composite1, SWT.PUSH
 								| SWT.CENTER);
-							btnUpdateGroups.setText("Update Groups");
+							btnUpdateGroups.setText(Messages.getString("BillUIBillFromConsignment.30")); //$NON-NLS-1$
 							GridData btnUpdateGroupsLData = new GridData();
 							btnUpdateGroups
 								.addMouseListener(new MouseAdapter() {
@@ -837,8 +858,8 @@ implements SecureComposite{
 		
 		//fill combo type
 		
-		comboConsignmentType.add("Buy");
-		comboConsignmentType.add("Sell");
+		comboConsignmentType.add(Messages.getString("BillUIBillFromConsignment.31")); //$NON-NLS-1$
+		comboConsignmentType.add(Messages.getString("BillUIBillFromConsignment.32")); //$NON-NLS-1$
 		
 		
 	}
@@ -876,7 +897,7 @@ implements SecureComposite{
 			TurqBill bill = new TurqBill();
 			bill.setBillsId(new Integer(-1));
 	        int type =0;
-		if(comboConsignmentType.getText().equals("Sell")){
+		if(comboConsignmentType.getText().equals(Messages.getString("BillUIBillFromConsignment.33"))){ //$NON-NLS-1$
 			type =1;
 		}
 	     TurqConsignment consignment = (TurqConsignment)txtConsignment.getData();
@@ -889,7 +910,7 @@ implements SecureComposite{
 										!checkClosedBill.getSelection());
 		
 		saveGroups(consID);
-		msg.setMessage("Succesfully Saved!!");
+		msg.setMessage(Messages.getString("BillUIBillFromConsignment.34")); //$NON-NLS-1$
 		msg.open();
 		newForm();
 		}
@@ -938,13 +959,13 @@ implements SecureComposite{
   
    
  
-    discountTotal = generalTotal.multiply(new BigDecimal(discountRate+"")).setScale(2, BigDecimal.ROUND_DOWN);;
+    discountTotal = generalTotal.multiply(new BigDecimal(discountRate+"")).setScale(2, BigDecimal.ROUND_DOWN);; //$NON-NLS-1$
        
-    totalSpecVAT = totalSpecVAT.subtract(totalSpecVAT.multiply(new BigDecimal(discountRate+""))).setScale(2,BigDecimal.ROUND_DOWN);
+    totalSpecVAT = totalSpecVAT.subtract(totalSpecVAT.multiply(new BigDecimal(discountRate+""))).setScale(2,BigDecimal.ROUND_DOWN); //$NON-NLS-1$
     
-    subTotal = subTotal.subtract(subTotal.multiply(new BigDecimal(discountRate+""))).setScale(2, BigDecimal.ROUND_DOWN);
+    subTotal = subTotal.subtract(subTotal.multiply(new BigDecimal(discountRate+""))).setScale(2, BigDecimal.ROUND_DOWN); //$NON-NLS-1$
     
-    totalVAT = totalVAT.subtract(totalVAT.multiply(new BigDecimal(discountRate+""))).setScale(2, BigDecimal.ROUND_DOWN);
+    totalVAT = totalVAT.subtract(totalVAT.multiply(new BigDecimal(discountRate+""))).setScale(2, BigDecimal.ROUND_DOWN); //$NON-NLS-1$
     
     txtDiscountAmount.setText(discountTotal.toString());    
 	txtSubTotal.setText(subTotal.toString());
@@ -963,7 +984,7 @@ implements SecureComposite{
 	
 	TurqBillConsignmentCommon common = cons.getTurqBillConsignmentCommon();
 		
-	txtCurrentCard.setText(common.getTurqCurrentCard().getCardsCurrentCode()+" - "+common.getTurqCurrentCard().getCardsName());
+	txtCurrentCard.setText(common.getTurqCurrentCard().getCardsCurrentCode()+" - "+common.getTurqCurrentCard().getCardsName()); //$NON-NLS-1$
 	txtCurrentCard.setData(common.getTurqCurrentCard());
 	txtDocumentNo.setText(common.getBillDocumentNo());
 	dateConsDate.setDate(cons.getConsignmentsDate());
@@ -982,11 +1003,11 @@ implements SecureComposite{
     	item.setData(invTrans);
     	item.setText(new String[]{invTrans.getTurqInventoryCard().getCardInventoryCode(),
 				   invTrans.getTurqInventoryCard().getCardName(),
-				   invTrans.getTransactionsAmountIn()+"",
+				   invTrans.getTransactionsAmountIn()+"", //$NON-NLS-1$
 				   invTrans.getTurqInventoryUnit().getUnitsName(),
 				   invTrans.getTransactionsUnitPrice().toString(),
 				   invTrans.getTransactionsTotalPrice().toString(),
-				   invTrans.getTransactionsVat()+"",
+				   invTrans.getTransactionsVat()+"", //$NON-NLS-1$
 				   invTrans.getTransactionsVatAmount().toString(),
 				   invTrans.getTransactionsVatSpecialAmount().toString(),
 				   invTrans.getTransactionsCumilativePrice().toString()});
@@ -994,10 +1015,10 @@ implements SecureComposite{
     	
     	
     }	
-	String type = "Buy";
+	String type = Messages.getString("BillUIBillFromConsignment.29"); //$NON-NLS-1$
 	
 	if(cons.getConsignmentsType()==1){
-		type="Sell";
+		type=Messages.getString("BillUIBillFromConsignment.43"); //$NON-NLS-1$
 	}
 	comboConsignmentType.setText(type);
 	
