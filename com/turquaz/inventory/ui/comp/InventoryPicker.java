@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLInventoryCards;
+import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
 
@@ -52,6 +53,7 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite
 	}
 	private String filter = "";
 	private Text text1;
+	private Text textInvName = null;
 
 	public InventoryPicker(Composite parent, int style)
 	{
@@ -164,10 +166,20 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite
 		if (obj == null)
 		{
 			text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
+		    if(textInvName !=null)
+		    {
+		    	textInvName.setText("");
+		    }
 		}
 		else
 		{
 			text1.setBackground(SWTResourceManager.getColor(198, 255, 198));
+			TurqInventoryCard invCard=(TurqInventoryCard)obj;
+			textInvName.setText(invCard.getCardName());
 		}
+	}
+	public void setTextInvName(Text text)
+	{
+		textInvName = text;
 	}
 }

@@ -122,7 +122,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					GridData compInvCardSearchPanelLData = new GridData();
 					compInvCardSearchPanel.setLayout(compInvCardSearchPanelLayout);
 					compInvCardSearchPanelLData.horizontalAlignment = GridData.FILL;
-					compInvCardSearchPanelLData.heightHint = 124;
+					compInvCardSearchPanelLData.heightHint = 82;
 					compInvCardSearchPanelLData.grabExcessHorizontalSpace = true;
 					compInvCardSearchPanel.setLayoutData(compInvCardSearchPanelLData);
 					{
@@ -185,37 +185,39 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 						txtInvNameEndLData.heightHint = 17;
 						txtInvNameEnd.setLayoutData(txtInvNameEndLData);
 					}
-					//START >>  lblInvGroup
+					//START >> lblInvGroup
 					lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
 					lblInvGroup.setText("Stok Ana Grup");
 					GridData lblInvGroupLData = new GridData();
 					lblInvGroupLData.widthHint = 85;
 					lblInvGroupLData.heightHint = 19;
 					lblInvGroup.setLayoutData(lblInvGroupLData);
-					//END <<  lblInvGroup
-					//START >>  comboInvMainGroup
+					//END << lblInvGroup
+					//START >> comboInvMainGroup
 					comboInvMainGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
 					GridData comboInvGroupLData = new GridData();
-					comboInvMainGroup.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					comboInvMainGroup.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							comboInvMainGroupWidgetSelected(evt);
 						}
 					});
 					comboInvGroupLData.widthHint = 134;
 					comboInvGroupLData.heightHint = 17;
 					comboInvMainGroup.setLayoutData(comboInvGroupLData);
-					//END <<  comboInvMainGroup
-					//START >>  lblInvSubGroup
+					//END << comboInvMainGroup
+					//START >> lblInvSubGroup
 					lblInvSubGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
 					lblInvSubGroup.setText("Stok Alt Grup");
-					//END <<  lblInvSubGroup
-					//START >>  comboInvSubGroup
+					//END << lblInvSubGroup
+					//START >> comboInvSubGroup
 					comboInvSubGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
 					GridData comboInvSubGroupLData = new GridData();
 					comboInvSubGroupLData.widthHint = 134;
 					comboInvSubGroupLData.heightHint = 17;
 					comboInvSubGroup.setLayoutData(comboInvSubGroupLData);
-					//END <<  comboInvSubGroup
+					//END << comboInvSubGroup
 				}
 				{
 					tableSearcResults = new Table(compInvCardSearch, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
@@ -324,7 +326,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 				comboInvMainGroup.setData(gr.getGroupsName(), gr);
 			}
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			ex.printStackTrace();
 		}
@@ -500,7 +502,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 			}
 		}
 	}
-	
+
 	private void comboInvMainGroupWidgetSelected(SelectionEvent evt)
 	{
 		comboInvSubGroup.removeAll();
