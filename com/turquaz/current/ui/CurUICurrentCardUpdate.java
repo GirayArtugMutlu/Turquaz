@@ -119,17 +119,13 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			coolBar1.setLayoutData(coolBar1LData);
 	
 			coolItem1.setControl(toolBar1);
-			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88,38));
-			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,38));
+			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88,23));
+			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,23));
 	
 	
 			toolUpdate.setText("Update");
-			final org.eclipse.swt.graphics.Image toolUpdateimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
-			toolUpdate.setImage(toolUpdateimage);
 	
 			toolDelete.setText("Delete");
-			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			toolDelete.setImage(toolDeleteimage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -147,7 +143,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			cTabFolder1LData.grabExcessHorizontalSpace = true;
 			cTabFolder1LData.grabExcessVerticalSpace = true;
 			cTabFolder1.setLayoutData(cTabFolder1LData);
-			cTabFolder1.setSize(new org.eclipse.swt.graphics.Point(678,366));
+			cTabFolder1.setSize(new org.eclipse.swt.graphics.Point(678,383));
 	
 			cTabItem1.setControl(compCurCardAdd);
 			cTabItem1.setText("Current Card Info");
@@ -187,12 +183,6 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			dialogShellLayout.horizontalSpacing = 5;
 			dialogShellLayout.verticalSpacing = 5;
 			dialogShell.layout();
-			dialogShell.addDisposeListener(new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
-					toolUpdateimage.dispose();
-					toolDeleteimage.dispose();
-				}
-			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 692,441);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
@@ -277,6 +267,8 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	        
 	        fillCurrentGroups();     
 	        fillCurrentBalances();
+	        
+	        compCurCardAdd.getBtnUpdateGroups().setEnabled(false);
 	     
 
 			

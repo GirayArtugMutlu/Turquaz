@@ -45,7 +45,7 @@
 				</Events>
 				<Properties>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 5, 682, 38]"/>
+						<Rectangle value="[5, 5, 682, 23]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
@@ -58,10 +58,10 @@
 						</Events>
 						<Properties>
 							<Property name="preferredSize" type="Dimension">
-								<Dimension value="[88, 38]"/>
+								<Dimension value="[88, 23]"/>
 							</Property>
 							<Property name="minimumSize" type="Dimension">
-								<Dimension value="[88, 38]"/>
+								<Dimension value="[88, 23]"/>
 							</Property>
 						</Properties>
 						<SubComponents>
@@ -82,9 +82,6 @@
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Update"/>
-											<Property name="image" type="Image">
-												<Image name="\icons\save_edit.gif"/>
-											</Property>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.ToolItem" name="toolDelete" style="0">
@@ -96,9 +93,6 @@
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Delete"/>
-											<Property name="image" type="Image">
-												<Image name="\icons\delete_edit.gif"/>
-											</Property>
 										</Properties>
 									</Component>
 								</SubComponents>
@@ -109,6 +103,7 @@
 			</Component>
 			<Component class="org.eclipse.swt.custom.CTabFolder" name="cTabFolder1" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
@@ -154,15 +149,6 @@
 										<Dimension value="[586, 374]"/>
 									</Property>
 									<Property name="enabled" type="boolean" value="true"/>
-									<Property name="bounds" type="Rectangle">
-										<Rectangle value="[2, 20, 586, 374]"/>
-									</Property>
-									<Property name="externalizeStrings" type="boolean" value="false"/>
-									<Property name="externalizeStrings" type="boolean" value="false"/>
-									<Property name="externalizeStrings" type="boolean" value="false"/>
-									<Property name="externalizeStrings" type="boolean" value="false"/>
-									<Property name="externalizeStrings" type="boolean" value="false"/>
-									<Property name="externalizeStrings" type="boolean" value="false"/>
 									<Property name="externalizeStrings" type="boolean" value="false"/>
 									<Property name="externalizeStrings" type="boolean" value="false"/>
 								</Properties>

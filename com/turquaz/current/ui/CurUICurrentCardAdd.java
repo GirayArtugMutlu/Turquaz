@@ -41,6 +41,12 @@ public class CurUICurrentCardAdd extends SecureComposite {
 
 
 	/**
+	 * @return Returns the btnUpdateGroups.
+	 */
+	public Button getBtnUpdateGroups() {
+		return btnUpdateGroups;
+	}
+	/**
 	 * @return Returns the accPickerCustomer.
 	 */
 	public DynamicAccountPicker getAccPickerCustomer() {
