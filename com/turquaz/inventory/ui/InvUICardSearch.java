@@ -346,7 +346,6 @@ public class InvUICardSearch extends  Composite implements SecureComposite {
 	
 	}
 	
-	System.out.println(result.size());
 	}
 	catch(Exception ex){
 	ex.printStackTrace();

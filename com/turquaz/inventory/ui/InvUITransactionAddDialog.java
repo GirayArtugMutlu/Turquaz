@@ -6,6 +6,7 @@ import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.DecimalTextWithButton;
 import com.cloudgarden.resource.SWTResourceManager;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.ui.component.TextWithButton;
 import org.eclipse.swt.custom.CLabel;
@@ -42,6 +43,10 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private Button btnSpecialVat;
 	private NumericText numSpecialVat;
 	private NumericText txtVat;
+	private Composite composite2;
+	private Button btnOk;
+	private Button btnCancel;
+	private Label lblSeperator;
 	private CLabel lblSpecialVAT;
 	private CLabel lblVat;
 	private DecimalTextWithButton comboPrices;
@@ -78,9 +83,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 			dialogShellLayout.marginHeight = 0;
 			dialogShellLayout.marginWidth = 0;
 			dialogShellLayout.verticalSpacing = 0;
-
-			dialogShell.pack();
-			dialogShell.setSize(582, 399);
+			dialogShell.setSize(544, 256);
 			{
 				composite1 = new Composite(dialogShell, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
@@ -147,7 +150,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 						255,
 						255,
 						255));
-					comboPricesLData.heightHint = 17;
+					comboPricesLData.heightHint = 18;
 					comboPricesLData.horizontalAlignment = GridData.FILL;
 					comboPrices.setLayoutData(comboPricesLData);
 				}
@@ -173,7 +176,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 					txtVatLData.heightHint = 17;
 					txtVatLData.horizontalSpan = 2;
 					txtVatLData.grabExcessHorizontalSpace = true;
-					txtVatLData.widthHint = 198;
+					txtVatLData.widthHint = 199;
 					txtVat.setLayoutData(txtVatLData);
 				}
 				{
@@ -194,6 +197,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 				{
 					btnSpecialVat = new Button(composite1, SWT.RADIO | SWT.LEFT);
+					btnSpecialVat.setSelection(true);
 				}
 				{
 					lblSpecialVatEach = new CLabel(composite1, SWT.NONE);
@@ -210,9 +214,55 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 					btnSpecialButtonEach = new Button(composite1, SWT.RADIO
 						| SWT.LEFT);
 				}
+				{
+					lblSeperator = new Label(composite1, SWT.SEPARATOR | SWT.HORIZONTAL);
+					GridData lblSeperatorLData = new GridData();
+					lblSeperatorLData.heightHint = 13;
+					lblSeperatorLData.horizontalAlignment = GridData.FILL;
+					lblSeperatorLData.horizontalSpan = 3;
+					lblSeperator.setLayoutData(lblSeperatorLData);
+				}
+				{
+					composite2 = new Composite(composite1, SWT.NONE);
+					GridLayout composite2Layout = new GridLayout();
+					GridData composite2LData1 = new GridData();
+					composite2LData1.horizontalSpan = 3;
+					composite2LData1.grabExcessHorizontalSpace = true;
+					composite2LData1.horizontalAlignment = GridData.END;
+					composite2LData1.widthHint = 185;
+					composite2LData1.grabExcessVerticalSpace = true;
+					composite2LData1.verticalAlignment = GridData.FILL;
+					composite2.setLayoutData(composite2LData1);
+					GridData composite2LData = new GridData();
+					composite2LData.grabExcessHorizontalSpace = true;
+					composite2Layout.makeColumnsEqualWidth = true;
+					composite2Layout.numColumns = 2;
+					composite2Layout.horizontalSpacing = 20;
+					composite2.setLayout(composite2Layout);
+					{
+						btnCancel = new Button(composite2, SWT.PUSH | SWT.CENTER);
+						GridData button1LData = new GridData();
+						btnCancel.setImage(SWTResourceManager.getImage("icons/Cancel24.gif"));
+						button1LData.widthHint = 69;
+						button1LData.heightHint = 35;
+						button1LData.verticalAlignment = GridData.BEGINNING;
+						btnCancel.setLayoutData(button1LData);
+					}
+					{
+						btnOk = new Button(composite2, SWT.PUSH | SWT.CENTER);
+						GridData button2LData = new GridData();
+						btnOk.setImage(SWTResourceManager.getImage("icons/Ok24.gif"));
+						button2LData.widthHint = 69;
+						button2LData.heightHint = 34;
+						button2LData.verticalAlignment = GridData.BEGINNING;
+						btnOk.setLayoutData(button2LData);
+					}
+				}
 
 			}
 			dialogShell.layout();
+
+			dialogShell.pack();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {
