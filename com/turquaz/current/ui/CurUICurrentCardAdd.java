@@ -11,6 +11,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -362,7 +363,7 @@ public class CurUICurrentCardAdd extends SecureComposite {
 			numTxtNumberLData.grabExcessHorizontalSpace = false;
 			numTxtNumberLData.grabExcessVerticalSpace = false;
 			numTxtNumber.setLayoutData(numTxtNumberLData);
-			numTxtNumber.setTextLimit(10);
+			numTxtNumber.setTextLimit(9);
 			numTxtNumber.setSize(new org.eclipse.swt.graphics.Point(78,16));
 			GridLayout composite1Layout = new GridLayout(3, true);
 			composite1.setLayout(composite1Layout);
@@ -440,7 +441,7 @@ public class CurUICurrentCardAdd extends SecureComposite {
 			numTxtNumber2LData.grabExcessHorizontalSpace = false;
 			numTxtNumber2LData.grabExcessVerticalSpace = false;
 			numTxtNumber2.setLayoutData(numTxtNumber2LData);
-			numTxtNumber2.setTextLimit(10);
+			numTxtNumber2.setTextLimit(9);
 			numTxtNumber2.setSize(new org.eclipse.swt.graphics.Point(78,16));
 			GridLayout composite2Layout = new GridLayout(3, true);
 			composite2.setLayout(composite2Layout);
@@ -971,10 +972,10 @@ public class CurUICurrentCardAdd extends SecureComposite {
 	
 	public void saveContact(Integer cardID)throws Exception{
 	try{
-	
-	
-	
-	}
+	currentAdd.saveContact(cardID,txtContactName.getText().trim(),txtContactAddress.getText().trim(), 
+						txtContactPhone.getText().trim(),txtContactPhone2.getText().trim(), txtFaxNumber.getText().trim(),
+						txtContactEmail.getText().trim(),txtContactWebSite.getText().trim());
+		}
 	catch(Exception ex){
 	throw ex;
 	}
@@ -983,14 +984,14 @@ public class CurUICurrentCardAdd extends SecureComposite {
 	
 	public void saveGroups(Integer cardID)throws Exception{
 	try{
+	TableItem items[] = compRegisterGroup.getTableRegisteredGroups().getItems();
 	
+	for(int i=0;i<items.length;i++){
+	currentAdd.registerGroup(cardID, items[i].getData());
 	
+	}
 	
-	
-	
-	
-	
-	
+		
 	}
 	catch(Exception ex){
 	throw ex;

@@ -63,7 +63,7 @@ public class AccUIAccountsTree extends Tree{
 			account = (TurqAccountingAccount)mainBranches.get(i);
 			item = new TreeItem(parentItem,SWT.NULL);
 			item.setText(account.getAccountCode()+" - "+account.getAccountName() );	
-			item.setData(account.getAccountingAccountsId());
+			item.setData(account);
 			fillBranch(item,account.getAccountingAccountsId().intValue(),"");
 		
 			

@@ -85,9 +85,15 @@ throws Exception{
 	phone.setPhonesCityCode(cityCode);
 	phone.setPhonesCountryCode(countryCode);
 	phone.setPhonesNumber(phoneNumber);
+	phone.setPhonesType("");
 	TurqCurrentCard card = new TurqCurrentCard();
 	card.setCurrentCardsId(curCard);
 	phone.setTurqCurrentCard(card);
+	phone.setCreatedBy(System.getProperty("user"));
+	phone.setUpdatedBy(System.getProperty("user"));
+	phone.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+	phone.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+	
 	currentAdd.saveObject(phone);	
 	}
 	catch(Exception ex){
@@ -112,6 +118,11 @@ public void saveContact(Integer cardID, String name, String address,
 	contact.setContactsEmail(email);
 	contact.setContactsWebSite(website);
 	contact.setTurqCurrentCard(card);
+	contact.setCreatedBy(System.getProperty("user"));
+	contact.setUpdatedBy(System.getProperty("user"));
+	contact.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+	contact.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+	currentAdd.saveObject(contact);
 	
 }
 
