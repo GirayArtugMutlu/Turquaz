@@ -1,5 +1,20 @@
 
 package com.turquaz.engine.bl;
+/************************************************************************/
+/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
+/* ============================================                         */
+/* Copyright (c) 2004 by Turquaz Software Development Group			    */
+/*																		*/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License, or    */
+/* (at your option) any later version.       							*/
+/* 																		*/
+/* This program is distributed in the hope that it will be useful,		*/
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
+/* GNU General Public License for more details.         				*/
+/************************************************************************/
 
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
@@ -294,8 +309,85 @@ public class EngBLUtils {
 		   }
 			catch(Exception ex){
                   ex.printStackTrace();
-			}
+			}	
+	}
 	
+	public static void PrintConsignment(TurqConsignment cons, Shell parent)
+	{
+		try
+		{
+			//TurqConsignment cons = (TurqConsignment)bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator().next();
+			
+			SimpleDateFormat dformat=new SimpleDateFormat("dd-MM-yyyy");
+			Map parameters = new HashMap();
+			String sqlparam="Select invTrans.inventory_transactions_id," +
+					" invCardUnits.card_units_factor, " +
+					" invCard.card_inventory_code, invCard.card_name, units.units_name,"+
+					((cons.getConsignmentsType()==EngBLCommon.CONSIGNMENT_TRANS_TYPE_BUY) ? 
+					"invTrans.transactions_amount_in as amount," : "invTrans.transactions_total_amount_out as amount,")+
+					" invTrans.transactions_unit_price, invTrans.transactions_total_price"+
+					" from turq_inventory_transactions invTrans, turq_inventory_units units," +
+					" turq_inventory_cards invCard, turq_inventory_card_units invCardUnits where" +
+					" invTrans.engine_sequences_id="+cons.getTurqEngineSequence().getEngineSequencesId().intValue()+
+					" and invTrans.inventory_cards_id=invCard.inventory_cards_id" +
+					" and invCardUnits.inventory_cards_id=invTrans.inventory_cards_id" +
+					" and invCardUnits.inventory_units_id=invTrans.inventory_units_id" +
+					" and units.inventory_units_id=invTrans.inventory_units_id";
+			
+			
+
+			//System.out.println(sqlparam);
+			parameters.put("sqlparam",sqlparam);	
+			TurqBillConsignmentCommon billCommon=cons.getTurqBillConsignmentCommon();
+			BigDecimal invoiceSum=billCommon.getTotalAmount().add(billCommon.getSpecialVatAmount());
+			BigDecimal discount=billCommon.getDiscountAmount();
+			BigDecimal specialVAT=billCommon.getVatAmount();
+			BigDecimal invoiceTotal=invoiceSum.subtract(discount);
+			BigDecimal grandTotal=invoiceTotal.add(specialVAT);
+			parameters.put("invoiceSum",invoiceSum);
+			parameters.put("invoiceTotal",invoiceTotal);
+			parameters.put("invoiceDiscount",discount);
+			parameters.put("invoiceVAT",specialVAT);
+			parameters.put("invoiceGrandTotal",grandTotal);
+			parameters.put("invoiceGrandTotalText",EngBLCurrencyToWords.getTurkishCarrencyInWords(grandTotal));
+			TurqCurrentCard curCard=billCommon.getTurqCurrentCard();
+			parameters.put("currentName",curCard.getCardsName());
+			parameters.put("currentAddress",curCard.getCardsAddress());
+			parameters.put("currentTaxNumber",curCard.getCardsTaxNumber());
+			parameters.put("currentTaxDepartment",curCard.getCardsTaxDepartment());
+			parameters.put("currentId", curCard.getCardsCurrentCode());
+					
+			parameters.put("despatchNoteDate",dformat.format(cons.getConsignmentsDate()));
+			parameters.put("despatchNoteId",billCommon.getConsignmentDocumentNo());
+			
+			TurqViewCurrentAmountTotal currentView=curBLCurCardSearch.getCurrentCardView(curCard);
+			BigDecimal allTotal=(currentView.getTransactionsBalanceNow()==null) ? new BigDecimal(0): currentView.getTransactionsBalanceNow();
+			BigDecimal oldAllTotal=allTotal.subtract(grandTotal);
+			
+			parameters.put("currentBalance", oldAllTotal);
+			parameters.put("currentNewBalance", allTotal);
+			parameters.put("definition",cons.getConsignmentsDefinition());
+			NumberFormat formatter =DecimalFormat.getInstance();
+            formatter.setMaximumFractionDigits(2);
+            formatter.setMinimumFractionDigits(2);
+            parameters.put("formatter",formatter); 
+			EngDALConnection db=new EngDALConnection();
+			db.connect();
+			JasperReport jasperReport = JasperManager.loadReport("reports/invoice/template1.jasper"); 
+			final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
+			
+			ViewerApp viewerApp = new ViewerApp();
+			
+			viewerApp.getReportViewer().setDocument(jasperPrint);
+			viewerApp.open();
+			
+			//reportViewer.getReportViewer().setDocument(jasperPrint);			
+			
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 }
