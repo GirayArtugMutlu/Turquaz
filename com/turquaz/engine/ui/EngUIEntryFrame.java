@@ -63,12 +63,23 @@ import com.turquaz.engine.ui.wizards.EngUIDatabaseConnectionWizard;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.widgets.Composite;
+import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
+
+	{
+		//Register as a resource user - SWTResourceManager will
+		//handle the obtaining and disposing of resources
+		SWTResourceManager.registerResourceUser(this);
+	}
+
 	private CLabel lblUserName;
 	private Text txtUserName;
+	private Button checkRememberPassword;
+	private Composite composite1;
 	private Button btnCancel;
 	private Button btnOk;
 	private Text txtPassword;
@@ -93,6 +104,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		Shell shell = new Shell(display);
 		EngUIEntryFrame inst = new EngUIEntryFrame(shell, SWT.NULL);
 		Point size = inst.getSize();
+		shell.setText("Turquaz");
 		shell.setLayout(new FillLayout());
 		shell.layout();
 		if(size.x == 0 && size.y == 0) {
@@ -130,7 +142,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			});
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(418, 127);
+			thisLayout.marginHeight = 20;
+			this.setSize(377, 143);
 			{
 				lblUserName = new CLabel(this, SWT.NONE);
 				lblUserName.setText("Username");
@@ -157,6 +170,15 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 				txtPassword.setLayoutData(txtPasswordLData);
 			}
 			{
+				checkRememberPassword = new Button(this, SWT.CHECK | SWT.LEFT);
+				checkRememberPassword.setText("Remember Password");
+				GridData checkRememberPasswordLData = new GridData();
+				checkRememberPasswordLData.horizontalSpan = 2;
+				checkRememberPasswordLData.widthHint = 162;
+				checkRememberPasswordLData.heightHint = 19;
+				checkRememberPassword.setLayoutData(checkRememberPasswordLData);
+			}
+			{
 				label1 = new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
 				label1.setText("label1");
 				GridData label1LData = new GridData();
@@ -164,37 +186,53 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 				label1LData.horizontalAlignment = GridData.FILL;
 				label1LData.grabExcessHorizontalSpace = true;
 				label1LData.heightHint = 2;
+				label1LData.grabExcessVerticalSpace = true;
 				label1.setLayoutData(label1LData);
 			}
 			{
-				btnCancel = new Button(this, SWT.PUSH | SWT.CENTER);
-				btnCancel.setText("Cancel");
-				GridData btnCancelLData = new GridData();
-				btnCancel.addMouseListener(new MouseAdapter() {
-					public void mouseUp(MouseEvent evt) {
-						btnCancelMouseUp(evt);
+				composite1 = new Composite(this, SWT.NONE);
+				GridLayout composite1Layout = new GridLayout();
+				GridData composite1LData = new GridData();
+				composite1LData.widthHint = 164;
+				composite1LData.heightHint = 40;
+				composite1LData.horizontalSpan = 2;
+				composite1LData.horizontalAlignment = GridData.END;
+				composite1.setLayoutData(composite1LData);
+				composite1Layout.makeColumnsEqualWidth = true;
+				composite1Layout.numColumns = 2;
+				composite1.setLayout(composite1Layout);
+				{
+					btnCancel = new Button(composite1, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+					btnCancel.setText("Cancel");
+					GridData btnCancelLData = new GridData();
+					btnCancel.setImage(SWTResourceManager.getImage("icons/Cancel24.gif"));
+					btnCancel.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+							btnCancelMouseUp(evt);
 
-					}
-				});
-				btnCancel.setSize(70, 24);
-				btnCancelLData.horizontalAlignment = GridData.END;
-				btnCancelLData.widthHint = 70;
-				btnCancelLData.heightHint = 24;
-				btnCancel.setLayoutData(btnCancelLData);
-			}
-			{
-				btnOk = new Button(this, SWT.PUSH | SWT.CENTER);
-				btnOk.setText("Ok");
-				GridData btnOkLData = new GridData();
-				btnOk.addMouseListener(new MouseAdapter() {
-					public void mouseUp(MouseEvent evt) {
-						btnOkMouseUp();
-					}
-				});
-				btnOkLData.horizontalAlignment = GridData.END;
-				btnOkLData.widthHint = 70;
-				btnOkLData.heightHint = 24;
-				btnOk.setLayoutData(btnOkLData);
+						}
+					});
+					btnCancel.setSize(70, 24);
+					btnCancelLData.horizontalAlignment = GridData.END;
+					btnCancelLData.widthHint = 70;
+					btnCancelLData.heightHint = 24;
+					btnCancel.setLayoutData(btnCancelLData);
+				}
+				{
+					btnOk = new Button(composite1, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+					btnOk.setText("Ok");
+					GridData btnOkLData = new GridData();
+					btnOk.setImage(SWTResourceManager.getImage("icons/Ok24.gif"));
+					btnOk.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+							btnOkMouseUp();
+						}
+					});
+					btnOkLData.horizontalAlignment = GridData.END;
+					btnOkLData.widthHint = 70;
+					btnOkLData.heightHint = 24;
+					btnOk.setLayoutData(btnOkLData);
+				}
 			}
 			this.layout();
 			postInitGui();
@@ -207,6 +245,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	public void btnCancelMouseUp(MouseEvent e){
 		
 		this.getShell().dispose();
+		
 	}
 	public void btnOkMouseUp(){
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
@@ -218,9 +257,18 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			    Properties props = new Properties();
 			    props.load(input);
 			    
-			    String password = new String(org.eclipse.core.internal.preferences.Base64.encode(txtPassword.getText().getBytes()));
-			    props.put("username",txtUserName.getText());
-			    props.put("password",password);
+			    if(checkRememberPassword.getSelection()){
+			    	 String password = new String(org.eclipse.core.internal.preferences.Base64.encode(txtPassword.getText().getBytes()));
+					 props.put("username",txtUserName.getText());
+					 props.put("password",password);
+					 props.put("remember_password","true");
+			    }
+			    else{
+			    	props.remove("username");
+			    	props.remove("password");
+			    	props.put("remember_password","false");
+			    }
+			   
 			    input.close();
 			    
 			    FileOutputStream output = new FileOutputStream("config/turquaz.properties");
@@ -263,6 +311,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			EngUIDatabaseConnectionWizard wizard = new EngUIDatabaseConnectionWizard();
 			WizardDialog dialog = new WizardDialog(this.getShell(),wizard);
 			dialog.open();	
+			txtPassword.setText("admin");
+			txtUserName.setText("admin");
 		}
 		
 	
@@ -275,19 +325,28 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
     btnOk.setFocus();
 	String username = EngConfiguration.getString("username");
 	String password = EngConfiguration.getString("password");
-	
+	String rememberPassword = EngConfiguration.getString("remember_password");
 	if(username!=null&&password!=null){
-	
-		
 	txtPassword.setText(new String(Base64.decode(password.getBytes())));
 	txtUserName.setText(username);	
 		
 	}
-	else{
-		txtPassword.setText("admin");
-		txtUserName.setText("admin");
-	
+	checkRememberPassword.setSelection(false);
+	if(rememberPassword!=null&&rememberPassword.equals("true")){
+		checkRememberPassword.setSelection(true);
 	}
-	
+		
+	}
+	public Text getTxtPassword() {
+		return txtPassword;
+	}
+	public void setTxtPassword(Text txtPassword) {
+		this.txtPassword = txtPassword;
+	}
+	public Text getTxtUserName() {
+		return txtUserName;
+	}
+	public void setTxtUserName(Text txtUserName) {
+		this.txtUserName = txtUserName;
 	}
 }

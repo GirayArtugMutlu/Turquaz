@@ -82,6 +82,7 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 		props.setProperty("serverAddress",serverAddress);
 		props.setProperty("serverPort",serverPort);
 		props.setProperty("dbName",dbName);
+		props.setProperty("remember_password","false");
 	  
 		FileOutputStream fileout = new FileOutputStream("config/turquaz.properties");
 	    props.save(fileout,"Turquaz Properties File");

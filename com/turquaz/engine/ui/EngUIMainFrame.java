@@ -914,6 +914,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			EngUIMainFrame inst = new EngUIMainFrame(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
 			Rectangle shellBounds = shell.computeTrim(0,0,800,580);
+			shell.setImage(SWTResourceManager.getImage("icons/turquaz_paw.gif"));
+			shell.setText("Turquaz");
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.addListener(SWT.Close, new Listener() {
 		public void handleEvent(Event e) {
