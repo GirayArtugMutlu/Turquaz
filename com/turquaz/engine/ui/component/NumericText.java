@@ -101,6 +101,11 @@ public class NumericText extends Composite
 			return 0;
 		}
 	}
+	
+	public Integer getIntegerValue()
+	{
+		return new Integer(getIntValue());
+	}
 
 	public void addModifyListener(ModifyListener listener)
 	{
