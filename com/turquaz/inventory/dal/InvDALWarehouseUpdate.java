@@ -27,7 +27,7 @@ import com.turquaz.engine.dal.TurqInventoryWarehous;
 
 public class InvDALWarehouseUpdate
 {
-	public static boolean hasTransaction(TurqInventoryWarehous warehouse) throws Exception
+	public static Boolean hasTransaction(TurqInventoryWarehous warehouse) throws Exception
 	{
 		try
 		{
@@ -39,11 +39,11 @@ public class InvDALWarehouseUpdate
 			List list = q.list();
 			if (list.size() > 0)
 			{
-				return true;
+				return new Boolean(true);
 			}
 			else
 			{
-				return false;
+				return new Boolean(false);
 			}
 		}
 		catch (Exception ex)

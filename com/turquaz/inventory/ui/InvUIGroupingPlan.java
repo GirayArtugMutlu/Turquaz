@@ -19,6 +19,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.tx.EngTXCommon;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.inventory.Messages;
@@ -183,7 +184,7 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			tableTreeGroups.removeAll();
-			List ls = InvBLCardAdd.getParentInventoryGroups();
+			List ls = (List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
 			TableTreeItem item;
 			TableTreeItem subItem;
 			TurqInventoryGroup invGroup;

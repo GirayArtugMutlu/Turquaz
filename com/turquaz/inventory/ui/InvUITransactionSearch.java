@@ -22,6 +22,7 @@ package com.turquaz.inventory.ui;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
@@ -29,14 +30,14 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.bill.ui.BillUIBillUpdateDialog;
 import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
-import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -51,6 +52,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLSearchTransaction;
 import org.eclipse.swt.events.MouseAdapter;
@@ -252,15 +254,21 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 				{
 					//TODO these methods should be transactional
 					boolean updated = false;
-					TurqInventoryTransaction invTrans = InvBLSearchTransaction.getInvTransByTransId(transId);
+					HashMap argMap=new HashMap();
+					argMap.put(EngKeys.TRANS_ID,transId);
+					TurqInventoryTransaction invTrans =(TurqInventoryTransaction)EngTXCommon.doSingleTX(InvBLSearchTransaction.class.getName(),"getInvTransByTransId",argMap);
 					TurqEngineSequence seq = invTrans.getTurqEngineSequence();
-					TurqBill bill = InvBLSearchTransaction.getBill(seq);
+					argMap=new HashMap();
+					argMap.put(EngKeys.ENG_SEQ,seq);
+					TurqBill bill =(TurqBill)EngTXCommon.doSingleTX(InvBLSearchTransaction.class.getName(),"getBill",argMap);
 					TurqConsignment cons;
+					argMap=new HashMap();
+					argMap.put(EngKeys.ENG_SEQ,seq);
 					if (bill != null)
 					{
 						updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill).open();
 					}
-					else if ((cons = InvBLSearchTransaction.getConsignment(seq)) != null)
+					else if ((cons = (TurqConsignment)EngTXCommon.doSingleTX(InvBLSearchTransaction.class.getName(),"getConsignment",argMap)) != null)
 					{
 						updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons).open();
 					}
@@ -311,8 +319,14 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 			{
 				type = EngBLCommon.COMMON_SELL_INT;
 			}
-			List list = InvBLSearchTransaction.searchTransactions((TurqCurrentCard) txtCurCard.getData(), (TurqInventoryCard) txtInvCard
-					.getData(), dateStartDate.getDate(), dateEndDate.getDate(), type);
+			HashMap argMap=new HashMap();
+			argMap.put(EngKeys.CURRENT_CARD,txtCurCard.getData());
+			argMap.put(InvKeys.INV_CARD,txtInvCard.getData());
+			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
+			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
+			argMap.put(EngKeys.TYPE,new Integer(type));
+			
+			List list = (List)EngTXCommon.doTransactionTX(InvBLSearchTransaction.class.getName(),"searchTransactions",argMap);
 			TurqInventoryTransaction transactions;
 			for (int i = 0; i < list.size(); i++)
 			{

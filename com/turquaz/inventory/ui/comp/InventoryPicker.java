@@ -19,6 +19,7 @@ package com.turquaz.inventory.ui.comp;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
@@ -38,7 +39,9 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryUnit;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.cloudgarden.resource.SWTResourceManager;
 
@@ -199,7 +202,9 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite
 				try
 				{
 					TurqInventoryUnit unit = null;
-					List ls = InvBLCardAdd.getInventoryUnits(invCard);
+					HashMap argMap=new HashMap();
+					argMap.put(InvKeys.INV_CARD,invCard);
+					List ls = (List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getInventoryUnits",argMap);
 					for (int i = 0; i < ls.size(); i++)
 					{
 						unit = (TurqInventoryUnit) ls.get(i);

@@ -1,15 +1,13 @@
 package com.turquaz.inventory.dal;
 
-import java.util.Date;
 import java.util.List;
 import com.turquaz.engine.dal.EngDALSessionFactory;
-import com.turquaz.engine.dal.TurqInventoryCard;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
 public class InvDALProfitAnalysis
 {
-	public static List getInventoryTotalsAccordingToAvarage(TurqInventoryCard invCard, Date startDate, Date endDate) throws Exception
+	public static List getInventoryTotalsAccordingToAvarage() throws Exception
 	{
 		try
 		{

@@ -1,16 +1,20 @@
 package com.turquaz.inventory.ui;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLUtils;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLInventoryLedger;
 import org.eclipse.swt.widgets.Button;
@@ -207,7 +211,10 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 		{
 			tableViewer.removeAll();
 			TurkishCurrencyFormat curFormat = new TurkishCurrencyFormat();
-			List list = InvBLInventoryLedger.getInventoryLedger(datePicker.getDate(), txtInvCode.getText().trim());
+			HashMap argMap=new HashMap();
+			argMap.put(EngKeys.DATE,datePicker.getDate());
+			argMap.put(InvKeys.INV_CARD_CODE,txtInvCode.getText().trim());
+			List list = (List)EngTXCommon.doSingleTX(InvBLInventoryLedger.class.getName(),"getInventoryLedger",argMap);
 			Object[] result;
 			String invCode = ""; //$NON-NLS-1$
 			String invName = ""; //$NON-NLS-1$

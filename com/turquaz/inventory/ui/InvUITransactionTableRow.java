@@ -2,6 +2,7 @@ package com.turquaz.inventory.ui;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -16,11 +17,13 @@ import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryTransactionType;
 import com.turquaz.engine.dal.TurqInventoryUnit;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SaveTableViewer;
 import com.turquaz.engine.ui.viewers.TableRowList;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 
 /**
@@ -197,7 +200,9 @@ public class InvUITransactionTableRow implements ITableRow
 		try
 		{
 			TurqInventoryCard invCard = invTrans.getTurqInventoryCard();
-			InvBLCardSearch.initializeInventoryCard(invCard);
+			HashMap argMap=new HashMap();
+			argMap.put(InvKeys.INV_CARD,invCard);
+			EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCard",argMap);
 			//Birimleri doldur
 			List unit_list = new ArrayList();
 			Set set = invCard.getTurqInventoryCardUnits();
@@ -241,7 +246,9 @@ public class InvUITransactionTableRow implements ITableRow
 	{
 		try
 		{
-			InvBLCardSearch.initializeInventoryCard(invCard);
+			HashMap argMap=new HashMap();
+			argMap.put(InvKeys.INV_CARD,invCard);
+			EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCard",argMap);
 			//KDV Yuzdesi
 			//TODO invCard->getCardVat should be decimal
 			invTrans.setVatRate(new BigDecimal(invCard.getCardVat()));

@@ -19,6 +19,7 @@ package com.turquaz.inventory.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
@@ -30,7 +31,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.SWT;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseAdd;
 import org.eclipse.swt.events.VerifyListener;
@@ -335,9 +338,15 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite
 		{
 			if (verifyFields())
 			{
-				InvBLWarehouseAdd.saveWarehouse(txtWarehouseName.getText().trim(), txtWarehouseCode.getText().trim(),
-						txtWarehouseDescription.getText().trim(), txtWarehouseAdres.getText().trim(), txtTelephone.getText().trim(),
-						txtWarehouseCity.getText().trim());
+				HashMap argMap=new HashMap();
+				argMap.put(InvKeys.INV_WAREHOUSE_NAME,txtWarehouseName.getText().trim());
+				argMap.put(InvKeys.INV_WAREHOUSE_CODE,txtWarehouseCode.getText().trim());
+				argMap.put(InvKeys.INV_WAREHOUSE_DESC,txtWarehouseDescription.getText().trim());
+				argMap.put(InvKeys.INV_WAREHOUSE_ADDRESS,txtWarehouseAdres.getText().trim());
+				argMap.put(InvKeys.INV_WAREHOUSE_TEL,txtTelephone.getText().trim());
+				argMap.put(InvKeys.INV_WAREHOUSE_CITY,txtWarehouseCity.getText().trim());
+				
+				EngTXCommon.doTransactionTX(InvBLWarehouseAdd.class.getName(),"saveWarehouse",argMap);
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(Messages.getString("InvUIWarehouseAdd.12")); //$NON-NLS-1$
 				msg.open();

@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -72,6 +73,7 @@ import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.ITableRowListViewer;
 import com.turquaz.engine.ui.viewers.SaveTableViewer;
 import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 import com.turquaz.inventory.ui.InvUITransactionAddDialog;
@@ -868,7 +870,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		try
 		{
 			comboWareHouse.removeAll();
-			List list = InvBLWarehouseSearch.getInventoryWarehouses();
+			List list =(List)EngTXCommon.doSingleTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
 			TurqInventoryWarehous warehouse;
 			for (int i = 0; i < list.size(); i++)
 			{
@@ -1064,7 +1066,9 @@ public class BillUIAddBill extends Composite implements SecureComposite
 	{
 		try
 		{
-			TurqViewInventoryAmountTotal invView = InvBLCardSearch.getView(invCard);
+			HashMap argMap=new HashMap();
+			argMap.put(InvKeys.INV_CARD,invCard);
+			TurqViewInventoryAmountTotal invView = (TurqViewInventoryAmountTotal)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getView",argMap);
 			int Now = (invView.getTransactionsTotalAmountNow() == null) ? 0 : invView.getTransactionsTotalAmountNow().intValue();
 			int Max = invCard.getCardMaximumAmount();
 			int Min = invCard.getCardMinimumAmount();

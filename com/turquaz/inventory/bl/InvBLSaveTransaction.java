@@ -9,7 +9,9 @@ package com.turquaz.inventory.bl;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
@@ -20,15 +22,23 @@ import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryTransactionType;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
+import com.turquaz.inventory.InvKeys;
 
 /**
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class InvBLSaveTransaction
 {
-	public static void saveOtherInventoryTransaction(TurqInventoryCard invCard, TurqInventoryUnit invUnit, TurqInventoryWarehous warehous,
-			String docNo, Date transDate, String definition, BigDecimal amountIn, BigDecimal amountOut) throws Exception
+	public static void saveOtherInventoryTransaction(HashMap argMap) throws Exception
 	{
+		TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
+		TurqInventoryUnit invUnit=(TurqInventoryUnit)argMap.get(InvKeys.INV_UNIT);
+		TurqInventoryWarehous warehous=(TurqInventoryWarehous)argMap.get(InvKeys.INV_WAREHOUSE);
+		String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
+		Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
+		String definition=(String)argMap.get(EngKeys.DEFINITION);
+		BigDecimal amountIn=(BigDecimal)argMap.get(EngKeys.AMOUNT_IN);
+		BigDecimal amountOut=(BigDecimal)argMap.get(EngKeys.AMOUNT_OUT);
 		Calendar cal = Calendar.getInstance();
 		TurqInventoryTransaction invTrans = new TurqInventoryTransaction();
 		TurqInventoryTransactionType transType = new TurqInventoryTransactionType();

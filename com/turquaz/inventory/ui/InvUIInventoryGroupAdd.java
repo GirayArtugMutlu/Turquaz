@@ -1,5 +1,6 @@
 package com.turquaz.inventory.ui;
 
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
@@ -11,8 +12,10 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.bl.EngBLInventoryGroups;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.ui.comp.InvMainGroupPicker;
@@ -157,8 +160,12 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 		try
 		{
 			if (verifyFields())
-			{
-				InvBLCardAdd.saveInvGroup(txtGroupName.getText(), txtDefinition.getText(), (TurqInventoryGroup) txtMainGroup.getData());
+			{		
+				HashMap argMap=new HashMap();
+				argMap.put(InvKeys.INV_GROUP_NAME,txtGroupName.getText().trim());
+				argMap.put(InvKeys.INV_GROUP_DESCRIPTION,txtDefinition.getText().trim());
+				argMap.put(InvKeys.INV_GROUP_PARENT,(TurqInventoryGroup)txtMainGroup.getData());
+				EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"saveInvGroup",argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				EngBLInventoryGroups.RefreshContentAsistantMap();
 				newForm();
@@ -201,7 +208,11 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 		{
 			if (verifyFields())
 			{
-				InvBLCardAdd.saveInvGroup(txtGroupName.getText(), txtDefinition.getText(), mainGroup);
+				HashMap argMap=new HashMap();
+				argMap.put(InvKeys.INV_GROUP_NAME,txtGroupName.getText().trim());
+				argMap.put(InvKeys.INV_GROUP_DESCRIPTION,txtDefinition.getText().trim());
+				argMap.put(InvKeys.INV_GROUP_PARENT,mainGroup);
+				EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"saveInvGroup",argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				EngBLInventoryGroups.RefreshContentAsistantMap();
 			}

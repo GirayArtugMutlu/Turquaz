@@ -20,6 +20,7 @@ package com.turquaz.inventory.ui;
  * @version  $Id$
  */
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import net.sf.hibernate.HibernateException;
 import org.apache.log4j.Logger;
@@ -42,7 +43,10 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqInventoryUnit;
+import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 /**
@@ -271,7 +275,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			tableInvUnits.removeAll();
-			List list = InvBLCardAdd.getInventoryUnits();
+			List list = (List) EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getInventoryUnits",null);
 			TurqInventoryUnit invUnit;
 			TableItem item;
 			for (int i = 0; i < list.size(); i++)
@@ -301,7 +305,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 			int result = msg.open();
 			if (result == SWT.OK)
 			{
-				InvBLCardAdd.deleteObject(txtUnitName.getData());
+				EngBLCommon.delete(txtUnitName.getData());
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);
 				btnUnitAdd.setEnabled(true);
@@ -339,7 +343,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			else
 			{
-				List list = InvBLCardAdd.getInventoryUnits();
+				List list = (List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getInventoryUnits",null);
 				String unit = txtUnitName.getText().trim();
 				boolean exist = false;
 				for (int k = 0; k < list.size(); k++)
@@ -361,7 +365,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 				invUnit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 				invUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				invUnit.setUnitsName(txtUnitName.getText().trim());
-				InvBLCardAdd.saveObject(invUnit);
+				EngBLCommon.save(invUnit);
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);
 				btnUnitAdd.setEnabled(true);
@@ -397,7 +401,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 				txtUnitName.setFocus();
 				return;
 			}
-			List list = InvBLCardAdd.getInventoryUnits();
+			List list = (List) EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getInventoryUnits",null);
 			String unit = txtUnitName.getText().trim();
 			boolean exist = false;
 			for (int k = 0; k < list.size(); k++)
@@ -415,7 +419,9 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 				msg.open();
 				return;
 			}
-			InvBLCardAdd.saveUnit(txtUnitName.getText().trim());
+			HashMap argMap=new HashMap();
+			argMap.put(InvKeys.INV_UNIT_NAME,txtUnitName.getText().trim());
+			EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"saveUnit",argMap);
 			msg.setMessage(Messages.getString("InvUIUnitAddDialog.19")); //$NON-NLS-1$
 			txtUnitName.setText(""); //$NON-NLS-1$
 			fillTable();

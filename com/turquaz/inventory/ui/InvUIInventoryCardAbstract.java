@@ -35,6 +35,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqConsignment;
@@ -42,6 +43,7 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -59,6 +61,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.MouseAdapter;
@@ -317,9 +320,13 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				Integer transId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (transId != null)
 				{
-					TurqInventoryTransaction invTrans = InvBLSearchTransaction.getInvTransByTransId(transId);
+					HashMap argMap=new HashMap();
+					argMap.put(EngKeys.TRANS_ID,transId);
+					TurqInventoryTransaction invTrans =(TurqInventoryTransaction)EngTXCommon.doSingleTX(InvBLSearchTransaction.class.getName(),"getInvTransByTransId",argMap);
 					TurqEngineSequence seq = invTrans.getTurqEngineSequence();
-					TurqConsignment cons = InvBLSearchTransaction.getConsignment(seq);
+					argMap=new HashMap();
+					argMap.put(EngKeys.ENG_SEQ,seq);
+					TurqConsignment cons = (TurqConsignment)EngTXCommon.doSingleTX(InvBLSearchTransaction.class.getName(),"getConsignment",argMap);
 					boolean updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons).open();
 					if (updated)
 						search();
@@ -360,9 +367,15 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				type = EngBLCommon.COMMON_BUY_INT;
 			else if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_SELL_STRING))
 				type = EngBLCommon.COMMON_SELL_INT;
-			List list = InvBLSearchTransaction.searchTransactionsRange((TurqInventoryCard) txtInvCardStart.getData(),
-					(TurqInventoryCard) txtInvCardEnd.getData(), (TurqCurrentCard) txtCurCard.getData(), dateStartDate.getDate(),
-					dateEndDate.getDate(), type);
+			HashMap argMap=new HashMap();
+			argMap.put(InvKeys.INV_CARD_START,txtInvCardStart.getData());
+			argMap.put(InvKeys.INV_CARD_END,txtInvCardEnd.getData());
+			argMap.put(EngKeys.CURRENT_CARD,txtCurCard.getData());
+			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
+			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
+			argMap.put(EngKeys.TYPE,new Integer(type));
+			
+			List list = (List)EngTXCommon.doSingleTX(InvBLSearchTransaction.class.getName(),"searchTransactionsRange",argMap);
 			TurqInventoryTransaction transactions;
 			for (int i = 0; i < list.size(); i++)
 			{

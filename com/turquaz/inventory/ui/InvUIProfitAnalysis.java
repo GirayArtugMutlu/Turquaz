@@ -24,6 +24,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import com.turquaz.engine.bl.EngBLUtils;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
@@ -156,7 +157,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 		try
 		{
 			tableViewer.removeAll();
-			List ls = InvBLProfitAnalysis.getTransactionTotals(null, null, null);
+			List ls = (List)EngTXCommon.doSingleTX(InvBLProfitAnalysis.class.getName(),"getTransactionTotals",null);
 			BigDecimal amountNow;
 			BigDecimal avgPrice;
 			BigDecimal amountOut;

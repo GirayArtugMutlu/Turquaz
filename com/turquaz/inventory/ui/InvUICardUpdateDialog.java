@@ -20,6 +20,7 @@ package com.turquaz.inventory.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -41,10 +42,10 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Dialog;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.bl.InvBLCardUpdate;
-import com.turquaz.inventory.dal.InvDALCardUpdate;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUIPrice;
 import com.turquaz.inventory.ui.comp.InvUIPriceList;
@@ -426,7 +427,10 @@ public class InvUICardUpdateDialog extends Dialog
 			if (msg.open() == SWT.NO)
 				return;
 			// if the inventory card contains transactions
-			if (InvDALCardUpdate.hasTransactions(invCard).booleanValue())
+			HashMap argMap=new HashMap();
+			argMap.put(InvKeys.INV_CARD,invCard);
+			Boolean hasTX=(Boolean)EngTXCommon.doSingleTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap);
+			if (hasTX.booleanValue())
 			{
 				MessageBox msg2 = new MessageBox(this.getParent(), SWT.ICON_WARNING);
 				msg2.setMessage(Messages.getString("InvUICardUpdateDialog.8")); //$NON-NLS-1$
@@ -434,7 +438,9 @@ public class InvUICardUpdateDialog extends Dialog
 				return;
 			}
 			updated = true;
-			InvBLCardUpdate.deleteInventoryCard(invCard);
+			argMap=new HashMap();
+			argMap.put(InvKeys.INV_CARD,invCard);					
+			EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap);
 			msg = new MessageBox(this.getParent(), SWT.NULL);
 			msg.setMessage(Messages.getString("InvUICardUpdateDialog.6")); //$NON-NLS-1$
 			msg.open();

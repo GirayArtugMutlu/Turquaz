@@ -19,12 +19,6 @@
  */
 package com.turquaz.inventory.bl;
 
-import com.turquaz.engine.dal.EngDALCommon;
-
 public class InvBLUpdateTransaction
 {
-	public static void updateObject(Object obj) throws Exception
-	{
-		EngDALCommon.updateObject(obj);
-	}
 }

@@ -19,14 +19,18 @@ package com.turquaz.inventory.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
+import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseUpdate;
 import com.turquaz.inventory.ui.InvUIWarehouseAdd;
@@ -228,10 +232,17 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 		{
 			if (!compInvUIWarehouse.verifyFields())
 				return;
-			InvBLWarehouseUpdate.updateWarehouse(warehouse, compInvUIWarehouse.getTxtWarehouseAdres().getText().trim(),
-					compInvUIWarehouse.getTxtTelephone().getText().trim(), compInvUIWarehouse.getTxtWarehouseCity().getText().trim(),
-					compInvUIWarehouse.getTxtWarehouseDescription().getText().trim(), compInvUIWarehouse.getTxtWarehouseName()
-							.getText().trim());
+			
+			HashMap argMap=new HashMap();
+			argMap.put(InvKeys.INV_WAREHOUSE,warehouse);
+			argMap.put(InvKeys.INV_WAREHOUSE_NAME,compInvUIWarehouse.getTxtWarehouseName().getText().trim());
+			argMap.put(InvKeys.INV_WAREHOUSE_CODE,compInvUIWarehouse.getTxtWarehouseCode().getText().trim());
+			argMap.put(InvKeys.INV_WAREHOUSE_DESC,compInvUIWarehouse.getTxtWarehouseDescription().getText().trim());
+			argMap.put(InvKeys.INV_WAREHOUSE_ADDRESS,compInvUIWarehouse.getTxtWarehouseAdres().getText().trim());
+			argMap.put(InvKeys.INV_WAREHOUSE_TEL,compInvUIWarehouse.getTxtTelephone().getText().trim());
+			argMap.put(InvKeys.INV_WAREHOUSE_CITY,compInvUIWarehouse.getTxtWarehouseCity().getText().trim());
+			
+			EngTXCommon.doTransactionTX(InvBLWarehouseUpdate.class.getName(),"updateWarehouse",argMap);
 			msg.setMessage(Messages.getString("InvUIWarehouseUpdate.3")); //$NON-NLS-1$
 		}
 		catch (Exception ex)
@@ -256,13 +267,17 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 			if (result == SWT.OK)
 			{
 				// if the warehouse card contains transactions
-				if (InvBLWarehouseUpdate.hasTransactions(warehouse))
+				HashMap argMap=new HashMap();
+				argMap.put(InvKeys.INV_WAREHOUSE,warehouse);
+				
+				Boolean hasTX=(Boolean)EngTXCommon.doSingleTX(InvBLWarehouseUpdate.class.getName(),"hasTransactions",argMap);
+				if (hasTX.booleanValue())
 				{
 					msg.setMessage("Warehouse card contains transactions and \ncan not be deleted. Delete transactions first. "); //$NON-NLS-1$
 					msg.open();
 					return;
 				}
-				InvBLWarehouseUpdate.deleteObject(warehouse);
+				EngBLCommon.delete(warehouse);
 				msg.setMessage(Messages.getString("InvUIWarehouseUpdate.6")); //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.dispose();

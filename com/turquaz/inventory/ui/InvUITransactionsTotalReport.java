@@ -20,6 +20,7 @@ package com.turquaz.inventory.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -35,18 +36,19 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqViewInventoryTotal;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.bl.InvBLCardUpdate;
-import com.turquaz.inventory.dal.InvDALCardUpdate;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Table;
@@ -342,7 +344,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	{
 		try
 		{
-			List groupList = InvBLCardAdd.getParentInventoryGroups();
+			List groupList = (List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
 			comboInvMainGroup.add(""); //$NON-NLS-1$
 			for (int k = 0; k < groupList.size(); k++)
 			{
@@ -391,19 +393,26 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 			if (items.length > 0)
 			{
 				Integer cardId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
-				TurqInventoryCard invCard = InvBLCardSearch.initializeInventoryCard(cardId,new Boolean(false));
+				HashMap argMap=new HashMap();
+				argMap.put(InvKeys.INV_CARD_ID,cardId);
+				TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap);
 				msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
 				if (msg.open() == SWT.NO)
 					return;
 				// if the inventory card contains transactions
-				if (InvDALCardUpdate.hasTransactions(invCard).booleanValue())
+				argMap=new HashMap();
+				argMap.put(InvKeys.INV_CARD,invCard);
+				Boolean hasTX=(Boolean)EngTXCommon.doSingleTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap);
+				if (hasTX.booleanValue())
 				{
 					MessageBox msg2 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
 					msg2.setMessage("Inventory card contains transactions and \ncan not be deleted. Delete them first. "); //$NON-NLS-1$
 					msg2.open();
 					return;
 				}
-				InvBLCardUpdate.deleteInventoryCard(invCard);
+				argMap=new HashMap();
+				argMap.put(InvKeys.INV_CARD,invCard);					
+				EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap);
 				msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(Messages.getString("InvUICardUpdateDialog.6")); //$NON-NLS-1$
 				msg.open();
@@ -549,8 +558,10 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 			try
 			{
 				Integer cardId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
-				TurqInventoryCard card = InvBLCardSearch.initializeInventoryCard(cardId,new Boolean(false));
-				boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, card).open();
+				HashMap argMap=new HashMap();
+				argMap.put(InvKeys.INV_CARD_ID,cardId);
+				TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap);
+				boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, invCard).open();
 				if (updated)
 					search();
 			}

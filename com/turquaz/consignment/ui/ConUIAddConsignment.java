@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
@@ -975,7 +976,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		try
 		{
 			comboWareHouse.removeAll();
-			List list = InvBLWarehouseSearch.getInventoryWarehouses();
+			List list = (List)EngTXCommon.doSingleTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
 			TurqInventoryWarehous warehouse;
 			for (int i = 0; i < list.size(); i++)
 			{

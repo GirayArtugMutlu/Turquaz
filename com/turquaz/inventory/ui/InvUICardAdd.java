@@ -69,6 +69,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLCardSearch;
@@ -1263,13 +1264,22 @@ public class InvUICardAdd extends Composite implements SecureComposite
 			try
 			{
 				// Save inventory card
-				InvBLCardAdd.saveInventoryCard(txtInvCardCode.getText().trim(), txtInvCardName.getText().trim(),
-						txtInvCardDefinition.getText().trim(), txtnumInvCardMin.getIntegerValue(), txtnumInvCardMax.getIntegerValue(), txtInvCardVat.getIntegerValue()
-						, txtInvCardDiscount.getIntegerValue(), numTextSpecailVATPercent.getIntegerValue(),
-						decTextSpecialVatAmount.getBigDecimalValue(), new Boolean(radioSpecialVatAmount.getSelection()), compInvCardGroups
-								.getRegisteredGroups(),//invGroups
-						getInvUnits(), //invUnits
-						getInvPrices(), getInvAccounts());
+				HashMap argMap=new HashMap();
+				argMap.put(InvKeys.INV_CARD_CODE,txtInvCardCode.getText().trim());
+				argMap.put(InvKeys.INV_CARD_NAME,txtInvCardName.getText().trim());
+				argMap.put(InvKeys.INV_CARD_DEFINITION,txtInvCardDefinition.getText().trim());
+				argMap.put(InvKeys.INV_CARD_MIN_AMOUNT,txtnumInvCardMin.getIntegerValue());
+				argMap.put(InvKeys.INV_CARD_MAX_AMOUNT,txtnumInvCardMax.getIntegerValue());
+				argMap.put(InvKeys.INV_CARD_VAT_RATE,txtInvCardVat.getIntegerValue());
+				argMap.put(InvKeys.INV_CARD_DISCOUNT_RATE,txtInvCardDiscount.getIntegerValue());
+				argMap.put(InvKeys.INV_CARD_SPECIAL_VAT_RATE,numTextSpecailVATPercent.getIntegerValue());
+				argMap.put(InvKeys.INV_CARD_SPECIAL_FOR_EACH,decTextSpecialVatAmount.getBigDecimalValue());
+				argMap.put(InvKeys.INV_CARD_IS_SPEC_AMOUNT,new Boolean(radioSpecialVatAmount.getSelection()));
+				argMap.put(InvKeys.INV_CARD_INV_GROUPS,compInvCardGroups.getRegisteredGroups());
+				argMap.put(InvKeys.INV_CARD_UNITS,getInvUnits());
+				argMap.put(InvKeys.INV_CARD_PRICES,getInvPrices());
+				argMap.put(InvKeys.INV_CARD_ACCOUNTS,getInvAccounts());
+				EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"saveInventoryCard",argMap);
 				txtInvCardCode.asistant.refreshContentAssistant(1);
 				EngTXCommon.doSingleTX(EngBLInventoryCards.class.getName(),"RefreshContentAsistantMap",null);
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);

@@ -16,7 +16,10 @@ package com.turquaz.inventory.bl;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.engine.EngKeys;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.dal.InvDALInventoryLedger;
 
 /**
@@ -25,10 +28,12 @@ import com.turquaz.inventory.dal.InvDALInventoryLedger;
  */
 public class InvBLInventoryLedger
 {
-	public static List getInventoryLedger(Date date, String invCode) throws Exception
+	public static List getInventoryLedger(HashMap argMap) throws Exception
 	{
 		try
-		{
+		{	
+			Date date=(Date)argMap.get(EngKeys.DATE);
+			String invCode=(String)argMap.get(InvKeys.INV_CARD_CODE);
 			return InvDALInventoryLedger.getInventoryLedger(date, invCode);
 		}
 		catch (Exception ex)

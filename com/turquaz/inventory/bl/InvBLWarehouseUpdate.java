@@ -1,8 +1,10 @@
 package com.turquaz.inventory.bl;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.dal.InvDALWarehouseUpdate;
 
 /************************************************************************/
@@ -26,16 +28,24 @@ import com.turquaz.inventory.dal.InvDALWarehouseUpdate;
  */
 public class InvBLWarehouseUpdate
 {
-	public static void updateWarehouse(TurqInventoryWarehous wh, String whAddres, String whTelephone, String whCity, String whDescription,
-			String whName) throws Exception
+	public static void updateWarehouse(HashMap argMap) throws Exception
 	{
 		try
 		{
-			wh.setWarehousesAddress(whAddres);
+			TurqInventoryWarehous wh=(TurqInventoryWarehous)argMap.get(InvKeys.INV_WAREHOUSE);
+			String whName=(String)argMap.get(InvKeys.INV_WAREHOUSE_NAME);
+			String whCode=(String)argMap.get(InvKeys.INV_WAREHOUSE_CODE);
+			String whDescription=(String)argMap.get(InvKeys.INV_WAREHOUSE_DESC);
+			String whAddress=(String)argMap.get(InvKeys.INV_WAREHOUSE_ADDRESS);
+			String whTelephone=(String)argMap.get(InvKeys.INV_WAREHOUSE_TEL);
+			String whCity=(String)argMap.get(InvKeys.INV_WAREHOUSE_CITY);
+			
+			wh.setWarehousesAddress(whAddress);
 			wh.setWarehousesCity(whCity);
 			wh.setWarehousesDescription(whDescription);
 			wh.setWarehousesName(whName);
 			wh.setWarehousesTelephone(whTelephone);
+			wh.setWarehousesCode(whCode);
 			wh.setUpdatedBy(System.getProperty("user"));
 			Calendar cal = Calendar.getInstance();
 			wh.setLastModified(cal.getTime());
@@ -47,22 +57,11 @@ public class InvBLWarehouseUpdate
 		}
 	}
 
-	public static void deleteObject(Object obj) throws Exception
+	public static Boolean hasTransactions(HashMap argMap) throws Exception
 	{
 		try
 		{
-			EngDALCommon.deleteObject(obj);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static boolean hasTransactions(TurqInventoryWarehous warehouse) throws Exception
-	{
-		try
-		{
+			TurqInventoryWarehous warehouse=(TurqInventoryWarehous)argMap.get(InvKeys.INV_WAREHOUSE);
 			return InvDALWarehouseUpdate.hasTransaction(warehouse);
 		}
 		catch (Exception ex)

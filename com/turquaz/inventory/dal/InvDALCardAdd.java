@@ -54,22 +54,6 @@ public class InvDALCardAdd
 		}
 	}
 
-	public static List getInventoryGroups() throws Exception
-	{
-		try
-		{
-			Session session = EngDALSessionFactory.getSession();
-			String query = "from TurqInventoryGroup as invGroup " + " where invGroup.turqInventoryGroup.id <> -1";
-			Query q = session.createQuery(query);
-			List list = q.list();
-			return list;
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
 	public static List getParentInventoryGroups() throws Exception
 	{
 		try

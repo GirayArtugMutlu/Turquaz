@@ -19,6 +19,7 @@ package com.turquaz.inventory.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
@@ -34,6 +35,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.SWT;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.viewers.ITableRow;
@@ -41,6 +43,7 @@ import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 /**
@@ -237,7 +240,10 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 		{
 			tableViewer.removeAll();
 			TurqInventoryWarehous warehouse;
-			List result = InvBLWarehouseSearch.searchWarehouse(txtWarehouseName.getText().trim(), txtCity.getText().trim());
+			HashMap argMap=new HashMap();
+			argMap.put(InvKeys.INV_WAREHOUSE_NAME,txtWarehouseName.getText().trim());
+			argMap.put(InvKeys.INV_WAREHOUSE_CITY,txtCity.getText().trim());
+			List result = (List)EngTXCommon.doSingleTX(InvBLWarehouseSearch.class.getName(),"searchWarehouse",argMap );
 			for (int i = 0; i < result.size(); i++)
 			{
 				warehouse = (TurqInventoryWarehous) result.get(i);

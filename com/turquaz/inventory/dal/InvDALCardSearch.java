@@ -172,22 +172,6 @@ public class InvDALCardSearch
 		}
 	}
 
-	public static List getAllInventoryCards() throws Exception
-	{
-		try
-		{
-			Session session = EngDALSessionFactory.getSession();
-			String query = "Select invCard from TurqInventoryCard as invCard";
-			Query q = session.createQuery(query);
-			List list = q.list();
-			return list;
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
 	public static List getAllInvAccTypes() throws Exception
 	{
 		try
@@ -274,21 +258,6 @@ public class InvDALCardSearch
 			Query q = session.createQuery(query);
 			List list = q.list();
 			return (TurqViewInventoryAmountTotal) list.get(0);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static TurqInventoryCard getTurqInvCardById(Integer cardId) throws Exception
-	{
-		try
-		{
-			Session session = EngDALSessionFactory.getSession();
-			TurqInventoryCard invCard = (TurqInventoryCard) session.load(TurqInventoryCard.class, cardId);
-			session.flush();
-			return invCard;
 		}
 		catch (Exception ex)
 		{

@@ -1,6 +1,7 @@
 package com.turquaz.inventory.ui;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
@@ -11,14 +12,17 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CCombo;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLSaveTransaction;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -198,7 +202,7 @@ public class InvUIOtherTransactionIn extends org.eclipse.swt.widgets.Composite i
 		try
 		{
 			comboWareHouse.removeAll();
-			List list = InvBLWarehouseSearch.getInventoryWarehouses();
+			List list = (List)EngTXCommon.doSingleTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
 			TurqInventoryWarehous warehouse;
 			for (int i = 0; i < list.size(); i++)
 			{
@@ -262,9 +266,18 @@ public class InvUIOtherTransactionIn extends org.eclipse.swt.widgets.Composite i
 			{
 				TurqInventoryWarehous warehouse = (TurqInventoryWarehous) comboWareHouse.getData(comboWareHouse.getText());
 				TurqInventoryUnit unit = (TurqInventoryUnit) comboUnits.getData(comboUnits.getText());
-				InvBLSaveTransaction.saveOtherInventoryTransaction((TurqInventoryCard) inventoryPicker.getData(), unit, warehouse,
-						txtDocNo.getText(), datePicker.getDate(), txtDefinition.getText(), txtAmount.getBigDecimalValue(),
-						new BigDecimal(0));
+				
+				HashMap argMap=new HashMap();
+				argMap.put(InvKeys.INV_CARD,(TurqInventoryCard) inventoryPicker.getData());
+				argMap.put(InvKeys.INV_UNIT,unit);
+				argMap.put(InvKeys.INV_WAREHOUSE, warehouse);
+				argMap.put(EngKeys.DOCUMENT_NO,txtDocNo.getText());
+				argMap.put(EngKeys.TRANS_DATE,datePicker.getDate());
+				argMap.put(EngKeys.DEFINITION, txtDefinition.getText().trim());
+				argMap.put(EngKeys.AMOUNT_IN,txtAmount.getBigDecimalValue());
+				argMap.put(EngKeys.AMOUNT_OUT,new BigDecimal(0));
+				
+				EngTXCommon.doTransactionTX(InvBLSaveTransaction.class.getName(),"saveOtherInventoryTransaction",argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
 			}

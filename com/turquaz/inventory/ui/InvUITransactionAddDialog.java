@@ -30,6 +30,7 @@ import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.DecimalTextWithButton;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -373,7 +374,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			comboWareHouses.removeAll();
-			List list = InvBLWarehouseSearch.getInventoryWarehouses();
+			List list = (List)EngTXCommon.doSingleTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
 			TurqInventoryWarehous warehouse;
 			for (int i = 0; i < list.size(); i++)
 			{

@@ -19,9 +19,7 @@ package com.turquaz.inventory.bl;
  * @author Onsel Armagan
  * @version $Id$
  */
-import java.util.Date;
 import java.util.List;
-import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.inventory.dal.InvDALProfitAnalysis;
 
 public class InvBLProfitAnalysis
@@ -31,11 +29,11 @@ public class InvBLProfitAnalysis
 	 *             0 - Ortalama deger
 	 * @return
 	 */
-	public static List getTransactionTotals(TurqInventoryCard invCard, Date startDate, Date endDate) throws Exception
+	public static List getTransactionTotals() throws Exception
 	{
 		try
 		{
-			return InvDALProfitAnalysis.getInventoryTotalsAccordingToAvarage(invCard, startDate, endDate);
+			return InvDALProfitAnalysis.getInventoryTotalsAccordingToAvarage();
 		}
 		catch (Exception ex)
 		{

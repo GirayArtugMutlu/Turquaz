@@ -21,6 +21,7 @@ package com.turquaz.inventory.bl;
  */
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,7 @@ import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryPrice;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.dal.InvDALCardUpdate;
 
 public class InvBLCardUpdate
@@ -57,7 +59,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void updateInvAccounts(TurqInventoryCard invCard, List invAccounts) throws Exception
+	private static void updateInvAccounts(TurqInventoryCard invCard, List invAccounts) throws Exception
 	{
 		try
 		{
@@ -70,7 +72,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void updateInvPrices(TurqInventoryCard invCard, List invPrices) throws Exception
+	private static void updateInvPrices(TurqInventoryCard invCard, List invPrices) throws Exception
 	{
 		try
 		{
@@ -83,7 +85,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void updateInvCardUnits(TurqInventoryCard invCard, List invCardUnits) throws Exception
+	private static void updateInvCardUnits(TurqInventoryCard invCard, List invCardUnits) throws Exception
 	{
 		try
 		{
@@ -96,7 +98,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void updateInvGroups(TurqInventoryCard invCard, Map invGroups) throws Exception
+	private static void updateInvGroups(TurqInventoryCard invCard, Map invGroups) throws Exception
 	{
 		try
 		{
@@ -109,7 +111,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void updateInvCard(String invCode, String cardName, String cardDefinition, int minAmount,
+	private static void updateInvCard(String invCode, String cardName, String cardDefinition, int minAmount,
 			int maxAmount, int cardVat, int discount, int cardSpecialVat, BigDecimal cardSpecialVatEach, TurqInventoryCard card)
 			throws Exception
 	{
@@ -134,16 +136,17 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void deleteInventoryCard(TurqInventoryCard card) throws Exception
+	public static void deleteInventoryCard(HashMap argMap) throws Exception
 	{
 		try
 		{
-			deleteInvCardAccounts(card);
-			deleteInvCardGroups(card);
-			deleteInvCardPrices(card);
-			deleteInvCardUnits(card);
-			InvDALCardUpdate.deleteInitialTransactions(card);
-			EngDALCommon.deleteObject(card);
+			TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
+			deleteInvCardAccounts(invCard);
+			deleteInvCardGroups(invCard);
+			deleteInvCardPrices(invCard);
+			deleteInvCardUnits(invCard);
+			InvDALCardUpdate.deleteInitialTransactions(invCard);
+			EngDALCommon.deleteObject(invCard);
 		}
 		catch (Exception ex)
 		{
@@ -151,7 +154,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void deleteInvCardGroups(TurqInventoryCard invCard) throws Exception
+	private static void deleteInvCardGroups(TurqInventoryCard invCard) throws Exception
 	{
 		try
 		{
@@ -169,7 +172,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void deleteInvCardAccounts(TurqInventoryCard invCard) throws Exception
+	private static void deleteInvCardAccounts(TurqInventoryCard invCard) throws Exception
 	{
 		try
 		{
@@ -187,7 +190,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void deleteInvCardUnits(TurqInventoryCard invCard) throws Exception
+	private static void deleteInvCardUnits(TurqInventoryCard invCard) throws Exception
 	{
 		try
 		{
@@ -205,7 +208,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static void deleteInvCardPrices(TurqInventoryCard invCard) throws Exception
+	private static void deleteInvCardPrices(TurqInventoryCard invCard) throws Exception
 	{
 		try
 		{
@@ -223,11 +226,12 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static Boolean hasTransactions(TurqInventoryCard card) throws Exception
+	public static Boolean hasTransactions(HashMap argMap) throws Exception
 	{
 		try
 		{
-			return InvDALCardUpdate.hasTransactions(card);
+			TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
+			return InvDALCardUpdate.hasTransactions(invCard);
 		}
 		catch (Exception ex)
 		{
