@@ -138,9 +138,15 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 
 	private void initGUI() {
 		try {
-			 
+			
+			String database = EngConfiguration.getString("username"); //$NON-NLS-1$
+			database = database.trim();
+			
+			if (database == "" || database =="localhost" || database == "127.0.0.1")
+			{
 		    DatabaseThread dbThread = new DatabaseThread();
 		    dbThread.start();
+			}
 		    
 		    preInitGui();
 			GridLayout thisLayout = new GridLayout();
@@ -209,7 +215,6 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 				GridData comboLanguageLData = new GridData();
 				comboLanguage.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent evt) {
-						//TODO a function to set text
 						
 						if (comboLanguage.getData(comboLanguage.getText())
 							.equals(new Integer(1))) {
