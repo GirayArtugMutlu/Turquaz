@@ -1,5 +1,10 @@
 package com.turquaz.accounting.ui;
 
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.List;
+
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -7,8 +12,16 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
+
+import com.turquaz.accounting.Messages;
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.engine.dal.TurqAccountingTransaction;
+import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
 
 /**
@@ -27,6 +40,13 @@ import org.eclipse.swt.SWT;
 */
 public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 	private Table tableAccountingTransaction;
+	private TableColumn tableColumnDate;
+	private Button btnSaveJournal;
+	private TableColumn tableColumnDefinition;
+	private TableColumn tableColumnTotalAmount;
+	private TableColumn tableColumnDocumentNo;
+	private TableColumn tableColumnTransType;
+	AccBLTransactionSearch blSearch = new AccBLTransactionSearch();
 
 	/**
 	* Auto-generated main method to display this 
@@ -72,20 +92,100 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 	private void initGUI() {
 		try {
 			this.setLayout(new GridLayout());
-			this.setSize(564, 277);
+			this.setSize(569, 305);
             {
-                tableAccountingTransaction = new Table(this, SWT.NONE);
+                tableAccountingTransaction = new Table(this, SWT.CHECK | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
                 GridData tableAccountingTransactionLData = new GridData();
+                tableAccountingTransaction.setHeaderVisible(true);
+                tableAccountingTransaction.setLinesVisible(true);
                 tableAccountingTransactionLData.grabExcessHorizontalSpace = true;
                 tableAccountingTransactionLData.grabExcessVerticalSpace = true;
                 tableAccountingTransactionLData.horizontalAlignment = GridData.FILL;
                 tableAccountingTransactionLData.verticalAlignment = GridData.FILL;
                 tableAccountingTransaction.setLayoutData(tableAccountingTransactionLData);
+                {
+                    tableColumnTransType = new TableColumn(
+                        tableAccountingTransaction,
+                        SWT.NONE);
+                    tableColumnTransType.setText(Messages.getString("AccUISaveJournal.0")); //$NON-NLS-1$
+                    tableColumnTransType.setWidth(105);
+                }
+                {
+                    tableColumnDocumentNo = new TableColumn(
+                        tableAccountingTransaction,
+                        SWT.NONE);
+                    tableColumnDocumentNo.setText(Messages.getString("AccUISaveJournal.1")); //$NON-NLS-1$
+                    tableColumnDocumentNo.setWidth(108);
+                }
+                {
+                    tableColumnDate = new TableColumn(
+                        tableAccountingTransaction,
+                        SWT.NONE);
+                    tableColumnDate.setText(Messages.getString("AccUISaveJournal.2")); //$NON-NLS-1$
+                    tableColumnDate.setWidth(107);
+                }
+                {
+                    tableColumnTotalAmount = new TableColumn(
+                        tableAccountingTransaction,
+                        SWT.RIGHT);
+                    tableColumnTotalAmount.setText(Messages.getString("AccUISaveJournal.3")); //$NON-NLS-1$
+                    tableColumnTotalAmount.setWidth(103);
+                }
+                {
+                    tableColumnDefinition = new TableColumn(
+                        tableAccountingTransaction,
+                        SWT.NONE);
+                    tableColumnDefinition.setText(Messages.getString("AccUISaveJournal.4")); //$NON-NLS-1$
+                    tableColumnDefinition.setWidth(100);
+                }
             }
+            {
+                btnSaveJournal = new Button(this, SWT.PUSH | SWT.CENTER);
+                btnSaveJournal.setText(Messages.getString("AccUISaveJournal.5")); //$NON-NLS-1$
+            }
+            fillTable();
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void fillTable(){
+	    try{
+	        
+	      List result = blSearch.getUnsavedTransactions();
+	      TableItem item;
+	  	
+	  	int listSize = result.size();
+	  	for(int i =0; i<listSize;i++){
+	  	TurqAccountingTransaction accTrans = (TurqAccountingTransaction)result.get(i);
+	  	item = new TableItem(tableAccountingTransaction,SWT.NULL);
+	  	item.setData(accTrans);
+	  	
+	  	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
+	  	
+	  	
+	  	BigDecimal total = new BigDecimal(0);
+	  	Iterator it = accTrans.getTurqAccountingTransactionColumns().iterator();
+	  	while(it.hasNext()){
+	  		TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn)it.next();
+	  		total = total.add(transColumn.getCreditAmount());
+	  	}
+	  	
+	  	String transDate =formatter.format(accTrans.getTransactionsDate());
+	  	item.setText(new String[]{accTrans.getTurqAccountingTransactionType().getTypesName(),
+	  					accTrans.getTransactionDocumentNo(),transDate,total.toString(),accTrans.getTransactionDescription()}); //$NON-NLS-1$
+	  	
+	  	}
+	        
+	    }
+	    
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
+	    
+	    
+	    
 	}
 
 }

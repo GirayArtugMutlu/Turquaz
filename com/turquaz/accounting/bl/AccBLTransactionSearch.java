@@ -99,6 +99,20 @@ public class AccBLTransactionSearch {
 		
 	}
 	
+	//-Muhasebele?tirilmemi? fi?leri getirir...
+	public List getUnsavedTransactions()throws Exception{
+	    try{
+	        
+	      return dalTransSearch.getUnsavedTransactions();   
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	    
+	    
+	}
+	
 	
 
 }
