@@ -226,13 +226,8 @@ public class AccUIAddAccounts extends SecureComposite{
    
     boolean valid = false;
    
-    if(txtAccAcountName.getText().trim().equals("")){
-	  msg.setMessage("Please Fill Account Name!");
-    msg.open();	
-    return false;
-	}
 	
-	else if(txtAccAccountCode.getText().trim().equals("")){
+    if(txtAccAccountCode.getText().trim().equals("")){
     msg.setMessage("Please Fill Account Code!");
     msg.open();	
     return false;
@@ -253,7 +248,7 @@ public class AccUIAddAccounts extends SecureComposite{
 	txtAccAcountName.setText("");
 	txtParentAccount.setText("");
 	txtParentAccount.setData(null);
-	
+	txtAccAcountName.setFocus();
 	}
 	
 	
