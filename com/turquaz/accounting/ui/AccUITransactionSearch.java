@@ -20,23 +20,33 @@ package com.turquaz.accounting.ui;
 * @version  $Id$
 */
 
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TableItem;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Table;
 
+import com.cloudgarden.resource.SWTResourceManager;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CCombo;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionType;
 
@@ -46,7 +56,6 @@ import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
@@ -54,11 +63,25 @@ import org.eclipse.swt.SWT;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
 public class AccUITransactionSearch extends  Composite implements SecureComposite {
+
+	{
+		//Register as a resource user - SWTResourceManager will
+		//handle the obtaining and disposing of resources
+		SWTResourceManager.registerResourceUser(this);
+	}
+
 
 	private TableColumn tableColumnTotalAmount;
 	private TableColumn tableColumnDate;
@@ -70,6 +93,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 	private CLabel lblStartDate;
 	private CCombo comboTransType;
 	private CLabel lblTransactionType;
+	private Button button1;
 	private Text txtDocumentNo;
 	private CLabel lblDocumentNo;
 	private Table tableTransactions;
@@ -106,18 +130,11 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 			this.setSize(new org.eclipse.swt.graphics.Point(646,513));
 	
 			GridData composite1LData = new GridData();
-			composite1LData.verticalAlignment = GridData.CENTER;
 			composite1LData.horizontalAlignment = GridData.FILL;
-			composite1LData.widthHint = -1;
-			composite1LData.heightHint = 128;
-			composite1LData.horizontalIndent = 0;
-			composite1LData.horizontalSpan = 1;
-			composite1LData.verticalSpan = 1;
+			composite1LData.heightHint = 174;
 			composite1LData.grabExcessHorizontalSpace = true;
-			composite1LData.grabExcessVerticalSpace = false;
 			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(636,128));
-	
+
 			GridData lblDocumentNoLData = new GridData();
 			lblDocumentNoLData.verticalAlignment = GridData.CENTER;
 			lblDocumentNoLData.horizontalAlignment = GridData.BEGINNING;
@@ -171,8 +188,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 			comboTransTypeLData.grabExcessVerticalSpace = false;
 			comboTransType.setLayoutData(comboTransTypeLData);
 			comboTransType.setText(Messages.getString("AccUITransactionSearch.2")); //$NON-NLS-1$
-			final Color comboTransTypebackground = new Color(Display.getDefault(),255,255,255);
-			comboTransType.setBackground(comboTransTypebackground);
+			comboTransType.setBackground(SWTResourceManager.getColor(255, 255, 255));
 			comboTransType.setEditable(false);
 			comboTransType.setSize(new org.eclipse.swt.graphics.Point(121,19));
 	
@@ -228,6 +244,19 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 			dateEndDateLData.grabExcessVerticalSpace = false;
 			dateEndDate.setLayoutData(dateEndDateLData);
 			dateEndDate.setSize(new org.eclipse.swt.graphics.Point(173,25));
+			{
+				button1 = new Button(composite1, SWT.PUSH | SWT.CENTER);
+				button1.setText("Export2XLS");
+				GridData button1LData = new GridData();
+				button1.addMouseListener(new MouseAdapter() {
+					public void mouseUp(MouseEvent evt) {
+						exportToExcel();
+					}
+				});
+				button1LData.widthHint = 145;
+				button1LData.heightHint = 22;
+				button1.setLayoutData(button1LData);
+			}
 			dateEndDate.layout();
 			GridLayout composite1Layout = new GridLayout(2, true);
 			composite1.setLayout(composite1Layout);
@@ -281,7 +310,6 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 			this.layout();
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					comboTransTypebackground.dispose();
 				}
 			});
 	
@@ -416,4 +444,13 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 
 
 	}
+	
+	public void exportToExcel(){
+		
+		EngBLUtils.Export2Excel(tableTransactions);
+		
+		}
+		
+	
+	
 }
