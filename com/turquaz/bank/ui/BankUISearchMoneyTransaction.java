@@ -199,41 +199,43 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
         EngBLUtils.printTable(tableMoneyTrans,Messages.getString("BankUISearchMoneyTransaction.10")); //$NON-NLS-1$
 
     }
-    public void search() {
-    try
+    public void search() 
     {
-        tableMoneyTrans.removeAll();
-        TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+    	try
+		{
+    		tableMoneyTrans.removeAll();
+    		TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
         
-        List ls = BankBLTransactionSearch.searchtransaction(txtDocNo.getText().trim(),dateStart.getDate(),dateEnd.getDate());
+    		List ls = BankBLTransactionSearch.searchtransaction(txtDocNo.getText().trim(),dateStart.getDate(),dateEnd.getDate());
       
-       TurqBanksTransactionBill result;
-        Integer transId;
-        Date transDate;
-        BigDecimal dept = new BigDecimal(0);
-        BigDecimal credit = new BigDecimal(0);
-        String docNo =""; //$NON-NLS-1$
-        String bankCode;
-        String transType;
-        TableItem item ;
+    		TurqBanksTransactionBill result;
+    		Integer transId;
+    		Date transDate;
+    		BigDecimal dept = new BigDecimal(0);
+    		BigDecimal credit = new BigDecimal(0);
+    		String docNo =""; //$NON-NLS-1$
+    		String bankCode;
+    		String transType;
+    		TableItem item ;
         
-        for(int i=0;i<ls.size();i++){
+    		for(int i=0;i<ls.size();i++)
+    		{
             
-            dept = new BigDecimal(0);
-            credit = new BigDecimal(0);
+    			dept = new BigDecimal(0);
+    			credit = new BigDecimal(0);
             
-            result = (TurqBanksTransactionBill)ls.get(i);
-            transId = result.getBanksTransactionBillsId();
+    			result = (TurqBanksTransactionBill)ls.get(i);
+    			transId = result.getBanksTransactionBillsId();
           
-            transType = result.getTurqBanksTransactionType().getTransactionTypeName();
+    			transType = result.getTurqBanksTransactionType().getTransactionTypeName();
           
-            transDate = result.getTransactionBillDate();
-            docNo = result.getTransactionBillNo();
-            String definition = result.getTransactionBillDefinition();
+    			transDate = result.getTransactionBillDate();
+    			docNo = result.getTransactionBillNo();
+    			String definition = result.getTransactionBillDefinition();
             
-            item = new TableItem(tableMoneyTrans,SWT.NULL);
-            item.setData(transId);
-            item.setText(new String[]{
+    			item = new TableItem(tableMoneyTrans,SWT.NULL);
+    			item.setData(transId);
+    			item.setText(new String[]{
                     				  DatePicker.formatter.format(transDate),
                     				  docNo,
                     				  transType,
@@ -241,9 +243,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
                     				});
             
             
-        }
-        
-        
+    		} 
         
         
     }
@@ -254,65 +254,66 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 
     }
     
-    public void tableMouseDoubleClick(){
-   try{
-      TableItem selection[] =tableMoneyTrans.getSelection();
-      if(selection.length>0){
+    public void tableMouseDoubleClick()
+    {
+    	try
+		{
+    		TableItem selection[] =tableMoneyTrans.getSelection();
+    		if(selection.length>0)
+    		{
           
-        boolean isUpdated = false;
-       TurqBanksTransactionBill transBill = BankBLTransactionUpdate.initializeTransaction((Integer)selection[0].getData()); 
-       if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
-       {
-         isUpdated  = new BankUIMoneyTransferInUpdate(getShell(),SWT.NULL,transBill).open();
+    			boolean isUpdated = false;
+    			TurqBanksTransactionBill transBill = BankBLTransactionUpdate.initializeTransaction((Integer)selection[0].getData()); 
+    			if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
+    			{
+    				isUpdated  = new BankUIMoneyTransferInUpdate(getShell(),SWT.NULL,transBill).open();
            
-       }
-       else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_SEND_MONEY)
-       {
-           isUpdated  = new BankUIMoneyTransferOutUpdate(getShell(),SWT.NULL,transBill).open();
+    			}
+    			else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_SEND_MONEY)
+    			{
+    				isUpdated  = new BankUIMoneyTransferOutUpdate(getShell(),SWT.NULL,transBill).open();
            
-       }
-       else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_CASH_DRAW)
-       {
-           isUpdated  = new BankUICashFromBankUpdate(getShell(),SWT.NULL,transBill).open();
+    			}
+    			else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_CASH_DRAW)
+    			{
+    				isUpdated  = new BankUICashFromBankUpdate(getShell(),SWT.NULL,transBill).open();
            
-       }
-       else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_CASH_DEPOSIT)
-       {
-           isUpdated  = new BankUICashToBankUpdate(getShell(),SWT.NULL,transBill).open();
+    			}
+    			else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_CASH_DEPOSIT)
+    			{
+    				isUpdated  = new BankUICashToBankUpdate(getShell(),SWT.NULL,transBill).open();
            
-       }
-       else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_OTHER_DEPOSIT)
-       {
-           isUpdated  = new BankUIOtherTransInUpdate(getShell(),SWT.NULL,transBill).open();
+    			}
+    			else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_OTHER_DEPOSIT)
+    			{
+    				isUpdated  = new BankUIOtherTransInUpdate(getShell(),SWT.NULL,transBill).open();
            
-       }
-       else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_OTHER_DRAW)
-       {
-           isUpdated  = new BankUIOtherTransOutUpdate(getShell(),SWT.NULL,transBill).open();
+    			}
+    			else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_OTHER_DRAW)
+    			{
+    				isUpdated  = new BankUIOtherTransOutUpdate(getShell(),SWT.NULL,transBill).open();
            
-       }
-       
-       else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_BETWEEN_BANKS)
-       {
-           isUpdated  = new BankUITransferBetweenAccountsUpdate(getShell(),SWT.NULL,transBill).open();
+    			}       
+    			else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_BETWEEN_BANKS)
+    			{
+    				isUpdated  = new BankUITransferBetweenAccountsUpdate(getShell(),SWT.NULL,transBill).open();
            
-       }
-       
-       
-       if(isUpdated){
-       search();
-           
-       }
+    			}
        
        
-      }
+    			if(isUpdated)
+    			{
+    				search();
+           
+    			}     
+    		}
        
-   }
-   catch(Exception ex)
-   {
-       ex.printStackTrace();
-       EngUICommon.showMessageBox(getShell(),ex.getMessage().toString(),SWT.ICON_ERROR);
-   }
+		}
+    	catch(Exception ex)
+		{
+    		ex.printStackTrace();
+    		EngUICommon.showMessageBox(getShell(),ex.getMessage().toString(),SWT.ICON_ERROR);
+		}
         
         
     }
