@@ -28,7 +28,7 @@ import com.turquaz.cheque.dal.CheDALSearch;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
 public class CheBLSearchCheques {
-	public static List searchCheque(String portfoliNo, TurqCurrentCard curCard, int status, Date startEnterDate, Date endEnterDate, Date startDueDate, Date endDueDate)throws Exception {
+	public static List searchCheque(String portfoliNo, TurqCurrentCard curCard, Integer status, Date startEnterDate, Date endEnterDate, Date startDueDate, Date endDueDate)throws Exception {
 		try{
 			
 		return	CheDALSearch.searchCheques(portfoliNo,curCard,status,startEnterDate,endEnterDate,startDueDate,startEnterDate);

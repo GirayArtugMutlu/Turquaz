@@ -129,25 +129,47 @@ public class CheDALSearch {
      * @return
      * @throws Exception
      */
-    public static List searchCheques(String portfoyNo, TurqCurrentCard curCard, int status, Date startEnterDate, Date endEnterDate,
+    public static List searchCheques(String portfoyNo, TurqCurrentCard curCard, Integer status, Date startEnterDate, Date endEnterDate,
     		                         Date startDueDate, Date endDueDate )throws Exception {
     	try{
     		  
             Session session = EngDALSessionFactory.openSession(); 
             TurqViewChequeStatus chequeStatus = null;
    
-            /**
-             * TODO new search query
-             */
-            String query = "Select cheque, currentCard.cardsName, chequeStatus from TurqChequeCheque as cheque, TurqViewChequeStatus as chequeStatus, TurqCurrentCard currentCard " +
-            		"where cheque.chequeChequesId = chequeStatus.chequeChequesId " +
-            		" and currentCard.currentCardsId =  chequeStatus.currentCardsId " +
-            		" and chequeStatus.chequeTransactionTypesId ="+EngBLCommon.CHEQUE_TRANS_IN;
+         
+          
+           
+            String query = "Select cheque from TurqChequeCheque as cheque" +
+            		" left join cheque.turqChequeChequeInRolls as chequeInRolls ," +
+            		" TurqViewChequeStatus as status " +
+            		" where cheque.chequesPortfolioNo like '"+portfoyNo+"%'" +
+					" and cheque.chequesDueDate >= :startDueDate " +
+					" and cheque.chequesDueDate <= :endDueDate " +
+					" and chequeInRolls.turqChequeRoll.chequeRollsDate >= :startEnterDate" +
+					" and chequeInRolls.turqChequeRoll.chequeRollsDate <= :endEnterDate" +
+					" and chequeInRolls.turqChequeRoll.turqChequeTransactionType.chequeTransactionTypesId ="+EngBLCommon.CHEQUE_TRANS_IN+
+					" and status.chequeChequesId = cheque.chequeChequesId " ;
+					
+            if(curCard != null)
+            {
+            	query +=" and chequeInRolls.turqChequeRoll.turqCurrentCard = :curCard";
+            }
+            if(status !=null)
+            {
+            	query +=" and status.chequeTransactionTypesId = "+status.intValue();
+            }         
             
             
+            Query q = session.createQuery(query); 
+            q.setParameter("startDueDate",startDueDate);
+            q.setParameter("endDueDate",endDueDate);
+            q.setParameter("startEnterDate",startEnterDate);
+            q.setParameter("endEnterDate",endEnterDate);
             
-            
-            Query q = session.createQuery(query);    
+            if(curCard != null)
+            {
+            	q.setParameter("curCard",curCard);
+            }
             
             
             List list = q.list();

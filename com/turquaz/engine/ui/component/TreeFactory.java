@@ -76,6 +76,7 @@ import com.turquaz.cheque.ui.CheUIChequeInPayroll;
 import com.turquaz.cheque.ui.CheUIChequeOutPayrollBank;
 import com.turquaz.cheque.ui.CheUIChequeOutPayrollCurrent;
 import com.turquaz.cheque.ui.CheUIChequeRollSearch;
+import com.turquaz.cheque.ui.CheUICustomerChequeSearch;
 import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurrentCardAbstract;
@@ -695,6 +696,11 @@ public final class TreeFactory {
 			item = new TreeItem(root,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.100"));   //$NON-NLS-1$
 			item.setData(CheUIChequeOutPayrollBank.class.getName());
+	    }
+		if(EngBLPermissions.getPermission(CheUICustomerChequeSearch.class.getName())>0){
+			item = new TreeItem(root,SWT.NULL);
+			item.setText("Müsteri Ceki Arama");   
+			item.setData(CheUICustomerChequeSearch.class.getName());
 	    }
 		
 		root.setExpanded(true);

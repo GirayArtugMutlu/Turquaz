@@ -35,7 +35,7 @@ public class MenuManager {
 		createEditMenu(menuMain);
 		
 		MenuItem mitFinance = new MenuItem(menuMain,SWT.CASCADE);
-		mitFinance.setText("&Finans");
+		mitFinance.setText(Messages.getString("MenuManager.0")); //$NON-NLS-1$
 		mitFinance = MenuFactory.createFinanceMenu(mitFinance);
 		
 		
@@ -218,10 +218,10 @@ public class MenuManager {
 	            MenuItem seperator = new MenuItem(menuEdit, SWT.SEPARATOR);
 	            
 	            MenuItem mitGoToRightTab = new MenuItem(menuEdit, SWT.PUSH);
-	            mitGoToRightTab.setText("Sonraki sekme \t CTRL + ->");
+	            mitGoToRightTab.setText(Messages.getString("MenuManager.1")); //$NON-NLS-1$
 	            mitGoToRightTab.setAccelerator(SWT.CTRL | SWT.ARROW_RIGHT);
 	            SWTResourceManager.registerResourceUser(mitGoToRightTab);
-	            mitGoToRightTab.setImage(SWTResourceManager.getImage("/icons/forward.gif"));
+	            mitGoToRightTab.setImage(SWTResourceManager.getImage("/icons/forward.gif")); //$NON-NLS-1$
 	            mitGoToRightTab.addSelectionListener(new SelectionAdapter() {
                     public void widgetSelected(SelectionEvent evt) {
                         if (EngUIMainFrame.tabfldMain.getItemCount()==0) {
@@ -242,10 +242,10 @@ public class MenuManager {
 	            
 	           
 	            MenuItem mitGoToLeftTab = new MenuItem(menuEdit, SWT.PUSH);
-	            mitGoToLeftTab.setText("Önceki sekme \t CTRL + <-");
+	            mitGoToLeftTab.setText(Messages.getString("MenuManager.3")); //$NON-NLS-1$
 	            mitGoToLeftTab.setAccelerator(SWT.CTRL | SWT.ARROW_LEFT);
 	            SWTResourceManager.registerResourceUser(mitGoToLeftTab);
-	            mitGoToLeftTab.setImage(SWTResourceManager.getImage("/icons/backward.gif"));
+	            mitGoToLeftTab.setImage(SWTResourceManager.getImage("/icons/backward.gif")); //$NON-NLS-1$
 	            mitGoToLeftTab.addSelectionListener(new SelectionAdapter() {
                     public void widgetSelected(SelectionEvent evt) {
                         if (EngUIMainFrame.tabfldMain.getItemCount()==0) {

@@ -3,11 +3,18 @@ package com.turquaz.cheque.ui;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CLabel;
+
+import com.turquaz.cheque.bl.CheBLSearchCheques;
 import com.turquaz.current.ui.comp.CurrentPicker;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.custom.CCombo;
+
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.SearchComposite;
+
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
@@ -28,9 +35,10 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite {
+public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite implements SearchComposite {
 	private Composite compSearchPanle;
 	private Text txtPortFoyNo;
+	private CurrentPicker currentPicker;
 	private DatePicker datePickerEndEnterDate;
 	private CLabel lblEnterDateEnd;
 	private DatePicker datePickerStartEnterDate;
@@ -44,7 +52,6 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 	private TableColumn tableColumnEntryDate;
 	private TableColumn tableColumnChequeNo;
 	private Table tableCheques;
-	private CurrentPicker currentPicker;
 	private CLabel lblCurrentCard;
 	private CCombo comboStatus;
 	private CLabel lblStaus;
@@ -107,9 +114,8 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			//START >>  currentPicker
 			currentPicker = new CurrentPicker(compSearchPanle, SWT.NONE);
 			GridData currentPickerLData = new GridData();
-			currentPickerLData.widthHint = 235;
-			currentPickerLData.heightHint = 16;
-			currentPickerLData.horizontalSpan = 3;
+			currentPickerLData.widthHint = 181;
+			currentPickerLData.heightHint = 15;
 			currentPicker.setLayoutData(currentPickerLData);
 			//END <<  currentPicker
 			//START >>  lblDueDate
@@ -203,5 +209,31 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			e.printStackTrace();
 		}
 	}
+	
 
+	
+	public void delete() {
+		// TODO Auto-generated method stub
+
+	}
+	
+	public void exportToExcel() {
+		// TODO Auto-generated method stub
+
+	}
+	
+	public void printTable() {
+		// TODO Auto-generated method stub
+
+	}
+	
+	public void search() {
+		try{
+			CheBLSearchCheques.searchCheque(txtPortFoyNo.getText().trim(),(TurqCurrentCard)currentPicker.getData(),new Integer(0),datePickerStartEnterDate.getDate(),datePickerEndEnterDate.getDate(),datePickerStartDueDate.getDate(),datePickerEndDueDate.getDate());
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+
+	}
 }

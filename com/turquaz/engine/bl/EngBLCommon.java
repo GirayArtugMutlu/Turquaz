@@ -21,6 +21,7 @@ package com.turquaz.engine.bl;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+
 import java.util.List;
 
 import com.turquaz.engine.Messages;
@@ -129,12 +130,15 @@ public class EngBLCommon {
     public final static int CHEQUE_TYPE_CUSTOMER = 0; //mü?teri Ceki
     public final static int CHEQUE_TYPE_OWN = 1; //Firma Ceki
     
-    public final static int CHEQUE_STATUS_PORTFOY = 0; //portfoyde
-    public final static int CHEQUE_STATUS_CURRENT = 1; //ciro edili
-    public final static int CHEQUE_STATUS_BANK = 2; // bankada tahsilde
+    public final static Integer CHEQUE_STATUS_PORTFOY = new Integer(0); //portfoyde
+    public final static Integer CHEQUE_STATUS_CURRENT = new Integer(1); //ciro edili
+    public final static Integer CHEQUE_STATUS_BANK = new Integer(2); // bankada tahsilde
     
     public final static String CHEQUE_STATUS_PORTFOY_STRING = "Portföyde";
     public final static String CHEQUE_STATUS_CURRENT_STRING = "Ciro Edildi";
+    public final static String CHEQUE_STATUS_BANK_STRING = "Bankada Tahsilde";
+    
+    
     
     
     public final static boolean INVENTORY_SPEC_VAT_FOR_EACH = true; //OTV birimle hesaplanir
