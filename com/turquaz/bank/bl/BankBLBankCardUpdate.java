@@ -20,10 +20,13 @@ package com.turquaz.bank.bl;
  * @version $Id$
  */
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.dal.BankDALBankCardUpdate;
 import com.turquaz.bank.dal.BankDALCommon;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
@@ -34,16 +37,24 @@ public class BankBLBankCardUpdate
 	{
 	}
 
-	public static void updateBankCard(TurqBanksCard bankCard, String bankName, String bankBranchName, String bankAccountNo,
-			TurqCurrency currency, String definition, String bankCode, Map accountingAccounts) throws Exception
+	public static void updateBankCard(HashMap argMap) throws Exception
 	{
 		
 		try
 		{
+			TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
+			String bankName=(String)argMap.get(BankKeys.BANK_NAME);
+			String bankBranchName=(String)argMap.get(BankKeys.BANK_BRANCH_NAME);
+			String bankAccountNo=(String)argMap.get(BankKeys.BANK_ACCOUNT_NO);
+			TurqCurrency currency=(TurqCurrency)argMap.get(BankKeys.BANK_CURRENCY);
+			String definition=(String)argMap.get(BankKeys.BANK_DEFINITION);
+			String bankCode=(String)argMap.get(BankKeys.BANK_CODE);
+			Map accountingAccounts=(Map)argMap.get(BankKeys.BANK_ACCOUNTING_ACCOUNTS);
+			
+			
 			updateBankCardInfo( bankCard, bankName, bankBranchName, bankAccountNo, currency, definition, bankCode);
 			if (!checkInitialTransaction( bankCard))
 			{
-				//TODO Transaction save should use SESSION!
 				BankBLTransactionAdd.saveInitialBankTransaction(bankCard);
 			}
 			updateBankAccountingAccounts( bankCard, accountingAccounts);
@@ -56,7 +67,7 @@ public class BankBLBankCardUpdate
 		}
 	}
 
-	public static void updateBankCardInfo( TurqBanksCard bankCard, String bankName, String bankBranchName,
+	private static void updateBankCardInfo( TurqBanksCard bankCard, String bankName, String bankBranchName,
 			String bankAccountNo, TurqCurrency currency, String definition, String bankCode) throws Exception
 	{
 		bankCard.setBankName(bankName);
@@ -71,7 +82,7 @@ public class BankBLBankCardUpdate
 		EngDALCommon.updateObject( bankCard);
 	}
 
-	public static boolean checkInitialTransaction( TurqBanksCard bankCard) throws Exception
+	private static boolean checkInitialTransaction( TurqBanksCard bankCard) throws Exception
 	{
 		try
 		{
@@ -83,42 +94,21 @@ public class BankBLBankCardUpdate
 		}
 	}
 
-	public static void updateBankAccountingAccounts(TurqBanksCard curCard, Map accounts) throws Exception
+	private static void updateBankAccountingAccounts(TurqBanksCard curCard, Map accounts) throws Exception
 	{
 		Iterator it = curCard.getTurqBankAccountingAccounts().iterator();
 		while (it.hasNext())
 		{
-			//TODO SESSION
 			EngDALCommon.deleteObject(it.next());
 		}
 		BankBLBankCardAdd.saveBankAccountingAccounts( curCard, accounts);
 	}
 
-	public static boolean hasTransaction(TurqBanksCard bankCard) throws Exception
+	public static Boolean hasTransaction(TurqBanksCard bankCard) throws Exception
 	{
 		return BankDALBankCardUpdate.hasTransaction(bankCard);
 	}
 
-	/**
-	 * @param obj
-	 *             Serializable object
-	 */
-	public static void deleteObject(Object obj) throws Exception
-	{
-		try
-		{
-			EngDALCommon.deleteObject(obj);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	/**
-	 * @param obj
-	 *             Serializable object
-	 */
 	public static void deleteBankCard(TurqBanksCard bankCard) throws Exception
 	{
 		try
@@ -126,7 +116,7 @@ public class BankBLBankCardUpdate
 			Iterator it = bankCard.getTurqBankAccountingAccounts().iterator();
 			while (it.hasNext())
 			{
-				deleteObject(it.next());
+				EngBLCommon.delete(it.next());
 			}
 			BankDALBankCardUpdate.deleteInitialTransaction(bankCard);
 			EngDALCommon.deleteObject(bankCard);

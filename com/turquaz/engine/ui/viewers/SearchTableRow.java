@@ -1,7 +1,7 @@
 /*
  * Created on Mar 18, 2005
  *
- * TODO To change the template for this generated file go to
+ * 
  * Window - Preferences - Java - Code Style - Code Templates
  */
 package com.turquaz.engine.ui.viewers;
@@ -9,7 +9,7 @@ package com.turquaz.engine.ui.viewers;
 import org.eclipse.swt.graphics.Color;
 
 /**
- * @author onsel TODO To change the template for this generated type comment go to Window - Preferences - Java - Code Style - Code Templates
+ * @author onsel 
  */
 public class SearchTableRow implements ITableRow
 {
@@ -69,7 +69,6 @@ public class SearchTableRow implements ITableRow
 	 */
 	public boolean canModify(int column_index)
 	{
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -80,7 +79,7 @@ public class SearchTableRow implements ITableRow
 	 */
 	public void setRowIndex(int index)
 	{
-		// TODO Auto-generated method stub
+		
 	}
 
 	/*
@@ -90,7 +89,7 @@ public class SearchTableRow implements ITableRow
 	 */
 	public int getRowIndex()
 	{
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
@@ -101,7 +100,7 @@ public class SearchTableRow implements ITableRow
 	 */
 	public boolean okToSave()
 	{
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 

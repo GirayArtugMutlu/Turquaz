@@ -24,6 +24,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import com.turquaz.engine.dal.EngDALSessionFactory;
@@ -68,7 +69,7 @@ public class BankDALBankCardSearch
 		}
 	}
 
-	public static TurqBanksCard getBankCardByBankCardId(Integer bankId) throws Exception
+	public static TurqBanksCard initializeBankCardById(Integer bankId) throws Exception
 	{
 		try
 		{
@@ -76,8 +77,14 @@ public class BankDALBankCardSearch
 			String query = "Select bankCard from TurqBanksCard as bankCard" + " where bankCard.id=" + bankId; //$NON-NLS-1$
 			Query q = session.createQuery(query);
 			List list = q.list();
+			TurqBanksCard bankCard=null;
+			if (list.size()!=0)
+			{
+				bankCard=(TurqBanksCard)list.get(0);
+				Hibernate.initialize(bankCard.getTurqBankAccountingAccounts());
+			}
+			return bankCard;
 			
-			return (TurqBanksCard) list.get(0);
 		}
 		catch (Exception ex)
 		{

@@ -34,13 +34,13 @@ public class BankDALBankCardUpdate
 	{
 	}
 
-	public static boolean hasTransaction(TurqBanksCard bankCard) throws Exception
+	public static Boolean hasTransaction(TurqBanksCard bankCard) throws Exception
 	{
 		try
 		{
 			if (bankCard == null)
 			{
-				return true;
+				return new Boolean(true);
 			}
 			Session session = EngDALSessionFactory.getSession();
 			String query = " Select count(bankTrans.id) from TurqBanksTransaction as bankTrans where "
@@ -52,15 +52,14 @@ public class BankDALBankCardUpdate
 		
 			if (ls.size() == 0)
 			{
-				return true;
+				return new Boolean(true);
 			}
 			Integer count = (Integer) ls.get(0);
 			if (count.intValue() == 0)
 			{
-				System.out.println(count);
-				return false;
+				return new Boolean(false);
 			}
-			return true;
+			return new Boolean(true);
 		}
 		catch (Exception ex)
 		{

@@ -144,7 +144,7 @@ public class CashBLCashTransactionAdd
 	 * @param document_no
 	 * @throws Exception
 	 */
-	//TODO DONE
+	
 	public static void saveCurrentTransaction(HashMap argMap )	throws Exception
 	{
 		 TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
@@ -269,7 +269,7 @@ public class CashBLCashTransactionAdd
 	
 	}
 
-	//TODO DONE
+	
 	public static void saveOtherTransaction(HashMap argMap)
 			throws Exception
 	{
@@ -372,7 +372,7 @@ public class CashBLCashTransactionAdd
 		
 	}
 
-	//TODO DONE
+	/
 	public static void saveTransferBetweenAccounts(HashMap argMap) throws Exception
 	{
 		TurqCashCard cashCardWithDebt= (TurqCashCard)argMap.get(CashKeys.CASH_CARD_WITH_DEPT);

@@ -252,7 +252,6 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 				Integer transId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (transId != null)
 				{
-					//TODO these methods should be transactional
 					boolean updated = false;
 					HashMap argMap=new HashMap();
 					argMap.put(EngKeys.TRANS_ID,transId);

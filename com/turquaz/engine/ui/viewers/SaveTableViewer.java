@@ -1,7 +1,7 @@
 /*
  * Created on Mar 22, 2005
  *
- * TODO To change the template for this generated file go to
+ * 
  * Window - Preferences - Java - Code Style - Code Templates
  */
 package com.turquaz.engine.ui.viewers;
@@ -28,7 +28,7 @@ import com.turquaz.engine.ui.EngUITableProperties;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
- * @author onsel TODO To change the template for this generated type comment go to Window - Preferences - Java - Code Style - Code Templates
+ * @author onsel 
  */
 public class SaveTableViewer
 {

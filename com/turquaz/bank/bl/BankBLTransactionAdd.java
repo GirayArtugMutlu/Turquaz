@@ -48,7 +48,6 @@ import com.turquaz.engine.dal.TurqModule;
 
 public class BankBLTransactionAdd
 {
-	//TODO DONE
 	public static void saveTransferBetweenBanks(TurqBanksCard bankCardWithDept, TurqBanksCard bankCardWithCredit, TurqEngineSequence seq,
 			BigDecimal totalAmount, Date transDate, String definition, String docNo, TurqCurrencyExchangeRate exchangeRate)
 			throws Exception
@@ -209,7 +208,6 @@ public class BankBLTransactionAdd
 		}
 	}
 
-	//TODO DONE
 	public static void saveCashTransaction(TurqBanksCard bankCard, TurqCashCard cashCard, int type, TurqEngineSequence seq,
 			BigDecimal totalAmount, Date transDate, String definition, String docNo, TurqCurrencyExchangeRate exchangeRate)
 			throws Exception
@@ -320,7 +318,7 @@ public class BankBLTransactionAdd
 		}
 	}
 
-	//TODO DONE
+
 	public static void saveTransaction(TurqBanksCard bankCard, TurqCurrentCard curCard, int type, TurqEngineSequence seq,
 			BigDecimal totalAmount, Date transDate, String definition, String docNo, TurqCurrencyExchangeRate exchangeRate)
 			throws Exception
@@ -426,7 +424,7 @@ public class BankBLTransactionAdd
 		}
 	}
 
-	//TODO DONE
+	
 	public static void saveOtherTransaction(TurqBanksCard bankCard, TurqAccountingAccount account, int type, TurqEngineSequence seq,
 			BigDecimal totalAmount, Date transDate, String definition, String docNo, TurqCurrencyExchangeRate exchangeRate)
 			throws Exception

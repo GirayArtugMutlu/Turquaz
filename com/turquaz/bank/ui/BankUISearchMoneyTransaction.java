@@ -217,7 +217,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 
 	public void delete()
 	{
-		// TODO Auto-generated method stub
+		
 	}
 
 	public void exportToExcel()

@@ -1,7 +1,7 @@
 /*
  * Created on Mar 22, 2005
  *
- * TODO To change the template for this generated file go to
+ * 
  * Window - Preferences - Java - Code Style - Code Templates
  */
 package com.turquaz.inventory.ui;
@@ -14,7 +14,7 @@ import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 
 /**
- * @author onsel TODO To change the template for this generated type comment go to Window - Preferences - Java - Code Style - Code Templates
+ * @author onsel 
  */
 public class InvUIInitialTransactionTableRow implements ITableRow
 {
@@ -130,7 +130,6 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 	 */
 	public int getRowIndex()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -277,6 +276,6 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 	 */
 	public void setRowIndex(int index)
 	{
-		// TODO Auto-generated method stub
+		
 	}
 }

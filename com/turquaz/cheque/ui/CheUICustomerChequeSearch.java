@@ -321,7 +321,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 
 	public void delete()
 	{
-		// TODO Auto-generated method stub
+		
 	}
 
 	public void exportToExcel()

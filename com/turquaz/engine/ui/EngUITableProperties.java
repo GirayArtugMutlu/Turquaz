@@ -1,7 +1,7 @@
 /*
  * Created on Mar 21, 2005
  *
- * TODO To change the template for this generated file go to
+ * 
  * Window - Preferences - Java - Code Style - Code Templates
  */
 package com.turquaz.engine.ui;
@@ -22,7 +22,7 @@ import org.jdom.output.XMLOutputter;
 import org.xml.sax.InputSource;
 
 /**
- * @author onsel TODO To change the template for this generated type comment go to Window - Preferences - Java - Code Style - Code Templates
+ * @author onsel 
  */
 public class EngUITableProperties
 {

@@ -19,6 +19,7 @@ package com.turquaz.bank.ui.comp;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
@@ -33,10 +34,14 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.bl.BankBLBankCardSearch;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLBankCards;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
 
@@ -184,7 +189,10 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite
 			{
 				try
 				{
-					accountPicker.setData(BankBLBankCardSearch.getAccountingAccount((TurqBanksCard) obj, pickerAccountType));
+					HashMap argMap=new HashMap();
+					argMap.put(BankKeys.BANK,obj);
+					argMap.put(EngKeys.TYPE,pickerAccountType);
+					accountPicker.setData((TurqAccountingAccount)EngTXCommon.doSingleTX(BankBLBankCardSearch.class.getName(),"getAccountingAccount",argMap));
 				}
 				catch (Exception ex)
 				{

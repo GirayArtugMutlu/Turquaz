@@ -723,7 +723,6 @@ class MenuSelectionAdapter extends SelectionAdapter
 	 */
 	public void widgetDefaultSelected(SelectionEvent arg0)
 	{
-		// TODO Auto-generated method stub
 		super.widgetDefaultSelected(arg0);
 	}
 

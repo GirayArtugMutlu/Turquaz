@@ -19,6 +19,7 @@ package com.turquaz.bank.ui;
  * @author  Ceday
  * @version  $Id$
  */
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.MessageBox;
@@ -30,6 +31,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -39,6 +41,7 @@ import com.turquaz.engine.dal.TurqCurrency;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
@@ -317,8 +320,15 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 		try
 		{
 			tableViewer.removeAll();
-			List listBankCards = BankBLBankCardSearch.searchBankCards(txtBankName.getText().trim(), txtBankBranchName.getText().trim(),
-					txtBankAccountNo.getText().trim(), (TurqCurrency) (comboCurrency.getData(comboCurrency.getText())));
+			
+			HashMap argMap=new HashMap();
+			
+			argMap.put(BankKeys.BANK_NAME,txtBankName.getText().trim());
+			argMap.put(BankKeys.BANK_BRANCH_NAME,txtBankBranchName.getText().trim());
+			argMap.put(BankKeys.BANK_ACCOUNT_NO,txtBankAccountNo.getText().trim());
+			argMap.put(BankKeys.BANK_CURRENCY,comboCurrency.getData(comboCurrency.getText()));
+			
+			List listBankCards =(List) EngTXCommon.doTransactionTX(BankBLBankCardSearch.class.getName(),"searchBankCards",argMap);
 			Object[] result;
 			for (int k = 0; k < listBankCards.size(); k++)
 			{
@@ -358,8 +368,9 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 			{
 				ITableRow row = (ITableRow) selection[0].getData();
 				Integer bankId = (Integer) row.getDBObject();
-				TurqBanksCard card = BankBLBankCardSearch.getBankCardByBankCardId(bankId);
-				BankBLBankCardSearch.initializeBankCard(card);
+				HashMap argMap=new HashMap();
+				argMap.put(BankKeys.BANK_ID,bankId);
+				TurqBanksCard card =(TurqBanksCard)EngTXCommon.doSingleTX(BankBLBankCardSearch.class.getName(),"initializeBankCardById",argMap);
 				boolean updated = new BankUIBankCardUpdate(this.getShell(), SWT.NULL, card).open();
 				if (updated)
 					search();

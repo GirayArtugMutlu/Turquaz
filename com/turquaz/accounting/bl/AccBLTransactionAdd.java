@@ -46,7 +46,6 @@ public class AccBLTransactionAdd
 	}
 
 	//Muhasebe fisi kalemlerini kaydet
-	//TODO DONE
 	public static void saveAccTransactionRows(Map deptAccounts, Map creditAccounts, Integer transId, boolean isSumRows, String definition,
 			TurqCurrencyExchangeRate exchangeRate) throws Exception
 	{

@@ -218,7 +218,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 
 	public void delete()
 	{
-		// TODO Auto-generated method stub
+		
 	}
 
 	public void exportToExcel()

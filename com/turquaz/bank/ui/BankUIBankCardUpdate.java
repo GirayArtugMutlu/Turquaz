@@ -19,6 +19,7 @@ package com.turquaz.bank.ui;
  * @author  Ceday
  * @version  $Id$
  */
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLBankCardUpdate;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
@@ -39,6 +41,7 @@ import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqBankAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CCombo;
@@ -277,10 +280,19 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			updated = true;
-			BankBLBankCardUpdate.updateBankCard(bankCard, compBankCard.getTxtBankName().getText(), compBankCard.getTxtBankBranchName()
-					.getText(), compBankCard.getTxtBankAccountNo().getText(), (TurqCurrency) (compBankCard.getComboCurrency()
-					.getData(compBankCard.getComboCurrency().getText())), compBankCard.getTxtDefinition().getText().trim(),
-					compBankCard.getTxtBankCode().getText().trim(), compBankCard.createAccountingMap());
+			
+			HashMap argMap=new HashMap();
+			
+			argMap.put(BankKeys.BANK,bankCard);
+			argMap.put(BankKeys.BANK_NAME,compBankCard.getTxtBankName().getText().trim());
+			argMap.put(BankKeys.BANK_BRANCH_NAME,compBankCard.getTxtBankBranchName().getText().trim());
+			argMap.put(BankKeys.BANK_ACCOUNT_NO,compBankCard.getTxtBankAccountNo().getText().trim());
+			argMap.put(BankKeys.BANK_CURRENCY,compBankCard.getComboCurrency().getData(compBankCard.getComboCurrency().getText()));
+			argMap.put(BankKeys.BANK_DEFINITION,compBankCard.getTxtDefinition().getText().trim());
+			argMap.put(BankKeys.BANK_CODE,compBankCard.getTxtBankCode().getText().trim());
+			argMap.put(BankKeys.BANK_ACCOUNTING_ACCOUNTS,compBankCard.createAccountingMap());
+			
+			EngTXCommon.doTransactionTX(BankBLBankCardUpdate.class.getName(),"updateBankCard",argMap);
 			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 			msg.setMessage(Messages.getString("BankUIBankCardUpdate.3")); //$NON-NLS-1$
 			msg.open();
@@ -311,7 +323,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 		{
 			if (EngUICommon.okToDelete(getParent()))
 			{
-				if (!BankBLBankCardUpdate.hasTransaction(bankCard))
+				if (!BankBLBankCardUpdate.hasTransaction(bankCard).booleanValue())
 				{
 					updated = true;
 					BankBLBankCardUpdate.deleteBankCard(bankCard);

@@ -35,25 +35,6 @@ import com.turquaz.engine.dal.TurqBanksTransactionBill;
 
 public class BankDALCommon
 {
-	public BankDALCommon()
-	{
-	}
-
-	public static void initializeBankCard(TurqBanksCard bankCard) throws Exception
-	{
-		try
-		{
-			Session session = EngDALSessionFactory.getSession();
-			session.refresh(bankCard);
-			Hibernate.initialize(bankCard.getTurqBankAccountingAccounts());
-		
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
 	public static List searchBankTransactions(String docNo, Date startDate, Date endDate) throws Exception
 	{
 		try

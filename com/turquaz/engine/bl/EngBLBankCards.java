@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.tx.EngTXCommon;
 
 public class EngBLBankCards
 {
@@ -28,7 +29,7 @@ public class EngBLBankCards
 	{
 		try
 		{
-			currentList = BankBLBankCardSearch.getBankCards();
+			currentList = (List) EngTXCommon.doSingleTX(BankBLBankCardSearch.class.getName(),"getBankCards",null);
 			cardMap.clear();
 			TurqBanksCard cashCard;
 			for (int i = 0; i < currentList.size(); i++)

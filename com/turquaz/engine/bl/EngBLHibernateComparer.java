@@ -1,7 +1,7 @@
 /*
  * Created on Mar 1, 2005
  *
- * TODO To change the template for this generated file go to
+ * 
  * Window - Preferences - Java - Code Style - Code Templates
  */
 package com.turquaz.engine.bl;
@@ -11,7 +11,7 @@ import java.util.Comparator;
 import org.apache.log4j.Logger;
 
 /**
- * @author Cem TODO To change the template for this generated type comment go to Window - Preferences - Java - Code Style - Code Templates
+ * @author Cem 
  */
 public class EngBLHibernateComparer implements Comparator
 {

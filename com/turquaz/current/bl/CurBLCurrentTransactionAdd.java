@@ -252,7 +252,7 @@ public class CurBLCurrentTransactionAdd
 	 * @param AccTransId
 	 *             Accounting transaction id
 	 */
-	//TODO DONE
+	
 	private static void prepareAccountingMaps(TurqCurrentCard curCard, boolean isCredit, BigDecimal amount, TurqAccountingAccount account,
 			Map deptAccounts, Map creditAccounts) throws Exception
 	{

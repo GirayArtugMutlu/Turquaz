@@ -19,6 +19,7 @@ package com.turquaz.bank.bl;
  * @author Onsel Armagan
  * @version $Id$
  */
+import com.turquaz.bank.BankKeys;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBankAccountingAccount;
@@ -26,21 +27,23 @@ import com.turquaz.engine.dal.TurqBankAccountingType;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 public class BankBLBankCardAdd
 {
-	public BankBLBankCardAdd()
-	{
-	}
-
-	public static void saveBankCard(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency,
-			String definition, String bankCode, Map accountingAccounts) throws Exception
-	{
-		
+	public static void saveBankCard(HashMap argMap) throws Exception
+	{		
 		try
 		{
+			String bankName=(String)argMap.get(BankKeys.BANK_NAME);
+			String bankBranchName=(String)argMap.get(BankKeys.BANK_BRANCH_NAME);
+			String bankAccountNo=(String)argMap.get(BankKeys.BANK_ACCOUNT_NO);
+			TurqCurrency currency=(TurqCurrency)argMap.get(BankKeys.BANK_CURRENCY);
+			String definition=(String)argMap.get(BankKeys.BANK_DEFINITION);
+			String bankCode=(String)argMap.get(BankKeys.BANK_CODE);
+			Map accountingAccounts=(Map)argMap.get(BankKeys.BANK_ACCOUNTING_ACCOUNTS);
 			TurqBanksCard bankCard = registerBankCard( bankName, bankBranchName, bankAccountNo, currency, definition, bankCode);
 			saveBankAccountingAccounts(bankCard, accountingAccounts);
 			
@@ -52,7 +55,7 @@ public class BankBLBankCardAdd
 		}
 	}
 
-	public static TurqBanksCard registerBankCard( String bankName, String bankBranchName, String bankAccountNo,
+	private static TurqBanksCard registerBankCard( String bankName, String bankBranchName, String bankAccountNo,
 			TurqCurrency currency, String definition, String bankCode) throws Exception
 	{
 		TurqBanksCard bankCard = new TurqBanksCard();

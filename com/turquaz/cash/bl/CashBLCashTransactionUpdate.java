@@ -134,7 +134,7 @@ public class CashBLCashTransactionUpdate
 		}
 	}
 
-	//TODO DONE
+	/
 	public static void updateCashTrans(TurqCashTransaction cashTrans, TurqCashCard cashCard, TurqCurrentCard current,
 			BigDecimal totalAmount, Date transDate, String definition, String document_no, TurqCurrencyExchangeRate exchangeRate)
 			throws Exception
@@ -253,7 +253,7 @@ public class CashBLCashTransactionUpdate
 		deptRows.add(amount);
 	}
 
-	//TODO DONE
+	
 	public static void updateOtherTrans(TurqCashTransaction cashTrans, TurqCashCard cashCard, TurqAccountingAccount account,
 			BigDecimal totalAmount, Date transDate, String definition, String document_no, TurqCurrencyExchangeRate exchangeRate)
 			throws Exception
@@ -342,7 +342,7 @@ public class CashBLCashTransactionUpdate
 		}
 	}
 
-	//TODO DONE
+	
 	public static void updateTransBetweenCards(TurqCashTransaction cashTrans, TurqCashCard cashCardWithDebt,
 			TurqCashCard cashCardWithCredit, BigDecimal totalAmount, Date transDate, String definition, String document_no,
 			TurqCurrencyExchangeRate exchangeRate) throws Exception

@@ -19,24 +19,26 @@ package com.turquaz.bank.bl;
  * @author Ceday
  * @version $Id$
  */
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.dal.BankDALBankCardSearch;
-import com.turquaz.bank.dal.BankDALCommon;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 
 public class BankBLBankCardSearch
 {
-	public BankBLBankCardSearch()
-	{
-	}
-
-	public static List searchBankCards(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency)
+	public static List searchBankCards(HashMap argMap)
 			throws Exception
 	{
 		try
 		{
+			String bankName=(String)argMap.get(BankKeys.BANK_NAME);
+			String bankBranchName=(String)argMap.get(BankKeys.BANK_BRANCH_NAME);
+			String bankAccountNo=(String)argMap.get(BankKeys.BANK_ACCOUNT_NO);
+			TurqCurrency currency=(TurqCurrency)argMap.get(BankKeys.BANK_CURRENCY);
 			return BankDALBankCardSearch.searchBankCards(bankName, bankBranchName, bankAccountNo, currency);
 		}
 		catch (Exception ex)
@@ -57,11 +59,13 @@ public class BankBLBankCardSearch
 		}
 	}
 
-	public static TurqBanksCard getBankCardByBankCardId(Integer bankId) throws Exception
+	public static TurqBanksCard initializeBankCardById(HashMap argMap) throws Exception
 	{
 		try
 		{
-			return BankDALBankCardSearch.getBankCardByBankCardId(bankId);
+			Integer bankId=(Integer)argMap.get(BankKeys.BANK_ID);
+			TurqBanksCard bankCard=BankDALBankCardSearch.initializeBankCardById(bankId);
+			return bankCard;
 		}
 		catch (Exception ex)
 		{
@@ -69,13 +73,15 @@ public class BankBLBankCardSearch
 		}
 	}
 
-	public static void initializeBankCard(TurqBanksCard bankCard) throws Exception
-	{
-		BankDALCommon.initializeBankCard(bankCard);
-	}
-
 	public static TurqAccountingAccount getAccountingAccount(TurqBanksCard bankCard, Integer type) throws Exception
 	{
+		return BankDALBankCardSearch.getBankAccountingAccount(bankCard, type);
+	}
+	
+	public static TurqAccountingAccount getAccountingAccount(HashMap argMap) throws Exception
+	{
+		TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
+		Integer type=(Integer)argMap.get(EngKeys.TYPE);
 		return BankDALBankCardSearch.getBankAccountingAccount(bankCard, type);
 	}
 }
