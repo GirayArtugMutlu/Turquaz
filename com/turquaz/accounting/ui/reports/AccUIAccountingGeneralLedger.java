@@ -93,11 +93,6 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 	private void initGUI() {
 		try {
 			GridLayout thisLayout = new GridLayout();
-			this.addMouseListener(new MouseAdapter() {
-				public void mouseDown(MouseEvent evt) {
-					btnShowSingleClick();
-				}
-			});
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 3;
 			thisLayout.makeColumnsEqualWidth = true;
@@ -115,6 +110,11 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			{
 				btnShow = new Button(this, SWT.PUSH | SWT.CENTER);
 				btnShow.setText("Show Reports");
+				btnShow.addMouseListener(new MouseAdapter() {
+					public void mouseDown(MouseEvent evt) {
+						btnShowSingleClick();
+					}
+				});
 			}
 			this.layout();
 		} catch (Exception e) {
@@ -126,8 +126,6 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 		try{
 			
 			Map parameters = new HashMap();
-			parameters.put("ReportTitle", "YEVMÝYE DEFTERÝ");
-			
 			TurqCompany company = new TurqCompany();
 			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
 			String sqlparam="Select accounts.top_account,accounts.account_name," +
@@ -162,7 +160,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			catch(Exception ex){
 				ex.printStackTrace();
 				MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
-				msg.setMessage(ex.getMessage());
+				//msg.setMessage(ex.getMessage());
 				msg.open();
 			}
 		}
