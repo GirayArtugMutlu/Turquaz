@@ -42,6 +42,7 @@ import org.eclipse.swt.custom.CCombo;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -314,7 +315,7 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 	}
 	public void delete(){   
 	    
-		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+	   MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 	    
 	   TableItem items[] = tableTransactions.getSelection();
 	   if(items.length>0){
@@ -348,14 +349,16 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 	   }
 	   
 	     
-	
+	    AccBLTransactionUpdate blUpdate = new AccBLTransactionUpdate();
 		MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 		try {
 			msg2.setMessage(Messages.getString("AccUITransactionSearch.10")); //$NON-NLS-1$
 			int result = msg2.open();
 
 			if (result == SWT.OK) {
-			
+			     
+			    blUpdate.initiliazeTransactionRows(accTrans);
+			    
 			    Iterator it = accTrans.getTurqAccountingTransactionColumns().iterator();
 			    while(it.hasNext()){
 			        EngBLCommon.delete(it.next());
