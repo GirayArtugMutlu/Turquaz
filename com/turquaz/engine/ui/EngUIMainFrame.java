@@ -299,7 +299,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			tabModules.setControl(compModulesTab);
 			tabModules.setText(Messages.getString("EngUIMainFrame.2")); //$NON-NLS-1$
-	
+			tabModules.setImage(SWTResourceManager.getImage("icons/Process16.gif"));
+
 			compModulesTab.setSize(new org.eclipse.swt.graphics.Point(386,549));
 	
 			GridData compModuleSelectionLData = new GridData();
@@ -334,7 +335,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 					216));
 				GridData comboModuleSelectionLData = new GridData();
 				comboModuleSelectionLData.widthHint = 70;
-				comboModuleSelectionLData.heightHint = 18;
+				comboModuleSelectionLData.heightHint = 20;
 				comboModuleSelection.setLayoutData(comboModuleSelectionLData);
 				comboModuleSelection
 					.addSelectionListener(new SelectionAdapter() {
@@ -404,15 +405,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesTree.layout();
 	
 			GridData label1LData = new GridData();
-			label1LData.verticalAlignment = GridData.CENTER;
 			label1LData.horizontalAlignment = GridData.FILL;
-			label1LData.widthHint = -1;
-			label1LData.heightHint = -1;
-			label1LData.horizontalIndent = 0;
-			label1LData.horizontalSpan = 1;
-			label1LData.verticalSpan = 1;
-			label1LData.grabExcessHorizontalSpace = false;
-			label1LData.grabExcessVerticalSpace = false;
+			label1LData.heightHint = 8;
 			label1.setLayoutData(label1LData);
 			label1.setText("label1"); //$NON-NLS-1$
 	
@@ -468,8 +462,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			tabFavorites.setControl(compFavoritesTab);
 			tabFavorites.setText(Messages.getString("EngUIMainFrame.5")); //$NON-NLS-1$
-	
-	
+			tabFavorites.setImage(SWTResourceManager.getImage("icons/favorites.gif"));
+
 			GridData compFavoritesSelectionLData = new GridData();
 			compFavoritesSelectionLData.verticalAlignment = GridData.CENTER;
 			compFavoritesSelectionLData.horizontalAlignment = GridData.FILL;
@@ -608,6 +602,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			{
 				toolExportToExcel = new ToolItem(toolbarMainTop, SWT.NONE);
 				toolExportToExcel.setText("Export");
+				toolExportToExcel.setImage(SWTResourceManager.getImage("icons/ExportX24.gif"));
 				toolExportToExcel.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent evt) {
 						exportToExcel();
