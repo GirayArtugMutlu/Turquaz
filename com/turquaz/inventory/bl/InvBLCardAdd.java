@@ -13,6 +13,10 @@ import java.util.List;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqInventoryCard;
+import com.turquaz.engine.dal.TurqInventoryCardGroup;
+import com.turquaz.engine.dal.TurqInventoryCardUnit;
+import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.inventory.dal.InvDALCardAdd;
 
 /**
@@ -33,18 +37,47 @@ public class InvBLCardAdd {
 	}
 	
 	
-	public void registerGroup(Integer cardId, Object group)throws Exception{
+	public void registerGroup(Integer cardId, Object grp)throws Exception{
 	try{
 		
-		
-		
-		
+	TurqInventoryCardGroup cardGroup = new TurqInventoryCardGroup();	
+	TurqInventoryGroup group = (TurqInventoryGroup)grp;
+	TurqInventoryCard card =new TurqInventoryCard();
+	card.setInventoryCardsId(cardId);
+	cardGroup.setTurqInventoryCard(card);
+	cardGroup.setTurqInventoryGroup(group);
+	
+	cardGroup.setCreatedBy(System.getProperty("user"));
+	cardGroup.setUpdatedBy(System.getProperty("user"));
+	cardGroup.setLastModified(new java.sql.Date( cal.getTime().getTime()));
+	cardGroup.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
+	
+	cardAdd.saveOrUpdateCardGroup(cardGroup);
 		
 		
 	}
 	catch(Exception ex){
 		throw ex;
 	}
+		
+	}
+	
+	public void registerUnits(Integer cardId,Object unitObj, int factor)throws Exception{
+	
+	TurqInventoryCardUnit cardUnit =new TurqInventoryCardUnit();	
+	TurqInventoryUnit unit	= (TurqInventoryUnit)unitObj;
+	TurqInventoryCard card =new TurqInventoryCard();
+	card.setInventoryCardsId(cardId);
+	cardUnit.setCardUnitsFactor(factor);
+	cardUnit.setTurqInventoryCard(card);
+	cardUnit.setTurqInventoryUnit(unit);
+	cardUnit.setCreatedBy(System.getProperty("user"));
+	cardUnit.setUpdatedBy(System.getProperty("user"));
+	cardUnit.setLastModified(new java.sql.Date( cal.getTime().getTime()));
+	cardUnit.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
+	
+	cardAdd.saveOrUpdateCardUnit(cardUnit);
+	
 		
 	}
 	

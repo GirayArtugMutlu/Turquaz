@@ -1199,7 +1199,7 @@ public class InvUICardAdd extends SecureComposite {
 	       java.util.List unitLst = invBLCardAdd.getInventoryUnits();
 	       TableItem item =null;
 	       TurqInventoryUnit trqInvUnit;
-	       comboInvCardUnits.setData(unitLst);
+	      
            for(int i=0;i<unitLst.size();i++){
             trqInvUnit = (TurqInventoryUnit)unitLst.get(i);
             comboInvCardUnits.add(trqInvUnit.getUnitsName());
@@ -1272,12 +1272,24 @@ public class InvUICardAdd extends SecureComposite {
 		for(int i=0;i<itemCount;i++){
 		item = tableInvCardAddGroupsRegisteredGroups.getItem(i);
 		blCardAdd.registerGroup(cardId,item.getData());
+		}	
 		
+		//Register its Base Units
 		
+		Object invUnit = comboInvCardUnits.getData(comboInvCardUnits.getText());
+		blCardAdd.registerUnits(cardId,invUnit,1);
 		
+		//Register Secondary Units
+		itemCount = tableInvCardAddRegisteredUnits.getItemCount();
+		TableEditor editor;
+		for(int i=0;i<itemCount;i++){
+			item = tableInvCardAddRegisteredUnits.getItem(i);
+			editor =(TableEditor)mapEditorsTableInvCardAddRegisteredUnits.get(item.getText(0));
+			int factor=((NumericText)editor.getEditor()).getIntValue();
+			blCardAdd.registerUnits(cardId,item.getData(),factor);
+			
+			
 		}
-		
-		
 		
 		
 		
@@ -1296,9 +1308,11 @@ public class InvUICardAdd extends SecureComposite {
 	}
 	public void delete(){
 		System.out.println("Delete Button Pushed!");
+		
 	}
 	public void newForm(){
 		System.out.println("New Button Pushed!");
+	
 	}
 	public void search(){
 		System.out.println("Search Button Pushed!");

@@ -50,6 +50,7 @@
 <mapping resource="com/turquaz/engine/dal/TurqInventoryCardUnit.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqInventoryGroup.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqInventoryPrice.hbm.xml"/>
+<mapping resource="com/turquaz/engine/dal/TurqInventoryCardGroup.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqInventoryTransaction.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqInventoryUnit.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqInventoryWarehous.hbm.xml"/>
