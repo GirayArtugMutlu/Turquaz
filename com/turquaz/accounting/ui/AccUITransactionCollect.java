@@ -350,7 +350,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	                     tableViewer.editElement(row, 0);
 	                     cursor.setSelection(tableTransactionRows
 	                         .getItemCount() - 1, 0);
-	                     cursor.setVisible(true);
+	                     
 	                    
 	                 }
 	                 else if(evt.keyCode==SWT.DEL){
@@ -380,7 +380,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 					public void widgetDefaultSelected(SelectionEvent e) {
 					 
 					    tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
-					
+					   
 					}
 				});
 			 cursor.addMouseListener(new MouseAdapter() {

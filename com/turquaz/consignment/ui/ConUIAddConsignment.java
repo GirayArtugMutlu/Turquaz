@@ -911,6 +911,8 @@ implements SecureComposite{
 		tableViewer.setInput(rowList);
 		 
              cursor = new TableCursor(tableConsignmentRows, SWT.NONE);
+             cursor.setEnabled(true);
+             cursor.setVisible(true);
              cursor
                  .addSelectionListener(new SelectionAdapter() {
                      public void widgetDefaultSelected(
@@ -919,11 +921,12 @@ implements SecureComposite{
                          tableViewer.editElement(cursor
                              .getRow().getData(), cursor
                              .getColumn());
+                         cursor.setVisible(true);
                            
 
                      }
                      public void widgetSelected(
-                         SelectionEvent evt) {
+                       SelectionEvent evt) {
                          int current_row_index = ((InvUITransactionTableRow) cursor
                              .getRow().getData())
                              .getRowIndex();
@@ -936,7 +939,6 @@ implements SecureComposite{
  
                      }
                  });
-             cursor.setEnabled(true);
     		 cursor.addKeyListener(new KeyAdapter(){
     		     public void keyReleased(KeyEvent evt){
     		         

@@ -395,6 +395,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				
 		}
        calculateFields();
+       rowList.taskChanged(this);
         
         
     }
