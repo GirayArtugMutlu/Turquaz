@@ -24,8 +24,8 @@ public class TurquazDecimalFormat extends DecimalFormat{
 		this.setMaximumFractionDigits(2);
 		this.setMaximumIntegerDigits(18);
 		DecimalFormatSymbols df=new DecimalFormatSymbols();
-		df.setDecimalSeparator('.');
-		df.setGroupingSeparator(',');
+		df.setDecimalSeparator(',');
+		df.setGroupingSeparator('.');
 		this.setDecimalFormatSymbols(df);
 		this.setGroupingUsed(true);
 	}
