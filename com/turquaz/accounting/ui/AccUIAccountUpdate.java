@@ -109,6 +109,8 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 			toolUpdate.setText("Update");
 			toolUpdate.setToolTipText("Update");
+			final org.eclipse.swt.graphics.Image toolUpdateýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
+			toolUpdate.setImage(toolUpdateýmage);
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
@@ -117,8 +119,8 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 			toolDelete.setText("Delete");
 			toolDelete.setToolTipText("Delete");
-			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			toolDelete.setImage(toolDeleteimage);
+			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setImage(toolDeleteýmage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -289,7 +291,8 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					toolDeleteimage.dispose();
+					toolUpdateýmage.dispose();
+					toolDeleteýmage.dispose();
 					txtTotalDeptbackground.dispose();
 				}
 			});

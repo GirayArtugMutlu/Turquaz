@@ -61,6 +61,18 @@ import org.eclipse.swt.SWT;
 public class AccUITransactionAdd extends SecureComposite {
 
 	/**
+	 * @return Returns the btnAddTransactionRow.
+	 */
+	public Button getBtnAddTransactionRow() {
+		return btnAddTransactionRow;
+	}
+	/**
+	 * @return Returns the btnRemoveTransactionRow.
+	 */
+	public Button getBtnRemoveTransactionRow() {
+		return btnRemoveTransactionRow;
+	}
+	/**
 	 * @return Returns the tableTransactionColumns.
 	 */
 	public Table getTableTransactionColumns() {
@@ -216,9 +228,6 @@ public class AccUITransactionAdd extends SecureComposite {
 			btnAddTransactionRowLData.grabExcessHorizontalSpace = false;
 			btnAddTransactionRowLData.grabExcessVerticalSpace = false;
 			btnAddTransactionRow.setLayoutData(btnAddTransactionRowLData);
-			final org.eclipse.swt.graphics.Image btnAddTransactionRowimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/plus.gif"));
-			btnAddTransactionRowimage.setBackground(btnAddTransactionRow.getBackground());
-			btnAddTransactionRow.setImage(btnAddTransactionRowimage);
 			btnAddTransactionRow.setSize(new org.eclipse.swt.graphics.Point(26,24));
 			btnAddTransactionRow.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -229,17 +238,15 @@ public class AccUITransactionAdd extends SecureComposite {
 			GridData btnRemoveTransactionRowLData = new GridData();
 			btnRemoveTransactionRowLData.verticalAlignment = GridData.CENTER;
 			btnRemoveTransactionRowLData.horizontalAlignment = GridData.CENTER;
-			btnRemoveTransactionRowLData.widthHint = -1;
-			btnRemoveTransactionRowLData.heightHint = -1;
+			btnRemoveTransactionRowLData.widthHint = 12;
+			btnRemoveTransactionRowLData.heightHint = 23;
 			btnRemoveTransactionRowLData.horizontalIndent = 0;
 			btnRemoveTransactionRowLData.horizontalSpan = 1;
 			btnRemoveTransactionRowLData.verticalSpan = 1;
 			btnRemoveTransactionRowLData.grabExcessHorizontalSpace = false;
 			btnRemoveTransactionRowLData.grabExcessVerticalSpace = false;
 			btnRemoveTransactionRow.setLayoutData(btnRemoveTransactionRowLData);
-			final org.eclipse.swt.graphics.Image btnRemoveTransactionRowimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif"));
-			btnRemoveTransactionRowimage.setBackground(btnRemoveTransactionRow.getBackground());
-			btnRemoveTransactionRow.setImage(btnRemoveTransactionRowimage);
+			btnRemoveTransactionRow.setSize(new org.eclipse.swt.graphics.Point(12,23));
 			btnRemoveTransactionRow.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
 					btnRemoveTransactionRowMouseUp(evt);
@@ -346,12 +353,6 @@ public class AccUITransactionAdd extends SecureComposite {
 			thisLayout.horizontalSpacing = 5;
 			thisLayout.verticalSpacing = 5;
 			this.layout();
-			addDisposeListener(new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
-					btnAddTransactionRowimage.dispose();
-					btnRemoveTransactionRowimage.dispose();
-				}
-			});
 	
 			postInitGUI();
 		} catch (Exception e) {

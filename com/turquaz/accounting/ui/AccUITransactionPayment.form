@@ -252,7 +252,7 @@
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value=""/>
-							<Property name="image" type="Image">
+							<Property name="ımage" type="Image">
 								<Image name="\icons\plus.gif"/>
 							</Property>
 							<Property name="size" type="Dimension">
@@ -283,7 +283,7 @@
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value=""/>
-							<Property name="image" type="Image">
+							<Property name="ımage" type="Image">
 								<Image name="\icons\minus.gif"/>
 							</Property>
 							<Property name="bounds" type="Rectangle">

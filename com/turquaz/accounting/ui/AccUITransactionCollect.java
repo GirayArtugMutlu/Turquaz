@@ -191,9 +191,9 @@ public class AccUITransactionCollect extends SecureComposite {
 			btnAddTransactionRowLData.grabExcessHorizontalSpace = false;
 			btnAddTransactionRowLData.grabExcessVerticalSpace = false;
 			btnAddTransactionRow.setLayoutData(btnAddTransactionRowLData);
-			final org.eclipse.swt.graphics.Image btnAddTransactionRowimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/plus.gif"));
-			btnAddTransactionRowimage.setBackground(btnAddTransactionRow.getBackground());
-			btnAddTransactionRow.setImage(btnAddTransactionRowimage);
+			final org.eclipse.swt.graphics.Image btnAddTransactionRowýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/plus.gif"));
+			btnAddTransactionRowýmage.setBackground(btnAddTransactionRow.getBackground());
+			btnAddTransactionRow.setImage(btnAddTransactionRowýmage);
 			btnAddTransactionRow.setSize(new org.eclipse.swt.graphics.Point(26,24));
 			btnAddTransactionRow.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -212,9 +212,9 @@ public class AccUITransactionCollect extends SecureComposite {
 			btnRemoveTransactionRowLData.grabExcessHorizontalSpace = false;
 			btnRemoveTransactionRowLData.grabExcessVerticalSpace = false;
 			btnRemoveTransactionRow.setLayoutData(btnRemoveTransactionRowLData);
-			final org.eclipse.swt.graphics.Image btnRemoveTransactionRowimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif"));
-			btnRemoveTransactionRowimage.setBackground(btnRemoveTransactionRow.getBackground());
-			btnRemoveTransactionRow.setImage(btnRemoveTransactionRowimage);
+			final org.eclipse.swt.graphics.Image btnRemoveTransactionRowýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif"));
+			btnRemoveTransactionRowýmage.setBackground(btnRemoveTransactionRow.getBackground());
+			btnRemoveTransactionRow.setImage(btnRemoveTransactionRowýmage);
 			btnRemoveTransactionRow.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
 					btnRemoveTransactionRowMouseUp(evt);
@@ -264,8 +264,8 @@ public class AccUITransactionCollect extends SecureComposite {
 			this.layout();
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					btnAddTransactionRowimage.dispose();
-					btnRemoveTransactionRowimage.dispose();
+					btnAddTransactionRowýmage.dispose();
+					btnRemoveTransactionRowýmage.dispose();
 				}
 			});
 	
@@ -544,5 +544,23 @@ public class AccUITransactionCollect extends SecureComposite {
 	 */
 	public Text getTxtDocumentNo() {
 		return txtDocumentNo;
+	}
+	/**
+	 * @return Returns the btnAddTransactionRow.
+	 */
+	public Button getBtnAddTransactionRow() {
+		return btnAddTransactionRow;
+	}
+	/**
+	 * @return Returns the btnRemoveTransactionRow.
+	 */
+	public Button getBtnRemoveTransactionRow() {
+		return btnRemoveTransactionRow;
+	}
+	/**
+	 * @param comboDeptor The comboDeptor to set.
+	 */
+	public void setComboDeptor(CCombo comboDeptor) {
+		this.comboDeptor = comboDeptor;
 	}
 }

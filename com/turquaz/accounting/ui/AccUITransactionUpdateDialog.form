@@ -45,7 +45,7 @@
 				</Events>
 				<Properties>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 5, 567, 38]"/>
+						<Rectangle value="[5, 5, 567, 23]"/>
 					</Property>
 				</Properties>
 				<SubComponents>
@@ -57,13 +57,13 @@
 						</Events>
 						<Properties>
 							<Property name="size" type="Dimension">
-								<Dimension value="[88, 38]"/>
+								<Dimension value="[88, 23]"/>
 							</Property>
 							<Property name="preferredSize" type="Dimension">
-								<Dimension value="[88, 38]"/>
+								<Dimension value="[88, 23]"/>
 							</Property>
 							<Property name="minimumSize" type="Dimension">
-								<Dimension value="[88, 38]"/>
+								<Dimension value="[88, 23]"/>
 							</Property>
 						</Properties>
 						<SubComponents>
@@ -88,23 +88,17 @@
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Update"/>
-											<Property name="image" type="Image">
-												<Image name="\icons\save_edit.gif"/>
-											</Property>
 										</Properties>
 									</Component>
-									<Component class="org.eclipse.swt.widgets.ToolItem" name="tooDelete" style="0">
+									<Component class="org.eclipse.swt.widgets.ToolItem" name="toolDelete" style="0">
 										<Constraints>
 											<LayoutConstraint/>
 										</Constraints>
 										<Events>
-											<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="tooDeleteWidgetSelected"/>
+											<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolDeleteWidgetSelected"/>
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Delete"/>
-											<Property name="image" type="Image">
-												<Image name="\icons\delete_edit.gif"/>
-											</Property>
 										</Properties>
 									</Component>
 								</SubComponents>
@@ -132,10 +126,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[567, 374]"/>
+						<Dimension value="[567, 389]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 48, 567, 374]"/>
+						<Rectangle value="[5, 33, 567, 389]"/>
 					</Property>
 				</Properties>
 			</Component>

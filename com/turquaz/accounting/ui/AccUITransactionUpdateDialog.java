@@ -37,7 +37,7 @@ import org.eclipse.swt.SWT;
 */
 public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	private AccUITransactionAdd compTransactionAdd;
-	private ToolItem tooDelete;
+	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
 	private ToolBar toolBar1;
 	private CoolItem coolItem1;
@@ -66,7 +66,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			coolItem1 = new CoolItem(coolBar1,SWT.NULL);
 			toolBar1 = new ToolBar(coolBar1,SWT.NULL);
 			toolUpdate = new ToolItem(toolBar1,SWT.NULL);
-			tooDelete = new ToolItem(toolBar1,SWT.NULL);
+			toolDelete = new ToolItem(toolBar1,SWT.NULL);
 			compTransactionAdd = new AccUITransactionAdd(dialogShell,SWT.NULL);
 	
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(577,427));
@@ -84,26 +84,22 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			coolBar1.setLayoutData(coolBar1LData);
 	
 			coolItem1.setControl(toolBar1);
-			coolItem1.setSize(new org.eclipse.swt.graphics.Point(88,38));
-			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88,38));
-			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,38));
+			coolItem1.setSize(new org.eclipse.swt.graphics.Point(88,23));
+			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88,23));
+			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,23));
 	
 	
 			toolUpdate.setText("Update");
-			final org.eclipse.swt.graphics.Image toolUpdateimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
-			toolUpdate.setImage(toolUpdateimage);
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
 				}
 			});
 	
-			tooDelete.setText("Delete");
-			final org.eclipse.swt.graphics.Image tooDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			tooDelete.setImage(tooDeleteimage);
-			tooDelete.addSelectionListener( new SelectionAdapter() {
+			toolDelete.setText("Delete");
+			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
-					tooDeleteWidgetSelected(evt);
+					toolDeleteWidgetSelected(evt);
 				}
 			});
 	
@@ -118,7 +114,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			compTransactionAddLData.grabExcessHorizontalSpace = true;
 			compTransactionAddLData.grabExcessVerticalSpace = true;
 			compTransactionAdd.setLayoutData(compTransactionAddLData);
-			compTransactionAdd.setSize(new org.eclipse.swt.graphics.Point(567,374));
+			compTransactionAdd.setSize(new org.eclipse.swt.graphics.Point(567,389));
 			compTransactionAdd.layout();
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
@@ -129,12 +125,6 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShellLayout.horizontalSpacing = 5;
 			dialogShellLayout.verticalSpacing = 5;
 			dialogShell.layout();
-			dialogShell.addDisposeListener(new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
-					toolUpdateimage.dispose();
-					tooDeleteimage.dispose();
-				}
-			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 577,427);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
@@ -167,6 +157,15 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	compTransactionAdd.getDateTransactionDate().setDate(date);
 	fillTable();
 	compTransactionAdd.calculateTotalDeptAndCredit();
+	Integer trModule=accTrans.getTurqModule().getModulesId();
+	if (trModule.intValue()!=1){ //1=Transaction, only view is allowed for other modules..
+		
+		toolUpdate.setEnabled(false);
+		toolDelete.setEnabled(false);
+		compTransactionAdd.getBtnAddTransactionRow().setEnabled(false);
+		compTransactionAdd.getBtnRemoveTransactionRow().setEnabled(false);
+		
+	}
 		
 	
 	}
@@ -252,7 +251,7 @@ public void showDialog(TurqAccountingTransaction accTrans){
     
     
 	/** Auto-generated event handler method */
-	protected void tooDeleteWidgetSelected(SelectionEvent evt){
+	protected void toolDeleteWidgetSelected(SelectionEvent evt){
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 		MessageBox msg2 = new MessageBox(this.getParent(),SWT.YES|SWT.NO);
 		msg2.setMessage("Really delete?");

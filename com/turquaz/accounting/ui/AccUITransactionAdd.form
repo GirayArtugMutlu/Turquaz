@@ -196,9 +196,6 @@
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value=""/>
-							<Property name="image" type="Image">
-								<Image name="\icons\plus.gif"/>
-							</Property>
 							<Property name="size" type="Dimension">
 								<Dimension value="[26, 24]"/>
 							</Property>
@@ -213,8 +210,8 @@
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="2"/>
-								<Property name="widthHint" type="int" value="-1"/>
-								<Property name="heightHint" type="int" value="-1"/>
+								<Property name="widthHint" type="int" value="12"/>
+								<Property name="heightHint" type="int" value="23"/>
 								<Property name="horizontalIndent" type="int" value="0"/>
 								<Property name="horizontalSpan" type="int" value="1"/>
 								<Property name="verticalSpan" type="int" value="1"/>
@@ -227,11 +224,11 @@
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value=""/>
-							<Property name="image" type="Image">
-								<Image name="\icons\minus.gif"/>
+							<Property name="size" type="Dimension">
+								<Dimension value="[12, 23]"/>
 							</Property>
 							<Property name="bounds" type="Rectangle">
-								<Rectangle value="[22, 34, 26, 24]"/>
+								<Rectangle value="[29, 34, 12, 23]"/>
 							</Property>
 						</Properties>
 					</Component>

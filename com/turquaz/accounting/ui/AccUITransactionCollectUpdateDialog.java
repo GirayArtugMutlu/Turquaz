@@ -88,8 +88,8 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	
 	
 			toolUpdate.setText("Update");
-			final org.eclipse.swt.graphics.Image toolUpdateimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
-			toolUpdate.setImage(toolUpdateimage);
+			final org.eclipse.swt.graphics.Image toolUpdateýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
+			toolUpdate.setImage(toolUpdateýmage);
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
@@ -97,8 +97,8 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 			});
 	
 			toolDelete.setText("Delete");
-			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			toolDelete.setImage(toolDeleteimage);
+			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setImage(toolDeleteýmage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -128,8 +128,8 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					toolUpdateimage.dispose();
-					toolDeleteimage.dispose();
+					toolUpdateýmage.dispose();
+					toolDeleteýmage.dispose();
 				}
 			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 574,434);
@@ -156,6 +156,14 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	compTransactionCollect.getDatePickerTransactionDate().setDate(date);
 		
 	fillTableAndCombo();
+		Integer trModule=accTrans.getTurqModule().getModulesId();
+	if (trModule.intValue()!=1){ //1=Transaction, only view is allowed for other modules..
+		
+		toolUpdate.setEnabled(false);
+		toolDelete.setEnabled(false);
+		compTransactionCollect.getBtnAddTransactionRow().setEnabled(false);
+		compTransactionCollect.getBtnRemoveTransactionRow().setEnabled(false);
+	}
 	
 	}
 	public void fillTableAndCombo(){
