@@ -142,6 +142,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private MenuItem mitFile;
 	private Menu menuMain;
 	Menu popupTreeAddFavorites;
+	Menu popupTreeRemoveFavorites;
 
 	public EngUIMainFrame(Composite parent, int style) {
 		super(parent, style);
@@ -268,7 +269,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			sashMainHorizontal.setSize(new org.eclipse.swt.graphics.Point(792,572));
 			sashMainHorizontal.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,792,572));
 	
-			tabfldMenu.setSize(new org.eclipse.swt.graphics.Point(386,549));
+			tabfldMenu.setSize(new org.eclipse.swt.graphics.Point(386,566));
 			tabfldMenu.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,392,572));
 	
 			tabModules.setControl(compModulesTab);
@@ -678,10 +679,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	 
 	 //Add popup menu to add favorites
      popupTreeAddFavorites = new Menu(getShell(),SWT.POP_UP);
-     
-    final MenuItem item = new MenuItem (popupTreeAddFavorites, SWT.PUSH);
+     final MenuItem item = new MenuItem (popupTreeAddFavorites, SWT.PUSH);
 	 item.setText ("Add to Favorites");
+     
+     //Add popu menu to remove favorites
+     popupTreeRemoveFavorites = new Menu(getShell(),SWT.POP_UP);
+   	 final MenuItem itemRemove = new MenuItem (popupTreeRemoveFavorites, SWT.PUSH);
+	 itemRemove.setText ("Remove from Favorites");
 	 
+	
 	 item.addListener (SWT.Selection, new Listener () {
 				public void handleEvent (Event e) {					
 					if(item.getData()!=null){
@@ -697,6 +703,20 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 									
 				}
 	   });
+	 itemRemove.addListener (SWT.Selection, new Listener () {
+		public void handleEvent (Event e) {					
+			if(item.getData()!=null){
+			
+				TreeItem selectedItem = (TreeItem)itemRemove.getData();
+				selectedItem.dispose();
+				
+				
+				
+			}
+			
+							
+		}
+});
      
      
      
@@ -722,6 +742,27 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				item.setData(null);
 				
 			}
+			
+			
+		
+		}
+	});
+	
+	 popupTreeRemoveFavorites.addListener (SWT.Show, new Listener () {
+		public void handleEvent (Event event) {
+		
+				TreeItem selectedItem = treeFavorites.getSelection()[0];
+				if(selectedItem.getItemCount()>0){
+					//if it has childeren then do not show menu	
+ 					event.doit=false;
+ 					popupTreeAddFavorites.setVisible(false);
+ 					itemRemove.setData(null);
+				}
+				else{
+					event.doit =true;
+					itemRemove.setData(selectedItem);
+				}
+			
 			
 			
 		
@@ -765,6 +806,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		treeAdmin.setMenu(popupTreeAddFavorites);
 		treeBank.setMenu(popupTreeAddFavorites);
 		treeInventory.setMenu(popupTreeAddFavorites);
+		
+		treeFavorites.setMenu(popupTreeRemoveFavorites);
 		
 		
 		

@@ -399,9 +399,9 @@
 																					<Constraint heightHint=""/>
 																					<Constraint verticalAlignment=""/>
 																					<Constraint grabExcessVerticalSpace=""/>
-																					<Constraint grabExcessHorizontalSpace=""/>
-																					<Constraint horizontalSpan=""/>
 																					<Constraint widthHint=""/>
+																					<Constraint horizontalSpan=""/>
+																					<Constraint grabExcessHorizontalSpace=""/>
 																					<Constraint horizontalIndent=""/>
 																					<LayoutConstraint/>
 																				</Constraints>
@@ -429,9 +429,9 @@
 																					<Constraint heightHint=""/>
 																					<Constraint verticalAlignment=""/>
 																					<Constraint grabExcessVerticalSpace=""/>
-																					<Constraint grabExcessHorizontalSpace=""/>
-																					<Constraint horizontalSpan=""/>
 																					<Constraint widthHint=""/>
+																					<Constraint horizontalSpan=""/>
+																					<Constraint grabExcessHorizontalSpace=""/>
 																					<Constraint horizontalIndent=""/>
 																					<LayoutConstraint/>
 																				</Constraints>
@@ -997,8 +997,8 @@
 													<Component class="org.eclipse.swt.custom.CTabFolder" name="tabfldMain" style="2056">
 														<Constraints>
 															<Constraint right=""/>
-															<Constraint width=""/>
 															<Constraint top=""/>
+															<Constraint width=""/>
 															<Constraint height=""/>
 															<Constraint left="null"/>
 															<Constraint class="org.eclipse.swt.layout.GridData"/>
