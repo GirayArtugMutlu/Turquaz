@@ -268,7 +268,7 @@ public final class TreeFactory {
 		}
 		if(EngBLPermissions.getPermission(CurUICurrentCardAbstract.class.getName())>0){
 			item = new TreeItem(root,SWT.NULL);
-			item.setText("Cari Kart Ekstresi");
+			item.setText(Messages.getString("TreeFactory.48")); //$NON-NLS-1$
 			item.setData(CurUICurrentCardAbstract.class.getName());
 		}
 	/*	if(EngBLPermissions.getPermission(CurUITransactionAdd.class.getName())>0){
@@ -405,7 +405,7 @@ public final class TreeFactory {
 		
 		    item = new TreeItem(root,SWT.NULL);
 			
-			item.setText("Kasa Hareketi Arama");
+			item.setText(Messages.getString("TreeFactory.49")); //$NON-NLS-1$
 			
 			item.setData(CashUICashTransactionSearch.class.getName());
 		
@@ -413,22 +413,22 @@ public final class TreeFactory {
 		root.setExpanded(true);
 		
 		root = new TreeItem(tree,SWT.NULL);
-		root.setText("Tahsilat");
+		root.setText(Messages.getString("TreeFactory.50")); //$NON-NLS-1$
 		
 		
 	   if(EngBLPermissions.getPermission(CashUICashCollectTransactionAdd.class.getName())>0){
 			item = new TreeItem(root,SWT.NULL);
-			item.setText("Cariden Tahsilat"); 
+			item.setText(Messages.getString("TreeFactory.51"));  //$NON-NLS-1$
 			item.setData(CashUICashCollectTransactionAdd.class.getName());
 	   }
 	    root.setExpanded(true);
 	   
 	    root = new TreeItem(tree,SWT.NULL);
-		root.setText("Ödeme");
+		root.setText(Messages.getString("TreeFactory.52")); //$NON-NLS-1$
 
 		   if(EngBLPermissions.getPermission(CashUICashPaymentTransactionAdd.class.getName())>0){
 				item = new TreeItem(root,SWT.NULL);
-				item.setText("Cariye Ödeme"); 
+				item.setText(Messages.getString("TreeFactory.53"));  //$NON-NLS-1$
 				item.setData(CashUICashPaymentTransactionAdd.class.getName());
 		   }
 		
