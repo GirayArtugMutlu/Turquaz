@@ -73,6 +73,11 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 		super(parent, style);
 		this.bill = bill;
 	}
+	
+	public BillUIBillUpdateDialog(Shell parent, int style) {
+		super(parent, style);
+		this.bill = null;
+	}
 
 	public boolean open() {
 		try {
@@ -185,6 +190,9 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	        toolUpdate.setEnabled(false);
 			toolDelete.setEnabled(false);
 			
+			if (bill==null)
+				return;
+			
 			if(!blUpdateBill.canUpdateBill(bill)){
 			    toolDelete.setEnabled(false);
 			    toolUpdate.setEnabled(false); 
@@ -289,6 +297,8 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	public void update(){
 	MessageBox msg;
 	try{
+		if (bill==null)
+			return;
 	   if(compAddBill.verifyFields()){
 	       updated=true;
 	       Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
@@ -366,18 +376,15 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 		        blUpdateBill.deleteObject(it.next());
 		    }
 		    
-		    compAddBill.saveGroups(bill.getId());
-		    
-		     
+		    compAddBill.saveGroups(bill.getId());     
 		    
 		}
 		catch(Exception ex){
 		  throw ex;
 		    
-		}
-		
-		
-		}
+		}	
+	}
+	
 	public void delete(){
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 		MessageBox msg2 = new MessageBox(this.getParent(),SWT.CANCEL|SWT.OK);

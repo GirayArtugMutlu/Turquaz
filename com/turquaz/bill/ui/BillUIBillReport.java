@@ -18,16 +18,30 @@ import org.eclipse.swt.widgets.Composite;
 import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
+import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
+import com.turquaz.engine.dal.TurqBillInGroup;
+import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TableSorter;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.custom.CTabFolder;
+import com.jasperassistant.designer.viewer.ViewerComposite;
+import com.cloudgarden.resource.SWTResourceManager;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.MouseAdapter;
@@ -42,6 +56,7 @@ import org.eclipse.swt.SWT;
 
 
 import com.turquaz.engine.ui.component.CurrencyText;
+import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
 /**
 * This code was generated using CloudGarden's Jigloo
@@ -58,10 +73,24 @@ import com.turquaz.current.ui.comp.CurrentCodePicker;
 * *************************************
 */
 public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implements SearchComposite{
+
+	{
+		//Register as a resource user - SWTResourceManager will
+		//handle the obtaining and disposing of resources
+		SWTResourceManager.registerResourceUser(this);
+	}
+
 	private BillBLSearchBill blSearch = new BillBLSearchBill();
 	private Calendar cal=Calendar.getInstance();
 	private Composite composite1;
 	private CurrentCodePicker txtCurCardEnd;
+	private ToolBar toolBar1;
+	private BillUIAddBill compAddBill;
+	private ViewerComposite viewer;
+	private Composite compReport;
+	private CTabItem tabItemReport;
+	private CTabItem cTabItem1;
+	private CTabFolder tabFolderReport;
 	private TableColumn tableColumnCurrentCode;
 	private TableColumn tableColumnSpecialVatAmount;
 	private TableColumn tableColumnVatAmount;
@@ -91,6 +120,21 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	private CLabel lblCurCardEnd;
 	private CurrentCodePicker txtCurCardStart;
 	private CLabel lblCurrentCard;
+	
+	private CTabFolder compView;
+	private ToolItem toolItemForward;
+	private ToolItem toolItemBack;
+	private ToolItem toolPrint;
+	private ToolItem toolDelete;
+	private ToolItem toolUpdate;
+	private Composite composite2;
+	private CTabItem tabItemView;
+	private CTabItem cTabItem2;
+	private List list=null;
+	private TurqBill bill=null;
+	private int currentIndex=0;
+	private ConBLUpdateConsignment blUpdateCons = new ConBLUpdateConsignment();
+	private BillBLUpdateBill blUpdateBill = new BillBLUpdateBill();
 
 	public BillUIBillReport(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
@@ -100,23 +144,32 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	private void initGUI() {
 		try {
 			this.setLayout(new GridLayout());
-			this.setSize(591, 344);
+			this.setSize(661, 571);
+			//START >>  compView
+			compView = new CTabFolder(this, SWT.NONE);
+			//START >>  cTabItem2
+			cTabItem2 = new CTabItem(compView, SWT.NONE);
+			cTabItem2.setText("Arama");
 			{
-				composite1 = new Composite(this, SWT.NONE);
+				composite1 = new Composite(compView, SWT.NONE);
+				cTabItem2.setControl(composite1);
 				GridLayout composite1Layout = new GridLayout();
 				composite1Layout.numColumns = 4;
 				GridData composite1LData = new GridData();
-				composite1LData.heightHint = 161;
+				composite1LData.heightHint = 156;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				composite1.setLayoutData(composite1LData);
 				composite1.setLayout(composite1Layout);
 				{
 					lblCurrentCard = new CLabel(composite1, SWT.NONE);
-					lblCurrentCard.setText(Messages.getString("BillUIBillReport.12")); //$NON-NLS-1$
+					lblCurrentCard.setText(Messages
+						.getString("BillUIBillReport.12")); //$NON-NLS-1$
 				}
 				{
-					txtCurCardStart = new CurrentCodePicker(composite1, SWT.NONE);
+					txtCurCardStart = new CurrentCodePicker(
+						composite1,
+						SWT.NONE);
 					GridData txtCurCardLData = new GridData();
 					GridData txtCurCardStartLData = new GridData();
 					txtCurCardStartLData.widthHint = 156;
@@ -241,132 +294,315 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				{
 					comboBillType = new CCombo(composite1, SWT.NONE);
 					GridData comboConsignmentTypeLData = new GridData();
-					comboBillType.setText(Messages.getString("BillUIBillReport.11")); //$NON-NLS-1$
+					comboBillType.setText(Messages
+						.getString("BillUIBillReport.11")); //$NON-NLS-1$
 					comboConsignmentTypeLData.widthHint = 130;
 					comboConsignmentTypeLData.heightHint = 14;
 					comboBillType.setLayoutData(comboConsignmentTypeLData);
 				}
-			}
-			{
-				tableBills = new Table(this, SWT.FULL_SELECTION);
-				GridData tableConsignmentsLData = new GridData();
-				tableBills.addMouseListener(new MouseAdapter() {
-					public void mouseDoubleClick(MouseEvent evt) {
-						tableMouseDoubleClick();
+				//START >>  tabFolderReport
+				tabFolderReport = new CTabFolder(composite1, SWT.NONE);
+				//START >>  cTabItem1
+				cTabItem1 = new CTabItem(tabFolderReport, SWT.NONE);
+				cTabItem1.setText("Arama Sonucu");
+				{
+					tableBills = new Table(tabFolderReport, SWT.FULL_SELECTION);
+					cTabItem1.setControl(tableBills);
+					GridData tableConsignmentsLData = new GridData();
+					tableBills.addMouseListener(new MouseAdapter() {
+						public void mouseDoubleClick(MouseEvent evt) {
+							tableMouseDoubleClick();
+						}
+					});
+					tableBills.setHeaderVisible(true);
+					tableBills.setLinesVisible(true);
+					tableConsignmentsLData.grabExcessHorizontalSpace = true;
+					tableConsignmentsLData.horizontalAlignment = GridData.FILL;
+					tableConsignmentsLData.verticalAlignment = GridData.FILL;
+					tableConsignmentsLData.grabExcessVerticalSpace = true;
+					tableBills.setLayoutData(tableConsignmentsLData);
+					{
+						tableColumnConsignmentDate = new TableColumn(
+							tableBills,
+							SWT.NONE);
+						tableColumnConsignmentDate
+							.setText(com.turquaz.bill.Messages
+								.getString("BillUIBillSearch.5")); //$NON-NLS-1$
+						tableColumnConsignmentDate.setWidth(104);
+						tableColumnConsignmentDate.addListener(
+							SWT.Selection,
+							new Listener() {
+								public void handleEvent(Event e) {
+									TableSorter.sortTable(
+										tableBills,
+										tableColumnConsignmentDate);
+								}
+							});
 					}
-				});
-				tableBills.setHeaderVisible(true);
-				tableBills.setLinesVisible(true);
-				tableConsignmentsLData.grabExcessHorizontalSpace = true;
-				tableConsignmentsLData.horizontalAlignment = GridData.FILL;
-				tableConsignmentsLData.verticalAlignment = GridData.FILL;
-				tableConsignmentsLData.grabExcessVerticalSpace = true;
-				tableBills.setLayoutData(tableConsignmentsLData);
-				{
-					tableColumnConsignmentDate = new TableColumn(
+					{
+						tableColumnDocNo = new TableColumn(tableBills, SWT.NONE);
+						tableColumnDocNo.setText(Messages
+							.getString("BillUIBillReport.7")); //$NON-NLS-1$
+						tableColumnDocNo.setWidth(74);
+					}
+					//START >>  tableColumnCurrentCode
+					tableColumnCurrentCode = new TableColumn(
 						tableBills,
 						SWT.NONE);
-					tableColumnConsignmentDate
-						.setText(com.turquaz.bill.Messages
-							.getString("BillUIBillSearch.5")); //$NON-NLS-1$
-					tableColumnConsignmentDate.setWidth(104);
-					tableColumnConsignmentDate.addListener(
-						SWT.Selection,
-						new Listener() {
-							public void handleEvent(Event e) {
-								TableSorter.sortTable(
-									tableBills,
-									tableColumnConsignmentDate);
-							}
-						});
+					tableColumnCurrentCode.setText("Cari Kod");
+					tableColumnCurrentCode.setWidth(100);
+					//END <<  tableColumnCurrentCode
+					{
+						tableColumnCurrentName = new TableColumn(
+							tableBills,
+							SWT.NONE);
+						tableColumnCurrentName
+							.setText(com.turquaz.bill.Messages
+								.getString("BillUIBillSearch.6")); //$NON-NLS-1$
+						tableColumnCurrentName.setWidth(150);
+						tableColumnCurrentName.addListener(
+							SWT.Selection,
+							new Listener() {
+								public void handleEvent(Event e) {
+									TableSorter.sortTable(
+										tableBills,
+										tableColumnCurrentName);
+								}
+							});
+					}
+					{
+						tableColumnCumulativePrice = new TableColumn(
+							tableBills,
+							SWT.RIGHT);
+						tableColumnCumulativePrice
+							.setText(com.turquaz.bill.Messages
+								.getString("BillUIBillSearch.7")); //$NON-NLS-1$
+						tableColumnCumulativePrice.setWidth(100);
+						tableColumnCumulativePrice.addListener(
+							SWT.Selection,
+							new Listener() {
+								public void handleEvent(Event e) {
+									TableSorter.sortTable(
+										tableBills,
+										tableColumnCumulativePrice);
+								}
+							});
+					}
+					{
+						tableColumnVatAmount = new TableColumn(
+							tableBills,
+							SWT.RIGHT);
+						tableColumnVatAmount.setText(com.turquaz.bill.Messages
+							.getString("BillUIBillSearch.8")); //$NON-NLS-1$
+						tableColumnVatAmount.setWidth(100);
+						tableColumnVatAmount.addListener(
+							SWT.Selection,
+							new Listener() {
+								public void handleEvent(Event e) {
+									TableSorter.sortTable(
+										tableBills,
+										tableColumnVatAmount);
+								}
+							});
+					}
+					{
+						tableColumnSpecialVatAmount = new TableColumn(
+							tableBills,
+							SWT.RIGHT);
+						tableColumnSpecialVatAmount
+							.setText(com.turquaz.bill.Messages
+								.getString("BillUIBillSearch.9")); //$NON-NLS-1$
+						tableColumnSpecialVatAmount.setWidth(100);
+						tableColumnSpecialVatAmount.addListener(
+							SWT.Selection,
+							new Listener() {
+								public void handleEvent(Event e) {
+									TableSorter.sortTable(
+										tableBills,
+										tableColumnSpecialVatAmount);
+								}
+							});
+					}
 				}
-				{
-					tableColumnDocNo = new TableColumn(tableBills, SWT.NONE);
-					tableColumnDocNo.setText(Messages
-						.getString("BillUIBillReport.7")); //$NON-NLS-1$
-					tableColumnDocNo.setWidth(74);
-				}
-				//START >>  tableColumnCurrentCode
-				tableColumnCurrentCode = new TableColumn(tableBills, SWT.NONE);
-				tableColumnCurrentCode.setText("Cari Kod");
-				tableColumnCurrentCode.setWidth(100);
-				//END <<  tableColumnCurrentCode
-				{
-					tableColumnCurrentName = new TableColumn(
-						tableBills,
-						SWT.NONE);
-					tableColumnCurrentName.setText(com.turquaz.bill.Messages
-						.getString("BillUIBillSearch.6")); //$NON-NLS-1$
-					tableColumnCurrentName.setWidth(150);
-					tableColumnCurrentName.addListener(
-						SWT.Selection,
-						new Listener() {
-							public void handleEvent(Event e) {
-								TableSorter.sortTable(
-									tableBills,
-									tableColumnCurrentName);
-							}
-						});
-				}
-				{
-					tableColumnCumulativePrice = new TableColumn(
-						tableBills,
-						SWT.RIGHT);
-					tableColumnCumulativePrice
-						.setText(com.turquaz.bill.Messages
-							.getString("BillUIBillSearch.7")); //$NON-NLS-1$
-					tableColumnCumulativePrice.setWidth(100);
-					tableColumnCumulativePrice.addListener(
-						SWT.Selection,
-						new Listener() {
-							public void handleEvent(Event e) {
-								TableSorter.sortTable(
-									tableBills,
-									tableColumnCumulativePrice);
-							}
-						});
-				}
-				{
-					tableColumnVatAmount = new TableColumn(
-						tableBills,
-						SWT.RIGHT);
-					tableColumnVatAmount.setText(com.turquaz.bill.Messages
-						.getString("BillUIBillSearch.8")); //$NON-NLS-1$
-					tableColumnVatAmount.setWidth(100);
-					tableColumnVatAmount.addListener(
-						SWT.Selection,
-						new Listener() {
-							public void handleEvent(Event e) {
-								TableSorter.sortTable(
-									tableBills,
-									tableColumnVatAmount);
-							}
-						});
-				}
-				{
-					tableColumnSpecialVatAmount = new TableColumn(
-						tableBills,
-						SWT.RIGHT);
-					tableColumnSpecialVatAmount
-						.setText(com.turquaz.bill.Messages
-							.getString("BillUIBillSearch.9")); //$NON-NLS-1$
-					tableColumnSpecialVatAmount.setWidth(100);
-					tableColumnSpecialVatAmount.addListener(
-						SWT.Selection,
-						new Listener() {
-							public void handleEvent(Event e) {
-								TableSorter.sortTable(
-									tableBills,
-									tableColumnSpecialVatAmount);
-							}
-						});
-				}
+				GridData tabFolderReportLData = new GridData();
+				tabFolderReportLData.grabExcessHorizontalSpace = true;
+				tabFolderReportLData.horizontalAlignment = GridData.FILL;
+				tabFolderReportLData.verticalAlignment = GridData.FILL;
+				tabFolderReportLData.grabExcessVerticalSpace = true;
+				tabFolderReportLData.horizontalSpan = 4;
+				tabFolderReport.setLayoutData(tabFolderReportLData);
+				//END <<  cTabItem1
+				//START >>  tabItemReport
+				tabItemReport = new CTabItem(tabFolderReport, SWT.NONE);
+				tabItemReport.setText("Rapor");
+				//START >>  compReport
+				compReport = new Composite(tabFolderReport, SWT.NONE);
+				GridLayout compReportLayout = new GridLayout();
+				compReportLayout.makeColumnsEqualWidth = true;
+				compReport.setLayout(compReportLayout);
+				tabItemReport.setControl(compReport);
+				//START >>  viewer
+				viewer = new ViewerComposite(compReport, SWT.NONE);
+				GridData viewerLData = new GridData();
+				viewerLData.grabExcessHorizontalSpace = true;
+				viewerLData.grabExcessVerticalSpace = true;
+				viewerLData.horizontalAlignment = GridData.FILL;
+				viewerLData.verticalAlignment = GridData.FILL;
+				viewer.setLayoutData(viewerLData);
+				//END <<  viewer
+				//END <<  compReport
+				//END <<  tabItemReport
+				//END <<  tabFolderReport
 			}
+			GridData compViewLData = new GridData();
+			compViewLData.grabExcessVerticalSpace = true;
+			compViewLData.grabExcessHorizontalSpace = true;
+			compViewLData.verticalAlignment = GridData.FILL;
+			compViewLData.horizontalAlignment = GridData.FILL;
+			compView.setLayoutData(compViewLData);
+			//END <<  cTabItem2
+			//START >>  tabItemView
+			tabItemView = new CTabItem(compView, SWT.NONE);
+			tabItemView.setText("H\u0131zl\u0131 Görüntüleme");
+			//START >>  composite2
+			composite2 = new Composite(compView, SWT.NONE);
+			GridLayout composite2Layout = new GridLayout();
+			composite2Layout.makeColumnsEqualWidth = true;
+			composite2.setLayout(composite2Layout);
+			tabItemView.setControl(composite2);
+			//START >>  toolBar1
+			toolBar1 = new ToolBar(composite2, SWT.NONE);
+			//START >>  toolUpdate
+			toolUpdate = new ToolItem(toolBar1, SWT.NONE);
+			toolUpdate.setEnabled(false);
+			toolUpdate.setText(Messages.getString("BillUIBillUpdateDialog.0"));
+			toolUpdate.setImage(SWTResourceManager
+				.getImage("icons/save_edit.gif"));
+			toolUpdate.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					if (bill != null)
+					{
+						//TODO write update method for BillReport fast view
+					}
+				}
+			});
+			//END <<  toolUpdate
+			//START >>  toolDelete
+			toolDelete = new ToolItem(toolBar1, SWT.NONE);
+			toolDelete.setEnabled(false);
+			toolDelete.setText(Messages.getString("BillUIBillUpdateDialog.2"));
+			toolDelete.setImage(SWTResourceManager
+				.getImage("icons/Delete16.gif"));
+			toolDelete.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					if (bill != null){
+						//TODO write delete method for BillReport fast view
+					}
+						
+				}
+			});
+			//END <<  toolDelete
+			//START >>  toolPrint
+			toolPrint = new ToolItem(toolBar1, SWT.NONE);
+			toolPrint.setText(Messages.getString("BillUIBillUpdateDialog.5"));
+			toolPrint.setImage(SWTResourceManager.getImage("gfx/print.gif"));
+			toolPrint.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					if (bill != null)
+					{
+						boolean answer = EngUICommon.okToDelete(
+								getShell(),
+								Messages.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
+						EngBLUtils.printBill(bill, answer);
+					}
+
+				}
+			});
+			//END <<  toolPrint
+			//START >>  toolItemBack
+			toolItemBack = new ToolItem(toolBar1, SWT.NONE);
+			toolItemBack.setText("Geri");
+			toolItemBack.setImage(SWTResourceManager.getImage("icons/backward.gif"));
+			toolItemBack.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					try
+					{
+						if (list!=null && list.size() > 0)
+						{
+							if (currentIndex-1 >=0)
+							{
+								currentIndex--;
+								Object[] billObj=(Object[])list.get(currentIndex);
+								Integer billId=(Integer)billObj[0];
+								bill=BillBLSearchBill.getBillByBillId(billId);
+								initializeBill(bill);
+								postFinalizeGui();
+							}
+						}
+					}
+					catch (Exception ex)
+					{
+						ex.printStackTrace();
+					}
+				}
+			});
+			//END <<  toolItemBack
+			//START >>  toolItemForward
+			toolItemForward = new ToolItem(toolBar1, SWT.NONE);
+			toolItemForward.setText("\u0130leri");
+			toolItemForward.setImage(SWTResourceManager.getImage("icons/forward.gif"));
+			toolItemForward.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					try
+					{
+						if (list != null && list.size() > 0)
+						{
+							if (currentIndex+1 <= list.size()-1)
+							{
+								currentIndex++;
+								Object[] billObj=(Object[])list.get(currentIndex);
+								Integer billId=(Integer)billObj[0];
+								bill=BillBLSearchBill.getBillByBillId(billId);
+								initializeBill(bill);
+								postFinalizeGui();
+							}
+						}
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();
+					}
+				}
+			});
+			//END <<  toolItemForward
+			//END <<  toolBar1
+			//START >>  compAddBill
+			compAddBill = new BillUIAddBill(composite2, SWT.NONE);
+			GridData compLData = new GridData();
+			compLData.grabExcessHorizontalSpace = true;
+			compLData.grabExcessVerticalSpace = true;
+			compLData.horizontalAlignment = GridData.FILL;
+			compLData.verticalAlignment = GridData.FILL;
+			compAddBill.setLayoutData(compLData);
+			GridLayout compLayout1 = new GridLayout();
+			compLayout1.makeColumnsEqualWidth = true;
+			//END <<  compAddBill
+			//END <<  composite2
+			compView.setSelection(0);
+			//END <<  tabItemView
+			//END <<  compView
 			postInitGui();
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void clearFields()
+	{
+		compAddBill.getTableConsignmentRows().removeAll();
+		compAddBill.getCompRegisterGroup().getTableAllGroups().removeAll();
+		
 	}
 	public void postInitGui(){
 		comboBillType.add(com.turquaz.bill.Messages.getString("BillUIBillSearch.10"));  //$NON-NLS-1$
@@ -385,8 +621,68 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		
 		dateDueDateEnd.setDate(cal.getTime());
 		
-		
+		tabFolderReport.setSelection(cTabItem1);
+		//postFinalizeGui();	
 	
+	}
+	
+	public void postFinalizeGui(){
+	    try{
+	        
+	        toolUpdate.setEnabled(false);
+			toolDelete.setEnabled(false);
+			
+			if (bill==null)
+				return;
+			
+			if(!blUpdateBill.canUpdateBill(bill)){
+			    toolDelete.setEnabled(false);
+			    toolUpdate.setEnabled(false); 
+			}
+		    else{
+		        
+				if(EngBLPermissions.getPermission(compAddBill.getClass().getName())==2){
+				    toolUpdate.setEnabled(true); 
+				}
+				else if(EngBLPermissions.getPermission(compAddBill.getClass().getName())==3){
+				    toolDelete.setEnabled(true);
+				    toolUpdate.setEnabled(true); 
+				}
+		    }
+			
+			
+			
+			compAddBill.getTxtCurrentCard().setData(bill.getTurqBillConsignmentCommon().getTurqCurrentCard());
+			compAddBill.getTxtCurrentCard().setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName()+" {" +bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode() +"}"); //$NON-NLS-1$ //$NON-NLS-2$
+			;
+			compAddBill.getTxtDocumentNo().setText(bill.getTurqBillConsignmentCommon().getBillDocumentNo());
+			compAddBill.getDateConsignmentDate().setDate(bill.getBillsDate());
+			compAddBill.getTxtConsignmentDocumentNo().setText(bill.getTurqBillConsignmentCommon().getConsignmentDocumentNo());
+			if (bill.isIsOpen())
+			{
+				compAddBill.getComboPaymentType().setText(Messages.getString("BillUIBillUpdateDialog.8")); //$NON-NLS-1$
+			}
+			else {
+				compAddBill.getComboPaymentType().setText(Messages.getString("BillUIBillUpdateDialog.11")); //$NON-NLS-1$
+			}
+		    
+			
+			compAddBill.getDateDueDate().setDate(bill.getDueDate());
+			
+		
+			compAddBill.getTxtDefinition().setText(bill.getBillsDefinition());
+			fillInvTransactionColumns();
+			fillRegisteredGroup();  
+	        EngUICommon.centreWindow(this.getShell());
+	        
+	    
+	    }	    
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
+	    
+	    
+	    
 	}
 	
 	
@@ -399,6 +695,51 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		txtCurCardStart.setData(curCard);
 		
 	    }
+		
+	}
+	
+	public void fillRegisteredGroup(){
+		
+			TurqBillInGroup group;
+			Iterator it = bill.getTurqBillInGroups().iterator();
+			while(it.hasNext()){
+				group = (TurqBillInGroup)it.next();
+				compAddBill.getCompRegisterGroup().RegisterGroup(group.getTurqBillGroup());
+				
+				
+			}
+			
+		
+		}
+	
+	public void fillInvTransactionColumns(){
+		
+		compAddBill.rowList.removeAll();
+		
+	    TableItem item;
+		TurqInventoryTransaction invTrans;
+		
+		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
+		
+		if(it.hasNext()){
+	    TurqConsignment cons = (TurqConsignment)it.next();
+		
+	    Iterator it2 = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+		
+		while(it2.hasNext()){
+			
+		    invTrans = (TurqInventoryTransaction)it2.next();
+			
+		    InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.rowList,compAddBill.BILL_TYPE,compAddBill.tableViewer);
+            row.setDBObject(invTrans);
+			compAddBill.rowList.addTask(row);
+		}
+		}
+		
+		InvUITransactionTableRow row2 = new InvUITransactionTableRow(compAddBill.rowList,compAddBill.BILL_TYPE,compAddBill.tableViewer);
+		compAddBill.rowList.addTask(row2);
+		
+		compAddBill.calculateTotals();
 		
 	}
 	
@@ -416,6 +757,24 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	        ex.printStackTrace();
 	    }
 	}
+	
+	public void updateGroups()throws Exception{
+		try{
+		    Iterator it = bill.getTurqBillInGroups().iterator();
+		    
+		    while(it.hasNext()){
+		        blUpdateBill.deleteObject(it.next());
+		    }
+		    
+		    compAddBill.saveGroups(bill.getId());     
+		    
+		}
+		catch(Exception ex){
+		  throw ex;
+		    
+		}	
+	}
+	
 	public void search()
 	{
 		
@@ -433,7 +792,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				type=EngBLCommon.COMMON_SELL_INT;
 			}
 			
-			List list = blSearch.searchBillAdvanced(
+			list = blSearch.searchBillAdvanced(
 				(TurqCurrentCard)txtCurCardStart.getData(),
 				(TurqCurrentCard)txtCurCardEnd.getData(),
 				dateStartDate.getDate(),dateEndDate.getDate(),
@@ -441,7 +800,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				txtMinInvoiceTotal.getBigDecimalValue(),txtMaxInvoiceTotal.getBigDecimalValue(),
 				txtDocNoStart.getText(),txtDocNoEnd.getText(),type);
 		        								
-			Object[] bill;
+			Object[] billObj;
 			TableItem item;
 			TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
 			BigDecimal total=new BigDecimal(0);
@@ -451,18 +810,18 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			for(int i=0;i<list.size();i++)
 			{
 			
-				bill = (Object[])list.get(i);
+				billObj = (Object[])list.get(i);
 				item = new TableItem(tableBills,SWT.NULL);
 
 				
-				Integer billId=(Integer)bill[0];
-				Date billDate=(Date)bill[1];
-				String billDocNo=(String)bill[2];
-				String curCardCode=(String)bill[3];
-				String curCardName=(String) bill[4];
-				BigDecimal totalAmount=(BigDecimal)bill[5];
-				BigDecimal vatAmount=(BigDecimal)bill[6];
-				BigDecimal specVatAmount=(BigDecimal)bill[7];	
+				Integer billId=(Integer)billObj[0];
+				Date billDate=(Date)billObj[1];
+				String billDocNo=(String)billObj[2];
+				String curCardCode=(String)billObj[3];
+				String curCardName=(String) billObj[4];
+				BigDecimal totalAmount=(BigDecimal)billObj[5];
+				BigDecimal vatAmount=(BigDecimal)billObj[6];
+				BigDecimal specVatAmount=(BigDecimal)billObj[7];	
 				
 				total=total.add(totalAmount);
 				VAT=VAT.add(vatAmount);
@@ -486,7 +845,15 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			item=new TableItem(tableBills,SWT.NULL);
 			item.setText(new String[]{"","","",Messages.getString("BillUIBillReport.14"),cf.format(total),cf.format(VAT),cf.format(SpecialVAT)}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			
-			
+			currentIndex=0;
+			if (list.size() > 0)
+			{
+				billObj = (Object[])list.get(0);
+				Integer billId=(Integer)billObj[0];
+				bill=BillBLSearchBill.getBillByBillId(billId);
+				initializeBill(bill);
+				postFinalizeGui();
+			}
 			
 			
 			
