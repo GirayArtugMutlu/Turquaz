@@ -44,6 +44,7 @@ public class CheDALUpdate {
 			throw ex;
 		}
 	}
+	
     public static void initializeChequeRoll(TurqChequeRoll chequeRoll)throws Exception {
         try{
             
@@ -54,6 +55,7 @@ public class CheDALUpdate {
             Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqCurrentTransactions());
             Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqBanksTransactionBills());
             Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqCashTransactions());
+            Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqAccountingTransactions());
             
             session.close();
             

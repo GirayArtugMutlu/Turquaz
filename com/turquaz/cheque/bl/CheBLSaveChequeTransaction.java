@@ -43,6 +43,7 @@ import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
+import com.turquaz.engine.dal.TurqChequeRollAccountingAccount;
 import com.turquaz.engine.dal.TurqChequeTransactionType;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -59,6 +60,8 @@ public class CheBLSaveChequeTransaction {
      
       try{
           
+      	
+      
       	
       	  TurqCurrency currency = EngBLCommon.getBaseCurrency();
       	  BigDecimal exchangeRate = new BigDecimal(1);
@@ -110,6 +113,16 @@ public class CheBLSaveChequeTransaction {
           chequeRoll.setTurqEngineSequence(seq);
              
           CheDALSave.save(chequeRoll);
+          
+          if(rollAccount!=null){
+          
+          	TurqChequeRollAccountingAccount rollAccountingAccount = new TurqChequeRollAccountingAccount();
+          	rollAccountingAccount.setTurqChequeRoll(chequeRoll);
+          	rollAccountingAccount.setTurqAccountingAccount(rollAccount);
+          	CheDALSave.save(rollAccountingAccount);          
+          
+          }
+          
           TurqChequeCheque cheque;
           TurqChequeChequeInRoll chequeInRoll;
           CurBLCurrentTransactionAdd blCurrent = new CurBLCurrentTransactionAdd();
