@@ -281,7 +281,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			Map parameters = new HashMap();		
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");  //$NON-NLS-1$
 			String sqlparam="Select trans.transactions_date, trans.transactions_document_no," + //$NON-NLS-1$
-			" trans.current_transactions_id as transId, " + //$NON-NLS-1$
+			" trans.current_transactions_id, " + //$NON-NLS-1$
 			" transtype.transaction_type_name, trans.transactions_definition," + //$NON-NLS-1$
 			" trans.transactions_total_dept, trans.transactions_total_credit," + //$NON-NLS-1$
 			" curCard.cards_current_code, curCard.cards_name" + //$NON-NLS-1$

@@ -36,7 +36,7 @@
 	</field>
 	<field name="cards_name" class="java.lang.String">
 	</field>
-	<field name="transId" class="java.lang.Integer">
+	<field name="current_transactions_id" class="java.lang.Integer">
 	</field>
 	<variable name="initialBalance" class="java.math.BigDecimal" resetType="None">
 		<variableExpression><![CDATA[(((BigDecimal)((HashMap)$P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{cards_current_code}))==null) ? new BigDecimal(0) : ((BigDecimal)((HashMap)$P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{cards_current_code}))]]></variableExpression>
@@ -295,7 +295,7 @@
 		</groupFooter>
 	</group>
 	<group name="trans">
-		<groupExpression><![CDATA[$F{transId}]]></groupExpression>
+		<groupExpression><![CDATA[$F{current_transactions_id}]]></groupExpression>
 		<groupHeader>
 		<band height="15">
 			<textField>
