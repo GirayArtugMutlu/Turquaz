@@ -45,6 +45,9 @@ import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.inventory.bl.InvBLSearchTransaction;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
 import com.turquaz.current.ui.comp.CurrentPicker;
@@ -100,6 +103,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 	private TableColumn tableColumnTotalPriceOut;
 	private TableColumn tableColumnTransactionDate;
 	private Calendar cal = Calendar.getInstance();
+	private SearchTableViewer tableViewer=null;
 
 	public InvUIInventoryCardAbstract(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -309,7 +313,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			TableItem items[] = tableTransactions.getSelection();
 			if (items.length > 0)
 			{
-				Integer transId = (Integer) items[0].getData();
+				Integer transId = (Integer)((ITableRow) items[0].getData()).getDBObject();
 				if (transId != null)
 				{
 					TurqInventoryTransaction invTrans = InvBLSearchTransaction.getInvTransByTransId(transId);
@@ -335,6 +339,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 		comboTransactionsType.setText(EngBLCommon.COMMON_ALL_STRING);
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		dateStartDate.setDate(cal.getTime());
+		createTableViewer();
 	}
 
 	public void save()
@@ -346,7 +351,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 		try
 		{
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			tableTransactions.removeAll();
+			tableViewer.removeAll();
 			int type = EngBLCommon.COMMON_ALL_INT;
 			if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_BUY_STRING))
 				type = EngBLCommon.COMMON_BUY_INT;
@@ -356,11 +361,9 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 					(TurqInventoryCard) txtInvCardEnd.getData(), (TurqCurrentCard) txtCurCard.getData(), dateStartDate.getDate(),
 					dateEndDate.getDate(), type);
 			TurqInventoryTransaction transactions;
-			TableItem item;
 			for (int i = 0; i < list.size(); i++)
 			{
 				Object result[] = (Object[]) list.get(i);
-				item = new TableItem(tableTransactions, SWT.NULL);
 				Integer transId = (Integer) result[0];
 				Date transDate = (Date) result[1];
 				BigDecimal inAmount = (BigDecimal) result[2];
@@ -368,7 +371,6 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				BigDecimal totalPrice = (BigDecimal) result[4];
 				String invCode = (String) result[5];
 				String invName = (String) result[6];
-				item.setData(transId);
 				BigDecimal priceIn = new BigDecimal(0);
 				BigDecimal priceOut = new BigDecimal(0);
 				if (inAmount.doubleValue() == 0)
@@ -379,9 +381,9 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				{
 					priceIn = totalPrice;
 				}
-				item.setText(new String[]{DatePicker.formatter.format(transDate), invCode, invName, cf.format(inAmount), //$NON-NLS-1$								
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), invCode, invName, cf.format(inAmount), //$NON-NLS-1$								
 						cf.format(priceIn), cf.format(outAmount), //$NON-NLS-1$
-						cf.format(priceOut), cf.format(inAmount.subtract(outAmount)), cf.format(priceIn.subtract(priceOut))});
+						cf.format(priceOut), cf.format(inAmount.subtract(outAmount)), cf.format(priceIn.subtract(priceOut))},transId);
 			}
 			if (list.size() > 0)
 				GenerateJasper(type, list);
@@ -470,9 +472,25 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 	public void newForm()
 	{
 	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[9];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_DATE;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[8] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableTransactions, columnTypes);
+	}
 
 	public void delete()
 	{
+		//should be implemented..
 	}
 
 	public void exportToExcel()

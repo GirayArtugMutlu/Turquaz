@@ -36,6 +36,9 @@ import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqViewInventoryTotal;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.inventory.Messages;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -96,6 +99,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	private InventoryPicker txtInvCodeStart;
 	private CLabel lblInvCode;
 	private Composite compInvCardSearchPanel;
+	private SearchTableViewer tableViewer=null;
 
 	public InvUITransactionsTotalReport(Composite parent, int style)
 	{
@@ -191,7 +195,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					}
 					//START >> lblInvGroup
 					lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblInvGroup.setText("Stok Ana Grup");
+					lblInvGroup.setText(Messages.getString("InvUITransactionsTotalReport.2")); //$NON-NLS-1$
 					GridData lblInvGroupLData = new GridData();
 					lblInvGroupLData.widthHint = 85;
 					lblInvGroupLData.heightHint = 19;
@@ -213,7 +217,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					//END << comboInvMainGroup
 					//START >> lblInvSubGroup
 					lblInvSubGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblInvSubGroup.setText("Stok Alt Grup");
+					lblInvSubGroup.setText(Messages.getString("InvUITransactionsTotalReport.10")); //$NON-NLS-1$
 					//END << lblInvSubGroup
 					//START >> comboInvSubGroup
 					comboInvSubGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
@@ -263,7 +267,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					}
 					//START >>  tableColumnUnitPriceTransOver
 					tableColumnUnitPriceTransOver = new TableColumn(tableSearcResults, SWT.NONE);
-					tableColumnUnitPriceTransOver.setText("Devir Ort. Fiyat");
+					tableColumnUnitPriceTransOver.setText(Messages.getString("InvUITransactionsTotalReport.11")); //$NON-NLS-1$
 					tableColumnUnitPriceTransOver.setWidth(50);
 					//END <<  tableColumnUnitPriceTransOver
 					{
@@ -278,7 +282,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					}
 					//START >>  tableColumnUnitPriceIn
 					tableColumnUnitPriceIn = new TableColumn(tableSearcResults, SWT.NONE);
-					tableColumnUnitPriceIn.setText("Gir. Ort. Fiyat");
+					tableColumnUnitPriceIn.setText(Messages.getString("InvUITransactionsTotalReport.12")); //$NON-NLS-1$
 					tableColumnUnitPriceIn.setWidth(50);
 					//END <<  tableColumnUnitPriceIn
 					{
@@ -293,7 +297,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					}
 					//START >>  tableColumnUnitPriceOut
 					tableColumnUnitPriceOut = new TableColumn(tableSearcResults, SWT.NONE);
-					tableColumnUnitPriceOut.setText("Ç\u0131k. Ort. Fiyat");
+					tableColumnUnitPriceOut.setText(Messages.getString("InvUITransactionsTotalReport.13")); //$NON-NLS-1$
 					tableColumnUnitPriceOut.setWidth(50);
 					//END <<  tableColumnUnitPriceOut
 					{
@@ -330,6 +334,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	public void postInitGUI()
 	{
 		fillComboGroup();
+		createTableViewer();
 	}
 
 	public void fillComboGroup()
@@ -337,7 +342,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		try
 		{
 			List groupList = InvBLCardAdd.getParentInventoryGroups();
-			comboInvMainGroup.add("");
+			comboInvMainGroup.add(""); //$NON-NLS-1$
 			for (int k = 0; k < groupList.size(); k++)
 			{
 				TurqInventoryGroup gr = (TurqInventoryGroup) groupList.get(k);
@@ -354,25 +359,36 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	public void save()
 	{
 	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[13];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[8] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[9] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[10] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[11] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[12] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableSearcResults, columnTypes);
+	}
 
 	public void delete()
 	{
-		TableItem items[] = tableSearcResults.getSelection();
-		if (items.length > 0)
+		MessageBox msg = new MessageBox(this.getShell(), SWT.YES | SWT.NO);
+		try
 		{
-			TurqInventoryCard invCard = (TurqInventoryCard) items[0].getData();
-			try
+			TableItem items[] = tableSearcResults.getSelection();
+			if (items.length > 0)
 			{
-				InvBLCardSearch blCardSearch = new InvBLCardSearch();
-				InvBLCardSearch.initializeInventoryCard(invCard);
-			}
-			catch (Exception ex)
-			{
-				ex.printStackTrace();
-			}
-			MessageBox msg = new MessageBox(this.getShell(), SWT.YES | SWT.NO);
-			try
-			{
+				Integer cardId = (Integer)((ITableRow) items[0].getData()).getDBObject();
+				TurqInventoryCard invCard = InvBLCardSearch.initializeInventoryCard(cardId);
 				msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
 				if (msg.open() == SWT.NO)
 					return;
@@ -390,13 +406,13 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 				msg.open();
 				search();
 			}
-			catch (Exception ex)
-			{
-				ex.printStackTrace();
-				msg = new MessageBox(this.getShell(), SWT.ICON_ERROR);
-				msg.setMessage(ex.getMessage());
-				msg.open();
-			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			msg = new MessageBox(this.getShell(), SWT.ICON_ERROR);
+			msg.setMessage(ex.getMessage());
+			msg.open();
 		}
 	}
 
@@ -408,11 +424,10 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	{
 		try
 		{
-			tableSearcResults.removeAll();
+			tableViewer.removeAll();
 			List result = InvBLCardSearch.searchCardsAdvanced(txtInvCodeStart.getText().trim(), txtInvCodeEnd.getText().trim(),
 					txtInvNameStart.getText().trim(), txtInvNameEnd.getText().trim(), (TurqInventoryGroup) comboInvSubGroup
 							.getData(comboInvSubGroup.getText()));
-			TableItem item;
 			int listSize = result.size();
 			for (int i = 0; i < listSize; i++)
 			{
@@ -476,12 +491,10 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 						unitPriceTransover=transOverPriceNet.divide(transOverAmountNet,2,EngBLCommon.ROUNDING_METHOD);
 					}
 					TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-					item = new TableItem(tableSearcResults, SWT.NULL);
-					item.setData(cardId);
-					item.setText(new String[]{invCode, invName, cf.format(totaltransOverAmountIn.subtract(totaltransOverAmountOut)),
+					tableViewer.addRow(new String[]{invCode, invName, cf.format(totaltransOverAmountIn.subtract(totaltransOverAmountOut)),
 							cf.format(totaltransOverPriceIn.subtract(totaltransOverPriceOut)), cf.format(unitPriceTransover),
 							cf.format(totalAmountIn), cf.format(totalPriceIn), cf.format(unitPriceIn), cf.format(totalAmountOut),
-							cf.format(totalPriceOut), cf.format(unitPriceOut), cf.format(balanceAmount), cf.format(balancePrice)});
+							cf.format(totalPriceOut), cf.format(unitPriceOut), cf.format(balanceAmount), cf.format(balancePrice)},cardId);
 				}
 			}
 		}
@@ -527,7 +540,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		{
 			try
 			{
-				Integer cardId = (Integer) selection[0].getData();
+				Integer cardId = (Integer)((ITableRow) selection[0].getData()).getDBObject();
 				TurqInventoryCard card = InvBLCardSearch.initializeInventoryCard(cardId);
 				boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, card).open();
 				if (updated)
@@ -549,7 +562,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		if (invMainGr != null)
 		{
 			Iterator it = invMainGr.getTurqInventoryGroups().iterator();
-			comboInvSubGroup.add("");
+			comboInvSubGroup.add(""); //$NON-NLS-1$
 			while (it.hasNext())
 			{
 				TurqInventoryGroup invGr = (TurqInventoryGroup) it.next();
