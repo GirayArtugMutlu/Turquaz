@@ -818,22 +818,22 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 tabfldMainLData.horizontalAlignment = GridData.FILL;
                 tabfldMainLData.grabExcessVerticalSpace = true;
                 tabfldMain.setLayoutData(tabfldMainLData);
-                tabfldMain.addCTabFolder2Listener(new CTabFolder2Adapter() {
-                    public void close(CTabFolderEvent evt) {
-                        tabfldMainItemClosed(evt);
-                    }
-                    public void itemClosed(CTabFolderEvent evt) {
-                        tabfldMainItemClosed(evt);
-                    }
-                });
-                tabfldMain.addSelectionListener(new SelectionAdapter() {
-                    public void widgetDefaultSelected(SelectionEvent evt) {
-                        tabfldMainWidgetDefaultSelected(evt);
-                    }
-                    public void widgetSelected(SelectionEvent evt) {
-                        tabfldMainWidgetSelected(evt);
-                    }
-                });
+				tabfldMain.addCTabFolder2Listener(new CTabFolder2Adapter() {
+					public void close(CTabFolderEvent evt) {
+						tabfldMainItemClosed(evt);
+					}
+					public void itemClosed(CTabFolderEvent evt) {
+						tabfldMainItemClosed(evt);
+					}
+				});
+				tabfldMain.addSelectionListener(new SelectionAdapter() {
+					public void widgetDefaultSelected(SelectionEvent evt) {
+						tabfldMainWidgetDefaultSelected(evt);
+					}
+					public void widgetSelected(SelectionEvent evt) {
+						tabfldMainWidgetSelected(evt);
+					}
+				});
                 tabfldMain.setLayout(null);
 
             }
@@ -1380,7 +1380,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 
 	/** Auto-generated event handler method */
 	
-	private static void arrangeIcons(){
+	public static void arrangeIcons(){
 		try{
 		   if(tabfldMain.getSelection().getControl() instanceof SecureComposite){
 		    

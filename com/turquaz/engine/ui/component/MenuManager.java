@@ -6,6 +6,7 @@
  */
 package com.turquaz.engine.ui.component;
 
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -232,6 +233,7 @@ public class MenuManager {
                         }
                         else{
                         	EngUIMainFrame.tabfldMain.setSelection(EngUIMainFrame.tabfldMain.getSelectionIndex()+1);
+                        	EngUIMainFrame.arrangeIcons();
                         }
                     }
                 });
@@ -255,6 +257,7 @@ public class MenuManager {
                         }
                         else{
                         	EngUIMainFrame.tabfldMain.setSelection(EngUIMainFrame.tabfldMain.getSelectionIndex()-1);
+                        	EngUIMainFrame.arrangeIcons();
                         }
                     }
                 });
