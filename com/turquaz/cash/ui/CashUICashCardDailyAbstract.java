@@ -217,12 +217,28 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
       
       if(deferred.size()!=0){
           
-          Object[] amounts = (Object[])deferred.get(0);          
+          Object[] amounts = (Object[])deferred.get(0); 
+          
+          BigDecimal dept = (BigDecimal)amounts[0];
+          BigDecimal credit = (BigDecimal)amounts[1];
+          if(dept.compareTo(credit)==1){
+          	dept = dept.subtract(credit);
+          	credit = new BigDecimal(0);
+          }
+          else
+          {
+          	credit = credit.subtract(dept);
+          	dept = new BigDecimal(0);
+          }
+		  
+		  
+		  
+		  
           item.setText(new String[]{
-                  "","",Messages.getString("CashUICashCardAbstract.12"),cf.format(amounts[0]),cf.format(amounts[1]) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                  "","",Messages.getString("CashUICashCardAbstract.12"),cf.format(dept),cf.format(credit) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
           			});
-          deferred_dept = deferred_dept.add((BigDecimal)amounts[0]);
-          deferred_credit = deferred_credit.add((BigDecimal)amounts[1]);
+          deferred_dept = deferred_dept.add(dept);
+          deferred_credit = deferred_credit.add(credit);
           
       }
       else
