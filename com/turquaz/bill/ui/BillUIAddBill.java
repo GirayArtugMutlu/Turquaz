@@ -670,7 +670,7 @@ implements SecureComposite{
 								lblDiscountAmount = new CLabel(
 									compTotalsPanel,
 									SWT.NONE);
-								lblDiscountAmount.setText(Messages.getString("BillUIAddBill.25"));  //$NON-NLS-1$
+								lblDiscountAmount.setText(Messages.getString("BillUIAddBill.1"));  //$NON-NLS-1$
 								GridData lblDiscountAmountLData = new GridData();
 								lblDiscountAmountLData.widthHint = 105;
 								lblDiscountAmountLData.heightHint = 19;

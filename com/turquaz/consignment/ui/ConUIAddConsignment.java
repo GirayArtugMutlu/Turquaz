@@ -570,73 +570,80 @@ implements SecureComposite{
 								tableColumnInventoryCode = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnInventoryCode
-									.setText(Messages.getString("ConUIAddConsignment.12")); //$NON-NLS-1$
+								tableColumnInventoryCode.setText(Messages
+									.getString("ConUIAddConsignment.12")); //$NON-NLS-1$
 								tableColumnInventoryCode.setWidth(98);
 							}
 							{
 								tableColumnInventoryName = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnInventoryName
-									.setText(Messages.getString("ConUIAddConsignment.13")); //$NON-NLS-1$
+								tableColumnInventoryName.setText(Messages
+									.getString("ConUIAddConsignment.13")); //$NON-NLS-1$
 								tableColumnInventoryName.setWidth(106);
 							}
 							{
 								tableColumnAmount = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnAmount.setText(Messages.getString("ConUIAddConsignment.14")); //$NON-NLS-1$
+								tableColumnAmount.setText(Messages
+									.getString("ConUIAddConsignment.14")); //$NON-NLS-1$
 								tableColumnAmount.setWidth(99);
 							}
 							{
 								tableColumnUnit = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnUnit.setText(Messages.getString("ConUIAddConsignment.15")); //$NON-NLS-1$
+								tableColumnUnit.setText(Messages
+									.getString("ConUIAddConsignment.15")); //$NON-NLS-1$
 								tableColumnUnit.setWidth(54);
 							}
 							{
 								tableColumnUnitPrice = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnUnitPrice.setText(Messages.getString("ConUIAddConsignment.16")); //$NON-NLS-1$
+								tableColumnUnitPrice.setText(Messages
+									.getString("ConUIAddConsignment.16")); //$NON-NLS-1$
 								tableColumnUnitPrice.setWidth(84);
 							}
 							{
 								tableColumnTotalPrice = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnTotalPrice.setText(Messages.getString("ConUIAddConsignment.17")); //$NON-NLS-1$
+								tableColumnTotalPrice.setText(Messages
+									.getString("ConUIAddConsignment.17")); //$NON-NLS-1$
 								tableColumnTotalPrice.setWidth(94);
 							}
 							{
 								tableColumnVat = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnVat.setText(Messages.getString("ConUIAddConsignment.18")); //$NON-NLS-1$
+								tableColumnVat.setText(Messages
+									.getString("ConUIAddConsignment.18")); //$NON-NLS-1$
 								tableColumnVat.setWidth(50);
 							}
 							{
 								tableColumnVatAmount = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnVatAmount.setText(Messages.getString("ConUIAddConsignment.19")); //$NON-NLS-1$
+								tableColumnVatAmount.setText(Messages
+									.getString("ConUIAddConsignment.19")); //$NON-NLS-1$
 								tableColumnVatAmount.setWidth(90);
 							}
 							{
 								TableColumnVATSpecial = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								TableColumnVATSpecial.setText(Messages.getString("ConUIAddConsignment.20")); //$NON-NLS-1$
+								TableColumnVATSpecial.setText(Messages
+									.getString("ConUIAddConsignment.20")); //$NON-NLS-1$
 								TableColumnVATSpecial.setWidth(100);
 							}
 							{
 								tableColumnCumulative = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
-								tableColumnCumulative
-									.setText(Messages.getString("ConUIAddConsignment.21")); //$NON-NLS-1$
+								tableColumnCumulative.setText(Messages
+									.getString("ConUIAddConsignment.21")); //$NON-NLS-1$
 								tableColumnCumulative.setWidth(100);
 							}
 						}
