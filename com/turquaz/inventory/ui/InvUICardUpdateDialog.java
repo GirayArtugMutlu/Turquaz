@@ -29,7 +29,9 @@ import org.eclipse.swt.widgets.Dialog;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqInventoryCard;
+import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
+import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.SecureDialog;
@@ -172,10 +174,47 @@ public class InvUICardUpdateDialog extends Dialog{
 	compInvUICard.getTxtnumInvCardMax().setText(invCard.getCardMaximumAmount());
 	compInvUICard.getTxtnumInvCardMin().setText(invCard.getCardMinimumAmount());
 	fillUnits();
-	
+	fillGroups();
+	fillPrices();
 	
 		
 	}
+	
+	public void fillPrices(){
+	
+	
+	
+	}
+	
+	public void fillGroups(){
+	try {
+	
+	Iterator it = invCard.getTurqInventoryCardGroups().iterator();
+    TurqInventoryCardGroup cardGroup; 
+    TurqInventoryGroup group;
+    Table tableRegisteredGroups = compInvUICard.getTableInvCardAddGroupsRegisteredGroups();
+   
+    while(it.hasNext()){
+     
+     cardGroup = (TurqInventoryCardGroup)it.next();
+     String groupName = cardGroup.getTurqInventoryGroup().getGroupsName();
+       TableItem registeredItem = new TableItem(
+							tableRegisteredGroups, SWT.NULL);
+	 registeredItem.setText(groupName);
+	 registeredItem.setData(cardGroup.getTurqInventoryGroup());
+     removeRegisteredGroup(groupName);
+     }
+	
+	
+	
+	
+	
+	}
+	catch(Exception ex){
+	ex.printStackTrace();
+	}
+	}
+	
     public void fillUnits(){
     try{
     
@@ -221,6 +260,15 @@ public class InvUICardUpdateDialog extends Dialog{
      
     
     }
+    public void removeRegisteredGroup(String groupName){
+     TableItem items[] = compInvUICard.getTableInvCardAddGroupsAllGroups().getItems();
+     for(int i=0;i<items.length;i++){
+     if(items[i].getText().equals(groupName)){
+      compInvUICard.getTableInvCardAddGroupsAllGroups().remove(i);
+      break;
+     }
+     }
+     }
      public void removeRegisteredUnit(String unitName){
      TableItem items[] = compInvUICard.getTableInvCardAddAllUnits().getItems();
      for(int i=0;i<items.length;i++){

@@ -25,10 +25,10 @@
 		</Events>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[601, 434]"/>
+				<Dimension value="[655, 430]"/>
 			</Property>
 			<Property name="bounds" type="Rectangle">
-				<Rectangle value="[0, 0, 601, 434]"/>
+				<Rectangle value="[0, 0, 655, 430]"/>
 			</Property>
 			<Property name="background" type="Color">
 				<Color red="80" green="80" blue="ff"/>
@@ -56,10 +56,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[591, 430]"/>
+						<Dimension value="[629, 426]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 2, 591, 430]"/>
+						<Rectangle value="[5, 2, 629, 426]"/>
 					</Property>
 				</Properties>
 				<SubComponents>
@@ -89,7 +89,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[587, 408]"/>
+										<Dimension value="[625, 404]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -367,7 +367,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[587, 408]"/>
+										<Dimension value="[625, 404]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -778,7 +778,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[587, 408]"/>
+										<Dimension value="[625, 404]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -835,7 +835,7 @@
 												<Dimension value="[126, 29]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[150, 5, 126, 29]"/>
+												<Rectangle value="[160, 5, 126, 29]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -860,7 +860,7 @@
 										<Properties>
 											<Property name="text" type="String" value="Update Units"/>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[295, 8, 74, 23]"/>
+												<Rectangle value="[315, 8, 74, 23]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
@@ -919,7 +919,7 @@
 												<Dimension value="[422, 139]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[150, 39, 422, 139]"/>
+												<Rectangle value="[160, 39, 422, 139]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
@@ -1164,7 +1164,7 @@
 												<Dimension value="[61, 25]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[519, 193, 61, 25]"/>
+												<Rectangle value="[559, 193, 61, 25]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -1198,7 +1198,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[587, 408]"/>
+										<Dimension value="[625, 404]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -1243,7 +1243,7 @@
 													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 														<Property name="verticalAlignment" type="int" value="2"/>
 														<Property name="horizontalAlignment" type="int" value="1"/>
-														<Property name="widthHint" type="int" value="53"/>
+														<Property name="widthHint" type="int" value="45"/>
 														<Property name="heightHint" type="int" value="67"/>
 														<Property name="horizontalIndent" type="int" value="0"/>
 														<Property name="horizontalSpan" type="int" value="1"/>
@@ -1264,10 +1264,10 @@
 												</Events>
 												<Properties>
 													<Property name="size" type="Dimension">
-														<Dimension value="[53, 67]"/>
+														<Dimension value="[45, 67]"/>
 													</Property>
 													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[5, 63, 53, 67]"/>
+														<Rectangle value="[5, 71, 45, 67]"/>
 													</Property>
 													<Property name="visible" type="boolean" value="true"/>
 												</Properties>
@@ -1331,7 +1331,7 @@
 													</Component>
 												</SubComponents>
 											</Component>
-											<Component class="com.turquaz.engine.ui.component.TTable" name="tableInvCardAddPrices" style="2560">
+											<Component class="org.eclipse.swt.widgets.Table" name="tableInvCardAddPrices" style="68096">
 												<Constraints>
 													<Constraint class="org.eclipse.swt.layout.GridData"/>
 													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -1349,13 +1349,50 @@
 												<Events>
 												</Events>
 												<Properties>
+													<Property name="headerVisible" type="boolean" value="true"/>
+													<Property name="linesVisible" type="boolean" value="true"/>
 													<Property name="size" type="Dimension">
-														<Dimension value="[441, 182]"/>
+														<Dimension value="[441, 198]"/>
 													</Property>
 													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[63, 5, 441, 182]"/>
+														<Rectangle value="[55, 5, 441, 198]"/>
 													</Property>
 												</Properties>
+												<SubComponents>
+													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnPriceType" style="0">
+														<Constraints>
+															<LayoutConstraint/>
+														</Constraints>
+														<Events>
+														</Events>
+														<Properties>
+															<Property name="text" type="String" value="Price Type"/>
+															<Property name="width" type="int" value="120"/>
+														</Properties>
+													</Component>
+													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnAmount" style="0">
+														<Constraints>
+															<LayoutConstraint/>
+														</Constraints>
+														<Events>
+														</Events>
+														<Properties>
+															<Property name="text" type="String" value="Amount"/>
+															<Property name="width" type="int" value="150"/>
+														</Properties>
+													</Component>
+													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnCurrency" style="0">
+														<Constraints>
+															<LayoutConstraint/>
+														</Constraints>
+														<Events>
+														</Events>
+														<Properties>
+															<Property name="text" type="String" value="Currency"/>
+															<Property name="width" type="int" value="162"/>
+														</Properties>
+													</Component>
+												</SubComponents>
 											</Component>
 										</SubComponents>
 									</Component>
@@ -1411,7 +1448,7 @@
 												<Dimension value="[61, 25]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[521, 217, 61, 25]"/>
+												<Rectangle value="[559, 217, 61, 25]"/>
 											</Property>
 										</Properties>
 									</Component>

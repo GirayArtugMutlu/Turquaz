@@ -714,7 +714,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			    
 				Class c = Class.forName(classname);
 				Composite comp =(Composite)c.getConstructor(new Class[]{Composite.class, int.class})
-				.newInstance(new Object[]{tabfldMain,Integer.valueOf(SWT.NONE+"")});
+				.newInstance(new Object[]{tabfldMain,Integer.valueOf(SWT.NULL+"")});
 				yeni.setControl(comp);
 				tabfldMain.setSelection(yeni);
 				arrangeIcons();
