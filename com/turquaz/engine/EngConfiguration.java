@@ -40,7 +40,7 @@ import java.util.Properties;
 public class EngConfiguration {
 	private static final String filename = "config/turquaz.properties";//$NON-NLS-1$
     private Properties props ;
-    public static String logoURL;
+    public static String logoURL ="";
 	
 
 	private static EngConfiguration _instance;

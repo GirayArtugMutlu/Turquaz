@@ -31,6 +31,12 @@ import java.util.Map;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.TreeItem;
 
 import org.eclipse.swt.widgets.TableColumn;
 
@@ -43,12 +49,15 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
+import com.turquaz.accounting.bl.AccBLAccountUpdate;
+
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.component.SecureComposite;
 
 
 
@@ -71,7 +80,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 * *************************************
 */
 public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite implements 
-SearchComposite{
+SearchComposite, SecureComposite{
 
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -79,9 +88,10 @@ SearchComposite{
 		SWTResourceManager.registerResourceUser(this);
 	}
 
-
+	Menu popup;
 	private TableTree tableTreeAccountingPlan;
 	private AccBLAccountAdd blAccount = new AccBLAccountAdd();
+	private AccBLAccountUpdate blAccountUpdate = new AccBLAccountUpdate();
 	public AccUIAccountingPlan(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -134,7 +144,39 @@ SearchComposite{
 	}
 /** Add your pre-init code in here 	*/
 	public void preInitGUI(){
+		 
+		 //Add popup menu to add favorites
+	     popup = new Menu(getShell(),SWT.POP_UP);
+	     MenuItem item = new MenuItem (popup, SWT.PUSH);
+		 item.setText("Sil");    	 
+		
+		 item.addListener(SWT.Selection, new Listener () {
+					public void handleEvent (Event e) {					
+						delete();				
+										
+					}
+		 });
+		 item = new MenuItem(popup, SWT.PUSH);
+		 item.setText("Yeni Hesap Ekle");  	
+		 
+		 item.addListener(SWT.Selection, new Listener () {
+			public void handleEvent (Event e) {					
+				TableTreeItem items[] = tableTreeAccountingPlan.getSelection();
+				if (items.length > 0)
+				{
+					new AccUIAddAccountDialog(getShell(),SWT.NULL,(TurqAccountingAccount)items[0].getData()).open();
+					fillTree(-1,"");
+				}
+				}
+		 
+ });
+		 
 	}
+	
+		   
+		
+		
+	
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
@@ -147,6 +189,8 @@ SearchComposite{
 	
 	tableTreeAccountingPlan.getTable().setLinesVisible(true);
 	tableTreeAccountingPlan.getTable().setHeaderVisible(true);
+	
+	tableTreeAccountingPlan.setMenu(popup);
 
   final TableColumn col = new TableColumn(tableTreeAccountingPlan.getTable(),SWT.LEFT);
    col.setText(Messages.getString("AccUIAccountingPlan.0")); //$NON-NLS-1$
@@ -280,6 +324,45 @@ public void fillTree(int parent, String codeCrit){
 	public void exportToExcel(){
 		
 		EngBLUtils.Export2Excel(tableTreeAccountingPlan.getTable());
+		
+	}
+	
+	public void delete(){
+		TableTreeItem items[] = tableTreeAccountingPlan.getSelection();
+		
+		if(items.length>0){
+		TurqAccountingAccount account = (TurqAccountingAccount)items[0].getData();
+		
+		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+		MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
+		try {
+			msg2.setMessage(Messages.getString("AccUIAccountUpdate.15")); //$NON-NLS-1$
+			int result = msg2.open();
+
+			if (result == SWT.OK) {
+				blAccountUpdate.deleteAccount(account);
+				msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
+				msg.open();
+				fillTree(-1,"");
+				
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+		}
+		}
+	}
+	public void update(){
+		
+	}
+	public void search(){
+		
+	}
+	public void save (){
+		
+	}
+	public void newForm(){
 		
 	}
 }
