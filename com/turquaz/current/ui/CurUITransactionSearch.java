@@ -284,6 +284,8 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	try{
 	List list = blTransAdd.getCurrentTransactionTypes();
 	TurqCurrentTransactionType type ;	
+	comboTransactionGroup.add("Hepsi");
+	comboTransactionGroup.setData("Hepsi",null);
 	for(int i =0;i<list.size();i++){
 
 	type = (TurqCurrentTransactionType)list.get(i);
@@ -291,6 +293,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	comboTransactionGroup.setData(type.getTransactionTypeName(),type);	
 	
 	}
+	comboTransactionGroup.setText("Hepsi");
 		}
 	catch(Exception ex){
 	ex.printStackTrace();
