@@ -11,12 +11,17 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
+import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TextWithButton;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
@@ -41,7 +46,7 @@ import com.turquaz.engine.ui.component.SecureComposite;
 * *************************************
 */
 public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite implements
-SecureComposite{
+SecureComposite, SearchComposite{
 	private Composite composite1;
 	private Table tableConsignments;
 	private TableColumn tableColumnCurrentName;
@@ -125,6 +130,11 @@ SecureComposite{
 				{
 					txtCurCard = new TextWithButton(composite1, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
+					txtCurCard.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+							currentCardChoose();
+						}
+					});
 					txtCurCardLData.widthHint = 208;
 					txtCurCardLData.heightHint = 20;
 					txtCurCard.setLayoutData(txtCurCardLData);
@@ -234,6 +244,20 @@ SecureComposite{
 	}
 	
 	
+	public void currentCardChoose(){
+		Object data = new CurUICurrentCardSearchDialog(this.getShell(),SWT.NULL).open();
+	    if(data!=null){
+	    
+	    System.out.println(data.getClass().getName());
+		TurqCurrentCard curCard = (TurqCurrentCard)data;
+	    txtCurCard.setText(curCard.getCardsCurrentCode()+" - "+curCard.getCardsName());
+		txtCurCard.setData(curCard);
+		
+	    }
+		
+	}
+	
+	
 	public void save(){
 		
 	}
@@ -282,6 +306,12 @@ SecureComposite{
 		
 	}
 	public void delete(){
+		
+	}
+	
+	public void exportToExcel(){
+		
+		EngBLUtils.Export2Excel(tableConsignments);
 		
 	}
 

@@ -36,6 +36,4 @@ public interface SecureComposite {
 	 public void newForm();
 	 public void delete();
 
-
-
 }

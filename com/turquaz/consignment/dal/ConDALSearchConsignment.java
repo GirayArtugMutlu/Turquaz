@@ -30,13 +30,13 @@ public class ConDALSearchConsignment {
 				" consignment.turqCompany.companiesId ="+System.getProperty("company")+
 				" and consignment.consignmentsDate >= :startDate" +
 				" and consignment.consignmentsDate <= :endDate" +
-				" and consignment.consignmentsType ="+type +"" +
-				" order by consignment.consignmentsDate";
+				" and consignment.consignmentsType ="+type +"";
 		
 		
 		if (curCard!=null){
-			query +=" and bankCard.turqCurrentCard = :curCard";
+			query +=" and consignment.turqCurrentCard = :curCard";
 		}
+		query += " order by consignment.consignmentsDate";
 		
 		Query q = session.createQuery(query); 	
 		

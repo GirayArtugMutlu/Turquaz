@@ -72,6 +72,7 @@ import org.eclipse.swt.SWT;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
+import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TreeFactory;
 
@@ -135,6 +136,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private CCombo comboModuleSelection;
 	private CLabel lblModuleSelection;
 	private Composite compModuleSelection;
+	private static ToolItem toolExportToExcel;
 	private Tree treeConsignment;
 	private Composite compModulesTab;
 	private CTabItem tabModules;
@@ -603,6 +605,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			toolSearch.setToolTipText(Messages.getString("EngUIMainFrame.18")); //$NON-NLS-1$
 			toolSearch.setImage(SWTResourceManager.getImage("icons/run_exec.gif")); //$NON-NLS-1$
 			toolSearch.setSelection(true);
+			{
+				toolExportToExcel = new ToolItem(toolbarMainTop, SWT.NONE);
+				toolExportToExcel.setText("Export");
+				toolExportToExcel.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						exportToExcel();
+					}
+				});
+			}
 			toolSearch.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolSearchWidgetSelected(evt);
@@ -829,7 +840,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		toolSave.setEnabled(false);
 		toolDelete.setEnabled(false);
 		toolSearch.setEnabled(false);
-		
+		toolExportToExcel.setEnabled(false);
 		
 		
 		//Create Trees 		
@@ -994,19 +1005,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		
 	}
 	
-
-	/** Auto-generated event handler method */
-	protected void cTabFolder3ItemClosed(CTabFolderEvent evt){
-		 if(tabfldMain.getItemCount()==1){
-			toolNew.setEnabled(false);
-			toolSave.setEnabled(false);
-			toolDelete.setEnabled(false);
-			toolSearch.setEnabled(false);
-		 	
-		 }
-	}
-
-	/** Auto-generated event handler method */
+   /** Auto-generated event handler method */
 	protected void EngUIMainFramePaintControl(PaintEvent evt){
 		//TODO add your handler code here
 	}
@@ -1045,6 +1044,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 						toolSearch.setEnabled(false);
 				
 					}
+		if(tabfldMain.getSelection().getControl() instanceof SearchComposite){
+			
+			toolExportToExcel.setEnabled(true);
+			
+			
+		}
+		else{
+			toolExportToExcel.setEnabled(false);
+		}
 				
 	}
 	catch(Exception ex)
@@ -1053,7 +1061,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 					toolSave.setEnabled(false);
 					toolDelete.setEnabled(false);
 					toolSearch.setEnabled(false);
-				 
+					toolExportToExcel.setEnabled(false);
 					ex.printStackTrace();
 				}
 		
@@ -1103,6 +1111,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			toolSave.setEnabled(false);
 			toolDelete.setEnabled(false);
 			toolSearch.setEnabled(false);
+			toolExportToExcel.setEnabled(false);
 		}
 	}
 
@@ -1249,6 +1258,11 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	/** Auto-generated event handler method */
 	protected void rootWidgetDisposed(DisposeEvent evt){
 		this.dispose();
+	}
+	protected void exportToExcel(){
+		SearchComposite sc = (SearchComposite)tabfldMain.getSelection().getControl();
+		sc.exportToExcel();
+		
 	}
 	
 	
