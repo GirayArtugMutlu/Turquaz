@@ -41,6 +41,7 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 import com.turquaz.engine.dal.TurqEngineSequence;
+import com.turquaz.engine.dal.TurqModule;
 
 public class CurBLCurrentTransactionAdd {
 
@@ -54,11 +55,16 @@ public class CurBLCurrentTransactionAdd {
 	public void saveCurrentTransaction(TurqCurrentCard curCard,java.util.Date transDate, String documentNo,
 			boolean isCredit,BigDecimal amount, BigDecimal totalDiscount, int type,Integer seqDocNo)throws Exception{
 		try{
+			 System.out.println(type);
 			
 			TurqEngineSequence docSeq =new TurqEngineSequence();;	
 			
 			if(seqDocNo==null){
+				TurqModule module = new TurqModule();
+				module.setModulesId(new Integer(4));
+				docSeq.setTurqModule(module);
 				dalCurrentTrans.saveObject(docSeq);
+				
 			}
 			else
 			{
@@ -71,6 +77,7 @@ public class CurBLCurrentTransactionAdd {
 			curTrans.setTransactionsDocumentNo(documentNo);
 			curTrans.setTransactionsTotalDiscount(totalDiscount);
 			
+			curTrans.setTurqEngineSequence(docSeq);
 		
 			if(isCredit){
 			curTrans.setTransactionsTotalCredit(amount);
@@ -86,8 +93,16 @@ public class CurBLCurrentTransactionAdd {
 	        curTrans.setTurqCurrency(currency);
 			
 	        TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
+	        
 	        transType.setCurrentTransactionTypesId(new Integer(type));
+	        System.out.println(type);
+	        
 	        curTrans.setTurqCurrentTransactionType(transType);	
+	        
+	        curTrans.setCreatedBy(System.getProperty("user"));
+	 		curTrans.setUpdatedBy(System.getProperty("user"));
+	 		curTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+	 		curTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
 	        dalCurrentTrans.saveObject(curTrans);
 			

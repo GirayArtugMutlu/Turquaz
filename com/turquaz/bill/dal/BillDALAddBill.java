@@ -52,11 +52,23 @@ public class BillDALAddBill {
 	}
 	public Set getInvTransactions(TurqBill bill)throws Exception{
 		try{
+		
+		Session session = EngDALSessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.load(bill,bill.getBillsId());
+		
+	    Hibernate.initialize(bill.getTurqBillConsignmentCommon().getTurqConsignments());
+			
 		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();	
 		if(it.hasNext()){
+			
 		  TurqConsignment cons = (TurqConsignment)it.next();	
-		  
+		
 		  Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
+		  
+		  session.flush();
+		  tx.commit();
+		  session.close();
 		
 		  return cons.getTurqEngineSequence().getTurqInventoryTransactions();
 		}

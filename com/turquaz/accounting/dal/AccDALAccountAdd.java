@@ -82,10 +82,10 @@ public class AccDALAccountAdd {
 	}
 	public static TurqAccountingAccount getAccount(String code)throws Exception{
 		try{
-			Session session = EngDALSessionFactory.openSession();
+			Session session =  EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
 			String query = "from TurqAccountingAccount as accounts " +
-					"where accounts.turqCompany.companiesId ="+System.getProperty("company")+" and" +
+					"where accounts.turqCompany.companiesId ="+System.getProperty("company")+
 							
 							" and accounts.accountCode ='"+code+"'" +
 							" and accounts.accountingAccountsId <> -1";

@@ -85,7 +85,7 @@ public class ConDALSearchConsignment {
 				" and consignment.consignmentsDate <= :endDate" + //$NON-NLS-1$
 				" and consignment.consignmentsType ="+type + //$NON-NLS-1$
 				" and consignment.consignmentsId <> -1 "+ //$NON-NLS-1$
-				" and consignment.turqBill.billsId =-1"; //$NON-NLS-1$
+				" and consignment.turqBillConsignmentCommon.turqBills.size=0"; //$NON-NLS-1$
 		
 		
 		if (curCard!=null){

@@ -22,6 +22,7 @@ import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.dal.TurqModule;
 
 import com.turquaz.engine.dal.TurqEngineSequence;
 
@@ -58,12 +59,14 @@ public class BillBLAddBill {
 			
 			TurqBillConsignmentCommon common = cons.getTurqBillConsignmentCommon();
 			common.setBillDocumentNo(docNo);
-			dalBill.save(common);
-			
+				
 			bill.setTurqBillConsignmentCommon(common);
 			
 			
 			TurqEngineSequence seqDocId = new TurqEngineSequence();
+			TurqModule module = new TurqModule();
+			module.setModulesId(new Integer(7));
+			seqDocId.setTurqModule(module);
 			
 			dalBill.save(seqDocId);
 			
@@ -93,6 +96,7 @@ public class BillBLAddBill {
 	
 	//Al?? Faturas? 
 	if(bill.getBillsType()==0){
+		
 		 curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),bill.getBillsDate(),common.getBillDocumentNo(),true,common.getTotalAmount(),common.getDiscountAmount(),1,bill.getTurqEngineSequence().getEngineSequencesId());
 		
 		//Kapal? Fatura
