@@ -58,5 +58,26 @@ public class CurBLCurrentCardSearch {
 		}
 	}	
 	
+	public List getCurrentCards()throws Exception {
+	    try{
+	        
+	        return curDALCurrentCardSearch.getCurrentCards();
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	    
+	}
+	public TurqCurrentCard getCurrentCard(String cardCode)throws Exception{
+	    try{
+	        return curDALCurrentCardSearch.getCurrentCard(cardCode);
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	    
+	}
+	
 
 }

@@ -74,6 +74,7 @@ public class CurDALCurrentCardSearch {
 			if (cardGroup!=null){
 				q.setParameter("cardGroup",cardGroup);
 			}
+			q.setMaxResults(1000);
 			List list = q.list();
 			
 			for (int i =0;i<list.size();i++){				
@@ -111,6 +112,56 @@ public class CurDALCurrentCardSearch {
 		{
 			throw ex;
 		}
-	}	
+	}
+	
+	public List getCurrentCards()throws Exception{
+	    try{
+	        
+	        Session session = EngDALSessionFactory.openSession();
+	        String query = "Select curCard.cardsCurrentCode, curCard.cardsName from TurqCurrentCard as curCard" ;
+		 
+	        Query q = session.createQuery(query);
+	        
+	        List list = q.list();
+	        session.close();
+	        
+	        return list;
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	    
+	
+	}
+	public TurqCurrentCard getCurrentCard(String cardCode)throws Exception{
+	    try{
+	        
+	        Session session = EngDALSessionFactory.openSession();
+	        String query = "Select curCard from TurqCurrentCard as curCard " +
+	        		" where curCard.cardsCurrentCode='"+cardCode.trim()+"'";
+	        
+		 
+	        Query q = session.createQuery(query);
+	        List list = q.list();
+	        
+	        session.close();
+	        
+	        if(list.size()>0){
+	            
+	           return (TurqCurrentCard)list.get(0);
+	            
+	        }
+	       else{
+	           return null;
+	       }
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	    
+	
+	}
 
 }
