@@ -21,12 +21,19 @@ package com.turquaz.accounting.ui.reports;
  * @version  $Id$
  */
 
-import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
+
+
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -37,15 +44,18 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Table;
 
 import com.cloudgarden.resource.SWTResourceManager;
+import com.jasperassistant.designer.viewer.ViewerApp;
+
 
 import org.eclipse.swt.custom.CLabel;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.bl.EngBLUtils;
+
+import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
-import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
@@ -102,6 +112,8 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 	private TableColumn tableColumnDefinition;
 
 	private AccountPicker txtAccount;
+	private CLabel lblAccountCode2;
+	private AccountPicker txtAccount2;
 	private TableColumn tableColumnCreditBalance;
 	private TableColumn tableColumnDeptBalance;
 
@@ -113,7 +125,8 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 
 	private AccBLTransactionSearch blTransSearch = new AccBLTransactionSearch();
 
-	TurqAccountingAccount account;
+	private TurqAccountingAccount account;
+	private TurqAccountingAccount account2;
 	public AccUISubsidiaryLedger(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -143,23 +156,33 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 				{
 					lblAccNo = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblDocumentNoLData = new GridData();
-					lblDocumentNoLData.widthHint = 99;
-					lblDocumentNoLData.heightHint = 24;
+					lblDocumentNoLData.widthHint = 121;
+					lblDocumentNoLData.heightHint = 21;
 					lblAccNo.setLayoutData(lblDocumentNoLData);
-					lblAccNo.setText(Messages.getString("AccUISubsidiaryLedger.0"));  //$NON-NLS-1$
-					lblAccNo
-							.setSize(new org.eclipse.swt.graphics.Point(99, 24));
+					lblAccNo.setText(Messages.getString("AccUISubsidiaryLedger.0")); //$NON-NLS-1$
 				}
 				{
 					txtAccount = new AccountPicker(compAccTransactionSearch,
 							SWT.NONE);
 					GridData txtDocumentNoLData = new GridData();
-					txtDocumentNoLData.widthHint = 135;
-					txtDocumentNoLData.heightHint = 17;
-					txtDocumentNoLData.horizontalSpan = 3;
+					txtDocumentNoLData.widthHint = 173;
+					txtDocumentNoLData.heightHint = 15;
 					txtAccount.setLayoutData(txtDocumentNoLData);
-					txtAccount.setSize(new org.eclipse.swt.graphics.Point(141,
-							17));
+				}
+				{
+					lblAccountCode2 = new CLabel(
+						compAccTransactionSearch,
+						SWT.NONE);
+					lblAccountCode2.setText(Messages.getString("AccUISubsidiaryLedger.12")); //$NON-NLS-1$
+				}
+				{
+					txtAccount2 = new AccountPicker(
+						compAccTransactionSearch,
+						SWT.NONE);
+					GridData txtAccount2LData = new GridData();
+					txtAccount2LData.widthHint = 173;
+					txtAccount2LData.heightHint = 15;
+					txtAccount2.setLayoutData(txtAccount2LData);
 				}
 
 				{
@@ -304,19 +327,143 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 	}
 
 	public void search() {
+		
+		try{
+			MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+			account=null;
+			account2=null;
+			if (txtAccount.getData()== null && txtAccount2.getData()== null)
+			{
+		    	msg.setMessage("?lk önce en az bir tane hesap kodu seçmelisiniz!"); 
+		    	msg.open();
+		    	txtAccount.setFocus();
+		    	return ; 
+			}
+			else if (txtAccount.getData()==null)
+			{
+				account=(TurqAccountingAccount)txtAccount2.getData();
+				account2=null;
+			}
+			else if (txtAccount2.getData()==null)
+			{
+				account=(TurqAccountingAccount)txtAccount.getData();
+				account2=null;
+			}
+			else
+			{
+				account=(TurqAccountingAccount)txtAccount.getData();
+				account2=(TurqAccountingAccount)txtAccount2.getData();
+			}
+			
+			Map parameters = new HashMap();		
+			String sqlparam;
+			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");
+			if (account2==null)
+			{
+				sqlparam="Select transColumns.accounting_transaction_columns_id as columnId, " +
+						"transColumns.dept_amount,transColumns.credit_amount," +
+						"transColumns.transaction_definition, accounts.account_name as accName," +
+						"accounts.account_code as accCode, topacc.account_name as topAccName, topacc.account_code as topAccCode," +
+						" trans.transactions_date, trans.transaction_document_no" +
+						" from turq_accounting_transaction_columns transColumns," +
+						" turq_accounting_accounts accounts," +
+						" turq_accounting_accounts topacc," +
+						" turq_accounting_transactions trans" +
+				" where transColumns.accounting_accounts_id=accounts.accounting_accounts_id"+
+				" and accounts.top_account=topacc.accounting_accounts_id" +
+				" and accounts.accounting_accounts_id="+account.getAccountingAccountsId().intValue()+
+				" and transColumns.accounting_transactions_id=trans.accounting_transactions_id"+
+				" and trans.transactions_date >="+"'"+dformat.format(dateStartDate.getDate())+"'"+
+				" and trans.transactions_date <="+"'"+dformat.format(dateEndDate.getDate())+"'";
+			}
+			else
+			{
+				sqlparam="Select transColumns.accounting_transaction_columns_id as columnId," +
+				"transColumns.dept_amount,transColumns.credit_amount," +
+				"transColumns.transaction_definition, accounts.account_name as accName," +
+				"accounts.account_code as accCode, topacc.account_name as topAccName, topacc.account_code as topAccCode," +
+				" trans.transactions_date, trans.transaction_document_no" +
+				" from turq_accounting_transaction_columns transColumns," +
+				" turq_accounting_accounts accounts, " +
+				"turq_accounting_accounts topacc," +
+				" turq_accounting_transactions trans" +
+					" where transColumns.accounting_accounts_id=accounts.accounting_accounts_id" +
+					" and accounts.top_account=topacc.accounting_accounts_id"+
+					" and transColumns.accounting_transactions_id=trans.accounting_transactions_id"+
+					" and accounts.account_code >="+"'"+account.getAccountCode()+"'"+
+					" and accounts.account_code <="+"'"+account2.getAccountCode()+"'"+
+					" and trans.transactions_date >="+"'"+dformat.format(dateStartDate.getDate())+"'"+
+					" and trans.transactions_date <="+"'"+dformat.format(dateEndDate.getDate())+"'"+
+					" order by accounts.accounting_accounts_id";
+			}	
+			System.out.println(sqlparam);
+			SimpleDateFormat dformat2=new SimpleDateFormat("dd/MM/yyyy");
+			parameters.put("sqlparam",sqlparam);
+			parameters.put("beginDate",dformat2.format(dateStartDate.getDate()));
+			parameters.put("endDate",dformat2.format(dateEndDate.getDate())); 			
+			parameters.put("dformat",dformat2);
+			parameters.put("account1",account.getAccountCode());
+			parameters.put("account2",(account2==null)? "" : account2.getAccountCode());
+			NumberFormat formatter=NumberFormat.getNumberInstance();
+			formatter.setMaximumFractionDigits(2);
+			formatter.setMinimumFractionDigits(2);
+			parameters.put("formatter", new TurkishCurrencyFormat());
+			EngDALConnection db=new EngDALConnection();
+			db.connect();
+			
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingSubsidiaryLedger.jasper"); 
+	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
+			ViewerApp viewerApp = new ViewerApp();
+			
+			viewerApp.getReportViewer().setDocument(jasperPrint);
+			viewerApp.open();
+
+			
+					
+			}
+			catch(Exception ex){
+				ex.printStackTrace();
+				MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+				msg.setMessage(ex.getMessage());
+				msg.open();
+			}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
 		try {
 			tableTransactions.removeAll();
 			
 			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 			
-			if (txtAccount.getData()== null)
+			if (txtAccount.getData()== null && txtAccount2.getData()== null)
 			{
 		    	msg.setMessage(Messages.getString("AccUISubsidiaryLedger.9"));  //$NON-NLS-1$
 		    	msg.open();
 		    	txtAccount.setFocus();
 		    	return ; 
 			}
-			account = (TurqAccountingAccount) txtAccount.getData();
+			else if (txtAccount.getData()==null)
+			{
+				account=(TurqAccountingAccount)txtAccount2.getData();
+				account2=null;
+			}
+			else if (txtAccount2.getData()==null)
+			{
+				account=(TurqAccountingAccount)txtAccount.getData();
+				account2=null;
+			}
+			else
+			{
+				account=(TurqAccountingAccount)txtAccount.getData();
+				account2=(TurqAccountingAccount)txtAccount2.getData();
+			}
 			List result = blTransSearch.searchAccTransactionsColumns(
 					account, dateStartDate
 							.getData(), dateEndDate.getData());
@@ -355,7 +502,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 				}
 				
 				item = new TableItem(tableTransactions, SWT.NULL);
-				item.setText(new String[]{"","",Messages.getString("AccUISubsidiaryLedger.14"), //$NON-NLS-1$ 
+				item.setText(new String[]{"","",Messages.getString(Messages.getString("AccUISubsidiaryLedger.14")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
 				        (balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "", //$NON-NLS-1$
 				        (balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "", //$NON-NLS-1$
 				        (balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "", //$NON-NLS-1$
@@ -376,7 +523,6 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 
 				TurqAccountingTransactionColumn accTransColumn = (TurqAccountingTransactionColumn) result
 						.get(i);
-				
 				
 				item = new TableItem(tableTransactions, SWT.NULL);
 				item.setData(accTransColumn.getTurqAccountingTransaction());
@@ -418,7 +564,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 
 			ex.printStackTrace();
 
-		}
+		}*/
 
 	}
 
@@ -447,7 +593,6 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 
 			TurqAccountingTransaction accTrans = (TurqAccountingTransaction) selection[0]
 					.getData();
-
 			int type = accTrans.getTurqAccountingTransactionType()
 					.getAccountingTransactionTypesId().intValue();
 		    if(type==2){

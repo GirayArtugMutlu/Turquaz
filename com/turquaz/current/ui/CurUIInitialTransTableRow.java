@@ -7,7 +7,6 @@ import org.eclipse.swt.graphics.Color;
 
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
-import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 

@@ -187,14 +187,11 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 			parameters.put("sqlparam",sqlparam);		 //$NON-NLS-1$
 			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate())); //$NON-NLS-1$
 			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate())); //$NON-NLS-1$
-			//parameters.put("imageUrl", "C:\\eclipse3\\workspace\\Turquaz\\icons\\sample.gif");
 
 			parameters.put("column1header",Messages.getString("AccUIAccountingJournal.22")); //$NON-NLS-1$ //$NON-NLS-2$
 			parameters.put("column2header",Messages.getString("AccUIAccountingJournal.24")); //$NON-NLS-1$ //$NON-NLS-2$
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
-			//JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingJournal.jasper"); //$NON-NLS-1$
-			//final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
 			
 			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingJournal.jasper"); 
 	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());

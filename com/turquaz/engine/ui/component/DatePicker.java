@@ -21,7 +21,7 @@ package com.turquaz.engine.ui.component;
 * @version  $Id$
 */
 import com.cloudgarden.resource.SWTResourceManager;
-import com.turquaz.engine.bl.EngBLUtils;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

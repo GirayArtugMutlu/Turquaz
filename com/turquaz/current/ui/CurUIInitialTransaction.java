@@ -2,7 +2,7 @@ package com.turquaz.current.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
+
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TableViewer;
@@ -26,7 +26,7 @@ import org.eclipse.swt.SWT;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
-import com.turquaz.engine.ui.editors.AccountingCellEditor;
+
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.ITableRowListViewer;
@@ -34,7 +34,7 @@ import com.turquaz.engine.ui.viewers.TableRowList;
 import com.turquaz.engine.ui.viewers.TurquazCellModifier;
 import com.turquaz.engine.ui.viewers.TurquazContentProvider;
 import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
-import com.turquaz.inventory.ui.InvUITransactionTableRow;
+
 
 
 /**
