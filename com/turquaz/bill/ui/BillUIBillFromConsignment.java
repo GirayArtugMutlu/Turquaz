@@ -3,6 +3,7 @@ package com.turquaz.bill.ui;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.swt.layout.GridLayout;
@@ -32,7 +33,6 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
 import com.turquaz.consignment.ui.ConUIConsignmentSearchDialog;
-import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqConsignment;
@@ -40,7 +40,6 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 import com.turquaz.engine.ui.component.SecureComposite;
-import com.turquaz.inventory.ui.InvUITransactionAddDialog;
 
 import org.eclipse.swt.widgets.Button;
 
@@ -282,7 +281,7 @@ implements SecureComposite{
 	}
 
 	private void initGUI() {
-		try {
+	try {
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
@@ -413,8 +412,10 @@ implements SecureComposite{
 									compInfoPanel,
 									SWT.NONE);
 								GridData txtDocumentNoLData = new GridData();
-								txtDocumentNoLData.widthHint = 191;
-								txtDocumentNoLData.heightHint = 16;
+								txtDocumentNo.setBackground(SWTResourceManager.getColor(255,255,255));
+								txtDocumentNo.setEditable(false);
+								txtDocumentNoLData.widthHint = 188;
+								txtDocumentNoLData.heightHint = 18;
 								txtDocumentNo.setLayoutData(txtDocumentNoLData);
 							}
 							{
@@ -832,38 +833,6 @@ implements SecureComposite{
 	
 	
 	
-	public void btnChooseMouseUp(){
-		Object data = new CurUICurrentCardSearchDialog(this.getShell(),SWT.NULL).open();
-	    if(data!=null){
-	    
-	    System.out.println(data.getClass().getName());
-		TurqCurrentCard curCard = (TurqCurrentCard)data;
-	    txtCurrentCard.setText(curCard.getCardsCurrentCode()+" - "+curCard.getCardsName());
-		txtCurrentCard.setData(curCard);
-		txtDiscountRate.setText(curCard.getCardsDiscountRate().intValue());
-	    }
-	}
-	public void btnAddConsignmentRowMouseUp(){
-		
-	TurqInventoryTransaction invTrans = new InvUITransactionAddDialog(this.getShell(),SWT.NULL).open();
-	if(invTrans!=null){
-	TableItem item = new TableItem(tableConsignmentRows,SWT.NULL);
-	
-	item.setData(invTrans);
-	item.setText(new String[]{invTrans.getTurqInventoryCard().getCardInventoryCode(),
-							   invTrans.getTurqInventoryCard().getCardName(),
-							   invTrans.getTransactionsAmountIn()+"",
-							   invTrans.getTurqInventoryUnit().getUnitsName(),
-							   invTrans.getTransactionsUnitPrice().toString(),
-							   invTrans.getTransactionsTotalPrice().toString(),
-							   invTrans.getTransactionsVat()+"",
-							   invTrans.getTransactionsVatAmount().toString(),
-							   invTrans.getTransactionsVatSpecialAmount().toString(),
-							   invTrans.getTransactionsCumilativePrice().toString()});
-	
-		calculateTotals();
-	}
-	}
 	
 	
 	public boolean verifyFields(){
@@ -977,6 +946,7 @@ implements SecureComposite{
 		
 		
 	}
+	
 	public void chooseConsignmentMouseUp(){
 	TurqConsignment cons = new ConUIConsignmentSearchDialog(this.getShell(),SWT.NULL).open();
 	
@@ -984,13 +954,42 @@ implements SecureComposite{
 	txtCurrentCard.setText(cons.getTurqCurrentCard().getCardsCurrentCode()+" - "+cons.getTurqCurrentCard().getCardsName());
 	txtCurrentCard.setData(cons.getTurqCurrentCard());
 	txtDocumentNo.setText(cons.getConsignmentsBillDocumentNo());
+	dateConsDate.setDate(cons.getConsignmentsDate());
+    txtConsignment.setText(cons.getConsignmentsDocumentNo());
 	
+	Iterator it = cons.getTurqInventoryTransactions().iterator();
+	
+	TableItem item;
+	TurqInventoryTransaction invTrans;
+	
+    tableConsignmentRows.removeAll(); 
+    	
+	while(it.hasNext()){
+    	invTrans = (TurqInventoryTransaction)it.next();
+    	item = new TableItem(tableConsignmentRows,SWT.NULL);
+    	item.setData(invTrans);
+    	item.setText(new String[]{invTrans.getTurqInventoryCard().getCardInventoryCode(),
+				   invTrans.getTurqInventoryCard().getCardName(),
+				   invTrans.getTransactionsAmountIn()+"",
+				   invTrans.getTurqInventoryUnit().getUnitsName(),
+				   invTrans.getTransactionsUnitPrice().toString(),
+				   invTrans.getTransactionsTotalPrice().toString(),
+				   invTrans.getTransactionsVat()+"",
+				   invTrans.getTransactionsVatAmount().toString(),
+				   invTrans.getTransactionsVatSpecialAmount().toString(),
+				   invTrans.getTransactionsCumilativePrice().toString()});
+
+    	
+    	
+    }	
 	String type = "Buy";
 	
 	if(cons.getConsignmentsType()==1){
 		type="Sell";
 	}
 	comboConsignmentType.setText(type);
+	
+	txtDiscountRate.setText(cons.getCondignmentsDiscountRate());
 	
 	
 	}

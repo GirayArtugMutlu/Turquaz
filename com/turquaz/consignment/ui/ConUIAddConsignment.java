@@ -310,7 +310,10 @@ implements SecureComposite{
 				cTabFolder1.setLayoutData(cTabFolder1LData);
 				{
 					tabItemGeneral = new CTabItem(cTabFolder1, SWT.NONE);
+					tabItemGeneral.setText(Messages.getString("ConUIAddConsignment.10")); //$NON-NLS-1$
+					tabItemGeneral.setImage(SWTResourceManager.getImage(Messages.getString("ConUIAddConsignment.11"))); //$NON-NLS-1$
 					tabItemGeneral.setText(Messages.getString("ConUIAddConsignment.0")); //$NON-NLS-1$
+
 					{
 						compGeneral = new Composite(cTabFolder1, SWT.NONE);
 						GridLayout compGeneralLayout = new GridLayout();
@@ -578,14 +581,14 @@ implements SecureComposite{
 									tableConsignmentRows,
 									SWT.NONE);
 								tableColumnUnitPrice.setText(Messages.getString("ConUIAddConsignment.16")); //$NON-NLS-1$
-								tableColumnUnitPrice.setWidth(70);
+								tableColumnUnitPrice.setWidth(84);
 							}
 							{
 								tableColumnTotalPrice = new TableColumn(
 									tableConsignmentRows,
 									SWT.NONE);
 								tableColumnTotalPrice.setText(Messages.getString("ConUIAddConsignment.17")); //$NON-NLS-1$
-								tableColumnTotalPrice.setWidth(77);
+								tableColumnTotalPrice.setWidth(94);
 							}
 							{
 								tableColumnVat = new TableColumn(
@@ -726,7 +729,7 @@ implements SecureComposite{
 									SWT.NONE);
 								lblSpecialVAT.setText(Messages.getString("ConUIAddConsignment.26")); //$NON-NLS-1$
 								GridData lblSpecialVATLData = new GridData();
-								lblSpecialVATLData.widthHint = 104;
+								lblSpecialVATLData.widthHint = 102;
 								lblSpecialVATLData.heightHint = 16;
 								lblSpecialVAT.setLayoutData(lblSpecialVATLData);
 							}
@@ -745,7 +748,10 @@ implements SecureComposite{
 				}
 				{
 					tabItemGroups = new CTabItem(cTabFolder1, SWT.NONE);
+
+					tabItemGroups.setImage(SWTResourceManager.getImage(Messages.getString("ConUIAddConsignment.31"))); //$NON-NLS-1$
 					tabItemGroups.setText(Messages.getString("ConUIAddConsignment.27")); //$NON-NLS-1$
+
 					{
 						composite1 = new Composite(cTabFolder1, SWT.NONE);
 						tabItemGroups.setControl(composite1);
