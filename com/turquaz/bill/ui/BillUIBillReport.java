@@ -429,9 +429,30 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			{
 				public void widgetSelected(SelectionEvent evt)
 				{
-					if (bill != null)
+					try
 					{
-						//TODO write update method for BillReport fast view
+						if (bill != null)
+						{
+							//TODO exchange rate
+							int type = compAddBill.BILL_TYPE;
+							Boolean paymentType = (Boolean) compAddBill.getComboPaymentType().getData(
+									compAddBill.getComboPaymentType().getText());
+							BillBLUpdateBill.updateBill(bill, compAddBill.getTxtDocumentNo().getText().trim(), compAddBill
+									.getTxtConsignmentDocumentNo().getText().trim(), compAddBill.getTxtDefinition().getText(),
+									false, !paymentType.booleanValue(), compAddBill.getDateConsignmentDate().getDate(),
+									(TurqCurrentCard) compAddBill.getTxtCurrentCard().getData(), compAddBill
+											.getTxtDiscountAmount().getBigDecimalValue(), compAddBill.getTxtTotalVat()
+											.getBigDecimalValue(), compAddBill.getDecSpecialVat().getBigDecimalValue(),
+									compAddBill.getTxtTotalAmount().getBigDecimalValue(), type, compAddBill
+											.getAccountPickerCurAcc().getTurqAccountingAccount(), compAddBill.getDateDueDate()
+											.getDate(), compAddBill.getInventoryTransactions(), compAddBill.getBillGroups(),
+									EngBLCommon.getBaseCurrencyExchangeRate());
+							search();
+						}
+					}
+					catch (Exception ex)
+					{
+						ex.printStackTrace();
 					}
 				}
 			});

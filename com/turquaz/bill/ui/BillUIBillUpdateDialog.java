@@ -277,6 +277,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				updated = true;
 				//update the consignment
 				int type = compAddBill.BILL_TYPE;
+				//TODO exchange rate
 				Boolean paymentType = (Boolean) compAddBill.getComboPaymentType().getData(compAddBill.getComboPaymentType().getText());
 				BillBLUpdateBill
 						.updateBill(bill, compAddBill.getTxtDocumentNo().getText().trim(), compAddBill.getTxtConsignmentDocumentNo()

@@ -343,7 +343,6 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	public void delete()
 	{
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-		BillBLUpdateBill blUpdateBill = new BillBLUpdateBill();
 		try
 		{
 			TableItem items[] = tableBills.getSelection();
