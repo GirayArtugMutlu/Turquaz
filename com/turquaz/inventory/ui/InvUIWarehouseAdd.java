@@ -36,6 +36,36 @@ public class InvUIWarehouseAdd extends SecureComposite {
 	private CLabel lblDescription;
 	private Text txtTelephone;
 	private CLabel lblWarehouseTelephone;
+	/**
+	 * @return Returns the txtTelephone.
+	 */
+	public Text getTxtTelephone() {
+		return txtTelephone;
+	}
+	/**
+	 * @return Returns the txtWarehouseAdres.
+	 */
+	public Text getTxtWarehouseAdres() {
+		return txtWarehouseAdres;
+	}
+	/**
+	 * @return Returns the txtWarehouseCity.
+	 */
+	public Text getTxtWarehouseCity() {
+		return txtWarehouseCity;
+	}
+	/**
+	 * @return Returns the txtWarehouseDescription.
+	 */
+	public Text getTxtWarehouseDescription() {
+		return txtWarehouseDescription;
+	}
+	/**
+	 * @return Returns the txtWarehouseName.
+	 */
+	public Text getTxtWarehouseName() {
+		return txtWarehouseName;
+	}
 	private Text txtWarehouseAdres;
 	private CLabel lblWarehouseAdres;
 	private Text txtWarehouseCity;

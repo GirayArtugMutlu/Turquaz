@@ -26,6 +26,8 @@ import org.eclipse.swt.SWT;
 import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.ui.component.SecureComposite;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 
 /**
@@ -91,23 +93,55 @@ public class InvUIWarehouseSearch extends SecureComposite {
 			composite1.setBackground(composite1background);
 	
 			GridData lblWarehouseNameLData = new GridData();
+			lblWarehouseNameLData.verticalAlignment = GridData.CENTER;
+			lblWarehouseNameLData.horizontalAlignment = GridData.BEGINNING;
 			lblWarehouseNameLData.widthHint = 105;
 			lblWarehouseNameLData.heightHint = 20;
+			lblWarehouseNameLData.horizontalIndent = 0;
+			lblWarehouseNameLData.horizontalSpan = 1;
+			lblWarehouseNameLData.verticalSpan = 1;
+			lblWarehouseNameLData.grabExcessHorizontalSpace = false;
+			lblWarehouseNameLData.grabExcessVerticalSpace = false;
 			lblWarehouseName.setLayoutData(lblWarehouseNameLData);
 			lblWarehouseName.setText("Warehouse Name");
 			lblWarehouseName.setSize(new org.eclipse.swt.graphics.Point(105,20));
 	
 			GridData txtWarehouseNameLData = new GridData();
+			txtWarehouseNameLData.verticalAlignment = GridData.CENTER;
+			txtWarehouseNameLData.horizontalAlignment = GridData.BEGINNING;
 			txtWarehouseNameLData.widthHint = 117;
 			txtWarehouseNameLData.heightHint = 15;
+			txtWarehouseNameLData.horizontalIndent = 0;
+			txtWarehouseNameLData.horizontalSpan = 1;
+			txtWarehouseNameLData.verticalSpan = 1;
+			txtWarehouseNameLData.grabExcessHorizontalSpace = false;
+			txtWarehouseNameLData.grabExcessVerticalSpace = false;
 			txtWarehouseName.setLayoutData(txtWarehouseNameLData);
 			txtWarehouseName.setSize(new org.eclipse.swt.graphics.Point(117,15));
 	
+			GridData lblWarehouseCityLData = new GridData();
+			lblWarehouseCityLData.verticalAlignment = GridData.CENTER;
+			lblWarehouseCityLData.horizontalAlignment = GridData.BEGINNING;
+			lblWarehouseCityLData.widthHint = -1;
+			lblWarehouseCityLData.heightHint = -1;
+			lblWarehouseCityLData.horizontalIndent = 0;
+			lblWarehouseCityLData.horizontalSpan = 1;
+			lblWarehouseCityLData.verticalSpan = 1;
+			lblWarehouseCityLData.grabExcessHorizontalSpace = false;
+			lblWarehouseCityLData.grabExcessVerticalSpace = false;
+			lblWarehouseCity.setLayoutData(lblWarehouseCityLData);
 			lblWarehouseCity.setText("City");
 	
 			GridData txtCityLData = new GridData();
+			txtCityLData.verticalAlignment = GridData.CENTER;
+			txtCityLData.horizontalAlignment = GridData.BEGINNING;
 			txtCityLData.widthHint = 114;
 			txtCityLData.heightHint = 16;
+			txtCityLData.horizontalIndent = 0;
+			txtCityLData.horizontalSpan = 1;
+			txtCityLData.verticalSpan = 1;
+			txtCityLData.grabExcessHorizontalSpace = false;
+			txtCityLData.grabExcessVerticalSpace = false;
 			txtCity.setLayoutData(txtCityLData);
 			txtCity.setSize(new org.eclipse.swt.graphics.Point(114,16));
 			GridLayout composite1Layout = new GridLayout(2, true);
@@ -134,6 +168,11 @@ public class InvUIWarehouseSearch extends SecureComposite {
 			tableInvUIWarehouses.setHeaderVisible(true);
 			tableInvUIWarehouses.setLinesVisible(true);
 			tableInvUIWarehouses.setSize(new org.eclipse.swt.graphics.Point(592,258));
+			tableInvUIWarehouses.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					tableInvUIWarehousesMouseDoubleClick(evt);
+				}
+			});
 	
 			tableColumnName.setText("Warehouse Name");
 			tableColumnName.setWidth(161);
@@ -214,35 +253,19 @@ public class InvUIWarehouseSearch extends SecureComposite {
 	public void newForm(){
 	}	
 
-	/** Auto-generated main method */
-	public static void main(String[] args){
-		showGUI();
-	}
+	
 
-	/**
-	* This static method creates a new instance of this class and shows
-	* it inside a new Shell.
-	*
-	* It is a convenience method for showing the GUI, but it can be
-	* copied and used as a basis for your own code.	*
-	* It is auto-generated code - the body of this method will be
-	* re-generated after any changes are made to the GUI.
-	* However, if you delete this method it will not be re-created.	*/
-	public static void showGUI(){
-		try {
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			InvUIWarehouseSearch inst = new InvUIWarehouseSearch(shell, SWT.NULL);
-			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0,0,618,381);
-			shell.setSize(shellBounds.width, shellBounds.height);
-			shell.open();
-			while (!shell.isDisposed()) {
-				if (!display.readAndDispatch())
-					display.sleep();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+	/** Auto-generated event handler method */
+	protected void tableInvUIWarehousesMouseDoubleClick(MouseEvent evt){
+		TableItem items[] = tableInvUIWarehouses.getItems();
+		if(items.length>0){
+		new InvUIWarehouseUpdate(this.getShell(),SWT.NULL,(TurqInventoryWarehous)items[0].getData()).open();
+		search();
+		
 		}
+		
+		
+		
+		
 	}
 }

@@ -4,6 +4,18 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
+
+import com.turquaz.engine.dal.TurqInventoryWarehous;
+import com.turquaz.inventory.ui.InvUIWarehouseAdd;
+import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.CoolItem;
+import org.eclipse.swt.widgets.CoolBar;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
 
 /**
@@ -14,10 +26,20 @@ import org.eclipse.swt.SWT;
 * a license - please visit www.cloudgarden.com for details.
 */
 public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
+	private ToolItem toolDelete;
+	private ToolItem toolUpdate;
+	private ToolBar toolBar1;
+	private CoolItem coolItem1;
+	private CoolBar coolBarInvUIWarehouse;
+	private InvUIWarehouseAdd compInvUIWarehouse;
 	private Shell dialogShell;
+	private TurqInventoryWarehous warehouse;
 
-	public InvUIWarehouseUpdate(Shell parent, int style) {
+	public InvUIWarehouseUpdate(Shell parent, int style, TurqInventoryWarehous wh) {
 		super(parent, style);
+		warehouse = wh;
+		
+		
 	}
 
 	/**
@@ -31,8 +53,62 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 			dialogShell.setText(getText());
+			coolBarInvUIWarehouse = new CoolBar(dialogShell,SWT.NULL);
+			coolItem1 = new CoolItem(coolBarInvUIWarehouse,SWT.NULL);
+			toolBar1 = new ToolBar(coolBarInvUIWarehouse,SWT.NULL);
+			toolUpdate = new ToolItem(toolBar1,SWT.NULL);
+			toolDelete = new ToolItem(toolBar1,SWT.NULL);
+			compInvUIWarehouse = new InvUIWarehouseAdd(dialogShell,SWT.NULL);
 	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(304,208));
+			dialogShell.setSize(new org.eclipse.swt.graphics.Point(518,428));
+	
+			GridData coolBarInvUIWarehouseLData = new GridData();
+			coolBarInvUIWarehouseLData.verticalAlignment = GridData.CENTER;
+			coolBarInvUIWarehouseLData.horizontalAlignment = GridData.FILL;
+			coolBarInvUIWarehouseLData.widthHint = -1;
+			coolBarInvUIWarehouseLData.heightHint = -1;
+			coolBarInvUIWarehouseLData.horizontalIndent = 0;
+			coolBarInvUIWarehouseLData.horizontalSpan = 1;
+			coolBarInvUIWarehouseLData.verticalSpan = 1;
+			coolBarInvUIWarehouseLData.grabExcessHorizontalSpace = false;
+			coolBarInvUIWarehouseLData.grabExcessVerticalSpace = false;
+			coolBarInvUIWarehouse.setLayoutData(coolBarInvUIWarehouseLData);
+	
+			coolItem1.setControl(toolBar1);
+			coolItem1.setSize(new org.eclipse.swt.graphics.Point(87,38));
+			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(87,38));
+			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(87,38));
+	
+	
+			toolUpdate.setText("Update");
+			toolUpdate.addSelectionListener( new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					toolUpdateWidgetSelected(evt);
+				}
+			});
+	
+			toolDelete.setText("delete");
+			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setImage(toolDeleteimage);
+			toolDelete.addSelectionListener( new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					toolDeleteWidgetSelected(evt);
+				}
+			});
+	
+			GridData compInvUIWarehouseLData = new GridData();
+			compInvUIWarehouseLData.verticalAlignment = GridData.FILL;
+			compInvUIWarehouseLData.horizontalAlignment = GridData.FILL;
+			compInvUIWarehouseLData.widthHint = -1;
+			compInvUIWarehouseLData.heightHint = -1;
+			compInvUIWarehouseLData.horizontalIndent = 0;
+			compInvUIWarehouseLData.horizontalSpan = 1;
+			compInvUIWarehouseLData.verticalSpan = 1;
+			compInvUIWarehouseLData.grabExcessHorizontalSpace = true;
+			compInvUIWarehouseLData.grabExcessVerticalSpace = true;
+			compInvUIWarehouse.setLayoutData(compInvUIWarehouseLData);
+			compInvUIWarehouse.setSize(new org.eclipse.swt.graphics.Point(508,375));
+			compInvUIWarehouse.layout();
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.marginWidth = 5;
@@ -42,7 +118,12 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 			dialogShellLayout.horizontalSpacing = 5;
 			dialogShellLayout.verticalSpacing = 5;
 			dialogShell.layout();
-			Rectangle bounds = dialogShell.computeTrim(0, 0, 304,208);
+			dialogShell.addDisposeListener(new DisposeListener() {
+				public void widgetDisposed(DisposeEvent e) {
+					toolDeleteimage.dispose();
+				}
+			});
+			Rectangle bounds = dialogShell.computeTrim(0, 0, 518,428);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
 			dialogShell.open();
@@ -61,30 +142,29 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	
+	compInvUIWarehouse.getTxtTelephone().setText(warehouse.getWarehousesTelephone());
+	compInvUIWarehouse.getTxtWarehouseAdres().setText(warehouse.getWarehousesAddress());
+	compInvUIWarehouse.getTxtWarehouseCity().setText(warehouse.getWarehousesCity());
+	compInvUIWarehouse.getTxtWarehouseName().setText(warehouse.getWarehousesName());
+	compInvUIWarehouse.getTxtWarehouseDescription().setText(warehouse.getWarehousesDescription());
+	
 	}
 
-	/** Auto-generated main method */
-	public static void main(String[] args){
-		showGUI();
-	}
+	
+	
 
-	/**
-	* This static method creates a new instance of this class and shows
-	* it inside a new Shell.
-	*
-	* It is a convenience method for showing the GUI, but it can be
-	* copied and used as a basis for your own code.	*
-	* It is auto-generated code - the body of this method will be
-	* re-generated after any changes are made to the GUI.
-	* However, if you delete this method it will not be re-created.	*/
-	public static void showGUI(){
-		try {
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			InvUIWarehouseUpdate inst = new InvUIWarehouseUpdate(shell, SWT.NULL);
-			inst.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	/** Auto-generated event handler method */
+	protected void toolUpdateWidgetSelected(SelectionEvent evt){
+		
+		
+		
+	}
+	
+	
+
+	/** Auto-generated event handler method */
+	protected void toolDeleteWidgetSelected(SelectionEvent evt){
+	
 	}
 }
