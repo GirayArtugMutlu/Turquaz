@@ -518,6 +518,7 @@ public class BillUIAddBill extends Composite
                                     compInfoPanel,
                                     SWT.NONE);
                                 GridData txtDocumentNoLData = new GridData();
+                                txtDocumentNo.setTextLimit(50);
                                 txtDocumentNoLData.widthHint = 106;
                                 txtDocumentNoLData.heightHint = 16;
                                 txtDocumentNo.setLayoutData(txtDocumentNoLData);
@@ -535,6 +536,7 @@ public class BillUIAddBill extends Composite
                                     compInfoPanel,
                                     SWT.NONE);
                                 GridData txtBillDocumentNoLData = new GridData();
+                                txtConsignmentDocumentNo.setTextLimit(50);
                                 txtBillDocumentNoLData.widthHint = 133;
                                 txtBillDocumentNoLData.heightHint = 18;
                                 txtConsignmentDocumentNo.setLayoutData(txtBillDocumentNoLData);
@@ -549,9 +551,7 @@ public class BillUIAddBill extends Composite
                                 lblDate.setLayoutData(lblDateLData);
                             }
                             {
-                                dateConsignmentDate = new DatePicker(
-                                    compInfoPanel,
-                                    SWT.EMBEDDED);
+                                dateConsignmentDate = new DatePicker(compInfoPanel, SWT.NONE);
                                 GridData dateConsignmentDateLData = new GridData();
                                 dateConsignmentDateLData.widthHint = 113;
                                 dateConsignmentDateLData.heightHint = 20;
@@ -573,6 +573,7 @@ public class BillUIAddBill extends Composite
                                     compInfoPanel,
                                     SWT.NONE);
                                 GridData txtDefinitionLData = new GridData();
+                                txtDefinition.setTextLimit(250);
                                 txtDefinitionLData.widthHint = 203;
                                 txtDefinitionLData.heightHint = 17;
                                 txtDefinition.setLayoutData(txtDefinitionLData);

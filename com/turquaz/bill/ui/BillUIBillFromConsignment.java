@@ -435,8 +435,8 @@ implements SecureComposite{
 									SWT.NONE);
 								GridData dateConsDateLData = new GridData();
 								dateConsDate.setEnabled(false);
-								dateConsDateLData.widthHint = 113;
-								dateConsDateLData.heightHint = 29;
+								dateConsDateLData.widthHint = 118;
+								dateConsDateLData.heightHint = 25;
 								dateConsDate.setLayoutData(dateConsDateLData);
 							}
 							{

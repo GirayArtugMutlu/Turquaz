@@ -542,9 +542,7 @@ public class BillUIAddSellBill extends Composite
                                 lblDate.setLayoutData(lblDateLData);
                             }
                             {
-                                dateConsignmentDate = new DatePicker(
-                                    compInfoPanel,
-                                    SWT.EMBEDDED);
+                                dateConsignmentDate = new DatePicker(compInfoPanel, SWT.NONE);
                                 GridData dateConsignmentDateLData = new GridData();
                                 dateConsignmentDateLData.widthHint = 113;
                                 dateConsignmentDateLData.heightHint = 20;
