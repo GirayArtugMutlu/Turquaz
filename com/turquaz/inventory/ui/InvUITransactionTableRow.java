@@ -510,7 +510,7 @@ public class InvUITransactionTableRow implements ITableRow {
 			 	if(formatted.equals("")){
 			 	    formatted="0";
 			 	}
-				invTrans.setTransactionsDiscount(new BigDecimal(formatted));
+				invTrans.setTransactionsDiscount(new BigDecimal(formatted).setScale(2,BigDecimal.ROUND_HALF_DOWN));
 				
 				break;
 				
@@ -521,10 +521,10 @@ public class InvUITransactionTableRow implements ITableRow {
 			 	if(formatted.equals("")){
 			 	    formatted="0";
 			 	}
-			    BigDecimal bdValue = new BigDecimal(formatted);
+			    BigDecimal bdValue = new BigDecimal(formatted).setScale(2,BigDecimal.ROUND_HALF_DOWN);
 			    BigDecimal discAmount = new BigDecimal(0);
 			  
-			        discAmount = invTrans.getTransactionsTotalPrice().subtract(bdValue);
+			        discAmount = invTrans.getTransactionsTotalPrice().subtract(bdValue).setScale(2,BigDecimal.ROUND_HALF_DOWN);
 			        invTrans.setTransactionsDiscountAmount(discAmount);
 			        invTrans.setTransactionsDiscount(discAmount.divide(invTrans.getTransactionsTotalPrice(),6,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100))); 
 			    
@@ -591,12 +591,12 @@ public class InvUITransactionTableRow implements ITableRow {
             
         	transAmountinBaseUnit = transAmount*cardUnits[unit_index.intValue()].getCardUnitsFactor();
         
-        	invTrans.setTransactionsTotalPrice(invTrans.getTransactionsUnitPrice().multiply(new BigDecimal(transAmountinBaseUnit)));
+        	invTrans.setTransactionsTotalPrice(invTrans.getTransactionsUnitPrice().multiply(new BigDecimal(transAmountinBaseUnit)).setScale(2,BigDecimal.ROUND_HALF_DOWN));
     	
         
         	invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsTotalPrice().multiply(invTrans.getTransactionsDiscount()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
         	 	
-        	BigDecimal totalPriceAfterDiscount = invTrans.getTransactionsTotalPrice().subtract(invTrans.getTransactionsDiscountAmount());
+        	BigDecimal totalPriceAfterDiscount = invTrans.getTransactionsTotalPrice().subtract(invTrans.getTransactionsDiscountAmount()).setScale(2,BigDecimal.ROUND_HALF_DOWN);
         
         
 	 	
@@ -610,7 +610,7 @@ public class InvUITransactionTableRow implements ITableRow {
         	
         	if (invTrans.getTurqInventoryCard().isSpecVatForEach())
         	{
-        		BigDecimal vatSpecialAmount=invTrans.getTransactionsVatSpecialEach().multiply(BigDecimal.valueOf(transAmountinBaseUnit));
+        		BigDecimal vatSpecialAmount=invTrans.getTransactionsVatSpecialEach().multiply(BigDecimal.valueOf(transAmountinBaseUnit)).setScale(2,BigDecimal.ROUND_HALF_DOWN);
         		invTrans.setTransactionsVatSpecialAmount(vatSpecialAmount);
         	}
         	else

@@ -54,7 +54,7 @@ public class BillDALSearchBill {
 		if (curCard!=null){
 		    query +=" and bill.turqBillConsignmentCommon.turqCurrentCard = :curCard"; 
 		}
-		query += " order by bill.billsDate";
+		query += " order by bill.billsDate,bill.turqBillConsignmentCommon.billDocumentNo ";
 		
 		Query q = session.createQuery(query); 	
 		
