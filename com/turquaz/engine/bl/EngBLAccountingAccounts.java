@@ -7,6 +7,14 @@
 package com.turquaz.engine.bl;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.TreeItem;
+
+import com.turquaz.accounting.bl.AccBLAccountAdd;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 
 /**
  * @author onsel
@@ -15,19 +23,53 @@ import java.util.HashMap;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class EngBLAccountingAccounts {
-	public HashMap accountMap;
+	public List accountList;
 
 	
 	static EngBLAccountingAccounts _instance;
 	
-	public EngBLAccountingAccounts(){
-		fillAccountMap();
+	private AccBLAccountAdd blAccount = new AccBLAccountAdd();
+	
+	public EngBLAccountingAccounts()throws Exception{
+		try{
+		fillAccountList();
+		}
+		catch(Exception ex){
+			throw ex;
+		}
 	}
 	
-	public void fillAccountMap(){
-		accountMap.clear();
-	
+	public void fillAccountList()throws Exception{
+		try{
+		 accountList = blAccount.getAllAccounts();
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
 	}
 	
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public static synchronized List getAccounts() throws Exception{
+		try{
+		if (_instance == null) {
+              
+			_instance = new EngBLAccountingAccounts();
+
+		}
+
+		return _instance.accountList;
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+
+	}
+	
+
 
 }

@@ -60,6 +60,17 @@ public class AccBLAccountAdd {
 		}
 		
 	}
+	public List getAllAccounts()throws Exception{
+		try{
+			
+			return dalAccountAdd.getAllAccounts();
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
 	
 	public void saveAccount(String accountName, String accountCode, Object parent)throws Exception{
 		try{

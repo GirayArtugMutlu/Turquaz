@@ -80,5 +80,27 @@ public class AccDALAccountAdd {
 		}
 		
 	}
+	public List getAllAccounts()throws Exception{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			String query = "from TurqAccountingAccount as accounts " +
+					"where accounts.turqCompany.companiesId ="+System.getProperty("company")+
+							" and accounts.accountingAccountsId <> -1" +
+							" order by accounts.accountCode";   
+
+			Query q = session.createQuery(query); 
+			List list = q.list();
+			tx.commit();
+			session.close();
+			return list;
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
 
 }

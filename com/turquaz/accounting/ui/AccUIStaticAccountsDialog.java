@@ -31,6 +31,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.accounting.ui.comp.AccUIAccountsTree;
+import com.turquaz.accounting.ui.comp.AccUIStaticAccountsTree;
+
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridLayout;
@@ -162,7 +164,7 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 	}
 
 	/** Add your post-init code in here */
-	public void postInitGUI(String filter){
+	public void postInitGUI(String filter)throws Exception{
 	
 	Point parentLocation =this.getParent().getLocation();
 	Point parentSize = this.getParent().getSize();	
@@ -172,6 +174,13 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog {
     int location_Y = (parentLocation.y + parentSize.y)/2 - (dialogSize.y/2);
     
     dialogShell.setLocation(location_X,location_Y);
+    AccUIStaticAccountsTree treeFactory = new AccUIStaticAccountsTree();
+    try{
+	accountTree = treeFactory.fillTree(accountTree);
+    }
+    catch(Exception ex){
+    	throw ex;
+    }
     
 	}
 
