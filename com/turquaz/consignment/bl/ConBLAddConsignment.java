@@ -146,6 +146,8 @@ public class ConBLAddConsignment
 			invTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			invTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			invTrans.setTransactionsDate(cons.getConsignmentsDate());
+			invTrans.setDefinition("");
+			invTrans.setDocumentNo("");
 			//Al??
 			// total amount in ve total amount ayni girilmisti
 			// bir tanesi sifir yapmak gerek

@@ -143,6 +143,20 @@
         not-null="true"
         length="4"
     />
+    <property
+        name="documentNo"
+        type="java.lang.String"
+        column="document_no"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="definition"
+        type="java.lang.String"
+        column="definition"
+        not-null="true"
+        length="250"
+    />
 
     <!-- Associations -->
   

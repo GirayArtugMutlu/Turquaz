@@ -19,9 +19,11 @@ package com.turquaz.inventory.ui.comp;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.List;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -34,7 +36,9 @@ import org.eclipse.swt.SWT;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqInventoryCard;
+import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
+import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.cloudgarden.resource.SWTResourceManager;
 
 /**
@@ -54,6 +58,7 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite
 	private String filter = "";
 	private Text text1;
 	private Text textInvName = null;
+	private CCombo comboUnits = null;
 
 	public InventoryPicker(Composite parent, int style)
 	{
@@ -170,16 +175,55 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite
 		    {
 		    	textInvName.setText("");
 		    }
+		    if(comboUnits != null)
+		    {
+		    	comboUnits.setText("");
+		    	comboUnits.removeAll();
+		    }
 		}
 		else
 		{
 			text1.setBackground(SWTResourceManager.getColor(198, 255, 198));
 			TurqInventoryCard invCard=(TurqInventoryCard)obj;
-			textInvName.setText(invCard.getCardName());
+			 if(textInvName !=null)
+			 {
+			 	textInvName.setText(invCard.getCardName());
+			 }
+			 if(comboUnits != null)
+			 {
+			 	comboUnits.removeAll();
+			 	comboUnits.setText("");
+			 	try{
+			 	
+			 		TurqInventoryUnit unit = null;
+			 		List ls = InvBLCardAdd.getInventoryUnits(invCard);
+			 		for(int i=0;i<ls.size();i++)
+			 		{
+			 		
+			 			unit = (TurqInventoryUnit)ls.get(i);
+			 			comboUnits.add(unit.getUnitsName());
+			 			comboUnits.setData(unit.getUnitsName(),unit);			 			
+			 		} 		
+			 		if(comboUnits.getItemCount()>0)
+			 		{
+			 			comboUnits.setText(comboUnits.getItem(0));
+			 		}
+			 		
+			 	}
+			 	catch(Exception ex)
+				{
+			 		ex.printStackTrace();
+				}
+			 	
+			 }
+			
 		}
 	}
 	public void setTextInvName(Text text)
 	{
 		textInvName = text;
+	}
+	public void setComboInvUnits(CCombo combo){
+		comboUnits = combo;
 	}
 }

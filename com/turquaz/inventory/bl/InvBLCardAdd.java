@@ -205,7 +205,21 @@ public class InvBLCardAdd
 			throw ex;
 		}
 	}
-
+	public static List getInventoryUnits(TurqInventoryCard invCard)throws Exception
+	{
+		try{
+			
+		
+			return InvDALCardAdd.getInventoryUnits(invCard);
+			
+			
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+		
+	}
 	public static void saveInventoryCard(String invCode, String cardName, String cardDefinition, int minAmount, int maxAmount,
 			int cardVat, int discount, int cardSpecialVat, BigDecimal cardSpecialVatEach, boolean isSpecAmount, Map invGroups,
 			List invCardUnits, List invPrices, List invAccounts) throws Exception
@@ -326,7 +340,7 @@ public class InvBLCardAdd
 	{
 		try
 		{
-			return InvDALCardAdd.getInventoryUnits();
+			return InvDALCardAdd.getAllInventoryUnits();
 		}
 		catch (Exception ex)
 		{

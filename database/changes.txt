@@ -882,3 +882,19 @@ INSERT INTO turq_inventory_transaction_types VALUES (3, 'Uretim', 'admin', '2005
 
 ALTER TABLE turq_inventory_transactions ADD CONSTRAINT inv_type FOREIGN KEY (transaction_type) REFERENCES turq_inventory_transaction_types (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
 
+ALTER TABLE turq_inventory_transactions
+   ADD COLUMN document_no varchar(100);
+ALTER TABLE turq_inventory_transactions
+   ADD COLUMN definition varchar(250);
+   
+update turq_inventory_transactions set document_no ='';
+update turq_inventory_transactions set definition ='';
+
+ALTER TABLE turq_inventory_transactions
+   ALTER COLUMN definition SET NOT NULL;
+ALTER TABLE turq_inventory_transactions
+   ALTER COLUMN document_no SET NOT NULL;
+   
+INSERT INTO turq_module_components VALUES (87, 0, 'com.turquaz.inventory.ui.InvUIOtherTransactionIn', 'Diger Giris Hareketi', 'cem', '2005-02-28', 'cem', '2005-02-28');
+
+

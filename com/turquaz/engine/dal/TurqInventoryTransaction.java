@@ -63,6 +63,12 @@ public class TurqInventoryTransaction implements Serializable {
     private java.util.Date transactionsDate;
 
     /** persistent field */
+    private java.lang.String documentNo;
+
+    /** persistent field */
+    private java.lang.String definition;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous;
 
     /** persistent field */
@@ -78,7 +84,7 @@ public class TurqInventoryTransaction implements Serializable {
     private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
 
     /** full constructor */
-    public TurqInventoryTransaction(java.math.BigDecimal transactionsAmountIn, java.math.BigDecimal transactionsUnitPrice, java.math.BigDecimal transactionsTotalPrice, java.math.BigDecimal transactionsDiscount, java.math.BigDecimal transactionsDiscountAmount, int transactionsVat, java.math.BigDecimal transactionsVatAmount, java.math.BigDecimal transactionsVatSpecialEach, java.math.BigDecimal transactionsVatSpecial, java.math.BigDecimal transactionsVatSpecialAmount, java.math.BigDecimal transactionsCumilativePrice, java.math.BigDecimal transactionsTotalAmountOut, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.util.Date transactionsDate, com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous, com.turquaz.engine.dal.TurqInventoryTransactionType turqInventoryTransactionType, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
+    public TurqInventoryTransaction(java.math.BigDecimal transactionsAmountIn, java.math.BigDecimal transactionsUnitPrice, java.math.BigDecimal transactionsTotalPrice, java.math.BigDecimal transactionsDiscount, java.math.BigDecimal transactionsDiscountAmount, int transactionsVat, java.math.BigDecimal transactionsVatAmount, java.math.BigDecimal transactionsVatSpecialEach, java.math.BigDecimal transactionsVatSpecial, java.math.BigDecimal transactionsVatSpecialAmount, java.math.BigDecimal transactionsCumilativePrice, java.math.BigDecimal transactionsTotalAmountOut, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.util.Date transactionsDate, java.lang.String documentNo, java.lang.String definition, com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous, com.turquaz.engine.dal.TurqInventoryTransactionType turqInventoryTransactionType, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
         this.transactionsAmountIn = transactionsAmountIn;
         this.transactionsUnitPrice = transactionsUnitPrice;
         this.transactionsTotalPrice = transactionsTotalPrice;
@@ -96,6 +102,8 @@ public class TurqInventoryTransaction implements Serializable {
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
         this.transactionsDate = transactionsDate;
+        this.documentNo = documentNo;
+        this.definition = definition;
         this.turqInventoryWarehous = turqInventoryWarehous;
         this.turqInventoryTransactionType = turqInventoryTransactionType;
         this.turqInventoryUnit = turqInventoryUnit;
@@ -249,6 +257,22 @@ public class TurqInventoryTransaction implements Serializable {
 
     public void setTransactionsDate(java.util.Date transactionsDate) {
         this.transactionsDate = transactionsDate;
+    }
+
+    public java.lang.String getDocumentNo() {
+        return this.documentNo;
+    }
+
+    public void setDocumentNo(java.lang.String documentNo) {
+        this.documentNo = documentNo;
+    }
+
+    public java.lang.String getDefinition() {
+        return this.definition;
+    }
+
+    public void setDefinition(java.lang.String definition) {
+        this.definition = definition;
     }
 
     public com.turquaz.engine.dal.TurqInventoryWarehous getTurqInventoryWarehous() {

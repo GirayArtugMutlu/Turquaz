@@ -265,6 +265,7 @@ public class InvDALCardSearch
 			Hibernate.initialize(invCard.getTurqInventoryCardGroups());
 			Hibernate.initialize(invCard.getTurqInventoryPrices());
 			Hibernate.initialize(invCard.getTurqInventoryCardUnits());
+			Hibernate.initialize(invCard.getTurqInventoryAccountingAccounts());
 			session.flush();
 			session.close();
 			return invCard;
