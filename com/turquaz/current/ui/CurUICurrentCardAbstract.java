@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
@@ -290,7 +289,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					" curTrans.transactionsTotalCredit, curTrans.transactionsTotalDept," +
 					" curTrans.currentTransactionsId," +
 					" curTrans.transactionsDefinition" +
-					" from TurqCurrentCard curCard right outer join" +
+					" from TurqCurrentCard curCard left join" +
 					" curCard.turqCurrentTransactions as curTrans" +
 					" where (curTrans.transactionsDate >= :startDate" +
 					" and curTrans.transactionsDate <= :endDate ) or " +

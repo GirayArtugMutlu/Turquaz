@@ -21,7 +21,6 @@ package com.turquaz.accounting.ui.reports;
  * @version  $Id$
  */
 
-import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
