@@ -25,6 +25,7 @@ import java.util.List;
 
 import com.turquaz.bank.dal.BankDALBankCardSearch;
 import com.turquaz.bank.dal.BankDALCommon;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 
@@ -83,6 +84,14 @@ public class BankBLBankCardSearch {
 	{
 	
 		BankDALCommon.initializeBankCard(bankCard);
+		
+	}
+	public static TurqAccountingAccount getAccountingAccount(TurqBanksCard bankCard, Integer type)throws Exception{
+		
+		
+		return BankDALBankCardSearch.getBankAccountingAccount(bankCard, type);
+		
+		
 		
 	}
 

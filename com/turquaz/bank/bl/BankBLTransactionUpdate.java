@@ -166,8 +166,8 @@ public class BankBLTransactionUpdate {
             TurqAccountingTransactionColumn accTransRowCredit = new TurqAccountingTransactionColumn();
 
             
-            TurqAccountingAccount creditAccount = BankDALBankCardSearch.getCurrentAccountingAccount(bankCardWithCredit,EngBLCommon.BANK_ACC_TYPE_GENERAL);
-            TurqAccountingAccount deptAccount = BankDALBankCardSearch.getCurrentAccountingAccount(bankCardWithDept,EngBLCommon.BANK_ACC_TYPE_GENERAL);
+            TurqAccountingAccount creditAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCardWithCredit,EngBLCommon.BANK_ACC_TYPE_GENERAL);
+            TurqAccountingAccount deptAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCardWithDept,EngBLCommon.BANK_ACC_TYPE_GENERAL);
             
             
             
@@ -265,7 +265,7 @@ public class BankBLTransactionUpdate {
             TurqAccountingTransactionColumn accTransRowCurrent = new TurqAccountingTransactionColumn();
 
 
-            TurqAccountingAccount bankAccount = BankDALBankCardSearch.getCurrentAccountingAccount(bankCard,EngBLCommon.BANK_ACC_TYPE_GENERAL);
+            TurqAccountingAccount bankAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCard,EngBLCommon.BANK_ACC_TYPE_GENERAL);
             
             
             accTransRowBank.setTransactionDefinition(definition);
@@ -415,7 +415,7 @@ public class BankBLTransactionUpdate {
             TurqAccountingTransactionColumn accTransRowCurrent = new TurqAccountingTransactionColumn();
 
 
-            TurqAccountingAccount bankAccount = BankDALBankCardSearch.getCurrentAccountingAccount(bankCard,EngBLCommon.BANK_ACC_TYPE_GENERAL);
+            TurqAccountingAccount bankAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCard,EngBLCommon.BANK_ACC_TYPE_GENERAL);
             
             accTransRowBank.setTransactionDefinition(definition);
             accTransRowBank.setTurqAccountingAccount(bankAccount);
@@ -571,7 +571,7 @@ public class BankBLTransactionUpdate {
             TurqAccountingTransactionColumn accTransRowCurrent = new TurqAccountingTransactionColumn();
 
 
-            TurqAccountingAccount bankAccount = BankDALBankCardSearch.getCurrentAccountingAccount(bankCard,EngBLCommon.BANK_ACC_TYPE_GENERAL);
+            TurqAccountingAccount bankAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCard,EngBLCommon.BANK_ACC_TYPE_GENERAL);
             
             accTransRowBank.setTransactionDefinition(definition);
             accTransRowBank.setTurqAccountingAccount(bankAccount);

@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
@@ -133,7 +132,8 @@ public class CheBLSaveChequeTransaction {
               chequeInRoll = new TurqChequeChequeInRoll();
               
               cheque = (TurqChequeCheque)chequeList.get(i);
-                     
+                  
+              CheBLSearchCheques.getChequeRollAccountingAccount(cheque,EngBLCommon.CHEQUE_TRANS_IN);
               
               CheDALSave.saveOrUpdate(cheque);
               
@@ -188,6 +188,10 @@ public class CheBLSaveChequeTransaction {
          	TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
          
          	saveRollAccountingTransactions(rollAccount,curAccount,chequeRoll,totalAmount,currency,exchangeRate);
+         	
+         }
+         else if(rollType==EngBLCommon.CHEQUE_TRANS_OUT_BANK)
+         {
          	
          }
         

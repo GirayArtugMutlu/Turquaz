@@ -163,12 +163,12 @@ public class BankDALBankCardSearch {
 		}
 	}
 	
-	public static TurqAccountingAccount getCurrentAccountingAccount(TurqBanksCard curCard, Integer type)throws Exception{
+	public static TurqAccountingAccount getBankAccountingAccount(TurqBanksCard bankCard, Integer type)throws Exception{
 		try{
 			
 			Session session = EngDALSessionFactory.openSession();
-			session.refresh(curCard);
-			Iterator it = curCard.getTurqBankAccountingAccounts().iterator();
+			session.refresh(bankCard);
+			Iterator it = bankCard.getTurqBankAccountingAccounts().iterator();
 			while(it.hasNext())
 			{
 				TurqBankAccountingAccount curAccount = (TurqBankAccountingAccount)it.next();
