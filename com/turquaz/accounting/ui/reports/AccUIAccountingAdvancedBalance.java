@@ -244,7 +244,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					{
 						tableColumnTotalDept = new TableColumn(
 							tableTreeAccounts.getTable(),
-							SWT.NONE);
+							SWT.RIGHT);
 						tableColumnTotalDept.setText(Messages
 							.getString("AccUIAccountingAdvancedBalance.7")); //$NON-NLS-1$
 						tableColumnTotalDept.setWidth(120);
@@ -252,7 +252,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					{
 						tableColumnTotalCredit = new TableColumn(
 							tableTreeAccounts.getTable(),
-							SWT.NONE);
+							SWT.RIGHT);
 						tableColumnTotalCredit.setText(Messages
 							.getString("AccUIAccountingAdvancedBalance.8")); //$NON-NLS-1$
 						tableColumnTotalCredit.setWidth(120);
@@ -266,7 +266,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					tableTreeAccounts.getTable().setHeaderVisible(true);
 					{
 						tableColumnRemain = new TableColumn(tableTreeAccounts
-							.getTable(), SWT.NONE);
+							.getTable(), SWT.RIGHT);
 						tableColumnRemain.setText("Bakiye ( Borç )");
 						tableColumnRemain.setWidth(120);
 					}
@@ -307,7 +307,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				if(parentId.intValue()==-1){
 					if (!treeItems.containsKey(account.getAccountingAccountsId()))
 					{
-						item = new TableTreeItem(tableTreeAccounts,SWT.NULL);
+						item = new TableTreeItem(tableTreeAccounts,SWT.NULL);						
 						item.setText(0,account.getAccountCode());
 						item.setText(1,account.getAccountName());
 						item.setText(2,transDept.toString());
