@@ -547,13 +547,10 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 					txtCurrentCode = new Text(compCurrentGeneralInfo, SWT.NONE);
 					GridData txtCurrentCodeLData = new GridData();
 					txtCurrentCodeLData.widthHint = 148;
-					txtCurrentCodeLData.heightHint = 8;
+					txtCurrentCodeLData.heightHint = 17;
 					txtCurrentCodeLData.horizontalSpan = 3;
 					txtCurrentCode.setLayoutData(txtCurrentCodeLData);
 					txtCurrentCode.setTextLimit(50);
-					txtCurrentCode.setSize(new org.eclipse.swt.graphics.Point(
-						154,
-						14));
 				}
 				{
 					lblCurrentName = new CLabel(
@@ -573,14 +570,10 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 					txtCurrentName = new Text(compCurrentGeneralInfo, SWT.NONE);
 					GridData txtCurrentNameLData = new GridData();
 					txtCurrentNameLData.horizontalAlignment = GridData.FILL;
-					txtCurrentNameLData.heightHint = 11;
+					txtCurrentNameLData.heightHint = 19;
 					txtCurrentNameLData.horizontalSpan = 3;
-					txtCurrentNameLData.grabExcessHorizontalSpace = true;
 					txtCurrentName.setLayoutData(txtCurrentNameLData);
 					txtCurrentName.setTextLimit(250);
-					txtCurrentName.setSize(new org.eclipse.swt.graphics.Point(
-						445,
-						17));
 				}
 				{
 					lblCardDefinition = new CLabel(
@@ -699,32 +692,27 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 							composite1,
 							SWT.NONE);
 						GridData numtxtCountryCodeLData = new GridData();
-						numtxtCountryCodeLData.widthHint = 24;
-						numtxtCountryCodeLData.heightHint = 10;
+						numtxtCountryCodeLData.widthHint = 25;
+						numtxtCountryCodeLData.heightHint = 21;
 						numtxtCountryCode.setLayoutData(numtxtCountryCodeLData);
 						numtxtCountryCode.setTextLimit(5);
-						numtxtCountryCode
-							.setSize(new org.eclipse.swt.graphics.Point(30, 16));
 					}
 					{
 						numTxtCityCode = new NumericText(composite1, SWT.NONE);
 						GridData numTxtCityCodeLData = new GridData();
+						numTxtCityCode.setSize(30, 21);
 						numTxtCityCodeLData.widthHint = 30;
-						numTxtCityCodeLData.heightHint = 10;
+						numTxtCityCodeLData.heightHint = 21;
 						numTxtCityCode.setLayoutData(numTxtCityCodeLData);
 						numTxtCityCode.setTextLimit(3);
-						numTxtCityCode
-							.setSize(new org.eclipse.swt.graphics.Point(36, 16));
 					}
 					{
 						numTxtNumber = new NumericText(composite1, SWT.NONE);
 						GridData numTxtNumberLData = new GridData();
-						numTxtNumberLData.widthHint = 72;
-						numTxtNumberLData.heightHint = 10;
+						numTxtNumberLData.widthHint = 83;
+						numTxtNumberLData.heightHint = 21;
 						numTxtNumber.setLayoutData(numTxtNumberLData);
 						numTxtNumber.setTextLimit(9);
-						numTxtNumber
-							.setSize(new org.eclipse.swt.graphics.Point(78, 16));
 					}
 					composite1.layout();
 				}
@@ -763,33 +751,29 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 							composite2,
 							SWT.NONE);
 						GridData numTxtCountryCode2LData = new GridData();
-						numTxtCountryCode2LData.widthHint = 24;
-						numTxtCountryCode2LData.heightHint = 10;
-						numTxtCountryCode2
-							.setLayoutData(numTxtCountryCode2LData);
+						numTxtCountryCode2LData.widthHint = 25;
+						numTxtCountryCode2LData.heightHint = 21;
+						numTxtCountryCode2.setLayoutData(numTxtCountryCode2LData);
 						numTxtCountryCode2.setTextLimit(5);
-						numTxtCountryCode2
-							.setSize(new org.eclipse.swt.graphics.Point(30, 16));
+						numTxtCountryCode2.setSize(25, 21);
 					}
 					{
 						numTxtCityCode2 = new NumericText(composite2, SWT.NONE);
 						GridData numTxtCityCode2LData = new GridData();
 						numTxtCityCode2LData.widthHint = 30;
-						numTxtCityCode2LData.heightHint = 10;
+						numTxtCityCode2LData.heightHint = 21;
 						numTxtCityCode2.setLayoutData(numTxtCityCode2LData);
 						numTxtCityCode2.setTextLimit(3);
-						numTxtCityCode2
-							.setSize(new org.eclipse.swt.graphics.Point(36, 16));
+						numTxtCityCode2.setSize(30, 21);
 					}
 					{
 						numTxtNumber2 = new NumericText(composite2, SWT.NONE);
 						GridData numTxtNumber2LData = new GridData();
-						numTxtNumber2LData.widthHint = 72;
-						numTxtNumber2LData.heightHint = 10;
+						numTxtNumber2LData.widthHint = 83;
+						numTxtNumber2LData.heightHint = 21;
 						numTxtNumber2.setLayoutData(numTxtNumber2LData);
 						numTxtNumber2.setTextLimit(9);
-						numTxtNumber2
-							.setSize(new org.eclipse.swt.graphics.Point(78, 16));
+						numTxtNumber2.setSize(83, 21);
 					}
 					composite2.layout();
 				}
@@ -811,12 +795,10 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 						compCurrentGeneralInfo,
 						SWT.NONE);
 					GridData txtTaxDepartmantLData = new GridData();
-					txtTaxDepartmantLData.widthHint = 141;
-					txtTaxDepartmantLData.heightHint = 9;
+					txtTaxDepartmantLData.widthHint = 139;
+					txtTaxDepartmantLData.heightHint = 22;
 					txtTaxDepartmant.setLayoutData(txtTaxDepartmantLData);
 					txtTaxDepartmant.setTextLimit(50);
-					txtTaxDepartmant
-						.setSize(new org.eclipse.swt.graphics.Point(147, 15));
 				}
 				{
 					lblTaxNumber = new CLabel(compCurrentGeneralInfo, SWT.NONE);
@@ -829,13 +811,10 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 				{
 					txtTaxNumber = new Text(compCurrentGeneralInfo, SWT.NONE);
 					GridData txtTaxNumberLData = new GridData();
-					txtTaxNumberLData.widthHint = 168;
-					txtTaxNumberLData.heightHint = 10;
+					txtTaxNumberLData.widthHint = 165;
+					txtTaxNumberLData.heightHint = 21;
 					txtTaxNumber.setLayoutData(txtTaxNumberLData);
 					txtTaxNumber.setTextLimit(50);
-					txtTaxNumber.setSize(new org.eclipse.swt.graphics.Point(
-						174,
-						16));
 				}
 				{
 					lblRiskLimit = new CLabel(compCurrentGeneralInfo, SWT.NONE);
@@ -850,11 +829,8 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 						SWT.NONE);
 					GridData decTxtRiskLimitLData = new GridData();
 					decTxtRiskLimitLData.widthHint = 139;
-					decTxtRiskLimitLData.heightHint = 10;
+					decTxtRiskLimitLData.heightHint = 21;
 					decTxtRiskLimit.setLayoutData(decTxtRiskLimitLData);
-					decTxtRiskLimit.setSize(new org.eclipse.swt.graphics.Point(
-						145,
-						16));
 				}
 				{
 					lblCreditLimit = new CLabel(
@@ -871,11 +847,9 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 						compCurrentGeneralInfo,
 						SWT.NONE);
 					GridData decTxtCreditLimitLData = new GridData();
-					decTxtCreditLimitLData.widthHint = 169;
-					decTxtCreditLimitLData.heightHint = 9;
+					decTxtCreditLimitLData.widthHint = 167;
+					decTxtCreditLimitLData.heightHint = 21;
 					decTxtCreditLimit.setLayoutData(decTxtCreditLimitLData);
-					decTxtCreditLimit
-						.setSize(new org.eclipse.swt.graphics.Point(175, 15));
 				}
 				{
 					lblDiscountRate = new CLabel(
@@ -891,8 +865,8 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 						compCurrentGeneralInfo,
 						SWT.NONE);
 					GridData numTextDiscountRateLData = new GridData();
-					numTextDiscountRateLData.widthHint = 69;
-					numTextDiscountRateLData.heightHint = 10;
+					numTextDiscountRateLData.widthHint = 70;
+					numTextDiscountRateLData.heightHint = 25;
 					numTextDiscountRate.setLayoutData(numTextDiscountRateLData);
 					numTextDiscountRate.setTextLimit(2);
 				}
@@ -911,12 +885,9 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 						compCurrentGeneralInfo,
 						SWT.NONE);
 					GridData decTxtDiscountAmountLData = new GridData();
-					decTxtDiscountAmountLData.widthHint = 167;
-					decTxtDiscountAmountLData.heightHint = 9;
-					decTxtDiscountAmount
-						.setLayoutData(decTxtDiscountAmountLData);
-					decTxtDiscountAmount
-						.setSize(new org.eclipse.swt.graphics.Point(173, 15));
+					decTxtDiscountAmountLData.widthHint = 165;
+					decTxtDiscountAmountLData.heightHint = 22;
+					decTxtDiscountAmount.setLayoutData(decTxtDiscountAmountLData);
 				}
 				{
 					lblAccountingCodeCustomer = new CLabel(
@@ -936,11 +907,9 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 						SWT.NONE);
 					GridData accPickerCustomerLData = new GridData();
 					accPickerCustomerLData.widthHint = 236;
-					accPickerCustomerLData.heightHint = 21;
+					accPickerCustomerLData.heightHint = 24;
 					accPickerCustomerLData.horizontalSpan = 3;
 					accPickerCustomer.setLayoutData(accPickerCustomerLData);
-					accPickerCustomer
-						.setSize(new org.eclipse.swt.graphics.Point(236, 21));
 				}
 				compCurrentGeneralInfo.layout();
 
@@ -1034,18 +1003,10 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			lblPhone1.setText(Messages.getString("CurUICurrentCardAdd.18")); //$NON-NLS-1$
 	
 			GridData txtContactPhoneLData = new GridData();
-			txtContactPhoneLData.verticalAlignment = GridData.CENTER;
-			txtContactPhoneLData.horizontalAlignment = GridData.BEGINNING;
-			txtContactPhoneLData.widthHint = 191;
-			txtContactPhoneLData.heightHint = 16;
-			txtContactPhoneLData.horizontalIndent = 0;
-			txtContactPhoneLData.horizontalSpan = 1;
-			txtContactPhoneLData.verticalSpan = 1;
-			txtContactPhoneLData.grabExcessHorizontalSpace = false;
-			txtContactPhoneLData.grabExcessVerticalSpace = false;
+			txtContactPhoneLData.widthHint = 185;
+			txtContactPhoneLData.heightHint = 19;
 			txtContactPhone.setLayoutData(txtContactPhoneLData);
-			txtContactPhone.setSize(new org.eclipse.swt.graphics.Point(191,16));
-	
+
 			GridData lblPhone2LData = new GridData();
 			lblPhone2LData.verticalAlignment = GridData.CENTER;
 			lblPhone2LData.horizontalAlignment = GridData.BEGINNING;
@@ -1060,18 +1021,10 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			lblPhone2.setText(Messages.getString("CurUICurrentCardAdd.19")); //$NON-NLS-1$
 	
 			GridData txtContactPhone2LData = new GridData();
-			txtContactPhone2LData.verticalAlignment = GridData.CENTER;
-			txtContactPhone2LData.horizontalAlignment = GridData.BEGINNING;
-			txtContactPhone2LData.widthHint = 191;
-			txtContactPhone2LData.heightHint = 16;
-			txtContactPhone2LData.horizontalIndent = 0;
-			txtContactPhone2LData.horizontalSpan = 1;
-			txtContactPhone2LData.verticalSpan = 1;
-			txtContactPhone2LData.grabExcessHorizontalSpace = false;
-			txtContactPhone2LData.grabExcessVerticalSpace = false;
+			txtContactPhone2LData.widthHint = 185;
+			txtContactPhone2LData.heightHint = 19;
 			txtContactPhone2.setLayoutData(txtContactPhone2LData);
-			txtContactPhone2.setSize(new org.eclipse.swt.graphics.Point(191,16));
-	
+
 			GridData lblContactFaxLData = new GridData();
 			lblContactFaxLData.verticalAlignment = GridData.CENTER;
 			lblContactFaxLData.horizontalAlignment = GridData.BEGINNING;
@@ -1086,18 +1039,11 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			lblContactFax.setText(Messages.getString("CurUICurrentCardAdd.20")); //$NON-NLS-1$
 	
 			GridData txtFaxNumberLData = new GridData();
-			txtFaxNumberLData.verticalAlignment = GridData.CENTER;
-			txtFaxNumberLData.horizontalAlignment = GridData.BEGINNING;
-			txtFaxNumberLData.widthHint = 191;
-			txtFaxNumberLData.heightHint = 16;
-			txtFaxNumberLData.horizontalIndent = 0;
-			txtFaxNumberLData.horizontalSpan = 1;
-			txtFaxNumberLData.verticalSpan = 1;
-			txtFaxNumberLData.grabExcessHorizontalSpace = false;
-			txtFaxNumberLData.grabExcessVerticalSpace = false;
+			txtFaxNumber.setSize(185, 19);
+			txtFaxNumberLData.widthHint = 185;
+			txtFaxNumberLData.heightHint = 19;
 			txtFaxNumber.setLayoutData(txtFaxNumberLData);
-			txtFaxNumber.setSize(new org.eclipse.swt.graphics.Point(191,16));
-	
+
 			GridData cLabel1LData = new GridData();
 			cLabel1LData.verticalAlignment = GridData.CENTER;
 			cLabel1LData.horizontalAlignment = GridData.BEGINNING;
@@ -1112,17 +1058,10 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			cLabel1.setText(Messages.getString("CurUICurrentCardAdd.21")); //$NON-NLS-1$
 	
 			GridData txtContactEmailLData = new GridData();
-			txtContactEmailLData.verticalAlignment = GridData.CENTER;
-			txtContactEmailLData.horizontalAlignment = GridData.BEGINNING;
-			txtContactEmailLData.widthHint = 191;
-			txtContactEmailLData.heightHint = 16;
-			txtContactEmailLData.horizontalIndent = 0;
-			txtContactEmailLData.horizontalSpan = 1;
-			txtContactEmailLData.verticalSpan = 1;
-			txtContactEmailLData.grabExcessHorizontalSpace = false;
-			txtContactEmailLData.grabExcessVerticalSpace = false;
+			txtContactEmailLData.widthHint = 185;
+			txtContactEmailLData.heightHint = 19;
 			txtContactEmail.setLayoutData(txtContactEmailLData);
-			txtContactEmail.setSize(new org.eclipse.swt.graphics.Point(191,16));
+			txtContactEmail.setSize(185, 19);
 	
 			GridData cLabel2LData = new GridData();
 			cLabel2LData.verticalAlignment = GridData.CENTER;
@@ -1146,17 +1085,10 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 					}
 				}
 			});
-			txtContactWebSiteLData.verticalAlignment = GridData.CENTER;
-			txtContactWebSiteLData.horizontalAlignment = GridData.BEGINNING;
-			txtContactWebSiteLData.widthHint = 191;
-			txtContactWebSiteLData.heightHint = 16;
-			txtContactWebSiteLData.horizontalIndent = 0;
-			txtContactWebSiteLData.horizontalSpan = 1;
-			txtContactWebSiteLData.verticalSpan = 1;
-			txtContactWebSiteLData.grabExcessHorizontalSpace = false;
-			txtContactWebSiteLData.grabExcessVerticalSpace = false;
+			txtContactWebSiteLData.widthHint = 185;
+			txtContactWebSiteLData.heightHint = 19;
 			txtContactWebSite.setLayoutData(txtContactWebSiteLData);
-			txtContactWebSite.setSize(new org.eclipse.swt.graphics.Point(191,16));
+			txtContactWebSite.setSize(185, 19);
 			GridLayout compCurrentContactInfoLayout = new GridLayout(2, true);
 			compCurrentContactInfo.setLayout(compCurrentContactInfoLayout);
 			compCurrentContactInfoLayout.marginWidth = 5;
