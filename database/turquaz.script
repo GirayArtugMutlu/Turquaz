@@ -596,6 +596,8 @@ INSERT INTO TURQ_MODULE_COMPONENTS VALUES(34,1,'com.turquaz.accounting.ui.AccUII
 INSERT INTO TURQ_MODULE_COMPONENTS VALUES(35,7,'com.turquaz.bill.ui.BillUIAddBuyBill','Alis Faturasi','huseyin','2004-11-29','huseyin','2004-11-29')
 INSERT INTO TURQ_MODULE_COMPONENTS VALUES(36,7,'com.turquaz.bill.ui.BillUIAddSellBill','Satis Faturasi','huseyin','2004-11-29','huseyin','2004-11-29')
 INSERT INTO TURQ_MODULE_COMPONENTS VALUES(37,1,'com.turquaz.accounting.ui.AccUISaveJournal','Muhasebelestirme','admin','2004-10-18','admin','2004-10-18')
+INSERT INTO TURQ_MODULE_COMPONENTS VALUES(38,1,'com.turquaz.accounting.ui.reports.AccUISubsidiaryLedger','Muavin Defter','admin','2004-12-16','admin','2004-12-16')
+INSERT INTO TURQ_MODULE_COMPONENTS VALUES(39,1,'com.turquaz.accounting.ui.reports.AccUIAccountingAdvancedBalance','Mizan','admin','2004-12-16','admin','2004-12-16')
 INSERT INTO TURQ_CURRENT_CARDS_PHONES VALUES(90,-1,0,0,0,'','admin','2004-11-17','admin','2004-11-17')
 INSERT INTO TURQ_CURRENT_CARDS_PHONES VALUES(91,-1,0,0,0,'','admin','2004-11-17','admin','2004-11-17')
 INSERT INTO TURQ_CURRENT_CONTACTS VALUES(1,-1,'','','','','','','','admin','2004-11-17','admin','2004-11-17')
