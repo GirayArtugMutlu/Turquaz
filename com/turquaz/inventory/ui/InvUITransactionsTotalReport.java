@@ -64,6 +64,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
+import com.turquaz.current.ui.comp.CurrentPicker;
+import com.turquaz.current.ui.comp.CurrentCodePicker;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -87,6 +89,12 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	private Composite compInvCardSearch;
 	private CLabel lblInvName;
 	private TableColumn tableColumnInvName;
+	private CCombo comboTransType;
+	private CurrentCodePicker txtCurCardEnd;
+	private CLabel lblCurCardEnd;
+	private CLabel lblTransType;
+	private CurrentCodePicker txtCurCardStart;
+	private CLabel lblCurCardStart;
 	private TableColumn tableColumnAmountIn;
 	private TableColumn tableColumnInventoryCode;
 	private TableColumn tableColumnAmountOut;
@@ -180,6 +188,34 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 						txtInvName.setLayoutData(txtInvNameLData);
 					}
 					{
+						lblCurCardStart = new CLabel(
+							compInvCardSearchPanel,
+							SWT.NONE);
+						lblCurCardStart.setText("Cari Kart - Ba?lang?ç");
+					}
+					{
+						txtCurCardStart = new CurrentCodePicker(compInvCardSearchPanel, SWT.NONE);
+						GridData txtCurCardLData = new GridData();
+						txtCurCardLData.widthHint = 148;
+						txtCurCardLData.heightHint = 16;
+						txtCurCardStart.setLayoutData(txtCurCardLData);
+					}
+					{
+						lblCurCardEnd = new CLabel(
+							compInvCardSearchPanel,
+							SWT.NONE);
+						lblCurCardEnd.setText("Cari Kart - Biti?");
+					}
+					{
+						txtCurCardEnd = new CurrentCodePicker(
+							compInvCardSearchPanel,
+							SWT.NONE);
+						GridData txtCurCardEndLData = new GridData();
+						txtCurCardEndLData.widthHint = 167;
+						txtCurCardEndLData.heightHint = 12;
+						txtCurCardEnd.setLayoutData(txtCurCardEndLData);
+					}
+					{
 						lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
 						lblInvGroup.setText(Messages.getString("InvUITransactionsTotalReport.2")); //$NON-NLS-1$
 						lblInvGroup.setSize(new org.eclipse.swt.graphics.Point(
@@ -206,6 +242,22 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 						comboInvGroupLData.widthHint = 97;
 						comboInvGroupLData.heightHint = 16;
 						comboInvGroup.setLayoutData(comboInvGroupLData);
+					}
+					{
+						lblTransType = new CLabel(
+							compInvCardSearchPanel,
+							SWT.NONE);
+						lblTransType.setText("Tipi");
+						GridData lblTransTypeLData = new GridData();
+						lblTransTypeLData.widthHint = 48;
+						lblTransTypeLData.heightHint = 17;
+						lblTransType.setLayoutData(lblTransTypeLData);
+					}
+					{
+						comboTransType = new CCombo(
+							compInvCardSearchPanel,
+							SWT.NONE);
+						comboTransType.setText("Hepsi");
 					}
 				}
 				{
