@@ -33,7 +33,6 @@ public class TableSpreadsheetCursor extends TableCursor implements ICellEditorLi
 		TableSpreadsheetCursor.this.viewer.getTable().setSelection(new TableItem[] { TableSpreadsheetCursor.this.getRow() });
 
 		setFocus();
-		System.out.println("apply");
 	}
 	/**
 	 * makes the TableCursor visible again.

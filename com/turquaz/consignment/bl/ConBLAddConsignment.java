@@ -39,6 +39,7 @@ import com.turquaz.engine.dal.TurqModule;
 public class ConBLAddConsignment {
 	ConDALAddConsignment dalConsignment = new ConDALAddConsignment();
 	Calendar cal = Calendar.getInstance();
+	
 	public ConBLAddConsignment(){
 		
 	}

@@ -191,7 +191,7 @@ public class InvUITransactionTableRow implements ITableRow {
             }
         }
         
-       
+        invTrans.setTurqInventoryUnit(base_unit);
         
         cardUnits = new TurqInventoryCardUnit[unit_list.size()];
         units = new String[unit_list.size()];
@@ -338,6 +338,7 @@ public class InvUITransactionTableRow implements ITableRow {
 			    if(((Integer)value).intValue()!=-1){
 			        unit_index = (Integer)value;
 			        unit_text = units[unit_index.intValue()];
+			        invTrans.setTurqInventoryUnit(cardUnits[unit_index.intValue()].getTurqInventoryUnit());
 			    }
 			   
 			    break;
@@ -402,7 +403,6 @@ public class InvUITransactionTableRow implements ITableRow {
       
        rowList.taskChanged(this);
        
-       System.out.println("modify");
        
     }
     
