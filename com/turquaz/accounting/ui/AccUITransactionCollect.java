@@ -23,6 +23,7 @@ package com.turquaz.accounting.ui;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -44,9 +45,11 @@ import org.eclipse.swt.widgets.TableItem;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.dal.TurqCurrency;
 
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -62,6 +65,7 @@ import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
 
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.accounting.ui.comp.CashAccountPicker;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.TableCursor;
 import org.eclipse.swt.SWT;
@@ -93,12 +97,18 @@ public class AccUITransactionCollect extends Composite implements
 	}
 
 	private AccBLTransactionAdd blTransAdd = new AccBLTransactionAdd();
+	
+	private TurqCurrency baseCurrency;
+	private TurqCurrency exchangeCurrency;
+	private BigDecimal exchangeRatio;
 
 	private CLabel lblDate;
 
 	private CashAccountPicker comboDeptor;
 
 	private TableItem item;
+	private CLabel lblCurrency;
+	private CCombo comboCurrencyType;
 
 	private TableColumn txtTransactionDefinition;
 
@@ -242,6 +252,17 @@ public class AccUITransactionCollect extends Composite implements
 				txtTransDefinitionLData.heightHint = 18;
 				txtTransDefinition.setLayoutData(txtTransDefinitionLData);
 			}
+			//START >>  lblCurrency
+			lblCurrency = new CLabel(this, SWT.NONE);
+			lblCurrency.setText("Para Birimi");
+			//END <<  lblCurrency
+			//START >>  comboCurrencyType
+			comboCurrencyType = new CCombo(this, SWT.NONE);
+			GridData comboCurrencyTypeLData = new GridData();
+			comboCurrencyTypeLData.widthHint = 130;
+			comboCurrencyTypeLData.heightHint = 17;
+			comboCurrencyType.setLayoutData(comboCurrencyTypeLData);
+			//END <<  comboCurrencyType
 			{
 				tableTransactionRows = new Table(this, SWT.FULL_SELECTION
 						| SWT.HIDE_SELECTION | SWT.BORDER);
@@ -296,19 +317,47 @@ public class AccUITransactionCollect extends Composite implements
 	}
 
 	/** Add your post-init code in here */
-	public void postInitGUI() {
+	public void postInitGUI()
+	{
 
-		totalDept = new BigDecimal(0);
-	
-
+		totalDept = new BigDecimal(0);	
+		fillCurrencyCombo();
 		createTableViewer();
-		 for(int i=0;i<EngBLCommon.TABLE_ROW_COUNT;i++){
+		 for(int i=0;i<EngBLCommon.TABLE_ROW_COUNT;i++)
+		 {
 //				enter empty table rows.
 		      AccUITransactionCollectTableRow row = new AccUITransactionCollectTableRow(rowList);
 		      rowList.addTask(row);
-			}
+		}
 
 	}
+	
+	
+	public void fillCurrencyCombo()
+	{
+		try
+		{
+			List currencies=AccBLTransactionSearch.getCurrencies();
+			for (int k=0; k<currencies.size(); k++)
+			{
+				TurqCurrency currency=(TurqCurrency)currencies.get(k);
+				comboCurrencyType.add(currency.getCurrenciesAbbreviation());
+				comboCurrencyType.setData(currency.getCurrenciesAbbreviation(),currency);
+				if (currency.isDefaultCurrency())
+				{
+					comboCurrencyType.setText(currency.getCurrenciesAbbreviation());
+					baseCurrency=currency;
+				}
+			
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+	}
+	
 
 	public void createTableViewer() {
 		columnList.add(ACCOUNT_CODE);
@@ -406,31 +455,67 @@ public class AccUITransactionCollect extends Composite implements
 	       
 	       
 	}
-	public boolean verifyFields() {
+	public boolean verifyFields() 
+	{
+		try
+		{
+			
+		
+			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 
-		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+			if (tableTransactionRows.getItems().length == 0) 
+			{
+				msg.setMessage(Messages.getString("AccUITransactionCollect.15")); //$NON-NLS-1$
 
-		if (tableTransactionRows.getItems().length == 0) {
-			msg.setMessage(Messages.getString("AccUITransactionCollect.15")); //$NON-NLS-1$
+				msg.open();
 
-			msg.open();
+				return false;
 
-			return false;
+			}
+			else if (datePickerTransactionDate.getData() == null)
+			{
+				msg.setMessage(Messages.getString("AccUITransactionCollect.16")); //$NON-NLS-1$
 
-		} else if (datePickerTransactionDate.getData() == null) {
-			msg.setMessage(Messages.getString("AccUITransactionCollect.16")); //$NON-NLS-1$
+				msg.open();
 
-			msg.open();
+				return false;
+			}
+			else if (comboDeptor.getData()==null)
+			{
+				msg.setMessage(Messages.getString("AccUITransactionCollect.17")); //$NON-NLS-1$
 
-			return false;
-		} else if (comboDeptor.getData()==null) {
-			msg.setMessage(Messages.getString("AccUITransactionCollect.17")); //$NON-NLS-1$
+				msg.open();
 
-			msg.open();
-
-			return false;
-		} else {
+				return false;
+			} 
+			else if ((exchangeCurrency=(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()))==null)
+			{
+				msg.setMessage("Para birimi seçmelisiniz!");
+				msg.open();
+				comboCurrencyType.setFocus();
+				return false;
+			}
+			if (baseCurrency.getCurrenciesId()!=exchangeCurrency.getCurrenciesId())
+			{
+					if ((exchangeRatio=AccBLTransactionSearch.getExchangeRatio(baseCurrency,exchangeCurrency,Calendar.getInstance().getTime()))==null)
+					{
+						msg.setMessage("Bugün için çapraz kur tan?mlamal?s?n?z!");
+						msg.open();
+						return false;	
+				
+					}
+				
+			}
+			else
+			{
+				exchangeRatio=new BigDecimal(1);
+			}
 			return true;
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			return false;
 		}
 
 	}
@@ -493,18 +578,17 @@ public class AccUITransactionCollect extends Composite implements
 							.getData());
 			transRow.setTransactionDefinition(Messages
 					.getString("AccUITransactionCollect.9")); //$NON-NLS-1$
-			blTransAdd.saveAccTransactionRow(transRow, transId);
+			blTransAdd.saveAccTransactionRow(transRow, transId,(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()), exchangeRatio );
 
 			//Save the table rows
 			for (int i = 0; i < items.length; i++) {
 				AccUITransactionCollectTableRow row = (AccUITransactionCollectTableRow) items[i]
 						.getData();
 
-				if (row.okToSave()) {
-					blTransAdd
-							.saveAccTransactionRow(
-									(TurqAccountingTransactionColumn) row
-											.getDBObject(), transId);
+				if (row.okToSave()) 
+				{
+					blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn) row
+											.getDBObject(), transId,(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()), exchangeRatio );
 				}
 			}
 

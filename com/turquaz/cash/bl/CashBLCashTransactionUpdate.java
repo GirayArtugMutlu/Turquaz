@@ -30,6 +30,7 @@ import java.util.Iterator;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
+import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCashCard;
@@ -292,8 +293,8 @@ public class CashBLCashTransactionUpdate {
             	   
             	   Integer transId = blAccTran.saveAccTransaction(transDate,document_no,accTransType, cashTrans.getTurqEngineSequence().getTurqModule().getModulesId().intValue(),
             	           										   cashTrans.getTurqEngineSequence().getEngineSequencesId(),definition);
-            	   blAccTran.saveAccTransactionRow(accTransRowCash,transId);
-            	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId);         
+            	   blAccTran.saveAccTransactionRow(accTransRowCash,transId,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
+            	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId,EngConfiguration.getBaseCurrency(),new BigDecimal(1));         
             
             
         }

@@ -46,7 +46,8 @@ public class AccBLTransactionAdd {
 	
 	
 	//Muhasebe fisi kalemlerini kaydet
-	public void saveAccTransactionRow(TurqAccountingTransactionColumn transRow, Integer transID)
+	public void saveAccTransactionRow(TurqAccountingTransactionColumn transRow,
+			Integer transID, TurqCurrency currency, BigDecimal exchangeRatio)
 	throws Exception
 	{
 		try
@@ -61,16 +62,14 @@ public class AccBLTransactionAdd {
 		
 			transRow.setTurqAccountingTransaction(trans);
 			
-			TurqCurrency baseCurrency=AccBLTransactionSearch.getBaseCurrency();
-			/*if (currency.getCurrenciesId()==baseCurrency.getCurrenciesId())
-			{
-				transRow.setRowsCreditInBaseCurrency(transRow.getCreditAmount());
-				transRow.setRowsDeptInBaseCurrency(transRow.getDeptAmount());
-			}
-			else
-			{
-				BigDecimal exchangeRatio=
-			}*/
+			
+			transRow.setRowsCreditInBaseCurrency(transRow.getCreditAmount());
+			transRow.setRowsDeptInBaseCurrency(transRow.getDeptAmount());
+			transRow.setTurqCurrency(currency);
+			transRow.setRowsCreditInBaseCurrency(transRow.getCreditAmount().multiply(exchangeRatio));
+			transRow.setRowsDeptInBaseCurrency(transRow.getDeptAmount().multiply(exchangeRatio));
+
+
 			transRow.setCreatedBy(System.getProperty("user"));
 			transRow.setUpdatedBy(System.getProperty("user"));
 		

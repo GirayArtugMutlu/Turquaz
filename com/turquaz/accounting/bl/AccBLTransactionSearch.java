@@ -27,12 +27,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import net.sf.hibernate.Query;
-import net.sf.hibernate.Session;
+
 
 import com.turquaz.accounting.dal.AccDALTransactionAdd;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
-import com.turquaz.engine.dal.EngDALSessionFactory;
+
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -78,12 +77,26 @@ public class AccBLTransactionSearch {
 	}
 	
 	
+	public static List getCurrencies() throws Exception
+	{
+
+		try 
+		{
+			return AccDALTransactionSearch.getCurrencies();
+
+		} catch (Exception ex) {
+			throw ex;
+
+		}
+	}
+	
+	
 	public static BigDecimal getExchangeRatio(TurqCurrency baseCurrency, TurqCurrency exchangeCurrency, Date exhangeDate) throws Exception
 	{
 
 		try 
 		{
-			return new BigDecimal(1);//AccDALTransactionSearch.getExchangeRatio(baseCurrency, exchangeCurrency, exhangeDate);
+			return AccDALTransactionSearch.getExchangeRatio(baseCurrency, exchangeCurrency, exhangeDate);
 
 		} catch (Exception ex) {
 			throw ex;

@@ -34,10 +34,13 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
+import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
+
 import com.turquaz.engine.ui.component.TurquazDecimalFormat;
 import com.turquaz.engine.ui.editors.AccountingCellEditor;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
@@ -60,6 +63,7 @@ import org.eclipse.swt.widgets.TableColumn;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
+
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 
 import org.eclipse.swt.events.MouseEvent;
@@ -122,6 +126,11 @@ public class AccUIInitialTransaction extends Composite implements
     private AccBLTransactionAdd blTransAdd = new AccBLTransactionAdd();
 
     private AccBLTransactionUpdate blTransUpdate = new AccBLTransactionUpdate();
+    
+	
+	private TurqCurrency baseCurrency;
+	private TurqCurrency exchangeCurrency;
+	private BigDecimal exchangeRatio;
 
     BigDecimal totalCredit;
 
@@ -407,6 +416,7 @@ public class AccUIInitialTransaction extends Composite implements
 
         fillTable();
     }
+    
 
     public void fillTable() {
 
@@ -556,7 +566,7 @@ public class AccUIInitialTransaction extends Composite implements
                     blTransAdd
                             .saveAccTransactionRow(
                                     (TurqAccountingTransactionColumn) row
-                                            .getDBObject(), transId);
+                                            .getDBObject(), transId,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
                 }
 
             }

@@ -13,6 +13,7 @@ import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.accounting.dal.AccDALAccountAdd;
 import com.turquaz.bill.dal.BillDALAddBill;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
+import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqBill;
@@ -174,7 +175,7 @@ public class BillBLAddBill {
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			blAcc.saveAccTransactionRow(transRow,transID);
+			blAcc.saveAccTransactionRow(transRow,transID,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
 			
 			/**
 			 * 2-Kdv hesabini gir
@@ -196,7 +197,7 @@ public class BillBLAddBill {
 				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-				blAcc.saveAccTransactionRow(transRow,transID);
+				blAcc.saveAccTransactionRow(transRow,transID,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
 			}
 			
 			/**
@@ -219,7 +220,7 @@ public class BillBLAddBill {
 				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-				blAcc.saveAccTransactionRow(transRow,transID);
+				blAcc.saveAccTransactionRow(transRow,transID,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
 			}
 						
 			
@@ -249,7 +250,7 @@ public class BillBLAddBill {
 			transRow.setUpdatedBy(System.getProperty("user"));
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-			blAcc.saveAccTransactionRow(transRow,transID);
+			blAcc.saveAccTransactionRow(transRow,transID,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
 			
 			/**
 			 * 4- iskontoyu save et
@@ -270,7 +271,7 @@ public class BillBLAddBill {
 			transRow.setUpdatedBy(System.getProperty("user"));
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-			blAcc.saveAccTransactionRow(transRow,transID);
+			blAcc.saveAccTransactionRow(transRow,transID,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
 			
 			
 			
@@ -302,7 +303,7 @@ public class BillBLAddBill {
 				transRow.setUpdatedBy(System.getProperty("user"));
 				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-				blAcc.saveAccTransactionRow(transRow,transID);
+				blAcc.saveAccTransactionRow(transRow,transID,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
 				
 				/**
 				 * 2- Kasa Muhasebe Hareketi
@@ -325,7 +326,7 @@ public class BillBLAddBill {
 					transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 					transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 					
-					blAcc.saveAccTransactionRow(transRow,transID);
+					blAcc.saveAccTransactionRow(transRow,transID,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
 				
 				
 		 	  
@@ -381,7 +382,7 @@ public class BillBLAddBill {
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			blAcc.saveAccTransactionRow(transRow,transID);
+			blAcc.saveAccTransactionRow(transRow,transID,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
 			/**
 			 * 2-Kdv hesabini gir
 			 */
@@ -402,7 +403,7 @@ public class BillBLAddBill {
 				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-				blAcc.saveAccTransactionRow(transRow,transID);
+				blAcc.saveAccTransactionRow(transRow,transID,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
 			}
 
 			
@@ -428,7 +429,7 @@ public class BillBLAddBill {
 				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-				blAcc.saveAccTransactionRow(transRow,transID);
+				blAcc.saveAccTransactionRow(transRow,transID,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
 			}
 	        }
 			
@@ -455,7 +456,7 @@ public class BillBLAddBill {
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			blAcc.saveAccTransactionRow(transRow,transID);
+			blAcc.saveAccTransactionRow(transRow,transID,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
 			
 			/**
 			 * 5- iskonto Kayd?
@@ -476,7 +477,7 @@ public class BillBLAddBill {
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			blAcc.saveAccTransactionRow(transRow,transID);
+			blAcc.saveAccTransactionRow(transRow,transID,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
 			
 			//Kapal? Fatura
 			/**
@@ -507,7 +508,7 @@ public class BillBLAddBill {
 				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 				
-				blAcc.saveAccTransactionRow(transRow,transID);
+				blAcc.saveAccTransactionRow(transRow,transID,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
 				
 				/**
 				 * 2- Kasa Muhasebe Hareketi
@@ -528,7 +529,7 @@ public class BillBLAddBill {
 					transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 					transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 					
-					blAcc.saveAccTransactionRow(transRow,transID);
+					blAcc.saveAccTransactionRow(transRow,transID,EngConfiguration.getBaseCurrency(),new BigDecimal(1));
 				
 				
 		 	  

@@ -249,7 +249,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog {
 	        cheque = new TurqChequeCheque();
 	    }
 	    /**
-	     * TODO check below..
+	     * 
 	     */
 	    TurqBanksCard bankCard= (TurqBanksCard)bankPicker.getData();
 	    cheque.setBankBranchName(bankCard.getBankBranchName());
