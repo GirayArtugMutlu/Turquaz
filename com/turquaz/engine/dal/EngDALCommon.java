@@ -133,51 +133,35 @@ public class EngDALCommon
 
 	public static void deleteObject(Object obj) throws Exception
 	{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		Session session = EngDALSessionFactory.getSession();
+		
 		session.delete(obj);
 		session.flush();
-		tx.commit();
-		session.close();
+	
 	}
 
-	public static void deleteObject(Session session, Object obj) throws Exception
-	{
-		session.delete(obj);
-		session.flush();
-	}
 
 	public static void updateObject(Object obj) throws Exception
 	{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		Session session = EngDALSessionFactory.getSession();
+		
 		session.update(obj);
 		session.flush();
-		tx.commit();
-		session.close();
+		
 	}
 
-	public static void updateObject(Session session, Object obj) throws Exception
-	{
-		session.update(obj);
-		session.flush();
-	}
+	
 
 	public static void saveObject(Object obj) throws Exception
 	{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		Session session = EngDALSessionFactory.getSession();
+	
 		session.save(obj);
 		session.flush();
-		tx.commit();
-		session.close();
+	
+		
 	}
 
-	public static void saveObject(Session session, Object obj) throws Exception
-	{
-		session.save(obj);
-		session.flush();
-	}
 
 	public static Integer getBankTransaction(TurqEngineSequence seq) throws Exception
 	{

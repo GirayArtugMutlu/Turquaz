@@ -33,10 +33,9 @@ public class ConDALAddConsignment
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			TurqConsignment cons = (TurqConsignment) session.load(TurqConsignment.class, consId);
-			session.flush();
-			session.close();
+			
 			return cons;
 		}
 		catch (Exception ex)

@@ -30,11 +30,11 @@ public class ConDALAddGroups
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqConsignmentGroup as gr "; //$NON-NLS-1$
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+			
 			return list;
 		}
 		catch (Exception ex)

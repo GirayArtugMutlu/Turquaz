@@ -31,7 +31,7 @@ public class ConDALSearchConsignment
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select consignment.id," + " consignment.consignmentsDate, consignment.turqCurrentCard.cardsCurrentCode,"
 					+ " consignment.turqCurrentCard.cardsName, consignment.consignmentDocumentNo,"
 					+ " view.totalprice, view.vatamount, view.specialvatamount" + " from TurqViewInvPriceTotal view,"
@@ -55,7 +55,6 @@ public class ConDALSearchConsignment
 				q.setParameter("curCard", curCard); //$NON-NLS-1$
 			}
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -69,7 +68,7 @@ public class ConDALSearchConsignment
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select consignment.id," + " consignment.consignmentsDate, consignment.turqCurrentCard.cardsCurrentCode,"
 					+ " consignment.turqCurrentCard.cardsName, consignment.consignmentDocumentNo,"
 					+ " view.totalprice, view.vatamount, view.specialvatamount,consignment.consignmentsType " + " from TurqViewInvPriceTotal view,"
@@ -91,7 +90,6 @@ public class ConDALSearchConsignment
 				q.setParameter("curCard", curCard); //$NON-NLS-1$
 			}
 			List list = q.list();
-			session.close();
 			return list;
 		}
 		catch (Exception ex)
@@ -104,11 +102,11 @@ public class ConDALSearchConsignment
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select consignment from TurqConsignment as consignment" + " where consignment.id=" + consId; //$NON-NLS-1$
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+			
 			return (TurqConsignment) list.get(0);
 		}
 		catch (Exception ex)
@@ -121,12 +119,12 @@ public class ConDALSearchConsignment
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select invPriceView from TurqViewInvPriceTotal as invPriceView" +
 					" where invPriceView.engineSequencesId="+engSeqId;
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			return (TurqViewInvPriceTotal) list.get(0);
 		}
 		catch (Exception ex)
@@ -139,7 +137,7 @@ public class ConDALSearchConsignment
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			String query = "Select invTrans.id, cardUnit.cardUnitsFactor, invTrans.turqInventoryCard.cardInventoryCode," +
 					" invTrans.turqInventoryCard.cardName, invTrans.turqInventoryUnit.unitsName," +
 					((cons.getConsignmentsType() == EngBLCommon.CONSIGNMENT_TRANS_TYPE_BUY)
@@ -153,7 +151,7 @@ public class ConDALSearchConsignment
 					" and cardUnit.turqInventoryUnit=invTrans.turqInventoryUnit";			
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+		
 			return list;
 		}
 		catch (Exception ex)

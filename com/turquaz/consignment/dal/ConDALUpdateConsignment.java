@@ -27,12 +27,12 @@ public class ConDALUpdateConsignment
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			Session session = EngDALSessionFactory.getSession();
 			session.refresh(cons);
 			Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
 			Iterator it = cons.getTurqEngineSequence().getTurqBillInEngineSequences().iterator();
 			Hibernate.initialize(cons.getTurqConsignmentsInGroups());
-			session.close();
+			
 		}
 		catch (Exception ex)
 		{
