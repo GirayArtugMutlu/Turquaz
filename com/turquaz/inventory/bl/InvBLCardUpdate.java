@@ -51,9 +51,18 @@ public class InvBLCardUpdate
 			updateInvCardUnits(session, card, invCardUnits);
 			updateInvPrices(session, card, invPrices);
 			updateInvAccounts(session, card, invAccounts);
+			if(!InvDALCardUpdate.hasInitialTransaction(card))
+			{
+				InvBLCardAdd.saveInitialTransaction(card,InvBLCardAdd.getBaseUnitFromCardUnits(invCardUnits),session);
+				
+			}
+			
 			session.flush();
 			tx.commit();
 			session.close();
+			
+			
+			
 		}
 		catch (Exception ex)
 		{
@@ -244,7 +253,7 @@ public class InvBLCardUpdate
 			throw ex;
 		}
 	}
-
+	
 	public static boolean hasTransactions(TurqInventoryCard card) throws Exception
 	{
 		try
