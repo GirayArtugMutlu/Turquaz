@@ -35,9 +35,10 @@ public class EngDALConnection {
   private Statement stmt;
 
   public EngDALConnection() {
-	loginUrl = "jdbc:postgresql://" + System.getProperty("Url") + "/"+System.getProperty("dbName");
+	loginUrl =  System.getProperty("Url");
 	loginUser = System.getProperty("dbLogin");
 	loginPass = System.getProperty("dbPass");
+	driver = "org.postgresql.Driver";
   }
   
   public EngDALConnection(String dbType, String userName, String pass, String Url,String dbName) {

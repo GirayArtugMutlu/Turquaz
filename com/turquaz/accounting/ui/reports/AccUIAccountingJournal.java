@@ -18,6 +18,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
 
+
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -105,21 +106,23 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 					public void mouseDown(MouseEvent evt) {
 						btnReportsSingleClick();
 					}});
-				btnReportsLData.verticalSpan = 3;
-				btnReportsLData.grabExcessVerticalSpace = true;
-				btnReportsLData.horizontalAlignment = GridData.CENTER;
-				btnReportsLData.widthHint = 79;
-				btnReportsLData.heightHint = 23;
-				btnReportsLData.horizontalSpan = 3;
-				btnReports.setLayoutData(btnReportsLData);
+			btnReportsLData.verticalSpan = 3;
+			btnReportsLData.grabExcessVerticalSpace = true;
+			btnReportsLData.horizontalAlignment = GridData.CENTER;
+			btnReportsLData.widthHint = 79;
+			btnReportsLData.heightHint = 23;
+			btnReportsLData.horizontalSpan = 3;
+			btnReports.setLayoutData(btnReportsLData);
 			
 			this.layout();
-	} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
-		}
-		private void btnReportsSingleClick(){
-			try{
+	}
+		
+	private void btnReportsSingleClick(){
+		try{	
 			Map parameters = new HashMap();
 			parameters.put("ReportTitle", "Yevmiye Defteri");
 			parameters.put("sqlparam","Select * " +
@@ -127,13 +130,16 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 					"turq_accounting_transaction_columns transcolumns," +
 					"turq_accounting_accounts accounts where " +
 					"trans.accounting_transactions_id=transcolumns.accounting_transactions_id" +
-					" and transcolumns.accounting_accounts_id=accounts.accounting_accounts_id");
-			parameters.put("imageUrl", "C:\\eclipse3\\workspace\\Turquaz\\icons\\sample.gif");
+					" and transcolumns.accounting_accounts_id=accounts.accounting_accounts_id " +
+					"ORDER BY trans.transactions_date");
+			//parameters.put("imageUrl", "C:\\eclipse3\\workspace\\Turquaz\\icons\\sample.gif");
+			parameters.put("imageUrl", "");
 			parameters.put("column1header","Borç");
 			parameters.put("column2header","Alacak");
+			parameters.put("MainTitle","fds");
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
-			JasperReport jasperReport = JasperManager.loadReport("AccountingJournal.jasper");
+			JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingJournal.jasper");
 			JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
 			JasperViewer.viewReport(jasperPrint);		
 			}
@@ -144,5 +150,4 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 				msg.open();
 			}
 		}
-
 }
