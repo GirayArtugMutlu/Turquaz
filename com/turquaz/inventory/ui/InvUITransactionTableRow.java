@@ -446,6 +446,9 @@ public class InvUITransactionTableRow implements ITableRow {
        
     }
     
+    /*
+     * TODO Toplamlari tekrar hesapla. Erhan buyukalp in mailine gore..
+     */
     
     public void calculateFields(){
         

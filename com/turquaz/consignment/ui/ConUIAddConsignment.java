@@ -1368,24 +1368,11 @@ implements SecureComposite{
 		subTotal = subTotal.add(invTrans.getTransactionsTotalPrice());
 		totalVAT = totalVAT.add(invTrans.getTransactionsVatAmount());
 		totalSpecVAT = totalSpecVAT.add(invTrans.getTransactionsVatSpecialAmount());
-		
+		discountTotal = discountTotal.add(invTrans.getTransactionsDiscountAmount());
 	}
 	
-	generalTotal = subTotal.add(totalVAT).add(totalSpecVAT);
-    /**
-     * TODO discount totals will be the sum of all rows.. 
-     */
-	double discountRate = 0;
-  
-   
- 
-    discountTotal = generalTotal.multiply(new BigDecimal(discountRate+"")).setScale(2, BigDecimal.ROUND_DOWN);; //$NON-NLS-1$
-       
-    totalSpecVAT = totalSpecVAT.subtract(totalSpecVAT.multiply(new BigDecimal(discountRate+""))).setScale(2,BigDecimal.ROUND_DOWN); //$NON-NLS-1$
-    
-    subTotal = subTotal.subtract(subTotal.multiply(new BigDecimal(discountRate+""))).setScale(2, BigDecimal.ROUND_DOWN); //$NON-NLS-1$
-    
-    totalVAT = totalVAT.subtract(totalVAT.multiply(new BigDecimal(discountRate+""))).setScale(2, BigDecimal.ROUND_DOWN); //$NON-NLS-1$
+	
+    generalTotal = subTotal.add(totalVAT).add(totalSpecVAT).subtract(discountTotal).setScale(2, BigDecimal.ROUND_DOWN); //$NON-NLS-1$
     
     txtDiscountAmount.setText(discountTotal.toString());    
 	txtSubTotal.setText(subTotal.toString());
