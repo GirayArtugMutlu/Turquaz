@@ -59,21 +59,16 @@ import com.cloudgarden.resource.SWTResourceManager;
  */
 public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog {
 
-	private ToolItem toolSave;
-
-	private ToolBar toolbarAccountUpdate;
-
-	private CoolItem coolItem1;
-
-	private CoolBar coolBar1;
-
 	private AccUIAddAccounts compAccountCard;
 
 	private Shell dialogShell;
 
 	private TurqAccountingAccount account;
-
+	private CoolItem coolItem1;
 	private ToolItem toolCancel;
+	private ToolItem toolSave;
+	private ToolBar toolBar1;
+	private CoolBar coolBar1;
 
 	AccBLAccountUpdate blAccount = new AccBLAccountUpdate();
 
@@ -99,84 +94,76 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog {
 				//handle the obtaining and disposing of resources
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
-
-			dialogShell.setText(getText());
-			coolBar1 = new CoolBar(dialogShell, SWT.NULL);
-			coolItem1 = new CoolItem(coolBar1, SWT.NULL);
-			toolbarAccountUpdate = new ToolBar(coolBar1, SWT.NULL);
-			toolSave = new ToolItem(toolbarAccountUpdate, SWT.NULL);
-			compAccountCard = new AccUIAddAccounts(dialogShell, SWT.NULL);
-
-			dialogShell.setSize(487, 336);
-
-			GridData coolBar1LData = new GridData();
-			coolBar1LData.verticalAlignment = GridData.CENTER;
-			coolBar1LData.horizontalAlignment = GridData.FILL;
-			coolBar1LData.widthHint = -1;
-			coolBar1LData.heightHint = -1;
-			coolBar1LData.horizontalIndent = 0;
-			coolBar1LData.horizontalSpan = 1;
-			coolBar1LData.verticalSpan = 1;
-			coolBar1LData.grabExcessHorizontalSpace = false;
-			coolBar1LData.grabExcessVerticalSpace = false;
-			coolBar1.setLayoutData(coolBar1LData);
-
-			coolItem1.setControl(toolbarAccountUpdate);
-			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88,
-					38));
-			coolItem1
-					.setMinimumSize(new org.eclipse.swt.graphics.Point(88, 38));
-
-			toolSave.setText("Kaydet"); 
-			toolSave.setToolTipText("Kaydet");
-			toolSave.setImage(SWTResourceManager
-					.getImage("icons/save_edit.gif")); //$NON-NLS-1$
-					toolSave.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
-							toolUpdateWidgetSelected(evt);
-						}
-					});
-
-		{
-				toolCancel = new ToolItem(toolbarAccountUpdate, SWT.NONE);
-				toolCancel.setText(Messages.getString("AccUIAccountUpdate.6")); //$NON-NLS-1$
-				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
-				toolCancel.addSelectionListener(new SelectionAdapter() {
-					public void widgetSelected(SelectionEvent evt) {
-						dialogShell.close();
-					}
-				});
-			}
-
-			GridData compAccountCardLData = new GridData();
-			compAccountCardLData.verticalAlignment = GridData.CENTER;
-			compAccountCardLData.horizontalAlignment = GridData.BEGINNING;
-			compAccountCardLData.widthHint = 452;
-			compAccountCardLData.heightHint = 116;
-			compAccountCardLData.horizontalIndent = 0;
-			compAccountCardLData.horizontalSpan = 1;
-			compAccountCardLData.verticalSpan = 1;
-			compAccountCardLData.grabExcessHorizontalSpace = false;
-			compAccountCardLData.grabExcessVerticalSpace = false;
-			compAccountCard.setLayoutData(compAccountCardLData);
-			compAccountCard
-					.setSize(new org.eclipse.swt.graphics.Point(452, 116));
-			compAccountCard.getTxtParentAccount().setBounds(101, 92, 234, 23);
-			compAccountCard.layout();
-
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
+			
 			dialogShellLayout.marginWidth = 5;
 			dialogShellLayout.marginHeight = 5;
 			dialogShellLayout.numColumns = 1;
 			dialogShellLayout.makeColumnsEqualWidth = true;
 			dialogShellLayout.horizontalSpacing = 5;
 			dialogShellLayout.verticalSpacing = 5;
-			dialogShell.layout();
-		
-			Rectangle bounds = dialogShell.computeTrim(0, 0, 487, 301);
-			dialogShell.setSize(bounds.width, bounds.height);
+			dialogShell.setSize(487, 336);
+			dialogShell.setText(getText());
+			{
+				coolBar1 = new CoolBar(dialogShell, SWT.NONE);
+				GridData coolBar1LData = new GridData();
+				coolBar1LData.grabExcessHorizontalSpace = true;
+				coolBar1LData.horizontalAlignment = GridData.FILL;
+				coolBar1LData.heightHint = 45;
+				coolBar1.setLayoutData(coolBar1LData);
+				{
+					coolItem1 = new CoolItem(coolBar1, SWT.NONE);
+					coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 48));
+					coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 48));
+							coolItem1.setSize(45, 48);
+					{
+						toolBar1 = new ToolBar(coolBar1, SWT.NONE);
+						coolItem1.setControl(toolBar1);
+						{
+							toolSave = new ToolItem(toolBar1, SWT.NONE);
+							toolSave.setText(Messages.getString("AccUIAddAccountDialog.0")); //$NON-NLS-1$
+							toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
+							toolSave
+								.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(
+										SelectionEvent evt) {
+									toolUpdateWidgetSelected(evt);	
+									}
+								});
+						}
+						{
+							toolCancel = new ToolItem(toolBar1, SWT.NONE);
+							toolCancel.setText(Messages.getString("AccUIAddAccountDialog.2")); //$NON-NLS-1$
+							toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+							toolCancel
+								.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(
+										SelectionEvent evt) {
+									   dialogShell.close();   	
+									
+									}
+								});
+						}
+					}
+				}
+			}
+			compAccountCard = new AccUIAddAccounts(dialogShell, SWT.NULL);
+
+			
+
+			GridData compAccountCardLData = new GridData();
+			compAccountCardLData.widthHint = 452;
+			compAccountCardLData.heightHint = 125;
+			compAccountCard.setLayoutData(compAccountCardLData);
+			compAccountCard.getTxtParentAccount().setBounds(101, 92, 234, 23);
+			compAccountCard.layout();
+
+			
+			
+	
 			postInitGUI();
+			dialogShell.layout();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {
@@ -206,8 +193,6 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog {
 				toolSave.setEnabled(true);
 		}
 
-		compAccountCard.getTxtAccAccountCode()
-				.setText(account.getAccountCode()+".");
 		compAccountCard.getTxtParentAccount().setText(
 				account.getAccountCode());
 		

@@ -50,8 +50,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 	        List ls = blProfit.getTransactionTotals(0,invCard,DatePicker.formatter.parse("1/1/2004"),DatePicker.formatter.parse("12/12/2004"));
 	        
 	        for(int i = 0; i<ls.size();i++){
-	           System.out.println(ls.get(i));
-	            
+	           System.out.println(ls.get(i));	            
 	            
 	        }
 	        

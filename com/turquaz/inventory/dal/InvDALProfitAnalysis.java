@@ -19,9 +19,10 @@ public class InvDALProfitAnalysis {
         try{
            
             Session session = EngDALSessionFactory.openSession();
-            String query = "select avg(invTrans.transactionsUnitPrice * invTrans.transactionsAmountIn) from TurqInventoryTransaction as invTrans" +
-            		" where invTrans.transactionsAmountIn <> 0 group by invTrans.turqInventoryCard";
-            
+            String query = "select invCard,totalsIn,totalsOut from  TurqInventoryCard as invCard " +
+            		"left outer join TurqViewInventoryTotalsOut as totalsOut on invCard.inventoryCardsId = totalsOut.inventoryCardsId " +
+            		"left outer join TurqViewInventoryTotalsIn as totalsIn on invCard.inventoryCardsId = totalsIn.inventoryCardsId ";
+
             
             Query q = session.createQuery(query);
           //  q.setParameter("startDate",startDate);

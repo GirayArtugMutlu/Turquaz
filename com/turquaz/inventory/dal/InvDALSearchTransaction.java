@@ -36,8 +36,6 @@ import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryTransaction;
-
 public class InvDALSearchTransaction {
 	public InvDALSearchTransaction() {
 

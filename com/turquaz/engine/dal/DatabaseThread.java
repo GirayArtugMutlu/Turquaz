@@ -28,7 +28,7 @@ import org.hsqldb.Server;
 
 public class DatabaseThread extends Thread {
 
-/*	public void run() {
+	/*public void run() {
 
 		String[] args = { "-database", "database/turquaz", "-port",
 				String.valueOf(8877), "-no_system_exit", "true" };

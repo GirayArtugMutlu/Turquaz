@@ -63,7 +63,9 @@
 <mapping resource="com/turquaz/engine/dal/TurqBillConsignmentCommon.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqViewInventoryAmountTotal.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqViewCurrentAmountTotal.hbm.xml"/>	
-<mapping resource="com/turquaz/engine/dal/TurqViewAccTransTotalAmount.hbm.xml"/>											
+<mapping resource="com/turquaz/engine/dal/TurqViewAccTransTotalAmount.hbm.xml"/>
+<mapping resource="com/turquaz/engine/dal/TurqViewInventoryTotalsIn.hbm.xml"/>	
+<mapping resource="com/turquaz/engine/dal/TurqViewInventoryTotalsOut.hbm.xml"/>											
         
 
     </session-factory>
