@@ -114,7 +114,7 @@ public class InvDALSearchTransaction {
 					" transaction.turqInventoryCard.cardInventoryCode, " +
 					" transaction.turqInventoryCard.cardName," +
 					" consignment.turqBillConsignmentCommon.turqCurrentCard.cardsName," +
-					" transaction.turqInventoryCard.inventoryCardsId," +
+					" transaction.turqInventoryCard.id," +
 					" consignment.turqBillConsignmentCommon.billDocumentNo " +
 					"  from TurqInventoryTransaction as transaction," +
 					" TurqConsignment as consignment where" +
@@ -190,7 +190,7 @@ public class InvDALSearchTransaction {
 					" transaction.turqInventoryCard.cardInventoryCode, " +
 					" transaction.turqInventoryCard.cardName," +
 					" consignment.turqBillConsignmentCommon.turqCurrentCard.cardsName," +
-					" transaction.turqInventoryCard.inventoryCardsId," +
+					" transaction.turqInventoryCard.id," +
 					" consignment.turqBillConsignmentCommon.billDocumentNo";
 			if (invMainGroup != null)
 			{

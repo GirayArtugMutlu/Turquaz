@@ -26,17 +26,17 @@ public class InvDALInventoryLedger {
            
            Statement stmt = session.connection().createStatement();
            
-           String query ="SELECT trans.card_inventory_code,trans.card_name, transin.totalamountin AS total_amount_in, transin.totalpricein AS total_price_in, transout.totalamountout AS total_amount_out " +
-           		" FROM turq_inventory_cards trans " +
+           String query ="SELECT invCard.card_inventory_code,invCard.card_name, transin.totalamountin AS total_amount_in, transin.totalpricein AS total_price_in, transout.totalamountout AS total_amount_out " +
+           		" FROM turq_inventory_cards invCard " +
            		" LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id, sum(turq_inventory_transactions.transactions_total_price) AS totalpricein, sum(turq_inventory_transactions.transactions_amount_in) AS totalamountin " +
            		" FROM turq_inventory_transactions " +
            		" WHERE turq_inventory_transactions.transactions_amount_in <> 0 and turq_inventory_transactions.transactions_date <= '"+date_str+"' " +
-           		" GROUP BY turq_inventory_transactions.inventory_cards_id) transin ON trans.inventory_cards_id = transin.inventory_cards_id " +
+           		" GROUP BY turq_inventory_transactions.inventory_cards_id) transin ON invCard.id = transin.inventory_cards_id " +
            		" LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id, sum(turq_inventory_transactions.transactions_total_price) AS totalpriceout, sum(turq_inventory_transactions.transactions_total_amount_out) AS totalamountout " +
            		" FROM turq_inventory_transactions " +
            		" WHERE turq_inventory_transactions.transactions_total_amount_out <> 0 and turq_inventory_transactions.transactions_date <=  '"+date_str+"' "  +
-           		" GROUP BY turq_inventory_transactions.inventory_cards_id) transout ON trans.inventory_cards_id = transout.inventory_cards_id" +
-           		" WHERE trans.card_inventory_code like '%"+invCode+"%'" ;
+           		" GROUP BY turq_inventory_transactions.inventory_cards_id) transout ON invCard.id = transout.inventory_cards_id" +
+           		" WHERE invCard.card_inventory_code like '%"+invCode+"%'" ;
            
           ResultSet rs = stmt.executeQuery(query);
           Object [] result;
