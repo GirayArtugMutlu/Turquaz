@@ -33,6 +33,24 @@ import com.turquaz.engine.ui.component.SecureComposite;
 */
 public class AccUIAddAccounts extends SecureComposite{
 
+	/**
+	 * @return Returns the txtAccAccountCode.
+	 */
+	public Text getTxtAccAccountCode() {
+		return txtAccAccountCode;
+	}
+	/**
+	 * @return Returns the txtAccAcountName.
+	 */
+	public Text getTxtAccAcountName() {
+		return txtAccAcountName;
+	}
+	/**
+	 * @return Returns the txtParentAccount.
+	 */
+	public TextWithButton getTxtParentAccount() {
+		return txtParentAccount;
+	}
 	private TextWithButton txtParentAccount;
 	private AccBLAccountAdd blAccountAdd = new AccBLAccountAdd();
 	private CLabel cLabel2;
@@ -60,7 +78,7 @@ public class AccUIAddAccounts extends SecureComposite{
 			cLabel2 = new CLabel(this,SWT.NULL);
 			txtParentAccount = new TextWithButton(this,SWT.NULL);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(544,343));
+			this.setSize(new org.eclipse.swt.graphics.Point(411,183));
 	
 			GridData label1LData = new GridData();
 			label1LData.verticalAlignment = GridData.CENTER;
@@ -79,15 +97,15 @@ public class AccUIAddAccounts extends SecureComposite{
 			GridData txtAccAcountNameLData = new GridData();
 			txtAccAcountNameLData.verticalAlignment = GridData.CENTER;
 			txtAccAcountNameLData.horizontalAlignment = GridData.BEGINNING;
-			txtAccAcountNameLData.widthHint = 143;
-			txtAccAcountNameLData.heightHint = 19;
+			txtAccAcountNameLData.widthHint = 256;
+			txtAccAcountNameLData.heightHint = 17;
 			txtAccAcountNameLData.horizontalIndent = 0;
 			txtAccAcountNameLData.horizontalSpan = 1;
 			txtAccAcountNameLData.verticalSpan = 1;
 			txtAccAcountNameLData.grabExcessHorizontalSpace = false;
 			txtAccAcountNameLData.grabExcessVerticalSpace = false;
 			txtAccAcountName.setLayoutData(txtAccAcountNameLData);
-			txtAccAcountName.setSize(new org.eclipse.swt.graphics.Point(143,19));
+			txtAccAcountName.setSize(new org.eclipse.swt.graphics.Point(256,17));
 	
 			GridData cLabel1LData = new GridData();
 			cLabel1LData.verticalAlignment = GridData.CENTER;
@@ -106,7 +124,7 @@ public class AccUIAddAccounts extends SecureComposite{
 			GridData txtAccAccountCodeLData = new GridData();
 			txtAccAccountCodeLData.verticalAlignment = GridData.CENTER;
 			txtAccAccountCodeLData.horizontalAlignment = GridData.BEGINNING;
-			txtAccAccountCodeLData.widthHint = 144;
+			txtAccAccountCodeLData.widthHint = 255;
 			txtAccAccountCodeLData.heightHint = 17;
 			txtAccAccountCodeLData.horizontalIndent = 0;
 			txtAccAccountCodeLData.horizontalSpan = 1;
@@ -114,7 +132,7 @@ public class AccUIAddAccounts extends SecureComposite{
 			txtAccAccountCodeLData.grabExcessHorizontalSpace = false;
 			txtAccAccountCodeLData.grabExcessVerticalSpace = false;
 			txtAccAccountCode.setLayoutData(txtAccAccountCodeLData);
-			txtAccAccountCode.setSize(new org.eclipse.swt.graphics.Point(144,17));
+			txtAccAccountCode.setSize(new org.eclipse.swt.graphics.Point(255,17));
 			final Color txtAccAccountCodebackground = new Color(Display.getDefault(),255,255,255);
 			txtAccAccountCode.setBackground(txtAccAccountCodebackground);
 	
@@ -132,8 +150,15 @@ public class AccUIAddAccounts extends SecureComposite{
 			cLabel2.setText("Parent Account");
 	
 			GridData txtParentAccountLData = new GridData();
+			txtParentAccountLData.verticalAlignment = GridData.CENTER;
+			txtParentAccountLData.horizontalAlignment = GridData.BEGINNING;
 			txtParentAccountLData.widthHint = 147;
 			txtParentAccountLData.heightHint = 17;
+			txtParentAccountLData.horizontalIndent = 0;
+			txtParentAccountLData.horizontalSpan = 1;
+			txtParentAccountLData.verticalSpan = 1;
+			txtParentAccountLData.grabExcessHorizontalSpace = false;
+			txtParentAccountLData.grabExcessVerticalSpace = false;
 			txtParentAccount.setLayoutData(txtParentAccountLData);
 			txtParentAccount.setSize(new org.eclipse.swt.graphics.Point(147,17));
 			txtParentAccount.setEnabled(true);
@@ -262,7 +287,7 @@ public class AccUIAddAccounts extends SecureComposite{
 			Shell shell = new Shell(display);
 			AccUIAddAccounts inst = new AccUIAddAccounts(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0,0,544,343);
+			Rectangle shellBounds = shell.computeTrim(0,0,411,183);
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.open();
 			while (!shell.isDisposed()) {

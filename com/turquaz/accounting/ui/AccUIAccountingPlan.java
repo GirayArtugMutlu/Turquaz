@@ -18,6 +18,8 @@ import org.eclipse.swt.custom.TableTreeItem;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.accounting.bl.AccBLAccountAdd;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
 /**
@@ -44,7 +46,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite {
 		try {
 			preInitGUI();
 	
-			tableTreeAccountingPlan = new TableTree(this,SWT.MULTI| SWT.FULL_SELECTION);
+			tableTreeAccountingPlan = new TableTree(this,SWT.FULL_SELECTION);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(468,276));
 			final Color AccUIAccountingPlanbackground = new Color(Display.getDefault(),128,128,255);
@@ -88,6 +90,13 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	tableTreeAccountingPlan.getTable().addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					tableTreeAccountingPlanMouseDoubleClick(evt);
+				}
+			});
+	
+	
 	tableTreeAccountingPlan.getTable().setLinesVisible(true);
 	tableTreeAccountingPlan.getTable().setHeaderVisible(true);
 
@@ -101,10 +110,13 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite {
 	fillTree(-1,"");
 	}
 	
-
-
-	public void fillTree(int parent, String codeCrit){
-	try{	
+			
+/**
+*
+**/	
+public void fillTree(int parent, String codeCrit){
+	try{
+	tableTreeAccountingPlan.removeAll();	
 	TableTreeItem item;
 	List mainBranches = blAccount.getAccount(parent, codeCrit);
 	TurqAccountingAccount account;
@@ -127,6 +139,10 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite {
 	
 	
 	}
+	
+	/**
+	**
+	**/
 	public void fillBranch(TableTreeItem parentItem, int parent_id, String codeCriteria){
 		try{
 			
@@ -149,6 +165,27 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite {
 		catch(Exception ex){
 			ex.printStackTrace();
 		}
+		
+	}
+
+	/** Auto-generated event handler method */
+	protected void tableTreeAccountingPlanMouseDoubleClick(MouseEvent evt){
+		TableTreeItem items[] = tableTreeAccountingPlan.getSelection();
+		
+		if(items.length>0){
+		TurqAccountingAccount account =(TurqAccountingAccount)items[0].getData();
+	
+		// it's not an main account
+		// main accounts cannot be edited
+		if(account.getTurqAccountingAccount().getAccountingAccountsId().intValue()!=-1){
+		
+		new AccUIAccountUpdate(this.getShell(),SWT.NULL,account).open();
+		fillTree(-1,"");	
+		}
+				
+		}
+		
+		
 		
 	}
 }
