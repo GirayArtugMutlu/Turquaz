@@ -711,7 +711,7 @@ public final class TreeFactory {
 	    }
 		if(EngBLPermissions.getPermission(CheUIChequeCollectFromBank.class.getName())>0){
 			item = new TreeItem(root,SWT.NULL);
-			item.setText("Bankdana Çek Tahsilat?");   
+			item.setText(Messages.getString("TreeFactory.103"));    //$NON-NLS-1$
 			item.setData(CheUIChequeCollectFromBank.class.getName());
 	    }
 		
