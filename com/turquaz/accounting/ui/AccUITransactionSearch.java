@@ -339,12 +339,12 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 		}
 	   
 	   if(status ==2){
-	       msg.setMessage("Bu fi? baska bir modülden girilmi?.\n Bu ekrandan silemezsiniz!");
+	       msg.setMessage(Messages.getString("AccUITransactionSearch.6")); //$NON-NLS-1$
 	       msg.open();
 	       return;
 	   }
 	   if(status==1){
-	       msg.setMessage("Bu fi?in yevmiye kayd? yap?lm??. \n Art?k silinemez!");
+	       msg.setMessage(Messages.getString("AccUITransactionSearch.9")); //$NON-NLS-1$
 	       msg.open();
 	       return;
 	   }
@@ -353,11 +353,17 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 	
 		MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 		try {
-			msg2.setMessage("Silmek istedi?inize emin misiniz?");
+			msg2.setMessage(Messages.getString("AccUITransactionSearch.10")); //$NON-NLS-1$
 			int result = msg2.open();
 
 			if (result == SWT.OK) {
 			
+			    Iterator it = accTrans.getTurqAccountingTransactionColumns().iterator();
+			    while(it.hasNext()){
+			        EngBLCommon.delete(it.next());
+			    }
+			    EngBLCommon.delete(accTrans);
+			    
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 				msg.open();
 				search();
@@ -432,7 +438,7 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 	
 	}
 	public void printTable(){
-	    EngBLUtils.printTable(tableTransactions,"Muhasebe Fi?leri");
+	    EngBLUtils.printTable(tableTransactions,Messages.getString("AccUITransactionSearch.11")); //$NON-NLS-1$
 	    
 	}
 
