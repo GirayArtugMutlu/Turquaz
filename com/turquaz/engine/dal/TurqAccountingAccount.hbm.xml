@@ -66,12 +66,6 @@
         not-null="true"
         length="4"
     />
-    <property
-        name="accountingClassId"
-        type="int"
-        column="accounting_class_id"
-        length="4"
-    />
 
     <!-- Associations -->
   
