@@ -43,9 +43,7 @@ public class InvDALSearchTransaction {
 			Session session = EngDALSessionFactory.openSession();
 
 			String query = "Select transaction from TurqInventoryTransaction as transaction where"
-					+ " transaction.turqCompany.companiesId ="
-					+ System.getProperty("company")
-					+ " and transaction.turqConsignment.consignmentsDate >= :startDate"
+					+ " transaction.turqConsignment.consignmentsDate >= :startDate"
 					+ " and transaction.turqConsignment.consignmentsDate <= :endDate"
 					+ " and transaction.turqConsignment.consignmentsType ="
 					+ type + "";

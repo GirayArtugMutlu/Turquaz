@@ -153,11 +153,13 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 					lblStartDate.setLayoutData(lblStartDateLData);
 				}
 				{
-					dateEndDate = new DatePicker(compInvTransactionSearch, SWT.NONE);
-					GridData dateEndDateLData = new GridData();
-					dateEndDateLData.widthHint = 140;
-					dateEndDateLData.heightHint = 22;
-					dateEndDate.setLayoutData(dateEndDateLData);
+					dateStartDate = new DatePicker(
+						compInvTransactionSearch,
+						SWT.NONE);
+					GridData dateStartDateLData = new GridData();
+					dateStartDateLData.widthHint = 141;
+					dateStartDateLData.heightHint = 22;
+					dateStartDate.setLayoutData(dateStartDateLData);
 				}
 				{
 					lblEndDate = new CLabel(compInvTransactionSearch, SWT.NONE);
@@ -168,11 +170,13 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 					lblEndDate.setLayoutData(lblEndDateLData);
 				}
 				{
-					dateStartDate = new DatePicker(compInvTransactionSearch, SWT.NONE);
-					GridData dateStartDateLData = new GridData();
-					dateStartDateLData.widthHint = 141;
-					dateStartDateLData.heightHint = 22;
-					dateStartDate.setLayoutData(dateStartDateLData);
+					dateEndDate = new DatePicker(
+						compInvTransactionSearch,
+						SWT.NONE);
+					GridData dateEndDateLData = new GridData();
+					dateEndDateLData.widthHint = 140;
+					dateEndDateLData.heightHint = 22;
+					dateEndDate.setLayoutData(dateEndDateLData);
 				}
 				{
 					lblType = new CLabel(compInvTransactionSearch, SWT.NONE);
