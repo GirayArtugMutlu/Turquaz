@@ -30,19 +30,23 @@ public class TurqAccountingTransactionColumn implements Serializable {
     private java.lang.String updatedBy;
 
     /** persistent field */
+    private java.lang.String transactionDefinition;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction;
 
     /** full constructor */
-    public TurqAccountingTransactionColumn(java.math.BigDecimal deptAmount, java.math.BigDecimal creditAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction) {
+    public TurqAccountingTransactionColumn(java.math.BigDecimal deptAmount, java.math.BigDecimal creditAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, java.lang.String transactionDefinition, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction) {
         this.deptAmount = deptAmount;
         this.creditAmount = creditAmount;
         this.creationDate = creationDate;
         this.createdBy = createdBy;
         this.lastModified = lastModified;
         this.updatedBy = updatedBy;
+        this.transactionDefinition = transactionDefinition;
         this.turqAccountingAccount = turqAccountingAccount;
         this.turqAccountingTransaction = turqAccountingTransaction;
     }
@@ -105,6 +109,14 @@ public class TurqAccountingTransactionColumn implements Serializable {
 
     public void setUpdatedBy(java.lang.String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public java.lang.String getTransactionDefinition() {
+        return this.transactionDefinition;
+    }
+
+    public void setTransactionDefinition(java.lang.String transactionDefinition) {
+        this.transactionDefinition = transactionDefinition;
     }
 
     public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccount() {

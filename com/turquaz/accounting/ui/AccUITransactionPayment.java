@@ -82,6 +82,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	private CLabel lblDate;
 	private CLabel lblCreditor;
 	private Text txtDefinition;
+	private TableColumn tableColumnDefinition;
 	private TableItem item;
 	private CLabel lblDefinition;
 	private TableColumn tableColumnDeptAmount;
@@ -268,6 +269,13 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 					tableColumnDeptAmount.setText(Messages
 						.getString("AccUITransactionPayment.7")); //$NON-NLS-1$
 					tableColumnDeptAmount.setWidth(100);
+				}
+				{
+					tableColumnDefinition = new TableColumn(
+						tableTransactionRows,
+						SWT.NONE);
+					tableColumnDefinition.setText("Aç?klama");
+					tableColumnDefinition.setWidth(150);
 				}
 			}
 			thisLayout.numColumns = 4;
@@ -496,7 +504,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 				.getAccountCode(),
 			accTransRow.getTurqAccountingAccount()
 				.getAccountName(),
-			accTransRow.getDeptAmount().toString() });
+			accTransRow.getDeptAmount().toString(),accTransRow.getTransactionDefinition().toString() });
 	}
 	
 	}

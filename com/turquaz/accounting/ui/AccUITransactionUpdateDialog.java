@@ -233,7 +233,7 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	item.setText(new String[]{transRow.getTurqAccountingAccount().getAccountCode(),
 				transRow.getTurqAccountingAccount().getAccountName(),
 				transRow.getCreditAmount().toString(),
-				transRow.getDeptAmount().toString()});
+				transRow.getDeptAmount().toString(),transRow.getTransactionDefinition().toString()});
 	
 	
 	}

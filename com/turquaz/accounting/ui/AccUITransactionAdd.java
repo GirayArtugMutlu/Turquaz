@@ -107,6 +107,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	BigDecimal totalCredit ;
 	private CLabel lblDate;
 	private DatePicker dateTransactionDate;
+	private TableColumn tableColumnDefinition;
 	private CLabel lblTotalDebit;
 	private Text txtTransDefinition;
 	private CLabel lblTransactionDefinition;
@@ -297,6 +298,13 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 					tableColumnCredit.setText(Messages
 						.getString("AccUITransactionAdd.6")); //$NON-NLS-1$
 					tableColumnCredit.setWidth(97);
+				}
+				{
+					tableColumnDefinition = new TableColumn(
+						tableTransactionColumns,
+						SWT.NONE);
+					tableColumnDefinition.setText(Messages.getString("AccUITransactionAdd.3")); //$NON-NLS-1$
+					tableColumnDefinition.setWidth(150);
 				}
 			}
 			{
@@ -499,7 +507,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	item.setText(new String[]{accTransRow.getTurqAccountingAccount().getAccountCode(),
 							 accTransRow.getTurqAccountingAccount().getAccountName(),
 							 accTransRow.getDeptAmount().toString(),
-							accTransRow.getCreditAmount().toString()});
+							accTransRow.getCreditAmount().toString(),accTransRow.getTransactionDefinition().toString()});
 	
 	calculateTotalDeptAndCredit();
 	

@@ -48,6 +48,7 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.SWT;
 
+import org.eclipse.swt.widgets.Text;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -66,6 +67,8 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 	private Button btnOk;
 	private Button btnCancel;
 	private DecimalText decTextAmount;
+	private CLabel lblTransactionDefinition;
+	private Text txtTransactionDefinition;
 	private CLabel lblAmount;
 	private CLabel lbDeptOrCredit;
 	private Composite composite1;
@@ -99,6 +102,15 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
                     SWTResourceManager.registerResourceUser(dialogShell);
                 }
 
+                dialogShell.setSize(369, 213);
+                GridLayout dialogShellLayout = new GridLayout(2, true);
+    			dialogShell.setLayout(dialogShellLayout);
+    			dialogShellLayout.marginWidth = 5;
+    			dialogShellLayout.marginHeight = 5;
+    			dialogShellLayout.numColumns = 2;
+    			dialogShellLayout.makeColumnsEqualWidth = false;
+    			dialogShellLayout.horizontalSpacing = 5;
+    			dialogShellLayout.verticalSpacing = 5;
 			dialogShell.setText(getText());
 			lblAccount = new CLabel(dialogShell,SWT.NULL);
 			accountPicker = new AccountPicker(dialogShell,SWT.NULL);
@@ -107,7 +119,7 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			lblAmount = new CLabel(dialogShell,SWT.NULL);
 			decTextAmount = new DecimalText(dialogShell,SWT.NULL);
 
-			dialogShell.setSize(363, 177);
+			
 	
 			GridData lblAccountLData = new GridData();
 			lblAccountLData.widthHint = 59;
@@ -160,9 +172,21 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			decTextAmountLData.grabExcessVerticalSpace = false;
 			decTextAmount.setLayoutData(decTextAmountLData);
 			decTextAmount.setSize(new org.eclipse.swt.graphics.Point(154,18));
+			{
+				lblTransactionDefinition = new CLabel(dialogShell, SWT.NONE);
+				lblTransactionDefinition.setText(Messages.getString("AccUITransactionRowAddDialog.2")); //$NON-NLS-1$
+			}
+			{
+				txtTransactionDefinition = new Text(dialogShell, SWT.MULTI | SWT.V_SCROLL);
+				GridData txtTransactionDefinitionLData = new GridData();
+				txtTransactionDefinition.setTextLimit(250);
+				txtTransactionDefinitionLData.heightHint = 22;
+				txtTransactionDefinitionLData.horizontalAlignment = GridData.FILL;
+				txtTransactionDefinition.setLayoutData(txtTransactionDefinitionLData);
+			}
             {
                 label1 = new Label(dialogShell, SWT.SEPARATOR | SWT.HORIZONTAL);
-                label1.setText("label1");
+                label1.setText("label1"); //$NON-NLS-1$
                 GridData label1LData = new GridData();
                 label1LData.horizontalSpan = 2;
                 label1LData.horizontalAlignment = GridData.FILL;
@@ -185,18 +209,17 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					btnOk = new Button(composite1, SWT.PUSH | SWT.CENTER);
 					GridData btnOkLData = new GridData();
-					btnOk.setImage(SWTResourceManager
-						.getImage("icons/Ok24.gif"));
-					btnOk.setSize(60, 31);
+					
 					btnOkLData.horizontalAlignment = GridData.END;
 					btnOkLData.verticalSpan = 2;
 					btnOkLData.grabExcessHorizontalSpace = true;
 					btnOkLData.grabExcessVerticalSpace = true;
-					btnOkLData.widthHint = 60;
-					btnOkLData.heightHint = 31;
+					btnOkLData.widthHint = 62;
+					btnOkLData.heightHint = 34;
 					btnOk.setLayoutData(btnOkLData);
 					btnOk.setText(Messages
 						.getString("AccUITransactionRowAddDialog.5")); //$NON-NLS-1$
+					btnOk.setImage(SWTResourceManager.getImage("icons/Ok24.gif")); //$NON-NLS-1$
 					btnOk.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
 							btnOkMouseUp(evt);
@@ -206,13 +229,14 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
                 {
                     btnCancel = new Button(composite1, SWT.PUSH | SWT.CENTER);
                     GridData btnCancelLData = new GridData();
-                    btnCancel.setImage(SWTResourceManager.getImage("icons/Cancel24.gif"));
-                    btnCancelLData.widthHint = 60;
-                    btnCancelLData.heightHint = 31;
+                   
+                    btnCancelLData.widthHint = 61;
+                    btnCancelLData.heightHint = 33;
                     btnCancelLData.verticalSpan = 2;
                     btnCancelLData.grabExcessVerticalSpace = true;
                     btnCancel.setLayoutData(btnCancelLData);
                     btnCancel.setText(Messages.getString("AccUITransactionRowAddDialog.4")); //$NON-NLS-1$
+                    btnCancel.setImage(SWTResourceManager.getImage("icons/Cancel24.gif")); //$NON-NLS-1$
                     btnCancel.addMouseListener(new MouseAdapter() {
                         public void mouseUp(MouseEvent evt) {
                             btnCancelMouseUp(evt);
@@ -220,22 +244,15 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
                     });
                 }
             }
-			GridLayout dialogShellLayout = new GridLayout(2, true);
-			dialogShell.setLayout(dialogShellLayout);
-			dialogShellLayout.marginWidth = 5;
-			dialogShellLayout.marginHeight = 5;
-			dialogShellLayout.numColumns = 2;
-			dialogShellLayout.makeColumnsEqualWidth = false;
-			dialogShellLayout.horizontalSpacing = 5;
-			dialogShellLayout.verticalSpacing = 5;
-			dialogShell.layout();
+			
+			
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
 				}
 			});
-			Rectangle bounds = dialogShell.computeTrim(0, 0, 354,143);
-			dialogShell.setSize(bounds.width, bounds.height);
+			
 			postInitGUI();
+			dialogShell.layout();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {
@@ -312,7 +329,7 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 	transactionRow = new TurqAccountingTransactionColumn();
 	
 	transactionRow.setTurqAccountingAccount((TurqAccountingAccount)accountPicker.getData());	
-	
+	transactionRow.setTransactionDefinition(txtTransactionDefinition.getText().trim());
 	if(comboDeptOrCredit.getText().equals(Messages.getString("AccUITransactionRowAddDialog.6"))){ //$NON-NLS-1$
 	transactionRow.setCreditAmount(new BigDecimal(0));
     transactionRow.setDeptAmount(decTextAmount.getBigDecimalValue());

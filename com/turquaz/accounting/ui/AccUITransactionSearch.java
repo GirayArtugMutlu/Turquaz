@@ -87,6 +87,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 	private CLabel lblStartDate;
 	private CCombo comboTransType;
 	private CLabel lblTransactionType;
+	private TableColumn tableColumnDefinition;
 	private Text txtDocumentNo;
 	private CLabel lblDocumentNo;
 	private Table tableTransactions;
@@ -241,6 +242,13 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 	
 			tableColumnTotalAmount.setText(Messages.getString("AccUITransactionSearch.8")); //$NON-NLS-1$
 			tableColumnTotalAmount.setWidth(118);
+			{
+				tableColumnDefinition = new TableColumn(
+					tableTransactions,
+					SWT.NONE);
+				tableColumnDefinition.setText("Aç?klama");
+				tableColumnDefinition.setWidth(150);
+			}
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
@@ -325,7 +333,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 	
 	String transDate =formatter.format(accTrans.getTransactionsDate());
 	item.setText(new String[]{accTrans.getTurqAccountingTransactionType().getTypesName(),
-					accTrans.getTransactionDocumentNo(),transDate});
+					accTrans.getTransactionDocumentNo(),transDate,"Cemcim selamlar",accTrans.getTransactionDescription()});
 	
 	}
 	
