@@ -70,7 +70,7 @@
    <mapping resource="com/turquaz/engine/dal/TurqCashTransactionType.hbm.xml"/>       
      <mapping resource="com/turquaz/engine/dal/TurqCashTransactionRow.hbm.xml"/>  
    <mapping resource="com/turquaz/engine/dal/TurqViewChequeStatus.hbm.xml"/> 
-
+ <mapping resource="com/turquaz/engine/dal/TurqChequeRollAccountingAccount.hbm.xml"/> 
     </session-factory>
 
 </hibernate-configuration>

@@ -32,13 +32,6 @@
         length="65535"
     />
     <property
-        name="creditAmount"
-        type="java.math.BigDecimal"
-        column="credit_amount"
-        not-null="true"
-        length="65535"
-    />
-    <property
         name="createdBy"
         type="java.lang.String"
         column="created_by"
@@ -66,6 +59,13 @@
         not-null="true"
         length="4"
     />
+    <property
+        name="creditAmount"
+        type="java.math.BigDecimal"
+        column="credit_amount"
+        not-null="true"
+        length="65535"
+    />
 
     <!-- Associations -->
   
@@ -76,14 +76,6 @@
         not-null="true"
     >
         <column name="bank_transactions_bills_id" />
-    </many-to-one>
-    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
-    <many-to-one
-        name="turqAccountingAccount"
-        class="com.turquaz.engine.dal.TurqAccountingAccount"
-        not-null="true"
-    >
-        <column name="accounting_accounts_id" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqBanksCard -->
     <many-to-one

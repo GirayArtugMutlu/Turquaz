@@ -98,6 +98,8 @@ public class EngBLCommon {
     
     public final static int BANK_TRANS_BETWEEN_BANKS = 7; //Virman
     
+    public final static int BANK_TRANS_CHEQUE_DEPOSIT = 8; //Banka Cek girisi
+    
     
     
     public final static int MODULE_INVENTORY = 0;  //Stok Modulu

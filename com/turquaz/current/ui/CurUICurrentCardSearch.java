@@ -42,6 +42,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.current.ui.comp.CurrentCodePicker;
+import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
@@ -81,9 +82,18 @@ import org.eclipse.swt.events.KeyEvent;
 */
 public class CurUICurrentCardSearch extends  Composite implements SearchComposite {
 
+    {
+        //Register as a resource user - SWTResourceManager will
+        //handle the obtaining and disposing of resources
+        SWTResourceManager.registerResourceUser(this);
+    }
+
+
 	private CurBLCurrentCardSearch curBLCurrentCardSearch=new CurBLCurrentCardSearch();
-	private TableColumn tableColumnBalance;
+	private MenuItem item;
+	private Menu popup;
 	private TableColumn tableColumnContactName;
+	private TableColumn tableColumnBalance;
 	private TableColumn tableColumnTotalDept;
 	private TableColumn tableColumnTotalCredit;
 	private TableColumn tableColumnCurrentName;
@@ -99,8 +109,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 	private EngBLCommon engBLCom=new EngBLCommon();
 	private CurBLCurrentCardUpdate blUpdate = new CurBLCurrentCardUpdate();
 	private CurBLCurrentCardSearch currentSearch=new CurBLCurrentCardSearch();
-	Menu popup;
-	
+
 	public CurUICurrentCardSearch(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -114,135 +123,144 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 		try {
 			preInitGUI();
 
-			this.setSize(552, 317);
+			this.setSize(834, 510);
 
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
-			{
-				compCurrentCardSearch = new Composite(this, SWT.NONE);
-				GridLayout compCurrentCardSearchLayout = new GridLayout();
-				compCurrentCardSearchLayout.numColumns = 2;
-				GridData compCurrentCardSearchLData = new GridData();
-				compCurrentCardSearch.setLayout(compCurrentCardSearchLayout);
-				compCurrentCardSearchLData.widthHint = 380;
-				compCurrentCardSearchLData.heightHint = 90;
-				compCurrentCardSearch.setLayoutData(compCurrentCardSearchLData);
-				{
-					lblCurrentCode = new CLabel(compCurrentCardSearch, SWT.NONE);
-					lblCurrentCode.setText(Messages
-						.getString("CurUICurrentCardSearch.0"));
-					GridData lblCurrentCodeLData = new GridData();
-					lblCurrentCode.setLayoutData(lblCurrentCodeLData);
-				}
-				{
-					txtCurrentCode = new CurrentCodePicker(compCurrentCardSearch, SWT.NONE);
-					GridData txtCurrentCodeLData = new GridData();
-					txtCurrentCodeLData.widthHint = 238;
-					txtCurrentCodeLData.heightHint = 16;
-					txtCurrentCode.setLayoutData(txtCurrentCodeLData);
-				}
-				{
-					lblCurrentName = new CLabel(compCurrentCardSearch, SWT.NONE);
-					lblCurrentName.setText(Messages
-						.getString("CurUICurrentCardSearch.1"));
-					GridData lblCurrentNameLData = new GridData();
-					lblCurrentName.setLayoutData(lblCurrentNameLData);
-				}
-				{
-					txtCurrentName = new Text(compCurrentCardSearch, SWT.NONE);
-					GridData txtCurrentNameLData = new GridData();
-					txtCurrentName.addKeyListener(new KeyAdapter() {
-						public void keyReleased(KeyEvent evt) {
-							if (evt.keyCode == SWT.CR)
-								search();
-						}
-					});
-					txtCurrentNameLData.widthHint = 238;
-					txtCurrentNameLData.heightHint = 19;
-					txtCurrentName.setLayoutData(txtCurrentNameLData);
-				}
-				{
-					lblTurqGroupName = new CLabel(compCurrentCardSearch, SWT.NONE);
-					lblTurqGroupName.setText(Messages
-						.getString("CurUICurrentCardSearch.2"));
-					GridData lblTurqGroupNameLData = new GridData();
-					lblTurqGroupNameLData.widthHint = 91;
-					lblTurqGroupNameLData.heightHint = 21;
-					lblTurqGroupName.setLayoutData(lblTurqGroupNameLData);
-					lblTurqGroupName.setSize(91,21);
-				}
-				{
-					comboTurqGroupName = new CCombo(compCurrentCardSearch, SWT.NONE);
-					GridData comboTurqGroupNameLData = new GridData();
-					comboTurqGroupNameLData.widthHint = 221;
-					comboTurqGroupNameLData.heightHint = 14;
+            //START >>  compCurrentCardSearch
+            compCurrentCardSearch = new Composite(this, SWT.NONE);
+            GridLayout compCurrentCardSearchLayout = new GridLayout();
+            compCurrentCardSearchLayout.numColumns = 2;
+            GridData compCurrentCardSearchLData = new GridData();
+            compCurrentCardSearch.setLayout(compCurrentCardSearchLayout);
+            compCurrentCardSearchLData.widthHint = 380;
+            compCurrentCardSearchLData.heightHint = 90;
+            compCurrentCardSearch.setLayoutData(compCurrentCardSearchLData);
+            //START >>  lblCurrentCode
+            lblCurrentCode = new CLabel(compCurrentCardSearch, SWT.NONE);
+            lblCurrentCode.setText(Messages
+                .getString("CurUICurrentCardSearch.0"));
+            GridData lblCurrentCodeLData = new GridData();
+            lblCurrentCode.setLayoutData(lblCurrentCodeLData);
+            //END <<  lblCurrentCode
+            //START >>  txtCurrentCode
+            txtCurrentCode = new CurrentCodePicker(
+                compCurrentCardSearch,
+                SWT.NONE);
+            GridData txtCurrentCodeLData = new GridData();
+            txtCurrentCodeLData.widthHint = 238;
+            txtCurrentCodeLData.heightHint = 16;
+            txtCurrentCode.setLayoutData(txtCurrentCodeLData);
+            //END <<  txtCurrentCode
+            //START >>  lblCurrentName
+            lblCurrentName = new CLabel(compCurrentCardSearch, SWT.NONE);
+            lblCurrentName.setText(Messages
+                .getString("CurUICurrentCardSearch.1"));
+            GridData lblCurrentNameLData = new GridData();
+            lblCurrentName.setLayoutData(lblCurrentNameLData);
+            //END <<  lblCurrentName
+            //START >>  txtCurrentName
+            txtCurrentName = new Text(compCurrentCardSearch, SWT.NONE);
+            GridData txtCurrentNameLData = new GridData();
+            txtCurrentName.addKeyListener(new KeyAdapter() {
+                public void keyReleased(KeyEvent evt) {
+                    if (evt.keyCode == SWT.CR)
+                        search();
+                }
+            });
+            txtCurrentNameLData.widthHint = 238;
+            txtCurrentNameLData.heightHint = 19;
+            txtCurrentName.setLayoutData(txtCurrentNameLData);
+            //END <<  txtCurrentName
+            //START >>  lblTurqGroupName
+            lblTurqGroupName = new CLabel(compCurrentCardSearch, SWT.NONE);
+            lblTurqGroupName.setText(Messages
+                .getString("CurUICurrentCardSearch.2"));
+            GridData lblTurqGroupNameLData = new GridData();
+            lblTurqGroupNameLData.widthHint = 91;
+            lblTurqGroupNameLData.heightHint = 21;
+            lblTurqGroupName.setLayoutData(lblTurqGroupNameLData);
+            lblTurqGroupName.setSize(91, 21);
+            //END <<  lblTurqGroupName
+            //START >>  comboTurqGroupName
+            comboTurqGroupName = new CCombo(compCurrentCardSearch, SWT.NONE);
+            GridData comboTurqGroupNameLData = new GridData();
+            comboTurqGroupNameLData.widthHint = 221;
+            comboTurqGroupNameLData.heightHint = 14;
 
-					comboTurqGroupName.setLayoutData(comboTurqGroupNameLData);
-				}
-			}
-			{
-				tableCurrentCardSearch = new Table(this, SWT.FULL_SELECTION
-					| SWT.H_SCROLL);
-				tableCurrentCardSearch.setHeaderVisible(true);
-				tableCurrentCardSearch.setLinesVisible(true);
-				GridData tableCurrentCardSearchLData = new GridData();
-				tableCurrentCardSearch.addMouseListener(new MouseAdapter() {
-					public void mouseDoubleClick(MouseEvent evt) {
-						tableCurrentCardSearchMouseDoubleClick(evt);
-					}
-				});
-				tableCurrentCardSearchLData.verticalAlignment = GridData.FILL;
-				tableCurrentCardSearchLData.horizontalAlignment = GridData.FILL;
-				tableCurrentCardSearchLData.grabExcessHorizontalSpace = true;
-				tableCurrentCardSearchLData.grabExcessVerticalSpace = true;
-				tableCurrentCardSearch
-					.setLayoutData(tableCurrentCardSearchLData);
-				{
-					tableColumnCurrentCode = new TableColumn(
-						tableCurrentCardSearch,
-						SWT.NONE);
-					tableColumnCurrentCode.setText(Messages
-						.getString("CurUICurrentCardSearch.0"));
-					tableColumnCurrentCode.setWidth(120);
-				}
-				{
-					tableColumnCurrentName = new TableColumn(
-						tableCurrentCardSearch,
-						SWT.NONE);
-					tableColumnCurrentName.setText(Messages
-						.getString("CurUICurrentCardSearch.1"));
-					tableColumnCurrentName.setWidth(120);
-				}
-				{
-					tableColumnTotalCredit = new TableColumn(
-						tableCurrentCardSearch,
-						SWT.RIGHT);
-					tableColumnTotalCredit.setText("Toplam Borç");
-					tableColumnTotalCredit.setWidth(120);
-				}
-				{
-					tableColumnTotalDept = new TableColumn(
-						tableCurrentCardSearch,
-						SWT.RIGHT);
-					tableColumnTotalDept.setText("Toplam Alacak");
-					tableColumnTotalDept.setWidth(120);
-				}
-				{
-					tableColumnBalance = new TableColumn(
-						tableCurrentCardSearch,
-						SWT.RIGHT);
-					tableColumnBalance.setText("Bakiye");
-					tableColumnBalance.setWidth(120);
-				}
-				{
-					tableColumnContactName = new TableColumn(
-						tableCurrentCardSearch,
-						SWT.NONE);
-					tableColumnContactName.setText(Messages
-						.getString("CurUICurrentCardSearch.5"));
-					tableColumnContactName.setWidth(120);
-				}
-			}
+            comboTurqGroupName.setLayoutData(comboTurqGroupNameLData);
+            //END <<  comboTurqGroupName
+            //END <<  compCurrentCardSearch
+            //START >>  tableCurrentCardSearch
+            tableCurrentCardSearch = new Table(this, SWT.FULL_SELECTION | SWT.H_SCROLL);
+            tableCurrentCardSearch.setHeaderVisible(true);
+            tableCurrentCardSearch.setLinesVisible(true);
+            GridData tableCurrentCardSearchLData = new GridData();
+            tableCurrentCardSearch.addMouseListener(new MouseAdapter() {
+                public void mouseDoubleClick(MouseEvent evt) {
+                    tableCurrentCardSearchMouseDoubleClick(evt);
+                }
+            });
+            tableCurrentCardSearchLData.verticalAlignment = GridData.FILL;
+            tableCurrentCardSearchLData.horizontalAlignment = GridData.FILL;
+            tableCurrentCardSearchLData.grabExcessHorizontalSpace = true;
+            tableCurrentCardSearchLData.grabExcessVerticalSpace = true;
+            tableCurrentCardSearch.setLayoutData(tableCurrentCardSearchLData);
+            //START >>  tableColumnCurrentCode
+            tableColumnCurrentCode = new TableColumn(
+                tableCurrentCardSearch,
+                SWT.NONE);
+            tableColumnCurrentCode.setText(Messages
+                .getString("CurUICurrentCardSearch.0"));
+            tableColumnCurrentCode.setWidth(120);
+            //END <<  tableColumnCurrentCode
+            //START >>  tableColumnCurrentName
+            tableColumnCurrentName = new TableColumn(
+                tableCurrentCardSearch,
+                SWT.NONE);
+            tableColumnCurrentName.setText(Messages
+                .getString("CurUICurrentCardSearch.1"));
+            tableColumnCurrentName.setWidth(120);
+            //END <<  tableColumnCurrentName
+            //START >>  tableColumnTotalCredit
+            tableColumnTotalCredit = new TableColumn(
+                tableCurrentCardSearch,
+                SWT.RIGHT);
+            tableColumnTotalCredit.setText("Toplam Borç");
+            tableColumnTotalCredit.setWidth(120);
+            //END <<  tableColumnTotalCredit
+            //START >>  tableColumnTotalDept
+            tableColumnTotalDept = new TableColumn(
+                tableCurrentCardSearch,
+                SWT.RIGHT);
+            tableColumnTotalDept.setText("Toplam Alacak");
+            tableColumnTotalDept.setWidth(120);
+            //END <<  tableColumnTotalDept
+            //START >>  tableColumnBalance
+            tableColumnBalance = new TableColumn(
+                tableCurrentCardSearch,
+                SWT.RIGHT);
+            tableColumnBalance.setText("Bakiye");
+            tableColumnBalance.setWidth(80);
+            //END <<  tableColumnBalance
+            //START >>  tableColumnContactName
+            tableColumnContactName = new TableColumn(
+                tableCurrentCardSearch,
+                SWT.NONE);
+            tableColumnContactName.setText(Messages
+                .getString("CurUICurrentCardSearch.5"));
+            tableColumnContactName.setWidth(120);
+            //END <<  tableColumnContactName
+            //START >>  popup
+            popup = new Menu(tableCurrentCardSearch);
+            tableCurrentCardSearch.setMenu(popup);
+            //START >>  item
+            item = new MenuItem(popup, SWT.PUSH);
+            item.setText("Cari kart hareketlerini getir");
+            //END <<  item
+            //END <<  popup
+            //END <<  tableCurrentCardSearch
+          
 			thisLayout.marginWidth = 5;
 			thisLayout.marginHeight = 5;
 			thisLayout.numColumns = 1;
@@ -263,22 +281,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
 		try{
-			
-		     popup = new Menu(this.getShell(),SWT.POP_UP);
-		     MenuItem item = new MenuItem (popup, SWT.PUSH);
-			 item.setText("Cari kart hareketlerini getir");    	  
-			
-			 item.addListener(SWT.Selection, new Listener () {
-				public void handleEvent (Event e) {					
-					TableItem items[] = tableCurrentCardSearch.getSelection();
-					if (items.length > 0)
-					{
-						new CurUICurrentCardTransactions(getShell(),SWT.NULL,(TurqCurrentCard)items[0].getData()).open();
-					}
-					}
-			 });
-			 
-			tableCurrentCardSearch.setMenu(popup);
+
 			comboTurqGroupName.removeAll();
 			comboTurqGroupName.setText(""); //$NON-NLS-1$
 			List groups=engBLCom.getTurqCurrentGroups();

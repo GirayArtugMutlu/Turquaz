@@ -179,10 +179,10 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
                     tableColumnDebit.setWidth(106);
                 }
                 {
-                    tableColumnCredit = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
-                    tableColumnCredit.setText(Messages
-                        .getString("CurUITransactionSearch.8")); //$NON-NLS-1$
-                    tableColumnCredit.setWidth(101);
+                    tableColumnCredit = new TableColumn(tableCurrentTransactions, SWT.NONE);
+                    tableColumnCredit.setText(Messages.getString("CurUITransactionSearch.8")); //$NON-NLS-1$
+                    tableColumnCredit.setWidth(86);
+                    tableColumnCredit.setAlignment(131072);
                 }
             }
 			PostInit();

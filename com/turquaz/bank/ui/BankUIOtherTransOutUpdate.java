@@ -152,7 +152,6 @@ public class BankUIOtherTransOutUpdate extends org.eclipse.swt.widgets.Dialog {
 		           compCashTrans.getCurAmount().setText(bankTrans.getDeptAmount());          
 		           
 		       }
-		       compCashTrans.getCurrentPicker().setText( bankTrans.getTurqAccountingAccount().getAccountCode());
 		       
 		       
 		       

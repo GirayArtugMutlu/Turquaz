@@ -46,13 +46,6 @@
         length="250"
     />
     <property
-        name="dueDate"
-        type="java.sql.Date"
-        column="due_date"
-        not-null="true"
-        length="4"
-    />
-    <property
         name="consignmentsId"
         type="int"
         column="consignments_id"
@@ -98,6 +91,13 @@
         name="lastModified"
         type="java.sql.Date"
         column="last_modified"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="dueDate"
+        type="java.sql.Date"
+        column="due_date"
         not-null="true"
         length="4"
     />

@@ -266,7 +266,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
         if(verifyFields()){ 
 
             
-              CheBLSaveChequeTransaction.saveChequeRoll(null,bankCardPicker.getTurqBank(),txtRollNo.getText().trim(),datePicker1.getDate(),cheques,EngBLCommon.CHEQUE_TRANS_OUT_BANK,btnSumTotals.getSelection());
+              CheBLSaveChequeTransaction.saveChequeRoll(null,null,bankCardPicker.getTurqBank(),txtRollNo.getText().trim(),datePicker1.getDate(),cheques,EngBLCommon.CHEQUE_TRANS_OUT_BANK,btnSumTotals.getSelection());
               EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
               newForm();
         }

@@ -827,6 +827,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
             {
                 tabfldMain = new CTabFolder(compMainInRight, SWT.CLOSE | SWT.BORDER);
                 GridData tabfldMainLData = new GridData();
+                tabfldMain.setSimple(false);
                 tabfldMainLData.verticalAlignment = GridData.FILL;
                 tabfldMainLData.horizontalAlignment = GridData.FILL;
                 tabfldMainLData.grabExcessVerticalSpace = true;

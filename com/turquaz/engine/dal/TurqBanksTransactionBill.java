@@ -16,12 +16,6 @@ public class TurqBanksTransactionBill implements Serializable {
     private java.util.Date transactionBillDate;
 
     /** persistent field */
-    private java.lang.String transactionBillDefinition;
-
-    /** persistent field */
-    private java.lang.String transactionBillNo;
-
-    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
@@ -34,6 +28,12 @@ public class TurqBanksTransactionBill implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
+    private java.lang.String transactionBillDefinition;
+
+    /** persistent field */
+    private java.lang.String transactionBillNo;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
 
     /** persistent field */
@@ -43,14 +43,14 @@ public class TurqBanksTransactionBill implements Serializable {
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqBanksTransactionBill(java.util.Date transactionBillDate, java.lang.String transactionBillDefinition, java.lang.String transactionBillNo, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType, Set turqBanksTransactions) {
+    public TurqBanksTransactionBill(java.util.Date transactionBillDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String transactionBillDefinition, java.lang.String transactionBillNo, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType, Set turqBanksTransactions) {
         this.transactionBillDate = transactionBillDate;
-        this.transactionBillDefinition = transactionBillDefinition;
-        this.transactionBillNo = transactionBillNo;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
+        this.transactionBillDefinition = transactionBillDefinition;
+        this.transactionBillNo = transactionBillNo;
         this.turqEngineSequence = turqEngineSequence;
         this.turqBanksTransactionType = turqBanksTransactionType;
         this.turqBanksTransactions = turqBanksTransactions;
@@ -74,22 +74,6 @@ public class TurqBanksTransactionBill implements Serializable {
 
     public void setTransactionBillDate(java.util.Date transactionBillDate) {
         this.transactionBillDate = transactionBillDate;
-    }
-
-    public java.lang.String getTransactionBillDefinition() {
-        return this.transactionBillDefinition;
-    }
-
-    public void setTransactionBillDefinition(java.lang.String transactionBillDefinition) {
-        this.transactionBillDefinition = transactionBillDefinition;
-    }
-
-    public java.lang.String getTransactionBillNo() {
-        return this.transactionBillNo;
-    }
-
-    public void setTransactionBillNo(java.lang.String transactionBillNo) {
-        this.transactionBillNo = transactionBillNo;
     }
 
     public java.lang.String getCreatedBy() {
@@ -122,6 +106,22 @@ public class TurqBanksTransactionBill implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public java.lang.String getTransactionBillDefinition() {
+        return this.transactionBillDefinition;
+    }
+
+    public void setTransactionBillDefinition(java.lang.String transactionBillDefinition) {
+        this.transactionBillDefinition = transactionBillDefinition;
+    }
+
+    public java.lang.String getTransactionBillNo() {
+        return this.transactionBillNo;
+    }
+
+    public void setTransactionBillNo(java.lang.String transactionBillNo) {
+        this.transactionBillNo = transactionBillNo;
     }
 
     public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence() {

@@ -116,20 +116,6 @@
         length="50"
     />
     <property
-        name="transactionsDate"
-        type="java.sql.Date"
-        column="transactions_date"
-        not-null="true"
-        length="4"
-    />
-    <property
-        name="transactionType"
-        type="int"
-        column="transaction_type"
-        not-null="true"
-        length="4"
-    />
-    <property
         name="creationDate"
         type="java.sql.Date"
         column="creation_date"
@@ -147,6 +133,20 @@
         name="lastModified"
         type="java.sql.Date"
         column="last_modified"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="transactionsDate"
+        type="java.sql.Date"
+        column="transactions_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="transactionType"
+        type="int"
+        column="transaction_type"
         not-null="true"
         length="4"
     />

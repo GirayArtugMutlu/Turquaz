@@ -9,6 +9,8 @@ import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
+import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.ui.EngUICommon;
@@ -152,12 +154,17 @@ public class BankUIOtherTransInUpdate extends org.eclipse.swt.widgets.Dialog {
 		           compCashTrans.getCurAmount().setText(bankTrans.getDeptAmount());          
 		           
 		       }
-		       compCashTrans.getCurrentPicker().setText( bankTrans.getTurqAccountingAccount().getAccountCode());
 		       
 		       
 		       
-		   }	  
-	    
+		   }
+		
+		it = transBill.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
+		if(it.hasNext()){
+		    TurqAccountingTransaction accTrans = (TurqAccountingTransaction) it.next();
+		    
+		}
+		
 	}
 	public void update(){
 	    try{

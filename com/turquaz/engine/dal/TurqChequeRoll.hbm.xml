@@ -32,13 +32,6 @@
         length="4"
     />
     <property
-        name="chequeRollNo"
-        type="java.lang.String"
-        column="cheque_roll_no"
-        not-null="true"
-        length="50"
-    />
-    <property
         name="createdBy"
         type="java.lang.String"
         column="created_by"
@@ -66,9 +59,22 @@
         not-null="true"
         length="4"
     />
+    <property
+        name="chequeRollNo"
+        type="java.lang.String"
+        column="cheque_roll_no"
+        not-null="true"
+        length="50"
+    />
 
     <!-- Associations -->
   
+    <!-- bi-directional one-to-one association to TurqChequeRollAccountingAccount -->
+    <one-to-one
+        name="turqChequeRollAccountingAccount"
+        class="com.turquaz.engine.dal.TurqChequeRollAccountingAccount"
+        outer-join="auto"
+    />
     <!-- bi-directional one-to-many association to TurqChequeChequeInRoll -->
     <set
         name="turqChequeChequeInRolls"

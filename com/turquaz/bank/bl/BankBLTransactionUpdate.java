@@ -121,8 +121,7 @@ public class BankBLTransactionUpdate {
             transRowCredit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
             transRowCredit.setLastModified(Calendar.getInstance().getTime());
             transRowCredit.setCreationDate(Calendar.getInstance().getTime());
-            transRowCredit.setTurqAccountingAccount(bankCardWithCredit
-                    .getTurqAccountingAccount());
+          
             transRowCredit.setTurqBanksCard(bankCardWithDept);
             transRowCredit.setCreditAmount(totalAmount);
             transRowCredit.setDeptAmount(new BigDecimal(0));
@@ -132,8 +131,7 @@ public class BankBLTransactionUpdate {
             transRowDebit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
             transRowDebit.setLastModified(Calendar.getInstance().getTime());
             transRowDebit.setCreationDate(Calendar.getInstance().getTime());
-            transRowDebit.setTurqAccountingAccount(bankCardWithDept
-                    .getTurqAccountingAccount());
+         
             transRowDebit.setTurqBanksCard(bankCardWithCredit);
             transRowDebit.setCreditAmount(new BigDecimal(0));
             transRowDebit.setDeptAmount(totalAmount);
@@ -250,8 +248,7 @@ public class BankBLTransactionUpdate {
             transRow.setUpdatedBy(System.getProperty("user"));
             transRow.setLastModified(Calendar.getInstance().getTime());
             transRow.setCreationDate(Calendar.getInstance().getTime());
-            transRow.setTurqAccountingAccount(cashCard
-                    .getTurqAccountingAccount());
+         
             transRow.setTurqBanksCard(bankCard);
 
             /*
@@ -399,7 +396,7 @@ public class BankBLTransactionUpdate {
             transRow.setUpdatedBy(System.getProperty("user"));
             transRow.setLastModified(Calendar.getInstance().getTime());
             transRow.setCreationDate(Calendar.getInstance().getTime());
-            transRow.setTurqAccountingAccount(account);
+          
             transRow.setTurqBanksCard(bankCard);
 
             /*
@@ -553,8 +550,7 @@ public class BankBLTransactionUpdate {
             transRow.setUpdatedBy(System.getProperty("user"));
             transRow.setLastModified(Calendar.getInstance().getTime());
             transRow.setCreationDate(Calendar.getInstance().getTime());
-            transRow.setTurqAccountingAccount(curCard
-                    .getTurqAccountingAccount());
+            
             transRow.setTurqBanksCard(bankCard);
 
             /*

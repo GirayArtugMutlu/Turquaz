@@ -75,13 +75,6 @@
         length="4"
     />
     <property
-        name="specVatForEach"
-        type="boolean"
-        column="spec_vat_for_each"
-        not-null="true"
-        length="1"
-    />
-    <property
         name="cardSpecialVat"
         type="int"
         column="card_special_vat"
@@ -123,17 +116,16 @@
         not-null="true"
         length="4"
     />
+    <property
+        name="specVatForEach"
+        type="boolean"
+        column="spec_vat_for_each"
+        not-null="true"
+        length="1"
+    />
 
     <!-- Associations -->
   
-    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
-    <many-to-one
-        name="turqAccountingAccountByAccountingAccountsIdSell"
-        class="com.turquaz.engine.dal.TurqAccountingAccount"
-        not-null="true"
-    >
-        <column name="accounting_accounts_id_sell" />
-    </many-to-one>
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one
         name="turqAccountingAccountByAccountingAccountsIdVat"
@@ -141,6 +133,14 @@
         not-null="true"
     >
         <column name="accounting_accounts_id_vat" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
+    <many-to-one
+        name="turqAccountingAccountByAccountingAccountsIdSell"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="accounting_accounts_id_sell" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one

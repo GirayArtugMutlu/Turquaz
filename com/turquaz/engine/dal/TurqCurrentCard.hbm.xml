@@ -96,12 +96,6 @@
         length="50"
     />
     <property
-        name="daysToValue"
-        type="int"
-        column="days_to_value"
-        length="4"
-    />
-    <property
         name="createdBy"
         type="java.lang.String"
         column="created_by"
@@ -127,6 +121,12 @@
         type="java.sql.Date"
         column="last_modified"
         not-null="true"
+        length="4"
+    />
+    <property
+        name="daysToValue"
+        type="int"
+        column="days_to_value"
         length="4"
     />
 

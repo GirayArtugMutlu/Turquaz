@@ -25,10 +25,10 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import com.turquaz.cheque.dal.CheDALSave;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
@@ -44,7 +44,7 @@ public class CheBLSaveChequeTransaction {
         
     }
     
-    public static void saveChequeRoll(TurqCurrentCard curCard,TurqBanksCard bankCard, String rollNo,Date rollDate,List chequeList, int rollType, boolean sumTransTotal)throws Exception {
+    public static void saveChequeRoll(TurqAccountingAccount rollAccount, TurqCurrentCard curCard,TurqBanksCard bankCard, String rollNo,Date rollDate,List chequeList, int rollType, boolean sumTransTotal)throws Exception {
      
       try{
           
@@ -86,13 +86,13 @@ public class CheBLSaveChequeTransaction {
               
               TurqCurrentCard curCardEmpty = new TurqCurrentCard();
               curCardEmpty.setCurrentCardsId(new Integer(-1));
-              chequeRoll.setTurqCurrentCard(curCardEmpty);
+              chequeRoll.setTurqCurrentCard(curCardEmpty);    
+              
               
           }
           
           chequeRoll.setTurqEngineSequence(seq);
-               
-      
+             
           CheDALSave.save(chequeRoll);
           TurqChequeCheque cheque;
           TurqChequeChequeInRoll chequeInRoll;
@@ -121,8 +121,15 @@ public class CheBLSaveChequeTransaction {
               //save current transaction...
               if(curCard!=null&&!sumTransTotal)
               {
+              
                   blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getEngineSequencesId(),"Çek Portföy No:"+cheque.getChequesPortfolioNo() );
-                  
+             
+              }
+              if(bankCard!=null&&sumTransTotal)
+              {
+               
+              
+              
               }
               
               
@@ -130,7 +137,7 @@ public class CheBLSaveChequeTransaction {
           
           }   
           
-          if(sumTransTotal)
+          if(curCard!=null&&sumTransTotal)
           {
               blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getEngineSequencesId(),"Çek Bordro No:"+chequeRoll.getChequeRollNo());
               
