@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqViewBillTransTotal" 
+    table="turq_view_bill_trans_total"
+>
+
+    <composite-id>
+        <key-property 
+            name="billsId" 
+            column="bills_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="totalprice" 
+            column="totalprice" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+        <key-property 
+            name="vatamount" 
+            column="vatamount" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+        <key-property 
+            name="specialvatamount" 
+            column="specialvatamount" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+        <key-property 
+            name="discountamount" 
+            column="discountamount" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+    </composite-id>    
+
+
+    <!-- Associations -->
+    <!-- derived association(s) for compound key -->
+    <!-- end of derived association(s) -->
+  
+
+</class>
+</hibernate-mapping>

@@ -610,11 +610,11 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 
 	public void postInitGui()
 	{
+		//TODO add combo string from EngBLCommon
 		comboBillType.add(com.turquaz.bill.Messages.getString("BillUIBillSearch.10")); //$NON-NLS-1$
 		comboBillType.add(com.turquaz.bill.Messages.getString("BillUIBillSearch.11")); //$NON-NLS-1$
 		comboBillType.add(Messages.getString("BillUIBillReport.8")); //$NON-NLS-1$
 		comboBillType.setText(Messages.getString("BillUIBillReport.9")); //$NON-NLS-1$
-		//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		dateStartDate.setDate(cal.getTime());
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
@@ -659,8 +659,6 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			;
 			compAddBill.getTxtDocumentNo().setText(bill.getBillDocumentNo());
 			compAddBill.getDateConsignmentDate().setDate(bill.getBillsDate());
-			//XXX consignment no could be more than.. change UI etc..
-			//compAddBill.getTxtConsignmentDocumentNo().setText(bill.getTurqBillConsignmentCommon().getConsignmentDocumentNo());
 			if (bill.isIsOpen())
 			{
 				compAddBill.getComboPaymentType().setText(Messages.getString("BillUIBillUpdateDialog.8")); //$NON-NLS-1$
@@ -671,6 +669,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			}
 			compAddBill.getDateDueDate().setDate(bill.getDueDate());
 			compAddBill.getTxtDefinition().setText(bill.getBillsDefinition());
+			compAddBill.getTxtConsignmentDocumentNo().setText("");
 			fillInvTransactionColumns();
 			fillRegisteredGroup();
 			EngUICommon.centreWindow(this.getShell());
@@ -721,26 +720,27 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		compAddBill.tableViewer.removeAll();
 		TableItem item;
 		TurqInventoryTransaction invTrans;
-		Iterator it = bill.getTurqBillInEngineSequences().iterator();
-		if (it.hasNext())
+		Iterator it=bill.getTurqBillInEngineSequences().iterator();
+		while (it.hasNext())
 		{
 			TurqBillInEngineSequence billInEng=(TurqBillInEngineSequence)it.next();
-			Iterator it3=billInEng.getTurqEngineSequence().getTurqConsignments().iterator();
-			while (it3.hasNext())
+			Iterator it2=billInEng.getTurqEngineSequence().getTurqConsignments().iterator();
+			if (it2.hasNext())
 			{
-				TurqConsignment cons = (TurqConsignment) it.next();
-				Iterator it2 = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
-				while (it2.hasNext())
-				{
-					invTrans = (TurqInventoryTransaction) it2.next();
-					InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.BILL_TYPE,compAddBill.tableViewer);
-					row.setDBObject(invTrans);
-					compAddBill.tableViewer.addRow(row);
-				}
+				TurqConsignment cons=(TurqConsignment)it2.next();
+				if (!cons.getConsignmentDocumentNo().equals(""))
+					compAddBill.getTxtConsignmentDocumentNo().append("["+cons.getConsignmentDocumentNo()+"]");
 			}
-		}
-		InvUITransactionTableRow row2 = new InvUITransactionTableRow(compAddBill.BILL_TYPE, compAddBill.tableViewer);
-		compAddBill.tableViewer.addRow(row2);
+			Iterator it3=billInEng.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+			while(it3.hasNext())
+			{
+				invTrans=(TurqInventoryTransaction)it3.next();
+				InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.BILL_TYPE,
+						compAddBill.tableViewer);
+				row.setDBObject(invTrans);
+				compAddBill.tableViewer.addRow(row);
+			}
+		}		
 		compAddBill.calculateTotals();
 	}
 
@@ -813,7 +813,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				postFinalizeGui();
 				toolItemBack.setEnabled(false);
 				//Generate Jasper Report
-				GenerateJasper(list);
+				//GenerateJasper(list);
 			}
 		}
 		catch (Exception ex)

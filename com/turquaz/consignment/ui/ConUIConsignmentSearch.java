@@ -423,7 +423,6 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 						msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
 						msg.open();
 						search();
-						//delete consignment
 					}
 				}
 				else

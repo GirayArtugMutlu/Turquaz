@@ -192,9 +192,9 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 	private Composite compInfoPanel;
 	private Composite compTotalsPanel;
 	private CCombo comboPaymentType;
-	private Label lblPaymentType;
 	private Text txtConsignmentDocumentNo;
 	private CLabel lblInventoryPrice;
+	private CLabel lblPaymentType;
 	private CCombo comboCurrencyType;
 	private CLabel lblCurrency;
 	private TableColumn tableColumnPriceAfterDiscount;
@@ -323,7 +323,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								lblCurrentCard = new CLabel(compInfoPanel, SWT.LEFT);
 								lblCurrentCard.setText(Messages.getString("BillUIAddBill.3")); //$NON-NLS-1$
 								GridData lblCurrentCardLData1 = new GridData();
-								lblCurrentCardLData1.widthHint = 85;
+								lblCurrentCardLData1.widthHint = 90;
 								lblCurrentCardLData1.heightHint = 19;
 								lblCurrentCardLData1.verticalAlignment = GridData.BEGINNING;
 								lblCurrentCard.setLayoutData(lblCurrentCardLData1);
@@ -340,7 +340,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								lblDocumentNo = new CLabel(compInfoPanel, SWT.NONE);
 								lblDocumentNo.setText(Messages.getString("BillUIAddBill.5")); //$NON-NLS-1$
 								GridData lblDocumentNoLData = new GridData();
-								lblDocumentNoLData.widthHint = 88;
+								lblDocumentNoLData.widthHint = 90;
 								lblDocumentNoLData.heightHint = 17;
 								lblDocumentNo.setLayoutData(lblDocumentNoLData);
 							}
@@ -356,7 +356,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								lblDate = new CLabel(compInfoPanel, SWT.LEFT);
 								lblDate.setText("Fatura Tarihi");
 								GridData lblDateLData = new GridData();
-								lblDateLData.widthHint = 100;
+								lblDateLData.widthHint = 90;
 								lblDateLData.heightHint = 22;
 								lblDate.setLayoutData(lblDateLData);
 							}
@@ -371,6 +371,8 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								lblDueDate = new CLabel(compInfoPanel, SWT.NONE);
 								lblDueDate.setText(Messages.getString("BillUIAddBuyBill.18")); //$NON-NLS-1$
 								GridData lblDueDateLData = new GridData();
+								lblDueDateLData.widthHint = 90;
+								lblDueDateLData.heightHint = 21;
 								lblDueDate.setLayoutData(lblDueDateLData);
 							}
 							{
@@ -384,7 +386,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								lblConsDocumentNo = new CLabel(compInfoPanel, SWT.LEFT);
 								lblConsDocumentNo.setText(Messages.getString("BillUIAddBill.6")); //$NON-NLS-1$
 								GridData lblBillDocumentNoLData = new GridData();
-								lblBillDocumentNoLData.widthHint = 99;
+								lblBillDocumentNoLData.widthHint = 90;
 								lblBillDocumentNoLData.heightHint = 16;
 								lblConsDocumentNo.setLayoutData(lblBillDocumentNoLData);
 							}
@@ -400,7 +402,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								lblWareHouse = new CLabel(compInfoPanel, SWT.NONE);
 								lblWareHouse.setText(Messages.getString("BillUIAddBuyBill.13")); //$NON-NLS-1$
 								GridData lblWareHouseLData = new GridData();
-								lblWareHouseLData.widthHint = 52;
+								lblWareHouseLData.widthHint = 90;
 								lblWareHouseLData.heightHint = 19;
 								lblWareHouse.setLayoutData(lblWareHouseLData);
 							}
@@ -411,12 +413,14 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								comboWareHouseLData.heightHint = 17;
 								comboWareHouse.setLayoutData(comboWareHouseLData);
 							}
-							{
-								lblPaymentType = new Label(compInfoPanel, SWT.LEFT);
-								lblPaymentType.setText(Messages.getString("BillUIAddBill.12")); //$NON-NLS-1$
-								GridData lblPaymentTypeLData = new GridData();
-								lblPaymentTypeLData.horizontalAlignment = GridData.END;
-							}
+							//START >>  lblPaymentType
+							lblPaymentType = new CLabel(compInfoPanel, SWT.NONE);
+							lblPaymentType.setText("Ödeme Tipi");
+							GridData lblPaymentTypeLData1 = new GridData();
+							lblPaymentTypeLData1.widthHint = 90;
+							lblPaymentTypeLData1.heightHint = 19;
+							lblPaymentType.setLayoutData(lblPaymentTypeLData1);
+							//END <<  lblPaymentType
 							{
 								comboPaymentType = new CCombo(compInfoPanel, SWT.NONE);
 								comboPaymentType.setEditable(false);
@@ -440,6 +444,10 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							{
 								lblCashAccount = new CLabel(compInfoPanel, SWT.NONE);
 								lblCashAccount.setText(Messages.getString("BillUIAddBuyBill.4")); //$NON-NLS-1$
+								GridData lblCashAccountLData = new GridData();
+								lblCashAccountLData.widthHint = 90;
+								lblCashAccountLData.heightHint = 20;
+								lblCashAccount.setLayoutData(lblCashAccountLData);
 							}
 							{
 								accountPickerCashAccount = new AccountPicker(compInfoPanel, SWT.NONE);
@@ -451,6 +459,10 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							//START >> lblCurrency
 							lblCurrency = new CLabel(compInfoPanel, SWT.NONE);
 							lblCurrency.setText("Para Birimi");
+							GridData lblCurrencyLData = new GridData();
+							lblCurrencyLData.widthHint = 90;
+							lblCurrencyLData.heightHint = 20;
+							lblCurrency.setLayoutData(lblCurrencyLData);
 							//END << lblCurrency
 							//START >> comboCurrencyType
 							comboCurrencyType = new CCombo(compInfoPanel, SWT.NONE);
@@ -463,7 +475,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								lblDefinition = new CLabel(compInfoPanel, SWT.LEFT);
 								lblDefinition.setText(Messages.getString("BillUIAddBill.11")); //$NON-NLS-1$
 								GridData lblDefinitionLData = new GridData();
-								lblDefinitionLData.widthHint = 108;
+								lblDefinitionLData.widthHint = 90;
 								lblDefinitionLData.heightHint = 20;
 								lblDefinitionLData.verticalAlignment = GridData.BEGINNING;
 								lblDefinition.setLayoutData(lblDefinitionLData);

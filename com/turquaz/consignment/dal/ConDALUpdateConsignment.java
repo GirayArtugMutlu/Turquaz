@@ -23,10 +23,6 @@ import com.turquaz.engine.dal.TurqConsignment;
 
 public class ConDALUpdateConsignment
 {
-	public ConDALUpdateConsignment()
-	{
-	}
-
 	public static void initiliazeConsignment(TurqConsignment cons) throws Exception
 	{
 		try

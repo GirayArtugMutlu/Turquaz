@@ -75,7 +75,7 @@ public class BillDALUpdateBill
 					" TurqBill as bill where " +
 					" accTrans.turqAccountingJournal.id <>-1" + 
 					" and bill.id ="+bill.getId()+
-					" and accTrans.turqEngineSequence in bill.turqBillInEngineSequences.turqEngineSequence";
+					" and accTrans.turqEngineSequence.id in (Select eng.turqEngineSequence.id from bill.turqBillInEngineSequences as eng)";
 			Query q = session.createQuery(query);
 			List list = q.list();
 			if (list.size() == 0)

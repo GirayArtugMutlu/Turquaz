@@ -9,10 +9,13 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
+import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqBillInGroup;
+import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.EngUICommon;
+import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -183,8 +186,6 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			;
 			compAddBill.getTxtDocumentNo().setText(bill.getBillDocumentNo());
 			compAddBill.getDateConsignmentDate().setDate(bill.getBillsDate());
-			//XXX could be more than one
-			//compAddBill.getTxtConsignmentDocumentNo().setText(bill.getTurqBillConsignmentCommon().getConsignmentDocumentNo());
 			if (bill.isIsOpen())
 			{
 				compAddBill.getComboPaymentType().setText(Messages.getString("BillUIBillUpdateDialog.8")); //$NON-NLS-1$
@@ -210,23 +211,28 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		compAddBill.tableViewer.removeAll();
 		TableItem item;
 		TurqInventoryTransaction invTrans;
-		//XXX FIXXXX here
-		/*
-		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
-		if (it.hasNext())
+		Iterator it=bill.getTurqBillInEngineSequences().iterator();
+		while (it.hasNext())
 		{
-			TurqConsignment cons = (TurqConsignment) it.next();
-			Iterator it2 = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
-			while (it2.hasNext())
+			TurqBillInEngineSequence billInEng=(TurqBillInEngineSequence)it.next();
+			Iterator it2=billInEng.getTurqEngineSequence().getTurqConsignments().iterator();
+			if (it2.hasNext())
 			{
-				invTrans = (TurqInventoryTransaction) it2.next();
+				TurqConsignment cons=(TurqConsignment)it2.next();
+				if (!cons.getConsignmentDocumentNo().equals(""))
+					compAddBill.getTxtConsignmentDocumentNo().append("["+cons.getConsignmentDocumentNo()+"]");
+			}
+			Iterator it3=billInEng.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+			while(it3.hasNext())
+			{
+				invTrans=(TurqInventoryTransaction)it3.next();
 				InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.BILL_TYPE,
 						compAddBill.tableViewer);
 				row.setDBObject(invTrans);
 				compAddBill.tableViewer.addRow(row);
 			}
-		}*/
-		
+		}		
+		compAddBill.calculateTotals();
 	}
 
 	public void fillRegisteredGroup()

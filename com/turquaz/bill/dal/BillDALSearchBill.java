@@ -2,6 +2,7 @@ package com.turquaz.bill.dal;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
@@ -9,6 +10,7 @@ import net.sf.hibernate.Session;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
+import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
 /**
@@ -20,33 +22,31 @@ import com.turquaz.engine.dal.TurqCurrentCard;
  */
 public class BillDALSearchBill
 {
-	public BillDALSearchBill()
-	{
-	}
-
 	public static List searchBill(TurqCurrentCard curCard, String docNo, Date startDate, Date endDate, int type) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select bill.id, bill.billsDate, billcons.billDocumentNo," + " curCard.cardsCurrentCode, curCard.cardsName,"
-					+ " billcons.totalAmount, billcons.vatAmount, billcons.specialVatAmount"
-					+ " from TurqBill as bill, bill.turqBillConsignmentCommon as billcons,"
-					+ " bill.turqBillConsignmentCommon.turqCurrentCard as curCard" + " where" + " bill.billsDate >= :startDate"
-					+ " and bill.billsDate <= :endDate" + " and bill.id <> -1 ";
+			String query = "Select bill.id, bill.billsDate, bill.billDocumentNo," 
+					+ " bill.turqCurrentCard.cardsCurrentCode, bill.turqCurrentCard.cardsName,"
+					+ " billview.totalprice, billview.vatamount, billview.specialvatamount"
+					+ " from TurqBill as bill,TurqViewBillTransTotal as billview"
+				   + " where" + " billview.billsId = bill.id and bill.billsDate >= :startDate"
+					+ " and bill.billsDate <= :endDate" + " and bill.id <> -1 " ;
+							;
 			if (type != EngBLCommon.COMMON_ALL_INT)
 			{
 				query += " and bill.billsType =" + type;
 			}
 			if (!docNo.equals(""))
 			{
-				query += " and bill.turqBillConsignmentCommon.billDocumentNo like '" + docNo + "%'";
+				query += " and bill.billDocumentNo like '" + docNo + "%'";
 			}
 			if (curCard != null)
 			{
-				query += " and bill.turqBillConsignmentCommon.turqCurrentCard = :curCard";
+				query += " and bill.turqCurrentCard = :curCard";
 			}
-			query += " order by bill.billsDate, bill.turqBillConsignmentCommon.billDocumentNo";
+			query += " order by bill.billsDate, bill.billDocumentNo";
 			Query q = session.createQuery(query);
 			q.setParameter("startDate", startDate);
 			q.setParameter("endDate", endDate);
@@ -88,47 +88,48 @@ public class BillDALSearchBill
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select bill.id, bill.billsDate, billcons.billDocumentNo," + " curCard.cardsCurrentCode, curCard.cardsName,"
-					+ " billcons.totalAmount, billcons.vatAmount, billcons.specialVatAmount"
-					+ " from TurqBill as bill, bill.turqBillConsignmentCommon as billcons,"
-					+ " bill.turqBillConsignmentCommon.turqCurrentCard as curCard" + " where" + " bill.billsDate >= :startDate"
+			String query = "Select bill.id, bill.billsDate, bill.billDocumentNo," + " bill.turqCurrentCard.cardsCurrentCode, bill.turqCurrentCard.cardsName,"
+					+ " billview.totalprice, billview.vatamount, billview.specialvatamount"
+					+ " from TurqBill as bill, TurqViewBillTransTotal as billview"
+					+ " where" + " bill.billsDate >= :startDate"
 					+ " and bill.billsDate <= :endDate" + " and bill.id <> -1 " + " and bill.dueDate >= :dueDateStart"
-					+ " and bill.dueDate <= :dueDateEnd";
+					+ " and bill.dueDate <= :dueDateEnd" 
+					+ " and bill.id=billview.billsId ";
 			if (curCardStart != null && curCardEnd != null)
 			{
-				query += " and bill.turqBillConsignmentCommon.turqCurrentCard.cardsCurrentCode >= '"
+				query += " and bill.turqCurrentCard.cardsCurrentCode >= '"
 						+ curCardStart.getCardsCurrentCode() + "'";
-				query += " and bill.turqBillConsignmentCommon.turqCurrentCard.cardsCurrentCode <= '" + curCardEnd.getCardsCurrentCode()
+				query += " and bill.turqCurrentCard.cardsCurrentCode <= '" + curCardEnd.getCardsCurrentCode()
 						+ "'";
 			}
 			else if (curCardStart != null)
 			{
-				query += " and bill.turqBillConsignmentCommon.turqCurrentCard = :curCardStart";
+				query += " and bill.turqCurrentCard = :curCardStart";
 			}
 			else if (curCardEnd != null)
 			{
-				query += " and bill.turqBillConsignmentCommon.turqCurrentCard = :curCardEnd";
+				query += " and bill.turqCurrentCard = :curCardEnd";
 			}
 			if (minValue.doubleValue() > 0)
 			{
-				query += " and bill.turqBillConsignmentCommon.totalAmount >=" + minValue;
+				query += " and billview.totalamount >=" + minValue;
 			}
 			if (maxValue.doubleValue() > 0)
 			{
-				query += " and bill.turqBillConsignmentCommon.totalAmount <=" + maxValue;
+				query += " and billview.totalamount <=" + maxValue;
 			}
 			if (!docNoStart.equals("") && !docNoEnd.equals(""))
 			{
-				query += " and bill.turqBillConsignmentCommon.billDocumentNo >= '" + docNoStart + "'";
-				query += " and bill.turqBillConsignmentCommon.billDocumentNo <= '" + docNoEnd + "'";
+				query += " and bill.billDocumentNo >= '" + docNoStart + "'";
+				query += " and bill.billDocumentNo <= '" + docNoEnd + "'";
 			}
 			else if (!docNoStart.equals(""))
 			{
-				query += " and bill.turqBillConsignmentCommon.billDocumentNo like '" + docNoStart + "%'";
+				query += " and bill.billDocumentNo like '" + docNoStart + "%'";
 			}
 			else if (!docNoEnd.equals(""))
 			{
-				query += " and bill.turqBillConsignmentCommon.billDocumentNo like '" + docNoEnd + "%'";
+				query += " and bill.billDocumentNo like '" + docNoEnd + "%'";
 			}
 			if (type != EngBLCommon.COMMON_ALL_INT)
 			{
@@ -168,14 +169,14 @@ public class BillDALSearchBill
 			Session session = EngDALSessionFactory.openSession();
 			session.refresh(bill);
 			Hibernate.initialize(bill.getTurqBillInGroups());
-			//XXX initialize cons
-			/*Hibernate.initialize(bill.getTurqBillConsignmentCommon().getTurqConsignments());
-			Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
-			if (it.hasNext())
+			Hibernate.initialize(bill.getTurqBillInEngineSequences());
+			Iterator it=bill.getTurqBillInEngineSequences().iterator();
+			while(it.hasNext())
 			{
-				TurqConsignment cons = (TurqConsignment) it.next();
-				Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
-			}*/
+				TurqBillInEngineSequence billInEng=(TurqBillInEngineSequence)it.next();
+				Hibernate.initialize(billInEng.getTurqEngineSequence().getTurqConsignments());
+				Hibernate.initialize(billInEng.getTurqEngineSequence().getTurqInventoryTransactions());
+			}
 			session.close();
 		}
 		catch (Exception ex)
