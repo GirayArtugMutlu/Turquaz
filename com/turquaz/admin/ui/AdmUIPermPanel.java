@@ -142,7 +142,7 @@ public class AdmUIPermPanel extends org.eclipse.swt.widgets.Composite {
 	
 			tableTreeItem2.setText("Stok");
 	
-			tableTreeItem3.setText("Stok Kartý ");
+			tableTreeItem3.setText("Stok Kart? ");
 	
 			tableTreeItem4.setText("Okuma");
 	
