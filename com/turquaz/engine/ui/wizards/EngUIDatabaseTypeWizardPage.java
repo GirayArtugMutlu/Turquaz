@@ -79,6 +79,7 @@ public class EngUIDatabaseTypeWizardPage extends WizardPage {
 	        comboDBServer = new CCombo(container, SWT.WRAP);
 
 	        comboDBServer.add("Postgresql RDBM");  //$NON-NLS-1$
+	        comboDBServer.add("Turquaz HSQLDB");  //$NON-NLS-1$
 	         
 	        GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 	        comboDBServer.setLayoutData(gd);

@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Label;
 
 import com.turquaz.engine.Messages;
 
+
 public class EngUICreateTablesWizardPage extends WizardPage {
 
 	 private ISelection selection;
@@ -112,7 +113,16 @@ public class EngUICreateTablesWizardPage extends WizardPage {
 	}
 	
 	public boolean checkTables(){
-		return false;
+		EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard)getWizard()).getPage1();
+		 if(page1.getComboDBServer().getText().startsWith("Turquaz"))
+		{
+		 	// no need to create tables
+		return true;
+		}
+		 else {
+		 	// if postgresql
+		 	return false;
+		 }
 	}
 
 	/**

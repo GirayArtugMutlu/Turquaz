@@ -50,14 +50,23 @@ public class EngDALSessionFactory {
 		try{
 			
 		
-
-	
+			String url = "notSet://";
+			String driver = "noteSet";
+			if (EngConfiguration.getString("dbType").startsWith("Turquaz"))
+			{		
 		
-		String url = "jdbc:hsqldb:hsql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort");
+		 url = "jdbc:hsqldb:hsql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort");
+		  driver = "org.hsqldb.jdbcDriver";
+		}
+			else if (EngConfiguration.getString("dbType").startsWith("Turquaz"))
+			{
+				url = "jdbc:postgresql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort")+"/"+EngConfiguration.getString("dbName");
+				 driver = "org.postgresql.Driver";
+			}
 		String username = EngConfiguration.getString("dbUsername");
 		String password = EngConfiguration.getString("dbPassword");
 		password = new String(Base64.decode(password.getBytes()));
-		String driver = "org.hsqldb.jdbcDriver";
+		
 		
 		System.setProperty("Url",url);
 		System.setProperty("dbLogin",username);

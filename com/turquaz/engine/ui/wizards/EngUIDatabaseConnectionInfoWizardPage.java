@@ -149,7 +149,7 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 		label.setText("&Veritabaný Sunucusu:"); //$NON-NLS-1$
 
 		txtServerAddress = new Text(container, SWT.BORDER | SWT.SINGLE);
-		txtServerAddress.setText("localhost"); //$NON-NLS-1$
+		
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		txtServerAddress.setLayoutData(gd);
 		txtServerAddress.addModifyListener(new ModifyListener() {
@@ -162,7 +162,9 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 		label.setText("&Port:"); //$NON-NLS-1$
 
 		txtServerPort = new Text(container, SWT.BORDER | SWT.SINGLE);
-		txtServerPort.setText("5432"); //$NON-NLS-1$
+		
+		EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard)getWizard()).getPage1();
+		
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		txtServerPort.setLayoutData(gd);
 		txtServerPort.addModifyListener(new ModifyListener() {
@@ -175,7 +177,7 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 		label.setText(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.0")); //$NON-NLS-1$
 
 		txtUsername = new Text(container, SWT.BORDER | SWT.SINGLE);
-		txtUsername.setText("postgres"); //$NON-NLS-1$
+		
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		txtUsername.setLayoutData(gd);
 		txtUsername.addModifyListener(new ModifyListener() {
@@ -198,6 +200,20 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 			}
 		});
 
+		if(page1.getComboDBServer().getText().startsWith("Postgresql"))
+		{
+			txtServerAddress.setText("localhost"); //$NON-NLS-1$
+			txtServerPort.setText("5432"); //$NON-NLS-1$
+			txtUsername.setText("postgres"); //$NON-NLS-1$
+			
+		}
+		else if(page1.getComboDBServer().getText().startsWith("Turquaz"))
+		{
+			txtServerAddress.setText("localhost"); //$NON-NLS-1$
+			txtServerPort.setText("8877"); //$NON-NLS-1$
+			txtUsername.setText("sa"); //$NON-NLS-1$
+			
+		}
 		this.setControl(container);
 
 	}

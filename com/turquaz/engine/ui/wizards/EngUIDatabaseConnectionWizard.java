@@ -1,9 +1,4 @@
-/*
- * Created on Nov 1, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 package com.turquaz.engine.ui.wizards;
 
 /************************************************************************/
@@ -93,8 +88,7 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 	  if(page4.getButtonYes().getSelection()){
 	
 			EngDALConnection conn = new EngDALConnection(dbType,username,password,
-														serverAddress+":"+serverPort, //$NON-NLS-1$
-														dbName);
+														serverAddress+":"+serverPort); 
 			conn.connect();
 			
 			conn.createTables();
@@ -171,7 +165,7 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 	public void setSelection(ISelection selection) {
 		this.selection = selection;
 	}
-	/**
+	/** 
 	 * @return Returns the page4.
 	 */
 	public EngUICreateTablesWizardPage getPage4() {

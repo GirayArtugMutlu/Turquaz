@@ -1,4 +1,3 @@
-
 package com.turquaz.engine.ui.wizards;
 
 /************************************************************************/
@@ -18,9 +17,10 @@ package com.turquaz.engine.ui.wizards;
 /************************************************************************/
 
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
+ * @author Onsel Armagan
+ * @version $Id: EngUIDatabaseSelectionWizardPage.java,v 1.13 2004/11/20
+ *          20:43:39 huseyiner Exp $
+ */
 import java.sql.ResultSet;
 
 import org.eclipse.jface.viewers.ISelection;
@@ -42,190 +42,204 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 
-
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
 
 public class EngUIDatabaseSelectionWizardPage extends WizardPage {
-	 private ISelection selection;
-	 private CCombo comboDatabases;
-	 private EngDALConnection connection;
-	public EngUIDatabaseSelectionWizardPage( ISelection selection){
+	private ISelection selection;
 
-        super(""); //$NON-NLS-1$
-        setTitle(Messages.getString("EngUIDatabaseSelectionWizardPage.1")); //$NON-NLS-1$
-        setDescription(Messages.getString("EngUIDatabaseSelectionWizardPage.2")); //$NON-NLS-1$
-        this.selection = selection;
-        setPageComplete(false);
-     }
-	
-	/* (non-Javadoc)
+	private CCombo comboDatabases;
+	Button btnCreate;
+
+	private EngDALConnection connection;
+
+	public EngUIDatabaseSelectionWizardPage(ISelection selection) {
+
+		super(""); //$NON-NLS-1$
+		setTitle(Messages.getString("EngUIDatabaseSelectionWizardPage.1")); //$NON-NLS-1$
+		setDescription(Messages.getString("EngUIDatabaseSelectionWizardPage.2")); //$NON-NLS-1$
+		this.selection = selection;
+		setPageComplete(false);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
 	 */
 	public void createControl(Composite arg0) {
 		Composite container = new Composite(arg0, SWT.NULL);
-	            
-	   this.setControl(container);
+
+		this.setControl(container);
 
 	}
-	
-	
-	public void ShowPage(){
-		final Composite container = (Composite)this.getControl();
+
+	public void ShowPage() {
+		final Composite container = (Composite) this.getControl();
 		Control children[] = container.getChildren();
-		for(int i=0;i<children.length;i++){
+		for (int i = 0; i < children.length; i++) {
 			children[i].dispose();
-			
-		}		
-		if(checkConnection()){
+
+		}
+		if (checkConnection()) {
 			setErrorMessage(null);
 			GridLayout layout = new GridLayout();
-		     container.setLayout(layout);
-		     layout.numColumns = 2;
-		     layout.verticalSpacing = 9;
+			container.setLayout(layout);
+			layout.numColumns = 2;
+			layout.verticalSpacing = 9;
 
-		        Label label = new Label(container, SWT.NULL);
-		        label.setText("&Database Name:"); //$NON-NLS-1$
+			Label label = new Label(container, SWT.NULL);
+			label.setText("&Database Name:"); //$NON-NLS-1$
 
-		        comboDatabases = new CCombo(container, SWT.FLAT);
-		        comboDatabases.setEditable(false);
-		        comboDatabases.setBackground(SWTResourceManager.getColor(255, 255, 255));
+			comboDatabases = new CCombo(container, SWT.FLAT);
+			comboDatabases.setEditable(false);
+			comboDatabases.setBackground(SWTResourceManager.getColor(255, 255,
+					255));
 
-		        GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		        comboDatabases.setLayoutData(gd);
-		        comboDatabases.addSelectionListener(new SelectionAdapter()
-		            {
-		                public void widgetSelected(SelectionEvent e)
-		                {
-		                    setPageComplete(true);
-		                }
-		            });
-		        
-		        Label lbldbName = new Label(container,SWT.NULL);
-		        lbldbName.setText("&New Database"); //$NON-NLS-1$
-		        
-		        GridData gd2 = new GridData(GridData.FILL_HORIZONTAL);
-		       final Text txtNewDatabase = new Text(container,SWT.FLAT);
-		        txtNewDatabase.setLayoutData(gd2);
-		        
-		        Button btnCreate = new Button(container,SWT.NULL);
-		        btnCreate.setText(Messages.getString("EngUIDatabaseSelectionWizardPage.5")); //$NON-NLS-1$
-		        btnCreate.addMouseListener(new MouseAdapter()
-		        		{
-		        	       public void mouseUp(MouseEvent evt){
-		        	       if(connection !=null&&!txtNewDatabase.getText().trim().equals("")){ //$NON-NLS-1$
-		        	       	try{
-		        	       	
-		        	       	connection.execQuery("create database "+txtNewDatabase.getText().trim()+" template template0"); //$NON-NLS-1$ //$NON-NLS-2$
-		        	       	MessageBox msg = new MessageBox(getShell(),SWT.NULL);
-	        	       		msg.setMessage(Messages.getString("EngUIDatabaseSelectionWizardPage.9")); //$NON-NLS-1$
-	        	       		msg.open();
-	        	       		//clears the database name from textbox after creation
-	        	       		txtNewDatabase.setText("");
-	        	       		fillCombo();
-		        	       	}
-		        	       	catch(Exception ex){
-		        	       		MessageBox msg = new MessageBox(getShell(),SWT.NULL);
-		        	       		msg.setMessage(ex.getMessage());
-		        	       		msg.open();
-		        	       		ex.printStackTrace();
-		        	       		
-		        	       	}
-		        	       	}
-		        	       
-		        	       
-		        	       }
-		        	     
-		        	
-		        		}
-		        		);
-		        
-		        
-		        
-		        container.layout();
-		        
-		        fillCombo();
-		  }
-			
-			else{
-			setErrorMessage(Messages.getString("EngUIDatabaseSelectionWizardPage.10") + //$NON-NLS-1$
+			GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+			comboDatabases.setLayoutData(gd);
+			comboDatabases.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					setPageComplete(true);
+				}
+			});
+
+			Label lbldbName = new Label(container, SWT.NULL);
+			lbldbName.setText("&New Database"); //$NON-NLS-1$
+
+			GridData gd2 = new GridData(GridData.FILL_HORIZONTAL);
+			final Text txtNewDatabase = new Text(container, SWT.FLAT);
+			txtNewDatabase.setLayoutData(gd2);
+
+			 btnCreate = new Button(container, SWT.NULL);
+			btnCreate.setText(Messages
+					.getString("EngUIDatabaseSelectionWizardPage.5")); //$NON-NLS-1$
+			btnCreate.addMouseListener(new MouseAdapter() {
+				public void mouseUp(MouseEvent evt) {
+					if (connection != null
+							&& !txtNewDatabase.getText().trim().equals("")) { //$NON-NLS-1$
+						try {
+
+							connection
+									.execQuery("create database " + txtNewDatabase.getText().trim() + " template template0"); //$NON-NLS-1$ //$NON-NLS-2$
+							MessageBox msg = new MessageBox(getShell(),
+									SWT.NULL);
+							msg
+									.setMessage(Messages
+											.getString("EngUIDatabaseSelectionWizardPage.9")); //$NON-NLS-1$
+							msg.open();
+							//clears the database name from textbox after
+							// creation
+							txtNewDatabase.setText("");
+							fillCombo();
+						} catch (Exception ex) {
+							MessageBox msg = new MessageBox(getShell(),
+									SWT.NULL);
+							msg.setMessage(ex.getMessage());
+							msg.open();
+							ex.printStackTrace();
+
+						}
+					}
+
+				}
+
+			});
+
+			container.layout();
+
+			fillCombo();
+		}
+
+		else {
+			setErrorMessage(Messages
+					.getString("EngUIDatabaseSelectionWizardPage.10") + //$NON-NLS-1$
 					Messages.getString("EngUIDatabaseSelectionWizardPage.11")); //$NON-NLS-1$
-				
-			}
-	}
-	
-	public void fillCombo(){
-	   	
-		comboDatabases.removeAll();
-		 comboDatabases.add("turquaz");
-		if(connection!=null){
-			try{
-			ResultSet rs = connection.getResultSet("SELECT d.datname as name FROM pg_database d where d.datistemplate ='false'"); //$NON-NLS-1$
-			while(rs.next()){
-			comboDatabases.add(rs.getString("name"));		 //$NON-NLS-1$
-			}
-			rs.close();
-			
-		}
-			catch(Exception ex){
-			   ex.printStackTrace();
-			}
-			
-		}
-		
-	}
-	
-	public boolean checkConnection(){
-	   EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard)getWizard()).getPage1();
-	   EngUIDatabaseConnectionInfoWizardPage page2 =((EngUIDatabaseConnectionWizard)getWizard()).getPage2();
-	   
-	   connection = new EngDALConnection(page1.getComboDBServer().getText().trim(),
-	   									 page2.getTxtUsername().getText().trim(),
-										 page2.getTxtPassword().getText(),
-										 page2.getTxtServerAddress().getText().trim()+":"+ //$NON-NLS-1$
-										 page2.getTxtServerPort().getText().trim(),
-										 "template1"); //$NON-NLS-1$
-	   
-	   	try{
-	   	    connection.connect();
-	   		return true;
-	   	}
-	   	catch(Exception ex){
-	   		ex.printStackTrace();
-	   		return false;
-	   	}
-	
-	}
-	
-   private void updateStatus(String message)
-   {
-	        setErrorMessage(message);
-            setPageComplete(message == null);
-   }
-	 
-   private void dialogChanged()
-	{
-	        if (comboDatabases.getText().length() == 0)
-	        {
-	            updateStatus(Messages.getString("EngUIDatabaseSelectionWizardPage.0")); //$NON-NLS-1$
 
-	            return;
-	        }
-	        
-	        
-	        updateStatus(null);
+		}
 	}
-   	public IWizardPage getNextPage(){
-	   
-	  	EngUICreateTablesWizardPage page =((EngUIDatabaseConnectionWizard)getWizard()).getPage4();
-	  	page.ShowPage(comboDatabases.getText());
-	   
-	  	return page;
-	   	
-	   	
-	   }
-	 
+
+	public void fillCombo() {
+
+		comboDatabases.removeAll();
+		EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard) getWizard())
+				.getPage1();
+		if (connection != null) {
+			if (page1.getComboDBServer().getText().startsWith("Turquaz")) {
+				comboDatabases.add("turquaz");
+				//disable the create database button
+				btnCreate.setEnabled(false);
+			}
+			//postgresql
+
+			else if (page1.getComboDBServer().getText()
+					.startsWith("Postgresql")) {
+				try {
+					ResultSet rs = connection
+							.getResultSet("SELECT d.datname as name FROM pg_database d where d.datistemplate ='false'"); //$NON-NLS-1$
+					while (rs.next()) {
+						comboDatabases.add(rs.getString("name")); //$NON-NLS-1$
+					}
+					rs.close();
+
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+
+			}
+		}
+
+	}
+
+	public boolean checkConnection() {
+		EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard) getWizard())
+				.getPage1();
+		EngUIDatabaseConnectionInfoWizardPage page2 = ((EngUIDatabaseConnectionWizard) getWizard())
+				.getPage2();
+
+		connection = new EngDALConnection(page1.getComboDBServer().getText()
+				.trim(), page2.getTxtUsername().getText().trim(), page2
+				.getTxtPassword().getText(), page2.getTxtServerAddress()
+				.getText().trim()
+				+ ":" + //$NON-NLS-1$
+				page2.getTxtServerPort().getText().trim()); //$NON-NLS-1$
+
+		try {
+			connection.connect();
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+
+	}
+
+	private void updateStatus(String message) {
+		setErrorMessage(message);
+		setPageComplete(message == null);
+	}
+
+	private void dialogChanged() {
+		if (comboDatabases.getText().length() == 0) {
+			updateStatus(Messages
+					.getString("EngUIDatabaseSelectionWizardPage.0")); //$NON-NLS-1$
+
+			return;
+		}
+
+		updateStatus(null);
+	}
+
+	public IWizardPage getNextPage() {
+
+		EngUICreateTablesWizardPage page = ((EngUIDatabaseConnectionWizard) getWizard())
+				.getPage4();
+		page.ShowPage(comboDatabases.getText());
+
+		return page;
+
+	}
 
 	/**
 	 * @return Returns the comboDatabases.
@@ -233,8 +247,10 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 	public CCombo getComboDatabases() {
 		return comboDatabases;
 	}
+
 	/**
-	 * @param comboDatabases The comboDatabases to set.
+	 * @param comboDatabases
+	 *            The comboDatabases to set.
 	 */
 	public void setComboDatabases(CCombo comboDatabases) {
 		this.comboDatabases = comboDatabases;

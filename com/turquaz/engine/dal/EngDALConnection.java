@@ -41,22 +41,32 @@ public class EngDALConnection {
 	driver = "org.postgresql.Driver";
   }
   
-  public EngDALConnection(String dbType, String userName, String pass, String Url,String dbName) {
-	
-  /*	 driver = "org.postgresql.Driver";
+  public EngDALConnection(String dbType, String userName, String pass, String Url) {
+
+  	if (dbType.startsWith("Turquaz"))
+  	{ 
+  	
+  	driver = "org.hsqldb.jdbcDriver";
+  	 loginUrl = "jdbc:hsqldb:hsql://" +Url ;
+     //loginUrl = "jdbc:postgresql://" + Url + "/";
+     // loginUrl = "jdbc:mysql://10.90.19.52/turquaz";
+	 loginUser = userName;
+	 loginPass = pass;
+	 
+  	}
+  else if (dbType.startsWith("Postgresql")) {
+  		
+  	driver = "org.postgresql.Driver";
+  	String dbName = "template1";
   	 loginUrl = "jdbc:postgresql://" +Url + "/"+dbName;
      //loginUrl = "jdbc:postgresql://" + Url + "/";
      // loginUrl = "jdbc:mysql://10.90.19.52/turquaz";
 	 loginUser = userName;
 	 loginPass = pass;
-*/
-      
-      driver = "org.hsqldb.jdbcDriver";
-   	 loginUrl = "jdbc:hsqldb:hsql://" +Url ;
-      //loginUrl = "jdbc:postgresql://" + Url + "/";
-      // loginUrl = "jdbc:mysql://10.90.19.52/turquaz";
- 	 loginUser = userName;
- 	 loginPass = pass;
+ 
+	 
+  }   
+    
 
   }
 
