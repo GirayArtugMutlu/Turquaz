@@ -68,20 +68,20 @@ import org.eclipse.swt.events.KeyEvent;
 * *************************************
 */
 public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
-	private TableColumn tableColumnDescription;
+	private Shell dialogShell;
+	private CurBLCurrentCardAdd blCardAdd = new CurBLCurrentCardAdd();
+	Calendar cal = Calendar.getInstance();
+	private Text txtDescription;
+	private Button btnDelete;
 	private TableColumn tableColumnName;
+	private TableColumn tableColumnDescription;
 	private Table tableCurGroups;
 	private Button btnGroupAdd;
 	private Button btnUpdate;
-	private Button btnDelete;
-	private Text txtDescription;
 	private CLabel lblDescription;
 	private Text txtGroupName;
 	private CLabel lblGroupName;
 	private Composite compGroupAddDialog;
-	private Shell dialogShell;
-	private CurBLCurrentCardAdd blCardAdd = new CurBLCurrentCardAdd();
-	Calendar cal = Calendar.getInstance();
 
 	public CurUIGroupAddDialog(Shell parent, int style) {
 		super(parent, style);
@@ -105,187 +105,164 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 
 			dialogShell.setText(getText());
-			compGroupAddDialog = new Composite(dialogShell,SWT.NULL);
-			lblGroupName = new CLabel(compGroupAddDialog,SWT.NULL);
-			txtGroupName = new Text(compGroupAddDialog,SWT.BORDER);
-			lblDescription = new CLabel(compGroupAddDialog,SWT.NULL);
-			txtDescription = new Text(compGroupAddDialog,SWT.SINGLE| SWT.BORDER);
-			btnDelete = new Button(compGroupAddDialog,SWT.PUSH| SWT.CENTER);
-			btnUpdate = new Button(compGroupAddDialog,SWT.PUSH| SWT.CENTER);
-			btnGroupAdd = new Button(compGroupAddDialog,SWT.PUSH| SWT.CENTER);
-			tableCurGroups = new Table(dialogShell,SWT.FULL_SELECTION| SWT.H_SCROLL| SWT.V_SCROLL| SWT.BORDER);
-			tableColumnName = new TableColumn(tableCurGroups,SWT.NULL);
-			tableColumnDescription = new TableColumn(tableCurGroups,SWT.NULL);
-	
+
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(433,229));
-	
-			GridData compGroupAddDialogLData = new GridData();
-			compGroupAddDialogLData.verticalAlignment = GridData.CENTER;
-			compGroupAddDialogLData.horizontalAlignment = GridData.FILL;
-			compGroupAddDialogLData.widthHint = -1;
-			compGroupAddDialogLData.heightHint = 85;
-			compGroupAddDialogLData.horizontalIndent = 0;
-			compGroupAddDialogLData.horizontalSpan = 1;
-			compGroupAddDialogLData.verticalSpan = 1;
-			compGroupAddDialogLData.grabExcessHorizontalSpace = true;
-			compGroupAddDialogLData.grabExcessVerticalSpace = false;
-			compGroupAddDialog.setLayoutData(compGroupAddDialogLData);
-			compGroupAddDialog.setSize(new org.eclipse.swt.graphics.Point(433,85));
-			compGroupAddDialog.setBackground(SWTResourceManager.getColor(255, 255, 255));
-	
-			GridData lblGroupNameLData = new GridData();
-			lblGroupNameLData.verticalAlignment = GridData.CENTER;
-			lblGroupNameLData.horizontalAlignment = GridData.END;
-			lblGroupNameLData.widthHint = 56;
-			lblGroupNameLData.heightHint = 20;
-			lblGroupNameLData.horizontalIndent = 0;
-			lblGroupNameLData.horizontalSpan = 1;
-			lblGroupNameLData.verticalSpan = 1;
-			lblGroupNameLData.grabExcessHorizontalSpace = false;
-			lblGroupNameLData.grabExcessVerticalSpace = false;
-			lblGroupName.setLayoutData(lblGroupNameLData);
-			lblGroupName.setText(Messages.getString("CurUIGroupAddDialog.0")); //$NON-NLS-1$
-			lblGroupName.setSize(new org.eclipse.swt.graphics.Point(56,20));
-	
-			GridData txtGroupNameLData = new GridData();
-			txtGroupName.addKeyListener(new KeyAdapter() {
-				public void keyReleased(KeyEvent evt) {
-					if (evt.keyCode==SWT.CR)
-						btnGroupAddMouseUp();
-				}
-			});
-			txtGroupNameLData.verticalAlignment = GridData.CENTER;
-			txtGroupNameLData.horizontalAlignment = GridData.BEGINNING;
-			txtGroupNameLData.widthHint = 124;
-			txtGroupNameLData.heightHint = 13;
-			txtGroupNameLData.horizontalIndent = 0;
-			txtGroupNameLData.horizontalSpan = 2;
-			txtGroupNameLData.verticalSpan = 1;
-			txtGroupNameLData.grabExcessHorizontalSpace = false;
-			txtGroupNameLData.grabExcessVerticalSpace = false;
-			txtGroupName.setLayoutData(txtGroupNameLData);
-			txtGroupName.setSize(new org.eclipse.swt.graphics.Point(124,13));
-	
-			GridData lblDescriptionLData = new GridData();
-			lblDescriptionLData.verticalAlignment = GridData.BEGINNING;
-			lblDescriptionLData.horizontalAlignment = GridData.END;
-			lblDescriptionLData.widthHint = -1;
-			lblDescriptionLData.heightHint = -1;
-			lblDescriptionLData.horizontalIndent = 0;
-			lblDescriptionLData.horizontalSpan = 1;
-			lblDescriptionLData.verticalSpan = 1;
-			lblDescriptionLData.grabExcessHorizontalSpace = false;
-			lblDescriptionLData.grabExcessVerticalSpace = false;
-			lblDescription.setLayoutData(lblDescriptionLData);
-			lblDescription.setText(Messages.getString("CurUIGroupAddDialog.1")); //$NON-NLS-1$
-	
-			GridData txtDescriptionLData = new GridData();
-			txtDescriptionLData.verticalAlignment = GridData.CENTER;
-			txtDescriptionLData.horizontalAlignment = GridData.BEGINNING;
-			txtDescriptionLData.widthHint = 312;
-			txtDescriptionLData.heightHint = 13;
-			txtDescriptionLData.horizontalIndent = 0;
-			txtDescriptionLData.horizontalSpan = 2;
-			txtDescriptionLData.verticalSpan = 1;
-			txtDescriptionLData.grabExcessHorizontalSpace = false;
-			txtDescriptionLData.grabExcessVerticalSpace = false;
-			txtDescription.setLayoutData(txtDescriptionLData);
-			txtDescription.setSize(new org.eclipse.swt.graphics.Point(312,13));
-	
-			GridData btnDeleteLData = new GridData();
-			btnDeleteLData.verticalAlignment = GridData.CENTER;
-			btnDeleteLData.horizontalAlignment = GridData.END;
-			btnDeleteLData.widthHint = 50;
-			btnDeleteLData.heightHint = 23;
-			btnDeleteLData.horizontalIndent = 0;
-			btnDeleteLData.horizontalSpan = 1;
-			btnDeleteLData.verticalSpan = 1;
-			btnDeleteLData.grabExcessHorizontalSpace = false;
-			btnDeleteLData.grabExcessVerticalSpace = false;
-			btnDelete.setLayoutData(btnDeleteLData);
-			btnDelete.setText(Messages.getString("CurUIGroupAddDialog.2")); //$NON-NLS-1$
-			btnDelete.setSize(new org.eclipse.swt.graphics.Point(50,23));
-			btnDelete.setEnabled(false);
-			btnDelete.addMouseListener( new MouseAdapter() {
-				public void mouseUp(MouseEvent evt) {
-					btnDeleteMouseUp(evt);
-				}
-			});
-	
-			GridData btnUpdateLData = new GridData();
-			btnUpdateLData.verticalAlignment = GridData.CENTER;
-			btnUpdateLData.horizontalAlignment = GridData.END;
-			btnUpdateLData.widthHint = 47;
-			btnUpdateLData.heightHint = 23;
-			btnUpdateLData.horizontalIndent = 0;
-			btnUpdateLData.horizontalSpan = 1;
-			btnUpdateLData.verticalSpan = 1;
-			btnUpdateLData.grabExcessHorizontalSpace = false;
-			btnUpdateLData.grabExcessVerticalSpace = false;
-			btnUpdate.setLayoutData(btnUpdateLData);
-			btnUpdate.setText(Messages.getString("CurUIGroupAddDialog.3")); //$NON-NLS-1$
-			btnUpdate.setSize(new org.eclipse.swt.graphics.Point(47,23));
-			btnUpdate.setEnabled(false);
-			btnUpdate.addMouseListener( new MouseAdapter() {
-				public void mouseUp(MouseEvent evt) {
-					btnUpdateMouseUp(evt);
-				}
-			});
-	
-			GridData btnGroupAddLData = new GridData();
-			btnGroupAdd.addMouseListener(new MouseAdapter() {
-				public void mouseUp(MouseEvent evt) {
-					btnGroupAddMouseUp();
-				}
-			});
-			btnGroupAddLData.verticalAlignment = GridData.CENTER;
-			btnGroupAddLData.horizontalAlignment = GridData.BEGINNING;
-			btnGroupAddLData.widthHint = -1;
-			btnGroupAddLData.heightHint = -1;
-			btnGroupAddLData.horizontalIndent = 0;
-			btnGroupAddLData.horizontalSpan = 1;
-			btnGroupAddLData.verticalSpan = 1;
-			btnGroupAddLData.grabExcessHorizontalSpace = false;
-			btnGroupAddLData.grabExcessVerticalSpace = false;
-			btnGroupAdd.setLayoutData(btnGroupAddLData);
-			btnGroupAdd.setText(Messages.getString("CurUIGroupAddDialog.4")); //$NON-NLS-1$
-			GridLayout compGroupAddDialogLayout = new GridLayout(3, true);
-			compGroupAddDialog.setLayout(compGroupAddDialogLayout);
-			compGroupAddDialogLayout.marginWidth = 5;
-			compGroupAddDialogLayout.marginHeight = 5;
-			compGroupAddDialogLayout.numColumns = 3;
-			compGroupAddDialogLayout.makeColumnsEqualWidth = false;
-			compGroupAddDialogLayout.horizontalSpacing = 5;
-			compGroupAddDialogLayout.verticalSpacing = 5;
-			compGroupAddDialog.layout();
-	
-			GridData tableCurGroupsLData = new GridData();
-			tableCurGroupsLData.verticalAlignment = GridData.FILL;
-			tableCurGroupsLData.horizontalAlignment = GridData.FILL;
-			tableCurGroupsLData.widthHint = -1;
-			tableCurGroupsLData.heightHint = -1;
-			tableCurGroupsLData.horizontalIndent = 0;
-			tableCurGroupsLData.horizontalSpan = 1;
-			tableCurGroupsLData.verticalSpan = 1;
-			tableCurGroupsLData.grabExcessHorizontalSpace = true;
-			tableCurGroupsLData.grabExcessVerticalSpace = true;
-			tableCurGroups.setLayoutData(tableCurGroupsLData);
-			tableCurGroups.setHeaderVisible(true);
-			tableCurGroups.setLinesVisible(true);
-			tableCurGroups.setSize(new org.eclipse.swt.graphics.Point(413,124));
-			tableCurGroups.addMouseListener( new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
-					tableCurGroupsMouseDoubleClick(evt);
-				}
-			});
-	
-			tableColumnName.setText(Messages.getString("CurUIGroupAddDialog.0")); //$NON-NLS-1$
-			tableColumnName.setWidth(150);
-	
-			tableColumnDescription.setText(Messages.getString("CurUIGroupAddDialog.1")); //$NON-NLS-1$
-			tableColumnDescription.setWidth(270);
+
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
+			{
+				compGroupAddDialog = new Composite(dialogShell, SWT.NONE);
+				GridLayout compGroupAddDialogLayout = new GridLayout();
+				compGroupAddDialogLayout.numColumns = 3;
+				compGroupAddDialog.setSize(new org.eclipse.swt.graphics.Point(
+					433,
+					85));
+				GridData compGroupAddDialogLData = new GridData();
+				compGroupAddDialog.setLayout(compGroupAddDialogLayout);
+				compGroupAddDialog.setBackground(SWTResourceManager.getColor(
+					255,
+					255,
+					255));
+				compGroupAddDialogLData.horizontalAlignment = GridData.FILL;
+				compGroupAddDialogLData.heightHint = 85;
+				compGroupAddDialogLData.grabExcessHorizontalSpace = true;
+				compGroupAddDialog.setLayoutData(compGroupAddDialogLData);
+				{
+					lblGroupName = new CLabel(compGroupAddDialog, SWT.NONE);
+					lblGroupName.setText(Messages
+						.getString("CurUIGroupAddDialog.0"));
+					lblGroupName.setSize(new org.eclipse.swt.graphics.Point(
+						56,
+						20));
+					GridData lblGroupNameLData = new GridData();
+					lblGroupNameLData.horizontalAlignment = GridData.END;
+					lblGroupNameLData.widthHint = 56;
+					lblGroupNameLData.heightHint = 20;
+					lblGroupName.setLayoutData(lblGroupNameLData);
+				}
+				{
+					txtGroupName = new Text(compGroupAddDialog, SWT.BORDER);
+					txtGroupName.setSize(new org.eclipse.swt.graphics.Point(
+						124,
+						13));
+					GridData txtGroupNameLData = new GridData();
+					txtGroupName.addKeyListener(new KeyAdapter() {
+						public void keyReleased(KeyEvent evt) {
+							if (evt.keyCode == SWT.CR)
+								btnGroupAddMouseUp();
+						}
+					});
+					txtGroupNameLData.widthHint = 111;
+					txtGroupNameLData.heightHint = 6;
+					txtGroupNameLData.horizontalSpan = 2;
+					txtGroupName.setLayoutData(txtGroupNameLData);
+				}
+				{
+					lblDescription = new CLabel(compGroupAddDialog, SWT.NONE);
+					GridData lblDescriptionLData = new GridData();
+					lblDescriptionLData.verticalAlignment = GridData.BEGINNING;
+					lblDescriptionLData.horizontalAlignment = GridData.END;
+					lblDescriptionLData.widthHint = 47;
+					lblDescriptionLData.heightHint = 19;
+					lblDescription.setLayoutData(lblDescriptionLData);
+					lblDescription.setText(Messages.getString("CurUIGroupAddDialog.1")); //$NON-NLS-1$
+				}
+				{
+					txtDescription = new Text(compGroupAddDialog, SWT.SINGLE | SWT.BORDER);
+					txtDescription.setSize(new org.eclipse.swt.graphics.Point(
+						312,
+						13));
+					GridData txtDescriptionLData = new GridData();
+					txtDescriptionLData.widthHint = 299;
+					txtDescriptionLData.heightHint = 6;
+					txtDescriptionLData.horizontalSpan = 2;
+					txtDescription.setLayoutData(txtDescriptionLData);
+				}
+				{
+					btnDelete = new Button(compGroupAddDialog, SWT.PUSH | SWT.CENTER);
+					btnDelete.setText(Messages
+						.getString("CurUIGroupAddDialog.2"));
+					btnDelete
+						.setSize(new org.eclipse.swt.graphics.Point(50, 23));
+					GridData btnDeleteLData = new GridData();
+					btnDelete.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+							btnDeleteMouseUp(evt);
+						}
+					});
+					btnDelete.setEnabled(false);
+					btnDeleteLData.horizontalAlignment = GridData.END;
+					btnDeleteLData.widthHint = 50;
+					btnDeleteLData.heightHint = 23;
+					btnDelete.setLayoutData(btnDeleteLData);
+				}
+				{
+					btnUpdate = new Button(compGroupAddDialog, SWT.PUSH | SWT.CENTER);
+					btnUpdate.setText(Messages
+						.getString("CurUIGroupAddDialog.3"));
+					btnUpdate
+						.setSize(new org.eclipse.swt.graphics.Point(47, 23));
+					GridData btnUpdateLData = new GridData();
+					btnUpdate.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+							btnUpdateMouseUp(evt);
+						}
+					});
+					btnUpdate.setEnabled(false);
+					btnUpdateLData.horizontalAlignment = GridData.END;
+					btnUpdateLData.widthHint = 47;
+					btnUpdateLData.heightHint = 23;
+					btnUpdate.setLayoutData(btnUpdateLData);
+				}
+				{
+					btnGroupAdd = new Button(compGroupAddDialog, SWT.PUSH | SWT.CENTER);
+					btnGroupAdd.setText(Messages
+						.getString("CurUIGroupAddDialog.4"));
+					GridData btnGroupAddLData = new GridData();
+					btnGroupAdd.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+							btnGroupAddMouseUp();
+						}
+					});
+					btnGroupAdd.setLayoutData(btnGroupAddLData);
+				}
+			}
+			{
+				tableCurGroups = new Table(dialogShell, SWT.FULL_SELECTION
+					| SWT.H_SCROLL
+					| SWT.V_SCROLL
+					| SWT.BORDER);
+				tableCurGroups.setHeaderVisible(true);
+				tableCurGroups.setLinesVisible(true);
+				tableCurGroups.setSize(new org.eclipse.swt.graphics.Point(
+					413,
+					124));
+				GridData tableCurGroupsLData = new GridData();
+				tableCurGroups.addMouseListener(new MouseAdapter() {
+					public void mouseDoubleClick(MouseEvent evt) {
+						tableCurGroupsMouseDoubleClick(evt);
+					}
+				});
+				tableCurGroupsLData.verticalAlignment = GridData.FILL;
+				tableCurGroupsLData.horizontalAlignment = GridData.FILL;
+				tableCurGroupsLData.grabExcessHorizontalSpace = true;
+				tableCurGroupsLData.grabExcessVerticalSpace = true;
+				tableCurGroups.setLayoutData(tableCurGroupsLData);
+				{
+					tableColumnName = new TableColumn(tableCurGroups, SWT.NONE);
+					tableColumnName.setText(Messages
+						.getString("CurUIGroupAddDialog.0"));
+					tableColumnName.setWidth(150);
+				}
+				{
+					tableColumnDescription = new TableColumn(
+						tableCurGroups,
+						SWT.NONE);
+					tableColumnDescription.setText(Messages
+						.getString("CurUIGroupAddDialog.1"));
+					tableColumnDescription.setWidth(270);
+				}
+			}
 			dialogShellLayout.marginWidth = 0;
 			dialogShellLayout.marginHeight = 0;
 			dialogShellLayout.numColumns = 1;
@@ -415,6 +392,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 	txtDescription.setText("");	 //$NON-NLS-1$
 	msg.setMessage(Messages.getString("CurUIGroupAddDialog.19")); //$NON-NLS-1$
 	msg.open();
+	txtGroupName.setFocus();
 	fillTable();
 		    }
 	

@@ -19,6 +19,7 @@ package com.turquaz.current.ui;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -78,6 +79,7 @@ import org.eclipse.swt.events.KeyEvent;
 public class CurUICurrentCardSearch extends  Composite implements SearchComposite {
 
 	private CurBLCurrentCardSearch curBLCurrentCardSearch=new CurBLCurrentCardSearch();
+	private TableColumn tableColumnBalance;
 	private TableColumn tableColumnContactName;
 	private TableColumn tableColumnTotalDept;
 	private TableColumn tableColumnTotalCredit;
@@ -215,15 +217,22 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 					tableColumnTotalCredit = new TableColumn(
 						tableCurrentCardSearch,
 						SWT.NONE);
-					tableColumnTotalCredit.setText("Toplam Alacak");
+					tableColumnTotalCredit.setText("Toplam Borç");
 					tableColumnTotalCredit.setWidth(120);
 				}
 				{
 					tableColumnTotalDept = new TableColumn(
 						tableCurrentCardSearch,
 						SWT.NONE);
-					tableColumnTotalDept.setText("Toplam Borç");
+					tableColumnTotalDept.setText("Toplam Alacak");
 					tableColumnTotalDept.setWidth(120);
+				}
+				{
+					tableColumnBalance = new TableColumn(
+						tableCurrentCardSearch,
+						SWT.NONE);
+					tableColumnBalance.setText("Bakiye");
+					tableColumnBalance.setWidth(120);
 				}
 				{
 					tableColumnContactName = new TableColumn(
@@ -366,6 +375,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 				TurqViewCurrentAmountTotal currentView=(TurqViewCurrentAmountTotal)((Object[])listCurrentCards.get(k))[0];
 				String totalCredit=(currentView.getTransactionsTotalCredit()==null) ? "0" : currentView.getTransactionsTotalCredit().toString();
 				String totalDept=(currentView.getTransactionsTotalDept()==null) ? "0" : currentView.getTransactionsTotalDept().toString();
+				String balance=(currentView.getTransactionsBalanceNow()== null) ? "0" : currentView.getTransactionsBalanceNow().toString();
 				TableItem item=new TableItem(tableCurrentCardSearch, SWT.NULL);
 				item.setData(aCurrentCard);
  				
@@ -379,7 +389,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
  				}
  					
  				
- 				item.setText(new String[]{aCurrentCard.getCardsCurrentCode(),aCurrentCard.getCardsName(),totalCredit,totalDept,contactName});
+ 				item.setText(new String[]{aCurrentCard.getCardsCurrentCode(),aCurrentCard.getCardsName(),totalDept,totalCredit,balance, contactName});
                   			
 			}
 		
