@@ -928,7 +928,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 
 	/** Auto-generated event handler method */
 	protected void treeBankMouseDoubleClick(MouseEvent evt){
-	TreeItem item = treeAdmin.getSelection()[0];
+		TreeItem item = treeBank.getSelection()[0];
 		if(item.getItemCount()==0){
 			openNewTab(item.getText(),item.getData().toString());
 		}
