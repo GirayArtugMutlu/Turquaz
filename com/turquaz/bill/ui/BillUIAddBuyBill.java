@@ -1335,7 +1335,7 @@ public class BillUIAddBuyBill extends Composite
 			return false;
 		}
 		
-		Boolean isCurrent=(Boolean)comboPaymentType.getData();
+		Boolean isCurrent=(Boolean)comboPaymentType.getData(comboPaymentType.getText());
 		if (isCurrent.booleanValue())
 		{
 			if (accountPickerCurAcc.getData()==null)
