@@ -458,7 +458,7 @@ public class InvUICardUpdateDialog extends Dialog{
     
     public void update(){
     try {
-    
+    if(compInvUICard.verifyFields()){
     
     // Update Inventory Card Fields
    TurqAccountingAccount accountIdSell = (TurqAccountingAccount) compInvUICard.getTxtInvCardOutAcc().getData();
@@ -478,11 +478,12 @@ public class InvUICardUpdateDialog extends Dialog{
 	msg.setMessage(Messages.getString("InvUICardUpdateDialog.5"));	 //$NON-NLS-1$
 	msg.open();	
 	}
-	
+	}
 		catch(Exception ex){
 		ex.printStackTrace();
 		
 		}
+		
      
     }
     

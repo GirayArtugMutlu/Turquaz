@@ -179,6 +179,8 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 	MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 	
 	try{
+	if (!compInvUIWarehouse.verifyFields())
+		return;
 	
 	whUpdate.updateWarehouse(warehouse,compInvUIWarehouse.getTxtWarehouseAdres().getText().trim(),
 	compInvUIWarehouse.getTxtTelephone().getText().trim(),compInvUIWarehouse.getTxtWarehouseCity().getText().trim(),
