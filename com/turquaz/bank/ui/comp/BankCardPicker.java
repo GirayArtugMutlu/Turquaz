@@ -36,6 +36,7 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.bl.EngBLBankCards;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 import com.cloudgarden.resource.SWTResourceManager;
@@ -176,6 +177,17 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite {
 		    text1.setBackground(SWTResourceManager.getColor(198,255,198));
 		}
 		
+	}
+	public TurqBanksCard getTurqBank()
+	{
+	    if(super.getData()==null)
+	    {
+	        return null;
+	    }
+	    else{
+	        return (TurqBanksCard)super.getData();
+	    }
+	    
 	}
 
 	

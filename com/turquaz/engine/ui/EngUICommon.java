@@ -47,6 +47,13 @@ public class EngUICommon {
 	    msg2.setMessage(message); 
 	    msg2.open();
 	}
+	public static void showSavedSuccesfullyMessage(Shell parent)
+	{
+	    MessageBox msg2 = new MessageBox(parent,SWT.ICON_INFORMATION);
+	    msg2.setMessage(Messages.getString("EngUICommon.0"));  //$NON-NLS-1$
+	    msg2.open();
+	}
+
 
 	public static void centreWindow(Shell	shell )
 	  {

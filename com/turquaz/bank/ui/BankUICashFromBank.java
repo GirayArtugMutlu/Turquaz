@@ -4,13 +4,16 @@ import java.math.BigDecimal;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
 
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.cash.ui.comp.CashCardPicker;
 import com.turquaz.bank.Messages;
+import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.bank.ui.comp.BankCardPicker;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Text;
@@ -158,11 +161,26 @@ public class BankUICashFromBank extends org.eclipse.swt.widgets.Composite implem
 	}
 
     public void newForm() {
-        // TODO Auto-generated method stub
+        BankUICashFromBank curCard = new BankUICashFromBank(this.getParent(),this.getStyle());
+      	 CTabFolder tabfld = (CTabFolder)this.getParent();
+      	 tabfld.getSelection().setControl(curCard);	 
+      	 this.dispose();
 
     }
     public void save() {
-        // TODO Auto-generated method stub
+        try{
+       if(verifyFields())
+       {
+           BankBLTransactionAdd.saveCashTransaction(txtBankCard.getTurqBank(),currentPicker.getTurqCashCard(),EngBLCommon.BANK_TRANS_CASH_DRAW,null,curAmount.getBigDecimalValue(),datePick.getDate(),txtDefinition.getText().trim(),txtDocNo.getText().trim());
+           EngUICommon.showSavedSuccesfullyMessage(getShell());
+           newForm();
+           
+       }
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            EngUICommon.showMessageBox(getShell(),ex.getMessage(),SWT.ICON_ERROR);
+        }
 
     }
 }

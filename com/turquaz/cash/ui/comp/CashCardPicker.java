@@ -35,6 +35,7 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 import com.cloudgarden.resource.SWTResourceManager;
@@ -175,6 +176,17 @@ public class CashCardPicker extends org.eclipse.swt.widgets.Composite {
 		    text1.setBackground(SWTResourceManager.getColor(198,255,198));
 		}
 		
+	}
+	public TurqCashCard getTurqCashCard()
+	{
+	    if(super.getData()==null)
+	    {
+	        return null;
+	    }
+	    else{
+	        return (TurqCashCard)super.getData();
+	    }
+	    
 	}
 
 	
