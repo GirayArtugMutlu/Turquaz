@@ -56,16 +56,35 @@ public class InvUITransactionTableRow implements ITableRow {
 		switch (column_index) {
 		
 			case 0 : // inventory code 
+			    if(invTrans.getTurqInventoryCard()==null){
+			        result="";
+			    }
+			    else{
+			        result =invTrans.getTurqInventoryCard().getCardInventoryCode();
+			    }
+			    
 			 break;
 				
 			case 1 : //inventory name
-			    
+			    if(invTrans.getTurqInventoryCard()==null){
+			        result="";
+			    }
+			    else{
+			        result =invTrans.getTurqInventoryCard().getCardName();
+			    }
 			    break;
 			    
 			case 2 :  //Amount
+			    if(transType==0){
+			    result = invTrans.getTransactionsAmountIn()+"";
+			    }
+			    else{
+			        result = invTrans.getTransactionsTotalAmountOut()+"";
+			    }
 				break;
 			    
 			case 3 :  //Unit
+			    
 			    break;
 			    
 			case 4 :  //Unit Price
