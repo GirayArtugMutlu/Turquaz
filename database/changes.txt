@@ -775,7 +775,8 @@ INSERT INTO turq_inventory_accounting_types VALUES (5, 'Sell Special VAT', 'Sati
 INSERT INTO turq_inventory_accounting_types VALUES (6, 'Buy Discount', 'Alistan Inidirimler Hesabi');
 INSERT INTO turq_inventory_accounting_types VALUES (7, 'Sell Discount', 'Satistan Indirimler Hesabi');
 
+INSERT INTO turq_cheque_transaction_types VALUES (5, 'Bankadan Iade', 5, 3, 'admin', '2005-01-01', 'admin', '2005-01-01');
 
-
+INSERT INTO turq_bank_accounting_types VALUES (3, 'Karsiliksiz Cek Hesabi', ' ');
 
 
