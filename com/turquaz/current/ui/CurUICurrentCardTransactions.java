@@ -46,7 +46,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 
 	private Shell dialogShell;
 	private TurqCurrentCard currentCard;
-	private CurBLSearchTransaction BLSearch;
+	private CurBLSearchTransaction BLSearch = new CurBLSearchTransaction();
 	private Table tableCurrentTransactions;
 	private ToolBar toolBar1;
 	private CoolItem coolItem1;
@@ -56,10 +56,8 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 	private TableColumn tableColumnDebit;
 	private TableColumn tableColumnTransGroup;
 	private TableColumn tableColumnCurrentCode;
-	private Composite composite1;
 	static private ToolItem toolPrint;
 	static private ToolItem toolExportToExcel;
-	private Composite compOutput;
 
 	/**
 	* Auto-generated main method to display this 
@@ -84,145 +82,118 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 
 
 			dialogShell.setLayout(new GridLayout());
-			PostInit();
+		
 			
-			dialogShell.layout();
-			dialogShell.pack();
+			
 			dialogShell.setSize(574, 566);
-			{
-				compOutput = new Composite(dialogShell, SWT.NONE);
-				GridLayout compOutputLayout = new GridLayout();
-				GridData compOutputLData = new GridData();
-				compOutputLData.horizontalAlignment = GridData.FILL;
-				compOutputLData.grabExcessHorizontalSpace = true;
-				compOutputLData.heightHint = 48;
-				compOutput.setLayoutData(compOutputLData);
-				compOutput.setLayout(compOutputLayout);
-				{
-					coolBar1 = new CoolBar(compOutput, SWT.NONE);
-					GridData coolBar1LData = new GridData();
-					coolBar1LData.horizontalAlignment = GridData.FILL;
-					coolBar1LData.grabExcessHorizontalSpace = true;
-					coolBar1.setLayoutData(coolBar1LData);
-					{
-						coolItem1 = new CoolItem(coolBar1, SWT.NONE);
-						coolItem1
-							.setPreferredSize(new org.eclipse.swt.graphics.Point(
-								24,
-								24));
-						coolItem1
-							.setMinimumSize(new org.eclipse.swt.graphics.Point(
-								24,
-								24));
-						{
-							toolBar1 = new ToolBar(coolBar1, SWT.NONE);
-							coolItem1.setControl(toolBar1);
-							{
-								toolExportToExcel = new ToolItem(
-									toolBar1,
-									SWT.NONE);
-								toolExportToExcel.setText("Export");
-								toolExportToExcel.setImage(SWTResourceManager
-									.getImage("icons/excel.jpeg"));
-								toolExportToExcel.setWidth(68);
-								toolExportToExcel
-									.addSelectionListener(new SelectionAdapter() {
-										public void widgetSelected(
-											SelectionEvent evt) {
-											EngBLUtils
-												.Export2Excel(tableCurrentTransactions);
-										}
-									});
-							}
-							{
-								toolPrint = new ToolItem(toolBar1, SWT.NONE);
-								toolPrint.setText("Yazd?r");
-								toolPrint.setImage(SWTResourceManager
-									.getImage("icons/Print16.gif"));
-								toolPrint
-									.addSelectionListener(new SelectionAdapter() {
-										public void widgetSelected(
-											SelectionEvent evt) {
-											EngBLUtils.printTable(
-												tableCurrentTransactions,
-												"Cari Kart Hareketleri Listesi, Kart Kodu: "
-													+ currentCard
-														.getCardsCurrentCode()
-													+ " Kart Ad?: "
-													+ currentCard
-														.getCardsName());
+            {
+                coolBar1 = new CoolBar(dialogShell, SWT.NONE);
+                GridData coolBar1LData = new GridData();
+                coolBar1LData.horizontalAlignment = GridData.FILL;
+                coolBar1LData.grabExcessHorizontalSpace = true;
+                coolBar1.setLayoutData(coolBar1LData);
+                {
+                    coolItem1 = new CoolItem(coolBar1, SWT.NONE);
+                    coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 45));
+                    coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 45));
+                    coolItem1.setSize(45, 45);
+                    {
+                        toolBar1 = new ToolBar(coolBar1, SWT.NONE);
+                        coolItem1.setControl(toolBar1);
+                        {
+                            toolExportToExcel = new ToolItem(toolBar1, SWT.NONE);
+                            toolExportToExcel.setText(Messages.getString("CurUICurrentCardTransactions.0")); //$NON-NLS-1$
+                            toolExportToExcel.setImage(SWTResourceManager
+                                .getImage("icons/excel.jpeg")); //$NON-NLS-1$
+                            toolExportToExcel.setWidth(68);
+                            toolExportToExcel
+                                .addSelectionListener(new SelectionAdapter() {
+                                    public void widgetSelected(
+                                        SelectionEvent evt) {
+                                        EngBLUtils
+                                            .Export2Excel(tableCurrentTransactions);
+                                    }
+                                });
+                        }
+                        {
+                            toolPrint = new ToolItem(toolBar1, SWT.NONE);
+                            toolPrint.setText(Messages.getString("CurUICurrentCardTransactions.2")); //$NON-NLS-1$
+                            toolPrint.setImage(SWTResourceManager
+                                .getImage("icons/Print16.gif")); //$NON-NLS-1$
+                            toolPrint
+                                .addSelectionListener(new SelectionAdapter() {
+                                    public void widgetSelected(
+                                        SelectionEvent evt) {
+                                        EngBLUtils.printTable(
+                                            tableCurrentTransactions,
+                                            Messages.getString("CurUICurrentCardTransactions.4") //$NON-NLS-1$
+                                                + currentCard
+                                                    .getCardsCurrentCode());
 
-										}
-									});
-							}
-						}
-					}
-				}
-			}
-			{
-				composite1 = new Composite(dialogShell, SWT.NONE);
-				GridLayout composite1Layout1 = new GridLayout();
-				GridData composite1LData = new GridData();
-				composite1LData.grabExcessHorizontalSpace = true;
-				composite1LData.grabExcessVerticalSpace = true;
-				composite1LData.horizontalAlignment = GridData.FILL;
-				composite1LData.verticalAlignment = GridData.FILL;
-				composite1.setLayoutData(composite1LData);
-				composite1Layout1.makeColumnsEqualWidth = true;
-				composite1.setLayout(composite1Layout1);
-				{
-					tableCurrentTransactions = new Table(composite1, SWT.FULL_SELECTION);
-					tableCurrentTransactions.setHeaderVisible(true);
-					tableCurrentTransactions.setLinesVisible(true);
-					GridData tableCurrentTransactionsLData = new GridData();
+                                    }
+                                });
+                        }
+                    }
+                }
+            }
+            {
+                tableCurrentTransactions = new Table(
+                    dialogShell,
+                    SWT.FULL_SELECTION);
+                tableCurrentTransactions.setHeaderVisible(true);
+                tableCurrentTransactions.setLinesVisible(true);
+                GridData tableCurrentTransactionsLData = new GridData();
 
-					tableCurrentTransactionsLData.verticalAlignment = GridData.FILL;
-					tableCurrentTransactionsLData.horizontalAlignment = GridData.FILL;
-					tableCurrentTransactionsLData.grabExcessHorizontalSpace = true;
-					tableCurrentTransactionsLData.grabExcessVerticalSpace = true;
-					tableCurrentTransactions.setLayoutData(tableCurrentTransactionsLData);
-					{
-						tableColumnCurrentCode = new TableColumn(
-							tableCurrentTransactions,
-							SWT.NONE);
-						tableColumnCurrentCode.setText(Messages
-							.getString("CurUITransactionSearch.5"));
-						tableColumnCurrentCode.setWidth(107);
-					}
-					{
-						tableColumnTransGroup = new TableColumn(
-							tableCurrentTransactions,
-							SWT.NONE);
-						tableColumnTransGroup.setText(Messages
-							.getString("CurUITransactionSearch.6"));
-						tableColumnTransGroup.setWidth(114);
-					}
-					{
-						tableColumnDebit = new TableColumn(
-							tableCurrentTransactions,
-							SWT.NONE);
-						tableColumnDebit.setText(Messages
-							.getString("CurUITransactionSearch.7"));
-						tableColumnDebit.setWidth(106);
-					}
-					{
-						tableColumnCredit = new TableColumn(
-							tableCurrentTransactions,
-							SWT.NONE);
-						tableColumnCredit.setText(Messages
-							.getString("CurUITransactionSearch.8"));
-						tableColumnCredit.setWidth(101);
-					}
-					{
-						tableColumnTransDate = new TableColumn(
-							tableCurrentTransactions,
-							SWT.NONE);
-						tableColumnTransDate.setText(Messages
-							.getString("CurUITransactionSearch.9"));
-						tableColumnTransDate.setWidth(100);
-					}
-				}
-			}
+                tableCurrentTransactionsLData.verticalAlignment = GridData.FILL;
+                tableCurrentTransactionsLData.horizontalAlignment = GridData.FILL;
+                tableCurrentTransactionsLData.grabExcessHorizontalSpace = true;
+                tableCurrentTransactionsLData.grabExcessVerticalSpace = true;
+                tableCurrentTransactions
+                    .setLayoutData(tableCurrentTransactionsLData);
+                {
+                    tableColumnCurrentCode = new TableColumn(
+                        tableCurrentTransactions,
+                        SWT.NONE);
+                    tableColumnCurrentCode.setText(Messages
+                        .getString("CurUITransactionSearch.5")); //$NON-NLS-1$
+                    tableColumnCurrentCode.setWidth(107);
+                }
+                {
+                    tableColumnTransGroup = new TableColumn(
+                        tableCurrentTransactions,
+                        SWT.NONE);
+                    tableColumnTransGroup.setText(Messages
+                        .getString("CurUITransactionSearch.6")); //$NON-NLS-1$
+                    tableColumnTransGroup.setWidth(114);
+                }
+                {
+                    tableColumnDebit = new TableColumn(
+                        tableCurrentTransactions,
+                        SWT.NONE);
+                    tableColumnDebit.setText(Messages
+                        .getString("CurUITransactionSearch.7")); //$NON-NLS-1$
+                    tableColumnDebit.setWidth(106);
+                }
+                {
+                    tableColumnCredit = new TableColumn(
+                        tableCurrentTransactions,
+                        SWT.NONE);
+                    tableColumnCredit.setText(Messages
+                        .getString("CurUITransactionSearch.8")); //$NON-NLS-1$
+                    tableColumnCredit.setWidth(101);
+                }
+                {
+                    tableColumnTransDate = new TableColumn(
+                        tableCurrentTransactions,
+                        SWT.NONE);
+                    tableColumnTransDate.setText(Messages
+                        .getString("CurUITransactionSearch.9")); //$NON-NLS-1$
+                    tableColumnTransDate.setWidth(100);
+                }
+            }
+			PostInit();
+			dialogShell.layout();
+			
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {
@@ -259,9 +230,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 	}
 		}
 		catch(Exception ex){
-			/*MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
-			msg.setMessage(ex.getMessage());
-			msg.open();*/
+		ex.printStackTrace();
 		}
 	}
 }

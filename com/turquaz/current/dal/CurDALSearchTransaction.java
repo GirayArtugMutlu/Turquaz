@@ -94,9 +94,10 @@ public class CurDALSearchTransaction {
 			Session session = EngDALSessionFactory.openSession();
 			
 			String query = "Select transaction from TurqCurrentTransaction as transaction where" +
-			" transaction.currentCardsId= :curCard.currentCardsId";
+			" transaction.turqCurrentCard= :curCard";
 			
 			Query q = session.createQuery(query); 	
+			q.setParameter("curCard",curCard);
 			
 			List list = q.list();
 			session.close();
