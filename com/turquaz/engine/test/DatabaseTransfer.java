@@ -34,12 +34,16 @@ public class DatabaseTransfer {
 		//	EngDALConnection conn1 = new
 		// EngDALConnection("Postgresql","turquaz","","kulup.sabanciuniv.edu","turquaz_turkish_20041206");
 		EngDALConnection conn2 = new EngDALConnection("Postgresql", "postgres",
-				"", "kulup.sabanciuniv.edu", "alpercam_20050108");
+				"", "localhost", "alpercam_20050202");
+		
+		EngDALConnection conn3 = new EngDALConnection("Postgresql", "postgres",
+				"", "localhost", "alpercam_20050202");
 
 		ResultSet first;
 		try {
 
 			conn2.connect();
+			conn3.connect();
 			FileInputStream fstream = new FileInputStream("C:\\stok_insert.csv");
 			// Convert our input stream to a
 			// DataInputStream
@@ -52,7 +56,7 @@ public class DatabaseTransfer {
 			// there are still some left to read
 
 			// below parses the accounting plan and inserts to the database
-			int counter = 15;
+			int counter = 15000;
 			
 			while (in.available() != 0) {
 				
@@ -60,8 +64,8 @@ public class DatabaseTransfer {
 			    try{
 			     
 			    	
-			    data = d.readLine();
-				System.out.println(data);
+			    data = in.readLine();
+
 				String rest = "";
 				int a = data.indexOf(",");
 				 code = data.substring(0, a);
@@ -96,30 +100,58 @@ public class DatabaseTransfer {
 				if (code =="" || def == "" || group == "")
 				{
 				*/
-				System.out.println(code);
-				System.out.println(amount);
+				// System.out.println(code);
+				// System.out.println(amount);
 				
 				/*
 				}
 				*/
-				
-/*
-					try {
+				int amount_in=0;
+				int amount_out = 0;
+				if (amt.intValue() > 0 )
+				{
+					amount_in = amt.intValue();
+				}
+				else
+				{
+					amount_out = amt.intValue();
+				}
+					
+						
+						String query = "Select current_cards_id from turq_current_cards where current_cards_id > 0";
+						ResultSet parent = conn3.getResultSet(query);
+						
+						while (parent.next())
+						{
+						
+						String s_code_id = parent.getString(1);
+					
 						/*
-						String query = "Select accounting_accounts_id from turq_accounting_accounts where account_code = '"
-								+ accCode + "'";
-						ResultSet parent = conn2.getResultSet(query);
+						String query2 = "Select inventory_units_id from turq_inventory_card_units where inventory_cards_id = "
+							+ s_code_id ;
+						parent = conn2.getResultSet(query2);
 
 						parent.next();
-						String s_in = parent.getString(1);
-						String address = address1 +"\n" + address2 + "\n" + address3;
+						String s_code_unit = parent.getString(1); */
 						
+						String insert_codes = "insert into turq_current_transactions values ("
+							+ counter + "," 
+							+ s_code_id + ",'2005-01-01','',6,0,0,1,0,-1"
+							+ ",'admin','2004-12-05','admin','2004-12-05','ACILIS');";
+							
+							
+						counter ++;
+						System.out.println(insert_codes);
+						conn2.execQuery(insert_codes);
+						}
 						
+						return;
+						/*
 						if (counter == 18)
-						{*/
+						{
 							
 						//} 
-/*
+
 						query = "Select accounting_accounts_id from turq_accounting_accounts where account_code = '"
 								+ outAcc + "'";
 						parent = conn2.getResultSet(query);
@@ -220,6 +252,7 @@ public class DatabaseTransfer {
 						System.out.println(code);
 					//System.out.println(accCode);
 						ex.printStackTrace();
+						return;
 					}
 				
 				/*
@@ -294,7 +327,7 @@ public class DatabaseTransfer {
 				 * System.out.println(definition);
 				 */
 
-			}
+			    }
 
 			/*
 			 * 

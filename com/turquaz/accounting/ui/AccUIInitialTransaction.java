@@ -1,35 +1,73 @@
 package com.turquaz.accounting.ui;
+/************************************************************************/
+/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
+/* ============================================                         */
+/* Copyright (c) 2004 by Turquaz Software Development Group			    */
+/*																		*/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License, or    */
+/* (at your option) any later version.       							*/
+/* 																		*/
+/* This program is distributed in the hope that it will be useful,		*/
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
+/* GNU General Public License for more details.         				*/
+/************************************************************************/
+
+/**
+* @author  Onsel Armagan
+* @version  $Id$
+*/
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
-import org.eclipse.swt.layout.FillLayout;
+
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Composite;
 
-import com.turquaz.engine.dal.TurqAccountingAccount;
-
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
-
-import com.turquaz.engine.ui.component.CurrencyText;
-import org.eclipse.swt.custom.CCombo;
-import com.turquaz.engine.ui.component.SecureComposite;
-
-import org.eclipse.swt.widgets.Text;
-import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.engine.ui.component.TurquazDecimalFormat;
+import com.turquaz.engine.ui.editors.AccountingCellEditor;
+import com.turquaz.engine.ui.editors.CurrencyCellEditor;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.ITableRowListViewer;
+import com.turquaz.engine.ui.viewers.TableRowList;
+import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
+import com.turquaz.engine.ui.viewers.TurquazCellModifier;
+import com.turquaz.engine.ui.viewers.TurquazContentProvider;
+import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
+
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.TableCursor;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
-import com.turquaz.accounting.ui.comp.AccountPicker;
-import org.eclipse.swt.graphics.Rectangle;
+
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.events.VerifyEvent;
 
 
+import com.cloudgarden.resource.SWTResourceManager;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -44,227 +82,554 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
+public class AccUIInitialTransaction extends  Composite implements SecureComposite {
 
-public class AccUIInitialTransaction extends org.eclipse.swt.widgets.Composite implements SecureComposite {
+	{
+		//Register as a resource user - SWTResourceManager will
+		//handle the obtaining and disposing of resources
+		SWTResourceManager.registerResourceUser(this);
+	}
 
-    {
-        //Register as a resource user - SWTResourceManager will
-        //handle the obtaining and disposing of resources
-        SWTResourceManager.registerResourceUser(this);
-    }
 
-	private CLabel lblAccount;
-	private CLabel lblDocumentNo;
-	private Text txtDefinition;
-	private CCombo comboDeptOrCredit;
-	private CLabel lbDeptOrCredit;
-	private CLabel lblDefinition;
-	private Text txtDocumentNo;
-	private DatePicker datePicker;
+	
+
+
+	/**
+	 * @return Returns the tableTransactionColumns.
+	 */
+	public Table getTableTransactionColumns() {
+		return tableTransactionColumns;
+	}
+	/**
+	 * @return Returns the totalCredit.
+	 */
+	public BigDecimal getTotalCredit() {
+		return totalCredit;
+	}
+	/**
+	 * @return Returns the totalDept.
+	 */
+	public BigDecimal getTotalDept() {
+		return totalDept;
+	}
+	/**
+	 * @return Returns the txtDocumentNo.
+	 */
+	public Text getTxtDocumentNo() {
+		return txtDocumentNo;
+	}
+	private AccBLTransactionAdd blTransAdd = new AccBLTransactionAdd();
+	BigDecimal totalCredit ;
 	private CLabel lblDate;
-	private CurrencyText decInitialValue;
-	private CLabel lblInitialValue;
-	private AccountPicker accPicker;
-	private AccBLTransactionAdd blTrans = new AccBLTransactionAdd();
-
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		showGUI();
-	}
-		
-	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		AccUIInitialTransaction inst = new AccUIInitialTransaction(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if(size.x == 0 && size.y == 0) {
-			inst.pack();
-			shell.pack();
-		} else {
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
-
-	public AccUIInitialTransaction(org.eclipse.swt.widgets.Composite parent, int style) {
+	private DatePicker dateTransactionDate;
+	private TableColumn tableColumnDefinition;
+	private Text txtTransDefinition;
+	private CLabel lblTransactionDefinition;
+	private TableColumn tableColumnDept;
+	private TableColumn tableColumnCredit;
+	private TableColumn tableColumnAccountName;
+	private TableColumn tableColumnAccoutCode;
+	private Table tableTransactionColumns;
+	private Text txtDocumentNo;
+	private CLabel lblDocumentNo;
+	BigDecimal totalDept ;
+//	 Set the table column property names
+	private final String ACCOUNT_CODE 		= Messages.getString("AccUITransactionAdd.3"); //$NON-NLS-1$
+	private final String ACCOUNT_NAME   	= Messages.getString("AccUITransactionAdd.4"); //$NON-NLS-1$
+	private final String DEFINITION         = Messages.getString("AccUITransactionAdd.5"); //$NON-NLS-1$
+	private final String DEPT     			= Messages.getString("AccUITransactionAdd.6"); //$NON-NLS-1$
+	private final String CREDIT 		    = Messages.getString("AccUITransactionAdd.7"); //$NON-NLS-1$
+	TableCursor cursor;
+	private List columnList = new ArrayList();
+	private TableItem tableItemBalance;
+	private TableItem tableItemSpace;
+	private TableItem tableItemCredit;
+	private TableItem tableItemDept;
+	private TableColumn tableColumnAmount;
+	private TableColumn tableColumnTitle;
+	private Table table1;
+	TableRowList rowList = new TableRowList();
+	// Set column names
+	private String[] columnNames = new String[] { 
+			ACCOUNT_CODE, 
+			ACCOUNT_NAME,
+			DEFINITION,
+			DEPT,
+			CREDIT
+			
+			};
+	public TableViewer tableViewer;
+	
+	
+	public AccUIInitialTransaction(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
 	}
 
-	private void initGUI() {
+	/**
+	* Initializes the GUI.
+	* Auto-generated code - any changes you make will disappear.
+	*/
+	public void initGUI(){
 		try {
+			preInitGUI();
+
+			this.setSize(688, 540);
+
+
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
-			thisLayout.numColumns = 2;
-			this.setSize(454, 216);
+			{
+				lblDocumentNo = new CLabel(this, SWT.NONE);
+				lblDocumentNo.setText(Messages
+					.getString("AccUITransactionAdd.0")); //$NON-NLS-1$
+				lblDocumentNo
+					.setSize(new org.eclipse.swt.graphics.Point(70, 19));
+				GridData lblDocumentNoLData = new GridData();
+				lblDocumentNoLData.verticalAlignment = GridData.BEGINNING;
+				lblDocumentNoLData.widthHint = 70;
+				lblDocumentNoLData.heightHint = 19;
+				lblDocumentNo.setLayoutData(lblDocumentNoLData);
+			}
+			{
+				txtDocumentNo = new Text(this, SWT.NONE);
+				txtDocumentNo.setSize(new org.eclipse.swt.graphics.Point(
+					155,
+					19));
+				GridData txtDocumentNoLData = new GridData();
+				txtDocumentNoLData.verticalAlignment = GridData.BEGINNING;
+				txtDocumentNoLData.widthHint = 149;
+				txtDocumentNoLData.heightHint = 19;
+				txtDocumentNo.setLayoutData(txtDocumentNoLData);
+			}
+			{
+				lblDate = new CLabel(this, SWT.NONE);
+				lblDate.setText(Messages.getString("AccUITransactionAdd.1")); //$NON-NLS-1$
+				GridData lblDateLData = new GridData();
+				lblDateLData.verticalAlignment = GridData.BEGINNING;
+				lblDateLData.widthHint = 70;
+				lblDateLData.heightHint = 21;
+				lblDate.setLayoutData(lblDateLData);
+			}
+			{
+				dateTransactionDate = new DatePicker(this, SWT.NONE);
+				GridData dateTransactionDateLData = new GridData();
+				dateTransactionDateLData.verticalAlignment = GridData.BEGINNING;
+				dateTransactionDateLData.widthHint = 170;
+				dateTransactionDateLData.heightHint = 24;
+				dateTransactionDate.setLayoutData(dateTransactionDateLData);
+			}
+			{
+				lblTransactionDefinition = new CLabel(this, SWT.NONE);
+				lblTransactionDefinition.setText(Messages.getString("AccUITransactionAdd.2")); //$NON-NLS-1$
+				GridData lblTransactionDefinitionLData = new GridData();
+				lblTransactionDefinitionLData.widthHint = 62;
+				lblTransactionDefinitionLData.heightHint = 19;
+				lblTransactionDefinitionLData.verticalAlignment = GridData.BEGINNING;
+				lblTransactionDefinition
+					.setLayoutData(lblTransactionDefinitionLData);
+			}
+			{
+				txtTransDefinition = new Text(this, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
+				GridData text1LData = new GridData();
+				txtTransDefinition.addVerifyListener(new VerifyListener() {
+					public void verifyText(VerifyEvent evt) {
+						if (evt.keyCode == SWT.TAB) {
+							tableTransactionColumns.setFocus();
+							evt.doit = false;
+
+						}
+					}
+				});
+				txtTransDefinition.setTextLimit(250);
+				text1LData.heightHint = 30;
+				text1LData.horizontalSpan = 3;
+				text1LData.widthHint = 365;
+				txtTransDefinition.setLayoutData(text1LData);
+			}
+			{
+				tableTransactionColumns = new Table(this, SWT.FULL_SELECTION | SWT.HIDE_SELECTION);
+				tableTransactionColumns.setHeaderVisible(true);
+				tableTransactionColumns.setLinesVisible(true);
+				GridData tableTransactionColumnsLData = new GridData();
+				tableTransactionColumnsLData.verticalAlignment = GridData.FILL;
+				tableTransactionColumnsLData.horizontalAlignment = GridData.FILL;
+				tableTransactionColumnsLData.horizontalSpan = 4;
+				tableTransactionColumnsLData.grabExcessHorizontalSpace = true;
+				tableTransactionColumnsLData.grabExcessVerticalSpace = true;
+				tableTransactionColumns.setLayoutData(tableTransactionColumnsLData);
+				{
+					tableColumnAccoutCode = new TableColumn(
+						tableTransactionColumns,
+						SWT.NONE);
+					tableColumnAccoutCode.setText(ACCOUNT_CODE); //$NON-NLS-1$
+					tableColumnAccoutCode.setWidth(121);
+				}
+				{
+					tableColumnAccountName = new TableColumn(
+						tableTransactionColumns,
+						SWT.NONE);
+					tableColumnAccountName.setText(ACCOUNT_NAME); //$NON-NLS-1$
+					tableColumnAccountName.setWidth(150);
+				}
+                {
+                    tableColumnDefinition = new TableColumn(
+                        tableTransactionColumns,
+                        SWT.NONE);
+                    tableColumnDefinition.setText(DEFINITION); //$NON-NLS-1$
+                    tableColumnDefinition.setWidth(150);
+                }
+				{
+					tableColumnDept = new TableColumn(tableTransactionColumns, SWT.RIGHT);
+					tableColumnDept.setText(DEPT); //$NON-NLS-1$
+					tableColumnDept.setWidth(106);
+				}
+				{
+					tableColumnCredit = new TableColumn(tableTransactionColumns, SWT.RIGHT);
+					tableColumnCredit.setText(CREDIT); //$NON-NLS-1$
+					tableColumnCredit.setWidth(97);
+				}
+			}
             {
-                lblAccount = new CLabel(this, SWT.NONE);
-                lblAccount.setText(Messages.getString("AccUIInitialTransaction.0")); //$NON-NLS-1$
-                GridData lblAccountLData = new GridData();
-                lblAccountLData.widthHint = 118;
-                lblAccountLData.heightHint = 22;
-                lblAccount.setLayoutData(lblAccountLData);
+                table1 = new Table(this, SWT.HIDE_SELECTION);
+                GridData table1LData = new GridData();
+                table1.setLinesVisible(true);
+                table1LData.horizontalSpan = 4;
+                table1LData.horizontalAlignment = GridData.END;
+                table1LData.grabExcessHorizontalSpace = true;
+                table1LData.widthHint = 247;
+                table1LData.heightHint = 59;
+                table1.setLayoutData(table1LData);
+                {
+                    tableColumnTitle = new TableColumn(table1, SWT.NONE);
+                    tableColumnTitle.setWidth(80);
+                }
+                {
+                    tableColumnAmount = new TableColumn(table1, SWT.RIGHT);
+                    tableColumnAmount.setText(Messages.getString("AccUITransactionAdd.22")); //$NON-NLS-1$
+                    tableColumnAmount.setWidth(100);
+                }
+                {
+                    tableItemDept = new TableItem(table1, SWT.NONE);
+                    tableItemDept.setText(Messages.getString("AccUITransactionAdd.23")); //$NON-NLS-1$
+                }
+                {
+                    tableItemCredit = new TableItem(table1, SWT.NONE);
+                    tableItemCredit.setText(Messages.getString("AccUITransactionAdd.24")); //$NON-NLS-1$
+                }
+                {
+                    tableItemSpace = new TableItem(table1, SWT.NONE);
+                }
+                {
+                    tableItemBalance = new TableItem(table1, SWT.NONE);
+                    tableItemBalance.setText(Messages.getString("AccUITransactionAdd.25")); //$NON-NLS-1$
+                }
             }
-            {
-                accPicker = new AccountPicker(this, SWT.NONE);
-                GridData accPickerLData = new GridData();
-                accPickerLData.heightHint = 23;
-                accPickerLData.horizontalAlignment = GridData.FILL;
-                accPicker.setLayoutData(accPickerLData);
-            }
-            {
-                lblInitialValue = new CLabel(this, SWT.NONE);
-                lblInitialValue.setText(Messages.getString("AccUIInitialTransaction.1")); //$NON-NLS-1$
-                GridData lblInitialValueLData = new GridData();
-                lblInitialValueLData.widthHint = 92;
-                lblInitialValueLData.heightHint = 18;
-                lblInitialValue.setLayoutData(lblInitialValueLData);
-            }
-            {
-                decInitialValue = new CurrencyText(this, SWT.NONE);
-                GridData decInitialValueLData = new GridData();
-                decInitialValueLData.horizontalAlignment = GridData.FILL;
-                decInitialValueLData.heightHint = 19;
-                decInitialValue.setLayoutData(decInitialValueLData);
-            }
-            {
-                lblDate = new CLabel(this, SWT.NONE);
-                lblDate.setText(Messages.getString("AccUIInitialTransaction.2")); //$NON-NLS-1$
-            }
-            {
-                datePicker = new DatePicker(this, SWT.NONE);
-                GridData datePickerLData = new GridData();
-                datePicker.setFont(SWTResourceManager.getFont(Messages.getString("AccUIInitialTransaction.3"), 8, 1, false, false)); //$NON-NLS-1$
-                datePickerLData.widthHint = 165;
-                datePickerLData.heightHint = 25;
-                datePicker.setLayoutData(datePickerLData);
-            }
-            {
-                lblDocumentNo = new CLabel(this, SWT.NONE);
-                lblDocumentNo.setText(Messages.getString("AccUIInitialTransaction.4")); //$NON-NLS-1$
-            }
-            {
-                txtDocumentNo = new Text(this, SWT.NONE);
-                GridData txtDocumentNoLData = new GridData();
-                txtDocumentNoLData.horizontalAlignment = GridData.FILL;
-                txtDocumentNoLData.heightHint = 19;
-                txtDocumentNo.setLayoutData(txtDocumentNoLData);
-            }
-            {
-                lblDefinition = new CLabel(this, SWT.NONE);
-                lblDefinition.setText(Messages.getString("AccUIInitialTransaction.5")); //$NON-NLS-1$
-                GridData lblDefinitionLData = new GridData();
-                lblDefinitionLData.widthHint = 86;
-                lblDefinitionLData.heightHint = 20;
-                lblDefinitionLData.verticalAlignment = GridData.BEGINNING;
-                lblDefinition.setLayoutData(lblDefinitionLData);
-            }
-            {
-                txtDefinition = new Text(this, SWT.MULTI | SWT.V_SCROLL);
-                GridData txtDefinitionLData = new GridData();
-                txtDefinitionLData.widthHint = 237;
-                txtDefinitionLData.heightHint = 52;
-                txtDefinition.setLayoutData(txtDefinitionLData);
-            }
-            {
-                lbDeptOrCredit = new CLabel(this, SWT.NONE);
-                lbDeptOrCredit.setText(Messages.getString("AccUIInitialTransaction.12"));  //$NON-NLS-1$
-                GridData lbDeptOrCreditLData = new GridData();
-                lbDeptOrCreditLData.widthHint = 76;
-                lbDeptOrCreditLData.heightHint = 18;
-                lbDeptOrCredit.setLayoutData(lbDeptOrCreditLData);
-            }
-            {
-                comboDeptOrCredit = new CCombo(this, SWT.READ_ONLY);
-                
-                comboDeptOrCredit.add(Messages.getString("AccUIInitialTransaction.6"));  //$NON-NLS-1$
-                comboDeptOrCredit.add(Messages.getString("AccUIInitialTransaction.7"));  //$NON-NLS-1$
-                comboDeptOrCredit.setData(Messages.getString("AccUIInitialTransaction.8"),new Integer(0));  //$NON-NLS-1$
-                comboDeptOrCredit.setData(Messages.getString("AccUIInitialTransaction.9"),new Integer(1));  //$NON-NLS-1$
-                
-                comboDeptOrCredit.setText(Messages.getString("AccUIInitialTransaction.10"));  //$NON-NLS-1$
-                comboDeptOrCredit.setBackground(SWTResourceManager.getColor(
-                    255,
-                    255,
-                    255));
-                comboDeptOrCredit.setSize(new org.eclipse.swt.graphics.Point(
-                    71,
-                    17));
-                GridData comboDeptOrCreditLData = new GridData();
-                comboDeptOrCreditLData.widthHint = 49;
-                comboDeptOrCreditLData.heightHint = 17;
-                comboDeptOrCredit.setLayoutData(comboDeptOrCreditLData);
-            }
-			this.layout();
+			thisLayout.numColumns = 4;
+			tableTransactionColumns.setEnabled(true);
+			this.layout();	
+			postInitGUI();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	public void search(){
-	    
-	}
-	public void save(){
-	    MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-	    
-	    try{
-	       Integer id = blTrans.saveAccTransaction(datePicker.getDate(),txtDocumentNo.getText().trim(),3,1,null,txtDefinition.getText().trim());
-	       TurqAccountingTransactionColumn transRow = new TurqAccountingTransactionColumn();
-	       transRow.setTransactionDefinition(txtDefinition.getText());
-	      
-	       transRow.setTurqAccountingAccount((TurqAccountingAccount)accPicker.getData());	
-	   	
-	       int creditDebit = ((Integer)comboDeptOrCredit.getData(comboDeptOrCredit.getText())).intValue();
-	     
-	       if(creditDebit == 0){ //$NON-NLS-1$
-	       	transRow.setCreditAmount(new BigDecimal(0));
-	       	transRow.setDeptAmount(decInitialValue.getBigDecimalValue());
-	       }
-	   	
-	       else if(creditDebit == 1) {
-	       	transRow.setDeptAmount(new BigDecimal(0));
-	       	transRow.setCreditAmount(decInitialValue.getBigDecimalValue());
-	       }	
-	   	
-	       blTrans.saveAccTransactionRow(transRow,id); 
-	       
-	        
-	        msg.setMessage(Messages.getString("AccUIInitialTransaction.11"));  //$NON-NLS-1$
-	        msg.open();
-	        newForm();
-	    	}
-	    	catch(Exception ex){
-	    		ex.printStackTrace();
-	        
-	    	}
-	    
-		}
-		public void delete(){
-	    
-		}
-		public void newForm(){
-		    
-		    AccUIInitialTransaction  curCard = new AccUIInitialTransaction(this.getParent(),this.getStyle());
-			 CTabFolder tabfld = (CTabFolder)this.getParent();
-			 tabfld.getSelection().setControl(curCard);	 
-			 this.dispose();
-	    
+	/** Add your pre-init code in here 	*/
+	public void preInitGUI(){
 	}
 
+	/** Add your post-init code in here 	*/
+	
+	public void postInitGUI(){
+	   
+	 createTableViewer();   
+	 // create a TableCursor to navigate around the table
+		 cursor = new TableSpreadsheetCursor(tableTransactionColumns, SWT.NONE,tableViewer,rowList);
+         cursor.setEnabled(true);
+		
+		 cursor.addSelectionListener(new SelectionAdapter() {
+				// when the TableEditor is over a cell, select the corresponding rowtable
+				public void widgetSelected(SelectionEvent e) {
+	              
+				}		
+				// when the user hits "ENTER" in the TableCursor, pop up a text/combo editor 
+				// so that they can change the text of the cell for controlType=="input" || "select1"<br>
+				// if controlType==TableViewerExample.TYPE_CHECKBOX, toogle it
+				public void widgetDefaultSelected(SelectionEvent e) {				 
+				    
+				
+				}
+			});
+		 
+		
+  
+	
+		 for(int i=0;i<EngBLCommon.TABLE_ROW_COUNT;i++){
+//			enter empty table rows.
+	      AccUITransactionAddTableRow row = new AccUITransactionAddTableRow(rowList);
+	      rowList.addTask(row);
+		}
+	}
+	
+	
+	public void createTableViewer(){
+	       columnList.add(ACCOUNT_CODE);
+	       columnList.add(ACCOUNT_NAME);
+	       columnList.add(DEFINITION);
+	       columnList.add(DEPT);
+	       columnList.add(CREDIT);
+	       tableViewer = new TableViewer(tableTransactionColumns);
+	       tableViewer.setUseHashlookup(true);
+	       tableViewer.setColumnProperties(columnNames);
+	       //     Create the cell editors
+		   CellEditor[] editors = new CellEditor[columnNames.length];
+	       editors[0] = new AccountingCellEditor(tableTransactionColumns);
+	       editors[1] = new TextCellEditor(tableTransactionColumns);
+	       editors[2] = new TextCellEditor(tableTransactionColumns);
+	       editors[3] = new CurrencyCellEditor(tableTransactionColumns,2);
+	       editors[4] = new CurrencyCellEditor(tableTransactionColumns,2);
+	    
+	       // Assign the cell editors to the viewer 
+			tableViewer.setCellEditors(editors);
+	       
+			TurquazContentProvider contentProvider = new TurquazContentProvider(tableViewer,rowList);
+			tableViewer.setCellModifier(new TurquazCellModifier(columnList,contentProvider));    
+			tableViewer.setContentProvider(contentProvider);
+			tableViewer.setLabelProvider(new TurquazLabelProvider());			
+			tableViewer.setInput(rowList);
+		
+		    rowList.addChangeListener(new ITableRowListViewer(){
+			       public void updateRow(ITableRow row){
+			           
+			           calculateTotalDeptAndCredit();
+			          
+						
+			           Vector vec = rowList.getTasks();
+			           int index = vec.indexOf(row);
+			           if(index==vec.size()-1){
+			           		if(row.okToSave()){
+			           			
+			                    AccUITransactionAddTableRow row2 = new AccUITransactionAddTableRow(rowList);
+			                    rowList.addTask(row2);
+			                   
+			           			
+
+			           		}
+			           	
+			           }
+			           
+			      }
+			       public void removeRow(ITableRow row){
+			           calculateTotalDeptAndCredit();
+			                 
+			       }
+			       public void addRow(ITableRow row){
+			           calculateTotalDeptAndCredit();
+			       }
+			    });
+	
+	    
+	}
+	
+	public boolean okToDelete(){
+	    
+	    MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_WARNING|SWT.OK|SWT.CANCEL);
+	       msg.setMessage(Messages.getString("AccUITransactionAdd.8"));   //$NON-NLS-1$
+	       if(msg.open()==SWT.OK){
+	           return true;
+	       }
+	       else
+	       {
+	           return false;
+	       }
+	       
+	       
+	}
+	
+	public boolean verifyFields(){
+	
+	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+	
+	calculateTotalDeptAndCredit();
+	
+	if(totalCredit.doubleValue()!=totalDept.doubleValue()){
+	msg.setMessage(Messages.getString("AccUITransactionAdd.12")); //$NON-NLS-1$	
+	msg.open();	
+	return false;
+	}
+	else if(tableTransactionColumns.getItems().length==0){
+	msg.setMessage(Messages.getString("AccUITransactionAdd.13")); //$NON-NLS-1$	
+	msg.open();
+	
+	return false;
+	
+	}
+	else if(dateTransactionDate.getData()==null){
+	msg.setMessage(Messages.getString("AccUITransactionAdd.14")); //$NON-NLS-1$	
+	msg.open();
+	dateTransactionDate.setFocus();
+	
+	return false;
+	}	
+	else{
+	return true;
+	}
+		
+	}
+
+    public void saveTransactionRows(Integer transId)throws Exception{
+    try{
+    
+    TableItem items[] = tableTransactionColumns.getItems();
+    
+    for(int i=0; i<items.length;i++){
+   
+     AccUITransactionAddTableRow row =(AccUITransactionAddTableRow)items[i].getData();
+     
+     if(row.okToSave()){
+         blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId);
+     }
+    
+    }
+    
+    
+    
+    }
+    catch(Exception ex){
+    throw ex;
+    
+    }
+    
+    
+    }
+    
+    public void clearFields(){
+    txtDocumentNo.setText(""); //$NON-NLS-1$
+    tableTransactionColumns.removeAll();
+    calculateTotalDeptAndCredit();
+    }
+    
+    
+	public void save(){
+	
+	if(verifyFields()){
+	
+	MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+	try{
+	
+	Integer transId =blTransAdd.saveAccTransaction(dateTransactionDate.getDate(),txtDocumentNo.getText().trim(),2,1,null,txtTransDefinition.getText().trim());
+	
+	saveTransactionRows(transId);
+	msg.setMessage(Messages.getString("AccUITransactionAdd.16")); //$NON-NLS-1$
+	msg.open();
+	clearFields();
+	}
+
+	catch(Exception ex){
+	ex.printStackTrace();
+	msg.setMessage(Messages.getString("AccUITransactionAdd.17")); //$NON-NLS-1$
+	msg.open();
+	
+	}
+	
+	
+	
+	
+	
+	
+	}
+	
+	
+	
+	}
+	
+	void calculateTotalDeptAndCredit(){
+	    TurquazDecimalFormat df = new TurquazDecimalFormat();
+	TableItem items[] = tableTransactionColumns.getItems();
+    totalCredit=new BigDecimal(0);
+    totalDept =new BigDecimal(0);
+    
+		for(int i=0; i<items.length;i++){
+		TurqAccountingTransactionColumn column = (TurqAccountingTransactionColumn)((AccUITransactionAddTableRow)items[i].getData()).getDBObject();
+		if(column!=null){
+			totalCredit =totalCredit.add(column.getCreditAmount());
+		totalDept = totalDept.add(column.getDeptAmount());
+		}
+    
+		}
+	
+	tableItemDept.setText(new String[]{Messages.getString("AccUITransactionAdd.19"),df.format(totalDept)}); //$NON-NLS-1$
+	tableItemCredit.setText(new String[]{Messages.getString("AccUITransactionAdd.20"),df.format(totalCredit)}); //$NON-NLS-1$
+	tableItemBalance.setText(new String[]{Messages.getString("AccUITransactionAdd.21"),df.format(totalCredit.subtract(totalDept))}); //$NON-NLS-1$
+	
+	
+	}
+	
+	public void delete(){
+	
+	}
+	
+	public void newForm(){
+		clearFields();
+	}
+	
+	public void search(){
+	
+	}
+	
+	
+
+	/** Auto-generated event handler method */
+	protected void btnAddTransactionRowMouseUp(MouseEvent evt){
+    
+    Object o = new AccUITransactionRowAddDialog(this.getShell(),SWT.NULL,2).showDialog();
+    
+    if(o!=null){
+    TurqAccountingTransactionColumn accTransRow = (TurqAccountingTransactionColumn)o;
+    
+    
+    TableItem item = new TableItem(tableTransactionColumns,SWT.NULL);    
+	item.setData(accTransRow);
+	item.setText(new String[]{accTransRow.getTurqAccountingAccount().getAccountCode(),
+							 accTransRow.getTurqAccountingAccount().getAccountName(),
+							 accTransRow.getDeptAmount().toString(),
+							accTransRow.getCreditAmount().toString(),accTransRow.getTransactionDefinition().toString()});
+	
+	calculateTotalDeptAndCredit();
+	
+	}
+	
+	}
+
+	
+
+	/** Auto-generated event handler method */
+	protected void btnRemoveTransactionRowMouseUp(MouseEvent evt){
+		TableItem selection[] = tableTransactionColumns.getSelection();
+		if(selection.length>0){
+		selection[0].dispose();
+		calculateTotalDeptAndCredit();
+		
+		}
+		
+		
+	}
+	/**
+	 * @return Returns the dateTransactionDate.
+	 */
+	public DatePicker getDateTransactionDate() {
+		return dateTransactionDate;
+	}
+	/**
+	 * @return Returns the txtTransDefinition.
+	 */
+	public Text getTxtTransDefinition() {
+		return txtTransDefinition;
+	}
+	/**
+	 * @param txtTransDefinition The txtTransDefinition to set.
+	 */
+	public void setTxtTransDefinition(Text txtTransDefinition) {
+		this.txtTransDefinition = txtTransDefinition;
+	}
 }
