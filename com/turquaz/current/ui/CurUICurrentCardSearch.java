@@ -90,7 +90,6 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 	private CurBLCurrentCardSearch curBLCurrentCardSearch=new CurBLCurrentCardSearch();
 	private MenuItem item;
 	private Menu popup;
-	private TableColumn tableColumnContactName;
 	private TableColumn tableColumnBalance;
 	private TableColumn tableColumnTotalDept;
 	private TableColumn tableColumnTotalCredit;
@@ -146,8 +145,8 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
                 compCurrentCardSearch,
                 SWT.NONE);
             GridData txtCurrentCodeLData = new GridData();
-            txtCurrentCodeLData.widthHint = 238;
-            txtCurrentCodeLData.heightHint = 16;
+            txtCurrentCodeLData.widthHint = 242;
+            txtCurrentCodeLData.heightHint = 17;
             txtCurrentCode.setLayoutData(txtCurrentCodeLData);
             //END <<  txtCurrentCode
             //START >>  lblCurrentName
@@ -208,17 +207,15 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
             tableColumnCurrentCode = new TableColumn(
                 tableCurrentCardSearch,
                 SWT.NONE);
-            tableColumnCurrentCode.setText(Messages
-                .getString("CurUICurrentCardSearch.0"));
-            tableColumnCurrentCode.setWidth(120);
+            tableColumnCurrentCode.setText(Messages.getString("CurUICurrentCardSearch.0"));
+            tableColumnCurrentCode.setWidth(123);
             //END <<  tableColumnCurrentCode
             //START >>  tableColumnCurrentName
             tableColumnCurrentName = new TableColumn(
                 tableCurrentCardSearch,
                 SWT.NONE);
-            tableColumnCurrentName.setText(Messages
-                .getString("CurUICurrentCardSearch.1"));
-            tableColumnCurrentName.setWidth(120);
+            tableColumnCurrentName.setText(Messages.getString("CurUICurrentCardSearch.1"));
+            tableColumnCurrentName.setWidth(124);
             //END <<  tableColumnCurrentName
             //START >>  tableColumnTotalCredit
             tableColumnTotalCredit = new TableColumn(
@@ -241,14 +238,6 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
             tableColumnBalance.setText("Bakiye");
             tableColumnBalance.setWidth(80);
             //END <<  tableColumnBalance
-            //START >>  tableColumnContactName
-            tableColumnContactName = new TableColumn(
-                tableCurrentCardSearch,
-                SWT.NONE);
-            tableColumnContactName.setText(Messages
-                .getString("CurUICurrentCardSearch.5"));
-            tableColumnContactName.setWidth(120);
-            //END <<  tableColumnContactName
             //START >>  popup
             popup = new Menu(tableCurrentCardSearch);
             tableCurrentCardSearch.setMenu(popup);
@@ -382,25 +371,22 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 																		txtCurrentName.getText().trim(),(TurqCurrentGroup)comboTurqGroupName.getData(comboTurqGroupName.getText()));
 			TurkishCurrencyFormat cf=new TurkishCurrencyFormat(2);
 			for(int k=0; k<listCurrentCards.size(); k++){
-				TurqCurrentCard aCurrentCard=(TurqCurrentCard)((Object[])listCurrentCards.get(k))[1];
+				
+				Object result[] = (Object[])listCurrentCards.get(k);
+				
+				String curCode = result[1].toString();
+				String curName = result[2].toString();
+				
 				TurqViewCurrentAmountTotal currentView=(TurqViewCurrentAmountTotal)((Object[])listCurrentCards.get(k))[0];
 				BigDecimal totalCredit=(currentView.getTransactionsTotalCredit()==null) ? new BigDecimal(0) : currentView.getTransactionsTotalCredit();
 				BigDecimal totalDept=(currentView.getTransactionsTotalDept()==null) ? new BigDecimal(0) : currentView.getTransactionsTotalDept();
 				BigDecimal balance=(currentView.getTransactionsBalanceNow()== null) ? new BigDecimal(0) : currentView.getTransactionsBalanceNow();
 				TableItem item=new TableItem(tableCurrentCardSearch, SWT.NULL);
-				item.setData(aCurrentCard);
+				item.setData(result[3]);			
  				
- 				String contactName =""; //$NON-NLS-1$
- 				Set contacts = aCurrentCard.getTurqCurrentContacts();
- 				
- 				if(contacts.size()>0){
- 				Object curContact[] = contacts.toArray();
- 				contactName = ((TurqCurrentContact)curContact[0]).getContactsName();
- 				
- 				}
  					
  				
- 				item.setText(new String[]{aCurrentCard.getCardsCurrentCode(),aCurrentCard.getCardsName(),cf.format(totalDept),cf.format(totalCredit),cf.format(balance), contactName});
+ 				item.setText(new String[]{curCode,curName,cf.format(totalDept),cf.format(totalCredit),cf.format(balance)});
                   			
 			}
 		
@@ -453,11 +439,16 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 		TableItem [] selection= tableCurrentCardSearch.getSelection();	
 	
 		if(selection.length>0){
-	
-			TurqCurrentCard card = (TurqCurrentCard)selection[0].getData();
+	         try{
+			TurqCurrentCard card = currentSearch.initializeCurrentCard( (Integer)selection[0].getData());
+
 			boolean updated=new CurUICurrentCardUpdate(this.getShell(),SWT.NULL,card).open();
 			if (updated)
 				search();
+	         }
+	         catch(Exception ex){
+	         	ex.printStackTrace();
+	         }
 		}
 	}
 	public void exportToExcel(){

@@ -22,6 +22,7 @@ package com.turquaz.current.bl;
 */
 import java.util.List;
 
+
 import com.turquaz.current.dal.CurDALCurrentCardSearch;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
@@ -91,6 +92,14 @@ public class CurBLCurrentCardSearch {
 	        throw ex;
 	    }
 	    
+	}
+	public TurqCurrentCard initializeCurrentCard(Integer curCardId)throws Exception {
+		try{
+			 return curDALCurrentCardSearch.initializeCurrentCard(curCardId);
+		}
+		catch(Exception ex){
+			throw ex;
+		}
 	}
 	
 
