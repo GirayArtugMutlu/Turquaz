@@ -34,8 +34,8 @@ public class InvUITransactionTableRow implements ITableRow {
     int base_unit_index = -1;
     InvBLCardSearch blCardSearch= new InvBLCardSearch();
     TableViewer tableViewer ;
-    int transAmount = 0;
-    int transAmountinBaseUnit=0;
+    long transAmount = 0;
+    long transAmountinBaseUnit=0;
     /*
      * type 0 = Buy 
      * type 1 = Sell
@@ -166,8 +166,8 @@ public class InvUITransactionTableRow implements ITableRow {
     
     
     public void fillDefaults(TurqInventoryCard invCard){
-        
-       
+        try{
+        blCardSearch.initializeInventoryCard(invCard);
         
         //KDV Yuzdesi 
         
@@ -207,6 +207,10 @@ public class InvUITransactionTableRow implements ITableRow {
         }
         unit_index = new Integer(base_unit_index);
         unit_text = base_unit.getUnitsName();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
        
     
@@ -307,7 +311,7 @@ public class InvUITransactionTableRow implements ITableRow {
 					 TurqInventoryCard invCard= EngBLInventoryCards.getCard(value.toString().trim());
 					 if(invCard!=null){
 					    invTrans.setTurqInventoryCard(invCard);
-					    blCardSearch.initializeInventoryCard(invCard);
+					   
 					    fillDefaults(invCard);
 					    updateComboBoxEditor();
 					 }	
@@ -492,6 +496,17 @@ public class InvUITransactionTableRow implements ITableRow {
       if(obj instanceof TurqInventoryTransaction)
       {
           invTrans = (TurqInventoryTransaction)obj;
+          fillDefaults(invTrans.getTurqInventoryCard());
+          if(transType==0){
+            
+              transAmount = invTrans.getTransactionsAmountIn();
+                         
+          }
+          else{
+              
+              transAmount = invTrans.getTransactionsTotalAmountOut();
+          }
+          
       }
 
     }

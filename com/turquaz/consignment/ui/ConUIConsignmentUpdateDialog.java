@@ -12,6 +12,7 @@ import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentsInGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.inventory.ui.InvUITransactionTableRow;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -211,21 +212,15 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		while(it.hasNext()){
 			invTrans = (TurqInventoryTransaction)it.next();
 			
-			item = new TableItem(compAddConsignment.getTableConsignmentRows(),SWT.NULL);
+			InvUITransactionTableRow row = new InvUITransactionTableRow(compAddConsignment.rowList,consignment.getConsignmentsType(),compAddConsignment.tableViewer);
+            row.setDBObject(invTrans);
+			compAddConsignment.rowList.addTask(row);
 			
-			item.setData(invTrans);
-			item.setText(new String[]{invTrans.getTurqInventoryCard().getCardInventoryCode(),
-									   invTrans.getTurqInventoryCard().getCardName(),
-									   invTrans.getTransactionsAmountIn()+"", //$NON-NLS-1$
-									   invTrans.getTurqInventoryUnit().getUnitsName(),
-									   invTrans.getTransactionsUnitPrice().toString(),
-									   invTrans.getTransactionsTotalPrice().toString(),
-									   invTrans.getTransactionsVat()+"", //$NON-NLS-1$
-									   invTrans.getTransactionsVatAmount().toString(),
-									   invTrans.getTransactionsVatSpecialAmount().toString(),
-									   invTrans.getTransactionsCumilativePrice().toString()});
+            
+			
 			
 		}
+		
 		compAddConsignment.calculateTotals();
 		
 	}

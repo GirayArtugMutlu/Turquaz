@@ -390,7 +390,7 @@ implements SecureComposite{
 			
 			};
    private List columnList = new ArrayList();
-   TableRowList rowList = new TableRowList();
+   public TableRowList rowList = new TableRowList();
 	
 	public ConUIAddConsignment(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
