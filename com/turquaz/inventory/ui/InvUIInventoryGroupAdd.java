@@ -13,6 +13,7 @@ import com.turquaz.engine.bl.EngBLInventoryGroups;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.ui.comp.InvMainGroupPicker;
 import org.eclipse.swt.widgets.Text;
@@ -91,7 +92,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 			this.setSize(493, 216);
             {
                 lblMainGroup = new CLabel(this, SWT.NONE);
-                lblMainGroup.setText("Ana Grup");
+                lblMainGroup.setText(Messages.getString("InvUIInventoryGroupAdd.0")); //$NON-NLS-1$
                 lblMainGroup.setVisible(false);
             }
             {
@@ -104,7 +105,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
             }
             {
                 lblGroupName = new CLabel(this, SWT.NONE);
-                lblGroupName.setText("Grup Ad\u0131");
+                lblGroupName.setText(Messages.getString("InvUIInventoryGroupAdd.1")); //$NON-NLS-1$
             }
             {
                 txtGroupName = new Text(this, SWT.NONE);
@@ -115,7 +116,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
             }
             {
                 lblDefinition = new CLabel(this, SWT.NONE);
-                lblDefinition.setText("Aç\u0131klama");
+                lblDefinition.setText(Messages.getString("InvUIInventoryGroupAdd.2")); //$NON-NLS-1$
             }
             {
                 txtDefinition = new Text(this, SWT.NONE);
@@ -132,9 +133,9 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 	
 
 	public boolean verifyFields(){
-	    if(txtGroupName.getText().trim().equals("")){
+	    if(txtGroupName.getText().trim().equals("")){ //$NON-NLS-1$
 	        
-	        EngUICommon.showMessageBox(getShell(),"Lütfen Bir Grup Ad? Giriniz!",SWT.ICON_WARNING);
+	        EngUICommon.showMessageBox(getShell(),Messages.getString("InvUIInventoryGroupAdd.4"),SWT.ICON_WARNING); //$NON-NLS-1$
 	        txtGroupName.setFocus();
 	        return false;
 	    }
@@ -151,7 +152,21 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 
     }
     public void save(){
-        
+        InvBLCardAdd blCardAdd =new InvBLCardAdd();
+        try{
+            if(verifyFields()){
+                blCardAdd.saveInvGroup(txtGroupName.getText(),txtDefinition.getText(),(TurqInventoryGroup)txtMainGroup.getData());
+                EngUICommon.showSavedSuccesfullyMessage(getShell());
+                EngBLInventoryGroups.RefreshContentAsistantMap();
+                  newForm();
+            }
+             
+             
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            EngUICommon.showMessageBox(getShell(),ex.getMessage().toString(),SWT.ICON_ERROR);
+        }
     }
     
     public void update(TurqInventoryGroup group){

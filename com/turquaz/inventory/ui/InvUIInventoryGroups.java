@@ -22,6 +22,8 @@ import org.eclipse.swt.SWT;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+
+import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 
 
@@ -113,13 +115,13 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite {
                     tableColumnParentGroups = new TableColumn(
                         tableParentGroups,
                         SWT.NONE);
-                    tableColumnParentGroups.setText("Ana Gruplar");
+                    tableColumnParentGroups.setText(Messages.getString("InvUIInventoryGroups.0")); //$NON-NLS-1$
                     tableColumnParentGroups.setWidth(147);
                 }
             }
             {
                 label1 = new Label(this, SWT.SEPARATOR);
-                label1.setText("label1");
+                label1.setText("label1"); //$NON-NLS-1$
                 GridData label1LData = new GridData();
                 label1LData.verticalAlignment = GridData.FILL;
                 label1LData.widthHint = 28;
@@ -152,7 +154,7 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite {
                     tableColumnSubGroups = new TableColumn(
                         tableSubGroups,
                         SWT.NONE);
-                    tableColumnSubGroups.setText("Alt Gruplar");
+                    tableColumnSubGroups.setText(Messages.getString("InvUIInventoryGroups.2")); //$NON-NLS-1$
                     tableColumnSubGroups.setWidth(189);
                 }
             }

@@ -90,6 +90,7 @@ import com.turquaz.inventory.ui.InvUICardSearch;
 
 import com.turquaz.inventory.ui.InvUIGroupingPlan;
 import com.turquaz.inventory.ui.InvUIInventoryCardAbstract;
+import com.turquaz.inventory.ui.InvUIInventoryGroupAdd;
 import com.turquaz.inventory.ui.InvUIInventoryLedger;
 import com.turquaz.inventory.ui.InvUIInventoryTransactionReport;
 import com.turquaz.inventory.ui.InvUIProfitAnalysis;
@@ -200,7 +201,11 @@ public final class TreeFactory {
 			item.setText(Messages.getString("TreeFactory.98"));  //$NON-NLS-1$
 			item.setData(InvUIGroupingPlan.class.getName());
 			}
-
+		if(EngBLPermissions.getPermission(InvUIInventoryGroupAdd.class.getName())>0){
+			item = new TreeItem(adminRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.99"));   //$NON-NLS-1$
+			item.setData(InvUIInventoryGroupAdd.class.getName());
+			}
 		
 		adminRoot.setExpanded(true);
 		reports.setExpanded(true);

@@ -22,6 +22,8 @@ import org.eclipse.swt.SWT;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+
+import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 
 
@@ -107,13 +109,13 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite {
                 {
                     tableColumnGroupName = new TableColumn(tableTreeGroups
                         .getTable(), SWT.NONE);
-                    tableColumnGroupName.setText("Grup Ad\u0131");
+                    tableColumnGroupName.setText(Messages.getString("InvUIGroupingPlan.0")); //$NON-NLS-1$
                     tableColumnGroupName.setWidth(150);
                 }
                 {
                     tableColumnGrupDefinition = new TableColumn(tableTreeGroups
                         .getTable(), SWT.NONE);
-                    tableColumnGrupDefinition.setText("Aç\u0131klama");
+                    tableColumnGrupDefinition.setText(Messages.getString("InvUIGroupingPlan.1")); //$NON-NLS-1$
                     tableColumnGrupDefinition.setWidth(150);
                 }
             }
@@ -135,7 +137,7 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite {
 	     popup = new Menu(getShell(),SWT.POP_UP);
 	     MenuItem item = new MenuItem (popup, SWT.PUSH); 	 
 		
-		 item.setText("Yeni Alt Grup");  	 
+		 item.setText(Messages.getString("InvUIGroupingPlan.2"));  	  //$NON-NLS-1$
 		 
 		 item.addListener(SWT.Selection, new Listener () {
 			public void handleEvent (Event e) {					

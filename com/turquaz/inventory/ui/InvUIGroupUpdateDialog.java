@@ -126,8 +126,8 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog {
                 toolBar.setLayoutData(toolBarLData);
                 {
                     toolSave = new ToolItem(toolBar, SWT.NONE);
-                    toolSave.setText("Güncelle");
-                    toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+                    toolSave.setText(Messages.getString("InvUIGroupUpdateDialog.0")); //$NON-NLS-1$
+                    toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
                     toolSave.addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
                             toolSaveWidgetSelected(evt);
@@ -136,8 +136,8 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog {
                 }
                 {
                     toolDelete = new ToolItem(toolBar, SWT.NONE);
-                    toolDelete.setText("Sil");
-                    toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif"));
+                    toolDelete.setText(Messages.getString("InvUIGroupUpdateDialog.2")); //$NON-NLS-1$
+                    toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
                     toolDelete.addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
                             toolDeleteWidgetSelected(evt);
@@ -146,8 +146,8 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog {
                 }
                 {
                     toolCancel = new ToolItem(toolBar, SWT.NONE);
-                    toolCancel.setText("\u0130ptal");
-                    toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg"));
+                    toolCancel.setText(Messages.getString("InvUIGroupUpdateDialog.4")); //$NON-NLS-1$
+                    toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
                     toolCancel.addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
                             toolCancelWidgetSelected(evt);
@@ -214,7 +214,7 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog {
         try{
             if(EngUICommon.okToDelete(getParent())){
                 new InvBLCardUpdate().deleteObject(mainGroup) ;
-                EngUICommon.showMessageBox(getParent(),"Ba?ar?la Silindi!",SWT.ICON_INFORMATION);
+                EngUICommon.showMessageBox(getParent(),Messages.getString("InvUIGroupUpdateDialog.6"),SWT.ICON_INFORMATION); //$NON-NLS-1$
                 isUpdated = true;
                 dialogShell.close();
             }
@@ -223,7 +223,7 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog {
         catch(Exception ex)
         {
             ex.printStackTrace();
-            EngUICommon.showMessageBox(getParent(),"Bu Grubun Silinmesi Engellendi!",SWT.ICON_ERROR);
+            EngUICommon.showMessageBox(getParent(),Messages.getString("InvUIGroupUpdateDialog.7"),SWT.ICON_ERROR); //$NON-NLS-1$
         }
     }
 }

@@ -123,8 +123,8 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
                 toolBar.setLayoutData(toolBarLData);
                 {
                     toolSave = new ToolItem(toolBar, SWT.NONE);
-                    toolSave.setText("Kaydet");
-                    toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+                    toolSave.setText(Messages.getString("InvUIGroupAddDialog.0")); //$NON-NLS-1$
+                    toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
                     toolSave.addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
                             toolSaveWidgetSelected(evt);
@@ -133,8 +133,8 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
                 }
                 {
                     toolCancel = new ToolItem(toolBar, SWT.NONE);
-                    toolCancel.setText("\u0130ptal");
-                    toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg"));
+                    toolCancel.setText(Messages.getString("InvUIGroupAddDialog.2")); //$NON-NLS-1$
+                    toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
                     toolCancel.addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
                             toolCancelWidgetSelected(evt);
