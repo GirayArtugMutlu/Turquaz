@@ -171,7 +171,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				compInvTransactionSearch.setLayout(composite1Layout);
 				{
 					lblInvCard = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblInvCard.setText("Stok Kart? - Ba?lang?ç");
+					lblInvCard.setText(Messages.getString("InvUIInventoryTransactionReport.0")); //$NON-NLS-1$
 				}
 				{
 					txtInvCardStart = new InventoryPicker(compInvTransactionSearch, SWT.NONE);
@@ -182,7 +182,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				}
 				//START >>  lblInvCardEnd
 				lblInvCardEnd = new CLabel(compInvTransactionSearch, SWT.NONE);
-				lblInvCardEnd.setText("Stok Kart\u0131 -  Biti\u015f");
+				lblInvCardEnd.setText(Messages.getString("InvUIInventoryTransactionReport.1")); //$NON-NLS-1$
 				//END <<  lblInvCardEnd
 				//START >>  txtInvCardEnd
 				txtInvCardEnd = new InventoryPicker(
@@ -195,7 +195,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				//END <<  txtInvCardEnd
 				{
 					lblInvName = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblInvName.setText("Stok Cinsi - Ba?lang?ç");
+					lblInvName.setText(Messages.getString("InvUIInventoryTransactionReport.11")); //$NON-NLS-1$
 				}
 				{
 					txtInvNameStart = new Text(compInvTransactionSearch, SWT.NONE);
@@ -206,7 +206,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				}
 				//START >>  lblInvNameEnd
 				lblInvNameEnd = new CLabel(compInvTransactionSearch, SWT.NONE);
-				lblInvNameEnd.setText("Stok Cinsi - Biti\u015f");
+				lblInvNameEnd.setText(Messages.getString("InvUIInventoryTransactionReport.21")); //$NON-NLS-1$
 				//END <<  lblInvNameEnd
 				//START >>  txtInvNameEnd
 				txtInvNameEnd = new Text(compInvTransactionSearch, SWT.NONE);
@@ -313,7 +313,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			tabFolder = new CTabFolder(this, SWT.NONE);
 			//START >>  tabItemSearch
 			tabItemSearch = new CTabItem(tabFolder, SWT.NONE);
-			tabItemSearch.setText("Arama Sonucu");
+			tabItemSearch.setText(Messages.getString("InvUIInventoryTransactionReport.22")); //$NON-NLS-1$
 			{
 				tableTransactions = new Table(tabFolder, SWT.FULL_SELECTION);
 				tabItemSearch.setControl(tableTransactions);
@@ -343,14 +343,14 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					tableColumnInventoryCode = new TableColumn(
 						tableTransactions,
 						SWT.NONE);
-					tableColumnInventoryCode.setText("Stok Kodu");
+					tableColumnInventoryCode.setText(Messages.getString("InvUIInventoryTransactionReport.23")); //$NON-NLS-1$
 					tableColumnInventoryCode.setWidth(109);
 				}
 				{
 					tableColumnInventoryName = new TableColumn(
 						tableTransactions,
 						SWT.NONE);
-					tableColumnInventoryName.setText("Stok Cinsi");
+					tableColumnInventoryName.setText(Messages.getString("InvUIInventoryTransactionReport.24")); //$NON-NLS-1$
 					tableColumnInventoryName.setWidth(100);
 				}
 				{
@@ -395,7 +395,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			//END <<  tabItemSearch
 			//START >>  tabItemReport
 			tabItemReport = new CTabItem(tabFolder, SWT.NONE);
-			tabItemReport.setText("Rapor");
+			tabItemReport.setText(Messages.getString("InvUIInventoryTransactionReport.25")); //$NON-NLS-1$
 			//START >>  viewer
 			viewer = new ViewerComposite(tabFolder, SWT.NONE);
 			tabItemReport.setControl(viewer);
@@ -424,13 +424,13 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					" from turq_inventory_transactions trans," + //$NON-NLS-1$
 					"turq_consignments cons, turq_bill_consignment_commons billcons," + //$NON-NLS-1$
 					"turq_current_cards curCard, turq_inventory_cards invCard," + //$NON-NLS-1$
-					" turq_inventory_card_groups invCardGroup, turq_inventory_groups invGroup"+
+					" turq_inventory_card_groups invCardGroup, turq_inventory_groups invGroup"+ //$NON-NLS-1$
 					" where trans.engine_sequences_id=cons.engine_sequences_id" + //$NON-NLS-1$
 					" and cons.bill_consignment_common_id=billcons.bill_consignment_common_id" + //$NON-NLS-1$
 					" and billcons.current_cards_id=curCard.current_cards_id" + //$NON-NLS-1$
 					" and trans.inventory_cards_id=invCard.inventory_cards_id" + //$NON-NLS-1$
-					" and invCardGroup.inventory_cards_id=invCard.inventory_cards_id"+
-					" and invCardGroup.inventory_groups_id=invGroup.inventory_groups_id"+
+					" and invCardGroup.inventory_cards_id=invCard.inventory_cards_id"+ //$NON-NLS-1$
+					" and invCardGroup.inventory_groups_id=invGroup.inventory_groups_id"+ //$NON-NLS-1$
 					" and trans.transactions_date >= '"+dformat.format(dateStartDate.getDate())+"'" + //$NON-NLS-1$ //$NON-NLS-2$
 					" and trans.transactions_date <= '"+dformat.format(dateEndDate.getDate())+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 			
@@ -439,13 +439,13 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			{
 				sqlparam+=" and cons.consignments_type ="+ type; //$NON-NLS-1$
 				if (type == EngBLCommon.COMMON_BUY_INT)
-					parameters.put("type",EngBLCommon.COMMON_BUY_STRING);
+					parameters.put("type",EngBLCommon.COMMON_BUY_STRING); //$NON-NLS-1$
 				else
-					parameters.put("type",EngBLCommon.COMMON_SELL_STRING);
+					parameters.put("type",EngBLCommon.COMMON_SELL_STRING); //$NON-NLS-1$
 			}
 			else
 			{
-				parameters.put("type","Hepsi");
+				parameters.put("type",Messages.getString("InvUIInventoryTransactionReport.32")); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			
 			
@@ -453,14 +453,14 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			TurqInventoryGroup invGroup=(TurqInventoryGroup)comboInvGroup.getData(comboInvGroup.getText());
 			if (invGroup != null)
 			{
-				sqlparam += " and "+invGroup.getInventoryGroupsId()+
-				" in (Select cardgr.inventory_groups_id from turq_inventory_card_groups cardgr" +
-				" where cardgr.inventory_cards_id=invCard.inventory_cards_id)";
-				parameters.put("invGroup", invGroup.getGroupsName());
+				sqlparam += " and "+invGroup.getInventoryGroupsId()+ //$NON-NLS-1$
+				" in (Select cardgr.inventory_groups_id from turq_inventory_card_groups cardgr" + //$NON-NLS-1$
+				" where cardgr.inventory_cards_id=invCard.inventory_cards_id)"; //$NON-NLS-1$
+				parameters.put("invGroup", invGroup.getGroupsName()); //$NON-NLS-1$
 			}
 			else
 			{
-				parameters.put("invGroup","Hepsi");
+				parameters.put("invGroup",Messages.getString("InvUIInventoryTransactionReport.38")); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			
 			
@@ -469,8 +469,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			TurqCurrentCard curCardEnd=(TurqCurrentCard)txtCurCardEnd.getData();
 			if (curCardStart!= null && curCardEnd!=null)
 			{
-				sqlparam += " and curCard.cards_current_code >= '"+curCardStart.getCardsCurrentCode()+"'"; //$NON-NLS-1$
-				sqlparam += " and curCard.cards_current_code <= '"+curCardEnd.getCardsCurrentCode()+"'"; //$NON-NLS-1$
+				sqlparam += " and curCard.cards_current_code >= '"+curCardStart.getCardsCurrentCode()+"'"; //$NON-NLS-1$ //$NON-NLS-2$
+				sqlparam += " and curCard.cards_current_code <= '"+curCardEnd.getCardsCurrentCode()+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 				parameters.put("curCardStart",curCardStart.getCardsCurrentCode()); //$NON-NLS-1$ //$NON-NLS-2$
 				parameters.put("curCardEnd",curCardEnd.getCardsCurrentCode()); //$NON-NLS-1$ //$NON-NLS-2$
 			}
@@ -478,18 +478,18 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			{
 				sqlparam += " and curCard.current_cards_id="+curCardStart.getCurrentCardsId(); //$NON-NLS-1$
 				parameters.put("curCardStart",curCardStart.getCardsCurrentCode()); //$NON-NLS-1$ //$NON-NLS-2$
-				parameters.put("curCardEnd","");
+				parameters.put("curCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			else if (curCardEnd != null)
 			{
 				sqlparam += " and curCard.current_cards_id="+curCardEnd.getCurrentCardsId(); //$NON-NLS-1$
 				parameters.put("curCardStart",curCardEnd.getCardsCurrentCode()); //$NON-NLS-1$ //$NON-NLS-2$
-				parameters.put("curCardEnd","");
+				parameters.put("curCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			else
 			{
-				parameters.put("curCardStart","");
-				parameters.put("curCardEnd","");
+				parameters.put("curCardStart",""); //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("curCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 				
 		
@@ -720,7 +720,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			
 			item=new TableItem(tableTransactions,SWT.NULL);
 			item=new TableItem(tableTransactions,SWT.NULL);
-			item.setText(new String[]{"","",Messages.getString("InvUIInventoryTransactionReport.24"),cf.format(totalAmountIn), //$NON-NLS-1$ //$NON-NLS-2$
+			item.setText(new String[]{"","",Messages.getString("InvUIInventoryTransactionReport.24"),cf.format(totalAmountIn), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					cf.format(totalPriceIn),cf.format(totalAmountOut),
 					cf.format(totalPriceOut)});
 			if (list.size() > 0)

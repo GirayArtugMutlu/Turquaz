@@ -136,7 +136,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                 compInvTransactionSearch.setLayout(composite1Layout);
 				//START >>  lblInvCard
 				lblInvCard = new CLabel(compInvTransactionSearch, SWT.NONE);
-				lblInvCard.setText("Stok Kodu");
+				lblInvCard.setText(Messages.getString("InvUITransactionSearch.0")); //$NON-NLS-1$
 				//END <<  lblInvCard
                 {
                     txtInvCard = new InventoryPicker(compInvTransactionSearch, SWT.NONE);
