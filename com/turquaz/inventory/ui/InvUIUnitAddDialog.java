@@ -3,35 +3,29 @@ package com.turquaz.inventory.ui;
 import java.util.Calendar;
 import java.util.List;
 
-import net.sf.hibernate.HibernateException;
-
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
 
-import com.turquaz.engine.dal.TurqInventoryCardGroup;
+
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.inventory.bl.InvBLCardAdd;
-import com.turquaz.inventory.dal.InvDALCardAdd;
 
 /**
 * This code was generated using CloudGarden's Jigloo
@@ -40,22 +34,20 @@ import com.turquaz.inventory.dal.InvDALCardAdd;
 * for-profit company or business) then you should purchase
 * a license - please visit www.cloudgarden.com for details.
 */
-public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
+public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
+	private TableColumn tableColumnName;
+	private Table tableInvGroups;
 	private Button btnGroupAdd;
 	private Button btnUpdate;
 	private Button btnDelete;
-	private Text txtDescription;
-	private CLabel lblDescription;
 	private Text txtGroupName;
-	private TableColumn tableColumnDescription;
-	private TableColumn tableColumnName;
-	private Table tableInvGroups;
 	private CLabel cLabel1;
 	private Composite composite1;
 	private Shell dialogShell;
-    private InvBLCardAdd blCardAdd = new InvBLCardAdd();
+	private InvBLCardAdd blCardAdd = new InvBLCardAdd();
     Calendar cal = Calendar.getInstance();
-	public InvUIGroupAddDialog(Shell parent, int style) {
+
+	public InvUIUnitAddDialog(Shell parent, int style) {
 		super(parent, style);
 	}
 
@@ -73,29 +65,26 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			composite1 = new Composite(dialogShell,SWT.NULL);
 			cLabel1 = new CLabel(composite1,SWT.NULL);
 			txtGroupName = new Text(composite1,SWT.BORDER);
-			lblDescription = new CLabel(composite1,SWT.NULL);
-			txtDescription = new Text(composite1,SWT.SINGLE| SWT.BORDER);
 			btnDelete = new Button(composite1,SWT.PUSH| SWT.CENTER);
 			btnUpdate = new Button(composite1,SWT.PUSH| SWT.CENTER);
 			btnGroupAdd = new Button(composite1,SWT.PUSH| SWT.CENTER);
 			tableInvGroups = new Table(dialogShell,SWT.FULL_SELECTION| SWT.H_SCROLL| SWT.V_SCROLL| SWT.BORDER);
 			tableColumnName = new TableColumn(tableInvGroups,SWT.NULL);
-			tableColumnDescription = new TableColumn(tableInvGroups,SWT.NULL);
 	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(433,229));
+			dialogShell.setSize(new org.eclipse.swt.graphics.Point(252,229));
 	
 			GridData composite1LData = new GridData();
 			composite1LData.verticalAlignment = GridData.CENTER;
 			composite1LData.horizontalAlignment = GridData.FILL;
 			composite1LData.widthHint = -1;
-			composite1LData.heightHint = 85;
+			composite1LData.heightHint = 92;
 			composite1LData.horizontalIndent = 0;
 			composite1LData.horizontalSpan = 1;
 			composite1LData.verticalSpan = 1;
 			composite1LData.grabExcessHorizontalSpace = true;
 			composite1LData.grabExcessVerticalSpace = false;
 			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(433,85));
+			composite1.setSize(new org.eclipse.swt.graphics.Point(252,92));
 			final Color composite1background = new Color(Display.getDefault(),255,255,255);
 			composite1.setBackground(composite1background);
 	
@@ -110,7 +99,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			cLabel1LData.grabExcessHorizontalSpace = false;
 			cLabel1LData.grabExcessVerticalSpace = false;
 			cLabel1.setLayoutData(cLabel1LData);
-			cLabel1.setText("Name");
+			cLabel1.setText("Unit Name");
 			cLabel1.setSize(new org.eclipse.swt.graphics.Point(56,20));
 	
 			GridData txtGroupNameLData = new GridData();
@@ -125,32 +114,6 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			txtGroupNameLData.grabExcessVerticalSpace = false;
 			txtGroupName.setLayoutData(txtGroupNameLData);
 			txtGroupName.setSize(new org.eclipse.swt.graphics.Point(124,13));
-	
-			GridData lblDescriptionLData = new GridData();
-			lblDescriptionLData.verticalAlignment = GridData.BEGINNING;
-			lblDescriptionLData.horizontalAlignment = GridData.END;
-			lblDescriptionLData.widthHint = -1;
-			lblDescriptionLData.heightHint = -1;
-			lblDescriptionLData.horizontalIndent = 0;
-			lblDescriptionLData.horizontalSpan = 1;
-			lblDescriptionLData.verticalSpan = 1;
-			lblDescriptionLData.grabExcessHorizontalSpace = false;
-			lblDescriptionLData.grabExcessVerticalSpace = false;
-			lblDescription.setLayoutData(lblDescriptionLData);
-			lblDescription.setText("Description");
-	
-			GridData txtDescriptionLData = new GridData();
-			txtDescriptionLData.verticalAlignment = GridData.CENTER;
-			txtDescriptionLData.horizontalAlignment = GridData.BEGINNING;
-			txtDescriptionLData.widthHint = 312;
-			txtDescriptionLData.heightHint = 13;
-			txtDescriptionLData.horizontalIndent = 0;
-			txtDescriptionLData.horizontalSpan = 2;
-			txtDescriptionLData.verticalSpan = 1;
-			txtDescriptionLData.grabExcessHorizontalSpace = false;
-			txtDescriptionLData.grabExcessVerticalSpace = false;
-			txtDescription.setLayoutData(txtDescriptionLData);
-			txtDescription.setSize(new org.eclipse.swt.graphics.Point(312,13));
 	
 			GridData btnDeleteLData = new GridData();
 			btnDeleteLData.verticalAlignment = GridData.CENTER;
@@ -205,9 +168,6 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			btnGroupAdd.setLayoutData(btnGroupAddLData);
 			btnGroupAdd.setText("Add");
 			btnGroupAdd.addMouseListener( new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
-					btnGroupAddMouseDoubleClick(evt);
-				}
 				public void mouseUp(MouseEvent evt) {
 					btnGroupAddMouseUp(evt);
 				}
@@ -235,7 +195,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			tableInvGroups.setLayoutData(tableInvGroupsLData);
 			tableInvGroups.setHeaderVisible(true);
 			tableInvGroups.setLinesVisible(true);
-			tableInvGroups.setSize(new org.eclipse.swt.graphics.Point(413,124));
+			tableInvGroups.setSize(new org.eclipse.swt.graphics.Point(232,117));
 			tableInvGroups.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					tableInvGroupsMouseDoubleClick(evt);
@@ -243,10 +203,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			});
 	
 			tableColumnName.setText("Name");
-			tableColumnName.setWidth(150);
-	
-			tableColumnDescription.setText("Description");
-			tableColumnDescription.setWidth(270);
+			tableColumnName.setWidth(200);
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.marginWidth = 0;
@@ -261,7 +218,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 					composite1background.dispose();
 				}
 			});
-			Rectangle bounds = dialogShell.computeTrim(0, 0, 433,229);
+			Rectangle bounds = dialogShell.computeTrim(0, 0, 252,229);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
 			dialogShell.open();
@@ -282,19 +239,21 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 	public void postInitGUI(){
 	fillTable();
 	}
-
+	
+	
     public void fillTable(){
     try{
     tableInvGroups.removeAll();
-    List list = blCardAdd.getInventoryGroups();
+    List list = blCardAdd.getInventoryUnits();
     
-    TurqInventoryGroup invGroup;
+    TurqInventoryUnit invUnit;
     TableItem item;
     for(int i=0;i<list.size();i++){
-    invGroup = (TurqInventoryGroup)list.get(i);
+    invUnit = (TurqInventoryUnit)list.get(i);
     item = new TableItem(tableInvGroups,SWT.NULL);
-    item.setText(new String[]{invGroup.getGroupsName(),invGroup.getGroupsDescription()});
-    item.setData(invGroup);     
+    item.setText(new String[]{invUnit.getUnitsName()});
+    item.setData(invUnit);   
+    
     }
     
     
@@ -307,151 +266,30 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
     
     
     }
-	/** Auto-generated event handler method */
-	protected void tableInvGroupsMouseUp(MouseEvent evt){
 	
-	
-		
-	}
-
-	/** Auto-generated event handler method */
-
-
-	/** Auto-generated event handler method */
-	protected void btnGroupAddMouseDoubleClick(MouseEvent evt){
-		
-}
-	
-
-	/** Auto-generated event handler method */
-	protected void btnGroupAddMouseUp(MouseEvent evt){
-		MessageBox msg = new MessageBox(this.getParent());
-		try{
-		
-		
-	    if(txtGroupName.getText().trim().equals("")){
-	    
-	    msg.setMessage("Please fill the name field!!");
-	    msg.open();
-	    }
-	    else{
-	    
-	    blCardAdd.saveInvGroup(txtGroupName.getText().trim(),txtDescription.getText().trim());
-	    msg.setMessage("Inventory Group succesfully added!");
-	    txtGroupName.setText("");
-	    txtDescription.setText("");
-	    fillTable();
-	    msg.open();	    
-	    }		
-		
-		}
-		catch(HibernateException ex){
-		ex.printStackTrace();
-		msg.setText("Please specify a different name!");
-	    msg.open();
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
-	
-
-	/** Auto-generated event handler method */
-	protected void tableInvGroupsMouseDoubleClick(MouseEvent evt){
-		TableItem item;
-		if(tableInvGroups.getSelection().length>0){
-		item = tableInvGroups.getSelection()[0];
-		txtGroupName.setText(item.getText(0));
-		txtDescription.setText(item.getText(1));
-		txtGroupName.setData(item.getData());
-		btnUpdate.setEnabled(true);
-		btnDelete.setEnabled(true);
-		btnGroupAdd.setEnabled(false);
-		}
-		
-		
-	}
-
-
-	/** Auto-generated event handler method */
-	protected void btnUpdateMouseUp(MouseEvent evt){
-	MessageBox msg = new MessageBox(this.getParent());
-	try{
-		 if(txtGroupName.getText().trim().equals("")){
-		    
-		    msg.setMessage("Please fill the name field!!");
-		    msg.open();
-		    }
-	else{
-		
-	TurqInventoryGroup invGroup = (TurqInventoryGroup)txtGroupName.getData();
-	invGroup.setUpdatedBy(System.getProperty("user"));
-	invGroup.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-	invGroup.setGroupsName(txtGroupName.getText().trim());
-	invGroup.setGroupsDescription(txtDescription.getText().trim());
-	blCardAdd.saveOrUpdateObject(invGroup);
-	
-	btnDelete.setEnabled(false);
-	btnUpdate.setEnabled(false);
-	btnGroupAdd.setEnabled(true);
-	txtGroupName.setText("");
-	txtDescription.setText("");	
-	msg.setMessage("Succesfully Updated!");
-	msg.open();
-	fillTable();
-		    }
-	
-	
-	}
-	catch(Exception ex){
-	btnDelete.setEnabled(false);
-	btnUpdate.setEnabled(false);
-	btnGroupAdd.setEnabled(true);
-	txtGroupName.setText("");
-	txtDescription.setText("");	
-	msg.setMessage("There is an unknown error!");
-	msg.open();
-	ex.printStackTrace();
-	}
-	
-	
-	}
 
 	/** Auto-generated event handler method */
 	protected void btnDeleteMouseUp(MouseEvent evt){
-		MessageBox msg = new MessageBox(this.getParent(),SWT.OK|SWT.CANCEL);
-		MessageBox msg2 = new MessageBox(this.getParent());
-	    try{
-	    msg.setMessage("Really delete inventory group?");
-	    int result = msg.open();
-	    if(result==SWT.OK){
-	   
-	    blCardAdd.deleteObject(txtGroupName.getData());
-	   
-	   
-	    btnDelete.setEnabled(false);
-	    btnUpdate.setEnabled(false);
-	    btnGroupAdd.setEnabled(true);
-	    txtGroupName.setText("");
-	    txtDescription.setText("");	
-	    msg2.setMessage("Succesfully Deleted!");
-		msg2.open();
-		fillTable();
-	    
-	    }
-	    
-		}
-		catch(Exception ex){
-			 btnDelete.setEnabled(false);
-			    btnUpdate.setEnabled(false);
-			    btnGroupAdd.setEnabled(true);
-			    txtGroupName.setText("");
-			    txtDescription.setText("");	
-		msg2.setMessage("Can not delete inventory group!");	
-		msg2.open();
-		ex.printStackTrace();
-		}
-		
-		
+		//TODO add your handler code here
+	}
+
+	/** Auto-generated event handler method */
+	protected void btnUpdateMouseUp(MouseEvent evt){
+		//TODO add your handler code here
+	}
+
+	/** Auto-generated event handler method */
+	protected void btnGroupAddMouseDoubleClick(MouseEvent evt){
+		//TODO add your handler code here
+	}
+
+	/** Auto-generated event handler method */
+	protected void btnGroupAddMouseUp(MouseEvent evt){
+		//TODO add your handler code here
+	}
+
+	/** Auto-generated event handler method */
+	protected void tableInvGroupsMouseDoubleClick(MouseEvent evt){
+		//TODO add your handler code here
 	}
 }
