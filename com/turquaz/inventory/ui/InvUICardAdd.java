@@ -444,7 +444,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					lblInvCardDiscountLData.widthHint = 61;
 					lblInvCardDiscountLData.heightHint = 19;
 					lblInvCardDiscount.setLayoutData(lblInvCardDiscountLData);
-					lblInvCardDiscount.setText("Ýskonto"); //$NON-NLS-1$
+					lblInvCardDiscount.setText(Messages.getString("InvUICardAdd.1"));  //$NON-NLS-1$
 				}
 				{
 					txtInvCardDiscount = new NumericText(
@@ -1228,14 +1228,24 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						GridData txtInvCardDefinitionLData = new GridData();
 						txtInvCardDefinition
 							.addTraverseListener(new TraverseListener() {
-								public void keyTraversed(TraverseEvent evt) {
-									if (evt.keyCode == SWT.TAB) {
-										evt.doit = false;
-										tabfldInvCardAdd
-											.setSelection(tabInvCardDetails);
-									}
+							public void keyTraversed(TraverseEvent evt) {
+								if (evt.keyCode == SWT.TAB) {
+									evt.doit = false;
+									tabfldInvCardAdd
+										.setSelection(tabInvCardDetails);
 								}
+							}
 							});
+						txtInvCardDefinition
+							.addVerifyListener(new VerifyListener() {
+							public void verifyText(VerifyEvent evt) {
+								System.out
+									.println("txtInvCardDefinition.verifyText, event=" //$NON-NLS-1$
+										+ evt);
+								//TODO add your code for txtInvCardDefinition.verifyText
+							}
+							});
+
 						txtInvCardDefinitionLData.widthHint = 187;
 						txtInvCardDefinitionLData.heightHint = 46;
 						txtInvCardDefinitionLData.horizontalSpan = 3;

@@ -55,6 +55,12 @@ import org.eclipse.swt.SWT;
 /**
 *		Tahsil Fisi 
 */
+import org.eclipse.swt.events.TraverseListener;
+import org.eclipse.swt.events.TraverseEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.events.VerifyEvent;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -108,6 +114,8 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	*/
 	public void initGUI(){
 		try {
+
+			
 			preInitGUI();
 
 			this.setSize(new org.eclipse.swt.graphics.Point(520,452));
@@ -183,6 +191,15 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 			{
 				txtDefinition = new Text(this, SWT.MULTI | SWT.V_SCROLL);
 				GridData txtDefinitionLData = new GridData();
+				txtDefinition.addVerifyListener(new VerifyListener() {
+					public void verifyText(VerifyEvent evt) {
+						if (evt.character == SWT.TAB) {
+							btnAddTransactionRow.setFocus();
+							evt.doit = false;
+						}
+					}
+				});
+
 				txtDefinitionLData.verticalAlignment = GridData.FILL;
 				txtDefinitionLData.horizontalAlignment = GridData.FILL;
 				txtDefinition.setLayoutData(txtDefinitionLData);

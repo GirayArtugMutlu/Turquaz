@@ -57,6 +57,8 @@ import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.events.VerifyEvent;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -617,12 +619,20 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			lblCardDefinition.setText(Messages.getString("CurUICurrentCardAdd.3")); //$NON-NLS-1$
 	
 			GridData txtCardDefinitionLData = new GridData();
+			txtCardDefinition.addVerifyListener(new VerifyListener() {
+				public void verifyText(VerifyEvent evt) {
+					if (evt.keyCode == SWT.TAB) {
+						txtCardAddress.setFocus();
+						evt.doit = false;
+						
+					}
+				}
+			});
 			txtCardDefinition.addTraverseListener(new TraverseListener() {
 				public void keyTraversed(TraverseEvent evt) {
-					if (evt.keyCode==SWT.TAB)
-					{
+					if (evt.keyCode == SWT.TAB) {
 						txtCardAddress.setFocus();
-						evt.doit=false;
+						evt.doit = false;
 					}
 				}
 			});
@@ -653,12 +663,20 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			lblCardAddress.setText(Messages.getString("CurUICurrentCardAdd.4")); //$NON-NLS-1$
 	
 			GridData txtCardAddressLData = new GridData();
+			txtCardAddress.addVerifyListener(new VerifyListener() {
+				public void verifyText(VerifyEvent evt) {
+					if (evt.keyCode == SWT.TAB) {
+						composite1.setFocus();
+						evt.doit = false;
+
+					}
+				}
+			});
 			txtCardAddress.addTraverseListener(new TraverseListener() {
 				public void keyTraversed(TraverseEvent evt) {
-					if (evt.keyCode==SWT.TAB)
-					{
+					if (evt.keyCode == SWT.TAB) {
 						numtxtCountryCode.setFocus();
-						evt.doit=false;
+						evt.doit = false;
 					}
 				}
 			});
@@ -1062,12 +1080,20 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			lblContactAddress.setText(Messages.getString("CurUICurrentCardAdd.17")); //$NON-NLS-1$
 	
 			GridData txtContactAddressLData = new GridData();
+			txtContactAddress.addVerifyListener(new VerifyListener() {
+				public void verifyText(VerifyEvent evt) {
+					if (evt.keyCode == SWT.TAB) {
+						txtContactPhone.setFocus();
+						evt.doit = false;
+
+					}
+				}
+			});
 			txtContactAddress.addTraverseListener(new TraverseListener() {
 				public void keyTraversed(TraverseEvent evt) {
-					if (evt.keyCode==SWT.TAB)
-					{
+					if (evt.keyCode == SWT.TAB) {
 						txtContactPhone.setFocus();
-						evt.doit=false;
+						evt.doit = false;
 					}
 				}
 			});

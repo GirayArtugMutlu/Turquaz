@@ -50,6 +50,8 @@ import org.eclipse.swt.widgets.Text;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroupAdd;
 import com.turquaz.engine.ui.component.SecureComposite;
+import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.events.VerifyEvent;
 public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements SecureComposite{
 	private CLabel lblAdmGroupName;
 	private Text txtAdmGroupName;
@@ -134,6 +136,15 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 			{
 				txtAdmGroupDesc = new Text(this, SWT.MULTI | SWT.V_SCROLL);
 				GridData txtAdmGroupDescLData = new GridData();
+				txtAdmGroupDesc.addVerifyListener(new VerifyListener() {
+					public void verifyText(VerifyEvent evt) {
+						if (evt.keyCode == SWT.TAB) {
+							txtAdmGroupName.setFocus();
+							evt.doit = false;
+							
+						}
+					}
+				});
 				txtAdmGroupDescLData.widthHint = 239;
 				txtAdmGroupDescLData.heightHint = 55;
 				txtAdmGroupDesc.setLayoutData(txtAdmGroupDescLData);

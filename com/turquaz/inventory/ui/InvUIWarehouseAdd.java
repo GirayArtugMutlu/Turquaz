@@ -40,6 +40,8 @@ import com.turquaz.inventory.bl.InvBLWarehouseAdd;
 
 import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.events.TraverseEvent;
+import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.events.VerifyEvent;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -177,11 +179,12 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			lblWarehouseAdres.setText(Messages.getString("InvUIWarehouseAdd.1")); //$NON-NLS-1$
 	
 			GridData txtWarehouseAdresLData = new GridData();
-			txtWarehouseAdres.addTraverseListener(new TraverseListener() {
-				public void keyTraversed(TraverseEvent evt) {
+			txtWarehouseAdres.addVerifyListener(new VerifyListener() {
+				public void verifyText(VerifyEvent evt) {
 					if (evt.keyCode == SWT.TAB) {
 						txtWarehouseCity.setFocus();
 						evt.doit = false;
+						
 					}
 				}
 			});
@@ -266,11 +269,12 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			lblDescription.setText(Messages.getString("InvUIWarehouseAdd.4")); //$NON-NLS-1$
 	
 			GridData txtWarehouseDescriptionLData = new GridData();
-			txtWarehouseDescription.addTraverseListener(new TraverseListener() {
-				public void keyTraversed(TraverseEvent evt) {
+			txtWarehouseDescription.addVerifyListener(new VerifyListener() {
+				public void verifyText(VerifyEvent evt) {
 					if (evt.keyCode == SWT.TAB) {
 						txtWarehouseCode.setFocus();
 						evt.doit = false;
+
 					}
 				}
 			});
