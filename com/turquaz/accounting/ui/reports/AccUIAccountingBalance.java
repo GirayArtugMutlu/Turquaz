@@ -116,7 +116,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			if (!totalDept.equals(totalCredit))
 			{
 				MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
-				msg.setMessage("Açýlýþ Fiþlerindeki Alacak/Borç Toplamlarý Tutarsýz!");
+				msg.setMessage("Aç?l?? Fi?lerindeki Alacak/Borç Toplamlar? Tutars?z!");
 				msg.open();
 			}
 			Map parameters = new HashMap();
@@ -225,7 +225,10 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			if(file.exists())
 				this.lblLogoURL.setText("Logo:"+EngConfiguration.logoURL);
 			else
+			{
 				this.lblLogoURL.setText("Logo:");
+				EngConfiguration.logoURL="";
+			}
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
