@@ -186,7 +186,7 @@ public class CashDALCashCard {
              }
             		
             query +=" group by cashTrans.cashTransactionsId, cashTrans.turqCashCard.cashCardName, cashTrans.turqCashTransactionType.cashTransationTypeName, cashTrans.transactionDate";
-            
+            query += " order by cashTrans.transactionDate";
             Query q = session.createQuery(query);
             q.setParameter("startDate",startdate);
             q.setParameter("endDate",endDate);
