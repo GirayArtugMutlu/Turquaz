@@ -291,4 +291,18 @@ CREATE TABLE public.turq_currency_exchange_rates
 
 *******************************************************
 
+
+******* (18-02-2005)*************
+----turq_accounting_transactions ---> "currencies_id" added..
+
+ALTER TABLE turq_accounting_transactions ADD COLUMN currencies_id int4;
+ALTER TABLE turq_accounting_transactions ADD CONSTRAINT "accTransCurrencies" FOREIGN KEY (currencies_id) REFERENCES turq_currencies (currencies_id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+update turq_accounting_transactions set currencies_id =1;
+ALTER TABLE turq_accounting_transactions
+   ALTER COLUMN currencies_id SET NOT NULL;
+*******************************************************   
+   
+
+
   
