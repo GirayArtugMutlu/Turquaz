@@ -14,7 +14,6 @@ import com.turquaz.accounting.dal.AccDALAccountAdd;
 import com.turquaz.bill.dal.BillDALAddBill;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillConsignmentCommon;
@@ -28,6 +27,7 @@ import com.turquaz.engine.ui.component.DatePicker;
 
 public class BillBLAddBill {
 	BillDALAddBill dalBill = new BillDALAddBill();
+	AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
 	Calendar cal = Calendar.getInstance();
 	public BillBLAddBill(){
 		
@@ -128,6 +128,7 @@ public class BillBLAddBill {
 	    
 		TurqBillConsignmentCommon common= bill.getTurqBillConsignmentCommon();		
 		
+		
 		//Al?? Faturas? 
 		if(bill.getBillsType()==0){
 		    
@@ -142,9 +143,7 @@ public class BillBLAddBill {
 			
 			
 			Integer transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),2,7,bill.getTurqEngineSequence().getEngineSequencesId(),"fatura "+DatePicker.formatter.format(bill.getBillsDate()) +" " + common.getBillDocumentNo());
-		    
-			TurqAccountingTransaction accTrans = new TurqAccountingTransaction();
-		    accTrans.setAccountingTransactionsId(transID);			
+		   		
 			
 			TurqAccountingTransactionColumn transRow =null;
 			TurqInventoryTransaction invTrans = null;
@@ -160,7 +159,7 @@ public class BillBLAddBill {
 			transRow = new TurqAccountingTransactionColumn();
 			
 			transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdBuy());
-			transRow.setTurqAccountingTransaction(accTrans);
+		
 			
 			transRow.setCreditAmount(new BigDecimal(0));
 			
@@ -177,8 +176,7 @@ public class BillBLAddBill {
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			
-			dalBill.save(transRow);
+			blAcc.saveAccTransactionRow(transRow,transID);
 			
 			/**
 			 * 2-Kdv hesabini gir
@@ -187,7 +185,7 @@ public class BillBLAddBill {
 				transRow = new TurqAccountingTransactionColumn();
 			
 				transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdVat());
-				transRow.setTurqAccountingTransaction(accTrans);
+				
 			
 				transRow.setCreditAmount(new BigDecimal(0));
 				transRow.setDeptAmount(common.getVatAmount());
@@ -200,7 +198,7 @@ public class BillBLAddBill {
 				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-				dalBill.save(transRow);
+				blAcc.saveAccTransactionRow(transRow,transID);
 			}
 			
 			/**
@@ -211,7 +209,7 @@ public class BillBLAddBill {
 			
 		
 				transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdSpecialVat());
-				transRow.setTurqAccountingTransaction(accTrans);
+				
 			
 				transRow.setCreditAmount(new BigDecimal(0));
 				transRow.setDeptAmount(common.getSpecialVatAmount());
@@ -223,7 +221,7 @@ public class BillBLAddBill {
 				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-				dalBill.save(transRow);
+				blAcc.saveAccTransactionRow(transRow,transID);
 			}
 						
 			
@@ -240,7 +238,7 @@ public class BillBLAddBill {
 			transRow = new TurqAccountingTransactionColumn();
 			
 			transRow.setTurqAccountingAccount(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getTurqAccountingAccount());
-			transRow.setTurqAccountingTransaction(accTrans);
+			
 			
 			transRow.setCreditAmount(common.getTotalAmount());
 			transRow.setDeptAmount(new BigDecimal(0));
@@ -253,7 +251,7 @@ public class BillBLAddBill {
 			transRow.setUpdatedBy(System.getProperty("user"));
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-			dalBill.save(transRow);
+			blAcc.saveAccTransactionRow(transRow,transID);
 			
 			/**
 			 * 4- iskontoyu save et
@@ -262,7 +260,7 @@ public class BillBLAddBill {
 			transRow = new TurqAccountingTransactionColumn();
 			
 			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("649"));
-			transRow.setTurqAccountingTransaction(accTrans);
+			
 			
 			transRow.setCreditAmount(common.getDiscountAmount());
 			transRow.setDeptAmount(new BigDecimal(0));
@@ -274,7 +272,7 @@ public class BillBLAddBill {
 			transRow.setUpdatedBy(System.getProperty("user"));
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-			dalBill.save(transRow);
+			blAcc.saveAccTransactionRow(transRow,transID);
 			
 			
 			
@@ -286,8 +284,6 @@ public class BillBLAddBill {
 			if(!bill.isIsOpen()){
 				transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),1,7,bill.getTurqEngineSequence().getEngineSequencesId(),"fatura "+DatePicker.formatter.format(bill.getBillsDate()) +" " + common.getBillDocumentNo());
 			    
-				 accTrans = new TurqAccountingTransaction();
-			    accTrans.setAccountingTransactionsId(transID);	
 			    
 			    
 			    /**
@@ -297,7 +293,7 @@ public class BillBLAddBill {
 			    transRow = new TurqAccountingTransactionColumn();
 				
 				transRow.setTurqAccountingAccount(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getTurqAccountingAccount());
-				transRow.setTurqAccountingTransaction(accTrans);
+				
 				transRow.setCreditAmount(new BigDecimal(0));
 				transRow.setDeptAmount(invTrans.getTransactionsCumilativePrice());
 				
@@ -308,8 +304,7 @@ public class BillBLAddBill {
 				transRow.setUpdatedBy(System.getProperty("user"));
 				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-				
-				dalBill.save(transRow);
+				blAcc.saveAccTransactionRow(transRow,transID);
 				
 				/**
 				 * 2- Kasa Muhasebe Hareketi
@@ -318,7 +313,7 @@ public class BillBLAddBill {
 					
 				  	
 					transRow.setTurqAccountingAccount((TurqAccountingAccount)currentAccount);
-					transRow.setTurqAccountingTransaction(accTrans);
+				
 					
 					transRow.setCreditAmount(invTrans.getTransactionsCumilativePrice());
 					transRow.setDeptAmount(new BigDecimal(0));
@@ -332,7 +327,7 @@ public class BillBLAddBill {
 					transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 					transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 					
-					dalBill.save(transRow);
+					blAcc.saveAccTransactionRow(transRow,transID);
 				
 				
 		 	  
@@ -358,8 +353,7 @@ public class BillBLAddBill {
 			
 			Integer transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),2,7,bill.getTurqEngineSequence().getEngineSequencesId(),"fatura "+DatePicker.formatter.format(bill.getBillsDate()) +" " + common.getBillDocumentNo());
 		    
-			TurqAccountingTransaction accTrans = new TurqAccountingTransaction();
-		    accTrans.setAccountingTransactionsId(transID);			
+					
 			
 			TurqAccountingTransactionColumn transRow =null;
 			TurqInventoryTransaction invTrans = null;
@@ -375,7 +369,7 @@ public class BillBLAddBill {
 			transRow = new TurqAccountingTransactionColumn();
 			
 			transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdSell());
-			transRow.setTurqAccountingTransaction(accTrans);
+		
 			
 			transRow.setCreditAmount(invTrans.getTransactionsTotalPrice());
 			transRow.setDeptAmount(new BigDecimal(0));
@@ -389,7 +383,7 @@ public class BillBLAddBill {
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			dalBill.save(transRow);
+			blAcc.saveAccTransactionRow(transRow,transID);
 			/**
 			 * 2-Kdv hesabini gir
 			 */
@@ -398,7 +392,7 @@ public class BillBLAddBill {
 			
 				//391 olarak degistir
 				transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdVatSell());
-				transRow.setTurqAccountingTransaction(accTrans);
+				
 				transRow.setCreditAmount(common.getVatAmount());
 				transRow.setDeptAmount(new BigDecimal(0));
 			
@@ -410,7 +404,7 @@ public class BillBLAddBill {
 				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-				dalBill.save(transRow);
+				blAcc.saveAccTransactionRow(transRow,transID);
 			}
 
 			
@@ -423,7 +417,7 @@ public class BillBLAddBill {
 			
 				//360 olarak degistir
 				transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdSpecialVatSell());
-				transRow.setTurqAccountingTransaction(accTrans);
+			
 			
 				transRow.setCreditAmount(common.getSpecialVatAmount());
 				transRow.setDeptAmount(new BigDecimal(0));
@@ -436,7 +430,7 @@ public class BillBLAddBill {
 				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-				dalBill.save(transRow);
+				blAcc.saveAccTransactionRow(transRow,transID);
 			}
 	        }
 			
@@ -450,7 +444,7 @@ public class BillBLAddBill {
 			transRow = new TurqAccountingTransactionColumn();
 			
 			transRow.setTurqAccountingAccount(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getTurqAccountingAccount());
-			transRow.setTurqAccountingTransaction(accTrans);
+		
 			
 			transRow.setCreditAmount(new BigDecimal(0));
 			transRow.setDeptAmount(common.getTotalAmount());
@@ -463,7 +457,7 @@ public class BillBLAddBill {
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			dalBill.save(transRow);
+			blAcc.saveAccTransactionRow(transRow,transID);
 			
 			/**
 			 * 5- iskonto Kayd?
@@ -471,7 +465,7 @@ public class BillBLAddBill {
 			transRow = new TurqAccountingTransactionColumn();
 			
 			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("611"));
-			transRow.setTurqAccountingTransaction(accTrans);
+
 			
 			transRow.setCreditAmount(new BigDecimal(0));
 			transRow.setDeptAmount(common.getDiscountAmount());
@@ -484,7 +478,7 @@ public class BillBLAddBill {
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			dalBill.save(transRow);
+			blAcc.saveAccTransactionRow(transRow,transID);
 			
 			//Kapal? Fatura
 			/**
@@ -494,8 +488,6 @@ public class BillBLAddBill {
 			if(!bill.isIsOpen()){
 				transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),0,7,bill.getTurqEngineSequence().getEngineSequencesId(),"fatura "+DatePicker.formatter.format(bill.getBillsDate()) +" " + common.getBillDocumentNo());
 			    
-				 accTrans = new TurqAccountingTransaction();
-			    accTrans.setAccountingTransactionsId(transID);	
 			    
 			    
 			    /**
@@ -505,7 +497,7 @@ public class BillBLAddBill {
 			    transRow = new TurqAccountingTransactionColumn();
 				
 				transRow.setTurqAccountingAccount(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getTurqAccountingAccount());
-				transRow.setTurqAccountingTransaction(accTrans);
+				
 				transRow.setCreditAmount(invTrans.getTransactionsCumilativePrice());
 				transRow.setDeptAmount(new BigDecimal(0));
 				
@@ -517,7 +509,7 @@ public class BillBLAddBill {
 				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 				
-				dalBill.save(transRow);
+				blAcc.saveAccTransactionRow(transRow,transID);
 				
 				/**
 				 * 2- Kasa Muhasebe Hareketi
@@ -525,7 +517,7 @@ public class BillBLAddBill {
 				  transRow = new TurqAccountingTransactionColumn();
 					
 					transRow.setTurqAccountingAccount((TurqAccountingAccount)currentAccount);
-					transRow.setTurqAccountingTransaction(accTrans);
+					
 					
 					transRow.setCreditAmount(new BigDecimal(0));
 					transRow.setDeptAmount(invTrans.getTransactionsCumilativePrice());
@@ -538,7 +530,7 @@ public class BillBLAddBill {
 					transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 					transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 					
-					dalBill.save(transRow);
+					blAcc.saveAccTransactionRow(transRow,transID);
 				
 				
 		 	  
