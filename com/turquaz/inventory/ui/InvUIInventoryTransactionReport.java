@@ -84,6 +84,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 	private Composite compInvTransactionSearch;
 	private Table tableTransactions;
 	private TableColumn tableColumnTotalAmountOut;
+	private TableColumn tableColumnUnitPriceOut;
+	private TableColumn tableColumnUnitPriceIn;
 	private Button radioInvName;
 	private Composite compRadio;
 	private Button radioInvCode;
@@ -365,6 +367,11 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					tableColumnTotalPriceIn.setText(Messages.getString("InvUIInventoryTransactionReport.14")); //$NON-NLS-1$
 					tableColumnTotalPriceIn.setWidth(100);
 				}
+				//START >>  tableColumnUnitPriceIn
+				tableColumnUnitPriceIn = new TableColumn(tableTransactions, SWT.RIGHT);
+				tableColumnUnitPriceIn.setText("Gir. Birim Fiyat");
+				tableColumnUnitPriceIn.setWidth(100);
+				//END <<  tableColumnUnitPriceIn
 				{
 					tableColumnTotalAmountOut = new TableColumn(tableTransactions, SWT.RIGHT);
 					tableColumnTotalAmountOut.setText(Messages.getString("InvUIInventoryTransactionReport.13")); //$NON-NLS-1$
@@ -375,6 +382,11 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					tableColumnTotalPriceOut.setText(Messages.getString("InvUIInventoryTransactionReport.16")); //$NON-NLS-1$
 					tableColumnTotalPriceOut.setWidth(100);
 				}
+				//START >>  tableColumnUnitPriceOut
+				tableColumnUnitPriceOut = new TableColumn(tableTransactions, SWT.RIGHT);
+				tableColumnUnitPriceOut.setText("Ç\u0131k. Birim Fiyat");
+				tableColumnUnitPriceOut.setWidth(100);
+				//END <<  tableColumnUnitPriceOut
 			}
 			GridData tabFolderLData = new GridData();
 			tabFolderLData.grabExcessHorizontalSpace = true;
@@ -658,21 +670,27 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				item.setData(transId);
 				BigDecimal priceIn = new BigDecimal(0);
 				BigDecimal priceOut = new BigDecimal(0);
+				BigDecimal unitPriceIn=new BigDecimal(0);
+				BigDecimal unitPriceOut=new BigDecimal(0);
 				if (inAmount.doubleValue() == 0)
 				{
 					priceOut = totalPrice;
 					totalPriceOut = totalPriceOut.add(totalPrice);
+					if (outAmount.doubleValue() != 0)
+						unitPriceOut=totalPrice.divide(outAmount,2,EngBLCommon.ROUNDING_METHOD);
 				}
 				else
 				{
 					priceIn = totalPrice;
 					totalPriceIn = totalPriceIn.add(totalPrice);
+					if (inAmount.doubleValue() != 0)
+						unitPriceIn=totalPrice.divide(inAmount,2,EngBLCommon.ROUNDING_METHOD);
 				}
 				totalAmountIn = totalAmountIn.add(inAmount);
 				totalAmountOut = totalAmountOut.add(outAmount);
 				item.setText(new String[]{DatePicker.formatter.format(transDate), invCode, invName, cf.format(inAmount) + "", //$NON-NLS-1$								
-						cf.format(priceIn), cf.format(outAmount) + "", //$NON-NLS-1$
-						cf.format(priceOut)});
+						cf.format(priceIn), cf.format(unitPriceIn), cf.format(outAmount) + "", //$NON-NLS-1$
+						cf.format(priceOut), cf.format(unitPriceOut)});
 			}
 			item = new TableItem(tableTransactions, SWT.NULL);
 			item = new TableItem(tableTransactions, SWT.NULL);
