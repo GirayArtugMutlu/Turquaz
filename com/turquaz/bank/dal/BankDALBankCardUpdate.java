@@ -21,10 +21,17 @@ package com.turquaz.bank.dal;
 * @version  $Id$
 */
 
+import java.util.List;
+
+import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
+import com.turquaz.bank.bl.BankBLTransactionUpdate;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.dal.TurqBanksTransactionBill;
 
 
 public class BankDALBankCardUpdate {
@@ -49,9 +56,11 @@ public class BankDALBankCardUpdate {
 		
 	}
 	public void deleteObject(Object obj)throws Exception{
+		
+		Transaction tx = null;
 		try{
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			tx = session.beginTransaction();
 		
 			session.delete(obj);
 			session.flush();
@@ -60,9 +69,94 @@ public class BankDALBankCardUpdate {
 			
 			}
 			catch(Exception ex){
+				
+				if(tx!=null)
+				{
+					tx.rollback();
+				}
 				throw ex;
 			}
 		
 	}
+	public boolean hasTransaction(TurqBanksCard bankCard)throws Exception {
+		try{
+			if(bankCard ==null)
+			{
+				return true;
+			}
+			
+			Session session= EngDALSessionFactory.openSession();
+			String query = " Select count(bankTrans.id) from TurqBanksTransaction as bankTrans where " +
+					" bankTrans.turqBanksCard = :bankCard and bankTrans.turqBanksTransactionBill.turqBanksTransactionType.id <> "+EngBLCommon.BANK_TRANS_INITIAL;
+			
+			Query q = session.createQuery(query);
+			q.setParameter("bankCard",bankCard);
+			
+			List ls = q.list();
+			
+			session.close();
+			
+			if(ls.size()==0)
+			{
+				return true;
+			}
+			
+			Integer count = (Integer)ls.get(0);
+			if(count.intValue()==0)
+			{
+				System.out.println(count);
+				return false;
+			}
+			
+			
+			return true;
+			
+			
+			
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+		
+		
+	}
+	public void deleteInitialTransaction(TurqBanksCard bankCard)throws Exception {
+		try{
+	        
+	        Session session = EngDALSessionFactory.openSession();
+	        String query = "Select bankTransBill from TurqBanksTransactionBill as bankTransBill " +
+	        		" left join bankTransBill.turqBanksTransactions as bankTrans" +
+	        		" where bankTransBill.turqBanksTransactionType.id = "+EngBLCommon.BANK_TRANS_INITIAL+
+	        		" and bankTrans.turqBanksCard = :bankCard " ;
+	        		
+	        
+	        
+	    	Query q = session.createQuery(query); 
+	        q.setParameter("bankCard",bankCard);
+	    	List list = q.list();
+	        
+	        for(int i=0;i<list.size();i++){
+	       
+	        	TurqBanksTransactionBill transBill = (TurqBanksTransactionBill)list.get(i);
+	        	
+	        	BankDALCommon.initializeTransaction(transBill);
+	        BankBLTransactionUpdate.deleteTransaction(transBill);        	
+	        	
+	        
+	        }
+	        session.flush();
+	        
+	    	session.close();
+	    	
+	    	
+	        
+	    }
+	    catch(Exception ex){
+	        
+	        throw ex;
+	    }
+	}
+	
 
 }

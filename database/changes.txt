@@ -741,11 +741,15 @@ yukardakilerden sonra bunlar da cal?st?r?lacak..
 
 
 ALTER TABLE turq_bill_consignment_commons RENAME discount_rate_perc  TO discount_rate;
+
 **************************************************************************************
 
 INSERT INTO turq_bank_accounting_types VALUES (3, 'Karsiliksiz Cek Hesabi', ' ');
 INSERT INTO turq_cheque_transaction_types VALUES (5, 'Bankadan Iade', 5, 3, 'admin', '2005-01-01', 'admin', '2005-01-01');
 INSERT INTO turq_module_components VALUES (84, 9, 'com.turquaz.cheque.ui.CheUIReturnFromBankRoll', 'Bankadan Iade Bordrosu', 'cem', '2005-02-28', 'cem', '2005-02-28');
+
+INSERT INTO turq_cheque_transaction_types VALUES (6, 'Cariden Iade', 6, 3, 'admin', '2005-01-01', 'admin', '2005-01-01');
+INSERT INTO turq_module_components VALUES (85, 9, 'com.turquaz.cheque.ui.CheUIReturnFromCurrent', 'Cariden Iade Bordrosu', 'cem', '2005-02-28', 'cem', '2005-02-28');
 
 **************************************************************************************;
 !!!! makro datalari en son buraya kada update edildi...!!!
@@ -790,8 +794,6 @@ ADD CONSTRAINT uniq UNIQUE (inventory_cards_id, accounting_accounts_id, inventor
 ALTER TABLE turq_inventory_accounting_types 
 ADD CONSTRAINT p_id PRIMARY KEY (id);
 
-INSERT INTO turq_cheque_transaction_types VALUES (6, 'Cariden Iade', 6, 3, 'admin', '2005-01-01', 'admin', '2005-01-01');
-INSERT INTO turq_module_components VALUES (85, 9, 'com.turquaz.cheque.ui.CheUIReturnFromCurrent', 'Cariden Iade Bordrosu', 'cem', '2005-02-28', 'cem', '2005-02-28');
 
 ALTER TABLE turq_inventory_accounting_accounts ADD CONSTRAINT f_inv_card FOREIGN KEY (inventory_cards_id) 
 REFERENCES turq_inventory_cards (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;

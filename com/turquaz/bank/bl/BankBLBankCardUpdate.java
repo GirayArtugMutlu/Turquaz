@@ -108,6 +108,12 @@ public class BankBLBankCardUpdate {
 		
 		
 	}
+	public boolean hasTransaction(TurqBanksCard bankCard)throws Exception {
+		
+		return bankDALBankCardUpdate.hasTransaction(bankCard);
+		
+	}
+	
 	
 	/**
 	 * 
@@ -116,8 +122,35 @@ public class BankBLBankCardUpdate {
 	
 	public void deleteObject(Object obj)throws Exception{
  		try{
-			
+ 			
+ 			
+ 			
  			bankDALBankCardUpdate.deleteObject(obj);
+ 			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
+	/**
+	 * 
+	 * @param obj Serializable object
+	 */
+	
+	public void deleteBankCard(TurqBanksCard bankCard)throws Exception{
+ 		try{
+ 			
+ 			Iterator it = bankCard.getTurqBankAccountingAccounts().iterator();
+ 			while(it.hasNext())
+ 			{
+ 				deleteObject(it.next());
+ 				
+ 			}
+ 			
+ 			bankDALBankCardUpdate.deleteInitialTransaction(bankCard);
+ 			
+ 			bankDALBankCardUpdate.deleteObject(bankCard);
  			
 		}
 		catch(Exception ex){

@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
@@ -101,6 +102,17 @@ public class InvBLSearchTransaction {
 		try {
 			
 			return dalSearch.getConsignment(seq);
+		}
+		
+		catch (Exception ex) {
+			throw ex;
+		}
+	}
+	public TurqBill getBill(TurqEngineSequence seq) throws Exception
+	{
+		try {
+			
+			return dalSearch.getBill(seq);
 		}
 		
 		catch (Exception ex) {

@@ -115,7 +115,7 @@ public class BillUIAddBill extends Composite
 		return compRegisterGroup;
 	}
 
-	/**
+	/** 
 	 * @param compRegisterGroup
 	 *            The compRegisterGroup to set.
 	 */

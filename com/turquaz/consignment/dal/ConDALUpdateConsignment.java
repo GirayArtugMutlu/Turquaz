@@ -45,28 +45,41 @@ public class ConDALUpdateConsignment {
 		}
 	}
 	public void update(Object obj)throws Exception{
+		Transaction tx = null;
 		try{
 		Session session = EngDALSessionFactory.openSession();
-		
+		 tx = session.beginTransaction();
 		session.update(obj);
-	
+		session.flush();
+		tx.commit();
 		session.close();
 		
 		}
 		catch(Exception ex){
+			if(tx!=null)
+			{
+				tx.rollback();
+			}
 			throw ex;
 		}
 	}
 	public void updateConsignment(TurqConsignment obj)throws Exception{
+		Transaction tx = null;
 		try{
+			
 			Session session = EngDALSessionFactory.openSession();
-			
+			 tx = session.beginTransaction();
 			session.update(obj);
-			
+			session.flush();
+			tx.commit();
 			session.close();
 			
 			}
 			catch(Exception ex){
+				if(tx!=null)
+				{
+					tx.rollback();
+				}
 				throw ex;
 			}
 		

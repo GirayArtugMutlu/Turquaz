@@ -310,7 +310,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	                					compAddBill.getTxtTotalAmount().getBigDecimalValue(),type,
 										EngBLCommon.getBaseCurrencyExchangeRate());
 			
-   //	      Update Inventory Transactions
+   //Update Inventory Transactions
 			 Iterator it2 = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
 			while(it2.hasNext()){
 				blUpdateCons.deleteObject(it2.next());

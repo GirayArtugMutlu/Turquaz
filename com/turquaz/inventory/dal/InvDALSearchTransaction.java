@@ -29,10 +29,12 @@ import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
+import com.turquaz.bill.dal.BillDALSearchBill;
 import com.turquaz.consignment.dal.ConDALUpdateConsignment;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 
+import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
@@ -351,6 +353,30 @@ public class InvDALSearchTransaction {
 				 cons = (TurqConsignment)it.next();
 				ConDALUpdateConsignment dalSearchCons = new ConDALUpdateConsignment();
 				dalSearchCons.initiliazeConsignment(cons);
+			}
+			session.close();
+			return cons;
+
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+
+	public TurqBill getBill(TurqEngineSequence seq) throws Exception
+	{
+		try {
+			Session session = EngDALSessionFactory.openSession();
+			session.refresh(seq);
+			
+			Hibernate.initialize(seq.getTurqConsignments());
+			Iterator it = seq.getTurqBills().iterator();
+			
+			TurqBill cons = null;
+			if (it.hasNext())
+			{
+				 cons = (TurqBill)it.next();
+				ConDALUpdateConsignment dalSearchCons = new ConDALUpdateConsignment();
+				new BillDALSearchBill().initializeBill(cons);
 			}
 			session.close();
 			return cons;
