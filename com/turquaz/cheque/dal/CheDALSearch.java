@@ -29,6 +29,7 @@ import net.sf.hibernate.Session;
 
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeTransactionType;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqViewChequeStatus;
@@ -175,7 +176,7 @@ public class CheDALSearch {
 		}
 	}
 
-	public static List searchOwnCheques(TurqCurrentCard curCard,
+	public static List searchOwnCheques(TurqCurrentCard curCard,TurqBanksCard bankCard,
 			 Date startEnterDate, Date endEnterDate,
 			Date startDueDate, Date endDueDate) throws Exception {
 		try {
@@ -189,7 +190,7 @@ public class CheDALSearch {
 
 			String query = "Select cheque.chequeChequesId, chequeInRolls.turqChequeRoll.chequeRollsDate,"
 					+ " chequeInRolls.turqChequeRoll.turqCurrentCard.cardsName, cheque.chequesDueDate,status.chequeTransactionTypesId,"
-					+ " cheque.chequesAmount"
+					+ " cheque.chequesAmount, cheque.turqBanksCard.bankCode, cheque.chequesNo "
 					+ " from TurqChequeCheque as cheque"
 					+ " left join cheque.turqChequeChequeInRolls as chequeInRolls ,"
 					+ " TurqViewChequeStatus as status "
@@ -206,6 +207,9 @@ public class CheDALSearch {
 			if (curCard != null) {
 				query += " and chequeInRolls.turqChequeRoll.turqCurrentCard = :curCard";
 			}
+			if(bankCard !=null ){
+				query += " and cheque.turqBanksCard = :bankCard";
+			}
 			
 
 			Query q = session.createQuery(query);
@@ -216,6 +220,9 @@ public class CheDALSearch {
 
 			if (curCard != null) {
 				q.setParameter("curCard", curCard);
+			}
+			if(bankCard !=null ){
+				q.setParameter("bankCard",bankCard);
 			}
 
 			List list = q.list();

@@ -153,7 +153,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
                 {
                     btnSumTotals = new Button(compInfoPanel, SWT.CHECK
                         | SWT.LEFT);
-                    btnSumTotals.setText("Cari Hareketleri Topla ");
+                    btnSumTotals.setText(Messages.getString("CheUIChequeInPayroll.14")); //$NON-NLS-1$
                 }
             }
             {

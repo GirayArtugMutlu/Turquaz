@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.turquaz.cheque.dal.CheDALSearch;
+import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
 public class CheBLSearchCheques {
@@ -38,12 +39,12 @@ public class CheBLSearchCheques {
 			throw ex;
 		}
 	}
-	public static List searchOwnCheques(TurqCurrentCard curCard,
+	public static List searchOwnCheques(TurqCurrentCard curCard, TurqBanksCard bankCard,
 			 Date startEnterDate, Date endEnterDate,
 			Date startDueDate, Date endDueDate) throws Exception {
 		try {
 			
-		 return CheDALSearch.searchOwnCheques(curCard,startEnterDate,endEnterDate,startDueDate,endDueDate);
+		 return CheDALSearch.searchOwnCheques(curCard,bankCard,startEnterDate,endEnterDate,startDueDate,endDueDate);
 		
 		}
 		catch (Exception ex){

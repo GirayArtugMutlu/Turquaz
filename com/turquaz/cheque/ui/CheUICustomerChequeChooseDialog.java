@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchChequeRoll;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.ui.EngUICommon;
@@ -70,7 +71,7 @@ public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dia
 
 
 			dialogShell.setLayout(new GridLayout());
-			dialogShell.setText("Mü\u015fteri Çeki Seçme");
+			dialogShell.setText(Messages.getString("CheUICustomerChequeChooseDialog.0")); //$NON-NLS-1$
 			dialogShell.layout();
 			dialogShell.pack();
 			dialogShell.setSize(647, 441);
@@ -82,8 +83,8 @@ public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dia
             toolBar.setLayoutData(toolBarLData);
             //START >>  toolSave
             toolSave = new ToolItem(toolBar, SWT.NONE);
-            toolSave.setText("&Kaydet");
-            toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+            toolSave.setText(Messages.getString("CheUICustomerChequeChooseDialog.1")); //$NON-NLS-1$
+            toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
             toolSave.addSelectionListener(new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent evt) {
                     toolSaveWidgetSelected(evt);
@@ -92,8 +93,8 @@ public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dia
             //END <<  toolSave
             //START >>  toolCancel
             toolCancel = new ToolItem(toolBar, SWT.NONE);
-            toolCancel.setText("\u0130ptal");
-            toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg"));
+            toolCancel.setText(Messages.getString("CheUICustomerChequeChooseDialog.3")); //$NON-NLS-1$
+            toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
             toolCancel.addSelectionListener(new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent evt) {
                    dialogShell.close();
@@ -113,27 +114,27 @@ public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dia
                 tableCheques.setLayoutData(tableChequesLData);
                 //START >>  tableColumnNo
                 tableColumnNo = new TableColumn(tableCheques, SWT.NONE);
-                tableColumnNo.setText("Portöy No");
+                tableColumnNo.setText(Messages.getString("CheUICustomerChequeChooseDialog.5")); //$NON-NLS-1$
                 tableColumnNo.setWidth(96);
                 //END <<  tableColumnNo
                 //START >>  tableColumnCurrentCard
                 tableColumnCurrentCard = new TableColumn(tableCheques, SWT.NONE);
-                tableColumnCurrentCard.setText("Kimden Al\u0131nd\u0131");
+                tableColumnCurrentCard.setText(Messages.getString("CheUICustomerChequeChooseDialog.6")); //$NON-NLS-1$
                 tableColumnCurrentCard.setWidth(111);
                 //END <<  tableColumnCurrentCard
                 //START >>  tableColumnDueDate
                 tableColumnDueDate = new TableColumn(tableCheques, SWT.NONE);
-                tableColumnDueDate.setText("Vade Tarihi");
+                tableColumnDueDate.setText(Messages.getString("CheUICustomerChequeChooseDialog.7")); //$NON-NLS-1$
                 tableColumnDueDate.setWidth(100);
                 //END <<  tableColumnDueDate
                 //START >>  tableColumnDebtor
                 tableColumnDebtor = new TableColumn(tableCheques, SWT.NONE);
-                tableColumnDebtor.setText("Borçlu");
+                tableColumnDebtor.setText(Messages.getString("CheUICustomerChequeChooseDialog.8")); //$NON-NLS-1$
                 tableColumnDebtor.setWidth(100);
                 //END <<  tableColumnDebtor
                 //START >>  tableColumnAmount
                 tableColumnAmount = new TableColumn(tableCheques, SWT.RIGHT);
-                tableColumnAmount.setText("Tutar\u0131");
+                tableColumnAmount.setText(Messages.getString("CheUICustomerChequeChooseDialog.9")); //$NON-NLS-1$
                 tableColumnAmount.setWidth(100);
                 //END <<  tableColumnAmount
             }

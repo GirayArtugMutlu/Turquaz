@@ -2,6 +2,8 @@ package com.turquaz.cheque.ui;
 
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Table;
+
+import com.turquaz.cheque.Messages;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Composite;
@@ -99,7 +101,7 @@ public class CheUIChequeCardDialog extends org.eclipse.swt.widgets.Dialog {
                 cTabFolder1.setLayoutData(cTabFolder1LData);
                 {
                     tabItemChequeInfo = new CTabItem(cTabFolder1, SWT.NONE);
-                    tabItemChequeInfo.setText("Çek Bilgileri");
+                    tabItemChequeInfo.setText(Messages.getString("CheUIChequeCardDialog.0")); //$NON-NLS-1$
                     {
                         compChequeInfo = new Composite(cTabFolder1, SWT.NONE);
                         tabItemChequeInfo.setControl(compChequeInfo);
@@ -108,7 +110,7 @@ public class CheUIChequeCardDialog extends org.eclipse.swt.widgets.Dialog {
                         compChequeInfo.setLayout(compChequeInfoLayout);
                         {
                             lblPortfoyNo = new CLabel(compChequeInfo, SWT.NONE);
-                            lblPortfoyNo.setText("Portföy No");
+                            lblPortfoyNo.setText(Messages.getString("CheUIChequeCardDialog.1")); //$NON-NLS-1$
                         }
                         {
                             txtPortfoyNo = new Text(compChequeInfo, SWT.NONE);
@@ -119,7 +121,7 @@ public class CheUIChequeCardDialog extends org.eclipse.swt.widgets.Dialog {
                         }
                         {
                             lblDueDate = new CLabel(compChequeInfo, SWT.NONE);
-                            lblDueDate.setText("Vade Tarihi");
+                            lblDueDate.setText(Messages.getString("CheUIChequeCardDialog.2")); //$NON-NLS-1$
                         }
                         {
                             datePicker = new DatePicker(
@@ -170,7 +172,7 @@ public class CheUIChequeCardDialog extends org.eclipse.swt.widgets.Dialog {
                 }
                 {
                     tabItemChequeHistory = new CTabItem(cTabFolder1, SWT.NONE);
-                    tabItemChequeHistory.setText("Tarihçe");
+                    tabItemChequeHistory.setText(Messages.getString("CheUIChequeCardDialog.3")); //$NON-NLS-1$
                     {
                         table = new Table(cTabFolder1, SWT.NONE);
                         tabItemChequeHistory.setControl(table);
@@ -178,19 +180,19 @@ public class CheUIChequeCardDialog extends org.eclipse.swt.widgets.Dialog {
                         table.setLinesVisible(true);
                         {
                             tableColumnDate = new TableColumn(table, SWT.NONE);
-                            tableColumnDate.setText("Tarih");
+                            tableColumnDate.setText(Messages.getString("CheUIChequeCardDialog.4")); //$NON-NLS-1$
                             tableColumnDate.setWidth(100);
                         }
                         {
                             tableColumnRollNo = new TableColumn(table, SWT.NONE);
-                            tableColumnRollNo.setText("Bordro NO");
+                            tableColumnRollNo.setText(Messages.getString("CheUIChequeCardDialog.5")); //$NON-NLS-1$
                             tableColumnRollNo.setWidth(100);
                         }
                         {
                             tableColumnRollType = new TableColumn(
                                 table,
                                 SWT.NONE);
-                            tableColumnRollType.setText("Bordro Tipi");
+                            tableColumnRollType.setText(Messages.getString("CheUIChequeCardDialog.6")); //$NON-NLS-1$
                             tableColumnRollType.setWidth(100);
                         }
                         {
@@ -198,7 +200,7 @@ public class CheUIChequeCardDialog extends org.eclipse.swt.widgets.Dialog {
                                 table,
                                 SWT.NONE);
                             tableColumnCurrentBankCode.setWidth(113);
-                            tableColumnCurrentBankCode.setText("Cari/Banka Kodu");
+                            tableColumnCurrentBankCode.setText(Messages.getString("CheUIChequeCardDialog.7")); //$NON-NLS-1$
                         }
                     }
                 }

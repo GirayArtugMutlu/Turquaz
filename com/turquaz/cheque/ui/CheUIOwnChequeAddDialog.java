@@ -227,13 +227,13 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog {
 	{
 	    if(bankPicker.getData()==null)
 	    {
-	        EngUICommon.showMessageBox(getParent(),"Lütfen Banka Kart? Giriniz!!",SWT.ICON_WARNING);
+	        EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIOwnChequeAddDialog.0"),SWT.ICON_WARNING); //$NON-NLS-1$
 	        bankPicker.setFocus();
 	        return false;
 	    }
 	    else if(curText.getBigDecimalValue().compareTo(new BigDecimal(0))<1)
 	    {
-	       EngUICommon.showMessageBox(getParent(),"Lütfen Tutar Giriniz!",SWT.ICON_WARNING);
+	       EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIOwnChequeAddDialog.3"),SWT.ICON_WARNING); //$NON-NLS-1$
 	        curText.setFocus();
 	        return false;
 	    }

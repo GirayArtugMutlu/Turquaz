@@ -219,7 +219,7 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
 	        {
 	          if(compChequeRoll.getTableCheques().getItemCount()>0)
 	          {
-	          	 EngUICommon.showMessageBox(getParent(),"Çek bulunan bordrolar? silemezsiniz!",SWT.ICON_WARNING); 
+	          	 EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeInPayrollUpdate.1"),SWT.ICON_WARNING);  //$NON-NLS-1$
 	             return;
 	          }
 	            CheBLUpdateChequeRoll.deleteChequeRollIn(chequeRoll);
