@@ -575,7 +575,7 @@ public class InvUITransactionTableRow implements ITableRow
 			}
 			BigDecimal totalPriceAfterDiscountAddedSpecVAT = totalPriceAfterDiscount
 					.add(invTrans.getVatSpecialAmountInForeignCurrency());
-			invTrans.setVatAmountInForeignCurrency(totalPriceAfterDiscountAddedSpecVAT.multiply(invTrans.getVatRate()).divide(
+			invTrans.setVatAmountInForeignCurrency(totalPriceAfterDiscount.multiply(invTrans.getVatRate()).divide(
 					new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
 			invTrans.setCumilativePriceInForeignCurrency(totalPriceAfterDiscount.add(invTrans.getVatSpecialAmountInForeignCurrency())
 					.add(invTrans.getVatAmountInForeignCurrency()));

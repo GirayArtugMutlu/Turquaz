@@ -328,9 +328,10 @@ public class EngBLUtils
 			TurqViewBillTransTotal billview=BillBLSearchBill.getBillView(bill.getId());
 			BigDecimal discount = billview.getDiscountamount();
 			BigDecimal VAT = billview.getVatamount();
+			BigDecimal specialVATAmount= billview.getSpecialvatamount();
 			BigDecimal invoiceSum =billview.getTotalprice();
 			BigDecimal invoiceTotal = invoiceSum.subtract(discount);
-			BigDecimal grandTotal = invoiceTotal.add(VAT);
+			BigDecimal grandTotal = invoiceTotal.add(VAT).add(specialVATAmount);
 			parameters.put("invoiceSum", invoiceSum);
 			parameters.put("invoiceTotal", invoiceTotal);
 			parameters.put("invoiceDiscount", discount); 
@@ -345,7 +346,7 @@ public class EngBLUtils
 			parameters.put("currentTaxNumber", curCard.getCardsTaxNumber());
 			parameters.put("currentTaxDepartment",curCard.getCardsTaxDepartment());
 			parameters.put("currentId", curCard.getCardsCurrentCode());
-			parameters.put("totalSpecVAT", billview.getSpecialvatamount());
+			parameters.put("totalSpecVAT",specialVATAmount);
 			Iterator iter=bill.getTurqBillInEngineSequences().iterator();
 			if (iter.hasNext())
 			{
