@@ -212,7 +212,6 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 				btnExportInvAccounts = new Button(composite1, SWT.PUSH
 					| SWT.CENTER);
 				btnExportInvAccounts.setText("ExportInvAccounts");
-				btnExportInvAccounts.setVisible(false);
 				btnExportInvAccounts.addMouseListener(new MouseAdapter() {
 					public void mouseUp(MouseEvent evt) {
 						try
@@ -230,6 +229,11 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 				//START >>  btnJiraBugReport
 				btnJiraBugReport = new Button(composite1, SWT.PUSH | SWT.CENTER);
 				btnJiraBugReport.setText("Jira Bug Report");
+				btnJiraBugReport.setVisible(false);
+				GridData btnJiraBugReportLData = new GridData();
+				btnJiraBugReportLData.widthHint = 86;
+				btnJiraBugReportLData.heightHint = 23;
+				btnJiraBugReport.setLayoutData(btnJiraBugReportLData);
 				btnJiraBugReport.addMouseListener(new MouseAdapter() {
 					public void mouseUp(MouseEvent evt) {
 						btnJiraBugReportMouseUp(evt);

@@ -77,7 +77,7 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 		props.setProperty("serverAddress",serverAddress); //$NON-NLS-1$
 		props.setProperty("serverPort",serverPort); //$NON-NLS-1$
 		props.setProperty("dbName",dbName); //$NON-NLS-1$
-		props.setProperty("remember_password","false"); //$NON-NLS-1$ //$NON-NLS-2$
+		props.setProperty("remember_password","true"); //$NON-NLS-1$ //$NON-NLS-2$
 		props.setProperty("invoice_template","template1.jasper"); //$NON-NLS-1$
 	  
 		FileOutputStream fileout = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$

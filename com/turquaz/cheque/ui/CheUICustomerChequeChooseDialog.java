@@ -177,17 +177,16 @@ public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dia
 	        List ls = CheBLSearchChequeRoll.getChequesInPortfolio();
 	        TurqChequeCheque cheque;
 	        TableItem item;
-	        Object result[];
+	   
 	        String currentName;
 	        for(int i=0;i<ls.size();i++){
-	            result = (Object[])ls.get(i);
-	            cheque = (TurqChequeCheque)result[0];
-	            currentName = result[1].toString();
+	         
+	            cheque = (TurqChequeCheque)ls.get(i);
 	            item = new TableItem(tableCheques,SWT.NULL);
 	            item.setData(cheque);
 	            item.setText(new String []{
 	                    cheque.getChequesPortfolioNo(),
-	                    currentName,
+	                    CheBLSearchChequeRoll.getCurrentCardOfCustomerCheque(cheque),
 	                   DatePicker.formatter.format( cheque.getChequesDueDate()),
 	                    cheque.getChequesDebtor(),
 	                   cf.format( cheque.getChequesAmount())

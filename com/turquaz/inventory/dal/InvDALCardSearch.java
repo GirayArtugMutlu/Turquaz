@@ -21,6 +21,9 @@ package com.turquaz.inventory.dal;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.hibernate.Hibernate;
@@ -370,6 +373,52 @@ public class InvDALCardSearch {
 	    catch(Exception ex){
 	        throw ex;
 	    }
+	}
+	public static List getInventoryCardsAndAccounts()throws Exception{
+		try{
+			
+			
+			Session session = EngDALSessionFactory.openSession();
+	        String query = "Select invCard.id, invCard.accounting_accounts_id_buy," +
+	        		" invCard.accounting_accounts_id_sell,invCard.accounting_accounts_id_vat," +
+	        		"invCard.accounting_accounts_id_vat_sell, invCard.accounting_accounts_id_special_vat," +
+	        		"invCard.accounting_accounts_id_special_vat_sell from turq_inventory_cards invCard " +
+	        		" where invCard.id <> -1" ;
+		 
+	        Statement stmt = session.connection().createStatement();
+	       ResultSet rs = stmt.executeQuery(query);
+	        List list =new ArrayList();
+	       while(rs.next())
+	       {
+	       	Object []result = new Object[7];
+	       	
+	       	result[0] = rs.getString(1);
+	       	result[1] = rs.getString(2);
+	       	result[2] = rs.getString(3);
+	    	result[3] = rs.getString(4);
+	    	result[4] = rs.getString(5);
+	    	result[5] = rs.getString(6);
+	    	result[6] = rs.getString(7);
+	       	
+	    	list.add(result);
+	       	
+	       }
+	        
+	        session.close();
+	        
+	        return list;
+			
+			
+			
+			
+			
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+		
+		
 	}
 	
 

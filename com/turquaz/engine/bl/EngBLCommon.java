@@ -53,6 +53,7 @@ import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.inventory.dal.InvDALCardSearch;
 
 
 public class EngBLCommon {
@@ -514,7 +515,7 @@ public class EngBLCommon {
 		Transaction tx = null;
 		try {
 
-			/*List ls = InvBLCardSearch.getAllInventoryCards();
+			List ls = InvDALCardSearch.getInventoryCardsAndAccounts();
 
 			Session session = EngDALSessionFactory.openSession();
 			tx = session.beginTransaction();
@@ -526,53 +527,53 @@ public class EngBLCommon {
 			for (i = 0; i < ls.size(); i++) 
 			{
 				
-				TurqInventoryCard invCard=(TurqInventoryCard)ls.get(i);
+				Object results[]=(Object[])ls.get(i);
 				
 				//ACCOUNT BUY
 				query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$
 				+key
-				+","+invCard.getId() //$NON-NLS-1$
-				+","+invCard.getTurqAccountingAccountByAccountingAccountsIdBuy().getId() //$NON-NLS-1$
+				+","+results[0] //$NON-NLS-1$
+				+","+results[1]//$NON-NLS-1$
 				+","+0+",'admin','2005-01-01','admin','2005-01-01')";  //$NON-NLS-1$ //$NON-NLS-2$
 				stmt.execute(query);
 				key++;
 				//ACCOUNT SELL
 				query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$
 					+key
-					+","+invCard.getId() //$NON-NLS-1$
-					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdSell().getId() //$NON-NLS-1$
+					+","+results[0] //$NON-NLS-1$
+					+","+results[2] //$NON-NLS-1$
 					+","+1+",'admin','2005-01-01','admin','2005-01-01')";  //$NON-NLS-1$ //$NON-NLS-2$
 				stmt.execute(query);
 				key++;
 				//BUY VAT
 				query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$
 					+key
-					+","+invCard.getId() //$NON-NLS-1$
-					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdVat().getId() //$NON-NLS-1$
+					+","+results[0]//$NON-NLS-1$
+					+","+results[3] //$NON-NLS-1$
 					+","+2+",'admin','2005-01-01','admin','2005-01-01')";  //$NON-NLS-1$ //$NON-NLS-2$
 				stmt.execute(query);
 				key++;
 				//SELL VAT
 				query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$
 					+key
-					+","+invCard.getId() //$NON-NLS-1$
-					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdVatSell().getId() //$NON-NLS-1$
+					+","+results[0] //$NON-NLS-1$
+					+","+results[4]//$NON-NLS-1$
 					+","+3+",'admin','2005-01-01','admin','2005-01-01')";  //$NON-NLS-1$ //$NON-NLS-2$
 				stmt.execute(query);
 				key++;
 				//BUY SPECIAL VAT
 				query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$
 					+key
-					+","+invCard.getId() //$NON-NLS-1$
-					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdSpecialVat().getId() //$NON-NLS-1$
+					+","+results[0] //$NON-NLS-1$
+					+","+results[5] //$NON-NLS-1$
 					+","+4+",'admin','2005-01-01','admin','2005-01-01')";  //$NON-NLS-1$ //$NON-NLS-2$
 				stmt.execute(query);
 				key++;
 				//SELL SPECIAL VAT
 				query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$
 					+key
-					+","+invCard.getId() //$NON-NLS-1$
-					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdSpecialVatSell().getId() //$NON-NLS-1$
+					+","+results[0] //$NON-NLS-1$
+					+","+results[6]//$NON-NLS-1$
 					+","+5+",'admin','2005-01-01','admin','2005-01-01')";  //$NON-NLS-1$ //$NON-NLS-2$
 				stmt.execute(query);
 				key++;
@@ -580,7 +581,7 @@ public class EngBLCommon {
 
 			tx.commit();
 			session.flush();
-			session.close();*/
+			session.close();
 
 		} catch (Exception ex) {
 			ex.printStackTrace();

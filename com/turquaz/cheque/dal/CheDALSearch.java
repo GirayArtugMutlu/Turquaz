@@ -131,11 +131,11 @@ public class CheDALSearch {
 			Session session = EngDALSessionFactory.openSession();
 			TurqViewChequeStatus chequeStatus = null;
 
-			String query = "Select cheque, currentCard.cardsName from TurqChequeCheque as cheque, TurqViewChequeStatus as chequeStatus, TurqCurrentCard currentCard "
+			String query = "Select cheque from TurqChequeCheque as cheque, TurqViewChequeStatus as chequeStatus, TurqCurrentCard currentCard "
 					+ "where cheque.id = chequeStatus.chequeChequesId "
 					+ " and currentCard.id =  chequeStatus.currentCardsId "
-					+ " and chequeStatus.chequeTransactionTypesId ="
-					+ EngBLCommon.CHEQUE_TRANS_IN;
+					+ " and (chequeStatus.chequeTransactionTypesId ="+ EngBLCommon.CHEQUE_TRANS_IN
+					+" or chequeStatus.chequeTransactionTypesId ="+ EngBLCommon.CHEQUE_TRANS_RETURN_FROM_BANK+")";
 
 			Query q = session.createQuery(query);
 
@@ -311,6 +311,31 @@ public class CheDALSearch {
 			if(list.size()>0)
 			{
 				return (TurqBanksCard)list.get(0);
+			}
+			 return null;
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
+	public static String getCurrentCardOfCustomerCheque(TurqChequeCheque cheque)throws Exception{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			TurqChequeChequeInRoll cv;
+			TurqChequeRoll asd;
+			
+			String query = "Select chequeRoll.turqChequeRoll.turqCurrentCard.cardsName from TurqChequeChequeInRoll as chequeRoll" +
+					" where chequeRoll.turqChequeCheque = :cheque and " +
+					" chequeRoll.turqChequeRoll.turqChequeTransactionType.id ="+EngBLCommon.CHEQUE_TRANS_IN;
+
+			Query q = session.createQuery(query);
+			q.setParameter("cheque",cheque);
+			List list = q.list();
+			session.close();
+			if(list.size()>0)
+			{
+				return (String)list.get(0);
 			}
 			 return null;
 			

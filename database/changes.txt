@@ -751,9 +751,6 @@ INSERT INTO turq_module_components VALUES (84, 9, 'com.turquaz.cheque.ui.CheUIRe
 INSERT INTO turq_cheque_transaction_types VALUES (6, 'Cariden Iade', 6, 3, 'admin', '2005-01-01', 'admin', '2005-01-01');
 INSERT INTO turq_module_components VALUES (85, 9, 'com.turquaz.cheque.ui.CheUIReturnFromCurrent', 'Cariden Iade Bordrosu', 'cem', '2005-02-28', 'cem', '2005-02-28');
 
-**************************************************************************************;
-!!!! makro datalari en son buraya kada update edildi...!!!
-**************************************************************************************
 
 CREATE TABLE turq_inventory_accounting_accounts
 (
@@ -802,8 +799,12 @@ REFERENCES turq_accounting_accounts (id)    ON UPDATE RESTRICT ON DELETE RESTRIC
 ALTER TABLE turq_inventory_accounting_accounts ADD CONSTRAINT f_type FOREIGN KEY (inventory_accounting_types_id) 
 REFERENCES turq_inventory_accounting_types (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
 
+/****************************************************************************************/
+
+!!!!!!IMPORTANT!!!!! Export Inventory Accounting Accounts HERE.....
 
 ****************************11-03-2005***************************************
+
 ALTER TABLE turq_inventory_cards DROP COLUMN accounting_accounts_id_buy;
 ALTER TABLE turq_inventory_cards DROP COLUMN accounting_accounts_id_sell;
 ALTER TABLE turq_inventory_cards DROP COLUMN accounting_accounts_id_vat;
@@ -811,5 +812,8 @@ ALTER TABLE turq_inventory_cards DROP COLUMN accounting_accounts_id_special_vat;
 ALTER TABLE turq_inventory_cards DROP COLUMN accounting_accounts_id_vat_sell;
 ALTER TABLE turq_inventory_cards DROP COLUMN accounting_accounts_id_special_vat_sell;
 
+**************************************************************************************;
+!!!! makro datalari en son buraya kada update edildi...!!!
+**************************************************************************************
 
 

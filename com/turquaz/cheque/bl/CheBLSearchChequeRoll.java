@@ -64,6 +64,16 @@ public class CheBLSearchChequeRoll {
             throw ex;
         }
     }
+    public static String getCurrentCardOfCustomerCheque(TurqChequeCheque cheque)throws Exception{
+		try{
+			
+			return CheDALSearch.getCurrentCardOfCustomerCheque(cheque);
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+    }
     public static List getChequesInBank()throws Exception {
         try{
         
