@@ -28,7 +28,7 @@ public class ConBLAddConsignment {
 	public ConBLAddConsignment(){
 		
 	}
-	public Integer saveConsignment(String docNo, String definition, boolean isPrinted, Date consignmentDate,
+	public TurqConsignment saveConsignment(String docNo, String definition, boolean isPrinted, Date consignmentDate,
 								   TurqCurrentCard curCard, int discountRate,BigDecimal discountAmount,
 								   String billDocNo, BigDecimal vatAmount,BigDecimal specialVatAmount,
 								   BigDecimal totalAmount,int type)throws Exception {
@@ -82,7 +82,7 @@ public class ConBLAddConsignment {
 			
 			dalConsignment.save(consignment);
 			
-			return consignment.getConsignmentsId();
+			return consignment;
 			
 		}
 		catch(Exception ex){

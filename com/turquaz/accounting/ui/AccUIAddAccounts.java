@@ -235,12 +235,12 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
     return false;
     }
     
-	else if(txtParentAccount.getData()==null){
+/*	else if(txtParentAccount.getData()==null){
 	  msg.setMessage(Messages.getString("AccUIAddAccounts.5")); //$NON-NLS-1$
      msg.open();	
     return false;
 	}
-
+*/
 	
 	return true;
 	
