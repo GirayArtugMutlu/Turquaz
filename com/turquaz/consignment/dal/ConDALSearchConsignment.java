@@ -37,7 +37,7 @@ public class ConDALSearchConsignment {
 		try {
 			Session session = EngDALSessionFactory.openSession();
 
-			String query = "Select consignment.consignmentsId," +
+			String query = "Select consignment.id," +
 					" consignment.consignmentsDate, curCard.cardsCurrentCode," +
 					" curCard.cardsName, billcons.consignmentDocumentNo," +
 					" billcons.totalAmount, billcons.vatAmount, billcons.specialVatAmount" +
@@ -46,7 +46,7 @@ public class ConDALSearchConsignment {
 					" consignment.turqBillConsignmentCommon as billcons"+					
 					" where consignment.consignmentsDate >= :startDate" + //$NON-NLS-1$
 					" and consignment.consignmentsDate <= :endDate" + //$NON-NLS-1$					
-					" and consignment.consignmentsId <> -1 " +//$NON-NLS-1$
+					" and consignment.id <> -1 " +//$NON-NLS-1$
 					" and consignment.turqBillConsignmentCommon.consignmentDocumentNo like '"+docNo+"%'"; //$NON-NLS-1$		
 			
 			if (type != EngBLCommon.COMMON_ALL_INT)
@@ -85,7 +85,7 @@ public class ConDALSearchConsignment {
 					" consignment.consignmentsDate >= :startDate" + //$NON-NLS-1$
 					" and consignment.consignmentsDate <= :endDate" + //$NON-NLS-1$
 					" and consignment.consignmentsType =" + type + //$NON-NLS-1$
-					" and consignment.consignmentsId <> -1 "; //$NON-NLS-1$
+					" and consignment.id <> -1 "; //$NON-NLS-1$
 
 			if (curCard != null) {
 				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard = :curCard"; //$NON-NLS-1$
@@ -118,7 +118,7 @@ public class ConDALSearchConsignment {
 			Session session = EngDALSessionFactory.openSession();
 
 			String query = "Select consignment from TurqConsignment as consignment" +
-					" where consignment.consignmentsId="+consId; //$NON-NLS-1$
+					" where consignment.id="+consId; //$NON-NLS-1$
 
 
 			Query q = session.createQuery(query);
