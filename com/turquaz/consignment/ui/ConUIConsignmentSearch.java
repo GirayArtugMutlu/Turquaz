@@ -33,6 +33,7 @@ import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -155,8 +156,8 @@ SearchComposite{
 				{
 					txtCurCard = new CurrentPicker(composite1, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
-					txtCurCardLData.widthHint = 186;
-					txtCurCardLData.heightHint = 20;
+					txtCurCardLData.widthHint = 185;
+					txtCurCardLData.heightHint = 16;
 					txtCurCard.setLayoutData(txtCurCardLData);
 					
 				}
@@ -172,8 +173,7 @@ SearchComposite{
 				{
 					comboConsignmentType = new CCombo(composite1, SWT.NONE);
 					GridData comboConsignmentTypeLData = new GridData();
-					comboConsignmentType.setText(Messages
-						.getString("ConUIConsignmentSearch.4")); //$NON-NLS-1$
+					comboConsignmentType.setText(EngBLCommon.COMMON_BUY_STRING); 
 					comboConsignmentTypeLData.widthHint = 73;
 					comboConsignmentTypeLData.heightHint = 18;
 					comboConsignmentType
@@ -198,8 +198,8 @@ SearchComposite{
 					lblEndDate = new CLabel(composite1, SWT.NONE);
 					lblEndDate.setText(Messages.getString("ConUIConsignmentSearch.2")); //$NON-NLS-1$
 					GridData lblEndDateLData = new GridData();
-					lblEndDateLData.widthHint = 105;
-					lblEndDateLData.heightHint = 19;
+					lblEndDateLData.widthHint = 77;
+					lblEndDateLData.heightHint = 21;
 					lblEndDate.setLayoutData(lblEndDateLData);
 				}
 				{
@@ -293,8 +293,8 @@ SearchComposite{
 		}
 	}
 	public void postInitGui(){
-		comboConsignmentType.add(Messages.getString("ConUIConsignmentSearch.10")); //$NON-NLS-1$
-		comboConsignmentType.add(Messages.getString("ConUIConsignmentSearch.11")); //$NON-NLS-1$
+		comboConsignmentType.add(EngBLCommon.COMMON_BUY_STRING); 
+		comboConsignmentType.add(EngBLCommon.COMMON_SELL_STRING); 
 		//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
 		cal.set(cal.get(Calendar.YEAR),0,1);
 		dateStartDate.setDate(cal.getTime());
@@ -324,10 +324,10 @@ SearchComposite{
 		try{
 			
 		tableConsignments.removeAll();	
-		int type=0;
-		if(comboConsignmentType.getText().equals(Messages.getString("ConUIConsignmentSearch.12"))) //$NON-NLS-1$
+		int type=EngBLCommon.COMMON_BUY_INT;
+		if(comboConsignmentType.getText().equals(EngBLCommon.COMMON_SELL_STRING)) 
 		{
-			type =1;
+			type =EngBLCommon.COMMON_SELL_INT;
 		}
 			
 		List list = blSearch.searchConsignment((TurqCurrentCard)txtCurCard.getData(),
