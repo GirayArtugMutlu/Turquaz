@@ -35,10 +35,11 @@ import com.turquaz.engine.dal.EngDALSessionFactory;
 public class AdmDALCurrencyExchangeRateAdd {
 	
 	public static void saveObject(Object obj) throws Exception {
+		Transaction tx=null;
 		try {
 
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			tx = session.beginTransaction();
 
 			session.save(obj);
 			session.flush();
@@ -46,7 +47,8 @@ public class AdmDALCurrencyExchangeRateAdd {
 			session.close();
 
 		} catch (Exception ex) {
-
+			if (tx != null)
+				tx.rollback();
 			throw ex;
 
 		}

@@ -36,6 +36,7 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 public class AccDALAccountAdd {
 	
 	public void saveOrUpdateAccount(TurqAccountingAccount account)throws Exception{
+		Transaction tx=null;
 		try{
 		Session session = EngDALSessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
@@ -46,6 +47,8 @@ public class AccDALAccountAdd {
 		
 		}
 		catch(Exception ex){
+			if (tx != null)
+				tx.rollback();
 			throw ex;
 		}
 	}

@@ -13,6 +13,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyExchangeRateAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrency;
@@ -102,7 +103,7 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 			this.setSize(495, 205);
 			//START >>  lvlExchangeDate
 			lvlExchangeDate = new CLabel(this, SWT.NONE);
-			lvlExchangeDate.setText("Tarih");
+			lvlExchangeDate.setText(Messages.getString("AdmUICurrencyExchangeRateAdd.0")); //$NON-NLS-1$
 			GridData lvlExchangeDateLData = new GridData();
 			lvlExchangeDateLData.widthHint = 95;
 			lvlExchangeDateLData.heightHint = 22;
@@ -117,7 +118,7 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 			//END <<  dateExchangeDate
 			//START >>  lblBaseCurrency
 			lblBaseCurrency = new CLabel(this, SWT.NONE);
-			lblBaseCurrency.setText("Ana Para Birimi");
+			lblBaseCurrency.setText(Messages.getString("AdmUICurrencyExchangeRateAdd.1")); //$NON-NLS-1$
 			//END <<  lblBaseCurrency
 			//START >>  txtBaseCurrency
 			txtBaseCurrency = new Text(this, SWT.NONE);
@@ -129,7 +130,7 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 			//END <<  txtBaseCurrency
 			//START >>  lblExchangeCurrency
 			lblExchangeCurrency = new CLabel(this, SWT.NONE);
-			lblExchangeCurrency.setText("De\u011fi\u015fim Para Birimi");
+			lblExchangeCurrency.setText(Messages.getString("AdmUICurrencyExchangeRateAdd.2")); //$NON-NLS-1$
 			//END <<  lblExchangeCurrency
 			//START >>  comboExchangeCurrency
 			comboExchangeCurrency = new CCombo(this, SWT.NONE);
@@ -140,7 +141,7 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 			//END <<  comboExchangeCurrency
 			//START >>  lvlExchangeRatio
 			lvlExchangeRatio = new CLabel(this, SWT.NONE);
-			lvlExchangeRatio.setText("De\u011fi\u015fim Oran\u0131");
+			lvlExchangeRatio.setText(Messages.getString("AdmUICurrencyExchangeRateAdd.3")); //$NON-NLS-1$
 			//END <<  lvlExchangeRatio
 			//START >>  txtExchangeRatio
 			txtExchangeRatio = new CurrencyTextAdvanced(this, SWT.NONE,4);
@@ -186,7 +187,9 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 	
 	public void newForm()
 	{
-		comboExchangeCurrency.setText("");
+		comboExchangeCurrency.setText(""); //$NON-NLS-1$
+		txtExchangeRatio.setText("");
+		comboExchangeCurrency.setFocus();
 		dateExchangeDate.setDate(cal.getTime());
 	}
 	
@@ -196,14 +199,14 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 		if (comboExchangeCurrency.getData(comboExchangeCurrency.getText())==null)
 		{
 			
-			msg.setMessage("?lk önce bir para birimi seçmelisiniz!");
+			msg.setMessage(Messages.getString("AdmUICurrencyExchangeRateAdd.4")); //$NON-NLS-1$
 			msg.open();
 			comboExchangeCurrency.setFocus();
 			return false;
 		}
 		else if (txtExchangeRatio.getBigDecimalValue().doubleValue() <= 0)
 		{
-			msg.setMessage("De?i?im oran? 0'dan büyük bir say? olmal?d?r!");
+			msg.setMessage(Messages.getString("AdmUICurrencyExchangeRateAdd.6")); //$NON-NLS-1$
 			msg.open();
 			txtExchangeRatio.setFocus();
 			return false;
@@ -224,14 +227,15 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 						txtExchangeRatio.getBigDecimalValue(),
 						dateExchangeDate.getDate()
 						);
-				msg.setMessage("Günlük de?i?im oran? ba?ar?yla kaydedildi!");
+				msg.setMessage(Messages.getString("AdmUICurrencyExchangeRateAdd.7")); //$NON-NLS-1$
 				msg.open();
+				newForm();
 			}
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
-			msg.setMessage("Bugüne ait bu para birimine ait bir de?i?im oran? zaten mevcut!");
+			msg.setMessage(Messages.getString("AdmUICurrencyExchangeRateAdd.8")); //$NON-NLS-1$
 			msg.open();
 		}
 	}

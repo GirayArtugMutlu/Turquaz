@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
+import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyAdd;
 import com.turquaz.engine.ui.component.SecureComposite;
 
@@ -87,7 +88,7 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 			this.setSize(467, 176);
 			//START >>  lblCurrencyName
 			lblCurrencyName = new CLabel(this, SWT.NONE);
-			lblCurrencyName.setText("Para Birimi \u0130smi");
+			lblCurrencyName.setText(Messages.getString("AdmUICurrencyAdd.0")); //$NON-NLS-1$
 			//END <<  lblCurrencyName
 			//START >>  txtCurrencyName
 			txtCurrencyName = new Text(this, SWT.NONE);
@@ -98,7 +99,7 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 			//END <<  txtCurrencyName
 			//START >>  lblCurrencyAbbr
 			lblCurrencyAbbr = new CLabel(this, SWT.NONE);
-			lblCurrencyAbbr.setText("Para Birimi K\u0131saltmas\u0131");
+			lblCurrencyAbbr.setText(Messages.getString("AdmUICurrencyAdd.1")); //$NON-NLS-1$
 			//END <<  lblCurrencyAbbr
 			//START >>  txtCurrencyAbbr
 			txtCurrencyAbbr = new Text(this, SWT.NONE);
@@ -109,7 +110,7 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 			//END <<  txtCurrencyAbbr
 			//START >>  lblCurrencyCountry
 			lblCurrencyCountry = new CLabel(this, SWT.NONE);
-			lblCurrencyCountry.setText("Ülke");
+			lblCurrencyCountry.setText(Messages.getString("AdmUICurrencyAdd.2")); //$NON-NLS-1$
 			//END <<  lblCurrencyCountry
 			//START >>  txtCurrencyCountry
 			txtCurrencyCountry = new Text(this, SWT.NONE);
@@ -127,16 +128,16 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 	public boolean verifyFields()
 	{
 		MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
-		if (txtCurrencyName.getText().equals(""))
+		if (txtCurrencyName.getText().equals("")) //$NON-NLS-1$
 		{
-			msg.setMessage("Lütfen para birimi için isim giriniz!");
+			msg.setMessage(Messages.getString("AdmUICurrencyAdd.4")); //$NON-NLS-1$
 			msg.open();
 			txtCurrencyName.setFocus();
 			return false;
 		}
-		else if (txtCurrencyAbbr.getText().equals(""))
+		else if (txtCurrencyAbbr.getText().equals("")) //$NON-NLS-1$
 		{
-			msg.setMessage("Lütfen para birimi için k?saltma giriniz!");
+			msg.setMessage(Messages.getString("AdmUICurrencyAdd.6")); //$NON-NLS-1$
 			msg.open();
 			txtCurrencyAbbr.setFocus();
 			return false;
@@ -153,7 +154,7 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 			{
 				AdmBLCurrencyAdd.saveCurrency(txtCurrencyName.getText(),
 					txtCurrencyAbbr.getText(),txtCurrencyCountry.getText());
-				msg.setMessage("Para birimi ba?ar?yla kaydedildi.");
+				msg.setMessage(Messages.getString("AdmUICurrencyAdd.7")); //$NON-NLS-1$
 				msg.open();
 				newForm();
 			}
@@ -161,7 +162,7 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
-			msg.setMessage("Daha önce varolan bir para birimi k?saltmas?n? kullanamazs?n?z!");
+			msg.setMessage(Messages.getString("AdmUICurrencyAdd.8")); //$NON-NLS-1$
 			msg.open();
 		}
 	}
@@ -169,13 +170,14 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 	public void newForm()
 	{
 		clearFields();
+		txtCurrencyName.setFocus();
 	}
 	
 	public void clearFields()
 	{
-		txtCurrencyAbbr.setText("");
-		txtCurrencyCountry.setText("");
-		txtCurrencyName.setText("");
+		txtCurrencyAbbr.setText(""); //$NON-NLS-1$
+		txtCurrencyCountry.setText(""); //$NON-NLS-1$
+		txtCurrencyName.setText(""); //$NON-NLS-1$
 	}
 
 }

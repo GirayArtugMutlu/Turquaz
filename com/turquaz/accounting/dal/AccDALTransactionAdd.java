@@ -30,9 +30,10 @@ import com.turquaz.engine.dal.EngDALSessionFactory;
 public class AccDALTransactionAdd {
 
 	public void save(Object obj)throws Exception{
+		Transaction tx =null;
 		try{
 		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		tx = session.beginTransaction();
 		session.save(obj);
 		session.flush();
 		tx.commit();
@@ -40,6 +41,8 @@ public class AccDALTransactionAdd {
 		
 		}
 		catch(Exception ex){
+			if (tx != null)
+				tx.rollback();
 			throw ex;
 		}
 	}	
