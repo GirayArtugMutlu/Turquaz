@@ -31,7 +31,6 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLAddGroups;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
-import com.turquaz.current.ui.CurUITransactionAdd;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
