@@ -1216,12 +1216,12 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 	 * GUI, but it can be copied and used as a basis for your own code. * It is auto-generated code - the body of this method will be
 	 * re-generated after any changes are made to the GUI. However, if you delete this method it will not be re-created.
 	 */
-	public static void showGUI2()
+	public static void showGUI2(Display display,Shell splashShell)
 	{
 		try
 		{
-			Display display = Display.getDefault();
 			Shell shell = new Shell(display);
+			
 			final EngUIMainFrame inst = new EngUIMainFrame(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
 			Rectangle shellBounds = shell.computeTrim(0, 0, 800, 580);
@@ -1248,6 +1248,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			});
 			shell.open();
 			shell.setMaximized(true);
+			splashShell.dispose();
+			
 			while (!shell.isDisposed())
 			{
 				if (!display.readAndDispatch())

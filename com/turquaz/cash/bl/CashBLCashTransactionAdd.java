@@ -200,6 +200,8 @@ public class CashBLCashTransactionAdd
 			TurqAccountingAccount cashAccount = cashCard.getTurqAccountingAccount();
 			TurqAccountingAccount currentAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(current,
 					EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
+			
+			
 			String currentTransDefinition = "";
 			int accTransType = 0;
 			boolean currentTransType = false; // Credit or Debit
@@ -207,7 +209,7 @@ public class CashBLCashTransactionAdd
 			Map deptAccounts = new HashMap();
 			if (type.intValue() == EngBLCommon.CASH_CURRENT_COLLECT)
 			{
-				CashBLCashTransactionUpdate.prepareAccountingMaps(currentAccount.getId(), cashAccount.getId(), totalAmount,
+				CashBLCashTransactionUpdate.prepareAccountingMaps(currentAccount, cashAccount, totalAmount,
 						creditAccounts, deptAccounts);
 				cashTransRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,
 						EngBLCommon.ROUNDING_METHOD));
@@ -227,7 +229,7 @@ public class CashBLCashTransactionAdd
 			}
 			else if (type.intValue() == EngBLCommon.CASH_CURRENT_PAYMENT)
 			{
-				CashBLCashTransactionUpdate.prepareAccountingMaps(cashAccount.getId(), currentAccount.getId(), totalAmount,
+				CashBLCashTransactionUpdate.prepareAccountingMaps(cashAccount,currentAccount, totalAmount,
 						creditAccounts, deptAccounts);
 				cashTransRow.setDeptAmount(new BigDecimal(0));
 				cashTransRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
@@ -332,7 +334,7 @@ public class CashBLCashTransactionAdd
 			Map deptAccounts = new HashMap();
 			if (type.intValue() == EngBLCommon.CASH_OTHER_COLLECT)
 			{
-				CashBLCashTransactionUpdate.prepareAccountingMaps(account.getId(), cashAccount.getId(), totalAmount, creditAccounts,
+				CashBLCashTransactionUpdate.prepareAccountingMaps(account, cashAccount, totalAmount, creditAccounts,
 						deptAccounts);
 				cashTransRow.setDeptAmountInForeignCurrency(totalAmount);
 				cashTransRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,
@@ -344,7 +346,7 @@ public class CashBLCashTransactionAdd
 			}
 			else if (type.intValue() == EngBLCommon.CASH_OTHER_PAYMENT)
 			{
-				CashBLCashTransactionUpdate.prepareAccountingMaps(cashAccount.getId(), account.getId(), totalAmount, creditAccounts,
+				CashBLCashTransactionUpdate.prepareAccountingMaps(cashAccount, account, totalAmount, creditAccounts,
 						deptAccounts);
 				cashTransRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
 				cashTransRow.setDeptAmount(new BigDecimal(0));
@@ -468,8 +470,8 @@ public class CashBLCashTransactionAdd
 			 */
 			Map creditAccounts = new HashMap();
 			Map deptAccounts = new HashMap();
-			CashBLCashTransactionUpdate.prepareAccountingMaps(cashCardWithDebt.getTurqAccountingAccount().getId(), cashCardWithCredit
-					.getTurqAccountingAccount().getId(), totalAmount, creditAccounts, deptAccounts);
+			CashBLCashTransactionUpdate.prepareAccountingMaps(cashCardWithDebt.getTurqAccountingAccount(), cashCardWithCredit
+					.getTurqAccountingAccount(), totalAmount, creditAccounts, deptAccounts);
 			AccBLTransactionAdd.saveAccTransaction(transDate, document_no, accTransType, seq.getTurqModule().getId().intValue(), seq
 					.getId(), definition, exchangeRate, creditAccounts, deptAccounts, true);
 		

@@ -86,20 +86,13 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 	private Label lblSeperator;
 	boolean guiReady = false;
 
-	/**
-	 * Auto-generated main method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
-	 */
-	public static void main(String[] args)
-	{
-		showGUI();
-	}
+	
 
 	/**
 	 * Auto-generated method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
 	 */
-	public static void showGUI()
+	public static void showGUI(Display display)
 	{
-		Display display = new Display();
 		Shell shell = new Shell(display);
 		EngUIEntryFrame inst = new EngUIEntryFrame(shell, SWT.NULL);
 		Point size = inst.getSize();
@@ -313,6 +306,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 	public void btnCancelMouseUp(MouseEvent e)
 	{
 		this.getShell().dispose();
+		System.exit(-1);
 	}
 
 	public void showSplashScreen()
@@ -372,7 +366,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			ex.printStackTrace();
 		}
 		this.getShell().dispose();
-		EngUIMainFrame.showGUI2();
+		
 	}
 
 	public void btnOkMouseUp()

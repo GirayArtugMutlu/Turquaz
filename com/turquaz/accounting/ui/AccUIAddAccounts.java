@@ -412,7 +412,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-			msg.setMessage(ex.getMessage());
+			msg.setMessage("Hata Olustu");
 			msg.open();
 		}
 	}

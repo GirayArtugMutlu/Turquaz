@@ -258,9 +258,18 @@ public class CurBLCurrentTransactionAdd
 	{
 		try
 		{
+			deptAccounts.clear();
+			creditAccounts.clear();
+			
+			
 			Integer accountId = account.getId();
 			Integer currentAccountId = CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard, EngBLCommon.CURRENT_ACC_TYPE_GENERAL)
 					.getId();
+			if(currentAccountId == null)
+			{
+				return;
+			}
+			
 			//Cari Karta para verildiginde
 			//Kasaya alacak hareketi
 			//Cari kartin satici muhasebe hesabina borc hareketi

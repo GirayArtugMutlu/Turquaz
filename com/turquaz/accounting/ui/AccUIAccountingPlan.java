@@ -416,7 +416,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 				Logger loger = Logger.getLogger(this.getClass());
 				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
-				msg3.setMessage(ex.getMessage());
+				msg3.setMessage("Hata Olustu");
 				msg3.open();
 			}
 		}

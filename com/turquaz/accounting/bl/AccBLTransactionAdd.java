@@ -176,6 +176,12 @@ public class AccBLTransactionAdd
 	{
 		try
 		{
+			
+		 if(creditAccounts.size()==0||deptAccounts.size()==0)
+		 {
+		 	return false;
+		 }
+			
 			TurqEngineSequence docSeq = new TurqEngineSequence();
 			if (docSeqId == null)
 			{

@@ -161,7 +161,7 @@ public class BankBLTransactionUpdate
 					EngBLCommon.BANK_ACC_TYPE_GENERAL);
 			Map creditAccounts = new HashMap();
 			Map deptAccounts = new HashMap();
-			prepareAccountingMaps(deptAccount.getId(), creditAccount.getId(), totalAmount, creditAccounts, deptAccounts);
+			prepareAccountingMaps(deptAccount, creditAccount, totalAmount, creditAccounts, deptAccounts);
 			int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
 			String accounting_definition = "Banka Virman - " + definition;
 			AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType, bankTransBill.getTurqEngineSequence().getTurqModule()
@@ -174,21 +174,29 @@ public class BankBLTransactionUpdate
 		}
 	}
 
-	public static void prepareAccountingMaps(Integer creditAccountId, Integer deptAccountId, BigDecimal amount, Map creditAccounts,
+	public static void prepareAccountingMaps(TurqAccountingAccount creditAccount,TurqAccountingAccount deptAccount, BigDecimal amount, Map creditAccounts,
 			Map deptAccounts) throws Exception
 	{
-		List creditRows = (List) creditAccounts.get(creditAccountId);
+		deptAccounts.clear();
+		creditAccounts.clear();
+		if(deptAccount==null || creditAccount==null)
+		{
+			return;
+			
+		}
+		
+		List creditRows = (List) creditAccounts.get(creditAccount.getId());
 		if (creditRows == null)
 		{
 			creditRows = new ArrayList();
-			creditAccounts.put(creditAccountId, creditRows);
+			creditAccounts.put(creditAccount.getId(), creditRows);
 		}
 		creditRows.add(amount);
-		List deptRows = (List) deptAccounts.get(deptAccountId);
+		List deptRows = (List) deptAccounts.get(deptAccount.getId());
 		if (deptRows == null)
 		{
 			deptRows = new ArrayList();
-			deptAccounts.put(deptAccountId, deptRows);
+			deptAccounts.put(deptAccount.getId(), deptRows);
 		}
 		deptRows.add(amount);
 	}
@@ -253,7 +261,7 @@ public class BankBLTransactionUpdate
 			Map deptAccounts = new HashMap();
 			if (type == EngBLCommon.BANK_TRANS_CASH_DEPOSIT)
 			{
-				prepareAccountingMaps(cashCard.getTurqAccountingAccount().getId(), bankAccount.getId(), totalAmount, creditAccounts,
+				prepareAccountingMaps(cashCard.getTurqAccountingAccount(), bankAccount, totalAmount, creditAccounts,
 						deptAccounts);
 				transRow.setDeptAmountInForeignCurrency(totalAmount);
 				transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
@@ -264,7 +272,7 @@ public class BankBLTransactionUpdate
 			//Para cekme
 			else if (type == EngBLCommon.BANK_TRANS_CASH_DRAW)
 			{
-				prepareAccountingMaps(bankAccount.getId(), cashCard.getTurqAccountingAccount().getId(), totalAmount, deptAccounts,
+				prepareAccountingMaps(bankAccount, cashCard.getTurqAccountingAccount(), totalAmount, deptAccounts,
 						creditAccounts);
 				transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
 				transRow.setDeptAmount(new BigDecimal(0));
@@ -357,7 +365,7 @@ public class BankBLTransactionUpdate
 			//Para yatirma
 			if (type == EngBLCommon.BANK_TRANS_OTHER_DEPOSIT)
 			{
-				prepareAccountingMaps(account.getId(), bankAccount.getId(), totalAmount, creditAccounts, deptAccounts);
+				prepareAccountingMaps(account, bankAccount, totalAmount, creditAccounts, deptAccounts);
 				transRow.setDeptAmountInForeignCurrency(totalAmount);
 				transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
 				transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
@@ -366,7 +374,7 @@ public class BankBLTransactionUpdate
 			//Para cekme
 			else if (type == EngBLCommon.BANK_TRANS_OTHER_DRAW)
 			{
-				prepareAccountingMaps(bankAccount.getId(), account.getId(), totalAmount, creditAccounts, deptAccounts);
+				prepareAccountingMaps(bankAccount, account, totalAmount, creditAccounts, deptAccounts);
 				transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
 				transRow.setDeptAmount(new BigDecimal(0));
 				transRow.setCreditAmountInForeignCurrency(totalAmount);
@@ -463,7 +471,7 @@ public class BankBLTransactionUpdate
 			Map deptAccounts = new HashMap();
 			if (type == EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
 			{
-				prepareAccountingMaps(currentAccount.getId(), bankAccount.getId(), totalAmount, creditAccounts, deptAccounts);
+				prepareAccountingMaps(currentAccount, bankAccount, totalAmount, creditAccounts, deptAccounts);
 				transRow.setDeptAmountInForeignCurrency(totalAmount);
 				transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
 				transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
@@ -473,7 +481,7 @@ public class BankBLTransactionUpdate
 			}
 			else if (type == EngBLCommon.BANK_TRANS_SEND_MONEY)
 			{
-				prepareAccountingMaps(bankAccount.getId(), currentAccount.getId(), totalAmount, creditAccounts, deptAccounts);
+				prepareAccountingMaps(bankAccount, currentAccount, totalAmount, creditAccounts, deptAccounts);
 				transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
 				transRow.setDeptAmount(new BigDecimal(0));
 				transRow.setCreditAmountInForeignCurrency(totalAmount);

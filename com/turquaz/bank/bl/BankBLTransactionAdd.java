@@ -154,7 +154,7 @@ public class BankBLTransactionAdd
 			String accounting_definition = "Banka Virman- " + definition;
 			Map creditAccounts = new HashMap();
 			Map deptAccounts = new HashMap();
-			BankBLTransactionUpdate.prepareAccountingMaps(deptAccount.getId(), creditAccount.getId(), totalAmount, creditAccounts,
+			BankBLTransactionUpdate.prepareAccountingMaps(deptAccount, creditAccount, totalAmount, creditAccounts,
 					deptAccounts);
 			AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType, seq.getTurqModule().getId().intValue(), seq.getId(),
 					accounting_definition, exchangeRate, creditAccounts, deptAccounts, true);
@@ -282,7 +282,7 @@ public class BankBLTransactionAdd
 			//Para yatirma
 			if (type.intValue() == EngBLCommon.BANK_TRANS_CASH_DEPOSIT)
 			{
-				BankBLTransactionUpdate.prepareAccountingMaps(currentAccount.getId(), bankAccount.getId(), totalAmount, creditAccounts,
+				BankBLTransactionUpdate.prepareAccountingMaps(currentAccount, bankAccount, totalAmount, creditAccounts,
 						deptAccounts);
 				transRow.setDeptAmountInForeignCurrency(totalAmount);
 				transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
@@ -293,7 +293,7 @@ public class BankBLTransactionAdd
 			//Para cekme
 			else if (type.intValue() == EngBLCommon.BANK_TRANS_CASH_DRAW)
 			{
-				BankBLTransactionUpdate.prepareAccountingMaps(bankAccount.getId(), currentAccount.getId(), totalAmount, creditAccounts,
+				BankBLTransactionUpdate.prepareAccountingMaps(bankAccount, currentAccount, totalAmount, creditAccounts,
 						deptAccounts);
 				transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
 				transRow.setDeptAmount(new BigDecimal(0));
@@ -401,7 +401,7 @@ public class BankBLTransactionAdd
 			Map deptAccounts = new HashMap();
 			if (type.intValue() == EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
 			{
-				BankBLTransactionUpdate.prepareAccountingMaps(currentAccount.getId(), bankAccount.getId(), totalAmount, creditAccounts,
+				BankBLTransactionUpdate.prepareAccountingMaps(currentAccount, bankAccount, totalAmount, creditAccounts,
 						deptAccounts);
 				transRow.setDeptAmountInForeignCurrency(totalAmount);
 				transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
@@ -412,7 +412,7 @@ public class BankBLTransactionAdd
 			}
 			else if (type.intValue() == EngBLCommon.BANK_TRANS_SEND_MONEY)
 			{
-				BankBLTransactionUpdate.prepareAccountingMaps(bankAccount.getId(), currentAccount.getId(), totalAmount, creditAccounts,
+				BankBLTransactionUpdate.prepareAccountingMaps(bankAccount, currentAccount, totalAmount, creditAccounts,
 						deptAccounts);
 				transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
 				transRow.setDeptAmount(new BigDecimal(0));
@@ -508,6 +508,12 @@ public class BankBLTransactionAdd
 			transRow.setTurqBanksCard(bankCard);
 			TurqAccountingAccount bankAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCard,
 					EngBLCommon.BANK_ACC_TYPE_GENERAL);
+			Integer bankAccId = null;
+			if(bankAccount != null)
+			{
+				bankAccId = bankAccount.getId();
+			}
+			
 			String currentTransDefinition = ""; //$NON-NLS-1$
 			int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
 			Map creditAccounts = new HashMap();
@@ -515,7 +521,7 @@ public class BankBLTransactionAdd
 			//Para yatirma
 			if (type.intValue() == EngBLCommon.BANK_TRANS_OTHER_DEPOSIT)
 			{
-				BankBLTransactionUpdate.prepareAccountingMaps(account.getId(), bankAccount.getId(), totalAmount, creditAccounts,
+				BankBLTransactionUpdate.prepareAccountingMaps(account, bankAccount, totalAmount, creditAccounts,
 						deptAccounts);
 				transRow.setDeptAmountInForeignCurrency(totalAmount);
 				transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
@@ -525,7 +531,7 @@ public class BankBLTransactionAdd
 			//Para cekme
 			else if (type.intValue() == EngBLCommon.BANK_TRANS_OTHER_DRAW)
 			{
-				BankBLTransactionUpdate.prepareAccountingMaps(bankAccount.getId(), account.getId(), totalAmount, creditAccounts,
+				BankBLTransactionUpdate.prepareAccountingMaps(bankAccount, account, totalAmount, creditAccounts,
 						deptAccounts);
 				transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
 				transRow.setDeptAmount(new BigDecimal(0));

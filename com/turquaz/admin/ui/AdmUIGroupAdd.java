@@ -195,7 +195,7 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 				Logger loger = Logger.getLogger(this.getClass());
 				loger.error("Exception Caught", ex);
 				ex.printStackTrace();
-				messageBox.setMessage(ex.getMessage());
+				messageBox.setMessage("Hata Olustu!");
 				messageBox.open();
 			}
 		}

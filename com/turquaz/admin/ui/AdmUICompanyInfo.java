@@ -150,7 +150,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 			Logger loger = Logger.getLogger(this.getClass());
 			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
-			msg.setMessage(ex.getMessage());
+			msg.setMessage("Hata Olustu!");
 			msg.open();
 		}
 	}

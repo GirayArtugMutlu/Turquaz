@@ -482,7 +482,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 			Logger loger = Logger.getLogger(this.getClass());
 			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
-			msg2.setMessage(ex.getMessage());
+			msg2.setMessage("Hata Olustu!");
 			msg2.open();
 		}
 	}
