@@ -46,7 +46,7 @@ import de.kupzog.ktable.KTable;
  */
 public class TTableCellEditorDecimalText extends TTableCellEditor {
 
-	private DecimalText m_Text;
+	private CurrencyText m_Text;
 	
 
 	public void open(KTable table, int col, int row, Rectangle rect) {
@@ -68,7 +68,7 @@ public class TTableCellEditorDecimalText extends TTableCellEditor {
 
 
 	protected Control createControl() {
-		m_Text = new DecimalText(m_Table, SWT.NONE);
+		m_Text = new CurrencyText(m_Table, SWT.NONE);
 		m_Text.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				try {

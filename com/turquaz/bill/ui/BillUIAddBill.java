@@ -40,7 +40,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.NumericText;
-import com.turquaz.engine.ui.component.DecimalText;
+import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -123,13 +123,13 @@ implements SecureComposite{
 	/**
 	 * @return Returns the decSpecialVat.
 	 */
-	public DecimalText getDecSpecialVat() {
+	public CurrencyText getDecSpecialVat() {
 		return decSpecialVat;
 	}
 	/**
 	 * @param decSpecialVat The decSpecialVat to set.
 	 */
-	public void setDecSpecialVat(DecimalText decSpecialVat) {
+	public void setDecSpecialVat(CurrencyText decSpecialVat) {
 		this.decSpecialVat = decSpecialVat;
 	}
 	/**
@@ -183,13 +183,13 @@ implements SecureComposite{
 	/**
 	 * @return Returns the txtDiscountAmount.
 	 */
-	public DecimalText getTxtDiscountAmount() {
+	public CurrencyText getTxtDiscountAmount() {
 		return txtDiscountAmount;
 	}
 	/**
 	 * @param txtDiscountAmount The txtDiscountAmount to set.
 	 */
-	public void setTxtDiscountAmount(DecimalText txtDiscountAmount) {
+	public void setTxtDiscountAmount(CurrencyText txtDiscountAmount) {
 		this.txtDiscountAmount = txtDiscountAmount;
 	}
 	/**
@@ -219,37 +219,37 @@ implements SecureComposite{
 	/**
 	 * @return Returns the txtSubTotal.
 	 */
-	public DecimalText getTxtSubTotal() {
+	public CurrencyText getTxtSubTotal() {
 		return txtSubTotal;
 	}
 	/**
 	 * @param txtSubTotal The txtSubTotal to set.
 	 */
-	public void setTxtSubTotal(DecimalText txtSubTotal) {
+	public void setTxtSubTotal(CurrencyText txtSubTotal) {
 		this.txtSubTotal = txtSubTotal;
 	}
 	/**
 	 * @return Returns the txtTotalAmount.
 	 */
-	public DecimalText getTxtTotalAmount() {
+	public CurrencyText getTxtTotalAmount() {
 		return txtTotalAmount;
 	}
 	/**
 	 * @param txtTotalAmount The txtTotalAmount to set.
 	 */
-	public void setTxtTotalAmount(DecimalText txtTotalAmount) {
+	public void setTxtTotalAmount(CurrencyText txtTotalAmount) {
 		this.txtTotalAmount = txtTotalAmount;
 	}
 	/**
 	 * @return Returns the txtTotalVat.
 	 */
-	public DecimalText getTxtTotalVat() {
+	public CurrencyText getTxtTotalVat() {
 		return txtTotalVat;
 	}
 	/**
 	 * @param txtTotalVat The txtTotalVat to set.
 	 */
-	public void setTxtTotalVat(DecimalText txtTotalVat) {
+	public void setTxtTotalVat(CurrencyText txtTotalVat) {
 		this.txtTotalVat = txtTotalVat;
 	}
 	{
@@ -275,7 +275,7 @@ implements SecureComposite{
 	private CLabel lblBillDocumentNo;
 	private Text txtDefinition;
 	private CLabel lblDefinition;
-	private DecimalText decSpecialVat;
+	private CurrencyText decSpecialVat;
 	private Label lblSpecialVAT;
 	private TableColumn tableColumnCumulative;
 	private Button btnUpdateGroups;
@@ -287,12 +287,12 @@ implements SecureComposite{
 	private CTabFolder cTabFolder1;
 	private CCombo comboConsignmentType;
 	private CLabel lblType;
-	private DecimalText txtDiscountAmount;
+	private CurrencyText txtDiscountAmount;
 	private CLabel lblDiscountAmount;
-	private DecimalText txtTotalAmount;
+	private CurrencyText txtTotalAmount;
 	private CLabel lblTotalAmount;
-	private DecimalText txtSubTotal;
-	private DecimalText txtTotalVat;
+	private CurrencyText txtSubTotal;
+	private CurrencyText txtTotalVat;
 	private CLabel lblTotalVat;
 	private CLabel lblDiscountRate;
 	private Text txtDocumentNo;
@@ -764,7 +764,7 @@ implements SecureComposite{
 									.setLayoutData(lblDiscountAmountLData);
 							}
 							{
-								txtDiscountAmount = new DecimalText(
+								txtDiscountAmount = new CurrencyText(
 									compTotalsPanel,
 									SWT.NONE);
 								GridData txtDiscountAmountLData = new GridData();
@@ -792,7 +792,7 @@ implements SecureComposite{
 									.setLayoutData(lblTotalAmountLData);
 							}
 							{
-								txtTotalAmount = new DecimalText(
+								txtTotalAmount = new CurrencyText(
 									compTotalsPanel,
 									SWT.NONE);
 								GridData txtTotalAmountLData = new GridData();
@@ -818,7 +818,7 @@ implements SecureComposite{
 									.setLayoutData(lblInventoryPriceLData);
 							}
 							{
-								txtSubTotal = new DecimalText(
+								txtSubTotal = new CurrencyText(
 									compTotalsPanel,
 									SWT.NONE);
 								GridData text1LData = new GridData();
@@ -843,7 +843,7 @@ implements SecureComposite{
 								lblTotalVat.setLayoutData(lblTotalVatLData);
 							}
 							{
-								txtTotalVat = new DecimalText(
+								txtTotalVat = new CurrencyText(
 									compTotalsPanel,
 									SWT.NONE);
 								GridData txtTotalVatLData = new GridData();
@@ -867,7 +867,7 @@ implements SecureComposite{
 								lblSpecialVAT.setLayoutData(lblSpecialVATLData);
 							}
 							{
-								decSpecialVat = new DecimalText(
+								decSpecialVat = new CurrencyText(
 									compTotalsPanel,
 									SWT.NONE);
 								GridData decSpecialVatLData = new GridData();

@@ -26,7 +26,7 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import com.turquaz.engine.ui.component.DecimalText;
+import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -241,7 +241,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	private CLabel lblInvCardCode;
 
-	private DecimalText decTextSpecialVatAmount;
+	private CurrencyText decTextSpecialVatAmount;
 	private Label lblSpecialVatAmount;
 	private NumericText numTextSpecailVATPercent;
 	private Label lblSpecialVATPercent;
@@ -483,7 +483,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					lblSpecialVatAmount.setLayoutData(lblSpecialVatAmountLData);
 				}
 				{
-					decTextSpecialVatAmount = new DecimalText(
+					decTextSpecialVatAmount = new CurrencyText(
 						compInvCardDetails,
 						SWT.NONE);
 					GridData decTextSpecialVatAmountLData = new GridData();
@@ -1963,7 +1963,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	/**
 	 * @return Returns the decTextSpecialVatAmount.
 	 */
-	public DecimalText getDecTextSpecialVatAmount() {
+	public CurrencyText getDecTextSpecialVatAmount() {
 		return decTextSpecialVatAmount;
 	}
 	/**

@@ -46,11 +46,11 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 
-public class DecimalText extends Composite {
+public class CurrencyText extends Composite {
  private Text text;
  public int textLimit;
 
- public DecimalText(Composite arg0, int arg1) {
+ public CurrencyText(Composite arg0, int arg1) {
   super(arg0, SWT.NONE);
   text = new Text(this, arg1);
   textLimit =20;

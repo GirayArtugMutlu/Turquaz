@@ -37,7 +37,7 @@ import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.ui.component.DecimalText;
+import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Text;
 
@@ -67,7 +67,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 	private CLabel lblDocumentNo;
 	private DatePicker dateTransDate;
 	private CLabel lblTransDate;
-	private DecimalText decTxtAmount;
+	private CurrencyText decTxtAmount;
 	private CLabel lblAmount;
 	private CCombo comboTransType;
 	private CLabel comboType;
@@ -116,7 +116,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 			comboType = new CLabel(this,SWT.NULL);
 			comboTransType = new CCombo(this,SWT.NULL);
 			lblAmount = new CLabel(this,SWT.NULL);
-			decTxtAmount = new DecimalText(this,SWT.NULL);
+			decTxtAmount = new CurrencyText(this,SWT.NULL);
 			lblTransDate = new CLabel(this,SWT.NULL);
 			dateTransDate = new DatePicker(this,SWT.NULL);
 			lblCashAccount = new CLabel(this,SWT.NULL);
@@ -471,13 +471,13 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 	/**
 	 * @return Returns the decTxtAmount.
 	 */
-	public DecimalText getDecTxtAmount() {
+	public CurrencyText getDecTxtAmount() {
 		return decTxtAmount;
 	}
 	/**
 	 * @param decTxtAmount The decTxtAmount to set.
 	 */
-	public void setDecTxtAmount(DecimalText decTxtAmount) {
+	public void setDecTxtAmount(CurrencyText decTxtAmount) {
 		this.decTxtAmount = decTxtAmount;
 	}
 	/**

@@ -37,7 +37,7 @@ import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentGroup;
-import com.turquaz.engine.ui.component.DecimalText;
+import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.widgets.Label;
@@ -116,37 +116,37 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	/**
 	 * @return Returns the decTxtCreditLimit.
 	 */
-	public DecimalText getDecTxtCreditLimit() {
+	public CurrencyText getDecTxtCreditLimit() {
 		return decTxtCreditLimit;
 	}
 	/**
 	 * @param decTxtCreditLimit The decTxtCreditLimit to set.
 	 */
-	public void setDecTxtCreditLimit(DecimalText decTxtCreditLimit) {
+	public void setDecTxtCreditLimit(CurrencyText decTxtCreditLimit) {
 		this.decTxtCreditLimit = decTxtCreditLimit;
 	}
 	/**
 	 * @return Returns the decTxtDiscountAmount.
 	 */
-	public DecimalText getDecTxtDiscountAmount() {
+	public CurrencyText getDecTxtDiscountAmount() {
 		return decTxtDiscountAmount;
 	}
 	/**
 	 * @param decTxtDiscountAmount The decTxtDiscountAmount to set.
 	 */
-	public void setDecTxtDiscountAmount(DecimalText decTxtDiscountAmount) {
+	public void setDecTxtDiscountAmount(CurrencyText decTxtDiscountAmount) {
 		this.decTxtDiscountAmount = decTxtDiscountAmount;
 	}
 	/**
 	 * @return Returns the decTxtRiskLimit.
 	 */
-	public DecimalText getDecTxtRiskLimit() {
+	public CurrencyText getDecTxtRiskLimit() {
 		return decTxtRiskLimit;
 	}
 	/**
 	 * @param decTxtRiskLimit The decTxtRiskLimit to set.
 	 */
-	public void setDecTxtRiskLimit(DecimalText decTxtRiskLimit) {
+	public void setDecTxtRiskLimit(CurrencyText decTxtRiskLimit) {
 		this.decTxtRiskLimit = decTxtRiskLimit;
 	}
 	/**
@@ -430,13 +430,13 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	private Label lblTelephone1;
 	private DynamicAccountPicker accPickerCustomer;
 	private CLabel lblAccountingCodeCustomer;
-	private DecimalText decTxtDiscountAmount;
+	private CurrencyText decTxtDiscountAmount;
 	private CLabel lblDiscountAMount;
 	private NumericText numTextDiscountRate;
 	private CLabel lblDiscountRate;
-	private DecimalText decTxtCreditLimit;
+	private CurrencyText decTxtCreditLimit;
 	private CLabel lblCreditLimit;
-	private DecimalText decTxtRiskLimit;
+	private CurrencyText decTxtRiskLimit;
 	private CLabel lblRiskLimit;
 	private Text txtTaxNumber;
 	private CLabel lblTaxNumber;
@@ -497,13 +497,13 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			lblTaxNumber = new CLabel(compCurrentGeneralInfo,SWT.NULL);
 			txtTaxNumber = new Text(compCurrentGeneralInfo,SWT.NULL);
 			lblRiskLimit = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			decTxtRiskLimit = new DecimalText(compCurrentGeneralInfo,SWT.NULL);
+			decTxtRiskLimit = new CurrencyText(compCurrentGeneralInfo,SWT.NULL);
 			lblCreditLimit = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			decTxtCreditLimit = new DecimalText(compCurrentGeneralInfo,SWT.NULL);
+			decTxtCreditLimit = new CurrencyText(compCurrentGeneralInfo,SWT.NULL);
 			lblDiscountRate = new CLabel(compCurrentGeneralInfo,SWT.NULL);
 			numTextDiscountRate = new NumericText(compCurrentGeneralInfo,SWT.NULL);
 			lblDiscountAMount = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			decTxtDiscountAmount = new DecimalText(compCurrentGeneralInfo,SWT.NULL);
+			decTxtDiscountAmount = new CurrencyText(compCurrentGeneralInfo,SWT.NULL);
 			lblAccountingCodeCustomer = new CLabel(compCurrentGeneralInfo,SWT.NULL);
 			accPickerCustomer = new DynamicAccountPicker(compCurrentGeneralInfo,SWT.NULL);
 			tabItemContactInfo = new CTabItem(tbfCurrentCardAdd,SWT.NULL);

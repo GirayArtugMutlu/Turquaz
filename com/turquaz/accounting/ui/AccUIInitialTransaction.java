@@ -14,7 +14,7 @@ import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
-import com.turquaz.engine.ui.component.DecimalText;
+import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.ui.component.SecureComposite;
 
@@ -59,7 +59,7 @@ public class AccUIInitialTransaction extends org.eclipse.swt.widgets.Composite i
 	private Text txtDocumentNo;
 	private DatePicker datePicker;
 	private CLabel lblDate;
-	private DecimalText decInitialValue;
+	private CurrencyText decInitialValue;
 	private CLabel lblInitialValue;
 	private AccountPicker accPicker;
 	private AccBLTransactionAdd blTrans = new AccBLTransactionAdd();
@@ -135,7 +135,7 @@ public class AccUIInitialTransaction extends org.eclipse.swt.widgets.Composite i
                 lblInitialValue.setLayoutData(lblInitialValueLData);
             }
             {
-                decInitialValue = new DecimalText(this, SWT.NONE);
+                decInitialValue = new CurrencyText(this, SWT.NONE);
                 GridData decInitialValueLData = new GridData();
                 decInitialValueLData.horizontalAlignment = GridData.FILL;
                 decInitialValueLData.heightHint = 19;
