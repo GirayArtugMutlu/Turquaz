@@ -60,6 +60,7 @@ public class AccBLAccountAdd {
 		}
 		
 	}
+
 	public List getAllAccounts()throws Exception{
 		try{
 			

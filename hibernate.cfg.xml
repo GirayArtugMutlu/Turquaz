@@ -61,6 +61,7 @@
 <mapping resource="com/turquaz/engine/dal/ViewInventoryLevel.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqAccountingTransactionColumn.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqEngineSequence.hbm.xml"/>
+<mapping resource="com/turquaz/engine/dal/TurqBillConsignmentCommon.hbm.xml"/>
 
 											
         

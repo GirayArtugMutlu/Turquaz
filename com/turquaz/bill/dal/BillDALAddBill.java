@@ -1,10 +1,16 @@
 
 package com.turquaz.bill.dal;
 
+import java.util.Iterator;
+import java.util.Set;
+
+import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqBill;
+import com.turquaz.engine.dal.TurqConsignment;
 
 /**
  * @author onsel
@@ -38,6 +44,25 @@ public class BillDALAddBill {
 		session.flush();
 		tx.commit();
 		session.close();
+		
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
+	public Set getInvTransactions(TurqBill bill)throws Exception{
+		try{
+		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();	
+		if(it.hasNext()){
+		  TurqConsignment cons = (TurqConsignment)it.next();	
+		  
+		  Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
+		
+		  return cons.getTurqEngineSequence().getTurqInventoryTransactions();
+		}
+		else 
+			return null;
+		
 		
 		}
 		catch(Exception ex){
