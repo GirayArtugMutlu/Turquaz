@@ -38,6 +38,7 @@ import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 
 
 public class AccDALTransactionSearch {
@@ -79,6 +80,28 @@ public class AccDALTransactionSearch {
 			session.close();
 
 			return (TurqCurrency)list.get(0);
+
+		} catch (Exception ex) {
+			throw ex;
+
+		}
+	}
+	
+	
+	public static TurqCurrencyExchangeRate getBaseCurrencyExchangeRate() throws Exception
+	{
+
+		try 
+		{
+			Session session = EngDALSessionFactory.openSession();
+
+			String query = "select exRate from TurqCurrencyExchangeRate as exRate" +
+					" where exRate.id=-1";
+			Query q = session.createQuery(query);
+			List list = q.list();
+			session.close();
+
+			return (TurqCurrencyExchangeRate)list.get(0);
 
 		} catch (Exception ex) {
 			throw ex;

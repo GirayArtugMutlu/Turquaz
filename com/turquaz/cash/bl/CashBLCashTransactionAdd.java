@@ -289,10 +289,11 @@ public class CashBLCashTransactionAdd {
 					document_no, accTransType, seq.getTurqModule()
 							.getId().intValue(), seq
 							.getId(), definition);
+//			TODO acc trans column exRate
 			blAccTran.saveAccTransactionRow(accTransRowCash, transId,
-					EngBLCommon.getBaseCurrency(), new BigDecimal(1));
+					EngBLCommon.getBaseCurrencyExchangeRate());
 			blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,
-					EngBLCommon.getBaseCurrency(), new BigDecimal(1));
+					EngBLCommon.getBaseCurrencyExchangeRate());
 
 		}
 
@@ -425,10 +426,11 @@ public class CashBLCashTransactionAdd {
 					document_no, accTransType, seq.getTurqModule()
 							.getId().intValue(), seq
 							.getId(), definition);
+//			TODO acc trans column exRate
 			blAccTran.saveAccTransactionRow(accTransRowCash, transId,
-					EngBLCommon.getBaseCurrency(), new BigDecimal(1));
+					EngBLCommon.getBaseCurrencyExchangeRate());
 			blAccTran.saveAccTransactionRow(accTransRowOther, transId,
-					EngBLCommon.getBaseCurrency(), new BigDecimal(1));
+					EngBLCommon.getBaseCurrencyExchangeRate());
 
 		}
 
@@ -566,10 +568,11 @@ public class CashBLCashTransactionAdd {
 					document_no, accTransType, seq.getTurqModule()
 							.getId().intValue(), seq
 							.getId(), definition);
+//			TODO acc trans column exRate
 			blAccTran.saveAccTransactionRow(accTransCashWithDept, transId,
-					EngBLCommon.getBaseCurrency(), new BigDecimal(1));
+					EngBLCommon.getBaseCurrencyExchangeRate());
 			blAccTran.saveAccTransactionRow(accTransCashWithCredit, transId,
-					EngBLCommon.getBaseCurrency(), new BigDecimal(1));
+					EngBLCommon.getBaseCurrencyExchangeRate());
 
 		}
 

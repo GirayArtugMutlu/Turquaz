@@ -266,10 +266,9 @@ public class BillBLAddBill {
 								.getTime().getTime()));
 						transRow.setCreationDate(new java.sql.Date(cal
 								.getTime().getTime()));
-
+//						TODO acc trans column exRate
 						blAcc.saveAccTransactionRow(transRow, transID,
-								EngBLCommon.getBaseCurrency(),
-								new BigDecimal(1));
+								EngBLCommon.getBaseCurrencyExchangeRate());
 					}
 
 				}
@@ -305,9 +304,9 @@ public class BillBLAddBill {
 										.getTime()));
 								transRow.setCreationDate(new java.sql.Date(cal.getTime()
 										.getTime()));
-
+//								TODO acc trans column exRate
 								blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-										.getBaseCurrency(), new BigDecimal(1));
+										.getBaseCurrencyExchangeRate());
 				}
 				
 				
@@ -341,9 +340,9 @@ public class BillBLAddBill {
 							.getTime()));
 					transRow.setCreationDate(new java.sql.Date(cal.getTime()
 							.getTime()));
-
+//					TODO acc trans column exRate
 					blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-							.getBaseCurrency(), new BigDecimal(1));
+							.getBaseCurrencyExchangeRate());
 
 				}
 
@@ -371,8 +370,9 @@ public class BillBLAddBill {
 						.getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime()
 						.getTime()));
+//				TODO acc trans column exRate
 				blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-						.getBaseCurrency(), new BigDecimal(1));
+						.getBaseCurrencyExchangeRate());
 
 				/**
 				 * 4- iskontoyu save et
@@ -395,8 +395,9 @@ public class BillBLAddBill {
 						.getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime()
 						.getTime()));
+//				TODO acc trans column exRate
 				blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-						.getBaseCurrency(), new BigDecimal(1));
+						.getBaseCurrencyExchangeRate());
 
 				//Kapal? Fatura
 				/**
@@ -429,8 +430,9 @@ public class BillBLAddBill {
 							.getTime()));
 					transRow.setCreationDate(new java.sql.Date(cal.getTime()
 							.getTime()));
+//					TODO acc trans column exRate
 					blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-							.getBaseCurrency(), new BigDecimal(1));
+							.getBaseCurrencyExchangeRate());
 
 					/**
 					 * 2- Kasa Muhasebe Hareketi
@@ -453,9 +455,9 @@ public class BillBLAddBill {
 							.getTime()));
 					transRow.setCreationDate(new java.sql.Date(cal.getTime()
 							.getTime()));
-
+//					TODO acc trans column exRate
 					blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-							.getBaseCurrency(), new BigDecimal(1));
+							.getBaseCurrencyExchangeRate());
 
 				}
 			}
@@ -566,10 +568,9 @@ public class BillBLAddBill {
 								.getTime().getTime()));
 						transRow.setCreationDate(new java.sql.Date(cal
 								.getTime().getTime()));
-
+//						TODO acc trans column exRate
 						blAcc.saveAccTransactionRow(transRow, transID,
-								EngBLCommon.getBaseCurrency(),
-								new BigDecimal(1));
+								EngBLCommon.getBaseCurrencyExchangeRate());
 					}
 				}
 				/***
@@ -605,9 +606,9 @@ public class BillBLAddBill {
 										.getTime()));
 								transRow.setCreationDate(new java.sql.Date(cal.getTime()
 										.getTime()));
-
+//								TODO acc trans column exRate
 								blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-										.getBaseCurrency(), new BigDecimal(1));
+										.getBaseCurrencyExchangeRate());
 				}
 
 				/**
@@ -638,9 +639,9 @@ public class BillBLAddBill {
 							.getTime()));
 					transRow.setCreationDate(new java.sql.Date(cal.getTime()
 							.getTime()));
-
+//					TODO acc trans column exRate
 					blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-							.getBaseCurrency(), new BigDecimal(1));
+							.getBaseCurrencyExchangeRate());
 
 				}
 
@@ -670,9 +671,9 @@ public class BillBLAddBill {
 						.getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime()
 						.getTime()));
-
+//				TODO acc trans column exRate
 				blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-						.getBaseCurrency(), new BigDecimal(1));
+						.getBaseCurrencyExchangeRate());
 
 				/**
 				 * 5- iskonto Kayd?
@@ -699,9 +700,9 @@ public class BillBLAddBill {
 						.getTime()));
 				transRow.setCreationDate(new java.sql.Date(cal.getTime()
 						.getTime()));
-
+//				TODO acc trans column exRate
 				blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-						.getBaseCurrency(), new BigDecimal(1));
+						.getBaseCurrencyExchangeRate());
 
 				//Kapal? Fatura
 				/**
@@ -734,9 +735,9 @@ public class BillBLAddBill {
 							.getTime()));
 					transRow.setCreationDate(new java.sql.Date(cal.getTime()
 							.getTime()));
-
+//					TODO acc trans column exRate
 					blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-							.getBaseCurrency(), new BigDecimal(1));
+							.getBaseCurrencyExchangeRate());
 
 					/**
 					 * 2- Kasa Muhasebe Hareketi
@@ -759,9 +760,9 @@ public class BillBLAddBill {
 							.getTime()));
 					transRow.setCreationDate(new java.sql.Date(cal.getTime()
 							.getTime()));
-
+//					TODO acc trans column exRate
 					blAcc.saveAccTransactionRow(transRow, transID, EngBLCommon
-							.getBaseCurrency(), new BigDecimal(1));
+							.getBaseCurrencyExchangeRate());
 
 				}
 

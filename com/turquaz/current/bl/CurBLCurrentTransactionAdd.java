@@ -344,8 +344,9 @@ public class CurBLCurrentTransactionAdd {
          //fis kalemlerini de ekleyelim.. 
          transRowCash.setTransactionDefinition(definition);
          transRowCurrent.setTransactionDefinition(definition);
-         blAcc.saveAccTransactionRow(transRowCash,AccTransId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
-         blAcc.saveAccTransactionRow(transRowCurrent,AccTransId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
+//       TODO acc trans column exRate
+         blAcc.saveAccTransactionRow(transRowCash,AccTransId,EngBLCommon.getBaseCurrencyExchangeRate());
+         blAcc.saveAccTransactionRow(transRowCurrent,AccTransId,EngBLCommon.getBaseCurrencyExchangeRate());
        
 		}
 		

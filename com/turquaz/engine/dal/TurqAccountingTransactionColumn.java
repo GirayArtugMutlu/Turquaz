@@ -39,7 +39,7 @@ public class TurqAccountingTransactionColumn implements Serializable {
     private java.math.BigDecimal rowsCreditInBaseCurrency;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCurrency turqCurrency;
+    private com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
@@ -48,7 +48,7 @@ public class TurqAccountingTransactionColumn implements Serializable {
     private com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction;
 
     /** full constructor */
-    public TurqAccountingTransactionColumn(java.math.BigDecimal deptAmount, java.math.BigDecimal creditAmount, java.lang.String transactionDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.math.BigDecimal rowsDeptInBaseCurrency, java.math.BigDecimal rowsCreditInBaseCurrency, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction) {
+    public TurqAccountingTransactionColumn(java.math.BigDecimal deptAmount, java.math.BigDecimal creditAmount, java.lang.String transactionDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.math.BigDecimal rowsDeptInBaseCurrency, java.math.BigDecimal rowsCreditInBaseCurrency, com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction) {
         this.deptAmount = deptAmount;
         this.creditAmount = creditAmount;
         this.transactionDefinition = transactionDefinition;
@@ -58,7 +58,7 @@ public class TurqAccountingTransactionColumn implements Serializable {
         this.lastModified = lastModified;
         this.rowsDeptInBaseCurrency = rowsDeptInBaseCurrency;
         this.rowsCreditInBaseCurrency = rowsCreditInBaseCurrency;
-        this.turqCurrency = turqCurrency;
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
         this.turqAccountingAccount = turqAccountingAccount;
         this.turqAccountingTransaction = turqAccountingTransaction;
     }
@@ -147,12 +147,12 @@ public class TurqAccountingTransactionColumn implements Serializable {
         this.rowsCreditInBaseCurrency = rowsCreditInBaseCurrency;
     }
 
-    public com.turquaz.engine.dal.TurqCurrency getTurqCurrency() {
-        return this.turqCurrency;
+    public com.turquaz.engine.dal.TurqCurrencyExchangeRate getTurqCurrencyExchangeRate() {
+        return this.turqCurrencyExchangeRate;
     }
 
-    public void setTurqCurrency(com.turquaz.engine.dal.TurqCurrency turqCurrency) {
-        this.turqCurrency = turqCurrency;
+    public void setTurqCurrencyExchangeRate(com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate) {
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
     }
 
     public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccount() {

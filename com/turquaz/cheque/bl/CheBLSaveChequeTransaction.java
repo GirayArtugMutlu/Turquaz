@@ -44,7 +44,8 @@ import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.dal.TurqChequeRollAccountingAccount;
 import com.turquaz.engine.dal.TurqChequeTransactionType;
-import com.turquaz.engine.dal.TurqCurrency;
+
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
@@ -60,10 +61,7 @@ public class CheBLSaveChequeTransaction {
       try{
           
       	
-      
-      	
-      	  TurqCurrency currency = EngBLCommon.getBaseCurrency();
-      	  BigDecimal exchangeRate = new BigDecimal(1);
+ 
       	
           TurqChequeTransactionType type = new TurqChequeTransactionType();
           type.setId(new Integer(rollType));
@@ -186,8 +184,8 @@ public class CheBLSaveChequeTransaction {
          if(rollType==EngBLCommon.CHEQUE_TRANS_IN)
          {
          	TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
-         
-         	saveRollAccountingTransactions(rollAccount,curAccount,chequeRoll,totalAmount,currency,exchangeRate);
+//         	TODO acc trans exRate
+         	saveRollAccountingTransactions(rollAccount,curAccount,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
          	
          }
          else if(rollType==EngBLCommon.CHEQUE_TRANS_OUT_BANK)
@@ -360,7 +358,7 @@ public class CheBLSaveChequeTransaction {
     }
     
     
-    public  static void saveRollAccountingTransactions(TurqAccountingAccount rollAccount,TurqAccountingAccount counterAccount,TurqChequeRoll roll, BigDecimal amount, TurqCurrency currency, BigDecimal exchangeRatio)
+    public  static void saveRollAccountingTransactions(TurqAccountingAccount rollAccount,TurqAccountingAccount counterAccount,TurqChequeRoll roll, BigDecimal amount, TurqCurrencyExchangeRate exchangeRate)
     throws Exception
     {
     	
@@ -399,8 +397,9 @@ public class CheBLSaveChequeTransaction {
     						.getId().intValue(), roll.getTurqEngineSequence()
     						.getId(), "Cek Bordrosu "+roll.getChequeRollNo());
     		
-    		blAccTran.saveAccTransactionRow(transRollRow,transId,currency,exchangeRatio);
-    		blAccTran.saveAccTransactionRow(transCounterRow,transId,currency,exchangeRatio);
+//    		TODO acc trans column exRate
+    		blAccTran.saveAccTransactionRow(transRollRow,transId,exchangeRate);
+    		blAccTran.saveAccTransactionRow(transCounterRow,transId,exchangeRate);
     	
     	}
     

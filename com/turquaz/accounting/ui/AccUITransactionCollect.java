@@ -577,17 +577,18 @@ public class AccUITransactionCollect extends Composite implements
 							.getData());
 			transRow.setTransactionDefinition(Messages
 					.getString("AccUITransactionCollect.9")); //$NON-NLS-1$
-			blTransAdd.saveAccTransactionRow(transRow, transId,(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()), exchangeRatio );
+			//TODO acc trans column exRate
+			blTransAdd.saveAccTransactionRow(transRow, transId,EngBLCommon.getBaseCurrencyExchangeRate() );
 
 			//Save the table rows
 			for (int i = 0; i < items.length; i++) {
 				AccUITransactionCollectTableRow row = (AccUITransactionCollectTableRow) items[i]
 						.getData();
-
+				//TODO acc trans column exRate
 				if (row.okToSave()) 
 				{
 					blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn) row
-											.getDBObject(), transId,(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()), exchangeRatio );
+											.getDBObject(), transId,EngBLCommon.getBaseCurrencyExchangeRate() );
 				}
 			}
 

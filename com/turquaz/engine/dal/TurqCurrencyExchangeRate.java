@@ -1,6 +1,7 @@
 package com.turquaz.engine.dal;
 
 import java.io.Serializable;
+import java.util.Set;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -23,12 +24,20 @@ public class TurqCurrencyExchangeRate implements Serializable {
     /** persistent field */
     private com.turquaz.engine.dal.TurqCurrency turqCurrencyByExchangeCurrencyId;
 
+    /** persistent field */
+    private Set turqAccountingTransactions;
+
+    /** persistent field */
+    private Set turqAccountingTransactionColumns;
+
     /** full constructor */
-    public TurqCurrencyExchangeRate(java.util.Date exhangeRatesDate, java.math.BigDecimal exchangeRatio, com.turquaz.engine.dal.TurqCurrency turqCurrencyByBaseCurrencyId, com.turquaz.engine.dal.TurqCurrency turqCurrencyByExchangeCurrencyId) {
+    public TurqCurrencyExchangeRate(java.util.Date exhangeRatesDate, java.math.BigDecimal exchangeRatio, com.turquaz.engine.dal.TurqCurrency turqCurrencyByBaseCurrencyId, com.turquaz.engine.dal.TurqCurrency turqCurrencyByExchangeCurrencyId, Set turqAccountingTransactions, Set turqAccountingTransactionColumns) {
         this.exhangeRatesDate = exhangeRatesDate;
         this.exchangeRatio = exchangeRatio;
         this.turqCurrencyByBaseCurrencyId = turqCurrencyByBaseCurrencyId;
         this.turqCurrencyByExchangeCurrencyId = turqCurrencyByExchangeCurrencyId;
+        this.turqAccountingTransactions = turqAccountingTransactions;
+        this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
     }
 
     /** default constructor */
@@ -73,6 +82,22 @@ public class TurqCurrencyExchangeRate implements Serializable {
 
     public void setTurqCurrencyByExchangeCurrencyId(com.turquaz.engine.dal.TurqCurrency turqCurrencyByExchangeCurrencyId) {
         this.turqCurrencyByExchangeCurrencyId = turqCurrencyByExchangeCurrencyId;
+    }
+
+    public java.util.Set getTurqAccountingTransactions() {
+        return this.turqAccountingTransactions;
+    }
+
+    public void setTurqAccountingTransactions(java.util.Set turqAccountingTransactions) {
+        this.turqAccountingTransactions = turqAccountingTransactions;
+    }
+
+    public java.util.Set getTurqAccountingTransactionColumns() {
+        return this.turqAccountingTransactionColumns;
+    }
+
+    public void setTurqAccountingTransactionColumns(java.util.Set turqAccountingTransactionColumns) {
+        this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
     }
 
     public String toString() {

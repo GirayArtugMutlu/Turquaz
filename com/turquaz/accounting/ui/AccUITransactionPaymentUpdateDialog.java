@@ -47,11 +47,12 @@ import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionPayment;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
-import com.turquaz.engine.dal.TurqCurrency;
+
 import com.turquaz.engine.ui.viewers.ITableRow;
 
 import org.eclipse.swt.events.SelectionAdapter;
@@ -244,7 +245,8 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	    
 		compTransactionPayment.getTxtDocumentNo().setText(accTrans.getTransactionDocumentNo());
 		compTransactionPayment.getTxtDefinition().setText(accTrans.getTransactionDescription());
-		compTransactionPayment.getComboCurrencyType().setText(accTrans.getTurqCurrency().getCurrenciesAbbreviation());
+//		TODO exRate
+		compTransactionPayment.getComboCurrencyType().setText(accTrans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
 
 		Date date = new Date(accTrans.getTransactionsDate().getTime());
 		compTransactionPayment.getDatePickerTransactionDate().setDate(date);
@@ -300,9 +302,10 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		try{
 		 if(compTransactionPayment.verifyFields()){
 		 	updated=true;
+//		 	TODO acc trans  exRate
 		 blTransUpdate.updateTransaction(accTrans,compTransactionPayment.getTxtDocumentNo().getText().trim(),
 										compTransactionPayment.getDatePickerTransactionDate().getData(),compTransactionPayment.getTxtDefinition().getText().trim(),
-										(TurqCurrency)compTransactionPayment.getComboCurrencyType().getData(compTransactionPayment.getComboCurrencyType().getText()));
+										EngBLCommon.getBaseCurrencyExchangeRate());
 		 updateTransactionRows();
 		 msg.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.6")); //$NON-NLS-1$
 		 msg.open();

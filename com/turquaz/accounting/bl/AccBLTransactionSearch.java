@@ -37,6 +37,7 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 
 
 public class AccBLTransactionSearch {
@@ -84,6 +85,19 @@ public class AccBLTransactionSearch {
 		try 
 		{
 			return AccDALTransactionSearch.getBaseCurrency();
+
+		} catch (Exception ex) {
+			throw ex;
+
+		}
+	}
+	
+	public static TurqCurrencyExchangeRate getBaseCurrencyExchangeRate() throws Exception
+	{
+
+		try 
+		{
+			return AccDALTransactionSearch.getBaseCurrencyExchangeRate();
 
 		} catch (Exception ex) {
 			throw ex;

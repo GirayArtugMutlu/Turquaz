@@ -548,10 +548,10 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
     		{
    
     			AccUITransactionAddTableRow row =(AccUITransactionAddTableRow)items[i].getData();
-     
+    			//TODO acc trans column exRate
     			if(row.okToSave())
     			{
-    				blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId,(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()), exchangeRatio );
+    				blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId,EngBLCommon.getBaseCurrencyExchangeRate());
     			}
     
     		}

@@ -29,7 +29,8 @@ import java.util.Calendar;
 import com.turquaz.accounting.dal.AccDALTransactionUpdate;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionType;
-import com.turquaz.engine.dal.TurqCurrency;
+
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 
 
 public class AccBLTransactionUpdate {
@@ -40,14 +41,14 @@ public class AccBLTransactionUpdate {
 		
 	}
 	
-	public void updateTransaction(TurqAccountingTransaction transaction,String docNo, Object transDate, String definition, TurqCurrency currency)
+	public void updateTransaction(TurqAccountingTransaction transaction,String docNo, Object transDate, String definition, TurqCurrencyExchangeRate exchangeRate)
 	throws Exception{
 	
 		Date date = new Date(((java.util.Date)transDate).getTime());
 		transaction.setTransactionsDate(date);
 		transaction.setTransactionDocumentNo(docNo);
 		transaction.setTransactionDescription(definition);
-		transaction.setTurqCurrency(currency);
+		transaction.setTurqCurrencyExchangeRate(exchangeRate);
 		transaction.setUpdatedBy(System.getProperty("user"));
 		transaction.setLastModified(new java.sql.Date( cal.getTime().getTime()));
 	   	try{
@@ -70,7 +71,7 @@ public class AccBLTransactionUpdate {
 	    }
 	}
 	public void updateTransaction(TurqAccountingTransaction transaction,String docNo, java.util.Date transDate,
-				int transType, String definition,TurqCurrency currency)
+				int transType, String definition,TurqCurrencyExchangeRate exchangeRate)
 	throws Exception{
 	
 		TurqAccountingTransactionType accTransType = new TurqAccountingTransactionType();
@@ -78,7 +79,7 @@ public class AccBLTransactionUpdate {
 		transaction.setTurqAccountingTransactionType(accTransType);
 		transaction.setTransactionsDate(transDate);
 		transaction.setTransactionDocumentNo(docNo);
-		transaction.setTurqCurrency(currency);
+		transaction.setTurqCurrencyExchangeRate(exchangeRate);
 		transaction.setUpdatedBy(System.getProperty("user"));
 		transaction.setLastModified(new java.sql.Date( cal.getTime().getTime()));
 	   	try{

@@ -31,7 +31,8 @@ import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqAccountingTransactionType;
-import com.turquaz.engine.dal.TurqCurrency;
+
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqEngineSequence;
 
 import com.turquaz.engine.dal.TurqModule;
@@ -47,7 +48,7 @@ public class AccBLTransactionAdd {
 	
 	//Muhasebe fisi kalemlerini kaydet
 	public void saveAccTransactionRow(TurqAccountingTransactionColumn transRow,
-			Integer transID, TurqCurrency currency, BigDecimal exchangeRatio)
+			Integer transID, TurqCurrencyExchangeRate exchangeRate)
 	throws Exception
 	{
 		try
@@ -60,14 +61,13 @@ public class AccBLTransactionAdd {
 			TurqAccountingTransaction trans = new TurqAccountingTransaction();
 			trans.setId(transID);
 		
-			transRow.setTurqAccountingTransaction(trans);
-			
+			transRow.setTurqAccountingTransaction(trans);			
 			
 			transRow.setRowsCreditInBaseCurrency(transRow.getCreditAmount());
 			transRow.setRowsDeptInBaseCurrency(transRow.getDeptAmount());
-			transRow.setTurqCurrency(currency);
-			transRow.setRowsCreditInBaseCurrency(transRow.getCreditAmount().multiply(exchangeRatio));
-			transRow.setRowsDeptInBaseCurrency(transRow.getDeptAmount().multiply(exchangeRatio));
+			transRow.setTurqCurrencyExchangeRate(exchangeRate);
+			transRow.setRowsCreditInBaseCurrency(transRow.getCreditAmount().multiply(exchangeRate.getExchangeRatio()));
+			transRow.setRowsDeptInBaseCurrency(transRow.getDeptAmount().multiply(exchangeRate.getExchangeRatio()));
 
 
 			transRow.setCreatedBy(System.getProperty("user"));
@@ -114,8 +114,9 @@ public class AccBLTransactionAdd {
 		
 		/**
 		 * TODO Will Change in next version
+		 * TODO trans exhangeRate issue
 		 */
-		trans.setTurqCurrency(EngBLCommon.getBaseCurrency());
+		trans.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
 		
 		//Hangi modulde kaydedildigi
 		TurqModule module = new TurqModule();

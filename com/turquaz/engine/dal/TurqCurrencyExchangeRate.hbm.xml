@@ -57,6 +57,34 @@
     >
         <column name="exchange_currency_id" />
     </many-to-one>
+    <!-- bi-directional one-to-many association to TurqAccountingTransaction -->
+    <set
+        name="turqAccountingTransactions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="exchange_rate_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqAccountingTransaction"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqAccountingTransactionColumn -->
+    <set
+        name="turqAccountingTransactionColumns"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="exchange_rate_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqAccountingTransactionColumn"
+        />
+    </set>
 
 </class>
 </hibernate-mapping>

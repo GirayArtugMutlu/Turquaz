@@ -192,8 +192,9 @@ public class BankBLTransactionUpdate {
                     accTransType,
                     bankTransBill.getTurqEngineSequence().getTurqModule().getId().intValue(),bankTransBill.getTurqEngineSequence()
                             .getId(), accounting_definition);
-            blAccTran.saveAccTransactionRow(accTransRowCredit, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
-            blAccTran.saveAccTransactionRow(accTransRowDept, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
+//          TODO acc trans column exRate
+            blAccTran.saveAccTransactionRow(accTransRowCredit, transId,EngBLCommon.getBaseCurrencyExchangeRate());
+            blAccTran.saveAccTransactionRow(accTransRowDept, transId,EngBLCommon.getBaseCurrencyExchangeRate());
 
 
         } catch (Exception ex) {
@@ -355,8 +356,9 @@ public class BankBLTransactionUpdate {
                             .getTurqModule().getId().intValue(),
                     bankTransBill.getTurqEngineSequence()
                             .getId(), definition);
-            blAccTran.saveAccTransactionRow(accTransRowBank, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
-            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
+//          TODO acc trans column exRate
+            blAccTran.saveAccTransactionRow(accTransRowBank, transId,EngBLCommon.getBaseCurrencyExchangeRate());
+            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,EngBLCommon.getBaseCurrencyExchangeRate());
 
         } catch (Exception ex) {
             throw ex;
@@ -489,8 +491,9 @@ public class BankBLTransactionUpdate {
                             .getTurqModule().getId().intValue(),
                     bankTransBill.getTurqEngineSequence()
                             .getId(), definition);
-            blAccTran.saveAccTransactionRow(accTransRowBank, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
-            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
+//          TODO acc trans column exRate
+            blAccTran.saveAccTransactionRow(accTransRowBank, transId,EngBLCommon.getBaseCurrencyExchangeRate());
+            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,EngBLCommon.getBaseCurrencyExchangeRate());
 
         } catch (Exception ex) {
             throw ex;
@@ -659,8 +662,9 @@ public class BankBLTransactionUpdate {
                             .getTurqModule().getId().intValue(),
                     bankTransBill.getTurqEngineSequence()
                             .getId(), definition);
-            blAccTran.saveAccTransactionRow(accTransRowBank, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
-            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
+//          TODO acc trans column exRate
+            blAccTran.saveAccTransactionRow(accTransRowBank, transId,EngBLCommon.getBaseCurrencyExchangeRate());
+            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,EngBLCommon.getBaseCurrencyExchangeRate());
 
         } catch (Exception ex) {
             throw ex;

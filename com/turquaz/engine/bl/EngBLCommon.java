@@ -41,6 +41,7 @@ import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 
 
 public class EngBLCommon {
@@ -220,6 +221,7 @@ public class EngBLCommon {
     public final static int TABLE_ROW_COUNT = 10;
     
     private static TurqCurrency baseCurrency=null;
+    private static TurqCurrencyExchangeRate baseCurrencyExchangeRate=null;
     
     public static TurqCurrency getBaseCurrency()
     {
@@ -235,6 +237,23 @@ public class EngBLCommon {
     		return null;
 		}
     }
+    
+    public static TurqCurrencyExchangeRate getBaseCurrencyExchangeRate()
+    {
+    	try
+		{
+    		if (baseCurrencyExchangeRate==null)
+    			baseCurrencyExchangeRate=AccBLTransactionSearch.getBaseCurrencyExchangeRate();
+    		return baseCurrencyExchangeRate;
+		}
+    	catch(Exception ex)
+		{
+    		ex.printStackTrace();
+    		return null;
+		}
+    }
+    
+    
     
 	public EngBLCommon()
 	{

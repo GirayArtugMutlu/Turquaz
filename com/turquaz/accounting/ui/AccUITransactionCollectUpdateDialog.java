@@ -45,11 +45,12 @@ import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionCollect;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
-import com.turquaz.engine.dal.TurqCurrency;
+
 import com.turquaz.engine.ui.viewers.ITableRow;
 
 import org.eclipse.swt.events.SelectionAdapter;
@@ -263,7 +264,8 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		}
 	    
 	compTransactionCollect.getTxtDocumentNo().setText(accTrans.getTransactionDocumentNo());
-	compTransactionCollect.getComboCurrencyType().setText(accTrans.getTurqCurrency().getCurrenciesAbbreviation());
+	//	TODO exRate
+	compTransactionCollect.getComboCurrencyType().setText(accTrans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
 
 	Date date = new Date(accTrans.getTransactionsDate().getTime());
 	compTransactionCollect.getDatePickerTransactionDate().setDate(date);
@@ -321,9 +323,10 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		try{
 		  if(compTransactionCollect.verifyFields()){
 		  	updated=true;
+		  	//TODO acc trans exRate
 		 blTransUpdate.updateTransaction(accTrans,compTransactionCollect.getTxtDocumentNo().getText().trim(),
 										compTransactionCollect.getDatePickerTransactionDate().getData(),compTransactionCollect.getTxtTransDefinition().getText(),
-										(TurqCurrency)compTransactionCollect.getComboCurrencyType().getData(compTransactionCollect.getComboCurrencyType().getText()));
+										EngBLCommon.getBaseCurrencyExchangeRate());
 		 updateTransactionRows();
 		 msg.setMessage(Messages.getString("AccUITransactionCollectUpdateDialog.6")); //$NON-NLS-1$
 		 msg.open();

@@ -292,8 +292,9 @@ public class CashBLCashTransactionUpdate {
             	   
             	   Integer transId = blAccTran.saveAccTransaction(transDate,document_no,accTransType, cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue(),
             	           										   cashTrans.getTurqEngineSequence().getId(),definition);
-            	   blAccTran.saveAccTransactionRow(accTransRowCash,transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
-            	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));         
+//            	 TODO acc trans column exRate
+            	   blAccTran.saveAccTransactionRow(accTransRowCash,transId,EngBLCommon.getBaseCurrencyExchangeRate());
+            	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId,EngBLCommon.getBaseCurrencyExchangeRate());         
             
             
         }
@@ -443,8 +444,9 @@ try{
     	   
     	   Integer transId = blAccTran.saveAccTransaction(transDate,document_no,accTransType, cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue(),
     	           										   cashTrans.getTurqEngineSequence().getId(),definition);
-    	   blAccTran.saveAccTransactionRow(accTransRowCash,transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
-    	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));         
+//    	 TODO acc trans column exRate
+    	   blAccTran.saveAccTransactionRow(accTransRowCash,transId,EngBLCommon.getBaseCurrencyExchangeRate());
+    	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId,EngBLCommon.getBaseCurrencyExchangeRate());         
     
     
 }
@@ -591,10 +593,11 @@ try{
 				document_no, accTransType, cashTrans.getTurqEngineSequence().getTurqModule()
 						.getId().intValue(), cashTrans.getTurqEngineSequence()
 						.getId(), definition);
+//		TODO acc trans column exRate
 		blAccTran.saveAccTransactionRow(accTransCashWithDept, transId,
-				EngBLCommon.getBaseCurrency(), new BigDecimal(1));
+				EngBLCommon.getBaseCurrencyExchangeRate());
 		blAccTran.saveAccTransactionRow(accTransCashWithCredit, transId,
-				EngBLCommon.getBaseCurrency(), new BigDecimal(1));
+				EngBLCommon.getBaseCurrencyExchangeRate());
     
 }
 

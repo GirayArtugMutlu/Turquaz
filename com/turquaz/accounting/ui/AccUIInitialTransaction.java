@@ -562,12 +562,12 @@ public class AccUIInitialTransaction extends Composite implements
 
                 AccUITransactionAddTableRow row = (AccUITransactionAddTableRow) items[i]
                         .getData();
-
+                //TODO acc trans column exRate
                 if (row.okToSave()) {
                     blTransAdd
                             .saveAccTransactionRow(
                                     (TurqAccountingTransactionColumn) row
-                                            .getDBObject(), transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
+                                            .getDBObject(), transId,EngBLCommon.getBaseCurrencyExchangeRate());
                 }
 
             }
@@ -587,10 +587,10 @@ public class AccUIInitialTransaction extends Composite implements
         try {
 
             if (verifyFields()) {
-
+            	//TODO acc trans exRate
                 blTransUpdate.updateTransaction(accTrans, txtDocumentNo
                         .getText().trim(), dateTransactionDate.getData(),
-                        txtTransDefinition.getText().trim(),EngBLCommon.getBaseCurrency());
+                        txtTransDefinition.getText().trim(),EngBLCommon.getBaseCurrencyExchangeRate());
                 updateTransactionRows();
                 msg.setMessage(Messages
                         .getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$
