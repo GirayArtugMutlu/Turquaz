@@ -1347,7 +1347,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		}
 	});
 			shell.open();		
-			
+			shell.setMaximized(true);
 			while (!shell.isDisposed()){
 				
 				if (!display.readAndDispatch())
