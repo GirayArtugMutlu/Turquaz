@@ -1,5 +1,26 @@
 package com.turquaz.accounting.ui.reports;
 
+/************************************************************************/
+/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
+/* ============================================                         */
+/* Copyright (c) 2004 by Turquaz Software Development Group			    */
+/*																		*/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License, or    */
+/* (at your option) any later version.       							*/
+/* 																		*/
+/* This program is distributed in the hope that it will be useful,		*/
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
+/* GNU General Public License for more details.         				*/
+/************************************************************************/
+
+/**
+* @author  Cem Dayan?k
+* @version  $Id$
+*/
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +58,9 @@ import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.custom.TableTreeItem;
 
 
+import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
 import com.turquaz.engine.ui.component.DatePicker;
@@ -47,20 +70,20 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Composite {
-	private Button checkInitialAccounts;
-	private Button checkFinalAccounts;
-	private DatePicker datePickerEnd;
 	private TableColumn tableColumnTotalCredit;
+	private TableTree tableTreeAccounts;
+	private Composite compTable;
 	private Button btnShow;
+	private DatePicker datePickerEnd;
+	private DatePicker datePickerStart;
+	private Button checkDateRange;
+	private Button checkFinalAccounts;
+	private Button checkInitialAccounts;
+	private Button checkSubAccounts;
 	private Composite compAdvanced;
 	private TableColumn tableColumnTotalDept;
 	private TableColumn tableColumnAccountName;
 	private TableColumn tableColumnAccountCode;
-	private Button checkDateRange;
-	private TableTree tableTreeAccounts;
-	private Composite compTable;
-	private DatePicker datePickerStart;
-	private Button checkSubAccounts;
 	private AccBLTransactionSearch blSearch=new AccBLTransactionSearch();
 
 	/**
@@ -110,7 +133,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 3;
 			thisLayout.makeColumnsEqualWidth = true;
-			this.setSize(642, 260);
+			this.setSize(654, 402);
 			{
 				compAdvanced = new Composite(this, SWT.NONE);
 				GridLayout compAdvancedLayout = new GridLayout();
@@ -118,73 +141,65 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				compAdvancedLData1.horizontalAlignment = GridData.FILL;
 				compAdvancedLData1.verticalAlignment = GridData.FILL;
 				compAdvancedLData1.horizontalSpan = 3;
-				compAdvanced.setLayoutData(compAdvancedLData1);			
+				compAdvanced.setLayoutData(compAdvancedLData1);
 				compAdvancedLayout.makeColumnsEqualWidth = true;
 				compAdvancedLayout.numColumns = 3;
 				compAdvanced.setLayout(compAdvancedLayout);
 				{
-					checkSubAccounts = new Button(compAdvanced, SWT.CHECK
-						| SWT.LEFT);
-					checkSubAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.0")); //$NON-NLS-1$
-					checkSubAccounts
-						.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
-							if (checkSubAccounts.getSelection())
-							{
-								TableTreeItem[] subItems=tableTreeAccounts.getItems();
-								for (int k=0; k<subItems.length; k++)
-								{
-									subItems[k].setExpanded(true);
-								}
-							}
-							else
-							{
-								if (checkSubAccounts.getSelection())
-								{
-									TableTreeItem[] subItems=tableTreeAccounts.getItems();
-									for (int k=0; k<subItems.length; k++)
-									{
-										subItems[k].setExpanded(false);
+					checkSubAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
+					checkSubAccounts.setText(Messages
+						.getString("AccUIAccountingAdvancedBalance.0")); //$NON-NLS-1$
+						checkSubAccounts
+							.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									if (checkSubAccounts.getSelection()) {
+										TableTreeItem[] subItems = tableTreeAccounts
+											.getItems();
+										for (int k = 0; k < subItems.length; k++) {
+											subItems[k].setExpanded(true);
+										}
+									} else {
+										if (checkSubAccounts.getSelection()) {
+											TableTreeItem[] subItems = tableTreeAccounts
+												.getItems();
+											for (int k = 0; k < subItems.length; k++) {
+												subItems[k].setExpanded(false);
+											}
+										}
 									}
 								}
-							}
-						}
-						});
-
+							});
 				}
 				{
-					checkInitialAccounts = new Button(compAdvanced, SWT.CHECK
-						| SWT.LEFT);
-					checkInitialAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.1")); //$NON-NLS-1$
-
+					checkInitialAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
+					checkInitialAccounts.setText(Messages
+						.getString("AccUIAccountingAdvancedBalance.1")); //$NON-NLS-1$
 				}
 				{
-					checkFinalAccounts = new Button(compAdvanced, SWT.CHECK
-						| SWT.LEFT);
-					checkFinalAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.2")); //$NON-NLS-1$
-
+					checkFinalAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
+					checkFinalAccounts.setText(Messages
+						.getString("AccUIAccountingAdvancedBalance.2")); //$NON-NLS-1$
 				}
 				{
-					checkDateRange = new Button(compAdvanced, SWT.CHECK
-						| SWT.LEFT);
-					checkDateRange.setText(Messages.getString("AccUIAccountingAdvancedBalance.3")); //$NON-NLS-1$
+					checkDateRange = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
+					checkDateRange.setText(Messages
+						.getString("AccUIAccountingAdvancedBalance.3")); //$NON-NLS-1$
 				}
 				{
 					datePickerStart = new DatePicker(compAdvanced, SWT.NONE);
-
 				}
 				{
 					datePickerEnd = new DatePicker(compAdvanced, SWT.NONE);
-
 				}
 				{
 					btnShow = new Button(compAdvanced, SWT.PUSH | SWT.CENTER);
-					btnShow.setText(Messages.getString("AccUIAccountingAdvancedBalance.4")); //$NON-NLS-1$
-					btnShow.addMouseListener(new MouseAdapter() {
-						public void mouseUp(MouseEvent evt) {
-							btnShowSingleClick();
-						}
-					});
+					btnShow.setText(Messages
+						.getString("AccUIAccountingAdvancedBalance.4")); //$NON-NLS-1$
+						btnShow.addMouseListener(new MouseAdapter() {
+							public void mouseUp(MouseEvent evt) {
+								btnShowSingleClick();
+							}
+						});
 				}
 			}
 			{
@@ -206,28 +221,32 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 						tableColumnAccountCode = new TableColumn(
 							tableTreeAccounts.getTable(),
 							SWT.NONE);
-						tableColumnAccountCode.setText(Messages.getString("AccUIAccountingAdvancedBalance.5")); //$NON-NLS-1$
+						tableColumnAccountCode.setText(Messages
+							.getString("AccUIAccountingAdvancedBalance.5")); //$NON-NLS-1$
 						tableColumnAccountCode.setWidth(120);
 					}
 					{
 						tableColumnAccountName = new TableColumn(
 							tableTreeAccounts.getTable(),
 							SWT.NONE);
-						tableColumnAccountName.setText(Messages.getString("AccUIAccountingAdvancedBalance.6")); //$NON-NLS-1$
+						tableColumnAccountName.setText(Messages
+							.getString("AccUIAccountingAdvancedBalance.6")); //$NON-NLS-1$
 						tableColumnAccountName.setWidth(120);
 					}
 					{
 						tableColumnTotalDept = new TableColumn(
 							tableTreeAccounts.getTable(),
 							SWT.NONE);
-						tableColumnTotalDept.setText(Messages.getString("AccUIAccountingAdvancedBalance.7")); //$NON-NLS-1$
+						tableColumnTotalDept.setText(Messages
+							.getString("AccUIAccountingAdvancedBalance.7")); //$NON-NLS-1$
 						tableColumnTotalDept.setWidth(120);
 					}
 					{
 						tableColumnTotalCredit = new TableColumn(
 							tableTreeAccounts.getTable(),
 							SWT.NONE);
-						tableColumnTotalCredit.setText(Messages.getString("AccUIAccountingAdvancedBalance.8")); //$NON-NLS-1$
+						tableColumnTotalCredit.setText(Messages
+							.getString("AccUIAccountingAdvancedBalance.8")); //$NON-NLS-1$
 						tableColumnTotalCredit.setWidth(120);
 					}
 					tableTreeAccountsLData.grabExcessHorizontalSpace = true;
@@ -235,11 +254,12 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					tableTreeAccountsLData.horizontalAlignment = GridData.FILL;
 					tableTreeAccountsLData.verticalAlignment = GridData.FILL;
 					tableTreeAccounts.setLayoutData(tableTreeAccountsLData);
+					tableTreeAccounts.getTable().setLinesVisible(true);
+					tableTreeAccounts.getTable().setHeaderVisible(true);
 				}
 			}
 			this.layout();
-			tableTreeAccounts.getTable().setLinesVisible(true);
-			tableTreeAccounts.getTable().setHeaderVisible(true);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -351,4 +371,14 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			msg.open();
 		}
 	}
+	
+	public void printTable(){
+	    EngBLUtils.printTable(tableTreeAccounts.getTable(),"Mizan");
+	    
+	}
+	public void exportToExcel(){
+		
+		EngBLUtils.Export2Excel(tableTreeAccounts.getTable());
+		
+	 }
 }
