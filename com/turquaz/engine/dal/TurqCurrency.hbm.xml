@@ -117,6 +117,20 @@
             class="com.turquaz.engine.dal.TurqTradebillTradebill"
         />
     </set>
+    <!-- bi-directional one-to-many association to TurqAccountingTransaction -->
+    <set
+        name="turqAccountingTransactions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="currencies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqAccountingTransaction"
+        />
+    </set>
     <!-- bi-directional one-to-many association to TurqAccountingTransactionColumn -->
     <set
         name="turqAccountingTransactionColumns"
