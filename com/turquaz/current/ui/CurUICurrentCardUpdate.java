@@ -143,7 +143,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			cTabFolder1LData.grabExcessHorizontalSpace = true;
 			cTabFolder1LData.grabExcessVerticalSpace = true;
 			cTabFolder1.setLayoutData(cTabFolder1LData);
-			cTabFolder1.setSize(new org.eclipse.swt.graphics.Point(678,383));
+			cTabFolder1.setSize(new org.eclipse.swt.graphics.Point(678,381));
 	
 			cTabItem1.setControl(compCurCardAdd);
 			cTabItem1.setText("Current Card Info");
@@ -157,7 +157,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 			tableCurrentBalances.setHeaderVisible(true);
 			tableCurrentBalances.setLinesVisible(true);
-			tableCurrentBalances.setSize(new org.eclipse.swt.graphics.Point(662,350));
+			tableCurrentBalances.setSize(new org.eclipse.swt.graphics.Point(662,365));
 	
 			tableColumnTransactionType.setText("Transaction Type");
 			tableColumnTransactionType.setWidth(100);

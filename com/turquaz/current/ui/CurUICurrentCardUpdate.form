@@ -120,10 +120,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[682, 388]"/>
+						<Dimension value="[682, 403]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 48, 682, 388]"/>
+						<Rectangle value="[5, 33, 682, 403]"/>
 					</Property>
 				</Properties>
 				<SubComponents>
@@ -175,7 +175,7 @@
 									<Property name="headerVisible" type="boolean" value="true"/>
 									<Property name="linesVisible" type="boolean" value="true"/>
 									<Property name="size" type="Dimension">
-										<Dimension value="[678, 366]"/>
+										<Dimension value="[678, 381]"/>
 									</Property>
 								</Properties>
 								<SubComponents>

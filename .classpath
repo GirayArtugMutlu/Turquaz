@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.swt.win32_3.0.0/ws/win32/swt.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.swt.win32_3.0.1/ws/win32/swt.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/cglib2.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/commons-beanutils.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/commons-collections.jar"/>
@@ -20,8 +20,8 @@
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/pg74.214.jdbc2.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.jface_3.0.0/jface.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.core.boot_3.0.0/boot.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.core.runtime_3.0.0/runtime.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.osgi_3.0.0/osgi.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.core.runtime_3.0.1/runtime.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.osgi_3.0.1/osgi.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/swtcalendar.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/jaxen-core.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/jaxen-jdom.jar"/>
