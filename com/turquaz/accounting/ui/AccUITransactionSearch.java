@@ -120,7 +120,7 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 				composite1Layout.numColumns = 4;
 				GridData composite1LData = new GridData();
 				composite1LData.horizontalAlignment = GridData.FILL;
-				composite1LData.heightHint = 74;
+				composite1LData.heightHint = 107;
 				composite1LData.grabExcessHorizontalSpace = true;
 				compAccTransactionSearch.setLayoutData(composite1LData);
 				compAccTransactionSearch.setLayout(composite1Layout);
@@ -146,13 +146,11 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 				{
 					lblTransactionType = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblTransactionTypeLData = new GridData();
-					lblTransactionTypeLData.widthHint = 100;
+					lblTransactionTypeLData.widthHint = 59;
 					lblTransactionTypeLData.heightHint = 20;
 					lblTransactionType.setLayoutData(lblTransactionTypeLData);
 					lblTransactionType.setText(Messages
 						.getString("AccUITransactionSearch.1")); //$NON-NLS-1$
-					lblTransactionType
-						.setSize(new org.eclipse.swt.graphics.Point(100, 20));
 				}
 				{
 					comboTransType = new CCombo(compAccTransactionSearch, SWT.READ_ONLY);
@@ -180,6 +178,7 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 					GridData dateStartDateLData = new GridData();
 					dateStartDateLData.widthHint = 156;
 					dateStartDateLData.heightHint = 22;
+					dateStartDateLData.horizontalSpan = 3;
 					dateStartDate.setLayoutData(dateStartDateLData);
 					dateStartDate.layout();
 				}
@@ -193,8 +192,8 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 				{
 					dateEndDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
 					GridData dateEndDateLData = new GridData();
-					dateEndDateLData.widthHint = 150;
-					dateEndDateLData.heightHint = 22;
+					dateEndDateLData.widthHint = 154;
+					dateEndDateLData.heightHint = 21;
 					dateEndDate.setLayoutData(dateEndDateLData);
 					dateEndDate.layout();
 				}
