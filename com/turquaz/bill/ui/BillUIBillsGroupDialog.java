@@ -1,4 +1,4 @@
-package com.turquaz.consignment.ui;
+package com.turquaz.bill.ui;
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -44,14 +44,11 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
 
-import com.turquaz.consignment.bl.ConBLAddGroups;
+import com.turquaz.bill.bl.BillBLAddGroups;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.current.Messages;
-import com.turquaz.engine.dal.TurqConsignmentGroup;
-
-
-
+import com.turquaz.engine.dal.TurqBillGroup;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -66,7 +63,7 @@ import com.turquaz.engine.dal.TurqConsignmentGroup;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialog {
+public class BillUIBillsGroupDialog extends  org.eclipse.swt.widgets.Dialog {
 	private TableColumn tableColumnDescription;
 	private TableColumn tableColumnName;
 	private Label label1;
@@ -80,10 +77,10 @@ public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialo
 	private CLabel lblGroupName;
 	private Composite compGroupAddDialog;
 	private Shell dialogShell;
-	private ConBLAddGroups blCardAdd = new ConBLAddGroups();
+	private BillBLAddGroups blCardAdd = new BillBLAddGroups();
 	Calendar cal = Calendar.getInstance();
 
-	public ConUIConsignmentsGroupDialog(Shell parent, int style) {
+	public BillUIBillsGroupDialog(Shell parent, int style) {
 		super(parent, style);
 	}
 
@@ -274,14 +271,14 @@ public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialo
     public void fillTable(){
     try{
     tableCurGroups.removeAll();
-    List list = blCardAdd.getConsignmentGroups();
+    List list = blCardAdd.getBillGroups();
     
-    TurqConsignmentGroup curGroup;
+    TurqBillGroup curGroup;
     TableItem item;
     for(int i=0;i<list.size();i++){
-    curGroup = (  TurqConsignmentGroup )list.get(i);
+    curGroup = (  TurqBillGroup )list.get(i);
     item = new TableItem(tableCurGroups,SWT.NULL);
-    item.setText(new String[]{curGroup.getGroupsName(),curGroup.getGroupsDescription()});
+    item.setText(new String[]{curGroup.getGroupsName(),curGroup.getGroupDescription()});
     item.setData(curGroup);     
     }
     
@@ -305,7 +302,7 @@ public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialo
 	    int result = msg.open();
 	    if(result==SWT.OK){
 	   
-	    blCardAdd.deleteGroup(( TurqConsignmentGroup)txtGroupName.getData());
+	    blCardAdd.deleteGroup(( TurqBillGroup)txtGroupName.getData());
 	   
 	   
 	    btnDelete.setEnabled(false);
@@ -346,7 +343,7 @@ public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialo
 		    }
 	else{
 		
-	TurqConsignmentGroup  invGroup = (  TurqConsignmentGroup )txtGroupName.getData();
+	TurqBillGroup  invGroup = (  TurqBillGroup )txtGroupName.getData();
 
 	blCardAdd.updateGroup(txtGroupName.getText().trim(),txtDescription.getText().trim(),invGroup);
 	
