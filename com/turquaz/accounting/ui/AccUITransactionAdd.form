@@ -24,10 +24,10 @@
 		</Events>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[606, 527]"/>
+				<Dimension value="[621, 531]"/>
 			</Property>
 			<Property name="bounds" type="Rectangle">
-				<Rectangle value="[0, 0, 606, 527]"/>
+				<Rectangle value="[0, 0, 621, 531]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -252,10 +252,10 @@
 					<Property name="headerVisible" type="boolean" value="true"/>
 					<Property name="linesVisible" type="boolean" value="true"/>
 					<Property name="size" type="Dimension">
-						<Dimension value="[521, 413]"/>
+						<Dimension value="[536, 417]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[80, 61, 521, 413]"/>
+						<Rectangle value="[80, 61, 536, 417]"/>
 					</Property>
 				</Properties>
 				<SubComponents>
@@ -328,7 +328,7 @@
 						<Dimension value="[62, 19]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[13, 479, 62, 19]"/>
+						<Rectangle value="[13, 483, 62, 19]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
@@ -353,7 +353,7 @@
 				<Properties>
 					<Property name="text" type="String" value="0"/>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[80, 479, 12, 19]"/>
+						<Rectangle value="[80, 483, 12, 19]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
@@ -381,7 +381,7 @@
 						<Dimension value="[58, 19]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[17, 503, 58, 19]"/>
+						<Rectangle value="[17, 507, 58, 19]"/>
 					</Property>
 				</Properties>
 			</Component>
@@ -405,7 +405,7 @@
 				<Properties>
 					<Property name="text" type="String" value="0"/>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[80, 503, 12, 19]"/>
+						<Rectangle value="[80, 507, 12, 19]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>

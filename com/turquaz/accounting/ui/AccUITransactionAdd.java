@@ -105,7 +105,7 @@ public class AccUITransactionAdd extends SecureComposite {
 			cLabel1 = new CLabel(this,SWT.NULL);
 			lblTotalDeptAmount = new CLabel(this,SWT.NULL);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(606,527));
+			this.setSize(new org.eclipse.swt.graphics.Point(621,531));
 	
 			GridData lblDocumentNoLData = new GridData();
 			lblDocumentNoLData.verticalAlignment = GridData.CENTER;
@@ -236,7 +236,7 @@ public class AccUITransactionAdd extends SecureComposite {
 			tableTransactionColumns.setLayoutData(tableTransactionColumnsLData);
 			tableTransactionColumns.setHeaderVisible(true);
 			tableTransactionColumns.setLinesVisible(true);
-			tableTransactionColumns.setSize(new org.eclipse.swt.graphics.Point(501,393));
+			tableTransactionColumns.setSize(new org.eclipse.swt.graphics.Point(516,397));
 	
 			tableColumnAccoutCode.setText("Account Code");
 			tableColumnAccoutCode.setWidth(121);
@@ -339,14 +339,35 @@ public class AccUITransactionAdd extends SecureComposite {
 	
 	}
 
+    public void saveTransactionRows(Integer transId){
+    try{
+    
+    TableItem items[] = tableTransactionColumns.getItems();
+    
+    for(int i=0; i<items.length;i++){
+    blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn)items[i].getData(),transId);
+    
+    }
+    
+    
+    
+    }
+    catch(Exception ex){
+    ex.printStackTrace();
+    }
+    
+    
+    }
+    
 	public void save(){
 	
 	if(verifyFields()){
 	
 	try{
 	
-	blTransAdd.saveAccTransaction(dateTransactionDate.getDate(),txtDocumentNo.getText().trim(),2,1);
-		
+	Integer transId =blTransAdd.saveAccTransaction(dateTransactionDate.getDate(),txtDocumentNo.getText().trim(),2,1);
+	saveTransactionRows(transId);
+	
 	}
 
 	catch(Exception ex){

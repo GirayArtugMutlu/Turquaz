@@ -13,6 +13,7 @@ import com.turquaz.accounting.dal.AccDALAccountUpdate;
 import com.turquaz.accounting.dal.AccDALTransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
+import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqAccountingTransactionType;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqModule;
@@ -31,13 +32,34 @@ public class AccBLTransactionAdd {
 		
 	}
 	
+	
+	//Muhasebe fisi kalemlerini kaydet
+	public void saveAccTransactionRow(TurqAccountingTransactionColumn transRow, Integer transID)
+	throws Exception{
+	try
+	{
+		TurqAccountingTransaction trans = new TurqAccountingTransaction();
+		trans.setAccountingTransactionsId(transID);
+		
+		transRow.setTurqAccountingTransaction(trans);
+		
+		transRow.setCreatedBy(System.getProperty("user"));
+		transRow.setUpdatedBy(System.getProperty("user"));
+		
+		transRow.setLastModified(new java.sql.Date( cal.getTime().getTime()));
+		transRow.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
+		
+		dalTransAdd.save(transRow);
+	}
+	catch(Exception ex){
+		throw ex;
+	}
+	}
+	
 	public Integer saveAccTransaction(Date date, String documentNo,int type,int moduleId) throws Exception
 	{
 		try{
 		
-		
-		
-			
 		TurqAccountingTransaction trans = new TurqAccountingTransaction();
 		trans.setTransactionDocumentNo(documentNo);
 		trans.setTransactionsDate(new java.sql.Date(date.getTime()));
