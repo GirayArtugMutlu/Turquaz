@@ -58,5 +58,15 @@ public class CheBLSearchChequeRoll {
             throw ex;
         }
     }
+    public static List getChequesInBank()throws Exception {
+        try{
+        
+            return CheDALSearch.getChequesInBank();
+        
+        }        
+        catch(Exception ex){
+            throw ex;
+        }
+    }
 
 }

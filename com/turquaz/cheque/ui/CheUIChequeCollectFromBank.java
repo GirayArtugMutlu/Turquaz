@@ -33,7 +33,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -46,7 +45,6 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import com.turquaz.cheque.Messages;
-import com.turquaz.cheque.bl.CheBLSaveChequeTransaction;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 
@@ -65,7 +63,7 @@ import com.turquaz.engine.ui.component.SecureComposite;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite implements SecureComposite{
+public class CheUIChequeCollectFromBank extends org.eclipse.swt.widgets.Composite implements SecureComposite{
 
     {
         //Register as a resource user - SWTResourceManager will
@@ -94,7 +92,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 	TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 
 
-	public CheUIChequeOutPayrollBank(org.eclipse.swt.widgets.Composite parent, int style) {
+	public CheUIChequeCollectFromBank(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
 		initGUI();
 	}
@@ -265,8 +263,11 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
          
         if(verifyFields()){ 
 
-            
-              CheBLSaveChequeTransaction.saveChequeRoll(null,null,bankCardPicker.getTurqBank(),txtRollNo.getText().trim(),datePicker1.getDate(),cheques,EngBLCommon.CHEQUE_TRANS_OUT_BANK,btnSumTotals.getSelection());
+            /**
+             * TODO new save function
+             */
+        	
+           //   CheBLSaveChequeTransaction.saveChequeRoll(null,null,bankCardPicker.getTurqBank(),txtRollNo.getText().trim(),datePicker1.getDate(),cheques,EngBLCommon.CHEQUE_TRANS_OUT_BANK,btnSumTotals.getSelection());
               EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
               newForm();
         }
@@ -283,9 +284,9 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
         if(selection.length>0){
             if(EngUICommon.okToDelete(this.getShell()))
             {
-            	   cheques.remove(selection[0].getData());
-              selection[0].dispose();
-           
+            	 cheques.remove(selection[0].getData());
+            	selection[0].dispose();
+             
                 
             }            
             
@@ -297,6 +298,9 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
    
     public void addCheque(){
      
+    	/**
+    	 * TODO new add cheque function
+    	 */
         cheques = new CheUICustomerChequeChooseDialog(getShell(),SWT.NULL,cheques).open();
         fillTable();
       

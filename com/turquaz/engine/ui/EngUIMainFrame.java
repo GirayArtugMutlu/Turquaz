@@ -1325,6 +1325,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			    try{
 			        
 				Class c = Class.forName(classname);
+				
 				Composite comp =(Composite)c.getConstructor(new Class[]{Composite.class, int.class})
 				.newInstance(new Object[]{tabfldMain,Integer.valueOf(SWT.NULL+"")}); //$NON-NLS-1$
 				yeni.setControl(comp);

@@ -72,6 +72,7 @@ import com.turquaz.cash.ui.CashUICashCardSearch;
 import com.turquaz.cash.ui.CashUICashCollectTransactionAdd;
 import com.turquaz.cash.ui.CashUICashPaymentTransactionAdd;
 import com.turquaz.cash.ui.CashUICashTransactionSearch;
+import com.turquaz.cheque.ui.CheUIChequeCollectFromBank;
 import com.turquaz.cheque.ui.CheUIChequeInPayroll;
 import com.turquaz.cheque.ui.CheUIChequeOutPayrollBank;
 import com.turquaz.cheque.ui.CheUIChequeOutPayrollCurrent;
@@ -707,6 +708,11 @@ public final class TreeFactory {
 			item = new TreeItem(root,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.102"));    //$NON-NLS-1$
 			item.setData(CheUIOwnChequeSearch.class.getName());
+	    }
+		if(EngBLPermissions.getPermission(CheUIChequeCollectFromBank.class.getName())>0){
+			item = new TreeItem(root,SWT.NULL);
+			item.setText("Bankdana Çek Tahsilat?");   
+			item.setData(CheUIChequeCollectFromBank.class.getName());
 	    }
 		
 		root.setExpanded(true);

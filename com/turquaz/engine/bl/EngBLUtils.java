@@ -309,6 +309,7 @@ public class EngBLUtils {
 			parameters.put("despatchNoteId",billCommon.getConsignmentDocumentNo()); //$NON-NLS-1$
 			parameters.put("billType",(bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_BUY) ? new Integer(1) : new Integer(0)); //$NON-NLS-1$
 			TurqViewCurrentAmountTotal currentView=curBLCurCardSearch.getCurrentCardView(curCard);
+			
 			BigDecimal allTotal=currentView.getTransactionsBalanceNow();
 			allTotal = allTotal.multiply(new BigDecimal(-1));
 			BigDecimal oldAllTotal=allTotal.subtract(grandTotal);
