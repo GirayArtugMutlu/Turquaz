@@ -21,9 +21,7 @@
         type="int"
         column="user_permissions_id"
     >
-        <generator class="sequence">
-            <param name="sequence">seq_user_permissions</param>
-        </generator>
+        <generator class="increment" />
     </id>
 
     <property

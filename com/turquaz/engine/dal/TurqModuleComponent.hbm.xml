@@ -21,9 +21,7 @@
         type="int"
         column="module_components_id"
     >
-        <generator class="sequence">
-            <param name="sequence">seq_module_components</param>
-        </generator>
+        <generator class="increment" />
     </id>
 
     <property

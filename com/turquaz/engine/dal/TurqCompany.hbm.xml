@@ -21,9 +21,7 @@
         type="int"
         column="companies_id"
     >
-        <generator class="sequence">
-            <param name="sequence">seq_companies</param>
-        </generator>
+        <generator class="increment" />
     </id>
 
     <property

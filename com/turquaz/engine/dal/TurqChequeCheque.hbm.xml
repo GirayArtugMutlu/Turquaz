@@ -21,9 +21,7 @@
         type="int"
         column="cheque_cheques_id"
     >
-        <generator class="sequence">
-            <param name="sequence">seq_cheque_cheques</param>
-        </generator>
+        <generator class="increment" />
     </id>
 
     <property

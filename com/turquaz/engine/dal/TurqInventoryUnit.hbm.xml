@@ -21,9 +21,7 @@
         type="int"
         column="inventory_units_id"
     >
-        <generator class="sequence">
-            <param name="sequence">seq_inventory_units</param>
-        </generator>
+        <generator class="increment" />
     </id>
 
     <property

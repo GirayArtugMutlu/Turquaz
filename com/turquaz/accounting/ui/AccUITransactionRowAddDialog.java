@@ -182,6 +182,27 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
                 composite1Layout.makeColumnsEqualWidth = true;
                 composite1Layout.numColumns = 2;
                 composite1.setLayout(composite1Layout);
+				{
+					btnOk = new Button(composite1, SWT.PUSH | SWT.CENTER);
+					GridData btnOkLData = new GridData();
+					btnOk.setImage(SWTResourceManager
+						.getImage("icons/Ok24.gif"));
+					btnOk.setSize(60, 31);
+					btnOkLData.horizontalAlignment = GridData.END;
+					btnOkLData.verticalSpan = 2;
+					btnOkLData.grabExcessHorizontalSpace = true;
+					btnOkLData.grabExcessVerticalSpace = true;
+					btnOkLData.widthHint = 60;
+					btnOkLData.heightHint = 31;
+					btnOk.setLayoutData(btnOkLData);
+					btnOk.setText(Messages
+						.getString("AccUITransactionRowAddDialog.5")); //$NON-NLS-1$
+					btnOk.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+							btnOkMouseUp(evt);
+						}
+					});
+				}
                 {
                     btnCancel = new Button(composite1, SWT.PUSH | SWT.CENTER);
                     GridData btnCancelLData = new GridData();
@@ -195,25 +216,6 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
                     btnCancel.addMouseListener(new MouseAdapter() {
                         public void mouseUp(MouseEvent evt) {
                             btnCancelMouseUp(evt);
-                        }
-                    });
-                }
-                {
-                    btnOk = new Button(composite1, SWT.PUSH | SWT.CENTER);
-                    GridData btnOkLData = new GridData();
-                    btnOk.setImage(SWTResourceManager.getImage("icons/Ok24.gif"));
-                    btnOk.setSize(60, 31);
-                    btnOkLData.horizontalAlignment = GridData.END;
-                    btnOkLData.verticalSpan = 2;
-                    btnOkLData.grabExcessHorizontalSpace = true;
-                    btnOkLData.grabExcessVerticalSpace = true;
-                    btnOkLData.widthHint = 60;
-                    btnOkLData.heightHint = 31;
-                    btnOk.setLayoutData(btnOkLData);
-                    btnOk.setText(Messages.getString("AccUITransactionRowAddDialog.5")); //$NON-NLS-1$
-                    btnOk.addMouseListener(new MouseAdapter() {
-                        public void mouseUp(MouseEvent evt) {
-                            btnOkMouseUp(evt);
                         }
                     });
                 }

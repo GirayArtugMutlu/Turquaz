@@ -21,9 +21,7 @@
         type="int"
         column="inventory_cards_id"
     >
-        <generator class="sequence">
-            <param name="sequence">seq_inventory_cards</param>
-        </generator>
+        <generator class="increment" />
     </id>
 
     <property

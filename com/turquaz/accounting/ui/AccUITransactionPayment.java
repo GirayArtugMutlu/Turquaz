@@ -483,6 +483,8 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	protected void btnAddTransactionRowMouseUp(MouseEvent evt){
 	//1 - Tediye Fisi
 	Object o = new AccUITransactionRowAddDialog(this.getShell(),SWT.NULL,1).showDialog();
+	if(o != null)
+	{
 	TurqAccountingTransactionColumn accTransRow = (TurqAccountingTransactionColumn) o;
 
 	TableItem item = new TableItem(
@@ -494,7 +496,8 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 				.getAccountCode(),
 			accTransRow.getTurqAccountingAccount()
 				.getAccountName(),
-			accTransRow.getCreditAmount().toString() });
+			accTransRow.getDeptAmount().toString() });
+	}
 	
 	}
     

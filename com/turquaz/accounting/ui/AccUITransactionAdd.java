@@ -256,6 +256,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 					btnRemoveTransactionRowLData.heightHint = 23;
 					btnRemoveTransactionRow.setLayoutData(btnRemoveTransactionRowLData);
 				}
+				composite1.layout();
 			}
 			{
 				tableTransactionColumns = new Table(this, SWT.FULL_SELECTION

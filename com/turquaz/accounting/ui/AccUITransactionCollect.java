@@ -491,7 +491,8 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	/** Auto-generated event handler method */
 	protected void btnAddTransactionRowMouseUp(MouseEvent evt){
 		Object o = new AccUITransactionRowAddDialog(this.getShell(),SWT.NULL,0).showDialog();
-    
+		if (o != null)
+		{
 		TurqAccountingTransactionColumn accTransRow = (TurqAccountingTransactionColumn) o;
 
 		TableItem item = new TableItem(
@@ -504,6 +505,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 				accTransRow.getTurqAccountingAccount()
 					.getAccountName(),
 				accTransRow.getCreditAmount().toString() });
+		}
 	}
     
     
