@@ -1024,6 +1024,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								compInvCardAddGroupsButtons,
 								SWT.PUSH | SWT.CENTER);
 							GridData btnInvCardAddGroupsRegisterLData = new GridData();
+							btnInvCardAddGroupsRegister
+								.addMouseListener(new MouseAdapter() {
+								public void mouseUp(MouseEvent evt) {
+									btnInvCardAddGroupsRegisterMouseUp(evt);
+								}
+								});
 							btnInvCardAddGroupsRegisterLData.horizontalAlignment = GridData.CENTER;
 							btnInvCardAddGroupsRegisterLData.widthHint = 44;
 							btnInvCardAddGroupsRegisterLData.heightHint = 29;
@@ -1034,12 +1040,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								.setSize(new org.eclipse.swt.graphics.Point(
 									44,
 									29));
-							btnInvCardAddGroupsRegister
-								.addMouseListener(new MouseAdapter() {
-									public void mouseUp(MouseEvent evt) {
-										btnInvCardAddGroupsRegisterMouseUp(evt);
-									}
-								});
 						}
 						{
 							btnInvCardAddGroupsRemove = new Button(
@@ -1766,22 +1766,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
    */
 	}
 
-	protected void btnInvCardAddGroupsRegisterGroupMouseDown(MouseEvent evt) {
-
-	}
-
-	protected void btnInvCardAddGroupsRemoveRegisteredGroupMouseDown(
-			MouseEvent evt) {
-
-	}
-
-	protected void btnInvCardAddUnitMouseDown(MouseEvent evt) {
-
-	}
-
-	protected void btnInvCardRemoveUnitMouseDown(MouseEvent evt) {
-
-	}
 
 	protected void btnRegisterInvUnitMouseUp(MouseEvent evt) {
 		//if the base unit is selected
