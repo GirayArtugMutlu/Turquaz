@@ -7,7 +7,7 @@ import net.sf.hibernate.HibernateException;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.layout.FormLayout;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.DisposeEvent;
@@ -15,8 +15,7 @@ import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
+
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
@@ -29,10 +28,9 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
 
-import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.inventory.bl.InvBLCardAdd;
-import com.turquaz.inventory.dal.InvDALCardAdd;
+
 
 /**
 * This code was generated using CloudGarden's Jigloo

@@ -9,8 +9,7 @@ package com.turquaz.inventory.ui.comp;
 import java.util.List;
 
 import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqInventoryUnit;
-import com.turquaz.engine.ui.component.TTableCellEditor;
+
 import com.turquaz.engine.ui.component.TTableCellEditorCombo;
 import com.turquaz.engine.ui.component.TTableCellEditorDecimalText;
 import com.turquaz.engine.ui.component.TTableModel;

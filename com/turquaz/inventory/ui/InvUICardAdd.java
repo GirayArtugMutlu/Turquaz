@@ -22,7 +22,7 @@ package com.turquaz.inventory.ui;
  */
 
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.CheckboxCellEditor;
+
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -49,24 +49,20 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 
 import com.turquaz.accounting.ui.AccUIDialogInventoryCodeChoose;
-import com.turquaz.accounting.ui.comp.AccUIAccountsTree;
+
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.component.SecureComposite;
-import com.turquaz.engine.ui.component.TTableCellEditorCombo;
-import com.turquaz.engine.ui.component.TTableModel;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.security.auth.login.AccountExpiredException;
 
 import com.turquaz.engine.ui.component.NumericText;
 
@@ -74,21 +70,21 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-import com.turquaz.engine.ui.component.TTable;
+
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.ui.comp.IPriceListViewer;
 import com.turquaz.inventory.ui.comp.InvUIPrice;
 import com.turquaz.inventory.ui.comp.InvUIPriceCellModifier;
 import com.turquaz.inventory.ui.comp.InvUIPriceLabelProvider;
 import com.turquaz.inventory.ui.comp.InvUIPriceList;
-import com.turquaz.inventory.ui.comp.TTableInvPricesModel;
+
 
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import com.turquaz.engine.ui.component.DecimalText;
+
 import com.turquaz.engine.ui.component.TextWithButton;
 import org.eclipse.swt.widgets.Label;
 

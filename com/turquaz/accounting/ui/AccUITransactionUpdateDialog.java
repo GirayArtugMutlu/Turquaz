@@ -21,8 +21,7 @@ import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
-import com.turquaz.engine.dal.TurqInventoryPrice;
-import com.turquaz.inventory.ui.comp.InvUIPriceList;
+
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;

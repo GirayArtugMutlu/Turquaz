@@ -35,7 +35,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
@@ -43,14 +42,12 @@ import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqInventoryCard;
 
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.custom.CCombo;
-import com.turquaz.inventory.ui.InvUICardUpdateDialog;
 
 public class BankUIBankCardSearch extends SecureComposite {
 

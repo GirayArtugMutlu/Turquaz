@@ -8,12 +8,12 @@ package com.turquaz.inventory.dal;
 
 import java.util.List;
 
-import net.sf.hibernate.Hibernate;
+
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
-import com.turquaz.engine.dal.TurqInventoryCard;
+
 
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */

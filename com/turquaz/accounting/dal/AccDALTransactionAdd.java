@@ -10,7 +10,7 @@ import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
-import com.turquaz.engine.dal.TurqAccountingAccount;
+
 
 /**
  * @author onsel

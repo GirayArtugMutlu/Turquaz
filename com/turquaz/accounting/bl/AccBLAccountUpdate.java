@@ -32,7 +32,7 @@ import java.util.Calendar;
 
 import com.turquaz.accounting.dal.AccDALAccountUpdate;
 import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqCompany;
+
 
 /**
  * @author onsel

@@ -19,16 +19,10 @@ package com.turquaz.inventory.ui.comp;
 
 
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import org.apache.xalan.trace.SelectionEvent;
-import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.*;
 
-import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.InvUICardSearch;
 import com.turquaz.inventory.ui.InvUITransactionAdd;

@@ -1,10 +1,7 @@
 package com.turquaz.inventory.ui;
 
 import java.util.Iterator;
-import java.util.Set;
 
-import net.sf.hibernate.Hibernate;
-import net.sf.hibernate.Session;
 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -12,13 +9,10 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.custom.CTabFolder;
+
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.SWT;
 
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.MessageBox;
@@ -34,7 +28,7 @@ import com.turquaz.inventory.bl.InvBLCardUpdate;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUIPrice;
 import com.turquaz.inventory.ui.comp.InvUIPriceList;
-import com.turquaz.engine.dal.EngDALSessionFactory;
+
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
@@ -47,7 +41,7 @@ import com.turquaz.engine.ui.component.SecureComposite;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import com.turquaz.engine.ui.component.SecureDialog;
+
 
 /**
 * This code was generated using CloudGarden's Jigloo

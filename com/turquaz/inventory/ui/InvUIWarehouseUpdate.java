@@ -7,7 +7,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 
 import com.turquaz.engine.dal.TurqInventoryWarehous;
-import com.turquaz.inventory.bl.InvBLCardUpdate;
+
 import com.turquaz.inventory.bl.InvBLWarehouseUpdate;
 import com.turquaz.inventory.ui.InvUIWarehouseAdd;
 

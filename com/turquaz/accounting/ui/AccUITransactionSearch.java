@@ -6,11 +6,10 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.layout.FormLayout;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
+
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CCombo;
@@ -18,7 +17,7 @@ import org.eclipse.swt.custom.CCombo;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionType;
-import com.turquaz.engine.dal.TurqInventoryCard;
+
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
 

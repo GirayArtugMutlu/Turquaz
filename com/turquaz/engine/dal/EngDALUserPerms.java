@@ -6,8 +6,7 @@
  */
 package com.turquaz.engine.dal;
 
-import java.sql.*;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import net.sf.hibernate.Criteria;

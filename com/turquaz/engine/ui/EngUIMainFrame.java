@@ -19,7 +19,7 @@ package com.turquaz.engine.ui;
 
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.graphics.Image;
+
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -29,8 +29,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
+
 import org.eclipse.swt.custom.CTabFolderAdapter;
 import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.custom.StackLayout;
@@ -42,7 +41,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.widgets.Group;
+
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.custom.CCombo;
@@ -52,15 +51,13 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.ProgressBar;
+
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.layout.RowData;
+
 import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.bl.EngBLPermissions;

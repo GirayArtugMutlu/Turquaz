@@ -16,13 +16,11 @@
 
 package com.turquaz.engine.bl;
 
-import java.sql.ResultSet;
+
 import java.util.*;
 
-import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 
-import com.turquaz.engine.dal.EngDALSessionFactory;
+
 import com.turquaz.engine.dal.EngDALUserPerms;
 import com.turquaz.engine.dal.TurqGroupPermission;
 import com.turquaz.engine.dal.TurqModuleComponent;

@@ -9,7 +9,6 @@ package com.turquaz.accounting.bl;
 import java.util.Calendar;
 import java.util.List;
 
-import com.turquaz.accounting.dal.AccDALTransactionAdd;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
 
 /**

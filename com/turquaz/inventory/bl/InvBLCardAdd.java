@@ -31,8 +31,6 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 
-import net.sf.hibernate.Session;
-import net.sf.hibernate.type.BigDecimalType;
 
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCompany;

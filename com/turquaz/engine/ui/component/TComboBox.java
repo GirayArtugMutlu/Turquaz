@@ -6,8 +6,7 @@
  */
 package com.turquaz.engine.ui.component;
 
-import java.awt.Component;
-import java.util.List;
+
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
@@ -17,7 +16,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import com.turquaz.engine.dal.TurqInventoryUnit;
+
 
 
 /**

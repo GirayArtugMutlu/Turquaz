@@ -9,7 +9,6 @@ package com.turquaz.inventory.bl;
 import java.util.Calendar;
 import java.util.List;
 
-import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.inventory.dal.InvDALWarehouseSearch;
 
 /************************************************************************/

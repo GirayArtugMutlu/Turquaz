@@ -9,13 +9,12 @@ package com.turquaz.accounting.bl;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.turquaz.accounting.dal.AccDALAccountUpdate;
 import com.turquaz.accounting.dal.AccDALTransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqAccountingTransactionType;
-import com.turquaz.engine.dal.TurqCompany;
+
 import com.turquaz.engine.dal.TurqModule;
 
 /**

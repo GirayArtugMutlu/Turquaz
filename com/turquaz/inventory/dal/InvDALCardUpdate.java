@@ -6,7 +6,6 @@
  */
 package com.turquaz.inventory.dal;
 
-import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 

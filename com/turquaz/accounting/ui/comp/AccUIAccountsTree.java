@@ -14,7 +14,6 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import com.turquaz.accounting.bl.AccBLAccountAdd;
-import com.turquaz.accounting.ui.AccUIAddAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
 /**
