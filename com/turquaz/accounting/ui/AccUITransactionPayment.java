@@ -500,7 +500,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 			//Save the table rows
 			for (int i = 0; i < items.length; i++)
 			{
-				AccUITransactionCollectTableRow row = (AccUITransactionCollectTableRow) items[i].getData();
+				AccUITransactionPaymentTableRow row = (AccUITransactionPaymentTableRow) items[i].getData();
 				if (row.okToSave())
 				{
 					TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn) row.getDBObject();
