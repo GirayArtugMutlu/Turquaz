@@ -23,16 +23,12 @@ package com.turquaz.inventory.ui;
 
 import java.util.List;
 
-
-import org.eclipse.swt.widgets.Display;
-
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.graphics.Color;
 
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.TableItem;
@@ -52,7 +48,6 @@ import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 
 
-
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -70,6 +65,7 @@ import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyAdapter;
+
 public class InvUIWarehouseSearch extends  Composite implements SecureComposite,SearchComposite {
 
 	{
@@ -86,6 +82,7 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 	private Table tableInvUIWarehouses;
 	private Text txtCity;
 	private CLabel lblWarehouseCity;
+	private TableColumn tableColumnCode;
 	private Text txtWarehouseName;
 	private CLabel lblWarehouseName;
 	private Composite composite1;
@@ -110,7 +107,6 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 			lblWarehouseCity = new CLabel(composite1,SWT.NULL);
 			txtCity = new Text(composite1,SWT.BORDER);
 			tableInvUIWarehouses = new Table(this,SWT.FULL_SELECTION);
-			tableColumnName = new TableColumn(tableInvUIWarehouses,SWT.NULL);
 			tableColumnWarehouseCity = new TableColumn(tableInvUIWarehouses,SWT.NULL);
 			tableColumnTelephone = new TableColumn(tableInvUIWarehouses,SWT.NULL);
 			tableColumnDescription = new TableColumn(tableInvUIWarehouses,SWT.NULL);
@@ -224,13 +220,26 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 					tableInvUIWarehousesMouseDoubleClick(evt);
 				}
 			});
-	
-			tableColumnName.setText(Messages.getString("InvUIWarehouseSearch.0")); //$NON-NLS-1$
-			tableColumnName.setWidth(161);
+
+			{
+				tableColumnCode = new TableColumn(
+					tableInvUIWarehouses,
+					SWT.NONE);
+				tableColumnCode.setText("Depo Kodu");
+				tableColumnCode.setWidth(84);
+			}
+			{
+				tableColumnName = new TableColumn(
+					tableInvUIWarehouses,
+					SWT.NONE);
+				tableColumnName.setText(Messages
+					.getString("InvUIWarehouseSearch.0")); //$NON-NLS-1$
+				tableColumnName.setWidth(161);
+			}
 	
 			tableColumnWarehouseCity.setText(Messages.getString("InvUIWarehouseSearch.1")); //$NON-NLS-1$
 			tableColumnWarehouseCity.setWidth(100);
-	
+
 			tableColumnTelephone.setText(Messages.getString("InvUIWarehouseSearch.4")); //$NON-NLS-1$
 			tableColumnTelephone.setWidth(100);
 	
@@ -283,7 +292,8 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 	warehouse = (TurqInventoryWarehous)result.get(i);
 	item.setData(warehouse);
 	
-	item.setText(new String[]{warehouse.getWarehousesName(),
+	item.setText(new String[]{warehouse.getWarehousesCode(),
+								warehouse.getWarehousesName(),
 							  warehouse.getWarehousesCity(),
 							  warehouse.getWarehousesTelephone(),
 							  warehouse.getWarehousesDescription()});

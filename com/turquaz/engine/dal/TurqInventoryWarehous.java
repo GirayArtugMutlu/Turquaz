@@ -40,13 +40,16 @@ public class TurqInventoryWarehous implements Serializable {
     private java.lang.String warehousesTelephone;
 
     /** persistent field */
+    private java.lang.String warehousesCode;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqCompany turqCompany;
 
     /** persistent field */
     private Set turqInventoryTransactions;
 
     /** full constructor */
-    public TurqInventoryWarehous(java.lang.String warehousesName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String warehousesAddress, java.lang.String warehousesDescription, java.lang.String warehousesCity, java.lang.String warehousesTelephone, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryTransactions) {
+    public TurqInventoryWarehous(java.lang.String warehousesName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String warehousesAddress, java.lang.String warehousesDescription, java.lang.String warehousesCity, java.lang.String warehousesTelephone, java.lang.String warehousesCode, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryTransactions) {
         this.warehousesName = warehousesName;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
@@ -56,6 +59,7 @@ public class TurqInventoryWarehous implements Serializable {
         this.warehousesDescription = warehousesDescription;
         this.warehousesCity = warehousesCity;
         this.warehousesTelephone = warehousesTelephone;
+        this.warehousesCode = warehousesCode;
         this.turqCompany = turqCompany;
         this.turqInventoryTransactions = turqInventoryTransactions;
     }
@@ -65,12 +69,13 @@ public class TurqInventoryWarehous implements Serializable {
     }
 
     /** minimal constructor */
-    public TurqInventoryWarehous(java.lang.String warehousesName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryTransactions) {
+    public TurqInventoryWarehous(java.lang.String warehousesName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String warehousesCode, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryTransactions) {
         this.warehousesName = warehousesName;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
+        this.warehousesCode = warehousesCode;
         this.turqCompany = turqCompany;
         this.turqInventoryTransactions = turqInventoryTransactions;
     }
@@ -153,6 +158,14 @@ public class TurqInventoryWarehous implements Serializable {
 
     public void setWarehousesTelephone(java.lang.String warehousesTelephone) {
         this.warehousesTelephone = warehousesTelephone;
+    }
+
+    public java.lang.String getWarehousesCode() {
+        return this.warehousesCode;
+    }
+
+    public void setWarehousesCode(java.lang.String warehousesCode) {
+        this.warehousesCode = warehousesCode;
     }
 
     public com.turquaz.engine.dal.TurqCompany getTurqCompany() {

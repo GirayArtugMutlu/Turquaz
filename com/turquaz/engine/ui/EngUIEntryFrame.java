@@ -56,11 +56,9 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 
-import com.turquaz.accounting.ui.reports.AccUIAccountingBalance;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.DatabaseThread;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.ui.wizards.EngUIDatabaseConnectionWizard;
@@ -72,6 +70,9 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 
 	{
@@ -82,6 +83,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 
 	private CLabel lblUserName;
 	private Text txtUserName;
+	private CCombo comboLanguage;
+	private CLabel lblLanguage;
 	private Button checkRememberPassword;
 	private Composite compEngUIMainFrame;
 	private Button btnCancel;
@@ -135,9 +138,9 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 
 	private void initGUI() {
 		try {
-		    
-		 //   DatabaseThread dbThread = new DatabaseThread();
-		  //  dbThread.start();
+			  preInitGui();
+		    DatabaseThread dbThread = new DatabaseThread();
+		    dbThread.start();
 		    
 		  
 			GridLayout thisLayout = new GridLayout();
@@ -151,7 +154,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
 			thisLayout.marginHeight = 20;
-			this.setSize(377, 162);
+			this.setSize(377, 171);
 			{
 				lblUserName = new CLabel(this, SWT.NONE);
 				lblUserName.setText(Messages.getString("EngUIEntryFrame.1")); //$NON-NLS-1$
@@ -177,18 +180,46 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 				txtPasswordLData.horizontalAlignment = GridData.FILL;
 				txtPassword.setLayoutData(txtPasswordLData);
 			}
-			  preInitGui();
-			
-			
 			{
 				checkRememberPassword = new Button(this, SWT.CHECK | SWT.LEFT);
-				checkRememberPassword.setText(Messages.getString("EngUIEntryFrame.3")); //$NON-NLS-1$
+				checkRememberPassword.setText(Messages
+					.getString("EngUIEntryFrame.3")); //$NON-NLS-1$
 				GridData checkRememberPasswordLData = new GridData();
 				checkRememberPasswordLData.horizontalSpan = 2;
 				checkRememberPasswordLData.widthHint = 162;
 				checkRememberPasswordLData.heightHint = 19;
 				checkRememberPassword.setLayoutData(checkRememberPasswordLData);
 			}
+			{
+				lblLanguage = new CLabel(this, SWT.NONE);
+				lblLanguage.setText("Dil Seçiniz");
+			}
+			{
+				comboLanguage = new CCombo(this, SWT.NONE);
+				comboLanguage.setEditable(false);
+				comboLanguage.setBackground(SWTResourceManager.getColor(255, 255, 255));
+				GridData comboLanguageLData = new GridData();
+				comboLanguage.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						//TODO a function to set text
+						
+						if (comboLanguage.getData(comboLanguage.getText())
+							.equals(new Integer(1))) {
+							Locale.setDefault(new Locale("tr", "TR"));
+							
+						} 
+						else if (comboLanguage.getData(
+							comboLanguage.getText()).equals(new Integer(2))) {
+							Locale.setDefault(new Locale("en", "US"));
+						}
+					}
+				});
+				comboLanguageLData.widthHint = 86;
+				comboLanguageLData.heightHint = 16;
+				comboLanguage.setLayoutData(comboLanguageLData);
+			}
+			
+
 			{
 				lblSeperator = new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
 				lblSeperator.setText(""); //$NON-NLS-1$
@@ -287,6 +318,15 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			    
 			    System.setProperty("user",txtUserName.getText()); //$NON-NLS-1$
 			    System.setProperty("company","0"); //$NON-NLS-1$ //$NON-NLS-2$
+			    if (((Integer)comboLanguage.getData(comboLanguage.getText())).intValue() ==1)
+			    {
+			    	Locale.setDefault(new Locale("tr","TR"));
+			    }
+			    else if (((Integer)comboLanguage.getData(comboLanguage.getText())).intValue() ==2)
+			    {
+			    	Locale.setDefault(new Locale("en","US"));
+			    }
+			    
 			    
 			    EngDALSessionFactory.init();
 			    
@@ -346,7 +386,13 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	if(rememberPassword!=null&&rememberPassword.equals("true")){ //$NON-NLS-1$
 		checkRememberPassword.setSelection(true);
 	}
-		
+	comboLanguage.add("Türkçe");
+	comboLanguage.add("English");
+	
+	comboLanguage.setData("Türkçe",new Integer(1));
+	comboLanguage.setData("English",new Integer(2));
+
+	comboLanguage.setText("Türkçe");
 	}
 	public Text getTxtPassword() {
 		return txtPassword;

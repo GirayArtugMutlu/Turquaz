@@ -236,7 +236,8 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 				warehouse.getWarehousesName());
 		compInvUIWarehouse.getTxtWarehouseDescription().setText(
 				warehouse.getWarehousesDescription());
-
+		compInvUIWarehouse.getTxtWarehouseCode().setText(warehouse.getWarehousesDescription());
+		
 		Point parentLocation = this.getParent().getLocation();
 		Point parentSize = this.getParent().getSize();
 		Point dialogSize = dialogShell.getSize();

@@ -55,6 +55,8 @@ import com.turquaz.inventory.bl.InvBLWarehouseAdd;
 public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 
 	private Text txtWarehouseDescription;
+	private Text txtWarehouseCode;
+	private CLabel lblWarehouseCode;
 	private CLabel lblDescription;
 	private Text txtTelephone;
 	private CLabel lblWarehouseTelephone;
@@ -110,6 +112,15 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 		try {
 			preInitGUI();
 	
+			{
+				lblWarehouseCode = new CLabel(this, SWT.NONE);
+				lblWarehouseCode.setText("Depo Kodu");
+			}
+			{
+				txtWarehouseCode = new Text(this, SWT.NONE);
+				txtWarehouseCode.setSize(253, 17);
+				txtWarehouseCode.setTextLimit(50);
+			}
 			lblWarehouseName = new CLabel(this,SWT.NULL);
 			txtWarehouseName = new Text(this,SWT.NULL);
 			lblWarehouseAdres = new CLabel(this,SWT.NULL);
@@ -310,7 +321,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 	try{
 	
 	if(verifyFields()){
-	whBLAdd.saveWarehouse(txtWarehouseName.getText().trim(),
+	whBLAdd.saveWarehouse(txtWarehouseName.getText().trim(),txtWarehouseCode.getText().trim(),
 						 txtWarehouseDescription.getText().trim(),
 						 txtWarehouseAdres.getText().trim(),
 						 txtTelephone.getText().trim(),
@@ -365,5 +376,17 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	/**
+	 * @return Returns the txtWarehouseCode.
+	 */
+	public Text getTxtWarehouseCode() {
+		return txtWarehouseCode;
+	}
+	/**
+	 * @param txtWarehouseCode The txtWarehouseCode to set.
+	 */
+	public void setTxtWarehouseCode(Text txtWarehouseCode) {
+		this.txtWarehouseCode = txtWarehouseCode;
 	}
 }

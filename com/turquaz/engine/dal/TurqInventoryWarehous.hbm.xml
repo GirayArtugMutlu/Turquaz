@@ -83,6 +83,13 @@
         column="warehouses_telephone"
         length="25"
     />
+    <property
+        name="warehousesCode"
+        type="java.lang.String"
+        column="warehouses_code"
+        not-null="true"
+        length="25"
+    />
 
     <!-- Associations -->
   

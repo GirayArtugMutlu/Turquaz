@@ -41,7 +41,7 @@ public class InvBLWarehouseAdd {
 	Calendar cal = Calendar.getInstance();
 	
 	
-	public void saveWarehouse(String whName, String whDescription,
+	public void saveWarehouse(String whName, String whCode, String whDescription,
 							String whAddress, String whTelephone,
 							String whCity )throws Exception {
 	  try{
@@ -51,7 +51,7 @@ public class InvBLWarehouseAdd {
 		warehouse.setWarehousesCity(whCity);
 		warehouse.setWarehousesTelephone(whTelephone);
 		warehouse.setWarehousesDescription(whDescription);
-		
+		warehouse.setWarehousesCode(whName);
 		TurqCompany company = new TurqCompany();
 		company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
 		
