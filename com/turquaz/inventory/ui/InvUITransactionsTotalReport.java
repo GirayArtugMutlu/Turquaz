@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
@@ -70,6 +71,9 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	private Composite compInvCardSearch;
 	private CLabel lblInvName;
 	private TableColumn tableColumnInvName;
+	private TableColumn tableColumnUnitPriceOut;
+	private TableColumn tableColumnUnitPriceIn;
+	private TableColumn tableColumnUnitPriceTransOver;
 	private CCombo comboInvSubGroup;
 	private CLabel lblInvSubGroup;
 	private CCombo comboInvMainGroup;
@@ -257,6 +261,11 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 						tableColumnTransOverPrice.setText(Messages.getString("InvUITransactionsTotalReport.7")); //$NON-NLS-1$
 						tableColumnTransOverPrice.setWidth(60);
 					}
+					//START >>  tableColumnUnitPriceTransOver
+					tableColumnUnitPriceTransOver = new TableColumn(tableSearcResults, SWT.NONE);
+					tableColumnUnitPriceTransOver.setText("Devir Ort. Fiyat");
+					tableColumnUnitPriceTransOver.setWidth(50);
+					//END <<  tableColumnUnitPriceTransOver
 					{
 						tableColumnAmountIn = new TableColumn(tableSearcResults, SWT.RIGHT);
 						tableColumnAmountIn.setText(Messages.getString("InvUICardSearch.5")); //$NON-NLS-1$
@@ -267,6 +276,11 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 						tableColumnPriceIn.setText(Messages.getString("InvUICardSearch.10")); //$NON-NLS-1$
 						tableColumnPriceIn.setWidth(75);
 					}
+					//START >>  tableColumnUnitPriceIn
+					tableColumnUnitPriceIn = new TableColumn(tableSearcResults, SWT.NONE);
+					tableColumnUnitPriceIn.setText("Gir. Ort. Fiyat");
+					tableColumnUnitPriceIn.setWidth(50);
+					//END <<  tableColumnUnitPriceIn
 					{
 						tableColumnAmountOut = new TableColumn(tableSearcResults, SWT.RIGHT);
 						tableColumnAmountOut.setText(Messages.getString("InvUICardSearch.7")); //$NON-NLS-1$
@@ -277,6 +291,11 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 						tableColumnPriceOut.setText(Messages.getString("InvUICardSearch.11")); //$NON-NLS-1$
 						tableColumnPriceOut.setWidth(76);
 					}
+					//START >>  tableColumnUnitPriceOut
+					tableColumnUnitPriceOut = new TableColumn(tableSearcResults, SWT.NONE);
+					tableColumnUnitPriceOut.setText("Ç\u0131k. Ort. Fiyat");
+					tableColumnUnitPriceOut.setWidth(50);
+					//END <<  tableColumnUnitPriceOut
 					{
 						tableColumnBalanceAmountIn = new TableColumn(tableSearcResults, SWT.RIGHT);
 						tableColumnBalanceAmountIn.setText(Messages.getString("InvUITransactionsTotalReport.8")); //$NON-NLS-1$
@@ -438,13 +457,31 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 							totalAmountOut);
 					BigDecimal balancePrice = (totalAmountIn.doubleValue() == 0) ? new BigDecimal(0) : balanceAmount
 							.multiply(totalPriceIn.divide(totalAmountIn, 2, BigDecimal.ROUND_HALF_DOWN));
+					
+					BigDecimal unitPriceTransover=new BigDecimal(0);
+					BigDecimal unitPriceIn=new BigDecimal(0);
+					BigDecimal unitPriceOut=new BigDecimal(0);
+					if (totalAmountIn.doubleValue() != 0)
+					{
+						unitPriceIn=totalPriceIn.divide(totalAmountIn,2,EngBLCommon.ROUNDING_METHOD);
+					}
+					if (totalAmountOut.doubleValue() != 0)
+					{
+						unitPriceOut=totalPriceOut.divide(totalAmountOut,2,EngBLCommon.ROUNDING_METHOD);
+					}
+					BigDecimal transOverAmountNet=totaltransOverAmountIn.subtract(totaltransOverAmountOut);
+					BigDecimal transOverPriceNet=totaltransOverPriceIn.subtract(totaltransOverPriceOut);
+					if (transOverAmountNet.doubleValue() != 0)
+					{
+						unitPriceTransover=transOverPriceNet.divide(transOverAmountNet,2,EngBLCommon.ROUNDING_METHOD);
+					}
 					TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 					item = new TableItem(tableSearcResults, SWT.NULL);
 					item.setData(cardId);
 					item.setText(new String[]{invCode, invName, cf.format(totaltransOverAmountIn.subtract(totaltransOverAmountOut)),
-							cf.format(totaltransOverPriceIn.subtract(totaltransOverPriceOut)), cf.format(totalAmountIn),
-							cf.format(totalPriceIn), cf.format(totalAmountOut), cf.format(totalPriceOut), cf.format(balanceAmount),
-							cf.format(balancePrice)});
+							cf.format(totaltransOverPriceIn.subtract(totaltransOverPriceOut)), cf.format(unitPriceTransover),
+							cf.format(totalAmountIn), cf.format(totalPriceIn), cf.format(unitPriceIn), cf.format(totalAmountOut),
+							cf.format(totalPriceOut), cf.format(unitPriceOut), cf.format(balanceAmount), cf.format(balancePrice)});
 				}
 			}
 		}
