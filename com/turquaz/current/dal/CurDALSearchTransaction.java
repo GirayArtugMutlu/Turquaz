@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
+import net.sf.hibernate.Transaction;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -195,10 +196,12 @@ public class CurDALSearchTransaction
 		}
 	}
 
-	public static void deleteInitialTransactions(Session session, TurqCurrentCard curCard) throws Exception
+	public static void deleteInitialTransactions( TurqCurrentCard curCard) throws Exception
 	{
 		try
 		{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
 			String query = "Select bankTrans from TurqCurrentTransaction as bankTrans "
 					+ " where bankTrans.turqCurrentTransactionType.id = " + EngBLCommon.CURRENT_TRANS_INITIAL
 					+ " and bankTrans.turqCurrentCard = :curCard " + " order by bankTrans.turqCurrentCard.cardsCurrentCode";
@@ -209,7 +212,10 @@ public class CurDALSearchTransaction
 			{
 				session.delete(list.get(i));
 			}
+			
 			session.flush();
+			tx.commit();
+			session.close();
 		}
 		catch (Exception ex)
 		{

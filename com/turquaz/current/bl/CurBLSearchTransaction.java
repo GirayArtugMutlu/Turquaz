@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import net.sf.hibernate.Session;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.current.dal.CurDALSearchTransaction;
 import com.turquaz.current.dal.CurDALTransactionUpdate;
@@ -170,11 +169,11 @@ public class CurBLSearchTransaction
 		}
 	}
 
-	public static void deleteInitialTransactions(Session session, TurqCurrentCard curCard) throws Exception
+	public static void deleteInitialTransactions(TurqCurrentCard curCard) throws Exception
 	{
 		try
 		{
-			CurDALSearchTransaction.deleteInitialTransactions(session, curCard);
+			CurDALSearchTransaction.deleteInitialTransactions(curCard);
 		}
 		catch (Exception ex)
 		{

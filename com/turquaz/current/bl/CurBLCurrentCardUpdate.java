@@ -57,6 +57,7 @@ public class CurBLCurrentCardUpdate
 			updateCurrentCardAccounts(session, currentCard, accountingAccounts);
 			updateCurrentCardPhones(session, currentCard, phoneList);
 			updateCurrentCardContact(session, currentCard, contactInfo);
+			updateCurrentCardGroups(session,currentCard,groupList);
 			session.flush();
 			tx.commit();
 			session.close();
@@ -178,7 +179,7 @@ public class CurBLCurrentCardUpdate
 			deleteCurrentCardContact(session, currentCard);
 			deleteCurrentCardGroups(session, currentCard);
 			deleteCurrentCardPhones(session, currentCard);
-			CurDALSearchTransaction.deleteInitialTransactions(session, currentCard);
+			CurDALSearchTransaction.deleteInitialTransactions(currentCard);
 			EngDALCommon.deleteObject(session, currentCard);
 			session.flush();
 			tx.commit();
