@@ -37,6 +37,7 @@ import com.turquaz.accounting.ui.AccUITransactionSearch;
 import com.turquaz.accounting.ui.reports.AccUIAccountingBalance;
 import com.turquaz.accounting.ui.reports.AccUIAccountingGeneralLedger;
 import com.turquaz.accounting.ui.reports.AccUIAccountingJournal;
+import com.turquaz.accounting.ui.reports.AccUISubsidiaryLedger;
 import com.turquaz.admin.ui.AdmUIGroupAdd;
 import com.turquaz.admin.ui.AdmUIGroupPermissions;
 import com.turquaz.admin.ui.AdmUIGroups;
@@ -205,8 +206,11 @@ public final class TreeFactory {
 		item.setText(Messages.getString("TreeFactory.28")); //$NON-NLS-1$
 		item.setData(AccUIAccountingJournal.class.getName());
 		}
-		
-	
+		if(EngBLPermissions.getPermission(AccUISubsidiaryLedger.class.getName())>0){
+			item = new TreeItem(books,SWT.NULL);
+			item.setText("Muavin Defter"); 
+			item.setData(AccUISubsidiaryLedger.class.getName());
+			}
 		
 		if(EngBLPermissions.getPermission(AccUIAccountingGeneralLedger.class.getName())>0){
 		item = new TreeItem(books,SWT.NULL);

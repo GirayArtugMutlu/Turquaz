@@ -1,9 +1,4 @@
-/*
- * Created on Oct 19, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 package com.turquaz.accounting.bl;
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
@@ -33,6 +28,7 @@ import java.util.List;
 
 import com.turquaz.accounting.dal.AccDALTransactionAdd;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 
@@ -64,6 +60,15 @@ public class AccBLTransactionSearch {
 	
 	
 	}
+	public List searchAccTransactionsColumns(TurqAccountingAccount acc,Object startDate, Object endDate)throws Exception{
+		try{
+			
+			return dalTransSearch.searchAccTransactionsColumns(acc,startDate,endDate);					
+		}
+		catch(Exception ex){
+			throw ex;
+		}		
+}
 	
 	public List getTransactionTypes()throws Exception{
 		try{
