@@ -24,7 +24,7 @@ public class AccUITransactionAddTableRow implements ITableRow {
         super();
         this.rowList = rowList;  
         transRow.setTransactionDefinition("");
-        transRow.setCreditAmount(new BigDecimal(0));
+        transRow.setCreditAmount(new BigDecimal(12312));
         transRow.setDeptAmount(new BigDecimal(0));
         transRow.setTransactionDefinition("");
     }
@@ -149,6 +149,9 @@ public class AccUITransactionAddTableRow implements ITableRow {
 		    formatted = value.toString(); 	
 		 	formatted = formatted.replaceAll("\\.","");
 		 	formatted = formatted.replaceAll(",",".");
+		 	if(formatted.equals("")){
+		 	    formatted="0";
+		 	}
 		 	 transRow.setDeptAmount(new BigDecimal(formatted));
 			break;
 			
@@ -156,6 +159,9 @@ public class AccUITransactionAddTableRow implements ITableRow {
 		    formatted = value.toString(); 	
 		    formatted = formatted.replaceAll("\\.","");
 		    formatted = formatted.replaceAll(",",".");
+		    if(formatted.equals("")){
+		 	    formatted="0";
+		 	}
 		    transRow.setCreditAmount(new BigDecimal(formatted));
 			break;
 			

@@ -10,6 +10,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.ui.component.TurquazDecimalFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TableRowList;
 
@@ -61,6 +62,8 @@ public class AccUITransactionPaymentTableRow implements ITableRow {
     
     public String getColumnText(int column_index) {
 
+    	TurquazDecimalFormat df=new TurquazDecimalFormat();
+
         String result = "";
 		switch (column_index) {
 			case 0 : 
@@ -72,7 +75,7 @@ public class AccUITransactionPaymentTableRow implements ITableRow {
 				result =  transRow.getTurqAccountingAccount().getAccountName();
 				break;
 			case 3 : 
-				result =  transRow.getDeptAmount().toString();
+			    result =  df.format(transRow.getDeptAmount());
 				break;
 			case 2 : 
 				result =  transRow.getTransactionDefinition();
@@ -103,6 +106,7 @@ public class AccUITransactionPaymentTableRow implements ITableRow {
  
 		case 3 : 
 			result =  transRow.getDeptAmount().toString();
+			result = ((String) result).replaceAll("\\.",",");
 			break;
 		case 2 : 
 			result =  transRow.getTransactionDefinition();
@@ -134,9 +138,13 @@ public class AccUITransactionPaymentTableRow implements ITableRow {
 			break;
 			
 		case 3 : 
+		    
 		    formatted = value.toString(); 	
 		    formatted = formatted.replaceAll("\\.","");
 		    formatted = formatted.replaceAll(",",".");
+		    if(formatted.equals("")){
+		 	    formatted="0";
+		 	}
 		    transRow.setDeptAmount(new BigDecimal(formatted));
 			break;
 			

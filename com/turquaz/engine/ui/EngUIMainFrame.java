@@ -1156,6 +1156,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		//Set color for Main tab folder
 		
 		Display display = this.getDisplay();
+		
 	    tabfldMain.setSelectionBackground(
 		         new Color[] {
 		            display.getSystemColor(SWT.COLOR_TITLE_BACKGROUND),

@@ -6,42 +6,81 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.jface.viewers.TextCellEditor;
+
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
 import com.turquaz.engine.ui.component.TurquazDecimalFormat;
 
 public class CurrencyCellEditor extends TextCellEditor{
     VerifyListener listener;
+    Text text;
     public CurrencyCellEditor(Composite parent) {
 		super(parent);
-		setValueValid(true);
+		
 	}
   
+    protected void doSetValue(Object object) {
+		// Workaround for 32926
+
+		if (object==null) object = ""; //$NON-NLS-1$
+
+		super.doSetValue(object);
+	}
     public Control createControl(Composite parent) {
-		Text text = (Text) super.createControl(parent);
+		  text = (Text) super.createControl(parent);
+	
 		  listener = new VerifyListener() {
-		 	public void verifyText(VerifyEvent evt) {
-		 		text3VerifyText(evt);
+		 	public void verifyText(VerifyEvent evt) {		 	    
+		 	  
+		 	    text3VerifyText(evt);
+		 			
 		 	}
 		 };
-	
+		 
+		 text.addListener(SWT.Traverse, new Listener() {
+				public void handleEvent(Event e) {
+					// do whatever it is you want to do on commit
+
+					// this will prevent the return from 
+
+					// traversing to the button
+
+					e.doit = true;
+					text.setText(text.getText());
+				}
+			});
+		
+		 
 	 text.addVerifyListener(listener);
 		return text;
 	
     }
+    
+    public void forceCommit() {
+		if (isDirty())
+			fireApplyEditorValue();
+	}
 
 	protected void text3VerifyText(VerifyEvent e){
 		char decimalSymbol ='.';
 	 	int numberOfDecimals =2;
-	 	Text control = (Text)e.widget;
-	    String textcontrol = control.getText();
+	    String textcontrol = text.getText();
 	    System.out.println(textcontrol);
 	    e.doit = false;
-	    String newText = textcontrol.substring(0, e.start) + e.text + textcontrol.substring(e.end);
+	    String newText="";
+	    try{
+	    newText = textcontrol.substring(0, e.start) + e.text + textcontrol.substring(e.end);
+	    }
+	    catch(Exception ex){
+	        return;
+	    }
 	    String tempnewText=newText.replaceAll("\\.","");
 	    if (tempnewText.equals("") && !tempnewText.equals(newText))
 	    {
@@ -105,7 +144,9 @@ public class CurrencyCellEditor extends TextCellEditor{
 	    		formatted +="0";
 	    	if (addSecondZero)
 	    		formatted +="0";
+	    
 	    	text.setText(formatted);
+	    	
 	    	String s=textcontrol.substring(0,e.start)+e.text;
 	        s=s.replaceAll("\\.","");
 	        s=s.replaceAll(",",".");
@@ -131,5 +172,6 @@ public class CurrencyCellEditor extends TextCellEditor{
 	    	text.addVerifyListener(listener);
 	    }
 	   }
+	
 
 }
