@@ -388,9 +388,18 @@ public class InvUITransactionTableRow implements ITableRow
 					TurqInventoryCard invCard = EngBLInventoryCards.getInvCard(value.toString().trim());
 					if (invCard != null)
 					{
-						invTrans.setTurqInventoryCard(invCard);
-						fillDefaults(invCard);
-						updateComboBoxEditor();
+						if(invTrans.getTurqInventoryCard()==null)
+						{					
+							invTrans.setTurqInventoryCard(invCard);
+							fillDefaults(invCard);
+							updateComboBoxEditor();
+						}
+						else if(invTrans.getTurqInventoryCard().getId().intValue()!=invCard.getId().intValue())
+						{
+							invTrans.setTurqInventoryCard(invCard);
+							fillDefaults(invCard);
+							updateComboBoxEditor();
+						}
 					}
 				}
 				catch (Exception ex)
