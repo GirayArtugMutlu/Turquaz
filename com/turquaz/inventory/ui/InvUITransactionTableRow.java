@@ -307,11 +307,12 @@ public class InvUITransactionTableRow implements ITableRow {
 			 	    formatted="0";
 			 	}
 			 	transAmount = Integer.parseInt(formatted);
+			 				 	
 			 	if(transType==0){
-				    invTrans.setTransactionsAmountIn(Long.parseLong(formatted));
+				    invTrans.setTransactionsAmountIn(transAmount*cardUnits[unit_index.intValue()].getCardUnitsFactor());
 				}
 				else{
-				    invTrans.setTransactionsTotalAmountOut(Long.parseLong(formatted));
+				    invTrans.setTransactionsTotalAmountOut(transAmount*cardUnits[unit_index.intValue()].getCardUnitsFactor());
 				 }
 				break;
 			    
