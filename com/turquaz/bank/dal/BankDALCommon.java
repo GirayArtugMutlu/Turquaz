@@ -98,15 +98,24 @@ public class BankDALCommon {
 	}
 	public static List searchBankTransactions( String docNo, Date startDate, Date endDate)throws Exception {
 	    try{
-	    
-	        
+	       
+	
+    
 	        
 	        Session session = EngDALSessionFactory.openSession();
-	        String query = "select bankTrans from TurqBanksTransactionBill as bankTrans " +
+	        String query = "select bankTrans.banksTransactionBillsId, bankTrans.transactionBillDate," +
+	        		" bankTrans.turqBanksTransactionType.transactionTypeName," +
+	        		" bankTrans.transactionBillDefinition, bankTrans.transactionBillNo, sum(transRow.deptAmount),sum(transRow.creditAmount)" +
+	        " from TurqBanksTransactionBill as bankTrans " +
+	        " left join bankTrans.turqBanksTransactions as transRow " +
     		" where bankTrans.transactionBillDate >= :startDate and bankTrans.transactionBillDate <= :endDate" +
     		" and bankTrans.transactionBillNo like '"+docNo+"%'" ;
     
-    query += " order by bankTrans";
+	        
+	        query += " group by bankTrans.banksTransactionBillsId, bankTrans.transactionBillDate," +
+	        		"bankTrans.turqBanksTransactionType.transactionTypeName," +
+	        		"bankTrans.transactionBillDefinition, bankTrans.transactionBillNo ";
+	        query += " order by bankTrans, bankTrans.transactionBillDate";
 	        
 	       Query q = session.createQuery(query); 
 	

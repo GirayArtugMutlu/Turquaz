@@ -17,10 +17,6 @@ package com.turquaz.cash.dal;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -299,36 +295,23 @@ public class CashDALCashCard {
     public static List getTransactions(TurqCashCard cashCard, Date startDate, Date endDate)throws Exception{
         try{
             Session session = EngDALSessionFactory.openSession();
-            SimpleDateFormat frmt = new SimpleDateFormat("yyyy-MM-dd");
-        
-            
-            String query = "SELECT cashTrans.transaction_date, cashCard.cash_card_name, cashTrans.transaction_definition, totals.dept, totals.credit " +
-            		" FROM turq_cash_transactions cashTrans " +
-            		" LEFT JOIN (Select sum(row.dept_amount) as dept, sum(row.credit_amount) as credit, row.cash_transactions_id as transId" +
-            		" FROM turq_cash_transaction_rows row group by row.cash_transactions_id ) totals " +
-            		" ON  totals.transId = cashTrans.cash_transactions_id," +
-            		" turq_cash_cards cashCard" +
-            		" where cashTrans.cash_cards_id ="+cashCard.getCashCardsId().intValue()+
-            		" and cashTrans.transaction_date >= '"+frmt.format(startDate)+"' and " +
-            		" cashTrans.transaction_date <= '"+frmt.format(endDate)+"' " +
-            		" and cashTrans.cash_cards_id = cashCard.cash_cards_id";
           
-
-            Statement stmt = session.connection().createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            Object [] result;
-            List ls = new ArrayList();
             
-            while(rs.next()){
-                result = new Object[5];
-                result[0] = rs.getObject(1);
-                result[1] = rs.getObject(2);
-                result[2] = rs.getObject(3);
-                result[3] = rs.getObject(4);
-                result[4] = rs.getObject(5);
-                 ls.add(result);             
-            }
-         
+            String query = "select trans.cashTransactionsId, trans.transactionDate, trans.transactionDefinition," +
+            		" transRow.deptAmount,transRow.creditAmount, trans.turqCashTransactionType.cashTransationTypeName" +
+            		" from TurqCashTransaction as trans left join trans.turqCashTransactionRows as transRow " +
+            		" where transRow.turqCashCard = :cashCard" +
+            		" and trans.transactionDate >= :startDate and trans.transactionDate<= :endDate" +
+            		
+            		" order by trans.cashTransactionsId,trans.transactionDate";
+
+          
+            Query q = session.createQuery(query);
+            q.setParameter("cashCard",cashCard);
+            q.setParameter("startDate",startDate);
+            q.setParameter("endDate",endDate);
+            
+            List ls = q.list();
             session.close();
             return ls;
             
@@ -346,8 +329,8 @@ public class CashDALCashCard {
            
             String query = "Select sum(row.deptAmount),sum(row.creditAmount)" +
             		" from TurqCashTransactionRow as row where row.turqCashTransaction.transactionDate < :endDate" +
-            		" and row.turqCashTransaction.turqCashCard = :cashCard" +
-            		" group by row.turqCashTransaction.turqCashCard";
+            		" and row.turqCashCard = :cashCard" +
+            		" group by row.turqCashCard";
             
             Query q = session.createQuery(query);
             q.setParameter("endDate",endDate);
