@@ -27,6 +27,22 @@ import com.turquaz.engine.dal.EngDALCommon;
 
 
 public class EngBLCommon {
+	
+	public final static Integer COMMON_BUY_INT=new Integer(0);
+	
+	public final static Integer COMMON_SELL_INT=new Integer(1);
+	
+	public final static Integer COMMON_ALL_INT=new Integer(2);
+	
+	
+	public final static String COMMON_BUY_STRING="Al??";
+	
+	public final static String COMMON_SELL_STRING="Sat??";
+	
+	public final static String COMMON_ALL_STRING="Hepsi";
+	
+	
+	
     
     public final static int CASH_CURRENT_COLLECT = 0; //Kasa Cari Tahsilat
     
