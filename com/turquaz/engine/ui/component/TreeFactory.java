@@ -88,6 +88,7 @@ import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.InvUICardSearch;
 
+import com.turquaz.inventory.ui.InvUIGroupingPlan;
 import com.turquaz.inventory.ui.InvUIInventoryLedger;
 import com.turquaz.inventory.ui.InvUIInventoryTransactionReport;
 import com.turquaz.inventory.ui.InvUIProfitAnalysis;
@@ -184,9 +185,17 @@ public final class TreeFactory {
 			}
 		
 		TreeItem adminRoot = new TreeItem(tree,SWT.NULL);
-
 		adminRoot.setText(Messages.getString("TreeFactory.9"));   //$NON-NLS-1$
 		
+		
+		if(EngBLPermissions.getPermission(InvUIGroupingPlan.class.getName())>0){
+			item = new TreeItem(adminRoot,SWT.NULL);
+			item.setText("Stok Gruplar?"); 
+			item.setData(InvUIGroupingPlan.class.getName());
+			}
+
+		
+		adminRoot.setExpanded(true);
 		reports.setExpanded(true);
 		cardsRoot.setExpanded(true);
 		searchRoot.setExpanded(true);
