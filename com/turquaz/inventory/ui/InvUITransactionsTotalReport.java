@@ -17,7 +17,7 @@ package com.turquaz.inventory.ui;
 /************************************************************************/
 
 /**
-* @author  Onsel Armagan
+* @author  Cem Dayanik
 * @version  $Id$
 */
 
@@ -113,17 +113,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	*/
 	public void initGUI(){
 		try {
-			preInitGUI();
-
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			preInitGUI();		
 			
 			this.setSize(new org.eclipse.swt.graphics.Point(573,437));
 
@@ -303,9 +293,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 			thisLayout.marginWidth = 0;
 			thisLayout.marginHeight = 0;
 			thisLayout.spacing = 0;
-			this.layout();
-	
-			
+			this.layout();			
 			
 			postInitGUI();
 		} catch (Exception e) {
@@ -318,10 +306,8 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
-
 		
-		fillComboGroup();
-		
+		fillComboGroup();		
 				
 	}
 	public void fillComboGroup(){
@@ -332,53 +318,54 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 			for (int i = 0; i < groupLst.size(); i++) {
 				trqInvGroup = (TurqInventoryGroup) groupLst.get(i);
 				comboInvGroup.add(trqInvGroup.getGroupsName());
-				comboInvGroup.setData(trqInvGroup.getGroupsName(), trqInvGroup);
-					
+				comboInvGroup.setData(trqInvGroup.getGroupsName(), trqInvGroup);	
 
 			}
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		}
-	
-	
+		}	
 	}
 	
 	public void save(){
 		
 	}
-	public void deleteInvUnits(TurqInventoryCard invCard){
-	    try{
-	    
+	public void deleteInvUnits(TurqInventoryCard invCard)
+	{
+	    try
+		{	    
 	
-	    //First remove groups then re-add them..
-		Iterator it = invCard.getTurqInventoryCardUnits().iterator();
-	    TurqInventoryCardUnit cardUnit; 
+	    	//First remove groups then re-add them..
+	    	Iterator it = invCard.getTurqInventoryCardUnits().iterator();
+	    	TurqInventoryCardUnit cardUnit; 
 	 
-	    while(it.hasNext()){   
+	    	while(it.hasNext())
+	    	{   
 	    
-	     cardUnit = (TurqInventoryCardUnit)it.next();
-	     cardUpdate.deleteObject(cardUnit);				
-		} 
+	    		cardUnit = (TurqInventoryCardUnit)it.next();
+	    		cardUpdate.deleteObject(cardUnit);				
+	    	} 
 	   
 	    }
 	    
-	    catch(Exception ex){
-	    ex.printStackTrace();
+	    catch(Exception ex)
+		{
+	    	ex.printStackTrace();
 	    }
-	   }
-	 public void deleteInvGroups(TurqInventoryCard invCard){
-	     try{
-	     Iterator it = invCard.getTurqInventoryCardGroups().iterator();
-	      TurqInventoryCardGroup cardGroup; 
+	 }
+	 public void deleteInvGroups(TurqInventoryCard invCard)
+	 {
+	     try
+		 {
+	     	Iterator it = invCard.getTurqInventoryCardGroups().iterator();
+	     	TurqInventoryCardGroup cardGroup; 
 	        
-	      while(it.hasNext()){
+	     	while(it.hasNext())
+	     	{
 	       
-	       cardGroup = (TurqInventoryCardGroup)it.next();
-	       cardUpdate.deleteObject(cardGroup);
-	       }
-	     
-	     
+	     		cardGroup = (TurqInventoryCardGroup)it.next();
+	      	 cardUpdate.deleteObject(cardGroup);
+	     	} 
 	     
 	     }
 	     catch(Exception ex){
@@ -395,8 +382,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	       
 	       invPrice = (TurqInventoryPrice)it.next();
 	      
-	       cardUpdate.deleteObject(invPrice);
-	      
+	       cardUpdate.deleteObject(invPrice);    
 	                
 	       }
 	      }
@@ -404,12 +390,9 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	     	MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_ERROR);
 	     	msg.setMessage(ex.getMessage());
 	      ex.printStackTrace();
-	     }
-	       
+	     }       
 	     
-	     }
-	      
-	      
+	     }      
 	  	
 	public void delete(){
 	    TableItem items[]=tableSearcResults.getSelection();
@@ -452,22 +435,20 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	    msg = new MessageBox(this.getShell(),SWT.NULL);
 		msg.setMessage(Messages.getString("InvUICardUpdateDialog.6"));	 //$NON-NLS-1$
 		msg.open();	 
-	    search();
-	       
+	    search();	       
 	           
 	    }
-	    catch(Exception ex){
+	    catch(Exception ex)
+		{
 	    	
-	    ex.printStackTrace();	
-	    msg = new MessageBox(this.getShell(),SWT.ICON_ERROR);	
-	    msg.setMessage(ex.getMessage());
-	    msg.open();
-	   
+	    	ex.printStackTrace();	
+	    	msg = new MessageBox(this.getShell(),SWT.ICON_ERROR);	
+	    	msg.setMessage(ex.getMessage());
+	    	msg.open();
 	 
 	    
 	    }
-	    }
-	    
+	    }    
 		
 	}
 	public void newForm(){
@@ -499,35 +480,21 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	Integer cardId = (Integer)objs[3];
 	
 	
-	
-	
-	
-	
-	
 	TurqViewInventoryTotal invView=(TurqViewInventoryTotal)((Object[])result.get(i))[0];
 	item = new TableItem(tableSearcResults,SWT.NULL);
 	
 	item.setData(cardId);
 	
-	
-	
-	
-	
 	BigDecimal totalAmountIn =(invView.getTotalAmountIn()==null) ? new BigDecimal(0): invView.getTotalAmountIn();
 	BigDecimal totalAmountOut = (invView.getTotalAmountOut()==null) ? new BigDecimal(0) : invView.getTotalAmountOut();
 	BigDecimal totalPriceIn = (invView.getTotalPriceIn()==null) ? new BigDecimal(0) : invView.getTotalPriceIn();
-	BigDecimal totalPriceOut = (invView.getTotalPriceOut()==null)?new BigDecimal(0) : invView.getTotalPriceOut();
-	
-	
+	BigDecimal totalPriceOut = (invView.getTotalPriceOut()==null)?new BigDecimal(0) : invView.getTotalPriceOut();	
 	
 	BigDecimal balanceAmountIn = new BigDecimal(0);
-	BigDecimal balanceAmountOut = new BigDecimal(0);
-	
-	
+	BigDecimal balanceAmountOut = new BigDecimal(0);	
 	
 	if((totalAmountIn.subtract(totalAmountOut).doubleValue()<=0)){
 		balanceAmountOut = totalAmountOut.subtract(totalAmountIn);
-		
 		
 	}
 	
@@ -535,12 +502,6 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 		balanceAmountIn = totalAmountIn.subtract(totalAmountOut);
 		
 	}
-	
-	
-	
-	
-	
-	
 	
 	TurkishCurrencyFormat format = new TurkishCurrencyFormat();
 	
@@ -554,17 +515,12 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 							  format.format(totalPriceOut)
 							  });
 	
-	
 	}
 	
 	}
 	catch(Exception ex){
 	ex.printStackTrace();
 	}
-	
-	
-	
-	
 		
 	}
 
@@ -576,16 +532,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	* copied and used as a basis for your own code.	*
 	* It is auto-generated code - the body of this method will be
 	* re-generated after any changes are made to the GUI.
-	* However, if you delete this method it will not be re-created.	*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	* However, if you delete this method it will not be re-created.	*/	
 	
 	
 	public static void showGUI(){
@@ -608,8 +555,6 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 /** Auto-generated event handler method */
 	
 	
-	
-	
 	protected void tableSearcResultsMouseDoubleClick(MouseEvent evt){
 	    
     TableItem [] selection= tableSearcResults.getSelection();	
@@ -624,58 +569,21 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	catch(Exception ex){
+	catch(Exception ex)
+	{
 	    ex.printStackTrace();
 	}
 	}
 	}
-	public void exportToExcel(){
+	public void exportToExcel()
+	{
 		
 		EngBLUtils.Export2Excel(tableSearcResults);
 		
-	}
-	
-	
-	
-	
-	
-	
-	
-	public void printTable(){
+	}	
+	public void printTable()
+	{
 	    EngBLUtils.printTable(tableSearcResults,""); //$NON-NLS-1$
 	    
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }

@@ -171,7 +171,7 @@ public final class TreeFactory {
 		
 		if(EngBLPermissions.getPermission(InvUITransactionsTotalReport.class.getName())>0){
 			item = new TreeItem(reports,SWT.NULL);
-			item.setText("Hareket Toplamlar? Raporu");
+			item.setText(Messages.getString("TreeFactory.75")); //$NON-NLS-1$
 			item.setData(InvUITransactionsTotalReport.class.getName());
 			}
 		
