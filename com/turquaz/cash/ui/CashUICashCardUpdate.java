@@ -181,7 +181,7 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 			
 			argMap.put(CashKeys.CASH_CARD,cashCard);
 			
-			EngTXCommon.doTransactionTX(CashBLCashCardUpdate.class.getName(),"delete",argMap);
+			EngTXCommon.doTransactionTX(CashBLCashCardUpdate.class.getName(),"deleteCashCard",argMap);
 		
 			msg.setMessage(Messages.getString("CashUICashCardUpdate.1")); //$NON-NLS-1$
 			msg.open();
@@ -191,9 +191,8 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 		{
 			Logger loger = Logger.getLogger(this.getClass());
 			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			msg.setMessage(ex.getMessage());
-			msg.open();
+			ex.printStackTrace();	
+			
 		}
 	}
 

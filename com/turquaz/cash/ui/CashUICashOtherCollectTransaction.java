@@ -253,7 +253,7 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
 			Logger loger = Logger.getLogger(this.getClass());
 			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
-			msg.setMessage(ex.getMessage());
+			msg.setMessage("Hata Olustu!");
 			msg.open();
 		}
 	}

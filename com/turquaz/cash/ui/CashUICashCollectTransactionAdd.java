@@ -77,8 +77,8 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 	private CLabel lblCurrentCard;
 	private CashCardPicker txtCashCard;
 	private TurqCurrency baseCurrency = EngBLCommon.getBaseCurrency();
-	private TurqCurrencyExchangeRate exchangeRate = null;
-	private TurqCurrency exchangeCurrency = null;
+	private TurqCurrencyExchangeRate exchangeRate =EngBLCommon.getBaseCurrencyExchangeRate();
+	private TurqCurrency exchangeCurrency = EngBLCommon.getBaseCurrency();
 
 	public CashUICashCollectTransactionAdd(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -265,8 +265,6 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 			Logger loger = Logger.getLogger(this.getClass());
 			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
-			msg.setMessage(ex.getMessage());
-			msg.open();
 		}
 	}
 
@@ -313,10 +311,10 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 					return false;
 				}
 			}
-			else
-			{
-				exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
-			}
+			
+			
+		
+			
 			return true;
 		}
 		catch (Exception ex)

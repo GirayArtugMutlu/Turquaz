@@ -155,7 +155,7 @@ public class CashBLCashTransactionAdd
 		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
 		 TurqCurrentCard current = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD); 
-		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.ENG_SEQ);
+		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 		
 			Calendar cal = Calendar.getInstance();
 			if (seq == null)
@@ -282,7 +282,7 @@ public class CashBLCashTransactionAdd
 		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
 		 
 		 TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
-		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.ENG_SEQ);
+		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 		
 		
 			Calendar cal = Calendar.getInstance();
@@ -384,7 +384,7 @@ public class CashBLCashTransactionAdd
 		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
 		 TurqCurrentCard current = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD); 
-		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.ENG_SEQ);
+		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 		
 		
 		

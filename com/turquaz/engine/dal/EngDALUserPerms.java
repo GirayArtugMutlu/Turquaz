@@ -4,7 +4,6 @@ import java.util.List;
 import net.sf.hibernate.Criteria;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 import net.sf.hibernate.expression.Expression;
 
 /**
@@ -135,7 +134,7 @@ public class EngDALUserPerms
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "select comp.componentsName from TurqModuleComponent as comp" + " where comp.id= " + component_id
 					+ " and comp.id=" + module_id;
 			Query q = session.createQuery(query);
@@ -165,7 +164,6 @@ public class EngDALUserPerms
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			Transaction tx = session.beginTransaction();
 			//	Query q = session.createQuery("from TurqModuleComponent comp "+
 			//			"where comp.moduleComponentsId > -1");
 			Criteria cri = session.createCriteria(TurqModuleComponent.class).add(Expression.gt("id", new Integer(-1)));
@@ -208,7 +206,6 @@ public class EngDALUserPerms
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			Transaction tx = session.beginTransaction();
 			String query = "select module from TurqModule as module order by module.id";
 			Query q = session.createQuery(query);
 			List list = q.list();

@@ -76,7 +76,7 @@ public class CashDALCashCard
 			String query = "select cashCard from TurqCashCard as cashCard " + " where cashCard.cashCardName like '" + name + "%' ";
 			if (account != null)
 			{
-				query += " cashCard.turqAccountingAccount = :account";
+				query += " and cashCard.turqAccountingAccount = :account";
 			}
 			Query q = session.createQuery(query);
 			if (account != null)

@@ -112,7 +112,7 @@ public class EngDALSessionFactory
 	 * @return Session object whisch is created by the static SessionFactory
 	 * @throws Exception
 	 */
-	public static synchronized Session openSession2() throws Exception
+	public static synchronized Session openSession() throws Exception
 	{
 		try
 		{
@@ -122,7 +122,7 @@ public class EngDALSessionFactory
 			}
 			
 			session = _instance.factory.openSession();
-			
+			session.clear();
 			return session;
 		}
 		catch (Exception ex)

@@ -1,11 +1,6 @@
 package com.turquaz.cash.ui;
 
-/************************************************************************/
-/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
-/* ============================================                         */
-/* Copyright (c) 2004 by Turquaz Software Development Group			    */
 /*																		*/
-/* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License, or    */
 /* (at your option) any later version.       							*/
@@ -34,9 +29,9 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
@@ -44,7 +39,6 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
-import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.SWT;
 
 /**
@@ -57,8 +51,6 @@ import org.eclipse.swt.SWT;
 public class CashUICashOtherCollectTransactionUpdate extends Dialog
 {
 	private Shell dialogShell;
-	private CoolBar coolBar1;
-	private CoolItem coolItem1;
 	private ToolItem toolUpdate;
 	private ToolItem tooldelete;
 	private CashUICashOtherCollectTransaction compTransAdd;
@@ -88,57 +80,39 @@ public class CashUICashOtherCollectTransactionUpdate extends Dialog
 			dialogShell.setSize(633, 353);
 			dialogShell.setText(Messages.getString("CashUICashOtherCollectTransactionUpdate.0")); //$NON-NLS-1$
 			{
-				coolBar1 = new CoolBar(dialogShell, SWT.NONE);
-				GridData coolBar1LData = new GridData();
-				coolBar1LData.heightHint = 49;
-				coolBar1LData.grabExcessHorizontalSpace = true;
-				coolBar1LData.horizontalAlignment = GridData.FILL;
-				coolBar1.setLayoutData(coolBar1LData);
+				GridData toolBar1LData = new GridData();
+				toolBar1LData.horizontalAlignment = GridData.FILL;
+				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
+				toolBar1.setLayoutData(toolBar1LData);
 				{
-					coolItem1 = new CoolItem(coolBar1, SWT.NONE);
-					coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 53));
-					coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 53));
-					coolItem1.setSize(45, 53);
-					{
-						toolBar1 = new ToolBar(coolBar1, SWT.NONE);
-						coolItem1.setControl(toolBar1);
-						{
-							toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-							toolUpdate.setText(Messages.getString("CashUICashCollectTransactionUpdate.0")); //$NON-NLS-1$
-							toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
-							toolUpdate.addSelectionListener(new SelectionAdapter()
-							{
-								public void widgetSelected(SelectionEvent evt)
-								{
-									update();
-								}
-							});
+					toolUpdate = new ToolItem(toolBar1, SWT.NONE);
+					toolUpdate.setText(Messages.getString("CashUICashCollectTransactionUpdate.0")); //$NON-NLS-1$
+					toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
+					toolUpdate.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							update();
 						}
-						{
-							tooldelete = new ToolItem(toolBar1, SWT.NONE);
-							tooldelete.setText(Messages.getString("CashUICashCollectTransactionUpdate.2")); //$NON-NLS-1$
-							tooldelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
-							tooldelete.addSelectionListener(new SelectionAdapter()
-							{
-								public void widgetSelected(SelectionEvent evt)
-								{
-									delete();
-								}
-							});
+					});
+				}
+				{
+					tooldelete = new ToolItem(toolBar1, SWT.NONE);
+					tooldelete.setText(Messages.getString("CashUICashCollectTransactionUpdate.2")); //$NON-NLS-1$
+					tooldelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+					tooldelete.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							delete();
 						}
-						{
-							toolCancel = new ToolItem(toolBar1, SWT.NONE);
-							toolCancel.setText(Messages.getString("CashUICashCollectTransactionUpdate.4")); //$NON-NLS-1$
-							toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
-							toolCancel.addSelectionListener(new SelectionAdapter()
-							{
-								public void widgetSelected(SelectionEvent evt)
-								{
-									dialogShell.close();
-								}
-							});
+					});
+				}
+				{
+					toolCancel = new ToolItem(toolBar1, SWT.NONE);
+					toolCancel.setText(Messages.getString("CashUICashCollectTransactionUpdate.4")); //$NON-NLS-1$
+					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+					toolCancel.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							dialogShell.close();
 						}
-					}
+					});
 				}
 			}
 			{
@@ -170,6 +144,7 @@ public class CashUICashOtherCollectTransactionUpdate extends Dialog
 
 	public void postInitGUI()
 	{
+		EngUICommon.centreWindow(dialogShell);
 		if (cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue() != EngBLCommon.MODULE_CASH)
 		{
 			toolUpdate.setEnabled(false);

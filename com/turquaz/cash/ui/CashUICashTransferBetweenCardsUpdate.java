@@ -77,7 +77,7 @@ public class CashUICashTransferBetweenCardsUpdate extends Dialog
 			}
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.setSize(633, 353);
-			dialogShell.setText(Messages.getString("CashUICashOtherPaymentTransactionUpdate.0")); //$NON-NLS-1$
+			dialogShell.setText("Virman Fisi");
 			{
 				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
 				{
