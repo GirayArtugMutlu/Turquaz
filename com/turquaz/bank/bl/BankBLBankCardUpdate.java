@@ -24,7 +24,6 @@ package com.turquaz.bank.bl;
 
 import java.util.Calendar;
 
-import com.turquaz.bank.Messages;
 import com.turquaz.bank.dal.BankDALBankCardUpdate;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;

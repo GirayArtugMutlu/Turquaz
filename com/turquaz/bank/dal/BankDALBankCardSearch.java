@@ -27,7 +27,6 @@ import java.util.List;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
-import com.turquaz.bank.Messages;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrency;
 

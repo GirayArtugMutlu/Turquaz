@@ -21,7 +21,6 @@ package com.turquaz.bank.bl;
 * @version  $Id$
 */
 
-import com.turquaz.bank.Messages;
 import com.turquaz.bank.dal.BankDALBankCardAdd;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCompany;

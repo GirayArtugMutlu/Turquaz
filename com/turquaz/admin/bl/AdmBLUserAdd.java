@@ -25,8 +25,6 @@ package com.turquaz.admin.bl;
 import java.util.Calendar;
 import java.util.List;
 
-
-import com.turquaz.admin.Messages;
 import com.turquaz.admin.dal.AdmDALUserAdd;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqGroup;
