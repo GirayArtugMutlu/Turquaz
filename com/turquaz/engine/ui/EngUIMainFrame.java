@@ -83,6 +83,7 @@ import com.turquaz.engine.ui.component.TreeFactory;
 * @version  $Id$
 */
 import com.cloudgarden.resource.SWTResourceManager;
+import org.eclipse.swt.custom.CTabFolderAdapter;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -594,6 +595,11 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			coolbarRightTop.setLayout(null);
 	
 			GridData tabfldMainLData = new GridData();
+			tabfldMain.addCTabFolderListener(new CTabFolderAdapter() {
+				public void itemClosed(CTabFolderEvent evt) {
+
+				}
+			});
 			tabfldMainLData.verticalAlignment = GridData.FILL;
 			tabfldMainLData.horizontalAlignment = GridData.FILL;
 			tabfldMainLData.widthHint = -1;
@@ -605,12 +611,12 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabfldMainLData.grabExcessVerticalSpace = true;
 			tabfldMain.setLayoutData(tabfldMainLData);
 			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(381,511));
-			tabfldMain.addCTabFolder2Listener( new CTabFolder2Adapter() {
+			tabfldMain.addCTabFolder2Listener(new CTabFolder2Adapter() {
 				public void itemClosed(CTabFolderEvent evt) {
 					tabfldMainItemClosed(evt);
 				}
 			});
-			tabfldMain.addSelectionListener( new SelectionAdapter() {
+			tabfldMain.addSelectionListener(new SelectionAdapter() {
 				public void widgetDefaultSelected(SelectionEvent evt) {
 					tabfldMainWidgetDefaultSelected(evt);
 				}

@@ -35,5 +35,9 @@
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/poi-2.5.1-final-20040804.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/poi-contrib-2.5.1-final-20040804.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/poi-scratchpad-2.5.1-final-20040804.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/commons-beanutils-bean-collections.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/commons-beanutils-core.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/commons-logging-api.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
