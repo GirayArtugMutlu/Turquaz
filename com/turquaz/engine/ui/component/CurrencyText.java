@@ -259,6 +259,7 @@ public class CurrencyText extends Composite {
  	if(text.equals("")){
  		return new BigDecimal(0);
  	}
+ 	
  	return new BigDecimal(text);
  	
  	

@@ -54,7 +54,7 @@ public class EngDALSessionFactory {
 			if (EngConfiguration.getString("dbType").startsWith("Turquaz"))
 			{		
 		
-		 //url = "jdbc:hsqldb:hsql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort");
+		// url = "jdbc:hsqldb:hsql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort");
 		
 		 url =  "jdbc:hsqldb:database/turquaz";		
 		driver = "org.hsqldb.jdbcDriver";
