@@ -600,7 +600,12 @@ ALTER TABLE turq_accounting_transactions
 
 INSERT INTO turq_currency_exchange_rates VALUES (-1,'2005-01-01',1,1,1);
 ALTER TABLE public.turq_accounting_transaction_columns ADD CONSTRAINT ex_rate FOREIGN KEY (exchange_rate_id) REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
-ALTER TABLE public.turq_accounting_transactions ADD CONSTRAINT ex_rate FOREIGN KEY (exchange_rate_id) REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+ALTER TABLE public.turq_accounting_transactions ADD CONSTRAINT ex_rate2 FOREIGN KEY (exchange_rate_id) REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+INSERT INTO turq_module_components VALUES (81, 5, 'com.turquaz.admin.ui.AdmUICurrencyAdd', 'Para Birimi Ekle', 'cem', '2005-02-28', 'cem', '2005-02-28');
+INSERT INTO turq_module_components VALUES (82, 5, 'com.turquaz.admin.ui.AdmUICurrencyExchangeRateAdd', 'Para Degisim Orani Ekle', 'cem', '2005-02-28', 'cem', '2005-02-28');
+INSERT INTO turq_module_components VALUES (83, 5, 'com.turquaz.admin.ui.AdmUICurrencyExchangeRateSearch', 'Para Degisim Orani Arama', 'cem', '2005-02-28', 'cem', '2005-02-28');
+
 
 
 ****exchange_rate_id column added to current transactions********
@@ -615,7 +620,7 @@ update turq_current_transactions set exchange_rate_id=-1;
 ALTER TABLE public.turq_current_transactions
    ALTER COLUMN exchange_rate_id SET NOT NULL;
 
-ALTER TABLE public.turq_current_transactions ADD CONSTRAINT ex_rate FOREIGN KEY (exchange_rate_id) REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+ALTER TABLE public.turq_current_transactions ADD CONSTRAINT ex_rate3 FOREIGN KEY (exchange_rate_id) REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 
 ***********************************************************
