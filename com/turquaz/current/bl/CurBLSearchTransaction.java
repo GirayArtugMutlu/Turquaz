@@ -108,6 +108,26 @@ public class CurBLSearchTransaction {
 		
 	
 	}
+	public void deleteCurrentTransaction(TurqCurrentTransaction curTrans)throws Exception{
+		try{
+			
+			//remove accounting transaction rows
+			blAccSearch.removeTransactionRows(curTrans.getTurqAccountingTransaction());
+			//remove accounting transaction
+			dalUpdate.deleteObject(curTrans);
+			
+			dalUpdate.deleteObject(curTrans.getTurqAccountingTransaction());
+			
+			//remove currren transaction
+			
+			
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
 	
 	
 

@@ -98,6 +98,7 @@
 											<LayoutConstraint/>
 										</Constraints>
 										<Events>
+											<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolDeleteWidgetSelected"/>
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Delete"/>

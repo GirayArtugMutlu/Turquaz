@@ -114,6 +114,11 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			toolDelete.setText("Delete");
 			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
 			toolDelete.setImage(toolDeleteimage);
+			toolDelete.addSelectionListener( new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					toolDeleteWidgetSelected(evt);
+				}
+			});
 	
 			GridData compTransactionAddLData = new GridData();
 			compTransactionAddLData.verticalAlignment = GridData.FILL;
@@ -256,12 +261,31 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		
 	}
 	catch(Exception ex){
-		ex.printStackTrace();
-		 msg.setMessage(ex.getMessage());
-		 msg.open();	
+			
 	}
 	
 		
 		
+	}
+
+	/** Auto-generated event handler method */
+	protected void toolDeleteWidgetSelected(SelectionEvent evt){
+	MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+	try{
+	
+	 blSearch.deleteCurrentTransaction(transaction);
+	
+	 msg.setMessage("Succesfully Delete!");
+	 msg.open();
+	 this.dialogShell.close();
+	}
+	catch(Exception ex){
+	ex.printStackTrace();
+		 msg.setMessage(ex.getMessage());
+		 msg.open();
+	}	
+		
+		
+	
 	}
 }

@@ -410,6 +410,7 @@ public class CurUITransactionSearch extends SecureComposite {
 		//nakit hareketi ise izin ver
 		if(trans.getTurqCurrentTransactionType().getCurrentTransactionTypesId().intValue()==4){
 		new CUrUITransactionUpdateDialog(this.getShell(),SWT.NULL,trans).open();
+		search();
 		}
 		else{
 			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
