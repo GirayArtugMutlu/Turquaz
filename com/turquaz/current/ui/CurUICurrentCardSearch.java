@@ -20,6 +20,7 @@ package com.turquaz.current.ui;
 * @version  $Id$
 */
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -301,33 +302,35 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 	}
 
 	
-	public void delete(){
-	try{
-	    TableItem items[]=tableCurrentCardSearch.getSelection();
-	    if(items.length>0){
-	    TurqCurrentCard currentCard = (TurqCurrentCard)items[0].getData();
+	public void delete()
+	{
+		try
+		{
+			TableItem items[]=tableCurrentCardSearch.getSelection();
+			if(items.length>0)
+			{
+	   	 		TurqCurrentCard currentCard = (TurqCurrentCard)items[0].getData();
 	        
-	    MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-		MessageBox msg2 = new MessageBox(this.getShell(),SWT.OK|SWT.CANCEL);
+	   	 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+				MessageBox msg2 = new MessageBox(this.getShell(),SWT.OK|SWT.CANCEL);
 	
-		 msg2.setMessage(Messages.getString("CurUICurrentCardUpdate.21")); //$NON-NLS-1$
-	    int result = msg2.open();
+				msg2.setMessage(Messages.getString("CurUICurrentCardUpdate.21")); //$NON-NLS-1$
+				int result = msg2.open();
 	    
-	    if(result==SWT.OK){	 
+				if(result==SWT.OK)
+				{	 
 			
-			deleteRelations(currentCard);
-			
-			blUpdate.deleteObject(currentCard);
-			
-			 msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
-			 msg.open();
-			
-		 }
-	    
-	    
-	}
-	}
-
+					deleteRelations(currentCard);
+				
+					blUpdate.deleteObject(currentCard);
+				
+					msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
+					msg.open();
+				}
+				search();
+				
+			}
+		}
 	    catch(Exception ex){
 		    MessageBox msg3 = new MessageBox(this.getShell(),SWT.ICON_WARNING);
 			ex.printStackTrace();
@@ -377,9 +380,9 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 			for(int k=0; k<listCurrentCards.size(); k++){
 				TurqCurrentCard aCurrentCard=(TurqCurrentCard)((Object[])listCurrentCards.get(k))[1];
 				TurqViewCurrentAmountTotal currentView=(TurqViewCurrentAmountTotal)((Object[])listCurrentCards.get(k))[0];
-				String totalCredit=(currentView.getTransactionsTotalCredit()==null) ? "0" : currentView.getTransactionsTotalCredit().toString();
-				String totalDept=(currentView.getTransactionsTotalDept()==null) ? "0" : currentView.getTransactionsTotalDept().toString();
-				String balance=(currentView.getTransactionsBalanceNow()== null) ? "0" : currentView.getTransactionsBalanceNow().toString();
+				BigDecimal totalCredit=(currentView.getTransactionsTotalCredit()==null) ? new BigDecimal(0) : currentView.getTransactionsTotalCredit();
+				BigDecimal totalDept=(currentView.getTransactionsTotalDept()==null) ? new BigDecimal(0) : currentView.getTransactionsTotalDept();
+				BigDecimal balance=(currentView.getTransactionsBalanceNow()== null) ? new BigDecimal(0) : currentView.getTransactionsBalanceNow();
 				TableItem item=new TableItem(tableCurrentCardSearch, SWT.NULL);
 				item.setData(aCurrentCard);
  				
