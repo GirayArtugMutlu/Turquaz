@@ -48,7 +48,10 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.SecureComposite;
 
@@ -56,8 +59,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.ui.component.DatePicker;
-import org.eclipse.swt.events.TraverseListener;
-import org.eclipse.swt.events.TraverseEvent;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
@@ -235,10 +236,15 @@ implements SecureComposite{
 				    isCredit=true;
 				}
 				
-				curBLTransAdd.saveCurrentTransaction((TurqCurrentCard)txtCurrentCard.getData(),
+				TurqCurrentTransaction curtrans = curBLTransAdd.saveCurrentTransaction((TurqCurrentCard)txtCurrentCard.getData(),
 					dateTransDate.getDate(),"",isCredit,(isCredit)? credit : dept, //$NON-NLS-1$
 							new BigDecimal(0),EngBLCommon.CURRENT_TRANS_OTHERS,
 							new Integer(-1),txtDefinition.getText());
+				
+				if(EngUICommon.okToDelete(getShell(),Messages.getString("CurUICurrentCardVoucher.4"))) //$NON-NLS-1$
+				{
+				    EngBLUtils.printCurrentTrans(curtrans);
+				}
 				newForm();
 			}
 		}

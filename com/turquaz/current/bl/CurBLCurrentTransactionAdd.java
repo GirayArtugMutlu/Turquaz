@@ -48,7 +48,7 @@ public class CurBLCurrentTransactionAdd {
 	}
 	
 	
-	public void saveCurrentTransaction(TurqCurrentCard curCard,java.util.Date transDate, String documentNo,
+	public TurqCurrentTransaction saveCurrentTransaction(TurqCurrentCard curCard,java.util.Date transDate, String documentNo,
 			boolean isCredit,BigDecimal amount, BigDecimal totalDiscount, int type,Integer seqDocNo,String definition)throws Exception{
 	  
 	    try{
@@ -101,7 +101,7 @@ public class CurBLCurrentTransactionAdd {
 	 		curTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
 	        dalCurrentTrans.saveObject(curTrans);
-			
+			return curTrans;
 			
 		}
 		catch(Exception ex){

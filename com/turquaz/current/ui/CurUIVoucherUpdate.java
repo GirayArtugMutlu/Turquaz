@@ -5,6 +5,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.ui.EngUICommon;
@@ -35,6 +36,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 
 	private Shell dialogShell;
 	private ToolItem toolUpdate;
+	private ToolItem toolPrint;
 	private CurUICurrentCardVoucher compVoucher;
 	private ToolItem toolCancel;
 	private ToolItem toolDelete;
@@ -107,6 +109,18 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
                             dialogShell.close(); 
                             }
                         });
+                }
+                {
+                    toolPrint = new ToolItem(toolBar1, SWT.NONE);
+                    toolPrint.setText(Messages.getString("CurUIVoucherUpdate.3")); //$NON-NLS-1$
+                    toolPrint.setImage(SWTResourceManager.getImage("gfx/print.gif")); //$NON-NLS-1$
+                    toolPrint.addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                            dialogShell.close();
+                            EngBLUtils.printCurrentTrans(curTrans);
+                        
+                        }
+                    });
                 }
             }
             {
