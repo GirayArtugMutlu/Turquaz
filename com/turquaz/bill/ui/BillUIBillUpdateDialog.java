@@ -61,6 +61,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	private TurqBill bill;
 	ConBLUpdateConsignment blUpdateCons = new ConBLUpdateConsignment();
 	BillBLUpdateBill blUpdateBill = new BillBLUpdateBill();
+	private boolean updated=false;
 
 	/**
 	* Auto-generated main method to display this 
@@ -72,7 +73,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 		this.bill = bill;
 	}
 
-	public void open() {
+	public boolean open() {
 		try {
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
@@ -171,8 +172,10 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+			return updated;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return true;
 		}
 	}
 	public void postInitGui(){
@@ -285,7 +288,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	MessageBox msg;
 	try{
 	   if(compAddBill.verifyFields()){
-	       
+	       updated=true;
 	       Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
 			
 	       //update the consignment
@@ -379,6 +382,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 		try{
 			if(msg2.open()==SWT.OK){
 				
+				updated=true;
 				//delete Consignment Group
 				Iterator it = bill.getTurqBillInGroups().iterator();
 				while(it.hasNext()){

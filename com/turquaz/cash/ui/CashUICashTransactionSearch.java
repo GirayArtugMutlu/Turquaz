@@ -1,6 +1,7 @@
 package com.turquaz.cash.ui;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCashTransaction;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -27,6 +29,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.VerifyKeyListener;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.layout.GridData;
@@ -62,6 +65,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	private Text txtCashCard;
 	private Table tableCashTransactions;
 	CashBLCashTransactionSearch blSearch = new CashBLCashTransactionSearch();
+	private Calendar cal=Calendar.getInstance();
 
 	
 
@@ -188,6 +192,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	
 	public void postInitGUI(){
 	    
+		datePickerStart.setDate(new Date(cal.getTime().getYear(),0,1));
 //		  content assistant
 		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(
 				txtCashCard);
@@ -295,7 +300,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	public void tableMouseDoubleClick(){
 	
 	    try{
-	    
+	    	
 	        TableItem selection[] = tableCashTransactions.getSelection();
 	        
 	        if(selection.length>0){
@@ -307,26 +312,25 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	            TurqCashTransaction cashTrans = blSearch.initializeCashTransaction(id);
 	            
 	            
-	            if(cashTrans.getTurqEngineSequence().getTurqModule().getModulesId().intValue()!=EngBLCommon.MODULE_CASH){
-	                
-	                
+	            if(cashTrans.getTurqEngineSequence().getTurqModule().getModulesId().intValue()!=EngBLCommon.MODULE_CASH){	                
+	            	EngUICommon.showMessageBox(this.getShell(),"Sadece cari nakit hareketlerini bu modülden görüntüleyebilirsiniz!");
 	                return;
 	            }
 	            
-	            
+	            boolean updated=false;
 	            if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_CURRENT_COLLECT)
 	            {
-	                new CashUICashCollectTransactionUpdate(this.getShell(),SWT.NULL,cashTrans).open();
+	               updated= new CashUICashCollectTransactionUpdate(this.getShell(),SWT.NULL,cashTrans).open();
 	                
 	            }
 	            else if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_CURRENT_PAYMENT){
 	                
-	                new CashUICashPaymentTransactionUpdate(this.getShell(),SWT.NULL,cashTrans).open();
+	                updated=new CashUICashPaymentTransactionUpdate(this.getShell(),SWT.NULL,cashTrans).open();
 	                
 	                
 	            }
-	            
-	            search();
+	            if (updated)
+	            	search();
 	            
 	            
 	            

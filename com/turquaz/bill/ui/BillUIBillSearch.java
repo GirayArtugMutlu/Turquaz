@@ -412,8 +412,9 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		if(items.length>0){
 		TurqBill bill = (TurqBill)items[0].getData();
 		initializeBill(bill);
-		    new BillUIBillUpdateDialog(this.getShell(),SWT.NULL,bill).open();
-		    search();
+		boolean updated=new BillUIBillUpdateDialog(this.getShell(),SWT.NULL,bill).open();
+		if (updated)
+			search();
 		    
 		    
 		    

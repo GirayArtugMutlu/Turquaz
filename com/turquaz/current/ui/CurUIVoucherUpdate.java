@@ -144,7 +144,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 			return updated;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return true;
 		}
 	}
 	

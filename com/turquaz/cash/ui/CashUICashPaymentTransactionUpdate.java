@@ -49,15 +49,16 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	private ToolItem toolCancel;
 	private ToolBar toolBar1;
 	private CoolBar coolBar1;
-	TurqCashTransaction cashTrans;
-	CashBLCashTransactionUpdate blUpdate = new CashBLCashTransactionUpdate();
+	private TurqCashTransaction cashTrans;
+	private CashBLCashTransactionUpdate blUpdate = new CashBLCashTransactionUpdate();
+	private boolean updated=false;
 
 	public CashUICashPaymentTransactionUpdate(Shell parent, int style,TurqCashTransaction cashTrans) {
 		super(parent, style);
 		this.cashTrans = cashTrans;
 	}
 
-	public void open() {
+	public boolean open() {
 		try {
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
@@ -149,8 +150,10 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+			return updated;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return true;
 		}
 	}
 	
@@ -199,18 +202,21 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	}
 	
 	public void delete(){
-	    try{
+	    try
+		{
 	        MessageBox msg = new MessageBox(this.getParent(),SWT.ICON_QUESTION|SWT.YES|SWT.NO);
 	        msg.setMessage(Messages.getString("CashUICashPaymentTransactionUpdate.7")); //$NON-NLS-1$
 	        int answer = msg.open();
 	        
-	        if(answer == SWT.YES){
-	          blUpdate.deleteCashTrans(cashTrans);
-	          MessageBox msg2 = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
-	          msg2.setMessage(Messages.getString("CashUICashPaymentTransactionUpdate.8")); //$NON-NLS-1$
-	          msg2.open();          
+	        if(answer == SWT.YES)
+	        {
+	        	updated=true;
+	        	blUpdate.deleteCashTrans(cashTrans);
+	        	MessageBox msg2 = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
+	        	msg2.setMessage(Messages.getString("CashUICashPaymentTransactionUpdate.8")); //$NON-NLS-1$
+	        	msg2.open();          
 	          
-	          dialogShell.close();
+	        	dialogShell.close();
 	        }
 	        
 	        
@@ -224,19 +230,21 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	public void update(){
 	    try{
 	        MessageBox msg = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
-	        if(compTransAdd.verifyFields()){
-	        
-	        blUpdate.updateCashTrans(cashTrans,(TurqCashCard)compTransAdd.getTxtCashCard().getData(),
+	        if(compTransAdd.verifyFields())
+	        {
+	        	updated=true;
+	        	blUpdate.updateCashTrans(cashTrans,(TurqCashCard)compTransAdd.getTxtCashCard().getData(),
 	                                (TurqCurrentCard)compTransAdd.getTxtCurrentAccount().getData(),
 	                                compTransAdd.getCurTextTotalAmount().getBigDecimalValue(),
 	                                compTransAdd.getDatePicker().getDate(),
 	                                compTransAdd.getTxtDefinition().getText(),
 	                                compTransAdd.getTxtDocumentNo().getText());
-	        }
-	        msg.setText(Messages.getString("CashUICashPaymentTransactionUpdate.9")); //$NON-NLS-1$
-	        msg.open();
 	        
-	        dialogShell.close();
+	        	msg.setText(Messages.getString("CashUICashPaymentTransactionUpdate.9")); //$NON-NLS-1$
+	        	msg.open();
+	        
+	        	dialogShell.close();
+	        }
 	        
 	    }
 	    catch(Exception ex){

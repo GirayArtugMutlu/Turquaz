@@ -79,6 +79,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	private ToolBar toolBar1;
 	private CoolItem coolItem1;
 	private CoolBar coolBar1;
+	private boolean updated=false;
 
 	public BankUIBankCardUpdate(Shell parent, int style,TurqBanksCard bc) {
 		super(parent, style);
@@ -89,7 +90,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	* Opens the Dialog Shell.
 	* Auto-generated code - any changes you make will disappear.
 	*/
-	public void open(){
+	public boolean open(){
 		try {
 			preInitGUI();
 	
@@ -202,8 +203,10 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+			return updated;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return true;
 		}
 	}
 	/** Add your pre-init code in here 	*/
@@ -268,6 +271,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 	private void update(){
 		try{
+			updated=true;
 			bankBLBankCardUpdate.updateBankCard(compBankCard.getTxtBankName().getText(),
 											compBankCard.getTxtBankBranchName().getText(),
 											compBankCard.getTxtBankAccountNo().getText(),
@@ -294,6 +298,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 	private void delete(){
 		try{
+			updated=true;
 			bankBLBankCardUpdate.deleteObject(bankCard);
 			this.dialogShell.close();
 		}

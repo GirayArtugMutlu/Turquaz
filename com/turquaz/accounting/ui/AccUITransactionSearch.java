@@ -458,8 +458,9 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
     
     int type =accTrans.getTurqAccountingTransactionType().getAccountingTransactionTypesId().intValue();
     if(type==2){
-    new AccUITransactionUpdateDialog(this.getShell(),SWT.NULL,accTrans).open();
-    search();
+    boolean updated=new AccUITransactionUpdateDialog(this.getShell(),SWT.NULL,accTrans).open();
+    if (updated)
+    	search();
     
     }
     else if(type==1){

@@ -385,8 +385,9 @@ public class BankUIBankCardSearch extends  Composite implements SearchComposite 
 		if(selection.length>0){
 	
 			TurqBanksCard card = (TurqBanksCard)selection[0].getData();
-			new BankUIBankCardUpdate(this.getShell(),SWT.NULL,card).open();
-		search();
+			boolean updated=new BankUIBankCardUpdate(this.getShell(),SWT.NULL,card).open();
+			if (updated)
+				search();
 		}
 	}
 	public void printTable(){

@@ -221,7 +221,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					tableColumnDocNo = new TableColumn(
 						tableCurrentTransactions,
 						SWT.NONE);
-					tableColumnDocNo.setText("Belge No");
+					tableColumnDocNo.setText(Messages.getString("CurUITransactionSearch.2")); //$NON-NLS-1$
 					tableColumnDocNo.setWidth(80);
 				}
 				{
@@ -311,7 +311,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	
 	List results =blSearch.searchCurrentTransaction(txtCurCard.getData(),
 									 comboTransactionGroup.getData(comboTransactionGroup.getText()),
-									 "",dateStartDate.getDate(),dateEndDate.getDate());
+									 "",dateStartDate.getDate(),dateEndDate.getDate()); //$NON-NLS-1$
 	
 	TurqCurrentTransaction transaction;
 	TableItem item;
@@ -366,7 +366,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 		}
 		else{
 			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-			msg.setMessage(Messages.getString("CurUITransactionSearch.10")); //$NON-NLS-1$
+			msg.setMessage(Messages.getString("CurUITransactionSearch.11"));  //$NON-NLS-1$
 			msg.open();
 		}
 		}
@@ -377,7 +377,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 		
 	}
 	public void printTable(){
-	    EngBLUtils.printTable(tableCurrentTransactions,"Cari Hareketler");
+	    EngBLUtils.printTable(tableCurrentTransactions,Messages.getString("CurUITransactionSearch.12")); //$NON-NLS-1$
 	    
 	}
 }

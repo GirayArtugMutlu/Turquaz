@@ -51,9 +51,10 @@ public class CashUICashCollectTransactionUpdate extends Dialog {
 	private ToolItem toolCancel;
 	private ToolBar toolBar1;
 
-	CashBLCashTransactionUpdate  blUpdate = new CashBLCashTransactionUpdate();
+	private CashBLCashTransactionUpdate  blUpdate = new CashBLCashTransactionUpdate();
 	
-    TurqCashTransaction cashTrans ;  
+    private	TurqCashTransaction cashTrans ;  
+    private boolean updated=false;
 
 	public CashUICashCollectTransactionUpdate(Shell parent, int style, TurqCashTransaction cashTrans) {
 		super(parent, style);
@@ -61,7 +62,7 @@ public class CashUICashCollectTransactionUpdate extends Dialog {
 		
 	}
 
-	public void open() {
+	public boolean open() {
 		try {
 		    Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
@@ -143,8 +144,10 @@ public class CashUICashCollectTransactionUpdate extends Dialog {
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+			return updated;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return true;
 		}
 	}
 	
@@ -193,22 +196,21 @@ public class CashUICashCollectTransactionUpdate extends Dialog {
 	    
 	}
 	public void delete(){
-	    try{
+	    try
+		{
 	        MessageBox msg = new MessageBox(this.getParent(),SWT.ICON_QUESTION|SWT.YES|SWT.NO);
 	        msg.setMessage(Messages.getString("CashUICashCollectTransactionUpdate.1")); //$NON-NLS-1$
 	        int answer = msg.open();
 	        
-	        if(answer == SWT.YES){
-	          blUpdate.deleteCashTrans(cashTrans);
-	          MessageBox msg2 = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
-	          msg2.setMessage(Messages.getString("CashUICashCollectTransactionUpdate.3")); //$NON-NLS-1$
-	          msg2.open();          
-	          
-	          dialogShell.close();
-	        }
-	        
-	        
-	        
+	        if(answer == SWT.YES)
+	        {
+	        	updated=true;
+	        	blUpdate.deleteCashTrans(cashTrans);
+	         	MessageBox msg2 = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
+	         	msg2.setMessage(Messages.getString("CashUICashCollectTransactionUpdate.3")); //$NON-NLS-1$
+	         	msg2.open();         
+	         	dialogShell.close();
+	        }	        
 	    }
 	    catch(Exception ex){
 	        ex.printStackTrace();
@@ -219,7 +221,7 @@ public class CashUICashCollectTransactionUpdate extends Dialog {
 	    try{
 	        MessageBox msg = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
 	        if(compTransAdd.verifyFields()){
-	        
+	        updated=true;
 	        blUpdate.updateCashTrans(cashTrans,(TurqCashCard)compTransAdd.getTxtCashCard().getData(),
 	                                (TurqCurrentCard)compTransAdd.getTxtCurrentAccount().getData(),
 	                                compTransAdd.getCurTextTotalAmount().getBigDecimalValue(),

@@ -266,6 +266,7 @@ private boolean verifyfields()
 			txtBankName.setText(""); //$NON-NLS-1$
 			txtBankBranchName.setText(""); //$NON-NLS-1$
 			txtBankAccountNo.setText(""); //$NON-NLS-1$
+			txtDefinition.setText("");
 			comboCurrency.setText(Messages.getString("BankUIBankCardAdd.15")); //$NON-NLS-1$
 		}
 		catch(Exception ex){

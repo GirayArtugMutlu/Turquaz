@@ -210,7 +210,7 @@ public class InvUICardUpdateDialog extends Dialog{
 			return updated;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return true;
 		}
 	}
 /** Add your pre-init code in here 	*/

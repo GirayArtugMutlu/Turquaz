@@ -271,7 +271,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			return updated;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return true;
 		}
 	}
 /** Add your pre-init code in here 	*/

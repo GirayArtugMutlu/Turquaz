@@ -457,8 +457,9 @@ SearchComposite{
 		        ex.printStackTrace();
 		    }
 		    if(cons.getTurqBillConsignmentCommon().getTurqBills().isEmpty()){
-		        new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
-		        search();
+		        boolean updated=new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
+		        if (updated)
+		        	search();
 		    }
 		    else{
 		       MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_INFORMATION);

@@ -74,6 +74,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private CoolBar coolBar1;
 	private Shell dialogShell;
 	private AccBLTransactionUpdate blTransUpdate = new AccBLTransactionUpdate();
+	private boolean updated=false;
 
     private TurqAccountingTransaction accTrans;
 	public AccUITransactionUpdateDialog(Shell parent, int style,TurqAccountingTransaction trans) {
@@ -85,7 +86,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	* Opens the Dialog Shell.
 	* Auto-generated code - any changes you make will disappear.
 	*/
-	public void open(){
+	public boolean open(){
 		try {
 			preInitGUI();
 	
@@ -204,8 +205,10 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+			return updated;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return true;
 		}
 	}
 public void showDialog(TurqAccountingTransaction accTrans){
@@ -294,20 +297,24 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	protected void toolUpdateWidgetSelected(SelectionEvent evt){
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 		
-		try{
+		try
+		{
 
-		 if(compTransactionAdd.verifyFields()){
-		 blTransUpdate.updateTransaction(accTrans,compTransactionAdd.getTxtDocumentNo().getText().trim(),
+			if(compTransactionAdd.verifyFields())
+			{
+				updated=true;
+			 blTransUpdate.updateTransaction(accTrans,compTransactionAdd.getTxtDocumentNo().getText().trim(),
 										compTransactionAdd.getDateTransactionDate().getData(),compTransactionAdd.getTxtTransDefinition().getText().trim());
-		 updateTransactionRows();
-		 msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$
-		 msg.open();
-		 }	
+			 updateTransactionRows();
+			 msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$
+			 msg.open();
+			}	
 		}
-		catch(Exception ex){
-		ex.printStackTrace();
-		msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.3")); //$NON-NLS-1$
-		 msg.open();
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.3")); //$NON-NLS-1$
+			 msg.open();
 		}
 		
 		
@@ -358,7 +365,7 @@ public void showDialog(TurqAccountingTransaction accTrans){
 		int answer = msg2.open();
 		if(answer ==SWT.YES){
 		try{
-		
+		updated=true;
 		deleteTransactionRows();
 		blTransUpdate.delete(accTrans);
 		msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.5")); //$NON-NLS-1$
