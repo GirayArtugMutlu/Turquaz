@@ -297,6 +297,8 @@ public class InvBLCardAdd
 			invTrans.setLastModified(cal.getTime());
 			invTrans.setCreationDate(cal.getTime());	
 			
+			invTrans.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+			
 			EngDALCommon.saveObject(session,invTrans);
 			
 			

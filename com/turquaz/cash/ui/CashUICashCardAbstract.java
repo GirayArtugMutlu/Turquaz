@@ -365,8 +365,16 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 						cf.format(total_dept), cf.format(total_credit)},null);
 				tableViewer.addRow(new String[]{"","","", Messages.getString("CashUICashCardAbstract.21"), //$NON-NLS-1$
 						cf.format(deferred_dept), cf.format(deferred_credit)},null);
+				
+				BigDecimal finalDept=deferred_dept.add(total_dept);
+				BigDecimal finalCredit=deferred_credit.add(total_credit);
 				tableViewer.addRow(new String[]{"","","", Messages.getString("CashUICashCardAbstract.24"), //$NON-NLS-1$
-						cf.format(deferred_dept.add(total_dept)), cf.format(deferred_credit.add(total_credit))},null);
+						cf.format(finalDept), cf.format(finalCredit)},null);
+				BigDecimal finalBalance=finalCredit.subtract(finalDept);
+				if (finalBalance.doubleValue()>0)
+					tableViewer.addRow(new String[]{"","","",Messages.getString("CashUICashCardDailyAbstract.16"),"",cf.format(finalBalance)},null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				else
+					tableViewer.addRow(new String[]{"","","",Messages.getString("CashUICashCardDailyAbstract.20"),cf.format(finalBalance.abs()),""},null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				GenerateJasper(ls, deferred);
 			}
 		}

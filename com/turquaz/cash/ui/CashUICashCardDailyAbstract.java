@@ -318,13 +318,21 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 					total_dept = total_dept.add(dept);
 					total_credit = total_credit.add(credit);
 				}
-				tableViewer.addRow(new String[]{"","","","",""},null);
-				tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardAbstract.18"), //$NON-NLS-1$
+				tableViewer.addRow(new String[]{"","","","",""},null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+				tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardAbstract.18"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						cf.format(total_dept), cf.format(total_credit)},null);
-				tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardAbstract.21"), //$NON-NLS-1$
+				tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardAbstract.21"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						cf.format(deferred_dept), cf.format(deferred_credit)},null);
-				tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardAbstract.24"), //$NON-NLS-1$
-						cf.format(deferred_dept.add(total_dept)), cf.format(deferred_credit.add(total_credit))},null);
+				
+				BigDecimal finalDept=deferred_dept.add(total_dept);
+				BigDecimal finalCredit=deferred_credit.add(total_credit);
+				tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardAbstract.24"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						cf.format(finalDept), cf.format(finalCredit)},null);
+				BigDecimal finalBalance=finalCredit.subtract(finalDept);
+				if (finalBalance.doubleValue()>0)
+					tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardDailyAbstract.16"),"",cf.format(finalBalance)},null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				else
+					tableViewer.addRow(new String[]{"","",Messages.getString("CashUICashCardDailyAbstract.20"),cf.format(finalBalance.abs()),""},null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			}
 			catch (Exception ex)
 			{

@@ -326,6 +326,9 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
+			DatabaseThread thread = new DatabaseThread();
+			thread.start();
+			
 			FileInputStream input = new FileInputStream("config/turquaz.properties"); //$NON-NLS-1$
 			Properties props = new Properties();
 			props.load(input);
