@@ -43,8 +43,6 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.widgets.CoolBar;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Group;
@@ -67,36 +65,24 @@ import org.eclipse.swt.widgets.TableItem;
  * *************************************
  */
 public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
-	private Table tableAccBalance;
-
-	private Group groupAccountBalance;
-
-	private ToolItem toolDelete;
-
-	private ToolItem toolUpdate;
-
-	private ToolBar toolbarAccountUpdate;
-
-	private CoolItem coolItem1;
-
-	private CoolBar coolBar1;
-
-	private AccUIAddAccounts compAccountCard;
 
 	private Shell dialogShell;
 
 	private TurqAccountingAccount account;
-
 	private TableColumn tableColCredit;
 	private ToolItem toolCancel;
-
+	private ToolItem toolDelete;
+	private ToolItem toolUpdate;
+	private ToolBar toolBarTop;
+	private CoolItem coolTop;
+	private CoolBar coolBarTop;
 	private TableItem tableItemBalance;
-
 	private TableItem tableItemTotal;
-
 	private TableColumn tableColumnDebit;
-
 	private TableColumn tableColDefinition;
+	private Table tableAccBalance;
+	private Group groupAccountBalance;
+	private AccUIAddAccounts compAccountCard;
 
 	AccBLAccountUpdate blAccount = new AccBLAccountUpdate();
 
@@ -124,78 +110,95 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			}
 
 			dialogShell.setText(getText());
-			coolBar1 = new CoolBar(dialogShell, SWT.NULL);
-			coolItem1 = new CoolItem(coolBar1, SWT.NULL);
-			toolbarAccountUpdate = new ToolBar(coolBar1, SWT.NULL);
-			toolUpdate = new ToolItem(toolbarAccountUpdate, SWT.NULL);
-			toolDelete = new ToolItem(toolbarAccountUpdate, SWT.NULL);
-			compAccountCard = new AccUIAddAccounts(dialogShell, SWT.NULL);
 
 			dialogShell.setSize(487, 336);
 
-			GridData coolBar1LData = new GridData();
-			coolBar1LData.verticalAlignment = GridData.CENTER;
-			coolBar1LData.horizontalAlignment = GridData.FILL;
-			coolBar1LData.widthHint = -1;
-			coolBar1LData.heightHint = -1;
-			coolBar1LData.horizontalIndent = 0;
-			coolBar1LData.horizontalSpan = 1;
-			coolBar1LData.verticalSpan = 1;
-			coolBar1LData.grabExcessHorizontalSpace = false;
-			coolBar1LData.grabExcessVerticalSpace = false;
-			coolBar1.setLayoutData(coolBar1LData);
 
-			coolItem1.setControl(toolbarAccountUpdate);
-			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88,
-					38));
-			coolItem1
-					.setMinimumSize(new org.eclipse.swt.graphics.Point(88, 38));
-
-			toolUpdate.setText(Messages.getString("AccUIAccountUpdate.0")); //$NON-NLS-1$
-			toolUpdate.setToolTipText(Messages
-					.getString("AccUIAccountUpdate.0")); //$NON-NLS-1$
-			toolUpdate.setImage(SWTResourceManager
-					.getImage("icons/save_edit.gif")); //$NON-NLS-1$
-			toolUpdate.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					toolUpdateWidgetSelected(evt);
-				}
-			});
-
-			toolDelete.setText(Messages.getString("AccUIAccountUpdate.3")); //$NON-NLS-1$
-			toolDelete.setToolTipText(Messages
-					.getString("AccUIAccountUpdate.3")); //$NON-NLS-1$
-			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
+			GridLayout dialogShellLayout = new GridLayout(1, true);
+			
+			dialogShellLayout.marginWidth = 5;
+			dialogShellLayout.marginHeight = 5;
+			dialogShellLayout.numColumns = 1;
+			dialogShellLayout.makeColumnsEqualWidth = true;
+			dialogShellLayout.horizontalSpacing = 5;
+			dialogShellLayout.verticalSpacing = 5;
+			dialogShell.setLayout(dialogShellLayout);
 			{
-				toolCancel = new ToolItem(toolbarAccountUpdate, SWT.NONE);
-				toolCancel.setText(Messages.getString("AccUIAccountUpdate.6")); //$NON-NLS-1$
-				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
-				toolCancel.addSelectionListener(new SelectionAdapter() {
-					public void widgetSelected(SelectionEvent evt) {
-						dialogShell.close();
+				coolBarTop = new CoolBar(dialogShell, SWT.NONE);
+				GridData coolBarTopLData = new GridData();
+				coolBarTopLData.horizontalAlignment = GridData.FILL;
+				coolBarTopLData.heightHint = 52;
+				coolBarTopLData.grabExcessHorizontalSpace = true;
+				coolBarTop.setLayoutData(coolBarTopLData);
+				{
+					coolTop = new CoolItem(coolBarTop, SWT.DROP_DOWN);
+					coolTop.setSize(172, 49);
+					coolTop
+						.setPreferredSize(new org.eclipse.swt.graphics.Point(
+							172,
+							49));
+					coolTop.setMinimumSize(new org.eclipse.swt.graphics.Point(
+						172,
+						49));
+					{
+						toolBarTop = new ToolBar(coolBarTop, SWT.SHADOW_OUT);
+						coolTop.setControl(toolBarTop);
+						{
+							toolUpdate = new ToolItem(toolBarTop, SWT.NONE);
+							toolUpdate.setEnabled(true);
+							toolUpdate.setText(Messages.getString("AccUIAccountUpdate.0")); //$NON-NLS-1$
+							toolUpdate.setImage(SWTResourceManager
+								.getImage("icons/save_edit.gif")); //$NON-NLS-1$
+							toolUpdate
+								.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(
+										SelectionEvent evt) {
+										toolUpdateWidgetSelected(evt);
+									}
+								});
+						}
+						{
+							toolDelete = new ToolItem(toolBarTop, SWT.NONE);
+							toolDelete.setEnabled(true);
+							toolDelete.setText(Messages.getString("AccUIAccountUpdate.6")); //$NON-NLS-1$
+							
+							toolDelete.setImage(SWTResourceManager
+								.getImage("icons/Delete16.gif")); //$NON-NLS-1$
+							toolDelete
+								.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(
+										SelectionEvent evt) {
+										toolDeleteWidgetSelected(evt);
+									}
+								});
+						}
+						{
+							toolCancel = new ToolItem(toolBarTop, SWT.NONE);
+							toolCancel.setText(Messages.getString("AccUIAccountUpdate.10")); //$NON-NLS-1$
+							toolCancel.setImage(SWTResourceManager
+								.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+							toolCancel
+								.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(
+										SelectionEvent evt) {
+										dialogShell.close();
+									}
+								});
+						}
 					}
-				});
-			}
-			toolDelete.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					toolDeleteWidgetSelected(evt);
 				}
-			});
-
-			GridData compAccountCardLData = new GridData();
-			compAccountCardLData.verticalAlignment = GridData.CENTER;
-			compAccountCardLData.horizontalAlignment = GridData.BEGINNING;
-			compAccountCardLData.widthHint = 452;
-			compAccountCardLData.heightHint = 116;
-			compAccountCardLData.horizontalIndent = 0;
-			compAccountCardLData.horizontalSpan = 1;
-			compAccountCardLData.verticalSpan = 1;
-			compAccountCardLData.grabExcessHorizontalSpace = false;
-			compAccountCardLData.grabExcessVerticalSpace = false;
-			compAccountCard.setLayoutData(compAccountCardLData);
-			compAccountCard
-					.setSize(new org.eclipse.swt.graphics.Point(452, 116));
-			compAccountCard.getTxtParentAccount().setBounds(101, 92, 234, 23);
+			}
+			{
+				compAccountCard = new AccUIAddAccounts(dialogShell, SWT.NONE);
+				GridData compAccountCardLData = new GridData();
+				compAccountCardLData.widthHint = 453;
+				compAccountCardLData.heightHint = 139;
+				compAccountCard.setLayoutData(compAccountCardLData);
+				compAccountCard.getTxtParentAccount().setBounds(101, 92, 234, 23);
+				compAccountCard.getTxtParentAccount().setSize(250, 14);
+				compAccountCard.getTxtAccAcountName().setBounds(101, 98, 256, 20);
+				compAccountCard.getTxtAccAccountCode().setSize(250, 14);
+			}
 			{
 				groupAccountBalance = new Group(dialogShell, SWT.NONE);
 				GridLayout groupAccountBalanceLayout = new GridLayout();
@@ -206,9 +209,10 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 				groupAccountBalanceLData.grabExcessVerticalSpace = true;
 				groupAccountBalance.setLayoutData(groupAccountBalanceLData);
 				groupAccountBalance.setText(Messages
-						.getString("AccUIAccountUpdate.7")); //$NON-NLS-1$
+					.getString("AccUIAccountUpdate.7")); //$NON-NLS-1$
 				groupAccountBalance.setSize(new org.eclipse.swt.graphics.Point(
-						471, 111));
+					471,
+					111));
 				groupAccountBalance.setLayout(groupAccountBalanceLayout);
 				{
 					tableAccBalance = new Table(groupAccountBalance, SWT.NONE);
@@ -221,48 +225,47 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 					tableAccBalanceLData.grabExcessVerticalSpace = true;
 					tableAccBalance.setLayoutData(tableAccBalanceLData);
 					{
-						tableColDefinition = new TableColumn(tableAccBalance,
-								SWT.NONE);
+						tableColDefinition = new TableColumn(
+							tableAccBalance,
+							SWT.NONE);
 						tableColDefinition.setWidth(61);
 					}
 					{
-						tableColumnDebit = new TableColumn(tableAccBalance,
-								SWT.NONE);
-						tableColumnDebit.setText(Messages.getString("AccUIAccountUpdate.1")); //$NON-NLS-1$
+						tableColumnDebit = new TableColumn(
+							tableAccBalance,
+							SWT.NONE);
+						tableColumnDebit.setText(Messages
+							.getString("AccUIAccountUpdate.1")); //$NON-NLS-1$
 						tableColumnDebit.setWidth(80);
 					}
 					{
-						tableColCredit = new TableColumn(tableAccBalance,
-								SWT.NONE);
-						tableColCredit.setText(Messages.getString("AccUIAccountUpdate.2")); //$NON-NLS-1$
+						tableColCredit = new TableColumn(
+							tableAccBalance,
+							SWT.NONE);
+						tableColCredit.setText(Messages
+							.getString("AccUIAccountUpdate.2")); //$NON-NLS-1$
 						tableColCredit.setWidth(80);
 					}
 					{
-						tableItemTotal = new TableItem(tableAccBalance,
-								SWT.NONE);
-
+						tableItemTotal = new TableItem(
+							tableAccBalance,
+							SWT.NONE);
+						
 					}
 					{
-						tableItemBalance = new TableItem(tableAccBalance,
-								SWT.NONE);
+						tableItemBalance = new TableItem(
+							tableAccBalance,
+							SWT.NONE);
+						
 					}
 				}
 				groupAccountBalance.layout();
 			}
-			compAccountCard.layout();
 
-			GridLayout dialogShellLayout = new GridLayout(1, true);
-			dialogShell.setLayout(dialogShellLayout);
-			dialogShellLayout.marginWidth = 5;
-			dialogShellLayout.marginHeight = 5;
-			dialogShellLayout.numColumns = 1;
-			dialogShellLayout.makeColumnsEqualWidth = true;
-			dialogShellLayout.horizontalSpacing = 5;
-			dialogShellLayout.verticalSpacing = 5;
 			dialogShell.layout();
 			
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 487, 301);
-			dialogShell.setSize(bounds.width, bounds.height);
+			//dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
@@ -296,10 +299,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 
 		compAccountCard.getTxtParentAccount().setText(
 				account.getTurqAccountingAccountByParentAccount().getAccountCode());
-		compAccountCard.getTxtAccAccountCode()
-				.setText(account.getAccountCode());
-		compAccountCard.getTxtAccAcountName().setText(account.getAccountName());
-		
+
 		fillBalances();
 
 		Point parentLocation = this.getParent().getLocation();
