@@ -61,6 +61,9 @@ public class EngBLCommon {
     
     public final static int CASH_OTHER_PAYMENT = 3; // Kasa Diger Ödeme
     
+    public final static int CASH_TRANSFER_BETWEEN_CARDS = 4; // Virman
+    
+    
     
     
     

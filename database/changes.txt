@@ -339,9 +339,32 @@ WHERE cheqroll_inner.cheque_rolls_id = roll_inner.cheque_rolls_id AND cheqroll_i
 *******************New Default Values ***********************************
 INSERT INTO turq_module_components VALUES (77, 8, 'com.turquaz.cash.ui.CashUICashOtherCollectTransaction', 'Kasa Diger Tahsilat', 'admin', '2004-10-18', 'admin', '2004-10-18');
 INSERT INTO turq_module_components VALUES (78, 8, 'com.turquaz.cash.ui.CashUICashOtherPaymentTransaction', 'Kasa Diger Odeme', 'admin', '2004-10-18', 'admin', '2004-10-18');
+INSERT INTO turq_module_components VALUES (79, 8, 'com.turquaz.cash.ui.CashUICashTransferBetweenCards', 'Kasa Virman', 'admin', '2004-10-18', 'admin', '2004-10-18');
+
 INSERT INTO turq_cash_transaction_types VALUES (2, 'Diger Tahsilat', 'admin', '2004-12-12', 'admin', '2004-12-12');
 INSERT INTO turq_cash_transaction_types VALUES (3, 'Diger Odeme', 'admin', '2004-12-12', 'admin', '2004-12-12');
+INSERT INTO turq_cash_transaction_types VALUES (4, 'Virman', 'admin', '2004-12-12', 'admin', '2004-12-12');
 
 ******************************************************************************
+
+
+**********21-02-2005************************
+
+----- Cash Card Transaction Tables Changed ---
+
+ALTER TABLE turq_cash_transaction_rows ADD COLUMN cash_cards_id int4;
+ALTER TABLE turq_cash_transaction_rows ADD CONSTRAINT row_to_card FOREIGN KEY (cash_cards_id) REFERENCES turq_cash_cards (cash_cards_id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+update turq_cash_transaction_rows set cash_cards_id = turq_cash_transactions.cash_cards_id 
+where cash_transactions_id = turq_cash_transactions.cash_transactions_id;
+
+ALTER TABLE turq_cash_transaction_rows ALTER COLUMN cash_cards_id SET NOT NULL;
+ALTER TABLE turq_cash_transactions DROP COLUMN cash_cards_id;
+   
+*******************************************************************   
+
+
+
+
 
 
