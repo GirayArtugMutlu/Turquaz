@@ -165,7 +165,7 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
                     toolItemAddOwn.setImage(SWTResourceManager.getImage("icons/plus.gif")); //$NON-NLS-1$
                     toolItemAddOwn.addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
-                            addCheque();
+                            addOwnCheque();
                             
                         }
                     });
@@ -347,12 +347,12 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
     
     
     }    
-    public void addCheque(){
+    public void addOwnCheque(){
         TableItem item;
         /**
          * TODO add dialog
          */
-        TurqChequeCheque cheque = null;
+        TurqChequeCheque cheque = new CheUIOwnChequeAddDialog(getShell(),SWT.NULL).open();
         if(cheque!=null){
             item = new TableItem(tableCheques,SWT.NULL);
             item.setData(cheque);

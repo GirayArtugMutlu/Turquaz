@@ -61,6 +61,7 @@ public class InvDALCardSearch {
 					query +="and :invGroup in (Select myGroup.turqInventoryGroup From invCard.turqInventoryCardGroups as myGroup)" ;
 					
 				}
+				query += " order by invCard.cardInventoryCode";
 				   
 				Query q = session.createQuery(query); 
 				if(invGroup!=null){
