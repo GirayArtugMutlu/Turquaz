@@ -21,22 +21,25 @@ package com.turquaz.current.ui;
 */
 import java.util.List;
 
+import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
+import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Text;
 
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLSearchTransaction;
+import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 
 import org.eclipse.swt.widgets.MessageBox;
@@ -45,10 +48,14 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.SWT;
 
+import org.eclipse.swt.widgets.Text;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -68,9 +75,10 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	private CurBLSearchTransaction blSearch = new CurBLSearchTransaction();
 	private CurBLCurrentTransactionAdd blTransAdd = new CurBLCurrentTransactionAdd();
 	private CLabel lblCurrentCard;
-	private CCombo comboCurrentCards;
 	private CLabel lblTransactionGroup;
 	private Table tableCurrentTransactions;
+	private Text txtCurCard;
+	private TableColumn tableColumnDocNo;
 	private TableColumn tableColumnTransDate;
 	private TableColumn tableColumnCredit;
 	private TableColumn tableColumnDebit;
@@ -80,8 +88,6 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	private CLabel lblEndDate;
 	private DatePicker dateStartDate;
 	private CLabel lblStartDate;
-	private Text txtDocumentNo;
-	private CLabel lblDocumentNo;
 	private CCombo comboTransactionGroup;
 	private Composite composite1;
 	public CurUITransactionSearch(Composite parent, int style) {
@@ -105,11 +111,10 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				composite1 = new Composite(this, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
 				composite1Layout.numColumns = 4;
-				composite1.setSize(new org.eclipse.swt.graphics.Point(554, 94));
 				GridData composite1LData = new GridData();
 				composite1.setLayout(composite1Layout);
 				composite1LData.horizontalAlignment = GridData.FILL;
-				composite1LData.heightHint = 94;
+				composite1LData.heightHint = 76;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1.setLayoutData(composite1LData);
 				{
@@ -124,13 +129,22 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					lblCurrentCard.setLayoutData(lblCurrentCardLData);
 				}
 				{
-					comboCurrentCards = new CCombo(composite1, SWT.NONE);
-					comboCurrentCards
-						.setSize(new org.eclipse.swt.graphics.Point(115, 18));
-					GridData comboCurrentCardsLData = new GridData();
-					comboCurrentCardsLData.widthHint = 93;
-					comboCurrentCardsLData.heightHint = 18;
-					comboCurrentCards.setLayoutData(comboCurrentCardsLData);
+					txtCurCard = new Text(composite1, SWT.NONE);
+					GridData txtCurCardLData = new GridData();
+					txtCurCardLData.widthHint = 174;
+					txtCurCardLData.heightHint = 20;
+					txtCurCard.setLayoutData(txtCurCardLData);
+					txtCurCard.addModifyListener(new ModifyListener() {
+						public void modifyText(ModifyEvent evt) {
+						    try{
+	                             txtCurCard.setData( EngBLCurrentCards.getCards(txtCurCard.getText().trim()));
+	                                                 
+	                           }
+	                           catch(Exception ex){
+	                               ex.printStackTrace();
+	                           }
+						}
+					});
 				}
 				{
 					lblTransactionGroup = new CLabel(composite1, SWT.NONE);
@@ -150,28 +164,6 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					comboTransactionGroupLData.widthHint = 95;
 					comboTransactionGroupLData.heightHint = 17;
 					comboTransactionGroup.setLayoutData(comboTransactionGroupLData);
-				}
-				{
-					lblDocumentNo = new CLabel(composite1, SWT.NONE);
-					lblDocumentNo.setText(Messages.getString("CurUITransactionSearch.2")); //$NON-NLS-1$
-					lblDocumentNo.setSize(new org.eclipse.swt.graphics.Point(
-						80,
-						19));
-					GridData lblDocumentNoLData = new GridData();
-					lblDocumentNoLData.widthHint = 80;
-					lblDocumentNoLData.heightHint = 19;
-					lblDocumentNo.setLayoutData(lblDocumentNoLData);
-				}
-				{
-					txtDocumentNo = new Text(composite1, SWT.NONE);
-					txtDocumentNo.setSize(new org.eclipse.swt.graphics.Point(
-						132,
-						17));
-					GridData txtDocumentNoLData = new GridData();
-					txtDocumentNoLData.widthHint = 126;
-					txtDocumentNoLData.heightHint = 17;
-					txtDocumentNoLData.horizontalSpan = 3;
-					txtDocumentNo.setLayoutData(txtDocumentNoLData);
 				}
 				{
 					lblStartDate = new CLabel(composite1, SWT.NONE);
@@ -233,6 +225,13 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					tableColumnTransDate.setWidth(100);
 				}
 				{
+					tableColumnDocNo = new TableColumn(
+						tableCurrentTransactions,
+						SWT.NONE);
+					tableColumnDocNo.setText("Belge No");
+					tableColumnDocNo.setWidth(80);
+				}
+				{
 					tableColumnCurrentCode = new TableColumn(
 						tableCurrentTransactions,
 						SWT.NONE);
@@ -260,7 +259,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					tableColumnCredit.setText(Messages.getString("CurUITransactionSearch.8")); //$NON-NLS-1$
 					tableColumnCredit.setWidth(101);
 				}
-			
+
 			}
 			thisLayout.marginWidth = 5;
 			thisLayout.marginHeight = 5;
@@ -282,34 +281,32 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
 	
-	fillComboCurrentCard();
 	fillComboTypes();
 	
-	}
-	public void fillComboCurrentCard(){
-	try{
-	List list = blTransAdd.getCurrentCards();
-	TurqCurrentCard curCard ;	
-	for(int i =0;i<list.size();i++){
+//	Content Assistant for Current Code
+	/****************************************************/
+	  TextContentAssistSubjectAdapter adapterCurrent = new TextContentAssistSubjectAdapter(txtCurCard);
+	
+	 final SubjectControlContentAssistant asistantCurrent= new TurquazContentAssistant(adapterCurrent,3);
+	   
+	     adapterCurrent.appendVerifyKeyListener(
+	             new VerifyKeyListener() {
+	                 public void verifyKey(VerifyEvent event) {
 
-	curCard = (TurqCurrentCard)list.get(i);
-	comboCurrentCards.add(curCard.getCardsCurrentCode());
-	comboCurrentCards.setData(curCard.getCardsCurrentCode(),curCard);	
-	
+	                 // Check for Ctrl+Spacebar
+	                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
+	             
+	                  asistantCurrent.showPossibleCompletions();              
+	                   event.doit = false;
+	                 }
+	              }
+	           });
+	 	
+	  /************************************************************/  
+
 	}
-		}
-	catch(Exception ex){
-	ex.printStackTrace();
-	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-    msg.setMessage(ex.getMessage());
-	msg.open();
-	}
-	
-	
-	
-	
-	
-	}
+
+
 	public void fillComboTypes(){
 	try{
 	List list = blTransAdd.getCurrentTransactionTypes();
@@ -339,9 +336,9 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	try{
 	tableCurrentTransactions.removeAll();
 	
-	List results =blSearch.searchCurrentTransaction(comboCurrentCards.getData(comboCurrentCards.getText()),
+	List results =blSearch.searchCurrentTransaction(txtCurCard.getData(),
 									 comboTransactionGroup.getData(comboTransactionGroup.getText()),
-									 txtDocumentNo.getText().trim(),dateStartDate.getDate(),dateEndDate.getDate());
+									 "",dateStartDate.getDate(),dateEndDate.getDate());
 	
 	TurqCurrentTransaction transaction;
 	TableItem item;
@@ -353,6 +350,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	item.setData(transaction);
 	item.setText(new String[]{
 								DatePicker.formatter.format(transaction.getTransactionsDate()),
+								transaction.getTransactionsDocumentNo().toString(),
 								transaction.getTurqCurrentCard().getCardsCurrentCode(),
 							  transaction.getTurqCurrentTransactionType().getTransactionTypeName(),
 							  transaction.getTransactionsTotalDept().toString(),

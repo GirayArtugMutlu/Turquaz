@@ -28,7 +28,7 @@ public class AccountingCellEditor extends TextCellEditor{
 		Text text = (Text) super.createControl(parent);
 	   		    
 		adapter = new TextContentAssistSubjectAdapter(text);
-		asistant= new TurquazContentAssistant(adapter,0);
+		asistant= new TurquazContentAssistant(adapter,2);
 		text.addKeyListener( new KeyAdapter() {
          
 		   public void keyPressed(org.eclipse.swt.events.KeyEvent event){
