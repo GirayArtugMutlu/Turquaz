@@ -80,6 +80,7 @@ public class BankUIBankCardSearch extends  Composite implements SearchComposite 
 	private CLabel lblBankBranchName;
 	private Text txtBankName;
 	private CLabel lblBankName;
+	private TableColumn tavleColumnDefinition;
 	private Table tableBankCards;
 	private Composite composite1;
 	public BankUIBankCardSearch(Composite parent, int style) {
@@ -282,6 +283,13 @@ public class BankUIBankCardSearch extends  Composite implements SearchComposite 
 	
 			tableColumnCurrency.setText(Messages.getString("BankUIBankCardSearch.7")); //$NON-NLS-1$
 			tableColumnCurrency.setWidth(120);
+			{
+				tavleColumnDefinition = new TableColumn(
+					tableBankCards,
+					SWT.NONE);
+				tavleColumnDefinition.setText(Messages.getString("BankUIBankCardSearch.8")); //$NON-NLS-1$
+				tavleColumnDefinition.setWidth(150);
+			}
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
@@ -324,6 +332,7 @@ public class BankUIBankCardSearch extends  Composite implements SearchComposite 
 				TurqCurrency currency=(TurqCurrency)currencies.get(k);
 				comboCurrency.add(currency.getCurrenciesAbbreviation());
 				comboCurrency.setData(currency.getCurrenciesAbbreviation(),currency);
+				
 			}
 		}
 		catch(Exception ex){
@@ -351,7 +360,7 @@ public class BankUIBankCardSearch extends  Composite implements SearchComposite 
 				TurqBanksCard aBankCard=(TurqBanksCard)listBankCards.get(k);
 				TableItem item=new TableItem(tableBankCards, SWT.NULL);
 				item.setData(aBankCard);
-				item.setText(new String[]{aBankCard.getBankName(),aBankCard.getBankBranchName(),aBankCard.getBankAccountNo(),aBankCard.getTurqCurrency().getCurrenciesAbbreviation()});
+				item.setText(new String[]{aBankCard.getBankName(),aBankCard.getBankBranchName(),aBankCard.getBankAccountNo(),aBankCard.getTurqCurrency().getCurrenciesAbbreviation(),aBankCard.getBankDefinition()});
 			}
 			System.out.println(listBankCards.size());
 		}
@@ -381,7 +390,7 @@ public class BankUIBankCardSearch extends  Composite implements SearchComposite 
 		}
 	}
 	public void printTable(){
-	    EngBLUtils.printTable(tableBankCards,"Banka Kartlar?");
+	    EngBLUtils.printTable(tableBankCards,Messages.getString("BankUIBankCardSearch.9")); //$NON-NLS-1$
 	    
 	}
 }

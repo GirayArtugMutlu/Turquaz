@@ -46,7 +46,7 @@ public class BankBLBankCardUpdate {
 	 * @param aCard TurqBanksCard
 	 */
 	
-	public void updateBankCard(String bankName, String bankBranchName, String bankAccountNo,TurqCurrency currency, TurqBanksCard aCard)
+	public void updateBankCard(String bankName, String bankBranchName, String bankAccountNo,TurqCurrency currency, String definition, TurqBanksCard aCard)
 	throws Exception{
 		try{
 			aCard.setBankName(bankName);
@@ -55,6 +55,7 @@ public class BankBLBankCardUpdate {
 			aCard.setTurqCurrency(currency);
 			aCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			aCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			aCard.setBankDefinition(definition);
 			bankDALBankCardUpdate.updateObject(aCard);
 			
 		}

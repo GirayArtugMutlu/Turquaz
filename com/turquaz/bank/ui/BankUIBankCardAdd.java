@@ -97,6 +97,8 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 	
 	private BankBLBankCardAdd bankBLBankCardAdd=new BankBLBankCardAdd();
 	private EngBLCommon engBLCom= new EngBLCommon();
+	private Text txtDefinition;
+	private CLabel lblDefinition;
 	/**
 	* Initializes the GUI.
 	* Auto-generated code - any changes you make will disappear.
@@ -192,6 +194,23 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 			comboCurrencyLData.heightHint = 16;
 			comboCurrency.setLayoutData(comboCurrencyLData);
 			comboCurrency.setText(Messages.getString("BankUIBankCardAdd.4")); //$NON-NLS-1$
+			{
+				lblDefinition = new CLabel(this, SWT.NONE);
+				lblDefinition.setText(Messages.getString("BankUIBankCardAdd.7")); //$NON-NLS-1$
+				GridData lblDefinitionLData = new GridData();
+				lblDefinitionLData.widthHint = 68;
+				lblDefinitionLData.heightHint = 19;
+				lblDefinition.setLayoutData(lblDefinitionLData);
+			}
+			{
+				txtDefinition = new Text(this, SWT.MULTI | SWT.V_SCROLL);
+				GridData txtDefinitionLData = new GridData();
+				txtDefinition.setSize(233, 26);
+				txtDefinitionLData.horizontalAlignment = GridData.FILL;
+				txtDefinitionLData.verticalSpan = 2;
+				txtDefinitionLData.heightHint = 26;
+				txtDefinition.setLayoutData(txtDefinitionLData);
+			}
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
@@ -282,7 +301,7 @@ private boolean verifyfields()
 				bankBLBankCardAdd.saveBankCard(txtBankName.getText().trim(),
 												txtBankBranchName.getText().trim(),
 													txtBankAccountNo.getText().trim(),
-													(TurqCurrency)(comboCurrency.getData(comboCurrency.getText())));
+													(TurqCurrency)(comboCurrency.getData(comboCurrency.getText())),txtDefinition.getText().trim());
 													
 				MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 				msg.setMessage(Messages.getString("BankUIBankCardAdd.17")); //$NON-NLS-1$
@@ -323,5 +342,17 @@ private boolean verifyfields()
 			msg.open();
 			ex.printStackTrace();
 		}
+	}
+	/**
+	 * @return Returns the txtDefinition.
+	 */
+	public Text getTxtDefinition() {
+		return txtDefinition;
+	}
+	/**
+	 * @param txtDefinition The txtDefinition to set.
+	 */
+	public void setTxtDefinition(Text txtDefinition) {
+		this.txtDefinition = txtDefinition;
 	}
 }

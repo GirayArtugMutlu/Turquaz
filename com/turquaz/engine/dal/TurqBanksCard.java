@@ -34,6 +34,9 @@ public class TurqBanksCard implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
+    private java.lang.String bankDefinition;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqCurrency turqCurrency;
 
     /** persistent field */
@@ -52,7 +55,7 @@ public class TurqBanksCard implements Serializable {
     private Set turqTradebillRolls;
 
     /** full constructor */
-    public TurqBanksCard(java.lang.String bankName, java.lang.String bankBranchName, java.lang.String bankAccountNo, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCurrency turqCurrency, Set turqChequeRolls, Set turqChequeCheques, Set turqBankCardsSecondaryAccounts, Set turqBanksTransactionBills, Set turqTradebillRolls) {
+    public TurqBanksCard(java.lang.String bankName, java.lang.String bankBranchName, java.lang.String bankAccountNo, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String bankDefinition, com.turquaz.engine.dal.TurqCurrency turqCurrency, Set turqChequeRolls, Set turqChequeCheques, Set turqBankCardsSecondaryAccounts, Set turqBanksTransactionBills, Set turqTradebillRolls) {
         this.bankName = bankName;
         this.bankBranchName = bankBranchName;
         this.bankAccountNo = bankAccountNo;
@@ -60,6 +63,7 @@ public class TurqBanksCard implements Serializable {
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
+        this.bankDefinition = bankDefinition;
         this.turqCurrency = turqCurrency;
         this.turqChequeRolls = turqChequeRolls;
         this.turqChequeCheques = turqChequeCheques;
@@ -134,6 +138,14 @@ public class TurqBanksCard implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public java.lang.String getBankDefinition() {
+        return this.bankDefinition;
+    }
+
+    public void setBankDefinition(java.lang.String bankDefinition) {
+        this.bankDefinition = bankDefinition;
     }
 
     public com.turquaz.engine.dal.TurqCurrency getTurqCurrency() {

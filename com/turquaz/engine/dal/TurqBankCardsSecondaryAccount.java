@@ -25,6 +25,9 @@ public class TurqBankCardsSecondaryAccount implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
+    private java.lang.String bankDefinition;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqBankSecondaryAccount turqBankSecondaryAccount;
 
     /** persistent field */
@@ -37,11 +40,12 @@ public class TurqBankCardsSecondaryAccount implements Serializable {
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqBankCardsSecondaryAccount(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBankSecondaryAccount turqBankSecondaryAccount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqBanksTransactions) {
+    public TurqBankCardsSecondaryAccount(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String bankDefinition, com.turquaz.engine.dal.TurqBankSecondaryAccount turqBankSecondaryAccount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqBanksTransactions) {
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
+        this.bankDefinition = bankDefinition;
         this.turqBankSecondaryAccount = turqBankSecondaryAccount;
         this.turqAccountingAccount = turqAccountingAccount;
         this.turqBanksCard = turqBanksCard;
@@ -53,10 +57,11 @@ public class TurqBankCardsSecondaryAccount implements Serializable {
     }
 
     /** minimal constructor */
-    public TurqBankCardsSecondaryAccount(java.lang.String createdBy, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBankSecondaryAccount turqBankSecondaryAccount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqBanksTransactions) {
+    public TurqBankCardsSecondaryAccount(java.lang.String createdBy, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String bankDefinition, com.turquaz.engine.dal.TurqBankSecondaryAccount turqBankSecondaryAccount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqBanksTransactions) {
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
+        this.bankDefinition = bankDefinition;
         this.turqBankSecondaryAccount = turqBankSecondaryAccount;
         this.turqAccountingAccount = turqAccountingAccount;
         this.turqBanksCard = turqBanksCard;
@@ -101,6 +106,14 @@ public class TurqBankCardsSecondaryAccount implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public java.lang.String getBankDefinition() {
+        return this.bankDefinition;
+    }
+
+    public void setBankDefinition(java.lang.String bankDefinition) {
+        this.bankDefinition = bankDefinition;
     }
 
     public com.turquaz.engine.dal.TurqBankSecondaryAccount getTurqBankSecondaryAccount() {

@@ -228,6 +228,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			compBankCard.getTxtBankName().setText(bankCard.getBankName());
 			compBankCard.getTxtBankBranchName().setText(bankCard.getBankBranchName());
 			compBankCard.getTxtBankAccountNo().setText(bankCard.getBankAccountNo());
+			compBankCard.getTxtDefinition().setText(bankCard.getBankDefinition());
 			FillCurrencyCombo();
 		}
 		catch(Exception ex){
@@ -270,7 +271,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			bankBLBankCardUpdate.updateBankCard(compBankCard.getTxtBankName().getText(),
 											compBankCard.getTxtBankBranchName().getText(),
 											compBankCard.getTxtBankAccountNo().getText(),
-											(TurqCurrency)(compBankCard.getComboCurrency().getData(compBankCard.getComboCurrency().getText())),
+											(TurqCurrency)(compBankCard.getComboCurrency().getData(compBankCard.getComboCurrency().getText())),compBankCard.getTxtDefinition().getText().trim(),
 											bankCard);
 		
 			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
