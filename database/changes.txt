@@ -1073,5 +1073,19 @@ ADD CONSTRAINT f_cur_id FOREIGN KEY (current_cards_id) REFERENCES turq_current_c
     
  CREATE TABLE turq_settings( database_version varchar(50) NOT NULL);
  insert into turq_settings values('0.7.0');
+ 
+ ALTER TABLE turq_users ADD CONSTRAINT u_name UNIQUE (username);
+
+CREATE TABLE turq_user_permission_levels(  id int4 NOT NULL,
+  permission_level int4 NOT NULL,  permission_name varchar(50) NOT NULL,
+  permission_description varchar(50) NOT NULL,  CONSTRAINT p_level_id PRIMARY KEY (id));
+
+ insert into turq_user_permission_levels values(0,0,'No Access','Hicbiri');
+ insert into turq_user_permission_levels values(1,1,'Read','Okuma');
+ insert into turq_user_permission_levels values(2,2,'Read/Write','Okuma/Yazma');
+ insert into turq_user_permission_levels values(3,3,'Read/Write/Delete','Okuma/Yazma/Silme');
+
+ALTER TABLE turq_user_permissions ADD CONSTRAINT f_level FOREIGN KEY 
+(user_permissions_level) REFERENCES turq_user_permission_levels (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 **********************************************************************************

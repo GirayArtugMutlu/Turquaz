@@ -20,16 +20,13 @@ package com.turquaz.admin.bl;
  * @version $Id$
  */
 import java.util.Calendar;
+import java.util.List;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqUser;
 
 public class AdmBLUserUpdate
 {
-	public AdmBLUserUpdate()
-	{
-	}
-
-	public static void updateUser(String password, String realname, String description, TurqUser user) throws Exception
+	public static void updateUser(String password, String realname, String description, TurqUser user,List userGroups) throws Exception
 	{
 		try
 		{
@@ -38,24 +35,20 @@ public class AdmBLUserUpdate
 			user.setUsersRealName(realname);
 			user.setUsersDescription(description);
 			user.setUpdateDate(cal.getTime());
-			user.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			user.setUpdatedBy(System.getProperty("user"));
 			EngDALCommon.updateObject(user);
+			updateUserGroups(user,userGroups);
+			
 		}
 		catch (Exception ex)
 		{
 			throw ex;
 		}
 	}
-
-	public static void deleteObject(Object obj) throws Exception
+	
+	public static void updateUserGroups(TurqUser user, List userGroups)throws Exception
 	{
-		try
-		{
-			EngDALCommon.deleteObject(obj);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		AdmBLUsers.deleteUserGroups(user);
+		AdmBLUserAdd.saveUserGroups(user.getId(),userGroups);		
 	}
 }

@@ -29,6 +29,7 @@
         type="java.lang.String"
         column="username"
         not-null="true"
+        unique="true"
         length="30"
     />
     <property

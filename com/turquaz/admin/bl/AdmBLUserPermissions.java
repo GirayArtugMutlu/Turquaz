@@ -27,40 +27,25 @@ import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.dal.TurqModuleComponent;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.dal.TurqUserPermission;
+import com.turquaz.engine.dal.TurqUserPermissionLevel;
 
 public class AdmBLUserPermissions
 {
-	public AdmBLUserPermissions()
-	{
-	}
-
-	public static void saveUserPermission(Object user, Object module, Object moduleComp, int level) throws Exception
+	public static void saveUserPermission(TurqUser user, TurqModule module, TurqModuleComponent moduleComp, TurqUserPermissionLevel level) throws Exception
 	{
 		try
 		{
 			Calendar cal = Calendar.getInstance();
 			TurqUserPermission userPerm = new TurqUserPermission();
-			userPerm.setTurqUser((TurqUser) user);
-			userPerm.setTurqModule((TurqModule) module);
-			userPerm.setTurqModuleComponent((TurqModuleComponent) moduleComp);
-			userPerm.setUserPermissionsLevel(level);
+			userPerm.setTurqUser(user);
+			userPerm.setTurqModule(module);
+			userPerm.setTurqModuleComponent(moduleComp);
+			userPerm.setTurqUserPermissionLevel(level);
 			userPerm.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			userPerm.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-			userPerm.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
-			userPerm.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			userPerm.setUpdateDate(cal.getTime());
+			userPerm.setCreationDate(cal.getTime());
 			EngDALCommon.saveObject(userPerm);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static void deleteObject(Object obj) throws Exception
-	{
-		try
-		{
-			EngDALCommon.deleteObject(obj);
 		}
 		catch (Exception ex)
 		{
@@ -97,6 +82,18 @@ public class AdmBLUserPermissions
 		try
 		{
 			return EngDALUserPerms.getModules();
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static List getUserPermissonLevels() throws Exception
+	{
+		try
+		{
+			return EngDALUserPerms.getUserPermissonLevels();
 		}
 		catch (Exception ex)
 		{

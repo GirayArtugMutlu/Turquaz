@@ -41,11 +41,13 @@ import org.eclipse.swt.widgets.TableColumn;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUserPermissions;
 import com.turquaz.admin.bl.AdmBLUsers;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.dal.TurqModuleComponent;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.dal.TurqUserPermission;
+import com.turquaz.engine.dal.TurqUserPermissionLevel;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -225,18 +227,16 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 			for (int i = 0; i < moduleList.size(); i++)
 			{
 				TurqModule module = (TurqModule) moduleList.get(i);
-				comboModules.setData(module.getModulesName(), module);
-				comboModules.add(module.getModulesName());
+				comboModules.setData(module.getModuleDescription(), module);
+				comboModules.add(module.getModuleDescription());
 			}
-			comboPermissionLevel.add(Messages.getString("AdmUIUserPermissions.17")); //$NON-NLS-1$
-			comboPermissionLevel.setData(Messages.getString("AdmUIUserPermissions.8"), new Integer(0)); //$NON-NLS-1$
-			comboPermissionLevel.add(Messages.getString("AdmUIUserPermissions.18")); //$NON-NLS-1$
-			comboPermissionLevel.setData(Messages.getString("AdmUIUserPermissions.9"), new Integer(1)); //$NON-NLS-1$
-			comboPermissionLevel.add(Messages.getString("AdmUIUserPermissions.19")); //$NON-NLS-1$
-			comboPermissionLevel.setData(Messages.getString("AdmUIUserPermissions.10"), new Integer(2)); //$NON-NLS-1$
-			comboPermissionLevel.add(Messages.getString("AdmUIUserPermissions.25")); //$NON-NLS-1$
-			comboPermissionLevel.setData(Messages.getString("AdmUIUserPermissions.11"), new Integer(3)); //$NON-NLS-1$
-			comboPermissionLevel.setText(Messages.getString("AdmUIUserPermissions.26")); //$NON-NLS-1$
+			List permissionLevels=AdmBLUserPermissions.getUserPermissonLevels();
+			for (int i=0; i<permissionLevels.size(); i++)
+			{
+				TurqUserPermissionLevel perLevel=(TurqUserPermissionLevel)permissionLevels.get(i);
+				comboPermissionLevel.setData(perLevel.getPermissionDescription(),perLevel);
+				comboPermissionLevel.add(perLevel.getPermissionDescription());
+			}
 			fillTableUserPermissions();
 		}
 		catch (Exception ex)
@@ -251,20 +251,21 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 	{
 		try
 		{
-			if (comboModules.getText().equals("*")) { //$NON-NLS-1$
+			TurqModule module=(TurqModule)comboModules.getData(comboModules.getText());
+			if (module != null)
+			{
 				comboModuleComponents.removeAll();
 				TurqModuleComponent modComp = new TurqModuleComponent();
 				modComp.setId(new Integer(-1));
-				comboModuleComponents.setText("*"); //$NON-NLS-1$
-				comboModuleComponents.add("*"); //$NON-NLS-1$
-				comboModuleComponents.setData("*", modComp); //$NON-NLS-1$
+				comboModuleComponents.setText("*");
+				comboModuleComponents.add("*");
+				comboModuleComponents.setData("*",modComp);
+				if (module.getId().intValue()!=-1)
+				{
+					fillComboModuleComponents(module.getId().intValue());
+				}
 			}
-			else
-			{
-				comboModuleComponents.removeAll();
-				TurqModule module = (TurqModule) comboModules.getData(comboModules.getText());
-				fillComboModuleComponents(module.getId().intValue());
-			}
+
 		}
 		catch (Exception ex)
 		{
@@ -275,12 +276,12 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 	{
 		try
 		{
-			java.util.List compList = AdmBLUserPermissions.getModuleComponents(module_id);
+			List compList = AdmBLUserPermissions.getModuleComponents(module_id);
 			for (int i = 0; i < compList.size(); i++)
 			{
-				TurqModuleComponent user = (TurqModuleComponent) compList.get(i);
-				comboModuleComponents.setData(user.getComponentsDescription(), user);
-				comboModuleComponents.add(user.getComponentsDescription());
+				TurqModuleComponent modComp = (TurqModuleComponent) compList.get(i);
+				comboModuleComponents.setData(modComp.getComponentsDescription(), modComp);
+				comboModuleComponents.add(modComp.getComponentsDescription());
 			}
 		}
 		catch (Exception ex)
@@ -296,7 +297,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 		try
 		{
 			tableUserPermissions.removeAll();
-			java.util.List userPermList = AdmBLUserPermissions.getUserPermissions();
+			List userPermList = AdmBLUserPermissions.getUserPermissions();
 			TableItem item;
 			String username;
 			String module;
@@ -314,25 +315,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 				{
 					moduleComp = userPerm.getTurqModuleComponent().getComponentsDescription();
 				}
-				// translation of permission level 0,1,2,3 to strings for table
-				// print error if it does not take the permissons
-				permLevel = Messages.getString("AdmUIUserPermissions.12"); //$NON-NLS-1$
-				if (userPerm.getUserPermissionsLevel() == 0)
-				{
-					permLevel = Messages.getString("AdmUIUserPermissions.13"); //$NON-NLS-1$
-				}
-				else if (userPerm.getUserPermissionsLevel() == 1)
-				{
-					permLevel = Messages.getString("AdmUIUserPermissions.14"); //$NON-NLS-1$
-				}
-				else if (userPerm.getUserPermissionsLevel() == 2)
-				{
-					permLevel = Messages.getString("AdmUIUserPermissions.15"); //$NON-NLS-1$
-				}
-				else if (userPerm.getUserPermissionsLevel() == 3)
-				{
-					permLevel = Messages.getString("AdmUIUserPermissions.16"); //$NON-NLS-1$
-				}
+				permLevel = userPerm.getTurqUserPermissionLevel().getPermissionDescription();
 				item = new TableItem(tableUserPermissions, SWT.NULL);
 				item.setData(userPerm);
 				item.setText(new String[]{username, module, moduleComp, permLevel});
@@ -349,13 +332,13 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 	public boolean verifyFields()
 	{
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-		if (comboUsers.getSelectionIndex() == -1)
+		if (comboUsers.getData(comboUsers.getText()) == null)
 		{
 			msg.setMessage(Messages.getString("AdmUIUserPermissions.20")); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
-		else if (comboModules.getSelectionIndex() == -1)
+		else if (comboModules.getData(comboModules.getText()) == null)
 		{
 			msg.setMessage(Messages.getString("AdmUIUserPermissions.21")); //$NON-NLS-1$
 			msg.open();
@@ -367,7 +350,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 			msg.open();
 			return false;
 		}
-		else if (comboPermissionLevel.getText().trim().length() == 0)
+		else if (comboPermissionLevel.getData(comboPermissionLevel.getText()) == null)
 		{
 			msg.setMessage(Messages.getString("AdmUIUserPermissions.23")); //$NON-NLS-1$
 			msg.open();
@@ -382,9 +365,10 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 		{
 			if (verifyFields())
 			{
-				AdmBLUserPermissions.saveUserPermission(comboUsers.getData(comboUsers.getText()), comboModules.getData(comboModules
-						.getText()), comboModuleComponents.getData(comboModuleComponents.getText()), ((Integer) comboPermissionLevel
-						.getData(comboPermissionLevel.getText())).intValue());
+				AdmBLUserPermissions.saveUserPermission((TurqUser)comboUsers.getData(comboUsers.getText()),
+						(TurqModule)comboModules.getData(comboModules.getText()),
+						(TurqModuleComponent)comboModuleComponents.getData(comboModuleComponents.getText()),
+						(TurqUserPermissionLevel)comboPermissionLevel.getData(comboPermissionLevel.getText()));
 				newForm();
 				fillTableUserPermissions();
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
@@ -424,7 +408,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 				TableItem items[] = tableUserPermissions.getSelection();
 				if (items.length > 0)
 				{
-					AdmBLUserPermissions.deleteObject(items[0].getData());
+					EngBLCommon.delete(items[0].getData());
 					fillTableUserPermissions();
 					msg2.setMessage(Messages.getString("AdmUIUserPermissions.30")); //$NON-NLS-1$
 					msg2.open();

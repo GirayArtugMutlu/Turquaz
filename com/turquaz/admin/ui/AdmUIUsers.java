@@ -43,8 +43,12 @@ import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUsers;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqUser;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -55,6 +59,7 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 	private TableColumn tableColumnUsername;
 	private TableColumn tableColumnDescription;
 	private TableColumn tableColumnRealName;
+	private SearchTableViewer tableViewer=null;
 
 	/**
 	 * Auto-generated main method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
@@ -108,6 +113,26 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 
 	public void delete()
 	{
+		try
+		{
+		TableItem[] selection=tableUsers.getSelection();
+		if (selection.length > 0)
+		{
+			boolean delete=EngUICommon.okToDelete(this.getShell(),Messages.getString("AdmUIUsers.3")); //$NON-NLS-1$
+			if (delete)
+			{
+				TurqUser user=(TurqUser)((ITableRow) selection[0].getData()).getDBObject();
+				AdmBLUsers.deleteUser(user);
+				fillTable();
+			}
+		}
+		}
+		catch(Exception ex)
+		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
+			ex.printStackTrace();			
+		}
 	}
 
 	public void newForm()
@@ -120,6 +145,7 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 
 	public void search()
 	{
+		fillTable();
 	}
 
 	private void initGUI()
@@ -162,36 +188,50 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 				}
 			}
 			this.layout();
-			fillTable();
+			PostInitGui();
 		}
-		catch (Exception e)
+		catch (Exception ex)
 		{
-			e.printStackTrace();
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
+			ex.printStackTrace();
 		}
+	}
+	
+	public void PostInitGui()
+	{
+		createTableViewer();
+		fillTable();		
 	}
 
 	public void fillTable()
 	{
 		try
 		{
-			tableUsers.removeAll();
+			tableViewer.removeAll();
 			List list = AdmBLUsers.getUsers();
 			TurqUser user;
-			TableItem item;
 			for (int i = 0; i < list.size(); i++)
 			{
 				user = (TurqUser) list.get(i);
-				item = new TableItem(tableUsers, SWT.NULL);
-				item.setData(user);
-				item.setText(new String[]{user.getUsername(), user.getUsersRealName(), user.getUsersDescription()});
+				tableViewer.addRow(new String[]{user.getUsername(), user.getUsersRealName(), user.getUsersDescription()},user);
 			}
 		}
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
+	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[3];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		tableViewer = new SearchTableViewer(tableUsers, columnTypes, true);
 	}
 
 	public void tableUsersMouseDoubleClick(MouseEvent evt)
@@ -199,8 +239,9 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 		TableItem items[] = tableUsers.getSelection();
 		if (items.length > 0)
 		{
-			new AdmUIUserUpdateDialog(this.getShell(), SWT.NULL, (TurqUser) items[0].getData()).open();
-			fillTable();
+			boolean updated=new AdmUIUserUpdateDialog(this.getShell(), SWT.NULL, (TurqUser)((ITableRow) items[0].getData()).getDBObject()).open();
+			if (updated)
+				fillTable();
 		}
 	}
 
@@ -211,6 +252,6 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableUsers, "Kullan?c?lar");
+		EngBLUtils.printTable(tableUsers, Messages.getString("AdmUIUsers.7")); //$NON-NLS-1$
 	}
 }

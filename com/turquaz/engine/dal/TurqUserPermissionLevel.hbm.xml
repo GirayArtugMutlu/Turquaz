@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqUserPermissionLevel" 
+    table="turq_user_permission_levels"
+>
+
+    <id
+        name="id"
+        type="int"
+        column="id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="permissionLevel"
+        type="int"
+        column="permission_level"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="permissionName"
+        type="java.lang.String"
+        column="permission_name"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="permissionDescription"
+        type="java.lang.String"
+        column="permission_description"
+        not-null="true"
+        length="50"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional one-to-many association to TurqUserPermission -->
+    <set
+        name="turqUserPermissions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="user_permissions_level" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqUserPermission"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

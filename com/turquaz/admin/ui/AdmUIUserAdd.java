@@ -19,6 +19,7 @@ package com.turquaz.admin.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -43,6 +44,7 @@ import org.eclipse.swt.layout.GridData;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUserAdd;
 import com.turquaz.engine.dal.TurqGroup;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
@@ -241,7 +243,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -260,31 +262,12 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 		{
 			msg.setMessage(Messages.getString("AdmUIUserAdd.7")); //$NON-NLS-1$
 			msg.open();
-			txtPassword.setText("");
-			txtRePassword.setText("");
+			txtPassword.setText(""); //$NON-NLS-1$
+			txtRePassword.setText(""); //$NON-NLS-1$
 			txtPassword.setFocus();
 			return false;
 		}
 		return true;
-	}
-
-	public void saveUserGroups(Integer userid) throws Exception
-	{
-		try
-		{
-			TableItem items[] = registeredGroups.getTableAllGroups().getItems();
-			for (int i = 0; i < items.length; i++)
-			{
-				if (items[i].getChecked())
-				{
-					AdmBLUserAdd.saveUserGroups(userid, items[i].getData());
-				}
-			}
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
 	}
 
 	public void save()
@@ -293,18 +276,32 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 		{
 			if (verifyFields())
 			{
-				Integer userId = AdmBLUserAdd.saveUser(txtUsername.getText(), txtPassword.getText(), txtRealName.getText(),
-						txtDescription.getText());
-				saveUserGroups(userId);
+				AdmBLUserAdd.saveUser(txtUsername.getText(), txtPassword.getText(), txtRealName.getText(),
+						txtDescription.getText(), getUserGroups());
+				EngUICommon.showMessageBox(this.getShell(),Messages.getString("AdmUIUserAdd.11")); //$NON-NLS-1$
 				newForm();
 			}
 		}
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
+	}
+	
+	public List getUserGroups()
+	{
+		List userGroups=new ArrayList();
+		TableItem items[] = registeredGroups.getTableAllGroups().getItems();
+		for (int i = 0; i < items.length; i++)
+		{
+			if (items[i].getChecked())
+			{
+				userGroups.add(items[i].getData());
+			}
+		}
+		return userGroups;
 	}
 
 	public void search()
@@ -332,29 +329,11 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 	}
 
 	/**
-	 * @param registeredGroups
-	 *             The registeredGroups to set.
-	 */
-	public void setRegisteredGroups(RegisterGroupComposite registeredGroups)
-	{
-		this.registeredGroups = registeredGroups;
-	}
-
-	/**
 	 * @return Returns the txtDescription.
 	 */
 	public Text getTxtDescription()
 	{
 		return txtDescription;
-	}
-
-	/**
-	 * @param txtDescription
-	 *             The txtDescription to set.
-	 */
-	public void setTxtDescription(Text txtDescription)
-	{
-		this.txtDescription = txtDescription;
 	}
 
 	/**
@@ -366,29 +345,11 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 	}
 
 	/**
-	 * @param txtPassword
-	 *             The txtPassword to set.
-	 */
-	public void setTxtPassword(Text txtPassword)
-	{
-		this.txtPassword = txtPassword;
-	}
-
-	/**
 	 * @return Returns the txtRealName.
 	 */
 	public Text getTxtRealName()
 	{
 		return txtRealName;
-	}
-
-	/**
-	 * @param txtRealName
-	 *             The txtRealName to set.
-	 */
-	public void setTxtRealName(Text txtRealName)
-	{
-		this.txtRealName = txtRealName;
 	}
 
 	/**
@@ -399,14 +360,6 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 		return txtRePassword;
 	}
 
-	/**
-	 * @param txtRePassword
-	 *             The txtRePassword to set.
-	 */
-	public void setTxtRePassword(Text txtRePassword)
-	{
-		this.txtRePassword = txtRePassword;
-	}
 
 	/**
 	 * @return Returns the txtUsername.
@@ -416,12 +369,4 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 		return txtUsername;
 	}
 
-	/**
-	 * @param txtUsername
-	 *             The txtUsername to set.
-	 */
-	public void setTxtUsername(Text txtUsername)
-	{
-		this.txtUsername = txtUsername;
-	}
 }

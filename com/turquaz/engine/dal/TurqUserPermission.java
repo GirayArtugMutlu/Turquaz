@@ -12,9 +12,6 @@ public class TurqUserPermission implements Serializable {
     private java.lang.Integer id;
 
     /** persistent field */
-    private int userPermissionsLevel;
-
-    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
@@ -35,9 +32,11 @@ public class TurqUserPermission implements Serializable {
     /** persistent field */
     private com.turquaz.engine.dal.TurqModule turqModule;
 
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqUserPermissionLevel turqUserPermissionLevel;
+
     /** full constructor */
-    public TurqUserPermission(int userPermissionsLevel, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent, com.turquaz.engine.dal.TurqUser turqUser, com.turquaz.engine.dal.TurqModule turqModule) {
-        this.userPermissionsLevel = userPermissionsLevel;
+    public TurqUserPermission(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent, com.turquaz.engine.dal.TurqUser turqUser, com.turquaz.engine.dal.TurqModule turqModule, com.turquaz.engine.dal.TurqUserPermissionLevel turqUserPermissionLevel) {
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
@@ -45,6 +44,7 @@ public class TurqUserPermission implements Serializable {
         this.turqModuleComponent = turqModuleComponent;
         this.turqUser = turqUser;
         this.turqModule = turqModule;
+        this.turqUserPermissionLevel = turqUserPermissionLevel;
     }
 
     /** default constructor */
@@ -57,14 +57,6 @@ public class TurqUserPermission implements Serializable {
 
     public void setId(java.lang.Integer id) {
         this.id = id;
-    }
-
-    public int getUserPermissionsLevel() {
-        return this.userPermissionsLevel;
-    }
-
-    public void setUserPermissionsLevel(int userPermissionsLevel) {
-        this.userPermissionsLevel = userPermissionsLevel;
     }
 
     public java.lang.String getCreatedBy() {
@@ -121,6 +113,14 @@ public class TurqUserPermission implements Serializable {
 
     public void setTurqModule(com.turquaz.engine.dal.TurqModule turqModule) {
         this.turqModule = turqModule;
+    }
+
+    public com.turquaz.engine.dal.TurqUserPermissionLevel getTurqUserPermissionLevel() {
+        return this.turqUserPermissionLevel;
+    }
+
+    public void setTurqUserPermissionLevel(com.turquaz.engine.dal.TurqUserPermissionLevel turqUserPermissionLevel) {
+        this.turqUserPermissionLevel = turqUserPermissionLevel;
     }
 
     public String toString() {

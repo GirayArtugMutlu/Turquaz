@@ -14,13 +14,6 @@ import net.sf.hibernate.expression.Expression;
 public class EngDALUserPerms
 {
 	/**
-	 * Default Constructor
-	 */
-	public EngDALUserPerms()
-	{
-	}
-
-	/**
 	 * @param username
 	 *             Current user of the system
 	 * @return List of TurqGroupPermission objects for username
@@ -203,11 +196,9 @@ public class EngDALUserPerms
 		{
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			//	Query q = session.createQuery("from TurqModuleComponent comp "+
-			//			"where comp.moduleComponentsId > -1");
-			Criteria cri = session.createCriteria(TurqModuleComponent.class).add(Expression.gt("id", new Integer(-1))).add(
-					Expression.eq("turqModule.id", new Integer(module_id)));
-			List list = cri.list();
+			String query=" Select modComp from TurqModuleComponent modComp where modComp.turqModule.id="+module_id;
+			Query q = session.createQuery(query);
+			List list = q.list();
 			tx.commit();
 			session.close();
 			return list;
@@ -225,6 +216,25 @@ public class EngDALUserPerms
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
 			String query = "select module from TurqModule as module order by module.id";
+			Query q = session.createQuery(query);
+			List list = q.list();
+			tx.commit();
+			session.close();
+			return list;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static List getUserPermissonLevels() throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			String query = "select permissionlvl from TurqUserPermissionLevel permissionlvl order by permissionlvl.id";
 			Query q = session.createQuery(query);
 			List list = q.list();
 			tx.commit();
