@@ -103,13 +103,14 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 					SWTResourceManager.registerResourceUser(dialogShell);
 				}
 
-			dialogShell.setText(getText());
+		
 
-			dialogShell.setSize(486, 212);
+			dialogShell.setSize(487, 229);
 
 			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
 
 			GridLayout dialogShellLayout = new GridLayout(1, true);
+			dialogShell.setText(Messages.getString("BankUIBankCardUpdate.2")); //$NON-NLS-1$
 			dialogShell.setLayout(dialogShellLayout);
 			{
 				coolBar1 = new CoolBar(dialogShell, SWT.NONE);
@@ -181,6 +182,13 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 				compBankCardLData.grabExcessHorizontalSpace = true;
 				compBankCardLData.grabExcessVerticalSpace = true;
 				compBankCard.setLayoutData(compBankCardLData);
+				compBankCard.getComboCurrency().setSize(232, 21);
+				compBankCard.getTxtBankAccountNo().setSize(248, 21);
+				compBankCard.getTxtBankBranchName().setSize(248, 21);
+				compBankCard.getComboCurrency().setLocation(new org.eclipse.swt.graphics.Point(105, 8));
+				compBankCard.getTxtBankAccountNo().setLocation(new org.eclipse.swt.graphics.Point(105, 8));
+				compBankCard.getTxtBankBranchName().setLocation(new org.eclipse.swt.graphics.Point(105, 8));
+				compBankCard.getTxtBankName().setBounds(105, 5, 254, 21);
 			}
 			dialogShellLayout.marginWidth = 5;
 			dialogShellLayout.marginHeight = 5;

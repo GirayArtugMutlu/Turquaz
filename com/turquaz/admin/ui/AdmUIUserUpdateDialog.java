@@ -54,8 +54,6 @@ import com.turquaz.engine.dal.TurqUserGroup;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
-import org.eclipse.swt.widgets.CoolItem;
-import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
 
@@ -73,8 +71,6 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
 	private ToolBar toolBar1;
-	private CoolItem coolItem1;
-	private CoolBar coolBar1;
 	private AdmUIUserAdd compUserAdd;
 	private org.eclipse.swt.widgets.Shell dialogShell;
 	private AdmBLUserUpdate blUserUpdate = new AdmBLUserUpdate();
@@ -89,52 +85,9 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 		try {
 			GridLayout thisLayout = new GridLayout();
 			GridLayout dialogShellLayout = new GridLayout();
+			dialogShell.setText(Messages.getString("AdmUIUserUpdateDialog.3")); //$NON-NLS-1$
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShell.setSize(472, 376);
-			{
-				coolBar1 = new CoolBar(dialogShell, SWT.NONE);
-				GridData coolBar1LData = new GridData();
-				coolBar1LData.grabExcessHorizontalSpace = true;
-				coolBar1LData.horizontalAlignment = GridData.FILL;
-				coolBar1.setLayoutData(coolBar1LData);
-				{
-					coolItem1 = new CoolItem(coolBar1, SWT.NONE);
-					coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 49));
-					coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 49));
-					coolItem1.setSize(45, 49);
-					{
-						toolBar1 = new ToolBar(coolBar1, SWT.NONE);
-						coolItem1.setControl(toolBar1);
-						{
-							toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-							toolUpdate.setText(Messages.getString("AdmUIUserUpdateDialog.0")); //$NON-NLS-1$
-							toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
-							toolUpdate
-								.addSelectionListener(new SelectionAdapter() {
-								public void widgetSelected(SelectionEvent evt) {
-									update();
-								}
-								});
-						}
-						{
-							toolDelete = new ToolItem(toolBar1, SWT.NONE);
-							toolDelete.setText(Messages.getString("AdmUIUserUpdateDialog.2")); //$NON-NLS-1$
-							toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
-						}
-						{
-							toolCancel = new ToolItem(toolBar1, SWT.NONE);
-							toolCancel.setText(Messages.getString("AdmUIUserUpdateDialog.1")); //$NON-NLS-1$
-							toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
-							toolCancel
-								.addSelectionListener(new SelectionAdapter() {
-								public void widgetSelected(SelectionEvent evt) {
-									dialogShell.close();
-								}
-								});
-						}
-					}
-				}
-			}
 			{
 				compUserAdd = new AdmUIUserAdd(dialogShell, SWT.NONE);
 				GridData compUserAddLData = new GridData();
@@ -230,6 +183,44 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			
 		Shell parent = getParent();
 		dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+        {
+            toolBar1 = new ToolBar(dialogShell, SWT.NONE);
+            GridData toolBar1LData = new GridData();
+            toolBar1LData.grabExcessHorizontalSpace = true;
+            toolBar1LData.horizontalAlignment = GridData.FILL;
+            toolBar1.setLayoutData(toolBar1LData);
+            {
+                toolUpdate = new ToolItem(toolBar1, SWT.NONE);
+                toolUpdate.setText(Messages
+                    .getString("AdmUIUserUpdateDialog.0")); //$NON-NLS-1$
+                toolUpdate.setImage(SWTResourceManager
+                    .getImage("icons/save_edit.gif")); //$NON-NLS-1$
+                toolUpdate.addSelectionListener(new SelectionAdapter() {
+                    public void widgetSelected(SelectionEvent evt) {
+                        update();
+                    }
+                });
+            }
+            {
+                toolDelete = new ToolItem(toolBar1, SWT.NONE);
+                toolDelete.setText(Messages
+                    .getString("AdmUIUserUpdateDialog.2")); //$NON-NLS-1$
+                toolDelete.setImage(SWTResourceManager
+                    .getImage("icons/Delete16.gif")); //$NON-NLS-1$
+            }
+            {
+                toolCancel = new ToolItem(toolBar1, SWT.NONE);
+                toolCancel.setText(Messages
+                    .getString("AdmUIUserUpdateDialog.1")); //$NON-NLS-1$
+                toolCancel.setImage(SWTResourceManager
+                    .getImage("icons/cancel.jpg")); //$NON-NLS-1$
+                toolCancel.addSelectionListener(new SelectionAdapter() {
+                    public void widgetSelected(SelectionEvent evt) {
+                        dialogShell.close();
+                    }
+                });
+            }
+        }
          initGUI();
 		
 		
