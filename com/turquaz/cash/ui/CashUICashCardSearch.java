@@ -17,9 +17,21 @@ package com.turquaz.cash.ui;
 /************************************************************************/
 
 
+import java.util.List;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
+
 import com.turquaz.accounting.ui.comp.AccountPicker;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+
+import com.turquaz.cash.Messages;
+import com.turquaz.cash.bl.CashBLCashCardSearch;
+import com.turquaz.engine.bl.EngBLUtils;
+import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.ui.component.SearchComposite;
 
 import org.eclipse.swt.widgets.TableColumn;
@@ -61,6 +73,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 	private Table tableCashCards;
 	private AccountPicker accountPicker;
 	private Text txtCardCode;
+	CashBLCashCardSearch blSearch = new CashBLCashCardSearch();
 
 	public CashUICashCardSearch(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
@@ -83,7 +96,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
                 composite1.setLayout(composite1Layout);
                 {
                     lblCardCode = new CLabel(composite1, SWT.NONE);
-                    lblCardCode.setText("Kart Kodu");
+                    lblCardCode.setText(Messages.getString("CashUICashCardSearch.0")); //$NON-NLS-1$
                 }
                 {
                     txtCardCode = new Text(composite1, SWT.NONE);
@@ -95,7 +108,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
                 }
                 {
                     lblAccountCode = new CLabel(composite1, SWT.NONE);
-                    lblAccountCode.setText("Muhasebe Hesab?");
+                    lblAccountCode.setText(Messages.getString("CashUICashCardSearch.1")); //$NON-NLS-1$
                 }
                 {
                     accountPicker = new AccountPicker(composite1, SWT.NONE);
@@ -106,8 +119,15 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
                 }
             }
             {
-                tableCashCards = new Table(this, SWT.NONE);
+                tableCashCards = new Table(this, SWT.FULL_SELECTION);
                 GridData tableCashCardsLData = new GridData();
+                tableCashCards.addMouseListener(new MouseAdapter() {
+                    public void mouseDoubleClick(MouseEvent evt) {
+                      
+                        treeMouseDoubleClick();
+                        
+                    }
+                });
                 tableCashCards.setLinesVisible(true);
                 tableCashCards.setHeaderVisible(true);
                 tableCashCardsLData.grabExcessHorizontalSpace = true;
@@ -119,21 +139,21 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
                     tableColumnCashCode = new TableColumn(
                         tableCashCards,
                         SWT.NONE);
-                    tableColumnCashCode.setText("Kasa Kodu");
-                    tableColumnCashCode.setWidth(100);
+                    tableColumnCashCode.setText(Messages.getString("CashUICashCardSearch.2")); //$NON-NLS-1$
+                    tableColumnCashCode.setWidth(101);
                 }
                 {
                     tableColumnDefinition = new TableColumn(
                         tableCashCards,
                         SWT.NONE);
-                    tableColumnDefinition.setText("Aç?klama");
+                    tableColumnDefinition.setText(Messages.getString("CashUICashCardSearch.3")); //$NON-NLS-1$
                     tableColumnDefinition.setWidth(100);
                 }
                 {
                     tableColumnAccount = new TableColumn(
                         tableCashCards,
                         SWT.NONE);
-                    tableColumnAccount.setText("Muh. Hesab?");
+                    tableColumnAccount.setText(Messages.getString("CashUICashCardSearch.4")); //$NON-NLS-1$
                     tableColumnAccount.setWidth(125);
                 }
             }
@@ -149,15 +169,66 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 
     }
     public void exportToExcel() {
-        // TODO Auto-generated method stub
+        EngBLUtils.Export2Excel(tableCashCards);
 
     }
     public void printTable() {
-        // TODO Auto-generated method stub
+        EngBLUtils.printTable(tableCashCards,Messages.getString("CashUICashCardSearch.5"));  //$NON-NLS-1$
+	    
 
     }
+    
     public void search() {
-        // TODO Auto-generated method stub
+      try{
+          tableCashCards.removeAll();
+         List ls = blSearch.searchCashCard((TurqAccountingAccount)accountPicker.getData(),txtCardCode.getText().trim());
+         TableItem item;
+         TurqCashCard card;
+         for(int i=0;i<ls.size();i++){
+             
+             card = (TurqCashCard)ls.get(i);
+             
+             item = new TableItem(tableCashCards,SWT.NULL);
+             item.setText(new String[]{
+                     card.getCashCardName(),
+                     card.getCashCardDefinition(),
+                     card.getTurqAccountingAccount().getAccountCode()
+                             
+             });
+             
+             item.setData(card);
+             
+             
+         }
+          
+          
+          
+          
+      }
+      catch(Exception ex){
+          ex.printStackTrace();
+      }
 
     }
+    
+    public void treeMouseDoubleClick(){
+        
+        TableItem selection[] = tableCashCards.getSelection();
+        
+        if(selection.length>0){
+        
+            TableItem item = selection[0];
+            
+            new CashUICashCardUpdate(this.getShell(),SWT.NULL,(TurqCashCard)item.getData()).open();
+            
+            search();
+            
+            
+            
+        }
+        
+        
+    }
+    
+    
 }

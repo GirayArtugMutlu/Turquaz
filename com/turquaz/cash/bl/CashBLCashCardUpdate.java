@@ -61,5 +61,18 @@ public class CashBLCashCardUpdate {
         
         
     }
+    public void delete(TurqCashCard card)throws Exception{
+        
+        try{
+            dalCash.delete(card);
+            
+            
+            
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+        
+    }
 
 }

@@ -20,11 +20,14 @@ package com.turquaz.cash.ui;
 import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.bank.ui.BankUIBankCardAdd;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashCardAdd;
 
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 
@@ -115,28 +118,79 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 	
 
     public void newForm() {
-        // TODO Auto-generated method stub
+       
+     CashUICashCardAdd curCard = new  CashUICashCardAdd(this.getParent(),this.getStyle());
+   	 CTabFolder tabfld = (CTabFolder)this.getParent();
+   	 tabfld.getSelection().setControl(curCard);	 
+   	 this.dispose();
+        
 
     }
     public void save() {
+       MessageBox msg =new MessageBox(getShell(),SWT.NULL);
+       
        try{
+           
            if(verifyFields()){
                blCardAdd.saveCashCard(txtCardCode.getText().trim(),
                        				  txtDefinition.getText().trim(),
                        				  (TurqAccountingAccount)accountPicker.getData());
-                  
-               
+                    
+               msg.setMessage(Messages.getString("CashUICashCardAdd.3")); //$NON-NLS-1$
+               msg.open();
+               newForm();
            }
            
            
            
        }
+       
        catch(Exception ex){
-           ex.printStackTrace();
+           msg.setMessage(ex.getMessage());
+           msg.open();
+           ex.printStackTrace();        
        }
 
     }
     public boolean verifyFields(){
+        MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+        if(txtCardCode.getText().trim().equals("")){ //$NON-NLS-1$
+            
+            msg.setMessage(Messages.getString("CashUICashCardAdd.5"));  //$NON-NLS-1$
+			
+            msg.open();
+			
+            txtCardCode.setFocus();
+			return false;
+        }
+        else if(accountPicker.getData()==null){
+            
+            msg.setMessage(Messages.getString("CashUICashCardAdd.6"));  //$NON-NLS-1$
+			
+            msg.open();
+			
+            accountPicker.setFocus();
+            
+			return false;
+        }
         return true;
+    }
+    public AccountPicker getAccountPicker() {
+        return accountPicker;
+    }
+    public void setAccountPicker(AccountPicker accountPicker) {
+        this.accountPicker = accountPicker;
+    }
+    public Text getTxtCardCode() {
+        return txtCardCode;
+    }
+    public void setTxtCardCode(Text txtCardCode) {
+        this.txtCardCode = txtCardCode;
+    }
+    public Text getTxtDefinition() {
+        return txtDefinition;
+    }
+    public void setTxtDefinition(Text txtDefinition) {
+        this.txtDefinition = txtDefinition;
     }
 }

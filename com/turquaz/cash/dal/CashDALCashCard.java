@@ -104,7 +104,7 @@ public class CashDALCashCard {
          Session session = EngDALSessionFactory.openSession();
          
          String query = "select cashCard from TurqCashCard as cashCard " +
-         		" where cashCard.cardName like '"+name+"%' ";
+         		" where cashCard.cashCardName like '"+name+"%' ";
          if(account !=null){
              query += " cashCard.turqAccountingAccount = :account";
          }
