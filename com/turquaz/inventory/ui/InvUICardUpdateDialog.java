@@ -252,6 +252,10 @@ public class InvUICardUpdateDialog extends Dialog{
 	compInvUICard.getTxtnumInvCardMin().setText(invCard.getCardMinimumAmount());
 	compInvUICard.getNumTextSpecailVATPercent().setText(invCard.getCardSpecialVat());
 	compInvUICard.getDecTextSpecialVatAmount().setText(invCard.getCardSpecialVatEach().toString());
+	compInvUICard.getAccountPickerVAT().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdVat());
+	compInvUICard.getAccountPickerSpecVAT().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSpecialVat());
+	compInvUICard.getAccountPickerVATSell().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdVatSell());
+	compInvUICard.getAccountPickerSpecVatSell().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSpecialVatSell());
 	fillUnits();
 	fillGroups();
 	fillPrices();

@@ -425,6 +425,9 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	comboLanguage.setData(Messages.getString("EngUIEntryFrame.19"),new Integer(2)); //$NON-NLS-1$
 
 	comboLanguage.setText(Messages.getString("EngUIEntryFrame.20")); //$NON-NLS-1$
+	
+	
+	
 	}
 	public Text getTxtPassword() {
 		return txtPassword;

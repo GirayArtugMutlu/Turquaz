@@ -105,7 +105,7 @@ public class ConBLAddConsignment {
 			invTrans.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			invTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			invTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-			
+			invTrans.setTransactionsDate(cons.getConsignmentsDate());
 			
 			//Al??
 			// total amount in ve total amount ayni girilmisti
