@@ -155,15 +155,13 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(632, 269);
+			this.setSize(632, 352);
 			//START >>  lblCashTransType
 			lblCashTransType = new CLabel(this, SWT.NONE);
 			lblCashTransType.setText(Messages.getString("CurUICurrentCardVoucher.8")); //$NON-NLS-1$
 			lblCashTransType.setFont(SWTResourceManager.getFont("Tahoma", 14, 1, false, false)); //$NON-NLS-1$
 			GridData lblCashTransTypeLData = new GridData();
 			lblCashTransTypeLData.horizontalAlignment = GridData.CENTER;
-			lblCashTransTypeLData.widthHint = 180;
-			lblCashTransTypeLData.heightHint = 42;
 			lblCashTransTypeLData.horizontalSpan = 2;
 			lblCashTransTypeLData.grabExcessHorizontalSpace = true;
 			lblCashTransType.setLayoutData(lblCashTransTypeLData);

@@ -186,7 +186,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 				TurqAccountingTransaction accTrans = (TurqAccountingTransaction) it.next();
 				 argMap = new HashMap();
 				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
-				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"initializeTransactionRows",argMap);
+				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"initiliazeTransactionRows",argMap);
 				
 				Iterator accIt = accTrans.getTurqAccountingTransactionColumns().iterator();
 				while (accIt.hasNext())

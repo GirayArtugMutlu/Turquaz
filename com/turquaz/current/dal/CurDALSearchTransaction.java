@@ -207,6 +207,7 @@ public class CurDALSearchTransaction
 				session.delete(list.get(i));
 			}
 			session.flush();
+			session.clear();
 		}
 		catch (Exception ex)
 		{

@@ -219,6 +219,7 @@ public class AccDALTransactionSearch
 			session.delete("select row from TurqAccountingTransactionColumn as row where" + " row.turqAccountingTransaction.id ="
 					+ transaction.getId().intValue());
 			session.flush();
+			session.clear();
 			
 		}
 		catch (Exception ex)

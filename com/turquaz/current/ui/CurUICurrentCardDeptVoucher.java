@@ -160,8 +160,6 @@ public class CurUICurrentCardDeptVoucher extends org.eclipse.swt.widgets.Composi
 			lblCashTransType.setFont(SWTResourceManager.getFont("Tahoma", 14, 1, false, false)); //$NON-NLS-1$
 			GridData lblCashTransTypeLData = new GridData();
 			lblCashTransTypeLData.horizontalAlignment = GridData.CENTER;
-			lblCashTransTypeLData.widthHint = 180;
-			lblCashTransTypeLData.heightHint = 42;
 			lblCashTransTypeLData.horizontalSpan = 2;
 			lblCashTransTypeLData.grabExcessHorizontalSpace = true;
 			lblCashTransType.setLayoutData(lblCashTransTypeLData);
