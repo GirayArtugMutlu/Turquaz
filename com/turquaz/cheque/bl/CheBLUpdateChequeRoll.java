@@ -146,7 +146,7 @@ public class CheBLUpdateChequeRoll {
         try{
             
            
-        	  emptyCheckRollIn(chequeRoll);
+        	 emptyCheckRollIn(chequeRoll);
            
            chequeRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
            chequeRoll.setLastModified(Calendar.getInstance().getTime());
@@ -266,9 +266,14 @@ public class CheBLUpdateChequeRoll {
            {
                      
            	CheBLSaveChequeTransaction. saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateChequeRoll.10") +chequeRoll.getChequeRollNo()); //$NON-NLS-1$
-            
+                      	
+           }
            
-           	
+           else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT)
+           {
+                     
+           	CheBLSaveChequeTransaction. saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateChequeRoll.0") +chequeRoll.getChequeRollNo());  //$NON-NLS-1$
+                      	
            }
           
            

@@ -25,8 +25,10 @@ import java.math.BigDecimal;
 import java.sql.Statement;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
@@ -217,6 +219,10 @@ public class EngBLCommon {
 
 	public final static Integer CHEQUE_STATUS_COLLECTED_FROM_CURRENT = new Integer(
 			4); //cariden tahsil edildi
+	public final static Integer CHEQUE_STATUS_RETURN_FROM_BANK = new Integer(
+			5); //bankadan karsiliksiz iade
+	public final static Integer CHEQUE_STATUS_RETURN_FROM_CURRENT = new Integer(
+			6); //bankadan karsiliksiz iade
 
 	public final static String CHEQUE_STATUS_PORTFOY_STRING = Messages
 			.getString("EngBLCommon.5"); //$NON-NLS-1$
@@ -227,9 +233,46 @@ public class EngBLCommon {
 	public final static String CHEQUE_STATUS_BANK_STRING = Messages
 			.getString("EngBLCommon.7"); //$NON-NLS-1$
 
-	public final static String CHEQUE_STATUS_COLLECTED_FROM_BANK_STRING = "Bankadan Tahsil Edildi.";
+	public final static String CHEQUE_STATUS_COLLECTED_FROM_BANK_STRING = Messages.getString("EngBLCommon.8"); //$NON-NLS-1$
 
-	public final static String CHEQUE_STATUS_COLLECTED_FROM_CURRENT_STRING = "Cariden Tahsil Edildi!";
+	public final static String CHEQUE_STATUS_COLLECTED_FROM_CURRENT_STRING = Messages.getString("EngBLCommon.9"); //$NON-NLS-1$
+	
+	public final static String CHEQUE_STATUS_RETURN_FROM_BANK_STRING = Messages.getString("EngBLCommon.10"); //$NON-NLS-1$
+	
+	public final static String CHEQUE_STATUS_RETURN_FROM_CURRENT_STRING = Messages.getString("EngBLCommon.11"); //$NON-NLS-1$
+	
+	
+	public static Map getChequeStatusMapWithStringKey(){
+		
+		Map map = new HashMap();
+		map.put(CHEQUE_STATUS_PORTFOY_STRING,CHEQUE_STATUS_PORTFOY);
+		map.put(CHEQUE_STATUS_CURRENT_STRING,CHEQUE_STATUS_CURRENT);
+		map.put(CHEQUE_STATUS_BANK_STRING,CHEQUE_STATUS_BANK);
+		map.put(CHEQUE_STATUS_COLLECTED_FROM_BANK_STRING,CHEQUE_STATUS_COLLECTED_FROM_BANK);
+		map.put(CHEQUE_STATUS_COLLECTED_FROM_CURRENT_STRING,CHEQUE_STATUS_COLLECTED_FROM_CURRENT);
+		map.put(CHEQUE_STATUS_RETURN_FROM_BANK_STRING,CHEQUE_STATUS_RETURN_FROM_BANK);
+		map.put(CHEQUE_STATUS_RETURN_FROM_CURRENT_STRING,CHEQUE_STATUS_RETURN_FROM_CURRENT);
+		
+		
+		return map;	
+		
+	}
+	public static Map getChequeStatusMapWithIntegerKey(){
+		
+		Map map = new HashMap();
+		map.put(CHEQUE_STATUS_PORTFOY,CHEQUE_STATUS_PORTFOY_STRING);
+		map.put(CHEQUE_STATUS_CURRENT,CHEQUE_STATUS_CURRENT_STRING);
+		map.put(CHEQUE_STATUS_BANK,CHEQUE_STATUS_BANK_STRING);
+		map.put(CHEQUE_STATUS_COLLECTED_FROM_BANK,CHEQUE_STATUS_COLLECTED_FROM_BANK_STRING);
+		map.put(CHEQUE_STATUS_COLLECTED_FROM_CURRENT,CHEQUE_STATUS_COLLECTED_FROM_CURRENT_STRING);
+		map.put(CHEQUE_STATUS_RETURN_FROM_BANK,CHEQUE_STATUS_RETURN_FROM_BANK_STRING);
+		map.put(CHEQUE_STATUS_RETURN_FROM_CURRENT,CHEQUE_STATUS_RETURN_FROM_CURRENT_STRING);
+		
+		
+		return map;	
+		
+	}
+
 
 	public final static boolean INVENTORY_SPEC_VAT_FOR_EACH = true; //OTV
 																	// birimle
@@ -488,51 +531,51 @@ public class EngBLCommon {
 				TurqInventoryCard invCard=(TurqInventoryCard)ls.get(i);
 				
 				//ACCOUNT BUY
-				query = "insert into turq_inventory_accounting_accounts values("
+				query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$
 				+key
-				+","+invCard.getId()
-				+","+invCard.getTurqAccountingAccountByAccountingAccountsIdBuy().getId()
-				+","+0+",'admin','2005-01-01','admin','2005-01-01')"; 
+				+","+invCard.getId() //$NON-NLS-1$
+				+","+invCard.getTurqAccountingAccountByAccountingAccountsIdBuy().getId() //$NON-NLS-1$
+				+","+0+",'admin','2005-01-01','admin','2005-01-01')";  //$NON-NLS-1$ //$NON-NLS-2$
 				stmt.execute(query);
 				key++;
 				//ACCOUNT SELL
-				query = "insert into turq_inventory_accounting_accounts values("
+				query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$
 					+key
-					+","+invCard.getId()
-					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdSell().getId()
-					+","+1+",'admin','2005-01-01','admin','2005-01-01')"; 
+					+","+invCard.getId() //$NON-NLS-1$
+					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdSell().getId() //$NON-NLS-1$
+					+","+1+",'admin','2005-01-01','admin','2005-01-01')";  //$NON-NLS-1$ //$NON-NLS-2$
 				stmt.execute(query);
 				key++;
 				//BUY VAT
-				query = "insert into turq_inventory_accounting_accounts values("
+				query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$
 					+key
-					+","+invCard.getId()
-					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdVat().getId()
-					+","+2+",'admin','2005-01-01','admin','2005-01-01')"; 
+					+","+invCard.getId() //$NON-NLS-1$
+					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdVat().getId() //$NON-NLS-1$
+					+","+2+",'admin','2005-01-01','admin','2005-01-01')";  //$NON-NLS-1$ //$NON-NLS-2$
 				stmt.execute(query);
 				key++;
 				//SELL VAT
-				query = "insert into turq_inventory_accounting_accounts values("
+				query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$
 					+key
-					+","+invCard.getId()
-					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdVatSell().getId()
-					+","+3+",'admin','2005-01-01','admin','2005-01-01')"; 
+					+","+invCard.getId() //$NON-NLS-1$
+					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdVatSell().getId() //$NON-NLS-1$
+					+","+3+",'admin','2005-01-01','admin','2005-01-01')";  //$NON-NLS-1$ //$NON-NLS-2$
 				stmt.execute(query);
 				key++;
 				//BUY SPECIAL VAT
-				query = "insert into turq_inventory_accounting_accounts values("
+				query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$
 					+key
-					+","+invCard.getId()
-					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdSpecialVat().getId()
-					+","+4+",'admin','2005-01-01','admin','2005-01-01')"; 
+					+","+invCard.getId() //$NON-NLS-1$
+					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdSpecialVat().getId() //$NON-NLS-1$
+					+","+4+",'admin','2005-01-01','admin','2005-01-01')";  //$NON-NLS-1$ //$NON-NLS-2$
 				stmt.execute(query);
 				key++;
 				//SELL SPECIAL VAT
-				query = "insert into turq_inventory_accounting_accounts values("
+				query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$
 					+key
-					+","+invCard.getId()
-					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdSpecialVatSell().getId()
-					+","+5+",'admin','2005-01-01','admin','2005-01-01')"; 
+					+","+invCard.getId() //$NON-NLS-1$
+					+","+invCard.getTurqAccountingAccountByAccountingAccountsIdSpecialVatSell().getId() //$NON-NLS-1$
+					+","+5+",'admin','2005-01-01','admin','2005-01-01')";  //$NON-NLS-1$ //$NON-NLS-2$
 				stmt.execute(query);
 				key++;
 			}
@@ -588,7 +631,7 @@ public class EngBLCommon {
 			Date startDate = DatePicker.getFirstDayOfYear();
 			Date endDate = DatePicker.getLastDayOfYear();
 			List ls = new CashDALCashCard().searchCashTransaction(null,
-					startDate, endDate, "");
+					startDate, endDate, ""); //$NON-NLS-1$
 			CashBLCashTransactionSearch blSearch = new CashBLCashTransactionSearch();
 			CashBLCashTransactionUpdate blUpdate = new CashBLCashTransactionUpdate();
 			for (int i = 0; i < ls.size(); i++) {

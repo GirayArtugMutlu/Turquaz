@@ -354,10 +354,8 @@ public class TurquazContentAssistProcessors implements
     public IContextInformation[] computeContextInformation(
             IContentAssistSubjectControl viewer, int offset) {
 
-        System.out.println("info");
-        ContextInformation info = new ContextInformation("111", "deneme");
-
-        return new ContextInformation[] { info };
+       
+        return new ContextInformation[] { };
 
     }
 

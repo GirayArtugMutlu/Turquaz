@@ -164,7 +164,7 @@ public class BankBLTransactionAdd {
             accTransRowDept.setCreditAmount(new BigDecimal(0));
             
             
-            String accounting_definition ="Banka Virman. "+definition;
+            String accounting_definition ="Banka Virman- "+definition;
 
             Integer transId = blAccTran.saveAccTransaction(transDate, docNo,
                     accTransType,

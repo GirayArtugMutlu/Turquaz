@@ -1,7 +1,9 @@
 package com.turquaz.cheque.ui;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -119,11 +121,12 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			comboStatus.setLayoutData(comboStatusLData);
 			comboStatus.setText(Messages.getString("CheUICustomerChequeSearch.2")); //$NON-NLS-1$
 			comboStatus.add(Messages.getString("CheUICustomerChequeSearch.3")); //$NON-NLS-1$
-			comboStatus.add(EngBLCommon.CHEQUE_STATUS_PORTFOY_STRING);
-			comboStatus.add(EngBLCommon.CHEQUE_STATUS_CURRENT_STRING);
-			comboStatus.add(EngBLCommon.CHEQUE_STATUS_BANK_STRING);
-			comboStatus.add(EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_BANK_STRING);
-			comboStatus.add(EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_CURRENT_STRING);
+			
+			Iterator it = EngBLCommon.getChequeStatusMapWithStringKey().keySet().iterator();
+			while(it.hasNext())
+			{
+				comboStatus.add(it.next().toString());
+			}
 			//END <<  comboStatus
 			//START >>  lblCurrentCard
 			lblCurrentCard = new CLabel(compSearchPanle, SWT.NONE);
@@ -258,29 +261,13 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 		tableCheques.removeAll();
 		try{
 			Integer cheStat = null;
-			if(comboStatus.getText().equals(EngBLCommon.CHEQUE_STATUS_BANK_STRING))
+			Map map = EngBLCommon.getChequeStatusMapWithStringKey();
+			if(map.containsKey(comboStatus.getText()))
 			{
-				cheStat = EngBLCommon.CHEQUE_STATUS_BANK;
-			}
-			else if(comboStatus.getText().equals(EngBLCommon.CHEQUE_STATUS_CURRENT_STRING)){
 			
-				cheStat = EngBLCommon.CHEQUE_STATUS_CURRENT;
-			}
-			else if(comboStatus.getText().equals(EngBLCommon.CHEQUE_STATUS_PORTFOY_STRING)){
-			
-				cheStat = EngBLCommon.CHEQUE_STATUS_PORTFOY;
-			
-			}		
-			else if(comboStatus.getText().equals(EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_BANK_STRING)){
+				cheStat = (Integer)map.get(comboStatus.getText());
 				
-					cheStat = EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_BANK;
-				
-				}	
-			else if(comboStatus.getText().equals(EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_CURRENT_STRING)){
-				
-					cheStat = EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_CURRENT;
-				
-				}	
+			}			
 			
 			List ls = CheBLSearchCheques.searchCheque(txtPortFoyNo.getText().trim(),(TurqCurrentCard)currentPicker.getData(),cheStat,datePickerStartEnterDate.getDate(),datePickerEndEnterDate.getDate(),datePickerStartDueDate.getDate(),datePickerEndDueDate.getDate());
 			TableItem item;
@@ -291,20 +278,12 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 				String status = ""; //$NON-NLS-1$
 				Object result[] =(Object[])ls.get(i);
 				
-				if(result[5].equals(EngBLCommon.CHEQUE_STATUS_PORTFOY)){
-					status = EngBLCommon.CHEQUE_STATUS_PORTFOY_STRING;
-				}
-				else if(result[5].equals(EngBLCommon.CHEQUE_STATUS_BANK)){
-					status = EngBLCommon.CHEQUE_STATUS_BANK_STRING;
-				}
-				else if(result[5].equals(EngBLCommon.CHEQUE_STATUS_CURRENT)){
-					status = EngBLCommon.CHEQUE_STATUS_CURRENT_STRING;
-				}
-				else if(result[5].equals(EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_BANK)){
-					status = EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_BANK_STRING;
-				}
-				else if(result[5].equals(EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_CURRENT)){
-					status = EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_CURRENT_STRING;
+				Map statusMap = EngBLCommon.getChequeStatusMapWithIntegerKey();
+				if(statusMap.containsKey(result[5]))
+				{
+					
+					status = statusMap.get(result[5]).toString();
+					
 				}
 				
 			

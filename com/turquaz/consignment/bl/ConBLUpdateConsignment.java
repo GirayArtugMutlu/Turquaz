@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import com.turquaz.consignment.dal.ConDALUpdateConsignment;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
@@ -60,17 +61,17 @@ public class ConBLUpdateConsignment {
 		common.setChargesInForeignCurrency(new BigDecimal(0));
 		
 		
-		common.setTotalAmount(totalAmount.multiply(exRate.getExchangeRatio()));
+		common.setTotalAmount(totalAmount.multiply(exRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
 		common.setTotalAmountInForeignCurrency(totalAmount);
 		
-		common.setDiscountAmount(discountAmount.multiply(exRate.getExchangeRatio()));
+		common.setDiscountAmount(discountAmount.multiply(exRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
 		common.setDiscountAmountInForeignCurrency(discountAmount);
 		
 		
-		common.setVatAmount(vatAmount.multiply(exRate.getExchangeRatio()));
+		common.setVatAmount(vatAmount.multiply(exRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
 	    common.setVatAmountInForeignCurrency(vatAmount);
 		
-		common.setSpecialVatAmount(specialVatAmount.multiply(exRate.getExchangeRatio()));
+		common.setSpecialVatAmount(specialVatAmount.multiply(exRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
 		common.setSpecialVatAmountInForeignCurrency(specialVatAmount);
 		common.setDiscountRate(0);
 		common.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
