@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqChequeChequesRoll" 
+    table="turq_cheque_cheques_rolls"
+>
+
+    <id
+        name="chequeChequesRollsId"
+        type="int"
+        column="cheque_cheques_rolls_id"
+    >
+        <generator class="increment" />
+    </id>
+
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqChequeRoll -->
+    <many-to-one
+        name="turqChequeRoll"
+        class="com.turquaz.engine.dal.TurqChequeRoll"
+        not-null="true"
+    >
+        <column name="cheque_rolls_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqChequeCheque -->
+    <many-to-one
+        name="turqChequeCheque"
+        class="com.turquaz.engine.dal.TurqChequeCheque"
+        not-null="true"
+    >
+        <column name="cheque_cheques_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

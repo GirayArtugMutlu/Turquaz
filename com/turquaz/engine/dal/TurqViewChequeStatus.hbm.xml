@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqViewChequeStatus" 
+    table="turq_view_cheque_status"
+>
+
+    <composite-id>
+        <key-property 
+            name="chequeChequesId" 
+            column="cheque_cheques_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="chequesPortfolioNo" 
+            column="cheques_portfolio_no" 
+            type="java.lang.String"
+            length="30"
+        />
+        <key-property 
+            name="chequesNo" 
+            column="cheques_no" 
+            type="java.lang.String"
+            length="50"
+        />
+        <key-property 
+            name="banksId" 
+            column="banks_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="chequesDueDate" 
+            column="cheques_due_date" 
+            type="java.sql.Date"
+            length="4"
+        />
+        <key-property 
+            name="chequesDebtor" 
+            column="cheques_debtor" 
+            type="java.lang.String"
+            length="100"
+        />
+        <key-property 
+            name="chequesPaymentPlace" 
+            column="cheques_payment_place" 
+            type="java.lang.String"
+            length="50"
+        />
+        <key-property 
+            name="chequesValueDate" 
+            column="cheques_value_date" 
+            type="java.sql.Date"
+            length="4"
+        />
+        <key-property 
+            name="chequesAmount" 
+            column="cheques_amount" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+        <key-property 
+            name="currenciesId" 
+            column="currencies_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="chequeTransactionTypesId" 
+            column="cheque_transaction_types_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="transactionTypsName" 
+            column="transaction_typs_name" 
+            type="java.lang.String"
+            length="50"
+        />
+        <key-property 
+            name="accountingAccountsId" 
+            column="accounting_accounts_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="chequeRollsId" 
+            column="cheque_rolls_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="chequeRollsDate" 
+            column="cheque_rolls_date" 
+            type="java.sql.Date"
+            length="4"
+        />
+        <key-property 
+            name="engineSequencesId" 
+            column="engine_sequences_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="chequeRollNo" 
+            column="cheque_roll_no" 
+            type="java.lang.String"
+            length="50"
+        />
+        <key-property 
+            name="currentCardsId" 
+            column="current_cards_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="banksCardsId" 
+            column="banks_cards_id" 
+            type="int"
+            length="4"
+        />
+    </composite-id>    
+
+
+    <!-- Associations -->
+    <!-- derived association(s) for compound key -->
+    <!-- end of derived association(s) -->
+  
+
+</class>
+</hibernate-mapping>
