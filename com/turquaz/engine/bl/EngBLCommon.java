@@ -397,6 +397,30 @@ public class EngBLCommon
 			throw ex;
 		}
 	}
+	
+	public static void save(Object obj) throws Exception
+	{
+		try
+		{
+			EngDALCommon.saveObject(obj);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static void update(Object obj) throws Exception
+	{
+		try
+		{
+			EngDALCommon.updateObject(obj);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
 	public static void updateAllBillAccountingTransactions()
 	{
