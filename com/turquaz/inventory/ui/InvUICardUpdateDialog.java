@@ -20,6 +20,7 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
@@ -40,6 +41,8 @@ import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.component.NumericText;
+import com.turquaz.engine.ui.component.SecureComposite;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.engine.ui.component.SecureDialog;
@@ -54,11 +57,11 @@ import com.turquaz.engine.ui.component.SecureDialog;
 public class InvUICardUpdateDialog extends Dialog{
 	private InvUICardAdd compInvUICard;
 	private Composite compMain;
-	private ToolItem timDelete;
-	private ToolItem timUpdate;
-	private ToolBar toolBar2;
-	private CoolItem coolItem1;
-	private CoolBar coolBar2;
+	private ToolItem toolDelete;
+	private ToolItem toolUpdate;
+	private ToolBar toolBarTop;
+	private CoolItem coolTop;
+	private CoolBar coolBarTop;
 	private Shell dialogShell;
     private TurqInventoryCard invCard;
     private InvBLCardUpdate cardUpdate = new InvBLCardUpdate();
@@ -81,49 +84,49 @@ public class InvUICardUpdateDialog extends Dialog{
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 			dialogShell.setText(getText());
-			coolBar2 = new CoolBar(dialogShell,SWT.NULL);
-			coolItem1 = new CoolItem(coolBar2,SWT.DROP_DOWN);
-			toolBar2 = new ToolBar(coolBar2,SWT.SHADOW_OUT);
-			timUpdate = new ToolItem(toolBar2,SWT.NULL);
-			timDelete = new ToolItem(toolBar2,SWT.NULL);
+			coolBarTop = new CoolBar(dialogShell,SWT.NULL);
+			coolTop = new CoolItem(coolBarTop,SWT.DROP_DOWN);
+			toolBarTop = new ToolBar(coolBarTop,SWT.SHADOW_OUT);
+			toolUpdate = new ToolItem(toolBarTop,SWT.NULL);
+			toolDelete = new ToolItem(toolBarTop,SWT.NULL);
 			compMain = new Composite(dialogShell,SWT.NULL);
 			compInvUICard = new InvUICardAdd(compMain,SWT.NULL);
 	
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(613,348));
 	
-			GridData coolBar2LData = new GridData();
-			coolBar2LData.verticalAlignment = GridData.CENTER;
-			coolBar2LData.horizontalAlignment = GridData.FILL;
-			coolBar2LData.widthHint = -1;
-			coolBar2LData.heightHint = 42;
-			coolBar2LData.horizontalIndent = 0;
-			coolBar2LData.horizontalSpan = 1;
-			coolBar2LData.verticalSpan = 1;
-			coolBar2LData.grabExcessHorizontalSpace = true;
-			coolBar2LData.grabExcessVerticalSpace = false;
-			coolBar2.setLayoutData(coolBar2LData);
-			coolBar2.setSize(new org.eclipse.swt.graphics.Point(603,42));
+			GridData coolBarTopLData = new GridData();
+			coolBarTopLData.verticalAlignment = GridData.CENTER;
+			coolBarTopLData.horizontalAlignment = GridData.FILL;
+			coolBarTopLData.widthHint = -1;
+			coolBarTopLData.heightHint = 42;
+			coolBarTopLData.horizontalIndent = 0;
+			coolBarTopLData.horizontalSpan = 1;
+			coolBarTopLData.verticalSpan = 1;
+			coolBarTopLData.grabExcessHorizontalSpace = true;
+			coolBarTopLData.grabExcessVerticalSpace = false;
+			coolBarTop.setLayoutData(coolBarTopLData);
+			coolBarTop.setSize(new org.eclipse.swt.graphics.Point(603,42));
 	
-			coolItem1.setControl(toolBar2);
-			coolItem1.setSize(new org.eclipse.swt.graphics.Point(88,42));
-			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88,42));
-			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,42));
+			coolTop.setControl(toolBarTop);
+			coolTop.setSize(new org.eclipse.swt.graphics.Point(88,42));
+			coolTop.setPreferredSize(new org.eclipse.swt.graphics.Point(88,42));
+			coolTop.setMinimumSize(new org.eclipse.swt.graphics.Point(88,42));
 	
 	
-			timUpdate.setText("Update");
-			timUpdate.addSelectionListener( new SelectionAdapter() {
+			toolUpdate.setText("Update");
+			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
-					timUpdateWidgetSelected(evt);
+					toolUpdateWidgetSelected(evt);
 				}
 			});
 	
-			timDelete.setText("Delete");
-			timDelete.setToolTipText("Delete");
-			final org.eclipse.swt.graphics.Image timDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			timDelete.setImage(timDeleteimage);
-			timDelete.addSelectionListener( new SelectionAdapter() {
+			toolDelete.setText("Delete");
+			toolDelete.setToolTipText("Delete");
+			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setImage(toolDeleteimage);
+			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
-					timDeleteWidgetSelected(evt);
+					toolDeleteWidgetSelected(evt);
 				}
 			});
 	
@@ -160,7 +163,7 @@ public class InvUICardUpdateDialog extends Dialog{
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					timDeleteimage.dispose();
+					toolDeleteimage.dispose();
 				}
 			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 613,348);
@@ -182,6 +185,9 @@ public class InvUICardUpdateDialog extends Dialog{
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	
+	setButtonPermissions();
+		
 	compInvUICard.getTxtInvCardCode().setText(invCard.getCardInventoryCode());
 	compInvUICard.getTxtInvCardDefinition().setText(invCard.getCardDefinition());
 	compInvUICard.getTxtInvCardDiscount().setText(invCard.getCardDiscount());
@@ -199,6 +205,21 @@ public class InvUICardUpdateDialog extends Dialog{
 	fillPrices();
 	
 		
+	}
+	public void setButtonPermissions(){
+	
+	SecureComposite comp = (SecureComposite)compInvUICard;
+	int level = comp.getPermission(comp.getClass().getName());
+	if(level==3){
+		toolDelete.setEnabled(true);
+		toolUpdate.setEnabled(true);
+	}
+	else{
+		toolDelete.setEnabled(false);
+		toolUpdate.setEnabled(false);		
+	}
+	
+	
 	}
 	
 	public void fillPrices(){
@@ -343,6 +364,26 @@ public class InvUICardUpdateDialog extends Dialog{
     ex.printStackTrace();
     }
    }
+ public void deleteInvUnits(){
+    try{
+    
+   
+    //First remove groups then re-add them..
+	Iterator it = invCard.getTurqInventoryCardUnits().iterator();
+    TurqInventoryCardUnit cardUnit; 
+ 
+    while(it.hasNext()){   
+    
+     cardUnit = (TurqInventoryCardUnit)it.next();
+     cardUpdate.deleteObject(cardUnit);				
+	} 
+   
+    }
+    
+    catch(Exception ex){
+    ex.printStackTrace();
+    }
+   }
    
    
    public void updateInvGroups(){
@@ -394,7 +435,26 @@ public class InvUICardUpdateDialog extends Dialog{
    
    
    }
+   public void deletePrices(){
+   try{
+   Iterator it = invCard.getTurqInventoryPrices().iterator();
+   TurqInventoryPrice invPrice;
+	
+	while(it.hasNext()){
+     
+     invPrice = (TurqInventoryPrice)it.next();
+    
+     cardUpdate.deleteObject(invPrice);
+    
+              
+     }
+    }
+   catch(Exception ex){
+   ex.printStackTrace();
+   }
+     
    
+   }
     
     public void update(){
     try {
@@ -403,10 +463,7 @@ public class InvUICardUpdateDialog extends Dialog{
     // Update Inventory Card Fields
     int accountIdSell = ((Integer) compInvUICard.getTxtInvCardOutAcc().getData()).intValue();
 	int accountIdBuy = ((Integer) compInvUICard.getTxtInvCardInAcc().getData()).intValue();
-    
-	
-    
-     
+       
     cardUpdate.updateInvCard(compInvUICard.getTxtInvCardCode().getText()
 						.trim(), compInvUICard.getTxtInvCardSpecialCode().getText().trim(),
 						compInvUICard.getTxtInvCardName().getText().trim(), compInvUICard.getTxtInvCardDefinition().getText().trim(),
@@ -417,37 +474,72 @@ public class InvUICardUpdateDialog extends Dialog{
 	updateInvUnits();
 	updateInvGroups();
 	updatePrices();
-		
-		
+	MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+	msg.setMessage("Updated Succesfully");	
+	msg.open();	
 	}
 	
 		catch(Exception ex){
 		ex.printStackTrace();
 		
 		}
-    
-    
-    
-    
-    
-    
-    
-    
+     
     }
     
     public void delete(){
+      try{
+    //First Delete Groups
+    deleteInvGroups();
+    //delete Units
+    deleteInvUnits();
+    // delete Prices
+    deletePrices();
+    // delete invCard
+ 
+     cardUpdate.deleteObject(invCard);
+    MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+	msg.setMessage("Deleted Succesfully");	
+	msg.open();	 
+	this.dialogShell.dispose(); 
+       
+           
+    }
+    catch(Exception ex){
+    ex.printStackTrace();
+    
+    }
     
     
     }
       
+   public void deleteInvGroups(){
+   try{
+   Iterator it = invCard.getTurqInventoryCardGroups().iterator();
+    TurqInventoryCardGroup cardGroup; 
+      
+    while(it.hasNext()){
+     
+     cardGroup = (TurqInventoryCardGroup)it.next();
+     cardUpdate.deleteObject(cardGroup);
+     }
+   
+   
+   
+   }
+   catch(Exception ex){
+   ex.printStackTrace();
+   }
+   
+   }
+	
 
 	/** Auto-generated event handler method */
-	protected void timDeleteWidgetSelected(SelectionEvent evt){
-		delete();
+	protected void toolUpdateWidgetSelected(SelectionEvent evt){
+		update();
 	}
 
 	/** Auto-generated event handler method */
-	protected void timUpdateWidgetSelected(SelectionEvent evt){
-		update();
+	protected void toolDeleteWidgetSelected(SelectionEvent evt){
+		delete();
 	}
 }

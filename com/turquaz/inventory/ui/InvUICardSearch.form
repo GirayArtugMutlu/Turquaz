@@ -228,7 +228,7 @@
 										<Property name="verticalAlignment" type="int" value="2"/>
 										<Property name="horizontalAlignment" type="int" value="1"/>
 										<Property name="widthHint" type="int" value="119"/>
-										<Property name="heightHint" type="int" value="14"/>
+										<Property name="heightHint" type="int" value="16"/>
 										<Property name="horizontalIndent" type="int" value="0"/>
 										<Property name="horizontalSpan" type="int" value="1"/>
 										<Property name="verticalSpan" type="int" value="1"/>

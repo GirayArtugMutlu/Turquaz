@@ -59,6 +59,7 @@ import com.turquaz.engine.ui.component.TTableModel;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -342,7 +343,7 @@ public class InvUICardAdd extends SecureComposite {
 			tabfldInvCardAddLData.grabExcessHorizontalSpace = true;
 			tabfldInvCardAddLData.grabExcessVerticalSpace = true;
 			tabfldInvCardAdd.setLayoutData(tabfldInvCardAddLData);
-			tabfldInvCardAdd.setSize(new org.eclipse.swt.graphics.Point(625,404));
+			tabfldInvCardAdd.setSize(new org.eclipse.swt.graphics.Point(641,404));
 	
 			tabInvCardGeneral.setControl(compInvCardGeneral);
 			tabInvCardGeneral.setText("General Information");
@@ -719,7 +720,7 @@ public class InvUICardAdd extends SecureComposite {
 			tabInvCardUnits.setControl(compInvCardUnit);
 			tabInvCardUnits.setText("Units");
 	
-			compInvCardUnit.setSize(new org.eclipse.swt.graphics.Point(625,404));
+			compInvCardUnit.setSize(new org.eclipse.swt.graphics.Point(641,404));
 	
 			GridData lblInvCardUnitLData = new GridData();
 			lblInvCardUnitLData.verticalAlignment = GridData.CENTER;
@@ -1109,7 +1110,7 @@ public class InvUICardAdd extends SecureComposite {
 			tabInvCardGroups.setControl(compInvCardAddGroups);
 			tabInvCardGroups.setText("Groups");
 	
-			compInvCardAddGroups.setSize(new org.eclipse.swt.graphics.Point(625,404));
+			compInvCardAddGroups.setSize(new org.eclipse.swt.graphics.Point(641,404));
 	
 			GridData compInvCardAddGroupsSelectionLData = new GridData();
 			compInvCardAddGroupsSelectionLData.verticalAlignment = GridData.CENTER;
@@ -1476,6 +1477,16 @@ decimalSymbol + "][0-9]+)?");
 		tableInvCardAddAllUnits.removeAll();
 		tableInvCardAddRegisteredUnits.removeAll();
 		comboInvCardUnits.removeAll();
+		
+		//Remove All editors
+		Iterator it = mapEditorsTableInvCardAddRegisteredUnits.keySet().iterator();
+		while (it.hasNext()){
+		TableEditor editor =(TableEditor) mapEditorsTableInvCardAddRegisteredUnits.get(it.next());
+		editor.getEditor().dispose();
+		editor.dispose();		
+		}
+		tableInvCardAddRegisteredUnits.getColumn(1).setWidth(50);		
+		
 		try {
 			java.util.List unitLst = invBLCardAdd.getInventoryUnits();
 			TableItem item = null;

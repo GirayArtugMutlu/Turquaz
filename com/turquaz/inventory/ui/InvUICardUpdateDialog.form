@@ -26,7 +26,7 @@
 			</Property>
 		</Properties>
 		<SubComponents>
-			<Component class="org.eclipse.swt.widgets.CoolBar" name="coolBar2" style="0">
+			<Component class="org.eclipse.swt.widgets.CoolBar" name="coolBarTop" style="0">
 				<Constraints>
 					<Constraint verticalSpan=""/>
 					<Constraint horizontalAlignment=""/>
@@ -61,7 +61,7 @@
 					</Property>
 				</Properties>
 				<SubComponents>
-					<Component class="org.eclipse.swt.widgets.CoolItem" name="coolItem1" style="4">
+					<Component class="org.eclipse.swt.widgets.CoolItem" name="coolTop" style="4">
 						<Constraints>
 							<LayoutConstraint/>
 						</Constraints>
@@ -79,7 +79,7 @@
 							</Property>
 						</Properties>
 						<SubComponents>
-							<Component class="org.eclipse.swt.widgets.ToolBar" name="toolBar2" style="8">
+							<Component class="org.eclipse.swt.widgets.ToolBar" name="toolBarTop" style="8">
 								<Constraints>
 									<LayoutConstraint/>
 								</Constraints>
@@ -91,23 +91,23 @@
 									</Property>
 								</Properties>
 								<SubComponents>
-									<Component class="org.eclipse.swt.widgets.ToolItem" name="timUpdate" style="0">
+									<Component class="org.eclipse.swt.widgets.ToolItem" name="toolUpdate" style="0">
 										<Constraints>
 											<LayoutConstraint/>
 										</Constraints>
 										<Events>
-											<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="timUpdateWidgetSelected"/>
+											<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolUpdateWidgetSelected"/>
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Update"/>
 										</Properties>
 									</Component>
-									<Component class="org.eclipse.swt.widgets.ToolItem" name="timDelete" style="0">
+									<Component class="org.eclipse.swt.widgets.ToolItem" name="toolDelete" style="0">
 										<Constraints>
 											<LayoutConstraint/>
 										</Constraints>
 										<Events>
-											<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="timDeleteWidgetSelected"/>
+											<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolDeleteWidgetSelected"/>
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Delete"/>

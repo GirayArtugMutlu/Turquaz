@@ -208,7 +208,7 @@ public class InvUICardSearch extends SecureComposite {
 			comboInvGroupLData.verticalAlignment = GridData.CENTER;
 			comboInvGroupLData.horizontalAlignment = GridData.BEGINNING;
 			comboInvGroupLData.widthHint = 119;
-			comboInvGroupLData.heightHint = 14;
+			comboInvGroupLData.heightHint = 16;
 			comboInvGroupLData.horizontalIndent = 0;
 			comboInvGroupLData.horizontalSpan = 1;
 			comboInvGroupLData.verticalSpan = 1;
@@ -388,7 +388,7 @@ public class InvUICardSearch extends SecureComposite {
 	
 	TurqInventoryCard card = (TurqInventoryCard)selection[0].getData();
 	new InvUICardUpdateDialog(this.getShell(),SWT.NULL,card).open();
-	
+	search();
 	
 	}
 	}

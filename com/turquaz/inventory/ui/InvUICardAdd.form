@@ -56,10 +56,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[629, 426]"/>
+						<Dimension value="[645, 426]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 2, 629, 426]"/>
+						<Rectangle value="[5, 2, 645, 426]"/>
 					</Property>
 				</Properties>
 				<SubComponents>
@@ -778,7 +778,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[625, 404]"/>
+										<Dimension value="[641, 404]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -835,7 +835,7 @@
 												<Dimension value="[126, 29]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[160, 5, 126, 29]"/>
+												<Rectangle value="[164, 5, 126, 29]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -860,7 +860,7 @@
 										<Properties>
 											<Property name="text" type="String" value="Update Units"/>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[315, 8, 74, 23]"/>
+												<Rectangle value="[323, 8, 74, 23]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
@@ -919,7 +919,7 @@
 												<Dimension value="[422, 139]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[160, 39, 422, 139]"/>
+												<Rectangle value="[164, 39, 422, 139]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
@@ -1164,7 +1164,7 @@
 												<Dimension value="[61, 25]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[559, 193, 61, 25]"/>
+												<Rectangle value="[575, 193, 61, 25]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -1482,7 +1482,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[625, 404]"/>
+										<Dimension value="[641, 404]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
