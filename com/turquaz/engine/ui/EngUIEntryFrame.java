@@ -26,13 +26,19 @@ import java.io.FileOutputStream;
 import java.util.Locale;
 import java.util.Properties;
 
+
 import org.eclipse.core.internal.preferences.Base64;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.graphics.DeviceData;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
@@ -63,6 +69,8 @@ import com.turquaz.engine.dal.DatabaseThread;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.ui.wizards.EngUIDatabaseConnectionWizard;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
@@ -93,6 +101,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblPassword;
 	private Label lblSeperator;
 	private EngBLCommon blCommon = new EngBLCommon();
+	boolean guiReady = false;
 
 	/**
 	* Auto-generated main method to display this 
@@ -107,7 +116,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	* org.eclipse.swt.widgets.Composite inside a new Shell.
 	*/
 	public static void showGUI() {
-		Display display = Display.getDefault();
+		Display display = new Display();
 		Shell shell = new Shell(display);
 		EngUIEntryFrame inst = new EngUIEntryFrame(shell, SWT.NULL);
 		Point size = inst.getSize();
@@ -138,9 +147,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 
 	private void initGUI() {
 		try {
-			
-		 
-			 
+				 
 			String database = EngConfiguration.getString("serverAddress"); //$NON-NLS-1$
 			database = database.trim();
 			
@@ -320,57 +327,135 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		this.getShell().dispose();
 		
 	}
+	
+	
+	
+	
+	public void showSplashScreen(){
+	    
+	    Shell shell;
+
+		Shell invisibleShell;
+		Display display  = getDisplay();
+		
+		
+
+		/** Shell containing the splash */
+		shell = new Shell(getShell(), SWT.ON_TOP);
+		Label label = new Label(shell, SWT.NONE);
+		label.setImage(SWTResourceManager.getImage("icons/splash.gif"));
+		
+		label.addDisposeListener(new DisposeListener(){
+		    
+		    public void widgetDisposed(DisposeEvent e){
+		        if (((Label) e.widget).getImage() != null)
+			      ((Label) e.widget).getImage().dispose();
+		    }
+		}
+		);
+	
+
+		/** Formlayout for Splash Contents */
+		FormLayout layout = new FormLayout();
+		shell.setLayout(layout);
+		FormData labelData = new FormData();
+		labelData.right = new FormAttachment(100, 0);
+		labelData.bottom = new FormAttachment(100, 0);
+		label.setLayoutData(labelData);
+
+		/** Pack Shell */
+		shell.pack();
+
+		/** Problem on Linux: Shell is shown in Taskbar, so set title */
+		shell.setText("Turquaz");
+
+		/** Center the splashscreen */
+	    EngUICommon.centreWindow(shell);
+
+		/** Show the splash */
+		shell.open();
+	    
+	    /** Load the application */
+		getDisplay().asyncExec(new Runnable() {
+			public void run() {
+				showMainFrame();
+				guiReady = true;
+			}
+		});
+		/** Show splash while GUI is loading */
+		while (!guiReady) {
+		    
+		    if (!display.readAndDispatch())
+				display.sleep();
+		}
+		display.dispose();
+		
+		
+		
+	}
+	
+	public void showMainFrame()
+	{    
+		try{
+			FileInputStream input = new FileInputStream("config/turquaz.properties"); //$NON-NLS-1$
+		    Properties props = new Properties();
+		    props.load(input);
+		    
+		    if(checkRememberPassword.getSelection()){
+		    	 String password = new String(org.eclipse.core.internal.preferences.Base64.encode(txtPassword.getText().getBytes()));
+				 props.put("username",txtUserName.getText()); //$NON-NLS-1$
+				 props.put("password",password); //$NON-NLS-1$
+				 props.put("remember_password","true"); //$NON-NLS-1$ //$NON-NLS-2$
+		    }
+		    else{
+		    	props.remove("username"); //$NON-NLS-1$
+		    	props.remove("password"); //$NON-NLS-1$
+		    	props.put("remember_password","false"); //$NON-NLS-1$ //$NON-NLS-2$
+		    }
+	
+		   
+		    input.close();
+		    
+		    FileOutputStream output = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$
+		    props.store(output,"Turquaz Configuration"); //$NON-NLS-1$
+		    
+		    System.setProperty("user",txtUserName.getText()); //$NON-NLS-1$
+
+		    if (((Integer)comboLanguage.getData(comboLanguage.getText())).intValue() ==1)
+		    {
+		    	Locale.setDefault(new Locale("tr","TR")); //$NON-NLS-1$ //$NON-NLS-2$
+		    }
+		    else if (((Integer)comboLanguage.getData(comboLanguage.getText())).intValue() ==2)
+		    {
+		    	Locale.setDefault(new Locale("en","US")); //$NON-NLS-1$ //$NON-NLS-2$
+		    }
+		    
+		    
+		    EngDALSessionFactory.init();
+		    
+			}
+			catch(Exception ex){
+				ex.printStackTrace();
+			}
+			
+			
+			   this.getShell().dispose();
+				  
+	          EngUIMainFrame.showGUI2();
+		
+	}
+	
 	public void btnOkMouseUp(){
+	    
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 		try{
 		if(blCommon.checkUserPass(txtUserName.getText(),txtPassword.getText())){
 			
-			try{
-				FileInputStream input = new FileInputStream("config/turquaz.properties"); //$NON-NLS-1$
-			    Properties props = new Properties();
-			    props.load(input);
-			    
-			    if(checkRememberPassword.getSelection()){
-			    	 String password = new String(org.eclipse.core.internal.preferences.Base64.encode(txtPassword.getText().getBytes()));
-					 props.put("username",txtUserName.getText()); //$NON-NLS-1$
-					 props.put("password",password); //$NON-NLS-1$
-					 props.put("remember_password","true"); //$NON-NLS-1$ //$NON-NLS-2$
-			    }
-			    else{
-			    	props.remove("username"); //$NON-NLS-1$
-			    	props.remove("password"); //$NON-NLS-1$
-			    	props.put("remember_password","false"); //$NON-NLS-1$ //$NON-NLS-2$
-			    }
-		
-			   
-			    input.close();
-			    
-			    FileOutputStream output = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$
-			    props.store(output,"Turquaz Configuration"); //$NON-NLS-1$
-			    
-			    System.setProperty("user",txtUserName.getText()); //$NON-NLS-1$
-
-			    if (((Integer)comboLanguage.getData(comboLanguage.getText())).intValue() ==1)
-			    {
-			    	Locale.setDefault(new Locale("tr","TR")); //$NON-NLS-1$ //$NON-NLS-2$
-			    }
-			    else if (((Integer)comboLanguage.getData(comboLanguage.getText())).intValue() ==2)
-			    {
-			    	Locale.setDefault(new Locale("en","US")); //$NON-NLS-1$ //$NON-NLS-2$
-			    }
-			    
-			    
-			    EngDALSessionFactory.init();
-			    
-				}
-				catch(Exception ex){
-					ex.printStackTrace();
-				}
+		 
+			showSplashScreen();
 			
 			
-			this.getShell().dispose();
 			
-			EngUIMainFrame.showGUI2();
 			
 			
 		}
