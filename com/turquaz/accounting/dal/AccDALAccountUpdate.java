@@ -97,22 +97,23 @@ public class AccDALAccountUpdate {
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			
 			
 			List subAccounts=getSubAccounts(parentAcc);
 			for (int k=0; k<subAccounts.size(); k++)
 			{
+				Session session = EngDALSessionFactory.openSession();
 				TurqAccountingAccount subAcc=(TurqAccountingAccount)subAccounts.get(k);
 				String remainingCode=subAcc.getAccountCode().substring(firstAccCode.length());
 				String firstSubAccCode=subAcc.getAccountCode();
 				subAcc.setAccountCode(parentAcc.getAccountCode().concat(remainingCode));
 				session.update(subAcc);
+				session.flush();				
+				session.close();
 				updateAccountCodeOfSubAccs(subAcc,firstSubAccCode);			
 				
 			}
-			session.flush();
-	
-			session.close();
+			
 		}
 		catch (Exception ex)
 		{

@@ -88,6 +88,7 @@ public class AccDALAccountAdd {
 			List list = q.list();
 		
 			session.close();
+			
 			if(list.size()>0){
 				return (TurqAccountingAccount)list.get(0); 
 			}

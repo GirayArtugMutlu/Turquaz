@@ -52,8 +52,14 @@ public class AccBLAccountUpdate {
 			account.setUpdateDate(new java.sql.Date( cal.getTime().getTime()));
 	
 			account.setTurqAccountingAccountByParentAccount(parentAccount);
+			if(parentAccount.getAccountingAccountsId().intValue()==-1)
+			{
+				account.setTurqAccountingAccountByTopAccount(account);
+				
+			}
+			else {
 			account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());			
-		    	
+			}
 			dalAccountUpdate.updateObject(account);		
 			
 			dalAccountUpdate.updateAccountCodeOfSubAccs(account,accCode);

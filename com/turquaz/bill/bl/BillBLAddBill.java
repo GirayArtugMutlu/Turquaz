@@ -491,7 +491,7 @@ public class BillBLAddBill {
 						BigDecimal vatAmount = (BigDecimal) VATList
 								.get(invTrans
 										.getTurqInventoryCard()
-										.getTurqAccountingAccountByAccountingAccountsIdVat().getAccountingAccountsId());
+										.getTurqAccountingAccountByAccountingAccountsIdVatSell().getAccountingAccountsId());
 
 						if (vatAmount == null) {
 							vatAmount = new BigDecimal(0);
@@ -503,7 +503,7 @@ public class BillBLAddBill {
 								.put(
 										invTrans
 												.getTurqInventoryCard()
-												.getTurqAccountingAccountByAccountingAccountsIdVat().getAccountingAccountsId(),
+												.getTurqAccountingAccountByAccountingAccountsIdVatSell().getAccountingAccountsId(),
 										vatAmount);
 
 					}
