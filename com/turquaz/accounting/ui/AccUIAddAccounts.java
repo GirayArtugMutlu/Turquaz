@@ -48,14 +48,29 @@ import com.turquaz.engine.ui.component.SecureComposite;
 
 
 
+import com.cloudgarden.resource.SWTResourceManager;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
 public class AccUIAddAccounts extends  Composite implements SecureComposite{
+
+	{
+		//Register as a resource user - SWTResourceManager will
+		//handle the obtaining and disposing of resources
+		SWTResourceManager.registerResourceUser(this);
+	}
+
 
 	/**
 	 * @return Returns the txtAccAccountCode.
@@ -75,13 +90,13 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	public DynamicAccountPicker getTxtParentAccount() {
 		return txtParentAccount;
 	}
-	private DynamicAccountPicker txtParentAccount;
 	private AccBLAccountAdd blAccountAdd = new AccBLAccountAdd();
-	private CLabel cLabel2;
-	private Text txtAccAccountCode;
 	private CLabel cLabel1;
 	private Text txtAccAcountName;
+	private DynamicAccountPicker txtParentAccount;
+	private CLabel cLabel2;
 	private Label label1;
+	private Text txtAccAccountCode;
 	public AccUIAddAccounts(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -94,107 +109,74 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	public void initGUI(){
 		try {
 			preInitGUI();
-	
-			cLabel1 = new CLabel(this,SWT.NULL);
-			txtAccAccountCode = new Text(this,SWT.NULL);
-			label1 = new Label(this,SWT.NULL);
-			txtAccAcountName = new Text(this,SWT.NULL);
-			cLabel2 = new CLabel(this,SWT.NULL);
-			txtParentAccount = new DynamicAccountPicker(this,SWT.NULL);
-			txtParentAccount.setFilter(""); //$NON-NLS-1$
-	
-			this.setSize(new org.eclipse.swt.graphics.Point(435,204));
-	
-			GridData cLabel1LData = new GridData();
-			cLabel1LData.verticalAlignment = GridData.CENTER;
-			cLabel1LData.horizontalAlignment = GridData.BEGINNING;
-			cLabel1LData.widthHint = 83;
-			cLabel1LData.heightHint = 17;
-			cLabel1LData.horizontalIndent = 0;
-			cLabel1LData.horizontalSpan = 1;
-			cLabel1LData.verticalSpan = 1;
-			cLabel1LData.grabExcessHorizontalSpace = false;
-			cLabel1LData.grabExcessVerticalSpace = false;
-			cLabel1.setLayoutData(cLabel1LData);
-			cLabel1.setText(Messages.getString("AccUIAddAccounts.0")); //$NON-NLS-1$
-			cLabel1.setSize(new org.eclipse.swt.graphics.Point(83,17));
-	
-			GridData txtAccAccountCodeLData = new GridData();
-			txtAccAccountCodeLData.verticalAlignment = GridData.CENTER;
-			txtAccAccountCodeLData.horizontalAlignment = GridData.BEGINNING;
-			txtAccAccountCodeLData.widthHint = 255;
-			txtAccAccountCodeLData.heightHint = 17;
-			txtAccAccountCodeLData.horizontalIndent = 0;
-			txtAccAccountCodeLData.horizontalSpan = 1;
-			txtAccAccountCodeLData.verticalSpan = 1;
-			txtAccAccountCodeLData.grabExcessHorizontalSpace = false;
-			txtAccAccountCodeLData.grabExcessVerticalSpace = false;
-			txtAccAccountCode.setLayoutData(txtAccAccountCodeLData);
-			txtAccAccountCode.setSize(new org.eclipse.swt.graphics.Point(255,17));
-			final Color txtAccAccountCodebackground = new Color(Display.getDefault(),255,255,255);
-			txtAccAccountCode.setBackground(txtAccAccountCodebackground);
-	
-			GridData label1LData = new GridData();
-			label1LData.verticalAlignment = GridData.CENTER;
-			label1LData.horizontalAlignment = GridData.BEGINNING;
-			label1LData.widthHint = 91;
-			label1LData.heightHint = 18;
-			label1LData.horizontalIndent = 0;
-			label1LData.horizontalSpan = 1;
-			label1LData.verticalSpan = 1;
-			label1LData.grabExcessHorizontalSpace = false;
-			label1LData.grabExcessVerticalSpace = false;
-			label1.setLayoutData(label1LData);
-			label1.setText(Messages.getString("AccUIAddAccounts.1")); //$NON-NLS-1$
-			label1.setSize(new org.eclipse.swt.graphics.Point(91,18));
-	
-			GridData txtAccAcountNameLData = new GridData();
-			txtAccAcountNameLData.verticalAlignment = GridData.CENTER;
-			txtAccAcountNameLData.horizontalAlignment = GridData.BEGINNING;
-			txtAccAcountNameLData.widthHint = 256;
-			txtAccAcountNameLData.heightHint = 17;
-			txtAccAcountNameLData.horizontalIndent = 0;
-			txtAccAcountNameLData.horizontalSpan = 1;
-			txtAccAcountNameLData.verticalSpan = 1;
-			txtAccAcountNameLData.grabExcessHorizontalSpace = false;
-			txtAccAcountNameLData.grabExcessVerticalSpace = false;
-			txtAccAcountName.setLayoutData(txtAccAcountNameLData);
-			txtAccAcountName.setSize(new org.eclipse.swt.graphics.Point(256,17));
-	
-			GridData cLabel2LData = new GridData();
-			cLabel2LData.verticalAlignment = GridData.CENTER;
-			cLabel2LData.horizontalAlignment = GridData.BEGINNING;
-			cLabel2LData.widthHint = -1;
-			cLabel2LData.heightHint = -1;
-			cLabel2LData.horizontalIndent = 0;
-			cLabel2LData.horizontalSpan = 1;
-			cLabel2LData.verticalSpan = 1;
-			cLabel2LData.grabExcessHorizontalSpace = false;
-			cLabel2LData.grabExcessVerticalSpace = false;
-			cLabel2.setLayoutData(cLabel2LData);
-			cLabel2.setText(Messages.getString("AccUIAddAccounts.2")); //$NON-NLS-1$
-	
-			GridData txtParentAccountLData = new GridData();
-			txtParentAccountLData.verticalAlignment = GridData.CENTER;
-			txtParentAccountLData.horizontalAlignment = GridData.BEGINNING;
-			txtParentAccountLData.widthHint = 147;
-			txtParentAccountLData.heightHint = 17;
-			txtParentAccountLData.horizontalIndent = 0;
-			txtParentAccountLData.horizontalSpan = 1;
-			txtParentAccountLData.verticalSpan = 1;
-			txtParentAccountLData.grabExcessHorizontalSpace = false;
-			txtParentAccountLData.grabExcessVerticalSpace = false;
-			txtParentAccount.setLayoutData(txtParentAccountLData);
-			txtParentAccount.setSize(new org.eclipse.swt.graphics.Point(147,17));
-			txtParentAccount.setEnabled(true);
-			txtParentAccount.addMouseListener( new MouseAdapter() {
-				public void mouseUp(MouseEvent evt) {
-					txtParentAccountMouseUp(evt);
-				}
-			});
-			txtParentAccount.layout();
+
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
+	
+			this.setSize(new org.eclipse.swt.graphics.Point(435,204));
+			{
+				cLabel1 = new CLabel(this, SWT.NONE);
+				cLabel1.setSize(new org.eclipse.swt.graphics.Point(83, 17));
+				GridData cLabel1LData = new GridData();
+				cLabel1.setText(Messages.getString("AccUIAddAccounts.0"));
+				cLabel1LData.widthHint = 83;
+				cLabel1LData.heightHint = 17;
+				cLabel1.setLayoutData(cLabel1LData);
+			}
+			{
+				txtAccAccountCode = new Text(this, SWT.NONE);
+				txtAccAccountCode.setSize(new org.eclipse.swt.graphics.Point(
+					255,
+					17));
+				GridData txtAccAccountCodeLData = new GridData();
+				
+				txtAccAccountCodeLData.widthHint = 249;
+				txtAccAccountCodeLData.heightHint = 17;
+				txtAccAccountCode.setLayoutData(txtAccAccountCodeLData);
+			}
+			{
+				label1 = new Label(this, SWT.NONE);
+				label1.setSize(new org.eclipse.swt.graphics.Point(91, 18));
+				GridData label1LData = new GridData();
+				label1.setText(Messages.getString("AccUIAddAccounts.1"));
+				label1LData.widthHint = 91;
+				label1LData.heightHint = 18;
+				label1.setLayoutData(label1LData);
+			}
+			{
+				txtAccAcountName = new Text(this, SWT.NONE);
+				txtAccAcountName.setSize(new org.eclipse.swt.graphics.Point(
+					256,
+					17));
+				GridData txtAccAcountNameLData = new GridData();
+				txtAccAcountNameLData.widthHint = 250;
+				txtAccAcountNameLData.heightHint = 17;
+				txtAccAcountName.setLayoutData(txtAccAcountNameLData);
+			}
+			{
+				cLabel2 = new CLabel(this, SWT.NONE);
+				GridData cLabel2LData = new GridData();
+				cLabel2.setText(Messages.getString("AccUIAddAccounts.2"));
+				cLabel2.setLayoutData(cLabel2LData);
+			}
+			{
+				txtParentAccount = new DynamicAccountPicker(this, SWT.NONE);
+				GridData txtParentAccountLData = new GridData();
+				txtParentAccountLData.widthHint = 233;
+				txtParentAccountLData.heightHint = 18;
+				txtParentAccount.setFilter(""); //$NON-NLS-1$
+				txtParentAccount.setLayoutData(txtParentAccountLData);
+				txtParentAccount.setEnabled(true);
+				txtParentAccount.addMouseListener(new MouseAdapter() {
+					public void mouseUp(MouseEvent evt) {
+						txtParentAccountMouseUp(evt);
+					}
+				});
+				txtParentAccount.layout();
+			}
+
+			final Color txtAccAccountCodebackground = new Color(Display.getDefault(),255,255,255);
+
 			thisLayout.marginWidth = 5;
 			thisLayout.marginHeight = 5;
 			thisLayout.numColumns = 2;

@@ -49,7 +49,7 @@ public class AccBLTransactionUpdate {
 		
 	}
 	
-	public void updateTransaction(TurqAccountingTransaction transaction,String docNo, Object transDate)
+	public void updateTransaction(TurqAccountingTransaction transaction,String docNo, Object transDate, String definition)
 	throws Exception{
 	
 		Date date = new Date(((java.util.Date)transDate).getTime());
@@ -67,7 +67,7 @@ public class AccBLTransactionUpdate {
 	
 	}
 	public void updateTransaction(TurqAccountingTransaction transaction,String docNo, java.util.Date transDate,
-				int transType)
+				int transType, String definition)
 	throws Exception{
 	
 		TurqAccountingTransactionType accTransType = new TurqAccountingTransactionType();

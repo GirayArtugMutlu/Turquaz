@@ -21,7 +21,9 @@
         type="int"
         column="consignment_groups_id"
     >
-         <generator class="increment" />
+        <generator class="sequence">
+            <param name="sequence">seq_consignment_groups</param>
+        </generator>
     </id>
 
     <property

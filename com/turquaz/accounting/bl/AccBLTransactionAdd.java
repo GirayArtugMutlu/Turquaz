@@ -76,7 +76,7 @@ public class AccBLTransactionAdd {
 	}
 	}
 	
-	public Integer saveAccTransaction(Date date, String documentNo,int type,int moduleId,Integer docSeqId) throws Exception
+	public Integer saveAccTransaction(Date date, String documentNo,int type,int moduleId,Integer docSeqId, String definition) throws Exception
 	{
 		try{
 			
@@ -84,11 +84,15 @@ public class AccBLTransactionAdd {
 		
 		if(docSeqId==null){
 			
+			TurqModule module = new TurqModule();
+			module.setModulesId(new Integer(1));
+			docSeq.setTurqModule(module);
 			dalTransAdd.save(docSeq);
 		}
 		else
 		{
 			docSeq.setEngineSequencesId(docSeqId);
+			
 		}
 		
 		
@@ -97,6 +101,7 @@ public class AccBLTransactionAdd {
 		
 		
 		trans.setTransactionDocumentNo(documentNo);
+		trans.setTransactionDescription(definition);
 		trans.setTransactionsDate(new java.sql.Date(date.getTime()));
 		
 		

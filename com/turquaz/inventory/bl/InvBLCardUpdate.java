@@ -56,8 +56,7 @@ public class InvBLCardUpdate {
 	 * @param card
 	 * @throws Exception
 	 */
-	public void updateInvCard(String invCode, String invSpecialCode,
-			String cardName, String cardDefinition, int minAmount,
+	public void updateInvCard(String invCode, String cardName, String cardDefinition, int minAmount,
 			int maxAmount, int cardVat, int discount,TurqAccountingAccount accountBuy,
 			TurqAccountingAccount accountSell,int cardSpecialVat, BigDecimal cardSpecialVatEach,
 			TurqInventoryCard card) throws Exception{
@@ -71,7 +70,6 @@ public class InvBLCardUpdate {
 			card.setCardMaximumAmount(maxAmount);
 			card.setCardMinimumAmount(minAmount);
 			card.setCardName(cardName);
-			card.setCardSpecialCode(invSpecialCode);
 			card.setCardVat(cardVat);
 			card.setCardSpecialVat(cardSpecialVat);
 			card.setCardSpecialVatEach(cardSpecialVatEach);

@@ -79,21 +79,23 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
         SWTResourceManager.registerResourceUser(this);
     }
 
-
+	private AccBLTransactionAdd blTransAdd= new AccBLTransactionAdd();
+	private CLabel lblDate;
 	private CCombo comboDeptor;
-	private CLabel lblDeptor;
+	private Composite composite2;
+	private TableItem item;
 	private TableColumn tableColumnCreditAmount;
 	private TableColumn tableColumnAccountName;
 	private TableColumn tableColumnAccountCode;
 	private Table tableTransactionRows;
 	private Button btnRemoveTransactionRow;
 	private Button btnAddTransactionRow;
-	private Composite composite2;
-	private DatePicker datePickerTransactionDate;
-	private CLabel lblDate;
+	private Text txtTransDefinition;
+	private CLabel lblTransDefinition;
+	private CLabel lblDeptor;
 	private Text txtDocumentNo;
 	private CLabel lbldocumentNo;
-	private AccBLTransactionAdd blTransAdd= new AccBLTransactionAdd();
+	private DatePicker datePickerTransactionDate;
 	private BigDecimal totalDept;
 	public AccUITransactionCollect(Composite parent, int style) {
 		super(parent, style);
@@ -107,193 +109,178 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	public void initGUI(){
 		try {
 			preInitGUI();
-	
-			lbldocumentNo = new CLabel(this,SWT.NULL);
-			txtDocumentNo = new Text(this,SWT.NULL);
-			lblDate = new CLabel(this,SWT.NULL);
-			datePickerTransactionDate = new DatePicker(this,SWT.NULL);
-			lblDeptor = new CLabel(this,SWT.NULL);
-			comboDeptor = new CCombo(this,SWT.NULL);
-			composite2 = new Composite(this,SWT.NULL);
-			btnAddTransactionRow = new Button(composite2,SWT.PUSH| SWT.CENTER);
-			btnRemoveTransactionRow = new Button(composite2,SWT.PUSH| SWT.CENTER);
-			tableTransactionRows = new Table(this,SWT.FULL_SELECTION| SWT.BORDER);
-			tableColumnAccountCode = new TableColumn(tableTransactionRows,SWT.NULL);
-			tableColumnAccountName = new TableColumn(tableTransactionRows,SWT.NULL);
-			tableColumnCreditAmount = new TableColumn(tableTransactionRows,SWT.NULL);
-	
+
 			this.setSize(new org.eclipse.swt.graphics.Point(520,452));
-	
-			GridData lbldocumentNoLData = new GridData();
-			lbldocumentNoLData.verticalAlignment = GridData.CENTER;
-			lbldocumentNoLData.horizontalAlignment = GridData.BEGINNING;
-			lbldocumentNoLData.widthHint = -1;
-			lbldocumentNoLData.heightHint = -1;
-			lbldocumentNoLData.horizontalIndent = 0;
-			lbldocumentNoLData.horizontalSpan = 1;
-			lbldocumentNoLData.verticalSpan = 1;
-			lbldocumentNoLData.grabExcessHorizontalSpace = false;
-			lbldocumentNoLData.grabExcessVerticalSpace = false;
-			lbldocumentNo.setLayoutData(lbldocumentNoLData);
-			lbldocumentNo.setText(Messages.getString("AccUITransactionCollect.0")); //$NON-NLS-1$
-	
-			GridData txtDocumentNoLData = new GridData();
-			txtDocumentNoLData.verticalAlignment = GridData.CENTER;
-			txtDocumentNoLData.horizontalAlignment = GridData.BEGINNING;
-			txtDocumentNoLData.widthHint = 155;
-			txtDocumentNoLData.heightHint = 19;
-			txtDocumentNoLData.horizontalIndent = 0;
-			txtDocumentNoLData.horizontalSpan = 1;
-			txtDocumentNoLData.verticalSpan = 1;
-			txtDocumentNoLData.grabExcessHorizontalSpace = false;
-			txtDocumentNoLData.grabExcessVerticalSpace = false;
-			txtDocumentNo.setLayoutData(txtDocumentNoLData);
-			txtDocumentNo.setSize(new org.eclipse.swt.graphics.Point(155,19));
-	
-			GridData lblDateLData = new GridData();
-			lblDateLData.verticalAlignment = GridData.CENTER;
-			lblDateLData.horizontalAlignment = GridData.BEGINNING;
-			lblDateLData.widthHint = -1;
-			lblDateLData.heightHint = -1;
-			lblDateLData.horizontalIndent = 0;
-			lblDateLData.horizontalSpan = 1;
-			lblDateLData.verticalSpan = 1;
-			lblDateLData.grabExcessHorizontalSpace = false;
-			lblDateLData.grabExcessVerticalSpace = false;
-			lblDate.setLayoutData(lblDateLData);
-			lblDate.setText(Messages.getString("AccUITransactionCollect.1")); //$NON-NLS-1$
-	
-			GridData datePickerTransactionDateLData = new GridData();
-			datePickerTransactionDateLData.verticalAlignment = GridData.CENTER;
-			datePickerTransactionDateLData.horizontalAlignment = GridData.BEGINNING;
-			datePickerTransactionDateLData.widthHint = 157;
-			datePickerTransactionDateLData.heightHint = 25;
-			datePickerTransactionDateLData.horizontalIndent = 0;
-			datePickerTransactionDateLData.horizontalSpan = 1;
-			datePickerTransactionDateLData.verticalSpan = 1;
-			datePickerTransactionDateLData.grabExcessHorizontalSpace = false;
-			datePickerTransactionDateLData.grabExcessVerticalSpace = false;
-			datePickerTransactionDate.setLayoutData(datePickerTransactionDateLData);
-			datePickerTransactionDate.setSize(new org.eclipse.swt.graphics.Point(157,25));
-			datePickerTransactionDate.layout();
-	
-			GridData lblDeptorLData = new GridData();
-			lblDeptorLData.widthHint = 78;
-			lblDeptorLData.heightHint = 22;
-			lblDeptor.setLayoutData(lblDeptorLData);
-			lblDeptor.setText(Messages.getString("AccUITransactionCollect.2")); //$NON-NLS-1$
-	
-			GridData comboDeptorLData = new GridData();
-			comboDeptorLData.verticalAlignment = GridData.CENTER;
-			comboDeptorLData.horizontalAlignment = GridData.BEGINNING;
-			comboDeptorLData.widthHint = 136;
-			comboDeptorLData.heightHint = 16;
-			comboDeptorLData.horizontalIndent = 0;
-			comboDeptorLData.horizontalSpan = 1;
-			comboDeptorLData.verticalSpan = 1;
-			comboDeptorLData.grabExcessHorizontalSpace = false;
-			comboDeptorLData.grabExcessVerticalSpace = false;
-			comboDeptor.setLayoutData(comboDeptorLData);
-			comboDeptor.setSize(new org.eclipse.swt.graphics.Point(136,16));
-	
-			GridData composite2LData = new GridData();
-			composite2LData.verticalAlignment = GridData.BEGINNING;
-			composite2LData.horizontalAlignment = GridData.BEGINNING;
-			composite2LData.widthHint = 70;
-			composite2LData.heightHint = 72;
-			composite2LData.horizontalIndent = 0;
-			composite2LData.horizontalSpan = 1;
-			composite2LData.verticalSpan = 1;
-			composite2LData.grabExcessHorizontalSpace = false;
-			composite2LData.grabExcessVerticalSpace = false;
-			composite2.setLayoutData(composite2LData);
-			composite2.setSize(new org.eclipse.swt.graphics.Point(70,72));
-	
-			GridData btnAddTransactionRowLData = new GridData();
-			btnAddTransactionRowLData.verticalAlignment = GridData.CENTER;
-			btnAddTransactionRowLData.horizontalAlignment = GridData.CENTER;
-			btnAddTransactionRowLData.widthHint = 26;
-			btnAddTransactionRowLData.heightHint = 24;
-			btnAddTransactionRowLData.horizontalIndent = 0;
-			btnAddTransactionRowLData.horizontalSpan = 1;
-			btnAddTransactionRowLData.verticalSpan = 1;
-			btnAddTransactionRowLData.grabExcessHorizontalSpace = false;
-			btnAddTransactionRowLData.grabExcessVerticalSpace = false;
-			btnAddTransactionRow.setLayoutData(btnAddTransactionRowLData);
-			btnAddTransactionRow.setImage(SWTResourceManager.getImage("icons/plus.gif"));
-			btnAddTransactionRow.setSize(new org.eclipse.swt.graphics.Point(26,24));
-			btnAddTransactionRow.addMouseListener( new MouseAdapter() {
-				public void mouseUp(MouseEvent evt) {
-					btnAddTransactionRowMouseUp(evt);
-				}
-			});
-	
-			GridData btnRemoveTransactionRowLData = new GridData();
-			btnRemoveTransactionRowLData.verticalAlignment = GridData.CENTER;
-			btnRemoveTransactionRowLData.horizontalAlignment = GridData.CENTER;
-			btnRemoveTransactionRowLData.widthHint = -1;
-			btnRemoveTransactionRowLData.heightHint = -1;
-			btnRemoveTransactionRowLData.horizontalIndent = 0;
-			btnRemoveTransactionRowLData.horizontalSpan = 1;
-			btnRemoveTransactionRowLData.verticalSpan = 1;
-			btnRemoveTransactionRowLData.grabExcessHorizontalSpace = false;
-			btnRemoveTransactionRowLData.grabExcessVerticalSpace = false;
-			btnRemoveTransactionRow.setLayoutData(btnRemoveTransactionRowLData);
-			final org.eclipse.swt.graphics.Image btnRemoveTransactionRowýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif")); //$NON-NLS-1$
-			btnRemoveTransactionRowýmage.setBackground(btnRemoveTransactionRow.getBackground());
-			btnRemoveTransactionRow.setImage(SWTResourceManager.getImage("icons/minus.gif"));
-			btnRemoveTransactionRow.addMouseListener( new MouseAdapter() {
-				public void mouseUp(MouseEvent evt) {
-					btnRemoveTransactionRowMouseUp(evt);
-				}
-			});
-			GridLayout composite2Layout = new GridLayout(1, true);
-			composite2.setLayout(composite2Layout);
-			composite2Layout.marginWidth = 5;
-			composite2Layout.marginHeight = 5;
-			composite2Layout.numColumns = 1;
-			composite2Layout.makeColumnsEqualWidth = true;
-			composite2Layout.horizontalSpacing = 5;
-			composite2Layout.verticalSpacing = 5;
-			composite2.layout();
-	
-			GridData tableTransactionRowsLData = new GridData();
-			tableTransactionRowsLData.verticalAlignment = GridData.FILL;
-			tableTransactionRowsLData.horizontalAlignment = GridData.FILL;
-			tableTransactionRowsLData.widthHint = -1;
-			tableTransactionRowsLData.heightHint = -1;
-			tableTransactionRowsLData.horizontalIndent = 0;
-			tableTransactionRowsLData.horizontalSpan = 1;
-			tableTransactionRowsLData.verticalSpan = 1;
-			tableTransactionRowsLData.grabExcessHorizontalSpace = true;
-			tableTransactionRowsLData.grabExcessVerticalSpace = true;
-			tableTransactionRows.setLayoutData(tableTransactionRowsLData);
-			tableTransactionRows.setHeaderVisible(true);
-			tableTransactionRows.setLinesVisible(true);
-			tableTransactionRows.setSize(new org.eclipse.swt.graphics.Point(415,344));
-	
-			tableColumnAccountCode.setText(Messages.getString("AccUITransactionCollect.5")); //$NON-NLS-1$
-			tableColumnAccountCode.setWidth(126);
-	
-			tableColumnAccountName.setText(Messages.getString("AccUITransactionCollect.6")); //$NON-NLS-1$
-			tableColumnAccountName.setWidth(150);
-	
-			tableColumnCreditAmount.setText(Messages.getString("AccUITransactionCollect.7")); //$NON-NLS-1$
-			tableColumnCreditAmount.setWidth(100);
-			GridLayout thisLayout = new GridLayout(2, true);
+
+
+			
+			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
-			thisLayout.marginWidth = 5;
-			thisLayout.marginHeight = 5;
-			thisLayout.numColumns = 2;
-			thisLayout.makeColumnsEqualWidth = false;
-			thisLayout.horizontalSpacing = 5;
-			thisLayout.verticalSpacing = 5;
-			this.layout();
-			addDisposeListener(new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
-					btnRemoveTransactionRowýmage.dispose();
+			{
+				lbldocumentNo = new CLabel(this, SWT.NONE);
+				lbldocumentNo.setText(Messages
+					.getString("AccUITransactionCollect.0")); //$NON-NLS-1$
+				GridData lbldocumentNoLData = new GridData();
+				lbldocumentNoLData.verticalAlignment = GridData.BEGINNING;
+				lbldocumentNoLData.widthHint = 49;
+				lbldocumentNoLData.heightHint = 19;
+				lbldocumentNo.setLayoutData(lbldocumentNoLData);
+			}
+			{
+				txtDocumentNo = new Text(this, SWT.NONE);
+				txtDocumentNo.setSize(new org.eclipse.swt.graphics.Point(
+					155,
+					19));
+				GridData txtDocumentNoLData = new GridData();
+				txtDocumentNoLData.verticalAlignment = GridData.BEGINNING;
+				txtDocumentNoLData.widthHint = 149;
+				txtDocumentNoLData.heightHint = 19;
+				txtDocumentNo.setLayoutData(txtDocumentNoLData);
+			}
+			{
+				lblDate = new CLabel(this, SWT.NONE);
+				lblDate.setText(Messages.getString("AccUITransactionCollect.3"));  //$NON-NLS-1$
+				GridData lblDateLData = new GridData();
+				lblDate.setLayoutData(lblDateLData);
+			}
+			{
+				datePickerTransactionDate = new DatePicker(this, SWT.NONE);
+				datePickerTransactionDate
+					.setSize(new org.eclipse.swt.graphics.Point(157, 25));
+				GridData datePickerTransactionDateLData = new GridData();
+				datePickerTransactionDateLData.widthHint = 157;
+				datePickerTransactionDateLData.heightHint = 25;
+				datePickerTransactionDate
+					.setLayoutData(datePickerTransactionDateLData);
+			}
+			{
+				lblDeptor = new CLabel(this, SWT.NONE);
+				lblDeptor.setText(Messages
+					.getString("AccUITransactionCollect.2")); //$NON-NLS-1$
+				GridData lblDeptorLData = new GridData();
+				lblDeptorLData.widthHint = 78;
+				lblDeptorLData.heightHint = 22;
+				lblDeptor.setLayoutData(lblDeptorLData);
+			}
+			{
+				comboDeptor = new CCombo(this, SWT.NONE);
+				comboDeptor
+					.setSize(new org.eclipse.swt.graphics.Point(136, 16));
+				GridData comboDeptorLData = new GridData();
+				comboDeptorLData.widthHint = 114;
+				comboDeptorLData.heightHint = 16;
+				comboDeptor.setLayoutData(comboDeptorLData);
+			}
+			{
+				lblTransDefinition = new CLabel(this, SWT.NONE);
+				lblTransDefinition.setText(Messages
+					.getString("AccUITransactionCollect.1")); //$NON-NLS-1$
+				GridData lblTransDefinitionLData = new GridData();
+				lblTransDefinitionLData.widthHint = 59;
+				lblTransDefinitionLData.heightHint = 19;
+				lblTransDefinitionLData.verticalAlignment = GridData.BEGINNING;
+				lblTransDefinition.setLayoutData(lblTransDefinitionLData);
+			}
+			{
+				txtTransDefinition = new Text(this, SWT.MULTI
+					| SWT.WRAP
+					| SWT.V_SCROLL);
+				GridData txtTransDefinitionLData = new GridData();
+				txtTransDefinitionLData.widthHint = 184;
+				txtTransDefinitionLData.heightHint = 19;
+				txtTransDefinition.setLayoutData(txtTransDefinitionLData);
+			}
+			{
+				composite2 = new Composite(this, SWT.NONE);
+				GridLayout composite2Layout = new GridLayout();
+				composite2Layout.makeColumnsEqualWidth = true;
+				composite2.setSize(new org.eclipse.swt.graphics.Point(70, 72));
+				GridData composite2LData = new GridData();
+				composite2.setLayout(composite2Layout);
+				composite2LData.verticalAlignment = GridData.BEGINNING;
+				composite2LData.widthHint = 70;
+				composite2LData.heightHint = 72;
+				composite2.setLayoutData(composite2LData);
+				{
+					btnAddTransactionRow = new Button(composite2, SWT.PUSH | SWT.CENTER);
+					btnAddTransactionRow.setImage(SWTResourceManager
+						.getImage("icons/plus.gif")); //$NON-NLS-1$
+					btnAddTransactionRow
+						.setSize(new org.eclipse.swt.graphics.Point(26, 24));
+					GridData btnAddTransactionRowLData = new GridData();
+					btnAddTransactionRow.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+							btnAddTransactionRowMouseUp(evt);
+						}
+					});
+					btnAddTransactionRowLData.horizontalAlignment = GridData.CENTER;
+					btnAddTransactionRowLData.widthHint = 26;
+					btnAddTransactionRowLData.heightHint = 24;
+					btnAddTransactionRow.setLayoutData(btnAddTransactionRowLData);
 				}
-			});
+				{
+					btnRemoveTransactionRow = new Button(composite2, SWT.PUSH | SWT.CENTER);
+					//$NON-NLS-1$
+					GridData btnRemoveTransactionRowLData = new GridData();
+					btnRemoveTransactionRow.setImage(SWTResourceManager
+						.getImage("icons/minus.gif")); //$NON-NLS-1$
+					btnRemoveTransactionRow
+						.addMouseListener(new MouseAdapter() {
+							public void mouseUp(MouseEvent evt) {
+								btnRemoveTransactionRowMouseUp(evt);
+							}
+						});
+					btnRemoveTransactionRowLData.horizontalAlignment = GridData.CENTER;
+					btnRemoveTransactionRowLData.widthHint = 28;
+					btnRemoveTransactionRowLData.heightHint = 23;
+					btnRemoveTransactionRow.setLayoutData(btnRemoveTransactionRowLData);
+				}
+				composite2.layout();
+			}
+			{
+				tableTransactionRows = new Table(this, SWT.FULL_SELECTION
+					| SWT.BORDER);
+				tableTransactionRows.setHeaderVisible(true);
+				tableTransactionRows.setLinesVisible(true);
+				tableTransactionRows
+					.setSize(new org.eclipse.swt.graphics.Point(415, 344));
+				GridData tableTransactionRowsLData = new GridData();
+				tableTransactionRowsLData.verticalAlignment = GridData.FILL;
+				tableTransactionRowsLData.horizontalAlignment = GridData.FILL;
+				tableTransactionRowsLData.horizontalSpan = 3;
+				tableTransactionRowsLData.verticalSpan = 3;
+				tableTransactionRowsLData.grabExcessHorizontalSpace = true;
+				tableTransactionRowsLData.grabExcessVerticalSpace = true;
+				tableTransactionRows.setLayoutData(tableTransactionRowsLData);
+				
+				{
+					tableColumnAccountCode = new TableColumn(
+						tableTransactionRows,
+						SWT.NONE);
+					tableColumnAccountCode.setText(Messages
+						.getString("AccUITransactionCollect.5")); //$NON-NLS-1$
+					tableColumnAccountCode.setWidth(126);
+				}
+				{
+					tableColumnAccountName = new TableColumn(
+						tableTransactionRows,
+						SWT.NONE);
+					tableColumnAccountName.setText(Messages
+						.getString("AccUITransactionCollect.6")); //$NON-NLS-1$
+					tableColumnAccountName.setWidth(150);
+				}
+				{
+					tableColumnCreditAmount = new TableColumn(
+						tableTransactionRows,
+						SWT.NONE);
+					tableColumnCreditAmount.setText(Messages
+						.getString("AccUITransactionCollect.7")); //$NON-NLS-1$
+					tableColumnCreditAmount.setWidth(100);
+				}
+			}
+			thisLayout.numColumns = 4;
+			this.layout();
+		
 	
 			postInitGUI();
 		} catch (Exception e) {
@@ -404,7 +391,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	* 2- Mahsup Fisi	
 	*
 	**/
-	Integer transId =blTransAdd.saveAccTransaction(datePickerTransactionDate.getDate(),txtDocumentNo.getText().trim(),0,1,null);
+	Integer transId =blTransAdd.saveAccTransaction(datePickerTransactionDate.getDate(),txtDocumentNo.getText().trim(),0,1,null,txtTransDefinition.getText().trim());
 	
 	saveTransactionRows(transId);
 	msg.setMessage(Messages.getString("AccUITransactionCollect.18")); //$NON-NLS-1$
@@ -505,21 +492,18 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	protected void btnAddTransactionRowMouseUp(MouseEvent evt){
 		Object o = new AccUITransactionRowAddDialog(this.getShell(),SWT.NULL,0).showDialog();
     
-    if(o!=null){
-    TurqAccountingTransactionColumn accTransRow = (TurqAccountingTransactionColumn)o;
-    
-    
-    TableItem item = new TableItem(tableTransactionRows,SWT.NULL);    
-	item.setData(accTransRow);
-	item.setText(new String[]{accTransRow.getTurqAccountingAccount().getAccountCode(),
-							 accTransRow.getTurqAccountingAccount().getAccountName(),
-							 accTransRow.getCreditAmount().toString()});
-	
-	
-	totalDept = totalDept.add(accTransRow.getCreditAmount());
-	
-	}
-	
+		TurqAccountingTransactionColumn accTransRow = (TurqAccountingTransactionColumn) o;
+
+		TableItem item = new TableItem(
+			tableTransactionRows,
+			SWT.NONE);
+		item.setData(accTransRow);
+		item.setText(new String[] {
+				accTransRow.getTurqAccountingAccount()
+					.getAccountCode(),
+				accTransRow.getTurqAccountingAccount()
+					.getAccountName(),
+				accTransRow.getCreditAmount().toString() });
 	}
     
     
@@ -585,5 +569,17 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	 */
 	public void setComboDeptor(CCombo comboDeptor) {
 		this.comboDeptor = comboDeptor;
+	}
+	/**
+	 * @return Returns the txtTransDefinition.
+	 */
+	public Text getTxtTransDefinition() {
+		return txtTransDefinition;
+	}
+	/**
+	 * @param txtTransDefinition The txtTransDefinition to set.
+	 */
+	public void setTxtTransDefinition(Text txtTransDefinition) {
+		this.txtTransDefinition = txtTransDefinition;
 	}
 }

@@ -25,6 +25,7 @@ import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqModule;
 
 import com.turquaz.engine.dal.TurqEngineSequence;
+import com.turquaz.engine.ui.component.DatePicker;
 
 
 /**
@@ -143,7 +144,7 @@ public class BillBLAddBill {
 			AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
 			
 			
-			Integer transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),2,7,bill.getTurqEngineSequence().getEngineSequencesId());
+			Integer transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),2,7,bill.getTurqEngineSequence().getEngineSequencesId(),"fatura "+DatePicker.formatter.format(bill.getBillsDate()) +" " + common.getBillDocumentNo());
 		    
 			TurqAccountingTransaction accTrans = new TurqAccountingTransaction();
 		    accTrans.setAccountingTransactionsId(transID);			
@@ -241,7 +242,7 @@ public class BillBLAddBill {
 			 * 2- Kasa Muhasebe hareketi isle
 			 */
 			if(!bill.isIsOpen()){
-				transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),1,7,bill.getTurqEngineSequence().getEngineSequencesId());
+				transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),1,7,bill.getTurqEngineSequence().getEngineSequencesId(),"fatura "+DatePicker.formatter.format(bill.getBillsDate()) +" " + common.getBillDocumentNo());
 			    
 				 accTrans = new TurqAccountingTransaction();
 			    accTrans.setAccountingTransactionsId(transID);	
@@ -304,7 +305,7 @@ public class BillBLAddBill {
 			AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
 			
 			
-			Integer transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),2,7,bill.getTurqEngineSequence().getEngineSequencesId());
+			Integer transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),2,7,bill.getTurqEngineSequence().getEngineSequencesId(),"fatura "+DatePicker.formatter.format(bill.getBillsDate()) +" " + common.getBillDocumentNo());
 		    
 			TurqAccountingTransaction accTrans = new TurqAccountingTransaction();
 		    accTrans.setAccountingTransactionsId(transID);			
@@ -402,7 +403,7 @@ public class BillBLAddBill {
 			 * 2- Kasa Muhasebe hareketi isle
 			 */
 			if(!bill.isIsOpen()){
-				transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),0,7,bill.getTurqEngineSequence().getEngineSequencesId());
+				transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),0,7,bill.getTurqEngineSequence().getEngineSequencesId(),"fatura "+DatePicker.formatter.format(bill.getBillsDate()) +" " + common.getBillDocumentNo());
 			    
 				 accTrans = new TurqAccountingTransaction();
 			    accTrans.setAccountingTransactionsId(transID);	

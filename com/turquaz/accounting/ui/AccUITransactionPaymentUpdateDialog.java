@@ -204,6 +204,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		}
 	    
 		compTransactionPayment.getTxtDocumentNo().setText(accTrans.getTransactionDocumentNo());
+		compTransactionPayment.getTxtDefinition().setText(accTrans.getTransactionDescription());
 		Date date = new Date(accTrans.getTransactionsDate().getTime());
 		compTransactionPayment.getDatePickerTransactionDate().setDate(date);
 		
@@ -247,7 +248,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		try{
 		 if(compTransactionPayment.verifyFields()){
 		 blTransUpdate.updateTransaction(accTrans,compTransactionPayment.getTxtDocumentNo().getText().trim(),
-										compTransactionPayment.getDatePickerTransactionDate().getData());
+										compTransactionPayment.getDatePickerTransactionDate().getData(),compTransactionPayment.getTxtDefinition().getText().trim());
 		 updateTransactionRows();
 		 msg.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.6")); //$NON-NLS-1$
 		 msg.open();

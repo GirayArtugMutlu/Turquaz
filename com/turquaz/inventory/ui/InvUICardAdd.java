@@ -241,7 +241,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	private CLabel lblInvCardCode;
 
-	private Text txtInvCardSpecialCode;
 	private DecimalText decTextSpecialVatAmount;
 	private Label lblSpecialVatAmount;
 	private NumericText numTextSpecailVATPercent;
@@ -251,8 +250,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	private Label label3;
 	private Label label2;
 	private Label label1;
-
-	private CLabel lblInvCardSpecialCode;
 
 	private Text txtInvCardName;
 
@@ -1151,35 +1148,11 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						GridData txtInvCardNameLData = new GridData();
 						txtInvCardNameLData.widthHint = 132;
 						txtInvCardNameLData.heightHint = 16;
+						txtInvCardNameLData.horizontalSpan = 3;
 						txtInvCardName.setLayoutData(txtInvCardNameLData);
 						txtInvCardName.setTextLimit(50);
 						txtInvCardName
 							.setSize(new org.eclipse.swt.graphics.Point(138, 16));
-					}
-					{
-						lblInvCardSpecialCode = new CLabel(
-							compInvCardGeneral,
-							SWT.NONE);
-						GridData lblInvCardSpecialCodeLData = new GridData();
-						lblInvCardSpecialCodeLData.widthHint = 73;
-						lblInvCardSpecialCodeLData.heightHint = 18;
-						lblInvCardSpecialCode
-							.setLayoutData(lblInvCardSpecialCodeLData);
-						lblInvCardSpecialCode.setText(Messages
-							.getString("InvUICardAdd.2")); //$NON-NLS-1$
-						lblInvCardSpecialCode
-							.setSize(new org.eclipse.swt.graphics.Point(73, 18));
-					}
-					{
-						txtInvCardSpecialCode = new Text(
-							compInvCardGeneral,
-							SWT.NONE);
-						GridData txtInvCardSpecialCodeLData = new GridData();
-						txtInvCardSpecialCodeLData.widthHint = 113;
-						txtInvCardSpecialCodeLData.heightHint = 17;
-						txtInvCardSpecialCode
-							.setLayoutData(txtInvCardSpecialCodeLData);
-						txtInvCardSpecialCode.setTextLimit(25);
 					}
 					{
 						lblInvCardCode = new CLabel(
@@ -1544,8 +1517,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				// Save inventory card
 
 				Integer cardId = blCardAdd.saveInvCard(txtInvCardCode.getText()
-						.trim(), txtInvCardSpecialCode.getText().trim(),
-						txtInvCardName.getText().trim(), txtInvCardDefinition
+						.trim(), 	txtInvCardName.getText().trim(), txtInvCardDefinition
 								.getText().trim(), txtnumInvCardMin
 								.getIntValue(), txtnumInvCardMax.getIntValue(),
 								txtInvCardVat.getIntValue(), txtInvCardDiscount
@@ -1957,12 +1929,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	}
 
 	/**
-	 * @return Returns the txtInvCardSpecialCode.
-	 */
-	public Text getTxtInvCardSpecialCode() {
-		return txtInvCardSpecialCode;
-	}
-	/**
 	 * @return Returns the txtInvCardVat.
 	 */
 	public NumericText getTxtInvCardVat() {
@@ -1992,13 +1958,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	public InvUIPriceList getPriceList() {
 		return priceList;
 	}
-	/**
-	 * @param txtInvCardSpecialCode The txtInvCardSpecialCode to set.
-	 */
-	public void setTxtInvCardSpecialCode(Text txtInvCardSpecialCode) {
-		this.txtInvCardSpecialCode = txtInvCardSpecialCode;
-	}
-
 	
 	/**
 	 * @return Returns the decTextSpecialVatAmount.

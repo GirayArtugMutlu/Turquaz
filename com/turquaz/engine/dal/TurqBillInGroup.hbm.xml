@@ -21,7 +21,9 @@
         type="int"
         column="bill_in_groups_id"
     >
-         <generator class="increment" />
+        <generator class="sequence">
+            <param name="sequence">seq_bill_in_groups</param>
+        </generator>
     </id>
 
     <property

@@ -197,6 +197,7 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	    
 	    
 	compTransactionAdd.getTxtDocumentNo().setText(accTrans.getTransactionDocumentNo());
+	compTransactionAdd.getTxtTransDefinition().setText(accTrans.getTransactionDescription());
 	Date date = new Date(accTrans.getTransactionsDate().getTime());
 	compTransactionAdd.getDateTransactionDate().setDate(date);
 	fillTable();
@@ -236,7 +237,7 @@ public void showDialog(TurqAccountingTransaction accTrans){
 
 		 if(compTransactionAdd.verifyFields()){
 		 blTransUpdate.updateTransaction(accTrans,compTransactionAdd.getTxtDocumentNo().getText().trim(),
-										compTransactionAdd.getDateTransactionDate().getData());
+										compTransactionAdd.getDateTransactionDate().getData(),compTransactionAdd.getTxtTransDefinition().getText().trim());
 		 updateTransactionRows();
 		 msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$
 		 msg.open();

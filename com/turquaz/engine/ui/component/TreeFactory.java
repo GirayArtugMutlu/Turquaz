@@ -180,7 +180,7 @@ public final class TreeFactory {
 		}
 		
 		TreeItem actionReports = new TreeItem(tree,SWT.NULL);
-		actionReports.setText("Durum Raporlarý"); 
+		actionReports.setText(Messages.getString("TreeFactory.39"));  //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(AccUIAccountingBalance.class.getName())>0){
 			item = new TreeItem(actionReports,SWT.NULL);

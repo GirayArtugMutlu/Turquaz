@@ -21,7 +21,9 @@
         type="int"
         column="engine_sequences_id"
     >
-         <generator class="increment" />
+        <generator class="sequence">
+            <param name="sequence">seq_engine_sequences</param>
+        </generator>
     </id>
 
 

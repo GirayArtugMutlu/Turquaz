@@ -31,6 +31,9 @@ public class TurqAccountingTransaction implements Serializable {
     private java.lang.String updatedBy;
 
     /** persistent field */
+    private java.lang.String transactionDescription;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingJournal turqAccountingJournal;
 
     /** persistent field */
@@ -46,13 +49,14 @@ public class TurqAccountingTransaction implements Serializable {
     private Set turqAccountingTransactionColumns;
 
     /** full constructor */
-    public TurqAccountingTransaction(java.util.Date transactionsDate, java.lang.String transactionDocumentNo, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqAccountingJournal turqAccountingJournal, com.turquaz.engine.dal.TurqAccountingTransactionType turqAccountingTransactionType, com.turquaz.engine.dal.TurqModule turqModule, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqAccountingTransactionColumns) {
+    public TurqAccountingTransaction(java.util.Date transactionsDate, java.lang.String transactionDocumentNo, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, java.lang.String transactionDescription, com.turquaz.engine.dal.TurqAccountingJournal turqAccountingJournal, com.turquaz.engine.dal.TurqAccountingTransactionType turqAccountingTransactionType, com.turquaz.engine.dal.TurqModule turqModule, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqAccountingTransactionColumns) {
         this.transactionsDate = transactionsDate;
         this.transactionDocumentNo = transactionDocumentNo;
         this.creationDate = creationDate;
         this.createdBy = createdBy;
         this.lastModified = lastModified;
         this.updatedBy = updatedBy;
+        this.transactionDescription = transactionDescription;
         this.turqAccountingJournal = turqAccountingJournal;
         this.turqAccountingTransactionType = turqAccountingTransactionType;
         this.turqModule = turqModule;
@@ -118,6 +122,14 @@ public class TurqAccountingTransaction implements Serializable {
 
     public void setUpdatedBy(java.lang.String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public java.lang.String getTransactionDescription() {
+        return this.transactionDescription;
+    }
+
+    public void setTransactionDescription(java.lang.String transactionDescription) {
+        this.transactionDescription = transactionDescription;
     }
 
     public com.turquaz.engine.dal.TurqAccountingJournal getTurqAccountingJournal() {

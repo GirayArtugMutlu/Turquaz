@@ -21,7 +21,9 @@
         type="int"
         column="tradebill_tradebills_rolls_id"
     >
-         <generator class="increment" />
+        <generator class="sequence">
+            <param name="sequence">seq_tradebill_tradebills_rolls</param>
+        </generator>
     </id>
 
     <property

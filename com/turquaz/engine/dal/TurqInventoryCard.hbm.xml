@@ -21,7 +21,9 @@
         type="int"
         column="inventory_cards_id"
     >
-         <generator class="increment" />
+        <generator class="sequence">
+            <param name="sequence">seq_inventory_cards</param>
+        </generator>
     </id>
 
     <property
@@ -30,13 +32,6 @@
         column="card_inventory_code"
         not-null="true"
         unique="true"
-        length="25"
-    />
-    <property
-        name="cardSpecialCode"
-        type="java.lang.String"
-        column="card_special_code"
-        not-null="true"
         length="25"
     />
     <property

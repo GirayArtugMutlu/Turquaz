@@ -236,7 +236,6 @@ public class InvUICardUpdateDialog extends Dialog{
 	compInvUICard.getTxtInvCardName().setText(invCard.getCardName());
 	compInvUICard.getTxtInvCardOutAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSell());
 	compInvUICard.getTxtInvCardOutAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSell());
-	compInvUICard.getTxtInvCardSpecialCode().setText(invCard.getCardSpecialCode());
 	compInvUICard.getTxtInvCardVat().setText(invCard.getCardVat());
 	compInvUICard.getTxtnumInvCardMax().setText(invCard.getCardMaximumAmount());
 	compInvUICard.getTxtnumInvCardMin().setText(invCard.getCardMinimumAmount());
@@ -509,8 +508,7 @@ public class InvUICardUpdateDialog extends Dialog{
    TurqAccountingAccount accountIdBuy = (TurqAccountingAccount) compInvUICard.getTxtInvCardInAcc().getData();
        
     cardUpdate.updateInvCard(compInvUICard.getTxtInvCardCode().getText()
-						.trim(), compInvUICard.getTxtInvCardSpecialCode().getText().trim(),
-						compInvUICard.getTxtInvCardName().getText().trim(), compInvUICard.getTxtInvCardDefinition().getText().trim(),
+						.trim(), compInvUICard.getTxtInvCardName().getText().trim(), compInvUICard.getTxtInvCardDefinition().getText().trim(),
 						 compInvUICard.getTxtnumInvCardMin().getIntValue(),compInvUICard.getTxtnumInvCardMax().getIntValue(),
 						compInvUICard.getTxtInvCardVat().getIntValue(), compInvUICard.getTxtInvCardDiscount().getIntValue(), accountIdBuy, accountIdSell,
 						compInvUICard.getNumTextSpecailVATPercent().getIntValue()

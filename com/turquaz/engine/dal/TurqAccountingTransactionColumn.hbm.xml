@@ -21,7 +21,9 @@
         type="int"
         column="accounting_transaction_columns_id"
     >
-        <generator class="increment" />
+        <generator class="sequence">
+            <param name="sequence">seq_accounting_transaction_columns</param>
+        </generator>
     </id>
 
     <property

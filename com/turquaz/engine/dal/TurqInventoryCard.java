@@ -16,9 +16,6 @@ public class TurqInventoryCard implements Serializable {
     private java.lang.String cardInventoryCode;
 
     /** persistent field */
-    private java.lang.String cardSpecialCode;
-
-    /** persistent field */
     private java.lang.String cardName;
 
     /** persistent field */
@@ -76,9 +73,8 @@ public class TurqInventoryCard implements Serializable {
     private Set turqInventoryCardUnits;
 
     /** full constructor */
-    public TurqInventoryCard(java.lang.String cardInventoryCode, java.lang.String cardSpecialCode, java.lang.String cardName, java.lang.String cardDefinition, int cardMinimumAmount, int cardMaximumAmount, int cardVat, int cardDiscount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, int cardSpecialVat, java.math.BigDecimal cardSpecialVatEach, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy, Set turqInventoryPrices, Set turqInventoryTransactions, Set turqInventoryCardGroups, Set turqInventoryCardUnits) {
+    public TurqInventoryCard(java.lang.String cardInventoryCode, java.lang.String cardName, java.lang.String cardDefinition, int cardMinimumAmount, int cardMaximumAmount, int cardVat, int cardDiscount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, int cardSpecialVat, java.math.BigDecimal cardSpecialVatEach, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy, Set turqInventoryPrices, Set turqInventoryTransactions, Set turqInventoryCardGroups, Set turqInventoryCardUnits) {
         this.cardInventoryCode = cardInventoryCode;
-        this.cardSpecialCode = cardSpecialCode;
         this.cardName = cardName;
         this.cardDefinition = cardDefinition;
         this.cardMinimumAmount = cardMinimumAmount;
@@ -118,14 +114,6 @@ public class TurqInventoryCard implements Serializable {
 
     public void setCardInventoryCode(java.lang.String cardInventoryCode) {
         this.cardInventoryCode = cardInventoryCode;
-    }
-
-    public java.lang.String getCardSpecialCode() {
-        return this.cardSpecialCode;
-    }
-
-    public void setCardSpecialCode(java.lang.String cardSpecialCode) {
-        this.cardSpecialCode = cardSpecialCode;
     }
 
     public java.lang.String getCardName() {

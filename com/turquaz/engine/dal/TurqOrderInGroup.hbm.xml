@@ -21,7 +21,9 @@
         type="int"
         column="order_in_groups_id"
     >
-         <generator class="increment" />
+        <generator class="sequence">
+            <param name="sequence">seq_order_in_groups</param>
+        </generator>
     </id>
 
     <property

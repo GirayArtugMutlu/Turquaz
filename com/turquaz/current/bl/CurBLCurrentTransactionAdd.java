@@ -42,6 +42,7 @@ import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
+import com.turquaz.engine.ui.component.DatePicker;
 
 public class CurBLCurrentTransactionAdd {
 
@@ -161,7 +162,7 @@ public class CurBLCurrentTransactionAdd {
          TurqEngineSequence seq= new TurqEngineSequence();
          dalCurrentTrans.saveObject(seq);
          
-         Integer transId = blAcc.saveAccTransaction(transDate,documentNo,accTransactionType,4,seq.getEngineSequencesId());
+         Integer transId = blAcc.saveAccTransaction(transDate,documentNo,accTransactionType,4,seq.getEngineSequencesId(),"cari "+DatePicker.formatter.format(transDate) +" " + documentNo);
          
          //muhasebe fisi kalemlerini de ekleyelim.. 
          saveAccountingCashTransactionRows(curCard,isCredit,amount,account,transId);           
