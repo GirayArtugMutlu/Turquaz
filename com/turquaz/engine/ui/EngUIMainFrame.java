@@ -17,6 +17,9 @@ package com.turquaz.engine.ui;
 /************************************************************************/
 
 
+import java.util.Iterator;
+import java.util.Map;
+
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 
@@ -61,6 +64,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.bl.EngBLPermissions;
+import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUITree;
@@ -814,15 +818,36 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		treeBank.setMenu(popupTreeAddFavorites);
 		treeInventory.setMenu(popupTreeAddFavorites);
 		treeCurrent.setMenu(popupTreeAddFavorites);
-		
-		
 		treeFavorites.setMenu(popupTreeRemoveFavorites);
-		
+		fillFavoritesTree();
 		
 		
 														   
 		
 	}
+	public void fillFavoritesTree(){
+	
+	EngBLXmlParser xmlParser = new EngBLXmlParser("favorites.xml");
+	
+	Map treeInfo = xmlParser.createMap();
+	
+	Iterator it = treeInfo.keySet().iterator();
+	
+	String text ="";
+	String className ="";
+	TreeItem treeItem;
+	while(it.hasNext()){
+		text = it.next().toString();
+		className = treeInfo.get(text).toString();		
+		treeItem = new TreeItem(treeFavorites,SWT.NULL);
+		treeItem.setText(text);
+		treeItem.setData(className);
+		
+	}
+		
+	
+	}
+	
 
 	/** Auto-generated main method */
 	public static void main(String[] args){

@@ -23,5 +23,9 @@
 	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.core.runtime_3.0.0/runtime.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.osgi_3.0.0/osgi.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/swtcalendar.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/jaxen-core.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/jaxen-jdom.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/jdom.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/xml-apis.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
