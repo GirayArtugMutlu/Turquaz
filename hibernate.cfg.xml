@@ -20,7 +20,7 @@
 	  <mapping resource="com/turquaz/engine/dal/TurqBillGroup.hbm.xml"/>
 	  <mapping resource="com/turquaz/engine/dal/TurqBillInGroup.hbm.xml"/>
 	  <mapping resource="com/turquaz/engine/dal/TurqChequeCheque.hbm.xml"/>
-	  <mapping resource="com/turquaz/engine/dal/TurqChequeChequesRoll.hbm.xml"/>
+	  <mapping resource="com/turquaz/engine/dal/TurqChequeChequeInRoll.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqChequeRoll.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqChequeTransactionType.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqCompany.hbm.xml"/>

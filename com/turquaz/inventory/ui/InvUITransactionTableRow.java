@@ -251,9 +251,10 @@ public class InvUITransactionTableRow implements ITableRow {
                 }
                 if(invTrans.getTurqInventoryUnit().equals(cardUnits[i].getTurqInventoryUnit())){
                     unit_index = new Integer(i);
-                    
+                    transAmount = transAmount /(cardUnits[i].getCardUnitsFactor());
                 }
             }
+            
             
             unit_text =invTrans.getTurqInventoryUnit().getUnitsName();
         
