@@ -48,5 +48,17 @@ public class InvBLCardAdd {
 			}
 			
 		}
+	public List getCurrencies()throws Exception{
+		try{
+			
+			return cardAdd.getCurrencies();
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+		
+	}
 
 }

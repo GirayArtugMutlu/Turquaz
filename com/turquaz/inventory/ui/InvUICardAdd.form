@@ -1052,7 +1052,7 @@
 													<Property name="visible" type="boolean" value="true"/>
 												</Properties>
 												<SubComponents>
-													<Component class="org.eclipse.swt.widgets.Button" name="button1" style="16777224">
+													<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardAddPricesAddPrice" style="16777224">
 														<Constraints>
 															<Constraint class="org.eclipse.swt.layout.GridData"/>
 															<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -1068,7 +1068,7 @@
 															</LayoutConstraint>
 														</Constraints>
 														<Events>
-															<EventHandler event="mouseDown" listener="org.eclipse.swt.events.MouseListener" handler="button1MouseDown"/>
+															<EventHandler event="mouseDown" listener="org.eclipse.swt.events.MouseListener" handler="btnInvCardAddPricesAddPriceMouseDown"/>
 														</Events>
 														<Properties>
 															<Property name="text" type="String" value=""/>
@@ -1084,7 +1084,7 @@
 															<Property name="visible" type="boolean" value="true"/>
 														</Properties>
 													</Component>
-													<Component class="org.eclipse.swt.widgets.Button" name="button2" style="16777224">
+													<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardAddPricesRemovePrice" style="16777224">
 														<Constraints>
 															<Constraint class="org.eclipse.swt.layout.GridData"/>
 															<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -1100,7 +1100,7 @@
 															</LayoutConstraint>
 														</Constraints>
 														<Events>
-															<EventHandler event="mouseDown" listener="org.eclipse.swt.events.MouseListener" handler="button2MouseDown"/>
+															<EventHandler event="mouseDown" listener="org.eclipse.swt.events.MouseListener" handler="btnInvCardAddPricesRemovePriceMouseDown"/>
 														</Events>
 														<Properties>
 															<Property name="text" type="String" value=""/>
@@ -1117,7 +1117,7 @@
 													</Component>
 												</SubComponents>
 											</Component>
-											<Component class="com.turquaz.engine.ui.component.TTable" name="tTable1" style="2560">
+											<Component class="com.turquaz.engine.ui.component.TTable" name="tableInvCardAddPrices" style="2560">
 												<Constraints>
 													<Constraint class="org.eclipse.swt.layout.GridData"/>
 													<LayoutConstraint class="org.eclipse.swt.layout.GridData">

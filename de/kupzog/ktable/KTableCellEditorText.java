@@ -34,7 +34,7 @@ extends KTableCellEditor
 		m_Text.setText(m_Model.getContentAt(m_Col, m_Row).toString());
 		m_Text.selectAll();
 		m_Text.setVisible(true);
-		m_Text.setEditable(false);
+		m_Text.setEditable(true);
 		
 	}
 
