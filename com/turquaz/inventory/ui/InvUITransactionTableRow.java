@@ -67,6 +67,7 @@ public class InvUITransactionTableRow implements ITableRow {
     long transAmount = 0;
     long transAmountinBaseUnit=0;
     TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
+    TurkishCurrencyFormat cf4=new TurkishCurrencyFormat(4);
     /*
      * type 0 = Buy 
      * type 1 = Sell
@@ -190,9 +191,9 @@ public class InvUITransactionTableRow implements ITableRow {
 				else
 				{
 					if (invTrans.getTurqInventoryCard().isSpecVatForEach())
-						result =cf.format(invTrans.getTransactionsVatSpecialEach());					
+						result =cf4.format(invTrans.getTransactionsVatSpecialEach());					
 					else
-						result = cf.format(invTrans.getTransactionsVatSpecial());
+						result = cf4.format(invTrans.getTransactionsVatSpecial());
 				}
 				break;
 				
@@ -400,13 +401,13 @@ public class InvUITransactionTableRow implements ITableRow {
 			        break;
 			    }
 				if (invTrans.getTurqInventoryCard().isSpecVatForEach())
-					result=invTrans.getTransactionsVatSpecialEach().toString();
+				     result=cf4.format(invTrans.getTransactionsVatSpecialEach());
 				else
 					result = invTrans.getTransactionsVatSpecial().toString();
 				break;
 				
 			case 12 : // Specail VAT Total 
-			    result = cf.format(invTrans.getTransactionsVatSpecialAmount().toString());
+			    result = cf.format(invTrans.getTransactionsVatSpecialAmount());
 				break;
 				
 			case 13 : //Cumulative Price
@@ -535,12 +536,12 @@ public class InvUITransactionTableRow implements ITableRow {
 				
 		}
 		
-		
-       calculateFields();
+	
       
        rowList.taskChanged(this);
        
-       
+   	
+       calculateFields();
     }
     
   

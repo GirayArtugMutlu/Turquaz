@@ -583,7 +583,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					decTextSpecialVatAmount = new CurrencyText(
-							compInvCardDetails, SWT.NONE);
+							compInvCardDetails, SWT.NONE,42);
 					GridData decTextSpecialVatAmountLData = new GridData();
 					decTextSpecialVatAmount
 							.addTraverseListener(new TraverseListener() {

@@ -23,7 +23,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
@@ -83,10 +82,6 @@ public class CurrencyText extends Composite {
 
  }
  
- public void addKeyListener(KeyAdapter adapter){
-     text.addKeyListener(adapter);
-     
- }
  public void addModifyListener(ModifyListener listener)
  {
  	text.addModifyListener(listener);

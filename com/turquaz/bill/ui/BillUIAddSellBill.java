@@ -714,9 +714,7 @@ public class BillUIAddSellBill extends Composite
 								tableColumn3.setWidth(126);
 							}
                             {
-                                tableColumn6 = new TableColumn(
-                                    tableConsignmentRows,
-                                    SWT.NONE);
+                                tableColumn6 = new TableColumn(tableConsignmentRows, SWT.RIGHT);
                                 tableColumn6.setText(UNIT_PRICE);
                                 tableColumn6.setWidth(100);
                             }
@@ -733,9 +731,7 @@ public class BillUIAddSellBill extends Composite
                                 tableColumnDiscountRate.setWidth(100);
                             }
                             {
-                                tableColumn8 = new TableColumn(
-                                    tableConsignmentRows,
-                                    SWT.NONE);
+                                tableColumn8 = new TableColumn(tableConsignmentRows, SWT.RIGHT);
                                 tableColumn8.setText(VAT_PERCENT);
                                 tableColumn8.setWidth(60);
                             }
