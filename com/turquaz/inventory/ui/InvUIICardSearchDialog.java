@@ -2,7 +2,7 @@ package com.turquaz.inventory.ui;
 
 import java.util.List;
 
-import org.eclipse.swt.layout.FillLayout;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;

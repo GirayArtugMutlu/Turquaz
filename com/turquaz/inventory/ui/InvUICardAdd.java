@@ -484,7 +484,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					lblSpecialVATPercent = new Label(
 						compInvCardDetails,
 						SWT.RIGHT);
-					lblSpecialVATPercent.setText("ÖTV %");
+					lblSpecialVATPercent.setText(Messages.getString("InvUICardAdd.34")); //$NON-NLS-1$
 					GridData lblSpecialVATPercentLData = new GridData();
 					lblSpecialVATPercentLData.widthHint = 63;
 					lblSpecialVATPercentLData.heightHint = 18;
@@ -506,7 +506,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					lblSpecialVatAmount = new Label(
 						compInvCardDetails,
 						SWT.RIGHT);
-					lblSpecialVatAmount.setText("Birim ÖTV Tutar? ");
+					lblSpecialVatAmount.setText(Messages.getString("InvUICardAdd.35")); //$NON-NLS-1$
 					GridData lblSpecialVatAmountLData = new GridData();
 					lblSpecialVatAmountLData.horizontalAlignment = GridData.END;
 					lblSpecialVatAmountLData.widthHint = 107;
@@ -525,7 +525,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				{
 					label3 = new Label(compInvCardDetails, SWT.SEPARATOR
 						| SWT.HORIZONTAL);
-					label3.setText("label1");
+					label3.setText("label1"); //$NON-NLS-1$
 					GridData label3LData = new GridData();
 					label3LData.horizontalAlignment = GridData.FILL;
 					label3LData.horizontalSpan = 4;
@@ -778,7 +778,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				{
 					label1 = new Label(compInvCardUnit, SWT.SEPARATOR
 						| SWT.HORIZONTAL);
-					label1.setText("label1");
+					label1.setText("label1"); //$NON-NLS-1$
 					GridData label1LData = new GridData();
 					label1LData.horizontalSpan = 4;
 					label1LData.horizontalAlignment = GridData.FILL;
@@ -848,7 +848,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			compInvCardPricesAdd.setSize(new org.eclipse.swt.graphics.Point(45,67));
 	
 			GridData btnInvCardAddPricesAddPriceLData = new GridData();
-			btnInvCardAddPricesAddPrice.setImage(SWTResourceManager.getImage("icons/plus.gif"));
+			btnInvCardAddPricesAddPrice.setImage(SWTResourceManager.getImage("icons/plus.gif")); //$NON-NLS-1$
 			btnInvCardAddPricesAddPriceLData.verticalAlignment = GridData.CENTER;
 			btnInvCardAddPricesAddPriceLData.horizontalAlignment = GridData.BEGINNING;
 			btnInvCardAddPricesAddPriceLData.widthHint = 30;
@@ -867,7 +867,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			});
 	
 			GridData btnInvCardAddPricesRemovePriceLData = new GridData();
-			btnInvCardAddPricesRemovePrice.setImage(SWTResourceManager.getImage("icons/minus.gif"));
+			btnInvCardAddPricesRemovePrice.setImage(SWTResourceManager.getImage("icons/minus.gif")); //$NON-NLS-1$
 			btnInvCardAddPricesRemovePriceLData.verticalAlignment = GridData.CENTER;
 			btnInvCardAddPricesRemovePriceLData.horizontalAlignment = GridData.BEGINNING;
 			btnInvCardAddPricesRemovePriceLData.widthHint = 30;
@@ -921,7 +921,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			compInvCardPricesTable.setLayout(compInvCardPricesTableLayout);
 			{
 				label4 = new Label(compInvCardPrices, SWT.SEPARATOR | SWT.HORIZONTAL);
-				label4.setText("label1");
+				label4.setText("label1"); //$NON-NLS-1$
 				GridData label4LData = new GridData();
 				label4LData.horizontalAlignment = GridData.FILL;
 				label4LData.horizontalSpan = 4;
@@ -1106,7 +1106,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			{
 				label5 = new Label(compInvCardAddGroups, SWT.SEPARATOR
 					| SWT.HORIZONTAL);
-				label5.setText("label1");
+				label5.setText("label1"); //$NON-NLS-1$
 				GridData label5LData = new GridData();
 				label5LData.horizontalAlignment = GridData.FILL;
 				label5LData.horizontalSpan = 4;
@@ -1259,7 +1259,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					{
 						label2 = new Label(compInvCardGeneral, SWT.SEPARATOR
 							| SWT.HORIZONTAL);
-						label2.setText("label1");
+						label2.setText("label1"); //$NON-NLS-1$
 						GridData label2LData = new GridData();
 						label2LData.horizontalAlignment = GridData.FILL;
 						label2LData.horizontalSpan = 4;
