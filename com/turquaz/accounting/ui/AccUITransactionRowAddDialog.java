@@ -38,20 +38,29 @@ import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.ui.component.DecimalText;
+import com.cloudgarden.resource.SWTResourceManager;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.SWT;
 
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
 public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private Button btnOk;
@@ -59,6 +68,8 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 	private DecimalText decTextAmount;
 	private CLabel lblAmount;
 	private CLabel lbDeptOrCredit;
+	private Composite composite1;
+	private Label label1;
 	private CCombo comboDeptOrCredit;
 	private AccountPicker accountPicker;
 	private CLabel lblAccount;
@@ -81,6 +92,13 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 	
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+
+                {
+                    //Register as a resource user - SWTResourceManager will
+                    //handle the obtaining and disposing of resources
+                    SWTResourceManager.registerResourceUser(dialogShell);
+                }
+
 			dialogShell.setText(getText());
 			lblAccount = new CLabel(dialogShell,SWT.NULL);
 			accountPicker = new AccountPicker(dialogShell,SWT.NULL);
@@ -88,52 +106,27 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			comboDeptOrCredit = new CCombo(dialogShell,SWT.READ_ONLY);
 			lblAmount = new CLabel(dialogShell,SWT.NULL);
 			decTextAmount = new DecimalText(dialogShell,SWT.NULL);
-			btnCancel = new Button(dialogShell,SWT.PUSH| SWT.CENTER);
-			btnOk = new Button(dialogShell,SWT.PUSH| SWT.CENTER);
-	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(354,143));
+
+			dialogShell.setSize(363, 177);
 	
 			GridData lblAccountLData = new GridData();
-			lblAccountLData.verticalAlignment = GridData.CENTER;
-			lblAccountLData.horizontalAlignment = GridData.BEGINNING;
-			lblAccountLData.widthHint = -1;
-			lblAccountLData.heightHint = -1;
-			lblAccountLData.horizontalIndent = 0;
-			lblAccountLData.horizontalSpan = 1;
-			lblAccountLData.verticalSpan = 1;
-			lblAccountLData.grabExcessHorizontalSpace = false;
-			lblAccountLData.grabExcessVerticalSpace = false;
+			lblAccountLData.widthHint = 59;
+			lblAccountLData.heightHint = 18;
 			lblAccount.setLayoutData(lblAccountLData);
 			lblAccount.setText(Messages.getString("AccUITransactionRowAddDialog.0")); //$NON-NLS-1$
 	
 			GridData accountPickerLData = new GridData();
-			accountPickerLData.verticalAlignment = GridData.CENTER;
-			accountPickerLData.horizontalAlignment = GridData.BEGINNING;
 			accountPickerLData.widthHint = 204;
 			accountPickerLData.heightHint = 20;
-			accountPickerLData.horizontalIndent = 0;
-			accountPickerLData.horizontalSpan = 1;
-			accountPickerLData.verticalSpan = 1;
-			accountPickerLData.grabExcessHorizontalSpace = false;
-			accountPickerLData.grabExcessVerticalSpace = false;
 			accountPicker.setLayoutData(accountPickerLData);
-			accountPicker.setSize(new org.eclipse.swt.graphics.Point(204,20));
 			accountPicker.layout();
 	
 			GridData lbDeptOrCreditLData = new GridData();
-			lbDeptOrCreditLData.verticalAlignment = GridData.CENTER;
-			lbDeptOrCreditLData.horizontalAlignment = GridData.BEGINNING;
-			lbDeptOrCreditLData.widthHint = 62;
-			lbDeptOrCreditLData.heightHint = 19;
-			lbDeptOrCreditLData.horizontalIndent = 0;
-			lbDeptOrCreditLData.horizontalSpan = 1;
-			lbDeptOrCreditLData.verticalSpan = 1;
-			lbDeptOrCreditLData.grabExcessHorizontalSpace = false;
-			lbDeptOrCreditLData.grabExcessVerticalSpace = false;
+			lbDeptOrCreditLData.widthHint = 76;
+			lbDeptOrCreditLData.heightHint = 18;
 			lbDeptOrCredit.setLayoutData(lbDeptOrCreditLData);
 			lbDeptOrCredit.setText(Messages.getString("AccUITransactionRowAddDialog.1")); //$NON-NLS-1$
-			lbDeptOrCredit.setSize(new org.eclipse.swt.graphics.Point(62,19));
-	
+
 			GridData comboDeptOrCreditLData = new GridData();
 			comboDeptOrCreditLData.verticalAlignment = GridData.CENTER;
 			comboDeptOrCreditLData.horizontalAlignment = GridData.BEGINNING;
@@ -146,20 +139,12 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			comboDeptOrCreditLData.grabExcessVerticalSpace = false;
 			comboDeptOrCredit.setLayoutData(comboDeptOrCreditLData);
 			comboDeptOrCredit.setText(Messages.getString("AccUITransactionRowAddDialog.6")); //$NON-NLS-1$
-			final Color comboDeptOrCreditbackground = new Color(Display.getDefault(),255,255,255);
-			comboDeptOrCredit.setBackground(comboDeptOrCreditbackground);
+			comboDeptOrCredit.setBackground(SWTResourceManager.getColor(255, 255, 255));
 			comboDeptOrCredit.setSize(new org.eclipse.swt.graphics.Point(71,17));
 	
 			GridData lblAmountLData = new GridData();
-			lblAmountLData.verticalAlignment = GridData.CENTER;
-			lblAmountLData.horizontalAlignment = GridData.BEGINNING;
-			lblAmountLData.widthHint = -1;
-			lblAmountLData.heightHint = -1;
-			lblAmountLData.horizontalIndent = 0;
-			lblAmountLData.horizontalSpan = 1;
-			lblAmountLData.verticalSpan = 1;
-			lblAmountLData.grabExcessHorizontalSpace = false;
-			lblAmountLData.grabExcessVerticalSpace = false;
+			lblAmountLData.widthHint = 62;
+			lblAmountLData.heightHint = 19;
 			lblAmount.setLayoutData(lblAmountLData);
 			lblAmount.setText(Messages.getString("AccUITransactionRowAddDialog.3")); //$NON-NLS-1$
 	
@@ -175,43 +160,64 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			decTextAmountLData.grabExcessVerticalSpace = false;
 			decTextAmount.setLayoutData(decTextAmountLData);
 			decTextAmount.setSize(new org.eclipse.swt.graphics.Point(154,18));
-	
-			GridData btnCancelLData = new GridData();
-			btnCancelLData.verticalAlignment = GridData.END;
-			btnCancelLData.horizontalAlignment = GridData.BEGINNING;
-			btnCancelLData.widthHint = 44;
-			btnCancelLData.heightHint = 23;
-			btnCancelLData.horizontalIndent = 0;
-			btnCancelLData.horizontalSpan = 1;
-			btnCancelLData.verticalSpan = 2;
-			btnCancelLData.grabExcessHorizontalSpace = false;
-			btnCancelLData.grabExcessVerticalSpace = true;
-			btnCancel.setLayoutData(btnCancelLData);
-			btnCancel.setText(Messages.getString("AccUITransactionRowAddDialog.4")); //$NON-NLS-1$
-			btnCancel.setSize(new org.eclipse.swt.graphics.Point(44,23));
-			btnCancel.addMouseListener( new MouseAdapter() {
-				public void mouseUp(MouseEvent evt) {
-					btnCancelMouseUp(evt);
-				}
-			});
-	
-			GridData btnOkLData = new GridData();
-			btnOkLData.verticalAlignment = GridData.END;
-			btnOkLData.horizontalAlignment = GridData.END;
-			btnOkLData.widthHint = -1;
-			btnOkLData.heightHint = -1;
-			btnOkLData.horizontalIndent = 0;
-			btnOkLData.horizontalSpan = 1;
-			btnOkLData.verticalSpan = 2;
-			btnOkLData.grabExcessHorizontalSpace = true;
-			btnOkLData.grabExcessVerticalSpace = true;
-			btnOk.setLayoutData(btnOkLData);
-			btnOk.setText(Messages.getString("AccUITransactionRowAddDialog.5")); //$NON-NLS-1$
-			btnOk.addMouseListener( new MouseAdapter() {
-				public void mouseUp(MouseEvent evt) {
-					btnOkMouseUp(evt);
-				}
-			});
+            {
+                label1 = new Label(dialogShell, SWT.SEPARATOR | SWT.HORIZONTAL);
+                label1.setText("label1");
+                GridData label1LData = new GridData();
+                label1LData.horizontalSpan = 2;
+                label1LData.horizontalAlignment = GridData.FILL;
+                label1LData.grabExcessHorizontalSpace = true;
+                label1.setLayoutData(label1LData);
+            }
+
+            {
+                composite1 = new Composite(dialogShell, SWT.NONE);
+                GridLayout composite1Layout = new GridLayout();
+                GridData composite1LData = new GridData();
+                composite1LData.widthHint = 140;
+                composite1LData.heightHint = 59;
+                composite1LData.horizontalAlignment = GridData.END;
+                composite1LData.horizontalSpan = 2;
+                composite1.setLayoutData(composite1LData);
+                composite1Layout.makeColumnsEqualWidth = true;
+                composite1Layout.numColumns = 2;
+                composite1.setLayout(composite1Layout);
+                {
+                    btnCancel = new Button(composite1, SWT.PUSH | SWT.CENTER);
+                    GridData btnCancelLData = new GridData();
+                    btnCancel.setImage(SWTResourceManager.getImage("icons/Cancel24.gif"));
+                    btnCancelLData.widthHint = 60;
+                    btnCancelLData.heightHint = 31;
+                    btnCancelLData.verticalSpan = 2;
+                    btnCancelLData.grabExcessVerticalSpace = true;
+                    btnCancel.setLayoutData(btnCancelLData);
+                    btnCancel.setText(Messages.getString("AccUITransactionRowAddDialog.4")); //$NON-NLS-1$
+                    btnCancel.addMouseListener(new MouseAdapter() {
+                        public void mouseUp(MouseEvent evt) {
+                            btnCancelMouseUp(evt);
+                        }
+                    });
+                }
+                {
+                    btnOk = new Button(composite1, SWT.PUSH | SWT.CENTER);
+                    GridData btnOkLData = new GridData();
+                    btnOk.setImage(SWTResourceManager.getImage("icons/Ok24.gif"));
+                    btnOk.setSize(60, 31);
+                    btnOkLData.horizontalAlignment = GridData.END;
+                    btnOkLData.verticalSpan = 2;
+                    btnOkLData.grabExcessHorizontalSpace = true;
+                    btnOkLData.grabExcessVerticalSpace = true;
+                    btnOkLData.widthHint = 60;
+                    btnOkLData.heightHint = 31;
+                    btnOk.setLayoutData(btnOkLData);
+                    btnOk.setText(Messages.getString("AccUITransactionRowAddDialog.5")); //$NON-NLS-1$
+                    btnOk.addMouseListener(new MouseAdapter() {
+                        public void mouseUp(MouseEvent evt) {
+                            btnOkMouseUp(evt);
+                        }
+                    });
+                }
+            }
 			GridLayout dialogShellLayout = new GridLayout(2, true);
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.marginWidth = 5;
@@ -223,7 +229,6 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					comboDeptOrCreditbackground.dispose();
 				}
 			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 354,143);

@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.CoolItem;
+import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.graphics.Rectangle;
@@ -50,9 +51,16 @@ import org.eclipse.swt.SWT;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
 public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	private AccUITransactionAdd compTransactionAdd;
@@ -80,6 +88,13 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+
+                {
+                    //Register as a resource user - SWTResourceManager will
+                    //handle the obtaining and disposing of resources
+                    SWTResourceManager.registerResourceUser(dialogShell);
+                }
+
 			dialogShell.setText(getText());
 			coolBar1 = new CoolBar(dialogShell,SWT.NULL);
 			coolItem1 = new CoolItem(coolBar1,SWT.NULL);
@@ -91,15 +106,8 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(577,427));
 	
 			GridData coolBar1LData = new GridData();
-			coolBar1LData.verticalAlignment = GridData.CENTER;
 			coolBar1LData.horizontalAlignment = GridData.FILL;
-			coolBar1LData.widthHint = -1;
-			coolBar1LData.heightHint = -1;
-			coolBar1LData.horizontalIndent = 0;
-			coolBar1LData.horizontalSpan = 1;
-			coolBar1LData.verticalSpan = 1;
-			coolBar1LData.grabExcessHorizontalSpace = false;
-			coolBar1LData.grabExcessVerticalSpace = false;
+			coolBar1LData.heightHint = 44;
 			coolBar1.setLayoutData(coolBar1LData);
 	
 			coolItem1.setControl(toolBar1);
@@ -109,6 +117,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	
 	
 			toolUpdate.setText(Messages.getString("AccUITransactionUpdateDialog.0")); //$NON-NLS-1$
+			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
@@ -116,6 +125,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			});
 	
 			toolDelete.setText(Messages.getString("AccUITransactionUpdateDialog.1")); //$NON-NLS-1$
+			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);

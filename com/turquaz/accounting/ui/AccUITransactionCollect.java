@@ -36,6 +36,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
+import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.TableItem;
 
@@ -58,12 +59,26 @@ import org.eclipse.swt.SWT;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
 
 public class AccUITransactionCollect extends  Composite implements SecureComposite{
+
+    {
+        //Register as a resource user - SWTResourceManager will
+        //handle the obtaining and disposing of resources
+        SWTResourceManager.registerResourceUser(this);
+    }
+
 
 	private CCombo comboDeptor;
 	private CLabel lblDeptor;
@@ -163,15 +178,8 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 			datePickerTransactionDate.layout();
 	
 			GridData lblDeptorLData = new GridData();
-			lblDeptorLData.verticalAlignment = GridData.CENTER;
-			lblDeptorLData.horizontalAlignment = GridData.BEGINNING;
-			lblDeptorLData.widthHint = -1;
-			lblDeptorLData.heightHint = -1;
-			lblDeptorLData.horizontalIndent = 0;
-			lblDeptorLData.horizontalSpan = 1;
-			lblDeptorLData.verticalSpan = 1;
-			lblDeptorLData.grabExcessHorizontalSpace = false;
-			lblDeptorLData.grabExcessVerticalSpace = false;
+			lblDeptorLData.widthHint = 78;
+			lblDeptorLData.heightHint = 22;
 			lblDeptor.setLayoutData(lblDeptorLData);
 			lblDeptor.setText(Messages.getString("AccUITransactionCollect.2")); //$NON-NLS-1$
 	
@@ -212,9 +220,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 			btnAddTransactionRowLData.grabExcessHorizontalSpace = false;
 			btnAddTransactionRowLData.grabExcessVerticalSpace = false;
 			btnAddTransactionRow.setLayoutData(btnAddTransactionRowLData);
-			final org.eclipse.swt.graphics.Image btnAddTransactionRowýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/plus.gif")); //$NON-NLS-1$
-			btnAddTransactionRowýmage.setBackground(btnAddTransactionRow.getBackground());
-			btnAddTransactionRow.setImage(btnAddTransactionRowýmage);
+			btnAddTransactionRow.setImage(SWTResourceManager.getImage("icons/plus.gif"));
 			btnAddTransactionRow.setSize(new org.eclipse.swt.graphics.Point(26,24));
 			btnAddTransactionRow.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -235,7 +241,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 			btnRemoveTransactionRow.setLayoutData(btnRemoveTransactionRowLData);
 			final org.eclipse.swt.graphics.Image btnRemoveTransactionRowýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif")); //$NON-NLS-1$
 			btnRemoveTransactionRowýmage.setBackground(btnRemoveTransactionRow.getBackground());
-			btnRemoveTransactionRow.setImage(btnRemoveTransactionRowýmage);
+			btnRemoveTransactionRow.setImage(SWTResourceManager.getImage("icons/minus.gif"));
 			btnRemoveTransactionRow.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
 					btnRemoveTransactionRowMouseUp(evt);
@@ -285,7 +291,6 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 			this.layout();
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					btnAddTransactionRowýmage.dispose();
 					btnRemoveTransactionRowýmage.dispose();
 				}
 			});

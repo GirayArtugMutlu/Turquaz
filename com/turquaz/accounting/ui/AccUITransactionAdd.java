@@ -184,19 +184,11 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			txtDocumentNo.setSize(new org.eclipse.swt.graphics.Point(155,19));
 	
 			GridData lblDateLData = new GridData();
-			lblDateLData.verticalAlignment = GridData.CENTER;
-			lblDateLData.horizontalAlignment = GridData.BEGINNING;
-			lblDateLData.widthHint = 29;
-			lblDateLData.heightHint = 19;
-			lblDateLData.horizontalIndent = 0;
-			lblDateLData.horizontalSpan = 1;
-			lblDateLData.verticalSpan = 1;
-			lblDateLData.grabExcessHorizontalSpace = false;
-			lblDateLData.grabExcessVerticalSpace = false;
+			lblDateLData.widthHint = 70;
+			lblDateLData.heightHint = 21;
 			lblDate.setLayoutData(lblDateLData);
 			lblDate.setText(Messages.getString("AccUITransactionAdd.1")); //$NON-NLS-1$
-			lblDate.setSize(new org.eclipse.swt.graphics.Point(29,19));
-	
+
 			GridData dateTransactionDateLData = new GridData();
 			dateTransactionDateLData.verticalAlignment = GridData.CENTER;
 			dateTransactionDateLData.horizontalAlignment = GridData.BEGINNING;
@@ -286,15 +278,15 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			tableColumnAccountName.setWidth(150);
 	
 			tableColumnCredit.setText(Messages.getString("AccUITransactionAdd.6")); //$NON-NLS-1$
-			tableColumnCredit.setWidth(100);
+			tableColumnCredit.setWidth(97);
 	
 			tableColumnDept.setText(Messages.getString("AccUITransactionAdd.7")); //$NON-NLS-1$
 			tableColumnDept.setWidth(106);
 	
 			GridData lblTotalCreditLData = new GridData();
 			lblTotalCreditLData.horizontalAlignment = GridData.END;
-			lblTotalCreditLData.widthHint = 83;
-			lblTotalCreditLData.heightHint = 17;
+			lblTotalCreditLData.widthHint = 90;
+			lblTotalCreditLData.heightHint = 16;
 			lblTotalCredit.setLayoutData(lblTotalCreditLData);
 			lblTotalCredit.setText(Messages.getString("AccUITransactionAdd.8")); //$NON-NLS-1$
 
@@ -314,7 +306,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	
 			GridData cLabel1LData = new GridData();
 			cLabel1LData.horizontalAlignment = GridData.END;
-			cLabel1LData.widthHint = 81;
+			cLabel1LData.widthHint = 86;
 			cLabel1LData.heightHint = 19;
 			cLabel1.setLayoutData(cLabel1LData);
 			cLabel1.setText("Toplam Borç"); //$NON-NLS-1$

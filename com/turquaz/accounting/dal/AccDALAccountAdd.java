@@ -64,7 +64,7 @@ public class AccDALAccountAdd {
 							" accounts.turqAccountingAccountByParentAccount.accountingAccountsId ="+parentid+"" +
 							" and accounts.accountCode like '"+codeCriteria+"%'" +
 							" and accounts.accountingAccountsId <> -1" +
-							" order by accounts.accountCode";   
+							" order by accounts.accountingAccountsId";   
 
 			Query q = session.createQuery(query); 
 			List list = q.list();
@@ -118,7 +118,7 @@ public class AccDALAccountAdd {
 			String query = "from TurqAccountingAccount as accounts " +
 					"where accounts.turqCompany.companiesId ="+System.getProperty("company")+
 							" and accounts.accountingAccountsId <> -1" +
-							" order by accounts.accountCode";   
+							" order by accounts.accountingAccountsId";   
 
 			Query q = session.createQuery(query); 
 			List list = q.list();

@@ -79,3 +79,68 @@ Caused by: Batch entry 0 delete from turq_inventory_cards where inventory_cards_
 	at net.sf.hibernate.impl.BatchingBatcher.doExecuteBatch(BatchingBatcher.java:54)
 	at net.sf.hibernate.impl.BatcherImpl.executeBatch(BatcherImpl.java:118)
 	... 31 more
+2004-11-18 12:19:21,718 [main] ERROR hibernate.util.JDBCExceptionReporter(46)  -> Batch entry 0 insert into turq_accounting_accounts (account_name, account_code, creation_date, created_by, update_date, updated_by, companies_id, top_account, parent_account, accounting_accounts_id) values ( was aborted. Call getNextException() to see the cause.
+2004-11-18 12:19:21,734 [main] ERROR hibernate.util.JDBCExceptionReporter(46)  -> ERROR: duplicate key violates unique constraint "turq_accounting_accounts_account_code_key"
+
+2004-11-18 12:19:21,734 [main] ERROR hibernate.util.JDBCExceptionReporter(46)  -> Batch entry 0 insert into turq_accounting_accounts (account_name, account_code, creation_date, created_by, update_date, updated_by, companies_id, top_account, parent_account, accounting_accounts_id) values ( was aborted. Call getNextException() to see the cause.
+2004-11-18 12:19:21,734 [main] ERROR hibernate.util.JDBCExceptionReporter(46)  -> ERROR: duplicate key violates unique constraint "turq_accounting_accounts_account_code_key"
+
+2004-11-18 12:19:21,734 [main] ERROR hibernate.util.JDBCExceptionReporter(38)  -> Could not execute JDBC batch update
+Batch entry 0 insert into turq_accounting_accounts (account_name, account_code, creation_date, created_by, update_date, updated_by, companies_id, top_account, parent_account, accounting_accounts_id) values ( was aborted. Call getNextException() to see the cause.
+	at org.postgresql.jdbc2.AbstractJdbc2Statement.executeBatch(AbstractJdbc2Statement.java:108)
+	at net.sf.hibernate.impl.BatchingBatcher.doExecuteBatch(BatchingBatcher.java:54)
+	at net.sf.hibernate.impl.BatcherImpl.executeBatch(BatcherImpl.java:118)
+	at net.sf.hibernate.impl.SessionImpl.executeAll(SessionImpl.java:2311)
+	at net.sf.hibernate.impl.SessionImpl.execute(SessionImpl.java:2261)
+	at net.sf.hibernate.impl.SessionImpl.flush(SessionImpl.java:2187)
+	at com.turquaz.accounting.dal.AccDALAccountAdd.saveOrUpdateAccount(AccDALAccountAdd.java:48)
+	at com.turquaz.accounting.bl.AccBLAccountAdd.saveAccount(AccBLAccountAdd.java:103)
+	at com.turquaz.accounting.ui.AccUIAddAccounts.save(AccUIAddAccounts.java:265)
+	at com.turquaz.engine.ui.EngUIMainFrame.toolSaveWidgetSelected(EngUIMainFrame.java:1156)
+	at com.turquaz.engine.ui.EngUIMainFrame$12.widgetSelected(EngUIMainFrame.java:594)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:89)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:796)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:2772)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2431)
+	at com.turquaz.engine.ui.EngUIMainFrame.showGUI2(EngUIMainFrame.java:938)
+	at com.turquaz.engine.ui.EngUIEntryFrame.btnOkMouseUp(EngUIEntryFrame.java:290)
+	at com.turquaz.engine.ui.EngUIEntryFrame$3.mouseUp(EngUIEntryFrame.java:228)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:136)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:796)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:2772)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2431)
+	at com.turquaz.engine.ui.EngUIEntryFrame.showGUI(EngUIEntryFrame.java:122)
+	at com.turquaz.engine.ui.EngUIEntryFrame.main(EngUIEntryFrame.java:95)
+2004-11-18 12:19:21,734 [main] ERROR hibernate.impl.SessionImpl(2269)  -> Could not synchronize database state with session
+net.sf.hibernate.JDBCException: Could not execute JDBC batch update
+	at net.sf.hibernate.impl.BatcherImpl.executeBatch(BatcherImpl.java:125)
+	at net.sf.hibernate.impl.SessionImpl.executeAll(SessionImpl.java:2311)
+	at net.sf.hibernate.impl.SessionImpl.execute(SessionImpl.java:2261)
+	at net.sf.hibernate.impl.SessionImpl.flush(SessionImpl.java:2187)
+	at com.turquaz.accounting.dal.AccDALAccountAdd.saveOrUpdateAccount(AccDALAccountAdd.java:48)
+	at com.turquaz.accounting.bl.AccBLAccountAdd.saveAccount(AccBLAccountAdd.java:103)
+	at com.turquaz.accounting.ui.AccUIAddAccounts.save(AccUIAddAccounts.java:265)
+	at com.turquaz.engine.ui.EngUIMainFrame.toolSaveWidgetSelected(EngUIMainFrame.java:1156)
+	at com.turquaz.engine.ui.EngUIMainFrame$12.widgetSelected(EngUIMainFrame.java:594)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:89)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:796)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:2772)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2431)
+	at com.turquaz.engine.ui.EngUIMainFrame.showGUI2(EngUIMainFrame.java:938)
+	at com.turquaz.engine.ui.EngUIEntryFrame.btnOkMouseUp(EngUIEntryFrame.java:290)
+	at com.turquaz.engine.ui.EngUIEntryFrame$3.mouseUp(EngUIEntryFrame.java:228)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:136)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:796)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:2772)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2431)
+	at com.turquaz.engine.ui.EngUIEntryFrame.showGUI(EngUIEntryFrame.java:122)
+	at com.turquaz.engine.ui.EngUIEntryFrame.main(EngUIEntryFrame.java:95)
+Caused by: Batch entry 0 insert into turq_accounting_accounts (account_name, account_code, creation_date, created_by, update_date, updated_by, companies_id, top_account, parent_account, accounting_accounts_id) values ( was aborted. Call getNextException() to see the cause.
+	at org.postgresql.jdbc2.AbstractJdbc2Statement.executeBatch(AbstractJdbc2Statement.java:108)
+	at net.sf.hibernate.impl.BatchingBatcher.doExecuteBatch(BatchingBatcher.java:54)
+	at net.sf.hibernate.impl.BatcherImpl.executeBatch(BatcherImpl.java:118)
+	... 23 more

@@ -101,7 +101,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 			txtAccAcountName = new Text(this,SWT.NULL);
 			cLabel2 = new CLabel(this,SWT.NULL);
 			txtParentAccount = new DynamicAccountPicker(this,SWT.NULL);
-			txtParentAccount.setFilter("");
+			txtParentAccount.setFilter(""); //$NON-NLS-1$
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(435,204));
 	
@@ -235,12 +235,12 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
     return false;
     }
     
-/*	else if(txtParentAccount.getText().trim().equals("")){
-	  msg.setMessage("Please Fill Parent Account");
-    msg.open();	
+	else if(txtParentAccount.getData()==null){
+	  msg.setMessage(Messages.getString("AccUIAddAccounts.5")); //$NON-NLS-1$
+     msg.open();	
     return false;
 	}
-	*/
+
 	
 	return true;
 	

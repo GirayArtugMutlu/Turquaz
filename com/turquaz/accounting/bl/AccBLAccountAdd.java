@@ -60,7 +60,7 @@ public class AccBLAccountAdd {
 		}
 		
 	}
-
+	
 	public List getAllAccounts()throws Exception{
 		try{
 			
@@ -96,6 +96,7 @@ public class AccBLAccountAdd {
 		account.setUpdatedBy(System.getProperty("user"));
 		account.setUpdateDate(new java.sql.Date( cal.getTime().getTime()));
 		account.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
+		
 		account.setTurqAccountingAccountByParentAccount(parentAccount);
 		account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());
 		account.setTurqCompany(company);

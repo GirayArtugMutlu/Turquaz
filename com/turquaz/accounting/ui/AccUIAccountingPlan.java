@@ -173,17 +173,18 @@ public void fillTree(int parent, String codeCrit){
 	Map treeItems = new HashMap();	
 	tableTreeAccountingPlan.removeAll();	
 	TableTreeItem item;
+	
 	List mainBranches = blAccount.getAllAccounts();
 	TurqAccountingAccount account;
 
 	Integer parentId;
 	
 	
-	
 	for(int i =0; i< mainBranches.size();i++){
 	account = (TurqAccountingAccount)mainBranches.get(i);
 	
 	parentId = account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId();
+	
 	if(parentId.intValue()==-1){
 		item = new TableTreeItem(tableTreeAccountingPlan,SWT.NULL);
 		item.setText(0,account.getAccountCode());
@@ -195,9 +196,11 @@ public void fillTree(int parent, String codeCrit){
 		else{
 			
 		TableTreeItem parentItem = (TableTreeItem)treeItems.get(parentId);
+		
 		if(parentItem == null){
 		   System.out.println(account.getAccountCode()+" "+parentId.intValue()); //$NON-NLS-1$
 		}
+		
 		else{
 		item = new TableTreeItem(parentItem,SWT.NULL);	
 		treeItems.put(account.getAccountingAccountsId(),item);
@@ -258,10 +261,13 @@ public void fillTree(int parent, String codeCrit){
 		TurqAccountingAccount account =(TurqAccountingAccount)items[0].getData();
 		// it's not an main account
 		// main accounts cannot be edited
-		//if(account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId().intValue()!=-1)
-		new AccUIAccountUpdate(this.getShell(),SWT.NULL,account).open();
+		if(account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId().intValue()!=-1)
+		{
+		    new AccUIAccountUpdate(this.getShell(),SWT.NULL,account).open();
+		    fillTree(-1,"");
+		}
 		
-		fillTree(-1,"");
+		
 	    
 	    
 		}
