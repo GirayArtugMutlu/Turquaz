@@ -32,7 +32,6 @@ import com.turquaz.accounting.ui.AccUIAddAccountDialog;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
@@ -46,9 +45,6 @@ import org.eclipse.swt.layout.GridData;
 
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.events.VerifyListener;
-
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
@@ -65,10 +61,9 @@ import com.turquaz.engine.ui.component.SecureComposite;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.turquaz.engine.ui.component.NumericText;
+import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 
 
 import org.eclipse.swt.widgets.MessageBox;
@@ -1468,42 +1463,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		editors[2] = new ComboBoxCellEditor(tableInvCardAddPrices, currencies,
 				SWT.READ_ONLY);
 
-		// Column 4 : Percent complete (Text with digits only)
-		TextCellEditor textEditor = new TextCellEditor(tableInvCardAddPrices);
-
-		((Text) textEditor.getControl()).addVerifyListener(
-
-		new VerifyListener() {
-			public void verifyText(VerifyEvent e) {
-				char decimalSymbol = '.';
-				int numberOfDecimals = 2;
-				Text control = (Text) e.widget;
-				String text = control.getText();
-				e.doit = false;
-
-				if (e.keyCode == SWT.BS || e.keyCode == SWT.DEL) {
-					e.doit = true;
-					return;
-				}
-
-				String newText = text.substring(0, e.start) + e.text
-						+ text.substring(e.end);
-
-				if (newText.equals("")) { //$NON-NLS-1$
-					e.doit = true;
-					return;
-				}
-
-				Pattern realNumberPattern = Pattern
-						.compile("-?[0-9]+[0-9]*(([" + decimalSymbol + "][0-9]?[0-9]?)|([" + decimalSymbol + "]))?"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				Matcher matcher = realNumberPattern.matcher(newText);
-				boolean valid = matcher.matches();
-
-				e.doit = valid;
-
-			}
-		});
-		editors[1] = textEditor;
+	
+		editors[1] = new CurrencyCellEditor(tableInvCardAddPrices,4);
 
 		// Assign the cell editors to the viewer
 		tableInvPricesViewer.setCellEditors(editors);
@@ -1869,6 +1830,13 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				String type = item.getText(0);
 				String amount = item.getText(1);
 				String abbrev = item.getText(2);
+				
+				 String formatted = amount.toString(); 	
+				 formatted = formatted.replaceAll("\\.","");
+				 	formatted = formatted.replaceAll(",",".");
+				 	if(formatted.equals("")){
+				 	    formatted="0";
+				 	}
 
 				if (!type.equals("") && !abbrev.equals("") && !amount.equals("")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
@@ -1877,7 +1845,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						priceType = true;
 					}
 
-					blCardAdd.saveInvPrices(cardId, priceType, abbrev, amount);
+					blCardAdd.saveInvPrices(cardId, priceType, abbrev, formatted);
 
 				}
 			}
