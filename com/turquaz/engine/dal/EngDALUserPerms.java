@@ -34,6 +34,7 @@ public class EngDALUserPerms {
 			query +=" where U.username='"+username+"'AND U.users_id = UG.users_id";
 			query +=" AND GP.groups_id = UG.groups_id order by GP.group_permissions_id"; 
 			
+		
 			ResultSet rs = connection.getResultSet(query);
 			return rs;
 			
@@ -94,7 +95,8 @@ public class EngDALUserPerms {
 				
 			
 			String query ="select components_name from turq_module_components";
-				
+			
+			
 			ResultSet rs = connection.getResultSet(query);
 			return rs;
 			
@@ -114,6 +116,7 @@ public class EngDALUserPerms {
 			String query ="select components_name from turq_module_components";
 			       query +=" where modules_id="+module_id;
 				
+			System.out.println(query);      
 			ResultSet rs = connection.getResultSet(query);
 			ArrayList list = new ArrayList();
 			while(rs.next()){

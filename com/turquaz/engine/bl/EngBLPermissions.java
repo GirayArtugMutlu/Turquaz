@@ -140,7 +140,7 @@ public class EngBLPermissions {
 
 			}
 			rs.close();
-			rs = dbaccess.getUserPermissions("admin");
+			
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
