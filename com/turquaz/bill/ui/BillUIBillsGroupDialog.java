@@ -77,7 +77,6 @@ public class BillUIBillsGroupDialog extends  org.eclipse.swt.widgets.Dialog {
 	private CLabel lblGroupName;
 	private Composite compGroupAddDialog;
 	private Shell dialogShell;
-	private BillBLAddGroups blCardAdd = new BillBLAddGroups();
 	Calendar cal = Calendar.getInstance();
 
 	public BillUIBillsGroupDialog(Shell parent, int style) {
@@ -294,7 +293,7 @@ public class BillUIBillsGroupDialog extends  org.eclipse.swt.widgets.Dialog {
     public void fillTable(){
     try{
     tableCurGroups.removeAll();
-    List list = blCardAdd.getBillGroups();
+    List list = BillBLAddGroups.getBillGroups();
     
     TurqBillGroup curGroup;
     TableItem item;
@@ -325,7 +324,7 @@ public class BillUIBillsGroupDialog extends  org.eclipse.swt.widgets.Dialog {
 	    int result = msg.open();
 	    if(result==SWT.OK){
 	   
-	    blCardAdd.deleteGroup(( TurqBillGroup)txtGroupName.getData());
+	    	BillBLAddGroups.deleteGroup(( TurqBillGroup)txtGroupName.getData());
 	   
 	   
 	    btnDelete.setEnabled(false);
@@ -368,7 +367,7 @@ public class BillUIBillsGroupDialog extends  org.eclipse.swt.widgets.Dialog {
 		
 	TurqBillGroup  invGroup = (  TurqBillGroup )txtGroupName.getData();
 
-	blCardAdd.updateGroup(txtGroupName.getText().trim(),txtDescription.getText().trim(),invGroup);
+	BillBLAddGroups.updateGroup(txtGroupName.getText().trim(),txtDescription.getText().trim(),invGroup);
 	
 	btnDelete.setEnabled(false);
 	btnUpdate.setEnabled(false);
@@ -412,7 +411,7 @@ public class BillUIBillsGroupDialog extends  org.eclipse.swt.widgets.Dialog {
 	    }
 	    else{
 	    
-	    blCardAdd.saveGroup(txtGroupName.getText().trim(),txtDescription.getText().trim());
+	    BillBLAddGroups.saveGroup(txtGroupName.getText().trim(),txtDescription.getText().trim());
 	    msg.setMessage(Messages.getString("CurUIGroupAddDialog.25")); //$NON-NLS-1$
 	    txtGroupName.setText(""); //$NON-NLS-1$
 	    txtDescription.setText(""); //$NON-NLS-1$

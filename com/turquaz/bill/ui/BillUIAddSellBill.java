@@ -382,9 +382,6 @@ public class BillUIAddSellBill extends Composite
 
 	private CLabel lblCurrentCard;
 
-	BillBLAddGroups blAddGroup = new BillBLAddGroups();
-
-	BillBLAddBill blAddBill = new BillBLAddBill();
 
 	ConBLAddConsignment blAddConsignment = new ConBLAddConsignment();
 	
@@ -1068,7 +1065,7 @@ public class BillUIAddSellBill extends Composite
 		try {
 
 			//Fill Group Table
-			List list = blAddGroup.getBillGroups();
+			List list = BillBLAddGroups.getBillGroups();
 			HashMap groupMap = new HashMap();
 
 			TurqBillGroup curGroup;
@@ -1366,7 +1363,7 @@ public class BillUIAddSellBill extends Composite
 				Boolean paymentType = (Boolean) comboPaymentType
 						.getData(comboPaymentType.getText());
 
-				TurqBill bill = blAddBill.saveBillFromBill(txtConsignmentDocumentNo.getText(),txtDefinition.getText(), false, dateConsignmentDate.getDate(),type,!paymentType.booleanValue(),(TurqCurrentCard)txtCurrentCard.getData(),accountPickerCurAcc.getTurqAccountingAccount(),dateDueDate.getDate(),txtDiscountAmount.getBigDecimalValue(), txtDocumentNo.getText(), txtTotalVat.getBigDecimalValue(),decSpecialVat.getBigDecimalValue(), txtTotalAmount.getBigDecimalValue(),EngBLCommon.getBaseCurrencyExchangeRate(),getBillGroups(),getInventoryTransactions());
+				TurqBill bill = BillBLAddBill.saveBillFromBill(txtConsignmentDocumentNo.getText(),txtDefinition.getText(), false, dateConsignmentDate.getDate(),type,!paymentType.booleanValue(),(TurqCurrentCard)txtCurrentCard.getData(),accountPickerCurAcc.getTurqAccountingAccount(),dateDueDate.getDate(),txtDiscountAmount.getBigDecimalValue(), txtDocumentNo.getText(), txtTotalVat.getBigDecimalValue(),decSpecialVat.getBigDecimalValue(), txtTotalAmount.getBigDecimalValue(),EngBLCommon.getBaseCurrencyExchangeRate(),getBillGroups(),getInventoryTransactions());
 				
 				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				msg.open();

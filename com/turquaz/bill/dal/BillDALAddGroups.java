@@ -15,7 +15,7 @@ public class BillDALAddGroups {
 	}
 	
 	
-	public List getBillGroups()throws Exception{
+	public static List getBillGroups()throws Exception{
 		try{
 			
 			

@@ -307,9 +307,6 @@ implements SecureComposite{
 	private TableColumn TableColumnVATSpecial;
 	private TableColumn tableColumnUnit;
 	private Table tableConsignmentRows;
-	BillBLAddGroups blAddGroup = new BillBLAddGroups();
-	BillBLAddBill blAddBill = new BillBLAddBill();
-
 	
 	public BillUIBillFromConsignment(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
@@ -908,7 +905,7 @@ implements SecureComposite{
 		try{
 			
 		//Fill Group Table	
-		List list = blAddGroup.getBillGroups();
+		List list = BillBLAddGroups.getBillGroups();
 		HashMap groupMap = new HashMap(); 
 		
 		
@@ -994,7 +991,7 @@ implements SecureComposite{
 	     
 				Boolean paymentType = (Boolean)comboPaymentType.getData(comboPaymentType.getText());
 	     
-				TurqBill bill =blAddBill.saveBillFromCons(txtDocumentNo.getText(),
+				TurqBill bill =BillBLAddBill.saveBillFromCons(txtDocumentNo.getText(),
 										txtDefinition.getText(),
 										false,
 										dateBillDate.getDate(),

@@ -89,8 +89,6 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		//handle the obtaining and disposing of resources
 		SWTResourceManager.registerResourceUser(this);
 	}
-
-	private BillBLSearchBill blSearch = new BillBLSearchBill();
 	private Calendar cal=Calendar.getInstance();
 	private Composite composite1;
 	private CurrentCodePicker txtCurCardEnd;
@@ -144,7 +142,6 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	private TurqBill bill=null;
 	private int currentIndex=0;
 	private ConBLUpdateConsignment blUpdateCons = new ConBLUpdateConsignment();
-	private BillBLUpdateBill blUpdateBill = new BillBLUpdateBill();
 
 	public BillUIBillReport(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
@@ -675,7 +672,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			if (bill==null)
 				return;
 			
-			if(!blUpdateBill.canUpdateBill(bill)){
+			if(!BillBLUpdateBill.canUpdateBill(bill)){
 			    toolDelete.setEnabled(false);
 			    toolUpdate.setEnabled(false); 
 			}
@@ -791,7 +788,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	public void initializeBill(TurqBill bill){
 	    try{
 	        
-	        blSearch.initializeBill(bill);
+	        BillBLSearchBill.initializeBill(bill);
 	    }
 	    catch(Exception ex){
 	        ex.printStackTrace();
@@ -817,7 +814,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				type=EngBLCommon.COMMON_SELL_INT;
 			}
 			
-			list = blSearch.searchBillAdvanced(
+			list =   BillBLSearchBill.searchBillAdvanced(
 				(TurqCurrentCard)txtCurCardStart.getData(),
 				(TurqCurrentCard)txtCurCardEnd.getData(),
 				dateStartDate.getDate(),dateEndDate.getDate(),
@@ -941,14 +938,14 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	public void delete(){
 	    
 	MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-	BillBLUpdateBill blUpdateBill = new BillBLUpdateBill();
+	
 	    try{
 	        TableItem items[] = tableBills.getSelection();
 	        if(items.length>0){
 	           
 	           TurqBill bill = (TurqBill)items[0].getData();
 	         
-	           if(blSearch.canUpdateBill(bill)){
+	           if(  BillBLSearchBill.canUpdateBill(bill)){
 	               //delete Consignment Group
 	               MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 	               msg2.setMessage(Messages.getString("BillUIBillSearch.12")); //$NON-NLS-1$
@@ -957,14 +954,14 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	                Iterator it = bill.getTurqBillInGroups().iterator();
 					while(it.hasNext()){
 					    
-						blUpdateBill.deleteObject(it.next());
+						BillBLUpdateBill.deleteObject(it.next());
 					    				
 					}
 					
 					BillBLUpdateBill.deleteAccountingTransactions(bill);
 					BillBLUpdateBill.deleteCurrentTransactions(bill);
 				
-					blUpdateBill.deleteObject(bill); 
+					BillBLUpdateBill.deleteObject(bill); 
 					msg.setMessage(Messages.getString("BillUIBillSearch.14")); //$NON-NLS-1$
 	                msg.open();
 	                search();

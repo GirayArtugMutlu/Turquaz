@@ -61,7 +61,6 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	private CoolBar coolBar1;
 	private TurqBill bill;
 	ConBLUpdateConsignment blUpdateCons = new ConBLUpdateConsignment();
-	BillBLUpdateBill blUpdateBill = new BillBLUpdateBill();
 	private boolean updated=false;
 
 	/**
@@ -193,7 +192,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			if (bill==null)
 				return;
 			
-			if(!blUpdateBill.canUpdateBill(bill)){
+			if(!BillBLUpdateBill.canUpdateBill(bill)){
 			    toolDelete.setEnabled(false);
 			    toolUpdate.setEnabled(false); 
 			}
@@ -307,7 +306,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 					
 	       Boolean paymentType = (Boolean)compAddBill.getComboPaymentType().getData(compAddBill.getComboPaymentType().getText());
 		
-	       blUpdateBill.updateBill(bill,
+	       BillBLUpdateBill.updateBill(bill,
 			        compAddBill.getTxtDocumentNo().getText().trim(),
 					compAddBill.getTxtConsignmentDocumentNo().getText().trim(),
 			        compAddBill.getTxtDefinition().getText(),

@@ -13,17 +13,15 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 
 public class BillBLSearchBill {
 	Calendar cal = Calendar.getInstance();
-	BillDALSearchBill dalSearch = new BillDALSearchBill();
-	BillDALUpdateBill dalUpdate = new BillDALUpdateBill();
    
 	public BillBLSearchBill(){
    	
    
 	}
-	public List searchBill(TurqCurrentCard card,String docNo,Date startDate,Date endDate, int type)throws Exception{
+	public static List searchBill(TurqCurrentCard card,String docNo,Date startDate,Date endDate, int type)throws Exception{
 		try{
 			
-			return dalSearch.searchBill(card,docNo,startDate,endDate,type);
+			return BillDALSearchBill.searchBill(card,docNo,startDate,endDate,type);
 			
 		}
 		catch(Exception ex){
@@ -47,14 +45,14 @@ public class BillBLSearchBill {
 	}
 	
 	
-	public List searchBillAdvanced(TurqCurrentCard curCardStart,
+	public static List searchBillAdvanced(TurqCurrentCard curCardStart,
 			TurqCurrentCard curCardEnd, Date startDate, Date endDate,
 			Date dueDateStart, Date dueDateEnd, BigDecimal minValue,
 			BigDecimal maxValue, String docNoStart, String docNoEnd,
 			int type)throws Exception{
 		try{
 			
-			return dalSearch.searchBillAdvanced(curCardStart,curCardEnd,startDate,
+			return BillDALSearchBill.searchBillAdvanced(curCardStart,curCardEnd,startDate,
 					endDate,dueDateStart,dueDateEnd,minValue,maxValue,docNoStart,docNoEnd,type);
 			
 		}
@@ -63,7 +61,7 @@ public class BillBLSearchBill {
 		}
 		
 	}
-	public boolean canUpdateBill(TurqBill bill)throws Exception{
+	public static boolean canUpdateBill(TurqBill bill)throws Exception{
 	    try{
 	        
 	        return BillDALUpdateBill.canUpdateBill(bill);
@@ -72,10 +70,10 @@ public class BillBLSearchBill {
 	        throw ex;
 	    }
 	}
-	public void initializeBill(TurqBill bill) throws Exception{
+	public static void initializeBill(TurqBill bill) throws Exception{
 	    try{
 	        
-	        dalSearch.initializeBill(bill);
+	        BillDALSearchBill.initializeBill(bill);
 	    }
 	    catch(Exception ex){
 	        throw ex;

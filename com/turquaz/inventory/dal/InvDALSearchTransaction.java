@@ -373,7 +373,7 @@ public class InvDALSearchTransaction {
 			{
 				 cons = (TurqBill)it.next();
 				ConDALUpdateConsignment dalSearchCons = new ConDALUpdateConsignment();
-				new BillDALSearchBill().initializeBill(cons);
+				BillDALSearchBill.initializeBill(cons);
 			}
 			session.close();
 			return cons;

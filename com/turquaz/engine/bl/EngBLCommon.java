@@ -429,11 +429,8 @@ public class EngBLCommon {
 			Calendar calEnd = Calendar.getInstance();
 			calEnd.set(calEnd.get(Calendar.YEAR), 11, 31);
 
-			BillDALSearchBill dalBill = new BillDALSearchBill();
-			BillBLUpdateBill updateBill = new BillBLUpdateBill();
-			BillBLAddBill addBill = new BillBLAddBill();
 
-			List bills = dalBill
+			List bills = BillDALSearchBill
 					.searchBill(
 							null,
 							"", calStart.getTime(), calEnd.getTime(), EngBLCommon.COMMON_ALL_INT); //$NON-NLS-1$
@@ -445,7 +442,7 @@ public class EngBLCommon {
 				TurqBill bill = BillDALSearchBill
 						.getBillByBillId((Integer) result[0]);
 
-				dalBill.initializeBill(bill);
+				BillDALSearchBill.initializeBill(bill);
 				BillBLUpdateBill.deleteAccountingTransactions(bill);
 				BillBLAddBill.saveAccountingTransaction(bill, null);
 

@@ -34,14 +34,13 @@ import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 
 public class BillBLAddBill {
-	private static BillDALAddBill dalBill = new BillDALAddBill();
 
 	public BillBLAddBill() {
 
 	}
 	
 	//Bill from Bill
-	public TurqBill saveBillFromBill(String consignemtDocNo, String definition,
+	public static TurqBill saveBillFromBill(String consignemtDocNo, String definition,
 						boolean isPrinted, Date billsDate,int type,
 						boolean isOpen, TurqCurrentCard currentCard,
 						TurqAccountingAccount cashAccount,
@@ -77,7 +76,7 @@ public class BillBLAddBill {
 	
 	/****************************************************************************/
 	//B?ll from consignment
-    public TurqBill saveBillFromCons(String docNo, String definition,
+    public static TurqBill saveBillFromCons(String docNo, String definition,
 			boolean isPrinted, Date billsDate, TurqConsignment cons, int type,
 			boolean isOpen, TurqAccountingAccount cashAccount, Date dueDate,List billGroups)
 			throws Exception {
@@ -486,7 +485,7 @@ public class BillBLAddBill {
 	public static Set getInventoryTransactions(TurqBill bill) throws Exception {
 		try {
 
-			return dalBill.getInvTransactions(bill);
+			return BillDALAddBill.getInvTransactions(bill);
 
 		} catch (Exception ex) {
 			throw ex;

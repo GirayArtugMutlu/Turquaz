@@ -75,7 +75,6 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	private TableColumn tableColumnSpecialVatAmount;
 	private TableColumn tableColumnCumulativePrice;
 	private TableColumn tableColumnConsignmentDate;
-	private BillBLSearchBill blSearch = new BillBLSearchBill();
 	private Calendar cal=Calendar.getInstance();
 
 	
@@ -303,7 +302,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	public void initializeBill(TurqBill bill){
 	    try{
 	        
-	        blSearch.initializeBill(bill);
+	    	BillBLSearchBill.initializeBill(bill);
 	    }
 	    catch(Exception ex){
 	        ex.printStackTrace();
@@ -326,7 +325,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				type = EngBLCommon.COMMON_SELL_INT;
 			}
 			
-			List list = blSearch.searchBill((TurqCurrentCard)txtCurCard.getData(),
+			List list = BillBLSearchBill.searchBill((TurqCurrentCard)txtCurCard.getData(),
 		        								txtDocNo.getText().trim(),
 												dateStartDate.getDate(),
 												dateEndDate.getDate(),type);
@@ -382,7 +381,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	           
 	           TurqBill bill = (TurqBill)items[0].getData();
 	         
-	           if(blSearch.canUpdateBill(bill)){
+	           if(BillBLSearchBill.canUpdateBill(bill)){
 	               //delete Consignment Group
 	               MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 	               msg2.setMessage(Messages.getString("BillUIBillSearch.12")); //$NON-NLS-1$

@@ -37,7 +37,7 @@ public class BillDALSearchBill {
 		
 		
 	}
-	public List searchBill(TurqCurrentCard curCard,String docNo, Date startDate, Date endDate, int type)
+	public static List searchBill(TurqCurrentCard curCard,String docNo, Date startDate, Date endDate, int type)
 	throws Exception
 	{
 		try
@@ -121,7 +121,7 @@ public class BillDALSearchBill {
 	
 	
 	
-	public List searchBillAdvanced(TurqCurrentCard curCardStart,
+	public static List searchBillAdvanced(TurqCurrentCard curCardStart,
 			TurqCurrentCard curCardEnd, Date startDate, Date endDate,
 			Date dueDateStart, Date dueDateEnd, BigDecimal minValue,
 			BigDecimal maxValue,String docNoStart, String docNoEnd,
@@ -221,7 +221,7 @@ public class BillDALSearchBill {
 		}
 	}
 	
-	public void initializeBill(TurqBill bill)throws Exception{
+	public static void initializeBill(TurqBill bill)throws Exception{
 	    try{
 	    	Session session = EngDALSessionFactory.openSession();
 			

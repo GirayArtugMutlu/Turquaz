@@ -9,15 +9,14 @@ import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqBillGroup;
 
 public class BillBLAddGroups {
-	Calendar cal = Calendar.getInstance();
-	BillDALAddGroups dalAddGroups = new BillDALAddGroups();
+	
 	public BillBLAddGroups(){
 		
 	}
 	
-	public List getBillGroups()throws Exception {
+	public static List getBillGroups()throws Exception {
 		try{
-			return dalAddGroups.getBillGroups();
+			return BillDALAddGroups.getBillGroups();
 			
 		}
 		catch(Exception ex){
@@ -26,8 +25,9 @@ public class BillBLAddGroups {
 	}
 	
 	
-	public void saveGroup(String name, String description)throws Exception{
+	public static void saveGroup(String name, String description)throws Exception{
 		try{
+			Calendar cal = Calendar.getInstance();
 		TurqBillGroup group = new TurqBillGroup();
 		group.setGroupDescription(description);
 		group.setGroupsName(name);
@@ -45,9 +45,10 @@ public class BillBLAddGroups {
 		}
 	}
 	
-	public void updateGroup(String name, String description,TurqBillGroup group)throws Exception{
+	public static void updateGroup(String name, String description,TurqBillGroup group)throws Exception{
 		try{
-
+		
+		Calendar cal = Calendar.getInstance();
 		group.setGroupDescription(description);
 		group.setGroupsName(name);
 	
@@ -62,7 +63,7 @@ public class BillBLAddGroups {
 		}
 	}
 	
-	public void deleteGroup(TurqBillGroup group)throws Exception{
+	public static void deleteGroup(TurqBillGroup group)throws Exception{
 		try{
 
 	

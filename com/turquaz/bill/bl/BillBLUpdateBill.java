@@ -83,7 +83,7 @@ public class BillBLUpdateBill {
 	 * @param dueDate
 	 * @throws Exception
 	 */
-	public void updateBill(TurqBill bill,String billNo,String consNo,
+	public static void updateBill(TurqBill bill,String billNo,String consNo,
 			String definition, boolean isPrinted,boolean isOpen, Date billDate,
 			TurqCurrentCard curCard, BigDecimal discountAmount,
 			BigDecimal vatAmount, BigDecimal specialVatAmount,
@@ -170,7 +170,7 @@ public class BillBLUpdateBill {
 		}	
 	}
 	
-	public void deleteObject(Object obj) throws Exception {
+	public static void deleteObject(Object obj) throws Exception {
 		try {
 
 			EngDALCommon.deleteObject(obj);
@@ -180,7 +180,7 @@ public class BillBLUpdateBill {
 
 		}
 	}
-	public boolean canUpdateBill(TurqBill bill)throws Exception{
+	public static boolean canUpdateBill(TurqBill bill)throws Exception{
 	    try{
 	        
 	        return BillDALUpdateBill.canUpdateBill(bill);

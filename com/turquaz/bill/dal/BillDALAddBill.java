@@ -18,7 +18,7 @@ public class BillDALAddBill {
 	}
 
 
-	public Set getInvTransactions(TurqBill bill)throws Exception{
+	public static Set getInvTransactions(TurqBill bill)throws Exception{
 		try{
 		
 		Session session = EngDALSessionFactory.openSession();
