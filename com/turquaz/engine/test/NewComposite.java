@@ -23,7 +23,6 @@ import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.EngUITableProperties;
 import com.turquaz.engine.ui.component.DateMask;
 import com.turquaz.engine.ui.viewers.TableRowList;
-import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
