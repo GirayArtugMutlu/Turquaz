@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 import com.turquaz.current.Messages;
+import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentGroup;
@@ -82,15 +83,10 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	/**
 	 * @return Returns the accPickerCustomer.
 	 */
-	public DynamicAccountPicker getAccPickerCustomer() {
+	public AccountPicker getAccPickerCustomer() {
 		return accPickerCustomer;
 	}
-	/**
-	 * @param accPickerCustomer The accPickerCustomer to set.
-	 */
-	public void setAccPickerCustomer(DynamicAccountPicker accPickerCustomer) {
-		this.accPickerCustomer = accPickerCustomer;
-	}
+	
 	
 
 	/**
@@ -432,7 +428,7 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	private NumericText numtxtCountryCode;
 	private Composite composite1;
 	private Label lblTelephone1;
-	private DynamicAccountPicker accPickerCustomer;
+	private AccountPicker accPickerCustomer;
 	private CLabel lblAccountingCodeCustomer;
 	private CurrencyText decTxtDiscountAmount;
 	private CLabel lblDiscountAMount;
@@ -509,7 +505,7 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			lblDiscountAMount = new CLabel(compCurrentGeneralInfo,SWT.NULL);
 			decTxtDiscountAmount = new CurrencyText(compCurrentGeneralInfo,SWT.NULL);
 			lblAccountingCodeCustomer = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			accPickerCustomer = new DynamicAccountPicker(compCurrentGeneralInfo,SWT.NULL);
+			accPickerCustomer = new AccountPicker(compCurrentGeneralInfo, SWT.NONE);
 			tabItemContactInfo = new CTabItem(tbfCurrentCardAdd,SWT.NULL);
 			compCurrentContactInfo = new Composite(tbfCurrentCardAdd,SWT.NULL);
 			Name = new CLabel(compCurrentContactInfo,SWT.NULL);
@@ -1005,18 +1001,11 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			lblAccountingCodeCustomer.setText(Messages.getString("CurUICurrentCardAdd.13")); //$NON-NLS-1$
 
 			GridData accPickerCustomerLData = new GridData();
-			accPickerCustomerLData.verticalAlignment = GridData.CENTER;
-			accPickerCustomerLData.horizontalAlignment = GridData.BEGINNING;
 			accPickerCustomerLData.widthHint = 236;
 			accPickerCustomerLData.heightHint = 21;
-			accPickerCustomerLData.horizontalIndent = 0;
 			accPickerCustomerLData.horizontalSpan = 3;
-			accPickerCustomerLData.verticalSpan = 1;
-			accPickerCustomerLData.grabExcessHorizontalSpace = false;
-			accPickerCustomerLData.grabExcessVerticalSpace = false;
 			accPickerCustomer.setLayoutData(accPickerCustomerLData);
 			accPickerCustomer.setSize(new org.eclipse.swt.graphics.Point(236,21));
-			accPickerCustomer.layout();
 
 			GridLayout compCurrentGeneralInfoLayout = new GridLayout(4, true);
 			compCurrentGeneralInfo.setLayout(compCurrentGeneralInfoLayout);
