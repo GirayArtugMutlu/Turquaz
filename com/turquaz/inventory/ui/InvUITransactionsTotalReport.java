@@ -80,7 +80,7 @@ import com.turquaz.inventory.ui.comp.InventoryPicker;
 */
 
 
-public class InvUICardSearch extends  Composite implements SearchComposite {
+public class InvUITransactionsTotalReport extends  Composite implements SearchComposite {
 
 	private InvBLCardAdd invBLCardAdd = new InvBLCardAdd();
 	InvBLCardUpdate cardUpdate = new InvBLCardUpdate();
@@ -102,7 +102,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	private CLabel lblInvCode;
 	private Composite compInvCardSearchPanel;
 	InvBLCardSearch cardSearch = new InvBLCardSearch();
-	public InvUICardSearch(Composite parent, int style) {
+	public InvUITransactionsTotalReport(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
 	}
@@ -115,6 +115,16 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 		try {
 			preInitGUI();
 
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			this.setSize(new org.eclipse.swt.graphics.Point(573,437));
 
 			FillLayout thisLayout = new FillLayout(256);
@@ -122,11 +132,9 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 			{
 				compInvCardSearch = new Composite(this, SWT.NONE);
 				GridLayout compInvCardSearchLayout = new GridLayout();
+				compInvCardSearch.setSize(600, 437);
 				compInvCardSearchLayout.makeColumnsEqualWidth = true;
 				compInvCardSearch.setLayout(compInvCardSearchLayout);
-				compInvCardSearch.setSize(new org.eclipse.swt.graphics.Point(
-					573,
-					437));
 				{
 					compInvCardSearchPanel = new Composite(compInvCardSearch, SWT.NONE);
 					GridLayout compInvCardSearchPanelLayout = new GridLayout();
@@ -143,8 +151,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 						cLabel2LData.widthHint = 97;
 						cLabel2LData.heightHint = 17;
 						lblInvCode.setLayoutData(cLabel2LData);
-						lblInvCode.setText(Messages
-							.getString("InvUICardSearch.1")); //$NON-NLS-1$
+						lblInvCode.setText(Messages.getString("InvUITransactionsTotalReport.0")); //$NON-NLS-1$
 						lblInvCode.setSize(new org.eclipse.swt.graphics.Point(
 							97,
 							17));
@@ -159,7 +166,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 					}
 					{
 						lblInvName = new CLabel(compInvCardSearchPanel, SWT.NONE);
-						lblInvName.setText(Messages.getString("InvUICardSearch.0")); //$NON-NLS-1$
+						lblInvName.setText(Messages.getString("InvUITransactionsTotalReport.1")); //$NON-NLS-1$
 						lblInvName.setSize(100, 18);
 						GridData lblInvNameLData = new GridData();
 						lblInvNameLData.widthHint = 100;
@@ -184,8 +191,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 					}
 					{
 						lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
-						lblInvGroup.setText(Messages
-							.getString("InvUICardSearch.2")); //$NON-NLS-1$
+						lblInvGroup.setText(Messages.getString("InvUITransactionsTotalReport.2")); //$NON-NLS-1$
 						lblInvGroup.setSize(new org.eclipse.swt.graphics.Point(
 							110,
 							17));
@@ -204,6 +210,8 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 								if (evt.keyCode == SWT.CR)
 									search();
 							}
+							
+							
 						});
 						comboInvGroupLData.widthHint = 97;
 						comboInvGroupLData.heightHint = 16;
@@ -228,11 +236,16 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 					tableSearcResultsLData.grabExcessVerticalSpace = true;
 					tableSearcResults.setLayoutData(tableSearcResultsLData);
 					{
+						
 						tableColumnInvName = new TableColumn(
 							tableSearcResults,
 							SWT.NONE);
-						tableColumnInvName.setText(Messages.getString("InvUICardSearch.3"));  //$NON-NLS-1$
+						tableColumnInvName.setText(Messages.getString("InvUITransactionsTotalReport.3")); //$NON-NLS-1$
 						tableColumnInvName.setWidth(69);
+						
+						
+						
+						
 					}
 					{
 						tableColumnInventoryCode = new TableColumn(
@@ -292,6 +305,8 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 			thisLayout.spacing = 0;
 			this.layout();
 	
+			
+			
 			postInitGUI();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -422,6 +437,8 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	    	msg2.setMessage("Inventory card contains transactions and \ncan not be deleted. Delete them first. ");  //$NON-NLS-1$
 			msg2.open();
 			return;
+			
+			
 	     }
 	    //First Delete Groups
 	    deleteInvGroups(invCard);
@@ -481,18 +498,32 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	String invName = objs[2].toString();
 	Integer cardId = (Integer)objs[3];
 	
+	
+	
+	
+	
+	
+	
 	TurqViewInventoryTotal invView=(TurqViewInventoryTotal)((Object[])result.get(i))[0];
 	item = new TableItem(tableSearcResults,SWT.NULL);
 	
 	item.setData(cardId);
+	
+	
+	
+	
 	
 	BigDecimal totalAmountIn =(invView.getTotalAmountIn()==null) ? new BigDecimal(0): invView.getTotalAmountIn();
 	BigDecimal totalAmountOut = (invView.getTotalAmountOut()==null) ? new BigDecimal(0) : invView.getTotalAmountOut();
 	BigDecimal totalPriceIn = (invView.getTotalPriceIn()==null) ? new BigDecimal(0) : invView.getTotalPriceIn();
 	BigDecimal totalPriceOut = (invView.getTotalPriceOut()==null)?new BigDecimal(0) : invView.getTotalPriceOut();
 	
+	
+	
 	BigDecimal balanceAmountIn = new BigDecimal(0);
 	BigDecimal balanceAmountOut = new BigDecimal(0);
+	
+	
 	
 	if((totalAmountIn.subtract(totalAmountOut).doubleValue()<=0)){
 		balanceAmountOut = totalAmountOut.subtract(totalAmountIn);
@@ -504,6 +535,11 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 		balanceAmountIn = totalAmountIn.subtract(totalAmountOut);
 		
 	}
+	
+	
+	
+	
+	
 	
 	
 	TurkishCurrencyFormat format = new TurkishCurrencyFormat();
@@ -541,11 +577,22 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	* It is auto-generated code - the body of this method will be
 	* re-generated after any changes are made to the GUI.
 	* However, if you delete this method it will not be re-created.	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static void showGUI(){
 		try {
 			Display display = Display.getDefault();
 			Shell shell = new Shell(display);
-			InvUICardSearch inst = new InvUICardSearch(shell, SWT.NULL);
+			InvUITransactionsTotalReport inst = new InvUITransactionsTotalReport(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
 			Rectangle shellBounds = shell.computeTrim(0,0,573,437);
 			shell.setSize(shellBounds.width, shellBounds.height);
@@ -559,6 +606,10 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 		}
 	}
 /** Auto-generated event handler method */
+	
+	
+	
+	
 	protected void tableSearcResultsMouseDoubleClick(MouseEvent evt){
 	    
     TableItem [] selection= tableSearcResults.getSelection();	
@@ -571,6 +622,17 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	if (updated)
 		search();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	catch(Exception ex){
 	    ex.printStackTrace();
 	}
@@ -581,8 +643,39 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 		EngBLUtils.Export2Excel(tableSearcResults);
 		
 	}
+	
+	
+	
+	
+	
+	
+	
 	public void printTable(){
-	    EngBLUtils.printTable(tableSearcResults,Messages.getString("InvUICardSearch.6")); //$NON-NLS-1$
+	    EngBLUtils.printTable(tableSearcResults,""); //$NON-NLS-1$
 	    
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
