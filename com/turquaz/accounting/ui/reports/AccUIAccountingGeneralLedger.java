@@ -141,6 +141,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			TurqCompany company = new TurqCompany();
 			company.setCompaniesId(Integer.valueOf(System.getProperty("company"))); //$NON-NLS-1$
 			String sqlparam="Select accounts.top_account,accounts.account_name," + //$NON-NLS-1$
+					" accounts.account_code," +
 					" trans.transactions_date,trans.transaction_document_no," + //$NON-NLS-1$
 					" transcolumns.dept_amount, transcolumns.credit_amount," + //$NON-NLS-1$
 					" trans.accounting_journal_id, accounts.accounting_accounts_id" + //$NON-NLS-1$
