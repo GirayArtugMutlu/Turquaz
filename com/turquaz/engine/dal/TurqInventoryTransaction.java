@@ -66,13 +66,13 @@ public class TurqInventoryTransaction implements Serializable {
     private com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
+    private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqConsignment turqConsignment;
+    private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
 
     /** full constructor */
-    public TurqInventoryTransaction(long transactionsAmountIn, java.math.BigDecimal transactionsUnitPrice, java.math.BigDecimal transactionsTotalPrice, java.math.BigDecimal transactionsDiscount, java.math.BigDecimal transactionsDiscountAmount, int transactionsVat, java.math.BigDecimal transactionsVatAmount, java.math.BigDecimal transactionsVatSpecialEach, java.math.BigDecimal transactionsVatSpecial, java.math.BigDecimal transactionsVatSpecialAmount, java.math.BigDecimal transactionsCumilativePrice, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, long transactionsTotalAmountOut, com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard, com.turquaz.engine.dal.TurqConsignment turqConsignment) {
+    public TurqInventoryTransaction(long transactionsAmountIn, java.math.BigDecimal transactionsUnitPrice, java.math.BigDecimal transactionsTotalPrice, java.math.BigDecimal transactionsDiscount, java.math.BigDecimal transactionsDiscountAmount, int transactionsVat, java.math.BigDecimal transactionsVatAmount, java.math.BigDecimal transactionsVatSpecialEach, java.math.BigDecimal transactionsVatSpecial, java.math.BigDecimal transactionsVatSpecialAmount, java.math.BigDecimal transactionsCumilativePrice, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, long transactionsTotalAmountOut, com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
         this.transactionsAmountIn = transactionsAmountIn;
         this.transactionsUnitPrice = transactionsUnitPrice;
         this.transactionsTotalPrice = transactionsTotalPrice;
@@ -91,8 +91,8 @@ public class TurqInventoryTransaction implements Serializable {
         this.transactionsTotalAmountOut = transactionsTotalAmountOut;
         this.turqInventoryWarehous = turqInventoryWarehous;
         this.turqInventoryUnit = turqInventoryUnit;
+        this.turqEngineSequence = turqEngineSequence;
         this.turqInventoryCard = turqInventoryCard;
-        this.turqConsignment = turqConsignment;
     }
 
     /** default constructor */
@@ -251,20 +251,20 @@ public class TurqInventoryTransaction implements Serializable {
         this.turqInventoryUnit = turqInventoryUnit;
     }
 
+    public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence() {
+        return this.turqEngineSequence;
+    }
+
+    public void setTurqEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence) {
+        this.turqEngineSequence = turqEngineSequence;
+    }
+
     public com.turquaz.engine.dal.TurqInventoryCard getTurqInventoryCard() {
         return this.turqInventoryCard;
     }
 
     public void setTurqInventoryCard(com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
         this.turqInventoryCard = turqInventoryCard;
-    }
-
-    public com.turquaz.engine.dal.TurqConsignment getTurqConsignment() {
-        return this.turqConsignment;
-    }
-
-    public void setTurqConsignment(com.turquaz.engine.dal.TurqConsignment turqConsignment) {
-        this.turqConsignment = turqConsignment;
     }
 
     public String toString() {

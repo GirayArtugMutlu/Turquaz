@@ -108,20 +108,14 @@
     >
         <column name="companies_id" />
     </many-to-one>
-    <!-- bi-directional one-to-many association to TurqInventoryTransaction -->
-    <set
-        name="turqInventoryTransactions"
-        lazy="true"
-        inverse="true"
-		cascade="none"
+    <!-- bi-directional many-to-one association to TurqEngineSequence -->
+    <many-to-one
+        name="turqEngineSequence"
+        class="com.turquaz.engine.dal.TurqEngineSequence"
+        not-null="true"
     >
-        <key>
-            <column name="consignments_id" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqInventoryTransaction"
-        />
-    </set>
+        <column name="engine_sequences_id" />
+    </many-to-one>
     <!-- bi-directional one-to-many association to TurqConsignmentsInGroup -->
     <set
         name="turqConsignmentsInGroups"

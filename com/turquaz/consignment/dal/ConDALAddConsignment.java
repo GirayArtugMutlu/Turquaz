@@ -6,6 +6,7 @@ import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqConsignment;
 
 /**
  * @author onsel
@@ -45,7 +46,22 @@ public class ConDALAddConsignment {
 			throw ex;
 		}
 	}
-	
+	public TurqConsignment loadConsignment(Integer consId)throws Exception {
+		
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			TurqConsignment cons =(TurqConsignment)session.load(TurqConsignment.class,consId);
+			session.flush();
+			tx.commit();
+			session.close();
+			return cons;
+			
+			}
+			catch(Exception ex){
+				throw ex;
+			}
+		}
 	
 
 

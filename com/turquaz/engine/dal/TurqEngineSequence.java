@@ -19,15 +19,23 @@ public class TurqEngineSequence implements Serializable {
     private Set turqAccountingTransactions;
 
     /** persistent field */
+    private Set turqInventoryTransactions;
+
+    /** persistent field */
+    private Set turqConsignments;
+
+    /** persistent field */
     private Set turqCurrentTransactions;
 
     /** persistent field */
     private Set turqBills;
 
     /** full constructor */
-    public TurqEngineSequence(com.turquaz.engine.dal.TurqModule turqModule, Set turqAccountingTransactions, Set turqCurrentTransactions, Set turqBills) {
+    public TurqEngineSequence(com.turquaz.engine.dal.TurqModule turqModule, Set turqAccountingTransactions, Set turqInventoryTransactions, Set turqConsignments, Set turqCurrentTransactions, Set turqBills) {
         this.turqModule = turqModule;
         this.turqAccountingTransactions = turqAccountingTransactions;
+        this.turqInventoryTransactions = turqInventoryTransactions;
+        this.turqConsignments = turqConsignments;
         this.turqCurrentTransactions = turqCurrentTransactions;
         this.turqBills = turqBills;
     }
@@ -58,6 +66,22 @@ public class TurqEngineSequence implements Serializable {
 
     public void setTurqAccountingTransactions(java.util.Set turqAccountingTransactions) {
         this.turqAccountingTransactions = turqAccountingTransactions;
+    }
+
+    public java.util.Set getTurqInventoryTransactions() {
+        return this.turqInventoryTransactions;
+    }
+
+    public void setTurqInventoryTransactions(java.util.Set turqInventoryTransactions) {
+        this.turqInventoryTransactions = turqInventoryTransactions;
+    }
+
+    public java.util.Set getTurqConsignments() {
+        return this.turqConsignments;
+    }
+
+    public void setTurqConsignments(java.util.Set turqConsignments) {
+        this.turqConsignments = turqConsignments;
     }
 
     public java.util.Set getTurqCurrentTransactions() {

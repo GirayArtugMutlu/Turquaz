@@ -53,7 +53,7 @@ public class ConDALUpdateConsignment {
 			Transaction tx = session.beginTransaction();
 			session.update(obj);
 			Hibernate.initialize(obj.getTurqConsignmentsInGroups());
-			Hibernate.initialize(obj.getTurqInventoryTransactions());
+			Hibernate.initialize(obj.getTurqEngineSequence().getTurqInventoryTransactions());
 			session.flush();
 			tx.commit();
 			session.close();

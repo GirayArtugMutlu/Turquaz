@@ -157,6 +157,14 @@
     >
         <column name="inventory_units_id" />
     </many-to-one>
+    <!-- bi-directional many-to-one association to TurqEngineSequence -->
+    <many-to-one
+        name="turqEngineSequence"
+        class="com.turquaz.engine.dal.TurqEngineSequence"
+        not-null="true"
+    >
+        <column name="engine_sequences_id" />
+    </many-to-one>
     <!-- bi-directional many-to-one association to TurqInventoryCard -->
     <many-to-one
         name="turqInventoryCard"
@@ -164,14 +172,6 @@
         not-null="true"
     >
         <column name="inventory_cards_id" />
-    </many-to-one>
-    <!-- bi-directional many-to-one association to TurqConsignment -->
-    <many-to-one
-        name="turqConsignment"
-        class="com.turquaz.engine.dal.TurqConsignment"
-        not-null="true"
-    >
-        <column name="consignments_id" />
     </many-to-one>
 
 </class>

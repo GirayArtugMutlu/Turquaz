@@ -175,7 +175,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	public void fillInvTransactionColumns(){
 		TableItem item;
 		TurqInventoryTransaction invTrans;
-		Iterator it = consignment.getTurqInventoryTransactions().iterator();
+		Iterator it = consignment.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
 		while(it.hasNext()){
 			invTrans = (TurqInventoryTransaction)it.next();
 			
@@ -212,7 +212,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				
 //				delete Inventory Transaction
-				it = consignment.getTurqInventoryTransactions().iterator();
+				it = consignment.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
 				while(it.hasNext()){
 					blCons.deleteObject(it.next());
 										
@@ -253,7 +253,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			compAddConsignment.saveGroups(consignment.getConsignmentsId());
 		  
 			//Update Inventory Transactions
-			it = consignment.getTurqInventoryTransactions().iterator();
+			it = consignment.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
 			while(it.hasNext()){
 				blCons.deleteObject(it.next());
 									

@@ -12,7 +12,9 @@ import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqConsignmentsInGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.dal.TurqModule;
 
 /**
  * @author onsel
@@ -34,7 +36,7 @@ public class ConBLAddConsignment {
 		
 			
 			TurqConsignment consignment = new TurqConsignment();
-					
+			
 			consignment.setConsignmentsDate(consignmentDate);
 			consignment.setConsignmentsDefinition(definition);
 			consignment.setConsignmentsDocumentNo(docNo);
@@ -48,6 +50,15 @@ public class ConBLAddConsignment {
 			consignment.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			consignment.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			consignment.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+
+            TurqEngineSequence seq = new TurqEngineSequence();
+            TurqModule module = new TurqModule();
+            module.setModulesId(new Integer(6));
+            seq.setTurqModule(module);
+            dalConsignment.save(seq);
+            
+            consignment.setTurqEngineSequence(seq);
+			
 			
 			
 			TurqBillConsignmentCommon common = new TurqBillConsignmentCommon();
@@ -80,11 +91,10 @@ public class ConBLAddConsignment {
 	}
 	public void saveConsignmentRow(TurqInventoryTransaction invTrans, Integer consID,int consType,int discountRate)throws Exception{
 		try{
-			TurqConsignment cons = new TurqConsignment();
-			cons.setConsignmentsId(consID);
+			TurqConsignment cons = dalConsignment.loadConsignment(consID);
 			
 			invTrans.setTransactionsDiscount(new BigDecimal(discountRate));
-			invTrans.setTurqConsignment(cons);
+			invTrans.setTurqEngineSequence(cons.getTurqEngineSequence());
 			invTrans.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			invTrans.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			invTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));

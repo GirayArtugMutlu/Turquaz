@@ -46,13 +46,13 @@ public class TurqConsignment implements Serializable {
     private com.turquaz.engine.dal.TurqCompany turqCompany;
 
     /** persistent field */
-    private Set turqInventoryTransactions;
+    private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
 
     /** persistent field */
     private Set turqConsignmentsInGroups;
 
     /** full constructor */
-    public TurqConsignment(java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, int consignmentsType, boolean consignmentsPrinted, java.lang.String consignmentsDocumentNo, com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryTransactions, Set turqConsignmentsInGroups) {
+    public TurqConsignment(java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, int consignmentsType, boolean consignmentsPrinted, java.lang.String consignmentsDocumentNo, com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqConsignmentsInGroups) {
         this.consignmentsDate = consignmentsDate;
         this.consignmentsDefinition = consignmentsDefinition;
         this.creationDate = creationDate;
@@ -64,7 +64,7 @@ public class TurqConsignment implements Serializable {
         this.consignmentsDocumentNo = consignmentsDocumentNo;
         this.turqBillConsignmentCommon = turqBillConsignmentCommon;
         this.turqCompany = turqCompany;
-        this.turqInventoryTransactions = turqInventoryTransactions;
+        this.turqEngineSequence = turqEngineSequence;
         this.turqConsignmentsInGroups = turqConsignmentsInGroups;
     }
 
@@ -168,12 +168,12 @@ public class TurqConsignment implements Serializable {
         this.turqCompany = turqCompany;
     }
 
-    public java.util.Set getTurqInventoryTransactions() {
-        return this.turqInventoryTransactions;
+    public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence() {
+        return this.turqEngineSequence;
     }
 
-    public void setTurqInventoryTransactions(java.util.Set turqInventoryTransactions) {
-        this.turqInventoryTransactions = turqInventoryTransactions;
+    public void setTurqEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence) {
+        this.turqEngineSequence = turqEngineSequence;
     }
 
     public java.util.Set getTurqConsignmentsInGroups() {
