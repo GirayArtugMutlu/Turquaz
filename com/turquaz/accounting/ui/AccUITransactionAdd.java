@@ -24,6 +24,16 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 
 
@@ -36,7 +46,22 @@ import org.eclipse.swt.SWT;
 */
 public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
 
-	private DatePicker datePicker1;
+	private CLabel lblTotalDeptAmount;
+	private CLabel lblTotalCredit;
+	private CLabel cLabel2;
+	private CLabel cLabel1;
+	private Button button2;
+	private Button button1;
+	private TableColumn tableColumnDept;
+	private TableColumn tableColumnCredit;
+	private TableColumn tableColumnAccountName;
+	private Composite composite1;
+	private TableColumn tableColumnAccoutCode;
+	private Table tableTransactionColumns;
+	private CLabel lblDate;
+	private Text txtDocumentNo;
+	private CLabel lblDocumentNo;
+	private DatePicker dateTransactionDate;
 	public AccUITransactionAdd(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -50,32 +75,186 @@ public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
 		try {
 			preInitGUI();
 	
-			datePicker1 = new DatePicker(this,SWT.NULL);
+			lblDocumentNo = new CLabel(this,SWT.NULL);
+			txtDocumentNo = new Text(this,SWT.NULL);
+			lblDate = new CLabel(this,SWT.NULL);
+			dateTransactionDate = new DatePicker(this,SWT.NULL);
+			composite1 = new Composite(this,SWT.NULL);
+			button1 = new Button(composite1,SWT.PUSH| SWT.CENTER);
+			button2 = new Button(composite1,SWT.PUSH| SWT.CENTER);
+			tableTransactionColumns = new Table(this,SWT.BORDER);
+			tableColumnAccoutCode = new TableColumn(tableTransactionColumns,SWT.NULL);
+			tableColumnAccountName = new TableColumn(tableTransactionColumns,SWT.NULL);
+			tableColumnCredit = new TableColumn(tableTransactionColumns,SWT.NULL);
+			tableColumnDept = new TableColumn(tableTransactionColumns,SWT.NULL);
+			lblTotalCredit = new CLabel(this,SWT.NULL);
+			cLabel2 = new CLabel(this,SWT.NULL);
+			cLabel1 = new CLabel(this,SWT.NULL);
+			lblTotalDeptAmount = new CLabel(this,SWT.NULL);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(505,316));
+			this.setSize(new org.eclipse.swt.graphics.Point(606,527));
 	
-			GridData datePicker1LData = new GridData();
-			datePicker1LData.verticalAlignment = GridData.CENTER;
-			datePicker1LData.horizontalAlignment = GridData.BEGINNING;
-			datePicker1LData.widthHint = 98;
-			datePicker1LData.heightHint = 26;
-			datePicker1LData.horizontalIndent = 0;
-			datePicker1LData.horizontalSpan = 1;
-			datePicker1LData.verticalSpan = 1;
-			datePicker1LData.grabExcessHorizontalSpace = false;
-			datePicker1LData.grabExcessVerticalSpace = false;
-			datePicker1.setLayoutData(datePicker1LData);
-			datePicker1.setSize(new org.eclipse.swt.graphics.Point(98,26));
-			datePicker1.layout();
-			GridLayout thisLayout = new GridLayout(1, true);
+			lblDocumentNo.setText("Document No");
+	
+			GridData txtDocumentNoLData = new GridData();
+			txtDocumentNoLData.widthHint = 155;
+			txtDocumentNoLData.heightHint = 19;
+			txtDocumentNo.setLayoutData(txtDocumentNoLData);
+			txtDocumentNo.setSize(new org.eclipse.swt.graphics.Point(155,19));
+	
+			lblDate.setText("Date");
+	
+			GridData dateTransactionDateLData = new GridData();
+			dateTransactionDateLData.verticalAlignment = GridData.CENTER;
+			dateTransactionDateLData.horizontalAlignment = GridData.BEGINNING;
+			dateTransactionDateLData.widthHint = 163;
+			dateTransactionDateLData.heightHint = 27;
+			dateTransactionDateLData.horizontalIndent = 0;
+			dateTransactionDateLData.horizontalSpan = 1;
+			dateTransactionDateLData.verticalSpan = 1;
+			dateTransactionDateLData.grabExcessHorizontalSpace = false;
+			dateTransactionDateLData.grabExcessVerticalSpace = false;
+			dateTransactionDate.setLayoutData(dateTransactionDateLData);
+			dateTransactionDate.setSize(new org.eclipse.swt.graphics.Point(163,27));
+			dateTransactionDate.layout();
+	
+			GridData composite1LData = new GridData();
+			composite1LData.verticalAlignment = GridData.BEGINNING;
+			composite1LData.horizontalAlignment = GridData.BEGINNING;
+			composite1LData.widthHint = 65;
+			composite1LData.heightHint = 95;
+			composite1LData.horizontalIndent = 0;
+			composite1LData.horizontalSpan = 1;
+			composite1LData.verticalSpan = 1;
+			composite1LData.grabExcessHorizontalSpace = false;
+			composite1LData.grabExcessVerticalSpace = false;
+			composite1.setLayoutData(composite1LData);
+			composite1.setSize(new org.eclipse.swt.graphics.Point(65,95));
+	
+			GridData button1LData = new GridData();
+			button1LData.verticalAlignment = GridData.CENTER;
+			button1LData.horizontalAlignment = GridData.CENTER;
+			button1LData.widthHint = 26;
+			button1LData.heightHint = 24;
+			button1LData.horizontalIndent = 0;
+			button1LData.horizontalSpan = 1;
+			button1LData.verticalSpan = 1;
+			button1LData.grabExcessHorizontalSpace = false;
+			button1LData.grabExcessVerticalSpace = false;
+			button1.setLayoutData(button1LData);
+			final org.eclipse.swt.graphics.Image button1image = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/plus.gif"));
+			button1image.setBackground(button1.getBackground());
+			button1.setImage(button1image);
+			button1.setSize(new org.eclipse.swt.graphics.Point(26,24));
+	
+			GridData button2LData = new GridData();
+			button2LData.verticalAlignment = GridData.CENTER;
+			button2LData.horizontalAlignment = GridData.CENTER;
+			button2LData.widthHint = -1;
+			button2LData.heightHint = -1;
+			button2LData.horizontalIndent = 0;
+			button2LData.horizontalSpan = 1;
+			button2LData.verticalSpan = 1;
+			button2LData.grabExcessHorizontalSpace = false;
+			button2LData.grabExcessVerticalSpace = false;
+			button2.setLayoutData(button2LData);
+			final org.eclipse.swt.graphics.Image button2image = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif"));
+			button2image.setBackground(button2.getBackground());
+			button2.setImage(button2image);
+			GridLayout composite1Layout = new GridLayout(1, true);
+			composite1.setLayout(composite1Layout);
+			composite1Layout.marginWidth = 5;
+			composite1Layout.marginHeight = 5;
+			composite1Layout.numColumns = 1;
+			composite1Layout.makeColumnsEqualWidth = true;
+			composite1Layout.horizontalSpacing = 5;
+			composite1Layout.verticalSpacing = 5;
+			composite1.layout();
+	
+			GridData tableTransactionColumnsLData = new GridData();
+			tableTransactionColumnsLData.verticalAlignment = GridData.FILL;
+			tableTransactionColumnsLData.horizontalAlignment = GridData.FILL;
+			tableTransactionColumnsLData.widthHint = -1;
+			tableTransactionColumnsLData.heightHint = -1;
+			tableTransactionColumnsLData.horizontalIndent = 0;
+			tableTransactionColumnsLData.horizontalSpan = 1;
+			tableTransactionColumnsLData.verticalSpan = 1;
+			tableTransactionColumnsLData.grabExcessHorizontalSpace = true;
+			tableTransactionColumnsLData.grabExcessVerticalSpace = true;
+			tableTransactionColumns.setLayoutData(tableTransactionColumnsLData);
+			tableTransactionColumns.setHeaderVisible(true);
+			tableTransactionColumns.setLinesVisible(true);
+			tableTransactionColumns.setSize(new org.eclipse.swt.graphics.Point(501,393));
+	
+			tableColumnAccoutCode.setText("Account Code");
+			tableColumnAccoutCode.setWidth(121);
+	
+			tableColumnAccountName.setText("Account Name");
+			tableColumnAccountName.setWidth(150);
+	
+			tableColumnCredit.setText("Credit");
+			tableColumnCredit.setWidth(100);
+	
+			tableColumnDept.setText("Dept ");
+			tableColumnDept.setWidth(100);
+	
+			GridData lblTotalCreditLData = new GridData();
+			lblTotalCreditLData.verticalAlignment = GridData.CENTER;
+			lblTotalCreditLData.horizontalAlignment = GridData.END;
+			lblTotalCreditLData.widthHint = 62;
+			lblTotalCreditLData.heightHint = 19;
+			lblTotalCreditLData.horizontalIndent = 0;
+			lblTotalCreditLData.horizontalSpan = 1;
+			lblTotalCreditLData.verticalSpan = 1;
+			lblTotalCreditLData.grabExcessHorizontalSpace = false;
+			lblTotalCreditLData.grabExcessVerticalSpace = false;
+			lblTotalCredit.setLayoutData(lblTotalCreditLData);
+			lblTotalCredit.setText("Total Credit");
+			lblTotalCredit.setSize(new org.eclipse.swt.graphics.Point(62,19));
+	
+			GridData cLabel2LData = new GridData();
+			cLabel2LData.verticalAlignment = GridData.CENTER;
+			cLabel2LData.horizontalAlignment = GridData.BEGINNING;
+			cLabel2LData.widthHint = -1;
+			cLabel2LData.heightHint = -1;
+			cLabel2LData.horizontalIndent = 0;
+			cLabel2LData.horizontalSpan = 1;
+			cLabel2LData.verticalSpan = 1;
+			cLabel2LData.grabExcessHorizontalSpace = false;
+			cLabel2LData.grabExcessVerticalSpace = false;
+			cLabel2.setLayoutData(cLabel2LData);
+			cLabel2.setText("0");
+	
+			GridData cLabel1LData = new GridData();
+			cLabel1LData.verticalAlignment = GridData.CENTER;
+			cLabel1LData.horizontalAlignment = GridData.END;
+			cLabel1LData.widthHint = 58;
+			cLabel1LData.heightHint = 19;
+			cLabel1LData.horizontalIndent = 0;
+			cLabel1LData.horizontalSpan = 1;
+			cLabel1LData.verticalSpan = 1;
+			cLabel1LData.grabExcessHorizontalSpace = false;
+			cLabel1LData.grabExcessVerticalSpace = false;
+			cLabel1.setLayoutData(cLabel1LData);
+			cLabel1.setText("Total Debit");
+			cLabel1.setSize(new org.eclipse.swt.graphics.Point(58,19));
+	
+			lblTotalDeptAmount.setText("0");
+			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
 			thisLayout.marginHeight = 5;
-			thisLayout.numColumns = 1;
-			thisLayout.makeColumnsEqualWidth = true;
+			thisLayout.numColumns = 2;
+			thisLayout.makeColumnsEqualWidth = false;
 			thisLayout.horizontalSpacing = 5;
 			thisLayout.verticalSpacing = 5;
 			this.layout();
+			addDisposeListener(new DisposeListener() {
+				public void widgetDisposed(DisposeEvent e) {
+					button1image.dispose();
+					button2image.dispose();
+				}
+			});
 	
 			postInitGUI();
 		} catch (Exception e) {

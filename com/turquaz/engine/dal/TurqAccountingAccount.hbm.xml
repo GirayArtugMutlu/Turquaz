@@ -132,27 +132,13 @@
     </set>
     <!-- bi-directional one-to-many association to TurqAccountingTransactionColumn -->
     <set
-        name="turqAccountingTransactionColumnsByAccountIdDeptor"
+        name="turqAccountingTransactionColumns"
         lazy="true"
         inverse="true"
 		cascade="none"
     >
         <key>
-            <column name="account_id_deptor" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqAccountingTransactionColumn"
-        />
-    </set>
-    <!-- bi-directional one-to-many association to TurqAccountingTransactionColumn -->
-    <set
-        name="turqAccountingTransactionColumnsByAccountIdCreditor"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="account_id_creditor" />
+            <column name="accounting_accounts_id" />
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqAccountingTransactionColumn"

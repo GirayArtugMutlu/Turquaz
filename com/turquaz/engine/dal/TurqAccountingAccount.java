@@ -46,10 +46,7 @@ public class TurqAccountingAccount implements Serializable {
     private Set turqInventoryCardsByAccountingAccountsIdBuy;
 
     /** persistent field */
-    private Set turqAccountingTransactionColumnsByAccountIdDeptor;
-
-    /** persistent field */
-    private Set turqAccountingTransactionColumnsByAccountIdCreditor;
+    private Set turqAccountingTransactionColumns;
 
     /** persistent field */
     private Set turqChequeTransactionTypes;
@@ -70,7 +67,7 @@ public class TurqAccountingAccount implements Serializable {
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqAccountingAccount(java.lang.String accountName, java.lang.String accountCode, java.util.Date creationDate, java.lang.String createdBy, java.util.Date updateDate, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqAccountingAccounts, Set turqInventoryCardsByAccountingAccountsIdSell, Set turqInventoryCardsByAccountingAccountsIdBuy, Set turqAccountingTransactionColumnsByAccountIdDeptor, Set turqAccountingTransactionColumnsByAccountIdCreditor, Set turqChequeTransactionTypes, Set turqBankCardsSecondaryAccounts, Set turqCurrentCardsByAccountingCodeIdCustomer, Set turqCurrentCardsByAccountingCodeIdSupplier, Set turqTradebillTransactionTypes, Set turqBanksTransactions) {
+    public TurqAccountingAccount(java.lang.String accountName, java.lang.String accountCode, java.util.Date creationDate, java.lang.String createdBy, java.util.Date updateDate, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqAccountingAccounts, Set turqInventoryCardsByAccountingAccountsIdSell, Set turqInventoryCardsByAccountingAccountsIdBuy, Set turqAccountingTransactionColumns, Set turqChequeTransactionTypes, Set turqBankCardsSecondaryAccounts, Set turqCurrentCardsByAccountingCodeIdCustomer, Set turqCurrentCardsByAccountingCodeIdSupplier, Set turqTradebillTransactionTypes, Set turqBanksTransactions) {
         this.accountName = accountName;
         this.accountCode = accountCode;
         this.creationDate = creationDate;
@@ -82,8 +79,7 @@ public class TurqAccountingAccount implements Serializable {
         this.turqAccountingAccounts = turqAccountingAccounts;
         this.turqInventoryCardsByAccountingAccountsIdSell = turqInventoryCardsByAccountingAccountsIdSell;
         this.turqInventoryCardsByAccountingAccountsIdBuy = turqInventoryCardsByAccountingAccountsIdBuy;
-        this.turqAccountingTransactionColumnsByAccountIdDeptor = turqAccountingTransactionColumnsByAccountIdDeptor;
-        this.turqAccountingTransactionColumnsByAccountIdCreditor = turqAccountingTransactionColumnsByAccountIdCreditor;
+        this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
         this.turqChequeTransactionTypes = turqChequeTransactionTypes;
         this.turqBankCardsSecondaryAccounts = turqBankCardsSecondaryAccounts;
         this.turqCurrentCardsByAccountingCodeIdCustomer = turqCurrentCardsByAccountingCodeIdCustomer;
@@ -192,20 +188,12 @@ public class TurqAccountingAccount implements Serializable {
         this.turqInventoryCardsByAccountingAccountsIdBuy = turqInventoryCardsByAccountingAccountsIdBuy;
     }
 
-    public java.util.Set getTurqAccountingTransactionColumnsByAccountIdDeptor() {
-        return this.turqAccountingTransactionColumnsByAccountIdDeptor;
+    public java.util.Set getTurqAccountingTransactionColumns() {
+        return this.turqAccountingTransactionColumns;
     }
 
-    public void setTurqAccountingTransactionColumnsByAccountIdDeptor(java.util.Set turqAccountingTransactionColumnsByAccountIdDeptor) {
-        this.turqAccountingTransactionColumnsByAccountIdDeptor = turqAccountingTransactionColumnsByAccountIdDeptor;
-    }
-
-    public java.util.Set getTurqAccountingTransactionColumnsByAccountIdCreditor() {
-        return this.turqAccountingTransactionColumnsByAccountIdCreditor;
-    }
-
-    public void setTurqAccountingTransactionColumnsByAccountIdCreditor(java.util.Set turqAccountingTransactionColumnsByAccountIdCreditor) {
-        this.turqAccountingTransactionColumnsByAccountIdCreditor = turqAccountingTransactionColumnsByAccountIdCreditor;
+    public void setTurqAccountingTransactionColumns(java.util.Set turqAccountingTransactionColumns) {
+        this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
     }
 
     public java.util.Set getTurqChequeTransactionTypes() {

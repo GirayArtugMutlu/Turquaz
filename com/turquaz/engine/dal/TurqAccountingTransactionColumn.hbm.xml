@@ -73,19 +73,11 @@
   
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one
-        name="turqAccountingAccountByAccountIdDeptor"
+        name="turqAccountingAccount"
         class="com.turquaz.engine.dal.TurqAccountingAccount"
         not-null="true"
     >
-        <column name="account_id_deptor" />
-    </many-to-one>
-    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
-    <many-to-one
-        name="turqAccountingAccountByAccountIdCreditor"
-        class="com.turquaz.engine.dal.TurqAccountingAccount"
-        not-null="true"
-    >
-        <column name="account_id_creditor" />
+        <column name="accounting_accounts_id" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqAccountingTransaction -->
     <many-to-one
