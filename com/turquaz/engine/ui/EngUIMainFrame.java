@@ -564,7 +564,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	}
 /** Add your pre-init code in here 	*/
 	public void preInitGUI(){
-	 System.setProperty("company","1");
+	 System.setProperty("company","0");
 	 System.setProperty("user","admin");
 	 EngBLPermissions.init();
 		
