@@ -25,7 +25,7 @@ public class AccDALAccountingBalanceSub {
 	
 	}
 	
-	public List getTransactionColumns(Object startDate, Object endDatee,)throws Exception{
+	public List getTransactionColumns(Object startDate, Object endDatee)throws Exception{
 		
 		try{
 			Session session = EngDALSessionFactory.openSession();			
