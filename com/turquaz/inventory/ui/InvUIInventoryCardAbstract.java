@@ -99,6 +99,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 	private Table tableTransactions;
 
 	private TableColumn tableColumnTotalAmountOut;
+	private TableColumn tableColumnInventoryName;
 	private ViewerComposite viewer;
 	private CTabItem tabItemTable;
 	private CTabItem tabItemReport;
@@ -272,7 +273,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				tabFolderReport.setLayoutData(tabFolderReportLData);
 				{
 					tabItemTable = new CTabItem(tabFolderReport, SWT.NONE);
-					tabItemTable.setText("Arama Sonucu");
+					tabItemTable.setText(Messages.getString("InvUIInventoryCardAbstract.2")); //$NON-NLS-1$
 					{
 						tableTransactions = new Table(
 							tabFolderReport,
@@ -309,6 +310,13 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 								.getString("InvUITransactionSearch.8")); //$NON-NLS-1$
 							tableColumnInventoryCode.setWidth(108);
 						}
+						//START >>  tableColumnInventoryName
+						tableColumnInventoryName = new TableColumn(
+							tableTransactions,
+							SWT.NONE);
+						tableColumnInventoryName.setText(Messages.getString("InvUIInventoryCardAbstract.3")); //$NON-NLS-1$
+						tableColumnInventoryName.setWidth(100);
+						//END <<  tableColumnInventoryName
 						{
 							tableColumnTotalAmountIn = new TableColumn(
 								tableTransactions,
@@ -345,7 +353,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				}
 				{
 					tabItemReport = new CTabItem(tabFolderReport, SWT.NONE);
-					tabItemReport.setText("Rapor");
+					tabItemReport.setText(Messages.getString("InvUIInventoryCardAbstract.4")); //$NON-NLS-1$
 					{
 						viewer = new ViewerComposite(tabFolderReport, SWT.NONE);
 						tabItemReport.setControl(viewer);
@@ -440,6 +448,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				Date transDate = (Date)result[1];
 				item.setText(new String[] {
 								DatePicker.formatter.format(transDate),
+								transactions.getTurqInventoryCard().getCardInventoryCode(),
 								transactions.getTurqInventoryCard().getCardName(),
 								cf.format(transactions.getTransactionsAmountIn())+"", //$NON-NLS-1$
 								cf.format(priceIn),
@@ -458,62 +467,62 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 		{
 			Map parameters = new HashMap();		
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");  //$NON-NLS-1$
-			String sqlparam="Select trans.inventory_transactions_id,trans.transactions_amount_in," +
-					"trans.transactions_total_amount_out, trans.transactions_total_price," +
-					"invCard.card_inventory_code, invCard.card_name,curCard.cards_name," +
-					"trans.inventory_cards_id, trans.transactions_date,billcons.bill_document_no" +
-					" from turq_inventory_transactions trans," +
-					"turq_consignments cons, turq_bill_consignment_commons billcons," +
-					"turq_current_cards curCard, turq_inventory_cards invCard" +
-					" where trans.engine_sequences_id=cons.engine_sequences_id" +
-					" and cons.bill_consignment_common_id=billcons.bill_consignment_common_id" +
-					" and billcons.current_cards_id=curCard.current_cards_id" +
-					" and trans.inventory_cards_id=invCard.inventory_cards_id" +
-					" and trans.transactions_date >= '"+dformat.format(dateStartDate.getDate())+"'" +
-					" and trans.transactions_date <= '"+dformat.format(dateEndDate.getDate())+"'";
+			String sqlparam="Select trans.inventory_transactions_id,trans.transactions_amount_in," + //$NON-NLS-1$
+					"trans.transactions_total_amount_out, trans.transactions_total_price," + //$NON-NLS-1$
+					"invCard.card_inventory_code, invCard.card_name,curCard.cards_name," + //$NON-NLS-1$
+					"trans.inventory_cards_id, trans.transactions_date,billcons.bill_document_no" + //$NON-NLS-1$
+					" from turq_inventory_transactions trans," + //$NON-NLS-1$
+					"turq_consignments cons, turq_bill_consignment_commons billcons," + //$NON-NLS-1$
+					"turq_current_cards curCard, turq_inventory_cards invCard" + //$NON-NLS-1$
+					" where trans.engine_sequences_id=cons.engine_sequences_id" + //$NON-NLS-1$
+					" and cons.bill_consignment_common_id=billcons.bill_consignment_common_id" + //$NON-NLS-1$
+					" and billcons.current_cards_id=curCard.current_cards_id" + //$NON-NLS-1$
+					" and trans.inventory_cards_id=invCard.inventory_cards_id" + //$NON-NLS-1$
+					" and trans.transactions_date >= '"+dformat.format(dateStartDate.getDate())+"'" + //$NON-NLS-1$ //$NON-NLS-2$
+					" and trans.transactions_date <= '"+dformat.format(dateEndDate.getDate())+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 			
 			
 			if (type != EngBLCommon.COMMON_ALL_INT)
-				sqlparam+=" and cons.consignments_type ="+ type;
+				sqlparam+=" and cons.consignments_type ="+ type; //$NON-NLS-1$
 		
 			TurqCurrentCard curCard=(TurqCurrentCard)txtCurCard.getData();
 			if (curCard != null) {
-				sqlparam += " and curCard.current_cards_id="+curCard.getCurrentCardsId();
+				sqlparam += " and curCard.current_cards_id="+curCard.getCurrentCardsId(); //$NON-NLS-1$
 			}
 		
 			TurqInventoryCard invCardStart=(TurqInventoryCard) txtInvCardStart.getData();
 			TurqInventoryCard invCardEnd=(TurqInventoryCard)txtInvCardEnd.getData();
 			if (invCardStart != null && invCardEnd != null) {
-				sqlparam += " and invCard.card_inventory_code >= '"+invCardStart.getCardInventoryCode()+"'";
-				sqlparam += " and invCard.card_inventory_code <= '"+invCardEnd.getCardInventoryCode()+"'";
-				parameters.put("invCardStart",invCardStart.getCardInventoryCode());
-				parameters.put("invCardEnd",invCardEnd.getCardInventoryCode());
+				sqlparam += " and invCard.card_inventory_code >= '"+invCardStart.getCardInventoryCode()+"'"; //$NON-NLS-1$ //$NON-NLS-2$
+				sqlparam += " and invCard.card_inventory_code <= '"+invCardEnd.getCardInventoryCode()+"'"; //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("invCardStart",invCardStart.getCardInventoryCode()); //$NON-NLS-1$
+				parameters.put("invCardEnd",invCardEnd.getCardInventoryCode()); //$NON-NLS-1$
 			}
 			else if (invCardStart != null)
 			{
-				sqlparam += " and invCard.inventory_cards_id ="+invCardStart.getInventoryCardsId();
-				parameters.put("invCardStart",invCardStart.getCardInventoryCode());
-				parameters.put("invCardEnd","");
+				sqlparam += " and invCard.inventory_cards_id ="+invCardStart.getInventoryCardsId(); //$NON-NLS-1$
+				parameters.put("invCardStart",invCardStart.getCardInventoryCode()); //$NON-NLS-1$
+				parameters.put("invCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			else if (invCardEnd !=null)
 			{
-				sqlparam += " and invCard.inventory_cards_id ="+invCardEnd.getInventoryCardsId();
-				parameters.put("invCardStart",invCardEnd.getCardInventoryCode());
-				parameters.put("invCardEnd","");
+				sqlparam += " and invCard.inventory_cards_id ="+invCardEnd.getInventoryCardsId(); //$NON-NLS-1$
+				parameters.put("invCardStart",invCardEnd.getCardInventoryCode()); //$NON-NLS-1$
+				parameters.put("invCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			else
 			{
-				parameters.put("invCardStart","");
-				parameters.put("invCardEnd","");
+				parameters.put("invCardStart",""); //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("invCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 
-			sqlparam +=" order by invCard.inventory_cards_id,trans.transactions_date";
+			sqlparam +=" order by invCard.inventory_cards_id,trans.transactions_date"; //$NON-NLS-1$
 			SimpleDateFormat dformat2=new SimpleDateFormat("dd/MM/yyyy");  //$NON-NLS-1$
 			parameters.put("sqlparam",sqlparam);  //$NON-NLS-1$
 			parameters.put("startDate",dformat2.format(dateStartDate.getDate()));  //$NON-NLS-1$
 			parameters.put("endDate",dformat2.format(dateEndDate.getDate())); 			  //$NON-NLS-1$
 			parameters.put("dateformat",dformat2);  //$NON-NLS-1$
-			parameters.put("curCard",(curCard!=null)?curCard.getCardsCurrentCode():""); //$NON-NLS-1$
+			parameters.put("curCard",(curCard!=null)?curCard.getCardsCurrentCode():""); //$NON-NLS-1$ //$NON-NLS-2$
 			parameters.put("formatter", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
 			parameters.put("currentDate",dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
 			List balances = blSearch.searchTransactionsRange(invCardStart,invCardEnd,					

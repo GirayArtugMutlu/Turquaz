@@ -61,6 +61,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.inventory.Messages;
+import com.turquaz.inventory.ui.comp.InventoryPicker;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLSearchTransaction;
 import com.turquaz.inventory.dal.InvDALCardAdd;
@@ -88,15 +89,19 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 	private Table tableTransactions;
 
 	private TableColumn tableColumnTotalAmountOut;
+	private Text txtInvNameEnd;
+	private CLabel lblInvNameEnd;
+	private InventoryPicker inventoryPicker1;
+	private CLabel txtInvCardEnd;
 	private TableColumn tableColumnInventoryName;
-	private Text txtInvName;
+	private Text txtInvNameStart;
 	private CLabel lblInvName;
 	private CCombo comboInvGroup;
 	private CLabel lblInvGroup;
 	private CurrentCodePicker txtCurCardEnd;
 	private CLabel lblCurCarEnd;
 	private CLabel lblInvCard;
-	private Text txtInvCard;
+	private InventoryPicker txtInvCardStart;
 	private TableColumn tableColumnTotalPriceIn;
 
 	private TableColumn tableColumnInventoryCode;
@@ -141,33 +146,57 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				GridLayout composite1Layout = new GridLayout();
 				composite1Layout.numColumns = 4;
 				GridData composite1LData = new GridData();
-				composite1LData.heightHint = 118;
+				composite1LData.heightHint = 155;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				compInvTransactionSearch.setLayoutData(composite1LData);
 				compInvTransactionSearch.setLayout(composite1Layout);
 				{
 					lblInvCard = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblInvCard.setText(Messages.getString("InvUIInventoryTransactionReport.0")); //$NON-NLS-1$
+					lblInvCard.setText("Stok Kart? - Ba?lang?ç");
 				}
 				{
-					txtInvCard = new Text(compInvTransactionSearch, SWT.NONE);
+					txtInvCardStart = new InventoryPicker(compInvTransactionSearch, SWT.NONE);
 					GridData txtInvCardLData = new GridData();
-					txtInvCardLData.widthHint = 156;
+					txtInvCardLData.widthHint = 150;
 					txtInvCardLData.heightHint = 17;
-					txtInvCard.setLayoutData(txtInvCardLData);
+					txtInvCardStart.setLayoutData(txtInvCardLData);
 				}
+				//START >>  txtInvCardEnd
+				txtInvCardEnd = new CLabel(compInvTransactionSearch, SWT.NONE);
+				txtInvCardEnd.setText("Stok Kart\u0131 -  Biti\u015f");
+				//END <<  txtInvCardEnd
+				//START >>  inventoryPicker1
+				inventoryPicker1 = new InventoryPicker(
+					compInvTransactionSearch,
+					SWT.NONE);
+				GridData inventoryPicker1LData = new GridData();
+				inventoryPicker1LData.widthHint = 150;
+				inventoryPicker1LData.heightHint = 17;
+				inventoryPicker1.setLayoutData(inventoryPicker1LData);
+				//END <<  inventoryPicker1
 				{
 					lblInvName = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblInvName.setText(Messages.getString("InvUIInventoryTransactionReport.1")); //$NON-NLS-1$
+					lblInvName.setText("Stok Cinsi - Ba?lang?ç");
 				}
 				{
-					txtInvName = new Text(compInvTransactionSearch, SWT.NONE);
+					txtInvNameStart = new Text(compInvTransactionSearch, SWT.NONE);
 					GridData txtInvNameLData = new GridData();
-					txtInvNameLData.widthHint = 164;
-					txtInvNameLData.heightHint = 15;
-					txtInvName.setLayoutData(txtInvNameLData);
+					txtInvNameLData.widthHint = 144;
+					txtInvNameLData.heightHint = 17;
+					txtInvNameStart.setLayoutData(txtInvNameLData);
 				}
+				//START >>  lblInvNameEnd
+				lblInvNameEnd = new CLabel(compInvTransactionSearch, SWT.NONE);
+				lblInvNameEnd.setText("Stok Cinsi - Biti\u015f");
+				//END <<  lblInvNameEnd
+				//START >>  txtInvNameEnd
+				txtInvNameEnd = new Text(compInvTransactionSearch, SWT.NONE);
+				GridData txtInvNameEndLData = new GridData();
+				txtInvNameEndLData.widthHint = 144;
+				txtInvNameEndLData.heightHint = 17;
+				txtInvNameEnd.setLayoutData(txtInvNameEndLData);
+				//END <<  txtInvNameEnd
 				{
 					lblCurrentCard = new CLabel(
 						compInvTransactionSearch,
@@ -178,7 +207,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					txtCurCardStart = new CurrentCodePicker(compInvTransactionSearch, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
 
-					txtCurCardLData.widthHint = 162;
+					txtCurCardLData.widthHint = 150;
 					txtCurCardLData.heightHint = 17;
 					txtCurCardStart.setLayoutData(txtCurCardLData);
 				}
@@ -191,8 +220,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				{
 					txtCurCardEnd = new CurrentCodePicker(compInvTransactionSearch, SWT.NONE);
 					GridData txtCurCardEndLData = new GridData();
-					txtCurCardEndLData.widthHint = 171;
-					txtCurCardEndLData.heightHint = 16;
+					txtCurCardEndLData.widthHint = 150;
+					txtCurCardEndLData.heightHint = 17;
 					txtCurCardEnd.setLayoutData(txtCurCardEndLData);
 				}
 				{
@@ -206,11 +235,9 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					lblStartDate.setLayoutData(lblStartDateLData);
 				}
 				{
-					dateStartDate = new DatePicker(
-						compInvTransactionSearch,
-						SWT.NONE);
+					dateStartDate = new DatePicker(compInvTransactionSearch, SWT.NONE);
 					GridData dateStartDateLData = new GridData();
-					dateStartDateLData.widthHint = 141;
+					dateStartDateLData.widthHint = 150;
 					dateStartDateLData.heightHint = 22;
 					dateStartDate.setLayoutData(dateStartDateLData);
 				}
@@ -227,8 +254,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 						compInvTransactionSearch,
 						SWT.NONE);
 					GridData dateEndDateLData = new GridData();
-					dateEndDateLData.widthHint = 140;
-					dateEndDateLData.heightHint = 22;
+					dateEndDateLData.widthHint = 150;
+					dateEndDateLData.heightHint = 23;
 					dateEndDate.setLayoutData(dateEndDateLData);
 				}
 				{
@@ -245,8 +272,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 						SWT.NONE);
 					GridData comboConsignmentTypeLData = new GridData();
 					comboTransactionsType.setText(Messages.getString("InvUIInventoryTransactionReport.7")); //$NON-NLS-1$
-					comboConsignmentTypeLData.widthHint = 82;
-					comboConsignmentTypeLData.heightHint = 14;
+					comboConsignmentTypeLData.widthHint = 127;
+					comboConsignmentTypeLData.heightHint = 18;
 					comboTransactionsType.setLayoutData(comboConsignmentTypeLData);
 				}
 				{
@@ -259,8 +286,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 						SWT.NONE);
 					comboInvGroup.setText(Messages.getString("InvUIInventoryTransactionReport.9")); //$NON-NLS-1$
 					GridData comboInvGroupLData = new GridData();
-					comboInvGroupLData.widthHint = 82;
-					comboInvGroupLData.heightHint = 16;
+					comboInvGroupLData.widthHint = 127;
+					comboInvGroupLData.heightHint = 18;
 					comboInvGroup.setLayoutData(comboInvGroupLData);
 				}
 			}
@@ -411,9 +438,9 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 		if (data != null) {
 
 			TurqInventoryCard invCard = (TurqInventoryCard) data;
-			txtInvCard.setText(invCard.getCardInventoryCode() + " - " //$NON-NLS-1$
+			txtInvCardStart.setText(invCard.getCardInventoryCode() + " - " //$NON-NLS-1$
 					+ invCard.getCardName());
-			txtInvCard.setData(invCard);
+			txtInvCardStart.setData(invCard);
 
 		}
 	}
@@ -435,8 +462,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				type = 1;
 
 
-			List list = blSearch.searchTransactionsAdvanced(txtInvCard.getText(),
-					txtInvName.getText(),(TurqCurrentCard)txtCurCardStart.getData(),
+			List list = blSearch.searchTransactionsAdvanced(txtInvCardStart.getText(),
+					txtInvNameStart.getText(),(TurqCurrentCard)txtCurCardStart.getData(),
 					(TurqCurrentCard)txtCurCardEnd.getData(),dateStartDate.getDate(),
 					dateEndDate.getDate(),type,
 					(TurqInventoryGroup)comboInvGroup.getData(comboInvGroup.getText()));

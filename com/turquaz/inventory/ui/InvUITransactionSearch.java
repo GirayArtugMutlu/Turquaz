@@ -84,12 +84,12 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 	private Table tableTransactions;
 
 	private TableColumn tableColumnTotalAmountOut;
+	private CLabel lblInvCard;
 	private TableColumn tableColumnInventoryName;
 	private TableColumn tableColumnTotalPriceIn;
 
 	private TableColumn tableColumnInventoryCode;
 	private InventoryPicker txtInvCard;
-	private Label lblInvCard;
 
 	private CCombo comboTransactionsType;
 	private CurrentPicker txtCurCard;
@@ -130,28 +130,22 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                 GridLayout composite1Layout = new GridLayout();
                 composite1Layout.numColumns = 4;
                 GridData composite1LData = new GridData();
-                composite1LData.heightHint = 126;
+                composite1LData.heightHint = 98;
                 composite1LData.grabExcessHorizontalSpace = true;
                 composite1LData.horizontalAlignment = GridData.FILL;
                 compInvTransactionSearch.setLayoutData(composite1LData);
                 compInvTransactionSearch.setLayout(composite1Layout);
-                {
-                    lblInvCard = new Label(compInvTransactionSearch, SWT.NONE);
-                    lblInvCard.setText(Messages
-                        .getString("InvUITransactionSearch.0")); //$NON-NLS-1$
-                        GridData lblInvCardLData = new GridData();
-                        lblInvCardLData.widthHint = 89;
-                        lblInvCardLData.heightHint = 17;
-                        lblInvCard.setLayoutData(lblInvCardLData);
-                }
+				//START >>  lblInvCard
+				lblInvCard = new CLabel(compInvTransactionSearch, SWT.NONE);
+				lblInvCard.setText("Stok Kodu");
+				//END <<  lblInvCard
                 {
                     txtInvCard = new InventoryPicker(compInvTransactionSearch, SWT.NONE);
 
                     GridData textWithButton1LData = new GridData();
 
-                    textWithButton1LData.widthHint = 206;
-                    textWithButton1LData.heightHint = 19;
-                    textWithButton1LData.horizontalSpan = 3;
+                    textWithButton1LData.widthHint = 150;
+                    textWithButton1LData.heightHint = 17;
                     txtInvCard.setLayoutData(textWithButton1LData);
                 }
                 {
@@ -166,9 +160,8 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 					txtCurCard = new CurrentPicker(compInvTransactionSearch, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
 				
-					txtCurCardLData.widthHint = 206;
-					txtCurCardLData.heightHint = 20;
-					txtCurCardLData.horizontalSpan = 3;
+					txtCurCardLData.widthHint = 150;
+					txtCurCardLData.heightHint = 17;
 					txtCurCard.setLayoutData(txtCurCardLData);
 				}
                 {
@@ -187,7 +180,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                         compInvTransactionSearch,
                         SWT.NONE);
                     GridData dateStartDateLData = new GridData();
-                    dateStartDateLData.widthHint = 141;
+                    dateStartDateLData.widthHint = 150;
                     dateStartDateLData.heightHint = 22;
                     dateStartDate.setLayoutData(dateStartDateLData);
                 }
@@ -205,7 +198,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                         compInvTransactionSearch,
                         SWT.NONE);
                     GridData dateEndDateLData = new GridData();
-                    dateEndDateLData.widthHint = 140;
+                    dateEndDateLData.widthHint = 150;
                     dateEndDateLData.heightHint = 22;
                     dateEndDate.setLayoutData(dateEndDateLData);
                 }
@@ -225,10 +218,9 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                     GridData comboConsignmentTypeLData = new GridData();
                     comboTransactionsType.setText(Messages
                         .getString("InvUITransactionSearch.5")); //$NON-NLS-1$
-                    comboConsignmentTypeLData.widthHint = 72;
-                    comboConsignmentTypeLData.heightHint = 14;
-                    comboTransactionsType
-                        .setLayoutData(comboConsignmentTypeLData);
+                    comboConsignmentTypeLData.widthHint = 127;
+                    comboConsignmentTypeLData.heightHint = 18;
+                    comboTransactionsType.setLayoutData(comboConsignmentTypeLData);
                 }
             }
 			{
