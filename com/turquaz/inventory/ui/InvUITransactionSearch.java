@@ -1,5 +1,6 @@
 package com.turquaz.inventory.ui;
 
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -12,6 +13,7 @@ import org.eclipse.swt.widgets.Composite;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLUtils;
 
+import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
@@ -308,13 +310,27 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 				transactions = (TurqInventoryTransaction) list.get(i);
 				item = new TableItem(tableTransactions, SWT.NULL);
 				item.setData(transactions);
+			
+				Iterator it = transactions.getTurqEngineSequence().getTurqConsignments().iterator();
+			
+				TurqConsignment cons = null;
+				
+				if(it.hasNext()){
+					cons = (TurqConsignment)it.next();
+					
+				}
+				else{
+					throw new Exception("Bu stok hareketi icin bir irsaliye olmasi gerekirdi.");
+				}
+				
+				
 				item.setText(new String[] {
-								DatePicker.formatter.format(transactions.getTurqConsignment().getConsignmentsDate()),
-								transactions.getTurqConsignment().getTurqCurrentCard().getCardsName(),
+								DatePicker.formatter.format(cons.getConsignmentsDate()),
+							    cons.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName(),
 								transactions.getTurqInventoryCard().getCardName(),
-								transactions.getTurqConsignment().getConsignmentsTotalAmount().toString(),
-								transactions.getTurqConsignment().getConsignmentsVatAmount().toString(),
-								transactions.getTurqConsignment().getConsignmentsSpecialVatAmount()
+								cons.getTurqBillConsignmentCommon().getTotalAmount().toString(),
+								cons.getTurqBillConsignmentCommon().getVatAmount().toString(),
+								cons.getTurqBillConsignmentCommon().getSpecialVatAmount()
 										.toString() });
 
 			}

@@ -24,12 +24,14 @@ package com.turquaz.inventory.dal;
 import java.util.Date;
 import java.util.List;
 
+import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryCard;
+import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 public class InvDALSearchTransaction {
 	public InvDALSearchTransaction() {
@@ -69,6 +71,15 @@ public class InvDALSearchTransaction {
 			}
 
 			List list = q.list();
+			
+			for (int i =0;i<list.size();i++){
+				
+			TurqInventoryTransaction invTrans = (TurqInventoryTransaction)list.get(i);
+			Hibernate.initialize(invTrans.getTurqEngineSequence().getTurqConsignments());
+			
+			
+			}
+			
 
 			session.close();
 			return list;
