@@ -105,7 +105,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			lblWarehouseNameLData.grabExcessHorizontalSpace = false;
 			lblWarehouseNameLData.grabExcessVerticalSpace = false;
 			lblWarehouseName.setLayoutData(lblWarehouseNameLData);
-			lblWarehouseName.setText("Warehouse Name");
+			lblWarehouseName.setText(Messages.getString("InvUIWarehouseAdd.0")); //$NON-NLS-1$
 	
 			GridData txtWarehouseNameLData = new GridData();
 			txtWarehouseNameLData.verticalAlignment = GridData.CENTER;
@@ -132,7 +132,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			lblWarehouseAdresLData.grabExcessHorizontalSpace = false;
 			lblWarehouseAdresLData.grabExcessVerticalSpace = false;
 			lblWarehouseAdres.setLayoutData(lblWarehouseAdresLData);
-			lblWarehouseAdres.setText("Address");
+			lblWarehouseAdres.setText(Messages.getString("InvUIWarehouseAdd.1")); //$NON-NLS-1$
 	
 			GridData txtWarehouseAdresLData = new GridData();
 			txtWarehouseAdresLData.verticalAlignment = GridData.CENTER;
@@ -159,7 +159,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			lblWareHouseCityLData.grabExcessHorizontalSpace = false;
 			lblWareHouseCityLData.grabExcessVerticalSpace = false;
 			lblWareHouseCity.setLayoutData(lblWareHouseCityLData);
-			lblWareHouseCity.setText("City");
+			lblWareHouseCity.setText(Messages.getString("InvUIWarehouseAdd.2")); //$NON-NLS-1$
 	
 			GridData txtWarehouseCityLData = new GridData();
 			txtWarehouseCityLData.verticalAlignment = GridData.CENTER;
@@ -186,7 +186,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			lblWarehouseTelephoneLData.grabExcessHorizontalSpace = false;
 			lblWarehouseTelephoneLData.grabExcessVerticalSpace = false;
 			lblWarehouseTelephone.setLayoutData(lblWarehouseTelephoneLData);
-			lblWarehouseTelephone.setText("Telephone");
+			lblWarehouseTelephone.setText(Messages.getString("InvUIWarehouseAdd.3")); //$NON-NLS-1$
 			lblWarehouseTelephone.setSize(new org.eclipse.swt.graphics.Point(56,19));
 	
 			GridData txtTelephoneLData = new GridData();
@@ -213,7 +213,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			lblDescriptionLData.grabExcessHorizontalSpace = false;
 			lblDescriptionLData.grabExcessVerticalSpace = false;
 			lblDescription.setLayoutData(lblDescriptionLData);
-			lblDescription.setText("Description");
+			lblDescription.setText(Messages.getString("InvUIWarehouseAdd.4")); //$NON-NLS-1$
 	
 			GridData txtWarehouseDescriptionLData = new GridData();
 			txtWarehouseDescriptionLData.verticalAlignment = GridData.CENTER;

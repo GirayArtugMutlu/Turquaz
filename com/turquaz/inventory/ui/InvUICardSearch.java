@@ -147,7 +147,7 @@ public class InvUICardSearch extends  Composite implements SecureComposite {
 			lblInvNameLData.grabExcessHorizontalSpace = false;
 			lblInvNameLData.grabExcessVerticalSpace = false;
 			lblInvName.setLayoutData(lblInvNameLData);
-			lblInvName.setText("Inventory Name");
+			lblInvName.setText(Messages.getString("InvUICardSearch.0")); //$NON-NLS-1$
 			lblInvName.setSize(new org.eclipse.swt.graphics.Point(114,18));
 	
 			GridData txtInvNameLData = new GridData();
@@ -174,7 +174,7 @@ public class InvUICardSearch extends  Composite implements SecureComposite {
 			cLabel2LData.grabExcessHorizontalSpace = false;
 			cLabel2LData.grabExcessVerticalSpace = false;
 			cLabel2.setLayoutData(cLabel2LData);
-			cLabel2.setText("Inventory Code");
+			cLabel2.setText(Messages.getString("InvUICardSearch.1")); //$NON-NLS-1$
 			cLabel2.setSize(new org.eclipse.swt.graphics.Point(97,17));
 	
 			GridData txtInvCodeLData = new GridData();
@@ -201,7 +201,7 @@ public class InvUICardSearch extends  Composite implements SecureComposite {
 			lblInvGroupLData.grabExcessHorizontalSpace = false;
 			lblInvGroupLData.grabExcessVerticalSpace = false;
 			lblInvGroup.setLayoutData(lblInvGroupLData);
-			lblInvGroup.setText("Inventory Group");
+			lblInvGroup.setText(Messages.getString("InvUICardSearch.2")); //$NON-NLS-1$
 			lblInvGroup.setSize(new org.eclipse.swt.graphics.Point(110,17));
 	
 			GridData comboInvGroupLData = new GridData();
@@ -246,13 +246,13 @@ public class InvUICardSearch extends  Composite implements SecureComposite {
 				}
 			});
 	
-			tableColumnInvName.setText("Inventory Name");
+			tableColumnInvName.setText(Messages.getString("InvUICardSearch.0")); //$NON-NLS-1$
 			tableColumnInvName.setWidth(115);
 	
-			tableColumnInventoryCode.setText("Inventory Code");
+			tableColumnInventoryCode.setText(Messages.getString("InvUICardSearch.1")); //$NON-NLS-1$
 			tableColumnInventoryCode.setWidth(107);
 	
-			tableColumnAmount.setText("Amount");
+			tableColumnAmount.setText(Messages.getString("InvUICardSearch.5")); //$NON-NLS-1$
 			tableColumnAmount.setWidth(118);
 			GridLayout compInvCardSearchLayout = new GridLayout(1, true);
 			compInvCardSearch.setLayout(compInvCardSearchLayout);

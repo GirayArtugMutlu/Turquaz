@@ -119,15 +119,15 @@ public class InvUICardUpdateDialog extends Dialog{
 			coolTop.setMinimumSize(new org.eclipse.swt.graphics.Point(88,27));
 	
 	
-			toolUpdate.setText("Update");
+			toolUpdate.setText(Messages.getString("InvUICardUpdateDialog.0")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
 				}
 			});
 	
-			toolDelete.setText("Delete");
-			toolDelete.setToolTipText("Delete");
+			toolDelete.setText(Messages.getString("InvUICardUpdateDialog.1")); //$NON-NLS-1$
+			toolDelete.setToolTipText(Messages.getString("InvUICardUpdateDialog.1")); //$NON-NLS-1$
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -498,7 +498,7 @@ public class InvUICardUpdateDialog extends Dialog{
     public void delete(){
       try{
       MessageBox msg=new MessageBox(this.getParent(),SWT.YES|SWT.NO);
-      msg.setMessage("Really delete?");
+      msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
       if (msg.open()==SWT.NO)
        return;
     //First Delete Groups

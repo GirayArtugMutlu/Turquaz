@@ -103,7 +103,7 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite 
 			lblWarehouseNameLData.grabExcessHorizontalSpace = false;
 			lblWarehouseNameLData.grabExcessVerticalSpace = false;
 			lblWarehouseName.setLayoutData(lblWarehouseNameLData);
-			lblWarehouseName.setText("Warehouse Name");
+			lblWarehouseName.setText(Messages.getString("InvUIWarehouseSearch.0")); //$NON-NLS-1$
 			lblWarehouseName.setSize(new org.eclipse.swt.graphics.Point(105,20));
 	
 			GridData txtWarehouseNameLData = new GridData();
@@ -130,7 +130,7 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite 
 			lblWarehouseCityLData.grabExcessHorizontalSpace = false;
 			lblWarehouseCityLData.grabExcessVerticalSpace = false;
 			lblWarehouseCity.setLayoutData(lblWarehouseCityLData);
-			lblWarehouseCity.setText("City");
+			lblWarehouseCity.setText(Messages.getString("InvUIWarehouseSearch.1")); //$NON-NLS-1$
 	
 			GridData txtCityLData = new GridData();
 			txtCityLData.verticalAlignment = GridData.CENTER;
@@ -174,16 +174,16 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite 
 				}
 			});
 	
-			tableColumnName.setText("Warehouse Name");
+			tableColumnName.setText(Messages.getString("InvUIWarehouseSearch.0")); //$NON-NLS-1$
 			tableColumnName.setWidth(161);
 	
-			tableColumnWarehouseCity.setText("City");
+			tableColumnWarehouseCity.setText(Messages.getString("InvUIWarehouseSearch.1")); //$NON-NLS-1$
 			tableColumnWarehouseCity.setWidth(100);
 	
-			tableColumnTelephone.setText("Telephone");
+			tableColumnTelephone.setText(Messages.getString("InvUIWarehouseSearch.4")); //$NON-NLS-1$
 			tableColumnTelephone.setWidth(100);
 	
-			tableColumnDescription.setText("Description");
+			tableColumnDescription.setText(Messages.getString("InvUIWarehouseSearch.5")); //$NON-NLS-1$
 			tableColumnDescription.setWidth(150);
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);

@@ -86,8 +86,8 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(87,38));
 	
 	
-			toolUpdate.setText("Update");
-			final org.eclipse.swt.graphics.Image toolUpdateýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
+			toolUpdate.setText(Messages.getString("InvUIWarehouseUpdate.0")); //$NON-NLS-1$
+			final org.eclipse.swt.graphics.Image toolUpdateýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.setImage(toolUpdateýmage);
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
@@ -95,8 +95,8 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 				}
 			});
 	
-			toolDelete.setText("delete");
-			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setText(Messages.getString("InvUIWarehouseUpdate.2")); //$NON-NLS-1$
+			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
 			toolDelete.setImage(toolDeleteýmage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
