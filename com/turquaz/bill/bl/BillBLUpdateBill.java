@@ -30,6 +30,7 @@ public class BillBLUpdateBill {
 	        throw ex;
 	    }
 	}
+	
 	public void deleteAccountingTransactions(TurqBill bill)throws Exception{
 	    try{
 	        

@@ -366,6 +366,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 										
 				}
 				
+				
 				blUpdateBill.deleteAccountingTransactions(bill);
 				blUpdateBill.deleteCurrentTransactions(bill);
 

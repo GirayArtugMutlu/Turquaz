@@ -1443,7 +1443,7 @@ public class BillUIAddBuyBill extends Composite
 		}
 
 
-		 generalTotal = subTotal.add(totalVAT).add(totalSpecVAT).subtract(discountTotal).setScale(2, BigDecimal.ROUND_DOWN); //$NON-NLS-1$
+		 generalTotal = subTotal.add(totalVAT).add(totalSpecVAT);
 		 
 		txtDiscountAmount.setText(discountTotal.toString());
 		txtSubTotal.setText(subTotal.toString());

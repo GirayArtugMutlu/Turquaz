@@ -446,9 +446,7 @@ public class InvUITransactionTableRow implements ITableRow {
        
     }
     
-    /*
-     * TODO Toplamlari tekrar hesapla. Erhan buyukalp in mailine gore..
-     */
+  
     
     public void calculateFields(){
         
@@ -472,8 +470,12 @@ public class InvUITransactionTableRow implements ITableRow {
 		    invTrans.setTransactionsTotalAmountOut(transAmountinBaseUnit);
 		 }
         
-        invTrans.setTransactionsVatAmount(totalPriceAfterDiscount.multiply(new BigDecimal(invTrans.getTransactionsVat())).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
         invTrans.setTransactionsVatSpecialAmount(totalPriceAfterDiscount.multiply(invTrans.getTransactionsVatSpecial()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
+        
+        BigDecimal totalPriceAfterDiscountAddedSpecVAT = totalPriceAfterDiscount.add(invTrans.getTransactionsVatSpecialAmount());
+        
+        invTrans.setTransactionsVatAmount(totalPriceAfterDiscountAddedSpecVAT.multiply(new BigDecimal(invTrans.getTransactionsVat())).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
+       
         invTrans.setTransactionsCumilativePrice(totalPriceAfterDiscount.add(invTrans.getTransactionsVatSpecialAmount()).add(invTrans.getTransactionsVatAmount()));
         
         }
