@@ -81,6 +81,8 @@ import com.turquaz.cheque.ui.CheUIReturnFromCurrent;
 import com.turquaz.cheque.ui.CheUIReturnFromGivenCheques;
 import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
+import com.turquaz.current.ui.CurUICurCardCreditList;
+import com.turquaz.current.ui.CurUICurCardDeptList;
 import com.turquaz.current.ui.CurUICurrentCardAbstract;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.current.ui.CurUICurrentCardCreditVoucher;
@@ -447,6 +449,18 @@ public final class TreeFactory
 			item = new TreeItem(searchRoot, SWT.NULL);
 			item.setText(com.turquaz.engine.Messages.getString("TreeFactory.20")); //$NON-NLS-1$
 			item.setData(CurUITransactionSearch.class.getName());
+		}
+		if (EngBLPermissions.getPermission(CurUICurCardDeptList.class.getName()) > 0)
+		{
+			item = new TreeItem(searchRoot, SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.41"));  //$NON-NLS-1$
+			item.setData(CurUICurCardDeptList.class.getName());
+		}
+		if (EngBLPermissions.getPermission(CurUICurCardCreditList.class.getName()) > 0)
+		{
+			item = new TreeItem(searchRoot, SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.108")); //$NON-NLS-1$
+			item.setData(CurUICurCardCreditList.class.getName());
 		}
 		TreeItem reportsRoot = new TreeItem(tree, SWT.NULL);
 		reportsRoot.setText(Messages.getString("TreeFactory.84")); //$NON-NLS-1$

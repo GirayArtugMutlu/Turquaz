@@ -60,6 +60,8 @@ import com.turquaz.cheque.ui.CheUICustomerChequeSearch;
 import com.turquaz.cheque.ui.CheUIOwnChequeSearch;
 import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
+import com.turquaz.current.ui.CurUICurCardCreditList;
+import com.turquaz.current.ui.CurUICurCardDeptList;
 import com.turquaz.current.ui.CurUICurrentCardAbstract;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.current.ui.CurUICurrentCardCreditVoucher;
@@ -136,7 +138,7 @@ public class MenuFactory
 			mit.setText(Messages.getString("MenuFactory.77")); //$NON-NLS-1$
 			mit.setData(CurUICurrentCardCreditVoucher.class.getName());
 			mit.addSelectionListener(new MenuSelectionAdapter());
-		}
+		}		
 		sps = new MenuItem(currentMenu, SWT.SEPARATOR);
 		if (EngBLPermissions.getPermission(CurUICurrentCardSearch.class.getName()) > 0)
 		{
@@ -150,6 +152,20 @@ public class MenuFactory
 			mit = new MenuItem(currentMenu, SWT.PUSH);
 			mit.setText(Messages.getString("MenuFactory.4")); //$NON-NLS-1$
 			mit.setData(CurUITransactionSearch.class.getName());
+			mit.addSelectionListener(new MenuSelectionAdapter());
+		}
+		if (EngBLPermissions.getPermission(CurUICurCardDeptList.class.getName()) > 0)
+		{
+			mit = new MenuItem(currentMenu, SWT.PUSH);
+			mit.setText(Messages.getString("MenuFactory.81")); //$NON-NLS-1$
+			mit.setData(CurUICurCardDeptList.class.getName());
+			mit.addSelectionListener(new MenuSelectionAdapter());
+		}
+		if (EngBLPermissions.getPermission(CurUICurCardCreditList.class.getName()) > 0)
+		{
+			mit = new MenuItem(currentMenu, SWT.PUSH);
+			mit.setText(Messages.getString("MenuFactory.82")); //$NON-NLS-1$
+			mit.setData(CurUICurCardCreditList.class.getName());
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
 		sps = new MenuItem(currentMenu, SWT.SEPARATOR);

@@ -45,5 +45,6 @@ public class EngKeys
 	public final static String EXCHANGE_RATIO="exchangeRatio";
 	public final static String EXCHANGE_DATE="exchangeDate";
 	public final static String DESCRIPTION="description";
+	public final static String IS_CREDIT="isCredit";
 	
 }

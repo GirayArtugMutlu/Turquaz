@@ -22,6 +22,7 @@ package com.turquaz.current.dal;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import net.sf.hibernate.Hibernate;
@@ -69,6 +70,53 @@ public class CurDALCurrentCardSearch
 				q.setParameter("cardGroup", cardGroup);
 			}
 			q.setMaxResults(1000);
+			List list = q.list();
+			return list;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static List searchCurrentCardsBalanceList(String currentCode, String currentName, TurqCurrentGroup cardGroup, Date startDate, Date endDate, String definition) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			String query = "Select currentCard.id, currentCard.cardsCurrentCode, currentCard.cardsName, sum(curTrans.transactionsTotalDept), " +
+					" sum(curTrans.transactionsTotalCredit)"
+					+ " from TurqCurrentTransaction curTrans, curTrans.turqCurrentCard as currentCard";
+			if (cardGroup != null)
+			{
+				query += " left join  curTrans.turqCurrentCard.turqCurrentCardsGroups as gr ";
+			}
+			query += " where currentCard.id <> -1 and curTrans.transactionsDate >= :startDate and curTrans.transactionsDate <= :endDate";
+			if (!currentCode.equals(""))
+			{
+				query +=" and currentCard.cardsCurrentCode like '" + currentCode+ "%'";
+			}
+			if (!currentName.equals(""))
+			{
+				query +=" and currentCard.cardsName like '" + currentName + "%'";
+			}
+			if (!definition.equals(""))
+			{
+				query +=" and curTrans.transactionsDefinition like '"+definition+"%'";
+			}
+			if (cardGroup != null)
+			{
+				query += " and gr.turqCurrentGroup = :cardGroup";
+			}
+			query += " group by currentCard.id, currentCard.cardsCurrentCode, currentCard.cardsName";
+			query += " order by currentCard.cardsCurrentCode";
+			Query q = session.createQuery(query);
+			if (cardGroup != null)
+			{
+				q.setParameter("cardGroup", cardGroup);
+			}
+			q.setParameter("startDate",startDate);
+			q.setParameter("endDate",endDate);
 			List list = q.list();
 			return list;
 		}

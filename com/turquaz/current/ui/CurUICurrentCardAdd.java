@@ -52,6 +52,7 @@ import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.engine.ui.component.CurrencyTextAdvanced;
+import com.turquaz.current.ui.comp.CurrentCodePicker;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
@@ -266,7 +267,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 	/**
 	 * @return Returns the txtCurrentCode.
 	 */
-	public Text getTxtCurrentCode()
+	public CurrentCodePicker getTxtCurrentCode()
 	{
 		return txtCurrentCode;
 	}
@@ -359,7 +360,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 	private CLabel lblCardDefinition;
 	private Text txtCurrentName;
 	private CLabel lblCurrentName;
-	private Text txtCurrentCode;
+	private CurrentCodePicker txtCurrentCode;
 	private CLabel lblCurrentCode;
 	private Composite compCurrentGroups;
 	private Composite compCurrentContactInfo;
@@ -626,7 +627,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					lblCurrentCode.setText(Messages.getString("CurUICurrentCardAdd.1")); //$NON-NLS-1$
 				}
 				{
-					txtCurrentCode = new Text(compCurrentGeneralInfo, SWT.NONE);
+					txtCurrentCode = new CurrentCodePicker(compCurrentGeneralInfo, SWT.NONE);
 					GridData txtCurrentCodeLData = new GridData();
 					txtCurrentCodeLData.widthHint = 150;
 					txtCurrentCodeLData.heightHint = 17;
