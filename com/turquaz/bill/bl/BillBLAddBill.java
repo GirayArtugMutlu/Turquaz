@@ -127,7 +127,7 @@ public class BillBLAddBill {
 		try	{
 	    
 		TurqBillConsignmentCommon common= bill.getTurqBillConsignmentCommon();		
-		
+		String billDefinition ="FT "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName();
 		
 		//Al?? Faturas? 
 		if(bill.getBillsType()==0){
@@ -142,7 +142,7 @@ public class BillBLAddBill {
 			AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
 			
 			
-			Integer transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),2,7,bill.getTurqEngineSequence().getEngineSequencesId(),"fatura "+DatePicker.formatter.format(bill.getBillsDate()) +" " + common.getBillDocumentNo());
+			Integer transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),2,7,bill.getTurqEngineSequence().getEngineSequencesId(),billDefinition);
 		   		
 			
 			TurqAccountingTransactionColumn transRow =null;
@@ -169,7 +169,7 @@ public class BillBLAddBill {
 			
 			
 			// set Transaction Row Definition
-			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			transRow.setTransactionDefinition(billDefinition);
 			
 			transRow.setCreatedBy(System.getProperty("user"));
 			transRow.setUpdatedBy(System.getProperty("user"));
@@ -244,7 +244,7 @@ public class BillBLAddBill {
 			transRow.setDeptAmount(new BigDecimal(0));
 		
 //			 set Transaction Row Definition
-			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			transRow.setTransactionDefinition(billDefinition);
 			
 			
 			transRow.setCreatedBy(System.getProperty("user"));
@@ -266,7 +266,7 @@ public class BillBLAddBill {
 			transRow.setDeptAmount(new BigDecimal(0));
 		
 //			 set Transaction Row Definition
-			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			transRow.setTransactionDefinition(billDefinition);
 			
 			transRow.setCreatedBy(System.getProperty("user"));
 			transRow.setUpdatedBy(System.getProperty("user"));
@@ -282,7 +282,7 @@ public class BillBLAddBill {
 			 * 2- Kasa Muhasebe hareketi isle
 			 */
 			if(!bill.isIsOpen()){
-				transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),1,7,bill.getTurqEngineSequence().getEngineSequencesId(),"fatura "+DatePicker.formatter.format(bill.getBillsDate()) +" " + common.getBillDocumentNo());
+				transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),1,7,bill.getTurqEngineSequence().getEngineSequencesId(),billDefinition);
 			    
 			    
 			    
@@ -298,7 +298,7 @@ public class BillBLAddBill {
 				transRow.setDeptAmount(invTrans.getTransactionsCumilativePrice());
 				
 //				 set Transaction Row Definition
-				transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+				transRow.setTransactionDefinition(billDefinition);
 				
 				transRow.setCreatedBy(System.getProperty("user"));
 				transRow.setUpdatedBy(System.getProperty("user"));
@@ -319,7 +319,7 @@ public class BillBLAddBill {
 					transRow.setDeptAmount(new BigDecimal(0));
 					
 //					 set Transaction Row Definition
-					transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+					transRow.setTransactionDefinition(billDefinition);
 					
 					
 					transRow.setCreatedBy(System.getProperty("user"));
@@ -351,7 +351,7 @@ public class BillBLAddBill {
 			AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
 			
 			
-			Integer transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),2,7,bill.getTurqEngineSequence().getEngineSequencesId(),"fatura "+DatePicker.formatter.format(bill.getBillsDate()) +" " + common.getBillDocumentNo());
+			Integer transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),2,7,bill.getTurqEngineSequence().getEngineSequencesId(),"FT "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName());
 		    
 					
 			
@@ -375,7 +375,7 @@ public class BillBLAddBill {
 			transRow.setDeptAmount(new BigDecimal(0));
 			
 //			 set Transaction Row Definition
-			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			transRow.setTransactionDefinition("FT "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName());
 			
 			
 			transRow.setCreatedBy(System.getProperty("user"));
@@ -397,7 +397,7 @@ public class BillBLAddBill {
 				transRow.setDeptAmount(new BigDecimal(0));
 			
 //				 set Transaction Row Definition
-				transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+				transRow.setTransactionDefinition("FT "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName());
 			
 				transRow.setCreatedBy(System.getProperty("user"));
 				transRow.setUpdatedBy(System.getProperty("user"));
@@ -423,7 +423,7 @@ public class BillBLAddBill {
 				transRow.setDeptAmount(new BigDecimal(0));
 			
 //				 set Transaction Row Definition
-				transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+				transRow.setTransactionDefinition("FT "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName());
 			
 				transRow.setCreatedBy(System.getProperty("user"));
 				transRow.setUpdatedBy(System.getProperty("user"));
@@ -450,7 +450,7 @@ public class BillBLAddBill {
 			transRow.setDeptAmount(common.getTotalAmount());
 			
 //			 set Transaction Row Definition
-			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			transRow.setTransactionDefinition("FT "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName());
 			
 			transRow.setCreatedBy(System.getProperty("user"));
 			transRow.setUpdatedBy(System.getProperty("user"));
@@ -471,7 +471,7 @@ public class BillBLAddBill {
 			transRow.setDeptAmount(common.getDiscountAmount());
 			
 //			 set Transaction Row Definition
-			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			transRow.setTransactionDefinition("FT "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName());
 			
 			transRow.setCreatedBy(System.getProperty("user"));
 			transRow.setUpdatedBy(System.getProperty("user"));
@@ -486,7 +486,7 @@ public class BillBLAddBill {
 			 * 2- Kasa Muhasebe hareketi isle
 			 */
 			if(!bill.isIsOpen()){
-				transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),0,7,bill.getTurqEngineSequence().getEngineSequencesId(),"fatura "+DatePicker.formatter.format(bill.getBillsDate()) +" " + common.getBillDocumentNo());
+				transID=blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(),0,7,bill.getTurqEngineSequence().getEngineSequencesId(),billDefinition);
 			    
 			    
 			    
@@ -502,7 +502,7 @@ public class BillBLAddBill {
 				transRow.setDeptAmount(new BigDecimal(0));
 				
 //				 set Transaction Row Definition
-				transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+				transRow.setTransactionDefinition(billDefinition);
 				
 				transRow.setCreatedBy(System.getProperty("user"));
 				transRow.setUpdatedBy(System.getProperty("user"));
@@ -523,7 +523,7 @@ public class BillBLAddBill {
 					transRow.setDeptAmount(invTrans.getTransactionsCumilativePrice());
 					
 //					 set Transaction Row Definition
-					transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+					transRow.setTransactionDefinition(billDefinition);
 					
 					transRow.setCreatedBy(System.getProperty("user"));
 					transRow.setUpdatedBy(System.getProperty("user"));
