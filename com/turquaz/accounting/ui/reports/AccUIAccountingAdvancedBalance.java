@@ -17,11 +17,13 @@ package com.turquaz.accounting.ui.reports;
 /************************************************************************/
 
 /**
-* @author  Cem Dayan?k
+* @author  Cem Dayanik
 * @version  $Id$
 */
 
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,13 +72,16 @@ import org.eclipse.swt.widgets.TableColumn;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.widgets.Label;
 public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Composite implements SearchComposite {
 	private TableColumn tableColumnTotalCredit;
+	private Label lblEndDate;
+	private CLabel lblStartDate;
 	private TableTree tableTreeAccounts;
 	private Composite compTable;
 	private DatePicker datePickerEnd;
 	private DatePicker datePickerStart;
-	private Button checkDateRange;
 	private Button checkFinalAccounts;
 	private Button checkInitialAccounts;
 	private Button checkSubAccounts;
@@ -127,6 +132,8 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 		initGUI();
 	}
 
+	Calendar cal = Calendar.getInstance();
+	
 	private void initGUI() {
 		try {
 			GridLayout thisLayout = new GridLayout();
@@ -143,7 +150,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				compAdvancedLData1.horizontalSpan = 3;
 				compAdvanced.setLayoutData(compAdvancedLData1);
 				compAdvancedLayout.makeColumnsEqualWidth = true;
-				compAdvancedLayout.numColumns = 3;
+				compAdvancedLayout.numColumns = 4;
 				compAdvanced.setLayout(compAdvancedLayout);
 				{
 					checkSubAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
@@ -170,14 +177,21 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					checkFinalAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
 					checkFinalAccounts.setText(Messages
 						.getString("AccUIAccountingAdvancedBalance.2")); //$NON-NLS-1$
+						GridData checkFinalAccountsLData = new GridData();
+						checkFinalAccountsLData.horizontalSpan = 2;
+						checkFinalAccounts.setLayoutData(checkFinalAccountsLData);
 				}
 				{
-					checkDateRange = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
-					checkDateRange.setText(Messages
-						.getString("AccUIAccountingAdvancedBalance.3")); //$NON-NLS-1$
+					lblStartDate = new CLabel(compAdvanced, SWT.NONE);
+					lblStartDate.setText(Messages.getString("AccUIAccountingAdvancedBalance.3")); //$NON-NLS-1$
 				}
 				{
 					datePickerStart = new DatePicker(compAdvanced, SWT.NONE);
+					datePickerStart.setDate(new Date(cal.getTime().getYear(),0,1));
+				}
+				{
+					lblEndDate = new Label(compAdvanced, SWT.NONE);
+					lblEndDate.setText(Messages.getString("AccUIAccountingAdvancedBalance.4")); //$NON-NLS-1$
 				}
 				{
 					datePickerEnd = new DatePicker(compAdvanced, SWT.NONE);
@@ -256,8 +270,8 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 
 			List allAccounts = blSearch.getTransactions(checkInitialAccounts.getSelection(),
 				checkFinalAccounts.getSelection(),
-				checkDateRange.getSelection() ? datePickerStart.getDate() : null,
-				checkDateRange.getSelection() ? datePickerEnd.getDate() : null);
+				 datePickerStart.getDate() ,
+				 datePickerEnd.getDate() );
 	
 			TurqAccountingAccount account;
 
@@ -364,7 +378,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 	}
 	
 	public void printTable(){
-	    EngBLUtils.printTable(tableTreeAccounts.getTable(),"Mizan");
+	    EngBLUtils.printTable(tableTreeAccounts.getTable(),Messages.getString("AccUIAccountingAdvancedBalance.9")); //$NON-NLS-1$
 	    
 	}
 	public void exportToExcel(){
