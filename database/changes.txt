@@ -445,6 +445,29 @@ ALTER TABLE turq_current_transactions
    
    
    
+**********************view changes******************
+***********************25-02-2005******************
+
+--turq_view_acc_trans_total_amount updated--
+****credit_amount -> rows_credit_in_base_currency***
+****dept_amount -> rows_dept_in_base_currency***
+drop view turq_view_acc_trans_total_amount;
+
+CREATE OR REPLACE VIEW public.turq_view_acc_trans_total_amount AS 
+ SELECT trans.accounting_transactions_id, tabletranscolumns.totalcreditamount, tabletranscolumns.totaldeptamount
+   FROM turq_accounting_transactions trans
+   LEFT JOIN ( SELECT transcolumns.accounting_transactions_id, sum(transcolumns.rows_credit_in_base_currency) AS totalcreditamount, sum(transcolumns.rows_dept_in_base_currency) AS totaldeptamount
+                FROM turq_accounting_transaction_columns transcolumns
+               GROUP BY transcolumns.accounting_transactions_id) tabletranscolumns ON tabletranscolumns.accounting_transactions_id = trans.accounting_transactions_id;
+---new view created----
+              
+CREATE OR REPLACE VIEW public.turq_view_acc_totals AS 
+ SELECT account.accounting_accounts_id, tabletranscolumns.totalcreditamount, tabletranscolumns.totaldeptamount
+   FROM turq_accounting_accounts account
+   LEFT JOIN ( SELECT transcolumns.accounting_accounts_id, sum(transcolumns.rows_credit_in_base_currency) AS totalcreditamount, sum(transcolumns.rows_dept_in_base_currency) AS totaldeptamount
+                FROM turq_accounting_transaction_columns transcolumns
+               GROUP BY transcolumns.accounting_accounts_id) tabletranscolumns ON tabletranscolumns.accounting_accounts_id = account.accounting_accounts_id
+  ORDER BY account.accounting_accounts_id;
 
 
 

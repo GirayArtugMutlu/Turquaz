@@ -399,7 +399,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				parentId = account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId();
 				accountId=account.getAccountingAccountsId();
 				LocateAccountToTable(account);
-
+	
 				TableTreeItem accountItem=(TableTreeItem)treeItems.get(accountId);
 				BigDecimal dept=cf.getBigDecimal(accountItem.getText(2));
 				BigDecimal credit=cf.getBigDecimal(accountItem.getText(3));
@@ -430,21 +430,31 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					credit=credit.add(transCredit);
 					accountItem.setText(2,cf.format(dept));
 					accountItem.setText(3,cf.format(credit));
+					BigDecimal newremaining;
+					
+					if (!useMainAccountsRemain)
+					{
+						String remain=accountItem.getText(4);
+						BigDecimal initRemain;
 					
 					
-					String remain=accountItem.getText(4);
-					BigDecimal initRemain;
+						if (remain!=null && !remain.equals("")) //$NON-NLS-1$
+							initRemain=cf.getBigDecimal(remain).negate();
+						else
+							initRemain=cf.getBigDecimal(accountItem.getText(5));
+						newremaining=remaining.add(initRemain);
 					
 					
-					if (remain!=null && !remain.equals("")) //$NON-NLS-1$
-						initRemain=cf.getBigDecimal(remain).negate();
+						accountItem.setText(4,(newremaining.doubleValue() <= 0)? cf.format(newremaining.abs()):""); //$NON-NLS-1$
+						accountItem.setText(5,(newremaining.doubleValue() > 0)? cf.format(newremaining):""); //$NON-NLS-1$
+						
+					}
 					else
-						initRemain=cf.getBigDecimal(accountItem.getText(5));
-					BigDecimal newremaining=remaining.add(initRemain);
-					
-					
-					accountItem.setText(4,(newremaining.doubleValue() <= 0)? cf.format(newremaining.abs()):""); //$NON-NLS-1$
-					accountItem.setText(5,(newremaining.doubleValue() > 0)? cf.format(newremaining):""); //$NON-NLS-1$
+					{
+						newremaining=credit.subtract(dept);
+						accountItem.setText(4,(newremaining.doubleValue() <= 0)? cf.format(newremaining.abs()):""); //$NON-NLS-1$
+						accountItem.setText(5,(newremaining.doubleValue() > 0)? cf.format(newremaining):""); //$NON-NLS-1$
+					}
 					parentAcc=parentAcc.getTurqAccountingAccountByParentAccount();
 					parentId=parentAcc.getAccountingAccountsId();
 				}

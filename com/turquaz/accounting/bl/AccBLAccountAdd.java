@@ -71,6 +71,18 @@ public class AccBLAccountAdd {
 		}
 		
 	}
+	
+	public static List getAllAccountsWithSum()throws Exception{
+		try{
+			
+			return AccDALAccountAdd.getAllAccountsWithSum();
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
 	public static List getAccountsForAccountPickers()throws Exception{
 		try{
 			

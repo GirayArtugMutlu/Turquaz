@@ -146,7 +146,7 @@ public class AccDALAccountUpdate {
 		try{
 			Session session = EngDALSessionFactory.openSession();
 	
-	        String query = "select sum(transaction.deptAmount), sum(transaction.creditAmount) from TurqAccountingTransactionColumn as transaction " +
+	        String query = "select sum(transaction.rowsDeptInBaseCurrency), sum(transaction.rowsCreditInBaseCurrency) from TurqAccountingTransactionColumn as transaction " +
 	        		"where transaction.turqAccountingAccount= :account" ;
 			
 	        Query q = session.createQuery(query); 

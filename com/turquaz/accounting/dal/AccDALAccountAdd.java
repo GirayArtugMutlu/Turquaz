@@ -129,6 +129,43 @@ public class AccDALAccountAdd {
 		}
 		
 	}
+	
+	
+	public static List getAllAccountsWithSum()throws Exception{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+	
+			String query = "Select account, sum( transCol.rowsDeptInBaseCurrency )," +
+					" sum (transCol.rowsCreditInBaseCurrency) from TurqAccountingAccount as account," +
+					" TurqAccountingTransactionColumn transCol" +
+					" left join transCol" +
+					" where transCol.turqAccountingAccount.accountingAccountsId=account.accountingAccountsId" +
+					" group by account.accountingAccountsId," +
+					" account.accountName, account.accountCode, account.createdBy," +
+					" account.updatedBy, account.creationDate, account.updateDate," +
+					" account.turqAccountingAccountClass, account.turqAccountingAccountType," +
+					" account.turqAccountingAccountByTopAccount ";
+					
+					// was removing accounting plan	
+					//	" and accounts.accountingAccountsId <> -1" +
+						//	" order by account.accountingAccountsId";   
+
+			Query q = session.createQuery(query); 
+			List list = q.list();
+
+			session.close();
+			return list;
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
+	
+	
+	
 	public static List getAccountsForAccountPickers()throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
