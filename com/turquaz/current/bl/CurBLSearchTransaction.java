@@ -62,7 +62,19 @@ public class CurBLSearchTransaction {
 			throw ex;
 		}
 		
-		
+	}
+	
+	public static TurqCurrentTransaction getCurTransByTransId(Integer transId)
+	throws Exception
+	{
+		try
+		{
+			return CurDALSearchTransaction.getCurTransByTransId(transId);
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
 	}
 	
 	public List getCurrentTransactions(TurqCurrentCard card, Date startDate, Date endDate)throws Exception {

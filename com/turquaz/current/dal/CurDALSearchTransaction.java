@@ -31,7 +31,9 @@ import net.sf.hibernate.Session;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
+import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 
 /**
@@ -58,7 +60,13 @@ public class CurDALSearchTransaction {
 		try{
 			Session session = EngDALSessionFactory.openSession();
 			
-			String query = "Select transaction from TurqCurrentTransaction as transaction where" +
+			String query = "Select transaction.currentTransactionsId," +
+			" transaction.transactionsDate," +
+			" transaction.transactionsDocumentNo," +
+			" curCard.cardsCurrentCode, curCard.cardsName, transType.transactionTypeName," +
+			" transaction.transactionsDefinition, transaction.transactionsTotalDept," +
+			" transaction.transactionsTotalCredit from TurqCurrentTransaction as transaction," +
+			" transaction.turqCurrentCard as curCard,transaction.turqCurrentTransactionType as transType where" +
 			" transaction.transactionsDocumentNo like '"+docNo+"%'" +
 			" and transaction.transactionsDefinition like '"+definition.toUpperCase(Locale.getDefault())+"%'"+
 			" and transaction.transactionsDate >= :startDate " +
@@ -97,6 +105,26 @@ public class CurDALSearchTransaction {
 		}
 		
 		
+	}
+	
+	public static TurqCurrentTransaction getCurTransByTransId(Integer transId)
+	throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "Select transaction from TurqCurrentTransaction as transaction" +
+					" where transaction.currentTransactionsId="+transId;
+			
+			Query q = session.createQuery(query);
+	
+			List list=q.list();
+			return (TurqCurrentTransaction)list.get(0);
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
 	}
 	
 	public List getCurrentTransactions(TurqCurrentCard curCard, Date startDate, Date endDate)throws Exception{

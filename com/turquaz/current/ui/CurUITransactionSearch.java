@@ -21,6 +21,7 @@ package com.turquaz.current.ui;
 */
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -340,79 +341,115 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	
 	
 	}
-	public void search(){
-	try{
-	tableCurrentTransactions.removeAll();
-	BigDecimal totalDept = new BigDecimal(0);
-	BigDecimal totalCredit = new BigDecimal(0);
+	public void search()
+	{
+		try
+		{
+			tableCurrentTransactions.removeAll();
+			BigDecimal totalDept = new BigDecimal(0);
+			BigDecimal totalCredit = new BigDecimal(0);
 	
-	List results =blSearch.searchCurrentTransaction(txtCurCard.getData(),
+			List results =blSearch.searchCurrentTransaction(txtCurCard.getData(),
 									 comboTransactionGroup.getData(comboTransactionGroup.getText()),
 									 "",txtDefinition.getText().trim(),dateStartDate.getDate(),dateEndDate.getDate()); //$NON-NLS-1$
 	
-	TurqCurrentTransaction transaction;
-	TableItem item;
-	TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
-	for(int i=0;i<results.size();i++){
+			Object[] transaction;
+			TableItem item;
+			TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
+			for(int i=0;i<results.size();i++)
+			{
 	
-	transaction = (TurqCurrentTransaction)results.get(i);
-	item = new TableItem(tableCurrentTransactions,SWT.NULL);
-	item.setData(transaction);
-	item.setText(new String[]{
-								DatePicker.formatter.format(transaction.getTransactionsDate()),
-								transaction.getTransactionsDocumentNo().toString(),
-								transaction.getTurqCurrentCard().getCardsCurrentCode(),
-								transaction.getTurqCurrentCard().getCardsName(),
-							  transaction.getTurqCurrentTransactionType().getTransactionTypeName(),
-							  transaction.getTransactionsDefinition(),
-							  cf.format(transaction.getTransactionsTotalDept()),
-							  cf.format(transaction.getTransactionsTotalCredit())
+				transaction = (Object[])results.get(i);
+				item = new TableItem(tableCurrentTransactions,SWT.NULL);
+	
+	
+				Integer transId=(Integer)transaction[0];
+				Date transDate=(Date)transaction[1];
+				String transDocNo=(String)transaction[2];
+				String curCardCode=(String) transaction[3];
+				String curCardName=(String) transaction[4];
+				String transTypeName=(String) transaction[5];
+				String transDefinition=(String)transaction[6];
+				BigDecimal transTotalDept=(BigDecimal)transaction[7];
+				BigDecimal transTotalCredit=(BigDecimal)transaction[8];
+	
+				item.setData(transId);
+	
+	
+				item.setText(new String[]{
+								DatePicker.formatter.format(transDate),
+								transDocNo,
+								curCardCode,
+								curCardName,
+							    transTypeName,
+								transDefinition,
+								cf.format(transTotalDept),
+								cf.format(transTotalCredit)
 								});
-	totalDept = totalDept.add(transaction.getTransactionsTotalDept());
-	totalCredit = totalCredit.add(transaction.getTransactionsTotalCredit());
+				totalDept = totalDept.add(transTotalDept);
+				totalCredit = totalCredit.add(transTotalCredit);
+	
+			}
+			item = new TableItem(tableCurrentTransactions,SWT.NULL);
+			item = new TableItem(tableCurrentTransactions,SWT.NULL);
+			item.setText(new String[]{"","","","","","---TOPLAM---",cf.format(totalDept),cf.format(totalCredit)});	
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}	
 	
 	}
-	item = new TableItem(tableCurrentTransactions,SWT.NULL);
-	item = new TableItem(tableCurrentTransactions,SWT.NULL);
-	item.setText(new String[]{"","","","","","---TOPLAM---",cf.format(totalDept),cf.format(totalCredit)});
 	
 	
-     	
-	}
-	catch(Exception ex){
-	ex.printStackTrace();
-	}
-	
-	
+	public void delete()
+	{
 	
 	}
-	public void delete(){
 	
-	}
-	public void newForm(){
+	
+	public void newForm()
+	{
 	
 	}
 
 	/** Auto-generated event handler method */
-	protected void tableCurrentTransactionsMouseDoubleClick(MouseEvent evt){
-		TableItem items[] = tableCurrentTransactions.getSelection();
-		if(items.length >0){
-		if(items[0].getData()!=null)
+	protected void tableCurrentTransactionsMouseDoubleClick(MouseEvent evt)
+	{
+		try
 		{
-		TurqCurrentTransaction trans = (TurqCurrentTransaction)items[0].getData();
-			//nakit hareketi ise izin ver
-		if(trans.getTurqCurrentTransactionType().getCurrentTransactionTypesId().intValue()==EngBLCommon.CURRENT_TRANS_OTHERS){
-			boolean updated=new CurUIVoucherUpdate(this.getShell(),SWT.NULL,trans).open();
-			if (updated)
-				search();
+			
+			TableItem items[] = tableCurrentTransactions.getSelection();
+			if(items.length >0)
+			{
+				Integer transId=(Integer)items[0].getData();
+				if (transId!=null)
+				{
+					TurqCurrentTransaction trans = CurBLSearchTransaction.getCurTransByTransId(transId);
+					//nakit hareketi ise izin ver
+					if(trans.getTurqCurrentTransactionType().getCurrentTransactionTypesId().intValue()==EngBLCommon.CURRENT_TRANS_OTHERS)
+					{
+						boolean updated=new CurUIVoucherUpdate(this.getShell(),SWT.NULL,trans).open();
+						if (updated)
+							search();
 	
+					}
+					else
+					{
+						MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+						msg.setMessage(Messages.getString("CurUITransactionSearch.11"));  //$NON-NLS-1$
+						msg.open();
+					}
+				}
+			}
+			
 		}
-		else{
-			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-			msg.setMessage(Messages.getString("CurUITransactionSearch.11"));  //$NON-NLS-1$
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+			msg.setMessage(ex.getMessage());
 			msg.open();
-		}
-		}
 		}
 	}
 	public void exportToExcel(){
