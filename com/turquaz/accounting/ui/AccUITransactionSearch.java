@@ -379,7 +379,8 @@ public class AccUITransactionSearch extends SecureComposite {
     search();
     }
     else if(type==0) {
-    
+    	new AccUITransactionCollectUpdateDialog(this.getShell(),SWT.NULL,accTrans).open();
+        search();
     
     }
     

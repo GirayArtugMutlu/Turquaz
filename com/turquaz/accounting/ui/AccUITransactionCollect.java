@@ -503,4 +503,28 @@ public class AccUITransactionCollect extends SecureComposite {
 		}
    	
 	}
+	/**
+	 * @return Returns the comboDeptor.
+	 */
+	public CCombo getComboDeptor() {
+		return comboDeptor;
+	}
+	/**
+	 * @return Returns the datePickerTransactionDate.
+	 */
+	public DatePicker getDatePickerTransactionDate() {
+		return datePickerTransactionDate;
+	}
+	/**
+	 * @return Returns the tableTransactionRows.
+	 */
+	public Table getTableTransactionRows() {
+		return tableTransactionRows;
+	}
+	/**
+	 * @return Returns the txtDocumentNo.
+	 */
+	public Text getTxtDocumentNo() {
+		return txtDocumentNo;
+	}
 }

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Form style="SWT" ide="eclipse" builder="jigloo" version="2.7.2">
 <NonVisualComponents>
-		<Component class="java.lang.Object" name="object1" style="0">
+		<Component class="java.lang.Object" name="Non-visual components" style="0">
 			<Constraints>
 				<LayoutConstraint/>
 			</Constraints>
-			<Properties>
-			</Properties>
 		</Component></NonVisualComponents>
-	<Component class="org.eclipse.swt.widgets.Dialog" name="AccUITransactionPaymentUpdateDialog" style="0">
+	<Component class="org.eclipse.swt.widgets.Dialog" name="AccUITransactionCollectUpdateDialog" style="0">
 		<Constraints>
 			<LayoutConstraint/>
 		</Constraints>
@@ -22,13 +20,12 @@
 		</Layout>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[611, 406]"/>
+				<Dimension value="[574, 434]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
 			<Component class="org.eclipse.swt.widgets.CoolBar" name="coolBar1" style="0">
 				<Constraints>
-					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
@@ -44,9 +41,6 @@
 				<Events>
 				</Events>
 				<Properties>
-					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 5, 601, 38]"/>
-					</Property>
 				</Properties>
 				<SubComponents>
 					<Component class="org.eclipse.swt.widgets.CoolItem" name="coolItem1" style="0">
@@ -56,9 +50,6 @@
 						<Events>
 						</Events>
 						<Properties>
-							<Property name="size" type="Dimension">
-								<Dimension value="[88, 38]"/>
-							</Property>
 							<Property name="preferredSize" type="Dimension">
 								<Dimension value="[88, 38]"/>
 							</Property>
@@ -110,9 +101,8 @@
 					</Component>
 				</SubComponents>
 			</Component>
-			<Component class="com.turquaz.accounting.ui.AccUITransactionPayment" name="compTransactionPayment" style="0">
+			<Component class="com.turquaz.accounting.ui.AccUITransactionCollect" name="compTransactionCollect" style="0">
 				<Constraints>
-					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
@@ -128,12 +118,6 @@
 				<Events>
 				</Events>
 				<Properties>
-					<Property name="size" type="Dimension">
-						<Dimension value="[601, 353]"/>
-					</Property>
-					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 48, 601, 353]"/>
-					</Property>
 				</Properties>
 			</Component>
 		</SubComponents>

@@ -120,6 +120,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 			compTransactionPaymentLData.grabExcessHorizontalSpace = true;
 			compTransactionPaymentLData.grabExcessVerticalSpace = true;
 			compTransactionPayment.setLayoutData(compTransactionPaymentLData);
+			compTransactionPayment.setSize(new org.eclipse.swt.graphics.Point(601,353));
 			compTransactionPayment.layout();
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
@@ -149,7 +150,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 			e.printStackTrace();
 		}
 	}
-	/** Add your pre-init code in here 	*/
+/** Add your pre-init code in here 	*/
 	public void preInitGUI(){
 	}
 
@@ -193,12 +194,13 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 		
 		try{
-		 
+		 if(compTransactionPayment.verifyFields()){
 		 blTransUpdate.updateTransaction(accTrans,compTransactionPayment.getTxtDocumentNo().getText().trim(),
 										compTransactionPayment.getDatePickerTransactionDate().getData());
 		 updateTransactionRows();
 		 msg.setMessage("Succesfully Updated");
 		 msg.open();
+		 }
 			
 		}
 		catch(Exception ex){
@@ -213,11 +215,11 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	 public void updateTransactionRows()throws Exception {
 	    try{
 	   
-	    if(compTransactionPayment.verifyFields()){
+	    
 	     deleteTransactionRows();
 	     
 	     compTransactionPayment.saveTransactionRows(accTrans.getAccountingTransactionsId());
-	     }
+	     
 	     }
 	     catch(Exception ex){
 	        throw ex;
