@@ -83,13 +83,14 @@ public class ConDALSearchConsignment {
 				" and consignment.consignmentsDate >= :startDate" + //$NON-NLS-1$
 				" and consignment.consignmentsDate <= :endDate" + //$NON-NLS-1$
 				" and consignment.consignmentsType ="+type + //$NON-NLS-1$
-				" and consignment.consignmentsId <> -1 "+ //$NON-NLS-1$
-				" and consignment.turqBillConsignmentCommon.turqBills.size=0"; //$NON-NLS-1$
+				" and consignment.consignmentsId <> -1 "; //$NON-NLS-1$
+				
 		
 		
 		if (curCard!=null){
 			query +=" and consignment.turqBillConsignmentCommon.turqCurrentCard = :curCard"; //$NON-NLS-1$
 		}
+		query += " and consignment.turqBillConsignmentCommon.turqBills.size=0"; //$NON-NLS-1$
 		query += " order by consignment.consignmentsDate"; //$NON-NLS-1$
 		
 		Query q = session.createQuery(query); 	

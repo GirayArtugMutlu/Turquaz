@@ -707,7 +707,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                         }
                         {
                             toolPrint = new ToolItem(toolbarMainTop, SWT.NONE);
-                            toolPrint.setText("&Yazd?r");
+                            toolPrint.setText(Messages.getString("EngUIMainFrame.19")); //$NON-NLS-1$
+                            toolPrint.setImage(SWTResourceManager.getImage("icons/Print16.gif"));
                             toolPrint
                                 .addSelectionListener(new SelectionAdapter() {
                                 public void widgetSelected(SelectionEvent evt) {
@@ -935,6 +936,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 {
                     mitExit = new MenuItem(menuFile, SWT.PUSH);
                     mitExit.setText(Messages.getString("EngUIMainFrame.36")); //$NON-NLS-1$
+                    mitExit.setImage(SWTResourceManager.getImage("icons/Exit16.gif"));
                     mitExit.addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
                         System.exit(-1);   
