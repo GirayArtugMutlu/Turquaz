@@ -137,6 +137,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private CCombo comboModuleSelection;
 	private CLabel lblModuleSelection;
 	private Composite compModuleSelection;
+	private Tree treeBill;
 	private static ToolItem toolExportToExcel;
 	private Tree treeConsignment;
 	private Composite compModulesTab;
@@ -197,6 +198,17 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				treeConsignment.addMouseListener(new MouseAdapter() {
 					public void mouseDoubleClick(MouseEvent evt) {
 						 treeConsignmentMouseDoubleClick();
+					}
+				});
+			}
+			{
+				treeBill = new Tree(compModulesTree, SWT.NONE);
+				treeBill.addMouseListener(new MouseAdapter() {
+					public void mouseDoubleClick(MouseEvent evt) {
+						TreeItem item = treeBill.getSelection()[0];
+						if(item.getItemCount()==0){
+							openNewTab(item);
+						}
 					}
 				});
 			}
@@ -335,20 +347,16 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 					233,
 					216));
 				GridData comboModuleSelectionLData = new GridData();
+				comboModuleSelection
+					.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						comboModuleSelectionWidgetSelected(evt);
+					}
+					});
 				comboModuleSelectionLData.widthHint = 70;
 				comboModuleSelectionLData.heightHint = 20;
 				comboModuleSelection.setLayoutData(comboModuleSelectionLData);
-				comboModuleSelection
-					.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
-							comboModuleSelectionWidgetSelected(evt);
-						}
-					});
-				comboModuleSelection.addDisposeListener(new DisposeListener() {
-					public void widgetDisposed(DisposeEvent evt) {
-						comboModuleSelectionWidgetDisposed(evt);
-					}
-				});
+				
 			}
 			compModuleSelection.layout();
 	
@@ -828,7 +836,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		comboModuleSelection.add(Messages.getString("EngUIMainFrame.34")); //$NON-NLS-1$
 		comboModuleSelection.add(Messages.getString("EngUIMainFrame.35")); //$NON-NLS-1$
 		comboModuleSelection.add(Messages.getString("EngUIMainFrame.1")); //$NON-NLS-1$
-			
+		comboModuleSelection.add(Messages.getString("EngUIMainFrame.4"));	 //$NON-NLS-1$
 		tabfldMain.setTabHeight(25);
 		tabfldMain.setSelectionBackground(new Color[]{Display.getDefault().getSystemColor(SWT.COLOR_WHITE)},
 														   new int[]{});
@@ -846,6 +854,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		treeCurrent = TreeFactory.createCurrentTree(treeCurrent);
 		treeAdmin =TreeFactory.createAdminTree(treeAdmin);		
 		treeConsignment = TreeFactory.createConsignmetTree(treeConsignment);
+		treeBill = TreeFactory.createBillTree(treeBill);
 		fillFavoritesTree();
 				
 		
@@ -914,8 +923,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			EngUIMainFrame inst = new EngUIMainFrame(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
 			Rectangle shellBounds = shell.computeTrim(0,0,800,580);
-			shell.setImage(SWTResourceManager.getImage("icons/turquaz_paw.gif"));
-			shell.setText("Turquaz");
+			shell.setImage(SWTResourceManager.getImage("icons/turquaz_paw.gif")); //$NON-NLS-1$
+			shell.setText("Turquaz"); //$NON-NLS-1$
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.addListener(SWT.Close, new Listener() {
 		public void handleEvent(Event e) {
@@ -963,6 +972,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			   }
 			   else if(text.equals(Messages.getString("EngUIMainFrame.1"))){ //$NON-NLS-1$
 			 	compo4layout.topControl = treeConsignment;
+			   }
+			   else if(text.equals(Messages.getString("EngUIMainFrame.4"))){ //$NON-NLS-1$
+			 	compo4layout.topControl = treeBill;
 			   }
 			   
 			   compModulesTree.layout();
@@ -1076,10 +1088,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		arrangeIcons();
 	}
 
-	/** Auto-generated event handler method */
-	protected void comboModuleSelectionWidgetDisposed(DisposeEvent evt){
-		//TODO add your handler code here
-	}
+	
 
 	/** Auto-generated event handler method */
 	protected void treeInventoryMouseDoubleClick(MouseEvent evt){
@@ -1214,15 +1223,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
           
           TreeItem items[] = treeFavorites.getItems();
           
-          Element root = new Element("tree");        
+          Element root = new Element("tree");         //$NON-NLS-1$
          
       
          Element treeItem;
           for(int i=0;i<items.length;i++){
          
-          	treeItem = new Element("treeitem");
-          	treeItem.setAttribute("text",items[i].getText());
-          	treeItem.setAttribute("class",items[i].getData().toString());
+          	treeItem = new Element("treeitem"); //$NON-NLS-1$
+          	treeItem.setAttribute("text",items[i].getText()); //$NON-NLS-1$
+          	treeItem.setAttribute("class",items[i].getData().toString()); //$NON-NLS-1$
             root.addContent(treeItem);            
           
           }

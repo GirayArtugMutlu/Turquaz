@@ -43,6 +43,7 @@ import com.turquaz.admin.ui.AdmUIUserPermissions;
 import com.turquaz.admin.ui.AdmUIUsers;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
 import com.turquaz.bank.ui.BankUIBankCardSearch;
+import com.turquaz.bill.ui.BillUIBillFromConsignment;
 import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
@@ -78,7 +79,7 @@ public final class TreeFactory {
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.5"));  //$NON-NLS-1$
 		item.setData(InvUIWarehouseSearch.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Inventory Transactions");  //$NON-NLS-1$
+		item.setText(Messages.getString("TreeFactory.35"));  //$NON-NLS-1$
 		item.setData(InvUITransactionSearch.class.getName());
 	
 		return tree;
@@ -182,6 +183,16 @@ public final class TreeFactory {
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(Messages.getString("TreeFactory.34")); //$NON-NLS-1$
 		item.setData(ConUIConsignmentSearch.class.getName());
+		return tree;
+		
+	}
+	public static Tree createBillTree(Tree tree){
+		TreeItem root = new TreeItem(tree,SWT.NULL);
+		root.setText(Messages.getString("TreeFactory.36")); //$NON-NLS-1$
+		TreeItem item = new TreeItem(root,SWT.NULL);
+		item.setText(Messages.getString("TreeFactory.37")); //$NON-NLS-1$
+		item.setData(BillUIBillFromConsignment.class.getName());
+		
 		return tree;
 		
 	}

@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
+import com.turquaz.consignment.ui.ConUIConsignmentSearchDialog;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
@@ -335,6 +336,12 @@ implements SecureComposite{
 									compInfoPanel,
 									SWT.NONE);
 								GridData txtConsignmentLData = new GridData();
+								txtConsignment
+									.addMouseListener(new MouseAdapter() {
+									public void mouseUp(MouseEvent evt) {
+										chooseConsignmentMouseUp();
+									}
+									});
 								txtConsignment
 									.setText("Please Choose Consignmet ");
 								txtConsignmentLData.widthHint = 200;
@@ -967,6 +974,164 @@ implements SecureComposite{
 	txtTotalVat.setText(totalVAT.toString());
 	decSpecialVat.setText(totalSpecVAT.toString());
 	txtTotalAmount.setText(generalTotal.subtract(discountTotal).toString());	
+		
+		
+	}
+	public void chooseConsignmentMouseUp(){
+	TurqConsignment cons = new ConUIConsignmentSearchDialog(this.getShell(),SWT.NULL).open();
+	
+	txtCurrentCard.setText(cons.getTurqCurrentCard().getCardsCurrentCode()+" - "+cons.getTurqCurrentCard().getCardsName());
+	txtCurrentCard.setData(cons.getTurqCurrentCard());
+	txtDocumentNo.setText(cons.getConsignmentsBillDocumentNo());
+	
+	String type = "Buy";
+	
+	if(cons.getConsignmentsType()==1){
+		type="Sell";
+	}
+	comboConsignmentType.setText(type);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		
 		
 	}
