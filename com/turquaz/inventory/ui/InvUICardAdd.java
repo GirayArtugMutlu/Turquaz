@@ -118,7 +118,7 @@ public class InvUICardAdd extends SecureComposite {
 	private CCombo comboInvCardUnits;
 	private CLabel lblInvCardUnit;
 	private Composite compInvCardUnit;
-	private DecimalText txtInvCardDiscount;
+	private NumericText txtInvCardDiscount;
 	private CLabel lblInvCardDiscount;
 	private NumericText txtInvCardVat;
 	private CLabel lblInvCardVat;
@@ -183,7 +183,7 @@ public class InvUICardAdd extends SecureComposite {
 			lblInvCardVat = new CLabel(compInvCardDetails,SWT.RIGHT);
 			txtInvCardVat = new NumericText(compInvCardDetails,SWT.NULL);
 			lblInvCardDiscount = new CLabel(compInvCardDetails,SWT.RIGHT);
-			txtInvCardDiscount = new DecimalText(compInvCardDetails,SWT.NULL);
+			txtInvCardDiscount = new NumericText(compInvCardDetails,SWT.NULL);
 			btnInvCardDetPre = new Button(compInvCardDetails,SWT.PUSH| SWT.CENTER);
 			btnInvCardNext = new Button(compInvCardDetails,SWT.PUSH| SWT.CENTER);
 			tabInvCardUnits = new CTabItem(tabfldInvCardAdd,SWT.NULL);
@@ -1233,9 +1233,15 @@ public class InvUICardAdd extends SecureComposite {
 		
 		
 	}
+	public boolean verifyFields(){
+		
+		return true;
+	}
 	
 	public void save(){
-	System.out.println(comboInvCardUnits.getSelectionIndex());
+		if(verifyFields()){
+			
+		}
 		
 	}
 	public void delete(){

@@ -31,6 +31,7 @@
         type="java.lang.String"
         column="card_inventory_code"
         not-null="true"
+        unique="true"
         length="25"
     />
     <property
@@ -120,22 +121,6 @@
         not-null="true"
     >
         <column name="companies_id" />
-    </many-to-one>
-    <!-- bi-directional many-to-one association to TurqInventoryGroup -->
-    <many-to-one
-        name="turqInventoryGroup"
-        class="com.turquaz.engine.dal.TurqInventoryGroup"
-        not-null="true"
-    >
-        <column name="inventory_groups_id" />
-    </many-to-one>
-    <!-- bi-directional many-to-one association to TurqInventoryUnit -->
-    <many-to-one
-        name="turqInventoryUnit"
-        class="com.turquaz.engine.dal.TurqInventoryUnit"
-        not-null="true"
-    >
-        <column name="inventory_units_id" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one

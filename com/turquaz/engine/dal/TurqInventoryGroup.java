@@ -1,7 +1,6 @@
 package com.turquaz.engine.dal;
 
 import java.io.Serializable;
-import java.util.Set;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -30,18 +29,14 @@ public class TurqInventoryGroup implements Serializable {
     /** persistent field */
     private com.turquaz.engine.dal.TurqCompany turqCompany;
 
-    /** persistent field */
-    private Set turqInventoryCards;
-
     /** full constructor */
-    public TurqInventoryGroup(java.lang.String groupsName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryCards) {
+    public TurqInventoryGroup(java.lang.String groupsName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany) {
         this.groupsName = groupsName;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
         this.turqCompany = turqCompany;
-        this.turqInventoryCards = turqInventoryCards;
     }
 
     /** default constructor */
@@ -102,14 +97,6 @@ public class TurqInventoryGroup implements Serializable {
 
     public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
         this.turqCompany = turqCompany;
-    }
-
-    public java.util.Set getTurqInventoryCards() {
-        return this.turqInventoryCards;
-    }
-
-    public void setTurqInventoryCards(java.util.Set turqInventoryCards) {
-        this.turqInventoryCards = turqInventoryCards;
     }
 
     public String toString() {

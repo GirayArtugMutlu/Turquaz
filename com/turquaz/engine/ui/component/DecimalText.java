@@ -48,10 +48,12 @@ import org.eclipse.swt.widgets.Text;
 
 public class DecimalText extends Composite {
  private Text text;
+ public int textLimit;
 
  public DecimalText(Composite arg0, int arg1) {
   super(arg0, SWT.NONE);
   text = new Text(this, arg1);
+  textLimit =20;
   text.setTextLimit(20);
 
   addListener(SWT.Resize, new Listener() {
@@ -72,6 +74,13 @@ public class DecimalText extends Composite {
 	}
 });
 
+ }
+ public void setTextLimit(int a){
+ 	textLimit = a;
+ 	text.setTextLimit(a);
+ }
+ public int getTextLimit(){
+ 	return textLimit;
  }
  protected void text3VerifyText(VerifyEvent e){
  	char decimalSymbol =',';

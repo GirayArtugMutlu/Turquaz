@@ -38,7 +38,6 @@ public class InvDALCardAdd {
 	public InvDALCardAdd()
 	{
 			
-		
 	}
 	
 	public List getInventoryGroups()throws Exception{

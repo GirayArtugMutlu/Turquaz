@@ -72,20 +72,6 @@
     >
         <column name="companies_id" />
     </many-to-one>
-    <!-- bi-directional one-to-many association to TurqInventoryCard -->
-    <set
-        name="turqInventoryCards"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="inventory_groups_id" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqInventoryCard"
-        />
-    </set>
 
 </class>
 </hibernate-mapping>

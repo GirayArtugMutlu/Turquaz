@@ -18,5 +18,6 @@
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/odmg.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/pg74.214.jdbc2.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.swt.win32_3.0.0/ws/win32/swt.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.jface.text_3.0.0/jfacetext.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

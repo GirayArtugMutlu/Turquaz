@@ -16,6 +16,7 @@ package com.turquaz.inventory.ui;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
+import org.eclipse.jface.contentassist.ComboContentAssistSubjectAdapter;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;
@@ -76,6 +77,17 @@ public class InvUITransWarehouse extends org.eclipse.swt.widgets.Composite {
 			this.setSize(new org.eclipse.swt.graphics.Point(329,223));
 	
 	
+			GridData lblInvTransWhCardLData = new GridData();
+			lblInvTransWhCardLData.verticalAlignment = GridData.CENTER;
+			lblInvTransWhCardLData.horizontalAlignment = GridData.BEGINNING;
+			lblInvTransWhCardLData.widthHint = -1;
+			lblInvTransWhCardLData.heightHint = -1;
+			lblInvTransWhCardLData.horizontalIndent = 0;
+			lblInvTransWhCardLData.horizontalSpan = 1;
+			lblInvTransWhCardLData.verticalSpan = 1;
+			lblInvTransWhCardLData.grabExcessHorizontalSpace = false;
+			lblInvTransWhCardLData.grabExcessVerticalSpace = false;
+			lblInvTransWhCard.setLayoutData(lblInvTransWhCardLData);
 			lblInvTransWhCard.setText("Inventory Card");
 	
 			GridData comboInvTransWhCardLData = new GridData();
@@ -90,6 +102,17 @@ public class InvUITransWarehouse extends org.eclipse.swt.widgets.Composite {
 			comboInvTransWhCardLData.grabExcessVerticalSpace = false;
 			comboInvTransWhCard.setLayoutData(comboInvTransWhCardLData);
 	
+			GridData lblInvTransWhFromLData = new GridData();
+			lblInvTransWhFromLData.verticalAlignment = GridData.CENTER;
+			lblInvTransWhFromLData.horizontalAlignment = GridData.BEGINNING;
+			lblInvTransWhFromLData.widthHint = -1;
+			lblInvTransWhFromLData.heightHint = -1;
+			lblInvTransWhFromLData.horizontalIndent = 0;
+			lblInvTransWhFromLData.horizontalSpan = 1;
+			lblInvTransWhFromLData.verticalSpan = 1;
+			lblInvTransWhFromLData.grabExcessHorizontalSpace = false;
+			lblInvTransWhFromLData.grabExcessVerticalSpace = false;
+			lblInvTransWhFrom.setLayoutData(lblInvTransWhFromLData);
 			lblInvTransWhFrom.setText("From:");
 	
 			GridData comboInvTransWhFromLData = new GridData();
@@ -104,6 +127,17 @@ public class InvUITransWarehouse extends org.eclipse.swt.widgets.Composite {
 			comboInvTransWhFromLData.grabExcessVerticalSpace = false;
 			comboInvTransWhFrom.setLayoutData(comboInvTransWhFromLData);
 	
+			GridData lblInvTransWhToLData = new GridData();
+			lblInvTransWhToLData.verticalAlignment = GridData.CENTER;
+			lblInvTransWhToLData.horizontalAlignment = GridData.BEGINNING;
+			lblInvTransWhToLData.widthHint = -1;
+			lblInvTransWhToLData.heightHint = -1;
+			lblInvTransWhToLData.horizontalIndent = 0;
+			lblInvTransWhToLData.horizontalSpan = 1;
+			lblInvTransWhToLData.verticalSpan = 1;
+			lblInvTransWhToLData.grabExcessHorizontalSpace = false;
+			lblInvTransWhToLData.grabExcessVerticalSpace = false;
+			lblInvTransWhTo.setLayoutData(lblInvTransWhToLData);
 			lblInvTransWhTo.setText("To:");
 	
 			GridData comboInvTransWhToLData = new GridData();
@@ -118,8 +152,30 @@ public class InvUITransWarehouse extends org.eclipse.swt.widgets.Composite {
 			comboInvTransWhToLData.grabExcessVerticalSpace = false;
 			comboInvTransWhTo.setLayoutData(comboInvTransWhToLData);
 	
+			GridData lblInvTransWhAmountLData = new GridData();
+			lblInvTransWhAmountLData.verticalAlignment = GridData.CENTER;
+			lblInvTransWhAmountLData.horizontalAlignment = GridData.BEGINNING;
+			lblInvTransWhAmountLData.widthHint = -1;
+			lblInvTransWhAmountLData.heightHint = -1;
+			lblInvTransWhAmountLData.horizontalIndent = 0;
+			lblInvTransWhAmountLData.horizontalSpan = 1;
+			lblInvTransWhAmountLData.verticalSpan = 1;
+			lblInvTransWhAmountLData.grabExcessHorizontalSpace = false;
+			lblInvTransWhAmountLData.grabExcessVerticalSpace = false;
+			lblInvTransWhAmount.setLayoutData(lblInvTransWhAmountLData);
 			lblInvTransWhAmount.setText("Amount");
 	
+			GridData txtNumInvTransWhAmountLData = new GridData();
+			txtNumInvTransWhAmountLData.verticalAlignment = GridData.CENTER;
+			txtNumInvTransWhAmountLData.horizontalAlignment = GridData.BEGINNING;
+			txtNumInvTransWhAmountLData.widthHint = -1;
+			txtNumInvTransWhAmountLData.heightHint = -1;
+			txtNumInvTransWhAmountLData.horizontalIndent = 0;
+			txtNumInvTransWhAmountLData.horizontalSpan = 1;
+			txtNumInvTransWhAmountLData.verticalSpan = 1;
+			txtNumInvTransWhAmountLData.grabExcessHorizontalSpace = false;
+			txtNumInvTransWhAmountLData.grabExcessVerticalSpace = false;
+			txtNumInvTransWhAmount.setLayoutData(txtNumInvTransWhAmountLData);
 	
 			GridData comboInvTransWhUnitLData = new GridData();
 			comboInvTransWhUnitLData.verticalAlignment = GridData.CENTER;
@@ -160,6 +216,7 @@ public class InvUITransWarehouse extends org.eclipse.swt.widgets.Composite {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+
 	}
 
 	/** Auto-generated main method */

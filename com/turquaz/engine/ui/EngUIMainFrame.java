@@ -19,6 +19,7 @@ package com.turquaz.engine.ui;
 
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -49,6 +50,9 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.CoolItem;
@@ -629,6 +633,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
 /** Auto-generated event handler method */
 	
@@ -662,10 +668,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		
 				if(item.getItemCount()==0){
 					if(item.getText().equals("Stok Kartý")){
-						Form_Ekle("Stok Ekle",InvUICardAdd.class.getName());
+						openNewTab("Stok Ekle",InvUICardAdd.class.getName());
 					}
 					else if(item.getText().equals("Stok Hareketi")){
-						Form_Ekle("Stok Hareketi",InvUITransactionAdd.class.getName());	
+						openNewTab("Stok Hareketi",InvUITransactionAdd.class.getName());	
 					}
 					
 				
@@ -673,7 +679,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				
 	
 	}
-	public void Form_Ekle (String Name, String classname){
+	public void openNewTab (String Name, String classname){
 		
 				CTabItem yeni = new CTabItem (tabfldMain,SWT.NULL );
 				yeni.setText(Name);
@@ -781,7 +787,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		TreeItem item = treeInventory.getSelection()[0];
 		
 		if(item.getItemCount()==0){
-			Form_Ekle(item.getText(),item.getData().toString());
+			openNewTab(item.getText(),item.getData().toString());
 		}
 				
 		
@@ -793,7 +799,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	protected void treeAdminMouseDoubleClick(MouseEvent evt){
 		TreeItem item = treeAdmin.getSelection()[0];
 		if(item.getItemCount()==0){
-			Form_Ekle(item.getText(),item.getData().toString());
+			openNewTab(item.getText(),item.getData().toString());
 			}
 	}
 
@@ -869,7 +875,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	protected void treeAccountingMouseDoubleClick(MouseEvent evt){
 			TreeItem item = treeAccounting.getSelection()[0];
 		if(item.getItemCount()==0){
-			Form_Ekle(item.getText(),item.getData().toString());
+			openNewTab(item.getText(),item.getData().toString());
 			}
 	}
 

@@ -17,6 +17,7 @@ package com.turquaz.inventory.ui;
 /************************************************************************/
 
 
+import org.eclipse.jface.contentassist.ComboContentAssistSubjectAdapter;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;
@@ -27,6 +28,7 @@ import org.eclipse.swt.widgets.Menu;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TTable;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.SWT;
 
 
@@ -45,6 +47,7 @@ import org.eclipse.swt.SWT;
 
 public class InvUICardSearch extends SecureComposite {
 
+	private Combo combo1;
 	private TTable tTable1;
 	public InvUICardSearch(Composite parent, int style) {
 		super(parent, style);
@@ -60,6 +63,7 @@ public class InvUICardSearch extends SecureComposite {
 			preInitGUI();
 	
 			tTable1 = new TTable(this,SWT.NULL);
+			combo1 = new Combo(this,SWT.NULL);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(329,223));
 	
@@ -74,7 +78,20 @@ public class InvUICardSearch extends SecureComposite {
 			tTable1LData.grabExcessHorizontalSpace = false;
 			tTable1LData.grabExcessVerticalSpace = true;
 			tTable1.setLayoutData(tTable1LData);
-			tTable1.setSize(new org.eclipse.swt.graphics.Point(319,213));
+			tTable1.setSize(new org.eclipse.swt.graphics.Point(319,187));
+	
+			GridData combo1LData = new GridData();
+			combo1LData.verticalAlignment = GridData.CENTER;
+			combo1LData.horizontalAlignment = GridData.BEGINNING;
+			combo1LData.widthHint = -1;
+			combo1LData.heightHint = -1;
+			combo1LData.horizontalIndent = 0;
+			combo1LData.horizontalSpan = 1;
+			combo1LData.verticalSpan = 1;
+			combo1LData.grabExcessHorizontalSpace = false;
+			combo1LData.grabExcessVerticalSpace = false;
+			combo1.setLayoutData(combo1LData);
+			combo1.setText("combo1");
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
@@ -98,6 +115,8 @@ public class InvUICardSearch extends SecureComposite {
 	public void postInitGUI(){
 		tTable1.fillRandom();
 		
+		
+				
 	}
 	public void save(){
 		

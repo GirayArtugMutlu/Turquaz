@@ -52,12 +52,6 @@ public class TurqInventoryCard implements Serializable {
     private com.turquaz.engine.dal.TurqCompany turqCompany;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqInventoryGroup turqInventoryGroup;
-
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit;
-
-    /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell;
 
     /** persistent field */
@@ -73,7 +67,7 @@ public class TurqInventoryCard implements Serializable {
     private Set turqInventoryCardUnits;
 
     /** full constructor */
-    public TurqInventoryCard(java.lang.String cardInventoryCode, java.lang.String cardSpecialCode, java.lang.String cardName, java.lang.String cardDefinition, int cardMinimumAmount, int cardMaximumAmount, int cardVat, int cardDiscount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqInventoryGroup turqInventoryGroup, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy, Set turqInventoryPrices, Set turqInventoryTransactions, Set turqInventoryCardUnits) {
+    public TurqInventoryCard(java.lang.String cardInventoryCode, java.lang.String cardSpecialCode, java.lang.String cardName, java.lang.String cardDefinition, int cardMinimumAmount, int cardMaximumAmount, int cardVat, int cardDiscount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy, Set turqInventoryPrices, Set turqInventoryTransactions, Set turqInventoryCardUnits) {
         this.cardInventoryCode = cardInventoryCode;
         this.cardSpecialCode = cardSpecialCode;
         this.cardName = cardName;
@@ -87,8 +81,6 @@ public class TurqInventoryCard implements Serializable {
         this.updatedBy = updatedBy;
         this.updateDate = updateDate;
         this.turqCompany = turqCompany;
-        this.turqInventoryGroup = turqInventoryGroup;
-        this.turqInventoryUnit = turqInventoryUnit;
         this.turqAccountingAccountByAccountingAccountsIdSell = turqAccountingAccountByAccountingAccountsIdSell;
         this.turqAccountingAccountByAccountingAccountsIdBuy = turqAccountingAccountByAccountingAccountsIdBuy;
         this.turqInventoryPrices = turqInventoryPrices;
@@ -210,22 +202,6 @@ public class TurqInventoryCard implements Serializable {
 
     public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
         this.turqCompany = turqCompany;
-    }
-
-    public com.turquaz.engine.dal.TurqInventoryGroup getTurqInventoryGroup() {
-        return this.turqInventoryGroup;
-    }
-
-    public void setTurqInventoryGroup(com.turquaz.engine.dal.TurqInventoryGroup turqInventoryGroup) {
-        this.turqInventoryGroup = turqInventoryGroup;
-    }
-
-    public com.turquaz.engine.dal.TurqInventoryUnit getTurqInventoryUnit() {
-        return this.turqInventoryUnit;
-    }
-
-    public void setTurqInventoryUnit(com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit) {
-        this.turqInventoryUnit = turqInventoryUnit;
     }
 
     public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdSell() {
