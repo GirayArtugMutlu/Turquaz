@@ -47,7 +47,7 @@ public class BillBLUpdateBill {
 			boolean isOpen, Date billDate, TurqCurrentCard curCard, 
 			BigDecimal discountAmount,
 			BigDecimal vatAmount, BigDecimal specialVatAmount,
-			BigDecimal totalAmount, int type) throws Exception {
+			BigDecimal totalAmount, int type, Object currentAccount) throws Exception {
 		try {		
 			bill.setBillsDate(billDate);
 			bill.setBillsDefinition(definition);
@@ -86,7 +86,7 @@ public class BillBLUpdateBill {
 			deleteCurrentTransactions(bill);
 			
 			blAddBill.saveCurrentTransaction(bill);
-			blAddBill.saveAccountingTransaction(bill);
+			blAddBill.saveAccountingTransaction(bill,currentAccount);
 			
 			
 			

@@ -97,6 +97,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
 
 
+import com.turquaz.accounting.ui.comp.AccountPicker;
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
  * which is free for non-commercial use. If Jigloo is being used commercially
@@ -312,6 +313,8 @@ public class BillUIAddBill extends Composite
 	private Text txtConsignmentDocumentNo;
 
 	private CLabel lblInventoryPrice;
+	private AccountPicker accountPickerCurAcc;
+	private CLabel lblCashAccount;
 	private CCombo comboWareHouse;
 	private CLabel lblWareHouse;
 	public TableViewer tableViewer;
@@ -606,6 +609,17 @@ public class BillUIAddBill extends Composite
                                         255,
                                         255));
                                 GridData comboPaymentTypeLData = new GridData();
+								comboPaymentType
+									.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(
+										SelectionEvent evt) {
+										Boolean isCurrent=(Boolean)comboPaymentType.getData(comboPaymentType.getText());
+										if (isCurrent.booleanValue())
+											accountPickerCurAcc.setEnabled(true);
+										else
+											accountPickerCurAcc.setEnabled(false);
+									}
+									});
                                 comboPaymentTypeLData.widthHint = 90;
                                 comboPaymentTypeLData.heightHint = 16;
                                 comboPaymentType
@@ -630,6 +644,21 @@ public class BillUIAddBill extends Composite
                                 comboWareHouseLData.heightHint = 14;
                                 comboWareHouse.setLayoutData(comboWareHouseLData);
                             }
+							{
+								lblCashAccount = new CLabel(
+									compInfoPanel,
+									SWT.NONE);
+								lblCashAccount.setText("Kasa Hesab?");
+							}
+							{
+								accountPickerCurAcc = new AccountPicker(
+									compInfoPanel,
+									SWT.NONE);
+								GridData accountPickerCurAccLData = new GridData();
+								accountPickerCurAccLData.widthHint = 107;
+								accountPickerCurAccLData.heightHint = 16;
+								accountPickerCurAcc.setLayoutData(accountPickerCurAccLData);
+							}
 
                         }
                         {
@@ -1302,6 +1331,17 @@ public class BillUIAddBill extends Composite
 			cursor.setFocus();
 			return false;
 		}
+		Boolean isCurrent=(Boolean)comboPaymentType.getData();
+		if (isCurrent.booleanValue())
+		{
+			if (accountPickerCurAcc.getData()==null)
+			{
+				msg.setMessage("Kasa hesab? seçmelisiniz!");
+				msg.open();
+				accountPickerCurAcc.setFocus();
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -1392,7 +1432,8 @@ public class BillUIAddBill extends Composite
 				Integer billId = blAddBill.saveBill(txtDocumentNo.getText(),
 						txtDefinition.getText(), false, dateConsignmentDate
 								.getDate(), cons, type, !paymentType
-								.booleanValue());
+								.booleanValue(),
+								paymentType.booleanValue() ? accountPickerCurAcc.getData() : null);
 				saveGroups(billId);
 				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				msg.open();
@@ -1462,5 +1503,11 @@ public class BillUIAddBill extends Composite
 	 */
 	public void setComboPaymentType(CCombo comboPaymentType) {
 		this.comboPaymentType = comboPaymentType;
+	}
+	public AccountPicker getAccountPickerCurAcc() {
+		return accountPickerCurAcc;
+	}
+	public void setAccountPickerCurAcc(AccountPicker accountPickerCurAcc) {
+		this.accountPickerCurAcc = accountPickerCurAcc;
 	}
 }

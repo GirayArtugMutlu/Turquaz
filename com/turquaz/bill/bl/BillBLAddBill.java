@@ -13,6 +13,7 @@ import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.accounting.dal.AccDALAccountAdd;
 import com.turquaz.bill.dal.BillDALAddBill;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqBill;
@@ -34,7 +35,7 @@ public class BillBLAddBill {
 	}
 	public Integer saveBill(String docNo, String definition, boolean isPrinted,
 			                Date billsDate,  TurqConsignment cons,
-								   int type, boolean isOpen)throws Exception {
+								   int type, boolean isOpen, Object currentAccount)throws Exception {
 		try{			
 			TurqBill bill = new TurqBill();
 			bill.setBillsDate(billsDate);
@@ -67,7 +68,7 @@ public class BillBLAddBill {
 			dalBill.save(bill);
 			
 			saveCurrentTransaction(bill);
-			saveAccountingTransaction(bill);
+			saveAccountingTransaction(bill,currentAccount);
 			
 			return bill.getBillsId();
 			
@@ -115,7 +116,7 @@ public class BillBLAddBill {
 	
 	
 	}
-	public void saveAccountingTransaction(TurqBill bill)throws Exception{
+	public void saveAccountingTransaction(TurqBill bill, Object currentAccount)throws Exception{
 		try	{
 	    
 		TurqBillConsignmentCommon common= bill.getTurqBillConsignmentCommon();		
@@ -304,7 +305,8 @@ public class BillBLAddBill {
 				 */
 				  transRow = new TurqAccountingTransactionColumn();
 					
-					transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("100"));
+				  	
+					transRow.setTurqAccountingAccount((TurqAccountingAccount)currentAccount);
 					transRow.setTurqAccountingTransaction(accTrans);
 					
 					transRow.setCreditAmount(invTrans.getTransactionsCumilativePrice());
@@ -507,7 +509,7 @@ public class BillBLAddBill {
 				 */
 				  transRow = new TurqAccountingTransactionColumn();
 					
-					transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("100"));
+					transRow.setTurqAccountingAccount((TurqAccountingAccount)currentAccount);
 					transRow.setTurqAccountingTransaction(accTrans);
 					
 					transRow.setCreditAmount(new BigDecimal(0));

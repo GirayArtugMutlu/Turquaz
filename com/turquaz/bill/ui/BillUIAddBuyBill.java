@@ -97,6 +97,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
 
 
+import com.turquaz.accounting.ui.comp.AccountPicker;
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
  * which is free for non-commercial use. If Jigloo is being used commercially
@@ -311,6 +312,8 @@ public class BillUIAddBuyBill extends Composite
 	private Text txtConsignmentDocumentNo;
 
 	private CLabel lblInventoryPrice;
+	private AccountPicker accountPickerCurAcc;
+	private CLabel lblCashAccount;
 	private CCombo comboWareHouse;
 	private CLabel lblWareHouse;
 	public TableViewer tableViewer;
@@ -391,11 +394,11 @@ public class BillUIAddBuyBill extends Composite
 	private final String INVENTORY_NAME   	        = Messages.getString("BillUIAddBuyBill.1"); //$NON-NLS-1$
 	private final String TRANS_AMOUNT               = Messages.getString("BillUIAddBuyBill.2"); //$NON-NLS-1$
 	private final String UNIT						= Messages.getString("BillUIAddBuyBill.3"); //$NON-NLS-1$
-	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= "T. Brm Mik.";
+	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= "T. Brm Mik."; //$NON-NLS-1$
 	private final String BASE_UNIT 		            = Messages.getString("BillUIAddBuyBill.5"); //$NON-NLS-1$
 	private final String UNIT_PRICE					= Messages.getString("BillUIAddBuyBill.6"); //$NON-NLS-1$
 	private final String TOTAL_PRICE				= Messages.getString("BillUIAddBuyBill.7"); //$NON-NLS-1$
-	private final String DISCOUNT_PERCENT           = "?nd. %";
+	private final String DISCOUNT_PERCENT           = "?nd. %"; //$NON-NLS-1$
 	private final String VAT_PERCENT				= Messages.getString("BillUIAddBuyBill.8"); //$NON-NLS-1$
 	private final String VAT_TOTAL					= Messages.getString("BillUIAddBuyBill.9"); //$NON-NLS-1$
 	private final String SPECIAL_VAT_PERCENT		= Messages.getString("BillUIAddBuyBill.10"); //$NON-NLS-1$
@@ -602,6 +605,17 @@ public class BillUIAddBuyBill extends Composite
                                         255,
                                         255));
                                 GridData comboPaymentTypeLData = new GridData();
+								comboPaymentType
+									.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(
+										SelectionEvent evt) {
+										Boolean isCurrent=(Boolean)comboPaymentType.getData(comboPaymentType.getText());
+										if (isCurrent.booleanValue())
+											accountPickerCurAcc.setEnabled(true);
+										else
+											accountPickerCurAcc.setEnabled(false);
+									}
+									});
                                 comboPaymentTypeLData.widthHint = 90;
                                 comboPaymentTypeLData.heightHint = 16;
                                 comboPaymentType
@@ -626,6 +640,21 @@ public class BillUIAddBuyBill extends Composite
                                 comboWareHouseLData.heightHint = 14;
                                 comboWareHouse.setLayoutData(comboWareHouseLData);
                             }
+							{
+								lblCashAccount = new CLabel(
+									compInfoPanel,
+									SWT.NONE);
+								lblCashAccount.setText("Kasa Hesab?");
+							}
+							{
+								accountPickerCurAcc = new AccountPicker(
+									compInfoPanel,
+									SWT.NONE);
+								GridData accountPickerCurAccLData = new GridData();
+								accountPickerCurAccLData.widthHint = 111;
+								accountPickerCurAccLData.heightHint = 15;
+								accountPickerCurAcc.setLayoutData(accountPickerCurAccLData);
+							}
 
                         }
                         {
@@ -1031,7 +1060,7 @@ public class BillUIAddBuyBill extends Composite
 		comboPaymentType.setData(
 				Messages.getString("BillUIAddBill.30"), new Boolean(true)); //$NON-NLS-1$
 		comboPaymentType.setText(Messages.getString("BillUIAddBill.35")); //$NON-NLS-1$
-
+		accountPickerCurAcc.setEnabled(false);
 		//content assistant
 		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(
 				txtCurrentCard);
@@ -1163,7 +1192,7 @@ public class BillUIAddBuyBill extends Composite
 	                         if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof TextCellEditor){
 	                             
 	                             TextCellEditor editor = ((TextCellEditor)tableViewer.getCellEditors()[cursor.getColumn()]);
-	                             ((Text)editor.getControl()).setText(""+e.character);
+	                             ((Text)editor.getControl()).setText(""+e.character); //$NON-NLS-1$
 	     						if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof CurrencyCellEditor 
 	     						  ){
 	     						    
@@ -1293,7 +1322,7 @@ public class BillUIAddBuyBill extends Composite
 		MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING);
 
 		if (txtCurrentCard.getData() == null) {
-			msg.setMessage(Messages.getString("BillUIAddBill.38")); //$NON-NLS-1$
+			msg.setMessage(Messages.getString("BillUIAddBuyBill.14")); //$NON-NLS-1$
 			msg.open();
 			txtCurrentCard.setFocus();
 			return false;
@@ -1304,6 +1333,18 @@ public class BillUIAddBuyBill extends Composite
 			msg.open();
 			cursor.setFocus();
 			return false;
+		}
+		
+		Boolean isCurrent=(Boolean)comboPaymentType.getData();
+		if (isCurrent.booleanValue())
+		{
+			if (accountPickerCurAcc.getData()==null)
+			{
+				msg.setMessage("Kasa hesab? seçmelisiniz!");
+				msg.open();
+				accountPickerCurAcc.setFocus();
+				return false;
+			}
 		}
 		return true;
 	}
@@ -1395,7 +1436,8 @@ public class BillUIAddBuyBill extends Composite
 				Integer billId = blAddBill.saveBill(txtDocumentNo.getText(),
 						txtDefinition.getText(), false, dateConsignmentDate
 								.getDate(), cons, type, !paymentType
-								.booleanValue());
+								.booleanValue(),
+								paymentType.booleanValue() ? accountPickerCurAcc.getData():null);
 				saveGroups(billId);
 				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				msg.open();

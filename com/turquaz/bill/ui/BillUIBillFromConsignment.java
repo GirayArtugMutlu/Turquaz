@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import net.sf.hibernate.property.Getter;
+
 import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.widgets.Composite;
@@ -67,6 +69,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
 
 
+import com.turquaz.accounting.ui.comp.AccountPicker;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -254,6 +259,8 @@ implements SecureComposite{
 	private TableColumn tableColumnAmount;
 	private Composite compTotalsPanel;
 	private CLabel lblInventoryPrice;
+	private AccountPicker accountPickerCurAcc;
+	private CLabel lblCashAccount;
 	private CCombo comboPaymentType;
 	private CLabel lblPaymentType;
 	private NumericText txtDiscountRate;
@@ -588,6 +595,42 @@ implements SecureComposite{
 								comboPaymentType = new CCombo(
 									compInfoPanel,
 									SWT.NONE);
+								GridData comboPaymentTypeLData = new GridData();
+								comboPaymentType
+									.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(
+										SelectionEvent evt) {
+										Boolean isCurrent=(Boolean)comboPaymentType.getData(comboPaymentType.getText());
+										if (isCurrent.booleanValue())
+											accountPickerCurAcc.setEnabled(true);
+										else
+											accountPickerCurAcc.setEnabled(false);
+									}
+									});
+								comboPaymentTypeLData.widthHint = 58;
+								comboPaymentTypeLData.heightHint = 10;
+								comboPaymentType.setLayoutData(comboPaymentTypeLData);
+							}
+							{
+								lblCashAccount = new CLabel(compInfoPanel, SWT.NONE);
+								lblCashAccount.setText(Messages.getString("BillUIBillFromConsignment.35"));  //$NON-NLS-1$
+								GridData lblKasaLData = new GridData();
+								lblKasaLData.horizontalSpan = 3;
+								lblKasaLData.horizontalAlignment = GridData.END;
+								lblKasaLData.widthHint = 93;
+								lblKasaLData.heightHint = 16;
+								lblCashAccount.setLayoutData(lblKasaLData);
+							}
+							{
+								accountPickerCurAcc = new AccountPicker(
+									compInfoPanel,
+									SWT.NONE);
+								accountPickerCurAcc.setEnabled(false);
+								
+								GridData accountPickerCurAccLData = new GridData();
+								accountPickerCurAccLData.widthHint = 134;
+								accountPickerCurAccLData.heightHint = 17;
+								accountPickerCurAcc.setLayoutData(accountPickerCurAccLData);
 							}
 						}
 						{
@@ -907,6 +950,17 @@ implements SecureComposite{
 			txtConsignment.setFocus();
 			return false;
 		}
+		Boolean isCurrent=(Boolean)comboPaymentType.getData();
+		if (isCurrent.booleanValue())
+		{
+			if (accountPickerCurAcc.getData()==null)
+			{
+				msg.setMessage("Kasa hesab? seçmelisiniz!");
+				msg.open();
+				accountPickerCurAcc.setFocus();
+				return false;
+			}
+		}
 		return true;
 	}
 	
@@ -948,7 +1002,8 @@ implements SecureComposite{
 										dateBillDate.getDate(),
 										consignment,
 										type,
-										!paymentType.booleanValue());
+										!paymentType.booleanValue(),
+										paymentType.booleanValue() ? accountPickerCurAcc.getData() : null);
 		
 		saveGroups(consID);
 		msg.setMessage(Messages.getString("BillUIBillFromConsignment.34")); //$NON-NLS-1$
