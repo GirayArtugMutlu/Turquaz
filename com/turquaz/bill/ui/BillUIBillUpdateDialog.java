@@ -8,7 +8,10 @@ import com.turquaz.consignment.Messages;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInGroup;
+import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+
+import net.sf.hibernate.Hibernate;
 
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
@@ -110,6 +113,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
                 compBillUIAddDialogLData.grabExcessVerticalSpace = true;
                 compAddBill.setLayoutData(compBillUIAddDialogLData);
             }
+            postInitGui();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {
@@ -171,11 +175,19 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	    
 	}
 	public void fillInvTransactionColumns(){
-		TableItem item;
+		
+	    TableItem item;
 		TurqInventoryTransaction invTrans;
-		Iterator it = bill.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
-		while(it.hasNext()){
-			invTrans = (TurqInventoryTransaction)it.next();
+		
+		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
+		
+		if(it.hasNext()){
+	    TurqConsignment cons = (TurqConsignment)it.next();
+		
+	    Iterator it2 = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+		
+		while(it2.hasNext()){
+			invTrans = (TurqInventoryTransaction)it2.next();
 			
 			item = new TableItem(compAddBill.getTableConsignmentRows(),SWT.NULL);
 			
@@ -191,6 +203,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 									   invTrans.getTransactionsVatSpecialAmount().toString(),
 									   invTrans.getTransactionsCumilativePrice().toString()});
 			
+		}
 		}
 		compAddBill.calculateTotals();
 		

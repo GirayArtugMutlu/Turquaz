@@ -61,8 +61,9 @@ public class BillDALSearchBill {
 			
 		bill= (TurqBill)list.get(i);
 		Hibernate.initialize(bill.getTurqBillInGroups());
-		Hibernate.initialize(bill.getTurqEngineSequence().getTurqConsignments());
-		Iterator it = bill.getTurqEngineSequence().getTurqConsignments().iterator();
+		Hibernate.initialize(bill.getTurqBillConsignmentCommon().getTurqConsignments());
+		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
+		
 		if(it.hasNext()){
 			TurqConsignment cons = (TurqConsignment)it.next();
 			Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());

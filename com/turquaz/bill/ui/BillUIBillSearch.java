@@ -316,6 +316,12 @@ SecureComposite, SearchComposite{
 	public void tableMouseDoubleClick(){
 		TableItem items[] = tableBills.getSelection();
 		if(items.length>0){
+		
+		    new BillUIBillUpdateDialog(this.getShell(),SWT.NULL,(TurqBill)items[0].getData()).open();
+		    search();
+		    
+		    
+		    
 		   
 		}
 	}
