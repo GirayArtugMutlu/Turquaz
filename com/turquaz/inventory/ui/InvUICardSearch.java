@@ -311,7 +311,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	}
 	public void fillComboGroup(){
 	try {
-			java.util.List groupLst = invBLCardAdd.getInventoryGroups();
+			java.util.List groupLst = InvBLCardAdd.getInventoryGroups();
 			TableItem item = null;
 			TurqInventoryGroup trqInvGroup;
 			for (int i = 0; i < groupLst.size(); i++) {

@@ -330,7 +330,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	
 	
 	public void showSplashScreen(){
-	    
+	   /* 
 	    Shell shell;
 
 		Shell invisibleShell;
@@ -338,7 +338,6 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		
 		
 
-		/** Shell containing the splash */
 		shell = new Shell(getShell(), SWT.ON_TOP);
 		Label label = new Label(shell, SWT.NONE);
 		label.setImage(SWTResourceManager.getImage("icons/splash.gif")); //$NON-NLS-1$
@@ -353,7 +352,6 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		);
 	
 
-		/** Formlayout for Splash Contents */
 		FormLayout layout = new FormLayout();
 		shell.setLayout(layout);
 		FormData labelData = new FormData();
@@ -361,26 +359,23 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		labelData.bottom = new FormAttachment(100, 0);
 		label.setLayoutData(labelData);
 
-		/** Pack Shell */
+
 		shell.pack();
 
-		/** Problem on Linux: Shell is shown in Taskbar, so set title */
 		shell.setText("Turquaz"); //$NON-NLS-1$
 
-		/** Center the splashscreen */
+	
 	    EngUICommon.centreWindow(shell);
 
-		/** Show the splash */
+		
 		shell.open();
 	    
-	    /** Load the application */
 		getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				showMainFrame();
 				guiReady = true;
 			}
 		});
-		/** Show splash while GUI is loading */
 		while (!guiReady) {
 		    
 		    if (!display.readAndDispatch())
@@ -388,7 +383,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		}
 		display.dispose();
 		
-		
+		*/
 		
 	}
 	
@@ -449,7 +444,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		try{
 		if(blCommon.checkUserPass(txtUserName.getText(),txtPassword.getText())){
 		
-			showSplashScreen();
+			showMainFrame();
 			
 			
 			

@@ -234,11 +234,23 @@ public class InvBLCardAdd {
 		}
 	}
 
-	public List getInventoryGroups() throws Exception {
+	public static List getInventoryGroups() throws Exception {
 
 		try {
 
-			return cardAdd.getInventoryGroups();
+			return InvDALCardAdd.getInventoryGroups();
+
+		} catch (Exception ex) {
+			throw ex;
+		}
+
+	}
+	
+	public static List getParentInventoryGroups() throws Exception {
+
+		try {
+
+			return InvDALCardAdd.getParentInventoryGroups();
 
 		} catch (Exception ex) {
 			throw ex;

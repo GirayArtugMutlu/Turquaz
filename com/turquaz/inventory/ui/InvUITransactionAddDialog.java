@@ -21,6 +21,7 @@ package com.turquaz.inventory.ui;
 * @version  $Id$
 */
 
+
 import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;

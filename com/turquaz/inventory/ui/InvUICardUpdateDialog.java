@@ -22,6 +22,7 @@ package com.turquaz.inventory.ui;
 */
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -57,7 +58,6 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
-import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -94,8 +94,6 @@ public class InvUICardUpdateDialog extends Dialog{
 	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
 	private ToolBar toolBarTop;
-	private CoolItem coolTop;
-	private CoolBar coolBarTop;
 	private Shell dialogShell;
     private TurqInventoryCard invCard;
     private InvBLCardUpdate cardUpdate = new InvBLCardUpdate();
@@ -119,28 +117,20 @@ public class InvUICardUpdateDialog extends Dialog{
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 			dialogShell.setText(Messages.getString("InvUICardUpdateDialog.10")); //$NON-NLS-1$
-			coolBarTop = new CoolBar(dialogShell,SWT.NULL);
-			coolTop = new CoolItem(coolBarTop,SWT.DROP_DOWN);
-			toolBarTop = new ToolBar(coolBarTop,SWT.SHADOW_OUT);
+            {
+                toolBarTop = new ToolBar(dialogShell, SWT.SHADOW_OUT);
+                GridData toolBarTopLData = new GridData();
+                toolBarTopLData.horizontalAlignment = GridData.FILL;
+                toolBarTopLData.grabExcessHorizontalSpace = true;
+                toolBarTop.setLayoutData(toolBarTopLData);
+            }
 			toolUpdate = new ToolItem(toolBarTop,SWT.NULL);
 			toolDelete = new ToolItem(toolBarTop,SWT.NULL);
 			compMain = new Composite(dialogShell,SWT.NULL);
 			compInvUICard = new InvUICardAdd(compMain,SWT.NULL);
 	
 			dialogShell.setSize(634, 368);
-	
-			GridData coolBarTopLData = new GridData();
-			coolBarTopLData.horizontalAlignment = GridData.FILL;
-			coolBarTopLData.heightHint = 52;
-			coolBarTopLData.grabExcessHorizontalSpace = true;
-			coolBarTop.setLayoutData(coolBarTopLData);
 
-			coolTop.setControl(toolBarTop);
-			coolTop.setSize(45, 49);
-			coolTop.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 49));
-			coolTop.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 49));
-	
-	
 			toolUpdate.setText(Messages.getString("InvUICardUpdateDialog.0")); //$NON-NLS-1$
 			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
@@ -200,7 +190,7 @@ public class InvUICardUpdateDialog extends Dialog{
 			dialogShellLayout.verticalSpacing = 5;
 			dialogShell.layout();
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 613,348);
-			dialogShell.setSize(bounds.width, bounds.height);
+			dialogShell.setSize(694, 381);
 			postInitGUI();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
@@ -317,19 +307,14 @@ public class InvUICardUpdateDialog extends Dialog{
 	try {
 	
 	Iterator it = invCard.getTurqInventoryCardGroups().iterator();
-    TurqInventoryCardGroup cardGroup; 
-    TurqInventoryGroup group;
-    Table tableRegisteredGroups = compInvUICard.getTableInvCardAddGroupsRegisteredGroups();
-   
+    Map registeredGroups = compInvUICard.getCompInvCardGroups().getRegisteredGroups();
+   TurqInventoryCardGroup cardGroup;
     while(it.hasNext()){
      
      cardGroup = (TurqInventoryCardGroup)it.next();
-     String groupName = cardGroup.getTurqInventoryGroup().getGroupsName();
-       TableItem registeredItem = new TableItem(
-							tableRegisteredGroups, SWT.NULL);
-	 registeredItem.setText(groupName);
-	 registeredItem.setData(cardGroup.getTurqInventoryGroup());
-     removeRegisteredGroup(groupName);
+     registeredGroups.put(cardGroup.getTurqInventoryGroup().getTurqInventoryGroup().getInventoryGroupsId(),cardGroup.getTurqInventoryGroup());
+      
+     
      }
 	
 	
@@ -384,15 +369,7 @@ public class InvUICardUpdateDialog extends Dialog{
      }
         
     }
-    public void removeRegisteredGroup(String groupName){
-     TableItem items[] = compInvUICard.getTableInvCardAddGroupsAllGroups().getItems();
-     for(int i=0;i<items.length;i++){
-     if(items[i].getText().equals(groupName)){
-      compInvUICard.getTableInvCardAddGroupsAllGroups().remove(i);
-      break;
-     }
-     }
-     }
+   
      public void removeRegisteredUnit(String unitName){
      TableItem items[] = compInvUICard.getTableInvCardAddAllUnits().getItems();
      for(int i=0;i<items.length;i++){

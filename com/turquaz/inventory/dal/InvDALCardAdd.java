@@ -24,6 +24,7 @@ package com.turquaz.inventory.dal;
 */
 import java.util.List;
 
+import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
@@ -193,12 +194,13 @@ public class InvDALCardAdd {
 		}
 		
 	}
-	public List getInventoryGroups()throws Exception{
+	public static List getInventoryGroups()throws Exception{
 	try{
 		
 		Session session = EngDALSessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		String query = "from TurqInventoryGroup as invGroup ";		   
+		String query = "from TurqInventoryGroup as invGroup " +
+				" where invGroup.turqInventoryGroup.inventoryGroupsId <> -1";		   
 		   
 
 		Query q = session.createQuery(query); 
@@ -216,6 +218,35 @@ public class InvDALCardAdd {
 	
 	
 	}
+	public static List getParentInventoryGroups()throws Exception{
+		try{
+			
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			String query = "from TurqInventoryGroup as invGroup " +
+					" where invGroup.turqInventoryGroup.inventoryGroupsId = -1 and" +
+					" invGroup.inventoryGroupsId <> -1";
+			
+
+			Query q = session.createQuery(query); 
+			List list = q.list();
+			for(int i= 0; i<list.size();i++){
+			   TurqInventoryGroup invGroup = (TurqInventoryGroup)list.get(i);
+			   Hibernate.initialize(invGroup.getTurqInventoryGroups());
+			}
+			tx.commit();
+			session.close();
+			return list;	
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+			
+		
+		
+		
+		}
 
 	
 	public List getInventoryUnits()throws Exception{

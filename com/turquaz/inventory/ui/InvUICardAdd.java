@@ -62,6 +62,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
@@ -121,8 +122,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	private Button btnUpdateUnits;
 
-	private Button btnInvCardAddNew;
-
 	private Button btnInvCardGroupsPre;
 
 	private Button btnInvCardPricesNext;
@@ -175,25 +174,11 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	private InvBLCardAdd invBLCardAdd = new InvBLCardAdd();
 
-	private Button btnInvCardAddGroupsRemove;
-
-	private Button btnInvCardAddGroupsRegister;
-
-	private TableColumn tableColumnInvCardAddGroupAllGroups;
-
-	private Table tableInvCardAddGroupsRegisteredGroups;
-
-	private Composite compInvCardAddGroupsButtons;
-
-	private TableColumn tableColumnRegisteredGroups;
-
 	private TableColumn tableColumnGroups;
-
-	private Table tableInvCardAddGroupsAllGroups;
 
 	private Composite compInvCardAddGroupsButtonComp;
 
-	private Composite compInvCardAddGroupsSelection;
+	private InvUIInventoryGroups compInvCardGroups;
 
 	private Composite compInvCardAddGroups;
 
@@ -1053,171 +1038,25 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				compInvCardAddGroups
 						.setSize(new org.eclipse.swt.graphics.Point(641, 404));
 				compInvCardAddGroups.setLayout(compInvCardAddGroupsLayout);
-				{
-					compInvCardAddGroupsSelection = new Composite(
-							compInvCardAddGroups, SWT.NONE);
-					GridLayout compInvCardAddGroupsSelectionLayout = new GridLayout(
-							3, true);
-					compInvCardAddGroupsSelectionLayout.marginWidth = 5;
-					compInvCardAddGroupsSelectionLayout.marginHeight = 5;
-					compInvCardAddGroupsSelectionLayout.numColumns = 3;
-					compInvCardAddGroupsSelectionLayout.makeColumnsEqualWidth = false;
-					compInvCardAddGroupsSelectionLayout.horizontalSpacing = 5;
-					compInvCardAddGroupsSelectionLayout.verticalSpacing = 5;
-					GridData compInvCardAddGroupsSelectionLData = new GridData();
-					compInvCardAddGroupsSelectionLData.widthHint = 448;
-					compInvCardAddGroupsSelectionLData.heightHint = 184;
-					compInvCardAddGroupsSelection
-							.setLayoutData(compInvCardAddGroupsSelectionLData);
-					compInvCardAddGroupsSelection
-							.setSize(new org.eclipse.swt.graphics.Point(448,
-									184));
-					compInvCardAddGroupsSelection
-							.setLayout(compInvCardAddGroupsSelectionLayout);
-					{
-						tableInvCardAddGroupsAllGroups = new Table(
-								compInvCardAddGroupsSelection, SWT.SINGLE
-										| SWT.FULL_SELECTION | SWT.BORDER);
-						GridData tableInvCardAddGroupsAllGroupsLData = new GridData();
-						tableInvCardAddGroupsAllGroups
-								.addMouseListener(new MouseAdapter() {
-									public void mouseDoubleClick(MouseEvent evt) {
-										btnInvCardAddGroupsRegisterMouseUp();
-									}
-								});
-						tableInvCardAddGroupsAllGroupsLData.widthHint = 127;
-						tableInvCardAddGroupsAllGroupsLData.heightHint = 152;
-						tableInvCardAddGroupsAllGroups
-								.setLayoutData(tableInvCardAddGroupsAllGroupsLData);
-						tableInvCardAddGroupsAllGroups.setHeaderVisible(true);
-						tableInvCardAddGroupsAllGroups.setLinesVisible(true);
-						{
-							tableColumnInvCardAddGroupAllGroups = new TableColumn(
-									tableInvCardAddGroupsAllGroups, SWT.NONE);
-							tableColumnInvCardAddGroupAllGroups
-									.setText(Messages
-											.getString("InvUICardAdd.33")); //$NON-NLS-1$
-							tableColumnInvCardAddGroupAllGroups.setWidth(141);
-						}
-					}
-					{
-						compInvCardAddGroupsButtons = new Composite(
-								compInvCardAddGroupsSelection, SWT.NONE);
-						GridLayout compInvCardAddGroupsButtonsLayout = new GridLayout(
-								1, true);
-						compInvCardAddGroupsButtonsLayout.marginWidth = 5;
-						compInvCardAddGroupsButtonsLayout.marginHeight = 5;
-						compInvCardAddGroupsButtonsLayout.numColumns = 1;
-						compInvCardAddGroupsButtonsLayout.makeColumnsEqualWidth = true;
-						compInvCardAddGroupsButtonsLayout.horizontalSpacing = 5;
-						compInvCardAddGroupsButtonsLayout.verticalSpacing = 5;
-						GridData compInvCardAddGroupsButtonsLData = new GridData();
-						compInvCardAddGroupsButtonsLData.widthHint = 136;
-						compInvCardAddGroupsButtonsLData.heightHint = 118;
-						compInvCardAddGroupsButtons
-								.setLayoutData(compInvCardAddGroupsButtonsLData);
-						compInvCardAddGroupsButtons
-								.setSize(new org.eclipse.swt.graphics.Point(
-										136, 118));
-						compInvCardAddGroupsButtons
-								.setLayout(compInvCardAddGroupsButtonsLayout);
-						{
-							btnInvCardAddGroupsRegister = new Button(
-									compInvCardAddGroupsButtons, SWT.PUSH
-											| SWT.CENTER);
-							GridData btnInvCardAddGroupsRegisterLData = new GridData();
-							btnInvCardAddGroupsRegister
-									.addMouseListener(new MouseAdapter() {
-										public void mouseUp(MouseEvent evt) {
-											btnInvCardAddGroupsRegisterMouseUp();
-										}
-									});
-							btnInvCardAddGroupsRegisterLData.horizontalAlignment = GridData.CENTER;
-							btnInvCardAddGroupsRegisterLData.widthHint = 44;
-							btnInvCardAddGroupsRegisterLData.heightHint = 29;
-							btnInvCardAddGroupsRegister
-									.setLayoutData(btnInvCardAddGroupsRegisterLData);
-							btnInvCardAddGroupsRegister.setText(">>"); //$NON-NLS-1$
-							btnInvCardAddGroupsRegister
-									.setSize(new org.eclipse.swt.graphics.Point(
-											44, 29));
-						}
-						{
-							btnInvCardAddGroupsRemove = new Button(
-									compInvCardAddGroupsButtons, SWT.PUSH
-											| SWT.CENTER);
-							GridData btnInvCardAddGroupsRemoveLData = new GridData();
-							btnInvCardAddGroupsRemove
-									.addMouseListener(new MouseAdapter() {
-										public void mouseUp(MouseEvent evt) {
-											btnInvCardAddGroupsRemoveMouseUp();
-										}
-									});
-							btnInvCardAddGroupsRemoveLData.verticalAlignment = GridData.BEGINNING;
-							btnInvCardAddGroupsRemoveLData.horizontalAlignment = GridData.CENTER;
-							btnInvCardAddGroupsRemoveLData.widthHint = 48;
-							btnInvCardAddGroupsRemoveLData.heightHint = 31;
-							btnInvCardAddGroupsRemove
-									.setLayoutData(btnInvCardAddGroupsRemoveLData);
-							btnInvCardAddGroupsRemove.setText("<<"); //$NON-NLS-1$
-							btnInvCardAddGroupsRemove
-									.setSize(new org.eclipse.swt.graphics.Point(
-											48, 31));
-						}
-						{
-							btnInvCardAddNew = new Button(
-									compInvCardAddGroupsButtons, SWT.PUSH
-											| SWT.CENTER);
-							GridData btnInvCardAddNewLData = new GridData();
-							btnInvCardAddNew
-									.addMouseListener(new MouseAdapter() {
-										public void mouseUp(MouseEvent evt) {
-											btnInvCardAddNewMouseUp(evt);
-										}
-									});
-							btnInvCardAddNewLData.widthHint = 129;
-							btnInvCardAddNewLData.heightHint = 41;
-							btnInvCardAddNewLData.horizontalSpan = 2;
-							btnInvCardAddNew
-									.setLayoutData(btnInvCardAddNewLData);
-							btnInvCardAddNew.setText(Messages
-									.getString("InvUICardAdd.37")); //$NON-NLS-1$
-							btnInvCardAddNew
-									.setSize(new org.eclipse.swt.graphics.Point(
-											129, 41));
-						}
-						compInvCardAddGroupsButtons.layout();
-					}
-					{
-						tableInvCardAddGroupsRegisteredGroups = new Table(
-								compInvCardAddGroupsSelection,
-								SWT.FULL_SELECTION | SWT.BORDER);
-						GridData tableInvCardAddGroupsRegisteredGroupsLData = new GridData();
-						tableInvCardAddGroupsRegisteredGroups
-								.addMouseListener(new MouseAdapter() {
-									public void mouseDoubleClick(MouseEvent evt) {
-										btnInvCardAddGroupsRemoveMouseUp();
-									}
-								});
-						tableInvCardAddGroupsRegisteredGroupsLData.widthHint = 141;
-						tableInvCardAddGroupsRegisteredGroupsLData.heightHint = 151;
-						tableInvCardAddGroupsRegisteredGroups
-								.setLayoutData(tableInvCardAddGroupsRegisteredGroupsLData);
-						tableInvCardAddGroupsRegisteredGroups
-								.setHeaderVisible(true);
-						tableInvCardAddGroupsRegisteredGroups
-								.setLinesVisible(true);
-						{
-							tableColumnRegisteredGroups = new TableColumn(
-									tableInvCardAddGroupsRegisteredGroups,
-									SWT.NONE);
-							tableColumnRegisteredGroups.setText(Messages
-									.getString("InvUICardAdd.38")); //$NON-NLS-1$
-							tableColumnRegisteredGroups.setWidth(146);
-						}
-					}
-					compInvCardAddGroupsSelection.layout();
-				}
+                {
+                    compInvCardGroups = new InvUIInventoryGroups(
+                        compInvCardAddGroups,
+                        SWT.NONE);
+                    GridLayout compInvCardAddGroupsSelectionLayout = new GridLayout(
+                        3,
+                        true);
+                    compInvCardAddGroupsSelectionLayout.marginWidth = 5;
+                    compInvCardAddGroupsSelectionLayout.marginHeight = 5;
+                    compInvCardAddGroupsSelectionLayout.numColumns = 3;
+                    compInvCardAddGroupsSelectionLayout.makeColumnsEqualWidth = false;
+                    compInvCardAddGroupsSelectionLayout.horizontalSpacing = 5;
+                    compInvCardAddGroupsSelectionLayout.verticalSpacing = 5;
+                    GridData compInvCardAddGroupsSelectionLData = new GridData();
+                    compInvCardAddGroupsSelectionLData.widthHint = 405;
+                    compInvCardAddGroupsSelectionLData.heightHint = 273;
+                    compInvCardGroups
+                        .setLayoutData(compInvCardAddGroupsSelectionLData);
+                }
 				{
 					btnInvCardGroupsPre = new Button(compInvCardAddGroups,
 							SWT.PUSH | SWT.CENTER);
@@ -1410,7 +1249,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	public void postInitGUI() {
 
 		fillInvCardUnits();
-		fillTableInvAllGroups();
 		initTableInvPrices();
 		
 		fillDefaultValues();
@@ -1571,28 +1409,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	}
 
-	public void fillTableInvAllGroups() {
-
-		tableInvCardAddGroupsAllGroups.removeAll();
-		tableInvCardAddGroupsRegisteredGroups.removeAll();
-		try {
-			java.util.List groupLst = invBLCardAdd.getInventoryGroups();
-			TableItem item = null;
-			TurqInventoryGroup trqInvGroup;
-			for (int i = 0; i < groupLst.size(); i++) {
-				trqInvGroup = (TurqInventoryGroup) groupLst.get(i);
-				item = new TableItem(tableInvCardAddGroupsAllGroups, SWT.NULL);
-				item.setText(trqInvGroup.getGroupsName());
-				item.setData(trqInvGroup);
-				item.setGrayed(true);
-
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-	}
-
+	
 	public void clearFields() {
 
 		InvUICardAdd cardAdd = new InvUICardAdd(this.getParent(), this
@@ -1786,13 +1603,19 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	public void saveInvGroups(Integer cardId) {
 
 		try {
-			int itemCount = tableInvCardAddGroupsRegisteredGroups
-					.getItemCount();
-			TableItem item;
-			for (int i = 0; i < itemCount; i++) {
-				item = tableInvCardAddGroupsRegisteredGroups.getItem(i);
-				blCardAdd.registerGroup(cardId, item.getData());
-			}
+			
+		   Map groupMap = compInvCardGroups.getRegisteredGroups();
+		 
+			Iterator it = groupMap.values().iterator(); 
+		   while(it.hasNext())
+		   {
+		
+		     TurqInventoryGroup group = (TurqInventoryGroup)it.next();
+		     if(group!=null){
+		         blCardAdd.registerGroup(cardId, group);
+		     }
+		   }
+		
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -1973,38 +1796,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	}
 
-	/** Auto-generated event handler method */
-	protected void btnInvCardAddGroupsRegisterMouseUp() {
-		int selectedIndex = tableInvCardAddGroupsAllGroups.getSelectionIndex();
+	
 
-		if (selectedIndex >= 0) {
-			TableItem registeredItem = new TableItem(
-					tableInvCardAddGroupsRegisteredGroups, SWT.NULL);
-			registeredItem.setText(tableInvCardAddGroupsAllGroups.getItem(
-					selectedIndex).getText());
-			registeredItem.setData(tableInvCardAddGroupsAllGroups.getItem(
-					selectedIndex).getData());
-			tableInvCardAddGroupsAllGroups.remove(selectedIndex);
-		}
-
-	}
-
-	/** Auto-generated event handler method */
-	protected void btnInvCardAddGroupsRemoveMouseUp() {
-		int selectedIndex = tableInvCardAddGroupsRegisteredGroups
-				.getSelectionIndex();
-
-		if (selectedIndex >= 0) {
-			TableItem registeredItem = new TableItem(
-					tableInvCardAddGroupsAllGroups, SWT.NULL);
-			registeredItem.setText(tableInvCardAddGroupsRegisteredGroups
-					.getItem(selectedIndex).getText());
-			registeredItem.setData(tableInvCardAddGroupsRegisteredGroups
-					.getItem(selectedIndex).getData());
-			tableInvCardAddGroupsRegisteredGroups.remove(selectedIndex);
-		}
-
-	}
 
 	/** Auto-generated event handler method */
 	protected void btnRemoveRegisteredInvUnitMouseUp() {
@@ -2075,11 +1868,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		tabfldInvCardAdd.setSelection(next);
 	}
 
-	/** Auto-generated event handler method */
-	protected void btnInvCardAddNewMouseUp(MouseEvent evt) {
-		new InvUIGroupAddDialog(this.getShell(), SWT.NULL).open();
-		fillTableInvAllGroups();
-	}
+	
 
 	/** Auto-generated event handler method */
 	protected void btnUpdateUnitsMouseUp(MouseEvent evt) {
@@ -2094,19 +1883,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		return tableInvCardAddAllUnits;
 	}
 
-	/**
-	 * @return Returns the tableInvCardAddGroupsAllGroups.
-	 */
-	public Table getTableInvCardAddGroupsAllGroups() {
-		return tableInvCardAddGroupsAllGroups;
-	}
-
-	/**
-	 * @return Returns the tableInvCardAddGroupsRegisteredGroups.
-	 */
-	public Table getTableInvCardAddGroupsRegisteredGroups() {
-		return tableInvCardAddGroupsRegisteredGroups;
-	}
+	
 
 	/**
 	 * @return Returns the tableInvCardAddPrices.
@@ -2291,4 +2068,10 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	public void setRadioSpecialVatPercent(Button radioSpecialVatPercent) {
 		this.radioSpecialVatPercent = radioSpecialVatPercent;
 	}
+    public InvUIInventoryGroups getCompInvCardGroups() {
+        return compInvCardGroups;
+    }
+    public void setCompInvCardGroups(InvUIInventoryGroups compInvCardGroups) {
+        this.compInvCardGroups = compInvCardGroups;
+    }
 }

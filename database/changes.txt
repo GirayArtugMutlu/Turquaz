@@ -12,8 +12,8 @@
 -  "turq_inventory_card_units" ---> "card_units_factor" changed column prop. int4 to numeric
 												"transactions_total_amount_out" numeric
 												
-Process
-!!!! Before drop in do not forget to backup the data inside tha tables!!!!!!!!!!!!!!!!!
+---Process---
+!!!! Before drop, do not forget to backup the data inside tha tables!!!!!!!!!!!!!!!!!
 
 DROP VIEW turq_view_inventory_totals;
 DROP VIEW turq_view_inventory_amount_total;
@@ -77,13 +77,23 @@ CREATE OR REPLACE VIEW turq_view_inventory_amount_total AS
 
 
 
+*** 06-02-2005 *** 
+-- "turq_inventory_groups" ---> "parent_group" (integer) column added
+-- Foreign key from "parent_group" to "inventory_groups_id" in "turq_inventory_groups"
+
+----Process---
+
+ALTER TABLE turq_inventory_groups ADD COLUMN parent_group int4;
+
+INSERT INTO turq_inventory_groups VALUES (-1, 'Varsayilan', 'Varsayilan', 'admin', '2005-01-14', 'admin', '2005-01-14', -1);
+
+update turq_inventory_groups set parent_group =-1
+
+ALTER TABLE turq_inventory_groups
+   ALTER COLUMN parent_group SET NOT NULL;
+   
+ALTER TABLE turq_inventory_groups ADD CONSTRAINT ig1 FOREIGN KEY (parent_group) REFERENCES turq_inventory_groups (inventory_groups_id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+   
 
 
-
-
-
-    
-
-
-
-
+   
