@@ -85,6 +85,7 @@ import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
+import com.turquaz.engine.ui.component.MenuFactory;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TreeFactory;
@@ -890,6 +891,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			menuMain = new Menu(getShell(),SWT.BAR);
 			mitFile = new MenuItem(menuMain,SWT.CASCADE);
 			mitEdit = new MenuItem(menuMain,SWT.CASCADE);
+			MenuItem mitFinance = new MenuItem(menuMain,SWT.CASCADE);
+			mitFinance.setText("&Finans");
+			mitFinance = MenuFactory.createFinanceMenu(mitFinance);
+			
 			{
                 mitView = new MenuItem(menuMain, SWT.CASCADE);
                 mitView.setText(Messages.getString("EngUIMainFrame.14"));  //$NON-NLS-1$
