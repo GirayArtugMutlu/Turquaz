@@ -1,5 +1,7 @@
 package com.turquaz.current.ui;
 
+import java.awt.CardLayout;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,13 +13,14 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.ui.component.DecimalText;
 import com.turquaz.engine.ui.component.NumericText;
+import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
-import com.turquaz.inventory.ui.InvUIGroupAddDialog;
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
@@ -32,7 +35,7 @@ import org.eclipse.swt.widgets.Composite;
 * for-profit company or business) then you should purchase
 * a license - please visit www.cloudgarden.com for details.
 */
-public class CurUICurrentCardAdd extends org.eclipse.swt.widgets.Composite {
+public class CurUICurrentCardAdd extends SecureComposite {
 
 	private Button btnUpdateGroups;
 	private RegisterGroupComposite compRegisterGroup;
@@ -957,9 +960,7 @@ public class CurUICurrentCardAdd extends org.eclipse.swt.widgets.Composite {
 	groupMap.put(curGroup.getGroupsName(),curGroup);
 	}
 	
-	compRegisterGroup.fillTableAllGroups(groupMap);
-	
-	
+	compRegisterGroup.fillTableAllGroups(groupMap);	
 	
 	}
 	catch(Exception ex){
@@ -967,6 +968,99 @@ public class CurUICurrentCardAdd extends org.eclipse.swt.widgets.Composite {
 	}
 	
 	}
+	
+	public void saveContact(Integer cardID)throws Exception{
+	try{
+	
+	
+	
+	}
+	catch(Exception ex){
+	throw ex;
+	}
+	
+	}
+	
+	public void saveGroups(Integer cardID)throws Exception{
+	try{
+	
+	
+	
+	
+	
+	
+	
+	
+	}
+	catch(Exception ex){
+	throw ex;
+	}
+	
+	}
+	public void savePhones(Integer cardID)throws Exception{
+	try{
+		currentAdd.saveCardPhone(numtxtCountryCode.getIntValue(),numTxtCityCode.getIntValue(),
+								numTxtNumber.getIntValue(),cardID);
+		
+		currentAdd.saveCardPhone(numTxtCountryCode2.getIntValue(),numTxtCityCode2.getIntValue(),
+								numTxtNumber2.getIntValue(),cardID);
+		
+	}
+	catch(Exception ex){
+	throw ex;
+	}
+	
+	}
+	
+	public void clearFields(){
+	}
+	
+	public boolean verifyFields(){
+	return true;
+	}
+	
+	public void save(){
+	
+	if(verifyFields())
+	{
+	try{
+	Integer cardId = currentAdd.saveCurrentCard(txtCurrentCode.getText().trim(),
+							txtCurrentName.getText().trim(),
+							txtCardDefinition.getText().trim(),
+							txtCardAddress.getText().trim(),
+							new BigDecimal(numTextDiscountRate.getIntValue()),
+							decTxtDiscountAmount.getBigDecimalValue(),
+							decTxtCreditLimit.getBigDecimalValue(),
+							decTxtRiskLimit.getBigDecimalValue(),
+							txtTaxDepartmant.getText().trim(),
+							txtTaxNumber.getText().trim(),
+							(TurqAccountingAccount)accPickerCustomer.getData(),
+							(TurqAccountingAccount)accPickerSupplierAccCode.getData());	
+	savePhones(cardId);
+	saveContact(cardId);
+	saveGroups(cardId);
+	
+	
+	}
+	catch(Exception ex){
+	
+	ex.printStackTrace();
+	}
+	}
+		
+	}
+	
+	
+	
+	public void search(){
+	}
+	public void delete(){
+	}
+	public void newForm(){
+	}
+	
+	
+	
 	
 	/** Auto-generated event handler method */
 	protected void btnUpdateGroupsMouseUp(MouseEvent evt){

@@ -14,6 +14,9 @@ import com.turquaz.current.dal.CurDALCurrentCardAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqCurrentCardsGroup;
+import com.turquaz.engine.dal.TurqCurrentCardsPhone;
+import com.turquaz.engine.dal.TurqCurrentContact;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
@@ -33,7 +36,7 @@ public class CurBLCurrentCardAdd {
 	private Calendar cal=Calendar.getInstance();
 	private CurDALCurrentCardAdd currentAdd=new CurDALCurrentCardAdd();
 	
-	public void saveCurrentCard(String currentCode, String cardName, String cardDefinition,
+	public Integer saveCurrentCard(String currentCode, String cardName, String cardDefinition,
 								String cardAddress, BigDecimal cardDiscountRate,
 								BigDecimal cardDiscountPayment,	BigDecimal cardCreditLimit,
 								BigDecimal cardRiskLimit, String cardTaxDepartment,
@@ -65,21 +68,63 @@ public class CurBLCurrentCardAdd {
 		
 			currentCard.setTurqCompany(company);
 			currentAdd.saveObject(currentCard);	
+			return currentCard.getCurrentCardsId();
 		}
 		catch(Exception ex){
 			throw ex;
 		}
 	}
 	
+	
+	
+public void saveCardPhone(int countryCode, int cityCode, int phoneNumber, Integer curCard)
+throws Exception{
+	
+	try{
+	TurqCurrentCardsPhone phone = new TurqCurrentCardsPhone();
+	phone.setPhonesCityCode(cityCode);
+	phone.setPhonesCountryCode(countryCode);
+	phone.setPhonesNumber(phoneNumber);
+	TurqCurrentCard card = new TurqCurrentCard();
+	card.setCurrentCardsId(curCard);
+	phone.setTurqCurrentCard(card);
+	currentAdd.saveObject(phone);	
+	}
+	catch(Exception ex){
+		throw ex;
+	}
+	
+	
+}
+public void saveContact(Integer cardID, String name, String address, 
+						String phone1, String phone2, String faxNumber,
+						String email, String website)throws Exception
+						{
+	
+	TurqCurrentCard card = new TurqCurrentCard();
+	card.setCurrentCardsId(cardID);
+	TurqCurrentContact contact = new TurqCurrentContact();
+	contact.setContactsName(name);
+	contact.setContactAddress(address);
+	contact.setContactsPhone1(phone1);
+	contact.setContactsPhone2(phone2);
+	contact.setContactsFaxNumber(faxNumber);
+	contact.setContactsEmail(email);
+	contact.setContactsWebSite(website);
+	contact.setTurqCurrentCard(card);
+	
+}
+
+	
 public void registerGroup(Integer cardId, Object grp) throws Exception {
 		try {
 
-			TurqInventoryCardGroup cardGroup = new TurqInventoryCardGroup();
-			TurqInventoryGroup group = (TurqInventoryGroup) grp;
-			TurqInventoryCard card = new TurqInventoryCard();
-			card.setInventoryCardsId(cardId);
-			cardGroup.setTurqInventoryCard(card);
-			cardGroup.setTurqInventoryGroup(group);
+			TurqCurrentCardsGroup cardGroup = new TurqCurrentCardsGroup();
+			TurqCurrentGroup group = (TurqCurrentGroup) grp;
+			TurqCurrentCard card = new TurqCurrentCard();
+			card.setCurrentCardsId(cardId);
+			cardGroup.setTurqCurrentCard(card);
+			cardGroup.setTurqCurrentGroup(group);
 
 			cardGroup.setCreatedBy(System.getProperty("user"));
 			cardGroup.setUpdatedBy(System.getProperty("user"));

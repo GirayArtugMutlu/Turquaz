@@ -223,9 +223,6 @@ public class RegisterGroupComposite extends org.eclipse.swt.widgets.Composite {
 		}
 	}
 
-	
-
-	
 	public void fillTableAllGroups(HashMap elementMap){
 	
 	tableAllGroups.removeAll();	
