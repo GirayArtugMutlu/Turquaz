@@ -165,9 +165,6 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			toolDelete.setText(Messages.getString("AccUIAccountUpdate.3")); //$NON-NLS-1$
 			toolDelete.setToolTipText(Messages
 					.getString("AccUIAccountUpdate.3")); //$NON-NLS-1$
-			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(
-					Display.getDefault(), getClass().getClassLoader()
-							.getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
 			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 			{
 				toolCancel = new ToolItem(toolbarAccountUpdate, SWT.NONE);
@@ -263,11 +260,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			dialogShellLayout.horizontalSpacing = 5;
 			dialogShellLayout.verticalSpacing = 5;
 			dialogShell.layout();
-			dialogShell.addDisposeListener(new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
-					toolDeleteýmage.dispose();
-				}
-			});
+			
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 487, 301);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
