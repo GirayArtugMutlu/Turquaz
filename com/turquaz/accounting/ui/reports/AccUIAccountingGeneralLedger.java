@@ -143,7 +143,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			String sqlparam="Select accounts.top_account,accounts.account_name," + //$NON-NLS-1$
 					" accounts.account_code," +
 					" trans.transactions_date,trans.transaction_document_no," + //$NON-NLS-1$
-					" transcolumns.dept_amount, transcolumns.credit_amount," + //$NON-NLS-1$
+					" transcolumns.dept_amount, transcolumns.credit_amount, transcolumns.transaction_definition," + //$NON-NLS-1$
 					" trans.accounting_journal_id, accounts.accounting_accounts_id" + //$NON-NLS-1$
 					" from turq_accounting_accounts accounts, turq_accounting_transactions trans," + //$NON-NLS-1$
 					" turq_accounting_transaction_columns transcolumns where" + //$NON-NLS-1$
@@ -152,7 +152,9 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 					" and accounts.companies_id="+company.getCompaniesId().toString(); //$NON-NLS-1$
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 			sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
-					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"; //$NON-NLS-1$ //$NON-NLS-2$
+					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"//$NON-NLS-1$ //$NON-NLS-2$
+					+" and trans.accounting_journal_id > 0"; 
+					
 			//String sqlparam2=sqlparam;
 			//String sqlparam3=sqlparam;
 			//sqlparam3 +=" and transcolumns.dept_amount > 0";
