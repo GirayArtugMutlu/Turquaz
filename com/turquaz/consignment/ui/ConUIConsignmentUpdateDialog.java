@@ -236,6 +236,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		try{
 			if(msg2.open()==SWT.OK){
 				
+			    
 				//delete Consignment Group
 				Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
 				while(it.hasNext()){
