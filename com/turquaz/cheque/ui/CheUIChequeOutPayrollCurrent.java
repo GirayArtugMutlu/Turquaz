@@ -424,6 +424,66 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
     }
     
     
+	/**
+	 * @return Returns the btnSumTotals.
+	 */
+	public Button getBtnSumTotals() {
+		return btnSumTotals;
+	}
+	/**
+	 * @param btnSumTotals The btnSumTotals to set.
+	 */
+	public void setBtnSumTotals(Button btnSumTotals) {
+		this.btnSumTotals = btnSumTotals;
+	}
+	/**
+	 * @return Returns the toolItemAddCustomer.
+	 */
+	public ToolItem getToolItemAddCustomer() {
+		return toolItemAddCustomer;
+	}
+	/**
+	 * @param toolItemAddCustomer The toolItemAddCustomer to set.
+	 */
+	public void setToolItemAddCustomer(ToolItem toolItemAddCustomer) {
+		this.toolItemAddCustomer = toolItemAddCustomer;
+	}
+	/**
+	 * @return Returns the toolItemAddOwn.
+	 */
+	public ToolItem getToolItemAddOwn() {
+		return toolItemAddOwn;
+	}
+	/**
+	 * @param toolItemAddOwn The toolItemAddOwn to set.
+	 */
+	public void setToolItemAddOwn(ToolItem toolItemAddOwn) {
+		this.toolItemAddOwn = toolItemAddOwn;
+	}
+	/**
+	 * @return Returns the toolItemDelete.
+	 */
+	public ToolItem getToolItemDelete() {
+		return toolItemDelete;
+	}
+	/**
+	 * @param toolItemDelete The toolItemDelete to set.
+	 */
+	public void setToolItemDelete(ToolItem toolItemDelete) {
+		this.toolItemDelete = toolItemDelete;
+	}
+	/**
+	 * @return Returns the toolItemUpdate.
+	 */
+	public ToolItem getToolItemUpdate() {
+		return toolItemUpdate;
+	}
+	/**
+	 * @param toolItemUpdate The toolItemUpdate to set.
+	 */
+	public void setToolItemUpdate(ToolItem toolItemUpdate) {
+		this.toolItemUpdate = toolItemUpdate;
+	}
     private void toolItemAddCustomerWidgetSelected(SelectionEvent evt) {
         
      cheques = new CheUICustomerChequeChooseDialog(getShell(),SWT.NULL,cheques).open();

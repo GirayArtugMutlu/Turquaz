@@ -34,6 +34,7 @@ import org.eclipse.swt.custom.CCombo;
 
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchChequeRoll;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.dal.TurqChequeTransactionType;
 import com.turquaz.engine.ui.EngUICommon;
@@ -230,9 +231,20 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 	public void tableMouseDoubleClick(){
 	    TableItem selection[] = tableChequeRolls.getSelection();
 	    if(selection.length>0){
+	    	boolean isUpdated = false;
+	    	TurqChequeRoll roll = (TurqChequeRoll)selection[0].getData();
 	    
-	    
-	    boolean isUpdated = new CheUIChequeInPayrollUpdate(getShell(),SWT.NULL,(TurqChequeRoll)selection[0].getData()).open();
+	    	if(roll.getTurqChequeTransactionType().getChequeTransactionTypesId().intValue()==EngBLCommon.CHEQUE_TRANS_IN){
+	    		isUpdated = new CheUIChequeInPayrollUpdate(getShell(),SWT.NULL,roll).open();
+	    	}
+	    	else if(roll.getTurqChequeTransactionType().getChequeTransactionTypesId().intValue()==EngBLCommon.CHEQUE_TRANS_OUT_CURRENT){
+	    		isUpdated = new CheUIChequeOutPayrollCurrentUpdate(getShell(),SWT.NULL,roll).open();
+	    	}
+	    	else if(roll.getTurqChequeTransactionType().getChequeTransactionTypesId().intValue()==EngBLCommon.CHEQUE_TRANS_OUT_BANK){
+	    		isUpdated = new CheUIChequeOutPayrollBankUpdate(getShell(),SWT.NULL,roll).open();
+	    	}
+	    	
+	    	
 	   if(isUpdated)
 	   {
 	       search();

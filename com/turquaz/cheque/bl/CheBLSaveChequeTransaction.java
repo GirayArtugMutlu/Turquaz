@@ -122,14 +122,17 @@ public class CheBLSaveChequeTransaction {
               //save current transaction...
               if(curCard!=null&&!sumTransTotal)
               {
-              
-                  blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getEngineSequencesId(),"Çek Portföy No:"+cheque.getChequesPortfolioNo() );
-             
+                 if(rollType == EngBLCommon.CHEQUE_TRANS_IN){
+                     blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getEngineSequencesId(),"Çek Portföy No:"+cheque.getChequesPortfolioNo() );
+                 }
+                 else if(rollType == EngBLCommon.CHEQUE_TRANS_OUT_CURRENT){
+                 	 blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,false,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getEngineSequencesId(),"Çek Portföy No:"+cheque.getChequesPortfolioNo() );
+                 }
               }
               if(bankCard!=null&&!sumTransTotal)
               {
                
-              BankBLTransactionAdd.saveChequeTransaction(bankCard,seq,cheque.getChequesAmount(),rollDate,"Çek No:"+cheque.getChequesNo(),rollNo);
+              BankBLTransactionAdd.saveChequeTransaction(bankCard,seq,cheque.getChequesAmount(),rollDate,"Çek Portfoy No:"+cheque.getChequesPortfolioNo(),rollNo);
               
               }
               
@@ -140,8 +143,13 @@ public class CheBLSaveChequeTransaction {
           
           if(curCard!=null&&sumTransTotal)
           {
+            if(rollType == EngBLCommon.CHEQUE_TRANS_IN){
               blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getEngineSequencesId(),"Çek Bordro No:"+chequeRoll.getChequeRollNo());
-              
+            }
+            else if(rollType == EngBLCommon.CHEQUE_TRANS_OUT_CURRENT){
+            	blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,false,totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getEngineSequencesId(),"Çek Bordro No:"+chequeRoll.getChequeRollNo());
+            }
+            
           }
           if(bankCard!=null&&sumTransTotal)
           {

@@ -374,7 +374,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	}
 	item = new TableItem(tableCurrentTransactions,SWT.NULL);
 	item = new TableItem(tableCurrentTransactions,SWT.NULL);
-	item.setText(new String[]{"","","","","---TOPLAM---",cf.format(totalDept),cf.format(totalCredit)});
+	item.setText(new String[]{"","","","","","---TOPLAM---",cf.format(totalDept),cf.format(totalCredit)});
 	
 	
      	
