@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form style="SWT" ide="eclipse" builder="jigloo" version="1.0.0">
+<ExtraComponents>
+		<Component class="org.eclipse.swt.widgets.Menu" name="menu1" style="66">
+			<Constraints>
+				<LayoutConstraint/>
+			</Constraints>
+			<Layout class="Absolute">
+			</Layout>
+			<Events>
+			</Events>
+			<Properties>
+			</Properties>
+			<SubComponents>
+				<Component class="org.eclipse.swt.widgets.MenuItem" name="fileMenuItem" style="64">
+					<Constraints>
+						<LayoutConstraint/>
+					</Constraints>
+					<Layout class="Absolute">
+					</Layout>
+					<Events>
+					</Events>
+					<Properties>
+						<Property name="text" type="String" value="File"/>
+					</Properties>
+					<SubComponents>
+						<Component class="org.eclipse.swt.widgets.Menu" name="fileMenu" style="68">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Layout class="Absolute">
+							</Layout>
+							<Events>
+							</Events>
+							<Properties>
+							</Properties>
+							<SubComponents>
+								<Component class="org.eclipse.swt.widgets.MenuItem" name="openFileMenuItem" style="64">
+									<Constraints>
+										<LayoutConstraint/>
+									</Constraints>
+									<Layout class="Absolute">
+									</Layout>
+									<Events>
+									</Events>
+									<Properties>
+										<Property name="text" type="String" value="Open"/>
+									</Properties>
+								</Component>
+								<Component class="org.eclipse.swt.widgets.MenuItem" name="newFileMenuItem" style="64">
+									<Constraints>
+										<LayoutConstraint/>
+									</Constraints>
+									<Layout class="Absolute">
+									</Layout>
+									<Events>
+									</Events>
+									<Properties>
+										<Property name="text" type="String" value="New"/>
+									</Properties>
+								</Component>
+								<Component class="org.eclipse.swt.widgets.MenuItem" name="saveFileMenuItem" style="64">
+									<Constraints>
+										<LayoutConstraint/>
+									</Constraints>
+									<Layout class="Absolute">
+									</Layout>
+									<Events>
+									</Events>
+									<Properties>
+										<Property name="text" type="String" value="Save"/>
+									</Properties>
+								</Component>
+								<Component class="org.eclipse.swt.widgets.MenuItem" name="closeFileMenuItem" style="64">
+									<Constraints>
+										<LayoutConstraint/>
+									</Constraints>
+									<Layout class="Absolute">
+									</Layout>
+									<Events>
+									</Events>
+									<Properties>
+										<Property name="text" type="String" value="Close"/>
+									</Properties>
+								</Component>
+								<Component class="org.eclipse.swt.widgets.MenuItem" name="exitMenuItem" style="64">
+									<Constraints>
+										<LayoutConstraint/>
+									</Constraints>
+									<Layout class="Absolute">
+									</Layout>
+									<Events>
+									</Events>
+									<Properties>
+										<Property name="text" type="String" value="Exit"/>
+									</Properties>
+								</Component>
+							</SubComponents>
+						</Component>
+					</SubComponents>
+				</Component>
+				<Component class="org.eclipse.swt.widgets.MenuItem" name="helpMenuItem" style="64">
+					<Constraints>
+						<LayoutConstraint/>
+					</Constraints>
+					<Layout class="Absolute">
+					</Layout>
+					<Events>
+					</Events>
+					<Properties>
+						<Property name="text" type="String" value="Help"/>
+					</Properties>
+					<SubComponents>
+						<Component class="org.eclipse.swt.widgets.Menu" name="helpMenu" style="68">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Layout class="Absolute">
+							</Layout>
+							<Events>
+							</Events>
+							<Properties>
+							</Properties>
+							<SubComponents>
+								<Component class="org.eclipse.swt.widgets.MenuItem" name="contentsMenuItem" style="64">
+									<Constraints>
+										<LayoutConstraint/>
+									</Constraints>
+									<Layout class="Absolute">
+									</Layout>
+									<Events>
+									</Events>
+									<Properties>
+										<Property name="text" type="String" value="Contents"/>
+									</Properties>
+								</Component>
+								<Component class="org.eclipse.swt.widgets.MenuItem" name="aboutMenuItem" style="64">
+									<Constraints>
+										<LayoutConstraint/>
+									</Constraints>
+									<Layout class="Absolute">
+									</Layout>
+									<Events>
+									</Events>
+									<Properties>
+										<Property name="text" type="String" value="About"/>
+									</Properties>
+								</Component>
+							</SubComponents>
+						</Component>
+					</SubComponents>
+				</Component>
+			</SubComponents>
+		</Component></ExtraComponents>
+	<Component class="org.eclipse.swt.widgets.Composite" name="SWTApp" style="0">
+		<Constraints>
+			<LayoutConstraint/>
+		</Constraints>
+		<Layout class="Grid">
+			<Property name="marginHeight" type="int" value="5"/>
+			<Property name="verticalSpacing" type="int" value="5"/>
+			<Property name="horizontalSpacing" type="int" value="5"/>
+			<Property name="marginWidth" type="int" value="5"/>
+			<Property name="makeColumnsEqualWidth" type="boolean" value="true"/>
+			<Property name="numColumns" type="int" value="1"/>
+		</Layout>
+		<Events>
+		</Events>
+		<Properties>
+			<Property name="size" type="Dimension">
+				<Dimension value="[379, 234]"/>
+			</Property>
+			<Property name="background" type="Color">
+				<Color red="80" green="80" blue="80"/>
+			</Property>
+		</Properties>
+	</Component>
+</Form>
