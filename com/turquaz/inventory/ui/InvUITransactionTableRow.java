@@ -163,7 +163,7 @@ public class InvUITransactionTableRow implements ITableRow {
 			    break;
 			    
 			case 6 :  //Unit Price
-			    result = cf.format(invTrans.getTransactionsUnitPrice());
+			    result = cf4.format(invTrans.getTransactionsUnitPrice());
 				break;
 				
 			case 7 : // total Price
