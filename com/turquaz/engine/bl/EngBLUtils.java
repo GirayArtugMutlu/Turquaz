@@ -43,11 +43,14 @@ import org.eclipse.swt.widgets.TableItem;
 
 import com.jasperassistant.designer.viewer.ViewerApp;
 
+import com.turquaz.admin.bl.AdmBLCompanyInfo;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
+import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillConsignmentCommon;
+import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
@@ -78,6 +81,7 @@ public class EngBLUtils {
 	private static CurBLCurrentCardSearch curBLCurCardSearch=new CurBLCurrentCardSearch();
 	private static InvBLCardSearch blCardSearch=new InvBLCardSearch();
 	private static Calendar cal=Calendar.getInstance();
+	private static AdmBLCompanyInfo admBLComInfo=new AdmBLCompanyInfo();
 	//private static ViewerComposite reportViewer;
 	
 	
@@ -394,6 +398,54 @@ public class EngBLUtils {
 		{
 			ex.printStackTrace();
 		}
+	}
+	
+	public static void PrintTransaction(TurqAccountingTransaction trans)
+	{
+		try
+		{
+			
+			SimpleDateFormat dformat=new SimpleDateFormat("dd-MM-yyyy");
+			Map parameters = new HashMap();
+			String sqlparam="Select account.account_name as accountName, account.account_code as accountCode," +
+					" topacc.account_name as topAccountName,topacc.account_code as topAccountCode," +
+					" transColumns.dept_amount,transColumns.credit_amount, " + 
+					" transColumns.transaction_definition, transColumns.accounting_transaction_columns_id as columnId" +
+					" from turq_accounting_transaction_columns transColumns," +
+					" turq_accounting_accounts topacc, turq_accounting_accounts account" +
+					" where account.accounting_accounts_id=transColumns.accounting_accounts_id" +
+					" and topacc.accounting_accounts_id=account.top_account" +
+					" and transColumns.accounting_transactions_id="+trans.getAccountingTransactionsId().intValue()+
+					" order by topAccountCode";
+
+			System.out.println(sqlparam);
+			parameters.put("sqlparam",sqlparam);	
+	
+			TurqCompany company=admBLComInfo.getCompany();
+			parameters.put("companyName", company.getCompanyName());
+			parameters.put("transDate", dformat.format(trans.getTransactionsDate()));
+			parameters.put("transNo", trans.getTransactionDocumentNo());
+			NumberFormat formatter =DecimalFormat.getInstance();
+            formatter.setMaximumFractionDigits(2);
+            formatter.setMinimumFractionDigits(2);
+            parameters.put("formatter",formatter); 
+			EngDALConnection db=new EngDALConnection();
+			db.connect();
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingTransaction.jasper"); 
+	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
+			
+			ViewerApp viewerApp = new ViewerApp();
+			
+			viewerApp.getReportViewer().setDocument(jasperPrint);
+			viewerApp.open();
+					
+			
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+
 	}
 
 }

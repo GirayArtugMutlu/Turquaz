@@ -39,6 +39,7 @@ import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionAdd;
 import com.turquaz.engine.bl.EngBLPermissions;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.ui.viewers.ITableRow;
@@ -66,6 +67,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private AccUITransactionAdd compTransactionAdd;
 	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
+	private ToolItem toolPrint;
 	private ToolItem toolCancel;
 	private ToolBar toolBar1;
 	private CoolItem coolItem1;
@@ -167,6 +169,21 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				toolCancel.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent evt) {
 						dialogShell.close();
+					}
+				});
+			}
+			{
+				toolPrint = new ToolItem(toolBar1, SWT.NONE);
+				toolPrint.setText(Messages.getString("AccUITransactionUpdateDialog.6")); //$NON-NLS-1$
+				toolPrint
+					.setImage(SWTResourceManager.getImage(Messages.getString("AccUITransactionUpdateDialog.7"))); //$NON-NLS-1$
+				toolPrint.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						
+						dialogShell.close();
+						EngBLUtils.PrintTransaction(accTrans);
+				
+
 					}
 				});
 			}
