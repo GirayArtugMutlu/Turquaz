@@ -12,31 +12,31 @@
 -->
 
 <class 
-    name="com.turquaz.engine.dal.TurqCashCard" 
-    table="turq_cash_cards"
+    name="com.turquaz.engine.dal.TurqCashTransaction" 
+    table="turq_cash_transactions"
 >
 
     <id
-        name="cashCardsId"
+        name="cashTransactionsId"
         type="int"
-        column="cash_cards_id"
+        column="cash_transactions_id"
     >
         <generator class="increment" />
     </id>
 
     <property
-        name="cashCardName"
-        type="java.lang.String"
-        column="cash_card_name"
+        name="deptAmount"
+        type="java.math.BigDecimal"
+        column="dept_amount"
         not-null="true"
-        length="250"
+        length="65535"
     />
     <property
-        name="cashCardDefinition"
-        type="java.lang.String"
-        column="cash_card_definition"
+        name="creditAmount"
+        type="java.math.BigDecimal"
+        column="credit_amount"
         not-null="true"
-        length="250"
+        length="65535"
     />
     <property
         name="createdBy"
@@ -69,20 +69,30 @@
 
     <!-- Associations -->
   
-    <!-- bi-directional one-to-many association to TurqCashTransaction -->
-    <set
-        name="turqCashTransactions"
-        lazy="true"
-        inverse="true"
-		cascade="none"
+    <!-- bi-directional many-to-one association to TurqCashCard -->
+    <many-to-one
+        name="turqCashCard"
+        class="com.turquaz.engine.dal.TurqCashCard"
+        not-null="true"
     >
-        <key>
-            <column name="cash_cards_id" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqCashTransaction"
-        />
-    </set>
+        <column name="cash_cards_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqModule -->
+    <many-to-one
+        name="turqModule"
+        class="com.turquaz.engine.dal.TurqModule"
+        not-null="true"
+    >
+        <column name="modules_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqCashTransactionType -->
+    <many-to-one
+        name="turqCashTransactionType"
+        class="com.turquaz.engine.dal.TurqCashTransactionType"
+        not-null="true"
+    >
+        <column name="cash_transactions_types_id" />
+    </many-to-one>
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one
         name="turqAccountingAccount"
@@ -90,6 +100,14 @@
         not-null="true"
     >
         <column name="accounting_accounts_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqEngineSequence -->
+    <many-to-one
+        name="turqEngineSequence"
+        class="com.turquaz.engine.dal.TurqEngineSequence"
+        not-null="true"
+    >
+        <column name="engine_sequences_id" />
     </many-to-one>
 
 </class>

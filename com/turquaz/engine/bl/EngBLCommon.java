@@ -33,6 +33,16 @@ public class EngBLCommon {
     final static int CASH_CURRENT_PAYMENT = 1; // Kasa Cari Ödeme
     
     
+    final static int CURRENT_TRANS_BILL = 1; //Cari Fatura Hareketi
+    
+    final static int CURRENT_TRANS_CHEQUE = 2; // CAri Cek hareketi
+    
+    final static int CURRENT_TRANS_TRADEBILL = 3; //Cari senet hareketi
+    
+    final static int CURRENT_TRANS_CASH = 4; //Cari Nakit Hareketi
+    
+    final static int CURRENT_TRANS_BANK = 5; //Cari Banka Hareketi
+    
     
     final static int MODULE_INVENTORY = 0;  //Stok Modulu
     

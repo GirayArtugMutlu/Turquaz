@@ -97,6 +97,20 @@
             class="com.turquaz.engine.dal.TurqAccountingTransaction"
         />
     </set>
+    <!-- bi-directional one-to-many association to TurqCashTransaction -->
+    <set
+        name="turqCashTransactions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="modules_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCashTransaction"
+        />
+    </set>
     <!-- bi-directional one-to-many association to TurqEngineSequence -->
     <set
         name="turqEngineSequences"
