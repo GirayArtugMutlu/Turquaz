@@ -25,7 +25,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
@@ -114,6 +118,7 @@ public class CheBLSaveChequeTransaction {
           if(rollAccount!=null){
           
           	TurqChequeRollAccountingAccount rollAccountingAccount = new TurqChequeRollAccountingAccount();
+          	rollAccountingAccount.setId(chequeRoll.getId());
           	rollAccountingAccount.setTurqChequeRoll(chequeRoll);
           	rollAccountingAccount.setTurqAccountingAccount(rollAccount);
           	CheDALSave.save(rollAccountingAccount);          
@@ -130,9 +135,7 @@ public class CheBLSaveChequeTransaction {
               chequeInRoll = new TurqChequeChequeInRoll();
               
               cheque = (TurqChequeCheque)chequeList.get(i);
-                  
-              CheBLSearchCheques.getChequeRollAccountingAccount(cheque,EngBLCommon.CHEQUE_TRANS_IN);
-              
+               
               CheDALSave.saveOrUpdate(cheque);
               
               chequeInRoll.setTurqChequeCheque(cheque);
@@ -190,7 +193,8 @@ public class CheBLSaveChequeTransaction {
          }
          else if(rollType==EngBLCommon.CHEQUE_TRANS_OUT_BANK)
          {
-         	
+         
+         	saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
          }
         
           
@@ -367,22 +371,28 @@ public class CheBLSaveChequeTransaction {
     	int type = roll.getTurqChequeTransactionType().getId().intValue();
     	int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
     	
-    	if(rollAccount == null || counterAccount ==null)
+    	if(rollAccount == null )
     	{
     	
     		return ;
     	
     	}
+    	  	
     	
-    	TurqAccountingTransactionColumn transRollRow = new TurqAccountingTransactionColumn();
-    	TurqAccountingTransactionColumn transCounterRow = new TurqAccountingTransactionColumn();
-    	transRollRow.setTurqAccountingAccount(rollAccount);
-    	transCounterRow.setTurqAccountingAccount(counterAccount);
-    	
-    	
-    	
-    	if(type==EngBLCommon.CHEQUE_TRANS_IN || type==EngBLCommon.CHEQUE_TRANS_OUT_BANK)
+    	if(type==EngBLCommon.CHEQUE_TRANS_IN )
+    		
     	{
+    		if(counterAccount==null)
+    		{
+    			return;
+    		}
+    		TurqAccountingTransactionColumn transRollRow = new TurqAccountingTransactionColumn();
+        	TurqAccountingTransactionColumn transCounterRow = new TurqAccountingTransactionColumn();
+        	
+        	transRollRow.setTurqAccountingAccount(rollAccount);
+        	transCounterRow.setTurqAccountingAccount(counterAccount);
+        	
+        	
     		transRollRow.setTransactionDefinition("Cek Bordrosu "+roll.getChequeRollNo());
     		transCounterRow.setTransactionDefinition("Cek Bordrosu "+roll.getChequeRollNo());
     	    // transRollRow.set
@@ -402,6 +412,95 @@ public class CheBLSaveChequeTransaction {
     		blAccTran.saveAccTransactionRow(transCounterRow,transId,exchangeRate);
     	
     	}
+    	
+    	
+    	else if(type == EngBLCommon.CHEQUE_TRANS_OUT_BANK){
+    	{
+    		Map accountMap = new Hashtable();
+    		
+    		CheBLUpdateChequeRoll.initializeChequeRoll(roll);
+    		TurqChequeCheque cheque = null;
+    		TurqAccountingAccount chequeAccount =null;
+    		Iterator it = roll.getTurqChequeChequeInRolls().iterator();
+    		while(it.hasNext())
+    		{
+    			cheque = ((TurqChequeChequeInRoll)it.next()).getTurqChequeCheque();
+    			
+    			chequeAccount = CheBLSearchCheques.getChequeRollAccountingAccount(cheque,EngBLCommon.CHEQUE_TRANS_IN);
+    			
+    			if(chequeAccount == null)
+    			{
+    				return ;
+    			}
+    			if(accountMap.containsKey(chequeAccount.getId()))
+    			{
+    				BigDecimal total = (BigDecimal)accountMap.get(chequeAccount.getId());
+    				total = total.add(cheque.getChequesAmount());
+    				accountMap.put(chequeAccount.getId(),total);    				
+    			}
+    			else{
+    				
+    				accountMap.put(chequeAccount.getId(),cheque.getChequesAmount());
+    			
+    			}  		
+    		
+    		}
+    		
+    		// if we came here than we can save accounting transactons..
+    		
+    		TurqAccountingTransactionColumn transRollRow = new TurqAccountingTransactionColumn();
+    		transRollRow.setTurqAccountingAccount(rollAccount);
+    		
+    		transRollRow.setDeptAmount(amount);
+            transRollRow.setCreditAmount(new BigDecimal(0));
+           
+            transRollRow.setTransactionDefinition("Cek Bordrosu "+roll.getChequeRollNo());
+            
+            Integer transId = blAccTran.saveAccTransaction(roll.getChequeRollsDate(),
+    				roll.getChequeRollNo(), accTransType, roll.getTurqEngineSequence().getTurqModule()
+    						.getId().intValue(), roll.getTurqEngineSequence()
+    						.getId(), "Cek Bordrosu "+roll.getChequeRollNo());
+        	
+            blAccTran.saveAccTransactionRow(transRollRow,transId,exchangeRate);
+        
+           
+            it = accountMap.keySet().iterator();
+    		
+    		while(it.hasNext())
+    		{
+    		Integer accountId = (Integer)it.next();
+    		TurqAccountingAccount account = new TurqAccountingAccount();
+    		account.setId(accountId);
+    		
+    		TurqAccountingTransactionColumn transCounterRow = new TurqAccountingTransactionColumn();
+    		
+    		transCounterRow.setTurqAccountingAccount(account);
+    		transCounterRow.setTransactionDefinition("Cek Bordrosu "+roll.getChequeRollNo());
+     	   	
+    		transCounterRow.setDeptAmount(new BigDecimal(0));
+    		transCounterRow.setCreditAmount((BigDecimal)accountMap.get(accountId));    
+    		 
+    		blAccTran.saveAccTransactionRow(transCounterRow,transId,exchangeRate); 	        
+    			
+    			
+    		}	
+    	
+    	}
+    		
+    		
+    		
+    		
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	}
+    	
+    	
     
     	else if(type == EngBLCommon.CHEQUE_TRANS_OUT_CURRENT){
     		

@@ -175,7 +175,10 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite {
 		if(obj==null)
 		{
 		    text1.setBackground(SWTResourceManager.getColor(255,150, 150));
+		  
+		    if(accountPicker!=null){
 		    accountPicker.setData(null);
+		  }
 		}
 		else
 		{
