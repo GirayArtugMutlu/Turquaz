@@ -45,7 +45,7 @@ public class InvBLWarehouseAdd {
 		warehouse.setWarehousesCity(whCity);
 		warehouse.setWarehousesTelephone(whTelephone);
 		warehouse.setWarehousesDescription(whDescription);
-		warehouse.setWarehousesCode(whName);
+		warehouse.setWarehousesCode(whCode);
 		
 		warehouse.setCreatedBy(System.getProperty("user"));
 		warehouse.setUpdatedBy(System.getProperty("user"));
@@ -53,7 +53,7 @@ public class InvBLWarehouseAdd {
 		warehouse.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 		
 		whDALAdd.saveObject(warehouse);	
-		//sfbk?msfbthth?ksmf?b
+
 			
 	
 	  }
