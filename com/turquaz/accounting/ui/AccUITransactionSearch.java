@@ -71,7 +71,7 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class AccUITransactionSearch extends  Composite implements SecureComposite,SearchComposite {
+public class AccUITransactionSearch extends  Composite implements SearchComposite {
 
 	{
 		//Register as a resource user - SWTResourceManager will

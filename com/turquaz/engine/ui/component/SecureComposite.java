@@ -32,8 +32,8 @@ package com.turquaz.engine.ui.component;
 public interface SecureComposite {
 
 	 public void save();
-	 public void search();
+
 	 public void newForm();
-	 public void delete();
+	
 
 }

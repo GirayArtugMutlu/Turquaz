@@ -58,7 +58,6 @@ import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.ui.component.SearchComposite;
-import com.turquaz.engine.ui.component.SecureComposite;
 
 
 
@@ -81,7 +80,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 * *************************************
 */
 public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite implements 
-SearchComposite, SecureComposite{
+SearchComposite{
 
 	{
 		//Register as a resource user - SWTResourceManager will
