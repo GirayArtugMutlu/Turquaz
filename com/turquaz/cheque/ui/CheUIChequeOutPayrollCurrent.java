@@ -72,7 +72,8 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
 
 	private Composite compInfoPanel;
 	private ToolBar toolBarButtons;
-	private ToolItem toolItemAdd;
+	private ToolItem toolItemAddOwn;
+	private ToolItem toolItemAddCustomer;
 	private Button btnSumTotals;
 	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnPaymentPlace;
@@ -159,16 +160,21 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
                 toolBarButtonsLData.grabExcessHorizontalSpace = true;
                 toolBarButtons.setLayoutData(toolBarButtonsLData);
                 {
-                    toolItemAdd = new ToolItem(toolBarButtons, SWT.NONE);
-                    toolItemAdd.setText(Messages.getString("CheUIChequeInPayroll.0")); //$NON-NLS-1$
-                    toolItemAdd.setImage(SWTResourceManager.getImage("icons/plus.gif")); //$NON-NLS-1$
-                    toolItemAdd.addSelectionListener(new SelectionAdapter() {
+                    toolItemAddOwn = new ToolItem(toolBarButtons, SWT.NONE);
+                    toolItemAddOwn.setText("Firma Çeki"); //$NON-NLS-1$
+                    toolItemAddOwn.setImage(SWTResourceManager.getImage("icons/plus.gif")); //$NON-NLS-1$
+                    toolItemAddOwn.addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
                             addCheque();
                             
                         }
                     });
 
+                }
+                {
+                    toolItemAddCustomer = new ToolItem(toolBarButtons, SWT.NONE);
+                    toolItemAddCustomer.setText("Mü?teri Çeki");
+                    toolItemAddCustomer.setImage(SWTResourceManager.getImage("icons/plus.gif"));
                 }
                 {
                     toolItemDelete = new ToolItem(toolBarButtons, SWT.NONE);
@@ -261,7 +267,7 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
         else if(tableCheques.getItemCount()==0)
         {
             EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.12"),SWT.ICON_WARNING); //$NON-NLS-1$
-            toolItemAdd.setSelection(true);
+            toolItemAddOwn.setSelection(true);
             return false;
         }
         return true;

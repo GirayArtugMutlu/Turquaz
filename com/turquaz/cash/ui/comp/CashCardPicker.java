@@ -33,7 +33,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 
-import com.turquaz.engine.bl.EngBLBankCards;
+import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
@@ -90,7 +90,7 @@ public class CashCardPicker extends org.eclipse.swt.widgets.Composite {
                       
                             try {
                                 
-                               setData2(EngBLBankCards.getCard(text1.getText().trim()));
+                               setData2(EngBLCashCards.getCard(text1.getText().trim()));
                           
                                                            
                                 
