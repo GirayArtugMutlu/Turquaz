@@ -1,5 +1,6 @@
 package com.turquaz.cheque.ui;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.eclipse.swt.layout.GridLayout;
@@ -18,6 +19,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.CCombo;
 
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -120,6 +122,8 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			comboStatus.add(EngBLCommon.CHEQUE_STATUS_PORTFOY_STRING);
 			comboStatus.add(EngBLCommon.CHEQUE_STATUS_CURRENT_STRING);
 			comboStatus.add(EngBLCommon.CHEQUE_STATUS_BANK_STRING);
+			comboStatus.add(EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_BANK_STRING);
+			comboStatus.add(EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_CURRENT_STRING);
 			//END <<  comboStatus
 			//START >>  lblCurrentCard
 			lblCurrentCard = new CLabel(compSearchPanle, SWT.NONE);
@@ -221,7 +225,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			tableColumnStatus.setWidth(105);
 			//END <<  tableColumnStatus
 			//START >>  tableColumnAmount
-			tableColumnAmount = new TableColumn(tableCheques, SWT.NONE);
+			tableColumnAmount = new TableColumn(tableCheques, SWT.RIGHT);
 			tableColumnAmount.setText(Messages.getString("CheUICustomerChequeSearch.14")); //$NON-NLS-1$
 			tableColumnAmount.setWidth(98);
 			//END <<  tableColumnAmount
@@ -240,12 +244,13 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 	}
 	
 	public void exportToExcel() {
-		// TODO Auto-generated method stub
+		
+		EngBLUtils.Export2Excel(tableCheques);
 
 	}
 	
 	public void printTable() {
-		// TODO Auto-generated method stub
+		EngBLUtils.printTable(tableCheques,Messages.getString("CheUICustomerChequeSearch.15")); //$NON-NLS-1$
 
 	}
 	
@@ -266,13 +271,24 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 				cheStat = EngBLCommon.CHEQUE_STATUS_PORTFOY;
 			
 			}		
+			else if(comboStatus.getText().equals(EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_BANK_STRING)){
+				
+					cheStat = EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_BANK;
+				
+				}	
+			else if(comboStatus.getText().equals(EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_CURRENT_STRING)){
+				
+					cheStat = EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_CURRENT;
+				
+				}	
 			
 			List ls = CheBLSearchCheques.searchCheque(txtPortFoyNo.getText().trim(),(TurqCurrentCard)currentPicker.getData(),cheStat,datePickerStartEnterDate.getDate(),datePickerEndEnterDate.getDate(),datePickerStartDueDate.getDate(),datePickerEndDueDate.getDate());
 			TableItem item;
-			String status = ""; //$NON-NLS-1$
+			
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+			BigDecimal total = new BigDecimal(0);
 			for(int i=0;i<ls.size();i++){
-				
+				String status = ""; //$NON-NLS-1$
 				Object result[] =(Object[])ls.get(i);
 				
 				if(result[5].equals(EngBLCommon.CHEQUE_STATUS_PORTFOY)){
@@ -283,6 +299,12 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 				}
 				else if(result[5].equals(EngBLCommon.CHEQUE_STATUS_CURRENT)){
 					status = EngBLCommon.CHEQUE_STATUS_CURRENT_STRING;
+				}
+				else if(result[5].equals(EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_BANK)){
+					status = EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_BANK_STRING;
+				}
+				else if(result[5].equals(EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_CURRENT)){
+					status = EngBLCommon.CHEQUE_STATUS_COLLECTED_FROM_CURRENT_STRING;
 				}
 				
 			
@@ -297,12 +319,24 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 							status,
 							cf.format(result[6])
 				});
+							
 				
-				
-				
-				
+							total = total.add((BigDecimal)result[6]);
 				
 			}
+			
+			
+			item = new TableItem(tableCheques,SWT.NULL);
+
+			item = new TableItem(tableCheques,SWT.NULL);
+			item.setText(new String[]{
+					"",
+					"",
+					"",
+					"",
+					"Toplam",
+					cf.format(total)
+			});
 		
 		}
 		catch(Exception ex){
@@ -315,6 +349,12 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 		try{
 		TableItem[] selection = tableCheques.getSelection();
 		if(selection.length>0){
+			
+			if(selection[0].getData()==null)
+			{
+				return;
+			}
+			
 			TurqChequeCheque cheque = CheDALUpdate.initializeCheque((Integer)selection[0].getData());
 			boolean isUpdated = new CheUICustomerChequeUpdate(getShell(),SWT.NULL,cheque).open();
 		   

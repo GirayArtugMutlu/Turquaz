@@ -27,6 +27,7 @@ import java.util.Locale;
 import java.util.Properties;
 
 
+
 import org.eclipse.core.internal.preferences.Base64;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.layout.FillLayout;
@@ -479,6 +480,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		EngDALSessionFactory.init();
 		
 		
+		
 	}
 	
 	public void postInitGui(){
@@ -518,5 +520,20 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	}
 	public void setTxtUserName(Text txtUserName) {
 		this.txtUserName = txtUserName;
+	}
+	
+	public void updateDBSchema()
+	{
+		try{
+		
+			
+		
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+		
 	}
 }

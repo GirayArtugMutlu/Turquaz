@@ -21,6 +21,7 @@ package com.turquaz.cheque.ui;
  * @version  $Id$
  */
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +39,7 @@ import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchChequeRoll;
 import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.dal.TurqChequeTransactionType;
 import com.turquaz.engine.ui.EngUICommon;
@@ -216,7 +218,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite
 				}
 				//START >>  tableColumnAmount
 				tableColumnAmount = new TableColumn(tableChequeRolls, SWT.RIGHT);
-				tableColumnAmount.setText("Bordro Tutar\u0131");
+				tableColumnAmount.setText(Messages.getString("CheUIChequeRollSearch.10")); //$NON-NLS-1$
 				tableColumnAmount.setWidth(100);
 				//END <<  tableColumnAmount
 			}
@@ -303,12 +305,13 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite
 	}
 
 	public void exportToExcel() {
-		// TODO Auto-generated method stub
+		EngBLUtils.Export2Excel(tableChequeRolls);
 
 	}
 
 	public void printTable() {
-		// TODO Auto-generated method stub
+		 EngBLUtils.printTable(tableChequeRolls,Messages.getString("CheUIChequeRollSearch.11"));   //$NON-NLS-1$
+		   
 
 	}
 
@@ -323,6 +326,10 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite
 			TableItem item;
 			Object[] roll;
 			String owner = ""; //$NON-NLS-1$
+			
+			BigDecimal total = new BigDecimal(0);
+			
+			
 			for (int i = 0; i < ls.size(); i++) {
 
 				roll = (Object[]) ls.get(i);
@@ -349,8 +356,18 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite
 				item.setText(new String[] {
 						DatePicker.formatter.format(cheqRollDate), cheqRollNo,
 						transTypeName, owner,cf.format(roll[8]) });
+				
+				total = total.add((BigDecimal)roll[8]);
+				
 
 			}
+			item = new TableItem(tableChequeRolls, SWT.NULL);
+			item = new TableItem(tableChequeRolls, SWT.NULL);
+			item.setText(new String[] {
+					"", "",
+					"","Toplam",cf.format(total) });
+			
+
 
 		} catch (Exception ex) {
 			ex.printStackTrace();

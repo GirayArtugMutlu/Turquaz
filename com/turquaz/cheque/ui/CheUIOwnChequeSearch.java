@@ -1,5 +1,6 @@
 package com.turquaz.cheque.ui;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.eclipse.swt.layout.GridLayout;
@@ -19,6 +20,7 @@ import org.eclipse.swt.widgets.TableItem;
 
 
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -231,12 +233,13 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 	}
 	
 	public void exportToExcel() {
-		// TODO Auto-generated method stub
+		
+		EngBLUtils.Export2Excel(tableCheques);
 
 	}
 	
 	public void printTable() {
-		// TODO Auto-generated method stub
+		EngBLUtils.printTable(tableCheques,Messages.getString("CheUIOwnChequeSearch.13")); //$NON-NLS-1$
 
 	}
 	
@@ -250,6 +253,9 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			TableItem item;
 			String status = ""; //$NON-NLS-1$
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+			
+			BigDecimal total = new BigDecimal(0);
+			
 			for(int i=0;i<ls.size();i++){
 				
 				Object result[] =(Object[])ls.get(i);
@@ -271,12 +277,23 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 							status,
 							cf.format(result[5])
 				});
-				
-				
-				
-				
-				
+							
+				total = total.add((BigDecimal)result[5]);
 			}
+			
+			item = new TableItem(tableCheques,SWT.NULL);
+			item = new TableItem(tableCheques,SWT.NULL);
+			item.setText(new String[]{
+					"",
+					"",
+					"",
+					"",
+					"",
+					"Toplam",
+					cf.format(total)
+		});
+				
+			
 		
 		}
 		catch(Exception ex){
@@ -289,6 +306,12 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 		try{
 			TableItem[] selection = tableCheques.getSelection();
 			if(selection.length>0){
+				
+				if(selection[0].getData()==null)
+				{
+					return;
+				}
+				
 				TurqChequeCheque cheque = CheDALUpdate.initializeCheque((Integer)selection[0].getData());
 				boolean isUpdated = new CheUIOwnChequeUpdate(getShell(),SWT.NULL,cheque).open();
 			   
