@@ -146,8 +146,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 						{
 							toolPrint = new ToolItem(toolBar1, SWT.NONE);
 							toolPrint.setText(Messages.getString("ConUIConsignmentUpdateDialog.3")); //$NON-NLS-1$
-							toolPrint.setImage(SWTResourceManager
-								.getImage(Messages.getString("ConUIConsignmentUpdateDialog.4"))); //$NON-NLS-1$
+							toolPrint.setImage(SWTResourceManager.getImage("icons/Print16.gif")); //$NON-NLS-1$
 							toolPrint
 								.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt) {
@@ -230,9 +229,8 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		    }
 		
 	    checkBill();
-	    
-		compAddConsignment.getTxtCurrentCard().setData(consignment.getTurqBillConsignmentCommon().getTurqCurrentCard());
-		compAddConsignment.getTxtCurrentCard().setText(consignment.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode());
+	    TurqCurrentCard curCard = consignment.getTurqBillConsignmentCommon().getTurqCurrentCard();
+		compAddConsignment.getTxtCurrentCard().setText(curCard.getCardsName()+" {"+curCard.getCardsCurrentCode()+"}");
 		compAddConsignment.getTxtBillDocumentNo().setText(consignment.getTurqBillConsignmentCommon().getBillDocumentNo());
 		compAddConsignment.getDateConsignmentDate().setDate(consignment.getConsignmentsDate());
 		compAddConsignment.getTxtDocumentNo().setText(consignment.getTurqBillConsignmentCommon().getConsignmentDocumentNo());
