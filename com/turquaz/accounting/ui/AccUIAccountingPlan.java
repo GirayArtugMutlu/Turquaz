@@ -37,6 +37,7 @@ import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.custom.TableTreeItem;
 import org.eclipse.swt.SWT;
 
+import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -138,13 +139,13 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite {
 	tableTreeAccountingPlan.getTable().setHeaderVisible(true);
 
    TableColumn col = new TableColumn(tableTreeAccountingPlan.getTable(),SWT.LEFT);
-   col.setText("Account Code");
+   col.setText(Messages.getString("AccUIAccountingPlan.0")); //$NON-NLS-1$
    col.setWidth(200);
    col = new TableColumn(tableTreeAccountingPlan.getTable(),SWT.LEFT);
-   col.setText("Account Name");
+   col.setText(Messages.getString("AccUIAccountingPlan.1")); //$NON-NLS-1$
    col.setWidth(200);
    
-   fillTree(-1,"");
+   fillTree(-1,""); //$NON-NLS-1$
 	
 	}
 	
@@ -183,7 +184,7 @@ public void fillTree(int parent, String codeCrit){
 			
 		TableTreeItem parentItem = (TableTreeItem)treeItems.get(parentId);
 		if(parentItem == null){
-		   System.out.println(account.getAccountCode()+" "+parentId.intValue());
+		   System.out.println(account.getAccountCode()+" "+parentId.intValue()); //$NON-NLS-1$
 		}
 		else{
 		item = new TableTreeItem(parentItem,SWT.NULL);	
@@ -226,7 +227,7 @@ public void fillTree(int parent, String codeCrit){
 			item.setText(0,account.getAccountCode());
 			item.setText(1,account.getAccountName());
 			item.setData(account);
-			fillBranch(item,account.getAccountingAccountsId().intValue(),"");
+			fillBranch(item,account.getAccountingAccountsId().intValue(),""); //$NON-NLS-1$
 		
 			
 		}

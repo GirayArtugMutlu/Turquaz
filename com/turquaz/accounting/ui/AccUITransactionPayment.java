@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.TableItem;
 
+import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -99,7 +100,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 			lbldocumentNoLData.grabExcessHorizontalSpace = false;
 			lbldocumentNoLData.grabExcessVerticalSpace = false;
 			lbldocumentNo.setLayoutData(lbldocumentNoLData);
-			lbldocumentNo.setText("Document No");
+			lbldocumentNo.setText(Messages.getString("AccUITransactionPayment.0")); //$NON-NLS-1$
 			lbldocumentNo.setSize(new org.eclipse.swt.graphics.Point(93,18));
 	
 			GridData txtDocumentNoLData = new GridData();
@@ -126,7 +127,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 			lblDateLData.grabExcessHorizontalSpace = false;
 			lblDateLData.grabExcessVerticalSpace = false;
 			lblDate.setLayoutData(lblDateLData);
-			lblDate.setText("Date");
+			lblDate.setText(Messages.getString("AccUITransactionPayment.1")); //$NON-NLS-1$
 			lblDate.setSize(new org.eclipse.swt.graphics.Point(49,19));
 	
 			GridData datePickerTransactionDateLData = new GridData();
@@ -154,7 +155,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 			lblCreditorLData.grabExcessHorizontalSpace = false;
 			lblCreditorLData.grabExcessVerticalSpace = false;
 			lblCreditor.setLayoutData(lblCreditorLData);
-			lblCreditor.setText("Creditor");
+			lblCreditor.setText(Messages.getString("AccUITransactionPayment.2")); //$NON-NLS-1$
 			lblCreditor.setSize(new org.eclipse.swt.graphics.Point(70,15));
 	
 			GridData comboCreditorLData = new GridData();
@@ -194,7 +195,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 			btnAddTransactionRowLData.grabExcessHorizontalSpace = false;
 			btnAddTransactionRowLData.grabExcessVerticalSpace = false;
 			btnAddTransactionRow.setLayoutData(btnAddTransactionRowLData);
-			final org.eclipse.swt.graphics.Image btnAddTransactionRowýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/plus.gif"));
+			final org.eclipse.swt.graphics.Image btnAddTransactionRowýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/plus.gif")); //$NON-NLS-1$
 			btnAddTransactionRowýmage.setBackground(btnAddTransactionRow.getBackground());
 			btnAddTransactionRow.setImage(btnAddTransactionRowýmage);
 			btnAddTransactionRow.setSize(new org.eclipse.swt.graphics.Point(26,24));
@@ -215,7 +216,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 			btnRemoveTransactionRowLData.grabExcessHorizontalSpace = false;
 			btnRemoveTransactionRowLData.grabExcessVerticalSpace = false;
 			btnRemoveTransactionRow.setLayoutData(btnRemoveTransactionRowLData);
-			final org.eclipse.swt.graphics.Image btnRemoveTransactionRowýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif"));
+			final org.eclipse.swt.graphics.Image btnRemoveTransactionRowýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif")); //$NON-NLS-1$
 			btnRemoveTransactionRowýmage.setBackground(btnRemoveTransactionRow.getBackground());
 			btnRemoveTransactionRow.setImage(btnRemoveTransactionRowýmage);
 			btnRemoveTransactionRow.addMouseListener( new MouseAdapter() {
@@ -248,13 +249,13 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 			tableTransactionRows.setLinesVisible(true);
 			tableTransactionRows.setSize(new org.eclipse.swt.graphics.Point(392,347));
 	
-			tableColumnAccountCode.setText("Account Code");
+			tableColumnAccountCode.setText(Messages.getString("AccUITransactionPayment.5")); //$NON-NLS-1$
 			tableColumnAccountCode.setWidth(126);
 	
-			tableColumnAccountName.setText("Account Name");
+			tableColumnAccountName.setText(Messages.getString("AccUITransactionPayment.6")); //$NON-NLS-1$
 			tableColumnAccountName.setWidth(150);
 	
-			tableColumnDeptAmount.setText("Dept");
+			tableColumnDeptAmount.setText(Messages.getString("AccUITransactionPayment.7")); //$NON-NLS-1$
 			tableColumnDeptAmount.setWidth(100);
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
@@ -293,13 +294,13 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	public void fillCombo(){
 	try{
 	AccBLAccountAdd blaccountAdd = new AccBLAccountAdd();
-	comboCreditor.setText("Choose Account");
-	List accList = blaccountAdd.getAccount(-1,"100");
+	comboCreditor.setText(Messages.getString("AccUITransactionPayment.8")); //$NON-NLS-1$
+	List accList = blaccountAdd.getAccount(-1,"100"); //$NON-NLS-1$
 	TurqAccountingAccount account;
 	for(int i=0;i<accList.size();i++){
 	account = (TurqAccountingAccount)accList.get(i);
-	comboCreditor.add(account.getAccountCode()+" "+account.getAccountName());
-	comboCreditor.setData(account.getAccountCode()+" "+account.getAccountName(),account);
+	comboCreditor.add(account.getAccountCode()+" "+account.getAccountName()); //$NON-NLS-1$
+	comboCreditor.setData(account.getAccountCode()+" "+account.getAccountName(),account); //$NON-NLS-1$
 	addSecondaryAccountsToCombo(account.getAccountingAccountsId().intValue());	
 	}
 	
@@ -314,12 +315,12 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	try{
 	AccBLAccountAdd blaccountAdd = new AccBLAccountAdd();
 
-	List accList = blaccountAdd.getAccount(parentId,"");
+	List accList = blaccountAdd.getAccount(parentId,""); //$NON-NLS-1$
 	TurqAccountingAccount account;
 	for(int i=0;i<accList.size();i++){
 	account = (TurqAccountingAccount)accList.get(i);
-	comboCreditor.add(account.getAccountCode()+" "+account.getAccountName());
-	comboCreditor.setData(account.getAccountCode()+" "+account.getAccountName(),account);
+	comboCreditor.add(account.getAccountCode()+" "+account.getAccountName()); //$NON-NLS-1$
+	comboCreditor.setData(account.getAccountCode()+" "+account.getAccountName(),account); //$NON-NLS-1$
 	addSecondaryAccountsToCombo(account.getAccountingAccountsId().intValue());	
 	
 	}
@@ -340,7 +341,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 
 	
 	if(tableTransactionRows.getItems().length==0){
-	msg.setMessage("You hava to add rows to table!");
+	msg.setMessage(Messages.getString("AccUITransactionPayment.15")); //$NON-NLS-1$
 	
 	msg.open();
 	
@@ -348,14 +349,14 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	
 	}
 	else if(datePickerTransactionDate.getData()==null){
-	msg.setMessage("Please Enter Transaction Date");
+	msg.setMessage(Messages.getString("AccUITransactionPayment.16")); //$NON-NLS-1$
 	
 	msg.open();
 	
 	return false;
 	}
 	else if(comboCreditor.getSelectionIndex()==-1){
-	msg.setMessage("Please Choose Deptor Account");
+	msg.setMessage(Messages.getString("AccUITransactionPayment.17")); //$NON-NLS-1$
 	
 	msg.open();
 	
@@ -384,14 +385,14 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	Integer transId =blTransAdd.saveAccTransaction(datePickerTransactionDate.getDate(),txtDocumentNo.getText().trim(),1,1);
 	
 	saveTransactionRows(transId);
-	msg.setMessage("Successfully saved!");
+	msg.setMessage(Messages.getString("AccUITransactionPayment.18")); //$NON-NLS-1$
 	msg.open();
 	clearFields();
 	}
 
 	catch(Exception ex){
 	ex.printStackTrace();
-	msg.setMessage("An error occurred!");
+	msg.setMessage(Messages.getString("AccUITransactionPayment.19")); //$NON-NLS-1$
 	msg.open();
 	
 	}
@@ -407,7 +408,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	
 		
 	public void clearFields(){
-    txtDocumentNo.setText("");
+    txtDocumentNo.setText(""); //$NON-NLS-1$
     tableTransactionRows.removeAll();
     
     }

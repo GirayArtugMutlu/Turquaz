@@ -20,6 +20,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 
+import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionPayment;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -91,8 +92,8 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,38));
 	
 	
-			toolUpdate.setText("Update");
-			final org.eclipse.swt.graphics.Image toolUpdateýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
+			toolUpdate.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.0")); //$NON-NLS-1$
+			final org.eclipse.swt.graphics.Image toolUpdateýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.setImage(toolUpdateýmage);
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
@@ -100,8 +101,8 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 				}
 			});
 	
-			toolDelete.setText("Delete");
-			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.2")); //$NON-NLS-1$
+			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
 			toolDelete.setImage(toolDeleteýmage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
@@ -178,7 +179,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	
 	transRow =(TurqAccountingTransactionColumn)it.next();
 	
-	if(!transRow.getDeptAmount().toString().equals("0")){
+	if(!transRow.getDeptAmount().toString().equals("0")){ //$NON-NLS-1$
 	item = new TableItem(compTransactionPayment.getTableTransactionRows(),SWT.NULL);
 	item.setData(transRow);
 	item.setText(new String[]{transRow.getTurqAccountingAccount().getAccountCode(),
@@ -186,7 +187,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 				transRow.getDeptAmount().toString()});
 	}
 	else {
-	compTransactionPayment.getComboCreditor().setText(transRow.getTurqAccountingAccount().getAccountCode()+" "+transRow.getTurqAccountingAccount().getAccountName());
+	compTransactionPayment.getComboCreditor().setText(transRow.getTurqAccountingAccount().getAccountCode()+" "+transRow.getTurqAccountingAccount().getAccountName()); //$NON-NLS-1$
 	}
 					
 	}
@@ -203,14 +204,14 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		 blTransUpdate.updateTransaction(accTrans,compTransactionPayment.getTxtDocumentNo().getText().trim(),
 										compTransactionPayment.getDatePickerTransactionDate().getData());
 		 updateTransactionRows();
-		 msg.setMessage("Succesfully Updated");
+		 msg.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.6")); //$NON-NLS-1$
 		 msg.open();
 		 }
 			
 		}
 		catch(Exception ex){
 		ex.printStackTrace();
-		msg.setMessage("An error occured!");
+		msg.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.7")); //$NON-NLS-1$
 		 msg.open();
 		}
 		
@@ -258,21 +259,21 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	protected void toolDeleteWidgetSelected(SelectionEvent evt){
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 		MessageBox msg2 = new MessageBox(this.getParent(),SWT.YES|SWT.NO);
-		msg2.setMessage("Really delete?");
+		msg2.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.8")); //$NON-NLS-1$
 		int answer = msg2.open();
 		if(answer ==SWT.YES){
 		try{
 		
 		deleteTransactionRows();
 		blTransUpdate.delete(accTrans);
-		msg.setMessage("Succesfully Deleted!");
+		msg.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.9")); //$NON-NLS-1$
 		msg.open();	
 		this.dialogShell.dispose();	
 		
 		}
 		catch(Exception ex){
 		ex.printStackTrace();
-		msg.setMessage("An error occured!");
+		msg.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.10")); //$NON-NLS-1$
 		msg.open();	
 		
 		}

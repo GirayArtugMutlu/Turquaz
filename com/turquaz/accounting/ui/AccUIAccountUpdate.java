@@ -9,6 +9,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -102,7 +103,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			lblBalanceCredit = new CLabel(groupAccountBalance,SWT.NULL);
 			txtBalanceCredit = new Text(groupAccountBalance,SWT.NULL);
 	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(487,301));
+			dialogShell.setSize(487, 336);
 	
 			GridData coolBar1LData = new GridData();
 			coolBar1LData.verticalAlignment = GridData.CENTER;
@@ -121,19 +122,19 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,38));
 	
 	
-			toolUpdate.setText("Update");
-			toolUpdate.setToolTipText("Update");
-			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+			toolUpdate.setText(Messages.getString("AccUIAccountUpdate.0")); //$NON-NLS-1$
+			toolUpdate.setToolTipText(Messages.getString("AccUIAccountUpdate.0")); //$NON-NLS-1$
+			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
 				}
 			});
 	
-			toolDelete.setText("Delete");
-			toolDelete.setToolTipText("Delete");
-			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
+			toolDelete.setText(Messages.getString("AccUIAccountUpdate.3")); //$NON-NLS-1$
+			toolDelete.setToolTipText(Messages.getString("AccUIAccountUpdate.3")); //$NON-NLS-1$
+			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
+			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -165,7 +166,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			groupAccountBalanceLData.grabExcessHorizontalSpace = true;
 			groupAccountBalanceLData.grabExcessVerticalSpace = true;
 			groupAccountBalance.setLayoutData(groupAccountBalanceLData);
-			groupAccountBalance.setText("Balances");
+			groupAccountBalance.setText(Messages.getString("AccUIAccountUpdate.7")); //$NON-NLS-1$
 			groupAccountBalance.setSize(new org.eclipse.swt.graphics.Point(471,111));
 	
 			GridData lblTotalDeptLData = new GridData();
@@ -179,7 +180,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			lblTotalDeptLData.grabExcessHorizontalSpace = false;
 			lblTotalDeptLData.grabExcessVerticalSpace = false;
 			lblTotalDept.setLayoutData(lblTotalDeptLData);
-			lblTotalDept.setText("Total Dept");
+			lblTotalDept.setText(Messages.getString("AccUIAccountUpdate.8")); //$NON-NLS-1$
 			lblTotalDept.setSize(new org.eclipse.swt.graphics.Point(84,19));
 	
 			GridData txtTotalDeptLData = new GridData();
@@ -197,17 +198,10 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			txtTotalDept.setSize(new org.eclipse.swt.graphics.Point(198,17));
 
 			GridData lblTotalCreditLData = new GridData();
-			lblTotalCreditLData.verticalAlignment = GridData.CENTER;
-			lblTotalCreditLData.horizontalAlignment = GridData.BEGINNING;
-			lblTotalCreditLData.widthHint = -1;
-			lblTotalCreditLData.heightHint = -1;
-			lblTotalCreditLData.horizontalIndent = 0;
-			lblTotalCreditLData.horizontalSpan = 1;
-			lblTotalCreditLData.verticalSpan = 1;
-			lblTotalCreditLData.grabExcessHorizontalSpace = false;
-			lblTotalCreditLData.grabExcessVerticalSpace = false;
+			lblTotalCreditLData.widthHint = 79;
+			lblTotalCreditLData.heightHint = 19;
 			lblTotalCredit.setLayoutData(lblTotalCreditLData);
-			lblTotalCredit.setText("Total Credit");
+			lblTotalCredit.setText(Messages.getString("AccUIAccountUpdate.9")); //$NON-NLS-1$
 	
 			GridData txtTotalCreditLData = new GridData();
 			txtTotalCreditLData.verticalAlignment = GridData.CENTER;
@@ -234,7 +228,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			lblBalanceDeptLData.grabExcessHorizontalSpace = false;
 			lblBalanceDeptLData.grabExcessVerticalSpace = false;
 			lblBalanceDept.setLayoutData(lblBalanceDeptLData);
-			lblBalanceDept.setText("Balance Dept");
+			lblBalanceDept.setText(Messages.getString("AccUIAccountUpdate.10")); //$NON-NLS-1$
 			lblBalanceDept.setSize(new org.eclipse.swt.graphics.Point(92,19));
 	
 			GridData txtBalanceDeptLData = new GridData();
@@ -262,7 +256,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			lblBalanceCreditLData.grabExcessHorizontalSpace = false;
 			lblBalanceCreditLData.grabExcessVerticalSpace = false;
 			lblBalanceCredit.setLayoutData(lblBalanceCreditLData);
-			lblBalanceCredit.setText("Balance Credit");
+			lblBalanceCredit.setText(Messages.getString("AccUIAccountUpdate.11")); //$NON-NLS-1$
 			lblBalanceCredit.setSize(new org.eclipse.swt.graphics.Point(86,18));
 	
 			GridData txtBalanceCreditLData = new GridData();
@@ -359,12 +353,12 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 		BigDecimal balance = credit.subtract(dept);
 		if(balance.doubleValue()>0){
 		txtBalanceCredit.setText(balance.toString());
-		txtBalanceDept.setText("0");
+		txtBalanceDept.setText("0"); //$NON-NLS-1$
 		}
 		
 		else{
 			txtBalanceDept.setText(balance.multiply(new BigDecimal(-1)).toString());
-			txtBalanceCredit.setText("0");	
+			txtBalanceCredit.setText("0");	 //$NON-NLS-1$
 		}
 		}
 	   
@@ -388,7 +382,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 		blAccount.updateAccount(account,compAccountCard.getTxtAccAcountName().getText().trim(),
 								compAccountCard.getTxtAccAccountCode().getText().trim(),
 								compAccountCard.getTxtParentAccount().getData());
-		msg.setMessage("Updated Succesfully!");
+		msg.setMessage(Messages.getString("AccUIAccountUpdate.14")); //$NON-NLS-1$
 		msg.open();		
 		this.dialogShell.close();
 		
@@ -406,12 +400,12 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 		MessageBox msg2 = new MessageBox(this.getParent(),SWT.OK|SWT.CANCEL);
 		try{
-		 msg2.setMessage("Really delete inventory group?");
+		 msg2.setMessage(Messages.getString("AccUIAccountUpdate.15")); //$NON-NLS-1$
 	    int result = msg2.open();
 	    
 	    if(result==SWT.OK){	 
 	   	blAccount.deleteAccount(account);
-		msg.setMessage("Deleted Succesfully!");
+		msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 		msg.open();		
 		this.dialogShell.close();
 		this.dialogShell.dispose();	 

@@ -37,6 +37,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.SWT;
 
+import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.engine.ui.component.TextWithButton;
 import org.eclipse.swt.events.MouseAdapter;
@@ -114,7 +115,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 			cLabel1LData.grabExcessHorizontalSpace = false;
 			cLabel1LData.grabExcessVerticalSpace = false;
 			cLabel1.setLayoutData(cLabel1LData);
-			cLabel1.setText("Account Code");
+			cLabel1.setText(Messages.getString("AccUIAddAccounts.0")); //$NON-NLS-1$
 			cLabel1.setSize(new org.eclipse.swt.graphics.Point(83,17));
 	
 			GridData txtAccAccountCodeLData = new GridData();
@@ -143,7 +144,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 			label1LData.grabExcessHorizontalSpace = false;
 			label1LData.grabExcessVerticalSpace = false;
 			label1.setLayoutData(label1LData);
-			label1.setText("Account Name");
+			label1.setText(Messages.getString("AccUIAddAccounts.1")); //$NON-NLS-1$
 			label1.setSize(new org.eclipse.swt.graphics.Point(91,18));
 	
 			GridData txtAccAcountNameLData = new GridData();
@@ -170,7 +171,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 			cLabel2LData.grabExcessHorizontalSpace = false;
 			cLabel2LData.grabExcessVerticalSpace = false;
 			cLabel2.setLayoutData(cLabel2LData);
-			cLabel2.setText("Parent Account");
+			cLabel2.setText(Messages.getString("AccUIAddAccounts.2")); //$NON-NLS-1$
 	
 			GridData txtParentAccountLData = new GridData();
 			txtParentAccountLData.verticalAlignment = GridData.CENTER;
@@ -227,8 +228,8 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
     boolean valid = false;
    
 	
-    if(txtAccAccountCode.getText().trim().equals("")){
-    msg.setMessage("Please Fill Account Code!");
+    if(txtAccAccountCode.getText().trim().equals("")){ //$NON-NLS-1$
+    msg.setMessage(Messages.getString("AccUIAddAccounts.4")); //$NON-NLS-1$
     msg.open();	
     return false;
     }
@@ -244,9 +245,9 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	
 	}
 	public void clearFields(){
-	txtAccAccountCode.setText("");
-	txtAccAcountName.setText("");
-	txtParentAccount.setText("");
+	txtAccAccountCode.setText(""); //$NON-NLS-1$
+	txtAccAcountName.setText(""); //$NON-NLS-1$
+	txtParentAccount.setText(""); //$NON-NLS-1$
 	txtParentAccount.setData(null);
 	txtAccAccountCode.setFocus();
 	}
@@ -262,7 +263,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 		
     blAccountAdd.saveAccount(accountName,accountCode,txtParentAccount.getData());	
     MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-    msg.setMessage("Succesfully Saved!");
+    msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
     msg.open();
     
     clearFields();
@@ -321,7 +322,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	protected void txtParentAccountMouseUp(MouseEvent evt){
 	
 	
-	Object[] obj = new AccUIStaticAccountsDialog(this.getShell(),SWT.NULL).showDialog("");
+	Object[] obj = new AccUIStaticAccountsDialog(this.getShell(),SWT.NULL).showDialog(""); //$NON-NLS-1$
 		if (obj[0] != null) {
 			txtParentAccount.setData(obj[1]);
 			txtParentAccount.setText(obj[0].toString());

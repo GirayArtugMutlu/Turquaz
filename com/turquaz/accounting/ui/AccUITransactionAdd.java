@@ -37,6 +37,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Button;
+
+import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -165,7 +167,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			lblDocumentNoLData.grabExcessHorizontalSpace = false;
 			lblDocumentNoLData.grabExcessVerticalSpace = false;
 			lblDocumentNo.setLayoutData(lblDocumentNoLData);
-			lblDocumentNo.setText("Document No");
+			lblDocumentNo.setText(Messages.getString("AccUITransactionAdd.0")); //$NON-NLS-1$
 			lblDocumentNo.setSize(new org.eclipse.swt.graphics.Point(70,19));
 	
 			GridData txtDocumentNoLData = new GridData();
@@ -192,7 +194,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			lblDateLData.grabExcessHorizontalSpace = false;
 			lblDateLData.grabExcessVerticalSpace = false;
 			lblDate.setLayoutData(lblDateLData);
-			lblDate.setText("Date");
+			lblDate.setText(Messages.getString("AccUITransactionAdd.1")); //$NON-NLS-1$
 			lblDate.setSize(new org.eclipse.swt.graphics.Point(29,19));
 	
 			GridData dateTransactionDateLData = new GridData();
@@ -223,7 +225,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			composite1.setSize(new org.eclipse.swt.graphics.Point(70,72));
 	
 			GridData btnAddTransactionRowLData = new GridData();
-			btnAddTransactionRow.setImage(SWTResourceManager.getImage("icons/plus.gif"));
+			btnAddTransactionRow.setImage(SWTResourceManager.getImage("icons/plus.gif")); //$NON-NLS-1$
 			btnAddTransactionRowLData.verticalAlignment = GridData.CENTER;
 			btnAddTransactionRowLData.horizontalAlignment = GridData.CENTER;
 			btnAddTransactionRowLData.widthHint = 26;
@@ -242,7 +244,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			});
 	
 			GridData btnRemoveTransactionRowLData = new GridData();
-			btnRemoveTransactionRow.setImage(SWTResourceManager.getImage("icons/minus.gif"));
+			btnRemoveTransactionRow.setImage(SWTResourceManager.getImage("icons/minus.gif")); //$NON-NLS-1$
 			btnRemoveTransactionRowLData.horizontalAlignment = GridData.CENTER;
 			btnRemoveTransactionRowLData.widthHint = 24;
 			btnRemoveTransactionRowLData.heightHint = 23;
@@ -277,16 +279,16 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			tableTransactionColumns.setLinesVisible(true);
 			tableTransactionColumns.setSize(new org.eclipse.swt.graphics.Point(516,401));
 	
-			tableColumnAccoutCode.setText("Account Code");
+			tableColumnAccoutCode.setText(Messages.getString("AccUITransactionAdd.4")); //$NON-NLS-1$
 			tableColumnAccoutCode.setWidth(121);
 	
-			tableColumnAccountName.setText("Account Name");
+			tableColumnAccountName.setText(Messages.getString("AccUITransactionAdd.5")); //$NON-NLS-1$
 			tableColumnAccountName.setWidth(150);
 	
-			tableColumnCredit.setText("Credit");
+			tableColumnCredit.setText(Messages.getString("AccUITransactionAdd.6")); //$NON-NLS-1$
 			tableColumnCredit.setWidth(100);
 	
-			tableColumnDept.setText("Dept ");
+			tableColumnDept.setText(Messages.getString("AccUITransactionAdd.7")); //$NON-NLS-1$
 			tableColumnDept.setWidth(106);
 	
 			GridData lblTotalCreditLData = new GridData();
@@ -300,7 +302,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			lblTotalCreditLData.grabExcessHorizontalSpace = false;
 			lblTotalCreditLData.grabExcessVerticalSpace = false;
 			lblTotalCredit.setLayoutData(lblTotalCreditLData);
-			lblTotalCredit.setText("Total Credit");
+			lblTotalCredit.setText(Messages.getString("AccUITransactionAdd.8")); //$NON-NLS-1$
 			lblTotalCredit.setSize(new org.eclipse.swt.graphics.Point(62,19));
 	
 			GridData lblTotalCreditAmountLData = new GridData();
@@ -314,7 +316,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			lblTotalCreditAmountLData.grabExcessHorizontalSpace = false;
 			lblTotalCreditAmountLData.grabExcessVerticalSpace = false;
 			lblTotalCreditAmount.setLayoutData(lblTotalCreditAmountLData);
-			lblTotalCreditAmount.setText("0");
+			lblTotalCreditAmount.setText("0"); //$NON-NLS-1$
 			lblTotalCreditAmount.setSize(new org.eclipse.swt.graphics.Point(321,15));
 	
 			GridData cLabel1LData = new GridData();
@@ -328,7 +330,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			cLabel1LData.grabExcessHorizontalSpace = false;
 			cLabel1LData.grabExcessVerticalSpace = false;
 			cLabel1.setLayoutData(cLabel1LData);
-			cLabel1.setText("Total Debit");
+			cLabel1.setText(Messages.getString("AccUITransactionAdd.10")); //$NON-NLS-1$
 			cLabel1.setSize(new org.eclipse.swt.graphics.Point(58,19));
 	
 			GridData lblTotalDeptAmountLData = new GridData();
@@ -342,7 +344,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			lblTotalDeptAmountLData.grabExcessHorizontalSpace = false;
 			lblTotalDeptAmountLData.grabExcessVerticalSpace = false;
 			lblTotalDeptAmount.setLayoutData(lblTotalDeptAmountLData);
-			lblTotalDeptAmount.setText("0");
+			lblTotalDeptAmount.setText("0"); //$NON-NLS-1$
 			lblTotalDeptAmount.setSize(new org.eclipse.swt.graphics.Point(345,17));
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
@@ -374,14 +376,14 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	calculateTotalDeptAndCredit();
 	
 	if(totalCredit.doubleValue()!=totalDept.doubleValue()){
-	msg.setMessage("Total credit must be equal to total dept!");
+	msg.setMessage(Messages.getString("AccUITransactionAdd.12")); //$NON-NLS-1$
 	
 	msg.open();
 	
 	return false;
 	}
 	else if(tableTransactionColumns.getItems().length==0){
-	msg.setMessage("You have to add rows to table!");
+	msg.setMessage(Messages.getString("AccUITransactionAdd.13")); //$NON-NLS-1$
 	
 	msg.open();
 	
@@ -389,7 +391,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	
 	}
 	else if(dateTransactionDate.getData()==null){
-	msg.setMessage("Please Enter Transaction Date");
+	msg.setMessage(Messages.getString("AccUITransactionAdd.14")); //$NON-NLS-1$
 	
 	msg.open();
 	
@@ -427,7 +429,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
     }
     
     public void clearFields(){
-    txtDocumentNo.setText("");
+    txtDocumentNo.setText(""); //$NON-NLS-1$
     tableTransactionColumns.removeAll();
     calculateTotalDeptAndCredit();
     }
@@ -443,14 +445,14 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	Integer transId =blTransAdd.saveAccTransaction(dateTransactionDate.getDate(),txtDocumentNo.getText().trim(),2,1);
 	
 	saveTransactionRows(transId);
-	msg.setMessage("Successfully saved!");
+	msg.setMessage(Messages.getString("AccUITransactionAdd.16")); //$NON-NLS-1$
 	msg.open();
 	clearFields();
 	}
 
 	catch(Exception ex){
 	ex.printStackTrace();
-	msg.setMessage("An error occurred!");
+	msg.setMessage(Messages.getString("AccUITransactionAdd.17")); //$NON-NLS-1$
 	msg.open();
 	
 	}

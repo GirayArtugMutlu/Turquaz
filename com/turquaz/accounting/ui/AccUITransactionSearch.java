@@ -14,6 +14,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CCombo;
 
+import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionType;
@@ -107,7 +108,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 			lblDocumentNoLData.grabExcessHorizontalSpace = false;
 			lblDocumentNoLData.grabExcessVerticalSpace = false;
 			lblDocumentNo.setLayoutData(lblDocumentNoLData);
-			lblDocumentNo.setText("Document No");
+			lblDocumentNo.setText(Messages.getString("AccUITransactionSearch.0")); //$NON-NLS-1$
 			lblDocumentNo.setSize(new org.eclipse.swt.graphics.Point(99,24));
 	
 			GridData txtDocumentNoLData = new GridData();
@@ -134,7 +135,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 			lblTransactionTypeLData.grabExcessHorizontalSpace = false;
 			lblTransactionTypeLData.grabExcessVerticalSpace = false;
 			lblTransactionType.setLayoutData(lblTransactionTypeLData);
-			lblTransactionType.setText("Transaction Type");
+			lblTransactionType.setText(Messages.getString("AccUITransactionSearch.1")); //$NON-NLS-1$
 			lblTransactionType.setSize(new org.eclipse.swt.graphics.Point(100,20));
 	
 			GridData comboTransTypeLData = new GridData();
@@ -148,7 +149,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 			comboTransTypeLData.grabExcessHorizontalSpace = false;
 			comboTransTypeLData.grabExcessVerticalSpace = false;
 			comboTransType.setLayoutData(comboTransTypeLData);
-			comboTransType.setText("Choose Type");
+			comboTransType.setText(Messages.getString("AccUITransactionSearch.2")); //$NON-NLS-1$
 			final Color comboTransTypebackground = new Color(Display.getDefault(),255,255,255);
 			comboTransType.setBackground(comboTransTypebackground);
 			comboTransType.setEditable(false);
@@ -165,7 +166,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 			lblStartDateLData.grabExcessHorizontalSpace = false;
 			lblStartDateLData.grabExcessVerticalSpace = false;
 			lblStartDate.setLayoutData(lblStartDateLData);
-			lblStartDate.setText("Start Date");
+			lblStartDate.setText(Messages.getString("AccUITransactionSearch.3")); //$NON-NLS-1$
 	
 			GridData dateStartDateLData = new GridData();
 			dateStartDateLData.verticalAlignment = GridData.CENTER;
@@ -192,7 +193,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 			lblEndDateLData.grabExcessHorizontalSpace = false;
 			lblEndDateLData.grabExcessVerticalSpace = false;
 			lblEndDate.setLayoutData(lblEndDateLData);
-			lblEndDate.setText("End Date");
+			lblEndDate.setText(Messages.getString("AccUITransactionSearch.4")); //$NON-NLS-1$
 	
 			GridData dateEndDateLData = new GridData();
 			dateEndDateLData.verticalAlignment = GridData.CENTER;
@@ -237,16 +238,16 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 				}
 			});
 	
-			tableColumnTransType.setText("Transaction Type");
+			tableColumnTransType.setText(Messages.getString("AccUITransactionSearch.1")); //$NON-NLS-1$
 			tableColumnTransType.setWidth(130);
 	
-			tableColumnDocumentNo.setText("Document No");
+			tableColumnDocumentNo.setText(Messages.getString("AccUITransactionSearch.0")); //$NON-NLS-1$
 			tableColumnDocumentNo.setWidth(126);
 	
-			tableColumnDate.setText("Date");
+			tableColumnDate.setText(Messages.getString("AccUITransactionSearch.7")); //$NON-NLS-1$
 			tableColumnDate.setWidth(118);
 	
-			tableColumnTotalAmount.setText("Total Amount");
+			tableColumnTotalAmount.setText(Messages.getString("AccUITransactionSearch.8")); //$NON-NLS-1$
 			tableColumnTotalAmount.setWidth(118);
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
@@ -282,7 +283,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 	public void fillCombo(){
 	try{
 	
-	comboTransType.add(" ");
+	comboTransType.add(" "); //$NON-NLS-1$
 	List list = blTransSearch.getTransactionTypes();
 	
 	TurqAccountingTransactionType transType;
@@ -327,7 +328,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 	TurqAccountingTransaction accTrans = (TurqAccountingTransaction)result.get(i);
 	item = new TableItem(tableTransactions,SWT.NULL);
 	item.setData(accTrans);
-	String transDate = accTrans.getTransactionsDate().getDate()+"/"+(accTrans.getTransactionsDate().getMonth()+1)+"/"+
+	String transDate = accTrans.getTransactionsDate().getDate()+"/"+(accTrans.getTransactionsDate().getMonth()+1)+"/"+ //$NON-NLS-1$ //$NON-NLS-2$
 					   (accTrans.getTransactionsDate().getYear()+1900);
 	item.setText(new String[]{accTrans.getTurqAccountingTransactionType().getTypesName(),
 					accTrans.getTransactionDocumentNo(),transDate});

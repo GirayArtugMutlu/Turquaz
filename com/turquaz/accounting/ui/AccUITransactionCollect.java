@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.TableItem;
 
+import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -99,7 +100,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 			lbldocumentNoLData.grabExcessHorizontalSpace = false;
 			lbldocumentNoLData.grabExcessVerticalSpace = false;
 			lbldocumentNo.setLayoutData(lbldocumentNoLData);
-			lbldocumentNo.setText("Document No");
+			lbldocumentNo.setText(Messages.getString("AccUITransactionCollect.0")); //$NON-NLS-1$
 	
 			GridData txtDocumentNoLData = new GridData();
 			txtDocumentNoLData.verticalAlignment = GridData.CENTER;
@@ -125,7 +126,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 			lblDateLData.grabExcessHorizontalSpace = false;
 			lblDateLData.grabExcessVerticalSpace = false;
 			lblDate.setLayoutData(lblDateLData);
-			lblDate.setText("Date");
+			lblDate.setText(Messages.getString("AccUITransactionCollect.1")); //$NON-NLS-1$
 	
 			GridData datePickerTransactionDateLData = new GridData();
 			datePickerTransactionDateLData.verticalAlignment = GridData.CENTER;
@@ -152,7 +153,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 			lblDeptorLData.grabExcessHorizontalSpace = false;
 			lblDeptorLData.grabExcessVerticalSpace = false;
 			lblDeptor.setLayoutData(lblDeptorLData);
-			lblDeptor.setText("Deptor");
+			lblDeptor.setText(Messages.getString("AccUITransactionCollect.2")); //$NON-NLS-1$
 	
 			GridData comboDeptorLData = new GridData();
 			comboDeptorLData.verticalAlignment = GridData.CENTER;
@@ -191,7 +192,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 			btnAddTransactionRowLData.grabExcessHorizontalSpace = false;
 			btnAddTransactionRowLData.grabExcessVerticalSpace = false;
 			btnAddTransactionRow.setLayoutData(btnAddTransactionRowLData);
-			final org.eclipse.swt.graphics.Image btnAddTransactionRowýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/plus.gif"));
+			final org.eclipse.swt.graphics.Image btnAddTransactionRowýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/plus.gif")); //$NON-NLS-1$
 			btnAddTransactionRowýmage.setBackground(btnAddTransactionRow.getBackground());
 			btnAddTransactionRow.setImage(btnAddTransactionRowýmage);
 			btnAddTransactionRow.setSize(new org.eclipse.swt.graphics.Point(26,24));
@@ -212,7 +213,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 			btnRemoveTransactionRowLData.grabExcessHorizontalSpace = false;
 			btnRemoveTransactionRowLData.grabExcessVerticalSpace = false;
 			btnRemoveTransactionRow.setLayoutData(btnRemoveTransactionRowLData);
-			final org.eclipse.swt.graphics.Image btnRemoveTransactionRowýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif"));
+			final org.eclipse.swt.graphics.Image btnRemoveTransactionRowýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif")); //$NON-NLS-1$
 			btnRemoveTransactionRowýmage.setBackground(btnRemoveTransactionRow.getBackground());
 			btnRemoveTransactionRow.setImage(btnRemoveTransactionRowýmage);
 			btnRemoveTransactionRow.addMouseListener( new MouseAdapter() {
@@ -245,13 +246,13 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 			tableTransactionRows.setLinesVisible(true);
 			tableTransactionRows.setSize(new org.eclipse.swt.graphics.Point(415,344));
 	
-			tableColumnAccountCode.setText("Account Code");
+			tableColumnAccountCode.setText(Messages.getString("AccUITransactionCollect.5")); //$NON-NLS-1$
 			tableColumnAccountCode.setWidth(126);
 	
-			tableColumnAccountName.setText("Account Name");
+			tableColumnAccountName.setText(Messages.getString("AccUITransactionCollect.6")); //$NON-NLS-1$
 			tableColumnAccountName.setWidth(150);
 	
-			tableColumnCreditAmount.setText("Credit");
+			tableColumnCreditAmount.setText(Messages.getString("AccUITransactionCollect.7")); //$NON-NLS-1$
 			tableColumnCreditAmount.setWidth(100);
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
@@ -290,13 +291,13 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	public void fillCombo(){
 	try{
 	AccBLAccountAdd blaccountAdd = new AccBLAccountAdd();
-	comboDeptor.setText("Choose Account");
-	List accList = blaccountAdd.getAccount(-1,"100");
+	comboDeptor.setText(Messages.getString("AccUITransactionCollect.8")); //$NON-NLS-1$
+	List accList = blaccountAdd.getAccount(-1,"100"); //$NON-NLS-1$
 	TurqAccountingAccount account;
 	for(int i=0;i<accList.size();i++){
 	account = (TurqAccountingAccount)accList.get(i);
-	comboDeptor.add(account.getAccountCode()+" "+account.getAccountName());
-	comboDeptor.setData(account.getAccountCode()+" "+account.getAccountName(),account);
+	comboDeptor.add(account.getAccountCode()+" "+account.getAccountName()); //$NON-NLS-1$
+	comboDeptor.setData(account.getAccountCode()+" "+account.getAccountName(),account); //$NON-NLS-1$
 	addSecondaryAccountsToCombo(account.getAccountingAccountsId().intValue());	
 	}
 	
@@ -311,12 +312,12 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	try{
 	AccBLAccountAdd blaccountAdd = new AccBLAccountAdd();
 
-	List accList = blaccountAdd.getAccount(parentId,"");
+	List accList = blaccountAdd.getAccount(parentId,""); //$NON-NLS-1$
 	TurqAccountingAccount account;
 	for(int i=0;i<accList.size();i++){
 	account = (TurqAccountingAccount)accList.get(i);
-	comboDeptor.add(account.getAccountCode()+" "+account.getAccountName());
-	comboDeptor.setData(account.getAccountCode()+" "+account.getAccountName(),account);
+	comboDeptor.add(account.getAccountCode()+" "+account.getAccountName()); //$NON-NLS-1$
+	comboDeptor.setData(account.getAccountCode()+" "+account.getAccountName(),account); //$NON-NLS-1$
 	addSecondaryAccountsToCombo(account.getAccountingAccountsId().intValue());	
 	
 	}
@@ -337,7 +338,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 
 	
 	if(tableTransactionRows.getItems().length==0){
-	msg.setMessage("You hava to add rows to table!");
+	msg.setMessage(Messages.getString("AccUITransactionCollect.15")); //$NON-NLS-1$
 	
 	msg.open();
 	
@@ -345,14 +346,14 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	
 	}
 	else if(datePickerTransactionDate.getData()==null){
-	msg.setMessage("Please Enter Transaction Date");
+	msg.setMessage(Messages.getString("AccUITransactionCollect.16")); //$NON-NLS-1$
 	
 	msg.open();
 	
 	return false;
 	}
 	else if(comboDeptor.getSelectionIndex()==-1){
-	msg.setMessage("Please Choose Deptor Account");
+	msg.setMessage(Messages.getString("AccUITransactionCollect.17")); //$NON-NLS-1$
 	
 	msg.open();
 	
@@ -381,14 +382,14 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	Integer transId =blTransAdd.saveAccTransaction(datePickerTransactionDate.getDate(),txtDocumentNo.getText().trim(),0,1);
 	
 	saveTransactionRows(transId);
-	msg.setMessage("Successfully saved!");
+	msg.setMessage(Messages.getString("AccUITransactionCollect.18")); //$NON-NLS-1$
 	msg.open();
 	clearFields();
 	}
 
 	catch(Exception ex){
 	ex.printStackTrace();
-	msg.setMessage("An error occurred!");
+	msg.setMessage(Messages.getString("AccUITransactionCollect.19")); //$NON-NLS-1$
 	msg.open();
 	
 	}
@@ -404,7 +405,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	
 		
 	public void clearFields(){
-    txtDocumentNo.setText("");
+    txtDocumentNo.setText(""); //$NON-NLS-1$
     tableTransactionRows.removeAll();
     
     }
