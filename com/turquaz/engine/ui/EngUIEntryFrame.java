@@ -49,7 +49,7 @@ import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.DatabaseThread;
-import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.wizards.EngUIDatabaseConnectionWizard;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.MouseAdapter;
@@ -357,7 +357,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			{
 				Locale.setDefault(new Locale("en", "US")); //$NON-NLS-1$ //$NON-NLS-2$
 			}
-			EngDALSessionFactory.init();
+			
 		}
 		catch (Exception ex)
 		{
@@ -374,7 +374,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		try
 		{
-			if (EngBLCommon.checkUserPass(txtUserName.getText(), txtPassword.getText()))
+			Boolean result = (Boolean)EngTXCommon.searchTX(EngBLCommon.class.getName(),"checkUserPass",new Object[]{txtUserName.getText(), txtPassword.getText()});
+			if (result.booleanValue())
 			{
 				showMainFrame();
 			}
@@ -408,7 +409,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			checkRememberPassword.setSelection(true);
 		}
 		EngConfiguration.refreshConfig();
-		EngDALSessionFactory.init();
+	
 	}
 
 	public void postInitGui()

@@ -65,6 +65,7 @@ import org.eclipse.swt.SWT;
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.LiveSashForm;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.CoolBar;
@@ -76,6 +77,7 @@ import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
+import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.component.MenuManager;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -853,8 +855,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			menuMain = MenuManager.createMainMenu(menuMain);
 			getShell().setMenuBar(menuMain);
 			postInitGUI();
-			//			initialize accounts
-			EngBLAccountingAccounts.getAccounts();
+			//		initialize accounts
+			
+			EngTXCommon.searchTX(EngBLAccountingAccounts.class.getName(),"getAccounts",null);
+			
 		}
 		catch (Exception e)
 		{
@@ -880,7 +884,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 	public void preInitGUI()
 	{
 		//init user permissions
-		EngBLPermissions.init();
+		try{
+			EngTXCommon.searchTX(EngBLPermissions.class.getName(),"init",null);
+		
 		//Add popup menu to add favorites
 		popupTreeAddFavorites = new Menu(getShell(), SWT.POP_UP);
 		final MenuItem item = new MenuItem(popupTreeAddFavorites, SWT.PUSH);
@@ -969,6 +975,11 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 				}
 			}
 		});
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	/** Add your post-init code in here */
@@ -1027,7 +1038,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		tabfldMain.setSelectionForeground(display.getSystemColor(SWT.COLOR_TITLE_FOREGROUND));
 		try
 		{
-			EngBLInventoryCards.getInventoryCards();
+			EngTXCommon.searchTX(EngBLInventoryCards.class.getName(),"getInventoryCards",null);
 		}
 		catch (Exception ex)
 		{
@@ -1219,7 +1230,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
 			Rectangle shellBounds = shell.computeTrim(0, 0, 800, 580);
 			shell.setImage(SWTResourceManager.getImage("icons/turquaz_paw.gif")); //$NON-NLS-1$
-			shell.setText("Turquaz - " + AdmBLCompanyInfo.getCompany().getCompanyName()); //$NON-NLS-1$
+			
+			TurqCompany company = (TurqCompany)EngTXCommon.searchTX(AdmBLCompanyInfo.class.getName(),"getCompany",null);
+			shell.setText("Turquaz - " + company.getCompanyName()); //$NON-NLS-1$
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.addListener(SWT.Close, new Listener()
 			{

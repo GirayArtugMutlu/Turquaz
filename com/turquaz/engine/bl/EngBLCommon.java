@@ -374,11 +374,11 @@ public class EngBLCommon
 		}
 	}
 
-	public static boolean checkUserPass(String user, String pass) throws Exception
+	public static Boolean checkUserPass(String user, String pass) throws Exception
 	{
 		try
 		{
-			return EngDALCommon.checkUserPass(user, pass);
+			return new Boolean(EngDALCommon.checkUserPass(user, pass));
 		}
 		catch (Exception ex)
 		{
