@@ -44,6 +44,7 @@ import com.turquaz.admin.ui.AdmUIUsers;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
 import com.turquaz.bank.ui.BankUIBankCardSearch;
 import com.turquaz.consignment.ui.ConUIAddConsignment;
+import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.current.ui.CurUICurrentCardSearch;
 import com.turquaz.current.ui.CurUITransactionAdd;
@@ -180,7 +181,9 @@ public final class TreeFactory {
 		TreeItem item = new TreeItem(root,SWT.NULL);
 		item.setText(Messages.getString("TreeFactory.30")); //$NON-NLS-1$
 		item.setData(ConUIAddConsignment.class.getName());
-		
+		item = new TreeItem(root,SWT.NULL);
+		item.setText(Messages.getString("TreeFactory.34")); //$NON-NLS-1$
+		item.setData(ConUIConsignmentSearch.class.getName());
 		return tree;
 	}
 	

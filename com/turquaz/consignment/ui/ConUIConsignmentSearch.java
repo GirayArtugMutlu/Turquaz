@@ -1,14 +1,22 @@
 package com.turquaz.consignment.ui;
 
+import java.util.List;
+
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
+
+import com.turquaz.consignment.bl.ConBLSearchConsignment;
+import com.turquaz.engine.dal.TurqConsignment;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.TextWithButton;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
@@ -32,13 +40,15 @@ import com.turquaz.engine.ui.component.SecureComposite;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class ConsUIConsignmentSearch extends org.eclipse.swt.widgets.Composite implements
+public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite implements
 SecureComposite{
 	private Composite composite1;
 	private Table tableConsignments;
 	private TableColumn tableColumnCurrentName;
 	private TableColumn tableColumnVatAmount;
 	private TextWithButton txtCurCard;
+	private CCombo comboConsignmentType;
+	private CLabel lblType;
 	private CLabel lblEndDate;
 	private DatePicker dateEndDate;
 	private DatePicker dateStartDate;
@@ -47,6 +57,7 @@ SecureComposite{
 	private TableColumn tableColumnSpecialVatAmount;
 	private TableColumn tableColumnCumulativePrice;
 	private TableColumn tableColumnConsignmentDate;
+	private ConBLSearchConsignment blSearch = new ConBLSearchConsignment();
 
 	/**
 	* Auto-generated main method to display this 
@@ -63,7 +74,7 @@ SecureComposite{
 	public static void showGUI() {
 		Display display = Display.getDefault();
 		Shell shell = new Shell(display);
-		ConsUIConsignmentSearch inst = new ConsUIConsignmentSearch(shell, SWT.NULL);
+		ConUIConsignmentSearch inst = new ConUIConsignmentSearch(shell, SWT.NULL);
 		Point size = inst.getSize();
 		shell.setLayout(new FillLayout());
 		shell.layout();
@@ -84,7 +95,7 @@ SecureComposite{
 		}
 	}
 
-	public ConsUIConsignmentSearch(org.eclipse.swt.widgets.Composite parent, int style) {
+	public ConUIConsignmentSearch(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
 		initGUI();
 	}
@@ -148,6 +159,22 @@ SecureComposite{
 					dateEndDateLData.heightHint = 22;
 					dateEndDate.setLayoutData(dateEndDateLData);
 				}
+				{
+					lblType = new CLabel(composite1, SWT.NONE);
+					lblType.setText("Type");
+					GridData lblTypeLData = new GridData();
+					lblTypeLData.widthHint = 74;
+					lblTypeLData.heightHint = 21;
+					lblType.setLayoutData(lblTypeLData);
+				}
+				{
+					comboConsignmentType = new CCombo(composite1, SWT.NONE);
+					GridData comboConsignmentTypeLData = new GridData();
+					comboConsignmentType.setText("Buy");
+					comboConsignmentTypeLData.widthHint = 72;
+					comboConsignmentTypeLData.heightHint = 14;
+					comboConsignmentType.setLayoutData(comboConsignmentTypeLData);
+				}
 			}
 			{
 				tableConsignments = new Table(this, SWT.FULL_SELECTION);
@@ -164,7 +191,7 @@ SecureComposite{
 						tableConsignments,
 						SWT.NONE);
 					tableColumnConsignmentDate.setText("Date");
-					tableColumnConsignmentDate.setWidth(100);
+					tableColumnConsignmentDate.setWidth(104);
 				}
 				{
 					tableColumnCurrentName = new TableColumn(
@@ -195,15 +222,60 @@ SecureComposite{
 					tableColumnSpecialVatAmount.setWidth(100);
 				}
 			}
+			postInitGui();
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	public void postInitGui(){
+		comboConsignmentType.add("Buy");
+		comboConsignmentType.add("Sell");
+	}
+	
+	
 	public void save(){
 		
 	}
 	public void search(){
+		
+		try{
+			
+		tableConsignments.removeAll();	
+		int type=0;
+		if(comboConsignmentType.getText().equals("Sell"))
+		{
+			type =1;
+		}
+			
+		List list = blSearch.searchConsignment((TurqCurrentCard)txtCurCard.getData(),
+												dateStartDate.getDate(),
+												dateEndDate.getDate(),type);
+		TurqConsignment cons;
+		TableItem item;
+		for(int i=0;i<list.size();i++){
+			
+			cons = (TurqConsignment)list.get(i);
+			item = new TableItem(tableConsignments,SWT.NULL);
+			item.setData(cons);
+			item.setText(new String[]{DatePicker.formatter.format(cons.getConsignmentsDate()),
+									cons.getTurqCurrentCard().getCardsName(),
+									cons.getConsignmentsTotalAmount().toString(),
+									cons.getConsignmentsVatAmount().toString(),
+									cons.getConsignmentsSpecialVatAmount().toString()});
+			
+		}
+			
+			
+			
+			
+			
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+		
 		
 	}
 	public void newForm(){

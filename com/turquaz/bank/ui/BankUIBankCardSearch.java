@@ -256,6 +256,7 @@ public class BankUIBankCardSearch extends  Composite implements SecureComposite 
 			tableColumnBankBrancName.setText("Branch Name");
 			tableColumnBankBrancName.setWidth(120);
 	
+			
 			tableColumnAccountNo.setText("Account No");
 			tableColumnAccountNo.setWidth(120);
 	
