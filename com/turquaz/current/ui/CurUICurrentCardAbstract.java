@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.TableItem;
 
 import org.eclipse.swt.layout.GridData;
 
-import org.eclipse.swt.widgets.Group;
+import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -52,7 +52,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	private TableColumn tableColumnDocumentNo;
 	private CLabel lblCurrentCard;
 	private TableColumn tableColumnTransGroup;
-	private Group txtCurrentCard;
+	private CurrentPicker txtCurrentCard;
 	private DatePicker datePickerEndDate;
 	private CLabel lblEndDate;
 	private DatePicker datePickerStartDate;
@@ -130,9 +130,9 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					lblCurrentCard.setLayoutData(lblCurrentCardLData);
 				}
 				{
-					txtCurrentCard = new Group(compSearch, SWT.NONE);
+					txtCurrentCard = new CurrentPicker(compSearch, SWT.NONE);
 					GridData txtCurrentCardLData = new GridData();
-					txtCurrentCardLData.widthHint = 140;
+					txtCurrentCardLData.widthHint = 153;
 					txtCurrentCardLData.heightHint = 17;
 					txtCurrentCardLData.horizontalSpan = 3;
 					txtCurrentCard.setLayoutData(txtCurrentCardLData);
@@ -230,7 +230,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 		}
 	}
 	public void postInitGui(){
-//		  content assistant
+	    
 		datePickerStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
 
 	}

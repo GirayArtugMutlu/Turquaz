@@ -46,7 +46,6 @@ import com.turquaz.engine.ui.viewers.TableRowList;
 import com.turquaz.engine.ui.viewers.TurquazCellModifier;
 import com.turquaz.engine.ui.viewers.TurquazContentProvider;
 import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
-import com.turquaz.inventory.ui.InvUITransactionTableRow;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CLabel;

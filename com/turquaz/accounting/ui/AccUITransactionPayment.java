@@ -48,6 +48,7 @@ import org.eclipse.swt.widgets.TableItem;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
@@ -300,6 +301,13 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	totalCredit = new BigDecimal(0);
 	
 	createTableViewer();
+	
+	 for(int i=0;i<EngBLCommon.TABLE_ROW_COUNT;i++){
+//			enter empty table rows.
+	      AccUITransactionPaymentTableRow row = new AccUITransactionPaymentTableRow(rowList);
+	      rowList.addTask(row);
+		}
+	
 	
 	}
 	

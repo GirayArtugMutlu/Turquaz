@@ -43,6 +43,7 @@ import org.eclipse.swt.widgets.TableItem;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
@@ -324,6 +325,11 @@ public class AccUITransactionCollect extends Composite implements
 	
 
 		createTableViewer();
+		 for(int i=0;i<EngBLCommon.TABLE_ROW_COUNT;i++){
+//				enter empty table rows.
+		      AccUITransactionCollectTableRow row = new AccUITransactionCollectTableRow(rowList);
+		      rowList.addTask(row);
+			}
 
 	}
 

@@ -35,8 +35,6 @@ import org.eclipse.swt.widgets.CoolItem;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.graphics.Rectangle;
-
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionAdd;
@@ -44,7 +42,6 @@ import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.ui.viewers.ITableRow;
-import com.turquaz.inventory.ui.InvUITransactionTableRow;
 
 
 import org.eclipse.swt.events.SelectionAdapter;
