@@ -1,5 +1,5 @@
-
 package com.turquaz.inventory.bl;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -17,9 +17,10 @@ package com.turquaz.inventory.bl;
 /************************************************************************/
 
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
+
+ * @author Onsel Armagan
+ * @version $Id$
+ */
 
 
 import java.math.BigDecimal;
@@ -36,257 +37,272 @@ import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.inventory.dal.InvDALCardAdd;
 
-
 public class InvBLCardAdd {
 
-	private InvDALCardAdd cardAdd;
-	private InvBLCardSearch cardSearch=new InvBLCardSearch();
+    private InvDALCardAdd cardAdd;
 
-	Calendar cal = Calendar.getInstance();
+    private InvBLCardSearch cardSearch = new InvBLCardSearch();
 
-	public InvBLCardAdd() {
+    Calendar cal = Calendar.getInstance();
 
-		cardAdd = new InvDALCardAdd();
+    public InvBLCardAdd() {
 
-	}
+        cardAdd = new InvDALCardAdd();
 
-	public void registerGroup(Integer cardId, Object grp) throws Exception {
-		try {
+    }
 
-			TurqInventoryCardGroup cardGroup = new TurqInventoryCardGroup();
-			TurqInventoryGroup group = (TurqInventoryGroup) grp;
-			TurqInventoryCard card = new TurqInventoryCard();
-			card.setInventoryCardsId(cardId);
-			cardGroup.setTurqInventoryCard(card);
-			cardGroup.setTurqInventoryGroup(group);
+    public void registerGroup(Integer cardId, Object grp) throws Exception {
+        try {
 
-			cardGroup.setCreatedBy(System.getProperty("user"));
-			cardGroup.setUpdatedBy(System.getProperty("user"));
-			cardGroup
-					.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			cardGroup
-					.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+            TurqInventoryCardGroup cardGroup = new TurqInventoryCardGroup();
+            TurqInventoryGroup group = (TurqInventoryGroup) grp;
+            TurqInventoryCard card = new TurqInventoryCard();
+            card.setInventoryCardsId(cardId);
+            cardGroup.setTurqInventoryCard(card);
+            cardGroup.setTurqInventoryGroup(group);
 
-			cardAdd.saveOrUpdateCardGroup(cardGroup);
+            cardGroup.setCreatedBy(System.getProperty("user"));
+            cardGroup.setUpdatedBy(System.getProperty("user"));
+            cardGroup
+                    .setLastModified(new java.sql.Date(cal.getTime().getTime()));
+            cardGroup
+                    .setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 
-		} catch (Exception ex) {
-			throw ex;
-		}
+            cardAdd.saveOrUpdateCardGroup(cardGroup);
 
-	}
+        } catch (Exception ex) {
+            throw ex;
+        }
 
-	public void registerUnits(Integer cardId, Object unitObj, BigDecimal factor)
-			throws Exception {
+    }
 
-		TurqInventoryCardUnit cardUnit = new TurqInventoryCardUnit();
-		TurqInventoryUnit unit = (TurqInventoryUnit) unitObj;
-		TurqInventoryCard card = new TurqInventoryCard();
-		card.setInventoryCardsId(cardId);
-		cardUnit.setCardUnitsFactor(factor);
-		cardUnit.setTurqInventoryCard(card);
-		cardUnit.setTurqInventoryUnit(unit);
-		cardUnit.setCreatedBy(System.getProperty("user"));
-		cardUnit.setUpdatedBy(System.getProperty("user"));
-		cardUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-		cardUnit.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+    public void registerUnits(Integer cardId, Object unitObj, BigDecimal factor)
+            throws Exception {
 
-		cardAdd.saveOrUpdateCardUnit(cardUnit);
+        TurqInventoryCardUnit cardUnit = new TurqInventoryCardUnit();
+        TurqInventoryUnit unit = (TurqInventoryUnit) unitObj;
+        TurqInventoryCard card = new TurqInventoryCard();
+        card.setInventoryCardsId(cardId);
+        cardUnit.setCardUnitsFactor(factor);
+        cardUnit.setTurqInventoryCard(card);
+        cardUnit.setTurqInventoryUnit(unit);
+        cardUnit.setCreatedBy(System.getProperty("user"));
+        cardUnit.setUpdatedBy(System.getProperty("user"));
+        cardUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+        cardUnit.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 
-	}
+        cardAdd.saveOrUpdateCardUnit(cardUnit);
 
-	public void saveInvPrices(Integer cardId, boolean price_type,
-			String currency_abrev, String amount) throws Exception {
-		try {
+    }
 
-			TurqInventoryPrice invPrice = new TurqInventoryPrice();
-			TurqCurrency currency = cardAdd.getCurrency(currency_abrev);
-			TurqInventoryCard card=cardSearch.getTurqInvCardById(cardId);
-			invPrice.setPricesType(price_type);
-			invPrice.setPricesAmount(new BigDecimal(amount));
-			invPrice.setTurqInventoryCard(card);
-			invPrice.setTurqCurrency(currency);
-			invPrice.setCreatedBy(System.getProperty("user"));
-			invPrice.setUpdatedBy(System.getProperty("user"));
-			invPrice
-					.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			invPrice
-					.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+    public void saveInvPrices(Integer cardId, boolean price_type,
+            String currency_abrev, String amount) throws Exception {
+        try {
 
-			cardAdd.saveInvPrice(invPrice);
+            TurqInventoryPrice invPrice = new TurqInventoryPrice();
+            TurqCurrency currency = cardAdd.getCurrency(currency_abrev);
+            TurqInventoryCard card = cardSearch.getTurqInvCardById(cardId);
+            invPrice.setPricesType(price_type);
+            invPrice.setPricesAmount(new BigDecimal(amount));
+            invPrice.setTurqInventoryCard(card);
+            invPrice.setTurqCurrency(currency);
+            invPrice.setCreatedBy(System.getProperty("user"));
+            invPrice.setUpdatedBy(System.getProperty("user"));
+            invPrice
+                    .setLastModified(new java.sql.Date(cal.getTime().getTime()));
+            invPrice
+                    .setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 
-		} catch (Exception ex) {
+            cardAdd.saveInvPrice(invPrice);
 
-			throw ex;
-		}
+        } catch (Exception ex) {
 
-	}
+            throw ex;
+        }
 
-	public void saveOrUpdateObject(Object obj)throws Exception{
-		try{
-			
-		cardAdd.saveOrUpdateObject(obj);	
-			
-		}
-		catch(Exception ex){
-			throw ex;
-		}
-		
-	}
-	public void saveUnit(String unitName)throws Exception {
-		try {
-			TurqInventoryUnit invUnit = new TurqInventoryUnit();
-			invUnit.setUnitsName(unitName);
-			//invGroup.setGroupsDescription(groupDescription);
-			
-			invUnit.setCreatedBy(System.getProperty("user"));
-			invUnit.setUpdatedBy(System.getProperty("user"));
-			invUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			invUnit.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-			
-			cardAdd.saveOrUpdateObject(invUnit);	
-			
-			
-			
+    }
 
-		} catch (Exception ex) {
-			throw ex;
-		}
-		
-		
-		
-	}
-	public void saveInvGroup(String groupName, String groupDescription, TurqInventoryGroup parent)
-			throws Exception {
-		try {
-		    if(parent==null)
-		    {
-		     parent = new TurqInventoryGroup();
-		     parent.setInventoryGroupsId(new Integer(-1));
-		    
-		    }
-			TurqInventoryGroup invGroup = new TurqInventoryGroup();
-			invGroup.setGroupsName(groupName);
-			invGroup.setGroupsDescription(groupDescription);
-			
-			invGroup.setCreatedBy(System.getProperty("user"));
-			invGroup.setUpdatedBy(System.getProperty("user"));
-			invGroup.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			invGroup.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-			
-			cardAdd.saveOrUpdateInventoryGroup(invGroup);
-			
-			
-			
-			
+    public void saveOrUpdateObject(Object obj) throws Exception {
+        try {
 
-		} catch (Exception ex) {
-			throw ex;
-		}
+            cardAdd.saveOrUpdateObject(obj);
 
-	}
+        } catch (Exception ex) {
+            throw ex;
+        }
 
-	public Integer saveInvCard(String invCode, 
-			String cardName, String cardDefinition, int minAmount,
-			int maxAmount, int cardVat, int discount,TurqAccountingAccount accountBuy,
-			TurqAccountingAccount accountSell,int cardSpecialVat, BigDecimal cardSpecialVatEach,
-			TurqAccountingAccount accountVAT, TurqAccountingAccount accountSpecialVAT, 
-			TurqAccountingAccount accountVATSell, TurqAccountingAccount accountSpecialVATSell,
-			boolean isSpecAmount
-	        ) throws Exception {
+    }
 
-		try {			
+    public void saveUnit(String unitName) throws Exception {
+        try {
+            TurqInventoryUnit invUnit = new TurqInventoryUnit();
+            invUnit.setUnitsName(unitName);
+            //invGroup.setGroupsDescription(groupDescription);
 
-			TurqInventoryCard card = new TurqInventoryCard();
-			card.setCardDefinition(cardDefinition);
-			card.setCardDiscount(discount);
-			card.setCardInventoryCode(invCode);
-			card.setCardMaximumAmount(maxAmount);
-			card.setCardMinimumAmount(minAmount);
-			card.setCardName(cardName);
-			card.setCardVat(cardVat);
-			card.setCardSpecialVat(cardSpecialVat);
-			card.setCardSpecialVatEach(cardSpecialVatEach);			
-			card.setCreatedBy(System.getProperty("user"));
-			card.setUpdatedBy(System.getProperty("user"));
-			card.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
-			card.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-			card.setTurqAccountingAccountByAccountingAccountsIdBuy(accountBuy);
-			card.setTurqAccountingAccountByAccountingAccountsIdSell(accountSell);
+            invUnit.setCreatedBy(System.getProperty("user"));
+            invUnit.setUpdatedBy(System.getProperty("user"));
+            invUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+            invUnit.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+
+            cardAdd.saveOrUpdateObject(invUnit);
+
+        } catch (Exception ex) {
+            throw ex;
+        }
+
+    }
+
+    public void saveInvGroup(String groupName, String groupDescription,
+            TurqInventoryGroup parent) throws Exception {
+        try {
+            if (parent == null) {
+                parent = new TurqInventoryGroup();
+                parent.setInventoryGroupsId(new Integer(-1));
+
+            }
+            TurqInventoryGroup invGroup = new TurqInventoryGroup();
+            invGroup.setGroupsName(groupName);
+            invGroup.setGroupsDescription(groupDescription);
+            invGroup.setTurqInventoryGroup(parent);
+
+            invGroup.setCreatedBy(System.getProperty("user"));
+            invGroup.setUpdatedBy(System.getProperty("user"));
+            invGroup
+                    .setLastModified(new java.sql.Date(cal.getTime().getTime()));
+            invGroup
+                    .setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+
+            cardAdd.saveOrUpdateInventoryGroup(invGroup);
+
+        } catch (Exception ex) {
+            throw ex;
+        }
+
+    }
+
+    public void updateInvGroup(String groupName, String groupDescription,
+            TurqInventoryGroup invGroup) throws Exception {
+        try {
+
+            invGroup.setGroupsName(groupName);
+            invGroup.setGroupsDescription(groupDescription);
+
+            invGroup.setUpdatedBy(System.getProperty("user"));
+            invGroup
+                    .setLastModified(new java.sql.Date(cal.getTime().getTime()));
+
+            cardAdd.saveOrUpdateInventoryGroup(invGroup);
+
+        } catch (Exception ex) {
+            throw ex;
+        }
+
+    }
+
+    public Integer saveInvCard(String invCode, String cardName,
+            String cardDefinition, int minAmount, int maxAmount, int cardVat,
+            int discount, TurqAccountingAccount accountBuy,
+            TurqAccountingAccount accountSell, int cardSpecialVat,
+            BigDecimal cardSpecialVatEach, TurqAccountingAccount accountVAT,
+            TurqAccountingAccount accountSpecialVAT,
+            TurqAccountingAccount accountVATSell,
+            TurqAccountingAccount accountSpecialVATSell, boolean isSpecAmount)
+            throws Exception {
+
+        try {
+
+            TurqInventoryCard card = new TurqInventoryCard();
+            card.setCardDefinition(cardDefinition);
+            card.setCardDiscount(discount);
+            card.setCardInventoryCode(invCode);
+            card.setCardMaximumAmount(maxAmount);
+            card.setCardMinimumAmount(minAmount);
+            card.setCardName(cardName);
+            card.setCardVat(cardVat);
+            card.setCardSpecialVat(cardSpecialVat);
+            card.setCardSpecialVatEach(cardSpecialVatEach);
+            card.setCreatedBy(System.getProperty("user"));
+            card.setUpdatedBy(System.getProperty("user"));
+            card.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
+            card.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+            card.setTurqAccountingAccountByAccountingAccountsIdBuy(accountBuy);
+            card
+                    .setTurqAccountingAccountByAccountingAccountsIdSell(accountSell);
             card.setTurqAccountingAccountByAccountingAccountsIdVat(accountVAT);
-            card.setTurqAccountingAccountByAccountingAccountsIdSpecialVat(accountSpecialVAT);
-            card.setTurqAccountingAccountByAccountingAccountsIdSpecialVatSell(accountSpecialVATSell);
-            card.setTurqAccountingAccountByAccountingAccountsIdVatSell(accountVATSell);
+            card
+                    .setTurqAccountingAccountByAccountingAccountsIdSpecialVat(accountSpecialVAT);
+            card
+                    .setTurqAccountingAccountByAccountingAccountsIdSpecialVatSell(accountSpecialVATSell);
+            card
+                    .setTurqAccountingAccountByAccountingAccountsIdVatSell(accountVATSell);
             card.setSpecVatForEach(isSpecAmount);
             InvDALCardAdd.saveOrUpdateInvCard(card);
 
-			return card.getInventoryCardsId();
+            return card.getInventoryCardsId();
 
-		} catch (Exception ex) {
-			throw ex;
-		}
+        } catch (Exception ex) {
+            throw ex;
+        }
 
-	}
-	
-	public void deleteObject(Object obj)throws Exception{
-		try{
-			
-		cardAdd.deleteObject(obj);	
-			
-			
-		}
-		catch(Exception ex){
-			throw ex;
-		}
-	}
+    }
 
-	public static List getInventoryGroups() throws Exception {
+    public void deleteObject(Object obj) throws Exception {
+        try {
 
-		try {
+            cardAdd.deleteObject(obj);
 
-			return InvDALCardAdd.getInventoryGroups();
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
 
-		} catch (Exception ex) {
-			throw ex;
-		}
+    public static List getInventoryGroups() throws Exception {
 
-	}
-	
-	public static List getParentInventoryGroups() throws Exception {
+        try {
 
-		try {
+            return InvDALCardAdd.getInventoryGroups();
 
-			return InvDALCardAdd.getParentInventoryGroups();
+        } catch (Exception ex) {
+            throw ex;
+        }
 
-		} catch (Exception ex) {
-			throw ex;
-		}
+    }
 
-	}
+    public static List getParentInventoryGroups() throws Exception {
 
-	public List getInventoryUnits() throws Exception {
+        try {
 
-		try {
+            return InvDALCardAdd.getParentInventoryGroups();
 
-			return cardAdd.getInventoryUnits();
+        } catch (Exception ex) {
+            throw ex;
+        }
 
-		} catch (Exception ex) {
-			throw ex;
-		} 
+    }
 
-	}
-	public List searchInventoryCards(TurqInventoryGroup invGroup, String invName, String invCode){
-		try{
-			String query ="from TurqInventoryCard as invCard";
-			return null;
-			
-		}
-		catch(Exception ex){
-			
-			return null;
-		}		
-		
-	}
+    public List getInventoryUnits() throws Exception {
 
+        try {
 
+            return cardAdd.getInventoryUnits();
+
+        } catch (Exception ex) {
+            throw ex;
+        }
+
+    }
+
+    public List searchInventoryCards(TurqInventoryGroup invGroup,
+            String invName, String invCode) {
+        try {
+            String query = "from TurqInventoryCard as invCard";
+            return null;
+
+        } catch (Exception ex) {
+
+            return null;
+        }
+
+    }
 
 }

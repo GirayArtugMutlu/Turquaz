@@ -6,6 +6,10 @@ import java.util.List;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.custom.TableTree;
@@ -16,6 +20,8 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 
 
@@ -37,7 +43,7 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite {
 	private TableTree tableTreeGroups;
 	private TableColumn tableColumnGroupName;
 	private TableColumn tableColumnGrupDefinition;
-
+	Menu popup;
 	/**
 	* Auto-generated main method to display this 
 	* org.eclipse.swt.widgets.Composite inside a new Shell.
@@ -93,6 +99,11 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite {
                 tableTreeGroups.setLayoutData(tableTreeGroupsLData);
                 tableTreeGroups.getTable().setHeaderVisible(true);
                 tableTreeGroups.getTable().setLinesVisible(true);
+                tableTreeGroups.getTable().addMouseListener(new MouseAdapter() {
+                    public void mouseDoubleClick(MouseEvent evt) {
+                        tableTreeGroups_tableMouseDoubleClick(evt);
+                    }
+                });
                 {
                     tableColumnGroupName = new TableColumn(tableTreeGroups
                         .getTable(), SWT.NONE);
@@ -114,10 +125,57 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite {
 	}
 	public void postInitGUI(){
 	    fillTable();
+	    initializePopUp();
+	    
 	   
 	}
+	
+	public void initializePopUp(){
+	    //Add popup menu to delete account
+	     popup = new Menu(getShell(),SWT.POP_UP);
+	     MenuItem item = new MenuItem (popup, SWT.PUSH); 	 
+		
+		 item.setText("Yeni Alt Grup");  	 
+		 
+		 item.addListener(SWT.Selection, new Listener () {
+			public void handleEvent (Event e) {					
+				TableTreeItem items[] = tableTreeGroups.getSelection();
+				if (items.length > 0)
+				{				    
+				    boolean isupdated = new InvUIGroupAddDialog(getShell(),SWT.NULL,(TurqInventoryGroup)items[0].getData()).open();
+				    if(isupdated)
+				    {
+				        fillTable();
+				    }
+				}
+				}
+		 
+});
+		 popup.addListener (SWT.Show, new Listener () {
+				public void handleEvent (Event event) {
+				    TableTreeItem items[] = tableTreeGroups.getSelection();
+					if (items.length > 0)
+					{				    
+					    TurqInventoryGroup group = (TurqInventoryGroup)items[0].getData();
+					    if(group.getTurqInventoryGroup().getInventoryGroupsId().intValue()==-1){
+					        event.doit=true;
+					        
+					    }
+					    else{
+					        event.doit =false;
+					        popup.setVisible(false);
+					    }
+					    
+					}
+					event.doit=false;
+				}
+		 });
+			tableTreeGroups.setMenu(popup);	
+	}
+	
 	public void fillTable(){
 	    try{
+	        tableTreeGroups.removeAll();
 		       List ls = InvBLCardAdd.getParentInventoryGroups();
 		       TableTreeItem item;
 		       TableTreeItem subItem;
@@ -150,5 +208,18 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite {
 		    }
 		    
 	}
+	
+    private void tableTreeGroups_tableMouseDoubleClick(MouseEvent evt) {
+        TableTreeItem items[] = tableTreeGroups.getSelection();
+		if (items.length > 0)
+		{				    
+		    boolean isupdated = new InvUIGroupUpdateDialog(getShell(),SWT.NULL,(TurqInventoryGroup)items[0].getData()).open();
+		    if(isupdated)
+		    {
+		        fillTable();
+		    }
+		}
+		
+    }
 
 }

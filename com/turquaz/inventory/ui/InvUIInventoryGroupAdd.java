@@ -92,10 +92,12 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
             {
                 lblMainGroup = new CLabel(this, SWT.NONE);
                 lblMainGroup.setText("Ana Grup");
+                lblMainGroup.setVisible(false);
             }
             {
                 txtMainGroup = new InvMainGroupPicker(this, SWT.NONE);
                 GridData txtMainGroupLData = new GridData();
+                txtMainGroup.setVisible(false);
                 txtMainGroupLData.widthHint = 164;
                 txtMainGroupLData.heightHint = 19;
                 txtMainGroup.setLayoutData(txtMainGroupLData);
@@ -148,14 +150,19 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 		this.dispose();
 
     }
-    public void save() {
-       InvBLCardAdd blCardAdd =new InvBLCardAdd();
+    public void save(){
+        
+    }
+    
+    public void update(TurqInventoryGroup group){
+        
+        InvBLCardAdd blCardAdd =new InvBLCardAdd();
         try{
             if(verifyFields()){
-                blCardAdd.saveInvGroup(txtGroupName.getText(),txtDefinition.getText(),(TurqInventoryGroup)txtMainGroup.getData());
+                blCardAdd.updateInvGroup(txtGroupName.getText(),txtDefinition.getText(),group);
                 EngUICommon.showSavedSuccesfullyMessage(getShell());
                 EngBLInventoryGroups.RefreshContentAsistantMap();
-                newForm();  
+                  
             }
              
              
@@ -166,5 +173,39 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
         }
         
 
+    }
+    
+    
+    public void save(TurqInventoryGroup mainGroup) {
+       InvBLCardAdd blCardAdd =new InvBLCardAdd();
+        try{
+            if(verifyFields()){
+                blCardAdd.saveInvGroup(txtGroupName.getText(),txtDefinition.getText(),mainGroup);
+                EngUICommon.showSavedSuccesfullyMessage(getShell());
+                EngBLInventoryGroups.RefreshContentAsistantMap();
+                  
+            }
+             
+             
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            EngUICommon.showMessageBox(getShell(),ex.getMessage().toString(),SWT.ICON_ERROR);
+        }
+        
+
+    }
+    
+    public Text getTxtDefinition() {
+        return txtDefinition;
+    }
+    public void setTxtDefinition(Text txtDefinition) {
+        this.txtDefinition = txtDefinition;
+    }
+    public Text getTxtGroupName() {
+        return txtGroupName;
+    }
+    public void setTxtGroupName(Text txtGroupName) {
+        this.txtGroupName = txtGroupName;
     }
 }

@@ -37,6 +37,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.inventory.Messages;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.layout.GridData;
@@ -44,6 +45,7 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.inventory.bl.InvBLCardAdd;
+import com.turquaz.inventory.bl.InvBLCardUpdate;
 
 
 import com.cloudgarden.resource.SWTResourceManager;
@@ -63,17 +65,18 @@ import com.cloudgarden.resource.SWTResourceManager;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
+public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
     private InvBLCardAdd blCardAdd = new InvBLCardAdd();
     Calendar cal = Calendar.getInstance();
+    private ToolItem toolDelete;
     private ToolItem toolSave;
     private ToolItem toolCancel;
     private InvUIInventoryGroupAdd compGroupAdd;
     private ToolBar toolBar;
     TurqInventoryGroup mainGroup;
     boolean isUpdated = false;
-	public InvUIGroupAddDialog(Shell parent, int style,TurqInventoryGroup mainGroup) {
+	public InvUIGroupUpdateDialog(Shell parent, int style,TurqInventoryGroup mainGroup) {
 		super(parent, style);
 		this.mainGroup = mainGroup;
 		
@@ -123,11 +126,21 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
                 toolBar.setLayoutData(toolBarLData);
                 {
                     toolSave = new ToolItem(toolBar, SWT.NONE);
-                    toolSave.setText("Kaydet");
+                    toolSave.setText("Güncelle");
                     toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
                     toolSave.addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
                             toolSaveWidgetSelected(evt);
+                        }
+                    });
+                }
+                {
+                    toolDelete = new ToolItem(toolBar, SWT.NONE);
+                    toolDelete.setText("Sil");
+                    toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif"));
+                    toolDelete.addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                            toolDeleteWidgetSelected(evt);
                         }
                     });
                 }
@@ -178,13 +191,16 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
     int location_Y = (parentLocation.y + parentSize.y)/2 - (dialogSize.y/2);
     
     dialogShell.setLocation(location_X,location_Y);
+    
+    compGroupAdd.getTxtDefinition().setText(mainGroup.getGroupsDescription());
+    compGroupAdd.getTxtGroupName().setText(mainGroup.getGroupsName());
 	
 	}
 
  
 	
     private void toolSaveWidgetSelected(SelectionEvent evt) {
-       compGroupAdd.save(mainGroup);
+       compGroupAdd.update(mainGroup);
        isUpdated =true;
        dialogShell.close();
         
@@ -192,5 +208,22 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
     
     private void toolCancelWidgetSelected(SelectionEvent evt) {
         dialogShell.close();
+    }
+    
+    private void toolDeleteWidgetSelected(SelectionEvent evt) {
+        try{
+            if(EngUICommon.okToDelete(getParent())){
+                new InvBLCardUpdate().deleteObject(mainGroup) ;
+                EngUICommon.showMessageBox(getParent(),"Ba?ar?la Silindi!",SWT.ICON_INFORMATION);
+                isUpdated = true;
+                dialogShell.close();
+            }
+            
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+            EngUICommon.showMessageBox(getParent(),"Bu Grubun Silinmesi Engellendi!",SWT.ICON_ERROR);
+        }
     }
 }
