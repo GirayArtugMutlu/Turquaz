@@ -33,8 +33,7 @@ public class InvDALCardSearch {
 	
 	public List searchInventoryCards(String cardName, String cardCode, TurqInventoryGroup invGroup)throws Exception{
 		try{
-			try{
-				
+			
 				Session session = EngDALSessionFactory.openSession();
 				
 				String query = "Select invCard from TurqInventoryCard as invCard " +
@@ -76,16 +75,7 @@ public class InvDALCardSearch {
 			catch(Exception ex){
 				throw ex;
 			}
-				
-				
-			
-			
-			
-		}
-		catch(Exception ex){
-			throw ex;
-		}
-		
+					
 	}
 	
 	
