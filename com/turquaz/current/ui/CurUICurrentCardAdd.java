@@ -1286,6 +1286,8 @@ public class CurUICurrentCardAdd extends SecureComposite {
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
 	fillGroups();
+	accPickerCustomer.setFilter("120");
+	accPickerSupplierAccCode.setFilter("320");
 	
 	
 	}
