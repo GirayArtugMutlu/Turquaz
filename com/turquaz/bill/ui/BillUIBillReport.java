@@ -24,7 +24,6 @@ import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TableSorter;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
-import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
@@ -56,40 +55,39 @@ import com.turquaz.current.ui.comp.CurrentCodePicker;
 * *************************************
 */
 public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implements SearchComposite{
+	private BillBLSearchBill blSearch = new BillBLSearchBill();
+	private Calendar cal=Calendar.getInstance();
 	private Composite composite1;
-	private Table tableBills;
-	private TableColumn tableColumnCurrentName;
-	private TableColumn tableColumnVatAmount;
-	private CurrentCodePicker txtCurCardStart;
 	private CurrentCodePicker txtCurCardEnd;
-	private CLabel lblCurCardEnd;
+	private TableColumn tableColumnSpecialVatAmount;
+	private TableColumn tableColumnVatAmount;
+	private TableColumn tableColumnCumulativePrice;
+	private TableColumn tableColumnCurrentName;
+	private TableColumn tableColumnDocNo;
+	private TableColumn tableColumnConsignmentDate;
+	private Table tableBills;
+	private CCombo comboBillType;
+	private CLabel lblType;
 	private Text txtDocNoEnd;
 	private CLabel lblDocNoEnd;
+	private Text txtDocNoStart;
+	private CLabel lblDocNo;
 	private CurrencyText txtMaxInvoiceTotal;
 	private CLabel lblMaxInvoiceTotal;
-	private CLabel lblMinInvoiceTotal;
 	private CurrencyText txtMinInvoiceTotal;
+	private CLabel lblMinInvoiceTotal;
 	private DatePicker dateDueDateEnd;
 	private CLabel lblDueDateEnd;
 	private DatePicker dateDueDateStart;
 	private CLabel lblDueDateStart;
-	private TableColumn tableColumnDocNo;
-	private Text txtDocNoStart;
-	private CLabel lblDocNo;
-	private CCombo comboBillType;
-	private CLabel lblType;
-	private CLabel lblEndDate;
 	private DatePicker dateEndDate;
+	private CLabel lblEndDate;
 	private DatePicker dateStartDate;
 	private CLabel lblStartDate;
+	private CLabel lblCurCardEnd;
+	private CurrentCodePicker txtCurCardStart;
 	private CLabel lblCurrentCard;
-	private TableColumn tableColumnSpecialVatAmount;
-	private TableColumn tableColumnCumulativePrice;
-	private TableColumn tableColumnConsignmentDate;
-	private BillBLSearchBill blSearch = new BillBLSearchBill();
-	private Calendar cal=Calendar.getInstance();
 
-	
 	public BillUIBillReport(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -111,96 +109,101 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				composite1.setLayout(composite1Layout);
 				{
 					lblCurrentCard = new CLabel(composite1, SWT.NONE);
-					lblCurrentCard.setText("Cari Kart - Ba?lang?ç");  //$NON-NLS-1$
-					GridData lblCurrentCardLData = new GridData();
-					lblCurrentCardLData.widthHint = 109;
-					lblCurrentCardLData.heightHint = 18;
-					lblCurrentCard.setLayoutData(lblCurrentCardLData);
+					lblCurrentCard.setText("Cari Kart - Ba?lang?ç"); //$NON-NLS-1$
 				}
 				{
 					txtCurCardStart = new CurrentCodePicker(composite1, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
-					txtCurCardStart.setSize(150, 17);
-
-					txtCurCardLData.widthHint = 150;
-					txtCurCardLData.heightHint = 17;
-					txtCurCardStart.setLayoutData(txtCurCardLData);
+					GridData txtCurCardStartLData = new GridData();
+					txtCurCardStartLData.widthHint = 150;
+					txtCurCardStartLData.heightHint = 17;
+					txtCurCardStart.setLayoutData(txtCurCardStartLData);
 				}
 				{
 					lblCurCardEnd = new CLabel(composite1, SWT.NONE);
-					lblCurCardEnd.setText(Messages.getString("BillUIBillReport.0")); //$NON-NLS-1$
+					lblCurCardEnd.setText(Messages
+						.getString("BillUIBillReport.0")); //$NON-NLS-1$
 				}
 				{
 					txtCurCardEnd = new CurrentCodePicker(composite1, SWT.NONE);
-					txtCurCardEnd.setSize(150, 17);
+					GridData txtCurCardEndLData = new GridData();
+					txtCurCardEndLData.widthHint = 150;
+					txtCurCardEndLData.heightHint = 17;
+					txtCurCardEnd.setLayoutData(txtCurCardEndLData);
 				}
 				{
 					lblStartDate = new CLabel(composite1, SWT.NONE);
-					lblStartDate.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.1"));  //$NON-NLS-1$
-					GridData lblStartDateLData = new GridData();
-					lblStartDateLData.widthHint = 109;
-					lblStartDateLData.heightHint = 17;
-					lblStartDate.setLayoutData(lblStartDateLData);
+					lblStartDate.setText(com.turquaz.bill.Messages
+						.getString("BillUIBillSearch.1")); //$NON-NLS-1$
 				}
 				{
 					dateStartDate = new DatePicker(composite1, SWT.NONE);
 					GridData dateStartDateLData = new GridData();
-					dateStartDate.setSize(150, 22);
-					dateStartDateLData.widthHint = 150;
-					dateStartDateLData.heightHint = 22;
-					dateStartDate.setLayoutData(dateStartDateLData);
+					GridData dateStartDateLData1 = new GridData();
+					dateStartDateLData1.widthHint = 156;
+					dateStartDateLData1.heightHint = 22;
+					dateStartDate.setLayoutData(dateStartDateLData1);
+
 				}
 				{
 					lblEndDate = new CLabel(composite1, SWT.NONE);
-					lblEndDate.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.2"));  //$NON-NLS-1$
-					GridData lblEndDateLData = new GridData();
-					lblEndDateLData.widthHint = 105;
-					lblEndDateLData.heightHint = 19;
-					lblEndDate.setLayoutData(lblEndDateLData);
+					lblEndDate.setText(com.turquaz.bill.Messages
+						.getString("BillUIBillSearch.2")); //$NON-NLS-1$
 				}
 				{
 					dateEndDate = new DatePicker(composite1, SWT.NONE);
 					GridData dateEndDateLData = new GridData();
-					dateEndDate.setSize(150, 22);
-					dateEndDateLData.widthHint = 150;
+					dateEndDateLData.widthHint = 156;
 					dateEndDateLData.heightHint = 22;
 					dateEndDate.setLayoutData(dateEndDateLData);
 				}
 				{
 					lblDueDateStart = new CLabel(composite1, SWT.NONE);
-					lblDueDateStart.setText(Messages.getString("BillUIBillReport.1")); //$NON-NLS-1$
+					lblDueDateStart.setText(Messages
+						.getString("BillUIBillReport.1")); //$NON-NLS-1$
 				}
 				{
 					dateDueDateStart = new DatePicker(composite1, SWT.NONE);
 					GridData dateDueDateStartLData = new GridData();
-					dateDueDateStart.setSize(150, 22);
-					dateDueDateStartLData.widthHint = 150;
-					dateDueDateStartLData.heightHint = 22;
+					dateDueDateStartLData.widthHint = 156;
+					dateDueDateStartLData.heightHint = 20;
 					dateDueDateStart.setLayoutData(dateDueDateStartLData);
 				}
 				{
 					lblDueDateEnd = new CLabel(composite1, SWT.NONE);
-					lblDueDateEnd.setText(Messages.getString("BillUIBillReport.2")); //$NON-NLS-1$
+					lblDueDateEnd.setText(Messages
+						.getString("BillUIBillReport.2")); //$NON-NLS-1$
 				}
 				{
 					dateDueDateEnd = new DatePicker(composite1, SWT.NONE);
-					dateDueDateEnd.setSize(150, 22);
+					GridData dateDueDateEndLData = new GridData();
+					dateDueDateEndLData.widthHint = 156;
+					dateDueDateEndLData.heightHint = 22;
+					dateDueDateEnd.setLayoutData(dateDueDateEndLData);
 				}
 				{
 					lblMinInvoiceTotal = new CLabel(composite1, SWT.NONE);
-					lblMinInvoiceTotal.setText(Messages.getString("BillUIBillReport.3")); //$NON-NLS-1$
+					lblMinInvoiceTotal.setText(Messages
+						.getString("BillUIBillReport.3")); //$NON-NLS-1$
 				}
 				{
 					txtMinInvoiceTotal = new CurrencyText(composite1, SWT.NONE);
-					txtMinInvoiceTotal.setSize(144, 17);
+					GridData txtMinInvoiceTotalLData = new GridData();
+					txtMinInvoiceTotalLData.widthHint = 150;
+					txtMinInvoiceTotalLData.heightHint = 17;
+					txtMinInvoiceTotal.setLayoutData(txtMinInvoiceTotalLData);
 				}
 				{
 					lblMaxInvoiceTotal = new CLabel(composite1, SWT.NONE);
-					lblMaxInvoiceTotal.setText(Messages.getString("BillUIBillReport.4")); //$NON-NLS-1$
+					lblMaxInvoiceTotal.setText(Messages
+						.getString("BillUIBillReport.4")); //$NON-NLS-1$
 				}
 				{
 					txtMaxInvoiceTotal = new CurrencyText(composite1, SWT.NONE);
-					txtMaxInvoiceTotal.setSize(144, 17);
+					GridData txtMaxInvoiceTotalLData = new GridData();
+					txtMaxInvoiceTotalLData.widthHint = 150;
+					txtMaxInvoiceTotalLData.heightHint = 17;
+					txtMaxInvoiceTotal.setLayoutData(txtMaxInvoiceTotalLData);
 				}
 				{
 					lblDocNo = new CLabel(composite1, SWT.NONE);
@@ -209,35 +212,34 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				{
 					txtDocNoStart = new Text(composite1, SWT.NONE);
 					GridData txtDocNoLData = new GridData();
-					txtDocNoStart.setSize(144, 17);
-					txtDocNoLData.widthHint = 144;
-					txtDocNoLData.heightHint = 17;
-					txtDocNoStart.setLayoutData(txtDocNoLData);
+					GridData txtDocNoStartLData = new GridData();
+					txtDocNoStartLData.widthHint = 150;
+					txtDocNoStartLData.heightHint = 17;
+					txtDocNoStart.setLayoutData(txtDocNoStartLData);
 				}
 				{
 					lblDocNoEnd = new CLabel(composite1, SWT.NONE);
-					lblDocNoEnd.setText(Messages.getString("BillUIBillReport.6")); //$NON-NLS-1$
+					lblDocNoEnd.setText(Messages
+						.getString("BillUIBillReport.6")); //$NON-NLS-1$
 				}
 				{
 					txtDocNoEnd = new Text(composite1, SWT.NONE);
-					txtDocNoEnd.setSize(144, 17);
+					GridData txtDocNoEndLData = new GridData();
+					txtDocNoEndLData.widthHint = 150;
+					txtDocNoEndLData.heightHint = 17;
+					txtDocNoEnd.setLayoutData(txtDocNoEndLData);
 				}
 				{
 					lblType = new CLabel(composite1, SWT.NONE);
 					lblType.setText(com.turquaz.bill.Messages
 						.getString("BillUIBillSearch.3")); //$NON-NLS-1$
-					GridData lblTypeLData = new GridData();
-					lblTypeLData.widthHint = 74;
-					lblTypeLData.heightHint = 21;
-					lblType.setLayoutData(lblTypeLData);
 				}
 				{
 					comboBillType = new CCombo(composite1, SWT.NONE);
 					GridData comboConsignmentTypeLData = new GridData();
-					comboBillType.setSize(128, 16);
 					comboBillType.setText("Hepsi"); //$NON-NLS-1$
-					comboConsignmentTypeLData.widthHint = 128;
-					comboConsignmentTypeLData.heightHint = 16;
+					comboConsignmentTypeLData.widthHint = 100;
+					comboConsignmentTypeLData.heightHint = 14;
 					comboBillType.setLayoutData(comboConsignmentTypeLData);
 				}
 			}
@@ -260,66 +262,95 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 					tableColumnConsignmentDate = new TableColumn(
 						tableBills,
 						SWT.NONE);
-					tableColumnConsignmentDate.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.5"));  //$NON-NLS-1$
+					tableColumnConsignmentDate
+						.setText(com.turquaz.bill.Messages
+							.getString("BillUIBillSearch.5")); //$NON-NLS-1$
 					tableColumnConsignmentDate.setWidth(104);
-					tableColumnConsignmentDate.addListener(SWT.Selection, new Listener() {
-					    public void handleEvent(Event e) {
-					    	TableSorter.sortTable(tableBills,tableColumnConsignmentDate);        
-					    }
-					});
+					tableColumnConsignmentDate.addListener(
+						SWT.Selection,
+						new Listener() {
+							public void handleEvent(Event e) {
+								TableSorter.sortTable(
+									tableBills,
+									tableColumnConsignmentDate);
+							}
+						});
 				}
-                {
-                    tableColumnDocNo = new TableColumn(tableBills, SWT.NONE);
-                    tableColumnDocNo.setText(Messages.getString("BillUIBillReport.7")); //$NON-NLS-1$
-                    tableColumnDocNo.setWidth(74);
-                }
+				{
+					tableColumnDocNo = new TableColumn(tableBills, SWT.NONE);
+					tableColumnDocNo.setText(Messages
+						.getString("BillUIBillReport.7")); //$NON-NLS-1$
+					tableColumnDocNo.setWidth(74);
+				}
 				{
 					tableColumnCurrentName = new TableColumn(
 						tableBills,
 						SWT.NONE);
-					tableColumnCurrentName.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.6"));  //$NON-NLS-1$
+					tableColumnCurrentName.setText(com.turquaz.bill.Messages
+						.getString("BillUIBillSearch.6")); //$NON-NLS-1$
 					tableColumnCurrentName.setWidth(150);
-					tableColumnCurrentName.addListener(SWT.Selection, new Listener() {
-					    public void handleEvent(Event e) {
-					    	TableSorter.sortTable(tableBills,tableColumnCurrentName);        
-					    }
-					});
+					tableColumnCurrentName.addListener(
+						SWT.Selection,
+						new Listener() {
+							public void handleEvent(Event e) {
+								TableSorter.sortTable(
+									tableBills,
+									tableColumnCurrentName);
+							}
+						});
 				}
 				{
 					tableColumnCumulativePrice = new TableColumn(
 						tableBills,
 						SWT.RIGHT);
-					tableColumnCumulativePrice.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.7"));  //$NON-NLS-1$
+					tableColumnCumulativePrice
+						.setText(com.turquaz.bill.Messages
+							.getString("BillUIBillSearch.7")); //$NON-NLS-1$
 					tableColumnCumulativePrice.setWidth(100);
-					tableColumnCumulativePrice.addListener(SWT.Selection, new Listener() {
-					    public void handleEvent(Event e) {
-					    	TableSorter.sortTable(tableBills,tableColumnCumulativePrice);        
-					    }
-					});
+					tableColumnCumulativePrice.addListener(
+						SWT.Selection,
+						new Listener() {
+							public void handleEvent(Event e) {
+								TableSorter.sortTable(
+									tableBills,
+									tableColumnCumulativePrice);
+							}
+						});
 				}
 				{
 					tableColumnVatAmount = new TableColumn(
 						tableBills,
 						SWT.RIGHT);
-					tableColumnVatAmount.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.8"));  //$NON-NLS-1$
+					tableColumnVatAmount.setText(com.turquaz.bill.Messages
+						.getString("BillUIBillSearch.8")); //$NON-NLS-1$
 					tableColumnVatAmount.setWidth(100);
-					tableColumnVatAmount.addListener(SWT.Selection, new Listener() {
-					    public void handleEvent(Event e) {
-					    	TableSorter.sortTable(tableBills,tableColumnVatAmount);        
-					    }
-					});
+					tableColumnVatAmount.addListener(
+						SWT.Selection,
+						new Listener() {
+							public void handleEvent(Event e) {
+								TableSorter.sortTable(
+									tableBills,
+									tableColumnVatAmount);
+							}
+						});
 				}
 				{
 					tableColumnSpecialVatAmount = new TableColumn(
 						tableBills,
 						SWT.RIGHT);
-					tableColumnSpecialVatAmount.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.9"));  //$NON-NLS-1$
+					tableColumnSpecialVatAmount
+						.setText(com.turquaz.bill.Messages
+							.getString("BillUIBillSearch.9")); //$NON-NLS-1$
 					tableColumnSpecialVatAmount.setWidth(100);
-					tableColumnSpecialVatAmount.addListener(SWT.Selection, new Listener() {
-					    public void handleEvent(Event e) {
-					    	TableSorter.sortTable(tableBills,tableColumnSpecialVatAmount);        
-					    }
-					});
+					tableColumnSpecialVatAmount.addListener(
+						SWT.Selection,
+						new Listener() {
+							public void handleEvent(Event e) {
+								TableSorter.sortTable(
+									tableBills,
+									tableColumnSpecialVatAmount);
+							}
+						});
 				}
 			}
 			postInitGui();
@@ -385,10 +416,14 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			type=0;
 		}
 			
-		List list = blSearch.searchBill((TurqCurrentCard)txtCurCardStart.getData(),
-		        								txtDocNoStart.getText().trim(),
-												dateStartDate.getDate(),
-												dateEndDate.getDate(),type);
+		List list = blSearch.searchBillAdvanced(
+				(TurqCurrentCard)txtCurCardStart.getData(),
+				(TurqCurrentCard)txtCurCardEnd.getData(),
+				dateStartDate.getDate(),dateEndDate.getDate(),
+				dateDueDateStart.getDate(),dateDueDateEnd.getDate(),
+				txtMinInvoiceTotal.getBigDecimalValue(),txtMaxInvoiceTotal.getBigDecimalValue(),
+				txtDocNoStart.getText(),txtDocNoEnd.getText(),type);
+		        								
 		TurqBill bill;
 		TableItem item;
 		TurkishCurrencyFormat cf=new TurkishCurrencyFormat();

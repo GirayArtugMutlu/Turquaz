@@ -1,6 +1,7 @@
 
 package com.turquaz.bill.bl;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,23 @@ public class BillBLSearchBill {
 		try{
 			
 			return dalSearch.searchBill(card,docNo,startDate,endDate,type);
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
+	
+	public List searchBillAdvanced(TurqCurrentCard curCardStart,
+			TurqCurrentCard curCardEnd, Date startDate, Date endDate,
+			Date dueDateStart, Date dueDateEnd, BigDecimal minValue,
+			BigDecimal maxValue, String docNoStart, String docNoEnd,
+			int type)throws Exception{
+		try{
+			
+			return dalSearch.searchBillAdvanced(curCardStart,curCardEnd,startDate,
+					endDate,dueDateStart,dueDateEnd,minValue,maxValue,docNoStart,docNoEnd,type);
 			
 		}
 		catch(Exception ex){

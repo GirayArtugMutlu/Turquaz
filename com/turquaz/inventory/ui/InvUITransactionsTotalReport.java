@@ -64,7 +64,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
-import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
 /**
 * This code was generated using CloudGarden's Jigloo

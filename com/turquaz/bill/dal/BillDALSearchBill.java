@@ -1,6 +1,7 @@
 
 package com.turquaz.bill.dal;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -45,9 +46,10 @@ public class BillDALSearchBill {
 				" bill.billsDate >= :startDate" +
 				" and bill.billsDate <= :endDate" +
 				" and bill.billsType ="+type +""+
-				" and bill.billsId <> -1 " +
-				" and bill.turqBillConsignmentCommon.billDocumentNo like '"+docNo+"%'";
-		
+				" and bill.billsId <> -1 ";
+				
+		if (!docNo.equals(""))
+			query +=" and bill.turqBillConsignmentCommon.billDocumentNo like '"+docNo+"%'";
 		
 		if (curCard!=null){
 		    query +=" and bill.turqBillConsignmentCommon.turqCurrentCard = :curCard"; 
@@ -61,6 +63,56 @@ public class BillDALSearchBill {
 		
 		if (curCard!=null){
 			q.setParameter("curCard",curCard);
+		}
+		
+		
+		
+		List list = q.list();
+	    session.close();
+		return list;
+		
+		
+		
+	}
+	catch(Exception ex){
+		throw ex;
+	}
+	}
+	
+	public List searchBillAdvanced(TurqCurrentCard curCardStart,
+			TurqCurrentCard curCardEnd, Date startDate, Date endDate,
+			Date dueDateStart, Date dueDateEnd, BigDecimal minValue,
+			BigDecimal maxValue,String docNoStart, String docNoEnd,
+			int type)
+	throws Exception {
+	try{
+		Session session = EngDALSessionFactory.openSession();
+		
+		String query = "Select bill from TurqBill as bill" +
+				" where" +
+				" bill.billsDate >= :startDate" +
+				" and bill.billsDate <= :endDate" +
+				" and bill.billsId <> -1 ";
+		
+			
+		//" and bill.turqBillConsignmentCommon.billDocumentNo like '"+docNoStart+"%'";
+		if (type != 2)
+		{
+			query +=" and bill.billsType ="+type;
+		}
+		
+		if (curCardStart!=null){
+		    query +=" and bill.turqBillConsignmentCommon.turqCurrentCard = :curCard"; 
+		}
+		query += " order by bill.billsDate";
+		
+		Query q = session.createQuery(query); 	
+		
+		q.setParameter("startDate",startDate);
+		q.setParameter("endDate",endDate);
+		
+		if (curCardStart!=null){
+			q.setParameter("curCard",curCardStart);
 		}
 		
 		
