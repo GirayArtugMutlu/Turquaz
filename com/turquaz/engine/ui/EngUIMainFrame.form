@@ -23,9 +23,9 @@
 			</Events>
 			<Properties>
 				<Property name="visible" type="boolean" value="true"/>
-				<Property name="externalizeStrings" type="boolean" value="true"/>
-				<Property name="externalizeStrings" type="boolean" value="true"/>
-				<Property name="externalizeStrings" type="boolean" value="true"/>
+				<Property name="externalizeStrings" type="boolean" value="false"/>
+				<Property name="externalizeStrings" type="boolean" value="false"/>
+				<Property name="externalizeStrings" type="boolean" value="false"/>
 			</Properties>
 			<SubComponents>
 				<Component class="org.eclipse.swt.widgets.MenuItem" name="mitFile" style="64">
@@ -42,8 +42,8 @@
 					</Events>
 					<Properties>
 						<Property name="text" type="String" value="&amp;File"/>
-						<Property name="externalizeStrings" type="boolean" value="true"/>
-						<Property name="externalizeStrings" type="boolean" value="true"/>
+						<Property name="externalizeStrings" type="boolean" value="false"/>
+						<Property name="externalizeStrings" type="boolean" value="false"/>
 					</Properties>
 				</Component>
 				<Component class="org.eclipse.swt.widgets.MenuItem" name="mitEdit" style="64">
@@ -60,8 +60,8 @@
 					</Events>
 					<Properties>
 						<Property name="text" type="String" value="&amp;Edit"/>
-						<Property name="externalizeStrings" type="boolean" value="true"/>
-						<Property name="externalizeStrings" type="boolean" value="true"/>
+						<Property name="externalizeStrings" type="boolean" value="false"/>
+						<Property name="externalizeStrings" type="boolean" value="false"/>
 					</Properties>
 				</Component>
 				<Component class="org.eclipse.swt.widgets.MenuItem" name="mitHelp" style="64">
@@ -79,8 +79,8 @@
 					<Properties>
 						<Property name="enabled" type="boolean" value="true"/>
 						<Property name="text" type="String" value="&amp;Help"/>
-						<Property name="externalizeStrings" type="boolean" value="true"/>
-						<Property name="externalizeStrings" type="boolean" value="true"/>
+						<Property name="externalizeStrings" type="boolean" value="false"/>
+						<Property name="externalizeStrings" type="boolean" value="false"/>
 					</Properties>
 				</Component>
 			</SubComponents>
@@ -116,8 +116,8 @@
 			<Property name="bounds" type="Rectangle">
 				<Rectangle value="[0, 0, 489, 349]"/>
 			</Property>
-			<Property name="externalizeStrings" type="boolean" value="true"/>
-			<Property name="externalizeStrings" type="boolean" value="true"/>
+			<Property name="externalizeStrings" type="boolean" value="false"/>
+			<Property name="externalizeStrings" type="boolean" value="false"/>
 		</Properties>
 		<SubComponents>
 			<Component class="org.eclipse.swt.widgets.Label" name="lblSeperator" style="258">
@@ -143,8 +143,8 @@
 						<Rectangle value="[0, 0, 489, 2]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
-					<Property name="externalizeStrings" type="boolean" value="true"/>
-					<Property name="externalizeStrings" type="boolean" value="true"/>
+					<Property name="externalizeStrings" type="boolean" value="false"/>
+					<Property name="externalizeStrings" type="boolean" value="false"/>
 				</Properties>
 			</Component>
 			<Component class="org.eclipse.swt.widgets.Composite" name="compMain" style="0">
@@ -180,8 +180,8 @@
 						<Rectangle value="[0, 2, 489, 327]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
-					<Property name="externalizeStrings" type="boolean" value="true"/>
-					<Property name="externalizeStrings" type="boolean" value="true"/>
+					<Property name="externalizeStrings" type="boolean" value="false"/>
+					<Property name="externalizeStrings" type="boolean" value="false"/>
 				</Properties>
 				<SubComponents>
 					<Component class="org.eclipse.swt.widgets.Label" name="lblSeperatorLeft" style="2">
@@ -210,8 +210,8 @@
 								<Rectangle value="[0, 0, 2, 327]"/>
 							</Property>
 							<Property name="visible" type="boolean" value="true"/>
-							<Property name="externalizeStrings" type="boolean" value="true"/>
-							<Property name="externalizeStrings" type="boolean" value="true"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
+							<Property name="externalizeStrings" type="boolean" value="false"/>
 						</Properties>
 					</Component>
 					<Component class="org.eclipse.swt.widgets.Composite" name="compMainIn" style="0">
@@ -246,8 +246,6 @@
 							<Property name="visible" type="boolean" value="true"/>
 							<Property name="externalizeStrings" type="boolean" value="false"/>
 							<Property name="externalizeStrings" type="boolean" value="false"/>
-							<Property name="externalizeStrings" type="boolean" value="false"/>
-							<Property name="externalizeStrings" type="boolean" value="false"/>
 						</Properties>
 						<SubComponents>
 							<Component class="org.eclipse.swt.custom.SashForm" name="sashMainVertical" style="0">
@@ -280,10 +278,6 @@
 									<Property name="visible" type="boolean" value="true"/>
 									<Property name="externalizeStrings" type="boolean" value="false"/>
 									<Property name="externalizeStrings" type="boolean" value="false"/>
-									<Property name="externalizeStrings" type="boolean" value="false"/>
-									<Property name="externalizeStrings" type="boolean" value="false"/>
-									<Property name="externalizeStrings" type="boolean" value="false"/>
-									<Property name="externalizeStrings" type="boolean" value="false"/>
 								</Properties>
 								<SubComponents>
 									<Component class="org.eclipse.swt.custom.SashForm" name="sashMainHorizontal" style="0">
@@ -303,10 +297,6 @@
 												<Rectangle value="[0, 0, 481, 321]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
 											<Property name="externalizeStrings" type="boolean" value="false"/>
 											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
@@ -330,10 +320,6 @@
 													<Property name="visible" type="boolean" value="true"/>
 													<Property name="externalizeStrings" type="boolean" value="false"/>
 													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
 												</Properties>
 												<SubComponents>
 													<Component class="org.eclipse.swt.custom.CTabItem" name="tabModules" style="0">
@@ -344,10 +330,6 @@
 														</Events>
 														<Properties>
 															<Property name="text" type="String" value="Modules"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
@@ -371,10 +353,6 @@
 																		<Dimension value="[230, 298]"/>
 																	</Property>
 																	<Property name="visible" type="boolean" value="true"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																</Properties>
@@ -412,10 +390,6 @@
 																			<Property name="visible" type="boolean" value="true"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
 																		<SubComponents>
 																			<Component class="org.eclipse.swt.custom.CLabel" name="lblModuleSelection" style="16384">
@@ -425,9 +399,9 @@
 																					<Constraint heightHint=""/>
 																					<Constraint verticalAlignment=""/>
 																					<Constraint grabExcessVerticalSpace=""/>
-																					<Constraint grabExcessHorizontalSpace=""/>
-																					<Constraint horizontalSpan=""/>
 																					<Constraint widthHint=""/>
+																					<Constraint horizontalSpan=""/>
+																					<Constraint grabExcessHorizontalSpace=""/>
 																					<Constraint horizontalIndent=""/>
 																					<LayoutConstraint/>
 																				</Constraints>
@@ -446,10 +420,6 @@
 																					<Property name="visible" type="boolean" value="true"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
 																			<Component class="org.eclipse.swt.custom.CCombo" name="comboModuleSelection" style="8389384">
@@ -459,9 +429,9 @@
 																					<Constraint heightHint=""/>
 																					<Constraint verticalAlignment=""/>
 																					<Constraint grabExcessVerticalSpace=""/>
-																					<Constraint grabExcessHorizontalSpace=""/>
-																					<Constraint horizontalSpan=""/>
 																					<Constraint widthHint=""/>
+																					<Constraint horizontalSpan=""/>
+																					<Constraint grabExcessHorizontalSpace=""/>
 																					<Constraint horizontalIndent=""/>
 																					<LayoutConstraint/>
 																				</Constraints>
@@ -480,10 +450,6 @@
 																					<Property name="bounds" type="Rectangle">
 																						<Rectangle value="[113, 0, 113, 16]"/>
 																					</Property>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -518,10 +484,6 @@
 																			</Property>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
 																		<SubComponents>
 																			<Component class="com.turquaz.inventory.ui.comp.InvUITree" name="treeInventory" style="0">
@@ -537,10 +499,6 @@
 																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
 																			<Component class="com.turquaz.admin.ui.comp.AdmUITree" name="treeAdmin" style="0">
@@ -554,10 +512,6 @@
 																					<Property name="bounds" type="Rectangle">
 																						<Rectangle value="[0, 0, 230, 263]"/>
 																					</Property>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -578,10 +532,6 @@
 															<Property name="text" type="String" value="Favorites"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 														<SubComponents>
 															<Component class="org.eclipse.swt.widgets.Composite" name="compFavoritesTab" style="0">
@@ -600,10 +550,6 @@
 																</Events>
 																<Properties>
 																	<Property name="visible" type="boolean" value="true"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																</Properties>
@@ -643,10 +589,6 @@
 																			<Property name="visible" type="boolean" value="true"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
 																		<SubComponents>
 																			<Component class="org.eclipse.swt.custom.CLabel" name="lblFavoritesTab" style="0">
@@ -679,10 +621,6 @@
 																					<Property name="visible" type="boolean" value="true"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
 																			<Component class="org.eclipse.swt.widgets.ToolBar" name="toolbarFavoritesTab" style="8388608">
@@ -709,14 +647,6 @@
 																						<Rectangle value="[204, 2, 24, 22]"/>
 																					</Property>
 																					<Property name="visible" type="boolean" value="true"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -750,10 +680,6 @@
 																			<Property name="visible" type="boolean" value="true"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
 																	</Component>
 																</SubComponents>
@@ -783,10 +709,6 @@
 													<Property name="bounds" type="Rectangle">
 														<Rectangle value="[239, 0, 242, 321]"/>
 													</Property>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
 													<Property name="externalizeStrings" type="boolean" value="false"/>
 													<Property name="externalizeStrings" type="boolean" value="false"/>
 												</Properties>
@@ -820,10 +742,6 @@
 															<Property name="visible" type="boolean" value="true"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 														<SubComponents>
 															<Component class="org.eclipse.swt.widgets.CoolItem" name="coolRightMain" style="4">
@@ -843,10 +761,6 @@
 																		<Dimension value="[29, 7]"/>
 																	</Property>
 																	<Property name="text" type="String" value="coolItem3"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																</Properties>
@@ -869,10 +783,6 @@
 																			<Property name="visible" type="boolean" value="true"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
 																		<SubComponents>
 																			<Component class="org.eclipse.swt.widgets.ToolItem" name="toolNew" style="8">
@@ -884,10 +794,6 @@
 																				</Events>
 																				<Properties>
 																					<Property name="enabled" type="boolean" value="true"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -903,10 +809,6 @@
 																					<Property name="text" type="String" value=""/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
 																			<Component class="org.eclipse.swt.widgets.ToolItem" name="toolDelete" style="8">
@@ -918,10 +820,6 @@
 																				</Events>
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -937,10 +835,6 @@
 																					<Property name="text" type="String" value=""/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
 																		</SubComponents>
@@ -952,8 +846,8 @@
 													<Component class="org.eclipse.swt.custom.CTabFolder" name="tabfldMain" style="2056">
 														<Constraints>
 															<Constraint right=""/>
-															<Constraint width=""/>
 															<Constraint top=""/>
+															<Constraint width=""/>
 															<Constraint height=""/>
 															<Constraint left="null"/>
 															<Constraint class="org.eclipse.swt.layout.GridData"/>
@@ -985,10 +879,6 @@
 																<Rectangle value="[5, 17, 232, 299]"/>
 															</Property>
 															<Property name="visible" type="boolean" value="true"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
