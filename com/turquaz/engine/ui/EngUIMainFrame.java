@@ -54,17 +54,47 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.SWT;
+
+import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.inventory.ui.InvUICardAdd;
+import com.turquaz.inventory.ui.comp.InvUITree;
+import com.turquaz.admin.ui.comp.AdmUITree;
+import com.turquaz.inventory.ui.InvUITransactionAdd;
 
 /**
 * @author  Onsel Armagan
 * @version  $Id$
 */
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a
+* for-profit company or business) then you should purchase
+* a license - please visit www.cloudgarden.com for details.
+*/
+
 
 
 
 
 public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
+	private AdmUITree admin_tree;
+	private CTabFolder cTabFolder3;
+	private InvUITree inv_tree;
+	private Composite composite4;
+	private ToolItem item_examine;
+	private ToolItem item_delete;
+	private ToolItem item_save;
+	private ToolItem item_new;
+	private ToolBar toolBar2;
+	private CoolItem coolItem3;
+	private CoolBar coolBar1;
+
+	private Composite composite5;
 	private MenuItem helpContMenuItem;
 	private Menu menu20;
 	private MenuItem copyMenuItem;
@@ -84,12 +114,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private Menu menu5;
 	private MenuItem newMenuItem;
 	private Menu menu3;
-	private CTabItem cTabItem3;
-	private Composite composite3;
-	private CTabItem cTabItem2;
-	private Composite composite2;
-	private CTabItem cTabItem1;
-	private CTabFolder cTabFolder3;
 	private Tree tree3;
 	private ToolItem toolItem4;
 	private ToolItem toolItem3;
@@ -98,19 +122,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private Composite composite9;
 	private Composite composite7;
 	private CTabItem cTabItem4;
-	private Group stokTree1;
-	private TreeItem treeItem14;
-	private TreeItem treeItem13;
-	private TreeItem treeItem12;
-	private TreeItem treeItem11;
-	private TreeItem treeItem10;
-	private TreeItem treeItem9;
-	private TreeItem treeItem8;
-	private TreeItem treeItem6;
-	private TreeItem treeItem15;
-	private TreeItem treeItem5;
-	private Tree tree4;
-	private Composite composite4;
 	private CCombo cCombo1;
 	private CLabel cLabel5;
 	private Composite composite11;
@@ -122,27 +133,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private Composite composite6;
 	private Label label2;
 	private Composite composite8;
-	private ToolItem toolItem12;
-	private ToolItem toolItem11;
-	private ToolItem toolItem10;
-	private ToolItem runToolItem;
-	private ToolItem debugToolItem;
-	private ToolBar toolBar1;
-	private CoolItem coolItem1;
-	private ToolItem toolItem9;
-	private ToolItem toolItem7;
-	private ToolItem toolItem2;
-	private ToolItem toolItem1;
-	private ToolItem toolItem13;
-	private ToolItem separator3;
-	private ToolItem toolItem8;
-	private ToolItem toolItem5;
-	private ToolItem toolItem6;
-	private ToolItem newToolItem;
-	private ToolBar toolBar2;
-	private CoolItem coolItem3;
-	private CoolBar coolBar1;
-	private Composite composite1;
 	private Label label1;
 	private MenuItem aboutMenuItem;
 	private MenuItem contentsMenuItem;
@@ -171,27 +161,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			preInitGUI();
 	
 			label1 = new Label(this,SWT.SEPARATOR| SWT.HORIZONTAL);
-			composite1 = new Composite(this,SWT.NULL);
-			coolBar1 = new CoolBar(composite1,SWT.NULL);
-			coolItem3 = new CoolItem(coolBar1,SWT.DROP_DOWN);
-			toolBar2 = new ToolBar(coolBar1,SWT.FLAT);
-			newToolItem = new ToolItem(toolBar2,SWT.DROP_DOWN);
-			toolItem6 = new ToolItem(toolBar2,SWT.NULL);
-			toolItem5 = new ToolItem(toolBar2,SWT.NULL);
-			toolItem8 = new ToolItem(toolBar2,SWT.NULL);
-			separator3 = new ToolItem(toolBar2,SWT.SEPARATOR);
-			toolItem13 = new ToolItem(toolBar2,SWT.NULL);
-			toolItem1 = new ToolItem(toolBar2,SWT.NULL);
-			toolItem2 = new ToolItem(toolBar2,SWT.NULL);
-			toolItem7 = new ToolItem(toolBar2,SWT.NULL);
-			toolItem9 = new ToolItem(toolBar2,SWT.NULL);
-			coolItem1 = new CoolItem(coolBar1,SWT.DROP_DOWN);
-			toolBar1 = new ToolBar(coolBar1,SWT.FLAT);
-			debugToolItem = new ToolItem(toolBar1,SWT.DROP_DOWN);
-			runToolItem = new ToolItem(toolBar1,SWT.DROP_DOWN);
-			toolItem10 = new ToolItem(toolBar1,SWT.NULL);
-			toolItem11 = new ToolItem(toolBar1,SWT.NULL);
-			toolItem12 = new ToolItem(toolBar1,SWT.NULL);
 			composite8 = new Composite(this,SWT.NULL);
 			label2 = new Label(composite8,SWT.SEPARATOR);
 			composite6 = new Composite(composite8,SWT.NULL);
@@ -200,22 +169,12 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			cTabFolder2 = new CTabFolder(sashForm3,SWT.TOP| SWT.BORDER);
 			cTabItem5 = new CTabItem(cTabFolder2,SWT.NULL);
 			composite10 = new Composite(cTabFolder2,SWT.NULL);
-			composite11 = new Composite(composite10,SWT.NULL);
+			composite11 = new Composite(composite10,SWT.BORDER);
 			cLabel5 = new CLabel(composite11,SWT.LEFT);
 			cCombo1 = new CCombo(composite11,SWT.FLAT| SWT.READ_ONLY| SWT.H_SCROLL| SWT.V_SCROLL);
 			composite4 = new Composite(composite10,SWT.NULL);
-			tree4 = new Tree(composite4,SWT.NULL);
-			treeItem5 = new TreeItem(tree4,SWT.NULL);
-			treeItem15 = new TreeItem(treeItem5,SWT.NULL);
-			treeItem6 = new TreeItem(tree4,SWT.NULL);
-			treeItem8 = new TreeItem(tree4,SWT.NULL);
-			treeItem9 = new TreeItem(tree4,SWT.NULL);
-			treeItem10 = new TreeItem(tree4,SWT.NULL);
-			treeItem11 = new TreeItem(tree4,SWT.NULL);
-			treeItem12 = new TreeItem(tree4,SWT.NULL);
-			treeItem13 = new TreeItem(tree4,SWT.NULL);
-			treeItem14 = new TreeItem(tree4,SWT.NULL);
-			stokTree1 = new Group(composite4,SWT.NULL);
+			inv_tree = new InvUITree(composite4,SWT.NULL);
+			admin_tree = new AdmUITree(composite4,SWT.NULL);
 			cTabItem4 = new CTabItem(cTabFolder2,SWT.NULL);
 			composite7 = new Composite(cTabFolder2,SWT.NULL);
 			composite9 = new Composite(composite7,SWT.NULL);
@@ -224,12 +183,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			toolItem3 = new ToolItem(toolBar5,SWT.NULL);
 			toolItem4 = new ToolItem(toolBar5,SWT.NULL);
 			tree3 = new Tree(composite7,SWT.NULL);
-			cTabFolder3 = new CTabFolder(sashForm3,SWT.BORDER);
-			cTabItem1 = new CTabItem(cTabFolder3,SWT.NULL);
-			composite2 = new Composite(cTabFolder3,SWT.NULL);
-			cTabItem2 = new CTabItem(cTabFolder3,SWT.NULL);
-			composite3 = new Composite(cTabFolder3,SWT.NULL);
-			cTabItem3 = new CTabItem(cTabFolder3,SWT.NULL);
+			composite5 = new Composite(sashForm3,SWT.NULL);
+			coolBar1 = new CoolBar(composite5,SWT.NULL);
+			coolItem3 = new CoolItem(coolBar1,SWT.DROP_DOWN);
+			toolBar2 = new ToolBar(coolBar1,SWT.FLAT);
+			item_new = new ToolItem(toolBar2,SWT.PUSH);
+			item_save = new ToolItem(toolBar2,SWT.NULL);
+			item_delete = new ToolItem(toolBar2,SWT.NULL);
+			item_examine = new ToolItem(toolBar2,SWT.NULL);
+			cTabFolder3 = new CTabFolder(composite5,SWT.BORDER);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(489,349));
 			this.addPaintListener( new PaintListener() {
@@ -251,95 +213,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			label1.setLayoutData(label1LData);
 			label1.setText("label1");
 	
-			GridData composite1LData = new GridData();
-			composite1LData.verticalAlignment = GridData.CENTER;
-			composite1LData.horizontalAlignment = GridData.FILL;
-			composite1LData.widthHint = -1;
-			composite1LData.heightHint = 25;
-			composite1LData.horizontalIndent = 0;
-			composite1LData.horizontalSpan = 1;
-			composite1LData.verticalSpan = 1;
-			composite1LData.grabExcessHorizontalSpace = true;
-			composite1LData.grabExcessVerticalSpace = false;
-			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(489,25));
-	
-			coolBar1.setSize(new org.eclipse.swt.graphics.Point(489,22));
-	
-			coolItem3.setControl(toolBar2);
-			coolItem3.setSize(new org.eclipse.swt.graphics.Point(212,22));
-			coolItem3.setMinimumSize(new org.eclipse.swt.graphics.Point(212,22));
-			coolItem3.setPreferredSize(new org.eclipse.swt.graphics.Point(212,22));
-			coolItem3.setText("coolItem3");
-	
-	
-			final org.eclipse.swt.graphics.Image newToolItemýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/emptyBox.gif"));
-			newToolItem.setImage(newToolItemýmage);
-			newToolItem.addSelectionListener( new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					newToolItemWidgetSelected(evt);
-				}
-			});
-	
-			final org.eclipse.swt.graphics.Image toolItem6ýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/build_exec.gif"));
-			toolItem6.setImage(toolItem6ýmage);
-	
-	
-			toolItem8.setEnabled(true);
-			final org.eclipse.swt.graphics.Image toolItem8ýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/print_edit.gif"));
-			toolItem8.setImage(toolItem8ýmage);
-	
-	
-			final org.eclipse.swt.graphics.Image toolItem13ýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
-			toolItem13.setImage(toolItem13ýmage);
-	
-			final org.eclipse.swt.graphics.Image toolItem1ýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/resource_persp.gif"));
-			toolItem1.setImage(toolItem1ýmage);
-	
-			final org.eclipse.swt.graphics.Image toolItem2ýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/saveas_edit.gif"));
-			toolItem2.setImage(toolItem2ýmage);
-	
-			toolItem7.setImage(toolItem13ýmage);
-	
-			final org.eclipse.swt.graphics.Image toolItem9ýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/prop_ps.gif"));
-			toolItem9.setImage(toolItem9ýmage);
-			toolBar2.setLayout(null);
-	
-			coolItem1.setControl(toolBar1);
-			coolItem1.setSize(new org.eclipse.swt.graphics.Point(141,22));
-			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(141,22));
-			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(141,22));
-	
-	
-			final org.eclipse.swt.graphics.Image debugToolItemýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/new_persp.gif"));
-			debugToolItem.setImage(debugToolItemýmage);
-			debugToolItem.addSelectionListener( new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					debugToolItemWidgetSelected(evt);
-				}
-			});
-	
-			final org.eclipse.swt.graphics.Image runToolItemýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save.gif"));
-			runToolItem.setImage(runToolItemýmage);
-			runToolItem.addSelectionListener( new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					runToolItemWidgetSelected(evt);
-				}
-			});
-	
-			final org.eclipse.swt.graphics.Image toolItem10ýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/run_exec.gif"));
-			toolItem10.setImage(toolItem10ýmage);
-	
-			toolItem11.setImage(toolItem1ýmage);
-	
-			toolItem12.setImage(toolItem8ýmage);
-			toolBar1.setLayout(null);
-			coolBar1.setLayout(null);
-			FillLayout composite1Layout = new FillLayout(256);
-			composite1.setLayout(composite1Layout);
-			composite1Layout.type = SWT.HORIZONTAL;
-			composite1.layout();
-	
 			GridData composite8LData = new GridData();
 			composite8LData.verticalAlignment = GridData.FILL;
 			composite8LData.horizontalAlignment = GridData.FILL;
@@ -351,7 +224,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			composite8LData.grabExcessHorizontalSpace = false;
 			composite8LData.grabExcessVerticalSpace = true;
 			composite8.setLayoutData(composite8LData);
-			composite8.setSize(new org.eclipse.swt.graphics.Point(489,302));
+			composite8.setSize(new org.eclipse.swt.graphics.Point(489,327));
 	
 			GridData label2LData = new GridData();
 			label2LData.verticalAlignment = GridData.FILL;
@@ -365,7 +238,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			label2LData.grabExcessVerticalSpace = true;
 			label2.setLayoutData(label2LData);
 			label2.setText("label2");
-			label2.setSize(new org.eclipse.swt.graphics.Point(2,302));
+			label2.setSize(new org.eclipse.swt.graphics.Point(2,327));
 	
 			GridData composite6LData = new GridData();
 			composite6LData.verticalAlignment = GridData.FILL;
@@ -391,18 +264,18 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			sashForm2LData.grabExcessVerticalSpace = true;
 			sashForm2.setLayoutData(sashForm2LData);
 			sashForm2.setOrientation(SWT.VERTICAL);
-			sashForm2.setSize(new org.eclipse.swt.graphics.Point(481,296));
+			sashForm2.setSize(new org.eclipse.swt.graphics.Point(481,321));
 	
-			sashForm3.setSize(new org.eclipse.swt.graphics.Point(481,296));
-			sashForm3.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,481,296));
+			sashForm3.setSize(new org.eclipse.swt.graphics.Point(481,321));
+			sashForm3.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,481,321));
 	
-			cTabFolder2.setSize(new org.eclipse.swt.graphics.Point(231,291));
-			cTabFolder2.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,236,296));
+			cTabFolder2.setSize(new org.eclipse.swt.graphics.Point(231,316));
+			cTabFolder2.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,236,321));
 	
 			cTabItem5.setControl(composite10);
 			cTabItem5.setText("Modüller");
 	
-			composite10.setSize(new org.eclipse.swt.graphics.Point(232,272));
+			composite10.setSize(new org.eclipse.swt.graphics.Point(232,297));
 	
 			GridData composite11LData = new GridData();
 			composite11LData.verticalAlignment = GridData.CENTER;
@@ -415,20 +288,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			composite11LData.grabExcessHorizontalSpace = true;
 			composite11LData.grabExcessVerticalSpace = false;
 			composite11.setLayoutData(composite11LData);
-			composite11.setSize(new org.eclipse.swt.graphics.Point(232,16));
+			composite11.setSize(new org.eclipse.swt.graphics.Point(228,16));
 	
 			cLabel5.setText("Aktif Modul");
-			cLabel5.setSize(new org.eclipse.swt.graphics.Point(116,16));
+			cLabel5.setSize(new org.eclipse.swt.graphics.Point(114,16));
 			cLabel5.setLayout(null);
 	
 			final Color cCombo1background = new Color(Display.getDefault(),236,233,216);
 			cCombo1.setBackground(cCombo1background);
-			cCombo1.setSize(new org.eclipse.swt.graphics.Point(94,16));
-			cCombo1.addPaintListener( new PaintListener() {
-				public void paintControl(PaintEvent evt) {
-					cCombo1PaintControl(evt);
-				}
-			});
+			cCombo1.setSize(new org.eclipse.swt.graphics.Point(92,16));
 			cCombo1.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					cCombo1WidgetSelected(evt);
@@ -452,38 +320,21 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			composite4LData.horizontalIndent = 0;
 			composite4LData.horizontalSpan = 1;
 			composite4LData.verticalSpan = 1;
-			composite4LData.grabExcessHorizontalSpace = true;
+			composite4LData.grabExcessHorizontalSpace = false;
 			composite4LData.grabExcessVerticalSpace = true;
 			composite4.setLayoutData(composite4LData);
 	
-			tree4.setSize(new org.eclipse.swt.graphics.Point(216,225));
-			tree4.addMouseListener( new MouseAdapter() {
+			inv_tree.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
-					tree4MouseDoubleClick(evt);
+					inv_treeMouseDoubleClick(evt);
 				}
 			});
 	
-			treeItem5.setText("Stok Ekle");
-	
-			treeItem15.setText("treeItem15");
-	
-			treeItem6.setText("Stok Düzenle");
-	
-			treeItem8.setText("Stok Sil");
-	
-			treeItem9.setText("Stok Listesi");
-	
-			treeItem10.setText("Stok Fiþleri");
-	
-			treeItem11.setText("Stok Tanýmlarý");
-	
-			treeItem12.setText("Depolar");
-	
-			treeItem13.setText("Depo Tanýmlarý");
-	
-			treeItem14.setText("Depo Listesi");
-			tree4.setLayout(null);
-	
+			admin_tree.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					admin_treeMouseDoubleClick(evt);
+				}
+			});
 			StackLayout composite4Layout = new StackLayout();
 			composite4.setLayout(composite4Layout);
 			composite4Layout.marginWidth = 0;
@@ -544,7 +395,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			toolBar5LData.grabExcessVerticalSpace = false;
 			toolBar5.setLayoutData(toolBar5LData);
 	
-			toolItem3.setImage(debugToolItemýmage);
+			final org.eclipse.swt.graphics.Image toolItem3ýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/new_persp.gif"));
+			toolItem3.setImage(toolItem3ýmage);
 	
 			final org.eclipse.swt.graphics.Image toolItem4ýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/new_wiz.gif"));
 			toolItem4.setImage(toolItem4ýmage);
@@ -570,7 +422,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tree3LData.grabExcessHorizontalSpace = false;
 			tree3LData.grabExcessVerticalSpace = true;
 			tree3.setLayoutData(tree3LData);
-			tree3.setSize(new org.eclipse.swt.graphics.Point(216,232));
+			tree3.setSize(new org.eclipse.swt.graphics.Point(216,257));
 			GridLayout composite7Layout = new GridLayout(1, true);
 			composite7.setLayout(composite7Layout);
 			composite7Layout.marginWidth = 0;
@@ -583,35 +435,79 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			cTabFolder2.setLayout(null);
 			cTabFolder2.setSelection(0);
 	
-			cTabFolder3.setSize(new org.eclipse.swt.graphics.Point(237,291));
-			cTabFolder3.setBounds(new org.eclipse.swt.graphics.Rectangle(239,0,242,296));
+			composite5.setSize(new org.eclipse.swt.graphics.Point(242,321));
+			composite5.setBounds(new org.eclipse.swt.graphics.Rectangle(239,0,242,321));
+	
+			GridData coolBar1LData = new GridData();
+			coolBar1LData.verticalAlignment = GridData.CENTER;
+			coolBar1LData.horizontalAlignment = GridData.FILL;
+			coolBar1LData.widthHint = -1;
+			coolBar1LData.heightHint = 24;
+			coolBar1LData.horizontalIndent = 0;
+			coolBar1LData.horizontalSpan = 1;
+			coolBar1LData.verticalSpan = 1;
+			coolBar1LData.grabExcessHorizontalSpace = false;
+			coolBar1LData.grabExcessVerticalSpace = false;
+			coolBar1.setLayoutData(coolBar1LData);
+			coolBar1.setSize(new org.eclipse.swt.graphics.Point(232,24));
+	
+			coolItem3.setControl(toolBar2);
+			coolItem3.setSize(new org.eclipse.swt.graphics.Point(92,22));
+			coolItem3.setMinimumSize(new org.eclipse.swt.graphics.Point(92,22));
+			coolItem3.setPreferredSize(new org.eclipse.swt.graphics.Point(92,22));
+			coolItem3.setText("coolItem3");
+	
+			toolBar2.setLocation(new org.eclipse.swt.graphics.Point(20,0));
+	
+			item_new.setEnabled(true);
+			item_new.setImage(toolItem4ýmage);
+	
+			final org.eclipse.swt.graphics.Image item_saveýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
+			item_save.setImage(item_saveýmage);
+	
+			final org.eclipse.swt.graphics.Image item_deleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			item_delete.setImage(item_deleteýmage);
+	
+			final org.eclipse.swt.graphics.Image item_examineýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/prop_ps.gif"));
+			item_examine.setImage(item_examineýmage);
+			toolBar2.setLayout(null);
+			coolBar1.setLayout(null);
+	
+			GridData cTabFolder3LData = new GridData();
+			cTabFolder3LData.verticalAlignment = GridData.FILL;
+			cTabFolder3LData.horizontalAlignment = GridData.FILL;
+			cTabFolder3LData.widthHint = -1;
+			cTabFolder3LData.heightHint = -1;
+			cTabFolder3LData.horizontalIndent = 0;
+			cTabFolder3LData.horizontalSpan = 1;
+			cTabFolder3LData.verticalSpan = 1;
+			cTabFolder3LData.grabExcessHorizontalSpace = false;
+			cTabFolder3LData.grabExcessVerticalSpace = true;
+			cTabFolder3.setLayoutData(cTabFolder3LData);
+			cTabFolder3.setSize(new org.eclipse.swt.graphics.Point(227,277));
+			cTabFolder3.addSelectionListener( new SelectionAdapter() {
+				public void widgetDefaultSelected(SelectionEvent evt) {
+					cTabFolder3WidgetDefaultSelected(evt);
+				}
+				public void widgetSelected(SelectionEvent evt) {
+					cTabFolder3WidgetSelected(evt);
+				}
+			});
 			cTabFolder3.addCTabFolderListener( new CTabFolderAdapter() {
 				public void itemClosed(CTabFolderEvent evt) {
 					cTabFolder3ÝtemClosed(evt);
 				}
 			});
-	
-			cTabItem1.setControl(composite2);
-			cTabItem1.setText("cTabItem1");
-	
-			FormLayout composite2Layout = new FormLayout();
-			composite2.setLayout(composite2Layout);
-			composite2Layout.marginWidth = 0;
-			composite2Layout.marginHeight = 0;
-			composite2.layout();
-	
-			cTabItem2.setControl(composite3);
-			cTabItem2.setText("cTabItem2");
-	
-			FormLayout composite3Layout = new FormLayout();
-			composite3.setLayout(composite3Layout);
-			composite3Layout.marginWidth = 0;
-			composite3Layout.marginHeight = 0;
-			composite3.layout();
-	
-			cTabItem3.setText("cTabItem3");
 			cTabFolder3.setLayout(null);
-			cTabFolder3.setSelection(0);
+			GridLayout composite5Layout = new GridLayout(1, true);
+			composite5.setLayout(composite5Layout);
+			composite5Layout.marginWidth = 5;
+			composite5Layout.marginHeight = 5;
+			composite5Layout.numColumns = 1;
+			composite5Layout.makeColumnsEqualWidth = true;
+			composite5Layout.horizontalSpacing = 5;
+			composite5Layout.verticalSpacing = 5;
+			composite5.layout();
 			sashForm3.setLayout(null);
 			sashForm2.setLayout(null);
 			GridLayout composite6Layout = new GridLayout(1, true);
@@ -711,18 +607,12 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			helpContMenuItem.setText("Help &Contents");
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					newToolItemýmage.dispose();
-					toolItem6ýmage.dispose();
-					toolItem8ýmage.dispose();
-					toolItem13ýmage.dispose();
-					toolItem1ýmage.dispose();
-					toolItem2ýmage.dispose();
-					toolItem9ýmage.dispose();
-					debugToolItemýmage.dispose();
-					runToolItemýmage.dispose();
-					toolItem10ýmage.dispose();
 					cCombo1background.dispose();
+					toolItem3ýmage.dispose();
 					toolItem4ýmage.dispose();
+					item_saveýmage.dispose();
+					item_deleteýmage.dispose();
+					item_examineýmage.dispose();
 				}
 			});
 	
@@ -733,10 +623,30 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	}
 	/** Add your pre-init code in here 	*/
 	public void preInitGUI(){
+		System.out.println(this.getClass().getName());
 	}
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+		StackLayout compo4layout =(StackLayout)composite4.getLayout();
+		compo4layout.topControl = inv_tree;
+		sashForm3.setWeights(new int[]{25,75});
+	    
+	    cCombo1.add("Stok");
+		cCombo1.add("Yönetici");
+		
+			
+		cTabFolder3.setTabHeight(25);
+		cTabFolder3.setSelectionBackground(new Color[]{Display.getDefault().getSystemColor(SWT.COLOR_WHITE)},
+														   new int[]{});
+		item_new.setEnabled(false);
+		item_save.setEnabled(false);
+		item_delete.setEnabled(false);
+		item_examine.setEnabled(false);
+		
+		
+														   
+		
 	}
 
 	/** Auto-generated main method */
@@ -771,28 +681,139 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		}
 	}
 	/** Auto-generated event handler method */
-	protected void newToolItemWidgetSelected(SelectionEvent evt){
-		//TODO add your handler code here
-	}
-
-	/** Auto-generated event handler method */
-	protected void debugToolItemWidgetSelected(SelectionEvent evt){
-		//TODO add your handler code here
-	}
-
-	/** Auto-generated event handler method */
-	protected void runToolItemWidgetSelected(SelectionEvent evt){
-		//TODO add your handler code here
-	}
-
-	/** Auto-generated event handler method */
-	protected void cCombo1PaintControl(PaintEvent evt){
-		//TODO add your handler code here
-	}
-
+	
 	/** Auto-generated event handler method */
 	protected void cCombo1WidgetSelected(SelectionEvent evt){
+		
+		String text = cCombo1.getItem(cCombo1.getSelectionIndex());
+		StackLayout compo4layout =(StackLayout)composite4.getLayout();
+	
+			   if(text.equals("Stok"))
+			   {
+				compo4layout.topControl = inv_tree;
+		
+			   }
+			   else if(text.equals("Yönetici")){
+				compo4layout.topControl = admin_tree;
+	
+			   }
+			   composite4.layout();
+	}
+
+
+
+	/** Auto-generated event handler method */
+	protected void tree4MouseDoubleClick(MouseEvent evt){
+		TreeItem item = inv_tree.getSelection()[0];
+		
+				if(item.getItemCount()==0){
+					if(item.getText().equals("Stok Kartý")){
+						Form_Ekle("Stok Ekle",InvUICardAdd.class.getName());
+					}
+					else if(item.getText().equals("Stok Hareketi")){
+						Form_Ekle("Stok Hareketi",InvUITransactionAdd.class.getName());	
+					}
+					
+				
+				}
+				
+	
+	}
+	public void Form_Ekle (String Name, String classname){
+		
+				CTabItem yeni = new CTabItem (cTabFolder3,SWT.NULL );
+				yeni.setText(Name);
+			    try{
+			    
+				Class c = Class.forName(classname);
+				Composite comp =(Composite)c.getConstructor(new Class[]{Composite.class, int.class})
+				.newInstance(new Object[]{cTabFolder3,Integer.valueOf(SWT.NONE+"")});
+				yeni.setControl(comp);
+				cTabFolder3.setSelection(yeni);
+				arrangeIcons();
+			    }
+			    catch(Exception ex){
+			    	ex.printStackTrace();
+			    }
+				
+				//Button tus = new Button(cTabFolder3,1);
+				//Form.setParent(cTabFolder3); 
+			 
+				
+					
+	}
+	
+
+	/** Auto-generated event handler method */
+	protected void cTabFolder3ÝtemClosed(CTabFolderEvent evt){
+		 if(cTabFolder3.getItemCount()==1){
+			item_new.setEnabled(false);
+			item_save.setEnabled(false);
+			item_delete.setEnabled(false);
+			item_examine.setEnabled(false);
+		 	
+		 }
+	}
+
+	/** Auto-generated event handler method */
+	protected void EngUIMainFramePaintControl(PaintEvent evt){
 		//TODO add your handler code here
+	}
+
+	/** Auto-generated event handler method */
+	
+	private void arrangeIcons(){
+		Composite c = (Composite)cTabFolder3.getSelection().getControl();
+				if(c instanceof SecureComposite){
+					int level = ((SecureComposite)c ).getPermission(c.getClass().getName());
+					if(level==3)
+					{
+						item_new.setEnabled(true);
+						item_save.setEnabled(true);
+						item_delete.setEnabled(true);
+						item_examine.setEnabled(true);
+					}
+					else if (level==2){
+						item_new.setEnabled(true);
+						item_save.setEnabled(true);
+						item_delete.setEnabled(false);
+						item_examine.setEnabled(true);
+					}
+					else if(level==1){
+						item_new.setEnabled(true);
+						item_save.setEnabled(false);
+						item_delete.setEnabled(false);
+						item_examine.setEnabled(true);
+					}
+					else 
+					{
+						item_new.setEnabled(false);
+						item_save.setEnabled(false);
+						item_delete.setEnabled(false);
+						item_examine.setEnabled(false);
+				
+					}
+				}
+				else
+				{
+					item_new.setEnabled(false);
+					item_save.setEnabled(false);
+					item_delete.setEnabled(false);
+					item_examine.setEnabled(false);
+				
+				}
+		
+		
+	}
+	
+	protected void cTabFolder3WidgetSelected(SelectionEvent evt){
+	
+		arrangeIcons();
+	}
+
+	/** Auto-generated event handler method */
+	protected void cTabFolder3WidgetDefaultSelected(SelectionEvent evt){
+		arrangeIcons();
 	}
 
 	/** Auto-generated event handler method */
@@ -801,17 +822,23 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	}
 
 	/** Auto-generated event handler method */
-	protected void tree4MouseDoubleClick(MouseEvent evt){
-		//TODO add your handler code here
+	protected void inv_treeMouseDoubleClick(MouseEvent evt){
+		TreeItem item = inv_tree.getSelection()[0];
+		
+		if(item.getItemCount()==0){
+			Form_Ekle(item.getText(),item.getData().toString());
+		}
+				
+		
+		
+		
 	}
 
 	/** Auto-generated event handler method */
-	protected void cTabFolder3ÝtemClosed(CTabFolderEvent evt){
-		//TODO add your handler code here
-	}
-
-	/** Auto-generated event handler method */
-	protected void EngUIMainFramePaintControl(PaintEvent evt){
-		//TODO add your handler code here
+	protected void admin_treeMouseDoubleClick(MouseEvent evt){
+		TreeItem item = admin_tree.getSelection()[0];
+		if(item.getItemCount()==0){
+			Form_Ekle(item.getText(),item.getData().toString());
+			}
 	}
 }

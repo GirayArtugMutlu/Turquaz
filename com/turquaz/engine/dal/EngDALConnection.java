@@ -15,6 +15,7 @@ package com.turquaz.engine.dal;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
+
 import java.sql.*;
 
 /**
@@ -45,8 +46,11 @@ public class EngDALConnection {
 
   public void connect() throws Exception {
 	try {
+	   
 	   driver = "com.mysql.jdbc.Driver";
-	 // loginUrl = "jdbc:mysql://10.90.19.52/turquaz";
+	  loginUser = "turquaz2";
+	  loginPass ="turquaz";
+	  loginUrl = "jdbc:mysql://kulup.sabanciuniv.edu/turquaz";
 	   Class.forName(driver);
 	  con = DriverManager.getConnection(loginUrl, loginUser, loginPass);
 	  stmt = con.createStatement();
