@@ -73,7 +73,7 @@ public class AccDALTransactionSearch {
 		try{
 			Session session = EngDALSessionFactory.openSession();
 			
-			String query = "select transType from TurqAccountingTransactionType as transType";
+			String query = "select distinct transType from TurqAccountingTransactionType as transType";
 			Query q = session.createQuery(query); 
 			List list = q.list();
 			session.close();
