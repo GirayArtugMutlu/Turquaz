@@ -250,7 +250,7 @@ public class BankUIOtherTransOut extends org.eclipse.swt.widgets.Composite imple
 
 	public void newForm()
 	{
-		BankUIOtherTransIn curCard = new BankUIOtherTransIn(this.getParent(), this.getStyle());
+		BankUIOtherTransOut curCard = new BankUIOtherTransOut(this.getParent(), this.getStyle());
 		CTabFolder tabfld = (CTabFolder) this.getParent();
 		tabfld.getSelection().setControl(curCard);
 		this.dispose();
