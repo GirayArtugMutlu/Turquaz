@@ -42,5 +42,16 @@ public class EngBLCommon {
 			throw ex;
 		}
 	}
+	
+	public boolean checkUserPass(String user, String pass)throws Exception{
+		try{
+			
+			return engDALCom.checkUserPass(user,pass);
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
 
 }

@@ -65,5 +65,30 @@ public class EngDALCommon {
 			throw ex;
 		}
 	}
+	public boolean checkUserPass(String username, String pass)throws Exception{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			String query = "from TurqUser as user " +
+					"where user.username ='"+username+"' and" +
+					" user.usersPassword ='"+pass+"'";
+			Query q = session.createQuery(query); 
+			List list = q.list();
+			tx.commit();
+			session.close();
+			
+			if(list.size()==1){
+				return true;
+			}
+			else{
+				return false;
+			}
+	
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
 
 }

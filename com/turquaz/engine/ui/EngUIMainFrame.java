@@ -679,12 +679,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	}
 /** Add your pre-init code in here 	*/
 	public void preInitGUI(){
-		
-		
-	EngUIDatabaseConnectionWizard wizard = new EngUIDatabaseConnectionWizard();
-	WizardDialog dialog = new WizardDialog(this.getShell(),wizard);
-	dialog.open();	
-		
+	
 	 //Set System variables
 	 System.setProperty("company","0"); //$NON-NLS-1$ //$NON-NLS-2$
 	 System.setProperty("user","admin"); //$NON-NLS-1$ //$NON-NLS-2$
