@@ -46,6 +46,13 @@
         length="65535"
     />
     <property
+        name="specialVatAmount"
+        type="java.math.BigDecimal"
+        column="special_vat_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
         name="charges"
         type="java.math.BigDecimal"
         column="charges"
@@ -56,13 +63,6 @@
         name="totalAmount"
         type="java.math.BigDecimal"
         column="total_amount"
-        not-null="true"
-        length="65535"
-    />
-    <property
-        name="specialVatAmount"
-        type="java.math.BigDecimal"
-        column="special_vat_amount"
         not-null="true"
         length="65535"
     />

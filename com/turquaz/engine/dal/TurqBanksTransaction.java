@@ -15,6 +15,9 @@ public class TurqBanksTransaction implements Serializable {
     private java.math.BigDecimal deptAmount;
 
     /** persistent field */
+    private java.math.BigDecimal creditAmount;
+
+    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
@@ -27,9 +30,6 @@ public class TurqBanksTransaction implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
-    private java.math.BigDecimal creditAmount;
-
-    /** persistent field */
     private com.turquaz.engine.dal.TurqBanksTransactionBill turqBanksTransactionBill;
 
     /** persistent field */
@@ -39,13 +39,13 @@ public class TurqBanksTransaction implements Serializable {
     private com.turquaz.engine.dal.TurqBanksCard turqBanksCard;
 
     /** full constructor */
-    public TurqBanksTransaction(java.math.BigDecimal deptAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.math.BigDecimal creditAmount, com.turquaz.engine.dal.TurqBanksTransactionBill turqBanksTransactionBill, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksCard turqBanksCard) {
+    public TurqBanksTransaction(java.math.BigDecimal deptAmount, java.math.BigDecimal creditAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBanksTransactionBill turqBanksTransactionBill, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksCard turqBanksCard) {
         this.deptAmount = deptAmount;
+        this.creditAmount = creditAmount;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.creditAmount = creditAmount;
         this.turqBanksTransactionBill = turqBanksTransactionBill;
         this.turqAccountingAccount = turqAccountingAccount;
         this.turqBanksCard = turqBanksCard;
@@ -69,6 +69,14 @@ public class TurqBanksTransaction implements Serializable {
 
     public void setDeptAmount(java.math.BigDecimal deptAmount) {
         this.deptAmount = deptAmount;
+    }
+
+    public java.math.BigDecimal getCreditAmount() {
+        return this.creditAmount;
+    }
+
+    public void setCreditAmount(java.math.BigDecimal creditAmount) {
+        this.creditAmount = creditAmount;
     }
 
     public java.lang.String getCreatedBy() {
@@ -101,14 +109,6 @@ public class TurqBanksTransaction implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public java.math.BigDecimal getCreditAmount() {
-        return this.creditAmount;
-    }
-
-    public void setCreditAmount(java.math.BigDecimal creditAmount) {
-        this.creditAmount = creditAmount;
     }
 
     public com.turquaz.engine.dal.TurqBanksTransactionBill getTurqBanksTransactionBill() {

@@ -22,6 +22,12 @@ public class TurqBanksCard implements Serializable {
     private java.lang.String bankAccountNo;
 
     /** persistent field */
+    private java.lang.String bankDefinition;
+
+    /** persistent field */
+    private java.lang.String bankCode;
+
+    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
@@ -32,12 +38,6 @@ public class TurqBanksCard implements Serializable {
 
     /** persistent field */
     private java.util.Date lastModified;
-
-    /** persistent field */
-    private java.lang.String bankDefinition;
-
-    /** persistent field */
-    private java.lang.String bankCode;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqCurrency turqCurrency;
@@ -61,16 +61,16 @@ public class TurqBanksCard implements Serializable {
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqBanksCard(java.lang.String bankName, java.lang.String bankBranchName, java.lang.String bankAccountNo, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String bankDefinition, java.lang.String bankCode, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqChequeRolls, Set turqChequeCheques, Set turqBankCardsSecondaryAccounts, Set turqTradebillRolls, Set turqBanksTransactions) {
+    public TurqBanksCard(java.lang.String bankName, java.lang.String bankBranchName, java.lang.String bankAccountNo, java.lang.String bankDefinition, java.lang.String bankCode, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqChequeRolls, Set turqChequeCheques, Set turqBankCardsSecondaryAccounts, Set turqTradebillRolls, Set turqBanksTransactions) {
         this.bankName = bankName;
         this.bankBranchName = bankBranchName;
         this.bankAccountNo = bankAccountNo;
+        this.bankDefinition = bankDefinition;
+        this.bankCode = bankCode;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.bankDefinition = bankDefinition;
-        this.bankCode = bankCode;
         this.turqCurrency = turqCurrency;
         this.turqAccountingAccount = turqAccountingAccount;
         this.turqChequeRolls = turqChequeRolls;
@@ -116,6 +116,22 @@ public class TurqBanksCard implements Serializable {
         this.bankAccountNo = bankAccountNo;
     }
 
+    public java.lang.String getBankDefinition() {
+        return this.bankDefinition;
+    }
+
+    public void setBankDefinition(java.lang.String bankDefinition) {
+        this.bankDefinition = bankDefinition;
+    }
+
+    public java.lang.String getBankCode() {
+        return this.bankCode;
+    }
+
+    public void setBankCode(java.lang.String bankCode) {
+        this.bankCode = bankCode;
+    }
+
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
@@ -146,22 +162,6 @@ public class TurqBanksCard implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public java.lang.String getBankDefinition() {
-        return this.bankDefinition;
-    }
-
-    public void setBankDefinition(java.lang.String bankDefinition) {
-        this.bankDefinition = bankDefinition;
-    }
-
-    public java.lang.String getBankCode() {
-        return this.bankCode;
-    }
-
-    public void setBankCode(java.lang.String bankCode) {
-        this.bankCode = bankCode;
     }
 
     public com.turquaz.engine.dal.TurqCurrency getTurqCurrency() {

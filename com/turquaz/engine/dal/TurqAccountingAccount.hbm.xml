@@ -115,20 +115,6 @@
     </many-to-one>
     <!-- bi-directional one-to-many association to TurqInventoryCard -->
     <set
-        name="turqInventoryCardsByAccountingAccountsIdVat"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="accounting_accounts_id_vat" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqInventoryCard"
-        />
-    </set>
-    <!-- bi-directional one-to-many association to TurqInventoryCard -->
-    <set
         name="turqInventoryCardsByAccountingAccountsIdSell"
         lazy="true"
         inverse="true"
@@ -136,6 +122,20 @@
     >
         <key>
             <column name="accounting_accounts_id_sell" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryCard"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqInventoryCard -->
+    <set
+        name="turqInventoryCardsByAccountingAccountsIdVat"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="accounting_accounts_id_vat" />
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqInventoryCard"

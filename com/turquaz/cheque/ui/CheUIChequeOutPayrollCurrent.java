@@ -89,6 +89,7 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
 	private Table tableCheques;
 	private ToolItem toolItemUpdate;
 	private ToolItem toolItemDelete;
+	List cheques = new ArrayList();
 	TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 
 	public CheUIChequeOutPayrollCurrent(org.eclipse.swt.widgets.Composite parent, int style) {
@@ -175,6 +176,12 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
                     toolItemAddCustomer = new ToolItem(toolBarButtons, SWT.NONE);
                     toolItemAddCustomer.setText("Mü?teri Çeki");
                     toolItemAddCustomer.setImage(SWTResourceManager.getImage("icons/plus.gif"));
+                    toolItemAddCustomer
+                        .addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                            toolItemAddCustomerWidgetSelected(evt);
+                        }
+                        });
                 }
                 {
                     toolItemDelete = new ToolItem(toolBarButtons, SWT.NONE);
@@ -392,5 +399,10 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
     }
     public void setTxtRollNo(Text txtRollNo) {
         this.txtRollNo = txtRollNo;
+    }
+    
+    
+    private void toolItemAddCustomerWidgetSelected(SelectionEvent evt) {
+     cheques = new CheUICustomerChequeChooseDialog(getShell(),SWT.NULL,cheques).open();
     }
 }

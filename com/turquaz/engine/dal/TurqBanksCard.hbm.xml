@@ -46,6 +46,20 @@
         length="50"
     />
     <property
+        name="bankDefinition"
+        type="java.lang.String"
+        column="bank_definition"
+        not-null="true"
+        length="250"
+    />
+    <property
+        name="bankCode"
+        type="java.lang.String"
+        column="bank_code"
+        not-null="true"
+        length="100"
+    />
+    <property
         name="createdBy"
         type="java.lang.String"
         column="created_by"
@@ -72,20 +86,6 @@
         column="last_modified"
         not-null="true"
         length="4"
-    />
-    <property
-        name="bankDefinition"
-        type="java.lang.String"
-        column="bank_definition"
-        not-null="true"
-        length="250"
-    />
-    <property
-        name="bankCode"
-        type="java.lang.String"
-        column="bank_code"
-        not-null="true"
-        length="100"
     />
 
     <!-- Associations -->

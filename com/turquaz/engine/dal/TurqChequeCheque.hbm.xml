@@ -73,6 +73,27 @@
         length="65535"
     />
     <property
+        name="chequesType"
+        type="int"
+        column="cheques_type"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="bankName"
+        type="java.lang.String"
+        column="bank_name"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="bankBranchName"
+        type="java.lang.String"
+        column="bank_branch_name"
+        not-null="true"
+        length="100"
+    />
+    <property
         name="createdBy"
         type="java.lang.String"
         column="created_by"
@@ -98,26 +119,6 @@
         type="java.sql.Date"
         column="last_modified"
         not-null="true"
-        length="4"
-    />
-    <property
-        name="bankName"
-        type="java.lang.String"
-        column="bank_name"
-        not-null="true"
-        length="100"
-    />
-    <property
-        name="bankBranchName"
-        type="java.lang.String"
-        column="bank_branch_name"
-        not-null="true"
-        length="100"
-    />
-    <property
-        name="chequesType"
-        type="int"
-        column="cheques_type"
         length="4"
     />
 

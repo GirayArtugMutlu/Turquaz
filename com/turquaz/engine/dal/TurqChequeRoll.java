@@ -16,6 +16,9 @@ public class TurqChequeRoll implements Serializable {
     private java.util.Date chequeRollsDate;
 
     /** persistent field */
+    private java.lang.String chequeRollNo;
+
+    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
@@ -26,9 +29,6 @@ public class TurqChequeRoll implements Serializable {
 
     /** persistent field */
     private java.util.Date lastModified;
-
-    /** persistent field */
-    private java.lang.String chequeRollNo;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqChequeTransactionType turqChequeTransactionType;
@@ -46,13 +46,13 @@ public class TurqChequeRoll implements Serializable {
     private Set turqChequeChequeInRolls;
 
     /** full constructor */
-    public TurqChequeRoll(java.util.Date chequeRollsDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String chequeRollNo, com.turquaz.engine.dal.TurqChequeTransactionType turqChequeTransactionType, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqChequeChequeInRolls) {
+    public TurqChequeRoll(java.util.Date chequeRollsDate, java.lang.String chequeRollNo, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqChequeTransactionType turqChequeTransactionType, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqChequeChequeInRolls) {
         this.chequeRollsDate = chequeRollsDate;
+        this.chequeRollNo = chequeRollNo;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.chequeRollNo = chequeRollNo;
         this.turqChequeTransactionType = turqChequeTransactionType;
         this.turqBanksCard = turqBanksCard;
         this.turqEngineSequence = turqEngineSequence;
@@ -78,6 +78,14 @@ public class TurqChequeRoll implements Serializable {
 
     public void setChequeRollsDate(java.util.Date chequeRollsDate) {
         this.chequeRollsDate = chequeRollsDate;
+    }
+
+    public java.lang.String getChequeRollNo() {
+        return this.chequeRollNo;
+    }
+
+    public void setChequeRollNo(java.lang.String chequeRollNo) {
+        this.chequeRollNo = chequeRollNo;
     }
 
     public java.lang.String getCreatedBy() {
@@ -110,14 +118,6 @@ public class TurqChequeRoll implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public java.lang.String getChequeRollNo() {
-        return this.chequeRollNo;
-    }
-
-    public void setChequeRollNo(java.lang.String chequeRollNo) {
-        this.chequeRollNo = chequeRollNo;
     }
 
     public com.turquaz.engine.dal.TurqChequeTransactionType getTurqChequeTransactionType() {

@@ -51,6 +51,12 @@ public class TurqInventoryTransaction implements Serializable {
     private java.lang.String createdBy;
 
     /** persistent field */
+    private java.util.Date transactionsDate;
+
+    /** persistent field */
+    private int transactionType;
+
+    /** persistent field */
     private java.util.Date creationDate;
 
     /** persistent field */
@@ -58,12 +64,6 @@ public class TurqInventoryTransaction implements Serializable {
 
     /** persistent field */
     private java.util.Date lastModified;
-
-    /** persistent field */
-    private java.util.Date transactionsDate;
-
-    /** persistent field */
-    private int transactionType;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous;
@@ -78,7 +78,7 @@ public class TurqInventoryTransaction implements Serializable {
     private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
 
     /** full constructor */
-    public TurqInventoryTransaction(java.math.BigDecimal transactionsAmountIn, java.math.BigDecimal transactionsUnitPrice, java.math.BigDecimal transactionsTotalPrice, java.math.BigDecimal transactionsDiscount, java.math.BigDecimal transactionsDiscountAmount, int transactionsVat, java.math.BigDecimal transactionsVatAmount, java.math.BigDecimal transactionsVatSpecialEach, java.math.BigDecimal transactionsVatSpecial, java.math.BigDecimal transactionsVatSpecialAmount, java.math.BigDecimal transactionsCumilativePrice, java.math.BigDecimal transactionsTotalAmountOut, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.util.Date transactionsDate, int transactionType, com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
+    public TurqInventoryTransaction(java.math.BigDecimal transactionsAmountIn, java.math.BigDecimal transactionsUnitPrice, java.math.BigDecimal transactionsTotalPrice, java.math.BigDecimal transactionsDiscount, java.math.BigDecimal transactionsDiscountAmount, int transactionsVat, java.math.BigDecimal transactionsVatAmount, java.math.BigDecimal transactionsVatSpecialEach, java.math.BigDecimal transactionsVatSpecial, java.math.BigDecimal transactionsVatSpecialAmount, java.math.BigDecimal transactionsCumilativePrice, java.math.BigDecimal transactionsTotalAmountOut, java.lang.String createdBy, java.util.Date transactionsDate, int transactionType, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
         this.transactionsAmountIn = transactionsAmountIn;
         this.transactionsUnitPrice = transactionsUnitPrice;
         this.transactionsTotalPrice = transactionsTotalPrice;
@@ -92,11 +92,11 @@ public class TurqInventoryTransaction implements Serializable {
         this.transactionsCumilativePrice = transactionsCumilativePrice;
         this.transactionsTotalAmountOut = transactionsTotalAmountOut;
         this.createdBy = createdBy;
+        this.transactionsDate = transactionsDate;
+        this.transactionType = transactionType;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.transactionsDate = transactionsDate;
-        this.transactionType = transactionType;
         this.turqInventoryWarehous = turqInventoryWarehous;
         this.turqInventoryUnit = turqInventoryUnit;
         this.turqEngineSequence = turqEngineSequence;
@@ -219,6 +219,22 @@ public class TurqInventoryTransaction implements Serializable {
         this.createdBy = createdBy;
     }
 
+    public java.util.Date getTransactionsDate() {
+        return this.transactionsDate;
+    }
+
+    public void setTransactionsDate(java.util.Date transactionsDate) {
+        this.transactionsDate = transactionsDate;
+    }
+
+    public int getTransactionType() {
+        return this.transactionType;
+    }
+
+    public void setTransactionType(int transactionType) {
+        this.transactionType = transactionType;
+    }
+
     public java.util.Date getCreationDate() {
         return this.creationDate;
     }
@@ -241,22 +257,6 @@ public class TurqInventoryTransaction implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public java.util.Date getTransactionsDate() {
-        return this.transactionsDate;
-    }
-
-    public void setTransactionsDate(java.util.Date transactionsDate) {
-        this.transactionsDate = transactionsDate;
-    }
-
-    public int getTransactionType() {
-        return this.transactionType;
-    }
-
-    public void setTransactionType(int transactionType) {
-        this.transactionType = transactionType;
     }
 
     public com.turquaz.engine.dal.TurqInventoryWarehous getTurqInventoryWarehous() {
