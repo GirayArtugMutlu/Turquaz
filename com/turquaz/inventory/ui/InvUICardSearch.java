@@ -21,7 +21,6 @@ package com.turquaz.inventory.ui;
 * @version  $Id$
 */
 
-
 import java.util.List;
 
 import org.eclipse.swt.widgets.Shell;
@@ -55,12 +54,6 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
 
-
-/**
- * 
- * @author onsel
- * @version $Id$
- */
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial

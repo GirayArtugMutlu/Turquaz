@@ -40,11 +40,6 @@ import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.inventory.Messages;
 
 /**
- * 
- * @author onsel
- * @version $Id$
- */
-/**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
 * use. If Jigloo is being used commercially (ie, by a corporation,

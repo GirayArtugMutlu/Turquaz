@@ -22,7 +22,6 @@ package com.turquaz.inventory.ui;
 */
 import java.util.Iterator;
 
-
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
@@ -64,9 +63,6 @@ import com.turquaz.engine.ui.component.NumericText;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-
-
-
 
 /**
 * This code was generated using CloudGarden's Jigloo
