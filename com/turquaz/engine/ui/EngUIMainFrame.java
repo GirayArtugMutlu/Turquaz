@@ -76,6 +76,14 @@ import com.turquaz.inventory.ui.InvUITransactionAdd;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a
+* for-profit company or business) then you should purchase
+* a license - please visit www.cloudgarden.com for details.
+*/
+
 
 
 
@@ -215,7 +223,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compMainLData.grabExcessHorizontalSpace = false;
 			compMainLData.grabExcessVerticalSpace = true;
 			compMain.setLayoutData(compMainLData);
-			compMain.setSize(new org.eclipse.swt.graphics.Point(800,514));
+			compMain.setSize(new org.eclipse.swt.graphics.Point(800,578));
 	
 			GridData lblSeperatorLeftLData = new GridData();
 			lblSeperatorLeftLData.verticalAlignment = GridData.FILL;
@@ -229,7 +237,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			lblSeperatorLeftLData.grabExcessVerticalSpace = true;
 			lblSeperatorLeft.setLayoutData(lblSeperatorLeftLData);
 			lblSeperatorLeft.setText("label2");
-			lblSeperatorLeft.setSize(new org.eclipse.swt.graphics.Point(2,514));
+			lblSeperatorLeft.setSize(new org.eclipse.swt.graphics.Point(2,578));
 	
 			GridData compMainInLData = new GridData();
 			compMainInLData.verticalAlignment = GridData.FILL;
@@ -255,13 +263,13 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			sashMainVerticalLData.grabExcessVerticalSpace = true;
 			sashMainVertical.setLayoutData(sashMainVerticalLData);
 			sashMainVertical.setOrientation(SWT.VERTICAL);
-			sashMainVertical.setSize(new org.eclipse.swt.graphics.Point(792,508));
+			sashMainVertical.setSize(new org.eclipse.swt.graphics.Point(792,572));
 	
-			sashMainHorizontal.setSize(new org.eclipse.swt.graphics.Point(792,508));
-			sashMainHorizontal.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,792,508));
+			sashMainHorizontal.setSize(new org.eclipse.swt.graphics.Point(792,572));
+			sashMainHorizontal.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,792,572));
 	
-			tabfldMenu.setSize(new org.eclipse.swt.graphics.Point(386,485));
-			tabfldMenu.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,392,508));
+			tabfldMenu.setSize(new org.eclipse.swt.graphics.Point(386,549));
+			tabfldMenu.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,392,572));
 	
 			tabModules.setControl(compModulesTab);
 			tabModules.setText("Modules");
@@ -483,7 +491,12 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			treeFavoritesLData.grabExcessHorizontalSpace = false;
 			treeFavoritesLData.grabExcessVerticalSpace = true;
 			treeFavorites.setLayoutData(treeFavoritesLData);
-			treeFavorites.setSize(new org.eclipse.swt.graphics.Point(370,445));
+			treeFavorites.setSize(new org.eclipse.swt.graphics.Point(370,509));
+			treeFavorites.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					treeFavoritesMouseDoubleClick(evt);
+				}
+			});
 			GridLayout compFavoritesTabLayout = new GridLayout(1, true);
 			compFavoritesTab.setLayout(compFavoritesTabLayout);
 			compFavoritesTabLayout.marginWidth = 0;
@@ -496,8 +509,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabfldMenu.setLayout(null);
 			tabfldMenu.setSelection(0);
 	
-			compMainInRight.setSize(new org.eclipse.swt.graphics.Point(397,508));
-			compMainInRight.setBounds(new org.eclipse.swt.graphics.Rectangle(395,0,397,508));
+			compMainInRight.setSize(new org.eclipse.swt.graphics.Point(397,572));
+			compMainInRight.setBounds(new org.eclipse.swt.graphics.Rectangle(395,0,397,572));
 	
 			GridData coolbarRightTopLData = new GridData();
 			coolbarRightTopLData.verticalAlignment = GridData.CENTER;
@@ -571,7 +584,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabfldMainLData.grabExcessHorizontalSpace = false;
 			tabfldMainLData.grabExcessVerticalSpace = true;
 			tabfldMain.setLayoutData(tabfldMainLData);
-			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(381,457));
+			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(381,521));
 			tabfldMain.addCTabFolderListener( new CTabFolderAdapter() {
 				public void itemClosed(CTabFolderEvent evt) {
 					tabfldMainItemClosed(evt);
@@ -654,6 +667,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	}
 /** Add your pre-init code in here 	*/
 	public void preInitGUI(){
+		
 	 //Set System variables
 	 System.setProperty("company","0");
 	 System.setProperty("user","admin");
@@ -662,17 +676,61 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	 EngBLPermissions.init();
 	 
 	 
-	 //Add popup menu for favorites tab
+	 //Add popup menu to add favorites
      popupTreeAddFavorites = new Menu(getShell(),SWT.POP_UP);
-	 MenuItem item = new MenuItem (popupTreeAddFavorites, SWT.PUSH);
+     
+    final MenuItem item = new MenuItem (popupTreeAddFavorites, SWT.PUSH);
 	 item.setText ("Add to Favorites");
 	 
 	 item.addListener (SWT.Selection, new Listener () {
 				public void handleEvent (Event e) {					
+					if(item.getData()!=null){
+					
+						TreeItem selectedItem = (TreeItem)item.getData();
+						TreeItem favoriteItem = new TreeItem(treeFavorites,SWT.NULL);
+						favoriteItem.setText(selectedItem.getText());
+						favoriteItem.setData(selectedItem.getData());						
+						
+						
+					}
 					
 									
 				}
-			});
+	   });
+     
+     
+     
+     popupTreeAddFavorites.addListener (SWT.Show, new Listener () {
+		public void handleEvent (Event event) {
+		
+			StackLayout stackLayout = (StackLayout)compModulesTree.getLayout();
+			Tree topTree = (Tree)stackLayout.topControl;
+			if(topTree.getSelection().length>0){
+				TreeItem selectedItem = topTree.getSelection()[0];
+				if(selectedItem.getItemCount()>0){
+					//if it has childeren then do not show menu	
+ 					event.doit=false;
+ 					popupTreeAddFavorites.setVisible(false);
+ 					item.setData(null);
+				}
+				else{
+					event.doit =true;
+					item.setData(selectedItem);
+				}
+			}
+			else {
+				item.setData(null);
+				
+			}
+			
+			
+		
+		}
+	});
+     
+     
+     
+	 
 	 
 	 
 	 
@@ -700,12 +758,13 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		toolSearch.setEnabled(false);
 		
 		
-		//SET POP UP Menus
+		
+		//SET POP UP Menus for trees
 		
 		treeAccounting.setMenu(popupTreeAddFavorites);
-		
-		
-		
+		treeAdmin.setMenu(popupTreeAddFavorites);
+		treeBank.setMenu(popupTreeAddFavorites);
+		treeInventory.setMenu(popupTreeAddFavorites);
 		
 		
 		
@@ -1009,5 +1068,13 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		
 		
 		
+	}
+
+	/** Auto-generated event handler method */
+	protected void treeFavoritesMouseDoubleClick(MouseEvent evt){
+		TreeItem item = treeFavorites.getSelection()[0];
+		if(item.getItemCount()==0){
+			openNewTab(item.getText(),item.getData().toString());
+		}
 	}
 }

@@ -35,8 +35,7 @@ public class AccUITree extends Tree {
 		item.setData(AccUIAccountingPlan.class.getName());
 		item = new TreeItem(root,SWT.NULL);
 		item.setText("Accounting Transaction Add");
-		item.setData(AccUITransactionAdd.class.getName());
-		
-		
+		item.setData(AccUITransactionAdd.class.getName());		
+	
 	}
 }

@@ -174,10 +174,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[800, 514]"/>
+						<Dimension value="[800, 578]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[0, 2, 800, 514]"/>
+						<Rectangle value="[0, 2, 800, 578]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 					<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -204,10 +204,10 @@
 						<Properties>
 							<Property name="text" type="String" value="label2"/>
 							<Property name="size" type="Dimension">
-								<Dimension value="[2, 514]"/>
+								<Dimension value="[2, 578]"/>
 							</Property>
 							<Property name="bounds" type="Rectangle">
-								<Rectangle value="[0, 0, 2, 514]"/>
+								<Rectangle value="[0, 0, 2, 578]"/>
 							</Property>
 							<Property name="visible" type="boolean" value="true"/>
 							<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -241,7 +241,7 @@
 						</Events>
 						<Properties>
 							<Property name="bounds" type="Rectangle">
-								<Rectangle value="[4, 0, 794, 514]"/>
+								<Rectangle value="[4, 0, 794, 578]"/>
 							</Property>
 							<Property name="visible" type="boolean" value="true"/>
 							<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -270,10 +270,10 @@
 								<Properties>
 									<Property name="orientation" type="int" value="512"/>
 									<Property name="size" type="Dimension">
-										<Dimension value="[792, 508]"/>
+										<Dimension value="[792, 572]"/>
 									</Property>
 									<Property name="bounds" type="Rectangle">
-										<Rectangle value="[1, 3, 792, 508]"/>
+										<Rectangle value="[1, 3, 792, 572]"/>
 									</Property>
 									<Property name="visible" type="boolean" value="true"/>
 									<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -291,10 +291,10 @@
 										</Events>
 										<Properties>
 											<Property name="size" type="Dimension">
-												<Dimension value="[792, 508]"/>
+												<Dimension value="[792, 572]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[0, 0, 792, 508]"/>
+												<Rectangle value="[0, 0, 792, 572]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
 											<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -312,10 +312,10 @@
 												</Events>
 												<Properties>
 													<Property name="size" type="Dimension">
-														<Dimension value="[392, 508]"/>
+														<Dimension value="[392, 572]"/>
 													</Property>
 													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[0, 0, 392, 508]"/>
+														<Rectangle value="[0, 0, 392, 572]"/>
 													</Property>
 													<Property name="visible" type="boolean" value="true"/>
 													<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -399,9 +399,9 @@
 																					<Constraint heightHint=""/>
 																					<Constraint verticalAlignment=""/>
 																					<Constraint grabExcessVerticalSpace=""/>
-																					<Constraint widthHint=""/>
-																					<Constraint horizontalSpan=""/>
 																					<Constraint grabExcessHorizontalSpace=""/>
+																					<Constraint horizontalSpan=""/>
+																					<Constraint widthHint=""/>
 																					<Constraint horizontalIndent=""/>
 																					<LayoutConstraint/>
 																				</Constraints>
@@ -429,9 +429,9 @@
 																					<Constraint heightHint=""/>
 																					<Constraint verticalAlignment=""/>
 																					<Constraint grabExcessVerticalSpace=""/>
-																					<Constraint widthHint=""/>
-																					<Constraint horizontalSpan=""/>
 																					<Constraint grabExcessHorizontalSpace=""/>
+																					<Constraint horizontalSpan=""/>
+																					<Constraint widthHint=""/>
 																					<Constraint horizontalIndent=""/>
 																					<LayoutConstraint/>
 																				</Constraints>
@@ -802,13 +802,14 @@
 																			</LayoutConstraint>
 																		</Constraints>
 																		<Events>
+																			<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="treeFavoritesMouseDoubleClick"/>
 																		</Events>
 																		<Properties>
 																			<Property name="size" type="Dimension">
-																				<Dimension value="[386, 461]"/>
+																				<Dimension value="[386, 525]"/>
 																			</Property>
 																			<Property name="bounds" type="Rectangle">
-																				<Rectangle value="[0, 24, 386, 461]"/>
+																				<Rectangle value="[0, 24, 386, 525]"/>
 																			</Property>
 																			<Property name="visible" type="boolean" value="true"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -837,10 +838,10 @@
 												</Events>
 												<Properties>
 													<Property name="size" type="Dimension">
-														<Dimension value="[397, 508]"/>
+														<Dimension value="[397, 572]"/>
 													</Property>
 													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[395, 0, 397, 508]"/>
+														<Rectangle value="[395, 0, 397, 572]"/>
 													</Property>
 													<Property name="externalizeStrings" type="boolean" value="false"/>
 													<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -996,8 +997,8 @@
 													<Component class="org.eclipse.swt.custom.CTabFolder" name="tabfldMain" style="2056">
 														<Constraints>
 															<Constraint right=""/>
-															<Constraint top=""/>
 															<Constraint width=""/>
+															<Constraint top=""/>
 															<Constraint height=""/>
 															<Constraint left="null"/>
 															<Constraint class="org.eclipse.swt.layout.GridData"/>
@@ -1023,10 +1024,10 @@
 														</Events>
 														<Properties>
 															<Property name="size" type="Dimension">
-																<Dimension value="[387, 463]"/>
+																<Dimension value="[387, 527]"/>
 															</Property>
 															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[5, 40, 387, 463]"/>
+																<Rectangle value="[5, 40, 387, 527]"/>
 															</Property>
 															<Property name="visible" type="boolean" value="true"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>
