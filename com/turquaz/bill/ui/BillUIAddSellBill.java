@@ -388,7 +388,7 @@ public class BillUIAddSellBill extends Composite
 
 	ConBLAddConsignment blAddConsignment = new ConBLAddConsignment();
 	
-	private final int BILL_TYPE = 1;
+	private final int BILL_TYPE = EngBLCommon.COMMON_SELL_INT;
 	
 //	 Set the table column property names
 	private final String INVENTORY_CODE             = Messages.getString("BillUIAddSellBill.0"); //$NON-NLS-1$

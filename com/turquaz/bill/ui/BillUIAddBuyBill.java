@@ -1288,7 +1288,7 @@ public class BillUIAddBuyBill extends Composite
 			TableItem items[] = tableConsignmentRows.getItems();
 
 			// buy bill
-			int type = 0;
+			int type = EngBLCommon.COMMON_BUY_INT;
 
 			boolean stable=true;
 			for (int i = 0; i < items.length; i++) {
