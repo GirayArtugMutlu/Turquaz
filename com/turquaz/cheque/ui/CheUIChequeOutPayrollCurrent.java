@@ -130,7 +130,7 @@ public class CheUIChequeOutPayrollCurrent extends
 				GridData compInfoPanelLData = new GridData();
 				compInfoPanelLData.grabExcessHorizontalSpace = true;
 				compInfoPanelLData.horizontalAlignment = GridData.FILL;
-				compInfoPanelLData.heightHint = 103;
+				compInfoPanelLData.heightHint = 111;
 				compInfoPanel.setLayoutData(compInfoPanelLData);
 				compInfoPanelLayout.numColumns = 2;
 				compInfoPanel.setLayout(compInfoPanelLayout);
@@ -279,6 +279,7 @@ public class CheUIChequeOutPayrollCurrent extends
 					tableColumnAmount.setWidth(100);
 				}
 			}
+			
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();

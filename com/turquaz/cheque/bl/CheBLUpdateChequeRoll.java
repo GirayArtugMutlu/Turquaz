@@ -223,6 +223,14 @@ public class CheBLUpdateChequeRoll {
            
            	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
            }
+           else if(rollType==EngBLCommon.CHEQUE_TRANS_OUT_CURRENT)
+           {
+           
+           	TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
+           	
+           	CheBLSaveChequeTransaction.saveRollAccountingTransactions(curAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
+           
+           }
           
            
       
