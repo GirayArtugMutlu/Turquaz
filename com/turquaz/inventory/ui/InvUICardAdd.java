@@ -440,7 +440,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					lblInvCardDiscountLData.widthHint = 61;
 					lblInvCardDiscountLData.heightHint = 19;
 					lblInvCardDiscount.setLayoutData(lblInvCardDiscountLData);
-					lblInvCardDiscount.setText(Messages.getString("InvUICardAdd.12")); //$NON-NLS-1$
+					lblInvCardDiscount.setText("Ýskonto"); //$NON-NLS-1$
 				}
 				{
 					txtInvCardDiscount = new NumericText(
