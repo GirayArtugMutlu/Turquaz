@@ -67,6 +67,7 @@ import org.eclipse.swt.widgets.Text;
 import com.turquaz.accounting.ui.comp.CashAccountPicker;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.TableCursor;
 import org.eclipse.swt.SWT;
 
@@ -459,10 +460,20 @@ public class AccUITransactionCollect extends Composite implements
 		try
 		{
 			
-		
+			calculateTotalDept();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 
-			if (tableTransactionRows.getItems().length == 0) 
+			if (totalDept.doubleValue()<=0) 
+			{
+				msg.setMessage(Messages.getString("AccUITransactionCollect.12"));  //$NON-NLS-1$
+
+				msg.open();
+
+				return false;
+
+			}
+			
+			else if (tableTransactionRows.getItems().length == 0) 
 			{
 				msg.setMessage(Messages.getString("AccUITransactionCollect.15")); //$NON-NLS-1$
 
@@ -557,8 +568,12 @@ public class AccUITransactionCollect extends Composite implements
 	}
 
 	public void clearFields() {
-		txtDocumentNo.setText(""); //$NON-NLS-1$
-		tableTransactionRows.removeAll();
+		 
+        AccUITransactionCollect curCard = new AccUITransactionCollect(this.getParent(),this.getStyle());
+		 CTabFolder tabfld = (CTabFolder)this.getParent();
+		 tabfld.getSelection().setControl(curCard);	 
+		 this.dispose();
+
 
 	}
 
