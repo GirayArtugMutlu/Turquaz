@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class Messages {
-	private static final String BUNDLE_NAME = "com.turquaz.inventory.messages_en_EN";//$NON-NLS-1$
+	private static final String BUNDLE_NAME = "com.turquaz.inventory.messages_tr_TR";//$NON-NLS-1$
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
 			.getBundle(BUNDLE_NAME);

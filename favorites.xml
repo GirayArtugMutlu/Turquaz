@@ -1,6 +1,2 @@
 <tree>
-<treeitem text="Cash Transaction" class="com.turquaz.current.ui.CurUITransactionAdd"  >
-</treeitem>
-<treeitem text="Transaction Search" class="com.turquaz.current.ui.CurUITransactionSearch"  >
-</treeitem>
 </tree>

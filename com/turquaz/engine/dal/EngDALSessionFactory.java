@@ -16,6 +16,8 @@
 
 package com.turquaz.engine.dal;
 
+import java.util.Properties;
+
 import net.sf.hibernate.Session;
 import net.sf.hibernate.SessionFactory;
 import net.sf.hibernate.cfg.Configuration;
@@ -40,8 +42,24 @@ public class EngDALSessionFactory {
 	 */
 	public EngDALSessionFactory(){
 		try{
+			
+		
 		Configuration cfg =new Configuration();
-		factory = cfg.configure().buildSessionFactory();
+		
+		Properties props = new Properties();
+		props.put("hibernate.connection.url","jdbc:postgresql://kulup.sabanciuniv.edu/turquaz");
+		props.put("hibernate.connection.driver_class","org.postgresql.Driver");
+		props.put("hibernate.connection.username","turquaz");
+		props.put("hibernate.connection.password","turquaz");
+		props.put("hibernate.show_sql","true");
+		props.put("hibernate.dialect","net.sf.hibernate.dialect.PostgreSQLDialect");
+		props.put("hibernate.schema","public");
+			
+		cfg = cfg.configure();
+		cfg.addProperties(props);
+		
+		factory = cfg.buildSessionFactory();
+		
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
