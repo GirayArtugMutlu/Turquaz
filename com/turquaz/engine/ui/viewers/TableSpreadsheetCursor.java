@@ -84,7 +84,7 @@ public class TableSpreadsheetCursor extends TableCursor implements ICellEditorLi
                         ((Text)editor.getControl()).setText(""+e.character); //$NON-NLS-1$
 						if(tableViewer.getCellEditors()[getColumn()] instanceof CurrencyCellEditor 
 						 || tableViewer.getCellEditors()[getColumn()] instanceof NumericCellEditor ){
-						    
+						    ((Text)editor.getControl()).setSelection(1);
 						}
 						else{
 						    ((Text)editor.getControl()).setSelection(1);
