@@ -182,14 +182,17 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 
 	public void update(TurqInventoryGroup group)
 	{
-		InvBLCardAdd blCardAdd = new InvBLCardAdd();
 		try
 		{
 			if (verifyFields())
-			{ /*
-			   * blCardAdd.updateInvGroup(txtGroupName.getText(),txtDefinition.getText(),group);
-			   * EngUICommon.showSavedSuccesfullyMessage(getShell()); EngBLInventoryGroups.RefreshContentAsistantMap();
-			   */
+			{ 
+				HashMap argMap=new HashMap();
+				argMap.put(InvKeys.INV_GROUP_NAME,txtGroupName.getText().trim());
+				argMap.put(InvKeys.INV_GROUP_DESCRIPTION,txtDefinition.getText().trim());
+				argMap.put(InvKeys.INV_GROUP,group);
+				EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"updateInvGroup",argMap);
+				EngUICommon.showSavedSuccesfullyMessage(getShell()); EngBLInventoryGroups.RefreshContentAsistantMap();
+			   
 			}
 		}
 		catch (Exception ex)

@@ -19,6 +19,7 @@ package com.turquaz.admin.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
@@ -48,6 +49,7 @@ import com.turquaz.engine.dal.TurqModuleComponent;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.dal.TurqUserPermission;
 import com.turquaz.engine.dal.TurqUserPermissionLevel;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -408,7 +410,10 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 				TableItem items[] = tableUserPermissions.getSelection();
 				if (items.length > 0)
 				{
-					EngBLCommon.delete(items[0].getData());
+					HashMap argMap=new HashMap();
+					//XXX change this..(permission)
+					argMap.put("permission",items[0].getData());
+					EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap);
 					fillTableUserPermissions();
 					msg2.setMessage(Messages.getString("AdmUIUserPermissions.30")); //$NON-NLS-1$
 					msg2.open();

@@ -20,6 +20,7 @@ package com.turquaz.inventory.ui;
  * @version  $Id$
  */
 import java.util.Calendar;
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
@@ -29,15 +30,17 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.SWT;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.cloudgarden.resource.SWTResourceManager;
 
 /**
@@ -50,7 +53,6 @@ import com.cloudgarden.resource.SWTResourceManager;
 public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 {
 	private Shell dialogShell;
-	private InvBLCardAdd blCardAdd = new InvBLCardAdd();
 	Calendar cal = Calendar.getInstance();
 	private ToolItem toolDelete;
 	private ToolItem toolSave;
@@ -202,17 +204,21 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private void toolDeleteWidgetSelected(SelectionEvent evt)
 	{
 		try
-		{
-			/*
-			 * if(EngUICommon.okToDelete(getParent())){ new InvBLCardUpdate().deleteObject(mainGroup) ;
-			 * EngUICommon.showMessageBox(getParent(),Messages.getString("InvUIGroupUpdateDialog.6"),SWT.ICON_INFORMATION); //$NON-NLS-1$
-			 * isUpdated = true; dialogShell.close(); }
-			 */
+		{			
+			if(EngUICommon.okToDelete(getParent(),Messages.getString("InvUIGroupUpdateDialog.1"))) //$NON-NLS-1$
+			{ 
+				HashMap argMap=new HashMap();
+				argMap.put(InvKeys.INV_MAIN_GROUP,mainGroup);
+				EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap); //$NON-NLS-1$
+				EngUICommon.showMessageBox(getParent(),Messages.getString("InvUIGroupUpdateDialog.6"),SWT.ICON_INFORMATION); //$NON-NLS-1$
+				isUpdated = true; dialogShell.close();
+			}
+			
 		}
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			EngUICommon.showMessageBox(getParent(), Messages.getString("InvUIGroupUpdateDialog.7"), SWT.ICON_ERROR); //$NON-NLS-1$
 		}

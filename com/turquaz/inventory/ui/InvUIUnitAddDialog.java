@@ -49,6 +49,7 @@ import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
+import com.turquaz.inventory.bl.InvBLCardUpdate;
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
  * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
@@ -305,7 +306,9 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 			int result = msg.open();
 			if (result == SWT.OK)
 			{
-				EngBLCommon.delete(txtUnitName.getData());
+				HashMap argMap=new HashMap();
+				argMap.put(InvKeys.INV_UNIT,txtUnitName.getData());
+				EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap);
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);
 				btnUnitAdd.setEnabled(true);
@@ -361,11 +364,10 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 					msg.open();
 					return;
 				}
-				TurqInventoryUnit invUnit = (TurqInventoryUnit) txtUnitName.getData();
-				invUnit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-				invUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-				invUnit.setUnitsName(txtUnitName.getText().trim());
-				EngBLCommon.save(invUnit);
+				HashMap argMap=new HashMap();
+				argMap.put(InvKeys.INV_UNIT,txtUnitName.getData());
+				argMap.put(InvKeys.INV_UNIT_NAME,txtUnitName.getText().trim());
+				EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"updateInvUnit",argMap);
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);
 				btnUnitAdd.setEnabled(true);

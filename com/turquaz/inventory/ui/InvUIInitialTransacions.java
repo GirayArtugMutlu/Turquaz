@@ -19,6 +19,7 @@ package com.turquaz.inventory.ui;
  * @author onsel
  * @version $Id$
  */
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.CellEditor;
@@ -39,6 +40,7 @@ import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.ITableRowListViewer;
 import com.turquaz.engine.ui.viewers.SaveTableViewer;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLSearchTransaction;
 
 public class InvUIInitialTransacions extends org.eclipse.swt.widgets.Composite
@@ -195,7 +197,9 @@ public class InvUIInitialTransacions extends org.eclipse.swt.widgets.Composite
 			{
 				try
 				{
-					EngBLCommon.update(row.getDBObject());
+					HashMap argMap=new HashMap();
+					argMap.put(InvKeys.INV_TRANS,row.getDBObject());
+					EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"update",argMap);
 				}
 				catch (Exception ex)
 				{

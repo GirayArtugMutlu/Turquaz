@@ -305,7 +305,8 @@ public class InvDALSearchTransaction
 		{
 			session = EngDALSessionFactory.getSession();
 			String query = "Select invTrans from TurqInventoryTransaction as invTrans "
-					+ " where invTrans.turqInventoryTransactionType.id = " + EngBLCommon.INV_TRANS_INITIAL;
+					+ " where invTrans.turqInventoryTransactionType.id = " + EngBLCommon.INV_TRANS_INITIAL+
+					" order by invTrans.turqInventoryCard.cardInventoryCode";
 			Query q = session.createQuery(query);
 			return q.list();
 		}

@@ -3,6 +3,7 @@ package com.turquaz.engine.bl;
 import java.util.HashMap;
 import java.util.List;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 
 public class EngBLInventoryGroups
@@ -27,7 +28,7 @@ public class EngBLInventoryGroups
 	{
 		try
 		{
-			groupList = InvBLCardAdd.getParentInventoryGroups();
+			groupList = (List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
 			cardMap.clear();
 			TurqInventoryGroup invGroup;
 			for (int i = 0; i < groupList.size(); i++)

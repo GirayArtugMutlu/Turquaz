@@ -25,12 +25,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryPrice;
+import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.dal.InvDALCardUpdate;
 
@@ -246,6 +248,24 @@ public class InvBLCardUpdate
 		{
 			TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
 			return InvDALCardUpdate.hasTransactions(invCard);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static void updateInvUnit(HashMap argMap)throws Exception
+	{
+		try
+		{
+			TurqInventoryUnit invUnit=(TurqInventoryUnit)argMap.get(InvKeys.INV_UNIT);
+			String invUnitName=(String)argMap.get(InvKeys.INV_UNIT_NAME);
+			invUnit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			Calendar cal=Calendar.getInstance();
+			invUnit.setLastModified(cal.getTime());
+			invUnit.setUnitsName(invUnitName);
+			EngBLCommon.update(invUnit);
 		}
 		catch (Exception ex)
 		{

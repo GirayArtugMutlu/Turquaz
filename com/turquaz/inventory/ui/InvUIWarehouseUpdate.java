@@ -277,7 +277,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 					msg.open();
 					return;
 				}
-				EngBLCommon.delete(warehouse);
+				EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap);
 				msg.setMessage(Messages.getString("InvUIWarehouseUpdate.6")); //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.dispose();

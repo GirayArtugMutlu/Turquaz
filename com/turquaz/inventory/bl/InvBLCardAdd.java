@@ -401,4 +401,26 @@ public class InvBLCardAdd
 			throw ex;
 		}
 	}
+	
+	public static void updateInvGroup(HashMap argMap) throws Exception
+	{
+		try
+		{
+			String groupName=(String)argMap.get(InvKeys.INV_GROUP_NAME);
+			String groupDescription=(String)argMap.get(InvKeys.INV_GROUP_DESCRIPTION);
+			TurqInventoryGroup invGroup=(TurqInventoryGroup)argMap.get(InvKeys.INV_GROUP);
+			invGroup.setGroupsName(groupName);
+			invGroup.setGroupsDescription(groupDescription);
+			invGroup.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			invGroup.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			Calendar cal = Calendar.getInstance();
+			invGroup.setLastModified(cal.getTime());
+			invGroup.setCreationDate(cal.getTime());
+			EngDALCommon.updateObject(invGroup);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }
