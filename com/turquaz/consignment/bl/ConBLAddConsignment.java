@@ -18,6 +18,7 @@ package com.turquaz.consignment.bl;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import com.turquaz.consignment.dal.ConDALAddConsignment;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -54,6 +55,8 @@ public class ConBLAddConsignment {
 	public ConBLAddConsignment(){
 		
 	}
+
+	
 	/**
 	 * 
 	 * @param docNo
@@ -74,9 +77,11 @@ public class ConBLAddConsignment {
 	public TurqConsignment saveConsignment(String docNo, String definition, boolean isPrinted, Date consignmentDate,
 								   TurqCurrentCard curCard,BigDecimal discountAmount,
 								   String billDocNo, BigDecimal vatAmount,BigDecimal specialVatAmount,
-								   BigDecimal totalAmount,int type, TurqCurrencyExchangeRate exRate)throws Exception {
+								   BigDecimal totalAmount,int type, TurqCurrencyExchangeRate exRate,
+								   List invTransactions, List groups)throws Exception {
 		try{
 		
+			
 			
 			TurqConsignment consignment = new TurqConsignment();
 		
@@ -136,6 +141,27 @@ public class ConBLAddConsignment {
 			
 			dalConsignment.save(consignment);
 			
+			// Then Save Inventory Transactions 
+			for(int i=0;i<invTransactions.size();i++)
+			{
+				TurqInventoryTransaction invTrans = (TurqInventoryTransaction)invTransactions.get(i);
+				saveConsignmentRow(invTrans,consignment.getId(),type);
+			}
+			
+			if(groups!=null)
+			{
+				for(int i=0;i<groups.size();i++)
+				{
+					TurqConsignmentGroup consGroup = (TurqConsignmentGroup)groups.get(i);
+					registerGroup(consGroup,consignment);
+				}
+			}
+			
+			
+			
+			
+			
+			
 			return consignment;
 			
 		}
@@ -181,13 +207,12 @@ public class ConBLAddConsignment {
 		}
 	}
 	
-	public void registerGroup(TurqConsignmentGroup grp, Integer conId)throws Exception{
+	public void registerGroup(TurqConsignmentGroup grp,TurqConsignment cons)throws Exception{
 	try{
 		TurqConsignmentsInGroup cardGroup = new TurqConsignmentsInGroup();
 		TurqConsignmentGroup group = (TurqConsignmentGroup) grp;
-		TurqConsignment card =new TurqConsignment();
-		card.setId(conId);
-		cardGroup.setTurqConsignment(card);
+		
+		cardGroup.setTurqConsignment(cons);
 		cardGroup.setTurqConsignmentGroup(group);
 
 		cardGroup.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$

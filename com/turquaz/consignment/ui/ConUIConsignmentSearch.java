@@ -420,6 +420,8 @@ SearchComposite{
 	public void newForm(){
 		
 	}
+	
+	
 	public void delete(){
 	    
 	    ConBLUpdateConsignment blUpdate = new ConBLUpdateConsignment();
@@ -444,21 +446,21 @@ SearchComposite{
 						//delete Consignment Group
 						Iterator it = cons.getTurqConsignmentsInGroups().iterator();
 						while(it.hasNext()){
-							blUpdate.deleteObject(it.next());
+							ConBLUpdateConsignment.deleteObject(it.next());
 												
 						}
 						
 //						delete Inventory Transaction
 						it = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
 						while(it.hasNext()){
-							blUpdate.deleteObject(it.next());
+							ConBLUpdateConsignment.deleteObject(it.next());
 												
 						}						
 						
 						Object o = cons.getTurqBillConsignmentCommon();
 						
-							blUpdate.deleteObject(cons);
-							blUpdate.deleteObject(o);
+						ConBLUpdateConsignment.deleteObject(cons);
+						ConBLUpdateConsignment.deleteObject(o);
 						
 						msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
 						msg.open();

@@ -305,34 +305,12 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			
 	       //update the consignment
 	       int type = compAddBill.BILL_TYPE;
-			if(it.hasNext()){
-		    TurqConsignment cons = (TurqConsignment)it.next();
-	        blUpdateCons.updateConsignment(cons,
-	                					compAddBill.getTxtConsignmentDocumentNo().getText(),
-	                					compAddBill.getTxtDefinition().getText(),
-	                					compAddBill.getDateConsignmentDate().getDate(),
-	                					(TurqCurrentCard)compAddBill.getTxtCurrentCard().getData(),
-	                				
-	                					compAddBill.getTxtDiscountAmount().getBigDecimalValue(),
-	                					compAddBill.getTxtDocumentNo().getText(),
-	                					compAddBill.getTxtTotalVat().getBigDecimalValue(),
-	                					compAddBill.getDecSpecialVat().getBigDecimalValue(),
-	                					compAddBill.getTxtTotalAmount().getBigDecimalValue(),type,
-										EngBLCommon.getBaseCurrencyExchangeRate());
-			
-   //Update Inventory Transactions
-			 Iterator it2 = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
-			while(it2.hasNext()){
-				blUpdateCons.deleteObject(it2.next());
-									
-			}
-			compAddBill.saveConsignmentRows(cons.getId());
-			
-			}
-			Boolean paymentType = (Boolean)compAddBill.getComboPaymentType().getData(compAddBill.getComboPaymentType().getText());
-			updateGroups();
-			blUpdateBill.updateBill(bill,
-			        compAddBill.getTxtDocumentNo().getText(),
+					
+	       Boolean paymentType = (Boolean)compAddBill.getComboPaymentType().getData(compAddBill.getComboPaymentType().getText());
+		
+		  blUpdateBill.updateBill(bill,
+			        compAddBill.getTxtDocumentNo().getText().trim(),
+					compAddBill.getTxtConsignmentDocumentNo().getText().trim(),
 			        compAddBill.getTxtDefinition().getText(),
 			        false,
 			        !paymentType.booleanValue(),
@@ -342,9 +320,13 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 					compAddBill.getTxtDiscountAmount().getBigDecimalValue(),
 					compAddBill.getTxtTotalVat().getBigDecimalValue(),
 					compAddBill.getDecSpecialVat().getBigDecimalValue(),
-					compAddBill.getTxtTotalAmount().getBigDecimalValue(),type,
-					paymentType.booleanValue() ? compAddBill.getAccountPickerCurAcc().getData():null,
-					compAddBill.getDateDueDate().getDate()
+					compAddBill.getTxtTotalAmount().getBigDecimalValue(),
+					type,
+					compAddBill.getAccountPickerCurAcc().getTurqAccountingAccount(),
+					compAddBill.getDateDueDate().getDate(),
+					compAddBill.getInventoryTransactions(),
+					compAddBill.getBillGroups(),
+					EngBLCommon.getBaseCurrencyExchangeRate()
 			        
 			        );
 	       
@@ -368,22 +350,6 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	    this.dialogShell.close();
 	}
  }
-	public void updateGroups()throws Exception{
-		try{
-		    Iterator it = bill.getTurqBillInGroups().iterator();
-		    
-		    while(it.hasNext()){
-		        blUpdateBill.deleteObject(it.next());
-		    }
-		    
-		    compAddBill.saveGroups(bill.getId());     
-		    
-		}
-		catch(Exception ex){
-		  throw ex;
-		    
-		}	
-	}
 	
 	public void delete(){
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);

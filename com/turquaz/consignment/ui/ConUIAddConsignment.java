@@ -1156,83 +1156,49 @@ implements SecureComposite{
 		return true;
 	}
 	
-	public void saveConsignmentRows(Integer consignmentID){
-		try{
-			TableItem items[] = tableConsignmentRows.getItems();
-		     
-			int type =EngBLCommon.COMMON_SELL_INT;
-		    
-				if(comboConsignmentType.getText().equals(EngBLCommon.COMMON_BUY_STRING)){ //$NON-NLS-1$
-					type =EngBLCommon.COMMON_BUY_INT;
-					
-				}
-			for(int i=0;i<items.length;i++){
-			     
-			    InvUITransactionTableRow row = (InvUITransactionTableRow)items[i].getData();
-			   if(row.okToSave()){
-			   	
-			   	
-			   	
-			   	TurqInventoryTransaction invTrans = (TurqInventoryTransaction)row.getDBObject();
-			  
-			   	//if consignment type changed during the save process and update
-			   	// people can add transaction rows while the type is 0. 
-			   	//then can change type to 1 and continue to add rows. This causes a serious bug.
-			   	//So before saving to database we have to synchronize all rows according to final 
-			   	//decision of type.. 
-			   	if(row.getTransType()!=type){
-			   	if(type == 0){
-			   		
-			   		invTrans.setTransactionsAmountIn(invTrans.getTransactionsTotalAmountOut());
-			   		invTrans.setTransactionsTotalAmountOut(new BigDecimal(0));		   		
-			   		
-			   	}
-			   	else{
-     		   		invTrans.setTransactionsTotalAmountOut(invTrans.getTransactionsAmountIn());
-			   		invTrans.setTransactionsAmountIn(new BigDecimal(0));
-			   		
-			   		
-			   		
-			   	}			   	
-			   	
-			   }
-			    
-
-			    invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouse.getData(comboWareHouse.getText()));
-				blAddCondignmetn.saveConsignmentRow(invTrans,consignmentID,type);
-				
-			   }
-			}
-		
-			
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
-		}
-		
-		
-		
-		
-		
-	}
 	
-	public void saveGroups(Integer consignmentId){
-		try{
-			TableItem items[] = compRegisterGroup.getTableAllGroups().getItems();
-			for(int i=0;i<items.length;i++){
-				if(items[i].getChecked()){
-					blAddCondignmetn.registerGroup((TurqConsignmentGroup)items[i].getData(),consignmentId);
-				}
-				
+	public List getConsignmentGroups()
+	{
+		List list = new ArrayList();
+		TableItem items[] = compRegisterGroup.getTableAllGroups().getItems();
+		for (int i = 0; i < items.length; i++) {
+			if (items[i].getChecked()) {
+				list.add(items[i].getData());
 			}
-			
-			
+
 		}
-		catch(Exception ex){
-			ex.printStackTrace();
-		}
+		return list;
+		
 		
 	}
+	public List getInventoryTransactions(){
+		List invTransactions = new ArrayList();
+		
+		TableItem items[] = tableConsignmentRows.getItems();
+		for (int i = 0; i < items.length; i++) {
+		    
+
+		    InvUITransactionTableRow row = (InvUITransactionTableRow)items[i].getData();
+		   
+		    TurqInventoryTransaction invTrans = (TurqInventoryTransaction)row.getDBObject();
+		    invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouse.getData(comboWareHouse.getText()));
+			
+		    if(row.okToSave())
+		    {
+		       
+		    	invTransactions.add(invTrans);
+		    	
+		    }
+		}
+		
+		
+		return invTransactions;
+		
+		
+	}
+
+
+	
 	public void save(){
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 	try{	
@@ -1252,9 +1218,11 @@ implements SecureComposite{
 										txtBillDocumentNo.getText(),
 										txtTotalVat.getBigDecimalValue(),
 										decSpecialVat.getBigDecimalValue(),
-										txtTotalAmount.getBigDecimalValue(),type,EngBLCommon.getBaseCurrencyExchangeRate());
-		saveConsignmentRows(cons.getId());
-		saveGroups(cons.getId());
+										txtTotalAmount.getBigDecimalValue(),type,
+										EngBLCommon.getBaseCurrencyExchangeRate(),
+										getInventoryTransactions(),getConsignmentGroups());
+
+		
 		msg.setMessage(Messages.getString("ConUIAddConsignment.36")); //$NON-NLS-1$
 		msg.open();
 		newForm();

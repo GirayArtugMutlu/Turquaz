@@ -56,15 +56,9 @@ public class BillBLAddBill {
 	ConBLAddConsignment blConsAdd = new ConBLAddConsignment();
 	
 	// First Save Consignment
-	TurqConsignment cons = blConsAdd.saveConsignment(consignemtDocNo,definition,isPrinted,billsDate,currentCard,discountAmount,billDocNo,vatAmount,specialVatAmount,totalAmount,type,exRate);
+	TurqConsignment cons = blConsAdd.saveConsignment(consignemtDocNo,definition,isPrinted,billsDate,currentCard,discountAmount,billDocNo,vatAmount,specialVatAmount,totalAmount,type,exRate,invTransactions,null);
 	
-	// Then Save Inventory Transactions 
-	for(int i=0;i<invTransactions.size();i++)
-	{
-		TurqInventoryTransaction invTrans = (TurqInventoryTransaction)invTransactions.get(i);
-		blConsAdd.saveConsignmentRow(invTrans,cons.getId(),type);
-	}
-	// Save Bill 
+
 	
 	TurqBill bill = saveBill(billDocNo,definition,isPrinted,billsDate,cons,type,isOpen,cashAccount,dueDate);
 	

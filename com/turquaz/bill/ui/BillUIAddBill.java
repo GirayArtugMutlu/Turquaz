@@ -38,8 +38,6 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
-
-import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
@@ -64,7 +62,6 @@ import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBillGroup;
-import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
@@ -1286,40 +1283,7 @@ public class BillUIAddBill extends Composite
 		return true;
 	}
 
-	public void saveConsignmentRows(Integer consignmentID) {
-		try {
-			TableItem items[] = tableConsignmentRows.getItems();
-
-			int type = BILL_TYPE;
-
-			boolean stable=true;
-			for (int i = 0; i < items.length; i++) {
-			    
-
-			    InvUITransactionTableRow row = (InvUITransactionTableRow)items[i].getData();
-			   
-			    TurqInventoryTransaction invTrans = (TurqInventoryTransaction)row.getDBObject();
-			    invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouse.getData(comboWareHouse.getText()));
-				
-			    if(row.okToSave())
-			    {
-			    	blAddConsignment.saveConsignmentRow(invTrans,consignmentID, type);			    	
-			    	if(stable)
-			    		stable=checkStabilityInventoryLevel(invTrans.getTurqInventoryCard());
-			    		
-			    }
-			}
-			if (!stable)
-				EngUICommon.showMessageBox(this.getShell(),(type==EngBLCommon.BILL_TRANS_TYPE_BUY) 
-						? Messages.getString("BillUIAddBill.41")  //$NON-NLS-1$
-						: Messages.getString("BillUIAddBill.42"), SWT.ICON_WARNING); //$NON-NLS-1$
-
-		} 
-		catch (Exception ex)
-		{
-			ex.printStackTrace();
-		}
-	}
+	
 	
 	
 	public boolean checkStabilityInventoryLevel(TurqInventoryCard invCard ){
@@ -1343,46 +1307,8 @@ public class BillUIAddBill extends Composite
 	    }		
 	}
 
-	public void saveGroups(Integer consignmentId) {
-		try {
-			TableItem items[] = compRegisterGroup.getTableAllGroups()
-					.getItems();
-			for (int i = 0; i < items.length; i++) {
-				if (items[i].getChecked()) {
-					blAddBill.registerGroup((TurqBillGroup) items[i].getData(),
-							consignmentId);
-				}
 
-			}
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-	}
-
-	public TurqConsignment saveConsignment() throws Exception {
-		try {
-			// sell bill
-			int type = BILL_TYPE;
-
-			TurqConsignment cons = blAddConsignment.saveConsignment(
-					txtConsignmentDocumentNo.getText(),
-					txtDefinition.getText(), false, dateConsignmentDate
-							.getDate(), (TurqCurrentCard) txtCurrentCard
-							.getData(),
-					txtDiscountAmount.getBigDecimalValue(), txtDocumentNo
-							.getText(), txtTotalVat.getBigDecimalValue(),
-					decSpecialVat.getBigDecimalValue(), txtTotalAmount
-							.getBigDecimalValue(), type, EngBLCommon.getBaseCurrencyExchangeRate());
-			saveConsignmentRows(cons.getId());
-
-			return cons;
-		} catch (Exception ex) {
-			throw ex;
-		}
-
-	}
+	
 
 	public void save() {
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
@@ -1392,9 +1318,7 @@ public class BillUIAddBill extends Composite
 				// buy bill
 				int type = BILL_TYPE;
 
-				//First save its consignment..
 
-				TurqConsignment cons = saveConsignment();
 
 				Boolean paymentType = (Boolean) comboPaymentType
 						.getData(comboPaymentType.getText());

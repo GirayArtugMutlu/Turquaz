@@ -780,22 +780,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	    }
 	}
 	
-	public void updateGroups()throws Exception{
-		try{
-		    Iterator it = bill.getTurqBillInGroups().iterator();
-		    
-		    while(it.hasNext()){
-		        blUpdateBill.deleteObject(it.next());
-		    }
-		    
-		    compAddBill.saveGroups(bill.getId());     
-		    
-		}
-		catch(Exception ex){
-		  throw ex;
-		    
-		}	
-	}
+	
 	
 	public void search()
 	{
@@ -1000,23 +985,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	
 	
 	

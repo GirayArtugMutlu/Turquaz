@@ -19,13 +19,16 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import com.turquaz.consignment.dal.ConDALUpdateConsignment;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqConsignment;
+import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 /**
  * @author Huseyin Ergun
@@ -33,20 +36,77 @@ import com.turquaz.engine.dal.TurqCurrentCard;
  * 
  */
 public class ConBLUpdateConsignment {
-	private Calendar cal = Calendar.getInstance();
+
 	private static ConDALUpdateConsignment dalCons = new ConDALUpdateConsignment();
-	
+	private static ConBLAddConsignment blAddCons = new ConBLAddConsignment();
 	public ConBLUpdateConsignment(){
 		
 	}
-
-	public void updateConsignment(TurqConsignment consignment,
+	
+/**
+ * 
+ * @param consignment
+ * @param docNo
+ * @param definition
+ * @param consignmentDate
+ * @param curCard
+ * @param discountAmount
+ * @param billDocNo
+ * @param vatAmount
+ * @param specialVatAmount
+ * @param totalAmount
+ * @param type
+ * @param exRate
+ * @throws Exception
+ */
+	public static void updateConsignment(TurqConsignment consignment,
 			   String docNo, String definition, Date consignmentDate,
 			   TurqCurrentCard curCard,BigDecimal discountAmount,
 			   String billDocNo, BigDecimal vatAmount,BigDecimal specialVatAmount,
-			   BigDecimal totalAmount,int type,TurqCurrencyExchangeRate exRate)throws Exception{
+			   BigDecimal totalAmount,int type,TurqCurrencyExchangeRate exRate,
+			   List invTransactions,List groups )throws Exception{
 		try{
 		
+		Calendar cal = Calendar.getInstance();
+		
+//		Update its groups
+		Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
+		while(it.hasNext()){
+			
+			deleteObject(it.next());
+								
+		}
+		if(groups!=null)
+		{
+			for(int i=0;i<groups.size();i++)
+			{
+				
+				blAddCons.registerGroup((TurqConsignmentGroup)groups.get(i),consignment);
+				
+			}			
+			
+		}
+		
+	
+		//Update Inventory Transactions
+	 
+		Iterator it2 = consignment.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+	 
+	   while(it2.hasNext())
+	   {
+		
+	   		dalCons.deleteObject(it2.next());
+									
+	   }
+	
+	    for(int i=0;i<invTransactions.size();i++)
+	    {
+	    	TurqInventoryTransaction invTrans = (TurqInventoryTransaction)invTransactions.get(i);
+	    	blAddCons.saveConsignmentRow(invTrans,consignment.getId(),type);    	
+	    	
+	    }
+			
+			
 		consignment.setConsignmentsDate(consignmentDate);
 		consignment.setConsignmentsDefinition(definition);	
 		consignment.setConsignmentsType(type);
@@ -123,7 +183,7 @@ public class ConBLUpdateConsignment {
 	    }
 	}
 	
-	public void deleteObject(Object obj)throws Exception{
+	public static void deleteObject(Object obj)throws Exception{
 	try{
 		
 		dalCons.deleteObject(obj);

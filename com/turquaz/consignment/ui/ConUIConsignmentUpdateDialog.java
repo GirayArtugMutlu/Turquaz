@@ -312,56 +312,19 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		
 	}
 	
-	public void updateGroups()throws Exception{
-	try{
-	    Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
-	    
-	    while(it.hasNext()){
-	        blCons.deleteObject(it.next());
-	    }
-	    
-	    compAddConsignment.saveGroups(consignment.getId());
-	    
-	     
-	    
-	}
-	catch(Exception ex){
-	  throw ex;
-	    
-	}
-	
-	
-	}
 	
 	public void update(){
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 		try{
 			updated=true;
-			//Update its groups
-			Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
-			while(it.hasNext()){
-				blCons.deleteObject(it.next());
-									
-			}
-			compAddConsignment.saveGroups(consignment.getId());
-		  
-			//Update Inventory Transactions
-			it = consignment.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
-			while(it.hasNext()){
-				blCons.deleteObject(it.next());
-									
-			}
-			compAddConsignment.saveConsignmentRows(consignment.getId());
 			
-			//Now we can update consignment
 		 int type = 0;
 		 if(compAddConsignment.getComboConsignmentType().getText().equals(Messages.getString("ConUIConsignmentUpdateDialog.11"))) //$NON-NLS-1$
                 type =1;
 		 	
 
-			updateGroups();
 			
-			blCons.updateConsignment(consignment,
+			ConBLUpdateConsignment.updateConsignment(consignment,
 									compAddConsignment.getTxtDocumentNo().getText(),
 									compAddConsignment.getTxtDefinition().getText(),
 									compAddConsignment.getDateConsignmentDate().getDate(),
@@ -372,7 +335,9 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 									compAddConsignment.getTxtTotalVat().getBigDecimalValue(),
 									compAddConsignment.getDecSpecialVat().getBigDecimalValue(),
 									compAddConsignment.getTxtTotalAmount().getBigDecimalValue(),
-									type,EngBLCommon.getBaseCurrencyExchangeRate());
+									type,EngBLCommon.getBaseCurrencyExchangeRate(),
+									compAddConsignment.getInventoryTransactions(),
+									compAddConsignment.getConsignmentGroups());
 			
 			
 			
