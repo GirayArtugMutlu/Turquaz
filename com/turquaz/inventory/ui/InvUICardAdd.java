@@ -59,6 +59,7 @@ import com.turquaz.engine.dal.TurqInventoryUnit;
 
 import com.turquaz.engine.ui.component.SecureComposite;
 
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -1455,9 +1456,9 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				item = new TableItem(tableInvCardAddGroupsAllGroups, SWT.NULL);
 				item.setText(trqInvGroup.getGroupsName());
 				item.setData(trqInvGroup);
+				item.setGrayed(true);
 
 			}
-
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
