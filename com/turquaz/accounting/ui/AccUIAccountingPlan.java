@@ -209,8 +209,7 @@ public void fillTree(int parent, String codeCrit){
 		
 		items[0].setText(0,account.getAccountCode());
 		items[0].setText(1,account.getAccountName());
-		items[0].setData(account);
-	    
+		items[0].setData(account); 
 	    
 	    
 		}
