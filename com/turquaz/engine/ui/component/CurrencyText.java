@@ -140,11 +140,24 @@ public class CurrencyText extends Composite {
     if (valid){
     	text.removeVerifyListener(listener);
     	boolean isLastSeperator=(newText.toCharArray()[newText.length()-1]==decimalSymbol) ? true : false;
+    	int indexPoint=newText.indexOf(".");
+    	boolean isLastZero=false;
+    	boolean addSeperator=false;
+    	if (indexPoint > 0)
+    	{
+    		isLastZero=(newText.toCharArray()[newText.length()-1]=='0') ? true : false;
+    		if (isLastZero)
+    			addSeperator=(indexPoint==newText.length()-2) ? true : false;
+    	}
     	BigDecimal bd=new BigDecimal(newText);
     	TurquazDecimalFormat tdf=new TurquazDecimalFormat();
     	String formatted=tdf.format(bd);
     	if (isLastSeperator)
     		formatted +=",";
+    	if (addSeperator)
+    		formatted+=",";
+    	if (isLastZero)
+    		formatted +="0";
     	text.setText(formatted);
     	String s=textcontrol.substring(0,e.start)+e.text;
         s=s.replaceAll("\\.","");
