@@ -20,6 +20,7 @@ package com.turquaz.accounting.ui;
 * @version  $Id$
 */
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.eclipse.swt.layout.GridLayout;
@@ -348,8 +349,11 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 	TurqAccountingTransaction accTrans = (TurqAccountingTransaction)result.get(i);
 	item = new TableItem(tableTransactions,SWT.NULL);
 	item.setData(accTrans);
-	String transDate = accTrans.getTransactionsDate().getDate()+"/"+(accTrans.getTransactionsDate().getMonth()+1)+"/"+ //$NON-NLS-1$ //$NON-NLS-2$
-					   (accTrans.getTransactionsDate().getYear()+1900);
+	
+	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	
+	
+	String transDate =formatter.format(accTrans.getTransactionsDate());
 	item.setText(new String[]{accTrans.getTurqAccountingTransactionType().getTypesName(),
 					accTrans.getTransactionDocumentNo(),transDate});
 	

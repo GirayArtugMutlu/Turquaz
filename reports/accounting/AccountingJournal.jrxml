@@ -107,28 +107,28 @@
 			<textField pattern="">
 				<reportElement key="textField" positionType="Float" mode="Opaque" x="275" y="3" width="148" height="15"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{dept_amount}.intValue() > 0 ? String.valueOf($F{dept_amount}) : ""]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
 				<reportElement key="textField" positionType="Float" mode="Opaque" x="422" y="3" width="132" height="15"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{credit_amount}.intValue() > 0 ? String.valueOf($F{credit_amount}) : ""]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
 				<reportElement key="textField" positionType="Float" mode="Opaque" x="19" y="3" width="126" height="15"/>
 				<textElement>
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{dept_amount}.intValue() > 0 ? String.valueOf($F{account_name}) : ""]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
 				<reportElement key="textField" positionType="Float" mode="Opaque" x="144" y="3" width="137" height="15"/>
 				<textElement>
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{credit_amount}.intValue() > 0 ? String.valueOf($F{account_name}) : ""]]></textFieldExpression>
 			</textField>
@@ -143,28 +143,28 @@
 			<textField pattern="">
 				<reportElement key="textField" positionType="Float" mode="Opaque" x="13" y="3" width="127" height="15"/>
 				<textElement>
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{dept_amount}.intValue() > 0 ? String.valueOf($F{account_name}) : ""]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
 				<reportElement key="textField" positionType="Float" mode="Opaque" x="140" y="3" width="135" height="15"/>
 				<textElement>
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{credit_amount}.intValue() > 0 ? String.valueOf($F{account_name}) : ""]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
 				<reportElement key="textField" positionType="Float" mode="Opaque" x="275" y="3" width="149" height="15"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{dept_amount}.intValue() > 0 ? String.valueOf($F{dept_amount}) : ""]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
 				<reportElement key="textField" positionType="Float" mode="Opaque" x="424" y="3" width="132" height="15"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{credit_amount}.intValue() > 0 ? String.valueOf($F{credit_amount}) : ""]]></textFieldExpression>
 			</textField>

@@ -132,8 +132,8 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 					"trans.accounting_transactions_id=transcolumns.accounting_transactions_id" +
 					" and transcolumns.accounting_accounts_id=accounts.accounting_accounts_id " +
 					"ORDER BY trans.transactions_date");
-			//parameters.put("imageUrl", "C:\\eclipse3\\workspace\\Turquaz\\icons\\sample.gif");
-			parameters.put("imageUrl", "");
+			parameters.put("imageUrl", "C:\\eclipse3\\workspace\\Turquaz\\icons\\sample.gif");
+			//parameters.put("imageUrl", "");
 			parameters.put("column1header","Borç");
 			parameters.put("column2header","Alacak");
 			parameters.put("MainTitle","fds");
