@@ -375,7 +375,8 @@ public class AccUITransactionSearch extends SecureComposite {
     
     }
     else if(type==1){
-    
+    new AccUITransactionPaymentUpdateDialog(this.getShell(),SWT.NULL,accTrans).open();
+    search();
     }
     else if(type==0) {
     

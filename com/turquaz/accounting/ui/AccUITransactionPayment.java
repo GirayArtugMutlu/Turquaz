@@ -525,4 +525,28 @@ public class AccUITransactionPayment extends SecureComposite {
 		}
    	
 	}
+	/**
+	 * @return Returns the datePickerTransactionDate.
+	 */
+	public DatePicker getDatePickerTransactionDate() {
+		return datePickerTransactionDate;
+	}
+	/**
+	 * @return Returns the tableTransactionRows.
+	 */
+	public Table getTableTransactionRows() {
+		return tableTransactionRows;
+	}
+	/**
+	 * @return Returns the txtDocumentNo.
+	 */
+	public Text getTxtDocumentNo() {
+		return txtDocumentNo;
+	}
+	/**
+	 * @return Returns the comboCreditor.
+	 */
+	public CCombo getComboCreditor() {
+		return comboCreditor;
+	}
 }
