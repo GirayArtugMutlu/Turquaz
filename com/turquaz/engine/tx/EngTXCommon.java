@@ -72,18 +72,17 @@ public class EngTXCommon
 			}
 			Method method=cls.getMethod(myMethod,classList);
 			Object retVal=method.invoke(null,argList);
+			tx.commit();
 			return retVal;
 		}
 		catch(Exception ex)
 		{
+			if (tx != null)
+				tx.rollback();
 			throw ex;
 		}
 		finally
 		{
-			if (tx != null)
-			{
-				tx.commit();
-			}
 			if (session != null)
 			{
 				session.close();
