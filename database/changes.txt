@@ -272,4 +272,23 @@ ALTER TABLE turq_accounting_accounts ADD CONSTRAINT at1 FOREIGN KEY (accounting_
 
 ALTER TABLE turq_accounting_accounts ADD CONSTRAINT ac1 FOREIGN KEY (accounting_class_id) REFERENCES turq_accounting_account_classes (accounting_classes_id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
 
+
+
+
+*********currency_exhange_rate_added (18-02-2005)*********************
+CREATE TABLE public.turq_currency_exchange_rates
+(
+   exchange_rates_id int4 NOT NULL, 
+   exhange_rates_date date NOT NULL, 
+   base_currency_id int4 NOT NULL, 
+   exchange_currency_id int4 NOT NULL, 
+   exchange_ratio numeric NOT NULL, 
+    PRIMARY KEY (exchange_rates_id), 
+   CONSTRAINT fc1 FOREIGN KEY (base_currency_id) REFERENCES turq_currencies (currencies_id)    ON UPDATE RESTRICT ON DELETE RESTRICT, 
+   CONSTRAINT fc2 FOREIGN KEY (exchange_currency_id) REFERENCES turq_currencies (currencies_id)    ON UPDATE RESTRICT ON DELETE RESTRICT, 
+   CONSTRAINT uniq_value UNIQUE (exhange_rates_date, base_currency_id, exchange_currency_id)
+) WITHOUT OIDS;
+
+*******************************************************
+
   

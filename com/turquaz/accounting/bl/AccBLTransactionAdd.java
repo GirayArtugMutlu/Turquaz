@@ -31,6 +31,7 @@ import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqAccountingTransactionType;
+import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqEngineSequence;
 
 import com.turquaz.engine.dal.TurqModule;
@@ -46,28 +47,41 @@ public class AccBLTransactionAdd {
 	
 	//Muhasebe fisi kalemlerini kaydet
 	public void saveAccTransactionRow(TurqAccountingTransactionColumn transRow, Integer transID)
-	throws Exception{
-	try
+	throws Exception
 	{
-	    if(transRow.getCreditAmount().compareTo(new BigDecimal(0))<1 
-	       && transRow.getDeptAmount().compareTo(new BigDecimal(0))<1){
-	        return;
-	    }
-		TurqAccountingTransaction trans = new TurqAccountingTransaction();
-		trans.setAccountingTransactionsId(transID);
+		try
+		{
+			if(transRow.getCreditAmount().compareTo(new BigDecimal(0))<1 
+					&& transRow.getDeptAmount().compareTo(new BigDecimal(0))<1)
+			{
+				return;
+			}
+			TurqAccountingTransaction trans = new TurqAccountingTransaction();
+			trans.setAccountingTransactionsId(transID);
 		
-		transRow.setTurqAccountingTransaction(trans);
+			transRow.setTurqAccountingTransaction(trans);
+			
+			TurqCurrency baseCurrency=AccBLTransactionSearch.getBaseCurrency();
+			/*if (currency.getCurrenciesId()==baseCurrency.getCurrenciesId())
+			{
+				transRow.setRowsCreditInBaseCurrency(transRow.getCreditAmount());
+				transRow.setRowsDeptInBaseCurrency(transRow.getDeptAmount());
+			}
+			else
+			{
+				BigDecimal exchangeRatio=
+			}*/
+			transRow.setCreatedBy(System.getProperty("user"));
+			transRow.setUpdatedBy(System.getProperty("user"));
 		
-		transRow.setCreatedBy(System.getProperty("user"));
-		transRow.setUpdatedBy(System.getProperty("user"));
-		
-		transRow.setLastModified(new java.sql.Date( cal.getTime().getTime()));
-		transRow.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
-		dalTransAdd.save(transRow);
-	}
-	catch(Exception ex){
-		throw ex;
-	}
+			transRow.setLastModified(new java.sql.Date( cal.getTime().getTime()));
+			transRow.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
+			dalTransAdd.save(transRow);
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
 	}
    
 	

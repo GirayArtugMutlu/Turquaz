@@ -461,28 +461,33 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 		
 	}
 
-    public void saveTransactionRows(Integer transId)throws Exception{
-    try{
+    public void saveTransactionRows(Integer transId)throws Exception
+	{
+    	try
+		{
     
-    TableItem items[] = tableTransactionColumns.getItems();
+    		TableItem items[] = tableTransactionColumns.getItems();
     
-    for(int i=0; i<items.length;i++){
+    		for(int i=0; i<items.length;i++)
+    		{
    
-     AccUITransactionAddTableRow row =(AccUITransactionAddTableRow)items[i].getData();
+    			AccUITransactionAddTableRow row =(AccUITransactionAddTableRow)items[i].getData();
      
-     if(row.okToSave()){
-         blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId);
-     }
+    			if(row.okToSave())
+    			{
+    				blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId);
+    			}
     
-    }
+    		}
     
     
     
-    }
-    catch(Exception ex){
-    throw ex;
+		}
+    	catch(Exception ex)
+		{
+    		throw ex;
     
-    }
+		}
     
     
     }
@@ -494,48 +499,51 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
     }
     
     
-	public void save(){
+	public void save()
+	{
 	
-	if(verifyFields()){
+		if(verifyFields())
+		{
 	
-	MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
-	try{
+			MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+			try
+			{
 	
-	Integer transId =blTransAdd.saveAccTransaction(dateTransactionDate.getDate(),txtDocumentNo.getText().trim(),2,1,null,txtTransDefinition.getText().trim());
+				Integer transId =blTransAdd.saveAccTransaction(dateTransactionDate.getDate(),txtDocumentNo.getText().trim(),2,1,null,txtTransDefinition.getText().trim());
 	
-	saveTransactionRows(transId);
-	msg.setMessage(Messages.getString("AccUITransactionAdd.16")); //$NON-NLS-1$
-	msg.open();
-	clearFields();
-	}
+				saveTransactionRows(transId);
+				msg.setMessage(Messages.getString("AccUITransactionAdd.16")); //$NON-NLS-1$
+				msg.open();
+				clearFields();
+			}
 
-	catch(Exception ex){
-	ex.printStackTrace();
-	msg.setMessage(Messages.getString("AccUITransactionAdd.17")); //$NON-NLS-1$
-	msg.open();
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				msg.setMessage(Messages.getString("AccUITransactionAdd.17")); //$NON-NLS-1$
+				msg.open();
 	
-	}
-	
-	
-	
-	
+			}
+		}
 	
 	
 	}
 	
 	
 	
-	}
 	
-	void calculateTotalDeptAndCredit(){
+	
+	void calculateTotalDeptAndCredit()
+	{
 	    TurquazDecimalFormat df = new TurquazDecimalFormat();
-	TableItem items[] = tableTransactionColumns.getItems();
-    totalCredit=new BigDecimal(0);
-    totalDept =new BigDecimal(0);
+	    TableItem items[] = tableTransactionColumns.getItems();
+	    totalCredit=new BigDecimal(0);
+	    totalDept =new BigDecimal(0);
     
 		for(int i=0; i<items.length;i++){
 		TurqAccountingTransactionColumn column = (TurqAccountingTransactionColumn)((AccUITransactionAddTableRow)items[i].getData()).getDBObject();
-		if(column!=null){
+		if(column!=null)
+		{
 			totalCredit =totalCredit.add(column.getCreditAmount());
 		totalDept = totalDept.add(column.getDeptAmount());
 		}

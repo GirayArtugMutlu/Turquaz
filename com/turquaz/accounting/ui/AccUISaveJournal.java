@@ -184,34 +184,37 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 		}
 	}
 	
-	public void fillTable(){
-	    try{
-	      tableAccountingTransaction.removeAll();  
-	      List result = blSearch.getUnsavedTransactions();
-	      TableItem item;
+	public void fillTable()
+	{
+	    try
+		{
+	    	tableAccountingTransaction.removeAll();  
+	    	  List result = blSearch.getUnsavedTransactions();
+	     	 TableItem item;
 	  	
-	  	int listSize = result.size();
-	  	TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
-	  	for(int i =0; i<listSize;i++){
-	  	TurqAccountingTransaction accTrans = (TurqAccountingTransaction)result.get(i);
-	  	item = new TableItem(tableAccountingTransaction,SWT.NULL);
-	  	item.setData(accTrans);
+	     	 int listSize = result.size();
+	     	 TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
+	     	 for(int i =0; i<listSize;i++)
+	     	 {
+	     	 	TurqAccountingTransaction accTrans = (TurqAccountingTransaction)result.get(i);
+	     	 	item = new TableItem(tableAccountingTransaction,SWT.NULL);
+	     	 	item.setData(accTrans);
 	  	
-	  	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
+	     	 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
 	  	
 	  	
-	  	BigDecimal total = new BigDecimal(0);
-	  	Iterator it = accTrans.getTurqAccountingTransactionColumns().iterator();
-	  	while(it.hasNext()){
-	  		TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn)it.next();
-	  		total = total.add(transColumn.getCreditAmount());
-	  	}
+	  		BigDecimal total = new BigDecimal(0);
+	  		Iterator it = accTrans.getTurqAccountingTransactionColumns().iterator();
+	  		while(it.hasNext()){
+	  			TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn)it.next();
+	  			total = total.add(transColumn.getRowsCreditInBaseCurrency());
+	  		}
 	  	
-	  	String transDate =formatter.format(accTrans.getTransactionsDate());
-	  	item.setText(new String[]{accTrans.getTurqAccountingTransactionType().getTypesName(),
+	  		String transDate =formatter.format(accTrans.getTransactionsDate());
+	  		item.setText(new String[]{accTrans.getTurqAccountingTransactionType().getTypesName(),
 	  					accTrans.getTransactionDocumentNo(),transDate,cf.format(total),accTrans.getTransactionDescription()}); //$NON-NLS-1$
 	  	
-	  	}
+	     	 }
 	        
 	    }
 	    

@@ -22,6 +22,7 @@ package com.turquaz.accounting.dal;
  *          cemdayanik Exp $
  */
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +35,7 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
+import com.turquaz.engine.dal.TurqCurrency;
 
 public class AccDALTransactionSearch {
 
@@ -59,6 +61,52 @@ public class AccDALTransactionSearch {
 		}
 
 	}
+	
+	public static TurqCurrency getBaseCurrency() throws Exception
+	{
+
+		try 
+		{
+			Session session = EngDALSessionFactory.openSession();
+
+			String query = "select currency from TurqCurrency as currency" +
+					" where currency.defaultCurrency=true";
+			Query q = session.createQuery(query);
+			List list = q.list();
+			session.close();
+
+			return (TurqCurrency)list.get(0);
+
+		} catch (Exception ex) {
+			throw ex;
+
+		}
+	}
+	
+	
+	/*public static BigDecimal getExchangeRatio(TurqCurrency baseCurrency, TurqCurrency exchangeCurrency, Date exhangeDate)
+	throws Exception
+	{
+
+		try 
+		{
+			Session session = EngDALSessionFactory.openSession();
+
+			String query = "select exchangeRatio from TurqCurrency as currency" +
+					" where currency.defaultCurrency=true";
+			Query q = session.createQuery(query);
+			List list = q.list();
+			session.close();
+
+			return (TurqCurrency)list.get(0);
+
+		} catch (Exception ex) {
+			throw ex;
+
+		}
+	}*/
+	
+	
 
 	public List searchTransaction(String docNo, Object startDate,
 			Object endDate, boolean isGeneralTrans, boolean isCollect, boolean isPayment) throws Exception {
