@@ -363,6 +363,7 @@ public class EngBLCommon {
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
+			if(tx!=null)
 			tx.rollback();
 		}
 		

@@ -22,6 +22,9 @@ package com.turquaz.bank.dal;
 * @version  $Id$
 */
 
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -133,18 +136,25 @@ public class BankDALBankCardSearch {
 	{
 		try 
 		{
-			Session session = EngDALSessionFactory.openSession();
-
-			String query = "Select bankCard.banksCardsId, bankCard.turqAccountingAccount.accountingAccountsId  from TurqBanksCard as bankCard" +
-					" where bankCard.id <> -1";
-
-
-			Query q = session.createQuery(query);
-
-			List list = q.list();
-
-			session.close();
-			return list;
+			  Session session = EngDALSessionFactory.openSession();
+		        String query = "Select bankCard.id, bankCard.accounting_accounts_id from turq_banks_cards bankCard " +
+		        		" where bankCard.id <> -1" ;
+			 
+		        Statement stmt = session.connection().createStatement();
+		       ResultSet rs = stmt.executeQuery(query);
+		        List list =new ArrayList();
+		       while(rs.next())
+		       {
+		       	Object []result = new Object[2];
+		       	result[0] =rs.getString(1);
+		       	result[1] = rs.getString(2);
+		       	list.add(result);
+		       	
+		       }
+		        
+		        session.close();
+		        
+		        return list;
 
 		} 
 		catch (Exception ex) 

@@ -143,7 +143,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 				//START >>  btnUpdateBills
 				btnUpdateBills = new Button(composite1, SWT.PUSH | SWT.CENTER);
 				btnUpdateBills.setText(Messages.getString("EngUIPreferences.3")); //$NON-NLS-1$
-				btnUpdateBills.setVisible(true);
+				btnUpdateBills.setVisible(false);
 				btnUpdateBills.addMouseListener(new MouseAdapter() {
 					public void mouseUp(MouseEvent evt) {
 						
@@ -157,6 +157,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 				btnCurrentCards = new Button(composite1, SWT.PUSH | SWT.CENTER);
 				btnCurrentCards
 					.setText(Messages.getString("EngUIPreferences.6")); //$NON-NLS-1$
+					btnCurrentCards.setVisible(false);
 				btnCurrentCards.addMouseListener(new MouseAdapter() {
 					public void mouseUp(MouseEvent evt) {
 						try{
@@ -176,6 +177,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 				btnExportBankCards = new Button(composite1, SWT.PUSH
 					| SWT.CENTER);
 				btnExportBankCards.setText("Banka Muhasebe Hesaplarini Aktar");
+				btnExportBankCards.setVisible(false);
 				btnExportBankCards.addMouseListener(new MouseAdapter() {
 					
 					public void mouseUp(MouseEvent evt) {

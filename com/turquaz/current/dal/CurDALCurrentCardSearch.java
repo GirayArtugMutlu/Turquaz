@@ -20,6 +20,9 @@ package com.turquaz.current.dal;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -168,12 +171,21 @@ public class CurDALCurrentCardSearch {
 		  try{
 	        
 	        Session session = EngDALSessionFactory.openSession();
-	        String query = "Select curCard.id, curCard.turqAccountingAccount.id from TurqCurrentCard as curCard " +
+	        String query = "Select curCard.id, curCard.accounting_code_id from turq_current_cards curCard " +
 	        		" where curCard.id <> -1" ;
 		 
-	        Query q = session.createQuery(query);
+	        Statement stmt = session.connection().createStatement();
+	       ResultSet rs = stmt.executeQuery(query);
+	        List list =new ArrayList();
+	       while(rs.next())
+	       {
+	       	Object []result = new Object[2];
+	       	result[0] =rs.getString(1);
+	       	result[1] = rs.getString(2);
+	       	list.add(result);
+	       	
+	       }
 	        
-	        List list = q.list();
 	        session.close();
 	        
 	        return list;
