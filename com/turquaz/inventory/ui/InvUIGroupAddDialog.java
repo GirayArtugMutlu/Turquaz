@@ -109,7 +109,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 					SWTResourceManager.registerResourceUser(dialogShell);
 				}
 
-			dialogShell.setText(getText());
+			dialogShell.setText(Messages.getString("InvUIGroupAddDialog.7")); //$NON-NLS-1$
 			compGroupAddDialog = new Composite(dialogShell,SWT.NULL);
 			lblGroupName = new CLabel(compGroupAddDialog,SWT.NULL);
 			txtGroupName = new Text(compGroupAddDialog,SWT.BORDER);

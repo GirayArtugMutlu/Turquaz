@@ -64,7 +64,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.layout();
-	
+	        dialogShell.setText(Messages.getString("CurUIVoucherUpdate.5"));   //$NON-NLS-1$
 			dialogShell.setSize(672, 316);
             {
                 toolBar1 = new ToolBar(dialogShell, SWT.NONE);

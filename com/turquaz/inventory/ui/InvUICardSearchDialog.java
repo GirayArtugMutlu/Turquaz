@@ -114,7 +114,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 
 
 			dialogShell.setLayout(new GridLayout());
-			
+			dialogShell.setText(Messages.getString("InvUICardSearchDialog.0")); //$NON-NLS-1$
 			dialogShell.pack();
 			dialogShell.setSize(486, 418);
 			{
@@ -129,7 +129,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 				compInvCardSearchPanel.setLayoutData(compInvCardSearchPanelLData);
 				{
 					lblInvName = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblInvName.setText(Messages.getString("InvUICardSearch.0"));
+					lblInvName.setText(Messages.getString("InvUICardSearch.0"));//$NON-NLS-1$
 					lblInvName.setSize(new org.eclipse.swt.graphics.Point(
 						114,
 						18));
@@ -147,7 +147,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 				{
 					cLabel2 = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					cLabel2.setText(Messages.getString("InvUICardSearch.1"));
+					cLabel2.setText(Messages.getString("InvUICardSearch.1"));//$NON-NLS-1$
 					cLabel2.setSize(new org.eclipse.swt.graphics.Point(97, 17));
 					GridData cLabel2LData = new GridData();
 					cLabel2LData.widthHint = 97;
@@ -164,7 +164,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
 					lblInvGroup
-						.setText(Messages.getString("InvUICardSearch.2"));
+						.setText(Messages.getString("InvUICardSearch.2"));//$NON-NLS-1$
 					lblInvGroup.setSize(new org.eclipse.swt.graphics.Point(
 						110,
 						17));
@@ -193,14 +193,14 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					btnSearch = new Button(compInvCardSearchPanel, SWT.PUSH
 						| SWT.CENTER);
-					btnSearch.setText("button1");
+					btnSearch.setText("button1");//$NON-NLS-1$
 					GridData btnSearchLData = new GridData();
 					btnSearch.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
 							search();
 						}
 					});
-					btnSearch.setImage(SWTResourceManager.getImage("icons/Find24.gif"));
+					btnSearch.setImage(SWTResourceManager.getImage("icons/Find24.gif"));//$NON-NLS-1$
 					btnSearchLData.horizontalAlignment = GridData.END;
 					btnSearchLData.grabExcessHorizontalSpace = true;
 					btnSearchLData.horizontalSpan = 2;
@@ -232,7 +232,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 						tableSearcResults,
 						SWT.NONE);
 					tableColumnInvName.setText(Messages
-						.getString("InvUICardSearch.0"));
+						.getString("InvUICardSearch.0"));//$NON-NLS-1$
 					tableColumnInvName.setWidth(115);
 				}
 				{
@@ -240,7 +240,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 						tableSearcResults,
 						SWT.NONE);
 					tableColumnInventoryCode.setText(Messages
-						.getString("InvUICardSearch.1"));
+						.getString("InvUICardSearch.1"));//$NON-NLS-1$
 					tableColumnInventoryCode.setWidth(107);
 				}
 				{
@@ -248,7 +248,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 						tableSearcResults,
 						SWT.NONE);
 					tableColumnAmount.setText(Messages
-						.getString("InvUICardSearch.5"));
+						.getString("InvUICardSearch.5"));//$NON-NLS-1$
 					tableColumnAmount.setWidth(118);
 				}
 			}

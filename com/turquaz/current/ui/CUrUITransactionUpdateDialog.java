@@ -105,7 +105,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 					SWTResourceManager.registerResourceUser(dialogShell);
 				}
 
-			dialogShell.setText(getText());
+			dialogShell.setText(Messages.getString("CUrUITransactionUpdateDialog.3")); //$NON-NLS-1$
 			coolBar1 = new CoolBar(dialogShell,SWT.NULL);
 			coolItem1 = new CoolItem(coolBar1,SWT.NULL);
 			toolBar1 = new ToolBar(coolBar1,SWT.NULL);

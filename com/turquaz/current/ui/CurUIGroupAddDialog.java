@@ -104,7 +104,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 					SWTResourceManager.registerResourceUser(dialogShell);
 				}
 
-			dialogShell.setText(getText());
+			dialogShell.setText(Messages.getString("CurUIGroupAddDialog.5")); //$NON-NLS-1$
 
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(433,229));
 
@@ -127,7 +127,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					lblGroupName = new CLabel(compGroupAddDialog, SWT.NONE);
 					lblGroupName.setText(Messages
-						.getString("CurUIGroupAddDialog.0"));
+						.getString("CurUIGroupAddDialog.0"));//$NON-NLS-1$
 					lblGroupName.setSize(new org.eclipse.swt.graphics.Point(
 						56,
 						20));
@@ -172,7 +172,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					btnDelete = new Button(compGroupAddDialog, SWT.PUSH | SWT.CENTER);
 					btnDelete.setText(Messages
-						.getString("CurUIGroupAddDialog.2"));
+						.getString("CurUIGroupAddDialog.2"));//$NON-NLS-1$
 					GridData btnDeleteLData = new GridData();
 					btnDelete.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
@@ -188,7 +188,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					btnUpdate = new Button(compGroupAddDialog, SWT.PUSH | SWT.CENTER);
 					btnUpdate.setText(Messages
-						.getString("CurUIGroupAddDialog.3"));
+						.getString("CurUIGroupAddDialog.3"));//$NON-NLS-1$
 					GridData btnUpdateLData = new GridData();
 					btnUpdate.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
@@ -204,7 +204,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					btnGroupAdd = new Button(compGroupAddDialog, SWT.PUSH | SWT.CENTER);
 					btnGroupAdd.setText(Messages
-						.getString("CurUIGroupAddDialog.4"));
+						.getString("CurUIGroupAddDialog.4"));//$NON-NLS-1$
 					GridData btnGroupAddLData = new GridData();
 					btnGroupAdd.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
@@ -238,7 +238,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					tableColumnName = new TableColumn(tableCurGroups, SWT.NONE);
 					tableColumnName.setText(Messages
-						.getString("CurUIGroupAddDialog.0"));
+						.getString("CurUIGroupAddDialog.0"));//$NON-NLS-1$
 					tableColumnName.setWidth(150);
 				}
 				{
@@ -246,7 +246,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 						tableCurGroups,
 						SWT.NONE);
 					tableColumnDescription.setText(Messages
-						.getString("CurUIGroupAddDialog.1"));
+						.getString("CurUIGroupAddDialog.1"));//$NON-NLS-1$
 					tableColumnDescription.setWidth(270);
 				}
 			}
@@ -343,7 +343,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			 btnDelete.setEnabled(false);
 			    btnUpdate.setEnabled(false);
 			    btnGroupAdd.setEnabled(true);
-			    txtGroupName.setText(Messages.getString("CurUIGroupAddDialog.9")); //$NON-NLS-1$
+			    txtGroupName.setText(""); //$NON-NLS-1$
 			    txtDescription.setText("");	 //$NON-NLS-1$
 		msg2.setMessage(Messages.getString("CurUIGroupAddDialog.13"));	 //$NON-NLS-1$
 		msg2.open();

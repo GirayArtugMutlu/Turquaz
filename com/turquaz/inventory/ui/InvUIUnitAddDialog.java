@@ -109,7 +109,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 					SWTResourceManager.registerResourceUser(dialogShell);
 				}
 
-			dialogShell.setText(getText());
+			dialogShell.setText(Messages.getString("InvUIUnitAddDialog.10")); //$NON-NLS-1$
 		
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(252,229));
 	

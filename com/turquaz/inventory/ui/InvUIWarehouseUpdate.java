@@ -102,7 +102,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 					SWTResourceManager.registerResourceUser(dialogShell);
 				}
 
-			dialogShell.setText(getText());
+			dialogShell.setText(Messages.getString("InvUIWarehouseUpdate.1")); //$NON-NLS-1$
 			coolBarInvUIWarehouse = new CoolBar(dialogShell, SWT.NULL);
 			coolWarehouseUpdate = new CoolItem(coolBarInvUIWarehouse, SWT.NULL);
 			toolWarehouseUpdate = new ToolBar(coolBarInvUIWarehouse, SWT.NULL);

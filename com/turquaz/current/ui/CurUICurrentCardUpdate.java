@@ -127,7 +127,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 					SWTResourceManager.registerResourceUser(dialogShell);
 				}
 
-			dialogShell.setText(getText());
+			dialogShell.setText(Messages.getString("CurUICurrentCardUpdate.1")); //$NON-NLS-1$
 			
 			{
 				coolBarTop = new CoolBar(dialogShell, SWT.NONE);
