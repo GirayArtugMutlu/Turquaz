@@ -102,12 +102,16 @@ INSERT INTO turq_inventory_groups VALUES (-1, 'Varsayilan', 'Varsayilan', 'admin
 **** 09-02-2005 *****
 --- "turq_banks_transactions"  ----> "accounting_accounts_id" removed... 
 
-
+ALTER TABLE turq_banks_transactions DROP COLUMN accounting_accounts_id;
 
 **** 14-02-2005 *****
 --- "turq_cheque_cheques" -----> "bank_account_no" column added...
 
 ALTER TABLE turq_cheque_cheques ADD COLUMN bank_account_no varchar(100);
+update turq_cheque_cheques set bank_account_no='';
+ALTER TABLE turq_cheque_cheques
+   ALTER COLUMN bank_account_no SET NOT NULL;
+
 
 **** 15-02-2005 ****
 --- "turq_bank_transactions_type" ---> "Bankaya Gelen Cek" --> Tahsil Edilen Cek...

@@ -1,0 +1,127 @@
+DROP INDEX index_accounting_trans_date;
+
+CREATE INDEX index_accounting_trans_date
+  ON turq_accounting_transactions
+  USING btree
+  (transactions_date);
+
+DROP INDEX index_accounting_trans_doc_no;
+
+CREATE INDEX index_accounting_trans_doc_no
+  ON turq_accounting_transactions
+  USING btree
+  (transaction_document_no);
+
+DROP INDEX index_bank_trans_bill_no;
+
+CREATE INDEX index_bank_trans_bill_no
+  ON turq_banks_transaction_bills
+  USING btree
+  (transaction_bill_no);
+
+DROP INDEX index_bank_trans_date;
+
+CREATE INDEX index_bank_trans_date
+  ON turq_banks_transaction_bills
+  USING btree
+  (transaction_bill_date);
+
+DROP INDEX index_bill_doc_no;
+
+CREATE INDEX index_bill_doc_no
+  ON turq_bill_consignment_commons
+  USING btree
+  (bill_document_no);
+
+DROP INDEX index_bill_bill_date;
+
+CREATE INDEX index_bill_bill_date
+  ON turq_bills
+  USING btree
+  (bills_date);
+DROP INDEX index_bill_due_date;
+
+CREATE INDEX index_bill_due_date
+  ON turq_bills
+  USING btree
+  (due_date);
+
+DROP INDEX index_cash_card_name;
+
+CREATE INDEX index_cash_card_name
+  ON turq_cash_cards
+  USING btree
+  (cash_card_name);
+
+DROP INDEX index_cash_trans_date;
+
+CREATE INDEX index_cash_trans_date
+  ON turq_cash_transactions
+  USING btree
+  (transaction_date);
+ DROP INDEX index_cheque_roll_date;
+
+CREATE INDEX index_cheque_roll_date
+  ON turq_cheque_rolls
+  USING btree
+  (cheque_rolls_date);
+
+DROP INDEX index_cheque_roll_no;
+
+CREATE INDEX index_cheque_roll_no
+  ON turq_cheque_rolls
+  USING btree
+  (cheque_roll_no);
+
+DROP INDEX index_cons_date;
+
+CREATE INDEX index_cons_date
+  ON turq_consignments
+  USING btree
+  (consignments_date);
+
+DROP INDEX index_cur_card_code;
+
+CREATE INDEX index_cur_card_code
+  ON turq_current_cards
+  USING btree
+  (cards_current_code);
+DROP INDEX index_cur_card_name;
+
+CREATE INDEX index_cur_card_name
+  ON turq_current_cards
+  USING btree
+  (cards_name);
+DROP INDEX index_cur_trans_definition;
+
+CREATE INDEX index_cur_trans_definition
+  ON turq_current_transactions
+  USING btree
+  (transactions_definition);
+
+DROP INDEX index_inv_card_code;
+
+CREATE INDEX index_inv_card_code
+  ON turq_inventory_cards
+  USING btree
+  (card_inventory_code);
+
+DROP INDEX index_inv_card_name;
+
+CREATE INDEX index_inv_card_name
+  ON turq_inventory_cards
+  USING btree
+  (card_name);
+DROP INDEX index_inv_warehouse_city;
+
+CREATE INDEX index_inv_warehouse_city
+  ON turq_inventory_warehouses
+  USING btree
+  (warehouses_city);
+DROP INDEX index_inv_warehouse_name;
+
+CREATE INDEX index_inv_warehouse_name
+  ON turq_inventory_warehouses
+  USING btree
+  (warehouses_name);
+
