@@ -31,11 +31,11 @@ import org.eclipse.swt.events.MouseAdapter;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Label;
+import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
-import com.turquaz.engine.ui.component.TextWithButton;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -63,7 +63,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 
 	private Shell dialogShell;
 	private Composite composite1;
-	private TextWithButton txtCurCard;
+	private CurrentPicker txtCurCard;
 	private Button btnSearch;
 	private Label lblSeperator;
 	private TableColumn tableColumnSpecialVatAmount;
@@ -126,13 +126,8 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 					lblCurrentCard.setLayoutData(lblCurrentCardLData);
 				}
 				{
-					txtCurCard = new TextWithButton(composite1, SWT.NONE);
-				
-					txtCurCard.addMouseListener(new MouseAdapter() {
-						public void mouseUp(MouseEvent evt) {
-							currentCardChoose();
-						}
-					});
+					txtCurCard = new CurrentPicker(composite1, SWT.NONE);
+
 					GridData txtCurCardLData = new GridData();
 					txtCurCardLData.widthHint = 208;
 					txtCurCardLData.heightHint = 20;
@@ -278,17 +273,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 	
-	public void currentCardChoose(){
-		Object data = new CurUICurrentCardSearchDialog(this.getParent(),SWT.NULL).open();
-	    if(data!=null){
-	    
-		TurqCurrentCard curCard = (TurqCurrentCard)data;
-	    txtCurCard.setText(curCard.getCardsCurrentCode()+" - "+curCard.getCardsName()); //$NON-NLS-1$
-		txtCurCard.setData(curCard);
-		
-	    }
-		
-	}
+
 	public void tableDoubleMouseClick(){
 		
 		TableItem items[] =tableConsignments.getSelection();

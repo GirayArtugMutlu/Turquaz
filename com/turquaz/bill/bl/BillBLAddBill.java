@@ -57,15 +57,15 @@ public class BillBLAddBill {
 			bill.setTurqBillConsignmentCommon(common);
 			
 			
-		TurqEngineSequence seqDocId = cons.getTurqEngineSequence();
+		 TurqEngineSequence seqDocId = cons.getTurqEngineSequence();
 		/*	
 		 * TODO Incelenmesi gerek	
 		 * 	TurqModule module = new TurqModule();
 			module.setModulesId(new Integer(7));
 			seqDocId.setTurqModule(module);
-		*/
-			dalBill.save(seqDocId);
 		
+			dalBill.save(seqDocId);
+		*/
 			bill.setTurqEngineSequence(seqDocId);
 		
 			
@@ -88,7 +88,7 @@ public class BillBLAddBill {
 	
     TurqBillConsignmentCommon common= bill.getTurqBillConsignmentCommon();
 	CurBLCurrentTransactionAdd curBLTrans = new CurBLCurrentTransactionAdd();
-	
+
 	String curTransDef = DatePicker.formatter.format(bill.getBillsDate())+" " +
 			common.getBillDocumentNo()+" Ref. Fatura";
 	

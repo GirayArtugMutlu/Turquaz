@@ -41,6 +41,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -55,6 +57,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
+import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearchDialog;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillConsignmentCommon;
@@ -1089,6 +1092,8 @@ implements SecureComposite{
 	TurqConsignment cons = new ConUIConsignmentSearchDialog(this.getShell(),SWT.NULL).open();
 	
 	if(cons!=null){
+	try{   
+    ConBLUpdateConsignment.initiliazeConsignment(cons);
 	txtConsignment.setData(cons);	
 	
 	TurqBillConsignmentCommon common = cons.getTurqBillConsignmentCommon();
@@ -1132,7 +1137,12 @@ implements SecureComposite{
 	comboConsignmentType.setText(type);
 	
 	txtDiscountRate.setText(common.getDiscountRate());
-	
+	}
+	catch(Exception ex)
+	{
+	    ex.printStackTrace();
+	    EngUICommon.showMessageBox(getShell(),ex.getMessage(),SWT.ICON_ERROR);
+	}
 	
 	}
 	

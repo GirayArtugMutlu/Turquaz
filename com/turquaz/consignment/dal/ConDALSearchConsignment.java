@@ -18,11 +18,9 @@ package com.turquaz.consignment.dal;
 import java.util.Date;
 import java.util.List;
 
-import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import com.turquaz.engine.dal.EngDALSessionFactory;
-import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
 
@@ -93,16 +91,6 @@ public class ConDALSearchConsignment {
 			}
 
 			List list = q.list();
-
-			TurqConsignment cons;
-			for (int i = 0; i < list.size(); i++) {
-
-				cons = (TurqConsignment) list.get(i);
-				Hibernate.initialize(cons.getTurqConsignmentsInGroups());
-				Hibernate.initialize(cons.getTurqEngineSequence()
-						.getTurqInventoryTransactions());
-
-			}
 
 			session.close();
 			return list;

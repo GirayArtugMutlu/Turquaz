@@ -373,7 +373,7 @@ SearchComposite{
 			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 			try{
 			    //first fill cons then delete..
-			   blUpdate.initiliazeConsignment(cons); 
+			  ConBLUpdateConsignment.initiliazeConsignment(cons); 
 		    if(cons.getTurqBillConsignmentCommon().getTurqBills().isEmpty()){
 		    
 				MessageBox msg2 = new MessageBox(this.getShell(),SWT.CANCEL|SWT.OK);
@@ -447,25 +447,12 @@ SearchComposite{
 		TableItem items[] = tableConsignments.getSelection();
 		if(items.length>0){
 		    TurqConsignment cons = (TurqConsignment)items[0].getData();
-		    try{
-		        
-		        blUpdate.initiliazeConsignment(cons);
-		        
-		        
-		    }
-		    catch(Exception ex){
-		        ex.printStackTrace();
-		    }
-		    if(cons.getTurqBillConsignmentCommon().getTurqBills().isEmpty()){
+		  
+		
 		        boolean updated=new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
 		        if (updated)
 		        	search();
-		    }
-		    else{
-		       MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_INFORMATION);
-		       msg.setMessage(Messages.getString("ConUIConsignmentSearch.13")); //$NON-NLS-1$
-		       msg.open();
-		    }
+		  
 		}
 	}
 	public void printTable(){

@@ -30,7 +30,7 @@ import com.turquaz.engine.dal.TurqCurrentCard;
  */
 public class ConBLUpdateConsignment {
 	private Calendar cal = Calendar.getInstance();
-	private ConDALUpdateConsignment dalCons = new ConDALUpdateConsignment();
+	private static ConDALUpdateConsignment dalCons = new ConDALUpdateConsignment();
 	
 	public ConBLUpdateConsignment(){
 		
@@ -88,7 +88,7 @@ public class ConBLUpdateConsignment {
 	
 	}
 	}
-	public void initiliazeConsignment(TurqConsignment cons)throws Exception{
+	public static void initiliazeConsignment(TurqConsignment cons)throws Exception{
 		try{
 		 
 		    dalCons.initiliazeConsignment(cons);

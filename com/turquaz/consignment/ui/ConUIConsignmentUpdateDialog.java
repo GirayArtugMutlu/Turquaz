@@ -192,6 +192,20 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	    
 	}
 	
+	public void checkBill()
+	{
+	    if(consignment.getTurqBillConsignmentCommon().getTurqBills().isEmpty()){
+	       
+	   
+	    }
+	    else
+	    {
+	        toolUpdate.setEnabled(false);
+			toolDelete.setEnabled(false);
+	    }
+	   
+	
+	}
 	
 	public void postInitGui(){
 		toolUpdate.setEnabled(false);
@@ -205,7 +219,17 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		    toolUpdate.setEnabled(true); 
 		}
 	    
-	    
+		  try{
+		        
+		       ConBLUpdateConsignment.initiliazeConsignment(consignment);
+		        
+		        
+		    }
+		    catch(Exception ex){
+		        ex.printStackTrace();
+		    }
+		
+	    checkBill();
 	    
 		compAddConsignment.getTxtCurrentCard().setData(consignment.getTurqBillConsignmentCommon().getTurqCurrentCard());
 		compAddConsignment.getTxtCurrentCard().setText(consignment.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode());
