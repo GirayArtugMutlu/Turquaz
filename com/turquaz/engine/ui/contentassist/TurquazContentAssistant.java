@@ -29,12 +29,13 @@ public class TurquazContentAssistant {
         IContentAssistProcessor processor = new TurquazContentAssistProcessors(type);
         contentAssistant.setContentAssistProcessor(processor,
                 IDocument.DEFAULT_CONTENT_TYPE);
-        
         contentAssistant.enableAutoActivation(true);
         contentAssistant.setAutoActivationDelay(500);
 
         contentAssistant
                 .setContextInformationPopupOrientation(IContentAssistant.CONTEXT_INFO_ABOVE);
+         
+        
         contentAssistant
                 .setInformationControlCreator(new IInformationControlCreator() {
                     /*

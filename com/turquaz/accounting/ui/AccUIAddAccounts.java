@@ -44,7 +44,6 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
-import com.turquaz.accounting.ui.comp.DynamicAccountPicker;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.DisposeEvent;
@@ -230,7 +229,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	                 // Check for Ctrl+Spacebar
 	                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
 	             
-	                  asistant.showPossibleCompletions();              
+	                  asistant.showPossibleCompletions();    
 	                   event.doit = false;
 
 	                 }

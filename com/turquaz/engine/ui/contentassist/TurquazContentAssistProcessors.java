@@ -8,6 +8,8 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
+import org.eclipse.jface.text.contentassist.ContextInformation;
+import org.eclipse.jface.text.contentassist.ContextInformationValidator;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
@@ -58,7 +60,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
     public ICompletionProposal[] computeCompletionProposals(IContentAssistSubjectControl viewer,
         
             int documentOffset) {
-      
+        System.out.println("proposal");
         // TODO Auto-generated method stub
         // Retrieve current document
         IDocument doc = viewer.getDocument();
@@ -70,7 +72,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
         String qualifier = getQualifier(doc, documentOffset);
 
          // Compute completion proposals
-         computeStructureProposals(qualifier, documentOffset, propList);
+        computeStructureProposals(qualifier, documentOffset, propList);
          
           
     // Create completion proposal array
@@ -97,7 +99,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
             String qualifier = getQualifier(doc, documentOffset);
 
              // Compute completion proposals
-             computeStructureProposals(qualifier, documentOffset, propList);
+         computeStructureProposals(qualifier, documentOffset, propList);
              
               
         // Create completion proposal array
@@ -138,7 +140,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
     
 //  Proposal part before cursor
     private static String[] proposedCodes;
-
+   
 
     
     
@@ -157,8 +159,9 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 
               // Derive cursor position
               int cursor = startTag.length();
-
+              
               // Construct proposal
+
               CompletionProposal proposal =
                  new CompletionProposal(text, documentOffset - qlen, qlen, cursor);
 
@@ -184,13 +187,18 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
      */
     public IContextInformation[] computeContextInformation(ITextViewer viewer,
             int offset) {
-        // TODO Auto-generated method stub
+    
         return null;
     }
+   
     public IContextInformation[] computeContextInformation(IContentAssistSubjectControl viewer,
             int offset) {
-        // TODO Auto-generated method stub
-        return null;
+        
+        System.out.println("info");
+        ContextInformation info = new ContextInformation("111","deneme");
+        
+        return new ContextInformation[]{info};
+        
     }
 
 
@@ -212,12 +220,8 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getContextInformationValidator()
-     */
     public IContextInformationValidator getContextInformationValidator() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+        return new ContextInformationValidator(this);
+     }
 
 }

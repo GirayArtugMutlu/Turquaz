@@ -20,14 +20,20 @@ package com.turquaz.accounting.ui.comp;
 * @version  $Id$
 */
 
+import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
+import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
@@ -35,7 +41,9 @@ import org.eclipse.swt.SWT;
 
 
 import com.turquaz.accounting.ui.AccUIStaticAccountsDialog;
+import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 import com.cloudgarden.resource.SWTResourceManager;
 /**
@@ -61,7 +69,6 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 	}
 
 	private String filter="";
-	private Button button1;
 	private Text text1;
 	public AccountPicker(Composite parent, int style) {
 		super(parent, style);
@@ -86,27 +93,29 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 				text1.setEditable(true);
 				text1.setSize(new org.eclipse.swt.graphics.Point(358,22));
 				GridData text1LData = new GridData();
+                text1.addModifyListener(new ModifyListener() {
+                    public void modifyText(ModifyEvent evt) {
+                      
+                            try {
+                               setData2(EngBLAccountingAccounts
+                                    .getAccount(text1.getText().trim()));
+                                
+                                                           
+                                
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+
+                        }
+                    
+                });
 				text1.setBackground(SWTResourceManager.getColor(254, 254, 254));
-				text1.setEnabled(false);
+				
 				text1LData.verticalAlignment = GridData.FILL;
 				text1LData.horizontalAlignment = GridData.FILL;
 				text1LData.grabExcessHorizontalSpace = true;
 				text1LData.grabExcessVerticalSpace = true;
 				text1.setLayoutData(text1LData);
-			}
-			{
-				button1 = new Button(this, SWT.PUSH | SWT.CENTER | SWT.BORDER);
-				button1.setText("...");
-				button1.setSize(new org.eclipse.swt.graphics.Point(29, 18));
-				GridData button1LData = new GridData();
-				button1.addMouseListener(new MouseAdapter() {
-					public void mouseUp(MouseEvent evt) {
-						button1MouseUp(evt);
-					}
-				});
-				button1LData.verticalAlignment = GridData.FILL;
-				button1LData.widthHint = 25;
-				button1.setLayoutData(button1LData);
 			}
 			thisLayout.marginWidth = 0;
 			thisLayout.marginHeight = 0;
@@ -131,13 +140,35 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
-		
+	    TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(text1);
+	    
+	 	final SubjectControlContentAssistant asistant= TurquazContentAssistant.createContentAssistant(adapter,"accounting");
+	   
+	     adapter.appendVerifyKeyListener(
+	             new VerifyKeyListener() {
+	                 public void verifyKey(VerifyEvent event) {
+
+	                 // Check for Ctrl+Spacebar
+	                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
+	             
+	                  asistant.showPossibleCompletions();    
+	                   event.doit = false;
+
+	                 }
+	              }
+	           });
+	    
+	    
 	}
 	
 	public void setData(Object obj){
 		super.setData(obj);
 		TurqAccountingAccount account = (TurqAccountingAccount)obj;
-		text1.setText(account.getAccountCode()+"-"+account.getAccountName());
+		text1.setText(account.getAccountCode());
+		
+	}
+	public void setData2(Object obj){
+		super.setData(obj);
 		
 	}
 
