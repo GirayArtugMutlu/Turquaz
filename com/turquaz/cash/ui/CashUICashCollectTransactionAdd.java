@@ -188,7 +188,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
             {
                 txtCurrentAccount = new CurrentPicker(this, SWT.NONE);
                 GridData txtCurrentAccountLData = new GridData();
-                txtCurrentAccountLData.widthHint = 164;
+                txtCurrentAccountLData.widthHint = 167;
                 txtCurrentAccountLData.heightHint = 18;
                 txtCurrentAccount.setLayoutData(txtCurrentAccountLData);
       
