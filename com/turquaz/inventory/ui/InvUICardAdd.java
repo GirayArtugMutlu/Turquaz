@@ -92,6 +92,10 @@ import org.eclipse.swt.widgets.Label;
 
 
 import com.cloudgarden.resource.SWTResourceManager;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.TraverseListener;
+import org.eclipse.swt.events.TraverseEvent;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -488,6 +492,16 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						compInvCardDetails,
 						SWT.NONE);
 					GridData decTextSpecialVatAmountLData = new GridData();
+					decTextSpecialVatAmount
+						.addTraverseListener(new TraverseListener() {
+						public void keyTraversed(TraverseEvent evt) {
+							if (evt.keyCode==SWT.TAB)
+							{
+								tabfldInvCardAdd.setSelection(tabInvCardUnits);
+								evt.doit=false;
+							}
+						}
+						});
 					decTextSpecialVatAmountLData.widthHint = 91;
 					decTextSpecialVatAmountLData.heightHint = 16;
 					decTextSpecialVatAmount.setLayoutData(decTextSpecialVatAmountLData);
@@ -1209,6 +1223,16 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 							compInvCardGeneral,
 							SWT.MULTI | SWT.WRAP | SWT.H_SCROLL | SWT.V_SCROLL);
 						GridData txtInvCardDefinitionLData = new GridData();
+						txtInvCardDefinition
+							.addTraverseListener(new TraverseListener() {
+								public void keyTraversed(TraverseEvent evt) {
+									if (evt.keyCode == SWT.TAB) {
+										evt.doit = false;
+										tabfldInvCardAdd
+											.setSelection(tabInvCardDetails);
+									}
+								}
+							});
 						txtInvCardDefinitionLData.widthHint = 187;
 						txtInvCardDefinitionLData.heightHint = 46;
 						txtInvCardDefinitionLData.horizontalSpan = 3;

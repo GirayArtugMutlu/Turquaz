@@ -52,6 +52,10 @@ import com.turquaz.accounting.ui.comp.DynamicAccountPicker;
 import org.eclipse.swt.widgets.Composite;
 
 
+import org.eclipse.swt.events.TraverseListener;
+import org.eclipse.swt.events.TraverseEvent;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -617,6 +621,15 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			lblCardDefinition.setText(Messages.getString("CurUICurrentCardAdd.3")); //$NON-NLS-1$
 	
 			GridData txtCardDefinitionLData = new GridData();
+			txtCardDefinition.addTraverseListener(new TraverseListener() {
+				public void keyTraversed(TraverseEvent evt) {
+					if (evt.keyCode==SWT.TAB)
+					{
+						txtCardAddress.setFocus();
+						evt.doit=false;
+					}
+				}
+			});
 			txtCardDefinitionLData.verticalAlignment = GridData.CENTER;
 			txtCardDefinitionLData.horizontalAlignment = GridData.BEGINNING;
 			txtCardDefinitionLData.widthHint = 403;
@@ -644,6 +657,15 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			lblCardAddress.setText(Messages.getString("CurUICurrentCardAdd.4")); //$NON-NLS-1$
 	
 			GridData txtCardAddressLData = new GridData();
+			txtCardAddress.addTraverseListener(new TraverseListener() {
+				public void keyTraversed(TraverseEvent evt) {
+					if (evt.keyCode==SWT.TAB)
+					{
+						numtxtCountryCode.setFocus();
+						evt.doit=false;
+					}
+				}
+			});
 			txtCardAddressLData.verticalAlignment = GridData.CENTER;
 			txtCardAddressLData.horizontalAlignment = GridData.BEGINNING;
 			txtCardAddressLData.widthHint = 403;
@@ -1051,6 +1073,15 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			lblContactAddress.setText(Messages.getString("CurUICurrentCardAdd.17")); //$NON-NLS-1$
 	
 			GridData txtContactAddressLData = new GridData();
+			txtContactAddress.addTraverseListener(new TraverseListener() {
+				public void keyTraversed(TraverseEvent evt) {
+					if (evt.keyCode==SWT.TAB)
+					{
+						txtContactPhone.setFocus();
+						evt.doit=false;
+					}
+				}
+			});
 			txtContactAddressLData.verticalAlignment = GridData.CENTER;
 			txtContactAddressLData.horizontalAlignment = GridData.BEGINNING;
 			txtContactAddressLData.widthHint = 369;
@@ -1181,6 +1212,14 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			cLabel2.setText(Messages.getString("CurUICurrentCardAdd.22")); //$NON-NLS-1$
 	
 			GridData txtContactWebSiteLData = new GridData();
+			txtContactWebSite.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if (evt.keyCode==SWT.TAB)
+					{
+						tbfCurrentCardAdd.setSelection(tabItemCurrentGroups);
+					}
+				}
+			});
 			txtContactWebSiteLData.verticalAlignment = GridData.CENTER;
 			txtContactWebSiteLData.horizontalAlignment = GridData.BEGINNING;
 			txtContactWebSiteLData.widthHint = 191;
