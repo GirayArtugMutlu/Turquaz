@@ -349,7 +349,7 @@ public final class TreeFactory {
 			}
 		if(EngBLPermissions.getPermission(BillUIAddSellBill.class.getName())>0){
 			item = new TreeItem(root,SWT.NULL);
-			item.setText(Messages.getString("TreeFactory.40")); //$NON-NLS-1$
+			item.setText(Messages.getString("TreeFactory.42"));  //$NON-NLS-1$
 			item.setData(BillUIAddSellBill.class.getName());
 			}
 		root.setExpanded(true);

@@ -8,6 +8,7 @@ import java.util.List;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Table;
@@ -150,7 +151,7 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
             }
             {
                 lblJournalDate = new CLabel(this, SWT.NONE);
-                lblJournalDate.setText("Yevmiye Tarihi");
+                lblJournalDate.setText(Messages.getString("AccUISaveJournal.6")); //$NON-NLS-1$
                 GridData lblJournalDateLData = new GridData();
                 lblJournalDateLData.widthHint = 92;
                 lblJournalDateLData.heightHint = 19;
@@ -220,6 +221,11 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 	}
 	public void saveJournalItems(){
 	    try{
+	        MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_WARNING|SWT.OK|SWT.CANCEL);
+	        msg.setMessage(Messages.getString("AccUISaveJournal.7")); //$NON-NLS-1$
+	        
+	        int result = msg.open();
+	        if(result ==SWT.OK){
 	        TableItem items[] = tableAccountingTransaction.getItems();
 	        for(int i=0;i<items.length;i++){
 	            
@@ -232,7 +238,7 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 	        }
 	         
 	        fillTable();
-	        
+	        }
 	        
 	    }
 	    catch(Exception ex){

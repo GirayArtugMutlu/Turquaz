@@ -407,6 +407,496 @@ public class BillUIAddBuyBill extends org.eclipse.swt.widgets.Composite
 				cTabFolder1LData.horizontalAlignment = GridData.FILL;
 				cTabFolder1LData.verticalAlignment = GridData.FILL;
 				cTabFolder1.setLayoutData(cTabFolder1LData);
+                {
+                    tabItemGeneral = new CTabItem(cTabFolder1, SWT.NONE);
+                    tabItemGeneral.setText(Messages
+                        .getString("BillUIAddBill.0")); //$NON-NLS-1$
+                    tabItemGeneral.setImage(SWTResourceManager
+                        .getImage("icons/Home16.gif")); //$NON-NLS-1$
+                    tabItemGeneral.setText(Messages
+                        .getString("BillUIAddBill.2")); //$NON-NLS-1$
+
+                    {
+                        compGeneral = new Composite(cTabFolder1, SWT.NONE);
+                        GridLayout compGeneralLayout = new GridLayout();
+                        compGeneralLayout.numColumns = 2;
+                        compGeneral.setLayout(compGeneralLayout);
+                        tabItemGeneral.setControl(compGeneral);
+                        {
+                            compInfoPanel = new Composite(compGeneral, SWT.NONE);
+                            GridLayout compInfoPanelLayout = new GridLayout();
+                            GridData compInfoPanelLData = new GridData();
+                            compInfoPanelLData.horizontalSpan = 2;
+                            compInfoPanelLData.horizontalAlignment = GridData.FILL;
+                            compInfoPanelLData.heightHint = 106;
+                            compInfoPanelLData.grabExcessHorizontalSpace = true;
+                            compInfoPanel.setLayoutData(compInfoPanelLData);
+                            compInfoPanelLayout.numColumns = 4;
+                            compInfoPanel.setLayout(compInfoPanelLayout);
+                            {
+                                lblCurrentCard = new CLabel(
+                                    compInfoPanel,
+                                    SWT.NONE);
+                                lblCurrentCard.setText(Messages
+                                    .getString("BillUIAddBill.3")); //$NON-NLS-1$
+                                GridData lblCurrentCardLData1 = new GridData();
+                                lblCurrentCard.setSize(88, 19);
+                                lblCurrentCardLData1.widthHint = 88;
+                                lblCurrentCardLData1.heightHint = 19;
+                                lblCurrentCardLData1.verticalAlignment = GridData.BEGINNING;
+                                lblCurrentCard
+                                    .setLayoutData(lblCurrentCardLData1);
+                            }
+                            {
+                                txtCurrentCard = new Text(
+                                    compInfoPanel,
+                                    SWT.SINGLE);
+                                GridData txtCurrentCardLData = new GridData();
+                                txtCurrentCard
+                                    .addModifyListener(new ModifyListener() {
+                                        public void modifyText(ModifyEvent evt) {
+
+                                            try {
+                                                txtCurrentCard
+                                                    .setData(EngBLCurrentCards
+                                                        .getCards(txtCurrentCard
+                                                            .getText().trim()));
+                                            } catch (Exception ex) {
+                                                ex.printStackTrace();
+                                            }
+
+                                        }
+                                    });
+                                txtCurrentCard.setBackground(SWTResourceManager
+                                    .getColor(255, 255, 255));
+                                txtCurrentCardLData.widthHint = 109;
+                                txtCurrentCardLData.heightHint = 15;
+                                txtCurrentCardLData.horizontalSpan = 3;
+                                txtCurrentCard
+                                    .setLayoutData(txtCurrentCardLData);
+                            }
+                            {
+                                lblDocumentNo = new CLabel(
+                                    compInfoPanel,
+                                    SWT.NONE);
+                                lblDocumentNo.setText(Messages
+                                    .getString("BillUIAddBill.5")); //$NON-NLS-1$
+                                GridData lblDocumentNoLData = new GridData();
+                                lblDocumentNoLData.widthHint = 107;
+                                lblDocumentNoLData.heightHint = 15;
+                                lblDocumentNo.setLayoutData(lblDocumentNoLData);
+                            }
+                            {
+                                txtDocumentNo = new Text(
+                                    compInfoPanel,
+                                    SWT.NONE);
+                                GridData txtDocumentNoLData = new GridData();
+                                txtDocumentNoLData.widthHint = 106;
+                                txtDocumentNoLData.heightHint = 16;
+                                txtDocumentNo.setLayoutData(txtDocumentNoLData);
+                            }
+                            {
+                                lblBillDocumentNo = new CLabel(
+                                    compInfoPanel,
+                                    SWT.RIGHT);
+                                lblBillDocumentNo.setText(Messages
+                                    .getString("BillUIAddBill.6")); //$NON-NLS-1$
+                                GridData lblBillDocumentNoLData = new GridData();
+                                lblBillDocumentNoLData.widthHint = 148;
+                                lblBillDocumentNoLData.heightHint = 17;
+                                lblBillDocumentNoLData.horizontalAlignment = GridData.END;
+                                lblBillDocumentNo
+                                    .setLayoutData(lblBillDocumentNoLData);
+                            }
+                            {
+                                txtConsignmentDocumentNo = new Text(
+                                    compInfoPanel,
+                                    SWT.NONE);
+                                GridData txtBillDocumentNoLData = new GridData();
+                                txtBillDocumentNoLData.widthHint = 133;
+                                txtBillDocumentNoLData.heightHint = 15;
+                                txtConsignmentDocumentNo
+                                    .setLayoutData(txtBillDocumentNoLData);
+                            }
+                            {
+                                lblDate = new CLabel(compInfoPanel, SWT.LEFT);
+                                lblDate.setText(Messages
+                                    .getString("BillUIAddBill.7")); //$NON-NLS-1$
+                                GridData lblDateLData = new GridData();
+                                lblDateLData.widthHint = 100;
+                                lblDateLData.heightHint = 22;
+                                lblDate.setLayoutData(lblDateLData);
+                            }
+                            {
+                                dateConsignmentDate = new DatePicker(
+                                    compInfoPanel,
+                                    SWT.EMBEDDED);
+                                GridData dateConsignmentDateLData = new GridData();
+                                dateConsignmentDateLData.widthHint = 113;
+                                dateConsignmentDateLData.heightHint = 20;
+                                dateConsignmentDate
+                                    .setLayoutData(dateConsignmentDateLData);
+                            }
+                            {
+                                lblDefinition = new CLabel(
+                                    compInfoPanel,
+                                    SWT.RIGHT);
+                                lblDefinition.setText(Messages
+                                    .getString("BillUIAddBill.11")); //$NON-NLS-1$
+                                GridData lblDefinitionLData = new GridData();
+                                lblDefinitionLData.widthHint = 108;
+                                lblDefinitionLData.heightHint = 20;
+                                lblDefinitionLData.verticalAlignment = GridData.BEGINNING;
+                                lblDefinitionLData.horizontalAlignment = GridData.END;
+                                lblDefinition.setLayoutData(lblDefinitionLData);
+                            }
+                            {
+                                txtDefinition = new Text(
+                                    compInfoPanel,
+                                    SWT.NONE);
+                                GridData txtDefinitionLData = new GridData();
+                                txtDefinitionLData.widthHint = 246;
+                                txtDefinitionLData.heightHint = 15;
+                                txtDefinition.setLayoutData(txtDefinitionLData);
+                            }
+                            {
+                                lblDiscountRate = new CLabel(
+                                    compInfoPanel,
+                                    SWT.LEFT);
+                                lblDiscountRate.setText(Messages
+                                    .getString("BillUIAddBill.10")); //$NON-NLS-1$
+                                GridData lblDiscountRateLData = new GridData();
+                                lblDiscountRateLData.widthHint = 79;
+                                lblDiscountRateLData.heightHint = 17;
+                                lblDiscountRate
+                                    .setLayoutData(lblDiscountRateLData);
+                            }
+                            {
+                                txtDiscountRate = new NumericText(
+                                    compInfoPanel,
+                                    SWT.NONE);
+                                txtDiscountRate
+                                    .addModifyListener(new ModifyListener() {
+                                        public void modifyText(ModifyEvent evt) {
+                                            calculateTotals();
+                                        }
+                                    });
+                                GridData txtDiscountRateLData = new GridData();
+                                txtDiscountRate.setTextLimit(2);
+                                txtDiscountRateLData.widthHint = 105;
+                                txtDiscountRateLData.heightHint = 17;
+                                txtDiscountRate
+                                    .setLayoutData(txtDiscountRateLData);
+                            }
+                            {
+                                lblPaymentType = new Label(
+                                    compInfoPanel,
+                                    SWT.RIGHT);
+                                lblPaymentType.setText(Messages
+                                    .getString("BillUIAddBill.12")); //$NON-NLS-1$
+                                GridData lblPaymentTypeLData1 = new GridData();
+                                lblPaymentTypeLData1.horizontalAlignment = GridData.END;
+                                lblPaymentType
+                                    .setLayoutData(lblPaymentTypeLData1);
+                                GridData lblPaymentTypeLData = new GridData();
+                                lblPaymentTypeLData.horizontalAlignment = GridData.END;
+                            }
+                            {
+                                comboPaymentType = new CCombo(
+                                    compInfoPanel,
+                                    SWT.NONE);
+                                comboPaymentType.setEditable(false);
+                                comboPaymentType
+                                    .setBackground(SWTResourceManager.getColor(
+                                        255,
+                                        255,
+                                        255));
+                                GridData comboPaymentTypeLData = new GridData();
+                                comboPaymentTypeLData.widthHint = 90;
+                                comboPaymentTypeLData.heightHint = 16;
+                                comboPaymentType
+                                    .setLayoutData(comboPaymentTypeLData);
+                            }
+
+                        }
+                        {
+                            compbuttons = new Composite(compGeneral, SWT.NONE);
+                            GridLayout composite1Layout = new GridLayout();
+                            GridData composite1LData = new GridData();
+                            composite1LData.widthHint = 43;
+                            composite1LData.heightHint = 81;
+                            composite1LData.verticalAlignment = GridData.BEGINNING;
+                            compbuttons.setLayoutData(composite1LData);
+                            composite1Layout.makeColumnsEqualWidth = true;
+                            compbuttons.setLayout(composite1Layout);
+                            {
+                                btnAddConsignmentRow = new Button(
+                                    compbuttons,
+                                    SWT.PUSH | SWT.CENTER);
+                                btnAddConsignmentRow
+                                    .setImage(SWTResourceManager
+                                        .getImage("icons/plus.gif")); //$NON-NLS-1$
+                                btnAddConsignmentRow
+                                    .addMouseListener(new MouseAdapter() {
+                                        public void mouseUp(MouseEvent evt) {
+                                            btnAddConsignmentRowMouseUp();
+                                        }
+                                    });
+                            }
+                            {
+                                buttonConsignmentRemove = new Button(
+                                    compbuttons,
+                                    SWT.PUSH | SWT.CENTER);
+                                buttonConsignmentRemove
+                                    .setImage(SWTResourceManager
+                                        .getImage("icons/minus.gif")); //$NON-NLS-1$
+                                buttonConsignmentRemove
+                                    .addMouseListener(new MouseAdapter() {
+                                        public void mouseUp(MouseEvent evt) {
+                                            TableItem selection[] = tableConsignmentRows
+                                                .getSelection();
+                                            if (selection.length > 0) {
+                                                selection[0].dispose();
+                                            }
+                                        }
+                                    });
+                            }
+                        }
+                        {
+                            tableConsignmentRows = new Table(
+                                compGeneral,
+                                SWT.SINGLE | SWT.FULL_SELECTION | SWT.BORDER);
+                            GridData tableConsignmentRowsLData = new GridData();
+                            tableConsignmentRows.setLinesVisible(true);
+                            tableConsignmentRows.setHeaderVisible(true);
+                            tableConsignmentRowsLData.grabExcessHorizontalSpace = true;
+                            tableConsignmentRowsLData.grabExcessVerticalSpace = true;
+                            tableConsignmentRowsLData.horizontalAlignment = GridData.FILL;
+                            tableConsignmentRowsLData.verticalAlignment = GridData.FILL;
+                            tableConsignmentRows
+                                .setLayoutData(tableConsignmentRowsLData);
+                            {
+                                tableColumnInventoryCode = new TableColumn(
+                                    tableConsignmentRows,
+                                    SWT.NONE);
+                                tableColumnInventoryCode.setText(Messages
+                                    .getString("BillUIAddBill.15")); //$NON-NLS-1$
+                                tableColumnInventoryCode.setWidth(98);
+                            }
+                            {
+                                tableColumnInventoryName = new TableColumn(
+                                    tableConsignmentRows,
+                                    SWT.NONE);
+                                tableColumnInventoryName.setText(Messages
+                                    .getString("BillUIAddBill.16")); //$NON-NLS-1$
+                                tableColumnInventoryName.setWidth(106);
+                            }
+                            {
+                                tableColumnAmount = new TableColumn(
+                                    tableConsignmentRows,
+                                    SWT.NONE);
+                                tableColumnAmount.setText(Messages
+                                    .getString("BillUIAddBill.17")); //$NON-NLS-1$
+                                tableColumnAmount.setWidth(99);
+                            }
+                            {
+                                tableColumnUnit = new TableColumn(
+                                    tableConsignmentRows,
+                                    SWT.NONE);
+                                tableColumnUnit.setText(Messages
+                                    .getString("BillUIAddBill.18")); //$NON-NLS-1$
+                                tableColumnUnit.setWidth(54);
+                            }
+                            {
+                                tableColumnUnitPrice = new TableColumn(
+                                    tableConsignmentRows,
+                                    SWT.NONE);
+                                tableColumnUnitPrice.setText(Messages
+                                    .getString("BillUIAddBill.19")); //$NON-NLS-1$
+                                tableColumnUnitPrice.setWidth(84);
+                            }
+                            {
+                                tableColumnTotalPrice = new TableColumn(
+                                    tableConsignmentRows,
+                                    SWT.NONE);
+                                tableColumnTotalPrice.setText(Messages
+                                    .getString("BillUIAddBill.20")); //$NON-NLS-1$
+                                tableColumnTotalPrice.setWidth(94);
+                            }
+                            {
+                                tableColumnVat = new TableColumn(
+                                    tableConsignmentRows,
+                                    SWT.NONE);
+                                tableColumnVat.setText(Messages
+                                    .getString("BillUIAddBill.21")); //$NON-NLS-1$
+                                tableColumnVat.setWidth(50);
+                            }
+                            {
+                                tableColumnVatAmount = new TableColumn(
+                                    tableConsignmentRows,
+                                    SWT.NONE);
+                                tableColumnVatAmount.setText(Messages
+                                    .getString("BillUIAddBill.22")); //$NON-NLS-1$
+                                tableColumnVatAmount.setWidth(90);
+                            }
+                            {
+                                TableColumnVATSpecial = new TableColumn(
+                                    tableConsignmentRows,
+                                    SWT.NONE);
+                                TableColumnVATSpecial.setText(Messages
+                                    .getString("BillUIAddBill.23")); //$NON-NLS-1$
+                                TableColumnVATSpecial.setWidth(100);
+                            }
+                            {
+                                tableColumnCumulative = new TableColumn(
+                                    tableConsignmentRows,
+                                    SWT.NONE);
+                                tableColumnCumulative.setText(Messages
+                                    .getString("BillUIAddBill.24")); //$NON-NLS-1$
+                                tableColumnCumulative.setWidth(100);
+                            }
+                        }
+                        {
+                            compTotalsPanel = new Composite(
+                                compGeneral,
+                                SWT.NONE);
+                            GridLayout composite1Layout1 = new GridLayout();
+                            GridData composite1LData1 = new GridData();
+                            composite1LData1.grabExcessHorizontalSpace = true;
+                            composite1LData1.horizontalSpan = 2;
+                            composite1LData1.horizontalAlignment = GridData.FILL;
+                            composite1LData1.heightHint = 111;
+                            compTotalsPanel.setLayoutData(composite1LData1);
+                            composite1Layout1.numColumns = 4;
+                            compTotalsPanel.setLayout(composite1Layout1);
+                            {
+                                lblDiscountAmount = new CLabel(
+                                    compTotalsPanel,
+                                    SWT.NONE);
+                                lblDiscountAmount.setText(Messages
+                                    .getString("BillUIAddBill.1")); //$NON-NLS-1$
+                                GridData lblDiscountAmountLData = new GridData();
+                                lblDiscountAmountLData.widthHint = 105;
+                                lblDiscountAmountLData.heightHint = 19;
+                                lblDiscountAmount
+                                    .setLayoutData(lblDiscountAmountLData);
+                            }
+                            {
+                                txtDiscountAmount = new CurrencyText(
+                                    compTotalsPanel,
+                                    SWT.NONE);
+                                GridData txtDiscountAmountLData = new GridData();
+                                txtDiscountAmount
+                                    .setBackground(SWTResourceManager.getColor(
+                                        255,
+                                        255,
+                                        255));
+                                txtDiscountAmount.setEditable(false);
+                                txtDiscountAmountLData.widthHint = 191;
+                                txtDiscountAmountLData.heightHint = 18;
+                                txtDiscountAmount
+                                    .setLayoutData(txtDiscountAmountLData);
+                            }
+                            {
+                                lblTotalAmount = new CLabel(
+                                    compTotalsPanel,
+                                    SWT.NONE);
+                                lblTotalAmount.setText(Messages
+                                    .getString("BillUIAddBill.26")); //$NON-NLS-1$
+                                GridData lblTotalAmountLData = new GridData();
+                                lblTotalAmountLData.widthHint = 90;
+                                lblTotalAmountLData.heightHint = 20;
+                                lblTotalAmount
+                                    .setLayoutData(lblTotalAmountLData);
+                            }
+                            {
+                                txtTotalAmount = new CurrencyText(
+                                    compTotalsPanel,
+                                    SWT.NONE);
+                                GridData txtTotalAmountLData = new GridData();
+                                txtTotalAmount.setBackground(SWTResourceManager
+                                    .getColor(255, 255, 255));
+                                txtTotalAmount.setEditable(false);
+                                txtTotalAmountLData.widthHint = 197;
+                                txtTotalAmountLData.heightHint = 17;
+                                txtTotalAmount
+                                    .setLayoutData(txtTotalAmountLData);
+                            }
+                            {
+                                lblInventoryPrice = new CLabel(
+                                    compTotalsPanel,
+                                    SWT.NONE);
+                                lblInventoryPrice.setText(Messages
+                                    .getString("BillUIAddBill.27")); //$NON-NLS-1$
+                                GridData lblInventoryPriceLData = new GridData();
+                                lblInventoryPrice.setSize(87, 19);
+                                lblInventoryPriceLData.widthHint = 87;
+                                lblInventoryPriceLData.heightHint = 19;
+                                lblInventoryPrice
+                                    .setLayoutData(lblInventoryPriceLData);
+                            }
+                            {
+                                txtSubTotal = new CurrencyText(
+                                    compTotalsPanel,
+                                    SWT.NONE);
+                                GridData text1LData = new GridData();
+                                txtSubTotal.setBackground(SWTResourceManager
+                                    .getColor(255, 255, 255));
+                                txtSubTotal.setEditable(false);
+                                text1LData.widthHint = 190;
+                                text1LData.heightHint = 19;
+                                text1LData.horizontalSpan = 3;
+                                txtSubTotal.setLayoutData(text1LData);
+                            }
+                            {
+                                lblTotalVat = new CLabel(
+                                    compTotalsPanel,
+                                    SWT.NONE);
+                                lblTotalVat.setText(Messages
+                                    .getString("BillUIAddBill.28")); //$NON-NLS-1$
+                                GridData lblTotalVatLData = new GridData();
+                                lblTotalVat.setSize(87, 19);
+                                lblTotalVatLData.widthHint = 87;
+                                lblTotalVatLData.heightHint = 19;
+                                lblTotalVat.setLayoutData(lblTotalVatLData);
+                            }
+                            {
+                                txtTotalVat = new CurrencyText(
+                                    compTotalsPanel,
+                                    SWT.NONE);
+                                GridData txtTotalVatLData = new GridData();
+                                txtTotalVat.setBackground(SWTResourceManager
+                                    .getColor(255, 255, 255));
+                                txtTotalVat.setEditable(false);
+                                txtTotalVatLData.widthHint = 190;
+                                txtTotalVatLData.heightHint = 19;
+                                txtTotalVatLData.horizontalSpan = 3;
+                                txtTotalVat.setLayoutData(txtTotalVatLData);
+                            }
+                            {
+                                lblSpecialVAT = new Label(
+                                    compTotalsPanel,
+                                    SWT.NONE);
+                                lblSpecialVAT.setText(Messages
+                                    .getString("BillUIAddBill.29")); //$NON-NLS-1$
+                                GridData lblSpecialVATLData = new GridData();
+                                lblSpecialVATLData.widthHint = 94;
+                                lblSpecialVATLData.heightHint = 16;
+                                lblSpecialVAT.setLayoutData(lblSpecialVATLData);
+                            }
+                            {
+                                decSpecialVat = new CurrencyText(
+                                    compTotalsPanel,
+                                    SWT.NONE);
+                                GridData decSpecialVatLData = new GridData();
+                                decSpecialVatLData.widthHint = 191;
+                                decSpecialVatLData.heightHint = 19;
+                                decSpecialVatLData.horizontalSpan = 3;
+                                decSpecialVat.setLayoutData(decSpecialVatLData);
+                            }
+                        }
+                    }
+                }
 				{
 					tabItemGroups = new CTabItem(cTabFolder1, SWT.NONE);
 
@@ -445,459 +935,6 @@ public class BillUIAddBuyBill extends org.eclipse.swt.widgets.Composite
 							btnUpdateGroupsLData.widthHint = 112;
 							btnUpdateGroupsLData.heightHint = 22;
 							btnUpdateGroups.setLayoutData(btnUpdateGroupsLData);
-						}
-					}
-				}
-				{
-					tabItemGeneral = new CTabItem(cTabFolder1, SWT.NONE);
-					tabItemGeneral.setText(Messages
-							.getString("BillUIAddBill.0")); //$NON-NLS-1$
-					tabItemGeneral.setImage(SWTResourceManager
-							.getImage("icons/Home16.gif")); //$NON-NLS-1$
-					tabItemGeneral.setText(Messages
-							.getString("BillUIAddBill.2")); //$NON-NLS-1$
-
-					{
-						compGeneral = new Composite(cTabFolder1, SWT.NONE);
-						GridLayout compGeneralLayout = new GridLayout();
-						compGeneralLayout.numColumns = 2;
-						compGeneral.setLayout(compGeneralLayout);
-						tabItemGeneral.setControl(compGeneral);
-						{
-							compInfoPanel = new Composite(compGeneral, SWT.NONE);
-							GridLayout compInfoPanelLayout = new GridLayout();
-							GridData compInfoPanelLData = new GridData();
-							compInfoPanelLData.horizontalSpan = 2;
-							compInfoPanelLData.horizontalAlignment = GridData.FILL;
-							compInfoPanelLData.heightHint = 106;
-							compInfoPanelLData.grabExcessHorizontalSpace = true;
-							compInfoPanel.setLayoutData(compInfoPanelLData);
-							compInfoPanelLayout.numColumns = 4;
-							compInfoPanel.setLayout(compInfoPanelLayout);
-							{
-								lblCurrentCard = new CLabel(compInfoPanel,
-										SWT.NONE);
-								lblCurrentCard.setText(Messages
-										.getString("BillUIAddBill.3")); //$NON-NLS-1$
-								GridData lblCurrentCardLData1 = new GridData();
-								lblCurrentCard.setSize(88, 19);
-								lblCurrentCardLData1.widthHint = 88;
-								lblCurrentCardLData1.heightHint = 19;
-								lblCurrentCardLData1.verticalAlignment = GridData.BEGINNING;
-								lblCurrentCard
-										.setLayoutData(lblCurrentCardLData1);
-							}
-							{
-								txtCurrentCard = new Text(compInfoPanel,
-										SWT.SINGLE);
-								GridData txtCurrentCardLData = new GridData();
-								txtCurrentCard
-										.addModifyListener(new ModifyListener() {
-											public void modifyText(
-													ModifyEvent evt) {
-
-												try {
-													txtCurrentCard
-															.setData(EngBLCurrentCards
-																	.getCards(txtCurrentCard
-																			.getText()
-																			.trim()));
-												} catch (Exception ex) {
-													ex.printStackTrace();
-												}
-
-											}
-										});
-								txtCurrentCard.setBackground(SWTResourceManager
-										.getColor(255, 255, 255));
-								txtCurrentCardLData.widthHint = 109;
-								txtCurrentCardLData.heightHint = 15;
-								txtCurrentCardLData.horizontalSpan = 3;
-								txtCurrentCard
-										.setLayoutData(txtCurrentCardLData);
-							}
-							{
-								lblDocumentNo = new CLabel(compInfoPanel,
-										SWT.NONE);
-								lblDocumentNo.setText(Messages
-										.getString("BillUIAddBill.5")); //$NON-NLS-1$
-								GridData lblDocumentNoLData = new GridData();
-								lblDocumentNoLData.widthHint = 107;
-								lblDocumentNoLData.heightHint = 15;
-								lblDocumentNo.setLayoutData(lblDocumentNoLData);
-							}
-							{
-								txtDocumentNo = new Text(compInfoPanel,
-										SWT.NONE);
-								GridData txtDocumentNoLData = new GridData();
-								txtDocumentNoLData.widthHint = 106;
-								txtDocumentNoLData.heightHint = 16;
-								txtDocumentNo.setLayoutData(txtDocumentNoLData);
-							}
-							{
-								lblBillDocumentNo = new CLabel(compInfoPanel,
-										SWT.RIGHT);
-								lblBillDocumentNo.setText(Messages
-										.getString("BillUIAddBill.6")); //$NON-NLS-1$
-								GridData lblBillDocumentNoLData = new GridData();
-								lblBillDocumentNoLData.widthHint = 148;
-								lblBillDocumentNoLData.heightHint = 17;
-								lblBillDocumentNoLData.horizontalAlignment = GridData.END;
-								lblBillDocumentNo
-										.setLayoutData(lblBillDocumentNoLData);
-							}
-							{
-								txtConsignmentDocumentNo = new Text(
-										compInfoPanel, SWT.NONE);
-								GridData txtBillDocumentNoLData = new GridData();
-								txtBillDocumentNoLData.widthHint = 133;
-								txtBillDocumentNoLData.heightHint = 15;
-								txtConsignmentDocumentNo
-										.setLayoutData(txtBillDocumentNoLData);
-							}
-							{
-								lblDate = new CLabel(compInfoPanel, SWT.LEFT);
-								lblDate.setText(Messages
-										.getString("BillUIAddBill.7")); //$NON-NLS-1$
-								GridData lblDateLData = new GridData();
-								lblDateLData.widthHint = 100;
-								lblDateLData.heightHint = 22;
-								lblDate.setLayoutData(lblDateLData);
-							}
-							{
-								dateConsignmentDate = new DatePicker(
-										compInfoPanel, SWT.EMBEDDED);
-								GridData dateConsignmentDateLData = new GridData();
-								dateConsignmentDateLData.widthHint = 113;
-								dateConsignmentDateLData.heightHint = 20;
-								dateConsignmentDate
-										.setLayoutData(dateConsignmentDateLData);
-							}
-							{
-								lblDefinition = new CLabel(compInfoPanel,
-										SWT.RIGHT);
-								lblDefinition.setText(Messages
-										.getString("BillUIAddBill.11")); //$NON-NLS-1$
-								GridData lblDefinitionLData = new GridData();
-								lblDefinitionLData.widthHint = 108;
-								lblDefinitionLData.heightHint = 20;
-								lblDefinitionLData.verticalAlignment = GridData.BEGINNING;
-								lblDefinitionLData.horizontalAlignment = GridData.END;
-								lblDefinition.setLayoutData(lblDefinitionLData);
-							}
-							{
-								txtDefinition = new Text(compInfoPanel,
-										SWT.NONE);
-								GridData txtDefinitionLData = new GridData();
-								txtDefinitionLData.widthHint = 246;
-								txtDefinitionLData.heightHint = 15;
-								txtDefinition.setLayoutData(txtDefinitionLData);
-							}
-							{
-								lblDiscountRate = new CLabel(compInfoPanel,
-										SWT.LEFT);
-								lblDiscountRate.setText(Messages
-										.getString("BillUIAddBill.10")); //$NON-NLS-1$
-								GridData lblDiscountRateLData = new GridData();
-								lblDiscountRateLData.widthHint = 79;
-								lblDiscountRateLData.heightHint = 17;
-								lblDiscountRate
-										.setLayoutData(lblDiscountRateLData);
-							}
-							{
-								txtDiscountRate = new NumericText(
-										compInfoPanel, SWT.NONE);
-								txtDiscountRate
-										.addModifyListener(new ModifyListener() {
-											public void modifyText(
-													ModifyEvent evt) {
-												calculateTotals();
-											}
-										});
-								GridData txtDiscountRateLData = new GridData();
-								txtDiscountRate.setTextLimit(2);
-								txtDiscountRateLData.widthHint = 105;
-								txtDiscountRateLData.heightHint = 17;
-								txtDiscountRate
-										.setLayoutData(txtDiscountRateLData);
-							}
-							{
-								lblPaymentType = new Label(compInfoPanel,
-										SWT.RIGHT);
-								lblPaymentType.setText(Messages
-										.getString("BillUIAddBill.12")); //$NON-NLS-1$
-								GridData lblPaymentTypeLData1 = new GridData();
-								lblPaymentTypeLData1.horizontalAlignment = GridData.END;
-								lblPaymentType
-										.setLayoutData(lblPaymentTypeLData1);
-								GridData lblPaymentTypeLData = new GridData();
-								lblPaymentTypeLData.horizontalAlignment = GridData.END;
-							}
-							{
-								comboPaymentType = new CCombo(compInfoPanel,
-										SWT.NONE);
-								comboPaymentType.setEditable(false);
-								comboPaymentType
-										.setBackground(SWTResourceManager
-												.getColor(255, 255, 255));
-								GridData comboPaymentTypeLData = new GridData();
-								comboPaymentTypeLData.widthHint = 90;
-								comboPaymentTypeLData.heightHint = 16;
-								comboPaymentType
-										.setLayoutData(comboPaymentTypeLData);
-							}
-
-						}
-						{
-							compbuttons = new Composite(compGeneral, SWT.NONE);
-							GridLayout composite1Layout = new GridLayout();
-							GridData composite1LData = new GridData();
-							composite1LData.widthHint = 43;
-							composite1LData.heightHint = 81;
-							composite1LData.verticalAlignment = GridData.BEGINNING;
-							compbuttons.setLayoutData(composite1LData);
-							composite1Layout.makeColumnsEqualWidth = true;
-							compbuttons.setLayout(composite1Layout);
-							{
-								btnAddConsignmentRow = new Button(compbuttons,
-										SWT.PUSH | SWT.CENTER);
-								btnAddConsignmentRow
-										.setImage(SWTResourceManager
-												.getImage("icons/plus.gif")); //$NON-NLS-1$
-								btnAddConsignmentRow
-										.addMouseListener(new MouseAdapter() {
-											public void mouseUp(MouseEvent evt) {
-												btnAddConsignmentRowMouseUp();
-											}
-										});
-							}
-							{
-								buttonConsignmentRemove = new Button(
-										compbuttons, SWT.PUSH | SWT.CENTER);
-								buttonConsignmentRemove
-										.setImage(SWTResourceManager
-												.getImage("icons/minus.gif")); //$NON-NLS-1$
-								buttonConsignmentRemove
-										.addMouseListener(new MouseAdapter() {
-											public void mouseUp(MouseEvent evt) {
-												TableItem selection[] = tableConsignmentRows
-														.getSelection();
-												if (selection.length > 0) {
-													selection[0].dispose();
-												}
-											}
-										});
-							}
-						}
-						{
-							tableConsignmentRows = new Table(compGeneral,
-									SWT.SINGLE | SWT.FULL_SELECTION
-											| SWT.BORDER);
-							GridData tableConsignmentRowsLData = new GridData();
-							tableConsignmentRows.setLinesVisible(true);
-							tableConsignmentRows.setHeaderVisible(true);
-							tableConsignmentRowsLData.grabExcessHorizontalSpace = true;
-							tableConsignmentRowsLData.grabExcessVerticalSpace = true;
-							tableConsignmentRowsLData.horizontalAlignment = GridData.FILL;
-							tableConsignmentRowsLData.verticalAlignment = GridData.FILL;
-							tableConsignmentRows
-									.setLayoutData(tableConsignmentRowsLData);
-							{
-								tableColumnInventoryCode = new TableColumn(
-										tableConsignmentRows, SWT.NONE);
-								tableColumnInventoryCode.setText(Messages
-										.getString("BillUIAddBill.15")); //$NON-NLS-1$
-								tableColumnInventoryCode.setWidth(98);
-							}
-							{
-								tableColumnInventoryName = new TableColumn(
-										tableConsignmentRows, SWT.NONE);
-								tableColumnInventoryName.setText(Messages
-										.getString("BillUIAddBill.16")); //$NON-NLS-1$
-								tableColumnInventoryName.setWidth(106);
-							}
-							{
-								tableColumnAmount = new TableColumn(
-										tableConsignmentRows, SWT.NONE);
-								tableColumnAmount.setText(Messages
-										.getString("BillUIAddBill.17")); //$NON-NLS-1$
-								tableColumnAmount.setWidth(99);
-							}
-							{
-								tableColumnUnit = new TableColumn(
-										tableConsignmentRows, SWT.NONE);
-								tableColumnUnit.setText(Messages
-										.getString("BillUIAddBill.18")); //$NON-NLS-1$
-								tableColumnUnit.setWidth(54);
-							}
-							{
-								tableColumnUnitPrice = new TableColumn(
-										tableConsignmentRows, SWT.NONE);
-								tableColumnUnitPrice.setText(Messages
-										.getString("BillUIAddBill.19")); //$NON-NLS-1$
-								tableColumnUnitPrice.setWidth(84);
-							}
-							{
-								tableColumnTotalPrice = new TableColumn(
-										tableConsignmentRows, SWT.NONE);
-								tableColumnTotalPrice.setText(Messages
-										.getString("BillUIAddBill.20")); //$NON-NLS-1$
-								tableColumnTotalPrice.setWidth(94);
-							}
-							{
-								tableColumnVat = new TableColumn(
-										tableConsignmentRows, SWT.NONE);
-								tableColumnVat.setText(Messages
-										.getString("BillUIAddBill.21")); //$NON-NLS-1$
-								tableColumnVat.setWidth(50);
-							}
-							{
-								tableColumnVatAmount = new TableColumn(
-										tableConsignmentRows, SWT.NONE);
-								tableColumnVatAmount.setText(Messages
-										.getString("BillUIAddBill.22")); //$NON-NLS-1$
-								tableColumnVatAmount.setWidth(90);
-							}
-							{
-								TableColumnVATSpecial = new TableColumn(
-										tableConsignmentRows, SWT.NONE);
-								TableColumnVATSpecial.setText(Messages
-										.getString("BillUIAddBill.23")); //$NON-NLS-1$
-								TableColumnVATSpecial.setWidth(100);
-							}
-							{
-								tableColumnCumulative = new TableColumn(
-										tableConsignmentRows, SWT.NONE);
-								tableColumnCumulative.setText(Messages
-										.getString("BillUIAddBill.24")); //$NON-NLS-1$
-								tableColumnCumulative.setWidth(100);
-							}
-						}
-						{
-							compTotalsPanel = new Composite(compGeneral,
-									SWT.NONE);
-							GridLayout composite1Layout1 = new GridLayout();
-							GridData composite1LData1 = new GridData();
-							composite1LData1.grabExcessHorizontalSpace = true;
-							composite1LData1.horizontalSpan = 2;
-							composite1LData1.horizontalAlignment = GridData.FILL;
-							composite1LData1.heightHint = 111;
-							compTotalsPanel.setLayoutData(composite1LData1);
-							composite1Layout1.numColumns = 4;
-							compTotalsPanel.setLayout(composite1Layout1);
-							{
-								lblDiscountAmount = new CLabel(compTotalsPanel,
-										SWT.NONE);
-								lblDiscountAmount.setText(Messages
-										.getString("BillUIAddBill.1")); //$NON-NLS-1$
-								GridData lblDiscountAmountLData = new GridData();
-								lblDiscountAmountLData.widthHint = 105;
-								lblDiscountAmountLData.heightHint = 19;
-								lblDiscountAmount
-										.setLayoutData(lblDiscountAmountLData);
-							}
-							{
-								txtDiscountAmount = new CurrencyText(
-										compTotalsPanel, SWT.NONE);
-								GridData txtDiscountAmountLData = new GridData();
-								txtDiscountAmount
-										.setBackground(SWTResourceManager
-												.getColor(255, 255, 255));
-								txtDiscountAmount.setEditable(false);
-								txtDiscountAmountLData.widthHint = 191;
-								txtDiscountAmountLData.heightHint = 18;
-								txtDiscountAmount
-										.setLayoutData(txtDiscountAmountLData);
-							}
-							{
-								lblTotalAmount = new CLabel(compTotalsPanel,
-										SWT.NONE);
-								lblTotalAmount.setText(Messages
-										.getString("BillUIAddBill.26")); //$NON-NLS-1$
-								GridData lblTotalAmountLData = new GridData();
-								lblTotalAmountLData.widthHint = 90;
-								lblTotalAmountLData.heightHint = 20;
-								lblTotalAmount
-										.setLayoutData(lblTotalAmountLData);
-							}
-							{
-								txtTotalAmount = new CurrencyText(
-										compTotalsPanel, SWT.NONE);
-								GridData txtTotalAmountLData = new GridData();
-								txtTotalAmount.setBackground(SWTResourceManager
-										.getColor(255, 255, 255));
-								txtTotalAmount.setEditable(false);
-								txtTotalAmountLData.widthHint = 197;
-								txtTotalAmountLData.heightHint = 17;
-								txtTotalAmount
-										.setLayoutData(txtTotalAmountLData);
-							}
-							{
-								lblInventoryPrice = new CLabel(compTotalsPanel,
-										SWT.NONE);
-								lblInventoryPrice.setText(Messages
-										.getString("BillUIAddBill.27")); //$NON-NLS-1$
-								GridData lblInventoryPriceLData = new GridData();
-								lblInventoryPrice.setSize(87, 19);
-								lblInventoryPriceLData.widthHint = 87;
-								lblInventoryPriceLData.heightHint = 19;
-								lblInventoryPrice
-										.setLayoutData(lblInventoryPriceLData);
-							}
-							{
-								txtSubTotal = new CurrencyText(compTotalsPanel,
-										SWT.NONE);
-								GridData text1LData = new GridData();
-								txtSubTotal.setBackground(SWTResourceManager
-										.getColor(255, 255, 255));
-								txtSubTotal.setEditable(false);
-								text1LData.widthHint = 190;
-								text1LData.heightHint = 19;
-								text1LData.horizontalSpan = 3;
-								txtSubTotal.setLayoutData(text1LData);
-							}
-							{
-								lblTotalVat = new CLabel(compTotalsPanel,
-										SWT.NONE);
-								lblTotalVat.setText(Messages
-										.getString("BillUIAddBill.28")); //$NON-NLS-1$
-								GridData lblTotalVatLData = new GridData();
-								lblTotalVat.setSize(87, 19);
-								lblTotalVatLData.widthHint = 87;
-								lblTotalVatLData.heightHint = 19;
-								lblTotalVat.setLayoutData(lblTotalVatLData);
-							}
-							{
-								txtTotalVat = new CurrencyText(compTotalsPanel,
-										SWT.NONE);
-								GridData txtTotalVatLData = new GridData();
-								txtTotalVat.setBackground(SWTResourceManager
-										.getColor(255, 255, 255));
-								txtTotalVat.setEditable(false);
-								txtTotalVatLData.widthHint = 190;
-								txtTotalVatLData.heightHint = 19;
-								txtTotalVatLData.horizontalSpan = 3;
-								txtTotalVat.setLayoutData(txtTotalVatLData);
-							}
-							{
-								lblSpecialVAT = new Label(compTotalsPanel,
-										SWT.NONE);
-								lblSpecialVAT.setText(Messages
-										.getString("BillUIAddBill.29")); //$NON-NLS-1$
-								GridData lblSpecialVATLData = new GridData();
-								lblSpecialVATLData.widthHint = 94;
-								lblSpecialVATLData.heightHint = 16;
-								lblSpecialVAT.setLayoutData(lblSpecialVATLData);
-							}
-							{
-								decSpecialVat = new CurrencyText(
-										compTotalsPanel, SWT.NONE);
-								GridData decSpecialVatLData = new GridData();
-								decSpecialVatLData.widthHint = 191;
-								decSpecialVatLData.heightHint = 19;
-								decSpecialVatLData.horizontalSpan = 3;
-								decSpecialVat.setLayoutData(decSpecialVatLData);
-							}
 						}
 					}
 				}

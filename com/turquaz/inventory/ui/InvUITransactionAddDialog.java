@@ -22,6 +22,7 @@ package com.turquaz.inventory.ui;
 */
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.List;
 
@@ -54,7 +55,6 @@ import org.eclipse.swt.events.VerifyEvent;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
-import com.turquaz.engine.ui.component.TextWithButton;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.turquaz.inventory.Messages;
 
@@ -191,7 +191,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					numTxtAmount = new NumericText(composite1, SWT.NONE);
 					GridData numTxtAmountLData = new GridData();
-					numTxtAmountLData.heightHint = 16;
+					numTxtAmountLData.heightHint = 18;
 					numTxtAmountLData.horizontalAlignment = GridData.FILL;
 					numTxtAmount.setLayoutData(numTxtAmountLData);
 				}
@@ -529,12 +529,19 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 		  int amount = numTxtAmount.getIntValue()*unit.getCardUnitsFactor();
 		  
 		  BigDecimal unitPrice = decTxtPrice.getBigDecimalValue();
+		  
+		  if(comboCurrency.getText().equals("TL")){
+		      unitPrice = unitPrice.divide(new BigDecimal("1000000"),2,BigDecimal.ROUND_HALF_DOWN);
+		      
+		  }
+		
+		  
 		  BigDecimal totalPrice = unitPrice.multiply(new BigDecimal(amount));
 		  
 		  
 		  double _vat = (double)vat/100;
 		  double _specialVat = (double)specialVat/100;
-		  System.out.println(_vat);
+		
 		  BigDecimal VATAmount = totalPrice.multiply(new BigDecimal(_vat+"")); //$NON-NLS-1$
           
 		   BigDecimal specialVATAmount = new BigDecimal(0);
