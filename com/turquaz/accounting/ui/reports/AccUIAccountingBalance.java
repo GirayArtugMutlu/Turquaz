@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.plaf.FileChooserUI;
+
 import net.sf.jasperreports.engine.JasperManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -42,10 +44,12 @@ import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.component.DatePicker;
+import org.eclipse.swt.layout.GridData;
 public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblDateRange;
 	private DatePicker datePickerBeginDate;
 	private DatePicker datePickerEndDate;
+	private Button btnIcon;
 	private Button btnShow;
 	private Button checkSubAccounts;
 
@@ -118,7 +122,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			NumberFormat formatter =NumberFormat.getNumberInstance();
             formatter.setMaximumFractionDigits(2);
             parameters.put("formatter",formatter);
-			//parameters.put("imageUrl", "C:\\eclipse3\\workspace\\Turquaz\\icons\\sample.gif");
+			parameters.put("imageUrl", "C:\\eclipse3\\workspace\\Turquaz\\icons\\sample.gif");
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
 			JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingBalance.jasper");
@@ -158,6 +162,15 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 				checkSubAccounts.setText("Show SubAccounts");
 			}
 			{
+				btnIcon = new Button(this, SWT.PUSH | SWT.CENTER);
+				btnIcon.setText("Choose Logo");
+				btnIcon.addMouseListener(new MouseAdapter() {
+					public void mouseDown(MouseEvent evt) {
+						btnLogoSingleClick();
+					}
+				});
+			}
+			{
 				btnShow = new Button(this, SWT.PUSH | SWT.CENTER);
 				btnShow.setText("Show Reports");
 				btnShow.addMouseListener(new MouseAdapter() {
@@ -170,6 +183,9 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void btnLogoSingleClick(){
 	}
 
 }

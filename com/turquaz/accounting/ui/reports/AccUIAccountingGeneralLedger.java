@@ -138,10 +138,20 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 					" and accounts.companies_id="+company.getCompaniesId().toString();
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");
 			sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'"
-					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"
-					+" ORDER BY accounts.top_account,trans.transactions_date";
+					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'";
+			//String sqlparam2=sqlparam;
+			//String sqlparam3=sqlparam;
+			//sqlparam3 +=" and transcolumns.dept_amount > 0";
+			//sqlparam2 +=" and transcolumns.credit_amount >0";
+			sqlparam +=" ORDER BY accounts.top_account,trans.transactions_date";
+			//sqlparam3 +=" ORDER BY accounts.top_account,trans.transactions_date";
+			//sqlparam2 +=" ORDER BY accounts.top_account,trans.transactions_date";
 			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy");
-			parameters.put("sqlparam",sqlparam);		
+			//System.out.println(sqlparam);
+			
+			parameters.put("sqlparam",sqlparam);	
+			//parameters.put("sqlparam2",sqlparam2);
+			//parameters.put("sqlparam3",sqlparam3);
 			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate()));
 			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate()));
 			NumberFormat formatter =NumberFormat.getNumberInstance();

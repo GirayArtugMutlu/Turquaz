@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="Unnamed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="ReportTitle" class="java.lang.String">
@@ -14,6 +14,9 @@
 	<parameter name="endDate" class="java.lang.String">
 	</parameter>
 	<parameter name="sqlparam" class="java.lang.String">
+	</parameter>
+	<parameter name="imageUrl" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[$P!{sqlparam}]]></queryString>
 	<field name="top_account" class="java.lang.String">
@@ -128,12 +131,17 @@
 	<title>
 		<band height="50">
 			<textField>
-				<reportElement positionType="Float" x="3" y="12" width="269" height="20"/>
-				<textElement>
+				<reportElement positionType="Float" x="26" y="12" width="269" height="21"/>
+				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{ReportTitle}+"    "+$P{beginDate}+" / "+$P{endDate}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement positionType="Float" x="4" y="12" width="21" height="21"/>
+				<graphicElement/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{imageUrl}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>
