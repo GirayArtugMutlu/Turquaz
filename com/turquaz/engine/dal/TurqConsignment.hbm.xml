@@ -27,13 +27,6 @@
     </id>
 
     <property
-        name="consignmentsDocumentNo"
-        type="int"
-        column="consignments_document_no"
-        not-null="true"
-        length="4"
-    />
-    <property
         name="consignmentsBillDocumentNo"
         type="java.lang.String"
         column="consignments_bill_document_no"
@@ -53,13 +46,6 @@
         column="consignments_definition"
         not-null="true"
         length="250"
-    />
-    <property
-        name="consignmentsPrinted"
-        type="short"
-        column="consignments_printed"
-        not-null="true"
-        length="2"
     />
     <property
         name="condignmentsDiscountRate"
@@ -137,6 +123,20 @@
         column="consignments_type"
         not-null="true"
         length="4"
+    />
+    <property
+        name="consignmentsPrinted"
+        type="short"
+        column="consignments_printed"
+        not-null="true"
+        length="1"
+    />
+    <property
+        name="consignmentsDocumentNo"
+        type="java.lang.String"
+        column="consignments_document_no"
+        not-null="true"
+        length="50"
     />
 
     <!-- Associations -->

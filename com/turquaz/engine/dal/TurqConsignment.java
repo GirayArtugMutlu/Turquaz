@@ -13,9 +13,6 @@ public class TurqConsignment implements Serializable {
     private java.lang.Integer consignmentsId;
 
     /** persistent field */
-    private int consignmentsDocumentNo;
-
-    /** persistent field */
     private java.lang.String consignmentsBillDocumentNo;
 
     /** persistent field */
@@ -23,9 +20,6 @@ public class TurqConsignment implements Serializable {
 
     /** persistent field */
     private java.lang.String consignmentsDefinition;
-
-    /** persistent field */
-    private short consignmentsPrinted;
 
     /** persistent field */
     private int condignmentsDiscountRate;
@@ -61,6 +55,12 @@ public class TurqConsignment implements Serializable {
     private int consignmentsType;
 
     /** persistent field */
+    private short consignmentsPrinted;
+
+    /** persistent field */
+    private String consignmentsDocumentNo;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqCompany turqCompany;
 
     /** persistent field */
@@ -76,12 +76,10 @@ public class TurqConsignment implements Serializable {
     private Set turqConsignmentsInGroups;
 
     /** full constructor */
-    public TurqConsignment(int consignmentsDocumentNo, java.lang.String consignmentsBillDocumentNo, java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, short consignmentsPrinted, int condignmentsDiscountRate, int consignmentsVat, java.math.BigDecimal consignmentsDiscountAmount, java.math.BigDecimal consignmentsCharges, java.math.BigDecimal consignmentsVatAmount, java.math.BigDecimal consignmentsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, int consignmentsType, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqBill turqBill, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqInventoryTransactions, Set turqConsignmentsInGroups) {
-        this.consignmentsDocumentNo = consignmentsDocumentNo;
+    public TurqConsignment(java.lang.String consignmentsBillDocumentNo, java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, int condignmentsDiscountRate, int consignmentsVat, java.math.BigDecimal consignmentsDiscountAmount, java.math.BigDecimal consignmentsCharges, java.math.BigDecimal consignmentsVatAmount, java.math.BigDecimal consignmentsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, int consignmentsType, short consignmentsPrinted, String consignmentsDocumentNo, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqBill turqBill, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqInventoryTransactions, Set turqConsignmentsInGroups) {
         this.consignmentsBillDocumentNo = consignmentsBillDocumentNo;
         this.consignmentsDate = consignmentsDate;
         this.consignmentsDefinition = consignmentsDefinition;
-        this.consignmentsPrinted = consignmentsPrinted;
         this.condignmentsDiscountRate = condignmentsDiscountRate;
         this.consignmentsVat = consignmentsVat;
         this.consignmentsDiscountAmount = consignmentsDiscountAmount;
@@ -93,6 +91,8 @@ public class TurqConsignment implements Serializable {
         this.lastModified = lastModified;
         this.updatedBy = updatedBy;
         this.consignmentsType = consignmentsType;
+        this.consignmentsPrinted = consignmentsPrinted;
+        this.consignmentsDocumentNo = consignmentsDocumentNo;
         this.turqCompany = turqCompany;
         this.turqBill = turqBill;
         this.turqCurrentCard = turqCurrentCard;
@@ -110,14 +110,6 @@ public class TurqConsignment implements Serializable {
 
     public void setConsignmentsId(java.lang.Integer consignmentsId) {
         this.consignmentsId = consignmentsId;
-    }
-
-    public int getConsignmentsDocumentNo() {
-        return this.consignmentsDocumentNo;
-    }
-
-    public void setConsignmentsDocumentNo(int consignmentsDocumentNo) {
-        this.consignmentsDocumentNo = consignmentsDocumentNo;
     }
 
     public java.lang.String getConsignmentsBillDocumentNo() {
@@ -142,14 +134,6 @@ public class TurqConsignment implements Serializable {
 
     public void setConsignmentsDefinition(java.lang.String consignmentsDefinition) {
         this.consignmentsDefinition = consignmentsDefinition;
-    }
-
-    public short getConsignmentsPrinted() {
-        return this.consignmentsPrinted;
-    }
-
-    public void setConsignmentsPrinted(short consignmentsPrinted) {
-        this.consignmentsPrinted = consignmentsPrinted;
     }
 
     public int getCondignmentsDiscountRate() {
@@ -238,6 +222,22 @@ public class TurqConsignment implements Serializable {
 
     public void setConsignmentsType(int consignmentsType) {
         this.consignmentsType = consignmentsType;
+    }
+
+    public short getConsignmentsPrinted() {
+        return this.consignmentsPrinted;
+    }
+
+    public void setConsignmentsPrinted(short consignmentsPrinted) {
+        this.consignmentsPrinted = consignmentsPrinted;
+    }
+
+    public String getConsignmentsDocumentNo() {
+        return this.consignmentsDocumentNo;
+    }
+
+    public void setConsignmentsDocumentNo(String consignmentsDocumentNo) {
+        this.consignmentsDocumentNo = consignmentsDocumentNo;
     }
 
     public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
