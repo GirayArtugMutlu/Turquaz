@@ -373,14 +373,11 @@ public class CheBLSaveChequeTransaction {
           }
           
           saveRollAccountingTransactions(rollAccount,null,chequeRoll,amount,EngBLCommon.getBaseCurrencyExchangeRate());
-          
-         
-         
-        
-          
-    	
-    	
+   
+    
     }
+    
+    
     public static void saveChequeCollect(TurqCashCard cashCard, String rollNo,Date rollDate,List chequeList)throws Exception {
     	
     	 
