@@ -344,6 +344,20 @@ public void fillTree(int parent, String codeCrit){
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 		try {
+			List accTrans=blAccountUpdate.getAccountTransColumns(account);
+			if (accTrans.size() > 0)
+			{
+				msg.setMessage(Messages.getString("AccUIAccountingPlan.6")); //$NON-NLS-1$
+				msg.open();
+				return;
+			}
+			List subAccs=blAccountUpdate.getSubAccounts(account);
+			if (subAccs.size() > 0)
+			{
+				msg.setMessage(Messages.getString("AccUIAccountingPlan.5"));  //$NON-NLS-1$
+				msg.open();
+				return;
+			}
 			msg2.setMessage(Messages.getString("AccUIAccountUpdate.15")); //$NON-NLS-1$
 			int result = msg2.open();
 
@@ -357,11 +371,12 @@ public void fillTree(int parent, String codeCrit){
 			}
 
 		} catch (Exception ex) {
-			MessageBox msg3 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
-			msg3.setMessage(Messages.getString("AccUIAccountingPlan.5")); //$NON-NLS-1$
+			MessageBox msg3 = new MessageBox(this.getShell(), SWT.NULL);
+			ex.printStackTrace();
+			msg3.setMessage(ex.getMessage());
 			msg3.open();
 			
-			ex.printStackTrace();
+			
 
 		}
 		}
