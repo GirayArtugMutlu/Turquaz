@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqInventoryCard;
 
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
@@ -14,12 +15,12 @@ public class InvDALProfitAnalysis {
     public InvDALProfitAnalysis(){
         
     }
-    public List getInventoryTotalsAccordingToAvarage(Date startDate, Date endDate)throws Exception {
+    public List getInventoryTotalsAccordingToAvarage(TurqInventoryCard invCard, Date startDate, Date endDate)throws Exception {
         try{
            
             Session session = EngDALSessionFactory.openSession();
-            String query = "select avg(invTrans.transactionsUnitPrice) from TurqInventoryTransaction as invTrans" +
-            		" where invTrans.transactionsAmountIn <> 0";
+            String query = "select avg(invTrans.transactionsUnitPrice * invTrans.transactionsAmountIn) from TurqInventoryTransaction as invTrans" +
+            		" where invTrans.transactionsAmountIn <> 0 group by invTrans.turqInventoryCard";
             
             
             Query q = session.createQuery(query);

@@ -24,8 +24,7 @@ package com.turquaz.inventory.bl;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import com.turquaz.engine.dal.EngDALConnection;
+import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.inventory.dal.InvDALProfitAnalysis;
 
 public class InvBLProfitAnalysis {
@@ -42,13 +41,13 @@ public class InvBLProfitAnalysis {
      * 
      * @return
      */
-    public List getTransactionTotals(int type, Date startDate, Date endDate)throws Exception{
+    public List getTransactionTotals(int type,TurqInventoryCard invCard, Date startDate, Date endDate)throws Exception{
      try{
       
      
      if(type == 0){
          
-         return dalProfit.getInventoryTotalsAccordingToAvarage(startDate, endDate);
+         return dalProfit.getInventoryTotalsAccordingToAvarage(invCard, startDate, endDate);
          
      }
      

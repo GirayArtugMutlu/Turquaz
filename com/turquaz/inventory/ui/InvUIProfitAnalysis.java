@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 
 
+import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.inventory.bl.InvBLProfitAnalysis;
@@ -45,7 +46,8 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 	public void search(){
 	    try{
 	    
-	        List ls = blProfit.getTransactionTotals(0,DatePicker.formatter.parse("1/1/2004"),DatePicker.formatter.parse("12/12/2004"));
+	        TurqInventoryCard  invCard = null;
+	        List ls = blProfit.getTransactionTotals(0,invCard,DatePicker.formatter.parse("1/1/2004"),DatePicker.formatter.parse("12/12/2004"));
 	        
 	        for(int i = 0; i<ls.size();i++){
 	           System.out.println(ls.get(i));

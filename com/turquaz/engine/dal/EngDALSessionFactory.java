@@ -82,7 +82,7 @@ public class EngDALSessionFactory {
 		props.put("hibernate.connection.driver_class",driver);
 		props.put("hibernate.connection.username",username);
 		props.put("hibernate.connection.password",password);
-		props.put("hibernate.show_sql","false");
+		props.put("hibernate.show_sql","true");
 		props.put("hibernate.dialect","net.sf.hibernate.dialect.PostgreSQLDialect");
 		props.put("hibernate.schema","public");
 		
