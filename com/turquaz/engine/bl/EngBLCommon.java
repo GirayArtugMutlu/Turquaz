@@ -32,9 +32,6 @@ public class EngBLCommon {
     
     final static int CASH_CURRENT_PAYMENT = 1; // Kasa Cari Ödeme
     
-    final static int CASH_ACCOUNTING_COLLECT =2; //Kasa Muhasebe Tahsilat
-    
-    final static int CASH_ACCOUNTING_PAYMENT =3; //Kasa Muhasebe Ödeme
     
     
     final static int MODULE_INVENTORY = 0;  //Stok Modulu
