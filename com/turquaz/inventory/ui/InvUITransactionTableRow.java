@@ -22,6 +22,21 @@ import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TableRowList;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 public class InvUITransactionTableRow implements ITableRow {
 
     TurqInventoryTransaction invTrans = new TurqInventoryTransaction();
@@ -165,7 +180,10 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 11 : // Special VAT percent 
-			    result = invTrans.getTransactionsVatSpecial().toString();
+				if (invTrans.getTurqInventoryCard().isSpecVatForEach())
+					result =invTrans.getTransactionsVatSpecialEach().toString();					
+				else
+					result = invTrans.getTransactionsVatSpecial().toString();
 				break;
 				
 			case 12 : // Specail VAT Total 
@@ -312,7 +330,10 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 11 : // Special VAT percent 
-			    result = invTrans.getTransactionsVatSpecial().toString();
+				if (invTrans.getTurqInventoryCard().isSpecVatForEach())
+					result=invTrans.getTransactionsVatSpecialEach().toString();
+				else
+					result = invTrans.getTransactionsVatSpecial().toString();
 				break;
 				
 			case 12 : // Specail VAT Total 
@@ -424,8 +445,10 @@ public class InvUITransactionTableRow implements ITableRow {
 			    if(formatted.equals("")){
 			 	    formatted="0";
 			 	}
-			 	
-			    invTrans.setTransactionsVatSpecial(new BigDecimal(formatted));
+			 	if (invTrans.getTurqInventoryCard().isSpecVatForEach())
+			 		invTrans.setTransactionsVatSpecialEach(new BigDecimal(formatted));
+				else
+			 		invTrans.setTransactionsVatSpecial(new BigDecimal(formatted));
 			    
 				break;
 				
