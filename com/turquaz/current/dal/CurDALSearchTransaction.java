@@ -163,7 +163,15 @@ public class CurDALSearchTransaction {
 	        
 	    	Session session = EngDALSessionFactory.openSession(); 
 	    	String query="";
-	    	if (curCard2==null)
+	    	if (curCard==null)
+	    	{
+	    		query = "Select transaction.turqCurrentCard.cardsCurrentCode,sum(transaction.transactionsTotalDept)," +
+				"sum(transaction.transactionsTotalCredit)" +
+				" from TurqCurrentTransaction as transaction where" +
+				" transaction.transactionsDate < :endDate"+
+	    		" group by transaction.turqCurrentCard.cardsCurrentCode";
+	    	}
+	    	else if (curCard2==null)
 	    	{
 	    		query = "Select transaction.turqCurrentCard.cardsCurrentCode,sum(transaction.transactionsTotalDept)," +
 				"sum(transaction.transactionsTotalCredit) from TurqCurrentTransaction as transaction where" +
@@ -183,8 +191,10 @@ public class CurDALSearchTransaction {
 	    	}
 	    
 	    	Query q = session.createQuery(query); 
-	    	
-	    	if (curCard2==null)
+	    	if (curCard==null)
+	    	{
+	    	}
+	    	else if (curCard2==null)
 	    		q.setParameter("curCard",curCard);
 	    	q.setParameter("endDate",endDate);
 	    	

@@ -17,6 +17,7 @@ package com.turquaz.current.ui;
 
 
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -61,6 +62,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.current.ui.comp.CurrentCodePicker;
+import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.dal.EngDALConnection;
@@ -83,6 +85,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	private CurrentCodePicker txtCurrentCard;
 	private DatePicker datePickerEndDate;
 	private ViewerComposite viewer;
+	private CurrencyText txtTransAmount;
+	private CLabel lblAmount;
 	private Text txtDefinition;
 	private CLabel lblDefinition;
 	private CLabel lblEndDate;
@@ -187,8 +191,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				{
 					datePickerStartDate = new DatePicker(compSearch, SWT.NONE);
 					GridData datePickerStartDateLData = new GridData();
-					datePickerStartDateLData.widthHint = 103;
-					datePickerStartDateLData.heightHint = 23;
+					datePickerStartDateLData.widthHint = 140;
+					datePickerStartDateLData.heightHint = 22;
 					datePickerStartDate.setLayoutData(datePickerStartDateLData);
 				}
 				{
@@ -202,8 +206,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				{
 					datePickerEndDate = new DatePicker(compSearch, SWT.NONE);
 					GridData datePickerEndDateLData = new GridData();
-					datePickerEndDateLData.widthHint = 103;
-					datePickerEndDateLData.heightHint = 24;
+					datePickerEndDateLData.widthHint = 140;
+					datePickerEndDateLData.heightHint = 22;
 					datePickerEndDate.setLayoutData(datePickerEndDateLData);
 				}
 				{
@@ -217,6 +221,17 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					txtDefinitionLData.heightHint = 15;
 					txtDefinition.setLayoutData(txtDefinitionLData);
 				}
+				//START >>  lblAmount
+				lblAmount = new CLabel(compSearch, SWT.NONE);
+				lblAmount.setText("Miktar - En az");
+				//END <<  lblAmount
+				//START >>  txtTransAmount
+				txtTransAmount = new CurrencyText(compSearch, SWT.NONE);
+				GridData txtTransAmountLData = new GridData();
+				txtTransAmountLData.widthHint = 133;
+				txtTransAmountLData.heightHint = 18;
+				txtTransAmount.setLayoutData(txtTransAmountLData);
+				//END <<  txtTransAmount
 				}
 				{
 					viewer = new ViewerComposite(this, SWT.NONE);
@@ -260,24 +275,18 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
 			currentCard=null;
 			currentCard2=null;
-			if (txtCurrentCard.getData()== null && txtCurrentCard2.getData()== null)
-			{
-		    	msg.setMessage(Messages.getString("CurUICurrentCardAbstract.4")); //$NON-NLS-1$
-		    	msg.open();
-		    	txtCurrentCard.setFocus();
-		    	return ; 
-			}
-			else if (txtCurrentCard.getData()==null)
+
+			if (txtCurrentCard.getData()==null && txtCurrentCard2.getData()!=null)
 			{
 				currentCard=(TurqCurrentCard)txtCurrentCard2.getData();
 				currentCard2=null;
 			}
-			else if (txtCurrentCard2.getData()==null)
+			else if (txtCurrentCard2.getData()==null && txtCurrentCard.getData() !=null)
 			{
 				currentCard=(TurqCurrentCard)txtCurrentCard.getData();
 				currentCard2=null;
 			}
-			else
+			else if (txtCurrentCard.getData()!=null && txtCurrentCard2.getData()!=null)
 			{
 				currentCard=(TurqCurrentCard)txtCurrentCard.getData();
 				currentCard2=(TurqCurrentCard)txtCurrentCard2.getData();
@@ -289,21 +298,33 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					" curTrans.transactionsTotalCredit, curTrans.transactionsTotalDept," +
 					" curTrans.currentTransactionsId," +
 					" curTrans.transactionsDefinition" +
-					" from TurqCurrentCard curCard left join" +
+					" from TurqViewCurrentAmountTotal as curView," +
+					" TurqCurrentCard as curCard " +
+					" left join" +
 					" curCard.turqCurrentTransactions as curTrans" +
-					" where (curTrans.transactionsDate >= :startDate" +
-					" and curTrans.transactionsDate <= :endDate ) ";
+					" where curTrans.transactionsDate >= :startDate" +
+					" and curTrans.transactionsDate <= :endDate " +
+					" and curView.currentCardsId=curCard.currentCardsId ";
 			
 			if (!txtDefinition.getText().equals("")) //$NON-NLS-1$
 				query +=" and curTrans.transactionsDefinition like '"+txtDefinition.getText().toUpperCase(Locale.getDefault())+"%'"; //$NON-NLS-1$ //$NON-NLS-2$
-			if (currentCard2==null)
-			{
-				query +=" and curCard.currentCardsId="+currentCard.getCurrentCardsId(); //$NON-NLS-1$
-			}
-			else if(currentCard != null && currentCard2 != null)
+			if(currentCard != null && currentCard2 != null)
 			{
 				query+=" and curCard.cardsCurrentCode >= "+"'"+currentCard.getCardsCurrentCode()+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					" and curCard.cardsCurrentCode <= "+"'"+currentCard2.getCardsCurrentCode()+"'";				 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			}
+			else if (currentCard==null)
+			{				
+			}
+			else if (currentCard2==null)
+			{
+				query +=" and curCard.currentCardsId="+currentCard.getCurrentCardsId(); //$NON-NLS-1$
+			}
+		
+			BigDecimal minAmount=txtTransAmount.getBigDecimalValue();
+			if (minAmount.doubleValue() > 0)
+			{
+				query+= " and ((curView.transactionsTotalCredit >="+minAmount.doubleValue()+") or (curView.transactionsTotalDept >="+minAmount.doubleValue()+"))";
 			}
 			query += " order by curCard.cardsCurrentCode, curTrans.transactionsDate"; //$NON-NLS-1$
 			
@@ -320,7 +341,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			parameters.put("startDate",dformat2.format(datePickerStartDate.getDate()));  //$NON-NLS-1$
 			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate())); 			  //$NON-NLS-1$
 			parameters.put("dformat",dformat2);  //$NON-NLS-1$
-			parameters.put("currentCard1",currentCard.getCardsCurrentCode()); //$NON-NLS-1$
+			parameters.put("currentCard1", (currentCard==null) ? "" : currentCard.getCardsCurrentCode()); //$NON-NLS-1$
 			parameters.put("currentCard2",(currentCard2==null)? "" : currentCard2.getCardsCurrentCode());  //$NON-NLS-1$ //$NON-NLS-2$
 			parameters.put("formatter", new TurkishCurrencyFormat(2));  //$NON-NLS-1$
 			parameters.put("currency", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
@@ -328,11 +349,11 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			List balances = CurBLSearchTransaction.getCurrentBalances(currentCard,currentCard2,datePickerStartDate.getDate());
 			if (currentCard2==null)
 			{
-				parameters.put("showGeneralTotal", new Boolean(false));
+				parameters.put("showGeneralTotal", new Boolean(true));
 			}
 			else if (currentCard.getCurrentCardsId().intValue()==currentCard2.getCurrentCardsId().intValue())
 			{
-				parameters.put("showGeneralTotal", new Boolean(false));
+				parameters.put("showGeneralTotal", new Boolean(true));
 			}
 			else
 			{
