@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="ConsignmentTemplate1" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="currentName" class="java.lang.String">
@@ -37,24 +37,21 @@
 	</parameter>
 	<parameter name="currentNewBalance" class="java.math.BigDecimal">
 	</parameter>
-	<parameter name="sqlparam" class="java.lang.String">
-	</parameter>
 	<parameter name="definition" class="java.lang.String">
 	</parameter>
-	<queryString><![CDATA[$P!{sqlparam}]]></queryString>
-	<field name="card_units_factor" class="java.lang.Integer">
+	<field name="card_units_factor" class="java.math.BigDecimal">
 	</field>
 	<field name="card_inventory_code" class="java.lang.String">
 	</field>
 	<field name="card_name" class="java.lang.String">
 	</field>
-	<field name="amount" class="java.lang.Long">
+	<field name="amount" class="java.math.BigDecimal">
 	</field>
-	<field name="transactions_unit_price" class="java.math.BigDecimal">
+	<field name="unit_price" class="java.math.BigDecimal">
 	</field>
-	<field name="transactions_total_price" class="java.math.BigDecimal">
+	<field name="total_price" class="java.math.BigDecimal">
 	</field>
-	<field name="inventory_transactions_id" class="java.lang.Integer">
+	<field name="trans_id" class="java.lang.Integer">
 	</field>
 	<field name="units_name" class="java.lang.String">
 	</field>
@@ -169,7 +166,7 @@
 		</groupFooter>
 	</group>
 	<group name="invTrans">
-		<groupExpression><![CDATA[$F{inventory_transactions_id}]]></groupExpression>
+		<groupExpression><![CDATA[$F{trans_id}]]></groupExpression>
 		<groupHeader>
 		<band height="13">
 			<textField>
@@ -191,21 +188,21 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Long"><![CDATA[$F{amount}]]></textFieldExpression>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{amount}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="402" y="1" width="55" height="11"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{transactions_unit_price})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{unit_price})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="462" y="1" width="88" height="11"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{transactions_total_price})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{total_price})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="339" y="1" width="61" height="11"/>
@@ -254,7 +251,7 @@
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{despatchNoteDate}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{despatchNoteId}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

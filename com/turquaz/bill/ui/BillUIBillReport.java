@@ -116,6 +116,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	private CurrentCodePicker txtCurCardStart;
 	private CLabel lblCurrentCard;
 	private CTabFolder compView;
+	private TableColumn tableColumnCurrency;
 	private ToolItem toolItemForward;
 	private ToolItem toolItemBack;
 	private ToolItem toolPrint;
@@ -339,6 +340,11 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 							}
 						});
 					}
+					//START >>  tableColumnCurrency
+					tableColumnCurrency = new TableColumn(tableBills, SWT.CENTER);
+					tableColumnCurrency.setText("Döviz");
+					tableColumnCurrency.setWidth(50);
+					//END <<  tableColumnCurrency
 					{
 						tableColumnCumulativePrice = new TableColumn(tableBills, SWT.RIGHT);
 						tableColumnCumulativePrice.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.7")); //$NON-NLS-1$
@@ -683,14 +689,15 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 
 	public void createTableViewer()
 	{
-		int columnTypes[] = new int[7];
+		int columnTypes[] = new int[8];
 		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_DATE;
 		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
-		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		tableViewer = new SearchTableViewer(tableBills, columnTypes, true);
 	}
 
@@ -796,14 +803,15 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				BigDecimal totalAmount = (BigDecimal) billObj[5];
 				BigDecimal vatAmount = (BigDecimal) billObj[6];
 				BigDecimal specVatAmount = (BigDecimal) billObj[7];
+				String currency=(String)billObj[8];
 				total = total.add(totalAmount);
 				VAT = VAT.add(vatAmount);
 				SpecialVAT = SpecialVAT.add(specVatAmount);
-				tableViewer.addRow(new String[]{DatePicker.formatter.format(billDate), billDocNo, curCardCode, curCardName,
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(billDate), billDocNo, curCardCode, curCardName,currency,
 						cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)}, billId);
 			}
-			tableViewer.addRow(new String[]{"", "", "", "", "", "", ""}, null);
-			tableViewer.addRow(new String[]{"", "", "", Messages.getString("BillUIBillReport.14"), cf.format(total), cf.format(VAT),
+			tableViewer.addRow(new String[]{"","", "", "", "", "", "", ""}, null);
+			tableViewer.addRow(new String[]{"","", "", "", Messages.getString("BillUIBillReport.14"), cf.format(total), cf.format(VAT),
 					cf.format(SpecialVAT)}, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			currentIndex = 0;
 			if (list.size() > 0)
@@ -840,7 +848,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			parameters.put("dateFormatter", sdf);
 			parameters.put("currencyFormatter", new TurkishCurrencyFormat());
 			String[] fields = new String[]{"id", "bills_date", "bill_document_no", "cards_current_code", "cards_name", "total_amount",
-					"vat_amount", "special_vat_amount"};
+					"vat_amount", "special_vat_amount","currency"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/bill/BillReport.jasper"); //$NON-NLS-1$
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);

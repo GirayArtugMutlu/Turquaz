@@ -12,6 +12,7 @@ import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqViewBillTransTotal;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -29,7 +30,7 @@ public class BillDALSearchBill
 			Session session = EngDALSessionFactory.openSession();
 			String query = "Select bill.id, bill.billsDate, bill.billDocumentNo,"
 					+ " bill.turqCurrentCard.cardsCurrentCode, bill.turqCurrentCard.cardsName,"
-					+ " billview.totalprice, billview.vatamount, billview.specialvatamount"
+					+ " billview.totalprice, billview.vatamount, billview.specialvatamount, bill.turqCurrencyExchangeRate.turqCurrencyByExchangeCurrencyId.currenciesAbbreviation"
 					+ " from TurqBill as bill,TurqViewBillTransTotal as billview" + " where"
 					+ " billview.billsId = bill.id and bill.billsDate >= :startDate" + " and bill.billsDate <= :endDate"
 					+ " and bill.id <> -1 ";
@@ -80,6 +81,24 @@ public class BillDALSearchBill
 			throw ex;
 		}
 	}
+	
+	public static TurqViewBillTransTotal getBillView(Integer billId) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "Select billview from TurqViewBillTransTotal as billview" +
+					" where billview.bills.id=" + billId; //$NON-NLS-1$
+			Query q = session.createQuery(query);
+			List list = q.list();
+			session.close();
+			return (TurqViewBillTransTotal) list.get(0);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
 	public static List searchBillAdvanced(TurqCurrentCard curCardStart, TurqCurrentCard curCardEnd, Date startDate, Date endDate,
 			Date dueDateStart, Date dueDateEnd, BigDecimal minValue, BigDecimal maxValue, String docNoStart, String docNoEnd, int type)
@@ -90,7 +109,7 @@ public class BillDALSearchBill
 			Session session = EngDALSessionFactory.openSession();
 			String query = "Select bill.id, bill.billsDate, bill.billDocumentNo,"
 					+ " bill.turqCurrentCard.cardsCurrentCode, bill.turqCurrentCard.cardsName,"
-					+ " billview.totalprice, billview.vatamount, billview.specialvatamount"
+					+ " billview.totalprice, billview.vatamount, billview.specialvatamount,bill.turqCurrencyExchangeRate.turqCurrencyByExchangeCurrencyId.currenciesAbbreviation"
 					+ " from TurqBill as bill, TurqViewBillTransTotal as billview" + " where" + " bill.billsDate >= :startDate"
 					+ " and bill.billsDate <= :endDate" + " and bill.id <> -1 " + " and bill.dueDate >= :dueDateStart"
 					+ " and bill.dueDate <= :dueDateEnd" + " and bill.id=billview.billsId ";

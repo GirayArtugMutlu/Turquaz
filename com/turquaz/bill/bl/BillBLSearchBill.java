@@ -1,22 +1,16 @@
 package com.turquaz.bill.bl;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import com.turquaz.bill.dal.BillDALSearchBill;
 import com.turquaz.bill.dal.BillDALUpdateBill;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqViewBillTransTotal;
 
 public class BillBLSearchBill
 {
-	Calendar cal = Calendar.getInstance();
-
-	public BillBLSearchBill()
-	{
-	}
-
 	public static List searchBill(TurqCurrentCard card, String docNo, Date startDate, Date endDate, int type) throws Exception
 	{
 		try
@@ -34,6 +28,18 @@ public class BillBLSearchBill
 		try
 		{
 			return BillDALSearchBill.getBillByBillId(billId);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static TurqViewBillTransTotal getBillView(Integer billId) throws Exception
+	{
+		try
+		{
+			return BillDALSearchBill.getBillView(billId);
 		}
 		catch (Exception ex)
 		{

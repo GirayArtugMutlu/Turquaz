@@ -15,26 +15,32 @@ package com.turquaz.consignment.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /** ********************************************************************* */
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import com.turquaz.consignment.dal.ConDALSearchConsignment;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqViewInvPriceTotal;
 
 public class ConBLSearchConsignment
 {
-	Calendar cal = Calendar.getInstance();
-
-	public ConBLSearchConsignment()
-	{
-	}
-
 	public static List searchConsignment(TurqCurrentCard card, Date startDate, Date endDate, int type, String docNo) throws Exception
 	{
 		try
 		{
 			return ConDALSearchConsignment.searchConsignments(card, startDate, endDate, type, docNo);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static TurqViewInvPriceTotal getViewInvTotal(Integer engSeqId) throws Exception
+	{
+		try
+		{
+			return ConDALSearchConsignment.getViewInvTotal(engSeqId);
 		}
 		catch (Exception ex)
 		{
@@ -47,6 +53,18 @@ public class ConBLSearchConsignment
 		try
 		{
 			return ConDALSearchConsignment.chooseConsignments(card, startDate, endDate, type);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static List getConsignmentInfo(TurqConsignment cons) throws Exception
+	{
+		try
+		{
+			return ConDALSearchConsignment.getConsignmentInfo(cons);
 		}
 		catch (Exception ex)
 		{

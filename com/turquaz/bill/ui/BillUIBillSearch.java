@@ -53,6 +53,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	private TableColumn tableColumnCurrentName;
 	private TableColumn tableColumnVatAmount;
 	private CurrentPicker txtCurCard;
+	private TableColumn tableColumnCurrency;
 	private TableColumn tableColumnCurrentCode;
 	private TableColumn tableColumnDocNo;
 	private Text txtDocNo;
@@ -81,7 +82,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		try
 		{
 			this.setLayout(new GridLayout());
-			this.setSize(591, 344);
+			this.setSize(663, 344);
 			{
 				composite1 = new Composite(this, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
@@ -216,6 +217,11 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 						}
 					});
 				}
+				//START >>  tableColumnCurrency
+				tableColumnCurrency = new TableColumn(tableBills, SWT.NONE);
+				tableColumnCurrency.setText("Döviz Türü");
+				tableColumnCurrency.setWidth(70);
+				//END <<  tableColumnCurrency
 				{
 					tableColumnCumulativePrice = new TableColumn(tableBills, SWT.RIGHT);
 					tableColumnCumulativePrice.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.7")); //$NON-NLS-1$
@@ -275,14 +281,15 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 
 	public void createTableViewer()
 	{
-		int columnTypes[] = new int[7];
+		int columnTypes[] = new int[8];
 		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_DATE;
 		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
-		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		tableViewer = new SearchTableViewer(tableBills, columnTypes, true);
 	}
 
@@ -342,7 +349,8 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				BigDecimal totalAmount = (BigDecimal) bill[5];
 				BigDecimal vatAmount = (BigDecimal) bill[6];
 				BigDecimal specVatAmount = (BigDecimal) bill[7];
-				tableViewer.addRow(new String[]{DatePicker.formatter.format(billDate), billDocNo, curCardCode, curCardName,
+				String currency=(String)bill[8];
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(billDate), billDocNo, curCardCode, curCardName,currency,
 						cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)}, billId);
 			}
 		}

@@ -23,6 +23,7 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqViewInvPriceTotal;
 
 public class ConDALSearchConsignment
 {
@@ -112,5 +113,50 @@ public class ConDALSearchConsignment
 		{
 			throw ex;
 		}
+	}
+	
+	public static TurqViewInvPriceTotal getViewInvTotal(Integer engSeqId) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "Select invPriceView from TurqViewInvPriceTotal as invPriceView" +
+					" where invPriceView.engineSequencesId="+engSeqId;
+			Query q = session.createQuery(query);
+			List list = q.list();
+			session.close();
+			return (TurqViewInvPriceTotal) list.get(0);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static List getConsignmentInfo(TurqConsignment cons)throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "Select invTrans.id, cardUnit.cardUnitsFactor, invTrans.turqInventoryCard.cardInventoryCode," +
+					" invTrans.turqInventoryCard.cardName, invTrans.turqInventoryUnit.unitsName," +
+					((cons.getConsignmentsType() == EngBLCommon.CONSIGNMENT_TRANS_TYPE_BUY)
+							? "invTrans.amountIn ," : "invTrans.amountOut ,")+
+					" invTrans.unitPriceInForeignCurrency,invTrans.totalPriceInForeignCurrency"+
+					" from TurqInventoryTransaction invTrans" +
+					" left join invTrans.turqInventoryCard.turqInventoryCardUnits as cardUnit," +
+					" TurqConsignment cons " +
+					" where cons.turqEngineSequence.id=invTrans.turqEngineSequence.id" +
+					" and cons.id="+cons.getId()+
+					" and cardUnit.turqInventoryUnit=invTrans.turqInventoryUnit";			
+			Query q = session.createQuery(query);
+			List list = q.list();
+			session.close();
+			return list;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}		
 	}
 }
