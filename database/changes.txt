@@ -741,3 +741,41 @@ yukardakilerden sonra bunlar da cal?st?r?lacak..
 
 ALTER TABLE turq_bill_consignment_commons RENAME discount_rate_perc  TO discount_rate;
 **************************************************************************************
+
+**************************************************************************************;
+!!!! makro datalari en son buraya kada update edildi...!!!
+**************************************************************************************
+
+CREATE TABLE turq_inventory_accounting_accounts
+(
+  id int4 NOT NULL,
+  inventory_cards_id int4 NOT NULL,
+  accounting_accounts_id int4 NOT NULL,
+  inventory_accounting_types_id int4 NOT NULL,
+  created_by varchar(50) NOT NULL,
+  creation_date date NOT NULL,
+  updated_by varchar(50) NOT NULL,
+  last_modified date NOT NULL
+) 
+
+
+CREATE TABLE turq_inventory_accounting_types
+(
+  id int4 NOT NULL,
+  type_name varchar(100) NOT NULL,
+  definition varchar(100) NOT NULL
+) 
+
+INSERT INTO turq_inventory_accounting_types VALUES (0, 'Buy', 'Alis Muhasebe Hesabi');
+INSERT INTO turq_inventory_accounting_types VALUES (1, 'Sell', 'Satis Muhasebe Hesabi');
+INSERT INTO turq_inventory_accounting_types VALUES (2, 'Buy VAT', 'Alis KDV Hesabi');
+INSERT INTO turq_inventory_accounting_types VALUES (3, 'Sell VAT', 'Satis KDV Hesabi');
+INSERT INTO turq_inventory_accounting_types VALUES (4, 'Buy Special VAT', 'Alis OTV Hesabi');
+INSERT INTO turq_inventory_accounting_types VALUES (5, 'Sell Special VAT', 'Satis OTV Hesabi');
+INSERT INTO turq_inventory_accounting_types VALUES (6, 'Buy Discount', 'Alistan Inidirimler Hesabi');
+INSERT INTO turq_inventory_accounting_types VALUES (7, 'Sell Discount', 'Satistan Indirimler Hesabi');
+
+
+
+
+

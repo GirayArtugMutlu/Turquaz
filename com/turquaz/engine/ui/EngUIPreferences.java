@@ -45,6 +45,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 	private Composite composite1;
 	private CCombo cCombo;
 	private Button btnCurrentCards;
+	private Button btnUpdateCashTrans;
 	private Button btnExportBankCards;
 	private Button btnUpdateBills;
 	private CLabel lblBillFormat;
@@ -192,6 +193,19 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 					
 				});
 				//END <<  btnExportBankCards
+				//START >>  btnUpdateCashTrans
+				btnUpdateCashTrans = new Button(composite1, SWT.PUSH
+					| SWT.CENTER);
+				btnUpdateCashTrans.setText("Kasa Hareketlerini Güncelle");
+				btnUpdateCashTrans.setVisible(false);
+				btnUpdateCashTrans.addMouseListener(new MouseAdapter() {
+					public void mouseUp(MouseEvent evt) {
+						
+					EngBLCommon.updateAllCashTransactions();
+					
+					}
+				});
+				//END <<  btnUpdateCashTrans
             }
             fillBillTypeCombo();
             EngUICommon.centreWindow(dialogShell);

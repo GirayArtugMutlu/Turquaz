@@ -215,6 +215,12 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 		cal.set(cal.get(Calendar.YEAR),0,1);
 	    return cal.getTime();
 	}
+	public static Date getLastDayOfYear()
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.set(cal.get(Calendar.YEAR),11,31);
+	    return cal.getTime();
+	}
 	
 	public void setFirstDayOfYear(){
 
