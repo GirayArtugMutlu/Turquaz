@@ -31,6 +31,7 @@ import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.dal.TurqChequeTransactionType;
+import com.turquaz.engine.dal.TurqCurrentCard;
 
 public class CheBLSearchChequeRoll {
     
@@ -76,7 +77,7 @@ public class CheBLSearchChequeRoll {
         }
     }
     
-    public static String getCurrentCardOfCustomerCheque(TurqChequeCheque cheque)throws Exception{
+    public static TurqCurrentCard getCurrentCardOfCustomerCheque(TurqChequeCheque cheque)throws Exception{
 		try{
 			
 			return CheDALSearch.getCurrentCardOfCustomerCheque(cheque);

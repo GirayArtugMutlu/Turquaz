@@ -333,7 +333,7 @@ public class CheBLUpdateCheque {
             
         	
         }
-        else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT.intValue())
+        else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_TO_CURRENT.intValue())
         {
         	CheBLSaveChequeTransaction.saveRollAccountingTransactions(chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount(),null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateCheque.9") +chequeRoll.getChequeRollNo());  //$NON-NLS-1$
             

@@ -345,13 +345,13 @@ public class CheDALSearch {
 			throw ex;
 		}
 	}
-	public static String getCurrentCardOfCustomerCheque(TurqChequeCheque cheque)throws Exception{
+	public static TurqCurrentCard getCurrentCardOfCustomerCheque(TurqChequeCheque cheque)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
 			TurqChequeChequeInRoll cv;
 			TurqChequeRoll asd;
 			
-			String query = "Select chequeRoll.turqChequeRoll.turqCurrentCard.cardsName from TurqChequeChequeInRoll as chequeRoll" +
+			String query = "Select chequeRoll.turqChequeRoll.turqCurrentCard from TurqChequeChequeInRoll as chequeRoll" +
 					" where chequeRoll.turqChequeCheque = :cheque and " +
 					" chequeRoll.turqChequeRoll.turqChequeTransactionType.id ="+EngBLCommon.CHEQUE_TRANS_IN;
 
@@ -361,7 +361,7 @@ public class CheDALSearch {
 			session.close();
 			if(list.size()>0)
 			{
-				return (String)list.get(0);
+				return (TurqCurrentCard)list.get(0);
 			}
 			 return null;
 			

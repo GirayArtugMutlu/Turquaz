@@ -227,10 +227,10 @@ public class CheUIReturnFromCurrent extends org.eclipse.swt.widgets.Composite im
 
     public void newForm() {
        
-        CheUIChequeOutPayrollBank  curCard = new CheUIChequeOutPayrollBank(this.getParent(),this.getStyle());
-		 CTabFolder tabfld = (CTabFolder)this.getParent();
-		 tabfld.getSelection().setControl(curCard);	 
-		 this.dispose();
+        CheUIReturnFromCurrent  curCard = new CheUIReturnFromCurrent(this.getParent(),this.getStyle());
+		CTabFolder tabfld = (CTabFolder)this.getParent();
+		tabfld.getSelection().setControl(curCard);	 
+		this.dispose();
 
         
 

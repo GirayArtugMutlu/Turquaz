@@ -187,7 +187,7 @@ public class CheUIChooseGivenChequesDialog extends org.eclipse.swt.widgets.Dialo
 	            item.setData(cheque);
 	            item.setText(new String []{
 	                    cheque.getChequesPortfolioNo(),
-	                    CheBLSearchChequeRoll.getCurrentCardOfCustomerCheque(cheque),
+	                    CheBLSearchChequeRoll.getCurrentCardOfCustomerCheque(cheque).getCardsName(),
 	                   DatePicker.formatter.format( cheque.getChequesDueDate()),
 	                    cheque.getChequesDebtor(),
 	                   cf.format( cheque.getChequesAmount())

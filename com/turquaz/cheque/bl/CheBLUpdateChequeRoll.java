@@ -269,7 +269,7 @@ public class CheBLUpdateChequeRoll {
                       	
            }
            
-           else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT.intValue())
+           else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_TO_CURRENT.intValue())
            {
                      
            	CheBLSaveChequeTransaction. saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateChequeRoll.0") +chequeRoll.getChequeRollNo());  //$NON-NLS-1$

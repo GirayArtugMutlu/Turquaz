@@ -381,7 +381,7 @@ public class CheBLSaveChequeTransaction {
     	
     	 
     	  TurqChequeTransactionType type = new TurqChequeTransactionType();
-          type.setId(EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT);
+          type.setId(EngBLCommon.CHEQUE_TRANS_RETURN_TO_CURRENT);
           
           TurqModule module = new TurqModule();
           module.setId(new Integer(EngBLCommon.MODULE_CHEQUE));
@@ -446,15 +446,13 @@ public class CheBLSaveChequeTransaction {
             chequeInRoll.setCreationDate(Calendar.getInstance().getTime()); 
             
             amount = amount.add(cheque.getChequesAmount());
-            
-            
             CheDALSave.save(chequeInRoll);
            
             
           }
           
           saveRollAccountingTransactions(rollAccount,null,chequeRoll,amount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLSaveChequeTransaction.10") +chequeRoll.getChequeRollNo()); //$NON-NLS-1$
-         
+          
          
     
     }
@@ -534,6 +532,12 @@ public class CheBLSaveChequeTransaction {
             chequeTotals = chequeTotals.add(cheque.getChequesAmount()); 
             
             CheDALSave.save(chequeInRoll);
+            
+            TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque);
+            /**
+             * TODO save current Transaction Here
+             */
+            
             
           }
           
@@ -925,7 +929,7 @@ public class CheBLSaveChequeTransaction {
     	}
     	
     	
-    	else if(type == EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT.intValue())
+    	else if(type == EngBLCommon.CHEQUE_TRANS_RETURN_TO_CURRENT.intValue())
     	{
     		if(rollAccount==null){
     			return false ;

@@ -137,14 +137,13 @@ public class CheUIReturnFromBankRoll extends org.eclipse.swt.widgets.Composite i
                 }
 				//START >>  lblReturnBankAccounting
 				lblReturnBankAccounting = new CLabel(compInfoPanel, SWT.NONE);
-				lblReturnBankAccounting
-					.setText("Kar\u015f\u0131l\u0131ks\u0131z Çek Hesab\u0131");
+				lblReturnBankAccounting.setText("Portföydeki Çekler Hesab\u0131");
 				//END <<  lblReturnBankAccounting
 				//START >>  accountPicker
 				accountPicker = new AccountPicker(compInfoPanel, SWT.NONE);
 				GridData accountPickerLData = new GridData();
-				accountPickerLData.widthHint = 206;
-				accountPickerLData.heightHint = 18;
+				accountPickerLData.widthHint = 215;
+				accountPickerLData.heightHint = 19;
 				accountPicker.setLayoutData(accountPickerLData);
 				//END <<  accountPicker
             }
