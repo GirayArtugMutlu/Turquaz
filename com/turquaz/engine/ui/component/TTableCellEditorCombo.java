@@ -74,6 +74,15 @@ public class TTableCellEditorCombo 	extends TTableCellEditor
 			
 		
 		}
+		public int getSelectionIndex(){
+			if(m_Combo.equals(null)){
+				return -1;
+			}
+			
+			else {
+				return m_Combo.getSelectionIndex();
+			}
+		}
 		
 		
 

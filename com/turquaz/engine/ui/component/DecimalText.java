@@ -83,7 +83,7 @@ public class DecimalText extends Composite {
  	return textLimit;
  }
  protected void text3VerifyText(VerifyEvent e){
- 	char decimalSymbol =',';
+ 	char decimalSymbol ='.';
  	int numberOfDecimals =2;
  	Text control = (Text)e.widget;
     String text = control.getText();

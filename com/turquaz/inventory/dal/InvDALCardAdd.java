@@ -29,10 +29,12 @@ import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.dal.TurqInventoryPrice;
 
 
 
@@ -89,6 +91,22 @@ public class InvDALCardAdd {
 			}	
 	}
 	
+	public void saveInvPrice(TurqInventoryPrice price)throws Exception{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+						
+			session.saveOrUpdate(price);
+			session.flush();
+			tx.commit();
+			session.close();
+			
+			}
+			catch(Exception ex){
+				throw ex;
+			}	
+	}
+	
 	public void registerGroup()throws Exception{
 		try{
 			
@@ -101,6 +119,33 @@ public class InvDALCardAdd {
 			
 		}
 	
+	public TurqCurrency getCurrency(String abbrev)throws Exception{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			String query = "from TurqCurrency as currency " +
+			"where currency.currenciesAbbreviation ='"+abbrev+"'";		   
+	   
+
+	Query q = session.createQuery(query); 
+	List list = q.list();
+	tx.commit();
+	session.close();
+	if(list.size()==0){
+		throw new Exception("No such abbreviation");
+	}
+	else {
+		return ((TurqCurrency)list.get(0));
+		
+		
+	}
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
 	public List getInventoryGroups()throws Exception{
 	try{
 		

@@ -6,16 +6,22 @@
  */
 package com.turquaz.inventory.bl;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
+
+import net.sf.hibernate.Session;
+import net.sf.hibernate.type.BigDecimalType;
 
 
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCompany;
+import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.inventory.dal.InvDALCardAdd;
 
@@ -79,6 +85,41 @@ public class InvBLCardAdd {
 	cardAdd.saveOrUpdateCardUnit(cardUnit);
 	
 		
+	}
+	public void saveInvPrices(Integer cardId, boolean price_type, String currency_abrev, String amount)throws Exception {
+	try{
+		
+		TurqInventoryPrice invPrice =new TurqInventoryPrice();	
+		TurqCurrency currency = cardAdd.getCurrency(currency_abrev);
+		TurqInventoryCard card =new TurqInventoryCard();
+		card.setInventoryCardsId(cardId);
+		invPrice.setPricesType(price_type);
+		invPrice.setPricesAmount(new BigDecimal(amount));
+		invPrice.setTurqInventoryCard(card);
+		invPrice.setTurqCurrency(currency);
+		invPrice.setCreatedBy(System.getProperty("user"));
+		invPrice.setUpdatedBy(System.getProperty("user"));
+		invPrice.setLastModified(new java.sql.Date( cal.getTime().getTime()));
+		invPrice.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
+		
+		
+		
+		cardAdd.saveInvPrice(invPrice);
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	catch(Exception ex){
+		
+		throw ex;
+	}
+		
+	
 	}
 	
 	public Integer saveInvCard(String invCode, String invSpecialCode,
