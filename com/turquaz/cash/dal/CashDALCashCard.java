@@ -17,10 +17,12 @@ package com.turquaz.cash.dal;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
+import java.util.Date;
 import java.util.List;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqCashCard;
 
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
@@ -115,8 +117,10 @@ public class CashDALCashCard {
              q.setParameter("account",account);
          }
          
+         List lst = q.list();
+         
          session.close();
-         return q.list();
+         return lst; 
         
      }
      catch(Exception ex){
@@ -124,5 +128,45 @@ public class CashDALCashCard {
      }
         
     }
+    public List searchCashTransaction(TurqCashCard cashCard, Date startdate, Date endDate)throws Exception{
+        try{
+            
+            Session session = EngDALSessionFactory.openSession();
+            
+            String query = "select cashTrans.cashTransactionsId, cashTrans.turqCashCard.cashCardName, " +
+            		" cashTrans.turqCashTransactionType.cashTransationTypeName, sum(transRow.deptAmount),sum(transRow.creditAmount) from TurqCashTransaction as cashTrans " +
+            		" left join cashTrans.turqCashTransactionRows as transRow " +
+            		" where cashTrans.transactionDate <= :startDate and cashTrans.transactionDate >= :endDate " ;
+            
+             if(cashCard!=null){
+                 query+=" and cashTrans.turqCashCard = :cashCard ";
+             }
+            		
+            query +=" group by cashTrans.cashTransactionsId, cashTrans.turqCashCard.cashCardName, cashTrans.turqCashTransactionType.cashTransationTypeName";
+            
+            Query q = session.createQuery(query);
+            q.setParameter("startDate",startdate);
+            q.setParameter("endDate",endDate);
+            
+            if(cashCard!=null){
+             q.setParameter("cashCard",cashCard);   
+            }
+            
+            List lst = q.list();
+            
+            return lst;
+            
+            
+            
+            
+            
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+        
+        
+    }
+    
 
 }
