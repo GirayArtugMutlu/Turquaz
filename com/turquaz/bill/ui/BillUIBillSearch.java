@@ -37,7 +37,6 @@ import org.eclipse.swt.layout.GridData;
 
 import org.eclipse.swt.SWT;
 
-import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 
@@ -55,8 +54,7 @@ import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implements
-SecureComposite, SearchComposite{
+public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implements SearchComposite{
 	private Composite composite1;
 	private Table tableBills;
 	private TableColumn tableColumnCurrentName;

@@ -35,7 +35,6 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.ui.component.SearchComposite;
-import com.turquaz.engine.ui.component.SecureComposite;
 
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
@@ -72,7 +71,7 @@ import org.eclipse.swt.events.KeyEvent;
 */
 
 
-public class InvUICardSearch extends  Composite implements SecureComposite,SearchComposite {
+public class InvUICardSearch extends  Composite implements SearchComposite {
 
 	private InvBLCardAdd invBLCardAdd = new InvBLCardAdd();
 	private Composite compInvCardSearch;

@@ -48,7 +48,6 @@ import com.turquaz.engine.dal.TurqAccountingTransactionType;
 
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
-import com.turquaz.engine.ui.component.SecureComposite;
 
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.DisposeEvent;

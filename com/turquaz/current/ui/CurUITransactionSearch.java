@@ -37,7 +37,6 @@ import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
-import com.turquaz.engine.ui.component.SecureComposite;
 
 
 import org.eclipse.swt.widgets.MessageBox;
@@ -64,7 +63,7 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class CurUITransactionSearch extends Composite implements SecureComposite,SearchComposite {
+public class CurUITransactionSearch extends Composite implements SearchComposite {
 
 	private CurBLSearchTransaction blSearch = new CurBLSearchTransaction();
 	private CurBLCurrentTransactionAdd blTransAdd = new CurBLCurrentTransactionAdd();

@@ -49,7 +49,6 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
 import com.turquaz.engine.ui.component.SearchComposite;
-import com.turquaz.engine.ui.component.SecureComposite;
 
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -67,7 +66,7 @@ import org.eclipse.swt.events.KeyEvent;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class CurUICurrentCardSearch extends  Composite implements SecureComposite,SearchComposite {
+public class CurUICurrentCardSearch extends  Composite implements SearchComposite {
 
 	private CCombo comboTurqGroupName;
 private TableColumn tableColumnCurrentName;

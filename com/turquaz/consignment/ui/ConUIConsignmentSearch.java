@@ -39,7 +39,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
-import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 
@@ -58,7 +57,7 @@ import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 * *************************************
 */
 public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite implements
-SecureComposite, SearchComposite{
+SearchComposite{
 	private Composite composite1;
 	private Table tableConsignments;
 	private TableColumn tableColumnCurrentName;

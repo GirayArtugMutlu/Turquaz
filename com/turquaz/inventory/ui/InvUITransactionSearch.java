@@ -58,8 +58,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 
 import org.eclipse.swt.SWT;
-
-import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLSearchTransaction;
@@ -78,7 +76,7 @@ import org.eclipse.swt.widgets.Label;
  */
 
 public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
-		implements SecureComposite, SearchComposite {
+		implements SearchComposite {
 	private Composite compInvTransactionSearch;
 
 	private Table tableTransactions;
