@@ -104,7 +104,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 		 
 			dialogShell.pack();
 			dialogShell.setSize(566, 350);
-		
+		    dialogShell.setText(Messages.getString("ConUIConsignmentSearchDialog.13")); //$NON-NLS-1$
 		
 			
 			{

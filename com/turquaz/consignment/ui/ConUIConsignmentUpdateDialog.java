@@ -94,6 +94,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				dialogShell.layout();
 				dialogShell.pack();
 				dialogShell.setSize(663, 593);
+				dialogShell.setText(Messages.getString("ConUIConsignmentUpdateDialog.7")); //$NON-NLS-1$
 			
 			 {
 				coolBar1 = new CoolBar(dialogShell, SWT.NONE);

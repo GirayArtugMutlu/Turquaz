@@ -101,7 +101,7 @@ public class BillUIBillsGroupDialog extends  org.eclipse.swt.widgets.Dialog {
 					SWTResourceManager.registerResourceUser(dialogShell);
 				}
 
-			dialogShell.setText(getText());
+			dialogShell.setText(Messages.getString("BillUIBillsGroupDialog.0")); //$NON-NLS-1$
 			
 	
 			dialogShell.setSize(434, 245);

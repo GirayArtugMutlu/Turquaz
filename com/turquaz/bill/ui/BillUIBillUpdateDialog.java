@@ -84,7 +84,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
                     SWTResourceManager.registerResourceUser(dialogShell);
                 }
 
-
+            dialogShell.setText(Messages.getString("BillUIBillUpdateDialog.6"));  //$NON-NLS-1$
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.layout();
 			dialogShell.pack();
@@ -146,7 +146,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
                                 public void widgetSelected(SelectionEvent evt) {
                                     
                                     
-                                     boolean answer = EngUICommon.okToDelete(getParent(),"Bakiye Faturada Gösterilsin mi?");
+                                     boolean answer = EngUICommon.okToDelete(getParent(),Messages.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
                                      dialogShell.close();
                                      EngBLUtils.printBill(bill,answer);
        
@@ -202,7 +202,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			
 			
 			compAddBill.getTxtCurrentCard().setData(bill.getTurqBillConsignmentCommon().getTurqCurrentCard());
-			compAddBill.getTxtCurrentCard().setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName()+" {" +bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode() +"}");
+			compAddBill.getTxtCurrentCard().setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName()+" {" +bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode() +"}"); //$NON-NLS-1$ //$NON-NLS-2$
 			;
 			compAddBill.getTxtDocumentNo().setText(bill.getTurqBillConsignmentCommon().getBillDocumentNo());
 			compAddBill.getDateConsignmentDate().setDate(bill.getBillsDate());

@@ -104,7 +104,7 @@ public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialo
 					SWTResourceManager.registerResourceUser(dialogShell);
 				}
 
-			dialogShell.setText(getText());
+			dialogShell.setText(Messages.getString("ConUIConsignmentsGroupDialog.0")); //$NON-NLS-1$
 			compGroupAddDialog = new Composite(dialogShell,SWT.NULL);
 			lblGroupName = new CLabel(compGroupAddDialog,SWT.NULL);
 			txtGroupName = new Text(compGroupAddDialog,SWT.BORDER);
