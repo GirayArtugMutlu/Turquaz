@@ -39,6 +39,9 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -52,20 +55,21 @@ import org.eclipse.swt.events.KeyEvent;
  */
 public class BankUIBankCardSearch extends Composite implements SearchComposite
 {
-	private CCombo comboCurrency;
-	private CLabel lblCurrency;
+	SearchTableViewer tableViewer = null;
+	private CLabel lblBankName;
+	private TableColumn tavleColumnDefinition;
 	private TableColumn tableColumnCurrency;
 	private TableColumn tableColumnAccountNo;
 	private TableColumn tableColumnBankBrancName;
 	private TableColumn tableColoumnBankName;
+	private Table tableBankCards;
+	private CCombo comboCurrency;
+	private CLabel lblCurrency;
 	private Text txtBankAccountNo;
 	private CLabel lblBankAccountNo;
 	private Text txtBankBranchName;
 	private CLabel lblBankBranchName;
 	private Text txtBankName;
-	private CLabel lblBankName;
-	private TableColumn tavleColumnDefinition;
-	private Table tableBankCards;
 	private Composite composite1;
 
 	public BankUIBankCardSearch(Composite parent, int style)
@@ -82,190 +86,146 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 		try
 		{
 			preInitGUI();
-			composite1 = new Composite(this, SWT.NULL);
-			lblBankName = new CLabel(composite1, SWT.NULL);
-			txtBankName = new Text(composite1, SWT.NULL);
-			lblBankBranchName = new CLabel(composite1, SWT.NULL);
-			txtBankBranchName = new Text(composite1, SWT.NULL);
-			lblBankAccountNo = new CLabel(composite1, SWT.NULL);
-			txtBankAccountNo = new Text(composite1, SWT.NULL);
-			lblCurrency = new CLabel(composite1, SWT.NULL);
-			comboCurrency = new CCombo(composite1, SWT.NULL);
-			tableBankCards = new Table(this, SWT.MULTI | SWT.FULL_SELECTION);
-			tableColoumnBankName = new TableColumn(tableBankCards, SWT.NULL);
-			tableColumnBankBrancName = new TableColumn(tableBankCards, SWT.NULL);
-			tableColumnAccountNo = new TableColumn(tableBankCards, SWT.NULL);
-			tableColumnCurrency = new TableColumn(tableBankCards, SWT.NULL);
-			this.setSize(new org.eclipse.swt.graphics.Point(531, 300));
+			this.setSize(753, 438);
+			GridLayout thisLayout = new GridLayout(1, true);
+			this.setLayout(thisLayout);
+//			START >>  composite1
+
+			composite1 = new Composite(this, SWT.NONE);
 			GridData composite1LData = new GridData();
-			composite1LData.verticalAlignment = GridData.CENTER;
 			composite1LData.horizontalAlignment = GridData.FILL;
-			composite1LData.widthHint = -1;
-			composite1LData.heightHint = 122;
-			composite1LData.horizontalIndent = 0;
-			composite1LData.horizontalSpan = 1;
-			composite1LData.verticalSpan = 1;
+			composite1LData.heightHint = 111;
 			composite1LData.grabExcessHorizontalSpace = true;
-			composite1LData.grabExcessVerticalSpace = false;
 			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(521, 122));
-			GridData lblBankNameLData = new GridData();
-			lblBankNameLData.verticalAlignment = GridData.CENTER;
-			lblBankNameLData.horizontalAlignment = GridData.BEGINNING;
-			lblBankNameLData.widthHint = -1;
-			lblBankNameLData.heightHint = -1;
-			lblBankNameLData.horizontalIndent = 0;
-			lblBankNameLData.horizontalSpan = 1;
-			lblBankNameLData.verticalSpan = 1;
-			lblBankNameLData.grabExcessHorizontalSpace = false;
-			lblBankNameLData.grabExcessVerticalSpace = false;
-			lblBankName.setLayoutData(lblBankNameLData);
-			lblBankName.setText(Messages.getString("BankUIBankCardSearch.0")); //$NON-NLS-1$
-			GridData txtBankNameLData = new GridData();
-			txtBankName.addKeyListener(new KeyAdapter()
-			{
-				public void keyReleased(KeyEvent evt)
-				{
-					if (evt.keyCode == SWT.CR)
-						search();
-				}
-			});
-			txtBankNameLData.verticalAlignment = GridData.CENTER;
-			txtBankNameLData.horizontalAlignment = GridData.BEGINNING;
-			txtBankNameLData.widthHint = 254;
-			txtBankNameLData.heightHint = 13;
-			txtBankNameLData.horizontalIndent = 0;
-			txtBankNameLData.horizontalSpan = 1;
-			txtBankNameLData.verticalSpan = 1;
-			txtBankNameLData.grabExcessHorizontalSpace = false;
-			txtBankNameLData.grabExcessVerticalSpace = false;
-			txtBankName.setLayoutData(txtBankNameLData);
-			txtBankName.setSize(new org.eclipse.swt.graphics.Point(254, 13));
-			GridData lblBankBranchNameLData = new GridData();
-			lblBankBranchNameLData.verticalAlignment = GridData.CENTER;
-			lblBankBranchNameLData.horizontalAlignment = GridData.BEGINNING;
-			lblBankBranchNameLData.widthHint = -1;
-			lblBankBranchNameLData.heightHint = -1;
-			lblBankBranchNameLData.horizontalIndent = 0;
-			lblBankBranchNameLData.horizontalSpan = 1;
-			lblBankBranchNameLData.verticalSpan = 1;
-			lblBankBranchNameLData.grabExcessHorizontalSpace = false;
-			lblBankBranchNameLData.grabExcessVerticalSpace = false;
-			lblBankBranchName.setLayoutData(lblBankBranchNameLData);
-			lblBankBranchName.setText(Messages.getString("BankUIBankCardSearch.1")); //$NON-NLS-1$
-			GridData txtBankBranchNameLData = new GridData();
-			txtBankBranchName.addKeyListener(new KeyAdapter()
-			{
-				public void keyReleased(KeyEvent evt)
-				{
-					if (evt.keyCode == SWT.CR)
-						search();
-				}
-			});
-			txtBankBranchNameLData.verticalAlignment = GridData.CENTER;
-			txtBankBranchNameLData.horizontalAlignment = GridData.BEGINNING;
-			txtBankBranchNameLData.widthHint = 254;
-			txtBankBranchNameLData.heightHint = 13;
-			txtBankBranchNameLData.horizontalIndent = 0;
-			txtBankBranchNameLData.horizontalSpan = 1;
-			txtBankBranchNameLData.verticalSpan = 1;
-			txtBankBranchNameLData.grabExcessHorizontalSpace = false;
-			txtBankBranchNameLData.grabExcessVerticalSpace = false;
-			txtBankBranchName.setLayoutData(txtBankBranchNameLData);
-			txtBankBranchName.setSize(new org.eclipse.swt.graphics.Point(254, 13));
-			GridData lblBankAccountNoLData = new GridData();
-			lblBankAccountNoLData.verticalAlignment = GridData.CENTER;
-			lblBankAccountNoLData.horizontalAlignment = GridData.BEGINNING;
-			lblBankAccountNoLData.widthHint = -1;
-			lblBankAccountNoLData.heightHint = -1;
-			lblBankAccountNoLData.horizontalIndent = 0;
-			lblBankAccountNoLData.horizontalSpan = 1;
-			lblBankAccountNoLData.verticalSpan = 1;
-			lblBankAccountNoLData.grabExcessHorizontalSpace = false;
-			lblBankAccountNoLData.grabExcessVerticalSpace = false;
-			lblBankAccountNo.setLayoutData(lblBankAccountNoLData);
-			lblBankAccountNo.setText(Messages.getString("BankUIBankCardSearch.2")); //$NON-NLS-1$
-			GridData txtBankAccountNoLData = new GridData();
-			txtBankAccountNo.addKeyListener(new KeyAdapter()
-			{
-				public void keyReleased(KeyEvent evt)
-				{
-					if (evt.keyCode == SWT.CR)
-						search();
-				}
-			});
-			txtBankAccountNoLData.verticalAlignment = GridData.CENTER;
-			txtBankAccountNoLData.horizontalAlignment = GridData.BEGINNING;
-			txtBankAccountNoLData.widthHint = 254;
-			txtBankAccountNoLData.heightHint = 13;
-			txtBankAccountNoLData.horizontalIndent = 0;
-			txtBankAccountNoLData.horizontalSpan = 1;
-			txtBankAccountNoLData.verticalSpan = 1;
-			txtBankAccountNoLData.grabExcessHorizontalSpace = false;
-			txtBankAccountNoLData.grabExcessVerticalSpace = false;
-			txtBankAccountNo.setLayoutData(txtBankAccountNoLData);
-			txtBankAccountNo.setSize(new org.eclipse.swt.graphics.Point(254, 13));
-			GridData lblCurrencyLData = new GridData();
-			lblCurrencyLData.verticalAlignment = GridData.CENTER;
-			lblCurrencyLData.horizontalAlignment = GridData.BEGINNING;
-			lblCurrencyLData.widthHint = -1;
-			lblCurrencyLData.heightHint = -1;
-			lblCurrencyLData.horizontalIndent = 0;
-			lblCurrencyLData.horizontalSpan = 1;
-			lblCurrencyLData.verticalSpan = 1;
-			lblCurrencyLData.grabExcessHorizontalSpace = false;
-			lblCurrencyLData.grabExcessVerticalSpace = false;
-			lblCurrency.setLayoutData(lblCurrencyLData);
-			lblCurrency.setText(Messages.getString("BankUIBankCardSearch.3")); //$NON-NLS-1$
-			GridData comboCurrencyLData = new GridData();
-			comboCurrencyLData.widthHint = 67;
-			comboCurrencyLData.heightHint = 16;
-			comboCurrency.setLayoutData(comboCurrencyLData);
+			
 			GridLayout composite1Layout = new GridLayout(2, true);
-			composite1.setLayout(composite1Layout);
 			composite1Layout.marginWidth = 5;
 			composite1Layout.marginHeight = 5;
 			composite1Layout.numColumns = 2;
 			composite1Layout.makeColumnsEqualWidth = false;
 			composite1Layout.horizontalSpacing = 5;
 			composite1Layout.verticalSpacing = 5;
+            composite1.setLayout(composite1Layout);
+			
 			composite1.layout();
-			GridData tableBankCardsLData = new GridData();
-			tableBankCardsLData.verticalAlignment = GridData.FILL;
-			tableBankCardsLData.horizontalAlignment = GridData.FILL;
-			tableBankCardsLData.widthHint = -1;
-			tableBankCardsLData.heightHint = -1;
-			tableBankCardsLData.horizontalIndent = 0;
-			tableBankCardsLData.horizontalSpan = 1;
-			tableBankCardsLData.verticalSpan = 1;
-			tableBankCardsLData.grabExcessHorizontalSpace = false;
-			tableBankCardsLData.grabExcessVerticalSpace = true;
-			tableBankCards.setLayoutData(tableBankCardsLData);
+			//START >>  lblBankName
+			lblBankName = new CLabel(composite1, SWT.NONE);
+			lblBankName.setText(Messages.getString("BankUIBankCardSearch.0"));
+			GridData lblBankNameLData = new GridData();
+			lblBankName.setLayoutData(lblBankNameLData);
+			//END <<  lblBankName
+			//START >>  txtBankName
+			txtBankName = new Text(composite1, SWT.NONE);
+			txtBankName.setSize(248, 13);
+			GridData txtBankNameLData = new GridData();
+			txtBankName.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if (evt.keyCode == SWT.CR)
+						search();
+				}
+			});
+			txtBankNameLData.widthHint = 150;
+			txtBankNameLData.heightHint = 17;
+			txtBankName.setLayoutData(txtBankNameLData);
+			//END <<  txtBankName
+			//START >>  lblBankBranchName
+			lblBankBranchName = new CLabel(composite1, SWT.NONE);
+			lblBankBranchName.setText(Messages.getString("BankUIBankCardSearch.1"));
+			GridData lblBankBranchNameLData = new GridData();
+			lblBankBranchName.setLayoutData(lblBankBranchNameLData);
+			//END <<  lblBankBranchName
+			//START >>  txtBankBranchName
+			txtBankBranchName = new Text(composite1, SWT.NONE);
+			txtBankBranchName.setSize(new org.eclipse.swt.graphics.Point(254, 13));
+			GridData txtBankBranchNameLData = new GridData();
+			txtBankBranchName.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if (evt.keyCode == SWT.CR)
+						search();
+				}
+			});
+			txtBankBranchNameLData.widthHint = 150;
+			txtBankBranchNameLData.heightHint = 17;
+			txtBankBranchName.setLayoutData(txtBankBranchNameLData);
+			//END <<  txtBankBranchName
+			//START >>  lblBankAccountNo
+			lblBankAccountNo = new CLabel(composite1, SWT.NONE);
+			lblBankAccountNo.setText(Messages.getString("BankUIBankCardSearch.2"));
+			GridData lblBankAccountNoLData = new GridData();
+			lblBankAccountNo.setLayoutData(lblBankAccountNoLData);
+			//END <<  lblBankAccountNo
+			//START >>  txtBankAccountNo
+			txtBankAccountNo = new Text(composite1, SWT.NONE);
+			txtBankAccountNo.setSize(new org.eclipse.swt.graphics.Point(254, 13));
+			GridData txtBankAccountNoLData = new GridData();
+			txtBankAccountNo.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent evt) {
+					if (evt.keyCode == SWT.CR)
+						search();
+				}
+			});
+			txtBankAccountNoLData.widthHint = 150;
+			txtBankAccountNoLData.heightHint = 17;
+			txtBankAccountNo.setLayoutData(txtBankAccountNoLData);
+			//END <<  txtBankAccountNo
+			//START >>  lblCurrency
+			lblCurrency = new CLabel(composite1, SWT.NONE);
+			lblCurrency.setText(Messages.getString("BankUIBankCardSearch.3"));
+			GridData lblCurrencyLData = new GridData();
+			lblCurrency.setLayoutData(lblCurrencyLData);
+			//END <<  lblCurrency
+			//START >>  comboCurrency
+			comboCurrency = new CCombo(composite1, SWT.NONE);
+			GridData comboCurrencyLData = new GridData();
+			comboCurrency.setLayoutData(comboCurrencyLData);
+			comboCurrencyLData.widthHint = 135;
+			comboCurrencyLData.heightHint = 17;
+			comboCurrency.setLayoutData(comboCurrencyLData);
+			//END <<  comboCurrency
+			//END <<  composite1
+
+			//START >>  tableBankCards
+			tableBankCards = new Table(this, SWT.MULTI | SWT.FULL_SELECTION);
 			tableBankCards.setHeaderVisible(true);
 			tableBankCards.setLinesVisible(true);
 			tableBankCards.setSize(new org.eclipse.swt.graphics.Point(505, 147));
-			tableBankCards.addMouseListener(new MouseAdapter()
-			{
-				public void mouseDoubleClick(MouseEvent evt)
-				{
+			GridData tableBankCardsLData = new GridData();
+			tableBankCards.addMouseListener(new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
 					tableBankCardsMouseDoubleClick(evt);
 				}
 			});
-			tableColoumnBankName.setText(Messages.getString("BankUIBankCardSearch.4")); //$NON-NLS-1$
+			tableBankCardsLData.verticalAlignment = GridData.FILL;
+			tableBankCardsLData.horizontalAlignment = GridData.FILL;
+			tableBankCardsLData.grabExcessVerticalSpace = true;
+			tableBankCards.setLayoutData(tableBankCardsLData);
+			//START >>  tableColoumnBankName
+			tableColoumnBankName = new TableColumn(tableBankCards, SWT.NONE);
+			tableColoumnBankName.setText(Messages.getString("BankUIBankCardSearch.4"));
 			tableColoumnBankName.setWidth(120);
-			tableColumnBankBrancName.setText(Messages.getString("BankUIBankCardSearch.5")); //$NON-NLS-1$
+			//END <<  tableColoumnBankName
+			//START >>  tableColumnBankBrancName
+			tableColumnBankBrancName = new TableColumn(tableBankCards, SWT.NONE);
+			tableColumnBankBrancName.setText(Messages.getString("BankUIBankCardSearch.5"));
 			tableColumnBankBrancName.setWidth(120);
-			tableColumnAccountNo.setText(Messages.getString("BankUIBankCardSearch.6")); //$NON-NLS-1$
+			//END <<  tableColumnBankBrancName
+			//START >>  tableColumnAccountNo
+			tableColumnAccountNo = new TableColumn(tableBankCards, SWT.NONE);
+			tableColumnAccountNo.setText(Messages.getString("BankUIBankCardSearch.6"));
 			tableColumnAccountNo.setWidth(120);
-			tableColumnCurrency.setText(Messages.getString("BankUIBankCardSearch.7")); //$NON-NLS-1$
+			//END <<  tableColumnAccountNo
+			//START >>  tableColumnCurrency
+			tableColumnCurrency = new TableColumn(tableBankCards, SWT.NONE);
+			tableColumnCurrency.setText(Messages.getString("BankUIBankCardSearch.7"));
 			tableColumnCurrency.setWidth(120);
-			{
-				tavleColumnDefinition = new TableColumn(tableBankCards, SWT.NONE);
-				tavleColumnDefinition.setText(Messages.getString("BankUIBankCardSearch.8")); //$NON-NLS-1$
-				tavleColumnDefinition.setWidth(150);
-			}
-			GridLayout thisLayout = new GridLayout(1, true);
-			this.setLayout(thisLayout);
+			//END <<  tableColumnCurrency
+			//START >>  tavleColumnDefinition
+			tavleColumnDefinition = new TableColumn(tableBankCards, SWT.NONE);
+			tavleColumnDefinition.setText(Messages.getString("BankUIBankCardSearch.8")); //$NON-NLS-1$
+			tavleColumnDefinition.setWidth(150);
+			//END <<  tavleColumnDefinition
+			//END <<  tableBankCards
+			
 			thisLayout.marginWidth = 5;
 			thisLayout.marginHeight = 5;
 			thisLayout.numColumns = 1;
@@ -292,6 +252,7 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 		try
 		{
 			FillCurrencyCombo();
+			createTableViewer();
 		}
 		catch (Exception ex)
 		{
@@ -302,6 +263,17 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 		}
 	}
 
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[5];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		tableViewer = new SearchTableViewer(tableBankCards,columnTypes);
+		
+	}
 	private void FillCurrencyCombo() throws Exception
 	{
 		try
@@ -338,30 +310,31 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 	{
 		try
 		{
-			tableBankCards.removeAll();
+			tableViewer.removeAll();
+			
 			List listBankCards = BankBLBankCardSearch.searchBankCards(txtBankName.getText().trim(), txtBankBranchName.getText().trim(),
 					txtBankAccountNo.getText().trim(), (TurqCurrency) (comboCurrency.getData(comboCurrency.getText())));
 			Object[] result;
 			for (int k = 0; k < listBankCards.size(); k++)
 			{
 				result = (Object[]) listBankCards.get(k);
-				TableItem item = new TableItem(tableBankCards, SWT.NULL);
+				
 				Integer bankId = (Integer) result[0];
 				String bankName = (String) result[1];
 				String bankBranchName = (String) result[2];
 				String bankAccNo = (String) result[3];
 				String abbr = (String) result[4];
 				String bankDefinition = (String) result[5];
-				item.setData(bankId);
-				item.setText(new String[]{bankName, bankBranchName, bankAccNo, abbr, bankDefinition});
+				tableViewer.addRow(new String[]{bankName, bankBranchName, bankAccNo, abbr, bankDefinition},bankId);
 			}
 		}
 		catch (Exception ex)
 		{
+			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
 			msg.open();
-			ex.printStackTrace();
+			
 		}
 	}
 
@@ -378,7 +351,8 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 			TableItem[] selection = tableBankCards.getSelection();
 			if (selection.length > 0)
 			{
-				Integer bankId = (Integer) selection[0].getData();
+				ITableRow row = (ITableRow) selection[0].getData();
+				Integer bankId = (Integer) row.getDBObject();
 				TurqBanksCard card = BankBLBankCardSearch.getBankCardByBankCardId(bankId);
 				BankBLBankCardSearch.initializeBankCard(card);
 				boolean updated = new BankUIBankCardUpdate(this.getShell(), SWT.NULL, card).open();
