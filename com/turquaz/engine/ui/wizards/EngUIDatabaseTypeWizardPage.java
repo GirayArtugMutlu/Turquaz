@@ -7,6 +7,7 @@
 package com.turquaz.engine.ui.wizards;
 
 
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
@@ -74,8 +75,7 @@ public class EngUIDatabaseTypeWizardPage extends WizardPage {
 	            {
 	                public void widgetSelected(SelectionEvent e)
 	                {
-	                    setPageComplete(true);
-	                    setErrorMessage(null);
+	                updateStatus(null);
 	                }
 	            });
 	      
@@ -88,6 +88,9 @@ public class EngUIDatabaseTypeWizardPage extends WizardPage {
 	        setErrorMessage(message);
 	        setPageComplete(message == null);
 	    }
+	 
+	
+	 
 	/**
 	 * @return Returns the comboDBServer.
 	 */

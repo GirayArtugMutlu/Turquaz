@@ -38,10 +38,10 @@ public class EngDALConnection {
 	loginPass = System.getProperty("dbPass");
   }
 
-  public EngDALConnection(String dbType, String userName, String pass, String Url) {
+  public EngDALConnection(String dbType, String userName, String pass, String Url,String dbName) {
 	
   	 driver = "org.postgresql.Driver";
-  	loginUrl = "jdbc:postgresql://" +Url + "/template1";
+  	loginUrl = "jdbc:postgresql://" +Url + "/"+dbName;
     //loginUrl = "jdbc:postgresql://" + Url + "/";
    // loginUrl = "jdbc:mysql://10.90.19.52/turquaz";
 	loginUser = userName;

@@ -19,6 +19,8 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 	private EngUIDatabaseTypeWizardPage page1;
 	private EngUIDatabaseConnectionInfoWizardPage page2;
 	private EngUIDatabaseSelectionWizardPage page3;
+	private EngUICreateTablesWizardPage page4;
+	
 	private ISelection selection;
 	
 	public EngUIDatabaseConnectionWizard(){
@@ -29,13 +31,32 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 		
 		page1 = new EngUIDatabaseTypeWizardPage(selection);
 		page2 = new  EngUIDatabaseConnectionInfoWizardPage(selection);
-		//page3 = new EngUIDatabaseSelectionWizardPage(selection);
+		page3 = new EngUIDatabaseSelectionWizardPage(selection);
+		page4 = new EngUICreateTablesWizardPage(selection);
 		addPage(page1);
 		addPage(page2);
+		addPage(page3);
+		addPage(page4);
+		
+		//addPage(page4);
 		
 		
 	}
 	public boolean performFinish(){
+		if(page4.getBtnNo().getSelection()){
+			
+		//Create Tables...	
+		
+		}
+		else{
+			
+			
+			
+			
+			
+		}
+			
+		
 		return true;
 	}
 	/**
@@ -85,5 +106,17 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 	 */
 	public void setSelection(ISelection selection) {
 		this.selection = selection;
+	}
+	/**
+	 * @return Returns the page4.
+	 */
+	public EngUICreateTablesWizardPage getPage4() {
+		return page4;
+	}
+	/**
+	 * @param page4 The page4 to set.
+	 */
+	public void setPage4(EngUICreateTablesWizardPage page4) {
+		this.page4 = page4;
 	}
 }

@@ -177,8 +177,7 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 		                	 dialogChanged();             
 		                }
 		            });
-
-	        
+      
 	        
 	      
 	        this.setControl(container);
@@ -190,6 +189,7 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 	 {
 	        setErrorMessage(message);
 	        setPageComplete(message == null);
+	       
 	 }
 	 
 	 
@@ -213,9 +213,11 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 	    }
 	  public IWizardPage getNextPage(){
 	   
-	  	WizardPage page = new EngUIDatabaseSelectionWizardPage(selection);
+	  	EngUIDatabaseSelectionWizardPage page =((EngUIDatabaseConnectionWizard)getWizard()).getPage3();
+	  	 page.ShowPage();
 	   
-	  	page.setWizard(this.getWizard());
+	  
+	  	
 	  	return page;
 	   	
 	   	
