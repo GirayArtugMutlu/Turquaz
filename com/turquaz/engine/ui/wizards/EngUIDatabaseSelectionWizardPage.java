@@ -34,13 +34,18 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Text;
 
 
 import com.cloudgarden.resource.SWTResourceManager;
@@ -71,7 +76,7 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 	
 	
 	public void ShowPage(){
-		Composite container = (Composite)this.getControl();
+		final Composite container = (Composite)this.getControl();
 		Control children[] = container.getChildren();
 		for(int i=0;i<children.length;i++){
 			children[i].dispose();
@@ -100,7 +105,46 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 		                    setPageComplete(true);
 		                }
 		            });
-		         
+		        
+		        Label lbldbName = new Label(container,SWT.NULL);
+		        lbldbName.setText("&New Database");
+		        
+		        GridData gd2 = new GridData(GridData.FILL_HORIZONTAL);
+		       final Text txtNewDatabase = new Text(container,SWT.FLAT);
+		        txtNewDatabase.setLayoutData(gd2);
+		        
+		        Button btnCreate = new Button(container,SWT.NULL);
+		        btnCreate.setText("Create");
+		        btnCreate.addMouseListener(new MouseAdapter()
+		        		{
+		        	       public void mouseUp(MouseEvent evt){
+		        	       if(connection !=null&&!txtNewDatabase.getText().trim().equals("")){
+		        	       	try{
+		        	       	
+		        	       	connection.execQuery("create database "+txtNewDatabase.getText().trim()+" template template0");
+		        	       	MessageBox msg = new MessageBox(getShell(),SWT.NULL);
+	        	       		msg.setMessage("New Database Succesfully Created!");
+	        	       		msg.open();
+	        	       		fillCombo();
+		        	       	}
+		        	       	catch(Exception ex){
+		        	       		MessageBox msg = new MessageBox(getShell(),SWT.NULL);
+		        	       		msg.setMessage(ex.getMessage());
+		        	       		msg.open();
+		        	       		ex.printStackTrace();
+		        	       		
+		        	       	}
+		        	       	}
+		        	       
+		        	       
+		        	       }
+		        	     
+		        	
+		        		}
+		        		);
+		        
+		        
+		        
 		        container.layout();
 		        
 		        fillCombo();
@@ -114,6 +158,7 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 	}
 	
 	public void fillCombo(){
+		comboDatabases.removeAll();
 		if(connection!=null){
 			try{
 			ResultSet rs = connection.getResultSet("SELECT d.datname as name FROM pg_database d where d.datistemplate ='false'");
@@ -121,6 +166,7 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 			comboDatabases.add(rs.getString("name"));		
 			}
 			rs.close();
+			
 		}
 			catch(Exception ex){
 			   ex.printStackTrace();
@@ -134,11 +180,11 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 	   EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard)getWizard()).getPage1();
 	   EngUIDatabaseConnectionInfoWizardPage page2 =((EngUIDatabaseConnectionWizard)getWizard()).getPage2();
 	   
-	   connection = new EngDALConnection(page1.getComboDBServer().getText(),
-	   									 page2.getTxtUsername().getText(),
+	   connection = new EngDALConnection(page1.getComboDBServer().getText().trim(),
+	   									 page2.getTxtUsername().getText().trim(),
 										 page2.getTxtPassword().getText(),
-										 page2.getTxtServerAddress().getText()+":"+
-										 page2.getTxtServerPort().getText(),
+										 page2.getTxtServerAddress().getText().trim()+":"+
+										 page2.getTxtServerPort().getText().trim(),
 										 "template1");
 	   
 	   	try{
