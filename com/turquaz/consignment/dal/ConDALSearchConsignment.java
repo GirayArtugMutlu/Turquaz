@@ -32,7 +32,7 @@ public class ConDALSearchConsignment {
 
 	}
 
-	public List searchConsignments(TurqCurrentCard curCard, Date startDate,
+	public static List searchConsignments(TurqCurrentCard curCard, Date startDate,
 			Date endDate, int type, String docNo) throws Exception {
 		try {
 			Session session = EngDALSessionFactory.openSession();
@@ -76,7 +76,7 @@ public class ConDALSearchConsignment {
 	}
 
 	//?rsaliyeden faturalstirma da kullaniliyo..
-	public List chooseConsignments(TurqCurrentCard curCard, Date startDate,
+	public static List chooseConsignments(TurqCurrentCard curCard, Date startDate,
 			Date endDate, int type) throws Exception {
 		try {
 			Session session = EngDALSessionFactory.openSession();

@@ -24,15 +24,14 @@ import com.turquaz.engine.dal.TurqConsignmentGroup;
 
 
 public class ConBLAddGroups {
-	Calendar cal = Calendar.getInstance();
-	ConDALAddGroups dalAddGroups = new ConDALAddGroups();
+
 	public ConBLAddGroups(){
 		
 	}
 	
-	public List getConsignmentGroups()throws Exception {
+	public static List getConsignmentGroups()throws Exception {
 		try{
-			return dalAddGroups.getConsignmentGroups();
+			return ConDALAddGroups.getConsignmentGroups();
 			
 		}
 		catch(Exception ex){
@@ -41,8 +40,9 @@ public class ConBLAddGroups {
 	}
 	
 	
-	public void saveGroup(String name, String description)throws Exception{
+	public static void saveGroup(String name, String description)throws Exception{
 		try{
+			Calendar cal = Calendar.getInstance();
 		TurqConsignmentGroup group = new TurqConsignmentGroup();
 		group.setGroupsDescription(description);
 		group.setGroupsName(name);
@@ -60,9 +60,9 @@ public class ConBLAddGroups {
 		}
 	}
 	
-	public void updateGroup(String name, String description,TurqConsignmentGroup group)throws Exception{
+	public static void updateGroup(String name, String description,TurqConsignmentGroup group)throws Exception{
 		try{
-
+			Calendar cal = Calendar.getInstance();
 		group.setGroupsDescription(description);
 		group.setGroupsName(name);
 	
@@ -77,7 +77,7 @@ public class ConBLAddGroups {
 		}
 	}
 	
-	public void deleteGroup(TurqConsignmentGroup group)throws Exception{
+	public static void deleteGroup(TurqConsignmentGroup group)throws Exception{
 		try{
 
 	

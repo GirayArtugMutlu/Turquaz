@@ -38,8 +38,7 @@ import com.turquaz.engine.dal.TurqInventoryTransaction;
  */
 public class ConBLUpdateConsignment {
 
-	private static ConDALUpdateConsignment dalCons = new ConDALUpdateConsignment();
-	private static ConBLAddConsignment blAddCons = new ConBLAddConsignment();
+	
 	public ConBLUpdateConsignment(){
 		
 	}
@@ -83,7 +82,7 @@ public class ConBLUpdateConsignment {
 			for(int i=0;i<groups.size();i++)
 			{
 				
-				blAddCons.registerGroup((TurqConsignmentGroup)groups.get(i),consignment);
+				ConBLAddConsignment.registerGroup((TurqConsignmentGroup)groups.get(i),consignment);
 				
 			}			
 			
@@ -105,7 +104,7 @@ public class ConBLUpdateConsignment {
 	    for(int i=0;i<invTransactions.size();i++)
 	    {
 	    	TurqInventoryTransaction invTrans = (TurqInventoryTransaction)invTransactions.get(i);
-	    	blAddCons.saveConsignmentRow(invTrans,consignment.getId(),type);    	
+	    	ConBLAddConsignment.saveConsignmentRow(invTrans,consignment.getId(),type);    	
 	    	
 	    }
 			
@@ -200,7 +199,7 @@ public class ConBLUpdateConsignment {
 	public static void initiliazeConsignment(TurqConsignment cons)throws Exception{
 		try{
 		 
-		    dalCons.initiliazeConsignment(cons);
+		    ConDALUpdateConsignment.initiliazeConsignment(cons);
 		    
 		}
 		catch(Exception ex){

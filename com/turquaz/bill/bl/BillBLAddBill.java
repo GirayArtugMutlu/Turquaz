@@ -48,11 +48,10 @@ public class BillBLAddBill {
 						BigDecimal vatAmount, BigDecimal specialVatAmount,
 						BigDecimal totalAmount,TurqCurrencyExchangeRate exRate,
 						List billGroups,List invTransactions )throws Exception{
-		
-		ConBLAddConsignment blConsAdd = new ConBLAddConsignment();
+	
 	
 		// First Save Consignment
-		TurqConsignment cons = blConsAdd.saveConsignment(consignemtDocNo,definition,isPrinted,billsDate,currentCard,discountAmount,billDocNo,vatAmount,specialVatAmount,totalAmount,type,exRate,invTransactions,null);
+		TurqConsignment cons = ConBLAddConsignment.saveConsignment(consignemtDocNo,definition,isPrinted,billsDate,currentCard,discountAmount,billDocNo,vatAmount,specialVatAmount,totalAmount,type,exRate,invTransactions,null);
 	
 
 	

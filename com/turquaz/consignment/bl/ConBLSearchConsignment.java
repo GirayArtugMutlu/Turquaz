@@ -27,7 +27,6 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 
 public class ConBLSearchConsignment {
 	Calendar cal = Calendar.getInstance();
-	ConDALSearchConsignment dalSearch = new ConDALSearchConsignment();
    
 	public ConBLSearchConsignment(){
    	
@@ -35,10 +34,10 @@ public class ConBLSearchConsignment {
 	}
 	
 	
-	public List searchConsignment(TurqCurrentCard card,Date startDate,Date endDate, int type,String docNo)throws Exception{
+	public static List searchConsignment(TurqCurrentCard card,Date startDate,Date endDate, int type,String docNo)throws Exception{
 		try{
 			
-			return dalSearch.searchConsignments(card,startDate,endDate,type,docNo);
+			return ConDALSearchConsignment.searchConsignments(card,startDate,endDate,type,docNo);
 			
 		}
 		catch(Exception ex){
@@ -48,10 +47,10 @@ public class ConBLSearchConsignment {
 	}
 	
 	
-	public List chooseConsignment(TurqCurrentCard card,Date startDate,Date endDate, int type)throws Exception{
+	public static List chooseConsignment(TurqCurrentCard card,Date startDate,Date endDate, int type)throws Exception{
 		try{
 			
-			return dalSearch.chooseConsignments(card,startDate,endDate,type);
+			return ConDALSearchConsignment.chooseConsignments(card,startDate,endDate,type);
 			
 		}
 		catch(Exception ex){

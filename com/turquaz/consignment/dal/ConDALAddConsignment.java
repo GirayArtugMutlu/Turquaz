@@ -31,7 +31,7 @@ public class ConDALAddConsignment {
 		
 	}
 	
-	public TurqConsignment loadConsignment(Integer consId)throws Exception {
+	public static TurqConsignment loadConsignment(Integer consId)throws Exception {
 		
 		try{
 			Session session = EngDALSessionFactory.openSession();

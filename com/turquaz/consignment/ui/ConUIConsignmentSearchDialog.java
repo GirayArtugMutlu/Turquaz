@@ -79,7 +79,6 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 	private CLabel lblStartDate;
 	private CLabel lblCurrentCard;
 	private TurqConsignment cons =null;
-	private ConBLSearchConsignment blSearch = new ConBLSearchConsignment();
 
 	
 
@@ -293,7 +292,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 			type =1;
 		}
 			
-		List list = blSearch.chooseConsignment((TurqCurrentCard)txtCurCard.getData(),
+		List list = ConBLSearchConsignment.chooseConsignment((TurqCurrentCard)txtCurCard.getData(),
 												dateStartDate.getDate(),
 												dateEndDate.getDate(),type);
 		TurqConsignment cons;

@@ -50,8 +50,7 @@ import com.turquaz.engine.dal.TurqModule;
 */
 
 public class ConBLAddConsignment {
-	ConDALAddConsignment dalConsignment = new ConDALAddConsignment();
-	Calendar cal = Calendar.getInstance();
+
 	
 	public ConBLAddConsignment(){
 		
@@ -75,14 +74,14 @@ public class ConBLAddConsignment {
 	 * @return
 	 * @throws Exception
 	 */
-	public TurqConsignment saveConsignment(String docNo, String definition, boolean isPrinted, Date consignmentDate,
+	public static TurqConsignment saveConsignment(String docNo, String definition, boolean isPrinted, Date consignmentDate,
 								   TurqCurrentCard curCard,BigDecimal discountAmount,
 								   String billDocNo, BigDecimal vatAmount,BigDecimal specialVatAmount,
 								   BigDecimal totalAmount,int type, TurqCurrencyExchangeRate exRate,
 								   List invTransactions, List groups)throws Exception {
 		try{
 		
-			
+			Calendar cal = Calendar.getInstance();
 			
 			TurqConsignment consignment = new TurqConsignment();
 		
@@ -177,9 +176,11 @@ public class ConBLAddConsignment {
 	 * @param consType
 	 * @throws Exception
 	 */
-	public void saveConsignmentRow(TurqInventoryTransaction invTrans, Integer consID,int consType)throws Exception{
+	public static void saveConsignmentRow(TurqInventoryTransaction invTrans, Integer consID,int consType)throws Exception{
 		try{
-			TurqConsignment cons = dalConsignment.loadConsignment(consID);
+			Calendar cal = Calendar.getInstance();
+			
+			TurqConsignment cons = ConDALAddConsignment.loadConsignment(consID);
 			
 			invTrans.setTurqEngineSequence(cons.getTurqEngineSequence());
 			invTrans.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
@@ -208,8 +209,10 @@ public class ConBLAddConsignment {
 		}
 	}
 	
-	public void registerGroup(TurqConsignmentGroup grp,TurqConsignment cons)throws Exception{
+	public static void registerGroup(TurqConsignmentGroup grp,TurqConsignment cons)throws Exception{
 	try{
+		Calendar cal = Calendar.getInstance();
+		
 		TurqConsignmentsInGroup cardGroup = new TurqConsignmentsInGroup();
 		TurqConsignmentGroup group = (TurqConsignmentGroup) grp;
 		

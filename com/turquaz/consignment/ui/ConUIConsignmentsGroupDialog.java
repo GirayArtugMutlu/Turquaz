@@ -80,7 +80,7 @@ public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialo
 	private CLabel lblGroupName;
 	private Composite compGroupAddDialog;
 	private Shell dialogShell;
-	private ConBLAddGroups blCardAdd = new ConBLAddGroups();
+
 	Calendar cal = Calendar.getInstance();
 
 	public ConUIConsignmentsGroupDialog(Shell parent, int style) {
@@ -273,7 +273,7 @@ public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialo
     public void fillTable(){
     try{
     tableCurGroups.removeAll();
-    List list = blCardAdd.getConsignmentGroups();
+    List list = ConBLAddGroups.getConsignmentGroups();
     
     TurqConsignmentGroup curGroup;
     TableItem item;
@@ -304,7 +304,7 @@ public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialo
 	    int result = msg.open();
 	    if(result==SWT.OK){
 	   
-	    blCardAdd.deleteGroup(( TurqConsignmentGroup)txtGroupName.getData());
+	  ConBLAddGroups.deleteGroup(( TurqConsignmentGroup)txtGroupName.getData());
 	   
 	   
 	    btnDelete.setEnabled(false);
@@ -347,7 +347,7 @@ public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialo
 		
 	TurqConsignmentGroup  invGroup = (  TurqConsignmentGroup )txtGroupName.getData();
 
-	blCardAdd.updateGroup(txtGroupName.getText().trim(),txtDescription.getText().trim(),invGroup);
+	ConBLAddGroups.updateGroup(txtGroupName.getText().trim(),txtDescription.getText().trim(),invGroup);
 	
 	btnDelete.setEnabled(false);
 	btnUpdate.setEnabled(false);
@@ -391,7 +391,7 @@ public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialo
 	    }
 	    else{
 	    
-	    blCardAdd.saveGroup(txtGroupName.getText().trim(),txtDescription.getText().trim());
+	    ConBLAddGroups.saveGroup(txtGroupName.getText().trim(),txtDescription.getText().trim());
 	    msg.setMessage(Messages.getString("CurUIGroupAddDialog.25")); //$NON-NLS-1$
 	    txtGroupName.setText(""); //$NON-NLS-1$
 	    txtDescription.setText(""); //$NON-NLS-1$

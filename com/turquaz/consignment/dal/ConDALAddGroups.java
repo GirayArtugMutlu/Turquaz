@@ -27,7 +27,7 @@ public class ConDALAddGroups {
 		
 	}
 
-	public List getConsignmentGroups()throws Exception{
+	public static List getConsignmentGroups()throws Exception{
 		try{
 			
 			

@@ -29,7 +29,7 @@ public class ConDALUpdateConsignment {
 		
 	}
 
-	public void initiliazeConsignment(TurqConsignment cons)throws Exception{
+	public static void initiliazeConsignment(TurqConsignment cons)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
 		

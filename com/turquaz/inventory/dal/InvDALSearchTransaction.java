@@ -348,8 +348,7 @@ public class InvDALSearchTransaction {
 			if (it.hasNext())
 			{
 				 cons = (TurqConsignment)it.next();
-				ConDALUpdateConsignment dalSearchCons = new ConDALUpdateConsignment();
-				dalSearchCons.initiliazeConsignment(cons);
+				 ConDALUpdateConsignment.initiliazeConsignment(cons);
 			}
 			session.close();
 			return cons;

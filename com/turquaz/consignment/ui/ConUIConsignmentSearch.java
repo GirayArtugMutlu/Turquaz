@@ -93,7 +93,6 @@ SearchComposite{
 	private TableColumn tableColumnSpecialVatAmount;
 	private TableColumn tableColumnCumulativePrice;
 	private TableColumn tableColumnConsignmentDate;
-	private ConBLSearchConsignment blSearch = new ConBLSearchConsignment();
 	private Calendar cal=Calendar.getInstance();
 
 	/**
@@ -374,7 +373,7 @@ SearchComposite{
 				type=EngBLCommon.COMMON_BUY_INT;
 			}
 			
-			List list = blSearch.searchConsignment((TurqCurrentCard)txtCurCard.getData(),
+			List list = ConBLSearchConsignment.searchConsignment((TurqCurrentCard)txtCurCard.getData(),
 												dateStartDate.getDate(),
 												dateEndDate.getDate(),type,
 												txtDocNo.getText().trim());

@@ -315,8 +315,6 @@ implements SecureComposite{
 	private CLabel lblDate;
 	private CurrentPicker txtCurrentCard;
 	private CLabel lblCurrentCard;
-	ConBLAddGroups blAddGroup = new ConBLAddGroups();
-	ConBLAddConsignment blAddCondignmetn = new ConBLAddConsignment();
 	public TableViewer tableViewer;
 	
 	/**
@@ -1019,7 +1017,7 @@ implements SecureComposite{
 		try{
 			
 		//Fill Group Table	
-		List list = blAddGroup.getConsignmentGroups();
+		List list = ConBLAddGroups.getConsignmentGroups();
 		HashMap groupMap = new HashMap(); 
 		
 		
@@ -1209,7 +1207,7 @@ implements SecureComposite{
 			type =1;
 		}
 	
-		TurqConsignment cons =blAddCondignmetn.saveConsignment(txtDocumentNo.getText(),
+		TurqConsignment cons =ConBLAddConsignment.saveConsignment(txtDocumentNo.getText(),
 										txtDefinition.getText(),
 										false,
 										dateConsignmentDate.getDate(),
