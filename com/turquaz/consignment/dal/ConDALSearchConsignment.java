@@ -148,7 +148,7 @@ public class ConDALSearchConsignment
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			String query = "Select cons from TurqConsignment where cons.id="+consId.intValue();
+			String query = "Select cons from TurqConsignment as cons where cons.id="+consId.intValue();
 			Query q = session.createQuery(query);
 			List list = q.list();		
 			return (TurqConsignment)list.get(0);

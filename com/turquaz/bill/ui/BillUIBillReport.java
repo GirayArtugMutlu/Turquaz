@@ -574,7 +574,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 								Integer billId = (Integer) billObj[0];
 								HashMap argMap=new HashMap();
 								argMap.put(BillKeys.BILL_ID,billId);
-								TurqBill bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap); //$NON-NLS-1$
+								bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap); //$NON-NLS-1$
 								postFinalizeGui();
 								if (currentIndex == 0)
 									toolItemBack.setEnabled(false);
@@ -611,7 +611,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 								Integer billId = (Integer) billObj[0];
 								HashMap argMap=new HashMap();
 								argMap.put(BillKeys.BILL_ID,billId);
-								TurqBill bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap); //$NON-NLS-1$
+								bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap); //$NON-NLS-1$
 								postFinalizeGui();
 								if (currentIndex == list.size() - 1)
 									toolItemForward.setEnabled(false);
@@ -860,7 +860,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				Integer billId = (Integer) billObj[0];
 				argMap=new HashMap();
 				argMap.put(BillKeys.BILL_ID,billId);
-				TurqBill bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap); //$NON-NLS-1$
+				bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap); //$NON-NLS-1$
 				postFinalizeGui();
 				toolItemBack.setEnabled(false);
 				//Generate Jasper Report
@@ -972,7 +972,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				{
 					HashMap argMap=new HashMap();
 					argMap.put(BillKeys.BILL_ID,billId);
-					TurqBill bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap);				 //$NON-NLS-1$
+					bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap);				 //$NON-NLS-1$
 					boolean updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill).open();
 					if (updated)
 						search();

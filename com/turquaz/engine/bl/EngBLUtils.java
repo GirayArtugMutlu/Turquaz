@@ -45,6 +45,7 @@ import com.jasperassistant.designer.viewer.ViewerApp;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLSearchBill;
+import com.turquaz.bill.dal.BillDALSearchBill;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
@@ -54,6 +55,7 @@ import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqBill;
+import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -313,6 +315,7 @@ public class EngBLUtils
 		try
 		{
 			TurqBill bill=(TurqBill)argMap.get(BillKeys.BILL);
+			BillDALSearchBill.initializeBill(bill);
 			Boolean balance=(Boolean)argMap.get(BillKeys.BILL_BALANCE);
 			if (EngConfiguration.getString("invoice_template") == null) { //$NON-NLS-1$
 				EngUICommon.showMessageBox(Display.getCurrent().getActiveShell(), Messages.getString("EngBLUtils.1"), SWT.ICON_WARNING); //$NON-NLS-1$
@@ -342,19 +345,27 @@ public class EngBLUtils
 			parameters.put("currentTaxDepartment",curCard.getCardsTaxDepartment());
 			parameters.put("currentId", curCard.getCardsCurrentCode());
 			parameters.put("totalSpecVAT", billview.getSpecialvatamount());
-			Iterator iter=bill.getTurqEngineSequence().getTurqConsignments().iterator();
-			TurqConsignment cons=null;
+			Iterator iter=bill.getTurqBillInEngineSequences().iterator();
 			if (iter.hasNext())
 			{
-				cons=(TurqConsignment)iter.next();			
-				parameters.put("despatchNoteDate",dformat.format(cons.getConsignmentsDate()));
-				parameters.put("despatchNoteId",cons.getConsignmentDocumentNo());
+				Iterator iter2=((TurqBillInEngineSequence)iter.next()).getTurqEngineSequence().getTurqConsignments().iterator();
+				TurqConsignment cons=null;
+				if (iter2.hasNext())
+				{
+					cons=(TurqConsignment)iter2.next();			
+					parameters.put("despatchNoteDate",dformat.format(cons.getConsignmentsDate()));
+					parameters.put("despatchNoteId",cons.getConsignmentDocumentNo());
+				}
+				else
+				{
+					parameters.put("despatchNoteDate","");
+					parameters.put("despatchNoteId","");				
+				}
 			}
 			else
 			{
 				parameters.put("despatchNoteDate","");
-				parameters.put("despatchNoteId","");
-				
+				parameters.put("despatchNoteId","");				
 			}
 			parameters.put("billType", (bill.getBillsType() ==EngBLCommon.BILL_TRANS_TYPE_BUY) ? new Integer(1) : new Integer(0)); 
 			
@@ -363,7 +374,7 @@ public class EngBLUtils
 			argMap.put(EngKeys.CURRENT_CARD,curCard);
 
 			
-			TurqViewCurrentAmountTotal currentView =			(TurqViewCurrentAmountTotal)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCardView",argMap);
+			TurqViewCurrentAmountTotal currentView =(TurqViewCurrentAmountTotal)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCardView",argMap);
 			
 			
 			

@@ -218,6 +218,32 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			HashMap argMap=new HashMap();
 			argMap.put(ConsKeys.CONS,consignment);
 			EngTXCommon.doSingleTX(ConBLUpdateConsignment.class.getName(),"initiliazeConsignment",argMap);
+			
+			TurqCurrentCard curCard = consignment.getTurqCurrentCard();
+			compAddConsignment.getTxtCurrentCard().setText(curCard.getCardsName() + " {" + curCard.getCardsCurrentCode() + "}"); //$NON-NLS-1$ //$NON-NLS-2$
+			compAddConsignment.getDateConsignmentDate().setDate(consignment.getConsignmentsDate());
+			compAddConsignment.getTxtDocumentNo().setText(consignment.getConsignmentDocumentNo());
+			compAddConsignment.getTxtBillDocumentNo().setText(consignment.getBillDocumentNo());
+			if (consignment.getConsignmentsType() == 0)
+			{
+				compAddConsignment.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.5")); //$NON-NLS-1$
+			}
+			else
+			{
+				compAddConsignment.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.6")); //$NON-NLS-1$
+			}
+			compAddConsignment.getTxtDefinition().setText(consignment.getConsignmentsDefinition());
+			
+			Iterator it = consignment.getTurqEngineSequence().getTurqBillInEngineSequences().iterator();
+			if(it.hasNext())
+			{
+				TurqBillInEngineSequence billEng = (TurqBillInEngineSequence)it.next();
+				compAddConsignment.getTxtBillDocumentNo().setText(billEng.getTurqBill().getBillDocumentNo());
+			}
+			
+			
+			fillInvTransactionColumns();
+			fillRegisteredGroup();
 		}
 		catch (Exception ex)
 		{
@@ -225,31 +251,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
-		TurqCurrentCard curCard = consignment.getTurqCurrentCard();
-		compAddConsignment.getTxtCurrentCard().setText(curCard.getCardsName() + " {" + curCard.getCardsCurrentCode() + "}"); //$NON-NLS-1$ //$NON-NLS-2$
-		compAddConsignment.getDateConsignmentDate().setDate(consignment.getConsignmentsDate());
-		compAddConsignment.getTxtDocumentNo().setText(consignment.getConsignmentDocumentNo());
-		compAddConsignment.getTxtBillDocumentNo().setText(consignment.getBillDocumentNo());
-		if (consignment.getConsignmentsType() == 0)
-		{
-			compAddConsignment.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.5")); //$NON-NLS-1$
-		}
-		else
-		{
-			compAddConsignment.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.6")); //$NON-NLS-1$
-		}
-		compAddConsignment.getTxtDefinition().setText(consignment.getConsignmentsDefinition());
-		
-		Iterator it = consignment.getTurqEngineSequence().getTurqBillInEngineSequences().iterator();
-		if(it.hasNext())
-		{
-			TurqBillInEngineSequence billEng = (TurqBillInEngineSequence)it.next();
-			compAddConsignment.getTxtBillDocumentNo().setText(billEng.getTurqBill().getBillDocumentNo());
-		}
-		
-		
-		fillInvTransactionColumns();
-		fillRegisteredGroup();
+
 	}
 
 	public void fillRegisteredGroup()
