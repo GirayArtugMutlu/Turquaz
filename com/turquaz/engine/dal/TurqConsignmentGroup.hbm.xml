@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqConsignmentGroup" 
+    table="turq_consignment_groups"
+>
+
+    <id
+        name="consignmentGroupsId"
+        type="int"
+        column="consignment_groups_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="groupsName"
+        type="java.lang.String"
+        column="groups_name"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="groupsDescription"
+        type="java.lang.String"
+        column="groups_description"
+        not-null="true"
+        length="250"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqCompany -->
+    <many-to-one
+        name="turqCompany"
+        class="com.turquaz.engine.dal.TurqCompany"
+        not-null="true"
+    >
+        <column name="companies_id" />
+    </many-to-one>
+    <!-- bi-directional one-to-many association to TurqConsignmentsInGroup -->
+    <set
+        name="turqConsignmentsInGroups"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="consignments_groups_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqConsignmentsInGroup"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

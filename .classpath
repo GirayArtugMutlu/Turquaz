@@ -3,5 +3,20 @@
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/plugins/org.eclipse.swt.win32_3.0.0/ws/win32/swt.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/Turquaz/lib/mysql.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/hibernate_deneme/lib/cglib2.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/hibernate_deneme/lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/hibernate_deneme/lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/hibernate_deneme/lib/commons-dbcp.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/hibernate_deneme/lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/hibernate_deneme/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/hibernate_deneme/lib/commons-pool.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/hibernate_deneme/lib/dom4j.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/hibernate_deneme/lib/ehcache.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/hibernate_deneme/lib/hibernate2.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/hibernate_deneme/lib/jta.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/hibernate_deneme/lib/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/hibernate_deneme/lib/odmg.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/onsel/Desktop/eclipse3/workspace/hibernate_deneme/lib/pg74.214.jdbc2.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

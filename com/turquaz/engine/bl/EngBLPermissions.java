@@ -17,7 +17,10 @@
 
 package com.turquaz.engine.bl;
 
+import java.sql.ResultSet;
 import java.util.*;
+
+import com.turquaz.engine.dal.EngDALUserPerms;
 
 
 /**
@@ -26,29 +29,150 @@ import java.util.*;
  * @version $Id$
  */
 public class EngBLPermissions {
+	
+	
 	private String username ="";
-	private Map permMap = new HashMap();
+	public Map compMap;
+	EngDALUserPerms dbaccess ;
+	EngDALUserPerms dbaccess2;
+	static EngBLPermissions _instance;
 	
 	public EngBLPermissions(String username){
-		
-	calculateModulePerms();	
-		
-	}
-	private void calculateModulePerms(){
 	
-	permMap.put("Modul paket adı","Modul class adı");
-		
+		fillCompMap();
 	}
 	
-	private Map calculateComponentPerms(int ModuleID)
-	{
-		Map comp_perms = new HashMap();
-		return comp_perms;	
-		 
+  public static synchronized int getPermission(String classname){
+	  	if(_instance==null){
+	  		
+	  	_instance = new EngBLPermissions("admin");
+	  	
+	  	return _instance.getPerm(classname);
+	  	  }
+	  	return _instance.getPerm(classname);
+	  
+	  	
+	  }
+  public static synchronized void init(){
+  	if(_instance==null){
+  		
+  	_instance = new EngBLPermissions("admin");
+  	  	
+  	  }
+  
+  
+  	
+  }
+  
+	protected Map getMap(){
+		return compMap;
 	}
 	
-	public int getPermission(String classname){
-		return 3;
+	
+	private void fillCompMap(){
+	try{
+		compMap = new HashMap();
+		dbaccess = new EngDALUserPerms();
+		dbaccess2 = new EngDALUserPerms();
+		ResultSet rs = dbaccess.getModuleComponents();
+		while(rs.next()){
+		compMap.put(rs.getString(1),0+"");	
+		}
+		rs.close();
+		
+		
+	//	System.out.println("Finished filling "+compMap.size());
+		rs = dbaccess.getGroupPermissions("admin");
+		calculateModulePerms(rs);
+		rs = dbaccess.getUserPermissions("admin");
+		calculateModulePerms(rs);
+		
+				
+	}
+	catch(Exception ex){
+		ex.printStackTrace();
+	}
+	}
+	
+	private void calculateModulePerms(ResultSet rs){
+	try{
+		
+	
+	
+	int module_id =-1;
+	int module_component_id =-1;
+	int perm_level = 0;
+	String component_name="";
+	while(rs.next()){
+	
+	 module_id = rs.getInt(1);
+	 module_component_id = rs.getInt(2);
+	 perm_level = rs.getInt(3);
+	 
+	 if(perm_level>-1&&perm_level<4){
+	 	
+	 	if(module_id==-1){
+	 		 // Iterate over the values in the map
+	 	  Iterator  it = compMap.keySet().iterator();
+	 	    while (it.hasNext()) {
+	 	        // Get value
+	 	        compMap.put(it.next(),perm_level+"");
+	 	    }
+	
+	 	
+	 		
+	 		
+	 		
+	 	}
+	 	else{
+	 		if(module_component_id ==-1){
+	 		ArrayList list = dbaccess2.getModuleComponents(module_id);
+	 		for(int i=0;i<list.size();i++){
+	 		compMap.put(list.get(i).toString(),perm_level+"");
+	 		
+	 		}
+	 			
+	 			
+	 		}	 		
+	 		else{
+	 		 component_name = dbaccess2.getModuleCompName(module_id,module_component_id);
+	 		 compMap.put(component_name,perm_level+"");	
+	 		}
+	 		
+	 	}
+	 	
+	
+	 	
+	 	
+	 	
+	 }
+	 else {
+	 	System.err.println("Permission hatası: level 1-3 arası olmalı!");
+	 }
+	 
+	 
+	 
+	}
+	rs.close();
+ 	rs = dbaccess.getUserPermissions("admin");	 	
+	
+	
+	
+		
+	}
+	catch(Exception ex){
+		ex.printStackTrace();
+	}
+		
+	}
+	
+	
+	
+	public int getPerm(String classname){
+		
+	String level =compMap.get(classname).toString();
+	return Integer.parseInt(level);
+	
 	}
 
 }

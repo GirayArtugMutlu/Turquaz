@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqInventoryCard" 
+    table="turq_inventory_cards"
+>
+
+    <id
+        name="inventoryCardsId"
+        type="int"
+        column="inventory_cards_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="cardInventoryCode"
+        type="java.lang.String"
+        column="card_inventory_code"
+        not-null="true"
+        length="25"
+    />
+    <property
+        name="cardSpecialCode"
+        type="java.lang.String"
+        column="card_special_code"
+        not-null="true"
+        length="25"
+    />
+    <property
+        name="cardName"
+        type="java.lang.String"
+        column="card_name"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="cardDefinition"
+        type="java.lang.String"
+        column="card_definition"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="cardMinimumAmount"
+        type="int"
+        column="card_minimum_amount"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="cardMaximumAmount"
+        type="int"
+        column="card_maximum_amount"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="cardVat"
+        type="int"
+        column="card_vat"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="cardDiscount"
+        type="int"
+        column="card_discount"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="updateDate"
+        type="java.sql.Date"
+        column="update_date"
+        not-null="true"
+        length="4"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqCompany -->
+    <many-to-one
+        name="turqCompany"
+        class="com.turquaz.engine.dal.TurqCompany"
+        not-null="true"
+    >
+        <column name="companies_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqInventoryGroup -->
+    <many-to-one
+        name="turqInventoryGroup"
+        class="com.turquaz.engine.dal.TurqInventoryGroup"
+        not-null="true"
+    >
+        <column name="inventory_groups_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqInventoryUnit -->
+    <many-to-one
+        name="turqInventoryUnit"
+        class="com.turquaz.engine.dal.TurqInventoryUnit"
+        not-null="true"
+    >
+        <column name="inventory_units_id" />
+    </many-to-one>
+    <!-- bi-directional one-to-many association to TurqInventoryPrice -->
+    <set
+        name="turqInventoryPrices"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="inventory_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryPrice"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqInventoryTransaction -->
+    <set
+        name="turqInventoryTransactions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="inventory_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryTransaction"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqInventoryCardUnit -->
+    <set
+        name="turqInventoryCardUnits"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="inventory_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryCardUnit"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

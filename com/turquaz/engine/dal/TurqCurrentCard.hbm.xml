@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqCurrentCard" 
+    table="turq_current_cards"
+>
+
+    <id
+        name="currentCardsId"
+        type="int"
+        column="current_cards_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="cardsCurrentCode"
+        type="java.lang.String"
+        column="cards_current_code"
+        not-null="true"
+        length="25"
+    />
+    <property
+        name="cardsName"
+        type="java.lang.String"
+        column="cards_name"
+        not-null="true"
+        length="250"
+    />
+    <property
+        name="cardsDefinition"
+        type="java.lang.String"
+        column="cards_definition"
+        not-null="true"
+        length="250"
+    />
+    <property
+        name="cardsAddress"
+        type="java.lang.String"
+        column="cards_address"
+        not-null="true"
+        length="250"
+    />
+    <property
+        name="cardsDiscountRate"
+        type="java.math.BigDecimal"
+        column="cards_discount_rate"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="cardsDiscountPayment"
+        type="java.math.BigDecimal"
+        column="cards_discount_payment"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="cardsCreditLimit"
+        type="java.math.BigDecimal"
+        column="cards_credit_limit"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="cardsRiskLimit"
+        type="java.math.BigDecimal"
+        column="cards_risk_limit"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="cardsTaxDepartment"
+        type="java.lang.String"
+        column="cards_tax_department"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="cardsTaxNumber"
+        type="java.lang.String"
+        column="cards_tax_number"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqCompany -->
+    <many-to-one
+        name="turqCompany"
+        class="com.turquaz.engine.dal.TurqCompany"
+        not-null="true"
+    >
+        <column name="companies_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
+    <many-to-one
+        name="turqAccountingAccountByAccountingCodeIdCustomer"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="accounting_code_id_customer" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
+    <many-to-one
+        name="turqAccountingAccountByAccountingCodeIdSupplier"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="accounting_code_id_supplier" />
+    </many-to-one>
+    <!-- bi-directional one-to-many association to TurqChequeRoll -->
+    <set
+        name="turqChequeRolls"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="current_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqChequeRoll"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqCurrentContact -->
+    <set
+        name="turqCurrentContacts"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="current_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrentContact"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqConsignment -->
+    <set
+        name="turqConsignments"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="current_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqConsignment"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqOrder -->
+    <set
+        name="turqOrders"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="current_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqOrder"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqCurrentTransaction -->
+    <set
+        name="turqCurrentTransactions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="current_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrentTransaction"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqTradebillRoll -->
+    <set
+        name="turqTradebillRolls"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="current_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqTradebillRoll"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqCurrentCardsGroup -->
+    <set
+        name="turqCurrentCardsGroups"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="current_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrentCardsGroup"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqCurrentCardsPhone -->
+    <set
+        name="turqCurrentCardsPhones"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="current_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrentCardsPhone"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqBanksTransaction -->
+    <set
+        name="turqBanksTransactions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="current_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBanksTransaction"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqBill -->
+    <set
+        name="turqBills"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="current_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBill"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

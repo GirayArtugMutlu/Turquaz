@@ -1,0 +1,361 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqCompany" 
+    table="turq_companies"
+>
+
+    <id
+        name="companiesId"
+        type="int"
+        column="companies_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="companyName"
+        type="java.lang.String"
+        column="company_name"
+        not-null="true"
+        length="250"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="updateDate"
+        type="java.sql.Date"
+        column="update_date"
+        not-null="true"
+        length="4"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional one-to-many association to TurqAccountingAccount -->
+    <set
+        name="turqAccountingAccounts"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqAccountingAccount"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqTradebillTradebill -->
+    <set
+        name="turqTradebillTradebills"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqTradebillTradebill"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqChequeRoll -->
+    <set
+        name="turqChequeRolls"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqChequeRoll"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqBanksCard -->
+    <set
+        name="turqBanksCards"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBanksCard"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqChequeCheque -->
+    <set
+        name="turqChequeCheques"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqChequeCheque"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqInventoryGroup -->
+    <set
+        name="turqInventoryGroups"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryGroup"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqOrderGroup -->
+    <set
+        name="turqOrderGroups"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqOrderGroup"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqCurrency -->
+    <set
+        name="turqCurrencies"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrency"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqCurrentGroup -->
+    <set
+        name="turqCurrentGroups"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrentGroup"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqInventoryUnit -->
+    <set
+        name="turqInventoryUnits"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryUnit"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqBill -->
+    <set
+        name="turqBills"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBill"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqInventoryCard -->
+    <set
+        name="turqInventoryCards"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryCard"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqCurrentTransactionType -->
+    <set
+        name="turqCurrentTransactionTypes"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrentTransactionType"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqConsignment -->
+    <set
+        name="turqConsignments"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqConsignment"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqCurrentCard -->
+    <set
+        name="turqCurrentCards"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrentCard"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqOrder -->
+    <set
+        name="turqOrders"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqOrder"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqInventoryWarehous -->
+    <set
+        name="turqInventoryWarehouses"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryWarehous"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqTradebillRoll -->
+    <set
+        name="turqTradebillRolls"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqTradebillRoll"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqBankSecondaryAccount -->
+    <set
+        name="turqBankSecondaryAccounts"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBankSecondaryAccount"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqBillGroup -->
+    <set
+        name="turqBillGroups"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBillGroup"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqConsignmentGroup -->
+    <set
+        name="turqConsignmentGroups"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="companies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqConsignmentGroup"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

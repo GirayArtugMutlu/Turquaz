@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqConsignment" 
+    table="turq_consignments"
+>
+
+    <id
+        name="consignmentsId"
+        type="int"
+        column="consignments_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="consignmentsDocumentNo"
+        type="int"
+        column="consignments_document_no"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="consignmentsBillDocumentNo"
+        type="java.lang.String"
+        column="consignments_bill_document_no"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="consignmentsDate"
+        type="java.sql.Date"
+        column="consignments_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="consignmentsDefinition"
+        type="java.lang.String"
+        column="consignments_definition"
+        not-null="true"
+        length="250"
+    />
+    <property
+        name="consignmentsPrinted"
+        type="short"
+        column="consignments_printed"
+        not-null="true"
+        length="2"
+    />
+    <property
+        name="condignmentsDiscountRate"
+        type="int"
+        column="condignments_discount_rate"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="consignmentsVat"
+        type="int"
+        column="consignments_vat"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="consignmentsDiscountAmount"
+        type="java.math.BigDecimal"
+        column="consignments_discount_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="consignmentsCharges"
+        type="java.math.BigDecimal"
+        column="consignments_charges"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="consignmentsVatAmount"
+        type="java.math.BigDecimal"
+        column="consignments_vat_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="consignmentsTotalAmount"
+        type="java.math.BigDecimal"
+        column="consignments_total_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="consignmentsType"
+        type="int"
+        column="consignments_type"
+        not-null="true"
+        length="4"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqCompany -->
+    <many-to-one
+        name="turqCompany"
+        class="com.turquaz.engine.dal.TurqCompany"
+        not-null="true"
+    >
+        <column name="companies_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqBill -->
+    <many-to-one
+        name="turqBill"
+        class="com.turquaz.engine.dal.TurqBill"
+        not-null="true"
+    >
+        <column name="bills_id" />
+    </many-to-one>
+    <!-- bi-directional one-to-many association to TurqInventoryTransaction -->
+    <set
+        name="turqInventoryTransactions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="consignments_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryTransaction"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqConsignmentsInGroup -->
+    <set
+        name="turqConsignmentsInGroups"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="consignment_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqConsignmentsInGroup"
+        />
+    </set>
+    <!-- bi-directional many-to-one association to TurqCurrentCard -->
+    <many-to-one
+        name="turqCurrentCard"
+        class="com.turquaz.engine.dal.TurqCurrentCard"
+        not-null="true"
+    >
+        <column name="current_cards_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqBanksTransaction" 
+    table="turq_banks_transactions"
+>
+
+    <id
+        name="bankTransactionsId"
+        type="int"
+        column="bank_transactions_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="transactionAmount"
+        type="java.math.BigDecimal"
+        column="transaction_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqBanksTransactionBill -->
+    <many-to-one
+        name="turqBanksTransactionBill"
+        class="com.turquaz.engine.dal.TurqBanksTransactionBill"
+        not-null="true"
+    >
+        <column name="bank_transactions_bills_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
+    <many-to-one
+        name="turqAccountingAccount"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="accounting_accounts_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqBankCardsSecondaryAccount -->
+    <many-to-one
+        name="turqBankCardsSecondaryAccount"
+        class="com.turquaz.engine.dal.TurqBankCardsSecondaryAccount"
+        not-null="true"
+    >
+        <column name="banks_secondary_accounts_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqBanksTransactionType -->
+    <many-to-one
+        name="turqBanksTransactionType"
+        class="com.turquaz.engine.dal.TurqBanksTransactionType"
+        not-null="true"
+    >
+        <column name="transaction_types_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqCurrentCard -->
+    <many-to-one
+        name="turqCurrentCard"
+        class="com.turquaz.engine.dal.TurqCurrentCard"
+        not-null="true"
+    >
+        <column name="current_cards_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

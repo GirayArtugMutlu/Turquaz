@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqCurrency" 
+    table="turq_currencies"
+>
+
+    <id
+        name="currenciesId"
+        type="int"
+        column="currencies_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="currenciesName"
+        type="java.lang.String"
+        column="currencies_name"
+        not-null="true"
+        length="30"
+    />
+    <property
+        name="currenciesAbbreviation"
+        type="java.lang.String"
+        column="currencies_abbreviation"
+        not-null="true"
+        length="5"
+    />
+    <property
+        name="currenciesCountry"
+        type="java.lang.String"
+        column="currencies_country"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqCompany -->
+    <many-to-one
+        name="turqCompany"
+        class="com.turquaz.engine.dal.TurqCompany"
+        not-null="true"
+    >
+        <column name="companies_id" />
+    </many-to-one>
+    <!-- bi-directional one-to-many association to TurqInventoryPrice -->
+    <set
+        name="turqInventoryPrices"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="currencies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryPrice"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqTradebillTradebill -->
+    <set
+        name="turqTradebillTradebills"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="currencies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqTradebillTradebill"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqChequeCheque -->
+    <set
+        name="turqChequeCheques"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="currencies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqChequeCheque"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqCurrentTransaction -->
+    <set
+        name="turqCurrentTransactions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="currencies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrentTransaction"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

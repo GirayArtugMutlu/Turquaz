@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqTradebillTradebill" 
+    table="turq_tradebill_tradebills"
+>
+
+    <id
+        name="tradebillTradebillsId"
+        type="int"
+        column="tradebill_tradebills_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="tradebillsPortfolioNo"
+        type="java.lang.String"
+        column="tradebills_portfolio_no"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="tradebillDueDate"
+        type="java.sql.Date"
+        column="tradebill_due_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="tradebillDebtor"
+        type="java.lang.String"
+        column="tradebill_debtor"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="tradebillGuarantor"
+        type="java.lang.String"
+        column="tradebill_guarantor"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="tradebillPaymentPlace"
+        type="java.lang.String"
+        column="tradebill_payment_place"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="tradebillValueDate"
+        type="int"
+        column="tradebill_value_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="tradebillAmount"
+        type="java.math.BigDecimal"
+        column="tradebill_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional one-to-many association to TurqTradebillTradebillsRoll -->
+    <set
+        name="turqTradebillTradebillsRolls"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="tradebill_tradebills_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqTradebillTradebillsRoll"
+        />
+    </set>
+    <!-- bi-directional many-to-one association to TurqCompany -->
+    <many-to-one
+        name="turqCompany"
+        class="com.turquaz.engine.dal.TurqCompany"
+        not-null="true"
+    >
+        <column name="companies_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqCurrency -->
+    <many-to-one
+        name="turqCurrency"
+        class="com.turquaz.engine.dal.TurqCurrency"
+        not-null="true"
+    >
+        <column name="currencies_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

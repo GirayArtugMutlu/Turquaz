@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqOrder" 
+    table="turq_orders"
+>
+
+    <id
+        name="ordersId"
+        type="int"
+        column="orders_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="ordersDocumentNo"
+        type="int"
+        column="orders_document_no"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="ordersDate"
+        type="java.sql.Date"
+        column="orders_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="ordersDefinition"
+        type="java.lang.String"
+        column="orders_definition"
+        not-null="true"
+        length="250"
+    />
+    <property
+        name="ordersDiscountRate"
+        type="int"
+        column="orders_discount_rate"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="ordersVat"
+        type="int"
+        column="orders_vat"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="ordersDiscountAmount"
+        type="java.math.BigDecimal"
+        column="orders_discount_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="ordersCharges"
+        type="java.math.BigDecimal"
+        column="orders_charges"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="ordersVatAmount"
+        type="java.math.BigDecimal"
+        column="orders_vat_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="ordersTotalAmount"
+        type="java.math.BigDecimal"
+        column="orders_total_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="ordersDueDate"
+        type="java.sql.Date"
+        column="orders_due_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="ordersDeliverDate"
+        type="java.sql.Date"
+        column="orders_deliver_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="ordersDelivered"
+        type="int"
+        column="orders_delivered"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="ordersType"
+        type="int"
+        column="orders_type"
+        not-null="true"
+        length="4"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqCompany -->
+    <many-to-one
+        name="turqCompany"
+        class="com.turquaz.engine.dal.TurqCompany"
+        not-null="true"
+    >
+        <column name="companies_id" />
+    </many-to-one>
+    <!-- bi-directional one-to-many association to TurqOrderInGroup -->
+    <set
+        name="turqOrderInGroups"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="orders_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqOrderInGroup"
+        />
+    </set>
+    <!-- bi-directional many-to-one association to TurqBill -->
+    <many-to-one
+        name="turqBill"
+        class="com.turquaz.engine.dal.TurqBill"
+        not-null="true"
+    >
+        <column name="bills_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqCurrentCard -->
+    <many-to-one
+        name="turqCurrentCard"
+        class="com.turquaz.engine.dal.TurqCurrentCard"
+        not-null="true"
+    >
+        <column name="current_cards_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

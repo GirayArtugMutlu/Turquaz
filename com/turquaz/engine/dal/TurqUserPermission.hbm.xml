@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqUserPermission" 
+    table="turq_user_permissions"
+>
+
+    <id
+        name="userPermissionsId"
+        type="int"
+        column="user_permissions_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="userPermissionsLevel"
+        type="int"
+        column="user_permissions_level"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="updateDate"
+        type="java.sql.Date"
+        column="update_date"
+        not-null="true"
+        length="4"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqModuleComponent -->
+    <many-to-one
+        name="turqModuleComponent"
+        class="com.turquaz.engine.dal.TurqModuleComponent"
+        not-null="true"
+    >
+        <column name="module_components_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqUser -->
+    <many-to-one
+        name="turqUser"
+        class="com.turquaz.engine.dal.TurqUser"
+        not-null="true"
+    >
+        <column name="users_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqModule -->
+    <many-to-one
+        name="turqModule"
+        class="com.turquaz.engine.dal.TurqModule"
+        not-null="true"
+    >
+        <column name="modules_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

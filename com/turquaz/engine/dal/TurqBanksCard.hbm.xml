@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqBanksCard" 
+    table="turq_banks_cards"
+>
+
+    <id
+        name="banksCardsId"
+        type="int"
+        column="banks_cards_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="bankName"
+        type="java.lang.String"
+        column="bank_name"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="bankBranchName"
+        type="java.lang.String"
+        column="bank_branch_name"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="bankAccountNo"
+        type="java.lang.String"
+        column="bank_account_no"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqCompany -->
+    <many-to-one
+        name="turqCompany"
+        class="com.turquaz.engine.dal.TurqCompany"
+        not-null="true"
+    >
+        <column name="companies_id" />
+    </many-to-one>
+    <!-- bi-directional one-to-many association to TurqChequeRoll -->
+    <set
+        name="turqChequeRolls"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="banks_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqChequeRoll"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqChequeCheque -->
+    <set
+        name="turqChequeCheques"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="banks_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqChequeCheque"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqBankCardsSecondaryAccount -->
+    <set
+        name="turqBankCardsSecondaryAccounts"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="bank_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBankCardsSecondaryAccount"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqBanksTransactionBill -->
+    <set
+        name="turqBanksTransactionBills"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="banks_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBanksTransactionBill"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqTradebillRoll -->
+    <set
+        name="turqTradebillRolls"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="banks_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqTradebillRoll"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

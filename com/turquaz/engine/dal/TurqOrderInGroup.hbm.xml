@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqOrderInGroup" 
+    table="turq_order_in_groups"
+>
+
+    <id
+        name="orderInGroupsId"
+        type="int"
+        column="order_in_groups_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqOrder -->
+    <many-to-one
+        name="turqOrder"
+        class="com.turquaz.engine.dal.TurqOrder"
+        not-null="true"
+    >
+        <column name="orders_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqOrderGroup -->
+    <many-to-one
+        name="turqOrderGroup"
+        class="com.turquaz.engine.dal.TurqOrderGroup"
+        not-null="true"
+    >
+        <column name="order_groups_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

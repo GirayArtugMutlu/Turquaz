@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqCurrentContact" 
+    table="turq_current_contacts"
+>
+
+    <id
+        name="currentContactsId"
+        type="int"
+        column="current_contacts_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="contactsName"
+        type="java.lang.String"
+        column="contacts_name"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="contactAddress"
+        type="java.lang.String"
+        column="contact_address"
+        not-null="true"
+        length="250"
+    />
+    <property
+        name="contactsPhone1"
+        type="java.lang.String"
+        column="contacts_phone1"
+        not-null="true"
+        length="30"
+    />
+    <property
+        name="contactsPhone2"
+        type="java.lang.String"
+        column="contacts_phone2"
+        not-null="true"
+        length="30"
+    />
+    <property
+        name="contactsFaxNumber"
+        type="java.lang.String"
+        column="contacts_fax_number"
+        not-null="true"
+        length="30"
+    />
+    <property
+        name="contactsEmail"
+        type="java.lang.String"
+        column="contacts_email"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="contactsWebSite"
+        type="java.lang.String"
+        column="contacts_web_site"
+        length="250"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqCurrentCard -->
+    <many-to-one
+        name="turqCurrentCard"
+        class="com.turquaz.engine.dal.TurqCurrentCard"
+        not-null="true"
+    >
+        <column name="current_cards_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

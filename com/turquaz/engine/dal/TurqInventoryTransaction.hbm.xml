@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqInventoryTransaction" 
+    table="turq_inventory_transactions"
+>
+
+    <id
+        name="inventoryTransactionsId"
+        type="int"
+        column="inventory_transactions_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="transactionsAmount"
+        type="long"
+        column="transactions_amount"
+        not-null="true"
+        length="8"
+    />
+    <property
+        name="transactionsUnitPrice"
+        type="java.math.BigDecimal"
+        column="transactions_unit_price"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="transactionsTotalPrice"
+        type="java.math.BigDecimal"
+        column="transactions_total_price"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="transactionsDiscount"
+        type="java.math.BigDecimal"
+        column="transactions_discount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="transactionsDiscountAmount"
+        type="java.math.BigDecimal"
+        column="transactions_discount_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="transactionsVat"
+        type="int"
+        column="transactions_vat"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="transactionsVatAmount"
+        type="java.math.BigDecimal"
+        column="transactions_vat_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="transactionsVatSpecialEach"
+        type="java.math.BigDecimal"
+        column="transactions_vat_special_each"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="transactionsVatSpecial"
+        type="java.math.BigDecimal"
+        column="transactions_vat_special"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="transactionsVatSpecialAmount"
+        type="java.math.BigDecimal"
+        column="transactions_vat_special_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="transactionsCumilativePrice"
+        type="java.math.BigDecimal"
+        column="transactions_cumilative_price"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqInventoryWarehous -->
+    <many-to-one
+        name="turqInventoryWarehous"
+        class="com.turquaz.engine.dal.TurqInventoryWarehous"
+        not-null="true"
+    >
+        <column name="inventory_warehouses_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqInventoryUnit -->
+    <many-to-one
+        name="turqInventoryUnit"
+        class="com.turquaz.engine.dal.TurqInventoryUnit"
+        not-null="true"
+    >
+        <column name="inventory_units_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqInventoryCard -->
+    <many-to-one
+        name="turqInventoryCard"
+        class="com.turquaz.engine.dal.TurqInventoryCard"
+        not-null="true"
+    >
+        <column name="inventory_cards_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqConsignment -->
+    <many-to-one
+        name="turqConsignment"
+        class="com.turquaz.engine.dal.TurqConsignment"
+        not-null="true"
+    >
+        <column name="consignments_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

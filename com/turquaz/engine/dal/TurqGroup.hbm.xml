@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqGroup" 
+    table="turq_groups"
+>
+
+    <id
+        name="groupsId"
+        type="int"
+        column="groups_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="groupsName"
+        type="java.lang.String"
+        column="groups_name"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="groupsDescription"
+        type="java.lang.String"
+        column="groups_description"
+        not-null="true"
+        length="250"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="updateDate"
+        type="java.sql.Date"
+        column="update_date"
+        not-null="true"
+        length="4"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional one-to-many association to TurqUserGroup -->
+    <set
+        name="turqUserGroups"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="groups_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqUserGroup"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqGroupPermission -->
+    <set
+        name="turqGroupPermissions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="groups_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqGroupPermission"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

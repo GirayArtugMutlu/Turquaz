@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqModule" 
+    table="turq_modules"
+>
+
+    <id
+        name="modulesId"
+        type="int"
+        column="modules_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="modulesName"
+        type="java.lang.String"
+        column="modules_name"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="moduleDescription"
+        type="java.lang.String"
+        column="module_description"
+        not-null="true"
+        length="250"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="updateDate"
+        type="java.sql.Date"
+        column="update_date"
+        not-null="true"
+        length="4"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional one-to-many association to TurqUserPermission -->
+    <set
+        name="turqUserPermissions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="modules_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqUserPermission"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqAccountingTransaction -->
+    <set
+        name="turqAccountingTransactions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="module_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqAccountingTransaction"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqModuleComponent -->
+    <set
+        name="turqModuleComponents"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="modules_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqModuleComponent"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqGroupPermission -->
+    <set
+        name="turqGroupPermissions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="modules_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqGroupPermission"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

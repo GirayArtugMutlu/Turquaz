@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqChequeCheque" 
+    table="turq_cheque_cheques"
+>
+
+    <id
+        name="chequeChequesId"
+        type="int"
+        column="cheque_cheques_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="chequesPortfolioNo"
+        type="java.lang.String"
+        column="cheques_portfolio_no"
+        not-null="true"
+        length="30"
+    />
+    <property
+        name="chequesNo"
+        type="java.lang.String"
+        column="cheques_no"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="chequesDueDate"
+        type="java.sql.Date"
+        column="cheques_due_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="chequesDebtor"
+        type="java.lang.String"
+        column="cheques_debtor"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="chequesPaymentPlace"
+        type="java.lang.String"
+        column="cheques_payment_place"
+        length="50"
+    />
+    <property
+        name="chequesValueDate"
+        type="java.sql.Date"
+        column="cheques_value_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="chequesAmount"
+        type="java.math.BigDecimal"
+        column="cheques_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqCompany -->
+    <many-to-one
+        name="turqCompany"
+        class="com.turquaz.engine.dal.TurqCompany"
+        not-null="true"
+    >
+        <column name="companies_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqCurrency -->
+    <many-to-one
+        name="turqCurrency"
+        class="com.turquaz.engine.dal.TurqCurrency"
+        not-null="true"
+    >
+        <column name="currencies_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqBanksCard -->
+    <many-to-one
+        name="turqBanksCard"
+        class="com.turquaz.engine.dal.TurqBanksCard"
+        not-null="true"
+    >
+        <column name="banks_id" />
+    </many-to-one>
+    <!-- bi-directional one-to-many association to TurqChequeChequesRoll -->
+    <set
+        name="turqChequeChequesRolls"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="cheque_cheques_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqChequeChequesRoll"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

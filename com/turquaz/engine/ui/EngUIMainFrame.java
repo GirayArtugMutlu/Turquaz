@@ -59,6 +59,7 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.SWT;
 
+import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUITree;
@@ -617,7 +618,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	}
 	/** Add your pre-init code in here 	*/
 	public void preInitGUI(){
-		System.out.println(this.getClass().getName());
+	 EngBLPermissions.init();
+		
 	}
 
 	/** Add your post-init code in here 	*/
@@ -760,6 +762,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		Composite c = (Composite)cTabFolder3.getSelection().getControl();
 				if(c instanceof SecureComposite){
 					int level = ((SecureComposite)c ).getPermission(c.getClass().getName());
+					System.out.println(level);
 					if(level==3)
 					{
 						item_new.setEnabled(true);

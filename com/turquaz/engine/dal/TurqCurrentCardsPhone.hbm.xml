@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqCurrentCardsPhone" 
+    table="turq_current_cards_phones"
+>
+
+    <id
+        name="currentCardsPhonesId"
+        type="int"
+        column="current_cards_phones_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="phonesCountryCode"
+        type="int"
+        column="phones_country_code"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="phonesCityCode"
+        type="int"
+        column="phones_city_code"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="phonesNumber"
+        type="int"
+        column="phones_number"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="phonesType"
+        type="java.lang.String"
+        column="phones_type"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        length="4"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqCurrentCard -->
+    <many-to-one
+        name="turqCurrentCard"
+        class="com.turquaz.engine.dal.TurqCurrentCard"
+        not-null="true"
+    >
+        <column name="current_cards_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

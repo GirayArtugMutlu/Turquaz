@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqTradebillTradebillsRoll" 
+    table="turq_tradebill_tradebills_rolls"
+>
+
+    <id
+        name="tradebillTradebillsRollsId"
+        type="int"
+        column="tradebill_tradebills_rolls_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqTradebillTradebill -->
+    <many-to-one
+        name="turqTradebillTradebill"
+        class="com.turquaz.engine.dal.TurqTradebillTradebill"
+        not-null="true"
+    >
+        <column name="tradebill_tradebills_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqTradebillRoll -->
+    <many-to-one
+        name="turqTradebillRoll"
+        class="com.turquaz.engine.dal.TurqTradebillRoll"
+        not-null="true"
+    >
+        <column name="tradebill_rolls_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

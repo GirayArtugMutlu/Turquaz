@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+ <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 2.0//EN"
+ "http://hibernate.sourceforge.net/hibernate-configuration-2.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+    
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.username">turquaz</property>
+        <property name="connection.password">turquaz</property>
+        <property name="show_sql">true</property>
+        <property name="dialect">net.sf.hibernate.dialect.PostgreSQLDialect</property>
+ 	  <property name="schema">public</property>
+
+        <mapping resource="org/turquaz/inventory/dal/TurqCompany.hbm.xml"/>
+	  <mapping resource="org/turquaz/inventory/dal/TurqGroup.hbm.xml"/>
+	  <mapping resource="org/turquaz/inventory/dal/TurqGroupPermission.hbm.xml"/>
+	  <mapping resource="org/turquaz/inventory/dal/TurqInventoryCard.hbm.xml"/>
+	  <mapping resource="org/turquaz/inventory/dal/TurqInventoryCardUnit.hbm.xml"/>
+	  <mapping resource="org/turquaz/inventory/dal/TurqInventoryGroup.hbm.xml"/>
+	  <mapping resource="org/turquaz/inventory/dal/TurqInventoryPric.hbm.xml"/>
+	  <mapping resource="org/turquaz/inventory/dal/TurqInventoryTransaction.hbm.xml"/>
+	  <mapping resource="org/turquaz/inventory/dal/TurqInventoryUnit.hbm.xml"/>
+	  <mapping resource="org/turquaz/inventory/dal/TurqInventoryWarehous.hbm.xml"/>
+	  <mapping resource="org/turquaz/inventory/dal/TurqModul.hbm.xml"/>
+	  <mapping resource="org/turquaz/inventory/dal/TurqModuleComponent.hbm.xml"/>
+	  <mapping resource="org/turquaz/inventory/dal/TurqUser.hbm.xml"/>
+	  <mapping resource="org/turquaz/inventory/dal/TurqUserGroup.hbm.xml"/>
+	  <mapping resource="org/turquaz/inventory/dal/TurqUserPermission.hbm.xml"/>
+											
+        
+
+    </session-factory>
+
+</hibernate-configuration>
