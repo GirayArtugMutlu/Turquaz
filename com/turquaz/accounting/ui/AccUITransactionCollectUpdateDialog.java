@@ -173,7 +173,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	item.setData(transRow);
 	item.setText(new String[]{transRow.getTurqAccountingAccount().getAccountCode(),
 				transRow.getTurqAccountingAccount().getAccountName(),
-				transRow.getDeptAmount().toString()});
+				transRow.getCreditAmount().toString()});
 	}
 	else {
 	compTransactionCollect.getComboDeptor().setText(transRow.getTurqAccountingAccount().getAccountCode()+" "+transRow.getTurqAccountingAccount().getAccountName());

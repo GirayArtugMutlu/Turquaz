@@ -71,7 +71,7 @@ public class CurUITransactionAdd extends SecureComposite {
 			lblCashAccount = new CLabel(this,SWT.NULL);
 			accPickerCashAccount = new AccountPicker(this,SWT.NULL);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(539,242));
+			this.setSize(new org.eclipse.swt.graphics.Point(462,230));
 	
 			GridData lblCurrentCodeLData = new GridData();
 			lblCurrentCodeLData.verticalAlignment = GridData.CENTER;
@@ -130,20 +130,21 @@ public class CurUITransactionAdd extends SecureComposite {
 			GridData comboTypeLData = new GridData();
 			comboTypeLData.verticalAlignment = GridData.CENTER;
 			comboTypeLData.horizontalAlignment = GridData.BEGINNING;
-			comboTypeLData.widthHint = -1;
-			comboTypeLData.heightHint = -1;
+			comboTypeLData.widthHint = 138;
+			comboTypeLData.heightHint = 17;
 			comboTypeLData.horizontalIndent = 0;
 			comboTypeLData.horizontalSpan = 1;
 			comboTypeLData.verticalSpan = 1;
 			comboTypeLData.grabExcessHorizontalSpace = false;
 			comboTypeLData.grabExcessVerticalSpace = false;
 			comboType.setLayoutData(comboTypeLData);
-			comboType.setText("Debit / Credit");
+			comboType.setText("Cash Transaction Type");
+			comboType.setSize(new org.eclipse.swt.graphics.Point(138,17));
 	
 			GridData comboTransTypeLData = new GridData();
 			comboTransTypeLData.verticalAlignment = GridData.CENTER;
 			comboTransTypeLData.horizontalAlignment = GridData.BEGINNING;
-			comboTransTypeLData.widthHint = 67;
+			comboTransTypeLData.widthHint = 200;
 			comboTransTypeLData.heightHint = 19;
 			comboTransTypeLData.horizontalIndent = 0;
 			comboTransTypeLData.horizontalSpan = 1;
@@ -152,7 +153,7 @@ public class CurUITransactionAdd extends SecureComposite {
 			comboTransTypeLData.grabExcessVerticalSpace = false;
 			comboTransType.setLayoutData(comboTransTypeLData);
 			comboTransType.setText("Debit");
-			comboTransType.setSize(new org.eclipse.swt.graphics.Point(67,19));
+			comboTransType.setSize(new org.eclipse.swt.graphics.Point(200,19));
 	
 			GridData lblAmountLData = new GridData();
 			lblAmountLData.verticalAlignment = GridData.CENTER;
@@ -221,14 +222,14 @@ public class CurUITransactionAdd extends SecureComposite {
 			accPickerCashAccountLData.verticalAlignment = GridData.CENTER;
 			accPickerCashAccountLData.horizontalAlignment = GridData.BEGINNING;
 			accPickerCashAccountLData.widthHint = 241;
-			accPickerCashAccountLData.heightHint = 19;
+			accPickerCashAccountLData.heightHint = 20;
 			accPickerCashAccountLData.horizontalIndent = 0;
 			accPickerCashAccountLData.horizontalSpan = 1;
 			accPickerCashAccountLData.verticalSpan = 1;
 			accPickerCashAccountLData.grabExcessHorizontalSpace = false;
 			accPickerCashAccountLData.grabExcessVerticalSpace = false;
 			accPickerCashAccount.setLayoutData(accPickerCashAccountLData);
-			accPickerCashAccount.setSize(new org.eclipse.swt.graphics.Point(241,19));
+			accPickerCashAccount.setSize(new org.eclipse.swt.graphics.Point(241,20));
 			accPickerCashAccount.layout();
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
@@ -296,26 +297,21 @@ public class CurUITransactionAdd extends SecureComposite {
 	public void save(){
 	try{
 	if(verifyFields()){
-	BigDecimal dept = new BigDecimal(0);
-	BigDecimal credit = new BigDecimal(0);
 	
+	boolean isCredit =false;
 	if(comboTransType.getText().equals("Debit")){
-	dept = decTxtAmount.getBigDecimalValue();
+		isCredit =false;
 	}
 	else if(comboTransType.getText().equals("Credit")){
-	credit = decTxtAmount.getBigDecimalValue();
+		isCredit =true;
 	
 	}
 	
 	//Transaction Type is Cash 
 	//4,at the end means cash, it is a cash Transaction 
 	blTransAdd.saveCurrentTransaction((TurqCurrentCard)comboCurrentCode.getData(comboCurrentCode.getText()),
-									  dateTransDate.getDate(),txtDocumentNo.getText().trim(),
-									  dept,credit,new BigDecimal(0),4,(TurqAccountingAccount)accPickerCashAccount.getData());
-	
-	
-	
-	
+									  dateTransDate.getDate(),txtDocumentNo.getText().trim(),isCredit,
+									  decTxtAmount.getBigDecimalValue(),new BigDecimal(0),4,(TurqAccountingAccount)accPickerCashAccount.getData());
 	}
 	
 	

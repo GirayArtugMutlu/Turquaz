@@ -24,10 +24,10 @@
 		</Events>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[539, 242]"/>
+				<Dimension value="[462, 230]"/>
 			</Property>
 			<Property name="bounds" type="Rectangle">
-				<Rectangle value="[0, 0, 539, 242]"/>
+				<Rectangle value="[0, 0, 462, 230]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -81,7 +81,7 @@
 						<Dimension value="[229, 20]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[112, 5, 229, 20]"/>
+						<Rectangle value="[148, 5, 229, 20]"/>
 					</Property>
 				</Properties>
 			</Component>
@@ -132,7 +132,7 @@
 						<Dimension value="[226, 20]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[112, 30, 226, 20]"/>
+						<Rectangle value="[148, 30, 226, 20]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
@@ -143,8 +143,8 @@
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
-						<Property name="widthHint" type="int" value="-1"/>
-						<Property name="heightHint" type="int" value="-1"/>
+						<Property name="widthHint" type="int" value="138"/>
+						<Property name="heightHint" type="int" value="17"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
 						<Property name="verticalSpan" type="int" value="1"/>
@@ -155,9 +155,12 @@
 				<Events>
 				</Events>
 				<Properties>
-					<Property name="text" type="String" value="Debit / Credit"/>
+					<Property name="text" type="String" value="Cash Transaction Type"/>
+					<Property name="size" type="Dimension">
+						<Dimension value="[138, 17]"/>
+					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 55, 70, 19]"/>
+						<Rectangle value="[5, 56, 138, 17]"/>
 					</Property>
 				</Properties>
 			</Component>
@@ -167,7 +170,7 @@
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
-						<Property name="widthHint" type="int" value="67"/>
+						<Property name="widthHint" type="int" value="200"/>
 						<Property name="heightHint" type="int" value="19"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
@@ -181,10 +184,10 @@
 				<Properties>
 					<Property name="text" type="String" value="Debit"/>
 					<Property name="size" type="Dimension">
-						<Dimension value="[89, 19]"/>
+						<Dimension value="[222, 19]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[112, 55, 89, 19]"/>
+						<Rectangle value="[148, 55, 222, 19]"/>
 					</Property>
 				</Properties>
 			</Component>
@@ -238,7 +241,7 @@
 						<Dimension value="[223, 19]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[112, 80, 223, 19]"/>
+						<Rectangle value="[148, 80, 223, 19]"/>
 					</Property>
 				</Properties>
 			</Component>
@@ -291,7 +294,7 @@
 						<Dimension value="[152, 25]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[112, 105, 152, 25]"/>
+						<Rectangle value="[148, 105, 152, 25]"/>
 					</Property>
 				</Properties>
 			</Component>
@@ -317,7 +320,7 @@
 						<Dimension value="[72, 19]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 135, 72, 19]"/>
+						<Rectangle value="[5, 136, 72, 19]"/>
 					</Property>
 				</Properties>
 			</Component>
@@ -327,7 +330,7 @@
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
 						<Property name="widthHint" type="int" value="241"/>
-						<Property name="heightHint" type="int" value="19"/>
+						<Property name="heightHint" type="int" value="20"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
 						<Property name="verticalSpan" type="int" value="1"/>
@@ -339,10 +342,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[241, 19]"/>
+						<Dimension value="[241, 20]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[112, 135, 241, 19]"/>
+						<Rectangle value="[148, 135, 241, 20]"/>
 					</Property>
 				</Properties>
 			</Component>

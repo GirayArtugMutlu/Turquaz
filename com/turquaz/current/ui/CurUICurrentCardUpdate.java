@@ -119,15 +119,13 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			coolBar1.setLayoutData(coolBar1LData);
 	
 			coolItem1.setControl(toolBar1);
-			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88,38));
-			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,38));
+			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88,23));
+			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,23));
 	
 	
 			toolUpdate.setText("Update");
 	
 			toolDelete.setText("Delete");
-			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			toolDelete.setImage(toolDeleteýmage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -157,11 +155,6 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			dialogShellLayout.horizontalSpacing = 5;
 			dialogShellLayout.verticalSpacing = 5;
 			dialogShell.layout();
-			dialogShell.addDisposeListener(new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
-					toolDeleteýmage.dispose();
-				}
-			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 600,434);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
@@ -278,9 +271,8 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 	public void fillCurrentBalances()throws Exception{
 	try{
-		TableItem item;
 	
-		
+	TableItem item;
 	String type[] = new String[5];
 	type[0]="Bill"; 
 	type[1]="Cheque";

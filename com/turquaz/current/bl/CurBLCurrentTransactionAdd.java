@@ -15,6 +15,7 @@ import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.current.dal.CurDALCurrentCardUpdate;
 import com.turquaz.current.dal.CurDALCurrentTransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
@@ -34,8 +35,21 @@ public class CurBLCurrentTransactionAdd {
 		
 	}
 	
+	
+	/**
+	 * 
+	 * @param curCard
+	 * @param transDate
+	 * @param documentNo
+	 * @param isCredit  Kasa Hareketi Tipini belirler
+	 * @param amount 
+	 * @param totalDiscount
+	 * @param type    Hareketin tipi (nakit, fatura v.s.)
+	 * @param account  Kasa muhasebe hesabi 
+	 * @throws Exception
+	 */
 	public void saveCurrentTransaction(TurqCurrentCard curCard,java.util.Date transDate, String documentNo,
-									BigDecimal totalDept, BigDecimal totalCredit,BigDecimal totalDiscount,
+									boolean isCredit,BigDecimal amount, BigDecimal totalDiscount,
 									int type, TurqAccountingAccount account) throws Exception{
 		try{
 		TurqCurrency currency = new TurqCurrency();
@@ -49,8 +63,19 @@ public class CurBLCurrentTransactionAdd {
 		curTrans.setTransactionsDate(transDate);
 		curTrans.setTransactionsDocumentNo(documentNo);
 		curTrans.setTurqCurrentCard(curCard);
-		curTrans.setTransactionsTotalCredit(totalCredit);
-		curTrans.setTransactionsTotalDept(totalDept);
+	
+		
+		if(isCredit){		
+			curTrans.setTransactionsTotalCredit(amount);
+			curTrans.setTransactionsTotalDept(new BigDecimal(0));	
+			
+		}
+		else 
+		{
+			curTrans.setTransactionsTotalCredit(new BigDecimal(0));
+			curTrans.setTransactionsTotalDept(amount);
+		
+		}
 		curTrans.setTransactionsTotalDiscount(totalDiscount);
 		curTrans.setTurqCurrency(currency);
 		curTrans.setTurqCurrentTransactionType(transType);		
@@ -59,28 +84,70 @@ public class CurBLCurrentTransactionAdd {
 		curTrans.setUpdatedBy(System.getProperty("user"));
 		curTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 		curTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-        dalCurrentTrans.saveObject(curTrans);
+        
+		dalCurrentTrans.saveObject(curTrans);
        
         //Accounting Integration 
         //Eger bir Nakit hareketi ise Muhasebe kaydini yap
         if(type == 4){
-       
+          
+        	
+          TurqAccountingTransactionColumn transRowCash = new TurqAccountingTransactionColumn();
+          TurqAccountingTransactionColumn transRowCurrent = new TurqAccountingTransactionColumn();
+          
+          //Kasa muhasebe kodunu girelim
+          transRowCash.setTurqAccountingAccount(account);
+		
+          int accTransactionType = 1; //0-Tahsil, 1-Tediye, 2-Mahsup
+    		
+		  
+		  //Cari Karta para verildiginde
+		  //Kasaya alacak hareketi 
+		  //Cari kartin satici muhasebe hesabina borc hareketi 
+    		if(isCredit){
+    			
+    			accTransactionType = 1;	    			
+    			transRowCash.setCreditAmount(amount);
+    			transRowCash.setDeptAmount(new BigDecimal(0));
+    			transRowCurrent.setCreditAmount(new BigDecimal(0));
+    			transRowCurrent.setDeptAmount(amount);
+    			
+    			//cari sat?c? muhasebe kodunu da girelim
+    			transRowCurrent.setTurqAccountingAccount(curCard.getTurqAccountingAccountByAccountingCodeIdSupplier());
+    	   			
+    		}
+    	   //Cari Karttan para tahsil edildiginde
+  		   //Kasaya borc hareketi 
+  		   //Cari kartin alici muhasebe hesabina alacak hareketi 
+    		else 
+    		{
+    			accTransactionType = 0;
+    			transRowCash.setCreditAmount(new BigDecimal(0));
+    			transRowCash.setDeptAmount(amount);
+    			transRowCurrent.setCreditAmount(amount);
+    			transRowCurrent.setDeptAmount(new BigDecimal(0));
+    			
+    			
+    			//cari alici muhasebe kodunu da girelim
+    			transRowCurrent.setTurqAccountingAccount(curCard.getTurqAccountingAccountByAccountingCodeIdCustomer());
+    			
+    		
+    		}
         
-        //Borc ya da alacak hareketi mi? 
-       
-        int accTransactionType = 1; //Tediye
         
-        AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
+          AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
         
-        
-        Integer transId = blAcc.saveAccTransaction(transDate,documentNo,accTransactionType,4);
+         //4-Cari modulu id si.. 
+         Integer transId = blAcc.saveAccTransaction(transDate,documentNo,accTransactionType,4);
+         
+         //fis kalemlerini de ekleyelim.. 
+         blAcc.saveAccTransactionRow(transRowCash,transId);
+         blAcc.saveAccTransactionRow(transRowCurrent,transId);
+            
       
         
         }
-        
-        
-        
-        
+             
         
         
 		}
@@ -89,6 +156,12 @@ public class CurBLCurrentTransactionAdd {
 		}
 	}
 	
+	
+	/**
+	 * 
+	 * @return butun cari kartlar listesi
+	 * @throws Exception
+	 */
 	public List getCurrentCards() throws Exception {
 		try{
 			
