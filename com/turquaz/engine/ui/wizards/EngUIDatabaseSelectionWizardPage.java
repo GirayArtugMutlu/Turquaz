@@ -126,6 +126,8 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 		        	       	MessageBox msg = new MessageBox(getShell(),SWT.NULL);
 	        	       		msg.setMessage(Messages.getString("EngUIDatabaseSelectionWizardPage.9")); //$NON-NLS-1$
 	        	       		msg.open();
+	        	       		//clears the database name from textbox after creation
+	        	       		txtNewDatabase.setText("");
 	        	       		fillCombo();
 		        	       	}
 		        	       	catch(Exception ex){
