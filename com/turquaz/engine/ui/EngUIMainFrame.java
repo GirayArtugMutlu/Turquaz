@@ -316,7 +316,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			sashMainHorizontal.setSize(new org.eclipse.swt.graphics.Point(792,572));
 			sashMainHorizontal.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,792,572));
 
-			tabfldMenu.setBounds(0, 0, 191, 572);
+			tabfldMenu.setBounds(0, 0, 354, 564);
 	
 			tabModules.setControl(compModulesTab);
 			tabModules.setText(Messages.getString("EngUIMainFrame.2")); //$NON-NLS-1$
