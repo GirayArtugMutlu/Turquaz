@@ -194,8 +194,12 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 			
 			Map parameters = new HashMap();
 			parameters.put(Messages.getString("AccUIAccountingJournal.2"), Messages.getString("AccUIAccountingJournal.3")); //$NON-NLS-1$ //$NON-NLS-2$
-			
-			String sqlparam="Select * from turq_accounting_transactions trans," + //$NON-NLS-1$
+			//TODO should select all columns
+			String sqlparam="Select trans.id as accounting_transactions_id, transcolumns.id as accounting_transaction_columns_id," +
+					" trans.*," +
+					" transcolumns.*," +
+					" accounts.*" +
+					" from turq_accounting_transactions trans," + //$NON-NLS-1$
 					"turq_accounting_transaction_columns transcolumns," + //$NON-NLS-1$
 					"turq_accounting_accounts accounts where " + //$NON-NLS-1$
 					"trans.id=transcolumns.accounting_transactions_id" + //$NON-NLS-1$
