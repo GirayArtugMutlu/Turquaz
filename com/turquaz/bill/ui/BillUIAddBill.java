@@ -1343,7 +1343,7 @@ public class BillUIAddBill extends Composite
 				
 			    if(row.okToSave()){
 			      blAddConsignment.saveConsignmentRow(invTrans,
-						consignmentID, type, txtDiscountRate.getIntValue());
+						consignmentID, type);
 			    }
 			}
 
@@ -1380,7 +1380,7 @@ public class BillUIAddBill extends Composite
 					txtConsignmentDocumentNo.getText(),
 					txtDefinition.getText(), false, dateConsignmentDate
 							.getDate(), (TurqCurrentCard) txtCurrentCard
-							.getData(), txtDiscountRate.getIntValue(),
+							.getData(),
 					txtDiscountAmount.getBigDecimalValue(), txtDocumentNo
 							.getText(), txtTotalVat.getBigDecimalValue(),
 					decSpecialVat.getBigDecimalValue(), txtTotalAmount

@@ -186,7 +186,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 	
 		compAddConsignment.getTxtDefinition().setText(consignment.getConsignmentsDefinition());
-		compAddConsignment.getTxtDiscountRate().setText(consignment.getTurqBillConsignmentCommon().getDiscountRate());
+	
 		fillInvTransactionColumns();
 		fillRegisteredGroup();
 	}
@@ -326,7 +326,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 									compAddConsignment.getTxtDefinition().getText(),
 									compAddConsignment.getDateConsignmentDate().getDate(),
 									(TurqCurrentCard)compAddConsignment.getTxtCurrentCard().getData(),
-									compAddConsignment.getTxtDiscountRate().getIntValue(),
+									0,
 									compAddConsignment.getTxtDiscountAmount().getBigDecimalValue(),
 									compAddConsignment.getTxtBillDocumentNo().getText(),
 									compAddConsignment.getTxtTotalVat().getBigDecimalValue(),

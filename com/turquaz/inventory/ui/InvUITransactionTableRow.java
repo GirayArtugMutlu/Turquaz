@@ -68,7 +68,9 @@ public class InvUITransactionTableRow implements ITableRow {
         invTrans.setTransactionsVatSpecial(new BigDecimal(0));
         invTrans.setTransactionsVatSpecialAmount(new BigDecimal(0));
         invTrans.setTransactionsVatSpecialEach(new BigDecimal(0));
-        invTrans.setTransactionsCumilativePrice(new BigDecimal(0));       
+        invTrans.setTransactionsCumilativePrice(new BigDecimal(0));
+        invTrans.setTransactionsDiscount(new BigDecimal(0));
+        invTrans.setTransactionsDiscountAmount(new BigDecimal(0));
     }
     
     /**
@@ -79,12 +81,13 @@ public class InvUITransactionTableRow implements ITableRow {
      * 4 - Temel Birim Miktar? //cant modify
      * 5 - Tamel Birimi        //cant modify  
      * 6 - Birim Fiyat?
-     * 7 - Toplam Tutar    //cant modify
-     * 8 - Kdv %     
-     * 9 - Kdv Tutari      //cantModify
-     * 10 - Ötv %
-     * 11 - Ötv Tutari      //cant Modify
-     * 12 - Sat?r Toplam?  //cant Modify
+     * 7 - Toplam Tutar        //cant modify
+     * 8 - iskonto %               
+     * 9 - Kdv %     
+     * 10 - Kdv Tutari      //cantModify
+     * 11 - Ötv %
+     * 12 - Ötv Tutari      //cant Modify
+     * 13 - Sat?r Toplam?  //cant Modify
      */
      
   
@@ -147,24 +150,28 @@ public class InvUITransactionTableRow implements ITableRow {
 			case 7 : // total Price
 			    result = decFormat.format(invTrans.getTransactionsTotalPrice());
 				break;
+				
+			case 8 : // discount %	
+			    result = invTrans.getTransactionsDiscount().toString();
+				break;	
 			
-			case 8 : // VAT percent		
+			case 9 : // VAT percent		
 			    result = invTrans.getTransactionsVat()+"";
 				break;
 				
-			case 9 : // VAT total 
+			case 10 : // VAT total 
 			    result = decFormat.format(invTrans.getTransactionsVatAmount());
 				break;
 				
-			case 10 : // Special VAT percent 
+			case 11 : // Special VAT percent 
 			    result = invTrans.getTransactionsVatSpecial().toString();
 				break;
 				
-			case 11 : // Specail VAT Total 
+			case 12 : // Specail VAT Total 
 			    result = decFormat.format(invTrans.getTransactionsVatSpecialAmount());
 				break;
 				
-			case 12 : //Cumulative Price
+			case 13 : //Cumulative Price
 			    result = decFormat.format(invTrans.getTransactionsCumilativePrice());
 			    break;
 				
@@ -197,6 +204,7 @@ public class InvUITransactionTableRow implements ITableRow {
         List unit_list = new ArrayList();            
         Set set = invCard.getTurqInventoryCardUnits();
         Iterator it = set.iterator();
+        
         while(it.hasNext()){
             TurqInventoryCardUnit cardUnit = (TurqInventoryCardUnit)it.next();
             unit_list.add(cardUnit);
@@ -204,6 +212,10 @@ public class InvUITransactionTableRow implements ITableRow {
                 base_unit = cardUnit.getTurqInventoryUnit(); 
             }
         }
+        
+        invTrans.setTransactionsDiscount(new BigDecimal(invCard.getCardDiscount()));
+        invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsTotalPrice().multiply(invTrans.getTransactionsDiscount()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
+        
         
         invTrans.setTurqInventoryUnit(base_unit);
         
@@ -287,23 +299,26 @@ public class InvUITransactionTableRow implements ITableRow {
 			    result = decFormat.format(invTrans.getTransactionsTotalPrice());
 				break;
 			
-			case 8 : // VAT percent		
+			case 8 : // Discount percent	
+			    result = invTrans.getTransactionsDiscount()+"";
+				break;
+			case 9 : // VAT percent		
 			    result = invTrans.getTransactionsVat()+"";
 				break;
 				
-			case 9 : // VAT total 
+			case 10 : // VAT total 
 			    result = decFormat.format(invTrans.getTransactionsVatAmount());
 				break;
 				
-			case 10 : // Special VAT percent 
+			case 11 : // Special VAT percent 
 			    result = invTrans.getTransactionsVatSpecial().toString();
 				break;
 				
-			case 11 : // Specail VAT Total 
+			case 12 : // Specail VAT Total 
 			    result = decFormat.format(invTrans.getTransactionsVatSpecialAmount().toString());
 				break;
 				
-			case 12 : //Cumulative Price
+			case 13 : //Cumulative Price
 			    result = decFormat.format(invTrans.getTransactionsCumilativePrice().toString());
 			    break;
 				
@@ -382,7 +397,13 @@ public class InvUITransactionTableRow implements ITableRow {
 			case 7 : // total Price 
 				break;
 			
-			case 8 : // VAT percent		
+		
+			case 8 : // Discount %
+				invTrans.setTransactionsDiscount(new BigDecimal(value.toString()));
+				
+				break;
+			
+			case 9 : // VAT percent		
 			    formatted = value.toString(); 	
 			 	
 			    if(formatted.equals("")){
@@ -393,10 +414,10 @@ public class InvUITransactionTableRow implements ITableRow {
 			    
 				break;
 				
-			case 9 : // VAT total 
+			case 10 : // VAT total 
 				break;
 				
-			case 10 : // Special VAT percent 
+			case 11 : // Special VAT percent 
 			    formatted = value.toString(); 	
 			 	
 			    if(formatted.equals("")){
@@ -407,10 +428,10 @@ public class InvUITransactionTableRow implements ITableRow {
 			    
 				break;
 				
-			case 11 : // Specail VAT Total 
+			case 12 : // Specail VAT Total 
 				break;
 				
-			case 12 : //Cumulative Price
+			case 13 : //Cumulative Price
 			    break;
 				
 			default :
@@ -429,13 +450,17 @@ public class InvUITransactionTableRow implements ITableRow {
     public void calculateFields(){
         
         if(invTrans.getTurqInventoryCard()!=null){
+        	
         transAmountinBaseUnit = transAmount*cardUnits[unit_index.intValue()].getCardUnitsFactor();
         
         invTrans.setTransactionsTotalPrice(invTrans.getTransactionsUnitPrice().multiply(new BigDecimal(transAmountinBaseUnit)));
     	
-        BigDecimal total_price = invTrans.getTransactionsUnitPrice().multiply(new BigDecimal(transAmountinBaseUnit));
-	 	
-        invTrans.setTransactionsTotalPrice(total_price); 
+        
+        invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsTotalPrice().multiply(invTrans.getTransactionsDiscount()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
+        	 	
+        BigDecimal totalPriceAfterDiscount = invTrans.getTransactionsTotalPrice().subtract(invTrans.getTransactionsDiscountAmount());
+        
+        
 	 	
         if(transType==0){
 		    invTrans.setTransactionsAmountIn(transAmountinBaseUnit);
@@ -444,9 +469,10 @@ public class InvUITransactionTableRow implements ITableRow {
 		    invTrans.setTransactionsTotalAmountOut(transAmountinBaseUnit);
 		 }
         
-        invTrans.setTransactionsVatAmount(invTrans.getTransactionsTotalPrice().multiply(new BigDecimal(invTrans.getTransactionsVat())).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
-        invTrans.setTransactionsVatSpecialAmount(invTrans.getTransactionsTotalPrice().multiply(invTrans.getTransactionsVatSpecial()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
-        invTrans.setTransactionsCumilativePrice(invTrans.getTransactionsTotalPrice().add(invTrans.getTransactionsVatSpecialAmount()).add(invTrans.getTransactionsVatAmount()));
+        invTrans.setTransactionsVatAmount(totalPriceAfterDiscount.multiply(new BigDecimal(invTrans.getTransactionsVat())).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
+        invTrans.setTransactionsVatSpecialAmount(totalPriceAfterDiscount.multiply(invTrans.getTransactionsVatSpecial()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
+        invTrans.setTransactionsCumilativePrice(totalPriceAfterDiscount.add(invTrans.getTransactionsVatSpecialAmount()).add(invTrans.getTransactionsVatAmount()));
+        
         }
         }
     
@@ -469,8 +495,8 @@ public class InvUITransactionTableRow implements ITableRow {
  
     public boolean canModify(int column_index) {
     
-        if(column_index==1 ||column_index==4 || column_index==5 || column_index == 7 || column_index==9
-                ||column_index==11||column_index==12)
+        if(column_index==1 ||column_index==4 || column_index==5 || column_index == 7 || column_index==10
+                ||column_index==12||column_index==13)
     	{
         	return false;
     	}

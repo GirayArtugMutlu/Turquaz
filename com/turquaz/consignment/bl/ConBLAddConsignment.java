@@ -39,7 +39,7 @@ public class ConBLAddConsignment {
 		
 	}
 	public TurqConsignment saveConsignment(String docNo, String definition, boolean isPrinted, Date consignmentDate,
-								   TurqCurrentCard curCard, int discountRate,BigDecimal discountAmount,
+								   TurqCurrentCard curCard,BigDecimal discountAmount,
 								   String billDocNo, BigDecimal vatAmount,BigDecimal specialVatAmount,
 								   BigDecimal totalAmount,int type)throws Exception {
 		try{
@@ -75,7 +75,7 @@ public class ConBLAddConsignment {
 			common.setDiscountAmount(discountAmount);
 			common.setVatAmount(vatAmount);
 			common.setSpecialVatAmount(specialVatAmount);
-			common.setDiscountRate(discountRate);
+			common.setDiscountRate(0);
 			common.setConsignmentDocumentNo(docNo);
 			common.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			common.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
@@ -96,18 +96,16 @@ public class ConBLAddConsignment {
 			throw ex;
 		}
 	}
-	public void saveConsignmentRow(TurqInventoryTransaction invTrans, Integer consID,int consType,int discountRate)throws Exception{
+	public void saveConsignmentRow(TurqInventoryTransaction invTrans, Integer consID,int consType)throws Exception{
 		try{
 			TurqConsignment cons = dalConsignment.loadConsignment(consID);
 			
-			invTrans.setTransactionsDiscount(new BigDecimal(discountRate));
 			invTrans.setTurqEngineSequence(cons.getTurqEngineSequence());
 			invTrans.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			invTrans.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			invTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			invTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsCumilativePrice().multiply(new BigDecimal(discountRate)).divide(new BigDecimal(100),2));
 			
 			//Al??
 			// total amount in ve total amount ayni girilmisti
