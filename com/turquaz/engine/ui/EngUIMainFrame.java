@@ -70,6 +70,7 @@ import org.eclipse.swt.SWT;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.engine.ui.component.TreeFactory;
 import com.turquaz.engine.ui.component.TurqShell;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUITree;
@@ -101,12 +102,12 @@ import com.turquaz.inventory.ui.InvUITransactionAdd;
 
 
 public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
-	private CurUITree treeCurrent;
+	private Tree treeCurrent;
 	private Label label1;
 	private Composite composite1;
 	private Composite compModulesHelp;
-	private BankUITree treeBank;
-	private AccUITree treeAccounting;
+	private Tree treeBank;
+	private Tree treeAccounting;
 	private CTabFolder tabfldMain;
 	private ToolItem toolSearch;
 	private ToolItem toolDelete;
@@ -122,8 +123,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private Composite compFavoritesSelection;
 	private Composite compFavoritesTab;
 	private CTabItem tabFavorites;
-	private AdmUITree treeAdmin;
-	private InvUITree treeInventory;
+	private Tree treeAdmin;
+	private Tree treeInventory;
 	private Composite compModulesTree;
 	private CCombo comboModuleSelection;
 	private CLabel lblModuleSelection;
@@ -178,11 +179,11 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			lblModuleSelection = new CLabel(compModuleSelection,SWT.LEFT);
 			comboModuleSelection = new CCombo(compModuleSelection,SWT.FLAT| SWT.READ_ONLY| SWT.H_SCROLL| SWT.V_SCROLL);
 			compModulesTree = new Composite(compModulesTab,SWT.NULL);
-			treeBank = new BankUITree(compModulesTree,SWT.NULL);
-			treeInventory = new InvUITree(compModulesTree,SWT.NULL);
-			treeAccounting = new AccUITree(compModulesTree,SWT.NULL);
-			treeAdmin = new AdmUITree(compModulesTree,SWT.NULL);
-			treeCurrent = new CurUITree(compModulesTree,SWT.NULL);
+			treeBank = new Tree(compModulesTree,SWT.NULL);
+			treeInventory = new Tree(compModulesTree,SWT.NULL);
+			treeAccounting = new Tree(compModulesTree,SWT.NULL);
+			treeAdmin = new Tree(compModulesTree,SWT.NULL);
+			treeCurrent = new Tree(compModulesTree,SWT.NULL);
 			label1 = new Label(compModulesTab,SWT.SEPARATOR| SWT.HORIZONTAL);
 			compModulesHelp = new Composite(compModulesTab,SWT.NULL);
 			composite1 = new Composite(compModulesHelp,SWT.NULL);
@@ -342,11 +343,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeBankMouseDoubleClick(evt);
 				}
-				public void mouseDown(MouseEvent evt) {
-					treeBankMouseDown(evt);
-				}
 			});
 	
+			treeInventory.setSize(new org.eclipse.swt.graphics.Point(370,251));
 			treeInventory.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					treeInventoryMouseDoubleClick(evt);
@@ -811,10 +810,23 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		toolDelete.setEnabled(false);
 		toolSearch.setEnabled(false);
 		
+		
+		
+		//Create Trees 		
+	    treeInventory=TreeFactory.createInventoryTree(treeInventory);
+		treeBank=TreeFactory.createBankTree(treeBank);
+		treeAccounting = TreeFactory.createAccountingTree(treeAccounting);
+		treeCurrent = TreeFactory.createCurrentTree(treeCurrent);
+		treeAdmin =TreeFactory.createAdminTree(treeAdmin);		
 		fillFavoritesTree();
 				
-		//SET POP UP Menus for trees
 		
+		
+		
+		
+		
+		//SET POP UP Menus for trees
+			
 		treeAccounting.setMenu(popupTreeAddFavorites);
 		treeAdmin.setMenu(popupTreeAddFavorites);
 		treeBank.setMenu(popupTreeAddFavorites);
