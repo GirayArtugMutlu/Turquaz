@@ -1,4 +1,26 @@
 package com.turquaz.accounting.ui;
+/************************************************************************/
+/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
+/* ============================================                         */
+/* Copyright (c) 2004 by Turquaz Software Development Group			    */
+/*																		*/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License, or    */
+/* (at your option) any later version.       							*/
+/* 																		*/
+/* This program is distributed in the hope that it will be useful,		*/
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
+/* GNU General Public License for more details.         				*/
+/************************************************************************/
+
+/**
+* @author  Onsel Armagan
+* @version  $Id$
+*/
+
+
 
 import java.util.List;
 
@@ -20,13 +42,8 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
-/**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
-*/
+
+
 public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite {
 
 	private TableTree tableTreeAccountingPlan;
@@ -105,13 +122,16 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite {
    col.setText("Account Name");
    col.setWidth(200);
    
-	fillTree(-1,"");
+   fillTree(-1,"");
+	
 	}
 	
 			
 /**
-*
-**/	
+ * 
+ * @param parent Parent Account
+ * @param codeCrit 
+ */	
 public void fillTree(int parent, String codeCrit){
 	try{
 	tableTreeAccountingPlan.removeAll();	
@@ -139,8 +159,11 @@ public void fillTree(int parent, String codeCrit){
 	}
 	
 	/**
-	**
-	**/
+	 * 
+	 * @param parentItem
+	 * @param parent_id
+	 * @param codeCriteria Account code criteria for branches
+	 */
 	public void fillBranch(TableTreeItem parentItem, int parent_id, String codeCriteria){
 		try{
 			

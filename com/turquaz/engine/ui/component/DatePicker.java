@@ -30,7 +30,7 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 
 	private Button button1;
 	private Text text1;
-	final SimpleDateFormat formatter = new SimpleDateFormat("dd MM yyyy");
+	final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	public DatePicker(Composite parent, int style) {
 		super(parent, style);
 	
