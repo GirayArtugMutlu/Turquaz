@@ -6,6 +6,8 @@
  */
 package com.turquaz.engine.ui.wizards;
 
+import java.sql.ResultSet;
+
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -70,6 +72,7 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 	         
 	        fillCombo();
 	}
+		
 		else{
 		setErrorMessage("Can not establish database connection .Check connection information!\n" +
 				"and be sure that your database server is running!");
@@ -81,6 +84,20 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 	}
 	
 	public void fillCombo(){
+		if(connection!=null){
+			try{
+			ResultSet rs = connection.getResultSet("SELECT d.datname as name FROM pg_database d where d.datistemplate ='false'");
+			while(rs.next()){
+			comboDatabases.add(rs.getString("name"));		
+			}
+			
+			
+			}
+			catch(Exception ex){
+			   ex.printStackTrace();
+			}
+			
+		}
 		
 	}
 	
