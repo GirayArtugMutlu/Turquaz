@@ -26,9 +26,10 @@ package com.turquaz.engine;
 * @author  Onsel Armagan
 * @version  $Id$
 */
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.io.FileInputStream;
+
+import java.util.Properties;
+
 
 /**
  * @author onsel
@@ -37,21 +38,37 @@ import java.util.ResourceBundle;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class EngConfiguration {
-	private static final String BUNDLE_NAME = "config/turquaz";//$NON-NLS-1$
+	private static final String filename = "config/turquaz.properties";//$NON-NLS-1$
+    private Properties props ;
+	
 
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-			.getBundle(BUNDLE_NAME,new Locale("",""));
-
+	private static EngConfiguration _instance;
 	private EngConfiguration() {
+	    try{
+     FileInputStream fis = new FileInputStream(filename);
+	   props = new Properties();
+	   props.load(fis);
+	    
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
+	    
 	}
 
 	public static String getString(String key) {
-		// TODO Auto-generated method stub
-		try {
-			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
-			return null;
+		if(_instance==null){
+		    _instance = new EngConfiguration();
 		}
+	    
+	    return _instance.findString(key);
+	    
+	}
+	
+	private String findString(String Key){
+	
+	    return props.getProperty(Key);
+	    
 	}
 	
 }
