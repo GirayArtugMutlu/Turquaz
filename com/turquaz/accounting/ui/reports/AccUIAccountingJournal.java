@@ -1,6 +1,8 @@
 package com.turquaz.accounting.ui.reports;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +51,7 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 	private DatePicker datePickerEndDate;
 	private CLabel lblDummy;
 	private Button btnReports;
+	private Calendar cal=Calendar.getInstance();
 
 	/**
 	* Auto-generated main method to display this 
@@ -100,7 +103,8 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 			this.setSize(438, 180);
 			lblDateRange = new CLabel(this, SWT.NONE);
 			lblDateRange.setText(Messages.getString("AccUIAccountingJournal.0"));	 //$NON-NLS-1$
-			datePickerBeginDate = new DatePicker(this, SWT.NONE);			
+			datePickerBeginDate = new DatePicker(this, SWT.NONE);	
+			datePickerBeginDate.setDate(new Date(cal.getTime().getYear(),0,1));
 			datePickerEndDate = new DatePicker(this, SWT.NONE);	
 			{
 				lblDummy = new CLabel(this, SWT.NONE);

@@ -47,6 +47,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 	private TurqCurrentCard currentCard;
 	private CurBLSearchTransaction BLSearch = new CurBLSearchTransaction();
 	private Table tableCurrentTransactions;
+	private TableColumn tableColumnDocumentNo;
 	private ToolBar toolBar1;
 	private CoolItem coolItem1;
 	private CoolBar coolBar1;
@@ -164,6 +165,13 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
                         .getString("CurUITransactionSearch.6")); //$NON-NLS-1$
                     tableColumnTransGroup.setWidth(114);
                 }
+				{
+					tableColumnDocumentNo = new TableColumn(
+						tableCurrentTransactions,
+						SWT.NONE);
+					tableColumnDocumentNo.setText("Belge No");
+					tableColumnDocumentNo.setWidth(120);
+				}
                 {
                     tableColumnDebit = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
                     tableColumnDebit.setText(Messages
@@ -208,6 +216,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 		item.setData(transaction);
 		item.setText(new String[]{DatePicker.formatter.format(transaction.getTransactionsDate()),
 		        				  transaction.getTurqCurrentTransactionType().getTransactionTypeName(),
+								  transaction.getTransactionsDocumentNo(),
 								  cf.format(transaction.getTransactionsTotalDept()),
 								  cf.format(transaction.getTransactionsTotalCredit()),
 								  

@@ -1,5 +1,6 @@
 package com.turquaz.current.ui;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -58,6 +59,7 @@ import org.eclipse.swt.widgets.Text;
 public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite implements SearchComposite{
 	private Composite compSearch;
 	private Table tableCurrentTransactions;
+	private TableColumn tableColumnDocumentNo;
 	private CLabel lblCurrentCard;
 	private TableColumn tableColumnTransGroup;
 	private Text txtCurrentCard;
@@ -71,6 +73,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	private Composite compResult;
 	private CurBLSearchTransaction BLsearch=new CurBLSearchTransaction();
 	private TurqCurrentCard currentCard=null;
+	private Calendar cal=Calendar.getInstance();
 
 	/**
 	* Auto-generated main method to display this 
@@ -216,6 +219,13 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 						tableColumnTransGroup.setWidth(114);
 					}
 					{
+						tableColumnDocumentNo = new TableColumn(
+							tableCurrentTransactions,
+							SWT.NONE);
+						tableColumnDocumentNo.setText("Belge No");
+						tableColumnDocumentNo.setWidth(120);
+					}
+					{
 						tableColumnDebit = new TableColumn(
 							tableCurrentTransactions,
 							SWT.RIGHT);
@@ -241,6 +251,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	}
 	public void postInitGui(){
 //		  content assistant
+		datePickerStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
 		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(
 				txtCurrentCard);
 		final TurquazContentAssistant assistant = new TurquazContentAssistant(
@@ -298,6 +309,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				item.setData(transaction);
 				item.setText(new String[]{DatePicker.formatter.format(transaction.getTransactionsDate()),
 		        				  transaction.getTurqCurrentTransactionType().getTransactionTypeName(),
+								  transaction.getTransactionsDocumentNo(),
 								  cf.format(transaction.getTransactionsTotalDept()),
 								  cf.format(transaction.getTransactionsTotalCredit()),
 								  
