@@ -8,6 +8,7 @@ package com.turquaz.bank.bl;
 import java.util.List;
 
 import com.turquaz.bank.dal.BankDALBankCardSearch;
+import com.turquaz.engine.dal.TurqCurrency;
 
 /**
  * @author Ceday
@@ -20,10 +21,10 @@ public class BankBLBankCardSearch {
 	}
 	private BankDALBankCardSearch bankDALBankCardSearch=new BankDALBankCardSearch();
 	
-	public List searchBankCards(String bankName, String bankBranchName, String bankAccountNo)
+	public List searchBankCards(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency)
 	throws Exception{
 		try{
-		return bankDALBankCardSearch.searchBankCards(bankName,bankBranchName,bankAccountNo);
+		return bankDALBankCardSearch.searchBankCards(bankName,bankBranchName,bankAccountNo,currency);
 		}
 		catch(Exception ex){
 			throw ex;

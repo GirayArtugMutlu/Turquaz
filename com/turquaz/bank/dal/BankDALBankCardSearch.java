@@ -11,6 +11,7 @@ import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqCurrency;
 
 /**
  * @author Ceday
@@ -24,7 +25,7 @@ public class BankDALBankCardSearch {
 	
 	}
 	
-	public List searchBankCards(String bankName, String bankBranchName, String bankAccountNo)
+	public List searchBankCards(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency)
 	throws Exception{
 		try{
 		Session session = EngDALSessionFactory.openSession();
@@ -34,7 +35,14 @@ public class BankDALBankCardSearch {
 		" and bankCard.bankName like '"+bankName+"%' and bankCard.bankBranchName like '"+bankBranchName+"%' "+
 		" and bankCard.bankAccountNo like '"+bankAccountNo+"%'";
 		
-		Query q = session.createQuery(query); 		
+		if (currency!=null){
+			query +=" and bankCard.turqCurrency = :currency";
+		}
+		
+		Query q = session.createQuery(query); 	
+		if (currency!=null){
+			q.setParameter("currency",currency);
+		}
 		List list = q.list();
 		session.close();
 		return list;

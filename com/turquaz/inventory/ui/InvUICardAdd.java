@@ -50,6 +50,7 @@ import org.eclipse.swt.widgets.Button;
 
 import com.turquaz.accounting.ui.AccUIDialogInventoryCodeChoose;
 import com.turquaz.accounting.ui.comp.AccUIAccountsTree;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryUnit;
@@ -244,6 +245,7 @@ public class InvUICardAdd extends SecureComposite {
 	
 	
 	InvBLCardAdd blCardAdd = new InvBLCardAdd();
+	EngBLCommon engCardAdd=new EngBLCommon();
 
 	public InvUICardAdd(Composite parent, int style) {
 		super(parent, style);
@@ -343,12 +345,12 @@ public class InvUICardAdd extends SecureComposite {
 			tabfldInvCardAddLData.grabExcessHorizontalSpace = true;
 			tabfldInvCardAddLData.grabExcessVerticalSpace = true;
 			tabfldInvCardAdd.setLayoutData(tabfldInvCardAddLData);
-			tabfldInvCardAdd.setSize(new org.eclipse.swt.graphics.Point(641,404));
+			tabfldInvCardAdd.setSize(new org.eclipse.swt.graphics.Point(641,421));
 	
 			tabInvCardGeneral.setControl(compInvCardGeneral);
 			tabInvCardGeneral.setText("General Information");
 	
-			compInvCardGeneral.setSize(new org.eclipse.swt.graphics.Point(641,404));
+			compInvCardGeneral.setSize(new org.eclipse.swt.graphics.Point(625,404));
 	
 			GridData lblInvCardNameLData = new GridData();
 			lblInvCardNameLData.verticalAlignment = GridData.CENTER;
@@ -1301,7 +1303,7 @@ public class InvUICardAdd extends SecureComposite {
 	public void preInitGUI() {
 	try{
 		mapEditorsTableInvCardAddRegisteredUnits = new HashMap();
-		currencyList = invBLCardAdd.getCurrencies();
+		currencyList = engCardAdd.getCurrencies();
 		}
 	catch(Exception ex){
 	ex.printStackTrace();

@@ -9,6 +9,8 @@ package com.turquaz.bank.bl;
 import com.turquaz.bank.dal.BankDALBankCardAdd;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCompany;
+import com.turquaz.engine.dal.TurqCurrency;
+
 import java.util.Calendar;
 
 /**
@@ -26,7 +28,7 @@ public class BankBLBankCardAdd {
 	
 	Calendar cal=Calendar.getInstance();
 	
-	public void saveBankCard(String bankName, String bankBranchName, String bankAccountNo)
+	public void saveBankCard(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency )
 	throws Exception
 	{
 		try
@@ -35,6 +37,7 @@ public class BankBLBankCardAdd {
 			bankCard.setBankName(bankName);
 			bankCard.setBankBranchName(bankBranchName);
 			bankCard.setBankAccountNo(bankAccountNo);
+			bankCard.setTurqCurrency(currency);
 			
 			TurqCompany company = new TurqCompany();
 			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));

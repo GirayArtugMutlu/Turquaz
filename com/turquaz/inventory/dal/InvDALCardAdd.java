@@ -215,27 +215,7 @@ public class InvDALCardAdd {
 	
 	
 	}
-	public List getCurrencies()throws Exception{
-		try{
-			
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-			String query = "from TurqCurrency as currency " +
-					"where currency.turqCompany.companiesId ="+System.getProperty("company");		   
-			   
 
-			Query q = session.createQuery(query); 
-			List list = q.list();
-			tx.commit();
-			session.close();
-			return list;	
-			
-		}
-		catch(Exception ex){
-			throw ex;
-		}
-		
-	}
 	
 	public List getInventoryUnits()throws Exception{
 		try{

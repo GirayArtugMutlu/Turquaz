@@ -1,5 +1,7 @@
 package com.turquaz.bank.ui;
 
+import java.util.List;
+
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
@@ -10,9 +12,12 @@ import org.eclipse.swt.widgets.ToolBar;
 
 import com.turquaz.bank.bl.BankBLBankCardUpdate;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.dal.TurqCurrency;
 
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.CoolItem;
@@ -38,6 +43,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
 	private TurqBanksCard bankCard;
 	private BankBLBankCardUpdate bankBLBankCardUpdate=new BankBLBankCardUpdate();
+	private EngBLCommon engBLCommon= new EngBLCommon();
 
 	public BankUIBankCardUpdate(Shell parent, int style,TurqBanksCard bc) {
 		super(parent, style);
@@ -143,10 +149,40 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
-	compBankCard.getTxtBankName().setText(bankCard.getBankName());
-	compBankCard.getTxtBankBranchName().setText(bankCard.getBankBranchName());
-	compBankCard.getTxtBankAccountNo().setText(bankCard.getBankAccountNo());
+		try{
+			compBankCard.getTxtBankName().setText(bankCard.getBankName());
+			compBankCard.getTxtBankBranchName().setText(bankCard.getBankBranchName());
+			compBankCard.getTxtBankAccountNo().setText(bankCard.getBankAccountNo());
+			FillCurrencyCombo();
+		}
+		catch(Exception ex){
+			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
+			msg.setMessage(ex.getMessage());
+			msg.open();
+			ex.printStackTrace();
+		}
+			
 	
+	
+	}
+	
+	private void FillCurrencyCombo() throws Exception
+	{
+		try{
+			CCombo comboCurrency=compBankCard.getComboCurrency();
+			comboCurrency.removeAll();
+			List currencies=engBLCommon.getCurrencies();
+			for(int k=0; k<currencies.size(); k++){
+				TurqCurrency currency=(TurqCurrency)currencies.get(k);
+				comboCurrency.add(currency.getCurrenciesAbbreviation());
+				comboCurrency.setData(currency.getCurrenciesAbbreviation(),currency);
+			}
+			comboCurrency.setText(bankCard.getTurqCurrency().getCurrenciesAbbreviation());
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
 	
 	}
 
@@ -155,22 +191,23 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	/** Auto-generated event handler method */
 	
 	private void update(){
-			try{
-		bankBLBankCardUpdate.updateBankCard(compBankCard.getTxtBankName().getText(),
+		try{
+			bankBLBankCardUpdate.updateBankCard(compBankCard.getTxtBankName().getText(),
 											compBankCard.getTxtBankBranchName().getText(),
 											compBankCard.getTxtBankAccountNo().getText(),
+											(TurqCurrency)(compBankCard.getComboCurrency().getData(compBankCard.getComboCurrency().getText())),
 											bankCard);
 		
-		MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
-		msg.setMessage("Successfully updated!");
-		msg.open();
-		this.dialogShell.close();
+			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
+			msg.setMessage("Successfully updated!");
+			msg.open();
+			this.dialogShell.close();
 		}
 		catch(Exception ex){
-		MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
-		msg.setMessage(ex.getMessage());
-		msg.open();
-		ex.printStackTrace();
+			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
+			msg.setMessage(ex.getMessage());
+			msg.open();
+			ex.printStackTrace();
 		}
 	}
 	protected void toolUpdateWidgetSelected(SelectionEvent evt){

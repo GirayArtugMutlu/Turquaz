@@ -1,5 +1,7 @@
 package com.turquaz.bank.ui;
 
+import java.util.List;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
@@ -8,7 +10,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
+
+import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.ui.component.SecureComposite;
+import org.eclipse.swt.custom.CCombo;
 import com.turquaz.bank.bl.BankBLBankCardAdd;
 
 
@@ -21,6 +27,14 @@ import com.turquaz.bank.bl.BankBLBankCardAdd;
 */
 public class BankUIBankCardAdd extends SecureComposite {
 
+	/**
+	 * @return Returns the comboCurrency.
+	 */
+	public CCombo getComboCurrency() {
+		return comboCurrency;
+	}
+	private CCombo comboCurrency;
+	private CLabel lblCurrency;
 	/**
 	 * @return Returns the txtBankAccountNo.
 	 */
@@ -51,6 +65,7 @@ public class BankUIBankCardAdd extends SecureComposite {
 	}
 	
 	private BankBLBankCardAdd bankBLBankCardAdd=new BankBLBankCardAdd();
+	private EngBLCommon engBLCom= new EngBLCommon();
 	/**
 	* Initializes the GUI.
 	* Auto-generated code - any changes you make will disappear.
@@ -65,6 +80,8 @@ public class BankUIBankCardAdd extends SecureComposite {
 			txtBankBranchName = new Text(this,SWT.NULL);
 			lvlBanckAccountNo = new CLabel(this,SWT.NULL);
 			txtBankAccountNo = new Text(this,SWT.NULL);
+			lblCurrency = new CLabel(this,SWT.NULL);
+			comboCurrency = new CCombo(this,SWT.NULL);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(456,312));
 	
@@ -149,6 +166,32 @@ public class BankUIBankCardAdd extends SecureComposite {
 			txtBankAccountNo.setLayoutData(txtBankAccountNoLData);
 			txtBankAccountNo.setTextLimit(50);
 			txtBankAccountNo.setSize(new org.eclipse.swt.graphics.Point(254,13));
+	
+			GridData lblCurrencyLData = new GridData();
+			lblCurrencyLData.verticalAlignment = GridData.CENTER;
+			lblCurrencyLData.horizontalAlignment = GridData.BEGINNING;
+			lblCurrencyLData.widthHint = -1;
+			lblCurrencyLData.heightHint = -1;
+			lblCurrencyLData.horizontalIndent = 0;
+			lblCurrencyLData.horizontalSpan = 1;
+			lblCurrencyLData.verticalSpan = 1;
+			lblCurrencyLData.grabExcessHorizontalSpace = false;
+			lblCurrencyLData.grabExcessVerticalSpace = false;
+			lblCurrency.setLayoutData(lblCurrencyLData);
+			lblCurrency.setText("Currency");
+	
+			GridData comboCurrencyLData = new GridData();
+			comboCurrencyLData.verticalAlignment = GridData.CENTER;
+			comboCurrencyLData.horizontalAlignment = GridData.BEGINNING;
+			comboCurrencyLData.widthHint = -1;
+			comboCurrencyLData.heightHint = -1;
+			comboCurrencyLData.horizontalIndent = 0;
+			comboCurrencyLData.horizontalSpan = 1;
+			comboCurrencyLData.verticalSpan = 1;
+			comboCurrencyLData.grabExcessHorizontalSpace = false;
+			comboCurrencyLData.grabExcessVerticalSpace = false;
+			comboCurrency.setLayoutData(comboCurrencyLData);
+			comboCurrency.setText("Select Currency");
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
@@ -164,7 +207,7 @@ public class BankUIBankCardAdd extends SecureComposite {
 			e.printStackTrace();
 		}
 	}
-	private boolean verifyfields()
+private boolean verifyfields()
 	{
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 		if (txtBankName.getText().trim().equals("")){
@@ -182,6 +225,11 @@ public class BankUIBankCardAdd extends SecureComposite {
 			msg.open();
 			return false;
 			}
+		else if (comboCurrency.getData(comboCurrency.getText())==null){
+			msg.setMessage("Please Select a Currency!");
+			msg.open();
+			return false;
+			}
 		else
 			return true;
 		
@@ -189,9 +237,37 @@ public class BankUIBankCardAdd extends SecureComposite {
 	
 	private void clearFields()
 	{
-		txtBankName.setText("");
-		txtBankBranchName.setText("");
-		txtBankAccountNo.setText("");
+		try{
+			txtBankName.setText("");
+			txtBankBranchName.setText("");
+			txtBankAccountNo.setText("");
+			comboCurrency.setText("Select Currency");
+		}
+		catch(Exception ex){
+			MessageBox msg= new MessageBox(this.getShell(),SWT.NULL);
+			msg.setMessage(ex.getMessage());	
+			msg.open();
+			ex.printStackTrace();			
+		}
+	}
+	
+	private void FillCurrencyCombo() throws Exception
+	{
+		try{
+			comboCurrency.removeAll();
+			comboCurrency.setText("Select Currency");
+			List currencies=engBLCom.getCurrencies();
+			for(int k=0; k<currencies.size(); k++){
+				TurqCurrency currency=(TurqCurrency)currencies.get(k);
+				comboCurrency.add(currency.getCurrenciesAbbreviation());
+				comboCurrency.setData(currency.getCurrenciesAbbreviation(),currency);
+			}
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	
 	}
 	public void save()
 	{
@@ -201,7 +277,8 @@ public class BankUIBankCardAdd extends SecureComposite {
 			{
 				bankBLBankCardAdd.saveBankCard(txtBankName.getText().trim(),
 												txtBankBranchName.getText().trim(),
-													txtBankAccountNo.getText().trim());
+													txtBankAccountNo.getText().trim(),
+													(TurqCurrency)(comboCurrency.getData(comboCurrency.getText())));
 													
 				MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 				msg.setMessage("Succesfully Saved!");
@@ -232,5 +309,14 @@ public class BankUIBankCardAdd extends SecureComposite {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+		try{
+			FillCurrencyCombo();
+		}
+		catch(Exception ex){
+			MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+			msg.setMessage(ex.getMessage());
+			msg.open();
+			ex.printStackTrace();
+		}
 	}
 }

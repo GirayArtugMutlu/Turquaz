@@ -264,20 +264,10 @@ public class InvBLCardAdd {
 		catch(Exception ex){
 			
 			return null;
-		}
-		
+		}		
 		
 	}
 
-	public List getCurrencies() throws Exception {
-		try {
 
-			return cardAdd.getCurrencies();
-
-		} catch (Exception ex) {
-			throw ex;
-		}
-
-	}
 
 }
