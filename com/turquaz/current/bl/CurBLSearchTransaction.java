@@ -65,10 +65,10 @@ public class CurBLSearchTransaction {
 		
 	}
 	
-	public List getCurrentTransactions(TurqCurrentCard card)throws Exception {
+	public List getCurrentTransactions(TurqCurrentCard card, Date startDate, Date endDate)throws Exception {
 		try{
 
-			return 	dalSearch.getCurrentTransactions(card);
+			return 	dalSearch.getCurrentTransactions(card, startDate, endDate);
 			}
 		catch(Exception ex){
 			throw ex;

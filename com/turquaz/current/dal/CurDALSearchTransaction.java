@@ -78,14 +78,24 @@ public class CurDALSearchTransaction {
 		
 	}
 	
-	public List getCurrentTransactions(TurqCurrentCard curCard)throws Exception{
+	public List getCurrentTransactions(TurqCurrentCard curCard, Date startDate, Date endDate)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
 			
 			String query = "Select transaction from TurqCurrentTransaction as transaction where" +
 			" transaction.turqCurrentCard= :curCard";
 			
-			Query q = session.createQuery(query); 	
+			if (startDate != null && endDate != null)
+			{
+				query+=" and transaction.transactionsDate >= :startDate " +
+				" and transaction.transactionsDate <= :endDate";
+			}
+			Query q = session.createQuery(query); 
+			if (startDate != null && endDate != null)
+			{
+				q.setParameter("startDate",startDate);
+				q.setParameter("endDate",endDate);
+			}
 			q.setParameter("curCard",curCard);
 			
 			List list = q.list();

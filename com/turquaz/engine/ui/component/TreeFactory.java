@@ -59,6 +59,7 @@ import com.turquaz.cash.ui.CashUICashPaymentTransactionAdd;
 import com.turquaz.cash.ui.CashUICashTransactionSearch;
 import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
+import com.turquaz.current.ui.CurUICurrentCardAbstract;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.current.ui.CurUICurrentCardSearch;
 import com.turquaz.current.ui.CurUITransactionSearch;
@@ -264,6 +265,11 @@ public final class TreeFactory {
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.18")); //$NON-NLS-1$
 		item.setData(CurUICurrentCardSearch.class.getName());
+		}
+		if(EngBLPermissions.getPermission(CurUICurrentCardAbstract.class.getName())>0){
+			item = new TreeItem(root,SWT.NULL);
+			item.setText("Cari Kart Ekstresi");
+			item.setData(CurUICurrentCardAbstract.class.getName());
 		}
 	/*	if(EngBLPermissions.getPermission(CurUITransactionAdd.class.getName())>0){
 		item = new TreeItem(root,SWT.NULL);

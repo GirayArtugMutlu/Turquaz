@@ -95,7 +95,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
                     coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 45));
                     coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 45));
                     coolItem1.setSize(45, 45);
-                    {
+                    {	
                         toolBar1 = new ToolBar(coolBar1, SWT.NONE);
                         coolItem1.setControl(toolBar1);
                         {
@@ -196,7 +196,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 		try{
 		tableCurrentTransactions.removeAll();
 		
-		List results =BLSearch.getCurrentTransactions(currentCard);
+		List results =BLSearch.getCurrentTransactions(currentCard, null, null);
 		
 		TurqCurrentTransaction transaction;
 		TableItem item;
