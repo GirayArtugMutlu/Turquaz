@@ -75,6 +75,7 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 	private Button btnReports;
 	private Calendar cal=Calendar.getInstance();
 	private ViewerComposite viewer;
+	private Button checkApproved;
 	private Composite compViewer;
 
 	/**
@@ -137,9 +138,10 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 			datePickerEndDate = new DatePicker(this, SWT.NONE);	
 			{
 				lblDummy = new CLabel(this, SWT.NONE);
-				GridData lblDummyLData = new GridData();
-				lblDummyLData.horizontalSpan = 2;
-				lblDummy.setLayoutData(lblDummyLData);
+			}
+			{
+				checkApproved = new Button(this, SWT.CHECK | SWT.LEFT);
+				checkApproved.setText(Messages.getString("AccUIAccountingJournal.4")); //$NON-NLS-1$
 			}
 			{
 				btnReports = new Button(this, SWT.PUSH | SWT.CENTER);
@@ -200,9 +202,10 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 					" and transcolumns.accounting_accounts_id=accounts.accounting_accounts_id"; //$NON-NLS-1$
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 			 sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
-					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
-					+" and trans.accounting_journal_id > 0" //$NON-NLS-1$
-					+" ORDER BY trans.accounting_journal_id"; //$NON-NLS-1$
+					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"; //$NON-NLS-1$ //$NON-NLS-2$
+			 if (checkApproved.getSelection())
+			 	sqlparam +=" and trans.accounting_journal_id > 0"; //$NON-NLS-1$
+			 sqlparam +=" ORDER BY trans.accounting_journal_id"; //$NON-NLS-1$
 					
 			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
 			parameters.put("sqlparam",sqlparam);		 //$NON-NLS-1$
@@ -214,11 +217,11 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 			NumberFormat formatter=NumberFormat.getNumberInstance();
 			formatter.setMaximumFractionDigits(2);
 			formatter.setMinimumFractionDigits(2);
-			parameters.put("formatter", new TurkishCurrencyFormat());
+			parameters.put("formatter", new TurkishCurrencyFormat()); //$NON-NLS-1$
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
 			
-			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingJournal.jasper"); 
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingJournal.jasper");  //$NON-NLS-1$
 	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
 			viewer.getReportViewer().setDocument(jasperPrint);
 			

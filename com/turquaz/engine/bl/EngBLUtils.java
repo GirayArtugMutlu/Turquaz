@@ -316,6 +316,10 @@ public class EngBLUtils {
             formatter.setMaximumFractionDigits(2);
             formatter.setMinimumFractionDigits(2);
             parameters.put("formatter",formatter);  //$NON-NLS-1$
+			NumberFormat formatter2 =DecimalFormat.getInstance();
+            formatter2.setMaximumFractionDigits(4);
+            formatter2.setMinimumFractionDigits(4);
+            parameters.put("formatter2",formatter2);  //$NON-NLS-1$
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
 			

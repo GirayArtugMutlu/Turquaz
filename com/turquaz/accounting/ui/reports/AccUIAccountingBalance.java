@@ -133,41 +133,42 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			if (!totalDept.equals(totalCredit))
 			{
 				MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
-				msg.setMessage("Aç?l?? Fi?lerindeki Alacak/Borç Toplamlar? Tutars?z!");
+				msg.setMessage(Messages.getString("AccUIAccountingBalance.1")); //$NON-NLS-1$
 				msg.open();
 			}
 			Map parameters = new HashMap();
-			//parameters.put("ReportTitle", "GENEL GEÇÝCÝ MÝZAN"); //$NON-NLS-1$ //$NON-NLS-2$
+			
 
-			String sqlparam="Select mytab.deptsum,mytab.creditsum,mytab.top_account,accs.account_name,accs.account_code," +
-					" accs.accounting_accounts_id from turq_accounting_accounts accs,"+
-					"(Select SUM(transcolumns.dept_amount) as deptsum," +
-					"SUM(transcolumns.credit_amount) as creditsum," +
-					" accounts.top_account" +
-					" from turq_accounting_accounts accounts," +
-					" turq_accounting_transaction_columns transcolumns, " +
-					" turq_accounting_transactions trans" +
-					" where transcolumns.accounting_accounts_id=accounts.accounting_accounts_id" +
-					" and transcolumns.accounting_transactions_id=trans.accounting_transactions_id";
-			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");
-			 sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'"
-					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"
-					+" GROUP BY accounts.top_account)" +
-					" as mytab where mytab.top_account=accs.accounting_accounts_id ORDER BY mytab.top_account";
-			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy");
-			parameters.put("sqlparam",sqlparam);		
-			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate()));
-			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate()));
+			String sqlparam="Select mytab.deptsum,mytab.creditsum,mytab.top_account,accs.account_name,accs.account_code," + //$NON-NLS-1$
+					" accs.accounting_accounts_id from turq_accounting_accounts accs,"+ //$NON-NLS-1$
+					"(Select SUM(transcolumns.dept_amount) as deptsum," + //$NON-NLS-1$
+					"SUM(transcolumns.credit_amount) as creditsum," + //$NON-NLS-1$
+					" accounts.top_account" + //$NON-NLS-1$
+					" from turq_accounting_accounts accounts," + //$NON-NLS-1$
+					" turq_accounting_transaction_columns transcolumns, " + //$NON-NLS-1$
+					" turq_accounting_transactions trans" + //$NON-NLS-1$
+					" where transcolumns.accounting_accounts_id=accounts.accounting_accounts_id" + //$NON-NLS-1$
+					" and transcolumns.accounting_transactions_id=trans.accounting_transactions_id"; //$NON-NLS-1$
+			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
+			 sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
+					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
+					+" GROUP BY accounts.top_account)" + //$NON-NLS-1$
+					" as mytab where mytab.top_account=accs.accounting_accounts_id ORDER BY mytab.top_account"; //$NON-NLS-1$
+			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
+			parameters.put("sqlparam",sqlparam);		 //$NON-NLS-1$
+			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate())); //$NON-NLS-1$
+			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate())); //$NON-NLS-1$
 			NumberFormat formatter =NumberFormat.getNumberInstance();
             formatter.setMaximumFractionDigits(2);
-            parameters.put("formatter",formatter);
-			parameters.put("imageUrl", EngConfiguration.logoURL);
+            parameters.put("formatter",formatter); //$NON-NLS-1$
+			parameters.put("imageUrl", EngConfiguration.logoURL); //$NON-NLS-1$
             parameters.put("formatter",formatter); //$NON-NLS-1$
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
-			//JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingBalance.jasper"); //$NON-NLS-1$
-			//final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
-			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingBalance.jasper"); 
+
+			
+			
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingBalance.jasper");  //$NON-NLS-1$
 	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
 			
 			JasperViewer.viewReport(jasperPrint,false);
@@ -212,7 +213,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			}
 			{
 				btnIcon = new Button(this, SWT.PUSH | SWT.CENTER);
-				btnIcon.setText("Choose Logo");
+				btnIcon.setText(Messages.getString("AccUIAccountingBalance.26")); //$NON-NLS-1$
 				GridData btnIconLData = new GridData();
 				btnIconLData.horizontalAlignment = GridData.END;
 				btnIconLData.horizontalSpan = 2;
@@ -243,11 +244,11 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			}
 			File file = new File(EngConfiguration.logoURL);
 			if(file.exists())
-				this.lblLogoURL.setText("Logo:"+EngConfiguration.logoURL);
+				this.lblLogoURL.setText(Messages.getString("AccUIAccountingBalance.27")+EngConfiguration.logoURL); //$NON-NLS-1$
 			else
 			{
-				this.lblLogoURL.setText("Logo:");
-				EngConfiguration.logoURL="";
+				this.lblLogoURL.setText(Messages.getString("AccUIAccountingBalance.28")); //$NON-NLS-1$
+				EngConfiguration.logoURL=""; //$NON-NLS-1$
 			}
 			this.layout();
 		} catch (Exception e) {
@@ -257,14 +258,14 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 	
 	private void btnLogoSingleClick(){
 		FileDialog dialog = new FileDialog (this.getShell(), SWT.OK);
-		dialog.setFilterNames (new String [] {"Image Files (*.jpg;*.jpeg;*.bmp;*.png)", "*.jpg;*.jpeg;*.bmp;*.png"});
-		dialog.setFilterExtensions (new String [] {"*.jpg;*.jpeg;*.bmp;*.png"}); //Windows wild cards
-		dialog.setText("Logo Seçimi");
+		dialog.setFilterNames (new String [] {"Image Files (*.jpg;*.jpeg;*.bmp;*.png)", "*.jpg;*.jpeg;*.bmp;*.png"}); //$NON-NLS-1$ //$NON-NLS-2$
+		dialog.setFilterExtensions (new String [] {"*.jpg;*.jpeg;*.bmp;*.png"}); //Windows wild cards //$NON-NLS-1$
+		dialog.setText(Messages.getString("AccUIAccountingBalance.35")); //$NON-NLS-1$
 		String filepath = dialog.open();
 		
 		if(filepath!=null){
 			EngConfiguration.logoURL=filepath;
-			lblLogoURL.setText("Logo:"+filepath);
+			lblLogoURL.setText(Messages.getString("AccUIAccountingBalance.36")+filepath); //$NON-NLS-1$
 		}
 
 		
