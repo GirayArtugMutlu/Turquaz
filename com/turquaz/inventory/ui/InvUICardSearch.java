@@ -40,6 +40,7 @@ import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryPrice;
+import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 import com.turquaz.engine.ui.component.SearchComposite;
 
 import com.turquaz.inventory.Messages;
@@ -81,19 +82,19 @@ import org.eclipse.swt.events.KeyEvent;
 public class InvUICardSearch extends  Composite implements SearchComposite {
 
 	private InvBLCardAdd invBLCardAdd = new InvBLCardAdd();
+	InvBLCardUpdate cardUpdate = new InvBLCardUpdate();
 	private Composite compInvCardSearch;
 	private CLabel lblInvName;
 	private TableColumn tableColumnInvName;
 	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnInventoryCode;
 	private Table tableSearcResults;
-	private Text txtInvCode;
-	private CLabel lblInvCode;
 	private CCombo comboInvGroup;
 	private CLabel lblInvGroup;
 	private Text txtInvName;
+	private Text txtInvCode;
+	private CLabel lblInvCode;
 	private Composite compInvCardSearchPanel;
-	InvBLCardUpdate cardUpdate = new InvBLCardUpdate();
 	public InvUICardSearch(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -132,9 +133,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 					compInvCardSearchPanelLData.grabExcessHorizontalSpace = true;
 					compInvCardSearchPanel.setLayoutData(compInvCardSearchPanelLData);
 					{
-						lblInvCode = new CLabel(
-							compInvCardSearchPanel,
-							SWT.NONE);
+						lblInvCode = new CLabel(compInvCardSearchPanel, SWT.NONE);
 						GridData cLabel2LData = new GridData();
 						cLabel2LData.widthHint = 97;
 						cLabel2LData.heightHint = 17;
@@ -150,7 +149,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 						GridData txtInvCodeLData = new GridData();
 						txtInvCode.addKeyListener(new KeyAdapter() {
 							public void keyReleased(KeyEvent evt) {
-								if(evt.keyCode==SWT.CR)
+								if (evt.keyCode == SWT.CR)
 									search();
 							}
 						});
@@ -179,7 +178,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 						GridData txtInvNameLData = new GridData();
 						txtInvName.addKeyListener(new KeyAdapter() {
 							public void keyReleased(KeyEvent evt) {
-								if (evt.keyCode==SWT.CR)
+								if (evt.keyCode == SWT.CR)
 									search();
 							}
 						});
@@ -206,7 +205,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 						GridData comboInvGroupLData = new GridData();
 						comboInvGroup.addKeyListener(new KeyAdapter() {
 							public void keyReleased(KeyEvent evt) {
-								if (evt.keyCode==SWT.CR)
+								if (evt.keyCode == SWT.CR)
 									search();
 							}
 						});
@@ -236,14 +235,14 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 						tableColumnInvName = new TableColumn(
 							tableSearcResults,
 							SWT.NONE);
-						tableColumnInvName.setText(Messages.getString("InvUICardSearch.3")); //$NON-NLS-1$
+						tableColumnInvName.setText("Stok Kodu"); //$NON-NLS-1$
 						tableColumnInvName.setWidth(115);
 					}
 					{
 						tableColumnInventoryCode = new TableColumn(
 							tableSearcResults,
 							SWT.NONE);
-						tableColumnInventoryCode.setText(Messages.getString("InvUICardSearch.4")); //$NON-NLS-1$
+						tableColumnInventoryCode.setText("Stok Cinsi"); //$NON-NLS-1$
 						tableColumnInventoryCode.setWidth(107);
 					}
 					{
@@ -438,9 +437,11 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	for(int i =0; i<listSize;i++){
 	Object[] objs=(Object[])result.get(i);
 	TurqInventoryCard card = (TurqInventoryCard)objs[1];
+	TurqViewInventoryAmountTotal invView=(TurqViewInventoryAmountTotal)((Object[])result.get(i))[0];
 	item = new TableItem(tableSearcResults,SWT.NULL);
 	item.setData(card);
-	item.setText(new String[]{card.getCardInventoryCode(),card.getCardName()});
+	String totalAmountNow=(invView.getTransactionsTotalAmountNow()==null) ? "0" : invView.getTransactionsTotalAmountNow().toString();
+	item.setText(new String[]{card.getCardInventoryCode(),card.getCardName(),totalAmountNow});
 	
 	
 	}

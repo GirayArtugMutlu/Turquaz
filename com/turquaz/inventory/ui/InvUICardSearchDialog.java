@@ -44,6 +44,7 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 
@@ -291,10 +292,11 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 		TableItem item;
 		int listSize = result.size();
 		for(int i =0; i<listSize;i++){
-		TurqInventoryCard card = (TurqInventoryCard)result.get(i);
+		TurqInventoryCard card = (TurqInventoryCard)((Object[])result.get(i))[1];
+		TurqViewInventoryAmountTotal invView=(TurqViewInventoryAmountTotal)((Object[])result.get(i))[0];
 		item = new TableItem(tableSearcResults,SWT.NULL);
 		item.setData(card);
-		item.setText(new String[]{card.getCardName(),card.getCardInventoryCode()});
+		item.setText(new String[]{card.getCardInventoryCode(),card.getCardName(),invView.getTransactionsTotalAmountNow().toString()});
 		
 		
 		}

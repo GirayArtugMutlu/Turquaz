@@ -36,6 +36,21 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 /**
  * @author Ceday
  *
@@ -54,14 +69,17 @@ public class CurDALCurrentCardSearch {
 		try{
 			Session session = EngDALSessionFactory.openSession();
 		
-			String query = "Select distinct currentCard from TurqCurrentCard as currentCard left join" +
+			String query = "Select currentView, currentCard from TurqViewCurrentAmountTotal as currentView," +
+					" TurqCurrentCard as currentCard left join fetch" +
 					" currentCard.turqCurrentCardsGroups as gr where" +
-					" currentCard.cardsCurrentCode like '"+currentCode+"%' and" +
-					" currentCard.cardsName like '"+currentName+"%' and" +
-					" currentCard.turqCompany.companiesId ="+System.getProperty("company")+
+					" currentCard.currentCardsId=currentView.currentCardsId" +
+					" and currentCard.cardsCurrentCode like '"+currentCode+"%'"+
+					" and currentCard.cardsName like '"+currentName+"%'"+
+					" and currentCard.turqCompany.companiesId ="+System.getProperty("company")+
 					" and currentCard.currentCardsId <> -1";
 			if (cardGroup!=null){
-				query +=" and gr.turqCurrentGroup = :cardGroup";
+				query +=" and :cardGroup in (Select gr.turqCurrentGroup from gr)";
+				//query +=" and gr.turqCurrentGroup = :cardGroup)";//left join fetch" +
 			}		
 			Query q = session.createQuery(query); 	
 			if (cardGroup!=null){
@@ -70,8 +88,8 @@ public class CurDALCurrentCardSearch {
 			List list = q.list();
 			
 			for (int i =0;i<list.size();i++){				
-				TurqCurrentCard curCard= (TurqCurrentCard)list.get(i);
-				Hibernate.initialize(curCard.getTurqCurrentCardsGroups());
+				TurqCurrentCard curCard= (TurqCurrentCard)((Object[])list.get(i))[1];
+				//Hibernate.initialize(curCard.getTurqCurrentCardsGroups());
 				Hibernate.initialize(curCard.getTurqCurrentContacts());		
 				Hibernate.initialize(curCard.getTurqCurrentCardsPhones());
 
