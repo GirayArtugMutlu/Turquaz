@@ -1194,11 +1194,15 @@ implements SecureComposite{
 					type =1;
 				}
 			for(int i=0;i<items.length;i++){
-			    TurqInventoryTransaction invTrans = (TurqInventoryTransaction)((InvUITransactionTableRow)items[i].getData()).getDBObject();
+			     
+			    InvUITransactionTableRow row = (InvUITransactionTableRow)items[i].getData();
+			   if(row.okToSave()){
+			    TurqInventoryTransaction invTrans = (TurqInventoryTransaction)row.getDBObject();
+
 			    invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouse.getData(comboWareHouse.getText()));
 				blAddCondignmetn.saveConsignmentRow(invTrans,consignmentID,type,txtDiscountRate.getIntValue());
 				
-						
+			   }
 			}
 		
 			
