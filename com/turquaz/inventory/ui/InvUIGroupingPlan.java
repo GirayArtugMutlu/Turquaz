@@ -1,5 +1,27 @@
 package com.turquaz.inventory.ui;
 
+/************************************************************************/
+/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
+/* ============================================                         */
+/* Copyright (c) 2004 by Turquaz Software Development Group			    */
+/*																		*/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License, or    */
+/* (at your option) any later version.       							*/
+/* 																		*/
+/* This program is distributed in the hope that it will be useful,		*/
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
+/* GNU General Public License for more details.         				*/
+/************************************************************************/
+
+/**
+ * @author Huseyin Ergun
+ * @version $Id$
+ */
+
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -18,21 +40,23 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
+
+import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
+import com.turquaz.engine.ui.component.SearchComposite;
+
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
-public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite
+
+public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite implements SearchComposite
 {
 	private TableTree tableTreeGroups;
 	private TableColumn tableColumnGroupName;
@@ -226,5 +250,49 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite
 				fillTable();
 			}
 		}
+	}
+	
+	public void delete ()
+	{
+		TableTreeItem items[] = tableTreeGroups.getSelection();
+		if (items.length > 0)
+		{
+		try
+		{			
+			TurqInventoryGroup mainGroup = (TurqInventoryGroup) items[0].getData();
+			
+			if(EngUICommon.okToDelete(getShell(),Messages.getString("InvUIGroupUpdateDialog.1"))) //$NON-NLS-1$
+			{ 
+				HashMap argMap=new HashMap();
+				argMap.put(InvKeys.INV_MAIN_GROUP,mainGroup);
+				EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap); //$NON-NLS-1$
+				EngUICommon.showMessageBox(getShell(),Messages.getString("InvUIGroupUpdateDialog.6"),SWT.ICON_INFORMATION); 
+				search();
+
+			}
+			
+		}
+		catch (Exception ex)
+		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
+			ex.printStackTrace();
+			EngUICommon.showMessageBox(getShell(), Messages.getString("InvUIGroupUpdateDialog.7"), SWT.ICON_ERROR); //$NON-NLS-1$
+		}
+		}
+	}
+	public void printTable ()
+	{
+		EngBLUtils.printTable(tableTreeGroups.getTable(), "Stok Gruplarý"); 
+
+	}
+	public void exportToExcel ()
+	{
+		EngBLUtils.Export2Excel(tableTreeGroups.getTable());
+
+	}
+	public void search ()
+	{
+		fillTable();
 	}
 }
