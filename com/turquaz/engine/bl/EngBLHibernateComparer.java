@@ -18,7 +18,6 @@ import java.util.Comparator;
 public class EngBLHibernateComparer implements Comparator {
 	
 	private Integer compareId1, compareId2;
-	
 	public void initalize(Object o1, Object o2)
 	{
 		try
@@ -59,7 +58,7 @@ public class EngBLHibernateComparer implements Comparator {
 	 }
 	 public boolean equals(Object obj)
 	 {
-	 	return compareId1.equals(compareId2);
+	 	return false;
 	 }
 	 
 }
