@@ -949,8 +949,8 @@ update turq_inventory_transactions set vat_rate=transactions_vat;
 
 ALTER TABLE turq_inventory_transactions DROP COLUMN transactions_vat;
 
-update turq_consignments set current_cards_id=turq_bill_consignment_commons.current_cards_id
-where bill_consignment_common_id=turq_bill_consignment_commons.id;
+update turq_consignments set current_cards_id = turq_bill_consignment_commons.current_cards_id
+where turq_bill_consignment_commons.id = bill_consignment_common_id;
 
 update turq_consignments set consignment_document_no=turq_bill_consignment_commons.consignment_document_no
 where bill_consignment_common_id=turq_bill_consignment_commons.id;

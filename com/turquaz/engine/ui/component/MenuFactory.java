@@ -1,6 +1,8 @@
 package com.turquaz.engine.ui.component;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Menu;
@@ -711,6 +713,55 @@ public class MenuFactory
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
 		return menuItem;
+	}
+	
+	public static void addTabFolderMenu(final CTabFolder tabfld){
+		
+		Menu menu = new Menu(tabfld.getShell(),SWT.POP_UP);
+		
+		MenuItem mit = new MenuItem(menu,SWT.PUSH);
+		mit.setText("Kapat");
+		mit.addSelectionListener(new SelectionAdapter(){
+			
+			public void widgetSelected(SelectionEvent arg0)
+			{
+				CTabItem item =tabfld.getSelection();
+			    if(item != null)
+			    {
+			    	EngUIMainFrame.tabfldMainItemClosed(item);
+			    	item.dispose();
+			    	
+			    }
+				EngUIMainFrame.arrangeIcons();
+			    
+			
+			}
+			
+			});
+		
+		
+		 mit = new MenuItem(menu,SWT.PUSH);
+		mit.setText("Hepsini Kapat");
+		mit.addSelectionListener(new SelectionAdapter(){
+			
+			public void widgetSelected(SelectionEvent arg0)
+			{
+				CTabItem items[] =tabfld.getItems();
+			    for(int i=0;i<items.length;i++)
+			    {
+			    	EngUIMainFrame.tabfldMainItemClosed(items[i]);
+			    	items[i].dispose();
+			    	
+			    }
+			    EngUIMainFrame.arrangeIcons();
+			
+			}
+			
+			});
+		
+		tabfld.setMenu(menu);
+		
+		
 	}
 }
 
