@@ -114,7 +114,7 @@ public class BillBLUpdateBill
 			
 			EngDALCommon.updateObject(bill);
 			
-			BillBLAddBill.saveAccountingTransaction(bill,totalAmount);
+			BillBLAddBill.saveAccountingTransaction(bill);
 		
 			
 			

@@ -15,21 +15,28 @@ package com.turquaz.consignment.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.custom.CCombo;
 import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
-import com.turquaz.engine.dal.TurqConsignment;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import com.cloudgarden.resource.SWTResourceManager;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.current.ui.comp.CurrentPicker;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -52,7 +59,13 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 	private Shell dialogShell;
 	private Composite composite1;
 	private CurrentPicker txtCurCard;
-	private Button btnSearch;
+	private TableColumn tableColumnType;
+	private TableColumn tableColumnConNo;
+	private TableColumn tableColumnCurCode;
+	private ToolItem toolOk;
+	private ToolItem toolCancel;
+	private ToolItem toolItem1;
+	private ToolBar toolBar1;
 	private Label lblSeperator;
 	private TableColumn tableColumnSpecialVatAmount;
 	private TableColumn tableColumnVatAmount;
@@ -61,25 +74,24 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 	private TableColumn tableColumnCurrentName;
 	private TableColumn tableColumnConsignmentDate;
 	private Table tableConsignments;
-	private CCombo comboConsignmentType;
-	private CLabel lblType;
 	private DatePicker dateEndDate;
 	private DatePicker dateStartDate;
 	private CLabel lblStartDate;
 	private CLabel lblCurrentCard;
-	private TurqConsignment cons = null;
+	private Object result[] = new Object[2];
+	TurqCurrentCard curCard = null;
 
 	public ConUIConsignmentSearchDialog(Shell parent, int style)
 	{
 		super(parent, style);
 	}
 
-	public TurqConsignment open()
+	public Object[] open()
 	{
 		try
 		{
 			Shell parent = getParent();
-			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+			dialogShell = new Shell(parent,SWT.DIALOG_TRIM| SWT.APPLICATION_MODAL);
 			{
 				//Register as a resource user - SWTResourceManager will
 				//handle the obtaining and disposing of resources
@@ -87,16 +99,16 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.pack();
-			dialogShell.setSize(566, 350);
+			dialogShell.setSize(707, 418);
 			dialogShell.setText(Messages.getString("ConUIConsignmentSearchDialog.13")); //$NON-NLS-1$
 			{
 				composite1 = new Composite(dialogShell, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
-				composite1Layout.numColumns = 2;
+				composite1Layout.numColumns = 4;
 				GridData composite1LData = new GridData();
 				composite1.setLayout(composite1Layout);
 				composite1LData.horizontalAlignment = GridData.FILL;
-				composite1LData.heightHint = 158;
+				composite1LData.heightHint = 108;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1.setLayoutData(composite1LData);
 				{
@@ -112,6 +124,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 					GridData txtCurCardLData = new GridData();
 					txtCurCardLData.widthHint = 208;
 					txtCurCardLData.heightHint = 20;
+					txtCurCardLData.horizontalSpan = 3;
 					txtCurCard.setLayoutData(txtCurCardLData);
 				}
 				{
@@ -145,47 +158,60 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 					dateEndDate.setLayoutData(dateEndDateLData);
 				}
 				{
-					lblType = new CLabel(composite1, SWT.NONE);
-					lblType.setText(Messages.getString("ConUIConsignmentSearchDialog.3")); //$NON-NLS-1$
-					GridData lblTypeLData = new GridData();
-					lblTypeLData.widthHint = 74;
-					lblTypeLData.heightHint = 21;
-					lblType.setLayoutData(lblTypeLData);
-				}
-				{
-					comboConsignmentType = new CCombo(composite1, SWT.NONE);
-					comboConsignmentType.setText(Messages.getString("ConUIConsignmentSearchDialog.4")); //$NON-NLS-1$
-					GridData comboConsignmentTypeLData = new GridData();
-					comboConsignmentTypeLData.widthHint = 72;
-					comboConsignmentTypeLData.heightHint = 14;
-					comboConsignmentType.setLayoutData(comboConsignmentTypeLData);
-				}
-				{
 					lblSeperator = new Label(composite1, SWT.SEPARATOR | SWT.HORIZONTAL);
 					GridData lblSeperatorLData = new GridData();
 					lblSeperatorLData.horizontalAlignment = GridData.FILL;
 					lblSeperatorLData.grabExcessHorizontalSpace = true;
-					lblSeperatorLData.horizontalSpan = 2;
+					lblSeperatorLData.horizontalSpan = 4;
+					lblSeperatorLData.heightHint = 2;
 					lblSeperator.setLayoutData(lblSeperatorLData);
 				}
+				//START >> toolBar1
+				toolBar1 = new ToolBar(composite1, SWT.WRAP);
+				GridData toolBar1LData = new GridData();
+				toolBar1LData.horizontalAlignment = GridData.FILL;
+				toolBar1LData.horizontalSpan = 4;
+				toolBar1LData.grabExcessHorizontalSpace = true;
+				toolBar1LData.heightHint = 47;
+				toolBar1.setLayoutData(toolBar1LData);
+				//START >> toolItem1
+				toolItem1 = new ToolItem(toolBar1, SWT.NONE);
+				toolItem1.setText(Messages.getString("ConUIConsignmentSearchDialog.3")); //$NON-NLS-1$
+				toolItem1.setImage(SWTResourceManager.getImage("icons/search.gif")); //$NON-NLS-1$
+				toolItem1.addSelectionListener(new SelectionAdapter()
 				{
-					btnSearch = new Button(composite1, SWT.PUSH | SWT.CENTER);
-					btnSearch.setImage(SWTResourceManager.getImage("icons/Find24.gif")); //$NON-NLS-1$
-					GridData btnSearchLData = new GridData();
-					btnSearch.addMouseListener(new MouseAdapter()
+					public void widgetSelected(SelectionEvent evt)
 					{
-						public void mouseUp(MouseEvent evt)
-						{
-							search();
-						}
-					});
-					btnSearchLData.widthHint = 62;
-					btnSearchLData.heightHint = 30;
-					btnSearch.setLayoutData(btnSearchLData);
-				}
+						search();
+					}
+				});
+				//END << toolItem1
+				//START >> toolOk
+				toolOk = new ToolItem(toolBar1, SWT.NONE);
+				toolOk.setText(Messages.getString("ConUIConsignmentSearchDialog.5")); //$NON-NLS-1$
+				toolOk.setImage(SWTResourceManager.getImage("icons/Ok16.gif")); //$NON-NLS-1$
+				toolOk.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						toolOkWidgetSelected(evt);
+					}
+				});
+				//END << toolOk
+				//START >> toolCancel
+				toolCancel = new ToolItem(toolBar1, SWT.NONE);
+				toolCancel.setText(Messages.getString("ConUIConsignmentSearchDialog.11")); //$NON-NLS-1$
+				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+				toolCancel.addSelectionListener(new SelectionAdapter()
+				{
+					public void widgetSelected(SelectionEvent evt)
+					{
+						dialogShell.close();
+					}
+				});
+				//END << toolCancel
+				//END << toolBar1
 			}
 			{
-				tableConsignments = new Table(dialogShell, SWT.FULL_SELECTION);
+				tableConsignments = new Table(dialogShell, SWT.CHECK | SWT.FULL_SELECTION);
 				tableConsignments.setHeaderVisible(true);
 				tableConsignments.setLinesVisible(true);
 				GridData tableConsignmentsLData = new GridData();
@@ -204,13 +230,28 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					tableColumnConsignmentDate = new TableColumn(tableConsignments, SWT.NONE);
 					tableColumnConsignmentDate.setText(Messages.getString("ConUIConsignmentSearchDialog.6")); //$NON-NLS-1$
-					tableColumnConsignmentDate.setWidth(104);
+					tableColumnConsignmentDate.setWidth(83);
 				}
+				//START >>  tableColumnType
+				tableColumnType = new TableColumn(tableConsignments, SWT.NONE);
+				tableColumnType.setText(Messages.getString("ConUIConsignmentSearchDialog.14")); //$NON-NLS-1$
+				tableColumnType.setWidth(48);
+				//END <<  tableColumnType
 				{
 					tableColumnCurrentName = new TableColumn(tableConsignments, SWT.NONE);
-					tableColumnCurrentName.setText(Messages.getString("ConUIConsignmentSearchDialog.7")); //$NON-NLS-1$
-					tableColumnCurrentName.setWidth(150);
+					tableColumnCurrentName.setText("Cari Kodu"); //$NON-NLS-1$
+					tableColumnCurrentName.setWidth(94);
 				}
+				//START >>  tableColumnCurCode
+				tableColumnCurCode = new TableColumn(tableConsignments, SWT.NONE);
+				tableColumnCurCode.setText(Messages.getString("ConUIConsignmentSearchDialog.15")); //$NON-NLS-1$
+				tableColumnCurCode.setWidth(80);
+				//END <<  tableColumnCurCode
+				//START >>  tableColumnConNo
+				tableColumnConNo = new TableColumn(tableConsignments, SWT.NONE);
+				tableColumnConNo.setText(Messages.getString("ConUIConsignmentSearchDialog.16")); //$NON-NLS-1$
+				tableColumnConNo.setWidth(100);
+				//END <<  tableColumnConNo
 				{
 					tableColumnCumulativePrice = new TableColumn(tableConsignments, SWT.NONE);
 					tableColumnCumulativePrice.setText(Messages.getString("ConUIConsignmentSearchDialog.8")); //$NON-NLS-1$
@@ -227,10 +268,9 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 					tableColumnSpecialVatAmount.setWidth(100);
 				}
 			}
-			comboConsignmentType.add(Messages.getString("ConUIConsignmentSearchDialog.11")); //$NON-NLS-1$
-			comboConsignmentType.add(Messages.getString("ConUIConsignmentSearchDialog.12")); //$NON-NLS-1$
 			composite1.layout();
 			dialogShell.layout();
+			EngUICommon.centreWindow(dialogShell);
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed())
@@ -238,7 +278,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
-			return cons;
+			return result;
 		}
 		catch (Exception e)
 		{
@@ -249,47 +289,108 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 
 	public void tableDoubleMouseClick()
 	{
-		TableItem items[] = tableConsignments.getSelection();
-		if (items.length > 0)
+	}
+	
+	public boolean verifyFields(){
+	
+		if(txtCurCard.getData()==null)
 		{
-			cons = (TurqConsignment) items[0].getData();
-			dialogShell.close();
+			EngUICommon.showMessageBox(getParent(),Messages.getString("ConUIConsignmentSearchDialog.17")); //$NON-NLS-1$
+			txtCurCard.setFocus();
+			return false;
 		}
+		return true;
+		
 	}
 
 	public void search()
 	{
 		try
 		{
-			tableConsignments.removeAll();
-			int type = 0;
-			if (comboConsignmentType.getText().equals(Messages.getString("ConUIConsignmentSearchDialog.5"))) //$NON-NLS-1$
+			if (verifyFields())
 			{
-				type = 1;
-			}
-			List list = ConBLSearchConsignment.chooseConsignment((TurqCurrentCard) txtCurCard.getData(), dateStartDate.getDate(),
-					dateEndDate.getDate(), type);
-			TurqConsignment cons;
-			TableItem item;
-			for (int i = 0; i < list.size(); i++)
-			{
-				cons = (TurqConsignment) list.get(i);
-				item = new TableItem(tableConsignments, SWT.NULL);
-				item.setData(cons);
-				//XXX the data should be retrieved from view
-				/*
-				 * item.setText(new String[]{DatePicker.formatter.format(cons.getConsignmentsDate()),
-				 * cons.getTurqCurrentCard().getCardsName(), cons.getTurqBillConsignmentCommon().getTotalAmount().toString(),
-				 * cons.getTurqBillConsignmentCommon().getVatAmount().toString(),
-				 * cons.getTurqBillConsignmentCommon().getSpecialVatAmount().toString()});
-				 */
+				curCard = (TurqCurrentCard)txtCurCard.getData();
+				tableConsignments.removeAll();
+				List list = ConBLSearchConsignment.chooseConsignment((TurqCurrentCard) txtCurCard.getData(), dateStartDate.getDate(),
+						dateEndDate.getDate());
+				Object cons[];
+				TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+				TableItem item;
+				for (int i = 0; i < list.size(); i++)
+				{
+					cons = (Object[]) list.get(i);
+					item = new TableItem(tableConsignments, SWT.NULL);
+					item.setData(cons[0]);
+					Date consDate = (Date) cons[1];
+					String curCardCode = (String) cons[2];
+					String curCardName = (String) cons[3];
+					String consDocNo = (String) cons[4];
+					BigDecimal totalAmount = (BigDecimal) cons[5];
+					BigDecimal vatAmount = (BigDecimal) cons[6];
+					BigDecimal specVatAmount = (BigDecimal) cons[7];
+					Integer type = (Integer)cons[8];
+					String transType =""; //$NON-NLS-1$
+					if(type.intValue()==EngBLCommon.COMMON_BUY_INT)
+					{
+						transType = EngBLCommon.COMMON_BUY_STRING;
+					}
+					else if(type.intValue()==EngBLCommon.COMMON_SELL_INT)
+					{
+						transType = EngBLCommon.COMMON_SELL_STRING;
+					}
+					
+					item.setText(new String[]{DatePicker.formatter.format(consDate),transType,curCardCode, curCardName, consDocNo,
+							cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)});
+				}
 			}
 		}
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
+	}
+	
+	private void toolOkWidgetSelected(SelectionEvent evt) {
+	
+		result[1]=null;
+		result[0] = curCard;
+		List consigments = new ArrayList();
+		TableItem items[] = tableConsignments.getItems();
+		String type =""; //$NON-NLS-1$
+		boolean okToSave = true;
+		for(int i=0;i<items.length;i++)
+		{
+			if(items[i].getChecked())
+			{
+				if(consigments.size()==0)
+				{
+					consigments.add(items[i].getData());
+					type = items[i].getText(1);
+				}
+				else if(type.equals(items[i].getText(1)))
+				{
+					consigments.add(items[i].getData());
+				}
+				else
+				{
+					okToSave = false;
+					break;
+				}
+			}			
+		}
+		
+		if(okToSave){
+		result[1]=consigments;
+		
+		dialogShell.close();
+		}
+		else{
+			EngUICommon.showMessageBox(getParent(),Messages.getString("ConUIConsignmentSearchDialog.21")); //$NON-NLS-1$
+		}
+		
+		
+		
 	}
 }

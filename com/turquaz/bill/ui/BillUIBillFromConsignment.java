@@ -33,37 +33,36 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
-import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Label;
-import com.turquaz.engine.ui.component.TextWithButton;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionAdapter;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
+import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearchDialog;
-import com.turquaz.engine.dal.TurqBill;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqConsignment;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
-import com.turquaz.accounting.ui.comp.AccountPicker;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -138,13 +137,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		return txtDiscountAmount;
 	}
 
-	/**
-	 * @return Returns the txtDiscountRate.
-	 */
-	public NumericText getTxtDiscountRate()
-	{
-		return txtDiscountRate;
-	}
+
 
 	/**
 	 * @return Returns the txtDocumentNo.
@@ -190,17 +183,14 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 	private TableColumn tableColumnAmount;
 	private Composite compTotalsPanel;
 	private CLabel lblInventoryPrice;
+	private ToolItem toolItem1;
+	private ToolBar toolBar;
+	private Text txtBillDocumentNo;
+	private CLabel lblBillDocNo;
 	private DatePicker dateDueDate;
 	private CLabel lblDueDate;
-	private AccountPicker accountPickerCurAcc;
-	private CLabel lblCashAccount;
-	private CCombo comboPaymentType;
-	private CLabel lblPaymentType;
-	private NumericText txtDiscountRate;
 	private DatePicker dateConsDate;
 	private CLabel lblConsignmentDate;
-	private TextWithButton txtConsignment;
-	private CLabel lblConsignmet;
 	private Text txtDefinition;
 	private CLabel lblDefinition;
 	private CurrencyText decSpecialVat;
@@ -222,7 +212,6 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 	private CurrencyText txtSubTotal;
 	private CurrencyText txtTotalVat;
 	private CLabel lblTotalVat;
-	private CLabel lblDiscountRate;
 	private Text txtDocumentNo;
 	private CLabel lblDocumentNo;
 	private DatePicker dateBillDate;
@@ -234,6 +223,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 	private TableColumn TableColumnVATSpecial;
 	private TableColumn tableColumnUnit;
 	private Table tableConsignmentRows;
+	List consList = new ArrayList();
 
 	public BillUIBillFromConsignment(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -252,10 +242,9 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 			thisLayout.marginHeight = 0;
 			thisLayout.marginWidth = 0;
 			thisLayout.verticalSpacing = 0;
-			this.setSize(633, 527);
+			this.setSize(698, 529);
 			{
 				cTabFolder1 = new CTabFolder(this, SWT.NONE);
-				cTabFolder1.setSize(56, 25);
 				GridData cTabFolder1LData = new GridData();
 				cTabFolder1LData.grabExcessHorizontalSpace = true;
 				cTabFolder1LData.grabExcessVerticalSpace = true;
@@ -271,98 +260,74 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 						GridLayout compGeneralLayout = new GridLayout();
 						compGeneral.setLayout(compGeneralLayout);
 						tabItemGeneral.setControl(compGeneral);
+						//START >>  toolBar
+						toolBar = new ToolBar(compGeneral, SWT.RIGHT);
+						//START >>  toolItem1
+						toolItem1 = new ToolItem(toolBar, SWT.NONE);
+						toolItem1.setText("\u0130rsaliye Seç");
+						toolItem1.setImage(SWTResourceManager.getImage("icons/search.gif"));
+						toolItem1.addSelectionListener(new SelectionAdapter() {
+							public void widgetSelected(SelectionEvent evt) {
+							chooseConsignmentMouseUp();	
+							}
+						});
+						//END <<  toolItem1
+						//END <<  toolBar
 						{
 							compInfoPanel = new Composite(compGeneral, SWT.NONE);
 							GridLayout compInfoPanelLayout = new GridLayout();
 							GridData compInfoPanelLData = new GridData();
 							compInfoPanelLData.horizontalSpan = 2;
 							compInfoPanelLData.horizontalAlignment = GridData.FILL;
-							compInfoPanelLData.heightHint = 188;
+							compInfoPanelLData.heightHint = 148;
 							compInfoPanelLData.grabExcessHorizontalSpace = true;
 							compInfoPanel.setLayoutData(compInfoPanelLData);
 							compInfoPanelLayout.numColumns = 4;
 							compInfoPanel.setLayout(compInfoPanelLayout);
 							{
-								lblConsignmet = new CLabel(compInfoPanel, SWT.NONE);
-								lblConsignmet.setText(Messages.getString("BillUIBillFromConsignment.2")); //$NON-NLS-1$
-								GridData lblConsignmetLData = new GridData();
-								lblConsignmetLData.widthHint = 118;
-								lblConsignmetLData.heightHint = 23;
-								lblConsignmet.setLayoutData(lblConsignmetLData);
-							}
-							{
-								txtConsignment = new TextWithButton(compInfoPanel, SWT.NONE);
-								GridData txtConsignmentLData = new GridData();
-								txtConsignment.addMouseListener(new MouseAdapter()
-								{
-									public void mouseUp(MouseEvent evt)
-									{
-										chooseConsignmentMouseUp();
-									}
-								});
-								txtConsignment.setText(Messages.getString("BillUIBillFromConsignment.3")); //$NON-NLS-1$
-								txtConsignmentLData.widthHint = 200;
-								txtConsignmentLData.heightHint = 21;
-								txtConsignment.setLayoutData(txtConsignmentLData);
-							}
-							{
-								lblConsignmentDate = new CLabel(compInfoPanel, SWT.NONE);
-								lblConsignmentDate.setText(Messages.getString("BillUIBillFromConsignment.4")); //$NON-NLS-1$
-								GridData lblConsignmentDateLData = new GridData();
-								lblConsignmentDateLData.widthHint = 94;
-								lblConsignmentDateLData.heightHint = 18;
-								lblConsignmentDate.setLayoutData(lblConsignmentDateLData);
-							}
-							{
-								dateConsDate = new DatePicker(compInfoPanel, SWT.NONE);
-								GridData dateConsDateLData = new GridData();
-								dateConsDate.setEnabled(false);
-								dateConsDateLData.widthHint = 118;
-								dateConsDateLData.heightHint = 25;
-								dateConsDate.setLayoutData(dateConsDateLData);
-							}
-							{
 								lblCurrentCard = new CLabel(compInfoPanel, SWT.NONE);
 								lblCurrentCard.setText(Messages.getString("BillUIBillFromConsignment.5")); //$NON-NLS-1$
 								GridData lblCurrentCardLData1 = new GridData();
-								lblCurrentCardLData1.widthHint = 86;
-								lblCurrentCardLData1.heightHint = 19;
 								lblCurrentCardLData1.verticalAlignment = GridData.BEGINNING;
 								lblCurrentCard.setLayoutData(lblCurrentCardLData1);
 							}
 							{
 								txtCurrentCard = new Text(compInfoPanel, SWT.MULTI);
 								GridData txtCurrentCardLData = new GridData();
-								txtCurrentCard.setBackground(SWTResourceManager.getColor(255, 255, 255));
+								txtCurrentCard.setBackground(SWTResourceManager.getColor(255,255,255));
 								txtCurrentCard.setEditable(false);
-								txtCurrentCardLData.widthHint = 179;
-								txtCurrentCardLData.heightHint = 19;
+								txtCurrentCardLData.widthHint = 232;
+								txtCurrentCardLData.heightHint = 18;
 								txtCurrentCard.setLayoutData(txtCurrentCardLData);
 							}
 							{
+								lblConsignmentDate = new CLabel(compInfoPanel, SWT.NONE);
+								lblConsignmentDate.setText(Messages.getString("BillUIBillFromConsignment.4")); //$NON-NLS-1$
+							}
+							{
+								dateConsDate = new DatePicker(compInfoPanel, SWT.NONE);
+								GridData dateConsDateLData = new GridData();
+								dateConsDate.setEnabled(false);
+								dateConsDateLData.widthHint = 109;
+								dateConsDateLData.heightHint = 21;
+								dateConsDate.setLayoutData(dateConsDateLData);
+							}
+							{
 								lblDocumentNo = new CLabel(compInfoPanel, SWT.NONE);
-								lblDocumentNo.setText(Messages.getString("BillUIBillFromConsignment.6")); //$NON-NLS-1$
-								GridData lblDocumentNoLData = new GridData();
-								lblDocumentNoLData.widthHint = 107;
-								lblDocumentNoLData.heightHint = 15;
-								lblDocumentNo.setLayoutData(lblDocumentNoLData);
+								lblDocumentNo.setText("\u0130rsaliye No"); //$NON-NLS-1$
 							}
 							{
 								txtDocumentNo = new Text(compInfoPanel, SWT.NONE);
 								GridData txtDocumentNoLData = new GridData();
-								txtDocumentNo.setBackground(SWTResourceManager.getColor(255, 255, 255));
+								txtDocumentNo.setBackground(SWTResourceManager.getColor(255,255,255));
 								txtDocumentNo.setEditable(false);
-								txtDocumentNoLData.widthHint = 114;
-								txtDocumentNoLData.heightHint = 16;
+								txtDocumentNoLData.widthHint = 232;
+								txtDocumentNoLData.heightHint = 18;
 								txtDocumentNo.setLayoutData(txtDocumentNoLData);
 							}
 							{
 								lblDate = new CLabel(compInfoPanel, SWT.LEFT);
-								lblDate.setText(Messages.getString("BillUIBillFromConsignment.7")); //$NON-NLS-1$
-								GridData lblDateLData = new GridData();
-								lblDateLData.widthHint = 70;
-								lblDateLData.heightHint = 21;
-								lblDate.setLayoutData(lblDateLData);
+								lblDate.setText("Fatura Tarihi"); //$NON-NLS-1$
 							}
 							{
 								dateBillDate = new DatePicker(compInfoPanel, SWT.NONE);
@@ -371,14 +336,31 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 								dateConsignmentDateLData.heightHint = 21;
 								dateBillDate.setLayoutData(dateConsignmentDateLData);
 							}
+							//START >>  lblBillDocNo
+							lblBillDocNo = new CLabel(compInfoPanel, SWT.NONE);
+							lblBillDocNo.setText("Fatura No");
+							//END <<  lblBillDocNo
+							//START >>  txtBillDocumentNo
+							txtBillDocumentNo = new Text(compInfoPanel, SWT.NONE);
+							GridData txtBillDocumentNoLData = new GridData();
+							txtBillDocumentNoLData.widthHint = 232;
+							txtBillDocumentNoLData.heightHint = 18;
+							txtBillDocumentNo.setLayoutData(txtBillDocumentNoLData);
+							//END <<  txtBillDocumentNo
+							{
+								lblDueDate = new CLabel(compInfoPanel, SWT.NONE);
+								lblDueDate.setText("Vade Tarihi");
+							}
+							{
+								dateDueDate = new DatePicker(compInfoPanel, SWT.NONE);
+								GridData dateDueDateLData = new GridData();
+								dateDueDateLData.widthHint = 109;
+								dateDueDateLData.heightHint = 21;
+								dateDueDate.setLayoutData(dateDueDateLData);
+							}
 							{
 								lblType = new CLabel(compInfoPanel, SWT.LEFT);
 								lblType.setText(Messages.getString("BillUIBillFromConsignment.8")); //$NON-NLS-1$
-								GridData lblTypeLData = new GridData();
-								lblTypeLData.widthHint = 62;
-								lblTypeLData.heightHint = 14;
-								lblTypeLData.verticalAlignment = GridData.BEGINNING;
-								lblType.setLayoutData(lblTypeLData);
 							}
 							{
 								comboConsignmentType = new CCombo(compInfoPanel, SWT.NONE);
@@ -387,98 +369,25 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 								comboConsignmentType.setBackground(SWTResourceManager.getColor(255, 255, 255));
 								comboConsignmentType.setEditable(false);
 								comboConsignmentType.setText(Messages.getString("BillUIBillFromConsignment.9")); //$NON-NLS-1$
-								comboConsignmentTypeLData.widthHint = 81;
-								comboConsignmentTypeLData.heightHint = 21;
+								comboConsignmentTypeLData.widthHint = 85;
+								comboConsignmentTypeLData.heightHint = 18;
+								comboConsignmentTypeLData.horizontalSpan = 3;
 								comboConsignmentType.setLayoutData(comboConsignmentTypeLData);
-							}
-							{
-								lblDiscountRate = new CLabel(compInfoPanel, SWT.LEFT);
-								lblDiscountRate.setText(Messages.getString("BillUIBillFromConsignment.10")); //$NON-NLS-1$
-								GridData lblDiscountRateLData = new GridData();
-								lblDiscountRateLData.widthHint = 96;
-								lblDiscountRateLData.heightHint = 15;
-								lblDiscountRate.setLayoutData(lblDiscountRateLData);
-							}
-							{
-								txtDiscountRate = new NumericText(compInfoPanel, SWT.NONE);
-								txtDiscountRate.setTextLimit(2);
-								GridData txtDiscountRateLData = new GridData();
-								txtDiscountRate.setSize(107, 20);
-								txtDiscountRate.addModifyListener(new ModifyListener()
-								{
-									public void modifyText(ModifyEvent evt)
-									{
-										calculateTotals();
-									}
-								});
-								txtDiscountRateLData.widthHint = 107;
-								txtDiscountRateLData.heightHint = 20;
-								txtDiscountRate.setLayoutData(txtDiscountRateLData);
 							}
 							{
 								lblDefinition = new CLabel(compInfoPanel, SWT.LEFT);
 								lblDefinition.setText(Messages.getString("BillUIBillFromConsignment.11")); //$NON-NLS-1$
 								GridData lblDefinitionLData = new GridData();
-								lblDefinitionLData.widthHint = 108;
-								lblDefinitionLData.heightHint = 20;
 								lblDefinitionLData.verticalAlignment = GridData.BEGINNING;
 								lblDefinition.setLayoutData(lblDefinitionLData);
 							}
 							{
-								txtDefinition = new Text(compInfoPanel, SWT.NONE);
+								txtDefinition = new Text(compInfoPanel, SWT.V_SCROLL);
 								GridData txtDefinitionLData = new GridData();
-								txtDefinitionLData.widthHint = 160;
-								txtDefinitionLData.heightHint = 35;
+								txtDefinitionLData.widthHint = 425;
+								txtDefinitionLData.heightHint = 32;
+								txtDefinitionLData.horizontalSpan = 3;
 								txtDefinition.setLayoutData(txtDefinitionLData);
-							}
-							{
-								lblPaymentType = new CLabel(compInfoPanel, SWT.NONE);
-								lblPaymentType.setText(Messages.getString("BillUIBillFromConsignment.1")); //$NON-NLS-1$
-							}
-							{
-								comboPaymentType = new CCombo(compInfoPanel, SWT.NONE);
-								GridData comboPaymentTypeLData = new GridData();
-								comboPaymentType.addSelectionListener(new SelectionAdapter()
-								{
-									public void widgetSelected(SelectionEvent evt)
-									{
-										Boolean isCurrent = (Boolean) comboPaymentType.getData(comboPaymentType.getText());
-										if (isCurrent.booleanValue())
-											accountPickerCurAcc.setEnabled(true);
-										else
-											accountPickerCurAcc.setEnabled(false);
-									}
-								});
-								comboPaymentTypeLData.widthHint = 58;
-								comboPaymentTypeLData.heightHint = 10;
-								comboPaymentType.setLayoutData(comboPaymentTypeLData);
-							}
-							{
-								lblDueDate = new CLabel(compInfoPanel, SWT.NONE);
-								lblDueDate.setText("Vade Tarihi");
-							}
-							{
-								dateDueDate = new DatePicker(compInfoPanel, SWT.NONE);
-								GridData dateDueDateLData = new GridData();
-								dateDueDateLData.widthHint = 110;
-								dateDueDateLData.heightHint = 22;
-								dateDueDate.setLayoutData(dateDueDateLData);
-							}
-							{
-								lblCashAccount = new CLabel(compInfoPanel, SWT.NONE);
-								lblCashAccount.setText(Messages.getString("BillUIBillFromConsignment.35")); //$NON-NLS-1$
-								GridData lblKasaLData = new GridData();
-								lblKasaLData.widthHint = 93;
-								lblKasaLData.heightHint = 16;
-								lblCashAccount.setLayoutData(lblKasaLData);
-							}
-							{
-								accountPickerCurAcc = new AccountPicker(compInfoPanel, SWT.NONE);
-								accountPickerCurAcc.setEnabled(false);
-								GridData accountPickerCurAccLData = new GridData();
-								accountPickerCurAccLData.widthHint = 134;
-								accountPickerCurAccLData.heightHint = 17;
-								accountPickerCurAcc.setLayoutData(accountPickerCurAccLData);
 							}
 						}
 						{
@@ -719,7 +628,30 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 			ex.printStackTrace();
 		}
 	}
-
+	public void calculateTotals()
+	{
+		TableItem items[] = tableConsignmentRows.getItems();
+		BigDecimal subTotal = new BigDecimal(0);
+		BigDecimal totalVAT = new BigDecimal(0);
+		BigDecimal totalSpecVAT = new BigDecimal(0);
+		BigDecimal generalTotal = new BigDecimal(0);
+		BigDecimal discountTotal = new BigDecimal(0);
+		for (int i = 0; i < items.length; i++)
+		{
+			TurqInventoryTransaction invTrans = (TurqInventoryTransaction)  (items[i].getData());
+				
+			subTotal = subTotal.add(invTrans.getTotalPriceInForeignCurrency());
+			totalVAT = totalVAT.add(invTrans.getVatAmountInForeignCurrency());
+			totalSpecVAT = totalSpecVAT.add(invTrans.getVatSpecialAmountInForeignCurrency());
+			discountTotal = discountTotal.add(invTrans.getDiscountAmountInForeignCurrency());
+		}
+		generalTotal = subTotal.add(totalVAT).add(totalSpecVAT);
+		txtDiscountAmount.setText(discountTotal);
+		txtSubTotal.setText(subTotal);
+		txtTotalVat.setText(totalVAT);
+		decSpecialVat.setText(totalSpecVAT);
+		txtTotalAmount.setText(generalTotal.subtract(discountTotal));
+	}
 	public void postInitGui()
 	{
 		cTabFolder1.setSelection(0);
@@ -727,34 +659,18 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		//fill combo type
 		comboConsignmentType.add(Messages.getString("BillUIBillFromConsignment.31")); //$NON-NLS-1$
 		comboConsignmentType.add(Messages.getString("BillUIBillFromConsignment.32")); //$NON-NLS-1$
-		comboPaymentType.add("Cari"); //$NON-NLS-1$
-		comboPaymentType.setData("Cari", new Boolean(false)); //$NON-NLS-1$
-		comboPaymentType.add("Nakit"); //$NON-NLS-1$
-		comboPaymentType.setData("Nakit", new Boolean(true)); //$NON-NLS-1$
-		comboPaymentType.setText("Cari"); //$NON-NLS-1$
-	}
+		}
 
 	public boolean verifyFields()
 	{
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-		if (txtConsignment.getData() == null)
+		if (consList.size()==0)
 		{
 			msg.setMessage(Messages.getString("BillUIBillFromConsignment.12")); //$NON-NLS-1$
 			msg.open();
-			txtConsignment.setFocus();
 			return false;
 		}
-		Boolean isCurrent = (Boolean) comboPaymentType.getData(comboPaymentType.getText());
-		if (isCurrent.booleanValue())
-		{
-			if (accountPickerCurAcc.getData() == null)
-			{
-				msg.setMessage(Messages.getString("BillUIBillFromConsignment.36")); //$NON-NLS-1$
-				msg.open();
-				accountPickerCurAcc.setFocus();
-				return false;
-			}
-		}
+		
 		return true;
 	}
 
@@ -765,15 +681,13 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		{
 			if (verifyFields())
 			{
-				int type = 0;
-				if (comboConsignmentType.getText().equals(Messages.getString("BillUIBillFromConsignment.33"))) { //$NON-NLS-1$
-					type = 1;
+				int type = EngBLCommon.COMMON_BUY_INT;
+				if (comboConsignmentType.getText().equals(EngBLCommon.COMMON_SELL_STRING)) { //$NON-NLS-1$
+					type = EngBLCommon.COMMON_SELL_INT;
 				}
-				TurqConsignment consignment = (TurqConsignment) txtConsignment.getData();
-				Boolean paymentType = (Boolean) comboPaymentType.getData(comboPaymentType.getText());
-				TurqBill bill = BillBLAddBill.saveBillFromCons(txtDocumentNo.getText(), txtDefinition.getText(), false, dateBillDate
-						.getDate(), consignment, type, !paymentType.booleanValue(), accountPickerCurAcc.getTurqAccountingAccount(),
-						dateDueDate.getDate(), getBillGroups());
+				
+			//	TurqConsignment consignment = (TurqConsignment) txtConsignment.getData();
+			BillBLAddBill.saveBillFromCons(txtDocumentNo.getText(), txtDefinition.getText(), false, dateBillDate.getDate(), consList,type,dateDueDate.getDate(), getBillGroups(),(TurqCurrentCard)txtCurrentCard.getData(),EngBLCommon.getBaseCurrencyExchangeRate(),txtTotalAmount.getBigDecimalValue(),txtDiscountAmount.getBigDecimalValue());
 				msg.setMessage(Messages.getString("BillUIBillFromConsignment.34")); //$NON-NLS-1$
 				msg.open();
 				newForm();
@@ -818,54 +732,39 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		tabfld.getSelection().setControl(curCard);
 		this.dispose();
 	}
-
-	public void calculateTotals()
-	{
-		TableItem items[] = tableConsignmentRows.getItems();
-		BigDecimal subTotal = new BigDecimal(0);
-		BigDecimal totalVAT = new BigDecimal(0);
-		BigDecimal totalSpecVAT = new BigDecimal(0);
-		BigDecimal generalTotal = new BigDecimal(0);
-		BigDecimal discountTotal = new BigDecimal(0);
-		for (int i = 0; i < items.length; i++)
-		{
-			subTotal = subTotal.add(new BigDecimal(items[i].getText(5)));
-			totalVAT = totalVAT.add(new BigDecimal(items[i].getText(7)));
-			totalSpecVAT = totalSpecVAT.add(new BigDecimal(items[i].getText(8)));
-		}
-		generalTotal = subTotal.add(totalVAT).add(totalSpecVAT);
-		double discountRate = (double) txtDiscountRate.getIntValue() / 100;
-		discountTotal = generalTotal.multiply(new BigDecimal(discountRate + "")).setScale(2, BigDecimal.ROUND_DOWN);; //$NON-NLS-1$
-		totalSpecVAT = totalSpecVAT.subtract(totalSpecVAT.multiply(new BigDecimal(discountRate + ""))).setScale(2, BigDecimal.ROUND_DOWN); //$NON-NLS-1$
-		subTotal = subTotal.subtract(subTotal.multiply(new BigDecimal(discountRate + ""))).setScale(2, BigDecimal.ROUND_DOWN); //$NON-NLS-1$
-		totalVAT = totalVAT.subtract(totalVAT.multiply(new BigDecimal(discountRate + ""))).setScale(2, BigDecimal.ROUND_DOWN); //$NON-NLS-1$
-		txtDiscountAmount.setText(discountTotal);
-		txtSubTotal.setText(subTotal);
-		txtTotalVat.setText(totalVAT);
-		decSpecialVat.setText(totalSpecVAT);
-		txtTotalAmount.setText(generalTotal.subtract(discountTotal));
-	}
+	
 
 	public void chooseConsignmentMouseUp()
 	{
-		TurqConsignment cons = new ConUIConsignmentSearchDialog(this.getShell(), SWT.NULL).open();
-		if (cons != null)
+		Object[] result = new ConUIConsignmentSearchDialog(this.getShell(), SWT.NULL).open();
+		if(result[0]==null||result[1]==null)
 		{
-			try
+			return;
+		}
+		txtDocumentNo.setText("");
+		txtCurrentCard.setData(result[0]);
+		TurqCurrentCard curCard = (TurqCurrentCard)result[0];
+		txtCurrentCard.setText(curCard.getCardsCurrentCode()+" "+curCard.getCardsName());
+		consList = (List)result[1];
+		
+		tableConsignmentRows.removeAll();
+		for(int i=0;i<consList.size();i++)
+		{
+			if(i!=0)
 			{
+				txtDocumentNo.setText(txtDocumentNo.getText()+",");
+			}
+			TurqConsignment cons = null;
+		  try
+			{
+		  	    
+		  		cons = ConBLSearchConsignment.getConsignmentByConsId((Integer)consList.get(i));
 				ConBLUpdateConsignment.initiliazeConsignment(cons);
-				txtConsignment.setData(cons);
-				txtCurrentCard.setText(cons.getTurqCurrentCard().getCardsCurrentCode()
-						+ " - " + cons.getTurqCurrentCard().getCardsName()); //$NON-NLS-1$
-				txtCurrentCard.setData(cons.getTurqCurrentCard());
-				TurqBill bill = (TurqBill) cons.getTurqEngineSequence().getTurqBillInEngineSequences().iterator().next();
-				txtDocumentNo.setText(bill.getBillDocumentNo());
 				dateConsDate.setDate(cons.getConsignmentsDate());
-				txtConsignment.setText(cons.getConsignmentDocumentNo());
 				Iterator it = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
 				TableItem item;
 				TurqInventoryTransaction invTrans;
-				tableConsignmentRows.removeAll();
+				
 				while (it.hasNext())
 				{
 					/**
@@ -873,7 +772,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 					 */
 					invTrans = (TurqInventoryTransaction) it.next();
 					BigDecimal amount = invTrans.getAmountIn();
-					if (amount.compareTo(new BigDecimal(0)) < 1)
+					if (amount.doubleValue()<=0)
 					{
 						amount = invTrans.getAmountOut();
 					}
@@ -886,8 +785,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							invTrans.getVatAmountInForeignCurrency().toString(),
 							invTrans.getVatSpecialAmountInForeignCurrency().toString(),
 							invTrans.getCumilativePriceInForeignCurrency().toString()});
-					//XXX numeric text->currency text
-					txtDiscountRate.setText(invTrans.getDiscountRate().intValue());
+				
 				}
 				String type = Messages.getString("BillUIBillFromConsignment.29"); //$NON-NLS-1$
 				if (cons.getConsignmentsType() == 1)
@@ -895,6 +793,9 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 					type = Messages.getString("BillUIBillFromConsignment.43"); //$NON-NLS-1$
 				}
 				comboConsignmentType.setText(type);
+				dateConsDate.setDate(cons.getConsignmentsDate());
+				txtDocumentNo.setText(txtDocumentNo.getText()+","+cons.getConsignmentDocumentNo());
+			    calculateTotals();
 			}
 			catch (Exception ex)
 			{
@@ -904,5 +805,6 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 				EngUICommon.showMessageBox(getShell(), ex.getMessage(), SWT.ICON_ERROR);
 			}
 		}
+		
 	}
 }

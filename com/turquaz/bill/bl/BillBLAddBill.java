@@ -12,6 +12,7 @@ import java.util.Set;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.accounting.dal.AccDALAccountAdd;
 import com.turquaz.bill.dal.BillDALAddBill;
+import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -47,7 +48,7 @@ public class BillBLAddBill
 		InvBLSaveTransaction.saveInventoryTransactions(invTransactions, engSeq.getId(), type, billsDate, definition, billDocNo,
 				exchangeRate, currentCard);
 		saveCurrentTransaction(bill, totalAmount, discountAmount);
-		int saved=saveAccountingTransaction(bill, totalAmount);
+		saveAccountingTransaction(bill);
 		saveBillGroups(bill.getId(), billGroups);
 		return bill;
 	}
@@ -63,16 +64,27 @@ public class BillBLAddBill
 
 	/** ************************************************************************* */
 	//B?ll from consignment
-	public static TurqBill saveBillFromCons(String docNo, String definition, boolean isPrinted, Date billsDate, TurqConsignment cons,
-			int type, boolean isOpen, TurqAccountingAccount cashAccount, Date dueDate, List billGroups) throws Exception
+	public static TurqBill saveBillFromCons(String docNo, String definition, boolean isPrinted, Date billsDate, List consList, int type,
+			Date dueDate, List billGroups, TurqCurrentCard curCard, TurqCurrencyExchangeRate exRate, BigDecimal totalAmount,
+			BigDecimal discountAmount) throws Exception
 	{
 		try
 		{
 			// Save Bill
-			TurqBill bill = registerBill(docNo, definition, isPrinted, billsDate, type, dueDate, cons.getTurqCurrentCard(), cons
-					.getTurqCurrencyExchangeRate());
+			TurqBill bill = registerBill(docNo, definition, isPrinted, billsDate, type, dueDate, curCard, exRate);
 			//Then Save Bill Groups
+			for (int i = 0; i < consList.size(); i++)
+			{
+				Integer consId = (Integer) consList.get(i);
+				TurqConsignment cons = ConBLSearchConsignment.getConsignmentByConsId(consId);
+				TurqBillInEngineSequence billInEng = new TurqBillInEngineSequence();
+				billInEng.setTurqBill(bill);
+				billInEng.setTurqEngineSequence(cons.getTurqEngineSequence());
+				EngDALCommon.saveObject(billInEng);
+			}
 			saveBillGroups(bill.getId(), billGroups);
+			saveCurrentTransaction(bill, totalAmount, discountAmount);
+			saveAccountingTransaction(bill);
 			return bill;
 		}
 		catch (Exception ex)
@@ -174,9 +186,7 @@ public class BillBLAddBill
 	 * @param currentAccount
 	 * @throws Exception
 	 */
-	//1 is OK, -1 there is not accounting information, 0 for other errors
-	public static int prepareAccountsForAccountingIntgretion(TurqBill bill, Map creditAccounts, Map deptAccounts, BigDecimal totalAmount)
-			throws Exception
+	public static int prepareAccountsForAccountingIntgretion(TurqBill bill, Map creditAccounts, Map deptAccounts) throws Exception
 	{
 		try
 		{
@@ -235,6 +245,7 @@ public class BillBLAddBill
 					}
 					List ls = (List) invRows.get(buyAccount.getId());
 					ls.add(invTrans.getTotalPriceInForeignCurrency());
+					totals = totals.add(invTrans.getTotalPriceInForeignCurrency());
 					invRows.put(buyAccount.getId(), ls);
 					/*
 					 * VAT ROWs
@@ -243,7 +254,7 @@ public class BillBLAddBill
 							INV_VAT_ACCOUNT);
 					if (buyVATAccount == null)
 					{
-						return -1; //error
+						return -1;
 					}
 					if (!invRows.containsKey(buyVATAccount.getId()))
 					{
@@ -251,6 +262,7 @@ public class BillBLAddBill
 					}
 					List vatList = (List) invRows.get(buyVATAccount.getId());
 					vatList.add(invTrans.getVatAmountInForeignCurrency());
+					totals = totals.add(invTrans.getVatAmountInForeignCurrency());
 					invRows.put(buyVATAccount.getId(), vatList);
 					/*
 					 * Special VAT Rows
@@ -259,7 +271,7 @@ public class BillBLAddBill
 							.getId(), INV_SPEC_VAT_ACCOUNT);
 					if (specialVATBuyAccount == null)
 					{
-						return -1; //error
+						return -1;
 					}
 					if (!invRows.containsKey(specialVATBuyAccount.getId()))
 					{
@@ -267,16 +279,13 @@ public class BillBLAddBill
 					}
 					List specVatList = (List) invRows.get(specialVATBuyAccount.getId());
 					specVatList.add(invTrans.getVatSpecialAmountInForeignCurrency());
+					totals = totals.add(invTrans.getVatSpecialAmountInForeignCurrency());
 					invRows.put(specialVATBuyAccount.getId(), specVatList);
 					/*
 					 * DiscountRows
 					 */
 					TurqAccountingAccount discountBuyAccount = InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard()
 							.getId(), INV_DISCOUNT_ACCOUNT);
-					if (discountBuyAccount == null)
-					{
-						return -1;
-					}
 					if (discountBuyAccount == null)
 					{
 						discountBuyAccount = AccDALAccountAdd.getAccount(discountAccount);
@@ -287,6 +296,7 @@ public class BillBLAddBill
 					}
 					List discountList = (List) currentRows.get(discountBuyAccount.getId());
 					discountList.add(invTrans.getDiscountAmount());
+					totals = totals.subtract(invTrans.getDiscountAmount());
 					currentRows.put(discountBuyAccount.getId(), discountList);
 				}
 			}
@@ -297,14 +307,14 @@ public class BillBLAddBill
 					EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
 			if (curAccount == null)
 			{
-				return -1; //error
+				return -1;
 			}
 			List curList = (List) currentRows.get(curAccount.getId());
 			if (curList == null)
 			{
 				curList = new ArrayList();
 			}
-			curList.add(totalAmount);
+			curList.add(totals);
 			currentRows.put(curAccount.getId(), curList);
 			return 1;
 		}
@@ -314,12 +324,12 @@ public class BillBLAddBill
 		}
 	}
 
-	public static int saveAccountingTransaction(TurqBill bill, BigDecimal totalAmount) throws Exception
+	public static int saveAccountingTransaction(TurqBill bill) throws Exception
 	{
 		Map creditAccounts = new HashMap();
 		Map deptAccounts = new HashMap();
 		String billDefinition = "FT " + bill.getBillDocumentNo() + " " + bill.getTurqCurrentCard().getCardsName();
-		int saved=prepareAccountsForAccountingIntgretion(bill, creditAccounts, deptAccounts, totalAmount);
+		int saved = prepareAccountsForAccountingIntgretion(bill, creditAccounts, deptAccounts);
 		if (saved == 1)
 		{
 			boolean isSaved = AccBLTransactionAdd.saveAccTransaction(bill.getBillsDate(), bill.getBillDocumentNo(), 2,

@@ -65,21 +65,23 @@ public class ConDALSearchConsignment
 	}
 
 	//?rsaliyeden faturalstirma da kullaniliyo..
-	public static List chooseConsignments(TurqCurrentCard curCard, Date startDate, Date endDate, int type) throws Exception
+	public static List chooseConsignments(TurqCurrentCard curCard, Date startDate, Date endDate) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select consignment from TurqConsignment as consignment where" + //$NON-NLS-1$
-					" consignment.consignmentsDate >= :startDate" + //$NON-NLS-1$
-					" and consignment.consignmentsDate <= :endDate" + //$NON-NLS-1$
-					" and consignment.consignmentsType =" + type + //$NON-NLS-1$
-					" and consignment.id <> -1 "; //$NON-NLS-1$
+			String query = "Select consignment.id," + " consignment.consignmentsDate, consignment.turqCurrentCard.cardsCurrentCode,"
+					+ " consignment.turqCurrentCard.cardsName, consignment.consignmentDocumentNo,"
+					+ " view.totalprice, view.vatamount, view.specialvatamount,consignment.consignmentsType " + " from TurqViewInvPriceTotal view,"
+					+ " TurqConsignment as consignment" + " where consignment.consignmentsDate >= :startDate" + //$NON-NLS-1$
+					" and consignment.consignmentsDate <= :endDate" + //$NON-NLS-1$					
+					" and consignment.id <> -1 " + //$NON-NLS-1$
+					" and consignment.turqEngineSequence.id=view.engineSequencesId"+
+					" and consignment.turqEngineSequence.turqBillInEngineSequences.size=0";
 			if (curCard != null)
 			{
-				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard = :curCard"; //$NON-NLS-1$
+				query += " and consignment.turqCurrentCard = :curCard"; //$NON-NLS-1$
 			}
-			query += " and consignment.turqBillConsignmentCommon.turqBills.size=0"; //$NON-NLS-1$
 			query += " order by consignment.consignmentsDate"; //$NON-NLS-1$
 			Query q = session.createQuery(query);
 			q.setParameter("startDate", startDate); //$NON-NLS-1$

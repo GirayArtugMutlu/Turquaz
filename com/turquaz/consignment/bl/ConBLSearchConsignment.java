@@ -48,11 +48,11 @@ public class ConBLSearchConsignment
 		}
 	}
 
-	public static List chooseConsignment(TurqCurrentCard card, Date startDate, Date endDate, int type) throws Exception
+	public static List chooseConsignment(TurqCurrentCard card, Date startDate, Date endDate) throws Exception
 	{
 		try
 		{
-			return ConDALSearchConsignment.chooseConsignments(card, startDate, endDate, type);
+			return ConDALSearchConsignment.chooseConsignments(card, startDate, endDate);
 		}
 		catch (Exception ex)
 		{
