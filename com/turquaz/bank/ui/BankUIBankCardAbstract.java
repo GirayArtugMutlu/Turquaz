@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -165,15 +166,15 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 	
 
     public void delete() {
-        // TODO Auto-generated method stub
+       
 
     }
     public void exportToExcel() {
-        // TODO Auto-generated method stub
+        EngBLUtils.Export2Excel(tableAbstract);
 
     }
     public void printTable() {
-        // TODO Auto-generated method stub
+       EngBLUtils.printTable(tableAbstract,Messages.getString("BankUIBankCardAbstract.9")); //$NON-NLS-1$
 
     }
     

@@ -14,6 +14,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.TableColumn;
 
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.ui.EngUICommon;
@@ -196,11 +197,14 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 
     }
     public void exportToExcel() {
-        // TODO Auto-generated method stub
+        
+        EngBLUtils.Export2Excel(tableMoneyTrans);
+        
 
     }
     public void printTable() {
-        // TODO Auto-generated method stub
+       
+        EngBLUtils.printTable(tableMoneyTrans,Messages.getString("BankUISearchMoneyTransaction.10")); //$NON-NLS-1$
 
     }
     public void search() {

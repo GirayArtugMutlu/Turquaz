@@ -9,6 +9,7 @@ import org.eclipse.swt.layout.GridLayout;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cash.ui.comp.CashCardPicker;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -186,11 +187,11 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 
     }
     public void exportToExcel() {
-        // TODO Auto-generated method stub
+       EngBLUtils.Export2Excel(tableCashTrans);
 
     }
     public void printTable() {
-        // TODO Auto-generated method stub
+        EngBLUtils.printTable(tableCashTrans,Messages.getString("CashUICashCardAbstract.9"));  //$NON-NLS-1$
 
     }
     public void search() {
@@ -213,7 +214,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
           
           Object[] amounts = (Object[])deferred.get(0);          
           item.setText(new String[]{
-                  "","","DEVREDEN",cf.format(amounts[0]),cf.format(amounts[1])
+                  "","",Messages.getString("CashUICashCardAbstract.12"),cf.format(amounts[0]),cf.format(amounts[1]) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
           			});
           deferred_dept = deferred_dept.add((BigDecimal)amounts[0]);
           deferred_credit = deferred_credit.add((BigDecimal)amounts[1]);
@@ -222,7 +223,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
       else
       {
           item.setText(new String[]{
-                  "","","---DEVREDEN---",cf.format(0),cf.format(0)
+                  "","",Messages.getString("CashUICashCardAbstract.15"),cf.format(0),cf.format(0) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
           			});
       }
          
@@ -266,26 +267,26 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
        item=new TableItem(tableCashTrans,SWT.NULL);
        item=new TableItem(tableCashTrans,SWT.NULL);
        item.setText(new String[]{
-                     "",
-                     "",
-                     "---KASA YEKÜNÜ---",
+                     "", //$NON-NLS-1$
+                     "", //$NON-NLS-1$
+                     Messages.getString("CashUICashCardAbstract.18"), //$NON-NLS-1$
                      cf.format(total_dept),
                      cf.format(total_credit)
                       });
        
        item=new TableItem(tableCashTrans,SWT.NULL);  
        item.setText(new String[]{
-               "",
-               "",
-               "---DEVREDEN---",
+               "", //$NON-NLS-1$
+               "", //$NON-NLS-1$
+               Messages.getString("CashUICashCardAbstract.21"), //$NON-NLS-1$
                cf.format(deferred_dept),
                cf.format(deferred_credit)
                 });
        item=new TableItem(tableCashTrans,SWT.NULL);  
        item.setText(new String[]{
-               "",
-               "",
-               "---TOPLAM---",
+               "", //$NON-NLS-1$
+               "", //$NON-NLS-1$
+               Messages.getString("CashUICashCardAbstract.24"), //$NON-NLS-1$
                cf.format(deferred_dept.add(total_dept)),
                cf.format(deferred_credit.add(total_credit))
                 });

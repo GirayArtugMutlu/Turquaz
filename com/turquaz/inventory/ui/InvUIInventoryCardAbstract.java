@@ -81,19 +81,17 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 	}
 		
 	public void delete() {
-		// TODO Auto-generated method stub
-
+		
 	}
 	
 	
 	public void exportToExcel() {
-		// TODO Auto-generated method stub
+	
 
 	}
 	
 	
 	public void printTable() {
-		// TODO Auto-generated method stub
-
+		
 	}
 }

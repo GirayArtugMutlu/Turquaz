@@ -17,6 +17,7 @@ import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -219,13 +220,14 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 
 	    }
 	    public void exportToExcel() {
-	        // TODO Auto-generated method stub
+	       EngBLUtils.Export2Excel(tableCashTransactions);
 
 	    }
 	    public void printTable() {
-	        // TODO Auto-generated method stub
+	       EngBLUtils.printTable(tableCashTransactions,Messages.getString("CashUICashTransactionSearch.8")); //$NON-NLS-1$
 
 	    }
+	    
 	    public void search() {
 	        try{
 	           
