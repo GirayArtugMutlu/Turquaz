@@ -399,9 +399,9 @@
 																					<Constraint heightHint=""/>
 																					<Constraint verticalAlignment=""/>
 																					<Constraint grabExcessVerticalSpace=""/>
-																					<Constraint grabExcessHorizontalSpace=""/>
-																					<Constraint horizontalSpan=""/>
 																					<Constraint widthHint=""/>
+																					<Constraint horizontalSpan=""/>
+																					<Constraint grabExcessHorizontalSpace=""/>
 																					<Constraint horizontalIndent=""/>
 																					<LayoutConstraint/>
 																				</Constraints>
@@ -429,9 +429,9 @@
 																					<Constraint heightHint=""/>
 																					<Constraint verticalAlignment=""/>
 																					<Constraint grabExcessVerticalSpace=""/>
-																					<Constraint grabExcessHorizontalSpace=""/>
-																					<Constraint horizontalSpan=""/>
 																					<Constraint widthHint=""/>
+																					<Constraint horizontalSpan=""/>
+																					<Constraint grabExcessHorizontalSpace=""/>
 																					<Constraint horizontalIndent=""/>
 																					<LayoutConstraint/>
 																				</Constraints>
@@ -522,14 +522,6 @@
 																					<Property name="visible" type="boolean" value="true"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
 																			<Component class="org.eclipse.swt.widgets.Tree" name="treeAccounting" style="0">
@@ -562,8 +554,6 @@
 																					<Property name="bounds" type="Rectangle">
 																						<Rectangle value="[0, 0, 386, 267]"/>
 																					</Property>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -879,7 +869,7 @@
 																<Property name="verticalAlignment" type="int" value="2"/>
 																<Property name="horizontalAlignment" type="int" value="4"/>
 																<Property name="widthHint" type="int" value="-1"/>
-																<Property name="heightHint" type="int" value="30"/>
+																<Property name="heightHint" type="int" value="40"/>
 																<Property name="horizontalIndent" type="int" value="0"/>
 																<Property name="horizontalSpan" type="int" value="1"/>
 																<Property name="verticalSpan" type="int" value="1"/>
@@ -893,10 +883,10 @@
 														</Events>
 														<Properties>
 															<Property name="size" type="Dimension">
-																<Dimension value="[387, 30]"/>
+																<Dimension value="[387, 40]"/>
 															</Property>
 															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[5, 5, 387, 30]"/>
+																<Rectangle value="[5, 5, 387, 40]"/>
 															</Property>
 															<Property name="visible" type="boolean" value="true"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -911,13 +901,13 @@
 																</Events>
 																<Properties>
 																	<Property name="size" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[127, 36]"/>
 																	</Property>
 																	<Property name="preferredSize" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[127, 36]"/>
 																	</Property>
 																	<Property name="minimumSize" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[127, 36]"/>
 																	</Property>
 																	<Property name="text" type="String" value="coolItem3"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -934,7 +924,7 @@
 																		</Events>
 																		<Properties>
 																			<Property name="size" type="Dimension">
-																				<Dimension value="[117, 19]"/>
+																				<Dimension value="[381, 35]"/>
 																			</Property>
 																			<Property name="location" type="Dimension">
 																				<Dimension value="[20, 0]"/>
@@ -953,6 +943,7 @@
 																				</Events>
 																				<Properties>
 																					<Property name="enabled" type="boolean" value="true"/>
+																					<Property name="text" type="String" value="&amp;Yeni"/>
 																					<Property name="toolTipText" type="String" value="New"/>
 																					<Property name="image" type="Image">
 																						<Image name="\icons\new_wiz.gif"/>
@@ -969,7 +960,7 @@
 																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolSaveWidgetSelected"/>
 																				</Events>
 																				<Properties>
-																					<Property name="text" type="String" value=""/>
+																					<Property name="text" type="String" value="&amp;Kaydet"/>
 																					<Property name="toolTipText" type="String" value="Save"/>
 																					<Property name="image" type="Image">
 																						<Image name="\icons\save.gif"/>
@@ -986,7 +977,7 @@
 																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolDeleteWidgetSelected"/>
 																				</Events>
 																				<Properties>
-																					<Property name="text" type="String" value=""/>
+																					<Property name="text" type="String" value="&amp;Sil"/>
 																					<Property name="toolTipText" type="String" value="Delete"/>
 																					<Property name="image" type="Image">
 																						<Image name="\icons\delete_edit.gif"/>
@@ -1003,7 +994,7 @@
 																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolSearchWidgetSelected"/>
 																				</Events>
 																				<Properties>
-																					<Property name="text" type="String" value=""/>
+																					<Property name="text" type="String" value="&amp;Ara"/>
 																					<Property name="toolTipText" type="String" value="Search"/>
 																					<Property name="image" type="Image">
 																						<Image name="\icons\run_exec.gif"/>
@@ -1022,8 +1013,8 @@
 													<Component class="org.eclipse.swt.custom.CTabFolder" name="tabfldMain" style="2056">
 														<Constraints>
 															<Constraint right=""/>
-															<Constraint width=""/>
 															<Constraint top=""/>
+															<Constraint width=""/>
 															<Constraint height=""/>
 															<Constraint left="null"/>
 															<Constraint class="org.eclipse.swt.layout.GridData"/>
@@ -1049,10 +1040,10 @@
 														</Events>
 														<Properties>
 															<Property name="size" type="Dimension">
-																<Dimension value="[387, 527]"/>
+																<Dimension value="[387, 517]"/>
 															</Property>
 															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[5, 40, 387, 527]"/>
+																<Rectangle value="[5, 50, 387, 517]"/>
 															</Property>
 															<Property name="visible" type="boolean" value="true"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>

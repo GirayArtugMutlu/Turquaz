@@ -531,24 +531,25 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			coolbarRightTopLData.verticalAlignment = GridData.CENTER;
 			coolbarRightTopLData.horizontalAlignment = GridData.FILL;
 			coolbarRightTopLData.widthHint = -1;
-			coolbarRightTopLData.heightHint = 30;
+			coolbarRightTopLData.heightHint = 40;
 			coolbarRightTopLData.horizontalIndent = 0;
 			coolbarRightTopLData.horizontalSpan = 1;
 			coolbarRightTopLData.verticalSpan = 1;
 			coolbarRightTopLData.grabExcessHorizontalSpace = false;
 			coolbarRightTopLData.grabExcessVerticalSpace = false;
 			coolbarRightTop.setLayoutData(coolbarRightTopLData);
-			coolbarRightTop.setSize(new org.eclipse.swt.graphics.Point(387,30));
+			coolbarRightTop.setSize(new org.eclipse.swt.graphics.Point(387,40));
 	
 			coolRightMain.setControl(toolbarMainTop);
-			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(92,22));
-			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(92,22));
-			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(92,22));
+			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(127,36));
+			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(127,36));
+			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(127,36));
 			coolRightMain.setText("coolItem3");
 	
 			toolbarMainTop.setLocation(new org.eclipse.swt.graphics.Point(20,0));
 	
 			toolNew.setEnabled(true);
+			toolNew.setText("&Yeni");
 			toolNew.setToolTipText("New");
 			final org.eclipse.swt.graphics.Image toolNewimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/new_wiz.gif"));
 			toolNew.setImage(toolNewimage);
@@ -558,6 +559,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				}
 			});
 	
+			toolSave.setText("&Kaydet");
 			toolSave.setToolTipText("Save");
 			final org.eclipse.swt.graphics.Image toolSaveimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save.gif"));
 			toolSave.setImage(toolSaveimage);
@@ -567,6 +569,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				}
 			});
 	
+			toolDelete.setText("&Sil");
 			toolDelete.setToolTipText("Delete");
 			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
 			toolDelete.setImage(toolDeleteimage);
@@ -576,6 +579,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				}
 			});
 	
+			toolSearch.setText("&Ara");
 			toolSearch.setToolTipText("Search");
 			final org.eclipse.swt.graphics.Image toolSearchimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/run_exec.gif"));
 			toolSearch.setImage(toolSearchimage);
@@ -599,7 +603,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabfldMainLData.grabExcessHorizontalSpace = false;
 			tabfldMainLData.grabExcessVerticalSpace = true;
 			tabfldMain.setLayoutData(tabfldMainLData);
-			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(381,521));
+			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(381,511));
 			tabfldMain.addCTabFolderListener( new CTabFolderAdapter() {
 				public void itemClosed(CTabFolderEvent evt) {
 					tabfldMainItemClosed(evt);
