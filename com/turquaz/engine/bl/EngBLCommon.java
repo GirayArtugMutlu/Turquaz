@@ -176,6 +176,9 @@ public class EngBLCommon {
 	public final static int MODULE_CASH = 8; //kasa modulu
 
 	public final static int MODULE_CHEQUE = 9; //cek modulu
+	
+	
+	
 
 	public final static int CHEQUE_TRANS_IN = 0; //Cek Giris Bordrosu
 
@@ -191,6 +194,11 @@ public class EngBLCommon {
 	public final static int CHEQUE_TRANS_COLLECT_FROM_CURRENT = 4; //Elden cek
 																   // tahsilati
 
+	public final static int CHEQUE_TRANS_RETURN_FROM_BANK = 5; //Bankadan Karsiliksiz iade...
+	
+	
+	
+	
 	public final static int CHEQUE_TYPE_CUSTOMER = 0; //mü?teri Ceki
 
 	public final static int CHEQUE_TYPE_OWN = 1; //Firma Ceki
