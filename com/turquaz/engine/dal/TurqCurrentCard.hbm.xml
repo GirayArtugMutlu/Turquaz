@@ -138,19 +138,11 @@
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one
-        name="turqAccountingAccountByAccountingCodeIdCustomer"
+        name="turqAccountingAccount"
         class="com.turquaz.engine.dal.TurqAccountingAccount"
         not-null="true"
     >
-        <column name="accounting_code_id_customer" />
-    </many-to-one>
-    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
-    <many-to-one
-        name="turqAccountingAccountByAccountingCodeIdSupplier"
-        class="com.turquaz.engine.dal.TurqAccountingAccount"
-        not-null="true"
-    >
-        <column name="accounting_code_id_supplier" />
+        <column name="accounting_code_id" />
     </many-to-one>
     <!-- bi-directional one-to-many association to TurqChequeRoll -->
     <set

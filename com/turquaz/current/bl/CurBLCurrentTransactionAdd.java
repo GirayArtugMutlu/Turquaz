@@ -194,7 +194,7 @@ public class CurBLCurrentTransactionAdd {
     			transRowCurrent.setDeptAmount(amount);
     			
     			//cari sat?c? muhasebe kodunu da girelim
-    			transRowCurrent.setTurqAccountingAccount(curCard.getTurqAccountingAccountByAccountingCodeIdSupplier());
+    			transRowCurrent.setTurqAccountingAccount(curCard.getTurqAccountingAccount());
     	   			
     		}
     	   //Cari Karttan para tahsil edildiginde
@@ -209,7 +209,7 @@ public class CurBLCurrentTransactionAdd {
     			
     			
     			//cari alici muhasebe kodunu da girelim
-    			transRowCurrent.setTurqAccountingAccount(curCard.getTurqAccountingAccountByAccountingCodeIdCustomer());
+    			transRowCurrent.setTurqAccountingAccount(curCard.getTurqAccountingAccount());
     			
     		
     		}

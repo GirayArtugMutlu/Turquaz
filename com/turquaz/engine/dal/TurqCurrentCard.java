@@ -58,10 +58,7 @@ public class TurqCurrentCard implements Serializable {
     private com.turquaz.engine.dal.TurqCompany turqCompany;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingCodeIdCustomer;
-
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingCodeIdSupplier;
+    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
 
     /** persistent field */
     private Set turqChequeRolls;
@@ -94,7 +91,7 @@ public class TurqCurrentCard implements Serializable {
     private Set turqBills;
 
     /** full constructor */
-    public TurqCurrentCard(java.lang.String cardsCurrentCode, java.lang.String cardsName, java.lang.String cardsDefinition, java.lang.String cardsAddress, java.math.BigDecimal cardsDiscountRate, java.math.BigDecimal cardsDiscountPayment, java.math.BigDecimal cardsCreditLimit, java.math.BigDecimal cardsRiskLimit, java.lang.String cardsTaxDepartment, java.lang.String cardsTaxNumber, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingCodeIdCustomer, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingCodeIdSupplier, Set turqChequeRolls, Set turqCurrentContacts, Set turqConsignments, Set turqOrders, Set turqCurrentTransactions, Set turqTradebillRolls, Set turqCurrentCardsGroups, Set turqCurrentCardsPhones, Set turqBanksTransactions, Set turqBills) {
+    public TurqCurrentCard(java.lang.String cardsCurrentCode, java.lang.String cardsName, java.lang.String cardsDefinition, java.lang.String cardsAddress, java.math.BigDecimal cardsDiscountRate, java.math.BigDecimal cardsDiscountPayment, java.math.BigDecimal cardsCreditLimit, java.math.BigDecimal cardsRiskLimit, java.lang.String cardsTaxDepartment, java.lang.String cardsTaxNumber, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqChequeRolls, Set turqCurrentContacts, Set turqConsignments, Set turqOrders, Set turqCurrentTransactions, Set turqTradebillRolls, Set turqCurrentCardsGroups, Set turqCurrentCardsPhones, Set turqBanksTransactions, Set turqBills) {
         this.cardsCurrentCode = cardsCurrentCode;
         this.cardsName = cardsName;
         this.cardsDefinition = cardsDefinition;
@@ -110,8 +107,7 @@ public class TurqCurrentCard implements Serializable {
         this.lastModified = lastModified;
         this.updatedBy = updatedBy;
         this.turqCompany = turqCompany;
-        this.turqAccountingAccountByAccountingCodeIdCustomer = turqAccountingAccountByAccountingCodeIdCustomer;
-        this.turqAccountingAccountByAccountingCodeIdSupplier = turqAccountingAccountByAccountingCodeIdSupplier;
+        this.turqAccountingAccount = turqAccountingAccount;
         this.turqChequeRolls = turqChequeRolls;
         this.turqCurrentContacts = turqCurrentContacts;
         this.turqConsignments = turqConsignments;
@@ -256,20 +252,12 @@ public class TurqCurrentCard implements Serializable {
         this.turqCompany = turqCompany;
     }
 
-    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingCodeIdCustomer() {
-        return this.turqAccountingAccountByAccountingCodeIdCustomer;
+    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccount() {
+        return this.turqAccountingAccount;
     }
 
-    public void setTurqAccountingAccountByAccountingCodeIdCustomer(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingCodeIdCustomer) {
-        this.turqAccountingAccountByAccountingCodeIdCustomer = turqAccountingAccountByAccountingCodeIdCustomer;
-    }
-
-    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingCodeIdSupplier() {
-        return this.turqAccountingAccountByAccountingCodeIdSupplier;
-    }
-
-    public void setTurqAccountingAccountByAccountingCodeIdSupplier(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingCodeIdSupplier) {
-        this.turqAccountingAccountByAccountingCodeIdSupplier = turqAccountingAccountByAccountingCodeIdSupplier;
+    public void setTurqAccountingAccount(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
+        this.turqAccountingAccount = turqAccountingAccount;
     }
 
     public java.util.Set getTurqChequeRolls() {

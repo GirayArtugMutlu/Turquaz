@@ -86,19 +86,8 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	public void setAccPickerCustomer(DynamicAccountPicker accPickerCustomer) {
 		this.accPickerCustomer = accPickerCustomer;
 	}
-	/**
-	 * @return Returns the accPickerSupplierAccCode.
-	 */
-	public DynamicAccountPicker getAccPickerSupplierAccCode() {
-		return accPickerSupplierAccCode;
-	}
-	/**
-	 * @param accPickerSupplierAccCode The accPickerSupplierAccCode to set.
-	 */
-	public void setAccPickerSupplierAccCode(
-			DynamicAccountPicker accPickerSupplierAccCode) {
-		this.accPickerSupplierAccCode = accPickerSupplierAccCode;
-	}
+	
+
 	/**
 	 * @return Returns the compCurrentContactInfo.
 	 */
@@ -438,8 +427,6 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	private NumericText numtxtCountryCode;
 	private Composite composite1;
 	private Label lblTelephone1;
-	private CLabel lblSuplierAccCode;
-	private DynamicAccountPicker accPickerSupplierAccCode;
 	private DynamicAccountPicker accPickerCustomer;
 	private CLabel lblAccountingCodeCustomer;
 	private DecimalText decTxtDiscountAmount;
@@ -518,8 +505,6 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			decTxtDiscountAmount = new DecimalText(compCurrentGeneralInfo,SWT.NULL);
 			lblAccountingCodeCustomer = new CLabel(compCurrentGeneralInfo,SWT.NULL);
 			accPickerCustomer = new DynamicAccountPicker(compCurrentGeneralInfo,SWT.NULL);
-			lblSuplierAccCode = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			accPickerSupplierAccCode = new DynamicAccountPicker(compCurrentGeneralInfo,SWT.NULL);
 			tabItemContactInfo = new CTabItem(tbfCurrentCardAdd,SWT.NULL);
 			compCurrentContactInfo = new Composite(tbfCurrentCardAdd,SWT.NULL);
 			Name = new CLabel(compCurrentContactInfo,SWT.NULL);
@@ -991,19 +976,11 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			decTxtDiscountAmount.setSize(new org.eclipse.swt.graphics.Point(173,15));
 	
 			GridData lblAccountingCodeCustomerLData = new GridData();
-			lblAccountingCodeCustomerLData.verticalAlignment = GridData.CENTER;
-			lblAccountingCodeCustomerLData.horizontalAlignment = GridData.BEGINNING;
-			lblAccountingCodeCustomerLData.widthHint = 118;
+			lblAccountingCodeCustomerLData.widthHint = 117;
 			lblAccountingCodeCustomerLData.heightHint = 18;
-			lblAccountingCodeCustomerLData.horizontalIndent = 0;
-			lblAccountingCodeCustomerLData.horizontalSpan = 1;
-			lblAccountingCodeCustomerLData.verticalSpan = 1;
-			lblAccountingCodeCustomerLData.grabExcessHorizontalSpace = false;
-			lblAccountingCodeCustomerLData.grabExcessVerticalSpace = false;
 			lblAccountingCodeCustomer.setLayoutData(lblAccountingCodeCustomerLData);
-			lblAccountingCodeCustomer.setText(Messages.getString("CurUICurrentCardAdd.13")); //$NON-NLS-1$
-			lblAccountingCodeCustomer.setSize(new org.eclipse.swt.graphics.Point(118,18));
-	
+			lblAccountingCodeCustomer.setText("Muhasebe Hesab?"); //$NON-NLS-1$
+
 			GridData accPickerCustomerLData = new GridData();
 			accPickerCustomerLData.verticalAlignment = GridData.CENTER;
 			accPickerCustomerLData.horizontalAlignment = GridData.BEGINNING;
@@ -1017,34 +994,7 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			accPickerCustomer.setLayoutData(accPickerCustomerLData);
 			accPickerCustomer.setSize(new org.eclipse.swt.graphics.Point(236,21));
 			accPickerCustomer.layout();
-	
-			GridData lblSuplierAccCodeLData = new GridData();
-			lblSuplierAccCodeLData.verticalAlignment = GridData.CENTER;
-			lblSuplierAccCodeLData.horizontalAlignment = GridData.BEGINNING;
-			lblSuplierAccCodeLData.widthHint = 96;
-			lblSuplierAccCodeLData.heightHint = 19;
-			lblSuplierAccCodeLData.horizontalIndent = 0;
-			lblSuplierAccCodeLData.horizontalSpan = 1;
-			lblSuplierAccCodeLData.verticalSpan = 1;
-			lblSuplierAccCodeLData.grabExcessHorizontalSpace = false;
-			lblSuplierAccCodeLData.grabExcessVerticalSpace = false;
-			lblSuplierAccCode.setLayoutData(lblSuplierAccCodeLData);
-			lblSuplierAccCode.setText(Messages.getString("CurUICurrentCardAdd.14")); //$NON-NLS-1$
-			lblSuplierAccCode.setSize(new org.eclipse.swt.graphics.Point(96,19));
-	
-			GridData accPickerSupplierAccCodeLData = new GridData();
-			accPickerSupplierAccCodeLData.verticalAlignment = GridData.CENTER;
-			accPickerSupplierAccCodeLData.horizontalAlignment = GridData.BEGINNING;
-			accPickerSupplierAccCodeLData.widthHint = 236;
-			accPickerSupplierAccCodeLData.heightHint = 21;
-			accPickerSupplierAccCodeLData.horizontalIndent = 0;
-			accPickerSupplierAccCodeLData.horizontalSpan = 3;
-			accPickerSupplierAccCodeLData.verticalSpan = 1;
-			accPickerSupplierAccCodeLData.grabExcessHorizontalSpace = false;
-			accPickerSupplierAccCodeLData.grabExcessVerticalSpace = false;
-			accPickerSupplierAccCode.setLayoutData(accPickerSupplierAccCodeLData);
-			accPickerSupplierAccCode.setSize(new org.eclipse.swt.graphics.Point(236,21));
-			accPickerSupplierAccCode.layout();
+
 			GridLayout compCurrentGeneralInfoLayout = new GridLayout(4, true);
 			compCurrentGeneralInfo.setLayout(compCurrentGeneralInfoLayout);
 			compCurrentGeneralInfoLayout.marginWidth = 5;
@@ -1321,7 +1271,6 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	public void postInitGUI(){
 	fillGroups();
 	accPickerCustomer.setFilter("120"); //$NON-NLS-1$
-	accPickerSupplierAccCode.setFilter("320"); //$NON-NLS-1$
 	
 	
 	}
@@ -1412,11 +1361,7 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			msg.open();
 			return false;
 		}
-		else if(accPickerSupplierAccCode.getData()==null){
-			msg.setMessage(Messages.getString("CurUICurrentCardAdd.32")); //$NON-NLS-1$
-			msg.open();
-			return false;
-		}   
+		 
 	
 	return true;
 	}
@@ -1442,8 +1387,7 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 							decTxtRiskLimit.getBigDecimalValue(),
 							txtTaxDepartmant.getText().trim(),
 							txtTaxNumber.getText().trim(),
-							(TurqAccountingAccount)accPickerCustomer.getData(),
-							(TurqAccountingAccount)accPickerSupplierAccCode.getData());	
+							(TurqAccountingAccount)accPickerCustomer.getData());	
 	savePhones(cardId);
 	saveContact(cardId);
 	saveGroups(cardId);

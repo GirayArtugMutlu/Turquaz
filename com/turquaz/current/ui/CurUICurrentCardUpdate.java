@@ -284,8 +284,8 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 				}
 			}
 			
-			compCurCardAdd.getAccPickerCustomer().setData(currentCard.getTurqAccountingAccountByAccountingCodeIdCustomer());
-			compCurCardAdd.getAccPickerSupplierAccCode().setData(currentCard.getTurqAccountingAccountByAccountingCodeIdSupplier());
+			compCurCardAdd.getAccPickerCustomer().setData(currentCard.getTurqAccountingAccount());
+			
 	        
 	        it=currentCard.getTurqCurrentCardsGroups().iterator();
 	        while(it.hasNext()){
@@ -471,11 +471,6 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			msg.open();
 			return false;
 		}
-		else if(compCurCardAdd.getAccPickerSupplierAccCode().getData()==null){
-			msg.setMessage(Messages.getString("CurUICurrentCardUpdate.25")); //$NON-NLS-1$
-			msg.open();
-			return false;
-		}
 		return true;
 		}
 		catch(Exception ex){
@@ -500,9 +495,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 				compCurCardAdd.getDecTxtRiskLimit().getBigDecimalValue(),
 				compCurCardAdd.getTxtTaxDepartmant().getText().trim(),
 				compCurCardAdd.getTxtTaxNumber().getText().trim(),
-				(TurqAccountingAccount)compCurCardAdd.getAccPickerCustomer().getData(),
-				(TurqAccountingAccount)compCurCardAdd.getAccPickerSupplierAccCode().getData(),
-				currentCard);	
+				(TurqAccountingAccount)compCurCardAdd.getAccPickerCustomer().getData(),	currentCard);	
 				
 		deleteRelations();
 		compCurCardAdd.saveContact(currentCard.getCurrentCardsId());

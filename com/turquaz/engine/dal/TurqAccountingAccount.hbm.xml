@@ -174,27 +174,13 @@
     </set>
     <!-- bi-directional one-to-many association to TurqCurrentCard -->
     <set
-        name="turqCurrentCardsByAccountingCodeIdCustomer"
+        name="turqCurrentCards"
         lazy="true"
         inverse="true"
 		cascade="none"
     >
         <key>
-            <column name="accounting_code_id_customer" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqCurrentCard"
-        />
-    </set>
-    <!-- bi-directional one-to-many association to TurqCurrentCard -->
-    <set
-        name="turqCurrentCardsByAccountingCodeIdSupplier"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="accounting_code_id_supplier" />
+            <column name="accounting_code_id" />
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqCurrentCard"

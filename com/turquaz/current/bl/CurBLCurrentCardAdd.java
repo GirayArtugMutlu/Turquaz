@@ -56,8 +56,7 @@ public class CurBLCurrentCardAdd {
 								String cardAddress, BigDecimal cardDiscountRate,
 								BigDecimal cardDiscountPayment,	BigDecimal cardCreditLimit,
 								BigDecimal cardRiskLimit, String cardTaxDepartment,
-								String cardTaxNumber, TurqAccountingAccount accCodeIdCustomer,
-								TurqAccountingAccount accCodeIdSupplier) throws Exception {
+								String cardTaxNumber, TurqAccountingAccount accCode) throws Exception {
 		try{
 		
 			TurqCurrentCard currentCard=new TurqCurrentCard();
@@ -71,8 +70,8 @@ public class CurBLCurrentCardAdd {
 			currentCard.setCardsRiskLimit(cardRiskLimit);
 			currentCard.setCardsTaxDepartment(cardTaxDepartment);
 			currentCard.setCardsTaxNumber(cardTaxNumber);
-			currentCard.setTurqAccountingAccountByAccountingCodeIdCustomer(accCodeIdCustomer);
-			currentCard.setTurqAccountingAccountByAccountingCodeIdSupplier(accCodeIdSupplier);
+			currentCard.setTurqAccountingAccount(accCode);
+	
 		
 			TurqCompany company = new TurqCompany();
 			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
