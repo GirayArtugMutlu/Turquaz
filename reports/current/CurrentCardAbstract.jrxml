@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="Unnamed" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="currentCard1" class="java.lang.String">
@@ -222,20 +222,20 @@
 		</band>
 		</groupHeader>
 		<groupFooter>
-		<band height="37">
+		<band height="49">
 			<rectangle>
-				<reportElement positionType="Float" x="2" y="1" width="801" height="20"/>
+				<reportElement positionType="Float" x="1" y="21" width="801" height="20"/>
 				<graphicElement/>
 			</rectangle>
 			<staticText>
-				<reportElement positionType="Float" x="301" y="3" width="79" height="14"/>
+				<reportElement positionType="Float" x="300" y="23" width="79" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TOPLAM :]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="594" y="3" width="100" height="14">
+				<reportElement positionType="Float" x="593" y="23" width="100" height="14">
 					<printWhenExpression><![CDATA[($V{Balance}.add($V{initialBalance}).doubleValue() <= 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -244,7 +244,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{Balance}.add($V{initialBalance}).multiply(new BigDecimal(-1)))]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="699" y="3" width="100" height="14">
+				<reportElement positionType="Float" x="698" y="23" width="100" height="14">
 					<printWhenExpression><![CDATA[($V{Balance}.add($V{initialBalance}).doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -253,19 +253,44 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{Balance}.add($V{initialBalance}))]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="384" y="3" width="100" height="14"/>
+				<reportElement positionType="Float" x="383" y="23" width="100" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format(($V{initialBalance}.doubleValue() < 0 ) ? $V{totalDept}.add($V{initialBalance}.multiply(new BigDecimal(-1))) : $V{totalDept})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="489" y="3" width="100" height="14"/>
+				<reportElement positionType="Float" x="488" y="23" width="100" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format(($V{initialBalance}.doubleValue() > 0 ) ? $V{totalCredit}.add($V{initialBalance}) : $V{totalCredit})]]></textFieldExpression>
 			</textField>
+			<rectangle>
+				<reportElement positionType="Float" x="1" y="1" width="801" height="20"/>
+				<graphicElement/>
+			</rectangle>
+			<textField>
+				<reportElement positionType="Float" x="384" y="3" width="100" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{totalDept})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="489" y="3" width="100" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{totalCredit})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="284" y="3" width="95" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[EKSTRE TOPLAMI :]]></text>
+			</staticText>
 		</band>
 		</groupFooter>
 	</group>

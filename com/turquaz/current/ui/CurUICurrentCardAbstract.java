@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -72,6 +73,7 @@ import org.eclipse.swt.custom.CLabel;
 
 import com.turquaz.engine.ui.component.DatePicker;
 import com.jasperassistant.designer.viewer.ViewerComposite;
+import org.eclipse.swt.widgets.Text;
 public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite implements SearchComposite{
 	private Composite compSearch;
 	private CurrentCodePicker txtCurrentCard2;
@@ -80,6 +82,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	private CurrentCodePicker txtCurrentCard;
 	private DatePicker datePickerEndDate;
 	private ViewerComposite viewer;
+	private Text txtDefinition;
+	private CLabel lblDefinition;
 	private CLabel lblEndDate;
 	private DatePicker datePickerStartDate;
 	private CLabel lblStartDate;
@@ -139,7 +143,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				GridData compSearchLData = new GridData();
 				compSearchLData.grabExcessHorizontalSpace = true;
 				compSearchLData.horizontalAlignment = GridData.FILL;
-				compSearchLData.heightHint = 72;
+				compSearchLData.heightHint = 87;
 				compSearch.setLayoutData(compSearchLData);
 				compSearchLayout.numColumns = 4;
 				compSearch.setLayout(compSearchLayout);
@@ -200,6 +204,17 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					datePickerEndDateLData.widthHint = 103;
 					datePickerEndDateLData.heightHint = 24;
 					datePickerEndDate.setLayoutData(datePickerEndDateLData);
+				}
+				{
+					lblDefinition = new CLabel(compSearch, SWT.NONE);
+					lblDefinition.setText(Messages.getString("CurUICurrentCardAbstract.5")); //$NON-NLS-1$
+				}
+				{
+					txtDefinition = new Text(compSearch, SWT.NONE);
+					GridData txtDefinitionLData = new GridData();
+					txtDefinitionLData.widthHint = 229;
+					txtDefinitionLData.heightHint = 15;
+					txtDefinition.setLayoutData(txtDefinitionLData);
 				}
 				}
 				{
@@ -277,6 +292,9 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			" and trans.current_cards_id=curCard.current_cards_id"+ //$NON-NLS-1$
 			" and trans.transactions_date >="+"'"+dformat.format(datePickerStartDate.getDate())+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			" and trans.transactions_date <="+"'"+dformat.format(datePickerEndDate.getDate())+"'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			
+			if (!txtDefinition.getText().equals("")) //$NON-NLS-1$
+				sqlparam +=" and trans.transactions_definition like '"+txtDefinition.getText().toUpperCase(Locale.getDefault())+"%'"; //$NON-NLS-1$ //$NON-NLS-2$
 			if (currentCard2==null)
 			{
 				sqlparam +=

@@ -1,5 +1,7 @@
 package com.turquaz.current.ui;
 
+import java.util.Locale;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -173,7 +175,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 		updated=true;
 	    curTrans.setTurqCurrentCard((TurqCurrentCard)compVoucher.getTxtCurrentCard().getData());
 	    curTrans.setTransactionsDate(compVoucher.getDateTransDate().getDate());
-	    curTrans.setTransactionsDefinition(compVoucher.getTxtDefinition().getText().trim());
+	    curTrans.setTransactionsDefinition(compVoucher.getTxtDefinition().getText().trim().toUpperCase(Locale.getDefault()));
 	    curTrans.setTransactionsTotalCredit(compVoucher.getTxtCredit().getBigDecimalValue());
 	    curTrans.setTransactionsTotalDept(compVoucher.getTxtDept().getBigDecimalValue());
 	    try{
