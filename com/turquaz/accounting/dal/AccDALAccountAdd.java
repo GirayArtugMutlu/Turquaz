@@ -61,6 +61,7 @@ public class AccDALAccountAdd {
 							" order by accounts.accountingAccountsId";   
 
 			Query q = session.createQuery(query); 
+			
 			List list = q.list();
 			tx.commit();
 			session.close();

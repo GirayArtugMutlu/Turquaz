@@ -19,12 +19,16 @@ import org.eclipse.swt.widgets.Composite;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.widgets.Table;
@@ -174,6 +178,12 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
             {
                 tableCashTransactions = new Table(this, SWT.FULL_SELECTION);
                 GridData tableCashTransactionsLData = new GridData();
+                tableCashTransactions.addMouseListener(new MouseAdapter() {
+                    public void mouseDoubleClick(MouseEvent evt) {
+                        
+                    tableMouseDoubleClick();
+                    }
+                });
                 tableCashTransactions.setHeaderVisible(true);
                 tableCashTransactions.setLinesVisible(true);
                 tableCashTransactionsLData.grabExcessVerticalSpace = true;
@@ -321,6 +331,56 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	            ex.printStackTrace();
 	        }
 	    }
+	public void tableMouseDoubleClick(){
 	
+	    try{
+	    
+	        TableItem selection[] = tableCashTransactions.getSelection();
+	        
+	        if(selection.length>0){
+	        
+	            TableItem item = selection[0];
+	           
+	            Integer id = (Integer)item.getData();
+	            
+	            TurqCashTransaction cashTrans = blSearch.initializeCashTransaction(id);
+	            
+	            
+	            if(cashTrans.getTurqEngineSequence().getTurqModule().getModulesId().intValue()!=EngBLCommon.MODULE_CASH){
+	                
+	                
+	                return;
+	            }
+	            
+	            
+	            if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_CURRENT_COLLECT)
+	            {
+	                new CashUICashCollectTransactionUpdate(this.getShell(),SWT.NULL,cashTrans).open();
+	                
+	            }
+	            else if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_CURRENT_PAYMENT){
+	                
+	                new CashUICashPaymentTransactionUpdate(this.getShell(),SWT.NULL,cashTrans).open();
+	                
+	                
+	            }
+	            
+	            search();
+	            
+	            
+	            
+	        }    
+	        
+	        
+	        
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        
+	        ex.printStackTrace();
+	    
+	    }
+	}
 
 }

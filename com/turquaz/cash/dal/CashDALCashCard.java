@@ -18,12 +18,18 @@ package com.turquaz.cash.dal;
 /************************************************************************/
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.dal.TurqCashTransaction;
+import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.dal.TurqEngineSequence;
 
+import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
@@ -165,6 +171,56 @@ public class CashDALCashCard {
             throw ex;
         }
         
+        
+    }
+    public TurqCashTransaction initiliazeCashTrans(Integer id)throws Exception{
+        try{
+            Session session = EngDALSessionFactory.openSession();
+            
+            TurqCashTransaction cashTrans =(TurqCashTransaction)session.load(TurqCashTransaction.class, id);
+            
+            Hibernate.initialize(cashTrans.getTurqCashTransactionRows());
+            
+            
+            
+            session.close();
+            return cashTrans;
+            
+            
+            
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+        
+        
+    }
+    public TurqCurrentCard getCurrentCard (TurqEngineSequence seq)throws Exception{
+        try{
+            Session session = EngDALSessionFactory.openSession();
+            session.refresh(seq);
+            Hibernate.initialize(seq.getTurqCurrentTransactions());
+            
+            Iterator it = seq.getTurqCurrentTransactions().iterator();
+            
+            if(it.hasNext()){
+                
+            TurqCurrentTransaction curTrans = (TurqCurrentTransaction)it.next();
+            session.close();
+            return curTrans.getTurqCurrentCard();
+            
+            
+            }
+            
+            session.close();
+            return null;
+            
+            
+            
+        }
+        catch(Exception ex){
+            throw ex;
+        }
         
     }
     

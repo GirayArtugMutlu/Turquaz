@@ -65,6 +65,7 @@ public class InvDALCardSearch {
 				if(invGroup!=null){
 					q.setParameter("invGroup",invGroup);
 				}
+				
 				//q.setMaxResults(1000);
 			
 				List list = q.list();

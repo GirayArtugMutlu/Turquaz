@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.dal.TurqCashTransaction;
 
 public class CashBLCashTransactionSearch {
     CashDALCashCard dalCash = new CashDALCashCard();
@@ -26,6 +27,18 @@ public class CashBLCashTransactionSearch {
            throw ex;
        }
        
+   }
+   public TurqCashTransaction initializeCashTransaction(Integer id)throws Exception
+   {
+       try{
+                    
+           return dalCash.initiliazeCashTrans(id);
+           
+           
+       }
+       catch(Exception ex){
+           throw ex;
+       }
    }
 
 }

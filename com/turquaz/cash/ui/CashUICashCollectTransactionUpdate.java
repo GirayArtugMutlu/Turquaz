@@ -1,11 +1,24 @@
 package com.turquaz.cash.ui;
 
-import org.eclipse.swt.layout.FillLayout;
+import java.math.BigDecimal;
+import java.util.Iterator;
 import org.eclipse.swt.layout.GridLayout;
+import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
+import com.turquaz.engine.dal.TurqCashTransaction;
+import com.turquaz.engine.dal.TurqCashTransactionRow;
+import com.turquaz.engine.dal.TurqCurrentCard;
+
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.CoolBar;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.SWT;
 
 
@@ -23,56 +36,165 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class CashUICashCollectTransactionUpdate extends org.eclipse.swt.widgets.Composite {
+public class CashUICashCollectTransactionUpdate extends Dialog {
+    private Shell dialogShell;
+   
 
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		showGUI();
-	}
-		
-	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		CashUICashCollectTransactionUpdate inst = new CashUICashCollectTransactionUpdate(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if(size.x == 0 && size.y == 0) {
-			inst.pack();
-			shell.pack();
-		} else {
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
+	private CoolBar coolBar1;
+	private CoolItem coolItem1;
+	private ToolItem toolUpdate;
+	private ToolItem tooldelete;
+	private CashUICashCollectTransactionAdd compTransAdd;
+	private ToolItem toolCancel;
+	private ToolBar toolBar1;
 
-	public CashUICashCollectTransactionUpdate(org.eclipse.swt.widgets.Composite parent, int style) {
+	CashBLCashTransactionUpdate  blUpdate = new CashBLCashTransactionUpdate();
+	
+    TurqCashTransaction cashTrans ;  
+
+	public CashUICashCollectTransactionUpdate(Shell parent, int style, TurqCashTransaction cashTrans) {
 		super(parent, style);
-		initGUI();
+		this.cashTrans = cashTrans;
+		
 	}
 
-	private void initGUI() {
+	public void open() {
 		try {
-			this.setLayout(new GridLayout());
-			this.layout();
+		    Shell parent = getParent();
+			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+			 {
+			        //Register as a resource user - SWTResourceManager will
+			        //handle the obtaining and disposing of resources
+			        SWTResourceManager.registerResourceUser(this.dialogShell);
+			    }
+			dialogShell.setLayout(new GridLayout());
+			dialogShell.setSize(633, 353);
+            {
+                coolBar1 = new CoolBar(dialogShell, SWT.NONE);
+                GridData coolBar1LData = new GridData();
+                coolBar1LData.heightHint = 49;
+                coolBar1LData.grabExcessHorizontalSpace = true;
+                coolBar1LData.horizontalAlignment = GridData.FILL;
+                coolBar1.setLayoutData(coolBar1LData);
+                {
+                    coolItem1 = new CoolItem(coolBar1, SWT.NONE);
+                    coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 53));
+                    coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 53));
+                    coolItem1.setSize(45, 53);
+                    {
+                        toolBar1 = new ToolBar(coolBar1, SWT.NONE);
+                        coolItem1.setControl(toolBar1);
+                        {
+                            toolUpdate = new ToolItem(toolBar1, SWT.NONE);
+                            toolUpdate.setText("Güncelle");
+                            toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+                        }
+                        {
+                            tooldelete = new ToolItem(toolBar1, SWT.NONE);
+                            tooldelete.setText("Sil");
+                            tooldelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
+                            tooldelete
+                                .addSelectionListener(new SelectionAdapter() {
+                                public void widgetSelected(SelectionEvent evt) {
+                                   
+                                delete();
+                                }
+                                });
+                        }
+                        {
+                            toolCancel = new ToolItem(toolBar1, SWT.NONE);
+                            toolCancel.setText("?ptal");
+                            toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg"));
+                            toolCancel
+                                .addSelectionListener(new SelectionAdapter() {
+                                public void widgetSelected(SelectionEvent evt) {
+                                dialogShell.close();   
+                                
+                                }
+                                });
+                        }
+                    }
+                }
+            }
+            {
+                compTransAdd = new CashUICashCollectTransactionAdd(dialogShell, SWT.NONE);
+                GridData compTransAddLData = new GridData();
+                compTransAddLData.grabExcessHorizontalSpace = true;
+                compTransAddLData.horizontalAlignment = GridData.FILL;
+                compTransAddLData.grabExcessVerticalSpace = true;
+                compTransAddLData.verticalAlignment = GridData.FILL;
+                compTransAdd.setLayoutData(compTransAddLData);
+            }
+            postInitGUI();
+			dialogShell.layout();
+			dialogShell.open();
+			Display display = dialogShell.getDisplay();
+			while (!dialogShell.isDisposed()) {
+				if (!display.readAndDispatch())
+					display.sleep();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	public void postInitGUI(){
+	
+	    compTransAdd.getTxtDocumentNo().setText(cashTrans.getDocumentNo());
+	    compTransAdd.getDatePicker().setDate(cashTrans.getTransactionDate());
+	    compTransAdd.getTxtCashCard().setText(cashTrans.getTurqCashCard().getCashCardName());
+        compTransAdd.getTxtDefinition().setText(cashTrans.getTransactionDefinition());
+	    
+	    /**
+	    * TODO Cari hesabi bul 
+	    */
+        try{
+        TurqCurrentCard curCard = blUpdate.getCurrentCard(cashTrans.getTurqEngineSequence());
+        
+        if(curCard!=null){
+        
+            compTransAdd.getTxtCurrentAccount().setText(curCard.getCardsCurrentCode());
+            
+        }
+        
+        
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+        
+        
+        
+	    Iterator it = cashTrans.getTurqCashTransactionRows().iterator();
+	    if(it.hasNext()){
+	     
+	        TurqCashTransactionRow row = (TurqCashTransactionRow)it.next();
+	        
+	        if(row.getDeptAmount().compareTo(new BigDecimal(0))==1){
+	            
+	            compTransAdd.getCurTextTotalAmount().setText(row.getDeptAmount().toString());
+	            
+	        }
+	        else
+	        {
+	            compTransAdd.getCurTextTotalAmount().setText(row.getCreditAmount().toString() );
+	        }
+	   }
+	    
+	    
+	}
+	public void delete(){
+	    try{
+	        
+	        blUpdate.deleteCashTrans(cashTrans);
+	        dialogShell.close();
+	        
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
+	    
 	}
 
 }

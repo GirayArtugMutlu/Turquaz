@@ -342,4 +342,41 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
         }
         return true;
     }
+    
+    public CurrencyText getCurTextTotalAmount() {
+        return curTextTotalAmount;
+    }
+    public void setCurTextTotalAmount(CurrencyText curTextTotalAmount) {
+        this.curTextTotalAmount = curTextTotalAmount;
+    }
+    public DatePicker getDatePicker() {
+        return datePicker;
+    }
+    public void setDatePicker(DatePicker datePicker) {
+        this.datePicker = datePicker;
+    }
+    public Text getTxtCashCard() {
+        return txtCashCard;
+    }
+    public void setTxtCashCard(Text txtCashCard) {
+        this.txtCashCard = txtCashCard;
+    }
+    public Text getTxtCurrentAccount() {
+        return txtCurrentAccount;
+    }
+    public void setTxtCurrentAccount(Text txtCurrentAccount) {
+        this.txtCurrentAccount = txtCurrentAccount;
+    }
+    public Text getTxtDefinition() {
+        return txtDefinition;
+    }
+    public void setTxtDefinition(Text txtDefinition) {
+        this.txtDefinition = txtDefinition;
+    }
+    public Text getTxtDocumentNo() {
+        return txtDocumentNo;
+    }
+    public void setTxtDocumentNo(Text txtDocumentNo) {
+        this.txtDocumentNo = txtDocumentNo;
+    }
 }
