@@ -2,15 +2,21 @@
 package com.turquaz.inventory.ui;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import org.eclipse.swt.graphics.Color;
 
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqInventoryCard;
+import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TableRowList;
+import com.turquaz.inventory.bl.InvBLCardSearch;
 
 public class InvUITransactionTableRow implements ITableRow {
 
@@ -18,7 +24,11 @@ public class InvUITransactionTableRow implements ITableRow {
     TableRowList rowList;
     int row_index=0;
     int transType = 0;
-    String unit_name ="";
+    Integer unit_index = new Integer(-1);
+    String unit_text = "";
+    String units [];
+    InvBLCardSearch blCardSearch= new InvBLCardSearch();
+    
     /*
      * type 0 = Buy 
      * type 1 = Sell
@@ -89,7 +99,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 			    
 			case 3 :  //Unit
-			    result =unit_name;
+			    result =unit_text;
 			    break;
 			    
 			case 4 :  //Unit Price
@@ -153,10 +163,32 @@ public class InvUITransactionTableRow implements ITableRow {
             return null;
         }
     }
+    public String[] getUnits(TurqInventoryCard invCard){
+        try{
+            List unit_list = new ArrayList();
+             blCardSearch.initializeInventoryCard(invCard);
+            Set set = invCard.getTurqInventoryCardUnits();
+            Iterator it = set.iterator();
+            while(it.hasNext()){
+                TurqInventoryCardUnit cardUnit = (TurqInventoryCardUnit)it.next();
+                unit_list.add(cardUnit.getTurqInventoryUnit().getUnitsName());
+            }
+            String unit_array[] = new String[unit_list.size()];
+            
+            unit_list.toArray(unit_array);
+            return unit_array;     
+        }
+        catch(Exception ex){
+            
+            ex.printStackTrace();
+            return new String []{};
+        }
+        
+    }
     
     
     public Object getValue(int column_index) {
-        String result = "";
+     Object result = "";
         switch (column_index) {
 		
 			case 0 : // inventory code 
@@ -188,7 +220,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 			    
 			case 3 :  //Unit
-			    result =unit_name;
+			    result =unit_index;
 			    break;
 			    
 			case 4 :  //Unit Price
@@ -250,7 +282,8 @@ public class InvUITransactionTableRow implements ITableRow {
 			    try{
 					 TurqInventoryCard invCard= EngBLInventoryCards.getCard(value.toString().trim());
 					 if(invCard!=null){
-					    invTrans.setTurqInventoryCard(invCard);		  
+					    invTrans.setTurqInventoryCard(invCard);
+					    units = getUnits(invCard);
 					 }	
 					}
 					catch(Exception ex){
@@ -276,7 +309,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 			    
 			case 3 :  //Unit
-			    unit_name = value.toString();
+			    unit_index = (Integer)unit_index;
 			    break;
 			  
 			case 4 :  //Base Unit Amount
@@ -333,6 +366,10 @@ public class InvUITransactionTableRow implements ITableRow {
 		}
        
         
+        
+    }
+    public String[] getUnits(){
+        return units;
         
     }
 

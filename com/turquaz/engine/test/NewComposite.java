@@ -12,11 +12,9 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.custom.PopupList;
 import org.eclipse.swt.custom.TableCursor;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -103,7 +101,7 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
 	private final String SPECIAL_VAT_TOTAL			= "ÖTV Tutar?";
 	private final String ROW_TOTAL 					= "Sat?r Toplam?";
 	
-	
+	   int last_row_index=0;
     TableCursor cursor;
 	
 	// Set column names
@@ -286,10 +284,18 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
                 tableColumn12.setText(ROW_TOTAL);
                 tableColumn12.setWidth(114);
             }
+          
     		 cursor.addSelectionListener(new SelectionAdapter() {
     				// when the TableEditor is over a cell, select the corresponding rowtable
     				public void widgetSelected(SelectionEvent e) {
-    	              
+    	            int current_row_index =((InvUITransactionTableRow)cursor.getRow().getData()).getRowIndex();
+    				if(current_row_index != last_row_index){
+    				    System.out.println("changed");
+    				    last_row_index =current_row_index;
+    				    updateComboBoxEditor();
+    				}
+    	            
+    	            
     				}
     		
     				// when the user hits "ENTER" in the TableCursor, pop up a text/combo editor 
@@ -301,12 +307,35 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
     				
     				}
     			});
+    	
+    		 
 
     		this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	public void updateComboBoxEditor(){
+	    try{
+	       
+	       InvUITransactionTableRow table_row =(InvUITransactionTableRow) cursor.getRow().getData(); 
+	       ComboBoxCellEditor editor =(ComboBoxCellEditor) tableViewer.getCellEditors()[3];
+	       
+	       if(table_row.getUnits()!=null){ 
+	       editor.setItems(table_row.getUnits());
+	       }
+	       
+	       else {
+	       editor.setItems(new String[]{});
+	           
+	       }
+	       
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
+	}
+	
    public void createTableViewer(){
        columnList.add(INVENTORY_CODE);
        columnList.add(INVENTORY_NAME);
@@ -357,5 +386,8 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
 	//	tableViewer.setSorter(new TurquazTableSorter(0));
        
    }
+   
+   
+   
 
 }
