@@ -72,7 +72,6 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	private CLabel lblEndDate;
 	private TableColumn tableColumnTotal;
 	private TableColumn tableColumnType;
-	private TableColumn tableColumnCashCard;
 	private TableColumn tableColumnDate;
 	private DatePicker datePickerEnd;
 	private DatePicker datePickerStart;
@@ -178,13 +177,6 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
                     tableColumnDate.setText(Messages.getString("CashUICashTransactionSearch.3")); //$NON-NLS-1$
                     tableColumnDate.setWidth(95);
                 }
-                {
-                    tableColumnCashCard = new TableColumn(
-                        tableCashTransactions,
-                        SWT.NONE);
-                    tableColumnCashCard.setText(Messages.getString("CashUICashTransactionSearch.4")); //$NON-NLS-1$
-                    tableColumnCashCard.setWidth(100);
-                }
 				{
 					tableColumnDefinition = new TableColumn(
 						tableCashTransactions,
@@ -237,7 +229,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	    public void search() {
 	        try{
 	           
-	            tableCashTransactions.removeAll();
+	          tableCashTransactions.removeAll();
 	            
 	          List list = blSearch.searchCashTransactions(txtCashCard.getTurqCashCard(),datePickerStart.getDate(),datePickerEnd.getDate(),txtDefinition.getText());	
 	          
@@ -258,30 +250,30 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	              item.setData(id);
 	              
 	              
-	              cardName = row[1].toString();
-	              type = row[2].toString();
+	             // cardName = row[1].toString();
+	              type = row[1].toString();
 	              
-	              if(row[3]!=null){
-	                  deptAmount = (BigDecimal)row[3];
+	              if(row[2]!=null){
+	                  deptAmount = (BigDecimal)row[2];
 	                  
 	              }
-	              if(row[4]!=null){
-	                  creditAmount =(BigDecimal) row[4];
+	              if(row[3]!=null){
+	                  creditAmount =(BigDecimal) row[3];
 	              }
 	              
-	              transDate = (Date)row[5];
+	              transDate = (Date)row[4];
 	              
 	              amount = creditAmount;
 	              if(deptAmount.compareTo(new BigDecimal(0))==1){
 	                  amount = deptAmount;
 	                  
 	              }
-	              transDefinition=row[6].toString();
+	              transDefinition=row[5].toString();
 	              TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 	              item.setText(new String[]{
 	                      		
 	                      DatePicker.formatter.format(transDate),
-	                      cardName,transDefinition,
+	                      transDefinition,
 	                      type,
 	                      cf.format(amount)
 	                      
@@ -345,6 +337,12 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	            else if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_OTHER_PAYMENT){
 	                
 	                updated=new CashUICashOtherPaymentTransactionUpdate(this.getShell(),SWT.NULL,cashTrans).open();
+	                
+	                
+	            }
+	            else if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_TRANSFER_BETWEEN_CARDS){
+	                
+	                updated=new CashUICashTransferBetweenCardsUpdate(this.getShell(),SWT.NULL,cashTrans).open();
 	                
 	                
 	            }

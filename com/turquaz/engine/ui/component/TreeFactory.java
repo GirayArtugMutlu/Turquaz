@@ -74,6 +74,7 @@ import com.turquaz.cash.ui.CashUICashOtherCollectTransaction;
 import com.turquaz.cash.ui.CashUICashOtherPaymentTransaction;
 import com.turquaz.cash.ui.CashUICashPaymentTransactionAdd;
 import com.turquaz.cash.ui.CashUICashTransactionSearch;
+import com.turquaz.cash.ui.CashUICashTransferBetweenCards;
 import com.turquaz.cheque.ui.CheUIChequeCollectFromBank;
 import com.turquaz.cheque.ui.CheUIChequeInPayroll;
 import com.turquaz.cheque.ui.CheUIChequeOutPayrollBank;
@@ -638,6 +639,11 @@ public final class TreeFactory {
 			item = new TreeItem(transRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.105"));   //$NON-NLS-1$
 			item.setData(CashUICashOtherPaymentTransaction.class.getName());
+	   }
+		   if(EngBLPermissions.getPermission(CashUICashTransferBetweenCards.class.getName())>0){
+			item = new TreeItem(transRoot,SWT.NULL);
+			item.setText("Kasa Virman");  
+			item.setData(CashUICashTransferBetweenCards.class.getName());
 	   }
 		   
 		    TreeItem searchRoot = new TreeItem(tree,SWT.NULL);

@@ -466,6 +466,159 @@ catch(Exception ex){
 
 }
     
+    public void updateTransBetweenCards(TurqCashTransaction cashTrans, TurqCashCard cashCardWithDebt, TurqCashCard cashCardWithCredit, 
+			BigDecimal totalAmount, Date transDate,
+			String definition, String document_no)throws Exception {
+try{
+    
+    // if it is a current transaction the delete Current Transactions
+    if(cashTrans.getTurqEngineSequence().getTurqModule().getModulesId().intValue()==EngBLCommon.CASH_CURRENT_COLLECT
+            ||cashTrans.getTurqEngineSequence().getTurqModule().getModulesId().intValue()==EngBLCommon.CASH_CURRENT_PAYMENT ){
+        
+    
+        
+   //delete current Transactions..      
+ 
+        Iterator it = cashTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
+        while(it.hasNext()){
+            
+            dalCash.delete(it.next());
+            
+        }
+        
+        
+    }
+     
+     
+     //delete cash Transaction rows...
+     Iterator it = cashTrans.getTurqCashTransactionRows().iterator();
+     while(it.hasNext()){
+         
+         dalCash.delete(it.next());
+         
+     }
+     
+     //delete accounting transactions 
+     
+     dalCash.deleteAccountingTransaction(cashTrans);
+     
+     
+     
+     
+     cashTrans.setTransactionDate(transDate);
+     cashTrans.setTransactionDefinition(definition);
+     cashTrans.setDocumentNo(document_no);
+	 cashTrans.setUpdatedBy(System.getProperty("user"));
+	 cashTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));             
+     
+     
+	 /*
+		 * Create cash Transaction Rows
+		 */
+		TurqCashTransactionRow cashTransRowWithDept = new TurqCashTransactionRow();
+		cashTransRowWithDept.setTurqCashCard(cashCardWithDebt);
+		cashTransRowWithDept.setCreatedBy(System.getProperty("user"));
+		cashTransRowWithDept.setUpdatedBy(System.getProperty("user"));
+		cashTransRowWithDept.setLastModified(new java.sql.Date(cal.getTime()
+				.getTime()));
+		cashTransRowWithDept.setCreationDate(new java.sql.Date(cal.getTime()
+				.getTime()));
+		cashTransRowWithDept.setTransactionDefinition(definition);
+		cashTransRowWithDept.setTurqAccountingAccount(cashCardWithCredit.getTurqAccountingAccount());
+	   
+		/*************************************/
+		TurqCashTransactionRow cashTransRowWithCredit = new TurqCashTransactionRow();
+		cashTransRowWithCredit.setTurqCashCard(cashCardWithCredit);
+		cashTransRowWithCredit.setCreatedBy(System.getProperty("user"));
+		cashTransRowWithCredit.setUpdatedBy(System.getProperty("user"));
+		cashTransRowWithCredit.setLastModified(new java.sql.Date(cal.getTime()
+				.getTime()));
+		cashTransRowWithCredit.setCreationDate(new java.sql.Date(cal.getTime()
+				.getTime()));
+		cashTransRowWithCredit.setTransactionDefinition(definition);
+		cashTransRowWithCredit.setTurqAccountingAccount(cashCardWithDebt.getTurqAccountingAccount());
+
+		
+		
+		
+		
+		/*
+		 * Create Accounting transaction
+		 */
+		TurqAccountingTransactionColumn accTransCashWithDept = new TurqAccountingTransactionColumn();
+		TurqAccountingTransactionColumn accTransCashWithCredit = new TurqAccountingTransactionColumn();
+
+		accTransCashWithDept.setTransactionDefinition(definition);
+		accTransCashWithDept.setTurqAccountingAccount(cashCardWithDebt
+				.getTurqAccountingAccount());
+
+		accTransCashWithCredit.setTransactionDefinition(definition);
+		accTransCashWithCredit.setTurqAccountingAccount(cashCardWithCredit.getTurqAccountingAccount());
+
+	
+
+		int accTransType = 0;
+
+		boolean currentTransType = false; // Credit or Debit
+
+		
+			accTransCashWithDept.setCreditAmount(totalAmount);
+			accTransCashWithDept.setDeptAmount(new BigDecimal(0));
+
+			accTransCashWithCredit.setCreditAmount(new BigDecimal(0));
+			accTransCashWithCredit.setDeptAmount(totalAmount);
+
+			cashTransRowWithDept.setCreditAmount(totalAmount);
+			cashTransRowWithDept.setDeptAmount(new BigDecimal(0));
+			
+			cashTransRowWithCredit.setDeptAmount(totalAmount);
+			cashTransRowWithCredit.setCreditAmount(new BigDecimal(0));
+
+			accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
+	
+
+	
+		/**
+		 * Save Cash Transaction
+		 */
+		dalCash.update(cashTrans);
+
+		/**
+		 * Save Cash Transaction Row
+		 *  
+		 */
+
+		cashTransRowWithDept.setTurqCashTransaction(cashTrans);
+		cashTransRowWithCredit.setTurqCashTransaction(cashTrans);
+		
+
+		dalCash.save(cashTransRowWithDept);
+     dalCash.save(cashTransRowWithCredit);
+	
+		/**
+		 * Save Accounting Transaction
+		 *  
+		 */
+
+		Integer transId = blAccTran.saveAccTransaction(transDate,
+				document_no, accTransType, cashTrans.getTurqEngineSequence().getTurqModule()
+						.getModulesId().intValue(), cashTrans.getTurqEngineSequence()
+						.getEngineSequencesId(), definition);
+		blAccTran.saveAccTransactionRow(accTransCashWithDept, transId,
+				EngBLCommon.getBaseCurrency(), new BigDecimal(1));
+		blAccTran.saveAccTransactionRow(accTransCashWithCredit, transId,
+				EngBLCommon.getBaseCurrency(), new BigDecimal(1));
+    
+}
+
+catch(Exception ex){
+    
+    throw ex;
+}
+
+
+
+}
     
     
     

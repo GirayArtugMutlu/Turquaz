@@ -180,20 +180,21 @@ public class CashDALCashCard {
             
             Session session = EngDALSessionFactory.openSession();
             
-            String query = "select cashTrans.cashTransactionsId, cashTrans.turqCashCard.cashCardName, " +
+            String query = "select distinct cashTrans.cashTransactionsId," +
             		" cashTrans.turqCashTransactionType.cashTransationTypeName, sum(transRow.deptAmount),sum(transRow.creditAmount),cashTrans.transactionDate, cashTrans.transactionDefinition from TurqCashTransaction as cashTrans" +
             		" left join cashTrans.turqCashTransactionRows as transRow " +
             		" where cashTrans.transactionDate >= :startDate and cashTrans.transactionDate <= :endDate " ;
+            		
             
              if(cashCard!=null){
-                 query+=" and cashTrans.turqCashCard = :cashCard ";
+                 query+=" and transRow.turqCashCard = :cashCard ";
              }
              if(!definition.equals(""))
              {
              	query+=" and cashTrans.transactionDefinition like '"+definition+"%'";
              }
             		
-            query +=" group by cashTrans.cashTransactionsId, cashTrans.turqCashCard.cashCardName, cashTrans.turqCashTransactionType.cashTransationTypeName, cashTrans.transactionDate,cashTrans.transactionDefinition";
+            query +=" group by cashTrans.cashTransactionsId, cashTrans.turqCashTransactionType.cashTransationTypeName, cashTrans.transactionDate,cashTrans.transactionDefinition";
             query += " order by cashTrans.transactionDate";
             Query q = session.createQuery(query);
             q.setParameter("startDate",startdate);
