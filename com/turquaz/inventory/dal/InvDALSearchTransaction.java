@@ -38,6 +38,7 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.dal.TurqInventoryTransaction;
 public class InvDALSearchTransaction {
 	public InvDALSearchTransaction() {
 
@@ -94,13 +95,16 @@ public class InvDALSearchTransaction {
 			throws Exception {
 		try {
 			Session session = EngDALSessionFactory.openSession();
-  
+			
+			String query = "Select transaction.inventoryTransactionsId,transaction.transactionsDate,transaction.transactionsAmountIn," +
+			"transaction.transactionsTotalAmountOut, transaction.transactionsTotalPrice," +
+			" transaction.turqInventoryCard.cardInventoryCode, " +
+			" transaction.turqInventoryCard.cardName from TurqInventoryTransaction as transaction," +
+			 " TurqConsignment as consignment where" +
+			 " consignment.turqEngineSequence = transaction.turqEngineSequence "
+			+ " and consignment.consignmentsDate >= :startDate"
+			+ " and consignment.consignmentsDate <= :endDate";
                  			
-			String query = "Select transaction, consignment.consignmentsDate from TurqInventoryTransaction as transaction," +
-					 " TurqConsignment as consignment where" +
-					 " consignment.turqEngineSequence = transaction.turqEngineSequence "
-					+ " and consignment.consignmentsDate >= :startDate"
-					+ " and consignment.consignmentsDate <= :endDate";
 			
 			if (type != EngBLCommon.COMMON_ALL_INT)
 				query+=" and consignment.consignmentsType ="+ type;
@@ -160,7 +164,10 @@ public class InvDALSearchTransaction {
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select transaction, consignment.consignmentsDate from TurqInventoryTransaction as transaction," +
+			String query = "Select transaction.inventoryTransactionsId,transaction.transactionsDate,transaction.transactionsAmountIn," +
+			"transaction.transactionsTotalAmountOut, transaction.transactionsTotalPrice," +
+			" transaction.turqInventoryCard.cardInventoryCode, " +
+			" transaction.turqInventoryCard.cardName from TurqInventoryTransaction as transaction," +
 			 " TurqConsignment as consignment where" +
 			 " consignment.turqEngineSequence = transaction.turqEngineSequence "
 			+ " and consignment.consignmentsDate >= :startDate"
@@ -219,7 +226,7 @@ public class InvDALSearchTransaction {
 				
 			}	
 
-	
+			query += " order by transaction.turqInventoryCard.inventoryCardsId,transaction.transactionsDate";
 			
 			Query q = session.createQuery(query);
 			q.setParameter("startDate", startDate);
@@ -239,6 +246,26 @@ public class InvDALSearchTransaction {
 	
 			List list=q.list();
 			return list;
+			
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static TurqInventoryTransaction getInvTransByTransId(Integer transId) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "Select transaction from TurqInventoryTransaction as transaction" +
+					" where transaction.inventoryTransactionsId="+transId;
+			
+			Query q = session.createQuery(query);
+	
+			List list=q.list();
+			return (TurqInventoryTransaction)list.get(0);
 			
 		}
 		catch(Exception ex)

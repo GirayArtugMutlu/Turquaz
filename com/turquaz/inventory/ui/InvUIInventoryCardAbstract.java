@@ -370,20 +370,26 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 
 	public void showConsignment()
 	{
-		try{
+		try
+		{
 			
 		
-		TableItem items[] = tableTransactions.getSelection();
-		if (items.length > 0)
-		{
-			TurqInventoryTransaction invTrans = (TurqInventoryTransaction)items[0].getData();
-			TurqEngineSequence seq = invTrans.getTurqEngineSequence();
+			TableItem items[] = tableTransactions.getSelection();
+			if (items.length > 0)
+			{
+				Integer transId = (Integer)items[0].getData();
+				if (transId != null)
+				{
+					TurqInventoryTransaction invTrans=InvBLSearchTransaction.getInvTransByTransId(transId);
 			
-			TurqConsignment cons = blSearch.getConsignment(seq);
-			boolean updated=new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
-			if (updated)
-				search();
-		}
+					TurqEngineSequence seq = invTrans.getTurqEngineSequence();
+			
+					TurqConsignment cons = blSearch.getConsignment(seq);
+					boolean updated=new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
+					if (updated)
+						search();
+				}
+			}
 		}
 		catch (Exception ex)
 		{
@@ -427,35 +433,45 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			for (int i = 0; i < list.size(); i++) {
 
 				Object result[] = (Object[])list.get(i);
-				transactions = (TurqInventoryTransaction) result[0];
 				item = new TableItem(tableTransactions, SWT.NULL);
-				item.setData(transactions);
+				
+				
+				Integer transId=(Integer)result[0];
+				Date transDate = (Date)result[1];
+				BigDecimal inAmount=(BigDecimal)result[2];
+				BigDecimal outAmount=(BigDecimal)result[3];
+				BigDecimal totalPrice=(BigDecimal)result[4];
+				String invCode=(String)result[5];
+				String invName=(String)result[6];
+				
+				item.setData(transId);
+				
 		
 				BigDecimal priceIn = new BigDecimal(0);
 				BigDecimal priceOut = new BigDecimal(0);
 				
-				if(transactions.getTransactionsAmountIn().doubleValue()==0){
-					priceOut = transactions.getTransactionsTotalPrice();					
+				if(inAmount.doubleValue()==0){
+					priceOut = totalPrice;	
 					
 				}
 				else
 				{
-					priceIn = transactions.getTransactionsTotalPrice();
+					priceIn = totalPrice;
 				}
+
 				
 				
-				
-				Date transDate = (Date)result[1];
 				item.setText(new String[] {
-								DatePicker.formatter.format(transDate),
-								transactions.getTurqInventoryCard().getCardInventoryCode(),
-								transactions.getTurqInventoryCard().getCardName(),
-								cf.format(transactions.getTransactionsAmountIn())+"", //$NON-NLS-1$
-								cf.format(priceIn),
-								cf.format(transactions.getTransactionsTotalAmountOut())+"", //$NON-NLS-1$								
-								cf.format(priceOut)});
+						DatePicker.formatter.format(transDate),
+						invCode,
+						invName,
+						cf.format(inAmount)+"", //$NON-NLS-1$								
+						cf.format(priceIn),
+						cf.format(outAmount)+"", //$NON-NLS-1$
+						cf.format(priceOut)});
 			}
-			GenerateJasper(type);
+			if (list.size() > 0)
+				GenerateJasper(type);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -488,6 +504,13 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			TurqCurrentCard curCard=(TurqCurrentCard)txtCurCard.getData();
 			if (curCard != null) {
 				sqlparam += " and curCard.current_cards_id="+curCard.getCurrentCardsId(); //$NON-NLS-1$
+				parameters.put("curCardName",curCard.getCardsName());
+				parameters.put("curCardCode",curCard.getCardsCurrentCode());
+			}
+			else
+			{
+				parameters.put("curCardName"," - ");
+				parameters.put("curCardCode"," - ");
 			}
 		
 			TurqInventoryCard invCardStart=(TurqInventoryCard) txtInvCardStart.getData();
