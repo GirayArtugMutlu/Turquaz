@@ -133,7 +133,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 7 : // total Price
-			    result = decFormat.format(invTrans.getTransactionsTotalPrice().toString());
+			    result = decFormat.format(invTrans.getTransactionsTotalPrice());
 				break;
 			
 			case 8 : // VAT percent		
@@ -141,7 +141,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 9 : // VAT total 
-			    result = decFormat.format(invTrans.getTransactionsVatAmount().toString());
+			    result = decFormat.format(invTrans.getTransactionsVatAmount());
 				break;
 				
 			case 10 : // Special VAT percent 
@@ -149,11 +149,11 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 11 : // Specail VAT Total 
-			    result = decFormat.format(invTrans.getTransactionsVatSpecialAmount().toString());
+			    result = decFormat.format(invTrans.getTransactionsVatSpecialAmount());
 				break;
 				
 			case 12 : //Cumulative Price
-			    result = invTrans.getTransactionsCumilativePrice().toString();
+			    result = decFormat.format(invTrans.getTransactionsCumilativePrice());
 			    break;
 				
 			default :
@@ -267,11 +267,12 @@ public class InvUITransactionTableRow implements ITableRow {
 			    break;
 			    
 			case 6 :  //Unit Price
-			    result = invTrans.getTransactionsUnitPrice().toString();
-				break;
+			    result = decFormat.format(invTrans.getTransactionsUnitPrice());
+				
+			    break;
 				
 			case 7 : // total Price
-			    result = invTrans.getTransactionsTotalPrice().toString();
+			    result = decFormat.format(invTrans.getTransactionsTotalPrice());
 				break;
 			
 			case 8 : // VAT percent		
@@ -279,7 +280,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 9 : // VAT total 
-			    result = invTrans.getTransactionsVatAmount().toString();
+			    result = decFormat.format(invTrans.getTransactionsVatAmount());
 				break;
 				
 			case 10 : // Special VAT percent 
@@ -287,11 +288,11 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 11 : // Specail VAT Total 
-			    result = invTrans.getTransactionsVatSpecialAmount().toString();
+			    result = decFormat.format(invTrans.getTransactionsVatSpecialAmount().toString());
 				break;
 				
 			case 12 : //Cumulative Price
-			    result = invTrans.getTransactionsCumilativePrice().toString();
+			    result = decFormat.format(invTrans.getTransactionsCumilativePrice().toString());
 			    break;
 				
 			default :
