@@ -74,6 +74,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private CLabel lblInvVard;
 	private EngBLCommon blCommon = new EngBLCommon();
 	TurqInventoryTransaction invTrans;
+	TurqInventoryUnit defaultUnit;
 
 	/**
 	* Auto-generated main method to display this 
@@ -326,7 +327,9 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 			TurqInventoryCardUnit unit = (TurqInventoryCardUnit)it.next();
 			comboUnitType.add(unit.getTurqInventoryUnit().getUnitsName());
 			comboUnitType.setData(unit.getTurqInventoryUnit().getUnitsName(),unit);
-			
+			if(unit.getCardUnitsFactor()==1){
+				defaultUnit = unit.getTurqInventoryUnit();
+			}
 		
 		}
 		
@@ -364,8 +367,10 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 		if(txtInvCard.getData()!=null){
 			TurqInventoryCard invCard = (TurqInventoryCard)txtInvCard.getData();
 			TurqInventoryPrice price = new InvUIPriceChooseDialog(this.getParent(),SWT.NULL,invCard).open();
+			if(price!=null){
 			decTxtPrice.setText(price.getPricesAmount().toString());
 			comboCurrency.setText(price.getTurqCurrency().getCurrenciesAbbreviation());
+			}
     	}
 		else{
 			MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
@@ -440,6 +445,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 		  invTrans.setTransactionsVatAmount(VATAmount);
 		  invTrans.setTransactionsVatSpecialAmount(specialVATAmount);
 		  invTrans.setTransactionsCumilativePrice(cumulativeTotal);
+		  invTrans.setTurqInventoryUnit(defaultUnit);
 		  
 		  
 		  dialogShell.close();

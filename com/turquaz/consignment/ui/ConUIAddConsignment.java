@@ -9,6 +9,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
@@ -26,6 +27,7 @@ import com.turquaz.consignment.bl.ConBLAddGroups;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.inventory.ui.InvUITransactionAddDialog;
@@ -69,6 +71,7 @@ implements SecureComposite{
 	private Composite compTotalsPanel;
 	private NumericText txtDiscountRate;
 	private CLabel lblInventoryPrice;
+	private TableColumn tableColumnCumulative;
 	private Button btnUpdateGroups;
 	private RegisterGroupComposite compRegisterGroup;
 	private Composite composite1;
@@ -112,7 +115,7 @@ implements SecureComposite{
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(617, 549);
+			this.setSize(651, 560);
 			{
 				cTabFolder1 = new CTabFolder(this, SWT.NONE);
 				cTabFolder1.setSize(56, 25);
@@ -299,6 +302,15 @@ implements SecureComposite{
 								buttonConsignmentRemove
 									.setImage(SWTResourceManager
 										.getImage("icons/minus.gif"));
+								buttonConsignmentRemove
+									.addMouseListener(new MouseAdapter() {
+									public void mouseUp(MouseEvent evt) {
+										TableItem selection[]=tableConsignmentRows.getSelection();
+									    if(selection.length>0){
+									       selection[0].dispose();
+									    }
+									}
+									});
 							}
 						}
 						{
@@ -378,6 +390,13 @@ implements SecureComposite{
 									SWT.NONE);
 								TableColumnVATSpecial.setText("Special VAT");
 								TableColumnVATSpecial.setWidth(100);
+							}
+							{
+								tableColumnCumulative = new TableColumn(
+									tableConsignmentRows,
+									SWT.NONE);
+								tableColumnCumulative.setText("Cumulative Total");
+								tableColumnCumulative.setWidth(100);
 							}
 						}
 						{
@@ -604,8 +623,20 @@ implements SecureComposite{
 	}
 	public void btnAddConsignmentRowMouseUp(){
 		
-		new InvUITransactionAddDialog(this.getShell(),SWT.NULL).open();
-		
+	TurqInventoryTransaction invTrans = new InvUITransactionAddDialog(this.getShell(),SWT.NULL).open();
+	TableItem item = new TableItem(tableConsignmentRows,SWT.NULL);
+	
+	item.setData(invTrans);
+	item.setText(new String[]{invTrans.getTurqInventoryCard().getCardInventoryCode(),
+							   invTrans.getTurqInventoryCard().getCardName(),
+							   invTrans.getTransactionsAmountIn()+"",
+							   invTrans.getTurqInventoryUnit().getUnitsName(),
+							   invTrans.getTransactionsUnitPrice().toString(),
+							   invTrans.getTransactionsTotalPrice().toString(),
+							   invTrans.getTransactionsVat()+"",
+							   invTrans.getTransactionsVatAmount().toString(),
+							   invTrans.getTransactionsVatSpecialAmount().toString(),
+							   invTrans.getTransactionsCumilativePrice().toString()});
 		
 	}
 	
