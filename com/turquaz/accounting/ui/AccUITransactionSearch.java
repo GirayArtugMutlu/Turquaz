@@ -44,6 +44,7 @@ import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionType;
 
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 import org.eclipse.swt.widgets.TableColumn;
@@ -67,7 +68,7 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class AccUITransactionSearch extends  Composite implements SecureComposite {
+public class AccUITransactionSearch extends  Composite implements SecureComposite,SearchComposite {
 
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -390,7 +391,7 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 		
 		EngBLUtils.Export2Excel(tableTransactions);
 		
-		}
+	 }
 		
 	
 	

@@ -54,16 +54,19 @@ import org.eclipse.swt.widgets.TableColumn;
 
 import com.turquaz.admin.bl.AdmBLUserPermissions;
 import com.turquaz.admin.bl.AdmBLUsers;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.dal.TurqModuleComponent;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.dal.TurqUserPermission;
+import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
-public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite implements SecureComposite{
+public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite implements SecureComposite,
+SearchComposite{
 
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -440,6 +443,11 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 	    msg2.open();
 	}
 		
+		
+	}
+	public void exportToExcel(){
+		
+		EngBLUtils.Export2Excel(tableUserPermissions);
 		
 	}
 	

@@ -50,11 +50,13 @@ import org.eclipse.swt.widgets.TableColumn;
 
 import com.turquaz.admin.bl.AdmBLGroupPermissions;
 import com.turquaz.admin.bl.AdmBLGroups;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.dal.TurqGroupPermission;
 import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.dal.TurqModuleComponent;
 
+import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 import org.eclipse.swt.events.SelectionAdapter;
@@ -62,7 +64,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
 
 public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite
-implements SecureComposite{
+implements SecureComposite,SearchComposite{
 
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -477,6 +479,11 @@ implements SecureComposite{
 		
 	}
 	public void newForm(){
+		
+	}
+	public void exportToExcel(){
+		
+		EngBLUtils.Export2Excel(tableGroupPermissions);
 		
 	}
 

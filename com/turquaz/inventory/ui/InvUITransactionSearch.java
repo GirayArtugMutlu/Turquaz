@@ -2,18 +2,16 @@ package com.turquaz.inventory.ui;
 
 import java.util.List;
 
-import org.eclipse.swt.layout.FillLayout;
+
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
+
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.graphics.Point;
+
 import org.eclipse.swt.widgets.Composite;
 
-import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqConsignment;
+
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
@@ -27,7 +25,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.graphics.Rectangle;
+
 import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.ui.component.SecureComposite;
