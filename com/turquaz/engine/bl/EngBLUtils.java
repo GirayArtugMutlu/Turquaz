@@ -286,7 +286,7 @@ public class EngBLUtils {
 			parameters.put("currentTaxDepartment",curCard.getCardsTaxDepartment());
 			parameters.put("currentId", curCard.getCardsCurrentCode());
 			parameters.put("totalSpecVAT",billCommon.getSpecialVatAmount());
-			System.out.println(billCommon.getSpecialVatAmount());
+			//System.out.println(billCommon.getSpecialVatAmount());
 			parameters.put("despatchNoteDate",dformat.format(cons.getConsignmentsDate()));
 			parameters.put("despatchNoteId",billCommon.getConsignmentDocumentNo());
 			
