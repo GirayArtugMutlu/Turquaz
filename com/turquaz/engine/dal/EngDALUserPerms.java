@@ -165,6 +165,8 @@ public class EngDALUserPerms {
  		throw e; 
  		} 
  	}
+ 
+ 
 	/**
 	 * 
 	 * @param module_id --Module id
@@ -259,7 +261,7 @@ public class EngDALUserPerms {
 	  		
 	  		Session session = EngDALSessionFactory.openSession();
 	 		Transaction tx = session.beginTransaction();
-	 		String query = "select module from TurqModule as module"; 		
+	 		String query = "select module from TurqModule as module order by module.modulesId"; 		
 	 		Query q = session.createQuery(query); 
 	 		List list = q.list();
 	 		tx.commit();

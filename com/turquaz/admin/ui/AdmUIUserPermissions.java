@@ -39,7 +39,15 @@ import com.turquaz.engine.dal.TurqModuleComponent;
 import com.turquaz.engine.dal.TurqUser;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import com.cloudgarden.resource.SWTResourceManager;
 public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
+
+	{
+		//Register as a resource user - SWTResourceManager will
+		//handle the obtaining and disposing of resources
+		SWTResourceManager.registerResourceUser(this);
+	}
+
 	private Composite composite1;
 	private Table tableUserPermissions;
 	private CLabel lblModules;
@@ -124,6 +132,8 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 				{
 					comboUsers = new CCombo(composite1, SWT.NONE);
 					GridData comboUsersLData = new GridData();
+					comboUsers.setBackground(SWTResourceManager.getColor(255, 255, 255));
+					comboUsers.setEditable(false);
 					comboUsersLData.widthHint = 118;
 					comboUsersLData.heightHint = 16;
 					comboUsers.setLayoutData(comboUsersLData);
@@ -139,13 +149,15 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 				{
 					comboModules = new CCombo(composite1, SWT.NONE);
 					GridData comboModulesLData = new GridData();
+					comboModules.setBackground(SWTResourceManager.getColor(255, 255, 255));
+					comboModules.setEditable(false);
 					comboModules.addSelectionListener(new SelectionAdapter() {
 						public void widgetSelected(SelectionEvent evt) {
 							moduleSelected(evt);
 						}
 					});
-					comboModulesLData.widthHint = 118;
-					comboModulesLData.heightHint = 14;
+					comboModulesLData.widthHint = 174;
+					comboModulesLData.heightHint = 16;
 					comboModules.setLayoutData(comboModulesLData);
 				}
 				{
@@ -159,11 +171,11 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 				{
 					comboModuleComponents = new CCombo(composite1, SWT.NONE);
 					GridData comboModuleComponentsLData = new GridData();
-					comboModuleComponents.setSize(118, 16);
-					comboModuleComponentsLData.widthHint = 118;
-					comboModuleComponentsLData.heightHint = 16;
-					comboModuleComponents
-						.setLayoutData(comboModuleComponentsLData);
+					comboModuleComponents.setBackground(SWTResourceManager.getColor(255, 255, 255));
+					comboModuleComponents.setEditable(false);
+					comboModuleComponentsLData.widthHint = 176;
+					comboModuleComponentsLData.heightHint = 14;
+					comboModuleComponents.setLayoutData(comboModuleComponentsLData);
 				}
 				{
 					lblPermissionLevel = new CLabel(composite1, SWT.NONE);
@@ -172,6 +184,8 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 				{
 					comboPermissionLevel = new CCombo(composite1, SWT.NONE);
 					GridData comboPermissionLevelLData = new GridData();
+					comboPermissionLevel.setBackground(SWTResourceManager.getColor(255, 255, 255));
+					comboPermissionLevel.setEditable(false);
 					comboPermissionLevelLData.widthHint = 25;
 					comboPermissionLevelLData.heightHint = 17;
 					comboPermissionLevel
@@ -225,6 +239,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 	}
 	public void postInitGUI(){
 		try{
+			
 		java.util.List userList = blUsers.getUsers();
 		for(int i=0;i<userList.size();i++){
 			TurqUser user = (TurqUser)userList.get(i);
@@ -232,21 +247,21 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 			comboUsers.add(user.getUsername());
 			
 		}
+		
 		java.util.List moduleList = blUserPerms.getModules();
-		for(int i=0;i<userList.size();i++){
-			TurqModule user = (TurqModule)moduleList.get(i);
-			comboModules.setData(user.getModulesName(),user);
-			comboModules.add(user.getModulesName());
+		System.out.println(moduleList.size());
+		for(int i=0;i<moduleList.size();i++){
+			TurqModule module = (TurqModule)moduleList.get(i);
+			comboModules.setData(module.getModulesName(),module);
+			comboModules.add(module.getModulesName());
 		
 		}
 		comboPermissionLevel.add("0");
 		comboPermissionLevel.add("1");
 		comboPermissionLevel.add("2");
-		comboPermissionLevel.add("3");
-		
-		
+		comboPermissionLevel.add("3");		
 			
-			
+		fillTableUserPermissions();	
 			
 		}
 		catch(Exception ex){
@@ -273,14 +288,14 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 		
 	}
 	}
+	
 	public void fillComboModuleComponents(int module_id){
 		try{
 			java.util.List compList = blUserPerms.getModuleComponents(module_id);
 			for(int i=0;i<compList.size();i++){
 				TurqModuleComponent user = (TurqModuleComponent)compList.get(i);
-				comboModuleComponents.setData(user.getComponentsName(),user);
-				comboModuleComponents.add(user.getComponentsName());
-			
+				comboModuleComponents.setData(user.getComponentsDescription(),user);
+				comboModuleComponents.add(user.getComponentsDescription());
 			}
 			
 		}
@@ -288,4 +303,15 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 			ex.printStackTrace();
 		}
 	}
+	public void fillTableUserPermissions(){
+		try{
+		
+			
+			
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
+	
 }
