@@ -103,7 +103,7 @@ public class SearchTableViewer
 		item = new MenuItem(menu,SWT.PUSH);
 		item.setText("Tablo Görünümü");
 		item.addListener(SWT.Selection, new Listener()
-				{
+		{
 					public void handleEvent(Event e)
 					{
 						new EngUITableColumns(viewer.getTable().getShell(),SWT.NONE).open(viewer.getTable(),defaultWidths);
