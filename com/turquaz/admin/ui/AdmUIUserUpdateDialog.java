@@ -15,10 +15,15 @@ package com.turquaz.admin.ui;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
+
+import java.util.Iterator;
+
+
 /**
 * @author  Onsel Armagan
 * @version  $Id$
 */
+
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -43,84 +48,55 @@ import org.eclipse.swt.SWT;
 * *************************************
 */
 import com.turquaz.admin.ui.AdmUIUserAdd;
+import com.turquaz.engine.dal.TurqUser;
+import com.turquaz.engine.dal.TurqUserGroup;
+
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
-public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Composite {
 
+public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	{
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
-		SWTResourceManager.registerResourceUser(this);
+		SWTResourceManager.registerResourceUser(this.getParent());
 	}
 
-	private AdmUIUserAdd compUserAdd;
-	private CoolBar coolBar1;
-	private CoolItem coolItem1;
-	private ToolItem toolUpdate;
+	private TurqUser user;
 	private ToolItem toolDelete;
+	private ToolItem toolUpdate;
 	private ToolBar toolBar1;
+	private CoolItem coolItem1;
+	private CoolBar coolBar1;
+	private AdmUIUserAdd compUserAdd;
+	private org.eclipse.swt.widgets.Shell dialogShell;
 
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		showGUI();
-	}
-		
-	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		AdmUIUserUpdateDialog inst = new AdmUIUserUpdateDialog(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if(size.x == 0 && size.y == 0) {
-			inst.pack();
-			shell.pack();
-		} else {
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
-
-	public AdmUIUserUpdateDialog(org.eclipse.swt.widgets.Composite parent, int style) {
+	public AdmUIUserUpdateDialog(Shell parent, int style,TurqUser user) {
 		super(parent, style);
-		initGUI();
+		
+		this.user = user;
 	}
 
 	private void initGUI() {
 		try {
-			this.setLayout(new GridLayout());
-			this.setSize(558, 416);
+			GridLayout thisLayout = new GridLayout();
+			GridLayout dialogShellLayout = new GridLayout();
+			dialogShell.setLayout(dialogShellLayout);
+			dialogShell.setSize(471, 360);
 			{
-				coolBar1 = new CoolBar(this, SWT.NONE);
+				coolBar1 = new CoolBar(dialogShell, SWT.NONE);
 				GridData coolBar1LData = new GridData();
 				coolBar1LData.grabExcessHorizontalSpace = true;
 				coolBar1LData.horizontalAlignment = GridData.FILL;
-				coolBar1LData.verticalAlignment = GridData.BEGINNING;
 				coolBar1.setLayoutData(coolBar1LData);
 				{
 					coolItem1 = new CoolItem(coolBar1, SWT.NONE);
-					coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 34));
-					coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 34));
-					coolItem1.setSize(45, 34);
+					coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 49));
+					coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 49));
+					coolItem1.setSize(45, 49);
 					{
 						toolBar1 = new ToolBar(coolBar1, SWT.NONE);
 						coolItem1.setControl(toolBar1);
@@ -138,7 +114,7 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Composite {
 				}
 			}
 			{
-				compUserAdd = new AdmUIUserAdd(this, SWT.NONE);
+				compUserAdd = new AdmUIUserAdd(dialogShell, SWT.NONE);
 				GridData compUserAddLData = new GridData();
 				compUserAddLData.grabExcessHorizontalSpace = true;
 				compUserAddLData.grabExcessVerticalSpace = true;
@@ -146,10 +122,48 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Composite {
 				compUserAddLData.verticalAlignment = GridData.FILL;
 				compUserAdd.setLayoutData(compUserAddLData);
 			}
-			this.layout();
+
+			postInitGui();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public void postInitGui(){
+		
+		compUserAdd.getTxtUsername().setText(user.getUsername());
+		compUserAdd.getTxtPassword().setText(user.getUsersPassword());
+		compUserAdd.getTxtRePassword().setText(user.getUsersPassword());
+		compUserAdd.getTxtRealName().setText(user.getUsersRealName());
+		compUserAdd.getTxtDescription().setText(user.getUsersDescription());
+		
+		Iterator it = user.getTurqUserGroups().iterator();
+		while(it.hasNext()){
+			TurqUserGroup userGroup = (TurqUserGroup)it.next();
+		   compUserAdd.getRegisteredGroups().RegisterGroup(userGroup.getTurqGroup());
+			
+		}
+	
+	}
+	public void open(){
+		try{
+			
+		Shell parent = getParent();
+		dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+         initGUI();
+		
+		
+		dialogShell.layout();
+		dialogShell.pack();
+		
+		dialogShell.open();
+		Display display = dialogShell.getDisplay();
+		while (!dialogShell.isDisposed()) {
+			if (!display.readAndDispatch())
+				display.sleep();
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
 	}
 
 }

@@ -49,10 +49,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
 
-import com.turquaz.admin.bl.AdmBLUserAdd;
 import com.turquaz.admin.bl.AdmBLUsers;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.ui.component.SecureComposite;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements SecureComposite {
 	private Table tableUsers;
 	private TableColumn tableColumnUsername;
@@ -119,8 +120,13 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 			this.setLayout(new GridLayout());
 			this.setSize(518, 319);
 			{
-				tableUsers = new Table(this, SWT.NONE);
+				tableUsers = new Table(this, SWT.SINGLE | SWT.FULL_SELECTION);
 				GridData tableUsersLData = new GridData();
+				tableUsers.addMouseListener(new MouseAdapter() {
+					public void mouseDoubleClick(MouseEvent evt) {
+						tableUsersMouseDoubleClick( evt);
+					}
+				});
 				tableUsers.setHeaderVisible(true);
 				tableUsers.setLinesVisible(true);
 				tableUsersLData.grabExcessHorizontalSpace = true;
@@ -173,6 +179,19 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 			ex.printStackTrace();
 		}
 		
+	}
+	
+	public void tableUsersMouseDoubleClick(MouseEvent evt){
+	TableItem items[] = tableUsers.getSelection();
+	if(items.length>0){
+	new AdmUIUserUpdateDialog(this.getShell(),SWT.NULL,(TurqUser)items[0].getData()).open();	
+	
+	
+	}
+		
+		
+	
+	
 	}
 
 }

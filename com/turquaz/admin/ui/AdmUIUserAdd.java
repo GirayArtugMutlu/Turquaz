@@ -134,7 +134,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 				lblPassWord.setText("Password");
 			}
 			{
-				txtPassword = new Text(this, SWT.NONE);
+				txtPassword = new Text(this, SWT.PASSWORD);
 				GridData txtPasswordLData = new GridData();
 				txtPasswordLData.heightHint = 18;
 				txtPasswordLData.horizontalAlignment = GridData.FILL;
@@ -149,7 +149,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 				lblReTypePassword.setLayoutData(lblReTypePasswordLData);
 			}
 			{
-				txtRePassword = new Text(this, SWT.NONE);
+				txtRePassword = new Text(this, SWT.PASSWORD);
 				GridData txtRePasswordLData = new GridData();
 				txtRePasswordLData.heightHint = 18;
 				txtRePasswordLData.horizontalAlignment = GridData.FILL;
@@ -300,4 +300,76 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 		
 	}
 
+	/**
+	 * @return Returns the registeredGroups.
+	 */
+	public RegisterGroupComposite getRegisteredGroups() {
+		return registeredGroups;
+	}
+	/**
+	 * @param registeredGroups The registeredGroups to set.
+	 */
+	public void setRegisteredGroups(RegisterGroupComposite registeredGroups) {
+		this.registeredGroups = registeredGroups;
+	}
+	/**
+	 * @return Returns the txtDescription.
+	 */
+	public Text getTxtDescription() {
+		return txtDescription;
+	}
+	/**
+	 * @param txtDescription The txtDescription to set.
+	 */
+	public void setTxtDescription(Text txtDescription) {
+		this.txtDescription = txtDescription;
+	}
+	/**
+	 * @return Returns the txtPassword.
+	 */
+	public Text getTxtPassword() {
+		return txtPassword;
+	}
+	/**
+	 * @param txtPassword The txtPassword to set.
+	 */
+	public void setTxtPassword(Text txtPassword) {
+		this.txtPassword = txtPassword;
+	}
+	/**
+	 * @return Returns the txtRealName.
+	 */
+	public Text getTxtRealName() {
+		return txtRealName;
+	}
+	/**
+	 * @param txtRealName The txtRealName to set.
+	 */
+	public void setTxtRealName(Text txtRealName) {
+		this.txtRealName = txtRealName;
+	}
+	/**
+	 * @return Returns the txtRePassword.
+	 */
+	public Text getTxtRePassword() {
+		return txtRePassword;
+	}
+	/**
+	 * @param txtRePassword The txtRePassword to set.
+	 */
+	public void setTxtRePassword(Text txtRePassword) {
+		this.txtRePassword = txtRePassword;
+	}
+	/**
+	 * @return Returns the txtUsername.
+	 */
+	public Text getTxtUsername() {
+		return txtUsername;
+	}
+	/**
+	 * @param txtUsername The txtUsername to set.
+	 */
+	public void setTxtUsername(Text txtUsername) {
+		this.txtUsername = txtUsername;
+	}
 }
