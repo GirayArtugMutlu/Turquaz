@@ -48,6 +48,7 @@ import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.cash.ui.comp.CashCardPicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.widgets.Table;
@@ -82,7 +83,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	private DatePicker datePickerEnd;
 	private DatePicker datePickerStart;
 	private CLabel lblStartDate;
-	private Text txtCashCard;
+	private CashCardPicker txtCashCard;
 	private Table tableCashTransactions;
 	CashBLCashTransactionSearch blSearch = new CashBLCashTransactionSearch();
 	private Calendar cal=Calendar.getInstance();
@@ -117,25 +118,11 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
                     lblCashCard.setLayoutData(lblCashCardLData);
                 }
                 {
-                    txtCashCard = new Text(compSearchPanel, SWT.NONE);
+                    txtCashCard = new CashCardPicker(compSearchPanel, SWT.NONE);
                     GridData txtCashCardLData = new GridData();
-                    txtCashCardLData.widthHint = 118;
-                    txtCashCardLData.heightHint = 16;
+                    txtCashCardLData.widthHint = 144;
+                    txtCashCardLData.heightHint = 17;
                     txtCashCard.setLayoutData(txtCashCardLData);
-                    txtCashCard
-    				.addModifyListener(new ModifyListener() {
-    				public void modifyText(ModifyEvent evt) {
-    					try {
-    						txtCashCard
-    							.setData(EngBLCashCards
-    								.getCard(txtCashCard
-    									.getText().trim()));
-    					} catch (Exception ex) {
-    						ex.printStackTrace();
-    					}
-
-    				}
-    				});
                 }
                 {
                     lblStartDate = new CLabel(compSearchPanel, SWT.NONE);
@@ -215,25 +202,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 		//datePickerStart.setDate(new Date(cal.getTime().getYear(),0,1));
 		cal.set(cal.get(Calendar.YEAR),0,1);
 		datePickerStart.setDate(cal.getTime());
-//		  content assistant
-		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(
-				txtCashCard);
-		final TurquazContentAssistant assistant = new TurquazContentAssistant(
-				adapter, EngBLCommon.CONTENT_ASSIST_CASH);
-		adapter.appendVerifyKeyListener(new VerifyKeyListener() {
-			public void verifyKey(VerifyEvent event) {
 
-				// Check for Ctrl+Spacebar
-				if (event.stateMask == SWT.CTRL && event.character == ' ') {
-
-					assistant.showPossibleCompletions();
-					event.doit = false;
-
-				}
-			}
-		});
-		
-	    
 	}
 	
 	
@@ -255,7 +224,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	           
 	            tableCashTransactions.removeAll();
 	            
-	          List list = blSearch.searchCashTransactions(null,datePickerStart.getDate(),datePickerEnd.getDate());	
+	          List list = blSearch.searchCashTransactions(txtCashCard.getTurqCashCard(),datePickerStart.getDate(),datePickerEnd.getDate());	
 	          
 	          Object[] row ;
 	          TableItem item;
