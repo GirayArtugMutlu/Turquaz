@@ -242,15 +242,29 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			txtBalanceDept.setBackground(txtTotalDeptbackground);
 	
 			GridData lblBalanceCreditLData = new GridData();
+			lblBalanceCreditLData.verticalAlignment = GridData.CENTER;
+			lblBalanceCreditLData.horizontalAlignment = GridData.BEGINNING;
 			lblBalanceCreditLData.widthHint = 86;
 			lblBalanceCreditLData.heightHint = 18;
+			lblBalanceCreditLData.horizontalIndent = 0;
+			lblBalanceCreditLData.horizontalSpan = 1;
+			lblBalanceCreditLData.verticalSpan = 1;
+			lblBalanceCreditLData.grabExcessHorizontalSpace = false;
+			lblBalanceCreditLData.grabExcessVerticalSpace = false;
 			lblBalanceCredit.setLayoutData(lblBalanceCreditLData);
 			lblBalanceCredit.setText("Balance Credit");
 			lblBalanceCredit.setSize(new org.eclipse.swt.graphics.Point(86,18));
 	
 			GridData txtBalanceCreditLData = new GridData();
+			txtBalanceCreditLData.verticalAlignment = GridData.CENTER;
+			txtBalanceCreditLData.horizontalAlignment = GridData.BEGINNING;
 			txtBalanceCreditLData.widthHint = 196;
 			txtBalanceCreditLData.heightHint = 16;
+			txtBalanceCreditLData.horizontalIndent = 0;
+			txtBalanceCreditLData.horizontalSpan = 1;
+			txtBalanceCreditLData.verticalSpan = 1;
+			txtBalanceCreditLData.grabExcessHorizontalSpace = false;
+			txtBalanceCreditLData.grabExcessVerticalSpace = false;
 			txtBalanceCredit.setLayoutData(txtBalanceCreditLData);
 			txtBalanceCredit.setDoubleClickEnabled(true);
 			txtBalanceCredit.setEditable(false);

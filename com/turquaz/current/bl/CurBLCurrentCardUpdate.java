@@ -54,13 +54,9 @@ public class CurBLCurrentCardUpdate {
 			currentCard.setCardsTaxNumber(cardTaxNumber);
 			currentCard.setTurqAccountingAccountByAccountingCodeIdCustomer(accCodeIdCustomer);
 			currentCard.setTurqAccountingAccountByAccountingCodeIdSupplier(accCodeIdSupplier);
-
-			TurqCompany company = new TurqCompany();
-			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
 			currentCard.setUpdatedBy(System.getProperty("user"));
 			currentCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 
-			currentCard.setTurqCompany(company);
 			currentUpdate.updateObject(currentCard);	
 		}
 		catch(Exception ex){

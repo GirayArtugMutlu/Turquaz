@@ -340,6 +340,7 @@
 					</Component>
 					<Component class="org.eclipse.swt.custom.CLabel" name="lblBalanceCredit" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
@@ -366,6 +367,7 @@
 					</Component>
 					<Component class="org.eclipse.swt.widgets.Text" name="txtBalanceCredit" style="0">
 						<Constraints>
+							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 								<Property name="verticalAlignment" type="int" value="2"/>
 								<Property name="horizontalAlignment" type="int" value="1"/>
