@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import com.turquaz.accounting.ui.AccUIAccountingPlan;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
+import com.turquaz.accounting.ui.AccUITransactionAdd;
 
 
 /**
@@ -32,6 +33,9 @@ public class AccUITree extends Tree {
 		item = new TreeItem(root,SWT.NULL);
 		item.setText("Accounting Plan");
 		item.setData(AccUIAccountingPlan.class.getName());
+		item = new TreeItem(root,SWT.NULL);
+		item.setText("Accounting Transaction Add");
+		item.setData(AccUITransactionAdd.class.getName());
 		
 		
 	}

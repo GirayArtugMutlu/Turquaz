@@ -29,13 +29,18 @@ import com.turquaz.admin.ui.AdmUIPermPanel;
  * @version $Id$
  */
 public class AdmUITree extends Tree {
+	private TreeItem root;
 	public AdmUITree(Composite comp, int style){
 		super(comp,style);
-		TreeItem root = new TreeItem(this,SWT.NULL);
+		root = new TreeItem(this,SWT.NULL);
 		root.setText("Administrator");
 		TreeItem item = new TreeItem(root,SWT.NULL);
 		item.setText("User Permissions");
 		item.setData(AdmUIPermPanel.class.getName());
 	}
+
+		
+		
+
 	
 }

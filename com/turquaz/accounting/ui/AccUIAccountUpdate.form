@@ -22,7 +22,7 @@
 		</Layout>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[509, 313]"/>
+				<Dimension value="[457, 262]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -45,7 +45,7 @@
 				</Events>
 				<Properties>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 5, 499, 38]"/>
+						<Rectangle value="[5, 5, 447, 38]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
@@ -113,8 +113,8 @@
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
-						<Property name="widthHint" type="int" value="459"/>
-						<Property name="heightHint" type="int" value="250"/>
+						<Property name="widthHint" type="int" value="430"/>
+						<Property name="heightHint" type="int" value="209"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
 						<Property name="verticalSpan" type="int" value="1"/>
@@ -126,10 +126,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[459, 250]"/>
+						<Dimension value="[430, 209]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 48, 459, 250]"/>
+						<Rectangle value="[5, 48, 430, 209]"/>
 					</Property>
 				</Properties>
 			</Component>

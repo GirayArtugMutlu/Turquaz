@@ -63,7 +63,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			toolDelete = new ToolItem(toolBar1,SWT.NULL);
 			compAccountCard = new AccUIAddAccounts(dialogShell,SWT.NULL);
 	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(509,313));
+			dialogShell.setSize(new org.eclipse.swt.graphics.Point(457,262));
 	
 			GridData coolBar1LData = new GridData();
 			coolBar1LData.verticalAlignment = GridData.CENTER;
@@ -103,15 +103,15 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			GridData compAccountCardLData = new GridData();
 			compAccountCardLData.verticalAlignment = GridData.CENTER;
 			compAccountCardLData.horizontalAlignment = GridData.BEGINNING;
-			compAccountCardLData.widthHint = 459;
-			compAccountCardLData.heightHint = 250;
+			compAccountCardLData.widthHint = 430;
+			compAccountCardLData.heightHint = 209;
 			compAccountCardLData.horizontalIndent = 0;
 			compAccountCardLData.horizontalSpan = 1;
 			compAccountCardLData.verticalSpan = 1;
 			compAccountCardLData.grabExcessHorizontalSpace = false;
 			compAccountCardLData.grabExcessVerticalSpace = false;
 			compAccountCard.setLayoutData(compAccountCardLData);
-			compAccountCard.setSize(new org.eclipse.swt.graphics.Point(459,250));
+			compAccountCard.setSize(new org.eclipse.swt.graphics.Point(430,209));
 			compAccountCard.layout();
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
@@ -127,7 +127,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 					toolDeleteimage.dispose();
 				}
 			});
-			Rectangle bounds = dialogShell.computeTrim(0, 0, 509,313);
+			Rectangle bounds = dialogShell.computeTrim(0, 0, 457,262);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
 			dialogShell.open();

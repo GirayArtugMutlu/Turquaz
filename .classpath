@@ -22,5 +22,6 @@
 	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.core.boot_3.0.0/boot.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.core.runtime_3.0.0/runtime.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/plugins/org.eclipse.osgi_3.0.0/osgi.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/swtcalendar.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
