@@ -21,6 +21,7 @@
  */
 package com.turquaz.engine.ui.component;
 
+import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -154,6 +155,13 @@ decimalSymbol + "][0-9]+)?");
  }
  public boolean getEditable(){
  	return text.getEditable();
+ }
+ 
+ public BigDecimal getBigDecimalValue(){
+ 	String text = this.text.getText();
+ 	return new BigDecimal(text);
+ 	
+ 	
  }
 
  public Point computeSize(int wHint, int hHint,boolean arg) {

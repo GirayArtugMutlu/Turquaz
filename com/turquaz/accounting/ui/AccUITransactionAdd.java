@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Label;
+import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.SWT;
 
 
@@ -46,6 +47,7 @@ import org.eclipse.swt.SWT;
 */
 public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
 
+	private AccountPicker accountPicker1;
 	private CLabel lblTotalDeptAmount;
 	private CLabel lblTotalCredit;
 	private CLabel cLabel2;
@@ -91,17 +93,47 @@ public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
 			cLabel2 = new CLabel(this,SWT.NULL);
 			cLabel1 = new CLabel(this,SWT.NULL);
 			lblTotalDeptAmount = new CLabel(this,SWT.NULL);
+			accountPicker1 = new AccountPicker(this,SWT.NULL);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(606,527));
 	
+			GridData lblDocumentNoLData = new GridData();
+			lblDocumentNoLData.verticalAlignment = GridData.CENTER;
+			lblDocumentNoLData.horizontalAlignment = GridData.BEGINNING;
+			lblDocumentNoLData.widthHint = -1;
+			lblDocumentNoLData.heightHint = -1;
+			lblDocumentNoLData.horizontalIndent = 0;
+			lblDocumentNoLData.horizontalSpan = 1;
+			lblDocumentNoLData.verticalSpan = 1;
+			lblDocumentNoLData.grabExcessHorizontalSpace = false;
+			lblDocumentNoLData.grabExcessVerticalSpace = false;
+			lblDocumentNo.setLayoutData(lblDocumentNoLData);
 			lblDocumentNo.setText("Document No");
 	
 			GridData txtDocumentNoLData = new GridData();
+			txtDocumentNoLData.verticalAlignment = GridData.CENTER;
+			txtDocumentNoLData.horizontalAlignment = GridData.BEGINNING;
 			txtDocumentNoLData.widthHint = 155;
 			txtDocumentNoLData.heightHint = 19;
+			txtDocumentNoLData.horizontalIndent = 0;
+			txtDocumentNoLData.horizontalSpan = 1;
+			txtDocumentNoLData.verticalSpan = 1;
+			txtDocumentNoLData.grabExcessHorizontalSpace = false;
+			txtDocumentNoLData.grabExcessVerticalSpace = false;
 			txtDocumentNo.setLayoutData(txtDocumentNoLData);
 			txtDocumentNo.setSize(new org.eclipse.swt.graphics.Point(155,19));
 	
+			GridData lblDateLData = new GridData();
+			lblDateLData.verticalAlignment = GridData.CENTER;
+			lblDateLData.horizontalAlignment = GridData.BEGINNING;
+			lblDateLData.widthHint = -1;
+			lblDateLData.heightHint = -1;
+			lblDateLData.horizontalIndent = 0;
+			lblDateLData.horizontalSpan = 1;
+			lblDateLData.verticalSpan = 1;
+			lblDateLData.grabExcessHorizontalSpace = false;
+			lblDateLData.grabExcessVerticalSpace = false;
+			lblDate.setLayoutData(lblDateLData);
 			lblDate.setText("Date");
 	
 			GridData dateTransactionDateLData = new GridData();
@@ -184,7 +216,7 @@ public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
 			tableTransactionColumns.setLayoutData(tableTransactionColumnsLData);
 			tableTransactionColumns.setHeaderVisible(true);
 			tableTransactionColumns.setLinesVisible(true);
-			tableTransactionColumns.setSize(new org.eclipse.swt.graphics.Point(501,393));
+			tableTransactionColumns.setSize(new org.eclipse.swt.graphics.Point(468,361));
 	
 			tableColumnAccoutCode.setText("Account Code");
 			tableColumnAccoutCode.setWidth(121);
@@ -239,7 +271,20 @@ public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
 			cLabel1.setText("Total Debit");
 			cLabel1.setSize(new org.eclipse.swt.graphics.Point(58,19));
 	
+			GridData lblTotalDeptAmountLData = new GridData();
+			lblTotalDeptAmountLData.verticalAlignment = GridData.CENTER;
+			lblTotalDeptAmountLData.horizontalAlignment = GridData.BEGINNING;
+			lblTotalDeptAmountLData.widthHint = -1;
+			lblTotalDeptAmountLData.heightHint = -1;
+			lblTotalDeptAmountLData.horizontalIndent = 0;
+			lblTotalDeptAmountLData.horizontalSpan = 1;
+			lblTotalDeptAmountLData.verticalSpan = 1;
+			lblTotalDeptAmountLData.grabExcessHorizontalSpace = false;
+			lblTotalDeptAmountLData.grabExcessVerticalSpace = false;
+			lblTotalDeptAmount.setLayoutData(lblTotalDeptAmountLData);
 			lblTotalDeptAmount.setText("0");
+	
+			accountPicker1.layout();
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;

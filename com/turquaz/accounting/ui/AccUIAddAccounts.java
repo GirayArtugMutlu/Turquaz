@@ -46,6 +46,14 @@ import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a
+* for-profit company or business) then you should purchase
+* a license - please visit www.cloudgarden.com for details.
+*/
 public class AccUIAddAccounts extends SecureComposite{
 
 	/**
@@ -93,7 +101,7 @@ public class AccUIAddAccounts extends SecureComposite{
 			cLabel2 = new CLabel(this,SWT.NULL);
 			txtParentAccount = new TextWithButton(this,SWT.NULL);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(411,183));
+			this.setSize(new org.eclipse.swt.graphics.Point(435,204));
 	
 			GridData label1LData = new GridData();
 			label1LData.verticalAlignment = GridData.CENTER;
@@ -302,7 +310,7 @@ public class AccUIAddAccounts extends SecureComposite{
 			Shell shell = new Shell(display);
 			AccUIAddAccounts inst = new AccUIAddAccounts(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0,0,411,183);
+			Rectangle shellBounds = shell.computeTrim(0,0,435,204);
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.open();
 			while (!shell.isDisposed()) {
