@@ -420,7 +420,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					lblAccVat = new CLabel(compInvCardDetails, SWT.RIGHT);
-					lblAccVat.setText("Alis K.D.V Muh. Kodu");
+					lblAccVat.setText(Messages.getString("InvUICardAdd.12")); //$NON-NLS-1$
 					GridData lblAccVatLData = new GridData();
 					lblAccVatLData.widthHint = 138;
 					lblAccVatLData.heightHint = 19;
@@ -437,7 +437,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					lblAccSpecVAT = new CLabel(compInvCardDetails, SWT.RIGHT);
-					lblAccSpecVAT.setText("Alis ÖTV Muh. Kodu");
+					lblAccSpecVAT.setText(Messages.getString("InvUICardAdd.39")); //$NON-NLS-1$
 					GridData lblAccSpecVATLData = new GridData();
 					lblAccSpecVATLData.widthHint = 131;
 					lblAccSpecVATLData.heightHint = 16;
@@ -454,7 +454,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					cLabel1 = new CLabel(compInvCardDetails, SWT.RIGHT);
-					cLabel1.setText("Satis K.D.V Muh. Kodu");
+					cLabel1.setText(Messages.getString("InvUICardAdd.40")); //$NON-NLS-1$
 					GridData cLabel1LData = new GridData();
 					cLabel1LData.widthHint = 142;
 					cLabel1LData.heightHint = 19;
@@ -471,7 +471,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					cLabel2 = new CLabel(compInvCardDetails, SWT.RIGHT);
-					cLabel2.setText("Satis ÖTV Muh. Kodu");
+					cLabel2.setText(Messages.getString("InvUICardAdd.42")); //$NON-NLS-1$
 					GridData cLabel2LData = new GridData();
 					cLabel2LData.widthHint = 131;
 					cLabel2LData.heightHint = 16;
@@ -1609,6 +1609,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		if (txtInvCardCode.getText().trim().equals("")) { 		 //$NON-NLS-1$
 			msg.setMessage(Messages.getString("InvUICardAdd.43"));  //$NON-NLS-1$
 			msg.open();
+			tabfldInvCardAdd.setSelection(tabInvCardGeneral);
 			txtInvCardCode.setFocus();
 			return false;
 		}
@@ -1616,12 +1617,14 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		{
 			msg.setMessage(Messages.getString("InvUICardAdd.2")); //$NON-NLS-1$
 			msg.open();
+			tabfldInvCardAdd.setSelection(tabInvCardGeneral);
 			txtInvCardCode.setFocus();
 			return false;			
 		}
 		else if (txtInvCardName.getText().trim().equals("")) { 		 //$NON-NLS-1$
 			msg.setMessage(Messages.getString("InvUICardAdd.41"));  //$NON-NLS-1$
 			msg.open();
+			tabfldInvCardAdd.setSelection(tabInvCardGeneral);
 			txtInvCardName.setFocus();
 			return false;
 		}
@@ -1637,6 +1640,34 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			msg.open();
 			tabfldInvCardAdd.setSelection(tabInvCardDetails);
 			txtInvCardOutAcc.setFocus();
+			return false;
+		}
+		else if (accountPickerVAT.getData()==null) { 		
+			msg.setMessage(Messages.getString("InvUICardAdd.48"));   //$NON-NLS-1$
+			msg.open();
+			tabfldInvCardAdd.setSelection(tabInvCardDetails);
+			accountPickerVAT.setFocus();
+			return false;
+		}
+		else if (accountPickerVATSell.getData()==null) { 		
+			msg.setMessage(Messages.getString("InvUICardAdd.49"));   //$NON-NLS-1$
+			msg.open();
+			tabfldInvCardAdd.setSelection(tabInvCardDetails);
+			accountPickerVATSell.setFocus();
+			return false;
+		}
+		else if (accountPickerSpecVAT.getData()==null) { 		
+			msg.setMessage(Messages.getString("InvUICardAdd.50"));   //$NON-NLS-1$
+			msg.open();
+			tabfldInvCardAdd.setSelection(tabInvCardDetails);
+			accountPickerSpecVAT.setFocus();
+			return false;
+		}
+		else if (accountPickerSpecVatSell.getData()==null) { 		
+			msg.setMessage(Messages.getString("InvUICardAdd.51"));   //$NON-NLS-1$
+			msg.open();
+			tabfldInvCardAdd.setSelection(tabInvCardDetails);
+			accountPickerSpecVatSell.setFocus();
 			return false;
 		}
 		else if (comboInvCardUnits.getData(comboInvCardUnits.getText())==null){

@@ -156,9 +156,9 @@ public class BillBLAddBill {
 			
 			transRow.setCreditAmount(new BigDecimal(0));
 			
-			//mal bedeli + ÖTV
+			//mal bedeli
 			transRow.setDeptAmount(invTrans.getTransactionsTotalPrice().add(invTrans.getTransactionsVatSpecialAmount()));
-			System.out.println(invTrans.getTransactionsTotalPrice());
+			
 			
 			
 			// set Transaction Row Definition
@@ -177,7 +177,6 @@ public class BillBLAddBill {
 			 */
 			transRow = new TurqAccountingTransactionColumn();
 			
-			//191 olarak degistir...
 			transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdVat());
 			transRow.setTurqAccountingTransaction(accTrans);
 			
@@ -185,7 +184,7 @@ public class BillBLAddBill {
 			transRow.setDeptAmount(common.getVatAmount());
 			
 //			 set Transaction Row Definition
-			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			transRow.setTransactionDefinition("Fat."+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
 			
 			transRow.setCreatedBy(System.getProperty("user"));
 			transRow.setUpdatedBy(System.getProperty("user"));
@@ -194,10 +193,29 @@ public class BillBLAddBill {
 			
 			dalBill.save(transRow);
 			
+			/**
+			 * OTV Hesabini gir. 
+			 */
+			transRow = new TurqAccountingTransactionColumn();
 			
+		
+			transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdSpecialVat());
+			transRow.setTurqAccountingTransaction(accTrans);
+			
+			transRow.setCreditAmount(new BigDecimal(0));
+			transRow.setDeptAmount(common.getSpecialVatAmount());
+			
+//			 set Transaction Row Definition
+			transRow.setTransactionDefinition("Fat."+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			transRow.setCreatedBy(System.getProperty("user"));
+			transRow.setUpdatedBy(System.getProperty("user"));
+			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			
+			dalBill.save(transRow);
+						
 			
 	        }
-			
 			
 		
 			
