@@ -121,7 +121,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 				msg.open();
 			}
 			Map parameters = new HashMap();
-			parameters.put("ReportTitle", "GENEL GEÇÝCÝ MÝZAN"); //$NON-NLS-1$ //$NON-NLS-2$
+			//parameters.put("ReportTitle", "GENEL GEÇÝCÝ MÝZAN"); //$NON-NLS-1$ //$NON-NLS-2$
 			TurqCompany company = new TurqCompany();
 			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
 			String sqlparam="Select mytab.deptsum,mytab.creditsum,mytab.top_account,accs.account_name,accs.account_code," +
