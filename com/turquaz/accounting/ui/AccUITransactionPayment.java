@@ -44,6 +44,7 @@ import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
 
@@ -470,6 +471,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	public void search(){
 	}
 	public void newForm(){
+		EngUIMainFrame.newForm();
 	}
 	public void delete(){
 	}

@@ -14,6 +14,7 @@ import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -255,6 +256,7 @@ public class AccUIInitialTransaction extends org.eclipse.swt.widgets.Composite i
 	    
 	}
 	public void newForm(){
+	    EngUIMainFrame.newForm();
 	    
 	}
 

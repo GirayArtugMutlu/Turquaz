@@ -34,6 +34,7 @@ import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.custom.CCombo;
 
@@ -302,6 +303,7 @@ private boolean verifyfields()
 	}
 	
 	public void newForm(){
+		EngUIMainFrame.newForm();
 	}
 	
 	public void delete(){

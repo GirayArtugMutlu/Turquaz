@@ -38,6 +38,7 @@ import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentGroup;
+import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -1477,6 +1478,7 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	public void delete(){
 	}
 	public void newForm(){
+		EngUIMainFrame.newForm();
 	}
 	
 	

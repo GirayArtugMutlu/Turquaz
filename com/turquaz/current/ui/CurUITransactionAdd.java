@@ -45,6 +45,7 @@ import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Text;
@@ -386,10 +387,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 	
 	public void newForm(){
 		
-		 CurUITransactionAdd cardAdd = new CurUITransactionAdd(this.getParent(),this.getStyle());
-		 CTabFolder tabfld = (CTabFolder)this.getParent();
-		 tabfld.getSelection().setControl(cardAdd);	 
-		 this.dispose();
+		EngUIMainFrame.newForm();
 		
 	
 	}

@@ -55,6 +55,7 @@ import com.turquaz.admin.bl.AdmBLGroups;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqGroup;
 
+import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements SecureComposite,SearchComposite {
@@ -110,6 +111,7 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 		
 	}
 	public void newForm(){
+		EngUIMainFrame.newForm();
 		
 	}
 	public void search(){

@@ -31,6 +31,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.SWT;
+
+import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseAdd;
@@ -363,6 +365,8 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 	
 	}
 	public void newForm(){
+		EngUIMainFrame.newForm();
+	    
 	}
 	public void search(){
 	}

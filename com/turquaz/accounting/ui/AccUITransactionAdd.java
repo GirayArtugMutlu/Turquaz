@@ -27,6 +27,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.layout.GridData;
@@ -491,7 +492,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	}
 	
 	public void newForm(){
-	
+	EngUIMainFrame.newForm();
 	}
 	
 	public void search(){

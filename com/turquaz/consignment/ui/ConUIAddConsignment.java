@@ -41,6 +41,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.VerifyEvent;
 
+import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -1022,12 +1023,8 @@ implements SecureComposite{
 		
 	}
 	public void newForm(){
-		 ConUIAddConsignment cardAdd = new ConUIAddConsignment(this.getParent(),this.getStyle());
-		 CTabFolder tabfld = (CTabFolder)this.getParent();
-		 tabfld.getSelection().setControl(cardAdd);	 
-		 this.dispose();
-		
-		
+	    EngUIMainFrame.newForm();
+			
 	}
 	
 	public void calculateTotals(){
