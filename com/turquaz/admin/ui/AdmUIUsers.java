@@ -185,7 +185,7 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 	TableItem items[] = tableUsers.getSelection();
 	if(items.length>0){
 	new AdmUIUserUpdateDialog(this.getShell(),SWT.NULL,(TurqUser)items[0].getData()).open();	
-	
+	fillTable();
 	
 	}
 		

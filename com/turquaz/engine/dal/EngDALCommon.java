@@ -121,7 +121,7 @@ public class EngDALCommon {
 				
 			TurqUser invCard = (TurqUser)list.get(i);
 			Hibernate.initialize(invCard.getTurqUserGroups());
-		
+		    Hibernate.initialize(invCard.getTurqUserPermissions());
 			
 			}
 			tx.commit();

@@ -66,5 +66,17 @@ public class AdmBLUserUpdate {
 	}
 	
 	}
+	public void deleteObject(Object obj)throws Exception{
+		try{
+		
+			dalAdmin.deleteObject(obj);
+			
+				
+		}
+		catch(Exception ex){
+				throw ex;
+		}
+		
+		}
 
 }

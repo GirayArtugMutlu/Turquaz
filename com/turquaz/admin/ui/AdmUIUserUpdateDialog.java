@@ -47,10 +47,12 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
+import com.turquaz.admin.bl.AdmBLUserUpdate;
 import com.turquaz.admin.ui.AdmUIUserAdd;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.dal.TurqUserGroup;
 
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.CoolItem;
@@ -58,6 +60,8 @@ import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
 
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -73,6 +77,7 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	private CoolBar coolBar1;
 	private AdmUIUserAdd compUserAdd;
 	private org.eclipse.swt.widgets.Shell dialogShell;
+	private AdmBLUserUpdate blUserUpdate = new AdmBLUserUpdate();
 
 	public AdmUIUserUpdateDialog(Shell parent, int style,TurqUser user) {
 		super(parent, style);
@@ -85,7 +90,7 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			GridLayout thisLayout = new GridLayout();
 			GridLayout dialogShellLayout = new GridLayout();
 			dialogShell.setLayout(dialogShellLayout);
-			dialogShell.setSize(471, 360);
+			dialogShell.setSize(472, 376);
 			{
 				coolBar1 = new CoolBar(dialogShell, SWT.NONE);
 				GridData coolBar1LData = new GridData();
@@ -104,6 +109,12 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 							toolUpdate = new ToolItem(toolBar1, SWT.NONE);
 							toolUpdate.setText("Update");
 							toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+							toolUpdate
+								.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									update();
+								}
+								});
 						}
 						{
 							toolDelete = new ToolItem(toolBar1, SWT.NONE);
@@ -136,6 +147,7 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 		compUserAdd.getTxtRealName().setText(user.getUsersRealName());
 		compUserAdd.getTxtDescription().setText(user.getUsersDescription());
 		
+		compUserAdd.getTxtUsername().setEditable(false);
 		Iterator it = user.getTurqUserGroups().iterator();
 		while(it.hasNext()){
 			TurqUserGroup userGroup = (TurqUserGroup)it.next();
@@ -144,6 +156,64 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 		}
 	
 	}
+	public void update(){
+		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+		
+		try{
+		if(compUserAdd.verifyFields()){
+		
+			blUserUpdate.updateUser(compUserAdd.getTxtPassword().getText(),compUserAdd.getTxtRealName().getText(),
+									compUserAdd.getTxtDescription().getText(),user);	
+			
+			
+			Iterator it = user.getTurqUserGroups().iterator();
+			while(it.hasNext()){
+			blUserUpdate.deleteObject(it.next());
+		    }
+			compUserAdd.saveUserGroups(user.getUsersId());
+			msg.setMessage("Succesfully Updated!..");
+			msg.open();
+			dialogShell.close();
+		}
+				
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+			msg.setMessage(ex.getMessage());
+			msg.open();
+		}
+		
+		
+	}
+	public void delete(){
+		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+		MessageBox msg2 = new MessageBox(this.getParent(),SWT.OK|SWT.CANCEL);
+		msg2.setMessage("Really Delete?");
+		try{
+			if(msg2.open()==SWT.OK){
+			Iterator it = user.getTurqUserGroups().iterator();
+			while(it.hasNext()){
+			blUserUpdate.deleteObject(it.next());
+		    }
+			 it = user.getTurqUserPermissions().iterator();
+			while(it.hasNext()){
+			blUserUpdate.deleteObject(it.next());
+		    }
+			blUserUpdate.deleteObject(user);
+			msg.setMessage("Deleted Succesfully?");
+			msg.open();
+			
+			this.dialogShell.close();
+			}
+			
+		}
+		catch(Exception ex){
+			msg.setMessage(ex.getMessage());
+			msg.open();
+		}
+	}
+	
+	
 	public void open(){
 		try{
 			

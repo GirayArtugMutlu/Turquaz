@@ -102,27 +102,39 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 		try {
 			GridLayout thisLayout = new GridLayout();
 			thisLayout.numColumns = 2;
+			thisLayout.verticalSpacing = 20;
+			thisLayout.marginHeight = 20;
 			this.setLayout(thisLayout);
-			this.setSize(250, 181);
+			this.setSize(438, 167);
 			{
 				lblAdmGroupName = new CLabel(this, SWT.NONE);
 				lblAdmGroupName.setText("Group Name");
+				GridData lblAdmGroupNameLData = new GridData();
+				lblAdmGroupNameLData.widthHint = 65;
+				lblAdmGroupNameLData.heightHint = 19;
+				lblAdmGroupName.setLayoutData(lblAdmGroupNameLData);
 			}
 			{
 				txtAdmGroupName = new Text(this, SWT.NONE);
+				GridData txtAdmGroupNameLData = new GridData();
+				txtAdmGroupNameLData.heightHint = 18;
+				txtAdmGroupNameLData.horizontalAlignment = GridData.FILL;
+				txtAdmGroupName.setLayoutData(txtAdmGroupNameLData);
 			}
 			{
 				lblAdmGroupDesc = new CLabel(this, SWT.NONE);
 				lblAdmGroupDesc.setText("Group Description");
 				GridData lblAdmGroupDescLData = new GridData();
 				lblAdmGroupDescLData.verticalAlignment = GridData.BEGINNING;
+				lblAdmGroupDescLData.widthHint = 91;
+				lblAdmGroupDescLData.heightHint = 19;
 				lblAdmGroupDesc.setLayoutData(lblAdmGroupDescLData);
 			}
 			{
 				txtAdmGroupDesc = new Text(this, SWT.MULTI | SWT.V_SCROLL);
 				GridData txtAdmGroupDescLData = new GridData();
-				txtAdmGroupDescLData.widthHint = 98;
-				txtAdmGroupDescLData.heightHint = 44;
+				txtAdmGroupDescLData.widthHint = 239;
+				txtAdmGroupDescLData.heightHint = 55;
 				txtAdmGroupDesc.setLayoutData(txtAdmGroupDescLData);
 			}
 			this.layout();
@@ -145,14 +157,19 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 	
 	public void save() {
 		
+		MessageBox messageBox = new MessageBox(this.getShell(),SWT.NULL);
 		if (verifyFields()){
 			try{
 				blGroupAdd.saveGroup(txtAdmGroupName.getText().trim(),txtAdmGroupDesc.getText().trim());
+				messageBox.setMessage("Succesfully saved");
+				messageBox.open();
 				newForm();
 				
 			}
 			catch (Exception ex) {
 				ex.printStackTrace();
+				messageBox.setMessage(ex.getMessage());
+				messageBox.open();
 				
 			}
 				
