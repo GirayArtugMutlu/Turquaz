@@ -22,9 +22,7 @@ package com.turquaz.engine.ui;
 */
 
 import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.nio.charset.Charset;
+import java.io.OutputStream; 
 import java.util.Iterator;
 import java.util.Map;
 
@@ -1214,7 +1212,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
           
           TreeItem items[] = treeFavorites.getItems();
           
-         Element root = new Element("tree");        
+          Element root = new Element("tree");        
          
       
          Element treeItem;
