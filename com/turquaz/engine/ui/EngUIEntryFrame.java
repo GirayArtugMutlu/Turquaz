@@ -139,16 +139,18 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	private void initGUI() {
 		try {
 			
-			String database = EngConfiguration.getString("username"); //$NON-NLS-1$
+			   preInitGui();
+			   
+			String database = EngConfiguration.getString("serverAddress"); //$NON-NLS-1$
 			database = database.trim();
 			
-			if (database == "" || database =="localhost" || database == "127.0.0.1")
+			if (database.equals("") || database.equals("localhost") || database.equals("127.0.0.1"))
 			{
 		    DatabaseThread dbThread = new DatabaseThread();
 		    dbThread.start();
 			}
 		    
-		    preInitGui();
+		 
 			GridLayout thisLayout = new GridLayout();
 			this.addKeyListener(new KeyAdapter() {
 				public void keyReleased(KeyEvent evt) {
