@@ -41,5 +41,7 @@
 	<classpathentry kind="lib" path="lib/swtcalendar.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
 	<classpathentry kind="lib" path="lib/windows/swt.jar"/>
+	<classpathentry kind="lib" path="lib/jfacetext.jar"/>
+	<classpathentry kind="lib" path="lib/text.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
