@@ -49,7 +49,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Table;
-import com.turquaz.accounting.ui.comp.DynamicAccountPicker;
 import org.eclipse.swt.widgets.Composite;
 
 
