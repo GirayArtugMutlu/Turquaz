@@ -195,6 +195,7 @@ public class CurrencyText extends Composite {
     Pattern realNumberPattern = Pattern.compile("-?[0-9]+[0-9]*([" +decimalSymbol + "][0-9]{0,"+numberOfDecimal+"})?");
     Matcher matcher = realNumberPattern.matcher(newText);
     boolean valid = matcher.matches();
+  
     
 
     if (valid){

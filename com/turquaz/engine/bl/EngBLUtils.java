@@ -25,6 +25,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -93,10 +96,11 @@ public class EngBLUtils {
 	public static void Export2Excel(Table table){
 		 try{
 			
+		 	TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			FileDialog dialog = new FileDialog (table.getShell(), SWT.SAVE);
 			dialog.setFilterNames (new String [] {"Excel File", "(*.xls)"}); //$NON-NLS-1$ //$NON-NLS-2$
 			dialog.setFilterExtensions (new String [] {"*.xls"}); //Windows wild cards //$NON-NLS-1$
-			dialog.setFileName ("excel_cikti"); //$NON-NLS-1$
+			dialog.setFileName ("Rapor"); //$NON-NLS-1$
 
 			String filepath = dialog.open();
 			
@@ -140,8 +144,31 @@ public class EngBLUtils {
 			       
 			        // set the cell's string value
 		            c.setEncoding( HSSFCell.ENCODING_UTF_16 );
-			             
-			        c.setCellValue(cell_value);
+		            
+		            Pattern alphabet = Pattern.compile("[A-Za-z]+");
+		            Matcher matcher = alphabet.matcher(cell_value);
+		            
+		            if(matcher.find())
+		            {
+		            	 c.setCellValue(cell_value);
+		            	
+		
+		            }
+		            else{
+		            try{
+		            	
+		            	            	
+		               double dc =(cf.parse(cell_value)).doubleValue();
+		            	c.setCellType(HSSFCell.CELL_TYPE_NUMERIC); 
+		            	c.setCellValue(dc);
+		            	
+		            }
+		            catch(Exception ex){
+		            	 c.setCellValue(cell_value);
+		            }
+		            }
+		         
+			       
 
 			        
 			    }
