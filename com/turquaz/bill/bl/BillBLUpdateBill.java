@@ -38,7 +38,7 @@ public class BillBLUpdateBill {
 	public void deleteAccountingTransactions(TurqBill bill)throws Exception{
 	    try{
 	        
-	       dalBill.deleteCurrentTransactions(bill.getTurqEngineSequence().getEngineSequencesId().intValue()); 
+	       dalBill.deleteAccountingTransactions(bill.getTurqEngineSequence().getEngineSequencesId().intValue()); 
 	        
 	    }
 	    catch(Exception ex){
@@ -48,7 +48,7 @@ public class BillBLUpdateBill {
 	
 	
 	public void updateBill(TurqBill bill,String docNo, String definition, boolean isPrinted,
-			Date billDate, TurqCurrentCard curCard, int discountRate,
+			boolean isOpen, Date billDate, TurqCurrentCard curCard, int discountRate,
 			BigDecimal discountAmount,
 			BigDecimal vatAmount, BigDecimal specialVatAmount,
 			BigDecimal totalAmount, int type) throws Exception {
@@ -59,7 +59,7 @@ public class BillBLUpdateBill {
 			bill.setBillsPrinted(isPrinted);
 		
 			bill.setBillsType(type);
-
+            bill.setIsOpen(isOpen);
 			
 			bill.setUpdatedBy(System.getProperty("user"));
 			bill.setLastModified(new java.sql.Date(cal.getTime().getTime()));
@@ -88,6 +88,7 @@ public class BillBLUpdateBill {
 			
 			deleteAccountingTransactions(bill);
 			deleteCurrentTransactions(bill);
+			
 			blAddBill.saveCurrentTransaction(bill);
 			blAddBill.saveAccountingTransaction(bill);
 			

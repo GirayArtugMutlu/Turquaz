@@ -21,7 +21,7 @@ public class ConBLUpdateConsignment {
 	public ConBLUpdateConsignment(){
 		
 	}
-	
+
 	public void updateConsignment(TurqConsignment consignment,
 			   String docNo, String definition, Date consignmentDate,
 			   TurqCurrentCard curCard, int discountRate,BigDecimal discountAmount,

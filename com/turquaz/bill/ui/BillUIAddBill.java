@@ -847,10 +847,10 @@ implements SecureComposite{
 		HashMap groupMap = new HashMap(); 
 		
 		
-		TurqConsignmentGroup curGroup;
+		TurqBillGroup curGroup;
 		
 		for(int i=0; i<list.size();i++){
-		curGroup = (TurqConsignmentGroup)list.get(i);
+		curGroup = (TurqBillGroup)list.get(i);
 		groupMap.put(curGroup.getGroupsName(),curGroup);
 		}
 		
@@ -1097,4 +1097,6 @@ implements SecureComposite{
     public void setCheckIsOpen(Button checkIsOpen) {
         this.checkIsOpen = checkIsOpen;
     }
+    
+	
 }

@@ -4,18 +4,20 @@ package com.turquaz.bill.ui;
 import java.util.Iterator;
 
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLUpdateBill;
-import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqConsignment;
+import com.turquaz.engine.dal.TurqConsignmentsInGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 
-import net.sf.hibernate.Hibernate;
 
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.MessageBox;
@@ -91,21 +93,33 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
                 coolBar1.setLayoutData(coolBar1LData);
                 {
                     coolItem1 = new CoolItem(coolBar1, SWT.NONE);
-                    coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 45));
-                    coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 45));
-                    coolItem1.setSize(45, 45);
+                    coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 42));
+                    coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 42));
+                    coolItem1.setSize(45, 42);
                     {
                         toolBar1 = new ToolBar(coolBar1, SWT.NONE);
                         coolItem1.setControl(toolBar1);
                         {
                             toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-                            toolUpdate.setText("Güncelle");
-                            toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+                            toolUpdate.setText(Messages.getString("BillUIBillUpdateDialog.0")); //$NON-NLS-1$
+                            toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
+                            toolUpdate
+                                .addSelectionListener(new SelectionAdapter() {
+                                public void widgetSelected(SelectionEvent evt) {
+                                   update();
+                                }
+                                });
                         }
                         {
                             toolDelete = new ToolItem(toolBar1, SWT.NONE);
-                            toolDelete.setText("Sil");
-                            toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
+                            toolDelete.setText(Messages.getString("BillUIBillUpdateDialog.2")); //$NON-NLS-1$
+                            toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+                            toolDelete
+                                .addSelectionListener(new SelectionAdapter() {
+                                public void widgetSelected(SelectionEvent evt) {
+                                    delete();
+                                }
+                                });
                         }
                     }
                 }
@@ -145,20 +159,20 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			}
 			
 			compAddBill.getTxtCurrentCard().setData(bill.getTurqBillConsignmentCommon().getTurqCurrentCard());
-			compAddBill.getTxtCurrentCard().setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode()+Messages.getString("ConUIConsignmentUpdateDialog.4") + //$NON-NLS-1$
+			compAddBill.getTxtCurrentCard().setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode()+" - " +  //$NON-NLS-1$
 															bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName());
 			;
 			compAddBill.getTxtDocumentNo().setText(bill.getTurqBillConsignmentCommon().getBillDocumentNo());
 			compAddBill.getDateConsignmentDate().setDate(bill.getBillsDate());
 			compAddBill.getTxtConsignmentDocumentNo().setText(bill.getTurqBillConsignmentCommon().getConsignmentDocumentNo());
-		    compAddBill.getCheckIsOpen().setSelection(bill.isIsOpen());
+		    compAddBill.getCheckIsOpen().setSelection(!bill.isIsOpen());
 			
 			
 			if(bill.getBillsType()==0){
-			compAddBill.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.5")); //$NON-NLS-1$
+			compAddBill.getComboConsignmentType().setText(Messages.getString("BillUIBillUpdateDialog.5"));  //$NON-NLS-1$
 			}
 			else{
-		    compAddBill.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.6")); //$NON-NLS-1$
+		    compAddBill.getComboConsignmentType().setText(Messages.getString("BillUIBillUpdateDialog.6"));  //$NON-NLS-1$
 			}
 		
 			compAddBill.getTxtDefinition().setText(bill.getBillsDefinition());
@@ -180,6 +194,10 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	    
 	    
 	}
+	
+	
+
+	
 	public void fillInvTransactionColumns(){
 		
 	    TableItem item;
@@ -201,11 +219,11 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			item.setData(invTrans);
 			item.setText(new String[]{invTrans.getTurqInventoryCard().getCardInventoryCode(),
 									   invTrans.getTurqInventoryCard().getCardName(),
-									   invTrans.getTransactionsAmountIn()+"", //$NON-NLS-1$
+									   invTrans.getTransactionsAmountIn()+"",  //$NON-NLS-1$
 									   invTrans.getTurqInventoryUnit().getUnitsName(),
 									   invTrans.getTransactionsUnitPrice().toString(),
 									   invTrans.getTransactionsTotalPrice().toString(),
-									   invTrans.getTransactionsVat()+"", //$NON-NLS-1$
+									   invTrans.getTransactionsVat()+"",  //$NON-NLS-1$
 									   invTrans.getTransactionsVatAmount().toString(),
 									   invTrans.getTransactionsVatSpecialAmount().toString(),
 									   invTrans.getTransactionsCumilativePrice().toString()});
@@ -237,7 +255,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	try{
 	   if(compAddBill.verifyFields()){
 	       int type=0;
-			if(compAddBill.getComboConsignmentType().getText().equals("Sat??"))  //$NON-NLS-1$
+			if(compAddBill.getComboConsignmentType().getText().equals(Messages.getString("BillUIBillUpdateDialog.9")))   //$NON-NLS-1$
 			{
 				type =1;
 			}
@@ -269,13 +287,29 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			compAddBill.saveConsignmentRows(cons.getConsignmentsId());
 			
 			}
-			//update bill now...        
+		
+			updateGroups();
+			blUpdateBill.updateBill(bill,
+			        compAddBill.getTxtDocumentNo().getText(),
+			        compAddBill.getTxtDefinition().getText(),
+			        false,
+			        !compAddBill.getCheckIsOpen().getSelection(),
+			        compAddBill.getDateConsignmentDate().getDate(),
+					(TurqCurrentCard)compAddBill.getTxtCurrentCard().getData(),
+					compAddBill.getTxtDiscountRate().getIntValue(),
+					compAddBill.getTxtDiscountAmount().getBigDecimalValue(),
+					compAddBill.getTxtTotalVat().getBigDecimalValue(),
+					compAddBill.getDecSpecialVat().getBigDecimalValue(),
+					compAddBill.getTxtTotalAmount().getBigDecimalValue(),type				
+			        
+			        );
 	       
 	       
 	        
 	    
+			
 	    msg = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
-	    msg.setMessage("Ba?ar?yla Güncellendi!");
+	    msg.setMessage(Messages.getString("BillUIBillUpdateDialog.10")); //$NON-NLS-1$
 	    msg.open();
 	    this.dialogShell.close();
 	    
@@ -290,5 +324,67 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	    this.dialogShell.close();
 	}
  }
+	public void updateGroups()throws Exception{
+		try{
+		    Iterator it = bill.getTurqBillInGroups().iterator();
+		    
+		    while(it.hasNext()){
+		        blUpdateBill.deleteObject(it.next());
+		    }
+		    
+		    compAddBill.saveGroups(bill.getBillsId());
+		    
+		     
+		    
+		}
+		catch(Exception ex){
+		  throw ex;
+		    
+		}
+		
+		
+		}
+	public void delete(){
+		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+		MessageBox msg2 = new MessageBox(this.getParent(),SWT.CANCEL|SWT.OK);
+		msg2.setMessage(Messages.getString("BillUIBillUpdateDialog.3")); //$NON-NLS-1$
+		try{
+			if(msg2.open()==SWT.OK){
+				
+				//delete Consignment Group
+				Iterator it = bill.getTurqBillInGroups().iterator();
+				while(it.hasNext()){
+				    
+					blUpdateBill.deleteObject(it.next());
+										
+				}
+				
+				blUpdateBill.deleteAccountingTransactions(bill);
+				blUpdateBill.deleteCurrentTransactions(bill);
+
+				
+				blUpdateBill.deleteObject(bill);
+				
+				msg.setMessage(Messages.getString("BillUIBillUpdateDialog.1")); //$NON-NLS-1$
+				msg.open();
+				
+				dialogShell.close();			
+				
+				//delete consignment 
+				
+			}
+			
+			
+			
+		}
+		catch(Exception ex){
+			
+			ex.printStackTrace();
+			msg.setMessage(ex.getMessage());
+			msg.open();
+		}
+		
+	}
+	
 	
 }

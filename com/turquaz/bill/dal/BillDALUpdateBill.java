@@ -8,6 +8,8 @@ import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqAccountingTransaction;
+
 import com.turquaz.engine.dal.TurqBill;
 
 
@@ -73,13 +75,26 @@ public class BillDALUpdateBill {
 	public void deleteAccountingTransactions(int seq_id)throws Exception{
 		try{
 		    Session session = EngDALSessionFactory.openSession();
-			Iterator iter = session.iterate("from TurqAccountingTransaction as trans where " +
+		    Transaction tx = session.beginTransaction();
+		    
+		    Iterator iter = session.iterate("from TurqAccountingTransaction as trans where " +
 					" trans.turqEngineSequence.engineSequencesId ="+seq_id);
 		    
 			while(iter.hasNext()){
-			    session.delete(iter.next());
+			    TurqAccountingTransaction trans = (TurqAccountingTransaction)iter.next();
+			    Iterator it = trans.getTurqAccountingTransactionColumns().iterator();
+			    while(it.hasNext()){
+			        session.delete(it.next());
+			    }
+			    session.delete(trans);
+			    
+			
 			}
 			
+			
+			
+			session.flush();
+			tx.commit();
 			session.close();
 		    
 		    
@@ -93,15 +108,17 @@ public class BillDALUpdateBill {
 	public void deleteCurrentTransactions(int seq_id)throws Exception{
 	try{
 	    Session session = EngDALSessionFactory.openSession();
-		Iterator iter = session.iterate("from TurqCurrentTransaction as trans where " +
+	    Transaction tx = session.beginTransaction();
+	    
+	    Iterator iter = session.iterate("from TurqCurrentTransaction as trans where " +
 				" trans.turqEngineSequence.engineSequencesId ="+seq_id);
 	    
 		while(iter.hasNext()){
 		    session.delete(iter.next());
 		}
-		
-		session.close();
-	    
+		session.flush();
+		tx.commit();
+		session.close();	    
 	    
 	}
 	catch(Exception ex){

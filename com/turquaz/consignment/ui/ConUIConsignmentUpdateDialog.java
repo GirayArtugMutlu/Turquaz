@@ -184,8 +184,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		
 	
 	}
-	
-	
+
 	
 	public void fillInvTransactionColumns(){
 		TableItem item;
@@ -255,6 +254,28 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		
 	}
+	
+	public void updateGroups()throws Exception{
+	try{
+	    Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
+	    
+	    while(it.hasNext()){
+	        blCons.deleteObject(it.next());
+	    }
+	    
+	    compAddConsignment.saveGroups(consignment.getConsignmentsId());
+	    
+	     
+	    
+	}
+	catch(Exception ex){
+	  throw ex;
+	    
+	}
+	
+	
+	}
+	
 	public void update(){
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 		try{
@@ -280,6 +301,9 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		 if(compAddConsignment.getComboConsignmentType().getText().equals(Messages.getString("ConUIConsignmentUpdateDialog.11"))) //$NON-NLS-1$
                 type =1;
 		 	
+
+			updateGroups();
+			
 			blCons.updateConsignment(consignment,
 									compAddConsignment.getTxtDocumentNo().getText(),
 									compAddConsignment.getTxtDefinition().getText(),
@@ -292,6 +316,9 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 									compAddConsignment.getDecSpecialVat().getBigDecimalValue(),
 									compAddConsignment.getTxtTotalAmount().getBigDecimalValue(),
 									type);
+			
+			
+			
 			msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.12")); //$NON-NLS-1$
 			msg.open();
 			dialogShell.close();
