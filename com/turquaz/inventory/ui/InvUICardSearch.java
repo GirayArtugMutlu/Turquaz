@@ -79,10 +79,10 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnInventoryCode;
 	private Table tableSearcResults;
-	private CCombo comboInvGroup;
-	private CLabel lblInvGroup;
 	private Text txtInvCode;
 	private CLabel lblInvCode;
+	private CCombo comboInvGroup;
+	private CLabel lblInvGroup;
 	private Text txtInvName;
 	private Composite compInvCardSearchPanel;
 	public InvUICardSearch(Composite parent, int style) {
@@ -97,147 +97,138 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 	public void initGUI(){
 		try {
 			preInitGUI();
-	
-			compInvCardSearch = new Composite(this,SWT.NULL);
-			compInvCardSearchPanel = new Composite(compInvCardSearch,SWT.NULL);
-			lblInvName = new CLabel(compInvCardSearchPanel,SWT.NULL);
-			txtInvName = new Text(compInvCardSearchPanel,SWT.NULL);
-			lblInvGroup = new CLabel(compInvCardSearchPanel,SWT.NULL);
-			comboInvGroup = new CCombo(compInvCardSearchPanel,SWT.NULL);
-			tableSearcResults = new Table(compInvCardSearch,SWT.FULL_SELECTION| SWT.H_SCROLL| SWT.V_SCROLL| SWT.BORDER);
-			tableColumnInvName = new TableColumn(tableSearcResults,SWT.NULL);
-			tableColumnInventoryCode = new TableColumn(tableSearcResults,SWT.NULL);
-			tableColumnAmount = new TableColumn(tableSearcResults,SWT.NULL);
-	
-			this.setSize(new org.eclipse.swt.graphics.Point(573,437));
-	
-			compInvCardSearch.setSize(new org.eclipse.swt.graphics.Point(573,437));
-	
-			GridData compInvCardSearchPanelLData = new GridData();
-			compInvCardSearchPanelLData.verticalAlignment = GridData.CENTER;
-			compInvCardSearchPanelLData.horizontalAlignment = GridData.FILL;
-			compInvCardSearchPanelLData.widthHint = -1;
-			compInvCardSearchPanelLData.heightHint = 84;
-			compInvCardSearchPanelLData.horizontalIndent = 0;
-			compInvCardSearchPanelLData.horizontalSpan = 1;
-			compInvCardSearchPanelLData.verticalSpan = 1;
-			compInvCardSearchPanelLData.grabExcessHorizontalSpace = true;
-			compInvCardSearchPanelLData.grabExcessVerticalSpace = false;
-			compInvCardSearchPanel.setLayoutData(compInvCardSearchPanelLData);
-			compInvCardSearchPanel.setSize(new org.eclipse.swt.graphics.Point(563,84));
-	
-			GridData lblInvNameLData = new GridData();
-			lblInvNameLData.widthHint = 100;
-			lblInvNameLData.heightHint = 18;
-			lblInvName.setLayoutData(lblInvNameLData);
-			lblInvName.setText(Messages.getString("InvUICardSearch.0")); //$NON-NLS-1$
-			lblInvName.setSize(100, 18);
-	
-			GridData txtInvNameLData = new GridData();
-			txtInvNameLData.verticalAlignment = GridData.CENTER;
-			txtInvNameLData.horizontalAlignment = GridData.BEGINNING;
-			txtInvNameLData.widthHint = 168;
-			txtInvNameLData.heightHint = 16;
-			txtInvNameLData.horizontalIndent = 0;
-			txtInvNameLData.horizontalSpan = 1;
-			txtInvNameLData.verticalSpan = 1;
-			txtInvNameLData.grabExcessHorizontalSpace = false;
-			txtInvNameLData.grabExcessVerticalSpace = false;
-			txtInvName.setLayoutData(txtInvNameLData);
-			txtInvName.setSize(new org.eclipse.swt.graphics.Point(168,16));
 
-			GridData lblInvGroupLData = new GridData();
-			lblInvGroupLData.verticalAlignment = GridData.CENTER;
-			lblInvGroupLData.horizontalAlignment = GridData.BEGINNING;
-			lblInvGroupLData.widthHint = 110;
-			lblInvGroupLData.heightHint = 17;
-			lblInvGroupLData.horizontalIndent = 0;
-			lblInvGroupLData.horizontalSpan = 1;
-			lblInvGroupLData.verticalSpan = 1;
-			lblInvGroupLData.grabExcessHorizontalSpace = false;
-			lblInvGroupLData.grabExcessVerticalSpace = false;
-			lblInvGroup.setLayoutData(lblInvGroupLData);
-			lblInvGroup.setText(Messages.getString("InvUICardSearch.2")); //$NON-NLS-1$
-			lblInvGroup.setSize(new org.eclipse.swt.graphics.Point(110,17));
-	
-			GridData comboInvGroupLData = new GridData();
-			comboInvGroupLData.verticalAlignment = GridData.CENTER;
-			comboInvGroupLData.horizontalAlignment = GridData.BEGINNING;
-			comboInvGroupLData.widthHint = 119;
-			comboInvGroupLData.heightHint = 16;
-			comboInvGroupLData.horizontalIndent = 0;
-			comboInvGroupLData.horizontalSpan = 1;
-			comboInvGroupLData.verticalSpan = 1;
-			comboInvGroupLData.grabExcessHorizontalSpace = false;
-			comboInvGroupLData.grabExcessVerticalSpace = false;
-			comboInvGroup.setLayoutData(comboInvGroupLData);
-			comboInvGroup.setSize(new org.eclipse.swt.graphics.Point(119,16));
-			GridLayout compInvCardSearchPanelLayout = new GridLayout(4, true);
-			compInvCardSearchPanel.setLayout(compInvCardSearchPanelLayout);
-			{
-				lblInvCode = new CLabel(compInvCardSearchPanel, SWT.NONE);
-				GridData cLabel2LData = new GridData();
-				cLabel2LData.widthHint = 97;
-				cLabel2LData.heightHint = 17;
-				lblInvCode.setLayoutData(cLabel2LData);
-				lblInvCode.setText(Messages.getString("InvUICardSearch.1")); //$NON-NLS-1$
-				lblInvCode.setSize(new org.eclipse.swt.graphics.Point(97, 17));
-			}
-			{
-				txtInvCode = new Text(compInvCardSearchPanel, SWT.NONE);
-				GridData txtInvCodeLData = new GridData();
-				txtInvCodeLData.widthHint = 141;
-				txtInvCodeLData.heightHint = 17;
-				txtInvCode.setLayoutData(txtInvCodeLData);
-				txtInvCode.setSize(new org.eclipse.swt.graphics.Point(147, 17));
-			}
-			compInvCardSearchPanelLayout.marginWidth = 5;
-			compInvCardSearchPanelLayout.marginHeight = 5;
-			compInvCardSearchPanelLayout.numColumns = 4;
-			compInvCardSearchPanelLayout.makeColumnsEqualWidth = false;
-			compInvCardSearchPanelLayout.horizontalSpacing = 5;
-			compInvCardSearchPanelLayout.verticalSpacing = 5;
-			compInvCardSearchPanel.layout();
-	
-			GridData tableSearcResultsLData = new GridData();
-			tableSearcResultsLData.verticalAlignment = GridData.FILL;
-			tableSearcResultsLData.horizontalAlignment = GridData.FILL;
-			tableSearcResultsLData.widthHint = -1;
-			tableSearcResultsLData.heightHint = -1;
-			tableSearcResultsLData.horizontalIndent = 0;
-			tableSearcResultsLData.horizontalSpan = 1;
-			tableSearcResultsLData.verticalSpan = 1;
-			tableSearcResultsLData.grabExcessHorizontalSpace = true;
-			tableSearcResultsLData.grabExcessVerticalSpace = true;
-			tableSearcResults.setLayoutData(tableSearcResultsLData);
-			tableSearcResults.setHeaderVisible(true);
-			tableSearcResults.setLinesVisible(true);
-			tableSearcResults.setSize(new org.eclipse.swt.graphics.Point(543,318));
-			tableSearcResults.addMouseListener( new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
-					tableSearcResultsMouseDoubleClick(evt);
-				}
-			});
-	
-			tableColumnInvName.setText("Stok Kodu"); //$NON-NLS-1$
-			tableColumnInvName.setWidth(115);
-	
-			tableColumnInventoryCode.setText("Stok Adý"); //$NON-NLS-1$
-			tableColumnInventoryCode.setWidth(107);
-	
-			tableColumnAmount.setText(Messages.getString("InvUICardSearch.5")); //$NON-NLS-1$
-			tableColumnAmount.setWidth(118);
-			GridLayout compInvCardSearchLayout = new GridLayout(1, true);
-			compInvCardSearch.setLayout(compInvCardSearchLayout);
-			compInvCardSearchLayout.marginWidth = 5;
-			compInvCardSearchLayout.marginHeight = 5;
-			compInvCardSearchLayout.numColumns = 1;
-			compInvCardSearchLayout.makeColumnsEqualWidth = true;
-			compInvCardSearchLayout.horizontalSpacing = 5;
-			compInvCardSearchLayout.verticalSpacing = 5;
-			compInvCardSearch.layout();
+			this.setSize(new org.eclipse.swt.graphics.Point(573,437));
+
 			FillLayout thisLayout = new FillLayout(256);
 			this.setLayout(thisLayout);
+			{
+				compInvCardSearch = new Composite(this, SWT.NONE);
+				GridLayout compInvCardSearchLayout = new GridLayout();
+				compInvCardSearchLayout.makeColumnsEqualWidth = true;
+				compInvCardSearch.setLayout(compInvCardSearchLayout);
+				compInvCardSearch.setSize(new org.eclipse.swt.graphics.Point(
+					573,
+					437));
+				{
+					compInvCardSearchPanel = new Composite(compInvCardSearch, SWT.NONE);
+					GridLayout compInvCardSearchPanelLayout = new GridLayout();
+					compInvCardSearchPanelLayout.numColumns = 4;
+					compInvCardSearchPanel
+						.setSize(new org.eclipse.swt.graphics.Point(563, 84));
+					GridData compInvCardSearchPanelLData = new GridData();
+					compInvCardSearchPanel.setLayout(compInvCardSearchPanelLayout);
+					compInvCardSearchPanelLData.horizontalAlignment = GridData.FILL;
+					compInvCardSearchPanelLData.heightHint = 84;
+					compInvCardSearchPanelLData.grabExcessHorizontalSpace = true;
+					compInvCardSearchPanel.setLayoutData(compInvCardSearchPanelLData);
+					{
+						lblInvCode = new CLabel(
+							compInvCardSearchPanel,
+							SWT.NONE);
+						GridData cLabel2LData = new GridData();
+						cLabel2LData.widthHint = 97;
+						cLabel2LData.heightHint = 17;
+						lblInvCode.setLayoutData(cLabel2LData);
+						lblInvCode.setText(Messages
+							.getString("InvUICardSearch.1")); //$NON-NLS-1$
+						lblInvCode.setSize(new org.eclipse.swt.graphics.Point(
+							97,
+							17));
+					}
+					{
+						txtInvCode = new Text(compInvCardSearchPanel, SWT.NONE);
+						GridData txtInvCodeLData = new GridData();
+						txtInvCodeLData.widthHint = 141;
+						txtInvCodeLData.heightHint = 17;
+						txtInvCode.setLayoutData(txtInvCodeLData);
+						txtInvCode.setSize(new org.eclipse.swt.graphics.Point(
+							147,
+							17));
+					}
+					{
+						lblInvName = new CLabel(compInvCardSearchPanel, SWT.NONE);
+						lblInvName.setText(Messages
+							.getString("InvUICardSearch.0"));
+						lblInvName.setSize(100, 18);
+						GridData lblInvNameLData = new GridData();
+						lblInvNameLData.widthHint = 100;
+						lblInvNameLData.heightHint = 18;
+						lblInvName.setLayoutData(lblInvNameLData);
+					}
+					{
+						txtInvName = new Text(compInvCardSearchPanel, SWT.NONE);
+						txtInvName.setSize(new org.eclipse.swt.graphics.Point(
+							168,
+							16));
+						GridData txtInvNameLData = new GridData();
+						txtInvNameLData.widthHint = 162;
+						txtInvNameLData.heightHint = 16;
+						txtInvName.setLayoutData(txtInvNameLData);
+					}
+					{
+						lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
+						lblInvGroup.setText(Messages
+							.getString("InvUICardSearch.2"));
+						lblInvGroup.setSize(new org.eclipse.swt.graphics.Point(
+							110,
+							17));
+						GridData lblInvGroupLData = new GridData();
+						lblInvGroupLData.widthHint = 110;
+						lblInvGroupLData.heightHint = 17;
+						lblInvGroup.setLayoutData(lblInvGroupLData);
+					}
+					{
+						comboInvGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
+						comboInvGroup
+							.setSize(new org.eclipse.swt.graphics.Point(119, 16));
+						GridData comboInvGroupLData = new GridData();
+						comboInvGroupLData.widthHint = 97;
+						comboInvGroupLData.heightHint = 16;
+						comboInvGroup.setLayoutData(comboInvGroupLData);
+					}
+				}
+				{
+					tableSearcResults = new Table(compInvCardSearch, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+					tableSearcResults.setHeaderVisible(true);
+					tableSearcResults.setLinesVisible(true);
+					tableSearcResults
+						.setSize(new org.eclipse.swt.graphics.Point(543, 318));
+					GridData tableSearcResultsLData = new GridData();
+					tableSearcResults.addMouseListener(new MouseAdapter() {
+						public void mouseDoubleClick(MouseEvent evt) {
+							tableSearcResultsMouseDoubleClick(evt);
+						}
+					});
+					tableSearcResultsLData.verticalAlignment = GridData.FILL;
+					tableSearcResultsLData.horizontalAlignment = GridData.FILL;
+					tableSearcResultsLData.grabExcessHorizontalSpace = true;
+					tableSearcResultsLData.grabExcessVerticalSpace = true;
+					tableSearcResults.setLayoutData(tableSearcResultsLData);
+					{
+						tableColumnInvName = new TableColumn(
+							tableSearcResults,
+							SWT.NONE);
+						tableColumnInvName.setText("Stok Kodu");
+						tableColumnInvName.setWidth(115);
+					}
+					{
+						tableColumnInventoryCode = new TableColumn(
+							tableSearcResults,
+							SWT.NONE);
+						tableColumnInventoryCode.setText("Stok Adý");
+						tableColumnInventoryCode.setWidth(107);
+					}
+					{
+						tableColumnAmount = new TableColumn(
+							tableSearcResults,
+							SWT.NONE);
+						tableColumnAmount.setText(Messages
+							.getString("InvUICardSearch.5"));
+						tableColumnAmount.setWidth(118);
+					}
+				}
+			}
 			thisLayout.type = SWT.HORIZONTAL;
 			thisLayout.marginWidth = 0;
 			thisLayout.marginHeight = 0;
