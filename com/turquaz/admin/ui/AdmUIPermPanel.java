@@ -38,7 +38,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.custom.TableTreeItem;
 import org.eclipse.swt.SWT;
 
-import com.turquaz.engine.ui.component.SecureComposite;
+
 
 
 /**

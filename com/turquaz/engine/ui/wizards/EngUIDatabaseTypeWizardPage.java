@@ -27,7 +27,7 @@ package com.turquaz.engine.ui.wizards;
 * @version  $Id$
 */
 
-import org.eclipse.jface.wizard.IWizardPage;
+
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;

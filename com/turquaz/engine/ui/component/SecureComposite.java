@@ -22,9 +22,7 @@ package com.turquaz.engine.ui.component;
 * @author  Onsel Armagan
 * @version  $Id$
 */
-import org.eclipse.swt.widgets.Composite;
 
-import com.turquaz.engine.bl.EngBLPermissions;
 
 /**
  * @author onsel

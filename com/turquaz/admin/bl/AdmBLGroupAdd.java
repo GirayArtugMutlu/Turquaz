@@ -31,8 +31,7 @@ import java.util.Calendar;
 import com.turquaz.admin.dal.AdmDALGroupAdd;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqGroup;
-import com.turquaz.engine.dal.TurqUser;
-import com.turquaz.engine.dal.TurqUserGroup;
+
 
 /**
  * @author huseyin

@@ -129,7 +129,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			});
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(417, 145);
+			this.setSize(418, 127);
 			{
 				lblUserName = new CLabel(this, SWT.NONE);
 				lblUserName.setText("Username");

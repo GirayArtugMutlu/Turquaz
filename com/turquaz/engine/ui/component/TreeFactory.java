@@ -35,7 +35,7 @@ import com.turquaz.accounting.ui.reports.AccUIAccountingJournal;
 import com.turquaz.admin.ui.AdmUIGroupAdd;
 import com.turquaz.admin.ui.AdmUIGroupPermissions;
 import com.turquaz.admin.ui.AdmUIGroups;
-import com.turquaz.admin.ui.AdmUIPermPanel;
+
 import com.turquaz.admin.ui.AdmUIUserAdd;
 import com.turquaz.admin.ui.AdmUIUserPermissions;
 import com.turquaz.admin.ui.AdmUIUsers;

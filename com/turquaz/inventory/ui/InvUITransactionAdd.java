@@ -31,7 +31,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 
-import org.eclipse.swt.layout.FillLayout;
 
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Label;

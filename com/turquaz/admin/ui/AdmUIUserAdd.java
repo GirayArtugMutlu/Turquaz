@@ -53,8 +53,7 @@ import org.eclipse.swt.layout.GridData;
 
 
 import com.turquaz.admin.bl.AdmBLUserAdd;
-import com.turquaz.current.ui.CurUITransactionAdd;
-import com.turquaz.engine.dal.TurqCurrentGroup;
+
 import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.custom.CLabel;

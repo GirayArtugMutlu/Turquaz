@@ -50,10 +50,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
 
 import com.turquaz.admin.bl.AdmBLGroups;
-import com.turquaz.admin.bl.AdmBLUserAdd;
-import com.turquaz.admin.bl.AdmBLUsers;
+
 import com.turquaz.engine.dal.TurqGroup;
-import com.turquaz.engine.dal.TurqUser;
+
 import com.turquaz.engine.ui.component.SecureComposite;
 public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements SecureComposite {
 	private Table tableGroups;

@@ -27,7 +27,6 @@ import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 
@@ -41,7 +40,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.FormLayout;
 
-import org.eclipse.swt.custom.CTabFolderAdapter;
 import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.MouseAdapter;
@@ -57,6 +55,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder2Adapter;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.SashForm;
@@ -76,7 +75,7 @@ import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TreeFactory;
-import com.turquaz.engine.ui.wizards.EngUIDatabaseConnectionWizard;
+
 
 
 /**
@@ -606,7 +605,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabfldMainLData.grabExcessVerticalSpace = true;
 			tabfldMain.setLayoutData(tabfldMainLData);
 			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(381,511));
-			tabfldMain.addCTabFolderListener( new CTabFolderAdapter() {
+			tabfldMain.addCTabFolder2Listener( new CTabFolder2Adapter() {
 				public void itemClosed(CTabFolderEvent evt) {
 					tabfldMainItemClosed(evt);
 				}
