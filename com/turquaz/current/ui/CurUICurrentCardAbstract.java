@@ -292,16 +292,15 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					" from TurqCurrentCard curCard left join" +
 					" curCard.turqCurrentTransactions as curTrans" +
 					" where (curTrans.transactionsDate >= :startDate" +
-					" and curTrans.transactionsDate <= :endDate ) or " +
-					" curCard.turqCurrentTransactions.size=0";
+					" and curTrans.transactionsDate <= :endDate ) ";
 			
 			if (!txtDefinition.getText().equals("")) //$NON-NLS-1$
 				query +=" and curTrans.transactionsDefinition like '"+txtDefinition.getText().toUpperCase(Locale.getDefault())+"%'"; //$NON-NLS-1$ //$NON-NLS-2$
 			if (currentCard2==null)
 			{
-				query +=" and curCard.currentCardsId="+currentCard.getCurrentCardsId().intValue(); //$NON-NLS-1$
+				query +=" and curCard.currentCardsId="+currentCard.getCurrentCardsId(); //$NON-NLS-1$
 			}
-			else
+			else if(currentCard != null && currentCard2 != null)
 			{
 				query+=" and curCard.cardsCurrentCode >= "+"'"+currentCard.getCardsCurrentCode()+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					" and curCard.cardsCurrentCode <= "+"'"+currentCard2.getCardsCurrentCode()+"'";				 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
