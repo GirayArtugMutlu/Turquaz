@@ -164,7 +164,8 @@ public class InvDALCardSearch
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select invCard.cardInventoryCode,invCard.cardName from TurqInventoryCard as invCard";
+			String query = "Select invCard.cardInventoryCode,invCard.cardName from TurqInventoryCard as invCard" +
+					" order by invCard.cardInventoryCode";
 			Query q = session.createQuery(query);
 			List list = q.list();
 			session.close();

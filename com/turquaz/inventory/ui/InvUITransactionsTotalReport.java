@@ -20,6 +20,7 @@ package com.turquaz.inventory.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.List;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
@@ -35,6 +36,8 @@ import com.turquaz.engine.dal.TurqViewInventoryTotal;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.inventory.Messages;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.bl.InvBLCardUpdate;
@@ -67,6 +70,10 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	private Composite compInvCardSearch;
 	private CLabel lblInvName;
 	private TableColumn tableColumnInvName;
+	private CCombo comboInvSubGroup;
+	private CLabel lblInvSubGroup;
+	private CCombo comboInvMainGroup;
+	private CLabel lblInvGroup;
 	private TableColumn tableColumnTransOverAmount;
 	private TableColumn tableColumnTransOverPrice;
 	private CLabel lblInvNameEnd;
@@ -81,8 +88,6 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	private TableColumn tableColumnPriceIn;
 	private TableColumn tableColumnPriceOut;
 	private Table tableSearcResults;
-	private CCombo comboInvGroup;
-	private CLabel lblInvGroup;
 	private Text txtInvNameStart;
 	private InventoryPicker txtInvCodeStart;
 	private CLabel lblInvCode;
@@ -131,7 +136,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					{
 						txtInvCodeStart = new InventoryPicker(compInvCardSearchPanel, SWT.NONE);
 						GridData txtInvCodeLData = new GridData();
-						txtInvCodeLData.widthHint = 125;
+						txtInvCodeLData.widthHint = 157;
 						txtInvCodeLData.heightHint = 17;
 						txtInvCodeStart.setLayoutData(txtInvCodeLData);
 					}
@@ -142,7 +147,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					{
 						txtInvCodeEnd = new InventoryPicker(compInvCardSearchPanel, SWT.NONE);
 						GridData txtInvCodeEndLData = new GridData();
-						txtInvCodeEndLData.widthHint = 125;
+						txtInvCodeEndLData.widthHint = 157;
 						txtInvCodeEndLData.heightHint = 17;
 						txtInvCodeEnd.setLayoutData(txtInvCodeEndLData);
 					}
@@ -165,7 +170,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 									search();
 							}
 						});
-						txtInvNameLData.widthHint = 119;
+						txtInvNameLData.widthHint = 150;
 						txtInvNameLData.heightHint = 17;
 						txtInvNameStart.setLayoutData(txtInvNameLData);
 					}
@@ -176,35 +181,41 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					{
 						txtInvNameEnd = new Text(compInvCardSearchPanel, SWT.NONE);
 						GridData txtInvNameEndLData = new GridData();
-						txtInvNameEndLData.widthHint = 119;
+						txtInvNameEndLData.widthHint = 150;
 						txtInvNameEndLData.heightHint = 17;
 						txtInvNameEnd.setLayoutData(txtInvNameEndLData);
 					}
-					{
-						lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
-						lblInvGroup.setText(Messages.getString("InvUITransactionsTotalReport.2")); //$NON-NLS-1$
-						lblInvGroup.setSize(new org.eclipse.swt.graphics.Point(110, 17));
-						GridData lblInvGroupLData = new GridData();
-						lblInvGroupLData.widthHint = 110;
-						lblInvGroupLData.heightHint = 17;
-						lblInvGroup.setLayoutData(lblInvGroupLData);
-					}
-					{
-						comboInvGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
-						comboInvGroup.setSize(new org.eclipse.swt.graphics.Point(119, 16));
-						GridData comboInvGroupLData = new GridData();
-						comboInvGroup.addKeyListener(new KeyAdapter()
-						{
-							public void keyReleased(KeyEvent evt)
-							{
-								if (evt.keyCode == SWT.CR)
-									search();
-							}
-						});
-						comboInvGroupLData.widthHint = 97;
-						comboInvGroupLData.heightHint = 16;
-						comboInvGroup.setLayoutData(comboInvGroupLData);
-					}
+					//START >>  lblInvGroup
+					lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
+					lblInvGroup.setText("Stok Ana Grup");
+					GridData lblInvGroupLData = new GridData();
+					lblInvGroupLData.widthHint = 85;
+					lblInvGroupLData.heightHint = 19;
+					lblInvGroup.setLayoutData(lblInvGroupLData);
+					//END <<  lblInvGroup
+					//START >>  comboInvMainGroup
+					comboInvMainGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
+					GridData comboInvGroupLData = new GridData();
+					comboInvMainGroup.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							comboInvMainGroupWidgetSelected(evt);
+						}
+					});
+					comboInvGroupLData.widthHint = 134;
+					comboInvGroupLData.heightHint = 17;
+					comboInvMainGroup.setLayoutData(comboInvGroupLData);
+					//END <<  comboInvMainGroup
+					//START >>  lblInvSubGroup
+					lblInvSubGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
+					lblInvSubGroup.setText("Stok Alt Grup");
+					//END <<  lblInvSubGroup
+					//START >>  comboInvSubGroup
+					comboInvSubGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
+					GridData comboInvSubGroupLData = new GridData();
+					comboInvSubGroupLData.widthHint = 134;
+					comboInvSubGroupLData.heightHint = 17;
+					comboInvSubGroup.setLayoutData(comboInvSubGroupLData);
+					//END <<  comboInvSubGroup
 				}
 				{
 					tableSearcResults = new Table(compInvCardSearch, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
@@ -304,17 +315,16 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	{
 		try
 		{
-			java.util.List groupLst = InvBLCardAdd.getInventoryGroups();
-			TableItem item = null;
-			TurqInventoryGroup trqInvGroup;
-			for (int i = 0; i < groupLst.size(); i++)
+			List groupList = InvBLCardAdd.getParentInventoryGroups();
+			comboInvMainGroup.add("");
+			for (int k = 0; k < groupList.size(); k++)
 			{
-				trqInvGroup = (TurqInventoryGroup) groupLst.get(i);
-				comboInvGroup.add(trqInvGroup.getGroupsName());
-				comboInvGroup.setData(trqInvGroup.getGroupsName(), trqInvGroup);
+				TurqInventoryGroup gr = (TurqInventoryGroup) groupList.get(k);
+				comboInvMainGroup.add(gr.getGroupsName());
+				comboInvMainGroup.setData(gr.getGroupsName(), gr);
 			}
 		}
-		catch (Exception ex)
+		catch(Exception ex)
 		{
 			ex.printStackTrace();
 		}
@@ -375,21 +385,12 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 
 	public void search()
 	{
-		tableSearcResults.removeAll();
-		List result;
 		try
 		{
-			if (comboInvGroup.getSelectionIndex() == -1)
-			{
-				result = InvBLCardSearch.searchCardsAdvanced(txtInvCodeStart.getText().trim(), txtInvCodeEnd.getText().trim(),
-						txtInvNameStart.getText().trim(), txtInvNameEnd.getText().trim(), null);
-			}
-			else
-			{
-				result = InvBLCardSearch.searchCardsAdvanced(txtInvCodeStart.getText().trim(), txtInvCodeEnd.getText().trim(),
-						txtInvNameStart.getText().trim(), txtInvNameEnd.getText().trim(), (TurqInventoryGroup) comboInvGroup
-								.getData(comboInvGroup.getText()));
-			}
+			tableSearcResults.removeAll();
+			List result = InvBLCardSearch.searchCardsAdvanced(txtInvCodeStart.getText().trim(), txtInvCodeEnd.getText().trim(),
+					txtInvNameStart.getText().trim(), txtInvNameEnd.getText().trim(), (TurqInventoryGroup) comboInvSubGroup
+							.getData(comboInvSubGroup.getText()));
 			TableItem item;
 			int listSize = result.size();
 			for (int i = 0; i < listSize; i++)
@@ -496,6 +497,25 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 			catch (Exception ex)
 			{
 				ex.printStackTrace();
+			}
+		}
+	}
+	
+	private void comboInvMainGroupWidgetSelected(SelectionEvent evt)
+	{
+		comboInvSubGroup.removeAll();
+		if (comboInvMainGroup.getSelectionIndex() == -1)
+			return;
+		TurqInventoryGroup invMainGr = (TurqInventoryGroup) comboInvMainGroup.getData(comboInvMainGroup.getText());
+		if (invMainGr != null)
+		{
+			Iterator it = invMainGr.getTurqInventoryGroups().iterator();
+			comboInvSubGroup.add("");
+			while (it.hasNext())
+			{
+				TurqInventoryGroup invGr = (TurqInventoryGroup) it.next();
+				comboInvSubGroup.add(invGr.getGroupsName());
+				comboInvSubGroup.setData(invGr.getGroupsName(), invGr);
 			}
 		}
 	}
