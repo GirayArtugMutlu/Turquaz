@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import com.cloudgarden.resource.SWTResourceManager;
 
 /**
  * @author onsel
@@ -69,6 +71,9 @@ class SearchTableColumnListener implements Listener
 	int columnType;
 	TableViewer viewer;
 	private TurquazTableSorter tableSorter=null;
+	public static Image ascendingImage=SWTResourceManager.getImage("icons/backward.gif");
+	public static Image descendingImage=SWTResourceManager.getImage("icons/forward.gif");
+	
 	
 	public SearchTableColumnListener(TableViewer viewer, int columnIndex, int columnType)
 	{
@@ -79,7 +84,14 @@ class SearchTableColumnListener implements Listener
 	}
 	
 	public void handleEvent(Event e) {
-		tableSorter.setAscending(!tableSorter.getAscending());
+		boolean sortStyle=!tableSorter.getAscending();
+		tableSorter.setAscending(sortStyle);
+		/*TableColumn[] columns=viewer.getTable().getColumns();
+		for (int k=0; k<columns.length; k++)
+		{
+			columns[k].setImage(null);
+		}
+		columns[columnIndex].setImage(sortStyle ? ascendingImage : descendingImage );*/
 		viewer.setSorter(tableSorter);
 		viewer.refresh();
 	}
