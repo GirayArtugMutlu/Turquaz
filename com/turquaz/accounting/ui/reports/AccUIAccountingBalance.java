@@ -122,8 +122,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			}
 			Map parameters = new HashMap();
 			//parameters.put("ReportTitle", "GENEL GEÇÝCÝ MÝZAN"); //$NON-NLS-1$ //$NON-NLS-2$
-			TurqCompany company = new TurqCompany();
-			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
+
 			String sqlparam="Select mytab.deptsum,mytab.creditsum,mytab.top_account,accs.account_name,accs.account_code," +
 					" accs.accounting_accounts_id from turq_accounting_accounts accs,"+
 					"(Select SUM(transcolumns.dept_amount) as deptsum," +
@@ -133,8 +132,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 					" turq_accounting_transaction_columns transcolumns, " +
 					" turq_accounting_transactions trans" +
 					" where transcolumns.accounting_accounts_id=accounts.accounting_accounts_id" +
-					" and transcolumns.accounting_transactions_id=trans.accounting_transactions_id" +
-					" and accounts.companies_id="+company.getCompaniesId().toString();
+					" and transcolumns.accounting_transactions_id=trans.accounting_transactions_id";
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");
 			 sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'"
 					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"
@@ -144,7 +142,6 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			parameters.put("sqlparam",sqlparam);		
 			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate()));
 			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate()));
-			company.setCompaniesId(Integer.valueOf(System.getProperty("company"))); //$NON-NLS-1$
 			NumberFormat formatter =NumberFormat.getNumberInstance();
             formatter.setMaximumFractionDigits(2);
             parameters.put("formatter",formatter);

@@ -34,19 +34,16 @@ public class TurqTradebillTradebill implements Serializable {
     private java.math.BigDecimal tradebillAmount;
 
     /** persistent field */
-    private java.util.Date creationDate;
-
-    /** persistent field */
-    private java.util.Date lastModified;
-
-    /** persistent field */
     private java.lang.String createdBy;
+
+    /** persistent field */
+    private java.util.Date creationDate;
 
     /** persistent field */
     private java.lang.String updatedBy;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCompany turqCompany;
+    private java.util.Date lastModified;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqCurrency turqCurrency;
@@ -55,7 +52,7 @@ public class TurqTradebillTradebill implements Serializable {
     private Set turqTradebillTradebillsRolls;
 
     /** full constructor */
-    public TurqTradebillTradebill(java.lang.String tradebillsPortfolioNo, java.util.Date tradebillDueDate, java.lang.String tradebillDebtor, java.lang.String tradebillGuarantor, java.lang.String tradebillPaymentPlace, int tradebillValueDate, java.math.BigDecimal tradebillAmount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqCurrency turqCurrency, Set turqTradebillTradebillsRolls) {
+    public TurqTradebillTradebill(java.lang.String tradebillsPortfolioNo, java.util.Date tradebillDueDate, java.lang.String tradebillDebtor, java.lang.String tradebillGuarantor, java.lang.String tradebillPaymentPlace, int tradebillValueDate, java.math.BigDecimal tradebillAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCurrency turqCurrency, Set turqTradebillTradebillsRolls) {
         this.tradebillsPortfolioNo = tradebillsPortfolioNo;
         this.tradebillDueDate = tradebillDueDate;
         this.tradebillDebtor = tradebillDebtor;
@@ -63,11 +60,10 @@ public class TurqTradebillTradebill implements Serializable {
         this.tradebillPaymentPlace = tradebillPaymentPlace;
         this.tradebillValueDate = tradebillValueDate;
         this.tradebillAmount = tradebillAmount;
-        this.creationDate = creationDate;
-        this.lastModified = lastModified;
         this.createdBy = createdBy;
+        this.creationDate = creationDate;
         this.updatedBy = updatedBy;
-        this.turqCompany = turqCompany;
+        this.lastModified = lastModified;
         this.turqCurrency = turqCurrency;
         this.turqTradebillTradebillsRolls = turqTradebillTradebillsRolls;
     }
@@ -140,28 +136,20 @@ public class TurqTradebillTradebill implements Serializable {
         this.tradebillAmount = tradebillAmount;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
-
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
 
     public void setCreatedBy(java.lang.String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public java.lang.String getUpdatedBy() {
@@ -172,12 +160,12 @@ public class TurqTradebillTradebill implements Serializable {
         this.updatedBy = updatedBy;
     }
 
-    public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
-        return this.turqCompany;
+    public java.util.Date getLastModified() {
+        return this.lastModified;
     }
 
-    public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.turqCompany = turqCompany;
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public com.turquaz.engine.dal.TurqCurrency getTurqCurrency() {

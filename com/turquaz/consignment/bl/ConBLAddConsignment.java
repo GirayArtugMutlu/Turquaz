@@ -57,9 +57,6 @@ public class ConBLAddConsignment {
 			consignment.setConsignmentsPrinted(isPrinted);
 			consignment.setConsignmentsType(type);
 					
-			TurqCompany company = new TurqCompany();	
-			company.setCompaniesId(Integer.valueOf(System.getProperty("company"))); //$NON-NLS-1$
-			consignment.setTurqCompany(company);
 			consignment.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			consignment.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			consignment.setLastModified(new java.sql.Date(cal.getTime().getTime()));

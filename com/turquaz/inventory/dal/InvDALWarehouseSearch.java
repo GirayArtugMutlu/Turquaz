@@ -47,8 +47,7 @@ public class InvDALWarehouseSearch {
 			
 			String query = "Select wh from TurqInventoryWarehous as wh " +
 							
-						   "where wh.turqCompany.companiesId ="+System.getProperty("company")+" " +
-						   "and wh.warehousesName like '"+name+"%' and wh.warehousesCity like '"+city+"%' ";
+						   "where wh.warehousesName like '"+name+"%' and wh.warehousesCity like '"+city+"%' ";
 			  	
 			Query q = session.createQuery(query); 
 					

@@ -34,6 +34,12 @@ public class TurqInventoryCard implements Serializable {
     private int cardDiscount;
 
     /** persistent field */
+    private int cardSpecialVat;
+
+    /** persistent field */
+    private java.math.BigDecimal cardSpecialVatEach;
+
+    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
@@ -44,15 +50,6 @@ public class TurqInventoryCard implements Serializable {
 
     /** persistent field */
     private java.util.Date updateDate;
-
-    /** persistent field */
-    private int cardSpecialVat;
-
-    /** persistent field */
-    private java.math.BigDecimal cardSpecialVatEach;
-
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqCompany turqCompany;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell;
@@ -73,7 +70,7 @@ public class TurqInventoryCard implements Serializable {
     private Set turqInventoryCardUnits;
 
     /** full constructor */
-    public TurqInventoryCard(java.lang.String cardInventoryCode, java.lang.String cardName, java.lang.String cardDefinition, int cardMinimumAmount, int cardMaximumAmount, int cardVat, int cardDiscount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, int cardSpecialVat, java.math.BigDecimal cardSpecialVatEach, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy, Set turqInventoryPrices, Set turqInventoryTransactions, Set turqInventoryCardGroups, Set turqInventoryCardUnits) {
+    public TurqInventoryCard(java.lang.String cardInventoryCode, java.lang.String cardName, java.lang.String cardDefinition, int cardMinimumAmount, int cardMaximumAmount, int cardVat, int cardDiscount, int cardSpecialVat, java.math.BigDecimal cardSpecialVatEach, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSell, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy, Set turqInventoryPrices, Set turqInventoryTransactions, Set turqInventoryCardGroups, Set turqInventoryCardUnits) {
         this.cardInventoryCode = cardInventoryCode;
         this.cardName = cardName;
         this.cardDefinition = cardDefinition;
@@ -81,13 +78,12 @@ public class TurqInventoryCard implements Serializable {
         this.cardMaximumAmount = cardMaximumAmount;
         this.cardVat = cardVat;
         this.cardDiscount = cardDiscount;
+        this.cardSpecialVat = cardSpecialVat;
+        this.cardSpecialVatEach = cardSpecialVatEach;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.updateDate = updateDate;
-        this.cardSpecialVat = cardSpecialVat;
-        this.cardSpecialVatEach = cardSpecialVatEach;
-        this.turqCompany = turqCompany;
         this.turqAccountingAccountByAccountingAccountsIdSell = turqAccountingAccountByAccountingAccountsIdSell;
         this.turqAccountingAccountByAccountingAccountsIdBuy = turqAccountingAccountByAccountingAccountsIdBuy;
         this.turqInventoryPrices = turqInventoryPrices;
@@ -164,6 +160,22 @@ public class TurqInventoryCard implements Serializable {
         this.cardDiscount = cardDiscount;
     }
 
+    public int getCardSpecialVat() {
+        return this.cardSpecialVat;
+    }
+
+    public void setCardSpecialVat(int cardSpecialVat) {
+        this.cardSpecialVat = cardSpecialVat;
+    }
+
+    public java.math.BigDecimal getCardSpecialVatEach() {
+        return this.cardSpecialVatEach;
+    }
+
+    public void setCardSpecialVatEach(java.math.BigDecimal cardSpecialVatEach) {
+        this.cardSpecialVatEach = cardSpecialVatEach;
+    }
+
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
@@ -194,30 +206,6 @@ public class TurqInventoryCard implements Serializable {
 
     public void setUpdateDate(java.util.Date updateDate) {
         this.updateDate = updateDate;
-    }
-
-    public int getCardSpecialVat() {
-        return this.cardSpecialVat;
-    }
-
-    public void setCardSpecialVat(int cardSpecialVat) {
-        this.cardSpecialVat = cardSpecialVat;
-    }
-
-    public java.math.BigDecimal getCardSpecialVatEach() {
-        return this.cardSpecialVatEach;
-    }
-
-    public void setCardSpecialVatEach(java.math.BigDecimal cardSpecialVatEach) {
-        this.cardSpecialVatEach = cardSpecialVatEach;
-    }
-
-    public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
-        return this.turqCompany;
-    }
-
-    public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.turqCompany = turqCompany;
     }
 
     public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdSell() {

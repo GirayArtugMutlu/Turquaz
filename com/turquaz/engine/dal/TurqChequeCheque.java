@@ -34,19 +34,16 @@ public class TurqChequeCheque implements Serializable {
     private java.math.BigDecimal chequesAmount;
 
     /** persistent field */
-    private java.util.Date creationDate;
-
-    /** persistent field */
-    private java.util.Date lastModified;
-
-    /** persistent field */
     private java.lang.String createdBy;
+
+    /** persistent field */
+    private java.util.Date creationDate;
 
     /** persistent field */
     private java.lang.String updatedBy;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCompany turqCompany;
+    private java.util.Date lastModified;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqCurrency turqCurrency;
@@ -58,7 +55,7 @@ public class TurqChequeCheque implements Serializable {
     private Set turqChequeChequesRolls;
 
     /** full constructor */
-    public TurqChequeCheque(java.lang.String chequesPortfolioNo, java.lang.String chequesNo, java.util.Date chequesDueDate, java.lang.String chequesDebtor, java.lang.String chequesPaymentPlace, java.util.Date chequesValueDate, java.math.BigDecimal chequesAmount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqChequeChequesRolls) {
+    public TurqChequeCheque(java.lang.String chequesPortfolioNo, java.lang.String chequesNo, java.util.Date chequesDueDate, java.lang.String chequesDebtor, java.lang.String chequesPaymentPlace, java.util.Date chequesValueDate, java.math.BigDecimal chequesAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqChequeChequesRolls) {
         this.chequesPortfolioNo = chequesPortfolioNo;
         this.chequesNo = chequesNo;
         this.chequesDueDate = chequesDueDate;
@@ -66,11 +63,10 @@ public class TurqChequeCheque implements Serializable {
         this.chequesPaymentPlace = chequesPaymentPlace;
         this.chequesValueDate = chequesValueDate;
         this.chequesAmount = chequesAmount;
-        this.creationDate = creationDate;
-        this.lastModified = lastModified;
         this.createdBy = createdBy;
+        this.creationDate = creationDate;
         this.updatedBy = updatedBy;
-        this.turqCompany = turqCompany;
+        this.lastModified = lastModified;
         this.turqCurrency = turqCurrency;
         this.turqBanksCard = turqBanksCard;
         this.turqChequeChequesRolls = turqChequeChequesRolls;
@@ -81,18 +77,17 @@ public class TurqChequeCheque implements Serializable {
     }
 
     /** minimal constructor */
-    public TurqChequeCheque(java.lang.String chequesPortfolioNo, java.lang.String chequesNo, java.util.Date chequesDueDate, java.lang.String chequesDebtor, java.util.Date chequesValueDate, java.math.BigDecimal chequesAmount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqChequeChequesRolls) {
+    public TurqChequeCheque(java.lang.String chequesPortfolioNo, java.lang.String chequesNo, java.util.Date chequesDueDate, java.lang.String chequesDebtor, java.util.Date chequesValueDate, java.math.BigDecimal chequesAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqChequeChequesRolls) {
         this.chequesPortfolioNo = chequesPortfolioNo;
         this.chequesNo = chequesNo;
         this.chequesDueDate = chequesDueDate;
         this.chequesDebtor = chequesDebtor;
         this.chequesValueDate = chequesValueDate;
         this.chequesAmount = chequesAmount;
-        this.creationDate = creationDate;
-        this.lastModified = lastModified;
         this.createdBy = createdBy;
+        this.creationDate = creationDate;
         this.updatedBy = updatedBy;
-        this.turqCompany = turqCompany;
+        this.lastModified = lastModified;
         this.turqCurrency = turqCurrency;
         this.turqBanksCard = turqBanksCard;
         this.turqChequeChequesRolls = turqChequeChequesRolls;
@@ -162,28 +157,20 @@ public class TurqChequeCheque implements Serializable {
         this.chequesAmount = chequesAmount;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
-
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
 
     public void setCreatedBy(java.lang.String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public java.lang.String getUpdatedBy() {
@@ -194,12 +181,12 @@ public class TurqChequeCheque implements Serializable {
         this.updatedBy = updatedBy;
     }
 
-    public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
-        return this.turqCompany;
+    public java.util.Date getLastModified() {
+        return this.lastModified;
     }
 
-    public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.turqCompany = turqCompany;
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public com.turquaz.engine.dal.TurqCurrency getTurqCurrency() {

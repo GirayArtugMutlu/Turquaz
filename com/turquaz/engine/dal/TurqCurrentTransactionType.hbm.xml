@@ -39,18 +39,18 @@
         length="50"
     />
     <property
-        name="updatedBy"
-        type="java.lang.String"
-        column="updated_by"
-        not-null="true"
-        length="50"
-    />
-    <property
         name="creationDate"
         type="java.sql.Date"
         column="creation_date"
         not-null="true"
         length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
     />
     <property
         name="lastModified"
@@ -62,14 +62,6 @@
 
     <!-- Associations -->
   
-    <!-- bi-directional many-to-one association to TurqCompany -->
-    <many-to-one
-        name="turqCompany"
-        class="com.turquaz.engine.dal.TurqCompany"
-        not-null="true"
-    >
-        <column name="companies_id" />
-    </many-to-one>
     <!-- bi-directional one-to-many association to TurqCurrentTransaction -->
     <set
         name="turqCurrentTransactions"

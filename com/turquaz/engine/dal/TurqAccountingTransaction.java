@@ -19,19 +19,19 @@ public class TurqAccountingTransaction implements Serializable {
     private java.lang.String transactionDocumentNo;
 
     /** persistent field */
-    private java.util.Date creationDate;
+    private java.lang.String transactionDescription;
 
     /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
-    private java.util.Date lastModified;
+    private java.util.Date creationDate;
 
     /** persistent field */
     private java.lang.String updatedBy;
 
     /** persistent field */
-    private java.lang.String transactionDescription;
+    private java.util.Date lastModified;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingJournal turqAccountingJournal;
@@ -49,14 +49,14 @@ public class TurqAccountingTransaction implements Serializable {
     private Set turqAccountingTransactionColumns;
 
     /** full constructor */
-    public TurqAccountingTransaction(java.util.Date transactionsDate, java.lang.String transactionDocumentNo, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, java.lang.String transactionDescription, com.turquaz.engine.dal.TurqAccountingJournal turqAccountingJournal, com.turquaz.engine.dal.TurqAccountingTransactionType turqAccountingTransactionType, com.turquaz.engine.dal.TurqModule turqModule, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqAccountingTransactionColumns) {
+    public TurqAccountingTransaction(java.util.Date transactionsDate, java.lang.String transactionDocumentNo, java.lang.String transactionDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqAccountingJournal turqAccountingJournal, com.turquaz.engine.dal.TurqAccountingTransactionType turqAccountingTransactionType, com.turquaz.engine.dal.TurqModule turqModule, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqAccountingTransactionColumns) {
         this.transactionsDate = transactionsDate;
         this.transactionDocumentNo = transactionDocumentNo;
-        this.creationDate = creationDate;
-        this.createdBy = createdBy;
-        this.lastModified = lastModified;
-        this.updatedBy = updatedBy;
         this.transactionDescription = transactionDescription;
+        this.createdBy = createdBy;
+        this.creationDate = creationDate;
+        this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
         this.turqAccountingJournal = turqAccountingJournal;
         this.turqAccountingTransactionType = turqAccountingTransactionType;
         this.turqModule = turqModule;
@@ -92,12 +92,12 @@ public class TurqAccountingTransaction implements Serializable {
         this.transactionDocumentNo = transactionDocumentNo;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
+    public java.lang.String getTransactionDescription() {
+        return this.transactionDescription;
     }
 
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
+    public void setTransactionDescription(java.lang.String transactionDescription) {
+        this.transactionDescription = transactionDescription;
     }
 
     public java.lang.String getCreatedBy() {
@@ -108,12 +108,12 @@ public class TurqAccountingTransaction implements Serializable {
         this.createdBy = createdBy;
     }
 
-    public java.util.Date getLastModified() {
-        return this.lastModified;
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
     }
 
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public java.lang.String getUpdatedBy() {
@@ -124,12 +124,12 @@ public class TurqAccountingTransaction implements Serializable {
         this.updatedBy = updatedBy;
     }
 
-    public java.lang.String getTransactionDescription() {
-        return this.transactionDescription;
+    public java.util.Date getLastModified() {
+        return this.lastModified;
     }
 
-    public void setTransactionDescription(java.lang.String transactionDescription) {
-        this.transactionDescription = transactionDescription;
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public com.turquaz.engine.dal.TurqAccountingJournal getTurqAccountingJournal() {

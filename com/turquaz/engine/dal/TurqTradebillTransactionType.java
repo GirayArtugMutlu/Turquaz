@@ -19,16 +19,16 @@ public class TurqTradebillTransactionType implements Serializable {
     private short transactionTypesParent;
 
     /** persistent field */
-    private java.util.Date creationDate;
-
-    /** persistent field */
     private java.util.Date createdBy;
 
     /** persistent field */
-    private java.util.Date lastModified;
+    private java.util.Date creationDate;
 
     /** persistent field */
     private java.lang.String updatedBy;
+
+    /** persistent field */
+    private java.util.Date lastModified;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
@@ -37,13 +37,13 @@ public class TurqTradebillTransactionType implements Serializable {
     private Set turqTradebillRolls;
 
     /** full constructor */
-    public TurqTradebillTransactionType(java.lang.String transactionTypesName, short transactionTypesParent, java.util.Date creationDate, java.util.Date createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqTradebillRolls) {
+    public TurqTradebillTransactionType(java.lang.String transactionTypesName, short transactionTypesParent, java.util.Date createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqTradebillRolls) {
         this.transactionTypesName = transactionTypesName;
         this.transactionTypesParent = transactionTypesParent;
-        this.creationDate = creationDate;
         this.createdBy = createdBy;
-        this.lastModified = lastModified;
+        this.creationDate = creationDate;
         this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
         this.turqAccountingAccount = turqAccountingAccount;
         this.turqTradebillRolls = turqTradebillRolls;
     }
@@ -76,14 +76,6 @@ public class TurqTradebillTransactionType implements Serializable {
         this.transactionTypesParent = transactionTypesParent;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public java.util.Date getCreatedBy() {
         return this.createdBy;
     }
@@ -92,12 +84,12 @@ public class TurqTradebillTransactionType implements Serializable {
         this.createdBy = createdBy;
     }
 
-    public java.util.Date getLastModified() {
-        return this.lastModified;
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
     }
 
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public java.lang.String getUpdatedBy() {
@@ -106,6 +98,14 @@ public class TurqTradebillTransactionType implements Serializable {
 
     public void setUpdatedBy(java.lang.String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public java.util.Date getLastModified() {
+        return this.lastModified;
+    }
+
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccount() {

@@ -28,6 +28,15 @@ public class TurqBillConsignmentCommon implements Serializable {
     private java.math.BigDecimal totalAmount;
 
     /** persistent field */
+    private java.math.BigDecimal specialVatAmount;
+
+    /** persistent field */
+    private java.lang.String billDocumentNo;
+
+    /** persistent field */
+    private java.lang.String consignmentDocumentNo;
+
+    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
@@ -40,15 +49,6 @@ public class TurqBillConsignmentCommon implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
-    private java.math.BigDecimal specialVatAmount;
-
-    /** persistent field */
-    private java.lang.String billDocumentNo;
-
-    /** persistent field */
-    private java.lang.String consignmentDocumentNo;
-
-    /** persistent field */
     private com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard;
 
     /** persistent field */
@@ -58,19 +58,19 @@ public class TurqBillConsignmentCommon implements Serializable {
     private Set turqBills;
 
     /** full constructor */
-    public TurqBillConsignmentCommon(int discountRate, java.math.BigDecimal discountAmount, java.math.BigDecimal vatAmount, java.math.BigDecimal charges, java.math.BigDecimal totalAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.math.BigDecimal specialVatAmount, java.lang.String billDocumentNo, java.lang.String consignmentDocumentNo, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqConsignments, Set turqBills) {
+    public TurqBillConsignmentCommon(int discountRate, java.math.BigDecimal discountAmount, java.math.BigDecimal vatAmount, java.math.BigDecimal charges, java.math.BigDecimal totalAmount, java.math.BigDecimal specialVatAmount, java.lang.String billDocumentNo, java.lang.String consignmentDocumentNo, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqConsignments, Set turqBills) {
         this.discountRate = discountRate;
         this.discountAmount = discountAmount;
         this.vatAmount = vatAmount;
         this.charges = charges;
         this.totalAmount = totalAmount;
+        this.specialVatAmount = specialVatAmount;
+        this.billDocumentNo = billDocumentNo;
+        this.consignmentDocumentNo = consignmentDocumentNo;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.specialVatAmount = specialVatAmount;
-        this.billDocumentNo = billDocumentNo;
-        this.consignmentDocumentNo = consignmentDocumentNo;
         this.turqCurrentCard = turqCurrentCard;
         this.turqConsignments = turqConsignments;
         this.turqBills = turqBills;
@@ -128,6 +128,30 @@ public class TurqBillConsignmentCommon implements Serializable {
         this.totalAmount = totalAmount;
     }
 
+    public java.math.BigDecimal getSpecialVatAmount() {
+        return this.specialVatAmount;
+    }
+
+    public void setSpecialVatAmount(java.math.BigDecimal specialVatAmount) {
+        this.specialVatAmount = specialVatAmount;
+    }
+
+    public java.lang.String getBillDocumentNo() {
+        return this.billDocumentNo;
+    }
+
+    public void setBillDocumentNo(java.lang.String billDocumentNo) {
+        this.billDocumentNo = billDocumentNo;
+    }
+
+    public java.lang.String getConsignmentDocumentNo() {
+        return this.consignmentDocumentNo;
+    }
+
+    public void setConsignmentDocumentNo(java.lang.String consignmentDocumentNo) {
+        this.consignmentDocumentNo = consignmentDocumentNo;
+    }
+
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
@@ -158,30 +182,6 @@ public class TurqBillConsignmentCommon implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public java.math.BigDecimal getSpecialVatAmount() {
-        return this.specialVatAmount;
-    }
-
-    public void setSpecialVatAmount(java.math.BigDecimal specialVatAmount) {
-        this.specialVatAmount = specialVatAmount;
-    }
-
-    public java.lang.String getBillDocumentNo() {
-        return this.billDocumentNo;
-    }
-
-    public void setBillDocumentNo(java.lang.String billDocumentNo) {
-        this.billDocumentNo = billDocumentNo;
-    }
-
-    public java.lang.String getConsignmentDocumentNo() {
-        return this.consignmentDocumentNo;
-    }
-
-    public void setConsignmentDocumentNo(java.lang.String consignmentDocumentNo) {
-        this.consignmentDocumentNo = consignmentDocumentNo;
     }
 
     public com.turquaz.engine.dal.TurqCurrentCard getTurqCurrentCard() {

@@ -19,28 +19,24 @@ public class TurqCurrentTransactionType implements Serializable {
     private java.lang.String createdBy;
 
     /** persistent field */
-    private java.lang.String updatedBy;
+    private java.util.Date creationDate;
 
     /** persistent field */
-    private java.util.Date creationDate;
+    private java.lang.String updatedBy;
 
     /** persistent field */
     private java.util.Date lastModified;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCompany turqCompany;
-
-    /** persistent field */
     private Set turqCurrentTransactions;
 
     /** full constructor */
-    public TurqCurrentTransactionType(java.lang.String transactionTypeName, java.lang.String createdBy, java.lang.String updatedBy, java.util.Date creationDate, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqCurrentTransactions) {
+    public TurqCurrentTransactionType(java.lang.String transactionTypeName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqCurrentTransactions) {
         this.transactionTypeName = transactionTypeName;
         this.createdBy = createdBy;
-        this.updatedBy = updatedBy;
         this.creationDate = creationDate;
+        this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.turqCompany = turqCompany;
         this.turqCurrentTransactions = turqCurrentTransactions;
     }
 
@@ -72,14 +68,6 @@ public class TurqCurrentTransactionType implements Serializable {
         this.createdBy = createdBy;
     }
 
-    public java.lang.String getUpdatedBy() {
-        return this.updatedBy;
-    }
-
-    public void setUpdatedBy(java.lang.String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
     public java.util.Date getCreationDate() {
         return this.creationDate;
     }
@@ -88,20 +76,20 @@ public class TurqCurrentTransactionType implements Serializable {
         this.creationDate = creationDate;
     }
 
+    public java.lang.String getUpdatedBy() {
+        return this.updatedBy;
+    }
+
+    public void setUpdatedBy(java.lang.String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
     public java.util.Date getLastModified() {
         return this.lastModified;
     }
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
-        return this.turqCompany;
-    }
-
-    public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.turqCompany = turqCompany;
     }
 
     public java.util.Set getTurqCurrentTransactions() {

@@ -19,32 +19,28 @@ public class TurqBankSecondaryAccount implements Serializable {
     private java.lang.String accountCode;
 
     /** persistent field */
-    private java.util.Date creationDate;
-
-    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
-    private java.util.Date lastModified;
+    private java.util.Date creationDate;
 
     /** persistent field */
     private java.lang.String updatedBy;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCompany turqCompany;
+    private java.util.Date lastModified;
 
     /** persistent field */
     private Set turqBankCardsSecondaryAccounts;
 
     /** full constructor */
-    public TurqBankSecondaryAccount(java.lang.String accountName, java.lang.String accountCode, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqBankCardsSecondaryAccounts) {
+    public TurqBankSecondaryAccount(java.lang.String accountName, java.lang.String accountCode, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqBankCardsSecondaryAccounts) {
         this.accountName = accountName;
         this.accountCode = accountCode;
-        this.creationDate = creationDate;
         this.createdBy = createdBy;
-        this.lastModified = lastModified;
+        this.creationDate = creationDate;
         this.updatedBy = updatedBy;
-        this.turqCompany = turqCompany;
+        this.lastModified = lastModified;
         this.turqBankCardsSecondaryAccounts = turqBankCardsSecondaryAccounts;
     }
 
@@ -76,14 +72,6 @@ public class TurqBankSecondaryAccount implements Serializable {
         this.accountCode = accountCode;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
@@ -92,12 +80,12 @@ public class TurqBankSecondaryAccount implements Serializable {
         this.createdBy = createdBy;
     }
 
-    public java.util.Date getLastModified() {
-        return this.lastModified;
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
     }
 
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public java.lang.String getUpdatedBy() {
@@ -108,12 +96,12 @@ public class TurqBankSecondaryAccount implements Serializable {
         this.updatedBy = updatedBy;
     }
 
-    public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
-        return this.turqCompany;
+    public java.util.Date getLastModified() {
+        return this.lastModified;
     }
 
-    public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.turqCompany = turqCompany;
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public java.util.Set getTurqBankCardsSecondaryAccounts() {

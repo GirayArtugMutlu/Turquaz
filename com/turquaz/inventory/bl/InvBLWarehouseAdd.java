@@ -52,15 +52,12 @@ public class InvBLWarehouseAdd {
 		warehouse.setWarehousesTelephone(whTelephone);
 		warehouse.setWarehousesDescription(whDescription);
 		warehouse.setWarehousesCode(whName);
-		TurqCompany company = new TurqCompany();
-		company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
 		
 		warehouse.setCreatedBy(System.getProperty("user"));
 		warehouse.setUpdatedBy(System.getProperty("user"));
 		warehouse.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 		warehouse.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 		
-		warehouse.setTurqCompany(company);
 		whDALAdd.saveObject(warehouse);	
 		//sfbk?msfbthth?ksmf?b
 			

@@ -48,16 +48,12 @@ public class BankBLBankCardAdd {
 			bankCard.setBankBranchName(bankBranchName);
 			bankCard.setBankAccountNo(bankAccountNo);
 			bankCard.setTurqCurrency(currency);
-			
-			TurqCompany company = new TurqCompany();
-			company.setCompaniesId(Integer.valueOf(System.getProperty("company"))); //$NON-NLS-1$
-			
+	
 			bankCard.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			bankCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			bankCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			bankCard.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			bankCard.setTurqCompany(company);
 			bankCardDALAdd.saveObject(bankCard);	
 			
 		}

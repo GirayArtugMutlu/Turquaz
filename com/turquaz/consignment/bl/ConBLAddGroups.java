@@ -38,9 +38,6 @@ public class ConBLAddGroups {
 		group.setGroupsDescription(description);
 		group.setGroupsName(name);
 		
-		TurqCompany company = new TurqCompany();	
-		company.setCompaniesId(Integer.valueOf(System.getProperty("company"))); //$NON-NLS-1$
-		group.setTurqCompany(company);
 		group.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 		group.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		group.setLastModified(new java.sql.Date(cal.getTime().getTime()));

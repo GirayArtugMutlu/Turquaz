@@ -16,27 +16,27 @@ public class TurqAccountingTransactionType implements Serializable {
     private java.lang.String typesName;
 
     /** persistent field */
-    private java.util.Date creationDate;
-
-    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
-    private java.util.Date lastModified;
+    private java.util.Date creationDate;
 
     /** persistent field */
     private java.lang.String updatedBy;
 
     /** persistent field */
+    private java.util.Date lastModified;
+
+    /** persistent field */
     private Set turqAccountingTransactions;
 
     /** full constructor */
-    public TurqAccountingTransactionType(java.lang.String typesName, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, Set turqAccountingTransactions) {
+    public TurqAccountingTransactionType(java.lang.String typesName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqAccountingTransactions) {
         this.typesName = typesName;
-        this.creationDate = creationDate;
         this.createdBy = createdBy;
-        this.lastModified = lastModified;
+        this.creationDate = creationDate;
         this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
         this.turqAccountingTransactions = turqAccountingTransactions;
     }
 
@@ -60,14 +60,6 @@ public class TurqAccountingTransactionType implements Serializable {
         this.typesName = typesName;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
@@ -76,12 +68,12 @@ public class TurqAccountingTransactionType implements Serializable {
         this.createdBy = createdBy;
     }
 
-    public java.util.Date getLastModified() {
-        return this.lastModified;
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
     }
 
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public java.lang.String getUpdatedBy() {
@@ -90,6 +82,14 @@ public class TurqAccountingTransactionType implements Serializable {
 
     public void setUpdatedBy(java.lang.String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public java.util.Date getLastModified() {
+        return this.lastModified;
+    }
+
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public java.util.Set getTurqAccountingTransactions() {

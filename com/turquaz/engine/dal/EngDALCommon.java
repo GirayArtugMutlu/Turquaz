@@ -31,8 +31,7 @@ public class EngDALCommon {
 			
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			String query = "from TurqCurrency as currency " +
-					"where currency.turqCompany.companiesId ="+System.getProperty("company");		   
+			String query = "from TurqCurrency as currency ";		   
 			   
 
 			Query q = session.createQuery(query); 
@@ -53,8 +52,7 @@ public class EngDALCommon {
 			
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			String query = "from TurqCurrentGroup as gr " +
-					"where gr.turqCompany.companiesId ="+System.getProperty("company");	
+			String query = "from TurqCurrentGroup as gr ";	
 			Query q = session.createQuery(query); 
 			List list = q.list();
 			tx.commit();
@@ -112,8 +110,7 @@ public class EngDALCommon {
 		try{
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			String query = "from TurqInventoryWarehous as wh" +
-					" where wh.turqCompany.companiesId ="+System.getProperty("company");	
+			String query = "from TurqInventoryWarehous as wh" ;	
 			Query q = session.createQuery(query); 
 			List list = q.list();
 			tx.commit();

@@ -39,9 +39,6 @@ public class BillBLAddGroups {
 		group.setGroupDescription(description);
 		group.setGroupsName(name);
 		
-		TurqCompany company = new TurqCompany();	
-		company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
-		group.setTurqCompany(company);
 		group.setCreatedBy(System.getProperty("user"));
 		group.setUpdatedBy(System.getProperty("user"));
 		group.setLastModified(new java.sql.Date(cal.getTime().getTime()));

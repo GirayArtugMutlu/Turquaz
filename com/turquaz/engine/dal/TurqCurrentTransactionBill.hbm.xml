@@ -25,25 +25,18 @@
     </id>
 
     <property
-        name="creationDate"
-        type="java.sql.Date"
-        column="creation_date"
-        not-null="true"
-        length="4"
-    />
-    <property
-        name="lastModified"
-        type="java.sql.Date"
-        column="last_modified"
-        not-null="true"
-        length="4"
-    />
-    <property
         name="createdBy"
         type="java.lang.String"
         column="created_by"
         not-null="true"
         length="50"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
     />
     <property
         name="updatedBy"
@@ -52,17 +45,16 @@
         not-null="true"
         length="50"
     />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
 
     <!-- Associations -->
   
-    <!-- bi-directional many-to-one association to TurqCurrentTransaction -->
-    <many-to-one
-        name="turqCurrentTransactionByCurrentTransactionsIdClose"
-        class="com.turquaz.engine.dal.TurqCurrentTransaction"
-        not-null="true"
-    >
-        <column name="current_transactions_id_close" />
-    </many-to-one>
     <!-- bi-directional many-to-one association to TurqCurrentTransaction -->
     <many-to-one
         name="turqCurrentTransactionByCurrentTransactionsIdOpen"
@@ -70,6 +62,14 @@
         not-null="true"
     >
         <column name="current_transactions_id_open" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqCurrentTransaction -->
+    <many-to-one
+        name="turqCurrentTransactionByCurrentTransactionsIdClose"
+        class="com.turquaz.engine.dal.TurqCurrentTransaction"
+        not-null="true"
+    >
+        <column name="current_transactions_id_close" />
     </many-to-one>
 
 </class>

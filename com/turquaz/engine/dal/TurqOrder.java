@@ -40,18 +40,6 @@ public class TurqOrder implements Serializable {
     private java.math.BigDecimal ordersTotalAmount;
 
     /** persistent field */
-    private java.util.Date creationDate;
-
-    /** persistent field */
-    private java.lang.String createdBy;
-
-    /** persistent field */
-    private java.util.Date lastModified;
-
-    /** persistent field */
-    private java.lang.String updatedBy;
-
-    /** persistent field */
     private java.util.Date ordersDueDate;
 
     /** persistent field */
@@ -64,7 +52,16 @@ public class TurqOrder implements Serializable {
     private int ordersType;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCompany turqCompany;
+    private java.lang.String createdBy;
+
+    /** persistent field */
+    private java.util.Date creationDate;
+
+    /** persistent field */
+    private java.lang.String updatedBy;
+
+    /** persistent field */
+    private java.util.Date lastModified;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqBill turqBill;
@@ -76,7 +73,7 @@ public class TurqOrder implements Serializable {
     private Set turqOrderInGroups;
 
     /** full constructor */
-    public TurqOrder(int ordersDocumentNo, java.util.Date ordersDate, java.lang.String ordersDefinition, int ordersDiscountRate, int ordersVat, java.math.BigDecimal ordersDiscountAmount, java.math.BigDecimal ordersCharges, java.math.BigDecimal ordersVatAmount, java.math.BigDecimal ordersTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, java.util.Date ordersDueDate, java.util.Date ordersDeliverDate, int ordersDelivered, int ordersType, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqBill turqBill, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqOrderInGroups) {
+    public TurqOrder(int ordersDocumentNo, java.util.Date ordersDate, java.lang.String ordersDefinition, int ordersDiscountRate, int ordersVat, java.math.BigDecimal ordersDiscountAmount, java.math.BigDecimal ordersCharges, java.math.BigDecimal ordersVatAmount, java.math.BigDecimal ordersTotalAmount, java.util.Date ordersDueDate, java.util.Date ordersDeliverDate, int ordersDelivered, int ordersType, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBill turqBill, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqOrderInGroups) {
         this.ordersDocumentNo = ordersDocumentNo;
         this.ordersDate = ordersDate;
         this.ordersDefinition = ordersDefinition;
@@ -86,15 +83,14 @@ public class TurqOrder implements Serializable {
         this.ordersCharges = ordersCharges;
         this.ordersVatAmount = ordersVatAmount;
         this.ordersTotalAmount = ordersTotalAmount;
-        this.creationDate = creationDate;
-        this.createdBy = createdBy;
-        this.lastModified = lastModified;
-        this.updatedBy = updatedBy;
         this.ordersDueDate = ordersDueDate;
         this.ordersDeliverDate = ordersDeliverDate;
         this.ordersDelivered = ordersDelivered;
         this.ordersType = ordersType;
-        this.turqCompany = turqCompany;
+        this.createdBy = createdBy;
+        this.creationDate = creationDate;
+        this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
         this.turqBill = turqBill;
         this.turqCurrentCard = turqCurrentCard;
         this.turqOrderInGroups = turqOrderInGroups;
@@ -184,38 +180,6 @@ public class TurqOrder implements Serializable {
         this.ordersTotalAmount = ordersTotalAmount;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public java.lang.String getCreatedBy() {
-        return this.createdBy;
-    }
-
-    public void setCreatedBy(java.lang.String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
-
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
-    public java.lang.String getUpdatedBy() {
-        return this.updatedBy;
-    }
-
-    public void setUpdatedBy(java.lang.String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
     public java.util.Date getOrdersDueDate() {
         return this.ordersDueDate;
     }
@@ -248,12 +212,36 @@ public class TurqOrder implements Serializable {
         this.ordersType = ordersType;
     }
 
-    public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
-        return this.turqCompany;
+    public java.lang.String getCreatedBy() {
+        return this.createdBy;
     }
 
-    public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.turqCompany = turqCompany;
+    public void setCreatedBy(java.lang.String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public java.lang.String getUpdatedBy() {
+        return this.updatedBy;
+    }
+
+    public void setUpdatedBy(java.lang.String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public java.util.Date getLastModified() {
+        return this.lastModified;
+    }
+
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public com.turquaz.engine.dal.TurqBill getTurqBill() {

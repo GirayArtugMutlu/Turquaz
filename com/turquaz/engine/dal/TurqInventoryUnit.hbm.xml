@@ -62,14 +62,6 @@
 
     <!-- Associations -->
   
-    <!-- bi-directional many-to-one association to TurqCompany -->
-    <many-to-one
-        name="turqCompany"
-        class="com.turquaz.engine.dal.TurqCompany"
-        not-null="true"
-    >
-        <column name="companies_id" />
-    </many-to-one>
     <!-- bi-directional one-to-many association to TurqInventoryTransaction -->
     <set
         name="turqInventoryTransactions"

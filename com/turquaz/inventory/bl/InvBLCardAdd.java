@@ -142,9 +142,6 @@ public class InvBLCardAdd {
 	public void saveUnit(String unitName)throws Exception {
 		try {
 			TurqInventoryUnit invUnit = new TurqInventoryUnit();
-			TurqCompany company = new TurqCompany();	
-			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
-			invUnit.setTurqCompany(company);
 			invUnit.setUnitsName(unitName);
 			//invGroup.setGroupsDescription(groupDescription);
 			
@@ -169,9 +166,6 @@ public class InvBLCardAdd {
 			throws Exception {
 		try {
 			TurqInventoryGroup invGroup = new TurqInventoryGroup();
-			TurqCompany company = new TurqCompany();	
-			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
-			invGroup.setTurqCompany(company);
 			invGroup.setGroupsName(groupName);
 			invGroup.setGroupsDescription(groupDescription);
 			
@@ -197,11 +191,7 @@ public class InvBLCardAdd {
 			int maxAmount, int cardVat, int discount,TurqAccountingAccount accountBuy,
 			TurqAccountingAccount accountSell,int cardSpecialVat, BigDecimal cardSpecialVatEach) throws Exception {
 
-		try {
-
-			TurqCompany company = new TurqCompany();
-			company.setCompaniesId(Integer.valueOf(System
-					.getProperty("company")));			
+		try {			
 
 			TurqInventoryCard card = new TurqInventoryCard();
 			card.setCardDefinition(cardDefinition);
@@ -219,7 +209,7 @@ public class InvBLCardAdd {
 			card.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			card.setTurqAccountingAccountByAccountingAccountsIdBuy(accountBuy);
 			card.setTurqAccountingAccountByAccountingAccountsIdSell(accountSell);
-			card.setTurqCompany(company);
+
 			cardAdd.saveOrUpdateInvCard(card);
 
 			return card.getInventoryCardsId();

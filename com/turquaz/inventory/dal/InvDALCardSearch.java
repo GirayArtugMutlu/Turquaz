@@ -55,8 +55,8 @@ public class InvDALCardSearch {
 				String query = "Select invView, invCard from TurqViewInventoryAmountTotal as invView," +
 						" TurqInventoryCard as invCard" +
 						" left join fetch invCard.turqInventoryCardUnits" +
-						" where invCard.inventoryCardsId = invView.inventoryCardsId and invCard.turqCompany.companiesId ="+System.getProperty("company")+" " +
-						" and lower(invCard.cardName) like '"+cardName.toLowerCase()+"%' and invCard.cardInventoryCode like '"+cardCode+"%' ";
+						" where invCard.inventoryCardsId = invView.inventoryCardsId and " +
+						" lower(invCard.cardName) like '"+cardName.toLowerCase()+"%' and invCard.cardInventoryCode like '"+cardCode+"%' ";
 							
 							   	
 				if(invGroup!=null){

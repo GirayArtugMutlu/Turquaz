@@ -52,16 +52,23 @@
         length="65535"
     />
     <property
+        name="transactionsTotalDept"
+        type="java.math.BigDecimal"
+        column="transactions_total_dept"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
         name="creationDate"
         type="java.sql.Date"
         column="creation_date"
-        not-null="true"
-        length="4"
-    />
-    <property
-        name="lastModified"
-        type="java.sql.Date"
-        column="last_modified"
         not-null="true"
         length="4"
     />
@@ -73,36 +80,15 @@
         length="50"
     />
     <property
-        name="createdBy"
-        type="java.lang.String"
-        column="created_by"
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
         not-null="true"
-        length="50"
-    />
-    <property
-        name="transactionsTotalDept"
-        type="java.math.BigDecimal"
-        column="transactions_total_dept"
-        not-null="true"
-        length="65535"
+        length="4"
     />
 
     <!-- Associations -->
   
-    <!-- bi-directional one-to-many association to TurqCurrentTransactionBill -->
-    <set
-        name="turqCurrentTransactionBillsByCurrentTransactionsIdClose"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="current_transactions_id_close" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqCurrentTransactionBill"
-        />
-    </set>
     <!-- bi-directional one-to-many association to TurqCurrentTransactionBill -->
     <set
         name="turqCurrentTransactionBillsByCurrentTransactionsIdOpen"
@@ -112,6 +98,20 @@
     >
         <key>
             <column name="current_transactions_id_open" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrentTransactionBill"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqCurrentTransactionBill -->
+    <set
+        name="turqCurrentTransactionBillsByCurrentTransactionsIdClose"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="current_transactions_id_close" />
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqCurrentTransactionBill"

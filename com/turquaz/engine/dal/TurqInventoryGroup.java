@@ -16,6 +16,9 @@ public class TurqInventoryGroup implements Serializable {
     private java.lang.String groupsName;
 
     /** persistent field */
+    private java.lang.String groupsDescription;
+
+    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
@@ -28,23 +31,16 @@ public class TurqInventoryGroup implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
-    private java.lang.String groupsDescription;
-
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqCompany turqCompany;
-
-    /** persistent field */
     private Set turqInventoryCardGroups;
 
     /** full constructor */
-    public TurqInventoryGroup(java.lang.String groupsName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String groupsDescription, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryCardGroups) {
+    public TurqInventoryGroup(java.lang.String groupsName, java.lang.String groupsDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqInventoryCardGroups) {
         this.groupsName = groupsName;
+        this.groupsDescription = groupsDescription;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.groupsDescription = groupsDescription;
-        this.turqCompany = turqCompany;
         this.turqInventoryCardGroups = turqInventoryCardGroups;
     }
 
@@ -66,6 +62,14 @@ public class TurqInventoryGroup implements Serializable {
 
     public void setGroupsName(java.lang.String groupsName) {
         this.groupsName = groupsName;
+    }
+
+    public java.lang.String getGroupsDescription() {
+        return this.groupsDescription;
+    }
+
+    public void setGroupsDescription(java.lang.String groupsDescription) {
+        this.groupsDescription = groupsDescription;
     }
 
     public java.lang.String getCreatedBy() {
@@ -98,22 +102,6 @@ public class TurqInventoryGroup implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public java.lang.String getGroupsDescription() {
-        return this.groupsDescription;
-    }
-
-    public void setGroupsDescription(java.lang.String groupsDescription) {
-        this.groupsDescription = groupsDescription;
-    }
-
-    public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
-        return this.turqCompany;
-    }
-
-    public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.turqCompany = turqCompany;
     }
 
     public java.util.Set getTurqInventoryCardGroups() {

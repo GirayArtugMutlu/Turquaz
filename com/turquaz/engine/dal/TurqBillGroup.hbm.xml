@@ -83,14 +83,6 @@
             class="com.turquaz.engine.dal.TurqBillInGroup"
         />
     </set>
-    <!-- bi-directional many-to-one association to TurqCompany -->
-    <many-to-one
-        name="turqCompany"
-        class="com.turquaz.engine.dal.TurqCompany"
-        not-null="true"
-    >
-        <column name="companies_id" />
-    </many-to-one>
 
 </class>
 </hibernate-mapping>

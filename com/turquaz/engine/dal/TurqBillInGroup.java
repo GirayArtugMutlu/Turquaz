@@ -12,16 +12,16 @@ public class TurqBillInGroup implements Serializable {
     private java.lang.Integer billInGroupsId;
 
     /** persistent field */
-    private java.util.Date creationDate;
-
-    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
-    private java.util.Date lastModified;
+    private java.util.Date creationDate;
 
     /** persistent field */
     private java.lang.String updatedBy;
+
+    /** persistent field */
+    private java.util.Date lastModified;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqBillGroup turqBillGroup;
@@ -30,11 +30,11 @@ public class TurqBillInGroup implements Serializable {
     private com.turquaz.engine.dal.TurqBill turqBill;
 
     /** full constructor */
-    public TurqBillInGroup(java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, com.turquaz.engine.dal.TurqBillGroup turqBillGroup, com.turquaz.engine.dal.TurqBill turqBill) {
-        this.creationDate = creationDate;
+    public TurqBillInGroup(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBillGroup turqBillGroup, com.turquaz.engine.dal.TurqBill turqBill) {
         this.createdBy = createdBy;
-        this.lastModified = lastModified;
+        this.creationDate = creationDate;
         this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
         this.turqBillGroup = turqBillGroup;
         this.turqBill = turqBill;
     }
@@ -51,14 +51,6 @@ public class TurqBillInGroup implements Serializable {
         this.billInGroupsId = billInGroupsId;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
@@ -67,12 +59,12 @@ public class TurqBillInGroup implements Serializable {
         this.createdBy = createdBy;
     }
 
-    public java.util.Date getLastModified() {
-        return this.lastModified;
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
     }
 
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public java.lang.String getUpdatedBy() {
@@ -81,6 +73,14 @@ public class TurqBillInGroup implements Serializable {
 
     public void setUpdatedBy(java.lang.String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public java.util.Date getLastModified() {
+        return this.lastModified;
+    }
+
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public com.turquaz.engine.dal.TurqBillGroup getTurqBillGroup() {

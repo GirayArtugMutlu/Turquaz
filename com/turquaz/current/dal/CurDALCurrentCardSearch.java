@@ -75,7 +75,6 @@ public class CurDALCurrentCardSearch {
 					" currentCard.currentCardsId=currentView.currentCardsId" +
 					" and currentCard.cardsCurrentCode like '"+currentCode+"%'"+
 					" and currentCard.cardsName like '"+currentName+"%'"+
-					" and currentCard.turqCompany.companiesId ="+System.getProperty("company")+
 					" and currentCard.currentCardsId <> -1";
 			if (cardGroup!=null){
 				query +=" and :cardGroup in (Select gr.turqCurrentGroup from gr)";

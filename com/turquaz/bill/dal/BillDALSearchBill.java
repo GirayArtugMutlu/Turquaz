@@ -32,8 +32,7 @@ public class BillDALSearchBill {
 		
 		String query = "Select bill from TurqBill as bill" +
 				" left join fetch bill.turqBillInGroups where" +
-				" bill.turqCompany.companiesId ="+System.getProperty("company")+
-				" and bill.billsDate >= :startDate" +
+				" bill.billsDate >= :startDate" +
 				" and bill.billsDate <= :endDate" +
 				" and bill.billsType ="+type +""+
 				" and bill.billsId <> -1 ";

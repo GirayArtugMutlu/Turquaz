@@ -39,11 +39,11 @@
         length="65535"
     />
     <property
-        name="creationDate"
-        type="java.sql.Date"
-        column="creation_date"
+        name="transactionDefinition"
+        type="java.lang.String"
+        column="transaction_definition"
         not-null="true"
-        length="4"
+        length="250"
     />
     <property
         name="createdBy"
@@ -53,9 +53,9 @@
         length="50"
     />
     <property
-        name="lastModified"
+        name="creationDate"
         type="java.sql.Date"
-        column="last_modified"
+        column="creation_date"
         not-null="true"
         length="4"
     />
@@ -67,11 +67,11 @@
         length="50"
     />
     <property
-        name="transactionDefinition"
-        type="java.lang.String"
-        column="transaction_definition"
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
         not-null="true"
-        length="250"
+        length="4"
     />
 
     <!-- Associations -->

@@ -118,8 +118,7 @@ public class CurDALCurrentTransactionAdd {
 		
 		Session session = EngDALSessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		String query = "from TurqCurrentCard as curCard " +
-				"where curCard.turqCompany.companiesId ="+System.getProperty("company");		   
+		String query = "from TurqCurrentCard as curCard ";		   
 		Query q = session.createQuery(query); 
 		List list = q.list();
 		tx.commit();
@@ -141,8 +140,7 @@ public class CurDALCurrentTransactionAdd {
 			
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			String query = "from TurqCurrentTransactionType as curCard " +
-					"where curCard.turqCompany.companiesId ="+System.getProperty("company");		   
+			String query = "from TurqCurrentTransactionType as curCard ";		   
 			Query q = session.createQuery(query); 
 			List list = q.list();
 			

@@ -68,8 +68,7 @@ public class BillDALAddGroups {
 			
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			String query = "from TurqBillGroup as gr " +
-					"where gr.turqCompany.companiesId ="+System.getProperty("company");	
+			String query = "from TurqBillGroup as gr ";
 			Query q = session.createQuery(query); 
 			List list = q.list();
 			tx.commit();

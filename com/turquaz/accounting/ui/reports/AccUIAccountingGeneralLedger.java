@@ -138,8 +138,6 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 		try{
 			
 			Map parameters = new HashMap();
-			TurqCompany company = new TurqCompany();
-			company.setCompaniesId(Integer.valueOf(System.getProperty("company"))); //$NON-NLS-1$
 			String sqlparam="Select accounts.top_account,accounts.account_name," + //$NON-NLS-1$
 					" accounts.account_code," +
 					" trans.transactions_date,trans.transaction_document_no," + //$NON-NLS-1$
@@ -148,8 +146,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 					" from turq_accounting_accounts accounts, turq_accounting_transactions trans," + //$NON-NLS-1$
 					" turq_accounting_transaction_columns transcolumns where" + //$NON-NLS-1$
 					" accounts.accounting_accounts_id=transcolumns.accounting_accounts_id" + //$NON-NLS-1$
-					" and transcolumns.accounting_transactions_id=trans.accounting_transactions_id" + //$NON-NLS-1$
-					" and accounts.companies_id="+company.getCompaniesId().toString(); //$NON-NLS-1$
+					" and transcolumns.accounting_transactions_id=trans.accounting_transactions_id" ; //$NON-NLS-1$
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 			sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
 					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"//$NON-NLS-1$ //$NON-NLS-2$

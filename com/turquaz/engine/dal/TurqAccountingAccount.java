@@ -19,19 +19,16 @@ public class TurqAccountingAccount implements Serializable {
     private java.lang.String accountCode;
 
     /** persistent field */
-    private java.util.Date creationDate;
-
-    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
-    private java.util.Date updateDate;
+    private java.util.Date creationDate;
 
     /** persistent field */
     private java.lang.String updatedBy;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCompany turqCompany;
+    private java.util.Date updateDate;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByTopAccount;
@@ -70,14 +67,13 @@ public class TurqAccountingAccount implements Serializable {
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqAccountingAccount(java.lang.String accountName, java.lang.String accountCode, java.util.Date creationDate, java.lang.String createdBy, java.util.Date updateDate, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByTopAccount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByParentAccount, Set turqAccountingAccountsByTopAccount, Set turqAccountingAccountsByParentAccount, Set turqInventoryCardsByAccountingAccountsIdSell, Set turqInventoryCardsByAccountingAccountsIdBuy, Set turqAccountingTransactionColumns, Set turqChequeTransactionTypes, Set turqBankCardsSecondaryAccounts, Set turqCurrentCards, Set turqTradebillTransactionTypes, Set turqBanksTransactions) {
+    public TurqAccountingAccount(java.lang.String accountName, java.lang.String accountCode, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByTopAccount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByParentAccount, Set turqAccountingAccountsByTopAccount, Set turqAccountingAccountsByParentAccount, Set turqInventoryCardsByAccountingAccountsIdSell, Set turqInventoryCardsByAccountingAccountsIdBuy, Set turqAccountingTransactionColumns, Set turqChequeTransactionTypes, Set turqBankCardsSecondaryAccounts, Set turqCurrentCards, Set turqTradebillTransactionTypes, Set turqBanksTransactions) {
         this.accountName = accountName;
         this.accountCode = accountCode;
-        this.creationDate = creationDate;
         this.createdBy = createdBy;
-        this.updateDate = updateDate;
+        this.creationDate = creationDate;
         this.updatedBy = updatedBy;
-        this.turqCompany = turqCompany;
+        this.updateDate = updateDate;
         this.turqAccountingAccountByTopAccount = turqAccountingAccountByTopAccount;
         this.turqAccountingAccountByParentAccount = turqAccountingAccountByParentAccount;
         this.turqAccountingAccountsByTopAccount = turqAccountingAccountsByTopAccount;
@@ -120,14 +116,6 @@ public class TurqAccountingAccount implements Serializable {
         this.accountCode = accountCode;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
@@ -136,12 +124,12 @@ public class TurqAccountingAccount implements Serializable {
         this.createdBy = createdBy;
     }
 
-    public java.util.Date getUpdateDate() {
-        return this.updateDate;
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
     }
 
-    public void setUpdateDate(java.util.Date updateDate) {
-        this.updateDate = updateDate;
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public java.lang.String getUpdatedBy() {
@@ -152,12 +140,12 @@ public class TurqAccountingAccount implements Serializable {
         this.updatedBy = updatedBy;
     }
 
-    public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
-        return this.turqCompany;
+    public java.util.Date getUpdateDate() {
+        return this.updateDate;
     }
 
-    public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.turqCompany = turqCompany;
+    public void setUpdateDate(java.util.Date updateDate) {
+        this.updateDate = updateDate;
     }
 
     public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByTopAccount() {

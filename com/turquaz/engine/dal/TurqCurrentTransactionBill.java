@@ -12,31 +12,31 @@ public class TurqCurrentTransactionBill implements Serializable {
     private java.lang.Integer currentTransactionBillId;
 
     /** persistent field */
-    private java.util.Date creationDate;
-
-    /** persistent field */
-    private java.util.Date lastModified;
-
-    /** persistent field */
     private java.lang.String createdBy;
+
+    /** persistent field */
+    private java.util.Date creationDate;
 
     /** persistent field */
     private java.lang.String updatedBy;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdClose;
+    private java.util.Date lastModified;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdOpen;
 
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdClose;
+
     /** full constructor */
-    public TurqCurrentTransactionBill(java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdClose, com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdOpen) {
-        this.creationDate = creationDate;
-        this.lastModified = lastModified;
+    public TurqCurrentTransactionBill(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdOpen, com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdClose) {
         this.createdBy = createdBy;
+        this.creationDate = creationDate;
         this.updatedBy = updatedBy;
-        this.turqCurrentTransactionByCurrentTransactionsIdClose = turqCurrentTransactionByCurrentTransactionsIdClose;
+        this.lastModified = lastModified;
         this.turqCurrentTransactionByCurrentTransactionsIdOpen = turqCurrentTransactionByCurrentTransactionsIdOpen;
+        this.turqCurrentTransactionByCurrentTransactionsIdClose = turqCurrentTransactionByCurrentTransactionsIdClose;
     }
 
     /** default constructor */
@@ -51,28 +51,20 @@ public class TurqCurrentTransactionBill implements Serializable {
         this.currentTransactionBillId = currentTransactionBillId;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
-
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
 
     public void setCreatedBy(java.lang.String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public java.lang.String getUpdatedBy() {
@@ -83,12 +75,12 @@ public class TurqCurrentTransactionBill implements Serializable {
         this.updatedBy = updatedBy;
     }
 
-    public com.turquaz.engine.dal.TurqCurrentTransaction getTurqCurrentTransactionByCurrentTransactionsIdClose() {
-        return this.turqCurrentTransactionByCurrentTransactionsIdClose;
+    public java.util.Date getLastModified() {
+        return this.lastModified;
     }
 
-    public void setTurqCurrentTransactionByCurrentTransactionsIdClose(com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdClose) {
-        this.turqCurrentTransactionByCurrentTransactionsIdClose = turqCurrentTransactionByCurrentTransactionsIdClose;
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public com.turquaz.engine.dal.TurqCurrentTransaction getTurqCurrentTransactionByCurrentTransactionsIdOpen() {
@@ -97,6 +89,14 @@ public class TurqCurrentTransactionBill implements Serializable {
 
     public void setTurqCurrentTransactionByCurrentTransactionsIdOpen(com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdOpen) {
         this.turqCurrentTransactionByCurrentTransactionsIdOpen = turqCurrentTransactionByCurrentTransactionsIdOpen;
+    }
+
+    public com.turquaz.engine.dal.TurqCurrentTransaction getTurqCurrentTransactionByCurrentTransactionsIdClose() {
+        return this.turqCurrentTransactionByCurrentTransactionsIdClose;
+    }
+
+    public void setTurqCurrentTransactionByCurrentTransactionsIdClose(com.turquaz.engine.dal.TurqCurrentTransaction turqCurrentTransactionByCurrentTransactionsIdClose) {
+        this.turqCurrentTransactionByCurrentTransactionsIdClose = turqCurrentTransactionByCurrentTransactionsIdClose;
     }
 
     public String toString() {

@@ -23,31 +23,31 @@ public class TurqCurrentCardsPhone implements Serializable {
     /** persistent field */
     private java.lang.String phonesType;
 
-    /** nullable persistent field */
-    private java.util.Date creationDate;
-
-    /** persistent field */
-    private java.util.Date lastModified;
-
     /** persistent field */
     private java.lang.String createdBy;
+
+    /** nullable persistent field */
+    private java.util.Date creationDate;
 
     /** persistent field */
     private java.lang.String updatedBy;
 
     /** persistent field */
+    private java.util.Date lastModified;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard;
 
     /** full constructor */
-    public TurqCurrentCardsPhone(int phonesCountryCode, int phonesCityCode, int phonesNumber, java.lang.String phonesType, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
+    public TurqCurrentCardsPhone(int phonesCountryCode, int phonesCityCode, int phonesNumber, java.lang.String phonesType, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
         this.phonesCountryCode = phonesCountryCode;
         this.phonesCityCode = phonesCityCode;
         this.phonesNumber = phonesNumber;
         this.phonesType = phonesType;
-        this.creationDate = creationDate;
-        this.lastModified = lastModified;
         this.createdBy = createdBy;
+        this.creationDate = creationDate;
         this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
         this.turqCurrentCard = turqCurrentCard;
     }
 
@@ -56,14 +56,14 @@ public class TurqCurrentCardsPhone implements Serializable {
     }
 
     /** minimal constructor */
-    public TurqCurrentCardsPhone(int phonesCountryCode, int phonesCityCode, int phonesNumber, java.lang.String phonesType, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
+    public TurqCurrentCardsPhone(int phonesCountryCode, int phonesCityCode, int phonesNumber, java.lang.String phonesType, java.lang.String createdBy, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
         this.phonesCountryCode = phonesCountryCode;
         this.phonesCityCode = phonesCityCode;
         this.phonesNumber = phonesNumber;
         this.phonesType = phonesType;
-        this.lastModified = lastModified;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
         this.turqCurrentCard = turqCurrentCard;
     }
 
@@ -107,22 +107,6 @@ public class TurqCurrentCardsPhone implements Serializable {
         this.phonesType = phonesType;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
-
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
@@ -131,12 +115,28 @@ public class TurqCurrentCardsPhone implements Serializable {
         this.createdBy = createdBy;
     }
 
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public java.lang.String getUpdatedBy() {
         return this.updatedBy;
     }
 
     public void setUpdatedBy(java.lang.String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public java.util.Date getLastModified() {
+        return this.lastModified;
+    }
+
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public com.turquaz.engine.dal.TurqCurrentCard getTurqCurrentCard() {

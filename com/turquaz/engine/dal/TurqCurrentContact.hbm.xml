@@ -73,20 +73,6 @@
         length="250"
     />
     <property
-        name="creationDate"
-        type="java.sql.Date"
-        column="creation_date"
-        not-null="true"
-        length="4"
-    />
-    <property
-        name="lastModified"
-        type="java.sql.Date"
-        column="last_modified"
-        not-null="true"
-        length="4"
-    />
-    <property
         name="createdBy"
         type="java.lang.String"
         column="created_by"
@@ -94,11 +80,25 @@
         length="50"
     />
     <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
         name="updatedBy"
         type="java.lang.String"
         column="updated_by"
         not-null="true"
         length="50"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
     />
 
     <!-- Associations -->

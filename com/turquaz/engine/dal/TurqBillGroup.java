@@ -31,20 +31,16 @@ public class TurqBillGroup implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCompany turqCompany;
-
-    /** persistent field */
     private Set turqBillInGroups;
 
     /** full constructor */
-    public TurqBillGroup(java.lang.String groupsName, java.lang.String groupDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqBillInGroups) {
+    public TurqBillGroup(java.lang.String groupsName, java.lang.String groupDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqBillInGroups) {
         this.groupsName = groupsName;
         this.groupDescription = groupDescription;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.turqCompany = turqCompany;
         this.turqBillInGroups = turqBillInGroups;
     }
 
@@ -106,14 +102,6 @@ public class TurqBillGroup implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
-        return this.turqCompany;
-    }
-
-    public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.turqCompany = turqCompany;
     }
 
     public java.util.Set getTurqBillInGroups() {

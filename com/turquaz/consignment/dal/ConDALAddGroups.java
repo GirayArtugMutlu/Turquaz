@@ -67,8 +67,7 @@ public class ConDALAddGroups {
 			
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			String query = "from TurqConsignmentGroup as gr " + //$NON-NLS-1$
-					"where gr.turqCompany.companiesId ="+System.getProperty("company");	 //$NON-NLS-1$ //$NON-NLS-2$
+			String query = "from TurqConsignmentGroup as gr " ; //$NON-NLS-1$
 			Query q = session.createQuery(query); 
 			List list = q.list();
 			tx.commit();

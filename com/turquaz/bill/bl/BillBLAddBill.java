@@ -19,7 +19,6 @@ import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqBillInGroup;
-import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqModule;
@@ -48,10 +47,8 @@ public class BillBLAddBill {
 			bill.setBillsDate(billsDate);
 			bill.setBillsDefinition(definition);
 			bill.setBillsPrinted(isPrinted);
-			bill.setBillsType(type);				
-			TurqCompany company = new TurqCompany();	
-			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
-			bill.setTurqCompany(company);
+			bill.setBillsType(type);			
+
 			bill.setCreatedBy(System.getProperty("user"));
 			bill.setUpdatedBy(System.getProperty("user"));
 			bill.setLastModified(new java.sql.Date(cal.getTime().getTime()));

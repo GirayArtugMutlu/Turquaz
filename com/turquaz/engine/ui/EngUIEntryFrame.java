@@ -343,7 +343,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			    props.store(output,"Turquaz Configuration"); //$NON-NLS-1$
 			    
 			    System.setProperty("user",txtUserName.getText()); //$NON-NLS-1$
-			    System.setProperty("company","0"); //$NON-NLS-1$ //$NON-NLS-2$
+
 			    if (((Integer)comboLanguage.getData(comboLanguage.getText())).intValue() ==1)
 			    {
 			    	Locale.setDefault(new Locale("tr","TR")); //$NON-NLS-1$ //$NON-NLS-2$

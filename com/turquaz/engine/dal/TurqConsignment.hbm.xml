@@ -39,34 +39,6 @@
         length="250"
     />
     <property
-        name="creationDate"
-        type="java.sql.Date"
-        column="creation_date"
-        not-null="true"
-        length="4"
-    />
-    <property
-        name="createdBy"
-        type="java.lang.String"
-        column="created_by"
-        not-null="true"
-        length="50"
-    />
-    <property
-        name="lastModified"
-        type="java.sql.Date"
-        column="last_modified"
-        not-null="true"
-        length="4"
-    />
-    <property
-        name="updatedBy"
-        type="java.lang.String"
-        column="updated_by"
-        not-null="true"
-        length="50"
-    />
-    <property
         name="consignmentsType"
         type="int"
         column="consignments_type"
@@ -80,6 +52,34 @@
         not-null="true"
         length="1"
     />
+    <property
+        name="createdBy"
+        type="java.lang.String"
+        column="created_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="creationDate"
+        type="java.sql.Date"
+        column="creation_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="updatedBy"
+        type="java.lang.String"
+        column="updated_by"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="lastModified"
+        type="java.sql.Date"
+        column="last_modified"
+        not-null="true"
+        length="4"
+    />
 
     <!-- Associations -->
   
@@ -90,14 +90,6 @@
         not-null="true"
     >
         <column name="bill_consignment_common_id" />
-    </many-to-one>
-    <!-- bi-directional many-to-one association to TurqCompany -->
-    <many-to-one
-        name="turqCompany"
-        class="com.turquaz.engine.dal.TurqCompany"
-        not-null="true"
-    >
-        <column name="companies_id" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqEngineSequence -->
     <many-to-one

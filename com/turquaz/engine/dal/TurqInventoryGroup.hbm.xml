@@ -33,6 +33,13 @@
         length="50"
     />
     <property
+        name="groupsDescription"
+        type="java.lang.String"
+        column="groups_description"
+        not-null="true"
+        length="250"
+    />
+    <property
         name="createdBy"
         type="java.lang.String"
         column="created_by"
@@ -60,24 +67,9 @@
         not-null="true"
         length="4"
     />
-    <property
-        name="groupsDescription"
-        type="java.lang.String"
-        column="groups_description"
-        not-null="true"
-        length="250"
-    />
 
     <!-- Associations -->
   
-    <!-- bi-directional many-to-one association to TurqCompany -->
-    <many-to-one
-        name="turqCompany"
-        class="com.turquaz.engine.dal.TurqCompany"
-        not-null="true"
-    >
-        <column name="companies_id" />
-    </many-to-one>
     <!-- bi-directional one-to-many association to TurqInventoryCardGroup -->
     <set
         name="turqInventoryCardGroups"

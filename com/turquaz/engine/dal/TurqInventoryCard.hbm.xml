@@ -76,6 +76,20 @@
         length="4"
     />
     <property
+        name="cardSpecialVat"
+        type="int"
+        column="card_special_vat"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="cardSpecialVatEach"
+        type="java.math.BigDecimal"
+        column="card_special_vat_each"
+        not-null="true"
+        length="65535"
+    />
+    <property
         name="createdBy"
         type="java.lang.String"
         column="created_by"
@@ -103,31 +117,9 @@
         not-null="true"
         length="4"
     />
-    <property
-        name="cardSpecialVat"
-        type="int"
-        column="card_special_vat"
-        not-null="true"
-        length="4"
-    />
-    <property
-        name="cardSpecialVatEach"
-        type="java.math.BigDecimal"
-        column="card_special_vat_each"
-        not-null="true"
-        length="65535"
-    />
 
     <!-- Associations -->
   
-    <!-- bi-directional many-to-one association to TurqCompany -->
-    <many-to-one
-        name="turqCompany"
-        class="com.turquaz.engine.dal.TurqCompany"
-        not-null="true"
-    >
-        <column name="companies_id" />
-    </many-to-one>
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one
         name="turqAccountingAccountByAccountingAccountsIdSell"

@@ -21,6 +21,9 @@ public class TurqCurrency implements Serializable {
     /** persistent field */
     private java.lang.String currenciesCountry;
 
+    /** nullable persistent field */
+    private java.math.BigDecimal exchangeRate;
+
     /** persistent field */
     private java.lang.String createdBy;
 
@@ -32,12 +35,6 @@ public class TurqCurrency implements Serializable {
 
     /** persistent field */
     private java.util.Date lastModified;
-
-    /** nullable persistent field */
-    private java.math.BigDecimal exchangeRate;
-
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqCompany turqCompany;
 
     /** persistent field */
     private Set turqInventoryPrices;
@@ -55,16 +52,15 @@ public class TurqCurrency implements Serializable {
     private Set turqCurrentTransactions;
 
     /** full constructor */
-    public TurqCurrency(java.lang.String currenciesName, java.lang.String currenciesAbbreviation, java.lang.String currenciesCountry, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.math.BigDecimal exchangeRate, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryPrices, Set turqTradebillTradebills, Set turqBanksCards, Set turqChequeCheques, Set turqCurrentTransactions) {
+    public TurqCurrency(java.lang.String currenciesName, java.lang.String currenciesAbbreviation, java.lang.String currenciesCountry, java.math.BigDecimal exchangeRate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqInventoryPrices, Set turqTradebillTradebills, Set turqBanksCards, Set turqChequeCheques, Set turqCurrentTransactions) {
         this.currenciesName = currenciesName;
         this.currenciesAbbreviation = currenciesAbbreviation;
         this.currenciesCountry = currenciesCountry;
+        this.exchangeRate = exchangeRate;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.exchangeRate = exchangeRate;
-        this.turqCompany = turqCompany;
         this.turqInventoryPrices = turqInventoryPrices;
         this.turqTradebillTradebills = turqTradebillTradebills;
         this.turqBanksCards = turqBanksCards;
@@ -77,7 +73,7 @@ public class TurqCurrency implements Serializable {
     }
 
     /** minimal constructor */
-    public TurqCurrency(java.lang.String currenciesName, java.lang.String currenciesAbbreviation, java.lang.String currenciesCountry, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryPrices, Set turqTradebillTradebills, Set turqBanksCards, Set turqChequeCheques, Set turqCurrentTransactions) {
+    public TurqCurrency(java.lang.String currenciesName, java.lang.String currenciesAbbreviation, java.lang.String currenciesCountry, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqInventoryPrices, Set turqTradebillTradebills, Set turqBanksCards, Set turqChequeCheques, Set turqCurrentTransactions) {
         this.currenciesName = currenciesName;
         this.currenciesAbbreviation = currenciesAbbreviation;
         this.currenciesCountry = currenciesCountry;
@@ -85,7 +81,6 @@ public class TurqCurrency implements Serializable {
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.turqCompany = turqCompany;
         this.turqInventoryPrices = turqInventoryPrices;
         this.turqTradebillTradebills = turqTradebillTradebills;
         this.turqBanksCards = turqBanksCards;
@@ -125,6 +120,14 @@ public class TurqCurrency implements Serializable {
         this.currenciesCountry = currenciesCountry;
     }
 
+    public java.math.BigDecimal getExchangeRate() {
+        return this.exchangeRate;
+    }
+
+    public void setExchangeRate(java.math.BigDecimal exchangeRate) {
+        this.exchangeRate = exchangeRate;
+    }
+
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
@@ -155,22 +158,6 @@ public class TurqCurrency implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public java.math.BigDecimal getExchangeRate() {
-        return this.exchangeRate;
-    }
-
-    public void setExchangeRate(java.math.BigDecimal exchangeRate) {
-        this.exchangeRate = exchangeRate;
-    }
-
-    public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
-        return this.turqCompany;
-    }
-
-    public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.turqCompany = turqCompany;
     }
 
     public java.util.Set getTurqInventoryPrices() {

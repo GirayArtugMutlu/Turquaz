@@ -19,32 +19,28 @@ public class TurqCurrentGroup implements Serializable {
     private java.lang.String groupsDescription;
 
     /** persistent field */
-    private java.util.Date creationDate;
-
-    /** persistent field */
-    private java.util.Date lastModified;
-
-    /** persistent field */
     private java.lang.String createdBy;
+
+    /** persistent field */
+    private java.util.Date creationDate;
 
     /** persistent field */
     private java.lang.String updatedBy;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCompany turqCompany;
+    private java.util.Date lastModified;
 
     /** persistent field */
     private Set turqCurrentCardsGroups;
 
     /** full constructor */
-    public TurqCurrentGroup(java.lang.String groupsName, java.lang.String groupsDescription, java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqCurrentCardsGroups) {
+    public TurqCurrentGroup(java.lang.String groupsName, java.lang.String groupsDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqCurrentCardsGroups) {
         this.groupsName = groupsName;
         this.groupsDescription = groupsDescription;
-        this.creationDate = creationDate;
-        this.lastModified = lastModified;
         this.createdBy = createdBy;
+        this.creationDate = creationDate;
         this.updatedBy = updatedBy;
-        this.turqCompany = turqCompany;
+        this.lastModified = lastModified;
         this.turqCurrentCardsGroups = turqCurrentCardsGroups;
     }
 
@@ -76,28 +72,20 @@ public class TurqCurrentGroup implements Serializable {
         this.groupsDescription = groupsDescription;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
-
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
 
     public void setCreatedBy(java.lang.String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public java.lang.String getUpdatedBy() {
@@ -108,12 +96,12 @@ public class TurqCurrentGroup implements Serializable {
         this.updatedBy = updatedBy;
     }
 
-    public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
-        return this.turqCompany;
+    public java.util.Date getLastModified() {
+        return this.lastModified;
     }
 
-    public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.turqCompany = turqCompany;
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public java.util.Set getTurqCurrentCardsGroups() {

@@ -197,8 +197,7 @@ public class InvDALCardAdd {
 		
 		Session session = EngDALSessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		String query = "from TurqInventoryGroup as invGroup " +
-				"where invGroup.turqCompany.companiesId ="+System.getProperty("company");		   
+		String query = "from TurqInventoryGroup as invGroup ";		   
 		   
 
 		Query q = session.createQuery(query); 
@@ -223,8 +222,7 @@ public class InvDALCardAdd {
 			
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			String query = "from TurqInventoryUnit as invUnit " +
-					"where invUnit.turqCompany.companiesId ="+System.getProperty("company");		   
+			String query = "from TurqInventoryUnit as invUnit " ;		   
 			   
 
 			Query q = session.createQuery(query); 

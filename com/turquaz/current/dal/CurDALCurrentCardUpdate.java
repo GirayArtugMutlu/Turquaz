@@ -88,8 +88,7 @@ public class CurDALCurrentCardUpdate {
 		try{
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			String query = "from TurqCurrentGroup as curGroup " +
-					"where curGroup.turqCompany.companiesId ="+System.getProperty("company");		   
+			String query = "from TurqCurrentGroup as curGroup " ;		   
 			Query q = session.createQuery(query); 
 			List list = q.list();
 			tx.commit();

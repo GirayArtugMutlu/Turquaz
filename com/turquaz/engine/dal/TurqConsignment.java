@@ -19,28 +19,25 @@ public class TurqConsignment implements Serializable {
     private java.lang.String consignmentsDefinition;
 
     /** persistent field */
-    private java.util.Date creationDate;
-
-    /** persistent field */
-    private java.lang.String createdBy;
-
-    /** persistent field */
-    private java.util.Date lastModified;
-
-    /** persistent field */
-    private java.lang.String updatedBy;
-
-    /** persistent field */
     private int consignmentsType;
 
     /** persistent field */
     private boolean consignmentsPrinted;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon;
+    private java.lang.String createdBy;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCompany turqCompany;
+    private java.util.Date creationDate;
+
+    /** persistent field */
+    private java.lang.String updatedBy;
+
+    /** persistent field */
+    private java.util.Date lastModified;
+
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
@@ -49,17 +46,16 @@ public class TurqConsignment implements Serializable {
     private Set turqConsignmentsInGroups;
 
     /** full constructor */
-    public TurqConsignment(java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, int consignmentsType, boolean consignmentsPrinted, com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqConsignmentsInGroups) {
+    public TurqConsignment(java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, int consignmentsType, boolean consignmentsPrinted, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqConsignmentsInGroups) {
         this.consignmentsDate = consignmentsDate;
         this.consignmentsDefinition = consignmentsDefinition;
-        this.creationDate = creationDate;
-        this.createdBy = createdBy;
-        this.lastModified = lastModified;
-        this.updatedBy = updatedBy;
         this.consignmentsType = consignmentsType;
         this.consignmentsPrinted = consignmentsPrinted;
+        this.createdBy = createdBy;
+        this.creationDate = creationDate;
+        this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
         this.turqBillConsignmentCommon = turqBillConsignmentCommon;
-        this.turqCompany = turqCompany;
         this.turqEngineSequence = turqEngineSequence;
         this.turqConsignmentsInGroups = turqConsignmentsInGroups;
     }
@@ -92,38 +88,6 @@ public class TurqConsignment implements Serializable {
         this.consignmentsDefinition = consignmentsDefinition;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public java.lang.String getCreatedBy() {
-        return this.createdBy;
-    }
-
-    public void setCreatedBy(java.lang.String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
-
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
-    public java.lang.String getUpdatedBy() {
-        return this.updatedBy;
-    }
-
-    public void setUpdatedBy(java.lang.String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
     public int getConsignmentsType() {
         return this.consignmentsType;
     }
@@ -140,20 +104,44 @@ public class TurqConsignment implements Serializable {
         this.consignmentsPrinted = consignmentsPrinted;
     }
 
+    public java.lang.String getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public void setCreatedBy(java.lang.String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public java.lang.String getUpdatedBy() {
+        return this.updatedBy;
+    }
+
+    public void setUpdatedBy(java.lang.String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public java.util.Date getLastModified() {
+        return this.lastModified;
+    }
+
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
+    }
+
     public com.turquaz.engine.dal.TurqBillConsignmentCommon getTurqBillConsignmentCommon() {
         return this.turqBillConsignmentCommon;
     }
 
     public void setTurqBillConsignmentCommon(com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon) {
         this.turqBillConsignmentCommon = turqBillConsignmentCommon;
-    }
-
-    public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
-        return this.turqCompany;
-    }
-
-    public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.turqCompany = turqCompany;
     }
 
     public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence() {

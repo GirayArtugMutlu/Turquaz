@@ -28,22 +28,18 @@ public class TurqInventoryUnit implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCompany turqCompany;
-
-    /** persistent field */
     private Set turqInventoryTransactions;
 
     /** persistent field */
     private Set turqInventoryCardUnits;
 
     /** full constructor */
-    public TurqInventoryUnit(java.lang.String unitsName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryTransactions, Set turqInventoryCardUnits) {
+    public TurqInventoryUnit(java.lang.String unitsName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqInventoryTransactions, Set turqInventoryCardUnits) {
         this.unitsName = unitsName;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.turqCompany = turqCompany;
         this.turqInventoryTransactions = turqInventoryTransactions;
         this.turqInventoryCardUnits = turqInventoryCardUnits;
     }
@@ -98,14 +94,6 @@ public class TurqInventoryUnit implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public com.turquaz.engine.dal.TurqCompany getTurqCompany() {
-        return this.turqCompany;
-    }
-
-    public void setTurqCompany(com.turquaz.engine.dal.TurqCompany turqCompany) {
-        this.turqCompany = turqCompany;
     }
 
     public java.util.Set getTurqInventoryTransactions() {

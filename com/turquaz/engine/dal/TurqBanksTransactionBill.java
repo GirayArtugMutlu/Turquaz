@@ -19,10 +19,10 @@ public class TurqBanksTransactionBill implements Serializable {
     private java.util.Date transactionBillDate;
 
     /** persistent field */
-    private java.util.Date creationDate;
+    private java.lang.String createdBy;
 
     /** persistent field */
-    private java.lang.String createdBy;
+    private java.util.Date creationDate;
 
     /** persistent field */
     private java.lang.String updatedBy;
@@ -37,11 +37,11 @@ public class TurqBanksTransactionBill implements Serializable {
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqBanksTransactionBill(int transactionBillNo, java.util.Date transactionBillDate, java.util.Date creationDate, java.lang.String createdBy, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqBanksTransactions) {
+    public TurqBanksTransactionBill(int transactionBillNo, java.util.Date transactionBillDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqBanksTransactions) {
         this.transactionBillNo = transactionBillNo;
         this.transactionBillDate = transactionBillDate;
-        this.creationDate = creationDate;
         this.createdBy = createdBy;
+        this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
         this.turqBanksCard = turqBanksCard;
@@ -76,20 +76,20 @@ public class TurqBanksTransactionBill implements Serializable {
         this.transactionBillDate = transactionBillDate;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
 
     public void setCreatedBy(java.lang.String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public java.lang.String getUpdatedBy() {

@@ -12,16 +12,16 @@ public class TurqChequeChequesRoll implements Serializable {
     private java.lang.Integer chequeChequesRollsId;
 
     /** persistent field */
-    private java.util.Date creationDate;
-
-    /** persistent field */
-    private java.util.Date lastModified;
-
-    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
+    private java.util.Date creationDate;
+
+    /** persistent field */
     private java.lang.String updatedBy;
+
+    /** persistent field */
+    private java.util.Date lastModified;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqChequeRoll turqChequeRoll;
@@ -30,11 +30,11 @@ public class TurqChequeChequesRoll implements Serializable {
     private com.turquaz.engine.dal.TurqChequeCheque turqChequeCheque;
 
     /** full constructor */
-    public TurqChequeChequesRoll(java.util.Date creationDate, java.util.Date lastModified, java.lang.String createdBy, java.lang.String updatedBy, com.turquaz.engine.dal.TurqChequeRoll turqChequeRoll, com.turquaz.engine.dal.TurqChequeCheque turqChequeCheque) {
-        this.creationDate = creationDate;
-        this.lastModified = lastModified;
+    public TurqChequeChequesRoll(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqChequeRoll turqChequeRoll, com.turquaz.engine.dal.TurqChequeCheque turqChequeCheque) {
         this.createdBy = createdBy;
+        this.creationDate = creationDate;
         this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
         this.turqChequeRoll = turqChequeRoll;
         this.turqChequeCheque = turqChequeCheque;
     }
@@ -51,22 +51,6 @@ public class TurqChequeChequesRoll implements Serializable {
         this.chequeChequesRollsId = chequeChequesRollsId;
     }
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
-
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
     public java.lang.String getCreatedBy() {
         return this.createdBy;
     }
@@ -75,12 +59,28 @@ public class TurqChequeChequesRoll implements Serializable {
         this.createdBy = createdBy;
     }
 
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public java.lang.String getUpdatedBy() {
         return this.updatedBy;
     }
 
     public void setUpdatedBy(java.lang.String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public java.util.Date getLastModified() {
+        return this.lastModified;
+    }
+
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public com.turquaz.engine.dal.TurqChequeRoll getTurqChequeRoll() {
