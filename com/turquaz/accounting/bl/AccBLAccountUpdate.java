@@ -28,6 +28,7 @@ package com.turquaz.accounting.bl;
 
 
 import java.util.Calendar;
+import java.util.List;
 
 
 import com.turquaz.accounting.dal.AccDALAccountUpdate;
@@ -87,6 +88,19 @@ public class AccBLAccountUpdate {
 		}
 		
 	}
+	
+	public List getTotalDeptAndCredit(Object obj)throws Exception{
+		
+		try{
+		return dalAccountUpdate.getTotalDeptAndCredit((TurqAccountingAccount)obj);
+			
+			
+		}
+		catch(Exception ex){
+		 throw ex;
+		}
+	}
+	
 	
 	
 	

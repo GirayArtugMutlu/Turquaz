@@ -206,12 +206,11 @@ public void fillTree(int parent, String codeCrit){
 	
 		// it's not an main account
 		// main accounts cannot be edited
-		if(account.getTurqAccountingAccount().getAccountingAccountsId().intValue()!=-1){
+		
 		
 		new AccUIAccountUpdate(this.getShell(),SWT.NULL,account).open();
 		fillTree(-1,"");	
-		}
-				
+	
 		}
 		
 		

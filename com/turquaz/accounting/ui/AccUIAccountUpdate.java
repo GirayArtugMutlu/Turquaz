@@ -1,5 +1,8 @@
 package com.turquaz.accounting.ui;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
@@ -35,10 +38,12 @@ import org.eclipse.swt.SWT;
 * a license - please visit www.cloudgarden.com for details.
 */
 public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
-	private Text txtBalance;
+	private Text txtBalanceCredit;
+	private CLabel lblBalanceCredit;
+	private Text txtBalanceDept;
 	private Text txtTotalCredit;
 	private Text txtTotalDept;
-	private CLabel lblBalance;
+	private CLabel lblBalanceDept;
 	private CLabel lblTotalCredit;
 	private CLabel lblTotalDept;
 	private Group groupAccountBalance;
@@ -79,8 +84,10 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			txtTotalDept = new Text(groupAccountBalance,SWT.NULL);
 			lblTotalCredit = new CLabel(groupAccountBalance,SWT.NULL);
 			txtTotalCredit = new Text(groupAccountBalance,SWT.NULL);
-			lblBalance = new CLabel(groupAccountBalance,SWT.NULL);
-			txtBalance = new Text(groupAccountBalance,SWT.NULL);
+			lblBalanceDept = new CLabel(groupAccountBalance,SWT.NULL);
+			txtBalanceDept = new Text(groupAccountBalance,SWT.NULL);
+			lblBalanceCredit = new CLabel(groupAccountBalance,SWT.NULL);
+			txtBalanceCredit = new Text(groupAccountBalance,SWT.NULL);
 	
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(487,301));
 	
@@ -148,45 +155,107 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			groupAccountBalance.setSize(new org.eclipse.swt.graphics.Point(471,111));
 	
 			GridData lblTotalDeptLData = new GridData();
+			lblTotalDeptLData.verticalAlignment = GridData.CENTER;
+			lblTotalDeptLData.horizontalAlignment = GridData.BEGINNING;
 			lblTotalDeptLData.widthHint = 84;
 			lblTotalDeptLData.heightHint = 19;
+			lblTotalDeptLData.horizontalIndent = 0;
+			lblTotalDeptLData.horizontalSpan = 1;
+			lblTotalDeptLData.verticalSpan = 1;
+			lblTotalDeptLData.grabExcessHorizontalSpace = false;
+			lblTotalDeptLData.grabExcessVerticalSpace = false;
 			lblTotalDept.setLayoutData(lblTotalDeptLData);
 			lblTotalDept.setText("Total Dept");
 			lblTotalDept.setSize(new org.eclipse.swt.graphics.Point(84,19));
 	
 			GridData txtTotalDeptLData = new GridData();
+			txtTotalDeptLData.verticalAlignment = GridData.CENTER;
+			txtTotalDeptLData.horizontalAlignment = GridData.BEGINNING;
 			txtTotalDeptLData.widthHint = 198;
 			txtTotalDeptLData.heightHint = 17;
+			txtTotalDeptLData.horizontalIndent = 0;
+			txtTotalDeptLData.horizontalSpan = 1;
+			txtTotalDeptLData.verticalSpan = 1;
+			txtTotalDeptLData.grabExcessHorizontalSpace = false;
+			txtTotalDeptLData.grabExcessVerticalSpace = false;
 			txtTotalDept.setLayoutData(txtTotalDeptLData);
 			txtTotalDept.setEditable(false);
 			txtTotalDept.setSize(new org.eclipse.swt.graphics.Point(198,17));
 			final Color txtTotalDeptbackground = new Color(Display.getDefault(),255,255,255);
 			txtTotalDept.setBackground(txtTotalDeptbackground);
 	
+			GridData lblTotalCreditLData = new GridData();
+			lblTotalCreditLData.verticalAlignment = GridData.CENTER;
+			lblTotalCreditLData.horizontalAlignment = GridData.BEGINNING;
+			lblTotalCreditLData.widthHint = -1;
+			lblTotalCreditLData.heightHint = -1;
+			lblTotalCreditLData.horizontalIndent = 0;
+			lblTotalCreditLData.horizontalSpan = 1;
+			lblTotalCreditLData.verticalSpan = 1;
+			lblTotalCreditLData.grabExcessHorizontalSpace = false;
+			lblTotalCreditLData.grabExcessVerticalSpace = false;
+			lblTotalCredit.setLayoutData(lblTotalCreditLData);
 			lblTotalCredit.setText("Total Credit");
 	
 			GridData txtTotalCreditLData = new GridData();
+			txtTotalCreditLData.verticalAlignment = GridData.CENTER;
+			txtTotalCreditLData.horizontalAlignment = GridData.BEGINNING;
 			txtTotalCreditLData.widthHint = 197;
 			txtTotalCreditLData.heightHint = 16;
+			txtTotalCreditLData.horizontalIndent = 0;
+			txtTotalCreditLData.horizontalSpan = 1;
+			txtTotalCreditLData.verticalSpan = 1;
+			txtTotalCreditLData.grabExcessHorizontalSpace = false;
+			txtTotalCreditLData.grabExcessVerticalSpace = false;
 			txtTotalCredit.setLayoutData(txtTotalCreditLData);
 			txtTotalCredit.setEditable(false);
 			txtTotalCredit.setSize(new org.eclipse.swt.graphics.Point(197,16));
 			txtTotalCredit.setBackground(txtTotalDeptbackground);
 	
-			GridData lblBalanceLData = new GridData();
-			lblBalanceLData.widthHint = 59;
-			lblBalanceLData.heightHint = 18;
-			lblBalance.setLayoutData(lblBalanceLData);
-			lblBalance.setText("Balance");
-			lblBalance.setSize(new org.eclipse.swt.graphics.Point(59,18));
+			GridData lblBalanceDeptLData = new GridData();
+			lblBalanceDeptLData.verticalAlignment = GridData.CENTER;
+			lblBalanceDeptLData.horizontalAlignment = GridData.BEGINNING;
+			lblBalanceDeptLData.widthHint = 92;
+			lblBalanceDeptLData.heightHint = 19;
+			lblBalanceDeptLData.horizontalIndent = 0;
+			lblBalanceDeptLData.horizontalSpan = 1;
+			lblBalanceDeptLData.verticalSpan = 1;
+			lblBalanceDeptLData.grabExcessHorizontalSpace = false;
+			lblBalanceDeptLData.grabExcessVerticalSpace = false;
+			lblBalanceDept.setLayoutData(lblBalanceDeptLData);
+			lblBalanceDept.setText("Balance Dept");
+			lblBalanceDept.setSize(new org.eclipse.swt.graphics.Point(92,19));
 	
-			GridData txtBalanceLData = new GridData();
-			txtBalanceLData.widthHint = 196;
-			txtBalanceLData.heightHint = 16;
-			txtBalance.setLayoutData(txtBalanceLData);
-			txtBalance.setEditable(false);
-			txtBalance.setSize(new org.eclipse.swt.graphics.Point(196,16));
-			txtBalance.setBackground(txtTotalDeptbackground);
+			GridData txtBalanceDeptLData = new GridData();
+			txtBalanceDeptLData.verticalAlignment = GridData.CENTER;
+			txtBalanceDeptLData.horizontalAlignment = GridData.BEGINNING;
+			txtBalanceDeptLData.widthHint = 196;
+			txtBalanceDeptLData.heightHint = 16;
+			txtBalanceDeptLData.horizontalIndent = 0;
+			txtBalanceDeptLData.horizontalSpan = 1;
+			txtBalanceDeptLData.verticalSpan = 1;
+			txtBalanceDeptLData.grabExcessHorizontalSpace = false;
+			txtBalanceDeptLData.grabExcessVerticalSpace = false;
+			txtBalanceDept.setLayoutData(txtBalanceDeptLData);
+			txtBalanceDept.setEditable(false);
+			txtBalanceDept.setSize(new org.eclipse.swt.graphics.Point(196,16));
+			txtBalanceDept.setBackground(txtTotalDeptbackground);
+	
+			GridData lblBalanceCreditLData = new GridData();
+			lblBalanceCreditLData.widthHint = 86;
+			lblBalanceCreditLData.heightHint = 18;
+			lblBalanceCredit.setLayoutData(lblBalanceCreditLData);
+			lblBalanceCredit.setText("Balance Credit");
+			lblBalanceCredit.setSize(new org.eclipse.swt.graphics.Point(86,18));
+	
+			GridData txtBalanceCreditLData = new GridData();
+			txtBalanceCreditLData.widthHint = 196;
+			txtBalanceCreditLData.heightHint = 16;
+			txtBalanceCredit.setLayoutData(txtBalanceCreditLData);
+			txtBalanceCredit.setDoubleClickEnabled(true);
+			txtBalanceCredit.setEditable(false);
+			txtBalanceCredit.setSize(new org.eclipse.swt.graphics.Point(196,16));
+			txtBalanceCredit.setBackground(txtTotalDeptbackground);
 			GridLayout groupAccountBalanceLayout = new GridLayout(2, true);
 			groupAccountBalance.setLayout(groupAccountBalanceLayout);
 			groupAccountBalanceLayout.marginWidth = 5;
@@ -234,8 +303,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 	compAccountCard.getTxtAccAccountCode().setText(account.getAccountCode());
     compAccountCard.getTxtAccAcountName().setText(account.getAccountName());
     compAccountCard.getTxtParentAccount().setText(account.getTurqAccountingAccount().getAccountCode());
-    compAccountCard.getTxtParentAccount().setData(account.getTurqAccountingAccount().getAccountingAccountsId());
-	
+    compAccountCard.getTxtParentAccount().setData(account.getTurqAccountingAccount());
     fillBalances();
     
 	Point parentLocation =this.getParent().getLocation();
@@ -246,14 +314,45 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
     int location_Y = (parentLocation.y + parentSize.y)/2 - (dialogSize.y/2);
     
     dialogShell.setLocation(location_X,location_Y);
+	if(account.getTurqAccountingAccount().getAccountingAccountsId().intValue()==-1){
+	toolDelete.setEnabled(false);
+	toolUpdate.setEnabled(false);
 	
-	
+	}
+  
 	
 	}
 	
 	public void fillBalances(){
-	
+	try{
+	List list = blAccount.getTotalDeptAndCredit(account);
+	System.out.println(list.size());
+	if(list.size()>0){
+		Object[] sums = (Object [])list.get(0);
+		if(sums[0]!=null){
+		txtTotalCredit.setText(sums[0].toString());
+		txtTotalDept.setText(sums[1].toString());
+		BigDecimal credit = (BigDecimal)sums[0];
+		BigDecimal dept = (BigDecimal)sums[1];
+		BigDecimal balance = credit.subtract(dept);
+		if(balance.doubleValue()>0){
+		txtBalanceCredit.setText(balance.toString());
+		txtBalanceDept.setText("0");
+		}
 		
+		else{
+			txtBalanceDept.setText(balance.multiply(new BigDecimal(-1)).toString());
+			txtBalanceCredit.setText("0");	
+		}
+		}
+	   
+	}
+	
+	
+	}
+	catch(Exception ex){
+		ex.printStackTrace();
+	}
 	
 	
 	
@@ -268,7 +367,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 		if(compAccountCard.verifyFields()){
 		blAccount.updateAccount(account,compAccountCard.getTxtAccAcountName().getText().trim(),
 								compAccountCard.getTxtAccAccountCode().getText().trim(),
-								compAccountCard.getTxtParentAccount());
+								compAccountCard.getTxtParentAccount().getData());
 		msg.setMessage("Updated Succesfully!");
 		msg.open();		
 		this.dialogShell.close();
