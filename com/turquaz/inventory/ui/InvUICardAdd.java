@@ -239,7 +239,7 @@ public class InvUICardAdd extends SecureComposite {
 
 	private CTabFolder tabfldInvCardAdd;
 	private List currencyList;
-	private InvUIPriceList priceList;
+	public InvUIPriceList priceList;
 
 	public InvUICardAdd(Composite parent, int style) {
 		super(parent, style);
@@ -1106,7 +1106,7 @@ public class InvUICardAdd extends SecureComposite {
 			tabInvCardGroups.setControl(compInvCardAddGroups);
 			tabInvCardGroups.setText("Groups");
 	
-			compInvCardAddGroups.setSize(new org.eclipse.swt.graphics.Point(587,408));
+			compInvCardAddGroups.setSize(new org.eclipse.swt.graphics.Point(625,404));
 	
 			GridData compInvCardAddGroupsSelectionLData = new GridData();
 			compInvCardAddGroupsSelectionLData.verticalAlignment = GridData.CENTER;
@@ -1984,5 +1984,17 @@ decimalSymbol + "][0-9]+)?");
 	 */
 	public CCombo getComboInvCardUnits() {
 		return comboInvCardUnits;
+	}
+	/**
+	 * @return Returns the priceList.
+	 */
+	public InvUIPriceList getPriceList() {
+		return priceList;
+	}
+	/**
+	 * @param txtInvCardSpecialCode The txtInvCardSpecialCode to set.
+	 */
+	public void setTxtInvCardSpecialCode(Text txtInvCardSpecialCode) {
+		this.txtInvCardSpecialCode = txtInvCardSpecialCode;
 	}
 }

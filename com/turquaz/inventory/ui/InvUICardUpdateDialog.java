@@ -27,11 +27,14 @@ import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.Dialog;
 import com.turquaz.inventory.ui.InvUICardAdd;
+import com.turquaz.inventory.ui.comp.InvUIPrice;
+import com.turquaz.inventory.ui.comp.InvUIPriceList;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.SecureDialog;
@@ -181,7 +184,28 @@ public class InvUICardUpdateDialog extends Dialog{
 	}
 	
 	public void fillPrices(){
+	try {
+	Iterator it = invCard.getTurqInventoryPrices().iterator();
+	TurqInventoryPrice invPrice;
+	InvUIPriceList priceList = compInvUICard.getPriceList();
+	while(it.hasNext()){
+     
+     invPrice = (TurqInventoryPrice)it.next();
+     InvUIPrice price = new InvUIPrice();
+     price.priceType="Sell";
+     if(invPrice.isPricesType()){
+     price.priceType ="Buy";
+     }
+     price.amount =invPrice.getPricesAmount().toString();
+     price.abrev = invPrice.getTurqCurrency().getCurrenciesAbbreviation();
+     priceList.addPrice(price); 
+     
+     }
 	
+	}
+	catch(Exception ex){
+	ex.printStackTrace();
+	}
 	
 	
 	}

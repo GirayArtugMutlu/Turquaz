@@ -65,6 +65,16 @@ public class InvUIPriceList {
 		while (iterator.hasNext())
 			((IPriceListViewer) iterator.next()).addPrice(price);
 	}
+	/**
+	 * Add a new task to the collection of tasks
+	 */
+	public void addPrice(InvUIPrice price) {
+		
+		prices.add(prices.size(), price);
+		Iterator iterator = changeListeners.iterator();
+		while (iterator.hasNext())
+			((IPriceListViewer) iterator.next()).addPrice(price);
+	}
 
 	/**
 	 * @param task
