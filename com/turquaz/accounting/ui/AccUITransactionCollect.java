@@ -670,7 +670,7 @@ public class AccUITransactionCollect extends Composite implements
 		for (int i = 0; i < items.length; i++) {
 			TurqAccountingTransactionColumn column = (TurqAccountingTransactionColumn) ((AccUITransactionCollectTableRow) items[i]
 					.getData()).getDBObject();
-			if (column != null) {
+			if (column != null&&((AccUITransactionCollectTableRow) items[i].getData()).okToSave()) {
 				totalDept = totalDept.add(column.getCreditAmount());
 			}
 		}

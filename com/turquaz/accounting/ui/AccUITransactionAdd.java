@@ -618,7 +618,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
     
 		for(int i=0; i<items.length;i++){
 		TurqAccountingTransactionColumn column = (TurqAccountingTransactionColumn)((AccUITransactionAddTableRow)items[i].getData()).getDBObject();
-		if(column!=null)
+		if(column!=null&&((AccUITransactionAddTableRow)items[i].getData()).okToSave())
 		{
 			totalCredit =totalCredit.add(column.getCreditAmount());
 		totalDept = totalDept.add(column.getDeptAmount());

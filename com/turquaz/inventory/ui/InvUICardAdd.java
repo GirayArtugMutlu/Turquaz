@@ -27,6 +27,7 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
+import com.turquaz.engine.ui.component.BalloonWindow;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.accounting.ui.AccUIAddAccountDialog;
 import com.turquaz.accounting.ui.comp.AccountPicker;
@@ -529,7 +530,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					radioSpecialVatPercent = new Button(compInvCardDetails,
 							SWT.RADIO | SWT.LEFT);
 					GridData radioOTVpercLData1 = new GridData();
-					radioSpecialVatPercent.setText("ÖTV%");
+					radioSpecialVatPercent.setText(Messages.getString("InvUICardAdd.22")); //$NON-NLS-1$
 					radioOTVpercLData1.horizontalAlignment = GridData.END;
 					radioSpecialVatPercent.setLayoutData(radioOTVpercLData1);
 					GridData radioOTVpercLData = new GridData();
@@ -548,7 +549,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				{
 					radioSpecialVatAmount = new Button(compInvCardDetails,
 							SWT.RADIO | SWT.LEFT);
-					radioSpecialVatAmount.setText("Birim ÖTV Tutar?");
+					radioSpecialVatAmount.setText(Messages.getString("InvUICardAdd.26")); //$NON-NLS-1$
 					GridData radioSpecialVatAmountLData = new GridData();
 					radioSpecialVatAmount.setSelection(true);
 					radioSpecialVatAmountLData.horizontalAlignment = GridData.END;
@@ -1242,14 +1243,14 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	
 	public void fillDefaultValues(){
 	    
-	    txtInvCardInAcc.setText("153"); //Alis Muhasebe Kodu
-	    txtInvCardOutAcc.setText("600"); //Satis Muhasebe Kodu
+	    txtInvCardInAcc.setText("153"); //Alis Muhasebe Kodu //$NON-NLS-1$
+	    txtInvCardOutAcc.setText("600"); //Satis Muhasebe Kodu //$NON-NLS-1$
 	    
-        accountPickerSpecVAT.setText("193"); // Alis OTV Kodu
-        accountPickerSpecVatSell.setText("360"); //Satis OTV Kodu
+        accountPickerSpecVAT.setText("193"); // Alis OTV Kodu //$NON-NLS-1$
+        accountPickerSpecVatSell.setText("360"); //Satis OTV Kodu //$NON-NLS-1$
         
-        accountPickerVAT.setText("191");     //Alis K.D.V
-        accountPickerVATSell.setText("391"); //Satis K.D.V
+        accountPickerVAT.setText("191");     //Alis K.D.V //$NON-NLS-1$
+        accountPickerVATSell.setText("391"); //Satis K.D.V //$NON-NLS-1$
         
         
         
@@ -1412,6 +1413,15 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			if (txtInvCardCode.getText().trim().equals("")) { //$NON-NLS-1$
 				msg.setMessage(Messages.getString("InvUICardAdd.43")); //$NON-NLS-1$
 				msg.open();
+				BalloonWindow balWin = new BalloonWindow(getShell(),SWT.ON_TOP|SWT.TITLE|SWT.CLOSE);
+				balWin.setText(Messages.getString("InvUICardAdd.43")); //$NON-NLS-1$
+			
+				int p_x = getShell().getLocation().x+getParent().getLocation().x+txtInvCardCode.getLocation().x;
+			    int p_y = getShell().getLocation().y+getParent().getLocation().x+txtInvCardCode.getLocation().y;
+			    balWin.setLocation(	Display.getCurrent().getCursorLocation());
+			    
+				balWin.open();
+				
 				tabfldInvCardAdd.setSelection(tabInvCardGeneral);
 				txtInvCardCode.setFocus();
 				return false;
@@ -1468,7 +1478,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 							| SWT.NO);
 
 					newAcc
-							.setMessage("Böyle bir Muhasebe Hesabý yok. Þimdi Oluþturulsun mu?");
+							.setMessage(Messages.getString("InvUICardAdd.55")); //$NON-NLS-1$
 					if (newAcc.open() == SWT.YES) {
 						new AccUIAddAccountDialog(this.getShell(), SWT.NULL)
 								.open(txtInvCardInAcc.getText().trim(),
@@ -1493,7 +1503,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 							| SWT.NO);
 
 					newAcc
-							.setMessage("Böyle bir Muhasebe Hesabý yok. Þimdi Oluþturulsun mu?");
+							.setMessage(Messages.getString("InvUICardAdd.56")); //$NON-NLS-1$
 					if (newAcc.open() == SWT.YES) {
 						new AccUIAddAccountDialog(this.getShell(), SWT.NULL)
 								.open(txtInvCardOutAcc.getText().trim(),
@@ -1642,10 +1652,10 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				String abbrev = item.getText(2);
 				
 				 String formatted = amount.toString(); 	
-				 formatted = formatted.replaceAll("\\.","");
-				 	formatted = formatted.replaceAll(",",".");
-				 	if(formatted.equals("")){
-				 	    formatted="0";
+				 formatted = formatted.replaceAll("\\.",""); //$NON-NLS-1$ //$NON-NLS-2$
+				 	formatted = formatted.replaceAll(",","."); //$NON-NLS-1$ //$NON-NLS-2$
+				 	if(formatted.equals("")){ //$NON-NLS-1$
+				 	    formatted="0"; //$NON-NLS-1$
 				 	}
 
 				if (!type.equals("") && !abbrev.equals("") && !amount.equals("")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
