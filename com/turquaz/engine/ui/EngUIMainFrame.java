@@ -1158,6 +1158,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 
 	public void fillFavoritesTree()
 	{
+		try{
 		EngBLXmlParser xmlParser = new EngBLXmlParser("favorites.xml"); //$NON-NLS-1$
 		Map treeInfo = xmlParser.createMap();
 		Iterator it = treeInfo.keySet().iterator();
@@ -1171,6 +1172,11 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			treeItem = new TreeItem(treeFavorites, SWT.NULL);
 			treeItem.setText(text);
 			treeItem.setData(className);
+		}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
 		}
 	}
 
@@ -1199,6 +1205,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					{
 						saveFavoritesTree();
 						saveProperties();
+						EngUITableProperties.saveToFile();
 						System.exit(0);
 					}
 					else

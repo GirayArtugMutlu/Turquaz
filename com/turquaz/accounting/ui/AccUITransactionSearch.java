@@ -351,7 +351,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 	{
 		try
 		{
-			tableTransactions.removeAll();
+			tableViewer.removeAll();
 			List result = AccBLTransactionSearch.searchAccTransaction(txtDocumentNo.getText().trim(), dateStartDate.getDate(),
 					dateEndDate.getDate(), btnAccTrans.getSelection(), btnCollect.getSelection(), btnPayment.getSelection());
 		

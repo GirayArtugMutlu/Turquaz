@@ -45,7 +45,7 @@ public class SWTPTable
 		{
 			int height = table.getHeaderHeight();
 			int column_width = table.getColumn(j).getWidth();
-			if(column_width <10)
+			if(column_width <20)
 			{
 				continue;
 				
@@ -75,7 +75,7 @@ public class SWTPTable
 				//System.out.println(" Zeile "+j);
 				int height = table.getHeaderHeight();
 				int column_width = table.getColumn(j).getWidth();
-				if(column_width <10)
+				if(column_width <20)
 				{
 					continue;
 					

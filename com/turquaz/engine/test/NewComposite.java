@@ -112,7 +112,7 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite
 		super(parent, style);
 		initGUI();
 		try{
-		Map map = EngUITableProperties.getTableWidthMap("tableInvTransactions"); 
+		Map map = EngUITableProperties.getTableWidthMap("table.Inv.Transactions"); 
 		Iterator it =map.keySet().iterator();
 			while(it.hasNext())
 			{

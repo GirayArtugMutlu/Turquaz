@@ -6,6 +6,8 @@
  */
 package com.turquaz.engine.ui;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.Map;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
+import org.jdom.output.XMLOutputter;
 import org.xml.sax.InputSource;
 
 /**
@@ -31,7 +34,12 @@ public class EngUITableProperties
 		
 		SAXBuilder myBuilder = new SAXBuilder();
 		InputSource input = new InputSource("config/table_props.xml");
-		tableDoc = myBuilder.build(input);		
+		tableDoc = myBuilder.build(input);	
+		if(!tableDoc.hasRootElement())
+		{
+			Element root = new Element("props");
+			tableDoc.setRootElement(root);
+		}
 		
 	}	
 	
@@ -67,6 +75,59 @@ public class EngUITableProperties
 		
 		return columnWidths;
 		
+	}
+	
+	public static void setTableWidthMap(String tableName,Map widths)throws Exception
+	{
+		if(_instance == null)
+		{
+			_instance = new EngUITableProperties();
+		}
+		
+		Element root = _instance.tableDoc.getRootElement();
+		
+		Element table = root.getChild(tableName);
+			
+		if(table == null)
+		{
+			table = new Element(tableName);
+			root.addContent(table);			
+			
+		}
+		else
+		{
+			table.removeChildren("column");
+		}
+		Iterator it = widths.keySet().iterator();
+		while(it.hasNext())
+		{
+			String index  = it.next().toString();
+			String width  = widths.get(index).toString();
+			Element child = new Element("column");
+			child.setAttribute("index",index);
+			child.setAttribute("width",width);
+			table.addContent(child);			
+			
+		}
+			
+		
+		
+	}
+	public static void saveToFile()
+	{
+		try{
+		XMLOutputter outputter = new XMLOutputter();
+		outputter.setExpandEmptyElements(true);
+		outputter.setNewlines(false);	
+		OutputStream output = null;
+		output = new FileOutputStream("config/table_props.xml"); //$NON-NLS-1$
+		outputter.output(_instance.tableDoc, output);
+		output.close();	
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 	
 	

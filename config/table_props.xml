@@ -1,10 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <props>
-	<tableInvTransactions>
-		<column index="0" width="100"/>		
-		<column index="1" width="123"/>
-		<column index="2" width="1456"/>	
-	</tableInvTransactions>
-	<tableInv>
-		<column index="0" width="100"/>		
-	</tableInv>
-</props>
+<com.turquaz.accounting.ui.AccUITransactionSearch><column index="3" width="85"></column><column index="5" width="100"></column><column index="2" width="70"></column><column index="0" width="61"></column><column index="4" width="96"></column><column index="1" width="74"></column></com.turquaz.accounting.ui.AccUITransactionSearch>
+<com.turquaz.inventory.ui.InvUICardSearch><column index="3" width="60"></column><column index="5" width="71"></column><column index="7" width="76"></column><column index="2" width="60"></column><column index="0" width="67"></column><column index="4" width="69"></column><column index="6" width="75"></column><column index="1" width="70"></column></com.turquaz.inventory.ui.InvUICardSearch></props>
