@@ -90,5 +90,8 @@ public class EngConfiguration {
 	    
 	  _instance.currentDate = d;;
 	}
+	public static void refreshConfig(){
+	    _instance = new EngConfiguration();
+	}
 	
 }

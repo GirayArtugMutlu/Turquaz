@@ -27,11 +27,8 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -43,8 +40,7 @@ public class EngUICreateTablesWizardPage extends WizardPage {
 
 	 private ISelection selection;
 	 private boolean isDisplaySet = false;
-	 private Button btnYes;
-	 private Button btnNo;
+	
 	public EngUICreateTablesWizardPage(ISelection selection)
     {		
         super("Database Connector"); //$NON-NLS-1$
@@ -62,6 +58,7 @@ public class EngUICreateTablesWizardPage extends WizardPage {
 	}
 	
 	public void ShowPage(String dbName){
+	    EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard)getWizard()).getPage1();
 		Composite container = (Composite)this.getControl();
 		Control children[] = container.getChildren();
 		for(int i=0;i<children.length;i++){
@@ -72,49 +69,26 @@ public class EngUICreateTablesWizardPage extends WizardPage {
 	        container.setLayout(layout);
 	        layout.numColumns = 1;
 	        layout.verticalSpacing = 9;
-	        if(!checkTables()){
-
-	        Label label = new Label(container, SWT.NULL);
-	        label.setText(Messages.getString("EngUICreateTablesWizardPage.3")); //$NON-NLS-1$
-
-	        btnYes = new Button(container, SWT.RADIO | SWT.LEFT);
-	        btnYes.setSelection(true);
-			btnYes.setText(Messages.getString("EngUICreateTablesWizardPage.4")); //$NON-NLS-1$
-			btnYes.addSelectionListener(new SelectionAdapter(){
-			
-				public void widgetSelected(SelectionEvent e){
-				
-					setPageComplete(true);
-				
-				}
-				
-			});
-			
-			
-			btnNo = new Button(container, SWT.RADIO | SWT.LEFT);
-		    btnNo.setText(Messages.getString("EngUICreateTablesWizardPage.5")); //$NON-NLS-1$
-		    btnNo.addSelectionListener(new SelectionAdapter(){
-				
-					public void widgetSelected(SelectionEvent e){
-					
-						setPageComplete(true);
-					
-					}
-					
-				});
-		    
+	      
+	        
+	        Label label = new Label(container, SWT.NULL);	
+	        
+	        if(page1.getComboDBServer().getText().startsWith("Turquaz")) //$NON-NLS-1$
+			{
+	            label.setText(Messages.getString("EngUICreateTablesWizardPage.6")); //$NON-NLS-1$
+			}
+	        else
+	        {
+	            label.setText(Messages.getString("EngUICreateTablesWizardPage.6")+Messages.getString("EngUICreateTablesWizardPage.4")); //$NON-NLS-1$ //$NON-NLS-2$
 	        }
-	        else{
-	        	   Label label = new Label(container, SWT.NULL);	
-	        	   label.setText(Messages.getString("EngUICreateTablesWizardPage.6")); //$NON-NLS-1$
-	        }
+	    
 	        container.layout();
 	
 	}
 	
 	public boolean checkTables(){
 		EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard)getWizard()).getPage1();
-		 if(page1.getComboDBServer().getText().startsWith("Turquaz"))
+		 if(page1.getComboDBServer().getText().startsWith("Turquaz")) //$NON-NLS-1$
 		{
 		 	// no need to create tables
 		return true;
@@ -125,30 +99,7 @@ public class EngUICreateTablesWizardPage extends WizardPage {
 		 }
 	}
 
-	/**
-	 * @return Returns the btnYes.
-	 */
-	public Button getButtonYes() {
-		return btnYes;
-	}
-	/**
-	 * @param btnYes The btnYes to set.
-	 */
-	public void setButtonYes(Button button1) {
-		this.btnYes = button1;
-	}
-	/**
-	 * @return Returns the btnNo.
-	 */
-	public Button getBtnNo() {
-		return btnNo;
-	}
-	/**
-	 * @param btnNo The btnNo to set.
-	 */
-	public void setBtnNo(Button button2) {
-		this.btnNo = button2;
-	}
+	
 	/**
 	 * @return Returns the isDisplaySet.
 	 */

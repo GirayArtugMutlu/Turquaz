@@ -151,7 +151,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		    DatabaseThread dbThread = new DatabaseThread();
 		    dbThread.start();
 			}
-			   preInitGui();
+			 
 		 
 			GridLayout thisLayout = new GridLayout();
 			this.addKeyListener(new KeyAdapter() {
@@ -299,6 +299,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 				}
 			}
 			this.layout();
+		    preInitGui();
 			postInitGui();
 			
 		} catch (Exception e) {
@@ -472,6 +473,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			txtUserName.setText("admin"); //$NON-NLS-1$
 		}
 		
+		EngConfiguration.refreshConfig();
 	
 		EngDALSessionFactory.init();
 		
@@ -479,6 +481,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	}
 	
 	public void postInitGui(){
+	    
     btnOk.setFocus();
 	String username = EngConfiguration.getString("username"); //$NON-NLS-1$
 	String password = EngConfiguration.getString("password"); //$NON-NLS-1$

@@ -146,15 +146,17 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 		layout.verticalSpacing = 9;
 
 		Label label = new Label(container, SWT.NULL);
-		label.setText("&Veritabaný Sunucusu:"); //$NON-NLS-1$
-
+		label.setText(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.4"));  //$NON-NLS-1$
+		
 		txtServerAddress = new Text(container, SWT.BORDER | SWT.SINGLE);
 		
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		txtServerAddress.setLayoutData(gd);
 		txtServerAddress.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				dialogChanged();
+			    txtUsername.setText("");
+			    dialogChanged();
+				
 			}
 		});
 
@@ -211,14 +213,14 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 
 	}
 	public void updateFields(String type){
-		if(type.startsWith("Postgresql"))
+		if(type.startsWith("Postgresql")) //$NON-NLS-1$
 		{
 			txtServerAddress.setText("localhost"); //$NON-NLS-1$
 			txtServerPort.setText("5432"); //$NON-NLS-1$
 			txtUsername.setText("postgres"); //$NON-NLS-1$
 			
 		}
-		else if(type.startsWith("Turquaz"))
+		else if(type.startsWith("Turquaz")) //$NON-NLS-1$
 		{
 			txtServerAddress.setText("localhost"); //$NON-NLS-1$
 			txtServerPort.setText("8877"); //$NON-NLS-1$

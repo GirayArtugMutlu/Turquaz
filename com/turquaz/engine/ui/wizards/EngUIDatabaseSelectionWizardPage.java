@@ -29,18 +29,13 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Text;
 
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.Messages;
@@ -50,7 +45,6 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 	private ISelection selection;
 
 	private CCombo comboDatabases;
-	Button btnCreate;
 
 	private EngDALConnection connection;
 
@@ -105,47 +99,7 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 				}
 			});
 
-			Label lbldbName = new Label(container, SWT.NULL);
-			lbldbName.setText("&New Database"); //$NON-NLS-1$
-
-			GridData gd2 = new GridData(GridData.FILL_HORIZONTAL);
-			final Text txtNewDatabase = new Text(container, SWT.FLAT);
-			txtNewDatabase.setLayoutData(gd2);
-
-			 btnCreate = new Button(container, SWT.NULL);
-			btnCreate.setText(Messages
-					.getString("EngUIDatabaseSelectionWizardPage.5")); //$NON-NLS-1$
-			btnCreate.addMouseListener(new MouseAdapter() {
-				public void mouseUp(MouseEvent evt) {
-					if (connection != null
-							&& !txtNewDatabase.getText().trim().equals("")) { //$NON-NLS-1$
-						try {
-
-							connection
-									.execQuery("create database " + txtNewDatabase.getText().trim() + " template template0"); //$NON-NLS-1$ //$NON-NLS-2$
-							MessageBox msg = new MessageBox(getShell(),
-									SWT.NULL);
-							msg
-									.setMessage(Messages
-											.getString("EngUIDatabaseSelectionWizardPage.9")); //$NON-NLS-1$
-							msg.open();
-							//clears the database name from textbox after
-							// creation
-							txtNewDatabase.setText("");
-							fillCombo();
-						} catch (Exception ex) {
-							MessageBox msg = new MessageBox(getShell(),
-									SWT.NULL);
-							msg.setMessage(ex.getMessage());
-							msg.open();
-							ex.printStackTrace();
-
-						}
-					}
-
-				}
-
-			});
+			
 
 			container.layout();
 
@@ -168,8 +122,7 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 		if (connection != null) {
 			if (page1.getComboDBServer().getText().startsWith("Turquaz")) {
 				comboDatabases.add("turquaz");
-				//disable the create database button
-				btnCreate.setEnabled(false);
+				
 			}
 			//postgresql
 
