@@ -1,5 +1,22 @@
 package com.turquaz.admin.ui;
 
+/************************************************************************/
+/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
+/* ============================================                         */
+/* Copyright (c) 2004 by Turquaz Software Development Group			    */
+/*																		*/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License, or    */
+/* (at your option) any later version.       							*/
+/* 																		*/
+/* This program is distributed in the hope that it will be useful,		*/
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
+/* GNU General Public License for more details.         				*/
+/************************************************************************/
+
+
 import javax.swing.table.TableColumn;
 
 import org.eclipse.swt.widgets.Shell;
@@ -22,12 +39,12 @@ import org.eclipse.swt.custom.TableTreeItem;
 import org.eclipse.swt.SWT;
 
 /**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
-*/
+ * 
+ * @author onsel
+ *
+ *@version $Id$
+ */
+
 public class AdmUIPermPanel extends org.eclipse.swt.widgets.Composite {
 
 	private TableTreeItem tableTreeItem6;
@@ -85,10 +102,13 @@ public class AdmUIPermPanel extends org.eclipse.swt.widgets.Composite {
 			RowLayout composite1Layout = new RowLayout(256);
 			composite1.setLayout(composite1Layout);
 			composite1Layout.type = SWT.HORIZONTAL;
+			composite1Layout.marginWidth = 0;
+			composite1Layout.marginHeight = 0;
+			composite1Layout.spacing = 3;
 			composite1Layout.wrap = true;
 			composite1Layout.pack = true;
+			composite1Layout.fill = false;
 			composite1Layout.justify = false;
-			composite1Layout.spacing = 3;
 			composite1Layout.marginLeft = 3;
 			composite1Layout.marginTop = 3;
 			composite1Layout.marginRight = 3;
@@ -110,6 +130,7 @@ public class AdmUIPermPanel extends org.eclipse.swt.widgets.Composite {
 			tableTree1.setSize(new org.eclipse.swt.graphics.Point(422,311));
 	
 			tableTreeItem1.setText("Yönetici");
+			tableTreeItem1.setChecked(false);
 	
 			tableTreeItem2.setText("Stok");
 	
@@ -123,6 +144,9 @@ public class AdmUIPermPanel extends org.eclipse.swt.widgets.Composite {
 			FillLayout composite2Layout = new FillLayout(256);
 			composite2.setLayout(composite2Layout);
 			composite2Layout.type = SWT.HORIZONTAL;
+			composite2Layout.marginWidth = 0;
+			composite2Layout.marginHeight = 0;
+			composite2Layout.spacing = 0;
 			composite2.layout();
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
@@ -172,6 +196,22 @@ public class AdmUIPermPanel extends org.eclipse.swt.widgets.Composite {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	/**
+	* This is an auto-generated method which you can alter,
+	* e.g. to point to a different property file, to modify the key by
+	* by prefixing the name of this class, etc.
+	*
+	* By default, it expects a file called "messages.properties" to exist in the
+	* current package, and returns the value of the property defined
+	* in that file for the given key
+	*/
+	public String getExternalizedString(String key){
+		try {
+			return java.util.ResourceBundle.getBundle("com.turquaz.admin.ui.AdmUIPermPanelMessages").getString(key);
+		} catch (java.util.MissingResourceException e) {
+			return '!' + key + '!';
 		}
 	}
 }

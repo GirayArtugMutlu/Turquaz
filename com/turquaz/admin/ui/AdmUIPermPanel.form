@@ -48,10 +48,13 @@
 				</Constraints>
 				<Layout class="Row">
 					<Property name="type" type="int" value="256"/>
+					<Property name="marginWidth" type="int" value="0"/>
+					<Property name="marginHeight" type="int" value="0"/>
+					<Property name="spacing" type="int" value="3"/>
 					<Property name="wrap" type="boolean" value="true"/>
 					<Property name="pack" type="boolean" value="true"/>
+					<Property name="fill" type="boolean" value="false"/>
 					<Property name="justify" type="boolean" value="false"/>
-					<Property name="spacing" type="int" value="3"/>
 					<Property name="marginLeft" type="int" value="3"/>
 					<Property name="marginTop" type="int" value="3"/>
 					<Property name="marginRight" type="int" value="3"/>
@@ -105,6 +108,9 @@
 				</Constraints>
 				<Layout class="Fill">
 					<Property name="type" type="int" value="256"/>
+					<Property name="marginWidth" type="int" value="0"/>
+					<Property name="marginHeight" type="int" value="0"/>
+					<Property name="spacing" type="int" value="0"/>
 				</Layout>
 				<Events>
 				</Events>
@@ -138,6 +144,9 @@
 								</Events>
 								<Properties>
 									<Property name="text" type="String" value="Yönetici"/>
+									<Property name="checked" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
 								</Properties>
 							</Component>
 							<Component class="org.eclipse.swt.custom.TableTreeItem" name="tableTreeItem2" style="0">
