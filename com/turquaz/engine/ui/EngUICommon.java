@@ -24,7 +24,7 @@ public class EngUICommon {
 	public static boolean okToDelete(Shell parent){
 		
 	    MessageBox msg2 = new MessageBox(parent,SWT.YES|SWT.NO|SWT.ICON_QUESTION);
-	    msg2.setMessage(Messages.getString("EngBLCommon.0")); //$NON-NLS-1$
+	    msg2.setMessage(Messages.getString("EngUICommon.1"));  //$NON-NLS-1$
 	    if(msg2.open()==SWT.YES)
 	    {
 	        return true;

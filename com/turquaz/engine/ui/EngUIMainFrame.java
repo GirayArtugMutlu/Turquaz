@@ -1508,9 +1508,21 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				mapList.put(classname,yeni);
 				
 				//Add To History Tree
+				boolean dontExistInHistory = true;
+				 TreeItem items[] = treeHistory.getItems();
+				  for(int i=0;i<items.length;i++){
+				      if(items[i].getData().equals(classname))
+				      {
+				          dontExistInHistory = false;
+				          break;
+				      }
+				      
+				  }
+				if(dontExistInHistory){
 				TreeItem item = new TreeItem(treeHistory,SWT.NULL);
 				item.setText(Name);
 				item.setData(classname);
+				}
 				
 				
 			    }

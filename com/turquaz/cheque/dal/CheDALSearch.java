@@ -95,7 +95,7 @@ public class CheDALSearch {
             
             String query = "Select cheque, currentCard.cardsName from TurqChequeCheque as cheque, TurqViewChequeStatus as chequeStatus, TurqCurrentCard currentCard " +
             		"where cheque.chequeChequesId = chequeStatus.chequeChequesId " +
-            		" currentCard.currentCardsId =  chequeStatus.currentCardId " +
+            		" and currentCard.currentCardsId =  chequeStatus.currentCardsId " +
             		" and chequeStatus.chequeTransactionTypesId ="+EngBLCommon.CHEQUE_TRANS_IN;
             
             

@@ -151,7 +151,7 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
                 {
                     btnSumTotals = new Button(compInfoPanel, SWT.CHECK
                         | SWT.LEFT);
-                    btnSumTotals.setText("Cari Hareketleri Topla ");
+                    btnSumTotals.setText(Messages.getString("CheUIChequeOutPayrollCurrent.0")); //$NON-NLS-1$
                 }
             }
             {
@@ -174,8 +174,8 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
                 }
                 {
                     toolItemAddCustomer = new ToolItem(toolBarButtons, SWT.NONE);
-                    toolItemAddCustomer.setText("Mü?teri Çeki");
-                    toolItemAddCustomer.setImage(SWTResourceManager.getImage("icons/plus.gif"));
+                    toolItemAddCustomer.setText(Messages.getString("CheUIChequeOutPayrollCurrent.1")); //$NON-NLS-1$
+                    toolItemAddCustomer.setImage(SWTResourceManager.getImage("icons/plus.gif")); //$NON-NLS-1$
                     toolItemAddCustomer
                         .addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
@@ -312,6 +312,7 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
         if(selection.length>0){
             if(EngUICommon.okToDelete(this.getShell()))
             {
+               cheques.remove(selection[0].getData());
               selection[0].dispose();
                 
             }            
@@ -321,7 +322,31 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
         
         
     }
-  
+    
+    public void fillTable(){
+        tableCheques.removeAll();
+        for(int i= 0;i<cheques.size();i++)
+        { 
+            TableItem item;
+            TurqChequeCheque cheque = (TurqChequeCheque) cheques.get(i);
+            if(cheque!=null){
+                item = new TableItem(tableCheques,SWT.NULL);
+                item.setData(cheque);
+                item.setText(new String[]{
+                cheque.getChequesPortfolioNo(),
+                DatePicker.formatter.format(cheque.getChequesDueDate()),
+                cheque.getChequesPaymentPlace(),
+                cheque.getChequesDebtor(),
+                cf.format(cheque.getChequesAmount())            
+                });
+                
+                
+            }
+        }
+        
+    
+    }
+    
     public void updateCheque(){
         
         TableItem selection[]= tableCheques.getSelection();
@@ -356,9 +381,7 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
     }    
     public void addOwnCheque(){
         TableItem item;
-        /**
-         * TODO add dialog
-         */
+      
         TurqChequeCheque cheque = new CheUIOwnChequeAddDialog(getShell(),SWT.NULL).open();
         if(cheque!=null){
             item = new TableItem(tableCheques,SWT.NULL);
@@ -370,6 +393,7 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
             cheque.getChequesDebtor(),
             cf.format(cheque.getChequesAmount())            
             });
+            cheques.add(cheque);
             
         }
         
@@ -403,6 +427,8 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
     
     
     private void toolItemAddCustomerWidgetSelected(SelectionEvent evt) {
+        
      cheques = new CheUICustomerChequeChooseDialog(getShell(),SWT.NULL,cheques).open();
+     fillTable();
     }
 }

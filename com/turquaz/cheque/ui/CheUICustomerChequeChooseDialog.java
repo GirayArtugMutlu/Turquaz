@@ -14,6 +14,8 @@ import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -82,11 +84,21 @@ public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dia
             toolSave = new ToolItem(toolBar, SWT.NONE);
             toolSave.setText("&Kaydet");
             toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+            toolSave.addSelectionListener(new SelectionAdapter() {
+                public void widgetSelected(SelectionEvent evt) {
+                    toolSaveWidgetSelected(evt);
+                }
+            });
             //END <<  toolSave
             //START >>  toolCancel
             toolCancel = new ToolItem(toolBar, SWT.NONE);
             toolCancel.setText("\u0130ptal");
             toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg"));
+            toolCancel.addSelectionListener(new SelectionAdapter() {
+                public void widgetSelected(SelectionEvent evt) {
+                   dialogShell.close();
+                }
+            });
             //END <<  toolCancel
             //END <<  toolBar
             {
@@ -141,6 +153,7 @@ public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dia
 	
 	
 	public void postInitGUI(){
+	    EngUICommon.centreWindow(dialogShell);
 	fillTable();
 	    
 	if(selectedCheques!=null)
@@ -194,4 +207,28 @@ public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dia
 	    
 	}
 	
+    private void toolSaveWidgetSelected(SelectionEvent evt) {
+        TableItem items[] = tableCheques.getItems();
+  	  for(int i=0;i<items.length;i++){
+  	      if(selectedCheques.contains(items[i].getData()))
+  	      {
+  	          if(!items[i].getChecked())
+  	          {
+  	              selectedCheques.remove(items[i].getData());
+  	          }
+  	      }
+  	      else {
+  	        
+  	          if(items[i].getChecked())
+	          {
+	              selectedCheques.add(items[i].getData());
+	          }
+  	      }
+  	      
+  	  }
+  	  dialogShell.close();
+    
+    }
+    
+   
 }
