@@ -285,7 +285,8 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	    
 	}
 	else {
-	compTransactionCollect.getComboDeptor().setText(transRow.getTurqAccountingAccount().getAccountCode()+" "+transRow.getTurqAccountingAccount().getAccountName()); //$NON-NLS-1$
+	compTransactionCollect.getComboDeptor().setText(transRow.getTurqAccountingAccount().getAccountCode()); //$NON-NLS-1$
+	compTransactionCollect.getComboDeptor().setData(transRow.getTurqAccountingAccount());
 	}
 					
 	}
@@ -304,6 +305,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		 updateTransactionRows();
 		 msg.setMessage(Messages.getString("AccUITransactionCollectUpdateDialog.6")); //$NON-NLS-1$
 		 msg.open();
+		 dialogShell.close();
 		 }
 			
 		}

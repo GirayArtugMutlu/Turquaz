@@ -156,9 +156,7 @@ public class CashUICashCollectTransactionUpdate extends Dialog {
 	    compTransAdd.getTxtCashCard().setText(cashTrans.getTurqCashCard().getCashCardName());
         compTransAdd.getTxtDefinition().setText(cashTrans.getTransactionDefinition());
 	    
-	    /**
-	    * TODO Cari hesabi bul 
-	    */
+	   
         try{
         TurqCurrentCard curCard = blUpdate.getCurrentCard(cashTrans.getTurqEngineSequence());
         

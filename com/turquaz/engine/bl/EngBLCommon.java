@@ -86,6 +86,7 @@ public class EngBLCommon {
     public final static int CONTENT_ASSIST_ACCOUNT_LEAVES =2;
     public final static int CONTENT_ASSIST_CURRENT =3;
     public final static int CONTENT_ASSIST_CASH = 4;
+    public final static int CONTENT_ASSIST_ACCOUNTING_CASH =5;
     
     
     public final static int BILL_TRANS_TYPE_BUY=0;

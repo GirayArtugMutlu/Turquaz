@@ -71,6 +71,19 @@ public class AccBLAccountAdd {
 		}
 		
 	}
+	
+	public List getCashAccounts()throws Exception{
+	    try{
+	        
+	        return dalAccountAdd.getCashAccounts();
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	    
+	}
+	
 	public void saveAccount(String accountName, String accountCode, Object parent)throws Exception{
 		try{
 		

@@ -108,6 +108,18 @@ public class TurquazContentAssistProcessors implements
                
                
            }
+           else if(type==EngBLCommon.CONTENT_ASSIST_ACCOUNTING_CASH){
+               
+               List list = EngBLAccountingAccounts.getCashAccounts();
+
+               for (int i = 0; i < list.size(); i++) {
+                   
+                   Object[] cards = (Object[])( list.get(i));
+                   
+                   proposed.add(new Proposal(cards[0].toString(),cards[1].toString()));
+               
+               }
+           }
             proposedCodes = new Proposal[proposed.size()];
             proposed.toArray(proposedCodes);
 

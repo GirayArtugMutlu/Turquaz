@@ -267,7 +267,9 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		compTransactionPayment.rowList.taskChanged(row);
 	}
 	else {
-	compTransactionPayment.getComboCreditor().setText(transRow.getTurqAccountingAccount().getAccountCode()+" "+transRow.getTurqAccountingAccount().getAccountName()); //$NON-NLS-1$
+	compTransactionPayment.getComboCreditor().setText(transRow.getTurqAccountingAccount().getAccountCode()); //$NON-NLS-1$
+	compTransactionPayment.getComboCreditor().setData(transRow.getTurqAccountingAccount()); //$NON-NLS-1$
+	
 	}
 					
 	}
@@ -286,6 +288,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		 updateTransactionRows();
 		 msg.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.6")); //$NON-NLS-1$
 		 msg.open();
+		 dialogShell.close();
 		 }
 			
 		}

@@ -42,7 +42,6 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.TableItem;
 
 import com.turquaz.accounting.Messages;
-import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
@@ -59,8 +58,8 @@ import com.turquaz.engine.ui.viewers.TurquazContentProvider;
 import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
 
 import org.eclipse.swt.widgets.Text;
+import com.turquaz.accounting.ui.comp.CashAccountPicker;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.TableCursor;
 import org.eclipse.swt.SWT;
 
@@ -100,7 +99,7 @@ public class AccUITransactionCollect extends Composite implements
 
 	private CLabel lblDate;
 
-	private CCombo comboDeptor;
+	private CashAccountPicker comboDeptor;
 
 	private TableItem item;
 
@@ -222,11 +221,9 @@ public class AccUITransactionCollect extends Composite implements
 				lblDeptor.setLayoutData(lblDeptorLData);
 			}
 			{
-				comboDeptor = new CCombo(this, SWT.NONE);
-				comboDeptor
-						.setSize(new org.eclipse.swt.graphics.Point(136, 16));
+				comboDeptor = new CashAccountPicker(this, SWT.NONE);
 				GridData comboDeptorLData = new GridData();
-				comboDeptorLData.widthHint = 114;
+				comboDeptorLData.widthHint = 150;
 				comboDeptorLData.heightHint = 16;
 				comboDeptor.setLayoutData(comboDeptorLData);
 			}
@@ -324,7 +321,7 @@ public class AccUITransactionCollect extends Composite implements
 	public void postInitGUI() {
 
 		totalDept = new BigDecimal(0);
-		fillCombo();
+	
 
 		createTableViewer();
 
@@ -442,52 +439,7 @@ public class AccUITransactionCollect extends Composite implements
 
 	}
 
-	public void fillCombo() {
-		try {
-			AccBLAccountAdd blaccountAdd = new AccBLAccountAdd();
-			comboDeptor
-					.setText(Messages.getString("AccUITransactionCollect.8")); //$NON-NLS-1$
-			List accList = blaccountAdd.getAccount(-1, "100"); //$NON-NLS-1$
-			TurqAccountingAccount account;
-			for (int i = 0; i < accList.size(); i++) {
-				account = (TurqAccountingAccount) accList.get(i);
-				comboDeptor.add(account.getAccountCode()
-						+ " " + account.getAccountName()); //$NON-NLS-1$
-				comboDeptor.setData(account.getAccountCode()
-						+ " " + account.getAccountName(), account); //$NON-NLS-1$
-				addSecondaryAccountsToCombo(account.getAccountingAccountsId()
-						.intValue());
-			}
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-	}
-
-	public void addSecondaryAccountsToCombo(int parentId) {
-		try {
-			AccBLAccountAdd blaccountAdd = new AccBLAccountAdd();
-
-			List accList = blaccountAdd.getAccount(parentId, ""); //$NON-NLS-1$
-			TurqAccountingAccount account;
-			for (int i = 0; i < accList.size(); i++) {
-				account = (TurqAccountingAccount) accList.get(i);
-				comboDeptor.add(account.getAccountCode()
-						+ " " + account.getAccountName()); //$NON-NLS-1$
-				comboDeptor.setData(account.getAccountCode()
-						+ " " + account.getAccountName(), account); //$NON-NLS-1$
-				addSecondaryAccountsToCombo(account.getAccountingAccountsId()
-						.intValue());
-
-			}
-		} catch (Exception ex) {
-
-			ex.printStackTrace();
-
-		}
-
-	}
+	
 	public boolean okToDelete(){
 	    
 	    MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_WARNING|SWT.OK|SWT.CANCEL);
@@ -519,7 +471,7 @@ public class AccUITransactionCollect extends Composite implements
 			msg.open();
 
 			return false;
-		} else if (comboDeptor.getSelectionIndex() == -1) {
+		} else if (comboDeptor.getData()==null) {
 			msg.setMessage(Messages.getString("AccUITransactionCollect.17")); //$NON-NLS-1$
 
 			msg.open();
@@ -586,7 +538,7 @@ public class AccUITransactionCollect extends Composite implements
 			transRow.setDeptAmount(totalDept);
 			transRow
 					.setTurqAccountingAccount((TurqAccountingAccount) comboDeptor
-							.getData(comboDeptor.getText()));
+							.getData());
 			transRow.setTransactionDefinition(Messages
 					.getString("AccUITransactionCollect.9")); //$NON-NLS-1$
 			blTransAdd.saveAccTransactionRow(transRow, transId);
@@ -693,7 +645,7 @@ public class AccUITransactionCollect extends Composite implements
 	/**
 	 * @return Returns the comboDeptor.
 	 */
-	public CCombo getComboDeptor() {
+	public CashAccountPicker getComboDeptor() {
 		return comboDeptor;
 	}
 
@@ -722,7 +674,7 @@ public class AccUITransactionCollect extends Composite implements
 	 * @param comboDeptor
 	 *            The comboDeptor to set.
 	 */
-	public void setComboDeptor(CCombo comboDeptor) {
+	public void setComboDeptor(CashAccountPicker comboDeptor) {
 		this.comboDeptor = comboDeptor;
 	}
 

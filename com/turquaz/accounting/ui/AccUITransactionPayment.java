@@ -47,7 +47,6 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.TableItem;
 
 import com.turquaz.accounting.Messages;
-import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
@@ -64,8 +63,8 @@ import com.turquaz.engine.ui.viewers.TurquazContentProvider;
 import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
 
 import org.eclipse.swt.widgets.Text;
+import com.turquaz.accounting.ui.comp.CashAccountPicker;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.TableCursor;
 import org.eclipse.swt.SWT;
 
@@ -110,7 +109,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	private TableColumn tableColumnAccountName;
 	private TableColumn tableColumnAccountCode;
 	private Table tableTransactionRows;
-	private CCombo comboCreditor;
+	private CashAccountPicker comboCreditor;
 	private Text txtDocumentNo;
 	private CLabel lbldocumentNo;
 	private BigDecimal totalCredit;
@@ -205,12 +204,9 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 				lblCreditor.setLayoutData(lblCreditorLData);
 			}
 			{
-				comboCreditor = new CCombo(this, SWT.NONE);
-				comboCreditor.setSize(new org.eclipse.swt.graphics.Point(
-					136,
-					16));
+				comboCreditor = new CashAccountPicker(this, SWT.NONE);
 				GridData comboCreditorLData = new GridData();
-				comboCreditorLData.widthHint = 114;
+				comboCreditorLData.widthHint = 146;
 				comboCreditorLData.heightHint = 16;
 				comboCreditor.setLayoutData(comboCreditorLData);
 			}
@@ -302,53 +298,14 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	public void postInitGUI(){
 	
 	totalCredit = new BigDecimal(0);
-	fillCombo();
+	
 	createTableViewer();
 	
 	}
 	
-	public void fillCombo(){
-	try{
-	AccBLAccountAdd blaccountAdd = new AccBLAccountAdd();
-	comboCreditor.setText(Messages.getString("AccUITransactionPayment.8")); //$NON-NLS-1$
-	List accList = blaccountAdd.getAccount(-1,"100"); //$NON-NLS-1$
-	TurqAccountingAccount account;
-	for(int i=0;i<accList.size();i++){
-	account = (TurqAccountingAccount)accList.get(i);
-	comboCreditor.add(account.getAccountCode()+" "+account.getAccountName()); //$NON-NLS-1$
-	comboCreditor.setData(account.getAccountCode()+" "+account.getAccountName(),account); //$NON-NLS-1$
-	addSecondaryAccountsToCombo(account.getAccountingAccountsId().intValue());	
-	}
-	
-	}
-	catch(Exception ex){
-	ex.printStackTrace();
-	}
-		
-	}
-	
-	public void addSecondaryAccountsToCombo(int parentId){
-	try{
-	AccBLAccountAdd blaccountAdd = new AccBLAccountAdd();
-
-	List accList = blaccountAdd.getAccount(parentId,""); //$NON-NLS-1$
-	TurqAccountingAccount account;
-	for(int i=0;i<accList.size();i++){
-	account = (TurqAccountingAccount)accList.get(i);
-	comboCreditor.add(account.getAccountCode()+" "+account.getAccountName()); //$NON-NLS-1$
-	comboCreditor.setData(account.getAccountCode()+" "+account.getAccountName(),account); //$NON-NLS-1$
-	addSecondaryAccountsToCombo(account.getAccountingAccountsId().intValue());	
-	
-	}
-	}
-	catch(Exception ex){
-	
-	ex.printStackTrace();
-	
-	}
 	
 	
-	}
+	
 	
    public boolean verifyFields(){
 	
@@ -371,7 +328,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	
 	return false;
 	}
-	else if(comboCreditor.getSelectionIndex()==-1){
+	else if(comboCreditor.getData()==null){
 	msg.setMessage(Messages.getString("AccUITransactionPayment.17")); //$NON-NLS-1$
 	
 	msg.open();
@@ -561,7 +518,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
     TurqAccountingTransactionColumn transRow = new TurqAccountingTransactionColumn();
     transRow.setDeptAmount(new BigDecimal(0));
     transRow.setCreditAmount(totalCredit);
-    transRow.setTurqAccountingAccount((TurqAccountingAccount)comboCreditor.getData(comboCreditor.getText()));
+    transRow.setTurqAccountingAccount((TurqAccountingAccount)comboCreditor.getData());
     transRow.setTransactionDefinition(Messages.getString("AccUITransactionPayment.13")); //$NON-NLS-1$
     blTransAdd.saveAccTransactionRow(transRow,transId);   
      
@@ -688,7 +645,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	/**
 	 * @return Returns the comboCreditor.
 	 */
-	public CCombo getComboCreditor() {
+	public CashAccountPicker getComboCreditor() {
 		return comboCreditor;
 	}
 	
