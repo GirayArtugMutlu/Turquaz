@@ -839,7 +839,7 @@ DROP VIEW turq_view_cheque_status;
 CREATE VIEW turq_view_cheque_status AS 
  SELECT cheq.id AS cheque_cheques_id, cheq.cheques_portfolio_no, cheq.cheques_no, cheq.banks_id, cheq.cheques_due_date, cheq.cheques_debtor, cheq.cheques_payment_place, cheq.cheques_value_date, cheq.cheques_amount, cheq.currencies_id, transtype.id AS cheque_transaction_types_id, transtype.transaction_typs_name,transtype.transaction_types_parent, rolls.id AS cheque_rolls_id, rolls.cheque_rolls_date, rolls.engine_sequences_id, rolls.cheque_roll_no, rolls.current_cards_id, rolls.banks_cards_id
    FROM turq_cheque_cheques cheq, turq_cheque_rolls rolls, turq_cheque_cheque_in_rolls cheqrolls, turq_cheque_transaction_types transtype
-  WHERE cheq.id = cheqrolls.cheque_cheques_id AND rolls.id = cheqrolls.cheque_rolls_id AND transtype.id = rolls.cheque_transaction_types_id AND rolls.id = (( SELECT max(roll_inner.id) AS max
+  WHERE cheq.id = cheqrolls.cheque_cheques_id AND rolls.id = cheqrolls.cheque_rolls_id AND transtype.id = rolls.cheque_transaction_types_id AND rolls.id = (( SELECT max(roll_inner.id)
            FROM turq_cheque_rolls roll_inner, turq_cheque_cheque_in_rolls cheqroll_inner, turq_cheque_cheques cheq_inner
           WHERE cheqroll_inner.cheque_rolls_id = roll_inner.id AND cheqroll_inner.cheque_cheques_id = cheq_inner.id AND cheqroll_inner.cheque_cheques_id = cheq.id));
 
@@ -860,7 +860,7 @@ update turq_cheque_transaction_types set transaction_types_parent=4 where id = 6
 update turq_cheque_transaction_types set transaction_typs_name="Portfoyden Cariye Iade" where id = 6;
 
 INSERT INTO turq_cheque_transaction_types VALUES (7, 'Cariden Portfoye Iade', 1, 'admin', '2005-01-01', 'admin', '2005-01-01');
-
+INSERT INTO turq_module_components VALUES (86, 9, 'com.turquaz.cheque.ui.CheUIReturnFromGivenCheques', 'Verilen Cek Iade Bordrosu', 'cem', '2005-02-28', 'cem', '2005-02-28');
 
 
 

@@ -216,14 +216,15 @@ public class CheBLUpdateChequeRoll {
                {
                          
                TurqCurrentCard currentCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque);
-               blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,false,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),"Cari Cek ?adesi "+cheque.getChequesPortfolioNo(),exchangeRate);
+               blCurrent.saveCurrentTransaction(currentCard,rollDate,rollNo,false,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.11")+cheque.getChequesPortfolioNo(),exchangeRate); //$NON-NLS-1$
                              	
                }
                else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT.intValue())
                {
                          
                TurqCurrentCard currentCard = CheDALSearch.getCurrentCardOfGivenCheque(cheque);
-               blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),"Cari Cek ?adesi "+cheque.getChequesPortfolioNo(),exchangeRate);
+             
+               blCurrent.saveCurrentTransaction(currentCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.12")+cheque.getChequesPortfolioNo(),exchangeRate); //$NON-NLS-1$
                              	
                }
                
@@ -287,6 +288,13 @@ public class CheBLUpdateChequeRoll {
            }
            
            else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_TO_CURRENT.intValue())
+           {
+                     
+           	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateChequeRoll.0") +chequeRoll.getChequeRollNo());  //$NON-NLS-1$
+             
+           	
+           }
+           else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT.intValue())
            {
                      
            	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateChequeRoll.0") +chequeRoll.getChequeRollNo());  //$NON-NLS-1$

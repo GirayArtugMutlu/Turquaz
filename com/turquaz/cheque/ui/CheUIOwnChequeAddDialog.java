@@ -286,6 +286,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog {
 	    TurqBanksCard bankCard= (TurqBanksCard)bankPicker.getData();
 	    cheque.setBankBranchName(bankCard.getBankBranchName());
 	    cheque.setBankName(bankCard.getBankName());
+	    cheque.setBankAccountNo(bankCard.getBankAccountNo());
 	    cheque.setChequesPortfolioNo(""); //$NON-NLS-1$
 	    cheque.setChequesNo(txtChequeNo.getText().trim());
 	    cheque.setChequesDueDate(datePickValueDate.getDate());

@@ -41,7 +41,6 @@ import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
@@ -454,7 +453,7 @@ public class CheBLSaveChequeTransaction {
             
           }
           
-          saveRollAccountingTransactions(rollAccount,null,chequeRoll,amount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLSaveChequeTransaction.10") +chequeRoll.getChequeRollNo()); //$NON-NLS-1$
+          saveRollAccountingTransactions(rollAccount,null,chequeRoll,amount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLSaveChequeTransaction.13") +chequeRoll.getChequeRollNo()); //$NON-NLS-1$
           
          
     
@@ -526,8 +525,7 @@ public class CheBLSaveChequeTransaction {
             
           }
           
-          saveRollAccountingTransactions(null,null,chequeRoll,amount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLSaveChequeTransaction.10") +chequeRoll.getChequeRollNo()); //$NON-NLS-1$
-          
+          saveRollAccountingTransactions(null,null,chequeRoll,amount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLSaveChequeTransaction.10") +chequeRoll.getChequeRollNo());           //$NON-NLS-1$
          
     
     }
@@ -659,67 +657,12 @@ public class CheBLSaveChequeTransaction {
     	
     	//  Save Accounting Transaction
     	//    		TODO cheq exRate
-    		Integer transId = blAccTran.saveAccTransaction(roll.getChequeRollsDate(),
+    	blAccTran.saveAccTransaction(roll.getChequeRollsDate(),
     				roll.getChequeRollNo(), accTransType, roll.getTurqEngineSequence().getTurqModule()
     						.getId().intValue(), roll.getTurqEngineSequence()
-    						.getId(), definition,exchangeRate);
+    						.getId(), definition,exchangeRate,creditAccountsMap,deptAccountsMap);
     	
-    	
-    		
-    		
-    		
-    		//    		save credit columns...
-      		
-      		Iterator it = creditAccountsMap.keySet().iterator();
-    		
-    		while(it.hasNext())
-    		{
-    		Integer accountId = (Integer)it.next();
-    		TurqAccountingAccount account = new TurqAccountingAccount();
-    		account.setId(accountId);
-    		
-    		TurqAccountingTransactionColumn transCounterRow = new TurqAccountingTransactionColumn();
-    		
-    		transCounterRow.setTurqAccountingAccount(account);
-    		transCounterRow.setTransactionDefinition(definition);
-     	   	
-    		transCounterRow.setDeptAmount(new BigDecimal(0));
-    		transCounterRow.setCreditAmount((BigDecimal)creditAccountsMap.get(accountId));    
-    		 
-    		blAccTran.saveAccTransactionRow(transCounterRow,transId,exchangeRate);       
-    			
-    			
-    		}	
-    		
-    		
-    		//  save debit columns
-    		it = deptAccountsMap.keySet().iterator();
-    		
-    		while(it.hasNext())
-    		{
-    		
-    		Integer accountId = (Integer)it.next();
-    		TurqAccountingAccount account = new TurqAccountingAccount();
-    		account.setId(accountId);
-    		
-    		TurqAccountingTransactionColumn transCounterRow = new TurqAccountingTransactionColumn();
-    		
-    		transCounterRow.setTurqAccountingAccount(account);
-    		transCounterRow.setTransactionDefinition(definition);
-     	   	
-    		transCounterRow.setDeptAmount((BigDecimal)deptAccountsMap.get(accountId));
-    		transCounterRow.setCreditAmount(new BigDecimal(0));    
-    		 
-    		blAccTran.saveAccTransactionRow(transCounterRow,transId,exchangeRate);       
-    			
-    			
-    		}	
-    		
-    		
-    	
-    	
-    	
-    	    	
+    		    	
     }
     
     
