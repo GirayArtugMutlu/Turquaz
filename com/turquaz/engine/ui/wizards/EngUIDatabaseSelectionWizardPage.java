@@ -121,7 +121,6 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 	   EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard)getWizard()).getPage1();
 	   EngUIDatabaseConnectionInfoWizardPage page2 =((EngUIDatabaseConnectionWizard)getWizard()).getPage2();
 	   
-	   System.out.println(page2.getTxtPassword().getText());
 	   connection = new EngDALConnection(page1.getComboDBServer().getText(),
 	   									 page2.getTxtUsername().getText(),
 										 page2.getTxtPassword().getText(),
@@ -169,4 +168,16 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 	   }
 	 
 
+	/**
+	 * @return Returns the comboDatabases.
+	 */
+	public CCombo getComboDatabases() {
+		return comboDatabases;
+	}
+	/**
+	 * @param comboDatabases The comboDatabases to set.
+	 */
+	public void setComboDatabases(CCombo comboDatabases) {
+		this.comboDatabases = comboDatabases;
+	}
 }

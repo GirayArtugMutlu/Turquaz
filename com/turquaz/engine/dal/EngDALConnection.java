@@ -16,6 +16,8 @@ package com.turquaz.engine.dal;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
+import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.sql.*;
 
 /**
@@ -37,15 +39,15 @@ public class EngDALConnection {
 	loginUser = System.getProperty("dbLogin");
 	loginPass = System.getProperty("dbPass");
   }
-
+  
   public EngDALConnection(String dbType, String userName, String pass, String Url,String dbName) {
 	
   	 driver = "org.postgresql.Driver";
-  	loginUrl = "jdbc:postgresql://" +Url + "/"+dbName;
-    //loginUrl = "jdbc:postgresql://" + Url + "/";
-   // loginUrl = "jdbc:mysql://10.90.19.52/turquaz";
-	loginUser = userName;
-	loginPass = pass;
+  	 loginUrl = "jdbc:postgresql://" +Url + "/"+dbName;
+     //loginUrl = "jdbc:postgresql://" + Url + "/";
+     // loginUrl = "jdbc:mysql://10.90.19.52/turquaz";
+	 loginUser = userName;
+	 loginPass = pass;
 
 
   }
@@ -112,9 +114,51 @@ public class EngDALConnection {
 	  throw ec;
 	}
   }
+  
+  public void createTables()throws Exception{
+  try{
+  	stmt.execute(getGetCreateScript());
+  	
+  	
+  }
+  catch(Exception ex){
+  	throw ex;
+  }
+  
+  }
 
   public Connection getCon() {
 	return this.con;
   }
+  private String getGetCreateScript()throws Exception{
+
+    try
+    {
+      String sql="";
+      // Open the file that is the first
+      // command line parameter
+     FileInputStream fstream = new FileInputStream("sql/turquaz.sql");
+                                // Convert our input stream to a
+                                // DataInputStream
+     DataInputStream in = new DataInputStream(fstream);
+
+      // Continue to read lines while
+      // there are still some left to read
+      while (in.available() !=0){
+     
+      	sql = sql + in.readLine()+ "\n";
+       
+      }
+      in.close();
+      
+      return sql;
+      
+        }
+           catch (Exception ex)
+              {
+                  throw ex;
+              }
+  }
+
 
 }

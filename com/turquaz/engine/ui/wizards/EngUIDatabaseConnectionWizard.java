@@ -14,6 +14,10 @@ package com.turquaz.engine.ui.wizards;
  */
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
+
+import com.turquaz.engine.dal.EngDALConnection;
 public class EngUIDatabaseConnectionWizard extends Wizard {
     
 	private EngUIDatabaseTypeWizardPage page1;
@@ -43,18 +47,41 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 		
 	}
 	public boolean performFinish(){
-		if(page4.getBtnNo().getSelection()){
-			
-		//Create Tables...	
 		
+		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+		String dbType = page1.getComboDBServer().getText();
+		String username= page2.getTxtUsername().getText();
+		String password=  page2.getTxtPassword().getText();
+		String serverAddress= page2.getTxtServerAddress().getText();
+		String serverPort = page2.getTxtServerPort().getText();
+		String dbName = page3.getComboDatabases().getText();
+		
+	  if(page4.getButtonYes().getSelection()){
+		try{
+			EngDALConnection conn = new EngDALConnection(dbType,username,password,
+														serverAddress+":"+serverPort,
+														dbName);
+			conn.connect();
+			
+			conn.createTables();
+			msg.setMessage("Tables Succesfully Created");
+			msg.open();
+			
+			
 		}
-		else{
+		catch(Exception ex){
+			ex.printStackTrace();
+			msg.setMessage(ex.getMessage());
+			msg.open();
+		}		
+		
+	  }
+	  else{
 			
+		System.exit(-1);		
 			
-			
-			
-			
-		}
+		
+	  }
 			
 		
 		return true;

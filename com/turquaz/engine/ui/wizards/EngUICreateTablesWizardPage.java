@@ -39,15 +39,14 @@ public class EngUICreateTablesWizardPage extends WizardPage {
         setTitle("Database Wizard");
         setDescription("This wizard creates a new database connection");
         this.selection = selection;
-        setPageComplete(false);
+        setPageComplete(true);
+     
        
     }
 	public void createControl(Composite arg0) {
 		Composite container = new Composite(arg0, SWT.NULL);
        
         this.setControl(container);
-
-
 	}
 	
 	public void ShowPage(String dbName){
@@ -67,6 +66,7 @@ public class EngUICreateTablesWizardPage extends WizardPage {
 	        label.setText("Could not find tables? Would you like to create?");
 
 	        btnYes = new Button(container, SWT.RADIO | SWT.LEFT);
+	        btnYes.setSelection(true);
 			btnYes.setText("Yes, create tables now!(Recommended)");
 			btnYes.addSelectionListener(new SelectionAdapter(){
 			

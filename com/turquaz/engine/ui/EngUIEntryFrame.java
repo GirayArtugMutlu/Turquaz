@@ -95,7 +95,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(384, 147);
+			this.setSize(398, 146);
 			{
 				lblUserName = new CLabel(this, SWT.NONE);
 				lblUserName.setText("Username");
@@ -195,7 +195,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		
 		
 		
-		File config = new File("config.xml");
+		File config = new File("config1.xml");
 		if(!config.exists()){
 			EngUIDatabaseConnectionWizard wizard = new EngUIDatabaseConnectionWizard();
 			WizardDialog dialog = new WizardDialog(this.getShell(),wizard);
