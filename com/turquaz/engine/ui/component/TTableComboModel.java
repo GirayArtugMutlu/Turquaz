@@ -6,6 +6,8 @@
  */
 package com.turquaz.engine.ui.component;
 
+import java.util.List;
+
 import de.kupzog.ktable.KTableCellEditor;
 import de.kupzog.ktable.KTableCellEditorText;
 
@@ -16,14 +18,15 @@ import de.kupzog.ktable.KTableCellEditorText;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class TTableComboModel extends TTableModel {
-	public TTableComboModel(){
+	private List listItems;
+	public TTableComboModel(List list ){
 		super();
+		listItems = list;
 	}
 	public KTableCellEditor getCellEditor(int col, int row) {
-		if (col == 1)
-		{
-			TTableCellEditorCombo e = new TTableCellEditorCombo();
-			e.setItems(new String[] {"First text","Second text","third text"});
+		if (col == 0)
+		{	
+			TTableCellEditorInvUnitsCombo e = new TTableCellEditorInvUnitsCombo(listItems);
 			return e;
 		}		
 		return new KTableCellEditorText();

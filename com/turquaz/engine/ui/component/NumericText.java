@@ -82,10 +82,12 @@ public class NumericText extends Composite {
        if (!m.matches()) {
 
            evt.doit = false;
-
-       }
+          }
 	}
 
+ public void setText(int a){
+ 	text.setText(a+"");
+ }
  public Point computeSize(int wHint, int hHint,boolean arg) {
  	return text.computeSize(wHint, hHint, arg);
  }
