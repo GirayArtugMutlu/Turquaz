@@ -260,7 +260,7 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
 					(TurqCurrentCard)compChequeRoll.getCurrentPicker().getData(),
 					null,compChequeRoll.getTxtRollNo().getText().trim(),
 					compChequeRoll.getDatePicker1().getDate(),chequeList,
-					EngBLCommon.CHEQUE_TRANS_IN,
+					EngBLCommon.CHEQUE_TRANS_IN.intValue(),
 					compChequeRoll.getBtnSumTotals().getSelection(),
 					EngBLCommon.getBaseCurrencyExchangeRate());
 	           EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$

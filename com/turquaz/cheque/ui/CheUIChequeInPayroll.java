@@ -291,7 +291,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
         CheBLSaveChequeTransaction.saveChequeRoll(accountPicker.getTurqAccountingAccount(),
         		(TurqCurrentCard)currentPicker.getData()
 				,null,txtRollNo.getText().trim(),datePicker1.getDate(),
-				chequeList,EngBLCommon.CHEQUE_TRANS_IN,btnSumTotals.getSelection(),
+				chequeList,EngBLCommon.CHEQUE_TRANS_IN.intValue(),btnSumTotals.getSelection(),
 				EngBLCommon.getBaseCurrencyExchangeRate());
         EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
         newForm();

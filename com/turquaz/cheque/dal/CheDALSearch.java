@@ -135,7 +135,7 @@ public class CheDALSearch {
 					+ "where cheque.id = chequeStatus.chequeChequesId "
 					+ " and currentCard.id =  chequeStatus.currentCardsId "
 					+ " and (chequeStatus.chequeTransactionTypesId ="+ EngBLCommon.CHEQUE_TRANS_IN
-					+" or chequeStatus.chequeTransactionTypesId ="+ EngBLCommon.CHEQUE_TRANS_RETURN_FROM_BANK+")";
+					+" or chequeStatus.chequeTransactionTypesId ="+ EngBLCommon.CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY+")";
 
 			Query q = session.createQuery(query);
 

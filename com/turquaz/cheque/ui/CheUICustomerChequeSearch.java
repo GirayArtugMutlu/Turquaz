@@ -224,7 +224,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			//END <<  tableColumnDueDate
 			//START >>  tableColumnStatus
 			tableColumnStatus = new TableColumn(tableCheques, SWT.NONE);
-			tableColumnStatus.setText(Messages.getString("CheUICustomerChequeSearch.13")); //$NON-NLS-1$
+			tableColumnStatus.setText("Son \u0130\u015flem"); 
 			tableColumnStatus.setWidth(105);
 			//END <<  tableColumnStatus
 			//START >>  tableColumnAmount
@@ -278,7 +278,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 				String status = ""; //$NON-NLS-1$
 				Object result[] =(Object[])ls.get(i);
 				
-				Map statusMap = EngBLCommon.getChequeStatusMapWithIntegerKey();
+				Map statusMap = EngBLCommon.getChequeTransMapWithIntegerKey();
 				if(statusMap.containsKey(result[5]))
 				{
 					

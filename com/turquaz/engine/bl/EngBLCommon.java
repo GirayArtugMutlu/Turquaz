@@ -22,38 +22,22 @@ package com.turquaz.engine.bl;
  */
 
 import java.math.BigDecimal;
-import java.sql.Statement;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
-import com.turquaz.bank.dal.BankDALBankCardSearch;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.bill.dal.BillDALSearchBill;
-import com.turquaz.cash.bl.CashBLCashTransactionSearch;
-import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
-import com.turquaz.cash.dal.CashDALCashCard;
-import com.turquaz.current.dal.CurDALCurrentCardSearch;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALCommon;
-import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
-import com.turquaz.engine.dal.TurqCashCard;
-import com.turquaz.engine.dal.TurqCashTransaction;
-import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
-import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.ui.component.DatePicker;
-import com.turquaz.inventory.dal.InvDALCardSearch;
 
 
 public class EngBLCommon {
@@ -182,91 +166,100 @@ public class EngBLCommon {
 	
 	
 
-	public final static int CHEQUE_TRANS_IN = 0; //Cek Giris Bordrosu
-
-	public final static int CHEQUE_TRANS_OUT_CURRENT = 1; //Cek Cari Cikis
-														  // Bordrosu
-
-	public final static int CHEQUE_TRANS_OUT_BANK = 2; //Cek bank Cikis
-													   // bordrosu
-
-	public final static int CHEQUE_TRANS_COLLECT_FROM_BANK = 3; //Bankadan Cek
-																// Tahsilati
-
-	public final static int CHEQUE_TRANS_COLLECT_FROM_CURRENT = 4; //Elden cek
-																   // tahsilati
-
-	public final static int CHEQUE_TRANS_RETURN_FROM_BANK = 5; //Bankadan Karsiliksiz iade...
+	public final static Integer CHEQUE_TRANS_IN =new Integer(0); //Cek Giris Bordrosu
+	public final static String CHEQUE_TRANS_IN_STRING = Messages.getString("EngBLCommon.5"); //$NON-NLS-1$
 	
-	public final static int CHEQUE_TRANS_RETURN_FROM_CURRENT = 6; //Cariden karsiliksiz iade...
+
+	public final static Integer CHEQUE_TRANS_OUT_CURRENT = new Integer(1); //Cek Cari Cikis Bordrosu
+	public final static String CHEQUE_TRANS_OUT_CURRENT_STRING = Messages.getString("EngBLCommon.6"); //$NON-NLS-1$
+
+	public final static Integer CHEQUE_TRANS_OUT_BANK =  new Integer(2); //Cek bank Cikis bordrosu
+	public final static String CHEQUE_TRANS_OUT_BANK_STRING = Messages.getString("EngBLCommon.7"); //$NON-NLS-1$
+
+	public final static Integer CHEQUE_TRANS_COLLECT_FROM_BANK =  new Integer(3); //Bankadan Cek
+	public final static String CHEQUE_TRANS_COLLECT_FROM_BANK_STRING = Messages.getString("EngBLCommon.8");															// Tahsilati //$NON-NLS-1$
+
+	public final static Integer CHEQUE_TRANS_COLLECT_FROM_CURRENT =  new Integer(4); //Elden cek tahsilati
+    public final static String CHEQUE_TRANS_COLLECT_FROM_CURRENT_STRING = Messages.getString("EngBLCommon.9"); //$NON-NLS-1$
+	
+	
+	public final static Integer CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY =  new Integer(5); //Bankadan Portfoye iade...
+	public final static String CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY_STRING = Messages.getString("EngBLCommon.10"); //$NON-NLS-1$
+	
+	
+	public final static Integer CHEQUE_TRANS_RETURN_FROM_CURRENT =  new Integer(6); //Cariden karsiliksiz iade...
+	public final static String CHEQUE_TRANS_RETURN_FROM_CURRENT_STRING = Messages.getString("EngBLCommon.11"); //$NON-NLS-1$
+	
+	
+	public final static Integer CHEQUE_STATUS_PORTFOY = new Integer(1);
+	public final static String CHEQUE_STATUS_PORTFOY_STRING = "Portföyde.";
+	
+	public final static Integer CHEQUE_STATUS_CURRENT = new Integer(2);
+	public final static String CHEQUE_STATUS_CURRENT_STRING = "Ciro Edildi.";
+		
+	public final static Integer CHEQUE_STATUS_COLLECTED = new Integer(3);
+	public final static String CHEQUE_STATUS_COLLECTED_STRING = "Tahsil Edildi.";
+	
+	public final static Integer CHEQUE_STATUS_RETURN_TO_CURRENT = new Integer(4);
+	public final static String CHEQUE_STATUS_RETURN_TO_CURRENT_STRING = "Cariye ?ade Edildi.";
+	
+	public final static Integer CHEQUE_STATUS_IN_BANK = new Integer(6);
+	public final static String CHEQUE_STATUS_IN_BANK_STRING = "Tahsilde.";
+	
+	public final static Integer CHEQUE_STATUS_BOUNCED = new Integer(5);
+	public final static String CHEQUE_STATUS_BOUNCED_STRING = "Kar??l?ks?z.";
+	
+	
+	public static Map getChequeStatusMapWithStringKey(){
+		Map map = new HashMap();
+		map.put(CHEQUE_STATUS_PORTFOY_STRING,CHEQUE_STATUS_PORTFOY);
+		map.put(CHEQUE_STATUS_CURRENT_STRING,CHEQUE_STATUS_CURRENT);
+		map.put(CHEQUE_STATUS_COLLECTED_STRING,CHEQUE_STATUS_COLLECTED);
+		map.put(CHEQUE_STATUS_RETURN_TO_CURRENT_STRING,CHEQUE_STATUS_RETURN_TO_CURRENT);
+		map.put(CHEQUE_STATUS_IN_BANK_STRING,CHEQUE_STATUS_IN_BANK);
+		map.put(CHEQUE_STATUS_BOUNCED_STRING,CHEQUE_STATUS_BOUNCED);
+		
+		return map;
+		
+	}
+	
+	
+	
+	
 	
 	
 	
 	public final static int CHEQUE_TYPE_CUSTOMER = 0; //mü?teri Ceki
 
 	public final static int CHEQUE_TYPE_OWN = 1; //Firma Ceki
-
-	public final static Integer CHEQUE_STATUS_PORTFOY = new Integer(0); //portfoyde
-
-	public final static Integer CHEQUE_STATUS_CURRENT = new Integer(1); //ciro
-																		// edili
-
-	public final static Integer CHEQUE_STATUS_BANK = new Integer(2); // bankada
-																	 // tahsilde
-
-	public final static Integer CHEQUE_STATUS_COLLECTED_FROM_BANK = new Integer(
-			3); //bankadan tahsil edildi..
-
-	public final static Integer CHEQUE_STATUS_COLLECTED_FROM_CURRENT = new Integer(
-			4); //cariden tahsil edildi
-	public final static Integer CHEQUE_STATUS_RETURN_FROM_BANK = new Integer(
-			5); //bankadan karsiliksiz iade
-	public final static Integer CHEQUE_STATUS_RETURN_FROM_CURRENT = new Integer(
-			6); //bankadan karsiliksiz iade
-
-	public final static String CHEQUE_STATUS_PORTFOY_STRING = Messages
-			.getString("EngBLCommon.5"); //$NON-NLS-1$
-
-	public final static String CHEQUE_STATUS_CURRENT_STRING = Messages
-			.getString("EngBLCommon.6"); //$NON-NLS-1$
-
-	public final static String CHEQUE_STATUS_BANK_STRING = Messages
-			.getString("EngBLCommon.7"); //$NON-NLS-1$
-
-	public final static String CHEQUE_STATUS_COLLECTED_FROM_BANK_STRING = Messages.getString("EngBLCommon.8"); //$NON-NLS-1$
-
-	public final static String CHEQUE_STATUS_COLLECTED_FROM_CURRENT_STRING = Messages.getString("EngBLCommon.9"); //$NON-NLS-1$
-	
-	public final static String CHEQUE_STATUS_RETURN_FROM_BANK_STRING = Messages.getString("EngBLCommon.10"); //$NON-NLS-1$
-	
-	public final static String CHEQUE_STATUS_RETURN_FROM_CURRENT_STRING = Messages.getString("EngBLCommon.11"); //$NON-NLS-1$
 	
 	
-	public static Map getChequeStatusMapWithStringKey(){
+	public static Map getChequeTransMapWithStringKey(){
 		
 		Map map = new HashMap();
-		map.put(CHEQUE_STATUS_PORTFOY_STRING,CHEQUE_STATUS_PORTFOY);
-		map.put(CHEQUE_STATUS_CURRENT_STRING,CHEQUE_STATUS_CURRENT);
-		map.put(CHEQUE_STATUS_BANK_STRING,CHEQUE_STATUS_BANK);
-		map.put(CHEQUE_STATUS_COLLECTED_FROM_BANK_STRING,CHEQUE_STATUS_COLLECTED_FROM_BANK);
-		map.put(CHEQUE_STATUS_COLLECTED_FROM_CURRENT_STRING,CHEQUE_STATUS_COLLECTED_FROM_CURRENT);
-		map.put(CHEQUE_STATUS_RETURN_FROM_BANK_STRING,CHEQUE_STATUS_RETURN_FROM_BANK);
-		map.put(CHEQUE_STATUS_RETURN_FROM_CURRENT_STRING,CHEQUE_STATUS_RETURN_FROM_CURRENT);
+		map.put(CHEQUE_TRANS_IN_STRING,CHEQUE_TRANS_IN);
+		map.put(CHEQUE_TRANS_OUT_CURRENT_STRING,CHEQUE_TRANS_OUT_CURRENT);
+		map.put(CHEQUE_TRANS_OUT_BANK_STRING,CHEQUE_TRANS_OUT_BANK);
+		map.put(CHEQUE_TRANS_COLLECT_FROM_BANK_STRING,CHEQUE_TRANS_COLLECT_FROM_BANK);
+		map.put(CHEQUE_TRANS_COLLECT_FROM_CURRENT_STRING,CHEQUE_TRANS_COLLECT_FROM_CURRENT);
+		map.put(CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY_STRING,CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY);
+		map.put(CHEQUE_TRANS_RETURN_FROM_CURRENT_STRING,CHEQUE_TRANS_RETURN_FROM_CURRENT);
 		
 		
 		return map;	
 		
 	}
-	public static Map getChequeStatusMapWithIntegerKey(){
+	public static Map getChequeTransMapWithIntegerKey(){
 		
 		Map map = new HashMap();
-		map.put(CHEQUE_STATUS_PORTFOY,CHEQUE_STATUS_PORTFOY_STRING);
-		map.put(CHEQUE_STATUS_CURRENT,CHEQUE_STATUS_CURRENT_STRING);
-		map.put(CHEQUE_STATUS_BANK,CHEQUE_STATUS_BANK_STRING);
-		map.put(CHEQUE_STATUS_COLLECTED_FROM_BANK,CHEQUE_STATUS_COLLECTED_FROM_BANK_STRING);
-		map.put(CHEQUE_STATUS_COLLECTED_FROM_CURRENT,CHEQUE_STATUS_COLLECTED_FROM_CURRENT_STRING);
-		map.put(CHEQUE_STATUS_RETURN_FROM_BANK,CHEQUE_STATUS_RETURN_FROM_BANK_STRING);
-		map.put(CHEQUE_STATUS_RETURN_FROM_CURRENT,CHEQUE_STATUS_RETURN_FROM_CURRENT_STRING);
+		
+		map.put(CHEQUE_TRANS_IN,CHEQUE_TRANS_IN_STRING);
+		map.put(CHEQUE_TRANS_OUT_CURRENT,CHEQUE_TRANS_OUT_CURRENT_STRING);
+		map.put(CHEQUE_TRANS_OUT_BANK,CHEQUE_TRANS_OUT_BANK_STRING);
+		map.put(CHEQUE_TRANS_COLLECT_FROM_BANK,CHEQUE_TRANS_COLLECT_FROM_BANK_STRING);
+		map.put(CHEQUE_TRANS_COLLECT_FROM_CURRENT,CHEQUE_TRANS_COLLECT_FROM_CURRENT_STRING);
+		map.put(CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY,CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY_STRING);
+		map.put(CHEQUE_TRANS_RETURN_FROM_CURRENT,CHEQUE_TRANS_RETURN_FROM_CURRENT_STRING);
 		
 		
 		return map;	
@@ -480,7 +473,7 @@ public class EngBLCommon {
 
 		Transaction tx = null;
 		try {
-
+/*
 			List ls = new CurDALCurrentCardSearch()
 					.getCurrentCardsAndAccountingAccounts();
 
@@ -500,7 +493,7 @@ public class EngBLCommon {
 
 			tx.commit();
 			session.flush();
-			session.close();
+			session.close();*/
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -514,7 +507,7 @@ public class EngBLCommon {
 
 		Transaction tx = null;
 		try {
-
+/*
 			List ls = InvDALCardSearch.getInventoryCardsAndAccounts();
 
 			Session session = EngDALSessionFactory.openSession();
@@ -581,7 +574,7 @@ public class EngBLCommon {
 
 			tx.commit();
 			session.flush();
-			session.close();
+			session.close(); */
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -592,7 +585,7 @@ public class EngBLCommon {
 	}
 
 	public static void exportBankCardAccs() throws Exception {
-
+/*
 		Transaction tx = null;
 		try {
 
@@ -618,7 +611,7 @@ public class EngBLCommon {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			tx.rollback();
-		}
+		}*/
 
 	}
 
@@ -626,7 +619,7 @@ public class EngBLCommon {
 	public static void updateAllCashTransactions() {
 
 		try {
-
+/*
 			Date startDate = DatePicker.getFirstDayOfYear();
 			Date endDate = DatePicker.getLastDayOfYear();
 			List ls = new CashDALCashCard().searchCashTransaction(null,
@@ -678,7 +671,7 @@ public class EngBLCommon {
 					
 				}
 
-			}
+			}*/
 
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -260,7 +260,7 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 					compChequeRoll.getTxtRollNo().getText().trim(),
 					compChequeRoll.getDatePicker1().getDate(),
 					chequeList,
-					EngBLCommon.CHEQUE_TRANS_OUT_BANK,
+					EngBLCommon.CHEQUE_TRANS_OUT_BANK.intValue(),
 					compChequeRoll.getBtnSumTotals().getSelection(),
 					EngBLCommon.getBaseCurrencyExchangeRate());
 	           EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$

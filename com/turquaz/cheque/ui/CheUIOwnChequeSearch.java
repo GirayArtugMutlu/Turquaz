@@ -260,8 +260,8 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 				
 				Object result[] =(Object[])ls.get(i);
 				
-				if(result[4].equals(EngBLCommon.CHEQUE_STATUS_CURRENT)){
-					status = EngBLCommon.CHEQUE_STATUS_CURRENT_STRING;
+				if(result[4].equals(EngBLCommon.CHEQUE_TRANS_OUT_CURRENT)){
+					status = EngBLCommon.CHEQUE_TRANS_OUT_CURRENT_STRING;
 				}
 				
 				

@@ -321,7 +321,7 @@ public class CheUIChequeOutPayrollCurrent extends
 						null,
 						txtRollNo.getText().trim(),
 						datePicker1.getDate(),
-						cheques, EngBLCommon.CHEQUE_TRANS_OUT_CURRENT,
+						cheques, EngBLCommon.CHEQUE_TRANS_OUT_CURRENT.intValue(),
 						btnSumTotals.getSelection(),
 						EngBLCommon.getBaseCurrencyExchangeRate());
 				EngUICommon

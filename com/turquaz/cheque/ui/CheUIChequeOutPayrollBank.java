@@ -286,7 +286,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 					bankCardPicker.getTurqBank(),
 					txtRollNo.getText().trim(),
 					datePicker1.getDate(),cheques,
-					EngBLCommon.CHEQUE_TRANS_OUT_BANK,
+					EngBLCommon.CHEQUE_TRANS_OUT_BANK.intValue(),
 					btnSumTotals.getSelection(),
 					EngBLCommon.getBaseCurrencyExchangeRate());
 
