@@ -116,8 +116,19 @@ public class CurDALCurrentCardUpdate {
 		{		
 			//TODO All methods should send a session here
 			if (session==null)
+			{
+				
 				session=EngDALSessionFactory.openSession();
-			session.delete(obj);			
+				Transaction tx = session.beginTransaction();
+				session.delete(obj);
+				session.flush();
+				tx.commit();
+				session.close();
+			}
+			else{
+				session.delete(obj);
+			}
+			 
 		}
 		catch(Exception ex)
 		{

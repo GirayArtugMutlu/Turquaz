@@ -215,11 +215,10 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	   CurBLTransactionUpdate blUpdate = new CurBLTransactionUpdate();
 	    try{
 	    	Iterator it = curTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
-	    	if(it.hasNext())
+	    	while(it.hasNext())
 	    	{
 	    		TurqAccountingTransaction accTrans = (TurqAccountingTransaction)it.next();
-	    	new AccBLTransactionSearch().removeTransactionRows(accTrans);
-	    	CurBLTransactionUpdate.delete(accTrans);
+	    	new AccBLTransactionSearch().removeAccountingTransaction(accTrans);	    	
 	    	
 	    	}
 	    	CurBLTransactionUpdate.delete(curTrans);
@@ -252,6 +251,14 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	        
 	        if(EngUICommon.okToDelete(getParent()))
 	        {
+	        	
+	        	Iterator it = curTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
+		    	while(it.hasNext())
+		    	{
+		    		TurqAccountingTransaction accTrans = (TurqAccountingTransaction)it.next();
+		    	new AccBLTransactionSearch().removeAccountingTransaction(accTrans);	    	
+		    	
+		    	}
 	        	updated=true;
 	            CurBLTransactionUpdate.delete(curTrans);
 	        }
