@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.accounting.ui.AccUISearchAccountsDialog;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 
 /**
 * This code was generated using CloudGarden's Jigloo
@@ -106,6 +107,14 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	}
+	
+	public void setData(Object obj){
+		super.setData(obj);
+		TurqAccountingAccount account = (TurqAccountingAccount)obj;
+		text1.setText(account.getAccountCode()+" "+account.getAccountName());
+		
+		
 	}
 
 	/** Auto-generated event handler method */
