@@ -41,6 +41,7 @@ import com.turquaz.inventory.dal.InvDALCardAdd;
 public class InvBLCardAdd {
 
 	private InvDALCardAdd cardAdd;
+	private InvBLCardSearch cardSearch=new InvBLCardSearch();
 
 	Calendar cal = Calendar.getInstance();
 
@@ -100,8 +101,7 @@ public class InvBLCardAdd {
 
 			TurqInventoryPrice invPrice = new TurqInventoryPrice();
 			TurqCurrency currency = cardAdd.getCurrency(currency_abrev);
-			TurqInventoryCard card = new TurqInventoryCard();
-			card.setInventoryCardsId(cardId);
+			TurqInventoryCard card=cardSearch.getTurqInvCardById(cardId);
 			invPrice.setPricesType(price_type);
 			invPrice.setPricesAmount(new BigDecimal(amount));
 			invPrice.setTurqInventoryCard(card);

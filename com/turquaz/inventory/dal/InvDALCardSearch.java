@@ -204,5 +204,23 @@ public class InvDALCardSearch {
 			}
 	}
 	
+	public TurqInventoryCard getTurqInvCardById(Integer cardId )throws Exception{
+	    try{
+	        Session session = EngDALSessionFactory.openSession();
+	        Transaction tx = session.beginTransaction();
+	        
+	        TurqInventoryCard invCard = (TurqInventoryCard)session.load(TurqInventoryCard.class,cardId);	        
+	        
+	        tx.commit();
+	        session.flush();
+	        session.close();
+	        
+	        return invCard;
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
+	
 
 }

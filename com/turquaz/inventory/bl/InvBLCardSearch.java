@@ -24,6 +24,10 @@ package com.turquaz.inventory.bl;
 import java.util.Calendar;
 import java.util.List;
 
+import net.sf.hibernate.Session;
+import net.sf.hibernate.Transaction;
+
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
@@ -67,6 +71,16 @@ public class InvBLCardSearch {
 	        cardSearch.initializeInventoryCard(invCard);
 	        
 	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
+	
+	public TurqInventoryCard getTurqInvCardById(Integer cardId )throws Exception{
+	    try{      
+	        
+	        return cardSearch.getTurqInvCardById(cardId);
+			}
 	    catch(Exception ex){
 	        throw ex;
 	    }
