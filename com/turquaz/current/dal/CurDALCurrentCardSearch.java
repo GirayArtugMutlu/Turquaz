@@ -35,7 +35,7 @@ public class CurDALCurrentCardSearch {
 		try{
 			Session session = EngDALSessionFactory.openSession();
 		
-			String query = "Select currentCard from TurqCurrentCard as currentCard left join" +
+			String query = "Select distinct currentCard from TurqCurrentCard as currentCard left join" +
 					" currentCard.turqCurrentCardsGroups as gr where" +
 					" currentCard.cardsCurrentCode like '"+currentCode+"%' and" +
 					" currentCard.cardsName like '"+currentName+"%' and" +
@@ -54,7 +54,8 @@ public class CurDALCurrentCardSearch {
 			for (int i =0;i<list.size();i++){				
 				TurqCurrentCard curCard= (TurqCurrentCard)list.get(i);
 				Hibernate.initialize(curCard.getTurqCurrentCardsGroups());
-				Hibernate.initialize(curCard.getTurqCurrentContacts());			
+				Hibernate.initialize(curCard.getTurqCurrentContacts());		
+				Hibernate.initialize(curCard.getTurqCurrentCardsPhones());
 			}
 			
 			session.close();
