@@ -33,6 +33,7 @@ import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.dal.CheDALSave;
+import com.turquaz.cheque.dal.CheDALSearch;
 import com.turquaz.cheque.dal.CheDALUpdate;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
@@ -201,8 +202,7 @@ public class CheBLUpdateChequeRoll {
                //save current transaction...
                if(curCard!=null&&!sumTransTotal)
                {
-                  
-                   if(rollType == EngBLCommon.CHEQUE_TRANS_IN.intValue()){
+                  if(rollType == EngBLCommon.CHEQUE_TRANS_IN.intValue()){
                     blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLUpdateChequeRoll.2")+cheque.getChequesPortfolioNo(),exchangeRate ); //$NON-NLS-1$
                 }
                 else if(rollType == EngBLCommon.CHEQUE_TRANS_OUT_CURRENT.intValue()){
@@ -211,6 +211,22 @@ public class CheBLUpdateChequeRoll {
                
                
                }
+             
+               if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_TO_CURRENT.intValue())
+               {
+                         
+               TurqCurrentCard currentCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque);
+               blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,false,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),"Cari Cek ?adesi "+cheque.getChequesPortfolioNo(),exchangeRate);
+                             	
+               }
+               else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT.intValue())
+               {
+                         
+               TurqCurrentCard currentCard = CheDALSearch.getCurrentCardOfGivenCheque(cheque);
+               blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),"Cari Cek ?adesi "+cheque.getChequesPortfolioNo(),exchangeRate);
+                             	
+               }
+               
             /*   if(bankCard!=null&&!sumTransTotal)
                {
                 
@@ -223,6 +239,7 @@ public class CheBLUpdateChequeRoll {
                
            
            } 
+           
            if(curCard!=null&&sumTransTotal)
            {
               
@@ -272,8 +289,9 @@ public class CheBLUpdateChequeRoll {
            else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_TO_CURRENT.intValue())
            {
                      
-           	CheBLSaveChequeTransaction. saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateChequeRoll.0") +chequeRoll.getChequeRollNo());  //$NON-NLS-1$
-                      	
+           	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateChequeRoll.0") +chequeRoll.getChequeRollNo());  //$NON-NLS-1$
+             
+           	
            }
           
            
@@ -335,7 +353,7 @@ public class CheBLUpdateChequeRoll {
 	        
 	        if(chequeRoll.getTurqChequeRollAccountingAccount()!=null)
 	        {
-	        CheDALSave.delete(chequeRoll.getTurqChequeRollAccountingAccount());
+	        	CheDALSave.delete(chequeRoll.getTurqChequeRollAccountingAccount());
 	        }
 	        
             

@@ -335,7 +335,14 @@ public class CheBLUpdateCheque {
         }
         else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_TO_CURRENT.intValue())
         {
-        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount(),null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateCheque.9") +chequeRoll.getChequeRollNo());  //$NON-NLS-1$
+        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(null,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateCheque.9") +chequeRoll.getChequeRollNo());  //$NON-NLS-1$
+            
+        	
+        }
+        else if(rollType==EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT.intValue())
+        {
+        	
+        	CheBLSaveChequeTransaction.saveRollAccountingTransactions(null,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLUpdateCheque.10") +chequeRoll.getChequeRollNo());   //$NON-NLS-1$
             
         	
         }

@@ -74,8 +74,6 @@ public class CheUIReturnFromGivenCheques extends org.eclipse.swt.widgets.Composi
 	private Composite compInfoPanel;
 	private ToolBar toolBarButtons;
 	private ToolItem toolItemAdd;
-	private AccountPicker accountPicker;
-	private CLabel lblAccountingAccount;
 	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnPaymentPlace;
 	private TableColumn tableColumnDeptor;
@@ -107,7 +105,7 @@ public class CheUIReturnFromGivenCheques extends org.eclipse.swt.widgets.Composi
                 GridData compInfoPanelLData = new GridData();
                 compInfoPanelLData.grabExcessHorizontalSpace = true;
                 compInfoPanelLData.horizontalAlignment = GridData.FILL;
-                compInfoPanelLData.heightHint = 92;
+                compInfoPanelLData.heightHint = 67;
                 compInfoPanel.setLayoutData(compInfoPanelLData);
                 compInfoPanelLayout.numColumns = 2;
                 compInfoPanel.setLayout(compInfoPanelLayout);
@@ -135,17 +133,6 @@ public class CheUIReturnFromGivenCheques extends org.eclipse.swt.widgets.Composi
                     datePicker1LData.heightHint = 19;
                     datePicker1.setLayoutData(datePicker1LData);
                 }
-				//START >>  lblAccountingAccount
-				lblAccountingAccount = new CLabel(compInfoPanel, SWT.NONE);
-				lblAccountingAccount.setText("Muhasebe Hesab\u0131"); //$NON-NLS-1$
-				//END <<  lblAccountingAccount
-				//START >>  accountPicker
-				accountPicker = new AccountPicker(compInfoPanel, SWT.NONE);
-				GridData accountPickerLData = new GridData();
-				accountPickerLData.widthHint = 325;
-				accountPickerLData.heightHint = 19;
-				accountPicker.setLayoutData(accountPickerLData);
-				//END <<  accountPicker
             }
             {
                 toolBarButtons = new ToolBar(this, SWT.FLAT | SWT.RIGHT);
@@ -227,7 +214,7 @@ public class CheUIReturnFromGivenCheques extends org.eclipse.swt.widgets.Composi
 
     public void newForm() {
        
-        CheUIChequeOutPayrollBank  curCard = new CheUIChequeOutPayrollBank(this.getParent(),this.getStyle());
+        CheUIReturnFromGivenCheques  curCard = new CheUIReturnFromGivenCheques(this.getParent(),this.getStyle());
 		 CTabFolder tabfld = (CTabFolder)this.getParent();
 		 tabfld.getSelection().setControl(curCard);	 
 		 this.dispose();
@@ -253,11 +240,8 @@ public class CheUIReturnFromGivenCheques extends org.eclipse.swt.widgets.Composi
         if(verifyFields()){ 
 
 //	          TODO cheq trans exRate
-              CheBLSaveChequeTransaction.saveReturnFromCurrent(accountPicker.getTurqAccountingAccount(),
-              		
-					txtRollNo.getText().trim(),
-					datePicker1.getDate(),cheques);
-
+              CheBLSaveChequeTransaction.saveReturnFromCurrent(txtRollNo.getText().trim(),datePicker1.getDate(),cheques);
+            
               EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
               newForm();
         }
@@ -363,16 +347,5 @@ public class CheUIReturnFromGivenCheques extends org.eclipse.swt.widgets.Composi
         this.txtRollNo = txtRollNo;
     }
     
-	/**
-	 * @return Returns the accountPicker.
-	 */
-	public AccountPicker getAccountPicker() {
-		return accountPicker;
-	}
-	/**
-	 * @param accountPicker The accountPicker to set.
-	 */
-	public void setAccountPicker(AccountPicker accountPicker) {
-		this.accountPicker = accountPicker;
-	}
+	
 }

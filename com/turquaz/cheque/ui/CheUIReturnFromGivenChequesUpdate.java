@@ -47,14 +47,14 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
-public class CheUIReturnFromCurrentUpdate extends
+public class CheUIReturnFromGivenChequesUpdate extends
 		org.eclipse.swt.widgets.Dialog {
 
 	private Shell dialogShell;
 
 	private ToolItem toolUpdate;
 
-	private CheUIReturnFromCurrent compChequeRoll;
+	private CheUIReturnFromGivenCheques compChequeRoll;
 
 	private ToolItem toolCancel;
 
@@ -66,7 +66,7 @@ public class CheUIReturnFromCurrentUpdate extends
 
 	TurqChequeRoll chequeRoll = null;
 
-	public CheUIReturnFromCurrentUpdate(Shell parent, int style,
+	public CheUIReturnFromGivenChequesUpdate(Shell parent, int style,
 			TurqChequeRoll chequeRoll) {
 		super(parent, style);
 		this.chequeRoll = chequeRoll;
@@ -87,7 +87,7 @@ public class CheUIReturnFromCurrentUpdate extends
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.layout();
 			dialogShell.pack();
-			dialogShell.setSize(654, 509);
+			dialogShell.setSize(660, 509);
 			//START >> toolBar
 			toolBar = new ToolBar(dialogShell, SWT.NONE);
 			GridData toolBarLData = new GridData();
@@ -129,7 +129,7 @@ public class CheUIReturnFromCurrentUpdate extends
 			//END << toolCancel
 			//END << toolBar
 			//START >> compChequeRoll
-			compChequeRoll = new CheUIReturnFromCurrent(dialogShell, SWT.NONE);
+			compChequeRoll = new CheUIReturnFromGivenCheques(dialogShell, SWT.NONE);
 			GridData compChequeRollLData = new GridData();
 			compChequeRollLData.grabExcessHorizontalSpace = true;
 			compChequeRollLData.horizontalAlignment = GridData.FILL;
@@ -207,7 +207,7 @@ public class CheUIReturnFromCurrentUpdate extends
 	           
 //	          TODO cheq trans exRate
 	        
-	           CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,null,null,null,compChequeRoll.getTxtRollNo().getText().trim(),compChequeRoll.getDatePicker1().getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_RETURN_TO_CURRENT.intValue(),false,EngBLCommon.getBaseCurrencyExchangeRate());
+	           CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,null,null,null,compChequeRoll.getTxtRollNo().getText().trim(),compChequeRoll.getDatePicker1().getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT.intValue(),false,EngBLCommon.getBaseCurrencyExchangeRate());
 	           EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
 	           
 	           isUpdated=true;

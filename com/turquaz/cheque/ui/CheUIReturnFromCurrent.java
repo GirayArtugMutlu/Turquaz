@@ -28,7 +28,6 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Table;
-import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 
@@ -74,8 +73,6 @@ public class CheUIReturnFromCurrent extends org.eclipse.swt.widgets.Composite im
 	private Composite compInfoPanel;
 	private ToolBar toolBarButtons;
 	private ToolItem toolItemAdd;
-	private AccountPicker accountPicker;
-	private CLabel lblAccountingAccount;
 	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnPaymentPlace;
 	private TableColumn tableColumnDeptor;
@@ -135,17 +132,6 @@ public class CheUIReturnFromCurrent extends org.eclipse.swt.widgets.Composite im
                     datePicker1LData.heightHint = 19;
                     datePicker1.setLayoutData(datePicker1LData);
                 }
-				//START >>  lblAccountingAccount
-				lblAccountingAccount = new CLabel(compInfoPanel, SWT.NONE);
-				lblAccountingAccount.setText(Messages.getString("CheUIReturnFromCurrent.0")); //$NON-NLS-1$
-				//END <<  lblAccountingAccount
-				//START >>  accountPicker
-				accountPicker = new AccountPicker(compInfoPanel, SWT.NONE);
-				GridData accountPickerLData = new GridData();
-				accountPickerLData.widthHint = 325;
-				accountPickerLData.heightHint = 19;
-				accountPicker.setLayoutData(accountPickerLData);
-				//END <<  accountPicker
             }
             {
                 toolBarButtons = new ToolBar(this, SWT.FLAT | SWT.RIGHT);
@@ -253,10 +239,10 @@ public class CheUIReturnFromCurrent extends org.eclipse.swt.widgets.Composite im
         if(verifyFields()){ 
 
 //	          TODO cheq trans exRate
-              CheBLSaveChequeTransaction.saveReturnFromCurrent(accountPicker.getTurqAccountingAccount(),
+              CheBLSaveChequeTransaction.saveReturnToCurrent(null,
               		
-					txtRollNo.getText().trim(),
-					datePicker1.getDate(),cheques);
+			  txtRollNo.getText().trim(),
+			  datePicker1.getDate(),cheques);
 
               EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
               newForm();
@@ -362,17 +348,6 @@ public class CheUIReturnFromCurrent extends org.eclipse.swt.widgets.Composite im
     public void setTxtRollNo(Text txtRollNo) {
         this.txtRollNo = txtRollNo;
     }
-    
-	/**
-	 * @return Returns the accountPicker.
-	 */
-	public AccountPicker getAccountPicker() {
-		return accountPicker;
-	}
-	/**
-	 * @param accountPicker The accountPicker to set.
-	 */
-	public void setAccountPicker(AccountPicker accountPicker) {
-		this.accountPicker = accountPicker;
-	}
 }
+    
+	

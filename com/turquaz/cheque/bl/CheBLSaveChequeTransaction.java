@@ -377,7 +377,7 @@ public class CheBLSaveChequeTransaction {
          
     
     }
-    public static void saveReturnFromCurrent(TurqAccountingAccount rollAccount, String rollNo,Date rollDate,List chequeList)throws Exception {
+    public static void saveReturnToCurrent(TurqAccountingAccount rollAccount, String rollNo,Date rollDate,List chequeList)throws Exception {
     	
     	 
     	  TurqChequeTransactionType type = new TurqChequeTransactionType();
@@ -447,6 +447,9 @@ public class CheBLSaveChequeTransaction {
             
             amount = amount.add(cheque.getChequesAmount());
             CheDALSave.save(chequeInRoll);
+            TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque);
+            
+            new CurBLCurrentTransactionAdd().saveCurrentTransaction(curCard,chequeRoll.getChequeRollsDate(),chequeRoll.getChequeRollNo(),false,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLSaveChequeTransaction.12")+cheque.getChequesPortfolioNo(),EngBLCommon.getBaseCurrencyExchangeRate()); //$NON-NLS-1$
            
             
           }
@@ -456,7 +459,78 @@ public class CheBLSaveChequeTransaction {
          
     
     }
+    public static void saveReturnFromCurrent( String rollNo,Date rollDate,List chequeList)throws Exception {
+    	
+    	 
+    	  TurqChequeTransactionType type = new TurqChequeTransactionType();
+          type.setId(EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT);
+          
+          TurqModule module = new TurqModule();
+          module.setId(new Integer(EngBLCommon.MODULE_CHEQUE));
+          
+          TurqEngineSequence seq = new TurqEngineSequence();
+          seq.setTurqModule(module);
+          CheDALSave.save(seq);
+          
+
+          TurqChequeRoll chequeRoll = new TurqChequeRoll();
+          chequeRoll.setChequeRollsDate(rollDate);
+          chequeRoll.setChequeRollNo(rollNo);
+          chequeRoll.setTurqChequeTransactionType(type);
+          chequeRoll.setSumChequeAmounts(false);
+          
+          chequeRoll.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+          chequeRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+          chequeRoll.setLastModified(Calendar.getInstance().getTime());
+          chequeRoll.setCreationDate(Calendar.getInstance().getTime());
+          
+          TurqCurrentCard curCardEmpty = new TurqCurrentCard();
+          curCardEmpty.setId(new Integer(-1));
+          chequeRoll.setTurqCurrentCard(curCardEmpty);   
+          
+          TurqBanksCard bankCardEmpty = new TurqBanksCard();
+          bankCardEmpty.setId(new Integer(-1));
+          chequeRoll.setTurqBanksCard(bankCardEmpty);
+          
+          chequeRoll.setTurqEngineSequence(seq);
+          CheDALSave.save(chequeRoll);
+              
+          
+          TurqChequeChequeInRoll chequeInRoll;
+          TurqChequeCheque cheque;
+          
+          BigDecimal amount = new BigDecimal(0);
+          
+          for(int i = 0; i<chequeList.size();i++){
+            
+            chequeInRoll = new TurqChequeChequeInRoll();
+            
+            cheque = (TurqChequeCheque)chequeList.get(i);
+       
+            
+            
+            chequeInRoll.setTurqChequeCheque(cheque);
+            chequeInRoll.setTurqChequeRoll(chequeRoll);
+            
+            chequeInRoll.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+            chequeInRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+            chequeInRoll.setLastModified(Calendar.getInstance().getTime());
+            chequeInRoll.setCreationDate(Calendar.getInstance().getTime()); 
+            
+            amount = amount.add(cheque.getChequesAmount());
+            CheDALSave.save(chequeInRoll);
+            TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque);
+            
+            new CurBLCurrentTransactionAdd().saveCurrentTransaction(curCard,chequeRoll.getChequeRollsDate(),chequeRoll.getChequeRollNo(),false,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLSaveChequeTransaction.12")+cheque.getChequesPortfolioNo(),EngBLCommon.getBaseCurrencyExchangeRate()); //$NON-NLS-1$
+           
+            
+          }
+          
+          saveRollAccountingTransactions(null,null,chequeRoll,amount,EngBLCommon.getBaseCurrencyExchangeRate(),Messages.getString("CheBLSaveChequeTransaction.10") +chequeRoll.getChequeRollNo()); //$NON-NLS-1$
+          
+         
     
+    }
     
     
     public static void saveChequeCollect(TurqCashCard cashCard, String rollNo,Date rollDate,List chequeList)throws Exception {
@@ -533,10 +607,7 @@ public class CheBLSaveChequeTransaction {
             
             CheDALSave.save(chequeInRoll);
             
-            TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque);
-            /**
-             * TODO save current Transaction Here
-             */
+            
             
             
           }
@@ -848,7 +919,7 @@ public class CheBLSaveChequeTransaction {
   
     		CheBLUpdateChequeRoll.initializeChequeRoll(roll);
     		TurqChequeCheque cheque = null;
-    		TurqAccountingAccount deptAccount = rollAccount;
+    		TurqAccountingAccount deptAccount = null;
     		TurqAccountingAccount creditAccount = null;
     		Iterator it = roll.getTurqChequeChequeInRolls().iterator();
 
@@ -931,26 +1002,26 @@ public class CheBLSaveChequeTransaction {
     	
     	else if(type == EngBLCommon.CHEQUE_TRANS_RETURN_TO_CURRENT.intValue())
     	{
-    		if(rollAccount==null){
-    			return false ;
-    		}
+    		
+    		
     	
     		CheBLUpdateChequeRoll.initializeChequeRoll(roll);
     		TurqChequeCheque cheque = null;
     		TurqAccountingAccount creditAccount = null;
-    		TurqAccountingAccount deptAccount = rollAccount;
+    		TurqAccountingAccount deptAccount = null;
     		Iterator it = roll.getTurqChequeChequeInRolls().iterator();
     	
     		while(it.hasNext())
     		{
     			cheque = ((TurqChequeChequeInRoll)it.next()).getTurqChequeCheque();
     			
-    			TurqBanksCard bankCard = CheDALSearch.getBankOfCustomerCheque(cheque);
-	   			   			
+    			TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque);
+    			
+    			deptAccount   = CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL); 
     			creditAccount = CheBLSearchCheques.getChequeRollAccountingAccount(cheque,EngBLCommon.CHEQUE_TRANS_IN.intValue());
     			
 	
-    			if(creditAccount==null)
+    			if(creditAccount==null||deptAccount==null)
     			{
     				return false;
 		
@@ -968,19 +1039,86 @@ public class CheBLSaveChequeTransaction {
     				creditAccountsMap.put(creditAccount.getId(),cheque.getChequesAmount());
     			
     			}     			
+    			
+    			if(deptAccountsMap.containsKey(deptAccount.getId()))
+    			{
+    			
+    				BigDecimal total = (BigDecimal)deptAccountsMap.get(deptAccount.getId());
+    				total = total.add(cheque.getChequesAmount());
+    				deptAccountsMap.put(deptAccount.getId(),total);
+    			
+    			}
+    			else
+    			{
+    				deptAccountsMap.put(deptAccount.getId(),cheque.getChequesAmount());
+    			}
+    			
     		}
     		
     		
-    		deptAccountsMap.put(deptAccount.getId(),amount);
+    	
+    	
     	}
     	
+    	else if(type == EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT.intValue())
+    	{
+    		
+    		
+    	
+    		CheBLUpdateChequeRoll.initializeChequeRoll(roll);
+    		TurqChequeCheque cheque = null;
+    		TurqAccountingAccount creditAccount = null;
+    		TurqAccountingAccount deptAccount = rollAccount;
+    		Iterator it = roll.getTurqChequeChequeInRolls().iterator();
+    	
+    		while(it.hasNext())
+    		{
+    			cheque = ((TurqChequeChequeInRoll)it.next()).getTurqChequeCheque();
+    			
+    			TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfGivenCheque(cheque);
+    			
+    			creditAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL); 
+    			deptAccount = CheBLSearchCheques.getChequeRollAccountingAccount(cheque,EngBLCommon.CHEQUE_TRANS_IN.intValue());
+    			
+	
+    			if(creditAccount==null||deptAccount==null)
+    			{
+    				return false;
+		
+    			}
+    			
+    			if(creditAccountsMap.containsKey(creditAccount.getId()))
+    			{
+    				BigDecimal total = (BigDecimal)creditAccountsMap.get(creditAccount.getId());
+    				total = total.add(cheque.getChequesAmount());
+    				creditAccountsMap.put(creditAccount.getId(),total);    				
+    			}
+    			
+    			else{
+    				
+    				creditAccountsMap.put(creditAccount.getId(),cheque.getChequesAmount());
+    			
+    			}     			
+    			
+    			if(deptAccountsMap.containsKey(deptAccount.getId()))
+    			{
+    			
+    				BigDecimal total = (BigDecimal)deptAccountsMap.get(deptAccount.getId());
+    				total = total.add(cheque.getChequesAmount());
+    				deptAccountsMap.put(deptAccount.getId(),total);
+    			
+    			}
+    			else
+    			{
+    				deptAccountsMap.put(deptAccount.getId(),cheque.getChequesAmount());
+    			}
+    			
+    		}
+    		
+    		
     	
     	
-    	
-    	
-    	
-    	
-    	
+    	}	
     	
     	
     	

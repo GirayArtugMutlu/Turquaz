@@ -187,8 +187,11 @@ public class EngBLCommon {
 	public final static String CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY_STRING = Messages.getString("EngBLCommon.10"); //$NON-NLS-1$
 	
 	
-	public final static Integer CHEQUE_TRANS_RETURN_TO_CURRENT =  new Integer(6); //Cariden karsiliksiz iade...
+	public final static Integer CHEQUE_TRANS_RETURN_TO_CURRENT =  new Integer(6); //Cariden Portfoye iade...
 	public final static String CHEQUE_TRANS_RETURN_TO_CURRENT_STRING = Messages.getString("EngBLCommon.11"); //$NON-NLS-1$
+	
+	public final static Integer CHEQUE_TRANS_RETURN_FROM_CURRENT = new Integer(7);
+	public final static String CHEQUE_TRANS_RETURN_FROM_CURRENT_STRING =Messages.getString("EngBLCommon.18") ; //$NON-NLS-1$
 	
 	
 	public final static Integer CHEQUE_STATUS_PORTFOY = new Integer(1);
@@ -208,7 +211,7 @@ public class EngBLCommon {
 	
 	public final static Integer CHEQUE_STATUS_BOUNCED = new Integer(5);
 	public final static String CHEQUE_STATUS_BOUNCED_STRING = Messages.getString("EngBLCommon.17"); //$NON-NLS-1$
-	
+
 	
 	public static Map getChequeStatusMapWithStringKey(){
 		Map map = new HashMap();

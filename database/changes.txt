@@ -748,7 +748,8 @@ INSERT INTO turq_bank_accounting_types VALUES (3, 'Karsiliksiz Cek Hesabi', ' ')
 INSERT INTO turq_cheque_transaction_types VALUES (5, 'Bankadan Iade', 5, 3, 'admin', '2005-01-01', 'admin', '2005-01-01');
 INSERT INTO turq_module_components VALUES (84, 9, 'com.turquaz.cheque.ui.CheUIReturnFromBankRoll', 'Bankadan Iade Bordrosu', 'cem', '2005-02-28', 'cem', '2005-02-28');
 
-INSERT INTO turq_cheque_transaction_types VALUES (6, 'Cariden Iade', 6, 3, 'admin', '2005-01-01', 'admin', '2005-01-01');
+INSERT INTO turq_cheque_transaction_types VALUES (6, 'Cariye Iade', 6, 3, 'admin', '2005-01-01', 'admin', '2005-01-01');
+
 INSERT INTO turq_module_components VALUES (85, 9, 'com.turquaz.cheque.ui.CheUIReturnFromCurrent', 'Cariden Iade Bordrosu', 'cem', '2005-02-28', 'cem', '2005-02-28');
 
 
@@ -856,7 +857,9 @@ update turq_cheque_transaction_types set transaction_types_parent=3 where id = 3
 update turq_cheque_transaction_types set transaction_types_parent=3 where id = 4;
 update turq_cheque_transaction_types set transaction_types_parent=1 where id = 5;
 update turq_cheque_transaction_types set transaction_types_parent=4 where id = 6;
+update turq_cheque_transaction_types set transaction_typs_name="Portfoyden Cariye Iade" where id = 6;
 
+INSERT INTO turq_cheque_transaction_types VALUES (7, 'Cariden Portfoye Iade', 1, 'admin', '2005-01-01', 'admin', '2005-01-01');
 
 
 

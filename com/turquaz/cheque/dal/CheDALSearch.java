@@ -345,6 +345,11 @@ public class CheDALSearch {
 			throw ex;
 		}
 	}
+	
+
+	/*
+	 * Ceki veren Cari Karti getir
+	 */
 	public static TurqCurrentCard getCurrentCardOfCustomerCheque(TurqChequeCheque cheque)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
@@ -370,8 +375,38 @@ public class CheDALSearch {
 			throw ex;
 		}
 	}
+	
+	/*
+	 * Cekin Verildigi Cari Karti Getir
+	 */
+	public static TurqCurrentCard getCurrentCardOfGivenCheque(TurqChequeCheque cheque)throws Exception{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			TurqChequeChequeInRoll cv;
+			TurqChequeRoll asd;
+			
+			String query = "Select chequeRoll.turqChequeRoll.turqCurrentCard from TurqChequeChequeInRoll as chequeRoll" +
+					" where chequeRoll.turqChequeCheque = :cheque and " +
+					" chequeRoll.turqChequeRoll.turqChequeTransactionType.id ="+EngBLCommon.CHEQUE_TRANS_OUT_CURRENT;
+
+			Query q = session.createQuery(query);
+			q.setParameter("cheque",cheque);
+			List list = q.list();
+			session.close();
+			if(list.size()>0)
+			{
+				return (TurqCurrentCard)list.get(0);
+			}
+			 return null;
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
 	public static TurqAccountingAccount getChequeRollAccountingAccount(TurqChequeCheque cheque, int rollType)throws Exception{
 		try{
+			
 			Session session = EngDALSessionFactory.openSession();
 			
 			String query = "Select chequeRoll.turqChequeRollAccountingAccount.turqAccountingAccount from TurqChequeRoll as chequeRoll " +
