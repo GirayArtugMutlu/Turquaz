@@ -17,6 +17,7 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TableSorter;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -357,7 +358,11 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 					if (msg2.open() == SWT.OK)
 					{
 						initializeBill(bill);
-						BillBLUpdateBill.deleteBill(bill);
+						boolean deleteCons = false;
+						if (EngUICommon.okToDelete(getShell(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
+							deleteCons = true;
+						}
+						BillBLUpdateBill.deleteBill(bill,deleteCons);
 						msg.setMessage(Messages.getString("BillUIBillSearch.14")); //$NON-NLS-1$
 						msg.open();
 						search();

@@ -51,16 +51,22 @@ public class BillBLUpdateBill
 		while (it.hasNext())
 		{
 			TurqConsignment cons = (TurqConsignment) it.next();
+			ConBLUpdateConsignment.initiliazeConsignment(cons);
 			ConBLUpdateConsignment.deleteConsignment(cons);
 		}
 	}
 
-	public static void deleteBill(TurqBill bill) throws Exception
+	public static void deleteBill(TurqBill bill,boolean deleteCons) throws Exception
 	{
 		deleteAccountingTransactions(bill);
 		deleteCurrentTransactions(bill);
 		deleteBillGroups(bill);
 		EngDALCommon.deleteObject(bill);
+		if(deleteCons)
+		{
+			deleteBillConsignment(bill);
+		}
+		
 	}
 
 	/**

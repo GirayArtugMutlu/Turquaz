@@ -18,7 +18,6 @@ package com.turquaz.consignment.ui;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
@@ -406,21 +405,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 					msg2.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.9")); //$NON-NLS-1$
 					if (msg2.open() == SWT.OK)
 					{
-						//delete Consignment Group
-						Iterator it = cons.getTurqConsignmentsInGroups().iterator();
-						while (it.hasNext())
-						{
-							ConBLUpdateConsignment.deleteObject(it.next());
-						}
-						//						delete Inventory Transaction
-						it = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
-						while (it.hasNext())
-						{
-							ConBLUpdateConsignment.deleteObject(it.next());
-						}
-						Object o = cons.getTurqBillConsignmentCommon();
-						ConBLUpdateConsignment.deleteObject(cons);
-						ConBLUpdateConsignment.deleteObject(o);
+						ConBLUpdateConsignment.deleteConsignment(cons);
 						msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
 						msg.open();
 						search();

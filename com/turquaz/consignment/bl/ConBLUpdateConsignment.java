@@ -124,8 +124,7 @@ public class ConBLUpdateConsignment
 	{
 		try
 		{
-			//	      delete Consignment Group
-			initiliazeConsignment(consignment);
+		
 			Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
 			while (it.hasNext())
 			{
