@@ -47,6 +47,30 @@
             type="java.math.BigDecimal"
             length="65535"
         />
+        <key-property 
+            name="totalTransoverAmountIn" 
+            column="total_transover_amount_in" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+        <key-property 
+            name="totalTransoverPriceIn" 
+            column="total_transover_price_in" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+        <key-property 
+            name="totalTransoverAmountOut" 
+            column="total_transover_amount_out" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+        <key-property 
+            name="totalTransoverPriceOut" 
+            column="total_transover_price_out" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
     </composite-id>    
 
 

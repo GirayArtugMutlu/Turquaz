@@ -23,13 +23,29 @@ public class TurqViewInventoryTotal implements Serializable {
     /** identifier field */
     private java.math.BigDecimal totalPriceOut;
 
+    /** identifier field */
+    private java.math.BigDecimal totalTransoverAmountIn;
+
+    /** identifier field */
+    private java.math.BigDecimal totalTransoverPriceIn;
+
+    /** identifier field */
+    private java.math.BigDecimal totalTransoverAmountOut;
+
+    /** identifier field */
+    private java.math.BigDecimal totalTransoverPriceOut;
+
     /** full constructor */
-    public TurqViewInventoryTotal(int inventoryCardsId, java.math.BigDecimal totalAmountIn, java.math.BigDecimal totalPriceIn, java.math.BigDecimal totalAmountOut, java.math.BigDecimal totalPriceOut) {
+    public TurqViewInventoryTotal(int inventoryCardsId, java.math.BigDecimal totalAmountIn, java.math.BigDecimal totalPriceIn, java.math.BigDecimal totalAmountOut, java.math.BigDecimal totalPriceOut, java.math.BigDecimal totalTransoverAmountIn, java.math.BigDecimal totalTransoverPriceIn, java.math.BigDecimal totalTransoverAmountOut, java.math.BigDecimal totalTransoverPriceOut) {
         this.inventoryCardsId = inventoryCardsId;
         this.totalAmountIn = totalAmountIn;
         this.totalPriceIn = totalPriceIn;
         this.totalAmountOut = totalAmountOut;
         this.totalPriceOut = totalPriceOut;
+        this.totalTransoverAmountIn = totalTransoverAmountIn;
+        this.totalTransoverPriceIn = totalTransoverPriceIn;
+        this.totalTransoverAmountOut = totalTransoverAmountOut;
+        this.totalTransoverPriceOut = totalTransoverPriceOut;
     }
 
     /** default constructor */
@@ -76,6 +92,38 @@ public class TurqViewInventoryTotal implements Serializable {
         this.totalPriceOut = totalPriceOut;
     }
 
+    public java.math.BigDecimal getTotalTransoverAmountIn() {
+        return this.totalTransoverAmountIn;
+    }
+
+    public void setTotalTransoverAmountIn(java.math.BigDecimal totalTransoverAmountIn) {
+        this.totalTransoverAmountIn = totalTransoverAmountIn;
+    }
+
+    public java.math.BigDecimal getTotalTransoverPriceIn() {
+        return this.totalTransoverPriceIn;
+    }
+
+    public void setTotalTransoverPriceIn(java.math.BigDecimal totalTransoverPriceIn) {
+        this.totalTransoverPriceIn = totalTransoverPriceIn;
+    }
+
+    public java.math.BigDecimal getTotalTransoverAmountOut() {
+        return this.totalTransoverAmountOut;
+    }
+
+    public void setTotalTransoverAmountOut(java.math.BigDecimal totalTransoverAmountOut) {
+        this.totalTransoverAmountOut = totalTransoverAmountOut;
+    }
+
+    public java.math.BigDecimal getTotalTransoverPriceOut() {
+        return this.totalTransoverPriceOut;
+    }
+
+    public void setTotalTransoverPriceOut(java.math.BigDecimal totalTransoverPriceOut) {
+        this.totalTransoverPriceOut = totalTransoverPriceOut;
+    }
+
     public String toString() {
         return new ToStringBuilder(this)
             .append("inventoryCardsId", getInventoryCardsId())
@@ -83,6 +131,10 @@ public class TurqViewInventoryTotal implements Serializable {
             .append("totalPriceIn", getTotalPriceIn())
             .append("totalAmountOut", getTotalAmountOut())
             .append("totalPriceOut", getTotalPriceOut())
+            .append("totalTransoverAmountIn", getTotalTransoverAmountIn())
+            .append("totalTransoverPriceIn", getTotalTransoverPriceIn())
+            .append("totalTransoverAmountOut", getTotalTransoverAmountOut())
+            .append("totalTransoverPriceOut", getTotalTransoverPriceOut())
             .toString();
     }
 
@@ -95,6 +147,10 @@ public class TurqViewInventoryTotal implements Serializable {
             .append(this.getTotalPriceIn(), castOther.getTotalPriceIn())
             .append(this.getTotalAmountOut(), castOther.getTotalAmountOut())
             .append(this.getTotalPriceOut(), castOther.getTotalPriceOut())
+            .append(this.getTotalTransoverAmountIn(), castOther.getTotalTransoverAmountIn())
+            .append(this.getTotalTransoverPriceIn(), castOther.getTotalTransoverPriceIn())
+            .append(this.getTotalTransoverAmountOut(), castOther.getTotalTransoverAmountOut())
+            .append(this.getTotalTransoverPriceOut(), castOther.getTotalTransoverPriceOut())
             .isEquals();
     }
 
@@ -105,6 +161,10 @@ public class TurqViewInventoryTotal implements Serializable {
             .append(getTotalPriceIn())
             .append(getTotalAmountOut())
             .append(getTotalPriceOut())
+            .append(getTotalTransoverAmountIn())
+            .append(getTotalTransoverPriceIn())
+            .append(getTotalTransoverAmountOut())
+            .append(getTotalTransoverPriceOut())
             .toHashCode();
     }
 
