@@ -107,7 +107,7 @@ public class EngBLCurrencyToWords {
         
         int YKRS = Integer.parseInt(nums[1]);
         
-        String words = convert(YTL)+" YTL, "+convert(YKRS)+" YKr ";  
+        String words = (YKRS==0) ?  convert(YTL)+" YTL" : convert(YTL)+" YTL, "+convert(YKRS)+" YKr ";  
         
         return words;
         
