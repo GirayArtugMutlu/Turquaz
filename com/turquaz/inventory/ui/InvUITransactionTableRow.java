@@ -374,7 +374,7 @@ public class InvUITransactionTableRow implements ITableRow {
 		
 			case 0 : // inventory code 
 			    try{
-					 TurqInventoryCard invCard= EngBLInventoryCards.getCard(value.toString().trim());
+					 TurqInventoryCard invCard= EngBLInventoryCards.getInvCard(value.toString().trim());
 					 if(invCard!=null){
 					    invTrans.setTurqInventoryCard(invCard);
 					   

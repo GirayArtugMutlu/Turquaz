@@ -1589,7 +1589,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			txtInvCardCode.setFocus();
 			return false;
 		}
-		else if (save && EngBLInventoryCards.getCard(txtInvCardCode.getText().trim())!= null)
+		else if (save && EngBLInventoryCards.getInvCard(txtInvCardCode.getText().trim())!= null)
 		{
 			msg.setMessage(Messages.getString("InvUICardAdd.2")); //$NON-NLS-1$
 			msg.open();

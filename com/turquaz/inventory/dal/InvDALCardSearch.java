@@ -80,6 +80,59 @@ public class InvDALCardSearch {
 			}
 					
 	}
+	public List getInventoryCards()throws Exception{
+	    try{
+	        Session session = EngDALSessionFactory.openSession();
+	        String query = "Select invCard.cardInventoryCode,invCard.cardName from TurqInventoryCard as invCard";
+	        
+	        Query q = session.createQuery(query);
+	       
+	        List list = q.list();
+	        
+	       
+	        session.close();
+	        
+	        return list;
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
+	
+	public TurqInventoryCard getInventoryCard(String cardCode)throws Exception {
+	    try{
+	        
+	        Session session = EngDALSessionFactory.openSession();
+	        String query = "Select invCard from TurqInventoryCard as invCard " +
+	        		" where invCard.cardInventoryCode = '"+cardCode+"'";
+	        
+	        
+	        Query q = session.createQuery(query);
+	       
+	        List list = q.list();
+	        
+	        session.close();
+	        
+	        if(list.size()>0){
+	            
+	           return (TurqInventoryCard)list.get(0);
+	            
+	        }
+	       else{
+	           return null;
+	       }
+	      
+	        
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	    
+	    
+	}
+	
 	public void initializeInventoryCard(TurqInventoryCard invCard )throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();

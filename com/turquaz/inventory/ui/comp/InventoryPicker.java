@@ -91,7 +91,7 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite {
                       
                             try {
                                 
-                               setData2(EngBLInventoryCards.getCard(text1.getText().trim()));
+                               setData2(EngBLInventoryCards.getInvCard(text1.getText().trim()));
                           
                                                            
                                 

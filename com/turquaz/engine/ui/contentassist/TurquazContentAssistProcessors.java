@@ -24,7 +24,6 @@ import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqInventoryCard;
 
 public class TurquazContentAssistProcessors implements
         ISubjectControlContentAssistProcessor {
@@ -60,16 +59,18 @@ public class TurquazContentAssistProcessors implements
                 }
 
             }
-            else if (type == 1) {
+            else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY) {
                 List list = EngBLInventoryCards.getInventoryCards();
-
+                 
                 for (int i = 0; i < list.size(); i++) {
-                    TurqInventoryCard acc = (TurqInventoryCard)((Object[])list.get(i))[1];
-                    proposed.add(new Proposal(acc.getCardInventoryCode(),acc.getCardName()));
+                    
+                    Object []result = (Object[])list.get(i);
+                    proposed.add(new Proposal(result[0].toString(),result[1].toString()));
+                
                 }
 
             }
-            else if (type == 2) {
+            else if (type == EngBLCommon.CONTENT_ASSIST_ACCOUNT_LEAVES) {
                
                 
                 List list = EngBLAccountingAccounts.getAccountsForAccountPickers();
