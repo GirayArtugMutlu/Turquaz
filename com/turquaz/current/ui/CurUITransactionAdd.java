@@ -351,6 +351,9 @@ public class CurUITransactionAdd extends SecureComposite {
 									  dateTransDate.getDate(),txtDocumentNo.getText().trim(),isCredit,
 									  decTxtAmount.getBigDecimalValue(),new BigDecimal(0),4,(TurqAccountingAccount)accPickerCashAccount.getData());
 	
+	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+	msg.setMessage("Succesfully Saved!");
+    msg.open();	
 	newForm();
 	}
 	
@@ -363,12 +366,7 @@ public class CurUITransactionAdd extends SecureComposite {
     msg.setMessage(ex.getMessage());
 	msg.open();
 	}
-	
-	
-	
-	
-	
-	
+		
 	}
 	public void delete(){
 	
@@ -379,6 +377,7 @@ public class CurUITransactionAdd extends SecureComposite {
 	}
 	
 	public void newForm(){
+		
 		 CurUITransactionAdd cardAdd = new CurUITransactionAdd(this.getParent(),this.getStyle());
 		 CTabFolder tabfld = (CTabFolder)this.getParent();
 		 tabfld.getSelection().setControl(cardAdd);	 

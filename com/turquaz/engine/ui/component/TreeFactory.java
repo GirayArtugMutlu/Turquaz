@@ -22,6 +22,7 @@ import com.turquaz.bank.ui.BankUIBankCardSearch;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.current.ui.CurUICurrentCardSearch;
 import com.turquaz.current.ui.CurUITransactionAdd;
+import com.turquaz.current.ui.CurUITransactionSearch;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.InvUICardSearch;
@@ -104,7 +105,10 @@ public final class TreeFactory {
 		item.setData(CurUICurrentCardSearch.class.getName());
 		item = new TreeItem(root,SWT.NULL);
 		item.setText("Cash Transaction");
-		item.setData(CurUITransactionAdd.class.getName());	
+		item.setData(CurUITransactionAdd.class.getName());
+		item = new TreeItem(root,SWT.NULL);
+		item.setText("Transaction Search");
+		item.setData(CurUITransactionSearch.class.getName());
 		return tree;
 	}
 	public static Tree createAdminTree(Tree tree){

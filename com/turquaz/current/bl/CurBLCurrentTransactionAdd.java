@@ -173,6 +173,17 @@ public class CurBLCurrentTransactionAdd {
 			throw ex;
 		}
 	}
+	public List getCurrentTransactionTypes() throws Exception {
+		try{
+			
+			return dalCurrentTrans.getTransactionTypes();
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
 	
 	
 	

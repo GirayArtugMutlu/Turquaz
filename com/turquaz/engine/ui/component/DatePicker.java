@@ -2,6 +2,7 @@ package com.turquaz.engine.ui.component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.eclipse.swt.layout.GridLayout;
@@ -30,7 +31,8 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 
 	private Button button1;
 	private Text text1;
-	final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	public final  static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	Calendar calendar = Calendar.getInstance();
 	public DatePicker(Composite parent, int style) {
 		super(parent, style);
 	
@@ -115,6 +117,8 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	
+		setDate(calendar.getTime());
 	}
 	
 	public Date getDate(){

@@ -13,6 +13,8 @@ import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqAccountingTransactionType;
+import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
 /**
  * @author onsel
@@ -77,7 +79,7 @@ public class CurDALCurrentTransactionAdd {
 			}	
 	}
 	
-	
+
 	public List getCurrentCards()throws Exception {
 	try{
 		
@@ -101,4 +103,29 @@ public class CurDALCurrentTransactionAdd {
 	
 	}	
 
+	public List getTransactionTypes()throws Exception {
+		try{
+			
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			String query = "from TurqCurrentTransactionType as curCard " +
+					"where curCard.turqCompany.companiesId ="+System.getProperty("company");		   
+			Query q = session.createQuery(query); 
+			List list = q.list();
+			
+			
+			
+			tx.commit();
+			session.close();
+			return list;
+			
+			
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+		}	
 }
