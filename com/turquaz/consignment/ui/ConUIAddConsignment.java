@@ -282,6 +282,7 @@ implements SecureComposite{
 	private TableColumn tableColumn1;
 	private Text txtBillDocumentNo;
 	private CLabel lblInventoryPrice;
+	private TableColumn tableColumnAmountAfterDiscount;
 	private CLabel lblShippingDate;
 	private TableColumn tableColumnDiscountRate;
 	private CCombo comboWareHouse;
@@ -344,6 +345,7 @@ implements SecureComposite{
 	private final String UNIT_PRICE					= Messages.getString("ConUIAddConsignment.17"); //$NON-NLS-1$
 	private final String TOTAL_PRICE				= Messages.getString("ConUIAddConsignment.18"); //$NON-NLS-1$
 	private final String DISCOUNT_PERCENT           = Messages.getString("ConUIAddConsignment.15"); //$NON-NLS-1$
+	private final String TOTAL_PRICE_AFTER_DISCOUNT  = Messages.getString("ConUIAddConsignment.40"); //$NON-NLS-1$
 	private final String VAT_PERCENT				= Messages.getString("ConUIAddConsignment.19"); //$NON-NLS-1$
 	private final String VAT_TOTAL					= Messages.getString("ConUIAddConsignment.20"); //$NON-NLS-1$
 	private final String SPECIAL_VAT_PERCENT		= Messages.getString("ConUIAddConsignment.21"); //$NON-NLS-1$
@@ -364,6 +366,7 @@ implements SecureComposite{
 			UNIT_PRICE,
 			TOTAL_PRICE,
 			DISCOUNT_PERCENT,
+			TOTAL_PRICE_AFTER_DISCOUNT ,
 			VAT_PERCENT,
 			VAT_TOTAL,
 			SPECIAL_VAT_PERCENT,
@@ -547,7 +550,7 @@ implements SecureComposite{
                                 lblShippingDate = new CLabel(
                                     compInfoPanel,
                                     SWT.NONE);
-                                lblShippingDate.setText("Sevk Tarihi");
+                                lblShippingDate.setText(Messages.getString("ConUIAddConsignment.41")); //$NON-NLS-1$
                             }
 						}
                         {
@@ -630,6 +633,12 @@ implements SecureComposite{
 								tableColumnDiscountRate.setText(DISCOUNT_PERCENT);
 								tableColumnDiscountRate.setWidth(53);
 							}
+                            {
+                                tableColumnAmountAfterDiscount = new TableColumn(tableConsignmentRows, SWT.RIGHT);
+                                tableColumnAmountAfterDiscount
+                                    .setText(TOTAL_PRICE_AFTER_DISCOUNT);
+                                tableColumnAmountAfterDiscount.setWidth(100);
+                            }
                             {
                                 tableColumn8 = new TableColumn(
                                     tableConsignmentRows,
@@ -877,6 +886,7 @@ implements SecureComposite{
        columnList.add(UNIT_PRICE);
        columnList.add(TOTAL_PRICE);
        columnList.add(DISCOUNT_PERCENT);
+       columnList.add(TOTAL_PRICE_AFTER_DISCOUNT);
        columnList.add(VAT_PERCENT);
        columnList.add(VAT_TOTAL);
        columnList.add(SPECIAL_VAT_PERCENT);
@@ -897,14 +907,14 @@ implements SecureComposite{
        editors[4] = new NumericCellEditor(tableConsignmentRows);
        editors[5] = new TextCellEditor(tableConsignmentRows);
        editors[6] = new CurrencyCellEditor(tableConsignmentRows,2);
-       editors[7] = new CurrencyCellEditor(tableConsignmentRows,2);
-       editors[8] = new NumericCellEditor(tableConsignmentRows);
-       editors[9] = new NumericCellEditor(tableConsignmentRows);
-       editors[10] = new CurrencyCellEditor(tableConsignmentRows,2);
+       editors[7] = new CurrencyCellEditor(tableConsignmentRows,4);
+       editors[8] = new CurrencyCellEditor(tableConsignmentRows,4);
+       editors[9] = new CurrencyCellEditor(tableConsignmentRows,2);
+       editors[10] = new NumericCellEditor(tableConsignmentRows);
        editors[11] = new CurrencyCellEditor(tableConsignmentRows,4);
-       editors[12] = new CurrencyCellEditor(tableConsignmentRows,2);
+       editors[12] = new CurrencyCellEditor(tableConsignmentRows,4);
        editors[13] = new CurrencyCellEditor(tableConsignmentRows,2);
-    
+       editors[14] = new CurrencyCellEditor(tableConsignmentRows,2);
        // Assign the cell editors to the viewer 
 		tableViewer.setCellEditors(editors);
        

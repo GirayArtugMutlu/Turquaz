@@ -735,9 +735,7 @@ public class BillUIAddBuyBill extends Composite
                                 tableColumnDiscountRate.setWidth(50);
                             }
                             {
-                                tableColumnPriceAfterDiscount = new TableColumn(
-                                    tableConsignmentRows,
-                                    SWT.NONE);
+                                tableColumnPriceAfterDiscount = new TableColumn(tableConsignmentRows, SWT.RIGHT);
                                 tableColumnPriceAfterDiscount.setWidth(100);
                                 tableColumnPriceAfterDiscount.setText(TOTAL_PRICE_AFTER_DISCOUNT);
                             }
@@ -1110,7 +1108,7 @@ public class BillUIAddBuyBill extends Composite
 	       editors[5] = new TextCellEditor(tableConsignmentRows);
 	       editors[6] = new CurrencyCellEditor(tableConsignmentRows,4);
 	       editors[7] = new CurrencyCellEditor(tableConsignmentRows,4);
-	       editors[8] = new CurrencyCellEditor(tableConsignmentRows,2);
+	       editors[8] = new CurrencyCellEditor(tableConsignmentRows,4);
 	       editors[9] = new CurrencyCellEditor(tableConsignmentRows,2);
 	       editors[10] = new NumericCellEditor(tableConsignmentRows);
 	       editors[11] = new CurrencyCellEditor(tableConsignmentRows,4);

@@ -173,7 +173,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 8 : // discount %	
-			    result = cf.format(invTrans.getTransactionsDiscount());
+			    result = cf4.format(invTrans.getTransactionsDiscount());
 				break;	
 		    
 			case 9 : // Amount after discount				    
@@ -390,7 +390,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 			
 			case 8 : // Discount percent	
-			   result = cf.format(invTrans.getTransactionsDiscount());
+			   result = cf4.format(invTrans.getTransactionsDiscount());
 				break;
 				
 			case 9 : // Amount after discount				    
@@ -521,8 +521,9 @@ public class InvUITransactionTableRow implements ITableRow {
 			    BigDecimal discAmount = new BigDecimal(0);
 			    if(invTrans.getTransactionsTotalPrice().compareTo(bdValue)==1)
 			    {
-			        invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsTotalPrice().subtract(bdValue));
-			        invTrans.setTransactionsDiscount(bdValue.divide(invTrans.getTransactionsTotalPrice(),4,BigDecimal.ROUND_DOWN).multiply(new BigDecimal(100))); 
+			        discAmount = invTrans.getTransactionsTotalPrice().subtract(bdValue);
+			        invTrans.setTransactionsDiscountAmount(discAmount);
+			        invTrans.setTransactionsDiscount(discAmount.divide(invTrans.getTransactionsTotalPrice(),6,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100))); 
 			    }
 			    break;	
 			

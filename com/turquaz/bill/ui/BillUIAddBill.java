@@ -315,6 +315,7 @@ public class BillUIAddBill extends Composite
 	private Text txtConsignmentDocumentNo;
 
 	private CLabel lblInventoryPrice;
+	private TableColumn tableColumnAmountAfterDiscount;
 	private DatePicker dateDueDate;
 	private CLabel lbDueDate;
 	private AccountPicker accountPickerCurAcc;
@@ -406,6 +407,7 @@ public class BillUIAddBill extends Composite
 	private final String UNIT_PRICE					= Messages.getString("BillUIAddBill.18"); //$NON-NLS-1$
 	private final String TOTAL_PRICE				= Messages.getString("BillUIAddBill.19"); //$NON-NLS-1$
 	private final String DISCOUNT_PERCENT           = Messages.getString("BillUIAddBill.16"); //$NON-NLS-1$
+	private final String TOTAL_PRICE_AFTER_DISCOUNT  = Messages.getString("BillUIAddBill.44"); //$NON-NLS-1$
 	private final String VAT_PERCENT				= Messages.getString("BillUIAddBill.20"); //$NON-NLS-1$
 	private final String VAT_TOTAL					= Messages.getString("BillUIAddBill.21"); //$NON-NLS-1$
 	private final String SPECIAL_VAT_PERCENT		= Messages.getString("BillUIAddBill.22"); //$NON-NLS-1$
@@ -425,6 +427,7 @@ public class BillUIAddBill extends Composite
 			UNIT_PRICE,
 			TOTAL_PRICE,
 			DISCOUNT_PERCENT,
+			TOTAL_PRICE_AFTER_DISCOUNT,
 			VAT_PERCENT,
 			VAT_TOTAL,
 			SPECIAL_VAT_PERCENT,
@@ -735,6 +738,11 @@ public class BillUIAddBill extends Composite
                                 tableColumnDiscountRate = new TableColumn(tableConsignmentRows, SWT.RIGHT);
                                 tableColumnDiscountRate.setText(DISCOUNT_PERCENT);
                                 tableColumnDiscountRate.setWidth(50);
+                            }
+                            {
+                                tableColumnAmountAfterDiscount = new TableColumn(tableConsignmentRows, SWT.RIGHT);
+                                tableColumnAmountAfterDiscount.setText(TOTAL_PRICE_AFTER_DISCOUNT);
+                                tableColumnAmountAfterDiscount.setWidth(100);
                             }
                             {
                                 tableColumn8 = new TableColumn(tableConsignmentRows, SWT.RIGHT);
@@ -1076,6 +1084,7 @@ public class BillUIAddBill extends Composite
 	       columnList.add(UNIT_PRICE);
 	       columnList.add(TOTAL_PRICE);
 	       columnList.add(DISCOUNT_PERCENT);
+	       columnList.add(TOTAL_PRICE_AFTER_DISCOUNT);
 	       columnList.add(VAT_PERCENT);
 	       columnList.add(VAT_TOTAL);
 	       columnList.add(SPECIAL_VAT_PERCENT);
@@ -1097,12 +1106,13 @@ public class BillUIAddBill extends Composite
 	       editors[5] = new TextCellEditor(tableConsignmentRows);
 	       editors[6] = new CurrencyCellEditor(tableConsignmentRows,4);
 	       editors[7] = new CurrencyCellEditor(tableConsignmentRows,4);
-	       editors[8] = new NumericCellEditor(tableConsignmentRows);
-	       editors[9] = new NumericCellEditor(tableConsignmentRows);
-	       editors[10] = new CurrencyCellEditor(tableConsignmentRows,4);
+	       editors[8] = new CurrencyCellEditor(tableConsignmentRows,4);
+	       editors[9] = new CurrencyCellEditor(tableConsignmentRows,2);
+	       editors[10] = new NumericCellEditor(tableConsignmentRows);
 	       editors[11] = new CurrencyCellEditor(tableConsignmentRows,4);
-	       editors[12] = new CurrencyCellEditor(tableConsignmentRows,2);
+	       editors[12] = new CurrencyCellEditor(tableConsignmentRows,4);
 	       editors[13] = new CurrencyCellEditor(tableConsignmentRows,2);
+	       editors[14] = new CurrencyCellEditor(tableConsignmentRows,2);
 	    
 	       // Assign the cell editors to the viewer 
 			tableViewer.setCellEditors(editors);
@@ -1117,9 +1127,7 @@ public class BillUIAddBill extends Composite
 			 
 	             cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE,tableViewer,rowList);
 	             cursor.setEnabled(true);
-	        	
-			
-	        	 
+
 	             cursor.addSelectionListener(new SelectionAdapter() {
 	                     public void widgetDefaultSelected(
 	                      SelectionEvent evt) {

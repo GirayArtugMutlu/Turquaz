@@ -100,7 +100,7 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite {
                         }
                     
                 });
-				text1.setBackground(SWTResourceManager.getColor(254, 254, 254));
+                text1.setBackground(SWTResourceManager.getColor(255, 215, 215));
 				
 				text1LData.verticalAlignment = GridData.FILL;
 				text1LData.horizontalAlignment = GridData.FILL;
