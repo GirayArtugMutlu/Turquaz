@@ -259,12 +259,14 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	        if(compTransAdd.verifyFields())
 	        {
 	        	updated=true;
+//	          TODO current trans exRate
 	        	blUpdate.updateCashTrans(cashTrans,(TurqCashCard)compTransAdd.getTxtCashCard().getData(),
 	                                (TurqCurrentCard)compTransAdd.getTxtCurrentAccount().getData(),
 	                                compTransAdd.getCurTextTotalAmount().getBigDecimalValue(),
 	                                compTransAdd.getDatePicker().getDate(),
 	                                compTransAdd.getTxtDefinition().getText(),
-	                                compTransAdd.getTxtDocumentNo().getText());
+	                                compTransAdd.getTxtDocumentNo().getText(),
+									EngBLCommon.getBaseCurrencyExchangeRate());
 	        
 	        	msg.setMessage(Messages.getString("CashUICashPaymentTransactionUpdate.9")); //$NON-NLS-1$
 	        	msg.open();

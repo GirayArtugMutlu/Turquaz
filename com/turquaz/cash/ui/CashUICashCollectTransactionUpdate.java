@@ -259,12 +259,14 @@ public class CashUICashCollectTransactionUpdate extends Dialog {
 	        
 	        if(compTransAdd.verifyFields()){
 	        updated=true;
+//          TODO current trans exRate
 	        blUpdate.updateCashTrans(cashTrans,(TurqCashCard)compTransAdd.getTxtCashCard().getData(),
 	                                (TurqCurrentCard)compTransAdd.getTxtCurrentAccount().getData(),
 	                                compTransAdd.getCurTextTotalAmount().getBigDecimalValue(),
 	                                compTransAdd.getDatePicker().getDate(),
 	                                compTransAdd.getTxtDefinition().getText(),
-	                                compTransAdd.getTxtDocumentNo().getText());
+	                                compTransAdd.getTxtDocumentNo().getText(),
+									EngBLCommon.getBaseCurrencyExchangeRate());
 	        }
 	        msg.setMessage(Messages.getString("CashUICashCollectTransactionUpdate.5")); //$NON-NLS-1$
 	        msg.open();

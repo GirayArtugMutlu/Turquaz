@@ -19,6 +19,8 @@ import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
+
 
 /**
  * @author onsel
@@ -28,7 +30,7 @@ import com.turquaz.engine.dal.TurqChequeRoll;
  */
 public class CheBLUpdateCheque {
 	
-	public static void updateCheque(TurqChequeCheque cheque)throws Exception{
+	public static void updateCheque(TurqChequeCheque cheque, TurqCurrencyExchangeRate exchangeRate)throws Exception{
 	
 	try{
 
@@ -50,7 +52,7 @@ public class CheBLUpdateCheque {
 		{
 			
 			TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll)it.next();
-			updateChequeRollTransactions(chequeInRoll.getTurqChequeRoll());
+			updateChequeRollTransactions(chequeInRoll.getTurqChequeRoll(),exchangeRate);
 			
 		}
 		
@@ -66,7 +68,7 @@ public class CheBLUpdateCheque {
 	}
 		
 	}
-	public static void deleteCheque(TurqChequeCheque cheque)throws Exception 
+	public static void deleteCheque(TurqChequeCheque cheque, TurqCurrencyExchangeRate exchangeRate)throws Exception 
 	{
 		try{
 			
@@ -93,7 +95,7 @@ public class CheBLUpdateCheque {
 			CheDALSave.delete(chequeInRoll);
 			
 			
-			updateChequeRollTransactions(chequeRoll);
+			updateChequeRollTransactions(chequeRoll,exchangeRate);
 			
 		}
 		
@@ -111,12 +113,12 @@ public class CheBLUpdateCheque {
 	}
 	
 	
-	private static void updateChequeRollTransactions(TurqChequeRoll chequeRoll)throws Exception{
+	private static void updateChequeRollTransactions(TurqChequeRoll chequeRoll, TurqCurrencyExchangeRate exchangeRate)throws Exception{
 		try{
 			
 			CheDALUpdate.initializeChequeRoll(chequeRoll);
 			
-			updateCurrentTransactions(chequeRoll);
+			updateCurrentTransactions(chequeRoll, exchangeRate);
 			
 			updateBankTransactions(chequeRoll);
 			
@@ -133,7 +135,7 @@ public class CheBLUpdateCheque {
 		
 	}
 	
-	private static void updateCurrentTransactions(TurqChequeRoll chequeRoll)throws Exception{
+	private static void updateCurrentTransactions(TurqChequeRoll chequeRoll, TurqCurrencyExchangeRate exchangeRate)throws Exception{
 
 		try{
 			CurBLCurrentTransactionAdd blCurrent = new CurBLCurrentTransactionAdd();
@@ -156,7 +158,7 @@ public class CheBLUpdateCheque {
 				{
 					
 					TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll)it.next();
-					
+					//TODO cheq current exRate
 					blCurrent.saveCurrentTransaction(chequeRoll.getTurqCurrentCard(),
 													chequeRoll.getChequeRollsDate(),
 													chequeRoll.getChequeRollNo(),
@@ -165,7 +167,7 @@ public class CheBLUpdateCheque {
 													new BigDecimal(0),
 													EngBLCommon.CURRENT_TRANS_CHEQUE,
 													chequeRoll.getTurqEngineSequence().getId(),
-													"Çek Portföy No:"+chequeInRoll.getTurqChequeCheque().getChequesPortfolioNo() );
+													"Çek Portföy No:"+chequeInRoll.getTurqChequeCheque().getChequesPortfolioNo() ,exchangeRate);
 	             }
 				
 			    
@@ -180,7 +182,7 @@ public class CheBLUpdateCheque {
 				{
 					
 					TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll)it.next();
-					
+//		          TODO cheq trans exRate
 					blCurrent.saveCurrentTransaction(chequeRoll.getTurqCurrentCard(),
 													chequeRoll.getChequeRollsDate(),
 													chequeRoll.getChequeRollNo(),
@@ -189,7 +191,8 @@ public class CheBLUpdateCheque {
 													new BigDecimal(0),
 													EngBLCommon.CURRENT_TRANS_CHEQUE,
 													chequeRoll.getTurqEngineSequence().getId(),
-													"Çek Portföy No:"+chequeInRoll.getTurqChequeCheque().getChequesPortfolioNo() );
+													"Çek Portföy No:"+chequeInRoll.getTurqChequeCheque().getChequesPortfolioNo(),
+													exchangeRate);
 	             }
 				
 			    

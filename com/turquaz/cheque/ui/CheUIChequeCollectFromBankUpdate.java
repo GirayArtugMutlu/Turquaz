@@ -206,8 +206,8 @@ public class CheUIChequeCollectFromBankUpdate extends
 	                
 	            }   
 	           
-	            
-	           CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,null,null,null,compChequeRoll.getTxtRollNo().getText().trim(),compChequeRoll.getDatePicker1().getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_BANK,false);
+//	          TODO cheq trans exRate
+	           CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,null,null,null,compChequeRoll.getTxtRollNo().getText().trim(),compChequeRoll.getDatePicker1().getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_BANK,false,EngBLCommon.getBaseCurrencyExchangeRate());
 	           EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
 	           isUpdated=true;
 	           dialogShell.close();

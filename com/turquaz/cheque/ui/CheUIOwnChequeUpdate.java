@@ -281,8 +281,8 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 	    cheque.setChequesType(EngBLCommon.CHEQUE_TYPE_OWN);
         
         cheque.setTurqBanksCard(bankCard);
-	    
-        CheBLUpdateCheque.updateCheque(cheque);
+//        TODO cheq trans exRate
+        CheBLUpdateCheque.updateCheque(cheque,EngBLCommon.getBaseCurrencyExchangeRate());
         
         EngUICommon.showSavedSuccesfullyMessage(getParent());
 	    isUpdated = true;
@@ -300,7 +300,8 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 		try{
 			if(EngUICommon.okToDelete(getParent()))
 			{
-			CheBLUpdateCheque.deleteCheque(cheque);
+//		          TODO cheq trans exRate
+			CheBLUpdateCheque.deleteCheque(cheque,EngBLCommon.getBaseCurrencyExchangeRate());
 			EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIOwnChequeUpdate.2"),SWT.ICON_INFORMATION); //$NON-NLS-1$
 			
 			isUpdated = true;

@@ -48,6 +48,7 @@ import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.dal.TurqBanksTransactionType;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
 public class BankBLTransactionUpdate {
@@ -504,7 +505,7 @@ public class BankBLTransactionUpdate {
     public static void updateTransactionBill(
             TurqBanksTransactionBill bankTransBill, TurqBanksCard bankCard,
             TurqCurrentCard curCard, BigDecimal totalAmount, Date transDate,
-            String definition, String docNo) throws Exception {
+            String definition, String docNo, TurqCurrencyExchangeRate exchangeRate) throws Exception {
         try {
 
             //delete transactions
@@ -650,7 +651,7 @@ public class BankBLTransactionUpdate {
                     currentTransType, totalAmount, new BigDecimal(0),
                     EngBLCommon.CURRENT_TRANS_BANK, bankTransBill
                             .getTurqEngineSequence().getId(),
-                    currentTransDefinition);
+                    currentTransDefinition,exchangeRate);
 
             /**
              * Save Accounting Transaction

@@ -85,6 +85,20 @@
             class="com.turquaz.engine.dal.TurqAccountingTransactionColumn"
         />
     </set>
+    <!-- bi-directional one-to-many association to TurqCurrentTransaction -->
+    <set
+        name="turqCurrentTransactions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="exchange_rate_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrentTransaction"
+        />
+    </set>
 
 </class>
 </hibernate-mapping>

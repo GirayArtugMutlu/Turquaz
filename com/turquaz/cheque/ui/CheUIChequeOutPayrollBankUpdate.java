@@ -244,8 +244,17 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 	            }        
 	           
 	           
-	            
-	           CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,null,null,compChequeRoll.getBankCardPicker().getTurqBank(),compChequeRoll.getTxtRollNo().getText().trim(),compChequeRoll.getDatePicker1().getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_OUT_CURRENT,compChequeRoll.getBtnSumTotals().getSelection());
+//		          TODO cheq trans exRate
+	           CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,
+	           		null,
+					null,
+					compChequeRoll.getBankCardPicker().getTurqBank(),
+					compChequeRoll.getTxtRollNo().getText().trim(),
+					compChequeRoll.getDatePicker1().getDate(),
+					chequeList,
+					EngBLCommon.CHEQUE_TRANS_OUT_CURRENT,
+					compChequeRoll.getBtnSumTotals().getSelection(),
+					EngBLCommon.getBaseCurrencyExchangeRate());
 	           EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
 	           isUpdated=true;
 	           dialogShell.close();

@@ -39,6 +39,7 @@ import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqCashTransactionType;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
@@ -159,7 +160,7 @@ public class CashBLCashTransactionAdd {
 	public void saveCurrentTransaction(TurqCashCard cashCard,
 			TurqCurrentCard current, int type, TurqEngineSequence seq,
 			BigDecimal totalAmount, Date transDate, String definition,
-			String document_no) throws Exception {
+			String document_no, TurqCurrencyExchangeRate exchangeRate) throws Exception {
 		try {
 
 			if (seq == null) {
@@ -274,11 +275,10 @@ public class CashBLCashTransactionAdd {
 			/**
 			 * Save Current transaction
 			 */
-
 			blCurTrans.saveCurrentTransaction(current, transDate, document_no,
 					currentTransType, totalAmount, new BigDecimal(0),
 					EngBLCommon.CURRENT_TRANS_CASH, seq.getId(),
-					currentTransDefinition);
+					currentTransDefinition,exchangeRate);
 
 			/**
 			 * Save Accounting Transaction

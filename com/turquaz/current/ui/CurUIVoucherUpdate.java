@@ -230,11 +230,12 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 			    isCredit=true;
 			}
 			
-			
+//	        TODO current trans exRate
 			TurqCurrentTransaction curtrans =new CurBLCurrentTransactionAdd().saveOtherCurrentTransaction((TurqCurrentCard)compVoucher.getTxtCurrentCard().getData(),
 				compVoucher.getAccountPicker().getTurqAccountingAccount(),compVoucher.getDateTransDate().getDate(),"",isCredit, credit , //$NON-NLS-1$
 						new BigDecimal(0),EngBLCommon.CURRENT_TRANS_OTHERS,
-						null,compVoucher.getTxtDefinition().getText());
+						null,compVoucher.getTxtDefinition().getText(),
+						EngBLCommon.getBaseCurrencyExchangeRate());
 			
 	       EngUICommon.showMessageBox(getParent(),Messages.getString("CurUIVoucherUpdate.1")); //$NON-NLS-1$
 	    }

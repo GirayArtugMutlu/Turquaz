@@ -97,15 +97,16 @@ public class BillBLAddBill {
 
 			//Al?? Faturas?
 			if (bill.getBillsType() == 0) {
-
+//	          TODO current trans exRate
 				curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),
 						bill.getBillsDate(), common.getBillDocumentNo(), true,
 						common.getTotalAmount(), common.getDiscountAmount(), 1,
 						bill.getTurqEngineSequence().getId(),
-						curTransDef);
+						curTransDef,EngBLCommon.getBaseCurrencyExchangeRate());
 
 				//Kapal? Fatura
 				if (!bill.isIsOpen()) {
+//		          TODO current trans exRate
 					curBLTrans
 							.saveCurrentTransaction(
 									common.getTurqCurrentCard(), bill
@@ -115,28 +116,30 @@ public class BillBLAddBill {
 											.getDiscountAmount(), 4, bill
 											.getTurqEngineSequence()
 											.getId(),
-									curTransDef);
+									curTransDef,EngBLCommon.getBaseCurrencyExchangeRate());
 				}
 
 			}
 
 			//Sat?? Faturas?
 			else if (bill.getBillsType() == 1) {
+//	          TODO current trans exRate
 				curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),
 						bill.getBillsDate(), common.getBillDocumentNo(), false,
 						common.getTotalAmount(), common.getDiscountAmount(), 1,
 						bill.getTurqEngineSequence().getId(),
-						curTransDef);
+						curTransDef,EngBLCommon.getBaseCurrencyExchangeRate());
 
 				//Kapal? Fatura
 				if (!bill.isIsOpen()) {
+//		          TODO current trans exRate
 					curBLTrans.saveCurrentTransaction(common
 							.getTurqCurrentCard(), bill.getBillsDate(), common
 							.getBillDocumentNo(), true,
 							common.getTotalAmount(),
 							common.getDiscountAmount(), 4, bill
 									.getTurqEngineSequence()
-									.getId(), curTransDef);
+									.getId(), curTransDef,EngBLCommon.getBaseCurrencyExchangeRate());
 				}
 			}
 

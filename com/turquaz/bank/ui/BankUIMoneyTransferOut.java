@@ -193,6 +193,7 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
         {
             if(verifyFields())
             {
+//              TODO current trans exRate
                 BankBLTransactionAdd.saveTransaction((TurqBanksCard)txtBankCard.getData(),
                         							   (TurqCurrentCard)currentPicker.getData(),
                         							   EngBLCommon.BANK_TRANS_SEND_MONEY,
@@ -200,7 +201,8 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
                         							   curAmount.getBigDecimalValue(),
                         							  datePick.getDate(),
                         							  txtDefinition.getText(),
-                        							  txtDocNo.getText()
+                        							  txtDocNo.getText(),
+													  EngBLCommon.getBaseCurrencyExchangeRate()
                         							  );
                 EngUICommon.showMessageBox(getShell(),Messages.getString("BankUIMoneyTransferOut.9"),SWT.ICON_INFORMATION); //$NON-NLS-1$
                 newForm();

@@ -47,12 +47,6 @@
         length="50"
     />
     <property
-        name="exchangeRate"
-        type="java.math.BigDecimal"
-        column="exchange_rate"
-        length="65535"
-    />
-    <property
         name="createdBy"
         type="java.lang.String"
         column="created_by"
@@ -144,20 +138,6 @@
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqChequeCheque"
-        />
-    </set>
-    <!-- bi-directional one-to-many association to TurqCurrentTransaction -->
-    <set
-        name="turqCurrentTransactions"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="currencies_id" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqCurrentTransaction"
         />
     </set>
     <!-- bi-directional one-to-many association to TurqCurrencyExchangeRate -->

@@ -26,6 +26,7 @@ import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLUpdateCheque;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -305,8 +306,8 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 	    
         cheque.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
         cheque.setLastModified(Calendar.getInstance().getTime());
-        
-        CheBLUpdateCheque.updateCheque(cheque);
+//        TODO cheq trans exRate
+        CheBLUpdateCheque.updateCheque(cheque,EngBLCommon.getBaseCurrencyExchangeRate());
         
         EngUICommon.showSavedSuccesfullyMessage(getParent());
         isUpdated =true;
@@ -323,7 +324,8 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 		try{
 		if(EngUICommon.okToDelete(getParent()))
 		{
-		CheBLUpdateCheque.deleteCheque(cheque);
+//	          TODO cheq trans exRate
+		CheBLUpdateCheque.deleteCheque(cheque,EngBLCommon.getBaseCurrencyExchangeRate());
 		EngUICommon.showMessageBox(getParent(),Messages.getString("CheUICustomerChequeUpdate.2"),SWT.ICON_INFORMATION); //$NON-NLS-1$
 		
 		isUpdated = true;

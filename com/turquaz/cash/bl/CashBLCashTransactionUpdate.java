@@ -38,6 +38,7 @@ import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 
@@ -141,7 +142,7 @@ public class CashBLCashTransactionUpdate {
     
     public void updateCashTrans(TurqCashTransaction cashTrans, TurqCashCard cashCard, TurqCurrentCard current, 
 					BigDecimal totalAmount, Date transDate,
-					String definition, String document_no)throws Exception {
+					String definition, String document_no,TurqCurrencyExchangeRate exchangeRate)throws Exception {
         try{
             
         
@@ -278,7 +279,8 @@ public class CashBLCashTransactionUpdate {
             	    
             	    blCurTrans.saveCurrentTransaction(current, transDate,document_no,currentTransType,
             	            						  totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CASH,
-            	            						 cashTrans.getTurqEngineSequence().getId(),currentTransDefinition);
+            	            						 cashTrans.getTurqEngineSequence().getId(),currentTransDefinition,
+													 exchangeRate);
             	
             		    
             	    

@@ -203,7 +203,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
            
            if(verifyFields()){
            
-               
+//          TODO current trans exRate
                blTrans.saveCurrentTransaction((TurqCashCard)txtCashCard.getData(),
                        						  (TurqCurrentCard)txtCurrentAccount.getData(),
                        						  EngBLCommon.CASH_CURRENT_COLLECT,
@@ -211,7 +211,8 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
                        						  curTextTotalAmount.getBigDecimalValue(),
                        						  datePicker.getDate(),
                        						  txtDefinition.getText(),
-                       						  txtDocumentNo.getText().trim()
+                       						  txtDocumentNo.getText().trim(),
+											  EngBLCommon.getBaseCurrencyExchangeRate()
                        						  );
                
                msg.setMessage(Messages.getString("CashUICashCollectTransactionAdd.1")); //$NON-NLS-1$

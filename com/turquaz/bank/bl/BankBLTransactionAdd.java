@@ -43,6 +43,7 @@ import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.dal.TurqBanksTransactionType;
 import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
@@ -387,7 +388,7 @@ public class BankBLTransactionAdd {
     public static void saveTransaction(TurqBanksCard bankCard,
             TurqCurrentCard curCard, int type, TurqEngineSequence seq,
             BigDecimal totalAmount, Date transDate, String definition,
-            String docNo) throws Exception {
+            String docNo, TurqCurrencyExchangeRate exchangeRate) throws Exception {
         try {
             if (seq == null) {
                 try {
@@ -504,11 +505,10 @@ public class BankBLTransactionAdd {
             /**
              * Save Current transaction
              */
-
             blCurTrans.saveCurrentTransaction(curCard, transDate, docNo,
                     currentTransType, totalAmount, new BigDecimal(0),
                     EngBLCommon.CURRENT_TRANS_BANK, seq.getId(),
-                    currentTransDefinition);
+                    currentTransDefinition, exchangeRate);
 
             /**
              * Save Accounting Transaction
@@ -519,9 +519,9 @@ public class BankBLTransactionAdd {
                     accTransType,
                     seq.getTurqModule().getId().intValue(), seq
                             .getId(), definition);
-//          TODO acc trans column exRate
-            blAccTran.saveAccTransactionRow(accTransRowBank, transId,EngBLCommon.getBaseCurrencyExchangeRate());
-            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,EngBLCommon.getBaseCurrencyExchangeRate());
+
+            blAccTran.saveAccTransactionRow(accTransRowBank, transId,exchangeRate);
+            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,exchangeRate);
 
         } catch (Exception ex) {
             throw ex;

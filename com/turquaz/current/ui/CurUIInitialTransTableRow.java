@@ -20,7 +20,8 @@ public class CurUIInitialTransTableRow implements ITableRow {
     public CurUIInitialTransTableRow(){
         curTrans.setTransactionsTotalCredit(new BigDecimal(0));
         curTrans.setTransactionsTotalDept(new BigDecimal(0));
-        curTrans.setTurqCurrency(EngBLCommon.getBaseCurrency());
+//      TODO current trans exRate
+        curTrans.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
         
     }
    public boolean canModify(int column_index) {

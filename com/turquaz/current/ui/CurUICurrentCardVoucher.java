@@ -246,11 +246,11 @@ implements SecureComposite{
 				if(comboType.getText().equals(EngBLCommon.COMMON_CREDIT_STRING)){
 				    isCredit=true;
 				}
-				
+//		        TODO current trans exRate
 				TurqCurrentTransaction curtrans = curBLTransAdd.saveOtherCurrentTransaction((TurqCurrentCard)txtCurrentCard.getData(),
 					accountPicker.getTurqAccountingAccount(),dateTransDate.getDate(),"",isCredit,credit, //$NON-NLS-1$
 							new BigDecimal(0),EngBLCommon.CURRENT_TRANS_OTHERS,
-							null,txtDefinition.getText());
+							null,txtDefinition.getText(),EngBLCommon.getBaseCurrencyExchangeRate());
 				
 				if(EngUICommon.okToDelete(getShell(),Messages.getString("CurUICurrentCardVoucher.4"))) //$NON-NLS-1$
 				{

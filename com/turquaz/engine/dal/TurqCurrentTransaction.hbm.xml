@@ -145,13 +145,13 @@
             class="com.turquaz.engine.dal.TurqCurrentTransactionBill"
         />
     </set>
-    <!-- bi-directional many-to-one association to TurqCurrency -->
+    <!-- bi-directional many-to-one association to TurqCurrencyExchangeRate -->
     <many-to-one
-        name="turqCurrency"
-        class="com.turquaz.engine.dal.TurqCurrency"
+        name="turqCurrencyExchangeRate"
+        class="com.turquaz.engine.dal.TurqCurrencyExchangeRate"
         not-null="true"
     >
-        <column name="currencies_id" />
+        <column name="exchange_rate_id" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqCurrentTransactionType -->
     <many-to-one

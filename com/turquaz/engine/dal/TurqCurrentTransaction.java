@@ -52,7 +52,7 @@ public class TurqCurrentTransaction implements Serializable {
     private java.math.BigDecimal totalDiscountInForeignCurrency;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCurrency turqCurrency;
+    private com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqCurrentTransactionType turqCurrentTransactionType;
@@ -70,7 +70,7 @@ public class TurqCurrentTransaction implements Serializable {
     private Set turqCurrentTransactionBillsByCurrentTransactionsIdClose;
 
     /** full constructor */
-    public TurqCurrentTransaction(java.util.Date transactionsDate, java.lang.String transactionsDocumentNo, java.math.BigDecimal transactionsTotalCredit, java.math.BigDecimal transactionsTotalDiscount, java.math.BigDecimal transactionsTotalDept, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String transactionsDefinition, java.math.BigDecimal totalCreditInForeignCurrency, java.math.BigDecimal totalDeptInForeignCurrency, java.math.BigDecimal totalDiscountInForeignCurrency, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqCurrentTransactionType turqCurrentTransactionType, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqCurrentTransactionBillsByCurrentTransactionsIdOpen, Set turqCurrentTransactionBillsByCurrentTransactionsIdClose) {
+    public TurqCurrentTransaction(java.util.Date transactionsDate, java.lang.String transactionsDocumentNo, java.math.BigDecimal transactionsTotalCredit, java.math.BigDecimal transactionsTotalDiscount, java.math.BigDecimal transactionsTotalDept, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String transactionsDefinition, java.math.BigDecimal totalCreditInForeignCurrency, java.math.BigDecimal totalDeptInForeignCurrency, java.math.BigDecimal totalDiscountInForeignCurrency, com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate, com.turquaz.engine.dal.TurqCurrentTransactionType turqCurrentTransactionType, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqCurrentTransactionBillsByCurrentTransactionsIdOpen, Set turqCurrentTransactionBillsByCurrentTransactionsIdClose) {
         this.transactionsDate = transactionsDate;
         this.transactionsDocumentNo = transactionsDocumentNo;
         this.transactionsTotalCredit = transactionsTotalCredit;
@@ -84,7 +84,7 @@ public class TurqCurrentTransaction implements Serializable {
         this.totalCreditInForeignCurrency = totalCreditInForeignCurrency;
         this.totalDeptInForeignCurrency = totalDeptInForeignCurrency;
         this.totalDiscountInForeignCurrency = totalDiscountInForeignCurrency;
-        this.turqCurrency = turqCurrency;
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
         this.turqCurrentTransactionType = turqCurrentTransactionType;
         this.turqEngineSequence = turqEngineSequence;
         this.turqCurrentCard = turqCurrentCard;
@@ -208,12 +208,12 @@ public class TurqCurrentTransaction implements Serializable {
         this.totalDiscountInForeignCurrency = totalDiscountInForeignCurrency;
     }
 
-    public com.turquaz.engine.dal.TurqCurrency getTurqCurrency() {
-        return this.turqCurrency;
+    public com.turquaz.engine.dal.TurqCurrencyExchangeRate getTurqCurrencyExchangeRate() {
+        return this.turqCurrencyExchangeRate;
     }
 
-    public void setTurqCurrency(com.turquaz.engine.dal.TurqCurrency turqCurrency) {
-        this.turqCurrency = turqCurrency;
+    public void setTurqCurrencyExchangeRate(com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate) {
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
     }
 
     public com.turquaz.engine.dal.TurqCurrentTransactionType getTurqCurrentTransactionType() {

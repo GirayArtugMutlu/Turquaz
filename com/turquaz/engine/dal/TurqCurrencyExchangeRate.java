@@ -30,14 +30,18 @@ public class TurqCurrencyExchangeRate implements Serializable {
     /** persistent field */
     private Set turqAccountingTransactionColumns;
 
+    /** persistent field */
+    private Set turqCurrentTransactions;
+
     /** full constructor */
-    public TurqCurrencyExchangeRate(java.util.Date exhangeRatesDate, java.math.BigDecimal exchangeRatio, com.turquaz.engine.dal.TurqCurrency turqCurrencyByBaseCurrencyId, com.turquaz.engine.dal.TurqCurrency turqCurrencyByExchangeCurrencyId, Set turqAccountingTransactions, Set turqAccountingTransactionColumns) {
+    public TurqCurrencyExchangeRate(java.util.Date exhangeRatesDate, java.math.BigDecimal exchangeRatio, com.turquaz.engine.dal.TurqCurrency turqCurrencyByBaseCurrencyId, com.turquaz.engine.dal.TurqCurrency turqCurrencyByExchangeCurrencyId, Set turqAccountingTransactions, Set turqAccountingTransactionColumns, Set turqCurrentTransactions) {
         this.exhangeRatesDate = exhangeRatesDate;
         this.exchangeRatio = exchangeRatio;
         this.turqCurrencyByBaseCurrencyId = turqCurrencyByBaseCurrencyId;
         this.turqCurrencyByExchangeCurrencyId = turqCurrencyByExchangeCurrencyId;
         this.turqAccountingTransactions = turqAccountingTransactions;
         this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
+        this.turqCurrentTransactions = turqCurrentTransactions;
     }
 
     /** default constructor */
@@ -98,6 +102,14 @@ public class TurqCurrencyExchangeRate implements Serializable {
 
     public void setTurqAccountingTransactionColumns(java.util.Set turqAccountingTransactionColumns) {
         this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
+    }
+
+    public java.util.Set getTurqCurrentTransactions() {
+        return this.turqCurrentTransactions;
+    }
+
+    public void setTurqCurrentTransactions(java.util.Set turqCurrentTransactions) {
+        this.turqCurrentTransactions = turqCurrentTransactions;
     }
 
     public String toString() {

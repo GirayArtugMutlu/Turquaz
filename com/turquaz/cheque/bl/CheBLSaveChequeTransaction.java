@@ -60,7 +60,7 @@ public class CheBLSaveChequeTransaction {
         
     }
     
-    public static void saveChequeRoll(TurqAccountingAccount rollAccount, TurqCurrentCard curCard,TurqBanksCard bankCard, String rollNo,Date rollDate,List chequeList, int rollType, boolean sumTransTotal)throws Exception {
+    public static void saveChequeRoll(TurqAccountingAccount rollAccount, TurqCurrentCard curCard,TurqBanksCard bankCard, String rollNo,Date rollDate,List chequeList, int rollType, boolean sumTransTotal, TurqCurrencyExchangeRate exchangeRate)throws Exception {
      
       try{
           
@@ -154,10 +154,10 @@ public class CheBLSaveChequeTransaction {
               if(curCard!=null&&!sumTransTotal)
               {
                  if(rollType == EngBLCommon.CHEQUE_TRANS_IN){
-                     blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getId(),Messages.getString("CheBLSaveChequeTransaction.0")+cheque.getChequesPortfolioNo() ); //$NON-NLS-1$
+                     blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getId(),Messages.getString("CheBLSaveChequeTransaction.0")+cheque.getChequesPortfolioNo(),exchangeRate ); //$NON-NLS-1$
                  }
                  else if(rollType == EngBLCommon.CHEQUE_TRANS_OUT_CURRENT){
-                 	 blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,false,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getId(),Messages.getString("CheBLSaveChequeTransaction.1")+cheque.getChequesPortfolioNo() ); //$NON-NLS-1$
+                 	 blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,false,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getId(),Messages.getString("CheBLSaveChequeTransaction.1")+cheque.getChequesPortfolioNo(),exchangeRate ); //$NON-NLS-1$
                  }
               }
       
@@ -176,10 +176,10 @@ public class CheBLSaveChequeTransaction {
           if(curCard!=null&&sumTransTotal)
           {
             if(rollType == EngBLCommon.CHEQUE_TRANS_IN){
-              blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getId(),Messages.getString("CheBLSaveChequeTransaction.2")+chequeRoll.getChequeRollNo()); //$NON-NLS-1$
+              blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getId(),Messages.getString("CheBLSaveChequeTransaction.2")+chequeRoll.getChequeRollNo(),exchangeRate); //$NON-NLS-1$
             }
             else if(rollType == EngBLCommon.CHEQUE_TRANS_OUT_CURRENT){
-            	blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,false,totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getId(),Messages.getString("CheBLSaveChequeTransaction.3")+chequeRoll.getChequeRollNo()); //$NON-NLS-1$
+            	blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,false,totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getId(),Messages.getString("CheBLSaveChequeTransaction.3")+chequeRoll.getChequeRollNo(),exchangeRate); //$NON-NLS-1$
             }
             
           }

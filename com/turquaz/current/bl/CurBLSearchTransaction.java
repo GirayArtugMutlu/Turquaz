@@ -110,7 +110,8 @@ public class CurBLSearchTransaction {
 		accTransType =1;
 			
 		curTrans.setTransactionsTotalCredit(amount);
-		curTrans.setTotalCreditInForeignCurrency(amount.multiply(currency.getExchangeRate()).setScale(2,BigDecimal.ROUND_HALF_DOWN));
+//      TODO current trans exRate
+		curTrans.setTotalCreditInForeignCurrency(amount.multiply(EngBLCommon.getBaseCurrencyExchangeRate().getExchangeRatio()).setScale(2,BigDecimal.ROUND_HALF_DOWN));
 		
 		curTrans.setTransactionsTotalDept(new BigDecimal(0));			
         curTrans.setTotalDeptInForeignCurrency(new BigDecimal(0));
@@ -121,8 +122,8 @@ public class CurBLSearchTransaction {
 		accTransType =0;	
 		curTrans.setTransactionsTotalCredit(new BigDecimal(0));
 	    curTrans.setTotalCreditInForeignCurrency(new BigDecimal(0));
-		
-		curTrans.setTotalDeptInForeignCurrency(amount.multiply(currency.getExchangeRate()).setScale(2,BigDecimal.ROUND_HALF_DOWN));				
+//      TODO current trans exRate
+		curTrans.setTotalDeptInForeignCurrency(amount.multiply(EngBLCommon.getBaseCurrencyExchangeRate().getExchangeRatio()).setScale(2,BigDecimal.ROUND_HALF_DOWN));				
 		curTrans.setTransactionsTotalDept(amount);	
 		
 		}

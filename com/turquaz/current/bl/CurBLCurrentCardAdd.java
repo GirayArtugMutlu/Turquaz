@@ -78,8 +78,12 @@ public class CurBLCurrentCardAdd {
 		
 			Calendar cal = Calendar.getInstance();
 			cal.set(cal.get(Calendar.YEAR),0,1);
-			
-			blTransAdd.saveCurrentTransaction(currentCard,cal.getTime(),"",false,new BigDecimal(0),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_INITIAL,new Integer(-1),Messages.getString("CurBLCurrentCardAdd.3")); //$NON-NLS-1$ //$NON-NLS-2$
+//	          TODO current trans exRate
+			blTransAdd.saveCurrentTransaction(currentCard,
+					cal.getTime(),"",false,new BigDecimal(0),new BigDecimal(0),
+					EngBLCommon.CURRENT_TRANS_INITIAL,new Integer(-1),
+					Messages.getString("CurBLCurrentCardAdd.3"),
+					EngBLCommon.getBaseCurrencyExchangeRate()); //$NON-NLS-1$ //$NON-NLS-2$
 			
 			saveCurrentAccountingAccounts(currentCard,accountingAccounts);
 			

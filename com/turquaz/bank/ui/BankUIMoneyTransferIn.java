@@ -196,6 +196,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
       {
           if(verifyFields())
           {
+//          TODO current trans exRate
               BankBLTransactionAdd.saveTransaction((TurqBanksCard)txtBankCard.getData(),
                       							   (TurqCurrentCard)currentPicker.getData(),
                       							   EngBLCommon.BANK_TRANS_RECIEVE_MONEY,
@@ -203,7 +204,8 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
                       							   curAmount.getBigDecimalValue(),
                       							  datePick.getDate(),
                       							  txtDefinition.getText(),
-                      							  txtDocNo.getText()
+                      							  txtDocNo.getText(),
+												  EngBLCommon.getBaseCurrencyExchangeRate()
                       							  );
               EngUICommon.showMessageBox(getShell(),Messages.getString("BankUIMoneyTransferIn.9"),SWT.ICON_INFORMATION); //$NON-NLS-1$
               newForm();

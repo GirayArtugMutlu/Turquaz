@@ -314,12 +314,15 @@ public class CheUIChequeOutPayrollCurrent extends
 		try {
 
 			if (verifyFields()) {
-
+//		          TODO cheq trans exRate
 				CheBLSaveChequeTransaction.saveChequeRoll(null,
-						(TurqCurrentCard) currentPicker.getData(), null,
-						txtRollNo.getText().trim(), datePicker1.getDate(),
+						(TurqCurrentCard) currentPicker.getData(),
+						null,
+						txtRollNo.getText().trim(),
+						datePicker1.getDate(),
 						cheques, EngBLCommon.CHEQUE_TRANS_OUT_CURRENT,
-						btnSumTotals.getSelection());
+						btnSumTotals.getSelection(),
+						EngBLCommon.getBaseCurrencyExchangeRate());
 				EngUICommon
 						.showMessageBox(
 								getShell(),
