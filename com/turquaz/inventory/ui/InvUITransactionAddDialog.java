@@ -458,6 +458,13 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	}
 	
 	boolean verifyFields(){
+		if (txtInvCard.getData()==null)
+		{
+			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
+			msg.setMessage(Messages.getString("InvUITransactionAddDialog.7")); //$NON-NLS-1$
+			msg.open();
+			return false;
+		}
 		return true;
 	}
 	
