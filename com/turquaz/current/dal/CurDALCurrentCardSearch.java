@@ -8,11 +8,14 @@ package com.turquaz.current.dal;
 
 import java.util.List;
 
+import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
+import com.turquaz.engine.dal.TurqInventoryCard;
 
 /**
  * @author Ceday
@@ -32,8 +35,8 @@ public class CurDALCurrentCardSearch {
 		try{
 			Session session = EngDALSessionFactory.openSession();
 		
-			String query = "Select currentCard from TurqCurrentCards as currentCard left join" +
-					" currentCard.turqCurrentCardGroups as groups where" +
+			String query = "Select currentCard from TurqCurrentCard as currentCard left join" +
+					" currentCard.turqCurrentCardsGroups as gr where" +
 					" currentCard.cardsCurrentCode like '"+currentCode+"%' and" +
 					" currentCard.cardsName like '"+currentName+"%' and" +
 					" currentCard.turqCompany.companiesId ="+System.getProperty("company");
@@ -47,6 +50,13 @@ public class CurDALCurrentCardSearch {
 				q.setParameter("cardGroup",cardGroup);
 			}
 			List list = q.list();
+			
+			for (int i =0;i<list.size();i++){				
+				TurqCurrentCard curCard= (TurqCurrentCard)list.get(i);
+				Hibernate.initialize(curCard.getTurqCurrentCardsGroups());
+				Hibernate.initialize(curCard.getTurqCurrentContacts());			
+			}
+			
 			session.close();
 			return list;
 		}

@@ -259,8 +259,8 @@ private TableColumn tableColumnContactName;
  				Set contacts = aCurrentCard.getTurqCurrentContacts();
  				
  				if(contacts.size()>0){
- 				TurqCurrentContact curContact[] =(TurqCurrentContact[]) contacts.toArray();
- 				contactName = curContact[0].getContactsName();
+ 				Object curContact[] = contacts.toArray();
+ 				contactName = ((TurqCurrentContact)curContact[0]).getContactsName();
  				
  				}
  					
@@ -272,10 +272,11 @@ private TableColumn tableColumnContactName;
 	
 		}
 		catch(Exception ex){
+			ex.printStackTrace();
 			MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
 			msg.setMessage(ex.getMessage());
 			msg.open();
-			ex.printStackTrace();
+			
 		}
 	}
 	

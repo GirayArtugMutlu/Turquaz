@@ -52,8 +52,8 @@ public class EngDALCommon {
 			
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			String query = "from TurqCurrentGroups as group " +
-					"where group.companiesId ="+System.getProperty("company");	
+			String query = "from TurqCurrentGroup as gr " +
+					"where gr.turqCompany.companiesId ="+System.getProperty("company");	
 			Query q = session.createQuery(query); 
 			List list = q.list();
 			tx.commit();
