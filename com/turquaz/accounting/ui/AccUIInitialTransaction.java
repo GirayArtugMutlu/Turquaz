@@ -224,39 +224,40 @@ public class AccUIInitialTransaction extends org.eclipse.swt.widgets.Composite i
 	    try{
 	       Integer id = blTrans.saveAccTransaction(datePicker.getDate(),txtDocumentNo.getText().trim(),3,1,null,txtDefinition.getText().trim());
 	       TurqAccountingTransactionColumn transRow = new TurqAccountingTransactionColumn();
+	       transRow.setTransactionDefinition(txtDefinition.getText());
 	      
-	      transRow.setTurqAccountingAccount((TurqAccountingAccount)accPicker.getData());	
+	       transRow.setTurqAccountingAccount((TurqAccountingAccount)accPicker.getData());	
 	   	
-	     int creditDebit = ((Integer)comboDeptOrCredit.getData(comboDeptOrCredit.getText())).intValue();
+	       int creditDebit = ((Integer)comboDeptOrCredit.getData(comboDeptOrCredit.getText())).intValue();
 	     
-	   	if(creditDebit == 0){ //$NON-NLS-1$
-	   	transRow.setCreditAmount(new BigDecimal(0));
-	    transRow.setDeptAmount(decInitialValue.getBigDecimalValue());
-	    }
+	       if(creditDebit == 0){ //$NON-NLS-1$
+	       	transRow.setCreditAmount(new BigDecimal(0));
+	       	transRow.setDeptAmount(decInitialValue.getBigDecimalValue());
+	       }
 	   	
-	   	else if(creditDebit == 1) {
-	   	transRow.setDeptAmount(new BigDecimal(0));
-	   	transRow.setCreditAmount(decInitialValue.getBigDecimalValue());
-	   	}	
+	       else if(creditDebit == 1) {
+	       	transRow.setDeptAmount(new BigDecimal(0));
+	       	transRow.setCreditAmount(decInitialValue.getBigDecimalValue());
+	       }	
 	   	
-	    blTrans.saveAccTransactionRow(transRow,id); 
+	       blTrans.saveAccTransactionRow(transRow,id); 
 	       
 	        
 	        msg.setMessage(Messages.getString("AccUIInitialTransaction.11"));  //$NON-NLS-1$
 	        msg.open();
 	        newForm();
-	    }
-	    catch(Exception ex){
-	        ex.printStackTrace();
+	    	}
+	    	catch(Exception ex){
+	    		ex.printStackTrace();
 	        
-	    }
+	    	}
 	    
-	}
-	public void delete(){
+		}
+		public void delete(){
 	    
-	}
-	public void newForm(){
-	    EngUIMainFrame.newForm();
+		}
+		public void newForm(){
+	   	 EngUIMainFrame.newForm();
 	    
 	}
 

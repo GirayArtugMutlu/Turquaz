@@ -127,7 +127,7 @@ public class AccBLTransactionAdd {
 		trans.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
 		
 		
-		
+	
 		dalTransAdd.save(trans);
 			
 		
