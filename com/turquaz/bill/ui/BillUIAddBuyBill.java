@@ -84,7 +84,7 @@ import org.eclipse.swt.SWT;
  * used legally for any corporate or commercial purpose.
  * *************************************
  */
-public class BillUIAddBuyBill extends org.eclipse.swt.widgets.Composite
+public class BillUIAddBuyBill extends Composite
 		implements SecureComposite {
 
 	/**
@@ -396,6 +396,7 @@ public class BillUIAddBuyBill extends org.eclipse.swt.widgets.Composite
 	private void initGUI() {
 		try {
 			GridLayout thisLayout = new GridLayout();
+			
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
 			this.setSize(645, 526);
@@ -556,8 +557,8 @@ public class BillUIAddBuyBill extends org.eclipse.swt.widgets.Composite
                                     compInfoPanel,
                                     SWT.NONE);
                                 GridData txtDefinitionLData = new GridData();
-                                txtDefinitionLData.widthHint = 246;
-                                txtDefinitionLData.heightHint = 15;
+                                txtDefinitionLData.widthHint = 225;
+                                txtDefinitionLData.heightHint = 14;
                                 txtDefinition.setLayoutData(txtDefinitionLData);
                             }
                             {
@@ -818,10 +819,9 @@ public class BillUIAddBuyBill extends org.eclipse.swt.widgets.Composite
                                 txtTotalAmount.setBackground(SWTResourceManager
                                     .getColor(255, 255, 255));
                                 txtTotalAmount.setEditable(false);
-                                txtTotalAmountLData.widthHint = 197;
-                                txtTotalAmountLData.heightHint = 17;
-                                txtTotalAmount
-                                    .setLayoutData(txtTotalAmountLData);
+                                txtTotalAmountLData.widthHint = 158;
+                                txtTotalAmountLData.heightHint = 19;
+                                txtTotalAmount.setLayoutData(txtTotalAmountLData);
                             }
                             {
                                 lblInventoryPrice = new CLabel(
@@ -980,6 +980,7 @@ public class BillUIAddBuyBill extends org.eclipse.swt.widgets.Composite
 	}
 
 	public void postInitGui() {
+	    
 		cTabFolder1.setSelection(tabItemGeneral);
 
 		fillGroupsTable();
@@ -1216,7 +1217,8 @@ public class BillUIAddBuyBill extends org.eclipse.swt.widgets.Composite
 		txtTotalVat.setText(totalVAT.toString());
 		decSpecialVat.setText(totalSpecVAT.toString());
 		txtTotalAmount.setText(generalTotal.subtract(discountTotal).toString());
-
+	
+		
 	}
 
 	/**

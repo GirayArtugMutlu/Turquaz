@@ -150,7 +150,7 @@ SearchComposite{
 	     MenuItem item = new MenuItem (popup, SWT.PUSH);
 		 item.setText(Messages.getString("AccUIAccountingPlan.2"));    	  //$NON-NLS-1$
 		
-		 item.addListener(SWT.Selection, new Listener () {
+		 item.addListener(SWT.Selection, new Listener (){
 					public void handleEvent (Event e) {					
 						delete();				
 										

@@ -33,7 +33,7 @@ import java.util.Properties;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 
-
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -42,8 +42,6 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.layout.FormLayout;
-
 import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.KeyAdapter;
@@ -58,7 +56,6 @@ import org.eclipse.swt.events.PaintEvent;
 
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder2Adapter;
 import org.eclipse.swt.custom.CTabItem;
@@ -77,6 +74,7 @@ import org.jdom.Element;
 import org.jdom.output.XMLOutputter; 
 
 import com.turquaz.engine.ui.component.LiveSashForm;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.CoolItem;
 import com.turquaz.engine.EngConfiguration;
@@ -123,7 +121,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
   
 	private Tree treeCurrent;
 	private Label label1;
-	private Composite composite1;
 	private Composite compModulesHelp;
 	private Tree treeBank;
 	private Tree treeAccounting;
@@ -143,9 +140,13 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private Tree treeAdmin;
 	private Tree treeInventory;
 	private Composite compModulesTree;
-	private CCombo comboModuleSelection;
-	private CLabel lblModuleSelection;
-	private Composite compModuleSelection;
+	private Button btnAdmin;
+	private Button btnAccounting;
+	private Button btnBank;
+	private Button btnBill;
+	private Button btnConsignment;
+	private Button btnCurrent;
+	private Button btnInventory;
 	private static ToolItem toolPrint;
 	private MenuItem mitExit;
 	private Menu menuFile;
@@ -204,7 +205,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	public void initGUI(){
 		try {
 			preInitGUI();
-
+			
 			lblSeperator = new Label(this,SWT.SEPARATOR| SWT.HORIZONTAL);
 			compMain = new Composite(this,SWT.NULL);
 			lblSeperatorLeft = new Label(compMain,SWT.SEPARATOR);
@@ -217,7 +218,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabfldMenu = new CTabFolder(sashMainHorizontal,SWT.TOP| SWT.BORDER|SWT.CLOSE);
 			tabModules = new CTabItem(tabfldMenu,SWT.NULL);
 			compModulesTab = new Composite(tabfldMenu,SWT.NULL);
-			compModuleSelection = new Composite(compModulesTab,SWT.BORDER);
 			compModulesTree = new Composite(compModulesTab,SWT.NULL);
 			treeBank = new Tree(compModulesTree,SWT.NULL);
 			treeInventory = new Tree(compModulesTree,SWT.NULL);
@@ -243,7 +243,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			}
 			label1 = new Label(compModulesTab,SWT.SEPARATOR| SWT.HORIZONTAL);
 			compModulesHelp = new Composite(compModulesTab,SWT.NULL);
-			composite1 = new Composite(compModulesHelp,SWT.NULL);
 			tabFavorites = new CTabItem(tabfldMenu,SWT.NULL);
 			compFavoritesTab = new Composite(tabfldMenu,SWT.NULL);
 			compFavoritesSelection = new Composite(compFavoritesTab,SWT.NULL);
@@ -331,61 +330,12 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabModules.setText(Messages.getString("EngUIMainFrame.2")); //$NON-NLS-1$
 			tabModules.setImage(SWTResourceManager.getImage("icons/Process16.gif")); //$NON-NLS-1$
 
-			GridData compModuleSelectionLData = new GridData();
-			compModuleSelectionLData.horizontalAlignment = GridData.FILL;
-			compModuleSelectionLData.heightHint = 22;
-			compModuleSelectionLData.horizontalSpan = 5;
-			compModuleSelectionLData.grabExcessHorizontalSpace = true;
-			compModuleSelection.setLayoutData(compModuleSelectionLData);
-
-			GridLayout compModuleSelectionLayout = new GridLayout();
-			compModuleSelectionLayout.numColumns = 2;
-			compModuleSelectionLayout.marginHeight = 0;
-			compModuleSelectionLayout.horizontalSpacing = 0;
-			compModuleSelectionLayout.marginWidth = 0;
-			compModuleSelectionLayout.verticalSpacing = 0;
-			compModuleSelection.setLayout(compModuleSelectionLayout);
-			{
-				lblModuleSelection = new CLabel(compModuleSelection, SWT.LEFT);
-				lblModuleSelection.setText(Messages
-					.getString("EngUIMainFrame.3")); //$NON-NLS-1$
-				lblModuleSelection.setLayout(null);
-				GridData lblModuleSelectionLData = new GridData();
-				lblModuleSelectionLData.widthHint = 79;
-				lblModuleSelectionLData.heightHint = 22;
-				lblModuleSelection.setLayoutData(lblModuleSelectionLData);
-			}
-			{
-				comboModuleSelection = new CCombo(compModuleSelection, SWT.FLAT | SWT.READ_ONLY | SWT.H_SCROLL | SWT.V_SCROLL);
-				comboModuleSelection.setBackground(SWTResourceManager.getColor(255, 255, 255));
-				GridData comboModuleSelectionLData = new GridData();
-				comboModuleSelection
-					.addSelectionListener(new SelectionAdapter() {
-					public void widgetSelected(SelectionEvent evt) {
-						comboModuleSelectionWidgetSelected(evt);
-					}
-					});
-				comboModuleSelectionLData.heightHint = 20;
-				comboModuleSelectionLData.horizontalAlignment = GridData.FILL;
-				comboModuleSelectionLData.grabExcessHorizontalSpace = true;
-				comboModuleSelection.setLayoutData(comboModuleSelectionLData);
-				
-			}
-			compModuleSelection.layout();
-	
 			GridData compModulesTreeLData = new GridData();
 			compModulesTreeLData.verticalAlignment = GridData.FILL;
 			compModulesTreeLData.horizontalAlignment = GridData.FILL;
-			compModulesTreeLData.widthHint = -1;
-			compModulesTreeLData.heightHint = -1;
-			compModulesTreeLData.horizontalIndent = 0;
-			compModulesTreeLData.horizontalSpan = 1;
-			compModulesTreeLData.verticalSpan = 1;
-			compModulesTreeLData.grabExcessHorizontalSpace = false;
 			compModulesTreeLData.grabExcessVerticalSpace = true;
 			compModulesTree.setLayoutData(compModulesTreeLData);
-			compModulesTree.setSize(new org.eclipse.swt.graphics.Point(386,267));
-	
+
 			treeBank.setSize(new org.eclipse.swt.graphics.Point(370,251));
 			treeBank.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
@@ -419,7 +369,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 					treeCurrentMouseDoubleClick();
 				}
 			});
-			StackLayout compModulesTreeLayout = new StackLayout();
+			final StackLayout compModulesTreeLayout = new StackLayout();
 			compModulesTree.setLayout(compModulesTreeLayout);
 			compModulesTreeLayout.marginWidth = 0;
 			compModulesTreeLayout.marginHeight = 0;
@@ -428,7 +378,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			GridData label1LData = new GridData();
 			label1LData.horizontalAlignment = GridData.FILL;
-			label1LData.heightHint = 8;
+			label1LData.heightHint = 5;
 			label1.setLayoutData(label1LData);
 			label1.setText("label1"); //$NON-NLS-1$
 	
@@ -444,42 +394,128 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesHelpLData.grabExcessVerticalSpace = false;
 			compModulesHelp.setLayoutData(compModulesHelpLData);
 			compModulesHelp.setSize(new org.eclipse.swt.graphics.Point(386,235));
-	
-			GridData composite1LData = new GridData();
-			composite1LData.verticalAlignment = GridData.CENTER;
-			composite1LData.horizontalAlignment = GridData.BEGINNING;
-			composite1LData.widthHint = 123;
-			composite1LData.heightHint = 225;
-			composite1LData.horizontalIndent = 0;
-			composite1LData.horizontalSpan = 1;
-			composite1LData.verticalSpan = 1;
-			composite1LData.grabExcessHorizontalSpace = false;
-			composite1LData.grabExcessVerticalSpace = false;
-			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(123,225));
-			FormLayout composite1Layout = new FormLayout();
-			composite1.setLayout(composite1Layout);
-			composite1Layout.marginWidth = 0;
-			composite1Layout.marginHeight = 0;
-			composite1Layout.spacing = 0;
-			composite1.layout();
-			GridLayout compModulesHelpLayout = new GridLayout(1, true);
+
+			GridLayout compModulesHelpLayout = new GridLayout();
 			compModulesHelp.setLayout(compModulesHelpLayout);
-			compModulesHelpLayout.marginWidth = 5;
-			compModulesHelpLayout.marginHeight = 5;
-			compModulesHelpLayout.numColumns = 1;
+            {
+                
+                btnInventory = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+                btnInventory.setText(Messages.getString("EngUIMainFrame.1")); //$NON-NLS-1$
+            
+                GridData button1LData = new GridData();
+                btnInventory.addMouseListener(new MouseAdapter() {
+                    public void mouseUp(MouseEvent evt) {
+                        compModulesTreeLayout.topControl = treeInventory;
+                        compModulesTree.layout();
+                    }
+                });
+                btnInventory.setSize(191, 23);
+                btnInventory.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
+                button1LData.heightHint = 23;
+                button1LData.grabExcessHorizontalSpace = true;
+                button1LData.horizontalAlignment = GridData.FILL;
+                btnInventory.setLayoutData(button1LData);
+            }
+            {
+                btnCurrent = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+                btnCurrent.setText(Messages.getString("EngUIMainFrame.4")); //$NON-NLS-1$
+                GridData button2LData = new GridData();
+                btnCurrent.addMouseListener(new MouseAdapter() {
+                    public void mouseUp(MouseEvent evt) {
+                        compModulesTreeLayout.topControl =treeCurrent;
+                        compModulesTree.layout();
+                    }
+                });
+                btnCurrent.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
+                button2LData.grabExcessHorizontalSpace = true;
+                button2LData.horizontalAlignment = GridData.FILL;
+                btnCurrent.setLayoutData(button2LData);
+            }
+            {
+                btnConsignment = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+                btnConsignment.setText(Messages.getString("EngUIMainFrame.32")); //$NON-NLS-1$
+                GridData button3LData = new GridData();
+                btnConsignment.addMouseListener(new MouseAdapter() {
+                    public void mouseUp(MouseEvent evt) {
+                        compModulesTreeLayout.topControl =treeConsignment;
+                        compModulesTree.layout();}
+                });
+                btnConsignment.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
+                button3LData.grabExcessHorizontalSpace = true;
+                button3LData.horizontalAlignment = GridData.FILL;
+                button3LData.heightHint = 23;
+                btnConsignment.setLayoutData(button3LData);
+            }
+            {
+                btnBill = new Button(compModulesHelp, SWT.PUSH
+                    | SWT.FLAT
+                    | SWT.CENTER);
+                btnBill.setText(Messages.getString("EngUIMainFrame.34")); //$NON-NLS-1$
+                GridData btnFaturaLData = new GridData();
+                btnBill.addMouseListener(new MouseAdapter() {
+                    public void mouseUp(MouseEvent evt) {
+                        compModulesTreeLayout.topControl =treeBill;
+                        compModulesTree.layout();
+                    }
+                });
+                btnBill.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
+                btnFaturaLData.grabExcessHorizontalSpace = true;
+                btnFaturaLData.horizontalAlignment = GridData.FILL;
+                btnBill.setLayoutData(btnFaturaLData);
+            }
+            {
+                btnBank = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+                btnBank.setText(Messages.getString("EngUIMainFrame.37")); //$NON-NLS-1$
+                GridData btnBankLData = new GridData();
+                btnBank.addMouseListener(new MouseAdapter() {
+                    public void mouseUp(MouseEvent evt) {
+                        compModulesTreeLayout.topControl =treeBank;
+                        compModulesTree.layout();
+                    }
+                });
+                btnBank.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
+                btnBankLData.horizontalAlignment = GridData.FILL;
+                btnBank.setLayoutData(btnBankLData);
+            }
+            {
+                btnAccounting = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+                btnAccounting.setText(Messages.getString("EngUIMainFrame.39")); //$NON-NLS-1$
+                GridData btnAccountingLData = new GridData();
+                btnAccounting.addMouseListener(new MouseAdapter() {
+                    public void mouseUp(MouseEvent evt) {
+                        compModulesTreeLayout.topControl =treeAccounting;
+                        compModulesTree.layout();    
+                    }
+                });
+                btnAccounting.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
+                btnAccountingLData.horizontalAlignment = GridData.FILL;
+                btnAccounting.setLayoutData(btnAccountingLData);
+            }
+            {
+                btnAdmin = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+                btnAdmin.setText("Ayarlar"); //$NON-NLS-1$
+                GridData btnAdminLData = new GridData();
+                btnAdmin.addMouseListener(new MouseAdapter() {
+                    public void mouseUp(MouseEvent evt) {
+                        compModulesTreeLayout.topControl =treeAdmin;
+                        compModulesTree.layout();
+                    }
+                });
+                btnAdmin.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
+                btnAdminLData.horizontalAlignment = GridData.FILL;
+                btnAdmin.setLayoutData(btnAdminLData);
+            }
 			compModulesHelpLayout.makeColumnsEqualWidth = true;
-			compModulesHelpLayout.horizontalSpacing = 5;
-			compModulesHelpLayout.verticalSpacing = 5;
+			compModulesHelpLayout.horizontalSpacing = 0;
+			compModulesHelpLayout.marginHeight = 0;
+			compModulesHelpLayout.marginWidth = 0;
+			compModulesHelpLayout.verticalSpacing = 0;
 			compModulesHelp.layout();
-			GridLayout compModulesTabLayout = new GridLayout(1, true);
+			GridLayout compModulesTabLayout = new GridLayout();
 			compModulesTab.setLayout(compModulesTabLayout);
 			compModulesTabLayout.marginWidth = 0;
-			compModulesTabLayout.marginHeight = 5;
-			compModulesTabLayout.numColumns = 1;
 			compModulesTabLayout.makeColumnsEqualWidth = true;
-			compModulesTabLayout.horizontalSpacing = 5;
-			compModulesTabLayout.verticalSpacing = 5;
+			compModulesTabLayout.verticalSpacing = 0;
 			compModulesTab.layout();
 	
 			tabFavorites.setControl(compFavoritesTab);
@@ -1106,15 +1142,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		sashMainHorizontal.setWeights(new int[]{25,75});
 		sashMainVertical.setWeights(new int[] {5,95});
 		sashMainVertical.setMaximizedControl(sashMainHorizontal);
-	    comboModuleSelection.add(Messages.getString("EngUIMainFrame.31")); //$NON-NLS-1$
-		comboModuleSelection.add(Messages.getString("EngUIMainFrame.32")); //$NON-NLS-1$
-		comboModuleSelection.add(Messages.getString("EngUIMainFrame.33")); //$NON-NLS-1$
-		comboModuleSelection.add(Messages.getString("EngUIMainFrame.34")); //$NON-NLS-1$
-		comboModuleSelection.add(Messages.getString("EngUIMainFrame.35")); //$NON-NLS-1$
-		comboModuleSelection.add(Messages.getString("EngUIMainFrame.1")); //$NON-NLS-1$
-		comboModuleSelection.add(Messages.getString("EngUIMainFrame.4"));	 //$NON-NLS-1$
-	    comboModuleSelection.setText(Messages.getString("EngUIMainFrame.39")); //$NON-NLS-1$
-		tabfldMain.setTabHeight(20);
+	    tabfldMain.setTabHeight(20);
 		tabfldMain.setSelectionBackground(new Color[]{Display.getDefault().getSystemColor(SWT.COLOR_WHITE)},
 														   new int[]{});
 		toolNew.setEnabled(false);
@@ -1144,8 +1172,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		addKeyEventBill(treeBill);
 		fillFavoritesTree();
 		
-		
-				
+		/**********Set Button Cursors*************************/
+		Cursor cursor = new Cursor(getDisplay(),SWT.CURSOR_HAND);
+		btnInventory.setCursor(cursor);
+		btnAccounting.setCursor(cursor);
+		btnAdmin.setCursor(cursor);
+		btnBank.setCursor(cursor);
+		btnConsignment.setCursor(cursor);
+		btnBill.setCursor(cursor);
+		btnCurrent.setCursor(cursor);	
 		
 		
 		
@@ -1162,8 +1197,19 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		treeFavorites.setMenu(popupTreeRemoveFavorites);
 		
 		
+		//Set color for Main tab folder
 		
+		Display display = this.getDisplay();
+	    tabfldMain.setSelectionBackground(
+		         new Color[] {
+		            display.getSystemColor(SWT.COLOR_TITLE_BACKGROUND),
+		            display.getSystemColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT),
+		            display.getSystemColor(SWT.COLOR_WIDGET_BACKGROUND)
+		         },
+		         new int[] { 60, 100 });
 		
+	    tabfldMain.setSelectionForeground(
+	            display.getSystemColor(SWT.COLOR_TITLE_FOREGROUND));
 		
 		
 														   
@@ -1333,41 +1379,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	}
 /** Auto-generated event handler method */
 	
-	/** Auto-generated event handler method */
-	protected void comboModuleSelectionWidgetSelected(SelectionEvent evt){
-		
-		String text = comboModuleSelection.getItem(comboModuleSelection.getSelectionIndex());
-		StackLayout compo4layout =(StackLayout)compModulesTree.getLayout();
 	
-			   if(text.equals(Messages.getString("EngUIMainFrame.31"))) //$NON-NLS-1$
-			   {
-				compo4layout.topControl = treeInventory;
-		
-			   }
-			   else if(text.equals(Messages.getString("EngUIMainFrame.34"))){ //$NON-NLS-1$
-				compo4layout.topControl = treeAdmin;
-	
-			   }
-			   else if(text.equals(Messages.getString("EngUIMainFrame.32"))) //$NON-NLS-1$
-			   {
-			   	compo4layout.topControl = treeAccounting;
-			   }
-			   else if(text.equals(Messages.getString("EngUIMainFrame.33"))){ //$NON-NLS-1$
-			   	compo4layout.topControl = treeBank;
-			   }
-			   else if(text.equals(Messages.getString("EngUIMainFrame.35"))){ //$NON-NLS-1$
-			   	compo4layout.topControl = treeCurrent;
-			   }
-			   else if(text.equals(Messages.getString("EngUIMainFrame.1"))){ //$NON-NLS-1$
-			 	compo4layout.topControl = treeConsignment;
-			   }
-			   else if(text.equals(Messages.getString("EngUIMainFrame.4"))){ //$NON-NLS-1$
-			 	compo4layout.topControl = treeBill;
-			   }
-			   
-			   compModulesTree.layout();
-	}
-
    
 
 	

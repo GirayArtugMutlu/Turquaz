@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.custom.PopupList;
 import org.eclipse.swt.custom.TableCursor;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -177,12 +178,22 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
             {
                 button1 = new Button(this, SWT.PUSH | SWT.CENTER);
                 button1.setText("button1");
+                GridData button1LData = new GridData();
+                button1LData.widthHint = 62;
+                button1LData.heightHint = 23;
+                button1.setLayoutData(button1LData);
                 button1.addMouseListener(new MouseAdapter() {
                     public void mouseUp(MouseEvent evt) {
                      
                         TableRowImpl row = new TableRowImpl(rowList);
                         rowList.addTask(row);
                         tableViewer.editElement(row,0);
+                        PopupList popup = new PopupList(getShell());
+                        popup.setItems(new String[]{"fuck1","fuck2","fuck3"});
+                   
+                        Point p = button1.getLocation();
+                        p = button1.toDisplay(p);
+                        popup.open(new Rectangle(p.x,p.y,100,10));
                     
                     }
                 });
