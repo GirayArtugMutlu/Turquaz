@@ -5,6 +5,7 @@ package com.turquaz.admin.ui;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
@@ -229,7 +230,8 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 		comboPermissionLevel.add("0");
 		comboPermissionLevel.add("1");
 		comboPermissionLevel.add("2");
-		comboPermissionLevel.add("3");		
+		comboPermissionLevel.add("3");
+		comboPermissionLevel.setText("0");
 			
 		fillTableUserPermissions();	
 			
@@ -328,6 +330,31 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 	}
 	
 	public boolean verifyFields(){
+		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+		
+		
+		if(comboUsers.getSelectionIndex()==-1){
+	    	msg.setMessage("Please Choose a User !");
+			msg.open();
+			return false;
+		}
+	    else if(comboModules.getSelectionIndex()==-1){
+	    	msg.setMessage("Please Choose Module !");
+			msg.open();
+			return false;
+		}
+		else if(comboModuleComponents.getData(comboModuleComponents.getText())== null){
+			msg.setMessage("Please Choose Module Component!");
+			msg.open();
+			return false;
+		}
+		
+		else if(comboPermissionLevel.getText().trim().length()==0){
+			msg.setMessage("Please Choose a Permission Level");
+			msg.open();
+			return false;
+		}
+		
 		return true;
 	}
 	
@@ -339,8 +366,12 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 										comboModuleComponents.getData(comboModuleComponents.getText()),
 										Integer.parseInt(comboPermissionLevel.getText()));	
 			
+			newForm();
 			fillTableUserPermissions();
 			
+			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+			msg.setMessage("Succesfully Saved!");
+			msg.open();
 			}
 			
 		}
@@ -350,6 +381,10 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 		
 	}
 	public void search(){
+		comboUsers.setText("");
+		comboModules.setText("");
+		comboModuleComponents.setText("");
+		comboPermissionLevel.setText("");
 		
 	}
 	
@@ -358,20 +393,33 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 	}
 	
 	public void delete(){
+	
+		MessageBox msg = new MessageBox(this.getShell(),SWT.OK|SWT.CANCEL);
+		MessageBox msg2 = new MessageBox(this.getShell(),SWT.NULL);
+		msg.setMessage("Really Delete?");
 		
 	try{
+		if(msg.open()==SWT.OK){
+			
+		
 		TableItem items[]=tableUserPermissions.getSelection();
 		if(items.length>0){
 		blUserPerms.deleteObject(items[0].getData());	
 		fillTableUserPermissions();
+		msg2.setMessage("Succesfully Deleted!..");
+	    msg2.open();
 		
 		}
+	}
+		
 		
 		
 		
 	}
 	catch(Exception ex){
 		ex.printStackTrace();
+		msg2.setMessage(ex.getMessage());
+	    msg2.open();
 	}
 		
 		
