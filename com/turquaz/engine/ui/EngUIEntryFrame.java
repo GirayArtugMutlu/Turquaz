@@ -225,6 +225,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			    FileOutputStream output = new FileOutputStream("config/turquaz.properties");
 			    props.save(output,"Turquaz Configuration");
 			    
+			    System.setProperty("user",txtUserName.getText());
+			    System.setProperty("company","0");
 			    
 			    EngDALSessionFactory.init();
 				}
