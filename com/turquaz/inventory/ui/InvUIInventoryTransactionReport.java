@@ -22,11 +22,19 @@ package com.turquaz.inventory.ui;
 */
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
+
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.eclipse.swt.layout.GridLayout;
 
@@ -40,9 +48,11 @@ import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 
+import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
+import com.turquaz.engine.dal.TurqInventoryCard;
 
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
@@ -63,6 +73,9 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
+import com.jasperassistant.designer.viewer.ViewerComposite;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLSearchTransaction;
 import com.turquaz.inventory.dal.InvDALCardAdd;
@@ -90,6 +103,10 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 	private Table tableTransactions;
 
 	private TableColumn tableColumnTotalAmountOut;
+	private ViewerComposite viewer;
+	private CTabItem tabItemReport;
+	private CTabItem tabItemSearch;
+	private CTabFolder tabFolder;
 	private Text txtInvNameEnd;
 	private CLabel lblInvNameEnd;
 	private InventoryPicker inventoryPicker1;
@@ -147,7 +164,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				GridLayout composite1Layout = new GridLayout();
 				composite1Layout.numColumns = 4;
 				GridData composite1LData = new GridData();
-				composite1LData.heightHint = 155;
+				composite1LData.heightHint = 136;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				compInvTransactionSearch.setLayoutData(composite1LData);
@@ -292,8 +309,14 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					comboInvGroup.setLayoutData(comboInvGroupLData);
 				}
 			}
+			//START >>  tabFolder
+			tabFolder = new CTabFolder(this, SWT.NONE);
+			//START >>  tabItemSearch
+			tabItemSearch = new CTabItem(tabFolder, SWT.NONE);
+			tabItemSearch.setText("Arama Sonucu");
 			{
-				tableTransactions = new Table(this, SWT.FULL_SELECTION);
+				tableTransactions = new Table(tabFolder, SWT.FULL_SELECTION);
+				tabItemSearch.setControl(tableTransactions);
 				GridData tableConsignmentsLData = new GridData();
 				tableTransactions.addMouseListener(new MouseAdapter() {
 					public void mouseDoubleClick(MouseEvent evt) {
@@ -310,8 +333,10 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				tableTransactions.setLayoutData(tableConsignmentsLData);
 				{
 					tableColumnTransactionDate = new TableColumn(
-							tableTransactions, SWT.NONE);
-					tableColumnTransactionDate.setText(Messages.getString("InvUIInventoryTransactionReport.10")); //$NON-NLS-1$
+						tableTransactions,
+						SWT.NONE);
+					tableColumnTransactionDate.setText(Messages
+						.getString("InvUIInventoryTransactionReport.10")); //$NON-NLS-1$
 					tableColumnTransactionDate.setWidth(88);
 				}
 				{
@@ -332,7 +357,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					tableColumnTotalAmountIn = new TableColumn(
 						tableTransactions,
 						SWT.RIGHT);
-					tableColumnTotalAmountIn.setText(Messages.getString("InvUIInventoryTransactionReport.12")); //$NON-NLS-1$
+					tableColumnTotalAmountIn.setText(Messages
+						.getString("InvUIInventoryTransactionReport.12")); //$NON-NLS-1$
 					tableColumnTotalAmountIn.setWidth(100);
 				}
 				{
@@ -347,15 +373,36 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					tableColumnTotalAmountOut = new TableColumn(
 						tableTransactions,
 						SWT.RIGHT);
-					tableColumnTotalAmountOut.setText(Messages.getString("InvUIInventoryTransactionReport.13")); //$NON-NLS-1$
+					tableColumnTotalAmountOut.setText(Messages
+						.getString("InvUIInventoryTransactionReport.13")); //$NON-NLS-1$
 					tableColumnTotalAmountOut.setWidth(100);
 				}
 				{
-					tableColumnTotalPriceOut = new TableColumn(tableTransactions, SWT.RIGHT);
-					tableColumnTotalPriceOut.setText(Messages.getString("InvUIInventoryTransactionReport.16")); //$NON-NLS-1$
+					tableColumnTotalPriceOut = new TableColumn(
+						tableTransactions,
+						SWT.RIGHT);
+					tableColumnTotalPriceOut.setText(Messages
+						.getString("InvUIInventoryTransactionReport.16")); //$NON-NLS-1$
 					tableColumnTotalPriceOut.setWidth(100);
 				}
 			}
+			GridData tabFolderLData = new GridData();
+			tabFolderLData.grabExcessHorizontalSpace = true;
+			tabFolderLData.grabExcessVerticalSpace = true;
+			tabFolderLData.horizontalAlignment = GridData.FILL;
+			tabFolderLData.verticalAlignment = GridData.FILL;
+			tabFolder.setLayoutData(tabFolderLData);
+			//END <<  tabItemSearch
+			//START >>  tabItemReport
+			tabItemReport = new CTabItem(tabFolder, SWT.NONE);
+			tabItemReport.setText("Rapor");
+			//START >>  viewer
+			viewer = new ViewerComposite(tabFolder, SWT.NONE);
+			tabItemReport.setControl(viewer);
+			//END <<  viewer
+			tabFolder.setSelection(0);
+			//END <<  tabItemReport
+			//END <<  tabFolder
 			postInitGui();
 			this.layout();
 		}
@@ -363,6 +410,126 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			e.printStackTrace();
 		}
 	}
+	
+	private void GenerateJasper(int type)
+	{
+		try
+		{
+			Map parameters = new HashMap();		
+			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");  //$NON-NLS-1$
+			String sqlparam="Select trans.inventory_transactions_id,trans.transactions_amount_in," + //$NON-NLS-1$
+					"trans.transactions_total_amount_out, trans.transactions_total_price," + //$NON-NLS-1$
+					"invCard.card_inventory_code, invCard.card_name,curCard.cards_name," + //$NON-NLS-1$
+					"trans.inventory_cards_id, trans.transactions_date,billcons.bill_document_no" + //$NON-NLS-1$
+					" from turq_inventory_transactions trans," + //$NON-NLS-1$
+					"turq_consignments cons, turq_bill_consignment_commons billcons," + //$NON-NLS-1$
+					"turq_current_cards curCard, turq_inventory_cards invCard" + //$NON-NLS-1$
+					" where trans.engine_sequences_id=cons.engine_sequences_id" + //$NON-NLS-1$
+					" and cons.bill_consignment_common_id=billcons.bill_consignment_common_id" + //$NON-NLS-1$
+					" and billcons.current_cards_id=curCard.current_cards_id" + //$NON-NLS-1$
+					" and trans.inventory_cards_id=invCard.inventory_cards_id" + //$NON-NLS-1$
+					" and trans.transactions_date >= '"+dformat.format(dateStartDate.getDate())+"'" + //$NON-NLS-1$ //$NON-NLS-2$
+					" and trans.transactions_date <= '"+dformat.format(dateEndDate.getDate())+"'"; //$NON-NLS-1$ //$NON-NLS-2$
+			
+			
+			if (type != EngBLCommon.COMMON_ALL_INT)
+				sqlparam+=" and cons.consignments_type ="+ type; //$NON-NLS-1$
+		
+			TurqCurrentCard curCardStart=(TurqCurrentCard)txtCurCardStart.getData();
+			TurqCurrentCard curCardEnd=(TurqCurrentCard)txtCurCardEnd.getData();
+			if (curCardStart!= null && curCardEnd!=null)
+			{
+				sqlparam += " and curCard.cards_current_code >= '"+curCardStart.getCardsCurrentCode(); //$NON-NLS-1$
+				sqlparam += " and curCard.cards_current_code <= '"+curCardEnd.getCardsCurrentCode(); //$NON-NLS-1$
+				parameters.put("curCardStart",curCardStart.getCardsCurrentCode()); //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("curCardEnd",curCardEnd.getCardsCurrentCode()); //$NON-NLS-1$ //$NON-NLS-2$
+			}
+			else if (curCardStart != null) 
+			{
+				sqlparam += " and curCard.current_cards_id="+curCardStart.getCurrentCardsId(); //$NON-NLS-1$
+				parameters.put("curCardStart",curCardStart.getCardsCurrentCode()); //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("curCardEnd","");
+			}
+			else if (curCardEnd != null)
+			{
+				sqlparam += " and curCard.current_cards_id="+curCardEnd.getCurrentCardsId(); //$NON-NLS-1$
+				parameters.put("curCardStart",curCardEnd.getCardsCurrentCode()); //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("curCardEnd","");
+			}
+			else
+			{
+				parameters.put("curCardStart","");
+				parameters.put("curCardEnd","");
+			}
+				
+		
+			TurqInventoryCard invCardStart=(TurqInventoryCard) txtInvCardStart.getData();
+			TurqInventoryCard invCardEnd=(TurqInventoryCard)txtInvCardEnd.getData();
+			if (invCardStart != null && invCardEnd != null) {
+				sqlparam += " and invCard.card_inventory_code >= '"+invCardStart.getCardInventoryCode()+"'"; //$NON-NLS-1$ //$NON-NLS-2$
+				sqlparam += " and invCard.card_inventory_code <= '"+invCardEnd.getCardInventoryCode()+"'"; //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("invCardStart",invCardStart.getCardInventoryCode()); //$NON-NLS-1$
+				parameters.put("invCardEnd",invCardEnd.getCardInventoryCode()); //$NON-NLS-1$
+			}
+			else if (invCardStart != null)
+			{
+				sqlparam += " and invCard.inventory_cards_id ="+invCardStart.getInventoryCardsId(); //$NON-NLS-1$
+				parameters.put("invCardStart",invCardStart.getCardInventoryCode()); //$NON-NLS-1$
+				parameters.put("invCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
+				
+			}
+			else if (invCardEnd !=null)
+			{
+				sqlparam += " and invCard.inventory_cards_id ="+invCardEnd.getInventoryCardsId(); //$NON-NLS-1$
+				parameters.put("invCardStart",invCardEnd.getCardInventoryCode()); //$NON-NLS-1$
+				parameters.put("invCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
+			}
+			else
+			{
+				parameters.put("invCardStart",""); //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("invCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
+			}
+
+			sqlparam +=" order by invCard.inventory_cards_id,trans.transactions_date"; //$NON-NLS-1$
+			
+			System.out.println(sqlparam);
+			SimpleDateFormat dformat2=new SimpleDateFormat("dd/MM/yyyy");  //$NON-NLS-1$
+			parameters.put("sqlparam",sqlparam);  //$NON-NLS-1$
+			parameters.put("startDate",dformat2.format(dateStartDate.getDate()));  //$NON-NLS-1$
+			parameters.put("endDate",dformat2.format(dateEndDate.getDate())); 			  //$NON-NLS-1$
+			parameters.put("dateformat",dformat2);  //$NON-NLS-1$
+			
+			parameters.put("formatter", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
+			parameters.put("currentDate",dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
+
+
+			EngDALConnection db=new EngDALConnection();
+			db.connect();
+	
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/inventory/InventoryTransactionReport.jasper");   //$NON-NLS-1$
+			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());	
+		
+			viewer.getReportViewer().setDocument(jasperPrint);	
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
+			msg.setMessage(ex.getMessage());
+			msg.open();
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public void showConsignment()
 	{
@@ -462,7 +629,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			else if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_SELL_STRING))
 				type = EngBLCommon.COMMON_SELL_INT;
 
-
+			System.out.println("asdsa"+txtInvCardStart.getText()+"1232");
 			List list = blSearch.searchTransactionsAdvanced(txtInvCardStart.getText().trim(),
 					txtInvCardEnd.getText().trim(),txtInvNameStart.getText().trim(),
 					txtInvNameEnd.getText().trim(),(TurqCurrentCard)txtCurCardStart.getData(),
@@ -519,7 +686,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			item.setText(new String[]{"","",Messages.getString("InvUIInventoryTransactionReport.24"),cf.format(totalAmountIn), //$NON-NLS-1$ //$NON-NLS-2$
 					cf.format(totalPriceIn),cf.format(totalAmountOut),
 					cf.format(totalPriceOut)});
-
+			GenerateJasper(type);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

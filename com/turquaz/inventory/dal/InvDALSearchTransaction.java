@@ -217,12 +217,11 @@ public class InvDALSearchTransaction {
 			{
 				query+=" and :invGroup in (Select gr.turqInventoryGroup from transaction.turqInventoryCard.turqInventoryCardGroups as gr)";
 				
-			}			
+			}	
 
 	
-
+			
 			Query q = session.createQuery(query);
-
 			q.setParameter("startDate", startDate);
 			q.setParameter("endDate", endDate);
 			

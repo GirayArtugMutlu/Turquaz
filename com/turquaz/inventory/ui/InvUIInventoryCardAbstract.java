@@ -525,9 +525,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			parameters.put("curCard",(curCard!=null)?curCard.getCardsCurrentCode():""); //$NON-NLS-1$ //$NON-NLS-2$
 			parameters.put("formatter", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
 			parameters.put("currentDate",dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
-			List balances = blSearch.searchTransactionsRange(invCardStart,invCardEnd,					
-					curCard,dateStartDate.getDate(), dateEndDate.getDate(),
-				type);
+
 
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
