@@ -2,7 +2,7 @@
 <jardesc>
     <jar path="bin/turquaz.jar"/>
     <options overwrite="false" compress="false" exportErrors="true" exportWarnings="true" saveDescription="true" descriptionLocation="/TurquazSF/jarfile.jardesc" useSourceFolders="false" buildIfNeeded="true"/>
-    <manifest manifestVersion="1.0" usesManifest="true" reuseManifest="false" saveManifest="false" generateManifest="false" manifestLocation="/TurquazSF/MANIFEST.MF">
+    <manifest manifestVersion="1.0" usesManifest="true" reuseManifest="false" saveManifest="false" generateManifest="false" manifestLocation="/Turquaz/MANIFEST.MF">
         <sealing sealJar="false">
             <packagesToSeal/>
             <packagesToUnSeal/>

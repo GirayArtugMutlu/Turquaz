@@ -146,7 +146,7 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 		layout.verticalSpacing = 9;
 
 		Label label = new Label(container, SWT.NULL);
-		label.setText("&Server Address:"); //$NON-NLS-1$
+		label.setText("&Veritabaný Sunucusu:"); //$NON-NLS-1$
 
 		txtServerAddress = new Text(container, SWT.BORDER | SWT.SINGLE);
 		txtServerAddress.setText("localhost"); //$NON-NLS-1$
@@ -172,7 +172,7 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 		});
 
 		label = new Label(container, SWT.NULL);
-		label.setText("&Username:"); //$NON-NLS-1$
+		label.setText(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.0")); //$NON-NLS-1$
 
 		txtUsername = new Text(container, SWT.BORDER | SWT.SINGLE);
 		txtUsername.setText("postgres"); //$NON-NLS-1$
@@ -186,7 +186,7 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 		});
 
 		label = new Label(container, SWT.NULL);
-		label.setText("&Password:"); //$NON-NLS-1$
+		label.setText(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.3")); //$NON-NLS-1$
 
 		txtPassword = new Text(container, SWT.BORDER | SWT.SINGLE
 				| SWT.PASSWORD);
