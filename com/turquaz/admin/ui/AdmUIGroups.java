@@ -49,6 +49,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
 
+import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroups;
 
 import com.turquaz.engine.bl.EngBLUtils;
@@ -132,14 +133,14 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 				tableGroups.setLayoutData(tableUsersLData);
 				{
 					tableColumnGroupname = new TableColumn(tableGroups, SWT.NONE);
-					tableColumnGroupname.setText("Group Name");
+					tableColumnGroupname.setText(Messages.getString("AdmUIGroups.0")); //$NON-NLS-1$
 					tableColumnGroupname.setWidth(112);
 				}
 				{
 					tableColumnDescription = new TableColumn(
 						tableGroups,
 						SWT.NONE);
-					tableColumnDescription.setText("Description");
+					tableColumnDescription.setText(Messages.getString("AdmUIGroups.1")); //$NON-NLS-1$
 					tableColumnDescription.setWidth(200);
 				}
 			}

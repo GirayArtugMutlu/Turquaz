@@ -979,7 +979,7 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			lblAccountingCodeCustomerLData.widthHint = 117;
 			lblAccountingCodeCustomerLData.heightHint = 18;
 			lblAccountingCodeCustomer.setLayoutData(lblAccountingCodeCustomerLData);
-			lblAccountingCodeCustomer.setText("Muhasebe Hesab?"); //$NON-NLS-1$
+			lblAccountingCodeCustomer.setText(Messages.getString("CurUICurrentCardAdd.13")); //$NON-NLS-1$
 
 			GridData accPickerCustomerLData = new GridData();
 			accPickerCustomerLData.verticalAlignment = GridData.CENTER;

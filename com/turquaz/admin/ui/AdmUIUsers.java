@@ -49,6 +49,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
 
+import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUsers;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqUser;
@@ -138,19 +139,19 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 				tableUsers.setLayoutData(tableUsersLData);
 				{
 					tableColumnUsername = new TableColumn(tableUsers, SWT.NONE);
-					tableColumnUsername.setText("User Name");
+					tableColumnUsername.setText(Messages.getString("AdmUIUsers.0")); //$NON-NLS-1$
 					tableColumnUsername.setWidth(112);
 				}
 				{
 					tableColumnRealName = new TableColumn(tableUsers, SWT.NONE);
-					tableColumnRealName.setText("Real Name");
+					tableColumnRealName.setText(Messages.getString("AdmUIUsers.1")); //$NON-NLS-1$
 					tableColumnRealName.setWidth(150);
 				}
 				{
 					tableColumnDescription = new TableColumn(
 						tableUsers,
 						SWT.NONE);
-					tableColumnDescription.setText("Description");
+					tableColumnDescription.setText(Messages.getString("AdmUIUsers.2")); //$NON-NLS-1$
 					tableColumnDescription.setWidth(200);
 				}
 			}

@@ -48,6 +48,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
 
+import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroupPermissions;
 import com.turquaz.admin.bl.AdmBLGroups;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -163,7 +164,7 @@ implements SecureComposite,SearchComposite{
 				composite1.setLayout(composite1Layout);
 				{
 					lblGroups = new CLabel(composite1, SWT.NONE);
-					lblGroups.setText("Groups");
+					lblGroups.setText(Messages.getString("AdmUIGroupPermissions.0")); //$NON-NLS-1$
 					GridData lblUsersLData = new GridData();
 					lblUsersLData.widthHint = 74;
 					lblUsersLData.heightHint = 17;
@@ -181,7 +182,7 @@ implements SecureComposite,SearchComposite{
 				}
 				{
 					lblModules = new CLabel(composite1, SWT.NONE);
-					lblModules.setText("Modules");
+					lblModules.setText(Messages.getString("AdmUIGroupPermissions.1")); //$NON-NLS-1$
 					GridData lblModulesLData = new GridData();
 					lblModulesLData.widthHint = 67;
 					lblModulesLData.heightHint = 17;
@@ -204,7 +205,7 @@ implements SecureComposite,SearchComposite{
 				}
 				{
 					lblModuleComponents = new CLabel(composite1, SWT.NONE);
-					lblModuleComponents.setText("Module Components");
+					lblModuleComponents.setText(Messages.getString("AdmUIGroupPermissions.2")); //$NON-NLS-1$
 					GridData lblModuleComponentsLData = new GridData();
 					lblModuleComponentsLData.widthHint = 128;
 					lblModuleComponentsLData.heightHint = 18;
@@ -223,7 +224,7 @@ implements SecureComposite,SearchComposite{
 				}
 				{
 					lblPermissionLevel = new CLabel(composite1, SWT.NONE);
-					lblPermissionLevel.setText("Permission Level");
+					lblPermissionLevel.setText(Messages.getString("AdmUIGroupPermissions.3")); //$NON-NLS-1$
 				}
 				{
 					comboPermissionLevel = new CCombo(composite1, SWT.NONE);
@@ -250,25 +251,25 @@ implements SecureComposite,SearchComposite{
 				{
 					tableColumnGroup = new TableColumn(tableGroupPermissions,
 							SWT.NONE);
-					tableColumnGroup.setText("Group");
+					tableColumnGroup.setText(Messages.getString("AdmUIGroupPermissions.4")); //$NON-NLS-1$
 					tableColumnGroup.setWidth(100);
 				}
 				{
 					tableColumnModule = new TableColumn(tableGroupPermissions,
 							SWT.NONE);
-					tableColumnModule.setText("Module");
+					tableColumnModule.setText(Messages.getString("AdmUIGroupPermissions.5")); //$NON-NLS-1$
 					tableColumnModule.setWidth(109);
 				}
 				{
 					tableColumnModuleComponent = new TableColumn(
 							tableGroupPermissions, SWT.NONE);
-					tableColumnModuleComponent.setText("Module Component");
+					tableColumnModuleComponent.setText(Messages.getString("AdmUIGroupPermissions.6")); //$NON-NLS-1$
 					tableColumnModuleComponent.setWidth(120);
 				}
 				{
 					tableColumnPermissionLevel = new TableColumn(
 							tableGroupPermissions, SWT.NONE);
-					tableColumnPermissionLevel.setText("Permission Level");
+					tableColumnPermissionLevel.setText(Messages.getString("AdmUIGroupPermissions.7")); //$NON-NLS-1$
 					tableColumnPermissionLevel.setWidth(104);
 				}
 			}
@@ -298,10 +299,10 @@ implements SecureComposite,SearchComposite{
 				comboModules.add(module.getModulesName());
 
 			}
-			comboPermissionLevel.add("0");
-			comboPermissionLevel.add("1");
-			comboPermissionLevel.add("2");
-			comboPermissionLevel.add("3");
+			comboPermissionLevel.add("0"); //$NON-NLS-1$
+			comboPermissionLevel.add("1"); //$NON-NLS-1$
+			comboPermissionLevel.add("2"); //$NON-NLS-1$
+			comboPermissionLevel.add("3"); //$NON-NLS-1$
 
 			fillTableUserPermissions();
 
@@ -312,13 +313,13 @@ implements SecureComposite,SearchComposite{
 
 	public void moduleSelected(SelectionEvent evt) {
 		try {
-			if (comboModules.getText().equals("*")) {
+			if (comboModules.getText().equals("*")) { //$NON-NLS-1$
 				comboModuleComponents.removeAll();
 				TurqModuleComponent modComp = new TurqModuleComponent();
 				modComp.setModuleComponentsId(new Integer(-1));
-				comboModuleComponents.setText("*");
-				comboModuleComponents.add("*");
-				comboModuleComponents.setData("*", modComp);
+				comboModuleComponents.setText("*"); //$NON-NLS-1$
+				comboModuleComponents.add("*"); //$NON-NLS-1$
+				comboModuleComponents.setData("*", modComp); //$NON-NLS-1$
 
 			} else {
 
@@ -369,14 +370,14 @@ implements SecureComposite,SearchComposite{
 				groupname = groupPerm.getTurqGroup().getGroupsName();
 				module = groupPerm.getTurqModule().getModulesName();
 
-				if (module.trim().equals("*")) {
-					moduleComp = "*";
+				if (module.trim().equals("*")) { //$NON-NLS-1$
+					moduleComp = "*"; //$NON-NLS-1$
 
 				} else {
 					moduleComp = groupPerm.getTurqModuleComponent()
 							.getComponentsDescription();
 				}
-				permLevel = groupPerm.getGroupPermissionsLevel() + "";
+				permLevel = groupPerm.getGroupPermissionsLevel() + ""; //$NON-NLS-1$
 
 				item = new TableItem(tableGroupPermissions, SWT.NULL);
 				item.setData(groupPerm);
@@ -395,23 +396,23 @@ implements SecureComposite,SearchComposite{
 		
 		
 		if(comboGroups.getSelectionIndex()==-1){
-	    	msg.setMessage("Please Choose a Group !");
+	    	msg.setMessage(Messages.getString("AdmUIGroupPermissions.19")); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
 	    else if(comboModules.getSelectionIndex()==-1){
-	    	msg.setMessage("Please Choose Module !");
+	    	msg.setMessage(Messages.getString("AdmUIGroupPermissions.20")); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
 		else if(comboModuleComponents.getData(comboModuleComponents.getText())== null){
-			msg.setMessage("Please Choose Module Component!");
+			msg.setMessage(Messages.getString("AdmUIGroupPermissions.21")); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
 		
 		else if(comboPermissionLevel.getText().trim().length()==0){
-			msg.setMessage("Please Choose a Permission Level");
+			msg.setMessage(Messages.getString("AdmUIGroupPermissions.22")); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
@@ -431,7 +432,7 @@ implements SecureComposite,SearchComposite{
 			fillTableUserPermissions();
 			
 			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-			msg.setMessage("Succesfully Saved!");
+			msg.setMessage(Messages.getString("AdmUIGroupPermissions.23")); //$NON-NLS-1$
 			msg.open();
 			}
 			
@@ -446,7 +447,7 @@ implements SecureComposite,SearchComposite{
 	public void delete(){
 		MessageBox msg = new MessageBox(this.getShell(),SWT.OK|SWT.CANCEL);
 		MessageBox msg2 = new MessageBox(this.getShell(),SWT.NULL);
-		msg.setMessage("Really Delete?");
+		msg.setMessage(Messages.getString("AdmUIGroupPermissions.24")); //$NON-NLS-1$
 		
 	try{
 		if(msg.open()==SWT.OK){
@@ -456,7 +457,7 @@ implements SecureComposite,SearchComposite{
 		if(items.length>0){
 		blGroupPerms.deleteObject(items[0].getData());	
 		fillTableUserPermissions();
-		msg2.setMessage("Succesfully Deleted!..");
+		msg2.setMessage(Messages.getString("AdmUIGroupPermissions.25")); //$NON-NLS-1$
 	    msg2.open();
 		
 		}

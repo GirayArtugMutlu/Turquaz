@@ -45,6 +45,7 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
+import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUserUpdate;
 import com.turquaz.admin.ui.AdmUIUserAdd;
 import com.turquaz.engine.dal.TurqUser;
@@ -105,8 +106,8 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 						coolItem1.setControl(toolBar1);
 						{
 							toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-							toolUpdate.setText("Update");
-							toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+							toolUpdate.setText(Messages.getString("AdmUIUserUpdateDialog.0")); //$NON-NLS-1$
+							toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 							toolUpdate
 								.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt) {
@@ -116,8 +117,8 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 						}
 						{
 							toolDelete = new ToolItem(toolBar1, SWT.NONE);
-							toolDelete.setText("Delete");
-							toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
+							toolDelete.setText(Messages.getString("AdmUIUserUpdateDialog.2")); //$NON-NLS-1$
+							toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
 						}
 					}
 				}
@@ -169,7 +170,7 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			blUserUpdate.deleteObject(it.next());
 		    }
 			compUserAdd.saveUserGroups(user.getUsersId());
-			msg.setMessage("Succesfully Updated!..");
+			msg.setMessage(Messages.getString("AdmUIUserUpdateDialog.4")); //$NON-NLS-1$
 			msg.open();
 			dialogShell.close();
 		}
@@ -186,7 +187,7 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	public void delete(){
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 		MessageBox msg2 = new MessageBox(this.getParent(),SWT.OK|SWT.CANCEL);
-		msg2.setMessage("Really Delete?");
+		msg2.setMessage(Messages.getString("AdmUIUserUpdateDialog.5")); //$NON-NLS-1$
 		try{
 			if(msg2.open()==SWT.OK){
 			Iterator it = user.getTurqUserGroups().iterator();
@@ -198,7 +199,7 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			blUserUpdate.deleteObject(it.next());
 		    }
 			blUserUpdate.deleteObject(user);
-			msg.setMessage("Deleted Succesfully?");
+			msg.setMessage(Messages.getString("AdmUIUserUpdateDialog.6")); //$NON-NLS-1$
 			msg.open();
 			
 			this.dialogShell.close();

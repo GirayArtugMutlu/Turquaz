@@ -52,6 +52,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 
 
+import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUserAdd;
 
 import com.turquaz.engine.dal.TurqGroup;
@@ -117,7 +118,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 			{
 				lblUsername = new CLabel(this, SWT.NONE);
 				GridData lblUsernameLData = new GridData();
-				lblUsername.setText("Username");
+				lblUsername.setText(Messages.getString("AdmUIUserAdd.0")); //$NON-NLS-1$
 				lblUsernameLData.widthHint = 104;
 				lblUsernameLData.heightHint = 20;
 				lblUsername.setLayoutData(lblUsernameLData);
@@ -131,7 +132,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 			}
 			{
 				lblPassWord = new CLabel(this, SWT.NONE);
-				lblPassWord.setText("Password");
+				lblPassWord.setText(Messages.getString("AdmUIUserAdd.1")); //$NON-NLS-1$
 			}
 			{
 				txtPassword = new Text(this, SWT.PASSWORD);
@@ -142,7 +143,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 			}
 			{
 				lblReTypePassword = new CLabel(this, SWT.NONE);
-				lblReTypePassword.setText("Re-Type Password");
+				lblReTypePassword.setText(Messages.getString("AdmUIUserAdd.2")); //$NON-NLS-1$
 				GridData lblReTypePasswordLData = new GridData();
 				lblReTypePasswordLData.widthHint = 114;
 				lblReTypePasswordLData.heightHint = 19;
@@ -157,7 +158,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 			}
 			{
 				lblRealName = new CLabel(this, SWT.NONE);
-				lblRealName.setText("Real Name");
+				lblRealName.setText(Messages.getString("AdmUIUserAdd.3")); //$NON-NLS-1$
 				GridData lblRealNameLData = new GridData();
 				lblRealNameLData.widthHint = 90;
 				lblRealNameLData.heightHint = 17;
@@ -172,7 +173,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 			}
 			{
 				lblDescription = new CLabel(this, SWT.NONE);
-				lblDescription.setText("Description");
+				lblDescription.setText(Messages.getString("AdmUIUserAdd.4")); //$NON-NLS-1$
 				GridData lblDescriptionLData = new GridData();
 				lblDescriptionLData.widthHint = 107;
 				lblDescriptionLData.heightHint = 17;
@@ -188,7 +189,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 			}
 			{
 				lblGroups = new CLabel(this, SWT.NONE);
-				lblGroups.setText("Groups");
+				lblGroups.setText(Messages.getString("AdmUIUserAdd.5")); //$NON-NLS-1$
 				GridData lblGroupsLData = new GridData();
 				lblGroupsLData.widthHint = 105;
 				lblGroupsLData.heightHint = 34;
@@ -245,13 +246,13 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 		
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 		if(txtUsername.getText().trim().length()==0){
-			msg.setMessage("Please Enter an Username");
+			msg.setMessage(Messages.getString("AdmUIUserAdd.6")); //$NON-NLS-1$
 			msg.open();
 			return false;
 			
 		}
 		else if(!txtPassword.getText().equals(txtRePassword.getText())){
-		msg.setMessage("Passwords should be same!..");
+		msg.setMessage(Messages.getString("AdmUIUserAdd.7")); //$NON-NLS-1$
 		msg.open();
 		 return false;			
 		}

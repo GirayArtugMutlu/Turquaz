@@ -47,6 +47,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 
+import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroupAdd;
 import com.turquaz.engine.ui.component.SecureComposite;
 public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements SecureComposite{
@@ -108,7 +109,7 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 			this.setSize(438, 170);
 			{
 				lblAdmGroupName = new CLabel(this, SWT.NONE);
-				lblAdmGroupName.setText("Group Name");
+				lblAdmGroupName.setText(Messages.getString("AdmUIGroupAdd.0")); //$NON-NLS-1$
 				GridData lblAdmGroupNameLData = new GridData();
 				lblAdmGroupNameLData.widthHint = 65;
 				lblAdmGroupNameLData.heightHint = 19;
@@ -123,7 +124,7 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 			}
 			{
 				lblAdmGroupDesc = new CLabel(this, SWT.NONE);
-				lblAdmGroupDesc.setText("Group Description");
+				lblAdmGroupDesc.setText(Messages.getString("AdmUIGroupAdd.1")); //$NON-NLS-1$
 				GridData lblAdmGroupDescLData = new GridData();
 				lblAdmGroupDescLData.verticalAlignment = GridData.BEGINNING;
 				lblAdmGroupDescLData.widthHint = 91;
@@ -148,7 +149,7 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 		
 		if (txtAdmGroupName.getText().trim().length()==0)
 		{
-			msg.setMessage("Please fill group name!..");
+			msg.setMessage(Messages.getString("AdmUIGroupAdd.2")); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
@@ -161,7 +162,7 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 		if (verifyFields()){
 			try{
 				blGroupAdd.saveGroup(txtAdmGroupName.getText().trim(),txtAdmGroupDesc.getText().trim());
-				messageBox.setMessage("Succesfully saved");
+				messageBox.setMessage(Messages.getString("AdmUIGroupAdd.3")); //$NON-NLS-1$
 				messageBox.open();
 				newForm();
 				
@@ -179,8 +180,8 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 		
 	}
 	public void newForm(){
-		txtAdmGroupName.setText("");
-		txtAdmGroupDesc.setText("");
+		txtAdmGroupName.setText(""); //$NON-NLS-1$
+		txtAdmGroupDesc.setText(""); //$NON-NLS-1$
 	}
 	public void delete(){
 		
