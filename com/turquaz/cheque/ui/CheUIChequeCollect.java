@@ -21,6 +21,7 @@ package com.turquaz.cheque.ui;
  */
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
@@ -29,7 +30,10 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Table;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.ui.comp.CashCardPicker;
+import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyTextAdvanced;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
@@ -45,6 +49,7 @@ import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSaveChequeTransaction;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -275,11 +280,14 @@ public class CheUIChequeCollect extends org.eclipse.swt.widgets.Composite implem
 		{
 			if (verifyFields())
 			{
-				/**
-				 * TODO new save function
-				 */
-				CheBLSaveChequeTransaction.saveChequeCollect(cashCardPcker.getTurqCashCard(), txtRollNo.getText().trim(), datePicker1
-						.getDate(), cheques);
+				
+				HashMap argMap = new HashMap();
+				argMap.put(CashKeys.CASH_CARD,cashCardPcker.getTurqCashCard());
+				argMap.put(EngKeys.DOCUMENT_NO,txtRollNo.getText().trim());
+				argMap.put(EngKeys.DATE,datePicker1.getDate());
+				argMap.put(CheKeys.CHE_CHEQUE_LIST,cheques);
+				
+				EngTXCommon.doTransactionTX(CheBLSaveChequeTransaction.class.getName(),"saveChequeCollect",argMap);
 				EngUICommon.showMessageBox(getShell(), Messages.getString("CheUIChequeInPayroll.13"), SWT.ICON_INFORMATION); //$NON-NLS-1$
 				newForm();
 			}

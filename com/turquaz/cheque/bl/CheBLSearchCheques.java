@@ -20,8 +20,12 @@ package com.turquaz.cheque.bl;
  * @version $Id$
  */
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.bank.BankKeys;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.dal.CheDALSearch;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
@@ -29,31 +33,31 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 
 public class CheBLSearchCheques
 {
-	public static List searchCheque(String portfoliNo, TurqCurrentCard curCard, Integer status, Date startEnterDate, Date endEnterDate,
-			Date startDueDate, Date endDueDate, boolean isSortEntryDate) throws Exception
+	public static List searchCheque(HashMap argMap) throws Exception
 	{
-		try
-		{
-			return CheDALSearch.searchCheque(portfoliNo, curCard, status, startEnterDate, endEnterDate, startDueDate, endDueDate,
-					isSortEntryDate);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		String portfoliNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		Integer status = (Integer)argMap.get(CheKeys.CHE_STATUS);
+		Date startEnterDate = (Date)argMap.get(CheKeys.CHE_START_ENTER_DATE);
+		 Date endEnterDate = (Date)argMap.get(CheKeys.CHE_END_ENTER_DATE);
+		 Date startDueDate = (Date)argMap.get(CheKeys.CHE_START_DUE_DATE);
+		 Date endDueDate = (Date)argMap.get(CheKeys.CHE_END_DUE_DATE);
+		
+			return CheDALSearch.searchCheque(portfoliNo, curCard, status, startEnterDate, endEnterDate, startDueDate, endDueDate);
+		
 	}
 
-	public static List searchOwnCheques(TurqCurrentCard curCard, TurqBanksCard bankCard, Date startEnterDate, Date endEnterDate,
-			Date startDueDate, Date endDueDate) throws Exception
+	public static List searchOwnCheques(HashMap argMap) throws Exception
 	{
-		try
-		{
-			return CheDALSearch.searchOwnCheques(curCard, bankCard, startEnterDate, endEnterDate, startDueDate, endDueDate);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		Date startEnterDate = (Date)argMap.get(CheKeys.CHE_START_ENTER_DATE);
+		 Date endEnterDate = (Date)argMap.get(CheKeys.CHE_END_ENTER_DATE);
+		 Date startDueDate = (Date)argMap.get(CheKeys.CHE_START_DUE_DATE);
+		 Date endDueDate = (Date)argMap.get(CheKeys.CHE_END_DUE_DATE);
+		 TurqBanksCard bankCard = (TurqBanksCard)argMap.get(BankKeys.BANK);
+	
+		return CheDALSearch.searchOwnCheques(curCard, bankCard, startEnterDate, endEnterDate, startDueDate, endDueDate);
+	
 	}
 
 	public static TurqAccountingAccount getChequeRollAccountingAccount(TurqChequeCheque cheque, int rollType) throws Exception
@@ -61,15 +65,14 @@ public class CheBLSearchCheques
 		return CheDALSearch.getChequeRollAccountingAccount(cheque, rollType);
 	}
 
-	public static List getChequeHistory(TurqChequeCheque cheque) throws Exception
+	
+	public static List getChequeHistory(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		
+		  TurqChequeCheque cheque = (TurqChequeCheque)argMap.get(CheKeys.CHE_CHEQUE);
+		
 			return CheDALSearch.getChequeHistory(cheque);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 }

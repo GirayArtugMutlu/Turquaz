@@ -20,6 +20,7 @@ package com.turquaz.cheque.ui;
  * @version  $Id$
  */
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -30,12 +31,17 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.accounting.AccKeys;
+import com.turquaz.bank.BankKeys;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -158,7 +164,13 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 		{
 			EngUICommon.centreWindow(dialogShell);
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			CheBLUpdateChequeRoll.initializeChequeRoll(chequeRoll);
+			
+
+			HashMap argMap = new HashMap();
+			argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
+			EngTXCommon.doSingleTX(CheBLUpdateChequeRoll.class.getName(),"initializeChequeRoll",argMap);
+			
+			
 			compChequeRoll.getTxtRollNo().setText(chequeRoll.getChequeRollNo());
 			compChequeRoll.getDatePicker1().setDate(chequeRoll.getChequeRollsDate());
 			compChequeRoll.getBankCardPicker().setText(chequeRoll.getTurqBanksCard().getBankCode());
@@ -204,7 +216,10 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 					EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIChequeOutPayrollBankUpdate.0"), SWT.ICON_WARNING); //$NON-NLS-1$
 					return;
 				}
-				CheBLUpdateChequeRoll.deleteChequeRollIn(chequeRoll);
+				HashMap argMap = new HashMap();
+				argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
+				EngTXCommon.doTransactionTX(CheBLUpdateChequeRoll.class.getName(),"deleteChequeRollIn",argMap);
+				
 				EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIChequeInPayrollUpdate.8"), SWT.ICON_INFORMATION); //$NON-NLS-1$
 				isUpdated = true;
 				dialogShell.close();
@@ -232,10 +247,19 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 					chequeList.add(compChequeRoll.getTableCheques().getItem(i).getData());
 				}
 				//		          TODO cheq trans exRate
-				CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll, compChequeRoll.getAccountPicker().getTurqAccountingAccount(),
-						null, compChequeRoll.getBankCardPicker().getTurqBank(), compChequeRoll.getTxtRollNo().getText().trim(),
-						compChequeRoll.getDatePicker1().getDate(), chequeList, EngBLCommon.CHEQUE_TRANS_OUT_BANK.intValue(),
-						compChequeRoll.getBtnSumTotals().getSelection(), EngBLCommon.getBaseCurrencyExchangeRate());
+				
+				HashMap argMap = new HashMap();
+				argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
+				argMap.put(AccKeys.ACC_ACCOUNT,compChequeRoll.getAccountPicker().getTurqAccountingAccount());
+				argMap.put(BankKeys.BANK,compChequeRoll.getBankCardPicker().getTurqBank());
+				argMap.put(EngKeys.DOCUMENT_NO,compChequeRoll.getTxtRollNo().getText().trim());
+				argMap.put(EngKeys.DATE,compChequeRoll.getDatePicker1().getDate());
+				argMap.put(CheKeys.CHE_CHEQUE_LIST,chequeList);
+				argMap.put(EngKeys.TYPE,EngBLCommon.CHEQUE_TRANS_OUT_BANK);
+				argMap.put(CheKeys.CHE_SUM_TRANS,new Boolean(compChequeRoll.getBtnSumTotals().getSelection()));
+				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+				
+				EngTXCommon.doTransactionTX(CheBLUpdateChequeRoll.class.getName(),"updateChequeRollIn",argMap);
 				EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIChequeInPayroll.13"), SWT.ICON_INFORMATION); //$NON-NLS-1$
 				isUpdated = true;
 				dialogShell.close();

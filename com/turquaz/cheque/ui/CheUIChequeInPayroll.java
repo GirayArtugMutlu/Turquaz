@@ -21,6 +21,7 @@ package com.turquaz.cheque.ui;
  */
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
@@ -29,7 +30,10 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Table;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyTextAdvanced;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
@@ -48,6 +52,7 @@ import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSaveChequeTransaction;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -311,9 +316,18 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 					chequeList.add(tableCheques.getItem(i).getData());
 				}
 				//        TODO cheq trans exRate
-				CheBLSaveChequeTransaction.saveChequeRoll(accountPicker.getTurqAccountingAccount(), (TurqCurrentCard) currentPicker
-						.getData(), null, txtRollNo.getText().trim(), datePicker1.getDate(), chequeList, EngBLCommon.CHEQUE_TRANS_IN
-						.intValue(), btnSumTotals.getSelection(), EngBLCommon.getBaseCurrencyExchangeRate());
+				
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_ACCOUNT,accountPicker.getTurqAccountingAccount());
+				argMap.put(EngKeys.CURRENT_CARD,(TurqCurrentCard) currentPicker.getData());
+				argMap.put(EngKeys.DOCUMENT_NO,txtRollNo.getText().trim());
+				argMap.put(EngKeys.DATE,datePicker1.getDate());
+				argMap.put(CheKeys.CHE_CHEQUE_LIST,chequeList);
+				argMap.put(EngKeys.TYPE, EngBLCommon.CHEQUE_TRANS_IN);
+				argMap.put(CheKeys.CHE_SUM_TRANS,new Boolean(btnSumTotals.getSelection()));
+				argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
+				
+				EngTXCommon.doTransactionTX(CheBLSaveChequeTransaction.class.getName(),"saveChequeRoll",argMap);
 				EngUICommon.showMessageBox(getShell(), Messages.getString("CheUIChequeInPayroll.13"), SWT.ICON_INFORMATION); //$NON-NLS-1$
 				newForm();
 			}

@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CLabel;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchCheques;
 import com.turquaz.cheque.dal.CheDALUpdate;
@@ -21,16 +22,18 @@ import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.custom.CTabFolder;
 import com.jasperassistant.designer.viewer.ViewerComposite;
 import org.eclipse.swt.custom.CTabItem;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.ui.comp.BankCardPicker;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqChequeCheque;
-import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -316,9 +319,17 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 		try
 		{
 			Integer cheStat = null;
-			List ls = CheBLSearchCheques.searchOwnCheques((TurqCurrentCard) currentPicker.getData(), bankPicker.getTurqBank(),
-					datePickerStartEnterDate.getDate(), datePickerEndEnterDate.getDate(), datePickerStartDueDate.getDate(),
-					datePickerEndDueDate.getDate());
+			
+			HashMap argMap = new HashMap();
+			argMap.put(EngKeys.CURRENT_CARD,currentPicker.getData());
+			argMap.put(CheKeys.CHE_START_ENTER_DATE,datePickerStartEnterDate.getDate());
+			argMap.put(CheKeys.CHE_END_ENTER_DATE,datePickerEndEnterDate.getDate());
+			argMap.put(CheKeys.CHE_START_DUE_DATE,datePickerStartDueDate.getDate());
+			argMap.put(CheKeys.CHE_END_DUE_DATE,datePickerEndDueDate.getDate());
+		    argMap.put(BankKeys.BANK,bankPicker.getTurqBank());
+			
+			List ls = (List)EngTXCommon.doSingleTX(CheBLSearchCheques.class.getName(),"searchOwnCheques",argMap);
+			
 			String status = ""; //$NON-NLS-1$
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			BigDecimal total = new BigDecimal(0);

@@ -20,10 +20,13 @@ package com.turquaz.cheque.bl;
  * @version $Id$
  */
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.dal.CheDALSearch;
 import com.turquaz.cheque.dal.CheDALUpdate;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
@@ -32,64 +35,44 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 
 public class CheBLSearchChequeRoll
 {
-	public static List searchChequeRoll(String rollNo, Date startDate, Date endDate, TurqChequeTransactionType type) throws Exception
+	
+	public static List searchChequeRoll(HashMap argMap) throws Exception
 	{
-		try
-		{
+		String rollNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		 Date startDate = (Date)argMap.get(EngKeys.DATE_START);
+		 Date endDate = (Date)argMap.get(EngKeys.DATE_END);	
+		 TurqChequeTransactionType type = (TurqChequeTransactionType)argMap.get(CheKeys.CHE_TRANS_TYPE); 
+		
 			return CheDALSearch.searchChequeRoll(rollNo, startDate, endDate, type);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	public static List getTransactionTypes() throws Exception
 	{
-		try
-		{
+		
 			return CheDALSearch.getTransactionTypes();
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	public static List getChequesInPortfolio() throws Exception
 	{
-		try
-		{
+		
 			return CheDALSearch.getChequesInPortfolio();
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	public static List getChequesGivenToCurrent() throws Exception
 	{
-		try
-		{
+		
 			return CheDALSearch.getChequesGivenToCurrent();
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
-	public static TurqCurrentCard getCurrentCardOfCustomerCheque(TurqChequeCheque cheque) throws Exception
+	public static TurqCurrentCard getCurrentCardOfCustomerCheque(HashMap argMap) throws Exception
 	{
-		try
-		{
+		TurqChequeCheque cheque =(TurqChequeCheque)argMap.get(CheKeys.CHE_CHEQUE);
 			return CheDALSearch.getCurrentCardOfCustomerCheque(cheque);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	public static List getChequesInBank() throws Exception
@@ -104,14 +87,17 @@ public class CheBLSearchChequeRoll
 		}
 	}
 
-	public static TurqChequeRoll getChequeRoll(TurqChequeCheque cheque, int rollType) throws Exception
+	public static TurqChequeRoll getChequeRoll(HashMap argMap) throws Exception
 	{
+		 TurqChequeCheque cheque = (TurqChequeCheque)argMap.get(CheKeys.CHE_CHEQUE);
+		 Integer rollType = (Integer)argMap.get(EngKeys.TYPE);
+		
 		CheDALUpdate.initChequeRolls(cheque);
 		Iterator it = cheque.getTurqChequeChequeInRolls().iterator();
 		while (it.hasNext())
 		{
 			TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll) it.next();
-			if (chequeInRoll.getTurqChequeRoll().getTurqChequeTransactionType().getId().intValue() == rollType)
+			if (chequeInRoll.getTurqChequeRoll().getTurqChequeTransactionType().getId().intValue() == rollType.intValue())
 			{
 				return chequeInRoll.getTurqChequeRoll();
 			}

@@ -11,6 +11,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchChequeRoll;
 import com.turquaz.engine.dal.TurqChequeCheque;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -172,7 +173,7 @@ public class CheUIChequesInBankChooseDialog extends org.eclipse.swt.widgets.Dial
 		try
 		{
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			List ls = CheBLSearchChequeRoll.getChequesInBank();
+			List ls = (List)EngTXCommon.doSingleTX(CheBLSearchChequeRoll.class.getName(),"getChequesInBank",null);
 			TurqChequeCheque cheque;
 			TableItem item;
 			Object result[];

@@ -189,7 +189,7 @@ public class CheDALSearch
 	 * @throws Exception
 	 */
 	public static List searchCheque(String portfoyNo, TurqCurrentCard curCard, Integer status, Date startEnterDate, Date endEnterDate,
-			Date startDueDate, Date endDueDate, boolean isSortEntryDate) throws Exception
+			Date startDueDate, Date endDueDate) throws Exception
 	{
 		try
 		{
@@ -213,14 +213,10 @@ public class CheDALSearch
 			{
 				query += " and status.transactionTypesParent = " + status.intValue();
 			}
-			if (isSortEntryDate)
-			{
+			
 				query += " order by chequeInRolls.turqChequeRoll.chequeRollsDate ";
-			}
-			else
-			{
-				query += " order by cheque.chequesDueDate ";
-			}
+			
+			
 			Query q = session.createQuery(query);
 			q.setParameter("startDueDate", startDueDate);
 			q.setParameter("endDueDate", endDueDate);

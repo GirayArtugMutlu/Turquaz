@@ -7,15 +7,18 @@
 package com.turquaz.cheque.bl;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Iterator;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.dal.CheDALSearch;
 import com.turquaz.cheque.dal.CheDALUpdate;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -32,13 +35,16 @@ import com.turquaz.engine.dal.TurqCurrentCard;
  */
 public class CheBLUpdateCheque
 {
-	public static void updateCheque(TurqChequeCheque cheque, TurqCurrencyExchangeRate exchangeRate) throws Exception
+	public static void updateCheque(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
 			/**
 			 * 1-) update cheque 2-) get cheque Rolls 3-) update transactions 4-)
 			 */
+		
+		TurqChequeCheque cheque = (TurqChequeCheque)argMap.get(CheKeys.CHE_CHEQUE);
+		TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+		
 			EngDALCommon.updateObject(cheque);
 			CheDALUpdate.initChequeRolls(cheque);
 			Iterator it = cheque.getTurqChequeChequeInRolls().iterator();
@@ -47,17 +53,15 @@ public class CheBLUpdateCheque
 				TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll) it.next();
 				updateChequeRollTransactions(chequeInRoll.getTurqChequeRoll(), exchangeRate);
 			}
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
-	public static void deleteCheque(TurqChequeCheque cheque, TurqCurrencyExchangeRate exchangeRate) throws Exception
+	public static void deleteCheque(HashMap argMap) throws Exception
 	{
-		try
-		{
+
+		TurqChequeCheque cheque = (TurqChequeCheque)argMap.get(CheKeys.CHE_CHEQUE);
+		TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+		
 			/**
 			 * 1-) 2-) get cheque Rolls 3-) update transactions 4-)
 			 */
@@ -71,11 +75,7 @@ public class CheBLUpdateCheque
 				updateChequeRollTransactions(chequeRoll, exchangeRate);
 			}
 			EngDALCommon.deleteObject(cheque);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	private static void updateChequeRollTransactions(TurqChequeRoll chequeRoll, TurqCurrencyExchangeRate exchangeRate) throws Exception

@@ -21,16 +21,20 @@ package com.turquaz.cheque.ui;
  */
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchCheques;
 import com.turquaz.cheque.bl.CheBLUpdateCheque;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeRoll;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.widgets.TableItem;
@@ -403,7 +407,10 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog
 		{
 			//HISTORY
 			tableHistory.removeAll();
-			List history = CheBLSearchCheques.getChequeHistory(cheque);
+			
+			HashMap argMap = new HashMap();
+			argMap.put(CheKeys.CHE_CHEQUE,cheque);
+			List history = (List)EngTXCommon.doSingleTX(CheBLSearchCheques.class.getName(),"getChequeHistory",argMap);
 			TableItem item;
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
 			for (int k = 0; k < history.size(); k++)
@@ -444,7 +451,12 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog
 			cheque.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			cheque.setLastModified(Calendar.getInstance().getTime());
 			//        TODO cheq trans exRate
-			CheBLUpdateCheque.updateCheque(cheque, EngBLCommon.getBaseCurrencyExchangeRate());
+			
+			HashMap argMap = new HashMap();
+			argMap.put(CheKeys.CHE_CHEQUE,cheque);
+			argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
+			
+			EngTXCommon.doTransactionTX(CheBLUpdateCheque.class.getName(),"updateCheque",argMap);
 			EngUICommon.showSavedSuccesfullyMessage(getParent());
 			isUpdated = true;
 			dialogShell.close();
@@ -464,7 +476,14 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog
 			if (EngUICommon.okToDelete(getParent()))
 			{
 				//	          TODO cheq trans exRate
-				CheBLUpdateCheque.deleteCheque(cheque, EngBLCommon.getBaseCurrencyExchangeRate());
+				
+				HashMap argMap = new HashMap();
+				argMap.put(CheKeys.CHE_CHEQUE,cheque);
+				argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
+				
+				EngTXCommon.doTransactionTX(CheBLUpdateCheque.class.getName(),"deleteCheque",argMap);
+				
+				
 				EngUICommon.showMessageBox(getParent(), Messages.getString("CheUICustomerChequeUpdate.2"), SWT.ICON_INFORMATION); //$NON-NLS-1$
 				isUpdated = true;
 				dialogShell.close();

@@ -26,16 +26,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.dal.CheDALSearch;
 import com.turquaz.cheque.dal.CheDALUpdate;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -53,35 +57,30 @@ import com.turquaz.engine.tx.EngTXCommon;
 
 public class CheBLUpdateChequeRoll
 {
-	public static void initializeChequeRoll(TurqChequeRoll chequeRoll) throws Exception
+	public static void initializeChequeRoll(HashMap argMap) throws Exception
 	{
-		try
-		{
-			CheDALUpdate.initializeChequeRoll(chequeRoll);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		TurqChequeRoll chequeRoll = (TurqChequeRoll)argMap.get(CheKeys.CHE_CHEQUE_ROLL);
+		CheDALUpdate.initializeChequeRoll(chequeRoll);
+		
 	}
 
-	public static TurqChequeRoll initializeChequeRoll(Integer chequeRollId) throws Exception
+	public static TurqChequeRoll initializeChequeRollById(HashMap argMap) throws Exception
 	{
-		try
-		{
+		Integer chequeRollId = (Integer)argMap.get(EngKeys.TRANS_ID);
 			return CheDALUpdate.initializeChequeRoll(chequeRollId);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
-	public static void updateChequeCollectRoll(TurqChequeRoll chequeRoll, TurqCashCard cashCard, String rollNo, Date rollDate,
-			List chequeList) throws Exception
+	public static void updateChequeCollectRoll(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		TurqChequeRoll chequeRoll = (TurqChequeRoll)argMap.get(CheKeys.CHE_CHEQUE_ROLL);
+		TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+		 String rollNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		 Date rollDate = (Date)argMap.get(EngKeys.DATE);
+		 List chequeList = (List)argMap.get(CheKeys.CHE_CHEQUE_LIST);
+		 
+		
 			emptyCheckRollIn(chequeRoll);
 			chequeRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			chequeRoll.setLastModified(Calendar.getInstance().getTime());
@@ -116,19 +115,25 @@ public class CheBLUpdateChequeRoll
 			CheBLSaveChequeTransaction.saveRollAccountingTransactions(cashCard.getTurqAccountingAccount(), null, chequeRoll,
 					chequeTotals, EngBLCommon.getBaseCurrencyExchangeRate(),
 					Messages.getString("CheBLUpdateChequeRoll.1") + chequeRoll.getChequeRollNo()); //$NON-NLS-1$
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
-	public static void updateChequeRollIn(TurqChequeRoll chequeRoll, TurqAccountingAccount rollAccount, TurqCurrentCard curCard,
-			TurqBanksCard bankCard, String rollNo, Date rollDate, List chequeList, int rollType, boolean sumTransTotal,
-			TurqCurrencyExchangeRate exchangeRate) throws Exception
+	public static void updateChequeRollIn(HashMap argMap
+			) throws Exception
 	{
-		try
-		{
+		
+			TurqChequeRoll chequeRoll = (TurqChequeRoll) argMap.get(CheKeys.CHE_CHEQUE_ROLL);
+			TurqAccountingAccount rollAccount =(TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+			 TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			 TurqBanksCard bankCard = (TurqBanksCard)argMap.get(BankKeys.BANK);
+			 String rollNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
+			 Date rollDate = (Date)argMap.get(EngKeys.DATE);
+			 List chequeList = (List)argMap.get(CheKeys.CHE_CHEQUE_LIST);
+			 int rollType = ((Integer)argMap.get(EngKeys.TYPE)).intValue();
+			 boolean sumTransTotal = ((Boolean)argMap.get(CheKeys.CHE_SUM_TRANS)).booleanValue();
+			 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+			
+			
 			emptyCheckRollIn(chequeRoll);
 			chequeRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			chequeRoll.setLastModified(Calendar.getInstance().getTime());
@@ -265,14 +270,10 @@ public class CheBLUpdateChequeRoll
 			 * BankBLTransactionAdd.saveChequeTransaction(bankCard,chequeRoll.getTurqEngineSequence(),totalAmount,rollDate,"Çek Bordro
 			 * No:"+rollNo,rollNo); }
 			 */
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
-	public static void emptyCheckRollIn(TurqChequeRoll chequeRoll) throws Exception
+	private static void emptyCheckRollIn(TurqChequeRoll chequeRoll) throws Exception
 	{
 		try
 		{
@@ -313,17 +314,13 @@ public class CheBLUpdateChequeRoll
 		}
 	}
 
-	public static void deleteChequeRollIn(TurqChequeRoll chequeRoll) throws Exception
+	public static void deleteChequeRollIn(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		TurqChequeRoll chequeRoll = (TurqChequeRoll)argMap.get(CheKeys.CHE_CHEQUE_ROLL);
 			emptyCheckRollIn(chequeRoll);
 			//Delete Roll Now
 			EngDALCommon.deleteObject(chequeRoll);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 }

@@ -21,6 +21,7 @@ package com.turquaz.cheque.ui;
  */
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
@@ -33,13 +34,16 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.CCombo;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchChequeRoll;
 import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.dal.TurqChequeTransactionType;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
@@ -209,7 +213,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 		try
 		{
 			comboRollType.add(Messages.getString("CheUIChequeRollSearch.9")); //$NON-NLS-1$
-			List ls = CheBLSearchChequeRoll.getTransactionTypes();
+			List ls =(List)EngTXCommon.doSingleTX(CheBLSearchChequeRoll.class.getName(),"getTransactionTypes",null);
 			for (int i = 0; i < ls.size(); i++)
 			{
 				TurqChequeTransactionType type = (TurqChequeTransactionType) ls.get(i);
@@ -259,7 +263,13 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 			if (rollId != null)
 			{
 				boolean isUpdated = false;
-				TurqChequeRoll roll = CheBLUpdateChequeRoll.initializeChequeRoll(rollId);
+				
+				HashMap argMap = new HashMap();
+				argMap.put(EngKeys.TRANS_ID,rollId);
+				
+				TurqChequeRoll roll = (TurqChequeRoll)EngTXCommon.doSingleTX(CheBLUpdateChequeRoll.class.getName(),"initializeChequeRollById",argMap);
+				
+				
 				if (roll.getTurqChequeTransactionType().getId().intValue() == EngBLCommon.CHEQUE_TRANS_IN.intValue())
 				{
 					isUpdated = new CheUIChequeInPayrollUpdate(updateShell, SWT.NULL, roll).open();
@@ -339,8 +349,14 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 		{
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			tableViewer.removeAll();
-			List ls = CheBLSearchChequeRoll.searchChequeRoll(txtRollNo.getText().trim(), dateStartDate.getDate(), dateEndDate.getDate(),
-					(TurqChequeTransactionType) comboRollType.getData(comboRollType.getText().trim()));
+			
+			HashMap argMap = new HashMap();
+			argMap.put(EngKeys.DOCUMENT_NO,txtRollNo.getText().trim());
+			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
+			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
+			argMap.put(CheKeys.CHE_TRANS_TYPE,comboRollType.getData(comboRollType.getText().trim()));
+			
+			List ls = (List)EngTXCommon.doSingleTX(CheBLSearchChequeRoll.class.getName(),"searchChequeRoll",argMap );
 			Object[] roll;
 			String owner = ""; //$NON-NLS-1$
 			BigDecimal total = new BigDecimal(0);

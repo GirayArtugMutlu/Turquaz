@@ -1,5 +1,6 @@
 package com.turquaz.cheque.ui;
 
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Table;
@@ -8,9 +9,12 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchChequeRoll;
 import com.turquaz.engine.dal.TurqChequeCheque;
+import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -172,7 +176,7 @@ public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dia
 		try
 		{
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			List ls = CheBLSearchChequeRoll.getChequesInPortfolio();
+			List ls = (List)EngTXCommon.doSingleTX(CheBLSearchChequeRoll.class.getName(),"getChequesInPortfolio",null);
 			TurqChequeCheque cheque;
 			TableItem item;
 			String currentName;
@@ -181,8 +185,16 @@ public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dia
 				cheque = (TurqChequeCheque) ls.get(i);
 				item = new TableItem(tableCheques, SWT.NULL);
 				item.setData(cheque);
+				
+				HashMap argMap = new HashMap();
+				argMap.put(CheKeys.CHE_CHEQUE,cheque);
+				
+				
+				TurqCurrentCard curCard =(TurqCurrentCard)EngTXCommon.doSingleTX(CheBLSearchChequeRoll.class.getName(),"getCurrentCardOfCustomerCheque",argMap);
+				
+				
 				item.setText(new String[]{cheque.getChequesPortfolioNo(),
-						CheBLSearchChequeRoll.getCurrentCardOfCustomerCheque(cheque).getCardsName(),
+						curCard.getCardsName(),
 						DatePicker.formatter.format(cheque.getChequesDueDate()), cheque.getChequesDebtor(),
 						cf.format(cheque.getChequesAmount())});
 			}

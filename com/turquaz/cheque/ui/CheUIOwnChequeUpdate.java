@@ -21,14 +21,18 @@ package com.turquaz.cheque.ui;
  */
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLUpdateCheque;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.widgets.ToolBar;
@@ -304,7 +308,15 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog
 				cheque.setChequesType(EngBLCommon.CHEQUE_TYPE_OWN);
 				cheque.setTurqBanksCard(bankCard);
 				//        TODO cheq trans exRate
-				CheBLUpdateCheque.updateCheque(cheque, EngBLCommon.getBaseCurrencyExchangeRate());
+				
+				
+				HashMap argMap = new HashMap();
+				argMap.put(CheKeys.CHE_CHEQUE,cheque);
+				argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
+				
+				EngTXCommon.doTransactionTX(CheBLUpdateCheque.class.getName(),"updateCheque",argMap);
+					
+				
 				EngUICommon.showSavedSuccesfullyMessage(getParent());
 				isUpdated = true;
 				dialogShell.close();
@@ -325,7 +337,13 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog
 			if (EngUICommon.okToDelete(getParent()))
 			{
 				//		          TODO cheq trans exRate
-				CheBLUpdateCheque.deleteCheque(cheque, EngBLCommon.getBaseCurrencyExchangeRate());
+				HashMap argMap = new HashMap();
+				argMap.put(CheKeys.CHE_CHEQUE,cheque);
+				argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
+				
+				EngTXCommon.doTransactionTX(CheBLUpdateCheque.class.getName(),"deleteCheque",argMap);
+				
+				
 				EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIOwnChequeUpdate.2"), SWT.ICON_INFORMATION); //$NON-NLS-1$
 				isUpdated = true;
 				dialogShell.close();

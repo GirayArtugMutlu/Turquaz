@@ -21,6 +21,7 @@ package com.turquaz.cheque.ui;
  */
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
@@ -31,7 +32,9 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqChequeCheque;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -43,6 +46,7 @@ import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSaveChequeTransaction;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -249,7 +253,13 @@ public class CheUIChequeCollectFromBank extends org.eclipse.swt.widgets.Composit
 		{
 			if (verifyFields())
 			{
-				CheBLSaveChequeTransaction.saveCollectFromBank(txtRollNo.getText().trim(), datePicker1.getDate(), cheques);
+				
+				HashMap argMap = new HashMap();
+				argMap.put(EngKeys.DOCUMENT_NO,txtRollNo.getText().trim());
+				argMap.put(EngKeys.DATE, datePicker1.getDate());
+				argMap.put(CheKeys.CHE_CHEQUE_LIST,cheques);
+				
+				EngTXCommon.doTransactionTX(CheBLSaveChequeTransaction.class.getName(),"saveCollectFromBank",argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
 			}
@@ -259,7 +269,7 @@ public class CheUIChequeCollectFromBank extends org.eclipse.swt.widgets.Composit
 			Logger loger = Logger.getLogger(this.getClass());
 			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
+			EngUICommon.showMessageBox(getShell(),"Hata Olustu!", SWT.ICON_ERROR);
 		}
 	}
 

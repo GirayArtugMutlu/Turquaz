@@ -17,8 +17,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CTabFolder;
 import com.jasperassistant.designer.viewer.ViewerComposite;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchCheques;
 import com.turquaz.cheque.dal.CheDALUpdate;
@@ -29,10 +29,11 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.CCombo;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqChequeCheque;
-import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -61,8 +62,6 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 	private CTabItem tabItemReport;
 	private CTabItem cTabItem1;
 	private CTabFolder tabFolder;
-	private Button btnRadioDueDate;
-	private Button btnRadioEntryDate;
 	private CurrentPicker currentPicker;
 	private DatePicker datePickerEndEnterDate;
 	private CLabel lblEnterDateEnd;
@@ -107,7 +106,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			compSearchPanle = new Composite(this, SWT.NONE);
 			GridLayout compSearchPanleLayout = new GridLayout();
 			GridData compSearchPanleLData = new GridData();
-			compSearchPanleLData.heightHint = 124;
+			compSearchPanleLData.heightHint = 112;
 			compSearchPanleLData.grabExcessHorizontalSpace = true;
 			compSearchPanleLData.horizontalAlignment = GridData.FILL;
 			compSearchPanle.setLayoutData(compSearchPanleLData);
@@ -200,15 +199,6 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			datePickerEndEnterDateLData.heightHint = 21;
 			datePickerEndEnterDate.setLayoutData(datePickerEndEnterDateLData);
 			//END << datePickerEndEnterDate
-			//START >> btnRadioEntryDate
-			btnRadioEntryDate = new Button(compSearchPanle, SWT.RADIO | SWT.LEFT);
-			btnRadioEntryDate.setText("Giri\u015f Tarihine göre S\u0131ral\u0131");
-			btnRadioEntryDate.setSelection(true);
-			//END << btnRadioEntryDate
-			//START >> btnRadioDueDate
-			btnRadioDueDate = new Button(compSearchPanle, SWT.RADIO | SWT.LEFT);
-			btnRadioDueDate.setText("Vade Tarihine Göre S\u0131ral\u0131");
-			//END << btnRadioDueDate
 			//END << compSearchPanle
 			//START >> tabFolder
 			tabFolder = new CTabFolder(this, SWT.NONE);
@@ -345,9 +335,20 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			{
 				cheStat = (Integer) map.get(comboStatus.getText());
 			}
-			List ls = CheBLSearchCheques.searchCheque(txtPortFoyNo.getText().trim(), (TurqCurrentCard) currentPicker.getData(), cheStat,
-					datePickerStartEnterDate.getDate(), datePickerEndEnterDate.getDate(), datePickerStartDueDate.getDate(),
-					datePickerEndDueDate.getDate(), btnRadioEntryDate.getSelection());
+			
+			HashMap argMap = new HashMap();
+			argMap.put(EngKeys.DOCUMENT_NO,txtPortFoyNo.getText().trim());
+			argMap.put(EngKeys.CURRENT_CARD,currentPicker.getData());
+			argMap.put(CheKeys.CHE_STATUS,cheStat);
+			argMap.put(CheKeys.CHE_START_ENTER_DATE,datePickerStartEnterDate.getDate());
+			argMap.put(CheKeys.CHE_END_ENTER_DATE,datePickerEndEnterDate.getDate());
+			argMap.put(CheKeys.CHE_START_DUE_DATE,datePickerStartDueDate.getDate());
+			argMap.put(CheKeys.CHE_END_DUE_DATE,datePickerEndDueDate.getDate());
+			
+			
+			List ls = (List)EngTXCommon.doSingleTX(CheBLSearchCheques.class.getName(),"searchCheque",argMap);
+		
+			
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			BigDecimal total = new BigDecimal(0);
 			for (int i = 0; i < ls.size(); i++)
