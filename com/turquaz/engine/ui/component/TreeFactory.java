@@ -249,11 +249,12 @@ public final class TreeFactory {
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.18")); //$NON-NLS-1$
 		item.setData(CurUICurrentCardSearch.class.getName());
 		}
-		if(EngBLPermissions.getPermission(CurUITransactionAdd.class.getName())>0){
+	/*	if(EngBLPermissions.getPermission(CurUITransactionAdd.class.getName())>0){
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.19")); //$NON-NLS-1$
 		item.setData(CurUITransactionAdd.class.getName());
 		}
+   */
 		if(EngBLPermissions.getPermission(CurUITransactionSearch.class.getName())>0){
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.20")); //$NON-NLS-1$
