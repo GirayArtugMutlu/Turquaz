@@ -171,11 +171,7 @@ public final class TreeFactory {
 		item.setData(AccUIAccountingJournal.class.getName());
 		}
 		
-		if(EngBLPermissions.getPermission(AccUIAccountingBalance.class.getName())>0){
-		item = new TreeItem(books,SWT.NULL);
-		item.setText(Messages.getString("TreeFactory.29")); //$NON-NLS-1$
-		item.setData(AccUIAccountingBalance.class.getName());
-		}
+	
 		
 		if(EngBLPermissions.getPermission(AccUIAccountingGeneralLedger.class.getName())>0){
 		item = new TreeItem(books,SWT.NULL);
@@ -183,11 +179,18 @@ public final class TreeFactory {
 		item.setData(AccUIAccountingGeneralLedger.class.getName());
 		}
 		
-		//TreeItem books = new TreeItem(tree,SWT.NULL);
+		TreeItem actionReports = new TreeItem(tree,SWT.NULL);
+		actionReports.setText("Durum Raporlarý"); 
 		
+		if(EngBLPermissions.getPermission(AccUIAccountingBalance.class.getName())>0){
+			item = new TreeItem(actionReports,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.29")); //$NON-NLS-1$
+			item.setData(AccUIAccountingBalance.class.getName());
+			}
 		
 		books.setExpanded(true);
 		root.setExpanded(true);
+		actionReports.setExpanded(true);
 		return tree;
 	}
 	public static Tree createCurrentTree(Tree tree){

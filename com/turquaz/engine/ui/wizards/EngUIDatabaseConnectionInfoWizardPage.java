@@ -129,7 +129,7 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 		setTitle(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.1")); //$NON-NLS-1$
 		setDescription(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.2")); //$NON-NLS-1$
 		this.selection = selection;
-		setPageComplete(true);
+		setPageComplete(false);
 
 	}
 
@@ -199,21 +199,8 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 				dialogChanged();
 			}
 		});
-
-		if(page1.getComboDBServer().getText().startsWith("Postgresql"))
-		{
-			txtServerAddress.setText("localhost"); //$NON-NLS-1$
-			txtServerPort.setText("5432"); //$NON-NLS-1$
-			txtUsername.setText("postgres"); //$NON-NLS-1$
-			
-		}
-		else if(page1.getComboDBServer().getText().startsWith("Turquaz"))
-		{
-			txtServerAddress.setText("localhost"); //$NON-NLS-1$
-			txtServerPort.setText("8877"); //$NON-NLS-1$
-			txtUsername.setText("sa"); //$NON-NLS-1$
-			
-		}
+		
+		
 		this.setControl(container);
 
 	}
@@ -222,6 +209,22 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 		setErrorMessage(message);
 		setPageComplete(message == null);
 
+	}
+	public void updateFields(String type){
+		if(type.startsWith("Postgresql"))
+		{
+			txtServerAddress.setText("localhost"); //$NON-NLS-1$
+			txtServerPort.setText("5432"); //$NON-NLS-1$
+			txtUsername.setText("postgres"); //$NON-NLS-1$
+			
+		}
+		else if(type.startsWith("Turquaz"))
+		{
+			txtServerAddress.setText("localhost"); //$NON-NLS-1$
+			txtServerPort.setText("8877"); //$NON-NLS-1$
+			txtUsername.setText("sa"); //$NON-NLS-1$
+			
+		}
 	}
 
 	private void dialogChanged() {

@@ -58,7 +58,7 @@ public class EngDALSessionFactory {
 		 url = "jdbc:hsqldb:hsql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort");
 		  driver = "org.hsqldb.jdbcDriver";
 		}
-			else if (EngConfiguration.getString("dbType").startsWith("Turquaz"))
+			else if (EngConfiguration.getString("dbType").startsWith("Postgresql"))
 			{
 				url = "jdbc:postgresql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort")+"/"+EngConfiguration.getString("dbName");
 				 driver = "org.postgresql.Driver";
