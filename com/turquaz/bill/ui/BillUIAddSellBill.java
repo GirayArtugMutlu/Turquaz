@@ -335,6 +335,7 @@ public class BillUIAddSellBill extends Composite
 	private TableColumn tableColumn9;
 	private TableColumn tableColumn8;
 	private TableColumn tableColumn7;
+	private TableColumn tableColumnDiscountRate;
 	private TableColumn tableColumn6;
 	private TableColumn tableColumn3;
 	private TableColumn tableColumn4;
@@ -409,10 +410,11 @@ public class BillUIAddSellBill extends Composite
 	private final String INVENTORY_NAME   	        = Messages.getString("BillUIAddSellBill.1"); //$NON-NLS-1$
 	private final String TRANS_AMOUNT               = Messages.getString("BillUIAddSellBill.2"); //$NON-NLS-1$
 	private final String UNIT						= Messages.getString("BillUIAddSellBill.3"); //$NON-NLS-1$
-	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= Messages.getString("BillUIAddSellBill.4"); //$NON-NLS-1$
+	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= "T. Brm Mik.";
 	private final String BASE_UNIT 		            = Messages.getString("BillUIAddSellBill.5"); //$NON-NLS-1$
 	private final String UNIT_PRICE					= Messages.getString("BillUIAddSellBill.6"); //$NON-NLS-1$
 	private final String TOTAL_PRICE				= Messages.getString("BillUIAddSellBill.7"); //$NON-NLS-1$
+	private final String DISCOUNT_PERCENT           = "?nd. %";
 	private final String VAT_PERCENT				= Messages.getString("BillUIAddSellBill.8"); //$NON-NLS-1$
 	private final String VAT_TOTAL					= Messages.getString("BillUIAddSellBill.9"); //$NON-NLS-1$
 	private final String SPECIAL_VAT_PERCENT		= Messages.getString("BillUIAddSellBill.10"); //$NON-NLS-1$
@@ -431,6 +433,7 @@ public class BillUIAddSellBill extends Composite
 			BASE_UNIT,
 			UNIT_PRICE,
 			TOTAL_PRICE,
+			DISCOUNT_PERCENT,
 			VAT_PERCENT,
 			VAT_TOTAL,
 			SPECIAL_VAT_PERCENT,
@@ -750,6 +753,11 @@ public class BillUIAddSellBill extends Composite
                                     SWT.NONE);
                                 tableColumn7.setText(TOTAL_PRICE);
                                 tableColumn7.setWidth(100);
+                            }
+                            {
+                                tableColumnDiscountRate = new TableColumn(tableConsignmentRows, SWT.RIGHT);
+                                tableColumnDiscountRate.setText(DISCOUNT_PERCENT);
+                                tableColumnDiscountRate.setWidth(100);
                             }
                             {
                                 tableColumn8 = new TableColumn(
@@ -1123,6 +1131,7 @@ public class BillUIAddSellBill extends Composite
 	       columnList.add(BASE_UNIT);
 	       columnList.add(UNIT_PRICE);
 	       columnList.add(TOTAL_PRICE);
+	       columnList.add(DISCOUNT_PERCENT);
 	       columnList.add(VAT_PERCENT);
 	       columnList.add(VAT_TOTAL);
 	       columnList.add(SPECIAL_VAT_PERCENT);
@@ -1145,10 +1154,11 @@ public class BillUIAddSellBill extends Composite
 	       editors[6] = new CurrencyCellEditor(tableConsignmentRows);
 	       editors[7] = new CurrencyCellEditor(tableConsignmentRows);
 	       editors[8] = new NumericCellEditor(tableConsignmentRows);
-	       editors[9] = new CurrencyCellEditor(tableConsignmentRows);
-	       editors[10] = new NumericCellEditor(tableConsignmentRows);
-	       editors[11] = new CurrencyCellEditor(tableConsignmentRows);
+	       editors[9] = new NumericCellEditor(tableConsignmentRows);
+	       editors[10] = new CurrencyCellEditor(tableConsignmentRows);
+	       editors[11] = new NumericCellEditor(tableConsignmentRows);
 	       editors[12] = new CurrencyCellEditor(tableConsignmentRows);
+	       editors[13] = new CurrencyCellEditor(tableConsignmentRows);
 	    
 	       // Assign the cell editors to the viewer 
 			tableViewer.setCellEditors(editors);
@@ -1489,6 +1499,9 @@ public class BillUIAddSellBill extends Composite
 			
 		}
 
+		  /**
+	     * TODO discount totals will be the sum of all rows.. 
+	     */
 		generalTotal = subTotal.add(totalVAT).add(totalSpecVAT);
 		double discountRate = (double) txtDiscountRate.getIntValue() / 100;
 

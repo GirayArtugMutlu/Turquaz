@@ -347,11 +347,11 @@ implements SecureComposite{
 	private final String INVENTORY_NAME   	        = Messages.getString("ConUIAddConsignment.12"); //$NON-NLS-1$
 	private final String TRANS_AMOUNT               = Messages.getString("ConUIAddConsignment.13"); //$NON-NLS-1$
 	private final String UNIT						= Messages.getString("ConUIAddConsignment.14"); //$NON-NLS-1$
-	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= "T.Brm Mik.";
+	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= Messages.getString("ConUIAddConsignment.8"); //$NON-NLS-1$
 	private final String BASE_UNIT 		            = Messages.getString("ConUIAddConsignment.16"); //$NON-NLS-1$
 	private final String UNIT_PRICE					= Messages.getString("ConUIAddConsignment.17"); //$NON-NLS-1$
 	private final String TOTAL_PRICE				= Messages.getString("ConUIAddConsignment.18"); //$NON-NLS-1$
-	private final String DISCOUNT_PERCENT           = "?nd %.";
+	private final String DISCOUNT_PERCENT           = Messages.getString("ConUIAddConsignment.15"); //$NON-NLS-1$
 	private final String VAT_PERCENT				= Messages.getString("ConUIAddConsignment.19"); //$NON-NLS-1$
 	private final String VAT_TOTAL					= Messages.getString("ConUIAddConsignment.20"); //$NON-NLS-1$
 	private final String SPECIAL_VAT_PERCENT		= Messages.getString("ConUIAddConsignment.21"); //$NON-NLS-1$
@@ -551,7 +551,7 @@ implements SecureComposite{
                                 lblWareHouse = new CLabel(
                                     compInfoPanel,
                                     SWT.NONE);
-                                lblWareHouse.setText("Depo"); 
+                                lblWareHouse.setText(Messages.getString("ConUIAddConsignment.38"));  //$NON-NLS-1$
                                 GridData lblWareHouseLData = new GridData();
                                 lblWareHouseLData.widthHint = 87;
                                 lblWareHouseLData.heightHint = 18;
@@ -1235,7 +1235,7 @@ implements SecureComposite{
 		    
 				if(comboConsignmentType.getText().equals(Messages.getString("ConUIAddConsignment.34"))){ //$NON-NLS-1$
 					type =1;
-					System.out.println("Type is Buy");
+					
 				}
 			for(int i=0;i<items.length;i++){
 			     
@@ -1256,12 +1256,12 @@ implements SecureComposite{
 			   		
 			   		invTrans.setTransactionsAmountIn(invTrans.getTransactionsTotalAmountOut());
 			   		invTrans.setTransactionsTotalAmountOut(0);		   		
-			   		System.out.println("Changed to Buy");
+			   		
 			   	}
 			   	else{
      		   		invTrans.setTransactionsTotalAmountOut(invTrans.getTransactionsAmountIn());
 			   		invTrans.setTransactionsAmountIn(0);
-			   		System.out.println("Changed to Sell");
+			   		
 			   		
 			   		
 			   	}			   	

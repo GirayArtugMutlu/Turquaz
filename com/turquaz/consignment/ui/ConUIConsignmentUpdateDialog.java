@@ -329,7 +329,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 									compAddConsignment.getTxtDefinition().getText(),
 									compAddConsignment.getDateConsignmentDate().getDate(),
 									(TurqCurrentCard)compAddConsignment.getTxtCurrentCard().getData(),
-									0,
+							
 									compAddConsignment.getTxtDiscountAmount().getBigDecimalValue(),
 									compAddConsignment.getTxtBillDocumentNo().getText(),
 									compAddConsignment.getTxtTotalVat().getBigDecimalValue(),

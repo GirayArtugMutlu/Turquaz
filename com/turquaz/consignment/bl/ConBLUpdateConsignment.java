@@ -24,7 +24,7 @@ public class ConBLUpdateConsignment {
 
 	public void updateConsignment(TurqConsignment consignment,
 			   String docNo, String definition, Date consignmentDate,
-			   TurqCurrentCard curCard, int discountRate,BigDecimal discountAmount,
+			   TurqCurrentCard curCard,BigDecimal discountAmount,
 			   String billDocNo, BigDecimal vatAmount,BigDecimal specialVatAmount,
 			   BigDecimal totalAmount,int type)throws Exception{
 		try{
@@ -44,7 +44,7 @@ public class ConBLUpdateConsignment {
 		common.setDiscountAmount(discountAmount);
 		common.setVatAmount(vatAmount);
 		common.setSpecialVatAmount(specialVatAmount);
-		common.setDiscountRate(discountRate);
+		common.setDiscountRate(0);
 		common.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		common.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 		common.setTurqCurrentCard(curCard);

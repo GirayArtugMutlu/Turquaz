@@ -43,7 +43,7 @@ public class BillBLUpdateBill {
 	
 	
 	public void updateBill(TurqBill bill,String docNo, String definition, boolean isPrinted,
-			boolean isOpen, Date billDate, TurqCurrentCard curCard, int discountRate,
+			boolean isOpen, Date billDate, TurqCurrentCard curCard, 
 			BigDecimal discountAmount,
 			BigDecimal vatAmount, BigDecimal specialVatAmount,
 			BigDecimal totalAmount, int type) throws Exception {
@@ -61,7 +61,7 @@ public class BillBLUpdateBill {
 			
 			TurqBillConsignmentCommon common =bill.getTurqBillConsignmentCommon();
 			
-			common.setDiscountAmount(new BigDecimal(discountRate));
+			common.setDiscountAmount(new BigDecimal(0));
 			common.setCharges(new BigDecimal(0));
 			common.setDiscountAmount(discountAmount);
 			common.setBillDocumentNo(docNo);

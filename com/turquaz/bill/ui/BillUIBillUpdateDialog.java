@@ -198,7 +198,6 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			
 		
 			compAddBill.getTxtDefinition().setText(bill.getBillsDefinition());
-			compAddBill.getTxtDiscountRate().setText(bill.getTurqBillConsignmentCommon().getDiscountRate());
 			fillInvTransactionColumns();
 			fillRegisteredGroup();  
 	        
@@ -279,7 +278,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	                					compAddBill.getTxtDefinition().getText(),
 	                					compAddBill.getDateConsignmentDate().getDate(),
 	                					(TurqCurrentCard)compAddBill.getTxtCurrentCard().getData(),
-	                					compAddBill.getTxtDiscountRate().getIntValue(),
+	                				
 	                					compAddBill.getTxtDiscountAmount().getBigDecimalValue(),
 	                					compAddBill.getTxtDocumentNo().getText(),
 	                					compAddBill.getTxtTotalVat().getBigDecimalValue(),
@@ -304,7 +303,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			        !paymentType.booleanValue(),
 			        compAddBill.getDateConsignmentDate().getDate(),
 					(TurqCurrentCard)compAddBill.getTxtCurrentCard().getData(),
-					compAddBill.getTxtDiscountRate().getIntValue(),
+				
 					compAddBill.getTxtDiscountAmount().getBigDecimalValue(),
 					compAddBill.getTxtTotalVat().getBigDecimalValue(),
 					compAddBill.getDecSpecialVat().getBigDecimalValue(),
