@@ -178,13 +178,16 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 
     }
     
-    public void search() {
-      try{
-          tableCashCards.removeAll();
+    public void search() 
+    {
+      try
+	  {
+         tableCashCards.removeAll();
          List ls = blSearch.searchCashCard((TurqAccountingAccount)accountPicker.getData(),txtCardCode.getText().trim());
          TableItem item;
          TurqCashCard card;
-         for(int i=0;i<ls.size();i++){
+         for(int i=0;i<ls.size();i++)
+         {
              
              card = (TurqCashCard)ls.get(i);
              
