@@ -99,7 +99,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
                     SWTResourceManager.registerResourceUser(dialogShell);
                 }
 
-			dialogShell.setText(getText());
+			dialogShell.setText(Messages.getString("AccUITransactionUpdateDialog.9")); //$NON-NLS-1$
 			coolBar1 = new CoolBar(dialogShell,SWT.NULL);
 
 			dialogShell.setSize(666, 425);

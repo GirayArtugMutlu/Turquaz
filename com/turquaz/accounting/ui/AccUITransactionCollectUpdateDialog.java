@@ -107,6 +107,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
 
 			GridLayout dialogShellLayout = new GridLayout(1, true);
+			dialogShell.setText(Messages.getString("AccUITransactionCollectUpdateDialog.0")); //$NON-NLS-1$
 			dialogShell.setLayout(dialogShellLayout);
 			{
 				coolBar1 = new CoolBar(dialogShell, SWT.NONE);
@@ -131,9 +132,9 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 						{
 							toolUpdate = new ToolItem(toolBar1, SWT.NONE);
 							toolUpdate.setEnabled(false);
-							toolUpdate.setText("Güncelle");
+							toolUpdate.setText(Messages.getString("AccUITransactionCollectUpdateDialog.1")); //$NON-NLS-1$
 							toolUpdate.setImage(SWTResourceManager
-								.getImage("icons/save_edit.gif"));
+								.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 							toolUpdate
 								.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(
@@ -147,9 +148,9 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 							toolDelete.setEnabled(false);
 							toolDelete
 								.setText(Messages
-									.getString("AccUITransactionPaymentUpdateDialog.2"));
+									.getString("AccUITransactionPaymentUpdateDialog.2")); //$NON-NLS-1$
 							toolDelete.setImage(SWTResourceManager
-								.getImage("icons/Delete16.gif"));
+								.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 							toolDelete
 								.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(
@@ -162,9 +163,9 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 							toolCancel = new ToolItem(toolBar1, SWT.NONE);
 							toolCancel
 								.setText(Messages
-									.getString("AccUITransactionPaymentUpdateDialog.3"));
+									.getString("AccUITransactionPaymentUpdateDialog.3")); //$NON-NLS-1$
 							toolCancel.setImage(SWTResourceManager
-								.getImage("icons/cancel.jpg"));
+								.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 							toolCancel
 								.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(
