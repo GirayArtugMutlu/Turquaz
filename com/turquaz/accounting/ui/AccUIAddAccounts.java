@@ -144,7 +144,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
                             
                             if(txtParentAccount.getData()!=null){
                              if(((TurqAccountingAccount)txtParentAccount.getData()).getAccountingAccountsId().intValue()!=-1)
-                                txtAccAccountCode.setText(txtParentAccount.getText().trim()+"."); //$NON-NLS-1$
+                                txtAccAccountCode.setText(txtParentAccount.getText().trim()+" "); //$NON-NLS-1$
                                                    
                             }
                             else{

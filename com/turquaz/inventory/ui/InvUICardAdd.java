@@ -28,6 +28,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
 import com.turquaz.engine.ui.component.CurrencyText;
+import com.turquaz.accounting.ui.AccUIAddAccountDialog;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
 import org.eclipse.jface.viewers.TableViewer;
@@ -52,7 +53,6 @@ import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 
-
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -62,13 +62,11 @@ import com.turquaz.engine.dal.TurqInventoryUnit;
 
 import com.turquaz.engine.ui.component.SecureComposite;
 
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
@@ -86,7 +84,6 @@ import com.turquaz.inventory.ui.comp.InvUIPriceCellModifier;
 import com.turquaz.inventory.ui.comp.InvUIPriceLabelProvider;
 import com.turquaz.inventory.ui.comp.InvUIPriceList;
 
-
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.TableEditor;
@@ -94,39 +91,42 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Label;
 
-
 import com.cloudgarden.resource.SWTResourceManager;
 
 import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.events.TraverseEvent;
+
 /**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
+ * which is free for non-commercial use. If Jigloo is being used commercially
+ * (ie, by a corporation, company or business for any purpose whatever) then you
+ * should purchase a license for each developer using Jigloo. Please visit
+ * www.cloudgarden.com for details. Use of Jigloo implies acceptance of these
+ * licensing terms. ************************************* A COMMERCIAL LICENSE
+ * HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be
+ * used legally for any corporate or commercial purpose.
+ * *************************************
+ */
 public class InvUICardAdd extends Composite implements SecureComposite {
 
 	{
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
 		SWTResourceManager.registerResourceUser(this);
-    }
+	}
 
 	private TableViewer tableInvPricesViewer;
+
 	private TableColumn tableColumnCurrency;
+
 	private TableColumn tableColumnAmount;
+
 	private TableColumn tableColumnPriceType;
+
 	private Button btnUpdateUnits;
+
 	private Button btnInvCardAddNew;
+
 	private Button btnInvCardGroupsPre;
 
 	private Button btnInvCardPricesNext;
@@ -140,15 +140,25 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	public HashMap mapEditorsTableInvCardAddRegisteredUnits;
 
 	private TableColumn tableColumnUnitCoefficient;
+
 	private Button radioSpecialVatAmount;
+
 	private Button radioSpecialVatPercent;
+
 	private AccountPicker accountPickerSpecVatSell;
+
 	private CLabel cLabel2;
+
 	private AccountPicker accountPickerVATSell;
+
 	private CLabel cLabel1;
+
 	private AccountPicker accountPickerSpecVAT;
+
 	private CLabel lblAccSpecVAT;
+
 	private AccountPicker accountPickerVAT;
+
 	private CLabel lblAccVat;
 
 	private TableColumn tableColumn2;
@@ -260,11 +270,17 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	private CLabel lblInvCardCode;
 
 	private CurrencyText decTextSpecialVatAmount;
+
 	private NumericText numTextSpecailVATPercent;
+
 	private Label label5;
+
 	private Label label4;
+
 	private Label label3;
+
 	private Label label2;
+
 	private Label label1;
 
 	private Text txtInvCardName;
@@ -276,13 +292,16 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	private CTabItem tabInvCardGeneral;
 
 	private CTabFolder tabfldInvCardAdd;
+
 	private List currencyList;
+
 	public InvUIPriceList priceList;
+
 	TurquazContentAssistant asistant;
-	
-	
+
 	InvBLCardAdd blCardAdd = new InvBLCardAdd();
-	EngBLCommon engCardAdd=new EngBLCommon();
+
+	EngBLCommon engCardAdd = new EngBLCommon();
 
 	public InvUICardAdd(Composite parent, int style) {
 		super(parent, style);
@@ -290,30 +309,38 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	}
 
 	/**
-	* Initializes the GUI.
-	* Auto-generated code - any changes you make will disappear.
-	*/
-	public void initGUI(){
+	 * Initializes the GUI. Auto-generated code - any changes you make will
+	 * disappear.
+	 */
+	public void initGUI() {
 		try {
 			preInitGUI();
-	
-			tabfldInvCardAdd = new CTabFolder(this,SWT.NULL);
+
+			tabfldInvCardAdd = new CTabFolder(this, SWT.NULL);
 			tabInvCardGeneral = new CTabItem(tabfldInvCardAdd, SWT.NONE);
-			tabInvCardDetails = new CTabItem(tabfldInvCardAdd,SWT.NULL);
-			tabInvCardUnits = new CTabItem(tabfldInvCardAdd,SWT.NULL);
-			tabInvCardPrices = new CTabItem(tabfldInvCardAdd,SWT.NULL);
-			compInvCardPrices = new Composite(tabfldInvCardAdd,SWT.NULL);
-			compInvCardPricesTable = new Composite(compInvCardPrices,SWT.NULL);
-			compInvCardPricesAdd = new Composite(compInvCardPricesTable,SWT.NULL);
-			btnInvCardAddPricesAddPrice = new Button(compInvCardPricesAdd,SWT.PUSH| SWT.CENTER);
-			btnInvCardAddPricesRemovePrice = new Button(compInvCardPricesAdd,SWT.PUSH| SWT.CENTER);
-			tableInvCardAddPrices = new Table(compInvCardPricesTable,SWT.FULL_SELECTION| SWT.V_SCROLL| SWT.BORDER);
-			tableColumnPriceType = new TableColumn(tableInvCardAddPrices,SWT.NULL);
-			tableColumnAmount = new TableColumn(tableInvCardAddPrices,SWT.NULL);
-			tableColumnCurrency = new TableColumn(tableInvCardAddPrices,SWT.NULL);
-			btnInvCardPricesPre = new Button(compInvCardPrices,SWT.PUSH| SWT.CENTER);
-			btnInvCardPricesNext = new Button(compInvCardPrices,SWT.PUSH| SWT.CENTER);
-			tabInvCardGroups = new CTabItem(tabfldInvCardAdd,SWT.NULL);
+			tabInvCardDetails = new CTabItem(tabfldInvCardAdd, SWT.NULL);
+			tabInvCardUnits = new CTabItem(tabfldInvCardAdd, SWT.NULL);
+			tabInvCardPrices = new CTabItem(tabfldInvCardAdd, SWT.NULL);
+			compInvCardPrices = new Composite(tabfldInvCardAdd, SWT.NULL);
+			compInvCardPricesTable = new Composite(compInvCardPrices, SWT.NULL);
+			compInvCardPricesAdd = new Composite(compInvCardPricesTable,
+					SWT.NULL);
+			btnInvCardAddPricesAddPrice = new Button(compInvCardPricesAdd,
+					SWT.PUSH | SWT.CENTER);
+			btnInvCardAddPricesRemovePrice = new Button(compInvCardPricesAdd,
+					SWT.PUSH | SWT.CENTER);
+			tableInvCardAddPrices = new Table(compInvCardPricesTable,
+					SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.BORDER);
+			tableColumnPriceType = new TableColumn(tableInvCardAddPrices,
+					SWT.NULL);
+			tableColumnAmount = new TableColumn(tableInvCardAddPrices, SWT.NULL);
+			tableColumnCurrency = new TableColumn(tableInvCardAddPrices,
+					SWT.NULL);
+			btnInvCardPricesPre = new Button(compInvCardPrices, SWT.PUSH
+					| SWT.CENTER);
+			btnInvCardPricesNext = new Button(compInvCardPrices, SWT.PUSH
+					| SWT.CENTER);
+			tabInvCardGroups = new CTabItem(tabfldInvCardAdd, SWT.NULL);
 
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
@@ -323,7 +350,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			thisLayout.makeColumnsEqualWidth = false;
 			thisLayout.horizontalSpacing = 10;
 			thisLayout.verticalSpacing = 0;
-			
+
 			this.setSize(641, 467);
 
 			GridData tabfldInvCardAddLData = new GridData();
@@ -344,7 +371,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				compInvCardDetailsLayout.makeColumnsEqualWidth = false;
 				compInvCardDetailsLayout.horizontalSpacing = 5;
 				compInvCardDetailsLayout.verticalSpacing = 5;
-				compInvCardDetails.setSize(new org.eclipse.swt.graphics.Point(641,404));
+				compInvCardDetails.setSize(new org.eclipse.swt.graphics.Point(
+						641, 404));
 				compInvCardDetails.setLayout(compInvCardDetailsLayout);
 				{
 					lblInvCardMin = new Label(compInvCardDetails, SWT.RIGHT);
@@ -355,15 +383,14 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					lblInvCardMin.setText(Messages.getString("InvUICardAdd.7")); //$NON-NLS-1$
 				}
 				{
-					txtnumInvCardMin = new NumericText(
-						compInvCardDetails,
-						SWT.NONE);
+					txtnumInvCardMin = new NumericText(compInvCardDetails,
+							SWT.NONE);
 					GridData txtnumInvCardMinLData = new GridData();
 					txtnumInvCardMinLData.widthHint = 85;
 					txtnumInvCardMinLData.heightHint = 18;
 					txtnumInvCardMin.setLayoutData(txtnumInvCardMinLData);
 					txtnumInvCardMin
-						.setSize(new org.eclipse.swt.graphics.Point(91, 18));
+							.setSize(new org.eclipse.swt.graphics.Point(91, 18));
 				}
 				{
 					lblInvCardMax = new CLabel(compInvCardDetails, SWT.RIGHT);
@@ -375,15 +402,14 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					lblInvCardMax.setText(Messages.getString("InvUICardAdd.8")); //$NON-NLS-1$
 				}
 				{
-					txtnumInvCardMax = new NumericText(
-						compInvCardDetails,
-						SWT.NONE);
+					txtnumInvCardMax = new NumericText(compInvCardDetails,
+							SWT.NONE);
 					GridData txtnumInvCardMaxLData = new GridData();
 					txtnumInvCardMaxLData.widthHint = 98;
 					txtnumInvCardMaxLData.heightHint = 18;
 					txtnumInvCardMax.setLayoutData(txtnumInvCardMaxLData);
 					txtnumInvCardMax
-						.setSize(new org.eclipse.swt.graphics.Point(104, 18));
+							.setSize(new org.eclipse.swt.graphics.Point(104, 18));
 				}
 				{
 					lblInvCardInAcc = new CLabel(compInvCardDetails, SWT.RIGHT);
@@ -391,10 +417,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					lblInvCardInAccLData.widthHint = 142;
 					lblInvCardInAccLData.heightHint = 17;
 					lblInvCardInAcc.setLayoutData(lblInvCardInAccLData);
-					lblInvCardInAcc.setText(Messages.getString("InvUICardAdd.9")); //$NON-NLS-1$
+					lblInvCardInAcc.setText(Messages
+							.getString("InvUICardAdd.9")); //$NON-NLS-1$
 				}
 				{
-					txtInvCardInAcc = new AccountPicker(compInvCardDetails, SWT.NONE);
+					txtInvCardInAcc = new AccountPicker(compInvCardDetails,
+							SWT.NONE);
 					GridData txtInvCardInAccLData = new GridData();
 					txtInvCardInAccLData.widthHint = 144;
 					txtInvCardInAccLData.heightHint = 19;
@@ -407,10 +435,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					lblInvCardOutAccLData.widthHint = 134;
 					lblInvCardOutAccLData.heightHint = 16;
 					lblInvCardOutAcc.setLayoutData(lblInvCardOutAccLData);
-					lblInvCardOutAcc.setText(Messages.getString("InvUICardAdd.10")); //$NON-NLS-1$
+					lblInvCardOutAcc.setText(Messages
+							.getString("InvUICardAdd.10")); //$NON-NLS-1$
 				}
 				{
-					txtInvCardOutAcc = new AccountPicker(compInvCardDetails, SWT.NONE);
+					txtInvCardOutAcc = new AccountPicker(compInvCardDetails,
+							SWT.NONE);
 					GridData txtInvCardOutAccLData = new GridData();
 					txtInvCardOutAccLData.widthHint = 161;
 					txtInvCardOutAccLData.heightHint = 18;
@@ -426,17 +456,17 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					lblAccVat.setLayoutData(lblAccVatLData);
 				}
 				{
-					accountPickerVAT = new AccountPicker(
-						compInvCardDetails,
-						SWT.NONE);
-						GridData accountPickerVATLData = new GridData();
-						accountPickerVATLData.widthHint = 143;
-						accountPickerVATLData.heightHint = 19;
-						accountPickerVAT.setLayoutData(accountPickerVATLData);
+					accountPickerVAT = new AccountPicker(compInvCardDetails,
+							SWT.NONE);
+					GridData accountPickerVATLData = new GridData();
+					accountPickerVATLData.widthHint = 143;
+					accountPickerVATLData.heightHint = 19;
+					accountPickerVAT.setLayoutData(accountPickerVATLData);
 				}
 				{
 					lblAccSpecVAT = new CLabel(compInvCardDetails, SWT.RIGHT);
-					lblAccSpecVAT.setText(Messages.getString("InvUICardAdd.39")); //$NON-NLS-1$
+					lblAccSpecVAT
+							.setText(Messages.getString("InvUICardAdd.39")); //$NON-NLS-1$
 					GridData lblAccSpecVATLData = new GridData();
 					lblAccSpecVATLData.widthHint = 131;
 					lblAccSpecVATLData.heightHint = 16;
@@ -444,12 +474,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					accountPickerSpecVAT = new AccountPicker(
-						compInvCardDetails,
-						SWT.NONE);
+							compInvCardDetails, SWT.NONE);
 					GridData accountPickerSpecVATLData = new GridData();
 					accountPickerSpecVATLData.widthHint = 156;
 					accountPickerSpecVATLData.heightHint = 14;
-					accountPickerSpecVAT.setLayoutData(accountPickerSpecVATLData);
+					accountPickerSpecVAT
+							.setLayoutData(accountPickerSpecVATLData);
 				}
 				{
 					cLabel1 = new CLabel(compInvCardDetails, SWT.RIGHT);
@@ -461,8 +491,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					accountPickerVATSell = new AccountPicker(
-						compInvCardDetails,
-						SWT.NONE);
+							compInvCardDetails, SWT.NONE);
 					GridData accountPicker1LData = new GridData();
 					accountPicker1LData.widthHint = 143;
 					accountPicker1LData.heightHint = 19;
@@ -478,8 +507,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					accountPickerSpecVatSell = new AccountPicker(
-						compInvCardDetails,
-						SWT.NONE);
+							compInvCardDetails, SWT.NONE);
 					GridData accountPicker2LData = new GridData();
 					accountPicker2LData.widthHint = 156;
 					accountPicker2LData.heightHint = 14;
@@ -492,45 +520,42 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					lblInvCardVatLData.heightHint = 14;
 					lblInvCardVat.setLayoutData(lblInvCardVatLData);
 					lblInvCardVat
-						.setText(Messages.getString("InvUICardAdd.11")); //$NON-NLS-1$
+							.setText(Messages.getString("InvUICardAdd.11")); //$NON-NLS-1$
 				}
 				{
-					txtInvCardVat = new NumericText(
-						compInvCardDetails,
-						SWT.NONE);
+					txtInvCardVat = new NumericText(compInvCardDetails,
+							SWT.NONE);
 					GridData txtInvCardVatLData = new GridData();
 					txtInvCardVatLData.widthHint = 55;
 					txtInvCardVatLData.heightHint = 17;
 					txtInvCardVat.setLayoutData(txtInvCardVatLData);
 					txtInvCardVat.setSize(new org.eclipse.swt.graphics.Point(
-						61,
-						17));
+							61, 17));
 				}
 				{
-					lblInvCardDiscount = new CLabel(
-						compInvCardDetails,
-						SWT.RIGHT);
+					lblInvCardDiscount = new CLabel(compInvCardDetails,
+							SWT.RIGHT);
 					GridData lblInvCardDiscountLData = new GridData();
 					lblInvCardDiscountLData.horizontalAlignment = GridData.END;
 					lblInvCardDiscountLData.widthHint = 61;
 					lblInvCardDiscountLData.heightHint = 19;
 					lblInvCardDiscount.setLayoutData(lblInvCardDiscountLData);
-					lblInvCardDiscount.setText(Messages.getString("InvUICardAdd.1"));  //$NON-NLS-1$
+					lblInvCardDiscount.setText(Messages
+							.getString("InvUICardAdd.1")); //$NON-NLS-1$
 				}
 				{
-					txtInvCardDiscount = new NumericText(
-						compInvCardDetails,
-						SWT.NONE);
+					txtInvCardDiscount = new NumericText(compInvCardDetails,
+							SWT.NONE);
 					GridData txtInvCardDiscountLData = new GridData();
 					txtInvCardDiscountLData.widthHint = 98;
 					txtInvCardDiscountLData.heightHint = 18;
 					txtInvCardDiscount.setLayoutData(txtInvCardDiscountLData);
 					txtInvCardDiscount
-						.setSize(new org.eclipse.swt.graphics.Point(104, 18));
+							.setSize(new org.eclipse.swt.graphics.Point(104, 18));
 				}
 				{
-					radioSpecialVatPercent = new Button(compInvCardDetails, SWT.RADIO
-						| SWT.LEFT);
+					radioSpecialVatPercent = new Button(compInvCardDetails,
+							SWT.RADIO | SWT.LEFT);
 					GridData radioOTVpercLData1 = new GridData();
 					radioSpecialVatPercent.setText("ÖTV%");
 					radioOTVpercLData1.horizontalAlignment = GridData.END;
@@ -540,47 +565,46 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					numTextSpecailVATPercent = new NumericText(
-						compInvCardDetails,
-						SWT.NONE);
+							compInvCardDetails, SWT.NONE);
 					GridData numTextSpecailVATPercentLData = new GridData();
 					numTextSpecailVATPercent.setSize(55, 17);
 					numTextSpecailVATPercentLData.widthHint = 55;
 					numTextSpecailVATPercentLData.heightHint = 17;
-					numTextSpecailVATPercent.setLayoutData(numTextSpecailVATPercentLData);
+					numTextSpecailVATPercent
+							.setLayoutData(numTextSpecailVATPercentLData);
 				}
 				{
-					radioSpecialVatAmount = new Button(
-						compInvCardDetails,
-						SWT.RADIO | SWT.LEFT);
+					radioSpecialVatAmount = new Button(compInvCardDetails,
+							SWT.RADIO | SWT.LEFT);
 					radioSpecialVatAmount.setText("Birim ÖTV Tutar?");
 					GridData radioSpecialVatAmountLData = new GridData();
 					radioSpecialVatAmount.setSelection(true);
 					radioSpecialVatAmountLData.horizontalAlignment = GridData.END;
-					radioSpecialVatAmount.setLayoutData(radioSpecialVatAmountLData);
+					radioSpecialVatAmount
+							.setLayoutData(radioSpecialVatAmountLData);
 				}
 				{
 					decTextSpecialVatAmount = new CurrencyText(
-						compInvCardDetails,
-						SWT.NONE);
+							compInvCardDetails, SWT.NONE);
 					GridData decTextSpecialVatAmountLData = new GridData();
 					decTextSpecialVatAmount
-						.addTraverseListener(new TraverseListener() {
-							public void keyTraversed(TraverseEvent evt) {
-								if (evt.keyCode == SWT.TAB) {
-									tabfldInvCardAdd
-										.setSelection(tabInvCardUnits);
-									evt.doit = false;
+							.addTraverseListener(new TraverseListener() {
+								public void keyTraversed(TraverseEvent evt) {
+									if (evt.keyCode == SWT.TAB) {
+										tabfldInvCardAdd
+												.setSelection(tabInvCardUnits);
+										evt.doit = false;
+									}
 								}
-							}
-						});
+							});
 					decTextSpecialVatAmountLData.widthHint = 91;
 					decTextSpecialVatAmountLData.heightHint = 16;
 					decTextSpecialVatAmount
-						.setLayoutData(decTextSpecialVatAmountLData);
+							.setLayoutData(decTextSpecialVatAmountLData);
 				}
 				{
 					label3 = new Label(compInvCardDetails, SWT.SEPARATOR
-						| SWT.HORIZONTAL);
+							| SWT.HORIZONTAL);
 					label3.setText("label1"); //$NON-NLS-1$
 					GridData label3LData = new GridData();
 					label3LData.horizontalAlignment = GridData.FILL;
@@ -589,14 +613,15 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					btnInvCardDetPre = new Button(compInvCardDetails, SWT.PUSH
-						| SWT.CENTER);
+							| SWT.CENTER);
 					GridData btnInvCardDetPreLData = new GridData();
 					btnInvCardDetPreLData.widthHint = 85;
 					btnInvCardDetPreLData.heightHint = 31;
 					btnInvCardDetPreLData.horizontalSpan = 3;
 					btnInvCardDetPreLData.verticalSpan = 10;
 					btnInvCardDetPre.setLayoutData(btnInvCardDetPreLData);
-					btnInvCardDetPre.setText(Messages.getString("InvUICardAdd.13")); //$NON-NLS-1$
+					btnInvCardDetPre.setText(Messages
+							.getString("InvUICardAdd.13")); //$NON-NLS-1$
 					btnInvCardDetPre.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
 							btnInvCardDetPreMouseUp(evt);
@@ -605,7 +630,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					btnInvCardNext = new Button(compInvCardDetails, SWT.PUSH
-						| SWT.CENTER);
+							| SWT.CENTER);
 					GridData btnInvCardNextLData = new GridData();
 					btnInvCardNextLData.horizontalAlignment = GridData.END;
 					btnInvCardNextLData.widthHint = 83;
@@ -613,7 +638,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					btnInvCardNextLData.verticalSpan = 10;
 					btnInvCardNextLData.grabExcessHorizontalSpace = true;
 					btnInvCardNext.setLayoutData(btnInvCardNextLData);
-					btnInvCardNext.setText(Messages.getString("InvUICardAdd.5")); //$NON-NLS-1$
+					btnInvCardNext
+							.setText(Messages.getString("InvUICardAdd.5")); //$NON-NLS-1$
 					btnInvCardNext.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
 							btnInvCardNextMouseUp(evt);
@@ -630,7 +656,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				tabInvCardUnits.setControl(compInvCardUnit);
 				GridLayout compInvCardUnitLayout = new GridLayout();
 				compInvCardUnitLayout.numColumns = 4;
-				compInvCardUnit.setSize(new org.eclipse.swt.graphics.Point(641,404));
+				compInvCardUnit.setSize(new org.eclipse.swt.graphics.Point(641,
+						404));
 				compInvCardUnit.setLayout(compInvCardUnitLayout);
 				{
 					lblInvCardUnit = new CLabel(compInvCardUnit, SWT.NONE);
@@ -638,23 +665,24 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					lblInvCardUnitLData.widthHint = 97;
 					lblInvCardUnitLData.heightHint = 19;
 					lblInvCardUnit.setLayoutData(lblInvCardUnitLData);
-					lblInvCardUnit.setText(Messages.getString("InvUICardAdd.16")); //$NON-NLS-1$
+					lblInvCardUnit.setText(Messages
+							.getString("InvUICardAdd.16")); //$NON-NLS-1$
 				}
 				{
 					comboInvCardUnits = new CCombo(compInvCardUnit, SWT.FLAT
-						| SWT.READ_ONLY);
+							| SWT.READ_ONLY);
 					GridData comboInvCardUnitsLData = new GridData();
 					comboInvCardUnitsLData.widthHint = 104;
 					comboInvCardUnitsLData.heightHint = 18;
 					comboInvCardUnits.setLayoutData(comboInvCardUnitsLData);
 					comboInvCardUnits.setText(Messages
-						.getString("InvUICardAdd.17")); //$NON-NLS-1$
+							.getString("InvUICardAdd.17")); //$NON-NLS-1$
 					comboInvCardUnits.setBackground(SWTResourceManager
-						.getColor(255, 255, 255));
+							.getColor(255, 255, 255));
 				}
 				{
 					btnUpdateUnits = new Button(compInvCardUnit, SWT.PUSH
-						| SWT.CENTER);
+							| SWT.CENTER);
 					GridData btnUpdateUnitsLData = new GridData();
 					btnUpdateUnits.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
@@ -665,26 +693,26 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					btnUpdateUnitsLData.widthHint = 128;
 					btnUpdateUnitsLData.heightHint = 29;
 					btnUpdateUnits.setLayoutData(btnUpdateUnitsLData);
-					btnUpdateUnits.setText(Messages.getString("InvUICardAdd.18")); //$NON-NLS-1$
+					btnUpdateUnits.setText(Messages
+							.getString("InvUICardAdd.18")); //$NON-NLS-1$
 				}
 				{
-					lblInvCardSecondaryUnits = new CLabel(
-						compInvCardUnit,
-						SWT.NONE);
+					lblInvCardSecondaryUnits = new CLabel(compInvCardUnit,
+							SWT.NONE);
 					GridData lblInvCardSecondaryUnitsLData = new GridData();
 					lblInvCardSecondaryUnitsLData.verticalAlignment = GridData.BEGINNING;
 					lblInvCardSecondaryUnitsLData.widthHint = 85;
 					lblInvCardSecondaryUnitsLData.heightHint = 19;
-					lblInvCardSecondaryUnits.setLayoutData(lblInvCardSecondaryUnitsLData);
-					lblInvCardSecondaryUnits.setText(Messages.getString("InvUICardAdd.19")); //$NON-NLS-1$
+					lblInvCardSecondaryUnits
+							.setLayoutData(lblInvCardSecondaryUnitsLData);
+					lblInvCardSecondaryUnits.setText(Messages
+							.getString("InvUICardAdd.19")); //$NON-NLS-1$
 				}
 				{
 					compInvCardAddSecondaryUnits = new Composite(
-						compInvCardUnit,
-						SWT.NONE);
+							compInvCardUnit, SWT.NONE);
 					GridLayout compInvCardAddSecondaryUnitsLayout = new GridLayout(
-						3,
-						true);
+							3, true);
 					compInvCardAddSecondaryUnitsLayout.marginWidth = 0;
 					compInvCardAddSecondaryUnitsLayout.marginHeight = 5;
 					compInvCardAddSecondaryUnitsLayout.numColumns = 3;
@@ -695,41 +723,40 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					compInvCardAddSecondaryUnitsLData.widthHint = 414;
 					compInvCardAddSecondaryUnitsLData.heightHint = 126;
 					compInvCardAddSecondaryUnitsLData.horizontalSpan = 2;
-					compInvCardAddSecondaryUnits.setLayoutData(compInvCardAddSecondaryUnitsLData);
 					compInvCardAddSecondaryUnits
-						.setLayout(compInvCardAddSecondaryUnitsLayout);
+							.setLayoutData(compInvCardAddSecondaryUnitsLData);
+					compInvCardAddSecondaryUnits
+							.setLayout(compInvCardAddSecondaryUnitsLayout);
 					{
 						tableInvCardAddAllUnits = new Table(
-							compInvCardAddSecondaryUnits,
-							SWT.SINGLE | SWT.V_SCROLL | SWT.BORDER);
+								compInvCardAddSecondaryUnits, SWT.SINGLE
+										| SWT.V_SCROLL | SWT.BORDER);
 						GridData tableInvCardAddAllUnitsLData = new GridData();
 						tableInvCardAddAllUnits
-							.addMouseListener(new MouseAdapter() {
-							public void mouseDoubleClick(MouseEvent evt) {
-								btnRegisterInvUnitMouseUp();
-							}
-							});
+								.addMouseListener(new MouseAdapter() {
+									public void mouseDoubleClick(MouseEvent evt) {
+										btnRegisterInvUnitMouseUp();
+									}
+								});
 						tableInvCardAddAllUnitsLData.widthHint = 128;
 						tableInvCardAddAllUnitsLData.heightHint = 99;
-						tableInvCardAddAllUnits.setLayoutData(tableInvCardAddAllUnitsLData);
+						tableInvCardAddAllUnits
+								.setLayoutData(tableInvCardAddAllUnitsLData);
 						tableInvCardAddAllUnits.setHeaderVisible(true);
 						tableInvCardAddAllUnits.setLinesVisible(true);
 						{
 							tableColumn1 = new TableColumn(
-								tableInvCardAddAllUnits,
-								SWT.NONE);
+									tableInvCardAddAllUnits, SWT.NONE);
 							tableColumn1.setText(Messages
-								.getString("InvUICardAdd.15")); //$NON-NLS-1$
+									.getString("InvUICardAdd.15")); //$NON-NLS-1$
 							tableColumn1.setWidth(112);
 						}
 					}
 					{
 						compInvCardAddUnitsButtons = new Composite(
-							compInvCardAddSecondaryUnits,
-							SWT.NONE);
+								compInvCardAddSecondaryUnits, SWT.NONE);
 						GridLayout compInvCardAddUnitsButtonsLayout = new GridLayout(
-							1,
-							true);
+								1, true);
 						compInvCardAddUnitsButtonsLayout.marginWidth = 5;
 						compInvCardAddUnitsButtonsLayout.marginHeight = 5;
 						compInvCardAddUnitsButtonsLayout.numColumns = 1;
@@ -739,74 +766,77 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						GridData compInvCardAddUnitsButtonsLData = new GridData();
 						compInvCardAddUnitsButtonsLData.widthHint = 63;
 						compInvCardAddUnitsButtonsLData.heightHint = 73;
-						compInvCardAddUnitsButtons.setLayoutData(compInvCardAddUnitsButtonsLData);
 						compInvCardAddUnitsButtons
-							.setLayout(compInvCardAddUnitsButtonsLayout);
+								.setLayoutData(compInvCardAddUnitsButtonsLData);
+						compInvCardAddUnitsButtons
+								.setLayout(compInvCardAddUnitsButtonsLayout);
 						{
 							btnRegisterInvUnit = new Button(
-								compInvCardAddUnitsButtons,
-								SWT.PUSH | SWT.CENTER);
+									compInvCardAddUnitsButtons, SWT.PUSH
+											| SWT.CENTER);
 							GridData btnRegisterInvUnitLData = new GridData();
 							btnRegisterInvUnit
-								.addMouseListener(new MouseAdapter() {
-								public void mouseUp(MouseEvent evt) {
-									btnRegisterInvUnitMouseUp();
-								}
-								});
+									.addMouseListener(new MouseAdapter() {
+										public void mouseUp(MouseEvent evt) {
+											btnRegisterInvUnitMouseUp();
+										}
+									});
 							btnRegisterInvUnitLData.horizontalAlignment = GridData.CENTER;
 							btnRegisterInvUnitLData.widthHint = 41;
 							btnRegisterInvUnitLData.heightHint = 30;
-							btnRegisterInvUnit.setLayoutData(btnRegisterInvUnitLData);
+							btnRegisterInvUnit
+									.setLayoutData(btnRegisterInvUnitLData);
 							btnRegisterInvUnit.setText(">>"); //$NON-NLS-1$
 						}
 						{
 							btnRemoveRegisteredInvUnit = new Button(
-								compInvCardAddUnitsButtons,
-								SWT.PUSH | SWT.CENTER);
+									compInvCardAddUnitsButtons, SWT.PUSH
+											| SWT.CENTER);
 							GridData btnRemoveRegisteredInvUnitLData = new GridData();
 							btnRemoveRegisteredInvUnit
-								.addMouseListener(new MouseAdapter() {
-								public void mouseUp(MouseEvent evt) {
-									btnRemoveRegisteredInvUnitMouseUp();
-								}
-								});
+									.addMouseListener(new MouseAdapter() {
+										public void mouseUp(MouseEvent evt) {
+											btnRemoveRegisteredInvUnitMouseUp();
+										}
+									});
 							btnRemoveRegisteredInvUnitLData.horizontalAlignment = GridData.CENTER;
 							btnRemoveRegisteredInvUnitLData.widthHint = 40;
 							btnRemoveRegisteredInvUnitLData.heightHint = 30;
-							btnRemoveRegisteredInvUnit.setLayoutData(btnRemoveRegisteredInvUnitLData);
+							btnRemoveRegisteredInvUnit
+									.setLayoutData(btnRemoveRegisteredInvUnitLData);
 							btnRemoveRegisteredInvUnit.setText("<<"); //$NON-NLS-1$
 						}
 						compInvCardAddUnitsButtons.layout();
 					}
 					{
 						tableInvCardAddRegisteredUnits = new Table(
-							compInvCardAddSecondaryUnits,
-							SWT.V_SCROLL | SWT.BORDER);
+								compInvCardAddSecondaryUnits, SWT.V_SCROLL
+										| SWT.BORDER);
 						GridData tableInvCardAddRegisteredUnitsLData = new GridData();
 						tableInvCardAddRegisteredUnits
-							.addMouseListener(new MouseAdapter() {
-							public void mouseDoubleClick(MouseEvent evt) {
-								btnRemoveRegisteredInvUnitMouseUp();
-							}
-							});
+								.addMouseListener(new MouseAdapter() {
+									public void mouseDoubleClick(MouseEvent evt) {
+										btnRemoveRegisteredInvUnitMouseUp();
+									}
+								});
 						tableInvCardAddRegisteredUnitsLData.widthHint = 180;
 						tableInvCardAddRegisteredUnitsLData.heightHint = 98;
-						tableInvCardAddRegisteredUnits.setLayoutData(tableInvCardAddRegisteredUnitsLData);
+						tableInvCardAddRegisteredUnits
+								.setLayoutData(tableInvCardAddRegisteredUnitsLData);
 						tableInvCardAddRegisteredUnits.setHeaderVisible(true);
 						tableInvCardAddRegisteredUnits.setLinesVisible(true);
 						{
 							tableColumn2 = new TableColumn(
-								tableInvCardAddRegisteredUnits,
-								SWT.NONE);
+									tableInvCardAddRegisteredUnits, SWT.NONE);
 							tableColumn2.setText(Messages
-								.getString("InvUICardAdd.23")); //$NON-NLS-1$
+									.getString("InvUICardAdd.23")); //$NON-NLS-1$
 							tableColumn2.setWidth(110);
 						}
 						{
 							tableColumnUnitCoefficient = new TableColumn(
-								tableInvCardAddRegisteredUnits,
-								SWT.NONE);
-							tableColumnUnitCoefficient.setText(Messages.getString("InvUICardAdd.24")); //$NON-NLS-1$
+									tableInvCardAddRegisteredUnits, SWT.NONE);
+							tableColumnUnitCoefficient.setText(Messages
+									.getString("InvUICardAdd.24")); //$NON-NLS-1$
 							tableColumnUnitCoefficient.setWidth(60);
 						}
 					}
@@ -814,7 +844,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					label1 = new Label(compInvCardUnit, SWT.SEPARATOR
-						| SWT.HORIZONTAL);
+							| SWT.HORIZONTAL);
 					label1.setText("label1"); //$NON-NLS-1$
 					GridData label1LData = new GridData();
 					label1LData.horizontalSpan = 4;
@@ -823,14 +853,15 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					btnInvCardUnitsPre = new Button(compInvCardUnit, SWT.PUSH
-						| SWT.CENTER);
+							| SWT.CENTER);
 					GridData btnInvCardUnitsPreLData = new GridData();
 					btnInvCardUnitsPreLData.widthHint = 90;
 					btnInvCardUnitsPreLData.heightHint = 32;
 					btnInvCardUnitsPreLData.horizontalSpan = 3;
 					btnInvCardUnitsPreLData.verticalSpan = 10;
 					btnInvCardUnitsPre.setLayoutData(btnInvCardUnitsPreLData);
-					btnInvCardUnitsPre.setText(Messages.getString("InvUICardAdd.25")); //$NON-NLS-1$
+					btnInvCardUnitsPre.setText(Messages
+							.getString("InvUICardAdd.25")); //$NON-NLS-1$
 					btnInvCardUnitsPre.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
 							btnInvCardUnitsPreMouseUp(evt);
@@ -839,14 +870,15 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					btnInvCardUnitsNxt = new Button(compInvCardUnit, SWT.PUSH
-						| SWT.CENTER);
+							| SWT.CENTER);
 					GridData btnInvCardUnitsNxtLData = new GridData();
 					btnInvCardUnitsNxtLData.horizontalAlignment = GridData.END;
 					btnInvCardUnitsNxtLData.widthHint = 85;
 					btnInvCardUnitsNxtLData.heightHint = 29;
 					btnInvCardUnitsNxtLData.verticalSpan = 10;
 					btnInvCardUnitsNxt.setLayoutData(btnInvCardUnitsNxtLData);
-					btnInvCardUnitsNxt.setText(Messages.getString("InvUICardAdd.5")); //$NON-NLS-1$
+					btnInvCardUnitsNxt.setText(Messages
+							.getString("InvUICardAdd.5")); //$NON-NLS-1$
 					btnInvCardUnitsNxt.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
 							btnInvCardUnitsNxtMouseUp(evt);
@@ -859,9 +891,10 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 			tabInvCardPrices.setControl(compInvCardPrices);
 			tabInvCardPrices.setText(Messages.getString("InvUICardAdd.27")); //$NON-NLS-1$
-	
-			compInvCardPrices.setSize(new org.eclipse.swt.graphics.Point(641,404));
-	
+
+			compInvCardPrices.setSize(new org.eclipse.swt.graphics.Point(641,
+					404));
+
 			GridData compInvCardPricesTableLData = new GridData();
 			compInvCardPricesTableLData.widthHint = 486;
 			compInvCardPricesTableLData.heightHint = 198;
@@ -879,10 +912,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			compInvCardPricesAddLData.grabExcessHorizontalSpace = false;
 			compInvCardPricesAddLData.grabExcessVerticalSpace = false;
 			compInvCardPricesAdd.setLayoutData(compInvCardPricesAddLData);
-			compInvCardPricesAdd.setSize(new org.eclipse.swt.graphics.Point(45,67));
-	
+			compInvCardPricesAdd.setSize(new org.eclipse.swt.graphics.Point(45,
+					67));
+
 			GridData btnInvCardAddPricesAddPriceLData = new GridData();
-			btnInvCardAddPricesAddPrice.setImage(SWTResourceManager.getImage("icons/plus.gif")); //$NON-NLS-1$
+			btnInvCardAddPricesAddPrice.setImage(SWTResourceManager
+					.getImage("icons/plus.gif")); //$NON-NLS-1$
 			btnInvCardAddPricesAddPriceLData.verticalAlignment = GridData.CENTER;
 			btnInvCardAddPricesAddPriceLData.horizontalAlignment = GridData.BEGINNING;
 			btnInvCardAddPricesAddPriceLData.widthHint = 30;
@@ -892,16 +927,19 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			btnInvCardAddPricesAddPriceLData.verticalSpan = 1;
 			btnInvCardAddPricesAddPriceLData.grabExcessHorizontalSpace = false;
 			btnInvCardAddPricesAddPriceLData.grabExcessVerticalSpace = false;
-			btnInvCardAddPricesAddPrice.setLayoutData(btnInvCardAddPricesAddPriceLData);
-			btnInvCardAddPricesAddPrice.setSize(new org.eclipse.swt.graphics.Point(30,24));
-			btnInvCardAddPricesAddPrice.addMouseListener( new MouseAdapter() {
+			btnInvCardAddPricesAddPrice
+					.setLayoutData(btnInvCardAddPricesAddPriceLData);
+			btnInvCardAddPricesAddPrice
+					.setSize(new org.eclipse.swt.graphics.Point(30, 24));
+			btnInvCardAddPricesAddPrice.addMouseListener(new MouseAdapter() {
 				public void mouseDown(MouseEvent evt) {
 					btnInvCardAddPricesAddPriceMouseDown(evt);
 				}
 			});
-	
+
 			GridData btnInvCardAddPricesRemovePriceLData = new GridData();
-			btnInvCardAddPricesRemovePrice.setImage(SWTResourceManager.getImage("icons/minus.gif")); //$NON-NLS-1$
+			btnInvCardAddPricesRemovePrice.setImage(SWTResourceManager
+					.getImage("icons/minus.gif")); //$NON-NLS-1$
 			btnInvCardAddPricesRemovePriceLData.verticalAlignment = GridData.CENTER;
 			btnInvCardAddPricesRemovePriceLData.horizontalAlignment = GridData.BEGINNING;
 			btnInvCardAddPricesRemovePriceLData.widthHint = 30;
@@ -911,9 +949,11 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			btnInvCardAddPricesRemovePriceLData.verticalSpan = 1;
 			btnInvCardAddPricesRemovePriceLData.grabExcessHorizontalSpace = false;
 			btnInvCardAddPricesRemovePriceLData.grabExcessVerticalSpace = false;
-			btnInvCardAddPricesRemovePrice.setLayoutData(btnInvCardAddPricesRemovePriceLData);
-			btnInvCardAddPricesRemovePrice.setSize(new org.eclipse.swt.graphics.Point(30,24));
-			btnInvCardAddPricesRemovePrice.addMouseListener( new MouseAdapter() {
+			btnInvCardAddPricesRemovePrice
+					.setLayoutData(btnInvCardAddPricesRemovePriceLData);
+			btnInvCardAddPricesRemovePrice
+					.setSize(new org.eclipse.swt.graphics.Point(30, 24));
+			btnInvCardAddPricesRemovePrice.addMouseListener(new MouseAdapter() {
 				public void mouseDown(MouseEvent evt) {
 					btnInvCardAddPricesRemovePriceMouseDown(evt);
 				}
@@ -927,7 +967,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			compInvCardPricesAddLayout.horizontalSpacing = 5;
 			compInvCardPricesAddLayout.verticalSpacing = 5;
 			compInvCardPricesAdd.layout();
-	
+
 			GridData tableInvCardAddPricesLData = new GridData();
 			tableInvCardAddPricesLData.verticalAlignment = GridData.CENTER;
 			tableInvCardAddPricesLData.horizontalAlignment = GridData.BEGINNING;
@@ -941,20 +981,22 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			tableInvCardAddPrices.setLayoutData(tableInvCardAddPricesLData);
 			tableInvCardAddPrices.setHeaderVisible(true);
 			tableInvCardAddPrices.setLinesVisible(true);
-			tableInvCardAddPrices.setSize(new org.eclipse.swt.graphics.Point(421,178));
+			tableInvCardAddPrices.setSize(new org.eclipse.swt.graphics.Point(
+					421, 178));
 
 			tableColumnPriceType.setText(Messages.getString("InvUICardAdd.28")); //$NON-NLS-1$
 			tableColumnPriceType.setWidth(120);
-	
+
 			tableColumnAmount.setText(Messages.getString("InvUICardAdd.29")); //$NON-NLS-1$
 			tableColumnAmount.setWidth(150);
-	
+
 			tableColumnCurrency.setText(Messages.getString("InvUICardAdd.30")); //$NON-NLS-1$
 			tableColumnCurrency.setWidth(162);
 			GridLayout compInvCardPricesTableLayout = new GridLayout(2, true);
 			compInvCardPricesTable.setLayout(compInvCardPricesTableLayout);
 			{
-				label4 = new Label(compInvCardPrices, SWT.SEPARATOR | SWT.HORIZONTAL);
+				label4 = new Label(compInvCardPrices, SWT.SEPARATOR
+						| SWT.HORIZONTAL);
 				label4.setText("label1"); //$NON-NLS-1$
 				GridData label4LData = new GridData();
 				label4LData.horizontalAlignment = GridData.FILL;
@@ -968,19 +1010,19 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			compInvCardPricesTableLayout.horizontalSpacing = 5;
 			compInvCardPricesTableLayout.verticalSpacing = 5;
 			compInvCardPricesTable.layout();
-	
+
 			GridData btnInvCardPricesPreLData = new GridData();
 			btnInvCardPricesPreLData.verticalAlignment = GridData.END;
 			btnInvCardPricesPreLData.widthHint = 86;
 			btnInvCardPricesPreLData.heightHint = 30;
 			btnInvCardPricesPre.setLayoutData(btnInvCardPricesPreLData);
 			btnInvCardPricesPre.setText(Messages.getString("InvUICardAdd.13")); //$NON-NLS-1$
-			btnInvCardPricesPre.addMouseListener( new MouseAdapter() {
+			btnInvCardPricesPre.addMouseListener(new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
 					btnInvCardPricesPreMouseUp(evt);
 				}
 			});
-	
+
 			GridData btnInvCardPricesNextLData = new GridData();
 			btnInvCardPricesNextLData.verticalAlignment = GridData.END;
 			btnInvCardPricesNextLData.horizontalAlignment = GridData.END;
@@ -988,7 +1030,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			btnInvCardPricesNextLData.heightHint = 30;
 			btnInvCardPricesNext.setLayoutData(btnInvCardPricesNextLData);
 			btnInvCardPricesNext.setText(Messages.getString("InvUICardAdd.5")); //$NON-NLS-1$
-			btnInvCardPricesNext.addMouseListener( new MouseAdapter() {
+			btnInvCardPricesNext.addMouseListener(new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
 					btnInvCardPricesNextMouseUp(evt);
 				}
@@ -1015,15 +1057,13 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				compInvCardAddGroupsLayout.horizontalSpacing = 5;
 				compInvCardAddGroupsLayout.verticalSpacing = 5;
 				compInvCardAddGroups
-					.setSize(new org.eclipse.swt.graphics.Point(641, 404));
+						.setSize(new org.eclipse.swt.graphics.Point(641, 404));
 				compInvCardAddGroups.setLayout(compInvCardAddGroupsLayout);
 				{
 					compInvCardAddGroupsSelection = new Composite(
-						compInvCardAddGroups,
-						SWT.NONE);
+							compInvCardAddGroups, SWT.NONE);
 					GridLayout compInvCardAddGroupsSelectionLayout = new GridLayout(
-						3,
-						true);
+							3, true);
 					compInvCardAddGroupsSelectionLayout.marginWidth = 5;
 					compInvCardAddGroupsSelectionLayout.marginHeight = 5;
 					compInvCardAddGroupsSelectionLayout.numColumns = 3;
@@ -1034,43 +1074,43 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					compInvCardAddGroupsSelectionLData.widthHint = 448;
 					compInvCardAddGroupsSelectionLData.heightHint = 184;
 					compInvCardAddGroupsSelection
-						.setLayoutData(compInvCardAddGroupsSelectionLData);
+							.setLayoutData(compInvCardAddGroupsSelectionLData);
 					compInvCardAddGroupsSelection
-						.setSize(new org.eclipse.swt.graphics.Point(448, 184));
+							.setSize(new org.eclipse.swt.graphics.Point(448,
+									184));
 					compInvCardAddGroupsSelection
-						.setLayout(compInvCardAddGroupsSelectionLayout);
+							.setLayout(compInvCardAddGroupsSelectionLayout);
 					{
 						tableInvCardAddGroupsAllGroups = new Table(
-							compInvCardAddGroupsSelection,
-							SWT.SINGLE | SWT.FULL_SELECTION | SWT.BORDER);
+								compInvCardAddGroupsSelection, SWT.SINGLE
+										| SWT.FULL_SELECTION | SWT.BORDER);
 						GridData tableInvCardAddGroupsAllGroupsLData = new GridData();
 						tableInvCardAddGroupsAllGroups
-							.addMouseListener(new MouseAdapter() {
-							public void mouseDoubleClick(MouseEvent evt) {
-								btnInvCardAddGroupsRegisterMouseUp();
-							}
-							});
+								.addMouseListener(new MouseAdapter() {
+									public void mouseDoubleClick(MouseEvent evt) {
+										btnInvCardAddGroupsRegisterMouseUp();
+									}
+								});
 						tableInvCardAddGroupsAllGroupsLData.widthHint = 127;
 						tableInvCardAddGroupsAllGroupsLData.heightHint = 152;
-						tableInvCardAddGroupsAllGroups.setLayoutData(tableInvCardAddGroupsAllGroupsLData);
+						tableInvCardAddGroupsAllGroups
+								.setLayoutData(tableInvCardAddGroupsAllGroupsLData);
 						tableInvCardAddGroupsAllGroups.setHeaderVisible(true);
 						tableInvCardAddGroupsAllGroups.setLinesVisible(true);
 						{
 							tableColumnInvCardAddGroupAllGroups = new TableColumn(
-								tableInvCardAddGroupsAllGroups,
-								SWT.NONE);
+									tableInvCardAddGroupsAllGroups, SWT.NONE);
 							tableColumnInvCardAddGroupAllGroups
-								.setText(Messages.getString("InvUICardAdd.33")); //$NON-NLS-1$
+									.setText(Messages
+											.getString("InvUICardAdd.33")); //$NON-NLS-1$
 							tableColumnInvCardAddGroupAllGroups.setWidth(141);
 						}
 					}
 					{
 						compInvCardAddGroupsButtons = new Composite(
-							compInvCardAddGroupsSelection,
-							SWT.NONE);
+								compInvCardAddGroupsSelection, SWT.NONE);
 						GridLayout compInvCardAddGroupsButtonsLayout = new GridLayout(
-							1,
-							true);
+								1, true);
 						compInvCardAddGroupsButtonsLayout.marginWidth = 5;
 						compInvCardAddGroupsButtonsLayout.marginHeight = 5;
 						compInvCardAddGroupsButtonsLayout.numColumns = 1;
@@ -1081,121 +1121,118 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						compInvCardAddGroupsButtonsLData.widthHint = 136;
 						compInvCardAddGroupsButtonsLData.heightHint = 118;
 						compInvCardAddGroupsButtons
-							.setLayoutData(compInvCardAddGroupsButtonsLData);
+								.setLayoutData(compInvCardAddGroupsButtonsLData);
 						compInvCardAddGroupsButtons
-							.setSize(new org.eclipse.swt.graphics.Point(
-								136,
-								118));
+								.setSize(new org.eclipse.swt.graphics.Point(
+										136, 118));
 						compInvCardAddGroupsButtons
-							.setLayout(compInvCardAddGroupsButtonsLayout);
+								.setLayout(compInvCardAddGroupsButtonsLayout);
 						{
 							btnInvCardAddGroupsRegister = new Button(
-								compInvCardAddGroupsButtons,
-								SWT.PUSH | SWT.CENTER);
+									compInvCardAddGroupsButtons, SWT.PUSH
+											| SWT.CENTER);
 							GridData btnInvCardAddGroupsRegisterLData = new GridData();
 							btnInvCardAddGroupsRegister
-								.addMouseListener(new MouseAdapter() {
-								public void mouseUp(MouseEvent evt) {
-									btnInvCardAddGroupsRegisterMouseUp();
-								}
-								});
+									.addMouseListener(new MouseAdapter() {
+										public void mouseUp(MouseEvent evt) {
+											btnInvCardAddGroupsRegisterMouseUp();
+										}
+									});
 							btnInvCardAddGroupsRegisterLData.horizontalAlignment = GridData.CENTER;
 							btnInvCardAddGroupsRegisterLData.widthHint = 44;
 							btnInvCardAddGroupsRegisterLData.heightHint = 29;
 							btnInvCardAddGroupsRegister
-								.setLayoutData(btnInvCardAddGroupsRegisterLData);
+									.setLayoutData(btnInvCardAddGroupsRegisterLData);
 							btnInvCardAddGroupsRegister.setText(">>"); //$NON-NLS-1$
 							btnInvCardAddGroupsRegister
-								.setSize(new org.eclipse.swt.graphics.Point(
-									44,
-									29));
+									.setSize(new org.eclipse.swt.graphics.Point(
+											44, 29));
 						}
 						{
 							btnInvCardAddGroupsRemove = new Button(
-								compInvCardAddGroupsButtons,
-								SWT.PUSH | SWT.CENTER);
+									compInvCardAddGroupsButtons, SWT.PUSH
+											| SWT.CENTER);
 							GridData btnInvCardAddGroupsRemoveLData = new GridData();
 							btnInvCardAddGroupsRemove
-								.addMouseListener(new MouseAdapter() {
-								public void mouseUp(MouseEvent evt) {
-									btnInvCardAddGroupsRemoveMouseUp();
-								}
-								});
+									.addMouseListener(new MouseAdapter() {
+										public void mouseUp(MouseEvent evt) {
+											btnInvCardAddGroupsRemoveMouseUp();
+										}
+									});
 							btnInvCardAddGroupsRemoveLData.verticalAlignment = GridData.BEGINNING;
 							btnInvCardAddGroupsRemoveLData.horizontalAlignment = GridData.CENTER;
 							btnInvCardAddGroupsRemoveLData.widthHint = 48;
 							btnInvCardAddGroupsRemoveLData.heightHint = 31;
 							btnInvCardAddGroupsRemove
-								.setLayoutData(btnInvCardAddGroupsRemoveLData);
+									.setLayoutData(btnInvCardAddGroupsRemoveLData);
 							btnInvCardAddGroupsRemove.setText("<<"); //$NON-NLS-1$
 							btnInvCardAddGroupsRemove
-								.setSize(new org.eclipse.swt.graphics.Point(
-									48,
-									31));
+									.setSize(new org.eclipse.swt.graphics.Point(
+											48, 31));
 						}
 						{
 							btnInvCardAddNew = new Button(
-								compInvCardAddGroupsButtons,
-								SWT.PUSH | SWT.CENTER);
+									compInvCardAddGroupsButtons, SWT.PUSH
+											| SWT.CENTER);
 							GridData btnInvCardAddNewLData = new GridData();
 							btnInvCardAddNew
-								.addMouseListener(new MouseAdapter() {
-								public void mouseUp(MouseEvent evt) {
-									btnInvCardAddNewMouseUp(evt);
-								}
-								});
+									.addMouseListener(new MouseAdapter() {
+										public void mouseUp(MouseEvent evt) {
+											btnInvCardAddNewMouseUp(evt);
+										}
+									});
 							btnInvCardAddNewLData.widthHint = 129;
 							btnInvCardAddNewLData.heightHint = 41;
 							btnInvCardAddNewLData.horizontalSpan = 2;
 							btnInvCardAddNew
-								.setLayoutData(btnInvCardAddNewLData);
+									.setLayoutData(btnInvCardAddNewLData);
 							btnInvCardAddNew.setText(Messages
-								.getString("InvUICardAdd.37")); //$NON-NLS-1$
+									.getString("InvUICardAdd.37")); //$NON-NLS-1$
 							btnInvCardAddNew
-								.setSize(new org.eclipse.swt.graphics.Point(
-									129,
-									41));
+									.setSize(new org.eclipse.swt.graphics.Point(
+											129, 41));
 						}
 						compInvCardAddGroupsButtons.layout();
 					}
 					{
 						tableInvCardAddGroupsRegisteredGroups = new Table(
-							compInvCardAddGroupsSelection,
-							SWT.FULL_SELECTION | SWT.BORDER);
+								compInvCardAddGroupsSelection,
+								SWT.FULL_SELECTION | SWT.BORDER);
 						GridData tableInvCardAddGroupsRegisteredGroupsLData = new GridData();
 						tableInvCardAddGroupsRegisteredGroups
-							.addMouseListener(new MouseAdapter() {
-							public void mouseDoubleClick(MouseEvent evt) {
-								btnInvCardAddGroupsRemoveMouseUp();
-							}
-							});
+								.addMouseListener(new MouseAdapter() {
+									public void mouseDoubleClick(MouseEvent evt) {
+										btnInvCardAddGroupsRemoveMouseUp();
+									}
+								});
 						tableInvCardAddGroupsRegisteredGroupsLData.widthHint = 141;
 						tableInvCardAddGroupsRegisteredGroupsLData.heightHint = 151;
-						tableInvCardAddGroupsRegisteredGroups.setLayoutData(tableInvCardAddGroupsRegisteredGroupsLData);
 						tableInvCardAddGroupsRegisteredGroups
-							.setHeaderVisible(true);
+								.setLayoutData(tableInvCardAddGroupsRegisteredGroupsLData);
 						tableInvCardAddGroupsRegisteredGroups
-							.setLinesVisible(true);
+								.setHeaderVisible(true);
+						tableInvCardAddGroupsRegisteredGroups
+								.setLinesVisible(true);
 						{
 							tableColumnRegisteredGroups = new TableColumn(
-								tableInvCardAddGroupsRegisteredGroups,
-								SWT.NONE);
+									tableInvCardAddGroupsRegisteredGroups,
+									SWT.NONE);
 							tableColumnRegisteredGroups.setText(Messages
-								.getString("InvUICardAdd.38")); //$NON-NLS-1$
+									.getString("InvUICardAdd.38")); //$NON-NLS-1$
 							tableColumnRegisteredGroups.setWidth(146);
 						}
 					}
 					compInvCardAddGroupsSelection.layout();
 				}
 				{
-					btnInvCardGroupsPre = new Button(
-						compInvCardAddGroups,
-						SWT.PUSH | SWT.CENTER);
+					btnInvCardGroupsPre = new Button(compInvCardAddGroups,
+							SWT.PUSH | SWT.CENTER);
 					GridData btnInvCardGroupsPreLData = new GridData();
 					btnInvCardGroupsPreLData.widthHint = 97;
 					btnInvCardGroupsPreLData.heightHint = 31;
 					btnInvCardGroupsPre.setLayoutData(btnInvCardGroupsPreLData);
-					btnInvCardGroupsPre.setText(Messages.getString("InvUICardAdd.13")); //$NON-NLS-1$
+					btnInvCardGroupsPre.setText(Messages
+							.getString("InvUICardAdd.13")); //$NON-NLS-1$
 					btnInvCardGroupsPre.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
 							btnInvCardGroupsPreMouseUp(evt);
@@ -1204,7 +1241,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				}
 				{
 					label5 = new Label(compInvCardAddGroups, SWT.SEPARATOR
-						| SWT.HORIZONTAL);
+							| SWT.HORIZONTAL);
 					label5.setText("label1"); //$NON-NLS-1$
 					GridData label5LData = new GridData();
 					label5LData.horizontalAlignment = GridData.FILL;
@@ -1217,14 +1254,14 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 			tabfldInvCardAdd.setSelection(0);
 			{
-				
+
 				tabInvCardGeneral.setText(Messages.getString("InvUICardAdd.0")); //$NON-NLS-1$
 				{
-					compInvCardGeneral = new Composite(tabfldInvCardAdd, SWT.NONE);
+					compInvCardGeneral = new Composite(tabfldInvCardAdd,
+							SWT.NONE);
 					tabInvCardGeneral.setControl(compInvCardGeneral);
-					GridLayout compInvCardGeneralLayout = new GridLayout(
-						4,
-						true);
+					GridLayout compInvCardGeneralLayout = new GridLayout(4,
+							true);
 					compInvCardGeneralLayout.marginWidth = 5;
 					compInvCardGeneralLayout.marginHeight = 5;
 					compInvCardGeneralLayout.numColumns = 4;
@@ -1233,31 +1270,33 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					compInvCardGeneralLayout.verticalSpacing = 5;
 					compInvCardGeneral.setLayout(compInvCardGeneralLayout);
 					{
-						lblInvCardCode = new CLabel(
-							compInvCardGeneral,
-							SWT.NONE);
+						lblInvCardCode = new CLabel(compInvCardGeneral,
+								SWT.NONE);
 						GridData lblInvCardCodeLData = new GridData();
 						lblInvCardCodeLData.widthHint = 100;
 						lblInvCardCodeLData.heightHint = 23;
 						lblInvCardCode.setLayoutData(lblInvCardCodeLData);
 						lblInvCardCode.setText(Messages
-							.getString("InvUICardAdd.3")); //$NON-NLS-1$
+								.getString("InvUICardAdd.3")); //$NON-NLS-1$
 						lblInvCardCode
-							.setSize(new org.eclipse.swt.graphics.Point(100, 23));
+								.setSize(new org.eclipse.swt.graphics.Point(
+										100, 23));
 					}
 					{
-						txtInvCardCode = new InventoryPicker(compInvCardGeneral, SWT.NONE);
+						txtInvCardCode = new InventoryPicker(
+								compInvCardGeneral, SWT.NONE);
 						GridData txtInvCardCodeLData = new GridData();
 						txtInvCardCodeLData.widthHint = 130;
 						txtInvCardCodeLData.heightHint = 15;
 						txtInvCardCodeLData.horizontalSpan = 3;
 						txtInvCardCode.setLayoutData(txtInvCardCodeLData);
-						txtInvCardCode.setSize(new org.eclipse.swt.graphics.Point(136,15));
+						txtInvCardCode
+								.setSize(new org.eclipse.swt.graphics.Point(
+										136, 15));
 					}
 					{
-						lblInvCardName = new CLabel(
-							compInvCardGeneral,
-							SWT.NONE);
+						lblInvCardName = new CLabel(compInvCardGeneral,
+								SWT.NONE);
 						GridData lblInvCardNameLData = new GridData();
 						lblInvCardNameLData.widthHint = 96;
 						lblInvCardNameLData.heightHint = 20;
@@ -1265,7 +1304,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						lblInvCardName.setText(Messages
 								.getString("InvUICardAdd.47")); //$NON-NLS-1$
 						lblInvCardName
-							.setSize(new org.eclipse.swt.graphics.Point(96, 20));
+								.setSize(new org.eclipse.swt.graphics.Point(96,
+										20));
 					}
 					{
 						txtInvCardName = new Text(compInvCardGeneral, SWT.NONE);
@@ -1276,48 +1316,49 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						txtInvCardName.setLayoutData(txtInvCardNameLData);
 						txtInvCardName.setTextLimit(50);
 						txtInvCardName
-							.setSize(new org.eclipse.swt.graphics.Point(138, 16));
+								.setSize(new org.eclipse.swt.graphics.Point(
+										138, 16));
 					}
 					{
-						lblInvCardDefinition = new CLabel(
-							compInvCardGeneral,
-							SWT.NONE);
+						lblInvCardDefinition = new CLabel(compInvCardGeneral,
+								SWT.NONE);
 						GridData lblInvCardDefinitionLData = new GridData();
 						lblInvCardDefinitionLData.widthHint = 76;
 						lblInvCardDefinitionLData.heightHint = 17;
 						lblInvCardDefinition
-							.setLayoutData(lblInvCardDefinitionLData);
+								.setLayoutData(lblInvCardDefinitionLData);
 						lblInvCardDefinition.setText(Messages
-							.getString("InvUICardAdd.4")); //$NON-NLS-1$
+								.getString("InvUICardAdd.4")); //$NON-NLS-1$
 						lblInvCardDefinition
-							.setSize(new org.eclipse.swt.graphics.Point(76, 17));
+								.setSize(new org.eclipse.swt.graphics.Point(76,
+										17));
 					}
 					{
-						txtInvCardDefinition = new Text(
-							compInvCardGeneral,
-							SWT.MULTI | SWT.WRAP | SWT.H_SCROLL | SWT.V_SCROLL);
+						txtInvCardDefinition = new Text(compInvCardGeneral,
+								SWT.MULTI | SWT.WRAP | SWT.H_SCROLL
+										| SWT.V_SCROLL);
 						GridData txtInvCardDefinitionLData = new GridData();
 						txtInvCardDefinition
-							.addTraverseListener(new TraverseListener() {
-							public void keyTraversed(TraverseEvent evt) {
-								if (evt.keyCode == SWT.TAB) {
-									evt.doit = false;
-									tabfldInvCardAdd
-										.setSelection(tabInvCardDetails);
-								}
-							}
-							});
-						
+								.addTraverseListener(new TraverseListener() {
+									public void keyTraversed(TraverseEvent evt) {
+										if (evt.keyCode == SWT.TAB) {
+											evt.doit = false;
+											tabfldInvCardAdd
+													.setSelection(tabInvCardDetails);
+										}
+									}
+								});
 
 						txtInvCardDefinitionLData.widthHint = 187;
 						txtInvCardDefinitionLData.heightHint = 46;
 						txtInvCardDefinitionLData.horizontalSpan = 3;
-						txtInvCardDefinition.setLayoutData(txtInvCardDefinitionLData);
+						txtInvCardDefinition
+								.setLayoutData(txtInvCardDefinitionLData);
 						txtInvCardDefinition.setTextLimit(250);
 					}
 					{
 						label2 = new Label(compInvCardGeneral, SWT.SEPARATOR
-							| SWT.HORIZONTAL);
+								| SWT.HORIZONTAL);
 						label2.setText("label1"); //$NON-NLS-1$
 						GridData label2LData = new GridData();
 						label2LData.horizontalAlignment = GridData.FILL;
@@ -1325,9 +1366,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						label2.setLayoutData(label2LData);
 					}
 					{
-						btnInvCardGeneral = new Button(
-							compInvCardGeneral,
-							SWT.PUSH | SWT.CENTER);
+						btnInvCardGeneral = new Button(compInvCardGeneral,
+								SWT.PUSH | SWT.CENTER);
 						GridData btnInvCardGeneralLData = new GridData();
 						btnInvCardGeneralLData.verticalAlignment = GridData.END;
 						btnInvCardGeneralLData.horizontalAlignment = GridData.END;
@@ -1338,7 +1378,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						btnInvCardGeneralLData.grabExcessHorizontalSpace = true;
 						btnInvCardGeneral.setLayoutData(btnInvCardGeneralLData);
 						btnInvCardGeneral.setText(Messages
-							.getString("InvUICardAdd.5")); //$NON-NLS-1$
+								.getString("InvUICardAdd.5")); //$NON-NLS-1$
 						btnInvCardGeneral.addMouseListener(new MouseAdapter() {
 							public void mouseUp(MouseEvent evt) {
 								btnInvCardGeneralMouseUp(evt);
@@ -1348,29 +1388,28 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					compInvCardGeneral.layout();
 				}
 			}
-			
-			
+
 			this.layout();
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
 				}
 			});
-	
+
 			postInitGUI();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	/** Add your pre-init code in here */
 	public void preInitGUI() {
-	try{
-		mapEditorsTableInvCardAddRegisteredUnits = new HashMap();
-		currencyList = engCardAdd.getCurrencies();
+		try {
+			mapEditorsTableInvCardAddRegisteredUnits = new HashMap();
+			currencyList = engCardAdd.getCurrencies();
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
-	catch(Exception ex){
-	ex.printStackTrace();
-	}
-		
+
 	}
 
 	/** Add your post-init code in here */
@@ -1379,89 +1418,95 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		fillInvCardUnits();
 		fillTableInvAllGroups();
 		initTableInvPrices();
-	
-	
 
 	}
 
 	public void initTableInvPrices() {
-	tableInvPricesViewer = new TableViewer(tableInvCardAddPrices);
-	tableInvPricesViewer.setUseHashlookup(true);
-	tableInvPricesViewer.setColumnProperties(new String[]{Messages.getString("InvUICardAdd.14"),Messages.getString("InvUICardAdd.20"),Messages.getString("InvUICardAdd.21")}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		tableInvPricesViewer = new TableViewer(tableInvCardAddPrices);
+		tableInvPricesViewer.setUseHashlookup(true);
+		tableInvPricesViewer
+				.setColumnProperties(new String[] {
+						Messages.getString("InvUICardAdd.14"), Messages.getString("InvUICardAdd.20"), Messages.getString("InvUICardAdd.21") }); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 		// Create the cell editors
-	CellEditor[] editors = new CellEditor[3];
+		CellEditor[] editors = new CellEditor[3];
 
-	editors[0] = new ComboBoxCellEditor(tableInvCardAddPrices,new String[]{Messages.getString("InvUICardAdd.22"),Messages.getString("InvUICardAdd.26")}); //$NON-NLS-1$ //$NON-NLS-2$
+		editors[0] = new ComboBoxCellEditor(
+				tableInvCardAddPrices,
+				new String[] {
+						Messages.getString("InvUICardAdd.22"), Messages.getString("InvUICardAdd.26") }); //$NON-NLS-1$ //$NON-NLS-2$
 
-   TurqCurrency currency;
-   String []currencies = new String[currencyList.size()];
-					for(int i =0; i<currencyList.size();i++){					
-					currency = (TurqCurrency)currencyList.get(i);
-					currencies[i]=currency.getCurrenciesAbbreviation();
-					
-					}		
-  //Initialize Price List				
-  priceList=  new InvUIPriceList(currencies);				
-         
-  editors[2] = new ComboBoxCellEditor(tableInvCardAddPrices, currencies, SWT.READ_ONLY);
+		TurqCurrency currency;
+		String[] currencies = new String[currencyList.size()];
+		for (int i = 0; i < currencyList.size(); i++) {
+			currency = (TurqCurrency) currencyList.get(i);
+			currencies[i] = currency.getCurrenciesAbbreviation();
+
+		}
+		//Initialize Price List
+		priceList = new InvUIPriceList(currencies);
+
+		editors[2] = new ComboBoxCellEditor(tableInvCardAddPrices, currencies,
+				SWT.READ_ONLY);
 
 		// Column 4 : Percent complete (Text with digits only)
-	TextCellEditor textEditor = new TextCellEditor(tableInvCardAddPrices);
-	
+		TextCellEditor textEditor = new TextCellEditor(tableInvCardAddPrices);
+
 		((Text) textEditor.getControl()).addVerifyListener(
-		
-			new VerifyListener() {
-				public void verifyText(VerifyEvent e) {
-					char decimalSymbol ='.';
-				 	int numberOfDecimals =2;
-				 	Text control = (Text)e.widget;
-				    String text = control.getText();
-				    e.doit = false;
 
-				    if (e.keyCode == SWT.BS || e.keyCode == SWT.DEL){
-				     e.doit = true;
-				     return;
-				    }
+		new VerifyListener() {
+			public void verifyText(VerifyEvent e) {
+				char decimalSymbol = '.';
+				int numberOfDecimals = 2;
+				Text control = (Text) e.widget;
+				String text = control.getText();
+				e.doit = false;
 
-				    String newText = text.substring(0, e.start) + e.text + text.substring(e.end);
-
-				    if (newText.equals("")){ //$NON-NLS-1$
-				     e.doit = true;
-				     return;
-				    }
-
-				    Pattern realNumberPattern = Pattern.compile("-?[0-9]+[0-9]*(([" +decimalSymbol + "][0-9]?[0-9]?)|(["+decimalSymbol+"]))?"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				    Matcher matcher = realNumberPattern.matcher(newText);
-				    boolean valid = matcher.matches();
-
-				    e.doit = valid;
- 	
-					
+				if (e.keyCode == SWT.BS || e.keyCode == SWT.DEL) {
+					e.doit = true;
+					return;
 				}
-			});
+
+				String newText = text.substring(0, e.start) + e.text
+						+ text.substring(e.end);
+
+				if (newText.equals("")) { //$NON-NLS-1$
+					e.doit = true;
+					return;
+				}
+
+				Pattern realNumberPattern = Pattern
+						.compile("-?[0-9]+[0-9]*(([" + decimalSymbol + "][0-9]?[0-9]?)|([" + decimalSymbol + "]))?"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				Matcher matcher = realNumberPattern.matcher(newText);
+				boolean valid = matcher.matches();
+
+				e.doit = valid;
+
+			}
+		});
 		editors[1] = textEditor;
 
-		// Assign the cell editors to the viewer 
+		// Assign the cell editors to the viewer
 		tableInvPricesViewer.setCellEditors(editors);
 		// Set the cell modifier for the viewer
-		tableInvPricesViewer.setCellModifier(new InvUIPriceCellModifier(priceList));
-		// Set the default sorter for the viewer 
-	  //tableViewer.setSorter(new ExampleTaskSorter(ExampleTaskSorter.DESCRIPTION));
-	   tableInvPricesViewer.setLabelProvider(new InvUIPriceLabelProvider());
-	   tableInvPricesViewer.setContentProvider(new InvUIContentProvider());
-	   tableInvPricesViewer.setInput(priceList);
-		
+		tableInvPricesViewer.setCellModifier(new InvUIPriceCellModifier(
+				priceList));
+		// Set the default sorter for the viewer
+		//tableViewer.setSorter(new
+		// ExampleTaskSorter(ExampleTaskSorter.DESCRIPTION));
+		tableInvPricesViewer.setLabelProvider(new InvUIPriceLabelProvider());
+		tableInvPricesViewer.setContentProvider(new InvUIContentProvider());
+		tableInvPricesViewer.setInput(priceList);
 
 	}
 
 	/**
-	 * InnerClass that acts as a proxy for the InvUIPriceList 
-	 * providing content for the Table. It implements the IPriceListViewer 
-	 * interface since it must register changeListeners with the 
-	 * InvUIPriceList 
+	 * InnerClass that acts as a proxy for the InvUIPriceList providing content
+	 * for the Table. It implements the IPriceListViewer interface since it must
+	 * register changeListeners with the InvUIPriceList
 	 */
-	class InvUIContentProvider implements IStructuredContentProvider, IPriceListViewer {
+	class InvUIContentProvider implements IStructuredContentProvider,
+			IPriceListViewer {
 		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
 			if (newInput != null)
 				((InvUIPriceList) newInput).addChangeListener(this);
@@ -1478,50 +1523,51 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			return priceList.getPrices().toArray();
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see ITaskListViewer#addTask(ExampleTask)
 		 */
 		public void addPrice(InvUIPrice price) {
 			tableInvPricesViewer.add(price);
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see ITaskListViewer#removeTask(ExampleTask)
 		 */
 		public void removePrice(InvUIPrice price) {
-			tableInvPricesViewer.remove(price);			
+			tableInvPricesViewer.remove(price);
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see ITaskListViewer#updateTask(ExampleTask)
 		 */
 		public void updatePrice(InvUIPrice price) {
-			tableInvPricesViewer.update(price,null);
+			tableInvPricesViewer.update(price, null);
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
 
 	public void fillInvCardUnits() {
 
 		tableInvCardAddAllUnits.removeAll();
 		tableInvCardAddRegisteredUnits.removeAll();
 		comboInvCardUnits.removeAll();
-		
+
 		//Remove All editors
-		Iterator it = mapEditorsTableInvCardAddRegisteredUnits.keySet().iterator();
-		while (it.hasNext()){
-		TableEditor editor =(TableEditor) mapEditorsTableInvCardAddRegisteredUnits.get(it.next());
-		editor.getEditor().dispose();
-		editor.dispose();		
+		Iterator it = mapEditorsTableInvCardAddRegisteredUnits.keySet()
+				.iterator();
+		while (it.hasNext()) {
+			TableEditor editor = (TableEditor) mapEditorsTableInvCardAddRegisteredUnits
+					.get(it.next());
+			editor.getEditor().dispose();
+			editor.dispose();
 		}
-		tableInvCardAddRegisteredUnits.getColumn(1).setWidth(50);		
-		
+		tableInvCardAddRegisteredUnits.getColumn(1).setWidth(50);
+
 		try {
 			java.util.List unitLst = invBLCardAdd.getInventoryUnits();
 			TableItem item = null;
@@ -1565,100 +1611,129 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		}
 
 	}
-	
-	public void clearFields(){
-	
-	 InvUICardAdd cardAdd = new InvUICardAdd(this.getParent(),this.getStyle());
-	 CTabFolder tabfld = (CTabFolder)this.getParent();
-	 tabfld.getSelection().setControl(cardAdd);	 
-	 this.dispose();
-		
-	
+
+	public void clearFields() {
+
+		InvUICardAdd cardAdd = new InvUICardAdd(this.getParent(), this
+				.getStyle());
+		CTabFolder tabfld = (CTabFolder) this.getParent();
+		tabfld.getSelection().setControl(cardAdd);
+		this.dispose();
+
 	}
-	
 
 	public boolean verifyFields(boolean save) {
-		try{
-		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-		//If inventory name is not given
-		
-		if (txtInvCardCode.getText().trim().equals("")) { 		 //$NON-NLS-1$
-			msg.setMessage(Messages.getString("InvUICardAdd.43"));  //$NON-NLS-1$
-			msg.open();
-			tabfldInvCardAdd.setSelection(tabInvCardGeneral);
-			txtInvCardCode.setFocus();
-			return false;
-		}
-		else if (save && EngBLInventoryCards.getInvCard(txtInvCardCode.getText().trim())!= null)
-		{
-			msg.setMessage(Messages.getString("InvUICardAdd.2")); //$NON-NLS-1$
-			msg.open();
-			tabfldInvCardAdd.setSelection(tabInvCardGeneral);
-			txtInvCardCode.setFocus();
-			return false;			
-		}
-		else if (txtInvCardName.getText().trim().equals("")) { 		 //$NON-NLS-1$
-			msg.setMessage(Messages.getString("InvUICardAdd.41"));  //$NON-NLS-1$
-			msg.open();
-			tabfldInvCardAdd.setSelection(tabInvCardGeneral);
-			txtInvCardName.setFocus();
-			return false;
-		}
-		else if (txtInvCardInAcc.getData()==null) { 		
-			msg.setMessage(Messages.getString("InvUICardAdd.44"));  //$NON-NLS-1$
-			msg.open();
-			tabfldInvCardAdd.setSelection(tabInvCardDetails);
-			txtInvCardInAcc.setFocus();
-			return false;
-		}
-		else if (txtInvCardOutAcc.getData()==null) { 		
-			msg.setMessage(Messages.getString("InvUICardAdd.45"));  //$NON-NLS-1$
-			msg.open();
-			tabfldInvCardAdd.setSelection(tabInvCardDetails);
-			txtInvCardOutAcc.setFocus();
-			return false;
-		}
-		else if (accountPickerVAT.getData()==null) { 		
-			msg.setMessage(Messages.getString("InvUICardAdd.48"));   //$NON-NLS-1$
-			msg.open();
-			tabfldInvCardAdd.setSelection(tabInvCardDetails);
-			accountPickerVAT.setFocus();
-			return false;
-		}
-		else if (accountPickerVATSell.getData()==null) { 		
-			msg.setMessage(Messages.getString("InvUICardAdd.49"));   //$NON-NLS-1$
-			msg.open();
-			tabfldInvCardAdd.setSelection(tabInvCardDetails);
-			accountPickerVATSell.setFocus();
-			return false;
-		}
-		else if (accountPickerSpecVAT.getData()==null) { 		
-			msg.setMessage(Messages.getString("InvUICardAdd.50"));   //$NON-NLS-1$
-			msg.open();
-			tabfldInvCardAdd.setSelection(tabInvCardDetails);
-			accountPickerSpecVAT.setFocus();
-			return false;
-		}
-		else if (accountPickerSpecVatSell.getData()==null) { 		
-			msg.setMessage(Messages.getString("InvUICardAdd.51"));   //$NON-NLS-1$
-			msg.open();
-			tabfldInvCardAdd.setSelection(tabInvCardDetails);
-			accountPickerSpecVatSell.setFocus();
-			return false;
-		}
-		else if (comboInvCardUnits.getData(comboInvCardUnits.getText())==null){
-			msg.setMessage(Messages.getString("InvUICardAdd.46"));  //$NON-NLS-1$
-			msg.open();
-			tabfldInvCardAdd.setSelection(tabInvCardUnits);
-			comboInvCardUnits.setFocus();
-			return false;
-		}
+		try {
+			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+			//If inventory name is not given
 
-		return true;
-		}
-		catch(Exception ex)
-		{
-			MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
+			if (txtInvCardCode.getText().trim().equals("")) { //$NON-NLS-1$
+				msg.setMessage(Messages.getString("InvUICardAdd.43")); //$NON-NLS-1$
+				msg.open();
+				tabfldInvCardAdd.setSelection(tabInvCardGeneral);
+				txtInvCardCode.setFocus();
+				return false;
+			} else if (save
+					&& EngBLInventoryCards.getInvCard(txtInvCardCode.getText()
+							.trim()) != null) {
+				msg.setMessage(Messages.getString("InvUICardAdd.2")); //$NON-NLS-1$
+				msg.open();
+				tabfldInvCardAdd.setSelection(tabInvCardGeneral);
+				txtInvCardCode.setFocus();
+				return false;
+			} else if (txtInvCardName.getText().trim().equals("")) { //$NON-NLS-1$
+				msg.setMessage(Messages.getString("InvUICardAdd.41")); //$NON-NLS-1$
+				msg.open();
+				tabfldInvCardAdd.setSelection(tabInvCardGeneral);
+				txtInvCardName.setFocus();
+				return false;
+			} else if (accountPickerVAT.getData() == null) {
+				msg.setMessage(Messages.getString("InvUICardAdd.48")); //$NON-NLS-1$
+				msg.open();
+				tabfldInvCardAdd.setSelection(tabInvCardDetails);
+				accountPickerVAT.setFocus();
+				return false;
+			} else if (accountPickerVATSell.getData() == null) {
+				msg.setMessage(Messages.getString("InvUICardAdd.49")); //$NON-NLS-1$
+				msg.open();
+				tabfldInvCardAdd.setSelection(tabInvCardDetails);
+				accountPickerVATSell.setFocus();
+				return false;
+			} else if (accountPickerSpecVAT.getData() == null) {
+				msg.setMessage(Messages.getString("InvUICardAdd.50")); //$NON-NLS-1$
+				msg.open();
+				tabfldInvCardAdd.setSelection(tabInvCardDetails);
+				accountPickerSpecVAT.setFocus();
+				return false;
+			} else if (accountPickerSpecVatSell.getData() == null) {
+				msg.setMessage(Messages.getString("InvUICardAdd.51")); //$NON-NLS-1$
+				msg.open();
+				tabfldInvCardAdd.setSelection(tabInvCardDetails);
+				accountPickerSpecVatSell.setFocus();
+				return false;
+			} else if (comboInvCardUnits.getData(comboInvCardUnits.getText()) == null) {
+				msg.setMessage(Messages.getString("InvUICardAdd.46")); //$NON-NLS-1$
+				msg.open();
+				tabfldInvCardAdd.setSelection(tabInvCardUnits);
+				comboInvCardUnits.setFocus();
+				return false;
+			}
+
+			else if (txtInvCardInAcc.getData() == null) {
+
+				if (txtInvCardInAcc.getText().trim().length() > 0) {
+					MessageBox newAcc = new MessageBox(this.getShell(), SWT.YES
+							| SWT.NO);
+
+					newAcc
+							.setMessage("Böyle bir Muhasebe Hesabý yok. Þimdi Oluþturulsun mu?");
+					if (newAcc.open() == SWT.YES) {
+						new AccUIAddAccountDialog(this.getShell(), SWT.NULL)
+								.open(txtInvCardInAcc.getText().trim(),
+										txtInvCardName.getText().trim());
+
+						txtInvCardInAcc.verifyData();
+					}
+
+				}
+				// check again after changes
+				if (txtInvCardInAcc.getData() == null) {
+					msg.setMessage(Messages.getString("InvUICardAdd.44")); //$NON-NLS-1$
+					msg.open();
+					tabfldInvCardAdd.setSelection(tabInvCardDetails);
+					txtInvCardInAcc.setFocus();
+					return false;
+				}
+			} else if (txtInvCardOutAcc.getData() == null) {
+
+				if (txtInvCardOutAcc.getText().trim().length() > 0) {
+					MessageBox newAcc = new MessageBox(this.getShell(), SWT.YES
+							| SWT.NO);
+
+					newAcc
+							.setMessage("Böyle bir Muhasebe Hesabý yok. Þimdi Oluþturulsun mu?");
+					if (newAcc.open() == SWT.YES) {
+						new AccUIAddAccountDialog(this.getShell(), SWT.NULL)
+								.open(txtInvCardOutAcc.getText().trim(),
+										txtInvCardName.getText().trim());
+
+						txtInvCardOutAcc.verifyData();
+					}
+
+				}
+
+				if (txtInvCardInAcc.getData() == null) {
+					msg.setMessage(Messages.getString("InvUICardAdd.45")); //$NON-NLS-1$
+					msg.open();
+					tabfldInvCardAdd.setSelection(tabInvCardDetails);
+					txtInvCardOutAcc.setFocus();
+					return false;
+				}
+			}
+
+			return true;
+		} catch (Exception ex) {
+			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
 			msg.open();
 			return false;
@@ -1668,161 +1743,159 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	public void save() {
 		if (verifyFields(true)) {
 
-			
-			TurqAccountingAccount accountIdSell = (TurqAccountingAccount) txtInvCardOutAcc.getData();
-			TurqAccountingAccount accountIdBuy = (TurqAccountingAccount) txtInvCardInAcc.getData();
-			TurqAccountingAccount accountIdVAt = (TurqAccountingAccount) accountPickerVAT.getData();
-			TurqAccountingAccount accountIdSpecialVAT = (TurqAccountingAccount) accountPickerSpecVAT.getData();
-			TurqAccountingAccount accountIdVAtSell = (TurqAccountingAccount) accountPickerVATSell.getData();
-			TurqAccountingAccount accountIdSpecialVATSell = (TurqAccountingAccount) accountPickerSpecVatSell.getData();
-			
-			 
+			TurqAccountingAccount accountIdSell = (TurqAccountingAccount) txtInvCardOutAcc
+					.getData();
+			TurqAccountingAccount accountIdBuy = (TurqAccountingAccount) txtInvCardInAcc
+					.getData();
+			TurqAccountingAccount accountIdVAt = (TurqAccountingAccount) accountPickerVAT
+					.getData();
+			TurqAccountingAccount accountIdSpecialVAT = (TurqAccountingAccount) accountPickerSpecVAT
+					.getData();
+			TurqAccountingAccount accountIdVAtSell = (TurqAccountingAccount) accountPickerVATSell
+					.getData();
+			TurqAccountingAccount accountIdSpecialVATSell = (TurqAccountingAccount) accountPickerSpecVatSell
+					.getData();
+
 			try {
 
 				// Save inventory card
 
 				Integer cardId = blCardAdd.saveInvCard(txtInvCardCode.getText()
-						.trim(), 	txtInvCardName.getText().trim(), txtInvCardDefinition
-								.getText().trim(), txtnumInvCardMin
+						.trim(), txtInvCardName.getText().trim(),
+						txtInvCardDefinition.getText().trim(), txtnumInvCardMin
 								.getIntValue(), txtnumInvCardMax.getIntValue(),
-								txtInvCardVat.getIntValue(), txtInvCardDiscount
-								.getIntValue(), accountIdBuy, accountIdSell,numTextSpecailVATPercent.getIntValue()
-								,decTextSpecialVatAmount.getBigDecimalValue(),
-								accountIdVAt, accountIdSpecialVAT,
-								accountIdVAtSell,accountIdSpecialVATSell,
-								radioSpecialVatAmount.getSelection());
-
-				
+						txtInvCardVat.getIntValue(), txtInvCardDiscount
+								.getIntValue(), accountIdBuy, accountIdSell,
+						numTextSpecailVATPercent.getIntValue(),
+						decTextSpecialVatAmount.getBigDecimalValue(),
+						accountIdVAt, accountIdSpecialVAT, accountIdVAtSell,
+						accountIdSpecialVATSell, radioSpecialVatAmount
+								.getSelection());
 
 				// Register its Groups
-                saveInvGroups(cardId);
+				saveInvGroups(cardId);
 
 				//Register its Units
-                saveInvUnits(cardId);  
-				
+				saveInvUnits(cardId);
+
 				// Save the price list now.
-		        saveInvPrices(cardId);
-		        asistant.refreshContentAssistant(1);
-		        EngBLInventoryCards.RefreshContentAsistantMap();
-		    	MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
+				saveInvPrices(cardId);
+				asistant.refreshContentAssistant(1);
+				EngBLInventoryCards.RefreshContentAsistantMap();
+				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(Messages.getString("InvUICardAdd.36")); //$NON-NLS-1$
 				msg.open();
-				
-		        clearFields();
-		        	         
-		         } catch (Exception ex) {
+
+				clearFields();
+
+			} catch (Exception ex) {
 				ex.printStackTrace();
-				MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
+				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(ex.getMessage());
 				msg.open();
-				
+
 			}
 
 		}
 
 	}
-	
-	public void saveInvGroups(Integer cardId){
 
-	try{	
-		int itemCount = tableInvCardAddGroupsRegisteredGroups
-				.getItemCount();
-		TableItem item;
-		for (int i = 0; i < itemCount; i++) {
-			item = tableInvCardAddGroupsRegisteredGroups.getItem(i);
-			blCardAdd.registerGroup(cardId, item.getData());
-		}
-	}
-	catch(Exception ex){
-		ex.printStackTrace();
-	}
-	
-	}
-	public void saveInvUnits(Integer cardId){
-      try
-	  {
-		Object invUnit = comboInvCardUnits.getData(comboInvCardUnits
-				.getText());
-		blCardAdd.registerUnits(cardId, invUnit, 1);
-		TableItem item;
-		//Register Secondary Units
-		int itemCount = tableInvCardAddRegisteredUnits.getItemCount();
-		TableEditor editor;
-		for (int i = 0; i < itemCount; i++) {
-			item = tableInvCardAddRegisteredUnits.getItem(i);
-			editor = (TableEditor) mapEditorsTableInvCardAddRegisteredUnits
-					.get(item.getText(0));
-			int factor = ((NumericText) editor.getEditor())
-					.getIntValue();
-			blCardAdd.registerUnits(cardId, item.getData(), factor);
+	public void saveInvGroups(Integer cardId) {
 
-		}
-	  }
-      catch(Exception ex){
-      	ex.printStackTrace();
-      }
-		
-	}
-	public void saveInvPrices(Integer cardId){
-		try{
-	   int itemCount =tableInvCardAddPrices.getItemCount();
-	   TableItem item;
-        for(int i=0;i<itemCount;i++){
-        item = tableInvCardAddPrices.getItem(i);
-        String type = item.getText(0); 
-        String amount = item.getText(1); 
-        String abbrev = item.getText(2);
-        	
-        	if(!type.equals("")&&!abbrev.equals("")&&!amount.equals("")){ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        	
-        	boolean priceType =false;	
-        		if(type.equals(Messages.getString("InvUICardAdd.31"))){	 //$NON-NLS-1$
-        			priceType=true;		         		
-        		}
-        		
-        		blCardAdd.saveInvPrices(cardId,priceType,abbrev,amount);
-        
-        	}
-        }
-		
-		}
-		catch(Exception ex){
+		try {
+			int itemCount = tableInvCardAddGroupsRegisteredGroups
+					.getItemCount();
+			TableItem item;
+			for (int i = 0; i < itemCount; i++) {
+				item = tableInvCardAddGroupsRegisteredGroups.getItem(i);
+				blCardAdd.registerGroup(cardId, item.getData());
+			}
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
+
 	}
-	
+
+	public void saveInvUnits(Integer cardId) {
+		try {
+			Object invUnit = comboInvCardUnits.getData(comboInvCardUnits
+					.getText());
+			blCardAdd.registerUnits(cardId, invUnit, 1);
+			TableItem item;
+			//Register Secondary Units
+			int itemCount = tableInvCardAddRegisteredUnits.getItemCount();
+			TableEditor editor;
+			for (int i = 0; i < itemCount; i++) {
+				item = tableInvCardAddRegisteredUnits.getItem(i);
+				editor = (TableEditor) mapEditorsTableInvCardAddRegisteredUnits
+						.get(item.getText(0));
+				int factor = ((NumericText) editor.getEditor()).getIntValue();
+				blCardAdd.registerUnits(cardId, item.getData(), factor);
+
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+
+	public void saveInvPrices(Integer cardId) {
+		try {
+			int itemCount = tableInvCardAddPrices.getItemCount();
+			TableItem item;
+			for (int i = 0; i < itemCount; i++) {
+				item = tableInvCardAddPrices.getItem(i);
+				String type = item.getText(0);
+				String amount = item.getText(1);
+				String abbrev = item.getText(2);
+
+				if (!type.equals("") && !abbrev.equals("") && !amount.equals("")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
+					boolean priceType = false;
+					if (type.equals(Messages.getString("InvUICardAdd.31"))) { //$NON-NLS-1$
+						priceType = true;
+					}
+
+					blCardAdd.saveInvPrices(cardId, priceType, abbrev, amount);
+
+				}
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
 
 	public void delete() {
-		
 
 	}
 
 	public void newForm() {
 		clearFields();
-		
+
 	}
 
 	public void search() {
-		
+
 	}
 
 	/**
-	* This static method creates a new instance of this class and shows
-	* it inside a new Shell.
-	*
-	* It is a convenience method for showing the GUI, but it can be
-	* copied and used as a basis for your own code.	*
-	* It is auto-generated code - the body of this method will be
-	* re-generated after any changes are made to the GUI.
-	* However, if you delete this method it will not be re-created.	*/
-	public static void showGUI(){
+	 * This static method creates a new instance of this class and shows it
+	 * inside a new Shell.
+	 * 
+	 * It is a convenience method for showing the GUI, but it can be copied and
+	 * used as a basis for your own code. * It is auto-generated code - the body
+	 * of this method will be re-generated after any changes are made to the
+	 * GUI. However, if you delete this method it will not be re-created.
+	 */
+	public static void showGUI() {
 		try {
 			Display display = Display.getDefault();
 			Shell shell = new Shell(display);
 			InvUICardAdd inst = new InvUICardAdd(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0,0,655,430);
+			Rectangle shellBounds = shell.computeTrim(0, 0, 655, 430);
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.open();
 			while (!shell.isDisposed()) {
@@ -1833,6 +1906,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			e.printStackTrace();
 		}
 	}
+
 	protected void btnInvCardGeneralMouseUp(MouseEvent evt) {
 		int next = tabfldInvCardAdd.getSelectionIndex() + 1;
 		tabfldInvCardAdd.setSelection(next);
@@ -1844,29 +1918,26 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	}
 
 	protected void btnInvCardAddPricesAddPriceMouseDown(MouseEvent evt) {
-	//	tableInvPricesViewer.add(new InvUIPrice());
+		//	tableInvPricesViewer.add(new InvUIPrice());
 		priceList.addPrice();
-		
+
 	}
 
 	protected void btnInvCardAddPricesRemovePriceMouseDown(MouseEvent evt) {
-		InvUIPrice price = (InvUIPrice) ((IStructuredSelection) 
-				tableInvPricesViewer.getSelection()).getFirstElement();
+		InvUIPrice price = (InvUIPrice) ((IStructuredSelection) tableInvPricesViewer
+				.getSelection()).getFirstElement();
 		if (price != null) {
 			priceList.removePrice(price);
-		} 	
-	
-	/*	TTableModel model = (TTableModel) tableInvCardAddPrices.getModel();
-		int s[] = tableInvCardAddPrices.getRowSelection();
-		if (s.length > 0) {
-
-			model.removeRow(s[0]);
-			tableInvCardAddPrices.redraw();
-
 		}
-   */
-	}
 
+		/*
+		 * TTableModel model = (TTableModel) tableInvCardAddPrices.getModel();
+		 * int s[] = tableInvCardAddPrices.getRowSelection(); if (s.length > 0) {
+		 * 
+		 * model.removeRow(s[0]); tableInvCardAddPrices.redraw();
+		 *  }
+		 */
+	}
 
 	protected void btnRegisterInvUnitMouseUp() {
 		//if the base unit is selected
@@ -1875,10 +1946,10 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 			//if there is a selection
 			if (selectedIndex >= 0) {
-				
+
 				String itemText = tableInvCardAddAllUnits
 						.getItem(selectedIndex).getText();
-				
+
 				//if the selection is not the base unit
 				if (!itemText.equals(comboInvCardUnits.getText())) {
 					TableItem registeredItem = new TableItem(
@@ -1905,7 +1976,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			box.setMessage(Messages.getString("InvUICardAdd.32")); //$NON-NLS-1$
 			box.open();
 			comboInvCardUnits.setFocus();
-			
+
 		}
 
 	}
@@ -1915,7 +1986,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		int selectedIndex = tableInvCardAddGroupsAllGroups.getSelectionIndex();
 
 		if (selectedIndex >= 0) {
-			TableItem registeredItem = new TableItem(tableInvCardAddGroupsRegisteredGroups, SWT.NULL);
+			TableItem registeredItem = new TableItem(
+					tableInvCardAddGroupsRegisteredGroups, SWT.NULL);
 			registeredItem.setText(tableInvCardAddGroupsAllGroups.getItem(
 					selectedIndex).getText());
 			registeredItem.setData(tableInvCardAddGroupsAllGroups.getItem(
@@ -1969,30 +2041,29 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardPricesNextMouseUp(MouseEvent evt) {
-		
+
 		int next = tabfldInvCardAdd.getSelectionIndex() + 1;
 		tabfldInvCardAdd.setSelection(next);
-		
+
 	}
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardNextMouseUp(MouseEvent evt) {
-		
+
 		int next = tabfldInvCardAdd.getSelectionIndex() + 1;
 		tabfldInvCardAdd.setSelection(next);
 	}
-	
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardDetPreMouseUp(MouseEvent evt) {
-		
+
 		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
 		tabfldInvCardAdd.setSelection(next);
 	}
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardUnitsPreMouseUp(MouseEvent evt) {
-		
+
 		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
 		tabfldInvCardAdd.setSelection(next);
 
@@ -2000,75 +2071,79 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardPricesPreMouseUp(MouseEvent evt) {
-		
+
 		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
 		tabfldInvCardAdd.setSelection(next);
 	}
-
-	
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardGroupsPreMouseUp(MouseEvent evt) {
-		
+
 		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
 		tabfldInvCardAdd.setSelection(next);
 	}
 
-	
-
 	/** Auto-generated event handler method */
-	protected void btnInvCardAddNewMouseUp(MouseEvent evt){
-		new InvUIGroupAddDialog(this.getShell(),SWT.NULL).open();
+	protected void btnInvCardAddNewMouseUp(MouseEvent evt) {
+		new InvUIGroupAddDialog(this.getShell(), SWT.NULL).open();
 		fillTableInvAllGroups();
 	}
 
 	/** Auto-generated event handler method */
-	protected void btnUpdateUnitsMouseUp(MouseEvent evt){
-	 new InvUIUnitAddDialog(this.getShell(),SWT.NULL).open();
-	 fillInvCardUnits();
+	protected void btnUpdateUnitsMouseUp(MouseEvent evt) {
+		new InvUIUnitAddDialog(this.getShell(), SWT.NULL).open();
+		fillInvCardUnits();
 	}
+
 	/**
 	 * @return Returns the tableInvCardAddAllUnits.
 	 */
 	public Table getTableInvCardAddAllUnits() {
 		return tableInvCardAddAllUnits;
 	}
+
 	/**
 	 * @return Returns the tableInvCardAddGroupsAllGroups.
 	 */
 	public Table getTableInvCardAddGroupsAllGroups() {
 		return tableInvCardAddGroupsAllGroups;
 	}
+
 	/**
 	 * @return Returns the tableInvCardAddGroupsRegisteredGroups.
 	 */
 	public Table getTableInvCardAddGroupsRegisteredGroups() {
 		return tableInvCardAddGroupsRegisteredGroups;
 	}
+
 	/**
 	 * @return Returns the tableInvCardAddPrices.
 	 */
 	public Table getTableInvCardAddPrices() {
 		return tableInvCardAddPrices;
 	}
+
 	/**
 	 * @return Returns the tableInvCardAddRegisteredUnits.
 	 */
 	public Table getTableInvCardAddRegisteredUnits() {
 		return tableInvCardAddRegisteredUnits;
 	}
+
 	/**
 	 * @return Returns the txtInvCardCode.
 	 */
 	public InventoryPicker getTxtInvCardCode() {
 		return txtInvCardCode;
 	}
+
 	/**
 	 * @return Returns the txtInvCardDefinition.
 	 */
 	public Text getTxtInvCardDefinition() {
 		return txtInvCardDefinition;
 	}
+
 	/**
 	 * @return Returns the txtInvCardDiscount.
 	 */
@@ -2089,113 +2164,138 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	public NumericText getTxtInvCardVat() {
 		return txtInvCardVat;
 	}
+
 	/**
 	 * @return Returns the txtnumInvCardMax.
 	 */
 	public NumericText getTxtnumInvCardMax() {
 		return txtnumInvCardMax;
 	}
+
 	/**
 	 * @return Returns the txtnumInvCardMin.
 	 */
 	public NumericText getTxtnumInvCardMin() {
 		return txtnumInvCardMin;
 	}
+
 	/**
 	 * @return Returns the comboInvCardUnits.
 	 */
 	public CCombo getComboInvCardUnits() {
 		return comboInvCardUnits;
 	}
+
 	/**
 	 * @return Returns the priceList.
 	 */
 	public InvUIPriceList getPriceList() {
 		return priceList;
 	}
-	
+
 	/**
 	 * @return Returns the decTextSpecialVatAmount.
 	 */
 	public CurrencyText getDecTextSpecialVatAmount() {
 		return decTextSpecialVatAmount;
 	}
+
 	/**
 	 * @return Returns the numTextSpecailVATPercent.
 	 */
 	public NumericText getNumTextSpecailVATPercent() {
 		return numTextSpecailVATPercent;
 	}
+
 	public AccountPicker getTxtInvCardInAcc() {
 		return txtInvCardInAcc;
 	}
+
 	public void setTxtInvCardInAcc(AccountPicker txtInvCardInAcc) {
 		this.txtInvCardInAcc = txtInvCardInAcc;
 	}
+
 	public AccountPicker getTxtInvCardOutAcc() {
 		return txtInvCardOutAcc;
 	}
+
 	public void setTxtInvCardOutAcc(AccountPicker txtInvCardOutAcc) {
 		this.txtInvCardOutAcc = txtInvCardOutAcc;
 	}
+
 	/**
 	 * @return Returns the accountPickerSpecVAT.
 	 */
 	public AccountPicker getAccountPickerSpecVAT() {
 		return accountPickerSpecVAT;
 	}
+
 	/**
-	 * @param accountPickerSpecVAT The accountPickerSpecVAT to set.
+	 * @param accountPickerSpecVAT
+	 *            The accountPickerSpecVAT to set.
 	 */
 	public void setAccountPickerSpecVAT(AccountPicker accountPickerSpecVAT) {
 		this.accountPickerSpecVAT = accountPickerSpecVAT;
 	}
+
 	/**
 	 * @return Returns the accountPickerVAT.
 	 */
 	public AccountPicker getAccountPickerVAT() {
 		return accountPickerVAT;
 	}
+
 	/**
-	 * @param accountPickerVAT The accountPickerVAT to set.
+	 * @param accountPickerVAT
+	 *            The accountPickerVAT to set.
 	 */
 	public void setAccountPickerVAT(AccountPicker accountPickerVAT) {
 		this.accountPickerVAT = accountPickerVAT;
 	}
+
 	/**
 	 * @return Returns the accountPickerSpecVatSell.
 	 */
 	public AccountPicker getAccountPickerSpecVatSell() {
 		return accountPickerSpecVatSell;
 	}
+
 	/**
-	 * @param accountPickerSpecVatSell The accountPickerSpecVatSell to set.
+	 * @param accountPickerSpecVatSell
+	 *            The accountPickerSpecVatSell to set.
 	 */
 	public void setAccountPickerSpecVatSell(
 			AccountPicker accountPickerSpecVatSell) {
 		this.accountPickerSpecVatSell = accountPickerSpecVatSell;
 	}
+
 	/**
 	 * @return Returns the accountPickerVATSell.
 	 */
 	public AccountPicker getAccountPickerVATSell() {
 		return accountPickerVATSell;
 	}
+
 	/**
-	 * @param accountPickerVATSell The accountPickerVATSell to set.
+	 * @param accountPickerVATSell
+	 *            The accountPickerVATSell to set.
 	 */
 	public void setAccountPickerVATSell(AccountPicker accountPickerVATSell) {
 		this.accountPickerVATSell = accountPickerVATSell;
 	}
+
 	public Button getRadioSpecialVatAmount() {
 		return radioSpecialVatAmount;
 	}
+
 	public void setRadioSpecialVatAmount(Button radioSpecialVatAmount) {
 		this.radioSpecialVatAmount = radioSpecialVatAmount;
 	}
+
 	public Button getRadioSpecialVatPercent() {
 		return radioSpecialVatPercent;
 	}
+
 	public void setRadioSpecialVatPercent(Button radioSpecialVatPercent) {
 		this.radioSpecialVatPercent = radioSpecialVatPercent;
 	}

@@ -161,7 +161,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 	    
 	}
 	
-	public void verfiyData(){
+	public void verifyData(){
 	    try{
 	        setData2(EngBLAccountingAccounts
                     .getAccount(text1.getText().trim()));

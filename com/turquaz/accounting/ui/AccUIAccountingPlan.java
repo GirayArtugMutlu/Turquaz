@@ -166,7 +166,7 @@ SearchComposite{
 				TableTreeItem items[] = tableTreeAccountingPlan.getSelection();
 				if (items.length > 0)
 				{
-					new AccUIAddAccountDialog(getShell(),SWT.NULL,(TurqAccountingAccount)items[0].getData()).open();
+					new AccUIAddAccountDialog(getShell(),SWT.NULL).open((TurqAccountingAccount)items[0].getData());
 					fillTree(-1,""); //$NON-NLS-1$
 				}
 				}

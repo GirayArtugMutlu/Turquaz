@@ -71,16 +71,15 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog {
 
 	AccBLAccountUpdate blAccount = new AccBLAccountUpdate();
 
-	public AccUIAddAccountDialog(Shell parent, int style, TurqAccountingAccount acc) {
+	public AccUIAddAccountDialog(Shell parent, int style) {
 		super(parent, style);
-		account = acc;
 	}
-
+	
 	/**
 	 * Opens the Dialog Shell. Auto-generated code - any changes you make will
 	 * disappear.
 	 */
-	public void open() {
+	public void open(TurqAccountingAccount account) {
 		try {
 			preInitGUI();
 
@@ -162,6 +161,108 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog {
 			
 	
 			postInitGUI();
+			
+			compAccountCard.getTxtParentAccount().setText(
+					account.getAccountCode());
+			
+			dialogShell.layout();
+			dialogShell.open();
+			Display display = dialogShell.getDisplay();
+			while (!dialogShell.isDisposed()) {
+				if (!display.readAndDispatch())
+					display.sleep();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Opens the Dialog Shell. Auto-generated code - any changes you make will
+	 * disappear.
+	 */
+	public void open(String accCode,String accName) {
+		try {
+			preInitGUI();
+
+			Shell parent = getParent();
+			dialogShell = new Shell(parent, SWT.DIALOG_TRIM
+					| SWT.APPLICATION_MODAL);
+
+			{
+				//Register as a resource user - SWTResourceManager will
+				//handle the obtaining and disposing of resources
+				SWTResourceManager.registerResourceUser(dialogShell);
+			}
+			GridLayout dialogShellLayout = new GridLayout(1, true);
+			dialogShell.setLayout(dialogShellLayout);
+			
+			dialogShellLayout.marginWidth = 5;
+			dialogShellLayout.marginHeight = 5;
+			dialogShellLayout.numColumns = 1;
+			dialogShellLayout.makeColumnsEqualWidth = true;
+			dialogShellLayout.horizontalSpacing = 5;
+			dialogShellLayout.verticalSpacing = 5;
+			dialogShell.setSize(487, 336);
+			dialogShell.setText(getText());
+			{
+				coolBar1 = new CoolBar(dialogShell, SWT.NONE);
+				GridData coolBar1LData = new GridData();
+				coolBar1LData.grabExcessHorizontalSpace = true;
+				coolBar1LData.horizontalAlignment = GridData.FILL;
+				coolBar1LData.heightHint = 45;
+				coolBar1.setLayoutData(coolBar1LData);
+				{
+					coolItem1 = new CoolItem(coolBar1, SWT.NONE);
+					coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 48));
+					coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 48));
+							coolItem1.setSize(45, 48);
+					{
+						toolBar1 = new ToolBar(coolBar1, SWT.NONE);
+						coolItem1.setControl(toolBar1);
+						{
+							toolSave = new ToolItem(toolBar1, SWT.NONE);
+							toolSave.setText(Messages.getString("AccUIAddAccountDialog.0")); //$NON-NLS-1$
+							toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
+							toolSave
+								.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(
+										SelectionEvent evt) {
+									toolUpdateWidgetSelected(evt);	
+									}
+								});
+						}
+						{
+							toolCancel = new ToolItem(toolBar1, SWT.NONE);
+							toolCancel.setText(Messages.getString("AccUIAddAccountDialog.2")); //$NON-NLS-1$
+							toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+							toolCancel
+								.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(
+										SelectionEvent evt) {
+									   dialogShell.close();   	
+									
+									}
+								});
+						}
+					}
+				}
+			}
+			compAccountCard = new AccUIAddAccounts(dialogShell, SWT.NULL);
+
+			
+
+			GridData compAccountCardLData = new GridData();
+			compAccountCardLData.widthHint = 452;
+			compAccountCardLData.heightHint = 125;
+			compAccountCard.setLayoutData(compAccountCardLData);
+			compAccountCard.getTxtParentAccount().setBounds(101, 92, 234, 23);
+			compAccountCard.layout();
+			
+			postInitGUI();
+			compAccountCard.getTxtAccAccountCode().setText(accCode);
+			compAccountCard.getTxtAccAcountName().setText(accName);
+			
 			dialogShell.layout();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
@@ -174,6 +275,10 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog {
 		}
 	}
 
+	public void setPermissions()
+	{
+		
+	}
 	/** Add your pre-init code in here */
 	public void preInitGUI() {
 	}
@@ -191,9 +296,6 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog {
 				.getName()) == 3) {
 				toolSave.setEnabled(true);
 		}
-
-		compAccountCard.getTxtParentAccount().setText(
-				account.getAccountCode());
 		
 
 		Point parentLocation = this.getParent().getLocation();
