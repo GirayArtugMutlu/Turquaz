@@ -42,6 +42,7 @@ import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.AccUIStaticAccountsDialog;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 import com.cloudgarden.resource.SWTResourceManager;
@@ -221,5 +222,16 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 	 */
 	public void setFilter(String filter) {
 		this.filter = filter;
+	}
+	public TurqAccountingAccount getTurqAccountingAccount(){
+	    if(super.getData()==null)
+	    {
+	        return null;
+	    }
+	    else{
+	        return (TurqAccountingAccount)super.getData();
+	    }
+	    
+	    
 	}
 }

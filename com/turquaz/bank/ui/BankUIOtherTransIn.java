@@ -1,10 +1,18 @@
 package com.turquaz.bank.ui;
 
+import java.math.BigDecimal;
+
 import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.SWT;
+
+import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
+import com.turquaz.bank.Messages;
+import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.bank.ui.comp.BankCardPicker;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.accounting.ui.comp.AccountPicker;
@@ -52,10 +60,10 @@ public class BankUIOtherTransIn extends org.eclipse.swt.widgets.Composite implem
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(491, 263);
+			this.setSize(497, 183);
             {
                 lblDocNo = new CLabel(this, SWT.NONE);
-                lblDocNo.setText("Belge No");
+                lblDocNo.setText(Messages.getString("BankUIOtherTransIn.0")); //$NON-NLS-1$
             }
             {
                 txtDocNo = new Text(this, SWT.NONE);
@@ -66,7 +74,7 @@ public class BankUIOtherTransIn extends org.eclipse.swt.widgets.Composite implem
             }
             {
                 lblDate = new CLabel(this, SWT.NONE);
-                lblDate.setText("Tarih");
+                lblDate.setText(Messages.getString("BankUIOtherTransIn.1")); //$NON-NLS-1$
             }
             {
                 datePick = new DatePicker(this, SWT.NONE);
@@ -77,7 +85,7 @@ public class BankUIOtherTransIn extends org.eclipse.swt.widgets.Composite implem
             }
             {
                 lblBankCard = new CLabel(this, SWT.NONE);
-                lblBankCard.setText("Banka Kart?");
+                lblBankCard.setText(Messages.getString("BankUIOtherTransIn.2")); //$NON-NLS-1$
             }
             {
                 txtBankCard = new BankCardPicker(this, SWT.NONE);
@@ -88,7 +96,7 @@ public class BankUIOtherTransIn extends org.eclipse.swt.widgets.Composite implem
             }
             {
                 lblCurrentCard = new CLabel(this, SWT.NONE);
-                lblCurrentCard.setText("Muhasebe Hesab?");
+                lblCurrentCard.setText(Messages.getString("BankUIOtherTransIn.3")); //$NON-NLS-1$
                
             }
             {
@@ -100,7 +108,7 @@ public class BankUIOtherTransIn extends org.eclipse.swt.widgets.Composite implem
             }
             {
                 lblAmount = new CLabel(this, SWT.NONE);
-                lblAmount.setText("Tutar?");
+                lblAmount.setText(Messages.getString("BankUIOtherTransIn.4")); //$NON-NLS-1$
             }
             {
                 curAmount = new CurrencyText(this, SWT.NONE);
@@ -111,7 +119,7 @@ public class BankUIOtherTransIn extends org.eclipse.swt.widgets.Composite implem
             }
             {
                 lblDefinition = new CLabel(this, SWT.NONE);
-                lblDefinition.setText("Aç?klama");
+                lblDefinition.setText(Messages.getString("BankUIOtherTransIn.5")); //$NON-NLS-1$
             }
             {
                 txtDefinition = new Text(this, SWT.NONE);
@@ -125,15 +133,56 @@ public class BankUIOtherTransIn extends org.eclipse.swt.widgets.Composite implem
 			e.printStackTrace();
 		}
 	}
-	
+	public boolean verifyFields(){
+		   
+		        if(txtBankCard.getData()==null){
+		           EngUICommon.showMessageBox(getShell(),Messages.getString("BankUICashToBank.7"),SWT.ICON_WARNING); //$NON-NLS-1$
+		           txtBankCard.setFocus();
+		           return false;
+		            
+		        }
+		        if(currentPicker.getData()==null){
+		            EngUICommon.showMessageBox(getShell(),Messages.getString("BankUICashToBank.6"),SWT.ICON_WARNING); //$NON-NLS-1$
+		            currentPicker.setFocus();
+		            return false;
+		             
+		         }
+		        if(curAmount.getBigDecimalValue().compareTo(new BigDecimal(0))!=1)
+		        {
+		            EngUICommon.showMessageBox(getShell(),Messages.getString("BankUIMoneyTransferIn.8"),SWT.ICON_WARNING); //$NON-NLS-1$
+		             curAmount.setFocus();
+		            return false;
+		            
+		        }
+		        return true;
+		        
+		    
+		}
 	
 
     public void newForm() {
-        // TODO Auto-generated method stub
+        BankUIOtherTransIn curCard = new BankUIOtherTransIn(this.getParent(),this.getStyle());
+     	 CTabFolder tabfld = (CTabFolder)this.getParent();
+     	 tabfld.getSelection().setControl(curCard);	 
+     	 this.dispose();
+
 
     }
     public void save() {
-        // TODO Auto-generated method stub
+        try{
+ 	       if(verifyFields())
+ 	       {
+ 	           BankBLTransactionAdd.saveOtherTransaction(txtBankCard.getTurqBank(),currentPicker.getTurqAccountingAccount(),EngBLCommon.BANK_TRANS_OTHER_DEPOSIT,null,curAmount.getBigDecimalValue(),datePick.getDate(),txtDefinition.getText().trim(),txtDocNo.getText().trim());
+ 	           EngUICommon.showSavedSuccesfullyMessage(getShell());
+ 	           newForm();
+ 	           
+ 	       }
+ 	        }
+ 	        catch(Exception ex){
+ 	            ex.printStackTrace();
+ 	            EngUICommon.showMessageBox(getShell(),ex.getMessage(),SWT.ICON_ERROR);
+ 	        }
+
 
     }
 }

@@ -75,6 +75,10 @@ public class EngBLCommon {
     
     public final static int BANK_TRANS_CASH_DEPOSIT =3; //Para yatirma 
     
+    public final static int BANK_TRANS_OTHER_DRAW =5; // Diger Alacak Hareketi
+    
+    public final static int BANK_TRANS_OTHER_DEPOSIT =6; // Diger Borc Hareketi
+    
     
     
     public final static int MODULE_INVENTORY = 0;  //Stok Modulu
