@@ -248,7 +248,7 @@ public class AccUIAddAccounts extends SecureComposite{
 	txtAccAcountName.setText("");
 	txtParentAccount.setText("");
 	txtParentAccount.setData(null);
-	txtAccAcountName.setFocus();
+	txtAccAccountCode.setFocus();
 	}
 	
 	
