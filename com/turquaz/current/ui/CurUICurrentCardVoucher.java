@@ -198,10 +198,9 @@ implements SecureComposite{
 			{
 				txtCredit = new CurrencyText(this, SWT.NONE);
 				GridData txtCreditLData = new GridData();
-				txtCredit.setSize(203, 19);
 				txtCredit.addModifyListener(listenerCredit);
 				txtCreditLData.widthHint = 203;
-				txtCreditLData.heightHint = 19;
+				txtCreditLData.heightHint = 18;
 				txtCredit.setLayoutData(txtCreditLData);
 			}
 			this.layout();
