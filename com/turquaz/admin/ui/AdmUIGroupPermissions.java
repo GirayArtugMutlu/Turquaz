@@ -101,9 +101,6 @@ implements SecureComposite,SearchComposite{
 
 	private CLabel lblGroups;
 
-	private AdmBLGroups blGroups = new AdmBLGroups();
-
-	private AdmBLGroupPermissions blGroupPerms = new AdmBLGroupPermissions();
 
 	/**
 	 * Auto-generated main method to display this
@@ -283,7 +280,7 @@ implements SecureComposite,SearchComposite{
 	public void postInitGUI() {
 		try {
 
-			java.util.List groupList = blGroups.getGroups();
+			java.util.List groupList = AdmBLGroups.getGroups();
 			for (int i = 0; i < groupList.size(); i++) {
 				TurqGroup group = (TurqGroup) groupList.get(i);
 				comboGroups.setData(group.getGroupsName(), group);
@@ -291,7 +288,7 @@ implements SecureComposite,SearchComposite{
 
 			}
 
-			java.util.List moduleList = blGroupPerms.getModules();
+			java.util.List moduleList = AdmBLGroupPermissions.getModules();
 			
 			for (int i = 0; i < moduleList.size(); i++) {
 				TurqModule module = (TurqModule) moduleList.get(i);
@@ -346,7 +343,7 @@ implements SecureComposite,SearchComposite{
 
 	public void fillComboModuleComponents(int module_id) {
 		try {
-			java.util.List compList = blGroupPerms
+			java.util.List compList = AdmBLGroupPermissions
 					.getModuleComponents(module_id);
 			for (int i = 0; i < compList.size(); i++) {
 				TurqModuleComponent group = (TurqModuleComponent) compList
@@ -364,7 +361,7 @@ implements SecureComposite,SearchComposite{
 	public void fillTableUserPermissions() {
 		try {
 			tableGroupPermissions.removeAll();
-			java.util.List groupPermList = blGroupPerms.getGroupPermissions();
+			java.util.List groupPermList = AdmBLGroupPermissions.getGroupPermissions();
 			TableItem item;
 
 			String groupname;
@@ -451,7 +448,7 @@ implements SecureComposite,SearchComposite{
 	public void save(){
 		try{
 			if(verifyFields()){
-			blGroupPerms.saveGroupPermission(comboGroups.getData(comboGroups.getText().trim()),
+			AdmBLGroupPermissions.saveGroupPermission(comboGroups.getData(comboGroups.getText().trim()),
 										comboModules.getData(comboModules.getText().trim()),
 										comboModuleComponents.getData(comboModuleComponents.getText().trim()),
 										((Integer)comboPermissionLevel.getData(comboPermissionLevel.getText().trim())).intValue());	
@@ -483,7 +480,7 @@ implements SecureComposite,SearchComposite{
 		
 		TableItem items[]=tableGroupPermissions.getSelection();
 		if(items.length>0){
-		blGroupPerms.deleteObject(items[0].getData());	
+		AdmBLGroupPermissions.deleteObject(items[0].getData());	
 		fillTableUserPermissions();
 		msg2.setMessage(Messages.getString("AdmUIGroupPermissions.25")); //$NON-NLS-1$
 	    msg2.open();

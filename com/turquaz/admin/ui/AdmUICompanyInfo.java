@@ -38,8 +38,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 	private Text txtCompanyAddress;
 	private CLabel lblCompanyAddress;
 
-	TurqCompany company;
-    AdmBLCompanyInfo blCompany = new AdmBLCompanyInfo(); 
+	TurqCompany company; 
 	public AdmUICompanyInfo(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -109,7 +108,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 	public void postInitGUI(){
 	try{
 	    
-	   company  = blCompany.getCompany();
+	   company  = AdmBLCompanyInfo.getCompany();
 	   txtCompanyName.setText(company.getCompanyName());
 	   txtCompanyAddress.setText(company.getCompanyAddress());
 	   txtCompanyFax.setText(company.getCompanyFax());
@@ -132,7 +131,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
         MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
         try{
             
-           blCompany.updateCompany(company,txtCompanyName.getText().trim(),
+          AdmBLCompanyInfo.updateCompany(company,txtCompanyName.getText().trim(),
                                   txtCompanyAddress.getText().trim(),
                                   txtCompanyPhone.getText().trim(),
                                   txtCompanyPhone.getText().trim());

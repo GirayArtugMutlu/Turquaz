@@ -387,12 +387,12 @@ public class EngBLCommon {
 
 	}
 
-	private EngDALCommon engDALCom = new EngDALCommon();
+
 
 	public List getCurrencies() throws Exception {
 		try {
 
-			return engDALCom.getCurrencies();
+			return EngDALCommon.getCurrencies();
 
 		} catch (Exception ex) {
 			throw ex;
@@ -402,7 +402,7 @@ public class EngBLCommon {
 
 	public List getTurqCurrentGroups() throws Exception {
 		try {
-			return engDALCom.getTurqCurrentGroups();
+			return EngDALCommon.getTurqCurrentGroups();
 		} catch (Exception ex) {
 			throw ex;
 		}
@@ -411,7 +411,7 @@ public class EngBLCommon {
 	public boolean checkUserPass(String user, String pass) throws Exception {
 		try {
 
-			return engDALCom.checkUserPass(user, pass);
+			return EngDALCommon.checkUserPass(user, pass);
 
 		} catch (Exception ex) {
 			throw ex;
@@ -421,7 +421,7 @@ public class EngBLCommon {
 	public List getInventoryWarehouses() throws Exception {
 		try {
 
-			return engDALCom.getInventoryWarehouses();
+			return EngDALCommon.getInventoryWarehouses();
 		} catch (Exception ex) {
 			throw ex;
 		}

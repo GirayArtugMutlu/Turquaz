@@ -21,7 +21,6 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -88,8 +87,6 @@ public class EngBLUtils {
 	public static String logoURL;
 	private static CurBLCurrentCardSearch curBLCurCardSearch=new CurBLCurrentCardSearch();
 	private static InvBLCardSearch blCardSearch=new InvBLCardSearch();
-	private static Calendar cal=Calendar.getInstance();
-	private static AdmBLCompanyInfo admBLComInfo=new AdmBLCompanyInfo();
 	//private static ViewerComposite reportViewer;
 	
 	
@@ -466,7 +463,7 @@ public class EngBLUtils {
 
 			parameters.put("sqlparam",sqlparam);	 //$NON-NLS-1$
 	
-			TurqCompany company=admBLComInfo.getCompany();
+			TurqCompany company=AdmBLCompanyInfo.getCompany();
 			parameters.put("companyName", company.getCompanyName()); //$NON-NLS-1$
 			parameters.put("transDate", dformat.format(trans.getTransactionsDate())); //$NON-NLS-1$
 			parameters.put("transNo", trans.getTransactionDocumentNo()); //$NON-NLS-1$

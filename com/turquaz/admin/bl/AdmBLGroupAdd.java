@@ -28,16 +28,17 @@ import com.turquaz.engine.dal.TurqGroup;
 
 
 public class AdmBLGroupAdd {
-	Calendar cal = Calendar.getInstance();
+	
 	public AdmBLGroupAdd(){
 		
 	}
 	
 	
-	public Integer saveGroup(String groupname, String description)
+	public static Integer saveGroup(String groupname, String description)
 			throws Exception {
 		try {
-
+			
+			Calendar cal = Calendar.getInstance();
 			TurqGroup group = new TurqGroup();
 			group.setGroupsName(groupname);
 			group.setGroupsDescription(description);

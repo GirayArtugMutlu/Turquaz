@@ -24,8 +24,6 @@ package com.turquaz.admin.bl;
 
 import java.util.Calendar;
 import java.util.List;
-
-import com.turquaz.admin.dal.AdmDALUserPermissions;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALUserPerms;
 import com.turquaz.engine.dal.TurqModule;
@@ -35,17 +33,16 @@ import com.turquaz.engine.dal.TurqUserPermission;
 
 public class AdmBLUserPermissions {
 	
-	private AdmDALUserPermissions dalAdminUserPerms = new AdmDALUserPermissions();
-	private EngDALUserPerms dalEngUserPerm = new EngDALUserPerms();
-	Calendar cal = Calendar.getInstance();
+
+	
 	
 	public AdmBLUserPermissions(){
 		
 	}
 	
-	public void saveUserPermission(Object user, Object module, Object moduleComp, int level)throws Exception{
+	public static void saveUserPermission(Object user, Object module, Object moduleComp, int level)throws Exception{
 		try{
-			
+			Calendar cal = Calendar.getInstance();
 			TurqUserPermission userPerm = new TurqUserPermission();
 			userPerm.setTurqUser((TurqUser)user);
 			userPerm.setTurqModule((TurqModule)module);
@@ -65,7 +62,7 @@ public class AdmBLUserPermissions {
 			throw ex;
 		}
 	}
-	public void deleteObject(Object obj)throws Exception {
+	public static void deleteObject(Object obj)throws Exception {
 		try{
 			
 			EngDALCommon.deleteObject(obj);			
@@ -75,30 +72,30 @@ public class AdmBLUserPermissions {
 			throw ex;
 		}
 	}
-	public List getUserPermissions()throws Exception{
+	public static List getUserPermissions()throws Exception{
 	try{
 		
-		return dalEngUserPerm.getUserPermissions();
+		return EngDALUserPerms.getUserPermissions();
 		
 	}
 	catch(Exception ex){
 		throw ex;
 	}
 	}
-	public List getModuleComponents(int moduleId)throws Exception{
+	public static List getModuleComponents(int moduleId)throws Exception{
 		try{
 			
-			return dalEngUserPerm.getModuleComponents(moduleId);
+			return EngDALUserPerms.getModuleComponents(moduleId);
 			
 		}
 		catch(Exception ex){
 			throw ex;
 		}
 	}
-	public List getModules()throws Exception {
+	public static List getModules()throws Exception {
 		try{
 			
-			return dalEngUserPerm.getModules();
+			return EngDALUserPerms.getModules();
 			
 		}
 		catch(Exception ex){

@@ -60,7 +60,6 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 	private Text txtAdmGroupDesc;
 	private CLabel lblAdmGroupDesc;
 	
-	private AdmBLGroupAdd blGroupAdd = new AdmBLGroupAdd();
 
 	/**
 	* Auto-generated main method to display this 
@@ -175,7 +174,7 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 		MessageBox messageBox = new MessageBox(this.getShell(),SWT.NULL);
 		if (verifyFields()){
 			try{
-				blGroupAdd.saveGroup(txtAdmGroupName.getText().trim(),txtAdmGroupDesc.getText().trim());
+				AdmBLGroupAdd.saveGroup(txtAdmGroupName.getText().trim(),txtAdmGroupDesc.getText().trim());
 				messageBox.setMessage(Messages.getString("AdmUIGroupAdd.3")); //$NON-NLS-1$
 				messageBox.open();
 				newForm();

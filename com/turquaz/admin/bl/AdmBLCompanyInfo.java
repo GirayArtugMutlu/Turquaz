@@ -9,20 +9,22 @@ import com.turquaz.engine.dal.TurqCompany;
 
 
 public class AdmBLCompanyInfo {
-AdmDALCompanyInfo dalAdmin = new AdmDALCompanyInfo();
-Calendar cal = Calendar.getInstance();
-    public TurqCompany getCompany()throws Exception{
+	
+
+  
+   public static TurqCompany getCompany()throws Exception{
         try
         {
-            return dalAdmin.getCompany();
+            return AdmDALCompanyInfo.getCompany();
         }
         catch(Exception ex){
             throw ex;
         }
         
     }
-    public void updateCompany(TurqCompany company, String name, String adres, String phone, String fax)throws Exception{
+    public static void updateCompany(TurqCompany company, String name, String adres, String phone, String fax)throws Exception{
         try{
+        	Calendar cal = Calendar.getInstance();
             company.setCompanyAddress(adres);
             company.setCompanyName(name);
             company.setCompanyFax(fax);

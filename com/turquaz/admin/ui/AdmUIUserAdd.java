@@ -78,7 +78,6 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 	private CLabel lblRealName;
 	private CLabel lblReTypePassword;
 	private CLabel lblPassWord;
-    private AdmBLUserAdd blUserAdd = new AdmBLUserAdd();
 
 	/**
 	* Auto-generated method to display this 
@@ -235,7 +234,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 		try{
 		HashMap groupMap = new HashMap(); 
 		
-		List list = blUserAdd.getGroups();
+		List list = AdmBLUserAdd.getGroups();
 		TurqGroup group;
 		
 		for(int i=0; i<list.size();i++){
@@ -280,7 +279,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 		TableItem items[]= registeredGroups.getTableAllGroups().getItems();
 		for(int i=0; i<items.length;i++){
 			if(items[i].getChecked()){
-			blUserAdd.saveUserGroups(userid,items[i].getData());	
+			AdmBLUserAdd.saveUserGroups(userid,items[i].getData());	
 				
 			}
 			
@@ -301,7 +300,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 		if(verifyFields())
 		{
 			
-		Integer userId =blUserAdd.saveUser(txtUsername.getText(),txtPassword.getText(),
+		Integer userId =AdmBLUserAdd.saveUser(txtUsername.getText(),txtPassword.getText(),
 						   txtRealName.getText(),txtDescription.getText());
 		saveUserGroups(userId);
 			

@@ -11,7 +11,7 @@ import com.turquaz.engine.dal.TurqCompany;
 
 public class AdmDALCompanyInfo {
 
-    public TurqCompany getCompany()throws Exception {
+    public static TurqCompany getCompany()throws Exception {
         try{
             
             Session session = EngDALSessionFactory.openSession();
@@ -24,11 +24,6 @@ public class AdmDALCompanyInfo {
             }
             
             return null;
-            
-            
-            
-            
-            
             
         }
         catch(Exception ex){

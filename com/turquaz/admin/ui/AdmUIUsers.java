@@ -66,7 +66,6 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 	private TableColumn tableColumnUsername;
 	private TableColumn tableColumnDescription;
 	private TableColumn tableColumnRealName;
-	AdmBLUsers blUsers = new AdmBLUsers();
 
 	/**
 	* Auto-generated main method to display this 
@@ -172,7 +171,7 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 	public void fillTable(){
 		try{
 			tableUsers.removeAll();
-			List list = blUsers.getUsers();
+			List list = AdmBLUsers.getUsers();
 			TurqUser user;
 			TableItem item;
 			for(int i=0;i<list.size();i++){

@@ -27,15 +27,14 @@ import java.util.List;
 import com.turquaz.engine.dal.EngDALCommon;
 
 public class AdmBLUsers {
-	private EngDALCommon dalCommon = new EngDALCommon();
 	public AdmBLUsers(){
 		
 	}
 	
-	public List getUsers()throws Exception{
+	public static List getUsers()throws Exception{
 		try{
 			
-			return dalCommon.getUsers();
+			return EngDALCommon.getUsers();
 			
 		}
 		catch(Exception ex){

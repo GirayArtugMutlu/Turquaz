@@ -18,11 +18,12 @@ import com.turquaz.engine.dal.TurqCurrency;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class AdmBLCurrencyAdd {
-	private static Calendar cal=Calendar.getInstance();
+
 	
 	public static void saveCurrency(String currencyName,String currencyAbbr,
 			String currencyCountry) throws Exception
 	{
+		Calendar cal=Calendar.getInstance();
 		TurqCurrency newCurrency=new TurqCurrency();
 		
 		newCurrency.setCurrenciesName(currencyName);

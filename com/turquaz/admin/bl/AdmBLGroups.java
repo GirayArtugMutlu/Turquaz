@@ -27,15 +27,15 @@ import java.util.List;
 import com.turquaz.engine.dal.EngDALCommon;
 
 public class AdmBLGroups {
-	private EngDALCommon dalCommon = new EngDALCommon();
+
 	public AdmBLGroups(){
 		
 	}
 	
-	public List getGroups()throws Exception{
+	public static List getGroups()throws Exception{
 		try{
 			
-			return dalCommon.getGroups();
+			return EngDALCommon.getGroups();
 			
 		}
 		catch(Exception ex){

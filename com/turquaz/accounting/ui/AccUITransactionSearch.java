@@ -372,8 +372,7 @@ public class AccUITransactionSearch extends Composite implements
 
 					blUpdate.initiliazeTransactionRows(accTrans);
 
-					Iterator it = accTrans
-							.getTurqAccountingTransactionColumns().iterator();
+					Iterator it = accTrans.getTurqAccountingTransactionColumns().iterator();
 					while (it.hasNext()) {
 						EngBLCommon.delete(it.next());
 					}

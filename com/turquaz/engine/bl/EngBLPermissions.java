@@ -44,10 +44,7 @@ public class EngBLPermissions {
 
 	public Map compMap;
 
-	EngDALUserPerms dbaccess;
-
-	EngDALUserPerms dbaccess2;
-
+	
 	static EngBLPermissions _instance;
 
 	/**
@@ -106,21 +103,18 @@ public class EngBLPermissions {
 			compMap = new HashMap();
 					
 			
-			
-			dbaccess = new EngDALUserPerms();
-			dbaccess2 = new EngDALUserPerms();
-			List list = dbaccess.getModuleComponents();
+			List list =EngDALUserPerms.getModuleComponents();
 			TurqModuleComponent comp = null;
 			for(int i= 0;i<list.size();i++){
 		     comp = (TurqModuleComponent)list.get(i);
 		     compMap.put(comp.getComponentsName(),0+"");
 		    }
 		
-		List ls = dbaccess.getGroupPermissions(username);
+		List ls = EngDALUserPerms.getGroupPermissions(username);
 		calculateGroupPerms(ls);
 		
 		
-		ls = dbaccess.getUserPermissions(username);
+		ls = EngDALUserPerms.getUserPermissions(username);
 		calculateUserPerms(ls);
 
 		} catch (Exception ex) {
@@ -162,7 +156,7 @@ public class EngBLPermissions {
 
 					} else {
 						if (module_component_id == -1) {
-							List lst = dbaccess2.getModuleComponents(module_id);
+							List lst = EngDALUserPerms.getModuleComponents(module_id);
 							TurqModuleComponent modComp =null;
 							for (int j = 0; j < list.size(); i++) {
 								
@@ -173,7 +167,7 @@ public class EngBLPermissions {
 							}
 
 						} else {
-							component_name = dbaccess2.getModuleCompName(module_id, module_component_id);
+							component_name = EngDALUserPerms.getModuleCompName(module_id, module_component_id);
 							compMap.put(component_name, perm_level + "");
 						}
 
@@ -228,7 +222,7 @@ public class EngBLPermissions {
 
 					} else {
 						if (module_component_id == -1) {
-							List lst = dbaccess2.getModuleComponents(module_id);
+							List lst = EngDALUserPerms.getModuleComponents(module_id);
 							TurqModuleComponent modComp =null;
 							for (int j = 0; j < list.size(); i++) {
 								
@@ -239,7 +233,7 @@ public class EngBLPermissions {
 							}
 
 						} else {
-							component_name = dbaccess2.getModuleCompName(module_id, module_component_id);
+							component_name = EngDALUserPerms.getModuleCompName(module_id, module_component_id);
 							compMap.put(component_name, perm_level + "");
 						}
 

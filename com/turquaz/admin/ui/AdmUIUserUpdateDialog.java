@@ -73,7 +73,6 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	private ToolBar toolBar1;
 	private AdmUIUserAdd compUserAdd;
 	private org.eclipse.swt.widgets.Shell dialogShell;
-	private AdmBLUserUpdate blUserUpdate = new AdmBLUserUpdate();
 
 	public AdmUIUserUpdateDialog(Shell parent, int style,TurqUser user) {
 		super(parent, style);
@@ -126,13 +125,13 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 		try{
 		if(compUserAdd.verifyFields()){
 		
-			blUserUpdate.updateUser(compUserAdd.getTxtPassword().getText(),compUserAdd.getTxtRealName().getText(),
+			AdmBLUserUpdate.updateUser(compUserAdd.getTxtPassword().getText(),compUserAdd.getTxtRealName().getText(),
 									compUserAdd.getTxtDescription().getText(),user);	
 			
 			
 			Iterator it = user.getTurqUserGroups().iterator();
 			while(it.hasNext()){
-			blUserUpdate.deleteObject(it.next());
+			AdmBLUserUpdate.deleteObject(it.next());
 		    }
 			compUserAdd.saveUserGroups(user.getId());
 			msg.setMessage(Messages.getString("AdmUIUserUpdateDialog.4")); //$NON-NLS-1$
@@ -157,13 +156,13 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			if(msg2.open()==SWT.OK){
 			Iterator it = user.getTurqUserGroups().iterator();
 			while(it.hasNext()){
-			blUserUpdate.deleteObject(it.next());
+			AdmBLUserUpdate.deleteObject(it.next());
 		    }
 			 it = user.getTurqUserPermissions().iterator();
 			while(it.hasNext()){
-			blUserUpdate.deleteObject(it.next());
+			AdmBLUserUpdate.deleteObject(it.next());
 		    }
-			blUserUpdate.deleteObject(user);
+			AdmBLUserUpdate.deleteObject(user);
 			msg.setMessage(Messages.getString("AdmUIUserUpdateDialog.6")); //$NON-NLS-1$
 			msg.open();
 			

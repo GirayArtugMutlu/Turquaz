@@ -99,9 +99,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 
 	private CLabel lblUsers;
 
-	private AdmBLUsers blUsers = new AdmBLUsers();
-
-	private AdmBLUserPermissions blUserPerms = new AdmBLUserPermissions();
+	
 
 	public AdmUIUserPermissions(org.eclipse.swt.widgets.Composite parent,
 			int style) {
@@ -255,7 +253,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 	public void postInitGUI() {
 		try {
 
-			java.util.List userList = blUsers.getUsers();
+			java.util.List userList = AdmBLUsers.getUsers();
 			for (int i = 0; i < userList.size(); i++) {
 				TurqUser user = (TurqUser) userList.get(i);
 				comboUsers.setData(user.getUsername(), user);
@@ -263,7 +261,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 
 			}
 
-			java.util.List moduleList = blUserPerms.getModules();
+			java.util.List moduleList = AdmBLUserPermissions.getModules();
 			for (int i = 0; i < moduleList.size(); i++) {
 				TurqModule module = (TurqModule) moduleList.get(i);
 				comboModules.setData(module.getModulesName(), module);
@@ -317,7 +315,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 
 	public void fillComboModuleComponents(int module_id) {
 		try {
-			java.util.List compList = blUserPerms
+			java.util.List compList = AdmBLUserPermissions
 					.getModuleComponents(module_id);
 			for (int i = 0; i < compList.size(); i++) {
 				TurqModuleComponent user = (TurqModuleComponent) compList
@@ -335,7 +333,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 	public void fillTableUserPermissions() {
 		try {
 			tableUserPermissions.removeAll();
-			java.util.List userPermList = blUserPerms.getUserPermissions();
+			java.util.List userPermList = AdmBLUserPermissions.getUserPermissions();
 			TableItem item;
 
 			String username;
@@ -421,7 +419,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 	public void save() {
 		try {
 			if (verifyFields()) {
-				blUserPerms.saveUserPermission(comboUsers.getData(comboUsers
+				AdmBLUserPermissions.saveUserPermission(comboUsers.getData(comboUsers
 						.getText()), comboModules.getData(comboModules
 						.getText()), comboModuleComponents
 						.getData(comboModuleComponents.getText()),
@@ -466,7 +464,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 
 				TableItem items[] = tableUserPermissions.getSelection();
 				if (items.length > 0) {
-					blUserPerms.deleteObject(items[0].getData());
+					AdmBLUserPermissions.deleteObject(items[0].getData());
 					fillTableUserPermissions();
 					msg2.setMessage(Messages
 							.getString("AdmUIUserPermissions.30")); //$NON-NLS-1$

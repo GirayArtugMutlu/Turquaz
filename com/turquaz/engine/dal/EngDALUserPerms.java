@@ -33,7 +33,7 @@ public class EngDALUserPerms {
 	 * @return List of TurqGroupPermission objects for username
 	 * @throws Exception "Hibernate Exception"
 	 */
-	public List getGroupPermissions(String username)throws Exception{
+	public static List getGroupPermissions(String username)throws Exception{
 	try{
 	Session session = EngDALSessionFactory.openSession();
 	Transaction tx = session.beginTransaction();
@@ -63,7 +63,7 @@ public class EngDALUserPerms {
 	{ throw e;
 }
 } 
-	public List getGroupPermissions()throws Exception{
+	public static List getGroupPermissions()throws Exception{
 		try{
 		Session session = EngDALSessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
@@ -97,7 +97,7 @@ public class EngDALUserPerms {
  * @throws Exception HiberNate Exception
  */
 	
- public List getUserPermissions(String username)throws Exception{ 
+ public static List getUserPermissions(String username)throws Exception{ 
  try{
 	 
  		Session session = EngDALSessionFactory.openSession();
@@ -130,7 +130,7 @@ public class EngDALUserPerms {
  		} 
  	}
  
- public List getUserPermissions()throws Exception{
+ public static List getUserPermissions()throws Exception{
  	try{
 	 
  		Session session = EngDALSessionFactory.openSession();
@@ -167,7 +167,7 @@ public class EngDALUserPerms {
 	 * @return -- ModuleComponent Name
 	 * @throws Exception -- Hibernate Exception
 	 */
-	 public String getModuleCompName(int module_id, int component_id)throws
+	 public static String getModuleCompName(int module_id, int component_id)throws
 	 Exception{ 
 	 	try{
 	 
@@ -202,7 +202,7 @@ public class EngDALUserPerms {
 	  * @return List of all TurqModuleComponents objects   
 	  * @throws Exception Hibernate Exception
 	  */
-	public List getModuleComponents() throws Exception {
+	public static List getModuleComponents() throws Exception {
 		try {
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
@@ -226,7 +226,7 @@ public class EngDALUserPerms {
 	 * @return List of TurqModuleComponent objects of the specified module
 	 * @throws Exception
 	 */
-	  public List getModuleComponents(int module_id)throws Exception{ 
+	  public static List getModuleComponents(int module_id)throws Exception{ 
 	  	
 	  
 	  	try {
@@ -249,7 +249,7 @@ public class EngDALUserPerms {
 		}
 	}
 	  
-	  public List getModules()throws Exception {
+	  public static List getModules()throws Exception {
 	  	try{
 	  		
 	  		Session session = EngDALSessionFactory.openSession();

@@ -24,7 +24,6 @@ package com.turquaz.admin.bl;
 import java.util.Calendar;
 import java.util.List;
 
-import com.turquaz.admin.dal.AdmDALUserPermissions;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALUserPerms;
 import com.turquaz.engine.dal.TurqGroup;
@@ -51,45 +50,44 @@ import com.turquaz.engine.dal.TurqModuleComponent;
 
 public class AdmBLGroupPermissions {
 
-		private EngDALUserPerms dalGroupPerms = new EngDALUserPerms();
-		private AdmDALUserPermissions dalAdminGroupPerms = new AdmDALUserPermissions();
-		Calendar cal = Calendar.getInstance();
+		
+		
 		public AdmBLGroupPermissions(){
 			
 		}
-		public List getGroupPermissions()throws Exception{
+		public static List getGroupPermissions()throws Exception{
 		try{
 			
-			return dalGroupPerms.getGroupPermissions();
+			return EngDALUserPerms.getGroupPermissions();
 			
 		}
 		catch(Exception ex){
 			throw ex;
 		}
 		}
-		public List getModuleComponents(int moduleId)throws Exception{
+		public static List getModuleComponents(int moduleId)throws Exception{
 			try{
 				
-				return dalGroupPerms.getModuleComponents(moduleId);
+				return EngDALUserPerms.getModuleComponents(moduleId);
 				
 			}
 			catch(Exception ex){
 				throw ex;
 			}
 		}
-		public List getModules()throws Exception {
+		public static List getModules()throws Exception {
 			try{
 				
-				return dalGroupPerms.getModules();
+				return EngDALUserPerms.getModules();
 				
 			}
 			catch(Exception ex){
 				throw ex;
 			}
 		}
-		public void saveGroupPermission(Object group, Object module, Object moduleComp, int level)throws Exception{
+		public static void saveGroupPermission(Object group, Object module, Object moduleComp, int level)throws Exception{
 			try{
-				
+				Calendar cal = Calendar.getInstance();
 				TurqGroupPermission groupPerm = new TurqGroupPermission();
 				groupPerm.setTurqGroup((TurqGroup)group);
 				groupPerm.setTurqModule((TurqModule)module);
@@ -110,7 +108,7 @@ public class AdmBLGroupPermissions {
 			}
 		}
 		
-		public void deleteObject(Object obj)throws Exception {
+		public static void deleteObject(Object obj)throws Exception {
 			try{
 				
 				EngDALCommon.deleteObject(obj);			

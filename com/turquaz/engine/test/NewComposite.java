@@ -185,8 +185,8 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
 
 	private void initGUI() {
 		try {
-		    AdmBLCompanyInfo companyInf = new AdmBLCompanyInfo();
-		    TurqCompany comp = companyInf.getCompany();
+			
+		    TurqCompany comp = AdmBLCompanyInfo.getCompany();
 		    Calendar cal = Calendar.getInstance();
 		    cal.setTime(comp.getUpdateDate());
 		    

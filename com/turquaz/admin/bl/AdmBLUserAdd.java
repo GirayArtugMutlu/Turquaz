@@ -25,7 +25,6 @@ package com.turquaz.admin.bl;
 import java.util.Calendar;
 import java.util.List;
 
-import com.turquaz.admin.dal.AdmDALUserAdd;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.dal.TurqUser;
@@ -33,17 +32,14 @@ import com.turquaz.engine.dal.TurqUserGroup;
 
 public class AdmBLUserAdd {
 	
-	private EngDALCommon dalCommon = new EngDALCommon();
-	private AdmDALUserAdd dalAdmin = new AdmDALUserAdd();
-	Calendar cal = Calendar.getInstance();
 	public AdmBLUserAdd(){
 		
 	}
 	
 	
-	public Integer saveUser(String username, String password, String realname, String description)throws Exception{
+	public static Integer saveUser(String username, String password, String realname, String description)throws Exception{
 		try{
-		
+			Calendar cal = Calendar.getInstance();
 			TurqUser user = new TurqUser();
 			user.setUsername(username);
 			user.setUsersPassword(password);
@@ -68,9 +64,9 @@ public class AdmBLUserAdd {
 		}
 		
 	}
-	public void saveUserGroups(Integer userId, Object group)throws Exception {
+	public static void saveUserGroups(Integer userId, Object group)throws Exception {
 		try{
-		
+			Calendar cal = Calendar.getInstance();
 			TurqUser user = new TurqUser();
 			user.setId(userId);
 			TurqUserGroup usergroup = new TurqUserGroup();
@@ -90,10 +86,10 @@ public class AdmBLUserAdd {
 		}
 	}
 	
-	public List getGroups()throws Exception{
+	public static List getGroups()throws Exception{
 		try{
 			
-			return dalCommon.getGroups();
+			return EngDALCommon.getGroups();
 			
 			
 			

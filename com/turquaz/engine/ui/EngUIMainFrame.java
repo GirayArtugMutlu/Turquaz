@@ -1274,14 +1274,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	* However, if you delete this method it will not be re-created.	*/
 	public static void showGUI2(){
 		try {
-		    AdmBLCompanyInfo blCompany = new AdmBLCompanyInfo(); 
+
+
 			Display display = Display.getDefault();
 			Shell shell = new Shell(display);
 			final EngUIMainFrame inst = new EngUIMainFrame(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
 			Rectangle shellBounds = shell.computeTrim(0,0,800,580);
 			shell.setImage(SWTResourceManager.getImage("icons/turquaz_paw.gif")); //$NON-NLS-1$
-			shell.setText("Turquaz - "+blCompany.getCompany().getCompanyName()); //$NON-NLS-1$
+			shell.setText("Turquaz - "+AdmBLCompanyInfo.getCompany().getCompanyName()); //$NON-NLS-1$
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.addListener(SWT.Close, new Listener() {
 		public void handleEvent(Event e) {

@@ -18,7 +18,7 @@ public class EngDALCommon {
 	
 	}
 	
-	public List getCurrencies()throws Exception{
+	public static List getCurrencies()throws Exception{
 		try{
 			
 			Session session = EngDALSessionFactory.openSession();
@@ -39,7 +39,7 @@ public class EngDALCommon {
 		
 	}
 	
-	public List getTurqCurrentGroups() throws Exception {
+	public static List getTurqCurrentGroups() throws Exception {
 		try{
 			
 			Session session = EngDALSessionFactory.openSession();
@@ -88,7 +88,7 @@ public class EngDALCommon {
 	}
 	
 	
-	public boolean checkUserPass(String username, String pass)throws Exception{
+	public static boolean checkUserPass(String username, String pass)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
 		
@@ -113,7 +113,7 @@ public class EngDALCommon {
 			throw ex;
 		}
 	}
-	public List getGroups()throws Exception {
+	public static List getGroups()throws Exception {
 		try{
 			Session session = EngDALSessionFactory.openSession();
 		
@@ -130,7 +130,7 @@ public class EngDALCommon {
 			throw ex;
 		}
 	}
-	public List getInventoryWarehouses()throws Exception {
+	public static List getInventoryWarehouses()throws Exception {
 		try{
 			Session session = EngDALSessionFactory.openSession();
 		
@@ -147,7 +147,7 @@ public class EngDALCommon {
 			throw ex;
 		}
 	}
-	public List getUsers()throws Exception {
+	public static List getUsers()throws Exception {
 		try{
 			
 			Session session = EngDALSessionFactory.openSession();

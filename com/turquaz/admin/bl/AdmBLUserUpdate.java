@@ -23,24 +23,23 @@ package com.turquaz.admin.bl;
 
 import java.util.Calendar;
 
-import com.turquaz.admin.dal.AdmDALUserUpdate;
 
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqUser;
 
 public class AdmBLUserUpdate {
-	private AdmDALUserUpdate dalAdmin = new AdmDALUserUpdate();
-
-	Calendar cal = Calendar.getInstance();
+	
+	
 
 	public AdmBLUserUpdate() {
 
 	}
 
-	public void updateUser(String password, String realname,
+	public static void updateUser(String password, String realname,
 			String description, TurqUser user) throws Exception {
 		try {
-
+			Calendar cal = Calendar.getInstance();
+			
 			user.setUsersPassword(password);
 			user.setUsersRealName(realname);
 			user.setUsersDescription(description);
@@ -56,7 +55,7 @@ public class AdmBLUserUpdate {
 
 	}
 
-	public void deleteObject(Object obj) throws Exception {
+	public static void deleteObject(Object obj) throws Exception {
 		try {
 
 			EngDALCommon.deleteObject(obj);

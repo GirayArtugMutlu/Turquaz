@@ -66,7 +66,7 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 	private Table tableGroups;
 	private TableColumn tableColumnGroupname;
 	private TableColumn tableColumnDescription;
-	AdmBLGroups blGroups = new AdmBLGroups();
+
 
 	/**
 	* Auto-generated main method to display this 
@@ -162,7 +162,7 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 	public void fillTable(){
 		try{
 			tableGroups.removeAll();
-			List list = blGroups.getGroups();
+			List list = AdmBLGroups.getGroups();
 			TurqGroup group;
 			TableItem item;
 			for(int i=0;i<list.size();i++){
