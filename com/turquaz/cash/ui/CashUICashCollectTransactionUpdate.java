@@ -73,6 +73,8 @@ public class CashUICashCollectTransactionUpdate extends Dialog {
 			    }
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.setSize(633, 353);
+			dialogShell.setText(Messages.getString("CashUICashCollectTransactionUpdate.6")); //$NON-NLS-1$
+			
             {
                 coolBar1 = new CoolBar(dialogShell, SWT.NONE);
                 GridData coolBar1LData = new GridData();

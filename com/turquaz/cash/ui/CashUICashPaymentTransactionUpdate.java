@@ -69,7 +69,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
                     SWTResourceManager.registerResourceUser(dialogShell);
                 }
 
-
+            dialogShell.setText(Messages.getString("CashUICashPaymentTransactionUpdate.0")); //$NON-NLS-1$
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.setImage(SWTResourceManager.getImage("icons/Editor16.gif")); //$NON-NLS-1$
 			dialogShell.layout();

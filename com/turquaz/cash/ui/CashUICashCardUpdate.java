@@ -88,6 +88,7 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog {
 
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.layout();
+			dialogShell.setText(Messages.getString("CashUICashCardUpdate.5")); //$NON-NLS-1$
 			
 			dialogShell.setSize(563, 228);
             {
