@@ -29,7 +29,6 @@ import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
-
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -169,6 +168,7 @@ public class AccDALTransactionSearch {
 
 	}
 
+	
 	public List searchTransactionRows(TurqAccountingTransaction trans,
 			boolean isCredit) throws Exception {
 		try {

@@ -176,8 +176,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			{
 				toolPrint = new ToolItem(toolBar1, SWT.NONE);
 				toolPrint.setText(Messages.getString("AccUITransactionUpdateDialog.6")); //$NON-NLS-1$
-				toolPrint
-					.setImage(SWTResourceManager.getImage(Messages.getString("AccUITransactionUpdateDialog.7"))); //$NON-NLS-1$
+				toolPrint.setImage(SWTResourceManager.getImage("icons/Print16.gif")); //$NON-NLS-1$
 				toolPrint.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent evt) {
 						
@@ -308,6 +307,7 @@ public void showDialog(TurqAccountingTransaction accTrans){
 			 updateTransactionRows();
 			 msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$
 			 msg.open();
+			 dialogShell.close();
 			}	
 		}
 		catch(Exception ex)

@@ -45,6 +45,7 @@ public class AccBLTransactionUpdate {
 		Date date = new Date(((java.util.Date)transDate).getTime());
 		transaction.setTransactionsDate(date);
 		transaction.setTransactionDocumentNo(docNo);
+		transaction.setTransactionDescription(definition);
 		transaction.setUpdatedBy(System.getProperty("user"));
 		transaction.setLastModified(new java.sql.Date( cal.getTime().getTime()));
 	   	try{
@@ -55,6 +56,16 @@ public class AccBLTransactionUpdate {
 	   		throw ex;
 	   	}
 	
+	}
+	public TurqAccountingTransaction getInitialTransaction()throws Exception{
+	    try{
+	 
+	      return dalTransUpdate.getInitialTransaction();
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
 	}
 	public void updateTransaction(TurqAccountingTransaction transaction,String docNo, java.util.Date transDate,
 				int transType, String definition)
