@@ -512,7 +512,7 @@ public class InvUICardUpdateDialog extends Dialog{
     
     public void update(){
     try {
-    if(compInvUICard.verifyFields()){
+    if(compInvUICard.verifyFields(false)){
     
     // Update Inventory Card Fields
    TurqAccountingAccount accountIdSell = (TurqAccountingAccount) compInvUICard.getTxtInvCardOutAcc().getData();

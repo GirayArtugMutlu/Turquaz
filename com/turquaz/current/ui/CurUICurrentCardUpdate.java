@@ -494,7 +494,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	public boolean verifyFields()throws Exception{
 		try{
 			MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
-		if(!compCurCardAdd.verifyFields()){
+		if(!compCurCardAdd.verifyFields(false)){
 			return false;
 		}
 		else if((!currentCard.getCardsCurrentCode().equals(compCurCardAdd.getTxtCurrentCode().getText().trim()))

@@ -21,7 +21,6 @@ package com.turquaz.inventory.ui;
  * @version $Id$
  */
 
-import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.jface.viewers.CellEditor;
 
@@ -1558,7 +1557,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	}
 	
 
-	public boolean verifyFields() {
+	public boolean verifyFields(boolean save) {
 		try{
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 		//If inventory name is not given
@@ -1569,7 +1568,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			txtInvCardCode.setFocus();
 			return false;
 		}
-		else if (EngBLInventoryCards.getCard(txtInvCardCode.getText().trim())!= null)
+		else if (save && EngBLInventoryCards.getCard(txtInvCardCode.getText().trim())!= null)
 		{
 			msg.setMessage(Messages.getString("InvUICardAdd.2")); //$NON-NLS-1$
 			msg.open();
@@ -1615,7 +1614,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	}
 
 	public void save() {
-		if (verifyFields()) {
+		if (verifyFields(true)) {
 
 			
 			TurqAccountingAccount accountIdSell = (TurqAccountingAccount) txtInvCardOutAcc.getData();
