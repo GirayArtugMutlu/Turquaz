@@ -71,6 +71,8 @@ public class CurDALSearchTransaction {
 				query += " and transaction.turqCurrentTransactionType = :type";
 			}
 			
+			query += " order by transaction.transactionsDate";
+			
 			Query q = session.createQuery(query); 	
 			q.setParameter("startDate",startDate);
 			q.setParameter("endDate",endDate);
