@@ -23,6 +23,7 @@ package com.turquaz.inventory.bl;
 
 import java.util.Calendar;
 import java.util.List;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
@@ -49,6 +50,39 @@ public class InvBLCardSearch {
 		catch(Exception ex){
 			throw ex;
 		}
+	}
+	
+	public static TurqAccountingAccount getInventoryAccount(Integer invCardId,int invAccTypeId)
+	throws Exception
+	{
+	    try{
+	        return InvDALCardSearch.getInventoryAccount(invCardId,invAccTypeId);
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+		
+	}
+	
+	public static List getInvAccountingAccs(Integer invCardId)	throws Exception
+	{
+	    try{
+	        return InvDALCardSearch.getInvAccountingAccs(invCardId);
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }		
+	}
+	
+	public static List getAllInvAccTypes()throws Exception{
+	    try
+		{
+	        return InvDALCardSearch.getAllInvAccTypes();
+	    }
+	    catch(Exception ex)
+		{
+	        throw ex;
+	    }
 	}
 	
 	public List searchCardsAdvanced(String cardCodeStart, String cardCodeEnd,

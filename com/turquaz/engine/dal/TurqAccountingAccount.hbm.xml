@@ -129,90 +129,6 @@
     >
         <column name="parent_account" />
     </many-to-one>
-    <!-- bi-directional one-to-many association to TurqInventoryCard -->
-    <set
-        name="turqInventoryCardsByAccountingAccountsIdSell"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="accounting_accounts_id_sell" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqInventoryCard"
-        />
-    </set>
-    <!-- bi-directional one-to-many association to TurqInventoryCard -->
-    <set
-        name="turqInventoryCardsByAccountingAccountsIdVat"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="accounting_accounts_id_vat" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqInventoryCard"
-        />
-    </set>
-    <!-- bi-directional one-to-many association to TurqInventoryCard -->
-    <set
-        name="turqInventoryCardsByAccountingAccountsIdSpecialVatSell"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="accounting_accounts_id_special_vat_sell" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqInventoryCard"
-        />
-    </set>
-    <!-- bi-directional one-to-many association to TurqInventoryCard -->
-    <set
-        name="turqInventoryCardsByAccountingAccountsIdBuy"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="accounting_accounts_id_buy" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqInventoryCard"
-        />
-    </set>
-    <!-- bi-directional one-to-many association to TurqInventoryCard -->
-    <set
-        name="turqInventoryCardsByAccountingAccountsIdVatSell"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="accounting_accounts_id_vat_sell" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqInventoryCard"
-        />
-    </set>
-    <!-- bi-directional one-to-many association to TurqInventoryCard -->
-    <set
-        name="turqInventoryCardsByAccountingAccountsIdSpecialVat"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="accounting_accounts_id_special_vat" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqInventoryCard"
-        />
-    </set>
     <!-- bi-directional one-to-many association to TurqBankAccountingAccount -->
     <set
         name="turqBankAccountingAccounts"
@@ -253,6 +169,20 @@
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqChequeTransactionType"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqInventoryAccountingAccount -->
+    <set
+        name="turqInventoryAccountingAccounts"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="accounting_accounts_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryAccountingAccount"
         />
     </set>
     <!-- bi-directional one-to-many association to TurqBankCardsSecondaryAccount -->

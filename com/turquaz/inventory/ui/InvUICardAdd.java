@@ -26,9 +26,9 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.TextCellEditor;
+
 import com.turquaz.engine.ui.component.CurrencyText;
-import com.turquaz.accounting.ui.AccUIAddAccountDialog;
-import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -44,27 +44,38 @@ import org.eclipse.swt.layout.GridData;
 
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLInventoryCards;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
+import com.turquaz.engine.dal.TurqInventoryAccountingType;
+import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 
 import com.turquaz.engine.ui.component.SecureComposite;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import com.turquaz.engine.ui.component.NumericText;
+import com.turquaz.engine.ui.editors.AccountingCellEditor;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
+import com.turquaz.engine.ui.viewers.TableRowList;
+import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
+import com.turquaz.engine.ui.viewers.TurquazCellModifier;
+import com.turquaz.engine.ui.viewers.TurquazContentProvider;
+import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
 
 
 import org.eclipse.swt.widgets.MessageBox;
@@ -74,6 +85,7 @@ import org.eclipse.swt.widgets.TableItem;
 
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
+import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.ui.comp.IPriceListViewer;
 import com.turquaz.inventory.ui.comp.InvUIPrice;
 import com.turquaz.inventory.ui.comp.InvUIPriceCellModifier;
@@ -128,31 +140,32 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	private Button btnInvCardUnitsNxt;
 
+	/**
+	 * @return Returns the tableInvAccounts.
+	 */
+	public Table getTableInvAccounts() {
+		return tableInvAccounts;
+	}
 	private Button btnInvCardUnitsPre;
 
 	public HashMap mapEditorsTableInvCardAddRegisteredUnits;
 
+	/**
+	 * @return Returns the rowList.
+	 */
+	public TableRowList getRowList() {
+		return rowList;
+	}
 	private TableColumn tableColumnUnitCoefficient;
+	private CTabItem tabItemAccounting;
+	private TableColumn tableColumnInvAccount;
+	private TableColumn tableColumnAccType;
+	private Table tableInvAccounts;
+	private Composite compAccounting;
 
 	private Button radioSpecialVatAmount;
 
 	private Button radioSpecialVatPercent;
-
-	private AccountPicker accountPickerSpecVatSell;
-
-	private CLabel cLabel2;
-
-	private AccountPicker accountPickerVATSell;
-
-	private CLabel cLabel1;
-
-	private AccountPicker accountPickerSpecVAT;
-
-	private CLabel lblAccSpecVAT;
-
-	private AccountPicker accountPickerVAT;
-
-	private CLabel lblAccVat;
 
 	private TableColumn tableColumn2;
 
@@ -216,14 +229,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	private CLabel lblInvCardVat;
 
-	private AccountPicker txtInvCardOutAcc;
-
-	private CLabel lblInvCardOutAcc;
-
-	private AccountPicker txtInvCardInAcc;
-
-	private CLabel lblInvCardInAcc;
-
 	private NumericText txtnumInvCardMax;
 
 	private CLabel lblInvCardMax;
@@ -279,6 +284,17 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	InvBLCardAdd blCardAdd = new InvBLCardAdd();
 
 	EngBLCommon engCardAdd = new EngBLCommon();
+	
+	private final String INV_ACC_TYPE="Muhasebe Tipi";
+	private final String ACC_CODE="Hesap Kodu";
+	
+	private String[] columnNames=new String[]{INV_ACC_TYPE,ACC_CODE};
+	
+	   int last_row_index=0;
+	   TableSpreadsheetCursor cursor;
+	   private List columnList = new ArrayList();
+	   public TableRowList rowList = new TableRowList();
+	   public TableViewer tableViewer;
 
 	public InvUICardAdd(Composite parent, int style) {
 		super(parent, style);
@@ -383,110 +399,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					txtnumInvCardMaxLData.widthHint = 135;
 					txtnumInvCardMaxLData.heightHint = 17;
 					txtnumInvCardMax.setLayoutData(txtnumInvCardMaxLData);
-				}
-				{
-					lblInvCardInAcc = new CLabel(compInvCardDetails, SWT.RIGHT);
-					GridData lblInvCardInAccLData = new GridData();
-					lblInvCardInAccLData.widthHint = 142;
-					lblInvCardInAccLData.heightHint = 17;
-					lblInvCardInAcc.setLayoutData(lblInvCardInAccLData);
-					lblInvCardInAcc.setText(Messages
-							.getString("InvUICardAdd.9")); //$NON-NLS-1$
-				}
-				{
-					txtInvCardInAcc = new AccountPicker(compInvCardDetails,
-							SWT.NONE);
-					GridData txtInvCardInAccLData = new GridData();
-					txtInvCardInAccLData.widthHint = 142;
-					txtInvCardInAccLData.heightHint = 17;
-					txtInvCardInAcc.setLayoutData(txtInvCardInAccLData);
-				}
-				{
-					lblInvCardOutAcc = new CLabel(compInvCardDetails, SWT.RIGHT);
-					GridData lblInvCardOutAccLData = new GridData();
-					lblInvCardOutAccLData.horizontalAlignment = GridData.END;
-					lblInvCardOutAccLData.widthHint = 134;
-					lblInvCardOutAccLData.heightHint = 16;
-					lblInvCardOutAcc.setLayoutData(lblInvCardOutAccLData);
-					lblInvCardOutAcc.setText(Messages
-							.getString("InvUICardAdd.10")); //$NON-NLS-1$
-				}
-				{
-					txtInvCardOutAcc = new AccountPicker(compInvCardDetails,
-							SWT.NONE);
-					GridData txtInvCardOutAccLData = new GridData();
-					txtInvCardOutAccLData.widthHint = 142;
-					txtInvCardOutAccLData.heightHint = 17;
-					txtInvCardOutAcc.setLayoutData(txtInvCardOutAccLData);
-					txtInvCardOutAcc.setEnabled(true);
-				}
-				{
-					lblAccVat = new CLabel(compInvCardDetails, SWT.RIGHT);
-					lblAccVat.setText(Messages.getString("InvUICardAdd.12")); //$NON-NLS-1$
-					GridData lblAccVatLData = new GridData();
-					lblAccVatLData.widthHint = 138;
-					lblAccVatLData.heightHint = 19;
-					lblAccVat.setLayoutData(lblAccVatLData);
-				}
-				{
-					accountPickerVAT = new AccountPicker(compInvCardDetails,
-							SWT.NONE);
-					GridData accountPickerVATLData = new GridData();
-					accountPickerVATLData.widthHint = 142;
-					accountPickerVATLData.heightHint = 17;
-					accountPickerVAT.setLayoutData(accountPickerVATLData);
-				}
-				{
-					cLabel1 = new CLabel(compInvCardDetails, SWT.RIGHT);
-					cLabel1.setText(Messages.getString("InvUICardAdd.40")); //$NON-NLS-1$
-					GridData cLabel1LData = new GridData();
-					cLabel1LData.widthHint = 142;
-					cLabel1LData.heightHint = 19;
-					cLabel1.setLayoutData(cLabel1LData);
-				}
-				{
-					accountPickerVATSell = new AccountPicker(
-						compInvCardDetails,
-						SWT.NONE);
-					GridData accountPicker1LData = new GridData();
-					accountPicker1LData.widthHint = 142;
-					accountPicker1LData.heightHint = 17;
-					accountPickerVATSell.setLayoutData(accountPicker1LData);
-				}
-				{
-					lblAccSpecVAT = new CLabel(compInvCardDetails, SWT.RIGHT);
-					lblAccSpecVAT
-							.setText(Messages.getString("InvUICardAdd.39")); //$NON-NLS-1$
-					GridData lblAccSpecVATLData = new GridData();
-					lblAccSpecVATLData.widthHint = 131;
-					lblAccSpecVATLData.heightHint = 16;
-					lblAccSpecVAT.setLayoutData(lblAccSpecVATLData);
-				}
-				{
-					accountPickerSpecVAT = new AccountPicker(
-						compInvCardDetails,
-						SWT.NONE);
-					GridData accountPickerSpecVATLData = new GridData();
-					accountPickerSpecVATLData.widthHint = 142;
-					accountPickerSpecVATLData.heightHint = 17;
-					accountPickerSpecVAT
-						.setLayoutData(accountPickerSpecVATLData);
-				}
-				{
-					cLabel2 = new CLabel(compInvCardDetails, SWT.RIGHT);
-					cLabel2.setText(Messages.getString("InvUICardAdd.42")); //$NON-NLS-1$
-					GridData cLabel2LData = new GridData();
-					cLabel2LData.widthHint = 131;
-					cLabel2LData.heightHint = 16;
-					cLabel2.setLayoutData(cLabel2LData);
-				}
-				{
-					accountPickerSpecVatSell = new AccountPicker(
-							compInvCardDetails, SWT.NONE);
-					GridData accountPicker2LData = new GridData();
-					accountPicker2LData.widthHint = 142;
-					accountPicker2LData.heightHint = 17;
-					accountPickerSpecVatSell.setLayoutData(accountPicker2LData);
 				}
 				{
 					lblInvCardVat = new CLabel(compInvCardDetails, SWT.RIGHT);
@@ -1016,6 +928,39 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			compInvCardPrices.layout();
 
 			tabInvCardGroups.setText(Messages.getString("InvUICardAdd.33")); //$NON-NLS-1$
+			//START >>  tabItemAccounting
+			tabItemAccounting = new CTabItem(tabfldInvCardAdd, SWT.NONE);
+			tabItemAccounting.setText("Muhasebe Kodlar\u0131");
+			//START >>  compAccounting
+			compAccounting = new Composite(tabfldInvCardAdd, SWT.NONE);
+			GridLayout compAccountingLayout = new GridLayout();
+			compAccountingLayout.makeColumnsEqualWidth = true;
+			compAccounting.setLayout(compAccountingLayout);
+			tabItemAccounting.setControl(compAccounting);
+			//START >>  tableInvAccounts
+			tableInvAccounts = new Table(compAccounting, SWT.HIDE_SELECTION);
+			GridData tableInvAccountsLData = new GridData();
+			tableInvAccounts.setLinesVisible(true);
+			tableInvAccounts.setHeaderVisible(true);
+			tableInvAccountsLData.grabExcessHorizontalSpace = true;
+			tableInvAccountsLData.grabExcessVerticalSpace = true;
+			tableInvAccountsLData.horizontalAlignment = GridData.FILL;
+			tableInvAccountsLData.verticalAlignment = GridData.FILL;
+			tableInvAccounts.setLayoutData(tableInvAccountsLData);
+			//START >>  tableColumnAccType
+			tableColumnAccType = new TableColumn(tableInvAccounts, SWT.NONE);
+			tableColumnAccType.setText("Muhasebe Tipi");
+			tableColumnAccType.setWidth(200);
+			//END <<  tableColumnAccType
+			//START >>  tableColumnInvAccount
+			tableColumnInvAccount = new TableColumn(tableInvAccounts, SWT.NONE);
+			tableColumnInvAccount.setText("Hesap Kodu");
+			tableColumnInvAccount.setWidth(100);
+			//END <<  tableColumnInvAccount
+			//END <<  tableInvAccounts
+			//END <<  compAccounting
+			tabfldInvCardAdd.setSelection(0);
+			//END <<  tabItemAccounting
 			{
 				compInvCardAddGroups = new Composite(tabfldInvCardAdd, SWT.NONE);
 				tabInvCardGroups.setControl(compInvCardAddGroups);
@@ -1076,7 +1021,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 			}
 
-			tabfldInvCardAdd.setSelection(0);
 			{
 
 				tabInvCardGeneral.setText(Messages.getString("InvUICardAdd.0")); //$NON-NLS-1$
@@ -1110,7 +1054,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								compInvCardGeneral, SWT.NONE);
 						GridData txtInvCardCodeLData = new GridData();
 						txtInvCardCodeLData.widthHint = 207;
-						txtInvCardCodeLData.heightHint = 18;
+						txtInvCardCodeLData.heightHint = 17;
 						txtInvCardCodeLData.horizontalSpan = 3;
 						txtInvCardCode.setLayoutData(txtInvCardCodeLData);
 					}
@@ -1229,18 +1173,112 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	}
 
 	/** Add your post-init code in here */
-	public void postInitGUI() {
+	public void postInitGUI()
+	{
+		try
+		{
 
-		fillInvCardUnits();
-		initTableInvPrices();
+			fillInvCardUnits();
+			initTableInvPrices();
 		
-		fillDefaultValues();
+			fillDefaultValues();
 	
-
+			createTableViewer();
+			fillInventoryAccounts();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
+	
+	public void fillInventoryAccounts()
+	{
+		try
+		{
+			List allTypes=InvBLCardSearch.getAllInvAccTypes();
+			for(int k=0; k<allTypes.size(); k++)
+			{
+				TurqInventoryAccountingType type=(TurqInventoryAccountingType)allTypes.get(k);
+				InvUIInvAccountingAccTableRow row=new InvUIInvAccountingAccTableRow(rowList,type);
+				rowList.addTask(row);
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	
+	 public void createTableViewer(){
+	       columnList.add(INV_ACC_TYPE);
+	       columnList.add(ACC_CODE);
+	         
+	    
+	       tableViewer = new TableViewer(tableInvAccounts);
+	       tableViewer.setUseHashlookup(true);
+	       tableViewer.setColumnProperties(columnNames);
+	       //     Create the cell editors
+		   CellEditor[] editors = new CellEditor[columnNames.length];
+		   editors[0] = new TextCellEditor(tableInvAccounts); 
+	       editors[1] = new AccountingCellEditor(tableInvAccounts); 	       
+	    
+	       // Assign the cell editors to the viewer 
+			tableViewer.setCellEditors(editors);
+	       
+			TurquazContentProvider contentProvider = new TurquazContentProvider(tableViewer,rowList);
+			
+			tableViewer.setCellModifier(new TurquazCellModifier(columnList,contentProvider));    
+			tableViewer.setContentProvider(contentProvider);
+			tableViewer.setLabelProvider(new TurquazLabelProvider());
+			
+			tableViewer.setInput(rowList);
+			 
+	             cursor = new TableSpreadsheetCursor(tableInvAccounts, SWT.NONE,tableViewer,rowList,true);
+	             cursor.setEnabled(true);
+
+	             cursor.addSelectionListener(new SelectionAdapter() {
+	                     public void widgetDefaultSelected(
+	                      SelectionEvent evt) {
+	                         
+	                         tableViewer.editElement(cursor
+	                             .getRow().getData(), cursor
+	                             .getColumn());
+	                                         
+
+	                     }
+	                     public void widgetSelected(
+	                       SelectionEvent evt) {
+	                                               
+	                         int current_row_index = ((InvUIInvAccountingAccTableRow) cursor
+	                             .getRow().getData())
+	                             .getRowIndex();
+	                         if (current_row_index != last_row_index) {
+	                             last_row_index = current_row_index;
+	                        
+	                         }
+	                         cursor.redraw();                     
+	                         
+	 
+	                     }
+	                 });
+	          
+	         
+	    //   To refresh the cell combo cell editor
+	             for(int i=0;i<editors.length;i++){
+	             editors[i].addListener(this.cursor);
+	             }
+	    	
+
+	  
+	             
+	             
+	   }
 	
 	public void fillDefaultValues(){
 	    
+		/*
 	    txtInvCardInAcc.setText("153"); //Alis Muhasebe Kodu //$NON-NLS-1$
 	    txtInvCardOutAcc.setText("600"); //Satis Muhasebe Kodu //$NON-NLS-1$
 	    
@@ -1249,7 +1287,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
         
         accountPickerVAT.setText("191");     //Alis K.D.V //$NON-NLS-1$
         accountPickerVATSell.setText("391"); //Satis K.D.V //$NON-NLS-1$
-        
+        */
         
         
 	    
@@ -1430,88 +1468,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				tabfldInvCardAdd.setSelection(tabInvCardGeneral);
 				txtInvCardName.setFocus();
 				return false;
-			} else if (accountPickerVAT.getData() == null) {
-				msg.setMessage(Messages.getString("InvUICardAdd.48")); //$NON-NLS-1$
-				msg.open();
-				tabfldInvCardAdd.setSelection(tabInvCardDetails);
-				accountPickerVAT.setFocus();
-				return false;
-			} else if (accountPickerVATSell.getData() == null) {
-				msg.setMessage(Messages.getString("InvUICardAdd.49")); //$NON-NLS-1$
-				msg.open();
-				tabfldInvCardAdd.setSelection(tabInvCardDetails);
-				accountPickerVATSell.setFocus();
-				return false;
-			} else if (accountPickerSpecVAT.getData() == null) {
-				msg.setMessage(Messages.getString("InvUICardAdd.50")); //$NON-NLS-1$
-				msg.open();
-				tabfldInvCardAdd.setSelection(tabInvCardDetails);
-				accountPickerSpecVAT.setFocus();
-				return false;
-			} else if (accountPickerSpecVatSell.getData() == null) {
-				msg.setMessage(Messages.getString("InvUICardAdd.51")); //$NON-NLS-1$
-				msg.open();
-				tabfldInvCardAdd.setSelection(tabInvCardDetails);
-				accountPickerSpecVatSell.setFocus();
-				return false;
 			} else if (comboInvCardUnits.getData(comboInvCardUnits.getText()) == null) {
 				msg.setMessage(Messages.getString("InvUICardAdd.46")); //$NON-NLS-1$
 				msg.open();
 				tabfldInvCardAdd.setSelection(tabInvCardUnits);
 				comboInvCardUnits.setFocus();
 				return false;
-			}
-
-			else if (txtInvCardInAcc.getData() == null) {
-
-				if (txtInvCardInAcc.getText().trim().length() > 0) {
-					MessageBox newAcc = new MessageBox(this.getShell(), SWT.YES
-							| SWT.NO);
-
-					newAcc
-							.setMessage(Messages.getString("InvUICardAdd.55")); //$NON-NLS-1$
-					if (newAcc.open() == SWT.YES) {
-						new AccUIAddAccountDialog(this.getShell(), SWT.NULL)
-								.open(txtInvCardInAcc.getText().trim(),
-										txtInvCardName.getText().trim());
-
-						txtInvCardInAcc.verifyData();
-					}
-
-				}
-				// check again after changes
-				if (txtInvCardInAcc.getData() == null) {
-					msg.setMessage(Messages.getString("InvUICardAdd.44")); //$NON-NLS-1$
-					msg.open();
-					tabfldInvCardAdd.setSelection(tabInvCardDetails);
-					txtInvCardInAcc.setFocus();
-					return false;
-				}
-			} else if (txtInvCardOutAcc.getData() == null) {
-
-				if (txtInvCardOutAcc.getText().trim().length() > 0) {
-					MessageBox newAcc = new MessageBox(this.getShell(), SWT.YES
-							| SWT.NO);
-
-					newAcc
-							.setMessage(Messages.getString("InvUICardAdd.56")); //$NON-NLS-1$
-					if (newAcc.open() == SWT.YES) {
-						new AccUIAddAccountDialog(this.getShell(), SWT.NULL)
-								.open(txtInvCardOutAcc.getText().trim(),
-										txtInvCardName.getText().trim());
-
-						txtInvCardOutAcc.verifyData();
-					}
-
-				}
-
-				if (txtInvCardInAcc.getData() == null) {
-					msg.setMessage(Messages.getString("InvUICardAdd.45")); //$NON-NLS-1$
-					msg.open();
-					tabfldInvCardAdd.setSelection(tabInvCardDetails);
-					txtInvCardOutAcc.setFocus();
-					return false;
-				}
 			}
 
 			return true;
@@ -1526,44 +1488,33 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	public void save() {
 		if (verifyFields(true)) {
 
-			TurqAccountingAccount accountIdSell = (TurqAccountingAccount) txtInvCardOutAcc
-					.getData();
-			TurqAccountingAccount accountIdBuy = (TurqAccountingAccount) txtInvCardInAcc
-					.getData();
-			TurqAccountingAccount accountIdVAt = (TurqAccountingAccount) accountPickerVAT
-					.getData();
-			TurqAccountingAccount accountIdSpecialVAT = (TurqAccountingAccount) accountPickerSpecVAT
-					.getData();
-			TurqAccountingAccount accountIdVAtSell = (TurqAccountingAccount) accountPickerVATSell
-					.getData();
-			TurqAccountingAccount accountIdSpecialVATSell = (TurqAccountingAccount) accountPickerSpecVatSell
-					.getData();
+	
 
 			try {
 
 				// Save inventory card
 
-				Integer cardId = blCardAdd.saveInvCard(txtInvCardCode.getText()
+				TurqInventoryCard card = blCardAdd.saveInvCard(txtInvCardCode.getText()
 						.trim(), txtInvCardName.getText().trim(),
 						txtInvCardDefinition.getText().trim(), txtnumInvCardMin
 								.getIntValue(), txtnumInvCardMax.getIntValue(),
 						txtInvCardVat.getIntValue(), txtInvCardDiscount
-								.getIntValue(), accountIdBuy, accountIdSell,
+								.getIntValue(),
 						numTextSpecailVATPercent.getIntValue(),
 						decTextSpecialVatAmount.getBigDecimalValue(),
-						accountIdVAt, accountIdSpecialVAT, accountIdVAtSell,
-						accountIdSpecialVATSell, radioSpecialVatAmount
+						radioSpecialVatAmount
 								.getSelection());
 
 				// Register its Groups
-				saveInvGroups(cardId);
+				saveInvGroups(card);
 
 				//Register its Units
-				saveInvUnits(cardId);
+				saveInvUnits(card);
 
 				// Save the price list now.
 
-		        saveInvPrices(cardId);
+		        saveInvPrices(card);
+		        saveInvAccounts(card);
 		        txtInvCardCode.asistant.refreshContentAssistant(1);
 		        EngBLInventoryCards.RefreshContentAsistantMap();
 		    	MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
@@ -1584,8 +1535,29 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		}
 
 	}
+	
+	public void saveInvAccounts(TurqInventoryCard card)
+	{
+		try
+		{
+			TableItem[] items=tableInvAccounts.getItems();
+			for (int k=0; k<items.length; k++)
+			{
+				InvUIInvAccountingAccTableRow row=(InvUIInvAccountingAccTableRow)items[k].getData();
+				TurqInventoryAccountingAccount invAcc=(TurqInventoryAccountingAccount)row.getDBObject();
+				if (invAcc.getTurqAccountingAccount()!=null)
+				{
+					InvBLCardAdd.saveInvAccount(invAcc, card);
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 
-	public void saveInvGroups(Integer cardId) {
+	public void saveInvGroups(TurqInventoryCard card) {
 
 		try {
 			
@@ -1597,7 +1569,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		
 		     TurqInventoryGroup group = (TurqInventoryGroup)it.next();
 		     if(group!=null){
-		         blCardAdd.registerGroup(cardId, group);
+		         blCardAdd.registerGroup(card, group);
 		     }
 		   }
 		
@@ -1607,12 +1579,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	}
 
-	public void saveInvUnits(Integer cardId) {
+	public void saveInvUnits(TurqInventoryCard card) {
 		try {
 			Object invUnit = comboInvCardUnits.getData(comboInvCardUnits
 					.getText());
 			
-			blCardAdd.registerUnits(cardId, invUnit, new BigDecimal(1));
+			blCardAdd.registerUnits(card, invUnit, new BigDecimal(1));
 			
 			TableItem item;
 			//Register Secondary Units
@@ -1623,7 +1595,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				editor = (TableEditor) mapEditorsTableInvCardAddRegisteredUnits
 						.get(item.getText(0));
 				BigDecimal factor = ((CurrencyText) editor.getEditor()).getBigDecimalValue();
-				blCardAdd.registerUnits(cardId, item.getData(), factor);
+				blCardAdd.registerUnits(card, item.getData(), factor);
 
 			}
 		} catch (Exception ex) {
@@ -1632,7 +1604,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	}
 
-	public void saveInvPrices(Integer cardId) {
+	public void saveInvPrices(TurqInventoryCard card) {
 		try {
 			int itemCount = tableInvCardAddPrices.getItemCount();
 			TableItem item;
@@ -1656,7 +1628,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 						priceType = true;
 					}
 
-					blCardAdd.saveInvPrices(cardId, priceType, abbrev, formatted);
+					blCardAdd.saveInvPrices(card, priceType, abbrev, formatted);
 
 				}
 			}
@@ -1959,83 +1931,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	 */
 	public NumericText getNumTextSpecailVATPercent() {
 		return numTextSpecailVATPercent;
-	}
-
-	public AccountPicker getTxtInvCardInAcc() {
-		return txtInvCardInAcc;
-	}
-
-	public void setTxtInvCardInAcc(AccountPicker txtInvCardInAcc) {
-		this.txtInvCardInAcc = txtInvCardInAcc;
-	}
-
-	public AccountPicker getTxtInvCardOutAcc() {
-		return txtInvCardOutAcc;
-	}
-
-	public void setTxtInvCardOutAcc(AccountPicker txtInvCardOutAcc) {
-		this.txtInvCardOutAcc = txtInvCardOutAcc;
-	}
-
-	/**
-	 * @return Returns the accountPickerSpecVAT.
-	 */
-	public AccountPicker getAccountPickerSpecVAT() {
-		return accountPickerSpecVAT;
-	}
-
-	/**
-	 * @param accountPickerSpecVAT
-	 *            The accountPickerSpecVAT to set.
-	 */
-	public void setAccountPickerSpecVAT(AccountPicker accountPickerSpecVAT) {
-		this.accountPickerSpecVAT = accountPickerSpecVAT;
-	}
-
-	/**
-	 * @return Returns the accountPickerVAT.
-	 */
-	public AccountPicker getAccountPickerVAT() {
-		return accountPickerVAT;
-	}
-
-	/**
-	 * @param accountPickerVAT
-	 *            The accountPickerVAT to set.
-	 */
-	public void setAccountPickerVAT(AccountPicker accountPickerVAT) {
-		this.accountPickerVAT = accountPickerVAT;
-	}
-
-	/**
-	 * @return Returns the accountPickerSpecVatSell.
-	 */
-	public AccountPicker getAccountPickerSpecVatSell() {
-		return accountPickerSpecVatSell;
-	}
-
-	/**
-	 * @param accountPickerSpecVatSell
-	 *            The accountPickerSpecVatSell to set.
-	 */
-	public void setAccountPickerSpecVatSell(
-			AccountPicker accountPickerSpecVatSell) {
-		this.accountPickerSpecVatSell = accountPickerSpecVatSell;
-	}
-
-	/**
-	 * @return Returns the accountPickerVATSell.
-	 */
-	public AccountPicker getAccountPickerVATSell() {
-		return accountPickerVATSell;
-	}
-
-	/**
-	 * @param accountPickerVATSell
-	 *            The accountPickerVATSell to set.
-	 */
-	public void setAccountPickerVATSell(AccountPicker accountPickerVATSell) {
-		this.accountPickerVATSell = accountPickerVATSell;
 	}
 
 	public Button getRadioSpecialVatAmount() {

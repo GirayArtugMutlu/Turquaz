@@ -926,7 +926,7 @@ implements SecureComposite{
 		
 		tableViewer.setInput(rowList);
 
-             cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE,tableViewer,rowList);
+             cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE,tableViewer,rowList,true);
              cursor.setEnabled(true);
         	 
         	 

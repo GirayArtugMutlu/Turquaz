@@ -22,6 +22,7 @@ package com.turquaz.inventory.ui;
 */
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.swt.graphics.Point;
@@ -45,6 +46,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Dialog;
 
 import com.turquaz.inventory.Messages;
+import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.bl.InvBLCardUpdate;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUIPrice;
@@ -52,7 +54,7 @@ import com.turquaz.inventory.ui.comp.InvUIPriceList;
 
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLPermissions;
-import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
@@ -65,6 +67,21 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 public class InvUICardUpdateDialog extends Dialog{
 
 	{
@@ -222,25 +239,18 @@ public class InvUICardUpdateDialog extends Dialog{
 	compInvUICard.getTxtInvCardCode().setText(invCard.getCardInventoryCode());
 	compInvUICard.getTxtInvCardDefinition().setText(invCard.getCardDefinition());
 	compInvUICard.getTxtInvCardDiscount().setText(invCard.getCardDiscount());
-	compInvUICard.getTxtInvCardInAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdBuy());
-	compInvUICard.getTxtInvCardInAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdBuy());
 	compInvUICard.getTxtInvCardName().setText(invCard.getCardName());
-	compInvUICard.getTxtInvCardOutAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSell());
-	compInvUICard.getTxtInvCardOutAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSell());
 	compInvUICard.getTxtInvCardVat().setText(invCard.getCardVat());
 	compInvUICard.getTxtnumInvCardMax().setText(invCard.getCardMaximumAmount());
 	compInvUICard.getTxtnumInvCardMin().setText(invCard.getCardMinimumAmount());
 	compInvUICard.getNumTextSpecailVATPercent().setText(invCard.getCardSpecialVat());
 	compInvUICard.getDecTextSpecialVatAmount().setText(invCard.getCardSpecialVatEach());
-	compInvUICard.getAccountPickerVAT().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdVat());
-	compInvUICard.getAccountPickerSpecVAT().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSpecialVat());
-	compInvUICard.getAccountPickerVATSell().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdVatSell());
-	compInvUICard.getAccountPickerSpecVatSell().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSpecialVatSell());
 	compInvUICard.getRadioSpecialVatAmount().setSelection(invCard.isSpecVatForEach());
 	compInvUICard.getRadioSpecialVatPercent().setSelection(!invCard.isSpecVatForEach());
 	fillUnits();
 	fillGroups();
 	fillPrices();
+	fillInvAccounts();
 	
 	
 		
@@ -258,6 +268,35 @@ public class InvUICardUpdateDialog extends Dialog{
 	}
 	
 	
+	}
+	
+	public void fillInvAccounts()
+	{
+		try
+		{
+			List invAccounts=InvBLCardSearch.getInvAccountingAccs(invCard.getId());
+			for(int k=0; k<invAccounts.size(); k++)
+			{
+				TurqInventoryAccountingAccount invAcc=(TurqInventoryAccountingAccount)invAccounts.get(k);
+				TableItem[] invAccs=compInvUICard.getTableInvAccounts().getItems();
+				for (int i=0; i<invAccs.length; i++)
+				{
+					InvUIInvAccountingAccTableRow row=(InvUIInvAccountingAccTableRow)invAccs[i].getData();
+					TurqInventoryAccountingAccount inventoryAcc=(TurqInventoryAccountingAccount)row.getDBObject();
+					if (inventoryAcc.getTurqInventoryAccountingType().getId().intValue()
+							==invAcc.getTurqInventoryAccountingType().getId().intValue())
+					{
+						inventoryAcc.setTurqAccountingAccount(invAcc.getTurqAccountingAccount());
+						inventoryAcc.setTurqInventoryCard(invCard);
+						compInvUICard.rowList.taskChanged(row);
+					}
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 	
 	public void fillPrices(){
@@ -381,7 +420,7 @@ public class InvUICardUpdateDialog extends Dialog{
      cardUnit = (TurqInventoryCardUnit)it.next();
      cardUpdate.deleteObject(cardUnit);				
 	}
-   compInvUICard.saveInvUnits(invCard.getId());
+   compInvUICard.saveInvUnits(invCard);
    
     }
     
@@ -409,28 +448,70 @@ public class InvUICardUpdateDialog extends Dialog{
     ex.printStackTrace();
     }
    }
+ 
+ public void deleteInvAccounts()
+ {
+ 		try
+		{
+ 			Iterator it=invCard.getTurqInventoryAccountingAccounts().iterator();
+ 			TurqInventoryAccountingAccount invAccount;
+ 			while (it.hasNext())
+ 			{
+ 				invAccount=(TurqInventoryAccountingAccount)it.next();
+ 				cardUpdate.deleteObject(invAccount);
+ 			}
+		}
+ 		catch(Exception ex)
+		{
+ 			ex.printStackTrace();
+		}
+ 	
+ }
    
    
-   public void updateInvGroups(){
-   try{
-   Iterator it = invCard.getTurqInventoryCardGroups().iterator();
-    TurqInventoryCardGroup cardGroup; 
+   public void updateInvGroups()
+   {
+   		try
+		{
+   			Iterator it = invCard.getTurqInventoryCardGroups().iterator();
+   			TurqInventoryCardGroup cardGroup; 
       
-    while(it.hasNext()){
+   			while(it.hasNext())
+   			{
      
-     cardGroup = (TurqInventoryCardGroup)it.next();
-     cardUpdate.deleteObject(cardGroup);
-     }
+   				cardGroup = (TurqInventoryCardGroup)it.next();
+   				cardUpdate.deleteObject(cardGroup);
+   			}
    
-    compInvUICard.saveInvGroups(invCard.getId());
-   
+   			compInvUICard.saveInvGroups(invCard);   
+		} 
+   		catch(Exception ex){
+   			ex.printStackTrace();   
+   		}
    }
-   catch(Exception ex){
-   ex.printStackTrace();
    
+   public void updateInvAccounts()
+   {
+   		try
+		{
+   			Iterator it=invCard.getTurqInventoryAccountingAccounts().iterator();
+   			TurqInventoryAccountingAccount invAccount;
+   			while (it.hasNext())
+   			{
+   				invAccount=(TurqInventoryAccountingAccount)it.next();
+   				cardUpdate.deleteObject(invAccount);
+   			}
+   			
+   			compInvUICard.saveInvAccounts(invCard);
+		}
+   		catch(Exception ex)
+		{
+   			ex.printStackTrace();
+		}
+   	
    }
    
-   }
+   
    public void updatePrices(){
    try{
    Iterator it = invCard.getTurqInventoryPrices().iterator();
@@ -444,7 +525,7 @@ public class InvUICardUpdateDialog extends Dialog{
     
               
      }
-     compInvUICard.saveInvPrices(invCard.getId());
+     compInvUICard.saveInvPrices(invCard);
 	
    
    
@@ -488,27 +569,19 @@ public class InvUICardUpdateDialog extends Dialog{
     if(compInvUICard.verifyFields(false)){
     updated=true;
     // Update Inventory Card Fields
-   TurqAccountingAccount accountIdSell = (TurqAccountingAccount) compInvUICard.getTxtInvCardOutAcc().getData();
-   TurqAccountingAccount accountIdBuy = (TurqAccountingAccount) compInvUICard.getTxtInvCardInAcc().getData();
-   TurqAccountingAccount accountIdVAt = (TurqAccountingAccount) compInvUICard.getAccountPickerVAT().getData();
-	TurqAccountingAccount accountIdSpecialVAT = (TurqAccountingAccount) compInvUICard.getAccountPickerSpecVAT().getData();
-	
-	TurqAccountingAccount accountIdVAtSell = (TurqAccountingAccount) compInvUICard.getAccountPickerVATSell().getData();
-	TurqAccountingAccount accountIdSpecialVATSell = (TurqAccountingAccount) compInvUICard.getAccountPickerSpecVatSell().getData();
-	  
     cardUpdate.updateInvCard(compInvUICard.getTxtInvCardCode().getText()
 						.trim(), compInvUICard.getTxtInvCardName().getText().trim(), compInvUICard.getTxtInvCardDefinition().getText().trim(),
 						 compInvUICard.getTxtnumInvCardMin().getIntValue(),compInvUICard.getTxtnumInvCardMax().getIntValue(),
-						compInvUICard.getTxtInvCardVat().getIntValue(), compInvUICard.getTxtInvCardDiscount().getIntValue(), accountIdBuy, accountIdSell,
-						compInvUICard.getNumTextSpecailVATPercent().getIntValue()
-						,compInvUICard.getDecTextSpecialVatAmount().getBigDecimalValue(),invCard,
-						accountIdVAt,accountIdSpecialVAT,
-						accountIdVAtSell,accountIdSpecialVATSell);	
+						compInvUICard.getTxtInvCardVat().getIntValue(), compInvUICard.getTxtInvCardDiscount().getIntValue(),
+						compInvUICard.getNumTextSpecailVATPercent().getIntValue(),
+						compInvUICard.getDecTextSpecialVatAmount().getBigDecimalValue(),invCard
+						);	
 	
 	 //Update Inventory Groups			
 	updateInvUnits();
 	updateInvGroups();
 	updatePrices();
+	updateInvAccounts();
 	  EngBLInventoryCards.RefreshContentAsistantMap();
   	
 	MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
@@ -549,6 +622,9 @@ public class InvUICardUpdateDialog extends Dialog{
     // delete Prices
     deletePrices();
     // delete invCard
+    deleteInvAccounts();
+    //delete invAccounts
+    
     
     cardUpdate.deleteObject(invCard);
     msg = new MessageBox(this.getParent(),SWT.NULL);

@@ -29,6 +29,7 @@ import net.sf.hibernate.Session;
 
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 
@@ -81,6 +82,49 @@ public class InvDALCardSearch {
 				throw ex;
 			}
 					
+	}
+	
+	public static TurqAccountingAccount getInventoryAccount(Integer invCardId,int invAccTypeId)
+	throws Exception
+	{
+	    try{
+	        Session session = EngDALSessionFactory.openSession();
+	        String query = "Select invAcc.turqAccountingAccount from TurqInventoryAccountingAccount as invAcc" +
+	        		" where invAcc.turqInventoryCard.id="+invCardId.intValue()+
+					" and invAcc.turqInventoryAccountingType="+invAccTypeId;
+	        
+	        
+	        Query q = session.createQuery(query);	       
+	        List list = q.list();   	       
+	        session.close();
+	        
+	        if (list.size()==0)
+	        	return null;
+	        else
+	        	return (TurqAccountingAccount)list.get(0);
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+		
+	}
+	
+	public static List getInvAccountingAccs(Integer invCardId)	throws Exception
+	{
+	    try{
+	        Session session = EngDALSessionFactory.openSession();
+	        String query = "Select invAcc from TurqInventoryAccountingAccount as invAcc" +
+	        		" where invAcc.turqInventoryCard.id="+invCardId.intValue();	        
+	        
+	        Query q = session.createQuery(query);	       
+	        List list = q.list();   	       
+	        session.close();
+	        
+	       return list;
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }		
 	}
 	
 	public List searchInventoryCardsAdvanced(String cardCodeStart, String cardCodeEnd,
@@ -186,6 +230,27 @@ public class InvDALCardSearch {
 	    }
 	}
 	
+	public static List getAllInvAccTypes()throws Exception{
+	    try{
+	        Session session = EngDALSessionFactory.openSession();
+	        String query = "Select invAccType from TurqInventoryAccountingType as invAccType";
+	        
+	        Query q = session.createQuery(query);
+	       
+	        List list = q.list();
+	        
+	       
+	        session.close();
+	        
+	        return list;
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
+	
+	
+	
 	public TurqInventoryCard getInventoryCard(String cardCode)throws Exception {
 	    try{
 	        
@@ -230,7 +295,7 @@ public class InvDALCardSearch {
 	        Hibernate.initialize(invCard.getTurqInventoryCardGroups());
 			Hibernate.initialize(invCard.getTurqInventoryPrices());
 			Hibernate.initialize(invCard.getTurqInventoryCardUnits());
-	        
+			Hibernate.initialize(invCard.getTurqInventoryAccountingAccounts());	        
 	        
 	   
 	        session.flush();

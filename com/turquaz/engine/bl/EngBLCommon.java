@@ -52,9 +52,8 @@ import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.ui.component.DatePicker;
-import com.turquaz.inventory.bl.InvBLCardSearch;
+
 
 public class EngBLCommon {
 
@@ -516,7 +515,7 @@ public class EngBLCommon {
 		Transaction tx = null;
 		try {
 
-			List ls = InvBLCardSearch.getAllInventoryCards();
+			/*List ls = InvBLCardSearch.getAllInventoryCards();
 
 			Session session = EngDALSessionFactory.openSession();
 			tx = session.beginTransaction();
@@ -582,7 +581,7 @@ public class EngBLCommon {
 
 			tx.commit();
 			session.flush();
-			session.close();
+			session.close();*/
 
 		} catch (Exception ex) {
 			ex.printStackTrace();

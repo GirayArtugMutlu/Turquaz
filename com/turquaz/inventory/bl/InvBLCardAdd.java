@@ -26,9 +26,8 @@ package com.turquaz.inventory.bl;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
-
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
@@ -37,13 +36,14 @@ import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.inventory.dal.InvDALCardAdd;
 
+
 public class InvBLCardAdd {
 
     private InvDALCardAdd cardAdd;
 
     private InvBLCardSearch cardSearch = new InvBLCardSearch();
 
-    Calendar cal = Calendar.getInstance();
+    private static Calendar cal = Calendar.getInstance();
 
     public InvBLCardAdd() {
 
@@ -51,13 +51,11 @@ public class InvBLCardAdd {
 
     }
 
-    public void registerGroup(Integer cardId, Object grp) throws Exception {
+    public void registerGroup(TurqInventoryCard card, Object grp) throws Exception {
         try {
 
             TurqInventoryCardGroup cardGroup = new TurqInventoryCardGroup();
             TurqInventoryGroup group = (TurqInventoryGroup) grp;
-            TurqInventoryCard card = new TurqInventoryCard();
-            card.setId(cardId);
             cardGroup.setTurqInventoryCard(card);
             cardGroup.setTurqInventoryGroup(group);
 
@@ -76,13 +74,11 @@ public class InvBLCardAdd {
 
     }
 
-    public void registerUnits(Integer cardId, Object unitObj, BigDecimal factor)
+    public void registerUnits(TurqInventoryCard card, Object unitObj, BigDecimal factor)
             throws Exception {
 
         TurqInventoryCardUnit cardUnit = new TurqInventoryCardUnit();
         TurqInventoryUnit unit = (TurqInventoryUnit) unitObj;
-        TurqInventoryCard card = new TurqInventoryCard();
-        card.setId(cardId);
         cardUnit.setCardUnitsFactor(factor);
         cardUnit.setTurqInventoryCard(card);
         cardUnit.setTurqInventoryUnit(unit);
@@ -95,13 +91,12 @@ public class InvBLCardAdd {
 
     }
 
-    public void saveInvPrices(Integer cardId, boolean price_type,
+    public void saveInvPrices(TurqInventoryCard card, boolean price_type,
             String currency_abrev, String amount) throws Exception {
         try {
 
             TurqInventoryPrice invPrice = new TurqInventoryPrice();
             TurqCurrency currency = cardAdd.getCurrency(currency_abrev);
-            TurqInventoryCard card = cardSearch.getTurqInvCardById(cardId);
             invPrice.setPricesType(price_type);
             invPrice.setPricesAmount(new BigDecimal(amount));
             invPrice.setTurqInventoryCard(card);
@@ -109,11 +104,28 @@ public class InvBLCardAdd {
             invPrice.setCreatedBy(System.getProperty("user"));
             invPrice.setUpdatedBy(System.getProperty("user"));
             invPrice
-                    .setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			.setLastModified(new java.sql.Date(cal.getTime().getTime()));
             invPrice
                     .setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 
             cardAdd.saveInvPrice(invPrice);
+
+        } catch (Exception ex) {
+
+            throw ex;
+        }
+
+    }
+    
+    public static void saveInvAccount(TurqInventoryAccountingAccount invAcc,TurqInventoryCard card) throws Exception {
+        try {
+
+        	invAcc.setTurqInventoryCard(card);
+        	invAcc.setCreatedBy(System.getProperty("user"));
+        	invAcc.setUpdatedBy(System.getProperty("user"));
+        	invAcc.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+        	invAcc.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+            InvDALCardAdd.saveInvAccount(invAcc);
 
         } catch (Exception ex) {
 
@@ -199,14 +211,10 @@ public class InvBLCardAdd {
 
     }
 
-    public Integer saveInvCard(String invCode, String cardName,
+    public TurqInventoryCard saveInvCard(String invCode, String cardName,
             String cardDefinition, int minAmount, int maxAmount, int cardVat,
-            int discount, TurqAccountingAccount accountBuy,
-            TurqAccountingAccount accountSell, int cardSpecialVat,
-            BigDecimal cardSpecialVatEach, TurqAccountingAccount accountVAT,
-            TurqAccountingAccount accountSpecialVAT,
-            TurqAccountingAccount accountVATSell,
-            TurqAccountingAccount accountSpecialVATSell, boolean isSpecAmount)
+            int discount, int cardSpecialVat,
+            BigDecimal cardSpecialVatEach, boolean isSpecAmount)
             throws Exception {
 
         try {
@@ -225,20 +233,10 @@ public class InvBLCardAdd {
             card.setUpdatedBy(System.getProperty("user"));
             card.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
             card.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-            card.setTurqAccountingAccountByAccountingAccountsIdBuy(accountBuy);
-            card
-                    .setTurqAccountingAccountByAccountingAccountsIdSell(accountSell);
-            card.setTurqAccountingAccountByAccountingAccountsIdVat(accountVAT);
-            card
-                    .setTurqAccountingAccountByAccountingAccountsIdSpecialVat(accountSpecialVAT);
-            card
-                    .setTurqAccountingAccountByAccountingAccountsIdSpecialVatSell(accountSpecialVATSell);
-            card
-                    .setTurqAccountingAccountByAccountingAccountsIdVatSell(accountVATSell);
             card.setSpecVatForEach(isSpecAmount);
             InvDALCardAdd.saveOrUpdateInvCard(card);
 
-            return card.getId();
+            return card;
 
         } catch (Exception ex) {
             throw ex;

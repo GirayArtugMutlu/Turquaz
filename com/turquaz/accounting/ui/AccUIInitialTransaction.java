@@ -395,7 +395,7 @@ public class AccUIInitialTransaction extends Composite implements
         createTableViewer();
         // create a TableCursor to navigate around the table
         cursor = new TableSpreadsheetCursor(tableTransactionColumns, SWT.NONE,
-                tableViewer, rowList);
+                tableViewer, rowList,true);
         cursor.setEnabled(true);
 
         cursor.addSelectionListener(new SelectionAdapter() {

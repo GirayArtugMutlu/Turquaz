@@ -392,7 +392,7 @@ public class AccUITransactionCollect extends Composite implements
 		tableViewer.setInput(rowList);
 
 		// create a TableCursor to navigate around the table
-		cursor = new TableSpreadsheetCursor(tableTransactionRows, SWT.NONE,tableViewer,rowList);
+		cursor = new TableSpreadsheetCursor(tableTransactionRows, SWT.NONE,tableViewer,rowList,true);
 		cursor.setEnabled(true);
 		
 		cursor.addSelectionListener(new SelectionAdapter() {

@@ -49,24 +49,6 @@ public class TurqAccountingAccount implements Serializable {
     private Set turqAccountingAccountsByParentAccount;
 
     /** persistent field */
-    private Set turqInventoryCardsByAccountingAccountsIdSell;
-
-    /** persistent field */
-    private Set turqInventoryCardsByAccountingAccountsIdVat;
-
-    /** persistent field */
-    private Set turqInventoryCardsByAccountingAccountsIdSpecialVatSell;
-
-    /** persistent field */
-    private Set turqInventoryCardsByAccountingAccountsIdBuy;
-
-    /** persistent field */
-    private Set turqInventoryCardsByAccountingAccountsIdVatSell;
-
-    /** persistent field */
-    private Set turqInventoryCardsByAccountingAccountsIdSpecialVat;
-
-    /** persistent field */
     private Set turqBankAccountingAccounts;
 
     /** persistent field */
@@ -74,6 +56,9 @@ public class TurqAccountingAccount implements Serializable {
 
     /** persistent field */
     private Set turqChequeTransactionTypes;
+
+    /** persistent field */
+    private Set turqInventoryAccountingAccounts;
 
     /** persistent field */
     private Set turqBankCardsSecondaryAccounts;
@@ -94,7 +79,7 @@ public class TurqAccountingAccount implements Serializable {
     private Set turqCurrentAccountingAccounts;
 
     /** full constructor */
-    public TurqAccountingAccount(java.lang.String accountName, java.lang.String accountCode, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqAccountingAccountClass turqAccountingAccountClass, com.turquaz.engine.dal.TurqAccountingAccountType turqAccountingAccountType, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByTopAccount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByParentAccount, Set turqAccountingAccountsByTopAccount, Set turqAccountingAccountsByParentAccount, Set turqInventoryCardsByAccountingAccountsIdSell, Set turqInventoryCardsByAccountingAccountsIdVat, Set turqInventoryCardsByAccountingAccountsIdSpecialVatSell, Set turqInventoryCardsByAccountingAccountsIdBuy, Set turqInventoryCardsByAccountingAccountsIdVatSell, Set turqInventoryCardsByAccountingAccountsIdSpecialVat, Set turqBankAccountingAccounts, Set turqAccountingTransactionColumns, Set turqChequeTransactionTypes, Set turqBankCardsSecondaryAccounts, Set turqChequeRollAccountingAccounts, Set turqTradebillTransactionTypes, Set turqCashTransactionRows, Set turqCashCards, Set turqCurrentAccountingAccounts) {
+    public TurqAccountingAccount(java.lang.String accountName, java.lang.String accountCode, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqAccountingAccountClass turqAccountingAccountClass, com.turquaz.engine.dal.TurqAccountingAccountType turqAccountingAccountType, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByTopAccount, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByParentAccount, Set turqAccountingAccountsByTopAccount, Set turqAccountingAccountsByParentAccount, Set turqBankAccountingAccounts, Set turqAccountingTransactionColumns, Set turqChequeTransactionTypes, Set turqInventoryAccountingAccounts, Set turqBankCardsSecondaryAccounts, Set turqChequeRollAccountingAccounts, Set turqTradebillTransactionTypes, Set turqCashTransactionRows, Set turqCashCards, Set turqCurrentAccountingAccounts) {
         this.accountName = accountName;
         this.accountCode = accountCode;
         this.createdBy = createdBy;
@@ -107,15 +92,10 @@ public class TurqAccountingAccount implements Serializable {
         this.turqAccountingAccountByParentAccount = turqAccountingAccountByParentAccount;
         this.turqAccountingAccountsByTopAccount = turqAccountingAccountsByTopAccount;
         this.turqAccountingAccountsByParentAccount = turqAccountingAccountsByParentAccount;
-        this.turqInventoryCardsByAccountingAccountsIdSell = turqInventoryCardsByAccountingAccountsIdSell;
-        this.turqInventoryCardsByAccountingAccountsIdVat = turqInventoryCardsByAccountingAccountsIdVat;
-        this.turqInventoryCardsByAccountingAccountsIdSpecialVatSell = turqInventoryCardsByAccountingAccountsIdSpecialVatSell;
-        this.turqInventoryCardsByAccountingAccountsIdBuy = turqInventoryCardsByAccountingAccountsIdBuy;
-        this.turqInventoryCardsByAccountingAccountsIdVatSell = turqInventoryCardsByAccountingAccountsIdVatSell;
-        this.turqInventoryCardsByAccountingAccountsIdSpecialVat = turqInventoryCardsByAccountingAccountsIdSpecialVat;
         this.turqBankAccountingAccounts = turqBankAccountingAccounts;
         this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
         this.turqChequeTransactionTypes = turqChequeTransactionTypes;
+        this.turqInventoryAccountingAccounts = turqInventoryAccountingAccounts;
         this.turqBankCardsSecondaryAccounts = turqBankCardsSecondaryAccounts;
         this.turqChequeRollAccountingAccounts = turqChequeRollAccountingAccounts;
         this.turqTradebillTransactionTypes = turqTradebillTransactionTypes;
@@ -232,54 +212,6 @@ public class TurqAccountingAccount implements Serializable {
         this.turqAccountingAccountsByParentAccount = turqAccountingAccountsByParentAccount;
     }
 
-    public java.util.Set getTurqInventoryCardsByAccountingAccountsIdSell() {
-        return this.turqInventoryCardsByAccountingAccountsIdSell;
-    }
-
-    public void setTurqInventoryCardsByAccountingAccountsIdSell(java.util.Set turqInventoryCardsByAccountingAccountsIdSell) {
-        this.turqInventoryCardsByAccountingAccountsIdSell = turqInventoryCardsByAccountingAccountsIdSell;
-    }
-
-    public java.util.Set getTurqInventoryCardsByAccountingAccountsIdVat() {
-        return this.turqInventoryCardsByAccountingAccountsIdVat;
-    }
-
-    public void setTurqInventoryCardsByAccountingAccountsIdVat(java.util.Set turqInventoryCardsByAccountingAccountsIdVat) {
-        this.turqInventoryCardsByAccountingAccountsIdVat = turqInventoryCardsByAccountingAccountsIdVat;
-    }
-
-    public java.util.Set getTurqInventoryCardsByAccountingAccountsIdSpecialVatSell() {
-        return this.turqInventoryCardsByAccountingAccountsIdSpecialVatSell;
-    }
-
-    public void setTurqInventoryCardsByAccountingAccountsIdSpecialVatSell(java.util.Set turqInventoryCardsByAccountingAccountsIdSpecialVatSell) {
-        this.turqInventoryCardsByAccountingAccountsIdSpecialVatSell = turqInventoryCardsByAccountingAccountsIdSpecialVatSell;
-    }
-
-    public java.util.Set getTurqInventoryCardsByAccountingAccountsIdBuy() {
-        return this.turqInventoryCardsByAccountingAccountsIdBuy;
-    }
-
-    public void setTurqInventoryCardsByAccountingAccountsIdBuy(java.util.Set turqInventoryCardsByAccountingAccountsIdBuy) {
-        this.turqInventoryCardsByAccountingAccountsIdBuy = turqInventoryCardsByAccountingAccountsIdBuy;
-    }
-
-    public java.util.Set getTurqInventoryCardsByAccountingAccountsIdVatSell() {
-        return this.turqInventoryCardsByAccountingAccountsIdVatSell;
-    }
-
-    public void setTurqInventoryCardsByAccountingAccountsIdVatSell(java.util.Set turqInventoryCardsByAccountingAccountsIdVatSell) {
-        this.turqInventoryCardsByAccountingAccountsIdVatSell = turqInventoryCardsByAccountingAccountsIdVatSell;
-    }
-
-    public java.util.Set getTurqInventoryCardsByAccountingAccountsIdSpecialVat() {
-        return this.turqInventoryCardsByAccountingAccountsIdSpecialVat;
-    }
-
-    public void setTurqInventoryCardsByAccountingAccountsIdSpecialVat(java.util.Set turqInventoryCardsByAccountingAccountsIdSpecialVat) {
-        this.turqInventoryCardsByAccountingAccountsIdSpecialVat = turqInventoryCardsByAccountingAccountsIdSpecialVat;
-    }
-
     public java.util.Set getTurqBankAccountingAccounts() {
         return this.turqBankAccountingAccounts;
     }
@@ -302,6 +234,14 @@ public class TurqAccountingAccount implements Serializable {
 
     public void setTurqChequeTransactionTypes(java.util.Set turqChequeTransactionTypes) {
         this.turqChequeTransactionTypes = turqChequeTransactionTypes;
+    }
+
+    public java.util.Set getTurqInventoryAccountingAccounts() {
+        return this.turqInventoryAccountingAccounts;
+    }
+
+    public void setTurqInventoryAccountingAccounts(java.util.Set turqInventoryAccountingAccounts) {
+        this.turqInventoryAccountingAccounts = turqInventoryAccountingAccounts;
     }
 
     public java.util.Set getTurqBankCardsSecondaryAccounts() {

@@ -433,7 +433,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			tableViewer.setInput(rowList);
 			
 			// create a TableCursor to navigate around the table
-			 cursor = new TableSpreadsheetCursor(tableTransactionColumns, SWT.NONE,tableViewer,rowList);
+			 cursor = new TableSpreadsheetCursor(tableTransactionColumns, SWT.NONE,tableViewer,rowList,true);
 	         cursor.setEnabled(true);	 
 		
 		    rowList.addChangeListener(new ITableRowListViewer(){

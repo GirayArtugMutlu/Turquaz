@@ -25,9 +25,6 @@ package com.turquaz.inventory.bl;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
-
-import com.turquaz.engine.dal.TurqAccountingAccount;
-
 import com.turquaz.engine.dal.TurqInventoryCard;
 
 import com.turquaz.inventory.dal.InvDALCardUpdate;
@@ -57,10 +54,9 @@ public class InvBLCardUpdate {
 	 * @throws Exception
 	 */
 	public void updateInvCard(String invCode, String cardName, String cardDefinition, int minAmount,
-			int maxAmount, int cardVat, int discount,TurqAccountingAccount accountBuy,
-			TurqAccountingAccount accountSell,int cardSpecialVat, BigDecimal cardSpecialVatEach,
-			TurqInventoryCard card,TurqAccountingAccount accountVAT, TurqAccountingAccount accountSpecialVAT,
-			TurqAccountingAccount accountVATSell, TurqAccountingAccount accountSpecialVATSell) throws Exception{
+			int maxAmount, int cardVat, int discount,int cardSpecialVat, BigDecimal cardSpecialVatEach,
+			TurqInventoryCard card
+			) throws Exception{
 		try {
 
 		
@@ -77,14 +73,7 @@ public class InvBLCardUpdate {
 		
 			card.setUpdatedBy(System.getProperty("user"));
 			card.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
-		
-			card.setTurqAccountingAccountByAccountingAccountsIdBuy(accountBuy);
-			card.setTurqAccountingAccountByAccountingAccountsIdSell(accountSell);
-		    card.setTurqAccountingAccountByAccountingAccountsIdSpecialVat(accountSpecialVAT);
-		    card.setTurqAccountingAccountByAccountingAccountsIdVat(accountVAT);
-            card.setTurqAccountingAccountByAccountingAccountsIdSpecialVatSell(accountSpecialVATSell);
-            card.setTurqAccountingAccountByAccountingAccountsIdVatSell(accountVATSell);
-            
+
 		    
 			cardUpdate.updateObject(card);
 

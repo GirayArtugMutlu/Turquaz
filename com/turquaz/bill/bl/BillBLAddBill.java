@@ -26,6 +26,7 @@ import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.inventory.bl.InvBLCardSearch;
 
 public class BillBLAddBill {
 	BillDALAddBill dalBill = new BillDALAddBill();
@@ -195,22 +196,17 @@ public class BillBLAddBill {
 				while (it.hasNext()) {
 
 					invTrans = (TurqInventoryTransaction) it.next();
-					
-					BigDecimal transRowAmount =(BigDecimal) ROWList.get(invTrans
-									.getTurqInventoryCard()
-									.getTurqAccountingAccountByAccountingAccountsIdBuy().getId());
+					TurqAccountingAccount buyAccount=InvBLCardSearch.getInventoryAccount(invTrans
+									.getTurqInventoryCard().getId(),EngBLCommon.INVENTORY_ACCOUNT_TYPE_BUY);
+					BigDecimal transRowAmount =(BigDecimal) ROWList.get(buyAccount.getId());
 					
 					if(transRowAmount==null)
-					{
-						
-						transRowAmount = new BigDecimal(0);
-						
+					{						
+						transRowAmount = new BigDecimal(0);						
 					}
 					transRowAmount = transRowAmount.add(invTrans.getTransactionsTotalPrice());
 					
-					ROWList.put(invTrans
-							.getTurqInventoryCard()
-							.getTurqAccountingAccountByAccountingAccountsIdBuy().getId(),transRowAmount);
+					ROWList.put(buyAccount.getId(),transRowAmount);
 					
 					
 
@@ -219,11 +215,10 @@ public class BillBLAddBill {
 					 */
 					if (invTrans.getTransactionsVatAmount().compareTo(
 							new BigDecimal(0)) == 1) {
-
+						TurqAccountingAccount buyVAT=InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
+								EngBLCommon.INVENTORY_ACCOUNT_TYPE_VAT_BUY);
 						BigDecimal vatAmount = (BigDecimal) VATList
-								.get(invTrans
-										.getTurqInventoryCard()
-										.getTurqAccountingAccountByAccountingAccountsIdVat().getId());
+								.get(buyVAT.getId());
 
 						if (vatAmount == null) {
 							vatAmount = new BigDecimal(0);
@@ -231,12 +226,7 @@ public class BillBLAddBill {
 
 						vatAmount = vatAmount.add(invTrans
 								.getTransactionsVatAmount());
-						VATList
-								.put(
-										invTrans
-												.getTurqInventoryCard()
-												.getTurqAccountingAccountByAccountingAccountsIdVat().getId(),
-										vatAmount);
+						VATList.put(buyVAT.getId(),vatAmount);
 
 					}
 
@@ -246,11 +236,9 @@ public class BillBLAddBill {
 					if (invTrans.getTransactionsVatSpecialAmount().compareTo(
 							new BigDecimal(0)) == 1) {
 						transRow = new TurqAccountingTransactionColumn();
-
-						transRow
-								.setTurqAccountingAccount(invTrans
-										.getTurqInventoryCard()
-										.getTurqAccountingAccountByAccountingAccountsIdSpecialVat());
+						TurqAccountingAccount specialVATBuy=InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
+								EngBLCommon.INVENTORY_ACCOUNT_TYPE_SPEC_VAT_BUY);
+						transRow.setTurqAccountingAccount(specialVATBuy);
 
 						transRow.setCreditAmount(new BigDecimal(0));
 						transRow.setDeptAmount(invTrans
@@ -498,10 +486,9 @@ public class BillBLAddBill {
 				while (it.hasNext()) {
 
 					invTrans = (TurqInventoryTransaction) it.next();
-					
-					BigDecimal transRowAmount =(BigDecimal) ROWList.get(invTrans
-							.getTurqInventoryCard()
-							.getTurqAccountingAccountByAccountingAccountsIdSell().getId());
+					TurqAccountingAccount sellAccount=InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
+							EngBLCommon.INVENTORY_ACCOUNT_TYPE_SELL);
+					BigDecimal transRowAmount =(BigDecimal) ROWList.get(sellAccount.getId());
 			
 			if(transRowAmount==null)
 			{
@@ -511,9 +498,7 @@ public class BillBLAddBill {
 			}
 			transRowAmount = transRowAmount.add(invTrans.getTransactionsTotalPrice());
 			
-			ROWList.put(invTrans
-					.getTurqInventoryCard()
-					.getTurqAccountingAccountByAccountingAccountsIdSell().getId(),transRowAmount);
+			ROWList.put(sellAccount.getId(),transRowAmount);
 			
 					
 					/**
@@ -521,10 +506,10 @@ public class BillBLAddBill {
 					 */
 					if (invTrans.getTransactionsVatAmount().compareTo(
 							new BigDecimal(0)) == 1) {
+						TurqAccountingAccount sellVAT=InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
+								EngBLCommon.INVENTORY_ACCOUNT_TYPE_VAT_SELL);
 						BigDecimal vatAmount = (BigDecimal) VATList
-								.get(invTrans
-										.getTurqInventoryCard()
-										.getTurqAccountingAccountByAccountingAccountsIdVatSell().getId());
+								.get(sellVAT.getId());
 
 						if (vatAmount == null) {
 							vatAmount = new BigDecimal(0);
@@ -533,11 +518,7 @@ public class BillBLAddBill {
 						vatAmount = vatAmount.add(invTrans
 								.getTransactionsVatAmount());
 						VATList
-								.put(
-										invTrans
-												.getTurqInventoryCard()
-												.getTurqAccountingAccountByAccountingAccountsIdVatSell().getId(),
-										vatAmount);
+								.put(sellVAT.getId(),vatAmount);
 
 					}
 
@@ -548,11 +529,9 @@ public class BillBLAddBill {
 							new BigDecimal(0)) == 1) {
 						transRow = new TurqAccountingTransactionColumn();
 
-						//360 olarak degistir
-						transRow
-								.setTurqAccountingAccount(invTrans
-										.getTurqInventoryCard()
-										.getTurqAccountingAccountByAccountingAccountsIdSpecialVatSell());
+						TurqAccountingAccount specialVATSell=InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
+								EngBLCommon.INVENTORY_ACCOUNT_TYPE_SPEC_VAT_SELL);
+						transRow.setTurqAccountingAccount(specialVATSell);
 
 						transRow.setCreditAmount(invTrans
 								.getTransactionsVatSpecialAmount());

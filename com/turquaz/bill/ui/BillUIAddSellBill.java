@@ -1130,7 +1130,7 @@ public class BillUIAddSellBill extends Composite
 			
 			tableViewer.setInput(rowList);
 			 
-	             cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE,tableViewer,rowList);
+	             cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE,tableViewer,rowList,true);
 	             cursor.setEnabled(true);
 
 	             cursor.addSelectionListener(new SelectionAdapter() {

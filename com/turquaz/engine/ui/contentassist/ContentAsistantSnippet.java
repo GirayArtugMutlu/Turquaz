@@ -163,6 +163,7 @@ public class ContentAsistantSnippet extends org.eclipse.swt.widgets.Composite {
 	                   event.doit = false;
 
 	                 }
+	                
 	              }
 	           });
 	 	

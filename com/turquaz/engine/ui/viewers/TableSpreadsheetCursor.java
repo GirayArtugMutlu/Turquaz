@@ -52,12 +52,14 @@ public class TableSpreadsheetCursor extends TableCursor implements ICellEditorLi
 	TableViewer tableViewer;
 	TableRowList rowList;
     Table table;
+    boolean activeDelete=true;
 	
-	public TableSpreadsheetCursor(Table table, int style, TableViewer viewer,TableRowList rowList) {
+	public TableSpreadsheetCursor(Table table, int style, TableViewer viewer,TableRowList rowList, boolean activateDelete) {
 		super(table, style);
 		this.tableViewer = viewer;
 		this.rowList = rowList;
 		this.table =table;
+		this.activeDelete=activateDelete;
 		
 		this.addKeyListener(new KeyAdapter(){
 		     public void keyReleased(KeyEvent e)
@@ -163,6 +165,8 @@ public class TableSpreadsheetCursor extends TableCursor implements ICellEditorLi
 	public void editorValueChanged(boolean oldValidState, boolean newValidState) {}
 	
 	public boolean okToDelete(){
+		if(!activeDelete)
+			return false;
 	    
 	    MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_WARNING|SWT.OK|SWT.CANCEL);
 	       msg.setMessage(Messages.getString("BillUIAddBill.34"));  //$NON-NLS-1$

@@ -1,7 +1,6 @@
 package com.turquaz.engine.ui;
 
 import java.io.File;
-
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.layout.GridData;
@@ -40,12 +39,14 @@ import org.eclipse.swt.SWT;
 * *************************************
 */
 public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
+	
 
 	private Shell dialogShell;
 	private Composite composite1;
 	private CCombo cCombo;
 	private Button btnCurrentCards;
 	private Button btnUpdateCashTrans;
+	private Button btnJiraBugReport;
 	private Button btnExportInvAccounts;
 	private Button btnExportBankCards;
 	private Button btnUpdateBills;
@@ -125,8 +126,8 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
                 {
                     datePicker = new DatePicker(composite1, SWT.NONE);
                     GridData datePickerLData = new GridData();
-                    datePickerLData.widthHint = 119;
-                    datePickerLData.heightHint = 19;
+                    datePickerLData.widthHint = 157;
+                    datePickerLData.heightHint = 23;
                     datePicker.setLayoutData(datePickerLData);
                 }
                 {
@@ -138,8 +139,8 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
                     GridData cComboLData = new GridData();
                     cCombo.setBackground(SWTResourceManager.getColor(255, 255, 255));
                     cCombo.setEditable(false);
-                    cComboLData.widthHint = 98;
-                    cComboLData.heightHint = 16;
+                    cComboLData.widthHint = 134;
+                    cComboLData.heightHint = 17;
                     cCombo.setLayoutData(cComboLData);
                 }
 				//START >>  btnUpdateBills
@@ -226,6 +227,15 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 					}
 				});
 				//END <<  btnExportInvAccounts
+				//START >>  btnJiraBugReport
+				btnJiraBugReport = new Button(composite1, SWT.PUSH | SWT.CENTER);
+				btnJiraBugReport.setText("Jira Bug Report");
+				btnJiraBugReport.addMouseListener(new MouseAdapter() {
+					public void mouseUp(MouseEvent evt) {
+						btnJiraBugReportMouseUp(evt);
+					}
+				});
+				//END <<  btnJiraBugReport
             }
             fillBillTypeCombo();
             EngUICommon.centreWindow(dialogShell);
@@ -269,6 +279,38 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 	    }
 	}
 	
+	private void btnJiraBugReportMouseUp(MouseEvent evt) {
+		try
+		{
+			/*XmlRpcClient rpcClient = new XmlRpcClient(JIRA_URI + RPC_PATH);
+
+//			 Login and retrieve logon token
+			Vector loginParams = new Vector(2);
+			loginParams.add(USER_NAME);
+			loginParams.add(PASSWORD);
+			String loginToken = (String) rpcClient.execute("jira1.login", loginParams);
+			
+//			 Retrieve projects
+			Vector loginTokenVector = new Vector(1);
+			loginTokenVector.add(loginToken);
+			List projects = (List)rpcClient.execute("jira1.getProjects", loginTokenVector);
+
+//			 Print projects
+			for (Iterator iterator = projects.iterator(); iterator.hasNext();)
+			{
+			    Map project =  (Map) iterator.next();
+			    System.out.println(project.get("name") + " with lead " + project.get("lead"));
+			}
+			
+//			 Log out
+			Boolean bool = (Boolean) rpcClient.execute("jira1.logout", loginTokenVector);
+			System.out.println("Logout successful: " + bool);*/
 	
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 
 }

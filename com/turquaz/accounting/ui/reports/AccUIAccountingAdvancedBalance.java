@@ -432,19 +432,33 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					
 					if (!useMainAccountsRemain)
 					{
-						String remain=accountItem.getText(4);
-						BigDecimal initRemain;
+						String remainDept=accountItem.getText(4);
+						String remainCredit=accountItem.getText(5);
+						BigDecimal initDept;
+						BigDecimal initCredit;
+						
 					
-					
-						if (remain!=null && !remain.equals("")) //$NON-NLS-1$
-							initRemain=cf.getBigDecimal(remain).negate();
+						if (remainDept!=null && !remainDept.equals("")) //$NON-NLS-1$
+						{
+							initDept=cf.getBigDecimal(remainDept);
+							if (remaining.doubleValue() < 0)
+								initDept=initDept.add(remaining.abs());
+						}
 						else
-							initRemain=cf.getBigDecimal(accountItem.getText(5));
-						newremaining=remaining.add(initRemain);
+							initDept=remaining;
+						
+						if (remainCredit!=null && !remainCredit.equals("")) //$NON-NLS-1$
+						{
+							initCredit=cf.getBigDecimal(remainCredit);
+							if (remaining.doubleValue() > 0)
+								initCredit=initCredit.add(remaining);
+						}						
+						else
+							initCredit=new BigDecimal(0);					
 					
 					
-						accountItem.setText(4,(newremaining.doubleValue() <= 0)? cf.format(newremaining.abs()):""); //$NON-NLS-1$
-						accountItem.setText(5,(newremaining.doubleValue() > 0)? cf.format(newremaining):""); //$NON-NLS-1$
+						accountItem.setText(4, cf.format(initDept)); //$NON-NLS-1$
+						accountItem.setText(5, cf.format(initCredit)); //$NON-NLS-1$
 						
 					}
 					else
