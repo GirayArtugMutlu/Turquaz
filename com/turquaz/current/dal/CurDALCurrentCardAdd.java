@@ -104,11 +104,11 @@ public class CurDALCurrentCardAdd {
 	public List getCurrentGroups() throws Exception {
 	try{
 		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+	
 		String query = "from TurqCurrentGroup as curGroup " ;		   
 		Query q = session.createQuery(query); 
 		List list = q.list();
-		tx.commit();
+		
 		session.close();
 		return list;
 				
@@ -121,13 +121,13 @@ public class CurDALCurrentCardAdd {
 	public boolean isCurrentCodePresent(String code)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+	
 			String query = "from TurqCurrentCard as curCard " +
 					"where curCard.cardsCurrentCode =:code" ;		   
 			Query q = session.createQuery(query); 
 			q.setParameter("code",code);
 			List list = q.list();
-			tx.commit();
+		
 			session.close();
 			if(list.size()>0){
 				return true;
@@ -143,12 +143,12 @@ public class CurDALCurrentCardAdd {
 	public boolean isCurrentNamePresent(String code)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "from TurqCurrentCard as curCard " +
 					"where curCard.cardsName ='"+code+"'" ;		   
 			Query q = session.createQuery(query); 
 			List list = q.list();
-			tx.commit();
+	
 			session.close();
 			if(list.size()>0){
 				return true;

@@ -169,7 +169,7 @@ public class InvDALCardAdd {
 	public TurqCurrency getCurrency(String abbrev)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "from TurqCurrency as currency " +
 			"where currency.currenciesAbbreviation =:abbrev";		   
 	   
@@ -177,7 +177,7 @@ public class InvDALCardAdd {
 	Query q = session.createQuery(query); 
 	q.setParameter("abbrev",abbrev);
 	List list = q.list();
-	tx.commit();
+
 	session.close();
 	if(list.size()==0){
 		throw new Exception("No such abbreviation");
@@ -198,14 +198,14 @@ public class InvDALCardAdd {
 	try{
 		
 		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+	
 		String query = "from TurqInventoryGroup as invGroup " +
 				" where invGroup.turqInventoryGroup.inventoryGroupsId <> -1";		   
 		   
 
 		Query q = session.createQuery(query); 
 		List list = q.list();
-		tx.commit();
+	
 		session.close();
 		return list;	
 		
@@ -222,7 +222,7 @@ public class InvDALCardAdd {
 		try{
 			
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+	
 			String query = "from TurqInventoryGroup as invGroup " +
 					" where invGroup.turqInventoryGroup.inventoryGroupsId = -1 and" +
 					" invGroup.inventoryGroupsId <> -1";
@@ -234,7 +234,7 @@ public class InvDALCardAdd {
 			   TurqInventoryGroup invGroup = (TurqInventoryGroup)list.get(i);
 			   Hibernate.initialize(invGroup.getTurqInventoryGroups());
 			}
-			tx.commit();
+
 			session.close();
 			return list;	
 			
@@ -253,13 +253,13 @@ public class InvDALCardAdd {
 		try{
 			
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+	
 			String query = "from TurqInventoryUnit as invUnit " ;		   
 			   
 
 			Query q = session.createQuery(query); 
 			List list = q.list();
-			tx.commit();
+
 			session.close();
 			return list;	
 			

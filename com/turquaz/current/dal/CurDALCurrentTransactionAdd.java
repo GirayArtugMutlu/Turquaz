@@ -112,11 +112,11 @@ public class CurDALCurrentTransactionAdd {
 	try{
 		
 		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+	
 		String query = "from TurqCurrentCard as curCard ";		   
 		Query q = session.createQuery(query); 
 		List list = q.list();
-		tx.commit();
+	
 		session.close();
 		return list;
 		
@@ -134,14 +134,12 @@ public class CurDALCurrentTransactionAdd {
 		try{
 			
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "from TurqCurrentTransactionType as curCard ";		   
 			Query q = session.createQuery(query); 
 			List list = q.list();
 			
-			
-			
-			tx.commit();
+		
 			session.close();
 			return list;
 			

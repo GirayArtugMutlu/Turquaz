@@ -20,13 +20,13 @@ public class EngDALCommon {
 		try{
 			
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+	
 			String query = "from TurqCurrency as currency ";		   
 			   
 
 			Query q = session.createQuery(query); 
 			List list = q.list();
-			tx.commit();
+		
 			session.close();
 			return list;	
 			
@@ -41,11 +41,11 @@ public class EngDALCommon {
 		try{
 			
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "from TurqCurrentGroup as gr ";	
 			Query q = session.createQuery(query); 
 			List list = q.list();
-			tx.commit();
+		
 			session.close();
 			return list;	
 			
@@ -57,13 +57,13 @@ public class EngDALCommon {
 	public boolean checkUserPass(String username, String pass)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "from TurqUser as user " +
 					"where user.username ='"+username+"' and" +
 					" user.usersPassword ='"+pass+"'";
 			Query q = session.createQuery(query); 
 			List list = q.list();
-			tx.commit();
+		
 			session.close();
 			
 			if(list.size()==1){
@@ -82,11 +82,11 @@ public class EngDALCommon {
 	public List getGroups()throws Exception {
 		try{
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "from TurqGroup as group";
 			Query q = session.createQuery(query); 
 			List list = q.list();
-			tx.commit();
+		
 			session.close();
 			return list;
 			
@@ -99,11 +99,11 @@ public class EngDALCommon {
 	public List getInventoryWarehouses()throws Exception {
 		try{
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "from TurqInventoryWarehous as wh" ;	
 			Query q = session.createQuery(query); 
 			List list = q.list();
-			tx.commit();
+		
 			session.close();
 			return list;
 			
@@ -117,7 +117,7 @@ public class EngDALCommon {
 		try{
 			
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "from TurqUser as group";
 			Query q = session.createQuery(query); 
 			List list = q.list();
@@ -129,7 +129,6 @@ public class EngDALCommon {
 		    Hibernate.initialize(invCard.getTurqUserPermissions());
 			
 			}
-			tx.commit();
 			session.close();
 			return list;
 			

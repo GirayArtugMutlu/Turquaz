@@ -26,7 +26,6 @@ import java.util.List;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
@@ -206,7 +205,7 @@ public class InvDALCardSearch {
 	public TurqInventoryCard initializeInventoryCard(Integer cardId )throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
-	        Transaction tx = session.beginTransaction();
+	  
 	        
 	        TurqInventoryCard invCard = (TurqInventoryCard)session.load(TurqInventoryCard.class,cardId);
 	        Hibernate.initialize(invCard.getTurqInventoryCardGroups());
@@ -214,7 +213,7 @@ public class InvDALCardSearch {
 			Hibernate.initialize(invCard.getTurqInventoryCardUnits());
 	        
 	        
-	        tx.commit();
+	   
 	        session.flush();
 	        session.close();
 	        
@@ -228,7 +227,7 @@ public class InvDALCardSearch {
 	public TurqInventoryCard initializeInventoryCard(TurqInventoryCard invCard )throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
-	        Transaction tx = session.beginTransaction();
+	
 	        
 	        session.refresh(invCard);
 	        
@@ -236,8 +235,7 @@ public class InvDALCardSearch {
 			Hibernate.initialize(invCard.getTurqInventoryPrices());
 			Hibernate.initialize(invCard.getTurqInventoryCardUnits());
 	        
-	        
-	        tx.commit();
+	  
 	        session.flush();
 	        session.close();
 	        
@@ -275,11 +273,11 @@ public class InvDALCardSearch {
 	public TurqInventoryCard getTurqInvCardById(Integer cardId )throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
-	        Transaction tx = session.beginTransaction();
+	    
 	        
 	        TurqInventoryCard invCard = (TurqInventoryCard)session.load(TurqInventoryCard.class,cardId);	        
 	        
-	        tx.commit();
+	  
 	        session.flush();
 	        session.close();
 	        

@@ -74,11 +74,11 @@ public class ConDALAddGroups {
 			
 			
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "from TurqConsignmentGroup as gr " ; //$NON-NLS-1$
 			Query q = session.createQuery(query); 
 			List list = q.list();
-			tx.commit();
+	
 			session.close();
 			return list;	
 	

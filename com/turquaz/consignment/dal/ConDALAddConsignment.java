@@ -64,10 +64,10 @@ public class ConDALAddConsignment {
 		
 		try{
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			
 			TurqConsignment cons =(TurqConsignment)session.load(TurqConsignment.class,consId);
 			session.flush();
-			tx.commit();
+		
 			session.close();
 			return cons;
 			

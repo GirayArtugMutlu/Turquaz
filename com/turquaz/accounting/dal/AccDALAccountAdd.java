@@ -53,7 +53,7 @@ public class AccDALAccountAdd {
 		
 		try{
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "from TurqAccountingAccount as accounts " +
 					"where  accounts.turqAccountingAccountByParentAccount.accountingAccountsId ="+parentid+"" +
 							" and accounts.accountCode like '"+codeCriteria+"%'" +
@@ -63,7 +63,7 @@ public class AccDALAccountAdd {
 			Query q = session.createQuery(query); 
 			
 			List list = q.list();
-			tx.commit();
+		
 			session.close();
 			return list;
 			
@@ -78,7 +78,7 @@ public class AccDALAccountAdd {
 	public static TurqAccountingAccount getAccount(String code)throws Exception{
 		try{
 			Session session =  EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+	
 			String query = "from TurqAccountingAccount as accounts " +
 					"where accounts.accountCode ='"+code+"'" +
 							" and accounts.accountingAccountsId <> -1";
@@ -86,7 +86,7 @@ public class AccDALAccountAdd {
 
 			Query q = session.createQuery(query); 
 			List list = q.list();
-			tx.commit();
+		
 			session.close();
 			if(list.size()>0){
 				return (TurqAccountingAccount)list.get(0); 
@@ -108,7 +108,7 @@ public class AccDALAccountAdd {
 	public List getAllAccounts()throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+	
 			String query = "from TurqAccountingAccount as accounts " +
 					
 					// was removing accounting plan	
@@ -117,7 +117,7 @@ public class AccDALAccountAdd {
 
 			Query q = session.createQuery(query); 
 			List list = q.list();
-			tx.commit();
+
 			session.close();
 			return list;
 			
@@ -131,7 +131,7 @@ public class AccDALAccountAdd {
 	public List getAccountsForAccountPickers()throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "from TurqAccountingAccount as accounts " +
 					"where accounts.accountingAccountsId <> -1" +
 					" and accounts.turqAccountingAccountsByParentAccount.size=0" +
@@ -141,7 +141,7 @@ public class AccDALAccountAdd {
 
 			Query q = session.createQuery(query); 
 			List list = q.list();
-			tx.commit();
+	
 			session.close();
 			return list;
 			 
@@ -157,7 +157,7 @@ public class AccDALAccountAdd {
 	public TurqAccountingAccount getLeafAccount(String code)throws Exception{
 		try{
 			Session session =  EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+	
 			String query = "from TurqAccountingAccount as accounts " +
 					"where accounts.accountCode ='"+code+"'" +
 							" and accounts.accountingAccountsId <> -1" +
@@ -166,7 +166,7 @@ public class AccDALAccountAdd {
 
 			Query q = session.createQuery(query); 
 			List list = q.list();
-			tx.commit();
+	
 			session.close();
 			if(list.size()>0){
 				return (TurqAccountingAccount)list.get(0); 
@@ -187,7 +187,7 @@ public class AccDALAccountAdd {
 	public List getCashAccounts()throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "Select accounts.accountCode, accounts.accountName from TurqAccountingAccount as accounts " +
 					"where accounts.accountingAccountsId <> -1" +
 					" and accounts.turqAccountingAccountsByParentAccount.size=0" +
@@ -196,7 +196,7 @@ public class AccDALAccountAdd {
 
 			Query q = session.createQuery(query); 
 			List list = q.list();
-			tx.commit();
+	
 			session.close();
 			return list;
 			 

@@ -76,11 +76,11 @@ public class CurDALCurrentCardUpdate {
 	public List getCurrentGroups() throws Exception {
 		try{
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "from TurqCurrentGroup as curGroup " ;		   
 			Query q = session.createQuery(query); 
 			List list = q.list();
-			tx.commit();
+		
 			session.close();
 			return list;
 					
@@ -93,7 +93,7 @@ public class CurDALCurrentCardUpdate {
 		try{
 			
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			String query = "select sum(trans.transactionsTotalDept),sum(trans.transactionsTotalCredit)" +
 					" from TurqCurrentTransaction as trans " +
 					"where trans.turqCurrentCard = :curCard and trans.turqCurrentTransactionType = :transType ";
@@ -102,7 +102,7 @@ public class CurDALCurrentCardUpdate {
 			q.setParameter("curCard",card);
 			
 			List list= q.list();
-			tx.commit();
+	
 			session.close();
 			
 			return list;
