@@ -172,7 +172,7 @@ public class EngDALCommon {
 		}
 	}
 	
-	public void deleteObject(Object obj)throws Exception
+	public static void deleteObject(Object obj)throws Exception
 	{
 		Session session = EngDALSessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
@@ -182,12 +182,12 @@ public class EngDALCommon {
 		session.close();
 	}
 	
-	public void deleteObject(Session session,Object obj)throws Exception
+	public static void deleteObject(Session session,Object obj)throws Exception
 	{
 		session.delete(obj);
 	}
 	
-	public void updateObject(Object obj)throws Exception
+	public static void updateObject(Object obj)throws Exception
 	{
 		Session session = EngDALSessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
@@ -197,12 +197,12 @@ public class EngDALCommon {
 		session.close();
 	}
 	
-	public void updateObject(Session session,Object obj)throws Exception
+	public static void updateObject(Session session,Object obj)throws Exception
 	{
 		session.update(obj);
 	}
 	
-	public void saveObject(Object obj)throws Exception
+	public static void saveObject(Object obj)throws Exception
 	{
 		Session session = EngDALSessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
@@ -212,7 +212,7 @@ public class EngDALCommon {
 		session.close();
 	}
 	
-	public void saveObject(Session session,Object obj)throws Exception
+	public static void saveObject(Session session,Object obj)throws Exception
 	{
 		session.save(obj);
 	}

@@ -430,8 +430,7 @@ public class EngBLCommon {
 	public static void delete(Object obj) throws Exception {
 		try {
 
-			EngDALCommon common = new EngDALCommon();
-			common.deleteObject(obj);
+			EngDALCommon.deleteObject(obj);
 		} catch (Exception ex) {
 			throw ex;
 		}
