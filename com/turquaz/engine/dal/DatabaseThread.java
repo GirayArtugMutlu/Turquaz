@@ -1,5 +1,10 @@
 package com.turquaz.engine.dal;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+import org.hsqldb.Server;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -51,6 +56,6 @@ public class DatabaseThread extends Thread {
 			ex.printStackTrace();
 		} 
 
-	}*/
+	} */
 
 }

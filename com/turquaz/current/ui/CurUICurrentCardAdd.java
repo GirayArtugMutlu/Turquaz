@@ -1263,6 +1263,11 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			return false;
 		}
 		else if(accPickerCustomer.getData()==null){
+			
+			if (accPickerCustomer.getText().trim().length() > 0)
+			{
+				
+			}
 			msg.setMessage(Messages.getString("CurUICurrentCardAdd.31")); //$NON-NLS-1$
 			msg.open();
 			accPickerCustomer.setFocus();
