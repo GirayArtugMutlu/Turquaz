@@ -52,6 +52,9 @@ import java.io.*;
 import java.util.regex.Matcher;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.DecimalText;
+import com.turquaz.engine.ui.component.TTableComboModel;
+import com.turquaz.engine.ui.component.TTableModel;
+
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Table;
@@ -75,6 +78,27 @@ import java.util.regex.Pattern;
 */
 public class InvUICardAdd extends SecureComposite {
 
+	private TableColumn tableColumnRegisteredGroups;
+	private TableColumn tableColumnGroups;
+	private Table tableInvCardAddGroupsAllGroups;
+	private Table tableInvCardAddGroupsRegisteredGroups;
+	private Button btnInvCardAddGroupsRemoveRegisteredGroup;
+	private Button btnInvCardAddGroupsRegisterGroup;
+	private Composite compInvCardAddGroupsButtonComp;
+	private Composite compInvCardAddGroupsSelection;
+	private Composite compInvCardAddGroups;
+	private TTable tTable1;
+	private Button button2;
+	private Button button1;
+	private Composite composite5;
+	private Composite composite4;
+	private Composite composite3;
+	private Button btnInvCardRemoveUnit;
+	private Button btnInvCardAddUnit;
+	private Composite composite2;
+	private TTable tableInvCardSecondaryUnits;
+	private Composite composite1;
+	private CLabel lblInvCardSecondaryUnits;
 	private CTabItem tabInvCardGroups;
 	private CTabItem tabInvCardPrices;
 	private Button btnInvCardNext;
@@ -153,9 +177,24 @@ public class InvUICardAdd extends SecureComposite {
 			tabInvCardUnits = new CTabItem(tabfldInvCardAdd,SWT.NULL);
 			compInvCardUnit = new Composite(tabfldInvCardAdd,SWT.NULL);
 			lblInvCardUnit = new CLabel(compInvCardUnit,SWT.NULL);
-			comboInvCardUnits = new CCombo(compInvCardUnit,SWT.NULL);
+			comboInvCardUnits = new CCombo(compInvCardUnit,SWT.FLAT);
+			lblInvCardSecondaryUnits = new CLabel(compInvCardUnit,SWT.NULL);
+			composite1 = new Composite(compInvCardUnit,SWT.NULL);
+			composite2 = new Composite(composite1,SWT.NULL);
+			btnInvCardAddUnit = new Button(composite2,SWT.PUSH| SWT.CENTER);
+			btnInvCardRemoveUnit = new Button(composite2,SWT.PUSH| SWT.CENTER);
+			tableInvCardSecondaryUnits = new TTable(composite1,SWT.V_SCROLL| SWT.BORDER);
 			tabInvCardPrices = new CTabItem(tabfldInvCardAdd,SWT.NULL);
+			composite3 = new Composite(tabfldInvCardAdd,SWT.NULL);
+			composite4 = new Composite(composite3,SWT.NULL);
+			composite5 = new Composite(composite4,SWT.NULL);
+			button1 = new Button(composite5,SWT.PUSH| SWT.CENTER);
+			button2 = new Button(composite5,SWT.PUSH| SWT.CENTER);
+			tTable1 = new TTable(composite4,SWT.V_SCROLL| SWT.BORDER);
 			tabInvCardGroups = new CTabItem(tabfldInvCardAdd,SWT.NULL);
+			compInvCardAddGroups = new Composite(tabfldInvCardAdd,SWT.NULL);
+			compInvCardAddGroupsSelection = new Composite(compInvCardAddGroups,SWT.NULL);
+			tableInvCardAddGroupsAllGroups = new Table(compInvCardAddGroupsSelection,SWT.SINGLE| SWT.BORDER);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(585,434));
 			final Color InvUICardAddbackground = new Color(Display.getDefault(),128,128,255);
@@ -243,15 +282,15 @@ public class InvUICardAdd extends SecureComposite {
 			GridData txtnumInvCardMinLData = new GridData();
 			txtnumInvCardMinLData.verticalAlignment = GridData.CENTER;
 			txtnumInvCardMinLData.horizontalAlignment = GridData.BEGINNING;
-			txtnumInvCardMinLData.widthHint = 21;
-			txtnumInvCardMinLData.heightHint = 22;
+			txtnumInvCardMinLData.widthHint = 87;
+			txtnumInvCardMinLData.heightHint = 14;
 			txtnumInvCardMinLData.horizontalIndent = 0;
 			txtnumInvCardMinLData.horizontalSpan = 1;
 			txtnumInvCardMinLData.verticalSpan = 1;
 			txtnumInvCardMinLData.grabExcessHorizontalSpace = false;
 			txtnumInvCardMinLData.grabExcessVerticalSpace = false;
 			txtnumInvCardMin.setLayoutData(txtnumInvCardMinLData);
-			txtnumInvCardMin.setSize(new org.eclipse.swt.graphics.Point(21,22));
+			txtnumInvCardMin.setSize(new org.eclipse.swt.graphics.Point(87,14));
 	
 			GridData lblInvCardMaxLData = new GridData();
 			lblInvCardMaxLData.verticalAlignment = GridData.CENTER;
@@ -424,20 +463,146 @@ public class InvUICardAdd extends SecureComposite {
 			tabInvCardUnits.setControl(compInvCardUnit);
 			tabInvCardUnits.setText("Units");
 	
+			compInvCardUnit.setSize(new org.eclipse.swt.graphics.Point(587,408));
 	
+			GridData lblInvCardUnitLData = new GridData();
+			lblInvCardUnitLData.verticalAlignment = GridData.CENTER;
+			lblInvCardUnitLData.horizontalAlignment = GridData.BEGINNING;
+			lblInvCardUnitLData.widthHint = -1;
+			lblInvCardUnitLData.heightHint = -1;
+			lblInvCardUnitLData.horizontalIndent = 0;
+			lblInvCardUnitLData.horizontalSpan = 1;
+			lblInvCardUnitLData.verticalSpan = 1;
+			lblInvCardUnitLData.grabExcessHorizontalSpace = false;
+			lblInvCardUnitLData.grabExcessVerticalSpace = false;
+			lblInvCardUnit.setLayoutData(lblInvCardUnitLData);
 			lblInvCardUnit.setText("Base Unit");
 	
 			GridData comboInvCardUnitsLData = new GridData();
 			comboInvCardUnitsLData.verticalAlignment = GridData.CENTER;
 			comboInvCardUnitsLData.horizontalAlignment = GridData.BEGINNING;
-			comboInvCardUnitsLData.widthHint = -1;
-			comboInvCardUnitsLData.heightHint = -1;
+			comboInvCardUnitsLData.widthHint = 89;
+			comboInvCardUnitsLData.heightHint = 16;
 			comboInvCardUnitsLData.horizontalIndent = 0;
 			comboInvCardUnitsLData.horizontalSpan = 3;
 			comboInvCardUnitsLData.verticalSpan = 1;
 			comboInvCardUnitsLData.grabExcessHorizontalSpace = false;
 			comboInvCardUnitsLData.grabExcessVerticalSpace = false;
 			comboInvCardUnits.setLayoutData(comboInvCardUnitsLData);
+			comboInvCardUnits.setText("Choose Unit");
+			comboInvCardUnits.setSize(new org.eclipse.swt.graphics.Point(89,16));
+	
+			GridData lblInvCardSecondaryUnitsLData = new GridData();
+			lblInvCardSecondaryUnitsLData.verticalAlignment = GridData.BEGINNING;
+			lblInvCardSecondaryUnitsLData.horizontalAlignment = GridData.BEGINNING;
+			lblInvCardSecondaryUnitsLData.widthHint = -1;
+			lblInvCardSecondaryUnitsLData.heightHint = -1;
+			lblInvCardSecondaryUnitsLData.horizontalIndent = 0;
+			lblInvCardSecondaryUnitsLData.horizontalSpan = 1;
+			lblInvCardSecondaryUnitsLData.verticalSpan = 1;
+			lblInvCardSecondaryUnitsLData.grabExcessHorizontalSpace = false;
+			lblInvCardSecondaryUnitsLData.grabExcessVerticalSpace = false;
+			lblInvCardSecondaryUnits.setLayoutData(lblInvCardSecondaryUnitsLData);
+			lblInvCardSecondaryUnits.setText("Secondary Units");
+	
+			GridData composite1LData = new GridData();
+			composite1LData.verticalAlignment = GridData.CENTER;
+			composite1LData.horizontalAlignment = GridData.BEGINNING;
+			composite1LData.widthHint = 308;
+			composite1LData.heightHint = 127;
+			composite1LData.horizontalIndent = 0;
+			composite1LData.horizontalSpan = 1;
+			composite1LData.verticalSpan = 1;
+			composite1LData.grabExcessHorizontalSpace = false;
+			composite1LData.grabExcessVerticalSpace = false;
+			composite1.setLayoutData(composite1LData);
+			composite1.setSize(new org.eclipse.swt.graphics.Point(308,127));
+	
+			GridData composite2LData = new GridData();
+			composite2LData.verticalAlignment = GridData.CENTER;
+			composite2LData.horizontalAlignment = GridData.BEGINNING;
+			composite2LData.widthHint = 53;
+			composite2LData.heightHint = 67;
+			composite2LData.horizontalIndent = 0;
+			composite2LData.horizontalSpan = 1;
+			composite2LData.verticalSpan = 1;
+			composite2LData.grabExcessHorizontalSpace = false;
+			composite2LData.grabExcessVerticalSpace = false;
+			composite2.setLayoutData(composite2LData);
+			composite2.setSize(new org.eclipse.swt.graphics.Point(53,67));
+	
+			GridData btnInvCardAddUnitLData = new GridData();
+			btnInvCardAddUnitLData.verticalAlignment = GridData.CENTER;
+			btnInvCardAddUnitLData.horizontalAlignment = GridData.BEGINNING;
+			btnInvCardAddUnitLData.widthHint = 30;
+			btnInvCardAddUnitLData.heightHint = 24;
+			btnInvCardAddUnitLData.horizontalIndent = 0;
+			btnInvCardAddUnitLData.horizontalSpan = 1;
+			btnInvCardAddUnitLData.verticalSpan = 1;
+			btnInvCardAddUnitLData.grabExcessHorizontalSpace = false;
+			btnInvCardAddUnitLData.grabExcessVerticalSpace = false;
+			btnInvCardAddUnit.setLayoutData(btnInvCardAddUnitLData);
+			final org.eclipse.swt.graphics.Image btnInvCardAddUnitimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/plus.gif"));
+			btnInvCardAddUnitimage.setBackground(btnInvCardAddUnit.getBackground());
+			btnInvCardAddUnit.setImage(btnInvCardAddUnitimage);
+			btnInvCardAddUnit.setSize(new org.eclipse.swt.graphics.Point(30,24));
+			btnInvCardAddUnit.addMouseListener( new MouseAdapter() {
+				public void mouseDown(MouseEvent evt) {
+					btnInvCardAddUnitMouseDown(evt);
+				}
+			});
+	
+			GridData btnInvCardRemoveUnitLData = new GridData();
+			btnInvCardRemoveUnitLData.verticalAlignment = GridData.CENTER;
+			btnInvCardRemoveUnitLData.horizontalAlignment = GridData.BEGINNING;
+			btnInvCardRemoveUnitLData.widthHint = 30;
+			btnInvCardRemoveUnitLData.heightHint = 24;
+			btnInvCardRemoveUnitLData.horizontalIndent = 0;
+			btnInvCardRemoveUnitLData.horizontalSpan = 1;
+			btnInvCardRemoveUnitLData.verticalSpan = 1;
+			btnInvCardRemoveUnitLData.grabExcessHorizontalSpace = false;
+			btnInvCardRemoveUnitLData.grabExcessVerticalSpace = false;
+			btnInvCardRemoveUnit.setLayoutData(btnInvCardRemoveUnitLData);
+			final org.eclipse.swt.graphics.Image btnInvCardRemoveUnitimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif"));
+			btnInvCardRemoveUnitimage.setBackground(btnInvCardRemoveUnit.getBackground());
+			btnInvCardRemoveUnit.setImage(btnInvCardRemoveUnitimage);
+			btnInvCardRemoveUnit.setSize(new org.eclipse.swt.graphics.Point(30,24));
+			btnInvCardRemoveUnit.addMouseListener( new MouseAdapter() {
+				public void mouseDown(MouseEvent evt) {
+					btnInvCardRemoveUnitMouseDown(evt);
+				}
+			});
+			GridLayout composite2Layout = new GridLayout(1, true);
+			composite2.setLayout(composite2Layout);
+			composite2Layout.marginWidth = 5;
+			composite2Layout.marginHeight = 5;
+			composite2Layout.numColumns = 1;
+			composite2Layout.makeColumnsEqualWidth = true;
+			composite2Layout.horizontalSpacing = 5;
+			composite2Layout.verticalSpacing = 5;
+			composite2.layout();
+	
+			GridData tableInvCardSecondaryUnitsLData = new GridData();
+			tableInvCardSecondaryUnitsLData.verticalAlignment = GridData.CENTER;
+			tableInvCardSecondaryUnitsLData.horizontalAlignment = GridData.BEGINNING;
+			tableInvCardSecondaryUnitsLData.widthHint = 227;
+			tableInvCardSecondaryUnitsLData.heightHint = 84;
+			tableInvCardSecondaryUnitsLData.horizontalIndent = 0;
+			tableInvCardSecondaryUnitsLData.horizontalSpan = 1;
+			tableInvCardSecondaryUnitsLData.verticalSpan = 1;
+			tableInvCardSecondaryUnitsLData.grabExcessHorizontalSpace = false;
+			tableInvCardSecondaryUnitsLData.grabExcessVerticalSpace = false;
+			tableInvCardSecondaryUnits.setLayoutData(tableInvCardSecondaryUnitsLData);
+			tableInvCardSecondaryUnits.setSize(new org.eclipse.swt.graphics.Point(227,84));
+			GridLayout composite1Layout = new GridLayout(2, true);
+			composite1.setLayout(composite1Layout);
+			composite1Layout.marginWidth = 5;
+			composite1Layout.marginHeight = 5;
+			composite1Layout.numColumns = 2;
+			composite1Layout.makeColumnsEqualWidth = false;
+			composite1Layout.horizontalSpacing = 5;
+			composite1Layout.verticalSpacing = 5;
+			composite1.layout();
 			GridLayout compInvCardUnitLayout = new GridLayout(4, true);
 			compInvCardUnit.setLayout(compInvCardUnitLayout);
 			compInvCardUnitLayout.marginWidth = 5;
@@ -448,9 +613,163 @@ public class InvUICardAdd extends SecureComposite {
 			compInvCardUnitLayout.verticalSpacing = 5;
 			compInvCardUnit.layout();
 	
+			tabInvCardPrices.setControl(composite3);
 			tabInvCardPrices.setText("Prices");
 	
+	
+			GridData composite4LData = new GridData();
+			composite4LData.verticalAlignment = GridData.CENTER;
+			composite4LData.horizontalAlignment = GridData.BEGINNING;
+			composite4LData.widthHint = 308;
+			composite4LData.heightHint = 127;
+			composite4LData.horizontalIndent = 0;
+			composite4LData.horizontalSpan = 1;
+			composite4LData.verticalSpan = 1;
+			composite4LData.grabExcessHorizontalSpace = false;
+			composite4LData.grabExcessVerticalSpace = false;
+			composite4.setLayoutData(composite4LData);
+			composite4.setSize(new org.eclipse.swt.graphics.Point(308,127));
+	
+			GridData composite5LData = new GridData();
+			composite5LData.verticalAlignment = GridData.CENTER;
+			composite5LData.horizontalAlignment = GridData.BEGINNING;
+			composite5LData.widthHint = 53;
+			composite5LData.heightHint = 67;
+			composite5LData.horizontalIndent = 0;
+			composite5LData.horizontalSpan = 1;
+			composite5LData.verticalSpan = 1;
+			composite5LData.grabExcessHorizontalSpace = false;
+			composite5LData.grabExcessVerticalSpace = false;
+			composite5.setLayoutData(composite5LData);
+			composite5.setSize(new org.eclipse.swt.graphics.Point(53,67));
+	
+			GridData button1LData = new GridData();
+			button1LData.verticalAlignment = GridData.CENTER;
+			button1LData.horizontalAlignment = GridData.BEGINNING;
+			button1LData.widthHint = 30;
+			button1LData.heightHint = 24;
+			button1LData.horizontalIndent = 0;
+			button1LData.horizontalSpan = 1;
+			button1LData.verticalSpan = 1;
+			button1LData.grabExcessHorizontalSpace = false;
+			button1LData.grabExcessVerticalSpace = false;
+			button1.setLayoutData(button1LData);
+			button1.setImage(btnInvCardAddUnitimage);
+			button1.setSize(new org.eclipse.swt.graphics.Point(30,24));
+			button1.addMouseListener( new MouseAdapter() {
+				public void mouseDown(MouseEvent evt) {
+					button1MouseDown(evt);
+				}
+			});
+	
+			GridData button2LData = new GridData();
+			button2LData.verticalAlignment = GridData.CENTER;
+			button2LData.horizontalAlignment = GridData.BEGINNING;
+			button2LData.widthHint = 30;
+			button2LData.heightHint = 24;
+			button2LData.horizontalIndent = 0;
+			button2LData.horizontalSpan = 1;
+			button2LData.verticalSpan = 1;
+			button2LData.grabExcessHorizontalSpace = false;
+			button2LData.grabExcessVerticalSpace = false;
+			button2.setLayoutData(button2LData);
+			button2.setImage(btnInvCardRemoveUnitimage);
+			button2.setSize(new org.eclipse.swt.graphics.Point(30,24));
+			button2.addMouseListener( new MouseAdapter() {
+				public void mouseDown(MouseEvent evt) {
+					button2MouseDown(evt);
+				}
+			});
+			GridLayout composite5Layout = new GridLayout(1, true);
+			composite5.setLayout(composite5Layout);
+			composite5Layout.marginWidth = 5;
+			composite5Layout.marginHeight = 5;
+			composite5Layout.numColumns = 1;
+			composite5Layout.makeColumnsEqualWidth = true;
+			composite5Layout.horizontalSpacing = 5;
+			composite5Layout.verticalSpacing = 5;
+			composite5.layout();
+	
+			GridData tTable1LData = new GridData();
+			tTable1LData.verticalAlignment = GridData.CENTER;
+			tTable1LData.horizontalAlignment = GridData.BEGINNING;
+			tTable1LData.widthHint = 227;
+			tTable1LData.heightHint = 113;
+			tTable1LData.horizontalIndent = 0;
+			tTable1LData.horizontalSpan = 1;
+			tTable1LData.verticalSpan = 1;
+			tTable1LData.grabExcessHorizontalSpace = false;
+			tTable1LData.grabExcessVerticalSpace = false;
+			tTable1.setLayoutData(tTable1LData);
+			tTable1.setSize(new org.eclipse.swt.graphics.Point(227,113));
+			GridLayout composite4Layout = new GridLayout(2, true);
+			composite4.setLayout(composite4Layout);
+			composite4Layout.marginWidth = 5;
+			composite4Layout.marginHeight = 5;
+			composite4Layout.numColumns = 2;
+			composite4Layout.makeColumnsEqualWidth = false;
+			composite4Layout.horizontalSpacing = 5;
+			composite4Layout.verticalSpacing = 5;
+			composite4.layout();
+			GridLayout composite3Layout = new GridLayout(1, true);
+			composite3.setLayout(composite3Layout);
+			composite3Layout.marginWidth = 5;
+			composite3Layout.marginHeight = 5;
+			composite3Layout.numColumns = 1;
+			composite3Layout.makeColumnsEqualWidth = true;
+			composite3Layout.horizontalSpacing = 5;
+			composite3Layout.verticalSpacing = 5;
+			composite3.layout();
+	
+			tabInvCardGroups.setControl(compInvCardAddGroups);
 			tabInvCardGroups.setText("Groups");
+	
+	
+			GridData compInvCardAddGroupsSelectionLData = new GridData();
+			compInvCardAddGroupsSelectionLData.verticalAlignment = GridData.CENTER;
+			compInvCardAddGroupsSelectionLData.horizontalAlignment = GridData.BEGINNING;
+			compInvCardAddGroupsSelectionLData.widthHint = 327;
+			compInvCardAddGroupsSelectionLData.heightHint = 141;
+			compInvCardAddGroupsSelectionLData.horizontalIndent = 0;
+			compInvCardAddGroupsSelectionLData.horizontalSpan = 1;
+			compInvCardAddGroupsSelectionLData.verticalSpan = 1;
+			compInvCardAddGroupsSelectionLData.grabExcessHorizontalSpace = false;
+			compInvCardAddGroupsSelectionLData.grabExcessVerticalSpace = false;
+			compInvCardAddGroupsSelection.setLayoutData(compInvCardAddGroupsSelectionLData);
+			compInvCardAddGroupsSelection.setSize(new org.eclipse.swt.graphics.Point(327,141));
+	
+			GridData tableInvCardAddGroupsAllGroupsLData = new GridData();
+			tableInvCardAddGroupsAllGroupsLData.verticalAlignment = GridData.CENTER;
+			tableInvCardAddGroupsAllGroupsLData.horizontalAlignment = GridData.BEGINNING;
+			tableInvCardAddGroupsAllGroupsLData.widthHint = 104;
+			tableInvCardAddGroupsAllGroupsLData.heightHint = 97;
+			tableInvCardAddGroupsAllGroupsLData.horizontalIndent = 0;
+			tableInvCardAddGroupsAllGroupsLData.horizontalSpan = 1;
+			tableInvCardAddGroupsAllGroupsLData.verticalSpan = 1;
+			tableInvCardAddGroupsAllGroupsLData.grabExcessHorizontalSpace = false;
+			tableInvCardAddGroupsAllGroupsLData.grabExcessVerticalSpace = false;
+			tableInvCardAddGroupsAllGroups.setLayoutData(tableInvCardAddGroupsAllGroupsLData);
+			tableInvCardAddGroupsAllGroups.setHeaderVisible(true);
+			tableInvCardAddGroupsAllGroups.setLinesVisible(true);
+			tableInvCardAddGroupsAllGroups.setSize(new org.eclipse.swt.graphics.Point(104,97));
+			GridLayout compInvCardAddGroupsSelectionLayout = new GridLayout(3, true);
+			compInvCardAddGroupsSelection.setLayout(compInvCardAddGroupsSelectionLayout);
+			compInvCardAddGroupsSelectionLayout.marginWidth = 5;
+			compInvCardAddGroupsSelectionLayout.marginHeight = 5;
+			compInvCardAddGroupsSelectionLayout.numColumns = 3;
+			compInvCardAddGroupsSelectionLayout.makeColumnsEqualWidth = false;
+			compInvCardAddGroupsSelectionLayout.horizontalSpacing = 5;
+			compInvCardAddGroupsSelectionLayout.verticalSpacing = 5;
+			compInvCardAddGroupsSelection.layout();
+			GridLayout compInvCardAddGroupsLayout = new GridLayout(1, true);
+			compInvCardAddGroups.setLayout(compInvCardAddGroupsLayout);
+			compInvCardAddGroupsLayout.marginWidth = 5;
+			compInvCardAddGroupsLayout.marginHeight = 5;
+			compInvCardAddGroupsLayout.numColumns = 1;
+			compInvCardAddGroupsLayout.makeColumnsEqualWidth = true;
+			compInvCardAddGroupsLayout.horizontalSpacing = 5;
+			compInvCardAddGroupsLayout.verticalSpacing = 5;
+			compInvCardAddGroups.layout();
 			tabfldInvCardAdd.setSelection(0);
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
@@ -464,6 +783,8 @@ public class InvUICardAdd extends SecureComposite {
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
 					InvUICardAddbackground.dispose();
+					btnInvCardAddUnitimage.dispose();
+					btnInvCardRemoveUnitimage.dispose();
 				}
 			});
 	
@@ -478,13 +799,20 @@ public class InvUICardAdd extends SecureComposite {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
-	
-	
 		
-		
+	tableInvCardSecondaryUnits.setModel(new TTableComboModel());
+	TTableModel model =(TTableModel)tableInvCardSecondaryUnits.getModel();	
+   	tableInvCardSecondaryUnits.setHeaderColumn(new String[]{"Units","Units Factor"});
+	model.setColumnWidth(0,100);
+	model.setColumnWidth(1,100);
+	model.setRowCount(1); 
+    
+    
 	}
+	
+	
 	public void save(){
-		
+	System.out.println("Save Button Pushed!");
 		
 	}
 	public void delete(){
@@ -550,5 +878,46 @@ public class InvUICardAdd extends SecureComposite {
 	protected void btnInvCardNextMouseUp(MouseEvent evt){
 		int next =tabfldInvCardAdd.getSelectionIndex()+1;
 		tabfldInvCardAdd.setSelection(next);
+	}
+
+	/** Auto-generated event handler method */
+	protected void button1MouseDown(MouseEvent evt){
+		TTableModel model = (TTableModel)tableInvCardSecondaryUnits.getModel();
+		model.setRowCount(model.getRowCount()+1);
+		tableInvCardSecondaryUnits.redraw();
+		
+	}
+
+	/** Auto-generated event handler method */
+	protected void button2MouseDown(MouseEvent evt){
+		
+	if(tableInvCardSecondaryUnits.getRowSelection().length!=0){	
+	 int selection =tableInvCardSecondaryUnits.getRowSelection()[0];
+	 
+	 TTableModel model = (TTableModel)tableInvCardSecondaryUnits.getModel();
+	 	
+		model.removeRow(selection);
+		tableInvCardSecondaryUnits.redraw();
+	}	
+	}
+
+	/** Auto-generated event handler method */
+	protected void btnInvCardAddGroupsRegisterGroupMouseDown(MouseEvent evt){
+		//TODO add your handler code here
+	}
+
+	/** Auto-generated event handler method */
+	protected void btnInvCardAddGroupsRemoveRegisteredGroupMouseDown(MouseEvent evt){
+		//TODO add your handler code here
+	}
+
+	/** Auto-generated event handler method */
+	protected void btnInvCardAddUnitMouseDown(MouseEvent evt){
+		//TODO add your handler code here
+	}
+
+	/** Auto-generated event handler method */
+	protected void btnInvCardRemoveUnitMouseDown(MouseEvent evt){
+		//TODO add your handler code here
 	}
 }
