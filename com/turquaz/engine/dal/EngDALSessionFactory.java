@@ -50,7 +50,8 @@ public class EngDALSessionFactory {
 		try{
 			
 		
-		ResourceBundle config = ResourceBundle.getBundle("config/turquaz");
+
+	
 		
 		String url = "jdbc:postgresql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort")+"/"+EngConfiguration.getString("dbName");
 		String username = EngConfiguration.getString("dbUsername");

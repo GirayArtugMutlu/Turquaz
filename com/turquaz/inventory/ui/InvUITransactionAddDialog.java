@@ -6,7 +6,6 @@ import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.DecimalTextWithButton;
 import com.cloudgarden.resource.SWTResourceManager;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.ui.component.TextWithButton;
 import org.eclipse.swt.custom.CLabel;

@@ -26,6 +26,7 @@ package com.turquaz.engine;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -39,7 +40,7 @@ public class EngConfiguration {
 	private static final String BUNDLE_NAME = "config/turquaz";//$NON-NLS-1$
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-			.getBundle(BUNDLE_NAME);
+			.getBundle(BUNDLE_NAME,new Locale("",""));
 
 	private EngConfiguration() {
 	}

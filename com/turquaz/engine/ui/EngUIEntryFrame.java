@@ -230,6 +230,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			    System.setProperty("company","0");
 			    
 			    EngDALSessionFactory.init();
+			    
 				}
 				catch(Exception ex){
 					ex.printStackTrace();
@@ -264,14 +265,14 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			dialog.open();	
 		}
 		
-		
+	
 		EngDALSessionFactory.init();
 		
 		
 	}
 	
 	public void postInitGui(){
-		btnOk.setFocus();
+    btnOk.setFocus();
 	String username = EngConfiguration.getString("username");
 	String password = EngConfiguration.getString("password");
 	

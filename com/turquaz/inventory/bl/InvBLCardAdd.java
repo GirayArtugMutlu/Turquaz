@@ -195,7 +195,7 @@ public class InvBLCardAdd {
 	public Integer saveInvCard(String invCode, String invSpecialCode,
 			String cardName, String cardDefinition, int minAmount,
 			int maxAmount, int cardVat, int discount,TurqAccountingAccount accountBuy,
-			TurqAccountingAccount accountSell) throws Exception {
+			TurqAccountingAccount accountSell,int cardSpecialVat, BigDecimal cardSpecialVatEach) throws Exception {
 
 		try {
 
@@ -212,6 +212,8 @@ public class InvBLCardAdd {
 			card.setCardName(cardName);
 			card.setCardSpecialCode(invSpecialCode);
 			card.setCardVat(cardVat);
+			card.setCardSpecialVat(cardSpecialVat);
+			card.setCardSpecialVatEach(cardSpecialVatEach);			
 			card.setCreatedBy(System.getProperty("user"));
 			card.setUpdatedBy(System.getProperty("user"));
 			card.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
