@@ -67,7 +67,7 @@
 <mapping resource="com/turquaz/engine/dal/TurqUserGroup.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/TurqUserPermission.hbm.xml"/>
 <mapping resource="com/turquaz/engine/dal/ViewInventoryLevel.hbm.xml"/>
-
+<mapping resource="com/turquaz/engine/dal/TurqAccountingTransactionColumn.hbm.xml"/>
 
 											
         

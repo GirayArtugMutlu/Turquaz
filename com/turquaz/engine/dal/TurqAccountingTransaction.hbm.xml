@@ -27,20 +27,6 @@
     </id>
 
     <property
-        name="transactionsDeptAmount"
-        type="java.math.BigDecimal"
-        column="transactions_dept_amount"
-        not-null="true"
-        length="65535"
-    />
-    <property
-        name="transactionsCreditAmount"
-        type="java.math.BigDecimal"
-        column="transactions_credit_amount"
-        not-null="true"
-        length="65535"
-    />
-    <property
         name="transactionsDate"
         type="java.sql.Date"
         column="transactions_date"
@@ -109,22 +95,20 @@
     >
         <column name="module_id" />
     </many-to-one>
-    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
-    <many-to-one
-        name="turqAccountingAccountByAccountIdDeptor"
-        class="com.turquaz.engine.dal.TurqAccountingAccount"
-        not-null="true"
+    <!-- bi-directional one-to-many association to TurqAccountingTransactionColumn -->
+    <set
+        name="turqAccountingTransactionColumns"
+        lazy="true"
+        inverse="true"
+		cascade="none"
     >
-        <column name="account_id_deptor" />
-    </many-to-one>
-    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
-    <many-to-one
-        name="turqAccountingAccountByAccountIdCreditor"
-        class="com.turquaz.engine.dal.TurqAccountingAccount"
-        not-null="true"
-    >
-        <column name="account_id_creditor" />
-    </many-to-one>
+        <key>
+            <column name="accounting_transactions_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqAccountingTransactionColumn"
+        />
+    </set>
 
 </class>
 </hibernate-mapping>

@@ -130,9 +130,9 @@
             class="com.turquaz.engine.dal.TurqInventoryCard"
         />
     </set>
-    <!-- bi-directional one-to-many association to TurqAccountingTransaction -->
+    <!-- bi-directional one-to-many association to TurqAccountingTransactionColumn -->
     <set
-        name="turqAccountingTransactionsByAccountIdDeptor"
+        name="turqAccountingTransactionColumnsByAccountIdDeptor"
         lazy="true"
         inverse="true"
 		cascade="none"
@@ -141,12 +141,12 @@
             <column name="account_id_deptor" />
         </key>
         <one-to-many 
-            class="com.turquaz.engine.dal.TurqAccountingTransaction"
+            class="com.turquaz.engine.dal.TurqAccountingTransactionColumn"
         />
     </set>
-    <!-- bi-directional one-to-many association to TurqAccountingTransaction -->
+    <!-- bi-directional one-to-many association to TurqAccountingTransactionColumn -->
     <set
-        name="turqAccountingTransactionsByAccountIdCreditor"
+        name="turqAccountingTransactionColumnsByAccountIdCreditor"
         lazy="true"
         inverse="true"
 		cascade="none"
@@ -155,7 +155,7 @@
             <column name="account_id_creditor" />
         </key>
         <one-to-many 
-            class="com.turquaz.engine.dal.TurqAccountingTransaction"
+            class="com.turquaz.engine.dal.TurqAccountingTransactionColumn"
         />
     </set>
     <!-- bi-directional one-to-many association to TurqChequeTransactionType -->

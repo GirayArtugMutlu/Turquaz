@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqAccountingTransactionColumn" 
+    table="turq_accounting_transaction_columns"
+>
+
+    <id
+        name="accountingTransactionColumnsId"
+        type="int"
+        column="accounting_transaction_columns_id"
+    >
+        <generator class="sequence">
+            <param name="sequence">seq_accounting_transaction_columns</param>
+        </generator>
+    </id>
+
+    <property
+        name="deptAmount"
+        type="java.math.BigDecimal"
+        column="dept_amount"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="creditAmount"
+        type="java.math.BigDecimal"
+        column="credit_amount"
+        not-null="true"
+        length="65535"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
+    <many-to-one
+        name="turqAccountingAccountByAccountIdDeptor"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="account_id_deptor" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
+    <many-to-one
+        name="turqAccountingAccountByAccountIdCreditor"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="account_id_creditor" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqAccountingTransaction -->
+    <many-to-one
+        name="turqAccountingTransaction"
+        class="com.turquaz.engine.dal.TurqAccountingTransaction"
+        not-null="true"
+    >
+        <column name="accounting_transactions_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

@@ -43,13 +43,16 @@ public class TurqCurrency implements Serializable {
     private Set turqTradebillTradebills;
 
     /** persistent field */
+    private Set turqBanksCards;
+
+    /** persistent field */
     private Set turqChequeCheques;
 
     /** persistent field */
     private Set turqCurrentTransactions;
 
     /** full constructor */
-    public TurqCurrency(java.lang.String currenciesName, java.lang.String currenciesAbbreviation, java.lang.String currenciesCountry, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryPrices, Set turqTradebillTradebills, Set turqChequeCheques, Set turqCurrentTransactions) {
+    public TurqCurrency(java.lang.String currenciesName, java.lang.String currenciesAbbreviation, java.lang.String currenciesCountry, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCompany turqCompany, Set turqInventoryPrices, Set turqTradebillTradebills, Set turqBanksCards, Set turqChequeCheques, Set turqCurrentTransactions) {
         this.currenciesName = currenciesName;
         this.currenciesAbbreviation = currenciesAbbreviation;
         this.currenciesCountry = currenciesCountry;
@@ -60,6 +63,7 @@ public class TurqCurrency implements Serializable {
         this.turqCompany = turqCompany;
         this.turqInventoryPrices = turqInventoryPrices;
         this.turqTradebillTradebills = turqTradebillTradebills;
+        this.turqBanksCards = turqBanksCards;
         this.turqChequeCheques = turqChequeCheques;
         this.turqCurrentTransactions = turqCurrentTransactions;
     }
@@ -154,6 +158,14 @@ public class TurqCurrency implements Serializable {
 
     public void setTurqTradebillTradebills(java.util.Set turqTradebillTradebills) {
         this.turqTradebillTradebills = turqTradebillTradebills;
+    }
+
+    public java.util.Set getTurqBanksCards() {
+        return this.turqBanksCards;
+    }
+
+    public void setTurqBanksCards(java.util.Set turqBanksCards) {
+        this.turqBanksCards = turqBanksCards;
     }
 
     public java.util.Set getTurqChequeCheques() {

@@ -31,7 +31,6 @@
         type="java.lang.String"
         column="currencies_name"
         not-null="true"
-        unique="true"
         length="30"
     />
     <property
@@ -39,7 +38,6 @@
         type="java.lang.String"
         column="currencies_abbreviation"
         not-null="true"
-        unique="true"
         length="5"
     />
     <property
@@ -114,6 +112,20 @@
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqTradebillTradebill"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqBanksCard -->
+    <set
+        name="turqBanksCards"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="currencies_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBanksCard"
         />
     </set>
     <!-- bi-directional one-to-many association to TurqChequeCheque -->
