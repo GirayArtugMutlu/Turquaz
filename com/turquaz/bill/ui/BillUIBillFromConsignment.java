@@ -254,7 +254,8 @@ implements SecureComposite{
 	private TableColumn tableColumnAmount;
 	private Composite compTotalsPanel;
 	private CLabel lblInventoryPrice;
-	private Button checkClosedBill;
+	private CCombo comboPaymentType;
+	private CLabel lblPaymentType;
 	private NumericText txtDiscountRate;
 	private DatePicker dateConsDate;
 	private CLabel lblConsignmentDate;
@@ -579,17 +580,15 @@ implements SecureComposite{
 								txtDefinition.setLayoutData(txtDefinitionLData);
 							}
 							{
-								checkClosedBill = new Button(
+								lblPaymentType = new CLabel(
 									compInfoPanel,
-									SWT.CHECK | SWT.LEFT);
-								checkClosedBill.setText(Messages
-									.getString("BillUIBillFromConsignment.12")); //$NON-NLS-1$
-								GridData checkClosedBillLData = new GridData();
-								checkClosedBillLData.widthHint = 166;
-								checkClosedBillLData.heightHint = 19;
-								checkClosedBillLData.horizontalSpan = 2;
-								checkClosedBill
-									.setLayoutData(checkClosedBillLData);
+									SWT.NONE);
+								lblPaymentType.setText("Ödeme Tipi");
+							}
+							{
+								comboPaymentType = new CCombo(
+									compInfoPanel,
+									SWT.NONE);
 							}
 						}
 						{
@@ -889,7 +888,11 @@ implements SecureComposite{
 		comboConsignmentType.add(Messages.getString("BillUIBillFromConsignment.31")); //$NON-NLS-1$
 		comboConsignmentType.add(Messages.getString("BillUIBillFromConsignment.32")); //$NON-NLS-1$
 		
-		
+		comboPaymentType.add("Cari"); //$NON-NLS-1$
+		comboPaymentType.setData("Cari",new Boolean(false)); //$NON-NLS-1$
+		comboPaymentType.add("Nakit"); //$NON-NLS-1$
+		comboPaymentType.setData("Nakit",new Boolean(true)); //$NON-NLS-1$
+		comboPaymentType.setText("Cari"); //$NON-NLS-1$
 	}
 	
 	
@@ -929,13 +932,16 @@ implements SecureComposite{
 			type =1;
 		}
 	     TurqConsignment consignment = (TurqConsignment)txtConsignment.getData();
+	     
+	     Boolean paymentType = (Boolean)comboPaymentType.getData(comboPaymentType.getText());
+	     
 		Integer consID =blAddBill.saveBill(txtDocumentNo.getText(),
 										txtDefinition.getText(),
 										false,
 										dateBillDate.getDate(),
 										consignment,
 										type,
-										!checkClosedBill.getSelection());
+										!paymentType.booleanValue());
 		
 		saveGroups(consID);
 		msg.setMessage(Messages.getString("BillUIBillFromConsignment.34")); //$NON-NLS-1$
