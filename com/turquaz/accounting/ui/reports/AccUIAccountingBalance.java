@@ -182,7 +182,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 				btnIcon.setText(Messages.getString("AccUIAccountingBalance.29")); //$NON-NLS-1$
 				GridData btnIconLData1 = new GridData();
 				btnIconLData1.widthHint = 102;
-				btnIconLData1.heightHint = 23;
+				btnIconLData1.heightHint = 30;
 				btnIcon.setLayoutData(btnIconLData1);
 
 				btnIcon.addMouseListener(new MouseAdapter() {
@@ -195,8 +195,9 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 				btnShow = new Button(this, SWT.PUSH | SWT.CENTER);
 				btnShow.setText(Messages.getString("AccUIAccountingBalance.30")); //$NON-NLS-1$
 				GridData btnShowLData = new GridData();
-				btnShowLData.widthHint = 103;
-				btnShowLData.heightHint = 23;
+				btnShow.setSize(102, 30);
+				btnShowLData.widthHint = 102;
+				btnShowLData.heightHint = 30;
 				btnShow.setLayoutData(btnShowLData);
 				btnShow.addMouseListener(new MouseAdapter() {
 					public void mouseUp(MouseEvent evt) {

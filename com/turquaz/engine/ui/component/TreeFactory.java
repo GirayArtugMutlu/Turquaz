@@ -190,7 +190,7 @@ public final class TreeFactory {
 		
 		if(EngBLPermissions.getPermission(AccUITransactionSearch.class.getName())>0){
 			item = new TreeItem(root,SWT.NULL);
-			item.setText("Muhasebele?tirme");
+			item.setText(Messages.getString("TreeFactory.41")); //$NON-NLS-1$
 			item.setData(AccUISaveJournal.class.getName());
 		}
 		

@@ -878,19 +878,11 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			txtTaxDepartmant.setSize(new org.eclipse.swt.graphics.Point(147,15));
 	
 			GridData lblTaxNumberLData = new GridData();
-			lblTaxNumberLData.verticalAlignment = GridData.CENTER;
-			lblTaxNumberLData.horizontalAlignment = GridData.BEGINNING;
-			lblTaxNumberLData.widthHint = 77;
+			lblTaxNumberLData.widthHint = 90;
 			lblTaxNumberLData.heightHint = 21;
-			lblTaxNumberLData.horizontalIndent = 0;
-			lblTaxNumberLData.horizontalSpan = 1;
-			lblTaxNumberLData.verticalSpan = 1;
-			lblTaxNumberLData.grabExcessHorizontalSpace = false;
-			lblTaxNumberLData.grabExcessVerticalSpace = false;
 			lblTaxNumber.setLayoutData(lblTaxNumberLData);
 			lblTaxNumber.setText(Messages.getString("CurUICurrentCardAdd.8")); //$NON-NLS-1$
-			lblTaxNumber.setSize(new org.eclipse.swt.graphics.Point(77,21));
-	
+
 			GridData txtTaxNumberLData = new GridData();
 			txtTaxNumberLData.verticalAlignment = GridData.CENTER;
 			txtTaxNumberLData.horizontalAlignment = GridData.BEGINNING;
