@@ -1,4 +1,4 @@
-#Thu Nov 18 10:48:37 EET 2004
+#Thu Nov 18 12:08:25 EET 2004
 encoding//com/turquaz/admin/messages_tr_TR.properties=8859_1
 encoding//com/turquaz/consignment/messages_tr_TR.properties=8859_1
 encoding//com/turquaz/current/messages.properties=8859_1
@@ -6,3 +6,4 @@ encoding//com/turquaz/inventory/messages.properties=8859_1
 eclipse.preferences.version=1
 encoding//com/turquaz/engine/messages.properties=8859_1
 encoding//com/turquaz/accounting/messages.properties=8859_1
+encoding//com/turquaz/bank/messages_tr_TR.properties=8859_1

@@ -1,10 +1,6 @@
-/*
- * Created on 15.Eki.2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 package com.turquaz.bank.dal;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -31,6 +27,7 @@ import java.util.List;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
+import com.turquaz.bank.Messages;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrency;
 
@@ -46,18 +43,18 @@ public class BankDALBankCardSearch {
 		try{
 		Session session = EngDALSessionFactory.openSession();
 		
-		String query = "Select bankCard from TurqBanksCard as bankCard where" +
-				" bankCard.turqCompany.companiesId ="+System.getProperty("company")+
-		" and bankCard.bankName like '"+bankName+"%' and bankCard.bankBranchName like '"+bankBranchName+"%' "+
-		" and bankCard.bankAccountNo like '"+bankAccountNo+"%'";
+		String query = "Select bankCard from TurqBanksCard as bankCard where" + //$NON-NLS-1$
+				" bankCard.turqCompany.companiesId ="+System.getProperty("company")+ //$NON-NLS-1$ //$NON-NLS-2$
+		" and bankCard.bankName like '"+bankName+"%' and bankCard.bankBranchName like '"+bankBranchName+"%' "+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		" and bankCard.bankAccountNo like '"+bankAccountNo+"%'"; //$NON-NLS-1$ //$NON-NLS-2$
 		
 		if (currency!=null){
-			query +=" and bankCard.turqCurrency = :currency";
+			query +=" and bankCard.turqCurrency = :currency"; //$NON-NLS-1$
 		}
 		
 		Query q = session.createQuery(query); 	
 		if (currency!=null){
-			q.setParameter("currency",currency);
+			q.setParameter("currency",currency); //$NON-NLS-1$
 		}
 		List list = q.list();
 		session.close();

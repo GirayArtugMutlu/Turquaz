@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 
+import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLBankCardUpdate;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -48,7 +49,6 @@ import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
-
 
 
 /**
@@ -112,15 +112,15 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,38));
 	
 	
-			toolUpdate.setText("Update");
+			toolUpdate.setText(Messages.getString("BankUIBankCardUpdate.0")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
 				}
 			});
 	
-			toolDelete.setText("Delete");
-			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setText(Messages.getString("BankUIBankCardUpdate.1")); //$NON-NLS-1$
+			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
 			toolDelete.setImage(toolDeleteýmage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
@@ -224,7 +224,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 											bankCard);
 		
 			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
-			msg.setMessage("Successfully updated!");
+			msg.setMessage(Messages.getString("BankUIBankCardUpdate.3")); //$NON-NLS-1$
 			msg.open();
 			this.dialogShell.close();
 		}

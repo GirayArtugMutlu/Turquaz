@@ -35,6 +35,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
+import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -129,7 +130,7 @@ public class BankUIBankCardSearch extends  Composite implements SecureComposite,
 			lblBankNameLData.grabExcessHorizontalSpace = false;
 			lblBankNameLData.grabExcessVerticalSpace = false;
 			lblBankName.setLayoutData(lblBankNameLData);
-			lblBankName.setText("Bank Name");
+			lblBankName.setText(Messages.getString("BankUIBankCardSearch.0")); //$NON-NLS-1$
 	
 			GridData txtBankNameLData = new GridData();
 			txtBankNameLData.verticalAlignment = GridData.CENTER;
@@ -155,7 +156,7 @@ public class BankUIBankCardSearch extends  Composite implements SecureComposite,
 			lblBankBranchNameLData.grabExcessHorizontalSpace = false;
 			lblBankBranchNameLData.grabExcessVerticalSpace = false;
 			lblBankBranchName.setLayoutData(lblBankBranchNameLData);
-			lblBankBranchName.setText("Bank Branch Name");
+			lblBankBranchName.setText(Messages.getString("BankUIBankCardSearch.1")); //$NON-NLS-1$
 	
 			GridData txtBankBranchNameLData = new GridData();
 			txtBankBranchNameLData.verticalAlignment = GridData.CENTER;
@@ -181,7 +182,7 @@ public class BankUIBankCardSearch extends  Composite implements SecureComposite,
 			lblBankAccountNoLData.grabExcessHorizontalSpace = false;
 			lblBankAccountNoLData.grabExcessVerticalSpace = false;
 			lblBankAccountNo.setLayoutData(lblBankAccountNoLData);
-			lblBankAccountNo.setText("Bank Account No");
+			lblBankAccountNo.setText(Messages.getString("BankUIBankCardSearch.2")); //$NON-NLS-1$
 	
 			GridData txtBankAccountNoLData = new GridData();
 			txtBankAccountNoLData.verticalAlignment = GridData.CENTER;
@@ -207,7 +208,7 @@ public class BankUIBankCardSearch extends  Composite implements SecureComposite,
 			lblCurrencyLData.grabExcessHorizontalSpace = false;
 			lblCurrencyLData.grabExcessVerticalSpace = false;
 			lblCurrency.setLayoutData(lblCurrencyLData);
-			lblCurrency.setText("Currency");
+			lblCurrency.setText(Messages.getString("BankUIBankCardSearch.3")); //$NON-NLS-1$
 	
 			GridData comboCurrencyLData = new GridData();
 			comboCurrencyLData.verticalAlignment = GridData.CENTER;
@@ -250,17 +251,17 @@ public class BankUIBankCardSearch extends  Composite implements SecureComposite,
 				}
 			});
 	
-			tableColoumnBankName.setText("Bank Name");
+			tableColoumnBankName.setText(Messages.getString("BankUIBankCardSearch.4")); //$NON-NLS-1$
 			tableColoumnBankName.setWidth(120);
 	
-			tableColumnBankBrancName.setText("Branch Name");
+			tableColumnBankBrancName.setText(Messages.getString("BankUIBankCardSearch.5")); //$NON-NLS-1$
 			tableColumnBankBrancName.setWidth(120);
 	
 			
-			tableColumnAccountNo.setText("Account No");
+			tableColumnAccountNo.setText(Messages.getString("BankUIBankCardSearch.6")); //$NON-NLS-1$
 			tableColumnAccountNo.setWidth(120);
 	
-			tableColumnCurrency.setText("Currency");
+			tableColumnCurrency.setText(Messages.getString("BankUIBankCardSearch.7")); //$NON-NLS-1$
 			tableColumnCurrency.setWidth(120);
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
@@ -298,7 +299,7 @@ public class BankUIBankCardSearch extends  Composite implements SecureComposite,
 	{
 		try{
 			comboCurrency.removeAll();
-			comboCurrency.setText("");
+			comboCurrency.setText(""); //$NON-NLS-1$
 			List currencies=engBLCom.getCurrencies();
 			for(int k=0; k<currencies.size(); k++){
 				TurqCurrency currency=(TurqCurrency)currencies.get(k);

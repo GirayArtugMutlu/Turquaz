@@ -36,6 +36,8 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.custom.CCombo;
+
+import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLBankCardAdd;
 
 
@@ -117,7 +119,7 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 			lblBankNameLData.grabExcessHorizontalSpace = false;
 			lblBankNameLData.grabExcessVerticalSpace = false;
 			lblBankName.setLayoutData(lblBankNameLData);
-			lblBankName.setText("Bank Name");
+			lblBankName.setText(Messages.getString("BankUIBankCardAdd.0")); //$NON-NLS-1$
 	
 			GridData txtBankNameLData = new GridData();
 			txtBankNameLData.verticalAlignment = GridData.CENTER;
@@ -144,7 +146,7 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 			lblBankBranchNameLData.grabExcessHorizontalSpace = false;
 			lblBankBranchNameLData.grabExcessVerticalSpace = false;
 			lblBankBranchName.setLayoutData(lblBankBranchNameLData);
-			lblBankBranchName.setText("Bank Branch Name");
+			lblBankBranchName.setText(Messages.getString("BankUIBankCardAdd.1")); //$NON-NLS-1$
 			lblBankBranchName.setSize(new org.eclipse.swt.graphics.Point(95,19));
 	
 			GridData txtBankBranchNameLData = new GridData();
@@ -172,7 +174,7 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 			lvlBanckAccountNoLData.grabExcessHorizontalSpace = false;
 			lvlBanckAccountNoLData.grabExcessVerticalSpace = false;
 			lvlBanckAccountNo.setLayoutData(lvlBanckAccountNoLData);
-			lvlBanckAccountNo.setText("Bank Account No");
+			lvlBanckAccountNo.setText(Messages.getString("BankUIBankCardAdd.2")); //$NON-NLS-1$
 	
 			GridData txtBankAccountNoLData = new GridData();
 			txtBankAccountNoLData.verticalAlignment = GridData.CENTER;
@@ -199,7 +201,7 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 			lblCurrencyLData.grabExcessHorizontalSpace = false;
 			lblCurrencyLData.grabExcessVerticalSpace = false;
 			lblCurrency.setLayoutData(lblCurrencyLData);
-			lblCurrency.setText("Currency");
+			lblCurrency.setText(Messages.getString("BankUIBankCardAdd.3")); //$NON-NLS-1$
 	
 			GridData comboCurrencyLData = new GridData();
 			comboCurrencyLData.verticalAlignment = GridData.CENTER;
@@ -212,7 +214,7 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 			comboCurrencyLData.grabExcessHorizontalSpace = false;
 			comboCurrencyLData.grabExcessVerticalSpace = false;
 			comboCurrency.setLayoutData(comboCurrencyLData);
-			comboCurrency.setText("Select Currency");
+			comboCurrency.setText(Messages.getString("BankUIBankCardAdd.4")); //$NON-NLS-1$
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
@@ -231,23 +233,23 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 private boolean verifyfields()
 	{
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-		if (txtBankName.getText().trim().equals("")){
-			msg.setMessage("Please Fill Bank Name!");
+		if (txtBankName.getText().trim().equals("")){ //$NON-NLS-1$
+			msg.setMessage(Messages.getString("BankUIBankCardAdd.6")); //$NON-NLS-1$
 			msg.open();
 			return false;
 			}
-		else if(txtBankBranchName.getText().trim().equals("")){
-			msg.setMessage("Please Fill Bank Branch Name!");
+		else if(txtBankBranchName.getText().trim().equals("")){ //$NON-NLS-1$
+			msg.setMessage(Messages.getString("BankUIBankCardAdd.8")); //$NON-NLS-1$
 			msg.open();
 			return false;
 			}
-		else if (txtBankAccountNo.getText().trim().equals("")){
-			msg.setMessage("Please Fill Bank Account No!");
+		else if (txtBankAccountNo.getText().trim().equals("")){ //$NON-NLS-1$
+			msg.setMessage(Messages.getString("BankUIBankCardAdd.5")); //$NON-NLS-1$
 			msg.open();
 			return false;
 			}
 		else if (comboCurrency.getData(comboCurrency.getText())==null){
-			msg.setMessage("Please Select a Currency!");
+			msg.setMessage(Messages.getString("BankUIBankCardAdd.11")); //$NON-NLS-1$
 			msg.open();
 			return false;
 			}
@@ -259,10 +261,10 @@ private boolean verifyfields()
 	private void clearFields()
 	{
 		try{
-			txtBankName.setText("");
-			txtBankBranchName.setText("");
-			txtBankAccountNo.setText("");
-			comboCurrency.setText("Select Currency");
+			txtBankName.setText(""); //$NON-NLS-1$
+			txtBankBranchName.setText(""); //$NON-NLS-1$
+			txtBankAccountNo.setText(""); //$NON-NLS-1$
+			comboCurrency.setText(Messages.getString("BankUIBankCardAdd.15")); //$NON-NLS-1$
 		}
 		catch(Exception ex){
 			MessageBox msg= new MessageBox(this.getShell(),SWT.NULL);
@@ -276,7 +278,7 @@ private boolean verifyfields()
 	{
 		try{
 			comboCurrency.removeAll();
-			comboCurrency.setText("Select Currency");
+			comboCurrency.setText(Messages.getString("BankUIBankCardAdd.16")); //$NON-NLS-1$
 			List currencies=engBLCom.getCurrencies();
 			for(int k=0; k<currencies.size(); k++){
 				TurqCurrency currency=(TurqCurrency)currencies.get(k);
@@ -302,7 +304,7 @@ private boolean verifyfields()
 													(TurqCurrency)(comboCurrency.getData(comboCurrency.getText())));
 													
 				MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-				msg.setMessage("Succesfully Saved!");
+				msg.setMessage(Messages.getString("BankUIBankCardAdd.17")); //$NON-NLS-1$
 				msg.open();
 				clearFields();
 			}

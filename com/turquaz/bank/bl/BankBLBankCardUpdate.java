@@ -1,9 +1,4 @@
-/*
- * Created on 15.Eki.2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 package com.turquaz.bank.bl;
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
@@ -29,6 +24,7 @@ package com.turquaz.bank.bl;
 
 import java.util.Calendar;
 
+import com.turquaz.bank.Messages;
 import com.turquaz.bank.dal.BankDALBankCardUpdate;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
@@ -58,7 +54,7 @@ public class BankBLBankCardUpdate {
 			aCard.setBankBranchName(bankBranchName);
 			aCard.setBankAccountNo(bankAccountNo);	
 			aCard.setTurqCurrency(currency);
-			aCard.setUpdatedBy(System.getProperty("user"));
+			aCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			aCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			bankDALBankCardUpdate.updateObject(aCard);
 			
