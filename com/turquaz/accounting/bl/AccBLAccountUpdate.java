@@ -59,7 +59,8 @@ public class AccBLAccountUpdate {
 		account.setUpdatedBy(System.getProperty("user"));
 		account.setUpdateDate(new java.sql.Date( cal.getTime().getTime()));
 	
-		account.setTurqAccountingAccount(parentAccount);
+		account.setTurqAccountingAccountByParentAccount(parentAccount);
+		account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());
 
 	
 		dalAccountUpdate.updateObject(account);

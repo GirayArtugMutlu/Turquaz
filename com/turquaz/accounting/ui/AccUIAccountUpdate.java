@@ -338,8 +338,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
     
 	compAccountCard.getTxtAccAccountCode().setText(account.getAccountCode());
     compAccountCard.getTxtAccAcountName().setText(account.getAccountName());
-    compAccountCard.getTxtParentAccount().setText(account.getTurqAccountingAccount().getAccountCode());
-    compAccountCard.getTxtParentAccount().setData(account.getTurqAccountingAccount());
+    compAccountCard.getTxtParentAccount().setData(account.getTurqAccountingAccountByParentAccount());
     fillBalances();
     
 	Point parentLocation =this.getParent().getLocation();

@@ -28,13 +28,7 @@ public class ConBLAddConsignment {
 								   BigDecimal totalAmount,int type)throws Exception {
 		try{
 		
-			short printed;
-			if(isPrinted){
-				printed =1;
-			}
-			else {
-				printed = 0;
-			}
+			
 			TurqConsignment consignment = new TurqConsignment();
 			consignment.setCondignmentsDiscountRate(discountRate);
 			consignment.setConsignmentsBillDocumentNo(billDocNo);
@@ -43,7 +37,7 @@ public class ConBLAddConsignment {
 			consignment.setConsignmentsDefinition(definition);
 			consignment.setConsignmentsDiscountAmount(discountAmount);
 			consignment.setConsignmentsDocumentNo(docNo);
-			consignment.setConsignmentsPrinted(printed);
+			consignment.setConsignmentsPrinted(isPrinted);
 			consignment.setConsignmentsTotalAmount(totalAmount);
 			consignment.setConsignmentsType(type);
 			consignment.setConsignmentsVat(vat);

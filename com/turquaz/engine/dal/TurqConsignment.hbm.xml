@@ -126,14 +126,14 @@
     />
     <property
         name="consignmentsPrinted"
-        type="short"
+        type="boolean"
         column="consignments_printed"
         not-null="true"
         length="1"
     />
     <property
         name="consignmentsDocumentNo"
-        type="int"
+        type="java.lang.String"
         column="consignments_document_no"
         not-null="true"
         length="50"

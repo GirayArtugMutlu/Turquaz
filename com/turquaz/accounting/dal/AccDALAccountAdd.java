@@ -61,7 +61,7 @@ public class AccDALAccountAdd {
 			Transaction tx = session.beginTransaction();
 			String query = "from TurqAccountingAccount as accounts " +
 					"where accounts.turqCompany.companiesId ="+System.getProperty("company")+" and" +
-							" accounts.turqAccountingAccount.accountingAccountsId ="+parentid+"" +
+							" accounts.turqAccountingAccountByParentAccount.accountingAccountsId ="+parentid+"" +
 							" and accounts.accountCode like '"+codeCriteria+"%'" +
 							" and accounts.accountingAccountsId <> -1" +
 							" order by accounts.accountCode";   

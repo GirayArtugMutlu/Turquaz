@@ -95,7 +95,8 @@ public class AccBLAccountAdd {
 		account.setUpdatedBy(System.getProperty("user"));
 		account.setUpdateDate(new java.sql.Date( cal.getTime().getTime()));
 		account.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
-		account.setTurqAccountingAccount(parentAccount);
+		account.setTurqAccountingAccountByParentAccount(parentAccount);
+		account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());
 		account.setTurqCompany(company);
 	
 		dalAccountAdd.saveOrUpdateAccount(account);

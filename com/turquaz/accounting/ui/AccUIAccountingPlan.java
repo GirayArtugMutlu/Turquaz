@@ -171,7 +171,7 @@ public void fillTree(int parent, String codeCrit){
 	for(int i =0; i< mainBranches.size();i++){
 	account = (TurqAccountingAccount)mainBranches.get(i);
 	
-	parentId = account.getTurqAccountingAccount().getAccountingAccountsId();
+	parentId = account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId();
 	if(parentId.intValue()==-1){
 		item = new TableTreeItem(tableTreeAccountingPlan,SWT.NULL);
 		item.setText(0,account.getAccountCode());

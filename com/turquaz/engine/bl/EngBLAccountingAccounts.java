@@ -78,7 +78,9 @@ public class EngBLAccountingAccounts {
 			_instance = new EngBLAccountingAccounts();
 
 		}
-
+        //Not really static 
+		_instance.fillAccountList();
+		 
 		return _instance.accountList;
 		}
 		catch(Exception ex){

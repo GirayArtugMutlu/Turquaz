@@ -39,7 +39,7 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
-import com.turquaz.engine.ui.component.TextWithButton;
+import com.turquaz.accounting.ui.comp.DynamicAccountPicker;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.DisposeEvent;
@@ -72,10 +72,10 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	/**
 	 * @return Returns the txtParentAccount.
 	 */
-	public TextWithButton getTxtParentAccount() {
+	public DynamicAccountPicker getTxtParentAccount() {
 		return txtParentAccount;
 	}
-	private TextWithButton txtParentAccount;
+	private DynamicAccountPicker txtParentAccount;
 	private AccBLAccountAdd blAccountAdd = new AccBLAccountAdd();
 	private CLabel cLabel2;
 	private Text txtAccAccountCode;
@@ -100,7 +100,8 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 			label1 = new Label(this,SWT.NULL);
 			txtAccAcountName = new Text(this,SWT.NULL);
 			cLabel2 = new CLabel(this,SWT.NULL);
-			txtParentAccount = new TextWithButton(this,SWT.NULL);
+			txtParentAccount = new DynamicAccountPicker(this,SWT.NULL);
+			txtParentAccount.setFilter("");
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(435,204));
 	
@@ -247,7 +248,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	public void clearFields(){
 	txtAccAccountCode.setText(""); //$NON-NLS-1$
 	txtAccAcountName.setText(""); //$NON-NLS-1$
-	txtParentAccount.setText(""); //$NON-NLS-1$
+	
 	txtParentAccount.setData(null);
 	txtAccAccountCode.setFocus();
 	}
@@ -320,7 +321,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	Object[] obj = new AccUIStaticAccountsDialog(this.getShell(),SWT.NULL).showDialog(""); //$NON-NLS-1$
 		if (obj[0] != null) {
 			txtParentAccount.setData(obj[1]);
-			txtParentAccount.setText(obj[0].toString());
+		
 		}
 	
 	

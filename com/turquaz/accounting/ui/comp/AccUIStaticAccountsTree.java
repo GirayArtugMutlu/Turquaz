@@ -61,7 +61,7 @@ public class AccUIStaticAccountsTree {
 		
 		for(int i=0;i<accountsList.size();i++){
 		account = (TurqAccountingAccount)accountsList.get(i);
-		parentId = account.getTurqAccountingAccount().getAccountingAccountsId();
+		parentId = account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId();
 		
 		if(parentId.intValue()==-1){
 		item = new TreeItem(tree,SWT.NULL);
