@@ -1269,7 +1269,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		editors[0] = new ComboBoxCellEditor(
 				tableInvCardAddPrices,
 				new String[] {
-						Messages.getString("InvUICardAdd.22"), Messages.getString("InvUICardAdd.26") }); //$NON-NLS-1$ //$NON-NLS-2$
+						EngBLCommon.COMMON_BUY_STRING, EngBLCommon.COMMON_SELL_STRING }); //$NON-NLS-1$ //$NON-NLS-2$
 
 		TurqCurrency currency;
 		String[] currencies = new String[currencyList.size()];
