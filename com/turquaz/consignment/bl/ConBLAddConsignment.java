@@ -60,7 +60,7 @@ public class ConBLAddConsignment {
 		
 			
 			TurqConsignment consignment = new TurqConsignment();
-			
+		
 			consignment.setConsignmentsDate(consignmentDate);
 			consignment.setConsignmentsDefinition(definition);
 			consignment.setConsignmentsPrinted(isPrinted);

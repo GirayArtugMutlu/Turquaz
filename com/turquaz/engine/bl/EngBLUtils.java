@@ -53,6 +53,7 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 
 import com.turquaz.engine.ui.component.SWTPTable;
+import com.turquaz.inventory.bl.InvBLCardSearch;
 
 import de.kupzog.ktools.kprint.boxes.PBox;
 import de.kupzog.ktools.kprint.boxes.PDocument;
@@ -75,6 +76,7 @@ public class EngBLUtils {
 	
 	public static String logoURL;
 	private static CurBLCurrentCardSearch curBLCurCardSearch=new CurBLCurrentCardSearch();
+	private static InvBLCardSearch blCardSearch=new InvBLCardSearch();
 	private static Calendar cal=Calendar.getInstance();
 	//private static ViewerComposite reportViewer;
 	
@@ -261,16 +263,18 @@ public class EngBLUtils {
 
 			//System.out.println(sqlparam);
 			parameters.put("sqlparam",sqlparam);	
+		
 			TurqBillConsignmentCommon billCommon=bill.getTurqBillConsignmentCommon();
-			BigDecimal invoiceSum=billCommon.getTotalAmount().add(billCommon.getSpecialVatAmount());
 			BigDecimal discount=billCommon.getDiscountAmount();
-			BigDecimal specialVAT=billCommon.getVatAmount();
+			BigDecimal VAT=billCommon.getVatAmount();
+			BigDecimal invoiceSum=billCommon.getTotalAmount().subtract(VAT).add(discount);
+
 			BigDecimal invoiceTotal=invoiceSum.subtract(discount);
-			BigDecimal grandTotal=invoiceTotal.add(specialVAT);
+			BigDecimal grandTotal=invoiceTotal.add(VAT);
 			parameters.put("invoiceSum",invoiceSum);
 			parameters.put("invoiceTotal",invoiceTotal);
 			parameters.put("invoiceDiscount",discount);
-			parameters.put("invoiceVAT",specialVAT);
+			parameters.put("invoiceVAT",VAT);
 			parameters.put("invoiceGrandTotal",grandTotal);
 			parameters.put("invoiceGrandTotalText",EngBLCurrencyToWords.getTurkishCarrencyInWords(grandTotal));
 			parameters.put("invoiceDate",dformat.format(bill.getBillsDate()));
@@ -281,17 +285,19 @@ public class EngBLUtils {
 			parameters.put("currentTaxNumber",curCard.getCardsTaxNumber());
 			parameters.put("currentTaxDepartment",curCard.getCardsTaxDepartment());
 			parameters.put("currentId", curCard.getCardsCurrentCode());
-					
+			parameters.put("totalSpecVAT",billCommon.getSpecialVatAmount());
+			System.out.println(billCommon.getSpecialVatAmount());
 			parameters.put("despatchNoteDate",dformat.format(cons.getConsignmentsDate()));
 			parameters.put("despatchNoteId",billCommon.getConsignmentDocumentNo());
 			
 			TurqViewCurrentAmountTotal currentView=curBLCurCardSearch.getCurrentCardView(curCard);
-			BigDecimal allTotal=(currentView.getTransactionsBalanceNow()==null) ? new BigDecimal(0): currentView.getTransactionsBalanceNow();
+			BigDecimal allTotal=currentView.getTransactionsBalanceNow();
 			BigDecimal oldAllTotal=allTotal.subtract(grandTotal);
 			
 			parameters.put("currentBalance", oldAllTotal);
 			parameters.put("currentNewBalance", allTotal);
 			parameters.put("definition",bill.getBillsDefinition());
+			
 			NumberFormat formatter =DecimalFormat.getInstance();
             formatter.setMaximumFractionDigits(2);
             formatter.setMinimumFractionDigits(2);
