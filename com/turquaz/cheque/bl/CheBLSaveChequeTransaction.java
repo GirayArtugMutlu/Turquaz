@@ -301,6 +301,7 @@ public class CheBLSaveChequeTransaction {
     public static void saveChequeCollect(TurqCashCard cashCard, String rollNo,Date rollDate,List chequeList)throws Exception {
     	
     	 
+    	
     	  TurqChequeTransactionType type = new TurqChequeTransactionType();
           type.setId(new Integer(EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_CURRENT));
           
@@ -334,6 +335,18 @@ public class CheBLSaveChequeTransaction {
           chequeRoll.setTurqEngineSequence(seq);
           
           CheDALSave.save(chequeRoll);
+          
+          if(cashCard.getTurqAccountingAccount()!=null){
+            
+            	TurqChequeRollAccountingAccount rollAccountingAccount = new TurqChequeRollAccountingAccount();
+            	rollAccountingAccount.setId(chequeRoll.getId());
+            	rollAccountingAccount.setTurqChequeRoll(chequeRoll);
+            	rollAccountingAccount.setTurqAccountingAccount(cashCard.getTurqAccountingAccount());
+            	CheDALSave.save(rollAccountingAccount);          
+            
+           }
+          
+          
           
           TurqChequeChequeInRoll chequeInRoll;
           TurqChequeCheque cheque;
@@ -373,7 +386,7 @@ public class CheBLSaveChequeTransaction {
           account.setId(new Integer(-1));
           new CashBLCashTransactionAdd().saveCashTransaction(cashCard,chequeRoll.getTurqEngineSequence(),EngBLCommon.CASH_CHEQUE_COLLECT,rollDate,Messages.getString("CheBLSaveChequeTransaction.5"),rollNo,totals,account); //$NON-NLS-1$
           
-          saveRollAccountingTransactions(null,cashCard.getTurqAccountingAccount(),chequeRoll,chequeTotals,EngBLCommon.getBaseCurrencyExchangeRate());
+          saveRollAccountingTransactions(cashCard.getTurqAccountingAccount(),null,chequeRoll,chequeTotals,EngBLCommon.getBaseCurrencyExchangeRate());
           
     	
     	
@@ -723,14 +736,14 @@ public class CheBLSaveChequeTransaction {
     	else if(type == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_CURRENT)
     	{
     	
-    		if(counterAccount==null){
+    		if(rollAccount==null){
     			return ;
     		}
     		
     		Map creditAccountMap = new Hashtable();
     		CheBLUpdateChequeRoll.initializeChequeRoll(roll);
     		TurqChequeCheque cheque = null;
-    		TurqAccountingAccount deptAccount = counterAccount;
+    		TurqAccountingAccount deptAccount = rollAccount;
     		TurqAccountingAccount creditAccount = null;
     		Iterator it = roll.getTurqChequeChequeInRolls().iterator();
 
@@ -771,7 +784,7 @@ public class CheBLSaveChequeTransaction {
     		TurqAccountingTransactionColumn transDeptRow = new TurqAccountingTransactionColumn();
       		
       		transDeptRow.setTurqAccountingAccount(deptAccount);
-      		transDeptRow.setTransactionDefinition("Bankadan Bordrosu "+roll.getChequeRollNo());
+      		transDeptRow.setTransactionDefinition("Elden Tahsil Bordrosu "+roll.getChequeRollNo());
        	   	
       		transDeptRow.setCreditAmount(new BigDecimal(0));
       		transDeptRow.setDeptAmount(amount);    
@@ -791,7 +804,7 @@ public class CheBLSaveChequeTransaction {
     		TurqAccountingTransactionColumn transCounterRow = new TurqAccountingTransactionColumn();
     		
     		transCounterRow.setTurqAccountingAccount(account);
-    		transCounterRow.setTransactionDefinition("Bankadan Bordrosu "+roll.getChequeRollNo());
+    		transCounterRow.setTransactionDefinition("Elden Tahsil Bordrosu "+roll.getChequeRollNo());
      	   	
     		transCounterRow.setDeptAmount(new BigDecimal(0));
     		transCounterRow.setCreditAmount((BigDecimal)creditAccountMap.get(accountId));    

@@ -216,7 +216,8 @@ public class CheUIChequeCollectUpdate extends
 	private void toolUpdateWidgetSelected(SelectionEvent evt) {
 		
 		try{
-	        if(compChequeRoll.verifyFields()){ 
+	        if(compChequeRoll.verifyFields())
+	        { 
 	            List chequeList = new ArrayList();
 	            int count = compChequeRoll.getTableCheques().getItemCount();
 	            for(int i=0;i<count;i++)

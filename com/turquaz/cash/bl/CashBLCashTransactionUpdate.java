@@ -93,6 +93,48 @@ public class CashBLCashTransactionUpdate {
         
     }
     
+    public void deleteChequeCashTrans(TurqCashTransaction cashTrans)throws Exception{
+        try{
+            
+            // if it is a current transaction the delete Current Transactions
+            if(cashTrans.getTurqCashTransactionType().getId().intValue()==EngBLCommon.CASH_CURRENT_COLLECT
+                    ||cashTrans.getTurqCashTransactionType().getId().intValue()==EngBLCommon.CASH_CURRENT_PAYMENT ){
+                
+            
+                
+           //delete current Transactions..      
+           Iterator it = cashTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
+                while(it.hasNext()){
+                    
+                    dalCash.delete(it.next());
+                    
+                }
+                
+                
+            }
+            
+            //delete cash Transaction rows...
+            Iterator it = cashTrans.getTurqCashTransactionRows().iterator();
+            while(it.hasNext()){
+                
+                dalCash.delete(it.next());
+                
+            }
+            
+            
+            dalCash.delete(cashTrans);
+            
+            
+            
+            
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+        
+        
+    }
+    
     public void deleteCashTrans(TurqCashTransaction cashTrans)throws Exception{
         try{
             

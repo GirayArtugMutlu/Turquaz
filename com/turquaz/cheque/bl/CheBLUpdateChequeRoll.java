@@ -80,6 +80,7 @@ public class CheBLUpdateChequeRoll {
     										TurqCashCard cashCard, String rollNo,Date rollDate,List chequeList
 											)throws Exception{
     	try{
+    		
     		emptyCheckRollIn(chequeRoll);
     		
     		
@@ -87,7 +88,21 @@ public class CheBLUpdateChequeRoll {
             chequeRoll.setLastModified(Calendar.getInstance().getTime());
             chequeRoll.setChequeRollNo(rollNo);
             chequeRoll.setChequeRollsDate(rollDate);
+          
             CheDALSave.update(chequeRoll);
+                      
+          
+            if(cashCard.getTurqAccountingAccount()!=null){
+                
+                	TurqChequeRollAccountingAccount rollAccountingAccount = new TurqChequeRollAccountingAccount();
+                	rollAccountingAccount.setId(chequeRoll.getId());
+                	rollAccountingAccount.setTurqChequeRoll(chequeRoll);
+                	rollAccountingAccount.setTurqAccountingAccount(cashCard.getTurqAccountingAccount());
+                	CheDALSave.save(rollAccountingAccount);
+                	
+              }
+            
+            
             BigDecimal chequeTotals = new BigDecimal(0);
             
             for(int i = 0; i<chequeList.size();i++){
@@ -106,10 +121,13 @@ public class CheBLUpdateChequeRoll {
             /**
              * TODO accounting entegration da duzeltilecek
              */
+            
             TurqAccountingAccount account = new TurqAccountingAccount();
             
             account.setId(new Integer(-1));
             new CashBLCashTransactionAdd().saveCashTransaction(cashCard,chequeRoll.getTurqEngineSequence(),EngBLCommon.CASH_CHEQUE_COLLECT,rollDate,Messages.getString("CheBLSaveChequeTransaction.5"),rollNo,totals,account); //$NON-NLS-1$
+            
+            CheBLSaveChequeTransaction.saveRollAccountingTransactions(cashCard.getTurqAccountingAccount(),null,chequeRoll,chequeTotals,EngBLCommon.getBaseCurrencyExchangeRate());
             
     		
     		
@@ -280,7 +298,7 @@ public class CheBLUpdateChequeRoll {
 	        	TurqCashTransaction cashTrans = (TurqCashTransaction)it.next();
 	        	new CashBLCashTransactionSearch().initializeCashTransaction(cashTrans);
 	            
-	           new CashBLCashTransactionUpdate().deleteCashTrans(cashTrans);
+	           new CashBLCashTransactionUpdate().deleteChequeCashTrans(cashTrans);
 	            
 	        }
 	      
