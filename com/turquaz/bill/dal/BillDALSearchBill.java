@@ -44,7 +44,7 @@ public class BillDALSearchBill {
 		{
 			Session session = EngDALSessionFactory.openSession();
 		
-			String query = "Select bill.billsId, bill.billsDate, billcons.billDocumentNo," +
+			String query = "Select bill.id, bill.billsDate, billcons.billDocumentNo," +
 				" curCard.cardsCurrentCode, curCard.cardsName," +
 				" billcons.totalAmount, billcons.vatAmount, billcons.specialVatAmount" +
 				" from TurqBill as bill, bill.turqBillConsignmentCommon as billcons," +
@@ -52,7 +52,7 @@ public class BillDALSearchBill {
 				" where" +
 				" bill.billsDate >= :startDate" +
 				" and bill.billsDate <= :endDate" +				
-				" and bill.billsId <> -1 ";
+				" and bill.id <> -1 ";
 		
 			if (type != EngBLCommon.COMMON_ALL_INT)
 			{
@@ -102,7 +102,7 @@ public class BillDALSearchBill {
 			Session session = EngDALSessionFactory.openSession();
 
 			String query = "Select bill from TurqBill as bill" +
-					" where bill.billsId="+billId; //$NON-NLS-1$
+					" where bill.id="+billId; //$NON-NLS-1$
 
 
 			Query q = session.createQuery(query);
@@ -132,7 +132,7 @@ public class BillDALSearchBill {
 		{
 			Session session = EngDALSessionFactory.openSession();
 		
-			String query = "Select bill.billsId, bill.billsDate, billcons.billDocumentNo," +
+			String query = "Select bill.id, bill.billsDate, billcons.billDocumentNo," +
 				" curCard.cardsCurrentCode, curCard.cardsName," +
 				" billcons.totalAmount, billcons.vatAmount, billcons.specialVatAmount" +
 				" from TurqBill as bill, bill.turqBillConsignmentCommon as billcons," +
@@ -140,7 +140,7 @@ public class BillDALSearchBill {
 				" where" +
 				" bill.billsDate >= :startDate" +
 				" and bill.billsDate <= :endDate" +
-				" and bill.billsId <> -1 "+
+				" and bill.id <> -1 "+
 				" and bill.dueDate >= :dueDateStart"+
 				" and bill.dueDate <= :dueDateEnd";
 		

@@ -176,7 +176,7 @@ public class CashDALCashCard {
             
             Session session = EngDALSessionFactory.openSession();
             
-            String query = "select distinct cashTrans.cashTransactionsId," +
+            String query = "select distinct cashTrans.id," +
             		" cashTrans.turqCashTransactionType.cashTransationTypeName, sum(transRow.deptAmount),sum(transRow.creditAmount),cashTrans.transactionDate, cashTrans.transactionDefinition from TurqCashTransaction as cashTrans" +
             		" left join cashTrans.turqCashTransactionRows as transRow " +
             		" where cashTrans.transactionDate >= :startDate and cashTrans.transactionDate <= :endDate " ;
@@ -190,7 +190,7 @@ public class CashDALCashCard {
              	query+=" and cashTrans.transactionDefinition like '"+definition+"%'";
              }
             		
-            query +=" group by cashTrans.cashTransactionsId, cashTrans.turqCashTransactionType.cashTransationTypeName, cashTrans.transactionDate,cashTrans.transactionDefinition";
+            query +=" group by cashTrans.id, cashTrans.turqCashTransactionType.cashTransationTypeName, cashTrans.transactionDate,cashTrans.transactionDefinition";
             query += " order by cashTrans.transactionDate";
             Query q = session.createQuery(query);
             q.setParameter("startDate",startdate);
@@ -297,13 +297,13 @@ public class CashDALCashCard {
             Session session = EngDALSessionFactory.openSession();
           
             
-            String query = "select trans.cashTransactionsId, trans.transactionDate, trans.transactionDefinition," +
+            String query = "select trans.id, trans.transactionDate, trans.transactionDefinition," +
             		" transRow.deptAmount,transRow.creditAmount, trans.turqCashTransactionType.cashTransationTypeName" +
             		" from TurqCashTransaction as trans left join trans.turqCashTransactionRows as transRow " +
             		" where transRow.turqCashCard = :cashCard" +
             		" and trans.transactionDate >= :startDate and trans.transactionDate<= :endDate" +
             		
-            		" order by trans.cashTransactionsId,trans.transactionDate";
+            		" order by trans.id,trans.transactionDate";
 
           
             Query q = session.createQuery(query);
