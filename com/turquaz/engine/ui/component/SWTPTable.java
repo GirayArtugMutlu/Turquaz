@@ -20,6 +20,7 @@
 */
 
 package com.turquaz.engine.ui.component;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 
 import com.turquaz.engine.Messages;
@@ -27,7 +28,10 @@ import com.turquaz.engine.Messages;
 import de.kupzog.ktools.kprint.boxes.PBox;
 import de.kupzog.ktools.kprint.boxes.PContainer;
 import de.kupzog.ktools.kprint.boxes.PDocument;
+import de.kupzog.ktools.kprint.boxes.PHLine;
+import de.kupzog.ktools.kprint.boxes.PLittleTextBox;
 import de.kupzog.ktools.kprint.boxes.PTableBoxProvider;
+import de.kupzog.ktools.kprint.boxes.PTextStyle;
 import de.kupzog.ktools.kprint.gui.MsgBox;
 import de.kupzog.ktools.kprint.gui.PageSetup;
 
@@ -100,6 +104,10 @@ public class SWTPTable {
 					false,
 					table.getItem(i).getText(j)
 				);
+			
+				if(table.getColumn(j).getStyle()==SWT.RIGHT){
+				    ((PLittleTextBox)box).getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
+				}
 				double boxWidth = Math.max(box.minCm, parent.getPossibleWidth()*box.hWeight);
 				width -= boxWidth;
 				if (width < 0)

@@ -236,6 +236,7 @@ public class AccDALTransactionSearch {
 				query += " and transRow.turqAccountingTransaction.transactionsDate <= :endDate";
 			}
 
+			query += " order by transRow.turqAccountingTransaction.transactionsDate "; 
 			Query q = session.createQuery(query);
 			q.setParameter("acc", acc);
 
@@ -250,6 +251,7 @@ public class AccDALTransactionSearch {
 				java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 				q.setParameter("endDate", sqlDate);
 			}
+			
 			List list = q.list();
 
 			session.close();

@@ -63,7 +63,7 @@ public class PTableBoxProvider {
 			textStyle.setMarginRight(0.08);
 			textStyle.setMarginTop(0.1);
 			textStyle.setMarginBottom(0.1);
-			textStyle.fontSize = 9;
+			textStyle.fontSize = 8;
 			textStyle.fontStyle = SWT.BOLD;
 			textStyle.textAlign = PTextStyle.ALIGN_LEFT;
 		}
@@ -73,7 +73,7 @@ public class PTableBoxProvider {
 			textStyle.setMarginRight(0.08);
 			textStyle.setMarginTop(0.1);
 			textStyle.setMarginBottom(0.1);
-			textStyle.fontSize = 9;
+			textStyle.fontSize = 7;
 			textStyle.textAlign = PTextStyle.ALIGN_LEFT;
 		}
 		box.setTextStyle(textStyle);

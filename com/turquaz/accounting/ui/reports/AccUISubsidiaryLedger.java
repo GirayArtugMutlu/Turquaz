@@ -47,6 +47,7 @@ import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.component.TurquazDecimalFormat;
 
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.DisposeEvent;
@@ -207,12 +208,10 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 				tableTransactions.setHeaderVisible(true);
 				tableTransactions.setLinesVisible(true);
 				{
-					tableColumnDate = new TableColumn(
-						tableTransactions,
-						SWT.NONE);
+					tableColumnDate = new TableColumn(tableTransactions, SWT.LEFT);
 					tableColumnDate.setText(Messages
 						.getString("AccUISubsidiaryLedger.3")); //$NON-NLS-1$
-					tableColumnDate.setWidth(118);
+					tableColumnDate.setWidth(76);
 				}
 				{
 					tableColumnDocumentNo = new TableColumn(
@@ -220,7 +219,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 						SWT.NONE);
 					tableColumnDocumentNo.setText(Messages
 						.getString("AccUISubsidiaryLedger.4")); //$NON-NLS-1$
-					tableColumnDocumentNo.setWidth(126);
+					tableColumnDocumentNo.setWidth(87);
 				}
 				{
 					tableColumnDefinition = new TableColumn(
@@ -228,36 +227,28 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 						SWT.NONE);
 					tableColumnDefinition.setText(Messages
 						.getString("AccUISubsidiaryLedger.5")); //$NON-NLS-1$
-					tableColumnDefinition.setWidth(150);
+					tableColumnDefinition.setWidth(126);
 				}
 				{
-					tableColumnDept = new TableColumn(
-						tableTransactions,
-						SWT.NONE);
+					tableColumnDept = new TableColumn(tableTransactions, SWT.RIGHT);
 					tableColumnDept.setText(Messages
 						.getString("AccUISubsidiaryLedger.6")); //$NON-NLS-1$
-					tableColumnDept.setWidth(118);
+					tableColumnDept.setWidth(88);
 
 				}
 				{
-					tableColumnCredit = new TableColumn(
-						tableTransactions,
-						SWT.NONE);
+					tableColumnCredit = new TableColumn(tableTransactions, SWT.RIGHT);
 					tableColumnCredit.setText(Messages
 						.getString("AccUISubsidiaryLedger.7")); //$NON-NLS-1$
-					tableColumnCredit.setWidth(118);
+					tableColumnCredit.setWidth(83);
 				}
 				{
-					tableColumnDeptBalance = new TableColumn(
-						tableTransactions,
-						SWT.NONE);
+					tableColumnDeptBalance = new TableColumn(tableTransactions, SWT.RIGHT);
 					tableColumnDeptBalance.setText("Borç Bakiye");
 					tableColumnDeptBalance.setWidth(80);
 				}
 				{
-					tableColumnCreditBalance = new TableColumn(
-						tableTransactions,
-						SWT.NONE);
+					tableColumnCreditBalance = new TableColumn(tableTransactions, SWT.RIGHT);
 					tableColumnCreditBalance.setText("Alacak Bakiye");
 					tableColumnCreditBalance.setWidth(80);
 				}
@@ -268,7 +259,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 				});
 			}
 
-			this.setSize(new org.eclipse.swt.graphics.Point(646, 513));
+			this.setSize(669, 511);
 
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
@@ -324,8 +315,13 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 					(TurqAccountingAccount) txtAccount.getData(), dateStartDate
 							.getData(), dateEndDate.getData());
 			
-			BigDecimal balance = new BigDecimal(0); //balance shown in table
+			TurquazDecimalFormat df = new TurquazDecimalFormat();
 			
+			BigDecimal balance = new BigDecimal(0); //balance shown in table
+			BigDecimal totalDept = new BigDecimal(0); //total dept
+			BigDecimal totalCredit = new BigDecimal(0); //total credit
+			
+			TableItem item;
 			// if start date is after beginning of the year
 			// get the sum of previous transactions
 			if (dateStartDate.getDate().after(new Date(cal.getTime().getYear(),0,1)) )
@@ -336,20 +332,38 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 				time -= 86400000;
 				date.setTime(time);
 				
+				// decimal formatter
+				
+				
 				Object sums[] = blTransSearch.getAccTransactionBalance((TurqAccountingAccount) txtAccount.getData(),
 						new Date(cal.getTime().getYear(),0,1),date);
 				if (sums[0]!= null)
 				{
 					balance = balance.subtract((BigDecimal)sums[0]);
-				}
+					totalDept = totalDept.add((BigDecimal)sums[0]);
+					}
 				if (sums[1] != null)
 				{
 					balance = balance.add((BigDecimal)sums[1]);
+					totalCredit = totalCredit.add((BigDecimal)sums[1]);
 				}
+				// total
+				item = new TableItem(tableTransactions, SWT.NULL);
+				item.setText(new String[]{"","","Önceki Toplam",
+				        (balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "",
+				        (balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "",
+				        (balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "",
+						(balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "" });
+				
+				// one empty row
+				item = new TableItem(tableTransactions, SWT.NULL);
+			
 			}
 			
-			TableItem item;
+			
 			int listSize = result.size();
+			
+			
 			
 			
 			for (int i = 0; i < listSize; i++) {
@@ -364,22 +378,34 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 				BigDecimal total = new BigDecimal(0);
 				
 				balance = balance.add(accTransColumn.getCreditAmount());
+				totalCredit = totalCredit.add(accTransColumn.getCreditAmount());
+				
 				balance = balance.subtract(accTransColumn.getDeptAmount());
+				totalDept = totalDept.add(accTransColumn.getDeptAmount());
 				
 				String transDate = formatter.format(accTransColumn
 						.getTurqAccountingTransaction().getTransactionsDate());
+				
+				
 				
 				item.setText(new String[] { transDate,
 						accTransColumn.getTurqAccountingTransaction().getTransactionDocumentNo(),
 						accTransColumn.getTransactionDefinition(),
 						
 						// if it is zero does not print to the table
-						(accTransColumn.getDeptAmount().equals(new BigDecimal(0))) ? "": accTransColumn.getDeptAmount().toString(),
-						(accTransColumn.getCreditAmount().equals(new BigDecimal(0))) ? "": accTransColumn.getCreditAmount().toString(),
-						(balance.compareTo(new BigDecimal(0))<0) ? balance.multiply(new BigDecimal(-1)).toString(): "",
-						(balance.compareTo(new BigDecimal(0))>0) ? balance.toString(): "" }); 
+						(accTransColumn.getDeptAmount().equals(new BigDecimal(0))) ? "": df.format(accTransColumn.getDeptAmount()),
+						(accTransColumn.getCreditAmount().equals(new BigDecimal(0))) ? "": df.format(accTransColumn.getCreditAmount()),
+						(balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "",
+						(balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "" }); 
 			}
-
+			
+			// grand total last row
+			item = new TableItem(tableTransactions, SWT.NULL);
+			item = new TableItem(tableTransactions, SWT.NULL);
+			item.setText(new String[]{"","","YEKÜN",df.format(totalDept),df.format(totalCredit),
+			        (balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "",
+					(balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "" });
+			
 		} catch (Exception ex) {
 
 			ex.printStackTrace();
