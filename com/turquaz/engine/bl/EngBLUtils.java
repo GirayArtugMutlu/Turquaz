@@ -245,7 +245,7 @@ public class EngBLUtils {
 			
 			
 
-			System.out.println(sqlparam);
+			//System.out.println(sqlparam);
 			parameters.put("sqlparam",sqlparam);	
 			TurqBillConsignmentCommon billCommon=bill.getTurqBillConsignmentCommon();
 			BigDecimal invoiceSum=billCommon.getTotalAmount().add(billCommon.getSpecialVatAmount());
