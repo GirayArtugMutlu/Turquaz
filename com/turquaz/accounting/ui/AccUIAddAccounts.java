@@ -24,6 +24,8 @@ package com.turquaz.accounting.ui;
 
 
 
+import java.util.List;
+
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
@@ -43,6 +45,7 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
+import com.turquaz.accounting.bl.AccBLAccountUpdate;
 
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.DisposeEvent;
@@ -99,6 +102,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 		return txtParentAccount;
 	}
 	private AccBLAccountAdd blAccountAdd = new AccBLAccountAdd();
+	private AccBLAccountUpdate blAccountUpdate=new AccBLAccountUpdate();
 	private CLabel cLabel1;
 	private Text txtAccAcountName;
 	private Text txtParentAccount;
@@ -288,31 +292,37 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	public void save(){
 		try{
 			
-	if(verifyFields(false)){
-	String accountName = txtAccAcountName.getText().trim();
-	String accountCode = txtAccAccountCode.getText().trim();
-  
-		
-    blAccountAdd.saveAccount(accountName,accountCode,txtParentAccount.getData());	
-    MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-    msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
-    msg.open();
+			if(verifyFields(false))
+			{
+				MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+				TurqAccountingAccount parent=(TurqAccountingAccount)txtParentAccount.getData();
+				List accTrans=blAccountUpdate.getAccountTransColumns(parent);
+				if (accTrans.size() > 0)
+				{
+					msg.setMessage(Messages.getString("AccUIAddAccounts.6")); //$NON-NLS-1$
+					msg.open();
+					return;
+				}
+				String accountName = txtAccAcountName.getText().trim();
+				String accountCode = txtAccAccountCode.getText().trim();				
+				blAccountAdd.saveAccount(accountName,accountCode,parent);	
+				
+				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
+				msg.open();    
+				asistant.refreshContentAssistant(0);
+				EngBLAccountingAccounts.RefreshContentAsistantMap();
     
-    asistant.refreshContentAssistant(0);
-    EngBLAccountingAccounts.RefreshContentAsistantMap();
-    
-    clearFields();
-	}
-	}
-	catch(Exception ex){
-		ex.printStackTrace();
-		 MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-		 msg.setMessage(ex.getMessage());
-		 msg.open();
+				clearFields();
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+			msg.setMessage(ex.getMessage());
+			msg.open();
 		
-	}
-	
-		
+		}		
 	}
 	public void search(){
 	}
