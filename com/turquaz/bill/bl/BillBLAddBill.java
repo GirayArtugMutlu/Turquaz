@@ -34,8 +34,7 @@ public class BillBLAddBill {
 		
 			
 			TurqBill bill = new TurqBill();
-			bill.setBillsDiscountRate(discountRate);
-	
+			bill.setBillsDiscountRate(discountRate);	
 			bill.setBillsCharges(new BigDecimal(0));
 			bill.setBillsDate(consignmentDate);
 			bill.setBillsDefinition(definition);
@@ -47,8 +46,7 @@ public class BillBLAddBill {
 			bill.setBillsVatAmount(vatAmount);
 			bill.setBillsSpecialVatAmount(specialVatAmount);
 			bill.setTurqConsignment(cons);
-			bill.setTurqCurrentCard(curCard);
-					
+			bill.setTurqCurrentCard(curCard);					
 			TurqCompany company = new TurqCompany();	
 			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
 			bill.setTurqCompany(company);
@@ -56,6 +54,7 @@ public class BillBLAddBill {
 			bill.setUpdatedBy(System.getProperty("user"));
 			bill.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			bill.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+		
 			
 			dalBill.save(bill);
 			

@@ -76,13 +76,6 @@
         length="65535"
     />
     <property
-        name="billsVat"
-        type="int"
-        column="bills_vat"
-        not-null="true"
-        length="4"
-    />
-    <property
         name="billsVatAmount"
         type="java.math.BigDecimal"
         column="bills_vat_amount"

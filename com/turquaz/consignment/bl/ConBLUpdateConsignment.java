@@ -4,8 +4,6 @@ package com.turquaz.consignment.bl;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
-
-import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.dal.ConDALUpdateConsignment;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;

@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.dal.ConDALAddConsignment;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCompany;

@@ -7,8 +7,6 @@ import java.util.List;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-
-import com.turquaz.consignment.Messages;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;

@@ -34,9 +34,6 @@ public class TurqBill implements Serializable {
     private java.math.BigDecimal billsCharges;
 
     /** persistent field */
-    private int billsVat;
-
-    /** persistent field */
     private java.math.BigDecimal billsVatAmount;
 
     /** persistent field */
@@ -79,7 +76,7 @@ public class TurqBill implements Serializable {
     private Set turqOrders;
 
     /** full constructor */
-    public TurqBill(int billsType, java.lang.String billDocumentNo, java.util.Date billsDate, java.lang.String billsDefinition, int billsDiscountRate, java.math.BigDecimal billsDiscountAmount, java.math.BigDecimal billsCharges, int billsVat, java.math.BigDecimal billsVatAmount, java.math.BigDecimal billsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, boolean billsPrinted, java.math.BigDecimal billsSpecialVatAmount, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqConsignment turqConsignment, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqBillInGroups, Set turqConsignments, Set turqOrders) {
+    public TurqBill(int billsType, java.lang.String billDocumentNo, java.util.Date billsDate, java.lang.String billsDefinition, int billsDiscountRate, java.math.BigDecimal billsDiscountAmount, java.math.BigDecimal billsCharges, java.math.BigDecimal billsVatAmount, java.math.BigDecimal billsTotalAmount, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, boolean billsPrinted, java.math.BigDecimal billsSpecialVatAmount, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqConsignment turqConsignment, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqBillInGroups, Set turqConsignments, Set turqOrders) {
         this.billsType = billsType;
         this.billDocumentNo = billDocumentNo;
         this.billsDate = billsDate;
@@ -87,7 +84,6 @@ public class TurqBill implements Serializable {
         this.billsDiscountRate = billsDiscountRate;
         this.billsDiscountAmount = billsDiscountAmount;
         this.billsCharges = billsCharges;
-        this.billsVat = billsVat;
         this.billsVatAmount = billsVatAmount;
         this.billsTotalAmount = billsTotalAmount;
         this.creationDate = creationDate;
@@ -170,14 +166,6 @@ public class TurqBill implements Serializable {
 
     public void setBillsCharges(java.math.BigDecimal billsCharges) {
         this.billsCharges = billsCharges;
-    }
-
-    public int getBillsVat() {
-        return this.billsVat;
-    }
-
-    public void setBillsVat(int billsVat) {
-        this.billsVat = billsVat;
     }
 
     public java.math.BigDecimal getBillsVatAmount() {

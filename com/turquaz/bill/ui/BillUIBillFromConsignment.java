@@ -437,7 +437,7 @@ implements SecureComposite{
 									.setLayoutData(dateConsignmentDateLData);
 							}
 							{
-								lblType = new CLabel(compInfoPanel, SWT.RIGHT);
+								lblType = new CLabel(compInfoPanel, SWT.LEFT);
 								lblType.setText("Type");
 								GridData lblTypeLData = new GridData();
 								lblTypeLData.widthHint = 62;
@@ -495,7 +495,7 @@ implements SecureComposite{
 							{
 								lblDefinition = new CLabel(
 									compInfoPanel,
-									SWT.RIGHT);
+									SWT.LEFT);
 								lblDefinition.setText("Definition");
 								GridData lblDefinitionLData = new GridData();
 								lblDefinitionLData.widthHint = 108;
@@ -951,6 +951,8 @@ implements SecureComposite{
 	TurqConsignment cons = new ConUIConsignmentSearchDialog(this.getShell(),SWT.NULL).open();
 	
 	if(cons!=null){
+	txtConsignment.setData(cons);	
+		
 	txtCurrentCard.setText(cons.getTurqCurrentCard().getCardsCurrentCode()+" - "+cons.getTurqCurrentCard().getCardsName());
 	txtCurrentCard.setData(cons.getTurqCurrentCard());
 	txtDocumentNo.setText(cons.getConsignmentsBillDocumentNo());
