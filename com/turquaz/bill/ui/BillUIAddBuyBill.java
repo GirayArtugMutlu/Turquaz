@@ -232,20 +232,8 @@ public class BillUIAddBuyBill extends Composite
 		this.txtDiscountAmount = txtDiscountAmount;
 	}
 
-	/**
-	 * @return Returns the txtDiscountRate.
-	 */
-	public NumericText getTxtDiscountRate() {
-		return txtDiscountRate;
-	}
+	
 
-	/**
-	 * @param txtDiscountRate
-	 *            The txtDiscountRate to set.
-	 */
-	public void setTxtDiscountRate(NumericText txtDiscountRate) {
-		this.txtDiscountRate = txtDiscountRate;
-	}
 
 	/**
 	 * @return Returns the txtDocumentNo.
@@ -317,8 +305,6 @@ public class BillUIAddBuyBill extends Composite
 
 	private Composite compTotalsPanel;
 
-	private NumericText txtDiscountRate;
-
 	private CCombo comboPaymentType;
 
 	private Label lblPaymentType;
@@ -382,8 +368,6 @@ public class BillUIAddBuyBill extends Composite
 	private CurrencyText txtTotalVat;
 
 	private CLabel lblTotalVat;
-
-	private CLabel lblDiscountRate;
 
 	private Text txtDocumentNo;
 
@@ -600,35 +584,6 @@ public class BillUIAddBuyBill extends Composite
                                 txtDefinitionLData.widthHint = 211;
                                 txtDefinitionLData.heightHint = 17;
                                 txtDefinition.setLayoutData(txtDefinitionLData);
-                            }
-                            {
-                                lblDiscountRate = new CLabel(
-                                    compInfoPanel,
-                                    SWT.LEFT);
-                                lblDiscountRate.setText(Messages
-                                    .getString("BillUIAddBill.10")); //$NON-NLS-1$
-                                GridData lblDiscountRateLData = new GridData();
-                                lblDiscountRateLData.widthHint = 79;
-                                lblDiscountRateLData.heightHint = 17;
-                                lblDiscountRate
-                                    .setLayoutData(lblDiscountRateLData);
-                            }
-                            {
-                                txtDiscountRate = new NumericText(
-                                    compInfoPanel,
-                                    SWT.NONE);
-                                txtDiscountRate
-                                    .addModifyListener(new ModifyListener() {
-                                        public void modifyText(ModifyEvent evt) {
-                                            calculateTotals();
-                                        }
-                                    });
-                                GridData txtDiscountRateLData = new GridData();
-                                txtDiscountRate.setTextLimit(2);
-                                txtDiscountRateLData.widthHint = 105;
-                                txtDiscountRateLData.heightHint = 17;
-                                txtDiscountRate
-                                    .setLayoutData(txtDiscountRateLData);
                             }
                             {
                                 lblPaymentType = new Label(compInfoPanel, SWT.LEFT);
@@ -1308,8 +1263,7 @@ public class BillUIAddBuyBill extends Composite
 			txtCurrentCard.setText(curCard.getCardsCurrentCode()
 					+ " - " + curCard.getCardsName()); //$NON-NLS-1$
 			txtCurrentCard.setData(curCard);
-			txtDiscountRate.setText(curCard.getCardsDiscountRate().intValue());
-		}
+			}
 	}
 
 	public void btnAddConsignmentRowMouseUp() {
@@ -1492,7 +1446,7 @@ public class BillUIAddBuyBill extends Composite
 	     * TODO discount totals will be the sum of all rows.. 
 	     */
 		generalTotal = subTotal.add(totalVAT).add(totalSpecVAT);
-		double discountRate = (double) txtDiscountRate.getIntValue() / 100;
+		double discountRate = 0;
 
 		discountTotal = generalTotal
 				.multiply(new BigDecimal(discountRate + "")).setScale(2, BigDecimal.ROUND_DOWN);; //$NON-NLS-1$
