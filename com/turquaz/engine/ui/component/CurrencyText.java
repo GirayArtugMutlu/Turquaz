@@ -185,8 +185,10 @@ public class CurrencyText extends Composite {
     }
    }
   
+ 
  public void setText(String txt){
  	text.setTextLimit(textLimit);
+ 	txt = txt.replaceAll("\\.",",");
  	text.setText(txt);	
  	
  }
@@ -212,8 +214,7 @@ public class CurrencyText extends Composite {
  }
  
  public BigDecimal getBigDecimalValue(){
- 	String text = this.text.getText();
-	text= text.replaceAll(",","");
+ 	String text = getText();
  	if(text.equals("")){
  		return new BigDecimal(0);
  	}

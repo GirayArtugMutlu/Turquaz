@@ -29,13 +29,10 @@ public class ConBLUpdateConsignment {
 			   BigDecimal totalAmount,int type)throws Exception{
 		try{
 		
-	
 		consignment.setConsignmentsDate(consignmentDate);
-		consignment.setConsignmentsDefinition(definition);
-		
-	
+		consignment.setConsignmentsDefinition(definition);	
 		consignment.setConsignmentsType(type);
-				
+		
 		consignment.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		consignment.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 		
@@ -77,7 +74,16 @@ public class ConBLUpdateConsignment {
 	
 	}
 	}
-	
+	public void initiliazeConsignment(TurqConsignment cons)throws Exception{
+		try{
+		 
+		    dalCons.initiliazeConsignment(cons);
+		    
+		}
+		catch(Exception ex){
+		    throw ex;
+		}
+	}
 	
 	
 	

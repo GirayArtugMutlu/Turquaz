@@ -63,6 +63,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 
 	public void open() {
 		try {
+		    preInitGUI();
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 
@@ -150,6 +151,13 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			e.printStackTrace();
 		}
 	}
+	
+	public void preInitGUI(){
+	    
+	    
+	}
+	
+	
 	public void postInitGui(){
 		toolUpdate.setEnabled(false);
 		toolDelete.setEnabled(false);
@@ -165,9 +173,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	    
 	    
 		compAddConsignment.getTxtCurrentCard().setData(consignment.getTurqBillConsignmentCommon().getTurqCurrentCard());
-		compAddConsignment.getTxtCurrentCard().setText(consignment.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode()+" - " + //$NON-NLS-1$
-														consignment.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName());
-		;
+		compAddConsignment.getTxtCurrentCard().setText(consignment.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode());
 		compAddConsignment.getTxtBillDocumentNo().setText(consignment.getTurqBillConsignmentCommon().getBillDocumentNo());
 		compAddConsignment.getDateConsignmentDate().setDate(consignment.getConsignmentsDate());
 		compAddConsignment.getTxtDocumentNo().setText(consignment.getTurqBillConsignmentCommon().getConsignmentDocumentNo());

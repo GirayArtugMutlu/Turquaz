@@ -450,6 +450,16 @@ SearchComposite{
 		TableItem items[] = tableConsignments.getSelection();
 		if(items.length>0){
 		    TurqConsignment cons = (TurqConsignment)items[0].getData();
+		    try{
+		        ConBLUpdateConsignment blUpdate = new ConBLUpdateConsignment();
+		        blUpdate.initiliazeConsignment(cons);
+		        
+		        
+		    }
+		    catch(Exception ex){
+		        ex.printStackTrace();
+		        return;
+		    }
 		    if(cons.getTurqBillConsignmentCommon().getTurqBills().isEmpty()){
 		        new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
 		        search();
