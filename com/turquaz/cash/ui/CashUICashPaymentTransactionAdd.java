@@ -3,15 +3,11 @@ package com.turquaz.cash.ui;
 import java.math.BigDecimal;
 
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.VerifyKeyListener;
@@ -31,7 +27,6 @@ import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
 
@@ -49,7 +44,7 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Composite implements SecureComposite {
+public class CashUICashPaymentTransactionAdd extends org.eclipse.swt.widgets.Composite implements SecureComposite {
 
     {
         //Register as a resource user - SWTResourceManager will
@@ -72,43 +67,8 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 	private Text txtCashCard;
 	CashBLCashTransactionAdd blTrans = new CashBLCashTransactionAdd();
 
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		showGUI();
-	}
-		
-	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		CashUICashCollectTransactionAdd inst = new CashUICashCollectTransactionAdd(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if(size.x == 0 && size.y == 0) {
-			inst.pack();
-			shell.pack();
-		} else {
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
-
-	public CashUICashCollectTransactionAdd(org.eclipse.swt.widgets.Composite parent, int style) {
+	
+	public CashUICashPaymentTransactionAdd(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
 		initGUI();
 	}
@@ -121,7 +81,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 			this.setSize(540, 265);
             {
                 lblCashTransType = new CLabel(this, SWT.NONE);
-                lblCashTransType.setText(Messages.getString("CashUICashCollectTransactionAdd.0")); //$NON-NLS-1$
+                lblCashTransType.setText(Messages.getString("CashUICashPaymentTransactionAdd.0"));  //$NON-NLS-1$
                 GridData lblCashTransTypeLData = new GridData();
                 lblCashTransType.setFont(SWTResourceManager.getFont("Tahoma", 14, 1, false, false)); //$NON-NLS-1$
                 lblCashTransTypeLData.widthHint = 180;
@@ -282,10 +242,10 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 	}
 
     public void newForm() {
-        CashUICashCollectTransactionAdd curCard = new  CashUICashCollectTransactionAdd(this.getParent(),this.getStyle());
-      	 CTabFolder tabfld = (CTabFolder)this.getParent();
-      	 tabfld.getSelection().setControl(curCard);	 
-      	 this.dispose();
+        CashUICashPaymentTransactionAdd curCard = new  CashUICashPaymentTransactionAdd(this.getParent(),this.getStyle());
+     	 CTabFolder tabfld = (CTabFolder)this.getParent();
+     	 tabfld.getSelection().setControl(curCard);	 
+     	 this.dispose();
 
     }
     
@@ -298,7 +258,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
                
                blTrans.saveCurrentTransaction((TurqCashCard)txtCashCard.getData(),
                        						  (TurqCurrentCard)txtCurrentAccount.getData(),
-                       						  EngBLCommon.CASH_CURRENT_COLLECT,
+                       						  EngBLCommon.CASH_CURRENT_PAYMENT,
                        						  null,
                        						  curTextTotalAmount.getBigDecimalValue(),
                        						  datePicker.getDate(),
@@ -306,7 +266,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
                        						  txtDocumentNo.getText().trim()
                        						  );
                
-               msg.setMessage(Messages.getString("CashUICashCollectTransactionAdd.1")); //$NON-NLS-1$
+               msg.setMessage(Messages.getString("CashUICashPaymentTransactionAdd.1")); //$NON-NLS-1$
                msg.open();
                newForm();
                 
@@ -323,19 +283,19 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
     public boolean verifyFields(){
         MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
         if(txtCashCard.getData()==null){
-            msg.setMessage(Messages.getString("CashUICashCollectTransactionAdd.8")); //$NON-NLS-1$
+            msg.setMessage(Messages.getString("CashUICashPaymentTransactionAdd.2")); //$NON-NLS-1$
             msg.open();
             txtCashCard.setFocus();
            return false;
         }
         else if(txtCurrentAccount.getData()==null){
-            msg.setMessage(Messages.getString("CashUICashCollectTransactionAdd.9")); //$NON-NLS-1$
+            msg.setMessage(Messages.getString("CashUICashPaymentTransactionAdd.3")); //$NON-NLS-1$
             msg.open();
             txtCurrentAccount.setFocus();
             return false;
         }
         else if(curTextTotalAmount.getBigDecimalValue().equals(new BigDecimal(0))){
-            msg.setMessage(Messages.getString("CashUICashCollectTransactionAdd.10")); //$NON-NLS-1$
+            msg.setMessage(Messages.getString("CashUICashPaymentTransactionAdd.4")); //$NON-NLS-1$
             msg.open();
             curTextTotalAmount.setFocus();
             return false;

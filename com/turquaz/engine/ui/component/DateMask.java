@@ -1,12 +1,9 @@
 
 package com.turquaz.engine.ui.component;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Text;
 
 public class DateMask {

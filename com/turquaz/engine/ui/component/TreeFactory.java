@@ -55,6 +55,7 @@ import com.turquaz.bill.ui.BillUIBillSearch;
 import com.turquaz.cash.ui.CashUICashCardAdd;
 import com.turquaz.cash.ui.CashUICashCardSearch;
 import com.turquaz.cash.ui.CashUICashCollectTransactionAdd;
+import com.turquaz.cash.ui.CashUICashPaymentTransactionAdd;
 import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
@@ -393,17 +394,27 @@ public final class TreeFactory {
 			item.setText(Messages.getString("TreeFactory.47"));  //$NON-NLS-1$
 			item.setData(CashUICashCardSearch.class.getName());
 		}
+		root.setExpanded(true);
+		
 		root = new TreeItem(tree,SWT.NULL);
 		root.setText("Tahsilat");
+		
 		
 	   if(EngBLPermissions.getPermission(CashUICashCollectTransactionAdd.class.getName())>0){
 			item = new TreeItem(root,SWT.NULL);
 			item.setText("Cariden Tahsilat"); 
 			item.setData(CashUICashCollectTransactionAdd.class.getName());
 	   }
+	    root.setExpanded(true);
 	   
 	    root = new TreeItem(tree,SWT.NULL);
 		root.setText("Ödeme");
+
+		   if(EngBLPermissions.getPermission(CashUICashPaymentTransactionAdd.class.getName())>0){
+				item = new TreeItem(root,SWT.NULL);
+				item.setText("Cariye Ödeme"); 
+				item.setData(CashUICashPaymentTransactionAdd.class.getName());
+		   }
 		
 		root.setExpanded(true);
 		return tree;

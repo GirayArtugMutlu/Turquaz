@@ -131,6 +131,9 @@ public class CashBLCashTransactionAdd {
          
          accTransRowCurrent.setDeptAmount(totalAmount);
          accTransRowCurrent.setCreditAmount(new BigDecimal(0));
+         
+         cashTransRow.setDeptAmount(totalAmount);
+         cashTransRow.setCreditAmount(new BigDecimal(0));
                   
          accTransType = EngBLCommon.ACCOUNTING_TRANS_PAYMENT;
          currentTransType = EngBLCommon.CURRENT_TRANS_DEBIT;
