@@ -81,23 +81,11 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				GridLayout composite1Layout = new GridLayout();
 				composite1Layout.numColumns = 4;
 				GridData composite1LData = new GridData();
-				composite1LData.heightHint = 96;
+				composite1LData.heightHint = 89;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				composite1.setLayoutData(composite1LData);
 				composite1.setLayout(composite1Layout);
-				{
-					lblDocNo = new CLabel(composite1, SWT.NONE);
-					lblDocNo.setText("Belge No");
-				}
-				{
-					txtDocNo = new Text(composite1, SWT.NONE);
-					GridData txtDocNoLData = new GridData();
-					txtDocNoLData.horizontalSpan = 3;
-					txtDocNoLData.widthHint = 115;
-					txtDocNoLData.heightHint = 15;
-					txtDocNo.setLayoutData(txtDocNoLData);
-				}
 				{
 					lblCurrentCard = new CLabel(composite1, SWT.NONE);
 					lblCurrentCard.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.0")); //$NON-NLS-1$
@@ -109,25 +97,20 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				{
 					txtCurCard = new CurrentPicker(composite1, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
-					txtCurCardLData.widthHint = 160;
-					txtCurCardLData.heightHint = 20;
+					txtCurCardLData.widthHint = 157;
+					txtCurCardLData.heightHint = 17;
 					txtCurCard.setLayoutData(txtCurCardLData);
 				}
 				{
-					lblType = new CLabel(composite1, SWT.NONE);
-					lblType.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.3")); //$NON-NLS-1$
-					GridData lblTypeLData = new GridData();
-					lblTypeLData.widthHint = 74;
-					lblTypeLData.heightHint = 21;
-					lblType.setLayoutData(lblTypeLData);
+					lblDocNo = new CLabel(composite1, SWT.NONE);
+					lblDocNo.setText("Belge No");
 				}
 				{
-					comboBillType = new CCombo(composite1, SWT.NONE);
-					GridData comboConsignmentTypeLData = new GridData();
-					comboBillType.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.4")); //$NON-NLS-1$
-					comboConsignmentTypeLData.widthHint = 72;
-					comboConsignmentTypeLData.heightHint = 16;
-					comboBillType.setLayoutData(comboConsignmentTypeLData);
+					txtDocNo = new Text(composite1, SWT.NONE);
+					GridData txtDocNoLData = new GridData();
+					txtDocNoLData.widthHint = 150;
+					txtDocNoLData.heightHint = 17;
+					txtDocNo.setLayoutData(txtDocNoLData);
 				}
 				{
 					lblStartDate = new CLabel(composite1, SWT.NONE);
@@ -140,8 +123,8 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				{
 					dateStartDate = new DatePicker(composite1, SWT.NONE);
 					GridData dateStartDateLData = new GridData();
-					dateStartDateLData.widthHint = 141;
-					dateStartDateLData.heightHint = 22;
+					dateStartDateLData.widthHint = 157;
+					dateStartDateLData.heightHint = 23;
 					dateStartDate.setLayoutData(dateStartDateLData);
 				}
 				{
@@ -155,9 +138,25 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				{
 					dateEndDate = new DatePicker(composite1, SWT.NONE);
 					GridData dateEndDateLData = new GridData();
-					dateEndDateLData.widthHint = 140;
-					dateEndDateLData.heightHint = 22;
+					dateEndDateLData.widthHint = 157;
+					dateEndDateLData.heightHint = 23;
 					dateEndDate.setLayoutData(dateEndDateLData);
+				}
+				{
+					lblType = new CLabel(composite1, SWT.NONE);
+					lblType.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.3")); //$NON-NLS-1$
+					GridData lblTypeLData = new GridData();
+					lblTypeLData.widthHint = 74;
+					lblTypeLData.heightHint = 21;
+					lblType.setLayoutData(lblTypeLData);
+				}
+				{
+					comboBillType = new CCombo(composite1, SWT.NONE);
+					GridData comboConsignmentTypeLData = new GridData();
+					comboBillType.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.4")); //$NON-NLS-1$
+					comboConsignmentTypeLData.widthHint = 134;
+					comboConsignmentTypeLData.heightHint = 17;
+					comboBillType.setLayoutData(comboConsignmentTypeLData);
 				}
 			}
 			{
