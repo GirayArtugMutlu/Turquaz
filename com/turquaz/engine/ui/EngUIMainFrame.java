@@ -77,6 +77,8 @@ import com.turquaz.engine.ui.component.LiveSashForm;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.CoolItem;
+import org.eclipse.swt.widgets.MessageBox;
+
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
@@ -944,7 +946,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                     mitExit.setImage(SWTResourceManager.getImage("icons/Exit16.gif")); //$NON-NLS-1$
                     mitExit.addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
-                        System.exit(-1);   
+                        getShell().close();  
                         
                         }
                     });
@@ -972,11 +974,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                         });
                 }
             }
-			addDisposeListener(new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
-				}
-			});
-	
+
 			postInitGUI();
 //			initialize accounts			
 			EngBLAccountingAccounts.getAccounts();
@@ -1323,7 +1321,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		try {
 			Display display = Display.getDefault();
 			Shell shell = new Shell(display);
-			EngUIMainFrame inst = new EngUIMainFrame(shell, SWT.NULL);
+			final EngUIMainFrame inst = new EngUIMainFrame(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
 			Rectangle shellBounds = shell.computeTrim(0,0,800,580);
 			shell.setImage(SWTResourceManager.getImage("icons/turquaz_paw.gif")); //$NON-NLS-1$
@@ -1331,18 +1329,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.addListener(SWT.Close, new Listener() {
 		public void handleEvent(Event e) {
+			if(inst.okToClose()){
+			    
 			
 			saveFavoritesTree();
 			saveProperties();
-			if(EngConfiguration.getString("serverAddress").equals("localhost")){ //$NON-NLS-1$ //$NON-NLS-2$
-			EngDALConnection connection = new EngDALConnection();
-			try{
-			connection.connect();
-			connection.execQuery("SHUTDOWN"); //$NON-NLS-1$
+			
 			}
-			catch(Exception ex){
-			    ex.printStackTrace();
-			}
+			else{
+			    e.doit =false;
 			}
 		}
 	});
@@ -1361,7 +1356,19 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 /** Auto-generated event handler method */
 	
 	
-   
+   public boolean okToClose(){
+       MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_WARNING|SWT.OK|SWT.CANCEL);
+       msg.setMessage(Messages.getString("EngUIMainFrame.13")); //$NON-NLS-1$
+       if(msg.open()==SWT.OK){
+           return true;
+       }
+       else
+       {
+           return false;
+       }
+       
+       
+   }
 
 	
 	public static void openNewTab (String Name, String classname){
