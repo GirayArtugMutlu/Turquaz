@@ -319,39 +319,12 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.12")); //$NON-NLS-1$
 		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.13")); //$NON-NLS-1$
 		comboTransactionsType.setText(Messages.getString("InvUITransactionSearch.18")); //$NON-NLS-1$
-		//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
+
 		cal.set(cal.get(Calendar.YEAR),0,1);
 		dateStartDate.setDate(cal.getTime());
 		
 	}
-/*
-	public void currentCardChoose() {
-		Object data = new CurUICurrentCardSearchDialog(this.getShell(),
-				SWT.NULL).open();
-		if (data != null) {
 
-			TurqCurrentCard curCard = (TurqCurrentCard) data;
-			txtCurrentCard.setText(curCard.getCardsCurrentCode() + " - " //$NON-NLS-1$
-					+ curCard.getCardsName());
-			txtCurrentCard.setData(curCard);
-
-		}
-
-	} */
-	/*
-	public void inventoryCardChoose() {
-		Object data = new InvUICardSearchDialog(this.getShell(),
-				SWT.NULL).open();
-		if (data != null) {
-
-			TurqInventoryCard invCard = (TurqInventoryCard) data;
-			txtInvCard.setText(invCard.getCardInventoryCode() + " - " //$NON-NLS-1$
-					+ invCard.getCardName());
-			txtInvCard.setData(invCard);
-
-		}
-	}
-   */
 	public void save() {
 
 	}
@@ -380,20 +353,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 				transactions = (TurqInventoryTransaction) result[0];
 				item = new TableItem(tableTransactions, SWT.NULL);
 				item.setData(transactions);
-			/*
-				Iterator it = transactions.getTurqEngineSequence().getTurqConsignments().iterator();
-			
-				TurqConsignment cons = null;
-				
-				if(it.hasNext()){
-					cons = (TurqConsignment)it.next();
-					
-				}
-				else{
-					throw new Exception(Messages.getString("InvUITransactionSearch.17")); //$NON-NLS-1$
-				}
-				
-		    */		
+		
 				BigDecimal priceIn = new BigDecimal(0);
 				BigDecimal priceOut = new BigDecimal(0);
 				
@@ -444,129 +404,4 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 	    EngBLUtils.printTable(tableTransactions,Messages.getString("InvUITransactionSearch.15")); //$NON-NLS-1$
 	    
 	}
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
