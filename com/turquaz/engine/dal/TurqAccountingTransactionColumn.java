@@ -33,10 +33,10 @@ public class TurqAccountingTransactionColumn implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
-    private int rowsDeptInBaseCurrency;
+    private java.math.BigDecimal rowsDeptInBaseCurrency;
 
     /** persistent field */
-    private int rowsCreditInBaseCurrency;
+    private java.math.BigDecimal rowsCreditInBaseCurrency;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqCurrency turqCurrency;
@@ -48,7 +48,7 @@ public class TurqAccountingTransactionColumn implements Serializable {
     private com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction;
 
     /** full constructor */
-    public TurqAccountingTransactionColumn(java.math.BigDecimal deptAmount, java.math.BigDecimal creditAmount, java.lang.String transactionDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, int rowsDeptInBaseCurrency, int rowsCreditInBaseCurrency, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction) {
+    public TurqAccountingTransactionColumn(java.math.BigDecimal deptAmount, java.math.BigDecimal creditAmount, java.lang.String transactionDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.math.BigDecimal rowsDeptInBaseCurrency, java.math.BigDecimal rowsCreditInBaseCurrency, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction) {
         this.deptAmount = deptAmount;
         this.creditAmount = creditAmount;
         this.transactionDefinition = transactionDefinition;
@@ -131,19 +131,19 @@ public class TurqAccountingTransactionColumn implements Serializable {
         this.lastModified = lastModified;
     }
 
-    public int getRowsDeptInBaseCurrency() {
+    public java.math.BigDecimal getRowsDeptInBaseCurrency() {
         return this.rowsDeptInBaseCurrency;
     }
 
-    public void setRowsDeptInBaseCurrency(int rowsDeptInBaseCurrency) {
+    public void setRowsDeptInBaseCurrency(java.math.BigDecimal rowsDeptInBaseCurrency) {
         this.rowsDeptInBaseCurrency = rowsDeptInBaseCurrency;
     }
 
-    public int getRowsCreditInBaseCurrency() {
+    public java.math.BigDecimal getRowsCreditInBaseCurrency() {
         return this.rowsCreditInBaseCurrency;
     }
 
-    public void setRowsCreditInBaseCurrency(int rowsCreditInBaseCurrency) {
+    public void setRowsCreditInBaseCurrency(java.math.BigDecimal rowsCreditInBaseCurrency) {
         this.rowsCreditInBaseCurrency = rowsCreditInBaseCurrency;
     }
 

@@ -75,14 +75,14 @@
     />
     <property
         name="rowsDeptInBaseCurrency"
-        type="int"
+        type="java.math.BigDecimal"
         column="rows_dept_in_base_currency"
         not-null="true"
         length="65535"
     />
     <property
         name="rowsCreditInBaseCurrency"
-        type="int"
+        type="java.math.BigDecimal"
         column="rows_credit_in_base_currency"
         not-null="true"
         length="65535"
