@@ -471,6 +471,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			dialog.open();	
 			txtPassword.setText("admin"); //$NON-NLS-1$
 			txtUserName.setText("admin"); //$NON-NLS-1$
+			checkRememberPassword.setSelection(true);
 		}
 		
 		EngConfiguration.refreshConfig();

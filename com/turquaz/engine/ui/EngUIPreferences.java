@@ -1,5 +1,7 @@
 package com.turquaz.engine.ui;
 
+import java.io.File;
+
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.layout.GridData;
@@ -8,6 +10,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Composite;
 
+import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -36,6 +39,8 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 
 	private Shell dialogShell;
 	private Composite composite1;
+	private CCombo cCombo;
+	private CLabel lblBillFormat;
 	private DatePicker datePicker;
 	private CLabel lblWorkingDate;
 	private ToolItem toolCancel;
@@ -59,9 +64,10 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 
 
 			dialogShell.setLayout(new GridLayout());
+			dialogShell.setText(Messages.getString("EngUIPreferences.1")); //$NON-NLS-1$
 			dialogShell.layout();
 			dialogShell.pack();
-			dialogShell.setSize(531, 246);
+			dialogShell.setSize(557, 295);
             {
                 toolBar1 = new ToolBar(dialogShell, SWT.NONE);
                 {
@@ -72,6 +78,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
                         public void widgetSelected(SelectionEvent evt) {
                            
                             EngConfiguration.setCurrentDate(datePicker.getDate());
+                            EngConfiguration.setString("invoice_template",cCombo.getText().trim()); //$NON-NLS-1$
                             dialogShell.close();
                             
                             
@@ -113,8 +120,21 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
                     datePickerLData.heightHint = 19;
                     datePicker.setLayoutData(datePickerLData);
                 }
+                {
+                    lblBillFormat = new CLabel(composite1, SWT.NONE);
+                    lblBillFormat.setText(Messages.getString("EngUIPreferences.5")); //$NON-NLS-1$
+                }
+                {
+                    cCombo = new CCombo(composite1, SWT.NONE);
+                    GridData cComboLData = new GridData();
+                    cCombo.setBackground(SWTResourceManager.getColor(255, 255, 255));
+                    cCombo.setEditable(false);
+                    cComboLData.widthHint = 98;
+                    cComboLData.heightHint = 16;
+                    cCombo.setLayoutData(cComboLData);
+                }
             }
-            
+            fillBillTypeCombo();
             EngUICommon.centreWindow(dialogShell);
             
 			dialogShell.open();
@@ -126,6 +146,34 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public void fillBillTypeCombo(){
+	    try{
+	        
+	        if(EngConfiguration.getString("invoice_template")!=null){ //$NON-NLS-1$
+	         cCombo.setText(EngConfiguration.getString("invoice_template"));    //$NON-NLS-1$
+	        
+	        }
+	        
+	        File file = new File("reports/invoice"); //$NON-NLS-1$
+	        
+	        if(file.exists()&&file.isDirectory()){
+	         
+	            File templates[] = file.listFiles();
+	            for(int i=0;i<templates.length;i++)
+	            {
+	                if(templates[i].getName().endsWith(".jasper")) //$NON-NLS-1$
+	                {
+	                    cCombo.add(templates[i].getName());
+	                }
+	            }
+	        
+	        }
+	        
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
 	}
 	
 }

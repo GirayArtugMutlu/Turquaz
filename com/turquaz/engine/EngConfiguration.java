@@ -22,6 +22,7 @@ package com.turquaz.engine;
 * @version  $Id$
 */
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -55,6 +56,21 @@ public class EngConfiguration {
 	    
 	}
 
+	public static void setString(String key, String value){
+	
+	    _instance.props.setProperty(key,value);  
+	    try{
+	    FileOutputStream fileout = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$
+	    _instance.props.store(fileout,"Turquaz Properties File"); //$NON-NLS-1$
+		fileout.flush();
+		fileout.close();
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
+	
+	}
+	
 	public static String getString(String key) {
 		if(_instance==null){
 		    _instance = new EngConfiguration();
@@ -90,6 +106,7 @@ public class EngConfiguration {
 	    
 	  _instance.currentDate = d;;
 	}
+	
 	public static void refreshConfig(){
 	    _instance = new EngConfiguration();
 	}

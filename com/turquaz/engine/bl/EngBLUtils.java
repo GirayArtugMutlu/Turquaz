@@ -45,6 +45,7 @@ import com.jasperassistant.designer.viewer.ViewerApp;
 
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
+import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -323,7 +324,7 @@ public class EngBLUtils {
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
 			
-			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/invoice/template3.jasper");  //$NON-NLS-1$
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/invoice/"+EngConfiguration.getString("invoice_template"));  //$NON-NLS-1$
 	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
 			
 			ViewerApp viewer = new ViewerApp();
