@@ -976,6 +976,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 							compInvCardAddGroupsSelection,
 							SWT.SINGLE | SWT.FULL_SELECTION | SWT.BORDER);
 						GridData tableInvCardAddGroupsAllGroupsLData = new GridData();
+						tableInvCardAddGroupsAllGroups
+							.addMouseListener(new MouseAdapter() {
+							public void mouseDoubleClick(MouseEvent evt) {
+								btnInvCardAddGroupsRegisterMouseUp();
+							}
+							});
 						tableInvCardAddGroupsAllGroupsLData.widthHint = 119;
 						tableInvCardAddGroupsAllGroupsLData.heightHint = 119;
 						tableInvCardAddGroupsAllGroups
@@ -1027,7 +1033,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 							btnInvCardAddGroupsRegister
 								.addMouseListener(new MouseAdapter() {
 								public void mouseUp(MouseEvent evt) {
-									btnInvCardAddGroupsRegisterMouseUp(evt);
+									btnInvCardAddGroupsRegisterMouseUp();
 								}
 								});
 							btnInvCardAddGroupsRegisterLData.horizontalAlignment = GridData.CENTER;
@@ -1046,6 +1052,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								compInvCardAddGroupsButtons,
 								SWT.PUSH | SWT.CENTER);
 							GridData btnInvCardAddGroupsRemoveLData = new GridData();
+							btnInvCardAddGroupsRemove
+								.addMouseListener(new MouseAdapter() {
+								public void mouseUp(MouseEvent evt) {
+									btnInvCardAddGroupsRemoveMouseUp();
+								}
+								});
 							btnInvCardAddGroupsRemoveLData.verticalAlignment = GridData.BEGINNING;
 							btnInvCardAddGroupsRemoveLData.horizontalAlignment = GridData.CENTER;
 							btnInvCardAddGroupsRemoveLData.widthHint = 48;
@@ -1057,12 +1069,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								.setSize(new org.eclipse.swt.graphics.Point(
 									48,
 									31));
-							btnInvCardAddGroupsRemove
-								.addMouseListener(new MouseAdapter() {
-									public void mouseUp(MouseEvent evt) {
-										btnInvCardAddGroupsRemoveMouseUp(evt);
-									}
-								});
 						}
 						{
 							btnInvCardAddNew = new Button(
@@ -1094,6 +1100,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 							compInvCardAddGroupsSelection,
 							SWT.FULL_SELECTION | SWT.BORDER);
 						GridData tableInvCardAddGroupsRegisteredGroupsLData = new GridData();
+						tableInvCardAddGroupsRegisteredGroups
+							.addMouseListener(new MouseAdapter() {
+							public void mouseDoubleClick(MouseEvent evt) {
+								btnInvCardAddGroupsRemoveMouseUp();
+							}
+							});
 						tableInvCardAddGroupsRegisteredGroupsLData.widthHint = 128;
 						tableInvCardAddGroupsRegisteredGroupsLData.heightHint = 119;
 						tableInvCardAddGroupsRegisteredGroups
@@ -1810,7 +1822,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	}
 
 	/** Auto-generated event handler method */
-	protected void btnInvCardAddGroupsRegisterMouseUp(MouseEvent evt) {
+	protected void btnInvCardAddGroupsRegisterMouseUp() {
 		int selectedIndex = tableInvCardAddGroupsAllGroups.getSelectionIndex();
 
 		if (selectedIndex >= 0) {
@@ -1825,7 +1837,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	}
 
 	/** Auto-generated event handler method */
-	protected void btnInvCardAddGroupsRemoveMouseUp(MouseEvent evt) {
+	protected void btnInvCardAddGroupsRemoveMouseUp() {
 		int selectedIndex = tableInvCardAddGroupsRegisteredGroups
 				.getSelectionIndex();
 
