@@ -1,12 +1,19 @@
 package com.turquaz.bank.ui;
 
+import java.math.BigDecimal;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
+
+import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.cash.ui.comp.CashCardPicker;
 import com.turquaz.bank.Messages;
+import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.bank.ui.comp.BankCardPicker;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Text;
@@ -126,14 +133,90 @@ public class BankUICashToBank extends org.eclipse.swt.widgets.Composite implemen
 			e.printStackTrace();
 		}
 	}
-	
+	public boolean verifyFields(){
+		   
+		        if(txtBankCard.getData()==null){
+		           EngUICommon.showMessageBox(getShell(),Messages.getString("BankUICashToBank.7"),SWT.ICON_WARNING); //$NON-NLS-1$
+		           txtBankCard.setFocus();
+		           return false;
+		            
+		        }
+		        if(currentPicker.getData()==null){
+		            EngUICommon.showMessageBox(getShell(),Messages.getString("BankUICashToBank.6"),SWT.ICON_WARNING); //$NON-NLS-1$
+		            currentPicker.setFocus();
+		            return false;
+		             
+		         }
+		        if(curAmount.getBigDecimalValue().compareTo(new BigDecimal(0))!=1)
+		        {
+		            EngUICommon.showMessageBox(getShell(),Messages.getString("BankUIMoneyTransferIn.8"),SWT.ICON_WARNING); //$NON-NLS-1$
+		             curAmount.setFocus();
+		            return false;
+		            
+		        }
+		        return true;
+		        
+		    
+		}
 
-    public void newForm() {
-        // TODO Auto-generated method stub
+	  public void newForm() {
+	        BankUICashToBank curCard = new BankUICashToBank(this.getParent(),this.getStyle());
+	      	 CTabFolder tabfld = (CTabFolder)this.getParent();
+	      	 tabfld.getSelection().setControl(curCard);	 
+	      	 this.dispose();
 
+	    }
+	    public void save() {
+	        try{
+	       if(verifyFields())
+	       {
+	           BankBLTransactionAdd.saveCashTransaction(txtBankCard.getTurqBank(),currentPicker.getTurqCashCard(),EngBLCommon.BANK_TRANS_CASH_DEPOSIT,null,curAmount.getBigDecimalValue(),datePick.getDate(),txtDefinition.getText().trim(),txtDocNo.getText().trim());
+	           EngUICommon.showSavedSuccesfullyMessage(getShell());
+	           newForm();
+	           
+	       }
+	        }
+	        catch(Exception ex){
+	            ex.printStackTrace();
+	            EngUICommon.showMessageBox(getShell(),ex.getMessage(),SWT.ICON_ERROR);
+	        }
+
+	    }
+	    
+    public CurrencyText getCurAmount() {
+        return curAmount;
     }
-    public void save() {
-        // TODO Auto-generated method stub
-
+    public void setCurAmount(CurrencyText curAmount) {
+        this.curAmount = curAmount;
+    }
+    public CashCardPicker getCurrentPicker() {
+        return currentPicker;
+    }
+    public void setCurrentPicker(CashCardPicker currentPicker) {
+        this.currentPicker = currentPicker;
+    }
+    public DatePicker getDatePick() {
+        return datePick;
+    }
+    public void setDatePick(DatePicker datePick) {
+        this.datePick = datePick;
+    }
+    public BankCardPicker getTxtBankCard() {
+        return txtBankCard;
+    }
+    public void setTxtBankCard(BankCardPicker txtBankCard) {
+        this.txtBankCard = txtBankCard;
+    }
+    public Text getTxtDefinition() {
+        return txtDefinition;
+    }
+    public void setTxtDefinition(Text txtDefinition) {
+        this.txtDefinition = txtDefinition;
+    }
+    public Text getTxtDocNo() {
+        return txtDocNo;
+    }
+    public void setTxtDocNo(Text txtDocNo) {
+        this.txtDocNo = txtDocNo;
     }
 }

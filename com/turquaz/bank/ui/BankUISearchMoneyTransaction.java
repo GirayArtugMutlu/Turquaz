@@ -312,7 +312,11 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
            isUpdated  = new BankUICashFromBankUpdate(getShell(),SWT.NULL,transBill).open();
            
        }
-       
+       else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_CASH_DEPOSIT)
+       {
+           isUpdated  = new BankUICashToBankUpdate(getShell(),SWT.NULL,transBill).open();
+           
+       }
        
        if(isUpdated){
        search();

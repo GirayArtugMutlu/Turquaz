@@ -137,13 +137,13 @@ public class BankUICashFromBank extends org.eclipse.swt.widgets.Composite implem
 	public boolean verifyFields(){
 	   
 	        if(txtBankCard.getData()==null){
-	           EngUICommon.showMessageBox(getShell(),"Lütfen Önce Banka Kart? Seçiniz!",SWT.ICON_WARNING); //$NON-NLS-1$
+	           EngUICommon.showMessageBox(getShell(),Messages.getString("BankUICashFromBank.6"),SWT.ICON_WARNING); //$NON-NLS-1$
 	           txtBankCard.setFocus();
 	           return false;
 	            
 	        }
 	        if(currentPicker.getData()==null){
-	            EngUICommon.showMessageBox(getShell(),"Lütfen Önce Kasa Kart? Seçiniz!",SWT.ICON_WARNING); //$NON-NLS-1$
+	            EngUICommon.showMessageBox(getShell(),Messages.getString("BankUICashFromBank.7"),SWT.ICON_WARNING); //$NON-NLS-1$
 	            currentPicker.setFocus();
 	            return false;
 	             
