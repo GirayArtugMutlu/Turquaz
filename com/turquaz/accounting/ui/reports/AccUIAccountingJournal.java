@@ -123,7 +123,9 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 	}
 		
 	private void btnReportsSingleClick(){
-		try{	
+	
+		try{
+			
 			Map parameters = new HashMap();
 			parameters.put("ReportTitle", "YEVMÝYE DEFTERÝ");
 			
@@ -146,8 +148,11 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
 			JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingJournal.jasper");
-			JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
-			JasperViewer.viewReport(jasperPrint);		
+			final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
+			
+			JasperViewer.viewReport(jasperPrint,false);
+			
+					
 			}
 			catch(Exception ex){
 				ex.printStackTrace();
@@ -156,4 +161,5 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 				msg.open();
 			}
 		}
+			
 }
