@@ -205,11 +205,11 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 		TurqCurrentCard curCard = consignment.getTurqCurrentCard();
-		compAddConsignment.getTxtCurrentCard().setText(curCard.getCardsName() + " {" + curCard.getCardsCurrentCode() + "}");
+		compAddConsignment.getTxtCurrentCard().setText(curCard.getCardsName() + " {" + curCard.getCardsCurrentCode() + "}"); //$NON-NLS-1$ //$NON-NLS-2$
 		compAddConsignment.getDateConsignmentDate().setDate(consignment.getConsignmentsDate());
 		compAddConsignment.getTxtDocumentNo().setText(consignment.getConsignmentDocumentNo());
 		compAddConsignment.getTxtBillDocumentNo().setText(consignment.getBillDocumentNo());
@@ -275,17 +275,25 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			if (msg2.open() == SWT.OK)
 			{
 				updated = true;
-				ConBLUpdateConsignment.deleteConsignment(consignment);
+				int result = ConBLUpdateConsignment.deleteConsignment(consignment);
+				if(result==1)
+				{
 				msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
 				msg.open();
 				dialogShell.close();
 				//delete consignment
+				}
+				else if(result ==-1)
+				{
+					EngUICommon.showMessageBox(getParent(),Messages.getString("ConUIConsignmentUpdateDialog.13"),SWT.ICON_WARNING); //$NON-NLS-1$
+				}
+					
 			}
 		}
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error(Messages.getString("ConUIConsignmentUpdateDialog.14"), ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();
@@ -303,7 +311,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			{	
 				type = EngBLCommon.COMMON_SELL_INT;
 			}
-			boolean willUpdateBill = EngUICommon.okToDelete(getParent(),"Fatura hareketleri de güncellensin mi?");
+			boolean willUpdateBill = EngUICommon.okToDelete(getParent(),Messages.getString("ConUIConsignmentUpdateDialog.15")); //$NON-NLS-1$
 			
 			ConBLUpdateConsignment.updateConsignment(consignment, compAddConsignment.getTxtDocumentNo().getText(), compAddConsignment
 					.getTxtDefinition().getText(), compAddConsignment.getDateConsignmentDate().getDate(),
@@ -318,7 +326,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error(Messages.getString("ConUIConsignmentUpdateDialog.16"), ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();

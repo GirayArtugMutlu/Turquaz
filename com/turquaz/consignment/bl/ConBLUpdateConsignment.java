@@ -121,16 +121,18 @@ public class ConBLUpdateConsignment
 			BillBLUpdateBill.deleteCurrentTransactions(billEngSeq.getTurqBill());
 			BillBLAddBill.saveCurrentTransaction(billEngSeq.getTurqBill(),results[0],results[1]);
 			BillBLAddBill.saveAccountingTransaction(billEngSeq.getTurqBill());
-			
-			
-			
+					
 			
 		}
 	}
-	public static void deleteConsignment(TurqConsignment consignment) throws Exception
+	public static int deleteConsignment(TurqConsignment consignment) throws Exception
 	{
 		try
 		{
+			if(consignment.getTurqEngineSequence().getTurqBillInEngineSequences().size()>0)
+			{
+				return -1;
+			}
 			Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
 			while (it.hasNext())
 			{
@@ -143,6 +145,7 @@ public class ConBLUpdateConsignment
 				deleteObject(it.next());
 			}
 			deleteObject(consignment);
+			return 1;
 		}
 		catch (Exception ex)
 		{

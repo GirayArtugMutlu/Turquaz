@@ -38,6 +38,7 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TableSorter;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -214,7 +215,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				}
 				{
 					lblDocNo = new CLabel(composite1, SWT.NONE);
-					lblDocNo.setText("Belge No");
+					lblDocNo.setText(Messages.getString("ConUIConsignmentSearch.4")); //$NON-NLS-1$
 				}
 				{
 					txtDocNo = new Text(composite1, SWT.NONE);
@@ -255,7 +256,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				}
 				//START >> tableColumnCurrentCode
 				tableColumnCurrentCode = new TableColumn(tableConsignments, SWT.NONE);
-				tableColumnCurrentCode.setText("Cari Kod");
+				tableColumnCurrentCode.setText(Messages.getString("ConUIConsignmentSearch.10")); //$NON-NLS-1$
 				tableColumnCurrentCode.setWidth(100);
 				//END << tableColumnCurrentCode
 				{
@@ -272,7 +273,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				}
 				{
 					tableColumnDcoNo = new TableColumn(tableConsignments, SWT.NONE);
-					tableColumnDcoNo.setText("Belge No");
+					tableColumnDcoNo.setText(Messages.getString("ConUIConsignmentSearch.11")); //$NON-NLS-1$
 					tableColumnDcoNo.setWidth(82);
 				}
 				{
@@ -383,7 +384,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -422,10 +423,19 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 					msg2.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.9")); //$NON-NLS-1$
 					if (msg2.open() == SWT.OK)
 					{
-						ConBLUpdateConsignment.deleteConsignment(cons);
-						msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
+						int result = ConBLUpdateConsignment.deleteConsignment(cons);
+						
+						if(result==1)
+						{
+							msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
+						
 						msg.open();
 						search();
+						}
+						else if(result ==-1)
+						{
+							EngUICommon.showMessageBox(getShell(),Messages.getString("ConUIConsignmentSearch.15"),SWT.ICON_WARNING); //$NON-NLS-1$
+						}
 					}
 				}
 				else
@@ -438,7 +448,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 			catch (Exception ex)
 			{
 				Logger loger = Logger.getLogger(this.getClass());
-				loger.error("Exception Caught", ex);
+				loger.error("Exception Caught", ex); //$NON-NLS-1$
 				ex.printStackTrace();
 				msg.setMessage(ex.getMessage());
 				msg.open();
@@ -472,7 +482,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
