@@ -1,11 +1,7 @@
-#Fri Dec 03 11:55:45 EET 2004
-encoding//com/turquaz/bill/messages_tr_TR.properties=8859_1
+#Sun Dec 19 22:50:26 EET 2004
 encoding//com/turquaz/admin/messages_tr_TR.properties=8859_1
+encoding//com/turquaz/consignment/messages_tr_TR.properties=8859_1
+encoding//com/turquaz/bill/messages_tr_TR.properties=8859_1
+eclipse.preferences.version=1
 encoding//de/kupzog/ktools/kprint/gui/messages.properties=8859_1
 encoding//com/turquaz/bank/messages_tr_TR.properties=8859_1
-encoding//com/turquaz/inventory/messages.properties=8859_1
-eclipse.preferences.version=1
-encoding//com/turquaz/engine/messages.properties=8859_1
-encoding//com/turquaz/current/messages.properties=8859_1
-encoding//com/turquaz/accounting/messages.properties=8859_1
-encoding//com/turquaz/consignment/messages_tr_TR.properties=8859_1

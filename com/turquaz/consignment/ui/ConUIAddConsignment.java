@@ -492,7 +492,7 @@ implements SecureComposite{
 								lblBillDocumentNo = new CLabel(compInfoPanel, SWT.LEFT);
 								lblBillDocumentNo.setText(Messages.getString("ConUIAddConsignment.4")); //$NON-NLS-1$
 								GridData lblBillDocumentNoLData = new GridData();
-								lblBillDocumentNoLData.widthHint = 93;
+								lblBillDocumentNoLData.widthHint = 109;
 								lblBillDocumentNoLData.heightHint = 19;
 								lblBillDocumentNo.setLayoutData(lblBillDocumentNoLData);
 							}
@@ -582,7 +582,7 @@ implements SecureComposite{
                                 lblWareHouse = new CLabel(
                                     compInfoPanel,
                                     SWT.NONE);
-                                lblWareHouse.setText("Depo");
+                                lblWareHouse.setText(Messages.getString("ConUIAddConsignment.34")); //$NON-NLS-1$
                                 GridData lblWareHouseLData = new GridData();
                                 lblWareHouseLData.widthHint = 36;
                                 lblWareHouseLData.heightHint = 19;

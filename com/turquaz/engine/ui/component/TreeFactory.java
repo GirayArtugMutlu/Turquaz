@@ -209,7 +209,7 @@ public final class TreeFactory {
 		}
 		if(EngBLPermissions.getPermission(AccUISubsidiaryLedger.class.getName())>0){
 			item = new TreeItem(books,SWT.NULL);
-			item.setText("Muavin Defter"); 
+			item.setText(Messages.getString("TreeFactory.43"));  //$NON-NLS-1$
 			item.setData(AccUISubsidiaryLedger.class.getName());
 			}
 		

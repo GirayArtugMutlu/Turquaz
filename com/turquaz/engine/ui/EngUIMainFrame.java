@@ -487,7 +487,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
             }
             {
                 btnAdmin = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
-                btnAdmin.setText("Ayarlar"); //$NON-NLS-1$
+                btnAdmin.setText(Messages.getString("EngUIMainFrame.3")); //$NON-NLS-1$
                 GridData btnAdminLData = new GridData();
                 btnAdmin.addMouseListener(new MouseAdapter() {
                     public void mouseUp(MouseEvent evt) {

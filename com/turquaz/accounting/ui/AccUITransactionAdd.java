@@ -319,23 +319,23 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
                 }
                 {
                     tableColumnAmount = new TableColumn(table1, SWT.RIGHT);
-                    tableColumnAmount.setText("Amount");
+                    tableColumnAmount.setText(Messages.getString("AccUITransactionAdd.22")); //$NON-NLS-1$
                     tableColumnAmount.setWidth(100);
                 }
                 {
                     tableItemDept = new TableItem(table1, SWT.NONE);
-                    tableItemDept.setText("Borç");
+                    tableItemDept.setText(Messages.getString("AccUITransactionAdd.23")); //$NON-NLS-1$
                 }
                 {
                     tableItemCredit = new TableItem(table1, SWT.NONE);
-                    tableItemCredit.setText("Alacak");
+                    tableItemCredit.setText(Messages.getString("AccUITransactionAdd.24")); //$NON-NLS-1$
                 }
                 {
                     tableItemSpace = new TableItem(table1, SWT.NONE);
                 }
                 {
                     tableItemBalance = new TableItem(table1, SWT.NONE);
-                    tableItemBalance.setText("Bakiye");
+                    tableItemBalance.setText(Messages.getString("AccUITransactionAdd.25")); //$NON-NLS-1$
                 }
             }
 			thisLayout.numColumns = 4;
@@ -398,7 +398,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
                      if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof TextCellEditor){
                          
                          TextCellEditor editor = ((TextCellEditor)tableViewer.getCellEditors()[cursor.getColumn()]);
-                         ((Text)editor.getControl()).setText(""+e.character);
+                         ((Text)editor.getControl()).setText(""+e.character); //$NON-NLS-1$
  						if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof CurrencyCellEditor 
  						 || tableViewer.getCellEditors()[cursor.getColumn()] instanceof NumericCellEditor ){
  						    
@@ -594,9 +594,9 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
     
 		}
 	
-	tableItemDept.setText(new String[]{"Borç",df.format(totalDept)});
-	tableItemCredit.setText(new String[]{"Alacak",df.format(totalCredit)});
-	tableItemBalance.setText(new String[]{"Bakiye",df.format(totalCredit.subtract(totalDept))});
+	tableItemDept.setText(new String[]{Messages.getString("AccUITransactionAdd.19"),df.format(totalDept)}); //$NON-NLS-1$
+	tableItemCredit.setText(new String[]{Messages.getString("AccUITransactionAdd.20"),df.format(totalCredit)}); //$NON-NLS-1$
+	tableItemBalance.setText(new String[]{Messages.getString("AccUITransactionAdd.21"),df.format(totalCredit.subtract(totalDept))}); //$NON-NLS-1$
 	
 	
 	}

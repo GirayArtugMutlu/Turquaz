@@ -247,12 +247,12 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 				}
 				{
 					tableColumnDeptBalance = new TableColumn(tableTransactions, SWT.RIGHT);
-					tableColumnDeptBalance.setText("Borç Bakiye");
+					tableColumnDeptBalance.setText(Messages.getString("AccUISubsidiaryLedger.10")); //$NON-NLS-1$
 					tableColumnDeptBalance.setWidth(80);
 				}
 				{
 					tableColumnCreditBalance = new TableColumn(tableTransactions, SWT.RIGHT);
-					tableColumnCreditBalance.setText("Alacak Bakiye");
+					tableColumnCreditBalance.setText(Messages.getString("AccUISubsidiaryLedger.11")); //$NON-NLS-1$
 					tableColumnCreditBalance.setWidth(80);
 				}
 				tableTransactions.addMouseListener(new MouseAdapter() {
@@ -353,11 +353,11 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 				}
 				// total
 				item = new TableItem(tableTransactions, SWT.NULL);
-				item.setText(new String[]{"","","Önceki Toplam",
-				        (balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "",
-				        (balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "",
-				        (balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "",
-						(balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "" });
+				item.setText(new String[]{"","",Messages.getString("AccUISubsidiaryLedger.14"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				        (balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "", //$NON-NLS-1$
+				        (balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "", //$NON-NLS-1$
+				        (balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "", //$NON-NLS-1$
+						(balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "" }); //$NON-NLS-1$
 				
 				// one empty row
 				item = new TableItem(tableTransactions, SWT.NULL);
@@ -397,18 +397,18 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 						accTransColumn.getTransactionDefinition(),
 						
 						// if it is zero does not print to the table
-						(accTransColumn.getDeptAmount().equals(new BigDecimal(0))) ? "": df.format(accTransColumn.getDeptAmount()),
-						(accTransColumn.getCreditAmount().equals(new BigDecimal(0))) ? "": df.format(accTransColumn.getCreditAmount()),
-						(balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "",
-						(balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "" }); 
+						(accTransColumn.getDeptAmount().equals(new BigDecimal(0))) ? "": df.format(accTransColumn.getDeptAmount()), //$NON-NLS-1$
+						(accTransColumn.getCreditAmount().equals(new BigDecimal(0))) ? "": df.format(accTransColumn.getCreditAmount()), //$NON-NLS-1$
+						(balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "", //$NON-NLS-1$
+						(balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "" });  //$NON-NLS-1$
 			}
 			
 			// grand total last row
 			item = new TableItem(tableTransactions, SWT.NULL);
 			item = new TableItem(tableTransactions, SWT.NULL);
-			item.setText(new String[]{"","","YEKÜN",df.format(totalDept),df.format(totalCredit),
-			        (balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "",
-					(balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "" });
+			item.setText(new String[]{"","",Messages.getString("AccUISubsidiaryLedger.25"),df.format(totalDept),df.format(totalCredit), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			        (balance.compareTo(new BigDecimal(0))<0) ? df.format(balance.multiply(new BigDecimal(-1))): "", //$NON-NLS-1$
+					(balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "" }); //$NON-NLS-1$
 			
 			
 			
@@ -427,11 +427,11 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 	public void printTable() {
 	    
 	    Properties prop = new Properties();
-	    prop.put("account_code",account.getAccountCode());
-	    prop.put("account_name",account.getAccountName());
-	    prop.put("top_account",account.getTurqAccountingAccountByTopAccount().getAccountName());
-		prop.put("start_date",formatter.format(dateStartDate.getDate()));
-		prop.put("end_date",formatter.format(dateEndDate.getDate()));
+	    prop.put("account_code",account.getAccountCode()); //$NON-NLS-1$
+	    prop.put("account_name",account.getAccountName()); //$NON-NLS-1$
+	    prop.put("top_account",account.getTurqAccountingAccountByTopAccount().getAccountName()); //$NON-NLS-1$
+		prop.put("start_date",formatter.format(dateStartDate.getDate())); //$NON-NLS-1$
+		prop.put("end_date",formatter.format(dateEndDate.getDate())); //$NON-NLS-1$
 	    EngBLUtils.printSubsidiaryLedgerTable(tableTransactions, Messages.getString("AccUISubsidiaryLedger.8"),prop);  //$NON-NLS-1$
 
 	}
