@@ -177,7 +177,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				}
 			}
 			{
-				tableBills = new Table(this, SWT.FULL_SELECTION);
+				tableBills = new Table(this, SWT.FULL_SELECTION|SWT.VIRTUAL);
 				GridData tableConsignmentsLData = new GridData();
 				tableBills.addMouseListener(new MouseAdapter() {
 					public void mouseDoubleClick(MouseEvent evt) {

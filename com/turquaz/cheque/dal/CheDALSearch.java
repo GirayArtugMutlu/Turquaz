@@ -148,6 +148,32 @@ public class CheDALSearch {
 		}
 
 	}
+	
+	//	Portfoydeki ceklerin listesini getir.
+	public static List getChequesGivenToCurrent() throws Exception {
+		try {
+
+			Session session = EngDALSessionFactory.openSession();
+			TurqViewChequeStatus chequeStatus = null;
+
+			String query = "Select cheque from TurqChequeCheque as cheque, TurqViewChequeStatus as chequeStatus, TurqCurrentCard currentCard "
+					+ "where cheque.id = chequeStatus.chequeChequesId "
+					+ " and currentCard.id =  chequeStatus.currentCardsId "
+					+ " and chequeStatus.chequeTransactionTypesId ="+ EngBLCommon.CHEQUE_TRANS_OUT_CURRENT
+					+ " and cheque.chequesType = "+EngBLCommon.CHEQUE_TYPE_CUSTOMER;
+		
+
+			Query q = session.createQuery(query);
+
+			List list = q.list();
+			session.close();
+			return list;
+
+		} catch (Exception ex) {
+			throw ex;
+		}
+
+	}
 
 // Bankadaki ceklerin listesini getir.
 	public static List getChequesInBank() throws Exception {
