@@ -244,9 +244,7 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
 	            {
 	                chequeList.add(compChequeRoll.getTableCheques().getItem(i).getData());
 	                
-	            }
-	            
-	           
+	            }   
 	           
 	            
 	           CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,(TurqCurrentCard)compChequeRoll.getCurrentPicker().getData(),null,compChequeRoll.getTxtRollNo().getText().trim(),compChequeRoll.getDatePicker1().getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_IN,compChequeRoll.getBtnSumTotals().getSelection());

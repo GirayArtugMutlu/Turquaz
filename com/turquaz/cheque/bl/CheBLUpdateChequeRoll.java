@@ -27,13 +27,11 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import com.turquaz.cheque.dal.CheDALSave;
 import com.turquaz.cheque.dal.CheDALUpdate;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBanksCard;
-import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
@@ -64,6 +62,7 @@ public class CheBLUpdateChequeRoll {
             throw ex;
         }
     }
+    
     public static void updateChequeRollIn(TurqChequeRoll chequeRoll, TurqCurrentCard curCard,TurqBanksCard bankCard, String rollNo,Date rollDate,List chequeList, int rollType,boolean sumTransTotal)throws Exception{
         try{
            
@@ -72,7 +71,8 @@ public class CheBLUpdateChequeRoll {
            
            chequeRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
            chequeRoll.setLastModified(Calendar.getInstance().getTime());
-           
+           chequeRoll.setChequeRollNo(rollNo);
+           chequeRoll.setChequeRollsDate(rollDate);
           
            if(curCard!=null)
            {
@@ -93,11 +93,12 @@ public class CheBLUpdateChequeRoll {
                
            }
            
-          
+          CheDALSave.update(chequeRoll);
                 
            TurqChequeCheque cheque;
          
            TurqChequeChequeInRoll chequeInRoll;
+          
            CurBLCurrentTransactionAdd blCurrent = new CurBLCurrentTransactionAdd();
            BigDecimal totalAmount = new BigDecimal(0);
            for(int i = 0; i<chequeList.size();i++){
@@ -173,16 +174,7 @@ public class CheBLUpdateChequeRoll {
 	           CheDALSave.delete(it.next());
 	            
 	        }
-	        //Delete Bank Transaction 
-	        
-	        it = chequeRoll.getTurqEngineSequence().getTurqBanksTransactionBills().iterator();
-	        while(it.hasNext()){
-	            
-	           TurqBanksTransactionBill transBill = (TurqBanksTransactionBill) it.next();
-	           BankBLTransactionUpdate.initializeTransaction(transBill);
-	           BankBLTransactionUpdate.deleteTransaction(transBill);
-	            
-	        }
+	      
 	        
             
             
