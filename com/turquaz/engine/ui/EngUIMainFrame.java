@@ -31,7 +31,7 @@ import java.util.Properties;
 
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.TabItem;
+
 
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.events.DisposeEvent;
@@ -1654,7 +1654,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		   props.put("logoURL",EngConfiguration.logoURL); //$NON-NLS-1$
 		    
 		    FileOutputStream output = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$
-		    props.save(output,"Turquaz Configuration"); //$NON-NLS-1$
+		    props.store(output,"Turquaz Configuration"); //$NON-NLS-1$
 		    
 		    output.flush();
 		    output.close();

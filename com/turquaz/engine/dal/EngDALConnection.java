@@ -16,8 +16,10 @@ package com.turquaz.engine.dal;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.sql.*;
 
 /**
@@ -145,11 +147,14 @@ public class EngDALConnection {
                               // DataInputStream
    DataInputStream in = new DataInputStream(fstream);
 
+   BufferedReader d = new BufferedReader(
+           new InputStreamReader(in));
+   
     // Continue to read lines while
     // there are still some left to read
     while (in.available() !=0){
    
-    	sql = in.readLine();
+    	sql = d.readLine();
     	sql +=";";
      
     }
@@ -184,11 +189,13 @@ public class EngDALConnection {
                                 // DataInputStream
      DataInputStream in = new DataInputStream(fstream);
 
+     BufferedReader d = new BufferedReader(
+             new InputStreamReader(in));
       // Continue to read lines while
       // there are still some left to read
       while (in.available() !=0){
      
-      	sql = sql + in.readLine()+ "\n";
+      	sql = sql + d.readLine()+ "\n";
        
       }
       in.close();

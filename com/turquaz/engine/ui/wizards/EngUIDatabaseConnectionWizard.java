@@ -82,7 +82,7 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 		props.setProperty("remember_password","false"); //$NON-NLS-1$ //$NON-NLS-2$
 	  
 		FileOutputStream fileout = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$
-	    props.save(fileout,"Turquaz Properties File"); //$NON-NLS-1$
+	    props.store(fileout,"Turquaz Properties File"); //$NON-NLS-1$
 		
 		
 	  if(page4.getButtonYes().getSelection()){

@@ -1,6 +1,5 @@
 package com.turquaz.engine.ui;
 
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 

@@ -314,7 +314,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			    input.close();
 			    
 			    FileOutputStream output = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$
-			    props.save(output,"Turquaz Configuration"); //$NON-NLS-1$
+			    props.store(output,"Turquaz Configuration"); //$NON-NLS-1$
 			    
 			    System.setProperty("user",txtUserName.getText()); //$NON-NLS-1$
 			    System.setProperty("company","0"); //$NON-NLS-1$ //$NON-NLS-2$

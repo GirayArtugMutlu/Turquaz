@@ -17,7 +17,6 @@ import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Point;
 
 import com.turquaz.accounting.bl.AccBLAccountAdd;
-import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLInventoryCards;
