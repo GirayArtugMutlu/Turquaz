@@ -194,14 +194,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			;
 			compAddBill.getTxtDocumentNo().setText(bill.getBillDocumentNo());
 			compAddBill.getDateConsignmentDate().setDate(bill.getBillsDate());
-			if (bill.isIsOpen())
-			{
-				compAddBill.getComboPaymentType().setText(Messages.getString("BillUIBillUpdateDialog.8")); //$NON-NLS-1$
-			}
-			else
-			{
-				compAddBill.getComboPaymentType().setText(Messages.getString("BillUIBillUpdateDialog.11")); //$NON-NLS-1$
-			}
+			
 			compAddBill.getDateDueDate().setDate(bill.getDueDate());
 			compAddBill.getTxtDefinition().setText(bill.getBillsDefinition());
 			fillInvTransactionColumns();
@@ -268,15 +261,14 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				//update the consignment
 				int type = compAddBill.BILL_TYPE;
 				//TODO exchange rate
-				Boolean paymentType = (Boolean) compAddBill.getComboPaymentType().getData(compAddBill.getComboPaymentType().getText());
 				BillBLUpdateBill
 						.updateBill(bill, compAddBill.getTxtDocumentNo().getText().trim(), compAddBill.getTxtConsignmentDocumentNo()
-								.getText().trim(), compAddBill.getTxtDefinition().getText(), false, !paymentType.booleanValue(),
+								.getText().trim(), compAddBill.getTxtDefinition().getText(), false, 
 								compAddBill.getDateConsignmentDate().getDate(), (TurqCurrentCard) compAddBill.getTxtCurrentCard()
 										.getData(), compAddBill.getTxtDiscountAmount().getBigDecimalValue(), compAddBill
 										.getTxtTotalVat().getBigDecimalValue(), compAddBill.getDecSpecialVat()
 										.getBigDecimalValue(), compAddBill.getTxtTotalAmount().getBigDecimalValue(), type,
-								compAddBill.getAccountPickerCurAcc().getTurqAccountingAccount(), compAddBill.getDateDueDate()
+										compAddBill.getDateDueDate()
 										.getDate(), compAddBill.getInventoryTransactions(), compAddBill.getBillGroups(),
 								EngBLCommon.getBaseCurrencyExchangeRate());
 				msg = new MessageBox(this.getParent(), SWT.ICON_INFORMATION);

@@ -79,7 +79,6 @@ import com.turquaz.inventory.ui.InvUITransactionAddDialog;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
-import com.turquaz.accounting.ui.comp.AccountPicker;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -192,15 +191,11 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 	}
 	private Composite compInfoPanel;
 	private Composite compTotalsPanel;
-	private CCombo comboPaymentType;
 	private Text txtConsignmentDocumentNo;
 	private CLabel lblInventoryPrice;
-	private CLabel lblPaymentType;
 	private TableColumn tableColumnAmountAfterDiscount;
 	private DatePicker dateDueDate;
 	private CLabel lblDueDate;
-	private AccountPicker accountPickerCurAcc;
-	private CLabel lblCashAccount;
 	private CCombo comboWareHouse;
 	private CLabel lblWareHouse;
 	public SaveTableViewer tableViewer;
@@ -310,7 +305,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 							GridData compInfoPanelLData = new GridData();
 							compInfoPanelLData.horizontalSpan = 2;
 							compInfoPanelLData.horizontalAlignment = GridData.FILL;
-							compInfoPanelLData.heightHint = 140;
+							compInfoPanelLData.heightHint = 112;
 							compInfoPanelLData.grabExcessHorizontalSpace = true;
 							compInfoPanel.setLayoutData(compInfoPanelLData);
 							compInfoPanelLayout.numColumns = 4;
@@ -406,49 +401,6 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 								comboWareHouseLData.widthHint = 135;
 								comboWareHouseLData.heightHint = 17;
 								comboWareHouse.setLayoutData(comboWareHouseLData);
-							}
-							//START >> lblPaymentType
-							lblPaymentType = new CLabel(compInfoPanel, SWT.NONE);
-							lblPaymentType.setText("Ödeme Tipi");
-							GridData lblPaymentTypeLData1 = new GridData();
-							lblPaymentTypeLData1.widthHint = 90;
-							lblPaymentTypeLData1.heightHint = 15;
-							lblPaymentType.setLayoutData(lblPaymentTypeLData1);
-							//END << lblPaymentType
-							{
-								comboPaymentType = new CCombo(compInfoPanel, SWT.NONE);
-								comboPaymentType.setEditable(false);
-								comboPaymentType.setBackground(SWTResourceManager.getColor(255, 255, 255));
-								GridData comboPaymentTypeLData = new GridData();
-								comboPaymentType.addSelectionListener(new SelectionAdapter()
-								{
-									public void widgetSelected(SelectionEvent evt)
-									{
-										Boolean isCurrent = (Boolean) comboPaymentType.getData(comboPaymentType.getText());
-										if (isCurrent.booleanValue())
-											accountPickerCurAcc.setEnabled(true);
-										else
-											accountPickerCurAcc.setEnabled(false);
-									}
-								});
-								comboPaymentTypeLData.widthHint = 135;
-								comboPaymentTypeLData.heightHint = 17;
-								comboPaymentType.setLayoutData(comboPaymentTypeLData);
-							}
-							{
-								lblCashAccount = new CLabel(compInfoPanel, SWT.NONE);
-								lblCashAccount.setText(Messages.getString("BillUIAddSellBill.15")); //$NON-NLS-1$
-								GridData lblCashAccountLData = new GridData();
-								lblCashAccountLData.widthHint = 90;
-								lblCashAccountLData.heightHint = 19;
-								lblCashAccount.setLayoutData(lblCashAccountLData);
-							}
-							{
-								accountPickerCurAcc = new AccountPicker(compInfoPanel, SWT.NONE);
-								GridData accountPickerCurAccLData = new GridData();
-								accountPickerCurAccLData.widthHint = 157;
-								accountPickerCurAccLData.heightHint = 17;
-								accountPickerCurAcc.setLayoutData(accountPickerCurAccLData);
 							}
 							{
 								lblDefinition = new CLabel(compInfoPanel, SWT.LEFT);
@@ -836,12 +788,6 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 		cTabFolder1.setSelection(0);
 		fillGroupsTable();
 		//fill combo type
-		comboPaymentType.add(Messages.getString("BillUIAddBill.13")); //$NON-NLS-1$
-		comboPaymentType.setData(Messages.getString("BillUIAddBill.14"), new Boolean(false)); //$NON-NLS-1$
-		comboPaymentType.add(Messages.getString("BillUIAddBill.25")); //$NON-NLS-1$
-		comboPaymentType.setData(Messages.getString("BillUIAddBill.30"), new Boolean(true)); //$NON-NLS-1$
-		comboPaymentType.setText(Messages.getString("BillUIAddBill.35")); //$NON-NLS-1$
-		accountPickerCurAcc.setEnabled(false);
 		createTableViewer();
 		for (int i = 0; i < 10; i++)
 		{
@@ -1011,17 +957,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 			msg.open();
 			return false;
 		}
-		Boolean isCurrent = (Boolean) comboPaymentType.getData(comboPaymentType.getText());
-		if (isCurrent.booleanValue())
-		{
-			if (accountPickerCurAcc.getData() == null)
-			{
-				msg.setMessage(Messages.getString("BillUIAddSellBill.17")); //$NON-NLS-1$
-				msg.open();
-				accountPickerCurAcc.setFocus();
-				return false;
-			}
-		}
+		
 		return true;
 	}
 
@@ -1058,10 +994,8 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 			{
 				// sell bill
 				int type = BILL_TYPE;
-				Boolean paymentType = (Boolean) comboPaymentType.getData(comboPaymentType.getText());
 				TurqBill bill = BillBLAddBill.saveBillFromBill(txtConsignmentDocumentNo.getText(), txtDefinition.getText(), false,
-						dateConsignmentDate.getDate(), type, !paymentType.booleanValue(), (TurqCurrentCard) txtCurrentCard.getData(),
-						accountPickerCurAcc.getTurqAccountingAccount(), dateDueDate.getDate(),
+						dateConsignmentDate.getDate(), type,  (TurqCurrentCard) txtCurrentCard.getData(), dateDueDate.getDate(),
 						txtDiscountAmount.getBigDecimalValue(), txtDocumentNo.getText(), txtTotalVat.getBigDecimalValue(),
 						decSpecialVat.getBigDecimalValue(), txtTotalAmount.getBigDecimalValue(), EngBLCommon
 								.getBaseCurrencyExchangeRate(), getBillGroups(), getInventoryTransactions());
@@ -1126,11 +1060,5 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 		txtTotalAmount.setText(generalTotal.subtract(discountTotal));
 	}
 
-	/**
-	 * @return Returns the comboPaymentType.
-	 */
-	public CCombo getComboPaymentType()
-	{
-		return comboPaymentType;
-	}
+	
 }

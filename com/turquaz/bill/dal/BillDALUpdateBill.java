@@ -21,10 +21,10 @@ public class BillDALUpdateBill
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
 			Iterator iter = session
-					.iterate("from TurqAccountingTransaction as trans"
-							+ ", TurqBill bill where bill.id="
+					.iterate("select trans from TurqAccountingTransaction as trans"
+							+ ", TurqBill as bill where bill.id="
 							+ billId
-							+ " and trans.turqEngineSequence.id in (Select engSeq.id from bill.turqBillInEngineSequences.turqEngineSequence as engSeq)");
+							+ " and trans.turqEngineSequence.id in (Select engSeq.turqEngineSequence.id from bill.turqBillInEngineSequences as engSeq)");
 			while (iter.hasNext())
 			{
 				TurqAccountingTransaction trans = (TurqAccountingTransaction) iter.next();
@@ -52,11 +52,11 @@ public class BillDALUpdateBill
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
 			Iterator iter = session
-					.iterate("from TurqCurrentTransaction as trans,"
-							+ " TurqBill bill where"
+					.iterate("select trans from TurqCurrentTransaction as trans,"
+							+ " TurqBill as bill where"
 							+ " bill.id="
 							+ billId
-							+ " and trans.turqEngineSequence.id in (Select engSeq.id from bill.turqBillInEngineSequences.turqEngineSequence as engSeq)");
+							+ " and trans.turqEngineSequence.id in (Select engSeq.turqEngineSequence.id from bill.turqBillInEngineSequences as engSeq)");
 			while (iter.hasNext())
 			{
 				session.delete(iter.next());

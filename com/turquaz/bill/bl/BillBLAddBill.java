@@ -34,11 +34,11 @@ public class BillBLAddBill
 {
 	//Bill from Bill
 	public static TurqBill saveBillFromBill(String consignemtDocNo, String definition, boolean isPrinted, Date billsDate, int type,
-			boolean isOpen, TurqCurrentCard currentCard, TurqAccountingAccount cashAccount, Date dueDate, BigDecimal discountAmount,
+			TurqCurrentCard currentCard, Date dueDate, BigDecimal discountAmount,
 			String billDocNo, BigDecimal totalVat, BigDecimal specialVat, BigDecimal totalAmount, TurqCurrencyExchangeRate exchangeRate,
 			List billGroups, List invTransactions) throws Exception
 	{
-		TurqBill bill = registerBill(billDocNo, definition, isPrinted, billsDate, type, isOpen, dueDate, currentCard, exchangeRate);
+		TurqBill bill = registerBill(billDocNo, definition, isPrinted, billsDate, type, dueDate, currentCard, exchangeRate);
 		TurqEngineSequence engSeq = EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_BILL);
 		TurqBillInEngineSequence billInEng = new TurqBillInEngineSequence();
 		billInEng.setTurqEngineSequence(engSeq);
@@ -46,8 +46,8 @@ public class BillBLAddBill
 		EngDALCommon.saveObject(billInEng);
 		InvBLSaveTransaction.saveInventoryTransactions(invTransactions, engSeq.getId(), type, billsDate, definition, billDocNo,
 				exchangeRate, currentCard);
-		saveCurrentTransaction(bill, engSeq, totalAmount, discountAmount);
-		saveAccountingTransaction(bill, engSeq, cashAccount, totalAmount);
+		saveCurrentTransaction(bill,totalAmount, discountAmount);
+		saveAccountingTransaction(bill, totalAmount);
 		saveBillGroups(bill.getId(), billGroups);
 		return bill;
 	}
@@ -69,7 +69,7 @@ public class BillBLAddBill
 		try
 		{
 			// Save Bill
-			TurqBill bill = registerBill(docNo, definition, isPrinted, billsDate, type, isOpen, dueDate, cons.getTurqCurrentCard(), cons
+			TurqBill bill = registerBill(docNo, definition, isPrinted, billsDate, type,  dueDate, cons.getTurqCurrentCard(), cons
 					.getTurqCurrencyExchangeRate());
 			//Then Save Bill Groups
 			saveBillGroups(bill.getId(), billGroups);
@@ -94,7 +94,7 @@ public class BillBLAddBill
 	 * @return
 	 * @throws Exception
 	 */
-	private static TurqBill registerBill(String docNo, String definition, boolean isPrinted, Date billsDate, int type, boolean isOpen,
+	private static TurqBill registerBill(String docNo, String definition, boolean isPrinted, Date billsDate, int type, 
 			Date dueDate, TurqCurrentCard curCard, TurqCurrencyExchangeRate exchangeRate) throws Exception
 	{
 		try
@@ -109,11 +109,12 @@ public class BillBLAddBill
 			Calendar cal = Calendar.getInstance();
 			bill.setLastModified(cal.getTime());
 			bill.setCreationDate(cal.getTime());
-			bill.setIsOpen(isOpen);
+			bill.setIsOpen(true);
 			bill.setDueDate(dueDate);
 			bill.setBillDocumentNo(docNo);
 			bill.setTurqCurrentCard(curCard);
 			bill.setTurqCurrencyExchangeRate(exchangeRate);
+			bill.setTurqEngineSequence(EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_BILL));
 			EngDALCommon.saveObject(bill);
 			return bill;
 		}
@@ -127,11 +128,12 @@ public class BillBLAddBill
 	 * @param bill
 	 * @throws Exception
 	 */
-	public static void saveCurrentTransaction(TurqBill bill, TurqEngineSequence engSeq, BigDecimal totalAmount, BigDecimal discountAmount)
+	public static void saveCurrentTransaction(TurqBill bill, BigDecimal totalAmount, BigDecimal discountAmount)
 			throws Exception
 	{
 		try
 		{
+			TurqEngineSequence engSeq = bill.getTurqEngineSequence();
 			String curTransDef = DatePicker.formatter.format(bill.getBillsDate()) + " " + bill.getBillDocumentNo() + " Ref. Fatura";
 			//Al?? Faturas?
 			if (bill.getBillsType() == 0)
@@ -173,7 +175,7 @@ public class BillBLAddBill
 	 * @param currentAccount
 	 * @throws Exception
 	 */
-	public static void prepareAccountsForAccountingIntgretion(TurqBill bill, TurqAccountingAccount cashAccount, Map creditAccounts,
+	public static void prepareAccountsForAccountingIntgretion(TurqBill bill, Map creditAccounts,
 			Map deptAccounts, BigDecimal totalAmount) throws Exception
 	{
 		creditAccounts.clear();
@@ -266,7 +268,7 @@ public class BillBLAddBill
 					currentRows.put(discountBuyAccount.getId(), new ArrayList());
 				}
 				List discountList = (List) currentRows.get(discountBuyAccount.getId());
-				discountList.add(invTrans.getDiscountRate());
+				discountList.add(invTrans.getDiscountAmount());
 				currentRows.put(discountBuyAccount.getId(), discountList);
 			}
 		}
@@ -282,36 +284,18 @@ public class BillBLAddBill
 		}
 		curList.add(totalAmount);
 		currentRows.put(curAccount.getId(), curList);
-		//Kapali Fatura
-		if (!bill.isIsOpen() && cashAccount != null)
-		{
-			List list = (List) invRows.get(curAccount.getId());
-			if (list == null)
-			{
-				list = new ArrayList();
-			}
-			list.add(totalAmount);
-			invRows.put(curAccount.getId(), list);
-			/** ****************************************************** */
-			list = (List) currentRows.get(cashAccount.getId());
-			if (list == null)
-			{
-				list = new ArrayList();
-			}
-			list.add(totalAmount);
-			currentRows.put(cashAccount.getId(), list);
-		}
+		
 	}
 
-	public static void saveAccountingTransaction(TurqBill bill, TurqEngineSequence engSeq, TurqAccountingAccount cashAccount,
+	public static void saveAccountingTransaction(TurqBill bill,
 			BigDecimal totalAmount) throws Exception
 	{
 		Map creditAccounts = new HashMap();
 		Map deptAccounts = new HashMap();
 		String billDefinition = "FT " + bill.getBillDocumentNo() + " " + bill.getTurqCurrentCard().getCardsName();
-		prepareAccountsForAccountingIntgretion(bill, cashAccount, creditAccounts, deptAccounts, totalAmount);
+		prepareAccountsForAccountingIntgretion(bill, creditAccounts, deptAccounts, totalAmount);
 		boolean isSaved = AccBLTransactionAdd.saveAccTransaction(bill.getBillsDate(), bill.getBillDocumentNo(), 2,
-				EngBLCommon.MODULE_BILL, engSeq.getId(), billDefinition, bill.getTurqCurrencyExchangeRate(), creditAccounts,
+				EngBLCommon.MODULE_BILL, bill.getTurqEngineSequence().getId(), billDefinition, bill.getTurqCurrencyExchangeRate(), creditAccounts,
 				deptAccounts, true);
 	}
 

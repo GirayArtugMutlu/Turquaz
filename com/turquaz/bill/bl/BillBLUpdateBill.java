@@ -8,7 +8,6 @@ import java.util.List;
 import com.turquaz.bill.dal.BillDALUpdateBill;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.dal.EngDALCommon;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
@@ -90,9 +89,9 @@ public class BillBLUpdateBill
 	 * @param dueDate
 	 * @throws Exception
 	 */
-	public static void updateBill(TurqBill bill, String billNo, String consNo, String definition, boolean isPrinted, boolean isOpen,
+	public static void updateBill(TurqBill bill, String billNo, String consNo, String definition, boolean isPrinted, 
 			Date billDate, TurqCurrentCard curCard, BigDecimal discountAmount, BigDecimal vatAmount, BigDecimal specialVatAmount,
-			BigDecimal totalAmount, int type, TurqAccountingAccount cashAccount, Date dueDate, List invTransactions, List groups,
+			BigDecimal totalAmount, int type, Date dueDate, List invTransactions, List groups,
 			TurqCurrencyExchangeRate exchangeRate) throws Exception
 	{
 		try
@@ -104,8 +103,8 @@ public class BillBLUpdateBill
 			deleteAccountingTransactions(bill);
 			deleteCurrentTransactions(bill);
 			//XXX update methods should be re-written..
-			//BillBLAddBill.saveCurrentTransaction(bill);
-			//BillBLAddBill.saveAccountingTransaction(bill, cashAccount);
+			BillBLAddBill.saveCurrentTransaction(bill,totalAmount, discountAmount);
+			BillBLAddBill.saveAccountingTransaction(bill,totalAmount);
 		}
 		catch (Exception ex)
 		{

@@ -7,85 +7,81 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqBankAccountingType implements Serializable
-{
-	/** identifier field */
-	private java.lang.Integer id;
-	/** persistent field */
-	private java.lang.String typeName;
-	/** persistent field */
-	private java.lang.String definition;
-	/** persistent field */
-	private Set turqBankAccountingAccounts;
+public class TurqBankAccountingType implements Serializable {
 
-	/** full constructor */
-	public TurqBankAccountingType(java.lang.String typeName, java.lang.String definition, Set turqBankAccountingAccounts)
-	{
-		this.typeName = typeName;
-		this.definition = definition;
-		this.turqBankAccountingAccounts = turqBankAccountingAccounts;
-	}
+    /** identifier field */
+    private java.lang.Integer id;
 
-	/** default constructor */
-	public TurqBankAccountingType()
-	{
-	}
+    /** persistent field */
+    private java.lang.String typeName;
 
-	public java.lang.Integer getId()
-	{
-		return this.id;
-	}
+    /** persistent field */
+    private java.lang.String definition;
 
-	public void setId(java.lang.Integer id)
-	{
-		this.id = id;
-	}
+    /** persistent field */
+    private Set turqBankAccountingAccounts;
 
-	public java.lang.String getTypeName()
-	{
-		return this.typeName;
-	}
+    /** full constructor */
+    public TurqBankAccountingType(java.lang.String typeName, java.lang.String definition, Set turqBankAccountingAccounts) {
+        this.typeName = typeName;
+        this.definition = definition;
+        this.turqBankAccountingAccounts = turqBankAccountingAccounts;
+    }
 
-	public void setTypeName(java.lang.String typeName)
-	{
-		this.typeName = typeName;
-	}
+    /** default constructor */
+    public TurqBankAccountingType() {
+    }
 
-	public java.lang.String getDefinition()
-	{
-		return this.definition;
-	}
+    public java.lang.Integer getId() {
+        return this.id;
+    }
 
-	public void setDefinition(java.lang.String definition)
-	{
-		this.definition = definition;
-	}
+    public void setId(java.lang.Integer id) {
+        this.id = id;
+    }
 
-	public java.util.Set getTurqBankAccountingAccounts()
-	{
-		return this.turqBankAccountingAccounts;
-	}
+    public java.lang.String getTypeName() {
+        return this.typeName;
+    }
 
-	public void setTurqBankAccountingAccounts(java.util.Set turqBankAccountingAccounts)
-	{
-		this.turqBankAccountingAccounts = turqBankAccountingAccounts;
-	}
+    public void setTypeName(java.lang.String typeName) {
+        this.typeName = typeName;
+    }
 
-	public String toString()
-	{
-		return new ToStringBuilder(this).append("id", getId()).toString();
-	}
+    public java.lang.String getDefinition() {
+        return this.definition;
+    }
 
-	public boolean equals(Object other)
-	{
-		if (!(other instanceof TurqBankAccountingType))
-			return false;
-		TurqBankAccountingType castOther = (TurqBankAccountingType) other;
-		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
-	}
+    public void setDefinition(java.lang.String definition) {
+        this.definition = definition;
+    }
 
-	public int hashCode()
-	{
-		return new HashCodeBuilder().append(getId()).toHashCode();
-	}
+    public java.util.Set getTurqBankAccountingAccounts() {
+        return this.turqBankAccountingAccounts;
+    }
+
+    public void setTurqBankAccountingAccounts(java.util.Set turqBankAccountingAccounts) {
+        this.turqBankAccountingAccounts = turqBankAccountingAccounts;
+    }
+
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("id", getId())
+            .toString();
+    }
+
+    public boolean equals(Object other) {
+        if ( !(other instanceof TurqBankAccountingType) ) return false;
+        TurqBankAccountingType castOther = (TurqBankAccountingType) other;
+        return new EqualsBuilder()
+            .append(this.getId(), castOther.getId())
+            .isEquals();
+    }
+
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
 }

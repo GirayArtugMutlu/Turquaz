@@ -7,140 +7,130 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqAccountingAccountClass implements Serializable
-{
-	/** identifier field */
-	private java.lang.Integer id;
-	/** persistent field */
-	private java.lang.String accountingClassesName;
-	/** persistent field */
-	private java.lang.String accountingClassesDefinition;
-	/** persistent field */
-	private java.lang.String createdBy;
-	/** persistent field */
-	private java.util.Date creationDate;
-	/** persistent field */
-	private java.lang.String updatedBy;
-	/** persistent field */
-	private java.util.Date lastModified;
-	/** persistent field */
-	private Set turqAccountingAccounts;
+public class TurqAccountingAccountClass implements Serializable {
 
-	/** full constructor */
-	public TurqAccountingAccountClass(java.lang.Integer id, java.lang.String accountingClassesName,
-			java.lang.String accountingClassesDefinition, java.lang.String createdBy, java.util.Date creationDate,
-			java.lang.String updatedBy, java.util.Date lastModified, Set turqAccountingAccounts)
-	{
-		this.id = id;
-		this.accountingClassesName = accountingClassesName;
-		this.accountingClassesDefinition = accountingClassesDefinition;
-		this.createdBy = createdBy;
-		this.creationDate = creationDate;
-		this.updatedBy = updatedBy;
-		this.lastModified = lastModified;
-		this.turqAccountingAccounts = turqAccountingAccounts;
-	}
+    /** identifier field */
+    private java.lang.Integer id;
 
-	/** default constructor */
-	public TurqAccountingAccountClass()
-	{
-	}
+    /** persistent field */
+    private java.lang.String accountingClassesName;
 
-	public java.lang.Integer getId()
-	{
-		return this.id;
-	}
+    /** persistent field */
+    private java.lang.String accountingClassesDefinition;
 
-	public void setId(java.lang.Integer id)
-	{
-		this.id = id;
-	}
+    /** persistent field */
+    private java.lang.String createdBy;
 
-	public java.lang.String getAccountingClassesName()
-	{
-		return this.accountingClassesName;
-	}
+    /** persistent field */
+    private java.util.Date creationDate;
 
-	public void setAccountingClassesName(java.lang.String accountingClassesName)
-	{
-		this.accountingClassesName = accountingClassesName;
-	}
+    /** persistent field */
+    private java.lang.String updatedBy;
 
-	public java.lang.String getAccountingClassesDefinition()
-	{
-		return this.accountingClassesDefinition;
-	}
+    /** persistent field */
+    private java.util.Date lastModified;
 
-	public void setAccountingClassesDefinition(java.lang.String accountingClassesDefinition)
-	{
-		this.accountingClassesDefinition = accountingClassesDefinition;
-	}
+    /** persistent field */
+    private Set turqAccountingAccounts;
 
-	public java.lang.String getCreatedBy()
-	{
-		return this.createdBy;
-	}
+    /** full constructor */
+    public TurqAccountingAccountClass(java.lang.Integer id, java.lang.String accountingClassesName, java.lang.String accountingClassesDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqAccountingAccounts) {
+        this.id = id;
+        this.accountingClassesName = accountingClassesName;
+        this.accountingClassesDefinition = accountingClassesDefinition;
+        this.createdBy = createdBy;
+        this.creationDate = creationDate;
+        this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
+        this.turqAccountingAccounts = turqAccountingAccounts;
+    }
 
-	public void setCreatedBy(java.lang.String createdBy)
-	{
-		this.createdBy = createdBy;
-	}
+    /** default constructor */
+    public TurqAccountingAccountClass() {
+    }
 
-	public java.util.Date getCreationDate()
-	{
-		return this.creationDate;
-	}
+    public java.lang.Integer getId() {
+        return this.id;
+    }
 
-	public void setCreationDate(java.util.Date creationDate)
-	{
-		this.creationDate = creationDate;
-	}
+    public void setId(java.lang.Integer id) {
+        this.id = id;
+    }
 
-	public java.lang.String getUpdatedBy()
-	{
-		return this.updatedBy;
-	}
+    public java.lang.String getAccountingClassesName() {
+        return this.accountingClassesName;
+    }
 
-	public void setUpdatedBy(java.lang.String updatedBy)
-	{
-		this.updatedBy = updatedBy;
-	}
+    public void setAccountingClassesName(java.lang.String accountingClassesName) {
+        this.accountingClassesName = accountingClassesName;
+    }
 
-	public java.util.Date getLastModified()
-	{
-		return this.lastModified;
-	}
+    public java.lang.String getAccountingClassesDefinition() {
+        return this.accountingClassesDefinition;
+    }
 
-	public void setLastModified(java.util.Date lastModified)
-	{
-		this.lastModified = lastModified;
-	}
+    public void setAccountingClassesDefinition(java.lang.String accountingClassesDefinition) {
+        this.accountingClassesDefinition = accountingClassesDefinition;
+    }
 
-	public java.util.Set getTurqAccountingAccounts()
-	{
-		return this.turqAccountingAccounts;
-	}
+    public java.lang.String getCreatedBy() {
+        return this.createdBy;
+    }
 
-	public void setTurqAccountingAccounts(java.util.Set turqAccountingAccounts)
-	{
-		this.turqAccountingAccounts = turqAccountingAccounts;
-	}
+    public void setCreatedBy(java.lang.String createdBy) {
+        this.createdBy = createdBy;
+    }
 
-	public String toString()
-	{
-		return new ToStringBuilder(this).append("id", getId()).toString();
-	}
+    public java.util.Date getCreationDate() {
+        return this.creationDate;
+    }
 
-	public boolean equals(Object other)
-	{
-		if (!(other instanceof TurqAccountingAccountClass))
-			return false;
-		TurqAccountingAccountClass castOther = (TurqAccountingAccountClass) other;
-		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
-	}
+    public void setCreationDate(java.util.Date creationDate) {
+        this.creationDate = creationDate;
+    }
 
-	public int hashCode()
-	{
-		return new HashCodeBuilder().append(getId()).toHashCode();
-	}
+    public java.lang.String getUpdatedBy() {
+        return this.updatedBy;
+    }
+
+    public void setUpdatedBy(java.lang.String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public java.util.Date getLastModified() {
+        return this.lastModified;
+    }
+
+    public void setLastModified(java.util.Date lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    public java.util.Set getTurqAccountingAccounts() {
+        return this.turqAccountingAccounts;
+    }
+
+    public void setTurqAccountingAccounts(java.util.Set turqAccountingAccounts) {
+        this.turqAccountingAccounts = turqAccountingAccounts;
+    }
+
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("id", getId())
+            .toString();
+    }
+
+    public boolean equals(Object other) {
+        if ( !(other instanceof TurqAccountingAccountClass) ) return false;
+        TurqAccountingAccountClass castOther = (TurqAccountingAccountClass) other;
+        return new EqualsBuilder()
+            .append(this.getId(), castOther.getId())
+            .isEquals();
+    }
+
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
 }

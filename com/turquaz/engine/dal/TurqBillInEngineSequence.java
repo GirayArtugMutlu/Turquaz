@@ -6,72 +6,69 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqBillInEngineSequence implements Serializable
-{
-	/** identifier field */
-	private java.lang.Integer id;
-	/** persistent field */
-	private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
-	/** persistent field */
-	private com.turquaz.engine.dal.TurqBill turqBill;
+public class TurqBillInEngineSequence implements Serializable {
 
-	/** full constructor */
-	public TurqBillInEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqBill turqBill)
-	{
-		this.turqEngineSequence = turqEngineSequence;
-		this.turqBill = turqBill;
-	}
+    /** identifier field */
+    private java.lang.Integer id;
 
-	/** default constructor */
-	public TurqBillInEngineSequence()
-	{
-	}
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
 
-	public java.lang.Integer getId()
-	{
-		return this.id;
-	}
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqBill turqBill;
 
-	public void setId(java.lang.Integer id)
-	{
-		this.id = id;
-	}
+    /** full constructor */
+    public TurqBillInEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqBill turqBill) {
+        this.turqEngineSequence = turqEngineSequence;
+        this.turqBill = turqBill;
+    }
 
-	public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence()
-	{
-		return this.turqEngineSequence;
-	}
+    /** default constructor */
+    public TurqBillInEngineSequence() {
+    }
 
-	public void setTurqEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence)
-	{
-		this.turqEngineSequence = turqEngineSequence;
-	}
+    public java.lang.Integer getId() {
+        return this.id;
+    }
 
-	public com.turquaz.engine.dal.TurqBill getTurqBill()
-	{
-		return this.turqBill;
-	}
+    public void setId(java.lang.Integer id) {
+        this.id = id;
+    }
 
-	public void setTurqBill(com.turquaz.engine.dal.TurqBill turqBill)
-	{
-		this.turqBill = turqBill;
-	}
+    public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence() {
+        return this.turqEngineSequence;
+    }
 
-	public String toString()
-	{
-		return new ToStringBuilder(this).append("id", getId()).toString();
-	}
+    public void setTurqEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence) {
+        this.turqEngineSequence = turqEngineSequence;
+    }
 
-	public boolean equals(Object other)
-	{
-		if (!(other instanceof TurqBillInEngineSequence))
-			return false;
-		TurqBillInEngineSequence castOther = (TurqBillInEngineSequence) other;
-		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
-	}
+    public com.turquaz.engine.dal.TurqBill getTurqBill() {
+        return this.turqBill;
+    }
 
-	public int hashCode()
-	{
-		return new HashCodeBuilder().append(getId()).toHashCode();
-	}
+    public void setTurqBill(com.turquaz.engine.dal.TurqBill turqBill) {
+        this.turqBill = turqBill;
+    }
+
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("id", getId())
+            .toString();
+    }
+
+    public boolean equals(Object other) {
+        if ( !(other instanceof TurqBillInEngineSequence) ) return false;
+        TurqBillInEngineSequence castOther = (TurqBillInEngineSequence) other;
+        return new EqualsBuilder()
+            .append(this.getId(), castOther.getId())
+            .isEquals();
+    }
+
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
 }

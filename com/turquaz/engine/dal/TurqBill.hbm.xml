@@ -112,6 +112,14 @@
     >
         <column name="exchange_rate_id" />
     </many-to-one>
+    <!-- bi-directional many-to-one association to TurqEngineSequence -->
+    <many-to-one
+        name="turqEngineSequence"
+        class="com.turquaz.engine.dal.TurqEngineSequence"
+        not-null="true"
+    >
+        <column name="engine_sequences_id" />
+    </many-to-one>
     <!-- bi-directional one-to-many association to TurqBillInGroup -->
     <set
         name="turqBillInGroups"

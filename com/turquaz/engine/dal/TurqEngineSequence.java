@@ -7,165 +7,165 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqEngineSequence implements Serializable
-{
-	/** identifier field */
-	private java.lang.Integer id;
-	/** persistent field */
-	private com.turquaz.engine.dal.TurqModule turqModule;
-	/** persistent field */
-	private Set turqChequeRolls;
-	/** persistent field */
-	private Set turqAccountingTransactions;
-	/** persistent field */
-	private Set turqCashTransactions;
-	/** persistent field */
-	private Set turqInventoryTransactions;
-	/** persistent field */
-	private Set turqConsignments;
-	/** persistent field */
-	private Set turqCurrentTransactions;
-	/** persistent field */
-	private Set turqBanksTransactionBills;
-	/** persistent field */
-	private Set turqBillInEngineSequences;
+public class TurqEngineSequence implements Serializable {
 
-	/** full constructor */
-	public TurqEngineSequence(com.turquaz.engine.dal.TurqModule turqModule, Set turqChequeRolls, Set turqAccountingTransactions,
-			Set turqCashTransactions, Set turqInventoryTransactions, Set turqConsignments, Set turqCurrentTransactions,
-			Set turqBanksTransactionBills, Set turqBillInEngineSequences)
-	{
-		this.turqModule = turqModule;
-		this.turqChequeRolls = turqChequeRolls;
-		this.turqAccountingTransactions = turqAccountingTransactions;
-		this.turqCashTransactions = turqCashTransactions;
-		this.turqInventoryTransactions = turqInventoryTransactions;
-		this.turqConsignments = turqConsignments;
-		this.turqCurrentTransactions = turqCurrentTransactions;
-		this.turqBanksTransactionBills = turqBanksTransactionBills;
-		this.turqBillInEngineSequences = turqBillInEngineSequences;
-	}
+    /** identifier field */
+    private java.lang.Integer id;
 
-	/** default constructor */
-	public TurqEngineSequence()
-	{
-	}
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqModule turqModule;
 
-	public java.lang.Integer getId()
-	{
-		return this.id;
-	}
+    /** persistent field */
+    private Set turqChequeRolls;
 
-	public void setId(java.lang.Integer id)
-	{
-		this.id = id;
-	}
+    /** persistent field */
+    private Set turqAccountingTransactions;
 
-	public com.turquaz.engine.dal.TurqModule getTurqModule()
-	{
-		return this.turqModule;
-	}
+    /** persistent field */
+    private Set turqCashTransactions;
 
-	public void setTurqModule(com.turquaz.engine.dal.TurqModule turqModule)
-	{
-		this.turqModule = turqModule;
-	}
+    /** persistent field */
+    private Set turqInventoryTransactions;
 
-	public java.util.Set getTurqChequeRolls()
-	{
-		return this.turqChequeRolls;
-	}
+    /** persistent field */
+    private Set turqConsignments;
 
-	public void setTurqChequeRolls(java.util.Set turqChequeRolls)
-	{
-		this.turqChequeRolls = turqChequeRolls;
-	}
+    /** persistent field */
+    private Set turqCurrentTransactions;
 
-	public java.util.Set getTurqAccountingTransactions()
-	{
-		return this.turqAccountingTransactions;
-	}
+    /** persistent field */
+    private Set turqBanksTransactionBills;
 
-	public void setTurqAccountingTransactions(java.util.Set turqAccountingTransactions)
-	{
-		this.turqAccountingTransactions = turqAccountingTransactions;
-	}
+    /** persistent field */
+    private Set turqBillInEngineSequences;
 
-	public java.util.Set getTurqCashTransactions()
-	{
-		return this.turqCashTransactions;
-	}
+    /** persistent field */
+    private Set turqBills;
 
-	public void setTurqCashTransactions(java.util.Set turqCashTransactions)
-	{
-		this.turqCashTransactions = turqCashTransactions;
-	}
+    /** full constructor */
+    public TurqEngineSequence(com.turquaz.engine.dal.TurqModule turqModule, Set turqChequeRolls, Set turqAccountingTransactions, Set turqCashTransactions, Set turqInventoryTransactions, Set turqConsignments, Set turqCurrentTransactions, Set turqBanksTransactionBills, Set turqBillInEngineSequences, Set turqBills) {
+        this.turqModule = turqModule;
+        this.turqChequeRolls = turqChequeRolls;
+        this.turqAccountingTransactions = turqAccountingTransactions;
+        this.turqCashTransactions = turqCashTransactions;
+        this.turqInventoryTransactions = turqInventoryTransactions;
+        this.turqConsignments = turqConsignments;
+        this.turqCurrentTransactions = turqCurrentTransactions;
+        this.turqBanksTransactionBills = turqBanksTransactionBills;
+        this.turqBillInEngineSequences = turqBillInEngineSequences;
+        this.turqBills = turqBills;
+    }
 
-	public java.util.Set getTurqInventoryTransactions()
-	{
-		return this.turqInventoryTransactions;
-	}
+    /** default constructor */
+    public TurqEngineSequence() {
+    }
 
-	public void setTurqInventoryTransactions(java.util.Set turqInventoryTransactions)
-	{
-		this.turqInventoryTransactions = turqInventoryTransactions;
-	}
+    public java.lang.Integer getId() {
+        return this.id;
+    }
 
-	public java.util.Set getTurqConsignments()
-	{
-		return this.turqConsignments;
-	}
+    public void setId(java.lang.Integer id) {
+        this.id = id;
+    }
 
-	public void setTurqConsignments(java.util.Set turqConsignments)
-	{
-		this.turqConsignments = turqConsignments;
-	}
+    public com.turquaz.engine.dal.TurqModule getTurqModule() {
+        return this.turqModule;
+    }
 
-	public java.util.Set getTurqCurrentTransactions()
-	{
-		return this.turqCurrentTransactions;
-	}
+    public void setTurqModule(com.turquaz.engine.dal.TurqModule turqModule) {
+        this.turqModule = turqModule;
+    }
 
-	public void setTurqCurrentTransactions(java.util.Set turqCurrentTransactions)
-	{
-		this.turqCurrentTransactions = turqCurrentTransactions;
-	}
+    public java.util.Set getTurqChequeRolls() {
+        return this.turqChequeRolls;
+    }
 
-	public java.util.Set getTurqBanksTransactionBills()
-	{
-		return this.turqBanksTransactionBills;
-	}
+    public void setTurqChequeRolls(java.util.Set turqChequeRolls) {
+        this.turqChequeRolls = turqChequeRolls;
+    }
 
-	public void setTurqBanksTransactionBills(java.util.Set turqBanksTransactionBills)
-	{
-		this.turqBanksTransactionBills = turqBanksTransactionBills;
-	}
+    public java.util.Set getTurqAccountingTransactions() {
+        return this.turqAccountingTransactions;
+    }
 
-	public java.util.Set getTurqBillInEngineSequences()
-	{
-		return this.turqBillInEngineSequences;
-	}
+    public void setTurqAccountingTransactions(java.util.Set turqAccountingTransactions) {
+        this.turqAccountingTransactions = turqAccountingTransactions;
+    }
 
-	public void setTurqBillInEngineSequences(java.util.Set turqBillInEngineSequences)
-	{
-		this.turqBillInEngineSequences = turqBillInEngineSequences;
-	}
+    public java.util.Set getTurqCashTransactions() {
+        return this.turqCashTransactions;
+    }
 
-	public String toString()
-	{
-		return new ToStringBuilder(this).append("id", getId()).toString();
-	}
+    public void setTurqCashTransactions(java.util.Set turqCashTransactions) {
+        this.turqCashTransactions = turqCashTransactions;
+    }
 
-	public boolean equals(Object other)
-	{
-		if (!(other instanceof TurqEngineSequence))
-			return false;
-		TurqEngineSequence castOther = (TurqEngineSequence) other;
-		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
-	}
+    public java.util.Set getTurqInventoryTransactions() {
+        return this.turqInventoryTransactions;
+    }
 
-	public int hashCode()
-	{
-		return new HashCodeBuilder().append(getId()).toHashCode();
-	}
+    public void setTurqInventoryTransactions(java.util.Set turqInventoryTransactions) {
+        this.turqInventoryTransactions = turqInventoryTransactions;
+    }
+
+    public java.util.Set getTurqConsignments() {
+        return this.turqConsignments;
+    }
+
+    public void setTurqConsignments(java.util.Set turqConsignments) {
+        this.turqConsignments = turqConsignments;
+    }
+
+    public java.util.Set getTurqCurrentTransactions() {
+        return this.turqCurrentTransactions;
+    }
+
+    public void setTurqCurrentTransactions(java.util.Set turqCurrentTransactions) {
+        this.turqCurrentTransactions = turqCurrentTransactions;
+    }
+
+    public java.util.Set getTurqBanksTransactionBills() {
+        return this.turqBanksTransactionBills;
+    }
+
+    public void setTurqBanksTransactionBills(java.util.Set turqBanksTransactionBills) {
+        this.turqBanksTransactionBills = turqBanksTransactionBills;
+    }
+
+    public java.util.Set getTurqBillInEngineSequences() {
+        return this.turqBillInEngineSequences;
+    }
+
+    public void setTurqBillInEngineSequences(java.util.Set turqBillInEngineSequences) {
+        this.turqBillInEngineSequences = turqBillInEngineSequences;
+    }
+
+    public java.util.Set getTurqBills() {
+        return this.turqBills;
+    }
+
+    public void setTurqBills(java.util.Set turqBills) {
+        this.turqBills = turqBills;
+    }
+
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("id", getId())
+            .toString();
+    }
+
+    public boolean equals(Object other) {
+        if ( !(other instanceof TurqEngineSequence) ) return false;
+        TurqEngineSequence castOther = (TurqEngineSequence) other;
+        return new EqualsBuilder()
+            .append(this.getId(), castOther.getId())
+            .isEquals();
+    }
+
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
 }

@@ -439,16 +439,14 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 						{
 							//TODO exchange rate
 							int type = compAddBill.BILL_TYPE;
-							Boolean paymentType = (Boolean) compAddBill.getComboPaymentType().getData(
-									compAddBill.getComboPaymentType().getText());
+							
 							BillBLUpdateBill.updateBill(bill, compAddBill.getTxtDocumentNo().getText().trim(), compAddBill
 									.getTxtConsignmentDocumentNo().getText().trim(), compAddBill.getTxtDefinition().getText(),
-									false, !paymentType.booleanValue(), compAddBill.getDateConsignmentDate().getDate(),
+									false, compAddBill.getDateConsignmentDate().getDate(),
 									(TurqCurrentCard) compAddBill.getTxtCurrentCard().getData(), compAddBill
 											.getTxtDiscountAmount().getBigDecimalValue(), compAddBill.getTxtTotalVat()
 											.getBigDecimalValue(), compAddBill.getDecSpecialVat().getBigDecimalValue(),
-									compAddBill.getTxtTotalAmount().getBigDecimalValue(), type, compAddBill
-											.getAccountPickerCurAcc().getTurqAccountingAccount(), compAddBill.getDateDueDate()
+									compAddBill.getTxtTotalAmount().getBigDecimalValue(), type, compAddBill.getDateDueDate()
 											.getDate(), compAddBill.getInventoryTransactions(), compAddBill.getBillGroups(),
 									EngBLCommon.getBaseCurrencyExchangeRate());
 							search();
@@ -667,14 +665,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			;
 			compAddBill.getTxtDocumentNo().setText(bill.getBillDocumentNo());
 			compAddBill.getDateConsignmentDate().setDate(bill.getBillsDate());
-			if (bill.isIsOpen())
-			{
-				compAddBill.getComboPaymentType().setText(Messages.getString("BillUIBillUpdateDialog.8")); //$NON-NLS-1$
-			}
-			else
-			{
-				compAddBill.getComboPaymentType().setText(Messages.getString("BillUIBillUpdateDialog.11")); //$NON-NLS-1$
-			}
+		
 			compAddBill.getDateDueDate().setDate(bill.getDueDate());
 			compAddBill.getTxtDefinition().setText(bill.getBillsDefinition());
 			compAddBill.getTxtConsignmentDocumentNo().setText("");
