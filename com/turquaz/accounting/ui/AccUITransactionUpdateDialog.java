@@ -135,6 +135,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
                 compTransactionAdd.setSize(new org.eclipse.swt.graphics.Point(
                     567,
                     389));
+                compTransactionAdd.getTxtDocumentNo().setBounds(80, 5, 150, 17);
                 compTransactionAdd.layout();
             }
 

@@ -226,12 +226,10 @@ public class AccUIInitialTransaction extends Composite implements
             }
             {
                 txtDocumentNo = new Text(this, SWT.NONE);
-                txtDocumentNo.setSize(new org.eclipse.swt.graphics.Point(155,
-                        19));
                 GridData txtDocumentNoLData = new GridData();
                 txtDocumentNoLData.verticalAlignment = GridData.BEGINNING;
-                txtDocumentNoLData.widthHint = 149;
-                txtDocumentNoLData.heightHint = 19;
+                txtDocumentNoLData.widthHint = 150;
+                txtDocumentNoLData.heightHint = 17;
                 txtDocumentNo.setLayoutData(txtDocumentNoLData);
             }
             {
@@ -247,8 +245,8 @@ public class AccUIInitialTransaction extends Composite implements
                 dateTransactionDate = new DatePicker(this, SWT.NONE);
                 GridData dateTransactionDateLData = new GridData();
                 dateTransactionDateLData.verticalAlignment = GridData.BEGINNING;
-                dateTransactionDateLData.widthHint = 170;
-                dateTransactionDateLData.heightHint = 24;
+                dateTransactionDateLData.widthHint = 168;
+                dateTransactionDateLData.heightHint = 22;
                 dateTransactionDate.setLayoutData(dateTransactionDateLData);
             }
             {
@@ -278,7 +276,7 @@ public class AccUIInitialTransaction extends Composite implements
                 txtTransDefinition.setTextLimit(250);
                 text1LData.heightHint = 30;
                 text1LData.horizontalSpan = 3;
-                text1LData.widthHint = 365;
+                text1LData.widthHint = 381;
                 txtTransDefinition.setLayoutData(text1LData);
             }
             {

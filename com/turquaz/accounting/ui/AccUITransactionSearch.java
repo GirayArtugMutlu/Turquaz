@@ -121,7 +121,7 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 				composite1Layout.numColumns = 4;
 				GridData composite1LData = new GridData();
 				composite1LData.horizontalAlignment = GridData.FILL;
-				composite1LData.heightHint = 84;
+				composite1LData.heightHint = 74;
 				composite1LData.grabExcessHorizontalSpace = true;
 				compAccTransactionSearch.setLayoutData(composite1LData);
 				compAccTransactionSearch.setLayout(composite1Layout);
@@ -140,12 +140,9 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 				{
 					txtDocumentNo = new Text(compAccTransactionSearch, SWT.NONE);
 					GridData txtDocumentNoLData = new GridData();
-					txtDocumentNoLData.widthHint = 135;
+					txtDocumentNoLData.widthHint = 150;
 					txtDocumentNoLData.heightHint = 17;
 					txtDocumentNo.setLayoutData(txtDocumentNoLData);
-					txtDocumentNo.setSize(new org.eclipse.swt.graphics.Point(
-						141,
-						17));
 				}
 				{
 					lblTransactionType = new CLabel(compAccTransactionSearch, SWT.NONE);
@@ -161,8 +158,8 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 				{
 					comboTransType = new CCombo(compAccTransactionSearch, SWT.READ_ONLY);
 					GridData comboTransTypeLData = new GridData();
-					comboTransTypeLData.widthHint = 99;
-					comboTransTypeLData.heightHint = 19;
+					comboTransTypeLData.widthHint = 125;
+					comboTransTypeLData.heightHint = 18;
 					comboTransType.setLayoutData(comboTransTypeLData);
 					comboTransType.setText(Messages
 						.getString("AccUITransactionSearch.2")); //$NON-NLS-1$
@@ -171,9 +168,6 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 						255,
 						255));
 					comboTransType.setEditable(false);
-					comboTransType.setSize(new org.eclipse.swt.graphics.Point(
-						121,
-						19));
 				}
 				{
 					lblStartDate = new CLabel(compAccTransactionSearch, SWT.NONE);
@@ -185,7 +179,7 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 				{
 					dateStartDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
 					GridData dateStartDateLData = new GridData();
-					dateStartDateLData.widthHint = 134;
+					dateStartDateLData.widthHint = 156;
 					dateStartDateLData.heightHint = 22;
 					dateStartDate.setLayoutData(dateStartDateLData);
 					dateStartDate.layout();
@@ -200,8 +194,8 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 				{
 					dateEndDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
 					GridData dateEndDateLData = new GridData();
-					dateEndDateLData.widthHint = 119;
-					dateEndDateLData.heightHint = 21;
+					dateEndDateLData.widthHint = 150;
+					dateEndDateLData.heightHint = 22;
 					dateEndDate.setLayoutData(dateEndDateLData);
 					dateEndDate.layout();
 				}

@@ -188,6 +188,10 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 				compTransactionCollectLData.grabExcessVerticalSpace = true;
 				compTransactionCollect
 					.setLayoutData(compTransactionCollectLData);
+				compTransactionCollect.getTxtTransDefinition().setBounds(353, 33, 260, 17);
+				compTransactionCollect.getDatePickerTransactionDate().setBounds(353, 5, 150, 22);
+				compTransactionCollect.getComboDeptor().setBounds(115, 35, 150, 17);
+				compTransactionCollect.getTxtDocumentNo().setBounds(115, 5, 150, 17);
 				compTransactionCollect.layout();
 			}
 			dialogShellLayout.marginWidth = 5;
@@ -259,7 +263,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	compTransactionCollect.getTxtDocumentNo().setText(accTrans.getTransactionDocumentNo());
 	Date date = new Date(accTrans.getTransactionsDate().getTime());
 	compTransactionCollect.getDatePickerTransactionDate().setDate(date);
-	compTransactionCollect.getTxtTransDefinition().setText(accTrans.getTransactionDescription());
+	;
 	fillTableAndCombo();
 		Integer trModule=accTrans.getTurqModule().getModulesId();
 	if (trModule.intValue()!=1){ //1=Transaction, only view is allowed for other modules..

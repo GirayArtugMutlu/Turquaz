@@ -139,9 +139,9 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog {
 			compAccountCardLData.widthHint = 452;
 			compAccountCardLData.heightHint = 125;
 			compAccountCard.setLayoutData(compAccountCardLData);
-			compAccountCard.getTxtAccAcountName().setSize(251, 26);
-			compAccountCard.getTxtAccAccountCode().setSize(250, 24);
-			compAccountCard.getTxtParentAccount().setBounds(101, 92, 234, 23);
+			compAccountCard.getTxtAccAcountName().setBounds(101, 93, 220, 20);
+			compAccountCard.getTxtAccAccountCode().setBounds(101, 45, 220, 20);
+			compAccountCard.getTxtParentAccount().setBounds(101, 5, 220, 20);
 			compAccountCard.layout();
 
 			

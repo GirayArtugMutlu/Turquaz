@@ -180,12 +180,10 @@ public class AccUITransactionCollect extends Composite implements
 			}
 			{
 				txtDocumentNo = new Text(this, SWT.NONE);
-				txtDocumentNo.setSize(new org.eclipse.swt.graphics.Point(155,
-						19));
 				GridData txtDocumentNoLData = new GridData();
 				txtDocumentNoLData.verticalAlignment = GridData.BEGINNING;
-				txtDocumentNoLData.widthHint = 149;
-				txtDocumentNoLData.heightHint = 19;
+				txtDocumentNoLData.widthHint = 150;
+				txtDocumentNoLData.heightHint = 17;
 				txtDocumentNo.setLayoutData(txtDocumentNoLData);
 			}
 			{
@@ -198,13 +196,10 @@ public class AccUITransactionCollect extends Composite implements
 			}
 			{
 				datePickerTransactionDate = new DatePicker(this, SWT.NONE);
-				datePickerTransactionDate
-						.setSize(new org.eclipse.swt.graphics.Point(157, 25));
 				GridData datePickerTransactionDateLData = new GridData();
-				datePickerTransactionDateLData.widthHint = 157;
-				datePickerTransactionDateLData.heightHint = 25;
-				datePickerTransactionDate
-						.setLayoutData(datePickerTransactionDateLData);
+				datePickerTransactionDateLData.widthHint = 150;
+				datePickerTransactionDateLData.heightHint = 22;
+				datePickerTransactionDate.setLayoutData(datePickerTransactionDateLData);
 			}
 			{
 				lblDeptor = new CLabel(this, SWT.NONE);
@@ -218,8 +213,8 @@ public class AccUITransactionCollect extends Composite implements
 			{
 				comboDeptor = new CashAccountPicker(this, SWT.NONE);
 				GridData comboDeptorLData = new GridData();
-				comboDeptorLData.widthHint = 150;
-				comboDeptorLData.heightHint = 16;
+				comboDeptorLData.widthHint = 156;
+				comboDeptorLData.heightHint = 17;
 				comboDeptor.setLayoutData(comboDeptorLData);
 			}
 			{
@@ -243,8 +238,8 @@ public class AccUITransactionCollect extends Composite implements
 					}
 				});
 
-				txtTransDefinitionLData.widthHint = 184;
-				txtTransDefinitionLData.heightHint = 19;
+				txtTransDefinitionLData.widthHint = 307;
+				txtTransDefinitionLData.heightHint = 18;
 				txtTransDefinition.setLayoutData(txtTransDefinitionLData);
 			}
 			{

@@ -146,7 +146,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 			
 			preInitGUI();
 
-			this.setSize(544, 451);
+			this.setSize(600, 451);
 
 
 			
@@ -165,12 +165,9 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 			}
 			{
 				txtDocumentNo = new Text(this, SWT.NONE);
-				txtDocumentNo.setSize(new org.eclipse.swt.graphics.Point(
-					155,
-					19));
 				GridData txtDocumentNoLData = new GridData();
-				txtDocumentNoLData.widthHint = 149;
-				txtDocumentNoLData.heightHint = 19;
+				txtDocumentNoLData.widthHint = 150;
+				txtDocumentNoLData.heightHint = 17;
 				txtDocumentNo.setLayoutData(txtDocumentNoLData);
 			}
 			{
@@ -185,13 +182,10 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 			}
 			{
 				datePickerTransactionDate = new DatePicker(this, SWT.NONE);
-				datePickerTransactionDate
-					.setSize(new org.eclipse.swt.graphics.Point(157, 25));
 				GridData datePickerTransactionDateLData = new GridData();
-				datePickerTransactionDateLData.widthHint = 157;
-				datePickerTransactionDateLData.heightHint = 25;
-				datePickerTransactionDate
-					.setLayoutData(datePickerTransactionDateLData);
+				datePickerTransactionDateLData.widthHint = 150;
+				datePickerTransactionDateLData.heightHint = 22;
+				datePickerTransactionDate.setLayoutData(datePickerTransactionDateLData);
 			}
 			{
 				lblCreditor = new CLabel(this, SWT.NONE);
@@ -205,8 +199,8 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 			{
 				comboCreditor = new CashAccountPicker(this, SWT.NONE);
 				GridData comboCreditorLData = new GridData();
-				comboCreditorLData.widthHint = 146;
-				comboCreditorLData.heightHint = 16;
+				comboCreditorLData.widthHint = 156;
+				comboCreditorLData.heightHint = 17;
 				comboCreditor.setLayoutData(comboCreditorLData);
 			}
 			{
