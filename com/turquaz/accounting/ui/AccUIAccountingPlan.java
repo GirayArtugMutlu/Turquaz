@@ -240,7 +240,7 @@ public void fillTree(int parent, String codeCrit){
 		for(k=0; k<parentItems.length; k++)
 		{
 			TableTreeItem pItem=parentItems[k];
-			if (pItem.getText(0).equals("HESAP PLANI"))
+			if (pItem.getText(0).equals("HESAP PLANI")) //$NON-NLS-1$
 				continue;
 			if (accId.compareTo(pItem.getText(0)) < 0)
 					break;
@@ -266,7 +266,7 @@ public void fillTree(int parent, String codeCrit){
 		}
 		
 		else{
-			parentItem.setFont(SWTResourceManager.getFont("Tahoma", 9, 1, false, false));
+			parentItem.setFont(SWTResourceManager.getFont("Tahoma", 9, 1, false, false)); //$NON-NLS-1$
 		
 			 {
 	             //Register as a resource user - SWTResourceManager will
@@ -421,7 +421,7 @@ public void fillTree(int parent, String codeCrit){
 		
 	}
 	public void search(){
-		fillTree(-1,"");	
+		fillTree(-1,"");	 //$NON-NLS-1$
 	}
 	public void save (){
 		
