@@ -152,20 +152,11 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 						checkSubAccounts
 							.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt) {
-									if (checkSubAccounts.getSelection()) {
-										TableTreeItem[] subItems = tableTreeAccounts
-											.getItems();
-										for (int k = 0; k < subItems.length; k++) {
-											subItems[k].setExpanded(true);
-										}
-									} else {
-										if (checkSubAccounts.getSelection()) {
-											TableTreeItem[] subItems = tableTreeAccounts
-												.getItems();
-											for (int k = 0; k < subItems.length; k++) {
-												subItems[k].setExpanded(false);
-											}
-										}
+									boolean expand=checkSubAccounts.getSelection();
+									TableTreeItem[] subItems = tableTreeAccounts.getItems();
+									for (int k = 0; k < subItems.length; k++)
+									{
+										expandTree(subItems[k],expand);
 									}
 								}
 							});
@@ -344,13 +335,13 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					}
 				}
 			}
-			
-			if (checkSubAccounts.getSelection())
+			boolean expand=checkSubAccounts.getSelection();
+			if (expand)
 			{
 				TableTreeItem[] subItems=tableTreeAccounts.getItems();
 				for (int k=0; k<subItems.length; k++)
 				{
-					subItems[k].setExpanded(true);
+					expandTree(subItems[k],expand);
 				}
 			}
 		}
@@ -359,6 +350,16 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();
+		}
+	}
+	
+	public void expandTree(TableTreeItem tableItem, boolean expand)
+	{
+		tableItem.setExpanded(expand);
+		TableTreeItem[] subTree=tableItem.getItems();
+		for (int k=0; k<subTree.length ; k++)
+		{
+			expandTree(subTree[k], expand);
 		}
 	}
 	

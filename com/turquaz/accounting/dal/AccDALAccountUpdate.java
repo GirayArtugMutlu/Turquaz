@@ -76,8 +76,49 @@ public class AccDALAccountUpdate {
 				throw ex;
 			}
 	}
+	public List getSubAccounts (TurqAccountingAccount parentAcc) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			String query = "from TurqAccountingAccount as accounts " +
+					"where accounts.turqAccountingAccountByParentAccount.accountingAccountsId ="+parentAcc.getAccountingAccountsId(); 
+
+			Query q = session.createQuery(query); 
+			List list = q.list();
+			tx.commit();
+			session.close();
+			return list;
+			
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+	}
 	
-	
+	public List getAccountTransColumns(TurqAccountingAccount account) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			String query = "Select transColumns from TurqAccountingTransactionColumn as transColumns " +
+			"where transColumns.turqAccountingAccount.accountingAccountsId ="+account.getAccountingAccountsId();
+			
+	        Query q = session.createQuery(query); 
+			List list = q.list();
+			tx.commit();
+			session.close();
+			return list;
+			
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+	}
 	public List getTotalDeptAndCredit(TurqAccountingAccount account)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
