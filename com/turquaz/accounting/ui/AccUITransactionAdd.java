@@ -34,10 +34,12 @@ import org.eclipse.swt.widgets.Composite;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.engine.ui.component.TurquazDecimalFormat;
 import com.turquaz.engine.ui.editors.AccountingCellEditor;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.editors.NumericCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.ITableRowListViewer;
 import com.turquaz.engine.ui.viewers.TableRowList;
 import com.turquaz.engine.ui.viewers.TurquazCellModifier;
 import com.turquaz.engine.ui.viewers.TurquazContentProvider;
@@ -122,12 +124,8 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	private CLabel lblDate;
 	private DatePicker dateTransactionDate;
 	private TableColumn tableColumnDefinition;
-	private CLabel lblTotalDebit;
 	private Text txtTransDefinition;
 	private CLabel lblTransactionDefinition;
-	private CLabel lblTotalDeptAmount;
-	private CLabel lblTotalCreditAmount;
-	private CLabel lblTotalCredit;
 	private TableColumn tableColumnDept;
 	private TableColumn tableColumnCredit;
 	private TableColumn tableColumnAccountName;
@@ -144,6 +142,13 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	private final String CREDIT 		    = Messages.getString("AccUITransactionAdd.7"); //$NON-NLS-1$
 	TableCursor cursor;
 	private List columnList = new ArrayList();
+	private TableItem tableItemBalance;
+	private TableItem tableItemSpace;
+	private TableItem tableItemCredit;
+	private TableItem tableItemDept;
+	private TableColumn tableColumnAmount;
+	private TableColumn tableColumnTitle;
+	private Table table1;
 	private CLabel lblTableWarning;
 	TableRowList rowList = new TableRowList();
 	// Set column names
@@ -298,45 +303,41 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 					tableColumnCredit.setWidth(97);
 				}
 			}
-			{
-				lblTotalDebit = new CLabel(this, SWT.NONE);
-				lblTotalDebit.setText(Messages.getString("AccUITransactionAdd.9")); //$NON-NLS-1$
-				GridData cLabel1LData = new GridData();
-				cLabel1LData.horizontalAlignment = GridData.END;
-				cLabel1LData.widthHint = 86;
-				cLabel1LData.heightHint = 19;
-				lblTotalDebit.setLayoutData(cLabel1LData);
-			}
-			{
-				lblTotalDeptAmount = new CLabel(this, SWT.NONE);
-				lblTotalDeptAmount.setText("0"); //$NON-NLS-1$
-				GridData lblTotalDeptAmountLData = new GridData();
-				lblTotalDeptAmountLData.widthHint = 316;
-				lblTotalDeptAmountLData.heightHint = 16;
-				lblTotalDeptAmountLData.horizontalSpan = 3;
-				lblTotalDeptAmount.setLayoutData(lblTotalDeptAmountLData);
-			}
-			{
-				lblTotalCredit = new CLabel(this, SWT.NONE);
-				lblTotalCredit.setText(Messages
-					.getString("AccUITransactionAdd.8")); //$NON-NLS-1$
-				GridData lblTotalCreditLData = new GridData();
-				lblTotalCreditLData.horizontalAlignment = GridData.END;
-				lblTotalCreditLData.widthHint = 90;
-				lblTotalCreditLData.heightHint = 16;
-				lblTotalCredit.setLayoutData(lblTotalCreditLData);
-			}
-			{
-				lblTotalCreditAmount = new CLabel(this, SWT.NONE);
-				lblTotalCreditAmount.setText("0"); //$NON-NLS-1$
-				lblTotalCreditAmount
-					.setSize(new org.eclipse.swt.graphics.Point(321, 15));
-				GridData lblTotalCreditAmountLData = new GridData();
-				lblTotalCreditAmountLData.widthHint = 321;
-				lblTotalCreditAmountLData.heightHint = 15;
-				lblTotalCreditAmountLData.horizontalSpan = 3;
-				lblTotalCreditAmount.setLayoutData(lblTotalCreditAmountLData);
-			}
+            {
+                table1 = new Table(this, SWT.HIDE_SELECTION);
+                GridData table1LData = new GridData();
+                table1.setLinesVisible(true);
+                table1LData.horizontalSpan = 4;
+                table1LData.horizontalAlignment = GridData.END;
+                table1LData.grabExcessHorizontalSpace = true;
+                table1LData.widthHint = 212;
+                table1LData.heightHint = 59;
+                table1.setLayoutData(table1LData);
+                {
+                    tableColumnTitle = new TableColumn(table1, SWT.NONE);
+                    tableColumnTitle.setWidth(100);
+                }
+                {
+                    tableColumnAmount = new TableColumn(table1, SWT.RIGHT);
+                    tableColumnAmount.setText("Amount");
+                    tableColumnAmount.setWidth(100);
+                }
+                {
+                    tableItemDept = new TableItem(table1, SWT.NONE);
+                    tableItemDept.setText("Borç");
+                }
+                {
+                    tableItemCredit = new TableItem(table1, SWT.NONE);
+                    tableItemCredit.setText("Alacak");
+                }
+                {
+                    tableItemSpace = new TableItem(table1, SWT.NONE);
+                }
+                {
+                    tableItemBalance = new TableItem(table1, SWT.NONE);
+                    tableItemBalance.setText("Bakiye");
+                }
+            }
 			thisLayout.numColumns = 4;
 			tableTransactionColumns.setEnabled(true);
 			this.layout();	
@@ -433,6 +434,22 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			}
 		});
   
+		 rowList.addChangeListener(new ITableRowListViewer(){
+		 public void updateRow(ITableRow row){
+		     calculateTotalDeptAndCredit();
+		     
+		 }
+		 public void removeRow(ITableRow row){
+		     calculateTotalDeptAndCredit();
+		     
+		 }
+		 public void addRow(ITableRow row){
+		     calculateTotalDeptAndCredit();
+		     
+		 }
+		 
+		 
+		 });
 	
 	}
 	
@@ -563,6 +580,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	}
 	
 	void calculateTotalDeptAndCredit(){
+	    TurquazDecimalFormat df = new TurquazDecimalFormat();
 	TableItem items[] = tableTransactionColumns.getItems();
     totalCredit=new BigDecimal(0);
     totalDept =new BigDecimal(0);
@@ -575,8 +593,11 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 		}
     
 		}
-    lblTotalDeptAmount.setText(totalDept.toString());
-    lblTotalCreditAmount.setText(totalCredit.toString());
+	
+	tableItemDept.setText(new String[]{"Borç",df.format(totalDept)});
+	tableItemCredit.setText(new String[]{"Alacak",df.format(totalCredit)});
+	tableItemBalance.setText(new String[]{"Bakiye",df.format(totalCredit.subtract(totalDept))});
+	
 	
 	}
 	
