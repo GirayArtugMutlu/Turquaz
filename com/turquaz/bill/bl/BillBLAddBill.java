@@ -18,6 +18,7 @@ import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillConsignmentCommon;
@@ -153,7 +154,7 @@ public class BillBLAddBill {
 			 */
 			bill.setTurqEngineSequence(seqDocId);
 
-			dalBill.save(bill);
+			EngDALCommon.saveObject(bill);
 
 			saveCurrentTransaction(bill);
 			saveAccountingTransaction(bill, cashAccount);
@@ -478,7 +479,7 @@ public class BillBLAddBill {
 			cardGroup.setLastModified(cal.getTime());
 			cardGroup.setCreationDate(cal.getTime());
 
-			dalBill.save(cardGroup);
+			EngDALCommon.saveObject(cardGroup);
 
 		} catch (Exception ex) {
 			throw ex;

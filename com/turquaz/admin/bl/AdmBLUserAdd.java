@@ -56,7 +56,7 @@ public class AdmBLUserAdd {
 		    user.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
 			user.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			dalAdmin.saveObject(user);
+			EngDALCommon.saveObject(user);
 			
 			return user.getId();
 			
@@ -82,7 +82,7 @@ public class AdmBLUserAdd {
 		    usergroup.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
 			usergroup.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			dalAdmin.saveObject(usergroup);
+			EngDALCommon.saveObject(usergroup);
 			
 		}
 		catch(Exception ex){

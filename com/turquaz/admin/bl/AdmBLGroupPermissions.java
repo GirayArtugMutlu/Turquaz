@@ -25,6 +25,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.turquaz.admin.dal.AdmDALUserPermissions;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALUserPerms;
 import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.dal.TurqGroupPermission;
@@ -100,7 +101,7 @@ public class AdmBLGroupPermissions {
 				groupPerm.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
 				groupPerm.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 				
-				dalAdminGroupPerms.saveObject(groupPerm);
+				EngDALCommon.saveObject(groupPerm);
 				
 				
 			}
@@ -108,10 +109,11 @@ public class AdmBLGroupPermissions {
 				throw ex;
 			}
 		}
+		
 		public void deleteObject(Object obj)throws Exception {
 			try{
 				
-				dalAdminGroupPerms.deleteObject(obj);			
+				EngDALCommon.deleteObject(obj);			
 				
 			}
 			catch(Exception ex){

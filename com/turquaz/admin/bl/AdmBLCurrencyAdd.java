@@ -8,7 +8,7 @@ package com.turquaz.admin.bl;
 
 import java.util.Calendar;
 
-import com.turquaz.admin.dal.AdmDALCurrencyAdd;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 
 /**
@@ -34,7 +34,7 @@ public class AdmBLCurrencyAdd {
 		newCurrency.setLastModified(new java.sql.Date( cal.getTime().getTime()));
 		newCurrency.setCreationDate(new java.sql.Date( cal.getTime().getTime()));
 		
-		AdmDALCurrencyAdd.saveObject(newCurrency);
+		EngDALCommon.saveObject(newCurrency);
 	}
 
 }

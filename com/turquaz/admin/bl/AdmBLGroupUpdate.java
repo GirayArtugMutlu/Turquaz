@@ -25,6 +25,7 @@ package com.turquaz.admin.bl;
 import java.util.Calendar;
 
 import com.turquaz.admin.dal.AdmDALGroupUpdate;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqGroup;
 
 public class AdmBLGroupUpdate {
@@ -42,7 +43,7 @@ public class AdmBLGroupUpdate {
 			group.setUpdateDate(cal.getTime());
 			group.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			
-			dalAdmin.updateObject(group);
+			EngDALCommon.updateObject(group);
 				
 		}
 		catch(Exception ex){
@@ -53,7 +54,7 @@ public class AdmBLGroupUpdate {
 	public void deleteObject(Object obj)throws Exception{
 		try{
 		 
-			dalAdmin.deleteObject(obj);
+			EngDALCommon.deleteObject(obj);
 				
 		}
 		catch(Exception ex){

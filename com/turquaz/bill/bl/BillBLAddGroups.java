@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.turquaz.bill.dal.BillDALAddGroups;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqBillGroup;
 
 public class BillBLAddGroups {
@@ -36,7 +37,7 @@ public class BillBLAddGroups {
 		group.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 		group.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 		
-		dalAddGroups.save(group);	
+		EngDALCommon.saveObject(group);	
 			
 		}
 		catch(Exception ex){
@@ -53,7 +54,7 @@ public class BillBLAddGroups {
 		group.setUpdatedBy(System.getProperty("user"));
 		group.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 	
-		dalAddGroups.update(group);	
+		EngDALCommon.updateObject(group);	
 			
 		}
 		catch(Exception ex){
@@ -65,7 +66,7 @@ public class BillBLAddGroups {
 		try{
 
 	
-		dalAddGroups.delete(group);	
+			EngDALCommon.deleteObject(group);	
 
 		
 		}

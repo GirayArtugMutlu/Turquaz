@@ -22,37 +22,12 @@ package com.turquaz.admin.dal;
 * @version  $Id$
 */
 
-import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
-
-import com.turquaz.engine.dal.EngDALSessionFactory;
 
 public class AdmDALUserAdd {
 	
 	public AdmDALUserAdd(){
 		
 	}
-	public void saveObject(Object obj)throws Exception {
-		try{
-				
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-			
-			session.save(obj);
-			session.flush();
-			tx.commit();
-			session.close();
-				
-				
-		}
-		catch(Exception ex){
 		
-			throw ex; 
-		
-		}
-	}
-	
-			
-			
 
 }

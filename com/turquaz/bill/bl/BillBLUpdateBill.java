@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.turquaz.bill.dal.BillDALUpdateBill;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
@@ -61,7 +62,7 @@ public class BillBLUpdateBill {
 		deleteAccountingTransactions(bill);
 		deleteCurrentTransactions(bill);
 		deleteBillGroups(bill);
-		BillDALUpdateBill.deleteObject(bill);		
+		EngDALCommon.deleteObject(bill);		
 	}
 	
 	/**
@@ -131,7 +132,7 @@ public class BillBLUpdateBill {
 		
 		Calendar cal=Calendar.getInstance();
 		bill.setLastModified(cal.getTime());
-		BillDALUpdateBill.updateObject(bill);
+		EngDALCommon.updateObject(bill);
 		
 	}
 	
@@ -165,14 +166,14 @@ public class BillBLUpdateBill {
 		Iterator it = bill.getTurqBillInGroups().iterator();		    
 		while(it.hasNext())
 		{	
-			BillDALUpdateBill.deleteObject(it.next());		
+			EngDALCommon.deleteObject(it.next());		
 		}	
 	}
 	
 	public void deleteObject(Object obj) throws Exception {
 		try {
 
-			BillDALUpdateBill.deleteObject(obj);
+			EngDALCommon.deleteObject(obj);
 
 		} catch (Exception ex) {
 			throw ex;

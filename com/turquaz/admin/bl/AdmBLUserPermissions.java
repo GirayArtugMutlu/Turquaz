@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.turquaz.admin.dal.AdmDALUserPermissions;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALUserPerms;
 import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.dal.TurqModuleComponent;
@@ -56,7 +57,7 @@ public class AdmBLUserPermissions {
 			userPerm.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
 			userPerm.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			dalAdminUserPerms.saveObject(userPerm);
+			EngDALCommon.saveObject(userPerm);
 			
 			
 		}
@@ -67,7 +68,7 @@ public class AdmBLUserPermissions {
 	public void deleteObject(Object obj)throws Exception {
 		try{
 			
-			dalAdminUserPerms.deleteObject(obj);			
+			EngDALCommon.deleteObject(obj);			
 			
 		}
 		catch(Exception ex){

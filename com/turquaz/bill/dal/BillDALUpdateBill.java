@@ -25,34 +25,6 @@ public class BillDALUpdateBill {
 	public BillDALUpdateBill(){
 		
 	}
-	public void save(Object obj)throws Exception{
-		try{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
-		session.save(obj);
-		session.flush();
-		tx.commit();
-		session.close();
-		
-		}
-		catch(Exception ex){
-			throw ex;
-		}
-	}
-	public static void updateObject(Object obj)throws Exception{
-		try{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
-		session.update(obj);
-		session.flush();
-		tx.commit();
-		session.close();
-		
-		}
-		catch(Exception ex){
-			throw ex;
-		}
-	}
 	
 	public static void deleteAccountingTransactions(int seq_id)throws Exception{
 		try{
@@ -139,20 +111,6 @@ public class BillDALUpdateBill {
 	 
 	}
 	
-	public static void deleteObject(Object obj)throws Exception{
-		try{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-			session.delete(obj);
-			session.flush();
-			tx.commit();
-			session.close();
-			
-			}
-			catch(Exception ex){
-				throw ex;
-			}
-		
-	}
+	
 
 }

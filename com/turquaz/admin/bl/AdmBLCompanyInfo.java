@@ -4,6 +4,7 @@ package com.turquaz.admin.bl;
 import java.util.Calendar;
 
 import com.turquaz.admin.dal.AdmDALCompanyInfo;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCompany;
 
 
@@ -31,7 +32,7 @@ Calendar cal = Calendar.getInstance();
 			company.setUpdateDate(cal.getTime());
 			company.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			
-            dalAdmin.updateObject(company);
+           EngDALCommon.updateObject(company);
             
             
             
