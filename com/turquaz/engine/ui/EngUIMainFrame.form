@@ -516,6 +516,19 @@
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
 																			</Component>
+																			<Component class="com.turquaz.accounting.ui.comp.AccUITree" name="treeAccounting" style="0">
+																				<Constraints>
+																					<LayoutConstraint/>
+																				</Constraints>
+																				<Events>
+																					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="treeAccountingMouseDoubleClick"/>
+																				</Events>
+																				<Properties>
+																					<Property name="bounds" type="Rectangle">
+																						<Rectangle value="[0, 0, 230, 263]"/>
+																					</Property>
+																				</Properties>
+																			</Component>
 																		</SubComponents>
 																	</Component>
 																</SubComponents>
@@ -742,8 +755,6 @@
 															<Property name="visible" type="boolean" value="true"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>
 															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
-															<Property name="externalizeStrings" type="boolean" value="false"/>
 														</Properties>
 														<SubComponents>
 															<Component class="org.eclipse.swt.widgets.CoolItem" name="coolRightMain" style="0">
@@ -754,17 +765,15 @@
 																</Events>
 																<Properties>
 																	<Property name="size" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[44, 22]"/>
 																	</Property>
 																	<Property name="preferredSize" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[44, 22]"/>
 																	</Property>
 																	<Property name="minimumSize" type="Dimension">
-																		<Dimension value="[92, 22]"/>
+																		<Dimension value="[44, 22]"/>
 																	</Property>
 																	<Property name="text" type="String" value="coolItem3"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
-																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
 																</Properties>
@@ -787,8 +796,6 @@
 																			<Property name="visible" type="boolean" value="true"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
-																			<Property name="externalizeStrings" type="boolean" value="false"/>
 																		</Properties>
 																		<SubComponents>
 																			<Component class="org.eclipse.swt.widgets.ToolItem" name="toolNew" style="8">
@@ -800,11 +807,10 @@
 																				</Events>
 																				<Properties>
 																					<Property name="enabled" type="boolean" value="true"/>
-																					<Property name="ımage" type="Image">
+																					<Property name="image" type="Image">
 																						<Image name="\icons\new_wiz.gif"/>
 																					</Property>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
+																					<Property name="selection" type="boolean" value="true"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -818,11 +824,9 @@
 																				</Events>
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
-																					<Property name="ımage" type="Image">
+																					<Property name="image" type="Image">
 																						<Image name="\icons\save.gif"/>
 																					</Property>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -836,11 +840,9 @@
 																				</Events>
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
-																					<Property name="ımage" type="Image">
+																					<Property name="image" type="Image">
 																						<Image name="\icons\delete_edit.gif"/>
 																					</Property>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -854,11 +856,9 @@
 																				</Events>
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
-																					<Property name="ımage" type="Image">
+																					<Property name="image" type="Image">
 																						<Image name="\icons\run_exec.gif"/>
 																					</Property>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
-																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																				</Properties>
@@ -893,7 +893,7 @@
 														<Layout class="Absolute">
 														</Layout>
 														<Events>
-															<EventHandler event="itemClosed" listener="org.eclipse.swt.custom.CTabFolderListener" handler="tabfldMainİtemClosed"/>
+															<EventHandler event="itemClosed" listener="org.eclipse.swt.custom.CTabFolderListener" handler="tabfldMainItemClosed"/>
 															<EventHandler event="widgetDefaultSelected" listener="org.eclipse.swt.events.SelectionListener" handler="tabfldMainWidgetDefaultSelected"/>
 															<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="tabfldMainWidgetSelected"/>
 														</Events>

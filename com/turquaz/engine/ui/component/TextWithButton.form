@@ -54,8 +54,12 @@
 					<Property name="size" type="Dimension">
 						<Dimension value="[246, 32]"/>
 					</Property>
+					<Property name="enabled" type="boolean" value="false"/>
 					<Property name="bounds" type="Rectangle">
 						<Rectangle value="[0, 0, 246, 32]"/>
+					</Property>
+					<Property name="background" type="Color">
+						<Color red="ff" green="ff" blue="ff"/>
 					</Property>
 				</Properties>
 			</Component>

@@ -64,6 +64,7 @@ import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUITree;
 import com.turquaz.admin.ui.comp.AdmUITree;
+import com.turquaz.accounting.ui.comp.AccUITree;
 import com.turquaz.inventory.ui.InvUITransactionAdd;
 
 /**
@@ -85,6 +86,7 @@ import com.turquaz.inventory.ui.InvUITransactionAdd;
 
 
 public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
+	private AccUITree treeAccounting;
 	private CTabFolder tabfldMain;
 	private ToolItem toolSearch;
 	private ToolItem toolDelete;
@@ -156,6 +158,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesTree = new Composite(compModulesTab,SWT.NULL);
 			treeInventory = new InvUITree(compModulesTree,SWT.NULL);
 			treeAdmin = new AdmUITree(compModulesTree,SWT.NULL);
+			treeAccounting = new AccUITree(compModulesTree,SWT.NULL);
 			tabFavorites = new CTabItem(tabfldMenu,SWT.NULL);
 			compFavoritesTab = new Composite(tabfldMenu,SWT.NULL);
 			compFavoritesSelection = new Composite(compFavoritesTab,SWT.NULL);
@@ -317,6 +320,12 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 					treeAdminMouseDoubleClick(evt);
 				}
 			});
+	
+			treeAccounting.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					treeAccountingMouseDoubleClick(evt);
+				}
+			});
 			StackLayout compModulesTreeLayout = new StackLayout();
 			compModulesTree.setLayout(compModulesTreeLayout);
 			compModulesTreeLayout.marginWidth = 0;
@@ -428,40 +437,41 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			coolbarRightTop.setSize(new org.eclipse.swt.graphics.Point(232,24));
 	
 			coolRightMain.setControl(toolbarMainTop);
-			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(92,22));
-			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(92,22));
-			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(92,22));
+			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(44,22));
+			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(44,22));
+			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(44,22));
 			coolRightMain.setText("coolItem3");
 	
 			toolbarMainTop.setLocation(new org.eclipse.swt.graphics.Point(20,0));
 	
 			toolNew.setEnabled(true);
-			final org.eclipse.swt.graphics.Image toolNewýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/new_wiz.gif"));
-			toolNew.setImage(toolNewýmage);
+			final org.eclipse.swt.graphics.Image toolNewimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/new_wiz.gif"));
+			toolNew.setImage(toolNewimage);
+			toolNew.setSelection(true);
 			toolNew.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolNewWidgetSelected(evt);
 				}
 			});
 	
-			final org.eclipse.swt.graphics.Image toolSaveýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save.gif"));
-			toolSave.setImage(toolSaveýmage);
+			final org.eclipse.swt.graphics.Image toolSaveimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save.gif"));
+			toolSave.setImage(toolSaveimage);
 			toolSave.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolSaveWidgetSelected(evt);
 				}
 			});
 	
-			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			toolDelete.setImage(toolDeleteýmage);
+			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setImage(toolDeleteimage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
 				}
 			});
 	
-			final org.eclipse.swt.graphics.Image toolSearchýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/run_exec.gif"));
-			toolSearch.setImage(toolSearchýmage);
+			final org.eclipse.swt.graphics.Image toolSearchimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/run_exec.gif"));
+			toolSearch.setImage(toolSearchimage);
 			toolSearch.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolSearchWidgetSelected(evt);
@@ -484,7 +494,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(226,276));
 			tabfldMain.addCTabFolderListener( new CTabFolderAdapter() {
 				public void itemClosed(CTabFolderEvent evt) {
-					tabfldMainÝtemClosed(evt);
+					tabfldMainItemClosed(evt);
 				}
 			});
 			tabfldMain.addSelectionListener( new SelectionAdapter() {
@@ -550,10 +560,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
 					comboModuleSelectionbackground.dispose();
-					toolNewýmage.dispose();
-					toolSaveýmage.dispose();
-					toolDeleteýmage.dispose();
-					toolSearchýmage.dispose();
+					toolNewimage.dispose();
+					toolSaveimage.dispose();
+					toolDeleteimage.dispose();
+					toolSearchimage.dispose();
 				}
 			});
 	
@@ -578,6 +588,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	    
 	    comboModuleSelection.add("Stok");
 		comboModuleSelection.add("Yönetici");
+		comboModuleSelection.add("Accounting");
 		
 			
 		tabfldMain.setTabHeight(25);
@@ -612,7 +623,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	* However, if you delete this method it will not be re-created.	*/
 	public static void showGUI(){
 		try {
-			
 			Display display = Display.getDefault();
 			Shell shell = new Shell(display);
 			EngUIMainFrame inst = new EngUIMainFrame(shell, SWT.NULL);
@@ -644,6 +654,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			   else if(text.equals("Yönetici")){
 				compo4layout.topControl = treeAdmin;
 	
+			   }
+			   else if(text.equals("Accounting"))
+			   {
+			   	compo4layout.topControl = treeAccounting;
 			   }
 			   compModulesTree.layout();
 	}
@@ -693,7 +707,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 
 	/** Auto-generated event handler method */
-	protected void cTabFolder3ÝtemClosed(CTabFolderEvent evt){
+	protected void cTabFolder3ItemClosed(CTabFolderEvent evt){
 		 if(tabfldMain.getItemCount()==1){
 			toolNew.setEnabled(false);
 			toolSave.setEnabled(false);
@@ -792,7 +806,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	}
 
 	/** Auto-generated event handler method */
-	protected void tabfldMainÝtemClosed(CTabFolderEvent evt){
+	protected void tabfldMainItemClosed(CTabFolderEvent evt){
 		if(tabfldMain.getItemCount()==1){
 			toolNew.setEnabled(false);
 			toolSave.setEnabled(false);
@@ -851,5 +865,19 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		} catch (java.util.MissingResourceException e) {
 			return '!' + key + '!';
 		}
+	}
+
+	/** Auto-generated event handler method */
+	
+
+	/** Auto-generated event handler method */
+	
+
+	/** Auto-generated event handler method */
+	protected void treeAccountingMouseDoubleClick(MouseEvent evt){
+			TreeItem item = treeAccounting.getSelection()[0];
+		if(item.getItemCount()==0){
+			Form_Ekle(item.getText(),item.getData().toString());
+			}
 	}
 }

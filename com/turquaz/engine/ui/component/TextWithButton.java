@@ -4,11 +4,15 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.SWT;
 
 /**
@@ -53,6 +57,9 @@ public class TextWithButton extends org.eclipse.swt.widgets.Composite {
 			text1LData.grabExcessVerticalSpace = true;
 			text1.setLayoutData(text1LData);
 			text1.setSize(new org.eclipse.swt.graphics.Point(240,32));
+			text1.setEnabled(false);
+			final Color text1background = new Color(Display.getDefault(),255,255,255);
+			text1.setBackground(text1background);
 	
 			GridData button1LData = new GridData();
 			button1LData.verticalAlignment = GridData.FILL;
@@ -76,6 +83,11 @@ public class TextWithButton extends org.eclipse.swt.widgets.Composite {
 			thisLayout.horizontalSpacing = 0;
 			thisLayout.verticalSpacing = 0;
 			this.layout();
+			addDisposeListener(new DisposeListener() {
+				public void widgetDisposed(DisposeEvent e) {
+					text1background.dispose();
+				}
+			});
 	
 			postInitGUI();
 		} catch (Exception e) {
@@ -96,12 +108,7 @@ public class TextWithButton extends org.eclipse.swt.widgets.Composite {
 		     onFocusIn();
 		    }
 		   });
-		   addListener(SWT.MouseUp,new Listener(){
-		   	public void handleEvent(Event e){
-		   		onMouseUp();
-		   }
-		   } );
-		   
+		 
 		
 	}
     
@@ -109,9 +116,10 @@ public class TextWithButton extends org.eclipse.swt.widgets.Composite {
 		button1.addMouseListener(adapter);
 		
 	}
+	
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
-		
+		text1.setEnabled(false);
 		
 		
 	}
