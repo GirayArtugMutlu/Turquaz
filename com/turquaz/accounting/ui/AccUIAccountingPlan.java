@@ -22,14 +22,19 @@ package com.turquaz.accounting.ui;
 
 
 
+import java.text.Collator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.layout.GridData;
@@ -45,6 +50,8 @@ import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.component.TableSorter;
+
 
 
 
@@ -142,12 +149,22 @@ SearchComposite{
 	tableTreeAccountingPlan.getTable().setLinesVisible(true);
 	tableTreeAccountingPlan.getTable().setHeaderVisible(true);
 
-   TableColumn col = new TableColumn(tableTreeAccountingPlan.getTable(),SWT.LEFT);
+  final TableColumn col = new TableColumn(tableTreeAccountingPlan.getTable(),SWT.LEFT);
    col.setText(Messages.getString("AccUIAccountingPlan.0")); //$NON-NLS-1$
    col.setWidth(200);
-   col = new TableColumn(tableTreeAccountingPlan.getTable(),SWT.LEFT);
-   col.setText(Messages.getString("AccUIAccountingPlan.1")); //$NON-NLS-1$
-   col.setWidth(200);
+   col.addListener(SWT.Selection, new Listener() {
+    public void handleEvent(Event e) {
+    	TableSorter.sortTable(tableTreeAccountingPlan.getTable(),col);        
+    }
+});
+  final TableColumn col2 = new TableColumn(tableTreeAccountingPlan.getTable(),SWT.LEFT);
+   col2.setText(Messages.getString("AccUIAccountingPlan.1")); //$NON-NLS-1$
+   col2.setWidth(200);
+   col2.addListener(SWT.Selection, new Listener() {
+    public void handleEvent(Event e) {
+    	TableSorter.sortTable(tableTreeAccountingPlan.getTable(),col2);        
+    }
+});
    
    fillTree(-1,""); //$NON-NLS-1$
 	

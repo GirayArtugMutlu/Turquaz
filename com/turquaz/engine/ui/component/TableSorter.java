@@ -3,11 +3,11 @@ package com.turquaz.engine.ui.component;
 
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.text.Collator;
 
+import java.util.Locale;
+
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -20,63 +20,27 @@ import org.eclipse.swt.widgets.TableItem;
  */
 public class TableSorter {
 	
-	public static void sortTable(Table sortableTable, TableColumn tableColumn, boolean isAscending ){
-		if (tableColumn == null)
-		      return;
-
-		    String sColumnName = tableColumn.getText();
-     	    List columnCellList = getColumnCells(sortableTable, tableColumn);
-     	    
-     	    TableItem items[] = sortableTable.getItems();
-            TableItem itemsOriginal[] =(TableItem[])items.clone();
-            
-     	    TableCell[] cells = (TableCell[])columnCellList.toArray();
-		     
-		    if (isAscending)
-		      Arrays.sort(cells);
-		    else
-		      Arrays.sort(cells, Collections.reverseOrder());
-
-		/* Flicker
-		    for (int i = 0; i < cells.length; i++)
-		      cells[i].getTableRowCore().setIndex(i);
-		*/
-
-		    /**
-		     * for (int i = 0; i < cells.length; i++) {
-		      if (cells[i] != cellsOriginal[i]) {
-		        TableRowCore row = cells[i].getTableRowCore();
-		        ((BufferedTableRow)row).setTableItem(tableItems[i], false);
-		        ((BufferedTableRow)row).setSelected(bWasSelected);
-		        tableItems[i].setData("TableRow", row);
-		        row.setValid(false);
-		        row.refresh(true);
-		      }
-		    }
-		
-		     */
-		    
-	}
- protected static List getColumnCells(Table table, TableColumn tableColumn){
- 	
-    ArrayList l = new ArrayList();
-    int columnIndex = getColumnIndex(table,tableColumn);
-    TableCell cell = new TableCell();
-    if (table != null && !table.isDisposed()&&columnIndex!=-1) {
-      TableItem tis[]= table.getItems();
-      for (int i = 0; i < tis.length; i++) {
-         String cellText =tis[i].getText(columnIndex);
-         
-        if (cellText != null){
-            cell = new TableCell();
-            cell.setCellText(cellText);
-            cell.setItem(tis[i]);
-        	l.add(cell);
+public static void sortTable(Table table, TableColumn column){
+//	 sort column 2
+    TableItem[] items = table.getItems();
+    Collator collator = Collator.getInstance(Locale.getDefault());
+    int col_index = getColumnIndex(table,column);
+    for (int i = 1; i < items.length; i++) {
+        String value1 = items[i].getText(col_index);
+        for (int j = 0; j < i; j++){
+            String value2 = items[j].getText(col_index);
+            if (collator.compare(value1, value2) < 0) {
+                String[] values = {items[i].getText(0), items[i].getText(1)};
+                items[i].dispose();
+                TableItem item = new TableItem(table, SWT.NONE, j);
+                item.setText(values);
+                items = table.getItems();
+                break;
+            }
         }
-      }
     }
-    return l;
- }
+	
+}
  
  protected static int getColumnIndex(Table table, TableColumn tableColumn){
  	TableColumn columns[]= table.getColumns();
