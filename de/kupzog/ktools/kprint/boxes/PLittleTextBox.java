@@ -29,7 +29,7 @@ import org.eclipse.swt.graphics.*;
 
 
 /**
- * A printable text label. If you need page breaks within the
+ * A printable text info. If you need page breaks within the
  * text of a box, use PTextBox instead.
  * CAUTION: A PLittleTextBox with too much text for one entire page
  * causes the layout process to hang in an endless loop.

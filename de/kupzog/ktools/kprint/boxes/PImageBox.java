@@ -30,7 +30,7 @@ import de.kupzog.ktools.kprint.gui.PagePoint;
 
 
 /**
- * A printable Image label.
+ * A printable Image info.
  * @author Friederich Kupzog
  * For more details @see PDocument
  */

@@ -54,7 +54,7 @@ public class TurquazContentAssistProcessors implements
 
                 for (int i = 0; i < list.size(); i++) {
                     TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
-                    proposed.add(acc.getAccountCode());
+                    proposed.add(new Proposal(acc.getAccountCode(),acc.getAccountName()));
                 }
 
             }
@@ -63,7 +63,7 @@ public class TurquazContentAssistProcessors implements
 
                 for (int i = 0; i < list.size(); i++) {
                     TurqInventoryCard acc = (TurqInventoryCard)((Object[])list.get(i))[1];
-                    proposed.add(acc.getCardInventoryCode());
+                    proposed.add(new Proposal(acc.getCardInventoryCode(),acc.getCardName()));
                 }
 
             }
@@ -74,7 +74,7 @@ public class TurquazContentAssistProcessors implements
 
                 for (int i = 0; i < list.size(); i++) {
                     TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
-                    proposed.add(acc.getAccountCode());
+                    proposed.add(new Proposal(acc.getAccountCode(),acc.getAccountName()));
                 }
 
             }
@@ -84,11 +84,11 @@ public class TurquazContentAssistProcessors implements
 
                 for (int i = 0; i < list.size(); i++) {
                     TurqCurrentCard card = (TurqCurrentCard)((Object[]) list.get(i))[1];
-                    proposed.add(card.getCardsCurrentCode());
+                    proposed.add(new Proposal(card.getCardsCurrentCode(),card.getCardsName()));
                 }
 
             }
-            proposedCodes = new String[proposed.size()];
+            proposedCodes = new Proposal[proposed.size()];
             proposed.toArray(proposedCodes);
 
         } catch (Exception ex) {
@@ -179,7 +179,7 @@ public class TurquazContentAssistProcessors implements
     }
 
     //  Proposal part before cursor
-    private String[] proposedCodes;
+    private Proposal[] proposedCodes;
 
     private void computeStructureProposals(String qualifier,
             int documentOffset, List propList) {
@@ -187,7 +187,8 @@ public class TurquazContentAssistProcessors implements
 
         // Loop through all proposals
         for (int i = 0; i < proposedCodes.length; i++) {
-            String startTag = proposedCodes[i];
+            String startTag = proposedCodes[i].text;
+            String info = proposedCodes[i].info;
 
             String text = startTag;
             // Yes -- compute whole proposal text
@@ -199,7 +200,7 @@ public class TurquazContentAssistProcessors implements
                 // Construct proposal
 
                 CompletionProposal proposal = new CompletionProposal(text,
-                        documentOffset - qlen, qlen, cursor);
+                        documentOffset - qlen, qlen, cursor,null,text+" - "+info,null,null);
 
                 // and add to result list
                 propList.add(proposal);
@@ -215,7 +216,7 @@ public class TurquazContentAssistProcessors implements
      */
     public char[] getCompletionProposalAutoActivationCharacters() {
         // TODO Auto-generated method stub
-        return new char[] { '.', ',' };
+        return new char[] { '.', ',',' ' };
     }
 
     /*
@@ -262,6 +263,18 @@ public class TurquazContentAssistProcessors implements
 
     public IContextInformationValidator getContextInformationValidator() {
         return new ContextInformationValidator(this);
+    }
+    
+    class Proposal
+    {
+        String text ="";
+        String info ="";
+        public Proposal(String text,String label){
+            this.text = text;
+            this.info = label;
+            
+        }
+        
     }
 
 }

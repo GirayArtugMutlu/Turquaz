@@ -31,7 +31,7 @@ import de.kupzog.ktools.kprint.gui.PagePoint;
 
 
 /**
- * A printable text label that can occupy more than one page.
+ * A printable text info that can occupy more than one page.
  * If you are shure that the box will not be bigger than one
  * page, you can use PLittleTextBox to make the layout process
  * quicker.

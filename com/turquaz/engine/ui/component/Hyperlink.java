@@ -19,7 +19,7 @@ import org.eclipse.swt.events.*;
 
 
 /**
- * A hyperlink text label.
+ * A hyperlink text info.
  * <p>
  * This control displays a line of text (with an optional underline) which can
  * be clicked to send a Selection event. Colors for the text and underline in
