@@ -132,6 +132,7 @@ public class CurDALSearchTransaction
 		}
 	}
 
+
 	public static List getCurrentBalances(TurqCurrentCard curCard, TurqCurrentCard curCard2, Date endDate) throws Exception
 	{
 		try

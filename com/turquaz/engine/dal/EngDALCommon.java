@@ -2,6 +2,7 @@ package com.turquaz.engine.dal;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
@@ -167,4 +168,86 @@ public class EngDALCommon
 	{
 		session.save(obj);
 	}
+	
+	public static Integer getBankTransaction(TurqEngineSequence seq)throws Exception
+	{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			session.refresh(seq);
+			Hibernate.initialize(seq.getTurqBanksTransactionBills());
+			Iterator it = seq.getTurqBanksTransactionBills().iterator();
+			if(it.hasNext())
+			{
+				return ((TurqBanksTransactionBill)it.next()).getId();
+			}
+			
+			return null;
+			
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+	}
+	public static Integer getCheqeuTransaction(TurqEngineSequence seq)throws Exception
+	{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			session.refresh(seq);
+			Hibernate.initialize(seq.getTurqChequeRolls());
+			Iterator it = seq.getTurqChequeRolls().iterator();
+			if(it.hasNext())
+			{
+				return ((TurqChequeRoll)it.next()).getId();
+			}
+			
+			return null;
+			
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+	}
+	public static Integer getBill(TurqEngineSequence seq)throws Exception
+	{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			session.refresh(seq);
+			Hibernate.initialize(seq.getTurqBills());
+			Iterator it = seq.getTurqBills().iterator();
+			if(it.hasNext())
+			{
+				return ((TurqBill)it.next()).getId();
+			}
+			
+			return null;
+			
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+	}
+	public static Integer getCashTransaction(TurqEngineSequence seq)throws Exception
+	{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			session.refresh(seq);
+			Hibernate.initialize(seq.getTurqCashTransactions());
+			Iterator it = seq.getTurqCashTransactions().iterator();
+			if(it.hasNext())
+			{
+				return ((TurqCashTransaction)it.next()).getId();
+			}
+			
+			return null;
+			
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
 }

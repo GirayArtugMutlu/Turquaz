@@ -25,6 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.CLabel;
@@ -271,6 +272,45 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 			EngUICommon.showMessageBox(getShell(), ex.getMessage(), SWT.ICON_ERROR);
 		}
 	}
+	
+	public static boolean updateTransaction(Integer billId, Shell shell)throws Exception
+	{
+		
+		boolean isUpdated = false;
+		TurqBanksTransactionBill transBill = BankBLTransactionUpdate.initializeTransaction(billId);
+		if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
+		{
+			isUpdated = new BankUIMoneyTransferInUpdate(shell, SWT.NULL, transBill).open();
+		}
+		else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_SEND_MONEY)
+		{
+			isUpdated = new BankUIMoneyTransferOutUpdate(shell, SWT.NULL, transBill).open();
+		}
+		else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_CASH_DRAW)
+		{
+			isUpdated = new BankUICashFromBankUpdate(shell, SWT.NULL, transBill).open();
+		}
+		else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_CASH_DEPOSIT)
+		{
+			isUpdated = new BankUICashToBankUpdate(shell, SWT.NULL, transBill).open();
+		}
+		else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_OTHER_DEPOSIT)
+		{
+			isUpdated = new BankUIOtherTransInUpdate(shell, SWT.NULL, transBill).open();
+		}
+		else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_OTHER_DRAW)
+		{
+			isUpdated = new BankUIOtherTransOutUpdate(shell, SWT.NULL, transBill).open();
+		}
+		else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_BETWEEN_BANKS)
+		{
+			isUpdated = new BankUITransferBetweenAccountsUpdate(shell, SWT.NULL, transBill).open();
+		}
+		
+		return isUpdated;
+		
+		
+	}
 
 	public void tableMouseDoubleClick()
 	{
@@ -281,35 +321,8 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 			{
 				boolean isUpdated = false;
 				Integer billId=(Integer)((ITableRow) selection[0].getData()).getDBObject();
-				TurqBanksTransactionBill transBill = BankBLTransactionUpdate.initializeTransaction(billId);
-				if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
-				{
-					isUpdated = new BankUIMoneyTransferInUpdate(getShell(), SWT.NULL, transBill).open();
-				}
-				else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_SEND_MONEY)
-				{
-					isUpdated = new BankUIMoneyTransferOutUpdate(getShell(), SWT.NULL, transBill).open();
-				}
-				else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_CASH_DRAW)
-				{
-					isUpdated = new BankUICashFromBankUpdate(getShell(), SWT.NULL, transBill).open();
-				}
-				else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_CASH_DEPOSIT)
-				{
-					isUpdated = new BankUICashToBankUpdate(getShell(), SWT.NULL, transBill).open();
-				}
-				else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_OTHER_DEPOSIT)
-				{
-					isUpdated = new BankUIOtherTransInUpdate(getShell(), SWT.NULL, transBill).open();
-				}
-				else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_OTHER_DRAW)
-				{
-					isUpdated = new BankUIOtherTransOutUpdate(getShell(), SWT.NULL, transBill).open();
-				}
-				else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_BETWEEN_BANKS)
-				{
-					isUpdated = new BankUITransferBetweenAccountsUpdate(getShell(), SWT.NULL, transBill).open();
-				}
+				isUpdated = updateTransaction(billId,getShell());
+				
 				if (isUpdated)
 				{
 					search();

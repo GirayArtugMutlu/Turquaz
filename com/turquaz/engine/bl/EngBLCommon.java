@@ -39,6 +39,7 @@ import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
+import com.turquaz.inventory.dal.InvDALCardSearch;
 
 public class EngBLCommon
 {
@@ -444,26 +445,23 @@ public class EngBLCommon
 		Transaction tx = null;
 		try
 		{
-			/*
-			 * List ls = InvDALCardSearch.getInventoryCardsAndAccounts(); Session session = EngDALSessionFactory.openSession(); tx =
-			 * session.beginTransaction(); Statement stmt = session.connection().createStatement(); String query = ""; //$NON-NLS-1$ int
-			 * i=0; int key=0; for (i = 0; i < ls.size(); i++) { Object results[]=(Object[])ls.get(i); //ACCOUNT BUY query = "insert into
-			 * turq_inventory_accounting_accounts values(" //$NON-NLS-1$ +key +","+results[0] //$NON-NLS-1$ +","+results[1]//$NON-NLS-1$
-			 * +","+0+",'admin','2005-01-01','admin','2005-01-01')"; //$NON-NLS-1$ //$NON-NLS-2$ stmt.execute(query); key++; //ACCOUNT
-			 * SELL query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$ +key +","+results[0] //$NON-NLS-1$
-			 * +","+results[2] //$NON-NLS-1$ +","+1+",'admin','2005-01-01','admin','2005-01-01')"; //$NON-NLS-1$ //$NON-NLS-2$
-			 * stmt.execute(query); key++; //BUY VAT query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$ +key
-			 * +","+results[0]//$NON-NLS-1$ +","+results[3] //$NON-NLS-1$ +","+2+",'admin','2005-01-01','admin','2005-01-01')";
-			 * //$NON-NLS-1$ //$NON-NLS-2$ stmt.execute(query); key++; //SELL VAT query = "insert into turq_inventory_accounting_accounts
-			 * values(" //$NON-NLS-1$ +key +","+results[0] //$NON-NLS-1$ +","+results[4]//$NON-NLS-1$
-			 * +","+3+",'admin','2005-01-01','admin','2005-01-01')"; //$NON-NLS-1$ //$NON-NLS-2$ stmt.execute(query); key++; //BUY
-			 * SPECIAL VAT query = "insert into turq_inventory_accounting_accounts values(" //$NON-NLS-1$ +key +","+results[0]
-			 * //$NON-NLS-1$ +","+results[5] //$NON-NLS-1$ +","+4+",'admin','2005-01-01','admin','2005-01-01')"; //$NON-NLS-1$
-			 * //$NON-NLS-2$ stmt.execute(query); key++; //SELL SPECIAL VAT query = "insert into turq_inventory_accounting_accounts
-			 * values(" //$NON-NLS-1$ +key +","+results[0] //$NON-NLS-1$ +","+results[6]//$NON-NLS-1$
-			 * +","+5+",'admin','2005-01-01','admin','2005-01-01')"; //$NON-NLS-1$ //$NON-NLS-2$ stmt.execute(query); key++; }
-			 * tx.commit(); session.flush(); session.close();
-			 */
+			
+			  List ls = InvDALCardSearch.getInventoryCardsAndAccounts(); Session session = EngDALSessionFactory.openSession(); tx =
+			  session.beginTransaction(); Statement stmt = session.connection().createStatement(); String query = "";  int
+			  i=0; int key=0; for (i = 0; i < ls.size(); i++) { Object results[]=(Object[])ls.get(i); query = "insert into turq_inventory_accounting_accounts values(" +key +","+results[0] +","+results[1]
+			  +","+0+",'admin','2005-01-01','admin','2005-01-01')";  stmt.execute(query); key++; 
+			   query = "insert into turq_inventory_accounting_accounts values(" +key +","+results[0] 
+			  +","+results[2]  +","+1+",'admin','2005-01-01','admin','2005-01-01')"; 
+			  stmt.execute(query); key++; query = "insert into turq_inventory_accounting_accounts values("+key
+			  +","+results[0] +","+results[3]  +","+2+",'admin','2005-01-01','admin','2005-01-01')";
+			  stmt.execute(query); key++; query = "insert into turq_inventory_accounting_accounts values(" +key +","+results[0] +","+results[4]
+			  +","+3+",'admin','2005-01-01','admin','2005-01-01')"; stmt.execute(query); key++; 
+			 query = "insert into turq_inventory_accounting_accounts values("  +key +","+results[0]
+			   +","+results[5]  +","+4+",'admin','2005-01-01','admin','2005-01-01')"; 
+			   stmt.execute(query); key++; query = "insert into turq_inventory_accounting_accounts  values(" +key +","+results[0]  +","+results[6]
+			  +","+5+",'admin','2005-01-01','admin','2005-01-01')";  stmt.execute(query); key++; }
+			  tx.commit(); session.flush(); session.close();
+			 
 		}
 		catch (Exception ex)
 		{

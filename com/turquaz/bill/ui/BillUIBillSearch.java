@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.bill.Messages;
@@ -299,7 +300,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	{
 	}
 
-	public void initializeBill(TurqBill bill)
+	public static void initializeBill(TurqBill bill)
 	{
 		try
 		{
@@ -407,6 +408,21 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		EngBLUtils.Export2Excel(tableBills);
 	}
 
+	
+	public static boolean updateBill(Integer billId, Shell shell)throws Exception{
+		
+		if (billId != null)
+		{
+			TurqBill bill = BillBLSearchBill.getBillByBillId(billId);
+			initializeBill(bill);
+			boolean updated = new BillUIBillUpdateDialog(shell, SWT.NULL, bill).open();
+			if (updated)
+				return true;
+		}
+		return false;
+		
+		
+	}
 	public void tableMouseDoubleClick()
 	{
 		try
@@ -415,14 +431,9 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 			if (items.length > 0)
 			{
 				Integer billId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
-				if (billId != null)
-				{
-					TurqBill bill = BillBLSearchBill.getBillByBillId(billId);
-					initializeBill(bill);
-					boolean updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill).open();
-					if (updated)
-						search();
-				}
+				boolean updated = updateBill(billId,getShell());
+				if (updated)
+					search();
 			}
 		}
 		catch (Exception ex)

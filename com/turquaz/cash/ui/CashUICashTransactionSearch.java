@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.cash.Messages;
@@ -271,6 +272,41 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 		}
 	}
 
+	public static boolean updateCashTransaction(Integer transId,Shell shell)throws Exception
+	{
+		
+		TurqCashTransaction cashTrans = CashBLCashTransactionSearch.initializeCashTransaction(transId);
+		if (cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue() != EngBLCommon.MODULE_CASH)
+		{
+			EngUICommon.showMessageBox(shell, Messages.getString("CashUICashTransactionSearch.7")); //$NON-NLS-1$
+			return false;
+		}
+		boolean updated = false;
+		if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_CURRENT_COLLECT)
+		{
+			updated = new CashUICashCollectTransactionUpdate(shell, SWT.NULL, cashTrans).open();
+		}
+		else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_CURRENT_PAYMENT)
+		{
+			updated = new CashUICashPaymentTransactionUpdate(shell, SWT.NULL, cashTrans).open();
+		}
+		else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_OTHER_COLLECT)
+		{
+			updated = new CashUICashOtherCollectTransactionUpdate(shell, SWT.NULL, cashTrans).open();
+		}
+		else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_OTHER_PAYMENT)
+		{
+			updated = new CashUICashOtherPaymentTransactionUpdate(shell, SWT.NULL, cashTrans).open();
+		}
+		else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_TRANSFER_BETWEEN_CARDS)
+		{
+			updated = new CashUICashTransferBetweenCardsUpdate(shell, SWT.NULL, cashTrans).open();
+		}
+		
+		return updated;
+		
+	}
+	
 	public void tableMouseDoubleClick()
 	{
 		try
@@ -280,33 +316,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 			{
 				TableItem item = selection[0];
 				Integer id = (Integer) ((ITableRow)item.getData()).getDBObject();
-				TurqCashTransaction cashTrans = CashBLCashTransactionSearch.initializeCashTransaction(id);
-				if (cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue() != EngBLCommon.MODULE_CASH)
-				{
-					EngUICommon.showMessageBox(this.getShell(), Messages.getString("CashUICashTransactionSearch.7")); //$NON-NLS-1$
-					return;
-				}
-				boolean updated = false;
-				if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_CURRENT_COLLECT)
-				{
-					updated = new CashUICashCollectTransactionUpdate(this.getShell(), SWT.NULL, cashTrans).open();
-				}
-				else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_CURRENT_PAYMENT)
-				{
-					updated = new CashUICashPaymentTransactionUpdate(this.getShell(), SWT.NULL, cashTrans).open();
-				}
-				else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_OTHER_COLLECT)
-				{
-					updated = new CashUICashOtherCollectTransactionUpdate(this.getShell(), SWT.NULL, cashTrans).open();
-				}
-				else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_OTHER_PAYMENT)
-				{
-					updated = new CashUICashOtherPaymentTransactionUpdate(this.getShell(), SWT.NULL, cashTrans).open();
-				}
-				else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_TRANSFER_BETWEEN_CARDS)
-				{
-					updated = new CashUICashTransferBetweenCardsUpdate(this.getShell(), SWT.NULL, cashTrans).open();
-				}
+				boolean updated = updateCashTransaction(id,getShell());
 				if (updated)
 					search();
 			}

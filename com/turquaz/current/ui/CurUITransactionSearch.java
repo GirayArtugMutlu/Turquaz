@@ -29,11 +29,16 @@ import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
+import com.turquaz.bank.ui.BankUISearchMoneyTransaction;
+import com.turquaz.bill.ui.BillUIBillSearch;
+import com.turquaz.cash.ui.CashUICashTransactionSearch;
+import com.turquaz.cheque.ui.CheUIChequeRollSearch;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -375,16 +380,53 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 			TableItem items[] = tableCurrentTransactions.getSelection();
 			if (items.length > 0)
 			{
+				boolean updated = false;
 				Integer transId = (Integer)((ITableRow) items[0].getData()).getDBObject();
 				if (transId != null)
 				{
 					TurqCurrentTransaction trans = CurBLSearchTransaction.getCurTransByTransId(transId);
 					//nakit hareketi ise izin ver
-					if (trans.getTurqCurrentTransactionType().getId().intValue() == EngBLCommon.CURRENT_TRANS_OTHERS)
+					int type = trans.getTurqCurrentTransactionType().getId().intValue();
+					if (type == EngBLCommon.CURRENT_TRANS_OTHERS)
 					{
-						boolean updated = new CurUIVoucherUpdate(this.getShell(), SWT.NULL, trans).open();
-						if (updated)
-							search();
+						 updated = new CurUIVoucherUpdate(this.getShell(), SWT.NULL, trans).open();
+						
+					}
+					else if(type == EngBLCommon.CURRENT_TRANS_BANK)
+					{
+						
+						Integer bankTransId = EngDALCommon.getBankTransaction(trans.getTurqEngineSequence());
+						if(bankTransId != null)
+						{
+							updated = BankUISearchMoneyTransaction.updateTransaction(bankTransId,getShell());
+						}
+					}
+					else if(type == EngBLCommon.CURRENT_TRANS_BILL)
+					{
+						
+						Integer bankTransId = EngDALCommon.getBill(trans.getTurqEngineSequence());
+						if(bankTransId != null)
+						{
+							updated = BillUIBillSearch.updateBill(bankTransId,getShell());
+						}
+					}
+					else if(type == EngBLCommon.CURRENT_TRANS_CHEQUE)
+					{
+						
+						Integer bankTransId = EngDALCommon.getCheqeuTransaction(trans.getTurqEngineSequence());
+						if(bankTransId != null)
+						{
+							updated = CheUIChequeRollSearch.rollUpdate(bankTransId,getShell());
+						}
+					}
+					else if(type == EngBLCommon.CURRENT_TRANS_CASH)
+					{
+						
+						Integer bankTransId = EngDALCommon.getCashTransaction(trans.getTurqEngineSequence());
+						if(bankTransId != null)
+						{
+							updated = CashUICashTransactionSearch.updateCashTransaction(bankTransId,getShell());
+						}
 					}
 					else
 					{
@@ -392,6 +434,8 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 						msg.setMessage(Messages.getString("CurUITransactionSearch.11")); //$NON-NLS-1$
 						msg.open();
 					}
+					if (updated)
+						search();
 				}
 			}
 		}

@@ -237,6 +237,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				//START >>  btnFillBillInEngineSeq
 				btnFillBillInEngineSeq = new Button(composite1, SWT.PUSH | SWT.CENTER);
 				btnFillBillInEngineSeq.setText("Fill Bill In EngineSeq");
+				btnFillBillInEngineSeq.setVisible(false);
 				btnFillBillInEngineSeq.addMouseListener(new MouseAdapter() {
 					public void mouseUp(MouseEvent evt) {
 						btnFillBillInEngineSeqMouseUp(evt);
