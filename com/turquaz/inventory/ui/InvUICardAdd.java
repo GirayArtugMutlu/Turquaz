@@ -342,13 +342,10 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				{
 					lblInvCardMin = new Label(compInvCardDetails, SWT.RIGHT);
 					GridData lblInvCardMinLData = new GridData();
-					lblInvCardMinLData.widthHint = 115;
+					lblInvCardMinLData.widthHint = 138;
 					lblInvCardMinLData.heightHint = 16;
 					lblInvCardMin.setLayoutData(lblInvCardMinLData);
 					lblInvCardMin.setText(Messages.getString("InvUICardAdd.7")); //$NON-NLS-1$
-					lblInvCardMin.setSize(new org.eclipse.swt.graphics.Point(
-						115,
-						16));
 				}
 				{
 					txtnumInvCardMin = new NumericText(
@@ -416,14 +413,11 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				{
 					lblInvCardVat = new CLabel(compInvCardDetails, SWT.RIGHT);
 					GridData lblInvCardVatLData = new GridData();
-					lblInvCardVatLData.widthHint = 115;
-					lblInvCardVatLData.heightHint = 16;
+					lblInvCardVatLData.widthHint = 140;
+					lblInvCardVatLData.heightHint = 14;
 					lblInvCardVat.setLayoutData(lblInvCardVatLData);
 					lblInvCardVat
 						.setText(Messages.getString("InvUICardAdd.11")); //$NON-NLS-1$
-					lblInvCardVat.setSize(new org.eclipse.swt.graphics.Point(
-						115,
-						16));
 				}
 				{
 					txtInvCardVat = new NumericText(
@@ -642,16 +636,11 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								btnRegisterInvUnitMouseUp();
 							}
 							});
-						tableInvCardAddAllUnitsLData.widthHint = 96;
-						tableInvCardAddAllUnitsLData.heightHint = 80;
-						tableInvCardAddAllUnits
-							.setLayoutData(tableInvCardAddAllUnitsLData);
+						tableInvCardAddAllUnitsLData.widthHint = 128;
+						tableInvCardAddAllUnitsLData.heightHint = 99;
+						tableInvCardAddAllUnits.setLayoutData(tableInvCardAddAllUnitsLData);
 						tableInvCardAddAllUnits.setHeaderVisible(true);
 						tableInvCardAddAllUnits.setLinesVisible(true);
-						tableInvCardAddAllUnits
-							.setSize(new org.eclipse.swt.graphics.Point(
-								116,
-								100));
 						{
 							tableColumn1 = new TableColumn(
 								tableInvCardAddAllUnits,
@@ -721,15 +710,14 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 							compInvCardAddSecondaryUnits,
 							SWT.V_SCROLL | SWT.BORDER);
 						GridData tableInvCardAddRegisteredUnitsLData = new GridData();
-						tableInvCardAddRegisteredUnits.setSize(160, 81);
 						tableInvCardAddRegisteredUnits
 							.addMouseListener(new MouseAdapter() {
 							public void mouseDoubleClick(MouseEvent evt) {
 								btnRemoveRegisteredInvUnitMouseUp();
 							}
 							});
-						tableInvCardAddRegisteredUnitsLData.widthHint = 160;
-						tableInvCardAddRegisteredUnitsLData.heightHint = 81;
+						tableInvCardAddRegisteredUnitsLData.widthHint = 180;
+						tableInvCardAddRegisteredUnitsLData.heightHint = 98;
 						tableInvCardAddRegisteredUnits.setLayoutData(tableInvCardAddRegisteredUnitsLData);
 						tableInvCardAddRegisteredUnits.setHeaderVisible(true);
 						tableInvCardAddRegisteredUnits.setLinesVisible(true);
@@ -989,16 +977,11 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								btnInvCardAddGroupsRegisterMouseUp();
 							}
 							});
-						tableInvCardAddGroupsAllGroupsLData.widthHint = 119;
-						tableInvCardAddGroupsAllGroupsLData.heightHint = 119;
-						tableInvCardAddGroupsAllGroups
-							.setLayoutData(tableInvCardAddGroupsAllGroupsLData);
+						tableInvCardAddGroupsAllGroupsLData.widthHint = 127;
+						tableInvCardAddGroupsAllGroupsLData.heightHint = 152;
+						tableInvCardAddGroupsAllGroups.setLayoutData(tableInvCardAddGroupsAllGroupsLData);
 						tableInvCardAddGroupsAllGroups.setHeaderVisible(true);
 						tableInvCardAddGroupsAllGroups.setLinesVisible(true);
-						tableInvCardAddGroupsAllGroups
-							.setSize(new org.eclipse.swt.graphics.Point(
-								141,
-								141));
 						{
 							tableColumnInvCardAddGroupAllGroups = new TableColumn(
 								tableInvCardAddGroupsAllGroups,
@@ -1113,18 +1096,13 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								btnInvCardAddGroupsRemoveMouseUp();
 							}
 							});
-						tableInvCardAddGroupsRegisteredGroupsLData.widthHint = 128;
-						tableInvCardAddGroupsRegisteredGroupsLData.heightHint = 119;
-						tableInvCardAddGroupsRegisteredGroups
-							.setLayoutData(tableInvCardAddGroupsRegisteredGroupsLData);
+						tableInvCardAddGroupsRegisteredGroupsLData.widthHint = 141;
+						tableInvCardAddGroupsRegisteredGroupsLData.heightHint = 151;
+						tableInvCardAddGroupsRegisteredGroups.setLayoutData(tableInvCardAddGroupsRegisteredGroupsLData);
 						tableInvCardAddGroupsRegisteredGroups
 							.setHeaderVisible(true);
 						tableInvCardAddGroupsRegisteredGroups
 							.setLinesVisible(true);
-						tableInvCardAddGroupsRegisteredGroups
-							.setSize(new org.eclipse.swt.graphics.Point(
-								150,
-								141));
 						{
 							tableColumnRegisteredGroups = new TableColumn(
 								tableInvCardAddGroupsRegisteredGroups,
