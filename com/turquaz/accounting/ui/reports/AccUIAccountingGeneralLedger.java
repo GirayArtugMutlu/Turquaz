@@ -39,6 +39,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Button;
 
+import com.turquaz.accounting.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -98,7 +99,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			this.setSize(477, 200);
 			{
 				lblDateRange = new CLabel(this, SWT.NONE);
-				lblDateRange.setText("Select Date Range");
+				lblDateRange.setText(Messages.getString("AccUIAccountingGeneralLedger.0")); //$NON-NLS-1$
 			}
 			{
 				datePickerBeginDate = new DatePicker(this, SWT.NONE);
@@ -108,7 +109,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			}
 			{
 				btnShow = new Button(this, SWT.PUSH | SWT.CENTER);
-				btnShow.setText("Show Reports");
+				btnShow.setText(Messages.getString("AccUIAccountingGeneralLedger.1")); //$NON-NLS-1$
 				btnShow.addMouseListener(new MouseAdapter() {
 					public void mouseDown(MouseEvent evt) {
 						btnShowSingleClick();
@@ -126,40 +127,40 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			
 			Map parameters = new HashMap();
 			TurqCompany company = new TurqCompany();
-			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
-			String sqlparam="Select accounts.top_account,accounts.account_name," +
-					" trans.transactions_date,trans.transaction_document_no," +
-					" transcolumns.dept_amount, transcolumns.credit_amount," +
-					" trans.accounting_journal_id, accounts.accounting_accounts_id" +
-					" from turq_accounting_accounts accounts, turq_accounting_transactions trans," +
-					" turq_accounting_transaction_columns transcolumns where" +
-					" accounts.accounting_accounts_id=transcolumns.accounting_accounts_id" +
-					" and transcolumns.accounting_transactions_id=trans.accounting_transactions_id" +
-					" and accounts.companies_id="+company.getCompaniesId().toString();
-			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");
-			sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'"
-					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'";
+			company.setCompaniesId(Integer.valueOf(System.getProperty("company"))); //$NON-NLS-1$
+			String sqlparam="Select accounts.top_account,accounts.account_name," + //$NON-NLS-1$
+					" trans.transactions_date,trans.transaction_document_no," + //$NON-NLS-1$
+					" transcolumns.dept_amount, transcolumns.credit_amount," + //$NON-NLS-1$
+					" trans.accounting_journal_id, accounts.accounting_accounts_id" + //$NON-NLS-1$
+					" from turq_accounting_accounts accounts, turq_accounting_transactions trans," + //$NON-NLS-1$
+					" turq_accounting_transaction_columns transcolumns where" + //$NON-NLS-1$
+					" accounts.accounting_accounts_id=transcolumns.accounting_accounts_id" + //$NON-NLS-1$
+					" and transcolumns.accounting_transactions_id=trans.accounting_transactions_id" + //$NON-NLS-1$
+					" and accounts.companies_id="+company.getCompaniesId().toString(); //$NON-NLS-1$
+			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
+			sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
+					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 			//String sqlparam2=sqlparam;
 			//String sqlparam3=sqlparam;
 			//sqlparam3 +=" and transcolumns.dept_amount > 0";
 			//sqlparam2 +=" and transcolumns.credit_amount >0";
-			sqlparam +=" ORDER BY accounts.top_account,trans.transactions_date";
+			sqlparam +=" ORDER BY accounts.top_account,trans.transactions_date"; //$NON-NLS-1$
 			//sqlparam3 +=" ORDER BY accounts.top_account,trans.transactions_date";
 			//sqlparam2 +=" ORDER BY accounts.top_account,trans.transactions_date";
-			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy");
+			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
 			//System.out.println(sqlparam);
 			
-			parameters.put("sqlparam",sqlparam);	
+			parameters.put("sqlparam",sqlparam);	 //$NON-NLS-1$
 			//parameters.put("sqlparam2",sqlparam2);
 			//parameters.put("sqlparam3",sqlparam3);
-			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate()));
-			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate()));
+			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate())); //$NON-NLS-1$
+			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate())); //$NON-NLS-1$
 			NumberFormat formatter =NumberFormat.getNumberInstance();
             formatter.setMaximumFractionDigits(2);
-            parameters.put("formatter",formatter);
+            parameters.put("formatter",formatter); //$NON-NLS-1$
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
-			JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingGeneralLedger.jasper");
+			JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingGeneralLedger.jasper"); //$NON-NLS-1$
 			final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
 			
 			JasperViewer.viewReport(jasperPrint,false);
