@@ -168,6 +168,16 @@ public class CurBLSearchTransaction {
 	    }
 	    
 	}
+	public void deleteInitialTransactions(TurqCurrentCard curCard)throws Exception {
+	    try{
+	    
+	    	dalSearch.deleteInitialTransactions(curCard);
+	    	
+	    }
+	    catch(Exception ex){
+	    	throw ex;
+	    }
+	}
 	
 	
 

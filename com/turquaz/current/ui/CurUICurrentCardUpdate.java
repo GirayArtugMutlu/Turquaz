@@ -36,6 +36,7 @@ import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
+import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import org.eclipse.swt.layout.GridData;
 
@@ -515,6 +516,8 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 				
 				currentUpdate.deleteObject(it.next());
 			}
+		new CurBLSearchTransaction().deleteInitialTransactions(currentCard);
+			
 	}
 	catch(Exception ex ){
 	throw ex;
