@@ -29,7 +29,7 @@ public class EngConfiguration {
 		try {
 			return RESOURCE_BUNDLE.getString(key);
 		} catch (MissingResourceException e) {
-			return '!' + key + '!';
+			return null;
 		}
 	}
 	

@@ -1,6 +1,9 @@
 package com.turquaz.engine.ui;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.Properties;
 
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.layout.FillLayout;
@@ -31,6 +34,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 
+import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.ui.wizards.EngUIDatabaseConnectionWizard;
@@ -162,6 +166,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 				btnOk.setLayoutData(btnOkLData);
 			}
 			this.layout();
+			postInitGui();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -175,7 +181,29 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 		try{
 		if(blCommon.checkUserPass(txtUserName.getText(),txtPassword.getText())){
+			
+			try{
+				FileInputStream input = new FileInputStream("config/turquaz.properties");
+			    Properties props = new Properties();
+			    props.load(input);
+			    
+			    props.put("username",txtUserName.getText());
+			    props.put("password",txtPassword.getText());
+			    input.close();
+			    
+			    FileOutputStream output = new FileOutputStream("config/turquaz.properties");
+			    props.save(output,"Turquaz Configuration");
+			    
+			    
+			    EngDALSessionFactory.init();
+				}
+				catch(Exception ex){
+					ex.printStackTrace();
+				}
+			
+			
 			this.getShell().dispose();
+			
 			EngUIMainFrame.showGUI2();
 			
 			
@@ -192,19 +220,32 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		}
 	}
 	public void preInitGui(){
-		
-		
-		
+				
 		File config = new File("config/turquaz.properties");
 		if(!config.exists()){
 			EngUIDatabaseConnectionWizard wizard = new EngUIDatabaseConnectionWizard();
 			WizardDialog dialog = new WizardDialog(this.getShell(),wizard);
 			dialog.open();	
 		}
-		else{
 		
-		    EngDALSessionFactory.init();
-		}
+		EngDALSessionFactory.init();
 		
+	}
+	
+	public void postInitGui(){
+	String username = EngConfiguration.getString("username");
+	String password = EngConfiguration.getString("password");
+	
+	if(username!=null&&password!=null){
+	txtPassword.setText(password);
+	txtUserName.setText(username);	
+		
+	}
+	else{
+		txtPassword.setText("admin");
+		txtUserName.setText("admin");
+		
+	}
+	
 	}
 }
