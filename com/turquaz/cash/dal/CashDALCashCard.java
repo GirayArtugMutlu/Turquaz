@@ -17,8 +17,12 @@ package com.turquaz.cash.dal;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
-import com.turquaz.engine.dal.EngDALSessionFactory;
+import java.util.List;
 
+import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqAccountingAccount;
+
+import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
@@ -93,6 +97,32 @@ public class CashDALCashCard {
         catch(Exception ex){
             throw ex;
         }
-    }   
+    } 
+    
+    public List searchCashCard(TurqAccountingAccount account, String name)throws Exception{
+     try{
+         Session session = EngDALSessionFactory.openSession();
+         
+         String query = "select cashCard from TurqCashCard as cashCard " +
+         		" where cashCard.cardName like '"+name+"%' ";
+         if(account !=null){
+             query += " cashCard.turqAccountingAccount = :account";
+         }
+         
+         Query q = session.createQuery(query);
+        
+         if(account !=null){
+             q.setParameter("account",account);
+         }
+         
+         session.close();
+         return q.list();
+        
+     }
+     catch(Exception ex){
+         throw ex;
+     }
+        
+    }
 
 }

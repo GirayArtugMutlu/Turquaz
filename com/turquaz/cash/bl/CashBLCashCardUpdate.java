@@ -22,6 +22,44 @@
  */
 package com.turquaz.cash.bl;
 
+import java.util.Calendar;
+
+import com.turquaz.cash.dal.CashDALCashCard;
+import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqCashCard;
+
 public class CashBLCashCardUpdate {
+    Calendar cal=Calendar.getInstance();
+    CashDALCashCard dalCash = new CashDALCashCard();
+    
+    public CashBLCashCardUpdate(){
+        
+    }
+    
+    
+    public void updateCashCard(TurqCashCard cashCard, String name, String definition, TurqAccountingAccount cashAccount)throws Exception {
+        try{
+            
+          
+          cashCard.setCashCardName(name);
+          cashCard.setCashCardDefinition(definition);
+          cashCard.setTurqAccountingAccount(cashAccount);
+         
+          cashCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+          cashCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+          
+		  dalCash.update(cashCard);   
+          
+          
+        }
+        catch(Exception ex){
+            
+            throw ex;
+            
+        }
+        
+        
+        
+    }
 
 }

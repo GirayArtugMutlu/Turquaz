@@ -20,6 +20,32 @@
  */
 package com.turquaz.cash.bl;
 
+import java.util.List;
+
+import com.turquaz.cash.dal.CashDALCashCard;
+import com.turquaz.engine.dal.TurqAccountingAccount;
+
+
+
+
 public class CashBLCashCardSearch {
+    CashDALCashCard dalCash = new CashDALCashCard();
+    
+    public CashBLCashCardSearch(){
+        
+        
+    }
+    public List searchCashCard(TurqAccountingAccount account, String cardName)throws Exception {
+        try{
+            
+           return dalCash.searchCashCard(account,cardName); 
+            
+        }
+        
+        catch(Exception ex){
+            throw ex;
+        }
+    }
+  
 
 }
