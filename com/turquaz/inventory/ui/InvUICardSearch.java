@@ -21,6 +21,7 @@ package com.turquaz.inventory.ui;
 * @version  $Id$
 */
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,8 +39,9 @@ import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryPrice;
-import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
+import com.turquaz.engine.dal.TurqViewInventoryTotal;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
@@ -84,8 +86,13 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	private Composite compInvCardSearch;
 	private CLabel lblInvName;
 	private TableColumn tableColumnInvName;
-	private TableColumn tableColumnAmount;
+	private TableColumn tableColumnAmountIn;
 	private TableColumn tableColumnInventoryCode;
+	private TableColumn tableColumnAmountOut;
+	private TableColumn tableColumnBalanceAmountIn;
+	private TableColumn tableColumnBalanceAmountOut;
+	private TableColumn tableColumnPriceIn;
+	private TableColumn tableColumnPriceOut;
 	private Table tableSearcResults;
 	private CCombo comboInvGroup;
 	private CLabel lblInvGroup;
@@ -232,24 +239,59 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 						tableColumnInvName = new TableColumn(
 							tableSearcResults,
 							SWT.NONE);
-						tableColumnInvName.setText("Stok Kodu"); //$NON-NLS-1$
-						tableColumnInvName.setWidth(115);
+						tableColumnInvName.setText(Messages.getString("InvUICardSearch.3"));  //$NON-NLS-1$
+						tableColumnInvName.setWidth(69);
 					}
 					{
 						tableColumnInventoryCode = new TableColumn(
 							tableSearcResults,
 							SWT.NONE);
-						tableColumnInventoryCode.setText("Stok Cinsi"); //$NON-NLS-1$
+						tableColumnInventoryCode.setText(Messages.getString("InvUICardSearch.4"));  //$NON-NLS-1$
 						tableColumnInventoryCode.setWidth(107);
 					}
 					{
-						tableColumnAmount = new TableColumn(
+						tableColumnAmountIn = new TableColumn(
 							tableSearcResults,
 							SWT.NONE);
-						tableColumnAmount.setText(Messages
-							.getString("InvUICardSearch.5")); //$NON-NLS-1$
-						tableColumnAmount.setWidth(118);
+						tableColumnAmountIn.setText(Messages.getString("InvUICardSearch.5"));  //$NON-NLS-1$
+						tableColumnAmountIn.setWidth(60);
 					}
+					{
+						tableColumnAmountOut = new TableColumn(
+							tableSearcResults,
+							SWT.NONE);
+						tableColumnAmountOut.setText(Messages.getString("InvUICardSearch.7"));  //$NON-NLS-1$
+						tableColumnAmountOut.setWidth(60);
+					}
+					{
+						tableColumnBalanceAmountIn = new TableColumn(
+							tableSearcResults,
+							SWT.NONE);
+						tableColumnBalanceAmountIn.setText(Messages.getString("InvUICardSearch.8"));  //$NON-NLS-1$
+						tableColumnBalanceAmountIn.setWidth(69);
+					}
+					{
+						tableColumnBalanceAmountOut = new TableColumn(
+							tableSearcResults,
+							SWT.NONE);
+						tableColumnBalanceAmountOut.setText(Messages.getString("InvUICardSearch.9"));  //$NON-NLS-1$
+						tableColumnBalanceAmountOut.setWidth(71);
+					}
+					{
+						tableColumnPriceIn = new TableColumn(
+							tableSearcResults,
+							SWT.RIGHT);
+						tableColumnPriceIn.setText(Messages.getString("InvUICardSearch.10"));  //$NON-NLS-1$
+						tableColumnPriceIn.setWidth(75);
+					}
+					{
+						tableColumnPriceOut = new TableColumn(
+							tableSearcResults,
+							SWT.RIGHT);
+						tableColumnPriceOut.setText(Messages.getString("InvUICardSearch.11"));  //$NON-NLS-1$
+						tableColumnPriceOut.setWidth(76);
+					}
+					
 				}
 			}
 			thisLayout.type = SWT.HORIZONTAL;
@@ -423,6 +465,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 		
 	}
 	public void search(){
+		
 	tableSearcResults.removeAll();
 	
 	List result;
@@ -441,11 +484,41 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	for(int i =0; i<listSize;i++){
 	Object[] objs=(Object[])result.get(i);
 	TurqInventoryCard card = (TurqInventoryCard)objs[1];
-	TurqViewInventoryAmountTotal invView=(TurqViewInventoryAmountTotal)((Object[])result.get(i))[0];
+	TurqViewInventoryTotal invView=(TurqViewInventoryTotal)((Object[])result.get(i))[0];
 	item = new TableItem(tableSearcResults,SWT.NULL);
 	item.setData(card);
-	String totalAmountNow=(invView.getTransactionsTotalAmountNow()==null) ? "0" : invView.getTransactionsTotalAmountNow().toString();
-	item.setText(new String[]{card.getCardInventoryCode(),card.getCardName(),totalAmountNow});
+	
+	BigDecimal totalAmountIn =(invView.getTotalAmountIn()==null) ? new BigDecimal(0): invView.getTotalAmountIn();
+	BigDecimal totalAmountOut = (invView.getTotalAmountOut()==null) ? new BigDecimal(0) : invView.getTotalAmountOut();
+	BigDecimal totalPriceIn = (invView.getTotalPriceIn()==null) ? new BigDecimal(0) : invView.getTotalPriceIn();
+	BigDecimal totalPriceOut = (invView.getTotalPriceOut()==null)?new BigDecimal(0) : invView.getTotalPriceOut();
+	
+	BigDecimal balanceAmountIn = new BigDecimal(0);
+	BigDecimal balanceAmountOut = new BigDecimal(0);
+	
+	if((totalAmountIn.subtract(totalAmountOut).doubleValue()<=0)){
+		balanceAmountOut = totalAmountOut.subtract(totalAmountIn);
+		
+		
+	}
+	
+	else{
+		balanceAmountIn = totalAmountIn.subtract(totalAmountOut);
+		
+	}
+	
+	
+	
+	
+	item.setText(new String[]{card.getCardInventoryCode(),
+							  card.getCardName(),
+					          totalAmountIn.toString(),
+							  totalAmountOut.toString(),
+							  balanceAmountIn.toString(),
+							  balanceAmountOut.toString(),
+							  TurkishCurrencyFormat.formatBD(totalPriceIn),
+							  TurkishCurrencyFormat.formatBD(totalPriceOut)
+							  });
 	
 	
 	}

@@ -31,6 +31,7 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqViewInventoryTotal;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.component.TurquazDecimalFormat;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLProfitAnalysis;
@@ -148,10 +149,11 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 	        BigDecimal amountNow ;
 	        BigDecimal avgPrice ;
 	        BigDecimal amountOut ;
+	        BigDecimal amountIn ;
 	        BigDecimal totalCost;
 	        BigDecimal totalPrice;
 	        BigDecimal totalProfit;
-	        TurquazDecimalFormat df = new TurquazDecimalFormat();
+	        TurkishCurrencyFormat df = new TurkishCurrencyFormat();
 	        
 	        for(int i = 0; i<ls.size();i++){
 	        	 amountNow = new BigDecimal(0);
@@ -160,6 +162,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 	        	 totalCost = new BigDecimal(0); 
 	        	 totalPrice = new BigDecimal(0); 
 	        	 totalProfit = new BigDecimal(0);
+	        	 amountIn = new BigDecimal(0);
 	        	 
 	        	 
 	        	Object[] result = (Object[])ls.get(i);
@@ -189,6 +192,10 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 	        	if(totals.getTotalAmountOut()!=null){
 	        		amountOut = totals.getTotalAmountOut();
 	        	}
+	        	
+	        	if(totals.getTotalAmountIn()!=null){
+	        		amountIn = totals.getTotalAmountIn();
+	        	}
 	        	totalCost = avgPrice.multiply(amountOut);
 	        	totalPrice = totals.getTotalPriceOut();
 	        	totalProfit = totalPrice.subtract(totalCost);
@@ -198,7 +205,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 	        	
 	        	item.setText(new String[]{	        			    
 	        			 invCard.getCardInventoryCode(),
-						 amountNow.toString(),
+						 amountIn.toString(),
 						 df.format(avgPrice),
 						 amountOut.toString(),
 						 df.format(totalCost),

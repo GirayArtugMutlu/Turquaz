@@ -49,7 +49,7 @@ public class InvDALCardSearch {
 			
 				Session session = EngDALSessionFactory.openSession();
 				
-				String query = "Select invView, invCard from TurqViewInventoryAmountTotal as invView," +
+				String query = "Select invView, invCard from TurqViewInventoryTotal as invView," +
 						" TurqInventoryCard as invCard" +						
 						" where invCard.inventoryCardsId = invView.inventoryCardsId and " +
 						" lower(invCard.cardName) like '"+cardName.toLowerCase()+"%' and invCard.cardInventoryCode like '"+cardCode+"%' ";

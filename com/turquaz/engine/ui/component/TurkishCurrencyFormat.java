@@ -9,11 +9,11 @@ import java.text.DecimalFormatSymbols;
  * @author onsel
  *
   */
-public class NewTurkishCurrencyFormat extends DecimalFormat {
+public class TurkishCurrencyFormat extends DecimalFormat {
 	
-	static NewTurkishCurrencyFormat _instance;
+	static TurkishCurrencyFormat _instance;
 	
-	public NewTurkishCurrencyFormat(){
+	public TurkishCurrencyFormat(){
 	super();
 	DecimalFormatSymbols dfs = new DecimalFormatSymbols();
 	dfs.setCurrencySymbol("YTL");
@@ -22,24 +22,19 @@ public class NewTurkishCurrencyFormat extends DecimalFormat {
 	dfs.setInternationalCurrencySymbol("YTL");
 	this.setDecimalFormatSymbols(dfs);
 	this.setGroupingSize(3);
+	this.setMinimumFractionDigits(2);
 	this.setMaximumFractionDigits(2);
 	this.setGroupingUsed(true);
 	
 	}
 	
-	public String format(BigDecimal dc){
-		
-		String formatted = super.format(dc);
-		formatted +=" "+this.getDecimalFormatSymbols().getCurrencySymbol();
-		return formatted;
-		
-	}
+	
 	
 	public static synchronized String formatBD(BigDecimal bdc){
 		
 		if(_instance == null){
 			
-			_instance = new NewTurkishCurrencyFormat();
+			_instance = new TurkishCurrencyFormat();
 		}
 		return _instance.format(bdc);
 		
