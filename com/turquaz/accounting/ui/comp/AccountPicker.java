@@ -191,7 +191,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 		super.setData(obj);
 		if(obj==null)
 		{
-		    text1.setBackground(SWTResourceManager.getColor(255, 215, 215));
+		    text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
 		}
 		else
 		{

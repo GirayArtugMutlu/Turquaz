@@ -4,13 +4,13 @@ import java.util.Iterator;
 
 import org.eclipse.swt.widgets.ToolBar;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
+import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.ui.EngUICommon;
@@ -162,6 +162,23 @@ public class BankUIOtherTransInUpdate extends org.eclipse.swt.widgets.Dialog {
 		it = transBill.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
 		if(it.hasNext()){
 		    TurqAccountingTransaction accTrans = (TurqAccountingTransaction) it.next();
+		    try{
+		    new AccBLTransactionUpdate().initiliazeTransactionRows(accTrans);
+		    Iterator it2 = accTrans.getTurqAccountingTransactionColumns().iterator();
+		    while(it2.hasNext())
+		    {
+		    	TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn)it2.next();
+		    	if(transColumn.getCreditAmount().doubleValue()>0)
+		    	{
+		    		compCashTrans.getCurrentPicker().setText(transColumn.getTurqAccountingAccount().getAccountCode());
+		    	}
+		    	
+		    	
+		    }
+		    }
+		    catch(Exception ex){
+		    	ex.printStackTrace();
+		    }
 		    
 		}
 		

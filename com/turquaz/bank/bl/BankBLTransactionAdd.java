@@ -647,8 +647,9 @@ public class BankBLTransactionAdd {
     public static void saveChequeTransaction(TurqBanksCard bankCard, TurqAccountingAccount chequeAccount, TurqEngineSequence seq,
             BigDecimal totalAmount, Date transDate, String definition,
             String docNo) throws Exception {
+    	
         try {
-
+           
             if (seq == null) {
                 try {
                     TurqModule module = new TurqModule();

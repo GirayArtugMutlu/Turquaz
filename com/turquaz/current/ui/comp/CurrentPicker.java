@@ -100,7 +100,7 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite {
                         }
                     
                 });
-                text1.setBackground(SWTResourceManager.getColor(255, 215, 215));
+                text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
 				
 				text1LData.verticalAlignment = GridData.FILL;
 				text1LData.horizontalAlignment = GridData.FILL;
@@ -167,7 +167,7 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite {
 		super.setData(obj);
 		if(obj==null)
 		{
-		    text1.setBackground(SWTResourceManager.getColor(255, 215, 215));
+		    text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
 		}
 		else
 		{
