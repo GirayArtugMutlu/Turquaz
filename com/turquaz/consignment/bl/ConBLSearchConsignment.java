@@ -20,7 +20,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import net.sf.hibernate.Query;
+import net.sf.hibernate.Session;
+
 import com.turquaz.consignment.dal.ConDALSearchConsignment;
+import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
 
@@ -32,6 +37,8 @@ public class ConBLSearchConsignment {
    	
    
 	}
+	
+	
 	public List searchConsignment(TurqCurrentCard card,Date startDate,Date endDate, int type,String docNo)throws Exception{
 		try{
 			
@@ -43,6 +50,8 @@ public class ConBLSearchConsignment {
 		}
 		
 	}
+	
+	
 	public List chooseConsignment(TurqCurrentCard card,Date startDate,Date endDate, int type)throws Exception{
 		try{
 			
@@ -53,6 +62,20 @@ public class ConBLSearchConsignment {
 			throw ex;
 		}
 		
+	}
+	
+	
+	public static TurqConsignment getConsignmentByConsId(Integer consId) throws Exception
+	{
+		try {
+			
+			return ConDALSearchConsignment.getConsignmentByConsId(consId);
+
+		} 
+		catch (Exception ex)
+		{
+			throw ex;
+		}
 	}
 	
 	

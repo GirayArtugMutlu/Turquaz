@@ -14,7 +14,9 @@ package com.turquaz.consignment.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
+import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -77,6 +79,7 @@ SearchComposite{
 	private TableColumn tableColumnCurrentName;
 	private TableColumn tableColumnVatAmount;
 	private CurrentPicker txtCurCard;
+	private TableColumn tableColumnCurrentCode;
 	private TableColumn tableColumnDcoNo;
 	private Text txtDocNo;
 	private CLabel lblDocNo;
@@ -252,6 +255,30 @@ SearchComposite{
 					    }
 					});
 				}
+				//START >>  tableColumnCurrentCode
+				tableColumnCurrentCode = new TableColumn(
+					tableConsignments,
+					SWT.NONE);
+				tableColumnCurrentCode.setText("Cari Kod");
+				tableColumnCurrentCode.setWidth(100);
+				//END <<  tableColumnCurrentCode
+				{
+					tableColumnCurrentName = new TableColumn(
+						tableConsignments,
+						SWT.NONE);
+					tableColumnCurrentName.setText(Messages
+						.getString("ConUIConsignmentSearch.6")); //$NON-NLS-1$
+					tableColumnCurrentName.setWidth(150);
+					tableColumnCurrentName.addListener(
+						SWT.Selection,
+						new Listener() {
+							public void handleEvent(Event e) {
+								TableSorter.sortTable(
+									tableConsignments,
+									tableColumnCurrentName);
+							}
+						});
+				}
                 {
                     tableColumnDcoNo = new TableColumn(
                         tableConsignments,
@@ -259,18 +286,6 @@ SearchComposite{
                     tableColumnDcoNo.setText("Belge No");
                     tableColumnDcoNo.setWidth(82);
                 }
-				{
-					tableColumnCurrentName = new TableColumn(
-						tableConsignments,
-						SWT.NONE);
-					tableColumnCurrentName.setText(Messages.getString("ConUIConsignmentSearch.6")); //$NON-NLS-1$
-					tableColumnCurrentName.setWidth(150);
-					tableColumnCurrentName.addListener(SWT.Selection, new Listener() {
-					    public void handleEvent(Event e) {
-					    	TableSorter.sortTable(tableConsignments,tableColumnCurrentName);        
-					    }
-					});
-				}
 				{
 					tableColumnCumulativePrice = new TableColumn(
 						tableConsignments,
@@ -317,7 +332,8 @@ SearchComposite{
 	public void postInitGui(){
 		comboConsignmentType.add(EngBLCommon.COMMON_BUY_STRING); 
 		comboConsignmentType.add(EngBLCommon.COMMON_SELL_STRING); 
-		//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
+		comboConsignmentType.add(EngBLCommon.COMMON_ALL_STRING);
+		comboConsignmentType.setText(EngBLCommon.COMMON_ALL_STRING);
 		cal.set(cal.get(Calendar.YEAR),0,1);
 		dateStartDate.setDate(cal.getTime());
 		
@@ -341,47 +357,63 @@ SearchComposite{
 	public void save(){
 		
 	}
-	public void search(){
+	public void search()
+	{
 		
-		try{
-			
-		tableConsignments.removeAll();	
-		int type=EngBLCommon.COMMON_BUY_INT;
-		if(comboConsignmentType.getText().equals(EngBLCommon.COMMON_SELL_STRING)) 
+		try
 		{
-			type =EngBLCommon.COMMON_SELL_INT;
-		}
 			
-		List list = blSearch.searchConsignment((TurqCurrentCard)txtCurCard.getData(),
+			tableConsignments.removeAll();	
+			int type=EngBLCommon.COMMON_ALL_INT;
+			if(comboConsignmentType.getText().equals(EngBLCommon.COMMON_SELL_STRING)) 
+			{
+				type =EngBLCommon.COMMON_SELL_INT;
+			}
+			else if (comboConsignmentType.getText().equals(EngBLCommon.COMMON_BUY_STRING))
+			{
+				type=EngBLCommon.COMMON_BUY_INT;
+			}
+			
+			List list = blSearch.searchConsignment((TurqCurrentCard)txtCurCard.getData(),
 												dateStartDate.getDate(),
 												dateEndDate.getDate(),type,
 												txtDocNo.getText().trim());
-		TurqConsignment cons;
-		TableItem item;
-		TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
-		for(int i=0;i<list.size();i++){
+			Object[] cons;
+			TableItem item;
+			TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
+			for(int i=0;i<list.size();i++)
+			{
 			
-			cons = (TurqConsignment)list.get(i);
-			item = new TableItem(tableConsignments,SWT.NULL);
-			item.setData(cons);
-			item.setText(new String[]{DatePicker.formatter.format(cons.getConsignmentsDate()),
-									cons.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName(),
-									cons.getTurqBillConsignmentCommon().getConsignmentDocumentNo(),
-									cf.format(cons.getTurqBillConsignmentCommon().getTotalAmount()),
-									cf.format(cons.getTurqBillConsignmentCommon().getVatAmount()),
-									cf.format(cons.getTurqBillConsignmentCommon().getSpecialVatAmount())});
+				cons = (Object[])list.get(i);
+				item = new TableItem(tableConsignments,SWT.NULL);
+				
+				Integer consId=(Integer)cons[0];
+				Date consDate=(Date)cons[1];
+				String curCardCode=(String)cons[2];
+				String curCardName=(String)cons[3];
+				String consDocNo=(String)cons[4];
+				BigDecimal totalAmount=(BigDecimal)cons[5];
+				BigDecimal vatAmount=(BigDecimal)cons[6];
+				BigDecimal specVatAmount=(BigDecimal)cons[7];			
+				
+				
+				item.setData(consId);
+				
+				
+				item.setText(new String[]{DatePicker.formatter.format(consDate),
+									curCardCode,
+									curCardName,
+									consDocNo,
+									cf.format(totalAmount),
+									cf.format(vatAmount),
+									cf.format(specVatAmount)});
 			
-		}
-			
-			
-			
-			
+			}
 			
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
-		}
-		
+		}		
 		
 		
 	}
@@ -468,16 +500,30 @@ SearchComposite{
 		
 	}
 	ConBLUpdateConsignment blUpdate = new ConBLUpdateConsignment();
-	public void tableMouseDoubleClick(){
-		TableItem items[] = tableConsignments.getSelection();
-		if(items.length>0){
-		    TurqConsignment cons = (TurqConsignment)items[0].getData();
+	public void tableMouseDoubleClick()
+	{
+		try
+		{
+			TableItem items[] = tableConsignments.getSelection();
+			if(items.length>0)
+			{
+				Integer consId=(Integer)items[0].getData();
+				if (consId != null)
+				{
+					TurqConsignment cons = ConBLSearchConsignment.getConsignmentByConsId(consId);		
+		     	   boolean updated=new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
+		     	   if (updated)
+		     	   	search();
+				}
 		  
-		
-		        boolean updated=new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
-		        if (updated)
-		        	search();
-		  
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+			msg.setMessage(ex.getMessage());
+			msg.open();
 		}
 	}
 	public void printTable(){

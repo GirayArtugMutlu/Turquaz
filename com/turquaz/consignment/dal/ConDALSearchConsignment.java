@@ -20,7 +20,10 @@ import java.util.List;
 
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
+
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
 
@@ -34,13 +37,21 @@ public class ConDALSearchConsignment {
 		try {
 			Session session = EngDALSessionFactory.openSession();
 
-			String query = "Select consignment from TurqConsignment as consignment"+					
+			String query = "Select consignment.consignmentsId," +
+					" consignment.consignmentsDate, curCard.cardsCurrentCode," +
+					" curCard.cardsName, billcons.consignmentDocumentNo," +
+					" billcons.totalAmount, billcons.vatAmount, billcons.specialVatAmount" +
+					" from TurqConsignment as consignment," +
+					" consignment.turqBillConsignmentCommon.turqCurrentCard as curCard," +
+					" consignment.turqBillConsignmentCommon as billcons"+					
 					" where consignment.consignmentsDate >= :startDate" + //$NON-NLS-1$
-					" and consignment.consignmentsDate <= :endDate" + //$NON-NLS-1$
-					" and consignment.consignmentsType =" + type + //$NON-NLS-1$
+					" and consignment.consignmentsDate <= :endDate" + //$NON-NLS-1$					
 					" and consignment.consignmentsId <> -1 " +//$NON-NLS-1$
 					" and consignment.turqBillConsignmentCommon.consignmentDocumentNo like '"+docNo+"%'"; //$NON-NLS-1$		
-
+			
+			if (type != EngBLCommon.COMMON_ALL_INT)
+				query += " and consignment.consignmentsType =" + type; //$NON-NLS-1$
+			
 			if (curCard != null) {
 				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard = :curCard"; //$NON-NLS-1$
 			}
@@ -97,6 +108,29 @@ public class ConDALSearchConsignment {
 			return list;
 
 		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	public static TurqConsignment getConsignmentByConsId(Integer consId) throws Exception
+	{
+		try {
+			Session session = EngDALSessionFactory.openSession();
+
+			String query = "Select consignment from TurqConsignment as consignment" +
+					" where consignment.consignmentsId="+consId; //$NON-NLS-1$
+
+
+			Query q = session.createQuery(query);
+
+			List list = q.list();
+
+			session.close();
+			return (TurqConsignment)list.get(0);
+
+		} 
+		catch (Exception ex) 
+		{
 			throw ex;
 		}
 	}
