@@ -89,6 +89,14 @@ import com.turquaz.inventory.ui.InvUITransactionAdd;
 * for any corporate or commercial purpose.
 * *************************************
 */
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a
+* for-profit company or business) then you should purchase
+* a license - please visit www.cloudgarden.com for details.
+*/
+
 
 
 
@@ -168,11 +176,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			comboModuleSelection = new CCombo(compModuleSelection,SWT.FLAT| SWT.READ_ONLY| SWT.H_SCROLL| SWT.V_SCROLL);
 			compModulesTree = new Composite(compModulesTab,SWT.NULL);
 			treeInventory = new InvUITree(compModulesTree,SWT.NULL);
-			treeInventory.addMouseListener(new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
-					treeInventoryMouseDoubleClick(evt);
-				}
-			});
 			treeAccounting = new AccUITree(compModulesTree,SWT.NULL);
 			treeAdmin = new AdmUITree(compModulesTree,SWT.NULL);
 			tabFavorites = new CTabItem(tabfldMenu,SWT.NULL);
@@ -294,7 +297,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			final Color comboModuleSelectionbackground = new Color(Display.getDefault(),236,233,216);
 			comboModuleSelection.setBackground(comboModuleSelectionbackground);
-			comboModuleSelection.setSize(new org.eclipse.swt.graphics.Point(78,3));
+			comboModuleSelection.setSize(new org.eclipse.swt.graphics.Point(91,16));
 			comboModuleSelection.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					comboModuleSelectionWidgetSelected(evt);
@@ -325,10 +328,25 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesTreeLData.grabExcessVerticalSpace = true;
 			compModulesTree.setLayoutData(compModulesTreeLData);
 	
+			treeInventory.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					treeInventoryMouseDoubleClick(evt);
+				}
+			});
 	
-			treeAccounting.setSize(new org.eclipse.swt.graphics.Point(212,243));
+			treeAccounting.setSize(new org.eclipse.swt.graphics.Point(214,245));
+			treeAccounting.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					treeAccountingMouseDoubleClick(evt);
+				}
+			});
 	
-			treeAdmin.setSize(new org.eclipse.swt.graphics.Point(212,243));
+			treeAdmin.setSize(new org.eclipse.swt.graphics.Point(214,245));
+			treeAdmin.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					treeAdminMouseDoubleClick(evt);
+				}
+			});
 			StackLayout compModulesTreeLayout = new StackLayout();
 			compModulesTree.setLayout(compModulesTreeLayout);
 			compModulesTreeLayout.marginWidth = 0;
@@ -374,7 +392,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			lblFavoritesTabLData.grabExcessVerticalSpace = false;
 			lblFavoritesTab.setLayoutData(lblFavoritesTabLData);
 			lblFavoritesTab.setText("Favorite Items");
-			lblFavoritesTab.setSize(new org.eclipse.swt.graphics.Point(226,20));
+			lblFavoritesTab.setSize(new org.eclipse.swt.graphics.Point(202,20));
 			lblFavoritesTab.setLayout(null);
 	
 			GridData toolbarFavoritesTabLData = new GridData();
@@ -410,7 +428,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			treeFavoritesLData.grabExcessHorizontalSpace = false;
 			treeFavoritesLData.grabExcessVerticalSpace = true;
 			treeFavorites.setLayoutData(treeFavoritesLData);
-			treeFavorites.setSize(new org.eclipse.swt.graphics.Point(212,254));
+			treeFavorites.setSize(new org.eclipse.swt.graphics.Point(214,258));
 			GridLayout compFavoritesTabLayout = new GridLayout(1, true);
 			compFavoritesTab.setLayout(compFavoritesTabLayout);
 			compFavoritesTabLayout.marginWidth = 0;
@@ -440,14 +458,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			coolbarRightTop.setSize(new org.eclipse.swt.graphics.Point(232,30));
 	
 			coolRightMain.setControl(toolbarMainTop);
-			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(121,30));
-			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(121,30));
-			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(121,30));
+			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(92,22));
+			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(92,22));
+			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(92,22));
 			coolRightMain.setText("coolItem3");
 	
 			toolbarMainTop.setLocation(new org.eclipse.swt.graphics.Point(20,0));
 	
 			toolNew.setEnabled(true);
+			toolNew.setToolTipText("New");
 			final org.eclipse.swt.graphics.Image toolNewimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/new_wiz.gif"));
 			toolNew.setImage(toolNewimage);
 			toolNew.addSelectionListener( new SelectionAdapter() {
@@ -456,6 +475,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				}
 			});
 	
+			toolSave.setToolTipText("Save");
 			final org.eclipse.swt.graphics.Image toolSaveimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save.gif"));
 			toolSave.setImage(toolSaveimage);
 			toolSave.addSelectionListener( new SelectionAdapter() {
@@ -464,6 +484,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				}
 			});
 	
+			toolDelete.setToolTipText("Delete");
 			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
 			toolDelete.setImage(toolDeleteimage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
@@ -472,6 +493,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				}
 			});
 	
+			toolSearch.setToolTipText("Search");
 			final org.eclipse.swt.graphics.Image toolSearchimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/run_exec.gif"));
 			toolSearch.setImage(toolSearchimage);
 			toolSearch.setSelection(true);

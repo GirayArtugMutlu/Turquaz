@@ -127,7 +127,7 @@
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
 												<Property name="widthHint" type="int" value="138"/>
-												<Property name="heightHint" type="int" value="10"/>
+												<Property name="heightHint" type="int" value="16"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
@@ -181,7 +181,7 @@
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
 												<Property name="widthHint" type="int" value="89"/>
-												<Property name="heightHint" type="int" value="12"/>
+												<Property name="heightHint" type="int" value="18"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
@@ -235,7 +235,7 @@
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
 												<Property name="widthHint" type="int" value="136"/>
-												<Property name="heightHint" type="int" value="9"/>
+												<Property name="heightHint" type="int" value="15"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="3"/>
 												<Property name="verticalSpan" type="int" value="1"/>
@@ -288,8 +288,8 @@
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="183"/>
-												<Property name="heightHint" type="int" value="51"/>
+												<Property name="widthHint" type="int" value="180"/>
+												<Property name="heightHint" type="int" value="55"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="3"/>
 												<Property name="verticalSpan" type="int" value="1"/>
@@ -405,7 +405,7 @@
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
 												<Property name="widthHint" type="int" value="91"/>
-												<Property name="heightHint" type="int" value="12"/>
+												<Property name="heightHint" type="int" value="18"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
@@ -458,7 +458,7 @@
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
 												<Property name="widthHint" type="int" value="104"/>
-												<Property name="heightHint" type="int" value="12"/>
+												<Property name="heightHint" type="int" value="18"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
@@ -620,7 +620,7 @@
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
 												<Property name="widthHint" type="int" value="61"/>
-												<Property name="heightHint" type="int" value="11"/>
+												<Property name="heightHint" type="int" value="17"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
@@ -673,7 +673,7 @@
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
 												<Property name="widthHint" type="int" value="104"/>
-												<Property name="heightHint" type="int" value="12"/>
+												<Property name="heightHint" type="int" value="18"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
@@ -805,7 +805,7 @@
 												<Dimension value="[51, 19]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 12, 51, 19]"/>
+												<Rectangle value="[5, 10, 51, 19]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -815,8 +815,8 @@
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="91"/>
-												<Property name="heightHint" type="int" value="3"/>
+												<Property name="widthHint" type="int" value="104"/>
+												<Property name="heightHint" type="int" value="29"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
@@ -835,7 +835,7 @@
 												<Dimension value="[126, 29]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[150, 7, 126, 29]"/>
+												<Rectangle value="[150, 5, 126, 29]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -860,7 +860,7 @@
 										<Properties>
 											<Property name="text" type="String" value="Update Units"/>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[295, 5, 97, 32]"/>
+												<Rectangle value="[295, 8, 74, 23]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
@@ -885,7 +885,7 @@
 										<Properties>
 											<Property name="text" type="String" value="Secondary Units"/>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 42, 108, 21]"/>
+												<Rectangle value="[5, 39, 84, 19]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -919,7 +919,7 @@
 												<Dimension value="[422, 139]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[150, 42, 422, 139]"/>
+												<Rectangle value="[150, 39, 422, 139]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
@@ -930,8 +930,8 @@
 													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 														<Property name="verticalAlignment" type="int" value="2"/>
 														<Property name="horizontalAlignment" type="int" value="1"/>
-														<Property name="widthHint" type="int" value="114"/>
-														<Property name="heightHint" type="int" value="98"/>
+														<Property name="widthHint" type="int" value="116"/>
+														<Property name="heightHint" type="int" value="100"/>
 														<Property name="horizontalIndent" type="int" value="0"/>
 														<Property name="horizontalSpan" type="int" value="1"/>
 														<Property name="verticalSpan" type="int" value="1"/>
@@ -1064,8 +1064,8 @@
 													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 														<Property name="verticalAlignment" type="int" value="2"/>
 														<Property name="horizontalAlignment" type="int" value="1"/>
-														<Property name="widthHint" type="int" value="158"/>
-														<Property name="heightHint" type="int" value="99"/>
+														<Property name="widthHint" type="int" value="160"/>
+														<Property name="heightHint" type="int" value="101"/>
 														<Property name="horizontalIndent" type="int" value="0"/>
 														<Property name="horizontalSpan" type="int" value="1"/>
 														<Property name="verticalSpan" type="int" value="1"/>
@@ -1136,7 +1136,7 @@
 												<Dimension value="[82, 25]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 196, 82, 25]"/>
+												<Rectangle value="[5, 193, 82, 25]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -1164,7 +1164,7 @@
 												<Dimension value="[61, 25]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[519, 196, 61, 25]"/>
+												<Rectangle value="[519, 193, 61, 25]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -1198,7 +1198,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[587, 406]"/>
+										<Dimension value="[587, 408]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -1337,7 +1337,7 @@
 													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 														<Property name="verticalAlignment" type="int" value="2"/>
 														<Property name="horizontalAlignment" type="int" value="1"/>
-														<Property name="widthHint" type="int" value="419"/>
+														<Property name="widthHint" type="int" value="421"/>
 														<Property name="heightHint" type="int" value="178"/>
 														<Property name="horizontalIndent" type="int" value="0"/>
 														<Property name="horizontalSpan" type="int" value="1"/>
@@ -1445,7 +1445,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[587, 406]"/>
+										<Dimension value="[587, 408]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -1490,8 +1490,8 @@
 													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 														<Property name="verticalAlignment" type="int" value="2"/>
 														<Property name="horizontalAlignment" type="int" value="1"/>
-														<Property name="widthHint" type="int" value="139"/>
-														<Property name="heightHint" type="int" value="139"/>
+														<Property name="widthHint" type="int" value="141"/>
+														<Property name="heightHint" type="int" value="141"/>
 														<Property name="horizontalIndent" type="int" value="0"/>
 														<Property name="horizontalSpan" type="int" value="1"/>
 														<Property name="verticalSpan" type="int" value="1"/>
@@ -1653,8 +1653,8 @@
 													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 														<Property name="verticalAlignment" type="int" value="2"/>
 														<Property name="horizontalAlignment" type="int" value="1"/>
-														<Property name="widthHint" type="int" value="148"/>
-														<Property name="heightHint" type="int" value="139"/>
+														<Property name="widthHint" type="int" value="150"/>
+														<Property name="heightHint" type="int" value="141"/>
 														<Property name="horizontalIndent" type="int" value="0"/>
 														<Property name="horizontalSpan" type="int" value="1"/>
 														<Property name="verticalSpan" type="int" value="1"/>
@@ -1711,7 +1711,7 @@
 										<Properties>
 											<Property name="text" type="String" value="Previous"/>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 194, 70, 32]"/>
+												<Rectangle value="[5, 194, 53, 23]"/>
 											</Property>
 										</Properties>
 									</Component>

@@ -18,6 +18,8 @@ package com.turquaz.inventory.ui;
 
 
 
+import java.util.List;
+
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TableItem;
@@ -26,10 +28,12 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 
+import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TTable;
 import com.turquaz.inventory.bl.InvBLCardAdd;
+import com.turquaz.inventory.bl.InvBLCardSearch;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Combo;
@@ -41,6 +45,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
 
 
@@ -80,7 +86,7 @@ public class InvUICardSearch extends SecureComposite {
 	private TableColumn tableColumnInvName;
 	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnInventoryCode;
-	private Table table1;
+	private Table tableSearcResults;
 	private CCombo comboInvGroup;
 	private CLabel lblInvGroup;
 	private Text txtInvCode;
@@ -108,14 +114,14 @@ public class InvUICardSearch extends SecureComposite {
 			txtInvCode = new Text(compInvCardSearchPanel,SWT.NULL);
 			lblInvGroup = new CLabel(compInvCardSearchPanel,SWT.NULL);
 			comboInvGroup = new CCombo(compInvCardSearchPanel,SWT.NULL);
-			table1 = new Table(compInvCardSearch,SWT.FULL_SELECTION| SWT.H_SCROLL| SWT.V_SCROLL| SWT.BORDER);
-			tableColumnInvName = new TableColumn(table1,SWT.NULL);
-			tableColumnInventoryCode = new TableColumn(table1,SWT.NULL);
-			tableColumnAmount = new TableColumn(table1,SWT.NULL);
+			tableSearcResults = new Table(compInvCardSearch,SWT.FULL_SELECTION| SWT.H_SCROLL| SWT.V_SCROLL| SWT.BORDER);
+			tableColumnInvName = new TableColumn(tableSearcResults,SWT.NULL);
+			tableColumnInventoryCode = new TableColumn(tableSearcResults,SWT.NULL);
+			tableColumnAmount = new TableColumn(tableSearcResults,SWT.NULL);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(553,434));
+			this.setSize(new org.eclipse.swt.graphics.Point(573,437));
 	
-			compInvCardSearch.setSize(new org.eclipse.swt.graphics.Point(553,434));
+			compInvCardSearch.setSize(new org.eclipse.swt.graphics.Point(573,437));
 	
 			GridData compInvCardSearchPanelLData = new GridData();
 			compInvCardSearchPanelLData.verticalAlignment = GridData.CENTER;
@@ -128,7 +134,7 @@ public class InvUICardSearch extends SecureComposite {
 			compInvCardSearchPanelLData.grabExcessHorizontalSpace = true;
 			compInvCardSearchPanelLData.grabExcessVerticalSpace = false;
 			compInvCardSearchPanel.setLayoutData(compInvCardSearchPanelLData);
-			compInvCardSearchPanel.setSize(new org.eclipse.swt.graphics.Point(543,84));
+			compInvCardSearchPanel.setSize(new org.eclipse.swt.graphics.Point(563,84));
 	
 			GridData lblInvNameLData = new GridData();
 			lblInvNameLData.verticalAlignment = GridData.CENTER;
@@ -174,7 +180,7 @@ public class InvUICardSearch extends SecureComposite {
 			GridData txtInvCodeLData = new GridData();
 			txtInvCodeLData.verticalAlignment = GridData.CENTER;
 			txtInvCodeLData.horizontalAlignment = GridData.BEGINNING;
-			txtInvCodeLData.widthHint = 163;
+			txtInvCodeLData.widthHint = 147;
 			txtInvCodeLData.heightHint = 17;
 			txtInvCodeLData.horizontalIndent = 0;
 			txtInvCodeLData.horizontalSpan = 1;
@@ -182,7 +188,7 @@ public class InvUICardSearch extends SecureComposite {
 			txtInvCodeLData.grabExcessHorizontalSpace = false;
 			txtInvCodeLData.grabExcessVerticalSpace = false;
 			txtInvCode.setLayoutData(txtInvCodeLData);
-			txtInvCode.setSize(new org.eclipse.swt.graphics.Point(163,17));
+			txtInvCode.setSize(new org.eclipse.swt.graphics.Point(147,17));
 	
 			GridData lblInvGroupLData = new GridData();
 			lblInvGroupLData.verticalAlignment = GridData.CENTER;
@@ -201,15 +207,15 @@ public class InvUICardSearch extends SecureComposite {
 			GridData comboInvGroupLData = new GridData();
 			comboInvGroupLData.verticalAlignment = GridData.CENTER;
 			comboInvGroupLData.horizontalAlignment = GridData.BEGINNING;
-			comboInvGroupLData.widthHint = 136;
-			comboInvGroupLData.heightHint = 17;
+			comboInvGroupLData.widthHint = 119;
+			comboInvGroupLData.heightHint = 14;
 			comboInvGroupLData.horizontalIndent = 0;
 			comboInvGroupLData.horizontalSpan = 1;
 			comboInvGroupLData.verticalSpan = 1;
 			comboInvGroupLData.grabExcessHorizontalSpace = false;
 			comboInvGroupLData.grabExcessVerticalSpace = false;
 			comboInvGroup.setLayoutData(comboInvGroupLData);
-			comboInvGroup.setSize(new org.eclipse.swt.graphics.Point(136,17));
+			comboInvGroup.setSize(new org.eclipse.swt.graphics.Point(119,16));
 			GridLayout compInvCardSearchPanelLayout = new GridLayout(4, true);
 			compInvCardSearchPanel.setLayout(compInvCardSearchPanelLayout);
 			compInvCardSearchPanelLayout.marginWidth = 5;
@@ -220,20 +226,25 @@ public class InvUICardSearch extends SecureComposite {
 			compInvCardSearchPanelLayout.verticalSpacing = 5;
 			compInvCardSearchPanel.layout();
 	
-			GridData table1LData = new GridData();
-			table1LData.verticalAlignment = GridData.FILL;
-			table1LData.horizontalAlignment = GridData.FILL;
-			table1LData.widthHint = -1;
-			table1LData.heightHint = -1;
-			table1LData.horizontalIndent = 0;
-			table1LData.horizontalSpan = 1;
-			table1LData.verticalSpan = 1;
-			table1LData.grabExcessHorizontalSpace = true;
-			table1LData.grabExcessVerticalSpace = true;
-			table1.setLayoutData(table1LData);
-			table1.setHeaderVisible(true);
-			table1.setLinesVisible(true);
-			table1.setSize(new org.eclipse.swt.graphics.Point(523,315));
+			GridData tableSearcResultsLData = new GridData();
+			tableSearcResultsLData.verticalAlignment = GridData.FILL;
+			tableSearcResultsLData.horizontalAlignment = GridData.FILL;
+			tableSearcResultsLData.widthHint = -1;
+			tableSearcResultsLData.heightHint = -1;
+			tableSearcResultsLData.horizontalIndent = 0;
+			tableSearcResultsLData.horizontalSpan = 1;
+			tableSearcResultsLData.verticalSpan = 1;
+			tableSearcResultsLData.grabExcessHorizontalSpace = true;
+			tableSearcResultsLData.grabExcessVerticalSpace = true;
+			tableSearcResults.setLayoutData(tableSearcResultsLData);
+			tableSearcResults.setHeaderVisible(true);
+			tableSearcResults.setLinesVisible(true);
+			tableSearcResults.setSize(new org.eclipse.swt.graphics.Point(543,318));
+			tableSearcResults.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					tableSearcResultsMouseDoubleClick(evt);
+				}
+			});
 	
 			tableColumnInvName.setText("Inventory Name");
 			tableColumnInvName.setWidth(115);
@@ -265,7 +276,7 @@ public class InvUICardSearch extends SecureComposite {
 			e.printStackTrace();
 		}
 	}
-	/** Add your pre-init code in here 	*/
+/** Add your pre-init code in here 	*/
 	public void preInitGUI(){
 	}
 
@@ -307,6 +318,39 @@ public class InvUICardSearch extends SecureComposite {
 		
 	}
 	public void search(){
+	tableSearcResults.removeAll();
+	InvBLCardSearch cardSearch = new InvBLCardSearch();
+	List result;
+	try{
+	if(comboInvGroup.getSelectionIndex()==-1){
+	result = cardSearch.searchCards(txtInvName.getText().trim(),txtInvCode.getText().trim(),null);
+	
+	}
+	else{
+	result = cardSearch.searchCards(txtInvName.getText().trim(),txtInvCode.getText().trim(),(TurqInventoryGroup)comboInvGroup.getData(comboInvGroup.getText()));
+	
+	}
+	
+	TableItem item;
+	int listSize = result.size();
+	for(int i =0; i<listSize;i++){
+	TurqInventoryCard card = (TurqInventoryCard)result.get(i);
+	item = new TableItem(tableSearcResults,SWT.NULL);
+	item.setData(card);
+	item.setText(new String[]{card.getCardName(),card.getCardInventoryCode()});
+	
+	
+	}
+	
+	System.out.println(result.size());
+	}
+	catch(Exception ex){
+	ex.printStackTrace();
+	}
+	
+	
+	
+	
 		
 	}
 
@@ -325,7 +369,7 @@ public class InvUICardSearch extends SecureComposite {
 			Shell shell = new Shell(display);
 			InvUICardSearch inst = new InvUICardSearch(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0,0,553,434);
+			Rectangle shellBounds = shell.computeTrim(0,0,573,437);
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.open();
 			while (!shell.isDisposed()) {
@@ -335,5 +379,17 @@ public class InvUICardSearch extends SecureComposite {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+/** Auto-generated event handler method */
+	protected void tableSearcResultsMouseDoubleClick(MouseEvent evt){
+    TableItem [] selection= tableSearcResults.getSelection();	
+	
+	if(selection.length>0){
+	
+	TurqInventoryCard card = (TurqInventoryCard)selection[0].getData();
+	new InvUICardUpdateDialog(this.getShell(),SWT.NULL,card).open();
+	
+	
+	}
 	}
 }

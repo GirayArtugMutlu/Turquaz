@@ -22,10 +22,10 @@
 		</Events>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[553, 434]"/>
+				<Dimension value="[573, 437]"/>
 			</Property>
 			<Property name="bounds" type="Rectangle">
-				<Rectangle value="[0, 0, 553, 434]"/>
+				<Rectangle value="[0, 0, 573, 437]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -45,10 +45,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[553, 434]"/>
+						<Dimension value="[573, 437]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[0, 0, 553, 434]"/>
+						<Rectangle value="[0, 0, 573, 437]"/>
 					</Property>
 				</Properties>
 				<SubComponents>
@@ -79,10 +79,10 @@
 						</Events>
 						<Properties>
 							<Property name="size" type="Dimension">
-								<Dimension value="[543, 84]"/>
+								<Dimension value="[563, 84]"/>
 							</Property>
 							<Property name="bounds" type="Rectangle">
-								<Rectangle value="[5, 5, 543, 84]"/>
+								<Rectangle value="[5, 5, 563, 84]"/>
 							</Property>
 						</Properties>
 						<SubComponents>
@@ -173,7 +173,7 @@
 									<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 										<Property name="verticalAlignment" type="int" value="2"/>
 										<Property name="horizontalAlignment" type="int" value="1"/>
-										<Property name="widthHint" type="int" value="163"/>
+										<Property name="widthHint" type="int" value="147"/>
 										<Property name="heightHint" type="int" value="17"/>
 										<Property name="horizontalIndent" type="int" value="0"/>
 										<Property name="horizontalSpan" type="int" value="1"/>
@@ -187,10 +187,10 @@
 								<Properties>
 									<Property name="text" type="String" value=""/>
 									<Property name="size" type="Dimension">
-										<Dimension value="[169, 17]"/>
+										<Dimension value="[153, 17]"/>
 									</Property>
 									<Property name="bounds" type="Rectangle">
-										<Rectangle value="[405, 6, 169, 17]"/>
+										<Rectangle value="[405, 6, 153, 17]"/>
 									</Property>
 								</Properties>
 							</Component>
@@ -227,8 +227,8 @@
 									<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 										<Property name="verticalAlignment" type="int" value="2"/>
 										<Property name="horizontalAlignment" type="int" value="1"/>
-										<Property name="widthHint" type="int" value="136"/>
-										<Property name="heightHint" type="int" value="17"/>
+										<Property name="widthHint" type="int" value="119"/>
+										<Property name="heightHint" type="int" value="14"/>
 										<Property name="horizontalIndent" type="int" value="0"/>
 										<Property name="horizontalSpan" type="int" value="1"/>
 										<Property name="verticalSpan" type="int" value="1"/>
@@ -241,16 +241,16 @@
 								<Properties>
 									<Property name="text" type="String" value=""/>
 									<Property name="size" type="Dimension">
-										<Dimension value="[158, 17]"/>
+										<Dimension value="[141, 16]"/>
 									</Property>
 									<Property name="bounds" type="Rectangle">
-										<Rectangle value="[124, 28, 158, 17]"/>
+										<Rectangle value="[124, 28, 141, 16]"/>
 									</Property>
 								</Properties>
 							</Component>
 						</SubComponents>
 					</Component>
-					<Component class="org.eclipse.swt.widgets.Table" name="table1" style="68352">
+					<Component class="org.eclipse.swt.widgets.Table" name="tableSearcResults" style="68352">
 						<Constraints>
 							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -266,15 +266,16 @@
 							</LayoutConstraint>
 						</Constraints>
 						<Events>
+							<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="tableSearcResultsMouseDoubleClick"/>
 						</Events>
 						<Properties>
 							<Property name="headerVisible" type="boolean" value="true"/>
 							<Property name="linesVisible" type="boolean" value="true"/>
 							<Property name="size" type="Dimension">
-								<Dimension value="[543, 335]"/>
+								<Dimension value="[563, 338]"/>
 							</Property>
 							<Property name="bounds" type="Rectangle">
-								<Rectangle value="[5, 94, 543, 335]"/>
+								<Rectangle value="[5, 94, 563, 338]"/>
 							</Property>
 						</Properties>
 						<SubComponents>

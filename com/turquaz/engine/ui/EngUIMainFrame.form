@@ -491,6 +491,7 @@
 																					<LayoutConstraint/>
 																				</Constraints>
 																				<Events>
+																					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="treeInventoryMouseDoubleClick"/>
 																				</Events>
 																				<Properties>
 																					<Property name="bounds" type="Rectangle">
@@ -506,6 +507,7 @@
 																					<LayoutConstraint/>
 																				</Constraints>
 																				<Events>
+																					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="treeAccountingMouseDoubleClick"/>
 																				</Events>
 																				<Properties>
 																					<Property name="size" type="Dimension">
@@ -521,6 +523,7 @@
 																					<LayoutConstraint/>
 																				</Constraints>
 																				<Events>
+																					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="treeAdminMouseDoubleClick"/>
 																				</Events>
 																				<Properties>
 																					<Property name="size" type="Dimension">
@@ -630,10 +633,10 @@
 																				<Properties>
 																					<Property name="text" type="String" value="Favorite Items"/>
 																					<Property name="size" type="Dimension">
-																						<Dimension value="[226, 20]"/>
+																						<Dimension value="[202, 20]"/>
 																					</Property>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[2, 2, 226, 20]"/>
+																						<Rectangle value="[2, 3, 202, 20]"/>
 																					</Property>
 																					<Property name="visible" type="boolean" value="true"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -661,7 +664,7 @@
 																				</Events>
 																				<Properties>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[228, 12, 1, 1]"/>
+																						<Rectangle value="[204, 2, 24, 22]"/>
 																					</Property>
 																					<Property name="visible" type="boolean" value="true"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -689,10 +692,10 @@
 																		</Events>
 																		<Properties>
 																			<Property name="size" type="Dimension">
-																				<Dimension value="[230, 272]"/>
+																				<Dimension value="[230, 274]"/>
 																			</Property>
 																			<Property name="bounds" type="Rectangle">
-																				<Rectangle value="[0, 24, 230, 272]"/>
+																				<Rectangle value="[0, 24, 230, 274]"/>
 																			</Property>
 																			<Property name="visible" type="boolean" value="true"/>
 																			<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -769,13 +772,13 @@
 																</Events>
 																<Properties>
 																	<Property name="size" type="Dimension">
-																		<Dimension value="[121, 30]"/>
+																		<Dimension value="[92, 22]"/>
 																	</Property>
 																	<Property name="preferredSize" type="Dimension">
-																		<Dimension value="[121, 30]"/>
+																		<Dimension value="[92, 22]"/>
 																	</Property>
 																	<Property name="minimumSize" type="Dimension">
-																		<Dimension value="[121, 30]"/>
+																		<Dimension value="[92, 22]"/>
 																	</Property>
 																	<Property name="text" type="String" value="coolItem3"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -811,8 +814,9 @@
 																				</Events>
 																				<Properties>
 																					<Property name="enabled" type="boolean" value="true"/>
+																					<Property name="toolTipText" type="String" value="New"/>
 																					<Property name="image" type="Image">
-																						<Image name="/icons/new_wiz.gif"/>
+																						<Image name="\icons\new_wiz.gif"/>
 																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -827,8 +831,9 @@
 																				</Events>
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
+																					<Property name="toolTipText" type="String" value="Save"/>
 																					<Property name="image" type="Image">
-																						<Image name="/icons/save.gif"/>
+																						<Image name="\icons\save.gif"/>
 																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -843,8 +848,9 @@
 																				</Events>
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
+																					<Property name="toolTipText" type="String" value="Delete"/>
 																					<Property name="image" type="Image">
-																						<Image name="/icons/delete_edit.gif"/>
+																						<Image name="\icons\delete_edit.gif"/>
 																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -859,8 +865,9 @@
 																				</Events>
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
+																					<Property name="toolTipText" type="String" value="Search"/>
 																					<Property name="image" type="Image">
-																						<Image name="/icons/run_exec.gif"/>
+																						<Image name="\icons\run_exec.gif"/>
 																					</Property>
 																					<Property name="selection" type="boolean" value="true"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
