@@ -402,6 +402,8 @@ public class InvUITransactionTableRow implements ITableRow {
       
        rowList.taskChanged(this);
        
+       System.out.println("modify");
+       
     }
     
     

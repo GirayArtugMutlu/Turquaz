@@ -31,7 +31,9 @@ public class TableSpreadsheetCursor extends TableCursor implements ICellEditorLi
 		TableSpreadsheetCursor.this.viewer.setSelection(new StructuredSelection(TableSpreadsheetCursor.this.getRow()), true);
 		// set selection of table separatly; viewer does incorrectly.
 		TableSpreadsheetCursor.this.viewer.getTable().setSelection(new TableItem[] { TableSpreadsheetCursor.this.getRow() });
-	   System.out.println("fuck");
+
+		setFocus();
+		System.out.println("apply");
 	}
 	/**
 	 * makes the TableCursor visible again.
