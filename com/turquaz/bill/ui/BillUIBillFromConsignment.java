@@ -1112,12 +1112,25 @@ implements SecureComposite{
     tableConsignmentRows.removeAll(); 
     	
 	while(it.hasNext()){
+		/**
+		 * TODO Amount In is wrong....
+		 */
+		
+		
     	invTrans = (TurqInventoryTransaction)it.next();
+    	
+    	BigDecimal amount = invTrans.getTransactionsAmountIn();
+    	if(amount.compareTo(new BigDecimal(0))<1)
+    	{
+    		amount = invTrans.getTransactionsTotalAmountOut();
+    	}
+    	
+    	
     	item = new TableItem(tableConsignmentRows,SWT.NULL);
     	item.setData(invTrans);
     	item.setText(new String[]{invTrans.getTurqInventoryCard().getCardInventoryCode(),
 				   invTrans.getTurqInventoryCard().getCardName(),
-				   invTrans.getTransactionsAmountIn()+"", //$NON-NLS-1$
+				    amount+"", //$NON-NLS-1$
 				   invTrans.getTurqInventoryUnit().getUnitsName(),
 				   invTrans.getTransactionsUnitPrice().toString(),
 				   invTrans.getTransactionsTotalPrice().toString(),
