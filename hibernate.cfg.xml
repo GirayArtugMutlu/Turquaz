@@ -82,6 +82,7 @@
          <mapping resource="com/turquaz/engine/dal/TurqInventoryAccountingAccount.hbm.xml"/>
          <mapping resource="com/turquaz/engine/dal/TurqInventoryAccountingType.hbm.xml"/>
      <mapping resource="com/turquaz/engine/dal/TurqChequeTransactionTypeGroup.hbm.xml"/>
+       <mapping resource="com/turquaz/engine/dal/TurqInventoryTransactionType.hbm.xml"/>
        </session-factory>
     
 
