@@ -1,4 +1,8 @@
 <tree>
+<treeitem text="Stok Hareketi" class="com.turquaz.inventory.ui.InvUITransactionAdd"  >
+</treeitem>
+<treeitem text="Depo Ekle" class="com.turquaz.inventory.ui.InvUIWarehouseAdd"  >
+</treeitem>
 <treeitem text="Current Card Add" class="com.turquaz.current.ui.CurUICurrentCardAdd"  >
 </treeitem>
 </tree>
