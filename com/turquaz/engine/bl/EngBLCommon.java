@@ -77,6 +77,10 @@ public class EngBLCommon {
     
     
     
+    public final static boolean INVENTORY_SPEC_VAT_FOR_EACH = true; //OTV birimle hesaplanir
+    public final static boolean INVENTORY_SPEC_VAT_PERCENT = false; //OTV yuzde ile hesaplanir.
+    
+    
     public final static int CONTENT_ASSIST_ACCOUNTING = 0;
     public final static int CONTENT_ASSIST_INVENTORY = 1;
     public final static int CONTENT_ASSIST_ACCOUNT_LEAVES =2;
