@@ -19,12 +19,16 @@ public class EngKeys
 	public final static String DATE="date";
 	public final static String DATE_START="dateStart";
 	public final static String DATE_END="dateEnd";
+	public final static String ENG_SEQ="engSeq";
 	public final static String ENG_SEQ_ID="engSeqId";
 	public final static String TYPE="type";
 	public final static String TRANS_DATE="transDate";
+	public final static String TRANS_ID="transId";
 	public final static String DEFINITION="definition";
 	public final static String DOCUMENT_NO="documentNo";	
 	public final static String CURRENT_CARD="currentCard";
+	public final static String CURRENT_CARD_START="currentCardStart";
+	public final static String CURRENT_CARD_END="currentCardEnd";
 	public final static String AMOUNT_IN="amountIn";
 	public final static String AMOUNT_OUT="amountOut";
 }
