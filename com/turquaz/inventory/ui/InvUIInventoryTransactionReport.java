@@ -17,7 +17,7 @@ package com.turquaz.inventory.ui;
 /************************************************************************/
 
 /**
-* @author  Onsel Armagan
+* @author  Cem Dayanik
 * @version  $Id$
 */
 
@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
 
 import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
+
 
 import com.turquaz.engine.bl.EngBLUtils;
 
@@ -77,7 +78,7 @@ import org.eclipse.swt.events.MouseEvent;
  * *************************************
  */
 
-public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
+public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Composite
 		implements SearchComposite {
 	private Composite compInvTransactionSearch;
 
@@ -114,7 +115,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 	private InvBLSearchTransaction blSearch = new InvBLSearchTransaction();
 	private Calendar cal=Calendar.getInstance();
 
-	public InvUITransactionSearch(org.eclipse.swt.widgets.Composite parent,
+	public InvUIInventoryTransactionReport(org.eclipse.swt.widgets.Composite parent,
 			int style) {
 		super(parent, style);
 		initGUI();
@@ -136,8 +137,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                 compInvTransactionSearch.setLayout(composite1Layout);
                 {
                     lblInvCard = new Label(compInvTransactionSearch, SWT.NONE);
-                    lblInvCard.setText(Messages
-                        .getString("InvUITransactionSearch.0")); //$NON-NLS-1$
+                    lblInvCard.setText("Stok Kart?"); 
                         GridData lblInvCardLData = new GridData();
                         lblInvCardLData.widthHint = 89;
                         lblInvCardLData.heightHint = 17;
@@ -157,9 +157,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                     lblCurrentCard = new CLabel(
                         compInvTransactionSearch,
                         SWT.NONE);
-                    lblCurrentCard.setText(Messages
-                        .getString("InvUITransactionSearch.1")); //$NON-NLS-1$
-
+                    lblCurrentCard.setText("Cari Kart");
                 }
 				{
 					txtCurCard = new CurrentPicker(compInvTransactionSearch, SWT.NONE);
@@ -174,8 +172,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                     lblStartDate = new CLabel(
                         compInvTransactionSearch,
                         SWT.NONE);
-                    lblStartDate.setText(Messages
-                        .getString("InvUITransactionSearch.2")); //$NON-NLS-1$
+                    lblStartDate.setText("Ba?lang?ç Tarihi");
                     GridData lblStartDateLData = new GridData();
                     lblStartDateLData.widthHint = 109;
                     lblStartDateLData.heightHint = 17;
@@ -192,8 +189,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                 }
                 {
                     lblEndDate = new CLabel(compInvTransactionSearch, SWT.NONE);
-                    lblEndDate.setText(Messages
-                        .getString("InvUITransactionSearch.3")); //$NON-NLS-1$
+                    lblEndDate.setText("Biti? Tarihi");
                     GridData lblEndDateLData = new GridData();
                     lblEndDateLData.widthHint = 105;
                     lblEndDateLData.heightHint = 19;
@@ -210,8 +206,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                 }
                 {
                     lblType = new CLabel(compInvTransactionSearch, SWT.NONE);
-                    lblType.setText(Messages
-                        .getString("InvUITransactionSearch.4")); //$NON-NLS-1$
+                    lblType.setText("Tipi");
                     GridData lblTypeLData = new GridData();
                     lblTypeLData.widthHint = 74;
                     lblTypeLData.heightHint = 21;
@@ -222,8 +217,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                         compInvTransactionSearch,
                         SWT.NONE);
                     GridData comboConsignmentTypeLData = new GridData();
-                    comboTransactionsType.setText(Messages
-                        .getString("InvUITransactionSearch.5")); //$NON-NLS-1$
+                    comboTransactionsType.setText("Hepsi");
                     comboConsignmentTypeLData.widthHint = 72;
                     comboConsignmentTypeLData.heightHint = 14;
                     comboTransactionsType
@@ -249,38 +243,38 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 				{
 					tableColumnTransactionDate = new TableColumn(
 							tableTransactions, SWT.NONE);
-					tableColumnTransactionDate.setText(Messages.getString("InvUITransactionSearch.6")); //$NON-NLS-1$
+					tableColumnTransactionDate.setText("Tarih");
 					tableColumnTransactionDate.setWidth(88);
 				}
 				{
 					tableColumnInventoryCode = new TableColumn(
 						tableTransactions,
 						SWT.NONE);
-					tableColumnInventoryCode.setText(Messages.getString("InvUITransactionSearch.8")); //$NON-NLS-1$
+					tableColumnInventoryCode.setText("Stok Kart?");
 					tableColumnInventoryCode.setWidth(108);
 				}
 				{
 					tableColumnTotalAmountIn = new TableColumn(
 						tableTransactions,
 						SWT.RIGHT);
-					tableColumnTotalAmountIn.setText(Messages.getString("InvUITransactionSearch.7"));  //$NON-NLS-1$
+					tableColumnTotalAmountIn.setText("Gir. Miktar?");
 					tableColumnTotalAmountIn.setWidth(100);
 				}
 				{
 					tableColumnTotalAmountOut = new TableColumn(
 						tableTransactions,
 						SWT.RIGHT);
-					tableColumnTotalAmountOut.setText(Messages.getString("InvUITransactionSearch.10"));  //$NON-NLS-1$
+					tableColumnTotalAmountOut.setText("Ç?k. Miktar?");
 					tableColumnTotalAmountOut.setWidth(100);
 				}
 				{
 					tableColumnTotalPriceIn = new TableColumn(tableTransactions, SWT.RIGHT);
-					tableColumnTotalPriceIn.setText(Messages.getString("InvUITransactionSearch.9")); //$NON-NLS-1$
+					tableColumnTotalPriceIn.setText("Giri? Tutar?");
 					tableColumnTotalPriceIn.setWidth(100);
 				}
 				{
 					tableColumnTotalPriceOut = new TableColumn(tableTransactions, SWT.RIGHT);
-					tableColumnTotalPriceOut.setText(Messages.getString("InvUITransactionSearch.11")); //$NON-NLS-1$
+					tableColumnTotalPriceOut.setText("Ç?k?? Tutar?");
 					tableColumnTotalPriceOut.setWidth(100);
 				}
 			}
@@ -315,11 +309,10 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 		}
 	}
 	public void postInitGui() {
-		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.14")); //$NON-NLS-1$
-		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.12")); //$NON-NLS-1$
-		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.13")); //$NON-NLS-1$
-		comboTransactionsType.setText(Messages.getString("InvUITransactionSearch.18")); //$NON-NLS-1$
-		//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
+		comboTransactionsType.add("Hepsi");
+		comboTransactionsType.add("Al??");
+		comboTransactionsType.add("Sat??");
+		comboTransactionsType.setText("Hepsi");
 		cal.set(cal.get(Calendar.YEAR),0,1);
 		dateStartDate.setDate(cal.getTime());
 		
@@ -363,11 +356,11 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 			TurquazDecimalFormat df = new TurquazDecimalFormat();
 			tableTransactions.removeAll();
 			int type = 0;
-			if (comboTransactionsType.getText().equals(Messages.getString("InvUITransactionSearch.17"))) //$NON-NLS-1$
+			if (comboTransactionsType.getText().equals("Hepsi"))
 				type=2;
-			else if (comboTransactionsType.getText().equals(Messages.getString("InvUITransactionSearch.16"))) { //$NON-NLS-1$
+			else if (comboTransactionsType.getText().equals("Sat??"))
 				type = 1;
-			}
+
 
 			List list = blSearch.searchTransactions((TurqCurrentCard) txtCurCard
 					.getData(),(TurqInventoryCard) txtInvCard.getData(), dateStartDate.getDate(), dateEndDate.getDate(),
@@ -390,7 +383,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 					
 				}
 				else{
-					throw new Exception(Messages.getString("InvUITransactionSearch.17")); //$NON-NLS-1$
+					throw new Exception(Messages.getString("InvUIInventoryTransactionReport.17")); //$NON-NLS-1$
 				}
 				
 		    */		
@@ -441,11 +434,69 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 
 	}
 	public void printTable(){
-	    EngBLUtils.printTable(tableTransactions,Messages.getString("InvUITransactionSearch.15")); //$NON-NLS-1$
+	    EngBLUtils.printTable(tableTransactions,Messages.getString("InvUIInventoryTransactionReport.15")); //$NON-NLS-1$
 	    
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
