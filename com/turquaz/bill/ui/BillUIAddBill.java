@@ -497,8 +497,8 @@ public class BillUIAddBill extends Composite
                                 GridData txtCurrentCardLData = new GridData();
                                 
                                 txtCurrentCard.setBackground(SWTResourceManager.getColor(255,255,255));
-                                txtCurrentCardLData.widthHint = 213;
-                                txtCurrentCardLData.heightHint = 13;
+                                txtCurrentCardLData.widthHint = 210;
+                                txtCurrentCardLData.heightHint = 17;
                                 txtCurrentCard.setLayoutData(txtCurrentCardLData);
                             }
                             {
@@ -534,9 +534,8 @@ public class BillUIAddBill extends Composite
                                     SWT.NONE);
                                 GridData txtBillDocumentNoLData = new GridData();
                                 txtBillDocumentNoLData.widthHint = 133;
-                                txtBillDocumentNoLData.heightHint = 15;
-                                txtConsignmentDocumentNo
-                                    .setLayoutData(txtBillDocumentNoLData);
+                                txtBillDocumentNoLData.heightHint = 18;
+                                txtConsignmentDocumentNo.setLayoutData(txtBillDocumentNoLData);
                             }
                             {
                                 lblDate = new CLabel(compInfoPanel, SWT.LEFT);

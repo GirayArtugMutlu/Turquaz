@@ -209,7 +209,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			}
 		    
 			
-			
+			compAddBill.getDateDueDate().setDate(bill.getDueDate());
 			
 		
 			compAddBill.getTxtDefinition().setText(bill.getBillsDefinition());
