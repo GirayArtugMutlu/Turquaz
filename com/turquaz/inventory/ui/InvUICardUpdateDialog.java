@@ -568,7 +568,7 @@ public class InvUICardUpdateDialog extends Dialog{
      if(cardUpdate.hasTransactions(invCard))
      {
      	MessageBox msg2 = new MessageBox(this.getParent(),SWT.ICON_WARNING);
-    	msg2.setMessage("Inventory card contains transactions and \ncan not be deleted. Delete them first. ");  //$NON-NLS-1$
+    	msg2.setMessage(Messages.getString("InvUICardUpdateDialog.8")); //$NON-NLS-1$
 		msg2.open();
 		return;
      }
