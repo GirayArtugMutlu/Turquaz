@@ -887,6 +887,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                                     tabfldMenu.setSelection(item);
                                     sashMainHorizontal
                                         .setMaximizedControl(null);
+                                
+                                    
 
                                 }
 
@@ -1186,15 +1188,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		
 		
 		
-		//SET POP UP Menus for trees
-			
-		treeAccounting.setMenu(popupTreeAddFavorites);
-		treeAdmin.setMenu(popupTreeAddFavorites);
-		treeBank.setMenu(popupTreeAddFavorites);
-		treeInventory.setMenu(popupTreeAddFavorites);
-		treeConsignment.setMenu(popupTreeAddFavorites);
-		treeCurrent.setMenu(popupTreeAddFavorites);
-		treeFavorites.setMenu(popupTreeRemoveFavorites);
+		setPopUpMenus();
 		
 		
 		//Set color for Main tab folder
@@ -1214,6 +1208,21 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		
 														   
 		
+	}
+	
+	public void setPopUpMenus(){
+//		SET POP UP Menus for trees
+		
+	treeAccounting.setMenu(popupTreeAddFavorites);
+	treeAdmin.setMenu(popupTreeAddFavorites);
+	treeBank.setMenu(popupTreeAddFavorites);
+	treeInventory.setMenu(popupTreeAddFavorites);
+	treeConsignment.setMenu(popupTreeAddFavorites);
+	treeCurrent.setMenu(popupTreeAddFavorites);
+	treeFavorites.setMenu(popupTreeRemoveFavorites);
+	treeBill.setMenu(popupTreeAddFavorites);
+	
+	
 	}
 	
 	public void addKeyEventInventory(Tree tree)
