@@ -5,14 +5,12 @@ import java.util.List;
 
 
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
@@ -31,7 +29,6 @@ import org.eclipse.swt.SWT;
 import com.turquaz.engine.ui.editors.AccountingCellEditor;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.viewers.TableRowList;
-import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
 import com.turquaz.engine.ui.viewers.TurquazCellModifier;
 import com.turquaz.engine.ui.viewers.TurquazContentProvider;
 import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
@@ -132,8 +129,13 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
           
 			this.setSize(581, 275);
             {
-                table = new Table(this, SWT.FULL_SELECTION);
+                table = new Table(this, SWT.FULL_SELECTION | SWT.HIDE_SELECTION);
                 GridData tableLData = new GridData();
+                table.addKeyListener(new KeyAdapter() {
+                    public void keyReleased(KeyEvent evt) {
+                       
+                    }
+                });
                 table.setHeaderVisible(true);
                 table.setLinesVisible(true);
                 tableLData.grabExcessHorizontalSpace = true;
@@ -243,6 +245,7 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
 		tableViewer.setLabelProvider(new TurquazLabelProvider());
 		
 		tableViewer.setInput(rowList);
+		
 		
 	//	tableViewer.setSorter(new TurquazTableSorter(0));
        

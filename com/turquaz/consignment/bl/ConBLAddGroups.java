@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.turquaz.consignment.dal.ConDALAddGroups;
-import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 
 /**

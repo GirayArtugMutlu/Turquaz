@@ -49,7 +49,6 @@ import com.turquaz.accounting.dal.AccDALAccountingBalanceSub;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
-import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.layout.GridData;
 public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {

@@ -7,7 +7,6 @@ import java.util.Date;
 
 import com.turquaz.consignment.dal.ConDALAddConsignment;
 import com.turquaz.engine.dal.TurqBillConsignmentCommon;
-import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqConsignmentsInGroup;

@@ -41,7 +41,6 @@ import org.eclipse.swt.widgets.Button;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
-import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.layout.GridData;
 public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Composite {

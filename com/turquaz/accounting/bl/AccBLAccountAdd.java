@@ -32,7 +32,6 @@ import java.util.List;
 
 import com.turquaz.accounting.dal.AccDALAccountAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqCompany;
  
 /**
  * @author onsel

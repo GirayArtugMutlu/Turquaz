@@ -1,8 +1,8 @@
 /*
  * Created on Oct 19, 2004
  *
- * TODO To change the template for this generated file go to
  * Window - Preferences - Java - Code Style - Code Templates
+ *
  */
 package com.turquaz.accounting.dal;
 /************************************************************************/
@@ -28,9 +28,6 @@ package com.turquaz.accounting.dal;
 
 import java.util.Date;
 import java.util.List;
-
-
-import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
@@ -94,11 +91,12 @@ public class AccDALTransactionSearch {
 	
 	public List searchTransaction(String docNo,Object type,Object startDate, Object endDate)throws Exception {
     try{
+        System.out.println("deneme");
+        
     	Session session = EngDALSessionFactory.openSession();
 		
     	String query ="select accTrans from TurqAccountingTransaction as accTrans " +
-    			      " left join fetch accTrans.turqAccountingTransactionColumns "+
-    				  "where accTrans.transactionDocumentNo like '"+docNo+"%' ";
+    				  " where accTrans.transactionDocumentNo like '"+docNo+"%' ";
     	
 		if(startDate!=null){
 		

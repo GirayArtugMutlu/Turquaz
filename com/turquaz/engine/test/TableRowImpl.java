@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 import org.eclipse.swt.graphics.Color;
 
+import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
@@ -35,8 +36,15 @@ public class TableRowImpl extends TurqAccountingTransactionColumn implements ITa
   }
     
     public Color getColor() {
-        
-        return null;
+        if (getTurqAccountingAccount()==null){
+            return SWTResourceManager.getColor(255,198,198);
+            
+        }
+        else
+        {
+           return SWTResourceManager.getColor(198,255,198);
+        }
+     
     
     }
     public boolean canModify(int column_index){
@@ -163,6 +171,15 @@ public class TableRowImpl extends TurqAccountingTransactionColumn implements ITa
        }
        else return false;
         
+        
+    }
+    public boolean okToSave(){
+        return true;
+    }
+    public Object getDBObject(){
+        return this;
+    }
+    public void setDBObject(Object obj){
         
     }
   

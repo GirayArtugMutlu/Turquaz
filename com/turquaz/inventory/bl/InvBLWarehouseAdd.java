@@ -8,7 +8,6 @@ package com.turquaz.inventory.bl;
 
 import java.util.Calendar;
 
-import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 
 import com.turquaz.inventory.dal.InvDALWarehouseAdd;
