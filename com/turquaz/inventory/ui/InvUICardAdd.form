@@ -805,7 +805,7 @@
 												<Dimension value="[51, 19]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 7, 51, 19]"/>
+												<Rectangle value="[5, 5, 51, 19]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -818,7 +818,7 @@
 												<Property name="widthHint" type="int" value="104"/>
 												<Property name="heightHint" type="int" value="16"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
+												<Property name="horizontalSpan" type="int" value="3"/>
 												<Property name="verticalSpan" type="int" value="1"/>
 												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
 												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
@@ -835,35 +835,8 @@
 												<Dimension value="[126, 16]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[150, 8, 126, 16]"/>
+												<Rectangle value="[150, 6, 126, 16]"/>
 											</Property>
-										</Properties>
-									</Component>
-									<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardAddNew" style="16777224">
-										<Constraints>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="2"/>
-												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="65"/>
-												<Property name="heightHint" type="int" value="23"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="2"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
-										</Constraints>
-										<Events>
-										</Events>
-										<Properties>
-											<Property name="text" type="String" value="New Group"/>
-											<Property name="size" type="Dimension">
-												<Dimension value="[65, 23]"/>
-											</Property>
-											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[295, 5, 65, 23]"/>
-											</Property>
-											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardSecondaryUnits" style="0">
@@ -886,7 +859,7 @@
 										<Properties>
 											<Property name="text" type="String" value="Secondary Units"/>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 33, 84, 19]"/>
+												<Rectangle value="[5, 29, 84, 19]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -920,7 +893,7 @@
 												<Dimension value="[422, 139]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[150, 33, 422, 139]"/>
+												<Rectangle value="[150, 29, 422, 139]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
@@ -1137,7 +1110,7 @@
 												<Dimension value="[82, 25]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 187, 82, 25]"/>
+												<Rectangle value="[5, 183, 82, 25]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -1165,7 +1138,7 @@
 												<Dimension value="[61, 25]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[519, 187, 61, 25]"/>
+												<Rectangle value="[519, 183, 61, 25]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -1532,8 +1505,8 @@
 													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 														<Property name="verticalAlignment" type="int" value="2"/>
 														<Property name="horizontalAlignment" type="int" value="1"/>
-														<Property name="widthHint" type="int" value="64"/>
-														<Property name="heightHint" type="int" value="64"/>
+														<Property name="widthHint" type="int" value="75"/>
+														<Property name="heightHint" type="int" value="87"/>
 														<Property name="horizontalIndent" type="int" value="0"/>
 														<Property name="horizontalSpan" type="int" value="1"/>
 														<Property name="verticalSpan" type="int" value="1"/>
@@ -1553,10 +1526,10 @@
 												</Events>
 												<Properties>
 													<Property name="size" type="Dimension">
-														<Dimension value="[64, 64]"/>
+														<Dimension value="[75, 87]"/>
 													</Property>
 													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[171, 53, 64, 64]"/>
+														<Rectangle value="[171, 42, 75, 87]"/>
 													</Property>
 												</Properties>
 												<SubComponents>
@@ -1584,7 +1557,7 @@
 																<Dimension value="[39, 19]"/>
 															</Property>
 															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[13, 5, 39, 19]"/>
+																<Rectangle value="[18, 5, 39, 19]"/>
 															</Property>
 															<Property name="visible" type="boolean" value="true"/>
 														</Properties>
@@ -1613,8 +1586,37 @@
 																<Dimension value="[39, 19]"/>
 															</Property>
 															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[13, 29, 39, 19]"/>
+																<Rectangle value="[18, 29, 39, 19]"/>
 															</Property>
+														</Properties>
+													</Component>
+													<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardAddNew" style="16777224">
+														<Constraints>
+															<Constraint class="org.eclipse.swt.layout.GridData"/>
+															<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+																<Property name="verticalAlignment" type="int" value="2"/>
+																<Property name="horizontalAlignment" type="int" value="1"/>
+																<Property name="widthHint" type="int" value="65"/>
+																<Property name="heightHint" type="int" value="23"/>
+																<Property name="horizontalIndent" type="int" value="0"/>
+																<Property name="horizontalSpan" type="int" value="2"/>
+																<Property name="verticalSpan" type="int" value="1"/>
+																<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+																<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+															</LayoutConstraint>
+														</Constraints>
+														<Events>
+															<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="btnInvCardAddNewMouseUp"/>
+														</Events>
+														<Properties>
+															<Property name="text" type="String" value="New Group"/>
+															<Property name="size" type="Dimension">
+																<Dimension value="[65, 23]"/>
+															</Property>
+															<Property name="bounds" type="Rectangle">
+																<Rectangle value="[5, 53, 65, 23]"/>
+															</Property>
+															<Property name="visible" type="boolean" value="true"/>
 														</Properties>
 													</Component>
 												</SubComponents>
@@ -1643,7 +1645,7 @@
 														<Dimension value="[170, 161]"/>
 													</Property>
 													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[240, 5, 170, 161]"/>
+														<Rectangle value="[251, 5, 170, 161]"/>
 													</Property>
 												</Properties>
 												<SubComponents>

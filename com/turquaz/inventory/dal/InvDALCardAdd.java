@@ -76,6 +76,16 @@ public class InvDALCardAdd {
 				throw ex;
 			}	
 	}
+	public void saveOrUpdateInventoryGroup(TurqInventoryGroup invGroup)throws Exception{
+		try{
+			
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
 	public void saveOrUpdateCardUnit(TurqInventoryCardUnit cardUnit)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();

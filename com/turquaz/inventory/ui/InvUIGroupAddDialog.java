@@ -73,7 +73,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			button1 = new Button(composite1,SWT.PUSH| SWT.CENTER);
 			button2 = new Button(composite1,SWT.PUSH| SWT.CENTER);
 			button3 = new Button(composite1,SWT.PUSH| SWT.CENTER);
-			tableInvGroups = new Table(dialogShell,SWT.NULL);
+			tableInvGroups = new Table(dialogShell,SWT.H_SCROLL| SWT.V_SCROLL| SWT.BORDER);
 			tableColumnName = new TableColumn(tableInvGroups,SWT.NULL);
 			tableColumnDescription = new TableColumn(tableInvGroups,SWT.NULL);
 	
@@ -90,7 +90,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			composite1LData.grabExcessHorizontalSpace = true;
 			composite1LData.grabExcessVerticalSpace = false;
 			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(423,85));
+			composite1.setSize(new org.eclipse.swt.graphics.Point(433,85));
 			final Color composite1background = new Color(Display.getDefault(),255,255,255);
 			composite1.setBackground(composite1background);
 	
@@ -160,12 +160,13 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			button1.setLayoutData(button1LData);
 			button1.setText("Delete");
 			button1.setSize(new org.eclipse.swt.graphics.Point(50,23));
+			button1.setEnabled(false);
 	
 			GridData button2LData = new GridData();
 			button2LData.verticalAlignment = GridData.CENTER;
 			button2LData.horizontalAlignment = GridData.END;
-			button2LData.widthHint = -1;
-			button2LData.heightHint = -1;
+			button2LData.widthHint = 47;
+			button2LData.heightHint = 23;
 			button2LData.horizontalIndent = 0;
 			button2LData.horizontalSpan = 1;
 			button2LData.verticalSpan = 1;
@@ -173,7 +174,20 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			button2LData.grabExcessVerticalSpace = false;
 			button2.setLayoutData(button2LData);
 			button2.setText("Update");
+			button2.setSize(new org.eclipse.swt.graphics.Point(47,23));
+			button2.setEnabled(false);
 	
+			GridData button3LData = new GridData();
+			button3LData.verticalAlignment = GridData.CENTER;
+			button3LData.horizontalAlignment = GridData.BEGINNING;
+			button3LData.widthHint = -1;
+			button3LData.heightHint = -1;
+			button3LData.horizontalIndent = 0;
+			button3LData.horizontalSpan = 1;
+			button3LData.verticalSpan = 1;
+			button3LData.grabExcessHorizontalSpace = false;
+			button3LData.grabExcessVerticalSpace = false;
+			button3.setLayoutData(button3LData);
 			button3.setText("Add");
 			GridLayout composite1Layout = new GridLayout(3, true);
 			composite1.setLayout(composite1Layout);
@@ -197,8 +211,8 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			tableInvGroupsLData.grabExcessVerticalSpace = true;
 			tableInvGroups.setLayoutData(tableInvGroupsLData);
 			tableInvGroups.setHeaderVisible(true);
-			tableInvGroups.setLinesVisible(false);
-			tableInvGroups.setSize(new org.eclipse.swt.graphics.Point(407,113));
+			tableInvGroups.setLinesVisible(true);
+			tableInvGroups.setSize(new org.eclipse.swt.graphics.Point(417,128));
 			tableInvGroups.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					tableInvGroupsMouseDoubleClick(evt);
@@ -212,12 +226,12 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			tableColumnDescription.setWidth(270);
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
-			dialogShellLayout.marginWidth = 5;
-			dialogShellLayout.marginHeight = 5;
+			dialogShellLayout.marginWidth = 0;
+			dialogShellLayout.marginHeight = 0;
 			dialogShellLayout.numColumns = 1;
 			dialogShellLayout.makeColumnsEqualWidth = true;
-			dialogShellLayout.horizontalSpacing = 5;
-			dialogShellLayout.verticalSpacing = 5;
+			dialogShellLayout.horizontalSpacing = 0;
+			dialogShellLayout.verticalSpacing = 0;
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
@@ -243,6 +257,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	fillTable();
 	}
 
     public void fillTable(){
@@ -254,9 +269,8 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
     for(int i=0;i<list.size();i++){
     invGroup = (TurqInventoryGroup)list.get(i);
     item = new TableItem(tableInvGroups,SWT.NULL);
-    item.setText(new String[]{invGroup.getGroupsName(),invGroup.get});
-    
-    
+    item.setText(new String[]{invGroup.getGroupsName(),invGroup.getGroupsDescription()});
+    item.setData(invGroup);   
     
     }
     
