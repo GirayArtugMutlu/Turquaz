@@ -218,7 +218,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 	}
 
     public void newForm() {
-        // TODO Auto-generated method stub
+        // TODO kjhkj
 
     }
     public void save() {
