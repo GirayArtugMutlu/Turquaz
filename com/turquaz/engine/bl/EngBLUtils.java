@@ -257,7 +257,8 @@ public class EngBLUtils {
 					" invCard.card_inventory_code, invCard.card_name, units.units_name,"+ //$NON-NLS-1$
 					((bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_BUY) ? 
 					"invTrans.transactions_amount_in as amount," : "invTrans.transactions_total_amount_out as amount,")+ //$NON-NLS-1$ //$NON-NLS-2$
-					" invTrans.transactions_unit_price, invTrans.transactions_total_price"+ //$NON-NLS-1$
+					" invTrans.transactions_unit_price, invTrans.transactions_total_price,"+ //$NON-NLS-1$
+					" invTrans.transactions_vat"+ //$NON-NLS-1$
 					" from turq_inventory_transactions invTrans, turq_inventory_units units," + //$NON-NLS-1$
 					" turq_inventory_cards invCard, turq_inventory_card_units invCardUnits where" + //$NON-NLS-1$
 					" invTrans.engine_sequences_id="+cons.getTurqEngineSequence().getEngineSequencesId().intValue()+ //$NON-NLS-1$
@@ -301,7 +302,6 @@ public class EngBLUtils {
 			allTotal = allTotal.multiply(new BigDecimal(-1));
 			BigDecimal oldAllTotal=allTotal.subtract(grandTotal);
 			
-			System.out.println(new Boolean(balance));
 			parameters.put("showBalance",new Boolean(balance)); //$NON-NLS-1$
 			parameters.put("currentBalance", oldAllTotal); //$NON-NLS-1$
 			parameters.put("currentNewBalance", allTotal); //$NON-NLS-1$
@@ -341,7 +341,7 @@ public class EngBLUtils {
 					" invCard.card_inventory_code, invCard.card_name, units.units_name,"+ //$NON-NLS-1$
 					((cons.getConsignmentsType()==EngBLCommon.CONSIGNMENT_TRANS_TYPE_BUY) ? 
 					"invTrans.transactions_amount_in as amount," : "invTrans.transactions_total_amount_out as amount,")+ //$NON-NLS-1$ //$NON-NLS-2$
-					" invTrans.transactions_unit_price, invTrans.transactions_total_price"+ //$NON-NLS-1$
+					" invTrans.transactions_unit_price, invTrans.transactions_total_price" +//$NON-NLS-1$
 					" from turq_inventory_transactions invTrans, turq_inventory_units units," + //$NON-NLS-1$
 					" turq_inventory_cards invCard, turq_inventory_card_units invCardUnits where" + //$NON-NLS-1$
 					" invTrans.engine_sequences_id="+cons.getTurqEngineSequence().getEngineSequencesId().intValue()+ //$NON-NLS-1$
@@ -349,8 +349,7 @@ public class EngBLUtils {
 					" and invCardUnits.inventory_cards_id=invTrans.inventory_cards_id" + //$NON-NLS-1$
 					" and invCardUnits.inventory_units_id=invTrans.inventory_units_id" + //$NON-NLS-1$
 					" and units.inventory_units_id=invTrans.inventory_units_id"; //$NON-NLS-1$
-			
-			
+
 
 			parameters.put("sqlparam",sqlparam);	 //$NON-NLS-1$
 			TurqBillConsignmentCommon billCommon=cons.getTurqBillConsignmentCommon();

@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="Unnamed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="currentName" class="java.lang.String">
@@ -65,6 +65,8 @@
 	<field name="inventory_transactions_id" class="java.lang.Integer">
 	</field>
 	<field name="units_name" class="java.lang.String">
+	</field>
+	<field name="transactions_vat" class="java.lang.Integer">
 	</field>
 	<group name="info">
 		<groupHeader>
@@ -250,6 +252,11 @@
 				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{currentNewBalance})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="401" y="127" width="30" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[String.valueOf($F{transactions_vat})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
