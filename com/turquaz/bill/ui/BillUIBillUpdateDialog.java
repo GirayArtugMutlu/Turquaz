@@ -358,10 +358,11 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			if(msg2.open()==SWT.OK){
 				
 				updated=true;
+				BillBLUpdateBill.deleteBill(bill);	
+				//TODO send boolean to delete cons
 				if(EngUICommon.okToDelete(getParent(),Messages.getString("BillUIBillUpdateDialog.9"))){ //$NON-NLS-1$
 					BillBLUpdateBill.deleteBillConsignment(bill);
-				}
-				BillBLUpdateBill.deleteBill(bill);				
+				}							
 				msg.setMessage(Messages.getString("BillUIBillUpdateDialog.1")); //$NON-NLS-1$
 				msg.open();				
 				dialogShell.close();				

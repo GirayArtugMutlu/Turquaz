@@ -505,14 +505,28 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				.getImage("icons/Delete16.gif"));
 			toolDelete.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
-					if (bill != null){
-						boolean answer = EngUICommon.okToDelete(getShell(),"Faturay? silmek istedi?inizden emin misiniz?");
-						if (answer)
+					try
+					{
+						if (bill != null)
 						{
+							boolean answer = EngUICommon.okToDelete(getShell(),"Faturay? silmek istedi?inizden emin misiniz?");
+							if (answer)
+							{
+								BillBLUpdateBill.deleteBill(bill);
+//								TODO send boolean to delete cons
+								if(EngUICommon.okToDelete(getShell(),Messages.getString("BillUIBillUpdateDialog.9"))){ //$NON-NLS-1$
+									BillBLUpdateBill.deleteBillConsignment(bill);
+								}												
+								EngUICommon.showMessageBox(getShell(),Messages.getString("BillUIBillUpdateDialog.1")); //$NON-NLS-1$
 							
-							
-						}						
-					}						
+							}	
+							search();							
+						}	
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();
+					}
 				}
 			});
 			//END <<  toolDelete

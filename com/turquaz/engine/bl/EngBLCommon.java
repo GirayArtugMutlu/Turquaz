@@ -431,7 +431,7 @@ public class EngBLCommon {
 		try {
 
 			EngDALCommon common = new EngDALCommon();
-			common.delete(obj);
+			common.deleteObject(obj);
 		} catch (Exception ex) {
 			throw ex;
 		}

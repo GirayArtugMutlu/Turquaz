@@ -172,7 +172,7 @@ public class EngDALCommon {
 		}
 	}
 	
-	public void delete(Object obj)throws Exception{
+	public void deleteObject(Object obj)throws Exception{
 		try{
 		Session session = EngDALSessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
