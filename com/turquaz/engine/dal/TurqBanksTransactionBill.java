@@ -31,6 +31,9 @@ public class TurqBanksTransactionBill implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
+    private java.lang.String transactionBillDefinition;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqBanksCard turqBanksCard;
 
     /** persistent field */
@@ -40,13 +43,14 @@ public class TurqBanksTransactionBill implements Serializable {
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqBanksTransactionBill(int transactionBillNo, java.util.Date transactionBillDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqBanksTransactions) {
+    public TurqBanksTransactionBill(int transactionBillNo, java.util.Date transactionBillDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String transactionBillDefinition, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqBanksTransactions) {
         this.transactionBillNo = transactionBillNo;
         this.transactionBillDate = transactionBillDate;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
+        this.transactionBillDefinition = transactionBillDefinition;
         this.turqBanksCard = turqBanksCard;
         this.turqEngineSequence = turqEngineSequence;
         this.turqBanksTransactions = turqBanksTransactions;
@@ -110,6 +114,14 @@ public class TurqBanksTransactionBill implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public java.lang.String getTransactionBillDefinition() {
+        return this.transactionBillDefinition;
+    }
+
+    public void setTransactionBillDefinition(java.lang.String transactionBillDefinition) {
+        this.transactionBillDefinition = transactionBillDefinition;
     }
 
     public com.turquaz.engine.dal.TurqBanksCard getTurqBanksCard() {
