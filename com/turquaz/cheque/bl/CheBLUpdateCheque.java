@@ -41,9 +41,11 @@ public class CheBLUpdateCheque {
 			 */
 		
 		CheDALSave.update(cheque);
+		
 		CheDALUpdate.initChequeRolls(cheque);
 		
 		Iterator it = cheque.getTurqChequeChequeInRolls().iterator();
+		
 		while(it.hasNext())
 		{
 			
@@ -62,6 +64,49 @@ public class CheBLUpdateCheque {
 	{
 		throw ex;
 	}
+		
+	}
+	public static void deleteCheque(TurqChequeCheque cheque)throws Exception 
+	{
+		try{
+			
+			/**
+			 * 
+			 * 1-) 
+			 * 2-) get cheque Rolls
+			 * 3-) update transactions
+			 * 4-)  
+			 */
+		
+		
+		CheDALUpdate.initChequeRolls(cheque);
+		
+		Iterator it = cheque.getTurqChequeChequeInRolls().iterator();
+		
+		while(it.hasNext())
+		{
+			
+			TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll)it.next();
+			
+			TurqChequeRoll chequeRoll = chequeInRoll.getTurqChequeRoll();
+			
+			CheDALSave.delete(chequeInRoll);
+			
+			
+			updateChequeRollTransactions(chequeRoll);
+			
+		}
+		
+		CheDALSave.delete(cheque);
+		
+		
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
 		
 	}
 	

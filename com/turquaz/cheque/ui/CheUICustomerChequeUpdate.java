@@ -323,7 +323,9 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 	private void toolDeleteWidgetSelected(SelectionEvent evt) {
 		try{
-		//	CheBLUpdateCheque.deleteCheque(cheque);
+		CheBLUpdateCheque.deleteCheque(cheque);
+		isUpdated = true;
+		dialogShell.close();
 		}
 		catch(Exception ex)
 		{
