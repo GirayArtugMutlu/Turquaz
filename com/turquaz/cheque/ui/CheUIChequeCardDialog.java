@@ -1,6 +1,5 @@
 package com.turquaz.cheque.ui;
 
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Table;
 import com.turquaz.engine.ui.component.CurrencyText;

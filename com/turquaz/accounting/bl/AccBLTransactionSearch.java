@@ -152,12 +152,12 @@ public class AccBLTransactionSearch {
 	    }
 	}
 	
-	public List getTransactions(boolean initialAccounts, boolean finalAccounts, 
+	public List getTransactions(Object firstAccount, Object secondAccount,boolean initialAccounts, boolean finalAccounts, 
 			 Date startDate, Date endDate)throws Exception
 	{
 		try{
 			
-			return dalTransSearch.getTransactions(initialAccounts, finalAccounts,
+			return dalTransSearch.getTransactions(firstAccount,secondAccount,initialAccounts, finalAccounts,
 					 startDate, endDate);
 		}
 		catch(Exception ex){

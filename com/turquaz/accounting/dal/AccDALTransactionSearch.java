@@ -314,7 +314,7 @@ public class AccDALTransactionSearch {
 		}
 	}
 
-	public List getTransactions(boolean initialAccounts, boolean finalAccounts,
+	public List getTransactions(Object firstAccount, Object secondAccount,boolean initialAccounts, boolean finalAccounts,
 			Date startDate, Date endDate) throws Exception {
 		try {
 			Session session = EngDALSessionFactory.openSession();
@@ -325,7 +325,24 @@ public class AccDALTransactionSearch {
 					+ " TurqAccountingTransactionColumn as transColumns"
 					+ " where transColumns.turqAccountingTransaction.accountingTransactionsId=accTrans.accountingTransactionsId"
 					+ " and accounts.accountingAccountsId=transColumns.turqAccountingAccount.accountingAccountsId";
-
+			
+			if (firstAccount !=null && secondAccount !=null)
+			{
+				TurqAccountingAccount first=(TurqAccountingAccount)firstAccount;
+				TurqAccountingAccount second=(TurqAccountingAccount)secondAccount;
+				query+=" and accounts.accountCode >='"+first.getAccountCode()+"'"+
+					"and accounts.accountCode <='"+second.getAccountCode()+"'";				
+			}
+			else if (firstAccount !=null)
+			{
+				TurqAccountingAccount first=(TurqAccountingAccount)firstAccount;
+				query+=" and accounts.accountCode ='"+first.getAccountCode()+"'";
+			}
+			else if (secondAccount !=null)
+			{
+				TurqAccountingAccount second=(TurqAccountingAccount)secondAccount;
+				query+=" and accounts.accountCode ='"+second.getAccountCode()+"'";
+			}
 			if (startDate != null) {
 
 				query += " and accTrans.transactionsDate >= :startDate";
