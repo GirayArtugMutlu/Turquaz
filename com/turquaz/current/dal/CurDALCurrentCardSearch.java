@@ -70,9 +70,12 @@ public class CurDALCurrentCardSearch {
 			String query = "Select currentView, currentCard.cardsCurrentCode," +
 					" currentCard.cardsName, currentCard.id" +
 					" from TurqViewCurrentAmountTotal as currentView," +
-					" TurqCurrentCard as currentCard left join " +
-					" currentCard.turqCurrentCardsGroups as gr where" +
-					" currentCard.id=currentView.currentCardsId" +
+					" TurqCurrentCard as currentCard";
+			if (cardGroup != null )
+			{
+				query +=" left join  currentCard.turqCurrentCardsGroups as gr ";
+			}
+			query+=" where currentCard.id=currentView.currentCardsId" +
 					" and currentCard.cardsCurrentCode like '"+currentCode+"%'"+
 					" and currentCard.cardsName like '"+currentName+"%'"+
 					" and currentCard.id <> -1";
