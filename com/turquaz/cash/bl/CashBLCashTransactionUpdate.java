@@ -27,7 +27,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
@@ -58,8 +60,7 @@ public class CashBLCashTransactionUpdate
 
 	public static void deleteOnlyCashTransaction(TurqCashTransaction cashTrans) throws Exception
 	{
-		try
-		{
+		
 			CashDALCashCard.initiliazeCashTrans(cashTrans);
 			Iterator it = cashTrans.getTurqCashTransactionRows().iterator();
 			while (it.hasNext())
@@ -67,11 +68,7 @@ public class CashBLCashTransactionUpdate
 				EngDALCommon.deleteObject(it.next());
 			}
 			EngDALCommon.deleteObject(cashTrans);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	
 	}
 
 	public static void deleteChequeCashTrans(TurqCashTransaction cashTrans) throws Exception
@@ -103,10 +100,11 @@ public class CashBLCashTransactionUpdate
 		}
 	}
 
-	public static void deleteCashTrans(TurqCashTransaction cashTrans) throws Exception
+	public static void deleteCashTrans(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		 TurqCashTransaction cashTrans = (TurqCashTransaction)argMap.get(CashKeys.CASH_TRANSACTION);
+		
 			// if it is a current transaction the delete Current Transactions
 			if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_CURRENT_COLLECT
 					|| cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_CURRENT_PAYMENT)
@@ -127,20 +125,23 @@ public class CashBLCashTransactionUpdate
 			//delete accounting transactions
 			CashDALCashCard.deleteAccountingTransaction(cashTrans);
 			EngDALCommon.deleteObject(cashTrans);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	
-	public static void updateCashTrans(TurqCashTransaction cashTrans, TurqCashCard cashCard, TurqCurrentCard current,
-			BigDecimal totalAmount, Date transDate, String definition, String document_no, TurqCurrencyExchangeRate exchangeRate)
-			throws Exception
+	public static void updateCashTrans(HashMap argMap)throws Exception
 	{
-		try
-		{
+		
+		TurqCashTransaction cashTrans  = (TurqCashTransaction)argMap.get(CashKeys.CASH_TRANSACTION);
+		 TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+		 Date transDate = (Date)argMap.get(EngKeys.DATE);
+		 String definition = (String)argMap.get(EngKeys.DEFINITION);
+		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
+		 TurqCurrentCard current = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD); 
+		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.ENG_SEQ);
+		
+		
 			Calendar cal = Calendar.getInstance();
 			//delete current Transactions..
 			Iterator it = cashTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
@@ -227,11 +228,7 @@ public class CashBLCashTransactionUpdate
 			AccBLTransactionAdd.saveAccTransaction(transDate, document_no, accTransType, cashTrans.getTurqEngineSequence()
 					.getTurqModule().getId().intValue(), cashTrans.getTurqEngineSequence().getId(), definition, exchangeRate,
 					creditAccounts, deptAccounts, true);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	
 	}
 
 	public static void prepareAccountingMaps(Integer creditAccountId, Integer deptAccountId, BigDecimal amount, Map creditAccounts,
@@ -254,12 +251,23 @@ public class CashBLCashTransactionUpdate
 	}
 
 	
-	public static void updateOtherTrans(TurqCashTransaction cashTrans, TurqCashCard cashCard, TurqAccountingAccount account,
-			BigDecimal totalAmount, Date transDate, String definition, String document_no, TurqCurrencyExchangeRate exchangeRate)
+	public static void updateOtherTrans(HashMap argMap)
 			throws Exception
 	{
-		try
-		{
+		
+			TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+			TurqCashTransaction cashTrans  = (TurqCashTransaction)argMap.get(CashKeys.CASH_TRANSACTION);
+		
+		 Date transDate = (Date)argMap.get(EngKeys.DATE);
+		 String definition = (String)argMap.get(EngKeys.DEFINITION);
+		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
+		 
+		 TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.ENG_SEQ);
+		
+		
+		
 			Calendar cal = Calendar.getInstance();
 			//delete current Transactions..
 			Iterator it = cashTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
@@ -335,20 +343,23 @@ public class CashBLCashTransactionUpdate
 			AccBLTransactionAdd.saveAccTransaction(transDate, document_no, accTransType, cashTrans.getTurqEngineSequence()
 					.getTurqModule().getId().intValue(), cashTrans.getTurqEngineSequence().getId(), definition, exchangeRate,
 					creditAccounts, deptAccounts, true);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	
-	public static void updateTransBetweenCards(TurqCashTransaction cashTrans, TurqCashCard cashCardWithDebt,
-			TurqCashCard cashCardWithCredit, BigDecimal totalAmount, Date transDate, String definition, String document_no,
-			TurqCurrencyExchangeRate exchangeRate) throws Exception
+	public static void updateTransBetweenCards(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		TurqCashTransaction cashTrans  = (TurqCashTransaction)argMap.get(CashKeys.CASH_TRANSACTION);
+		TurqCashCard cashCardWithDebt= (TurqCashCard)argMap.get(CashKeys.CASH_CARD_WITH_DEPT);
+		TurqCashCard cashCardWithCredit =(TurqCashCard)argMap.get(CashKeys.CASH_CARD_WITH_CREDIT);
+		Date transDate = (Date)argMap.get(EngKeys.DATE);
+		 String definition = (String)argMap.get(EngKeys.DEFINITION);
+		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
+		 TurqCurrentCard current = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD); 
+		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.ENG_SEQ);
+		
 			Calendar cal = Calendar.getInstance();
 			//delete current Transactions..
 			Iterator it = cashTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
@@ -425,10 +436,6 @@ public class CashBLCashTransactionUpdate
 			AccBLTransactionAdd.saveAccTransaction(transDate, document_no, accTransType, cashTrans.getTurqEngineSequence()
 					.getTurqModule().getId().intValue(), cashTrans.getTurqEngineSequence().getId(), definition, exchangeRate,
 					creditAccounts, deptAccounts, true);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	
 	}
 }

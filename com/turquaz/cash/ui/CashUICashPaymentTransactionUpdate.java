@@ -23,11 +23,11 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -222,7 +222,11 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 			if (answer == SWT.YES)
 			{
 				updated = true;
-				CashBLCashTransactionUpdate.deleteCashTrans(cashTrans);
+				HashMap argMap = new HashMap();
+				argMap.put(CashKeys.CASH_TRANSACTION,cashTrans);
+				
+				EngTXCommon.doTransactionTX(CashBLCashTransactionUpdate.class.getName(),"deleteCashTrans",argMap);
+				
 				MessageBox msg2 = new MessageBox(this.getParent(), SWT.ICON_INFORMATION);
 				msg2.setMessage(Messages.getString("CashUICashPaymentTransactionUpdate.8")); //$NON-NLS-1$
 				msg2.open();
@@ -245,10 +249,21 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 			if (compTransAdd.verifyFields())
 			{
 				updated = true;
-				CashBLCashTransactionUpdate.updateCashTrans(cashTrans, (TurqCashCard) compTransAdd.getTxtCashCard().getData(),
-						(TurqCurrentCard) compTransAdd.getTxtCurrentAccount().getData(), compTransAdd.getCurTextTotalAmount()
-								.getBigDecimalValue(), compTransAdd.getDatePicker().getDate(), compTransAdd.getTxtDefinition()
-								.getText(), compTransAdd.getTxtDocumentNo().getText(), compTransAdd.getExchangeRate());
+				
+
+				HashMap argMap = new HashMap();
+				argMap.put(CashKeys.CASH_CARD,compTransAdd.getTxtCashCard().getData());
+				argMap.put(EngKeys.CURRENT_CARD,compTransAdd.getTxtCurrentAccount().getData());
+				argMap.put(CashKeys.CASH_TOTAL_AMOUNT, compTransAdd.getCurTextTotalAmount().getBigDecimalValue());
+				argMap.put(EngKeys.DATE,compTransAdd.getDatePicker().getDate());
+				argMap.put(EngKeys.DEFINITION,compTransAdd.getTxtDefinition().getText());
+				argMap.put(EngKeys.DOCUMENT_NO,compTransAdd.getTxtDocumentNo().getText());
+				argMap.put(EngKeys.EXCHANGE_RATE, compTransAdd.getExchangeRate());
+				argMap.put(CashKeys.CASH_TRANSACTION,cashTrans);
+				
+				
+				EngTXCommon.doTransactionTX(CashBLCashTransactionUpdate.class.getName(),"updateCashTrans",argMap );
+			
 				msg.setMessage(Messages.getString("CashUICashPaymentTransactionUpdate.9")); //$NON-NLS-1$
 				msg.open();
 				dialogShell.close();
