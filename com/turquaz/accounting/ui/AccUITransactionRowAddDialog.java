@@ -161,17 +161,9 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			lblAmount.setText(Messages.getString("AccUITransactionRowAddDialog.3")); //$NON-NLS-1$
 	
 			GridData decTextAmountLData = new GridData();
-			decTextAmountLData.verticalAlignment = GridData.CENTER;
-			decTextAmountLData.horizontalAlignment = GridData.BEGINNING;
-			decTextAmountLData.widthHint = 154;
-			decTextAmountLData.heightHint = 18;
-			decTextAmountLData.horizontalIndent = 0;
-			decTextAmountLData.horizontalSpan = 1;
-			decTextAmountLData.verticalSpan = 1;
-			decTextAmountLData.grabExcessHorizontalSpace = false;
-			decTextAmountLData.grabExcessVerticalSpace = false;
+			decTextAmountLData.widthHint = 155;
+			decTextAmountLData.heightHint = 19;
 			decTextAmount.setLayoutData(decTextAmountLData);
-			decTextAmount.setSize(new org.eclipse.swt.graphics.Point(154,18));
 			{
 				lblTransactionDefinition = new CLabel(dialogShell, SWT.NONE);
 				lblTransactionDefinition.setText(Messages.getString("AccUITransactionRowAddDialog.2")); //$NON-NLS-1$

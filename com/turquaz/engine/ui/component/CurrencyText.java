@@ -197,6 +197,7 @@ public class CurrencyText extends Composite {
  
  public BigDecimal getBigDecimalValue(){
  	String text = this.text.getText();
+	text= text.replaceAll(",","");
  	if(text.equals("")){
  		return new BigDecimal(0);
  	}
