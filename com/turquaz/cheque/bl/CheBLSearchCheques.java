@@ -38,5 +38,17 @@ public class CheBLSearchCheques {
 			throw ex;
 		}
 	}
+	public static List searchOwnCheques(TurqCurrentCard curCard,
+			 Date startEnterDate, Date endEnterDate,
+			Date startDueDate, Date endDueDate) throws Exception {
+		try {
+			
+		 return CheDALSearch.searchOwnCheques(curCard,startEnterDate,endEnterDate,startDueDate,endDueDate);
+		
+		}
+		catch (Exception ex){
+			throw ex;
+		}
+	}
 
 }
