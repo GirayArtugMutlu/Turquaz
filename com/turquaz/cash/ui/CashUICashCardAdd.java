@@ -27,6 +27,7 @@ import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashCardAdd;
 
 import org.eclipse.swt.widgets.MessageBox;
+import com.turquaz.accounting.ui.comp.CashAccountPicker;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 
@@ -59,7 +60,7 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 	private CLabel lblCardName;
 	private CLabel lblCardDefinition;
 	private Text txtDefinition;
-	private AccountPicker accountPicker;
+	private CashAccountPicker accountPicker;
 	private CLabel lblAccountingCode;
 	private Text txtCardCode;
 	CashBLCashCardAdd blCardAdd = new CashBLCashCardAdd();
@@ -102,7 +103,7 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
                 lblAccountingCode.setText(Messages.getString("CashUICashCardAdd.2")); //$NON-NLS-1$
             }
             {
-                accountPicker = new AccountPicker(this, SWT.NONE);
+                accountPicker = new CashAccountPicker(this, SWT.NONE);
                 GridData accountPickerLData = new GridData();
                 accountPicker.setSize(161, 15);
                 accountPickerLData.widthHint = 161;
@@ -174,10 +175,10 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
         }
         return true;
     }
-    public AccountPicker getAccountPicker() {
+    public CashAccountPicker getAccountPicker() {
         return accountPicker;
     }
-    public void setAccountPicker(AccountPicker accountPicker) {
+    public void setAccountPicker(CashAccountPicker accountPicker) {
         this.accountPicker = accountPicker;
     }
     public Text getTxtCardCode() {
