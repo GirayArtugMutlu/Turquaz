@@ -8,7 +8,6 @@ import org.eclipse.swt.custom.CLabel;
 
 import com.turquaz.cheque.bl.CheBLSearchCheques;
 import com.turquaz.current.ui.comp.CurrentPicker;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -108,9 +107,14 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			//START >>  comboStatus
 			comboStatus = new CCombo(compSearchPanle, SWT.NONE);
 			GridData comboStatusLData = new GridData();
-			comboStatusLData.widthHint = 94;
+			comboStatusLData.widthHint = 96;
 			comboStatusLData.heightHint = 17;
 			comboStatus.setLayoutData(comboStatusLData);
+			comboStatus.setText("Hepsi");
+			comboStatus.add("Hepsi");
+			comboStatus.add(EngBLCommon.CHEQUE_STATUS_PORTFOY_STRING);
+			comboStatus.add(EngBLCommon.CHEQUE_STATUS_CURRENT_STRING);
+			comboStatus.add(EngBLCommon.CHEQUE_STATUS_BANK_STRING);
 			//END <<  comboStatus
 			//START >>  lblCurrentCard
 			lblCurrentCard = new CLabel(compSearchPanle, SWT.NONE);
@@ -119,8 +123,8 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			//START >>  currentPicker
 			currentPicker = new CurrentPicker(compSearchPanle, SWT.NONE);
 			GridData currentPickerLData = new GridData();
-			currentPickerLData.widthHint = 181;
-			currentPickerLData.heightHint = 15;
+			currentPickerLData.widthHint = 348;
+			currentPickerLData.heightHint = 16;
 			currentPickerLData.horizontalSpan = 3;
 			currentPicker.setLayoutData(currentPickerLData);
 			//END <<  currentPicker
@@ -236,7 +240,22 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 	public void search() {
 		tableCheques.removeAll();
 		try{
-			List ls = CheBLSearchCheques.searchCheque(txtPortFoyNo.getText().trim(),(TurqCurrentCard)currentPicker.getData(),null,datePickerStartEnterDate.getDate(),datePickerEndEnterDate.getDate(),datePickerStartDueDate.getDate(),datePickerEndDueDate.getDate());
+			Integer cheStat = null;
+			if(comboStatus.getText().equals(EngBLCommon.CHEQUE_STATUS_BANK_STRING))
+			{
+				cheStat = EngBLCommon.CHEQUE_STATUS_BANK;
+			}
+			else if(comboStatus.getText().equals(EngBLCommon.CHEQUE_STATUS_CURRENT_STRING)){
+			
+				cheStat = EngBLCommon.CHEQUE_STATUS_CURRENT;
+			}
+			else if(comboStatus.getText().equals(EngBLCommon.CHEQUE_STATUS_PORTFOY_STRING)){
+			
+				cheStat = EngBLCommon.CHEQUE_STATUS_PORTFOY;
+			
+			}		
+			
+			List ls = CheBLSearchCheques.searchCheque(txtPortFoyNo.getText().trim(),(TurqCurrentCard)currentPicker.getData(),cheStat,datePickerStartEnterDate.getDate(),datePickerEndEnterDate.getDate(),datePickerStartDueDate.getDate(),datePickerEndDueDate.getDate());
 			TableItem item;
 			String status = "";
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
