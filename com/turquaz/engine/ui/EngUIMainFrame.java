@@ -233,6 +233,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 lblActiveModulLData.grabExcessHorizontalSpace = true;
                 lblActiveModulLData.horizontalAlignment = GridData.FILL;
                 lblActiveModulLData.heightHint = 26;
+                lblActiveModulLData.horizontalIndent = 10;
                 lblActiveModul.setLayoutData(lblActiveModulLData);
             }
 			compModulesTree = new Composite(compModulesTab,SWT.NULL);
@@ -583,6 +584,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesHelpLayout.verticalSpacing = 0;
 			compModulesHelp.layout();
 			GridLayout compModulesTabLayout = new GridLayout();
+			compModulesTab.setBackground(SWTResourceManager.getColor(128, 128, 128));
 			compModulesTab.setLayout(compModulesTabLayout);
 			compModulesTabLayout.marginWidth = 0;
 			compModulesTabLayout.makeColumnsEqualWidth = true;

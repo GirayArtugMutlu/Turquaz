@@ -14,6 +14,8 @@ import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLInventoryLedger;
 
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Group;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.custom.CLabel;
@@ -26,6 +28,10 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	private Composite compFilter;
 	private TableColumn tableColumnInvCode;
 	private TableColumn tableColumnInvName;
+	private Button btnWithoutDepts;
+	private Button btnWithBalance;
+	private Button btnAll;
+	private Group groupInv;
 	private InventoryPicker txtInvCode;
 	private CLabel lblInvCode;
 	private TableColumn tableColumnTotalPrice;
@@ -35,6 +41,10 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	private CLabel lblDate;
 	private Table tableInventories;
 	InvBLInventoryLedger blLedger = new InvBLInventoryLedger();
+	
+	final int INV_ALL = 0;
+	final int INV_WITH_BALANCE = 1;
+	final int INV_WITHOUT_BALANCE = 2;
 
     /**
      * Bu Class Envanter Defterinin Cikarilmasini Saglar..
@@ -50,13 +60,14 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	private void initGUI() {
 		try {
 			this.setLayout(new GridLayout());
-			this.setSize(592, 281);
+			this.setSize(609, 281);
             {
                 compFilter = new Composite(this, SWT.NONE);
                 GridLayout compFilterLayout = new GridLayout();
-                compFilterLayout.numColumns = 2;
+                compFilterLayout.numColumns = 3;
+                compFilterLayout.horizontalSpacing = 15;
                 GridData compFilterLData = new GridData();
-                compFilterLData.heightHint = 64;
+                compFilterLData.heightHint = 100;
                 compFilterLData.grabExcessHorizontalSpace = true;
                 compFilterLData.horizontalAlignment = GridData.FILL;
                 compFilter.setLayoutData(compFilterLData);
@@ -66,15 +77,44 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
                     lblDate.setText("Tarih"); //$NON-NLS-1$
                     GridData lblDateLData = new GridData();
                     lblDateLData.widthHint = 51;
-                    lblDateLData.heightHint = 22;
                     lblDate.setLayoutData(lblDateLData);
                 }
                 {
                     datePicker = new DatePicker(compFilter, SWT.NONE);
                     GridData datePickerLData = new GridData();
-                    datePickerLData.widthHint = 149;
-                    datePickerLData.heightHint = 21;
+                    datePickerLData.widthHint = 122;
+                    datePickerLData.heightHint = 26;
                     datePicker.setLayoutData(datePickerLData);
+                }
+                {
+                    groupInv = new Group(compFilter, SWT.NONE);
+                    GridLayout groupInvLayout = new GridLayout();
+                    GridData groupInvLData = new GridData();
+                    groupInvLData.widthHint = 255;
+                    groupInvLData.heightHint = 74;
+                    groupInvLData.verticalSpan = 2;
+                    groupInvLData.verticalAlignment = GridData.BEGINNING;
+                    groupInvLData.grabExcessHorizontalSpace = true;
+                    groupInvLData.horizontalIndent = 20;
+                    groupInv.setLayoutData(groupInvLData);
+                    groupInvLayout.makeColumnsEqualWidth = true;
+                    groupInv.setLayout(groupInvLayout);
+                    groupInv.setText("Filtre");
+                    {
+                        btnAll = new Button(groupInv, SWT.RADIO | SWT.LEFT);
+                        btnAll.setText("Bütün Stoklar");
+                        btnAll.setSelection(true);
+                    }
+                    {
+                        btnWithBalance = new Button(groupInv, SWT.RADIO
+                            | SWT.LEFT);
+                        btnWithBalance.setText("Bakiyeliler");
+                    }
+                    {
+                        btnWithoutDepts = new Button(groupInv, SWT.RADIO
+                            | SWT.LEFT);
+                        btnWithoutDepts.setText("Çal\u0131\u015fmayanlar");
+                    }
                 }
                 {
                     lblInvCode = new CLabel(compFilter, SWT.NONE);
@@ -82,18 +122,20 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
                     GridData lblInvCodeLData = new GridData();
                     lblInvCodeLData.widthHint = 54;
                     lblInvCodeLData.heightHint = 19;
+                    lblInvCodeLData.verticalAlignment = GridData.BEGINNING;
                     lblInvCode.setLayoutData(lblInvCodeLData);
                 }
                 {
                     txtInvCode = new InventoryPicker(compFilter, SWT.NONE);
                     GridData txtInvCodeLData = new GridData();
-                    txtInvCodeLData.widthHint = 158;
+                    txtInvCodeLData.widthHint = 150;
                     txtInvCodeLData.heightHint = 16;
+                    txtInvCodeLData.verticalAlignment = GridData.BEGINNING;
                     txtInvCode.setLayoutData(txtInvCodeLData);
                 }
             }
             {
-                tableInventories = new Table(this, SWT.NONE);
+                tableInventories = new Table(this, SWT.FULL_SELECTION);
                 GridData table1LData = new GridData();
                 tableInventories.setLinesVisible(true);
                 tableInventories.setHeaderVisible(true);
@@ -136,7 +178,8 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	public void search(){
 	    try{
 	       
-	        tableInventories.removeAll();
+	      tableInventories.removeAll();
+	      
 	      TurkishCurrencyFormat curFormat = new TurkishCurrencyFormat();  
 	      List list = blLedger.getInventoryLedger(datePicker.getDate(),txtInvCode.getText().trim()); 
 	      Object[]result;
@@ -146,9 +189,23 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	      BigDecimal priceIn = new BigDecimal(0);
 	      BigDecimal amountOut = new BigDecimal(0);
 	      BigDecimal balanceAmount = new BigDecimal(0);
-	      BigDecimal avgPrice;
-	      BigDecimal totalPrice;
+	      BigDecimal avgPrice = new BigDecimal(0);
+	      BigDecimal totalPrice = new BigDecimal(0);
 	      TableItem item;
+	      
+	      int reportType =INV_ALL;
+	      if(btnAll.getSelection()==true){
+	          reportType = INV_ALL;
+	      }
+	      else if(btnWithBalance.getSelection() == true)
+	      {
+	          reportType = INV_WITH_BALANCE;
+	      }
+	      else if(btnWithoutDepts.getSelection() == true){
+	          reportType = INV_WITHOUT_BALANCE;
+	      }
+	      
+	      
 	      for(int i=0;i<list.size();i++){
 	          
 	          result = (Object[])list.get(i);
@@ -158,15 +215,65 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	          priceIn = (BigDecimal)result[3];
 	          amountOut = (BigDecimal)result[4];
 	          
-	          if(amountIn!=null){
+	          
+	          if(reportType == INV_ALL){
+	            
+	              if(priceIn == null){
+	                   
+	                  priceIn = new BigDecimal(0);
+	              }
 	              if(amountOut==null){
 	                  amountOut = new BigDecimal(0);
 	              }
-	              avgPrice = priceIn.divide(amountIn,2,BigDecimal.ROUND_HALF_DOWN);
-	             
+	              if(amountIn==null){
+		              
+		                  amountIn  = new BigDecimal(0);    
+		                  avgPrice = new BigDecimal(0);
+		           }
+	              else{
+	                  avgPrice = priceIn.divide(amountIn,2,BigDecimal.ROUND_HALF_DOWN);		              
+	              }
 	              
 	              balanceAmount = amountIn.subtract(amountOut);
 	              totalPrice = avgPrice.multiply(balanceAmount).setScale(2,BigDecimal.ROUND_HALF_DOWN);
+	              
+	              
+	          }
+	          else if(reportType == INV_WITH_BALANCE){
+	              if(amountIn!=null){
+		              if(amountOut==null){
+		                  amountOut = new BigDecimal(0);
+		              }
+		              avgPrice = priceIn.divide(amountIn,2,BigDecimal.ROUND_HALF_DOWN);
+		                        
+		              balanceAmount = amountIn.subtract(amountOut);
+		              totalPrice = avgPrice.multiply(balanceAmount).setScale(2,BigDecimal.ROUND_HALF_DOWN);
+			       }
+	              else{
+	                  continue;
+	              }
+	              
+	          }
+	          else if(reportType == INV_WITHOUT_BALANCE){
+	              if(amountIn!=null){
+		             continue;
+			       }
+	              else{
+	                  
+	                  amountIn = new BigDecimal(0);
+	                  if(amountOut==null){
+		                  amountOut = new BigDecimal(0);
+		              }
+		              avgPrice = new BigDecimal(0);
+		              
+		              balanceAmount = amountIn.subtract(amountOut);
+		            
+		              totalPrice = avgPrice.multiply(balanceAmount).setScale(2,BigDecimal.ROUND_HALF_DOWN);
+	              }
+	              
+	          }
+	          
+	          
 	              item = new TableItem(tableInventories,SWT.NULL);
 	              item.setText(new String[]{
 	                        invCode,
@@ -175,8 +282,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	                        curFormat.format(avgPrice),
 	                        curFormat.format(totalPrice)
 	              			});     
-	              
-	          }
+	         
 	          
 	          
 	          
