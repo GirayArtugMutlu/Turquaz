@@ -2,10 +2,7 @@ package com.turquaz.accounting.ui.reports;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Currency;
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Locale;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JasperManager;
