@@ -39,9 +39,14 @@ import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.custom.TableTreeItem;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.Messages;
+import com.turquaz.accounting.bl.AccBLAccountAdd;
+import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.engine.bl.EngBLAccountingAccounts;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqViewAccTotal;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.cloudgarden.resource.SWTResourceManager;
 
@@ -118,31 +123,45 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 	/** Add your pre-init code in here */
 	public void preInitGUI()
 	{
-		//Add popup menu to delete account
-		popup = new Menu(getShell(), SWT.POP_UP);
-		MenuItem item = new MenuItem(popup, SWT.PUSH);
-		item.setText(Messages.getString("AccUIAccountingPlan.2")); //$NON-NLS-1$
-		item.addListener(SWT.Selection, new Listener()
+		try
 		{
-			public void handleEvent(Event e)
+			//Add popup menu to delete account
+			popup = new Menu(getShell(), SWT.POP_UP);
+			MenuItem item = new MenuItem(popup, SWT.PUSH);
+			item.setText(Messages.getString("AccUIAccountingPlan.2")); //$NON-NLS-1$
+			item.addListener(SWT.Selection, new Listener()
 			{
-				delete();
-			}
-		});
-		item = new MenuItem(popup, SWT.PUSH);
-		item.setText(Messages.getString("AccUIAccountingPlan.3")); //$NON-NLS-1$
-		item.addListener(SWT.Selection, new Listener()
-		{
-			public void handleEvent(Event e)
-			{
-				TableTreeItem items[] = tableTreeAccountingPlan.getSelection();
-				if (items.length > 0)
+				public void handleEvent(Event e)
 				{
-					new AccUIAddAccountDialog(getShell(), SWT.NULL).open((TurqAccountingAccount) items[0].getData());
-					fillTree(-1, ""); //$NON-NLS-1$
+					delete();
 				}
-			}
-		});
+			});
+			item = new MenuItem(popup, SWT.PUSH);
+			item.setText(Messages.getString("AccUIAccountingPlan.3")); //$NON-NLS-1$
+			item.addListener(SWT.Selection, new Listener()
+			{
+				public void handleEvent(Event e)
+				{
+					try
+					{
+						TableTreeItem items[] = tableTreeAccountingPlan.getSelection();
+						if (items.length > 0)
+						{
+							new AccUIAddAccountDialog(getShell(), SWT.NULL).open((TurqAccountingAccount) items[0].getData());
+							fillTree(-1, ""); //$NON-NLS-1$
+						}
+					}
+					catch (Exception ex)
+					{
+						ex.printStackTrace();
+					}
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	/** Add your post-init code in here */
@@ -150,25 +169,32 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 	{
 		try
 		{
-		tableTreeAccountingPlan.getTable().addMouseListener(new MouseAdapter()
-		{
-			public void mouseDoubleClick(MouseEvent evt)
+			tableTreeAccountingPlan.getTable().addMouseListener(new MouseAdapter()
 			{
-				tableTreeAccountingPlanMouseDoubleClick(evt);
-			}
-		});
-		tableTreeAccountingPlan.getTable().setLinesVisible(true);
-		tableTreeAccountingPlan.getTable().setHeaderVisible(true);
-		tableTreeAccountingPlan.setMenu(popup);
-		final TableColumn col = new TableColumn(tableTreeAccountingPlan.getTable(), SWT.LEFT);
-		col.setText(Messages.getString("AccUIAccountingPlan.0")); //$NON-NLS-1$
-		col.setWidth(200);
-		final TableColumn col2 = new TableColumn(tableTreeAccountingPlan.getTable(), SWT.LEFT);
-		col2.setText(Messages.getString("AccUIAccountingPlan.1")); //$NON-NLS-1$
-		col2.setWidth(200);
-		fillTree(-1, ""); //$NON-NLS-1$
+				public void mouseDoubleClick(MouseEvent evt)
+				{
+					try
+					{
+						tableTreeAccountingPlanMouseDoubleClick(evt);
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();
+					}
+				}
+			});
+			tableTreeAccountingPlan.getTable().setLinesVisible(true);
+			tableTreeAccountingPlan.getTable().setHeaderVisible(true);
+			tableTreeAccountingPlan.setMenu(popup);
+			final TableColumn col = new TableColumn(tableTreeAccountingPlan.getTable(), SWT.LEFT);
+			col.setText(Messages.getString("AccUIAccountingPlan.0")); //$NON-NLS-1$
+			col.setWidth(200);
+			final TableColumn col2 = new TableColumn(tableTreeAccountingPlan.getTable(), SWT.LEFT);
+			col2.setText(Messages.getString("AccUIAccountingPlan.1")); //$NON-NLS-1$
+			col2.setWidth(200);
+			fillTree(-1, ""); //$NON-NLS-1$
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
 			ex.printStackTrace();
@@ -178,10 +204,10 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 
 	/**
 	 * @param parent
-	 *             Parent Account
+	 *            Parent Account
 	 * @param codeCrit
 	 */
-	public void fillTree(int parent, String codeCrit)throws Exception
+	public void fillTree(int parent, String codeCrit)
 	{
 		try
 		{
@@ -258,7 +284,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 		}
 		catch (Exception ex)
 		{
-			throw ex;
+			ex.printStackTrace();
 		}
 	}
 
@@ -266,7 +292,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 	 * @param parentItem
 	 * @param parent_id
 	 * @param codeCriteria
-	 *             Account code criteria for branches
+	 *            Account code criteria for branches
 	 */
 	public void fillBranch(TableTreeItem parentItem, int parent_id, String codeCriteria)
 	{
@@ -294,7 +320,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 	}
 
 	/** Auto-generated event handler method */
-	protected void tableTreeAccountingPlanMouseDoubleClick(MouseEvent evt)
+	protected void tableTreeAccountingPlanMouseDoubleClick(MouseEvent evt)throws Exception
 	{
 		TableTreeItem items[] = tableTreeAccountingPlan.getSelection();
 		if (items.length > 0)
@@ -305,8 +331,8 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			// was, now can be edited
 			//	if(account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId().intValue()!=-1)
 			//	{
-			boolean result = new AccUIAccountUpdate(this.getShell(), SWT.NULL, account, (BigDecimal[]) accountTotals
-					.get(account.getId())).open();
+			boolean result = new AccUIAccountUpdate(this.getShell(), SWT.NULL, account, (BigDecimal[]) accountTotals.get(account.getId()))
+					.open();
 			if (result)
 			{
 				fillTree(-1, ""); //$NON-NLS-1$
