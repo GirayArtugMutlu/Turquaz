@@ -141,8 +141,7 @@ public class CurDALCurrentCardAdd {
 			if(list.size()>0){
 				return true;
 			}
-			return false;
-			
+			return false;		
 			
 		}
 		catch(Exception ex){

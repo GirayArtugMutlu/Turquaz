@@ -99,8 +99,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
                                 
                                setData2(EngBLAccountingAccounts
                                     .getAccount(text1.getText().trim()));
-                                System.out.println(EngBLAccountingAccounts
-                                        .getAccount(text1.getText().trim()));
+                          
                                                            
                                 
                             } catch (Exception ex) {

@@ -126,7 +126,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
             {
                 cLabel2 = new CLabel(this, SWT.NONE);
                 GridData cLabel2LData = new GridData();
-                cLabel2.setText(Messages.getString("AccUIAddAccounts.2"));
+                cLabel2.setText(Messages.getString("AccUIAddAccounts.2")); //$NON-NLS-1$
                 cLabel2.setLayoutData(cLabel2LData);
             }
             {
@@ -141,11 +141,11 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
                             
                             if(txtParentAccount.getData()!=null){
                              if(((TurqAccountingAccount)txtParentAccount.getData()).getAccountingAccountsId().intValue()!=-1)
-                                txtAccAccountCode.setText(txtParentAccount.getText().trim()+".");
+                                txtAccAccountCode.setText(txtParentAccount.getText().trim()+"."); //$NON-NLS-1$
                                                    
                             }
                             else{
-                                txtAccAccountCode.setText("");
+                                txtAccAccountCode.setText(""); //$NON-NLS-1$
                             }
                             
                         } catch (Exception ex) {
@@ -163,7 +163,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 				cLabel1 = new CLabel(this, SWT.NONE);
 				cLabel1.setSize(new org.eclipse.swt.graphics.Point(83, 17));
 				GridData cLabel1LData = new GridData();
-				cLabel1.setText(Messages.getString("AccUIAddAccounts.0"));
+				cLabel1.setText(Messages.getString("AccUIAddAccounts.0")); //$NON-NLS-1$
 				cLabel1LData.widthHint = 83;
 				cLabel1LData.heightHint = 17;
 				cLabel1.setLayoutData(cLabel1LData);
@@ -180,7 +180,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 				label1 = new Label(this, SWT.NONE);
 				label1.setSize(new org.eclipse.swt.graphics.Point(91, 18));
 				GridData label1LData = new GridData();
-				label1.setText(Messages.getString("AccUIAddAccounts.1"));
+				label1.setText(Messages.getString("AccUIAddAccounts.1")); //$NON-NLS-1$
 				label1LData.widthHint = 91;
 				label1LData.heightHint = 18;
 				label1.setLayoutData(label1LData);
@@ -244,7 +244,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	
 	
 	public boolean verifyFields(){
-	
+	try{
 	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
    
     boolean valid = false;
@@ -256,16 +256,26 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
     this.txtAccAccountCode.setFocus();
     return false;
     }
+    else if (EngBLAccountingAccounts.getAccount(txtAccAccountCode.getText().trim())!= null)
+    {
+    	msg.setMessage(Messages.getString("AccUIAddAccounts.3")); //$NON-NLS-1$
+    	msg.open();
+    	txtAccAccountCode.setFocus();
+    	return false;   	
+    }
     
 	else if(txtParentAccount.getData()==null){
 	  msg.setMessage(Messages.getString("AccUIAddAccounts.5")); //$NON-NLS-1$
      msg.open();	
      this.txtParentAccount.setFocus();
     return false;
-	}
-
-	
+	}	
 	return true;
+	}
+	catch(Exception ex)
+	{
+		return false;
+	}
 	
 	}
 	public void clearFields(){
@@ -290,7 +300,8 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
     msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
     msg.open();
     
-   asistant.refreshContentAssistant(0);
+    asistant.refreshContentAssistant(0);
+    EngBLAccountingAccounts.RefreshContentAsistantMap();
     
     clearFields();
 	}

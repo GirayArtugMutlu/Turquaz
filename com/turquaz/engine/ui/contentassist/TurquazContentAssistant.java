@@ -45,9 +45,10 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant{
         this.install(adapter);
         installCueLabelProvider(adapter);
 
-    }   
+    }  
+    
     public void refreshContentAssistant(int type){
-
+    	
         if(processor!=null){
             processor.fillProposalArray(type);
         }

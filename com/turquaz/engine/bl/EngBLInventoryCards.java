@@ -97,7 +97,25 @@ public class EngBLInventoryCards {
 		} catch (Exception ex) {
 			throw ex;
 		}
-
+	}
+	
+	public static void RefreshContentAsistantMap()throws Exception
+	{
+		try
+		{
+			if (_instance == null)
+			{
+				_instance = new EngBLInventoryCards();
+				return;
+			}
+			_instance.fillInventoryList();
+		}
+		
+		catch(Exception ex)
+		{
+			throw ex;
+		}	
+		
 	}
 
 }

@@ -273,6 +273,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	private CTabFolder tabfldInvCardAdd;
 	private List currencyList;
 	public InvUIPriceList priceList;
+	TurquazContentAssistant asistant;
 	
 	
 	InvBLCardAdd blCardAdd = new InvBLCardAdd();
@@ -1343,8 +1344,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		/****************************************************/
 		  TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtInvCardCode);
 		    
-		 final SubjectControlContentAssistant asistant= new TurquazContentAssistant(adapter,1);
-		   
+		
+		  asistant = new TurquazContentAssistant(adapter,1);
 		     adapter.appendVerifyKeyListener(
 		             new VerifyKeyListener() {
 		                 public void verifyKey(VerifyEvent event) {
@@ -1641,7 +1642,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				
 				// Save the price list now.
 		        saveInvPrices(cardId);
-		        
+		        asistant.refreshContentAssistant(1);
+		        EngBLInventoryCards.RefreshContentAsistantMap();
 		    	MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(Messages.getString("InvUICardAdd.36")); //$NON-NLS-1$
 				msg.open();

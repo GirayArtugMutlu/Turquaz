@@ -23,12 +23,14 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
+import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
@@ -36,6 +38,7 @@ import org.eclipse.swt.widgets.Text;
 import com.turquaz.current.Messages;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
+import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.ui.EngUIMainFrame;
@@ -44,6 +47,7 @@ import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 
 import org.eclipse.swt.widgets.Button;
@@ -1305,11 +1309,28 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 /** Add your pre-init code in here 	*/
 	public void preInitGUI(){
 	}
-
+	
+	TurquazContentAssistant assistant;
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
 	fillGroups();
 	accPickerCustomer.setFilter("120"); //$NON-NLS-1$
+//	content assistant
+	TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtCurrentCode);
+	assistant= new TurquazContentAssistant(adapter,3);
+	adapter.appendVerifyKeyListener( new VerifyKeyListener() {
+                 public void verifyKey(VerifyEvent event) {
+
+                 // Check for Ctrl+Spacebar
+                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
+             
+                  assistant.showPossibleCompletions();    
+                   event.doit = false;
+
+                 }
+              }
+	});
+
 	
 	
 	}
@@ -1395,6 +1416,13 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			txtCurrentCode.setFocus();
 			return false;
 		} 
+		else if (EngBLCurrentCards.getCards(txtCurrentCode.getText().trim()) != null)
+		{
+			msg.setMessage("Daha önce varolan bir cari kart kodu giremezsiniz!");
+			msg.open();
+			txtCurrentCode.setFocus();
+			return false;
+		}
 		else if(txtCurrentName.getText().trim().equals("")){ //$NON-NLS-1$
 			msg.setMessage(Messages.getString("CurUICurrentCardAdd.30")); //$NON-NLS-1$
 			msg.open();
@@ -1437,39 +1465,24 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	savePhones(cardId);
 	saveContact(cardId);
 	saveGroups(cardId);
-	
+	assistant.refreshContentAssistant(3);
+	EngBLCurrentCards.RefreshContentAsistantMap();
 	MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
 	msg.setMessage(Messages.getString("CurUICurrentCardAdd.14")); //$NON-NLS-1$
 	msg.open();
 	
     clearFields();
 	
-	
 	}
 	}
 	catch(Exception ex){
-	 
-	try{
-	ex.printStackTrace();
-	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-	if(currentAdd.isCurrentCodePresent(txtCurrentCode.getText().trim())){
-	
-	msg.setMessage(Messages.getString("CurUICurrentCardAdd.33")); //$NON-NLS-1$
-	msg.open();
-	}
-	
-	else{
-	    msg.setMessage(ex.getMessage());
-	    msg.open();
+		ex.printStackTrace();
+		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+		msg.setMessage(ex.getMessage());
+		msg.open();
 	}
 	}
-	catch(Exception ex1){
-	ex1.printStackTrace();
-	}
-	}
-	
-		
-	}
+
 	
 	
 	

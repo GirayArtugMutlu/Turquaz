@@ -91,7 +91,7 @@ public class EngBLAccountingAccounts {
 		}
 		
         //Not really static 
-		_instance.fillAccountList();
+		
 		 
 		return _instance.accountList;
 		}
@@ -114,10 +114,27 @@ public class EngBLAccountingAccounts {
 			catch(Exception ex){
 				throw ex;
 			}
-	    
-	    
-	    
 	}
+	
+	public static void RefreshContentAsistantMap()throws Exception
+	{
+		try
+		{
+			if (_instance == null)
+			{
+				_instance = new EngBLAccountingAccounts();
+				return;
+			}
+			_instance.fillAccountList();
+		}
+		
+		catch(Exception ex)
+		{
+			throw ex;
+		}	
+		
+	}
+	
 	
 
 
