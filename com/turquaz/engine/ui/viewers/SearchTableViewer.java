@@ -20,7 +20,7 @@ public class SearchTableViewer
 	TableRowList rowList = new TableRowList();
 	TableViewer viewer = null;
 	int columnTypes[] = null;
-	
+		
 	public SearchTableViewer(Table table, int columnTypes[])
 	{
 		this.columnTypes = columnTypes;
@@ -68,17 +68,20 @@ class SearchTableColumnListener implements Listener
 	int columnIndex;
 	int columnType;
 	TableViewer viewer;
+	private TurquazTableSorter tableSorter=null;
 	
 	public SearchTableColumnListener(TableViewer viewer, int columnIndex, int columnType)
 	{
 		this.columnIndex = columnIndex;
 		this.columnType = columnType;	
 		this.viewer = viewer;
+		tableSorter=new TurquazTableSorter(columnIndex,columnType);
 	}
 	
-	public void handleEvent(Event e) {		        
-   
-		viewer.setSorter(new TurquazTableSorter(columnIndex,columnType));
+	public void handleEvent(Event e) {
+		tableSorter.setAscending(!tableSorter.getAscending());
+		viewer.setSorter(tableSorter);
+		viewer.refresh();
 	}
 }
 

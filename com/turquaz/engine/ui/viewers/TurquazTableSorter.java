@@ -31,6 +31,7 @@ public class TurquazTableSorter extends ViewerSorter
 	public final static int COLUMN_TYPE_INT = 1;
 	public final static int COLUMN_TYPE_DATE = 2;
 	public final static int COLUMN_TYPE_DECIMAL = 3;
+	private boolean ascending=false;
 	int columnIndex;
 	int columnType;
 
@@ -40,14 +41,33 @@ public class TurquazTableSorter extends ViewerSorter
 		this.columnIndex = creteria;
 		columnType = type;
 	}
+	
+	public boolean getAscending()
+	{
+		return ascending;
+	}
+	
+	public void setAscending(boolean ascending)
+	{
+		this.ascending=ascending;
+	}
 
 	public int compare(Viewer arg0, Object arg1, Object arg2)
 	{
 		try
 		{
-			
-			ITableRow row1 = (ITableRow) arg1;
-			ITableRow row2 = (ITableRow) arg2;
+			ITableRow row1;
+			ITableRow row2;
+			if (ascending)
+			{
+				row1 = (ITableRow) arg1;
+				row2 = (ITableRow) arg2;
+			}
+			else
+			{
+				row2 = (ITableRow) arg1;
+				row1 = (ITableRow) arg2;
+			}
 			if (columnType == TurquazTableSorter.COLUMN_TYPE_STRING)
 			{
 				return collator.compare(row1.getColumnText(columnIndex), row2.getColumnText(columnIndex));
