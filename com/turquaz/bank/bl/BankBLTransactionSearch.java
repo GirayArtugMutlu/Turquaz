@@ -60,6 +60,15 @@ public class BankBLTransactionSearch {
             throw ex;
         }
     }
+    //aC?L?S 	Degerleri
+    public static List getBankInitialTransactions()throws Exception {
+        try{
+          return  BankDALCommon.getBankInitialTransactions();
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+    }
     
 
 }

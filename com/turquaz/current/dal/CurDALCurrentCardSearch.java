@@ -121,8 +121,8 @@ public class CurDALCurrentCardSearch {
 		{
 			Session session = EngDALSessionFactory.openSession();
 			
-			String query = "Select curTrans from TurqCurrentTransaction as curTrans" +
-					" where curTrans.turqCurrentCard.currentCardsId="+curCard.getCurrentCardsId();
+			String query = "Select bankTrans from TurqCurrentTransaction as bankTrans" +
+					" where bankTrans.turqCurrentCard.currentCardsId="+curCard.getCurrentCardsId();
 
 			Query q = session.createQuery(query); 	
 			List list = q.list();

@@ -33,6 +33,7 @@ import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
@@ -245,5 +246,55 @@ public class BankDALCommon {
 	        
 	        
 	    }
+	    public static List getBankInitialTransactions()throws Exception {
+	    try{
+	        Session session = EngDALSessionFactory.openSession();
+	        
+	        String query = "Select bankTrans from TurqBanksTransaction as bankTrans " +
+	        		" where bankTrans.turqBanksTransactionBill.turqBanksTransactionType.bankTransactionTypesId ="+EngBLCommon.BANK_TRANS_INITIAL;
+	            
+	        Query q = session.createQuery(query);
+	        
+	        List ls = q.list();
+            
+            session.close();
+            return ls;
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	    
+	    
+	    
+	    }
+	    public static boolean checkInitialTransaction(TurqBanksCard bankCard)throws Exception {
+	        try{
+	            Session session = EngDALSessionFactory.openSession();
+	            String query = "select bankTrans.banksTransactionBillsId from TurqBanksTransactionBill as bankTrans " +
+	            		" where bankTrans.turqBanksCard = :bankCard and bankTrans.turqBanksTransactionType.bankTransactionTypesId="+EngBLCommon.BANK_TRANS_INITIAL;
+	            Query q = session.createQuery(query);
+		        q.setParameter("bankCard",bankCard);
+		        List ls = q.list();
+		        
+		        session.close();
+	            
+	           if(ls.size()==0){
+	               return false;
+	           }
+	            
+	           return true;
+	            
+	            
+	            
+	            
+	            
+	        }
+	        catch(Exception ex){
+	            throw ex;
+	        }
+	    }
+	    
+	    
 	    
 }

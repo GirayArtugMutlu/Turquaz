@@ -178,9 +178,9 @@ public class CurDALSearchTransaction {
 	    try{
 	        
 	        Session session = EngDALSessionFactory.openSession();
-	        String query = "Select curTrans from TurqCurrentTransaction as curTrans " +
-	        		" where curTrans.turqCurrentTransactionType.currentTransactionTypesId = "+EngBLCommon.CURRENT_TRANS_INITIAL+
-	        		" order by curTrans.turqCurrentCard.cardsCurrentCode";
+	        String query = "Select bankTrans from TurqCurrentTransaction as bankTrans " +
+	        		" where bankTrans.turqCurrentTransactionType.currentTransactionTypesId = "+EngBLCommon.CURRENT_TRANS_INITIAL+
+	        		" order by bankTrans.turqCurrentCard.cardsCurrentCode";
 	        
 	    	Query q = session.createQuery(query); 
 	        List list = q.list();

@@ -25,6 +25,7 @@ package com.turquaz.bank.bl;
 import java.util.Calendar;
 
 import com.turquaz.bank.dal.BankDALBankCardUpdate;
+import com.turquaz.bank.dal.BankDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
@@ -61,10 +62,35 @@ public class BankBLBankCardUpdate {
 			aCard.setTurqAccountingAccount(account);
 			bankDALBankCardUpdate.updateObject(aCard);
 			
+			if(!checkInitialTransaction(aCard))
+			{
+			
+			   BankBLTransactionAdd.saveInitialBankTransaction(aCard);
+			    
+			}
+		
+			
 		}
 		catch(Exception ex){
 			throw ex;
 		}
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean checkInitialTransaction(TurqBanksCard bankCard) throws Exception{
+	   try{
+	       return BankDALCommon.checkInitialTransaction(bankCard);
+	   }
+	   catch(Exception ex)
+	   {
+	       throw ex;
+	   }
+	    
+	    
+	    
+	    
 	}
 	
 	/**
