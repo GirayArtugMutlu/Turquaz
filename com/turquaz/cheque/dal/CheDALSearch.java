@@ -283,7 +283,7 @@ public class CheDALSearch {
 			
 			String query = "Select chequeRoll.turqChequeRoll.turqBanksCard from TurqChequeChequeInRoll as chequeRoll" +
 					" where chequeRoll.turqChequeCheque = :cheque and " +
-					" chequeRoll.turqChequeRoll.turqChequeTransactionType.chequeTransactionTypesId ="+EngBLCommon.CHEQUE_TRANS_OUT_BANK;
+					" chequeRoll.turqChequeRoll.turqChequeTransactionType.id ="+EngBLCommon.CHEQUE_TRANS_OUT_BANK;
 
 			Query q = session.createQuery(query);
 			q.setParameter("cheque",cheque);

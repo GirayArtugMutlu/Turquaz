@@ -22,9 +22,14 @@ package com.turquaz.cheque.bl;
 */
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import com.turquaz.cheque.dal.CheDALSearch;
+import com.turquaz.cheque.dal.CheDALUpdate;
+import com.turquaz.engine.dal.TurqChequeCheque;
+import com.turquaz.engine.dal.TurqChequeChequeInRoll;
+import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.dal.TurqChequeTransactionType;
 
 public class CheBLSearchChequeRoll {
@@ -68,6 +73,29 @@ public class CheBLSearchChequeRoll {
         catch(Exception ex){
             throw ex;
         }
+    }
+    public static TurqChequeRoll getChequeRoll(TurqChequeCheque cheque, int rollType)throws Exception {
+
+		CheDALUpdate.initChequeRolls(cheque);
+		
+		Iterator it = cheque.getTurqChequeChequeInRolls().iterator();
+		
+		while(it.hasNext())
+		{
+			
+			TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll)it.next();
+			if(chequeInRoll.getTurqChequeRoll().getTurqChequeTransactionType().getId().intValue()==rollType)
+			{
+				
+				return chequeInRoll.getTurqChequeRoll();
+				
+			}
+			
+			
+		}
+
+		return null;
+
     }
 
 }

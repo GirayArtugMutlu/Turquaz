@@ -284,10 +284,7 @@ public class CheBLUpdateCheque {
 		
 			totalAmount = totalAmount.add(cheque.getChequesAmount());
 		}
-        
-        
-        
-        
+           
         
         if(rollType==EngBLCommon.CHEQUE_TRANS_IN)
         {
@@ -296,11 +293,13 @@ public class CheBLUpdateCheque {
         	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,curAccount,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
         	
         }
+        
         else if(rollType==EngBLCommon.CHEQUE_TRANS_OUT_BANK)
         {
         
         	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
         }
+        
         
         else if(rollType==EngBLCommon.CHEQUE_TRANS_OUT_CURRENT)
         {

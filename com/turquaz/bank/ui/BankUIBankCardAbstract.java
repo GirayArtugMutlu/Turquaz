@@ -64,7 +64,6 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 	private TableColumn tableColumnCredit;
 	private TableColumn tableColumnDebit;
 	private TableColumn tableColumnDefinition;
-	private TableColumn tableColumnBankCode;
 	private Table tableAbstract;
 
 	public BankUIBankCardAbstract(org.eclipse.swt.widgets.Composite parent, int style) {
@@ -135,12 +134,6 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
                     tableColumnDate = new TableColumn(tableAbstract, SWT.NONE);
                     tableColumnDate.setText(Messages.getString("BankUIBankCardAbstract.3")); //$NON-NLS-1$
                     tableColumnDate.setWidth(83);
-                }
-                {
-                    tableColumnBankCode = new TableColumn(
-                        tableAbstract,
-                        SWT.NONE);
-                    tableColumnBankCode.setText(Messages.getString("BankUIBankCardAbstract.4")); //$NON-NLS-1$
                 }
 				//START >>  tableColumnTransType
 				tableColumnTransType = new TableColumn(tableAbstract, SWT.NONE);
@@ -238,13 +231,13 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
                    if(balance.doubleValue()>0)
                    {
                     item.setText(new String[]{
-                            "","","",Messages.getString("BankUIBankCardAbstract.11"),cf.format(amounts[0]),cf.format(amounts[1]),cf.format(balance),cf.format(new BigDecimal(0)) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                            "","",Messages.getString("BankUIBankCardAbstract.11"),cf.format(amounts[0]),cf.format(amounts[1]),cf.format(balance),cf.format(new BigDecimal(0)) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     			});                   
                    }
                   else
                    {
                     item.setText(new String[]{
-                            "","","",Messages.getString("BankUIBankCardAbstract.11"),cf.format(amounts[0]),cf.format(amounts[1]),cf.format(new BigDecimal(0)),cf.format(balance.negate()) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                            "","",Messages.getString("BankUIBankCardAbstract.11"),cf.format(amounts[0]),cf.format(amounts[1]),cf.format(new BigDecimal(0)),cf.format(balance.negate()) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     			});                   
                    }
                }
@@ -280,7 +273,6 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
                      item = new TableItem(tableAbstract,SWT.NULL);
                      item.setText(new String[]{
                              		DatePicker.formatter.format((Date)results[0]),
-                             		results[1].toString(),
 									results[5].toString(),
                              		results[2].toString(),
                              		cf.format(dept),
@@ -294,7 +286,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
                      {
                      	  item.setText(new String[]{
                          		DatePicker.formatter.format((Date)results[0]),
-                         		results[1].toString(),
+                         		
 								results[5].toString(),
                          		results[2].toString(),
                          		cf.format(dept),
@@ -307,7 +299,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
                      {
                     	 item.setText(new String[]{
                          		DatePicker.formatter.format((Date)results[0]),
-                         		results[1].toString(),
+                         	
 								results[5].toString(),
                          		results[2].toString(),
                          		cf.format(dept),
@@ -339,7 +331,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
                  item.setText(new String[]{
                                "", //$NON-NLS-1$
                                "", //$NON-NLS-1$
-							   "",
+						
                                Messages.getString("BankUIBankCardAbstract.17"), //$NON-NLS-1$
                                cf.format(total_dept),
                                cf.format(total_credit),
@@ -363,7 +355,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
                  item.setText(new String[]{
                          "", //$NON-NLS-1$
                          "", //$NON-NLS-1$
-						 "",
+				
                          Messages.getString("BankUIBankCardAbstract.20"), //$NON-NLS-1$
                          cf.format(deferred_dept),
                          cf.format(deferred_credit),
@@ -391,7 +383,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
                  item.setText(new String[]{
                          "", //$NON-NLS-1$
                          "", //$NON-NLS-1$
-						 "",
+					
                          Messages.getString("BankUIBankCardAbstract.23"), //$NON-NLS-1$
                          cf.format(grand_total_dept),
                          cf.format(grand_total_credit),
