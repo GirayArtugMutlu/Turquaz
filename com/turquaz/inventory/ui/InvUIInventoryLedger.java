@@ -1,8 +1,19 @@
 package com.turquaz.inventory.ui;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.TableItem;
+
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.inventory.Messages;
+import com.turquaz.inventory.bl.InvBLInventoryLedger;
+
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Table;
@@ -24,7 +35,7 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
-public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite {
+public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite implements SearchComposite{
 	private Composite compFilter;
 	private TableColumn tableColumnInvCode;
 	private TableColumn tableColumnInvName;
@@ -34,6 +45,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite {
 	private DatePicker datePicker;
 	private CLabel lblDate;
 	private Table tableInventories;
+	InvBLInventoryLedger blLedger = new InvBLInventoryLedger();
 
     /**
      * Bu Class Envanter Defterinin Cikarilmasini Saglar..
@@ -45,6 +57,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite {
 		initGUI();
 	}
 
+	
 	private void initGUI() {
 		try {
 			this.setLayout(new GridLayout());
@@ -61,7 +74,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite {
                 compFilter.setLayout(compFilterLayout);
                 {
                     lblDate = new CLabel(compFilter, SWT.NONE);
-                    lblDate.setText("Tarih");
+                    lblDate.setText("Tarih"); //$NON-NLS-1$
                     GridData lblDateLData = new GridData();
                     lblDateLData.widthHint = 51;
                     lblDateLData.heightHint = 22;
@@ -87,27 +100,27 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite {
                 tableInventories.setLayoutData(table1LData);
                 {
                     tableColumnInvCode = new TableColumn(tableInventories, SWT.NONE);
-                    tableColumnInvCode.setText("Stok Kodu");
+                    tableColumnInvCode.setText(Messages.getString("InvUIInventoryLedger.0"));  //$NON-NLS-1$
                     tableColumnInvCode.setWidth(87);
                 }
                 {
                     tableColumnInvName = new TableColumn(tableInventories, SWT.NONE);
-                    tableColumnInvName.setText("Stok Cinsi");
+                    tableColumnInvName.setText(Messages.getString("InvUIInventoryLedger.1"));  //$NON-NLS-1$
                     tableColumnInvName.setWidth(88);
                 }
                 {
                     tableColumnLastAmount = new TableColumn(tableInventories, SWT.NONE);
-                    tableColumnLastAmount.setText("Son Miktar");
+                    tableColumnLastAmount.setText(Messages.getString("InvUIInventoryLedger.2"));  //$NON-NLS-1$
                     tableColumnLastAmount.setWidth(100);
                 }
                 {
                     tableColumnAvgPrice = new TableColumn(tableInventories, SWT.RIGHT);
-                    tableColumnAvgPrice.setText("Ort. Fiyat");
+                    tableColumnAvgPrice.setText(Messages.getString("InvUIInventoryLedger.3"));  //$NON-NLS-1$
                     tableColumnAvgPrice.setWidth(100);
                 }
                 {
                     tableColumnTotalPrice = new TableColumn(tableInventories, SWT.RIGHT);
-                    tableColumnTotalPrice.setText("Toplam Tutar?");
+                    tableColumnTotalPrice.setText(Messages.getString("InvUIInventoryLedger.4"));  //$NON-NLS-1$
                     tableColumnTotalPrice.setWidth(100);
                 }
             }
@@ -116,5 +129,81 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite {
 			e.printStackTrace();
 		}
 	}
+	public void search(){
+	    try{
+	       
+	        tableInventories.removeAll();
+	      TurkishCurrencyFormat curFormat = new TurkishCurrencyFormat();  
+	      List list = blLedger.getInventoryLedger(datePicker.getDate()); 
+	      Object[]result;
+	      String invCode = ""; //$NON-NLS-1$
+	      String invName = ""; //$NON-NLS-1$
+	      BigDecimal amountIn = new BigDecimal(0);
+	      BigDecimal priceIn = new BigDecimal(0);
+	      BigDecimal amountOut = new BigDecimal(0);
+	      BigDecimal balanceAmount = new BigDecimal(0);
+	      BigDecimal avgPrice;
+	      BigDecimal totalPrice;
+	      TableItem item;
+	      for(int i=0;i<list.size();i++){
+	          
+	          result = (Object[])list.get(i);
+	          invCode = result[0].toString();
+	          invName = result[1].toString();
+	          amountIn =(BigDecimal)result[2];
+	          priceIn = (BigDecimal)result[3];
+	          amountOut = (BigDecimal)result[4];
+	          
+	          if(amountIn!=null){
+	              if(amountOut==null){
+	                  amountOut = new BigDecimal(0);
+	              }
+	              avgPrice = priceIn.divide(amountIn,2,BigDecimal.ROUND_HALF_DOWN);
+	             
+	              
+	              balanceAmount = amountIn.subtract(amountOut);
+	              totalPrice = avgPrice.multiply(balanceAmount).setScale(2,BigDecimal.ROUND_HALF_DOWN);
+	              item = new TableItem(tableInventories,SWT.NULL);
+	              item.setText(new String[]{
+	                        invCode,
+	                        invName,
+	                        balanceAmount.toString(),
+	                        curFormat.format(avgPrice),
+	                        curFormat.format(totalPrice)
+	              			});     
+	              
+	          }
+	          
+	          
+	          
+	          
+	      }
+	      
+	      
+	    
+	    
+	    
+	    }
+	    catch(Exception ex){
+	        
+	        ex.printStackTrace();
+	    
+	    }
+	    
+	    
+	    
+	}
+	public void delete(){
+	    
+	}
+	
 
+    public void exportToExcel() {
+        EngBLUtils.Export2Excel(tableInventories);
+
+    }
+    public void printTable() {
+        EngBLUtils.printTable(tableInventories,Messages.getString("InvUIInventoryLedger.5"));	     //$NON-NLS-1$
+
+    }
 }
