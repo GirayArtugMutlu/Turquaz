@@ -1433,7 +1433,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		    
 		   SecureComposite c = (SecureComposite)tabfldMain.getSelection().getControl();
 		   int level =EngBLPermissions.getPermission(c.getClass().getName());
-		 			System.out.println(level);
+		 		//	System.out.println(level);
 					if(level==3)
 					{
 						toolNew.setEnabled(true);
