@@ -37,6 +37,7 @@ import com.turquaz.accounting.ui.AccUIAddAccounts;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.MessageBox;
@@ -69,11 +70,12 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 
 	private TurqAccountingAccount account;
 	private TableColumn tableColCredit;
+	private TableColumn tableColumnCreditRemain;
+	private TableColumn tableColumnDeptRemain;
 	private ToolItem toolCancel;
 	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
 	private ToolBar toolBarTop;
-	private TableItem tableItemBalance;
 	private TableItem tableItemTotal;
 	private TableColumn tableColumnDebit;
 	private TableColumn tableColDefinition;
@@ -211,18 +213,19 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 					{
 						tableColumnDebit = new TableColumn(
 							tableAccBalance,
-							SWT.NONE);
+							SWT.RIGHT
+							);
 						tableColumnDebit.setText(Messages
 							.getString("AccUIAccountUpdate.1")); //$NON-NLS-1$
-						tableColumnDebit.setWidth(80);
+						tableColumnDebit.setWidth(90);
 					}
 					{
 						tableColCredit = new TableColumn(
 							tableAccBalance,
-							SWT.NONE);
+							SWT.RIGHT);
 						tableColCredit.setText(Messages
 							.getString("AccUIAccountUpdate.2")); //$NON-NLS-1$
-						tableColCredit.setWidth(80);
+						tableColCredit.setWidth(90);
 					}
 					{
 						tableItemTotal = new TableItem(
@@ -231,10 +234,18 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 						
 					}
 					{
-						tableItemBalance = new TableItem(
+						tableColumnDeptRemain = new TableColumn(
 							tableAccBalance,
-							SWT.NONE);
-						
+							SWT.RIGHT);
+						tableColumnDeptRemain.setText(Messages.getString("AccUIAccountUpdate.5")); //$NON-NLS-1$
+						tableColumnDeptRemain.setWidth(90);
+					}
+					{
+						tableColumnCreditRemain = new TableColumn(
+							tableAccBalance,
+							SWT.RIGHT);
+						tableColumnCreditRemain.setText(Messages.getString("AccUIAccountUpdate.8")); //$NON-NLS-1$
+						tableColumnCreditRemain.setWidth(90);
 					}
 				}
 				groupAccountBalance.layout();
@@ -308,29 +319,20 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 		try {
 			List list = blAccount.getTotalDeptAndCredit(account);
 			
-			if (list.size() > 0) {
+			if (list.size() > 0) 
+			{
 				Object[] sums = (Object[]) list.get(0);
-				if (sums[0] != null) {
-					tableItemTotal.setText(new String[] { Messages.getString("AccUIAccountUpdate.4"), //$NON-NLS-1$
-							sums[0].toString(), sums[1].toString() });
-
-					BigDecimal credit = (BigDecimal) sums[0];
-					BigDecimal dept = (BigDecimal) sums[1];
+				if (sums[0] != null)
+				{
+					TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
+					BigDecimal credit = (BigDecimal) sums[1];
+					BigDecimal dept = (BigDecimal) sums[0];
 					BigDecimal balance = credit.subtract(dept);
-					if (balance.doubleValue() > 0) {
-						tableItemBalance.setText(new String[] { Messages.getString("AccUIAccountUpdate.5"), "0", //$NON-NLS-1$ //$NON-NLS-2$
-								balance.toString() });
+					tableItemTotal.setText(new String[] { Messages.getString("AccUIAccountUpdate.4"), //$NON-NLS-1$
+							cf.format(dept), cf.format(credit),
+							(balance.doubleValue() <= 0) ? cf.format(balance.abs()):"0", //$NON-NLS-1$
+							(balance.doubleValue() > 0)? cf.format(balance) : "0"}); //$NON-NLS-1$
 
-					}
-
-					else {
-						tableItemBalance
-								.setText(new String[] {
-										Messages.getString("AccUIAccountUpdate.8"), //$NON-NLS-1$
-										balance.multiply(new BigDecimal(-1))
-												.toString(), "0" }); //$NON-NLS-1$
-
-					}
 				}
 
 			}
