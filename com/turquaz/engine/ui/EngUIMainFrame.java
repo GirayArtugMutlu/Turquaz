@@ -66,6 +66,7 @@ import org.eclipse.swt.widgets.Label;
 
 import org.eclipse.swt.SWT;
 
+import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -91,13 +92,6 @@ import com.cloudgarden.resource.SWTResourceManager;
 * for any corporate or commercial purpose.
 * *************************************
 */
-
-
-
-
-
-
-
 
 
 
@@ -228,7 +222,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			lblSeperatorLData.grabExcessHorizontalSpace = false;
 			lblSeperatorLData.grabExcessVerticalSpace = false;
 			lblSeperator.setLayoutData(lblSeperatorLData);
-			lblSeperator.setText("label1");
+			lblSeperator.setText("label1"); //$NON-NLS-1$
 	
 			GridData compMainLData = new GridData();
 			compMainLData.verticalAlignment = GridData.FILL;
@@ -254,7 +248,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			lblSeperatorLeftLData.grabExcessHorizontalSpace = false;
 			lblSeperatorLeftLData.grabExcessVerticalSpace = true;
 			lblSeperatorLeft.setLayoutData(lblSeperatorLeftLData);
-			lblSeperatorLeft.setText("label2");
+			lblSeperatorLeft.setText("label2"); //$NON-NLS-1$
 			lblSeperatorLeft.setSize(new org.eclipse.swt.graphics.Point(2,578));
 	
 			GridData compMainInLData = new GridData();
@@ -290,7 +284,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabfldMenu.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,392,572));
 	
 			tabModules.setControl(compModulesTab);
-			tabModules.setText("Modules");
+			tabModules.setText(Messages.getString("EngUIMainFrame.2")); //$NON-NLS-1$
 	
 			compModulesTab.setSize(new org.eclipse.swt.graphics.Point(386,549));
 	
@@ -307,7 +301,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModuleSelection.setLayoutData(compModuleSelectionLData);
 			compModuleSelection.setSize(new org.eclipse.swt.graphics.Point(382,16));
 	
-			lblModuleSelection.setText("Active Module");
+			lblModuleSelection.setText(Messages.getString("EngUIMainFrame.3")); //$NON-NLS-1$
 			lblModuleSelection.setSize(new org.eclipse.swt.graphics.Point(191,16));
 			lblModuleSelection.setLayout(null);
 
@@ -395,7 +389,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			label1LData.grabExcessHorizontalSpace = false;
 			label1LData.grabExcessVerticalSpace = false;
 			label1.setLayoutData(label1LData);
-			label1.setText("label1");
+			label1.setText("label1"); //$NON-NLS-1$
 	
 			GridData compModulesHelpLData = new GridData();
 			compModulesHelpLData.verticalAlignment = GridData.FILL;
@@ -448,7 +442,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesTab.layout();
 	
 			tabFavorites.setControl(compFavoritesTab);
-			tabFavorites.setText("Favorites");
+			tabFavorites.setText(Messages.getString("EngUIMainFrame.5")); //$NON-NLS-1$
 	
 	
 			GridData compFavoritesSelectionLData = new GridData();
@@ -475,7 +469,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			lblFavoritesTabLData.grabExcessHorizontalSpace = true;
 			lblFavoritesTabLData.grabExcessVerticalSpace = false;
 			lblFavoritesTab.setLayoutData(lblFavoritesTabLData);
-			lblFavoritesTab.setText("Favorite Items");
+			lblFavoritesTab.setText(Messages.getString("EngUIMainFrame.6")); //$NON-NLS-1$
 			lblFavoritesTab.setSize(new org.eclipse.swt.graphics.Point(358,20));
 			lblFavoritesTab.setLayout(null);
 	
@@ -550,41 +544,41 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(127,36));
 			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(127,36));
 			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(127,36));
-			coolRightMain.setText("coolItem3");
+			coolRightMain.setText("coolItem3"); //$NON-NLS-1$
 	
 			toolbarMainTop.setLocation(new org.eclipse.swt.graphics.Point(20,0));
 	
 			toolNew.setEnabled(true);
-			toolNew.setText("&Yeni");
-			toolNew.setToolTipText("New");
-			toolNew.setImage(SWTResourceManager.getImage("icons/new_wiz.gif"));
+			toolNew.setText(Messages.getString("EngUIMainFrame.8")); //$NON-NLS-1$
+			toolNew.setToolTipText(Messages.getString("EngUIMainFrame.9")); //$NON-NLS-1$
+			toolNew.setImage(SWTResourceManager.getImage("icons/new_wiz.gif")); //$NON-NLS-1$
 			toolNew.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolNewWidgetSelected(evt);
 				}
 			});
 	
-			toolSave.setText("&Kaydet");
-			toolSave.setToolTipText("Save");
-			toolSave.setImage(SWTResourceManager.getImage("icons/save.gif"));
+			toolSave.setText(Messages.getString("EngUIMainFrame.11")); //$NON-NLS-1$
+			toolSave.setToolTipText(Messages.getString("EngUIMainFrame.12")); //$NON-NLS-1$
+			toolSave.setImage(SWTResourceManager.getImage("icons/save.gif")); //$NON-NLS-1$
 			toolSave.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolSaveWidgetSelected(evt);
 				}
 			});
 	
-			toolDelete.setText("&Sil");
-			toolDelete.setToolTipText("Delete");
-			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
+			toolDelete.setText(Messages.getString("EngUIMainFrame.0")); //$NON-NLS-1$
+			toolDelete.setToolTipText(Messages.getString("EngUIMainFrame.15")); //$NON-NLS-1$
+			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
 				}
 			});
 	
-			toolSearch.setText("&Ara");
-			toolSearch.setToolTipText("Search");
-			toolSearch.setImage(SWTResourceManager.getImage("icons/run_exec.gif"));
+			toolSearch.setText(Messages.getString("EngUIMainFrame.17")); //$NON-NLS-1$
+			toolSearch.setToolTipText(Messages.getString("EngUIMainFrame.18")); //$NON-NLS-1$
+			toolSearch.setImage(SWTResourceManager.getImage("icons/run_exec.gif")); //$NON-NLS-1$
 			toolSearch.setSelection(true);
 			toolSearch.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
@@ -665,12 +659,12 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			getShell().setMenuBar(menuMain);
 	
-			mitFile.setText("&File");
+			mitFile.setText(Messages.getString("EngUIMainFrame.20")); //$NON-NLS-1$
 	
-			mitEdit.setText("&Edit");
+			mitEdit.setText(Messages.getString("EngUIMainFrame.21")); //$NON-NLS-1$
 	
 			mitHelp.setEnabled(true);
-			mitHelp.setText("&Help");
+			mitHelp.setText(Messages.getString("EngUIMainFrame.22")); //$NON-NLS-1$
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
 				}
@@ -685,8 +679,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	public void preInitGUI(){
 		
 	 //Set System variables
-	 System.setProperty("company","0");
-	 System.setProperty("user","admin");
+	 System.setProperty("company","0"); //$NON-NLS-1$ //$NON-NLS-2$
+	 System.setProperty("user","admin"); //$NON-NLS-1$ //$NON-NLS-2$
 	 
 	 //init user permissions
 	 EngBLPermissions.init();
@@ -695,12 +689,12 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	 //Add popup menu to add favorites
      popupTreeAddFavorites = new Menu(getShell(),SWT.POP_UP);
      final MenuItem item = new MenuItem (popupTreeAddFavorites, SWT.PUSH);
-	 item.setText("Add to Favorites");
+	 item.setText(Messages.getString("EngUIMainFrame.27")); //$NON-NLS-1$
      
      //Add popu menu to remove favorites
      popupTreeRemoveFavorites = new Menu(getShell(),SWT.POP_UP);
    	 final MenuItem itemRemove = new MenuItem (popupTreeRemoveFavorites, SWT.PUSH);
-	 itemRemove.setText ("Remove from Favorites");
+	 itemRemove.setText (Messages.getString("EngUIMainFrame.28")); //$NON-NLS-1$
 	 
 	
 	 item.addListener(SWT.Selection, new Listener () {
@@ -724,7 +718,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			
 				TreeItem selectedItem = (TreeItem)itemRemove.getData();
 				selectedItem.dispose();
-				System.out.println("disposed");
+				System.out.println("disposed"); //$NON-NLS-1$
 						
 			}
 										
@@ -775,7 +769,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				else{
 					event.doit =true;
 					itemRemove.setData(selectedItem);
-				    System.out.println("show");
+				    System.out.println("show"); //$NON-NLS-1$
 				}
 			
 		}
@@ -796,11 +790,11 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		compo4layout.topControl = treeInventory;
 		sashMainHorizontal.setWeights(new int[]{25,75});
 	    
-	    comboModuleSelection.add("Inventory");
-		comboModuleSelection.add("Accounting");
-		comboModuleSelection.add("Bank");
-		comboModuleSelection.add("Administrator");
-		comboModuleSelection.add("Current");
+	    comboModuleSelection.add(Messages.getString("EngUIMainFrame.31")); //$NON-NLS-1$
+		comboModuleSelection.add(Messages.getString("EngUIMainFrame.32")); //$NON-NLS-1$
+		comboModuleSelection.add(Messages.getString("EngUIMainFrame.33")); //$NON-NLS-1$
+		comboModuleSelection.add(Messages.getString("EngUIMainFrame.34")); //$NON-NLS-1$
+		comboModuleSelection.add(Messages.getString("EngUIMainFrame.35")); //$NON-NLS-1$
 		
 			
 		tabfldMain.setTabHeight(25);
@@ -845,14 +839,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	public void fillFavoritesTree(){
 	
 	
-	EngBLXmlParser xmlParser = new EngBLXmlParser("favorites.xml");
+	EngBLXmlParser xmlParser = new EngBLXmlParser("favorites.xml"); //$NON-NLS-1$
 	
 	Map treeInfo = xmlParser.createMap();
 	
 	Iterator it = treeInfo.keySet().iterator();
 	
-	String text ="";
-	String className ="";
+	String text =""; //$NON-NLS-1$
+	String className =""; //$NON-NLS-1$
 	TreeItem treeItem;
 	while(it.hasNext()){
 		text = it.next().toString();
@@ -909,23 +903,23 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		String text = comboModuleSelection.getItem(comboModuleSelection.getSelectionIndex());
 		StackLayout compo4layout =(StackLayout)compModulesTree.getLayout();
 	
-			   if(text.equals("Inventory"))
+			   if(text.equals(Messages.getString("EngUIMainFrame.31"))) //$NON-NLS-1$
 			   {
 				compo4layout.topControl = treeInventory;
 		
 			   }
-			   else if(text.equals("Administrator")){
+			   else if(text.equals(Messages.getString("EngUIMainFrame.34"))){ //$NON-NLS-1$
 				compo4layout.topControl = treeAdmin;
 	
 			   }
-			   else if(text.equals("Accounting"))
+			   else if(text.equals(Messages.getString("EngUIMainFrame.32"))) //$NON-NLS-1$
 			   {
 			   	compo4layout.topControl = treeAccounting;
 			   }
-			   else if(text.equals("Bank")){
+			   else if(text.equals(Messages.getString("EngUIMainFrame.33"))){ //$NON-NLS-1$
 			   	compo4layout.topControl = treeBank;
 			   }
-			   else if(text.equals("Current")){
+			   else if(text.equals(Messages.getString("EngUIMainFrame.35"))){ //$NON-NLS-1$
 			   	compo4layout.topControl = treeCurrent;
 			   }
 			   
@@ -943,7 +937,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			    
 				Class c = Class.forName(classname);
 				Composite comp =(Composite)c.getConstructor(new Class[]{Composite.class, int.class})
-				.newInstance(new Object[]{tabfldMain,Integer.valueOf(SWT.NULL+"")});
+				.newInstance(new Object[]{tabfldMain,Integer.valueOf(SWT.NULL+"")}); //$NON-NLS-1$
 				yeni.setControl(comp);
 				tabfldMain.setSelection(yeni);
 				arrangeIcons();
@@ -1117,7 +1111,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	*/
 	public String getExternalizedString(String key){
 		try {
-			return java.util.ResourceBundle.getBundle("com.turquaz.engine.ui.EngUIMainFrameMessages").getString(key);
+			return java.util.ResourceBundle.getBundle("com.turquaz.engine.ui.EngUIMainFrameMessages").getString(key); //$NON-NLS-1$
 		} catch (java.util.MissingResourceException e) {
 			return '!' + key + '!';
 		}
@@ -1180,17 +1174,17 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		
 		  OutputStream output = null;
           PrintStream out = null;
-          output = new FileOutputStream("favorites.xml");
+          output = new FileOutputStream("favorites.xml"); //$NON-NLS-1$
           out = new PrintStream(output);
           TreeItem items[] = treeFavorites.getItems();
-          out.println("<tree>");
+          out.println("<tree>"); //$NON-NLS-1$
           for(int i=0;i<items.length;i++){
-          out.println("<treeitem text=\""+items[i].getText()+"\" class=\""+items[i].getData().toString()+"\"  >");
+          out.println("<treeitem text=\""+items[i].getText()+"\" class=\""+items[i].getData().toString()+"\"  >"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
            
-           out.println("</treeitem>");
+           out.println("</treeitem>"); //$NON-NLS-1$
           
           }
-          out.println("</tree>");
+          out.println("</tree>"); //$NON-NLS-1$
           
           
 		 }

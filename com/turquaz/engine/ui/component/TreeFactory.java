@@ -73,25 +73,26 @@ public final class TreeFactory {
 	}
 	public static Tree createAccountingTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
-		root.setText("Accounting");
+		root.setText(Messages.getString("AccUITree.0")); //$NON-NLS-1$
 		TreeItem item = new TreeItem(root,SWT.NULL);
-		item.setText("New Account");
+		item.setText(Messages.getString("AccUITree.1")); //$NON-NLS-1$
 		item.setData(AccUIAddAccounts.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Accounting Plan");
+		item.setText(Messages.getString("AccUITree.2")); //$NON-NLS-1$
 		item.setData(AccUIAccountingPlan.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Accounting Transaction Add");
+		item.setText(Messages.getString("AccUITree.3")); //$NON-NLS-1$
 		item.setData(AccUITransactionAdd.class.getName());	
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Collect Transaction");
+		item.setText(Messages.getString("AccUITree.4")); //$NON-NLS-1$
 		item.setData(AccUITransactionCollect.class.getName());	
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Payment Transaction");
+		item.setText(Messages.getString("AccUITree.5")); //$NON-NLS-1$
 		item.setData(AccUITransactionPayment.class.getName());	
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Transaction Search");
+		item.setText(Messages.getString("AccUITree.6")); //$NON-NLS-1$
 		item.setData(AccUITransactionSearch.class.getName());
+	   
 		return tree;
 	}
 	public static Tree createCurrentTree(Tree tree){
