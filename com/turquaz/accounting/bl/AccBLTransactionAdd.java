@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import com.turquaz.accounting.dal.AccDALTransactionAdd;
@@ -52,7 +53,7 @@ public class AccBLTransactionAdd {
 	//TODO DONE
 	
 	public void saveAccTransactionRows(Map deptAccounts, Map creditAccounts,
-			Integer transId,String definition,TurqCurrencyExchangeRate exchangeRate)throws Exception
+			Integer transId,boolean isSumRows,String definition,TurqCurrencyExchangeRate exchangeRate)throws Exception
 	{
 		Iterator it = deptAccounts.keySet().iterator();
 		
@@ -61,20 +62,33 @@ public class AccBLTransactionAdd {
 			Integer accountId = (Integer)it.next();
 			TurqAccountingAccount account = new TurqAccountingAccount();
 			account.setId(accountId);
-		
-			TurqAccountingTransactionColumn transCounterRow = new TurqAccountingTransactionColumn();
-		
-			transCounterRow.setTurqAccountingAccount(account);
-			transCounterRow.setTransactionDefinition(definition);
- 	   	
-			transCounterRow.setDeptAmount((BigDecimal)deptAccounts.get(accountId));
-			transCounterRow.setCreditAmount(new BigDecimal(0));    
-	
-			if(((BigDecimal)deptAccounts.get(accountId)).doubleValue()>0)
-			{
-				registerAccTransactionRow(transCounterRow,transId,exchangeRate);   
-			}		
 			
+			List deptRows=(List)deptAccounts.get(accountId);
+			if (isSumRows)
+			{
+				BigDecimal totalRow=new BigDecimal(0);
+				for(int k=0; k<deptRows.size(); k++)
+				{
+					totalRow=totalRow.add((BigDecimal)deptRows.get(k));
+				}
+				deptRows.clear();
+				deptRows.add(totalRow);
+			}
+			for(int k=0; k< deptRows.size();k++)
+			{
+				TurqAccountingTransactionColumn transCounterRow = new TurqAccountingTransactionColumn();
+		
+				transCounterRow.setTurqAccountingAccount(account);
+				transCounterRow.setTransactionDefinition(definition);
+ 	   	
+				transCounterRow.setDeptAmount((BigDecimal)deptRows.get(k));
+				transCounterRow.setCreditAmount(new BigDecimal(0));    
+	
+				if(transCounterRow.getDeptAmount().doubleValue()>0)
+				{
+					registerAccTransactionRow(transCounterRow,transId,exchangeRate);   
+				}		
+			}			
 		}
 		
 		it = creditAccounts.keySet().iterator();
@@ -84,19 +98,33 @@ public class AccBLTransactionAdd {
 			Integer accountId = (Integer)it.next();
 			TurqAccountingAccount account = new TurqAccountingAccount();
 			account.setId(accountId);
-		
-			TurqAccountingTransactionColumn transCounterRow = new TurqAccountingTransactionColumn();
-		
-			transCounterRow.setTurqAccountingAccount(account);
-			transCounterRow.setTransactionDefinition(definition);
- 	   	
-			transCounterRow.setDeptAmount(new BigDecimal(0));
-			transCounterRow.setCreditAmount((BigDecimal)creditAccounts.get(accountId));    
-		 
-			if(((BigDecimal)creditAccounts.get(accountId)).doubleValue()>0)
+			
+			List creditRows=(List)creditAccounts.get(accountId);
+			if (isSumRows)
 			{
-				registerAccTransactionRow(transCounterRow,transId,exchangeRate);       
+				BigDecimal totalRow=new BigDecimal(0);
+				for(int k=0; k<creditRows.size(); k++)
+				{
+					totalRow=totalRow.add((BigDecimal)creditRows.get(k));
+				}
+				creditRows.clear();
+				creditRows.add(totalRow);
 			}
+			for(int k=0; k< creditRows.size();k++)
+			{
+				TurqAccountingTransactionColumn transCounterRow = new TurqAccountingTransactionColumn();
+		
+				transCounterRow.setTurqAccountingAccount(account);
+				transCounterRow.setTransactionDefinition(definition);
+ 	   	
+				transCounterRow.setDeptAmount(new BigDecimal(0));
+				transCounterRow.setCreditAmount((BigDecimal)creditRows.get(k));    
+	
+				if(transCounterRow.getCreditAmount().doubleValue()>0)
+				{
+					registerAccTransactionRow(transCounterRow,transId,exchangeRate);   
+				}		
+			}	
 		}		
 	}
 	
@@ -213,7 +241,7 @@ public class AccBLTransactionAdd {
    
    public boolean saveAccTransaction(Date date, String documentNo,int type,int moduleId,
    		Integer docSeqId, String definition, TurqCurrencyExchangeRate exchangeRate,
-		Map creditAccounts, Map deptAccounts) throws Exception
+		Map creditAccounts, Map deptAccounts, boolean isSumRows) throws Exception
 	{
 		try
 		{
@@ -269,7 +297,7 @@ public class AccBLTransactionAdd {
 			
 			dalTransAdd.save(trans); 
 			//TODO Should return boolean
-			saveAccTransactionRows(deptAccounts,creditAccounts,trans.getId(),definition,exchangeRate);
+			saveAccTransactionRows(deptAccounts,creditAccounts,trans.getId(),isSumRows,definition,exchangeRate);
 			return true;
 		}				
 		catch(Exception ex)

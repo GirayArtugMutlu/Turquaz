@@ -22,10 +22,12 @@ package com.turquaz.current.bl;
 */
 import java.math.BigDecimal;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
@@ -142,8 +144,12 @@ public class CurBLCurrentTransactionAdd {
 	}
 	
 	//TODO DONE
-	public TurqCurrentTransaction saveOtherCurrentTransaction(TurqCurrentCard curCard,TurqAccountingAccount account,java.util.Date transDate, String documentNo,
-			boolean isCredit,BigDecimal amount, BigDecimal totalDiscount,int type,Integer seqDocNo,String definition, TurqCurrencyExchangeRate exchangeRate)throws Exception{
+	public TurqCurrentTransaction saveOtherCurrentTransaction(
+			TurqCurrentCard curCard,TurqAccountingAccount account,
+			Date transDate, String documentNo,boolean isCredit,
+			BigDecimal amount, BigDecimal totalDiscount,int type,
+			Integer seqDocNo,String definition, 
+			TurqCurrencyExchangeRate exchangeRate)throws Exception{
 		try{
 	
 			TurqCurrentTransaction curTrans=saveCurrentTransaction(curCard,transDate,documentNo,isCredit,amount,totalDiscount,type,seqDocNo,definition,exchangeRate);
@@ -151,12 +157,13 @@ public class CurBLCurrentTransactionAdd {
 			{
 				return curTrans;
 			}			
-			else{
-				  AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
+			else
+			{
+				 AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
 				  //muhasebe fisi kalemlerini de ekleyelim.. 
 			         // add accounting bill rows
-				  String transDefinition="Cari Borc/Alacak "+DatePicker.formatter.format(transDate) +" " + documentNo;
-			         Integer transId = blAcc.saveAccTransaction(transDate,documentNo,
+				 String transDefinition="Cari Borc/Alacak "+DatePicker.formatter.format(transDate) +" " + documentNo;
+			     Integer transId = blAcc.saveAccTransaction(transDate,documentNo,
 			         		EngBLCommon.ACCOUNTING_TRANS_GENERAL,EngBLCommon.MODULE_CURRENT,curTrans.getTurqEngineSequence().getId(),transDefinition, exchangeRate);
 
 			         saveAccountingCashTransactionRows(curCard,isCredit,amount,account,transId,definition,exchangeRate);           
@@ -317,64 +324,57 @@ public class CurBLCurrentTransactionAdd {
 	 * @param AccTransId Accounting transaction id
 	 */
 	//TODO DONE
-	public void saveAccountingCashTransactionRows(TurqCurrentCard curCard, 
-			boolean isCredit,BigDecimal amount,TurqAccountingAccount account,
-			Integer AccTransId, String definition, TurqCurrencyExchangeRate exchangeRate) throws Exception{
-	  try{
-			   
-        	
-          TurqAccountingTransactionColumn transRowCash = new TurqAccountingTransactionColumn();
-          TurqAccountingTransactionColumn transRowCurrent = new TurqAccountingTransactionColumn();
-
-          //Kasa muhasebe kodunu girelim
-          transRowCash.setTurqAccountingAccount(account);
+	public void prepareAccountingMaps(TurqCurrentCard curCard, 
+			boolean isCredit,boolean isSumRows,BigDecimal amount,TurqAccountingAccount account,
+			Map deptAccounts, Map creditAccounts) throws Exception
+	{
+		try
+		{
+	  		Integer accountId=account.getId();
+	  		Integer currentAccountId=CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL).getId();
     	
-          //Cari Karta para verildiginde
-		  //Kasaya alacak hareketi 
-		  //Cari kartin satici muhasebe hesabina borc hareketi 
-    		if(isCredit){
-    		   			
-    			transRowCash.setCreditAmount(amount);
-    			transRowCash.setDeptAmount(new BigDecimal(0));
+	  		//Cari Karta para verildiginde
+	  		//Kasaya alacak hareketi 
+		 	 //Cari kartin satici muhasebe hesabina borc hareketi 
+    		if(isCredit)
+    		{    		
+    			List creditRows=(List)creditAccounts.get(accountId);
+    			if (creditRows==null)
+    			{
+    				creditRows=new ArrayList();
+    				creditAccounts.put(accountId,creditRows);
+    			}
+    			creditRows.add(amount);
     			
-    			
-    			transRowCurrent.setCreditAmount(new BigDecimal(0));
-    			transRowCurrent.setDeptAmount(amount);
-    			
-    			
-    			//cari sat?c? muhasebe kodunu da girelim
-    			transRowCurrent.setTurqAccountingAccount(CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL));
-    	   			
+    			List deptRows=(List)deptAccounts.get(currentAccountId);
+    			if (deptRows==null)
+    			{
+    				deptRows=new ArrayList();
+    				deptAccounts.put(currentAccountId,deptRows);
+    			}
+    			deptRows.add(amount);    	   			
     		}
     	   //Cari Karttan para tahsil edildiginde
   		   //Kasaya borc hareketi 
   		   //Cari kartin alici muhasebe hesabina alacak hareketi 
     		else 
     		{
-    			transRowCash.setCreditAmount(new BigDecimal(0));
-    			transRowCash.setDeptAmount(amount);
+    			List deptRows=(List)deptAccounts.get(accountId);
+    			if (deptRows==null)
+    			{
+    				deptRows=new ArrayList();
+    				deptAccounts.put(accountId,deptRows);
+    			}
+    			deptRows.add(amount);
     			
-    			
-    			transRowCurrent.setCreditAmount(amount);
-    			transRowCurrent.setDeptAmount(new BigDecimal(0));    			
-    			
-    			//cari alici muhasebe kodunu da girelim
-    			transRowCurrent.setTurqAccountingAccount(CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL));
-    			
-    		
-    		}
-        
-        
-         AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
-           
-         
-         //fis kalemlerini de ekleyelim.. 
-         transRowCash.setTransactionDefinition(definition);
-         transRowCurrent.setTransactionDefinition(definition);
-
-         blAcc.registerAccTransactionRow(transRowCash,AccTransId,exchangeRate);
-         blAcc.registerAccTransactionRow(transRowCurrent,AccTransId,exchangeRate);
-       
+    			List creditRows=(List)creditAccounts.get(currentAccountId);
+    			if (creditRows==null)
+    			{
+    				creditRows=new ArrayList();
+    				creditAccounts.put(currentAccountId,creditRows);
+    			}
+    			creditRows.add(amount);    		
+    		}       
 		}
 		
 	    catch(Exception ex){
