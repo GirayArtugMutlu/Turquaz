@@ -91,18 +91,19 @@ public class InvDALSearchTransaction
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select transaction.id," + "transaction.transactionsDate," + "transaction.transactionsAmountIn,"
-					+ "transaction.transactionsTotalAmountOut, transaction.transactionsTotalPrice,"
+			String query = "Select transaction.id," + "transaction.transactionsDate," + "transaction.amountIn,"
+					+ "transaction.amountOut, transaction.totalPrice,"
 					+ " transaction.turqInventoryCard.cardInventoryCode, " + " transaction.turqInventoryCard.cardName,"
-					+ " consignment.turqBillConsignmentCommon.turqCurrentCard.cardsName," + " transaction.turqInventoryCard.id,"
-					+ " consignment.turqBillConsignmentCommon.billDocumentNo " + "  from TurqInventoryTransaction as transaction,"
-					+ " TurqConsignment as consignment where" + " consignment.turqEngineSequence = transaction.turqEngineSequence "
-					+ " and consignment.consignmentsDate >= :startDate" + " and consignment.consignmentsDate <= :endDate";
-			if (type != EngBLCommon.COMMON_ALL_INT)
-				query += " and consignment.consignmentsType =" + type;
+					+ " transaction.turqCurrentCard.cardsName," + " transaction.turqInventoryCard.id,"
+					+ " transaction.documentNo " + "  from TurqInventoryTransaction as transaction"
+					+ " where transaction.transactionsDate >= :startDate" + " and transaction.transactionsDate <= :endDate";
+			if (type == EngBLCommon.COMMON_BUY_INT)
+				query += " and transaction.amountIn > 0";
+			else if (type == EngBLCommon.COMMON_SELL_INT)
+				query += " and transaction.amountOut > 0";
 			if (curCard != null)
 			{
-				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard = :curCard";
+				query += " and transaction.turqCurrentCard = :curCard";
 			}
 			if (invCardStart != null && invCardEnd != null)
 			{
