@@ -39,11 +39,12 @@ import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.dal.TurqModuleComponent;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.dal.TurqUserPermission;
+import com.turquaz.engine.ui.component.SecureComposite;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
-public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
+public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite implements SecureComposite{
 
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -68,41 +69,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 	private AdmBLUsers blUsers = new AdmBLUsers();
 	private AdmBLUserPermissions blUserPerms = new AdmBLUserPermissions();
 
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		showGUI();
-	}
-		
-	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		AdmUIUserPermissions inst = new AdmUIUserPermissions(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if(size.x == 0 && size.y == 0) {
-			inst.pack();
-			shell.pack();
-		} else {
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
+	
 
 	public AdmUIUserPermissions(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
@@ -196,7 +163,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 				}
 			}
 			{
-				tableUserPermissions = new Table(this, SWT.NONE);
+				tableUserPermissions = new Table(this, SWT.SINGLE | SWT.FULL_SELECTION);
 				GridData table1LData = new GridData();
 				tableUserPermissions.setLinesVisible(true);
 				tableUserPermissions.setHeaderVisible(true);
@@ -314,6 +281,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 	}
 	public void fillTableUserPermissions(){
 		try{
+		tableUserPermissions.removeAll();
 		java.util.List userPermList = blUserPerms.getUserPermissions();
 		TableItem item;
 		
@@ -329,7 +297,8 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 			module = userPerm.getTurqModule().getModulesName();
 			
 			if(module.trim().equals("*")){
-			moduleComp ="*";	
+			
+				moduleComp ="*";	
 			
 			}
 			else{
@@ -345,9 +314,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 					                  module,
 									  moduleComp,
 									  permLevel
-									  });
-			
-			
+									  });		
 		}
 		
 		
@@ -359,5 +326,56 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 			ex.printStackTrace();
 		}
 	}
+	
+	public boolean verifyFields(){
+		return true;
+	}
+	
+	public void save(){
+		try{
+			if(verifyFields()){
+			blUserPerms.saveUserPermission(comboUsers.getData(comboUsers.getText()),
+										comboModules.getData(comboModules.getText()),
+										comboModuleComponents.getData(comboModuleComponents.getText()),
+										Integer.parseInt(comboPermissionLevel.getText()));	
+			
+			fillTableUserPermissions();
+			
+			}
+			
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+	}
+	public void search(){
+		
+	}
+	
+	public void newForm(){
+		
+	}
+	
+	public void delete(){
+		
+	try{
+		TableItem items[]=tableUserPermissions.getSelection();
+		if(items.length>0){
+		blUserPerms.deleteObject(items[0].getData());	
+		fillTableUserPermissions();
+		
+		}
+		
+		
+		
+	}
+	catch(Exception ex){
+		ex.printStackTrace();
+	}
+		
+		
+	}
+	
 	
 }
