@@ -71,6 +71,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private CoolBar coolBar1;
 	TurqConsignment consignment;
 	ConBLUpdateConsignment blCons = new ConBLUpdateConsignment();
+	private boolean updated=false;
 
 
 	public ConUIConsignmentUpdateDialog(Shell parent, int style, TurqConsignment cons) {
@@ -78,7 +79,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		consignment = cons;
 	}
 
-	public void open() {
+	public boolean open() {
 		try {
 		    preInitGUI();
 			Shell parent = getParent();
@@ -178,8 +179,10 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+			return updated;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -262,7 +265,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		try{
 			if(msg2.open()==SWT.OK){
 				
-			    
+			    updated=true;
 				//delete Consignment Group
 				Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
 				while(it.hasNext()){
@@ -327,7 +330,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	public void update(){
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 		try{
-		
+			updated=true;
 			//Update its groups
 			Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
 			while(it.hasNext()){

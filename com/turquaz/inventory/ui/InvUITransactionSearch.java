@@ -305,8 +305,9 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 			TurqEngineSequence seq = invTrans.getTurqEngineSequence();
 			
 			TurqConsignment cons = blSearch.getConsignment(seq);
-			new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
-			search();
+			boolean updated=new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
+			if (updated)
+				search();
 		}
 		}
 		catch (Exception ex)
