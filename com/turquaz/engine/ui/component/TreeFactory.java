@@ -127,11 +127,11 @@ public final class TreeFactory
 		}
 		
 		TreeItem transRoot = new TreeItem(tree,SWT.NULL);
-		transRoot.setText("Stok Hareketleri");
+		transRoot.setText(Messages.getString("TreeFactory.115")); //$NON-NLS-1$
 		if (EngBLPermissions.getPermission(InvUIOtherTransactionIn.class.getName()) > 0)
 		{
 			item = new TreeItem(transRoot, SWT.NULL);
-			item.setText("Stok Giri? Hareketi"); 
+			item.setText(Messages.getString("TreeFactory.116"));  //$NON-NLS-1$
 			item.setData(InvUIOtherTransactionIn.class.getName());
 		}
 		
@@ -204,6 +204,7 @@ public final class TreeFactory
 			item.setData(InvUIInventoryGroupAdd.class.getName());
 		}
 		adminRoot.setExpanded(true);
+		transRoot.setExpanded(true);
 		reports.setExpanded(true);
 		cardsRoot.setExpanded(true);
 		searchRoot.setExpanded(true);

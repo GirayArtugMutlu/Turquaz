@@ -27,7 +27,7 @@ import com.turquaz.engine.dal.TurqModule;
  */
 public class InvBLSaveTransaction
 {
-	public void saveOtherInventoryTransaction(TurqInventoryCard invCard, TurqInventoryUnit invUnit, TurqInventoryWarehous warehous, String docNo, Date transDate, String definition,BigDecimal amountIn, BigDecimal amountOut)throws Exception
+	public static void saveOtherInventoryTransaction(TurqInventoryCard invCard, TurqInventoryUnit invUnit, TurqInventoryWarehous warehous, String docNo, Date transDate, String definition,BigDecimal amountIn, BigDecimal amountOut)throws Exception
 	{
 		Calendar cal = Calendar.getInstance();
 		TurqInventoryTransaction invTrans = new TurqInventoryTransaction();
@@ -60,6 +60,7 @@ public class InvBLSaveTransaction
 		invTrans.setTransactionsUnitPrice(new BigDecimal(0));
 		invTrans.setTransactionsVat(0);
 		invTrans.setTransactionsVatAmount(new BigDecimal(0));
+		invTrans.setTransactionsVatSpecialEach(new BigDecimal(0));
 		invTrans.setTransactionsVatSpecial(new BigDecimal(0));
 		invTrans.setTransactionsVatSpecialAmount(new BigDecimal(0));
 		invTrans.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$

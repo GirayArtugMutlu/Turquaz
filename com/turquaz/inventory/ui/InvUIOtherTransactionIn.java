@@ -1,5 +1,6 @@
 package com.turquaz.inventory.ui;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
@@ -7,21 +8,27 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
+import com.turquaz.engine.dal.TurqInventoryCard;
+import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.widgets.Text;
-import com.turquaz.engine.ui.component.NumericText;
 import org.eclipse.swt.custom.CCombo;
+import com.turquaz.inventory.bl.InvBLSaveTransaction;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
+import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
-public class InvUIOtherTransactionIn extends org.eclipse.swt.widgets.Composite {
+public class InvUIOtherTransactionIn extends org.eclipse.swt.widgets.Composite implements SecureComposite {
 	private CLabel lblInvCard;
 	private CLabel lblTransDate;
-	private NumericText txtAmount;
+	private CurrencyText txtAmount;
 	private CCombo comboWareHouse;
 	private Text txtDefinition;
 	private CLabel lblWareHouse;
@@ -124,7 +131,7 @@ public class InvUIOtherTransactionIn extends org.eclipse.swt.widgets.Composite {
 			lblAmount.setText("Giri\u015f Miktar\u0131");
 			//END <<  lblAmount
 			//START >>  txtAmount
-			txtAmount = new NumericText(this, SWT.NONE);
+			txtAmount = new CurrencyText(this, SWT.NONE);
 			GridData txtAmountLData = new GridData();
 			txtAmountLData.widthHint = 150;
 			txtAmountLData.heightHint = 17;
@@ -201,5 +208,57 @@ public class InvUIOtherTransactionIn extends org.eclipse.swt.widgets.Composite {
 			ex.printStackTrace();
 		}
 	}
+	
+	public boolean verifyFields()
+	{
+		if(inventoryPicker.getData()==null)
+		{
+			EngUICommon.showMessageBox(getShell(),"Lütfen Stok Kart? Seçiniz.!");
+			inventoryPicker.setFocus();
+			return false;
+		}
+		
+		if(!(txtAmount.getBigDecimalValue().doubleValue()>0))
+		{
+			EngUICommon.showMessageBox(getShell(),"Lütfen Miktar Giriniz!");
+			txtAmount.setFocus();
+			return false;
+		}
+		
+		return true;
+	}
 
+	/* (non-Javadoc)
+	 * @see com.turquaz.engine.ui.component.SecureComposite#newForm()
+	 */
+	public void newForm()
+	{
+		InvUIOtherTransactionIn cardAdd = new InvUIOtherTransactionIn(this.getParent(), this.getStyle());
+		CTabFolder tabfld = (CTabFolder) this.getParent();
+		tabfld.getSelection().setControl(cardAdd);
+		this.dispose();
+	}
+	/* (non-Javadoc)
+	 * @see com.turquaz.engine.ui.component.SecureComposite#save()
+	 */
+	public void save()
+	{
+		try{
+			
+			if(verifyFields())
+			{
+				TurqInventoryWarehous warehouse = (TurqInventoryWarehous)comboWareHouse.getData(comboWareHouse.getText());
+				TurqInventoryUnit unit = (TurqInventoryUnit)comboUnits.getData(comboUnits.getText());
+				InvBLSaveTransaction.saveOtherInventoryTransaction((TurqInventoryCard)inventoryPicker.getData(),unit,warehouse,txtDocNo.getText(),datePicker.getDate(),txtDefinition.getText(),txtAmount.getBigDecimalValue(),new BigDecimal(0));
+				
+				EngUICommon.showSavedSuccesfullyMessage(getShell());
+				newForm();
+			}
+			
+			
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
 }
