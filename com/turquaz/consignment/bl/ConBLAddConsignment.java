@@ -10,7 +10,6 @@ import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
-
 /**
  * @author onsel
  *
