@@ -7,13 +7,6 @@ import java.util.List;
 import com.turquaz.bill.dal.BillDALAddGroups;
 import com.turquaz.engine.dal.TurqBillGroup;
 
-
-/**
- * @author onsel
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class BillBLAddGroups {
 	Calendar cal = Calendar.getInstance();
 	BillDALAddGroups dalAddGroups = new BillDALAddGroups();

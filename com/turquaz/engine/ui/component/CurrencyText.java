@@ -33,12 +33,7 @@ import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
-/**
- * @author onsel
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;

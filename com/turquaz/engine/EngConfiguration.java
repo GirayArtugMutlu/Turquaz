@@ -1,9 +1,4 @@
-/*
- * Created on Nov 1, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 package com.turquaz.engine;
 
 /************************************************************************/
@@ -31,12 +26,6 @@ import java.io.FileInputStream;
 import java.util.Properties;
 
 
-/**
- * @author onsel
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class EngConfiguration {
 	private static final String filename = "config/turquaz.properties";//$NON-NLS-1$
     private Properties props ;

@@ -9,12 +9,6 @@ import net.sf.hibernate.Transaction;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 
 
-/**
- * @author onsel
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class ConDALAddGroups {
 	public ConDALAddGroups(){
 		

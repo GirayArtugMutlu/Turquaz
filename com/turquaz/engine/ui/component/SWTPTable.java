@@ -28,7 +28,6 @@ import com.turquaz.engine.Messages;
 import de.kupzog.ktools.kprint.boxes.PBox;
 import de.kupzog.ktools.kprint.boxes.PContainer;
 import de.kupzog.ktools.kprint.boxes.PDocument;
-import de.kupzog.ktools.kprint.boxes.PHLine;
 import de.kupzog.ktools.kprint.boxes.PLittleTextBox;
 import de.kupzog.ktools.kprint.boxes.PTableBoxProvider;
 import de.kupzog.ktools.kprint.boxes.PTextStyle;
@@ -53,7 +52,7 @@ public class SWTPTable {
 		calculatePageLengths();
 		// Zeilen
 		/**
-		 * TODO Print Table Header
+		 * 
 		 * if (j == 0) style = PBox.POS_BELOW | PBox.ROW_ALIGN;
 		 */
 		double width = parent.getPossibleWidth();

@@ -32,7 +32,7 @@ public class Messages {
     }
 
     public static String getString(String key) {
-        // TODO Auto-generated method stub
+        
         try {
         	final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
             .getBundle(BUNDLE_NAME,Locale.getDefault());

@@ -1236,15 +1236,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								}
 							}
 							});
-						txtInvCardDefinition
-							.addVerifyListener(new VerifyListener() {
-							public void verifyText(VerifyEvent evt) {
-								System.out
-									.println("txtInvCardDefinition.verifyText, event=" //$NON-NLS-1$
-										+ evt);
-								//TODO add your code for txtInvCardDefinition.verifyText
-							}
-							});
+						
 
 						txtInvCardDefinitionLData.widthHint = 187;
 						txtInvCardDefinitionLData.heightHint = 46;
@@ -1884,7 +1876,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardPricesNextMouseUp(MouseEvent evt) {
-		//TODO add your handler code here
+		
 		int next = tabfldInvCardAdd.getSelectionIndex() + 1;
 		tabfldInvCardAdd.setSelection(next);
 		
@@ -1892,7 +1884,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardNextMouseUp(MouseEvent evt) {
-		//TODO add your handler code here
+		
 		int next = tabfldInvCardAdd.getSelectionIndex() + 1;
 		tabfldInvCardAdd.setSelection(next);
 	}
@@ -1900,14 +1892,14 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardDetPreMouseUp(MouseEvent evt) {
-		//TODO add your handler code here
+		
 		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
 		tabfldInvCardAdd.setSelection(next);
 	}
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardUnitsPreMouseUp(MouseEvent evt) {
-		//TODO add your handler code here
+		
 		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
 		tabfldInvCardAdd.setSelection(next);
 
@@ -1915,7 +1907,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardPricesPreMouseUp(MouseEvent evt) {
-		//TODO add your handler code here
+		
 		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
 		tabfldInvCardAdd.setSelection(next);
 	}
@@ -1924,7 +1916,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardGroupsPreMouseUp(MouseEvent evt) {
-		//TODO add your handler code here
+		
 		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
 		tabfldInvCardAdd.setSelection(next);
 	}

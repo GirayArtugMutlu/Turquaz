@@ -100,7 +100,7 @@ public class TurquazContentAssistProcessors implements
             IContentAssistSubjectControl viewer,
 
             int documentOffset) {
-         // TODO Auto-generated method stub
+         
         // Retrieve current document
         IDocument doc = viewer.getDocument();
 
@@ -128,7 +128,7 @@ public class TurquazContentAssistProcessors implements
     public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer,
 
     int documentOffset) {
-        // TODO Auto-generated method stub
+        
         // Retrieve current document
         IDocument doc = viewer.getDocument();
 
@@ -216,7 +216,7 @@ public class TurquazContentAssistProcessors implements
      * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getCompletionProposalAutoActivationCharacters()
      */
     public char[] getCompletionProposalAutoActivationCharacters() {
-        // TODO Auto-generated method stub
+        
         return new char[] { '.', ',',' ' };
     }
 
@@ -248,7 +248,7 @@ public class TurquazContentAssistProcessors implements
      * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getContextInformationAutoActivationCharacters()
      */
     public char[] getContextInformationAutoActivationCharacters() {
-        // TODO Auto-generated method stub
+        
         return null;
     }
 
@@ -258,7 +258,7 @@ public class TurquazContentAssistProcessors implements
      * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getErrorMessage()
      */
     public String getErrorMessage() {
-        // TODO Auto-generated method stub
+        
         return null;
     }
 

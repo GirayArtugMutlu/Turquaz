@@ -30,12 +30,7 @@ import com.turquaz.engine.dal.TurqModule;
 * for any corporate or commercial purpose.
 * *************************************
 */
-/**
- * @author onsel
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 public class ConBLAddConsignment {
 	ConDALAddConsignment dalConsignment = new ConDALAddConsignment();
 	Calendar cal = Calendar.getInstance();

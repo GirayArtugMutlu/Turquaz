@@ -12,7 +12,7 @@ public class TurquazTableSorter extends ViewerSorter{
 	}    
 
     public int compare(Viewer arg0, Object arg1, Object arg2) {
-        // TODO Auto-generated method stub
+        
         
         ITableRow row1 = (ITableRow)arg1;
         ITableRow row2 = (ITableRow)arg2;

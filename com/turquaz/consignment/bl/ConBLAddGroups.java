@@ -7,12 +7,7 @@ import java.util.List;
 import com.turquaz.consignment.dal.ConDALAddGroups;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 
-/**
- * @author onsel
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 public class ConBLAddGroups {
 	Calendar cal = Calendar.getInstance();
 	ConDALAddGroups dalAddGroups = new ConDALAddGroups();

@@ -32,12 +32,7 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 
-/**
- * @author onsel
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 public class AccBLTransactionSearch {
 	
 	private AccDALTransactionSearch dalTransSearch = new AccDALTransactionSearch();

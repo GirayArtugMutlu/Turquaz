@@ -26,13 +26,6 @@ import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.ui.component.DatePicker;
 
-
-/**
- * @author onsel
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class BillBLAddBill {
 	BillDALAddBill dalBill = new BillDALAddBill();
 	Calendar cal = Calendar.getInstance();

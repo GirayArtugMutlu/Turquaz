@@ -287,7 +287,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 		}
 	}
 	protected void toolUpdateWidgetSelected(SelectionEvent evt){
-		//TODO add your handler code here
+		
 		update();
 
 	}
@@ -308,7 +308,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 
 	/** Auto-generated event handler method */
 	protected void toolDeleteWidgetSelected(SelectionEvent evt){
-		//TODO add your handler code here
+		
 		delete();
 	}
 }

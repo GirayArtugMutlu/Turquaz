@@ -1,9 +1,4 @@
-/*
- * Created on 31.Aðu.2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 package com.turquaz.engine.dal;
 
 
@@ -20,8 +15,6 @@ import net.sf.hibernate.expression.Expression;
  * @version $Id$
  * 
  * Database functions for calculating user permissions.
- * TODO Module, Module Component functions must be placed in a different class
- * 
  * 
  */
 public class EngDALUserPerms {

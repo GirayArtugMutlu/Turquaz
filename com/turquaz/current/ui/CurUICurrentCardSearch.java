@@ -441,7 +441,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 	}
 	/** Auto-generated event handler method */
 	protected void tableCurrentCardSearchMouseDoubleClick(MouseEvent evt){
-		//TODO add your handler code here
+		
 		TableItem [] selection= tableCurrentCardSearch.getSelection();	
 	
 		if(selection.length>0){

@@ -32,12 +32,7 @@ import com.turquaz.engine.dal.TurqCurrentCardsPhone;
 import com.turquaz.engine.dal.TurqCurrentContact;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 
-/**
- * @author Ceday
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 public class CurBLCurrentCardAdd {
 	
 	public CurBLCurrentCardAdd(){

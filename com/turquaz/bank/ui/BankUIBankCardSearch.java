@@ -379,7 +379,7 @@ public class BankUIBankCardSearch extends  Composite implements SearchComposite 
 	}
 	/** Auto-generated event handler method */
 	protected void tableBankCardsMouseDoubleClick(MouseEvent evt){
-		//TODO add your handler code here
+		
 		TableItem [] selection= tableBankCards.getSelection();	
 	
 		if(selection.length>0){

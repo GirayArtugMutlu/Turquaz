@@ -25,7 +25,7 @@ implements ITableLabelProvider,IColorProvider{
         
     }
     public Color getForeground(Object arg0) {
-        // TODO Auto-generated method stub
+        
         return null;
     }
 }
