@@ -773,8 +773,15 @@ public class InvUICardAdd extends SecureComposite {
 			tableColumnInvCardAddGroupAllGroups.setWidth(112);
 	
 			GridData compInvCardAddGroupsButtonsLData = new GridData();
+			compInvCardAddGroupsButtonsLData.verticalAlignment = GridData.CENTER;
+			compInvCardAddGroupsButtonsLData.horizontalAlignment = GridData.BEGINNING;
 			compInvCardAddGroupsButtonsLData.widthHint = 64;
 			compInvCardAddGroupsButtonsLData.heightHint = 64;
+			compInvCardAddGroupsButtonsLData.horizontalIndent = 0;
+			compInvCardAddGroupsButtonsLData.horizontalSpan = 1;
+			compInvCardAddGroupsButtonsLData.verticalSpan = 1;
+			compInvCardAddGroupsButtonsLData.grabExcessHorizontalSpace = false;
+			compInvCardAddGroupsButtonsLData.grabExcessVerticalSpace = false;
 			compInvCardAddGroupsButtons.setLayoutData(compInvCardAddGroupsButtonsLData);
 			compInvCardAddGroupsButtons.setSize(new org.eclipse.swt.graphics.Point(64,64));
 	
@@ -826,8 +833,15 @@ public class InvUICardAdd extends SecureComposite {
 			compInvCardAddGroupsButtons.layout();
 	
 			GridData tableInvCardAddGroupsRegisteredGroupsLData = new GridData();
+			tableInvCardAddGroupsRegisteredGroupsLData.verticalAlignment = GridData.CENTER;
+			tableInvCardAddGroupsRegisteredGroupsLData.horizontalAlignment = GridData.BEGINNING;
 			tableInvCardAddGroupsRegisteredGroupsLData.widthHint = 119;
 			tableInvCardAddGroupsRegisteredGroupsLData.heightHint = 103;
+			tableInvCardAddGroupsRegisteredGroupsLData.horizontalIndent = 0;
+			tableInvCardAddGroupsRegisteredGroupsLData.horizontalSpan = 1;
+			tableInvCardAddGroupsRegisteredGroupsLData.verticalSpan = 1;
+			tableInvCardAddGroupsRegisteredGroupsLData.grabExcessHorizontalSpace = false;
+			tableInvCardAddGroupsRegisteredGroupsLData.grabExcessVerticalSpace = false;
 			tableInvCardAddGroupsRegisteredGroups.setLayoutData(tableInvCardAddGroupsRegisteredGroupsLData);
 			tableInvCardAddGroupsRegisteredGroups.setHeaderVisible(true);
 			tableInvCardAddGroupsRegisteredGroups.setLinesVisible(true);

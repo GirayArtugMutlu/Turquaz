@@ -1194,6 +1194,7 @@
 											</Component>
 											<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardAddGroupsButtons" style="0">
 												<Constraints>
+													<Constraint class="org.eclipse.swt.layout.GridData"/>
 													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 														<Property name="verticalAlignment" type="int" value="2"/>
 														<Property name="horizontalAlignment" type="int" value="1"/>
@@ -1227,6 +1228,7 @@
 												<SubComponents>
 													<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardAddGroupsRegister" style="16777224">
 														<Constraints>
+															<Constraint class="org.eclipse.swt.layout.GridData"/>
 															<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 																<Property name="verticalAlignment" type="int" value="2"/>
 																<Property name="horizontalAlignment" type="int" value="2"/>
@@ -1255,6 +1257,7 @@
 													</Component>
 													<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardAddGroupsRemove" style="16777224">
 														<Constraints>
+															<Constraint class="org.eclipse.swt.layout.GridData"/>
 															<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 																<Property name="verticalAlignment" type="int" value="2"/>
 																<Property name="horizontalAlignment" type="int" value="2"/>
@@ -1284,6 +1287,7 @@
 											</Component>
 											<Component class="org.eclipse.swt.widgets.Table" name="tableInvCardAddGroupsRegisteredGroups" style="2048">
 												<Constraints>
+													<Constraint class="org.eclipse.swt.layout.GridData"/>
 													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 														<Property name="verticalAlignment" type="int" value="2"/>
 														<Property name="horizontalAlignment" type="int" value="1"/>
