@@ -22,6 +22,9 @@ import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TableSorter;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
@@ -63,6 +66,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	private TableColumn tableColumnCumulativePrice;
 	private TableColumn tableColumnConsignmentDate;
 	private Calendar cal = Calendar.getInstance();
+	private SearchTableViewer tableViewer = null;
 
 	public BillUIBillSearch(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -264,6 +268,20 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		comboBillType.setText(EngBLCommon.COMMON_ALL_STRING);
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		dateStartDate.setDate(cal.getTime());
+		createTableViewer();
+	}
+
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[7];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_DATE;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableBills, columnTypes);
 	}
 
 	public void currentCardChoose()
@@ -297,7 +315,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	{
 		try
 		{
-			tableBills.removeAll();
+			tableViewer.removeAll();
 			int type = EngBLCommon.COMMON_ALL_INT;
 			if (comboBillType.getText().equals(EngBLCommon.COMMON_BUY_STRING))
 			{
@@ -310,12 +328,10 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 			List list = BillBLSearchBill.searchBill((TurqCurrentCard) txtCurCard.getData(), txtDocNo.getText().trim(), dateStartDate
 					.getDate(), dateEndDate.getDate(), type);
 			Object[] bill;
-			TableItem item;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			for (int i = 0; i < list.size(); i++)
 			{
 				bill = (Object[]) list.get(i);
-				item = new TableItem(tableBills, SWT.NULL);
 				Integer billId = (Integer) bill[0];
 				Date billDate = (Date) bill[1];
 				String billDocNo = (String) bill[2];
@@ -324,9 +340,8 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				BigDecimal totalAmount = (BigDecimal) bill[5];
 				BigDecimal vatAmount = (BigDecimal) bill[6];
 				BigDecimal specVatAmount = (BigDecimal) bill[7];
-				item.setData(billId);
-				item.setText(new String[]{DatePicker.formatter.format(billDate), billDocNo, curCardCode, curCardName,
-						cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)});
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(billDate), billDocNo, curCardCode, curCardName,
+						cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)}, billId);
 			}
 		}
 		catch (Exception ex)
@@ -347,31 +362,37 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 			TableItem items[] = tableBills.getSelection();
 			if (items.length > 0)
 			{
-				TurqBill bill = (TurqBill) items[0].getData();
-				if (BillBLSearchBill.canUpdateBill(bill))
+				//TODO bill should be initialized in get method..
+				Integer billId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
+				if (billId != null)
 				{
-					//delete Consignment Group
-					MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
-					msg2.setMessage(Messages.getString("BillUIBillSearch.12")); //$NON-NLS-1$
-					if (msg2.open() == SWT.OK)
+					TurqBill bill = BillBLSearchBill.getBillByBillId(billId);
+					initializeBill(bill);
+					if (BillBLSearchBill.canUpdateBill(bill))
 					{
-						initializeBill(bill);
-						boolean deleteCons = false;
-						if (EngUICommon.okToDelete(getShell(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
-							deleteCons = true;
+						//delete Consignment Group
+						MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
+						msg2.setMessage(Messages.getString("BillUIBillSearch.12")); //$NON-NLS-1$
+						if (msg2.open() == SWT.OK)
+						{
+							initializeBill(bill);
+							boolean deleteCons = false;
+							if (EngUICommon.okToDelete(getShell(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
+								deleteCons = true;
+							}
+							BillBLUpdateBill.deleteBill(bill, deleteCons);
+							msg.setMessage(Messages.getString("BillUIBillSearch.14")); //$NON-NLS-1$
+							msg.open();
+							search();
 						}
-						BillBLUpdateBill.deleteBill(bill,deleteCons);
-						msg.setMessage(Messages.getString("BillUIBillSearch.14")); //$NON-NLS-1$
-						msg.open();
-						search();
 					}
-				}
-				else
-				{
-					MessageBox msg3 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
-					msg3.setMessage(Messages.getString("BillUIBillSearch.15")); //$NON-NLS-1$
-					msg3.open();
-					return;
+					else
+					{
+						MessageBox msg3 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
+						msg3.setMessage(Messages.getString("BillUIBillSearch.15")); //$NON-NLS-1$
+						msg3.open();
+						return;
+					}
 				}
 			}
 		}
@@ -393,7 +414,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 			TableItem items[] = tableBills.getSelection();
 			if (items.length > 0)
 			{
-				Integer billId = (Integer) items[0].getData();
+				Integer billId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (billId != null)
 				{
 					TurqBill bill = BillBLSearchBill.getBillByBillId(billId);

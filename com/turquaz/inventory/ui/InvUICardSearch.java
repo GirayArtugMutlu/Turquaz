@@ -35,6 +35,9 @@ import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqViewInventoryTotal;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.inventory.Messages;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -86,6 +89,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 	private InventoryPicker txtInvCode;
 	private CLabel lblInvCode;
 	private Composite compInvCardSearchPanel;
+	private SearchTableViewer tableViewer=null;
 
 	public InvUICardSearch(Composite parent, int style)
 	{
@@ -277,7 +281,23 @@ public class InvUICardSearch extends Composite implements SearchComposite
 	public void postInitGUI()
 	{
 		fillComboGroup();
+		createTableViewer();
 	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[8];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableSearcResults, columnTypes);
+	}
+
 
 	private void comboInvMainGroupWidgetSelected(SelectionEvent evt)
 	{
@@ -324,46 +344,44 @@ public class InvUICardSearch extends Composite implements SearchComposite
 
 	public void delete()
 	{
-		TableItem items[] = tableSearcResults.getSelection();
-		if (items.length > 0)
+		MessageBox msg = new MessageBox(this.getShell(), SWT.YES | SWT.NO);
+		try
 		{
-			TurqInventoryCard invCard = (TurqInventoryCard) items[0].getData();
-			try
+			TableItem items[] = tableSearcResults.getSelection();
+			if (items.length > 0)
 			{
-				InvBLCardSearch blCardSearch = new InvBLCardSearch();
-				InvBLCardSearch.initializeInventoryCard(invCard);
-			}
-			catch (Exception ex)
-			{
-				ex.printStackTrace();
-			}
-			MessageBox msg = new MessageBox(this.getShell(), SWT.YES | SWT.NO);
-			try
-			{
-				msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
-				if (msg.open() == SWT.NO)
-					return;
-				// if the inventory card contains transactions
-				if (InvDALCardUpdate.hasTransactions(invCard))
-				{
-					MessageBox msg2 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
-					msg2.setMessage("Inventory card contains transactions and \ncan not be deleted. Delete them first. "); //$NON-NLS-1$
-					msg2.open();
-					return;
+				Integer cardId = (Integer) ((ITableRow)items[0].getData()).getDBObject();
+				if (cardId != null)
+				{			
+					TurqInventoryCard invCard = InvBLCardSearch.initializeInventoryCard(cardId);
+					InvBLCardSearch.initializeInventoryCard(invCard);
+					
+					msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
+					if (msg.open() == SWT.NO)
+						return;
+					// if the inventory card contains transactions
+					if (InvDALCardUpdate.hasTransactions(invCard))
+					{
+						MessageBox msg2 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
+						msg2.setMessage("Inventory card contains transactions and \ncan not be deleted. Delete them first. "); //$NON-NLS-1$
+						msg2.open();
+						return;
+					}
+					InvBLCardUpdate.deleteInventoryCard(invCard);
+					msg = new MessageBox(this.getShell(), SWT.NULL);
+					msg.setMessage(Messages.getString("InvUICardUpdateDialog.6")); //$NON-NLS-1$
+					msg.open();
+					search();
 				}
-				InvBLCardUpdate.deleteInventoryCard(invCard);
-				msg = new MessageBox(this.getShell(), SWT.NULL);
-				msg.setMessage(Messages.getString("InvUICardUpdateDialog.6")); //$NON-NLS-1$
-				msg.open();
-				search();
 			}
-			catch (Exception ex)
-			{
-				ex.printStackTrace();
-				msg = new MessageBox(this.getShell(), SWT.ICON_ERROR);
-				msg.setMessage(ex.getMessage());
-				msg.open();
-			}
+		}
+		
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			msg = new MessageBox(this.getShell(), SWT.ICON_ERROR);
+			msg.setMessage(ex.getMessage());
+			msg.open();
 		}
 	}
 
@@ -373,12 +391,11 @@ public class InvUICardSearch extends Composite implements SearchComposite
 
 	public void search()
 	{
-		tableSearcResults.removeAll();
+		tableViewer.removeAll();
 		try
 		{
 			List result = InvBLCardSearch.searchCards(txtInvName.getText().trim(), txtInvCode.getText().trim(),
 					(TurqInventoryGroup) comboInvSubGroup.getData(comboInvSubGroup.getText()));
-			TableItem item;
 			int listSize = result.size();
 			for (int i = 0; i < listSize; i++)
 			{
@@ -387,8 +404,6 @@ public class InvUICardSearch extends Composite implements SearchComposite
 				String invName = objs[2].toString();
 				Integer cardId = (Integer) objs[3];
 				TurqViewInventoryTotal invView = (TurqViewInventoryTotal) ((Object[]) result.get(i))[0];
-				item = new TableItem(tableSearcResults, SWT.NULL);
-				item.setData(cardId);
 				BigDecimal totalAmountIn = (invView.getTotalAmountIn() == null) ? new BigDecimal(0) : invView.getTotalAmountIn();
 				BigDecimal totalAmountOut = (invView.getTotalAmountOut() == null) ? new BigDecimal(0) : invView.getTotalAmountOut();
 				BigDecimal totalPriceIn = (invView.getTotalPriceIn() == null) ? new BigDecimal(0) : invView.getTotalPriceIn();
@@ -404,9 +419,9 @@ public class InvUICardSearch extends Composite implements SearchComposite
 					balanceAmountIn = totalAmountIn.subtract(totalAmountOut);
 				}
 				TurkishCurrencyFormat format = new TurkishCurrencyFormat();
-				item.setText(new String[]{invCode, invName, totalAmountIn.toString(), totalAmountOut.toString(),
+				tableViewer.addRow(new String[]{invCode, invName, totalAmountIn.toString(), totalAmountOut.toString(),
 						balanceAmountIn.toString(), balanceAmountOut.toString(), format.format(totalPriceIn),
-						format.format(totalPriceOut)});
+						format.format(totalPriceOut)},cardId);
 			}
 		}
 		catch (Exception ex)
@@ -451,11 +466,14 @@ public class InvUICardSearch extends Composite implements SearchComposite
 		{
 			try
 			{
-				Integer cardId = (Integer) selection[0].getData();
-				TurqInventoryCard card = InvBLCardSearch.initializeInventoryCard(cardId);
-				boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, card).open();
-				if (updated)
-					search();
+				Integer cardId = (Integer) ((ITableRow)selection[0].getData()).getDBObject();
+				if (cardId != null)
+				{
+					TurqInventoryCard card = InvBLCardSearch.initializeInventoryCard(cardId);
+					boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, card).open();
+					if (updated)
+						search();
+				}
 			}
 			catch (Exception ex)
 			{

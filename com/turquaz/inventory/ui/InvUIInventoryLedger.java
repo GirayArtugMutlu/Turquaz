@@ -4,11 +4,12 @@ import java.math.BigDecimal;
 import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.TableItem;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLInventoryLedger;
 import org.eclipse.swt.widgets.Button;
@@ -47,6 +48,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	final int INV_ALL = 0;
 	final int INV_WITH_TRANS = 1;
 	final int INV_WITH_BALANCE = 2;
+	private SearchTableViewer tableViewer=null;
 
 	/**
 	 * Bu Class Envanter Defterinin Cikarilmasini Saglar..
@@ -174,18 +176,35 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 				}
 			}
 			this.layout();
+			PostInitGui();
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
+	
+	public void PostInitGui()
+	{
+		createTableViewer();
+	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[5];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableInventories, columnTypes);
+	}
 
 	public void search()
 	{
 		try
 		{
-			tableInventories.removeAll();
+			tableViewer.removeAll();
 			TurkishCurrencyFormat curFormat = new TurkishCurrencyFormat();
 			List list = InvBLInventoryLedger.getInventoryLedger(datePicker.getDate(), txtInvCode.getText().trim());
 			Object[] result;
@@ -197,7 +216,6 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 			BigDecimal balanceAmount = new BigDecimal(0);
 			BigDecimal avgPrice = new BigDecimal(0);
 			BigDecimal totalPrice = new BigDecimal(0);
-			TableItem item;
 			int reportType = INV_ALL;
 			
 			if (btnAll.getSelection() == true)
@@ -289,9 +307,8 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 						totalPrice = avgPrice.multiply(balanceAmount).setScale(2, BigDecimal.ROUND_HALF_DOWN);
 					
 				}
-				item = new TableItem(tableInventories, SWT.NULL);
-				item.setText(new String[]{invCode, invName, balanceAmount.toString(), curFormat.format(avgPrice),
-						curFormat.format(totalPrice)});
+				tableViewer.addRow(new String[]{invCode, invName, balanceAmount.toString(), curFormat.format(avgPrice),
+						curFormat.format(totalPrice)},invCode);
 			}
 		}
 		catch (Exception ex)

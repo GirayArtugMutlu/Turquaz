@@ -49,6 +49,9 @@ import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CCombo;
@@ -124,6 +127,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 	private InvBLSearchTransaction blSearch = new InvBLSearchTransaction();
 	private Calendar cal = Calendar.getInstance();
 	private InvDALCardAdd invCardAdd = new InvDALCardAdd();
+	private SearchTableViewer tableViewer=null;
 
 	public InvUIInventoryTransactionReport(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -550,7 +554,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			TableItem items[] = tableTransactions.getSelection();
 			if (items.length > 0)
 			{
-				Integer transId = (Integer) items[0].getData();
+				Integer transId = (Integer)((ITableRow) items[0].getData()).getDBObject();
 				if (transId != null)
 				{
 					boolean updated = false;
@@ -597,6 +601,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				comboInvMainGroup.add(gr.getGroupsName());
 				comboInvMainGroup.setData(gr.getGroupsName(), gr);
 			}
+			createTableViewer();
 		}
 		catch (Exception ex)
 		{
@@ -626,7 +631,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 		try
 		{
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			tableTransactions.removeAll();
+			tableViewer.removeAll();
 			int type = EngBLCommon.COMMON_ALL_INT;
 			if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_BUY_STRING))
 				type = EngBLCommon.COMMON_BUY_INT;
@@ -651,7 +656,6 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 								.getData(comboInvSubGroup.getText()));
 			}
 			TurqInventoryTransaction transactions;
-			TableItem item;
 			BigDecimal totalAmountIn = new BigDecimal(0);
 			BigDecimal totalAmountOut = new BigDecimal(0);
 			BigDecimal totalPriceIn = new BigDecimal(0);
@@ -659,7 +663,6 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			for (int i = 0; i < list.size(); i++)
 			{
 				Object result[] = (Object[]) list.get(i);
-				item = new TableItem(tableTransactions, SWT.NULL);
 				Integer transId = (Integer) result[0];
 				Date transDate = (Date) result[1];
 				BigDecimal inAmount = (BigDecimal) result[2];
@@ -667,7 +670,6 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				BigDecimal totalPrice = (BigDecimal) result[4];
 				String invCode = (String) result[5];
 				String invName = (String) result[6];
-				item.setData(transId);
 				BigDecimal priceIn = new BigDecimal(0);
 				BigDecimal priceOut = new BigDecimal(0);
 				BigDecimal unitPriceIn=new BigDecimal(0);
@@ -688,14 +690,10 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				}
 				totalAmountIn = totalAmountIn.add(inAmount);
 				totalAmountOut = totalAmountOut.add(outAmount);
-				item.setText(new String[]{DatePicker.formatter.format(transDate), invCode, invName, cf.format(inAmount) + "", //$NON-NLS-1$								
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), invCode, invName, cf.format(inAmount) + "", //$NON-NLS-1$								
 						cf.format(priceIn), cf.format(unitPriceIn), cf.format(outAmount) + "", //$NON-NLS-1$
-						cf.format(priceOut), cf.format(unitPriceOut)});
+						cf.format(priceOut), cf.format(unitPriceOut)},transId);
 			}
-			item = new TableItem(tableTransactions, SWT.NULL);
-			item = new TableItem(tableTransactions, SWT.NULL);
-			item.setText(new String[]{"", "", Messages.getString("InvUIInventoryTransactionReport.19"), cf.format(totalAmountIn), cf.format(totalPriceIn), cf.format(totalAmountOut), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					cf.format(totalPriceOut)});
 			if (list.size() > 0)
 				GenerateJasper(list, type);
 		}
@@ -708,9 +706,25 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 	public void newForm()
 	{
 	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[9];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_DATE;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[8] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableTransactions, columnTypes);
+	}
 
 	public void delete()
 	{
+		//should be implemented..
 	}
 
 	public void exportToExcel()

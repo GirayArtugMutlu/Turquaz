@@ -62,11 +62,23 @@ public class TurquazTableSorter extends ViewerSorter
 			{
 				row1 = (ITableRow) arg1;
 				row2 = (ITableRow) arg2;
+				if (row1.getDBObject()==null && row2.getDBObject()==null)
+					return 0;
+				else if (row1.getDBObject()==null)
+					return 1;
+				else if (row2.getDBObject()==null)
+					return -1;
 			}
 			else
 			{
 				row2 = (ITableRow) arg1;
 				row1 = (ITableRow) arg2;
+				if (row1.getDBObject()==null && row2.getDBObject()==null)
+					return 0;
+				else if (row1.getDBObject()==null)
+					return -1;
+				else if (row2.getDBObject()==null)
+					return 1;
 			}
 			if (columnType == TurquazTableSorter.COLUMN_TYPE_STRING)
 			{

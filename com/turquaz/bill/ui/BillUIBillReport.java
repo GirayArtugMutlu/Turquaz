@@ -20,7 +20,6 @@ import org.eclipse.swt.widgets.Composite;
 import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
-import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
@@ -55,6 +54,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
 
@@ -123,7 +125,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	private List list = null;
 	private TurqBill bill = null;
 	private int currentIndex = 0;
-	private ConBLUpdateConsignment blUpdateCons = new ConBLUpdateConsignment();
+	private SearchTableViewer tableViewer = null;
 
 	public BillUIBillReport(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -474,11 +476,10 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 							if (answer)
 							{
 								boolean deleteCons = false;
-
 								if (EngUICommon.okToDelete(getShell(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
 									deleteCons = true;
 								}
-								BillBLUpdateBill.deleteBill(bill,true);
+								BillBLUpdateBill.deleteBill(bill, true);
 								EngUICommon.showMessageBox(getShell(), Messages.getString("BillUIBillUpdateDialog.1")); //$NON-NLS-1$
 							}
 							search();
@@ -621,6 +622,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		cal.add(Calendar.DATE, -1);
 		dateDueDateEnd.setDate(cal.getTime());
 		tabFolderReport.setSelection(cTabItem1);
+		createTableViewer();
 		//postFinalizeGui();
 	}
 
@@ -675,6 +677,19 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		{
 			ex.printStackTrace();
 		}
+	}
+
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[7];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_DATE;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableBills, columnTypes);
 	}
 
 	public void currentCardChoose()
@@ -743,7 +758,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	{
 		try
 		{
-			tableBills.removeAll();
+			tableViewer.removeAll();
 			int type = EngBLCommon.COMMON_ALL_INT;
 			if (comboBillType.getText().equals(EngBLCommon.COMMON_BUY_STRING))
 			{
@@ -758,7 +773,6 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 					txtMinInvoiceTotal.getBigDecimalValue(), txtMaxInvoiceTotal.getBigDecimalValue(), txtDocNoStart.getText(),
 					txtDocNoEnd.getText(), type);
 			Object[] billObj;
-			TableItem item;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			BigDecimal total = new BigDecimal(0);
 			BigDecimal VAT = new BigDecimal(0);
@@ -766,7 +780,6 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			for (int i = 0; i < list.size(); i++)
 			{
 				billObj = (Object[]) list.get(i);
-				item = new TableItem(tableBills, SWT.NULL);
 				Integer billId = (Integer) billObj[0];
 				Date billDate = (Date) billObj[1];
 				String billDocNo = (String) billObj[2];
@@ -777,15 +790,13 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				BigDecimal specVatAmount = (BigDecimal) billObj[7];
 				total = total.add(totalAmount);
 				VAT = VAT.add(vatAmount);
-				SpecialVAT = SpecialVAT.add(specVatAmount);
-				item.setData(billId);
-				item.setText(new String[]{DatePicker.formatter.format(billDate), billDocNo, curCardCode, curCardName,
-						cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)});
+				SpecialVAT = SpecialVAT.add(specVatAmount);				
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(billDate), billDocNo, curCardCode, curCardName,
+						cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)},billId);
 			}
-			item = new TableItem(tableBills, SWT.NULL);
-			item = new TableItem(tableBills, SWT.NULL);
-			item.setText(new String[]{
-					"", "", "", Messages.getString("BillUIBillReport.14"), cf.format(total), cf.format(VAT), cf.format(SpecialVAT)}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			tableViewer.addRow(new String[]{"","","","","","",""},null);
+			tableViewer.addRow(new String[]{"", "", "", Messages.getString("BillUIBillReport.14"), cf.format(total), cf.format(VAT),
+					cf.format(SpecialVAT)},null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			currentIndex = 0;
 			if (list.size() > 0)
 			{
@@ -843,34 +854,30 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			TableItem items[] = tableBills.getSelection();
 			if (items.length > 0)
 			{
-				TurqBill bill = (TurqBill) items[0].getData();
-				if (BillBLSearchBill.canUpdateBill(bill))
+				Integer billId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
+				if (billId != null)
 				{
-					//delete Consignment Group
-					MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
-					msg2.setMessage(Messages.getString("BillUIBillSearch.12")); //$NON-NLS-1$
-					if (msg2.open() == SWT.OK)
+					TurqBill bill = BillBLSearchBill.getBillByBillId(billId);
+					initializeBill(bill);
+					if (BillBLSearchBill.canUpdateBill(bill))
 					{
-						initializeBill(bill);
-						Iterator it = bill.getTurqBillInGroups().iterator();
-						while (it.hasNext())
+						MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
+						msg2.setMessage(Messages.getString("BillUIBillSearch.12")); //$NON-NLS-1$
+						if (msg2.open() == SWT.OK)
 						{
-							BillBLUpdateBill.deleteObject(it.next());
+							BillBLUpdateBill.deleteBill(bill,false);
+							msg.setMessage(Messages.getString("BillUIBillSearch.14")); //$NON-NLS-1$
+							msg.open();
+							search();
 						}
-						BillBLUpdateBill.deleteAccountingTransactions(bill);
-						BillBLUpdateBill.deleteCurrentTransactions(bill);
-						BillBLUpdateBill.deleteObject(bill);
-						msg.setMessage(Messages.getString("BillUIBillSearch.14")); //$NON-NLS-1$
-						msg.open();
-						search();
 					}
-				}
-				else
-				{
-					MessageBox msg3 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
-					msg3.setMessage(Messages.getString("BillUIBillSearch.15")); //$NON-NLS-1$
-					msg3.open();
-					return;
+					else
+					{
+						MessageBox msg3 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
+						msg3.setMessage(Messages.getString("BillUIBillSearch.15")); //$NON-NLS-1$
+						msg3.open();
+						return;
+					}
 				}
 			}
 		}
@@ -892,7 +899,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			TableItem items[] = tableBills.getSelection();
 			if (items.length > 0)
 			{
-				Integer billId = (Integer) items[0].getData();
+				Integer billId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (billId != null)
 				{
 					TurqBill bill = BillBLSearchBill.getBillByBillId(billId);

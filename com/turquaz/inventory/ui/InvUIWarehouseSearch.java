@@ -35,6 +35,9 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.inventory.Messages;
@@ -68,6 +71,7 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 	private Text txtWarehouseName;
 	private CLabel lblWarehouseName;
 	private Composite composite1;
+	private SearchTableViewer tableViewer=null;
 
 	public InvUIWarehouseSearch(Composite parent, int style)
 	{
@@ -219,6 +223,7 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 	/** Add your post-init code in here */
 	public void postInitGUI()
 	{
+		createTableViewer();
 	}
 
 	public void save()
@@ -229,17 +234,14 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 	{
 		try
 		{
-			tableInvUIWarehouses.removeAll();
-			TableItem item;
+			tableViewer.removeAll();
 			TurqInventoryWarehous warehouse;
 			List result = InvBLWarehouseSearch.searchWarehouse(txtWarehouseName.getText().trim(), txtCity.getText().trim());
 			for (int i = 0; i < result.size(); i++)
 			{
-				item = new TableItem(tableInvUIWarehouses, SWT.NULL);
 				warehouse = (TurqInventoryWarehous) result.get(i);
-				item.setData(warehouse);
-				item.setText(new String[]{warehouse.getWarehousesCode(), warehouse.getWarehousesName(), warehouse.getWarehousesCity(),
-						warehouse.getWarehousesTelephone(), warehouse.getWarehousesDescription()});
+				tableViewer.addRow(new String[]{warehouse.getWarehousesCode(), warehouse.getWarehousesName(), warehouse.getWarehousesCity(),
+						warehouse.getWarehousesTelephone(), warehouse.getWarehousesDescription()},warehouse);
 			}
 		}
 		catch (Exception ex)
@@ -247,9 +249,21 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 			ex.printStackTrace();
 		}
 	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[5];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		tableViewer = new SearchTableViewer(tableInvUIWarehouses, columnTypes);
+	}
 
 	public void delete()
 	{
+		//TODO should be implemented..
 	}
 
 	public void newForm()
@@ -262,7 +276,8 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 		TableItem items[] = tableInvUIWarehouses.getSelection();
 		if (items.length > 0)
 		{
-			new InvUIWarehouseUpdate(this.getShell(), SWT.NULL, (TurqInventoryWarehous) items[0].getData()).open();
+			TurqInventoryWarehous wareh=(TurqInventoryWarehous)((ITableRow)items[0].getData()).getDBObject();
+			new InvUIWarehouseUpdate(this.getShell(), SWT.NULL, wareh).open();
 			search();
 		}
 	}

@@ -25,10 +25,11 @@ import org.eclipse.swt.layout.GridLayout;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLProfitAnalysis;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.layout.GridData;
@@ -51,6 +52,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 	private TableColumn tableColumnTotalAmount;
 	private TableColumn tableColumnAvgPrice;
 	private TableColumn tableColumnInvCard;
+	private SearchTableViewer tableViewer=null;
 
 	public InvUIProfitAnalysis(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -121,20 +123,39 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 				}
 			}
 			this.layout();
+			PostInitGui();
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
+	
+	public void PostInitGui()
+	{
+		createTableViewer();
+	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[8];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableInvTotals, columnTypes);
+	}
 
 	public void search()
 	{
 		try
 		{
-			tableInvTotals.removeAll();
+			tableViewer.removeAll();
 			List ls = InvBLProfitAnalysis.getTransactionTotals(null, null, null);
-			TableItem item;
 			BigDecimal amountNow;
 			BigDecimal avgPrice;
 			BigDecimal amountOut;
@@ -193,9 +214,8 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 					totalPrice = outPrice;
 				}
 				totalProfit = totalPrice.subtract(totalCost);
-				item = new TableItem(tableInvTotals, SWT.NULL);
-				item.setText(new String[]{invCardCode, invCardName, cf.format(amountIn), cf.format(avgPrice), cf.format(amountOut),
-						cf.format(totalCost), cf.format(totalPrice), cf.format(totalProfit)});
+				tableViewer.addRow(new String[]{invCardCode, invCardName, cf.format(amountIn), cf.format(avgPrice), cf.format(amountOut),
+						cf.format(totalCost), cf.format(totalPrice), cf.format(totalProfit)},invCardCode);
 			}
 		}
 		catch (Exception ex)
