@@ -13,7 +13,7 @@ public class TurkishCurrencyFormat extends DecimalFormat {
 	
 	static TurkishCurrencyFormat _instance;
 	
-	public TurkishCurrencyFormat(){
+	public TurkishCurrencyFormat(int minFractionDigits){
 	super();
 	DecimalFormatSymbols dfs = new DecimalFormatSymbols();
 	dfs.setCurrencySymbol("YTL");
@@ -23,22 +23,13 @@ public class TurkishCurrencyFormat extends DecimalFormat {
 	this.setDecimalFormatSymbols(dfs);
 	this.setGroupingSize(3);
 	this.setMinimumFractionDigits(2);
-	this.setMaximumFractionDigits(2);
+	this.setMaximumFractionDigits(minFractionDigits);
 	this.setGroupingUsed(true);
 	
 	}
 	
 	
 	
-	public static synchronized String formatBD(BigDecimal bdc){
-		
-		if(_instance == null){
-			
-			_instance = new TurkishCurrencyFormat();
-		}
-		return _instance.format(bdc);
-		
-	}
 	
 	public BigDecimal getBigDecimal(String str)
 	{
