@@ -18,9 +18,7 @@ package com.turquaz.admin.ui;
 
 
 
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.graphics.Rectangle;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
@@ -36,22 +34,32 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.custom.TableTreeItem;
 import org.eclipse.swt.SWT;
 
+import com.turquaz.engine.ui.component.SecureComposite;
+
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 /**
  * 
  * @author onsel
  *
  *@version $Id$
  */
-/**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
-*/
 
 
-public class AdmUIPermPanel extends org.eclipse.swt.widgets.Composite {
+public class AdmUIPermPanel extends Composite {
 
 	private TableTreeItem tableTreeItem6;
 	private TableTreeItem tableTreeItem5;
@@ -87,7 +95,7 @@ public class AdmUIPermPanel extends org.eclipse.swt.widgets.Composite {
 			tableTreeItem5 = new TableTreeItem(tableTreeItem3,SWT.NULL);
 			tableTreeItem6 = new TableTreeItem(tableTreeItem3,SWT.NULL);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(448,368));
+			this.setSize(475, 297);
 	
 			GridData composite1LData = new GridData();
 			composite1LData.verticalAlignment = GridData.CENTER;
@@ -134,7 +142,8 @@ public class AdmUIPermPanel extends org.eclipse.swt.widgets.Composite {
 			composite2.setLayoutData(composite2LData);
 	
 			tableTree1.setSize(new org.eclipse.swt.graphics.Point(422,311));
-	
+			tableTree1.getTable().setBounds(0, 0, 459, 231);
+
 			tableTreeItem1.setText("Yönetici");
 			tableTreeItem1.setChecked(false);
 	
@@ -177,52 +186,20 @@ public class AdmUIPermPanel extends org.eclipse.swt.widgets.Composite {
 	public void postInitGUI(){
 	
 		
-		
-		
-		
 			
 	}
+	public void save(){
+		
+	}
+	public void delete(){
+		
+	}
+	public void newForm(){
+		
+	}
+	public void search(){
+		
+	}
+	
 
-	/**
-	* This static method creates a new instance of this class and shows
-	* it inside a new Shell.
-	*
-	* It is a convenience method for showing the GUI, but it can be
-	* copied and used as a basis for your own code.	*
-	* It is auto-generated code - the body of this method will be
-	* re-generated after any changes are made to the GUI.
-	* However, if you delete this method it will not be re-created.	*/
-	public static void showGUI(){
-		try {
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			AdmUIPermPanel inst = new AdmUIPermPanel(shell, SWT.NULL);
-			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0,0,448,368);
-			shell.setSize(shellBounds.width, shellBounds.height);
-			shell.open();
-			while (!shell.isDisposed()) {
-				if (!display.readAndDispatch())
-					display.sleep();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	/**
-	* This is an auto-generated method which you can alter,
-	* e.g. to point to a different property file, to modify the key by
-	* by prefixing the name of this class, etc.
-	*
-	* By default, it expects a file called "messages.properties" to exist in the
-	* current package, and returns the value of the property defined
-	* in that file for the given key
-	*/
-	public String getExternalizedString(String key){
-		try {
-			return java.util.ResourceBundle.getBundle("com.turquaz.admin.ui.AdmUIPermPanelMessages").getString(key);
-		} catch (java.util.MissingResourceException e) {
-			return '!' + key + '!';
-		}
-	}
 }

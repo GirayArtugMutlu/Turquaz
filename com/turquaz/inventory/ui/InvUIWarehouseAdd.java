@@ -23,7 +23,7 @@ import com.turquaz.inventory.bl.InvBLWarehouseAdd;
 * for-profit company or business) then you should purchase
 * a license - please visit www.cloudgarden.com for details.
 */
-public class InvUIWarehouseAdd extends SecureComposite {
+public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 
 	private Text txtWarehouseDescription;
 	private CLabel lblDescription;

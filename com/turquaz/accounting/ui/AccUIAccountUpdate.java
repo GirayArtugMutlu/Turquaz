@@ -26,15 +26,22 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.SWT;
 
+import com.cloudgarden.resource.SWTResourceManager;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
 public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 	private Text txtBalanceCredit;
@@ -71,6 +78,13 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+
+				{
+					//Register as a resource user - SWTResourceManager will
+					//handle the obtaining and disposing of resources
+					SWTResourceManager.registerResourceUser(dialogShell);
+				}
+
 			dialogShell.setText(getText());
 			coolBar1 = new CoolBar(dialogShell,SWT.NULL);
 			coolItem1 = new CoolItem(coolBar1,SWT.NULL);
@@ -109,8 +123,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 			toolUpdate.setText("Update");
 			toolUpdate.setToolTipText("Update");
-			final org.eclipse.swt.graphics.Image toolUpdateýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
-			toolUpdate.setImage(toolUpdateýmage);
+			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
@@ -120,7 +133,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			toolDelete.setText("Delete");
 			toolDelete.setToolTipText("Delete");
 			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			toolDelete.setImage(toolDeleteýmage);
+			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -182,9 +195,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			txtTotalDept.setLayoutData(txtTotalDeptLData);
 			txtTotalDept.setEditable(false);
 			txtTotalDept.setSize(new org.eclipse.swt.graphics.Point(198,17));
-			final Color txtTotalDeptbackground = new Color(Display.getDefault(),255,255,255);
-			txtTotalDept.setBackground(txtTotalDeptbackground);
-	
+
 			GridData lblTotalCreditLData = new GridData();
 			lblTotalCreditLData.verticalAlignment = GridData.CENTER;
 			lblTotalCreditLData.horizontalAlignment = GridData.BEGINNING;
@@ -211,8 +222,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			txtTotalCredit.setLayoutData(txtTotalCreditLData);
 			txtTotalCredit.setEditable(false);
 			txtTotalCredit.setSize(new org.eclipse.swt.graphics.Point(197,16));
-			txtTotalCredit.setBackground(txtTotalDeptbackground);
-	
+
 			GridData lblBalanceDeptLData = new GridData();
 			lblBalanceDeptLData.verticalAlignment = GridData.CENTER;
 			lblBalanceDeptLData.horizontalAlignment = GridData.BEGINNING;
@@ -240,8 +250,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			txtBalanceDept.setLayoutData(txtBalanceDeptLData);
 			txtBalanceDept.setEditable(false);
 			txtBalanceDept.setSize(new org.eclipse.swt.graphics.Point(196,16));
-			txtBalanceDept.setBackground(txtTotalDeptbackground);
-	
+
 			GridData lblBalanceCreditLData = new GridData();
 			lblBalanceCreditLData.verticalAlignment = GridData.CENTER;
 			lblBalanceCreditLData.horizontalAlignment = GridData.BEGINNING;
@@ -270,7 +279,6 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			txtBalanceCredit.setDoubleClickEnabled(true);
 			txtBalanceCredit.setEditable(false);
 			txtBalanceCredit.setSize(new org.eclipse.swt.graphics.Point(196,16));
-			txtBalanceCredit.setBackground(txtTotalDeptbackground);
 			GridLayout groupAccountBalanceLayout = new GridLayout(2, true);
 			groupAccountBalance.setLayout(groupAccountBalanceLayout);
 			groupAccountBalanceLayout.marginWidth = 5;
@@ -291,9 +299,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					toolUpdateýmage.dispose();
 					toolDeleteýmage.dispose();
-					txtTotalDeptbackground.dispose();
 				}
 			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 487,301);

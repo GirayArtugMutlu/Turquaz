@@ -33,12 +33,20 @@ import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 
 
+import com.cloudgarden.resource.SWTResourceManager;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
 public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private Button btnGroupAdd;
@@ -69,6 +77,13 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 	
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+
+				{
+					//Register as a resource user - SWTResourceManager will
+					//handle the obtaining and disposing of resources
+					SWTResourceManager.registerResourceUser(dialogShell);
+				}
+
 			dialogShell.setText(getText());
 			compGroupAddDialog = new Composite(dialogShell,SWT.NULL);
 			lblGroupName = new CLabel(compGroupAddDialog,SWT.NULL);
@@ -96,8 +111,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			compGroupAddDialogLData.grabExcessVerticalSpace = false;
 			compGroupAddDialog.setLayoutData(compGroupAddDialogLData);
 			compGroupAddDialog.setSize(new org.eclipse.swt.graphics.Point(433,85));
-			final Color compGroupAddDialogbackground = new Color(Display.getDefault(),255,255,255);
-			compGroupAddDialog.setBackground(compGroupAddDialogbackground);
+			compGroupAddDialog.setBackground(SWTResourceManager.getColor(255, 255, 255));
 	
 			GridData lblGroupNameLData = new GridData();
 			lblGroupNameLData.verticalAlignment = GridData.CENTER;
@@ -114,44 +128,25 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			lblGroupName.setSize(new org.eclipse.swt.graphics.Point(56,20));
 	
 			GridData txtGroupNameLData = new GridData();
-			txtGroupNameLData.verticalAlignment = GridData.CENTER;
-			txtGroupNameLData.horizontalAlignment = GridData.BEGINNING;
-			txtGroupNameLData.widthHint = 124;
-			txtGroupNameLData.heightHint = 13;
-			txtGroupNameLData.horizontalIndent = 0;
+			txtGroupNameLData.widthHint = 112;
+			txtGroupNameLData.heightHint = 15;
 			txtGroupNameLData.horizontalSpan = 2;
-			txtGroupNameLData.verticalSpan = 1;
-			txtGroupNameLData.grabExcessHorizontalSpace = false;
-			txtGroupNameLData.grabExcessVerticalSpace = false;
 			txtGroupName.setLayoutData(txtGroupNameLData);
-			txtGroupName.setSize(new org.eclipse.swt.graphics.Point(124,13));
-	
+
 			GridData lblDescriptionLData = new GridData();
 			lblDescriptionLData.verticalAlignment = GridData.BEGINNING;
 			lblDescriptionLData.horizontalAlignment = GridData.END;
-			lblDescriptionLData.widthHint = -1;
-			lblDescriptionLData.heightHint = -1;
-			lblDescriptionLData.horizontalIndent = 0;
-			lblDescriptionLData.horizontalSpan = 1;
-			lblDescriptionLData.verticalSpan = 1;
-			lblDescriptionLData.grabExcessHorizontalSpace = false;
-			lblDescriptionLData.grabExcessVerticalSpace = false;
+			lblDescriptionLData.widthHint = 59;
+			lblDescriptionLData.heightHint = 20;
 			lblDescription.setLayoutData(lblDescriptionLData);
 			lblDescription.setText(Messages.getString("InvUIGroupAddDialog.1")); //$NON-NLS-1$
 	
 			GridData txtDescriptionLData = new GridData();
-			txtDescriptionLData.verticalAlignment = GridData.CENTER;
-			txtDescriptionLData.horizontalAlignment = GridData.BEGINNING;
-			txtDescriptionLData.widthHint = 312;
+			txtDescriptionLData.widthHint = 302;
 			txtDescriptionLData.heightHint = 13;
-			txtDescriptionLData.horizontalIndent = 0;
 			txtDescriptionLData.horizontalSpan = 2;
-			txtDescriptionLData.verticalSpan = 1;
-			txtDescriptionLData.grabExcessHorizontalSpace = false;
-			txtDescriptionLData.grabExcessVerticalSpace = false;
 			txtDescription.setLayoutData(txtDescriptionLData);
-			txtDescription.setSize(new org.eclipse.swt.graphics.Point(312,13));
-	
+
 			GridData btnDeleteLData = new GridData();
 			btnDeleteLData.verticalAlignment = GridData.CENTER;
 			btnDeleteLData.horizontalAlignment = GridData.END;
@@ -258,7 +253,6 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					compGroupAddDialogbackground.dispose();
 				}
 			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 433,229);

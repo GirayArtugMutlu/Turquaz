@@ -46,7 +46,7 @@ import com.turquaz.bank.bl.BankBLBankCardAdd;
 * for-profit company or business) then you should purchase
 * a license - please visit www.cloudgarden.com for details.
 */
-public class BankUIBankCardAdd extends SecureComposite {
+public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 
 	/**
 	 * @return Returns the comboCurrency.

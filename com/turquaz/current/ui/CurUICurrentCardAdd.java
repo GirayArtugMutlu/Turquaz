@@ -37,7 +37,7 @@ import org.eclipse.swt.widgets.Composite;
 * for-profit company or business) then you should purchase
 * a license - please visit www.cloudgarden.com for details.
 */
-public class CurUICurrentCardAdd extends SecureComposite {
+public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 
 
 	/**

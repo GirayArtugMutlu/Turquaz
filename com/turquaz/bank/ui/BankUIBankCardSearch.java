@@ -57,7 +57,7 @@ import org.eclipse.swt.custom.CCombo;
 * for-profit company or business) then you should purchase
 * a license - please visit www.cloudgarden.com for details.
 */
-public class BankUIBankCardSearch extends SecureComposite {
+public class BankUIBankCardSearch extends  Composite implements SecureComposite {
 
 	private CCombo comboCurrency;
 	private CLabel lblCurrency;

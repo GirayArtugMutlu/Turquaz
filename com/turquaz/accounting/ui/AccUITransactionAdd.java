@@ -29,36 +29,41 @@ import org.eclipse.swt.widgets.Composite;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
-
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
-
-
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
-
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
-
-
+import com.cloudgarden.resource.SWTResourceManager;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
-public class AccUITransactionAdd extends SecureComposite {
+public class AccUITransactionAdd extends  Composite implements SecureComposite {
+
+	{
+		//Register as a resource user - SWTResourceManager will
+		//handle the obtaining and disposing of resources
+		SWTResourceManager.registerResourceUser(this);
+	}
+
 
 	/**
 	 * @return Returns the btnAddTransactionRow.
@@ -218,6 +223,7 @@ public class AccUITransactionAdd extends SecureComposite {
 			composite1.setSize(new org.eclipse.swt.graphics.Point(70,72));
 	
 			GridData btnAddTransactionRowLData = new GridData();
+			btnAddTransactionRow.setImage(SWTResourceManager.getImage("icons/plus.gif"));
 			btnAddTransactionRowLData.verticalAlignment = GridData.CENTER;
 			btnAddTransactionRowLData.horizontalAlignment = GridData.CENTER;
 			btnAddTransactionRowLData.widthHint = 26;
@@ -236,17 +242,11 @@ public class AccUITransactionAdd extends SecureComposite {
 			});
 	
 			GridData btnRemoveTransactionRowLData = new GridData();
-			btnRemoveTransactionRowLData.verticalAlignment = GridData.CENTER;
+			btnRemoveTransactionRow.setImage(SWTResourceManager.getImage("icons/minus.gif"));
 			btnRemoveTransactionRowLData.horizontalAlignment = GridData.CENTER;
-			btnRemoveTransactionRowLData.widthHint = 12;
+			btnRemoveTransactionRowLData.widthHint = 24;
 			btnRemoveTransactionRowLData.heightHint = 23;
-			btnRemoveTransactionRowLData.horizontalIndent = 0;
-			btnRemoveTransactionRowLData.horizontalSpan = 1;
-			btnRemoveTransactionRowLData.verticalSpan = 1;
-			btnRemoveTransactionRowLData.grabExcessHorizontalSpace = false;
-			btnRemoveTransactionRowLData.grabExcessVerticalSpace = false;
 			btnRemoveTransactionRow.setLayoutData(btnRemoveTransactionRowLData);
-			btnRemoveTransactionRow.setSize(new org.eclipse.swt.graphics.Point(12,23));
 			btnRemoveTransactionRow.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
 					btnRemoveTransactionRowMouseUp(evt);

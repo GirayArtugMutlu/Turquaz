@@ -91,13 +91,29 @@ import com.turquaz.engine.ui.component.TextWithButton;
 import org.eclipse.swt.widgets.Label;
 
 
+import com.cloudgarden.resource.SWTResourceManager;
 /**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
- * which is free for non-commercial use. If Jigloo is being used commercially
- * (ie, by a for-profit company or business) then you should purchase a license -
- * please visit www.cloudgarden.com for details.
- */
-public class InvUICardAdd extends SecureComposite {
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
+public class InvUICardAdd extends Composite implements SecureComposite {
+
+	{
+		//Register as a resource user - SWTResourceManager will
+		//handle the obtaining and disposing of resources
+		SWTResourceManager.registerResourceUser(this);
+	}
+
 	private TableViewer tableInvPricesViewer;
 	private TableColumn tableColumnCurrency;
 	private TableColumn tableColumnAmount;
@@ -329,23 +345,15 @@ public class InvUICardAdd extends SecureComposite {
 			tableColumnRegisteredGroups = new TableColumn(tableInvCardAddGroupsRegisteredGroups,SWT.NULL);
 			btnInvCardGroupsPre = new Button(compInvCardAddGroups,SWT.PUSH| SWT.CENTER);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(639,430));
-			final Color InvUICardAddbackground = new Color(Display.getDefault(),128,128,255);
-			this.setBackground(InvUICardAddbackground);
-	
+			this.setSize(641, 467);
+
 			GridData tabfldInvCardAddLData = new GridData();
 			tabfldInvCardAddLData.verticalAlignment = GridData.FILL;
 			tabfldInvCardAddLData.horizontalAlignment = GridData.FILL;
-			tabfldInvCardAddLData.widthHint = -1;
-			tabfldInvCardAddLData.heightHint = -1;
-			tabfldInvCardAddLData.horizontalIndent = 0;
-			tabfldInvCardAddLData.horizontalSpan = 1;
-			tabfldInvCardAddLData.verticalSpan = 1;
 			tabfldInvCardAddLData.grabExcessHorizontalSpace = true;
 			tabfldInvCardAddLData.grabExcessVerticalSpace = true;
 			tabfldInvCardAdd.setLayoutData(tabfldInvCardAddLData);
-			tabfldInvCardAdd.setSize(new org.eclipse.swt.graphics.Point(641,421));
-	
+
 			tabInvCardGeneral.setControl(compInvCardGeneral);
 			tabInvCardGeneral.setText("General Information");
 	
@@ -749,8 +757,7 @@ public class InvUICardAdd extends SecureComposite {
 			comboInvCardUnitsLData.grabExcessVerticalSpace = false;
 			comboInvCardUnits.setLayoutData(comboInvCardUnitsLData);
 			comboInvCardUnits.setText("Choose Unit");
-			final Color comboInvCardUnitsbackground = new Color(Display.getDefault(),255,255,255);
-			comboInvCardUnits.setBackground(comboInvCardUnitsbackground);
+			comboInvCardUnits.setBackground(SWTResourceManager.getColor(255, 255, 255));
 			comboInvCardUnits.setSize(new org.eclipse.swt.graphics.Point(104,29));
 	
 			GridData btnUpdateUnitsLData = new GridData();
@@ -1288,8 +1295,6 @@ public class InvUICardAdd extends SecureComposite {
 			this.layout();
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					InvUICardAddbackground.dispose();
-					comboInvCardUnitsbackground.dispose();
 				}
 			});
 	

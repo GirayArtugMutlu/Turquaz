@@ -35,7 +35,7 @@ import com.turquaz.engine.ui.component.SecureComposite;
 * for-profit company or business) then you should purchase
 * a license - please visit www.cloudgarden.com for details.
 */
-public class CurUICurrentCardSearch extends SecureComposite {
+public class CurUICurrentCardSearch extends  Composite implements SecureComposite {
 
 	private CCombo comboTurqGroupName;
 private TableColumn tableColumnCurrentName;

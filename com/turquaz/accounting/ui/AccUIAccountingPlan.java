@@ -29,11 +29,9 @@ import java.util.Map;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.custom.TableTreeItem;
@@ -47,14 +45,29 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 
 
 
+import com.cloudgarden.resource.SWTResourceManager;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
 public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite {
+
+	{
+		//Register as a resource user - SWTResourceManager will
+		//handle the obtaining and disposing of resources
+		SWTResourceManager.registerResourceUser(this);
+	}
+
 
 	private TableTree tableTreeAccountingPlan;
 	private AccBLAccountAdd blAccount = new AccBLAccountAdd();
@@ -75,8 +88,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite {
 			tableTreeAccountingPlan = new TableTree(this,SWT.FULL_SELECTION);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(468,276));
-			final Color AccUIAccountingPlanbackground = new Color(Display.getDefault(),128,128,255);
-			this.setBackground(AccUIAccountingPlanbackground);
+			this.setBackground(SWTResourceManager.getColor(128, 128, 255));
 	
 			GridData tableTreeAccountingPlanLData = new GridData();
 			tableTreeAccountingPlanLData.verticalAlignment = GridData.FILL;
@@ -101,7 +113,6 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite {
 			this.layout();
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					AccUIAccountingPlanbackground.dispose();
 				}
 			});
 	

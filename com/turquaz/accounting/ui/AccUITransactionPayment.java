@@ -42,7 +42,7 @@ import org.eclipse.swt.SWT;
 * a license - please visit www.cloudgarden.com for details.
 */
 
-public class AccUITransactionPayment extends SecureComposite {
+public class AccUITransactionPayment extends Composite implements SecureComposite{
 
 	private CCombo comboCreditor;
 	private CLabel lblCreditor;

@@ -78,7 +78,7 @@ import org.eclipse.swt.SWT;
 */
 
 
-public class InvUICardSearch extends SecureComposite {
+public class InvUICardSearch extends  Composite implements SecureComposite {
 
 	private InvBLCardAdd invBLCardAdd = new InvBLCardAdd();
 	private Composite compInvCardSearch;

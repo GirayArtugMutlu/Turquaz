@@ -103,10 +103,7 @@ public class CurBLSearchTransaction {
 	catch(Exception ex){
 		throw ex;
 	}
-		
-		
-		
-	
+
 	}
 	public void deleteCurrentTransaction(TurqCurrentTransaction curTrans)throws Exception{
 		try{

@@ -20,7 +20,6 @@ package com.turquaz.engine.ui;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.sql.Savepoint;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -71,25 +70,26 @@ import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TreeFactory;
-import com.turquaz.engine.ui.component.TurqShell;
-import com.turquaz.inventory.ui.InvUICardAdd;
-import com.turquaz.inventory.ui.comp.InvUITree;
-import com.turquaz.admin.ui.comp.AdmUITree;
-import com.turquaz.accounting.ui.comp.AccUITree;
-import com.turquaz.bank.ui.comp.BankUITree;
-import com.turquaz.current.ui.comp.CurUITree;
-import com.turquaz.inventory.ui.InvUITransactionAdd;
+
 
 /**
 * @author  Onsel Armagan
 * @version  $Id$
 */
+import com.cloudgarden.resource.SWTResourceManager;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
 
 
@@ -102,6 +102,13 @@ import com.turquaz.inventory.ui.InvUITransactionAdd;
 
 
 public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
+
+	{
+		//Register as a resource user - SWTResourceManager will
+		//handle the obtaining and disposing of resources
+		SWTResourceManager.registerResourceUser(this);
+	}
+
 	private Tree treeCurrent;
 	private Label label1;
 	private Composite composite1;
@@ -303,9 +310,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			lblModuleSelection.setText("Active Module");
 			lblModuleSelection.setSize(new org.eclipse.swt.graphics.Point(191,16));
 			lblModuleSelection.setLayout(null);
-	
-			final Color comboModuleSelectionbackground = new Color(Display.getDefault(),236,233,216);
-			comboModuleSelection.setBackground(comboModuleSelectionbackground);
+
+			comboModuleSelection.setBackground(SWTResourceManager.getColor(236, 233, 216));
 			comboModuleSelection.setSize(new org.eclipse.swt.graphics.Point(169,16));
 			comboModuleSelection.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
@@ -551,8 +557,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			toolNew.setEnabled(true);
 			toolNew.setText("&Yeni");
 			toolNew.setToolTipText("New");
-			final org.eclipse.swt.graphics.Image toolNewimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/new_wiz.gif"));
-			toolNew.setImage(toolNewimage);
+			toolNew.setImage(SWTResourceManager.getImage("icons/new_wiz.gif"));
 			toolNew.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolNewWidgetSelected(evt);
@@ -561,8 +566,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			toolSave.setText("&Kaydet");
 			toolSave.setToolTipText("Save");
-			final org.eclipse.swt.graphics.Image toolSaveimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save.gif"));
-			toolSave.setImage(toolSaveimage);
+			toolSave.setImage(SWTResourceManager.getImage("icons/save.gif"));
 			toolSave.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolSaveWidgetSelected(evt);
@@ -571,8 +575,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			toolDelete.setText("&Sil");
 			toolDelete.setToolTipText("Delete");
-			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			toolDelete.setImage(toolDeleteimage);
+			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -581,8 +584,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			toolSearch.setText("&Ara");
 			toolSearch.setToolTipText("Search");
-			final org.eclipse.swt.graphics.Image toolSearchimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/run_exec.gif"));
-			toolSearch.setImage(toolSearchimage);
+			toolSearch.setImage(SWTResourceManager.getImage("icons/run_exec.gif"));
 			toolSearch.setSelection(true);
 			toolSearch.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
@@ -671,11 +673,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			mitHelp.setText("&Help");
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					comboModuleSelectionbackground.dispose();
-					toolNewimage.dispose();
-					toolSaveimage.dispose();
-					toolDeleteimage.dispose();
-					toolSearchimage.dispose();
 				}
 			});
 	
@@ -870,11 +867,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	}
 	
 
-	/** Auto-generated main method */
-	public static void main(String[] args){
-		showGUI2();
-	}
-
 	/**
 	* This static method creates a new instance of this class and shows
 	* it inside a new Shell.
@@ -987,9 +979,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	/** Auto-generated event handler method */
 	
 	private static void arrangeIcons(){
-		Composite c = (Composite)tabfldMain.getSelection().getControl();
-				if(c instanceof SecureComposite){
-					int level = ((SecureComposite)c ).getPermission(c.getClass().getName());
+		try{
+		SecureComposite c = (SecureComposite)tabfldMain.getSelection().getControl();
+		int level =EngBLPermissions.getPermission(c.getClass().getName());
 					System.out.println(level);
 					if(level==3)
 					{
@@ -1018,14 +1010,16 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 						toolSearch.setEnabled(false);
 				
 					}
-				}
-				else
+				
+	}
+	catch(Exception ex)
 				{
 					toolNew.setEnabled(false);
 					toolSave.setEnabled(false);
 					toolDelete.setEnabled(false);
 					toolSearch.setEnabled(false);
-				
+				 
+					ex.printStackTrace();
 				}
 		
 		
@@ -1209,11 +1203,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		 }
 		
 	}
-	 
-
 
 	/** Auto-generated event handler method */
 	protected void rootWidgetDisposed(DisposeEvent evt){
 		this.dispose();
 	}
+	/** Auto-generated main method */
+	public static void main(String[] args){
+		showGUI2();
+	}
+
+	
 }

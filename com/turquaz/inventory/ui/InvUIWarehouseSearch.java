@@ -37,7 +37,7 @@ import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 * for-profit company or business) then you should purchase
 * a license - please visit www.cloudgarden.com for details.
 */
-public class InvUIWarehouseSearch extends SecureComposite {
+public class InvUIWarehouseSearch extends  Composite implements SecureComposite {
 
 	private TableColumn tableColumnDescription;
 	private TableColumn tableColumnTelephone;

@@ -54,7 +54,7 @@ import com.turquaz.engine.ui.component.SecureComposite;
 * for-profit company or business) then you should purchase
 * a license - please visit www.cloudgarden.com for details.
 */
-public class AccUIAddAccounts extends SecureComposite{
+public class AccUIAddAccounts extends  Composite implements SecureComposite{
 
 	/**
 	 * @return Returns the txtAccAccountCode.

@@ -36,7 +36,7 @@ import org.eclipse.swt.SWT;
 * for-profit company or business) then you should purchase
 * a license - please visit www.cloudgarden.com for details.
 */
-public class AccUITransactionSearch extends SecureComposite {
+public class AccUITransactionSearch extends  Composite implements SecureComposite {
 
 	private TableColumn tableColumnTotalAmount;
 	private TableColumn tableColumnDate;

@@ -28,11 +28,18 @@ import com.turquaz.accounting.ui.comp.DynamicAccountPicker;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
-public class CurUITransactionAdd extends SecureComposite {
+public class CurUITransactionAdd extends Composite implements SecureComposite{
     
 	private DynamicAccountPicker accPickerCashAccount;
 	private CLabel lblCashAccount;
@@ -60,8 +67,30 @@ public class CurUITransactionAdd extends SecureComposite {
 		try {
 			preInitGUI();
 	
-			lblCurrentCode = new CLabel(this,SWT.NULL);
-			comboCurrentCode = new CCombo(this,SWT.NULL);
+			
+			
+			{
+				lblCurrentCode = new CLabel(this, SWT.NONE);
+				GridData lblCurrentCodeLData = new GridData();
+				lblCurrentCodeLData.widthHint = 102;
+				lblCurrentCodeLData.heightHint = 16;
+				lblCurrentCode.setLayoutData(lblCurrentCodeLData);
+				lblCurrentCode.setText("Current Code");
+				lblCurrentCode.setSize(new org.eclipse.swt.graphics.Point(
+					102,
+					16));
+			}
+			{
+				comboCurrentCode = new CCombo(this, SWT.NONE);
+				GridData comboCurrentCodeLData = new GridData();
+				comboCurrentCodeLData.widthHint = 185;
+				comboCurrentCodeLData.heightHint = 20;
+				comboCurrentCode.setLayoutData(comboCurrentCodeLData);
+				comboCurrentCode.setText("Choose Current Code");
+				comboCurrentCode.setSize(new org.eclipse.swt.graphics.Point(
+					207,
+					20));
+			}
 			lblDocumentNo = new CLabel(this,SWT.NULL);
 			txtDocumentNo = new Text(this,SWT.NULL);
 			comboType = new CLabel(this,SWT.NULL);
@@ -73,36 +102,8 @@ public class CurUITransactionAdd extends SecureComposite {
 			lblCashAccount = new CLabel(this,SWT.NULL);
 			accPickerCashAccount = new DynamicAccountPicker(this,SWT.NULL);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(473,221));
-	
-			GridData lblCurrentCodeLData = new GridData();
-			lblCurrentCodeLData.verticalAlignment = GridData.CENTER;
-			lblCurrentCodeLData.horizontalAlignment = GridData.BEGINNING;
-			lblCurrentCodeLData.widthHint = 102;
-			lblCurrentCodeLData.heightHint = 16;
-			lblCurrentCodeLData.horizontalIndent = 0;
-			lblCurrentCodeLData.horizontalSpan = 1;
-			lblCurrentCodeLData.verticalSpan = 1;
-			lblCurrentCodeLData.grabExcessHorizontalSpace = false;
-			lblCurrentCodeLData.grabExcessVerticalSpace = false;
-			lblCurrentCode.setLayoutData(lblCurrentCodeLData);
-			lblCurrentCode.setText("Current Code");
-			lblCurrentCode.setSize(new org.eclipse.swt.graphics.Point(102,16));
-	
-			GridData comboCurrentCodeLData = new GridData();
-			comboCurrentCodeLData.verticalAlignment = GridData.CENTER;
-			comboCurrentCodeLData.horizontalAlignment = GridData.BEGINNING;
-			comboCurrentCodeLData.widthHint = 207;
-			comboCurrentCodeLData.heightHint = 20;
-			comboCurrentCodeLData.horizontalIndent = 0;
-			comboCurrentCodeLData.horizontalSpan = 1;
-			comboCurrentCodeLData.verticalSpan = 1;
-			comboCurrentCodeLData.grabExcessHorizontalSpace = false;
-			comboCurrentCodeLData.grabExcessVerticalSpace = false;
-			comboCurrentCode.setLayoutData(comboCurrentCodeLData);
-			comboCurrentCode.setText("Choose Current Code");
-			comboCurrentCode.setSize(new org.eclipse.swt.graphics.Point(207,20));
-	
+			this.setSize(476, 357);
+
 			GridData lblDocumentNoLData = new GridData();
 			lblDocumentNoLData.verticalAlignment = GridData.CENTER;
 			lblDocumentNoLData.horizontalAlignment = GridData.BEGINNING;

@@ -30,6 +30,8 @@ import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUIPrice;
 import com.turquaz.inventory.ui.comp.InvUIPriceList;
 
+import com.turquaz.engine.bl.EngBLAccountingAccounts;
+import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
@@ -47,9 +49,16 @@ import org.eclipse.swt.events.SelectionEvent;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
 public class InvUICardUpdateDialog extends Dialog{
 	private InvUICardAdd compInvUICard;
@@ -207,9 +216,8 @@ public class InvUICardUpdateDialog extends Dialog{
 		
 	}
 	public void setButtonPermissions(){
-	
-	SecureComposite comp = (SecureComposite)compInvUICard;
-	int level = comp.getPermission(comp.getClass().getName());
+
+	int level = EngBLPermissions.getPermission(compInvUICard.getClass().getName());
 	if(level==3){
 		toolDelete.setEnabled(true);
 		toolUpdate.setEnabled(true);
