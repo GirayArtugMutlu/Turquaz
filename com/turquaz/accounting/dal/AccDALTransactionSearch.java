@@ -29,6 +29,8 @@ import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
+
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -58,8 +60,8 @@ public class AccDALTransactionSearch {
 
 	}
 
-	public List searchTransaction(String docNo, Object type, Object startDate,
-			Object endDate) throws Exception {
+	public List searchTransaction(String docNo, Object startDate,
+			Object endDate, boolean isGeneralTrans, boolean isCollect, boolean isPayment) throws Exception {
 		try {
 
 			Session session = EngDALSessionFactory.openSession();
@@ -77,17 +79,38 @@ public class AccDALTransactionSearch {
 			if (endDate != null) {
 				query += " and accTrans.transactionsDate <= :endDate";
 			}
-
-			if (type != null) {
-				query += " and accTrans.turqAccountingTransactionType= :transType";
+			
+			
+			query += " and ( accTrans.turqAccountingTransactionType.accountingTransactionTypesId = -1 ";
+			
+			if(isGeneralTrans)
+			{
+			
+				query += " or accTrans.turqAccountingTransactionType.accountingTransactionTypesId ="+EngBLCommon.ACCOUNTING_TRANS_GENERAL;
+				
 			}
+			if(isCollect)
+			{
+
+				query += " or accTrans.turqAccountingTransactionType.accountingTransactionTypesId ="+EngBLCommon.ACCOUNTING_TRANS_COLLECT;
+				
+			}
+			if(isPayment)
+			{
+
+				query += " or accTrans.turqAccountingTransactionType.accountingTransactionTypesId ="+EngBLCommon.ACCOUNTING_TRANS_PAYMENT;
+				
+			}
+			query += " )";
+
+			
 			
 			
 			query +=" group by  accTrans.accountingTransactionsId, accTrans.transactionsDate,accTrans.transactionDocumentNo,accTrans.turqAccountingTransactionType.typesName,accTrans.transactionDescription";
             query +=" order by accTrans.transactionsDate";   
 			
 			Query q = session.createQuery(query);
-
+		
 			if (startDate != null) {
 				
 				q.setParameter("startDate", startDate);
@@ -98,11 +121,7 @@ public class AccDALTransactionSearch {
 				q.setParameter("endDate",endDate);
 			}
 
-			if (type != null) {
-				
-				q.setParameter("transType", type);
-
-			}
+			
 
 			List list = q.list();
 			

@@ -37,9 +37,10 @@ import org.eclipse.swt.widgets.Table;
 
 import com.cloudgarden.resource.SWTResourceManager;
 
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.custom.CCombo;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
@@ -47,7 +48,6 @@ import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
-import com.turquaz.engine.dal.TurqAccountingTransactionType;
 
 
 import com.turquaz.engine.ui.component.DatePicker;
@@ -87,13 +87,15 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 	private TableColumn tableColumnTotalAmount;
 	private TableColumn tableColumnDate;
 	private TableColumn tableColumnDocumentNo;
+	private Button btnPayment;
+	private Button btnCollect;
 	private TableColumn tableColumnTransType;
 	private DatePicker dateEndDate;
 	private CLabel lblEndDate;
 	private DatePicker dateStartDate;
 	private CLabel lblStartDate;
-	private CCombo comboTransType;
-	private CLabel lblTransactionType;
+	private Button btnAccTrans;
+	private Group groupTransTypes;
 	private TableColumn tableColumnDefinition;
 	private Text txtDocumentNo;
 	private CLabel lblDocumentNo;
@@ -120,7 +122,7 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 				composite1Layout.numColumns = 4;
 				GridData composite1LData = new GridData();
 				composite1LData.horizontalAlignment = GridData.FILL;
-				composite1LData.heightHint = 107;
+				composite1LData.heightHint = 128;
 				composite1LData.grabExcessHorizontalSpace = true;
 				compAccTransactionSearch.setLayoutData(composite1LData);
 				compAccTransactionSearch.setLayout(composite1Layout);
@@ -141,31 +143,38 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 					GridData txtDocumentNoLData = new GridData();
 					txtDocumentNoLData.widthHint = 150;
 					txtDocumentNoLData.heightHint = 17;
+					txtDocumentNoLData.horizontalSpan = 2;
 					txtDocumentNo.setLayoutData(txtDocumentNoLData);
 				}
-				{
-					lblTransactionType = new CLabel(compAccTransactionSearch, SWT.NONE);
-					GridData lblTransactionTypeLData = new GridData();
-					lblTransactionTypeLData.widthHint = 59;
-					lblTransactionTypeLData.heightHint = 20;
-					lblTransactionType.setLayoutData(lblTransactionTypeLData);
-					lblTransactionType.setText(Messages
-						.getString("AccUITransactionSearch.1")); //$NON-NLS-1$
-				}
-				{
-					comboTransType = new CCombo(compAccTransactionSearch, SWT.READ_ONLY);
-					GridData comboTransTypeLData = new GridData();
-					comboTransTypeLData.widthHint = 125;
-					comboTransTypeLData.heightHint = 18;
-					comboTransType.setLayoutData(comboTransTypeLData);
-					comboTransType.setText(Messages
-						.getString("AccUITransactionSearch.2")); //$NON-NLS-1$
-					comboTransType.setBackground(SWTResourceManager.getColor(
-						255,
-						255,
-						255));
-					comboTransType.setEditable(false);
-				}
+				//START >>  groupTransTypes
+				groupTransTypes = new Group(compAccTransactionSearch, SWT.NONE);
+				GridLayout groupTransTypesLayout = new GridLayout();
+				GridData groupTransTypesLData = new GridData();
+				groupTransTypesLData.verticalSpan = 3;
+				groupTransTypesLData.widthHint = 193;
+				groupTransTypesLData.heightHint = 81;
+				groupTransTypesLData.grabExcessHorizontalSpace = true;
+				groupTransTypesLData.horizontalAlignment = GridData.CENTER;
+				groupTransTypes.setLayoutData(groupTransTypesLData);
+				groupTransTypesLayout.makeColumnsEqualWidth = true;
+				groupTransTypes.setLayout(groupTransTypesLayout);
+				groupTransTypes.setText("Fi\u015f Tipi");
+				//START >>  btnAccTrans
+				btnAccTrans = new Button(groupTransTypes, SWT.CHECK | SWT.LEFT);
+				btnAccTrans.setText("Mahsup Fi\u015fi");
+				btnAccTrans.setSelection(true);
+				//END <<  btnAccTrans
+				//START >>  btnCollect
+				btnCollect = new Button(groupTransTypes, SWT.CHECK | SWT.LEFT);
+				btnCollect.setText("Tahsil Fi\u015fi");
+				btnCollect.setSelection(true);
+				//END <<  btnCollect
+				//START >>  btnPayment
+				btnPayment = new Button(groupTransTypes, SWT.CHECK | SWT.LEFT);
+				btnPayment.setText("Tediye Fi\u015fi");
+				btnPayment.setSelection(true);
+				//END <<  btnPayment
+				//END <<  groupTransTypes
 				{
 					lblStartDate = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblStartDateLData = new GridData();
@@ -178,7 +187,7 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 					GridData dateStartDateLData = new GridData();
 					dateStartDateLData.widthHint = 156;
 					dateStartDateLData.heightHint = 22;
-					dateStartDateLData.horizontalSpan = 3;
+					dateStartDateLData.horizontalSpan = 2;
 					dateStartDate.setLayoutData(dateStartDateLData);
 					dateStartDate.layout();
 				}
@@ -271,35 +280,9 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 	//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
 	cal.set(cal.get(Calendar.YEAR),0,1);
 	dateStartDate.setDate(cal.getTime());
-	fillCombo();
-	
-	
-	}
-	public void fillCombo(){
-	try{
-	
-	comboTransType.add(" "); //$NON-NLS-1$
-	List list = blTransSearch.getTransactionTypes();
-	
-	TurqAccountingTransactionType transType;
-	for(int i=0;i<list.size();i++)
-	{
-       
-       transType = (TurqAccountingTransactionType)list.get(i);
-       comboTransType.add(transType.getTypesName());
-       comboTransType.setData(transType.getTypesName(),transType);  	
 	
 	}
 	
-	}
-	catch(Exception ex){
-	ex.printStackTrace();
-	}
-	
-	
-	
-	
-	}
 	
 	
 	public void save(){
@@ -380,8 +363,10 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 	tableTransactions.removeAll();
 	
 	List result = blTransSearch.searchAccTransaction(txtDocumentNo.getText().trim(),
-												comboTransType.getData(comboTransType.getText()),
-												dateStartDate.getDate(),dateEndDate.getDate());
+											
+												dateStartDate.getDate(),dateEndDate.getDate(),
+												btnAccTrans.getSelection(),btnCollect.getSelection(),
+												btnPayment.getSelection());
 	
 	TableItem item;
 	
