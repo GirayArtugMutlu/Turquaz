@@ -27,6 +27,7 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import com.turquaz.engine.ui.component.DecimalText;
+import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
@@ -49,7 +50,6 @@ import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 
-import com.turquaz.accounting.ui.AccUIDialogInventoryCodeChoose;
 
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -87,8 +87,6 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-
-import com.turquaz.engine.ui.component.TextWithButton;
 import org.eclipse.swt.widgets.Label;
 
 
@@ -211,11 +209,11 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	private CLabel lblInvCardVat;
 
-	private TextWithButton txtInvCardOutAcc;
+	private AccountPicker txtInvCardOutAcc;
 
 	private CLabel lblInvCardOutAcc;
 
-	private TextWithButton txtInvCardInAcc;
+	private AccountPicker txtInvCardInAcc;
 
 	private CLabel lblInvCardInAcc;
 
@@ -390,22 +388,11 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					lblInvCardInAcc.setText(Messages.getString("InvUICardAdd.9")); //$NON-NLS-1$
 				}
 				{
-					txtInvCardInAcc = new TextWithButton(
-						compInvCardDetails,
-						SWT.NONE);
+					txtInvCardInAcc = new AccountPicker(compInvCardDetails, SWT.NONE);
 					GridData txtInvCardInAccLData = new GridData();
-					txtInvCardInAccLData.widthHint = 139;
-					txtInvCardInAccLData.heightHint = 16;
+					txtInvCardInAccLData.widthHint = 144;
+					txtInvCardInAccLData.heightHint = 19;
 					txtInvCardInAcc.setLayoutData(txtInvCardInAccLData);
-					txtInvCardInAcc.setSize(new org.eclipse.swt.graphics.Point(
-						139,
-						16));
-					txtInvCardInAcc.addMouseListener(new MouseAdapter() {
-						public void mouseUp(MouseEvent evt) {
-							txtInvCardInAccMouseUp(evt);
-						}
-					});
-					txtInvCardInAcc.layout();
 				}
 				{
 					lblInvCardOutAcc = new CLabel(compInvCardDetails, SWT.RIGHT);
@@ -417,22 +404,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					lblInvCardOutAcc.setText(Messages.getString("InvUICardAdd.10")); //$NON-NLS-1$
 				}
 				{
-					txtInvCardOutAcc = new TextWithButton(
-						compInvCardDetails,
-						SWT.NONE);
+					txtInvCardOutAcc = new AccountPicker(compInvCardDetails, SWT.NONE);
 					GridData txtInvCardOutAccLData = new GridData();
-					txtInvCardOutAccLData.widthHint = 163;
-					txtInvCardOutAccLData.heightHint = 17;
+					txtInvCardOutAccLData.widthHint = 161;
+					txtInvCardOutAccLData.heightHint = 18;
 					txtInvCardOutAcc.setLayoutData(txtInvCardOutAccLData);
-					txtInvCardOutAcc
-						.setSize(new org.eclipse.swt.graphics.Point(163, 17));
 					txtInvCardOutAcc.setEnabled(true);
-					txtInvCardOutAcc.addMouseListener(new MouseAdapter() {
-						public void mouseUp(MouseEvent evt) {
-							txtInvCardOutAccMouseUp(evt);
-						}
-					});
-					txtInvCardOutAcc.layout();
 				}
 				{
 					lblInvCardVat = new CLabel(compInvCardDetails, SWT.RIGHT);
@@ -1873,18 +1850,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		int next = tabfldInvCardAdd.getSelectionIndex() + 1;
 		tabfldInvCardAdd.setSelection(next);
 	}
-
-	/** Auto-generated event handler method */
-	protected void txtInvCardInAccMouseUp(MouseEvent evt) {
-		AccUIDialogInventoryCodeChoose dialogchoose = new AccUIDialogInventoryCodeChoose(
-				getShell(), SWT.NULL);
-		Object[] obj = dialogchoose.showDialog();
-		if (obj[0] != null) {
-			txtInvCardInAcc.setData(obj[1]);
-			txtInvCardInAcc.setText(obj[0].toString());
-		}
-
-	}
+	
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardDetPreMouseUp(MouseEvent evt) {
@@ -1917,17 +1883,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		tabfldInvCardAdd.setSelection(next);
 	}
 
-	/** Auto-generated event handler method */
-	protected void txtInvCardOutAccMouseUp(MouseEvent evt) {
-		AccUIDialogInventoryCodeChoose dialogchoose = new AccUIDialogInventoryCodeChoose(
-				getShell(), SWT.NULL);
-		Object[] obj = dialogchoose.showDialog();
-		if (obj[0] != null) {
-			txtInvCardOutAcc.setData(obj[1]);
-			txtInvCardOutAcc.setText(obj[0].toString());
-		}
-
-	}
+	
 
 	/** Auto-generated event handler method */
 	protected void btnInvCardAddNewMouseUp(MouseEvent evt){
@@ -1988,24 +1944,14 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	public NumericText getTxtInvCardDiscount() {
 		return txtInvCardDiscount;
 	}
-	/**
-	 * @return Returns the txtInvCardInAcc.
-	 */
-	public TextWithButton getTxtInvCardInAcc() {
-		return txtInvCardInAcc;
-	}
+
 	/**
 	 * @return Returns the txtInvCardName.
 	 */
 	public Text getTxtInvCardName() {
 		return txtInvCardName;
 	}
-	/**
-	 * @return Returns the txtInvCardOutAcc.
-	 */
-	public TextWithButton getTxtInvCardOutAcc() {
-		return txtInvCardOutAcc;
-	}
+
 	/**
 	 * @return Returns the txtInvCardSpecialCode.
 	 */
@@ -2061,5 +2007,17 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	 */
 	public NumericText getNumTextSpecailVATPercent() {
 		return numTextSpecailVATPercent;
+	}
+	public AccountPicker getTxtInvCardInAcc() {
+		return txtInvCardInAcc;
+	}
+	public void setTxtInvCardInAcc(AccountPicker txtInvCardInAcc) {
+		this.txtInvCardInAcc = txtInvCardInAcc;
+	}
+	public AccountPicker getTxtInvCardOutAcc() {
+		return txtInvCardOutAcc;
+	}
+	public void setTxtInvCardOutAcc(AccountPicker txtInvCardOutAcc) {
+		this.txtInvCardOutAcc = txtInvCardOutAcc;
 	}
 }

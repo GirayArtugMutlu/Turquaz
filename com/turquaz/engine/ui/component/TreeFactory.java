@@ -54,7 +54,7 @@ import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.InvUICardSearch;
-import com.turquaz.inventory.ui.InvUITransactionAdd;
+
 import com.turquaz.inventory.ui.InvUITransactionSearch;
 import com.turquaz.inventory.ui.InvUIWarehouseAdd;
 import com.turquaz.inventory.ui.InvUIWarehouseSearch;
@@ -73,14 +73,7 @@ public final class TreeFactory {
 		item.setData(InvUICardAdd.class.getName());
 		
 		}
-		
-		if(EngBLPermissions.getPermission(InvUITransactionAdd.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.2"));  //$NON-NLS-1$		
-		item.setData(InvUITransactionAdd.class.getName());
-		
-		}
-		
+			
 		if(EngBLPermissions.getPermission(InvUICardSearch.class.getName())>0){
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.3"));  //$NON-NLS-1$

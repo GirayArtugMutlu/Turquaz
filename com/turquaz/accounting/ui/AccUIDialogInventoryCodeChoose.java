@@ -119,7 +119,7 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
     
     dialogShell.setLocation(location_X,location_Y);
 	AccUIAccountsTree treeFactory = new AccUIAccountsTree();
-	accountTree= treeFactory.fillTree(-1,"15",accountTree);
+	accountTree= treeFactory.fillTree(-1,"",accountTree);
 	
 	
 	}

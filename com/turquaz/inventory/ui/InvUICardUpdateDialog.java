@@ -223,10 +223,10 @@ public class InvUICardUpdateDialog extends Dialog{
 	compInvUICard.getTxtInvCardCode().setText(invCard.getCardInventoryCode());
 	compInvUICard.getTxtInvCardDefinition().setText(invCard.getCardDefinition());
 	compInvUICard.getTxtInvCardDiscount().setText(invCard.getCardDiscount());
-	compInvUICard.getTxtInvCardInAcc().setText(invCard.getTurqAccountingAccountByAccountingAccountsIdBuy().getAccountCode());
+	compInvUICard.getTxtInvCardInAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdBuy());
 	compInvUICard.getTxtInvCardInAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdBuy());
 	compInvUICard.getTxtInvCardName().setText(invCard.getCardName());
-	compInvUICard.getTxtInvCardOutAcc().setText(invCard.getTurqAccountingAccountByAccountingAccountsIdSell().getAccountCode());
+	compInvUICard.getTxtInvCardOutAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSell());
 	compInvUICard.getTxtInvCardOutAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSell());
 	compInvUICard.getTxtInvCardSpecialCode().setText(invCard.getCardSpecialCode());
 	compInvUICard.getTxtInvCardVat().setText(invCard.getCardVat());
@@ -484,7 +484,9 @@ public class InvUICardUpdateDialog extends Dialog{
      }
     }
    catch(Exception ex){
-   ex.printStackTrace();
+   	MessageBox msg = new MessageBox(this.getParent(),SWT.ICON_ERROR);
+   	msg.setMessage(ex.getMessage());
+    ex.printStackTrace();
    }
      
    
