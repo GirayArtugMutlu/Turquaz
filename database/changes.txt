@@ -1,0 +1,89 @@
+*** 04-02-2005 ****
+- "turq_banks_transaction_bills" --> "banks_cards_id" column 
+- "turq_banks_transactions"      --> "banks_cards_id" (integer) added 
+-  Foreign key "banks_cards_id" from to "turq_banks_transactions" to "turq_banks_card"
+- "turq_inventory_transactions" ---> "transaction_type" (integer) added 
+
+*** 06-02-2005 *** 
+-  "turq_inventory_transactions" ---> "transactions_amount_in" (int8) column changed to 
+												"transactions_amount_in" numeric
+-  "turq_inventory_transactions" ---> "transactions_total_amount_out" (int8) column changed to 
+
+-  "turq_inventory_card_units" ---> "card_units_factor" changed column prop. int4 to numeric
+												"transactions_total_amount_out" numeric
+												
+Process
+!!!! Before drop in do not forget to backup the data inside tha tables!!!!!!!!!!!!!!!!!
+
+DROP VIEW turq_view_inventory_totals;
+DROP VIEW turq_view_inventory_amount_total;
+DROP TABLE turq_inventory_transactions;
+
+CREATE TABLE turq_inventory_transactions
+(
+  inventory_transactions_id int4 NOT NULL,
+  inventory_cards_id int4 NOT NULL,
+  inventory_warehouses_id int4 NOT NULL,
+  engine_sequences_id int4 NOT NULL,
+  transactions_amount_in numeric NOT NULL,
+  inventory_units_id int4 NOT NULL,
+  transactions_unit_price numeric NOT NULL,
+  transactions_total_price numeric NOT NULL,
+  transactions_discount numeric NOT NULL,
+  transactions_discount_amount numeric NOT NULL,
+  transactions_vat int4 NOT NULL,
+  transactions_vat_amount numeric NOT NULL,
+  transactions_vat_special_each numeric NOT NULL,
+  transactions_vat_special numeric NOT NULL,
+  transactions_vat_special_amount numeric NOT NULL,
+  transactions_cumilative_price numeric NOT NULL,
+  transactions_total_amount_out numeric NOT NULL,
+  created_by varchar(50) NOT NULL,
+  creation_date date NOT NULL,
+  updated_by varchar(50) NOT NULL,
+  last_modified date NOT NULL,
+  transactions_date date NOT NULL,
+  transaction_type int4 NOT NULL,
+  CONSTRAINT turq_inventory_transactions_pkey PRIMARY KEY (inventory_transactions_id),
+  CONSTRAINT "$100" FOREIGN KEY (engine_sequences_id) REFERENCES turq_engine_sequences (engine_sequences_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT "$15" FOREIGN KEY (inventory_warehouses_id) REFERENCES turq_inventory_warehouses (inventory_warehouses_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT "$16" FOREIGN KEY (inventory_cards_id) REFERENCES turq_inventory_cards (inventory_cards_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT "$17" FOREIGN KEY (inventory_units_id) REFERENCES turq_inventory_units (inventory_units_id) ON UPDATE RESTRICT ON DELETE RESTRICT
+) 
+WITHOUT OIDS;
+
+
+CREATE OR REPLACE VIEW turq_view_inventory_totals AS 
+ SELECT trans.inventory_cards_id, transin.totalamountin AS total_amount_in, transin.totalpricein AS total_price_in, transout.totalamountout AS total_amount_out, transout.totalpriceout AS total_price_out
+   FROM turq_inventory_cards trans
+   LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id, sum(turq_inventory_transactions.transactions_total_price) AS totalpricein, sum(turq_inventory_transactions.transactions_amount_in) AS totalamountin
+                FROM turq_inventory_transactions
+               WHERE turq_inventory_transactions.transactions_amount_in <> 0
+               GROUP BY turq_inventory_transactions.inventory_cards_id) transin ON trans.inventory_cards_id = transin.inventory_cards_id
+   LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id, sum(turq_inventory_transactions.transactions_total_price) AS totalpriceout, sum(turq_inventory_transactions.transactions_total_amount_out) AS totalamountout
+                FROM turq_inventory_transactions
+               WHERE turq_inventory_transactions.transactions_total_amount_out <> 0
+               GROUP BY turq_inventory_transactions.inventory_cards_id) transout ON trans.inventory_cards_id = transout.inventory_cards_id;
+
+
+
+
+CREATE OR REPLACE VIEW turq_view_inventory_amount_total AS 
+ SELECT cards.inventory_cards_id, tabletrans.transactions_amount_in, tabletrans.transactions_total_amount_out, tabletrans.transactions_total_amount_now
+   FROM turq_inventory_cards cards
+   LEFT JOIN ( SELECT trans.inventory_cards_id, sum(trans.transactions_amount_in) AS transactions_amount_in, sum(trans.transactions_total_amount_out) AS transactions_total_amount_out, sum(trans.transactions_amount_in - trans.transactions_total_amount_out) AS transactions_total_amount_now
+                FROM turq_inventory_transactions trans
+               GROUP BY trans.inventory_cards_id) tabletrans ON tabletrans.inventory_cards_id = cards.inventory_cards_id;
+
+
+
+
+
+
+
+
+    
+
+
+
+

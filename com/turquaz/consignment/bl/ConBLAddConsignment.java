@@ -125,11 +125,11 @@ public class ConBLAddConsignment {
 			// total amount in ve total amount ayni girilmisti
 			// bir tanesi sifir yapmak gerek
 			if(consType==0){
-		     	invTrans.setTransactionsTotalAmountOut(0);
+		     	invTrans.setTransactionsTotalAmountOut(new BigDecimal(0));
 			}
 		    //	Sat??
 			else {
-			invTrans.setTransactionsAmountIn(0);
+			invTrans.setTransactionsAmountIn(new BigDecimal(0));
 			}
 			
 			dalConsignment.save(invTrans);

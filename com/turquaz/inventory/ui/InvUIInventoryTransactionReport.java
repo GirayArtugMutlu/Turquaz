@@ -449,7 +449,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				BigDecimal priceIn = new BigDecimal(0);
 				BigDecimal priceOut = new BigDecimal(0);
 				
-				if(transactions.getTransactionsAmountIn()==0){
+				if(transactions.getTransactionsAmountIn().doubleValue()==0){
 					priceOut = transactions.getTransactionsTotalPrice();
 					
 					

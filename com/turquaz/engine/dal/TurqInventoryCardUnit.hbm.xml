@@ -26,7 +26,7 @@
 
     <property
         name="cardUnitsFactor"
-        type="int"
+        type="java.math.BigDecimal"
         column="card_units_factor"
         not-null="true"
         length="65535"

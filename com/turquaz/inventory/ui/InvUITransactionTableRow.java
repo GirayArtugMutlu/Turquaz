@@ -65,8 +65,8 @@ public class InvUITransactionTableRow implements ITableRow {
     int base_unit_index = -1;
     InvBLCardSearch blCardSearch= new InvBLCardSearch();
     TableViewer tableViewer ;
-    long transAmount = 0;
-    long transAmountinBaseUnit=0;
+    BigDecimal transAmount = new BigDecimal(0);
+    BigDecimal transAmountinBaseUnit=new BigDecimal(0);
     TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
     TurkishCurrencyFormat cf4=new TurkishCurrencyFormat(4);
     /*
@@ -78,8 +78,8 @@ public class InvUITransactionTableRow implements ITableRow {
         this.tableViewer = viewer;
         this.rowList = rowList;
         this.transType = type;
-        invTrans.setTransactionsAmountIn(0);
-        invTrans.setTransactionsTotalAmountOut(0);
+        invTrans.setTransactionsAmountIn(new BigDecimal(0));
+        invTrans.setTransactionsTotalAmountOut(new BigDecimal(0));
         invTrans.setTransactionsUnitPrice(new BigDecimal(0));
         invTrans.setTransactionsTotalPrice(new BigDecimal(0));
         invTrans.setTransactionsVat(0);
@@ -141,7 +141,7 @@ public class InvUITransactionTableRow implements ITableRow {
 			    
 			case 2 :  //Amount
 				{
-			      result = transAmount+"";
+			      result = cf.format(transAmount);
 			      break;
 				}
 			    
@@ -151,10 +151,10 @@ public class InvUITransactionTableRow implements ITableRow {
 			    
 			case 4 :  //Amount in Base Unit
 			    if(transType==0){
-				    result = invTrans.getTransactionsAmountIn()+"";
+				    result = cf.format(invTrans.getTransactionsAmountIn());
 				    }
 				    else{
-				        result = invTrans.getTransactionsTotalAmountOut()+"";
+				        result = cf.format(invTrans.getTransactionsTotalAmountOut());
 				    }
 					break;
 				
@@ -241,7 +241,7 @@ public class InvUITransactionTableRow implements ITableRow {
             while(it.hasNext()){
                 TurqInventoryCardUnit cardUnit = (TurqInventoryCardUnit)it.next();
                 unit_list.add(cardUnit);
-                if(cardUnit.getCardUnitsFactor()==1){
+                if(cardUnit.getCardUnitsFactor().compareTo(new BigDecimal(1))==0){
                     base_unit = cardUnit.getTurqInventoryUnit(); 
                 }
             }
@@ -262,7 +262,7 @@ public class InvUITransactionTableRow implements ITableRow {
                 }
                 if(invTrans.getTurqInventoryUnit().equals(cardUnits[i].getTurqInventoryUnit())){
                     unit_index = new Integer(i);
-                    transAmount = transAmount /(cardUnits[i].getCardUnitsFactor());
+                    transAmount = transAmount.divide(cardUnits[i].getCardUnitsFactor(),2,BigDecimal.ROUND_HALF_DOWN);
                 }
             }
             
@@ -302,7 +302,7 @@ public class InvUITransactionTableRow implements ITableRow {
         while(it.hasNext()){
             TurqInventoryCardUnit cardUnit = (TurqInventoryCardUnit)it.next();
             unit_list.add(cardUnit);
-            if(cardUnit.getCardUnitsFactor()==1){
+            if(cardUnit.getCardUnitsFactor().compareTo(new BigDecimal(1))==0){
                 base_unit = cardUnit.getTurqInventoryUnit(); 
             }
         }
@@ -359,7 +359,7 @@ public class InvUITransactionTableRow implements ITableRow {
 			    
 			case 2 :  //Amount
 			     
-			     result = transAmount+"";
+			     result = cf.format(transAmount);
 				break;
 			    
 			case 3 :  //Unit
@@ -368,12 +368,13 @@ public class InvUITransactionTableRow implements ITableRow {
 			    
 			case 4 :  //amount in base units
 			    if(transType==0){
-				    result = invTrans.getTransactionsAmountIn()+"";
+				    result = cf.format(invTrans.getTransactionsAmountIn());
 				    }
 				    else{
-				        result = invTrans.getTransactionsTotalAmountOut()+"";
+				        result = cf.format(invTrans.getTransactionsTotalAmountOut());
 				    }
-				break;
+					break;
+				
 				
 			case 5 :  //Base Unit
 			    if(invTrans.getTurqInventoryCard()==null){
@@ -463,11 +464,13 @@ public class InvUITransactionTableRow implements ITableRow {
 			    
 			case 2 :  //Amount
 			    formatted = value.toString(); 	
+			 	formatted = formatted.replaceAll("\\.","");
+			 	formatted = formatted.replaceAll(",",".");
 			 	if(formatted.equals("")){
 			 	    formatted="0";
 			 	}
 			 	
-			 	transAmount = Integer.parseInt(formatted);
+			 	transAmount = new BigDecimal(formatted);
 			 
 			 	
 			 	break;
@@ -589,9 +592,9 @@ public class InvUITransactionTableRow implements ITableRow {
         {
         	
             
-        	transAmountinBaseUnit = transAmount*cardUnits[unit_index.intValue()].getCardUnitsFactor();
+        	transAmountinBaseUnit = transAmount.multiply(cardUnits[unit_index.intValue()].getCardUnitsFactor()).setScale(2,BigDecimal.ROUND_HALF_DOWN);
         
-        	invTrans.setTransactionsTotalPrice(invTrans.getTransactionsUnitPrice().multiply(new BigDecimal(transAmountinBaseUnit)).setScale(2,BigDecimal.ROUND_HALF_DOWN));
+        	invTrans.setTransactionsTotalPrice(invTrans.getTransactionsUnitPrice().multiply(transAmountinBaseUnit).setScale(2,BigDecimal.ROUND_HALF_DOWN));
     	
         
         	invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsTotalPrice().multiply(invTrans.getTransactionsDiscount()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
@@ -610,7 +613,7 @@ public class InvUITransactionTableRow implements ITableRow {
         	
         	if (invTrans.getTurqInventoryCard().isSpecVatForEach())
         	{
-        		BigDecimal vatSpecialAmount=invTrans.getTransactionsVatSpecialEach().multiply(BigDecimal.valueOf(transAmountinBaseUnit)).setScale(2,BigDecimal.ROUND_HALF_DOWN);
+        		BigDecimal vatSpecialAmount=invTrans.getTransactionsVatSpecialEach().multiply(transAmountinBaseUnit).setScale(2,BigDecimal.ROUND_HALF_DOWN);
         		invTrans.setTransactionsVatSpecialAmount(vatSpecialAmount);
         	}
         	else

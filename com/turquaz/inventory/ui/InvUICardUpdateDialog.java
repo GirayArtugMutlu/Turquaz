@@ -20,6 +20,7 @@ package com.turquaz.inventory.ui;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+import java.math.BigDecimal;
 import java.util.Iterator;
 
 import org.eclipse.swt.graphics.Point;
@@ -59,6 +60,7 @@ import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
+import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.NumericText;
 
 
@@ -352,7 +354,7 @@ public class InvUICardUpdateDialog extends Dialog{
     while(it.hasNext()){   
     
      cardUnit = (TurqInventoryCardUnit)it.next();
-     if(cardUnit.getCardUnitsFactor()==1){
+     if(cardUnit.getCardUnitsFactor().compareTo(new BigDecimal(1))==0){
          
      compInvUICard.getComboInvCardUnits().setText( cardUnit.getTurqInventoryUnit().getUnitsName());
      
@@ -366,7 +368,7 @@ public class InvUICardUpdateDialog extends Dialog{
 					TableEditor editor = new TableEditor(
 							tableRegisteredUnits);
 					editor.grabHorizontal = true;
-					NumericText nText = new NumericText(
+					CurrencyText nText = new CurrencyText(
 							tableRegisteredUnits, SWT.NONE);
 					nText.setText(cardUnit.getCardUnitsFactor());
 					editor.setEditor(nText, registeredItem, 1);

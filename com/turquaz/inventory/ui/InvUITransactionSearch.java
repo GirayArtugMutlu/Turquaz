@@ -357,9 +357,8 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 				BigDecimal priceIn = new BigDecimal(0);
 				BigDecimal priceOut = new BigDecimal(0);
 				
-				if(transactions.getTransactionsAmountIn()==0){
-					priceOut = transactions.getTransactionsTotalPrice();
-					
+				if(transactions.getTransactionsAmountIn().doubleValue()==0){
+					priceOut = transactions.getTransactionsTotalPrice();					
 					
 				}
 				else

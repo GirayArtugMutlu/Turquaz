@@ -76,7 +76,7 @@ public class InvBLCardAdd {
 
 	}
 
-	public void registerUnits(Integer cardId, Object unitObj, int factor)
+	public void registerUnits(Integer cardId, Object unitObj, BigDecimal factor)
 			throws Exception {
 
 		TurqInventoryCardUnit cardUnit = new TurqInventoryCardUnit();

@@ -901,10 +901,10 @@ implements SecureComposite{
 	   CellEditor[] editors = new CellEditor[columnNames.length];
        editors[0] = new InventoryCellEditor(tableConsignmentRows); //Stok Kodu
        editors[1] = new TextCellEditor(tableConsignmentRows);      //Stok Adi
-       editors[2] = new NumericCellEditor(tableConsignmentRows);   // mikatri     
+       editors[2] = new CurrencyCellEditor(tableConsignmentRows,2);   // mikatri     
        editors[3] = new ComboBoxCellEditor(tableConsignmentRows,new String[]{},SWT.READ_ONLY);
      
-       editors[4] = new NumericCellEditor(tableConsignmentRows);
+       editors[4] = new CurrencyCellEditor(tableConsignmentRows,2);
        editors[5] = new TextCellEditor(tableConsignmentRows);
        editors[6] = new CurrencyCellEditor(tableConsignmentRows,2);
        editors[7] = new CurrencyCellEditor(tableConsignmentRows,4);
@@ -1183,12 +1183,12 @@ implements SecureComposite{
 			   	if(type == 0){
 			   		
 			   		invTrans.setTransactionsAmountIn(invTrans.getTransactionsTotalAmountOut());
-			   		invTrans.setTransactionsTotalAmountOut(0);		   		
+			   		invTrans.setTransactionsTotalAmountOut(new BigDecimal(0));		   		
 			   		
 			   	}
 			   	else{
      		   		invTrans.setTransactionsTotalAmountOut(invTrans.getTransactionsAmountIn());
-			   		invTrans.setTransactionsAmountIn(0);
+			   		invTrans.setTransactionsAmountIn(new BigDecimal(0));
 			   		
 			   		
 			   		

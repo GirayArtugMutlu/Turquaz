@@ -26,10 +26,10 @@
 
     <property
         name="transactionsAmountIn"
-        type="long"
+        type="java.math.BigDecimal"
         column="transactions_amount_in"
         not-null="true"
-        length="8"
+        length="65535"
     />
     <property
         name="transactionsUnitPrice"
@@ -103,10 +103,10 @@
     />
     <property
         name="transactionsTotalAmountOut"
-        type="long"
+        type="java.math.BigDecimal"
         column="transactions_total_amount_out"
         not-null="true"
-        length="8"
+        length="65535"
     />
     <property
         name="createdBy"

@@ -12,7 +12,7 @@ public class TurqInventoryCardUnit implements Serializable {
     private java.lang.Integer inventoryCardUnitsId;
 
     /** persistent field */
-    private int cardUnitsFactor;
+    private java.math.BigDecimal cardUnitsFactor;
 
     /** persistent field */
     private java.lang.String createdBy;
@@ -33,7 +33,7 @@ public class TurqInventoryCardUnit implements Serializable {
     private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
 
     /** full constructor */
-    public TurqInventoryCardUnit(int cardUnitsFactor, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
+    public TurqInventoryCardUnit(java.math.BigDecimal cardUnitsFactor, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
         this.cardUnitsFactor = cardUnitsFactor;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
@@ -55,11 +55,11 @@ public class TurqInventoryCardUnit implements Serializable {
         this.inventoryCardUnitsId = inventoryCardUnitsId;
     }
 
-    public int getCardUnitsFactor() {
+    public java.math.BigDecimal getCardUnitsFactor() {
         return this.cardUnitsFactor;
     }
 
-    public void setCardUnitsFactor(int cardUnitsFactor) {
+    public void setCardUnitsFactor(java.math.BigDecimal cardUnitsFactor) {
         this.cardUnitsFactor = cardUnitsFactor;
     }
 
