@@ -65,6 +65,14 @@ public class EngBLCommon {
     public final static boolean CURRENT_TRANS_DEBIT = false; // cari borc hareketi
     
     
+    public final static int BANK_TRANS_INITIAL = 0; //Acilis
+    
+    public final static int BANK_TRANS_RECIEVE_MONEY = 1; // Gelen Havale
+    
+    public final static int BANK_TRANS_SEND_MONEY =2;    // Giden havale
+    
+    
+    
     public final static int MODULE_INVENTORY = 0;  //Stok Modulu
     
     public final static int MODULE_ACCOUNTING = 1; // muhasebe module
@@ -80,6 +88,8 @@ public class EngBLCommon {
     public final static int MODULE_BILL = 7; //fatura modulu
     
     public final static int MODULE_CASH = 8; //kasa modulu
+    
+    public final static int MODULE_CHEQUE = 9; //cek modulu
     
     
     

@@ -35,11 +35,8 @@ public class TurqBanksTransaction implements Serializable {
     /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType;
-
     /** full constructor */
-    public TurqBanksTransaction(java.math.BigDecimal deptAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.math.BigDecimal creditAmount, com.turquaz.engine.dal.TurqBanksTransactionBill turqBanksTransactionBill, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType) {
+    public TurqBanksTransaction(java.math.BigDecimal deptAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.math.BigDecimal creditAmount, com.turquaz.engine.dal.TurqBanksTransactionBill turqBanksTransactionBill, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
         this.deptAmount = deptAmount;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
@@ -48,7 +45,6 @@ public class TurqBanksTransaction implements Serializable {
         this.creditAmount = creditAmount;
         this.turqBanksTransactionBill = turqBanksTransactionBill;
         this.turqAccountingAccount = turqAccountingAccount;
-        this.turqBanksTransactionType = turqBanksTransactionType;
     }
 
     /** default constructor */
@@ -125,14 +121,6 @@ public class TurqBanksTransaction implements Serializable {
 
     public void setTurqAccountingAccount(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
         this.turqAccountingAccount = turqAccountingAccount;
-    }
-
-    public com.turquaz.engine.dal.TurqBanksTransactionType getTurqBanksTransactionType() {
-        return this.turqBanksTransactionType;
-    }
-
-    public void setTurqBanksTransactionType(com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType) {
-        this.turqBanksTransactionType = turqBanksTransactionType;
     }
 
     public String toString() {

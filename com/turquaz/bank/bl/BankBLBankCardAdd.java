@@ -56,7 +56,7 @@ public class BankBLBankCardAdd {
 			bankCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			bankCard.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			bankCardDALAdd.saveObject(bankCard);	
+			BankDALBankCardAdd.saveObject(bankCard);	
 			
 		}
 		catch(Exception ex)

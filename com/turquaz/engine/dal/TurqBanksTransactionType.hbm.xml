@@ -62,18 +62,18 @@
 
     <!-- Associations -->
   
-    <!-- bi-directional one-to-many association to TurqBanksTransaction -->
+    <!-- bi-directional one-to-many association to TurqBanksTransactionBill -->
     <set
-        name="turqBanksTransactions"
+        name="turqBanksTransactionBills"
         lazy="true"
         inverse="true"
 		cascade="none"
     >
         <key>
-            <column name="transaction_types_id" />
+            <column name="banks_transaction_types_id" />
         </key>
         <one-to-many 
-            class="com.turquaz.engine.dal.TurqBanksTransaction"
+            class="com.turquaz.engine.dal.TurqBanksTransactionBill"
         />
     </set>
 

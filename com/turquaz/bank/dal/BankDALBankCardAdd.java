@@ -31,7 +31,7 @@ public class BankDALBankCardAdd {
 	public BankDALBankCardAdd() {
 	}
 
-	public void saveObject(Object obj) throws Exception {
+	public static void saveObject(Object obj) throws Exception {
 		try {
 
 			Session session = EngDALSessionFactory.openSession();

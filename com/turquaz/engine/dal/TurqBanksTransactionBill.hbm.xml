@@ -25,13 +25,6 @@
     </id>
 
     <property
-        name="transactionBillNo"
-        type="int"
-        column="transaction_bill_no"
-        not-null="true"
-        length="4"
-    />
-    <property
         name="transactionBillDate"
         type="java.sql.Date"
         column="transaction_bill_date"
@@ -73,6 +66,13 @@
         not-null="true"
         length="250"
     />
+    <property
+        name="transactionBillNo"
+        type="java.lang.String"
+        column="transaction_bill_no"
+        not-null="true"
+        length="100"
+    />
 
     <!-- Associations -->
   
@@ -105,6 +105,14 @@
         not-null="true"
     >
         <column name="engine_sequences_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqBanksTransactionType -->
+    <many-to-one
+        name="turqBanksTransactionType"
+        class="com.turquaz.engine.dal.TurqBanksTransactionType"
+        not-null="true"
+    >
+        <column name="banks_transaction_types_id" />
     </many-to-one>
 
 </class>

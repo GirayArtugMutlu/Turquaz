@@ -54,7 +54,7 @@ public class TurqCurrentCard implements Serializable {
     /** persistent field */
     private java.util.Date lastModified;
 
-    /** persistent field */
+    /** nullable persistent field */
     private int daysToValue;
 
     /** persistent field */
@@ -110,6 +110,32 @@ public class TurqCurrentCard implements Serializable {
 
     /** default constructor */
     public TurqCurrentCard() {
+    }
+
+    /** minimal constructor */
+    public TurqCurrentCard(java.lang.String cardsCurrentCode, java.lang.String cardsName, java.lang.String cardsDefinition, java.lang.String cardsAddress, java.math.BigDecimal cardsDiscountRate, java.math.BigDecimal cardsDiscountPayment, java.math.BigDecimal cardsCreditLimit, java.math.BigDecimal cardsRiskLimit, java.lang.String cardsTaxDepartment, java.lang.String cardsTaxNumber, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqCurrentContacts, Set turqOrders, Set turqCurrentTransactions, Set turqBillConsignmentCommons, Set turqTradebillRolls, Set turqCurrentCardsGroups, Set turqCurrentCardsPhones) {
+        this.cardsCurrentCode = cardsCurrentCode;
+        this.cardsName = cardsName;
+        this.cardsDefinition = cardsDefinition;
+        this.cardsAddress = cardsAddress;
+        this.cardsDiscountRate = cardsDiscountRate;
+        this.cardsDiscountPayment = cardsDiscountPayment;
+        this.cardsCreditLimit = cardsCreditLimit;
+        this.cardsRiskLimit = cardsRiskLimit;
+        this.cardsTaxDepartment = cardsTaxDepartment;
+        this.cardsTaxNumber = cardsTaxNumber;
+        this.createdBy = createdBy;
+        this.creationDate = creationDate;
+        this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
+        this.turqAccountingAccount = turqAccountingAccount;
+        this.turqCurrentContacts = turqCurrentContacts;
+        this.turqOrders = turqOrders;
+        this.turqCurrentTransactions = turqCurrentTransactions;
+        this.turqBillConsignmentCommons = turqBillConsignmentCommons;
+        this.turqTradebillRolls = turqTradebillRolls;
+        this.turqCurrentCardsGroups = turqCurrentCardsGroups;
+        this.turqCurrentCardsPhones = turqCurrentCardsPhones;
     }
 
     public java.lang.Integer getCurrentCardsId() {

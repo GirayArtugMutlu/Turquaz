@@ -13,9 +13,6 @@ public class TurqBanksTransactionBill implements Serializable {
     private java.lang.Integer banksTransactionBillsId;
 
     /** persistent field */
-    private int transactionBillNo;
-
-    /** persistent field */
     private java.util.Date transactionBillDate;
 
     /** persistent field */
@@ -34,25 +31,32 @@ public class TurqBanksTransactionBill implements Serializable {
     private java.lang.String transactionBillDefinition;
 
     /** persistent field */
+    private java.lang.String transactionBillNo;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqBanksCard turqBanksCard;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
 
     /** persistent field */
+    private com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType;
+
+    /** persistent field */
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqBanksTransactionBill(int transactionBillNo, java.util.Date transactionBillDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String transactionBillDefinition, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqBanksTransactions) {
-        this.transactionBillNo = transactionBillNo;
+    public TurqBanksTransactionBill(java.util.Date transactionBillDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String transactionBillDefinition, java.lang.String transactionBillNo, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType, Set turqBanksTransactions) {
         this.transactionBillDate = transactionBillDate;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
         this.transactionBillDefinition = transactionBillDefinition;
+        this.transactionBillNo = transactionBillNo;
         this.turqBanksCard = turqBanksCard;
         this.turqEngineSequence = turqEngineSequence;
+        this.turqBanksTransactionType = turqBanksTransactionType;
         this.turqBanksTransactions = turqBanksTransactions;
     }
 
@@ -66,14 +70,6 @@ public class TurqBanksTransactionBill implements Serializable {
 
     public void setBanksTransactionBillsId(java.lang.Integer banksTransactionBillsId) {
         this.banksTransactionBillsId = banksTransactionBillsId;
-    }
-
-    public int getTransactionBillNo() {
-        return this.transactionBillNo;
-    }
-
-    public void setTransactionBillNo(int transactionBillNo) {
-        this.transactionBillNo = transactionBillNo;
     }
 
     public java.util.Date getTransactionBillDate() {
@@ -124,6 +120,14 @@ public class TurqBanksTransactionBill implements Serializable {
         this.transactionBillDefinition = transactionBillDefinition;
     }
 
+    public java.lang.String getTransactionBillNo() {
+        return this.transactionBillNo;
+    }
+
+    public void setTransactionBillNo(java.lang.String transactionBillNo) {
+        this.transactionBillNo = transactionBillNo;
+    }
+
     public com.turquaz.engine.dal.TurqBanksCard getTurqBanksCard() {
         return this.turqBanksCard;
     }
@@ -138,6 +142,14 @@ public class TurqBanksTransactionBill implements Serializable {
 
     public void setTurqEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence) {
         this.turqEngineSequence = turqEngineSequence;
+    }
+
+    public com.turquaz.engine.dal.TurqBanksTransactionType getTurqBanksTransactionType() {
+        return this.turqBanksTransactionType;
+    }
+
+    public void setTurqBanksTransactionType(com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType) {
+        this.turqBanksTransactionType = turqBanksTransactionType;
     }
 
     public java.util.Set getTurqBanksTransactions() {

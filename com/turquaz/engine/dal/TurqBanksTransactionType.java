@@ -28,16 +28,16 @@ public class TurqBanksTransactionType implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
-    private Set turqBanksTransactions;
+    private Set turqBanksTransactionBills;
 
     /** full constructor */
-    public TurqBanksTransactionType(java.lang.String transactionTypeName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqBanksTransactions) {
+    public TurqBanksTransactionType(java.lang.String transactionTypeName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqBanksTransactionBills) {
         this.transactionTypeName = transactionTypeName;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.turqBanksTransactions = turqBanksTransactions;
+        this.turqBanksTransactionBills = turqBanksTransactionBills;
     }
 
     /** default constructor */
@@ -92,12 +92,12 @@ public class TurqBanksTransactionType implements Serializable {
         this.lastModified = lastModified;
     }
 
-    public java.util.Set getTurqBanksTransactions() {
-        return this.turqBanksTransactions;
+    public java.util.Set getTurqBanksTransactionBills() {
+        return this.turqBanksTransactionBills;
     }
 
-    public void setTurqBanksTransactions(java.util.Set turqBanksTransactions) {
-        this.turqBanksTransactions = turqBanksTransactions;
+    public void setTurqBanksTransactionBills(java.util.Set turqBanksTransactionBills) {
+        this.turqBanksTransactionBills = turqBanksTransactionBills;
     }
 
     public String toString() {

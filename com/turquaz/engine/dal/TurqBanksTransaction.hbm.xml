@@ -85,14 +85,6 @@
     >
         <column name="accounting_accounts_id" />
     </many-to-one>
-    <!-- bi-directional many-to-one association to TurqBanksTransactionType -->
-    <many-to-one
-        name="turqBanksTransactionType"
-        class="com.turquaz.engine.dal.TurqBanksTransactionType"
-        not-null="true"
-    >
-        <column name="transaction_types_id" />
-    </many-to-one>
 
 </class>
 </hibernate-mapping>

@@ -127,7 +127,6 @@
         name="daysToValue"
         type="int"
         column="days_to_value"
-        not-null="true"
         length="4"
     />
 
