@@ -404,7 +404,7 @@ public class BillUIAddBill extends Composite
 	private final String DISCOUNT_PERCENT           = Messages.getString("BillUIAddBill.16"); //$NON-NLS-1$
 	private final String VAT_PERCENT				= Messages.getString("BillUIAddBill.20"); //$NON-NLS-1$
 	private final String VAT_TOTAL					= Messages.getString("BillUIAddBill.21"); //$NON-NLS-1$
-	private final String SPECIAL_VAT_PERCENT		= Messages.getString("BillUIAddBill.22"); //$NON-NLS-1$
+	private final String SPECIAL_VAT_PERCENT		= "ÖTV";
 	private final String SPECIAL_VAT_TOTAL			= Messages.getString("BillUIAddBill.23"); //$NON-NLS-1$
 	private final String ROW_TOTAL 					= Messages.getString("BillUIAddBill.24");	 //$NON-NLS-1$
 	   int last_row_index=0;

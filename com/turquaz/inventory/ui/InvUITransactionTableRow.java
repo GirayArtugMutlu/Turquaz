@@ -339,6 +339,11 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 11 : // Special VAT percent 
+			    
+			    if(invTrans.getTurqInventoryCard()==null){
+			        result="0";
+			        break;
+			    }
 				if (invTrans.getTurqInventoryCard().isSpecVatForEach())
 					result=invTrans.getTransactionsVatSpecialEach().toString();
 				else
@@ -461,7 +466,8 @@ public class InvUITransactionTableRow implements ITableRow {
 			    		invTrans.setTransactionsVatSpecialEach(new BigDecimal(formatted));
 			    	else
 			    		invTrans.setTransactionsVatSpecial(new BigDecimal(formatted));
-			    }			    
+			    }	
+			    calculateFields();
 				break;
 				
 			case 12 : // Specail VAT Total 
@@ -490,6 +496,7 @@ public class InvUITransactionTableRow implements ITableRow {
         if(invTrans.getTurqInventoryCard()!=null)
         {
         	
+            
         	transAmountinBaseUnit = transAmount*cardUnits[unit_index.intValue()].getCardUnitsFactor();
         
         	invTrans.setTransactionsTotalPrice(invTrans.getTransactionsUnitPrice().multiply(new BigDecimal(transAmountinBaseUnit)));
@@ -511,13 +518,14 @@ public class InvUITransactionTableRow implements ITableRow {
         	
         	if (invTrans.getTurqInventoryCard().isSpecVatForEach())
         	{
-        		BigDecimal vatSpecialAmount=invTrans.getTurqInventoryCard().getCardSpecialVatEach().multiply(BigDecimal.valueOf(transAmountinBaseUnit));
+        		BigDecimal vatSpecialAmount=invTrans.getTransactionsVatSpecialEach().multiply(BigDecimal.valueOf(transAmountinBaseUnit));
         		invTrans.setTransactionsVatSpecialAmount(vatSpecialAmount);
         	}
         	else
         	{
         		invTrans.setTransactionsVatSpecialAmount(totalPriceAfterDiscount.multiply(invTrans.getTransactionsVatSpecial()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
         	}
+        	
         	BigDecimal totalPriceAfterDiscountAddedSpecVAT = totalPriceAfterDiscount.add(invTrans.getTransactionsVatSpecialAmount());
         
         	invTrans.setTransactionsVatAmount(totalPriceAfterDiscountAddedSpecVAT.multiply(new BigDecimal(invTrans.getTransactionsVat())).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));

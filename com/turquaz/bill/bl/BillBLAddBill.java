@@ -158,7 +158,7 @@ public class BillBLAddBill {
 			transRow.setCreditAmount(new BigDecimal(0));
 			
 			//mal bedeli
-			transRow.setDeptAmount(invTrans.getTransactionsTotalPrice().add(invTrans.getTransactionsVatSpecialAmount()));
+			transRow.setDeptAmount(invTrans.getTransactionsTotalPrice());
 			
 			
 			

@@ -394,11 +394,11 @@ public class BillUIAddBuyBill extends Composite
 	private final String INVENTORY_NAME   	        = Messages.getString("BillUIAddBuyBill.1"); //$NON-NLS-1$
 	private final String TRANS_AMOUNT               = Messages.getString("BillUIAddBuyBill.2"); //$NON-NLS-1$
 	private final String UNIT						= Messages.getString("BillUIAddBuyBill.3"); //$NON-NLS-1$
-	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= "T. Brm Mik."; //$NON-NLS-1$
+	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= Messages.getString("BillUIAddBuyBill.16");  //$NON-NLS-1$
 	private final String BASE_UNIT 		            = Messages.getString("BillUIAddBuyBill.5"); //$NON-NLS-1$
 	private final String UNIT_PRICE					= Messages.getString("BillUIAddBuyBill.6"); //$NON-NLS-1$
 	private final String TOTAL_PRICE				= Messages.getString("BillUIAddBuyBill.7"); //$NON-NLS-1$
-	private final String DISCOUNT_PERCENT           = "?nd. %"; //$NON-NLS-1$
+	private final String DISCOUNT_PERCENT           = Messages.getString("BillUIAddBuyBill.17");  //$NON-NLS-1$
 	private final String VAT_PERCENT				= Messages.getString("BillUIAddBuyBill.8"); //$NON-NLS-1$
 	private final String VAT_TOTAL					= Messages.getString("BillUIAddBuyBill.9"); //$NON-NLS-1$
 	private final String SPECIAL_VAT_PERCENT		= Messages.getString("BillUIAddBuyBill.10"); //$NON-NLS-1$
