@@ -1,9 +1,22 @@
 package com.turquaz.consignment.ui;
 
 
+import java.util.Iterator;
+
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.consignment.bl.ConBLSearchConsignment;
+import com.turquaz.consignment.bl.ConBLUpdateConsignment;
+import com.turquaz.engine.dal.TurqConsignment;
+
+import com.turquaz.engine.dal.TurqConsignmentsInGroup;
+import com.turquaz.engine.dal.TurqInventoryTransaction;
+
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.CoolItem;
@@ -36,24 +49,13 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
 	private CoolBar coolBar1;
+	TurqConsignment consignment;
+	ConBLUpdateConsignment blCons = new ConBLUpdateConsignment();
 
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Dialog inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		try {
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			ConUIConsignmentUpdateDialog inst = new ConUIConsignmentUpdateDialog(shell, SWT.NULL);
-			inst.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
-	public ConUIConsignmentUpdateDialog(Shell parent, int style) {
+	public ConUIConsignmentUpdateDialog(Shell parent, int style, TurqConsignment cons) {
 		super(parent, style);
+		consignment = cons;
 	}
 
 	public void open() {
@@ -67,12 +69,9 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 					SWTResourceManager.registerResourceUser(dialogShell);
 				}
 
-
-			dialogShell.setLayout(new GridLayout());
-			dialogShell.layout();
-			dialogShell.pack();
-			dialogShell.setSize(778, 569);
-			{
+				dialogShell.setSize(663, 593);
+			 dialogShell.setLayout(new GridLayout());
+			 {
 				coolBar1 = new CoolBar(dialogShell, SWT.NONE);
 				GridData coolBar1LData = new GridData();
 				coolBar1LData.grabExcessHorizontalSpace = true;
@@ -80,14 +79,9 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				coolBar1.setLayoutData(coolBar1LData);
 				{
 					coolItem1 = new CoolItem(coolBar1, SWT.NONE);
-					coolItem1
-						.setPreferredSize(new org.eclipse.swt.graphics.Point(
-							24,
-							24));
-					coolItem1
-						.setMinimumSize(new org.eclipse.swt.graphics.Point(
-							24,
-							24));
+					coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 44));
+					coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 44));
+					coolItem1.setSize(45, 44);
 					{
 						toolBar1 = new ToolBar(coolBar1, SWT.NONE);
 						coolItem1.setControl(toolBar1);
@@ -100,19 +94,33 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 							toolDelete = new ToolItem(toolBar1, SWT.NONE);
 							toolDelete.setText("Delete");
 							toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
+							toolDelete
+								.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									delete();
+								}
+								});
 						}
 					}
 				}
 			}
+			
 			{
 				compAddConsignment = new ConUIAddConsignment(dialogShell, SWT.NONE);
 				GridData compAddConsignmentLData = new GridData();
 				compAddConsignmentLData.grabExcessHorizontalSpace = true;
-				compAddConsignmentLData.grabExcessVerticalSpace = true;
 				compAddConsignmentLData.horizontalAlignment = GridData.FILL;
 				compAddConsignmentLData.verticalAlignment = GridData.FILL;
+				compAddConsignmentLData.grabExcessVerticalSpace = true;
 				compAddConsignment.setLayoutData(compAddConsignmentLData);
+				compAddConsignment.getTableConsignmentRows().setBounds(60, 177, 557, 106);
+				compAddConsignment.getTxtBillDocumentNo().setBounds(372, 79, 137, 14);
 			}
+			
+			postInitGui();
+			
+			dialogShell.layout();
+			dialogShell.pack();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {
@@ -123,5 +131,109 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			e.printStackTrace();
 		}
 	}
+	public void postInitGui(){
+		compAddConsignment.getTxtCurrentCard().setData(consignment.getTurqCurrentCard());
+		compAddConsignment.getTxtCurrentCard().setText(consignment.getTurqCurrentCard().getCardsCurrentCode()+" - " +
+														consignment.getTurqCurrentCard().getCardsName());
+		compAddConsignment.getTxtDocumentNo().setText(consignment.getConsignmentsDocumentNo());
+		compAddConsignment.getTxtBillDocumentNo().setText(consignment.getConsignmentsBillDocumentNo());
+		compAddConsignment.getDateConsignmentDate().setDate(consignment.getConsignmentsDate());
+		if(consignment.getConsignmentsType()==0){
+		compAddConsignment.getComboConsignmentType().setText("Buy");
+		}
+		else{
+	    compAddConsignment.getComboConsignmentType().setText("Sell");
+		}
+	
+		compAddConsignment.getTxtDefinition().setText(consignment.getConsignmentsDefinition());
+		compAddConsignment.getTxtDiscountRate().setText(consignment.getCondignmentsDiscountRate());
+		fillInvTransactionColumns();
+		fillRegisteredGroup();
+	}
+	public void fillRegisteredGroup(){
+	
+		TurqConsignmentsInGroup group;
+		Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
+		while(it.hasNext()){
+			group = (TurqConsignmentsInGroup)it.next();
+			compAddConsignment.getCompRegisterGroup().RegisterGroup(group.getTurqConsignmentGroup());
+			
+			
+		}
+		
+	
+	}
+	
+	
+	
+	public void fillInvTransactionColumns(){
+		TableItem item;
+		TurqInventoryTransaction invTrans;
+		Iterator it = consignment.getTurqInventoryTransactions().iterator();
+		while(it.hasNext()){
+			invTrans = (TurqInventoryTransaction)it.next();
+			
+			item = new TableItem(compAddConsignment.getTableConsignmentRows(),SWT.NULL);
+			
+			item.setData(invTrans);
+			item.setText(new String[]{invTrans.getTurqInventoryCard().getCardInventoryCode(),
+									   invTrans.getTurqInventoryCard().getCardName(),
+									   invTrans.getTransactionsAmountIn()+"",
+									   invTrans.getTurqInventoryUnit().getUnitsName(),
+									   invTrans.getTransactionsUnitPrice().toString(),
+									   invTrans.getTransactionsTotalPrice().toString(),
+									   invTrans.getTransactionsVat()+"",
+									   invTrans.getTransactionsVatAmount().toString(),
+									   invTrans.getTransactionsVatSpecialAmount().toString(),
+									   invTrans.getTransactionsCumilativePrice().toString()});
+			
+		}
+		compAddConsignment.calculateTotals();
+		
+	}
+	public void delete(){
+		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+		MessageBox msg2 = new MessageBox(this.getParent(),SWT.CANCEL|SWT.OK);
+		msg2.setMessage("Really Delete?");
+		try{
+			if(msg2.open()==SWT.OK){
+				
+				//delete Consignment Group
+				Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
+				while(it.hasNext()){
+					blCons.deleteObject(it.next());
+										
+				}
+				
+//				delete Inventory Transaction
+				it = consignment.getTurqInventoryTransactions().iterator();
+				while(it.hasNext()){
+					blCons.deleteObject(it.next());
+										
+				}
+				
+				blCons.deleteObject(consignment);
+				
+				msg.setMessage("Deleted Succesfully!");
+				msg.open();
+				
+				dialogShell.close();			
+				
+				//delete consignment 
+				
+			}
+			
+			
+			
+		}
+		catch(Exception ex){
+			
+		}
+		
+	}
+	public void update(){
+		
+	}
+	
 	
 }

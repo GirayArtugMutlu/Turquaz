@@ -602,7 +602,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			{
 				toolExportToExcel = new ToolItem(toolbarMainTop, SWT.NONE);
 				toolExportToExcel.setText("Export");
-				toolExportToExcel.setImage(SWTResourceManager.getImage("icons/ExportX24.gif"));
+				toolExportToExcel.setImage(SWTResourceManager.getImage("icons/excel.jpeg"));
 				toolExportToExcel.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent evt) {
 						exportToExcel();

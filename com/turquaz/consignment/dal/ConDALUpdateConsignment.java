@@ -1,10 +1,12 @@
 
 package com.turquaz.consignment.dal;
 
+import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqConsignment;
 
 /**
  * @author onsel
@@ -31,11 +33,13 @@ public class ConDALUpdateConsignment {
 			throw ex;
 		}
 	}
-	public void updateObject(Object obj)throws Exception{
+	public void updateConsignment(TurqConsignment obj)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
 			session.update(obj);
+			Hibernate.initialize(obj.getTurqConsignmentsInGroups());
+			Hibernate.initialize(obj.getTurqInventoryTransactions());
 			session.flush();
 			tx.commit();
 			session.close();

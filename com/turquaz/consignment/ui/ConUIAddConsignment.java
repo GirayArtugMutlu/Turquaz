@@ -61,6 +61,174 @@ import org.eclipse.swt.SWT;
 public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite
 implements SecureComposite{
 
+	/**
+	 * @return Returns the comboConsignmentType.
+	 */
+	public CCombo getComboConsignmentType() {
+		return comboConsignmentType;
+	}
+	/**
+	 * @param comboConsignmentType The comboConsignmentType to set.
+	 */
+	public void setComboConsignmentType(CCombo comboConsignmentType) {
+		this.comboConsignmentType = comboConsignmentType;
+	}
+	/**
+	 * @return Returns the compRegisterGroup.
+	 */
+	public RegisterGroupComposite getCompRegisterGroup() {
+		return compRegisterGroup;
+	}
+	/**
+	 * @param compRegisterGroup The compRegisterGroup to set.
+	 */
+	public void setCompRegisterGroup(RegisterGroupComposite compRegisterGroup) {
+		this.compRegisterGroup = compRegisterGroup;
+	}
+	/**
+	 * @return Returns the dateConsignmentDate.
+	 */
+	public DatePicker getDateConsignmentDate() {
+		return dateConsignmentDate;
+	}
+	/**
+	 * @param dateConsignmentDate The dateConsignmentDate to set.
+	 */
+	public void setDateConsignmentDate(DatePicker dateConsignmentDate) {
+		this.dateConsignmentDate = dateConsignmentDate;
+	}
+	/**
+	 * @return Returns the decSpecialVat.
+	 */
+	public DecimalText getDecSpecialVat() {
+		return decSpecialVat;
+	}
+	/**
+	 * @param decSpecialVat The decSpecialVat to set.
+	 */
+	public void setDecSpecialVat(DecimalText decSpecialVat) {
+		this.decSpecialVat = decSpecialVat;
+	}
+	/**
+	 * @return Returns the tableConsignmentRows.
+	 */
+	public Table getTableConsignmentRows() {
+		return tableConsignmentRows;
+	}
+	/**
+	 * @param tableConsignmentRows The tableConsignmentRows to set.
+	 */
+	public void setTableConsignmentRows(Table tableConsignmentRows) {
+		this.tableConsignmentRows = tableConsignmentRows;
+	}
+	/**
+	 * @return Returns the txtBillDocumentNo.
+	 */
+	public Text getTxtBillDocumentNo() {
+		return txtBillDocumentNo;
+	}
+	/**
+	 * @param txtBillDocumentNo The txtBillDocumentNo to set.
+	 */
+	public void setTxtBillDocumentNo(Text txtBillDocumentNo) {
+		this.txtBillDocumentNo = txtBillDocumentNo;
+	}
+	/**
+	 * @return Returns the txtCurrentCard.
+	 */
+	public Text getTxtCurrentCard() {
+		return txtCurrentCard;
+	}
+	/**
+	 * @param txtCurrentCard The txtCurrentCard to set.
+	 */
+	public void setTxtCurrentCard(Text txtCurrentCard) {
+		this.txtCurrentCard = txtCurrentCard;
+	}
+	/**
+	 * @return Returns the txtDefinition.
+	 */
+	public Text getTxtDefinition() {
+		return txtDefinition;
+	}
+	/**
+	 * @param txtDefinition The txtDefinition to set.
+	 */
+	public void setTxtDefinition(Text txtDefinition) {
+		this.txtDefinition = txtDefinition;
+	}
+	/**
+	 * @return Returns the txtDiscountAmount.
+	 */
+	public DecimalText getTxtDiscountAmount() {
+		return txtDiscountAmount;
+	}
+	/**
+	 * @param txtDiscountAmount The txtDiscountAmount to set.
+	 */
+	public void setTxtDiscountAmount(DecimalText txtDiscountAmount) {
+		this.txtDiscountAmount = txtDiscountAmount;
+	}
+	/**
+	 * @return Returns the txtDiscountRate.
+	 */
+	public NumericText getTxtDiscountRate() {
+		return txtDiscountRate;
+	}
+	/**
+	 * @param txtDiscountRate The txtDiscountRate to set.
+	 */
+	public void setTxtDiscountRate(NumericText txtDiscountRate) {
+		this.txtDiscountRate = txtDiscountRate;
+	}
+	/**
+	 * @return Returns the txtDocumentNo.
+	 */
+	public Text getTxtDocumentNo() {
+		return txtDocumentNo;
+	}
+	/**
+	 * @param txtDocumentNo The txtDocumentNo to set.
+	 */
+	public void setTxtDocumentNo(Text txtDocumentNo) {
+		this.txtDocumentNo = txtDocumentNo;
+	}
+	/**
+	 * @return Returns the txtSubTotal.
+	 */
+	public DecimalText getTxtSubTotal() {
+		return txtSubTotal;
+	}
+	/**
+	 * @param txtSubTotal The txtSubTotal to set.
+	 */
+	public void setTxtSubTotal(DecimalText txtSubTotal) {
+		this.txtSubTotal = txtSubTotal;
+	}
+	/**
+	 * @return Returns the txtTotalAmount.
+	 */
+	public DecimalText getTxtTotalAmount() {
+		return txtTotalAmount;
+	}
+	/**
+	 * @param txtTotalAmount The txtTotalAmount to set.
+	 */
+	public void setTxtTotalAmount(DecimalText txtTotalAmount) {
+		this.txtTotalAmount = txtTotalAmount;
+	}
+	/**
+	 * @return Returns the txtTotalVat.
+	 */
+	public DecimalText getTxtTotalVat() {
+		return txtTotalVat;
+	}
+	/**
+	 * @param txtTotalVat The txtTotalVat to set.
+	 */
+	public void setTxtTotalVat(DecimalText txtTotalVat) {
+		this.txtTotalVat = txtTotalVat;
+	}
 	{
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
@@ -129,7 +297,7 @@ implements SecureComposite{
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(690, 587);
+			this.setSize(645, 526);
 			{
 				cTabFolder1 = new CTabFolder(this, SWT.NONE);
 				cTabFolder1.setSize(56, 25);

@@ -42,7 +42,7 @@ public class ConBLUpdateConsignment {
 		consignment.setTurqCurrentCard(curCard);		
 		consignment.setUpdatedBy(System.getProperty("user"));
 		consignment.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-		dalCons.updateObject(consignment);
+		dalCons.updateConsignment(consignment);
 		
 		
 		}

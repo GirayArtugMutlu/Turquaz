@@ -189,6 +189,11 @@ SecureComposite, SearchComposite{
 			{
 				tableConsignments = new Table(this, SWT.FULL_SELECTION);
 				GridData tableConsignmentsLData = new GridData();
+				tableConsignments.addMouseListener(new MouseAdapter() {
+					public void mouseDoubleClick(MouseEvent evt) {
+						tableMouseDoubleClick();
+					}
+				});
 				tableConsignments.setHeaderVisible(true);
 				tableConsignments.setLinesVisible(true);
 				tableConsignmentsLData.grabExcessHorizontalSpace = true;
@@ -313,6 +318,14 @@ SecureComposite, SearchComposite{
 		
 		EngBLUtils.Export2Excel(tableConsignments);
 		
+	}
+	
+	public void tableMouseDoubleClick(){
+		TableItem items[] = tableConsignments.getSelection();
+		if(items.length>0){
+		
+		new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,(TurqConsignment)items[0].getData()).open();
+		}
 	}
 
 }
