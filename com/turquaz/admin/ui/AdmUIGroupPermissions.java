@@ -158,7 +158,7 @@ implements SecureComposite,SearchComposite{
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				composite1LData.verticalAlignment = GridData.BEGINNING;
-				composite1LData.heightHint = 140;
+				composite1LData.heightHint = 104;
 				composite1.setLayoutData(composite1LData);
 				composite1Layout.numColumns = 2;
 				composite1Layout.verticalSpacing = 3;
@@ -177,8 +177,8 @@ implements SecureComposite,SearchComposite{
 					comboGroups.setBackground(SWTResourceManager.getColor(255,
 							255, 255));
 					comboGroups.setEditable(false);
-					comboUsersLData.widthHint = 118;
-					comboUsersLData.heightHint = 16;
+					comboUsersLData.widthHint = 134;
+					comboUsersLData.heightHint = 17;
 					comboGroups.setLayoutData(comboUsersLData);
 				}
 				{
@@ -200,8 +200,8 @@ implements SecureComposite,SearchComposite{
 							moduleSelected(evt);
 						}
 					});
-					comboModulesLData.widthHint = 174;
-					comboModulesLData.heightHint = 16;
+					comboModulesLData.widthHint = 134;
+					comboModulesLData.heightHint = 17;
 					comboModules.setLayoutData(comboModulesLData);
 				}
 				{
@@ -218,8 +218,8 @@ implements SecureComposite,SearchComposite{
 					comboModuleComponents.setBackground(SWTResourceManager
 							.getColor(255, 255, 255));
 					comboModuleComponents.setEditable(false);
-					comboModuleComponentsLData.widthHint = 176;
-					comboModuleComponentsLData.heightHint = 14;
+					comboModuleComponentsLData.widthHint = 134;
+					comboModuleComponentsLData.heightHint = 17;
 					comboModuleComponents
 							.setLayoutData(comboModuleComponentsLData);
 				}
@@ -233,7 +233,7 @@ implements SecureComposite,SearchComposite{
 					comboPermissionLevel.setBackground(SWTResourceManager
 							.getColor(255, 255, 255));
 					comboPermissionLevel.setEditable(false);
-					comboPermissionLevelLData.widthHint = 85;
+					comboPermissionLevelLData.widthHint = 134;
 					comboPermissionLevelLData.heightHint = 17;
 					comboPermissionLevel.setLayoutData(comboPermissionLevelLData);
 				}
@@ -300,18 +300,18 @@ implements SecureComposite,SearchComposite{
 
 			}
 			comboPermissionLevel.add("None"); //$NON-NLS-1$
-			comboPermissionLevel.setData(Messages.getString("AdmUIGroupPermissions.8"), new Integer(0)); //$NON-NLS-1$
+			comboPermissionLevel.setData("None",new Integer(0)); //$NON-NLS-1$
 			
 			comboPermissionLevel.add("Read"); //$NON-NLS-1$
-			comboPermissionLevel.setData(Messages.getString("AdmUIGroupPermissions.9"), new Integer(1)); //$NON-NLS-1$
+			comboPermissionLevel.setData("Read",new Integer(1)); //$NON-NLS-1$
 			
 			comboPermissionLevel.add("Read/Write"); //$NON-NLS-1$
-			comboPermissionLevel.setData(Messages.getString("AdmUIGroupPermissions.10"), new Integer(2)); //$NON-NLS-1$
+			comboPermissionLevel.setData("Read/Write", new Integer(2)); //$NON-NLS-1$
 			
 			comboPermissionLevel.add("Read/Write/Delete"); //$NON-NLS-1$
-			comboPermissionLevel.setData(Messages.getString("AdmUIGroupPermissions.11"), new Integer(3)); //$NON-NLS-1$
+			comboPermissionLevel.setData("Read/Write/Delete", new Integer(3)); //$NON-NLS-1$
 			
-			comboPermissionLevel.setText(Messages.getString("AdmUIGroupPermissions.12")); //$NON-NLS-1$
+			comboPermissionLevel.setText("None"); //$NON-NLS-1$
 
 			fillTableUserPermissions();
 
@@ -418,7 +418,8 @@ implements SecureComposite,SearchComposite{
 			ex.printStackTrace();
 		}
 	}
-	public boolean verifyFields(){
+	public boolean verifyFields()
+	{
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 		
 		
@@ -438,7 +439,7 @@ implements SecureComposite,SearchComposite{
 			return false;
 		}
 		
-		else if(comboPermissionLevel.getText().trim().length()==0){
+		else if(comboPermissionLevel.getData(comboPermissionLevel.getText().trim())==null){
 			msg.setMessage(Messages.getString("AdmUIGroupPermissions.22")); //$NON-NLS-1$
 			msg.open();
 			return false;
@@ -450,10 +451,10 @@ implements SecureComposite,SearchComposite{
 	public void save(){
 		try{
 			if(verifyFields()){
-			blGroupPerms.saveGroupPermission(comboGroups.getData(comboGroups.getText()),
-										comboModules.getData(comboModules.getText()),
-										comboModuleComponents.getData(comboModuleComponents.getText()),
-										((Integer)comboPermissionLevel.getData(comboPermissionLevel.getText())).intValue());	
+			blGroupPerms.saveGroupPermission(comboGroups.getData(comboGroups.getText().trim()),
+										comboModules.getData(comboModules.getText().trim()),
+										comboModuleComponents.getData(comboModuleComponents.getText().trim()),
+										((Integer)comboPermissionLevel.getData(comboPermissionLevel.getText().trim())).intValue());	
 			
 			newForm();
 			fillTableUserPermissions();
