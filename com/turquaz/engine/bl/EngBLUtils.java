@@ -12,6 +12,15 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
+import de.kupzog.ktools.kprint.boxes.PDocument;
+import de.kupzog.ktools.kprint.boxes.PHLine;
+import de.kupzog.ktools.kprint.boxes.PTableBoxProvider;
+import de.kupzog.ktools.kprint.boxes.PTextBox;
+import de.kupzog.ktools.kprint.boxes.PVSpace;
+import de.kupzog.ktools.kprint.boxes.SWTPTable;
+import de.kupzog.ktools.kprint.gui.IconSource;
+import de.kupzog.ktools.kprint.gui.PrintPreview;
+
 
 
 /**
@@ -91,6 +100,31 @@ public class EngBLUtils {
 			}
 		
 		
+	}
+	public static void printTable(Table table, String title){
+//	  create a document with default settings from PageSetup
+		PDocument doc = new PDocument("Turquaz Printing");		
+		
+		// put some header text on it
+		PTextBox t;
+		
+		t = new PTextBox(doc);
+		t.setText(title);
+		
+		new PVSpace(doc, 0.1);
+		new PHLine(doc, 0.02, SWT.COLOR_BLACK);
+		new PVSpace(doc, 0.5);
+		
+		// create the table
+		
+
+		SWTPTable ptable = new SWTPTable(doc);
+		ptable.setTable(table);
+		ptable.setBoxProvider(new PTableBoxProvider());		
+		
+		PrintPreview pr = new PrintPreview(null, "Test", IconSource.getImage("print"), doc);
+		pr.open();
+	    
 	}
 
 }

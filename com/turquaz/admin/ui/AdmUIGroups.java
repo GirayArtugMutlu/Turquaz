@@ -177,5 +177,9 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 		EngBLUtils.Export2Excel(tableGroups);
 		
 	}
+	public void printTable(){
+	    EngBLUtils.printTable(tableGroups,"Kullan?c? Gruplar?");
+	    
+	}
 
 }

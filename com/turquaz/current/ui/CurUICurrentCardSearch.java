@@ -344,4 +344,8 @@ private TableColumn tableColumnContactName;
 		EngBLUtils.Export2Excel(tableCurrentCardSearch);
 		
 	}
+	public void printTable(){
+	    EngBLUtils.printTable(tableCurrentCardSearch,"Cari Kartlar");
+	    
+	}
 }

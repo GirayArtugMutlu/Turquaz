@@ -407,4 +407,8 @@ public class CurUITransactionSearch extends Composite implements SecureComposite
 		EngBLUtils.Export2Excel(tableCurrentTransactions);
 		
 	}
+	public void printTable(){
+	    EngBLUtils.printTable(tableCurrentTransactions,"Cari Hareketler");
+	    
+	}
 }

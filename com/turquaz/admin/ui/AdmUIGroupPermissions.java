@@ -503,6 +503,10 @@ implements SecureComposite,SearchComposite{
 		
 		
 	}
+	public void printTable(){
+	    EngBLUtils.printTable(tableGroupPermissions,"Grup ?zinleri");
+	    
+	}
 	public void search(){
 		
 	}

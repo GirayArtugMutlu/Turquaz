@@ -370,7 +370,10 @@ public class AccUITransactionSearch extends  Composite implements SecureComposit
 	public void newForm(){
 	
 	}
-
+	public void printTable(){
+	    EngBLUtils.printTable(tableTransactions,"Muhasebe Fi?leri");
+	    
+	}
 
 	/** Auto-generated event handler method */
 	protected void tableTransactionsMouseDoubleClick(MouseEvent evt){

@@ -361,5 +361,9 @@ SecureComposite, SearchComposite{
 		   
 		}
 	}
+	public void printTable(){
+	    EngBLUtils.printTable(tableBills,"Faturalar");
+	    
+	}
 
 }

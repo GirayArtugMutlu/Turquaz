@@ -401,5 +401,8 @@ SecureComposite, SearchComposite{
 		    }
 		}
 	}
-
+	public void printTable(){
+	    EngBLUtils.printTable(tableConsignments,"?rsaliyeler");
+	    
+	}
 }

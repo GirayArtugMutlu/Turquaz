@@ -201,5 +201,9 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 		EngBLUtils.Export2Excel(tableUsers);
 		
 	}
+	public void printTable(){
+	    EngBLUtils.printTable(tableUsers,"Kullan?c?lar");
+	    
+	}
 
 }

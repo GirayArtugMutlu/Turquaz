@@ -489,5 +489,9 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 		EngBLUtils.Export2Excel(tableUserPermissions);
 
 	}
+	public void printTable(){
+	    EngBLUtils.printTable(tableUserPermissions,"Kullan?c? ?zinleri");
+	    
+	}
 
 }

@@ -328,6 +328,11 @@ public void fillTree(int parent, String codeCrit){
 		
 	}
 	
+	public void printTable(){
+	    EngBLUtils.printTable(tableTreeAccountingPlan.getTable(),"Muhasebe Plan?");
+	    
+	}
+	
 	public void delete(){
 		TableTreeItem items[] = tableTreeAccountingPlan.getSelection();
 		

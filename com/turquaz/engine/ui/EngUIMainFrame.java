@@ -145,6 +145,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private CCombo comboModuleSelection;
 	private CLabel lblModuleSelection;
 	private Composite compModuleSelection;
+	private static ToolItem toolPrint;
 	private MenuItem mitExit;
 	private Menu menuFile;
 	private MenuItem mitHelpContents;
@@ -704,6 +705,17 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                                     }
                                 });
                         }
+                        {
+                            toolPrint = new ToolItem(toolbarMainTop, SWT.NONE);
+                            toolPrint.setText("&Yazd?r");
+                            toolPrint
+                                .addSelectionListener(new SelectionAdapter() {
+                                public void widgetSelected(SelectionEvent evt) {
+                                 printTable();    
+                                
+                                }
+                                });
+                        }
                     }
                 }
             }
@@ -1106,6 +1118,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		toolDelete.setEnabled(false);
 		toolSearch.setEnabled(false);
 		toolExportToExcel.setEnabled(false);
+		toolPrint.setEnabled(false);
 		
 		
 		//Create Trees 		
@@ -1455,11 +1468,13 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		if(tabfldMain.getSelection().getControl() instanceof SearchComposite){
 			
 			toolExportToExcel.setEnabled(true);
+		    toolPrint.setEnabled(true);
 			
 			
 		}
 		else{
 			toolExportToExcel.setEnabled(false);
+			toolPrint.setEnabled(true);
 		}
 				
 	}
@@ -1697,6 +1712,11 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		SearchComposite sc = (SearchComposite)tabfldMain.getSelection().getControl();
 		sc.exportToExcel();
 		
+	}
+	protected void printTable(){
+    
+	    SearchComposite sc = (SearchComposite)tabfldMain.getSelection().getControl();
+		sc.printTable();
 	}
 	
 	
