@@ -90,9 +90,7 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 			while(rs.next()){
 			comboDatabases.add(rs.getString("name"));		
 			}
-			
-			
-			}
+		}
 			catch(Exception ex){
 			   ex.printStackTrace();
 			}
@@ -111,6 +109,7 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 										 page2.getTxtPassword().getText(),
 										 page2.getTxtServerAddress().getText()+":"+
 										 page2.getTxtServerPort().getText());
+	   
 	   	try{
 	   	
 	   		connection.connect();
