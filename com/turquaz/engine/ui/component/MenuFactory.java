@@ -52,6 +52,7 @@ public class MenuFactory {
 		currentAccAdd.setData(CurUICurrentCardAdd.class.getName());
 		currentAccAdd.addSelectionListener(new MenuSelectionAdapter());
 		currentAccAdd.setAccelerator(SWT.CTRL | 'g');
+	
 		MenuItem sps =new MenuItem(currentMenu,SWT.SEPARATOR);
 		
 		return menuItem;

@@ -30,7 +30,9 @@ public class MenuManager {
 	public static Menu createMainMenu(final Menu menuMain){
 		
 		MenuItem mitFile = new MenuItem(menuMain,SWT.CASCADE);
-		MenuItem mitEdit = new MenuItem(menuMain,SWT.CASCADE);
+		
+		createEditMenu(menuMain);
+		
 		MenuItem mitFinance = new MenuItem(menuMain,SWT.CASCADE);
 		mitFinance.setText("&Finans");
 		mitFinance = MenuFactory.createFinanceMenu(mitFinance);
@@ -58,22 +60,7 @@ public class MenuManager {
             }
     
 
-		mitEdit.setText(Messages.getString("EngUIMainFrame.21")); //$NON-NLS-1$
-       
-            Menu menuEdit = new Menu(mitEdit);
-            mitEdit.setMenu(menuEdit);
-            {
-               MenuItem menuItemPreferences = new MenuItem(menuEdit, SWT.PUSH);
-                menuItemPreferences.setText(Messages.getString("EngUIMainFrame.55")); //$NON-NLS-1$
-                menuItemPreferences
-                    .addSelectionListener(new SelectionAdapter() {
-                    public void widgetSelected(SelectionEvent evt) {
-                       
-                        new EngUIPreferences(menuMain.getShell(),SWT.NULL).open();   
-                    
-                    }
-                    });
-            }
+	
       
 
 		mitHelp.setEnabled(true);
@@ -96,113 +83,185 @@ public class MenuManager {
       
         
        
-            MenuItem mitView = new MenuItem(menuEdit, SWT.CASCADE);
-            mitView.setText(Messages.getString("EngUIMainFrame.14"));  //$NON-NLS-1$
-            {
-                Menu menuView = new Menu(mitView);
-                mitView.setMenu(menuView);
-                {
-                    MenuItem mitModules = new MenuItem(menuView, SWT.PUSH);
-                    mitModules.setText(Messages
-                        .getString("EngUIMainFrame.2"));//$NON-NLS-1$
-                    mitModules.setImage(SWTResourceManager
-                        .getImage("icons/Process16.gif"));//$NON-NLS-1$
-                    mitModules.addSelectionListener(new SelectionAdapter() {
-                        public void widgetSelected(SelectionEvent evt) {
-
-                            if (EngUIMainFrame.checkTabMenu(EngUIMainFrame.compModulesTab) == -1) {
-                                CTabItem item = new CTabItem(
-                                    EngUIMainFrame.tabfldMenu,
-                                    SWT.NULL);
-                                item.setControl(EngUIMainFrame.compModulesTab);
-                                item.setText(Messages
-                                    .getString("EngUIMainFrame.2"));//$NON-NLS-1$
-                                item.setImage(SWTResourceManager
-                                    .getImage("icons/Process16.gif")); //$NON-NLS-1$
-                                EngUIMainFrame.tabfldMenu.setSelection(item);
-                                EngUIMainFrame.sashMainHorizontal
-                                    .setMaximizedControl(null);
-                            
-                                
-
-                            }
-
-                        }
-                    });
-                }
-                {
-                    MenuItem mitFavorites = new MenuItem(menuView, SWT.PUSH);
-                    mitFavorites.setText(Messages
-                        .getString("EngUIMainFrame.5"));//$NON-NLS-1$
-                    mitFavorites.setImage(SWTResourceManager
-                        .getImage("icons/favorites.gif"));//$NON-NLS-1$
-                    mitFavorites
-                        .addSelectionListener(new SelectionAdapter() {
-                            public void widgetSelected(SelectionEvent evt) {
-                                if (EngUIMainFrame.checkTabMenu(EngUIMainFrame.compFavoritesTab) == -1) {
-                                    CTabItem item = new CTabItem(
-                                    		EngUIMainFrame.tabfldMenu,
-                                        SWT.NULL);
-                                    item.setControl(EngUIMainFrame.compFavoritesTab);
-                                    item.setText(Messages
-                                        .getString("EngUIMainFrame.5"));//$NON-NLS-1$
-                                    item.setImage(SWTResourceManager
-                                        .getImage("icons/favorites.gif")); //$NON-NLS-1$
-                                    EngUIMainFrame.tabfldMenu.setSelection(item);
-                                    EngUIMainFrame.sashMainHorizontal
-                                        .setMaximizedControl(null);
-                                }
-
-                            }
-                        });
-                }
-                {
-                   MenuItem mitHistory = new MenuItem(menuView, SWT.PUSH);
-                    mitHistory.setText(Messages.getString("EngUIMainFrame.16")); //$NON-NLS-1$
-                    mitHistory.setImage(SWTResourceManager
-                        .getImage("icons/history.png"));//$NON-NLS-1$
-                    mitHistory.addSelectionListener(new SelectionAdapter() {
-                        public void widgetSelected(SelectionEvent evt) {
-                            if (EngUIMainFrame.checkTabMenu(EngUIMainFrame.compHistoryTab) == -1) {
-                                CTabItem item = new CTabItem(
-                                		EngUIMainFrame.tabfldMenu,
-                                    SWT.NULL);
-                                item.setControl(EngUIMainFrame.compHistoryTab);
-                                item.setText(Messages
-                                    .getString("EngUIMainFrame.16")); //$NON-NLS-1$
-                                item.setImage(SWTResourceManager
-                                    .getImage("icons/history.png")); //$NON-NLS-1$
-                                EngUIMainFrame.tabfldMenu.setSelection(item);
-                                EngUIMainFrame.sashMainHorizontal
-                                    .setMaximizedControl(null);
-                            }
-                        }
-                    });
-                }
-                {
-                  final MenuItem  menuItemModulBar = new MenuItem(menuView, SWT.CHECK);
-                    menuItemModulBar.setText(Messages.getString("EngUIMainFrame.30")); //$NON-NLS-1$
-                    menuItemModulBar.setSelection(false);
-                    menuItemModulBar.setEnabled(false);
-                    menuItemModulBar
-                        .addSelectionListener(new SelectionAdapter() {
-                        public void widgetSelected(SelectionEvent evt) {
-                        if(!menuItemModulBar.getSelection()){
-                        	EngUIMainFrame.sashMainVertical.setMaximizedControl(EngUIMainFrame.sashMainHorizontal);
-                        }
-                        else{
-                        	EngUIMainFrame.sashMainVertical.setMaximizedControl(null);
-                        }
-                        }
-                        });
-                }
-            }
-      
+          
 
 		
 		return menuMain;
 		
 	}
 	
+	
+	static void createEditMenu(final Menu menuMain){
+		
+		MenuItem mitEdit = new MenuItem(menuMain,SWT.CASCADE);
+		mitEdit.setText(Messages.getString("EngUIMainFrame.21")); //$NON-NLS-1$
+	       
+	            Menu menuEdit = new Menu(mitEdit);
+	            mitEdit.setMenu(menuEdit);
+	            {
+	               MenuItem menuItemPreferences = new MenuItem(menuEdit, SWT.PUSH);
+	                menuItemPreferences.setText(Messages.getString("EngUIMainFrame.55")); //$NON-NLS-1$
+	                menuItemPreferences
+	                    .addSelectionListener(new SelectionAdapter() {
+	                    public void widgetSelected(SelectionEvent evt) {
+	                       
+	                        new EngUIPreferences(menuMain.getShell(),SWT.NULL).open();   
+	                    
+	                    }
+	                    });
+	            }
+		
+		
+	            MenuItem mitView = new MenuItem(menuEdit, SWT.CASCADE);
+	            mitView.setText(Messages.getString("EngUIMainFrame.14"));  //$NON-NLS-1$
+	            {
+	                Menu menuView = new Menu(mitView);
+	                mitView.setMenu(menuView);
+	                {
+	                    MenuItem mitModules = new MenuItem(menuView, SWT.PUSH);
+	                    mitModules.setText(Messages
+	                        .getString("EngUIMainFrame.2"));//$NON-NLS-1$
+	                    mitModules.setImage(SWTResourceManager
+	                        .getImage("icons/Process16.gif"));//$NON-NLS-1$
+	                    mitModules.addSelectionListener(new SelectionAdapter() {
+	                        public void widgetSelected(SelectionEvent evt) {
+
+	                            if (EngUIMainFrame.checkTabMenu(EngUIMainFrame.compModulesTab) == -1) {
+	                                CTabItem item = new CTabItem(
+	                                    EngUIMainFrame.tabfldMenu,
+	                                    SWT.NULL);
+	                                item.setControl(EngUIMainFrame.compModulesTab);
+	                                item.setText(Messages
+	                                    .getString("EngUIMainFrame.2"));//$NON-NLS-1$
+	                                item.setImage(SWTResourceManager
+	                                    .getImage("icons/Process16.gif")); //$NON-NLS-1$
+	                                EngUIMainFrame.tabfldMenu.setSelection(item);
+	                                EngUIMainFrame.sashMainHorizontal
+	                                    .setMaximizedControl(null);
+	                            
+	                                
+
+	                            }
+
+	                        }
+	                    });
+	                }
+	                {
+	                    MenuItem mitFavorites = new MenuItem(menuView, SWT.PUSH);
+	                    mitFavorites.setText(Messages
+	                        .getString("EngUIMainFrame.5"));//$NON-NLS-1$
+	                    mitFavorites.setImage(SWTResourceManager
+	                        .getImage("icons/favorites.gif"));//$NON-NLS-1$
+	                    mitFavorites
+	                        .addSelectionListener(new SelectionAdapter() {
+	                            public void widgetSelected(SelectionEvent evt) {
+	                                if (EngUIMainFrame.checkTabMenu(EngUIMainFrame.compFavoritesTab) == -1) {
+	                                    CTabItem item = new CTabItem(
+	                                    		EngUIMainFrame.tabfldMenu,
+	                                        SWT.NULL);
+	                                    item.setControl(EngUIMainFrame.compFavoritesTab);
+	                                    item.setText(Messages
+	                                        .getString("EngUIMainFrame.5"));//$NON-NLS-1$
+	                                    item.setImage(SWTResourceManager
+	                                        .getImage("icons/favorites.gif")); //$NON-NLS-1$
+	                                    EngUIMainFrame.tabfldMenu.setSelection(item);
+	                                    EngUIMainFrame.sashMainHorizontal
+	                                        .setMaximizedControl(null);
+	                                }
+
+	                            }
+	                        });
+	                }
+	                {
+	                   MenuItem mitHistory = new MenuItem(menuView, SWT.PUSH);
+	                    mitHistory.setText(Messages.getString("EngUIMainFrame.16")); //$NON-NLS-1$
+	                    mitHistory.setImage(SWTResourceManager
+	                        .getImage("icons/history.png"));//$NON-NLS-1$
+	                    mitHistory.addSelectionListener(new SelectionAdapter() {
+	                        public void widgetSelected(SelectionEvent evt) {
+	                            if (EngUIMainFrame.checkTabMenu(EngUIMainFrame.compHistoryTab) == -1) {
+	                                CTabItem item = new CTabItem(
+	                                		EngUIMainFrame.tabfldMenu,
+	                                    SWT.NULL);
+	                                item.setControl(EngUIMainFrame.compHistoryTab);
+	                                item.setText(Messages
+	                                    .getString("EngUIMainFrame.16")); //$NON-NLS-1$
+	                                item.setImage(SWTResourceManager
+	                                    .getImage("icons/history.png")); //$NON-NLS-1$
+	                                EngUIMainFrame.tabfldMenu.setSelection(item);
+	                                EngUIMainFrame.sashMainHorizontal
+	                                    .setMaximizedControl(null);
+	                            }
+	                        }
+	                    });
+	                }
+	                {
+	                  final MenuItem  menuItemModulBar = new MenuItem(menuView, SWT.CHECK);
+	                    menuItemModulBar.setText(Messages.getString("EngUIMainFrame.30")); //$NON-NLS-1$
+	                    menuItemModulBar.setSelection(false);
+	                    menuItemModulBar.setEnabled(false);
+	                    menuItemModulBar
+	                        .addSelectionListener(new SelectionAdapter() {
+	                        public void widgetSelected(SelectionEvent evt) {
+	                        if(!menuItemModulBar.getSelection()){
+	                        	EngUIMainFrame.sashMainVertical.setMaximizedControl(EngUIMainFrame.sashMainHorizontal);
+	                        }
+	                        else{
+	                        	EngUIMainFrame.sashMainVertical.setMaximizedControl(null);
+	                        }
+	                        }
+	                        });
+	                }
+	            }
+	            
+	            MenuItem seperator = new MenuItem(menuEdit, SWT.SEPARATOR);
+	            
+	            MenuItem mitGoToRightTab = new MenuItem(menuEdit, SWT.PUSH);
+	            mitGoToRightTab.setText("Sonraki sekme \t CTRL + ->");
+	            mitGoToRightTab.setAccelerator(SWT.CTRL | SWT.ARROW_RIGHT);
+	            SWTResourceManager.registerResourceUser(mitGoToRightTab);
+	            mitGoToRightTab.setImage(SWTResourceManager.getImage("/icons/forward.gif"));
+	            mitGoToRightTab.addSelectionListener(new SelectionAdapter() {
+                    public void widgetSelected(SelectionEvent evt) {
+                        if (EngUIMainFrame.tabfldMain.getItemCount()==0) {
+                           return;
+                        }
+                        else if(EngUIMainFrame.tabfldMain.getItemCount()==EngUIMainFrame.tabfldMain.getSelectionIndex()+1)
+                        {
+                        	return;
+                        }
+                        else{
+                        	EngUIMainFrame.tabfldMain.setSelection(EngUIMainFrame.tabfldMain.getSelectionIndex()+1);
+                        }
+                    }
+                });
+	            
+	            
+	            
+	           
+	            MenuItem mitGoToLeftTab = new MenuItem(menuEdit, SWT.PUSH);
+	            mitGoToLeftTab.setText("Önceki sekme \t CTRL + <-");
+	            mitGoToLeftTab.setAccelerator(SWT.CTRL | SWT.ARROW_LEFT);
+	            SWTResourceManager.registerResourceUser(mitGoToLeftTab);
+	            mitGoToLeftTab.setImage(SWTResourceManager.getImage("/icons/backward.gif"));
+	            mitGoToLeftTab.addSelectionListener(new SelectionAdapter() {
+                    public void widgetSelected(SelectionEvent evt) {
+                        if (EngUIMainFrame.tabfldMain.getItemCount()==0) {
+                           return;
+                        }
+                        else if(EngUIMainFrame.tabfldMain.getSelectionIndex()==0)
+                        {
+                        	return;
+                        }
+                        else{
+                        	EngUIMainFrame.tabfldMain.setSelection(EngUIMainFrame.tabfldMain.getSelectionIndex()-1);
+                        }
+                    }
+                });
+	            
+	      	
+	}
+	
 
 }
+

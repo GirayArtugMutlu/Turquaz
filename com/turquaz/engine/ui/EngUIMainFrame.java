@@ -128,7 +128,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private Composite compModulesHelp;
 	private Tree treeBank;
 	private Tree treeAccounting;
-	private static CTabFolder tabfldMain;
+	public static CTabFolder tabfldMain;
 	private static ToolItem toolSearch;
 	private static ToolItem toolDelete;
 	private static ToolItem toolSave;
