@@ -20,7 +20,7 @@ public class CurKeys
 	public final static String CUR_DISCOUNT_RATE ="discountRate";
 	public final static String CUR_DISCOUNT_PAYMENT ="discountPayment";
 	public final static String CUR_CREDIT_LIMIT ="creditLimit";
-	public final static String CUR_DEPT_LIMIT ="deptLimit";
+	public final static String CUR_RISK_LIMIT ="riskLimit";
 	public final static String CUR_TAX_DEPARTMENT =	"taxDepartment";
 	public final static String CUR_TAX_NUMBER = "taxNumber";
 	public final static String CUR_DAYS_TO_VALUE =	"daysToValue";
@@ -28,5 +28,6 @@ public class CurKeys
 	public final static String CUR_PHONE_LIST ="phoneList";
 	public final static String CUR_CONTACT_INFO ="contactInfo";
 	public final static String CUR_GROUP_LIST ="groupList";
+	public final static String CUR_GROUP="currentGroup";
 	
 }

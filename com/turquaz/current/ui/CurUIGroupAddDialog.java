@@ -20,6 +20,7 @@ package com.turquaz.current.ui;
  * @version  $Id$
  */
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import net.sf.hibernate.HibernateException;
 import org.apache.log4j.Logger;
@@ -42,9 +43,11 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.engine.dal.TurqCurrentGroup;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -280,7 +283,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			tableCurGroups.removeAll();
-			List list = CurBLCurrentCardAdd.getCurrentGroups();
+			List list = (List)EngTXCommon.doSingleTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null);
 			TurqCurrentGroup curGroup;
 			TableItem item;
 			for (int i = 0; i < list.size(); i++)
@@ -310,7 +313,10 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 			int result = msg.open();
 			if (result == SWT.OK)
 			{
-				CurBLCurrentCardAdd.deleteObject(txtGroupName.getData());
+				HashMap argMap = new HashMap();
+				argMap.put(CurKeys.CUR_GROUP,txtGroupName.getData());
+				EngTXCommon.doTransactionTX(CurBLCurrentCardAdd.class.getName(),"deleteObject",argMap);
+			
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);
 				btnGroupAdd.setEnabled(true);

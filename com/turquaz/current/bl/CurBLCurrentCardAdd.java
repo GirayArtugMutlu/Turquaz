@@ -21,10 +21,13 @@ package com.turquaz.current.bl;
  */
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALCurrentCardAdd;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -38,21 +41,30 @@ import com.turquaz.engine.dal.TurqCurrentGroup;
 
 public class CurBLCurrentCardAdd
 {
-	public CurBLCurrentCardAdd()
-	{
-	}
 
-	public static void saveCurrentCard(String currentCode, String cardName, String cardDefinition, String cardAddress,
-			BigDecimal cardDiscountRate, BigDecimal cardDiscountPayment, BigDecimal cardCreditLimit, BigDecimal cardRiskLimit,
-			String cardTaxDepartment, String cardTaxNumber, int daysToValue, Map accountingAccounts, List phoneList, Map contactInfo,
-			List groupList) throws Exception
-	{
+	public static void saveCurrentCard(HashMap argMap) throws Exception
+	{	
 		
-				
+		String currentCode = (String)argMap.get(CurKeys.CUR_CURRENT_CODE);	
+		 String cardName = (String)argMap.get(CurKeys.CUR_CURRENT_NAME);
+		 String cardDefinition = (String)argMap.get(EngKeys.DEFINITION);
+		 String cardAddress = (String)argMap.get(CurKeys.CUR_ADDRESS);
+		 BigDecimal cardDiscountRate = (BigDecimal)argMap.get(CurKeys.CUR_DISCOUNT_RATE);
+		 BigDecimal cardDiscountPayment = (BigDecimal)argMap.get(CurKeys.CUR_DISCOUNT_PAYMENT);
+		 BigDecimal cardCreditLimit = (BigDecimal)argMap.get(CurKeys.CUR_CREDIT_LIMIT);
+		 BigDecimal cardRiskLimit = (BigDecimal)argMap.get(CurKeys.CUR_RISK_LIMIT);
+		 String cardTaxDepartment = (String)argMap.get(CurKeys.CUR_TAX_DEPARTMENT);
+		 String cardTaxNumber = (String)argMap.get(CurKeys.CUR_TAX_NUMBER);
+		 Integer daysToValue = (Integer)argMap.get(CurKeys.CUR_DAYS_TO_VALUE);
+		 Map accountingAccounts = (Map)argMap.get(CurKeys.CUR_ACCOUNTING_LIST);
+		 List phoneList = (List)argMap.get(CurKeys.CUR_PHONE_LIST);
+		 Map contactInfo = (Map)argMap.get(CurKeys.CUR_CONTACT_INFO);
+		 List groupList = (List)argMap.get(CurKeys.CUR_GROUP_LIST);
+		 
 		
 			TurqCurrentCard currentCard = registerCurrentCard(currentCode, cardName, cardDefinition, cardAddress,
 					cardDiscountRate, cardDiscountPayment, cardCreditLimit, cardRiskLimit, cardTaxDepartment, cardTaxNumber,
-					daysToValue);
+					daysToValue.intValue());
 			saveCurrentAccountingAccounts(currentCard, accountingAccounts);
 			saveCurrentCardPhones(currentCard.getId(), phoneList);
 			saveCurrentCardContact(currentCard.getId(), contactInfo);
@@ -233,16 +245,13 @@ public class CurBLCurrentCardAdd
 		}
 	}
 
-	public static void deleteObject(Object obj) throws Exception
+	public static void deleteObject(HashMap argMap) throws Exception
 	{
-		try
-		{
-			EngDALCommon.deleteObject(obj);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		Object obj = argMap.get(CurKeys.CUR_GROUP);
+	
+		EngDALCommon.deleteObject(obj);
+		
+		
 	}
 
 	public static void saveCurrentGroup(String groupName, String groupDescription) throws Exception

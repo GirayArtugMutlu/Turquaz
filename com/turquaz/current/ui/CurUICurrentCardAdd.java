@@ -35,14 +35,17 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.Messages;
 import com.turquaz.accounting.ui.AccUIAddAccountDialog;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentGroup;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.NumericText;
@@ -1012,7 +1015,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		try
 		{
 			HashMap groupMap = new HashMap();
-			List list = CurBLCurrentCardAdd.getCurrentGroups();
+			List list = (List)EngTXCommon.doSingleTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null);
 			TurqCurrentGroup curGroup;
 			for (int i = 0; i < list.size(); i++)
 			{
@@ -1178,11 +1181,24 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		{
 			if (verifyFields(true))
 			{
-				CurBLCurrentCardAdd.saveCurrentCard(txtCurrentCode.getText().trim(), txtCurrentName.getText().trim(), txtCardDefinition
-						.getText().trim(), txtCardAddress.getText().trim(), numTextDiscountRate.getBigDecimalValue(),
-						decTxtDiscountAmount.getBigDecimalValue(), decTxtCreditLimit.getBigDecimalValue(), decTxtRiskLimit
-								.getBigDecimalValue(), txtTaxDepartmant.getText().trim(), txtTaxNumber.getText().trim(), numDueDays
-								.getIntValue(), createAccountingMap(), getPhoneList(), getContactInfo(), getGroupList());
+				HashMap argMap = new HashMap();
+				argMap.put(CurKeys.CUR_CURRENT_CODE,txtCurrentCode.getText().trim());
+				argMap.put(CurKeys.CUR_CURRENT_NAME,txtCurrentName.getText().trim());
+				argMap.put(EngKeys.DEFINITION,txtCardDefinition.getText().trim());
+				argMap.put(CurKeys.CUR_ADDRESS,txtCardAddress.getText().trim());
+				argMap.put(CurKeys.CUR_DISCOUNT_RATE,numTextDiscountRate.getBigDecimalValue());
+				argMap.put(CurKeys.CUR_DISCOUNT_PAYMENT,decTxtDiscountAmount.getBigDecimalValue());
+				argMap.put(CurKeys.CUR_CREDIT_LIMIT, decTxtCreditLimit.getBigDecimalValue());
+				argMap.put(CurKeys.CUR_RISK_LIMIT,decTxtRiskLimit.getBigDecimalValue());
+				argMap.put(CurKeys.CUR_TAX_DEPARTMENT,txtTaxDepartmant.getText().trim());
+				argMap.put(CurKeys.CUR_TAX_NUMBER,txtTaxNumber.getText().trim());
+				argMap.put(CurKeys.CUR_DAYS_TO_VALUE,new Integer(numDueDays.getIntValue()));
+				argMap.put(CurKeys.CUR_ACCOUNTING_LIST,createAccountingMap());
+				argMap.put(CurKeys.CUR_PHONE_LIST,getPhoneList());
+				argMap.put(CurKeys.CUR_CONTACT_INFO,getContactInfo());
+				argMap.put(CurKeys.CUR_GROUP_LIST,getGroupList());
+				EngTXCommon.doTransactionTX(CurBLCurrentCardAdd.class.getName(),"saveCurrentCard",argMap);	
+				
 				EngBLCurrentCards.RefreshContentAsistantMap();
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(Messages.getString("CurUICurrentCardAdd.14")); //$NON-NLS-1$
