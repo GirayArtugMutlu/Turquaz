@@ -40,6 +40,13 @@ public class EngUICommon {
 	    msg2.setMessage(message); 
 	    msg2.open();
 	}
+	
+	public static void showMessageBox(Shell parent, String message,int style)
+	{
+	    MessageBox msg2 = new MessageBox(parent,style);
+	    msg2.setMessage(message); 
+	    msg2.open();
+	}
 
 	public static void centreWindow(Shell	shell )
 	  {
