@@ -1,5 +1,7 @@
 package com.turquaz.cheque.ui;
 
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -23,8 +25,8 @@ import org.eclipse.swt.SWT;
 public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dialog {
 
 	private Shell dialogShell;
+	private Table tableCheques;
 
-	
 	public CheUICustomerChequeChooseDialog(Shell parent, int style) {
 		super(parent, style);
 	}
@@ -37,7 +39,17 @@ public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dia
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.layout();
 			dialogShell.pack();
-			dialogShell.setSize(505, 334);
+			dialogShell.setSize(521, 339);
+            {
+                tableCheques = new Table(dialogShell, SWT.CHECK);
+                GridData tableChequesLData = new GridData();
+                tableCheques.setLinesVisible(true);
+                tableCheques.setHeaderVisible(true);
+                tableChequesLData.heightHint = 205;
+                tableChequesLData.horizontalAlignment = GridData.FILL;
+                tableChequesLData.grabExcessHorizontalSpace = true;
+                tableCheques.setLayoutData(tableChequesLData);
+            }
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {
