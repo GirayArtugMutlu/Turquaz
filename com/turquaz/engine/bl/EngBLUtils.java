@@ -244,7 +244,7 @@ public class EngBLUtils {
 		
 	}
 	
-	public static void printBill(TurqBill bill){
+	public static void printBill(TurqBill bill, boolean balance){
 	    
 		try{
 			TurqConsignment cons = (TurqConsignment)bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator().next();
@@ -291,16 +291,20 @@ public class EngBLUtils {
 			parameters.put("currentTaxDepartment",curCard.getCardsTaxDepartment());
 			parameters.put("currentId", curCard.getCardsCurrentCode());
 			parameters.put("totalSpecVAT",billCommon.getSpecialVatAmount());
-			
+	
 			parameters.put("despatchNoteDate",dformat.format(cons.getConsignmentsDate()));
 			parameters.put("despatchNoteId",billCommon.getConsignmentDocumentNo());
 			
 			TurqViewCurrentAmountTotal currentView=curBLCurCardSearch.getCurrentCardView(curCard);
 			BigDecimal allTotal=currentView.getTransactionsBalanceNow();
+			allTotal = allTotal.multiply(new BigDecimal(-1));
 			BigDecimal oldAllTotal=allTotal.subtract(grandTotal);
 			
+			System.out.println(new Boolean(balance));
+			parameters.put("showBalance",new Boolean(balance));
 			parameters.put("currentBalance", oldAllTotal);
 			parameters.put("currentNewBalance", allTotal);
+			
 			parameters.put("definition",bill.getBillsDefinition());
 			
 			NumberFormat formatter =DecimalFormat.getInstance();
@@ -373,6 +377,7 @@ public class EngBLUtils {
 			TurqViewCurrentAmountTotal currentView=curBLCurCardSearch.getCurrentCardView(curCard);
 			BigDecimal allTotal=(currentView.getTransactionsBalanceNow()==null) ? new BigDecimal(0): currentView.getTransactionsBalanceNow();
 			BigDecimal oldAllTotal=allTotal.subtract(grandTotal);
+			
 			
 			parameters.put("currentBalance", oldAllTotal);
 			parameters.put("currentNewBalance", allTotal);

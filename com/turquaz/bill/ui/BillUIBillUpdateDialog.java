@@ -14,6 +14,7 @@ import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 
 
@@ -142,9 +143,12 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
                             toolPrint
                                 .addSelectionListener(new SelectionAdapter() {
                                 public void widgetSelected(SelectionEvent evt) {
-                                    dialogShell.close();
-                                    EngBLUtils.printBill(bill);
-                                 
+                                    
+                                    
+                                     boolean answer = EngUICommon.okToDelete(getParent(),"Bakiye Faturada Gösterilsin mi?");
+                                     dialogShell.close();
+                                     EngBLUtils.printBill(bill,answer);
+       
                                 }
                                 });
                         }

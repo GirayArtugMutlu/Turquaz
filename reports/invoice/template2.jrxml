@@ -47,6 +47,8 @@
 	</parameter>
 	<parameter name="totalSpecVAT" class="java.math.BigDecimal">
 	</parameter>
+	<parameter name="showBalance" class="java.lang.Boolean">
+	</parameter>
 	<queryString><![CDATA[$P!{sqlparam}]]></queryString>
 	<field name="card_units_factor" class="java.lang.Integer">
 	</field>
@@ -71,6 +73,7 @@
 		</groupHeader>
 		<groupFooter>
 		<band height="20">
+			<printWhenExpression><![CDATA[($P{totalSpecVAT}.doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 			<staticText>
 				<reportElement positionType="Float" x="198" y="3" width="124" height="14"/>
 				<textElement>
@@ -79,11 +82,11 @@
 				<text><![CDATA[Toplam ÖTV]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="462" y="3" width="88" height="14"/>
+				<reportElement positionType="Float" x="446" y="0" width="63" height="14"/>
 				<textElement textAlignment="Right">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{totalSpecVAT})+'-']]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{totalSpecVAT})]]></textFieldExpression>
 			</textField>
 		</band>
 		</groupFooter>
@@ -93,49 +96,49 @@
 		<groupHeader>
 		<band height="23">
 			<textField>
-				<reportElement positionType="Float" x="20" y="1" width="89" height="14"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement positionType="Float" x="1" y="1" width="81" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{card_inventory_code}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="198" y="1" width="152" height="14"/>
+				<reportElement positionType="Float" x="187" y="2" width="152" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{card_name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="358" y="1" width="41" height="14"/>
+				<reportElement positionType="Float" x="345" y="1" width="41" height="14"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.Long"><![CDATA[$F{amount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="402" y="1" width="55" height="14"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement positionType="Float" x="389" y="1" width="55" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{transactions_unit_price})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="462" y="1" width="88" height="14"/>
+				<reportElement positionType="Float" x="446" y="2" width="62" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{transactions_total_price})+'-']]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{transactions_total_price})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="114" y="1" width="44" height="14"/>
+				<reportElement positionType="Float" x="100" y="0" width="44" height="14"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{card_units_factor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="159" y="1" width="38" height="14"/>
+				<reportElement positionType="Float" x="145" y="1" width="38" height="14"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -156,11 +159,11 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentName}+"\n\n"+$P{currentAddress}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="81" y="303" width="134" height="15"/>
+				<reportElement positionType="Float" x="112" y="294" width="134" height="15"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentTaxDepartment}+'\t'+$P{currentTaxNumber}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentTaxDepartment}+"    "+$P{currentTaxNumber}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="470" y="224" width="80" height="16"/>
@@ -195,54 +198,58 @@
 	<pageFooter>
 		<band height="266">
 			<textField>
-				<reportElement positionType="Float" x="472" y="24" width="80" height="16"/>
+				<reportElement positionType="Float" x="429" y="33" width="80" height="16"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceSum})+'-']]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceSum})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="472" y="55" width="80" height="16"/>
+				<reportElement positionType="Float" x="429" y="64" width="80" height="16"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceDiscount})+'-']]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceDiscount})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="472" y="86" width="80" height="16"/>
+				<reportElement positionType="Float" x="429" y="95" width="80" height="16"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceTotal})+'-']]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceTotal})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="472" y="117" width="80" height="16"/>
+				<reportElement positionType="Float" x="429" y="126" width="80" height="16"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceVAT})+'-']]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceVAT})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="472" y="148" width="80" height="16"/>
+				<reportElement positionType="Float" x="429" y="157" width="80" height="16"/>
 				<textElement textAlignment="Right">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceGrandTotal})+'-']]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{invoiceGrandTotal})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="15" y="59" width="310" height="14"/>
+				<reportElement positionType="Float" x="26" y="87" width="310" height="14"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{invoiceGrandTotalText}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="201" y="9" width="80" height="16"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{currentBalance})+'-']]></textFieldExpression>
+				<reportElement positionType="Float" x="245" y="47" width="80" height="16">
+					<printWhenExpression><![CDATA[$P{showBalance}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{currentBalance})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="201" y="28" width="80" height="16"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{currentNewBalance})+'-']]></textFieldExpression>
+				<reportElement positionType="Float" x="246" y="64" width="80" height="16">
+					<printWhenExpression><![CDATA[$P{showBalance}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($P{currentNewBalance})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

@@ -14,13 +14,13 @@ public class DatabaseTransfer {
 		//	EngDALConnection conn1 = new
 		// EngDALConnection("Postgresql","turquaz","","kulup.sabanciuniv.edu","turquaz_turkish_20041206");
 		EngDALConnection conn2 = new EngDALConnection("Postgresql", "postgres",
-				"", "160.75.71.12", "muhasebe");
+				"", "kulup.sabanciuniv.edu", "alpercam_20050106");
 
 		ResultSet first;
 		try {
 
 			conn2.connect();
-			FileInputStream fstream = new FileInputStream("C:\\cariler_ileri.csv");
+			FileInputStream fstream = new FileInputStream("C:\\stok_alper.csv");
 			// Convert our input stream to a
 			// DataInputStream
 			DataInputStream in = new DataInputStream(fstream);
@@ -38,46 +38,38 @@ public class DatabaseTransfer {
 				data = d.readLine();
 				System.out.println(data);
 				String rest = "";
-				int a = data.indexOf(";");
+				int a = data.indexOf(",");
 				String code = data.substring(0, a);
 				code = code.trim();
 				rest = data.substring(a + 1);
 
-				a = rest.indexOf(";");
+				a = rest.indexOf(",");
 				String def = rest.substring(0, a);
 				def = def.trim();
 				rest = rest.substring(a + 1);
 
-				a = rest.indexOf(";");
-				String telephone = rest.substring(0, a);
-				telephone = telephone.trim();
+				a = rest.indexOf(",");
+				String unit = rest.substring(0, a);
+				unit = unit.trim();
 				rest = rest.substring(a + 1);
 				
-				a = rest.indexOf(";");
-				String address = rest.substring(0, a);
-				address = address.trim();
+				a = rest.indexOf(",");
+				String vat = rest.substring(0, a);
+				vat = vat.trim();
 				rest = rest.substring(a + 1);
 				
-				
-				a = rest.indexOf(";");
-				String vergi_daire = rest.substring(0, a);
-				vergi_daire = vergi_daire.trim();
-				rest = rest.substring(a + 1);
-				
-				String vergi_no = rest.trim();
+				String group = rest.trim();
 			
 				counter++;
 				
-				while (code.length()<5)
+				if (code =="" || def == "" || group == "")
 				{
-					code = "0"+code;
-				}
 				
 				System.out.println(code);
 				System.out.println(def);
-				System.out.println(address);
-				System.out.println(vergi_daire);
-				System.out.println(vergi_no);
+				System.out.println(group);
+				}
+				
 				
 
 					try {
