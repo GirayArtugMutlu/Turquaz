@@ -16,6 +16,10 @@ package com.turquaz.inventory.ui;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
+/**
+* @author  Onsel Armagan
+* @version  $Id$
+*/
 
 
 import java.util.List;

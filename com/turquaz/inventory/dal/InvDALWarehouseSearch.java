@@ -6,15 +6,6 @@
  */
 package com.turquaz.inventory.dal;
 
-import java.util.List;
-
-
-import net.sf.hibernate.Query;
-import net.sf.hibernate.Session;
-
-import com.turquaz.engine.dal.EngDALSessionFactory;
-
-
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -35,6 +26,15 @@ import com.turquaz.engine.dal.EngDALSessionFactory;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+import java.util.List;
+
+
+import net.sf.hibernate.Query;
+import net.sf.hibernate.Session;
+
+import com.turquaz.engine.dal.EngDALSessionFactory;
+
+
 
 public class InvDALWarehouseSearch {
 	public InvDALWarehouseSearch(){

@@ -16,6 +16,10 @@ package com.turquaz.engine.ui;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
+/**
+* @author  Onsel Armagan
+* @version  $Id$
+*/
 
 import java.io.FileOutputStream;
 import java.io.OutputStream;
