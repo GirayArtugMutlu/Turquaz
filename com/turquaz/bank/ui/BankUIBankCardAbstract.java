@@ -53,6 +53,8 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 	private Composite compSearchPanel;
 	private TableColumn tableColumnDate;
 	private CLabel lblBankCard;
+	private TableColumn tableColumnBalanceCredit;
+	private TableColumn tableColumnBalanceDept;
 	private TableColumn tableColumnTransType;
 	private DatePicker dateEndDate;
 	private CLabel lblEndDate;
@@ -74,7 +76,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 		try {
 			this.setLayout(new GridLayout());
 			this.setBackground(SWTResourceManager.getColor(255, 255, 255));
-			this.setSize(598, 387);
+			this.setSize(659, 387);
             {
                 compSearchPanel = new Composite(this, SWT.NONE);
                 GridLayout compSearchPanelLayout = new GridLayout();
@@ -139,7 +141,6 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
                         tableAbstract,
                         SWT.NONE);
                     tableColumnBankCode.setText(Messages.getString("BankUIBankCardAbstract.4")); //$NON-NLS-1$
-                    tableColumnBankCode.setWidth(100);
                 }
 				//START >>  tableColumnTransType
 				tableColumnTransType = new TableColumn(tableAbstract, SWT.NONE);
@@ -161,8 +162,20 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
                 {
                     tableColumnCredit = new TableColumn(tableAbstract, SWT.RIGHT);
                     tableColumnCredit.setText(Messages.getString("BankUIBankCardAbstract.7")); //$NON-NLS-1$
-                    tableColumnCredit.setWidth(64);
+                    tableColumnCredit.setWidth(67);
                 }
+				//START >>  tableColumnBalanceDept
+				tableColumnBalanceDept = new TableColumn(tableAbstract, SWT.RIGHT);
+				tableColumnBalanceDept.setText("Bakiye Borç");
+				tableColumnBalanceDept.setWidth(84);
+				//END <<  tableColumnBalanceDept
+				//START >>  tableColumnBalanceCredit
+				tableColumnBalanceCredit = new TableColumn(
+					tableAbstract,
+					SWT.NONE);
+				tableColumnBalanceCredit.setText("Bakiye Alacak");
+				tableColumnBalanceCredit.setWidth(84);
+				//END <<  tableColumnBalanceCredit
             }
 			this.layout();
 		} catch (Exception e) {
@@ -211,25 +224,37 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
                BigDecimal total_credit = new BigDecimal(0);
                BigDecimal deferred_dept = new BigDecimal(0);
                BigDecimal deferred_credit = new BigDecimal(0);
+               BigDecimal balance = new BigDecimal (0);
                             
                List deferred = BankBLTransactionSearch.getDeferredTotal((TurqBanksCard)bankPicker.getData(),dateStartDate.getDate());
                
                if(deferred.size()!=0){
                    
                    Object[] amounts = (Object[])deferred.get(0);          
-                   item.setText(new String[]{
-                           "","","",Messages.getString("BankUIBankCardAbstract.11"),cf.format(amounts[0]),cf.format(amounts[1]) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                   			});
+                  
                    deferred_dept = deferred_dept.add((BigDecimal)amounts[0]);
                    deferred_credit = deferred_credit.add((BigDecimal)amounts[1]);
-                   
+                   balance = deferred_dept.subtract(deferred_credit);
+                   if(balance.doubleValue()>0)
+                   {
+                    item.setText(new String[]{
+                            "","","",Messages.getString("BankUIBankCardAbstract.11"),cf.format(amounts[0]),cf.format(amounts[1]),cf.format(balance),cf.format(new BigDecimal(0)) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                    			});                   
+                   }
+                  else
+                   {
+                    item.setText(new String[]{
+                            "","","",Messages.getString("BankUIBankCardAbstract.11"),cf.format(amounts[0]),cf.format(amounts[1]),cf.format(new BigDecimal(0)),cf.format(balance.negate()) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                    			});                   
+                   }
                }
                else
                {
                    item.setText(new String[]{
-                           "","",Messages.getString("BankUIBankCardAbstract.14"),cf.format(0),cf.format(0) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                           "","",Messages.getString("BankUIBankCardAbstract.14"),cf.format(0),cf.format(0),cf.format(0),cf.format(0) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                    			});
                }
+               
                
                List ls = BankBLTransactionSearch.getTransactions((TurqBanksCard)bankPicker.getData(),dateStartDate.getDate(),dateEndDate.getDate());
                
@@ -264,6 +289,33 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
                      
                      total_dept = total_dept.add(dept);
                      total_credit = total_credit.add(credit);
+                     balance = balance.add(dept).subtract(credit);
+                     if(balance.doubleValue()>0)
+                     {
+                     	  item.setText(new String[]{
+                         		DatePicker.formatter.format((Date)results[0]),
+                         		results[1].toString(),
+								results[5].toString(),
+                         		results[2].toString(),
+                         		cf.format(dept),
+                         		cf.format(credit),
+								cf.format(balance),
+								cf.format(0)
+                 				});               
+                     }
+                    else
+                     {
+                    	 item.setText(new String[]{
+                         		DatePicker.formatter.format((Date)results[0]),
+                         		results[1].toString(),
+								results[5].toString(),
+                         		results[2].toString(),
+                         		cf.format(dept),
+                         		cf.format(credit),
+								cf.format(0),
+								cf.format(balance.negate())
+                 				});                  
+                     }
                      
                      
                      
@@ -271,15 +323,42 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
                  
                  item=new TableItem(tableAbstract,SWT.NULL);
                  item=new TableItem(tableAbstract,SWT.NULL);
+                 
+                 String balance_dept ="";
+                 String balance_credit ="";
+                if(total_dept.subtract(total_credit).doubleValue()>0)
+                {
+                	balance_dept = cf.format(total_dept.subtract(total_credit));
+                	balance_credit = cf.format(0);
+                }
+                else
+                {
+                	balance_credit = cf.format(total_dept.subtract(total_credit).negate());
+                	balance_dept = cf.format(0);
+                }
                  item.setText(new String[]{
                                "", //$NON-NLS-1$
                                "", //$NON-NLS-1$
 							   "",
                                Messages.getString("BankUIBankCardAbstract.17"), //$NON-NLS-1$
                                cf.format(total_dept),
-                               cf.format(total_credit)
+                               cf.format(total_credit),
+							   balance_dept,
+							   balance_credit
                                 });
                  
+                 if(balance.doubleValue()>0)
+                 {
+                 	balance_dept = cf.format(balance);
+                 	balance_credit = cf.format(0);
+                 	
+                 }
+                 else
+                 {
+                 	balance_credit = cf.format(balance.negate());
+                 	balance_dept = cf.format(0);
+                 	
+                 }
                  item=new TableItem(tableAbstract,SWT.NULL);  
                  item.setText(new String[]{
                          "", //$NON-NLS-1$
@@ -287,16 +366,37 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 						 "",
                          Messages.getString("BankUIBankCardAbstract.20"), //$NON-NLS-1$
                          cf.format(deferred_dept),
-                         cf.format(deferred_credit)
+                         cf.format(deferred_credit),
+						 balance_dept,
+						 balance_credit
                           });
+                 
+                 
+                 BigDecimal grand_total_dept = deferred_dept.add(total_dept);
+                 BigDecimal grand_total_credit = deferred_credit.add(total_credit);
+             
+                 if(grand_total_dept.subtract(grand_total_credit).doubleValue()>0)
+                 {
+                 	balance_dept = cf.format(grand_total_dept.subtract(grand_total_credit));
+                 	balance_credit = cf.format(0);
+                 }
+                 else
+                 {
+                 	balance_credit = cf.format(grand_total_dept.subtract(grand_total_credit).negate());
+                 	balance_dept = cf.format(0);
+                 }
+                 
+                 
                  item=new TableItem(tableAbstract,SWT.NULL);  
                  item.setText(new String[]{
                          "", //$NON-NLS-1$
                          "", //$NON-NLS-1$
 						 "",
                          Messages.getString("BankUIBankCardAbstract.23"), //$NON-NLS-1$
-                         cf.format(deferred_dept.add(total_dept)),
-                         cf.format(deferred_credit.add(total_credit))
+                         cf.format(grand_total_dept),
+                         cf.format(grand_total_credit),
+						 balance_dept,
+						 balance_credit
                           });           
            
            }
