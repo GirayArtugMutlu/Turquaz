@@ -97,7 +97,9 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite {
 
 	private void initGUI() {
 		try {
-			this.setLayout(new GridLayout());
+			GridLayout thisLayout = new GridLayout();
+			this.setLayout(thisLayout);
+			thisLayout.numColumns = 2;
 			this.setSize(568, 311);
             {
                 tableAccountingTransaction = new Table(this, SWT.CHECK | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
