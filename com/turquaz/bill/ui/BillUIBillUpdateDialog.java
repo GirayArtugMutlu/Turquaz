@@ -7,6 +7,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
@@ -306,7 +307,8 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	                					compAddBill.getTxtDocumentNo().getText(),
 	                					compAddBill.getTxtTotalVat().getBigDecimalValue(),
 	                					compAddBill.getDecSpecialVat().getBigDecimalValue(),
-	                					compAddBill.getTxtTotalAmount().getBigDecimalValue(),type);
+	                					compAddBill.getTxtTotalAmount().getBigDecimalValue(),type,
+										EngBLCommon.getBaseCurrencyExchangeRate());
 			
    //	      Update Inventory Transactions
 			 Iterator it2 = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();

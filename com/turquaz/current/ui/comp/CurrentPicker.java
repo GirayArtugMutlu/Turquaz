@@ -97,6 +97,7 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite {
                       
                             try {
                                 
+                       
                                setData2(EngBLCurrentCards.getCurrentCardForContentAssist(text1.getText().trim()));
                           
                                                            
@@ -139,6 +140,7 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite {
 
 	/** Add your post-init code in here 	*/
 	public TurquazContentAssistant asistant;
+	
 	public void postInitGUI(){
 	    TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(text1);
 	    
@@ -151,10 +153,11 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite {
 	                 // Check for Ctrl+Spacebar
 	                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
 	             
-	                  asistant.showPossibleCompletions();    
+	                   asistant.showPossibleCompletions();    
 	                   event.doit = false;
 
 	                 }
+	                
 	              }
 	           });
 	    

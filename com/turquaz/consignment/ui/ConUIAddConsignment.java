@@ -1252,7 +1252,7 @@ implements SecureComposite{
 										txtBillDocumentNo.getText(),
 										txtTotalVat.getBigDecimalValue(),
 										decSpecialVat.getBigDecimalValue(),
-										txtTotalAmount.getBigDecimalValue(),type);
+										txtTotalAmount.getBigDecimalValue(),type,EngBLCommon.getBaseCurrencyExchangeRate());
 		saveConsignmentRows(cons.getId());
 		saveGroups(cons.getId());
 		msg.setMessage(Messages.getString("ConUIAddConsignment.36")); //$NON-NLS-1$

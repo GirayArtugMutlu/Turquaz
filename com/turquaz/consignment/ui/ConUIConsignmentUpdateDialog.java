@@ -20,6 +20,7 @@ import java.util.Iterator;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqConsignment;
@@ -371,7 +372,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 									compAddConsignment.getTxtTotalVat().getBigDecimalValue(),
 									compAddConsignment.getDecSpecialVat().getBigDecimalValue(),
 									compAddConsignment.getTxtTotalAmount().getBigDecimalValue(),
-									type);
+									type,EngBLCommon.getBaseCurrencyExchangeRate());
 			
 			
 			

@@ -24,6 +24,7 @@ import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqConsignmentsInGroup;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
@@ -55,7 +56,7 @@ public class ConBLAddConsignment {
 	public TurqConsignment saveConsignment(String docNo, String definition, boolean isPrinted, Date consignmentDate,
 								   TurqCurrentCard curCard,BigDecimal discountAmount,
 								   String billDocNo, BigDecimal vatAmount,BigDecimal specialVatAmount,
-								   BigDecimal totalAmount,int type)throws Exception {
+								   BigDecimal totalAmount,int type, TurqCurrencyExchangeRate exRate)throws Exception {
 		try{
 		
 			
@@ -78,24 +79,38 @@ public class ConBLAddConsignment {
             dalConsignment.save(seq);
             
             consignment.setTurqEngineSequence(seq);
-			
-			
-			
+            
 			TurqBillConsignmentCommon common = new TurqBillConsignmentCommon();
 			
 			common.setBillDocumentNo(billDocNo);
+			
+			
 			common.setCharges(new BigDecimal(0));
-			common.setTotalAmount(totalAmount);
-			common.setDiscountAmount(discountAmount);
-			common.setVatAmount(vatAmount);
-			common.setSpecialVatAmount(specialVatAmount);
+			common.setChargesInForeignCurrency(new BigDecimal(0));
+			
+			
+			common.setTotalAmount(totalAmount.multiply(exRate.getExchangeRatio()));
+			common.setTotalAmountInForeignCurrency(totalAmount);
+			
+			common.setDiscountAmount(discountAmount.multiply(exRate.getExchangeRatio()));
+			common.setDiscountAmountInForeignCurrency(discountAmount);
+			
+			
+			common.setVatAmount(vatAmount.multiply(exRate.getExchangeRatio()));
+		    common.setVatAmountInForeignCurrency(vatAmount);
+			
+			common.setSpecialVatAmount(specialVatAmount.multiply(exRate.getExchangeRatio()));
+			common.setSpecialVatAmountInForeignCurrency(specialVatAmount);
+			
 			common.setDiscountRate(0);
+			
 			common.setConsignmentDocumentNo(docNo);
 			common.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			common.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			common.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			common.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			common.setTurqCurrentCard(curCard);
+			common.setTurqCurrencyExchangeRate(exRate);
 			
 			dalConsignment.save(common);
 			

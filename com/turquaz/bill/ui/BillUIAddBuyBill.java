@@ -1446,7 +1446,7 @@ public class BillUIAddBuyBill extends Composite
 					txtDiscountAmount.getBigDecimalValue(), txtDocumentNo
 							.getText(), txtTotalVat.getBigDecimalValue(),
 					decSpecialVat.getBigDecimalValue(), txtTotalAmount
-							.getBigDecimalValue(), type);
+							.getBigDecimalValue(), type,EngBLCommon.getBaseCurrencyExchangeRate());
 			saveConsignmentRows(cons.getId());
 			
 
