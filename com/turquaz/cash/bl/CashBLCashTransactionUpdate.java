@@ -369,7 +369,7 @@ try{
     
         
    //delete current Transactions..      
- 
+		
         Iterator it = cashTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
         while(it.hasNext()){
             

@@ -214,7 +214,7 @@ implements SecureComposite{
 			}
 			//START >>  lblAcccountingAccount
 			lblAcccountingAccount = new CLabel(this, SWT.NONE);
-			lblAcccountingAccount.setText("Muhasebe Hesab\u0131:");
+			lblAcccountingAccount.setText(Messages.getString("CurUICurrentCardVoucher.3")); //$NON-NLS-1$
 			//END <<  lblAcccountingAccount
 			//START >>  accountPicker
 			accountPicker = new AccountPicker(this, SWT.NONE);
@@ -225,7 +225,7 @@ implements SecureComposite{
 			//END <<  accountPicker
 			//START >>  lblCurrency
 			lblCurrency = new CLabel(this, SWT.NONE);
-			lblCurrency.setText("Para Birimi");
+			lblCurrency.setText(Messages.getString("CurUICurrentCardVoucher.5")); //$NON-NLS-1$
 			//END <<  lblCurrency
 			//START >>  comboCurrencyType
 			comboCurrencyType = new CCombo(this, SWT.NONE);
@@ -354,7 +354,7 @@ implements SecureComposite{
 			}
 			else if ((exchangeCurrency=(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()))==null)
 			{
-				msg.setMessage("Para birimi seçmelisiniz!");
+				msg.setMessage(Messages.getString("CurUICurrentCardVoucher.6")); //$NON-NLS-1$
 				msg.open();
 				comboCurrencyType.setFocus();
 				return false;
@@ -366,7 +366,7 @@ implements SecureComposite{
 			
 				if (exchangeRate == null)
 				{
-					msg.setMessage("Günlük kur tan?mlamal?s?n?z!");
+					msg.setMessage(Messages.getString("CurUICurrentCardVoucher.7")); //$NON-NLS-1$
 					msg.open();
 					return false;	
 		

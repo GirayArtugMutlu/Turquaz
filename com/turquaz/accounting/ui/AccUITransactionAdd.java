@@ -534,7 +534,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 							exchangeCurrency,dateTransactionDate.getDate());
 					if (exchangeRate == null)
 					{
-						msg.setMessage("Günlük kur tan?mlamal?s?n?z!");
+						msg.setMessage(Messages.getString("AccUITransactionAdd.11")); //$NON-NLS-1$
 						msg.open();
 						return false;	
 				

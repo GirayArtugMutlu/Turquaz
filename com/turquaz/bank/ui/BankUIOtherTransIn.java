@@ -142,7 +142,7 @@ public class BankUIOtherTransIn extends org.eclipse.swt.widgets.Composite implem
             }
 			//START >>  lblCurrency
 			lblCurrency = new CLabel(this, SWT.NONE);
-			lblCurrency.setText("Para Birimi");
+			lblCurrency.setText(Messages.getString("BankUIOtherTransIn.6")); //$NON-NLS-1$
 			//END <<  lblCurrency
 			//START >>  comboCurrencyType
 			comboCurrencyType = new CCombo(this, SWT.NONE);
@@ -225,7 +225,7 @@ public class BankUIOtherTransIn extends org.eclipse.swt.widgets.Composite implem
 		        }
 	    		else if ((exchangeCurrency=(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()))==null)
 	    		{
-	    			EngUICommon.showMessageBox(getShell(),"Para birimi seçmelisiniz!",SWT.ICON_WARNING);
+	    			EngUICommon.showMessageBox(getShell(),Messages.getString("BankUIOtherTransIn.7"),SWT.ICON_WARNING); //$NON-NLS-1$
 	        		comboCurrencyType.setFocus();
 	        		return false;
 	    		}
@@ -235,7 +235,7 @@ public class BankUIOtherTransIn extends org.eclipse.swt.widgets.Composite implem
 							exchangeCurrency,datePick.getDate());
 					if (exchangeRate == null)
 					{
-						EngUICommon.showMessageBox(getShell(),"Günlük kur tan?mlamal?s?n?z!",SWT.ICON_WARNING);
+						EngUICommon.showMessageBox(getShell(),Messages.getString("BankUIOtherTransIn.8"),SWT.ICON_WARNING); //$NON-NLS-1$
 						return false;	
 				
 					}

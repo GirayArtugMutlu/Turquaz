@@ -437,7 +437,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 							exchangeCurrency,datePickerTransactionDate.getDate());
 					if (exchangeRate == null)
 					{
-						msg.setMessage("Günlük de?i?im oran? tan?mlamal?s?n?z!");
+						msg.setMessage(Messages.getString("AccUITransactionPayment.7")); //$NON-NLS-1$
 						msg.open();
 						return false;	
 				

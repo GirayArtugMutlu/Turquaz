@@ -517,7 +517,7 @@ public class AccUITransactionCollect extends Composite implements
 							exchangeCurrency,datePickerTransactionDate.getDate());
 					if (exchangeRate == null)
 					{
-						msg.setMessage("Günlük kur tan?mlamal?s?n?z!");
+						msg.setMessage(Messages.getString("AccUITransactionCollect.11")); //$NON-NLS-1$
 						msg.open();
 						return false;	
 				

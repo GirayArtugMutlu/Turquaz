@@ -180,7 +180,7 @@ public class CashUICashOtherPaymentTransaction extends org.eclipse.swt.widgets.C
             }
 			//START >>  lblCurrency
 			lblCurrency = new CLabel(this, SWT.NONE);
-			lblCurrency.setText("Para Birimi");
+			lblCurrency.setText(Messages.getString("CashUICashOtherPaymentTransaction.1")); //$NON-NLS-1$
 			//END <<  lblCurrency
 			//START >>  comboCurrencyType
 			comboCurrencyType = new CCombo(this, SWT.NONE);
@@ -302,7 +302,7 @@ public class CashUICashOtherPaymentTransaction extends org.eclipse.swt.widgets.C
     		}
     		else if ((exchangeCurrency=(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()))==null)
     		{
-    			msg.setMessage("Para birimi seçmelisiniz!");
+    			msg.setMessage(Messages.getString("CashUICashOtherPaymentTransaction.2")); //$NON-NLS-1$
     			msg.open();
     			comboCurrencyType.setFocus();
     			return false;
@@ -313,7 +313,7 @@ public class CashUICashOtherPaymentTransaction extends org.eclipse.swt.widgets.C
 					exchangeCurrency,datePicker.getDate());
     			if (exchangeRate == null)
     			{
-    				msg.setMessage("Günlük de?i?im oran? tan?mlamal?s?n?z!");
+    				msg.setMessage(Messages.getString("CashUICashOtherPaymentTransaction.3")); //$NON-NLS-1$
     				msg.open();
     				return false;	
 		

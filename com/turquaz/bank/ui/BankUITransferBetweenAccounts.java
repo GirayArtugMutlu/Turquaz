@@ -85,7 +85,7 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
 			this.setSize(539, 224);
             {
                 lblDocNo = new CLabel(this, SWT.NONE);
-                lblDocNo.setText("Belge No");
+                lblDocNo.setText(Messages.getString("BankUITransferBetweenAccounts.0")); //$NON-NLS-1$
             }
             {
                 txtDocNo = new Text(this, SWT.NONE);
@@ -96,7 +96,7 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
             }
             {
                 lblDate = new CLabel(this, SWT.NONE);
-                lblDate.setText("Tarih");
+                lblDate.setText(Messages.getString("BankUITransferBetweenAccounts.1")); //$NON-NLS-1$
             }
             {
                 datePick = new DatePicker(this, SWT.NONE);
@@ -107,7 +107,7 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
             }
             {
                 lblBankCard = new CLabel(this, SWT.NONE);
-                lblBankCard.setText("Banka Kart\u0131 (Borçlu)");
+                lblBankCard.setText(Messages.getString("BankUITransferBetweenAccounts.2")); //$NON-NLS-1$
             }
             {
                 bankCardPickerWithDept = new BankCardPicker(this, SWT.NONE);
@@ -118,7 +118,7 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
             }
             {
                 lblCurrentCard = new CLabel(this, SWT.NONE);
-                lblCurrentCard.setText("Banka Kart\u0131 (Alacakl\u0131)");
+                lblCurrentCard.setText(Messages.getString("BankUITransferBetweenAccounts.3")); //$NON-NLS-1$
             }
             {
                 bankCardPickerWithCredit = new BankCardPicker(this, SWT.NONE);
@@ -129,7 +129,7 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
             }
             {
                 lblAmount = new CLabel(this, SWT.NONE);
-                lblAmount.setText("Tutar\u0131");
+                lblAmount.setText(Messages.getString("BankUITransferBetweenAccounts.4")); //$NON-NLS-1$
             }
             {
                 curAmount = new CurrencyText(this, SWT.NONE);
@@ -140,7 +140,7 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
             }
 			//START >>  lblCurrency
 			lblCurrency = new CLabel(this, SWT.NONE);
-			lblCurrency.setText("Para Birimi");
+			lblCurrency.setText(Messages.getString("BankUITransferBetweenAccounts.5")); //$NON-NLS-1$
 			//END <<  lblCurrency
 			//START >>  comboCurrencyType
 			comboCurrencyType = new CCombo(this, SWT.NONE);
@@ -151,7 +151,7 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
 			//END <<  comboCurrencyType
             {
                 lblDefinition = new CLabel(this, SWT.NONE);
-                lblDefinition.setText("Aç\u0131klama");
+                lblDefinition.setText(Messages.getString("BankUITransferBetweenAccounts.6")); //$NON-NLS-1$
             }
             {
                 txtDefinition = new Text(this, SWT.MULTI | SWT.WRAP);
@@ -204,13 +204,13 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
 		{
 		   
 		        if(bankCardPickerWithDept.getData()==null){
-		           EngUICommon.showMessageBox(getShell(),"Lütfen Borçlu Banka Kart? Seçiniz",SWT.ICON_WARNING); 
+		           EngUICommon.showMessageBox(getShell(),Messages.getString("BankUITransferBetweenAccounts.7"),SWT.ICON_WARNING);  //$NON-NLS-1$
 		           bankCardPickerWithDept.setFocus();
 		           return false;
 		            
 		        }
 		        else if(bankCardPickerWithCredit.getData()==null){
-			           EngUICommon.showMessageBox(getShell(),"Lütfen Alacakl? Banka Kart? Seçiniz",SWT.ICON_WARNING); 
+			           EngUICommon.showMessageBox(getShell(),Messages.getString("BankUITransferBetweenAccounts.8"),SWT.ICON_WARNING);  //$NON-NLS-1$
 			           bankCardPickerWithCredit.setFocus();
 			           return false;
 			            
@@ -224,7 +224,7 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
 		        }
 	    		else if ((exchangeCurrency=(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()))==null)
 	    		{
-	    			EngUICommon.showMessageBox(getShell(),"Para birimi seçmelisiniz!",SWT.ICON_WARNING);
+	    			EngUICommon.showMessageBox(getShell(),Messages.getString("BankUITransferBetweenAccounts.9"),SWT.ICON_WARNING); //$NON-NLS-1$
 	        		comboCurrencyType.setFocus();
 	        		return false;
 	    		}
@@ -234,7 +234,7 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
 							exchangeCurrency,datePick.getDate());
 					if (exchangeRate == null)
 					{
-						EngUICommon.showMessageBox(getShell(),"Günlük kur tan?mlamal?s?n?z!",SWT.ICON_WARNING);
+						EngUICommon.showMessageBox(getShell(),Messages.getString("BankUITransferBetweenAccounts.10"),SWT.ICON_WARNING); //$NON-NLS-1$
 						return false;	
 				
 					}

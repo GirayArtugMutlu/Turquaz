@@ -176,17 +176,17 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 				tableColumnDefintion = new TableColumn(
 					tableMoneyTrans,
 					SWT.NONE);
-				tableColumnDefintion.setText("Aç\u0131klama");
+				tableColumnDefintion.setText(Messages.getString("BankUISearchMoneyTransaction.1")); //$NON-NLS-1$
 				tableColumnDefintion.setWidth(150);
 				//END <<  tableColumnDefintion
 				//START >>  tableColumnDeptAmount
 				tableColumnDeptAmount = new TableColumn(tableMoneyTrans, SWT.RIGHT);
-				tableColumnDeptAmount.setText("Borç ");
+				tableColumnDeptAmount.setText(Messages.getString("BankUISearchMoneyTransaction.6")); //$NON-NLS-1$
 				tableColumnDeptAmount.setWidth(85);
 				//END <<  tableColumnDeptAmount
 				//START >>  tableColumnCreditAmount
 				tableColumnCreditAmount = new TableColumn(tableMoneyTrans, SWT.RIGHT);
-				tableColumnCreditAmount.setText("Alacak");
+				tableColumnCreditAmount.setText(Messages.getString("BankUISearchMoneyTransaction.8")); //$NON-NLS-1$
 				tableColumnCreditAmount.setWidth(85);
 				//END <<  tableColumnCreditAmount
             }
