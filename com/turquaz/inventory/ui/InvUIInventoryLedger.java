@@ -14,7 +14,6 @@ import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLInventoryLedger;
 
-import org.eclipse.swt.widgets.Text;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.custom.CLabel;

@@ -1,3 +1,4 @@
+
 package com.turquaz.accounting.ui;
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
@@ -259,8 +260,16 @@ public void fillTree(int parent, String codeCrit){
 	             //handle the obtaining and disposing of resources
 	             SWTResourceManager.registerResourceUser(parentItem);
 	         }
-		
-		item = new TableTreeItem(parentItem,SWT.NULL);	
+		TableTreeItem[] parentItems=parentItem.getItems();
+		String accId=account.getAccountCode();
+		int k;
+		for(k=0; k<parentItems.length; k++)
+		{
+			TableTreeItem pItem=parentItems[k];
+			if (accId.compareTo(pItem.getText(0)) < 0)
+					break;
+		}
+		item = new TableTreeItem(parentItem,SWT.NULL,k);	
 		treeItems.put(account.getAccountingAccountsId(),item);
 		item.setText(0,account.getAccountCode());
 		item.setText(1,account.getAccountName());
