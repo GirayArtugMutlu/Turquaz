@@ -104,7 +104,8 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			parameters.put("ReportTitle", "GENEL GEÇÝCÝ MÝZAN"); //$NON-NLS-1$ //$NON-NLS-2$
 			TurqCompany company = new TurqCompany();
 			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
-			String sqlparam="Select mytab.deptsum,mytab.creditsum,mytab.top_account,accs.account_name,accs.account_code from turq_accounting_accounts accs,"+
+			String sqlparam="Select mytab.deptsum,mytab.creditsum,mytab.top_account,accs.account_name,accs.account_code," +
+					" accs.accounting_accounts_id from turq_accounting_accounts accs,"+
 					"(Select SUM(transcolumns.dept_amount) as deptsum," +
 					"SUM(transcolumns.credit_amount) as creditsum," +
 					" accounts.top_account" +
@@ -118,7 +119,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			 sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'"
 					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"
 					+" GROUP BY accounts.top_account)" +
-					" as mytab where mytab.top_account=accs.top_account";
+					" as mytab where mytab.top_account=accs.accounting_accounts_id ORDER BY mytab.top_account";
 			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy");
 			parameters.put("sqlparam",sqlparam);		
 			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate()));
