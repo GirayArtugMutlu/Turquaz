@@ -57,6 +57,11 @@ public class EngBLCommon {
     
     public final static int CASH_CURRENT_PAYMENT = 1; // Kasa Cari Ödeme
     
+    public final static int CASH_OTHER_COLLECT = 2; //Kasa Diger Tahsilat
+    
+    public final static int CASH_OTHER_PAYMENT = 3; // Kasa Diger Ödeme
+    
+    
     
     
     public final static int ACCOUNTING_TRANS_COLLECT = 0; //Tahsil Fisi

@@ -193,7 +193,7 @@ public class CashUICashOtherPaymentTransaction extends org.eclipse.swt.widgets.C
                
                blTrans.saveOtherTransaction((TurqCashCard)txtCashCard.getData(),
                        						  (TurqAccountingAccount)txtAccountingAccount.getData(),
-                       						  EngBLCommon.CASH_CURRENT_PAYMENT,
+                       						  EngBLCommon.CASH_OTHER_PAYMENT,
                        						  null,
                        						  curTextTotalAmount.getBigDecimalValue(),
                        						  datePicker.getDate(),

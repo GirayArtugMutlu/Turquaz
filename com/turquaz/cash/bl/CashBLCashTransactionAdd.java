@@ -369,7 +369,7 @@ public class CashBLCashTransactionAdd {
 
 			boolean currentTransType = false; // Credit or Debit
 
-			if (type == EngBLCommon.CASH_CURRENT_COLLECT) {
+			if (type == EngBLCommon.CASH_OTHER_COLLECT) {
 				accTransRowCash.setDeptAmount(totalAmount);
 				accTransRowCash.setCreditAmount(new BigDecimal(0));
 
@@ -383,7 +383,7 @@ public class CashBLCashTransactionAdd {
 
 			}
 
-			else if (type == EngBLCommon.CASH_CURRENT_PAYMENT) {
+			else if (type == EngBLCommon.CASH_OTHER_PAYMENT) {
 
 				accTransRowCash.setDeptAmount(new BigDecimal(0));
 				accTransRowCash.setCreditAmount(totalAmount);
