@@ -26,7 +26,7 @@
 			</Property>
 		</Properties>
 		<SubComponents>
-			<Component class="org.eclipse.swt.widgets.Composite" name="composite1" style="0">
+			<Component class="org.eclipse.swt.widgets.Composite" name="compGroupAddDialog" style="0">
 				<Constraints>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -63,7 +63,7 @@
 					</Property>
 				</Properties>
 				<SubComponents>
-					<Component class="org.eclipse.swt.custom.CLabel" name="cLabel1" style="0">
+					<Component class="org.eclipse.swt.custom.CLabel" name="lblGroupName" style="0">
 						<Constraints>
 							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">

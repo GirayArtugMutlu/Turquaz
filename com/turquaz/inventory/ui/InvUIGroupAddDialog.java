@@ -50,8 +50,8 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private TableColumn tableColumnDescription;
 	private TableColumn tableColumnName;
 	private Table tableInvGroups;
-	private CLabel cLabel1;
-	private Composite composite1;
+	private CLabel lblGroupName;
+	private Composite compGroupAddDialog;
 	private Shell dialogShell;
     private InvBLCardAdd blCardAdd = new InvBLCardAdd();
     Calendar cal = Calendar.getInstance();
@@ -70,48 +70,48 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 			dialogShell.setText(getText());
-			composite1 = new Composite(dialogShell,SWT.NULL);
-			cLabel1 = new CLabel(composite1,SWT.NULL);
-			txtGroupName = new Text(composite1,SWT.BORDER);
-			lblDescription = new CLabel(composite1,SWT.NULL);
-			txtDescription = new Text(composite1,SWT.SINGLE| SWT.BORDER);
-			btnDelete = new Button(composite1,SWT.PUSH| SWT.CENTER);
-			btnUpdate = new Button(composite1,SWT.PUSH| SWT.CENTER);
-			btnGroupAdd = new Button(composite1,SWT.PUSH| SWT.CENTER);
+			compGroupAddDialog = new Composite(dialogShell,SWT.NULL);
+			lblGroupName = new CLabel(compGroupAddDialog,SWT.NULL);
+			txtGroupName = new Text(compGroupAddDialog,SWT.BORDER);
+			lblDescription = new CLabel(compGroupAddDialog,SWT.NULL);
+			txtDescription = new Text(compGroupAddDialog,SWT.SINGLE| SWT.BORDER);
+			btnDelete = new Button(compGroupAddDialog,SWT.PUSH| SWT.CENTER);
+			btnUpdate = new Button(compGroupAddDialog,SWT.PUSH| SWT.CENTER);
+			btnGroupAdd = new Button(compGroupAddDialog,SWT.PUSH| SWT.CENTER);
 			tableInvGroups = new Table(dialogShell,SWT.FULL_SELECTION| SWT.H_SCROLL| SWT.V_SCROLL| SWT.BORDER);
 			tableColumnName = new TableColumn(tableInvGroups,SWT.NULL);
 			tableColumnDescription = new TableColumn(tableInvGroups,SWT.NULL);
 	
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(433,229));
 	
-			GridData composite1LData = new GridData();
-			composite1LData.verticalAlignment = GridData.CENTER;
-			composite1LData.horizontalAlignment = GridData.FILL;
-			composite1LData.widthHint = -1;
-			composite1LData.heightHint = 85;
-			composite1LData.horizontalIndent = 0;
-			composite1LData.horizontalSpan = 1;
-			composite1LData.verticalSpan = 1;
-			composite1LData.grabExcessHorizontalSpace = true;
-			composite1LData.grabExcessVerticalSpace = false;
-			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(433,85));
-			final Color composite1background = new Color(Display.getDefault(),255,255,255);
-			composite1.setBackground(composite1background);
+			GridData compGroupAddDialogLData = new GridData();
+			compGroupAddDialogLData.verticalAlignment = GridData.CENTER;
+			compGroupAddDialogLData.horizontalAlignment = GridData.FILL;
+			compGroupAddDialogLData.widthHint = -1;
+			compGroupAddDialogLData.heightHint = 85;
+			compGroupAddDialogLData.horizontalIndent = 0;
+			compGroupAddDialogLData.horizontalSpan = 1;
+			compGroupAddDialogLData.verticalSpan = 1;
+			compGroupAddDialogLData.grabExcessHorizontalSpace = true;
+			compGroupAddDialogLData.grabExcessVerticalSpace = false;
+			compGroupAddDialog.setLayoutData(compGroupAddDialogLData);
+			compGroupAddDialog.setSize(new org.eclipse.swt.graphics.Point(433,85));
+			final Color compGroupAddDialogbackground = new Color(Display.getDefault(),255,255,255);
+			compGroupAddDialog.setBackground(compGroupAddDialogbackground);
 	
-			GridData cLabel1LData = new GridData();
-			cLabel1LData.verticalAlignment = GridData.CENTER;
-			cLabel1LData.horizontalAlignment = GridData.END;
-			cLabel1LData.widthHint = 56;
-			cLabel1LData.heightHint = 20;
-			cLabel1LData.horizontalIndent = 0;
-			cLabel1LData.horizontalSpan = 1;
-			cLabel1LData.verticalSpan = 1;
-			cLabel1LData.grabExcessHorizontalSpace = false;
-			cLabel1LData.grabExcessVerticalSpace = false;
-			cLabel1.setLayoutData(cLabel1LData);
-			cLabel1.setText("Name");
-			cLabel1.setSize(new org.eclipse.swt.graphics.Point(56,20));
+			GridData lblGroupNameLData = new GridData();
+			lblGroupNameLData.verticalAlignment = GridData.CENTER;
+			lblGroupNameLData.horizontalAlignment = GridData.END;
+			lblGroupNameLData.widthHint = 56;
+			lblGroupNameLData.heightHint = 20;
+			lblGroupNameLData.horizontalIndent = 0;
+			lblGroupNameLData.horizontalSpan = 1;
+			lblGroupNameLData.verticalSpan = 1;
+			lblGroupNameLData.grabExcessHorizontalSpace = false;
+			lblGroupNameLData.grabExcessVerticalSpace = false;
+			lblGroupName.setLayoutData(lblGroupNameLData);
+			lblGroupName.setText("Name");
+			lblGroupName.setSize(new org.eclipse.swt.graphics.Point(56,20));
 	
 			GridData txtGroupNameLData = new GridData();
 			txtGroupNameLData.verticalAlignment = GridData.CENTER;
@@ -212,15 +212,15 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 					btnGroupAddMouseUp(evt);
 				}
 			});
-			GridLayout composite1Layout = new GridLayout(3, true);
-			composite1.setLayout(composite1Layout);
-			composite1Layout.marginWidth = 5;
-			composite1Layout.marginHeight = 5;
-			composite1Layout.numColumns = 3;
-			composite1Layout.makeColumnsEqualWidth = false;
-			composite1Layout.horizontalSpacing = 5;
-			composite1Layout.verticalSpacing = 5;
-			composite1.layout();
+			GridLayout compGroupAddDialogLayout = new GridLayout(3, true);
+			compGroupAddDialog.setLayout(compGroupAddDialogLayout);
+			compGroupAddDialogLayout.marginWidth = 5;
+			compGroupAddDialogLayout.marginHeight = 5;
+			compGroupAddDialogLayout.numColumns = 3;
+			compGroupAddDialogLayout.makeColumnsEqualWidth = false;
+			compGroupAddDialogLayout.horizontalSpacing = 5;
+			compGroupAddDialogLayout.verticalSpacing = 5;
+			compGroupAddDialog.layout();
 	
 			GridData tableInvGroupsLData = new GridData();
 			tableInvGroupsLData.verticalAlignment = GridData.FILL;
@@ -258,7 +258,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					composite1background.dispose();
+					compGroupAddDialogbackground.dispose();
 				}
 			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 433,229);

@@ -29,6 +29,8 @@ import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TTable;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.SWT;
 
 
@@ -47,8 +49,7 @@ import org.eclipse.swt.SWT;
 
 public class InvUICardSearch extends SecureComposite {
 
-	private Combo combo1;
-	private TTable tTable1;
+	private Composite compInvCardSearch;
 	public InvUICardSearch(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -62,44 +63,25 @@ public class InvUICardSearch extends SecureComposite {
 		try {
 			preInitGUI();
 	
-			tTable1 = new TTable(this,SWT.NULL);
-			combo1 = new Combo(this,SWT.NULL);
+			compInvCardSearch = new Composite(this,SWT.NULL);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(329,223));
 	
-			GridData tTable1LData = new GridData();
-			tTable1LData.verticalAlignment = GridData.FILL;
-			tTable1LData.horizontalAlignment = GridData.FILL;
-			tTable1LData.widthHint = -1;
-			tTable1LData.heightHint = -1;
-			tTable1LData.horizontalIndent = 0;
-			tTable1LData.horizontalSpan = 1;
-			tTable1LData.verticalSpan = 1;
-			tTable1LData.grabExcessHorizontalSpace = false;
-			tTable1LData.grabExcessVerticalSpace = true;
-			tTable1.setLayoutData(tTable1LData);
-			tTable1.setSize(new org.eclipse.swt.graphics.Point(319,187));
-	
-			GridData combo1LData = new GridData();
-			combo1LData.verticalAlignment = GridData.CENTER;
-			combo1LData.horizontalAlignment = GridData.BEGINNING;
-			combo1LData.widthHint = -1;
-			combo1LData.heightHint = -1;
-			combo1LData.horizontalIndent = 0;
-			combo1LData.horizontalSpan = 1;
-			combo1LData.verticalSpan = 1;
-			combo1LData.grabExcessHorizontalSpace = false;
-			combo1LData.grabExcessVerticalSpace = false;
-			combo1.setLayoutData(combo1LData);
-			combo1.setText("combo1");
-			GridLayout thisLayout = new GridLayout(1, true);
+			GridLayout compInvCardSearchLayout = new GridLayout(1, true);
+			compInvCardSearch.setLayout(compInvCardSearchLayout);
+			compInvCardSearchLayout.marginWidth = 5;
+			compInvCardSearchLayout.marginHeight = 5;
+			compInvCardSearchLayout.numColumns = 1;
+			compInvCardSearchLayout.makeColumnsEqualWidth = true;
+			compInvCardSearchLayout.horizontalSpacing = 5;
+			compInvCardSearchLayout.verticalSpacing = 5;
+			compInvCardSearch.layout();
+			FillLayout thisLayout = new FillLayout(256);
 			this.setLayout(thisLayout);
-			thisLayout.marginWidth = 5;
-			thisLayout.marginHeight = 5;
-			thisLayout.numColumns = 1;
-			thisLayout.makeColumnsEqualWidth = true;
-			thisLayout.horizontalSpacing = 5;
-			thisLayout.verticalSpacing = 5;
+			thisLayout.type = SWT.HORIZONTAL;
+			thisLayout.marginWidth = 0;
+			thisLayout.marginHeight = 0;
+			thisLayout.spacing = 0;
 			this.layout();
 	
 			postInitGUI();
