@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.turquaz.bill.dal.BillDALUpdateBill;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -86,7 +87,7 @@ public class BillBLUpdateBill {
 			deleteCurrentTransactions(bill);
 			
 			blAddBill.saveCurrentTransaction(bill);
-			blAddBill.saveAccountingTransaction(bill,currentAccount);
+			blAddBill.saveAccountingTransaction(bill,(TurqAccountingAccount)currentAccount);
 			
 			
 			

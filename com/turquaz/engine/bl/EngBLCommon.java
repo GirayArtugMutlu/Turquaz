@@ -466,8 +466,7 @@ public class EngBLCommon {
 
 				dalBill.initializeBill(bill);
 				updateBill.deleteAccountingTransactions(bill);
-				addBill.saveAccountingTransaction(bill, bill
-						.getTurqBillConsignmentCommon().getTurqCurrentCard());
+				addBill.saveAccountingTransaction(bill, null);
 
 			}
 		} catch (Exception ex) {

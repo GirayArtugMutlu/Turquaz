@@ -1017,7 +1017,7 @@ implements SecureComposite{
 										consignment,
 										type,
 										!paymentType.booleanValue(),
-										paymentType.booleanValue() ? accountPickerCurAcc.getData() : null,
+										accountPickerCurAcc.getTurqAccountingAccount() ,
 										 dateDueDate.getDate());
 		
 				saveGroups(bill.getId());

@@ -1403,8 +1403,7 @@ public class BillUIAddBill extends Composite
 				TurqBill bill = blAddBill.saveBill(txtDocumentNo.getText(),
 						txtDefinition.getText(), false, dateConsignmentDate
 								.getDate(), cons, type, !paymentType
-								.booleanValue(),
-								paymentType.booleanValue() ? accountPickerCurAcc.getData() : null,
+								.booleanValue(),accountPickerCurAcc.getTurqAccountingAccount(),
 								   dateDueDate.getDate());
 				saveGroups(bill.getId());
 				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$

@@ -54,6 +54,23 @@ public class ConBLAddConsignment {
 	public ConBLAddConsignment(){
 		
 	}
+	/**
+	 * 
+	 * @param docNo
+	 * @param definition
+	 * @param isPrinted
+	 * @param consignmentDate
+	 * @param curCard
+	 * @param discountAmount
+	 * @param billDocNo
+	 * @param vatAmount
+	 * @param specialVatAmount
+	 * @param totalAmount
+	 * @param type
+	 * @param exRate
+	 * @return
+	 * @throws Exception
+	 */
 	public TurqConsignment saveConsignment(String docNo, String definition, boolean isPrinted, Date consignmentDate,
 								   TurqCurrentCard curCard,BigDecimal discountAmount,
 								   String billDocNo, BigDecimal vatAmount,BigDecimal specialVatAmount,
@@ -126,6 +143,13 @@ public class ConBLAddConsignment {
 			throw ex;
 		}
 	}
+	/**
+	 * 
+	 * @param invTrans
+	 * @param consID
+	 * @param consType
+	 * @throws Exception
+	 */
 	public void saveConsignmentRow(TurqInventoryTransaction invTrans, Integer consID,int consType)throws Exception{
 		try{
 			TurqConsignment cons = dalConsignment.loadConsignment(consID);

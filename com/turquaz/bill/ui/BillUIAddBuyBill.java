@@ -37,9 +37,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-
-
-import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
@@ -63,9 +60,7 @@ import com.turquaz.consignment.bl.ConBLAddConsignment;
 
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
-import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqInventoryCard;
@@ -316,7 +311,7 @@ public class BillUIAddBuyBill extends Composite
 	private TableColumn tableColumnPriceAfterDiscount;
 	private DatePicker dateDueDate;
 	private CLabel lblDueDate;
-	private AccountPicker accountPickerCurAcc;
+	private AccountPicker accountPickerCashAccount;
 	private CLabel lblCashAccount;
 	private CCombo comboWareHouse;
 	private CLabel lblWareHouse;
@@ -605,9 +600,9 @@ public class BillUIAddBuyBill extends Composite
 										SelectionEvent evt) {
 										Boolean isCurrent=(Boolean)comboPaymentType.getData(comboPaymentType.getText());
 										if (isCurrent.booleanValue())
-											accountPickerCurAcc.setEnabled(true);
+											accountPickerCashAccount.setEnabled(true);
 										else
-											accountPickerCurAcc.setEnabled(false);
+											accountPickerCashAccount.setEnabled(false);
 									}
 									});
                                 comboPaymentTypeLData.widthHint = 90;
@@ -641,13 +636,13 @@ public class BillUIAddBuyBill extends Composite
 								lblCashAccount.setText(Messages.getString("BillUIAddBuyBill.4")); //$NON-NLS-1$
 							}
 							{
-								accountPickerCurAcc = new AccountPicker(
+								accountPickerCashAccount = new AccountPicker(
 									compInfoPanel,
 									SWT.NONE);
 								GridData accountPickerCurAccLData = new GridData();
 								accountPickerCurAccLData.widthHint = 111;
 								accountPickerCurAccLData.heightHint = 15;
-								accountPickerCurAcc.setLayoutData(accountPickerCurAccLData);
+								accountPickerCashAccount.setLayoutData(accountPickerCurAccLData);
 							}
                             {
                                 lblDueDate = new CLabel(compInfoPanel, SWT.NONE);
@@ -1079,7 +1074,7 @@ public class BillUIAddBuyBill extends Composite
 		comboPaymentType.setData(
 				Messages.getString("BillUIAddBill.30"), new Boolean(true)); //$NON-NLS-1$
 		comboPaymentType.setText(Messages.getString("BillUIAddBill.35")); //$NON-NLS-1$
-		accountPickerCurAcc.setEnabled(false);
+		accountPickerCashAccount.setEnabled(false);
 		
 
 	    createTableViewer();
@@ -1320,11 +1315,11 @@ public class BillUIAddBuyBill extends Composite
 			Boolean isCurrent=(Boolean)comboPaymentType.getData(comboPaymentType.getText());
 			if (isCurrent.booleanValue())
 			{
-				if (accountPickerCurAcc.getData()==null)
+				if (accountPickerCashAccount.getData()==null)
 				{
 					msg.setMessage(Messages.getString("BillUIAddBuyBill.15")); //$NON-NLS-1$
 					msg.open();
-					accountPickerCurAcc.setFocus();
+					accountPickerCashAccount.setFocus();
 					return false;
 				}
 			}
@@ -1361,38 +1356,32 @@ public class BillUIAddBuyBill extends Composite
 			return false;
 		}
 	}
+	public List getInventoryTransactions(){
+		List invTransactions = new ArrayList();
+		
+		TableItem items[] = tableConsignmentRows.getItems();
+		for (int i = 0; i < items.length; i++) {
+		    
 
-	public void saveConsignmentRows(Integer consignmentID) {
-		try {
-			TableItem items[] = tableConsignmentRows.getItems();
-
-			// buy bill
-			int type = EngBLCommon.COMMON_BUY_INT;
-
-			boolean stable=true;
-			for (int i = 0; i < items.length; i++) {
-			    
-
-			    InvUITransactionTableRow row = (InvUITransactionTableRow)items[i].getData();
-			   
-			    TurqInventoryTransaction invTrans = (TurqInventoryTransaction)row.getDBObject();
-			    invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouse.getData(comboWareHouse.getText()));
-				
-			    if(row.okToSave())
-			    {
-			    	blAddConsignment.saveConsignmentRow(invTrans,consignmentID, type);
-			    	if (stable)
-			    		stable=checkStabilityInventoryLevel(invTrans.getTurqInventoryCard());
-			    }
-			}
-			if (!stable)
-				EngUICommon.showMessageBox(this.getShell(),Messages.getString("BillUIAddBuyBill.19"),SWT.ICON_WARNING); //$NON-NLS-1$
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		    InvUITransactionTableRow row = (InvUITransactionTableRow)items[i].getData();
+		   
+		    TurqInventoryTransaction invTrans = (TurqInventoryTransaction)row.getDBObject();
+		    invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouse.getData(comboWareHouse.getText()));
+			
+		    if(row.okToSave())
+		    {
+		       
+		    	invTransactions.add(invTrans);
+		    	
+		    }
 		}
-
+		
+		
+		return invTransactions;
+		
+		
 	}
+
 	
 	public boolean checkStabilityInventoryLevel(TurqInventoryCard invCard ){
 	    try
@@ -1415,48 +1404,22 @@ public class BillUIAddBuyBill extends Composite
 	    }		
 	}
 
-	public void saveGroups(Integer consignmentId) {
-		try {
-			TableItem items[] = compRegisterGroup.getTableAllGroups()
-					.getItems();
-			for (int i = 0; i < items.length; i++) {
-				if (items[i].getChecked()) {
-					blAddBill.registerGroup((TurqBillGroup) items[i].getData(),
-							consignmentId);
-				}
-
+	
+	
+	public List getBillGroups()
+	{
+		List list = new ArrayList();
+		TableItem items[] = compRegisterGroup.getTableAllGroups().getItems();
+		for (int i = 0; i < items.length; i++) {
+			if (items[i].getChecked()) {
+				list.add(items[i].getData());
 			}
 
-		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
-
+		return list;
+		
+		
 	}
-
-	public TurqConsignment saveConsignment() throws Exception {
-		try {
-			// buy bill
-			int type = 0;
-
-			TurqConsignment cons = blAddConsignment.saveConsignment(
-					txtConsignmentDocumentNo.getText(),
-					txtDefinition.getText(), false, dateConsignmentDate
-							.getDate(), (TurqCurrentCard) txtCurrentCard
-							.getData(),
-					txtDiscountAmount.getBigDecimalValue(), txtDocumentNo
-							.getText(), txtTotalVat.getBigDecimalValue(),
-					decSpecialVat.getBigDecimalValue(), txtTotalAmount
-							.getBigDecimalValue(), type,EngBLCommon.getBaseCurrencyExchangeRate());
-			saveConsignmentRows(cons.getId());
-			
-
-			return cons;
-		} catch (Exception ex) {
-			throw ex;
-		}
-
-	}
-
 	public void save() {
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		try {
@@ -1465,20 +1428,12 @@ public class BillUIAddBuyBill extends Composite
 				// buy bill
 				int type = 0;
 
-				//First save its consignment..
-
-				TurqConsignment cons = saveConsignment();
-
 				Boolean paymentType = (Boolean) comboPaymentType
 						.getData(comboPaymentType.getText());
 
-				TurqBill bill = blAddBill.saveBill(txtDocumentNo.getText(),
-						txtDefinition.getText(), false, dateConsignmentDate
-								.getDate(), cons, type, !paymentType
-								.booleanValue(),
-								paymentType.booleanValue() ? accountPickerCurAcc.getData():null,
-								 dateDueDate.getDate());
-				saveGroups(bill.getId());
+				blAddBill.saveBill(txtConsignmentDocumentNo.getText(),txtDefinition.getText(), false, dateConsignmentDate.getDate(),type,!paymentType.booleanValue(),(TurqCurrentCard)txtCurrentCard.getData(),accountPickerCashAccount.getTurqAccountingAccount(),dateDueDate.getDate(),txtDiscountAmount.getBigDecimalValue(), txtDocumentNo.getText(), txtTotalVat.getBigDecimalValue(),decSpecialVat.getBigDecimalValue(), txtTotalAmount.getBigDecimalValue(),EngBLCommon.getBaseCurrencyExchangeRate(),getBillGroups(),getInventoryTransactions());
+			
+				
 				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				msg.open();
 				newForm();
@@ -1489,7 +1444,6 @@ public class BillUIAddBuyBill extends Composite
 		}
 
 	}
-
 	public void delete() {
 
 	}
