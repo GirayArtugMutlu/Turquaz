@@ -14,7 +14,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 /**
  * @author onsel
  *
- * TODO To change the template for this generated type comment go to
+ * 
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class SearchTableViewer
@@ -71,9 +71,8 @@ class SearchTableColumnListener implements Listener
 	int columnType;
 	TableViewer viewer;
 	private TurquazTableSorter tableSorter=null;
-	public static Image ascendingImage=SWTResourceManager.getImage("icons/backward.gif");
-	public static Image descendingImage=SWTResourceManager.getImage("icons/forward.gif");
-	
+	public static Image ascendingImage=SWTResourceManager.getImage("gfx/up_arrow.gif");
+	public static Image descendingImage=SWTResourceManager.getImage("gfx/down_arrow.gif");
 	
 	public SearchTableColumnListener(TableViewer viewer, int columnIndex, int columnType)
 	{
@@ -86,12 +85,12 @@ class SearchTableColumnListener implements Listener
 	public void handleEvent(Event e) {
 		boolean sortStyle=!tableSorter.getAscending();
 		tableSorter.setAscending(sortStyle);
-		/*TableColumn[] columns=viewer.getTable().getColumns();
+		TableColumn[] columns=viewer.getTable().getColumns();
 		for (int k=0; k<columns.length; k++)
 		{
 			columns[k].setImage(null);
 		}
-		columns[columnIndex].setImage(sortStyle ? ascendingImage : descendingImage );*/
+		columns[columnIndex].setImage(sortStyle ? ascendingImage : descendingImage );
 		viewer.setSorter(tableSorter);
 		viewer.refresh();
 	}
