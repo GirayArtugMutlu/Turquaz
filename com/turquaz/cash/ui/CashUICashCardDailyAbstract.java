@@ -21,8 +21,11 @@ package com.turquaz.cash.ui;
 */
 
 import java.math.BigDecimal;
+
 import java.util.Date;
+
 import java.util.List;
+
 
 import org.eclipse.swt.layout.GridLayout;
 
@@ -321,6 +324,8 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
      }
          
      }
+     
 
-    }
+    } 
+	
 }
