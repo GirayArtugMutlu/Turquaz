@@ -47,6 +47,7 @@ import com.turquaz.accounting.ui.AccUITransactionPayment;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.ui.viewers.ITableRow;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -198,6 +199,12 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	}
 /** Add your pre-init code in here 	*/
 	public void preInitGUI(){
+	    try{
+	    blTransUpdate.initiliazeTransactionRows(accTrans);
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
 	}
 
 	/** Add your post-init code in here 	*/
@@ -254,11 +261,10 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	transRow =(TurqAccountingTransactionColumn)it.next();
 	
 	if(!transRow.getDeptAmount().toString().equals("0")){ //$NON-NLS-1$
-	item = new TableItem(compTransactionPayment.getTableTransactionRows(),SWT.NULL);
-	item.setData(transRow);
-	item.setText(new String[]{transRow.getTurqAccountingAccount().getAccountCode(),
-				transRow.getTurqAccountingAccount().getAccountName(),
-				transRow.getDeptAmount().toString()});
+	    ITableRow row = new AccUITransactionPaymentTableRow(compTransactionPayment.rowList);
+		compTransactionPayment.rowList.addTask(row);
+		row.setDBObject(transRow);
+		compTransactionPayment.rowList.taskChanged(row);
 	}
 	else {
 	compTransactionPayment.getComboCreditor().setText(transRow.getTurqAccountingAccount().getAccountCode()+" "+transRow.getTurqAccountingAccount().getAccountName()); //$NON-NLS-1$

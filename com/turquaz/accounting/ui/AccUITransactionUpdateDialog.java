@@ -43,6 +43,7 @@ import com.turquaz.accounting.ui.AccUITransactionAdd;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.ui.viewers.ITableRow;
 
 
 import org.eclipse.swt.events.SelectionAdapter;
@@ -223,7 +224,8 @@ public void showDialog(TurqAccountingTransaction accTrans){
 			toolUpdate.setEnabled(false);
 			toolDelete.setEnabled(false);		    
 		}
-	
+	try{
+		blTransUpdate.initiliazeTransactionRows(accTrans);
 	/* Check if it is entered from accountingmodule
 	 * 
 	 */
@@ -245,7 +247,10 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	Integer trModule=accTrans.getTurqModule().getModulesId();
 	if (trModule.intValue()!=1){ //1=Transaction, only view is allowed for other modules..
 	}
-		
+	}
+	catch(Exception ex){
+	    ex.printStackTrace();
+	}
 	
 	}
 	public void fillTable(){
@@ -256,14 +261,10 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	TableItem item;
 	while(it.hasNext()){
 	transRow =(TurqAccountingTransactionColumn)it.next();
-	
-	item = new TableItem(compTransactionAdd.getTableTransactionColumns(),SWT.NULL);
-	item.setData(transRow);
-	item.setText(new String[]{transRow.getTurqAccountingAccount().getAccountCode(),
-				transRow.getTurqAccountingAccount().getAccountName(),
-				transRow.getCreditAmount().toString(),
-				transRow.getDeptAmount().toString(),transRow.getTransactionDefinition().toString()});
-	
+	ITableRow row = new AccUITransactionAddTableRow(compTransactionAdd.rowList);
+	compTransactionAdd.rowList.addTask(row);
+	row.setDBObject(transRow);
+	compTransactionAdd.rowList.taskChanged(row);
 	
 	}
 	}

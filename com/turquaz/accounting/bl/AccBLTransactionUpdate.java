@@ -100,6 +100,14 @@ public class AccBLTransactionUpdate {
 		}
 		
 	}
+	public void initiliazeTransactionRows(TurqAccountingTransaction trans)throws Exception{
+	    try{
+	        dalTransUpdate.initializeTransactionRows(trans);
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
 	
 	
 

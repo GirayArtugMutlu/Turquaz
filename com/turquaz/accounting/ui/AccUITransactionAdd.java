@@ -352,8 +352,9 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
                     
                  }
                  else if(evt.keyCode==SWT.DEL){
-                    ITableRow row = (ITableRow)cursor.getRow().getData();
-                     if(row!=null){
+                   
+                     if(cursor.getRow()!=null){
+                         ITableRow row = (ITableRow)cursor.getRow().getData();
                          rowList.removeTask(row);
                          int itemCount =tableTransactionColumns.getItemCount();
                         if(itemCount>0){
