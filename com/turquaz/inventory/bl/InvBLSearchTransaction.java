@@ -108,4 +108,8 @@ public class InvBLSearchTransaction
 			throw ex;
 		}
 	}
+	public static List getInitialTransactions()throws Exception{
+		
+              return InvDALSearchTransaction.getInitialTransactions();		
+	}
 }

@@ -6,6 +6,7 @@
  */
 package com.turquaz.inventory.ui;
 
+import java.math.BigDecimal;
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
@@ -204,7 +205,56 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 	 */
 	public void modify(int column_index, Object value)
 	{
-		// TODO Auto-generated method stub
+		switch (column_index)
+		{
+			case 0 : // inventory code
+				break;
+			
+			case 1 : //inventory name
+				break;
+				
+			case 2 : //Amount
+			{
+				if (invTrans == null)
+				{
+					
+				}
+				else
+				{
+					String formatted = value.toString();
+					formatted = formatted.replaceAll("\\.", "");
+					formatted = formatted.replaceAll(",", ".");
+					if (formatted.equals(""))
+					{
+						formatted = "0";
+					}
+					invTrans.setTransactionsAmountIn(new BigDecimal(formatted));
+					
+				}
+				break;
+			}
+			case 3 : //Price
+				if (invTrans == null)
+				{
+					
+				}
+				else
+				{
+					String formatted = value.toString();
+					formatted = formatted.replaceAll("\\.", "");
+					formatted = formatted.replaceAll(",", ".");
+					if (formatted.equals(""))
+					{
+						formatted = "0";
+					}
+					invTrans.setTransactionsAmountIn(new BigDecimal(formatted));
+					
+				}
+				break;
+		
+			default :
+			
+		}
 	}
 
 	/*
