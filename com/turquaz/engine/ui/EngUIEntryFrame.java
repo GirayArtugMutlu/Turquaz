@@ -162,7 +162,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
 			thisLayout.marginHeight = 20;
-			this.setSize(377, 171);
+			this.setSize(376, 178);
 			{
 				lblUserName = new CLabel(this, SWT.NONE);
 				lblUserName.setText(Messages.getString("EngUIEntryFrame.1")); //$NON-NLS-1$
@@ -260,10 +260,29 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 				composite1Layout.makeColumnsEqualWidth = true;
 				composite1Layout.numColumns = 2;
 				compEngUIMainFrame.setLayout(composite1Layout);
+                {
+                    btnOk = new Button(compEngUIMainFrame, SWT.PUSH
+                        | SWT.FLAT
+                        | SWT.CENTER);
+                    btnOk.setText(Messages.getString("EngUIEntryFrame.7")); //$NON-NLS-1$
+                    GridData btnOkLData = new GridData();
+                    btnOk.setImage(SWTResourceManager
+                        .getImage("icons/Ok24.gif")); //$NON-NLS-1$
+                    btnOk.addMouseListener(new MouseAdapter() {
+                        public void mouseUp(MouseEvent evt) {
+                            btnOkMouseUp();
+                        }
+                    });
+                    btnOkLData.horizontalAlignment = GridData.END;
+                    btnOkLData.widthHint = 74;
+                    btnOkLData.heightHint = 37;
+                    btnOk.setLayoutData(btnOkLData);
+                }
 				{
 					btnCancel = new Button(compEngUIMainFrame, SWT.PUSH | SWT.FLAT | SWT.CENTER);
 					btnCancel.setText(Messages.getString("EngUIEntryFrame.5")); //$NON-NLS-1$
 					GridData btnCancelLData = new GridData();
+					btnCancel.setSize(74, 37);
 					btnCancel.setImage(SWTResourceManager.getImage("icons/Cancel24.gif")); //$NON-NLS-1$
 					btnCancel.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
@@ -272,24 +291,9 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 						}
 					});
 					btnCancelLData.horizontalAlignment = GridData.END;
-					btnCancelLData.widthHint = 72;
-					btnCancelLData.heightHint = 34;
+					btnCancelLData.widthHint = 74;
+					btnCancelLData.heightHint = 37;
 					btnCancel.setLayoutData(btnCancelLData);
-				}
-				{
-					btnOk = new Button(compEngUIMainFrame, SWT.PUSH | SWT.FLAT | SWT.CENTER);
-					btnOk.setText(Messages.getString("EngUIEntryFrame.7")); //$NON-NLS-1$
-					GridData btnOkLData = new GridData();
-					btnOk.setImage(SWTResourceManager.getImage("icons/Ok24.gif")); //$NON-NLS-1$
-					btnOk.addMouseListener(new MouseAdapter() {
-						public void mouseUp(MouseEvent evt) {
-							btnOkMouseUp();
-						}
-					});
-					btnOkLData.horizontalAlignment = GridData.END;
-					btnOkLData.widthHint = 74;
-					btnOkLData.heightHint = 37;
-					btnOk.setLayoutData(btnOkLData);
 				}
 			}
 			this.layout();
