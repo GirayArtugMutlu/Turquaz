@@ -11,6 +11,7 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
@@ -89,6 +90,9 @@ public class InvUITransactionTableRow implements ITableRow {
         invTrans.setTransactionsCumilativePrice(new BigDecimal(0));
         invTrans.setTransactionsDiscount(new BigDecimal(0));
         invTrans.setTransactionsDiscountAmount(new BigDecimal(0));
+        
+        invTrans.setTransactionType(EngBLCommon.INVENTORY_TRANS_CONSIGNMENT);
+    
     }
     
     /**
