@@ -37,6 +37,7 @@ import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -72,6 +73,8 @@ public class CheUIReturnFromBankRoll extends org.eclipse.swt.widgets.Composite i
 	private Composite compInfoPanel;
 	private ToolBar toolBarButtons;
 	private ToolItem toolItemAdd;
+	private AccountPicker accountPicker;
+	private CLabel lblReturnBankAccounting;
 	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnPaymentPlace;
 	private TableColumn tableColumnDeptor;
@@ -103,7 +106,7 @@ public class CheUIReturnFromBankRoll extends org.eclipse.swt.widgets.Composite i
                 GridData compInfoPanelLData = new GridData();
                 compInfoPanelLData.grabExcessHorizontalSpace = true;
                 compInfoPanelLData.horizontalAlignment = GridData.FILL;
-                compInfoPanelLData.heightHint = 58;
+                compInfoPanelLData.heightHint = 83;
                 compInfoPanel.setLayoutData(compInfoPanelLData);
                 compInfoPanelLayout.numColumns = 2;
                 compInfoPanel.setLayout(compInfoPanelLayout);
@@ -131,6 +134,18 @@ public class CheUIReturnFromBankRoll extends org.eclipse.swt.widgets.Composite i
                     datePicker1LData.heightHint = 19;
                     datePicker1.setLayoutData(datePicker1LData);
                 }
+				//START >>  lblReturnBankAccounting
+				lblReturnBankAccounting = new CLabel(compInfoPanel, SWT.NONE);
+				lblReturnBankAccounting
+					.setText("Kar\u015f\u0131l\u0131ks\u0131z Çek Hesab\u0131");
+				//END <<  lblReturnBankAccounting
+				//START >>  accountPicker
+				accountPicker = new AccountPicker(compInfoPanel, SWT.NONE);
+				GridData accountPickerLData = new GridData();
+				accountPickerLData.widthHint = 206;
+				accountPickerLData.heightHint = 18;
+				accountPicker.setLayoutData(accountPickerLData);
+				//END <<  accountPicker
             }
             {
                 toolBarButtons = new ToolBar(this, SWT.FLAT | SWT.RIGHT);
