@@ -94,7 +94,7 @@ public class EngBLInventoryCards
 	{
 		try
 		{
-			return (TurqInventoryCard) EngTXCommon.searchTX(InvBLCardSearch.class.getName(),"getInventoryCard",new Object[]{invCode});
+			return (TurqInventoryCard) EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getInventoryCard",new Object[]{invCode});
 		}
 		catch (Exception ex)
 		{

@@ -56,6 +56,7 @@ import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -256,7 +257,8 @@ public class InvUICardUpdateDialog extends Dialog
 	{
 		try
 		{
-			List invAccounts = InvBLCardSearch.getInvAccountingAccs(invCard.getId());
+			Object[] argList=new Object[]{invCard.getId()};
+			List invAccounts = (List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getInvAccountingAccs",argList);
 			for (int k = 0; k < invAccounts.size(); k++)
 			{
 				TurqInventoryAccountingAccount invAcc = (TurqInventoryAccountingAccount) invAccounts.get(k);
@@ -394,14 +396,15 @@ public class InvUICardUpdateDialog extends Dialog
 			{
 				updated = true;
 				// Update Inventory Card Fields
-				InvBLCardUpdate.updateInventoryCard(compInvUICard.getTxtInvCardCode().getText().trim(), compInvUICard
+				Object[] argList=new Object[]{compInvUICard.getTxtInvCardCode().getText().trim(), compInvUICard
 						.getTxtInvCardName().getText().trim(), compInvUICard.getTxtInvCardDefinition().getText().trim(),
-						compInvUICard.getTxtnumInvCardMin().getIntValue(), compInvUICard.getTxtnumInvCardMax().getIntValue(),
-						compInvUICard.getTxtInvCardVat().getIntValue(), compInvUICard.getTxtInvCardDiscount().getIntValue(),
-						compInvUICard.getNumTextSpecailVATPercent().getIntValue(), compInvUICard.getDecTextSpecialVatAmount()
+						compInvUICard.getTxtnumInvCardMin().getIntegerValue(), compInvUICard.getTxtnumInvCardMax().getIntegerValue(),
+						compInvUICard.getTxtInvCardVat().getIntegerValue(), compInvUICard.getTxtInvCardDiscount().getIntegerValue(),
+						compInvUICard.getNumTextSpecailVATPercent().getIntegerValue(), compInvUICard.getDecTextSpecialVatAmount()
 								.getBigDecimalValue(), invCard, compInvUICard.getCompInvCardGroups().getRegisteredGroups(),
-						compInvUICard.getInvUnits(), compInvUICard.getInvPrices(), compInvUICard.getInvAccounts());
-				EngBLInventoryCards.RefreshContentAsistantMap();
+						compInvUICard.getInvUnits(), compInvUICard.getInvPrices(), compInvUICard.getInvAccounts()};
+				EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"updateInventoryCard",argList);
+				EngTXCommon.doSingleTX(EngBLInventoryCards.class.getName(),"RefreshContentAsistantMap",null);
 				MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 				msg.setMessage(Messages.getString("InvUICardUpdateDialog.5")); //$NON-NLS-1$
 				msg.open();
@@ -425,7 +428,7 @@ public class InvUICardUpdateDialog extends Dialog
 			if (msg.open() == SWT.NO)
 				return;
 			// if the inventory card contains transactions
-			if (InvDALCardUpdate.hasTransactions(invCard))
+			if (((Boolean)EngTXCommon.doSingleTX(InvDALCardUpdate.class.getName(),"hasTransactions",new Object[]{invCard})).booleanValue())
 			{
 				MessageBox msg2 = new MessageBox(this.getParent(), SWT.ICON_WARNING);
 				msg2.setMessage(Messages.getString("InvUICardUpdateDialog.8")); //$NON-NLS-1$
@@ -433,7 +436,7 @@ public class InvUICardUpdateDialog extends Dialog
 				return;
 			}
 			updated = true;
-			InvBLCardUpdate.deleteInventoryCard(invCard);
+			EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",new Object[]{invCard});
 			msg = new MessageBox(this.getParent(), SWT.NULL);
 			msg.setMessage(Messages.getString("InvUICardUpdateDialog.6")); //$NON-NLS-1$
 			msg.open();

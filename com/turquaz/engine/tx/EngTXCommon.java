@@ -7,6 +7,7 @@
 package com.turquaz.engine.tx;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
@@ -19,7 +20,7 @@ import net.sf.hibernate.Transaction;
  */
 public class EngTXCommon
 {
-	public static Object searchTX(String myClass, String myMethod, Object[] argList)throws Exception
+	public static Object doSingleTX(String myClass, String myMethod, HashMap argMap)throws Exception
 	{
 		Session session=null;
 		try
@@ -27,13 +28,11 @@ public class EngTXCommon
 			session=EngDALSessionFactory.openSession2();
 			Class cls=Class.forName(myClass);
 			Class[] classList=null;
-			if (argList != null)
+			Object[] argList=null;
+			if (argMap != null)
 			{
-				classList=new Class[argList.length];
-				for(int k=0; k<argList.length; k++)
-				{
-					classList[k]=argList[k].getClass();
-				}
+				classList=new Class[]{argMap.getClass()};
+				argList=new Object[]{argMap};
 			}
 			Method method=cls.getMethod(myMethod,classList);
 			Object retVal=method.invoke(null,argList);
@@ -52,7 +51,7 @@ public class EngTXCommon
 		}
 	}
 	
-	public static Object doTransactionTX(String myClass, String myMethod, Object[] argList)throws Exception
+	public static Object doTransactionTX(String myClass, String myMethod, HashMap argMap)throws Exception
 	{
 		Session session=null;
 		Transaction tx=null;
@@ -62,13 +61,11 @@ public class EngTXCommon
 			tx=session.beginTransaction();
 			Class cls=Class.forName(myClass);
 			Class[] classList=null;
-			if (argList != null)
+			Object[] argList=null;
+			if (argMap != null)
 			{
-				classList=new Class[argList.length];
-				for(int k=0; k<argList.length; k++)
-				{
-					classList[k]=argList[k].getClass();
-				}
+				classList=new Class[]{argMap.getClass()};
+				argList=new Object[]{argMap};
 			}
 			Method method=cls.getMethod(myMethod,classList);
 			Object retVal=method.invoke(null,argList);

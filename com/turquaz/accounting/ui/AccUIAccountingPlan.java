@@ -216,7 +216,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			tableTreeAccountingPlan.removeAll();
 			TableTreeItem item;
 			
-			List mainBranches =(List)EngTXCommon.searchTX(AccBLAccountAdd.class.getName(),"getAllAccountsWithSum",null) ;
+			List mainBranches =(List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAllAccountsWithSum",null) ;
 			TurqAccountingAccount account;
 			TurqViewAccTotal accView;
 			Integer parentId;
@@ -304,7 +304,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			Object args[] = new Object[2];
 			args[0]=new Integer(parent_id);
 			args[1]=codeCriteria;
-			List mainBranches = (List)EngTXCommon.searchTX(AccBLAccountAdd.class.getName(),"getAccount",args);
+			List mainBranches = (List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAccount",args);
 			TurqAccountingAccount account;
 			for (int i = 0; i < mainBranches.size(); i++)
 			{
@@ -366,14 +366,14 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 			try
 			{
-				List accTrans = (List)EngTXCommon.searchTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",new Object[]{account});
+				List accTrans = (List)EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",new Object[]{account});
 				if (accTrans.size() > 0)
 				{
 					msg.setMessage(Messages.getString("AccUIAccountingPlan.6")); //$NON-NLS-1$
 					msg.open();
 					return;
 				}
-				List subAccs = (List)EngTXCommon.searchTX(AccBLAccountUpdate.class.getName(),"getSubAccounts",new Object[]{account});
+				List subAccs = (List)EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getSubAccounts",new Object[]{account});
 				if (subAccs.size() > 0)
 				{
 					msg.setMessage(Messages.getString("AccUIAccountingPlan.5")); //$NON-NLS-1$
@@ -387,7 +387,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 					EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"deleteAccount",new Object[]{account});
 					msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 					msg.open();
-					EngTXCommon.searchTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
+					EngTXCommon.doSingleTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
 
 					fillTree(-1, ""); //$NON-NLS-1$
 				}

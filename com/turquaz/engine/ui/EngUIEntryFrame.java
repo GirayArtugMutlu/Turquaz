@@ -374,7 +374,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		try
 		{
-			Boolean result = (Boolean)EngTXCommon.searchTX(EngBLCommon.class.getName(),"checkUserPass",new Object[]{txtUserName.getText(), txtPassword.getText()});
+			Boolean result = (Boolean)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"checkUserPass",new Object[]{txtUserName.getText(), txtPassword.getText()});
 			if (result.booleanValue())
 			{
 				showMainFrame();

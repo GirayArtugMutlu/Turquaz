@@ -20,7 +20,9 @@ package com.turquaz.inventory.bl;
  * @version $Id$
  */
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -34,13 +36,13 @@ import com.turquaz.inventory.dal.InvDALCardUpdate;
 
 public class InvBLCardUpdate
 {
-	public static void updateInventoryCard(String invCode, String cardName, String cardDefinition, int minAmount, int maxAmount,
-			int cardVat, int discount, int cardSpecialVat, BigDecimal cardSpecialVatEach, TurqInventoryCard card, Map invGroups,
-			List invCardUnits, List invPrices, List invAccounts) throws Exception
+	public static void updateInventoryCard(String invCode, String cardName, String cardDefinition, Integer minAmount, Integer maxAmount,
+			Integer cardVat, Integer discount, Integer cardSpecialVat, BigDecimal cardSpecialVatEach, TurqInventoryCard card, HashMap invGroups,
+			ArrayList invCardUnits, ArrayList invPrices, ArrayList invAccounts) throws Exception
 	{
 		try
 		{
-			updateInvCard(invCode, cardName, cardDefinition, minAmount, maxAmount, cardVat, discount, cardSpecialVat,
+			updateInvCard(invCode, cardName, cardDefinition, minAmount.intValue(), maxAmount.intValue(), cardVat.intValue(), discount.intValue(), cardSpecialVat.intValue(),
 					cardSpecialVatEach, card);
 			updateInvGroups(card, invGroups);
 			updateInvCardUnits(card, invCardUnits);
@@ -223,7 +225,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	public static boolean hasTransactions(TurqInventoryCard card) throws Exception
+	public static Boolean hasTransactions(TurqInventoryCard card) throws Exception
 	{
 		try
 		{

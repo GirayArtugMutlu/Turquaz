@@ -973,7 +973,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		try
 		{
 			mapEditorsTableInvCardAddRegisteredUnits = new HashMap();
-			currencyList = (List)EngTXCommon.searchTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			currencyList = (List)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"getCurrencies",null);
 		}
 		catch (Exception ex)
 		{
@@ -1006,7 +1006,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 	{
 		try
 		{
-			List allTypes = (List)EngTXCommon.searchTX(InvBLCardSearch.class.getName(),"getAllInvAccTypes",null);
+			List allTypes = (List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getAllInvAccTypes",null);
 			for (int k = 0; k < allTypes.size(); k++)
 			{
 				TurqInventoryAccountingType type = (TurqInventoryAccountingType) allTypes.get(k);
@@ -1180,7 +1180,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		tableInvCardAddRegisteredUnits.getColumn(1).setWidth(50);
 		try
 		{
-			List unitLst = (List)EngTXCommon.searchTX(InvBLCardAdd.class.getName(),"getInventoryUnits",null);
+			List unitLst = (List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getInventoryUnits",null);
 			TableItem item = null;
 			TurqInventoryUnit trqInvUnit;
 			for (int i = 0; i < unitLst.size(); i++)
@@ -1222,7 +1222,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 				txtInvCardCode.setFocus();
 				return false;
 			}
-			else if (save && EngTXCommon.searchTX(EngBLInventoryCards.class.getName(),"getInvCard",new Object[]{txtInvCardCode.getText().trim()}) != null)
+			else if (save && EngTXCommon.doSingleTX(EngBLInventoryCards.class.getName(),"getInvCard",new Object[]{txtInvCardCode.getText().trim()}) != null)
 			{
 				msg.setMessage(Messages.getString("InvUICardAdd.2")); //$NON-NLS-1$
 				msg.open();
@@ -1272,7 +1272,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 						getInvPrices(), getInvAccounts()};
 				EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"saveInventoryCard",argList);
 				txtInvCardCode.asistant.refreshContentAssistant(1);
-				EngTXCommon.searchTX(EngBLInventoryCards.class.getName(),"RefreshContentAsistantMap",null);
+				EngTXCommon.doSingleTX(EngBLInventoryCards.class.getName(),"RefreshContentAsistantMap",null);
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(Messages.getString("InvUICardAdd.36")); //$NON-NLS-1$
 				msg.open();

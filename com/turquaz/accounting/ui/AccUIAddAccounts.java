@@ -314,7 +314,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 								
 				 
 				
-				 List accTrans =(List)EngTXCommon.searchTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",new Object[]{parent});
+				 List accTrans =(List)EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",new Object[]{parent});
 				
 				if (accTrans.size() > 0)
 				{
@@ -329,7 +329,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				
 				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
 				msg.open();
-				EngTXCommon.searchTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
+				EngTXCommon.doSingleTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
 
 				asistant.refreshContentAssistant(0);
 				clearFields();
@@ -354,7 +354,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 			{
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				TurqAccountingAccount parent = (TurqAccountingAccount) txtParentAccount.getData();
-				List accTrans =(List)EngTXCommon.searchTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",new Object[]{parent});
+				List accTrans =(List)EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",new Object[]{parent});
 				
 				if (accTrans.size() > 0)
 				{
@@ -367,7 +367,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",new Object[]{accountName,accountCode,parent});
 				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
 				msg.open();
-				EngTXCommon.searchTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
+				EngTXCommon.doSingleTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
 
 				asistant.refreshContentAssistant(0);
 				clearFields();

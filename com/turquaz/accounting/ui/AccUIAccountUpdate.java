@@ -340,7 +340,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 				
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 				msg.open();
-				EngTXCommon.searchTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
+				EngTXCommon.doSingleTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
 
 				updateOccured = true;
 				this.dialogShell.close();

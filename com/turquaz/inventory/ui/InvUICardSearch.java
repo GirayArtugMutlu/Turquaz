@@ -324,7 +324,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 	{
 		try
 		{
-			List groupList =(List)EngTXCommon.searchTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			List groupList =(List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
 			comboInvMainGroup.add("");
 			for (int k = 0; k < groupList.size(); k++)
 			{
@@ -356,20 +356,21 @@ public class InvUICardSearch extends Composite implements SearchComposite
 				Integer cardId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (cardId != null)
 				{
-					TurqInventoryCard invCard = InvBLCardSearch.initializeInventoryCard(cardId);
-					InvBLCardSearch.initializeInventoryCard(invCard);
+					Object[] argList=new Object[]{cardId,new Boolean(true)};
+					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCard",argList);
 					msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
 					if (msg.open() == SWT.NO)
 						return;
 					// if the inventory card contains transactions
-					if (InvDALCardUpdate.hasTransactions(invCard))
+					if (((Boolean)EngTXCommon.doSingleTX(InvDALCardUpdate.class.getName(),"hasTransactions",new Object[]{invCard})).booleanValue())
 					{
 						MessageBox msg2 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
 						msg2.setMessage("Inventory card contains transactions and \ncan not be deleted. Delete them first. "); //$NON-NLS-1$
 						msg2.open();
 						return;
 					}
-					InvBLCardUpdate.deleteInventoryCard(invCard);
+					argList=new Object[]{invCard};
+					EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argList);
 					msg = new MessageBox(this.getShell(), SWT.NULL);
 					msg.setMessage(Messages.getString("InvUICardUpdateDialog.6")); //$NON-NLS-1$
 					msg.open();
@@ -397,8 +398,10 @@ public class InvUICardSearch extends Composite implements SearchComposite
 		tableViewer.removeAll();
 		try
 		{
-			List result = InvBLCardSearch.searchCards(txtInvName.getText().trim(), txtInvCode.getText().trim(),
-					(TurqInventoryGroup) comboInvSubGroup.getData(comboInvSubGroup.getText()));
+			
+			Object[] argList=new Object[]{txtInvName.getText().trim(), txtInvCode.getText().trim(),
+					(TurqInventoryGroup) comboInvSubGroup.getData(comboInvSubGroup.getText())};
+			List result = (List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"searchCards",argList);
 			int listSize = result.size();
 			for (int i = 0; i < listSize; i++)
 			{
@@ -474,7 +477,8 @@ public class InvUICardSearch extends Composite implements SearchComposite
 				Integer cardId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cardId != null)
 				{
-					TurqInventoryCard card = InvBLCardSearch.initializeInventoryCard(cardId);
+					Object[] argList=new Object[]{cardId};
+					TurqInventoryCard card = (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCard",argList);
 					boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, card).open();
 					if (updated)
 						search();

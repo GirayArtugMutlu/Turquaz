@@ -44,7 +44,7 @@ public class AccUIAccountsTree
 			Object args[] = new Object[2];
 			args[0]=new Integer(parent);
 			args[1]=codeCrit;
-			List mainBranches = (List)EngTXCommon.searchTX(AccBLAccountAdd.class.getName(),"getAccount",args);
+			List mainBranches = (List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAccount",args);
 			
 			TurqAccountingAccount account;
 			for (int i = 0; i < mainBranches.size(); i++)
@@ -74,7 +74,7 @@ public class AccUIAccountsTree
 			Object args[] = new Object[2];
 			args[0]=new Integer(parent_id);
 			args[1]=codeCriteria;
-			List mainBranches = (List)EngTXCommon.searchTX(AccBLAccountAdd.class.getName(),"getAccount",args);
+			List mainBranches = (List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAccount",args);
 			
 			TurqAccountingAccount account;
 			for (int i = 0; i < mainBranches.size(); i++)

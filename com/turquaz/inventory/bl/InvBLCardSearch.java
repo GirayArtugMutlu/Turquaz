@@ -89,11 +89,14 @@ public class InvBLCardSearch
 		}
 	}
 
-	public static TurqInventoryCard initializeInventoryCard(Integer cardId) throws Exception
+	public static TurqInventoryCard initializeInventoryCard(Integer cardId,Boolean initialize) throws Exception
 	{
 		try
 		{
-			return InvDALCardSearch.initializeInventoryCard(cardId);
+			TurqInventoryCard card=InvDALCardSearch.initializeInventoryCard(cardId);
+			if (initialize.booleanValue())
+				initializeInventoryCard(card);
+			return card;
 		}
 		catch (Exception ex)
 		{
