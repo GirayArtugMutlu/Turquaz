@@ -174,8 +174,8 @@ public class EngDALUserPerms {
 	 		Session session = EngDALSessionFactory.openSession();
 	 		Transaction tx = session.beginTransaction();
 	 		String query = "select comp.componentsName from TurqModuleComponent as comp"+
-			   " where comp.moduleComponentsId= "+component_id+
-			   " and comp.turqModule.modulesId="+module_id;	
+			   " where comp.id= "+component_id+
+			   " and comp.id="+module_id;	
 			   
 
             Query q = session.createQuery(query); 
@@ -235,8 +235,8 @@ public class EngDALUserPerms {
 			//	Query q = session.createQuery("from TurqModuleComponent comp "+
 			//			"where comp.moduleComponentsId > -1");
 			Criteria cri = session.createCriteria(TurqModuleComponent.class)
-					.add(Expression.gt("moduleComponentsId", new Integer(-1)))
-					.add(Expression.eq("turqModule.modulesId",new Integer(module_id)));
+					.add(Expression.gt("id", new Integer(-1)))
+					.add(Expression.eq("turqModule.id",new Integer(module_id)));
 			List list = cri.list();
 			tx.commit();
 			session.close();
@@ -254,7 +254,7 @@ public class EngDALUserPerms {
 	  		
 	  		Session session = EngDALSessionFactory.openSession();
 	 		Transaction tx = session.beginTransaction();
-	 		String query = "select module from TurqModule as module order by module.modulesId"; 		
+	 		String query = "select module from TurqModule as module order by module.id"; 		
 	 		Query q = session.createQuery(query); 
 	 		List list = q.list();
 	 		tx.commit();
