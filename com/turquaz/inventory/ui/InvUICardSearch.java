@@ -63,6 +63,7 @@ import org.eclipse.swt.SWT;
 
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+import com.turquaz.inventory.ui.comp.InventoryPicker;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -97,7 +98,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	private CCombo comboInvGroup;
 	private CLabel lblInvGroup;
 	private Text txtInvName;
-	private Text txtInvCode;
+	private InventoryPicker txtInvCode;
 	private CLabel lblInvCode;
 	private Composite compInvCardSearchPanel;
 	InvBLCardSearch cardSearch = new InvBLCardSearch();
@@ -149,20 +150,12 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 							17));
 					}
 					{
-						txtInvCode = new Text(compInvCardSearchPanel, SWT.NONE);
+						txtInvCode = new InventoryPicker(compInvCardSearchPanel, SWT.NONE);
 						GridData txtInvCodeLData = new GridData();
-						txtInvCode.addKeyListener(new KeyAdapter() {
-							public void keyReleased(KeyEvent evt) {
-								if (evt.keyCode == SWT.CR)
-									search();
-							}
-						});
 						txtInvCodeLData.widthHint = 141;
 						txtInvCodeLData.heightHint = 17;
 						txtInvCode.setLayoutData(txtInvCodeLData);
-						txtInvCode.setSize(new org.eclipse.swt.graphics.Point(
-							147,
-							17));
+						txtInvCode.setSize(new org.eclipse.swt.graphics.Point(147,17));
 					}
 					{
 						lblInvName = new CLabel(compInvCardSearchPanel, SWT.NONE);

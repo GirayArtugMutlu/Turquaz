@@ -64,6 +64,7 @@ import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+import com.turquaz.current.ui.comp.CurrentPicker;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -92,7 +93,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 	private CLabel lblTurqGroupName;
 	private Text txtCurrentName;
 	private CLabel lblCurrentName;
-	private Text txtCurrentCode;
+	private CurrentPicker txtCurrentCode;
 	private CLabel lblCurrentCode;
 	private Composite compCurrentCardSearch;
 	private EngBLCommon engBLCom=new EngBLCommon();
@@ -134,14 +135,8 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 					lblCurrentCode.setLayoutData(lblCurrentCodeLData);
 				}
 				{
-					txtCurrentCode = new Text(compCurrentCardSearch, SWT.NONE);
+					txtCurrentCode = new CurrentPicker(compCurrentCardSearch, SWT.NONE);
 					GridData txtCurrentCodeLData = new GridData();
-					txtCurrentCode.addKeyListener(new KeyAdapter() {
-						public void keyReleased(KeyEvent evt) {
-							if (evt.keyCode == SWT.CR)
-								search();
-						}
-					});
 					txtCurrentCodeLData.widthHint = 238;
 					txtCurrentCodeLData.heightHint = 16;
 					txtCurrentCode.setLayoutData(txtCurrentCodeLData);
