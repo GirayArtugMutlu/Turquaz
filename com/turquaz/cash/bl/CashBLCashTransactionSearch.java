@@ -60,6 +60,19 @@ public class CashBLCashTransactionSearch {
            throw ex;
        }
    }
+   
+   public void initializeCashTransaction(TurqCashTransaction cashTrans)throws Exception
+   {
+       try{
+                    
+       dalCash.initiliazeCashTrans(cashTrans);
+           
+           
+       }
+       catch(Exception ex){
+           throw ex;
+       }
+   }
    public static List getTransactions(TurqCashCard cashCard, Date startDate, Date endDate)throws Exception{
        try{
            

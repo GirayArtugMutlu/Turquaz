@@ -22,11 +22,14 @@ package com.turquaz.bank.bl;
 */
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.bank.dal.BankDALCommon;
+import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
@@ -34,11 +37,183 @@ import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.dal.TurqBanksTransactionType;
+import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
 
 public class BankBLTransactionAdd {
+    
+    public static void saveCashTransaction(TurqBanksCard bankCard, TurqCashCard cashCard, 
+            								int type, TurqEngineSequence seq,
+            								BigDecimal totalAmount,
+            								Date transDate,
+            								String definition,
+            								String docNo)throws Exception {
+        try{
+            
+            if(seq ==null){
+                try{
+                TurqModule module = new TurqModule();
+                module.setModulesId(new Integer(EngBLCommon.MODULE_BANKS));
+                seq = new TurqEngineSequence();
+                seq.setTurqModule(module);
+                BankDALCommon.saveObject(seq);
+                }
+                catch(Exception ex){
+                    throw ex;
+                }
+            }
+            TurqBanksTransactionType transType = new TurqBanksTransactionType();
+            transType.setBankTransactionTypesId(new Integer(type));
+            
+            TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
+            System.out.println(Calendar.getInstance().getTime());
+            
+            bankTransBill.setTurqBanksCard(bankCard);           
+            bankTransBill.setTurqEngineSequence(seq);
+            bankTransBill.setTransactionBillDate(transDate);
+            bankTransBill.setTransactionBillDefinition(definition);
+            bankTransBill.setTransactionBillNo(docNo);
+            bankTransBill.setTurqBanksTransactionType(transType);
+            
+            bankTransBill.setCreatedBy(System.getProperty("user"));
+       	    bankTransBill.setUpdatedBy(System.getProperty("user"));
+       	    bankTransBill.setLastModified(Calendar.getInstance().getTime());
+         	bankTransBill.setCreationDate(Calendar.getInstance().getTime());
+         
+     
+         	
+         	/*
+         	 * Transaction Rows
+         	 * 
+         	 */
+         	TurqBanksTransaction transRow = new TurqBanksTransaction();
+           	transRow.setCreatedBy(System.getProperty("user"));
+        	transRow.setUpdatedBy(System.getProperty("user"));
+        	transRow.setLastModified(Calendar.getInstance().getTime());
+          	transRow.setCreationDate(Calendar.getInstance().getTime());
+          	transRow.setTurqAccountingAccount(cashCard.getTurqAccountingAccount());
+       
+         
+         	
+        	
+          	/*
+             * Create Accounting transaction
+             */
+            TurqAccountingTransactionColumn accTransRowBank = new TurqAccountingTransactionColumn();
+       	    TurqAccountingTransactionColumn accTransRowCurrent = new TurqAccountingTransactionColumn();  
+       	   
+       	    accTransRowBank.setTransactionDefinition(definition);
+       	    accTransRowBank.setTurqAccountingAccount(bankCard.getTurqAccountingAccount());
+       	 
+       	    accTransRowCurrent.setTransactionDefinition(definition);
+       	    accTransRowCurrent.setTurqAccountingAccount(cashCard.getTurqAccountingAccount());
+       	    
+       	 
+       	    
+       	 String currentTransDefinition="";
+         
+    	 int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
+         
+    	 boolean currentTransType = false; // Credit or Debit
+    	 int cashTransType =0;
+         
+    	 //Para yatirma
+    	 if(type==EngBLCommon.BANK_TRANS_CASH_DEPOSIT)
+         {
+            accTransRowBank.setDeptAmount(totalAmount);
+            accTransRowBank.setCreditAmount(new BigDecimal(0));
+            
+            accTransRowCurrent.setDeptAmount(new BigDecimal(0));
+            accTransRowCurrent.setCreditAmount(totalAmount);
+            
+            transRow.setDeptAmount(totalAmount);
+            transRow.setCreditAmount(new BigDecimal(0));
+            
+           cashTransType = EngBLCommon.CASH_CURRENT_PAYMENT;
+            
+         }
+    	 
+    	 
+         //Para cekme
+         else if(type==EngBLCommon.BANK_TRANS_CASH_DRAW)
+         {
+             
+             
+             accTransRowBank.setDeptAmount(new BigDecimal(0));
+             accTransRowBank.setCreditAmount(totalAmount);
+             
+             accTransRowCurrent.setDeptAmount(totalAmount);
+             accTransRowCurrent.setCreditAmount(new BigDecimal(0));
+             
+             transRow.setDeptAmount(new BigDecimal(0));
+             transRow.setCreditAmount(totalAmount);
+                      
+             cashTransType = EngBLCommon.CASH_CURRENT_COLLECT;
+             
+         } 
+         
+         /**
+          * Save transaction bill
+          */
+         BankDALCommon.saveObject(bankTransBill);
+         
+         /**
+          * Save transaction row
+          */
+         transRow.setTurqBanksTransactionBill(bankTransBill);
+         BankDALCommon.saveObject(transRow);
+              
+         /**
+          * 
+          * 
+          * 
+          */
+         AccBLTransactionAdd blAccTran = new AccBLTransactionAdd();
+         CurBLCurrentTransactionAdd blCurTrans = new CurBLCurrentTransactionAdd();
+      
+         
+         /**
+          * Save Cash Transaction
+          */
+         
+        List totals = new ArrayList();
+        totals.add(totalAmount);
+   	    CashBLCashTransactionAdd blCash = new CashBLCashTransactionAdd();
+   	    blCash.saveCashTransaction(cashCard,seq,cashTransType,transDate,definition,docNo,totals,bankCard.getTurqAccountingAccount());
+   	
+   	    
+   	    
+   	    
+   	    
+   	    /**
+   	     * Save Accounting Transaction 
+   	     * 
+   	    */
+   	   
+   	   Integer transId = blAccTran.saveAccTransaction(transDate,docNo,accTransType,seq.getTurqModule().getModulesId().intValue(),seq.getEngineSequencesId(),definition);
+   	   blAccTran.saveAccTransactionRow(accTransRowBank,transId);
+   	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId);
+       	    
+       	 
+            
+            
+            
+            
+            
+            
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+        
+        
+        
+        
+        
+    }
+    
     
     public static void saveTransaction(TurqBanksCard bankCard, TurqCurrentCard curCard, 
                                        int type, TurqEngineSequence seq,

@@ -86,7 +86,7 @@ public class EngDALSessionFactory {
 		props.put("hibernate.connection.username",username);
 		props.put("hibernate.connection.password",password);
 		props.put("hibernate.show_sql","false");
-		props.put("hibernate.fetch.size","0");
+
 		
 		
 		

@@ -15,6 +15,7 @@ import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLInventoryLedger;
 
 import org.eclipse.swt.widgets.Text;
+import com.turquaz.inventory.ui.comp.InventoryPicker;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Table;
@@ -40,7 +41,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	private Composite compFilter;
 	private TableColumn tableColumnInvCode;
 	private TableColumn tableColumnInvName;
-	private Text txtInvCode;
+	private InventoryPicker txtInvCode;
 	private CLabel lblInvCode;
 	private TableColumn tableColumnTotalPrice;
 	private TableColumn tableColumnAvgPrice;
@@ -99,10 +100,10 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
                     lblInvCode.setLayoutData(lblInvCodeLData);
                 }
                 {
-                    txtInvCode = new Text(compFilter, SWT.NONE);
+                    txtInvCode = new InventoryPicker(compFilter, SWT.NONE);
                     GridData txtInvCodeLData = new GridData();
-                    txtInvCodeLData.widthHint = 76;
-                    txtInvCodeLData.heightHint = 13;
+                    txtInvCodeLData.widthHint = 158;
+                    txtInvCodeLData.heightHint = 16;
                     txtInvCode.setLayoutData(txtInvCodeLData);
                 }
             }

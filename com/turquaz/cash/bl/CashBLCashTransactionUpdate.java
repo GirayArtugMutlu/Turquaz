@@ -64,6 +64,31 @@ public class CashBLCashTransactionUpdate {
         
         
     }
+    public void deleteOnlyCashTransaction(TurqCashTransaction cashTrans) throws Exception{
+        try
+        {
+            //delete cash Transaction rows...
+            Iterator it = cashTrans.getTurqCashTransactionRows().iterator();
+            while(it.hasNext()){
+                
+                dalCash.delete(it.next());
+                
+            }
+            
+                
+            
+            dalCash.delete(cashTrans);
+            
+        }
+        catch(Exception ex)
+        {
+            throw ex;
+        }
+        
+        
+        
+    }
+    
     public void deleteCashTrans(TurqCashTransaction cashTrans)throws Exception{
         try{
             

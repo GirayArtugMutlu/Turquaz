@@ -241,6 +241,28 @@ public class CashDALCashCard {
         
         
     }
+    public void initiliazeCashTrans(TurqCashTransaction cashTrans)throws Exception{
+        try{
+            
+            Session session = EngDALSessionFactory.openSession();
+            
+            session.refresh(cashTrans);
+       
+           
+                
+            Hibernate.initialize(cashTrans.getTurqCashTransactionRows()); 
+            
+            session.close();
+            
+            
+            
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+        
+        
+    }
     public TurqCurrentCard getCurrentCard (TurqEngineSequence seq)throws Exception{
         try{
             Session session = EngDALSessionFactory.openSession();

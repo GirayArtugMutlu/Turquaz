@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 
+import com.turquaz.current.Messages;
 import com.turquaz.current.dal.CurDALCurrentCardAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -65,15 +66,17 @@ public class CurBLCurrentCardAdd {
 			currentCard.setTurqAccountingAccount(accCode);
 		    currentCard.setDaysToValue(daysToValue);
 		    
-			currentCard.setCreatedBy(System.getProperty("user"));
-			currentCard.setUpdatedBy(System.getProperty("user"));
+			currentCard.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			currentCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			currentCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			currentCard.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 		
 			currentAdd.saveObject(currentCard);	
 		
+			Calendar cal = Calendar.getInstance();
+			cal.set(cal.get(Calendar.YEAR),0,1);
 			
-			blTransAdd.saveCurrentTransaction(currentCard,currentCard.getCreationDate(),"",false,new BigDecimal(0),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_INITIAL,new Integer(-1),"Aç?l?? Hareketi");
+			blTransAdd.saveCurrentTransaction(currentCard,cal.getTime(),"",false,new BigDecimal(0),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_INITIAL,new Integer(-1),Messages.getString("CurBLCurrentCardAdd.3")); //$NON-NLS-1$ //$NON-NLS-2$
 			
 			return currentCard.getCurrentCardsId();
 		}
@@ -92,12 +95,12 @@ throws Exception{
 	phone.setPhonesCityCode(cityCode);
 	phone.setPhonesCountryCode(countryCode);
 	phone.setPhonesNumber(phoneNumber);
-	phone.setPhonesType("");
+	phone.setPhonesType(""); //$NON-NLS-1$
 	TurqCurrentCard card = new TurqCurrentCard();
 	card.setCurrentCardsId(curCard);
 	phone.setTurqCurrentCard(card);
-	phone.setCreatedBy(System.getProperty("user"));
-	phone.setUpdatedBy(System.getProperty("user"));
+	phone.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+	phone.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 	phone.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 	phone.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 	
@@ -125,8 +128,8 @@ public void saveContact(Integer cardID, String name, String address,
 	contact.setContactsEmail(email);
 	contact.setContactsWebSite(website);
 	contact.setTurqCurrentCard(card);
-	contact.setCreatedBy(System.getProperty("user"));
-	contact.setUpdatedBy(System.getProperty("user"));
+	contact.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+	contact.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 	contact.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 	contact.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 	currentAdd.saveObject(contact);
@@ -144,8 +147,8 @@ public void registerGroup(Integer cardId, Object grp) throws Exception {
 			cardGroup.setTurqCurrentCard(card);
 			cardGroup.setTurqCurrentGroup(group);
 
-			cardGroup.setCreatedBy(System.getProperty("user"));
-			cardGroup.setUpdatedBy(System.getProperty("user"));
+			cardGroup.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			cardGroup.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			cardGroup
 					.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			cardGroup
@@ -191,8 +194,8 @@ TurqCurrentGroup curGroup = new TurqCurrentGroup();
 curGroup.setGroupsName(groupName);
 curGroup.setGroupsDescription(groupDescription);
 
-curGroup.setCreatedBy(System.getProperty("user"));
-curGroup.setUpdatedBy(System.getProperty("user"));
+curGroup.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+curGroup.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 curGroup.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 curGroup.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 
