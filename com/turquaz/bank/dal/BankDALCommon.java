@@ -55,6 +55,40 @@ public class BankDALCommon {
 
 		}
 	}
+	public static void updateObject(Object obj) throws Exception {
+		try {
+
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+
+			session.update(obj);
+			session.flush();
+			tx.commit();
+			session.close();
+
+		} catch (Exception ex) {
+
+			throw ex;
+
+		}
+	}
+	public static void deleteObject(Object obj) throws Exception {
+		try {
+
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+
+			session.delete(obj);
+			session.flush();
+			tx.commit();
+			session.close();
+
+		} catch (Exception ex) {
+
+			throw ex;
+
+		}
+	}
 	public static List searchBankTransactions(TurqBanksCard bankCard, String docNo, Date startDate, Date endDate)throws Exception {
 	    try{
 	    
@@ -99,6 +133,7 @@ public class BankDALCommon {
 	         
 	        Hibernate.initialize(trans.getTurqBanksTransactions());
 	        Hibernate.initialize(trans.getTurqEngineSequence().getTurqCurrentTransactions());
+	        Hibernate.initialize(trans.getTurqEngineSequence().getTurqAccountingTransactions());
 	        session.close();
 	        return trans;
 	        

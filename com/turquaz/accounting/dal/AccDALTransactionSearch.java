@@ -122,6 +122,27 @@ public class AccDALTransactionSearch {
 		}
 
 	}
+	public void deleteTransaction(TurqAccountingTransaction trans)throws Exception
+	{
+	    try {
+	        removeTransactionRows(trans);
+			Session session = EngDALSessionFactory.openSession();
+
+			Transaction tr = session.beginTransaction();
+
+			session.delete(trans);
+
+			session.flush();
+			tr.commit();
+
+			session.close();
+
+		} catch (Exception ex) {
+			throw ex;
+
+		}
+	    
+	}
 
 	public void removeTransactionRows(TurqAccountingTransaction transaction)
 			throws Exception {

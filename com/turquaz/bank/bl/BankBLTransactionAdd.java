@@ -150,8 +150,8 @@ public class BankBLTransactionAdd {
          CurBLCurrentTransactionAdd blCurTrans = new CurBLCurrentTransactionAdd();
       
          /**
-   	   * Save Current transaction
-   	  */
+          * Save Current transaction
+          */
    	 
    	
    	    blCurTrans.saveCurrentTransaction(curCard, transDate,docNo,currentTransType,

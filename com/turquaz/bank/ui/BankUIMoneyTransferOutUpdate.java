@@ -22,6 +22,12 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bank.Messages;
+import com.turquaz.bank.bl.BankBLTransactionUpdate;
+
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+
+import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -90,16 +96,31 @@ public class BankUIMoneyTransferOutUpdate extends org.eclipse.swt.widgets.Dialog
                     toolUpdate = new ToolItem(toolBar1, SWT.NONE);
                     toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
                     toolUpdate.setText(Messages.getString("BankUIMoneyTransferOutUpdate.1")); //$NON-NLS-1$
+                    toolUpdate.addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                           update();
+                        }
+                    });
                 }
                 {
                     toolDelete = new ToolItem(toolBar1, SWT.NONE);
                     toolDelete.setText(Messages.getString("BankUIMoneyTransferOutUpdate.2")); //$NON-NLS-1$
                     toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+                    toolDelete.addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                          delete();
+                        }
+                    });
                 }
                 {
                     toolCancel = new ToolItem(toolBar1, SWT.NONE);
                     toolCancel.setText(Messages.getString("BankUIMoneyTransferOutUpdate.4")); //$NON-NLS-1$
                     toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+                    toolCancel.addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                            dialogShell.close();
+                        }
+                    });
                 }
             }
             {
@@ -166,4 +187,45 @@ public class BankUIMoneyTransferOutUpdate extends org.eclipse.swt.widgets.Dialog
 	    
 	}
 	
+	public void update(){
+	    try{
+	        if(compMoneyTransferIn.verifyFields()){
+	        BankBLTransactionUpdate.updateTransactionBill(transBill,(TurqBanksCard)compMoneyTransferIn.getTxtBankCard().getData(),
+	                									 (TurqCurrentCard)compMoneyTransferIn.getCurrentPicker().getData(),
+	                									 compMoneyTransferIn.getCurAmount().getBigDecimalValue(),
+	                									 compMoneyTransferIn.getDatePick().getDate(),
+	                									 compMoneyTransferIn.getTxtDefinition().getText().trim(),
+	                									 compMoneyTransferIn.getTxtDocNo().getText().trim()
+	        		);
+	        EngUICommon.showMessageBox(getParent(),"Ba?ar?yla Güncellendi!");
+	        isUpdated = true;
+	        dialogShell.close();
+	        }
+	    }
+	    catch(Exception ex)
+	    {
+	        ex.printStackTrace();
+	        EngUICommon.showMessageBox(getParent(),ex.getMessage().toString(),SWT.ICON_ERROR);
+	    }
+	}
+	public void delete(){
+	    try{
+	        
+	        if(EngUICommon.okToDelete(getParent()))
+	        {
+	            
+	            BankBLTransactionUpdate.deleteTransaction(transBill);
+	            EngUICommon.showMessageBox(getParent(),"Ba?ar?yla Silindi!",SWT.ICON_INFORMATION);
+	            isUpdated = true;
+	            dialogShell.close();
+	        }
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	        EngUICommon.showMessageBox(getParent(),ex.getMessage().toString(),SWT.ICON_ERROR);
+	    
+	    }
+	}
 }
