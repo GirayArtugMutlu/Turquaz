@@ -58,6 +58,7 @@ import com.turquaz.cash.ui.CashUICashCardSearch;
 import com.turquaz.cash.ui.CashUICashCollectTransactionAdd;
 import com.turquaz.cash.ui.CashUICashPaymentTransactionAdd;
 import com.turquaz.cash.ui.CashUICashTransactionSearch;
+import com.turquaz.cheque.ui.CheUIChequeInPayroll;
 import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurrentCardAbstract;
@@ -457,6 +458,12 @@ public final class TreeFactory {
 		
 		root.setText(Messages.getString("TreeFactory.56"));  //$NON-NLS-1$
 		TreeItem item;
+		
+		if(EngBLPermissions.getPermission(CheUIChequeInPayroll.class.getName())>0){
+			item = new TreeItem(root,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.57"));   //$NON-NLS-1$
+			item.setData(CheUIChequeInPayroll.class.getName());
+	   }
 		
 		root.setExpanded(true);
 		return tree;
