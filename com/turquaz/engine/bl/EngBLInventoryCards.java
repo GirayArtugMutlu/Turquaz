@@ -51,7 +51,7 @@ public class EngBLInventoryCards {
 
 			TurqInventoryCard invCard;
 			for (int i = 0; i < cardList.size(); i++) {
-				invCard = (TurqInventoryCard) cardList.get(i);
+				invCard = (TurqInventoryCard)((Object[]) cardList.get(i))[1];
 				cardMap.put(invCard.getCardInventoryCode(), invCard);
 
 			}

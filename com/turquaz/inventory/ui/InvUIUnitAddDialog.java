@@ -424,6 +424,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	    txtUnitName.setText(""); //$NON-NLS-1$
 	    fillTable();
 	    msg.open();	    
+	    txtUnitName.setFocus();
 	    }		
 		
 		}

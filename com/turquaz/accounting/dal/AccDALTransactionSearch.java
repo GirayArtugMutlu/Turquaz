@@ -134,7 +134,6 @@ public class AccDALTransactionSearch {
 		}
 			
 		List list = q.list();
-	
 		session.close();
 		
 		return list;

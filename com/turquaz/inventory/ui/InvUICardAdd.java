@@ -636,6 +636,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 							compInvCardAddSecondaryUnits,
 							SWT.SINGLE | SWT.V_SCROLL | SWT.BORDER);
 						GridData tableInvCardAddAllUnitsLData = new GridData();
+						tableInvCardAddAllUnits
+							.addMouseListener(new MouseAdapter() {
+							public void mouseDoubleClick(MouseEvent evt) {
+								btnRegisterInvUnitMouseUp();
+							}
+							});
 						tableInvCardAddAllUnitsLData.widthHint = 96;
 						tableInvCardAddAllUnitsLData.heightHint = 80;
 						tableInvCardAddAllUnits
@@ -682,7 +688,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 							btnRegisterInvUnit
 								.addMouseListener(new MouseAdapter() {
 								public void mouseUp(MouseEvent evt) {
-									btnRegisterInvUnitMouseUp(evt);
+									btnRegisterInvUnitMouseUp();
 								}
 								});
 							btnRegisterInvUnitLData.horizontalAlignment = GridData.CENTER;
@@ -696,17 +702,17 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								compInvCardAddUnitsButtons,
 								SWT.PUSH | SWT.CENTER);
 							GridData btnRemoveRegisteredInvUnitLData = new GridData();
+							btnRemoveRegisteredInvUnit
+								.addMouseListener(new MouseAdapter() {
+								public void mouseUp(MouseEvent evt) {
+									btnRemoveRegisteredInvUnitMouseUp();
+								}
+								});
 							btnRemoveRegisteredInvUnitLData.horizontalAlignment = GridData.CENTER;
 							btnRemoveRegisteredInvUnitLData.widthHint = 40;
 							btnRemoveRegisteredInvUnitLData.heightHint = 30;
 							btnRemoveRegisteredInvUnit.setLayoutData(btnRemoveRegisteredInvUnitLData);
 							btnRemoveRegisteredInvUnit.setText("<<"); //$NON-NLS-1$
-							btnRemoveRegisteredInvUnit
-								.addMouseListener(new MouseAdapter() {
-									public void mouseUp(MouseEvent evt) {
-										btnRemoveRegisteredInvUnitMouseUp(evt);
-									}
-								});
 						}
 						compInvCardAddUnitsButtons.layout();
 					}
@@ -715,6 +721,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 							compInvCardAddSecondaryUnits,
 							SWT.V_SCROLL | SWT.BORDER);
 						GridData tableInvCardAddRegisteredUnitsLData = new GridData();
+						tableInvCardAddRegisteredUnits
+							.addMouseListener(new MouseAdapter() {
+							public void mouseDoubleClick(MouseEvent evt) {
+								btnRemoveRegisteredInvUnitMouseUp();
+							}
+							});
 						tableInvCardAddRegisteredUnitsLData.widthHint = 140;
 						tableInvCardAddRegisteredUnitsLData.heightHint = 81;
 						tableInvCardAddRegisteredUnits
@@ -1779,7 +1791,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	}
 
 
-	protected void btnRegisterInvUnitMouseUp(MouseEvent evt) {
+	protected void btnRegisterInvUnitMouseUp() {
 		//if the base unit is selected
 		if (comboInvCardUnits.getSelectionIndex() > -1) {
 			int selectedIndex = tableInvCardAddAllUnits.getSelectionIndex();
@@ -1854,7 +1866,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	}
 
 	/** Auto-generated event handler method */
-	protected void btnRemoveRegisteredInvUnitMouseUp(MouseEvent evt) {
+	protected void btnRemoveRegisteredInvUnitMouseUp() {
 
 		int selectedIndex = tableInvCardAddRegisteredUnits.getSelectionIndex();
 

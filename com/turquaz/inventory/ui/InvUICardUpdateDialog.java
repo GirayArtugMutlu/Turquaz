@@ -532,6 +532,7 @@ public class InvUICardUpdateDialog extends Dialog{
 	MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 	msg.setMessage(Messages.getString("InvUICardUpdateDialog.5"));	 //$NON-NLS-1$
 	msg.open();	
+	this.dialogShell.close();
 	}
 	}
 		catch(Exception ex){

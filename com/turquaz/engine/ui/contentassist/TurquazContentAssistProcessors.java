@@ -62,7 +62,7 @@ public class TurquazContentAssistProcessors implements
                 List list = EngBLInventoryCards.getInventoryCards();
 
                 for (int i = 0; i < list.size(); i++) {
-                    TurqInventoryCard acc = (TurqInventoryCard)list.get(i);
+                    TurqInventoryCard acc = (TurqInventoryCard)((Object[])list.get(i))[1];
                     proposed.add(acc.getCardInventoryCode());
                 }
 

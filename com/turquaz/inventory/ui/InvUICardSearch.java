@@ -436,7 +436,8 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	TableItem item;
 	int listSize = result.size();
 	for(int i =0; i<listSize;i++){
-	TurqInventoryCard card = (TurqInventoryCard)result.get(i);
+	Object[] objs=(Object[])result.get(i);
+	TurqInventoryCard card = (TurqInventoryCard)objs[1];
 	item = new TableItem(tableSearcResults,SWT.NULL);
 	item.setData(card);
 	item.setText(new String[]{card.getCardInventoryCode(),card.getCardName()});
