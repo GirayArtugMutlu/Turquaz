@@ -1,4 +1,13 @@
 package com.turquaz.engine.ui.report;
+
+import java.util.Iterator;
+import java.util.List;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRField;
+
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -20,52 +29,41 @@ package com.turquaz.engine.ui.report;
 * @version  $Id$
 */
 
+public class HibernateQueryResultDataSource implements JRDataSource { 
 
+	  private String[] fields; 
+	  private Iterator iterator; 
+	  private Object currentValue; 
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Iterator;
-import java.util.List;
+	  public HibernateQueryResultDataSource(List list, String[] fields) { 
+	    this.fields = fields; 
+	    this.iterator = list.iterator(); 
+	  } 
 
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRField;
+	  public Object getFieldValue(JRField field) throws JRException { 
+	    Object value = null; 
+	    int index = getFieldIndex(field.getName()); 
+	    if (index > -1) { 
+	      Object[] values = (Object[])currentValue; 
+	      value = values[index]; 
+	    } 
+	    return value; 
+	  } 
 
+	  public boolean next() throws JRException { 
+	    currentValue = iterator.hasNext() ? iterator.next() : null; 
+	    return (currentValue != null); 
+	  } 
 
-public class HibernateQueryResultDataSource implements JRDataSource {
+	  private int getFieldIndex(String field) { 
+	    int index = -1; 
+	    for (int i = 0; i < fields.length; i++) { 
+	      if (fields[i].equals(field)) { 
+	        index = i; 
+	        break; 
+	      } 
+	    } 
+	    return index; 
+	  } 
 
-	private Iterator iterator;
-
-	private Object currentValue;
-
-	public HibernateQueryResultDataSource(List list) {
-		this.iterator = list.iterator();
 	}
-
-	public Object getFieldValue(JRField field) throws JRException {
-		Object value = null;
-		try {
-			
-			Method fld = currentValue.getClass().getMethod(
-					"get" + field.getName(), null);
-			
-			
-			value = fld.invoke(currentValue, null);
-			
-		
-		} catch (IllegalAccessException iae) {
-			iae.printStackTrace();
-		} catch (InvocationTargetException ite) {
-			ite.printStackTrace();
-		} catch (NoSuchMethodException nsme) {
-			nsme.printStackTrace();
-		}
-		return value;
-	}
-
-	
-	public boolean next() throws JRException {
-		currentValue = iterator.hasNext() ? iterator.next() : null;
-		return (currentValue != null);
-	}
-}

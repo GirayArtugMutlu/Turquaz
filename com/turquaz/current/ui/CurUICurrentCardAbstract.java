@@ -250,6 +250,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 		
 	}
 	
+	
+	
 	public void search()
 	{
 		try

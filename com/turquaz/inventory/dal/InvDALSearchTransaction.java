@@ -110,7 +110,11 @@ public class InvDALSearchTransaction {
 			String query = "Select transaction.inventoryTransactionsId,transaction.transactionsDate,transaction.transactionsAmountIn," +
 			"transaction.transactionsTotalAmountOut, transaction.transactionsTotalPrice," +
 			" transaction.turqInventoryCard.cardInventoryCode, " +
-			" transaction.turqInventoryCard.cardName from TurqInventoryTransaction as transaction," +
+			" transaction.turqInventoryCard.cardName," +
+			" consignment.turqBillConsignmentCommon.turqCurrentCard.cardsName," +
+			" transaction.turqInventoryCard.inventoryCardsId," +
+			" consignment.turqBillConsignmentCommon.billDocumentNo " +
+			"  from TurqInventoryTransaction as transaction," +
 			 " TurqConsignment as consignment where" +
 			 " consignment.turqEngineSequence = transaction.turqEngineSequence "
 			+ " and consignment.consignmentsDate >= :startDate"

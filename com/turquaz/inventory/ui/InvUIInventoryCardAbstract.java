@@ -47,7 +47,6 @@ import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 
-import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
@@ -56,6 +55,7 @@ import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
 import com.turquaz.current.ui.comp.CurrentPicker;
 
@@ -411,7 +411,8 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 	public void save() {
 
 	}
-
+   
+    
 	public void search() {
 
 		try {
@@ -471,39 +472,22 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 						cf.format(priceOut)});
 			}
 			if (list.size() > 0)
-				GenerateJasper(type);
+				GenerateJasper(type,list);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 }
-	private void GenerateJasper(int type)
+	private void GenerateJasper(int type,List list)
 	{
 		try
 		{
 			Map parameters = new HashMap();		
-			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");  //$NON-NLS-1$
-			String sqlparam="Select trans.inventory_transactions_id,trans.transactions_amount_in," + //$NON-NLS-1$
-					"trans.transactions_total_amount_out, trans.transactions_total_price," + //$NON-NLS-1$
-					"invCard.card_inventory_code, invCard.card_name,curCard.cards_name," + //$NON-NLS-1$
-					"trans.inventory_cards_id, trans.transactions_date,billcons.bill_document_no" + //$NON-NLS-1$
-					" from turq_inventory_transactions trans," + //$NON-NLS-1$
-					"turq_consignments cons, turq_bill_consignment_commons billcons," + //$NON-NLS-1$
-					"turq_current_cards curCard, turq_inventory_cards invCard" + //$NON-NLS-1$
-					" where trans.engine_sequences_id=cons.engine_sequences_id" + //$NON-NLS-1$
-					" and cons.bill_consignment_common_id=billcons.bill_consignment_common_id" + //$NON-NLS-1$
-					" and billcons.current_cards_id=curCard.current_cards_id" + //$NON-NLS-1$
-					" and trans.inventory_cards_id=invCard.inventory_cards_id" + //$NON-NLS-1$
-					" and trans.transactions_date >= '"+dformat.format(dateStartDate.getDate())+"'" + //$NON-NLS-1$ //$NON-NLS-2$
-					" and trans.transactions_date <= '"+dformat.format(dateEndDate.getDate())+"'"; //$NON-NLS-1$ //$NON-NLS-2$
-			
-			
-			if (type != EngBLCommon.COMMON_ALL_INT)
-				sqlparam+=" and cons.consignments_type ="+ type; //$NON-NLS-1$
+			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");  //$NON-NLS-1$		
 		
 			TurqCurrentCard curCard=(TurqCurrentCard)txtCurCard.getData();
 			if (curCard != null) {
-				sqlparam += " and curCard.current_cards_id="+curCard.getCurrentCardsId(); //$NON-NLS-1$
+				
 				parameters.put("curCardName",curCard.getCardsName()); //$NON-NLS-1$
 				parameters.put("curCardCode",curCard.getCardsCurrentCode()); //$NON-NLS-1$
 			}
@@ -516,20 +500,16 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			TurqInventoryCard invCardStart=(TurqInventoryCard) txtInvCardStart.getData();
 			TurqInventoryCard invCardEnd=(TurqInventoryCard)txtInvCardEnd.getData();
 			if (invCardStart != null && invCardEnd != null) {
-				sqlparam += " and invCard.card_inventory_code >= '"+invCardStart.getCardInventoryCode()+"'"; //$NON-NLS-1$ //$NON-NLS-2$
-				sqlparam += " and invCard.card_inventory_code <= '"+invCardEnd.getCardInventoryCode()+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 				parameters.put("invCardStart",invCardStart.getCardInventoryCode()); //$NON-NLS-1$
 				parameters.put("invCardEnd",invCardEnd.getCardInventoryCode()); //$NON-NLS-1$
 			}
 			else if (invCardStart != null)
 			{
-				sqlparam += " and invCard.inventory_cards_id ="+invCardStart.getInventoryCardsId(); //$NON-NLS-1$
 				parameters.put("invCardStart",invCardStart.getCardInventoryCode()); //$NON-NLS-1$
 				parameters.put("invCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			else if (invCardEnd !=null)
 			{
-				sqlparam += " and invCard.inventory_cards_id ="+invCardEnd.getInventoryCardsId(); //$NON-NLS-1$
 				parameters.put("invCardStart",invCardEnd.getCardInventoryCode()); //$NON-NLS-1$
 				parameters.put("invCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
 			}
@@ -539,9 +519,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				parameters.put("invCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 
-			sqlparam +=" order by invCard.inventory_cards_id,trans.transactions_date"; //$NON-NLS-1$
 			SimpleDateFormat dformat2=new SimpleDateFormat("dd/MM/yyyy");  //$NON-NLS-1$
-			parameters.put("sqlparam",sqlparam);  //$NON-NLS-1$
 			parameters.put("startDate",dformat2.format(dateStartDate.getDate()));  //$NON-NLS-1$
 			parameters.put("endDate",dformat2.format(dateEndDate.getDate())); 			  //$NON-NLS-1$
 			parameters.put("dateformat",dformat2);  //$NON-NLS-1$
@@ -549,14 +527,8 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			parameters.put("formatter", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
 			parameters.put("currentDate",dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
 
-
-			EngDALConnection db=new EngDALConnection();
-			db.connect();
-	
-			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/inventory/InventoryCardAbstract.jasper");   //$NON-NLS-1$
-			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());	
-		
-			viewer.getReportViewer().setDocument(jasperPrint);	
+			GenerateJasper(list,parameters);
+			
 		}
 		catch(Exception ex)
 		{
@@ -567,7 +539,26 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 		}
 		
 	}
-
+	 public void GenerateJasper(List list, Map parameters){
+    	try
+		{
+    	String []fields = new String[]{"inventory_transactions_id","transactions_date","transactions_amount_in",
+		"transactions_total_amount_out", "transactions_total_price",
+		"card_inventory_code","card_name","cards_name",
+		"inventory_cards_id","bill_document_no"	};  	
+    	
+    	HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list,fields);
+    	JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/inventory/InventoryCardAbstract.jasper");   //$NON-NLS-1$
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
+		viewer.getReportViewer().setDocument(jasperPrint);
+		}
+    	catch(Exception ex)
+		{
+    		ex.printStackTrace();
+		}
+    	
+    	
+    }
 	
 
 	public void newForm() {
