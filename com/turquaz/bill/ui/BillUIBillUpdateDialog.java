@@ -164,7 +164,14 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			compAddBill.getTxtDocumentNo().setText(bill.getTurqBillConsignmentCommon().getBillDocumentNo());
 			compAddBill.getDateConsignmentDate().setDate(bill.getBillsDate());
 			compAddBill.getTxtConsignmentDocumentNo().setText(bill.getTurqBillConsignmentCommon().getConsignmentDocumentNo());
-		    compAddBill.getCheckIsOpen().setSelection(!bill.isIsOpen());
+			if (bill.isIsOpen())
+			{
+				compAddBill.getComboPaymentType().setText("Cari");
+			}
+			else {
+				compAddBill.getComboPaymentType().setText("Nakit");
+			}
+		    
 			
 			
 			if(bill.getBillsType()==0){
@@ -286,13 +293,13 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			compAddBill.saveConsignmentRows(cons.getConsignmentsId());
 			
 			}
-		
+			Boolean paymentType = (Boolean)compAddBill.getComboPaymentType().getData(compAddBill.getComboPaymentType().getText());
 			updateGroups();
 			blUpdateBill.updateBill(bill,
 			        compAddBill.getTxtDocumentNo().getText(),
 			        compAddBill.getTxtDefinition().getText(),
 			        false,
-			        !compAddBill.getCheckIsOpen().getSelection(),
+			        !paymentType.booleanValue(),
 			        compAddBill.getDateConsignmentDate().getDate(),
 					(TurqCurrentCard)compAddBill.getTxtCurrentCard().getData(),
 					compAddBill.getTxtDiscountRate().getIntValue(),

@@ -108,7 +108,6 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	private CLabel lblDate;
 	private DatePicker dateTransactionDate;
 	private CLabel lblTotalDebit;
-	private Text text1;
 	private Text txtTransDefinition;
 	private CLabel lblTransactionDefinition;
 	private CLabel lblTotalDeptAmount;
@@ -194,20 +193,15 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 				lblTransactionDefinitionLData.verticalAlignment = GridData.BEGINNING;
 				lblTransactionDefinition
 					.setLayoutData(lblTransactionDefinitionLData);
-				{
-					txtTransDefinition = new Text(
-						lblTransactionDefinition,
-						SWT.NONE);
-				}
 			}
 			{
-				text1 = new Text(this, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
+				txtTransDefinition = new Text(this, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 				GridData text1LData = new GridData();
-				text1.setTextLimit(250);
+				txtTransDefinition.setTextLimit(250);
 				text1LData.heightHint = 22;
 				text1LData.horizontalSpan = 3;
 				text1LData.widthHint = 364;
-				text1.setLayoutData(text1LData);
+				txtTransDefinition.setLayoutData(text1LData);
 			}
 			{
 				composite1 = new Composite(this, SWT.NONE);
