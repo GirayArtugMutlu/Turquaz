@@ -19,6 +19,7 @@ package com.turquaz.current.ui;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -36,10 +37,12 @@ import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
+import com.turquaz.current.bl.CurBLCurrentCardUpdate;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqCurrentCardsGroup;
 import com.turquaz.engine.dal.TurqCurrentContact;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import org.eclipse.swt.widgets.Table;
@@ -84,6 +87,7 @@ private TableColumn tableColumnContactName;
 	
 	private CurBLCurrentCardSearch curBLCurrentCardSearch=new CurBLCurrentCardSearch();
 	private EngBLCommon engBLCom=new EngBLCommon();
+	CurBLCurrentCardUpdate blUpdate = new CurBLCurrentCardUpdate();
 	
 	public CurUICurrentCardSearch(Composite parent, int style) {
 		super(parent, style);
@@ -256,6 +260,70 @@ private TableColumn tableColumnContactName;
 
 	
 	public void delete(){
+	try{
+	    TableItem items[]=tableCurrentCardSearch.getSelection();
+	    if(items.length>0){
+	    TurqCurrentCard currentCard = (TurqCurrentCard)items[0].getData();
+	        
+	    MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+		MessageBox msg2 = new MessageBox(this.getShell(),SWT.OK|SWT.CANCEL);
+	
+		 msg2.setMessage(Messages.getString("CurUICurrentCardUpdate.21")); //$NON-NLS-1$
+	    int result = msg2.open();
+	    
+	    if(result==SWT.OK){	 
+			
+			deleteRelations(currentCard);
+			
+			blUpdate.deleteObject(currentCard);
+			
+			 msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
+			 msg.open();
+			
+		 }
+	    
+	    
+	}
+	}
+
+	    catch(Exception ex){
+		    MessageBox msg3 = new MessageBox(this.getShell(),SWT.ICON_WARNING);
+			ex.printStackTrace();
+			msg3.setMessage(Messages.getString("CurUICurrentCardSearch.3")); //$NON-NLS-1$
+			msg3.open();
+		}
+	
+	
+	
+	}
+//	Delete card Phones
+	//Delete Contacts
+	//Delete registered group relations
+	public void deleteRelations(TurqCurrentCard currentCard)throws Exception{
+	try{
+	
+	    
+	 Iterator it=currentCard.getTurqCurrentCardsGroups().iterator();
+	 while(it.hasNext()){
+				TurqCurrentCardsGroup currentGroup=(TurqCurrentCardsGroup)it.next();
+				blUpdate.deleteObject(currentGroup);
+			}
+			 it=currentCard.getTurqCurrentCardsPhones().iterator();
+			while(it.hasNext()){
+				
+				blUpdate.deleteObject(it.next());
+			}
+	
+			it=currentCard.getTurqCurrentContacts().iterator();
+			while(it.hasNext()){
+				
+				blUpdate.deleteObject(it.next());
+			}
+	}
+	catch(Exception ex ){
+	throw ex;
+	}
+	
 	}
 	
 	public void search(){
@@ -344,7 +412,7 @@ private TableColumn tableColumnContactName;
 		
 	}
 	public void printTable(){
-	    EngBLUtils.printTable(tableCurrentCardSearch,"Cari Kartlar");
+	    EngBLUtils.printTable(tableCurrentCardSearch,Messages.getString("CurUICurrentCardSearch.4")); //$NON-NLS-1$
 	    
 	}
 }

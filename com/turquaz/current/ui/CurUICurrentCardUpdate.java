@@ -427,10 +427,12 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 	}
 
+	
 	/** Auto-generated main method */
 
 	/** Auto-generated event handler method */
 	protected void toolDeleteWidgetSelected(SelectionEvent evt){
+	   
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 		MessageBox msg2 = new MessageBox(this.getParent(),SWT.OK|SWT.CANCEL);
 		try{
@@ -452,11 +454,13 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 		
 		}
 		catch(Exception ex){
+		    MessageBox msg3 = new MessageBox(this.getParent(),SWT.ICON_WARNING);
 			ex.printStackTrace();
-			msg.setMessage(ex.getMessage());
-			msg.open();
+			msg3.setMessage(Messages.getString("CurUICurrentCardUpdate.15")); //$NON-NLS-1$
+			msg3.open();
 		}
-	}
+	    }
+	
 	
 	//Delete card Phones
 	//Delete Contacts

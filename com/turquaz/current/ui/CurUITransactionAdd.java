@@ -38,7 +38,6 @@ import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.layout.GridData;
 
