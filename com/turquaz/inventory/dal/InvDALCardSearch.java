@@ -54,7 +54,7 @@ public class InvDALCardSearch {
 				String query = "Select distinct invCard from TurqInventoryCard as invCard " +
 								"left join invCard.turqInventoryCardGroups as cardGroup " +
 							   "where invCard.turqCompany.companiesId ="+System.getProperty("company")+" " +
-							   "and invCard.cardName like '"+cardName+"%' and invCard.cardInventoryCode like '"+cardCode+"%' ";
+							   "and lower(invCard.cardName) like '"+cardName.toLowerCase()+"%' and invCard.cardInventoryCode like '"+cardCode+"%' ";
 							
 							   	
 				if(invGroup!=null){

@@ -35,7 +35,8 @@ public class InvDALCardUpdate {
 	public InvDALCardUpdate()
 	{
 			
-	}
+	
+	}	
 	public void updateObject(Object obj)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
@@ -53,6 +54,7 @@ public class InvDALCardUpdate {
 		
 		
 	}
+	
 	public void deleteObject(Object obj)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();

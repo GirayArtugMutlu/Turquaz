@@ -110,15 +110,15 @@ public class InvUICardUpdateDialog extends Dialog{
 			coolTop.setMinimumSize(new org.eclipse.swt.graphics.Point(88,27));
 	
 	
-			toolUpdate.setText(Messages.getString("InvUICardUpdateDialog.0")); //$NON-NLS-1$
+			toolUpdate.setText("Update");
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
 				}
 			});
 	
-			toolDelete.setText(Messages.getString("InvUICardUpdateDialog.1")); //$NON-NLS-1$
-			toolDelete.setToolTipText(Messages.getString("InvUICardUpdateDialog.2")); //$NON-NLS-1$
+			toolDelete.setText("Delete");
+			toolDelete.setToolTipText("Delete");
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -191,10 +191,10 @@ public class InvUICardUpdateDialog extends Dialog{
 	compInvUICard.getTxtInvCardDefinition().setText(invCard.getCardDefinition());
 	compInvUICard.getTxtInvCardDiscount().setText(invCard.getCardDiscount());
 	compInvUICard.getTxtInvCardInAcc().setText(invCard.getTurqAccountingAccountByAccountingAccountsIdBuy().getAccountCode());
-	compInvUICard.getTxtInvCardInAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdBuy().getAccountingAccountsId());
+	compInvUICard.getTxtInvCardInAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdBuy());
 	compInvUICard.getTxtInvCardName().setText(invCard.getCardName());
 	compInvUICard.getTxtInvCardOutAcc().setText(invCard.getTurqAccountingAccountByAccountingAccountsIdSell().getAccountCode());
-	compInvUICard.getTxtInvCardOutAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSell().getAccountingAccountsId());
+	compInvUICard.getTxtInvCardOutAcc().setData(invCard.getTurqAccountingAccountByAccountingAccountsIdSell());
 	compInvUICard.getTxtInvCardSpecialCode().setText(invCard.getCardSpecialCode());
 	compInvUICard.getTxtInvCardVat().setText(invCard.getCardVat());
 	compInvUICard.getTxtnumInvCardMax().setText(invCard.getCardMaximumAmount());
