@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
@@ -1254,6 +1255,21 @@ public class BillUIAddBill extends Composite
 	       public void updateRow(ITableRow row){
 	           
 	           calculateTotals();
+	         
+				
+	           Vector vec = rowList.getTasks();
+	           int index = vec.indexOf(row);
+	           if(index==vec.size()-1){
+	           	
+	                    InvUITransactionTableRow row2 = new InvUITransactionTableRow(rowList,BILL_TYPE,tableViewer);
+	                    rowList.addTask(row2);                
+	           			
+
+	          }
+	           	
+	           
+	           
+	           
 	           
 	      }
 	       public void removeRow(ITableRow row){
