@@ -10,19 +10,13 @@
     </manifest>
     <selectedElements exportClassFiles="true" exportOutputFolder="false" exportJavaFiles="false">
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.consignment.ui"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bank.ui.comp"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.current.dal"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bank.dal"/>
-        <file path="/Turquaz/hibernate.cfg.xml"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.admin.bl"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.accounting"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bank.ui"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.inventory.ui.comp"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bank"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.current"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.inventory.bl"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine.ui.component"/>
         <file path="/Turquaz/log4j.properties"/>
         <javaElement handleIdentifier="=Turquaz/&lt;de.kupzog.ktable"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bill.bl"/>
@@ -31,14 +25,9 @@
         <javaElement handleIdentifier="=Turquaz/&lt;com.cloudgarden.resource"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.accounting.ui.reports"/>
         <folder path="/Turquaz/.settings"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.inventory.ui"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.inventory"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.consignment"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bill.ui"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.current.ui.comp"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.consignment.bl"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.accounting.ui"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.admin.ui"/>
         <javaElement handleIdentifier="=Turquaz/&lt;gfx"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine.ui"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.accounting.bl"/>
@@ -47,14 +36,29 @@
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bank.bl"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.accounting.ui.comp"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bill"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine.bl"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.accounting.dal"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine.ui.wizards"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine.ui.editors"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine.ui.viewers"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.current.bl"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine"/>
+        <file path="/Turquaz/hibernate.cfg.xml"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.admin.bl"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.accounting"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bank"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine.ui.component"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.inventory.ui"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.inventory"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.consignment"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bill.ui"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.admin.ui"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;de.kupzog.ktools.kprint.gui"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;de.kupzog.ktools.kprint.boxes"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine.bl"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bill.dal"/>
         <javaElement handleIdentifier="=Turquaz/&lt;icons"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.admin.dal"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.admin"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.current.ui"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.current.bl"/>
     </selectedElements>
 </jardesc>

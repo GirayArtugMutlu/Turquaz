@@ -16,7 +16,7 @@ public class DatabaseThread extends Thread {
             "-port", String.valueOf(8877),
             "-no_system_exit", "true" };
        
-      //  Server.main(args);
+   //Server.main(args);
         
       /*
         try{

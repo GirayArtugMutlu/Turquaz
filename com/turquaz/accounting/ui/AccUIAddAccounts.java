@@ -51,7 +51,6 @@ import org.eclipse.swt.events.VerifyEvent;
 
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
@@ -243,12 +242,11 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	}
 	
 	
-	public boolean verifyFields(){
+	public boolean verifyFields(boolean update){
 	try{
 	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
    
     boolean valid = false;
-   
 	
     if(txtAccAccountCode.getText().trim().equals("")){ //$NON-NLS-1$
     msg.setMessage(Messages.getString("AccUIAddAccounts.4")); //$NON-NLS-1$
@@ -256,7 +254,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
     this.txtAccAccountCode.setFocus();
     return false;
     }
-    else if (EngBLAccountingAccounts.getAccount(txtAccAccountCode.getText().trim())!= null)
+    else if (EngBLAccountingAccounts.getAccount(txtAccAccountCode.getText().trim())!= null&&!update)
     {
     	msg.setMessage(Messages.getString("AccUIAddAccounts.3")); //$NON-NLS-1$
     	msg.open();
@@ -290,7 +288,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	public void save(){
 		try{
 			
-	if(verifyFields()){
+	if(verifyFields(false)){
 	String accountName = txtAccAcountName.getText().trim();
 	String accountCode = txtAccAccountCode.getText().trim();
   

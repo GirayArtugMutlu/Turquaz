@@ -55,6 +55,7 @@ import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
+import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.ui.component.SearchComposite;
@@ -348,6 +349,7 @@ public void fillTree(int parent, String codeCrit){
 				blAccountUpdate.deleteAccount(account);
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 				msg.open();
+				EngBLAccountingAccounts.RefreshContentAsistantMap();
 				fillTree(-1,""); //$NON-NLS-1$
 				
 			}
@@ -366,7 +368,7 @@ public void fillTree(int parent, String codeCrit){
 		
 	}
 	public void search(){
-		
+		fillTree(-1,"");	
 	}
 	public void save (){
 		

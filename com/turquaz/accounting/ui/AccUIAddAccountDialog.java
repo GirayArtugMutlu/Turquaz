@@ -244,7 +244,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog {
 		try {
 			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 
-			if (compAccountCard.verifyFields()) {
+			if (compAccountCard.verifyFields(false)) {
 				compAccountCard.save();
 				
 				this.dialogShell.close();
