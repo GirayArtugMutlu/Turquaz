@@ -480,7 +480,16 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			}
 			else
 			{
-				TableTreeItem item = new TableTreeItem(tableTreeAccounts,SWT.NULL);						
+				TableTreeItem parentItems[]=tableTreeAccounts.getItems();
+				int k;
+				String accCode=account.getAccountCode();
+				for(k=0; k<parentItems.length; k++)
+				{
+					TableTreeItem pItem=parentItems[k];
+					if (accCode.compareTo(pItem.getText(0)) < 0)
+						break;
+				}
+				TableTreeItem item = new TableTreeItem(tableTreeAccounts,SWT.NULL,k);						
 				item.setText(0,account.getAccountCode());
 				item.setText(1,account.getAccountName());
 				item.setText(2,"0.00"); //$NON-NLS-1$
