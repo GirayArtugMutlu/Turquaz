@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Table;
+import com.turquaz.accounting.ui.comp.DynamicAccountPicker;
 import org.eclipse.swt.widgets.Composite;
 
 
@@ -43,26 +44,26 @@ public class CurUICurrentCardAdd extends SecureComposite {
 	/**
 	 * @return Returns the accPickerCustomer.
 	 */
-	public AccountPicker getAccPickerCustomer() {
+	public DynamicAccountPicker getAccPickerCustomer() {
 		return accPickerCustomer;
 	}
 	/**
 	 * @param accPickerCustomer The accPickerCustomer to set.
 	 */
-	public void setAccPickerCustomer(AccountPicker accPickerCustomer) {
+	public void setAccPickerCustomer(DynamicAccountPicker accPickerCustomer) {
 		this.accPickerCustomer = accPickerCustomer;
 	}
 	/**
 	 * @return Returns the accPickerSupplierAccCode.
 	 */
-	public AccountPicker getAccPickerSupplierAccCode() {
+	public DynamicAccountPicker getAccPickerSupplierAccCode() {
 		return accPickerSupplierAccCode;
 	}
 	/**
 	 * @param accPickerSupplierAccCode The accPickerSupplierAccCode to set.
 	 */
 	public void setAccPickerSupplierAccCode(
-			AccountPicker accPickerSupplierAccCode) {
+			DynamicAccountPicker accPickerSupplierAccCode) {
 		this.accPickerSupplierAccCode = accPickerSupplierAccCode;
 	}
 	/**
@@ -405,8 +406,8 @@ public class CurUICurrentCardAdd extends SecureComposite {
 	private Composite composite1;
 	private Label lblTelephone1;
 	private CLabel lblSuplierAccCode;
-	private AccountPicker accPickerSupplierAccCode;
-	private AccountPicker accPickerCustomer;
+	private DynamicAccountPicker accPickerSupplierAccCode;
+	private DynamicAccountPicker accPickerCustomer;
 	private CLabel lblAccountingCodeCustomer;
 	private DecimalText decTxtDiscountAmount;
 	private CLabel lblDiscountAMount;
@@ -483,9 +484,9 @@ public class CurUICurrentCardAdd extends SecureComposite {
 			lblDiscountAMount = new CLabel(compCurrentGeneralInfo,SWT.NULL);
 			decTxtDiscountAmount = new DecimalText(compCurrentGeneralInfo,SWT.NULL);
 			lblAccountingCodeCustomer = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			accPickerCustomer = new AccountPicker(compCurrentGeneralInfo,SWT.NULL);
+			accPickerCustomer = new DynamicAccountPicker(compCurrentGeneralInfo,SWT.NULL);
 			lblSuplierAccCode = new CLabel(compCurrentGeneralInfo,SWT.NULL);
-			accPickerSupplierAccCode = new AccountPicker(compCurrentGeneralInfo,SWT.NULL);
+			accPickerSupplierAccCode = new DynamicAccountPicker(compCurrentGeneralInfo,SWT.NULL);
 			tabItemContactInfo = new CTabItem(tbfCurrentCardAdd,SWT.NULL);
 			compCurrentContactInfo = new Composite(tbfCurrentCardAdd,SWT.NULL);
 			Name = new CLabel(compCurrentContactInfo,SWT.NULL);

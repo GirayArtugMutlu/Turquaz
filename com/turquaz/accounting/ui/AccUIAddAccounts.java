@@ -321,7 +321,7 @@ public class AccUIAddAccounts extends SecureComposite{
 	protected void txtParentAccountMouseUp(MouseEvent evt){
 	
 	
-	Object[] obj = new AccUISearchAccountsDialog(this.getShell(),SWT.NULL).showDialog("");
+	Object[] obj = new AccUIStaticAccountsDialog(this.getShell(),SWT.NULL).showDialog("");
 		if (obj[0] != null) {
 			txtParentAccount.setData(obj[1]);
 			txtParentAccount.setText(obj[0].toString());

@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Group;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.accounting.ui.comp.DynamicAccountPicker;
 import com.turquaz.inventory.ui.InvUICardAdd;
 
 /**
@@ -34,7 +35,7 @@ import com.turquaz.inventory.ui.InvUICardAdd;
 */
 public class CurUITransactionAdd extends SecureComposite {
     
-	private AccountPicker accPickerCashAccount;
+	private DynamicAccountPicker accPickerCashAccount;
 	private CLabel lblCashAccount;
 	private Text txtDocumentNo;
 	private CLabel lblDocumentNo;
@@ -71,7 +72,7 @@ public class CurUITransactionAdd extends SecureComposite {
 			lblTransDate = new CLabel(this,SWT.NULL);
 			dateTransDate = new DatePicker(this,SWT.NULL);
 			lblCashAccount = new CLabel(this,SWT.NULL);
-			accPickerCashAccount = new AccountPicker(this,SWT.NULL);
+			accPickerCashAccount = new DynamicAccountPicker(this,SWT.NULL);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(473,221));
 	

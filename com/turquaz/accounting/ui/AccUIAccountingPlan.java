@@ -70,6 +70,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite {
 	*/
 	public void initGUI(){
 		try {
+			
 			preInitGUI();
 	
 			tableTreeAccountingPlan = new TableTree(this,SWT.FULL_SELECTION);
