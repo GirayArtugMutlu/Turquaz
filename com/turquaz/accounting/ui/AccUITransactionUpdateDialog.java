@@ -26,8 +26,10 @@ import java.util.Set;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
@@ -109,35 +111,29 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			coolBar1LData.horizontalAlignment = GridData.FILL;
 			coolBar1LData.heightHint = 44;
 			coolBar1.setLayoutData(coolBar1LData);
+			{
+				compTransactionAdd = new AccUITransactionAdd(
+					dialogShell,
+					SWT.NONE);
+				GridData compTransactionAddLData = new GridData();
+				compTransactionAddLData.widthHint = 567;
+				compTransactionAddLData.heightHint = 389;
+				compTransactionAdd.setLayoutData(compTransactionAddLData);
+				compTransactionAdd.setSize(new org.eclipse.swt.graphics.Point(
+					567,
+					389));
+				compTransactionAdd.getTxtDocumentNo().setBounds(80, 5, 150, 17);
+				compTransactionAdd.layout();
+			}
             {
                 coolItem1 = new CoolItem(coolBar1, SWT.NONE);
-                coolItem1.setSize(45, 51);
-                coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(
-                    45,
-                    51));
-                coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(
-                    45,
-                    51));
+                coolItem1.setSize(45, 44);
+                coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 44));
+                coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 44));
                 {
                     toolBar1 = new ToolBar(coolBar1, SWT.NONE);
                     coolItem1.setControl(toolBar1);
                 }
-            }
-            {
-                compTransactionAdd = new AccUITransactionAdd(
-                    dialogShell,
-                    SWT.NONE);
-                GridData compTransactionAddLData = new GridData();
-                compTransactionAddLData.verticalAlignment = GridData.FILL;
-                compTransactionAddLData.horizontalAlignment = GridData.FILL;
-                compTransactionAddLData.grabExcessHorizontalSpace = true;
-                compTransactionAddLData.grabExcessVerticalSpace = true;
-                compTransactionAdd.setLayoutData(compTransactionAddLData);
-                compTransactionAdd.setSize(new org.eclipse.swt.graphics.Point(
-                    567,
-                    389));
-                compTransactionAdd.getTxtDocumentNo().setBounds(80, 5, 150, 17);
-                compTransactionAdd.layout();
             }
 
             {
@@ -155,10 +151,10 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
             }
             {
                 toolDelete = new ToolItem(toolBar1, SWT.NONE);
-                toolDelete.setText(Messages
-                    .getString("AccUITransactionUpdateDialog.1")); //$NON-NLS-1$
+             
                 toolDelete.setImage(SWTResourceManager
                     .getImage("icons/Delete16.gif")); //$NON-NLS-1$
+                    toolDelete.setText("&Fi\u015fi Sil");
                 toolDelete.addSelectionListener(new SelectionAdapter() {
                     public void widgetSelected(SelectionEvent evt) {
                         toolDeleteWidgetSelected(evt);

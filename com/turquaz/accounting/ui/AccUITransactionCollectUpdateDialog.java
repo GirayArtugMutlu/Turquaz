@@ -77,6 +77,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	private ToolBar toolBar1;
 	private CoolBar coolBar1;
 	private AccUITransactionCollect compTransactionCollect;
+	private boolean updated=false;
 
 	public AccUITransactionCollectUpdateDialog(Shell parent, int style,TurqAccountingTransaction trans) {
 		super(parent, style);
@@ -87,7 +88,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	* Opens the Dialog Shell.
 	* Auto-generated code - any changes you make will disappear.
 	*/
-	public void open(){
+	public boolean open(){
 		try {
 			preInitGUI();
 	
@@ -216,8 +217,10 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+			return updated;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return true;
 		}
 	}
 	/** Add your pre-init code in here 	*/
@@ -310,6 +313,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		
 		try{
 		  if(compTransactionCollect.verifyFields()){
+		  	updated=true;
 		 blTransUpdate.updateTransaction(accTrans,compTransactionCollect.getTxtDocumentNo().getText().trim(),
 										compTransactionCollect.getDatePickerTransactionDate().getData(),compTransactionCollect.getTxtTransDefinition().getText(),
 										(TurqCurrency)compTransactionCollect.getComboCurrencyType().getData(compTransactionCollect.getComboCurrencyType().getText()));
@@ -374,7 +378,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		int answer = msg2.open();
 		if(answer ==SWT.YES){
 		try{
-		
+		updated=true;
 		deleteTransactionRows();
 		blTransUpdate.delete(accTrans);
 		msg.setMessage(Messages.getString("AccUITransactionCollectUpdateDialog.9")); //$NON-NLS-1$

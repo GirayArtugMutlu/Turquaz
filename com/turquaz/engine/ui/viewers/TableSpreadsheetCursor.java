@@ -60,59 +60,10 @@ public class TableSpreadsheetCursor extends TableCursor implements ICellEditorLi
 		this.table =table;
 		
 		this.addKeyListener(new KeyAdapter(){
-		     public void keyReleased(KeyEvent e){
+		     public void keyReleased(KeyEvent e)
+		     {
 		            
-               if(e.keyCode==SWT.DEL){
-                  
-                    if(getRow()!=null){
-                        if(okToDelete()){
-                        ITableRow row = (ITableRow)getRow().getData();
-                        TableSpreadsheetCursor.this.rowList.removeTask(row);
-                       
-                        int itemCount =TableSpreadsheetCursor.this.table.getItemCount();
-                      
-                        if(itemCount>0){
-                           setSelection(itemCount-1,0);
-                       
-                        }
-                        
-                        }
-                    }
-                   
-                   
-                }
-               
-                // F2 edit
-                else if(e.keyCode == 16777227 && e.stateMask == 0){
-                    tableViewer.editElement(getRow().getData(),getColumn());
-
-				// any character
-				} 
-                else if(e.stateMask == SWT.CTRL){
-                    tableViewer.editElement(getRow().getData(),getColumn());
-
-                }
-                
-                //any character
-                else if((e.keyCode<0x10000 || e.character!='\0') && e.keyCode>0x1f && e.keyCode!=127 
-    					|| e.keyCode==0x00 && (e.stateMask==0 || e.stateMask==SWT.SHIFT)){
-                    if(getRow()!=null){
-                    tableViewer.editElement(getRow().getData(),getColumn());
-                    if(tableViewer.getCellEditors()[getColumn()] instanceof TextCellEditor){
-                        
-                        TextCellEditor editor = ((TextCellEditor)tableViewer.getCellEditors()[getColumn()]);
-                        ((Text)editor.getControl()).setText(""+e.character); //$NON-NLS-1$
-						if(tableViewer.getCellEditors()[getColumn()] instanceof CurrencyCellEditor 
-						 || tableViewer.getCellEditors()[getColumn()] instanceof NumericCellEditor ){
-						    ((Text)editor.getControl()).setSelection(1);
-						}
-						else{
-						    ((Text)editor.getControl()).setSelection(1);
-						}
-                        
-                    }
-                }
-                }
+		     	keyReleasedEventMethod(e);
         
 		         
 		     }});
@@ -126,6 +77,66 @@ public class TableSpreadsheetCursor extends TableCursor implements ICellEditorLi
 		
 	
 
+	}
+	
+	public void keyReleasedEventMethod(KeyEvent e)
+	{
+		 if(e.keyCode==SWT.DEL)
+		 {
+            
+              if(getRow()!=null)
+              {
+                  if(okToDelete())
+                  {
+                  	ITableRow row = (ITableRow)getRow().getData();
+                  	TableSpreadsheetCursor.this.rowList.removeTask(row);
+                 
+                  	int itemCount =TableSpreadsheetCursor.this.table.getItemCount();
+                
+                  	if(itemCount>0)
+                  	{
+                  		setSelection(itemCount-1,0);                 
+                  	}
+                  
+                  }
+              }    
+             
+          }
+         
+          // F2 edit
+          else if(e.keyCode == 16777227 && e.stateMask == 0){
+              tableViewer.editElement(getRow().getData(),getColumn());
+
+			// any character
+			} 
+          else if(e.stateMask == SWT.CTRL){
+              tableViewer.editElement(getRow().getData(),getColumn());
+
+          }
+          
+          //any character
+          else if((e.keyCode<0x10000 || e.character!='\0') && e.keyCode>0x1f && e.keyCode!=127 
+					|| e.keyCode==0x00 && (e.stateMask==0 || e.stateMask==SWT.SHIFT))
+          {
+              if(getRow()!=null)
+              {
+              	tableViewer.editElement(getRow().getData(),getColumn());
+              	if(tableViewer.getCellEditors()[getColumn()] instanceof TextCellEditor)
+              	{
+                  
+                  TextCellEditor editor = ((TextCellEditor)tableViewer.getCellEditors()[getColumn()]);
+                  ((Text)editor.getControl()).setText(""+e.character); //$NON-NLS-1$
+					if(tableViewer.getCellEditors()[getColumn()] instanceof CurrencyCellEditor 
+					 || tableViewer.getCellEditors()[getColumn()] instanceof NumericCellEditor ){
+					    ((Text)editor.getControl()).setSelection(1);
+					}
+					else{
+					    ((Text)editor.getControl()).setSelection(1);
+					}
+                  
+              	}
+              }
+          }
 	}
 	public void applyEditorValue() {
 		TableSpreadsheetCursor.this.setVisible(true);

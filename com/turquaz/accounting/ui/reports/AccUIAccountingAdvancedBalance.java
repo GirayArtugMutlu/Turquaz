@@ -52,6 +52,7 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.layout.GridData;
 
@@ -78,6 +79,9 @@ import org.eclipse.swt.widgets.Label;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Composite implements SearchComposite {
 	private TableColumn tableColumnTotalCredit;
+	private Button radioUseRemainder;
+	private Button radioUseMainAccounts;
+	private Group groupRemainder;
 	private TableColumn tableColumnRemain;
 	private AccountPicker accountPickerEnd;
 	private CLabel lblAccEnd;
@@ -252,6 +256,32 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					accountPickerEnd.setLayoutData(accountPickerEndLData);
 				}
 			}
+			//START >>  groupRemainder
+			groupRemainder = new Group(this, SWT.NONE);
+			GridLayout groupRemainderLayout = new GridLayout();
+			GridData groupRemainderLData = new GridData();
+			groupRemainderLData.widthHint = 253;
+			groupRemainderLData.heightHint = 25;
+			groupRemainder.setLayoutData(groupRemainderLData);
+			groupRemainderLayout.numColumns = 4;
+			groupRemainderLayout.horizontalSpacing = 4;
+			groupRemainder.setLayout(groupRemainderLayout);
+			groupRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.14")); //$NON-NLS-1$
+			//START >>  radioUseMainAccounts
+			radioUseMainAccounts = new Button(groupRemainder, SWT.RADIO
+				| SWT.LEFT);
+			radioUseMainAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.15")); //$NON-NLS-1$
+			radioUseMainAccounts.setSelection(true);
+			//END <<  radioUseMainAccounts
+			//START >>  radioUseRemainder
+			radioUseRemainder = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
+			radioUseRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.16")); //$NON-NLS-1$
+			GridData radioUseRemainderLData = new GridData();
+			radioUseRemainderLData.widthHint = 103;
+			radioUseRemainderLData.heightHint = 13;
+			radioUseRemainder.setLayoutData(radioUseRemainderLData);
+			//END <<  radioUseRemainder
+			//END <<  groupRemainder
 			{
 				compTable = new Composite(this, SWT.NONE);
 				GridLayout compTableLayout = new GridLayout();
@@ -353,7 +383,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			BigDecimal totalDeptRemain=new BigDecimal(0);
 			BigDecimal totalCreditRemain=new BigDecimal(0);
 			
-			
+			boolean useMainAccountsRemain=radioUseMainAccounts.getSelection();
 			
 			for(int i =0; i< allAccounts.size();i++)
 			{
@@ -379,6 +409,14 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				accountItem.setText(3,cf.format(credit));
 				
 				BigDecimal remaining=transCredit.subtract(transDept);
+				if (!useMainAccountsRemain)
+				{
+					if (remaining.doubleValue()< 0)
+						totalDeptRemain=totalDeptRemain.add(remaining);
+					else if (remaining.doubleValue() > 0)
+						totalCreditRemain=totalCreditRemain.add(remaining);
+						
+				}
 				
 				accountItem.setText(4,(remaining.doubleValue() <= 0) ? cf.format(remaining.abs()) : ""); //$NON-NLS-1$
 				accountItem.setText(5,(remaining.doubleValue() > 0) ? cf.format(remaining) : ""); //$NON-NLS-1$
@@ -398,7 +436,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					BigDecimal initRemain;
 					
 					
-					if (remain!=null && !remain.equals(""))
+					if (remain!=null && !remain.equals("")) //$NON-NLS-1$
 						initRemain=cf.getBigDecimal(remain).negate();
 					else
 						initRemain=cf.getBigDecimal(accountItem.getText(5));
@@ -411,26 +449,30 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					parentId=parentAcc.getAccountingAccountsId();
 				}
 			}
-			TableTreeItem[] allitems=tableTreeAccounts.getItems();
-			for(int k=0; k<allitems.length; k++)
+			
+			if (useMainAccountsRemain)
 			{
-				TableTreeItem titem=allitems[k];
-				String remain=titem.getText(4);
-				BigDecimal initRemain;
-				if (remain!=null && !remain.equals(""))
-					initRemain=cf.getBigDecimal(remain).negate();
-				else
-					initRemain=cf.getBigDecimal(titem.getText(5));
-				if (initRemain.doubleValue() <= 0)
-					totalDeptRemain=totalDeptRemain.add(initRemain);
-				else
-					totalCreditRemain=totalCreditRemain.add(initRemain);
+				TableTreeItem[] allitems=tableTreeAccounts.getItems();			
+				for(int k=0; k<allitems.length; k++)
+				{
+					TableTreeItem titem=allitems[k];
+					String remain=titem.getText(4);
+					BigDecimal initRemain;
+					if (remain!=null && !remain.equals("")) //$NON-NLS-1$
+						initRemain=cf.getBigDecimal(remain).negate();
+					else
+						initRemain=cf.getBigDecimal(titem.getText(5));
+					if (initRemain.doubleValue() <= 0)
+						totalDeptRemain=totalDeptRemain.add(initRemain);
+					else
+						totalCreditRemain=totalCreditRemain.add(initRemain);
 				
+				}
 			}
 			
 			TableTreeItem dummy = new TableTreeItem(tableTreeAccounts,SWT.NULL);
 			TableTreeItem totals = new TableTreeItem(tableTreeAccounts,SWT.RIGHT);
-			totals.setText(1,"TOPLAM");
+			totals.setText(1,Messages.getString("AccUIAccountingAdvancedBalance.19")); //$NON-NLS-1$
 			totals.setText(2,cf.format(totalDept));
 			totals.setText(3,cf.format(totalCredit));
 			totals.setText(4,cf.format(totalDeptRemain.abs()));

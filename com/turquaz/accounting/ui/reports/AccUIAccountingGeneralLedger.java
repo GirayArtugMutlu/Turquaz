@@ -68,6 +68,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 	private CLabel lblDummy;
 	private Button btnShow;
 	private Calendar cal=Calendar.getInstance();
+	private Button checkApproved;
 	private ViewerComposite reportViewer;
 
 	/**
@@ -103,10 +104,12 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			}
 			{
 				lblDummy = new CLabel(this, SWT.NONE);
-				GridData lblDummyLData = new GridData();
-				lblDummyLData.horizontalSpan = 2;
-				lblDummy.setLayoutData(lblDummyLData);
 			}
+			//START >>  checkApproved
+			checkApproved = new Button(this, SWT.CHECK | SWT.LEFT);
+			checkApproved
+				.setText(Messages.getString("AccUIAccountingGeneralLedger.2")); //$NON-NLS-1$
+			//END <<  checkApproved
 			{
 				btnShow = new Button(this, SWT.PUSH | SWT.CENTER);
 				btnShow.setText(Messages.getString("AccUIAccountingGeneralLedger.1")); //$NON-NLS-1$
@@ -151,8 +154,9 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 					" and transcolumns.accounting_transactions_id=trans.accounting_transactions_id" ; //$NON-NLS-1$
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 			sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
-					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"//$NON-NLS-1$ //$NON-NLS-2$
-					+" and trans.accounting_journal_id > 0"; 	 //$NON-NLS-1$
+					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'";//$NON-NLS-1$ //$NON-NLS-2$
+			if (checkApproved.getSelection())
+					sqlparam +=" and trans.accounting_journal_id > 0"; 	 //$NON-NLS-1$
 
 			sqlparam +=" ORDER BY accounts.top_account,trans.transactions_date"; //$NON-NLS-1$
 			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$

@@ -52,6 +52,7 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.layout.GridData;
 
@@ -78,6 +79,9 @@ import org.eclipse.swt.custom.CCombo;
 public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Composite implements SearchComposite {
 	private TableColumn tableColumnTotalCredit;
 	private TableColumn tableColumnRemain;
+	private Button radioUseRemainder;
+	private Button radioUseMainAccounts;
+	private Group groupRemainder;
 	private CLabel lblMonth;
 	private CCombo comboMonth;
 	private AccountPicker accountPickerEnd;
@@ -160,8 +164,8 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					checkSubAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
 					checkSubAccounts.setText(Messages.getString("AccUIAccountingMonthlyBalance.13")); //$NON-NLS-1$
 						GridData checkSubAccountsLData = new GridData();
-						checkSubAccountsLData.widthHint = 156;
-						checkSubAccountsLData.heightHint = 16;
+						checkSubAccountsLData.widthHint = 133;
+						checkSubAccountsLData.heightHint = 17;
 						checkSubAccounts.setLayoutData(checkSubAccountsLData);
 						checkSubAccounts
 							.addSelectionListener(new SelectionAdapter() {
@@ -200,8 +204,8 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 						compAdvanced,
 						SWT.NONE);
 					GridData accountPickerStartLData = new GridData();
-					accountPickerStartLData.widthHint = 102;
-					accountPickerStartLData.heightHint = 14;
+					accountPickerStartLData.widthHint = 105;
+					accountPickerStartLData.heightHint = 13;
 					accountPickerStart.setLayoutData(accountPickerStartLData);
 				}
 				{
@@ -220,6 +224,35 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					accountPickerEnd.setLayoutData(accountPickerEndLData);
 				}
 			}
+			//START >>  groupRemainder
+			groupRemainder = new Group(this, SWT.NONE);
+			GridLayout groupRemainderLayout = new GridLayout();
+			groupRemainderLayout.numColumns = 4;
+			groupRemainderLayout.horizontalSpacing = 4;
+			groupRemainder.setText(Messages
+				.getString("AccUIAccountingAdvancedBalance.14"));
+			GridData groupRemainderLData = new GridData();
+			groupRemainder.setLayout(groupRemainderLayout);
+			groupRemainderLData.widthHint = 253;
+			groupRemainderLData.heightHint = 25;
+			groupRemainder.setLayoutData(groupRemainderLData);
+			//START >>  radioUseMainAccounts
+			radioUseMainAccounts = new Button(groupRemainder, SWT.RADIO
+				| SWT.LEFT);
+			radioUseMainAccounts.setText(Messages
+				.getString("AccUIAccountingAdvancedBalance.15"));
+			radioUseMainAccounts.setSelection(true);
+			//END <<  radioUseMainAccounts
+			//START >>  radioUseRemainder
+			radioUseRemainder = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
+			radioUseRemainder.setText(Messages
+				.getString("AccUIAccountingAdvancedBalance.16"));
+			GridData radioUseRemainderLData = new GridData();
+			radioUseRemainderLData.widthHint = 103;
+			radioUseRemainderLData.heightHint = 13;
+			radioUseRemainder.setLayoutData(radioUseRemainderLData);
+			//END <<  radioUseRemainder
+			//END <<  groupRemainder
 			{
 				compTable = new Composite(this, SWT.NONE);
 				GridLayout compTableLayout = new GridLayout();
@@ -342,6 +375,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 			BigDecimal totalDeptRemain=new BigDecimal(0);
 			BigDecimal totalCreditRemain=new BigDecimal(0);
 			
+			boolean useMainAccountsRemain=radioUseMainAccounts.getSelection();
 			
 			for(int i =0; i< allAccounts.size();i++)
 			{
@@ -366,6 +400,15 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				accountItem.setText(3,cf.format(credit));
 				
 				BigDecimal remaining=transCredit.subtract(transDept);
+				
+				if (!useMainAccountsRemain)
+				{
+					if (remaining.doubleValue()< 0)
+						totalDeptRemain=totalDeptRemain.add(remaining);
+					else if (remaining.doubleValue() > 0)
+						totalCreditRemain=totalCreditRemain.add(remaining);
+						
+				}
 								
 				
 				accountItem.setText(4,(remaining.doubleValue() <= 0) ? cf.format(remaining.abs()) : ""); //$NON-NLS-1$
@@ -397,22 +440,25 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					parentId=parentAcc.getAccountingAccountsId();
 				}
 			}
-			
-			TableTreeItem[] allitems=tableTreeAccounts.getItems();
-			for(int k=0; k<allitems.length; k++)
+			if (useMainAccountsRemain)
 			{
-				TableTreeItem titem=allitems[k];
-				String remain=titem.getText(4);
-				BigDecimal initRemain;
-				if (remain!=null && !remain.equals(""))
-					initRemain=cf.getBigDecimal(remain).negate();
-				else
-					initRemain=cf.getBigDecimal(titem.getText(5));
-				if (initRemain.doubleValue() <= 0)
-					totalDeptRemain=totalDeptRemain.add(initRemain);
-				else
-					totalCreditRemain=totalCreditRemain.add(initRemain);
+
+				TableTreeItem[] allitems=tableTreeAccounts.getItems();
+				for(int k=0; k<allitems.length; k++)
+				{
+					TableTreeItem titem=allitems[k];
+					String remain=titem.getText(4);
+					BigDecimal initRemain;
+					if (remain!=null && !remain.equals(""))
+						initRemain=cf.getBigDecimal(remain).negate();
+					else
+						initRemain=cf.getBigDecimal(titem.getText(5));
+					if (initRemain.doubleValue() <= 0)
+						totalDeptRemain=totalDeptRemain.add(initRemain);
+					else
+						totalCreditRemain=totalCreditRemain.add(initRemain);
 				
+				}
 			}
 			
 			

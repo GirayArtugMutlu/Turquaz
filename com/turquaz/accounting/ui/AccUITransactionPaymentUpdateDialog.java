@@ -80,6 +80,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	private TurqAccountingTransaction accTrans;
 	
 	private AccBLTransactionUpdate blTransUpdate = new AccBLTransactionUpdate();
+	private boolean updated=false;
 
 	public AccUITransactionPaymentUpdateDialog(Shell parent, int style,TurqAccountingTransaction trans) {
 		super(parent, style);
@@ -90,7 +91,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	* Opens the Dialog Shell.
 	* Auto-generated code - any changes you make will disappear.
 	*/
-	public void open(){
+	public boolean open(){
 		try {
 			preInitGUI();
 	
@@ -139,9 +140,9 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 				}
 			});
 	
-			toolDelete.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.2")); //$NON-NLS-1$
 			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
 			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
+			toolDelete.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.2")); //$NON-NLS-1$
 			{
 				toolCancel = new ToolItem(toolBar1, SWT.NONE);
 				toolCancel.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.3")); //$NON-NLS-1$
@@ -193,9 +194,12 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 			while (!dialogShell.isDisposed()) {
 				if (!display.readAndDispatch())
 					display.sleep();
+			
 			}
+			return updated;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return true;
 		}
 	}
 /** Add your pre-init code in here 	*/
@@ -287,6 +291,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		
 		try{
 		 if(compTransactionPayment.verifyFields()){
+		 	updated=true;
 		 blTransUpdate.updateTransaction(accTrans,compTransactionPayment.getTxtDocumentNo().getText().trim(),
 										compTransactionPayment.getDatePickerTransactionDate().getData(),compTransactionPayment.getTxtDefinition().getText().trim(),
 										(TurqCurrency)compTransactionPayment.getComboCurrencyType().getData(compTransactionPayment.getComboCurrencyType().getText()));
@@ -351,7 +356,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		int answer = msg2.open();
 		if(answer ==SWT.YES){
 		try{
-		
+		updated=true;
 		deleteTransactionRows();
 		blTransUpdate.delete(accTrans);
 		msg.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.9")); //$NON-NLS-1$

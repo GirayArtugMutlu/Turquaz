@@ -191,7 +191,14 @@ public class AccDALTransactionSearch {
 
 			Session session = EngDALSessionFactory.openSession();
 
-			String query = "select accTrans.accountingTransactionsId, accTrans.transactionsDate,accTrans.transactionDocumentNo,accTrans.turqAccountingTransactionType.typesName,accTrans.transactionDescription, sum(transRow.creditAmount) from TurqAccountingTransaction as accTrans"
+			String query = "select accTrans.accountingTransactionsId," +
+					" accTrans.transactionsDate," +
+					"accTrans.transactionDocumentNo," +
+					"accTrans.turqAccountingTransactionType.typesName," +
+					"accTrans.transactionDescription, " +
+					"sum(transRow.creditAmount)," +
+					"accTrans.turqModule.moduleDescription " +
+					"from TurqAccountingTransaction as accTrans"
 					+ " left join accTrans.turqAccountingTransactionColumns as transRow where accTrans.transactionDocumentNo like '"
 					+ docNo
 					+ "%' ";
@@ -231,7 +238,7 @@ public class AccDALTransactionSearch {
 			
 			
 			
-			query +=" group by  accTrans.accountingTransactionsId, accTrans.transactionsDate,accTrans.transactionDocumentNo,accTrans.turqAccountingTransactionType.typesName,accTrans.transactionDescription";
+			query +=" group by  accTrans.accountingTransactionsId, accTrans.transactionsDate,accTrans.transactionDocumentNo,accTrans.turqAccountingTransactionType.typesName,accTrans.transactionDescription,accTrans.turqModule.moduleDescription";
             query +=" order by accTrans.transactionsDate";   
 			
 			Query q = session.createQuery(query);
