@@ -45,6 +45,11 @@ import com.turquaz.inventory.dal.InvDALCardSearch;
 
 public class EngBLCommon
 {
+	
+	public static int BILL_ERR_TOO_MANY_CONS = -1;
+	public static int BILL_SAVED_SUCCESFULLY = 1;
+	public static int BILL_ERR_OTHER = 0;
+	
 	public final static int COMMON_BUY_INT = 0;
 	public final static int COMMON_SELL_INT = 1;
 	public final static int COMMON_ALL_INT = 2;

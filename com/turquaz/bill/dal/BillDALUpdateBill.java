@@ -24,7 +24,7 @@ public class BillDALUpdateBill
 					.iterate("select trans from TurqAccountingTransaction as trans"
 							+ ", TurqBill as bill where bill.id="
 							+ billId
-							+ " and trans.turqEngineSequence.id in (Select engSeq.turqEngineSequence.id from bill.turqBillInEngineSequences as engSeq)");
+							+ " and trans.turqEngineSequence = bill.turqEngineSequence");
 			while (iter.hasNext())
 			{
 				TurqAccountingTransaction trans = (TurqAccountingTransaction) iter.next();
@@ -56,7 +56,7 @@ public class BillDALUpdateBill
 							+ " TurqBill as bill where"
 							+ " bill.id="
 							+ billId
-							+ " and trans.turqEngineSequence.id in (Select engSeq.turqEngineSequence.id from bill.turqBillInEngineSequences as engSeq)");
+							+ " and trans.turqEngineSequence = bill.turqEngineSequence");
 			while (iter.hasNext())
 			{
 				session.delete(iter.next());
