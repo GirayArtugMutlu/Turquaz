@@ -58,7 +58,7 @@ public class ConDALSearchConsignment {
 		cons= (TurqConsignment)list.get(i);
 		Hibernate.initialize(cons.getTurqConsignmentsInGroups());
 		Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
-			
+		Hibernate.initialize(cons.getTurqBillConsignmentCommon().getTurqBills());	
 		}
 		
 		session.close();

@@ -7,6 +7,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
@@ -352,8 +353,16 @@ SecureComposite, SearchComposite{
 	public void tableMouseDoubleClick(){
 		TableItem items[] = tableConsignments.getSelection();
 		if(items.length>0){
-		
-		new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,(TurqConsignment)items[0].getData()).open();
+		    TurqConsignment cons = (TurqConsignment)items[0].getData();
+		    if(cons.getTurqBillConsignmentCommon().getTurqBills().isEmpty()){
+		        new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
+		        search();
+		    }
+		    else{
+		       MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_INFORMATION);
+		       msg.setMessage(Messages.getString("ConUIConsignmentSearch.12")); //$NON-NLS-1$
+		       msg.open();
+		    }
 		}
 	}
 
