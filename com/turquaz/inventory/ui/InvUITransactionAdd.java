@@ -33,6 +33,14 @@ import com.turquaz.engine.ui.component.SecureComposite;
  * @author onsel
  * @version $Id$
  */
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a
+* for-profit company or business) then you should purchase
+* a license - please visit www.cloudgarden.com for details.
+*/
+
 public class InvUITransactionAdd extends SecureComposite {
 
 	private CLabel cLabel1;
@@ -54,8 +62,15 @@ public class InvUITransactionAdd extends SecureComposite {
 			this.setSize(new org.eclipse.swt.graphics.Point(329,223));
 	
 			GridData cLabel1LData = new GridData();
+			cLabel1LData.verticalAlignment = GridData.CENTER;
+			cLabel1LData.horizontalAlignment = GridData.BEGINNING;
 			cLabel1LData.widthHint = 157;
 			cLabel1LData.heightHint = 73;
+			cLabel1LData.horizontalIndent = 0;
+			cLabel1LData.horizontalSpan = 1;
+			cLabel1LData.verticalSpan = 1;
+			cLabel1LData.grabExcessHorizontalSpace = false;
+			cLabel1LData.grabExcessVerticalSpace = false;
 			cLabel1.setLayoutData(cLabel1LData);
 			cLabel1.setText("Stok Hareket Ekle");
 			cLabel1.setSize(new org.eclipse.swt.graphics.Point(157,73));
@@ -80,6 +95,18 @@ public class InvUITransactionAdd extends SecureComposite {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	}
+	public void save(){
+		
+	}
+	public void delete(){
+		
+	}
+	public void newForm(){
+		
+	}
+	public void search(){
+		
 	}
 	
 	

@@ -30,6 +30,10 @@ public abstract class SecureComposite extends Composite {
 	public SecureComposite(Composite parent,int style){
 		super(parent, style);		
 	}
+	abstract public void save();
+	abstract public void search();
+	abstract public void newForm();
+	abstract public void delete();
 	
 	final public int getPermission(String compname){
 	return EngBLPermissions.getPermission(compname);

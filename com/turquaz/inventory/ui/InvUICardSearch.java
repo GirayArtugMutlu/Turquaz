@@ -92,6 +92,18 @@ public class InvUICardSearch extends SecureComposite {
 		tTable1.fillRandom();
 		
 	}
+	public void save(){
+		
+	}
+	public void delete(){
+		
+	}
+	public void newForm(){
+		
+	}
+	public void search(){
+		
+	}
 
 	/**
 	* This static method creates a new instance of this class and shows

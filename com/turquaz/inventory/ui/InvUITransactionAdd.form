@@ -33,6 +33,7 @@
 		<SubComponents>
 			<Component class="org.eclipse.swt.custom.CLabel" name="cLabel1" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>

@@ -7,10 +7,13 @@
 			</Constraints>
 			<Layout class="Row">
 				<Property name="type" type="int" value="256"/>
+				<Property name="marginWidth" type="int" value="0"/>
+				<Property name="marginHeight" type="int" value="0"/>
+				<Property name="spacing" type="int" value="3"/>
 				<Property name="wrap" type="boolean" value="true"/>
 				<Property name="pack" type="boolean" value="true"/>
+				<Property name="fill" type="boolean" value="false"/>
 				<Property name="justify" type="boolean" value="false"/>
-				<Property name="spacing" type="int" value="3"/>
 				<Property name="marginLeft" type="int" value="3"/>
 				<Property name="marginTop" type="int" value="3"/>
 				<Property name="marginRight" type="int" value="3"/>
@@ -563,7 +566,7 @@
 																</Events>
 																<Properties>
 																	<Property name="size" type="Dimension">
-																		<Dimension value="[232, 297]"/>
+																		<Dimension value="[230, 298]"/>
 																	</Property>
 																	<Property name="visible" type="boolean" value="true"/>
 																</Properties>
@@ -585,15 +588,18 @@
 																		</Constraints>
 																		<Layout class="Fill">
 																			<Property name="type" type="int" value="256"/>
+																			<Property name="marginWidth" type="int" value="0"/>
+																			<Property name="marginHeight" type="int" value="0"/>
+																			<Property name="spacing" type="int" value="0"/>
 																		</Layout>
 																		<Events>
 																		</Events>
 																		<Properties>
 																			<Property name="size" type="Dimension">
-																				<Dimension value="[232, 20]"/>
+																				<Dimension value="[230, 20]"/>
 																			</Property>
 																			<Property name="bounds" type="Rectangle">
-																				<Rectangle value="[0, 5, 232, 20]"/>
+																				<Rectangle value="[0, 5, 230, 20]"/>
 																			</Property>
 																			<Property name="visible" type="boolean" value="true"/>
 																		</Properties>
@@ -605,9 +611,9 @@
 																					<Constraint heightHint=""/>
 																					<Constraint verticalAlignment=""/>
 																					<Constraint grabExcessVerticalSpace=""/>
-																					<Constraint widthHint=""/>
-																					<Constraint horizontalSpan=""/>
 																					<Constraint grabExcessHorizontalSpace=""/>
+																					<Constraint horizontalSpan=""/>
+																					<Constraint widthHint=""/>
 																					<Constraint horizontalIndent=""/>
 																					<LayoutConstraint/>
 																				</Constraints>
@@ -618,10 +624,10 @@
 																				<Properties>
 																					<Property name="text" type="String" value="Aktif Modul"/>
 																					<Property name="size" type="Dimension">
-																						<Dimension value="[114, 16]"/>
+																						<Dimension value="[113, 16]"/>
 																					</Property>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[0, 0, 114, 16]"/>
+																						<Rectangle value="[0, 0, 113, 16]"/>
 																					</Property>
 																					<Property name="visible" type="boolean" value="true"/>
 																				</Properties>
@@ -633,9 +639,9 @@
 																					<Constraint heightHint=""/>
 																					<Constraint verticalAlignment=""/>
 																					<Constraint grabExcessVerticalSpace=""/>
-																					<Constraint widthHint=""/>
-																					<Constraint horizontalSpan=""/>
 																					<Constraint grabExcessHorizontalSpace=""/>
+																					<Constraint horizontalSpan=""/>
+																					<Constraint widthHint=""/>
 																					<Constraint horizontalIndent=""/>
 																					<LayoutConstraint/>
 																				</Constraints>
@@ -649,10 +655,10 @@
 																						<Color red="ec" green="e9" blue="d8"/>
 																					</Property>
 																					<Property name="size" type="Dimension">
-																						<Dimension value="[114, 16]"/>
+																						<Dimension value="[113, 16]"/>
 																					</Property>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[114, 0, 114, 16]"/>
+																						<Rectangle value="[113, 0, 113, 16]"/>
 																					</Property>
 																				</Properties>
 																			</Component>
@@ -682,7 +688,7 @@
 																		</Events>
 																		<Properties>
 																			<Property name="bounds" type="Rectangle">
-																				<Rectangle value="[0, 30, 232, 262]"/>
+																				<Rectangle value="[0, 30, 230, 263]"/>
 																			</Property>
 																		</Properties>
 																		<SubComponents>
@@ -695,7 +701,7 @@
 																				</Events>
 																				<Properties>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[0, 0, 232, 262]"/>
+																						<Rectangle value="[0, 0, 230, 263]"/>
 																					</Property>
 																				</Properties>
 																			</Component>
@@ -708,7 +714,7 @@
 																				</Events>
 																				<Properties>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[0, 0, 232, 262]"/>
+																						<Rectangle value="[0, 0, 230, 263]"/>
 																					</Property>
 																				</Properties>
 																			</Component>
@@ -773,10 +779,10 @@
 																		</Events>
 																		<Properties>
 																			<Property name="size" type="Dimension">
-																				<Dimension value="[232, 24]"/>
+																				<Dimension value="[230, 24]"/>
 																			</Property>
 																			<Property name="bounds" type="Rectangle">
-																				<Rectangle value="[0, 0, 232, 24]"/>
+																				<Rectangle value="[0, 0, 230, 24]"/>
 																			</Property>
 																			<Property name="visible" type="boolean" value="true"/>
 																		</Properties>
@@ -803,10 +809,10 @@
 																				<Properties>
 																					<Property name="text" type="String" value="Sık Kulanılan Nesneler"/>
 																					<Property name="size" type="Dimension">
-																						<Dimension value="[182, 20]"/>
+																						<Dimension value="[212, 20]"/>
 																					</Property>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[2, 3, 182, 20]"/>
+																						<Rectangle value="[2, 2, 212, 20]"/>
 																					</Property>
 																					<Property name="visible" type="boolean" value="true"/>
 																				</Properties>
@@ -832,7 +838,7 @@
 																				</Events>
 																				<Properties>
 																					<Property name="bounds" type="Rectangle">
-																						<Rectangle value="[184, 2, 46, 22]"/>
+																						<Rectangle value="[214, 9, 14, 7]"/>
 																					</Property>
 																					<Property name="visible" type="boolean" value="true"/>
 																				</Properties>
@@ -852,9 +858,6 @@
 																						<Events>
 																						</Events>
 																						<Properties>
-																							<Property name="ımage" type="Image">
-																								<Image name="\icons\new_persp.gif"/>
-																							</Property>
 																							<Property name="text" type="String" value=""/>
 																						</Properties>
 																					</Component>
@@ -873,9 +876,6 @@
 																						<Events>
 																						</Events>
 																						<Properties>
-																							<Property name="ımage" type="Image">
-																								<Image name="\icons\new_wiz.gif"/>
-																							</Property>
 																							<Property name="text" type="String" value=""/>
 																						</Properties>
 																					</Component>
@@ -902,10 +902,10 @@
 																		</Events>
 																		<Properties>
 																			<Property name="size" type="Dimension">
-																				<Dimension value="[232, 273]"/>
+																				<Dimension value="[230, 274]"/>
 																			</Property>
 																			<Property name="bounds" type="Rectangle">
-																				<Rectangle value="[0, 24, 232, 273]"/>
+																				<Rectangle value="[0, 24, 230, 274]"/>
 																			</Property>
 																			<Property name="visible" type="boolean" value="true"/>
 																		</Properties>
@@ -978,10 +978,10 @@
 																	<Property name="size" type="Dimension">
 																		<Dimension value="[92, 22]"/>
 																	</Property>
-																	<Property name="minimumSize" type="Dimension">
+																	<Property name="preferredSize" type="Dimension">
 																		<Dimension value="[92, 22]"/>
 																	</Property>
-																	<Property name="preferredSize" type="Dimension">
+																	<Property name="minimumSize" type="Dimension">
 																		<Dimension value="[92, 22]"/>
 																	</Property>
 																	<Property name="text" type="String" value="coolItem3"/>
@@ -1010,51 +1010,55 @@
 																					<LayoutConstraint/>
 																				</Constraints>
 																				<Events>
+																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="item_newWidgetSelected"/>
 																				</Events>
 																				<Properties>
 																					<Property name="enabled" type="boolean" value="true"/>
-																					<Property name="ımage" type="Image">
+																					<Property name="image" type="Image">
 																						<Image name="\icons\new_wiz.gif"/>
 																					</Property>
 																				</Properties>
 																			</Component>
-																			<Component class="org.eclipse.swt.widgets.ToolItem" name="item_save" style="0">
+																			<Component class="org.eclipse.swt.widgets.ToolItem" name="item_save" style="8">
 																				<Constraints>
 																					<LayoutConstraint/>
 																				</Constraints>
 																				<Events>
+																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="item_saveWidgetSelected"/>
 																				</Events>
 																				<Properties>
-																					<Property name="ımage" type="Image">
-																						<Image name="\icons\save_edit.gif"/>
-																					</Property>
 																					<Property name="text" type="String" value=""/>
+																					<Property name="image" type="Image">
+																						<Image name="\icons\save.gif"/>
+																					</Property>
 																				</Properties>
 																			</Component>
-																			<Component class="org.eclipse.swt.widgets.ToolItem" name="item_delete" style="0">
+																			<Component class="org.eclipse.swt.widgets.ToolItem" name="item_delete" style="8">
 																				<Constraints>
 																					<LayoutConstraint/>
 																				</Constraints>
 																				<Events>
+																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="item_deleteWidgetSelected"/>
 																				</Events>
 																				<Properties>
-																					<Property name="ımage" type="Image">
+																					<Property name="text" type="String" value=""/>
+																					<Property name="image" type="Image">
 																						<Image name="\icons\delete_edit.gif"/>
 																					</Property>
-																					<Property name="text" type="String" value=""/>
 																				</Properties>
 																			</Component>
-																			<Component class="org.eclipse.swt.widgets.ToolItem" name="item_examine" style="0">
+																			<Component class="org.eclipse.swt.widgets.ToolItem" name="item_examine" style="8">
 																				<Constraints>
 																					<LayoutConstraint/>
 																				</Constraints>
 																				<Events>
+																					<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="item_examineWidgetSelected"/>
 																				</Events>
 																				<Properties>
-																					<Property name="ımage" type="Image">
-																						<Image name="\icons\prop_ps.gif"/>
-																					</Property>
 																					<Property name="text" type="String" value=""/>
+																					<Property name="image" type="Image">
+																						<Image name="\icons\run_exec.gif"/>
+																					</Property>
 																				</Properties>
 																			</Component>
 																		</SubComponents>
@@ -1087,9 +1091,9 @@
 														<Layout class="Absolute">
 														</Layout>
 														<Events>
+															<EventHandler event="itemClosed" listener="org.eclipse.swt.custom.CTabFolderListener" handler="cTabFolder3ItemClosed"/>
 															<EventHandler event="widgetDefaultSelected" listener="org.eclipse.swt.events.SelectionListener" handler="cTabFolder3WidgetDefaultSelected"/>
 															<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="cTabFolder3WidgetSelected"/>
-															<EventHandler event="itemClosed" listener="org.eclipse.swt.custom.CTabFolderListener" handler="cTabFolder3İtemClosed"/>
 														</Events>
 														<Properties>
 															<Property name="size" type="Dimension">
