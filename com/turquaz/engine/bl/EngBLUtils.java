@@ -328,7 +328,7 @@ public class EngBLUtils
 			TurqViewBillTransTotal billview=BillBLSearchBill.getBillView(bill.getId());
 			BigDecimal discount = billview.getDiscountamount();
 			BigDecimal VAT = billview.getVatamount();
-			BigDecimal invoiceSum =billview.getTotalprice().subtract(VAT).add(discount);
+			BigDecimal invoiceSum =billview.getTotalprice();
 			BigDecimal invoiceTotal = invoiceSum.subtract(discount);
 			BigDecimal grandTotal = invoiceTotal.add(VAT);
 			parameters.put("invoiceSum", invoiceSum);
