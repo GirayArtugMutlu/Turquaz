@@ -65,14 +65,14 @@ public class CurDALCurrentCardSearch {
 			Session session = EngDALSessionFactory.openSession();
 		
 			String query = "Select currentView, currentCard.cardsCurrentCode," +
-					" currentCard.cardsName, currentCard.currentCardsId" +
+					" currentCard.cardsName, currentCard.id" +
 					" from TurqViewCurrentAmountTotal as currentView," +
 					" TurqCurrentCard as currentCard left join " +
 					" currentCard.turqCurrentCardsGroups as gr where" +
-					" currentCard.currentCardsId=currentView.currentCardsId" +
+					" currentCard.id=currentView.currentCardsId" +
 					" and currentCard.cardsCurrentCode like '"+currentCode+"%'"+
 					" and currentCard.cardsName like '"+currentName+"%'"+
-					" and currentCard.currentCardsId <> -1";
+					" and currentCard.id <> -1";
 			if (cardGroup!=null){
 				//query +=" and :cardGroup in (Select gr.turqCurrentGroup from gr)";
 				query +=" and gr.turqCurrentGroup = :cardGroup";//left join fetch" +
@@ -128,8 +128,8 @@ public class CurDALCurrentCardSearch {
 			Session session = EngDALSessionFactory.openSession();
 			
 			String query = "Select bankTrans from TurqCurrentTransaction as bankTrans" +
-					" where bankTrans.turqCurrentCard.currentCardsId="+curCard.getId()+
-					" and bankTrans.turqCurrentTransactionType.currentTransactionTypesId <>"+EngBLCommon.CURRENT_TRANS_INITIAL;
+					" where bankTrans.turqCurrentCard.id="+curCard.getId()+
+					" and bankTrans.turqCurrentTransactionType.id <>"+EngBLCommon.CURRENT_TRANS_INITIAL;
 
 			Query q = session.createQuery(query); 	
 			List list = q.list();
@@ -148,7 +148,7 @@ public class CurDALCurrentCardSearch {
 	        
 	        Session session = EngDALSessionFactory.openSession();
 	        String query = "Select curCard.cardsCurrentCode, curCard.cardsName from TurqCurrentCard as curCard " +
-	        		" where curCard.currentCardsId <> -1" ;
+	        		" where curCard.id <> -1" ;
 		 
 	        Query q = session.createQuery(query);
 	        
@@ -168,8 +168,8 @@ public class CurDALCurrentCardSearch {
 		  try{
 	        
 	        Session session = EngDALSessionFactory.openSession();
-	        String query = "Select curCard.currentCardsId, curCard.turqAccountingAccount.accountingAccountsId from TurqCurrentCard as curCard " +
-	        		" where curCard.currentCardsId <> -1" ;
+	        String query = "Select curCard.id, curCard.turqAccountingAccount.id from TurqCurrentCard as curCard " +
+	        		" where curCard.id <> -1" ;
 		 
 	        Query q = session.createQuery(query);
 	        
