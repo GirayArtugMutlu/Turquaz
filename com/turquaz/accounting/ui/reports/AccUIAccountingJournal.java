@@ -16,6 +16,7 @@ package com.turquaz.accounting.ui.reports;
 /************************************************************************/
 
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -60,10 +61,13 @@ import org.eclipse.swt.layout.GridData;
 import com.turquaz.accounting.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.jasperassistant.designer.viewer.ViewerComposite;
+import org.eclipse.swt.widgets.Composite;
 public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblDateRange;
 	private DatePicker datePickerBeginDate;
@@ -71,7 +75,8 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblDummy;
 	private Button btnReports;
 	private Calendar cal=Calendar.getInstance();
-	private ViewerComposite reportViewer;
+	private ViewerComposite viewer;
+	private Composite compViewer;
 
 	/**
 	* Auto-generated main method to display this 
@@ -120,11 +125,14 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 			thisLayout.numColumns = 3;
 			thisLayout.makeColumnsEqualWidth = true;
 			this.setLayout(thisLayout);
-			this.setSize(438, 180);
+			this.setSize(513, 331);
 			lblDateRange = new CLabel(this, SWT.NONE);
 			lblDateRange.setText(Messages.getString("AccUIAccountingJournal.0"));	 //$NON-NLS-1$
-			datePickerBeginDate = new DatePicker(this, SWT.NONE);	
-			datePickerBeginDate.setDate(new Date(cal.getTime().getYear(),0,1));
+			{
+				datePickerBeginDate = new DatePicker(this, SWT.NONE);
+				datePickerBeginDate.setDate(new Date(cal.getTime().getYear(),0,1));
+			}
+			
 			datePickerEndDate = new DatePicker(this, SWT.NONE);	
 			{
 				lblDummy = new CLabel(this, SWT.NONE);
@@ -149,14 +157,26 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 
 			}
 			{
-				reportViewer = new ViewerComposite(this, SWT.NONE);
-				GridData reportViewerLData = new GridData();
-				reportViewerLData.horizontalAlignment = GridData.FILL;
-				reportViewerLData.grabExcessHorizontalSpace = true;
-				reportViewerLData.horizontalSpan = 3;
-				reportViewerLData.verticalAlignment = GridData.FILL;
-				reportViewerLData.grabExcessVerticalSpace = true;
-				reportViewer.setLayoutData(reportViewerLData);
+				compViewer = new Composite(this, SWT.NONE);
+				GridLayout compViewerLayout = new GridLayout();
+				GridData compViewerLData = new GridData();
+				compViewerLData.grabExcessHorizontalSpace = true;
+				compViewerLData.grabExcessVerticalSpace = true;
+				compViewerLData.horizontalAlignment = GridData.FILL;
+				compViewerLData.verticalAlignment = GridData.FILL;
+				compViewerLData.horizontalSpan = 3;
+				compViewer.setLayoutData(compViewerLData);
+				compViewerLayout.makeColumnsEqualWidth = true;
+				compViewer.setLayout(compViewerLayout);
+				{
+					viewer = new ViewerComposite(compViewer, SWT.NONE);
+					GridData viewerLData = new GridData();
+					viewerLData.grabExcessHorizontalSpace = true;
+					viewerLData.horizontalAlignment = GridData.FILL;
+					viewerLData.grabExcessVerticalSpace = true;
+					viewerLData.verticalAlignment = GridData.FILL;
+					viewer.setLayoutData(viewerLData);
+				}
 			}
 			this.layout();
 		}
@@ -190,12 +210,16 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 
 			parameters.put("column1header",Messages.getString("AccUIAccountingJournal.22")); //$NON-NLS-1$ //$NON-NLS-2$
 			parameters.put("column2header",Messages.getString("AccUIAccountingJournal.24")); //$NON-NLS-1$ //$NON-NLS-2$
+			NumberFormat formatter=NumberFormat.getNumberInstance();
+			formatter.setMaximumFractionDigits(2);
+			formatter.setMinimumFractionDigits(2);
+			parameters.put("formatter", new TurkishCurrencyFormat());
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
 			
 			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingJournal.jasper"); 
 	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
-			reportViewer.getReportViewer().setDocument(jasperPrint);
+			viewer.getReportViewer().setDocument(jasperPrint);
 			
 					
 			}
