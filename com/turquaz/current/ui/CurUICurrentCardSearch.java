@@ -15,6 +15,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 
+import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.bl.EngBLCommon;
 
@@ -105,7 +106,7 @@ private TableColumn tableColumnContactName;
 			lblCurrentCodeLData.grabExcessHorizontalSpace = false;
 			lblCurrentCodeLData.grabExcessVerticalSpace = false;
 			lblCurrentCode.setLayoutData(lblCurrentCodeLData);
-			lblCurrentCode.setText("Current Code");
+			lblCurrentCode.setText(Messages.getString("CurUICurrentCardSearch.0")); //$NON-NLS-1$
 	
 			GridData txtCurrentCodeLData = new GridData();
 			txtCurrentCodeLData.verticalAlignment = GridData.CENTER;
@@ -131,7 +132,7 @@ private TableColumn tableColumnContactName;
 			lblCurrentNameLData.grabExcessHorizontalSpace = false;
 			lblCurrentNameLData.grabExcessVerticalSpace = false;
 			lblCurrentName.setLayoutData(lblCurrentNameLData);
-			lblCurrentName.setText("Current Name");
+			lblCurrentName.setText(Messages.getString("CurUICurrentCardSearch.1")); //$NON-NLS-1$
 	
 			GridData txtCurrentNameLData = new GridData();
 			txtCurrentNameLData.verticalAlignment = GridData.CENTER;
@@ -157,7 +158,7 @@ private TableColumn tableColumnContactName;
 			lblTurqGroupNameLData.grabExcessHorizontalSpace = false;
 			lblTurqGroupNameLData.grabExcessVerticalSpace = false;
 			lblTurqGroupName.setLayoutData(lblTurqGroupNameLData);
-			lblTurqGroupName.setText("Group Name");
+			lblTurqGroupName.setText(Messages.getString("CurUICurrentCardSearch.2")); //$NON-NLS-1$
 			lblTurqGroupName.setSize(new org.eclipse.swt.graphics.Point(65,19));
 	
 			GridData comboTurqGroupNameLData = new GridData();
@@ -201,13 +202,13 @@ private TableColumn tableColumnContactName;
 				}
 			});
 	
-			tableColumnCurrentCode.setText("Current Code");
+			tableColumnCurrentCode.setText(Messages.getString("CurUICurrentCardSearch.0")); //$NON-NLS-1$
 			tableColumnCurrentCode.setWidth(120);
 	
-			tableColumnCurrentName.setText("Current Name");
+			tableColumnCurrentName.setText(Messages.getString("CurUICurrentCardSearch.1")); //$NON-NLS-1$
 			tableColumnCurrentName.setWidth(120);
 	
-			tableColumnContactName.setText("Contact Name");
+			tableColumnContactName.setText(Messages.getString("CurUICurrentCardSearch.5")); //$NON-NLS-1$
 			tableColumnContactName.setWidth(120);
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
@@ -232,7 +233,7 @@ private TableColumn tableColumnContactName;
 	public void postInitGUI(){
 		try{
 			comboTurqGroupName.removeAll();
-			comboTurqGroupName.setText("");
+			comboTurqGroupName.setText(""); //$NON-NLS-1$
 			List groups=engBLCom.getTurqCurrentGroups();
 			for(int k=0; k<groups.size(); k++){
 				TurqCurrentGroup group=(TurqCurrentGroup)groups.get(k);
@@ -263,7 +264,7 @@ private TableColumn tableColumnContactName;
 				TableItem item=new TableItem(tableCurrentCardSearch, SWT.NULL);
 				item.setData(aCurrentCard);
  				
- 				String contactName ="";
+ 				String contactName =""; //$NON-NLS-1$
  				Set contacts = aCurrentCard.getTurqCurrentContacts();
  				
  				if(contacts.size()>0){

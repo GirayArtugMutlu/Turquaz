@@ -23,7 +23,6 @@ import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.current.ui.CurUICurrentCardSearch;
 import com.turquaz.current.ui.CurUITransactionAdd;
 import com.turquaz.current.ui.CurUITransactionSearch;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.InvUICardSearch;
 import com.turquaz.inventory.ui.InvUITransactionAdd;
@@ -40,21 +39,21 @@ public final class TreeFactory {
 	
 	public static Tree createInventoryTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
-		root.setText(Messages.getString("InvUITree.0")); //$NON-NLS-1$
+		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.0"));  //$NON-NLS-1$
 		TreeItem item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("InvUITree.1")); //$NON-NLS-1$
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.1"));  //$NON-NLS-1$
 		item.setData(InvUICardAdd.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("InvUITree.2")); //$NON-NLS-1$
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.2"));  //$NON-NLS-1$
 		item.setData(InvUITransactionAdd.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("InvUITree.3")); //$NON-NLS-1$
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.3"));  //$NON-NLS-1$
 		item.setData(InvUICardSearch.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("InvUITree.4")); //$NON-NLS-1$
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.4"));  //$NON-NLS-1$
 		item.setData(InvUIWarehouseAdd.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("InvUITree.5")); //$NON-NLS-1$
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.5"));  //$NON-NLS-1$
 		item.setData(InvUIWarehouseSearch.class.getName());
 	
 		return tree;
@@ -62,61 +61,62 @@ public final class TreeFactory {
 	
 	public static Tree createBankTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
-		root.setText("Banks");
+		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.6")); //$NON-NLS-1$
 		TreeItem item = new TreeItem(root,SWT.NULL);
-		item.setText("Bank Card Add");
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.7")); //$NON-NLS-1$
 		item.setData(BankUIBankCardAdd.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Bank Card Search");
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.8")); //$NON-NLS-1$
 		item.setData(BankUIBankCardSearch.class.getName());
 		return tree;
 	}
+	
 	public static Tree createAccountingTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
-		root.setText(Messages.getString("AccUITree.0")); //$NON-NLS-1$
+		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.9")); //$NON-NLS-1$
 		TreeItem item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("AccUITree.1")); //$NON-NLS-1$
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.10")); //$NON-NLS-1$
 		item.setData(AccUIAddAccounts.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("AccUITree.2")); //$NON-NLS-1$
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.11")); //$NON-NLS-1$
 		item.setData(AccUIAccountingPlan.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("AccUITree.3")); //$NON-NLS-1$
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.12")); //$NON-NLS-1$
 		item.setData(AccUITransactionAdd.class.getName());	
 		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("AccUITree.4")); //$NON-NLS-1$
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.13")); //$NON-NLS-1$
 		item.setData(AccUITransactionCollect.class.getName());	
 		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("AccUITree.5")); //$NON-NLS-1$
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.14")); //$NON-NLS-1$
 		item.setData(AccUITransactionPayment.class.getName());	
 		item = new TreeItem(root,SWT.NULL);
-		item.setText(Messages.getString("AccUITree.6")); //$NON-NLS-1$
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.15")); //$NON-NLS-1$
 		item.setData(AccUITransactionSearch.class.getName());
 	   
 		return tree;
 	}
 	public static Tree createCurrentTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
-		root.setText("Current");
+		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.16")); //$NON-NLS-1$
 		TreeItem item = new TreeItem(root,SWT.NULL);
-		item.setText("Current Card Add");
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.17")); //$NON-NLS-1$
 		item.setData(CurUICurrentCardAdd.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Current Card Search");
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.18")); //$NON-NLS-1$
 		item.setData(CurUICurrentCardSearch.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Cash Transaction");
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.19")); //$NON-NLS-1$
 		item.setData(CurUITransactionAdd.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Transaction Search");
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.20")); //$NON-NLS-1$
 		item.setData(CurUITransactionSearch.class.getName());
 		return tree;
 	}
 	public static Tree createAdminTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
-		root.setText("Administrator");
+		root.setText(com.turquaz.engine.Messages.getString("TreeFactory.21")); //$NON-NLS-1$
 		TreeItem item = new TreeItem(root,SWT.NULL);
-		item.setText("User Permissions");
+		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.22")); //$NON-NLS-1$
 		item.setData(AdmUIPermPanel.class.getName());
 		return tree;
 	}

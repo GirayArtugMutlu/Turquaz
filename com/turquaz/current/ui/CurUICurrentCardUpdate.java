@@ -13,6 +13,7 @@ import org.eclipse.swt.SWT;
 
 import org.eclipse.swt.widgets.Composite;
 
+import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
@@ -130,14 +131,14 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,23));
 	
 	
-			toolUpdate.setText("Update");
+			toolUpdate.setText(Messages.getString("CurUICurrentCardUpdate.0")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
 				}
 			});
 
-			toolDelete.setText("Delete");
+			toolDelete.setText(Messages.getString("CurUICurrentCardUpdate.1")); //$NON-NLS-1$
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -158,32 +159,32 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			cTabFolder1.setSize(new org.eclipse.swt.graphics.Point(678,381));
 	
 			cTabItem1.setControl(compCurCardAdd);
-			cTabItem1.setText("Current Card Info");
+			cTabItem1.setText(Messages.getString("CurUICurrentCardUpdate.2")); //$NON-NLS-1$
 	
 			compCurCardAdd.setSize(new org.eclipse.swt.graphics.Point(586,374));
 			compCurCardAdd.setEnabled(true);
 			compCurCardAdd.layout();
 	
 			cTabItem2.setControl(tableCurrentBalances);
-			cTabItem2.setText("Current Card Balances");
+			cTabItem2.setText(Messages.getString("CurUICurrentCardUpdate.3")); //$NON-NLS-1$
 	
 			tableCurrentBalances.setHeaderVisible(true);
 			tableCurrentBalances.setLinesVisible(true);
 			tableCurrentBalances.setSize(new org.eclipse.swt.graphics.Point(662,365));
 	
-			tableColumnTransactionType.setText("Transaction Type");
+			tableColumnTransactionType.setText(Messages.getString("CurUICurrentCardUpdate.4")); //$NON-NLS-1$
 			tableColumnTransactionType.setWidth(100);
 	
-			tableColumnTotalCredit.setText("Total Credit");
+			tableColumnTotalCredit.setText(Messages.getString("CurUICurrentCardUpdate.5")); //$NON-NLS-1$
 			tableColumnTotalCredit.setWidth(100);
 	
-			tableColumnTotalDept.setText("Total Dept");
+			tableColumnTotalDept.setText(Messages.getString("CurUICurrentCardUpdate.6")); //$NON-NLS-1$
 			tableColumnTotalDept.setWidth(127);
 	
-			tableColumnBalanceCredit.setText("Balance Credit");
+			tableColumnBalanceCredit.setText(Messages.getString("CurUICurrentCardUpdate.7")); //$NON-NLS-1$
 			tableColumnBalanceCredit.setWidth(137);
 	
-			tableColumnBalanceDept.setText("Balance Dept");
+			tableColumnBalanceDept.setText(Messages.getString("CurUICurrentCardUpdate.8")); //$NON-NLS-1$
 			tableColumnBalanceDept.setWidth(133);
 			cTabFolder1.setSelection(0);
 			GridLayout dialogShellLayout = new GridLayout(1, true);
@@ -233,7 +234,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 		
 			
 			if(it.hasNext()){
-				System.out.println("Filling Contact Information");
+				System.out.println(Messages.getString("CurUICurrentCardUpdate.9")); //$NON-NLS-1$
 				TurqCurrentContact curContact=(TurqCurrentContact)it.next();				
 				compCurCardAdd.getTxtContactWebSite().setText(curContact.getContactsWebSite());
 				compCurCardAdd.getTxtContactName().setText(curContact.getContactsName());
@@ -316,11 +317,11 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 	TableItem item;
 	String type[] = new String[5];
-	type[0]="Bill"; 
-	type[1]="Cheque";
-	type[2]="TradeBill";
-	type[3]="Cash";
-	type[4]="Bank Note";
+	type[0]=Messages.getString("CurUICurrentCardUpdate.10");  //$NON-NLS-1$
+	type[1]=Messages.getString("CurUICurrentCardUpdate.11"); //$NON-NLS-1$
+	type[2]=Messages.getString("CurUICurrentCardUpdate.12"); //$NON-NLS-1$
+	type[3]=Messages.getString("CurUICurrentCardUpdate.13"); //$NON-NLS-1$
+	type[4]=Messages.getString("CurUICurrentCardUpdate.14"); //$NON-NLS-1$
 	
 	BigDecimal totalCredit = new BigDecimal(0);
 	BigDecimal totalDept = new BigDecimal(0);
@@ -345,11 +346,11 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	  
 	  if(credit.compareTo(debt)==1){
 	   	
-	  item.setText(new String[]{type[i-1],credit.toString(),debt.toString(),credit.subtract(debt).toString(),"0"});
+	  item.setText(new String[]{type[i-1],credit.toString(),debt.toString(),credit.subtract(debt).toString(),"0"}); //$NON-NLS-1$
 	  	
 	  }
 	  else {
-	  	item.setText(new String[]{type[i-1],credit.toString(),debt.toString(),"0",debt.subtract(credit).toString()});
+	  	item.setText(new String[]{type[i-1],credit.toString(),debt.toString(),"0",debt.subtract(credit).toString()}); //$NON-NLS-1$
 	  	
 	  }
 	  
@@ -359,7 +360,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	}
 	else {
 		
-		item.setText(new String[]{type[i-1],"0","0","0","0"});	
+		item.setText(new String[]{type[i-1],"0","0","0","0"});	 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 	
 	}
@@ -381,7 +382,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 		MessageBox msg2 = new MessageBox(this.getParent(),SWT.OK|SWT.CANCEL);
 		try{
-		 msg2.setMessage("Really delete Current Card?");
+		 msg2.setMessage(Messages.getString("CurUICurrentCardUpdate.21")); //$NON-NLS-1$
 	    int result = msg2.open();
 	    
 	    if(result==SWT.OK){	 
@@ -390,7 +391,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			
 			currentUpdate.deleteObject(currentCard);
 			
-			 msg.setMessage("Succesfully Deleted!");
+			 msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
 			 msg.open();
 			
 			this.dialogShell.close();
@@ -443,17 +444,17 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 		else if((!currentCard.getCardsCurrentCode().equals(compCurCardAdd.getTxtCurrentCode().getText().trim()))
 				&&currentAdd.isCurrentCodePresent(compCurCardAdd.getTxtCurrentCode().getText().trim())){
 			
-			msg.setMessage("Current Code already exist!Please Specify Another");
+			msg.setMessage(Messages.getString("CurUICurrentCardUpdate.23")); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
 		else if(compCurCardAdd.getAccPickerCustomer().getData()==null){
-			msg.setMessage("Please Select Customer Account");
+			msg.setMessage(Messages.getString("CurUICurrentCardUpdate.24")); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
 		else if(compCurCardAdd.getAccPickerSupplierAccCode().getData()==null){
-			msg.setMessage("Please Select Supplier Account");
+			msg.setMessage(Messages.getString("CurUICurrentCardUpdate.25")); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
@@ -490,7 +491,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 		compCurCardAdd.savePhones(currentCard.getCurrentCardsId());
 		compCurCardAdd.saveGroups(currentCard.getCurrentCardsId());
 		
-		 msg.setMessage("Succesfully Updated!");
+		 msg.setMessage(Messages.getString("CurUICurrentCardUpdate.26")); //$NON-NLS-1$
 		 msg.open();
 			
 		this.dialogShell.close();

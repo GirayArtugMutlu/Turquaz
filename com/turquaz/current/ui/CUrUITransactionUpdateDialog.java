@@ -19,6 +19,7 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.current.ui.CurUITransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -117,16 +118,16 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,38));
 	
 	
-			toolUpdate.setText("Update");
-			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+			toolUpdate.setText(Messages.getString("CUrUITransactionUpdateDialog.0")); //$NON-NLS-1$
+			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
 				}
 			});
 	
-			toolDelete.setText("Delete");
-			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
+			toolDelete.setText(Messages.getString("CUrUITransactionUpdateDialog.2")); //$NON-NLS-1$
+			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -196,7 +197,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	//Tediye fisi
 	if(transaction.getTransactionsTotalCredit().compareTo(transaction.getTransactionsTotalDept())==1){
 	
-	compTransactionAdd.getComboTransType().setText("Credit");
+	compTransactionAdd.getComboTransType().setText(Messages.getString("CUrUITransactionUpdateDialog.4")); //$NON-NLS-1$
 	compTransactionAdd.getDecTxtAmount().setText(transaction.getTransactionsTotalCredit().toString());
     isCredit =true;
 	
@@ -206,7 +207,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	//Tahsil fisi
 	else{
 	isCredit = false;	
-	compTransactionAdd.getComboTransType().setText("Debit");
+	compTransactionAdd.getComboTransType().setText(Messages.getString("CUrUITransactionUpdateDialog.5")); //$NON-NLS-1$
 	compTransactionAdd.getDecTxtAmount().setText(transaction.getTransactionsTotalDept().toString());
 	
 	}
@@ -221,8 +222,8 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		
 	}
 	else {
-		System.out.println("Something went wrong at "+this.getClass().getName());
-		System.out.println("in line 177");
+		System.out.println("Something went wrong at "+this.getClass().getName()); //$NON-NLS-1$
+		System.out.println("in line 177"); //$NON-NLS-1$
 	}
 
 	
@@ -248,10 +249,10 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		
 			if(compTransactionAdd.verifyFields()){
 			boolean isCredit =false;
-			if(compTransactionAdd.getComboTransType().getText().equals("Debit")){
+			if(compTransactionAdd.getComboTransType().getText().equals(Messages.getString("CUrUITransactionUpdateDialog.5"))){ //$NON-NLS-1$
 				isCredit =false;
 			}
-			else if(compTransactionAdd.getComboTransType().getText().equals("Credit")){
+			else if(compTransactionAdd.getComboTransType().getText().equals(Messages.getString("CUrUITransactionUpdateDialog.4"))){ //$NON-NLS-1$
 				isCredit =true;
 			
 			}
@@ -264,7 +265,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 											  compTransactionAdd.getDecTxtAmount().getBigDecimalValue(),
 											  (TurqAccountingAccount)compTransactionAdd.getAccPickerCashAccount().getData(),
 											  	transaction);
-			 msg.setMessage("Succesfully Updated!");
+			 msg.setMessage(Messages.getString("CUrUITransactionUpdateDialog.10")); //$NON-NLS-1$
 			 msg.open();	
 			 this.dialogShell.close();
 		}
@@ -286,7 +287,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	
 	 blSearch.deleteCurrentTransaction(transaction);
 	
-	 msg.setMessage("Succesfully Delete!");
+	 msg.setMessage(Messages.getString("CUrUITransactionUpdateDialog.11")); //$NON-NLS-1$
 	 msg.open();
 	 this.dialogShell.close();
 	}

@@ -9,6 +9,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 
+import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -93,7 +94,7 @@ public class CurUITransactionSearch extends Composite implements SecureComposite
 				composite1.setLayoutData(composite1LData);
 				{
 					lblCurrentCard = new CLabel(composite1, SWT.NONE);
-					lblCurrentCard.setText("Current Card");
+					lblCurrentCard.setText(Messages.getString("CurUITransactionSearch.0")); //$NON-NLS-1$
 					lblCurrentCard.setSize(new org.eclipse.swt.graphics.Point(
 						85,
 						20));
@@ -113,7 +114,7 @@ public class CurUITransactionSearch extends Composite implements SecureComposite
 				}
 				{
 					lblTransactionGroup = new CLabel(composite1, SWT.NONE);
-					lblTransactionGroup.setText("Transaction Group");
+					lblTransactionGroup.setText(Messages.getString("CurUITransactionSearch.1")); //$NON-NLS-1$
 					lblTransactionGroup
 						.setSize(new org.eclipse.swt.graphics.Point(105, 18));
 					GridData lblTransactionGroupLData = new GridData();
@@ -132,7 +133,7 @@ public class CurUITransactionSearch extends Composite implements SecureComposite
 				}
 				{
 					lblDocumentNo = new CLabel(composite1, SWT.NONE);
-					lblDocumentNo.setText("Document No");
+					lblDocumentNo.setText(Messages.getString("CurUITransactionSearch.2")); //$NON-NLS-1$
 					lblDocumentNo.setSize(new org.eclipse.swt.graphics.Point(
 						80,
 						19));
@@ -154,7 +155,7 @@ public class CurUITransactionSearch extends Composite implements SecureComposite
 				}
 				{
 					lblStartDate = new CLabel(composite1, SWT.NONE);
-					lblStartDate.setText("Start Date");
+					lblStartDate.setText(Messages.getString("CurUITransactionSearch.3")); //$NON-NLS-1$
 					lblStartDate.setSize(new org.eclipse.swt.graphics.Point(
 						69,
 						19));
@@ -175,7 +176,7 @@ public class CurUITransactionSearch extends Composite implements SecureComposite
 				}
 				{
 					lblEndDate = new CLabel(composite1, SWT.NONE);
-					lblEndDate.setText("End Date");
+					lblEndDate.setText(Messages.getString("CurUITransactionSearch.4")); //$NON-NLS-1$
 					lblEndDate.setSize(new org.eclipse.swt.graphics.Point(
 						82,
 						18));
@@ -214,35 +215,35 @@ public class CurUITransactionSearch extends Composite implements SecureComposite
 					tableColumnCurrentCode = new TableColumn(
 						tableCurrentTransactions,
 						SWT.NONE);
-					tableColumnCurrentCode.setText("Current Code");
+					tableColumnCurrentCode.setText(Messages.getString("CurUITransactionSearch.5")); //$NON-NLS-1$
 					tableColumnCurrentCode.setWidth(107);
 				}
 				{
 					tableColumnTransGroup = new TableColumn(
 						tableCurrentTransactions,
 						SWT.NONE);
-					tableColumnTransGroup.setText("Transaction Group");
+					tableColumnTransGroup.setText(Messages.getString("CurUITransactionSearch.6")); //$NON-NLS-1$
 					tableColumnTransGroup.setWidth(114);
 				}
 				{
 					tableColumnDebit = new TableColumn(
 						tableCurrentTransactions,
 						SWT.NONE);
-					tableColumnDebit.setText("Debit");
+					tableColumnDebit.setText(Messages.getString("CurUITransactionSearch.7")); //$NON-NLS-1$
 					tableColumnDebit.setWidth(106);
 				}
 				{
 					tableColumnCredit = new TableColumn(
 						tableCurrentTransactions,
 						SWT.NONE);
-					tableColumnCredit.setText("Credit");
+					tableColumnCredit.setText(Messages.getString("CurUITransactionSearch.8")); //$NON-NLS-1$
 					tableColumnCredit.setWidth(101);
 				}
 				{
 					tableColumnTransDate = new TableColumn(
 						tableCurrentTransactions,
 						SWT.NONE);
-					tableColumnTransDate.setText("Transaction Date");
+					tableColumnTransDate.setText(Messages.getString("CurUITransactionSearch.9")); //$NON-NLS-1$
 					tableColumnTransDate.setWidth(100);
 				}
 			}
@@ -376,7 +377,7 @@ public class CurUITransactionSearch extends Composite implements SecureComposite
 		}
 		else{
 			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-			msg.setMessage("Only Cash Transactions can be edited!");
+			msg.setMessage(Messages.getString("CurUITransactionSearch.10")); //$NON-NLS-1$
 			msg.open();
 		}
 		}

@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.SWT;
 
 
+import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
@@ -75,7 +76,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 				lblCurrentCodeLData.widthHint = 102;
 				lblCurrentCodeLData.heightHint = 16;
 				lblCurrentCode.setLayoutData(lblCurrentCodeLData);
-				lblCurrentCode.setText("Current Code");
+				lblCurrentCode.setText(Messages.getString("CurUITransactionAdd.0")); //$NON-NLS-1$
 				lblCurrentCode.setSize(new org.eclipse.swt.graphics.Point(
 					102,
 					16));
@@ -86,7 +87,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 				comboCurrentCodeLData.widthHint = 185;
 				comboCurrentCodeLData.heightHint = 20;
 				comboCurrentCode.setLayoutData(comboCurrentCodeLData);
-				comboCurrentCode.setText("Choose Current Code");
+				comboCurrentCode.setText(Messages.getString("CurUITransactionAdd.1")); //$NON-NLS-1$
 				comboCurrentCode.setSize(new org.eclipse.swt.graphics.Point(
 					207,
 					20));
@@ -115,7 +116,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 			lblDocumentNoLData.grabExcessHorizontalSpace = false;
 			lblDocumentNoLData.grabExcessVerticalSpace = false;
 			lblDocumentNo.setLayoutData(lblDocumentNoLData);
-			lblDocumentNo.setText("Document No");
+			lblDocumentNo.setText(Messages.getString("CurUITransactionAdd.2")); //$NON-NLS-1$
 	
 			GridData txtDocumentNoLData = new GridData();
 			txtDocumentNoLData.verticalAlignment = GridData.CENTER;
@@ -141,7 +142,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 			comboTypeLData.grabExcessHorizontalSpace = false;
 			comboTypeLData.grabExcessVerticalSpace = false;
 			comboType.setLayoutData(comboTypeLData);
-			comboType.setText("Cash Transaction Type");
+			comboType.setText(Messages.getString("CurUITransactionAdd.3")); //$NON-NLS-1$
 			comboType.setSize(new org.eclipse.swt.graphics.Point(138,17));
 	
 			GridData comboTransTypeLData = new GridData();
@@ -155,7 +156,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 			comboTransTypeLData.grabExcessHorizontalSpace = false;
 			comboTransTypeLData.grabExcessVerticalSpace = false;
 			comboTransType.setLayoutData(comboTransTypeLData);
-			comboTransType.setText("Debit");
+			comboTransType.setText(Messages.getString("CurUITransactionAdd.4")); //$NON-NLS-1$
 			comboTransType.setSize(new org.eclipse.swt.graphics.Point(200,19));
 	
 			GridData lblAmountLData = new GridData();
@@ -169,7 +170,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 			lblAmountLData.grabExcessHorizontalSpace = false;
 			lblAmountLData.grabExcessVerticalSpace = false;
 			lblAmount.setLayoutData(lblAmountLData);
-			lblAmount.setText("Amount");
+			lblAmount.setText(Messages.getString("CurUITransactionAdd.5")); //$NON-NLS-1$
 			lblAmount.setSize(new org.eclipse.swt.graphics.Point(88,21));
 	
 			GridData decTxtAmountLData = new GridData();
@@ -183,7 +184,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 			decTxtAmountLData.grabExcessHorizontalSpace = false;
 			decTxtAmountLData.grabExcessVerticalSpace = false;
 			decTxtAmount.setLayoutData(decTxtAmountLData);
-			decTxtAmount.setText("decimalText1");
+			decTxtAmount.setText(Messages.getString("CurUITransactionAdd.6")); //$NON-NLS-1$
 			decTxtAmount.setSize(new org.eclipse.swt.graphics.Point(217,19));
 	
 			GridData lblTransDateLData = new GridData();
@@ -197,7 +198,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 			lblTransDateLData.grabExcessHorizontalSpace = false;
 			lblTransDateLData.grabExcessVerticalSpace = false;
 			lblTransDate.setLayoutData(lblTransDateLData);
-			lblTransDate.setText("Transaction Date");
+			lblTransDate.setText(Messages.getString("CurUITransactionAdd.7")); //$NON-NLS-1$
 			lblTransDate.setSize(new org.eclipse.swt.graphics.Point(100,19));
 	
 			GridData dateTransDateLData = new GridData();
@@ -225,7 +226,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 			lblCashAccountLData.grabExcessHorizontalSpace = false;
 			lblCashAccountLData.grabExcessVerticalSpace = false;
 			lblCashAccount.setLayoutData(lblCashAccountLData);
-			lblCashAccount.setText("Cash Account");
+			lblCashAccount.setText(Messages.getString("CurUITransactionAdd.8")); //$NON-NLS-1$
 			lblCashAccount.setSize(new org.eclipse.swt.graphics.Point(72,19));
 	
 			GridData accPickerCashAccountLData = new GridData();
@@ -262,9 +263,9 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
-	comboTransType.add("Debit");
-	comboTransType.add("Credit");
-	accPickerCashAccount.setFilter("100");
+	comboTransType.add(Messages.getString("CurUITransactionAdd.4")); //$NON-NLS-1$
+	comboTransType.add(Messages.getString("CurUITransactionAdd.10")); //$NON-NLS-1$
+	accPickerCashAccount.setFilter("100"); //$NON-NLS-1$
 	fillComboCurrentCodes();
 	
 	}
@@ -304,23 +305,23 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 	 MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 	if(comboCurrentCode.getSelectionIndex()==-1){
 	
-	msg.setMessage("Please Choose Current Code!");
+	msg.setMessage(Messages.getString("CurUITransactionAdd.12")); //$NON-NLS-1$
     msg.open();	
 	
 	return false;
 	}
 	else if(dateTransDate.getData()==null){
-	msg.setMessage("Please Enter Transaction Date!");
+	msg.setMessage(Messages.getString("CurUITransactionAdd.13")); //$NON-NLS-1$
     msg.open();	
 	return false;
 	}
-	else if(decTxtAmount.getText().equals("")){
-	msg.setMessage("Please Enter Transaction Amount!");
+	else if(decTxtAmount.getText().equals("")){ //$NON-NLS-1$
+	msg.setMessage(Messages.getString("CurUITransactionAdd.15")); //$NON-NLS-1$
     msg.open();	
 	return false;
 	}
 	else if (accPickerCashAccount.getData()==null){
-	msg.setMessage("Please choose cash account !");
+	msg.setMessage(Messages.getString("CurUITransactionAdd.16")); //$NON-NLS-1$
     msg.open();	
 	return false;
 	}
@@ -337,10 +338,10 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 	if(verifyFields()){
 	
 	boolean isCredit =false;
-	if(comboTransType.getText().equals("Debit")){
+	if(comboTransType.getText().equals(Messages.getString("CurUITransactionAdd.4"))){ //$NON-NLS-1$
 		isCredit =false;
 	}
-	else if(comboTransType.getText().equals("Credit")){
+	else if(comboTransType.getText().equals(Messages.getString("CurUITransactionAdd.10"))){ //$NON-NLS-1$
 		isCredit =true;
 	
 	}
@@ -352,7 +353,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 									  decTxtAmount.getBigDecimalValue(),new BigDecimal(0),4,(TurqAccountingAccount)accPickerCashAccount.getData());
 	
 	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-	msg.setMessage("Succesfully Saved!");
+	msg.setMessage(Messages.getString("CurUITransactionAdd.19")); //$NON-NLS-1$
     msg.open();	
 	newForm();
 	}
