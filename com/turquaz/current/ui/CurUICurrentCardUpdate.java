@@ -59,6 +59,7 @@ import com.turquaz.engine.dal.TurqCurrentContact;
 * a license - please visit www.cloudgarden.com for details.
 */
 public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
+	private CurUICurrentCardAdd compCurCardAdd;
 	private TableColumn tableColumnBalanceDept;
 	private TableColumn tableColumnBalanceCredit;
 	private TableColumn tableColumnTotalDept;
@@ -67,7 +68,6 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	private Table tableCurrentBalances;
 	private Composite composite1;
 	private CTabItem cTabItem2;
-	private CurUICurrentCardAdd compCurCardAdd;
 	private CTabItem cTabItem1;
 	private CTabFolder cTabFolder1;
 	private ToolItem toolDelete;
@@ -102,9 +102,18 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			toolBar1 = new ToolBar(coolBar1,SWT.NULL);
 			toolUpdate = new ToolItem(toolBar1,SWT.NULL);
 			toolDelete = new ToolItem(toolBar1,SWT.NULL);
-			compCurCardAdd = new CurUICurrentCardAdd(dialogShell,SWT.NULL);
+			cTabFolder1 = new CTabFolder(dialogShell,SWT.NULL);
+			cTabItem1 = new CTabItem(cTabFolder1,SWT.NULL);
+			compCurCardAdd = new CurUICurrentCardAdd(cTabFolder1,SWT.NULL);
+			cTabItem2 = new CTabItem(cTabFolder1,SWT.NULL);
+			tableCurrentBalances = new Table(cTabFolder1,SWT.NULL);
+			tableColumnTransactionType = new TableColumn(tableCurrentBalances,SWT.NULL);
+			tableColumnTotalCredit = new TableColumn(tableCurrentBalances,SWT.NULL);
+			tableColumnTotalDept = new TableColumn(tableCurrentBalances,SWT.NULL);
+			tableColumnBalanceCredit = new TableColumn(tableCurrentBalances,SWT.NULL);
+			tableColumnBalanceDept = new TableColumn(tableCurrentBalances,SWT.NULL);
 	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(600,434));
+			dialogShell.setSize(new org.eclipse.swt.graphics.Point(692,441));
 	
 			GridData coolBar1LData = new GridData();
 			coolBar1LData.verticalAlignment = GridData.CENTER;
@@ -119,33 +128,65 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			coolBar1.setLayoutData(coolBar1LData);
 	
 			coolItem1.setControl(toolBar1);
-			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88,23));
-			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,23));
+			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88,38));
+			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,38));
 	
 	
 			toolUpdate.setText("Update");
+			final org.eclipse.swt.graphics.Image toolUpdateimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
+			toolUpdate.setImage(toolUpdateimage);
 	
 			toolDelete.setText("Delete");
+			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setImage(toolDeleteimage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
 				}
 			});
 	
-			GridData compCurCardAddLData = new GridData();
-			compCurCardAddLData.verticalAlignment = GridData.FILL;
-			compCurCardAddLData.horizontalAlignment = GridData.FILL;
-			compCurCardAddLData.widthHint = -1;
-			compCurCardAddLData.heightHint = -1;
-			compCurCardAddLData.horizontalIndent = 0;
-			compCurCardAddLData.horizontalSpan = 1;
-			compCurCardAddLData.verticalSpan = 1;
-			compCurCardAddLData.grabExcessHorizontalSpace = true;
-			compCurCardAddLData.grabExcessVerticalSpace = true;
-			compCurCardAdd.setLayoutData(compCurCardAddLData);
-			compCurCardAdd.setSize(new org.eclipse.swt.graphics.Point(590,381));
+			GridData cTabFolder1LData = new GridData();
+			cTabFolder1LData.verticalAlignment = GridData.FILL;
+			cTabFolder1LData.horizontalAlignment = GridData.FILL;
+			cTabFolder1LData.widthHint = -1;
+			cTabFolder1LData.heightHint = -1;
+			cTabFolder1LData.horizontalIndent = 0;
+			cTabFolder1LData.horizontalSpan = 1;
+			cTabFolder1LData.verticalSpan = 1;
+			cTabFolder1LData.grabExcessHorizontalSpace = true;
+			cTabFolder1LData.grabExcessVerticalSpace = true;
+			cTabFolder1.setLayoutData(cTabFolder1LData);
+			cTabFolder1.setSize(new org.eclipse.swt.graphics.Point(678,366));
+	
+			cTabItem1.setControl(compCurCardAdd);
+			cTabItem1.setText("Current Card Info");
+	
+			compCurCardAdd.setSize(new org.eclipse.swt.graphics.Point(586,374));
 			compCurCardAdd.setEnabled(true);
 			compCurCardAdd.layout();
+	
+			cTabItem2.setControl(tableCurrentBalances);
+			cTabItem2.setText("Current Card Balances");
+	
+			tableCurrentBalances.setHeaderVisible(true);
+			tableCurrentBalances.setLinesVisible(true);
+			tableCurrentBalances.setSize(new org.eclipse.swt.graphics.Point(662,350));
+	
+			tableColumnTransactionType.setText("Transaction Type");
+			tableColumnTransactionType.setWidth(100);
+	
+			tableColumnTotalCredit.setText("Total Credit");
+			tableColumnTotalCredit.setWidth(100);
+	
+			tableColumnTotalDept.setText("Total Dept");
+			tableColumnTotalDept.setWidth(127);
+	
+			tableColumnBalanceCredit.setText("Balance Credit");
+			tableColumnBalanceCredit.setWidth(137);
+	
+			tableColumnBalanceDept.setText("Balance Dept");
+			tableColumnBalanceDept.setWidth(133);
+			cTabFolder1.setSelection(0);
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.marginWidth = 5;
@@ -155,7 +196,13 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			dialogShellLayout.horizontalSpacing = 5;
 			dialogShellLayout.verticalSpacing = 5;
 			dialogShell.layout();
-			Rectangle bounds = dialogShell.computeTrim(0, 0, 600,434);
+			dialogShell.addDisposeListener(new DisposeListener() {
+				public void widgetDisposed(DisposeEvent e) {
+					toolUpdateimage.dispose();
+					toolDeleteimage.dispose();
+				}
+			});
+			Rectangle bounds = dialogShell.computeTrim(0, 0, 692,441);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
 			dialogShell.open();

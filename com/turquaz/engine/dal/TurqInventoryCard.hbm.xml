@@ -39,7 +39,6 @@
         type="java.lang.String"
         column="card_special_code"
         not-null="true"
-        unique="true"
         length="25"
     />
     <property

@@ -51,7 +51,6 @@ public class NumericText extends Composite {
  public NumericText(Composite arg0, int arg1) {
   super(arg0, SWT.NONE);
   text = new Text(this, arg1);
- text.setTextLimit(20);
   addListener(SWT.Resize, new Listener() {
    public void handleEvent(Event e) {
     onResize();
@@ -85,11 +84,18 @@ public class NumericText extends Composite {
 	}
 
  public int getIntValue(){
-  if(text.getText().length()==0){
+  if(text.getText().trim().length()==0){
   	return 0;
   }
   else {
-  	return Integer.parseInt(text.getText().trim());
+  	try{
+  		int a = Integer.parseInt(text.getText().trim());
+  	return a;
+  	}
+  	catch(Exception ex){
+  		ex.printStackTrace();
+  		return 0;
+  	}
   }
  
  }

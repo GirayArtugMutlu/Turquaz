@@ -22,7 +22,7 @@
 		</Layout>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[600, 434]"/>
+				<Dimension value="[692, 441]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -45,7 +45,7 @@
 				</Events>
 				<Properties>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 5, 590, 38]"/>
+						<Rectangle value="[5, 5, 682, 38]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
@@ -82,6 +82,9 @@
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Update"/>
+											<Property name="image" type="Image">
+												<Image name="\icons\save_edit.gif"/>
+											</Property>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.ToolItem" name="toolDelete" style="0">
@@ -93,7 +96,7 @@
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Delete"/>
-											<Property name="ımage" type="Image">
+											<Property name="image" type="Image">
 												<Image name="\icons\delete_edit.gif"/>
 											</Property>
 										</Properties>
@@ -104,9 +107,8 @@
 					</Component>
 				</SubComponents>
 			</Component>
-			<Component class="com.turquaz.current.ui.CurUICurrentCardAdd" name="compCurCardAdd" style="0">
+			<Component class="org.eclipse.swt.custom.CTabFolder" name="cTabFolder1" style="0">
 				<Constraints>
-					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
@@ -123,15 +125,134 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[590, 381]"/>
+						<Dimension value="[682, 388]"/>
 					</Property>
-					<Property name="enabled" type="boolean" value="true"/>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 48, 590, 381]"/>
+						<Rectangle value="[5, 48, 682, 388]"/>
 					</Property>
-					<Property name="externalizeStrings" type="boolean" value="false"/>
-					<Property name="externalizeStrings" type="boolean" value="false"/>
 				</Properties>
+				<SubComponents>
+					<Component class="org.eclipse.swt.custom.CTabItem" name="cTabItem1" style="0">
+						<Constraints>
+							<LayoutConstraint/>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="Current Card Info"/>
+						</Properties>
+						<SubComponents>
+							<Component class="com.turquaz.current.ui.CurUICurrentCardAdd" name="compCurCardAdd" style="0">
+								<Constraints>
+									<Constraint class="org.eclipse.swt.layout.GridData"/>
+									<LayoutConstraint/>
+								</Constraints>
+								<Events>
+								</Events>
+								<Properties>
+									<Property name="size" type="Dimension">
+										<Dimension value="[586, 374]"/>
+									</Property>
+									<Property name="enabled" type="boolean" value="true"/>
+									<Property name="bounds" type="Rectangle">
+										<Rectangle value="[2, 20, 586, 374]"/>
+									</Property>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+									<Property name="externalizeStrings" type="boolean" value="false"/>
+								</Properties>
+							</Component>
+						</SubComponents>
+					</Component>
+					<Component class="org.eclipse.swt.custom.CTabItem" name="cTabItem2" style="0">
+						<Constraints>
+							<LayoutConstraint/>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="Current Card Balances"/>
+						</Properties>
+						<SubComponents>
+							<Component class="org.eclipse.swt.widgets.Table" name="tableCurrentBalances" style="0">
+								<Constraints>
+									<LayoutConstraint/>
+								</Constraints>
+								<Events>
+								</Events>
+								<Properties>
+									<Property name="headerVisible" type="boolean" value="true"/>
+									<Property name="linesVisible" type="boolean" value="true"/>
+									<Property name="size" type="Dimension">
+										<Dimension value="[678, 366]"/>
+									</Property>
+								</Properties>
+								<SubComponents>
+									<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnTransactionType" style="0">
+										<Constraints>
+											<LayoutConstraint/>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="text" type="String" value="Transaction Type"/>
+											<Property name="width" type="int" value="100"/>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnTotalCredit" style="0">
+										<Constraints>
+											<LayoutConstraint/>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="text" type="String" value="Total Credit"/>
+											<Property name="width" type="int" value="100"/>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnTotalDept" style="0">
+										<Constraints>
+											<LayoutConstraint/>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="text" type="String" value="Total Dept"/>
+											<Property name="width" type="int" value="127"/>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnBalanceCredit" style="0">
+										<Constraints>
+											<LayoutConstraint/>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="text" type="String" value="Balance Credit"/>
+											<Property name="width" type="int" value="137"/>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnBalanceDept" style="0">
+										<Constraints>
+											<LayoutConstraint/>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="text" type="String" value="Balance Dept"/>
+											<Property name="width" type="int" value="133"/>
+										</Properties>
+									</Component>
+								</SubComponents>
+							</Component>
+						</SubComponents>
+					</Component>
+				</SubComponents>
 			</Component>
 		</SubComponents>
 	</Component>

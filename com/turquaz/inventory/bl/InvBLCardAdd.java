@@ -219,7 +219,6 @@ public class InvBLCardAdd {
 			card.setTurqAccountingAccountByAccountingAccountsIdBuy(accountBuy);
 			card.setTurqAccountingAccountByAccountingAccountsIdSell(accountSell);
 			card.setTurqCompany(company);
-
 			cardAdd.saveOrUpdateInvCard(card);
 
 			return card.getInventoryCardsId();

@@ -1546,12 +1546,12 @@ decimalSymbol + "][0-9]+)?"); //$NON-NLS-1$
 			return false;
 		}
 		else if (txtInvCardInAcc.getData()==null) { 		
-			msg.setMessage("Please Select In Accounting Code in Details"); 
+			msg.setMessage("Please Select Buy Accounting Code in Details"); 
 			msg.open();
 			return false;
 		}
 		else if (txtInvCardOutAcc.getData()==null) { 		
-			msg.setMessage("Please Select In Accounting Code in Details"); 
+			msg.setMessage("Please Select Sell Accounting Code in Details"); 
 			msg.open();
 			return false;
 		}
@@ -1568,16 +1568,20 @@ decimalSymbol + "][0-9]+)?"); //$NON-NLS-1$
 
 			
 			TurqAccountingAccount accountIdSell = (TurqAccountingAccount) txtInvCardOutAcc.getData();
-			TurqAccountingAccount accountIdBuy = (TurqAccountingAccount) txtInvCardOutAcc.getData();
+			TurqAccountingAccount accountIdBuy = (TurqAccountingAccount) txtInvCardInAcc.getData();
 			try {
 
 				// Save inventory card
-				Integer cardId = blCardAdd.saveInvCard(txtInvCardCode.getText().trim(), txtInvCardSpecialCode.getText().trim(),
-						txtInvCardName.getText().trim(), txtInvCardDefinition.getText().trim(),
-						 txtnumInvCardMin.getIntValue(), txtnumInvCardMax.getIntValue(),
-						txtInvCardVat.getIntValue(), txtInvCardDiscount.getIntValue(), accountIdBuy, accountIdSell
 
-				);
+				Integer cardId = blCardAdd.saveInvCard(txtInvCardCode.getText()
+						.trim(), txtInvCardSpecialCode.getText().trim(),
+						txtInvCardName.getText().trim(), txtInvCardDefinition
+								.getText().trim(), txtnumInvCardMin
+								.getIntValue(), txtnumInvCardMax.getIntValue(),
+								txtInvCardVat.getIntValue(), txtInvCardDiscount
+								.getIntValue(), accountIdBuy, accountIdSell );
+
+				
 
 				// Register its Groups
                 saveInvGroups(cardId);
