@@ -34,4 +34,6 @@ public interface ITableRow {
     //After fetching from db we need to fill this part
     public void setDBObject(Object obj);
     
+    public boolean equals(Object obj);
+    
  }

@@ -360,7 +360,8 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
        editors[0] = new InventoryCellEditor(table); //Stok Kodu
        editors[1] = new TextCellEditor(table);      //Stok Adi
        editors[2] = new NumericCellEditor(table);   // mikatri     
-       editors[3] = new ComboBoxCellEditor(table,new String[]{},SWT.READ_ONLY);
+      // editors[3] = new ComboBoxCellEditor(table,new String[]{},SWT.READ_ONLY);
+       editors[3] = new TextCellEditor(table);
        editors[4] = new NumericCellEditor(table);
        editors[5] = new TextCellEditor(table);
        editors[6] = new CurrencyCellEditor(table);

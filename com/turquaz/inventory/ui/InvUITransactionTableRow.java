@@ -167,6 +167,8 @@ public class InvUITransactionTableRow implements ITableRow {
     
     public void fillDefaults(TurqInventoryCard invCard){
         
+       
+        
         //KDV Yuzdesi 
         
         invTrans.setTransactionsVat(invCard.getCardVat());
@@ -203,7 +205,7 @@ public class InvUITransactionTableRow implements ITableRow {
                 base_unit_index = i;
             }
         }
-        unit_index=new Integer(base_unit_index);
+        unit_index = new Integer(base_unit_index);
         unit_text = base_unit.getUnitsName();
     }
        
@@ -332,12 +334,12 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 			    
 			case 3 :  //Unit
-			    unit_index = (Integer)value;
-			    if(unit_index.intValue()!=-1){
+			    
+			    if(((Integer)value).intValue()!=-1){
+			        unit_index = (Integer)value;
 			        unit_text = units[unit_index.intValue()];
 			    }
-			    else
-			        unit_text = "";
+			   
 			    break;
 			  
 			case 4 :  //Base Unit Amount
@@ -394,10 +396,12 @@ public class InvUITransactionTableRow implements ITableRow {
 			default :
 				
 		}
+		
+		
        calculateFields();
+      
        rowList.taskChanged(this);
-        
-        
+       
     }
     
     
@@ -509,6 +513,20 @@ public class InvUITransactionTableRow implements ITableRow {
 	        ex.printStackTrace();
 	    }
 	}
+	public boolean equals(Object other){
+	       if(other instanceof ITableRow){
+	          ITableRow row = (ITableRow)other;
+	          if(getRowIndex()==row.getRowIndex()){
+	              return true;
+	          }
+	          else
+	              return false;
+	       }
+	       else return false;
+	        
+	        
+	    }
+	  
     
 
 }
