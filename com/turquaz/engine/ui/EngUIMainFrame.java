@@ -44,6 +44,9 @@ import org.eclipse.swt.layout.FormLayout;
 
 import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.custom.StackLayout;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -211,11 +214,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			{
 				treeBill = new Tree(compModulesTree, SWT.NONE);
 				treeBill.addMouseListener(new MouseAdapter() {
-					public void mouseDoubleClick(MouseEvent evt) {
-						TreeItem item = treeBill.getSelection()[0];
-						if(item.getItemCount()==0){
-							openNewTab(item);
-						}
+					public void mouseDoubleClick() {
+						treeBillMouseDoubleClick();
 					}
 				});
 			}
@@ -370,34 +370,34 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			treeBank.setSize(new org.eclipse.swt.graphics.Point(370,251));
 			treeBank.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
-					treeBankMouseDoubleClick(evt);
+					treeBankMouseDoubleClick();
 				}
 			});
 	
 			treeInventory.setSize(new org.eclipse.swt.graphics.Point(370,251));
 			treeInventory.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
-					treeInventoryMouseDoubleClick(evt);
+					treeInventoryMouseDoubleClick();
 				}
 			});
 	
 			treeAccounting.setSize(new org.eclipse.swt.graphics.Point(370,251));
 			treeAccounting.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
-					treeAccountingMouseDoubleClick(evt);
+					treeAccountingMouseDoubleClick();
 				}
 			});
 	
 			treeAdmin.setSize(new org.eclipse.swt.graphics.Point(370,251));
 			treeAdmin.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
-					treeAdminMouseDoubleClick(evt);
+					treeAdminMouseDoubleClick();
 				}
 			});
 	
 			treeCurrent.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
-					treeCurrentMouseDoubleClick(evt);
+					treeCurrentMouseDoubleClick();
 				}
 			});
 			StackLayout compModulesTreeLayout = new StackLayout();
@@ -524,7 +524,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			treeFavorites.setLayoutData(treeFavoritesLData);
 			treeFavorites.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
-					treeFavoritesMouseDoubleClick(evt);
+					treeFavoritesMouseDoubleClick();
 				}
 			});
 			GridLayout compFavoritesTabLayout = new GridLayout(1, true);
@@ -874,7 +874,18 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		treeAdmin =TreeFactory.createAdminTree(treeAdmin);		
 		treeConsignment = TreeFactory.createConsignmetTree(treeConsignment);
 		treeBill = TreeFactory.createBillTree(treeBill);
+		
+		
+		addKeyEventAccounting(treeAccounting);
+		addKeyEventInventory(treeInventory);
+		addKeyEventBank(treeBank);
+		addKeyEventCurrent(treeCurrent);
+		addKeyEventAdmin(treeAdmin);
+		addKeyEventConsignment(treeConsignment);
+		addKeyEventBill(treeBill);
 		fillFavoritesTree();
+		
+		
 				
 		
 		
@@ -900,7 +911,94 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		
 	}
 	
+	public void addKeyEventInventory(Tree tree)
+	{
+		tree.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {				
+				if (evt.keyCode==SWT.CR)
+					treeInventoryMouseDoubleClick();
+					
+			}
+		});
+		
+	}
 	
+	public void addKeyEventBank(Tree tree)
+	{
+		tree.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {				
+				if (evt.keyCode==SWT.CR)
+					treeBankMouseDoubleClick();
+					
+			}
+		});
+		
+	}
+	
+	
+	public void addKeyEventAccounting(Tree tree)
+	{
+		tree.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {				
+				if (evt.keyCode==SWT.CR)
+					treeAccountingMouseDoubleClick();
+					
+			}
+		});
+		
+	}
+	
+	
+	public void addKeyEventCurrent(Tree tree)
+	{
+		tree.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {				
+				if (evt.keyCode==SWT.CR)
+					treeCurrentMouseDoubleClick();
+					
+			}
+		});
+		
+	}
+	
+	
+	public void addKeyEventAdmin(Tree tree)
+	{
+		tree.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {				
+				if (evt.keyCode==SWT.CR)
+					treeAdminMouseDoubleClick();
+					
+			}
+		});
+		
+	}
+	
+	
+	public void addKeyEventConsignment(Tree tree)
+	{
+		tree.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {				
+				if (evt.keyCode==SWT.CR)
+					treeConsignmentMouseDoubleClick();
+					
+			}
+		});
+		
+	}
+	
+	
+	public void addKeyEventBill(Tree tree)
+	{
+		tree.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {				
+				if (evt.keyCode==SWT.CR)
+					treeBillMouseDoubleClick();
+					
+			}
+		});
+		
+	}
 	public void fillFavoritesTree(){
 	
 	
@@ -1150,20 +1248,18 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 
 	/** Auto-generated event handler method */
-	protected void treeInventoryMouseDoubleClick(MouseEvent evt){
+	protected void treeInventoryMouseDoubleClick(){
 		TreeItem item = treeInventory.getSelection()[0];
 		
 		if(item.getItemCount()==0){
 			openNewTab(item);
-		}
-				
-		
+		}			
 		
 		
 	}
-
+	
 	/** Auto-generated event handler method */
-	protected void treeAdminMouseDoubleClick(MouseEvent evt){
+	protected void treeAdminMouseDoubleClick(){
 		TreeItem item = treeAdmin.getSelection()[0];
 		if(item.getItemCount()==0){
 			openNewTab(item);
@@ -1222,7 +1318,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 
 
 	/** Auto-generated event handler method */
-	protected void treeAccountingMouseDoubleClick(MouseEvent evt){
+	protected void treeAccountingMouseDoubleClick(){
 			TreeItem item = treeAccounting.getSelection()[0];
 		if(item.getItemCount()==0){
 			openNewTab(item);
@@ -1235,12 +1331,20 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 
 
 	/** Auto-generated event handler method */
-	protected void treeBankMouseDoubleClick(MouseEvent evt){
+	protected void treeBankMouseDoubleClick(){
 		TreeItem item = treeBank.getSelection()[0];
 		if(item.getItemCount()==0){
 			openNewTab(item);
 		}
 	}
+	
+	protected void treeBillMouseDoubleClick(){
+		TreeItem item = treeBill.getSelection()[0];
+		if(item.getItemCount()==0){
+			openNewTab(item);
+		}
+	}
+
 	/** Auto-generated event handler method */
 	protected void treeConsignmentMouseDoubleClick(){
 		TreeItem item = treeConsignment.getSelection()[0];
@@ -1249,15 +1353,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		}
 	}
 
-	/** Auto-generated event handler method */
-	protected void treeBankMouseDown(MouseEvent evt){
-		
-		
-		
-	}
 
 	/** Auto-generated event handler method */
-	protected void treeFavoritesMouseDoubleClick(MouseEvent evt){
+	protected void treeFavoritesMouseDoubleClick(){
 		TreeItem item = treeFavorites.getSelection()[0];
 		if(item.getItemCount()==0){
 			openNewTab(item);
@@ -1265,7 +1363,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	}
 
 	/** Auto-generated event handler method */
-	protected void treeCurrentMouseDoubleClick(MouseEvent evt){
+	protected void treeCurrentMouseDoubleClick(){
 		TreeItem item = treeCurrent.getSelection()[0];
 		if(item.getItemCount()==0){
 			openNewTab(item);
