@@ -76,7 +76,7 @@ public class CashBLCashTransactionAdd {
 			transType.setCashTransactionTypesId(new Integer(type));
 
 			TurqCashTransaction cashTrans = new TurqCashTransaction();
-			cashTrans.setTurqCashCard(cashCard);
+			
 			cashTrans.setTurqCashTransactionType(transType);
 			cashTrans.setTurqEngineSequence(seq);
 			cashTrans.setTransactionDate(transDate);
@@ -103,6 +103,7 @@ public class CashBLCashTransactionAdd {
 			for (int i = 0; i < totals.size(); i++) {
 
 				cashTransRow = new TurqCashTransactionRow();
+				cashTransRow.setTurqCashCard(cashCard);
 				cashTransRow.setCreatedBy(System.getProperty("user"));
 				cashTransRow.setUpdatedBy(System.getProperty("user"));
 				cashTransRow.setLastModified(new java.sql.Date(cal.getTime()
@@ -175,7 +176,7 @@ public class CashBLCashTransactionAdd {
 			transType.setCashTransactionTypesId(new Integer(type));
 
 			TurqCashTransaction cashTrans = new TurqCashTransaction();
-			cashTrans.setTurqCashCard(cashCard);
+			
 			cashTrans.setTurqCashTransactionType(transType);
 			cashTrans.setTurqEngineSequence(seq);
 			cashTrans.setTransactionDate(transDate);
@@ -192,6 +193,7 @@ public class CashBLCashTransactionAdd {
 			 * Create cash Transaction Rows
 			 */
 			TurqCashTransactionRow cashTransRow = new TurqCashTransactionRow();
+			cashTransRow.setTurqCashCard(cashCard);
 			cashTransRow.setCreatedBy(System.getProperty("user"));
 			cashTransRow.setUpdatedBy(System.getProperty("user"));
 			cashTransRow.setLastModified(new java.sql.Date(cal.getTime()
@@ -324,7 +326,7 @@ public class CashBLCashTransactionAdd {
 			transType.setCashTransactionTypesId(new Integer(type));
 
 			TurqCashTransaction cashTrans = new TurqCashTransaction();
-			cashTrans.setTurqCashCard(cashCard);
+			
 			cashTrans.setTurqCashTransactionType(transType);
 			cashTrans.setTurqEngineSequence(seq);
 			cashTrans.setTransactionDate(transDate);
@@ -341,6 +343,7 @@ public class CashBLCashTransactionAdd {
 			 * Create cash Transaction Rows
 			 */
 			TurqCashTransactionRow cashTransRow = new TurqCashTransactionRow();
+			cashTransRow.setTurqCashCard(cashCard);
 			cashTransRow.setCreatedBy(System.getProperty("user"));
 			cashTransRow.setUpdatedBy(System.getProperty("user"));
 			cashTransRow.setLastModified(new java.sql.Date(cal.getTime()
@@ -458,7 +461,7 @@ public class CashBLCashTransactionAdd {
 			transType.setCashTransactionTypesId(new Integer(type));
 
 			TurqCashTransaction cashTrans = new TurqCashTransaction();
-			cashTrans.setTurqCashCard(cashCardWithDebt);
+		
 			cashTrans.setTurqCashTransactionType(transType);
 			cashTrans.setTurqEngineSequence(seq);
 			cashTrans.setTransactionDate(transDate);
@@ -475,6 +478,7 @@ public class CashBLCashTransactionAdd {
 			 * Create cash Transaction Rows
 			 */
 			TurqCashTransactionRow cashTransRowWithDept = new TurqCashTransactionRow();
+			cashTransRowWithDept.setTurqCashCard(cashCardWithDebt);
 			cashTransRowWithDept.setCreatedBy(System.getProperty("user"));
 			cashTransRowWithDept.setUpdatedBy(System.getProperty("user"));
 			cashTransRowWithDept.setLastModified(new java.sql.Date(cal.getTime()
@@ -483,8 +487,10 @@ public class CashBLCashTransactionAdd {
 					.getTime()));
 			cashTransRowWithDept.setTransactionDefinition(definition);
 			cashTransRowWithDept.setTurqAccountingAccount(cashCardWithCredit.getTurqAccountingAccount());
-
+		   
+			/*************************************/
 			TurqCashTransactionRow cashTransRowWithCredit = new TurqCashTransactionRow();
+			cashTransRowWithCredit.setTurqCashCard(cashCardWithCredit);
 			cashTransRowWithCredit.setCreatedBy(System.getProperty("user"));
 			cashTransRowWithCredit.setUpdatedBy(System.getProperty("user"));
 			cashTransRowWithCredit.setLastModified(new java.sql.Date(cal.getTime()

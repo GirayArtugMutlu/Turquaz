@@ -187,7 +187,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	    }
 	    compTransAdd.getTxtDocumentNo().setText(cashTrans.getDocumentNo());
 	    compTransAdd.getDatePicker().setDate(cashTrans.getTransactionDate());
-	    compTransAdd.getTxtCashCard().setText(cashTrans.getTurqCashCard().getCashCardName());
+	  
         compTransAdd.getTxtDefinition().setText(cashTrans.getTransactionDefinition());
 	    
 	   
@@ -211,7 +211,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	    if(it.hasNext()){
 	     
 	        TurqCashTransactionRow row = (TurqCashTransactionRow)it.next();
-	        
+	        compTransAdd.getTxtCashCard().setText(row.getTurqCashCard().getCashCardName());
 	        if(row.getDeptAmount().compareTo(new BigDecimal(0))==1){
 	            
 	            compTransAdd.getCurTextTotalAmount().setText(row.getDeptAmount());

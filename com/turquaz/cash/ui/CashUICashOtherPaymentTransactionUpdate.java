@@ -185,7 +185,7 @@ public class CashUICashOtherPaymentTransactionUpdate extends Dialog {
 	    
 	    compTransAdd.getTxtDocumentNo().setText(cashTrans.getDocumentNo());
 	    compTransAdd.getDatePicker().setDate(cashTrans.getTransactionDate());
-	    compTransAdd.getTxtCashCard().setText(cashTrans.getTurqCashCard().getCashCardName());
+	   
         compTransAdd.getTxtDefinition().setText(cashTrans.getTransactionDefinition());
 	    
 	   
@@ -197,6 +197,7 @@ public class CashUICashOtherPaymentTransactionUpdate extends Dialog {
 	     
 	        TurqCashTransactionRow row = (TurqCashTransactionRow)it.next();
 	        compTransAdd.getTxtAccountingAccount().setText(row.getTurqAccountingAccount().getAccountCode());
+	        compTransAdd.getTxtCashCard().setText(row.getTurqCashCard().getCashCardName());
 	        if(row.getDeptAmount().compareTo(new BigDecimal(0))==1){
 	            
 	            compTransAdd.getCurTextTotalAmount().setText(row.getDeptAmount());

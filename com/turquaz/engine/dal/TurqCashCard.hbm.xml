@@ -69,9 +69,9 @@
 
     <!-- Associations -->
   
-    <!-- bi-directional one-to-many association to TurqCashTransaction -->
+    <!-- bi-directional one-to-many association to TurqCashTransactionRow -->
     <set
-        name="turqCashTransactions"
+        name="turqCashTransactionRows"
         lazy="true"
         inverse="true"
 		cascade="none"
@@ -80,7 +80,7 @@
             <column name="cash_cards_id" />
         </key>
         <one-to-many 
-            class="com.turquaz.engine.dal.TurqCashTransaction"
+            class="com.turquaz.engine.dal.TurqCashTransactionRow"
         />
     </set>
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->

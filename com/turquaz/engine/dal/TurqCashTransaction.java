@@ -34,9 +34,6 @@ public class TurqCashTransaction implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqCashCard turqCashCard;
-
-    /** persistent field */
     private com.turquaz.engine.dal.TurqCashTransactionType turqCashTransactionType;
 
     /** persistent field */
@@ -46,7 +43,7 @@ public class TurqCashTransaction implements Serializable {
     private Set turqCashTransactionRows;
 
     /** full constructor */
-    public TurqCashTransaction(java.util.Date transactionDate, java.lang.String transactionDefinition, java.lang.String documentNo, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCashCard turqCashCard, com.turquaz.engine.dal.TurqCashTransactionType turqCashTransactionType, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqCashTransactionRows) {
+    public TurqCashTransaction(java.util.Date transactionDate, java.lang.String transactionDefinition, java.lang.String documentNo, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCashTransactionType turqCashTransactionType, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqCashTransactionRows) {
         this.transactionDate = transactionDate;
         this.transactionDefinition = transactionDefinition;
         this.documentNo = documentNo;
@@ -54,7 +51,6 @@ public class TurqCashTransaction implements Serializable {
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.turqCashCard = turqCashCard;
         this.turqCashTransactionType = turqCashTransactionType;
         this.turqEngineSequence = turqEngineSequence;
         this.turqCashTransactionRows = turqCashTransactionRows;
@@ -65,13 +61,12 @@ public class TurqCashTransaction implements Serializable {
     }
 
     /** minimal constructor */
-    public TurqCashTransaction(java.util.Date transactionDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCashCard turqCashCard, com.turquaz.engine.dal.TurqCashTransactionType turqCashTransactionType, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqCashTransactionRows) {
+    public TurqCashTransaction(java.util.Date transactionDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCashTransactionType turqCashTransactionType, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqCashTransactionRows) {
         this.transactionDate = transactionDate;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.turqCashCard = turqCashCard;
         this.turqCashTransactionType = turqCashTransactionType;
         this.turqEngineSequence = turqEngineSequence;
         this.turqCashTransactionRows = turqCashTransactionRows;
@@ -139,14 +134,6 @@ public class TurqCashTransaction implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public com.turquaz.engine.dal.TurqCashCard getTurqCashCard() {
-        return this.turqCashCard;
-    }
-
-    public void setTurqCashCard(com.turquaz.engine.dal.TurqCashCard turqCashCard) {
-        this.turqCashCard = turqCashCard;
     }
 
     public com.turquaz.engine.dal.TurqCashTransactionType getTurqCashTransactionType() {

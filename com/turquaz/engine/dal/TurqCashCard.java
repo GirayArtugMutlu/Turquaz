@@ -34,10 +34,10 @@ public class TurqCashCard implements Serializable {
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
 
     /** persistent field */
-    private Set turqCashTransactions;
+    private Set turqCashTransactionRows;
 
     /** full constructor */
-    public TurqCashCard(java.lang.String cashCardName, java.lang.String cashCardDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqCashTransactions) {
+    public TurqCashCard(java.lang.String cashCardName, java.lang.String cashCardDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqCashTransactionRows) {
         this.cashCardName = cashCardName;
         this.cashCardDefinition = cashCardDefinition;
         this.createdBy = createdBy;
@@ -45,7 +45,7 @@ public class TurqCashCard implements Serializable {
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
         this.turqAccountingAccount = turqAccountingAccount;
-        this.turqCashTransactions = turqCashTransactions;
+        this.turqCashTransactionRows = turqCashTransactionRows;
     }
 
     /** default constructor */
@@ -116,12 +116,12 @@ public class TurqCashCard implements Serializable {
         this.turqAccountingAccount = turqAccountingAccount;
     }
 
-    public java.util.Set getTurqCashTransactions() {
-        return this.turqCashTransactions;
+    public java.util.Set getTurqCashTransactionRows() {
+        return this.turqCashTransactionRows;
     }
 
-    public void setTurqCashTransactions(java.util.Set turqCashTransactions) {
-        this.turqCashTransactions = turqCashTransactions;
+    public void setTurqCashTransactionRows(java.util.Set turqCashTransactionRows) {
+        this.turqCashTransactionRows = turqCashTransactionRows;
     }
 
     public String toString() {

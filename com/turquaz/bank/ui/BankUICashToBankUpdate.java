@@ -6,12 +6,15 @@ import org.eclipse.swt.widgets.ToolBar;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
+import com.turquaz.cash.bl.CashBLCashTransactionSearch;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
+import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.ui.EngUICommon;
 
 import org.eclipse.swt.widgets.ToolItem;
@@ -156,9 +159,25 @@ public class BankUICashToBankUpdate extends org.eclipse.swt.widgets.Dialog {
 		       
 		       if(it2.hasNext())
 		       {
+		       	try{
 		           TurqCashTransaction curTrans = (TurqCashTransaction)it2.next();
-		           TurqCashCard curCard = curTrans.getTurqCashCard();
+		           
+		           new CashBLCashTransactionSearch().initializeCashTransaction(curTrans);
+		           
+		           Iterator it3 = curTrans.getTurqCashTransactionRows().iterator();
+		          
+		           TurqCashCard curCard = null;;
+		           if(it3.hasNext())
+		           {
+		           	TurqCashTransactionRow cashTransRow = (TurqCashTransactionRow)it3.next();
+		             curCard = cashTransRow.getTurqCashCard();
+		           }
 		           compCashTrans.getCurrentPicker().setText(curCard.getCashCardName());
+		       	}
+		           catch(Exception ex)
+				   {
+		           	ex.toString();
+				   }
 		       }    
 		   }	  
 	    
