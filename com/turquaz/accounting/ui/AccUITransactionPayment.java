@@ -279,9 +279,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
                     tableColumnDefinition.setWidth(150);
                 }
 				{
-					tableColumnDeptAmount = new TableColumn(
-						tableTransactionRows,
-						SWT.NONE);
+					tableColumnDeptAmount = new TableColumn(tableTransactionRows, SWT.RIGHT);
 					tableColumnDeptAmount.setText(DEBIT); //$NON-NLS-1$
 					tableColumnDeptAmount.setWidth(100);
 				}

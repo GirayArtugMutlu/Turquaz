@@ -16,6 +16,7 @@ import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryUnit;
+import com.turquaz.engine.ui.component.TurquazDecimalFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TableRowList;
 import com.turquaz.inventory.bl.InvBLCardSearch;
@@ -36,6 +37,7 @@ public class InvUITransactionTableRow implements ITableRow {
     TableViewer tableViewer ;
     long transAmount = 0;
     long transAmountinBaseUnit=0;
+    TurquazDecimalFormat decFormat = new TurquazDecimalFormat();
     /*
      * type 0 = Buy 
      * type 1 = Sell
@@ -127,11 +129,11 @@ public class InvUITransactionTableRow implements ITableRow {
 			    break;
 			    
 			case 6 :  //Unit Price
-			    result = invTrans.getTransactionsUnitPrice().toString();
+			    result = decFormat.format(invTrans.getTransactionsUnitPrice());
 				break;
 				
 			case 7 : // total Price
-			    result = invTrans.getTransactionsTotalPrice().toString();
+			    result = decFormat.format(invTrans.getTransactionsTotalPrice().toString());
 				break;
 			
 			case 8 : // VAT percent		
@@ -139,7 +141,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 9 : // VAT total 
-			    result = invTrans.getTransactionsVatAmount().toString();
+			    result = decFormat.format(invTrans.getTransactionsVatAmount().toString());
 				break;
 				
 			case 10 : // Special VAT percent 
@@ -147,7 +149,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 11 : // Specail VAT Total 
-			    result = invTrans.getTransactionsVatSpecialAmount().toString();
+			    result = decFormat.format(invTrans.getTransactionsVatSpecialAmount().toString());
 				break;
 				
 			case 12 : //Cumulative Price

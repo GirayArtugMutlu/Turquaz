@@ -404,19 +404,19 @@ public class BillUIAddBill extends Composite
 	public int BILL_TYPE = 0;
 	
 //	 Set the table column property names
-	private final String INVENTORY_CODE             = "Stok Kodu";
-	private final String INVENTORY_NAME   	        = "Stok Cinsi";
-	private final String TRANS_AMOUNT               = "Miktar?";
-	private final String UNIT						= "Birimi";
-	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= "Temel Birim Miktar?";
-	private final String BASE_UNIT 		            = "Temel Birim";
-	private final String UNIT_PRICE					= "Birim Fiyat?";
-	private final String TOTAL_PRICE				= "Toplam Tutar";
-	private final String VAT_PERCENT				= "KDV %";
-	private final String VAT_TOTAL					= "KDV Tutar?";
-	private final String SPECIAL_VAT_PERCENT		= "ÖTV %";
-	private final String SPECIAL_VAT_TOTAL			= "ÖTV Tutar?";
-	private final String ROW_TOTAL 					= "Sat?r Toplam?";	
+	private final String INVENTORY_CODE             = Messages.getString("BillUIAddBill.4"); //$NON-NLS-1$
+	private final String INVENTORY_NAME   	        = Messages.getString("BillUIAddBill.8"); //$NON-NLS-1$
+	private final String TRANS_AMOUNT               = Messages.getString("BillUIAddBill.9"); //$NON-NLS-1$
+	private final String UNIT						= Messages.getString("BillUIAddBill.15"); //$NON-NLS-1$
+	private final String TRANS_AMOUNT_IN_BASE_UNIT 	= Messages.getString("BillUIAddBill.16"); //$NON-NLS-1$
+	private final String BASE_UNIT 		            = Messages.getString("BillUIAddBill.17"); //$NON-NLS-1$
+	private final String UNIT_PRICE					= Messages.getString("BillUIAddBill.18"); //$NON-NLS-1$
+	private final String TOTAL_PRICE				= Messages.getString("BillUIAddBill.19"); //$NON-NLS-1$
+	private final String VAT_PERCENT				= Messages.getString("BillUIAddBill.20"); //$NON-NLS-1$
+	private final String VAT_TOTAL					= Messages.getString("BillUIAddBill.21"); //$NON-NLS-1$
+	private final String SPECIAL_VAT_PERCENT		= Messages.getString("BillUIAddBill.22"); //$NON-NLS-1$
+	private final String SPECIAL_VAT_TOTAL			= Messages.getString("BillUIAddBill.23"); //$NON-NLS-1$
+	private final String ROW_TOTAL 					= Messages.getString("BillUIAddBill.24");	 //$NON-NLS-1$
 	   int last_row_index=0;
     TableSpreadsheetCursor cursor;
 	
@@ -656,7 +656,7 @@ public class BillUIAddBill extends Composite
                                 lblWareHouse = new CLabel(
                                     compInfoPanel,
                                     SWT.NONE);
-                                lblWareHouse.setText("Depo");
+                                lblWareHouse.setText(Messages.getString("BillUIAddBill.33")); //$NON-NLS-1$
                                 GridData lblWareHouseLData = new GridData();
                                 lblWareHouseLData.widthHint = 52;
                                 lblWareHouseLData.heightHint = 19;
@@ -1300,7 +1300,7 @@ public class BillUIAddBill extends Composite
 			// sell bill
 			int type = BILL_TYPE;
 
-			System.out.println("fuck "+items.length);
+			
 			for (int i = 0; i < items.length; i++) {
 			    
 

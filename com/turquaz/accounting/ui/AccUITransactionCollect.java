@@ -301,8 +301,7 @@ public class AccUITransactionCollect extends Composite implements
 					txtTransactionDefinition.setWidth(150);
 				}
 				{
-					tableColumnCreditAmount = new TableColumn(
-							tableTransactionRows, SWT.NONE);
+					tableColumnCreditAmount = new TableColumn(tableTransactionRows, SWT.RIGHT);
 					tableColumnCreditAmount.setText(CREDIT); //$NON-NLS-1$
 					tableColumnCreditAmount.setWidth(100);
 				}

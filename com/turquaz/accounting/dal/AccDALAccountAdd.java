@@ -139,6 +139,7 @@ public class AccDALAccountAdd {
 			String query = "from TurqAccountingAccount as accounts " +
 					"where accounts.accountingAccountsId <> -1" +
 					" and accounts.turqAccountingAccountsByParentAccount.size=0" +
+					" and accounts.accountingAccountsId <> -1" +
 					" order by accounts.accountCode";   
 
 			Query q = session.createQuery(query); 
