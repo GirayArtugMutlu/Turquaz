@@ -72,6 +72,10 @@ import java.util.regex.Pattern;
 */
 public class InvUICardAdd extends SecureComposite {
 
+	private Table table5;
+	private Button button5;
+	private Button button4;
+	private Composite composite6;
 	private Composite composite5;
 	private CTabItem cTabItem2;
 	private TableColumn tableColumn6;
@@ -125,7 +129,7 @@ public class InvUICardAdd extends SecureComposite {
 		try {
 			preInitGUI();
 	
-			cTabFolder1 = new CTabFolder(this,SWT.H_SCROLL| SWT.V_SCROLL);
+			cTabFolder1 = new CTabFolder(this,SWT.NULL);
 			cTabItem1 = new CTabItem(cTabFolder1,SWT.NULL);
 			comp_general_info = new Composite(cTabFolder1,SWT.NULL);
 			cLabel1 = new CLabel(comp_general_info,SWT.RIGHT);
@@ -165,6 +169,10 @@ public class InvUICardAdd extends SecureComposite {
 			tableColumn6 = new TableColumn(table4,SWT.CENTER);
 			cTabItem2 = new CTabItem(cTabFolder1,SWT.NULL);
 			composite5 = new Composite(cTabFolder1,SWT.NULL);
+			composite6 = new Composite(composite5,SWT.NULL);
+			button4 = new Button(composite6,SWT.PUSH| SWT.CENTER);
+			button5 = new Button(composite6,SWT.PUSH| SWT.CENTER);
+			table5 = new Table(composite5,SWT.NULL);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(585,434));
 			final Color InvUICardAddbackground = new Color(Display.getDefault(),128,128,255);
@@ -663,14 +671,57 @@ public class InvUICardAdd extends SecureComposite {
 			comp_general_info.layout();
 	
 			cTabItem2.setControl(composite5);
-			cTabItem2.setText("cTabItem2");
+			cTabItem2.setText("Fiyat Bilgileri");
 	
-			GridLayout composite5Layout = new GridLayout(4, true);
+			composite5.setSize(new org.eclipse.swt.graphics.Point(571,408));
+	
+			GridData composite6LData = new GridData();
+			composite6LData.widthHint = 84;
+			composite6LData.heightHint = 96;
+			composite6.setLayoutData(composite6LData);
+			composite6.setSize(new org.eclipse.swt.graphics.Point(84,96));
+	
+			GridData button4LData = new GridData();
+			button4LData.widthHint = 47;
+			button4LData.heightHint = 24;
+			button4.setLayoutData(button4LData);
+			button4.setText("button4");
+			button4.setSize(new org.eclipse.swt.graphics.Point(47,24));
+	
+			GridData button5LData = new GridData();
+			button5LData.widthHint = 47;
+			button5LData.heightHint = 23;
+			button5.setLayoutData(button5LData);
+			button5.setText("button5");
+			button5.setSize(new org.eclipse.swt.graphics.Point(47,23));
+			GridLayout composite6Layout = new GridLayout(1, true);
+			composite6.setLayout(composite6Layout);
+			composite6Layout.marginWidth = 5;
+			composite6Layout.marginHeight = 5;
+			composite6Layout.numColumns = 1;
+			composite6Layout.makeColumnsEqualWidth = true;
+			composite6Layout.horizontalSpacing = 5;
+			composite6Layout.verticalSpacing = 5;
+			composite6.layout();
+	
+			GridData table5LData = new GridData();
+			table5LData.verticalAlignment = GridData.BEGINNING;
+			table5LData.horizontalAlignment = GridData.BEGINNING;
+			table5LData.widthHint = 257;
+			table5LData.heightHint = 171;
+			table5LData.horizontalIndent = 0;
+			table5LData.horizontalSpan = 1;
+			table5LData.verticalSpan = 1;
+			table5LData.grabExcessHorizontalSpace = false;
+			table5LData.grabExcessVerticalSpace = false;
+			table5.setLayoutData(table5LData);
+			table5.setSize(new org.eclipse.swt.graphics.Point(257,171));
+			GridLayout composite5Layout = new GridLayout(2, true);
 			composite5.setLayout(composite5Layout);
 			composite5Layout.marginWidth = 5;
 			composite5Layout.marginHeight = 5;
-			composite5Layout.numColumns = 4;
-			composite5Layout.makeColumnsEqualWidth = true;
+			composite5Layout.numColumns = 2;
+			composite5Layout.makeColumnsEqualWidth = false;
 			composite5Layout.horizontalSpacing = 5;
 			composite5Layout.verticalSpacing = 5;
 			composite5.layout();
