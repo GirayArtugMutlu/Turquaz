@@ -342,9 +342,10 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 		}
 	}
 	public void postInitGui() {
+		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.14")); //$NON-NLS-1$
 		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.12")); //$NON-NLS-1$
 		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.13")); //$NON-NLS-1$
-	
+		comboTransactionsType.setText(Messages.getString("InvUITransactionSearch.18")); //$NON-NLS-1$
 //		Content Assistant for Inventory Code
 		/****************************************************/
 		  TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtInvCard);
@@ -433,7 +434,9 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 			TurquazDecimalFormat df = new TurquazDecimalFormat();
 			tableTransactions.removeAll();
 			int type = 0;
-			if (comboTransactionsType.getText().equals(Messages.getString("InvUITransactionSearch.16"))) { //$NON-NLS-1$
+			if (comboTransactionsType.getText().equals(Messages.getString("InvUITransactionSearch.17"))) //$NON-NLS-1$
+				type=2;
+			else if (comboTransactionsType.getText().equals(Messages.getString("InvUITransactionSearch.16"))) { //$NON-NLS-1$
 				type = 1;
 			}
 

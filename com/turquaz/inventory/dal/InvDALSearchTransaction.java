@@ -52,9 +52,9 @@ public class InvDALSearchTransaction {
 					 " TurqConsignment as consignment where" +
 					 " consignment.turqEngineSequence = transaction.turqEngineSequence "
 					+ " and consignment.consignmentsDate >= :startDate"
-					+ " and consignment.consignmentsDate <= :endDate"
-					+ " and consignment.consignmentsType ="
-					+ type + "";
+					+ " and consignment.consignmentsDate <= :endDate";
+			if (type != 2)
+				query+=" and consignment.consignmentsType ="+ type;
 
 			if (curCard != null) {
 				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard = :curCard";
