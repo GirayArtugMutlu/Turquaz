@@ -52,7 +52,7 @@ public class NumericText extends Composite {
  public NumericText(Composite arg0, int arg1) {
   super(arg0, SWT.NONE);
   text = new Text(this, arg1);
-
+ text.setTextLimit(20);
   addListener(SWT.Resize, new Listener() {
    public void handleEvent(Event e) {
     onResize();

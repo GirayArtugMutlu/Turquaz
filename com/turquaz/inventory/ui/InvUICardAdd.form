@@ -95,6 +95,7 @@
 								<SubComponents>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardName" style="0">
 										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
@@ -121,6 +122,7 @@
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardName" style="0">
 										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
@@ -147,6 +149,7 @@
 									</Component>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardSpecialCode" style="0">
 										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
@@ -173,6 +176,7 @@
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardSpecialCode" style="0">
 										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
@@ -199,6 +203,7 @@
 									</Component>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardCode" style="0">
 										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
@@ -225,6 +230,7 @@
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardCode" style="0">
 										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
@@ -251,6 +257,7 @@
 									</Component>
 									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardDefinition" style="0">
 										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
@@ -277,6 +284,7 @@
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardDefinition" style="834">
 										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
@@ -303,6 +311,7 @@
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardGeneral" style="16777224">
 										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="3"/>
 												<Property name="horizontalAlignment" type="int" value="3"/>
@@ -438,7 +447,7 @@
 												<Dimension value="[101, 19]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[230, 5, 101, 19]"/>
+												<Rectangle value="[233, 5, 101, 19]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -465,7 +474,7 @@
 												<Dimension value="[110, 18]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[336, 5, 110, 18]"/>
+												<Rectangle value="[339, 5, 110, 18]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -496,7 +505,7 @@
 											</Property>
 										</Properties>
 									</Component>
-									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardInAcc" style="0">
+									<Component class="com.turquaz.engine.ui.component.TextWithButton" name="txtInvCardInAcc" style="0">
 										<Constraints>
 											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -512,13 +521,14 @@
 											</LayoutConstraint>
 										</Constraints>
 										<Events>
+											<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="txtInvCardInAccMouseUp"/>
 										</Events>
 										<Properties>
 											<Property name="size" type="Dimension">
-												<Dimension value="[97, 18]"/>
+												<Dimension value="[91, 18]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[125, 29, 97, 18]"/>
+												<Rectangle value="[125, 29, 91, 18]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -545,7 +555,7 @@
 												<Dimension value="[104, 19]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[227, 29, 104, 19]"/>
+												<Rectangle value="[230, 29, 104, 19]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -571,7 +581,7 @@
 												<Dimension value="[110, 18]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[336, 29, 110, 18]"/>
+												<Rectangle value="[339, 29, 110, 18]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -602,13 +612,13 @@
 											</Property>
 										</Properties>
 									</Component>
-									<Component class="com.turquaz.engine.ui.component.DecimalText" name="txtInvCardVat" style="0">
+									<Component class="com.turquaz.engine.ui.component.NumericText" name="txtInvCardVat" style="0">
 										<Constraints>
 											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="91"/>
+												<Property name="widthHint" type="int" value="94"/>
 												<Property name="heightHint" type="int" value="18"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
@@ -621,10 +631,10 @@
 										</Events>
 										<Properties>
 											<Property name="size" type="Dimension">
-												<Dimension value="[97, 18]"/>
+												<Dimension value="[100, 18]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[125, 53, 97, 18]"/>
+												<Rectangle value="[125, 53, 100, 18]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -651,7 +661,7 @@
 												<Dimension value="[47, 19]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[284, 53, 47, 19]"/>
+												<Rectangle value="[287, 53, 47, 19]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -677,7 +687,7 @@
 												<Dimension value="[110, 18]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[336, 53, 110, 18]"/>
+												<Rectangle value="[339, 53, 110, 18]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -732,7 +742,7 @@
 												<Dimension value="[61, 25]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[385, 87, 61, 25]"/>
+												<Rectangle value="[388, 87, 61, 25]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -1629,6 +1639,7 @@
 									</Component>
 									<Component class="org.eclipse.swt.widgets.Button" name="button5" style="16777224">
 										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
@@ -1645,6 +1656,9 @@
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Previous"/>
+											<Property name="bounds" type="Rectangle">
+												<Rectangle value="[5, 194, 53, 23]"/>
+											</Property>
 										</Properties>
 									</Component>
 								</SubComponents>
