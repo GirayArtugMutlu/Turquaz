@@ -19,6 +19,7 @@ package com.turquaz.current.ui;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -57,7 +58,6 @@ import org.eclipse.swt.events.MouseEvent;
 
 import org.eclipse.swt.SWT;
 
-import org.eclipse.swt.widgets.Text;
 import com.turquaz.current.ui.comp.CurrentPicker;
 /**
 * This code was generated using CloudGarden's Jigloo
@@ -93,6 +93,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	private CLabel lblStartDate;
 	private CCombo comboTransactionGroup;
 	private Composite composite1;
+	private Calendar cal=Calendar.getInstance();
 	public CurUITransactionSearch(Composite parent, int style) {
 		super(parent, style);
 		initGUI();

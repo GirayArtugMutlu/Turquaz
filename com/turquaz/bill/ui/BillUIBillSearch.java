@@ -1,5 +1,6 @@
 package com.turquaz.bill.ui;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -73,6 +74,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	private TableColumn tableColumnCumulativePrice;
 	private TableColumn tableColumnConsignmentDate;
 	private BillBLSearchBill blSearch = new BillBLSearchBill();
+	private Calendar cal=Calendar.getInstance();
 
 	
 	public BillUIBillSearch(org.eclipse.swt.widgets.Composite parent, int style) {

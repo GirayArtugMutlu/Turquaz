@@ -14,6 +14,7 @@ package com.turquaz.consignment.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -86,6 +87,7 @@ SearchComposite{
 	private TableColumn tableColumnCumulativePrice;
 	private TableColumn tableColumnConsignmentDate;
 	private ConBLSearchConsignment blSearch = new ConBLSearchConsignment();
+	private Calendar cal=Calendar.getInstance();
 
 	/**
 	* Auto-generated main method to display this 
