@@ -310,7 +310,7 @@ implements SecureComposite{
 				{
 					tabItemGeneral = new CTabItem(cTabFolder1, SWT.NONE);
 					tabItemGeneral.setText(Messages.getString("ConUIAddConsignment.10")); //$NON-NLS-1$
-					tabItemGeneral.setImage(SWTResourceManager.getImage(Messages.getString("ConUIAddConsignment.11"))); //$NON-NLS-1$
+					tabItemGeneral.setImage(SWTResourceManager.getImage("icons/Home16.gif")); //$NON-NLS-1$
 					tabItemGeneral.setText(Messages.getString("ConUIAddConsignment.0")); //$NON-NLS-1$
 
 					{
@@ -657,9 +657,8 @@ implements SecureComposite{
 									SWT.NONE);
 								lblTotalAmount.setText(Messages.getString("ConUIAddConsignment.23")); //$NON-NLS-1$
 								GridData lblTotalAmountLData = new GridData();
-								lblTotalAmount.setSize(87, 19);
-								lblTotalAmountLData.widthHint = 87;
-								lblTotalAmountLData.heightHint = 19;
+								lblTotalAmountLData.widthHint = 90;
+								lblTotalAmountLData.heightHint = 20;
 								lblTotalAmount.setLayoutData(lblTotalAmountLData);
 							}
 							{
@@ -748,7 +747,7 @@ implements SecureComposite{
 				{
 					tabItemGroups = new CTabItem(cTabFolder1, SWT.NONE);
 
-					tabItemGroups.setImage(SWTResourceManager.getImage(Messages.getString("ConUIAddConsignment.31"))); //$NON-NLS-1$
+					tabItemGroups.setImage(SWTResourceManager.getImage("icons/Multi16.gif")); //$NON-NLS-1$
 					tabItemGroups.setText(Messages.getString("ConUIAddConsignment.27")); //$NON-NLS-1$
 
 					{
@@ -881,6 +880,21 @@ implements SecureComposite{
 	
 	
 	public boolean verifyFields(){
+		MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_WARNING);
+	
+		if(txtCurrentCard.getData()==null){
+			msg.setMessage(Messages.getString("ConUIAddConsignment.11")); //$NON-NLS-1$
+			msg.open();
+			btnChooseCurrentCard.setFocus();
+			return false;
+		}
+		
+		if(tableConsignmentRows.getItemCount()==0){
+			msg.setMessage(Messages.getString("ConUIAddConsignment.31")); //$NON-NLS-1$
+			msg.open();
+			btnAddConsignmentRow.setFocus();
+			return false;			
+		}
 		return true;
 	}
 	
