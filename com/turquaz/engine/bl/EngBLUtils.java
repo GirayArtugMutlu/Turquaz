@@ -299,7 +299,7 @@ public class EngBLUtils {
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
 			
-			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/invoice/template1.jasper"); 
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/invoice/template2.jasper"); 
 	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
 			
 			ViewerApp viewer = new ViewerApp();
