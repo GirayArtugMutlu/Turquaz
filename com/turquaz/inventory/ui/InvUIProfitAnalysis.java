@@ -60,6 +60,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
     public InvBLProfitAnalysis blProfit = new InvBLProfitAnalysis(); 
     private Table tableInvTotals;
     private TableColumn tableColumnTotalAmountOut;
+    private TableColumn tableColumnInvCardName;
     private TableColumn tableColumnProfit;
     private TableColumn tableColumnPriceOut;
     private TableColumn tableColumnCostOut;
@@ -98,6 +99,13 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 					tableColumnInvCard.setText(Messages.getString("InvUIProfitAnalysis.0")); //$NON-NLS-1$
 					tableColumnInvCard.setWidth(100);
 				}
+				//START >>  tableColumnInvCardName
+				tableColumnInvCardName = new TableColumn(
+					tableInvTotals,
+					SWT.NONE);
+				tableColumnInvCardName.setText("Stok Cinsi");
+				tableColumnInvCardName.setWidth(100);
+				//END <<  tableColumnInvCardName
 				{
 					tableColumnTotalAmount = new TableColumn(
 						tableInvTotals,
@@ -137,14 +145,15 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 		}
 	}
 	
-	public void search(){
-	    try{
+	public void search()
+	{
+	    try
+		{
 	    	tableInvTotals.removeAll();
-	        List ls = blProfit.getTransactionTotals(0,null,null,null);
+	        List ls = blProfit.getTransactionTotals(null,null,null);
 	       
 	        TableItem item ; 
-	        TurqInventoryCard invCard;
-	        TurqViewInventoryTotal totals;
+	        
 	        BigDecimal amountNow ;
 	        BigDecimal avgPrice ;
 	        BigDecimal amountOut ;
@@ -152,9 +161,12 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 	        BigDecimal totalCost;
 	        BigDecimal totalPrice;
 	        BigDecimal totalProfit;
-	        TurkishCurrencyFormat df = new TurkishCurrencyFormat();
 	        
-	        for(int i = 0; i<ls.size();i++){
+	        TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+	        Object[] result;
+	        
+	        for(int i = 0; i<ls.size();i++)
+	        {
 	        	 amountNow = new BigDecimal(0);
 	        	 avgPrice = new BigDecimal(0);
 	        	 amountOut = new BigDecimal(0); 
@@ -164,65 +176,67 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 	        	 amountIn = new BigDecimal(0);
 	        	 
 	        	 
-	        	Object[] result = (Object[])ls.get(i);
-	        	invCard =(TurqInventoryCard)result[0];
-	        	totals = (TurqViewInventoryTotal)result[1];
+	        	result = (Object[])ls.get(i);
 	        	
-	        	if(totals.getTotalAmountIn()!=null&&totals.getTotalAmountOut()!=null)
+	        	String invCardCode=(String)result[0];
+	        	String invCardName=(String)result[1];
+	        	BigDecimal inAmount=(BigDecimal)result[2];
+	        	BigDecimal outAmount=(BigDecimal)result[3];
+	        	BigDecimal inPrice=(BigDecimal)result[4];
+	        	BigDecimal outPrice=(BigDecimal)result[5];
+
+	        	
+	        	if(inAmount!=null&& outAmount!=null)
 	        	{
-	        	amountNow = totals.getTotalAmountIn().subtract(totals.getTotalAmountOut());
+	        		amountNow = inAmount.subtract(outAmount);
 	        	}
-	        	else{
-	        		if(totals.getTotalAmountIn()!=null)
+	        	else
+	        	{
+	        		if(inAmount!=null)
 	        		{
-	        		 amountNow = totals.getTotalAmountIn();
+	        			amountNow = inAmount;
 	        			
 	        		}
-	        		else if(totals.getTotalAmountOut()!=null)
+	        		else if(outAmount!=null)
 	        		{
-	        		amountNow = totals.getTotalAmountOut().multiply(new BigDecimal(-1));
-	        	
+	        			amountNow = outAmount.negate();
 	        		}
 	        	}
 	        	
-	        	if(totals.getTotalAmountIn()!=null){
-	        	avgPrice = totals.getTotalPriceIn().divide(totals.getTotalAmountIn(),2,BigDecimal.ROUND_HALF_UP);
+	        	if(inAmount!=null)
+	        	{
+	        		avgPrice = inPrice.divide(inAmount,2,BigDecimal.ROUND_HALF_UP);
 	        	}
 	        	
-	        	if(totals.getTotalAmountOut()!=null){
-	        		amountOut = totals.getTotalAmountOut();
+	        	if(outAmount!=null)
+	        	{
+	        		amountOut = outAmount;
 	        	}
 	        	
-	        	if(totals.getTotalAmountIn()!=null){
-	        		amountIn = totals.getTotalAmountIn();
+	        	if(inAmount!=null)
+	        	{
+	        		amountIn = inAmount;
 	        	}
 	        	totalCost = avgPrice.multiply(amountOut);
-	        	if (totals.getTotalPriceOut()!=null)
+	        	if (outPrice!=null)
 	        	{
-	        		totalPrice = totals.getTotalPriceOut();
+	        		totalPrice = outPrice;
 	        	}
 	        	totalProfit = totalPrice.subtract(totalCost);
 	        
 	        	item = new TableItem(tableInvTotals,SWT.NULL);
-	         	item.setData(invCard);
 	        	
 	        	item.setText(new String[]{	        			    
-	        			 invCard.getCardInventoryCode(),
-						 amountIn.toString(),
-						 df.format(avgPrice),
-						 amountOut.toString(),
-						 df.format(totalCost),
-						 df.format(totalPrice),
-						 df.format(totalProfit)
+	        			 invCardCode,
+						 invCardName,
+						 cf.format(amountIn),
+						 cf.format(avgPrice),
+						 cf.format(amountOut),
+						 cf.format(totalCost),
+						 cf.format(totalPrice),
+						 cf.format(totalProfit)
 						});
-	        	}
-	        	
-	                      
-	            
-	        
-	        
-	        
-	        
+	        }
 	        
 	    }
 	    catch(Exception ex){

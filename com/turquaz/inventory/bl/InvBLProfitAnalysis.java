@@ -41,23 +41,17 @@ public class InvBLProfitAnalysis {
      * 
      * @return
      */
-    public List getTransactionTotals(int type,TurqInventoryCard invCard, Date startDate, Date endDate)throws Exception{
-     try{
-      
-     
-     if(type == 0){
-         
-         return dalProfit.getInventoryTotalsAccordingToAvarage(invCard, startDate, endDate);
-         
-     }
-     
-     else{ 
-        return null;
-       }
-     }
-     catch(Exception ex){
-         throw ex;
-     }
+    public List getTransactionTotals(TurqInventoryCard invCard, Date startDate, Date endDate)
+    throws Exception
+	{
+    	try
+		{        
+    		return dalProfit.getInventoryTotalsAccordingToAvarage(invCard, startDate, endDate);
+		}
+    	catch(Exception ex)
+		{
+    		throw ex;
+		}
     }
 
 }

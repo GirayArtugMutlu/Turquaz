@@ -15,17 +15,22 @@ public class InvDALProfitAnalysis {
     public InvDALProfitAnalysis(){
         
     }
-    public List getInventoryTotalsAccordingToAvarage(TurqInventoryCard invCard, Date startDate, Date endDate)throws Exception {
-        try{
+    public List getInventoryTotalsAccordingToAvarage(TurqInventoryCard invCard, Date startDate, Date endDate)
+    throws Exception
+	{
+        try
+		{
            
             Session session = EngDALSessionFactory.openSession();
-            String query = "select invCard, invTotal from TurqInventoryCard as invCard, TurqViewInventoryTotal as invTotal" +
-            		" where invCard.inventoryCardsId = invTotal.inventoryCardsId";
+            String query = "select invCard.cardInventoryCode,invCard.cardName, invTotal.totalAmountIn," +
+            		" invTotal.totalAmountOut, invTotal.totalPriceIn, invTotal.totalPriceOut from TurqInventoryCard as invCard, TurqViewInventoryTotal as invTotal" +
+            		" where invCard.inventoryCardsId = invTotal.inventoryCardsId" +
+            		" order by invCard.cardInventoryCode";
 
             
             Query q = session.createQuery(query);
-          //  q.setParameter("startDate",startDate);
-          //  q.setParameter("endDate",endDate);
+            //q.setParameter("startDate",startDate);
+            //q.setParameter("endDate",endDate);
            
             List list=q.list(); 
             return list;
