@@ -203,14 +203,16 @@ public void fillTree(int parent, String codeCrit){
 		
 		if(items.length>0){
 		TurqAccountingAccount account =(TurqAccountingAccount)items[0].getData();
-	
 		// it's not an main account
 		// main accounts cannot be edited
-		
-		
 		new AccUIAccountUpdate(this.getShell(),SWT.NULL,account).open();
-		fillTree(-1,"");	
-	
+		
+		items[0].setText(0,account.getAccountCode());
+		items[0].setText(1,account.getAccountName());
+		items[0].setData(account);
+	    
+	    
+	    
 		}
 		
 		

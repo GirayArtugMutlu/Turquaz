@@ -367,9 +367,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 	catch(Exception ex){
 		ex.printStackTrace();
 	}
-	
-	
-	
+
 	}
 	
 

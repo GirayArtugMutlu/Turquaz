@@ -76,6 +76,8 @@ public class AccDALAccountUpdate {
 				throw ex;
 			}
 	}
+	
+	
 	public List getTotalDeptAndCredit(TurqAccountingAccount account)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
