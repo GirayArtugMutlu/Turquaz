@@ -1,11 +1,12 @@
 package com.turquaz.admin.ui;
 
-import java.awt.List;
+
 
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
@@ -37,6 +38,8 @@ import com.turquaz.admin.bl.AdmBLUsers;
 import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.dal.TurqModuleComponent;
 import com.turquaz.engine.dal.TurqUser;
+import com.turquaz.engine.dal.TurqUserPermission;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -273,6 +276,12 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 	try{
 		if(comboModules.getText().equals("*")){
 		comboModuleComponents.removeAll();	
+		TurqModuleComponent modComp = new TurqModuleComponent();
+		modComp.setModuleComponentsId(new Integer(-1));
+		comboModuleComponents.setText("*");
+		comboModuleComponents.add("*");
+		comboModuleComponents.setData("*",modComp);
+		
 		}
 		else{
 		
@@ -305,6 +314,43 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite {
 	}
 	public void fillTableUserPermissions(){
 		try{
+		java.util.List userPermList = blUserPerms.getUserPermissions();
+		TableItem item;
+		
+		String username;
+		String module;
+		String moduleComp;
+		String permLevel;
+		
+		for(int i=0;i<userPermList.size();i++){
+			
+			TurqUserPermission userPerm = (TurqUserPermission)userPermList.get(i);
+			username = userPerm.getTurqUser().getUsername();
+			module = userPerm.getTurqModule().getModulesName();
+			
+			if(module.trim().equals("*")){
+			moduleComp ="*";	
+			
+			}
+			else{
+				moduleComp = userPerm.getTurqModuleComponent().getComponentsDescription();
+			}
+			permLevel=userPerm.getUserPermissionsLevel()+"";
+			
+			item = new TableItem(tableUserPermissions,SWT.NULL);
+			item.setData(userPerm);
+			
+			
+			item.setText(new String[]{username,
+					                  module,
+									  moduleComp,
+									  permLevel
+									  });
+			
+			
+		}
+		
+		
 		
 			
 			
