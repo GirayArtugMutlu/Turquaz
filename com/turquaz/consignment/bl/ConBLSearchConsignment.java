@@ -32,10 +32,10 @@ public class ConBLSearchConsignment {
    	
    
 	}
-	public List searchConsignment(TurqCurrentCard card,Date startDate,Date endDate, int type)throws Exception{
+	public List searchConsignment(TurqCurrentCard card,Date startDate,Date endDate, int type,String docNo)throws Exception{
 		try{
 			
-			return dalSearch.searchConsignments(card,startDate,endDate,type);
+			return dalSearch.searchConsignments(card,startDate,endDate,type,docNo);
 			
 		}
 		catch(Exception ex){

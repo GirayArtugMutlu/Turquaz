@@ -30,7 +30,7 @@ public class ConDALSearchConsignment {
 	}
 
 	public List searchConsignments(TurqCurrentCard curCard, Date startDate,
-			Date endDate, int type) throws Exception {
+			Date endDate, int type, String docNo) throws Exception {
 		try {
 			Session session = EngDALSessionFactory.openSession();
 
@@ -38,7 +38,8 @@ public class ConDALSearchConsignment {
 					" where consignment.consignmentsDate >= :startDate" + //$NON-NLS-1$
 					" and consignment.consignmentsDate <= :endDate" + //$NON-NLS-1$
 					" and consignment.consignmentsType =" + type + //$NON-NLS-1$
-					" and consignment.consignmentsId <> -1 "; //$NON-NLS-1$		
+					" and consignment.consignmentsId <> -1 " +//$NON-NLS-1$
+					" and consignment.turqBillConsignmentCommon.consignmentDocumentNo like '"+docNo+"%'"; //$NON-NLS-1$		
 
 			if (curCard != null) {
 				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard = :curCard"; //$NON-NLS-1$

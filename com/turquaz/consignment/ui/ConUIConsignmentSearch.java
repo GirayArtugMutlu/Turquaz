@@ -43,6 +43,7 @@ import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 import com.turquaz.current.ui.comp.CurrentPicker;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.MouseAdapter;
@@ -76,6 +77,9 @@ SearchComposite{
 	private TableColumn tableColumnCurrentName;
 	private TableColumn tableColumnVatAmount;
 	private CurrentPicker txtCurCard;
+	private TableColumn tableColumnDcoNo;
+	private Text txtDocNo;
+	private CLabel lblDocNo;
 	private CCombo comboConsignmentType;
 	private CLabel lblType;
 	private CLabel lblEndDate;
@@ -140,7 +144,7 @@ SearchComposite{
 				composite1Layout.numColumns = 4;
 				composite1Layout.horizontalSpacing = 0;
 				GridData composite1LData = new GridData();
-				composite1LData.heightHint = 88;
+				composite1LData.heightHint = 98;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				composite1.setLayoutData(composite1LData);
@@ -209,6 +213,17 @@ SearchComposite{
 					dateEndDateLData.heightHint = 31;
 					dateEndDate.setLayoutData(dateEndDateLData);
 				}
+                {
+                    lblDocNo = new CLabel(composite1, SWT.NONE);
+                    lblDocNo.setText("Belge No");
+                }
+                {
+                    txtDocNo = new Text(composite1, SWT.NONE);
+                    GridData txtDocNoLData = new GridData();
+                    txtDocNoLData.widthHint = 173;
+                    txtDocNoLData.heightHint = 15;
+                    txtDocNo.setLayoutData(txtDocNoLData);
+                }
 			}
 			{
 				tableConsignments = new Table(this, SWT.FULL_SELECTION);
@@ -237,6 +252,13 @@ SearchComposite{
 					    }
 					});
 				}
+                {
+                    tableColumnDcoNo = new TableColumn(
+                        tableConsignments,
+                        SWT.NONE);
+                    tableColumnDcoNo.setText("Belge No");
+                    tableColumnDcoNo.setWidth(82);
+                }
 				{
 					tableColumnCurrentName = new TableColumn(
 						tableConsignments,
@@ -332,7 +354,8 @@ SearchComposite{
 			
 		List list = blSearch.searchConsignment((TurqCurrentCard)txtCurCard.getData(),
 												dateStartDate.getDate(),
-												dateEndDate.getDate(),type);
+												dateEndDate.getDate(),type,
+												txtDocNo.getText().trim());
 		TurqConsignment cons;
 		TableItem item;
 		TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
@@ -343,6 +366,7 @@ SearchComposite{
 			item.setData(cons);
 			item.setText(new String[]{DatePicker.formatter.format(cons.getConsignmentsDate()),
 									cons.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName(),
+									cons.getTurqBillConsignmentCommon().getConsignmentDocumentNo(),
 									cf.format(cons.getTurqBillConsignmentCommon().getTotalAmount()),
 									cf.format(cons.getTurqBillConsignmentCommon().getVatAmount()),
 									cf.format(cons.getTurqBillConsignmentCommon().getSpecialVatAmount())});
