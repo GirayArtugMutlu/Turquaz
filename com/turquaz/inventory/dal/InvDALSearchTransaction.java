@@ -180,14 +180,38 @@ public class InvDALSearchTransaction {
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select transaction.inventoryTransactionsId,transaction.transactionsDate,transaction.transactionsAmountIn," +
-			"transaction.transactionsTotalAmountOut, transaction.transactionsTotalPrice," +
-			" transaction.turqInventoryCard.cardInventoryCode, " +
-			" transaction.turqInventoryCard.cardName from TurqInventoryTransaction as transaction," +
-			 " TurqConsignment as consignment where" +
-			 " consignment.turqEngineSequence = transaction.turqEngineSequence "
+			String query = "Select transaction.inventoryTransactionsId," +
+					"transaction.transactionsDate," +
+					"transaction.transactionsAmountIn," +
+					"transaction.transactionsTotalAmountOut," +
+					" transaction.transactionsTotalPrice," +
+					" transaction.turqInventoryCard.cardInventoryCode, " +
+					" transaction.turqInventoryCard.cardName," +
+					" consignment.turqBillConsignmentCommon.turqCurrentCard.cardsName," +
+					" transaction.turqInventoryCard.inventoryCardsId," +
+					" consignment.turqBillConsignmentCommon.billDocumentNo";
+			if (invMainGroup != null)
+			{
+				query+=", cardGroup.turqInventoryGroup.groupsName," +
+						" cardGroup.turqInventoryGroup.inventoryGroupsId";
+			}
+					
+				query += " from TurqInventoryTransaction as transaction";
+					
+			if (invMainGroup != null)
+			{
+				query+=" left join transaction.turqInventoryCard.turqInventoryCardGroups as cardGroup";
+			}
+				query += " ,TurqConsignment as consignment";
+			query +=" where consignment.turqEngineSequence = transaction.turqEngineSequence "
 			+ " and consignment.consignmentsDate >= :startDate"
 			+ " and consignment.consignmentsDate <= :endDate";
+			
+			if (invMainGroup !=null)
+			{
+				query+=" and cardGroup.turqInventoryGroup.turqInventoryGroup.inventoryGroupsId="+invMainGroup.getInventoryGroupsId();
+				
+			}
 			if (type != EngBLCommon.COMMON_ALL_INT)
 				query+=" and consignment.consignmentsType ="+ type;
 			

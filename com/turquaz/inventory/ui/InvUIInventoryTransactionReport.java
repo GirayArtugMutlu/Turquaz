@@ -48,7 +48,6 @@ import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 
-import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
@@ -59,6 +58,7 @@ import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
 
 
 import org.eclipse.swt.custom.CLabel;
@@ -437,34 +437,65 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 		}
 	}
 	
-	private void GenerateJasper(int type)
+	 public void GenerateJasper(List list, Map parameters,boolean useGroup){
+    	try
+		{
+    		String []fields;
+    		if (useGroup)
+    		{
+    			fields = new String[]{"inventory_transactions_id",
+    				"transactions_date",
+					"transactions_amount_in",
+    				"transactions_total_amount_out", 
+					"transactions_total_price",
+					"card_inventory_code",
+					"card_name","cards_name",
+					"inventory_cards_id",
+					"bill_document_no",	
+					"groups_name",
+					"inventory_groups_id"
+					 };  	
+    		}
+    		else
+    		{
+    			fields = new String[]{"inventory_transactions_id",
+        				"transactions_date",
+    					"transactions_amount_in",
+        				"transactions_total_amount_out", 
+    					"transactions_total_price",
+    					"card_inventory_code",
+    					"card_name","cards_name",
+    					"inventory_cards_id",
+    					"bill_document_no",	
+						};
+    			
+    		}
+    	
+    		HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list,fields);
+    		JasperReport jasperReport;
+    		if (useGroup)				
+    			jasperReport =(JasperReport)JRLoader.loadObject("reports/inventory/InventoryTransactionReportByGroup.jasper");   //$NON-NLS-1$
+    		else
+    			jasperReport =(JasperReport)JRLoader.loadObject("reports/inventory/InventoryTransactionReport.jasper");   //$NON-NLS-1$
+    		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
+    		viewer.getReportViewer().setDocument(jasperPrint);
+		}
+    	catch(Exception ex)
+		{
+    		ex.printStackTrace();
+		}
+    }
+	
+	private void GenerateJasper(List list,int type)
 	{
 		try
 		{
 			Map parameters = new HashMap();		
-			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");  //$NON-NLS-1$
-			String sqlparam="Select trans.inventory_transactions_id,trans.transactions_amount_in," + //$NON-NLS-1$
-					"trans.transactions_total_amount_out, trans.transactions_total_price," + //$NON-NLS-1$
-					"invCard.card_inventory_code, invCard.card_name,curCard.cards_name," + //$NON-NLS-1$
-					"trans.inventory_cards_id, trans.transactions_date,billcons.bill_document_no," + //$NON-NLS-1$
-					" invGroup.inventory_groups_id, invGroup.groups_name"+
-					" from turq_inventory_transactions trans," + //$NON-NLS-1$
-					"turq_consignments cons, turq_bill_consignment_commons billcons," + //$NON-NLS-1$
-					"turq_current_cards curCard, turq_inventory_cards invCard," + //$NON-NLS-1$
-					" turq_inventory_card_groups invCardGroup, turq_inventory_groups invGroup"+ //$NON-NLS-1$
-					" where trans.engine_sequences_id=cons.engine_sequences_id" + //$NON-NLS-1$
-					" and cons.bill_consignment_common_id=billcons.bill_consignment_common_id" + //$NON-NLS-1$
-					" and billcons.current_cards_id=curCard.current_cards_id" + //$NON-NLS-1$
-					" and trans.inventory_cards_id=invCard.inventory_cards_id" + //$NON-NLS-1$
-					" and invCardGroup.inventory_cards_id=invCard.inventory_cards_id"+ //$NON-NLS-1$
-					" and invCardGroup.inventory_groups_id=invGroup.inventory_groups_id"+ //$NON-NLS-1$
-					" and trans.transactions_date >= '"+dformat.format(dateStartDate.getDate())+"'" + //$NON-NLS-1$ //$NON-NLS-2$
-					" and trans.transactions_date <= '"+dformat.format(dateEndDate.getDate())+"'"; //$NON-NLS-1$ //$NON-NLS-2$
+			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");  //$NON-NLS-1$			
 			
 			
 			if (type != EngBLCommon.COMMON_ALL_INT)
 			{
-				sqlparam+=" and cons.consignments_type ="+ type; //$NON-NLS-1$
 				if (type == EngBLCommon.COMMON_BUY_INT)
 					parameters.put("type",EngBLCommon.COMMON_BUY_STRING); //$NON-NLS-1$
 				else
@@ -484,25 +515,10 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				parameters.put("invMainGroup", invMainGroup.getGroupsName()); //$NON-NLS-1$
 				if (invSubGroup != null)
 				{
-					
-					sqlparam += " and "+invSubGroup.getInventoryGroupsId()+ //$NON-NLS-1$
-					" in (Select cardgr.inventory_groups_id from turq_inventory_card_groups cardgr" + //$NON-NLS-1$
-					" where cardgr.inventory_cards_id=invCard.inventory_cards_id)"; //$NON-NLS-1$
 					parameters.put("invSubGroup", invSubGroup.getGroupsName()); //$NON-NLS-1$
 				}
 				else
 				{
-					sqlparam += " and exists" +
-							" ((Select invCardGroup.inventory_groups_id from turq_inventory_transactions trans," + //$NON-NLS-1$
-					" turq_inventory_cards invCard," + //$NON-NLS-1$
-					" turq_inventory_card_groups invCardGroup, turq_inventory_groups invGroup"+ 
-					" where trans.inventory_cards_id=invCard.inventory_cards_id" +
-					" and invCardGroup.inventory_cards_id=invCard.inventory_cards_id"+ 
-					" and invCardGroup.inventory_groups_id=invGroup.inventory_groups_id"+ 
-					" and trans.transactions_date >= '"+dformat.format(dateStartDate.getDate())+"'" + 
-					" and trans.transactions_date <= '"+dformat.format(dateEndDate.getDate())+"')"+
-					" intersect (Select invGr.inventory_groups_id from turq_inventory_groups invGr" +
-					" where invGr.parent_group="+invMainGroup.getInventoryGroupsId()+"))";
 					parameters.put("invSubGroup", " Hepsi"); 
 				}
 			}
@@ -518,20 +534,16 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			TurqCurrentCard curCardEnd=(TurqCurrentCard)txtCurCardEnd.getData();
 			if (curCardStart!= null && curCardEnd!=null)
 			{
-				sqlparam += " and curCard.cards_current_code >= '"+curCardStart.getCardsCurrentCode()+"'"; //$NON-NLS-1$ //$NON-NLS-2$
-				sqlparam += " and curCard.cards_current_code <= '"+curCardEnd.getCardsCurrentCode()+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 				parameters.put("curCardStart",curCardStart.getCardsCurrentCode()); //$NON-NLS-1$ //$NON-NLS-2$
 				parameters.put("curCardEnd",curCardEnd.getCardsCurrentCode()); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			else if (curCardStart != null) 
 			{
-				sqlparam += " and curCard.current_cards_id="+curCardStart.getCurrentCardsId(); //$NON-NLS-1$
 				parameters.put("curCardStart",curCardStart.getCardsCurrentCode()); //$NON-NLS-1$ //$NON-NLS-2$
 				parameters.put("curCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			else if (curCardEnd != null)
 			{
-				sqlparam += " and curCard.current_cards_id="+curCardEnd.getCurrentCardsId(); //$NON-NLS-1$
 				parameters.put("curCardStart",curCardEnd.getCardsCurrentCode()); //$NON-NLS-1$ //$NON-NLS-2$
 				parameters.put("curCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
 			}
@@ -545,21 +557,17 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			TurqInventoryCard invCardStart=(TurqInventoryCard) txtInvCardStart.getData();
 			TurqInventoryCard invCardEnd=(TurqInventoryCard)lblInvCardEnd.getData();
 			if (invCardStart != null && invCardEnd != null) {
-				sqlparam += " and invCard.card_inventory_code >= '"+invCardStart.getCardInventoryCode()+"'"; //$NON-NLS-1$ //$NON-NLS-2$
-				sqlparam += " and invCard.card_inventory_code <= '"+invCardEnd.getCardInventoryCode()+"'"; //$NON-NLS-1$ //$NON-NLS-2$
 				parameters.put("invCardStart",invCardStart.getCardInventoryCode()); //$NON-NLS-1$
 				parameters.put("invCardEnd",invCardEnd.getCardInventoryCode()); //$NON-NLS-1$
 			}
 			else if (invCardStart != null)
 			{
-				sqlparam += " and invCard.inventory_cards_id ="+invCardStart.getInventoryCardsId(); //$NON-NLS-1$
 				parameters.put("invCardStart",invCardStart.getCardInventoryCode()); //$NON-NLS-1$
 				parameters.put("invCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
 				
 			}
 			else if (invCardEnd !=null)
 			{
-				sqlparam += " and invCard.inventory_cards_id ="+invCardEnd.getInventoryCardsId(); //$NON-NLS-1$
 				parameters.put("invCardStart",invCardEnd.getCardInventoryCode()); //$NON-NLS-1$
 				parameters.put("invCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
 			}
@@ -569,11 +577,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				parameters.put("invCardEnd",""); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 
-			sqlparam +=" order by invCard.inventory_cards_id,trans.transactions_date"; //$NON-NLS-1$
-			
-			//System.out.println(sqlparam);
 			SimpleDateFormat dformat2=new SimpleDateFormat("dd/MM/yyyy");  //$NON-NLS-1$
-			parameters.put("sqlparam",sqlparam);  //$NON-NLS-1$
 			parameters.put("startDate",dformat2.format(dateStartDate.getDate()));  //$NON-NLS-1$
 			parameters.put("endDate",dformat2.format(dateEndDate.getDate())); 			  //$NON-NLS-1$
 			parameters.put("dateformat",dformat2);  //$NON-NLS-1$
@@ -582,15 +586,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			parameters.put("currentDate",dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
 
 
-			EngDALConnection db=new EngDALConnection();
-			db.connect();
-			JasperReport jasperReport;
-			if (invMainGroup!=null)				
-				jasperReport =(JasperReport)JRLoader.loadObject("reports/inventory/InventoryTransactionReportByGroup.jasper");   //$NON-NLS-1$
-			else
-				jasperReport =(JasperReport)JRLoader.loadObject("reports/inventory/InventoryTransactionReport.jasper");   //$NON-NLS-1$
-			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());	
-			viewer.getReportViewer().setDocument(jasperPrint);	
+			GenerateJasper(list,parameters,(invMainGroup!=null));
 		}
 		catch(Exception ex)
 		{
@@ -777,7 +773,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					cf.format(totalPriceIn),cf.format(totalAmountOut),
 					cf.format(totalPriceOut)});
 			if (list.size() > 0)
-				GenerateJasper(type);
+				GenerateJasper(list,type);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
