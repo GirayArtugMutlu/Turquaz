@@ -126,8 +126,8 @@ public class BillBLAddBill {
 		/**
 		  * 1- Stok muhasebe kayitlarini gir.
 		  * 2- Kdv muhasebe kayitlari
-		  * 3- Ötv muhasebe kayitlari
-		  * 4- Cari Hesap kay?d?
+		  * 3- Cari Hesap kay?d?
+		  * 4- ?skonto..
 		 */
 
 			AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
@@ -155,7 +155,11 @@ public class BillBLAddBill {
 			transRow.setTurqAccountingTransaction(accTrans);
 			
 			transRow.setCreditAmount(new BigDecimal(0));
-			transRow.setDeptAmount(invTrans.getTransactionsTotalPrice());
+			
+			//mal bedeli + ÖTV
+			transRow.setDeptAmount(invTrans.getTransactionsTotalPrice().add(invTrans.getTransactionsVatSpecialAmount()));
+			System.out.println(invTrans.getTransactionsTotalPrice());
+			
 			
 			// set Transaction Row Definition
 			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
@@ -179,7 +183,7 @@ public class BillBLAddBill {
 			transRow.setTurqAccountingTransaction(accTrans);
 			
 			transRow.setCreditAmount(new BigDecimal(0));
-			transRow.setDeptAmount(invTrans.getTransactionsVatAmount());
+			transRow.setDeptAmount(common.getVatAmount());
 			
 //			 set Transaction Row Definition
 			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
@@ -190,42 +194,20 @@ public class BillBLAddBill {
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
 			dalBill.save(transRow);
-			
-			
-			
-			/**
-			 *3- Ötv hesabini gir
-			 */
-			transRow = new TurqAccountingTransactionColumn();
-			
-			//193 olarak degistir..
-			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("193"));
-			transRow.setTurqAccountingTransaction(accTrans);
-			
-			transRow.setCreditAmount(new BigDecimal(0));
-			transRow.setDeptAmount(invTrans.getTransactionsVatSpecialAmount());
 		
-//			 set Transaction Row Definition
-			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
 			
-			
-			transRow.setCreatedBy(System.getProperty("user"));
-			transRow.setUpdatedBy(System.getProperty("user"));
-			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-			
-			dalBill.save(transRow);
 			/**
-			 * Cari Kayd?n? Yap
+			 * 3-Cari Kayd?n? Yap
 			 *  
 			 *
 			 */
+			
 			transRow = new TurqAccountingTransactionColumn();
 			
 			transRow.setTurqAccountingAccount(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getTurqAccountingAccount());
 			transRow.setTurqAccountingTransaction(accTrans);
 			
-			transRow.setCreditAmount(invTrans.getTransactionsCumilativePrice());
+			transRow.setCreditAmount(common.getTotalAmount());
 			transRow.setDeptAmount(new BigDecimal(0));
 		
 //			 set Transaction Row Definition
@@ -236,7 +218,27 @@ public class BillBLAddBill {
 			transRow.setUpdatedBy(System.getProperty("user"));
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			dalBill.save(transRow);
 			
+			/**
+			 * 4- iskontoyu save et
+			 */
+			
+			transRow = new TurqAccountingTransactionColumn();
+			
+			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("649"));
+			transRow.setTurqAccountingTransaction(accTrans);
+			
+			transRow.setCreditAmount(common.getDiscountAmount());
+			transRow.setDeptAmount(new BigDecimal(0));
+		
+//			 set Transaction Row Definition
+			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			
+			transRow.setCreatedBy(System.getProperty("user"));
+			transRow.setUpdatedBy(System.getProperty("user"));
+			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			dalBill.save(transRow);
 			
 			
@@ -312,6 +314,7 @@ public class BillBLAddBill {
 			 * 2- Kdv muhasebe kayitlari
 			 * 3- Ötv muhasebe kayitlari
 			 * 4- Cari Hesap kay?d?
+			 * 5- iskonto kaydi
 			 */
 
 			AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
@@ -363,7 +366,7 @@ public class BillBLAddBill {
 			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("391"));
 			transRow.setTurqAccountingTransaction(accTrans);
 			
-			transRow.setCreditAmount(invTrans.getTransactionsVatAmount());
+			transRow.setCreditAmount(common.getVatAmount());
 			transRow.setDeptAmount(new BigDecimal(0));
 			
 //			 set Transaction Row Definition
@@ -387,7 +390,7 @@ public class BillBLAddBill {
 			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("360"));
 			transRow.setTurqAccountingTransaction(accTrans);
 			
-			transRow.setCreditAmount(invTrans.getTransactionsVatSpecialAmount());
+			transRow.setCreditAmount(common.getSpecialVatAmount());
 			transRow.setDeptAmount(new BigDecimal(0));
 			
 //			 set Transaction Row Definition
@@ -400,7 +403,7 @@ public class BillBLAddBill {
 			
 			dalBill.save(transRow);
 			/**
-			 * Cari Kayd?n? Yap
+			 * 4- Cari Kayd?n? Yap
 			 *  
 			 *
 			 */
@@ -410,7 +413,7 @@ public class BillBLAddBill {
 			transRow.setTurqAccountingTransaction(accTrans);
 			
 			transRow.setCreditAmount(new BigDecimal(0));
-			transRow.setDeptAmount(invTrans.getTransactionsCumilativePrice());
+			transRow.setDeptAmount(common.getTotalAmount());
 			
 //			 set Transaction Row Definition
 			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
@@ -422,7 +425,26 @@ public class BillBLAddBill {
 			
 			dalBill.save(transRow);
 			
+			/**
+			 * 5- iskonto Kayd?
+			 */
+			transRow = new TurqAccountingTransactionColumn();
 			
+			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("611"));
+			transRow.setTurqAccountingTransaction(accTrans);
+			
+			transRow.setCreditAmount(new BigDecimal(0));
+			transRow.setDeptAmount(common.getDiscountAmount());
+			
+//			 set Transaction Row Definition
+			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			
+			transRow.setCreatedBy(System.getProperty("user"));
+			transRow.setUpdatedBy(System.getProperty("user"));
+			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			
+			dalBill.save(transRow);
 			
 			//Kapal? Fatura
 			/**
