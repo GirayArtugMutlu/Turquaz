@@ -319,7 +319,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			    if(((Object[])balances.get(0))[1]!=null){
 			        
 			        totalCredit =(BigDecimal)((Object[])balances.get(0))[1];
-			        balance.add(totalCredit);
+			        balance = balance.add(totalCredit);
 			    }
 			         		
 			    item.setText(new String[]{
