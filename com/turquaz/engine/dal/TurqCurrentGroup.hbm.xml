@@ -21,9 +21,7 @@
         type="int"
         column="current_groups_id"
     >
-        <generator class="sequence">
-            <param name="sequence">seq_current_groups</param>
-        </generator>
+         <generator class="increment" />
     </id>
 
     <property

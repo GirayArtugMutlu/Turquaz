@@ -70,9 +70,11 @@ import org.eclipse.swt.SWT;
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
 
+import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
+import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TreeFactory;
@@ -929,6 +931,16 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			shell.addListener(SWT.Close, new Listener() {
 		public void handleEvent(Event e) {
 			saveFavoritesTree();
+			if(EngConfiguration.getString("serverAddress").equals("localhost")){
+			EngDALConnection connection = new EngDALConnection();
+			try{
+			connection.connect();
+			connection.execQuery("SHUTDOWN");
+			}
+			catch(Exception ex){
+			    ex.printStackTrace();
+			}
+			}
 		}
 	});
 			shell.open();		

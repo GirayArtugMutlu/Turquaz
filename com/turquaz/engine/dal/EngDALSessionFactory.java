@@ -53,11 +53,11 @@ public class EngDALSessionFactory {
 
 	
 		
-		String url = "jdbc:postgresql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort")+"/"+EngConfiguration.getString("dbName");
+		String url = "jdbc:hsqldb:hsql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort");
 		String username = EngConfiguration.getString("dbUsername");
 		String password = EngConfiguration.getString("dbPassword");
 		password = new String(Base64.decode(password.getBytes()));
-		String driver = "org.postgresql.Driver";
+		String driver = "org.hsqldb.jdbcDriver";
 		
 		System.setProperty("Url",url);
 		System.setProperty("dbLogin",username);

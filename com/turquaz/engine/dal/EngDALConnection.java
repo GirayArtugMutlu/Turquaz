@@ -43,13 +43,20 @@ public class EngDALConnection {
   
   public EngDALConnection(String dbType, String userName, String pass, String Url,String dbName) {
 	
-  	 driver = "org.postgresql.Driver";
+  /*	 driver = "org.postgresql.Driver";
   	 loginUrl = "jdbc:postgresql://" +Url + "/"+dbName;
      //loginUrl = "jdbc:postgresql://" + Url + "/";
      // loginUrl = "jdbc:mysql://10.90.19.52/turquaz";
 	 loginUser = userName;
 	 loginPass = pass;
-
+*/
+      
+      driver = "org.hsqldb.jdbcDriver";
+   	 loginUrl = "jdbc:hsqldb:hsql://" +Url ;
+      //loginUrl = "jdbc:postgresql://" + Url + "/";
+      // loginUrl = "jdbc:mysql://10.90.19.52/turquaz";
+ 	 loginUser = userName;
+ 	 loginPass = pass;
 
   }
 
@@ -69,6 +76,7 @@ public class EngDALConnection {
 	}
   }
 
+ 
   public ResultSet execute_stored_procedure(CallableStatement cs) throws
 	  Exception {
 	try {

@@ -21,9 +21,7 @@
         type="int"
         column="user_group_id"
     >
-        <generator class="sequence">
-            <param name="sequence">seq_user_group</param>
-        </generator>
+         <generator class="increment" />
     </id>
 
     <property

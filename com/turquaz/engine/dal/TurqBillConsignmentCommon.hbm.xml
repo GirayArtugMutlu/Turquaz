@@ -21,9 +21,7 @@
         type="int"
         column="bill_consignment_common_id"
     >
-        <generator class="sequence">
-            <param name="sequence">seq_bill_consignment_commons</param>
-        </generator>
+        <generator class="increment" />
     </id>
 
     <property

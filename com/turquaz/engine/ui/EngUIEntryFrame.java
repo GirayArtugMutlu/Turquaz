@@ -59,6 +59,7 @@ import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.DatabaseThread;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.ui.wizards.EngUIDatabaseConnectionWizard;
 import org.eclipse.swt.widgets.Label;
@@ -133,6 +134,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	private void initGUI() {
 		try {
 		    
+		    DatabaseThread dbThread = new DatabaseThread();
+		    dbThread.start();
 		    
 		  
 			GridLayout thisLayout = new GridLayout();

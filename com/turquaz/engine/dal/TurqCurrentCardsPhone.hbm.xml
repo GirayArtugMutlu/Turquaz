@@ -21,9 +21,7 @@
         type="int"
         column="current_cards_phones_id"
     >
-        <generator class="sequence">
-            <param name="sequence">seq_current_cards_phones</param>
-        </generator>
+         <generator class="increment" />
     </id>
 
     <property

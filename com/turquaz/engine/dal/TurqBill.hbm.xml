@@ -21,9 +21,7 @@
         type="int"
         column="bills_id"
     >
-        <generator class="sequence">
-            <param name="sequence">seq_bills</param>
-        </generator>
+         <generator class="increment" />
     </id>
 
     <property

@@ -21,9 +21,7 @@
         type="int"
         column="accounting_journal_id"
     >
-        <generator class="sequence">
-            <param name="sequence">seq_accounting_journal</param>
-        </generator>
+         <generator class="increment" />
     </id>
 
     <property

@@ -161,7 +161,9 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage {
 	}
 	
 	public void fillCombo(){
+	   	
 		comboDatabases.removeAll();
+		 comboDatabases.add("turquaz");
 		if(connection!=null){
 			try{
 			ResultSet rs = connection.getResultSet("SELECT d.datname as name FROM pg_database d where d.datistemplate ='false'"); //$NON-NLS-1$

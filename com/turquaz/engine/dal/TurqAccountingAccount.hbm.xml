@@ -21,9 +21,7 @@
         type="int"
         column="accounting_accounts_id"
     >
-        <generator class="sequence">
-            <param name="sequence">seq_accounting_accounts</param>
-        </generator>
+         <generator class="increment" />
     </id>
 
     <property
@@ -31,7 +29,7 @@
         type="java.lang.String"
         column="account_name"
         not-null="true"
-        length="100"
+        length="250"
     />
     <property
         name="accountCode"

@@ -21,9 +21,7 @@
         type="int"
         column="current_contacts_id"
     >
-        <generator class="sequence">
-            <param name="sequence">seq_current_contacts</param>
-        </generator>
+         <generator class="increment" />
     </id>
 
     <property
