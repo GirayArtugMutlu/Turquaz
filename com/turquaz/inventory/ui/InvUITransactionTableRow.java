@@ -413,6 +413,7 @@ public class InvUITransactionTableRow implements ITableRow {
     
     public void calculateFields(){
         
+        if(invTrans.getTurqInventoryCard()!=null){
         transAmountinBaseUnit = transAmount*cardUnits[unit_index.intValue()].getCardUnitsFactor();
         
         invTrans.setTransactionsTotalPrice(invTrans.getTransactionsUnitPrice().multiply(new BigDecimal(transAmountinBaseUnit)));
@@ -431,7 +432,8 @@ public class InvUITransactionTableRow implements ITableRow {
         invTrans.setTransactionsVatAmount(invTrans.getTransactionsTotalPrice().multiply(new BigDecimal(invTrans.getTransactionsVat())).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
         invTrans.setTransactionsVatSpecialAmount(invTrans.getTransactionsTotalPrice().multiply(invTrans.getTransactionsVatSpecial()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
         invTrans.setTransactionsCumilativePrice(invTrans.getTransactionsTotalPrice().add(invTrans.getTransactionsVatSpecialAmount()).add(invTrans.getTransactionsVatAmount()));
-    }
+        }
+        }
     
     public String[] getUnits(){
         return units;
