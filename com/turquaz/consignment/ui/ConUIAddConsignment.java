@@ -1169,6 +1169,7 @@ implements SecureComposite{
 	}
 	}
 	
+	
 	public void fillComboWarehouses(){
 		try{
 			comboWareHouse.removeAll();

@@ -1089,6 +1089,14 @@ public class BillUIAddBuyBill extends Composite
 
 	    createTableViewer();
 	    
+       
+	
+	for(int i=0;i<10;i++){
+//		enter empty table rows.
+      InvUITransactionTableRow row = new InvUITransactionTableRow(rowList,0,tableViewer);
+      rowList.addTask(row);
+	}
+	    
 	    //fill combo ware houses
 	    fillComboWarehouses();
 	}

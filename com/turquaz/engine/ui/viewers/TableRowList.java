@@ -57,6 +57,19 @@ public class TableRowList {
 		while (iterator.hasNext())
 			((ITableRowListViewer) iterator.next()).removeRow(task);
 	}
+	
+	public void removeAll(){
+		Vector v = (Vector)tasks.clone();
+		Iterator it = v.iterator();
+		while(it.hasNext()){
+			
+		 removeTask((ITableRow)it.next());
+			
+		}
+		
+		
+		
+	}
 
 	/**
 	 * @param task

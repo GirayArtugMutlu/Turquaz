@@ -218,6 +218,8 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	
 	public void fillInvTransactionColumns(){
 		
+		compAddBill.rowList.removeAll();
+		
 	    TableItem item;
 		TurqInventoryTransaction invTrans;
 		
@@ -237,6 +239,10 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			compAddBill.rowList.addTask(row);
 		}
 		}
+		
+		InvUITransactionTableRow row2 = new InvUITransactionTableRow(compAddBill.rowList,compAddBill.BILL_TYPE,compAddBill.tableViewer);
+		compAddBill.rowList.addTask(row2);
+		
 		compAddBill.calculateTotals();
 		
 	}
