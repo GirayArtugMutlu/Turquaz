@@ -296,8 +296,6 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
                  }
               }
 	});
-
-
 	
 	}
 	

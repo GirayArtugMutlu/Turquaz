@@ -92,6 +92,7 @@ public class CurrencyText extends Composite {
 };
   text.addVerifyListener(listener);
 
+
  }
  public void setTextLimit(int a){
  	textLimit = a;
@@ -107,14 +108,15 @@ public class CurrencyText extends Composite {
     String textcontrol = control.getText();
     e.doit = false;
     String newText = textcontrol.substring(0, e.start) + e.text + textcontrol.substring(e.end);
-    //newText=newText.replaceAll(",","");
-    newText=newText.replaceAll("\\.","");
-    newText=newText.replaceAll(",",".");
-   /* if (e.keyCode == SWT.BS || e.keyCode == SWT.DEL){
-    	e.doit=true;
+    String tempnewText=newText.replaceAll("\\.","");
+    if (tempnewText.equals("") && !tempnewText.equals(newText))
+    {
+    	e.doit=false;
+    	return;    	
+    }
     
-      return;
-    }*/
+    newText=tempnewText;
+    newText=newText.replaceAll(",",".");
    int maxdecimaldigit=15;
    int indexof=newText.indexOf(".");
    if (indexof==-1){
@@ -143,11 +145,20 @@ public class CurrencyText extends Composite {
     	int indexPoint=newText.indexOf(".");
     	boolean isLastZero=false;
     	boolean addSeperator=false;
+    	boolean addSecondZero=false;
     	if (indexPoint > 0)
     	{
     		isLastZero=(newText.toCharArray()[newText.length()-1]=='0') ? true : false;
     		if (isLastZero)
-    			addSeperator=(indexPoint==newText.length()-2) ? true : false;
+    		{
+    			if (newText.toCharArray()[newText.length()-2]=='0') 
+    			{
+    				addSeperator=true;
+    				addSecondZero=true;
+    			}
+    			else
+    				addSeperator=(indexPoint==newText.length()-2) ? true : false;
+    		}
     	}
     	BigDecimal bd=new BigDecimal(newText);
     	TurquazDecimalFormat tdf=new TurquazDecimalFormat();
@@ -157,6 +168,8 @@ public class CurrencyText extends Composite {
     	if (addSeperator)
     		formatted+=",";
     	if (isLastZero)
+    		formatted +="0";
+    	if (addSecondZero)
     		formatted +="0";
     	text.setText(formatted);
     	String s=textcontrol.substring(0,e.start)+e.text;
@@ -189,9 +202,9 @@ public class CurrencyText extends Composite {
  public void setText(String txt){
  	text.setTextLimit(textLimit);
  	txt = txt.replaceAll("\\.",",");
- 	text.setText(txt);	
- 	
+ 	text.setText(txt);	 	
  }
+ 
  public void setBackground(Color c){
  	text.setBackground(c);
  }
