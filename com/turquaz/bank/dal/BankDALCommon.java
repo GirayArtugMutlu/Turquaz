@@ -199,7 +199,10 @@ public class BankDALCommon {
 	            SimpleDateFormat frmt = new SimpleDateFormat("yyyy-MM-dd");
 	        
 	            
-	            String query = "SELECT bankTrans.transaction_bill_date, bankCard.bank_code, bankTrans.transaction_bill_definition, totals.dept, totals.credit, type.transaction_type_name " +
+	            String query = "SELECT bankTrans.transaction_bill_date," +
+	            		" bankCard.bank_code, bankTrans.transaction_bill_definition," +
+	            		" totals.dept, totals.credit, type.transaction_type_name," +
+	            		" bankTrans.id " +
 	            		" FROM turq_banks_transaction_bills bankTrans " +
 	            		" LEFT JOIN (Select row.banks_cards_id as banksId, row.dept_amount as dept, row.credit_amount as credit, row.bank_transactions_bills_id as transId" +
 	            		" FROM turq_banks_transactions as row ) totals " +
@@ -221,13 +224,14 @@ public class BankDALCommon {
 	            List ls = new ArrayList();
 	            
 	            while(rs.next()){
-	                result = new Object[6];
+	                result = new Object[7];
 	                result[0] = rs.getObject(1);
 	                result[1] = rs.getObject(2);
 	                result[2] = rs.getObject(3);
 	                result[3] = rs.getObject(4);
 	                result[4] = rs.getObject(5);
 	                result[5] = rs.getObject(6);
+	                result[6] = rs.getObject(7);
 					ls.add(result);             
 	            }
 	         

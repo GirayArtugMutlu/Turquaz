@@ -49,6 +49,7 @@ public class BankBLTransactionSearch {
         }
     }
     
+    
     //Devreden Toplam
     public static List getDeferredTotal(TurqBanksCard cashCard, Date endDate) throws Exception
     {
