@@ -35,6 +35,7 @@ import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUIPrice;
 import com.turquaz.inventory.ui.comp.InvUIPriceList;
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
@@ -465,8 +466,8 @@ public class InvUICardUpdateDialog extends Dialog{
     
     
     // Update Inventory Card Fields
-    int accountIdSell = ((Integer) compInvUICard.getTxtInvCardOutAcc().getData()).intValue();
-	int accountIdBuy = ((Integer) compInvUICard.getTxtInvCardInAcc().getData()).intValue();
+   TurqAccountingAccount accountIdSell = (TurqAccountingAccount) compInvUICard.getTxtInvCardOutAcc().getData();
+   TurqAccountingAccount accountIdBuy = (TurqAccountingAccount) compInvUICard.getTxtInvCardInAcc().getData();
        
     cardUpdate.updateInvCard(compInvUICard.getTxtInvCardCode().getText()
 						.trim(), compInvUICard.getTxtInvCardSpecialCode().getText().trim(),

@@ -203,8 +203,8 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog {
 	/** Auto-generated event handler method */
 	protected void accountTreeMouseDoubleClick(MouseEvent evt){
 	 returnObj[0]=accountTree.getSelection()[0].getText();
-			returnObj[1]=accountTree.getSelection()[0].getData();
-		dialogShell.close();
+	 returnObj[1]=accountTree.getSelection()[0].getData();
+	 dialogShell.close();
 	}
 
 	/** Add your post-init code in here 	*/

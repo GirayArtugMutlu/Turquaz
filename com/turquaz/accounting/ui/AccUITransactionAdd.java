@@ -22,10 +22,15 @@ package com.turquaz.accounting.ui;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+
+import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.SecureComposite;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -35,6 +40,8 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.accounting.ui.comp.AccountPicker;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
 
 
@@ -45,15 +52,14 @@ import org.eclipse.swt.SWT;
 * for-profit company or business) then you should purchase
 * a license - please visit www.cloudgarden.com for details.
 */
-public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
+public class AccUITransactionAdd extends SecureComposite {
 
-	private AccountPicker accountPicker1;
 	private CLabel lblTotalDeptAmount;
 	private CLabel lblTotalCredit;
 	private CLabel cLabel2;
 	private CLabel cLabel1;
-	private Button button2;
-	private Button button1;
+	private Button btnRemoveTransactionRow;
+	private Button btnAddTransactionRow;
 	private TableColumn tableColumnDept;
 	private TableColumn tableColumnCredit;
 	private TableColumn tableColumnAccountName;
@@ -82,9 +88,9 @@ public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
 			lblDate = new CLabel(this,SWT.NULL);
 			dateTransactionDate = new DatePicker(this,SWT.NULL);
 			composite1 = new Composite(this,SWT.NULL);
-			button1 = new Button(composite1,SWT.PUSH| SWT.CENTER);
-			button2 = new Button(composite1,SWT.PUSH| SWT.CENTER);
-			tableTransactionColumns = new Table(this,SWT.BORDER);
+			btnAddTransactionRow = new Button(composite1,SWT.PUSH| SWT.CENTER);
+			btnRemoveTransactionRow = new Button(composite1,SWT.PUSH| SWT.CENTER);
+			tableTransactionColumns = new Table(this,SWT.FULL_SELECTION| SWT.BORDER);
 			tableColumnAccoutCode = new TableColumn(tableTransactionColumns,SWT.NULL);
 			tableColumnAccountName = new TableColumn(tableTransactionColumns,SWT.NULL);
 			tableColumnCredit = new TableColumn(tableTransactionColumns,SWT.NULL);
@@ -93,7 +99,6 @@ public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
 			cLabel2 = new CLabel(this,SWT.NULL);
 			cLabel1 = new CLabel(this,SWT.NULL);
 			lblTotalDeptAmount = new CLabel(this,SWT.NULL);
-			accountPicker1 = new AccountPicker(this,SWT.NULL);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(606,527));
 	
@@ -153,46 +158,56 @@ public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
 			GridData composite1LData = new GridData();
 			composite1LData.verticalAlignment = GridData.BEGINNING;
 			composite1LData.horizontalAlignment = GridData.BEGINNING;
-			composite1LData.widthHint = 65;
-			composite1LData.heightHint = 95;
+			composite1LData.widthHint = 70;
+			composite1LData.heightHint = 72;
 			composite1LData.horizontalIndent = 0;
 			composite1LData.horizontalSpan = 1;
 			composite1LData.verticalSpan = 1;
 			composite1LData.grabExcessHorizontalSpace = false;
 			composite1LData.grabExcessVerticalSpace = false;
 			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(65,95));
+			composite1.setSize(new org.eclipse.swt.graphics.Point(70,72));
 	
-			GridData button1LData = new GridData();
-			button1LData.verticalAlignment = GridData.CENTER;
-			button1LData.horizontalAlignment = GridData.CENTER;
-			button1LData.widthHint = 26;
-			button1LData.heightHint = 24;
-			button1LData.horizontalIndent = 0;
-			button1LData.horizontalSpan = 1;
-			button1LData.verticalSpan = 1;
-			button1LData.grabExcessHorizontalSpace = false;
-			button1LData.grabExcessVerticalSpace = false;
-			button1.setLayoutData(button1LData);
-			final org.eclipse.swt.graphics.Image button1image = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/plus.gif"));
-			button1image.setBackground(button1.getBackground());
-			button1.setImage(button1image);
-			button1.setSize(new org.eclipse.swt.graphics.Point(26,24));
+			GridData btnAddTransactionRowLData = new GridData();
+			btnAddTransactionRowLData.verticalAlignment = GridData.CENTER;
+			btnAddTransactionRowLData.horizontalAlignment = GridData.CENTER;
+			btnAddTransactionRowLData.widthHint = 26;
+			btnAddTransactionRowLData.heightHint = 24;
+			btnAddTransactionRowLData.horizontalIndent = 0;
+			btnAddTransactionRowLData.horizontalSpan = 1;
+			btnAddTransactionRowLData.verticalSpan = 1;
+			btnAddTransactionRowLData.grabExcessHorizontalSpace = false;
+			btnAddTransactionRowLData.grabExcessVerticalSpace = false;
+			btnAddTransactionRow.setLayoutData(btnAddTransactionRowLData);
+			final org.eclipse.swt.graphics.Image btnAddTransactionRowimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/plus.gif"));
+			btnAddTransactionRowimage.setBackground(btnAddTransactionRow.getBackground());
+			btnAddTransactionRow.setImage(btnAddTransactionRowimage);
+			btnAddTransactionRow.setSize(new org.eclipse.swt.graphics.Point(26,24));
+			btnAddTransactionRow.addMouseListener( new MouseAdapter() {
+				public void mouseUp(MouseEvent evt) {
+					btnAddTransactionRowMouseUp(evt);
+				}
+			});
 	
-			GridData button2LData = new GridData();
-			button2LData.verticalAlignment = GridData.CENTER;
-			button2LData.horizontalAlignment = GridData.CENTER;
-			button2LData.widthHint = -1;
-			button2LData.heightHint = -1;
-			button2LData.horizontalIndent = 0;
-			button2LData.horizontalSpan = 1;
-			button2LData.verticalSpan = 1;
-			button2LData.grabExcessHorizontalSpace = false;
-			button2LData.grabExcessVerticalSpace = false;
-			button2.setLayoutData(button2LData);
-			final org.eclipse.swt.graphics.Image button2image = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif"));
-			button2image.setBackground(button2.getBackground());
-			button2.setImage(button2image);
+			GridData btnRemoveTransactionRowLData = new GridData();
+			btnRemoveTransactionRowLData.verticalAlignment = GridData.CENTER;
+			btnRemoveTransactionRowLData.horizontalAlignment = GridData.CENTER;
+			btnRemoveTransactionRowLData.widthHint = -1;
+			btnRemoveTransactionRowLData.heightHint = -1;
+			btnRemoveTransactionRowLData.horizontalIndent = 0;
+			btnRemoveTransactionRowLData.horizontalSpan = 1;
+			btnRemoveTransactionRowLData.verticalSpan = 1;
+			btnRemoveTransactionRowLData.grabExcessHorizontalSpace = false;
+			btnRemoveTransactionRowLData.grabExcessVerticalSpace = false;
+			btnRemoveTransactionRow.setLayoutData(btnRemoveTransactionRowLData);
+			final org.eclipse.swt.graphics.Image btnRemoveTransactionRowimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/minus.gif"));
+			btnRemoveTransactionRowimage.setBackground(btnRemoveTransactionRow.getBackground());
+			btnRemoveTransactionRow.setImage(btnRemoveTransactionRowimage);
+			btnRemoveTransactionRow.addMouseListener( new MouseAdapter() {
+				public void mouseUp(MouseEvent evt) {
+					btnRemoveTransactionRowMouseUp(evt);
+				}
+			});
 			GridLayout composite1Layout = new GridLayout(1, true);
 			composite1.setLayout(composite1Layout);
 			composite1Layout.marginWidth = 5;
@@ -216,7 +231,7 @@ public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
 			tableTransactionColumns.setLayoutData(tableTransactionColumnsLData);
 			tableTransactionColumns.setHeaderVisible(true);
 			tableTransactionColumns.setLinesVisible(true);
-			tableTransactionColumns.setSize(new org.eclipse.swt.graphics.Point(468,361));
+			tableTransactionColumns.setSize(new org.eclipse.swt.graphics.Point(501,393));
 	
 			tableColumnAccoutCode.setText("Account Code");
 			tableColumnAccoutCode.setWidth(121);
@@ -283,8 +298,6 @@ public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
 			lblTotalDeptAmountLData.grabExcessVerticalSpace = false;
 			lblTotalDeptAmount.setLayoutData(lblTotalDeptAmountLData);
 			lblTotalDeptAmount.setText("0");
-	
-			accountPicker1.layout();
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
@@ -296,8 +309,8 @@ public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
 			this.layout();
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					button1image.dispose();
-					button2image.dispose();
+					btnAddTransactionRowimage.dispose();
+					btnRemoveTransactionRowimage.dispose();
 				}
 			});
 	
@@ -312,5 +325,56 @@ public class AccUITransactionAdd extends org.eclipse.swt.widgets.Composite {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	}
+
+	public void save(){
+	
+	}
+	
+	public void delete(){
+	
+	}
+	
+	public void newForm(){
+	
+	}
+	
+	public void search(){
+	
+	}
+	
+	
+
+	/** Auto-generated event handler method */
+	protected void btnAddTransactionRowMouseUp(MouseEvent evt){
+    
+    Object o = new AccUITransactionRowAddDialog(this.getShell(),SWT.NULL).showDialog();
+    
+    if(o!=null){
+    TurqAccountingTransactionColumn accTransRow = (TurqAccountingTransactionColumn)o;
+    
+    
+    TableItem item = new TableItem(tableTransactionColumns,SWT.NULL);    
+	item.setData(accTransRow);
+	item.setText(new String[]{accTransRow.getTurqAccountingAccount().getAccountCode(),
+							 accTransRow.getTurqAccountingAccount().getAccountName(),
+							 accTransRow.getCreditAmount().toString(),
+							 accTransRow.getDeptAmount().toString()});
+	
+	
+	}
+	
+	}
+
+	
+
+	/** Auto-generated event handler method */
+	protected void btnRemoveTransactionRowMouseUp(MouseEvent evt){
+		TableItem selection[] = tableTransactionColumns.getSelection();
+		if(selection.length>0){
+		selection[0].dispose();
+		}
+		
+		
 	}
 }

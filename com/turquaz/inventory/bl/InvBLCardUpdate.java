@@ -62,15 +62,11 @@ public class InvBLCardUpdate {
 	 */
 	public void updateInvCard(String invCode, String invSpecialCode,
 			String cardName, String cardDefinition, int minAmount,
-			int maxAmount, int cardVat, int discount, int accountIdBuy,
-			int accountIdSell,TurqInventoryCard card) throws Exception{
+			int maxAmount, int cardVat, int discount,TurqAccountingAccount accountBuy,
+			TurqAccountingAccount accountSell,TurqInventoryCard card) throws Exception{
 		try {
 
 		
-			TurqAccountingAccount accountBuy = new TurqAccountingAccount();
-			TurqAccountingAccount accountSell = new TurqAccountingAccount();
-			accountBuy.setAccountingAccountsId(new Integer(accountIdBuy));
-			accountSell.setAccountingAccountsId(new Integer(accountIdSell));
 
 			card.setCardDefinition(cardDefinition);
 			card.setCardDiscount(discount);

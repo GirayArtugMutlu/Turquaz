@@ -196,18 +196,14 @@ public class InvBLCardAdd {
 
 	public Integer saveInvCard(String invCode, String invSpecialCode,
 			String cardName, String cardDefinition, int minAmount,
-			int maxAmount, int cardVat, int discount, int accountIdBuy,
-			int accountIdSell) throws Exception {
+			int maxAmount, int cardVat, int discount,TurqAccountingAccount accountBuy,
+			TurqAccountingAccount accountSell) throws Exception {
 
 		try {
 
 			TurqCompany company = new TurqCompany();
 			company.setCompaniesId(Integer.valueOf(System
-					.getProperty("company")));
-			TurqAccountingAccount accountBuy = new TurqAccountingAccount();
-			TurqAccountingAccount accountSell = new TurqAccountingAccount();
-			accountBuy.setAccountingAccountsId(new Integer(accountIdBuy));
-			accountSell.setAccountingAccountsId(new Integer(accountIdSell));
+					.getProperty("company")));			
 
 			TurqInventoryCard card = new TurqInventoryCard();
 			card.setCardDefinition(cardDefinition);

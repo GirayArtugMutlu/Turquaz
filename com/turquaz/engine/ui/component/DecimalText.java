@@ -159,6 +159,9 @@ decimalSymbol + "][0-9]+)?");
  
  public BigDecimal getBigDecimalValue(){
  	String text = this.text.getText();
+ 	if(text.equals("")){
+ 		return new BigDecimal(0);
+ 	}
  	return new BigDecimal(text);
  	
  	

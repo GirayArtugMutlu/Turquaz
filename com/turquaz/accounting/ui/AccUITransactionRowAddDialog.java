@@ -2,6 +2,7 @@ package com.turquaz.accounting.ui;
 
 import java.math.BigDecimal;
 
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -30,7 +31,7 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 	private Button btnOk;
 	private Button btnCancel;
 	private DecimalText decTextAmount;
-	private CLabel Amount;
+	private CLabel lblAmount;
 	private CLabel lbDeptOrCredit;
 	private CCombo comboDeptOrCredit;
 	private AccountPicker accountPicker;
@@ -57,41 +58,91 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			accountPicker = new AccountPicker(dialogShell,SWT.NULL);
 			lbDeptOrCredit = new CLabel(dialogShell,SWT.NULL);
 			comboDeptOrCredit = new CCombo(dialogShell,SWT.NULL);
-			Amount = new CLabel(dialogShell,SWT.NULL);
+			lblAmount = new CLabel(dialogShell,SWT.NULL);
 			decTextAmount = new DecimalText(dialogShell,SWT.NULL);
 			btnCancel = new Button(dialogShell,SWT.PUSH| SWT.CENTER);
 			btnOk = new Button(dialogShell,SWT.PUSH| SWT.CENTER);
 	
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(328,129));
 	
+			GridData lblAccountLData = new GridData();
+			lblAccountLData.verticalAlignment = GridData.CENTER;
+			lblAccountLData.horizontalAlignment = GridData.BEGINNING;
+			lblAccountLData.widthHint = -1;
+			lblAccountLData.heightHint = -1;
+			lblAccountLData.horizontalIndent = 0;
+			lblAccountLData.horizontalSpan = 1;
+			lblAccountLData.verticalSpan = 1;
+			lblAccountLData.grabExcessHorizontalSpace = false;
+			lblAccountLData.grabExcessVerticalSpace = false;
+			lblAccount.setLayoutData(lblAccountLData);
 			lblAccount.setText("Account");
 	
 			GridData accountPickerLData = new GridData();
+			accountPickerLData.verticalAlignment = GridData.CENTER;
+			accountPickerLData.horizontalAlignment = GridData.BEGINNING;
 			accountPickerLData.widthHint = 204;
 			accountPickerLData.heightHint = 20;
+			accountPickerLData.horizontalIndent = 0;
+			accountPickerLData.horizontalSpan = 1;
+			accountPickerLData.verticalSpan = 1;
+			accountPickerLData.grabExcessHorizontalSpace = false;
+			accountPickerLData.grabExcessVerticalSpace = false;
 			accountPicker.setLayoutData(accountPickerLData);
 			accountPicker.setSize(new org.eclipse.swt.graphics.Point(204,20));
 			accountPicker.layout();
 	
 			GridData lbDeptOrCreditLData = new GridData();
+			lbDeptOrCreditLData.verticalAlignment = GridData.CENTER;
+			lbDeptOrCreditLData.horizontalAlignment = GridData.BEGINNING;
 			lbDeptOrCreditLData.widthHint = 62;
 			lbDeptOrCreditLData.heightHint = 19;
+			lbDeptOrCreditLData.horizontalIndent = 0;
+			lbDeptOrCreditLData.horizontalSpan = 1;
+			lbDeptOrCreditLData.verticalSpan = 1;
+			lbDeptOrCreditLData.grabExcessHorizontalSpace = false;
+			lbDeptOrCreditLData.grabExcessVerticalSpace = false;
 			lbDeptOrCredit.setLayoutData(lbDeptOrCreditLData);
 			lbDeptOrCredit.setText("Dept/Credit");
 			lbDeptOrCredit.setSize(new org.eclipse.swt.graphics.Point(62,19));
 	
 			GridData comboDeptOrCreditLData = new GridData();
+			comboDeptOrCreditLData.verticalAlignment = GridData.CENTER;
+			comboDeptOrCreditLData.horizontalAlignment = GridData.BEGINNING;
 			comboDeptOrCreditLData.widthHint = 71;
 			comboDeptOrCreditLData.heightHint = 17;
+			comboDeptOrCreditLData.horizontalIndent = 0;
+			comboDeptOrCreditLData.horizontalSpan = 1;
+			comboDeptOrCreditLData.verticalSpan = 1;
+			comboDeptOrCreditLData.grabExcessHorizontalSpace = false;
+			comboDeptOrCreditLData.grabExcessVerticalSpace = false;
 			comboDeptOrCredit.setLayoutData(comboDeptOrCreditLData);
 			comboDeptOrCredit.setText("Dept");
 			comboDeptOrCredit.setSize(new org.eclipse.swt.graphics.Point(71,17));
 	
-			Amount.setText("lblAmount");
+			GridData lblAmountLData = new GridData();
+			lblAmountLData.verticalAlignment = GridData.CENTER;
+			lblAmountLData.horizontalAlignment = GridData.BEGINNING;
+			lblAmountLData.widthHint = -1;
+			lblAmountLData.heightHint = -1;
+			lblAmountLData.horizontalIndent = 0;
+			lblAmountLData.horizontalSpan = 1;
+			lblAmountLData.verticalSpan = 1;
+			lblAmountLData.grabExcessHorizontalSpace = false;
+			lblAmountLData.grabExcessVerticalSpace = false;
+			lblAmount.setLayoutData(lblAmountLData);
+			lblAmount.setText("Amount");
 	
 			GridData decTextAmountLData = new GridData();
+			decTextAmountLData.verticalAlignment = GridData.CENTER;
+			decTextAmountLData.horizontalAlignment = GridData.BEGINNING;
 			decTextAmountLData.widthHint = 154;
 			decTextAmountLData.heightHint = 18;
+			decTextAmountLData.horizontalIndent = 0;
+			decTextAmountLData.horizontalSpan = 1;
+			decTextAmountLData.verticalSpan = 1;
+			decTextAmountLData.grabExcessHorizontalSpace = false;
+			decTextAmountLData.grabExcessVerticalSpace = false;
 			decTextAmount.setLayoutData(decTextAmountLData);
 			decTextAmount.setSize(new org.eclipse.swt.graphics.Point(154,18));
 	
@@ -159,7 +210,20 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	Point parentLocation =this.getParent().getLocation();
+	Point parentSize = this.getParent().getSize();	
+    Point dialogSize = dialogShell.getSize();
+     
+    int location_X = (parentLocation.x + parentSize.x)/2 - (dialogSize.x/2);
+    int location_Y = (parentLocation.y + parentSize.y)/2 - (dialogSize.y/2);
+    
+    dialogShell.setLocation(location_X,location_Y);
 	transactionRow = null;
+	
+	comboDeptOrCredit.add("Dept");
+	comboDeptOrCredit.add("Credit");
+	
+	
 	}
 	public Object showDialog(){
 	this.open();

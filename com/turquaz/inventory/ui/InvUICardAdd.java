@@ -51,6 +51,7 @@ import org.eclipse.swt.widgets.Button;
 import com.turquaz.accounting.ui.AccUIDialogInventoryCodeChoose;
 import com.turquaz.accounting.ui.comp.AccUIAccountsTree;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryUnit;
@@ -1542,8 +1543,8 @@ decimalSymbol + "][0-9]+)?");
 		if (verifyFields()) {
 
 			
-			int accountIdSell = ((Integer) txtInvCardOutAcc.getData()).intValue();
-			int accountIdBuy = ((Integer) txtInvCardInAcc.getData()).intValue();
+			TurqAccountingAccount accountIdSell = (TurqAccountingAccount) txtInvCardOutAcc.getData();
+			TurqAccountingAccount accountIdBuy = (TurqAccountingAccount) txtInvCardOutAcc.getData();
 			try {
 
 				// Save inventory card
