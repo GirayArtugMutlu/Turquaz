@@ -57,6 +57,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 
 import com.turquaz.engine.EngConfiguration;
+import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.ui.wizards.EngUIDatabaseConnectionWizard;
@@ -79,12 +80,12 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblUserName;
 	private Text txtUserName;
 	private Button checkRememberPassword;
-	private Composite composite1;
+	private Composite compEngUIMainFrame;
 	private Button btnCancel;
 	private Button btnOk;
 	private Text txtPassword;
 	private CLabel lblPassword;
-	private Label label1;
+	private Label lblSeperator;
 	private EngBLCommon blCommon = new EngBLCommon();
 
 	/**
@@ -104,7 +105,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		Shell shell = new Shell(display);
 		EngUIEntryFrame inst = new EngUIEntryFrame(shell, SWT.NULL);
 		Point size = inst.getSize();
-		shell.setText("Turquaz");
+		shell.setText(Messages.getString("EngUIEntryFrame.0")); //$NON-NLS-1$
 		shell.setLayout(new FillLayout());
 		shell.layout();
 		if(size.x == 0 && size.y == 0) {
@@ -146,7 +147,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			this.setSize(377, 143);
 			{
 				lblUserName = new CLabel(this, SWT.NONE);
-				lblUserName.setText("Username");
+				lblUserName.setText(Messages.getString("EngUIEntryFrame.1")); //$NON-NLS-1$
 			}
 			{
 				txtUserName = new Text(this, SWT.NONE);
@@ -159,7 +160,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			}
 			{
 				lblPassword = new CLabel(this, SWT.NONE);
-				lblPassword.setText("Password");
+				lblPassword.setText(Messages.getString("EngUIEntryFrame.2")); //$NON-NLS-1$
 			}
 			{
 				txtPassword = new Text(this, SWT.PASSWORD);
@@ -171,7 +172,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			}
 			{
 				checkRememberPassword = new Button(this, SWT.CHECK | SWT.LEFT);
-				checkRememberPassword.setText("Remember Password");
+				checkRememberPassword.setText(Messages.getString("EngUIEntryFrame.3")); //$NON-NLS-1$
 				GridData checkRememberPasswordLData = new GridData();
 				checkRememberPasswordLData.horizontalSpan = 2;
 				checkRememberPasswordLData.widthHint = 162;
@@ -179,33 +180,33 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 				checkRememberPassword.setLayoutData(checkRememberPasswordLData);
 			}
 			{
-				label1 = new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
-				label1.setText("label1");
+				lblSeperator = new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
+				lblSeperator.setText(""); //$NON-NLS-1$
 				GridData label1LData = new GridData();
 				label1LData.horizontalSpan = 2;
 				label1LData.horizontalAlignment = GridData.FILL;
 				label1LData.grabExcessHorizontalSpace = true;
 				label1LData.heightHint = 2;
 				label1LData.grabExcessVerticalSpace = true;
-				label1.setLayoutData(label1LData);
+				lblSeperator.setLayoutData(label1LData);
 			}
 			{
-				composite1 = new Composite(this, SWT.NONE);
+				compEngUIMainFrame = new Composite(this, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
 				GridData composite1LData = new GridData();
 				composite1LData.widthHint = 164;
 				composite1LData.heightHint = 40;
 				composite1LData.horizontalSpan = 2;
 				composite1LData.horizontalAlignment = GridData.END;
-				composite1.setLayoutData(composite1LData);
+				compEngUIMainFrame.setLayoutData(composite1LData);
 				composite1Layout.makeColumnsEqualWidth = true;
 				composite1Layout.numColumns = 2;
-				composite1.setLayout(composite1Layout);
+				compEngUIMainFrame.setLayout(composite1Layout);
 				{
-					btnCancel = new Button(composite1, SWT.PUSH | SWT.FLAT | SWT.CENTER);
-					btnCancel.setText("Cancel");
+					btnCancel = new Button(compEngUIMainFrame, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+					btnCancel.setText(Messages.getString("EngUIEntryFrame.5")); //$NON-NLS-1$
 					GridData btnCancelLData = new GridData();
-					btnCancel.setImage(SWTResourceManager.getImage("icons/Cancel24.gif"));
+					btnCancel.setImage(SWTResourceManager.getImage("icons/Cancel24.gif")); //$NON-NLS-1$
 					btnCancel.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
 							btnCancelMouseUp(evt);
@@ -219,10 +220,10 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 					btnCancel.setLayoutData(btnCancelLData);
 				}
 				{
-					btnOk = new Button(composite1, SWT.PUSH | SWT.FLAT | SWT.CENTER);
-					btnOk.setText("Ok");
+					btnOk = new Button(compEngUIMainFrame, SWT.PUSH | SWT.FLAT | SWT.CENTER);
+					btnOk.setText(Messages.getString("EngUIEntryFrame.7")); //$NON-NLS-1$
 					GridData btnOkLData = new GridData();
-					btnOk.setImage(SWTResourceManager.getImage("icons/Ok24.gif"));
+					btnOk.setImage(SWTResourceManager.getImage("icons/Ok24.gif")); //$NON-NLS-1$
 					btnOk.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
 							btnOkMouseUp();
@@ -253,29 +254,29 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		if(blCommon.checkUserPass(txtUserName.getText(),txtPassword.getText())){
 			
 			try{
-				FileInputStream input = new FileInputStream("config/turquaz.properties");
+				FileInputStream input = new FileInputStream("config/turquaz.properties"); //$NON-NLS-1$
 			    Properties props = new Properties();
 			    props.load(input);
 			    
 			    if(checkRememberPassword.getSelection()){
 			    	 String password = new String(org.eclipse.core.internal.preferences.Base64.encode(txtPassword.getText().getBytes()));
-					 props.put("username",txtUserName.getText());
-					 props.put("password",password);
-					 props.put("remember_password","true");
+					 props.put("username",txtUserName.getText()); //$NON-NLS-1$
+					 props.put("password",password); //$NON-NLS-1$
+					 props.put("remember_password","true"); //$NON-NLS-1$ //$NON-NLS-2$
 			    }
 			    else{
-			    	props.remove("username");
-			    	props.remove("password");
-			    	props.put("remember_password","false");
+			    	props.remove("username"); //$NON-NLS-1$
+			    	props.remove("password"); //$NON-NLS-1$
+			    	props.put("remember_password","false"); //$NON-NLS-1$ //$NON-NLS-2$
 			    }
 			   
 			    input.close();
 			    
-			    FileOutputStream output = new FileOutputStream("config/turquaz.properties");
-			    props.save(output,"Turquaz Configuration");
+			    FileOutputStream output = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$
+			    props.save(output,"Turquaz Configuration"); //$NON-NLS-1$
 			    
-			    System.setProperty("user",txtUserName.getText());
-			    System.setProperty("company","0");
+			    System.setProperty("user",txtUserName.getText()); //$NON-NLS-1$
+			    System.setProperty("company","0"); //$NON-NLS-1$ //$NON-NLS-2$
 			    
 			    EngDALSessionFactory.init();
 			    
@@ -292,7 +293,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			
 		}
 		else {
-		msg.setMessage("Wrong username or password");
+		msg.setMessage(Messages.getString("EngUIEntryFrame.23")); //$NON-NLS-1$
 		msg.open();
 		}
 		}
@@ -304,15 +305,15 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	}
 	public void preInitGui(){
 			
-		Locale.setDefault(new Locale("tr","TR"));
+		Locale.setDefault(new Locale("tr","TR")); //$NON-NLS-1$ //$NON-NLS-2$
 		
-		File config = new File("config/turquaz.properties");
+		File config = new File("config/turquaz.properties"); //$NON-NLS-1$
 		if(!config.exists()){
 			EngUIDatabaseConnectionWizard wizard = new EngUIDatabaseConnectionWizard();
 			WizardDialog dialog = new WizardDialog(this.getShell(),wizard);
 			dialog.open();	
-			txtPassword.setText("admin");
-			txtUserName.setText("admin");
+			txtPassword.setText("admin"); //$NON-NLS-1$
+			txtUserName.setText("admin"); //$NON-NLS-1$
 		}
 		
 	
@@ -323,16 +324,16 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	
 	public void postInitGui(){
     btnOk.setFocus();
-	String username = EngConfiguration.getString("username");
-	String password = EngConfiguration.getString("password");
-	String rememberPassword = EngConfiguration.getString("remember_password");
+	String username = EngConfiguration.getString("username"); //$NON-NLS-1$
+	String password = EngConfiguration.getString("password"); //$NON-NLS-1$
+	String rememberPassword = EngConfiguration.getString("remember_password"); //$NON-NLS-1$
 	if(username!=null&&password!=null){
 	txtPassword.setText(new String(Base64.decode(password.getBytes())));
 	txtUserName.setText(username);	
 		
 	}
 	checkRememberPassword.setSelection(false);
-	if(rememberPassword!=null&&rememberPassword.equals("true")){
+	if(rememberPassword!=null&&rememberPassword.equals("true")){ //$NON-NLS-1$
 		checkRememberPassword.setSelection(true);
 	}
 		

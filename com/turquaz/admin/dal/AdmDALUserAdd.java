@@ -1,10 +1,6 @@
-/*
- * Created on Nov 3, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 package com.turquaz.admin.dal;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -25,17 +21,12 @@ package com.turquaz.admin.dal;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
 
-/**
- * @author onsel
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class AdmDALUserAdd {
 	
 	public AdmDALUserAdd(){

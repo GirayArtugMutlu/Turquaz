@@ -1,10 +1,6 @@
-/*
- * Created on Nov 3, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 package com.turquaz.admin.bl;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -30,18 +26,13 @@ import java.util.Calendar;
 import java.util.List;
 
 
+import com.turquaz.admin.Messages;
 import com.turquaz.admin.dal.AdmDALUserAdd;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.dal.TurqUserGroup;
 
-/**
- * @author onsel
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class AdmBLUserAdd {
 	
 	private EngDALCommon dalCommon = new EngDALCommon();
@@ -62,8 +53,8 @@ public class AdmBLUserAdd {
 			user.setUsersDescription(description);
 			
 
-			user.setCreatedBy(System.getProperty("user"));
-			user.setUpdatedBy(System.getProperty("user"));
+			user.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			user.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		    user.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
 			user.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
@@ -88,8 +79,8 @@ public class AdmBLUserAdd {
 			usergroup.setTurqUser(user);
 			usergroup.setTurqGroup((TurqGroup)group);
 			
-			usergroup.setCreatedBy(System.getProperty("user"));
-			usergroup.setUpdatedBy(System.getProperty("user"));
+			usergroup.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			usergroup.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		    usergroup.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
 			usergroup.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
