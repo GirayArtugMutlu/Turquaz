@@ -308,7 +308,6 @@ public class CashDALCashCard {
             		" cashTrans.transaction_date <= '"+frmt.format(endDate)+"' " +
             		" and cashTrans.cash_cards_id = cashCard.cash_cards_id";
           
-            System.out.println(query);
 
             Statement stmt = session.connection().createStatement();
             ResultSet rs = stmt.executeQuery(query);
