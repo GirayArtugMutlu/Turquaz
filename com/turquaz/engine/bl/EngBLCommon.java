@@ -313,6 +313,32 @@ public class EngBLCommon
 			throw ex;
 		}
 	}
+	
+	
+	
+	public static Integer getBankTransaction(HashMap argMap) throws Exception
+	{
+		TurqEngineSequence seq = (TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
+		return EngDALCommon.getBankTransaction(seq);
+	}
+	public static Integer getCheqeuTransaction(HashMap argMap) throws Exception
+	{
+		TurqEngineSequence seq = (TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
+		return EngDALCommon.getCheqeuTransaction(seq);
+	}
+	public static Integer getBill(HashMap argMap) throws Exception
+	{
+		TurqEngineSequence seq = (TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
+		return EngDALCommon.getBill(seq);
+	}
+
+	public static Integer getCashTransaction(HashMap argMap) throws Exception
+	{
+		TurqEngineSequence seq = (TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
+		return EngDALCommon.getCashTransaction(seq);
+	}
+		
+	
 
 	public static TurqCurrencyExchangeRate getBaseCurrencyExchangeRate() throws Exception
 	{

@@ -14,6 +14,7 @@ import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
@@ -63,6 +64,7 @@ public class BillBLUpdateBill
 				ConBLUpdateConsignment.deleteConsignment(cons);
 			}
 		}
+		EngDALSessionFactory.getSession().clear();
 	}
 
 	private static void deleteBillInEngineSequences(TurqBill bill) throws Exception
