@@ -503,7 +503,7 @@ public final class TreeFactory {
 			item = new TreeItem(root,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.57"));   //$NON-NLS-1$
 			item.setData(CheUIChequeInPayroll.class.getName());
-	   }
+	    }
 		
 		root.setExpanded(true);
 		return tree;

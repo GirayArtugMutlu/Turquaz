@@ -44,18 +44,21 @@ public class BankBLTransactionAdd {
             transType.setBankTransactionTypesId(new Integer(type));
             
             TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
-            bankTransBill.setTurqBanksCard(bankCard);
-           
+            System.out.println(Calendar.getInstance().getTime());
+            
+            bankTransBill.setTurqBanksCard(bankCard);           
             bankTransBill.setTurqEngineSequence(seq);
             bankTransBill.setTransactionBillDate(transDate);
             bankTransBill.setTransactionBillDefinition(definition);
             bankTransBill.setTransactionBillNo(docNo);
             bankTransBill.setTurqBanksTransactionType(transType);
+            
             bankTransBill.setCreatedBy(System.getProperty("user"));
        	    bankTransBill.setUpdatedBy(System.getProperty("user"));
        	    bankTransBill.setLastModified(Calendar.getInstance().getTime());
          	bankTransBill.setCreationDate(Calendar.getInstance().getTime());
-         	
+         
+     
          	
          	/*
          	 * Transaction Rows
@@ -66,6 +69,8 @@ public class BankBLTransactionAdd {
         	transRow.setUpdatedBy(System.getProperty("user"));
         	transRow.setLastModified(Calendar.getInstance().getTime());
           	transRow.setCreationDate(Calendar.getInstance().getTime());
+          	transRow.setTurqAccountingAccount(curCard.getTurqAccountingAccount());
+       
          
          	
         	

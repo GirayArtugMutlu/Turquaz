@@ -17,11 +17,13 @@ import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Point;
 
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
+import com.turquaz.engine.bl.EngBLBankCards;
 import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCashCard;
 
 
@@ -129,6 +131,18 @@ public class TurquazContentAssistProcessors implements
                    Object[] result = ((Object[]) list.get(i));
                    
                    proposed.add(new Proposal(result[0].toString(),result[1].toString()));
+               
+               }
+           }
+           else if(type==EngBLCommon.CONTENT_ASSIST_BANK){
+               
+               List list = EngBLBankCards.getBankCards();
+
+               
+               for (int i = 0; i < list.size(); i++) {
+                  TurqBanksCard bankCard = ((TurqBanksCard) list.get(i));
+                   
+                   proposed.add(new Proposal(bankCard.getBankCode(),bankCard.getBankName()+"-"+bankCard.getBankBranchName()+"-"+bankCard.getBankAccountNo()));
                
                }
            }

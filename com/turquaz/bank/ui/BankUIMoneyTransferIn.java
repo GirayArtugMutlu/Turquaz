@@ -2,6 +2,7 @@ package com.turquaz.bank.ui;
 
 import java.math.BigDecimal;
 
+import com.turquaz.bank.ui.comp.BankCardPicker;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
@@ -48,7 +49,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
 	private CLabel lblAmount;
 	private CurrentPicker currentPicker;
 	private CLabel lblCurrentCard;
-	private Text txtBankCard;
+	private BankCardPicker txtBankCard;
 
 	
 
@@ -92,7 +93,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
                 lblBankCard.setText(Messages.getString("BankUIMoneyTransferIn.1")); //$NON-NLS-1$
             }
             {
-                txtBankCard = new Text(this, SWT.NONE);
+                txtBankCard = new BankCardPicker(this, SWT.NONE);
                 GridData txtBankCardLData = new GridData();
                 txtBankCardLData.widthHint = 192;
                 txtBankCardLData.heightHint = 18;
@@ -105,8 +106,8 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
             {
                 currentPicker = new CurrentPicker(this, SWT.NONE);
                 GridData currentPickerLData = new GridData();
-                currentPickerLData.widthHint = 197;
-                currentPickerLData.heightHint = 20;
+                currentPickerLData.widthHint = 191;
+                currentPickerLData.heightHint = 18;
                 currentPicker.setLayoutData(currentPickerLData);
             }
             {
@@ -116,7 +117,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
             {
                 curAmount = new CurrencyText(this, SWT.NONE);
                 GridData curAmountLData = new GridData();
-                curAmountLData.widthHint = 191;
+                curAmountLData.widthHint = 185;
                 curAmountLData.heightHint = 18;
                 curAmount.setLayoutData(curAmountLData);
             }

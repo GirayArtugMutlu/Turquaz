@@ -1,6 +1,7 @@
 package com.turquaz.bank.ui;
 import java.math.BigDecimal;
 
+import com.turquaz.bank.ui.comp.BankCardPicker;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
@@ -46,7 +47,7 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
 	private CLabel lblAmount;
 	private CurrentPicker currentPicker;
 	private CLabel lblCurrentCard;
-	private Text txtBankCard;
+	private BankCardPicker txtBankCard;
 
 
 
@@ -90,7 +91,7 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
                 lblBankCard.setText(Messages.getString("BankUIMoneyTransferOut.1")); //$NON-NLS-1$
             }
             {
-                txtBankCard = new Text(this, SWT.NONE);
+                txtBankCard = new BankCardPicker(this, SWT.NONE);
                 GridData txtBankCardLData = new GridData();
                 txtBankCardLData.widthHint = 192;
                 txtBankCardLData.heightHint = 18;

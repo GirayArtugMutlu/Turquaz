@@ -78,15 +78,13 @@ public class EngDALSessionFactory {
 		System.setProperty("dbPass",password);
 		
 		
-		Configuration cfg =new Configuration();
-			
-		
+		Configuration cfg =new Configuration();		
 		
 		props.put("hibernate.connection.url",url);
 		props.put("hibernate.connection.driver_class",driver);
 		props.put("hibernate.connection.username",username);
 		props.put("hibernate.connection.password",password);
-		props.put("hibernate.show_sql","false");
+		props.put("hibernate.show_sql","true");
 		props.put("hibernate.schema","public");
 		
 			
