@@ -123,11 +123,19 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite
 			lblDateRange.setText(Messages.getString("AccUIAccountingJournal.0")); //$NON-NLS-1$
 			{
 				datePickerBeginDate = new DatePicker(this, SWT.NONE);
+				GridData datePickerBeginDateLData = new GridData();
+				datePickerBeginDateLData.widthHint = 157;
+				datePickerBeginDateLData.heightHint = 22;
+				datePickerBeginDate.setLayoutData(datePickerBeginDateLData);
 				//datePickerBeginDate.setDate(new Date(cal.getTime().getYear(),0,1));
 				cal.set(cal.get(Calendar.YEAR), 0, 1);
 				datePickerBeginDate.setDate(cal.getTime());
 			}
 			datePickerEndDate = new DatePicker(this, SWT.NONE);
+			GridData datePickerEndDateLData = new GridData();
+			datePickerEndDateLData.widthHint = 157;
+			datePickerEndDateLData.heightHint = 22;
+			datePickerEndDate.setLayoutData(datePickerEndDateLData);
 			{
 				lblDummy = new CLabel(this, SWT.NONE);
 			}
@@ -138,8 +146,8 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite
 			{
 				btnReports = new Button(this, SWT.PUSH | SWT.CENTER);
 				GridData btnReportsLData = new GridData();
-				btnReportsLData.widthHint = 118;
-				btnReportsLData.heightHint = 28;
+				btnReportsLData.widthHint = 157;
+				btnReportsLData.heightHint = 23;
 				btnReportsLData.verticalAlignment = GridData.BEGINNING;
 				btnReports.setText(Messages.getString("AccUIAccountingJournal.1")); //$NON-NLS-1$
 				btnReports.addMouseListener(new MouseAdapter()
@@ -166,10 +174,11 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite
 				{
 					viewer = new ViewerComposite(compViewer, SWT.NONE);
 					GridData viewerLData = new GridData();
-					viewerLData.grabExcessHorizontalSpace = true;
 					viewerLData.horizontalAlignment = GridData.FILL;
-					viewerLData.grabExcessVerticalSpace = true;
 					viewerLData.verticalAlignment = GridData.FILL;
+					viewerLData.grabExcessVerticalSpace = true;
+					viewerLData.grabExcessHorizontalSpace = true;
+					viewerLData.horizontalSpan = 3;
 					viewer.setLayoutData(viewerLData);
 				}
 			}

@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="AccountingSubsidiaryLedger" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.DataSource" value="turquaz"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.VGuides.Title" value="20"/>
@@ -75,7 +75,7 @@
 		<groupHeader>
 		<band height="73">
 			<rectangle>
-				<reportElement positionType="Float" x="1" y="39" width="554" height="20"/>
+				<reportElement positionType="Float" x="0" y="39" width="555" height="20"/>
 				<graphicElement/>
 			</rectangle>
 			<textField>
@@ -160,28 +160,28 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[Borç]]></text>
+				<text><![CDATA[Borç ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="318" y="42" width="75" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[Alacak]]></text>
+				<text><![CDATA[Alacak ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="395" y="42" width="75" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[Borç Bakiye]]></text>
+				<text><![CDATA[Borç Bakiye ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="472" y="42" width="75" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[Alacak Bakiye]]></text>
+				<text><![CDATA[Alacak Bakiye ]]></text>
 			</staticText>
 			<line>
 				<reportElement positionType="Float" x="68" y="39" width="1" height="20"/>
@@ -267,7 +267,7 @@
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="553" y="59" width="1" height="14"/>
+				<reportElement positionType="Float" x="554" y="59" width="1" height="14"/>
 				<graphicElement/>
 			</line>
 			<line>
@@ -275,7 +275,7 @@
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="2" y="59" width="1" height="14"/>
+				<reportElement positionType="Float" x="0" y="59" width="1" height="14"/>
 				<graphicElement/>
 			</line>
 		</band>
@@ -283,60 +283,85 @@
 		<groupFooter>
 		<band height="63">
 			<rectangle>
-				<reportElement positionType="Float" x="2" y="0" width="552" height="19"/>
+				<reportElement positionType="Float" x="0" y="18" width="555" height="19"/>
+				<graphicElement/>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="Float" x="0" y="0" width="555" height="19"/>
 				<graphicElement/>
 			</rectangle>
 			<staticText>
-				<reportElement positionType="Float" x="156" y="1" width="83" height="12"/>
+				<reportElement positionType="Float" x="124" y="3" width="115" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TOPLAM]]></text>
+				<text><![CDATA[EKSTRE TOPLAMI  ]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="241" y="1" width="75" height="12"/>
+				<reportElement positionType="Float" x="241" y="3" width="75" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{totalDept})+" "]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="318" y="1" width="75" height="12"/>
+				<reportElement positionType="Float" x="318" y="3" width="75" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{totalCredit})+" "]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="395" y="1" width="75" height="12"/>
+				<reportElement positionType="Float" x="395" y="3" width="75" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{totalDept})+" "]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="472" y="1" width="75" height="12"/>
+				<reportElement positionType="Float" x="472" y="3" width="75" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{totalCredit})]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement positionType="Float" x="238" y="0" width="1" height="19"/>
+				<reportElement positionType="Float" x="238" y="0" width="1" height="38"/>
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="316" y="1" width="1" height="19"/>
+				<reportElement positionType="Float" x="316" y="1" width="1" height="38"/>
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="394" y="1" width="1" height="19"/>
+				<reportElement positionType="Float" x="394" y="1" width="1" height="38"/>
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="472" y="0" width="1" height="19"/>
+				<reportElement positionType="Float" x="472" y="0" width="1" height="38"/>
 				<graphicElement/>
 			</line>
+			<staticText>
+				<reportElement positionType="Float" x="124" y="22" width="115" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GENEL TOPLAM  ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="241" y="22" width="75" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{totalDept}.add($V{initialDept}))+" "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="318" y="22" width="75" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{totalCredit}.add($V{initialCredit}))+" "]]></textFieldExpression>
+			</textField>
 		</band>
 		</groupFooter>
 	</group>
@@ -404,11 +429,11 @@
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="2" y="-1" width="1" height="14"/>
+				<reportElement positionType="Float" x="0" y="-1" width="1" height="14"/>
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="553" y="-1" width="1" height="14"/>
+				<reportElement positionType="Float" x="554" y="-1" width="1" height="14"/>
 				<graphicElement/>
 			</line>
 			<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="transCol">

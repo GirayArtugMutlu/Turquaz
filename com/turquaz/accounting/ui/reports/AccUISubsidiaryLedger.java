@@ -101,7 +101,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 				composite1Layout.numColumns = 4;
 				GridData composite1LData = new GridData();
 				composite1LData.horizontalAlignment = GridData.FILL;
-				composite1LData.heightHint = 81;
+				composite1LData.heightHint = 71;
 				composite1LData.grabExcessHorizontalSpace = true;
 				compAccTransactionSearch.setLayoutData(composite1LData);
 				compAccTransactionSearch.setLayout(composite1Layout);
@@ -116,8 +116,8 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 				{
 					txtAccount = new AccountPicker(compAccTransactionSearch, SWT.NONE);
 					GridData txtDocumentNoLData = new GridData();
-					txtDocumentNoLData.widthHint = 173;
-					txtDocumentNoLData.heightHint = 15;
+					txtDocumentNoLData.widthHint = 157;
+					txtDocumentNoLData.heightHint = 17;
 					txtAccount.setLayoutData(txtDocumentNoLData);
 				}
 				{
@@ -127,8 +127,8 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 				{
 					txtAccount2 = new AccountPicker(compAccTransactionSearch, SWT.NONE);
 					GridData txtAccount2LData = new GridData();
-					txtAccount2LData.widthHint = 173;
-					txtAccount2LData.heightHint = 15;
+					txtAccount2LData.widthHint = 157;
+					txtAccount2LData.heightHint = 17;
 					txtAccount2.setLayoutData(txtAccount2LData);
 				}
 				{
@@ -140,10 +140,9 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 				{
 					dateStartDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
 					GridData dateStartDateLData = new GridData();
-					dateStartDateLData.widthHint = 174;
-					dateStartDateLData.heightHint = 24;
+					dateStartDateLData.widthHint = 157;
+					dateStartDateLData.heightHint = 22;
 					dateStartDate.setLayoutData(dateStartDateLData);
-					dateStartDate.setSize(new org.eclipse.swt.graphics.Point(174, 24));
 					dateStartDate.layout();
 					//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
 					cal.set(cal.get(Calendar.YEAR), 0, 1);
@@ -158,10 +157,9 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 				{
 					dateEndDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
 					GridData dateEndDateLData = new GridData();
-					dateEndDateLData.widthHint = 173;
-					dateEndDateLData.heightHint = 25;
+					dateEndDateLData.widthHint = 157;
+					dateEndDateLData.heightHint = 22;
 					dateEndDate.setLayoutData(dateEndDateLData);
-					dateEndDate.setSize(new org.eclipse.swt.graphics.Point(173, 25));
 					dateEndDate.layout();
 				}
 				compAccTransactionSearch.layout();
