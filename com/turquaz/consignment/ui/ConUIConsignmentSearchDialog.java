@@ -18,13 +18,16 @@ package com.turquaz.consignment.ui;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -311,8 +314,11 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 			{
 				curCard = (TurqCurrentCard)txtCurCard.getData();
 				tableConsignments.removeAll();
-				List list = ConBLSearchConsignment.chooseConsignment((TurqCurrentCard) txtCurCard.getData(), dateStartDate.getDate(),
-						dateEndDate.getDate());
+				HashMap argMap=new HashMap();
+				argMap.put(EngKeys.CURRENT_CARD,txtCurCard.getData());
+				argMap.put(EngKeys.DATE_START, dateStartDate.getDate());
+				argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
+				List list =(List)EngTXCommon.doSingleTX(ConBLSearchConsignment.class.getName(),"chooseConsignment",argMap);
 				Object cons[];
 				TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 				TableItem item;

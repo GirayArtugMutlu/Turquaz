@@ -15,10 +15,13 @@ package com.turquaz.consignment.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
+import java.util.HashMap;
 import java.util.Iterator;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -27,7 +30,9 @@ import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentsInGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -147,8 +152,18 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 							{
 								public void widgetSelected(SelectionEvent evt)
 								{
-									dialogShell.close();
-									EngBLUtils.PrintConsignment(consignment);
+									try
+									{
+										dialogShell.close();
+										HashMap argMap=new HashMap();
+										argMap.put(ConsKeys.CONS,consignment);
+										EngTXCommon.doSingleTX(EngBLUtils.class.getName(),"PrintConsignment",argMap);
+										
+									}
+									catch(Exception ex)
+									{
+										ex.printStackTrace();
+									}
 								}
 							});
 						}
@@ -200,7 +215,9 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		try
 		{
-			ConBLUpdateConsignment.initiliazeConsignment(consignment);
+			HashMap argMap=new HashMap();
+			argMap.put(ConsKeys.CONS,consignment);
+			EngTXCommon.doSingleTX(ConBLUpdateConsignment.class.getName(),"initiliazeConsignment",argMap);
 		}
 		catch (Exception ex)
 		{
@@ -275,15 +292,17 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			if (msg2.open() == SWT.OK)
 			{
 				updated = true;
-				int result = ConBLUpdateConsignment.deleteConsignment(consignment);
-				if(result==1)
+				HashMap argMap=new HashMap();
+				argMap.put(ConsKeys.CONS,consignment);
+				Integer result =(Integer)EngTXCommon.doTransactionTX(ConBLUpdateConsignment.class.getName(),"deleteConsignment",argMap);
+				if(result.intValue()==1)
 				{
 				msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
 				msg.open();
 				dialogShell.close();
 				//delete consignment
 				}
-				else if(result ==-1)
+				else if(result.intValue() ==-1)
 				{
 					EngUICommon.showMessageBox(getParent(),Messages.getString("ConUIConsignmentUpdateDialog.13"),SWT.ICON_WARNING); //$NON-NLS-1$
 				}
@@ -313,11 +332,20 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			boolean willUpdateBill = EngUICommon.okToDelete(getParent(),Messages.getString("ConUIConsignmentUpdateDialog.15")); //$NON-NLS-1$
 			
-			ConBLUpdateConsignment.updateConsignment(consignment, compAddConsignment.getTxtDocumentNo().getText(), compAddConsignment
-					.getTxtDefinition().getText(), compAddConsignment.getDateConsignmentDate().getDate(),
-					(TurqCurrentCard) compAddConsignment.getTxtCurrentCard().getData(), type, EngBLCommon
-							.getBaseCurrencyExchangeRate(), compAddConsignment.getInventoryTransactions(), compAddConsignment
-							.getConsignmentGroups(),willUpdateBill);
+			HashMap argMap=new HashMap();
+			
+			argMap.put(ConsKeys.CONS,consignment);
+			argMap.put(EngKeys.DOCUMENT_NO,compAddConsignment.getTxtDocumentNo().getText().trim());
+			argMap.put(EngKeys.DEFINITION,compAddConsignment.getTxtDefinition().getText().trim());
+			argMap.put(ConsKeys.CONS_DATE,compAddConsignment.getDateConsignmentDate().getDate());
+			argMap.put(EngKeys.TYPE,new Integer(type));
+			argMap.put(EngKeys.CURRENT_CARD,compAddConsignment.getTxtCurrentCard().getData());
+			argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+			argMap.put(ConsKeys.CONS_GROUPS,compAddConsignment.getConsignmentGroups());
+			argMap.put(InvKeys.INV_TRANSACTIONS,compAddConsignment.getInventoryTransactions());
+			argMap.put(ConsKeys.CONS_UPDATE_BILLS,new Boolean(willUpdateBill));
+			
+			EngTXCommon.doTransactionTX(ConBLUpdateConsignment.class.getName(),"updateConsignment",argMap);
 						
 			msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.12")); //$NON-NLS-1$
 			msg.open();

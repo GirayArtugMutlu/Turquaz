@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -51,6 +52,7 @@ import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLAddGroups;
@@ -69,6 +71,7 @@ import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.ITableRowListViewer;
 import com.turquaz.engine.ui.viewers.SaveTableViewer;
 import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import org.eclipse.swt.widgets.Button;
@@ -92,29 +95,11 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 	}
 
 	/**
-	 * @param comboConsignmentType
-	 *             The comboConsignmentType to set.
-	 */
-	public void setComboConsignmentType(CCombo comboConsignmentType)
-	{
-		this.comboConsignmentType = comboConsignmentType;
-	}
-
-	/**
 	 * @return Returns the compRegisterGroup.
 	 */
 	public RegisterGroupComposite getCompRegisterGroup()
 	{
 		return compRegisterGroup;
-	}
-
-	/**
-	 * @param compRegisterGroup
-	 *             The compRegisterGroup to set.
-	 */
-	public void setCompRegisterGroup(RegisterGroupComposite compRegisterGroup)
-	{
-		this.compRegisterGroup = compRegisterGroup;
 	}
 
 	/**
@@ -126,29 +111,11 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 	}
 
 	/**
-	 * @param dateConsignmentDate
-	 *             The dateConsignmentDate to set.
-	 */
-	public void setDateConsignmentDate(DatePicker dateConsignmentDate)
-	{
-		this.dateConsignmentDate = dateConsignmentDate;
-	}
-
-	/**
 	 * @return Returns the decSpecialVat.
 	 */
 	public CurrencyText getDecSpecialVat()
 	{
 		return decSpecialVat;
-	}
-
-	/**
-	 * @param decSpecialVat
-	 *             The decSpecialVat to set.
-	 */
-	public void setDecSpecialVat(CurrencyText decSpecialVat)
-	{
-		this.decSpecialVat = decSpecialVat;
 	}
 
 	/**
@@ -160,29 +127,11 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 	}
 
 	/**
-	 * @param tableConsignmentRows
-	 *             The tableConsignmentRows to set.
-	 */
-	public void setTableConsignmentRows(Table tableConsignmentRows)
-	{
-		this.tableConsignmentRows = tableConsignmentRows;
-	}
-
-	/**
 	 * @return Returns the txtBillDocumentNo.
 	 */
 	public Text getTxtBillDocumentNo()
 	{
 		return txtBillDocumentNo;
-	}
-
-	/**
-	 * @param txtBillDocumentNo
-	 *             The txtBillDocumentNo to set.
-	 */
-	public void setTxtBillDocumentNo(Text txtBillDocumentNo)
-	{
-		this.txtBillDocumentNo = txtBillDocumentNo;
 	}
 
 	/**
@@ -194,29 +143,11 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 	}
 
 	/**
-	 * @param txtCurrentCard
-	 *             The txtCurrentCard to set.
-	 */
-	public void setTxtCurrentCard(CurrentPicker txtCurrentCard)
-	{
-		this.txtCurrentCard = txtCurrentCard;
-	}
-
-	/**
 	 * @return Returns the txtDefinition.
 	 */
 	public Text getTxtDefinition()
 	{
 		return txtDefinition;
-	}
-
-	/**
-	 * @param txtDefinition
-	 *             The txtDefinition to set.
-	 */
-	public void setTxtDefinition(Text txtDefinition)
-	{
-		this.txtDefinition = txtDefinition;
 	}
 
 	/**
@@ -228,29 +159,11 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 	}
 
 	/**
-	 * @param txtDiscountAmount
-	 *             The txtDiscountAmount to set.
-	 */
-	public void setTxtDiscountAmount(CurrencyText txtDiscountAmount)
-	{
-		this.txtDiscountAmount = txtDiscountAmount;
-	}
-
-	/**
 	 * @return Returns the txtDocumentNo.
 	 */
 	public Text getTxtDocumentNo()
 	{
 		return txtDocumentNo;
-	}
-
-	/**
-	 * @param txtDocumentNo
-	 *             The txtDocumentNo to set.
-	 */
-	public void setTxtDocumentNo(Text txtDocumentNo)
-	{
-		this.txtDocumentNo = txtDocumentNo;
 	}
 
 	/**
@@ -262,15 +175,6 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 	}
 
 	/**
-	 * @param txtSubTotal
-	 *             The txtSubTotal to set.
-	 */
-	public void setTxtSubTotal(CurrencyText txtSubTotal)
-	{
-		this.txtSubTotal = txtSubTotal;
-	}
-
-	/**
 	 * @return Returns the txtTotalAmount.
 	 */
 	public CurrencyText getTxtTotalAmount()
@@ -279,29 +183,11 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 	}
 
 	/**
-	 * @param txtTotalAmount
-	 *             The txtTotalAmount to set.
-	 */
-	public void setTxtTotalAmount(CurrencyText txtTotalAmount)
-	{
-		this.txtTotalAmount = txtTotalAmount;
-	}
-
-	/**
 	 * @return Returns the txtTotalVat.
 	 */
 	public CurrencyText getTxtTotalVat()
 	{
 		return txtTotalVat;
-	}
-
-	/**
-	 * @param txtTotalVat
-	 *             The txtTotalVat to set.
-	 */
-	public void setTxtTotalVat(CurrencyText txtTotalVat)
-	{
-		this.txtTotalVat = txtTotalVat;
 	}
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -930,7 +816,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		try
 		{
 			//Fill Group Table
-			List list = ConBLAddGroups.getConsignmentGroups();
+			List list = (List)EngTXCommon.doSingleTX(ConBLAddGroups.class.getName(),"getConsignmentGroups",null);
 			HashMap groupMap = new HashMap();
 			TurqConsignmentGroup curGroup;
 			for (int i = 0; i < list.size(); i++)
@@ -1087,9 +973,19 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 				if (comboConsignmentType.getText().equals(EngBLCommon.COMMON_SELL_STRING)) { 
 					type=EngBLCommon.COMMON_SELL_INT;
 				}
-				TurqConsignment cons = ConBLAddConsignment.saveConsignment(txtDocumentNo.getText(), txtDefinition.getText(), false,
-						dateConsignmentDate.getDate(), (TurqCurrentCard) txtCurrentCard.getData(), type, EngBLCommon
-								.getBaseCurrencyExchangeRate(), getInventoryTransactions(), getConsignmentGroups());
+				HashMap argMap=new HashMap();
+				
+				argMap.put(EngKeys.DOCUMENT_NO,txtDocumentNo.getText().trim());
+				argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
+				argMap.put(ConsKeys.CONS_IS_PRINTED,new Boolean(false));
+				argMap.put(ConsKeys.CONS_DATE,dateConsignmentDate.getDate());
+				argMap.put(EngKeys.TYPE,new Integer(type));
+				argMap.put(EngKeys.CURRENT_CARD,txtCurrentCard.getData());
+				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(ConsKeys.CONS_GROUPS,getConsignmentGroups());
+				argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions());				
+				
+				TurqConsignment cons =(TurqConsignment)EngTXCommon.doTransactionTX(ConBLAddConsignment.class.getName(),"saveConsignment",argMap);
 				msg.setMessage(Messages.getString("ConUIAddConsignment.36")); //$NON-NLS-1$
 				msg.open();
 				newForm();

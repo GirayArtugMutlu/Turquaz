@@ -18,6 +18,7 @@ package com.turquaz.consignment.ui;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
@@ -30,14 +31,17 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TableSorter;
@@ -362,8 +366,16 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 			{
 				type = EngBLCommon.COMMON_BUY_INT;
 			}
-			List list = ConBLSearchConsignment.searchConsignment((TurqCurrentCard) txtCurCard.getData(), dateStartDate.getDate(),
-					dateEndDate.getDate(), type, txtDocNo.getText().trim());
+			HashMap argMap=new HashMap();
+			
+			argMap.put(EngKeys.CURRENT_CARD,txtCurCard.getData());
+			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
+			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
+			argMap.put(EngKeys.TYPE,new Integer(type));
+			argMap.put(EngKeys.DOCUMENT_NO,txtDocNo.getText().trim());	
+			
+			
+			List list =(List)EngTXCommon.doSingleTX(ConBLSearchConsignment.class.getName(),"searchConsignment",argMap);
 			Object[] cons;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			for (int i = 0; i < list.size(); i++)
@@ -415,24 +427,27 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			try
 			{
-				TurqConsignment cons = ConBLSearchConsignment.getConsignmentByConsId(consId);
-				ConBLUpdateConsignment.initiliazeConsignment(cons);
+				HashMap argMap=new HashMap();
+				argMap.put(ConsKeys.CONS_ID,consId);
+				TurqConsignment cons =(TurqConsignment)EngTXCommon.doSingleTX(ConBLSearchConsignment.class.getName(),"initiliazeConsignmentById",argMap);
 				if (cons.getTurqEngineSequence().getTurqBillInEngineSequences().isEmpty())
 				{
 					MessageBox msg2 = new MessageBox(this.getShell(), SWT.CANCEL | SWT.OK);
 					msg2.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.9")); //$NON-NLS-1$
 					if (msg2.open() == SWT.OK)
 					{
-						int result = ConBLUpdateConsignment.deleteConsignment(cons);
+						argMap=new HashMap();
+						argMap.put(ConsKeys.CONS,cons);
+						Integer result =(Integer)EngTXCommon.doTransactionTX(ConBLUpdateConsignment.class.getName(),"deleteConsignment",argMap);
 						
-						if(result==1)
+						if(result.intValue()==1)
 						{
 							msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
 						
 						msg.open();
 						search();
 						}
-						else if(result ==-1)
+						else if(result.intValue() ==-1)
 						{
 							EngUICommon.showMessageBox(getShell(),Messages.getString("ConUIConsignmentSearch.15"),SWT.ICON_WARNING); //$NON-NLS-1$
 						}
@@ -472,7 +487,9 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				Integer consId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (consId != null)
 				{
-					TurqConsignment cons = ConBLSearchConsignment.getConsignmentByConsId(consId);
+					HashMap argMap=new HashMap();
+					argMap.put(ConsKeys.CONS_ID,consId);
+					TurqConsignment cons =(TurqConsignment)EngTXCommon.doSingleTX(ConBLSearchConsignment.class.getName(),"getConsignmentByConsId",argMap);
 					boolean updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons).open();
 					if (updated)
 						search();

@@ -8,13 +8,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.accounting.dal.AccDALAccountAdd;
-import com.turquaz.bill.dal.BillDALAddBill;
+import com.turquaz.bill.BillKeys;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -28,33 +28,47 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.bl.InvBLSaveTransaction;
 
 public class BillBLAddBill
 {
 	//Bill from Bill
-	public static int saveBillFromBill(TurqBill bill,String consignemtDocNo, String definition, boolean isPrinted, Date billsDate, int type,
-			TurqCurrentCard currentCard, Date dueDate, BigDecimal discountAmount, String billDocNo, BigDecimal totalVat,
-			BigDecimal specialVat, BigDecimal totalAmount, TurqCurrencyExchangeRate exchangeRate, List billGroups, List invTransactions)
+	public static Integer saveBillFromBill(HashMap argMap)
 			throws Exception
 	{
-		bill = registerBill(billDocNo, definition, isPrinted, billsDate, type, dueDate, currentCard, exchangeRate);
+		TurqBill bill=(TurqBill)argMap.get(BillKeys.BILL);
+		String definition=(String)argMap.get(BillKeys.BILL_DEFINITION);
+		Boolean isPrinted=(Boolean)argMap.get(BillKeys.BILL_IS_PRINTED);
+		Date billsDate=(Date)argMap.get(BillKeys.BILL_DATE);
+		Integer type=(Integer)argMap.get(EngKeys.TYPE);
+		TurqCurrentCard currentCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		Date dueDate=(Date)argMap.get(BillKeys.BILL_DUE_DATE);
+		BigDecimal discountAmount=(BigDecimal)argMap.get(BillKeys.BILL_DISCOUNT_AMOUNT);
+		String billDocNo=(String)argMap.get(BillKeys.BILL_DOC_NO);
+		BigDecimal totalAmount=(BigDecimal)argMap.get(BillKeys.BILL_TOTAL_AMOUNT);
+		TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+		List billGroups=(List)argMap.get(BillKeys.BILL_GROUPS);
+		List invTransactions=(List)argMap.get(InvKeys.INV_TRANSACTIONS);
+		
+		
+		bill = registerBill(billDocNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate);
 		TurqEngineSequence engSeq = EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_BILL);
 		TurqBillInEngineSequence billInEng = new TurqBillInEngineSequence();
 		billInEng.setTurqEngineSequence(engSeq);
 		billInEng.setTurqBill(bill);
 		EngDALCommon.saveObject(billInEng);
-		InvBLSaveTransaction.saveInventoryTransactions(invTransactions, engSeq.getId(), type, billsDate, definition, billDocNo,
+		InvBLSaveTransaction.saveInventoryTransactions(invTransactions, engSeq.getId(), type.intValue(), billsDate, definition, billDocNo,
 				exchangeRate, currentCard);
 		saveCurrentTransaction(bill, totalAmount, discountAmount);
 		saveBillGroups(bill.getId(), billGroups);
 		int result = saveAccountingTransaction(bill);
-		return result;
+		return new Integer(result);
 		
 	}
 
-	public static void saveBillGroups(Integer billId, List billGroups) throws Exception
+	private static void saveBillGroups(Integer billId, List billGroups) throws Exception
 	{
 		for (int i = 0; i < billGroups.size(); i++)
 		{
@@ -65,14 +79,24 @@ public class BillBLAddBill
 
 	/** ************************************************************************* */
 	//B?ll from consignment
-	public static TurqBill saveBillFromCons(String docNo, String definition, boolean isPrinted, Date billsDate, List consList, int type,
-			Date dueDate, List billGroups, TurqCurrentCard curCard, TurqCurrencyExchangeRate exRate, BigDecimal totalAmount,
-			BigDecimal discountAmount) throws Exception
+	public static TurqBill saveBillFromCons(HashMap argMap) throws Exception
 	{
 		try
-		{
+		{			
+			String docNo=(String)argMap.get(BillKeys.BILL_DOC_NO);
+			String definition=(String)argMap.get(BillKeys.BILL_DEFINITION);
+			Boolean isPrinted=(Boolean)argMap.get(BillKeys.BILL_IS_PRINTED);
+			Date billsDate=(Date)argMap.get(BillKeys.BILL_DATE);
+			List consList=(List)argMap.get(BillKeys.BILL_CONS_LIST);
+			Integer type=(Integer)argMap.get(EngKeys.TYPE);
+			TurqCurrentCard currentCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			Date dueDate=(Date)argMap.get(BillKeys.BILL_DUE_DATE);
+			BigDecimal discountAmount=(BigDecimal)argMap.get(BillKeys.BILL_DISCOUNT_AMOUNT);
+			BigDecimal totalAmount=(BigDecimal)argMap.get(BillKeys.BILL_TOTAL_AMOUNT);
+			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+			List billGroups=(List)argMap.get(BillKeys.BILL_GROUPS);
 			// Save Bill
-			TurqBill bill = registerBill(docNo, definition, isPrinted, billsDate, type, dueDate, curCard, exRate);
+			TurqBill bill = registerBill(docNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate);
 			//Then Save Bill Groups
 			for (int i = 0; i < consList.size(); i++)
 			{
@@ -187,7 +211,7 @@ public class BillBLAddBill
 	 * @param currentAccount
 	 * @throws Exception
 	 */
-	public static int prepareAccountsForAccountingIntgretion(TurqBill bill, Map creditAccounts, Map deptAccounts) throws Exception
+	private static int prepareAccountsForAccountingIntgretion(TurqBill bill, Map creditAccounts, Map deptAccounts) throws Exception
 	{
 		try
 		{
@@ -405,18 +429,6 @@ public class BillBLAddBill
 			cardGroup.setLastModified(cal.getTime());
 			cardGroup.setCreationDate(cal.getTime());
 			EngDALCommon.saveObject(cardGroup);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static Set getInventoryTransactions(TurqBill bill) throws Exception
-	{
-		try
-		{
-			return BillDALAddBill.getInvTransactions(bill);
 		}
 		catch (Exception ex)
 		{

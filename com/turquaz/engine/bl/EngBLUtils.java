@@ -45,6 +45,7 @@ import com.jasperassistant.designer.viewer.ViewerApp;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLSearchBill;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.EngConfiguration;
@@ -389,10 +390,11 @@ public class EngBLUtils
 		}
 	}
 
-	public static void PrintConsignment(TurqConsignment cons)
+	public static void PrintConsignment(HashMap argMap)
 	{
 		try
 		{
+			TurqConsignment cons=(TurqConsignment)argMap.get(ConsKeys.CONS);
 			List list=ConBLSearchConsignment.getConsignmentInfo(cons);
 			Map parameters = new HashMap();
 			SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$

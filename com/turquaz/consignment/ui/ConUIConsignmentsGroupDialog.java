@@ -20,6 +20,7 @@ package com.turquaz.consignment.ui;
  * @version  $Id$
  */
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import net.sf.hibernate.HibernateException;
 import org.apache.log4j.Logger;
@@ -42,11 +43,14 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLAddGroups;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.current.Messages;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
+import com.turquaz.engine.tx.EngTXCommon;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -267,7 +271,7 @@ public class ConUIConsignmentsGroupDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			tableCurGroups.removeAll();
-			List list = ConBLAddGroups.getConsignmentGroups();
+			List list = (List)EngTXCommon.doSingleTX(ConBLAddGroups.class.getName(),"getConsignmentGroups",null);
 			TurqConsignmentGroup curGroup;
 			TableItem item;
 			for (int i = 0; i < list.size(); i++)
@@ -297,7 +301,9 @@ public class ConUIConsignmentsGroupDialog extends org.eclipse.swt.widgets.Dialog
 			int result = msg.open();
 			if (result == SWT.OK)
 			{
-				ConBLAddGroups.deleteGroup((TurqConsignmentGroup) txtGroupName.getData());
+				HashMap argMap=new HashMap();
+				argMap.put(ConsKeys.CONS_GROUP, txtGroupName.getData());
+				EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap);
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);
 				btnGroupAdd.setEnabled(true);
@@ -335,8 +341,11 @@ public class ConUIConsignmentsGroupDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			else
 			{
-				TurqConsignmentGroup invGroup = (TurqConsignmentGroup) txtGroupName.getData();
-				ConBLAddGroups.updateGroup(txtGroupName.getText().trim(), txtDescription.getText().trim(), invGroup);
+				HashMap argMap=new HashMap();
+				argMap.put(ConsKeys.CONS_GROUP,txtGroupName.getData());
+				argMap.put(ConsKeys.CONS_GROUP_NAME,txtGroupName.getText().trim());
+				argMap.put(ConsKeys.CONS_GROUP_DESCRIPTION,txtDescription.getText().trim());
+				EngTXCommon.doTransactionTX(ConBLAddGroups.class.getName(),"updateGroup",argMap);
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);
 				btnGroupAdd.setEnabled(true);
@@ -379,7 +388,10 @@ public class ConUIConsignmentsGroupDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			else
 			{
-				ConBLAddGroups.saveGroup(txtGroupName.getText().trim(), txtDescription.getText().trim());
+				HashMap argMap=new HashMap();
+				argMap.put(ConsKeys.CONS_GROUP_NAME,txtGroupName.getText().trim());
+				argMap.put(ConsKeys.CONS_GROUP_DESCRIPTION,txtDescription.getText().trim());
+				EngTXCommon.doTransactionTX(ConBLAddGroups.class.getName(),"saveGroup",argMap);
 				msg.setMessage(Messages.getString("CurUIGroupAddDialog.25")); //$NON-NLS-1$
 				txtGroupName.setText(""); //$NON-NLS-1$
 				txtDescription.setText(""); //$NON-NLS-1$

@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -52,6 +53,7 @@ import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
@@ -763,7 +765,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		try
 		{
 			//Fill Group Table
-			List list = BillBLAddGroups.getBillGroups();
+			List list = (List)EngTXCommon.doSingleTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
 			HashMap groupMap = new HashMap();
 			TurqBillGroup curGroup;
 			for (int i = 0; i < list.size(); i++)
@@ -1084,12 +1086,25 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 				// buy bill
 				int type = 0;
 				TurqBill bill = null;
-				int result = BillBLAddBill.saveBillFromBill(bill,txtConsignmentDocumentNo.getText(), txtDefinition.getText(), false, dateConsignmentDate
-						.getDate(), type, (TurqCurrentCard) txtCurrentCard.getData(), dateDueDate.getDate(), txtDiscountAmount
-								.getBigDecimalValue(), txtDocumentNo.getText(), txtTotalVat.getBigDecimalValue(), decSpecialVat
-								.getBigDecimalValue(), txtTotalAmount.getBigDecimalValue(), EngBLCommon
-								.getBaseCurrencyExchangeRate(), getBillGroups(), getInventoryTransactions());
-				if(result!=1)
+				
+				HashMap argMap=new HashMap();
+				
+				argMap.put(BillKeys.BILL,bill);
+				argMap.put(BillKeys.BILL_DEFINITION,txtDefinition.getText().trim());
+				argMap.put(BillKeys.BILL_IS_PRINTED,new Boolean(false));
+				argMap.put(BillKeys.BILL_DATE,dateConsignmentDate.getDate());
+				argMap.put(EngKeys.TYPE, new Integer(type));
+				argMap.put(EngKeys.CURRENT_CARD,txtCurrentCard.getData());
+				argMap.put(BillKeys.BILL_DUE_DATE,dateDueDate.getDate());
+				argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT,txtDiscountAmount.getBigDecimalValue());
+				argMap.put(BillKeys.BILL_DOC_NO,txtDocumentNo.getText().trim());
+				argMap.put(BillKeys.BILL_TOTAL_AMOUNT,txtTotalAmount.getBigDecimalValue());
+				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(BillKeys.BILL_GROUPS,getBillGroups());
+				argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions());				
+				
+				Integer result = (Integer)EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromBill",argMap);
+				if(result.intValue()!=1)
 				{
 					EngUICommon.showMessageBox(getShell(),Messages.getString("BillUIAddBuyBill.29"), SWT.ICON_WARNING); //$NON-NLS-1$
 				}

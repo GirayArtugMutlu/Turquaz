@@ -18,10 +18,12 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -31,6 +33,7 @@ import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TableSorter;
@@ -59,6 +62,7 @@ import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
 
@@ -146,7 +150,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			compView = new CTabFolder(this, SWT.NONE);
 			//START >> cTabItem2
 			cTabItem2 = new CTabItem(compView, SWT.NONE);
-			cTabItem2.setText("Arama");
+			cTabItem2.setText(Messages.getString("BillUIBillReport.10")); //$NON-NLS-1$
 			{
 				composite1 = new Composite(compView, SWT.NONE);
 				cTabItem2.setControl(composite1);
@@ -287,7 +291,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				tabFolderReport = new CTabFolder(composite1, SWT.NONE);
 				//START >> cTabItem1
 				cTabItem1 = new CTabItem(tabFolderReport, SWT.NONE);
-				cTabItem1.setText("Arama Sonucu");
+				cTabItem1.setText(Messages.getString("BillUIBillReport.13")); //$NON-NLS-1$
 				{
 					tableBills = new Table(tabFolderReport, SWT.FULL_SELECTION);
 					cTabItem1.setControl(tableBills);
@@ -325,7 +329,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 					}
 					//START >> tableColumnCurrentCode
 					tableColumnCurrentCode = new TableColumn(tableBills, SWT.NONE);
-					tableColumnCurrentCode.setText("Cari Kod");
+					tableColumnCurrentCode.setText(Messages.getString("BillUIBillReport.14")); //$NON-NLS-1$
 					tableColumnCurrentCode.setWidth(100);
 					//END << tableColumnCurrentCode
 					{
@@ -342,7 +346,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 					}
 					//START >>  tableColumnCurrency
 					tableColumnCurrency = new TableColumn(tableBills, SWT.CENTER);
-					tableColumnCurrency.setText("Döviz");
+					tableColumnCurrency.setText(Messages.getString("BillUIBillReport.15")); //$NON-NLS-1$
 					tableColumnCurrency.setWidth(50);
 					//END <<  tableColumnCurrency
 					{
@@ -392,7 +396,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				//END << cTabItem1
 				//START >> tabItemReport
 				tabItemReport = new CTabItem(tabFolderReport, SWT.NONE);
-				tabItemReport.setText("Rapor");
+				tabItemReport.setText(Messages.getString("BillUIBillReport.16")); //$NON-NLS-1$
 				//START >> compReport
 				compReport = new Composite(tabFolderReport, SWT.NONE);
 				GridLayout compReportLayout = new GridLayout();
@@ -421,7 +425,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			//END << cTabItem2
 			//START >> tabItemView
 			tabItemView = new CTabItem(compView, SWT.NONE);
-			tabItemView.setText("H\u0131zl\u0131 Görüntüleme");
+			tabItemView.setText(Messages.getString("BillUIBillReport.17")); //$NON-NLS-1$
 			//START >> composite2
 			composite2 = new Composite(compView, SWT.NONE);
 			GridLayout composite2Layout = new GridLayout();
@@ -433,8 +437,8 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			//START >> toolUpdate
 			toolUpdate = new ToolItem(toolBar1, SWT.NONE);
 			toolUpdate.setEnabled(false);
-			toolUpdate.setText(Messages.getString("BillUIBillUpdateDialog.0"));
-			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+			toolUpdate.setText(Messages.getString("BillUIBillReport.18")); //$NON-NLS-1$
+			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener(new SelectionAdapter()
 			{
 				public void widgetSelected(SelectionEvent evt)
@@ -446,22 +450,42 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 							//TODO exchange rate
 							int type = compAddBill.BILL_TYPE;
 							
-							BillBLUpdateBill.updateBill(bill, compAddBill.getTxtDocumentNo().getText().trim(), compAddBill
-									.getTxtConsignmentDocumentNo().getText().trim(), compAddBill.getTxtDefinition().getText(),
-									false, compAddBill.getDateConsignmentDate().getDate(),
-									(TurqCurrentCard) compAddBill.getTxtCurrentCard().getData(), compAddBill
-											.getTxtDiscountAmount().getBigDecimalValue(), compAddBill.getTxtTotalVat()
-											.getBigDecimalValue(), compAddBill.getDecSpecialVat().getBigDecimalValue(),
-									compAddBill.getTxtTotalAmount().getBigDecimalValue(), type, compAddBill.getDateDueDate()
-											.getDate(), compAddBill.getInventoryTransactions(), compAddBill.getBillGroups(),
-									EngBLCommon.getBaseCurrencyExchangeRate());
+							HashMap argMap=new HashMap();
+							
+							argMap.put(BillKeys.BILL,bill);
+							argMap.put(BillKeys.BILL_DOC_NO,compAddBill.getTxtDocumentNo().getText().trim());
+							argMap.put(BillKeys.BILL_DEFINITION,compAddBill.getTxtDefinition().getText().trim());
+							argMap.put(BillKeys.BILL_IS_PRINTED,new Boolean(false));
+							argMap.put(BillKeys.BILL_DATE,compAddBill.getDateConsignmentDate().getDate());
+							argMap.put(EngKeys.TYPE,new Integer(type));
+							argMap.put(EngKeys.CURRENT_CARD,compAddBill.getTxtCurrentCard().getData());
+							argMap.put(BillKeys.BILL_DUE_DATE,compAddBill.getDateDueDate().getDate());
+							argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT,compAddBill.getTxtDiscountAmount().getBigDecimalValue());			
+							argMap.put(BillKeys.BILL_TOTAL_AMOUNT,compAddBill.getTxtTotalAmount().getBigDecimalValue());
+							argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+							argMap.put(BillKeys.BILL_GROUPS,compAddBill.getBillGroups());
+							argMap.put(InvKeys.INV_TRANSACTIONS,compAddBill.getInventoryTransactions());	
+							
+							int[] result=(int[])EngTXCommon.doTransactionTX(BillBLUpdateBill.class.getName(),"updateBill",argMap); //$NON-NLS-1$
+							
+							
+							if(result[0]==EngBLCommon.BILL_ERR_TOO_MANY_CONS)
+							{
+								EngUICommon.showMessageBox(getShell(),Messages.getString("BillUIBillUpdateDialog.13")); //$NON-NLS-1$
+							}
+							if(result[1]==-1)
+							{			   	
+								EngUICommon.showMessageBox(getShell(),Messages.getString("BillUIBillUpdateDialog.14")); //$NON-NLS-1$
+							}
+							
+							EngUICommon.showMessageBox(getShell(),Messages.getString("BillUIBillReport.21")); //$NON-NLS-1$
 							search();
 						}
 					}
 					catch (Exception ex)
 					{
 						Logger loger = Logger.getLogger(this.getClass());
-						loger.error("Exception Caught", ex);
+						loger.error("Exception Caught", ex); //$NON-NLS-1$
 						ex.printStackTrace();
 					}
 				}
@@ -470,8 +494,8 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			//START >> toolDelete
 			toolDelete = new ToolItem(toolBar1, SWT.NONE);
 			toolDelete.setEnabled(false);
-			toolDelete.setText(Messages.getString("BillUIBillUpdateDialog.2"));
-			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif"));
+			toolDelete.setText(Messages.getString("BillUIBillReport.19")); //$NON-NLS-1$
+			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 			toolDelete.addSelectionListener(new SelectionAdapter()
 			{
 				public void widgetSelected(SelectionEvent evt)
@@ -480,14 +504,17 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 					{
 						if (bill != null)
 						{
-							boolean answer = EngUICommon.okToDelete(getShell(), "Faturay? silmek istedi?inizden emin misiniz?");
+							boolean answer = EngUICommon.okToDelete(getShell(), Messages.getString("BillUIBillReport.25")); //$NON-NLS-1$
 							if (answer)
 							{
 								boolean deleteCons = false;
 								if (EngUICommon.okToDelete(getShell(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
 									deleteCons = true;
 								}
-								BillBLUpdateBill.deleteBill(bill, true);
+								HashMap argMap=new HashMap();
+								argMap.put(BillKeys.BILL,bill);
+								argMap.put(BillKeys.BILL_DELETE_CONS,new Boolean(true));
+								EngTXCommon.doTransactionTX(BillBLUpdateBill.class.getName(),"deleteBill",argMap); //$NON-NLS-1$
 								EngUICommon.showMessageBox(getShell(), Messages.getString("BillUIBillUpdateDialog.1")); //$NON-NLS-1$
 							}
 							search();
@@ -496,7 +523,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 					catch (Exception ex)
 					{
 						Logger loger = Logger.getLogger(this.getClass());
-						loger.error("Exception Caught", ex);
+						loger.error("Exception Caught", ex); //$NON-NLS-1$
 						ex.printStackTrace();
 					}
 				}
@@ -504,24 +531,34 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			//END << toolDelete
 			//START >> toolPrint
 			toolPrint = new ToolItem(toolBar1, SWT.NONE);
-			toolPrint.setText(Messages.getString("BillUIBillUpdateDialog.5"));
-			toolPrint.setImage(SWTResourceManager.getImage("gfx/print.gif"));
+			toolPrint.setText(Messages.getString("BillUIBillReport.20"));  //$NON-NLS-1$
+			toolPrint.setImage(SWTResourceManager.getImage("gfx/print.gif")); //$NON-NLS-1$
 			toolPrint.addSelectionListener(new SelectionAdapter()
 			{
 				public void widgetSelected(SelectionEvent evt)
 				{
-					if (bill != null)
+					try
 					{
-						boolean answer = EngUICommon.okToDelete(getShell(), Messages.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
-						EngBLUtils.printBill(bill, answer);
+						if (bill != null)
+						{
+							boolean answer = EngUICommon.okToDelete(getShell(), Messages.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
+							HashMap argMap=new HashMap();
+							argMap.put(BillKeys.BILL,bill);
+							argMap.put(BillKeys.BILL_BALANCE,new Boolean(answer));
+							EngTXCommon.doSingleTX(EngBLUtils.class.getName(),"printBill",argMap); //$NON-NLS-1$
+						}
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();
 					}
 				}
 			});
 			//END << toolPrint
 			//START >> toolItemBack
 			toolItemBack = new ToolItem(toolBar1, SWT.NONE);
-			toolItemBack.setText("Geri");
-			toolItemBack.setImage(SWTResourceManager.getImage("icons/backward.gif"));
+			toolItemBack.setText(Messages.getString("BillUIBillReport.31")); //$NON-NLS-1$
+			toolItemBack.setImage(SWTResourceManager.getImage("icons/backward.gif")); //$NON-NLS-1$
 			toolItemBack.addSelectionListener(new SelectionAdapter()
 			{
 				public void widgetSelected(SelectionEvent evt)
@@ -535,8 +572,9 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 								currentIndex--;
 								Object[] billObj = (Object[]) list.get(currentIndex);
 								Integer billId = (Integer) billObj[0];
-								bill = BillBLSearchBill.getBillByBillId(billId);
-								initializeBill(bill);
+								HashMap argMap=new HashMap();
+								argMap.put(BillKeys.BILL_ID,billId);
+								TurqBill bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap); //$NON-NLS-1$
 								postFinalizeGui();
 								if (currentIndex == 0)
 									toolItemBack.setEnabled(false);
@@ -548,7 +586,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 					catch (Exception ex)
 					{
 						Logger loger = Logger.getLogger(this.getClass());
-						loger.error("Exception Caught", ex);
+						loger.error("Exception Caught", ex); //$NON-NLS-1$
 						ex.printStackTrace();
 					}
 				}
@@ -556,8 +594,8 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			//END << toolItemBack
 			//START >> toolItemForward
 			toolItemForward = new ToolItem(toolBar1, SWT.NONE);
-			toolItemForward.setText("\u0130leri");
-			toolItemForward.setImage(SWTResourceManager.getImage("icons/forward.gif"));
+			toolItemForward.setText(Messages.getString("BillUIBillReport.35")); //$NON-NLS-1$
+			toolItemForward.setImage(SWTResourceManager.getImage("icons/forward.gif")); //$NON-NLS-1$
 			toolItemForward.addSelectionListener(new SelectionAdapter()
 			{
 				public void widgetSelected(SelectionEvent evt)
@@ -571,8 +609,9 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 								currentIndex++;
 								Object[] billObj = (Object[]) list.get(currentIndex);
 								Integer billId = (Integer) billObj[0];
-								bill = BillBLSearchBill.getBillByBillId(billId);
-								initializeBill(bill);
+								HashMap argMap=new HashMap();
+								argMap.put(BillKeys.BILL_ID,billId);
+								TurqBill bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap); //$NON-NLS-1$
 								postFinalizeGui();
 								if (currentIndex == list.size() - 1)
 									toolItemForward.setEnabled(false);
@@ -584,7 +623,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 					catch (Exception ex)
 					{
 						Logger loger = Logger.getLogger(this.getClass());
-						loger.error("Exception Caught", ex);
+						loger.error("Exception Caught", ex); //$NON-NLS-1$
 						ex.printStackTrace();
 					}
 				}
@@ -648,7 +687,10 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			toolDelete.setEnabled(false);
 			if (bill == null)
 				return;
-			if (!BillBLUpdateBill.canUpdateBill(bill))
+			HashMap argMap=new HashMap();
+			argMap.put(BillKeys.BILL_ID,bill.getId());
+			Boolean canUpdateBill=(Boolean)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap); //$NON-NLS-1$
+			if (!canUpdateBill.booleanValue())
 			{
 				toolDelete.setEnabled(false);
 				toolUpdate.setEnabled(false);
@@ -674,7 +716,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		
 			compAddBill.getDateDueDate().setDate(bill.getDueDate());
 			compAddBill.getTxtDefinition().setText(bill.getBillsDefinition());
-			compAddBill.getTxtConsignmentDocumentNo().setText("");
+			compAddBill.getTxtConsignmentDocumentNo().setText(""); //$NON-NLS-1$
 			fillInvTransactionColumns();
 			fillRegisteredGroup();
 			EngUICommon.centreWindow(this.getShell());
@@ -682,7 +724,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -736,8 +778,8 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			if (it2.hasNext())
 			{
 				TurqConsignment cons = (TurqConsignment) it2.next();
-				if (!cons.getConsignmentDocumentNo().equals(""))
-					compAddBill.getTxtConsignmentDocumentNo().append("[" + cons.getConsignmentDocumentNo() + "]");
+				if (!cons.getConsignmentDocumentNo().equals("")) //$NON-NLS-1$
+					compAddBill.getTxtConsignmentDocumentNo().append("[" + cons.getConsignmentDocumentNo() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			Iterator it3 = billInEng.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
 			while (it3.hasNext())
@@ -755,20 +797,6 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	{
 	}
 
-	public void initializeBill(TurqBill bill)
-	{
-		try
-		{
-			BillBLSearchBill.initializeBill(bill);
-		}
-		catch (Exception ex)
-		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-		}
-	}
-
 	public void search()
 	{
 		try
@@ -783,10 +811,22 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			{
 				type = EngBLCommon.COMMON_SELL_INT;
 			}
-			list = BillBLSearchBill.searchBillAdvanced((TurqCurrentCard) txtCurCardStart.getData(), (TurqCurrentCard) txtCurCardEnd
-					.getData(), dateStartDate.getDate(), dateEndDate.getDate(), dateDueDateStart.getDate(), dateDueDateEnd.getDate(),
-					txtMinInvoiceTotal.getBigDecimalValue(), txtMaxInvoiceTotal.getBigDecimalValue(), txtDocNoStart.getText(),
-					txtDocNoEnd.getText(), type);
+			
+			HashMap argMap = new HashMap();
+			
+			argMap.put(EngKeys.CURRENT_CARD_START,txtCurCardStart.getData());
+			argMap.put(EngKeys.CURRENT_CARD_END,txtCurCardEnd.getData());
+			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
+			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
+			argMap.put(EngKeys.DUE_DATE_START,dateDueDateStart.getDate());
+			argMap.put(EngKeys.DUE_DATE_END, dateDueDateEnd.getDate());
+			argMap.put(EngKeys.MIN_VALUE,txtMinInvoiceTotal.getBigDecimalValue());
+			argMap.put(EngKeys.MAX_VALUE,txtMaxInvoiceTotal.getBigDecimalValue());
+			argMap.put(EngKeys.DOCUMENT_NO_START, txtDocNoStart.getText());
+			argMap.put(EngKeys.DOCUMENT_NO_END,txtDocNoEnd.getText());
+			argMap.put(EngKeys.TYPE,new Integer(type));
+			
+			list =(List) EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"searchBillAdvanced",argMap); //$NON-NLS-1$
 			Object[] billObj;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			BigDecimal total = new BigDecimal(0);
@@ -810,16 +850,17 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				tableViewer.addRow(new String[]{DatePicker.formatter.format(billDate), billDocNo, curCardCode, curCardName,currency,
 						cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)}, billId);
 			}
-			tableViewer.addRow(new String[]{"","", "", "", "", "", "", ""}, null);
-			tableViewer.addRow(new String[]{"","", "", "", Messages.getString("BillUIBillReport.14"), cf.format(total), cf.format(VAT),
+			tableViewer.addRow(new String[]{"","", "", "", "", "", "", ""}, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
+			tableViewer.addRow(new String[]{"","", "", "", Messages.getString("BillUIBillReport.14"), cf.format(total), cf.format(VAT), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 					cf.format(SpecialVAT)}, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			currentIndex = 0;
 			if (list.size() > 0)
 			{
 				billObj = (Object[]) list.get(0);
 				Integer billId = (Integer) billObj[0];
-				bill = BillBLSearchBill.getBillByBillId(billId);
-				initializeBill(bill);
+				argMap=new HashMap();
+				argMap.put(BillKeys.BILL_ID,billId);
+				TurqBill bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap); //$NON-NLS-1$
 				postFinalizeGui();
 				toolItemBack.setEnabled(false);
 				//Generate Jasper Report
@@ -829,7 +870,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -839,16 +880,16 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		try
 		{
 			Map parameters = new HashMap();
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			parameters.put("reportDate", sdf.format(Calendar.getInstance().getTime()));
-			parameters.put("startDate", sdf.format(dateStartDate.getDate()));
-			parameters.put("endDate", sdf.format(dateEndDate.getDate()));
-			parameters.put("dueDateStart", sdf.format(dateDueDateStart.getDate()));
-			parameters.put("dueDateEnd", sdf.format(dateDueDateEnd.getDate()));
-			parameters.put("dateFormatter", sdf);
-			parameters.put("currencyFormatter", new TurkishCurrencyFormat());
-			String[] fields = new String[]{"id", "bills_date", "bill_document_no", "cards_current_code", "cards_name", "total_amount",
-					"vat_amount", "special_vat_amount","currency"};
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
+			parameters.put("reportDate", sdf.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
+			parameters.put("startDate", sdf.format(dateStartDate.getDate())); //$NON-NLS-1$
+			parameters.put("endDate", sdf.format(dateEndDate.getDate())); //$NON-NLS-1$
+			parameters.put("dueDateStart", sdf.format(dateDueDateStart.getDate())); //$NON-NLS-1$
+			parameters.put("dueDateEnd", sdf.format(dateDueDateEnd.getDate())); //$NON-NLS-1$
+			parameters.put("dateFormatter", sdf); //$NON-NLS-1$
+			parameters.put("currencyFormatter", new TurkishCurrencyFormat()); //$NON-NLS-1$
+			String[] fields = new String[]{"id", "bills_date", "bill_document_no", "cards_current_code", "cards_name", "total_amount", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+					"vat_amount", "special_vat_amount","currency"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/bill/BillReport.jasper"); //$NON-NLS-1$
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
@@ -857,7 +898,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -877,15 +918,20 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				Integer billId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (billId != null)
 				{
-					TurqBill bill = BillBLSearchBill.getBillByBillId(billId);
-					initializeBill(bill);
-					if (BillBLSearchBill.canUpdateBill(bill))
+					HashMap argMap=new HashMap();
+					argMap.put(BillKeys.BILL_ID,billId);
+					TurqBill bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap); //$NON-NLS-1$
+					Boolean canUpdateBill=(Boolean)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap); //$NON-NLS-1$
+					if (canUpdateBill.booleanValue())
 					{
 						MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 						msg2.setMessage(Messages.getString("BillUIBillSearch.12")); //$NON-NLS-1$
 						if (msg2.open() == SWT.OK)
 						{
-							BillBLUpdateBill.deleteBill(bill, false);
+							argMap=new HashMap();
+							argMap.put(BillKeys.BILL,bill);
+							argMap.put(BillKeys.BILL_DELETE_CONS,new Boolean(false));
+							EngTXCommon.doTransactionTX(BillBLUpdateBill.class.getName(),"deleteBill",argMap); //$NON-NLS-1$
 							msg.setMessage(Messages.getString("BillUIBillSearch.14")); //$NON-NLS-1$
 							msg.open();
 							search();
@@ -904,7 +950,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -924,21 +970,19 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				Integer billId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (billId != null)
 				{
-					TurqBill bill = BillBLSearchBill.getBillByBillId(billId);
-					if (bill != null)
-					{
-						initializeBill(bill);
-						boolean updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill).open();
-						if (updated)
-							search();
-					}
+					HashMap argMap=new HashMap();
+					argMap.put(BillKeys.BILL_ID,billId);
+					TurqBill bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap);				 //$NON-NLS-1$
+					boolean updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill).open();
+					if (updated)
+						search();
 				}
 			}
 		}
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}

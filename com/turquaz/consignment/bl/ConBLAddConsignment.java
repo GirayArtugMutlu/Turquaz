@@ -17,7 +17,10 @@ package com.turquaz.consignment.bl;
 /************************************************************************/
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.consignment.ConsKeys;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqConsignment;
@@ -26,6 +29,7 @@ import com.turquaz.engine.dal.TurqConsignmentsInGroup;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLSaveTransaction;
 
 /**
@@ -37,18 +41,27 @@ import com.turquaz.inventory.bl.InvBLSaveTransaction;
  */
 public class ConBLAddConsignment
 {
-	public static TurqConsignment saveConsignment(String docNo, String definition, boolean isPrinted, Date consignmentDate,
-			TurqCurrentCard curCard, int type, TurqCurrencyExchangeRate exchangeRate, List invTransactions, List groups)
+	public static TurqConsignment saveConsignment(HashMap argMap)
 			throws Exception
 	{
 		try
 		{
+			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
+			String definition=(String)argMap.get(EngKeys.DEFINITION);
+			Boolean isPrinted=(Boolean)argMap.get(ConsKeys.CONS_IS_PRINTED);
+			Date consignmentDate=(Date)argMap.get(ConsKeys.CONS_DATE);
+			Integer type=(Integer)argMap.get(EngKeys.TYPE);
+			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+			List groups=(List)argMap.get(ConsKeys.CONS_GROUPS);
+			List invTransactions=(List)argMap.get(InvKeys.INV_TRANSACTIONS);
+			
 			Calendar cal = Calendar.getInstance();
 			TurqConsignment consignment = new TurqConsignment();
 			consignment.setConsignmentsDate(consignmentDate);
 			consignment.setConsignmentsDefinition(definition);
-			consignment.setConsignmentsPrinted(isPrinted);
-			consignment.setConsignmentsType(type);
+			consignment.setConsignmentsPrinted(isPrinted.booleanValue());
+			consignment.setConsignmentsType(type.intValue());
 			consignment.setTurqCurrentCard(curCard);
 			consignment.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			consignment.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
@@ -61,7 +74,7 @@ public class ConBLAddConsignment
 			consignment.setBillDocumentNo("");
 			EngDALCommon.saveObject(consignment);
 			// Then Save Inventory Transactions
-			InvBLSaveTransaction.saveInventoryTransactions(invTransactions, engSeq.getId(), type, consignmentDate, definition, docNo,
+			InvBLSaveTransaction.saveInventoryTransactions(invTransactions, engSeq.getId(), type.intValue(), consignmentDate, definition, docNo,
 					exchangeRate, curCard);
 			if (groups != null)
 			{

@@ -16,19 +16,27 @@ package com.turquaz.consignment.bl;
 /* GNU General Public License for more details.         				*/
 /** ********************************************************************* */
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.dal.ConDALSearchConsignment;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqViewInvPriceTotal;
 
 public class ConBLSearchConsignment
 {
-	public static List searchConsignment(TurqCurrentCard card, Date startDate, Date endDate, int type, String docNo) throws Exception
+	public static List searchConsignment(HashMap argMap) throws Exception
 	{
 		try
 		{
-			return ConDALSearchConsignment.searchConsignments(card, startDate, endDate, type, docNo);
+			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
+			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
+			Integer type=(Integer)argMap.get(EngKeys.TYPE);
+			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);			
+			return ConDALSearchConsignment.searchConsignments(curCard, startDate, endDate, type.intValue(), docNo);
 		}
 		catch (Exception ex)
 		{
@@ -48,11 +56,14 @@ public class ConBLSearchConsignment
 		}
 	}
 
-	public static List chooseConsignment(TurqCurrentCard card, Date startDate, Date endDate) throws Exception
+	public static List chooseConsignment(HashMap argMap) throws Exception
 	{
 		try
 		{
-			return ConDALSearchConsignment.chooseConsignments(card, startDate, endDate);
+			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
+			Date endDate=(Date)argMap.get(EngKeys.DATE_END);	
+			return ConDALSearchConsignment.chooseConsignments(curCard, startDate, endDate);
 		}
 		catch (Exception ex)
 		{
@@ -83,4 +94,18 @@ public class ConBLSearchConsignment
 			throw ex;
 		}
 	}
+	
+	public static TurqConsignment getConsignmentByConsId(HashMap argMap) throws Exception
+	{
+		try
+		{
+			Integer consId=(Integer)argMap.get(ConsKeys.CONS_ID);
+			return ConDALSearchConsignment.getConsignmentByConsId(consId);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
 }

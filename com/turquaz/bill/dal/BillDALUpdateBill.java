@@ -6,7 +6,6 @@ import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
-import com.turquaz.engine.dal.TurqBill;
 
 /**
  * @author onsel Window - Preferences - Java - Code Style - Code Templates
@@ -71,7 +70,7 @@ public class BillDALUpdateBill
 	}
 	
 
-	public static boolean canUpdateBill(TurqBill bill) throws Exception
+	public static Boolean canUpdateBill(Integer billId) throws Exception
 	{
 		try
 		{
@@ -80,16 +79,16 @@ public class BillDALUpdateBill
 					+ " TurqBill as bill where "
 					+ " accTrans.turqAccountingJournal.id <>-1"
 					+ " and bill.id ="
-					+ bill.getId()
+					+ billId
 					+ " and accTrans.turqEngineSequence.id in (Select eng.turqEngineSequence.id from bill.turqBillInEngineSequences as eng)";
 			Query q = session.createQuery(query);
 			List list = q.list();
 			if (list.size() == 0)
 			{
-				return true;
+				return new Boolean(true);
 			}
 			else
-				return false;
+				return new Boolean(false);
 		}
 		catch (Exception ex)
 		{

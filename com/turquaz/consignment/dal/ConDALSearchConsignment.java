@@ -97,23 +97,6 @@ public class ConDALSearchConsignment
 			throw ex;
 		}
 	}
-
-	public static TurqConsignment getConsignmentByConsId(Integer consId) throws Exception
-	{
-		try
-		{
-			Session session = EngDALSessionFactory.getSession();
-			String query = "Select consignment from TurqConsignment as consignment" + " where consignment.id=" + consId; //$NON-NLS-1$
-			Query q = session.createQuery(query);
-			List list = q.list();
-			
-			return (TurqConsignment) list.get(0);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
 	
 	public static TurqViewInvPriceTotal getViewInvTotal(Integer engSeqId) throws Exception
 	{
@@ -158,5 +141,22 @@ public class ConDALSearchConsignment
 		{
 			throw ex;
 		}		
+	}
+	
+	public static TurqConsignment getConsignmentByConsId(Integer consId) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			String query = "Select cons from TurqConsignment where cons.id="+consId.intValue();
+			Query q = session.createQuery(query);
+			List list = q.list();		
+			return (TurqConsignment)list.get(0);
+			
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
 	}
 }

@@ -2,20 +2,29 @@ package com.turquaz.bill.bl;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.dal.BillDALSearchBill;
 import com.turquaz.bill.dal.BillDALUpdateBill;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqViewBillTransTotal;
 
 public class BillBLSearchBill
 {
-	public static List searchBill(TurqCurrentCard card, String docNo, Date startDate, Date endDate, int type) throws Exception
+	public static List searchBill(HashMap argMap) throws Exception
 	{
 		try
 		{
-			return BillDALSearchBill.searchBill(card, docNo, startDate, endDate, type);
+			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
+			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
+			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
+			Integer type=(Integer)argMap.get(EngKeys.TYPE);
+			
+			return BillDALSearchBill.searchBill(curCard, docNo, startDate, endDate, type.intValue());
 		}
 		catch (Exception ex)
 		{
@@ -35,11 +44,12 @@ public class BillBLSearchBill
 		}
 	}
 
-	public static TurqBill getBillByBillId(Integer billId) throws Exception
+	public static TurqBill initializeBillById(HashMap argMap) throws Exception
 	{
 		try
 		{
-			return BillDALSearchBill.getBillByBillId(billId);
+			Integer billId=(Integer)argMap.get(BillKeys.BILL_ID);
+			return BillDALSearchBill.initializeBillById(billId);
 		}
 		catch (Exception ex)
 		{
@@ -59,14 +69,25 @@ public class BillBLSearchBill
 		}
 	}
 
-	public static List searchBillAdvanced(TurqCurrentCard curCardStart, TurqCurrentCard curCardEnd, Date startDate, Date endDate,
-			Date dueDateStart, Date dueDateEnd, BigDecimal minValue, BigDecimal maxValue, String docNoStart, String docNoEnd, int type)
+	public static List searchBillAdvanced(HashMap argMap)
 			throws Exception
 	{
 		try
 		{
+			TurqCurrentCard curCardStart=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD_START);
+			TurqCurrentCard curCardEnd=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD_END);
+			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
+			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
+			Date dueDateStart=(Date)argMap.get(EngKeys.DUE_DATE_START);
+			Date dueDateEnd=(Date)argMap.get(EngKeys.DUE_DATE_END);
+			BigDecimal minValue=(BigDecimal)argMap.get(EngKeys.MIN_VALUE);
+			BigDecimal maxValue=(BigDecimal)argMap.get(EngKeys.MAX_VALUE);
+			String docNoStart=(String)argMap.get(EngKeys.DOCUMENT_NO_START);
+			String docNoEnd=(String)argMap.get(EngKeys.DOCUMENT_NO_END);
+			Integer type=(Integer)argMap.get(EngKeys.TYPE);
+			
 			return BillDALSearchBill.searchBillAdvanced(curCardStart, curCardEnd, startDate, endDate, dueDateStart, dueDateEnd,
-					minValue, maxValue, docNoStart, docNoEnd, type);
+					minValue, maxValue, docNoStart, docNoEnd, type.intValue());
 		}
 		catch (Exception ex)
 		{
@@ -74,23 +95,12 @@ public class BillBLSearchBill
 		}
 	}
 
-	public static boolean canUpdateBill(TurqBill bill) throws Exception
+	public static Boolean canUpdateBill(HashMap argMap) throws Exception
 	{
 		try
 		{
-			return BillDALUpdateBill.canUpdateBill(bill);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static void initializeBill(TurqBill bill) throws Exception
-	{
-		try
-		{
-			BillDALSearchBill.initializeBill(bill);
+			Integer billId=(Integer)argMap.get(BillKeys.BILL_ID);
+			return BillDALUpdateBill.canUpdateBill(billId);
 		}
 		catch (Exception ex)
 		{

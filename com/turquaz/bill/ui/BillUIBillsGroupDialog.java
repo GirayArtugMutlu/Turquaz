@@ -20,6 +20,7 @@ package com.turquaz.bill.ui;
  * @version  $Id$
  */
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import net.sf.hibernate.HibernateException;
 import org.apache.log4j.Logger;
@@ -42,11 +43,14 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
+import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLAddGroups;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.current.Messages;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBillGroup;
+import com.turquaz.engine.tx.EngTXCommon;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -284,7 +288,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			tableCurGroups.removeAll();
-			List list = BillBLAddGroups.getBillGroups();
+			List list = (List)EngTXCommon.doSingleTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
 			TurqBillGroup curGroup;
 			TableItem item;
 			for (int i = 0; i < list.size(); i++)
@@ -314,7 +318,9 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 			int result = msg.open();
 			if (result == SWT.OK)
 			{
-				BillBLAddGroups.deleteGroup((TurqBillGroup) txtGroupName.getData());
+				HashMap argMap=new HashMap();
+				argMap.put(BillKeys.BILL_GROUP,txtGroupName.getData());
+				EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap);
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);
 				btnGroupAdd.setEnabled(true);
@@ -352,8 +358,12 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			else
 			{
-				TurqBillGroup invGroup = (TurqBillGroup) txtGroupName.getData();
-				BillBLAddGroups.updateGroup(txtGroupName.getText().trim(), txtDescription.getText().trim(), invGroup);
+				HashMap argMap=new HashMap();
+				argMap.put(BillKeys.BILL_GROUP_NAME,txtGroupName.getText().trim());
+				argMap.put(BillKeys.BILL_GROUP_DESCRIPTION,txtDescription.getText().trim());
+				argMap.put(BillKeys.BILL_GROUP,txtGroupName.getData());
+		
+				EngTXCommon.doTransactionTX(BillBLAddGroups.class.getName(),"updateGroup",argMap);
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);
 				btnGroupAdd.setEnabled(true);
@@ -396,7 +406,10 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			else
 			{
-				BillBLAddGroups.saveGroup(txtGroupName.getText().trim(), txtDescription.getText().trim());
+				HashMap argMap=new HashMap();
+				argMap.put(BillKeys.BILL_GROUP_NAME,txtGroupName.getText().trim());
+				argMap.put(BillKeys.BILL_GROUP_DESCRIPTION,txtDescription.getText().trim());
+				EngTXCommon.doTransactionTX(BillBLAddGroups.class.getName(),"saveGroup",argMap);
 				msg.setMessage(Messages.getString("CurUIGroupAddDialog.25")); //$NON-NLS-1$
 				txtGroupName.setText(""); //$NON-NLS-1$
 				txtDescription.setText(""); //$NON-NLS-1$

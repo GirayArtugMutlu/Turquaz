@@ -1,10 +1,14 @@
 package com.turquaz.bill.ui;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.Messages;
+import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -12,10 +16,11 @@ import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -119,9 +124,19 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 					{
 						public void widgetSelected(SelectionEvent evt)
 						{
-							boolean answer = EngUICommon.okToDelete(getParent(), Messages.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
-							dialogShell.close();
-							EngBLUtils.printBill(bill, answer);
+							try
+							{
+								boolean answer = EngUICommon.okToDelete(getParent(), Messages.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
+								dialogShell.close();
+								HashMap argMap=new HashMap();
+								argMap.put(BillKeys.BILL,bill);
+								argMap.put(BillKeys.BILL_BALANCE,new Boolean(answer));
+								EngTXCommon.doSingleTX(EngBLUtils.class.getName(),"printBill",argMap);
+							}
+							catch(Exception ex)
+							{
+								ex.printStackTrace();
+							}
 						}
 					});
 				}
@@ -170,7 +185,10 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			toolDelete.setEnabled(false);
 			if (bill == null)
 				return;
-			if (!BillBLUpdateBill.canUpdateBill(bill))
+			HashMap argMap=new HashMap();
+			argMap.put(BillKeys.BILL_ID,bill.getId());
+			Boolean canUpdateBill=(Boolean)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap);
+			if (!canUpdateBill.booleanValue())
 			{
 				toolDelete.setEnabled(false);
 				toolUpdate.setEnabled(false);
@@ -261,26 +279,34 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				//update the consignment
 				int type = compAddBill.BILL_TYPE;
 				//TODO exchange rate
-			   int result []=	BillBLUpdateBill
-						.updateBill(bill, compAddBill.getTxtDocumentNo().getText().trim(), compAddBill.getTxtConsignmentDocumentNo()
-								.getText().trim(), compAddBill.getTxtDefinition().getText(), false, 
-								compAddBill.getDateConsignmentDate().getDate(), (TurqCurrentCard) compAddBill.getTxtCurrentCard()
-										.getData(), compAddBill.getTxtDiscountAmount().getBigDecimalValue(), compAddBill
-										.getTxtTotalVat().getBigDecimalValue(), compAddBill.getDecSpecialVat()
-										.getBigDecimalValue(), compAddBill.getTxtTotalAmount().getBigDecimalValue(), type,
-										compAddBill.getDateDueDate()
-										.getDate(), compAddBill.getInventoryTransactions(), compAddBill.getBillGroups(),
-								EngBLCommon.getBaseCurrencyExchangeRate());
-			   
-			   if(result[0]==EngBLCommon.BILL_ERR_TOO_MANY_CONS)
-			   {
-			   	 EngUICommon.showMessageBox(getParent(),Messages.getString("BillUIBillUpdateDialog.13")); //$NON-NLS-1$
-			   }
-			   if(result[1]==-1)
-			   {			   	
-			   	EngUICommon.showMessageBox(getParent(),Messages.getString("BillUIBillUpdateDialog.14")); //$NON-NLS-1$
-			   }
-			   
+				
+				HashMap argMap=new HashMap();
+				
+				argMap.put(BillKeys.BILL,bill);
+				argMap.put(BillKeys.BILL_DOC_NO,compAddBill.getTxtDocumentNo().getText().trim());
+				argMap.put(BillKeys.BILL_DEFINITION,compAddBill.getTxtDefinition().getText().trim());
+				argMap.put(BillKeys.BILL_IS_PRINTED,new Boolean(false));
+				argMap.put(BillKeys.BILL_DATE,compAddBill.getDateConsignmentDate().getDate());
+				argMap.put(EngKeys.TYPE,new Integer(type));
+				argMap.put(EngKeys.CURRENT_CARD,compAddBill.getTxtCurrentCard().getData());
+				argMap.put(BillKeys.BILL_DUE_DATE,compAddBill.getDateDueDate().getDate());
+				argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT,compAddBill.getTxtDiscountAmount().getBigDecimalValue());			
+				argMap.put(BillKeys.BILL_TOTAL_AMOUNT,compAddBill.getTxtTotalAmount().getBigDecimalValue());
+				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(BillKeys.BILL_GROUPS,compAddBill.getBillGroups());
+				argMap.put(InvKeys.INV_TRANSACTIONS,compAddBill.getInventoryTransactions());	
+				
+				int[] result=(int[])EngTXCommon.doTransactionTX(BillBLUpdateBill.class.getName(),"updateBill",argMap);
+				
+				if(result[0]==EngBLCommon.BILL_ERR_TOO_MANY_CONS)
+				{
+					EngUICommon.showMessageBox(getParent(),Messages.getString("BillUIBillUpdateDialog.13")); //$NON-NLS-1$
+				}
+				if(result[1]==-1)
+				{			   	
+					EngUICommon.showMessageBox(getParent(),Messages.getString("BillUIBillUpdateDialog.14")); //$NON-NLS-1$
+				}
+				
 				msg = new MessageBox(this.getParent(), SWT.ICON_INFORMATION);
 				msg.setMessage(Messages.getString("BillUIBillUpdateDialog.15"));  //$NON-NLS-1$
 				msg.open();
@@ -314,7 +340,10 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				if (EngUICommon.okToDelete(getParent(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
 					deleteCons = true;
 				}
-				BillBLUpdateBill.deleteBill(bill, deleteCons);
+				HashMap argMap=new HashMap();
+				argMap.put(BillKeys.BILL,bill);
+				argMap.put(BillKeys.BILL_DELETE_CONS,new Boolean(deleteCons));
+				EngTXCommon.doTransactionTX(BillBLUpdateBill.class.getName(),"deleteBill",argMap);
 				msg.setMessage(Messages.getString("BillUIBillUpdateDialog.1")); //$NON-NLS-1$
 				msg.open();
 				dialogShell.close();

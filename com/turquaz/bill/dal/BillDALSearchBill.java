@@ -64,7 +64,7 @@ public class BillDALSearchBill
 		}
 	}
 
-	public static TurqBill getBillByBillId(Integer billId) throws Exception
+	public static TurqBill initializeBillById(Integer billId) throws Exception
 	{
 		try
 		{
@@ -72,7 +72,43 @@ public class BillDALSearchBill
 			String query = "Select bill from TurqBill as bill" + " where bill.id=" + billId; //$NON-NLS-1$
 			Query q = session.createQuery(query);
 			List list = q.list();
-			return (TurqBill) list.get(0);
+			TurqBill bill=null;
+			if (list.size()!=0)
+			{
+				bill=(TurqBill)list.get(0);
+				Hibernate.initialize(bill.getTurqBillInGroups());
+				Hibernate.initialize(bill.getTurqBillInEngineSequences());
+				Iterator it = bill.getTurqBillInEngineSequences().iterator();
+				while (it.hasNext())
+				{
+					TurqBillInEngineSequence billInEng = (TurqBillInEngineSequence) it.next();
+					Hibernate.initialize(billInEng.getTurqEngineSequence().getTurqConsignments());
+					Hibernate.initialize(billInEng.getTurqEngineSequence().getTurqInventoryTransactions());
+				}
+				
+			}
+			return bill;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static void initializeBill(TurqBill bill) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			Hibernate.initialize(bill.getTurqBillInGroups());
+			Hibernate.initialize(bill.getTurqBillInEngineSequences());
+			Iterator it = bill.getTurqBillInEngineSequences().iterator();
+			while (it.hasNext())
+			{
+				TurqBillInEngineSequence billInEng = (TurqBillInEngineSequence) it.next();
+				Hibernate.initialize(billInEng.getTurqEngineSequence().getTurqConsignments());
+				Hibernate.initialize(billInEng.getTurqEngineSequence().getTurqInventoryTransactions());
+			}
 		}
 		catch (Exception ex)
 		{
@@ -196,29 +232,6 @@ public class BillDALSearchBill
 			}
 			List list = q.list();
 			return list;
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static void initializeBill(TurqBill bill) throws Exception
-	{
-		try
-		{
-			Session session = EngDALSessionFactory.getSession();
-			session.refresh(bill);
-			Hibernate.initialize(bill.getTurqBillInGroups());
-			Hibernate.initialize(bill.getTurqBillInEngineSequences());
-			Iterator it = bill.getTurqBillInEngineSequences().iterator();
-			while (it.hasNext())
-			{
-				TurqBillInEngineSequence billInEng = (TurqBillInEngineSequence) it.next();
-				Hibernate.initialize(billInEng.getTurqEngineSequence().getTurqConsignments());
-				Hibernate.initialize(billInEng.getTurqEngineSequence().getTurqInventoryTransactions());
-			}
-			
 		}
 		catch (Exception ex)
 		{

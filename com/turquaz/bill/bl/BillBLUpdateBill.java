@@ -3,12 +3,15 @@ package com.turquaz.bill.bl;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import org.apache.log4j.Logger;
+import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.dal.BillDALUpdateBill;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqBill;
@@ -18,14 +21,11 @@ import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLSaveTransaction;
 
 public class BillBLUpdateBill
 {
-	public BillBLUpdateBill()
-	{
-	}
-
 	public static void deleteCurrentTransactions(TurqBill bill) throws Exception
 	{
 		try
@@ -50,7 +50,7 @@ public class BillBLUpdateBill
 		}
 	}
 
-	public static void deleteBillConsignment(TurqBill bill) throws Exception
+	private static void deleteBillConsignment(TurqBill bill) throws Exception
 	{
 		Iterator it = bill.getTurqBillInEngineSequences().iterator();
 		while (it.hasNext())
@@ -65,7 +65,7 @@ public class BillBLUpdateBill
 		}
 	}
 
-	public static void deleteBillInEngineSequences(TurqBill bill) throws Exception
+	private static void deleteBillInEngineSequences(TurqBill bill) throws Exception
 	{
 		Iterator it = bill.getTurqBillInEngineSequences().iterator();
 		while (it.hasNext())
@@ -74,7 +74,7 @@ public class BillBLUpdateBill
 		}
 	}
 
-	public static boolean hasBillConsignments(TurqBill bill) throws Exception
+	private static boolean hasBillConsignments(TurqBill bill) throws Exception
 	{
 		boolean hasCons = false;
 		Iterator it = bill.getTurqBillInEngineSequences().iterator();
@@ -91,7 +91,7 @@ public class BillBLUpdateBill
 		return hasCons;
 	}
 	
-	public static void deleteInventoryTransactions(TurqBill bill)throws Exception
+	private static void deleteInventoryTransactions(TurqBill bill)throws Exception
 	{
 		Iterator it = bill.getTurqBillInEngineSequences().iterator();
 		if (it.hasNext())
@@ -109,14 +109,16 @@ public class BillBLUpdateBill
 		
 	}
 
-	public static void deleteBill(TurqBill bill, boolean deleteCons) throws Exception
+	public static void deleteBill(HashMap argMap) throws Exception
 	{
+		TurqBill bill=(TurqBill)argMap.get(BillKeys.BILL);
+		Boolean deleteCons=(Boolean)argMap.get(BillKeys.BILL_DELETE_CONS);
 		deleteAccountingTransactions(bill);
 		deleteCurrentTransactions(bill);
 		deleteBillGroups(bill);
 		if (hasBillConsignments(bill))
 		{
-			if (deleteCons)
+			if (deleteCons.booleanValue())
 			{
 				deleteBillConsignment(bill);
 			}
@@ -147,21 +149,32 @@ public class BillBLUpdateBill
 	 * @param dueDate
 	 * @throws Exception
 	 */
-	public static int[] updateBill(TurqBill bill, String billNo, String consNo, String definition, boolean isPrinted, Date billDate,
-			TurqCurrentCard curCard, BigDecimal discountAmount, BigDecimal vatAmount, BigDecimal specialVatAmount,
-			BigDecimal totalAmount, int type, Date dueDate, List invTransactions, List groups, TurqCurrencyExchangeRate exchangeRate)
+	public static int[] updateBill(HashMap argMap)
 			throws Exception
 	{
 		try
 		{
+			TurqBill bill=(TurqBill)argMap.get(BillKeys.BILL);
+			String billNo=(String)argMap.get(BillKeys.BILL_DOC_NO);
+			String definition=(String)argMap.get(BillKeys.BILL_DEFINITION);
+			Boolean isPrinted=(Boolean)argMap.get(BillKeys.BILL_IS_PRINTED);
+			Date billDate=(Date)argMap.get(BillKeys.BILL_DATE);
+			Integer type=(Integer)argMap.get(EngKeys.TYPE);
+			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			Date dueDate=(Date)argMap.get(BillKeys.BILL_DUE_DATE);
+			BigDecimal discountAmount=(BigDecimal)argMap.get(BillKeys.BILL_DISCOUNT_AMOUNT);			
+			BigDecimal totalAmount=(BigDecimal)argMap.get(BillKeys.BILL_TOTAL_AMOUNT);
+			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+			List billGroups=(List)argMap.get(BillKeys.BILL_GROUPS);
+			List invTransactions=(List)argMap.get(InvKeys.INV_TRANSACTIONS);			
+			
 			int result[] = new int[2];
-			updateBillInfo(bill, curCard, billDate, definition, billNo, isPrinted, dueDate, type, true, exchangeRate);
+			updateBillInfo(bill, curCard, billDate, definition, billNo, isPrinted.booleanValue(), dueDate, type.intValue(), true, exchangeRate);
 			result[0] = updateInventoryTransactions(bill, invTransactions);
-			updateBillGroups(bill, groups);
+			updateBillGroups(bill, billGroups);
 			//Update Transactions
 			deleteAccountingTransactions(bill);
 			deleteCurrentTransactions(bill);
-			//XXX update methods should be re-written..
 			BillBLAddBill.saveCurrentTransaction(bill, totalAmount, discountAmount);
 			EngDALCommon.updateObject(bill);
 			result[1] = BillBLAddBill.saveAccountingTransaction(bill);
@@ -173,7 +186,7 @@ public class BillBLUpdateBill
 		}
 	}
 
-	public static int updateInventoryTransactions(TurqBill bill, List invTransactions) throws Exception
+	private static int updateInventoryTransactions(TurqBill bill, List invTransactions) throws Exception
 	{
 		try
 		{
@@ -209,7 +222,7 @@ public class BillBLUpdateBill
 		}
 	}
 
-	public static void updateBillInfo(TurqBill bill, TurqCurrentCard curCard, Date billDate, String definition, String billDocNo,
+	private static void updateBillInfo(TurqBill bill, TurqCurrentCard curCard, Date billDate, String definition, String billDocNo,
 			boolean isPrinted, Date dueDate, int type, boolean isOpen, TurqCurrencyExchangeRate exRate) throws Exception
 	{
 		bill.setBillDocumentNo(billDocNo);
@@ -226,7 +239,7 @@ public class BillBLUpdateBill
 		bill.setTurqCurrencyExchangeRate(exRate);
 	}
 
-	public static void updateBillGroups(TurqBill bill, List billGroups) throws Exception
+	private static void updateBillGroups(TurqBill bill, List billGroups) throws Exception
 	{
 		deleteBillGroups(bill);
 		for (int i = 0; i < billGroups.size(); i++)
@@ -235,26 +248,12 @@ public class BillBLUpdateBill
 		}
 	}
 
-	public static void deleteBillGroups(TurqBill bill) throws Exception
+	private static void deleteBillGroups(TurqBill bill) throws Exception
 	{
 		Iterator it = bill.getTurqBillInGroups().iterator();
 		while (it.hasNext())
 		{
 			EngDALCommon.deleteObject(it.next());
-		}
-	}
-
-	
-
-	public static boolean canUpdateBill(TurqBill bill) throws Exception
-	{
-		try
-		{
-			return BillDALUpdateBill.canUpdateBill(bill);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
 		}
 	}
 }

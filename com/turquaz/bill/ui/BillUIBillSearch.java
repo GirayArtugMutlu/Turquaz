@@ -3,6 +3,7 @@ package com.turquaz.bill.ui;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
@@ -11,14 +12,17 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TableSorter;
@@ -308,18 +312,6 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	{
 	}
 
-	public static void initializeBill(TurqBill bill) throws Exception
-	{
-		try
-		{
-			BillBLSearchBill.initializeBill(bill);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
 	public void search()
 	{
 		try
@@ -334,8 +326,15 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 			{
 				type = EngBLCommon.COMMON_SELL_INT;
 			}
-			List list = BillBLSearchBill.searchBill((TurqCurrentCard) txtCurCard.getData(), txtDocNo.getText().trim(), dateStartDate
-					.getDate(), dateEndDate.getDate(), type);
+			HashMap argMap=new HashMap();
+			
+			argMap.put(EngKeys.CURRENT_CARD, txtCurCard.getData());
+			argMap.put(EngKeys.DOCUMENT_NO,txtDocNo.getText().trim());
+			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
+			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
+			argMap.put(EngKeys.TYPE,new Integer(type));
+			
+			List list =(List)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"searchBill",argMap);
 			Object[] bill;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			for (int i = 0; i < list.size(); i++)
@@ -378,21 +377,25 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				Integer billId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (billId != null)
 				{
-					TurqBill bill = BillBLSearchBill.getBillByBillId(billId);
-					initializeBill(bill);
-					if (BillBLSearchBill.canUpdateBill(bill))
+					HashMap argMap=new HashMap();
+					argMap.put(BillKeys.BILL_ID,billId);
+					TurqBill bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap);
+					Boolean canUpdateBill=(Boolean)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap);
+					if (canUpdateBill.booleanValue())
 					{
 						//delete Consignment Group
 						MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 						msg2.setMessage(Messages.getString("BillUIBillSearch.12")); //$NON-NLS-1$
 						if (msg2.open() == SWT.OK)
 						{
-							initializeBill(bill);
 							boolean deleteCons = false;
 							if (EngUICommon.okToDelete(getShell(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
 								deleteCons = true;
 							}
-							BillBLUpdateBill.deleteBill(bill, deleteCons);
+							argMap=new HashMap();
+							argMap.put(BillKeys.BILL,bill);
+							argMap.put(BillKeys.BILL_DELETE_CONS,new Boolean(deleteCons));
+							EngTXCommon.doTransactionTX(BillBLUpdateBill.class.getName(),"deleteBill",argMap);
 							msg.setMessage(Messages.getString("BillUIBillSearch.14")); //$NON-NLS-1$
 							msg.open();
 							search();
@@ -425,8 +428,9 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	{
 		if (billId != null)
 		{
-			TurqBill bill = BillBLSearchBill.getBillByBillId(billId);
-			initializeBill(bill);
+			HashMap argMap=new HashMap();
+			argMap.put(BillKeys.BILL_ID,billId);
+			TurqBill bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap);
 			boolean updated = new BillUIBillUpdateDialog(shell, SWT.NULL, bill).open();
 			if (updated)
 				return true;
