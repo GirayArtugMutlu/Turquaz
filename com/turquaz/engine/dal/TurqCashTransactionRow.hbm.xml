@@ -40,9 +40,9 @@
     />
     <property
         name="transactionDefinition"
-        type="int"
+        type="java.lang.String"
         column="transaction_definition"
-        length="4"
+        length="250"
     />
     <property
         name="createdBy"

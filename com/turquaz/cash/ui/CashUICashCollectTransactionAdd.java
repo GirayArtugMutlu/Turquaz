@@ -1,18 +1,26 @@
 package com.turquaz.cash.ui;
 
+import java.math.BigDecimal;
+
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.layout.GridData;
 
+import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
+import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -112,9 +120,9 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 			this.setSize(540, 265);
             {
                 lblCashTransType = new CLabel(this, SWT.NONE);
-                lblCashTransType.setText("Tahsilat Fi?i");
+                lblCashTransType.setText(Messages.getString("CashUICashCollectTransactionAdd.0")); //$NON-NLS-1$
                 GridData lblCashTransTypeLData = new GridData();
-                lblCashTransType.setFont(SWTResourceManager.getFont("Tahoma", 14, 1, false, false));
+                lblCashTransType.setFont(SWTResourceManager.getFont("Tahoma", 14, 1, false, false)); //$NON-NLS-1$
                 lblCashTransTypeLData.widthHint = 180;
                 lblCashTransTypeLData.heightHint = 42;
                 lblCashTransTypeLData.horizontalAlignment = GridData.CENTER;
@@ -124,7 +132,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
             }
             {
                 lblDocumentNo = new CLabel(this, SWT.NONE);
-                lblDocumentNo.setText("Belge No");
+                lblDocumentNo.setText(Messages.getString("CashUICashCollectTransactionAdd.2")); //$NON-NLS-1$
             }
             {
                 txtDocumentNo = new Text(this, SWT.NONE);
@@ -136,7 +144,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
             }
             {
                 lblDate = new CLabel(this, SWT.NONE);
-                lblDate.setText("Tarih");
+                lblDate.setText(Messages.getString("CashUICashCollectTransactionAdd.3")); //$NON-NLS-1$
             }
             {
                 datePicker = new DatePicker(this, SWT.NONE);
@@ -147,26 +155,59 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
             }
             {
                 lblCashCard = new CLabel(this, SWT.NONE);
-                lblCashCard.setText("Kasa Kart?");
+                lblCashCard.setText(Messages.getString("CashUICashCollectTransactionAdd.4")); //$NON-NLS-1$
             }
             {
                 txtCashCard = new Text(this, SWT.NONE);
                 GridData txtCashCardLData = new GridData();
-                txtCashCardLData.widthHint = 159;
+                txtCashCardLData.widthHint = 164;
                 txtCashCardLData.heightHint = 19;
+                txtCashCard
+				.addModifyListener(new ModifyListener() {
+				public void modifyText(ModifyEvent evt) {
+					try {
+						txtCashCard
+							.setData(EngBLCashCards
+								.getCard(txtCashCard
+									.getText().trim()));
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+
+				}
+				});
+               
+
                 txtCashCard.setLayoutData(txtCashCardLData);
             }
             {
                 lblCurrentCard = new CLabel(this, SWT.NONE);
-                lblCurrentCard.setText("Cari Hesap");
+                lblCurrentCard.setText(Messages.getString("CashUICashCollectTransactionAdd.5")); //$NON-NLS-1$
             }
             {
                 txtCurrentAccount = new Text(this, SWT.NONE);
-                txtCurrentAccount.setSize(166, 19);
+                GridData txtCurrentAccountLData = new GridData();
+                txtCurrentAccountLData.widthHint = 164;
+                txtCurrentAccountLData.heightHint = 18;
+                txtCurrentAccount.setLayoutData(txtCurrentAccountLData);
+                txtCurrentAccount
+				.addModifyListener(new ModifyListener() {
+				public void modifyText(ModifyEvent evt) {
+					try {
+						txtCurrentAccount
+							.setData(EngBLCurrentCards
+								.getCards(txtCurrentAccount
+									.getText().trim()));
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+
+				}
+				});
             }
             {
                 lblTotalAmount = new CLabel(this, SWT.NONE);
-                lblTotalAmount.setText("Tutar?");
+                lblTotalAmount.setText(Messages.getString("CashUICashCollectTransactionAdd.6")); //$NON-NLS-1$
                 GridData lblTotalAmountLData = new GridData();
                 lblTotalAmountLData.widthHint = 42;
                 lblTotalAmountLData.heightHint = 19;
@@ -174,11 +215,14 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
             }
             {
                 curTextTotalAmount = new CurrencyText(this, SWT.NONE);
-                curTextTotalAmount.setSize(166, 19);
+                GridData curTextTotalAmountLData = new GridData();
+                curTextTotalAmountLData.widthHint = 165;
+                curTextTotalAmountLData.heightHint = 19;
+                curTextTotalAmount.setLayoutData(curTextTotalAmountLData);
             }
             {
                 lblDefinition = new CLabel(this, SWT.NONE);
-                lblDefinition.setText("Aç?klama");
+                lblDefinition.setText(Messages.getString("CashUICashCollectTransactionAdd.7")); //$NON-NLS-1$
             }
             {
                 txtDefinition = new Text(this, SWT.NONE);
@@ -187,6 +231,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
                 txtDefinitionLData.heightHint = 18;
                 txtDefinition.setLayoutData(txtDefinitionLData);
             }
+            postInitGUI();
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -199,7 +244,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(
 				txtCurrentAccount);
 		final TurquazContentAssistant assistant = new TurquazContentAssistant(
-				adapter, 3);
+				adapter, EngBLCommon.CONTENT_ASSIST_CURRENT);
 		adapter.appendVerifyKeyListener(new VerifyKeyListener() {
 			public void verifyKey(VerifyEvent event) {
 
@@ -212,17 +257,38 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 				}
 			}
 		});
-	    
+		
+		
+			TextContentAssistSubjectAdapter adapter2 = new TextContentAssistSubjectAdapter(
+					txtCashCard);
+			final TurquazContentAssistant assistant2 = new TurquazContentAssistant(
+					adapter2, EngBLCommon.CONTENT_ASSIST_CASH);
+			adapter2.appendVerifyKeyListener(new VerifyKeyListener() {
+				public void verifyKey(VerifyEvent event) {
+
+					// Check for Ctrl+Spacebar
+					if (event.stateMask == SWT.CTRL && event.character == ' ') {
+
+						assistant2.showPossibleCompletions();
+						event.doit = false;
+
+					}
+				}
+			});
+		    
 	    
 	    
 	}
 
     public void newForm() {
-        // TODO kjhkj
+
 
     }
+    
     public void save() {
+        MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
        try{
+           
            if(verifyFields()){
            
                
@@ -235,16 +301,31 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
                        						  txtDefinition.getText(),
                        						  txtDocumentNo.getText().trim()
                        						  );
-           
+               
+               msg.setMessage("Ba?ar?yla Kaydedildi!");
+               msg.open();
+               newForm();
+                
            
            }
        }
        catch(Exception ex){
            ex.printStackTrace();
+           msg.setMessage(ex.getMessage());
+           msg.open();
        }
 
     }
     public boolean verifyFields(){
+        if(txtCashCard.getData()==null){
+           return false;
+        }
+        else if(txtCurrentAccount.getData()==null){
+            return false;
+        }
+        else if(curTextTotalAmount.getBigDecimalValue().equals(new BigDecimal(0))){
+            return false;
+        }
         return true;
     }
 }

@@ -11,6 +11,7 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
+import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqCashTransactionType;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
@@ -29,7 +30,7 @@ public class CashBLCashTransactionAdd {
     }
     
  
-    /**
+  /**
      * TODO Update according to cash design changes
      * @param cashCard
      * @param current
@@ -40,7 +41,7 @@ public class CashBLCashTransactionAdd {
      * @param definition
      * @param document_no
      * @throws Exception
-     */
+  */
  public void saveCurrentTransaction(TurqCashCard cashCard, TurqCurrentCard current, 
          							int type, TurqEngineSequence seq, 
          							BigDecimal totalAmount, Date transDate,
@@ -70,12 +71,23 @@ public class CashBLCashTransactionAdd {
      cashTrans.setTransactionDate(transDate);
      cashTrans.setTransactionDefinition(definition);
      cashTrans.setDocumentNo(document_no);
-		cashTrans.setCreatedBy(System.getProperty("user"));
-		cashTrans.setUpdatedBy(System.getProperty("user"));
-		cashTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-		cashTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+     cashTrans.setCreatedBy(System.getProperty("user"));
+	 cashTrans.setUpdatedBy(System.getProperty("user"));
+	 cashTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+	 cashTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
      
- 
+ /*
+  * Create cash Transaction Rows
+  */
+	 TurqCashTransactionRow cashTransRow = new TurqCashTransactionRow();
+	 cashTransRow.setCreatedBy(System.getProperty("user"));
+	 cashTransRow.setUpdatedBy(System.getProperty("user"));
+	 cashTransRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+	 cashTransRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+	 cashTransRow.setTransactionDefinition(definition);
+	 cashTransRow.setTurqAccountingAccount(current.getTurqAccountingAccount());
+	 
+	 
 	/*
       * Create Accounting transaction
       */
@@ -96,13 +108,14 @@ public class CashBLCashTransactionAdd {
      
 	 if(type==EngBLCommon.CASH_CURRENT_COLLECT)
      {
-         
-        
         accTransRowCash.setDeptAmount(totalAmount);
         accTransRowCash.setCreditAmount(new BigDecimal(0));
         
         accTransRowCurrent.setDeptAmount(new BigDecimal(0));
         accTransRowCurrent.setCreditAmount(totalAmount);
+        
+        cashTransRow.setDeptAmount(new BigDecimal(0));
+        cashTransRow.setCreditAmount(totalAmount);
         
         accTransType = EngBLCommon.ACCOUNTING_TRANS_COLLECT;
         currentTransType = EngBLCommon.CURRENT_TRANS_CREDIT;
@@ -129,7 +142,18 @@ public class CashBLCashTransactionAdd {
       */
 	    dalCash.save(cashTrans);
 	    
-	  
+	
+	    
+	    
+	    /**
+		 * Save Cash Transaction Row
+		 * 
+		 */  
+	
+	    cashTransRow.setTurqCashTransaction(cashTrans);
+	    dalCash.save(cashTransRow);
+	    
+	    
 	    
 	  /**
 	   * Save Current transaction
@@ -138,6 +162,10 @@ public class CashBLCashTransactionAdd {
 	    blCurTrans.saveCurrentTransaction(current, transDate,document_no,currentTransType,
 	            						  totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CASH,
 	            						  seq.getEngineSequencesId());
+	
+		    
+	    
+	    
 	    
 	    
 	    /**

@@ -18,7 +18,7 @@ public class TurqCashTransactionRow implements Serializable {
     private java.math.BigDecimal creditAmount;
 
     /** nullable persistent field */
-    private int transactionDefinition;
+    private java.lang.String transactionDefinition;
 
     /** persistent field */
     private java.lang.String createdBy;
@@ -39,7 +39,7 @@ public class TurqCashTransactionRow implements Serializable {
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
 
     /** full constructor */
-    public TurqCashTransactionRow(java.math.BigDecimal deptAmount, java.math.BigDecimal creditAmount, int transactionDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCashTransaction turqCashTransaction, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
+    public TurqCashTransactionRow(java.math.BigDecimal deptAmount, java.math.BigDecimal creditAmount, java.lang.String transactionDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCashTransaction turqCashTransaction, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
         this.deptAmount = deptAmount;
         this.creditAmount = creditAmount;
         this.transactionDefinition = transactionDefinition;
@@ -91,11 +91,11 @@ public class TurqCashTransactionRow implements Serializable {
         this.creditAmount = creditAmount;
     }
 
-    public int getTransactionDefinition() {
+    public java.lang.String getTransactionDefinition() {
         return this.transactionDefinition;
     }
 
-    public void setTransactionDefinition(int transactionDefinition) {
+    public void setTransactionDefinition(java.lang.String transactionDefinition) {
         this.transactionDefinition = transactionDefinition;
     }
 

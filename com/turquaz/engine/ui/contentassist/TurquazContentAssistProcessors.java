@@ -17,9 +17,12 @@ import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Point;
 
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
+import com.turquaz.engine.bl.EngBLCashCards;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryCard;
 
@@ -77,7 +80,7 @@ public class TurquazContentAssistProcessors implements
                 }
 
             }
-           else if (type == 3) {
+           else if (type == EngBLCommon.CONTENT_ASSIST_CURRENT) {
            		
                 List list = EngBLCurrentCards.getCurrentCards();
 
@@ -88,6 +91,19 @@ public class TurquazContentAssistProcessors implements
                 }
 
             }
+           else if(type==EngBLCommon.CONTENT_ASSIST_CASH){
+               
+               List list = EngBLCashCards.getCashCards();
+
+               for (int i = 0; i < list.size(); i++) {
+                   TurqCashCard card = (TurqCashCard)( list.get(i));
+                   
+                   proposed.add(new Proposal(card.getCashCardName(),card.getCashCardDefinition()));
+               
+               }
+               
+               
+           }
             proposedCodes = new Proposal[proposed.size()];
             proposed.toArray(proposedCodes);
 
