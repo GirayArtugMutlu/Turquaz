@@ -3,15 +3,10 @@ package com.turquaz.current.ui;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
@@ -39,10 +34,9 @@ import org.eclipse.swt.widgets.TableItem;
 
 import org.eclipse.swt.layout.GridData;
 
+import org.eclipse.swt.widgets.Group;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
-import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
@@ -50,19 +44,15 @@ import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.custom.VerifyKeyListener;
 
 import com.turquaz.engine.ui.component.DatePicker;
-import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
-
-import org.eclipse.swt.widgets.Text;
 public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite implements SearchComposite{
 	private Composite compSearch;
 	private Table tableCurrentTransactions;
 	private TableColumn tableColumnDocumentNo;
 	private CLabel lblCurrentCard;
 	private TableColumn tableColumnTransGroup;
-	private Text txtCurrentCard;
+	private Group txtCurrentCard;
 	private DatePicker datePickerEndDate;
 	private CLabel lblEndDate;
 	private DatePicker datePickerStartDate;
@@ -140,23 +130,13 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					lblCurrentCard.setLayoutData(lblCurrentCardLData);
 				}
 				{
-					txtCurrentCard = new Text(compSearch, SWT.NONE);
+					txtCurrentCard = new Group(compSearch, SWT.NONE);
 					GridData txtCurrentCardLData = new GridData();
 					txtCurrentCardLData.widthHint = 140;
 					txtCurrentCardLData.heightHint = 17;
 					txtCurrentCardLData.horizontalSpan = 3;
 					txtCurrentCard.setLayoutData(txtCurrentCardLData);
-					txtCurrentCard.addModifyListener(new ModifyListener() {
-						public void modifyText(ModifyEvent evt) {
-							try {
-								txtCurrentCard.setData(EngBLCurrentCards
-									.getCards(txtCurrentCard.getText().trim()));
-							} catch (Exception ex) {
-								ex.printStackTrace();
-							}
-
-						}
-					});
+					
 				}
 				{
 					lblStartDate = new CLabel(compSearch, SWT.NONE);
@@ -252,22 +232,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	public void postInitGui(){
 //		  content assistant
 		datePickerStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
-		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(
-				txtCurrentCard);
-		final TurquazContentAssistant assistant = new TurquazContentAssistant(
-				adapter, EngBLCommon.CONTENT_ASSIST_CURRENT);
-		adapter.appendVerifyKeyListener(new VerifyKeyListener() {
-			public void verifyKey(VerifyEvent event) {
 
-				// Check for Ctrl+Spacebar
-				if (event.stateMask == SWT.CTRL && event.character == ' ') {
-
-					assistant.showPossibleCompletions();
-					event.doit = false;
-
-				}
-			}
-		});
 	}
 	
 	public void exportToExcel()

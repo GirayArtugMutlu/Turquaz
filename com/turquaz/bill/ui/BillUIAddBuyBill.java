@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
-
-import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.widgets.Composite;
@@ -37,11 +35,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.VerifyEvent;
 
 
 import com.turquaz.engine.ui.component.DatePicker;
@@ -49,7 +44,6 @@ import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.jface.viewers.CellEditor;
@@ -59,6 +53,7 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -69,7 +64,6 @@ import com.turquaz.consignment.bl.ConBLAddConsignment;
 
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqConsignment;
@@ -79,7 +73,6 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 import com.turquaz.engine.ui.component.SecureComposite;
-import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.editors.InventoryCellEditor;
 import com.turquaz.engine.ui.editors.NumericCellEditor;
@@ -191,7 +184,7 @@ public class BillUIAddBuyBill extends Composite
 	/**
 	 * @return Returns the txtCurrentCard.
 	 */
-	public Text getTxtCurrentCard() {
+	public CurrentPicker getTxtCurrentCard() {
 		return txtCurrentCard;
 	}
 
@@ -199,7 +192,7 @@ public class BillUIAddBuyBill extends Composite
 	 * @param txtCurrentCard
 	 *            The txtCurrentCard to set.
 	 */
-	public void setTxtCurrentCard(Text txtCurrentCard) {
+	public void setTxtCurrentCard(CurrentPicker txtCurrentCard) {
 		this.txtCurrentCard = txtCurrentCard;
 	}
 
@@ -382,7 +375,7 @@ public class BillUIAddBuyBill extends Composite
 
 	private CLabel lblDate;
 
-	private Text txtCurrentCard;
+	private CurrentPicker txtCurrentCard;
 
 	private CLabel lblCurrentCard;
 
@@ -490,29 +483,12 @@ public class BillUIAddBuyBill extends Composite
                                 lblCurrentCard.setLayoutData(lblCurrentCardLData1);
                             }
                             {
-                                txtCurrentCard = new Text(
-                                    compInfoPanel,
-                                    SWT.SINGLE);
+                                txtCurrentCard = new CurrentPicker(compInfoPanel, SWT.NONE);
                                 GridData txtCurrentCardLData = new GridData();
-                                txtCurrentCard
-                                    .addModifyListener(new ModifyListener() {
-                                        public void modifyText(ModifyEvent evt) {
-
-                                            try {
-                                                txtCurrentCard
-                                                    .setData(EngBLCurrentCards
-                                                        .getCards(txtCurrentCard
-                                                            .getText().trim()));
-                                            } catch (Exception ex) {
-                                                ex.printStackTrace();
-                                            }
-
-                                        }
-                                    });
-                                txtCurrentCard.setBackground(SWTResourceManager
-                                    .getColor(255, 255, 255));
-                                txtCurrentCardLData.widthHint = 109;
-                                txtCurrentCardLData.heightHint = 15;
+                               
+                                txtCurrentCard.setBackground(SWTResourceManager.getColor(255,255,255));
+                                txtCurrentCardLData.widthHint = 114;
+                                txtCurrentCardLData.heightHint = 14;
                                 txtCurrentCard.setLayoutData(txtCurrentCardLData);
                             }
                             {
@@ -1080,23 +1056,7 @@ public class BillUIAddBuyBill extends Composite
 				Messages.getString("BillUIAddBill.30"), new Boolean(true)); //$NON-NLS-1$
 		comboPaymentType.setText(Messages.getString("BillUIAddBill.35")); //$NON-NLS-1$
 		accountPickerCurAcc.setEnabled(false);
-		//content assistant
-		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(
-				txtCurrentCard);
-		final TurquazContentAssistant assistant = new TurquazContentAssistant(
-				adapter, 3);
-		adapter.appendVerifyKeyListener(new VerifyKeyListener() {
-			public void verifyKey(VerifyEvent event) {
-
-				// Check for Ctrl+Spacebar
-				if (event.stateMask == SWT.CTRL && event.character == ' ') {
-
-					assistant.showPossibleCompletions();
-					event.doit = false;
-
-				}
-			}
-		});
+		
 
 	    createTableViewer();
 	    

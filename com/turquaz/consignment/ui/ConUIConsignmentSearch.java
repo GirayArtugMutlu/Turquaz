@@ -3,7 +3,6 @@ package com.turquaz.consignment.ui;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -19,7 +18,6 @@ import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
-import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -28,22 +26,17 @@ import com.turquaz.engine.ui.component.TableSorter;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
-import org.eclipse.swt.widgets.Text;
+import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.custom.VerifyKeyListener;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
-import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 
 /**
@@ -66,7 +59,7 @@ SearchComposite{
 	private Table tableConsignments;
 	private TableColumn tableColumnCurrentName;
 	private TableColumn tableColumnVatAmount;
-	private Text txtCurCard;
+	private CurrentPicker txtCurCard;
 	private CCombo comboConsignmentType;
 	private CLabel lblType;
 	private CLabel lblEndDate;
@@ -144,25 +137,12 @@ SearchComposite{
 					lblCurrentCard.setLayoutData(lblCurrentCardLData);
 				}
 				{
-					txtCurCard = new Text(composite1, SWT.NONE);
+					txtCurCard = new CurrentPicker(composite1, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
-					txtCurCardLData.widthHint = 203;
-					txtCurCardLData.heightHint = 21;
+					txtCurCardLData.widthHint = 186;
+					txtCurCardLData.heightHint = 20;
 					txtCurCard.setLayoutData(txtCurCardLData);
-					txtCurCard
-					.addModifyListener(new ModifyListener() {
-					public void modifyText(ModifyEvent evt) {
-						try {
-							txtCurCard
-								.setData(EngBLCurrentCards
-									.getCards(txtCurCard
-										.getText().trim()));
-						} catch (Exception ex) {
-							ex.printStackTrace();
-						}
-
-					}
-					});
+					
 				}
 				{
 					lblType = new CLabel(composite1, SWT.NONE);
@@ -300,22 +280,7 @@ SearchComposite{
 		comboConsignmentType.add(Messages.getString("ConUIConsignmentSearch.10")); //$NON-NLS-1$
 		comboConsignmentType.add(Messages.getString("ConUIConsignmentSearch.11")); //$NON-NLS-1$
 	
-		//content assistant
-		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtCurCard);
-		final TurquazContentAssistant assistant = new TurquazContentAssistant(adapter,3);
-		adapter.appendVerifyKeyListener( new VerifyKeyListener() {
-	                 public void verifyKey(VerifyEvent event) {
-
-	                 // Check for Ctrl+Spacebar
-	                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
-	             
-	                  assistant.showPossibleCompletions();    
-	                   event.doit = false;
-
-	                 }
-	              }
-		});
-	
+		
 	
 	}
 	

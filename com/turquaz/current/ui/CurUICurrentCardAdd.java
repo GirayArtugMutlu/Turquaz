@@ -45,6 +45,7 @@ import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.widgets.Label;
+import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
@@ -349,13 +350,13 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	/**
 	 * @return Returns the txtCurrentCode.
 	 */
-	public Text getTxtCurrentCode() {
+	public CurrentPicker getTxtCurrentCode() {
 		return txtCurrentCode;
 	}
 	/**
 	 * @param txtCurrentCode The txtCurrentCode to set.
 	 */
-	public void setTxtCurrentCode(Text txtCurrentCode) {
+	public void setTxtCurrentCode(CurrentPicker txtCurrentCode) {
 		this.txtCurrentCode = txtCurrentCode;
 	}
 	/**
@@ -453,7 +454,7 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	private CLabel lblCardDefinition;
 	private Text txtCurrentName;
 	private CLabel lblCurrentName;
-	private Text txtCurrentCode;
+	private CurrentPicker txtCurrentCode;
 	private CLabel lblCurrentCode;
 	private Composite compCurrentGroups;
 	private Composite compCurrentContactInfo;
@@ -544,13 +545,12 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 						.getString("CurUICurrentCardAdd.1")); //$NON-NLS-1$
 				}
 				{
-					txtCurrentCode = new Text(compCurrentGeneralInfo, SWT.NONE);
+					txtCurrentCode = new CurrentPicker(compCurrentGeneralInfo, SWT.NONE);
 					GridData txtCurrentCodeLData = new GridData();
 					txtCurrentCodeLData.widthHint = 148;
 					txtCurrentCodeLData.heightHint = 17;
 					txtCurrentCodeLData.horizontalSpan = 3;
 					txtCurrentCode.setLayoutData(txtCurrentCodeLData);
-					txtCurrentCode.setTextLimit(50);
 				}
 				{
 					lblCurrentName = new CLabel(
@@ -1163,21 +1163,6 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	public void postInitGUI(){
 	fillGroups();
 	accPickerCustomer.setFilter("120"); //$NON-NLS-1$
-//	content assistant
-	TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtCurrentCode);
-	assistant= new TurquazContentAssistant(adapter,3);
-	adapter.appendVerifyKeyListener( new VerifyKeyListener() {
-                 public void verifyKey(VerifyEvent event) {
-
-                 // Check for Ctrl+Spacebar
-                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
-             
-                  assistant.showPossibleCompletions();    
-                   event.doit = false;
-
-                 }
-              }
-	});
 
 	
 	

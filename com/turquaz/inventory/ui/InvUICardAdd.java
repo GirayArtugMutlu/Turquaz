@@ -21,7 +21,6 @@ package com.turquaz.inventory.ui;
  * @version $Id$
  */
 
-import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.jface.viewers.CellEditor;
 
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
@@ -30,6 +29,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.inventory.ui.comp.InventoryPicker;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
@@ -90,7 +90,6 @@ import com.turquaz.inventory.ui.comp.InvUIPriceList;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.TableEditor;
-import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Label;
@@ -256,7 +255,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	private CLabel lblInvCardDefinition;
 
-	private Text txtInvCardCode;
+	private InventoryPicker txtInvCardCode;
 
 	private CLabel lblInvCardCode;
 
@@ -1247,15 +1246,13 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 							.setSize(new org.eclipse.swt.graphics.Point(100, 23));
 					}
 					{
-						txtInvCardCode = new Text(compInvCardGeneral, SWT.NONE);
+						txtInvCardCode = new InventoryPicker(compInvCardGeneral, SWT.NONE);
 						GridData txtInvCardCodeLData = new GridData();
 						txtInvCardCodeLData.widthHint = 130;
 						txtInvCardCodeLData.heightHint = 15;
 						txtInvCardCodeLData.horizontalSpan = 3;
 						txtInvCardCode.setLayoutData(txtInvCardCodeLData);
-						txtInvCardCode.setTextLimit(25);
-						txtInvCardCode
-							.setSize(new org.eclipse.swt.graphics.Point(136, 15));
+						txtInvCardCode.setSize(new org.eclipse.swt.graphics.Point(136,15));
 					}
 					{
 						lblInvCardName = new CLabel(
@@ -1383,26 +1380,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		fillTableInvAllGroups();
 		initTableInvPrices();
 	
-		//Content Assistant for Inventory Code
-		/****************************************************/
-		  TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtInvCardCode);
-		   asistant = new TurquazContentAssistant(adapter,1);
-		     adapter.appendVerifyKeyListener(
-		             new VerifyKeyListener() {
-		                 public void verifyKey(VerifyEvent event) {
-
-		                 // Check for Ctrl+Spacebar
-		                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
-		             
-		                  asistant.showPossibleCompletions();              
-		                   event.doit = false;
-
-		                 }
-		              }
-		           });
-		 	
-		  /************************************************************/  
-		
+	
 
 	}
 
@@ -2082,7 +2060,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	/**
 	 * @return Returns the txtInvCardCode.
 	 */
-	public Text getTxtInvCardCode() {
+	public InventoryPicker getTxtInvCardCode() {
 		return txtInvCardCode;
 	}
 	/**

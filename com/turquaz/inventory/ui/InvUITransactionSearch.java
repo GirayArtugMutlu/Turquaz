@@ -46,6 +46,8 @@ import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.inventory.ui.comp.InventoryPicker;
+import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.engine.ui.component.TurquazDecimalFormat;
 
 import org.eclipse.swt.widgets.Text;
@@ -89,11 +91,11 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 	private TableColumn tableColumnTotalPriceIn;
 
 	private TableColumn tableColumnInventoryCode;
-	private Text txtInvCard;
+	private InventoryPicker txtInvCard;
 	private Label lblInvCard;
 
 	private CCombo comboTransactionsType;
-	private Text txtCurCard;
+	private CurrentPicker txtCurCard;
 
 	private CLabel lblType;
 
@@ -145,25 +147,12 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                         lblInvCard.setLayoutData(lblInvCardLData);
                 }
                 {
-                    txtInvCard = new Text(compInvTransactionSearch, SWT.NONE);
+                    txtInvCard = new InventoryPicker(compInvTransactionSearch, SWT.NONE);
 
                     GridData textWithButton1LData = new GridData();
-                    txtInvCard.addModifyListener(new ModifyListener() {
-                       public void modifyText(ModifyEvent ev){
-                           try{
-                             txtInvCard.setData( EngBLInventoryCards.getCard(txtInvCard.getText().trim()));
-                                                 
-                           }
-                           catch(Exception ex){
-                               ex.printStackTrace();
-                           }
-                           
-                           
-                       }
-                    });
-                    txtInvCard.setDoubleClickEnabled(false);
-                    textWithButton1LData.widthHint = 203;
-                    textWithButton1LData.heightHint = 20;
+
+                    textWithButton1LData.widthHint = 206;
+                    textWithButton1LData.heightHint = 19;
                     textWithButton1LData.horizontalSpan = 3;
                     txtInvCard.setLayoutData(textWithButton1LData);
                 }
@@ -179,21 +168,10 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                     lblCurrentCard.setLayoutData(lblCurrentCardLData);
                 }
 				{
-					txtCurCard = new Text(compInvTransactionSearch, SWT.NONE);
-					txtCurCard.setSize(209, 20);
+					txtCurCard = new CurrentPicker(compInvTransactionSearch, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
-					txtCurCard.addModifyListener(new ModifyListener() {
-						public void modifyText(ModifyEvent evt) {
-						    try{
-	                             txtCurCard.setData( EngBLCurrentCards.getCards(txtCurCard.getText().trim()));
-	                                                 
-	                           }
-	                           catch(Exception ex){
-	                               ex.printStackTrace();
-	                           }
-						}
-					});
-					txtCurCardLData.widthHint = 203;
+				
+					txtCurCardLData.widthHint = 206;
 					txtCurCardLData.heightHint = 20;
 					txtCurCardLData.horizontalSpan = 3;
 					txtCurCard.setLayoutData(txtCurCardLData);
@@ -346,51 +324,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.12")); //$NON-NLS-1$
 		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.13")); //$NON-NLS-1$
 		comboTransactionsType.setText(Messages.getString("InvUITransactionSearch.18")); //$NON-NLS-1$
-//		Content Assistant for Inventory Code
-		/****************************************************/
-		  TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtInvCard);
-		
-		 final SubjectControlContentAssistant asistant= new TurquazContentAssistant(adapter,1);
-		   
-		     adapter.appendVerifyKeyListener(
-		             new VerifyKeyListener() {
-		                 public void verifyKey(VerifyEvent event) {
 
-		                 // Check for Ctrl+Spacebar
-		                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
-		             
-		                  asistant.showPossibleCompletions();              
-		                   event.doit = false;
-
-		                 }
-		              }
-		           });
-		 	
-		  /************************************************************/  
-		
-		 	
-//				Content Assistant for Current Code
-				/****************************************************/
-				  TextContentAssistSubjectAdapter adapterCurrent = new TextContentAssistSubjectAdapter(txtCurCard);
-				
-				 final SubjectControlContentAssistant asistantCurrent= new TurquazContentAssistant(adapterCurrent,3);
-				   
-				     adapterCurrent.appendVerifyKeyListener(
-				             new VerifyKeyListener() {
-				                 public void verifyKey(VerifyEvent event) {
-
-				                 // Check for Ctrl+Spacebar
-				                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
-				             
-				                  asistantCurrent.showPossibleCompletions();              
-				                   event.doit = false;
-				                 }
-				              }
-				           });
-				 	
-				  /************************************************************/  
-
-		
 		
 	}
 /*

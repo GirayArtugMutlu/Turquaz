@@ -12,6 +12,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.graphics.Point;
+import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.VerifyKeyListener;
@@ -21,7 +22,6 @@ import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -67,7 +67,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 	private CLabel lblDocumentNo;
 	private CurrencyText curTextTotalAmount;
 	private CLabel lblTotalAmount;
-	private Text txtCurrentAccount;
+	private CurrentPicker txtCurrentAccount;
 	private CLabel lblCurrentCard;
 	private Text txtCashCard;
 	CashBLCashTransactionAdd blTrans = new CashBLCashTransactionAdd();
@@ -186,25 +186,12 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
                 lblCurrentCard.setText(Messages.getString("CashUICashCollectTransactionAdd.5")); //$NON-NLS-1$
             }
             {
-                txtCurrentAccount = new Text(this, SWT.NONE);
+                txtCurrentAccount = new CurrentPicker(this, SWT.NONE);
                 GridData txtCurrentAccountLData = new GridData();
                 txtCurrentAccountLData.widthHint = 164;
                 txtCurrentAccountLData.heightHint = 18;
                 txtCurrentAccount.setLayoutData(txtCurrentAccountLData);
-                txtCurrentAccount
-				.addModifyListener(new ModifyListener() {
-				public void modifyText(ModifyEvent evt) {
-					try {
-						txtCurrentAccount
-							.setData(EngBLCurrentCards
-								.getCards(txtCurrentAccount
-									.getText().trim()));
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-
-				}
-				});
+      
             }
             {
                 lblTotalAmount = new CLabel(this, SWT.NONE);
@@ -241,24 +228,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 	
 	public void postInitGUI(){
 	    
-//	  content assistant
-		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(
-				txtCurrentAccount);
-		final TurquazContentAssistant assistant = new TurquazContentAssistant(
-				adapter, EngBLCommon.CONTENT_ASSIST_CURRENT);
-		adapter.appendVerifyKeyListener(new VerifyKeyListener() {
-			public void verifyKey(VerifyEvent event) {
 
-				// Check for Ctrl+Spacebar
-				if (event.stateMask == SWT.CTRL && event.character == ' ') {
-
-					assistant.showPossibleCompletions();
-					event.doit = false;
-
-				}
-			}
-		});
-		
 		
 			TextContentAssistSubjectAdapter adapter2 = new TextContentAssistSubjectAdapter(
 					txtCashCard);
@@ -361,10 +331,10 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
     public void setTxtCashCard(Text txtCashCard) {
         this.txtCashCard = txtCashCard;
     }
-    public Text getTxtCurrentAccount() {
+    public CurrentPicker getTxtCurrentAccount() {
         return txtCurrentAccount;
     }
-    public void setTxtCurrentAccount(Text txtCurrentAccount) {
+    public void setTxtCurrentAccount(CurrentPicker txtCurrentAccount) {
         this.txtCurrentAccount = txtCurrentAccount;
     }
     public Text getTxtDefinition() {

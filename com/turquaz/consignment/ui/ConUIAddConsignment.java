@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
-
-import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.widgets.Composite;
@@ -37,17 +35,13 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.VerifyEvent;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -57,6 +51,7 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.events.SelectionEvent;
+import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -66,7 +61,6 @@ import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLAddGroups;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -74,7 +68,6 @@ import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 
 import com.turquaz.engine.ui.component.SecureComposite;
-import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.editors.InventoryCellEditor;
 import com.turquaz.engine.ui.editors.NumericCellEditor;
@@ -185,13 +178,13 @@ implements SecureComposite{
 	/**
 	 * @return Returns the txtCurrentCard.
 	 */
-	public Text getTxtCurrentCard() {
+	public CurrentPicker getTxtCurrentCard() {
 		return txtCurrentCard;
 	}
 	/**
 	 * @param txtCurrentCard The txtCurrentCard to set.
 	 */
-	public void setTxtCurrentCard(Text txtCurrentCard) {
+	public void setTxtCurrentCard(CurrentPicker txtCurrentCard) {
 		this.txtCurrentCard = txtCurrentCard;
 	}
 	/**
@@ -319,7 +312,7 @@ implements SecureComposite{
 	private CLabel lblDocumentNo;
 	private DatePicker dateConsignmentDate;
 	private CLabel lblDate;
-	private Text txtCurrentCard;
+	private CurrentPicker txtCurrentCard;
 	private CLabel lblCurrentCard;
 	ConBLAddGroups blAddGroup = new ConBLAddGroups();
 	ConBLAddConsignment blAddCondignmetn = new ConBLAddConsignment();
@@ -436,25 +429,11 @@ implements SecureComposite{
 								lblCurrentCard.setLayoutData(lblCurrentCardLData1);
 							}
 							{
-								txtCurrentCard = new Text(compInfoPanel, SWT.NONE);
+								txtCurrentCard = new CurrentPicker(compInfoPanel, SWT.NONE);
 								GridData txtCurrentCardLData = new GridData();
-								txtCurrentCard
-									.addModifyListener(new ModifyListener() {
-									public void modifyText(ModifyEvent evt) {
-										try {
-											txtCurrentCard
-												.setData(EngBLCurrentCards
-													.getCards(txtCurrentCard
-														.getText().trim()));
-										} catch (Exception ex) {
-											ex.printStackTrace();
-										}
-
-									}
-									});
+								
 								txtCurrentCard.setSize(183, 16);
-								txtCurrentCard.setBackground(SWTResourceManager
-									.getColor(255, 255, 255));
+								txtCurrentCard.setBackground(SWTResourceManager.getColor(255,255,255));
 								txtCurrentCardLData.widthHint = 177;
 								txtCurrentCardLData.heightHint = 16;
 								txtCurrentCard.setLayoutData(txtCurrentCardLData);
@@ -1136,21 +1115,6 @@ implements SecureComposite{
 		fillComboWarehouses();
 		
 		
-		//content assistant
-		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtCurrentCard);
-		final TurquazContentAssistant assistant = new TurquazContentAssistant(adapter,3);
-		adapter.appendVerifyKeyListener( new VerifyKeyListener() {
-	                 public void verifyKey(VerifyEvent event) {
-
-	                 // Check for Ctrl+Spacebar
-	                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
-	             
-	                  assistant.showPossibleCompletions();    
-	                   event.doit = false;
-
-	                 }
-	              }
-		});
 		
 		
 		//Create the table viewer..
