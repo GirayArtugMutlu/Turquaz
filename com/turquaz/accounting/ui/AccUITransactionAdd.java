@@ -380,7 +380,7 @@ public class AccUITransactionAdd extends SecureComposite {
 	return false;
 	}
 	else if(tableTransactionColumns.getItems().length==0){
-	msg.setMessage("You hava to add rows to table!");
+	msg.setMessage("You have to add rows to table!");
 	
 	msg.open();
 	
