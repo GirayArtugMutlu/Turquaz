@@ -22,15 +22,20 @@ package com.turquaz.inventory.dal;
  */
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
+import com.turquaz.consignment.dal.ConDALSearchConsignment;
+import com.turquaz.consignment.dal.ConDALUpdateConsignment;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 
+import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 
@@ -87,6 +92,31 @@ public class InvDALSearchTransaction {
 
 			session.close();
 			return list;
+
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	
+	public TurqConsignment getConsignment(TurqEngineSequence seq) throws Exception
+	{
+		try {
+			Session session = EngDALSessionFactory.openSession();
+			session.refresh(seq);
+			
+			Hibernate.initialize(seq.getTurqConsignments());
+			Iterator it = seq.getTurqConsignments().iterator();
+			
+			TurqConsignment cons = null;
+			if (it.hasNext())
+			{
+				 cons = (TurqConsignment)it.next();
+				ConDALUpdateConsignment dalSearchCons = new ConDALUpdateConsignment();
+				dalSearchCons.initiliazeConsignment(cons);
+			}
+			session.close();
+			return cons;
 
 		} catch (Exception ex) {
 			throw ex;

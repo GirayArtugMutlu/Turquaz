@@ -33,12 +33,14 @@ import org.eclipse.swt.widgets.TableItem;
 
 import org.eclipse.swt.widgets.Composite;
 
+import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLUtils;
 
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.component.SearchComposite;
@@ -60,6 +62,8 @@ import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLSearchTransaction;
 
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
  * which is free for non-commercial use. If Jigloo is being used commercially
@@ -255,7 +259,12 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 			{
 				tableTransactions = new Table(this, SWT.FULL_SELECTION);
 				GridData tableConsignmentsLData = new GridData();
-				
+				tableTransactions.addMouseListener(new MouseAdapter() {
+					public void mouseDoubleClick(MouseEvent evt) {
+						showConsignment();
+					}
+				});
+
 				tableTransactions.setHeaderVisible(true);
 				tableTransactions.setLinesVisible(true);
 				tableConsignmentsLData.grabExcessHorizontalSpace = true;
@@ -308,6 +317,27 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 		}
 	}
 
+	public void showConsignment()
+	{
+		try{
+			
+		
+		TableItem items[] = tableTransactions.getSelection();
+		if (items.length > 0)
+		{
+			TurqInventoryTransaction invTrans = (TurqInventoryTransaction)items[0].getData();
+			TurqEngineSequence seq = invTrans.getTurqEngineSequence();
+			
+			TurqConsignment cons = blSearch.getConsignment(seq);
+			new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
+			search();
+		}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 	public void postInitGui() {
 		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.12")); //$NON-NLS-1$
 		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.13")); //$NON-NLS-1$

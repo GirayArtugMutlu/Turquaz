@@ -26,7 +26,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.inventory.dal.InvDALSearchTransaction;
 
@@ -49,5 +51,17 @@ public class InvBLSearchTransaction {
 		
 	}
 	
+	public TurqConsignment getConsignment(TurqEngineSequence seq) throws Exception
+	{
+		try {
+			
+			return dalSearch.getConsignment(seq);
+		}
+		
+		catch (Exception ex) {
+			throw ex;
+		}
+	}
+		
 	
 }
