@@ -1225,6 +1225,25 @@ implements SecureComposite{
 			tableConsignmentRows.setFocus();
 			return false;			
 		}
+		
+		boolean isExistEntry=false;
+		TableItem items[] = tableConsignmentRows.getItems();
+		for(int k=0; k<items.length ; k++)
+		{
+			InvUITransactionTableRow row = (InvUITransactionTableRow)items[k].getData();
+			if (row.okToSave())
+			{
+				isExistEntry=true;
+				break;
+			}
+		}
+		if (!isExistEntry)
+		{
+			msg.setMessage(Messages.getString("ConUIAddConsignment.39")); //$NON-NLS-1$
+			msg.open();
+			return false;
+		}
+				
 		return true;
 	}
 	

@@ -952,23 +952,6 @@ implements SecureComposite{
 			return false;
 		}
 		
-		boolean isExistEntry=false;
-		TableItem items[] = tableConsignmentRows.getItems();
-		for(int k=0; k<items.length ; k++)
-		{
-			InvUITransactionTableRow row = (InvUITransactionTableRow)items[k].getData();
-			if (row.okToSave())
-			{
-				isExistEntry=true;
-				break;
-			}
-		}
-		if (!isExistEntry)
-		{
-			msg.setMessage(Messages.getString("BillUIAddBill.39")); //$NON-NLS-1$
-			msg.open();
-			return false;
-		}
 		
 		Boolean isCurrent=(Boolean)comboPaymentType.getData(comboPaymentType.getText());
 		if (isCurrent.booleanValue())
