@@ -72,7 +72,7 @@ public class CurrencyText extends Composite {
  public CurrencyText(Composite arg0, int arg1) {
   super(arg0, SWT.NONE);
   text = new Text(this, SWT.RIGHT);
-  textLimit =26;
+  textLimit =22;
   text.setTextLimit(textLimit);
 
   addListener(SWT.Resize, new Listener() {
@@ -108,20 +108,30 @@ public class CurrencyText extends Composite {
     String textcontrol = control.getText();
     e.doit = false;
     String newText = textcontrol.substring(0, e.start) + e.text + textcontrol.substring(e.end);
-
+    newText=newText.replaceAll(",","");
    /* if (e.keyCode == SWT.BS || e.keyCode == SWT.DEL){
     	e.doit=true;
-    	
+    
       return;
     }*/
-    if (newText.length() > textLimit)
-    	return;
+   int maxdecimaldigit=15;
+   int indexof=newText.indexOf(".");
+   if (indexof==-1){
+   	if (newText.length() > maxdecimaldigit)
+   		return;
+   }
+   else
+   {
+   	if (newText.substring(0,indexof).length() > maxdecimaldigit)
+   		return;
+   }
+  
     
     if (newText.equals("")){
      e.doit=true;
      return;
     }
-    newText=newText.replaceAll(",","");
+   
     Pattern realNumberPattern = Pattern.compile("-?[0-9]+[0-9]*(([" +decimalSymbol + "][0-9]?[0-9]?)|(["+decimalSymbol+"]))?");
     Matcher matcher = realNumberPattern.matcher(newText);
     boolean valid = matcher.matches();
@@ -162,6 +172,7 @@ public class CurrencyText extends Composite {
    }
   
  public void setText(String txt){
+ 	text.setTextLimit(textLimit);
  	text.setText(txt);	
  	
  }
