@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqViewJoinTransTranscol" 
+    table="turq_view_join_trans_transcol"
+>
+
+    <composite-id>
+        <key-property 
+            name="deptAmount" 
+            column="dept_amount" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+        <key-property 
+            name="creditAmount" 
+            column="credit_amount" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+        <key-property 
+            name="accountingAccountsId" 
+            column="accounting_accounts_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="accountingTransactionColumnsId" 
+            column="accounting_transaction_columns_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="accountingTransactionsId" 
+            column="accounting_transactions_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="accountingJournalId" 
+            column="accounting_journal_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="accountingTransactionTypesId" 
+            column="accounting_transaction_types_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="transactionsDate" 
+            column="transactions_date" 
+            type="java.sql.Date"
+            length="4"
+        />
+        <key-property 
+            name="moduleId" 
+            column="module_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="transactionDocumentNo" 
+            column="transaction_document_no" 
+            type="java.lang.String"
+            length="50"
+        />
+        <key-property 
+            name="engineSequencesId" 
+            column="engine_sequences_id" 
+            type="int"
+            length="4"
+        />
+        <key-property 
+            name="transactionDescription" 
+            column="transaction_description" 
+            type="java.lang.String"
+            length="250"
+        />
+        <key-property 
+            name="createdBy" 
+            column="created_by" 
+            type="java.lang.String"
+            length="50"
+        />
+        <key-property 
+            name="creationDate" 
+            column="creation_date" 
+            type="java.sql.Date"
+            length="4"
+        />
+        <key-property 
+            name="updatedBy" 
+            column="updated_by" 
+            type="java.lang.String"
+            length="50"
+        />
+        <key-property 
+            name="lastModified" 
+            column="last_modified" 
+            type="java.sql.Date"
+            length="4"
+        />
+    </composite-id>    
+
+
+    <!-- Associations -->
+    <!-- derived association(s) for compound key -->
+    <!-- end of derived association(s) -->
+  
+
+</class>
+</hibernate-mapping>
