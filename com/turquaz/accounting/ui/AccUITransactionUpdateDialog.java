@@ -203,7 +203,22 @@ public void showDialog(TurqAccountingTransaction accTrans){
 		else if(EngBLPermissions.getPermission(compTransactionAdd.getClass().getName())==3){
 		    toolDelete.setEnabled(true);
 		    toolUpdate.setEnabled(true); 
-		}    
+		}  
+		/*Check if it has a journal entry*/
+		if(accTrans.getTurqAccountingJournal().getAccountingJournalId().intValue()!=-1){
+			toolUpdate.setEnabled(false);
+			toolDelete.setEnabled(false);		    
+		}
+	
+	/* Check if it is entered from accountingmodule
+	 * 
+	 */
+		//1- Muhasebe Modulu
+		if(accTrans.getTurqModule().getModulesId().intValue()!=1){
+		    toolUpdate.setEnabled(false);
+			toolDelete.setEnabled(false);	
+		    
+		}
 	    
 	    
 	    

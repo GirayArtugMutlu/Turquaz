@@ -129,8 +129,8 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88,38));
 	
 	
-			toolUpdate.setText("Güncelle"); //$NON-NLS-1$
-			toolUpdate.setImage(SWTResourceManager.getImage(Messages.getString("AccUITransactionPaymentUpdateDialog.0"))); //$NON-NLS-1$
+			toolUpdate.setText("Güncelle"); 
+			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
@@ -139,11 +139,11 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	
 			toolDelete.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.2")); //$NON-NLS-1$
 			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
-			toolDelete.setImage(SWTResourceManager.getImage(Messages.getString("AccUITransactionPaymentUpdateDialog.1"))); //$NON-NLS-1$
+			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 			{
 				toolCancel = new ToolItem(toolBar1, SWT.NONE);
 				toolCancel.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.3")); //$NON-NLS-1$
-				toolCancel.setImage(SWTResourceManager.getImage(Messages.getString("AccUITransactionPaymentUpdateDialog.4"))); //$NON-NLS-1$
+				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 				toolCancel.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent evt) {
 						dialogShell.close();
@@ -212,6 +212,23 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		else if(EngBLPermissions.getPermission(compTransactionPayment.getClass().getName())==3){
 		    toolDelete.setEnabled(true);
 		    toolUpdate.setEnabled(true); 
+		}
+		
+		
+		/*Check if it has a journal entry*/
+		if(accTrans.getTurqAccountingJournal().getAccountingJournalId().intValue()!=-1){
+			toolUpdate.setEnabled(false);
+			toolDelete.setEnabled(false);		    
+		}
+	
+	/* Check if it is entered from accountingmodule
+	 * 
+	 */
+		//1- Muhasebe Modulu
+		if(accTrans.getTurqModule().getModulesId().intValue()!=1){
+		    toolUpdate.setEnabled(false);
+			toolDelete.setEnabled(false);	
+		    
 		}
 	    
 		compTransactionPayment.getTxtDocumentNo().setText(accTrans.getTransactionDocumentNo());

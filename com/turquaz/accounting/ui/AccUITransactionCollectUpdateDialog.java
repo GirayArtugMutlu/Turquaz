@@ -224,6 +224,22 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		    toolDelete.setEnabled(true);
 		    toolUpdate.setEnabled(true); 
 		}   
+		
+	/*Check if it has a journal entry*/
+		if(accTrans.getTurqAccountingJournal().getAccountingJournalId().intValue()!=-1){
+			toolUpdate.setEnabled(false);
+			toolDelete.setEnabled(false);		    
+		}
+	
+	/* Check if it is entered from accountingmodule
+	 * 
+	 */
+		//1- Muhasebe Modulu
+		if(accTrans.getTurqModule().getModulesId().intValue()!=1){
+		    toolUpdate.setEnabled(false);
+			toolDelete.setEnabled(false);	
+		    
+		}
 	    
 	compTransactionCollect.getTxtDocumentNo().setText(accTrans.getTransactionDocumentNo());
 	Date date = new Date(accTrans.getTransactionsDate().getTime());
