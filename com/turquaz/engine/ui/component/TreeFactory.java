@@ -67,6 +67,7 @@ import com.turquaz.bill.ui.BillUIBillReport;
 import com.turquaz.bill.ui.BillUIBillSearch;
 import com.turquaz.cash.ui.CashUICashCardAbstract;
 import com.turquaz.cash.ui.CashUICashCardAdd;
+import com.turquaz.cash.ui.CashUICashCardDailyAbstract;
 import com.turquaz.cash.ui.CashUICashCardSearch;
 import com.turquaz.cash.ui.CashUICashCollectTransactionAdd;
 import com.turquaz.cash.ui.CashUICashPaymentTransactionAdd;
@@ -640,6 +641,13 @@ public final class TreeFactory {
 			    item = new TreeItem(reportsRoot,SWT.NULL);
 				item.setText(Messages.getString("TreeFactory.59"));  //$NON-NLS-1$
 				item.setData(CashUICashCardAbstract.class.getName());
+			}
+		
+		if(EngBLPermissions.getPermission(CashUICashCardDailyAbstract.class.getName())>0){
+			
+			    item = new TreeItem(reportsRoot,SWT.NULL);
+				item.setText(Messages.getString("TreeFactory.96")); //$NON-NLS-1$
+				item.setData(CashUICashCardDailyAbstract.class.getName());
 			}
 	
 		
