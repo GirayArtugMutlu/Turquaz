@@ -21,7 +21,6 @@ package com.turquaz.engine.bl;
  */
 import java.util.List;
 import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 
 public class EngBLInventoryCards
@@ -94,7 +93,7 @@ public class EngBLInventoryCards
 	{
 		try
 		{
-			return (TurqInventoryCard) EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getInventoryCard",new Object[]{invCode});
+			return InvBLCardSearch.getInventoryCard(invCode);
 		}
 		catch (Exception ex)
 		{
