@@ -31,7 +31,7 @@ public class CheBLSearchCheques {
 	public static List searchCheque(String portfoliNo, TurqCurrentCard curCard, Integer status, Date startEnterDate, Date endEnterDate, Date startDueDate, Date endDueDate)throws Exception {
 		try{
 			
-		return	CheDALSearch.searchCheques(portfoliNo,curCard,status,startEnterDate,endEnterDate,startDueDate,startEnterDate);
+		return	CheDALSearch.searchCheques(portfoliNo,curCard,status,startEnterDate,endEnterDate,startDueDate,endDueDate);
 			
 		}
 		catch(Exception ex){

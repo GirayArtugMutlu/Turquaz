@@ -1,5 +1,7 @@
 package com.turquaz.cheque.ui;
 
+import java.util.List;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CLabel;
@@ -9,11 +11,14 @@ import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.CCombo;
 
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -116,6 +121,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			GridData currentPickerLData = new GridData();
 			currentPickerLData.widthHint = 181;
 			currentPickerLData.heightHint = 15;
+			currentPickerLData.horizontalSpan = 3;
 			currentPicker.setLayoutData(currentPickerLData);
 			//END <<  currentPicker
 			//START >>  lblDueDate
@@ -158,7 +164,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			//START >>  datePickerEndEnterDate
 			datePickerEndEnterDate = new DatePicker(compSearchPanle, SWT.NONE);
 			GridData datePickerEndEnterDateLData = new GridData();
-			datePickerEndEnterDateLData.widthHint = 113;
+			datePickerEndEnterDateLData.widthHint = 116;
 			datePickerEndEnterDateLData.heightHint = 21;
 			datePickerEndEnterDate.setLayoutData(datePickerEndEnterDateLData);
 			//END <<  datePickerEndEnterDate
@@ -228,8 +234,44 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 	}
 	
 	public void search() {
+		tableCheques.removeAll();
 		try{
-			CheBLSearchCheques.searchCheque(txtPortFoyNo.getText().trim(),(TurqCurrentCard)currentPicker.getData(),new Integer(0),datePickerStartEnterDate.getDate(),datePickerEndEnterDate.getDate(),datePickerStartDueDate.getDate(),datePickerEndDueDate.getDate());
+			List ls = CheBLSearchCheques.searchCheque(txtPortFoyNo.getText().trim(),(TurqCurrentCard)currentPicker.getData(),null,datePickerStartEnterDate.getDate(),datePickerEndEnterDate.getDate(),datePickerStartDueDate.getDate(),datePickerEndDueDate.getDate());
+			TableItem item;
+			String status = "";
+			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+			for(int i=0;i<ls.size();i++){
+				
+				Object result[] =(Object[])ls.get(i);
+				
+				if(result[5].equals(EngBLCommon.CHEQUE_STATUS_PORTFOY)){
+					status = EngBLCommon.CHEQUE_STATUS_PORTFOY_STRING;
+				}
+				else if(result[5].equals(EngBLCommon.CHEQUE_STATUS_BANK)){
+					status = EngBLCommon.CHEQUE_STATUS_BANK_STRING;
+				}
+				else if(result[5].equals(EngBLCommon.CHEQUE_STATUS_CURRENT)){
+					status = EngBLCommon.CHEQUE_STATUS_CURRENT_STRING;
+				}
+				
+			
+				item = new TableItem(tableCheques,SWT.NULL);
+				item.setData(result[0]);
+							item.setText(new String[]{
+							result[1].toString(),
+							DatePicker.formatter.format(result[2]),
+							result[3].toString(),
+							DatePicker.formatter.format(result[4]),
+							status,
+							cf.format(result[6])
+				});
+				
+				
+				
+				
+				
+			}
+		
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
