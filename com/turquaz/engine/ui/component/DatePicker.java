@@ -208,4 +208,19 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 	public Object getData(){
 	    return getDate();
 	}
+	
+	public void setFirstDayOfYear(){
+
+		calendar.set(calendar.get(Calendar.YEAR),0,1);
+		setDate(calendar.getTime());
+	
+	}
+	
+	public void setLastDayOfYear(){
+		
+		calendar.set(calendar.get(Calendar.YEAR),11,31);
+		setDate(calendar.getTime());
+		
+		
+	}
 }

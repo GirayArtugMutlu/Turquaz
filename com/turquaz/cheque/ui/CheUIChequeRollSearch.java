@@ -231,6 +231,10 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite
 				comboRollType.setData(type.getTransactionTypsName(), type);
 
 			}
+			
+			dateEndDate.setLastDayOfYear();
+			dateStartDate.setFirstDayOfYear();
+			
 
 		} catch (Exception ex) {
 

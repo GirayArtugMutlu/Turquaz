@@ -127,6 +127,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			datePickerLData.widthHint = 137;
 			datePickerLData.heightHint = 20;
 			datePickerStartDueDate.setLayoutData(datePickerLData);
+			datePickerStartDueDate.setFirstDayOfYear();
 			//END <<  datePickerStartDueDate
 			//START >>  lblDueDateEnd
 			lblDueDateEnd = new CLabel(compSearchPanle, SWT.NONE);
@@ -138,6 +139,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			datePickerEndLData.widthHint = 118;
 			datePickerEndLData.heightHint = 20;
 			datePickerEndDueDate.setLayoutData(datePickerEndLData);
+			datePickerEndDueDate.setLastDayOfYear();
 			//END <<  datePickerEndDueDate
 			//START >>  lblEnterDate
 			lblEnterDate = new CLabel(compSearchPanle, SWT.NONE);
@@ -149,6 +151,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			datePickerStartEnterDateLData.widthHint = 137;
 			datePickerStartEnterDateLData.heightHint = 20;
 			datePickerStartEnterDate.setLayoutData(datePickerStartEnterDateLData);
+			datePickerStartEnterDate.setFirstDayOfYear();
 			//END <<  datePickerStartEnterDate
 			//START >>  lblEnterDateEnd
 			lblEnterDateEnd = new CLabel(compSearchPanle, SWT.NONE);
@@ -160,6 +163,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			datePickerEndEnterDateLData.widthHint = 116;
 			datePickerEndEnterDateLData.heightHint = 21;
 			datePickerEndEnterDate.setLayoutData(datePickerEndEnterDateLData);
+			datePickerEndEnterDate.setLastDayOfYear();
 			//END <<  datePickerEndEnterDate
 			//END <<  compSearchPanle
 			//START >>  tableCheques
@@ -240,10 +244,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 		tableCheques.removeAll();
 		try{
 			Integer cheStat = null;
-			/**
-			 * TODO new search function
-			 */
-			
+		
 			List ls = CheBLSearchCheques.searchOwnCheques((TurqCurrentCard)currentPicker.getData(),bankPicker.getTurqBank(),datePickerStartEnterDate.getDate(),datePickerEndEnterDate.getDate(),datePickerStartDueDate.getDate(),datePickerEndDueDate.getDate());
 			
 			TableItem item;
