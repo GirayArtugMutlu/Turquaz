@@ -575,8 +575,9 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	try{
 	Integer cardId = (Integer)selection[0].getData();
 	TurqInventoryCard card = cardSearch.initializeInventoryCard(cardId);
-	new InvUICardUpdateDialog(this.getShell(),SWT.NULL,card).open();
-	search();
+	boolean updated=new InvUICardUpdateDialog(this.getShell(),SWT.NULL,card).open();
+	if (updated)
+		search();
 	}
 	catch(Exception ex){
 	    ex.printStackTrace();
