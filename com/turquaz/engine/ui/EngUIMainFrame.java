@@ -935,6 +935,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.addListener(SWT.Close, new Listener() {
 		public void handleEvent(Event e) {
+			
 			saveFavoritesTree();
 			if(EngConfiguration.getString("serverAddress").equals("localhost")){
 			EngDALConnection connection = new EngDALConnection();

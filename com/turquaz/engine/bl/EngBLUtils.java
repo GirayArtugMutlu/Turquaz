@@ -22,6 +22,8 @@ import org.eclipse.swt.widgets.TableItem;
  */
 public class EngBLUtils {
 	
+	public static String logoURL;
+	
 	
 	public static void Export2Excel(Table table){
 		 try{

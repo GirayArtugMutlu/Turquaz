@@ -48,6 +48,7 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblDateRange;
 	private DatePicker datePickerBeginDate;
 	private DatePicker datePickerEndDate;
+	private CLabel lblDummy;
 	private Button btnReports;
 
 	/**
@@ -103,12 +104,16 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 			datePickerBeginDate = new DatePicker(this, SWT.NONE);			
 			datePickerEndDate = new DatePicker(this, SWT.NONE);	
 			{
+				lblDummy = new CLabel(this, SWT.NONE);
+				GridData lblDummyLData = new GridData();
+				lblDummyLData.horizontalSpan = 2;
+				lblDummy.setLayoutData(lblDummyLData);
+			}
+			{
 				btnReports = new Button(this, SWT.PUSH | SWT.CENTER);
 				GridData btnReportsLData = new GridData();
-				btnReportsLData.verticalSpan = 3;
-				btnReportsLData.widthHint = 108;
-				btnReportsLData.heightHint = 23;
-				btnReportsLData.horizontalSpan = 3;
+				btnReportsLData.widthHint = 98;
+				btnReportsLData.heightHint = 22;
 				btnReportsLData.verticalAlignment = GridData.BEGINNING;
 				btnReports.setText(Messages
 					.getString("AccUIAccountingJournal.1")); //$NON-NLS-1$

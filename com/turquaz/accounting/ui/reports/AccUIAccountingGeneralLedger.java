@@ -43,10 +43,12 @@ import com.turquaz.accounting.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.component.DatePicker;
+import org.eclipse.swt.layout.GridData;
 public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblDateRange;
 	private DatePicker datePickerBeginDate;
 	private DatePicker datePickerEndDate;
+	private CLabel lblDummy;
 	private Button btnShow;
 
 	/**
@@ -108,13 +110,23 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 				datePickerEndDate = new DatePicker(this, SWT.NONE);
 			}
 			{
+				lblDummy = new CLabel(this, SWT.NONE);
+				GridData lblDummyLData = new GridData();
+				lblDummyLData.horizontalSpan = 2;
+				lblDummy.setLayoutData(lblDummyLData);
+			}
+			{
 				btnShow = new Button(this, SWT.PUSH | SWT.CENTER);
 				btnShow.setText(Messages.getString("AccUIAccountingGeneralLedger.1")); //$NON-NLS-1$
+				GridData btnShowLData = new GridData();
 				btnShow.addMouseListener(new MouseAdapter() {
-					public void mouseDown(MouseEvent evt) {
+					public void mouseUp(MouseEvent evt) {
 						btnShowSingleClick();
 					}
 				});
+				btnShowLData.widthHint = 96;
+				btnShowLData.heightHint = 23;
+				btnShow.setLayoutData(btnShowLData);
 			}
 			this.layout();
 		} catch (Exception e) {

@@ -56,9 +56,11 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 
+import com.turquaz.accounting.ui.reports.AccUIAccountingBalance;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.DatabaseThread;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.ui.wizards.EngUIDatabaseConnectionWizard;
@@ -276,6 +278,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			    	props.remove("password"); //$NON-NLS-1$
 			    	props.put("remember_password","false"); //$NON-NLS-1$ //$NON-NLS-2$
 			    }
+		
 			   
 			    input.close();
 			    

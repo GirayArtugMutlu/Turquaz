@@ -14,6 +14,7 @@ import net.sf.jasperreports.view.JasperViewer;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
@@ -44,13 +45,15 @@ import com.turquaz.accounting.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.component.DatePicker;
+import org.eclipse.swt.layout.GridData;
 public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblDateRange;
 	private DatePicker datePickerBeginDate;
 	private DatePicker datePickerEndDate;
+	private Button checkSubAccounts;
 	private Button btnIcon;
 	private Button btnShow;
-	private Button checkSubAccounts;
+	public static String logoURL;
 
 	/**
 	* Auto-generated main method to display this 
@@ -97,31 +100,34 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 		try{
 			
 			Map parameters = new HashMap();
-			parameters.put("ReportTitle", Messages.getString("AccUIAccountingBalance.1")); //$NON-NLS-1$ //$NON-NLS-2$
+			parameters.put("ReportTitle", "GENEL GEÇÝCÝ MÝZAN"); //$NON-NLS-1$ //$NON-NLS-2$
 			TurqCompany company = new TurqCompany();
+			company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
+			String sqlparam="Select mytab.deptsum,mytab.creditsum,mytab.top_account,accs.account_name,accs.account_code from turq_accounting_accounts accs,"+
+					"(Select SUM(transcolumns.dept_amount) as deptsum," +
+					"SUM(transcolumns.credit_amount) as creditsum," +
+					" accounts.top_account" +
+					" from turq_accounting_accounts accounts," +
+					" turq_accounting_transaction_columns transcolumns, " +
+					" turq_accounting_transactions trans" +
+					" where transcolumns.accounting_accounts_id=accounts.accounting_accounts_id" +
+					" and accounts.companies_id="+company.getCompaniesId().toString();
+			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");
+			 sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'"
+					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"
+					+" GROUP BY accounts.top_account)" +
+					" as mytab where mytab.top_account=accs.top_account";
+			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy");
+			parameters.put("sqlparam",sqlparam);		
+			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate()));
+			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate()));
 			company.setCompaniesId(Integer.valueOf(System.getProperty("company"))); //$NON-NLS-1$
-			String sqlparam="Select mytab.deptsum,mytab.creditsum,mytab.top_account,accs.account_name,accs.account_code from turq_accounting_accounts accs,"+ //$NON-NLS-1$
-					"(Select SUM(transcolumns.dept_amount) as deptsum," + //$NON-NLS-1$
-					"SUM(transcolumns.credit_amount) as creditsum," + //$NON-NLS-1$
-					" accounts.top_account" + //$NON-NLS-1$
-					" from turq_accounting_accounts accounts," + //$NON-NLS-1$
-					" turq_accounting_transaction_columns transcolumns, " + //$NON-NLS-1$
-					" turq_accounting_transactions trans" + //$NON-NLS-1$
-					" where transcolumns.accounting_accounts_id=accounts.accounting_accounts_id" + //$NON-NLS-1$
-					" and accounts.companies_id="+company.getCompaniesId().toString(); //$NON-NLS-1$
-			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
-			 sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
-					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
-					+" GROUP BY accounts.top_account)" + //$NON-NLS-1$
-					" as mytab where mytab.top_account=accs.top_account"; //$NON-NLS-1$
-			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
-			parameters.put("sqlparam",sqlparam);		 //$NON-NLS-1$
-			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate())); //$NON-NLS-1$
-			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate())); //$NON-NLS-1$
 			NumberFormat formatter =NumberFormat.getNumberInstance();
             formatter.setMaximumFractionDigits(2);
+            parameters.put("formatter",formatter);
+			parameters.put("imageUrl", logoURL);
             parameters.put("formatter",formatter); //$NON-NLS-1$
-			parameters.put("imageUrl", "C:\\eclipse3\\workspace\\Turquaz\\icons\\sample.gif"); //$NON-NLS-1$ //$NON-NLS-2$
+			parameters.put("imageUrl", logoURL); //$NON-NLS-1$ //$NON-NLS-2$
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
 			JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingBalance.jasper"); //$NON-NLS-1$
@@ -141,6 +147,9 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 	
 	private void initGUI() {
 		try {
+			{
+				this.setSize(400, 75);
+			}
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 3;
@@ -158,13 +167,23 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			}
 			{
 				checkSubAccounts = new Button(this, SWT.CHECK | SWT.LEFT);
+				checkSubAccounts.setText("Show SubAccounts");
+				GridData checkSubAccountsLData = new GridData();
+				checkSubAccountsLData.widthHint = 133;
+				checkSubAccountsLData.heightHint = 16;
+				checkSubAccounts.setLayoutData(checkSubAccountsLData);
 				checkSubAccounts.setText(Messages.getString("AccUIAccountingBalance.28")); //$NON-NLS-1$
 			}
 			{
 				btnIcon = new Button(this, SWT.PUSH | SWT.CENTER);
+				btnIcon.setText("Choose Logo");
+				GridData btnIconLData = new GridData();
+				btnIconLData.horizontalAlignment = GridData.END;
+				btnIconLData.horizontalSpan = 2;
 				btnIcon.setText(Messages.getString("AccUIAccountingBalance.29")); //$NON-NLS-1$
+
 				btnIcon.addMouseListener(new MouseAdapter() {
-					public void mouseDown(MouseEvent evt) {
+					public void mouseUp(MouseEvent evt) {
 						btnLogoSingleClick();
 					}
 				});
@@ -173,7 +192,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 				btnShow = new Button(this, SWT.PUSH | SWT.CENTER);
 				btnShow.setText(Messages.getString("AccUIAccountingBalance.30")); //$NON-NLS-1$
 				btnShow.addMouseListener(new MouseAdapter() {
-					public void mouseDown(MouseEvent evt) {
+					public void mouseUp(MouseEvent evt) {
 						btnShowSingleClick();
 					}
 				});
@@ -185,6 +204,17 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 	}
 	
 	private void btnLogoSingleClick(){
+		FileDialog dialog = new FileDialog (this.getShell(), SWT.OK);
+		dialog.setFilterNames (new String [] {"Image Files (*.jpg;*.jpeg;*.bmp;*.png)", "*.jpg;*.jpeg;*.bmp;*.png"});
+		dialog.setFilterExtensions (new String [] {"*.jpg;*.jpeg;*.bmp;*.png"}); //Windows wild cards
+		dialog.setText("Logo Seçimi");
+		String filepath = dialog.open();
+		
+		if(filepath!=null){
+			logoURL=filepath;
+		}
+
+		
 	}
 
 }
