@@ -1,6 +1,7 @@
 package com.turquaz.bill.bl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -246,6 +247,7 @@ public class BillBLAddBill {
 	
 		creditAccounts.clear();
 		deptAccounts.clear();
+		
 		TurqBillConsignmentCommon common = bill
 		.getTurqBillConsignmentCommon();
 		
@@ -298,21 +300,22 @@ public class BillBLAddBill {
 			/*
 			 * Inventory Rows
 			 */
+			
 			invTrans = (TurqInventoryTransaction)it.next();
 			
 			TurqAccountingAccount buyAccount=InvBLCardSearch.getInventoryAccount(invTrans
 					.getTurqInventoryCard().getId(),INV_ACCOUNT);
 	
-			BigDecimal transRowAmount =(BigDecimal) invRows.get(buyAccount.getId());
-	
-				if(transRowAmount==null)
+			
+				if(!invRows.containsKey(buyAccount.getId()))
 				{						
-					transRowAmount = new BigDecimal(0);						
+					invRows.put(buyAccount.getId(),new ArrayList());						
 				}
 				
-	       transRowAmount = transRowAmount.add(invTrans.getTransactionsTotalPrice());
-	
-	       invRows.put(buyAccount.getId(),transRowAmount);
+	     
+	       List ls = (List)invRows.get(buyAccount.getId());
+	       ls.add(invTrans.getTransactionsTotalPrice());
+	       invRows.put(buyAccount.getId(),ls);
 	      
 	       /*
 	        * VAT ROWs
@@ -321,15 +324,15 @@ public class BillBLAddBill {
 	       TurqAccountingAccount buyVATAccount =InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
 				INV_VAT_ACCOUNT);
 	       
-	       BigDecimal vatAmount = (BigDecimal)invRows.get(buyVATAccount.getId());
-
-	       if (vatAmount == null) {
-	       		vatAmount = new BigDecimal(0);
-	       }
-
-	       vatAmount = vatAmount.add(invTrans.getTransactionsVatAmount());
-	       
-	       invRows.put(buyVATAccount.getId(),vatAmount);
+	       if(!invRows.containsKey(buyVATAccount.getId()))
+			{						
+				invRows.put(buyVATAccount.getId(),new ArrayList());						
+			}
+			
+           List vatList = (List)invRows.get(buyVATAccount.getId());
+           vatList.add(invTrans.getTransactionsVatAmount());
+	     
+	       invRows.put(buyVATAccount.getId(),vatList);
 			
 	
 		   /*
@@ -339,16 +342,16 @@ public class BillBLAddBill {
 	       TurqAccountingAccount specialVATBuyAccount=InvBLCardSearch.getInventoryAccount(invTrans.getTurqInventoryCard().getId(),
 				INV_SPEC_VAT_ACCOUNT);
 	       
-	       BigDecimal specVatAmount = (BigDecimal)invRows.get(specialVATBuyAccount.getId());
+	       if(!invRows.containsKey(specialVATBuyAccount.getId()))
+			{						
+				invRows.put(specialVATBuyAccount.getId(),new ArrayList());						
+			}
 	       
-	       if(specVatAmount==null)
-	       {
-	       		specVatAmount = new BigDecimal(0);
-	       }
-	       
-	       specVatAmount = specVatAmount.add(invTrans.getTransactionsVatSpecialAmount());
-	       
-	       invRows.put(specialVATBuyAccount.getId(),specVatAmount);
+	       List specVatList = (List)invRows.get(specialVATBuyAccount.getId());
+	       specVatList.add(invTrans.getTransactionsVatSpecialAmount());
+	     
+	       invRows.put(specialVATBuyAccount.getId(),specVatList);
+			
 	       
 	       /*
 	        * DiscountRows
@@ -362,16 +365,16 @@ public class BillBLAddBill {
 	       	discountBuyAccount = AccDALAccountAdd.getAccount(discountAccount);
 	       }
 	       
-	       BigDecimal discountAmount = (BigDecimal)currentRows.get(discountBuyAccount.getId());
+	    
 	       
-	       if(discountAmount==null)
+	       if(!currentRows.containsKey(discountBuyAccount.getId()))
 	       {
-	       	discountAmount = new BigDecimal(0);
+	       	currentRows.put(discountBuyAccount.getId(),new ArrayList());
 	       }
 	       
-	       discountAmount = discountAmount.add(invTrans.getTransactionsDiscountAmount());
-	       
-	      currentRows.put(discountBuyAccount.getId(),discountAmount);
+	       List discountList = (List)currentRows.get(discountBuyAccount.getId());
+	       discountList.add(invTrans.getTransactionsDiscount());
+	       currentRows.put(discountBuyAccount.getId(),discountList);
 	      	       
 	   }	
 		
@@ -386,15 +389,38 @@ public class BillBLAddBill {
 				.getTurqBillConsignmentCommon().getTurqCurrentCard(),EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
 		
 		
-		currentRows.put(curAccount.getId(),common.getTotalAmount());
+		List curList = (List)currentRows.get(curAccount.getId());
+		if(curList == null)
+		{
+			curList = new ArrayList();
+			
+		}		
+		curList.add(common.getTotalAmount());
+		currentRows.put(curAccount.getId(),curList);
 		
 		
 		//Kapali Fatura 
 		
 		if (!bill.isIsOpen()&&cashAccount!=null) {
 		
-		invRows.put(curAccount.getId(),common.getTotalAmount());
-		currentRows.put(cashAccount.getId(),common.getTotalAmount());
+			List list = (List)invRows.get(curAccount.getId());
+				if(list == null)
+				{
+					list = new ArrayList();
+				}
+		
+			list.add(common.getTotalAmount());
+			invRows.put(curAccount.getId(),list);
+		
+		/*********************************************************/
+			
+			list = (List)currentRows.get(cashAccount.getId());
+			if(list==null)
+			{
+			 list = new ArrayList();	
+			}
+		    list.add(common.getTotalAmount());	
+			currentRows.put(cashAccount.getId(),list);
 			
 		}		
 		
@@ -423,7 +449,7 @@ public class BillBLAddBill {
 		/**
 		 * TODO exRate
 		 */
-		boolean isSaved = blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(), 2,EngBLCommon.MODULE_BILL,bill.getTurqEngineSequence().getId(),billDefinition,EngBLCommon.getBaseCurrencyExchangeRate(),creditAccounts,deptAccounts);
+		boolean isSaved = blAcc.saveAccTransaction(bill.getBillsDate(),common.getBillDocumentNo(), 2,EngBLCommon.MODULE_BILL,bill.getTurqEngineSequence().getId(),billDefinition,EngBLCommon.getBaseCurrencyExchangeRate(),creditAccounts,deptAccounts,true);
 		
 		
 	}

@@ -324,6 +324,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		try{
 		  if(compTransactionCollect.verifyFields()){
 		  	updated=true;
+		  	
 		 blTransUpdate.updateTransaction(accTrans,compTransactionCollect.getTxtDocumentNo().getText().trim(),
 										compTransactionCollect.getDatePickerTransactionDate().getData(),compTransactionCollect.getTxtTransDefinition().getText(),
 										compTransactionCollect.getExchangeRate());
@@ -348,6 +349,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	   
 	   
 	     deleteTransactionRows();
+	     
 	     
 	     compTransactionCollect.saveTransactionRows(accTrans.getId());
 	     

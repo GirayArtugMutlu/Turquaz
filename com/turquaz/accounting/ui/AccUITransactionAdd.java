@@ -22,7 +22,9 @@ package com.turquaz.accounting.ui;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 
@@ -555,8 +557,11 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 		
 	}
 
-    public void saveTransactionRows(Integer transId)throws Exception
+    public void prepareAccountingMaps(Map creditAccounts, Map deptAccounts)throws Exception
 	{
+    	creditAccounts.clear();
+    	deptAccounts.clear();
+    	   	
     	try
 		{
     
@@ -569,7 +574,32 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
     
     			if(row.okToSave())
     			{
-    				blTransAdd.registerAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId,exchangeRate);
+    			
+    				TurqAccountingTransactionColumn transColumn=(TurqAccountingTransactionColumn)row.getDBObject();
+    				if(transColumn.getCreditAmount().doubleValue()>0)
+    				{
+    					List ls = (List)creditAccounts.get(transColumn.getTurqAccountingAccount().getId());
+    					if(ls == null)
+    					{
+    						ls = new ArrayList();
+    					}
+    					ls.add(transColumn.getCreditAmount());
+    					creditAccounts.put(transColumn.getTurqAccountingAccount().getId(),ls);    					
+    					
+    				}
+    				else
+    				{
+    					List ls = (List)deptAccounts.get(transColumn.getTurqAccountingAccount().getId());
+    					if(ls == null)
+    					{
+    						ls = new ArrayList();
+    					}
+    					ls.add(transColumn.getDeptAmount());
+    					deptAccounts.put(transColumn.getTurqAccountingAccount().getId(),ls);    				   					
+    				}
+    				
+    				
+    			
     			}
     
     		}
@@ -608,9 +638,14 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			try
 			{
 				
-				Integer transId =blTransAdd.saveAccTransaction(dateTransactionDate.getDate(),txtDocumentNo.getText().trim(),2,1,null,txtTransDefinition.getText().trim(),exchangeRate);
+				Map creditAccounts = new HashMap();
+				Map deptAccounts = new HashMap();
+				
+				prepareAccountingMaps(creditAccounts,deptAccounts);
+				
+				blTransAdd.saveAccTransaction(dateTransactionDate.getDate(),txtDocumentNo.getText().trim(),2,1,null,txtTransDefinition.getText().trim(),exchangeRate,creditAccounts,deptAccounts,false);
 	
-				saveTransactionRows(transId);
+			
 				msg.setMessage(Messages.getString("AccUITransactionAdd.16")); //$NON-NLS-1$
 				msg.open();
 				clearFields();

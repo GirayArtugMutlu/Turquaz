@@ -660,7 +660,7 @@ public class CheBLSaveChequeTransaction {
     	blAccTran.saveAccTransaction(roll.getChequeRollsDate(),
     				roll.getChequeRollNo(), accTransType, roll.getTurqEngineSequence().getTurqModule()
     						.getId().intValue(), roll.getTurqEngineSequence()
-    						.getId(), definition,exchangeRate,creditAccountsMap,deptAccountsMap);
+    						.getId(), definition,exchangeRate,creditAccountsMap,deptAccountsMap,true);
     	
     		    	
     }
@@ -689,15 +689,20 @@ public class CheBLSaveChequeTransaction {
     			return false;
     		}
         	
-        	deptAccountsMap.put(rollAccount.getId(),amount);
+    		List deptList = new ArrayList();
+    		deptList.add(amount);
+        	deptAccountsMap.put(rollAccount.getId(),deptList);
         	
-        	creditAccountsMap.put(counterAccount.getId(),amount);
+        	List creditList = new ArrayList();
+        	creditList.add(amount);
+        	creditAccountsMap.put(counterAccount.getId(),creditList);
         	
     	
     	}
     	else if(type == EngBLCommon.CHEQUE_TRANS_OUT_BANK.intValue())
     	{
        	
+    		  
         		if(rollAccount == null )
             	{
             	
@@ -723,22 +728,28 @@ public class CheBLSaveChequeTransaction {
         			{
         				return false ;
         			}
+        			
         			if(creditAccountsMap.containsKey(chequeAccount.getId()))
         			{
-        				BigDecimal total = (BigDecimal)creditAccountsMap.get(chequeAccount.getId());
-        				total = total.add(cheque.getChequesAmount());
-        				creditAccountsMap.put(chequeAccount.getId(),total);    				
+        				
+        			    List ls = (List)creditAccountsMap.get(chequeAccount.getId());
+        				ls.add(cheque.getChequesAmount());        			   
+        				creditAccountsMap.put(chequeAccount.getId(),ls);    				
         			}
         			else{
         				
-        				creditAccountsMap.put(chequeAccount.getId(),cheque.getChequesAmount());
+        				List ls = new ArrayList();
+        				ls.add(cheque.getChequesAmount());
+        				creditAccountsMap.put(chequeAccount.getId(),ls);
         			
         			}  		
         		
         		}
         		
         		
-        		deptAccountsMap.put(rollAccount.getId(),amount);
+        		List deptList = new ArrayList();
+        		deptList.add(amount);
+        		deptAccountsMap.put(rollAccount.getId(),deptList);
                	
         }
 
@@ -784,19 +795,23 @@ public class CheBLSaveChequeTransaction {
     			}
     			if(creditAccountsMap.containsKey(chequeAccount.getId()))
     			{
-    				BigDecimal total = (BigDecimal)creditAccountsMap.get(chequeAccount.getId());
-    				total = total.add(cheque.getChequesAmount());
-    				creditAccountsMap.put(chequeAccount.getId(),total);    				
-    			}
-    			else{
-    				
-    				creditAccountsMap.put(chequeAccount.getId(),cheque.getChequesAmount());
-    			
-    			}  		
+    				  List ls = (List)creditAccountsMap.get(chequeAccount.getId());
+      				ls.add(cheque.getChequesAmount());        			   
+      				creditAccountsMap.put(chequeAccount.getId(),ls);    				
+      			}
+      			else{
+      				
+      				List ls = new ArrayList();
+      				ls.add(cheque.getChequesAmount());
+      				creditAccountsMap.put(chequeAccount.getId(),ls);
+      			
+      			}  			
     		
     		}
     		
-    		deptAccountsMap.put(rollAccount.getId(),amount);
+    		List deptList = new ArrayList();
+    		deptList.add(amount);
+    		deptAccountsMap.put(rollAccount.getId(),deptList);
              	
     	}
     	
@@ -829,25 +844,29 @@ public class CheBLSaveChequeTransaction {
     			
     			if(deptAccountsMap.containsKey(deptAccount.getId()))
     			{
-    				BigDecimal total = (BigDecimal)deptAccountsMap.get(deptAccount.getId());
-    				total = total.add(cheque.getChequesAmount());
-    				deptAccountsMap.put(deptAccount.getId(),total);    				
+    				List ls = (List)deptAccountsMap.get(deptAccount.getId());
+    				ls.add(cheque.getChequesAmount());
+    				deptAccountsMap.put(deptAccount.getId(),ls);
+    						
     			}
-    			else{
-    				
-    				deptAccountsMap.put(deptAccount.getId(),cheque.getChequesAmount());
+    			else{    				
+    				List ls = new ArrayList();
+    				ls.add(cheque.getChequesAmount());
+    				deptAccountsMap.put(deptAccount.getId(),ls);
     			
     			}  
     			
     			if(creditAccountsMap.containsKey(creditAccount.getId()))
     			{
-    				BigDecimal total = (BigDecimal)creditAccountsMap.get(creditAccount.getId());
-    				total = total.add(cheque.getChequesAmount());
-    				creditAccountsMap.put(creditAccount.getId(),total);    				
+    				List ls = (List)creditAccountsMap.get(creditAccount.getId());
+    				ls.add(cheque.getChequesAmount());
+    				creditAccountsMap.put(creditAccount.getId(),ls);   				
     			}
     			else{
     				
-    				creditAccountsMap.put(creditAccount.getId(),cheque.getChequesAmount());
+    				List ls = new ArrayList();
+    				ls.add(cheque.getChequesAmount());
+    				creditAccountsMap.put(creditAccount.getId(),ls);   
     			
     			}  			
     		}    		
@@ -881,19 +900,24 @@ public class CheBLSaveChequeTransaction {
     			
     			if(creditAccountsMap.containsKey(creditAccount.getId()))
     			{
-    				BigDecimal total = (BigDecimal)creditAccountsMap.get(creditAccount.getId());
-    				total = total.add(cheque.getChequesAmount());
-    				creditAccountsMap.put(creditAccount.getId(),total);    				
+    				List ls = (List)creditAccountsMap.get(creditAccount.getId());
+    				ls.add(cheque.getChequesAmount());
+    				creditAccountsMap.put(creditAccount.getId(),ls);   				
     			}
     			else{
     				
-    				creditAccountsMap.put(creditAccount.getId(),cheque.getChequesAmount());
+    				List ls = new ArrayList();
+    				ls.add(cheque.getChequesAmount());
+    				creditAccountsMap.put(creditAccount.getId(),ls); 
     			
     			}  	
     			
     			
     		}
-    		deptAccountsMap.put(deptAccount.getId(),amount);
+    		
+    		List deptList = new ArrayList();
+    		deptList.add(amount);
+    		deptAccountsMap.put(deptAccount,deptList);
       		
     	}
     	
@@ -926,20 +950,25 @@ public class CheBLSaveChequeTransaction {
     			
     			if(creditAccountsMap.containsKey(creditAccount.getId()))
     			{
-    				BigDecimal total = (BigDecimal)creditAccountsMap.get(creditAccount.getId());
-    				total = total.add(cheque.getChequesAmount());
-    				creditAccountsMap.put(creditAccount.getId(),total);    				
+    				List ls = (List)creditAccountsMap.get(creditAccount.getId());
+    				ls.add(cheque.getChequesAmount());
+    				creditAccountsMap.put(creditAccount.getId(),ls);    				
     			}
     			
     			else{
     				
-    				creditAccountsMap.put(creditAccount.getId(),cheque.getChequesAmount());
+    				List ls = new ArrayList();
+    				ls.add(cheque.getChequesAmount());
+    				creditAccountsMap.put(creditAccount.getId(),ls);   
     			
     			}     			
     		}
     		
     		
-    		deptAccountsMap.put(deptAccount.getId(),amount);
+    		List deptList = new ArrayList();
+    		deptList.add(amount);
+    		deptAccountsMap.put(deptAccount,deptList);
+    		
     	}
     	
     	
@@ -972,28 +1001,32 @@ public class CheBLSaveChequeTransaction {
     			
     			if(creditAccountsMap.containsKey(creditAccount.getId()))
     			{
-    				BigDecimal total = (BigDecimal)creditAccountsMap.get(creditAccount.getId());
-    				total = total.add(cheque.getChequesAmount());
-    				creditAccountsMap.put(creditAccount.getId(),total);    				
+    				List ls = (List)creditAccountsMap.get(creditAccount.getId());
+    				ls.add(cheque.getChequesAmount());
+    				creditAccountsMap.put(creditAccount.getId(),ls);     				
     			}
     			
     			else{
     				
-    				creditAccountsMap.put(creditAccount.getId(),cheque.getChequesAmount());
+    				List ls = new ArrayList();
+    				ls.add(cheque.getChequesAmount());
+    				creditAccountsMap.put(creditAccount.getId(),ls);  
     			
     			}     			
     			
     			if(deptAccountsMap.containsKey(deptAccount.getId()))
     			{
     			
-    				BigDecimal total = (BigDecimal)deptAccountsMap.get(deptAccount.getId());
-    				total = total.add(cheque.getChequesAmount());
-    				deptAccountsMap.put(deptAccount.getId(),total);
+    				List ls = (List)deptAccountsMap.get(deptAccount.getId());
+    				ls.add(cheque.getChequesAmount());
+    				deptAccountsMap.put(deptAccount.getId(),ls);
     			
     			}
     			else
     			{
-    				deptAccountsMap.put(deptAccount.getId(),cheque.getChequesAmount());
+    				List ls = new ArrayList();
+    				ls.add(cheque.getChequesAmount());
+    				deptAccountsMap.put(deptAccount.getId(),ls);
     			}
     			
     		}
@@ -1032,28 +1065,32 @@ public class CheBLSaveChequeTransaction {
     			
     			if(creditAccountsMap.containsKey(creditAccount.getId()))
     			{
-    				BigDecimal total = (BigDecimal)creditAccountsMap.get(creditAccount.getId());
-    				total = total.add(cheque.getChequesAmount());
-    				creditAccountsMap.put(creditAccount.getId(),total);    				
+    				List ls = (List)creditAccountsMap.get(creditAccount.getId());
+    				ls.add(cheque.getChequesAmount());
+    				creditAccountsMap.put(creditAccount.getId(),ls);      				
     			}
     			
     			else{
     				
-    				creditAccountsMap.put(creditAccount.getId(),cheque.getChequesAmount());
+    				List ls = new ArrayList();
+    				ls.add(cheque.getChequesAmount());
+    				creditAccountsMap.put(creditAccount.getId(),ls);   
     			
     			}     			
     			
     			if(deptAccountsMap.containsKey(deptAccount.getId()))
     			{
     			
-    				BigDecimal total = (BigDecimal)deptAccountsMap.get(deptAccount.getId());
-    				total = total.add(cheque.getChequesAmount());
-    				deptAccountsMap.put(deptAccount.getId(),total);
+    				List ls = (List)deptAccountsMap.get(deptAccount.getId());
+    				ls.add(cheque.getChequesAmount());
+    				deptAccountsMap.put(deptAccount.getId(),ls);
     			
     			}
     			else
     			{
-    				deptAccountsMap.put(deptAccount.getId(),cheque.getChequesAmount());
+    				List ls = new ArrayList();
+    				ls.add(cheque.getChequesAmount());
+    				deptAccountsMap.put(deptAccount.getId(),ls);
     			}
     			
     		}

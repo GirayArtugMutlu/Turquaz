@@ -22,7 +22,9 @@ package com.turquaz.accounting.ui;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import org.eclipse.jface.viewers.CellEditor;
@@ -534,11 +536,15 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	* 2- Mahsup Fisi	
 	*
 	**/
-	Integer transId =blTransAdd.saveAccTransaction(datePickerTransactionDate.getDate(),
-			txtDocumentNo.getText().trim(),1,1,null,
-			txtDefinition.getText().trim(),exchangeRate);
 	
-	saveTransactionRows(transId);
+	Map creditAccounts = new HashMap();	
+	Map deptAccounts = new HashMap();
+	prepareAccountingMaps(creditAccounts,deptAccounts);
+	
+	blTransAdd.saveAccTransaction(datePickerTransactionDate.getDate(),
+			txtDocumentNo.getText().trim(),1,1,null,
+			txtDefinition.getText().trim(),exchangeRate,creditAccounts,deptAccounts,false);
+	
 	msg.setMessage(Messages.getString("AccUITransactionPayment.18")); //$NON-NLS-1$
 	msg.open();
 	clearFields();
@@ -570,39 +576,45 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
     
     }
     
-	public void saveTransactionRows(Integer transId)throws Exception{
+	public void prepareAccountingMaps(Map creditAccounts, Map deptAccounts)throws Exception{
     try{
     
     calculateTotalCredit();
-    TableItem items[] = tableTransactionRows.getItems();
-    
-    //First save the deptor Account
-    TurqAccountingTransactionColumn transRow = new TurqAccountingTransactionColumn();
-    transRow.setDeptAmount(new BigDecimal(0));
-    transRow.setCreditAmount(totalCredit);
-    transRow.setTurqAccountingAccount((TurqAccountingAccount)comboCreditor.getData());
-    transRow.setTransactionDefinition(Messages.getString("AccUITransactionPayment.13")); //$NON-NLS-1$
+    creditAccounts.clear();
+	deptAccounts.clear();
+	
 
-    blTransAdd.registerAccTransactionRow(transRow,transId,exchangeRate);   
-     
-    //Save the table rows    
-    for(int i=0; i<items.length;i++){
-        AccUITransactionPaymentTableRow row =(AccUITransactionPaymentTableRow)items[i].getData();
+	
+	
+	List creditList = new ArrayList();
+	creditList.add(totalCredit);
+	creditAccounts.put(((TurqAccountingAccount)comboCreditor.getData()).getId(),creditList);
+	
+	 TableItem items[] = tableTransactionRows.getItems();		
+	//Save the table rows
+	for (int i = 0; i < items.length; i++) {
+		AccUITransactionCollectTableRow row = (AccUITransactionCollectTableRow) items[i]
+				.getData();
 
-        if(row.okToSave()){
-            blTransAdd.registerAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId,exchangeRate);
-        }
-    }
-    
-    
-    
-    }
-    catch(Exception ex){
-    throw ex;
-    
-    }
-    
-    
+		if (row.okToSave()) 
+		{
+			TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn) row.getDBObject();
+			List ls = (List)deptAccounts.get(transColumn.getTurqAccountingAccount().getId());
+			if(ls == null)
+			{
+				ls = new ArrayList();
+			}
+			ls.add(transColumn.getDeptAmount());
+			deptAccounts.put(transColumn.getTurqAccountingAccount().getId(),ls);
+		
+		}
+	}
+
+} catch (Exception ex) {
+	throw ex;
+
+}
+
     }
 	
 	public void search(){

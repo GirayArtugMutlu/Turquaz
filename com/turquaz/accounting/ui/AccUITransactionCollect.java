@@ -23,7 +23,9 @@ package com.turquaz.accounting.ui;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import org.eclipse.jface.viewers.CellEditor;
@@ -549,12 +551,15 @@ public class AccUITransactionCollect extends Composite implements
 				 * 0 -Tahsil Fisi 1- Tediye Fisi 2- Mahsup Fisi
 				 *  
 				 */
-				Integer transId = blTransAdd.saveAccTransaction(
-						datePickerTransactionDate.getDate(), txtDocumentNo
+				
+				Map creditAccounts = new HashMap();
+				Map deptAccounts = new HashMap();
+				prepareAccountingMaps(creditAccounts,deptAccounts);
+				
+				blTransAdd.saveAccTransaction(datePickerTransactionDate.getDate(), txtDocumentNo
 								.getText().trim(), 0, 1, null,
-						txtTransDefinition.getText().trim(),exchangeRate);
+						txtTransDefinition.getText().trim(),exchangeRate,creditAccounts, deptAccounts,false);
 
-				saveTransactionRows(transId);
 				msg
 						.setMessage(Messages
 								.getString("AccUITransactionCollect.18")); //$NON-NLS-1$
@@ -585,24 +590,20 @@ public class AccUITransactionCollect extends Composite implements
 
 	}
 
-	public void saveTransactionRows(Integer transId) throws Exception {
+	public void prepareAccountingMaps(Map creditAccounts, Map deptAccounts) throws Exception {
 		try {
 
+			creditAccounts.clear();
+			deptAccounts.clear();
+			
 			calculateTotalDept();
-			TableItem items[] = tableTransactionRows.getItems();
-
-			//First save the deptor Account
-			TurqAccountingTransactionColumn transRow = new TurqAccountingTransactionColumn();
-			transRow.setCreditAmount(new BigDecimal(0));
-			transRow.setDeptAmount(totalDept);
-			transRow
-					.setTurqAccountingAccount((TurqAccountingAccount) comboDeptor
-							.getData());
-			transRow.setTransactionDefinition(Messages
-					.getString("AccUITransactionCollect.9")); //$NON-NLS-1$
-
-			blTransAdd.registerAccTransactionRow(transRow, transId,exchangeRate );
-
+			
+			
+			List deptList = new ArrayList();
+			deptList.add(totalDept);
+			deptAccounts.put(((TurqAccountingAccount)comboDeptor.getData()).getId(),deptList);
+			
+			 TableItem items[] = tableTransactionRows.getItems();		
 			//Save the table rows
 			for (int i = 0; i < items.length; i++) {
 				AccUITransactionCollectTableRow row = (AccUITransactionCollectTableRow) items[i]
@@ -610,8 +611,15 @@ public class AccUITransactionCollect extends Composite implements
 
 				if (row.okToSave()) 
 				{
-					blTransAdd.registerAccTransactionRow((TurqAccountingTransactionColumn) row
-											.getDBObject(), transId,exchangeRate );
+					TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn) row.getDBObject();
+					List ls = (List)creditAccounts.get(transColumn.getTurqAccountingAccount().getId());
+					if(ls == null)
+					{
+						ls = new ArrayList();
+					}
+					ls.add(transColumn.getCreditAmount());
+					creditAccounts.put(transColumn.getTurqAccountingAccount().getId(),ls);
+				
 				}
 			}
 
