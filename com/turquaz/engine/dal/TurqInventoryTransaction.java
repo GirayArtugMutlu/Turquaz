@@ -12,7 +12,7 @@ public class TurqInventoryTransaction implements Serializable {
     private java.lang.Integer inventoryTransactionsId;
 
     /** persistent field */
-    private long transactionsAmount;
+    private long transactionsAmountIn;
 
     /** persistent field */
     private java.math.BigDecimal transactionsUnitPrice;
@@ -57,6 +57,9 @@ public class TurqInventoryTransaction implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
+    private long transactionsTotalAmountOut;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous;
 
     /** persistent field */
@@ -69,8 +72,8 @@ public class TurqInventoryTransaction implements Serializable {
     private com.turquaz.engine.dal.TurqConsignment turqConsignment;
 
     /** full constructor */
-    public TurqInventoryTransaction(long transactionsAmount, java.math.BigDecimal transactionsUnitPrice, java.math.BigDecimal transactionsTotalPrice, java.math.BigDecimal transactionsDiscount, java.math.BigDecimal transactionsDiscountAmount, int transactionsVat, java.math.BigDecimal transactionsVatAmount, java.math.BigDecimal transactionsVatSpecialEach, java.math.BigDecimal transactionsVatSpecial, java.math.BigDecimal transactionsVatSpecialAmount, java.math.BigDecimal transactionsCumilativePrice, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard, com.turquaz.engine.dal.TurqConsignment turqConsignment) {
-        this.transactionsAmount = transactionsAmount;
+    public TurqInventoryTransaction(long transactionsAmountIn, java.math.BigDecimal transactionsUnitPrice, java.math.BigDecimal transactionsTotalPrice, java.math.BigDecimal transactionsDiscount, java.math.BigDecimal transactionsDiscountAmount, int transactionsVat, java.math.BigDecimal transactionsVatAmount, java.math.BigDecimal transactionsVatSpecialEach, java.math.BigDecimal transactionsVatSpecial, java.math.BigDecimal transactionsVatSpecialAmount, java.math.BigDecimal transactionsCumilativePrice, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, long transactionsTotalAmountOut, com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard, com.turquaz.engine.dal.TurqConsignment turqConsignment) {
+        this.transactionsAmountIn = transactionsAmountIn;
         this.transactionsUnitPrice = transactionsUnitPrice;
         this.transactionsTotalPrice = transactionsTotalPrice;
         this.transactionsDiscount = transactionsDiscount;
@@ -85,6 +88,7 @@ public class TurqInventoryTransaction implements Serializable {
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
+        this.transactionsTotalAmountOut = transactionsTotalAmountOut;
         this.turqInventoryWarehous = turqInventoryWarehous;
         this.turqInventoryUnit = turqInventoryUnit;
         this.turqInventoryCard = turqInventoryCard;
@@ -103,12 +107,12 @@ public class TurqInventoryTransaction implements Serializable {
         this.inventoryTransactionsId = inventoryTransactionsId;
     }
 
-    public long getTransactionsAmount() {
-        return this.transactionsAmount;
+    public long getTransactionsAmountIn() {
+        return this.transactionsAmountIn;
     }
 
-    public void setTransactionsAmount(long transactionsAmount) {
-        this.transactionsAmount = transactionsAmount;
+    public void setTransactionsAmountIn(long transactionsAmountIn) {
+        this.transactionsAmountIn = transactionsAmountIn;
     }
 
     public java.math.BigDecimal getTransactionsUnitPrice() {
@@ -221,6 +225,14 @@ public class TurqInventoryTransaction implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public long getTransactionsTotalAmountOut() {
+        return this.transactionsTotalAmountOut;
+    }
+
+    public void setTransactionsTotalAmountOut(long transactionsTotalAmountOut) {
+        this.transactionsTotalAmountOut = transactionsTotalAmountOut;
     }
 
     public com.turquaz.engine.dal.TurqInventoryWarehous getTurqInventoryWarehous() {
