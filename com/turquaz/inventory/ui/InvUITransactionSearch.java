@@ -36,6 +36,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
 
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 
 import com.turquaz.engine.dal.TurqConsignment;
@@ -295,20 +296,27 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 
 	public void showConsignment()
 	{
-		try{
+		try
+		{
 			
 		
-		TableItem items[] = tableTransactions.getSelection();
-		if (items.length > 0)
-		{
-			TurqInventoryTransaction invTrans = (TurqInventoryTransaction)items[0].getData();
-			TurqEngineSequence seq = invTrans.getTurqEngineSequence();
+			TableItem items[] = tableTransactions.getSelection();
+			if (items.length > 0)
+			{
+
+				Integer transId = (Integer)items[0].getData();
+				if (transId != null)
+				{
+					TurqInventoryTransaction invTrans=InvBLSearchTransaction.getInvTransByTransId(transId);
 			
-			TurqConsignment cons = blSearch.getConsignment(seq);
-			boolean updated=new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
-			if (updated)
-				search();
-		}
+					TurqEngineSequence seq = invTrans.getTurqEngineSequence();
+			
+					TurqConsignment cons = blSearch.getConsignment(seq);
+					boolean updated=new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
+					if (updated)
+						search();
+				}
+			}
 		}
 		catch (Exception ex)
 		{
@@ -336,11 +344,14 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 
 			TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
 			tableTransactions.removeAll();
-			int type = 0;
-			if (comboTransactionsType.getText().equals(Messages.getString("InvUITransactionSearch.17"))) //$NON-NLS-1$
-				type=2;
-			else if (comboTransactionsType.getText().equals(Messages.getString("InvUITransactionSearch.16"))) { //$NON-NLS-1$
-				type = 1;
+			int type = EngBLCommon.COMMON_ALL_INT;
+			if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_BUY_STRING))
+			{
+				type=EngBLCommon.COMMON_BUY_INT;
+			}
+			else if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_SELL_STRING))
+			{
+				type = EngBLCommon.COMMON_SELL_INT;
 			}
 
 			List list = blSearch.searchTransactions((TurqCurrentCard) txtCurCard
@@ -351,33 +362,40 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 			for (int i = 0; i < list.size(); i++) {
 
 				Object result[] = (Object[])list.get(i);
-				transactions = (TurqInventoryTransaction) result[0];
 				item = new TableItem(tableTransactions, SWT.NULL);
-				item.setData(transactions);
+
+
+				Integer transId=(Integer)result[0];
+				Date transDate = (Date)result[1];
+				BigDecimal inAmount=(BigDecimal)result[2];
+				BigDecimal outAmount=(BigDecimal)result[3];
+				BigDecimal totalPrice=(BigDecimal)result[4];
+				String invCode=(String)result[5];
+				String invName=(String)result[6];
+				
+				item.setData(transId);
 		
 				BigDecimal priceIn = new BigDecimal(0);
 				BigDecimal priceOut = new BigDecimal(0);
 				
-				if(transactions.getTransactionsAmountIn().doubleValue()==0){
-					priceOut = transactions.getTransactionsTotalPrice();					
+				if(inAmount.doubleValue()==0){
+					priceOut = totalPrice;					
 					
 				}
 				else
 				{
-					priceIn = transactions.getTransactionsTotalPrice();
+					priceIn = totalPrice;
 				}
 				
-				
-				
-				Date transDate = (Date)result[1];
+
 				item.setText(new String[] {
-								DatePicker.formatter.format(transDate),
-								transactions.getTurqInventoryCard().getCardInventoryCode(),
-								transactions.getTurqInventoryCard().getCardName(),
-								cf.format(transactions.getTransactionsAmountIn())+"", //$NON-NLS-1$
-								cf.format(priceIn),
-								cf.format(transactions.getTransactionsTotalAmountOut())+"", //$NON-NLS-1$								
-								cf.format(priceOut)});
+						DatePicker.formatter.format(transDate),
+						invCode,
+						invName,
+						cf.format(inAmount)+"", //$NON-NLS-1$								
+						cf.format(priceIn),
+						cf.format(outAmount)+"", //$NON-NLS-1$
+						cf.format(priceOut)});
 
 			}
 

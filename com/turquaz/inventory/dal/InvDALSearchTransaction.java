@@ -50,12 +50,23 @@ public class InvDALSearchTransaction {
 		try {
 			Session session = EngDALSessionFactory.openSession();
   
-                 			
-			String query = "Select transaction, consignment.consignmentsDate from TurqInventoryTransaction as transaction," +
+			String query = "Select transaction.inventoryTransactionsId,transaction.transactionsDate,transaction.transactionsAmountIn," +
+			"transaction.transactionsTotalAmountOut, transaction.transactionsTotalPrice," +
+			" transaction.turqInventoryCard.cardInventoryCode, " +
+			" transaction.turqInventoryCard.cardName from TurqInventoryTransaction as transaction," +
+			 " TurqConsignment as consignment where" +
+			 " consignment.turqEngineSequence = transaction.turqEngineSequence "
+			+ " and consignment.consignmentsDate >= :startDate"
+			+ " and consignment.consignmentsDate <= :endDate";
+			
+			
+			/*String query = "Select transaction, consignment.consignmentsDate from TurqInventoryTransaction as transaction," +
 					 " TurqConsignment as consignment where" +
 					 " consignment.turqEngineSequence = transaction.turqEngineSequence "
 					+ " and consignment.consignmentsDate >= :startDate"
-					+ " and consignment.consignmentsDate <= :endDate";
+					+ " and consignment.consignmentsDate <= :endDate";*/
+			
+			
 			if (type != EngBLCommon.COMMON_ALL_INT)
 				query+=" and consignment.consignmentsType ="+ type;
 
