@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.plaf.FileChooserUI;
 
 import net.sf.jasperreports.engine.JasperManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -44,7 +43,6 @@ import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.component.DatePicker;
-import org.eclipse.swt.layout.GridData;
 public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblDateRange;
 	private DatePicker datePickerBeginDate;
