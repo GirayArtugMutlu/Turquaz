@@ -99,7 +99,13 @@ public final class TreeFactory {
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.15")); //$NON-NLS-1$
 		item.setData(AccUITransactionSearch.class.getName());
-	   
+		
+		TreeItem report = new TreeItem(tree,SWT.NULL);
+		report.setText("Raporlar"); //$NON-NLS-1$
+		item = new TreeItem(report,SWT.NULL);
+		item.setText("Yevmiye Defteri");
+		
+		
 		return tree;
 	}
 	public static Tree createCurrentTree(Tree tree){

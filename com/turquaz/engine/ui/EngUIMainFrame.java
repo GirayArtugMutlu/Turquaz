@@ -956,6 +956,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				
 					
 	}
+	public void openNewTab(TreeItem item){
+		
+		if(item.getData()!=null){
+		openNewTab(item.getText(),item.getData().toString());	
+		
+		}
+		
+	}
 	
 
 	/** Auto-generated event handler method */
@@ -1043,7 +1051,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		TreeItem item = treeInventory.getSelection()[0];
 		
 		if(item.getItemCount()==0){
-			openNewTab(item.getText(),item.getData().toString());
+			openNewTab(item);
 		}
 				
 		
@@ -1055,7 +1063,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	protected void treeAdminMouseDoubleClick(MouseEvent evt){
 		TreeItem item = treeAdmin.getSelection()[0];
 		if(item.getItemCount()==0){
-			openNewTab(item.getText(),item.getData().toString());
+			openNewTab(item);
 			}
 	}
 
@@ -1131,8 +1139,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	protected void treeAccountingMouseDoubleClick(MouseEvent evt){
 			TreeItem item = treeAccounting.getSelection()[0];
 		if(item.getItemCount()==0){
-			openNewTab(item.getText(),item.getData().toString());
-			}
+			openNewTab(item);
+		}
 	}
 
 	/** Auto-generated event handler method */
@@ -1144,7 +1152,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	protected void treeBankMouseDoubleClick(MouseEvent evt){
 		TreeItem item = treeBank.getSelection()[0];
 		if(item.getItemCount()==0){
-			openNewTab(item.getText(),item.getData().toString());
+			openNewTab(item);
 		}
 	}
 
@@ -1159,7 +1167,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	protected void treeFavoritesMouseDoubleClick(MouseEvent evt){
 		TreeItem item = treeFavorites.getSelection()[0];
 		if(item.getItemCount()==0){
-			openNewTab(item.getText(),item.getData().toString());
+			openNewTab(item);
 		}
 	}
 
@@ -1167,7 +1175,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	protected void treeCurrentMouseDoubleClick(MouseEvent evt){
 		TreeItem item = treeCurrent.getSelection()[0];
 		if(item.getItemCount()==0){
-			openNewTab(item.getText(),item.getData().toString());
+			openNewTab(item);
 		}
 	}
 
