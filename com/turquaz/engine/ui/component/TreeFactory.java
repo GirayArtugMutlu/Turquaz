@@ -56,11 +56,11 @@ import com.turquaz.cash.ui.CashUICashCardAdd;
 import com.turquaz.cash.ui.CashUICashCardSearch;
 import com.turquaz.cash.ui.CashUICashCollectTransactionAdd;
 import com.turquaz.cash.ui.CashUICashPaymentTransactionAdd;
+import com.turquaz.cash.ui.CashUICashTransactionSearch;
 import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.current.ui.CurUICurrentCardSearch;
-
 import com.turquaz.current.ui.CurUITransactionSearch;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLPermissions;
@@ -393,6 +393,16 @@ public final class TreeFactory {
 			item = new TreeItem(root,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.47"));  //$NON-NLS-1$
 			item.setData(CashUICashCardSearch.class.getName());
+		}
+		
+		if(EngBLPermissions.getPermission(CashUICashTransactionSearch.class.getName())>0){
+		
+		    item = new TreeItem(root,SWT.NULL);
+			
+			item.setText("Kasa Hareketi Arama");
+			
+			item.setData(CashUICashTransactionSearch.class.getName());
+		
 		}
 		root.setExpanded(true);
 		
