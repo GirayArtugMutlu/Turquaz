@@ -1,5 +1,6 @@
 package com.turquaz.accounting.ui.reports;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -124,19 +125,24 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 	private void btnReportsSingleClick(){
 		try{	
 			Map parameters = new HashMap();
-			parameters.put("ReportTitle", "Yevmiye Defteri");
-			parameters.put("sqlparam","Select * " +
-					"from turq_accounting_transactions trans," +
+			parameters.put("ReportTitle", "YEVMÝYE DEFTERÝ");
+			
+			String sqlparam="Select * from turq_accounting_transactions trans," +
 					"turq_accounting_transaction_columns transcolumns," +
 					"turq_accounting_accounts accounts where " +
 					"trans.accounting_transactions_id=transcolumns.accounting_transactions_id" +
-					" and transcolumns.accounting_accounts_id=accounts.accounting_accounts_id " +
-					"ORDER BY trans.transactions_date");
+					" and transcolumns.accounting_accounts_id=accounts.accounting_accounts_id";
+			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");
+			String sqlparam2 =" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'"
+					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"
+					+" ORDER BY trans.transactions_date";
+			parameters.put("sqlparam2",sqlparam2);
+			System.out.println(sqlparam);
+			parameters.put("sqlparam",sqlparam);			
 			parameters.put("imageUrl", "C:\\eclipse3\\workspace\\Turquaz\\icons\\sample.gif");
-			//parameters.put("imageUrl", "");
+
 			parameters.put("column1header","Borç");
 			parameters.put("column2header","Alacak");
-			parameters.put("MainTitle","fds");
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
 			JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingJournal.jasper");
