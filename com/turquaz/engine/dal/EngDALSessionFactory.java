@@ -33,6 +33,7 @@ public class EngDALSessionFactory
 	static EngDALSessionFactory _instance;
 	public SessionFactory factory;
 	Configuration cfg;
+	static Session session = null;
 
 	/**
 	 * Default Constructor
@@ -111,7 +112,7 @@ public class EngDALSessionFactory
 	 * @return Session object whisch is created by the static SessionFactory
 	 * @throws Exception
 	 */
-	public static synchronized Session openSession() throws Exception
+	public static synchronized Session openSession2() throws Exception
 	{
 		try
 		{
@@ -119,9 +120,25 @@ public class EngDALSessionFactory
 			{
 				_instance = new EngDALSessionFactory();
 			}
-			return _instance.factory.openSession();
+			
+			session = _instance.factory.openSession();
+			
+			return session;
 		}
 		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static Session getSession() throws Exception
+	{
+		try{
+			
+			return session;
+			
+		}
+		catch(Exception ex)
 		{
 			throw ex;
 		}
