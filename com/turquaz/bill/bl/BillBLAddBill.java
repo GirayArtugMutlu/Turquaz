@@ -154,7 +154,7 @@ public class BillBLAddBill {
 			Iterator it = getInventoryTransactions(bill).iterator();
 	        
 			while(it.hasNext()){
-				
+			
 			invTrans = (TurqInventoryTransaction)it.next();
 			transRow = new TurqAccountingTransactionColumn();
 			

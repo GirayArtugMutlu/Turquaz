@@ -443,11 +443,11 @@ public class InvUITransactionTableRow implements ITableRow {
    
     public Color getColor() {
        if(okToSave()){
-           return SWTResourceManager.getColor(255,198,198);
+           return SWTResourceManager.getColor(198,255,198);
        }
        
        else{
-           return SWTResourceManager.getColor(198,255,198);
+           return SWTResourceManager.getColor(255,198,198);
        }
     }
 
@@ -477,7 +477,7 @@ public class InvUITransactionTableRow implements ITableRow {
   
     public boolean okToSave() {
     
-    if(invTrans.getTurqInventoryCard()!=null){
+    if(invTrans.getTurqInventoryCard()==null){
         return false;   
     }
     else{

@@ -55,7 +55,7 @@ public class BillDALAddBill {
 		
 		Session session = EngDALSessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		session.load(bill,bill.getBillsId());
+		session.refresh(bill);
 		
 	    Hibernate.initialize(bill.getTurqBillConsignmentCommon().getTurqConsignments());
 			

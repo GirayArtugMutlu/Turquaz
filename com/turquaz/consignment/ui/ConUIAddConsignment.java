@@ -1289,10 +1289,7 @@ implements SecureComposite{
 	BigDecimal generalTotal = new BigDecimal(0);
 	BigDecimal discountTotal = new BigDecimal(0);
 	
-	/**
-	 * TODO change this looop
-	 *
-	 */
+	
 	for(int i =0;i<items.length;i++){
 	    TurqInventoryTransaction invTrans = (TurqInventoryTransaction)((InvUITransactionTableRow)(items[i].getData())).getDBObject();
 		subTotal = subTotal.add(invTrans.getTransactionsTotalPrice());
