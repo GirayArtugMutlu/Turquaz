@@ -178,7 +178,9 @@ public class TurquazContentAssistProcessors implements
     }
 
     //  Proposal part before cursor
-    private Proposal[] proposedCodes;
+    public Proposal[] proposedCodes;
+     
+    
 
     private void computeStructureProposals(String qualifier,
             int documentOffset, List propList) {
@@ -264,16 +266,6 @@ public class TurquazContentAssistProcessors implements
         return new ContextInformationValidator(this);
     }
     
-    class Proposal
-    {
-        String text ="";
-        String info ="";
-        public Proposal(String text,String label){
-            this.text = text;
-            this.info = label;
-            
-        }
-        
-    }
+    
 
 }
