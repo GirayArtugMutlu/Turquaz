@@ -17,6 +17,10 @@ package com.turquaz.engine.ui;
 /************************************************************************/
 
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.sql.Savepoint;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -66,6 +70,7 @@ import org.eclipse.swt.SWT;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.engine.ui.component.TurqShell;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUITree;
 import com.turquaz.admin.ui.comp.AdmUITree;
@@ -111,7 +116,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private CoolItem coolRightMain;
 	private CoolBar coolbarRightTop;
 	private Composite compMainInRight;
-	private Tree treeFavorites;
+	private static Tree treeFavorites;
 	private ToolBar toolbarFavoritesTab;
 	private CLabel lblFavoritesTab;
 	private Composite compFavoritesSelection;
@@ -690,7 +695,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	 //Add popup menu to add favorites
      popupTreeAddFavorites = new Menu(getShell(),SWT.POP_UP);
      final MenuItem item = new MenuItem (popupTreeAddFavorites, SWT.PUSH);
-	 item.setText ("Add to Favorites");
+	 item.setText("Add to Favorites");
      
      //Add popu menu to remove favorites
      popupTreeRemoveFavorites = new Menu(getShell(),SWT.POP_UP);
@@ -698,7 +703,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	 itemRemove.setText ("Remove from Favorites");
 	 
 	
-	 item.addListener (SWT.Selection, new Listener () {
+	 item.addListener(SWT.Selection, new Listener () {
 				public void handleEvent (Event e) {					
 					if(item.getData()!=null){
 					
@@ -715,16 +720,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	   });
 	 itemRemove.addListener (SWT.Selection, new Listener () {
 		public void handleEvent (Event e) {					
-			if(item.getData()!=null){
+			if(itemRemove.getData()!=null){
 			
 				TreeItem selectedItem = (TreeItem)itemRemove.getData();
 				selectedItem.dispose();
-				
-				
-				
+				System.out.println("disposed");
+						
 			}
-			
-							
+										
 		}
 });
      
@@ -767,15 +770,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
  					event.doit=false;
  					popupTreeAddFavorites.setVisible(false);
  					itemRemove.setData(null);
+ 					
 				}
 				else{
 					event.doit =true;
 					itemRemove.setData(selectedItem);
+				    System.out.println("show");
 				}
 			
-			
-			
-		
 		}
 	});
      
@@ -809,8 +811,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		toolDelete.setEnabled(false);
 		toolSearch.setEnabled(false);
 		
-		
-		
+		fillFavoritesTree();
+				
 		//SET POP UP Menus for trees
 		
 		treeAccounting.setMenu(popupTreeAddFavorites);
@@ -819,13 +821,16 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		treeInventory.setMenu(popupTreeAddFavorites);
 		treeCurrent.setMenu(popupTreeAddFavorites);
 		treeFavorites.setMenu(popupTreeRemoveFavorites);
-		fillFavoritesTree();
+		
 		
 		
 														   
 		
 	}
+	
+	
 	public void fillFavoritesTree(){
+	
 	
 	EngBLXmlParser xmlParser = new EngBLXmlParser("favorites.xml");
 	
@@ -851,7 +856,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 
 	/** Auto-generated main method */
 	public static void main(String[] args){
-		showGUI();
+		showGUI2();
 	}
 
 	/**
@@ -863,7 +868,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	* It is auto-generated code - the body of this method will be
 	* re-generated after any changes are made to the GUI.
 	* However, if you delete this method it will not be re-created.	*/
-	public static void showGUI(){
+	public static void showGUI2(){
 		try {
 			Display display = Display.getDefault();
 			Shell shell = new Shell(display);
@@ -871,11 +876,20 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
 			Rectangle shellBounds = shell.computeTrim(0,0,800,580);
 			shell.setSize(shellBounds.width, shellBounds.height);
+			shell.addListener(SWT.Close, new Listener() {
+		public void handleEvent(Event e) {
+			saveFavoritesTree();
+		}
+	});
 			shell.open();
-			while (!shell.isDisposed()) {
+			
+			
+			while (!shell.isDisposed()){
+				
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -911,25 +925,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			   compModulesTree.layout();
 	}
 
+   
 
-
-	/** Auto-generated event handler method */
-	protected void tree4MouseDoubleClick(MouseEvent evt){
-		TreeItem item = treeInventory.getSelection()[0];
-		
-				if(item.getItemCount()==0){
-					if(item.getText().equals("Stok Kart�")){
-						openNewTab("Stok Ekle",InvUICardAdd.class.getName());
-					}
-					else if(item.getText().equals("Stok Hareketi")){
-						openNewTab("Stok Hareketi",InvUITransactionAdd.class.getName());	
-					}
-					
-				
-				}
-				
 	
-	}
 	public void openNewTab (String Name, String classname){
 		
 				CTabItem yeni = new CTabItem (tabfldMain,SWT.NULL );
@@ -1164,5 +1162,43 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		if(item.getItemCount()==0){
 			openNewTab(item.getText(),item.getData().toString());
 		}
+	}
+
+	
+	//save favorite items to the 
+	public static void saveFavoritesTree(){
+		try{
+		System.out.println("ssgsfg");
+		  OutputStream output = null;
+          PrintStream out = null;
+          output = new FileOutputStream("favorites.xml");
+          out = new PrintStream(output);
+          TreeItem items[] = treeFavorites.getItems();
+          out.println("<tree>");
+          for(int i=0;i<items.length;i++){
+          out.println("<treeitem text=\""+items[i].getText()+"\" class=\""+items[i].getData().toString()+"\"  >");
+           
+           out.println("</treeitem>");
+          
+          }
+          out.println("</tree>");
+          
+          
+		 }
+		 catch(Exception ex){
+		  ex.printStackTrace();
+		 }
+		 finally{
+		
+		 
+		 }
+		
+	}
+	 
+
+
+	/** Auto-generated event handler method */
+	protected void rootWidgetDisposed(DisposeEvent evt){
+		this.dispose();
 	}
 }
