@@ -200,10 +200,10 @@ public class CheDALSearch
 			TurqViewChequeStatus chequeStatus = null;
 			String query = "Select cheque.id, cheque.chequesPortfolioNo,chequeInRolls.turqChequeRoll.chequeRollsDate,"
 					+ " chequeInRolls.turqChequeRoll.turqCurrentCard.cardsName, cheque.chequesDueDate,status.chequeTransactionTypesId,"
-					+ " cheque.chequesAmount" + " from TurqChequeCheque as cheque"
-					+ " left join cheque.turqChequeChequeInRolls as chequeInRolls ," + " TurqViewChequeStatus as status "
-					+ " where cheque.chequesPortfolioNo like '" + portfoyNo + "%'" + " and cheque.chequesDueDate >= :startDueDate "
-					+ " and cheque.chequesDueDate <= :endDueDate "
+					+ " cheque.chequesAmount,chequeInRolls.turqChequeRoll.turqChequeTransactionType.transactionTypsName"
+					+ " from TurqChequeCheque as cheque" + " left join cheque.turqChequeChequeInRolls as chequeInRolls ,"
+					+ " TurqViewChequeStatus as status " + " where cheque.chequesPortfolioNo like '" + portfoyNo + "%'"
+					+ " and cheque.chequesDueDate >= :startDueDate " + " and cheque.chequesDueDate <= :endDueDate "
 					+ " and chequeInRolls.turqChequeRoll.chequeRollsDate >= :startEnterDate"
 					+ " and chequeInRolls.turqChequeRoll.chequeRollsDate <= :endEnterDate"
 					+ " and chequeInRolls.turqChequeRoll.turqChequeTransactionType.id =" + EngBLCommon.CHEQUE_TRANS_IN
@@ -216,7 +216,7 @@ public class CheDALSearch
 			{
 				query += " and status.transactionTypesParent = " + status.intValue();
 			}
-			if(isSortEntryDate)
+			if (isSortEntryDate)
 			{
 				query += " order by chequeInRolls.turqChequeRoll.chequeRollsDate ";
 			}
@@ -224,7 +224,6 @@ public class CheDALSearch
 			{
 				query += " order by cheque.chequesDueDate ";
 			}
-			
 			Query q = session.createQuery(query);
 			q.setParameter("startDueDate", startDueDate);
 			q.setParameter("endDueDate", endDueDate);

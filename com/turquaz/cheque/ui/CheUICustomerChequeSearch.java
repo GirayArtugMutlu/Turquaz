@@ -1,11 +1,21 @@
 package com.turquaz.cheque.ui;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.custom.CTabFolder;
+import com.jasperassistant.designer.viewer.ViewerComposite;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import com.turquaz.cheque.Messages;
@@ -25,6 +35,7 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
@@ -41,6 +52,11 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 {
 	private Composite compSearchPanle;
 	private Text txtPortFoyNo;
+	private ViewerComposite viewer;
+	private Composite compReport;
+	private CTabItem tabItemReport;
+	private CTabItem cTabItem1;
+	private CTabFolder tabFolder;
 	private Button btnRadioDueDate;
 	private Button btnRadioEntryDate;
 	private CurrentPicker currentPicker;
@@ -189,13 +205,17 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			btnRadioDueDate.setText("Vade Tarihine Göre S\u0131ral\u0131");
 			//END <<  btnRadioDueDate
 			//END << compSearchPanle
+			//START >>  tabFolder
+			tabFolder = new CTabFolder(this, SWT.NONE);
+			//START >>  cTabItem1
+			cTabItem1 = new CTabItem(tabFolder, SWT.NONE);
+			cTabItem1.setText("Arama Sonucu");
 			//START >> tableCheques
-			tableCheques = new Table(this, SWT.SINGLE | SWT.FULL_SELECTION);
+			tableCheques = new Table(tabFolder, SWT.SINGLE | SWT.FULL_SELECTION);
+			cTabItem1.setControl(tableCheques);
 			GridData tableChequesLData = new GridData();
-			tableCheques.addMouseListener(new MouseAdapter()
-			{
-				public void mouseDoubleClick(MouseEvent evt)
-				{
+			tableCheques.addMouseListener(new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
 					tableChequesMouseDoubleClick(evt);
 				}
 			});
@@ -237,6 +257,35 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			tableColumnAmount.setWidth(98);
 			//END << tableColumnAmount
 			//END << tableCheques
+			GridData tabFolderLData = new GridData();
+			tabFolderLData.grabExcessHorizontalSpace = true;
+			tabFolderLData.horizontalAlignment = GridData.FILL;
+			tabFolderLData.verticalAlignment = GridData.FILL;
+			tabFolderLData.grabExcessVerticalSpace = true;
+			tabFolder.setLayoutData(tabFolderLData);
+			//END <<  cTabItem1
+			//START >>  tabItemReport
+			tabItemReport = new CTabItem(tabFolder, SWT.NONE);
+			tabItemReport.setText("Rapor");
+			//START >>  compReport
+			compReport = new Composite(tabFolder, SWT.NONE);
+			GridLayout compReportLayout = new GridLayout();
+			compReportLayout.makeColumnsEqualWidth = true;
+			compReport.setLayout(compReportLayout);
+			tabItemReport.setControl(compReport);
+			//START >>  viewer
+			viewer = new ViewerComposite(compReport, SWT.NONE);
+			GridData viewerLData = new GridData();
+			viewerLData.grabExcessVerticalSpace = true;
+			viewerLData.grabExcessHorizontalSpace = true;
+			viewerLData.horizontalAlignment = GridData.FILL;
+			viewerLData.verticalAlignment = GridData.FILL;
+			viewer.setLayoutData(viewerLData);
+			//END <<  viewer
+			//END <<  compReport
+			tabFolder.setSelection(0);
+			//END <<  tabItemReport
+			//END <<  tabFolder
 			this.layout();
 		}
 		catch (Exception e)
@@ -295,6 +344,36 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			item = new TableItem(tableCheques, SWT.NULL);
 			item = new TableItem(tableCheques, SWT.NULL);
 			item.setText(new String[]{"", "", "", "", "Toplam", cf.format(total)});
+			if (ls.size() > 0)
+				GenerateJasper(ls);
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	public void GenerateJasper(List list)
+	{
+		try
+		{
+			Map parameters=new HashMap();
+			SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+			TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
+			parameters.put("reportDate",sdf.format(Calendar.getInstance().getTime()));
+			parameters.put("startDate",sdf.format(datePickerStartEnterDate.getDate()));
+			parameters.put("endDate",sdf.format(datePickerEndEnterDate.getDate()));
+			parameters.put("dueDateStart",sdf.format(datePickerStartDueDate.getDate()));
+			parameters.put("dueDateEnd",sdf.format(datePickerEndDueDate.getDate()));
+			parameters.put("dateFormatter",sdf);
+			parameters.put("currenyFormatter",cf);
+			String[] fields = new String[]{"id", "cheques_portfolio_no", "cheque_rolls_date",
+					"cards_name", "cheques_due_date", "cheque_transaction_types_id",
+					"cheques_amount", "transaction_typs_name"};
+			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
+			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/cheque/CustomerChequeReport.jasper"); //$NON-NLS-1$
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
+			viewer.getReportViewer().setDocument(jasperPrint);
 		}
 		catch (Exception ex)
 		{
