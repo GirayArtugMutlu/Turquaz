@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="Unnamed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="currentName" class="java.lang.String">
@@ -148,11 +148,11 @@
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="415" y="95" width="141" height="1"/>
+				<reportElement positionType="Float" x="415" y="110" width="141" height="1"/>
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="414" y="97" width="142" height="1"/>
+				<reportElement positionType="Float" x="414" y="112" width="142" height="1"/>
 				<graphicElement/>
 			</line>
 			<textField>
@@ -172,7 +172,7 @@
 			<staticText>
 				<reportElement positionType="Float" x="89" y="94" width="274" height="15"/>
 				<textElement/>
-				<text><![CDATA[tarihine kadar ödenmemesi halinde %6 vade farkı uygulanır. ]]></text>
+				<text><![CDATA[tarihine kadar ödenmemesi halinde %6 vade farkı uygulanır.]]></text>
 			</staticText>
 			<textField>
 				<reportElement positionType="Float" x="16" y="94" width="67" height="20"/>
@@ -236,14 +236,14 @@
 		</groupFooter>
 	</group>
 	<pageHeader>
-		<band height="255">
+		<band height="280">
 			<textField>
 				<reportElement positionType="Float" x="48" y="92" width="147" height="63"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentName}+"\n\n"+$P{currentAddress}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="50" y="214" width="134" height="15"/>
+				<reportElement positionType="Float" x="51" y="229" width="134" height="15"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -255,21 +255,21 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{invoiceDate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="374" y="213" width="91" height="14"/>
+				<reportElement positionType="Float" x="375" y="228" width="91" height="14"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{despatchNoteDate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="478" y="214" width="62" height="13"/>
+				<reportElement positionType="Float" x="479" y="229" width="62" height="13"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{despatchNoteId}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="248" y="212" width="90" height="16"/>
+				<reportElement positionType="Float" x="249" y="227" width="90" height="16"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>

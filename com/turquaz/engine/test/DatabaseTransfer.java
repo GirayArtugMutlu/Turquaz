@@ -13,14 +13,14 @@ public class DatabaseTransfer {
 	public static void main(String[] args) {
 		//	EngDALConnection conn1 = new
 		// EngDALConnection("Postgresql","turquaz","","kulup.sabanciuniv.edu","turquaz_turkish_20041206");
-		EngDALConnection conn2 = new EngDALConnection("Postgresql", "turquaz",
-				"", "localhost", "lamp84");
+		EngDALConnection conn2 = new EngDALConnection("Postgresql", "postgres",
+				"", "160.75.71.12", "muhasebe");
 
 		ResultSet first;
 		try {
 
 			conn2.connect();
-			FileInputStream fstream = new FileInputStream("C:\\cari2.csv");
+			FileInputStream fstream = new FileInputStream("C:\\cariler_ileri.csv");
 			// Convert our input stream to a
 			// DataInputStream
 			DataInputStream in = new DataInputStream(fstream);
@@ -32,11 +32,11 @@ public class DatabaseTransfer {
 			// there are still some left to read
 
 			// below parses the accounting plan and inserts to the database
-			int counter = 1;
+			int counter = 15;
 			while (in.available() != 0) {
 
 				data = d.readLine();
-
+				System.out.println(data);
 				String rest = "";
 				int a = data.indexOf(";");
 				String code = data.substring(0, a);
@@ -49,45 +49,39 @@ public class DatabaseTransfer {
 				rest = rest.substring(a + 1);
 
 				a = rest.indexOf(";");
-				String address1 = rest.substring(0, a);
-				address1 = address1.trim();
+				String telephone = rest.substring(0, a);
+				telephone = telephone.trim();
 				rest = rest.substring(a + 1);
 				
 				a = rest.indexOf(";");
-				String address2 = rest.substring(0, a);
-				address2 = address2.trim();
+				String address = rest.substring(0, a);
+				address = address.trim();
 				rest = rest.substring(a + 1);
 				
-				a = rest.indexOf(";");
-				String address3 = rest.substring(0, a);
-				address3 = address3.trim();
-				rest = rest.substring(a + 1);
 				
 				a = rest.indexOf(";");
 				String vergi_daire = rest.substring(0, a);
 				vergi_daire = vergi_daire.trim();
 				rest = rest.substring(a + 1);
 				
-				a = rest.indexOf(";");
-				String vergi_no = rest.substring(0, a);
-				vergi_no = vergi_no.trim();
-				rest = rest.substring(a + 1);
-				
-				a = rest.indexOf(";");
-				String credit = rest.substring(0, a);
-				credit = credit.trim();
-				rest = rest.substring(a + 1);
-				
-				a = rest.indexOf(";");
-				String risc = rest.substring(0, a);
-				risc = risc.trim();
-				
-				String accCode = rest.substring(a + 1);	
-				accCode = accCode.trim();
+				String vergi_no = rest.trim();
+			
 				counter++;
 				
+				while (code.length()<5)
+				{
+					code = "0"+code;
+				}
+				
+				System.out.println(code);
+				System.out.println(def);
+				System.out.println(address);
+				System.out.println(vergi_daire);
+				System.out.println(vergi_no);
+				
+
 					try {
-						
+						/*
 						String query = "Select accounting_accounts_id from turq_accounting_accounts where account_code = '"
 								+ accCode + "'";
 						ResultSet parent = conn2.getResultSet(query);
@@ -96,20 +90,11 @@ public class DatabaseTransfer {
 						String s_in = parent.getString(1);
 						String address = address1 +"\n" + address2 + "\n" + address3;
 						
-						/*
+						
 						if (counter == 18)
-						{
-							System.out.println(code);
-							System.out.println(def);
-							System.out.println(address1);
-							System.out.println(address2);
-							System.out.println(address3);
-							System.out.println(vergi_daire);
-							System.out.println(vergi_no);
-							System.out.println(risc);
-							System.out.println(credit);
-							System.out.println(address);
-						} */
+						{*/
+							
+						//} 
 /*
 						query = "Select accounting_accounts_id from turq_accounting_accounts where account_code = '"
 								+ outAcc + "'";
@@ -117,7 +102,30 @@ public class DatabaseTransfer {
 
 						parent.next();
 						String s_out = parent.getString(1);
-*/
+						
+						
+						*/
+						// kodu,ismi, aciklama, barkod, alis muh kodu, kdv orani, satis muhasebe kodu
+						// indirim orani, asgari miktar, azami miktar, 
+						/* String insert = "insert into g0_g0_g1_g0_t0 values( "
+							+ counter
+							+",'ayhan','2005/01/03/11/46/34',5, 'admin','None','"
+							+code + "','"+def + "','','" 
+							+ address
+							+"','','','','turkey','"
+							+vergi_daire 
+							+"','"
+							+vergi_no 
+							+"',null,'item','','','','','',''" // adý adresi
+							+",'','','','','','','ALICILAR',null,'tr_lira',null,'tr_lira',57,'None','None');";
+						System.out.println(insert);
+						
+						counter ++;
+						if (counter != 15)
+						{
+						//conn2.execQuery(insert);
+						}
+/*
 						String insert = "insert into turq_current_cards values("
 								+ counter
 								+ ","
@@ -137,7 +145,7 @@ public class DatabaseTransfer {
 								+s_in
 								+ ",'admin','2004-12-05','admin','2004-12-05');";
 								
-							conn2.execQuery(insert);
+							//conn2.execQuery(insert);
 						/*
 						String insertCard = "";
 						if (unit.equals("AD") ) {
@@ -186,7 +194,7 @@ public class DatabaseTransfer {
 					} catch (Exception ex) {
 						
 						System.out.println(code);
-						System.out.println(accCode);
+					//System.out.println(accCode);
 						ex.printStackTrace();
 					}
 				

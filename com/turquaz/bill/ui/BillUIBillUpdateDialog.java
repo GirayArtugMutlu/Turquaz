@@ -195,7 +195,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			
 			
 			compAddBill.getTxtCurrentCard().setData(bill.getTurqBillConsignmentCommon().getTurqCurrentCard());
-			compAddBill.getTxtCurrentCard().setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode());
+			compAddBill.getTxtCurrentCard().setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName()+" {" +bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode() +"}");
 			;
 			compAddBill.getTxtDocumentNo().setText(bill.getTurqBillConsignmentCommon().getBillDocumentNo());
 			compAddBill.getDateConsignmentDate().setDate(bill.getBillsDate());
