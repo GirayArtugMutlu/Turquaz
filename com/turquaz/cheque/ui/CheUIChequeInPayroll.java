@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 
@@ -56,6 +57,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 	private Composite compInfoPanel;
 	private ToolBar toolBarButtons;
 	private ToolItem toolItemAdd;
+	private Button btnSumTotals;
 	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnPaymentPlace;
 	private TableColumn tableColumnDeptor;
@@ -88,13 +90,14 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
                 GridData compInfoPanelLData = new GridData();
                 compInfoPanelLData.grabExcessHorizontalSpace = true;
                 compInfoPanelLData.horizontalAlignment = GridData.FILL;
-                compInfoPanelLData.heightHint = 87;
+                compInfoPanelLData.heightHint = 103;
                 compInfoPanel.setLayoutData(compInfoPanelLData);
                 compInfoPanelLayout.numColumns = 2;
                 compInfoPanel.setLayout(compInfoPanelLayout);
                 {
                     lblRollNo = new CLabel(compInfoPanel, SWT.NONE);
-                    lblRollNo.setText(Messages.getString("CheUIChequeInPayroll.1")); //$NON-NLS-1$
+                    lblRollNo.setText(Messages
+                        .getString("CheUIChequeInPayroll.1")); //$NON-NLS-1$
                 }
                 {
                     txtRollNo = new Text(compInfoPanel, SWT.NONE);
@@ -105,7 +108,8 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
                 }
                 {
                     lblRollDate = new CLabel(compInfoPanel, SWT.NONE);
-                    lblRollDate.setText(Messages.getString("CheUIChequeInPayroll.3")); //$NON-NLS-1$
+                    lblRollDate.setText(Messages
+                        .getString("CheUIChequeInPayroll.3")); //$NON-NLS-1$
                 }
                 {
                     datePicker1 = new DatePicker(compInfoPanel, SWT.NONE);
@@ -116,7 +120,8 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
                 }
                 {
                     lblCurrentCode = new CLabel(compInfoPanel, SWT.NONE);
-                    lblCurrentCode.setText(Messages.getString("CheUIChequeInPayroll.5")); //$NON-NLS-1$
+                    lblCurrentCode.setText(Messages
+                        .getString("CheUIChequeInPayroll.5")); //$NON-NLS-1$
                 }
                 {
                     currentPicker = new CurrentPicker(compInfoPanel, SWT.NONE);
@@ -124,6 +129,11 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
                     currentPickerLData.widthHint = 330;
                     currentPickerLData.heightHint = 15;
                     currentPicker.setLayoutData(currentPickerLData);
+                }
+                {
+                    btnSumTotals = new Button(compInfoPanel, SWT.CHECK
+                        | SWT.LEFT);
+                    btnSumTotals.setText("Cari Hareketleri Topla ");
                 }
             }
             {
@@ -254,7 +264,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
             
         }
         
-        CheBLSaveChequeTransaction.saveChequeRoll((TurqCurrentCard)currentPicker.getData(),null,txtRollNo.getText().trim(),datePicker1.getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_IN);
+        CheBLSaveChequeTransaction.saveChequeRoll((TurqCurrentCard)currentPicker.getData(),null,txtRollNo.getText().trim(),datePicker1.getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_IN,btnSumTotals.getSelection());
         EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
         newForm();
         }

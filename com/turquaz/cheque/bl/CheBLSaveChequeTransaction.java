@@ -24,9 +24,10 @@ public class CheBLSaveChequeTransaction {
         
     }
     
-    public static void saveChequeRoll(TurqCurrentCard curCard,TurqBanksCard bankCard, String rollNo,Date rollDate,List chequeList, int rollType)throws Exception {
+    public static void saveChequeRoll(TurqCurrentCard curCard,TurqBanksCard bankCard, String rollNo,Date rollDate,List chequeList, int rollType, boolean sumTransTotal)throws Exception {
      
       try{
+          
           TurqChequeTransactionType type = new TurqChequeTransactionType();
           type.setChequeTransactionTypesId(new Integer(rollType));
          
@@ -48,6 +49,7 @@ public class CheBLSaveChequeTransaction {
           chequeRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
           chequeRoll.setLastModified(Calendar.getInstance().getTime());
           chequeRoll.setCreationDate(Calendar.getInstance().getTime());
+          
           
           if(curCard!=null)
           {
@@ -75,6 +77,7 @@ public class CheBLSaveChequeTransaction {
           TurqChequeCheque cheque;
           TurqChequeChequeInRoll chequeInRoll;
           CurBLCurrentTransactionAdd blCurrent = new CurBLCurrentTransactionAdd();
+          BigDecimal totalAmount = new BigDecimal(0);
           
           for(int i = 0; i<chequeList.size();i++){
               
@@ -94,17 +97,24 @@ public class CheBLSaveChequeTransaction {
               chequeInRoll.setCreationDate(Calendar.getInstance().getTime()); 
               
               CheDALSave.save(chequeInRoll);
-              
+              totalAmount = totalAmount.add(cheque.getChequesAmount());
               //save current transaction...
-              if(curCard!=null)
+              if(curCard!=null&&!sumTransTotal)
               {
                   blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getEngineSequencesId(),"Çek Portföy No:"+cheque.getChequesPortfolioNo() );
+                  
               }
               
               
               
           
-          }          
+          }   
+          
+          if(sumTransTotal)
+          {
+              blCurrent.saveCurrentTransaction(curCard,rollDate,rollNo,true,totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,seq.getEngineSequencesId(),"Çek Bordro No:"+chequeRoll.getChequeRollNo());
+              
+          }
             
             
         }
