@@ -65,7 +65,9 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqConsignment;
+import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
+import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
@@ -81,6 +83,7 @@ import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
 import com.turquaz.engine.ui.viewers.TurquazCellModifier;
 import com.turquaz.engine.ui.viewers.TurquazContentProvider;
 import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
+import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.ui.InvUITransactionAddDialog;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 
@@ -1308,8 +1311,8 @@ public class BillUIAddSellBill extends Composite
 			    invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouse.getData(comboWareHouse.getText()));
 				
 			    if(row.okToSave()){
-			      blAddConsignment.saveConsignmentRow(invTrans,
-						consignmentID, type);
+			      blAddConsignment.saveConsignmentRow(invTrans,consignmentID, type);
+			      checkInventoryLevel(invTrans.getTurqInventoryCard());  
 			    }
 			}
 
@@ -1317,6 +1320,31 @@ public class BillUIAddSellBill extends Composite
 			ex.printStackTrace();
 		}
 
+	}
+	public void checkInventoryLevel(TurqInventoryCard invCard ){
+	    try{
+	     
+	    InvBLCardSearch blCardSearch = new InvBLCardSearch();    
+		TurqViewInventoryAmountTotal invView=blCardSearch.getView(invCard);
+		int Now=(invView.getTransactionsTotalAmountNow()==null) ? 0 : invView.getTransactionsTotalAmountNow().intValue();
+		int Max=invCard.getCardMaximumAmount();
+		int Min=invCard.getCardMinimumAmount();
+	
+		
+			
+				if (Now< Min)
+				{
+					MessageBox msg=new MessageBox(this.getShell(), SWT.ICON_WARNING);
+					msg.setMessage("Uyar?: Stok kart?n?n minimum miktar?n alt?na iniyorsunuz!");
+					msg.open();
+				}
+			
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
+	    
+		
 	}
 
 	public void saveGroups(Integer consignmentId) {
@@ -1414,7 +1442,7 @@ public class BillUIAddSellBill extends Composite
 	}
 
 	public void newForm() {
-	    BillUIAddBuyBill  curCard = new BillUIAddBuyBill(this.getParent(),this.getStyle());
+	    BillUIAddSellBill  curCard = new BillUIAddSellBill(this.getParent(),this.getStyle());
 		 CTabFolder tabfld = (CTabFolder)this.getParent();
 		 tabfld.getSelection().setControl(curCard);	 
 		 this.dispose();
