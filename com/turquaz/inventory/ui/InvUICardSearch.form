@@ -33,6 +33,7 @@
 		<SubComponents>
 			<Component class="com.turquaz.engine.ui.component.TTable" name="tTable1" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
@@ -49,10 +50,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[319, 193]"/>
+						<Dimension value="[319, 213]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 5, 319, 193]"/>
+						<Rectangle value="[5, 5, 319, 213]"/>
 					</Property>
 				</Properties>
 			</Component>

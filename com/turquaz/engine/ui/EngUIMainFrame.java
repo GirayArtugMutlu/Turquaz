@@ -164,7 +164,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			treeFavorites = new Tree(compFavoritesTab,SWT.NULL);
 			compMainInRight = new Composite(sashMainHorizontal,SWT.NULL);
 			coolbarRightTop = new CoolBar(compMainInRight,SWT.NULL);
-			coolRightMain = new CoolItem(coolbarRightTop,SWT.DROP_DOWN);
+			coolRightMain = new CoolItem(coolbarRightTop,SWT.NULL);
 			toolbarMainTop = new ToolBar(coolbarRightTop,SWT.FLAT);
 			toolNew = new ToolItem(toolbarMainTop,SWT.PUSH);
 			toolSave = new ToolItem(toolbarMainTop,SWT.PUSH);
@@ -418,42 +418,50 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			coolbarRightTopLData.verticalAlignment = GridData.CENTER;
 			coolbarRightTopLData.horizontalAlignment = GridData.FILL;
 			coolbarRightTopLData.widthHint = -1;
-			coolbarRightTopLData.heightHint = 7;
+			coolbarRightTopLData.heightHint = 24;
 			coolbarRightTopLData.horizontalIndent = 0;
 			coolbarRightTopLData.horizontalSpan = 1;
 			coolbarRightTopLData.verticalSpan = 1;
 			coolbarRightTopLData.grabExcessHorizontalSpace = false;
 			coolbarRightTopLData.grabExcessVerticalSpace = false;
 			coolbarRightTop.setLayoutData(coolbarRightTopLData);
-			coolbarRightTop.setSize(new org.eclipse.swt.graphics.Point(232,7));
+			coolbarRightTop.setSize(new org.eclipse.swt.graphics.Point(232,24));
 	
 			coolRightMain.setControl(toolbarMainTop);
-			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(29,7));
-			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(29,7));
-			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(29,7));
+			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(92,22));
+			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(92,22));
+			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(92,22));
 			coolRightMain.setText("coolItem3");
 	
 			toolbarMainTop.setLocation(new org.eclipse.swt.graphics.Point(20,0));
 	
 			toolNew.setEnabled(true);
+			final org.eclipse.swt.graphics.Image toolNewýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/new_wiz.gif"));
+			toolNew.setImage(toolNewýmage);
 			toolNew.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolNewWidgetSelected(evt);
 				}
 			});
 	
+			final org.eclipse.swt.graphics.Image toolSaveýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save.gif"));
+			toolSave.setImage(toolSaveýmage);
 			toolSave.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolSaveWidgetSelected(evt);
 				}
 			});
 	
+			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setImage(toolDeleteýmage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
 				}
 			});
 	
+			final org.eclipse.swt.graphics.Image toolSearchýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/run_exec.gif"));
+			toolSearch.setImage(toolSearchýmage);
 			toolSearch.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolSearchWidgetSelected(evt);
@@ -473,7 +481,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabfldMainLData.grabExcessHorizontalSpace = false;
 			tabfldMainLData.grabExcessVerticalSpace = true;
 			tabfldMain.setLayoutData(tabfldMainLData);
-			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(226,293));
+			tabfldMain.setSize(new org.eclipse.swt.graphics.Point(226,276));
 			tabfldMain.addCTabFolderListener( new CTabFolderAdapter() {
 				public void itemClosed(CTabFolderEvent evt) {
 					tabfldMainÝtemClosed(evt);
@@ -542,6 +550,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
 					comboModuleSelectionbackground.dispose();
+					toolNewýmage.dispose();
+					toolSaveýmage.dispose();
+					toolDeleteýmage.dispose();
+					toolSearchýmage.dispose();
 				}
 			});
 	

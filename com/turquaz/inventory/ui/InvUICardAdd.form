@@ -35,20 +35,11 @@
 			</Property>
 			<Property name="externalizeStrings" type="boolean" value="false"/>
 			<Property name="externalizeStrings" type="boolean" value="false"/>
-			<Property name="externalizeStrings" type="boolean" value="false"/>
-			<Property name="externalizeStrings" type="boolean" value="false"/>
-			<Property name="externalizeStrings" type="boolean" value="false"/>
-			<Property name="externalizeStrings" type="boolean" value="false"/>
-			<Property name="externalizeStrings" type="boolean" value="false"/>
-			<Property name="externalizeStrings" type="boolean" value="false"/>
-			<Property name="externalizeStrings" type="boolean" value="false"/>
-			<Property name="externalizeStrings" type="boolean" value="false"/>
-			<Property name="externalizeStrings" type="boolean" value="false"/>
-			<Property name="externalizeStrings" type="boolean" value="false"/>
 		</Properties>
 		<SubComponents>
-			<Component class="org.eclipse.swt.custom.CTabFolder" name="cTabFolder1" style="0">
+			<Component class="org.eclipse.swt.custom.CTabFolder" name="tabfldInvCardAdd" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
@@ -65,882 +56,276 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[575, 430]"/>
+						<Dimension value="[591, 430]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 2, 575, 430]"/>
+						<Rectangle value="[5, 2, 591, 430]"/>
 					</Property>
 				</Properties>
 				<SubComponents>
-					<Component class="org.eclipse.swt.custom.CTabItem" name="cTabItem1" style="0">
+					<Component class="org.eclipse.swt.custom.CTabItem" name="tabInvCardGeneral" style="0">
 						<Constraints>
 							<LayoutConstraint/>
 						</Constraints>
 						<Events>
 						</Events>
 						<Properties>
-							<Property name="text" type="String" value="Genel Bilgiler"/>
+							<Property name="text" type="String" value="General Information"/>
 						</Properties>
 						<SubComponents>
-							<Component class="org.eclipse.swt.widgets.Composite" name="comp_general_info" style="0">
+							<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardGeneral" style="0">
 								<Constraints>
 									<LayoutConstraint/>
 								</Constraints>
-								<Layout class="Grid">
-									<Property name="marginWidth" type="int" value="5"/>
-									<Property name="marginHeight" type="int" value="10"/>
-									<Property name="numColumns" type="int" value="4"/>
-									<Property name="makeColumnsEqualWidth" type="boolean" value="false"/>
-									<Property name="horizontalSpacing" type="int" value="5"/>
-									<Property name="verticalSpacing" type="int" value="10"/>
+								<Layout class="Absolute">
 								</Layout>
 								<Events>
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[571, 408]"/>
+										<Dimension value="[587, 408]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
-									<Component class="org.eclipse.swt.custom.CLabel" name="cLabel1" style="131072">
+									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardName" style="0">
 										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="2"/>
-												<Property name="horizontalAlignment" type="int" value="4"/>
-												<Property name="widthHint" type="int" value="-1"/>
-												<Property name="heightHint" type="int" value="19"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
+											<LayoutConstraint/>
 										</Constraints>
 										<Events>
 										</Events>
 										<Properties>
-											<Property name="text" type="String" value="Stok Kodu"/>
+											<Property name="text" type="String" value="Inventory Name"/>
 											<Property name="size" type="Dimension">
-												<Dimension value="[102, 19]"/>
+												<Dimension value="[90, 30]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 11, 102, 19]"/>
+												<Rectangle value="[14, 21, 90, 30]"/>
 											</Property>
-											<Property name="visible" type="boolean" value="true"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
-									<Component class="org.eclipse.swt.widgets.Text" name="text1" style="0">
+									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardName" style="0">
 										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="2"/>
-												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="98"/>
-												<Property name="heightHint" type="int" value="20"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
+											<LayoutConstraint/>
 										</Constraints>
 										<Events>
 										</Events>
 										<Properties>
-											<Property name="text" type="String" value=""/>
-											<Property name="textLimit" type="int" value="2147483646"/>
+											<Property name="textLimit" type="int" value="50"/>
 											<Property name="size" type="Dimension">
-												<Dimension value="[104, 20]"/>
+												<Dimension value="[95, 21]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[112, 10, 104, 20]"/>
+												<Rectangle value="[103, 24, 95, 21]"/>
 											</Property>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
-									<Component class="org.eclipse.swt.custom.CLabel" name="cLabel2" style="131072">
+									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardSpecialCode" style="0">
 										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="2"/>
-												<Property name="horizontalAlignment" type="int" value="3"/>
-												<Property name="widthHint" type="int" value="65"/>
-												<Property name="heightHint" type="int" value="19"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
+											<LayoutConstraint/>
 										</Constraints>
 										<Events>
 										</Events>
 										<Properties>
-											<Property name="text" type="String" value="Stok Adı"/>
+											<Property name="text" type="String" value="Special Code"/>
 											<Property name="size" type="Dimension">
-												<Dimension value="[65, 19]"/>
+												<Dimension value="[81, 30]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[262, 11, 65, 19]"/>
+												<Rectangle value="[17, 53, 81, 30]"/>
 											</Property>
-											<Property name="visible" type="boolean" value="true"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
-									<Component class="org.eclipse.swt.widgets.Text" name="text2" style="0">
+									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardSpecialCode" style="0">
 										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="2"/>
-												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="124"/>
-												<Property name="heightHint" type="int" value="20"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="true"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
+											<LayoutConstraint/>
 										</Constraints>
 										<Events>
 										</Events>
 										<Properties>
-											<Property name="text" type="String" value=""/>
+											<Property name="textLimit" type="int" value="25"/>
 											<Property name="size" type="Dimension">
-												<Dimension value="[130, 20]"/>
+												<Dimension value="[95, 18]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[332, 10, 130, 20]"/>
+												<Rectangle value="[101, 60, 95, 18]"/>
 											</Property>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
-									<Component class="org.eclipse.swt.custom.CLabel" name="cLabel3" style="131072">
+									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardCode" style="0">
 										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="2"/>
-												<Property name="horizontalAlignment" type="int" value="4"/>
-												<Property name="widthHint" type="int" value="-1"/>
-												<Property name="heightHint" type="int" value="19"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
+											<LayoutConstraint/>
 										</Constraints>
 										<Events>
 										</Events>
 										<Properties>
-											<Property name="text" type="String" value="Stok Minimum Miktar"/>
+											<Property name="text" type="String" value="Inventory Code"/>
 											<Property name="size" type="Dimension">
-												<Dimension value="[102, 19]"/>
+												<Dimension value="[100, 23]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 41, 102, 19]"/>
+												<Rectangle value="[211, 21, 100, 23]"/>
 											</Property>
-											<Property name="visible" type="boolean" value="true"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
-									<Component class="com.turquaz.engine.ui.component.NumericText" name="text3" style="0">
+									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardCode" style="0">
 										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="2"/>
-												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="98"/>
-												<Property name="heightHint" type="int" value="20"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
+											<LayoutConstraint/>
 										</Constraints>
 										<Events>
 										</Events>
 										<Properties>
+											<Property name="textLimit" type="int" value="25"/>
 											<Property name="size" type="Dimension">
-												<Dimension value="[104, 20]"/>
+												<Dimension value="[98, 20]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[112, 40, 104, 20]"/>
+												<Rectangle value="[308, 23, 98, 20]"/>
 											</Property>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
-									<Component class="org.eclipse.swt.custom.CLabel" name="cLabel4" style="131072">
+									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardDefinition" style="0">
 										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="2"/>
-												<Property name="horizontalAlignment" type="int" value="3"/>
-												<Property name="widthHint" type="int" value="106"/>
-												<Property name="heightHint" type="int" value="19"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
+											<LayoutConstraint/>
 										</Constraints>
 										<Events>
 										</Events>
 										<Properties>
-											<Property name="text" type="String" value="Stok Maximum Miktar"/>
+											<Property name="text" type="String" value="Definition"/>
 											<Property name="size" type="Dimension">
-												<Dimension value="[106, 19]"/>
+												<Dimension value="[75, 20]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[221, 41, 106, 19]"/>
+												<Rectangle value="[18, 90, 75, 20]"/>
 											</Property>
-											<Property name="visible" type="boolean" value="true"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
-									<Component class="com.turquaz.engine.ui.component.NumericText" name="text4" style="0">
+									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardDefinition" style="834">
 										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="2"/>
-												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="126"/>
-												<Property name="heightHint" type="int" value="19"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
+											<LayoutConstraint/>
 										</Constraints>
 										<Events>
 										</Events>
 										<Properties>
-											<Property name="size" type="Dimension">
-												<Dimension value="[132, 19]"/>
-											</Property>
-											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[332, 41, 132, 19]"/>
-											</Property>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-										</Properties>
-									</Component>
-									<Component class="org.eclipse.swt.custom.CLabel" name="cLabel5" style="131072">
-										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="2"/>
-												<Property name="horizontalAlignment" type="int" value="4"/>
-												<Property name="widthHint" type="int" value="-1"/>
-												<Property name="heightHint" type="int" value="19"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
-										</Constraints>
-										<Events>
-										</Events>
-										<Properties>
-											<Property name="text" type="String" value="KDV yüzdesi"/>
-											<Property name="size" type="Dimension">
-												<Dimension value="[102, 19]"/>
-											</Property>
-											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 71, 102, 19]"/>
-											</Property>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-										</Properties>
-									</Component>
-									<Component class="org.eclipse.swt.widgets.Text" name="cCombo1" style="0">
-										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="2"/>
-												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="98"/>
-												<Property name="heightHint" type="int" value="20"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
-										</Constraints>
-										<Events>
-										</Events>
-										<Properties>
-											<Property name="text" type="String" value=""/>
-											<Property name="size" type="Dimension">
-												<Dimension value="[104, 20]"/>
-											</Property>
-											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[112, 70, 104, 20]"/>
-											</Property>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-										</Properties>
-									</Component>
-									<Component class="org.eclipse.swt.custom.CLabel" name="cLabel6" style="131072">
-										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="2"/>
-												<Property name="horizontalAlignment" type="int" value="3"/>
-												<Property name="widthHint" type="int" value="77"/>
-												<Property name="heightHint" type="int" value="19"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
-										</Constraints>
-										<Events>
-										</Events>
-										<Properties>
-											<Property name="text" type="String" value="İndirim Yüzdesi"/>
-											<Property name="size" type="Dimension">
-												<Dimension value="[77, 19]"/>
-											</Property>
-											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[250, 71, 77, 19]"/>
-											</Property>
-											<Property name="visible" type="boolean" value="true"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-										</Properties>
-									</Component>
-									<Component class="org.eclipse.swt.widgets.Text" name="cCombo2" style="0">
-										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="2"/>
-												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="129"/>
-												<Property name="heightHint" type="int" value="18"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
-										</Constraints>
-										<Events>
-										</Events>
-										<Properties>
-											<Property name="text" type="String" value=""/>
-											<Property name="size" type="Dimension">
-												<Dimension value="[135, 18]"/>
-											</Property>
-											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[332, 71, 135, 18]"/>
-											</Property>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-										</Properties>
-									</Component>
-									<Component class="org.eclipse.swt.custom.CLabel" name="cLabel7" style="131072">
-										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="1"/>
-												<Property name="horizontalAlignment" type="int" value="4"/>
-												<Property name="widthHint" type="int" value="-1"/>
-												<Property name="heightHint" type="int" value="19"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
-										</Constraints>
-										<Events>
-										</Events>
-										<Properties>
-											<Property name="text" type="String" value="Açıklama"/>
-											<Property name="size" type="Dimension">
-												<Dimension value="[102, 19]"/>
-											</Property>
-											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 100, 102, 19]"/>
-											</Property>
-											<Property name="visible" type="boolean" value="true"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-										</Properties>
-									</Component>
-									<Component class="org.eclipse.swt.widgets.Text" name="text5" style="834">
-										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="1"/>
-												<Property name="horizontalAlignment" type="int" value="4"/>
-												<Property name="widthHint" type="int" value="-1"/>
-												<Property name="heightHint" type="int" value="60"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="3"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
-										</Constraints>
-										<Events>
-										</Events>
-										<Properties>
-											<Property name="text" type="String" value=""/>
 											<Property name="textLimit" type="int" value="250"/>
 											<Property name="size" type="Dimension">
-												<Dimension value="[454, 76]"/>
+												<Dimension value="[203, 71]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[112, 100, 454, 76]"/>
+												<Rectangle value="[102, 95, 203, 71]"/>
 											</Property>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
-									<Component class="org.eclipse.swt.custom.CLabel" name="cLabel8" style="131072">
+									<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardGeneral" style="16777224">
+										<Constraints>
+											<LayoutConstraint/>
+										</Constraints>
+										<Events>
+											<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="btnInvCardGeneralMouseUp"/>
+										</Events>
+										<Properties>
+											<Property name="text" type="String" value="Next"/>
+											<Property name="size" type="Dimension">
+												<Dimension value="[60, 30]"/>
+											</Property>
+											<Property name="bounds" type="Rectangle">
+												<Rectangle value="[342, 207, 60, 30]"/>
+											</Property>
+										</Properties>
+									</Component>
+								</SubComponents>
+							</Component>
+						</SubComponents>
+					</Component>
+					<Component class="org.eclipse.swt.custom.CTabItem" name="tabInvCardDetails" style="0">
+						<Constraints>
+							<LayoutConstraint/>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="Details"/>
+						</Properties>
+						<SubComponents>
+							<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardDetails" style="0">
+								<Constraints>
+									<LayoutConstraint/>
+								</Constraints>
+								<Layout class="Grid">
+									<Property name="marginWidth" type="int" value="5"/>
+									<Property name="marginHeight" type="int" value="5"/>
+									<Property name="numColumns" type="int" value="4"/>
+									<Property name="makeColumnsEqualWidth" type="boolean" value="true"/>
+									<Property name="horizontalSpacing" type="int" value="5"/>
+									<Property name="verticalSpacing" type="int" value="5"/>
+								</Layout>
+								<Events>
+								</Events>
+								<Properties>
+									<Property name="size" type="Dimension">
+										<Dimension value="[587, 408]"/>
+									</Property>
+								</Properties>
+								<SubComponents>
+									<Component class="org.eclipse.swt.widgets.Label" name="lblInvCardMin" style="0">
 										<Constraints>
 											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="1"/>
-												<Property name="horizontalAlignment" type="int" value="4"/>
-												<Property name="widthHint" type="int" value="-1"/>
+												<Property name="verticalAlignment" type="int" value="2"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
+												<Property name="widthHint" type="int" value="84"/>
+												<Property name="heightHint" type="int" value="15"/>
+												<Property name="horizontalIndent" type="int" value="0"/>
+												<Property name="horizontalSpan" type="int" value="1"/>
+												<Property name="verticalSpan" type="int" value="1"/>
+												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+											</LayoutConstraint>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="text" type="String" value="Minimum Amount"/>
+											<Property name="size" type="Dimension">
+												<Dimension value="[84, 15]"/>
+											</Property>
+											<Property name="bounds" type="Rectangle">
+												<Rectangle value="[5, 9, 84, 15]"/>
+											</Property>
+										</Properties>
+									</Component>
+									<Component class="com.turquaz.engine.ui.component.NumericText" name="txtnumInvCardMin" style="0">
+										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
+											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+												<Property name="verticalAlignment" type="int" value="2"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
+												<Property name="widthHint" type="int" value="21"/>
+												<Property name="heightHint" type="int" value="22"/>
+												<Property name="horizontalIndent" type="int" value="0"/>
+												<Property name="horizontalSpan" type="int" value="1"/>
+												<Property name="verticalSpan" type="int" value="1"/>
+												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+											</LayoutConstraint>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="size" type="Dimension">
+												<Dimension value="[27, 22]"/>
+											</Property>
+											<Property name="bounds" type="Rectangle">
+												<Rectangle value="[150, 5, 27, 22]"/>
+											</Property>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardMax" style="0">
+										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
+											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+												<Property name="verticalAlignment" type="int" value="2"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
+												<Property name="widthHint" type="int" value="101"/>
 												<Property name="heightHint" type="int" value="19"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
@@ -952,308 +337,48 @@
 										<Events>
 										</Events>
 										<Properties>
-											<Property name="text" type="String" value="Stok Birimleri"/>
+											<Property name="text" type="String" value="Maximum Amount"/>
 											<Property name="size" type="Dimension">
-												<Dimension value="[102, 19]"/>
+												<Dimension value="[101, 19]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 186, 102, 19]"/>
+												<Rectangle value="[295, 7, 101, 19]"/>
 											</Property>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
 									</Component>
-									<Component class="org.eclipse.swt.widgets.Composite" name="composite1" style="2048">
+									<Component class="org.eclipse.swt.widgets.Text" name="txtnumInvCardMax" style="0">
 										<Constraints>
 											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="391"/>
-												<Property name="heightHint" type="int" value="97"/>
+												<Property name="widthHint" type="int" value="28"/>
+												<Property name="heightHint" type="int" value="16"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="3"/>
+												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
 												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
 												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
 											</LayoutConstraint>
 										</Constraints>
-										<Layout class="Grid">
-											<Property name="marginWidth" type="int" value="5"/>
-											<Property name="marginHeight" type="int" value="5"/>
-											<Property name="numColumns" type="int" value="3"/>
-											<Property name="makeColumnsEqualWidth" type="boolean" value="false"/>
-											<Property name="horizontalSpacing" type="int" value="5"/>
-											<Property name="verticalSpacing" type="int" value="5"/>
-										</Layout>
 										<Events>
 										</Events>
 										<Properties>
+											<Property name="text" type="String" value=""/>
 											<Property name="size" type="Dimension">
-												<Dimension value="[395, 101]"/>
+												<Dimension value="[34, 16]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[112, 186, 395, 101]"/>
+												<Rectangle value="[440, 8, 34, 16]"/>
 											</Property>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
-										<SubComponents>
-											<Component class="org.eclipse.swt.widgets.Table" name="table2" style="2048">
-												<Constraints>
-													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-														<Property name="verticalAlignment" type="int" value="4"/>
-														<Property name="horizontalAlignment" type="int" value="1"/>
-														<Property name="widthHint" type="int" value="113"/>
-														<Property name="heightHint" type="int" value="-1"/>
-														<Property name="horizontalIndent" type="int" value="0"/>
-														<Property name="horizontalSpan" type="int" value="1"/>
-														<Property name="verticalSpan" type="int" value="1"/>
-														<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-														<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-													</LayoutConstraint>
-												</Constraints>
-												<Events>
-												</Events>
-												<Properties>
-													<Property name="headerVisible" type="boolean" value="true"/>
-													<Property name="linesVisible" type="boolean" value="true"/>
-													<Property name="size" type="Dimension">
-														<Dimension value="[133, 87]"/>
-													</Property>
-													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[5, 5, 133, 87]"/>
-													</Property>
-												</Properties>
-												<SubComponents>
-													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumn3" style="0">
-														<Constraints>
-															<LayoutConstraint/>
-														</Constraints>
-														<Events>
-														</Events>
-														<Properties>
-															<Property name="text" type="String" value="Birimler"/>
-															<Property name="width" type="int" value="125"/>
-														</Properties>
-													</Component>
-												</SubComponents>
-											</Component>
-											<Component class="org.eclipse.swt.widgets.Composite" name="composite2" style="0">
-												<Constraints>
-													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-														<Property name="verticalAlignment" type="int" value="4"/>
-														<Property name="horizontalAlignment" type="int" value="1"/>
-														<Property name="widthHint" type="int" value="65"/>
-														<Property name="heightHint" type="int" value="-1"/>
-														<Property name="horizontalIndent" type="int" value="0"/>
-														<Property name="horizontalSpan" type="int" value="1"/>
-														<Property name="verticalSpan" type="int" value="1"/>
-														<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-														<Property name="grabExcessVerticalSpace" type="boolean" value="true"/>
-													</LayoutConstraint>
-												</Constraints>
-												<Layout class="Grid">
-													<Property name="marginWidth" type="int" value="5"/>
-													<Property name="marginHeight" type="int" value="5"/>
-													<Property name="numColumns" type="int" value="1"/>
-													<Property name="makeColumnsEqualWidth" type="boolean" value="true"/>
-													<Property name="horizontalSpacing" type="int" value="5"/>
-													<Property name="verticalSpacing" type="int" value="5"/>
-												</Layout>
-												<Events>
-												</Events>
-												<Properties>
-													<Property name="size" type="Dimension">
-														<Dimension value="[65, 87]"/>
-													</Property>
-													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[143, 5, 65, 87]"/>
-													</Property>
-													<Property name="visible" type="boolean" value="true"/>
-												</Properties>
-												<SubComponents>
-													<Component class="org.eclipse.swt.widgets.Button" name="btnUnitAdd" style="16777224">
-														<Constraints>
-															<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-																<Property name="verticalAlignment" type="int" value="2"/>
-																<Property name="horizontalAlignment" type="int" value="4"/>
-																<Property name="widthHint" type="int" value="-1"/>
-																<Property name="heightHint" type="int" value="23"/>
-																<Property name="horizontalIndent" type="int" value="0"/>
-																<Property name="horizontalSpan" type="int" value="1"/>
-																<Property name="verticalSpan" type="int" value="1"/>
-																<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-																<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-															</LayoutConstraint>
-														</Constraints>
-														<Events>
-														</Events>
-														<Properties>
-															<Property name="text" type="String" value="Ekle &gt;&gt;"/>
-															<Property name="size" type="Dimension">
-																<Dimension value="[55, 23]"/>
-															</Property>
-															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[5, 5, 55, 23]"/>
-															</Property>
-														</Properties>
-													</Component>
-													<Component class="org.eclipse.swt.widgets.Button" name="btnUnitRemove" style="16777224">
-														<Constraints>
-															<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-																<Property name="verticalAlignment" type="int" value="2"/>
-																<Property name="horizontalAlignment" type="int" value="4"/>
-																<Property name="widthHint" type="int" value="-1"/>
-																<Property name="heightHint" type="int" value="23"/>
-																<Property name="horizontalIndent" type="int" value="0"/>
-																<Property name="horizontalSpan" type="int" value="1"/>
-																<Property name="verticalSpan" type="int" value="1"/>
-																<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-																<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-															</LayoutConstraint>
-														</Constraints>
-														<Events>
-														</Events>
-														<Properties>
-															<Property name="text" type="String" value="&lt;&lt; Çıkar"/>
-															<Property name="size" type="Dimension">
-																<Dimension value="[55, 23]"/>
-															</Property>
-															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[5, 33, 55, 23]"/>
-															</Property>
-														</Properties>
-													</Component>
-													<Component class="org.eclipse.swt.widgets.Button" name="btnNewUnit" style="16777224">
-														<Constraints>
-															<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-																<Property name="verticalAlignment" type="int" value="2"/>
-																<Property name="horizontalAlignment" type="int" value="1"/>
-																<Property name="widthHint" type="int" value="57"/>
-																<Property name="heightHint" type="int" value="23"/>
-																<Property name="horizontalIndent" type="int" value="0"/>
-																<Property name="horizontalSpan" type="int" value="1"/>
-																<Property name="verticalSpan" type="int" value="1"/>
-																<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-																<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-															</LayoutConstraint>
-														</Constraints>
-														<Events>
-														</Events>
-														<Properties>
-															<Property name="text" type="String" value="Yeni Birim"/>
-															<Property name="size" type="Dimension">
-																<Dimension value="[57, 23]"/>
-															</Property>
-															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[5, 61, 57, 23]"/>
-															</Property>
-														</Properties>
-													</Component>
-												</SubComponents>
-											</Component>
-											<Component class="org.eclipse.swt.widgets.Table" name="table1" style="67588">
-												<Constraints>
-													<Constraint class="org.eclipse.swt.layout.GridData"/>
-													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-														<Property name="verticalAlignment" type="int" value="4"/>
-														<Property name="horizontalAlignment" type="int" value="4"/>
-														<Property name="widthHint" type="int" value="-1"/>
-														<Property name="heightHint" type="int" value="-1"/>
-														<Property name="horizontalIndent" type="int" value="0"/>
-														<Property name="horizontalSpan" type="int" value="1"/>
-														<Property name="verticalSpan" type="int" value="1"/>
-														<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-														<Property name="grabExcessVerticalSpace" type="boolean" value="true"/>
-													</LayoutConstraint>
-												</Constraints>
-												<Events>
-												</Events>
-												<Properties>
-													<Property name="headerVisible" type="boolean" value="true"/>
-													<Property name="linesVisible" type="boolean" value="true"/>
-													<Property name="size" type="Dimension">
-														<Dimension value="[172, 87]"/>
-													</Property>
-													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[213, 5, 172, 87]"/>
-													</Property>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-												</Properties>
-												<SubComponents>
-													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumn1" style="16777216">
-														<Constraints>
-															<LayoutConstraint/>
-														</Constraints>
-														<Events>
-														</Events>
-														<Properties>
-															<Property name="text" type="String" value="Birim"/>
-															<Property name="width" type="int" value="79"/>
-														</Properties>
-													</Component>
-													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumn2" style="16777216">
-														<Constraints>
-															<LayoutConstraint/>
-														</Constraints>
-														<Events>
-														</Events>
-														<Properties>
-															<Property name="text" type="String" value="Katsayı"/>
-															<Property name="width" type="int" value="73"/>
-														</Properties>
-													</Component>
-												</SubComponents>
-											</Component>
-										</SubComponents>
 									</Component>
-									<Component class="org.eclipse.swt.custom.CLabel" name="cLabel9" style="131072">
+									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardInAcc" style="0">
 										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="1"/>
-												<Property name="horizontalAlignment" type="int" value="4"/>
+												<Property name="verticalAlignment" type="int" value="2"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
 												<Property name="widthHint" type="int" value="-1"/>
 												<Property name="heightHint" type="int" value="-1"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
@@ -1266,21 +391,183 @@
 										<Events>
 										</Events>
 										<Properties>
-											<Property name="text" type="String" value="Stok Grubu"/>
+											<Property name="text" type="String" value="In Accounting Code"/>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 297, 102, 19]"/>
+												<Rectangle value="[5, 32, 100, 19]"/>
 											</Property>
-											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
 									</Component>
-									<Component class="org.eclipse.swt.widgets.Composite" name="composite3" style="2048">
+									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardInAcc" style="0">
 										<Constraints>
 											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="391"/>
-												<Property name="heightHint" type="int" value="97"/>
+												<Property name="widthHint" type="int" value="-1"/>
+												<Property name="heightHint" type="int" value="-1"/>
+												<Property name="horizontalIndent" type="int" value="0"/>
+												<Property name="horizontalSpan" type="int" value="1"/>
+												<Property name="verticalSpan" type="int" value="1"/>
+												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+											</LayoutConstraint>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="bounds" type="Rectangle">
+												<Rectangle value="[150, 35, 70, 13]"/>
+											</Property>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardOutAcc" style="0">
+										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
+											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+												<Property name="verticalAlignment" type="int" value="2"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
+												<Property name="widthHint" type="int" value="-1"/>
+												<Property name="heightHint" type="int" value="-1"/>
+												<Property name="horizontalIndent" type="int" value="0"/>
+												<Property name="horizontalSpan" type="int" value="1"/>
+												<Property name="verticalSpan" type="int" value="1"/>
+												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+											</LayoutConstraint>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="text" type="String" value="Out Accointing Code"/>
+											<Property name="bounds" type="Rectangle">
+												<Rectangle value="[295, 32, 104, 19]"/>
+											</Property>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardOutAcc" style="0">
+										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
+											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+												<Property name="verticalAlignment" type="int" value="2"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
+												<Property name="widthHint" type="int" value="-1"/>
+												<Property name="heightHint" type="int" value="-1"/>
+												<Property name="horizontalIndent" type="int" value="0"/>
+												<Property name="horizontalSpan" type="int" value="1"/>
+												<Property name="verticalSpan" type="int" value="1"/>
+												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+											</LayoutConstraint>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="bounds" type="Rectangle">
+												<Rectangle value="[440, 35, 70, 13]"/>
+											</Property>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardVat" style="0">
+										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
+											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+												<Property name="verticalAlignment" type="int" value="2"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
+												<Property name="widthHint" type="int" value="-1"/>
+												<Property name="heightHint" type="int" value="-1"/>
+												<Property name="horizontalIndent" type="int" value="0"/>
+												<Property name="horizontalSpan" type="int" value="1"/>
+												<Property name="verticalSpan" type="int" value="1"/>
+												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+											</LayoutConstraint>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="text" type="String" value="Vat"/>
+											<Property name="bounds" type="Rectangle">
+												<Rectangle value="[5, 56, 22, 19]"/>
+											</Property>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardVat" style="0">
+										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
+											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+												<Property name="verticalAlignment" type="int" value="2"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
+												<Property name="widthHint" type="int" value="-1"/>
+												<Property name="heightHint" type="int" value="-1"/>
+												<Property name="horizontalIndent" type="int" value="0"/>
+												<Property name="horizontalSpan" type="int" value="1"/>
+												<Property name="verticalSpan" type="int" value="1"/>
+												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+											</LayoutConstraint>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="bounds" type="Rectangle">
+												<Rectangle value="[150, 59, 70, 13]"/>
+											</Property>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardDiscount" style="0">
+										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
+											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+												<Property name="verticalAlignment" type="int" value="2"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
+												<Property name="widthHint" type="int" value="-1"/>
+												<Property name="heightHint" type="int" value="-1"/>
+												<Property name="horizontalIndent" type="int" value="0"/>
+												<Property name="horizontalSpan" type="int" value="1"/>
+												<Property name="verticalSpan" type="int" value="1"/>
+												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+											</LayoutConstraint>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="text" type="String" value="Discount"/>
+											<Property name="bounds" type="Rectangle">
+												<Rectangle value="[295, 56, 47, 19]"/>
+											</Property>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.widgets.Text" name="txtInvCardDiscount" style="0">
+										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
+											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+												<Property name="verticalAlignment" type="int" value="2"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
+												<Property name="widthHint" type="int" value="-1"/>
+												<Property name="heightHint" type="int" value="-1"/>
+												<Property name="horizontalIndent" type="int" value="0"/>
+												<Property name="horizontalSpan" type="int" value="1"/>
+												<Property name="verticalSpan" type="int" value="1"/>
+												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+											</LayoutConstraint>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="bounds" type="Rectangle">
+												<Rectangle value="[440, 59, 70, 13]"/>
+											</Property>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardDetPre" style="16777224">
+										<Constraints>
+											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+												<Property name="verticalAlignment" type="int" value="2"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
+												<Property name="widthHint" type="int" value="-1"/>
+												<Property name="heightHint" type="int" value="-1"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="3"/>
 												<Property name="verticalSpan" type="int" value="1"/>
@@ -1288,284 +575,80 @@
 												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
 											</LayoutConstraint>
 										</Constraints>
-										<Layout class="Grid">
-											<Property name="marginWidth" type="int" value="5"/>
-											<Property name="marginHeight" type="int" value="5"/>
-											<Property name="numColumns" type="int" value="3"/>
-											<Property name="makeColumnsEqualWidth" type="boolean" value="false"/>
-											<Property name="horizontalSpacing" type="int" value="5"/>
-											<Property name="verticalSpacing" type="int" value="5"/>
-										</Layout>
 										<Events>
 										</Events>
 										<Properties>
+											<Property name="text" type="String" value="Previous"/>
+											<Property name="bounds" type="Rectangle">
+												<Rectangle value="[5, 80, 53, 23]"/>
+											</Property>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardNext" style="16777224">
+										<Constraints>
+											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+												<Property name="verticalAlignment" type="int" value="2"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
+												<Property name="widthHint" type="int" value="35"/>
+												<Property name="heightHint" type="int" value="23"/>
+												<Property name="horizontalIndent" type="int" value="0"/>
+												<Property name="horizontalSpan" type="int" value="1"/>
+												<Property name="verticalSpan" type="int" value="1"/>
+												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+											</LayoutConstraint>
+										</Constraints>
+										<Events>
+											<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="btnInvCardNextMouseUp"/>
+										</Events>
+										<Properties>
+											<Property name="text" type="String" value="Next"/>
 											<Property name="size" type="Dimension">
-												<Dimension value="[395, 101]"/>
+												<Dimension value="[35, 23]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[112, 297, 395, 101]"/>
+												<Rectangle value="[440, 80, 35, 23]"/>
 											</Property>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
-											<Property name="externalizeStrings" type="boolean" value="false"/>
 										</Properties>
-										<SubComponents>
-											<Component class="org.eclipse.swt.widgets.Table" name="table3" style="2048">
-												<Constraints>
-													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-														<Property name="verticalAlignment" type="int" value="4"/>
-														<Property name="horizontalAlignment" type="int" value="1"/>
-														<Property name="widthHint" type="int" value="113"/>
-														<Property name="heightHint" type="int" value="-1"/>
-														<Property name="horizontalIndent" type="int" value="0"/>
-														<Property name="horizontalSpan" type="int" value="1"/>
-														<Property name="verticalSpan" type="int" value="1"/>
-														<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-														<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-													</LayoutConstraint>
-												</Constraints>
-												<Events>
-												</Events>
-												<Properties>
-													<Property name="headerVisible" type="boolean" value="true"/>
-													<Property name="linesVisible" type="boolean" value="true"/>
-													<Property name="size" type="Dimension">
-														<Dimension value="[133, 87]"/>
-													</Property>
-													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[5, 5, 133, 87]"/>
-													</Property>
-												</Properties>
-												<SubComponents>
-													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumn4" style="0">
-														<Constraints>
-															<LayoutConstraint/>
-														</Constraints>
-														<Events>
-														</Events>
-														<Properties>
-															<Property name="text" type="String" value="Stok Gurupları"/>
-															<Property name="width" type="int" value="125"/>
-														</Properties>
-													</Component>
-												</SubComponents>
-											</Component>
-											<Component class="org.eclipse.swt.widgets.Composite" name="composite4" style="0">
-												<Constraints>
-													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-														<Property name="verticalAlignment" type="int" value="4"/>
-														<Property name="horizontalAlignment" type="int" value="1"/>
-														<Property name="widthHint" type="int" value="65"/>
-														<Property name="heightHint" type="int" value="-1"/>
-														<Property name="horizontalIndent" type="int" value="0"/>
-														<Property name="horizontalSpan" type="int" value="1"/>
-														<Property name="verticalSpan" type="int" value="1"/>
-														<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-														<Property name="grabExcessVerticalSpace" type="boolean" value="true"/>
-													</LayoutConstraint>
-												</Constraints>
-												<Layout class="Grid">
-													<Property name="marginWidth" type="int" value="5"/>
-													<Property name="marginHeight" type="int" value="5"/>
-													<Property name="numColumns" type="int" value="1"/>
-													<Property name="makeColumnsEqualWidth" type="boolean" value="true"/>
-													<Property name="horizontalSpacing" type="int" value="5"/>
-													<Property name="verticalSpacing" type="int" value="5"/>
-												</Layout>
-												<Events>
-												</Events>
-												<Properties>
-													<Property name="size" type="Dimension">
-														<Dimension value="[65, 87]"/>
-													</Property>
-													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[143, 5, 65, 87]"/>
-													</Property>
-													<Property name="visible" type="boolean" value="true"/>
-												</Properties>
-												<SubComponents>
-													<Component class="org.eclipse.swt.widgets.Button" name="button1" style="16777224">
-														<Constraints>
-															<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-																<Property name="verticalAlignment" type="int" value="2"/>
-																<Property name="horizontalAlignment" type="int" value="4"/>
-																<Property name="widthHint" type="int" value="-1"/>
-																<Property name="heightHint" type="int" value="23"/>
-																<Property name="horizontalIndent" type="int" value="0"/>
-																<Property name="horizontalSpan" type="int" value="1"/>
-																<Property name="verticalSpan" type="int" value="1"/>
-																<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-																<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-															</LayoutConstraint>
-														</Constraints>
-														<Events>
-														</Events>
-														<Properties>
-															<Property name="text" type="String" value="Ekle &gt;&gt;"/>
-															<Property name="size" type="Dimension">
-																<Dimension value="[55, 23]"/>
-															</Property>
-															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[5, 5, 55, 23]"/>
-															</Property>
-														</Properties>
-													</Component>
-													<Component class="org.eclipse.swt.widgets.Button" name="button2" style="16777224">
-														<Constraints>
-															<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-																<Property name="verticalAlignment" type="int" value="2"/>
-																<Property name="horizontalAlignment" type="int" value="4"/>
-																<Property name="widthHint" type="int" value="-1"/>
-																<Property name="heightHint" type="int" value="23"/>
-																<Property name="horizontalIndent" type="int" value="0"/>
-																<Property name="horizontalSpan" type="int" value="1"/>
-																<Property name="verticalSpan" type="int" value="1"/>
-																<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-																<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-															</LayoutConstraint>
-														</Constraints>
-														<Events>
-														</Events>
-														<Properties>
-															<Property name="text" type="String" value="&lt;&lt; Çıkar"/>
-															<Property name="size" type="Dimension">
-																<Dimension value="[55, 23]"/>
-															</Property>
-															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[5, 33, 55, 23]"/>
-															</Property>
-														</Properties>
-													</Component>
-													<Component class="org.eclipse.swt.widgets.Button" name="button3" style="16777224">
-														<Constraints>
-															<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-																<Property name="verticalAlignment" type="int" value="2"/>
-																<Property name="horizontalAlignment" type="int" value="1"/>
-																<Property name="widthHint" type="int" value="57"/>
-																<Property name="heightHint" type="int" value="23"/>
-																<Property name="horizontalIndent" type="int" value="0"/>
-																<Property name="horizontalSpan" type="int" value="1"/>
-																<Property name="verticalSpan" type="int" value="1"/>
-																<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-																<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-															</LayoutConstraint>
-														</Constraints>
-														<Events>
-														</Events>
-														<Properties>
-															<Property name="text" type="String" value="Yeni Grup"/>
-															<Property name="size" type="Dimension">
-																<Dimension value="[57, 23]"/>
-															</Property>
-															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[5, 61, 57, 23]"/>
-															</Property>
-														</Properties>
-													</Component>
-												</SubComponents>
-											</Component>
-											<Component class="org.eclipse.swt.widgets.Table" name="table4" style="67588">
-												<Constraints>
-													<Constraint class="org.eclipse.swt.layout.GridData"/>
-													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-														<Property name="verticalAlignment" type="int" value="4"/>
-														<Property name="horizontalAlignment" type="int" value="4"/>
-														<Property name="widthHint" type="int" value="-1"/>
-														<Property name="heightHint" type="int" value="-1"/>
-														<Property name="horizontalIndent" type="int" value="0"/>
-														<Property name="horizontalSpan" type="int" value="1"/>
-														<Property name="verticalSpan" type="int" value="1"/>
-														<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-														<Property name="grabExcessVerticalSpace" type="boolean" value="true"/>
-													</LayoutConstraint>
-												</Constraints>
-												<Events>
-												</Events>
-												<Properties>
-													<Property name="headerVisible" type="boolean" value="true"/>
-													<Property name="linesVisible" type="boolean" value="true"/>
-													<Property name="size" type="Dimension">
-														<Dimension value="[135, 87]"/>
-													</Property>
-													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[213, 5, 135, 87]"/>
-													</Property>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-													<Property name="externalizeStrings" type="boolean" value="false"/>
-												</Properties>
-												<SubComponents>
-													<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumn6" style="16777216">
-														<Constraints>
-															<LayoutConstraint/>
-														</Constraints>
-														<Events>
-														</Events>
-														<Properties>
-															<Property name="text" type="String" value="Dahil Olunan Gruplar"/>
-															<Property name="width" type="int" value="115"/>
-														</Properties>
-													</Component>
-												</SubComponents>
-											</Component>
-										</SubComponents>
 									</Component>
 								</SubComponents>
 							</Component>
 						</SubComponents>
 					</Component>
-					<Component class="org.eclipse.swt.custom.CTabItem" name="cTabItem2" style="0">
+					<Component class="org.eclipse.swt.custom.CTabItem" name="tabInvCardUnits" style="0">
 						<Constraints>
 							<LayoutConstraint/>
 						</Constraints>
 						<Events>
 						</Events>
 						<Properties>
-							<Property name="text" type="String" value="Fiyat Bilgileri"/>
+							<Property name="text" type="String" value="Units"/>
 						</Properties>
 						<SubComponents>
-							<Component class="org.eclipse.swt.widgets.Composite" name="composite5" style="0">
+							<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardUnit" style="0">
 								<Constraints>
 									<LayoutConstraint/>
 								</Constraints>
 								<Layout class="Grid">
 									<Property name="marginWidth" type="int" value="5"/>
 									<Property name="marginHeight" type="int" value="5"/>
-									<Property name="numColumns" type="int" value="2"/>
-									<Property name="makeColumnsEqualWidth" type="boolean" value="false"/>
+									<Property name="numColumns" type="int" value="4"/>
+									<Property name="makeColumnsEqualWidth" type="boolean" value="true"/>
 									<Property name="horizontalSpacing" type="int" value="5"/>
 									<Property name="verticalSpacing" type="int" value="5"/>
 								</Layout>
 								<Events>
 								</Events>
 								<Properties>
-									<Property name="size" type="Dimension">
-										<Dimension value="[571, 408]"/>
-									</Property>
 								</Properties>
 								<SubComponents>
-									<Component class="org.eclipse.swt.widgets.Composite" name="composite6" style="0">
+									<Component class="org.eclipse.swt.custom.CLabel" name="lblInvCardUnit" style="0">
 										<Constraints>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="84"/>
-												<Property name="heightHint" type="int" value="96"/>
+												<Property name="widthHint" type="int" value="-1"/>
+												<Property name="heightHint" type="int" value="-1"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
@@ -1573,89 +656,21 @@
 												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
 											</LayoutConstraint>
 										</Constraints>
-										<Layout class="Grid">
-											<Property name="marginWidth" type="int" value="5"/>
-											<Property name="marginHeight" type="int" value="5"/>
-											<Property name="numColumns" type="int" value="1"/>
-											<Property name="makeColumnsEqualWidth" type="boolean" value="true"/>
-											<Property name="horizontalSpacing" type="int" value="5"/>
-											<Property name="verticalSpacing" type="int" value="5"/>
-										</Layout>
 										<Events>
 										</Events>
 										<Properties>
-											<Property name="size" type="Dimension">
-												<Dimension value="[84, 96]"/>
-											</Property>
-											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 50, 84, 96]"/>
-											</Property>
+											<Property name="text" type="String" value="Base Unit"/>
 										</Properties>
-										<SubComponents>
-											<Component class="org.eclipse.swt.widgets.Button" name="button4" style="16777224">
-												<Constraints>
-													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-														<Property name="verticalAlignment" type="int" value="2"/>
-														<Property name="horizontalAlignment" type="int" value="1"/>
-														<Property name="widthHint" type="int" value="47"/>
-														<Property name="heightHint" type="int" value="24"/>
-														<Property name="horizontalIndent" type="int" value="0"/>
-														<Property name="horizontalSpan" type="int" value="1"/>
-														<Property name="verticalSpan" type="int" value="1"/>
-														<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-														<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-													</LayoutConstraint>
-												</Constraints>
-												<Events>
-												</Events>
-												<Properties>
-													<Property name="text" type="String" value="button4"/>
-													<Property name="size" type="Dimension">
-														<Dimension value="[47, 24]"/>
-													</Property>
-													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[5, 5, 47, 24]"/>
-													</Property>
-													<Property name="visible" type="boolean" value="true"/>
-												</Properties>
-											</Component>
-											<Component class="org.eclipse.swt.widgets.Button" name="button5" style="16777224">
-												<Constraints>
-													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-														<Property name="verticalAlignment" type="int" value="2"/>
-														<Property name="horizontalAlignment" type="int" value="1"/>
-														<Property name="widthHint" type="int" value="47"/>
-														<Property name="heightHint" type="int" value="23"/>
-														<Property name="horizontalIndent" type="int" value="0"/>
-														<Property name="horizontalSpan" type="int" value="1"/>
-														<Property name="verticalSpan" type="int" value="1"/>
-														<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
-														<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-													</LayoutConstraint>
-												</Constraints>
-												<Events>
-												</Events>
-												<Properties>
-													<Property name="text" type="String" value="button5"/>
-													<Property name="size" type="Dimension">
-														<Dimension value="[47, 23]"/>
-													</Property>
-													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[5, 34, 47, 23]"/>
-													</Property>
-												</Properties>
-											</Component>
-										</SubComponents>
 									</Component>
-									<Component class="org.eclipse.swt.widgets.Table" name="table5" style="0">
+									<Component class="org.eclipse.swt.custom.CCombo" name="comboInvCardUnits" style="0">
 										<Constraints>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="1"/>
+												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="257"/>
-												<Property name="heightHint" type="int" value="171"/>
+												<Property name="widthHint" type="int" value="-1"/>
+												<Property name="heightHint" type="int" value="-1"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="1"/>
+												<Property name="horizontalSpan" type="int" value="3"/>
 												<Property name="verticalSpan" type="int" value="1"/>
 												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
 												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
@@ -1664,17 +679,31 @@
 										<Events>
 										</Events>
 										<Properties>
-											<Property name="size" type="Dimension">
-												<Dimension value="[273, 187]"/>
-											</Property>
-											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[94, 5, 273, 187]"/>
-											</Property>
 										</Properties>
 									</Component>
 								</SubComponents>
 							</Component>
 						</SubComponents>
+					</Component>
+					<Component class="org.eclipse.swt.custom.CTabItem" name="tabInvCardPrices" style="0">
+						<Constraints>
+							<LayoutConstraint/>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="Prices"/>
+						</Properties>
+					</Component>
+					<Component class="org.eclipse.swt.custom.CTabItem" name="tabInvCardGroups" style="0">
+						<Constraints>
+							<LayoutConstraint/>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="Groups"/>
+						</Properties>
 					</Component>
 				</SubComponents>
 			</Component>

@@ -36,6 +36,14 @@ import java.sql.*;
  * @author onsel
  * @version $Id$
  */
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a
+* for-profit company or business) then you should purchase
+* a license - please visit www.cloudgarden.com for details.
+*/
+
 public class InvUICardSearch extends SecureComposite {
 
 	private TTable tTable1;
@@ -67,7 +75,7 @@ public class InvUICardSearch extends SecureComposite {
 			tTable1LData.grabExcessHorizontalSpace = false;
 			tTable1LData.grabExcessVerticalSpace = true;
 			tTable1.setLayoutData(tTable1LData);
-			tTable1.setSize(new org.eclipse.swt.graphics.Point(319,193));
+			tTable1.setSize(new org.eclipse.swt.graphics.Point(319,213));
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
