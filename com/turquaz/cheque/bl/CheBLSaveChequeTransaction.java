@@ -69,9 +69,7 @@ public class CheBLSaveChequeTransaction {
           }
           
           chequeRoll.setTurqEngineSequence(seq);
-          
-          CheDALSave.save(chequeRoll);
-          
+               
       
           CheDALSave.save(chequeRoll);
           TurqChequeCheque cheque;

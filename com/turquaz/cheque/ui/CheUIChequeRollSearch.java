@@ -5,11 +5,16 @@ import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.CCombo;
 
 import com.turquaz.cheque.bl.CheBLSearchChequeRoll;
+import com.turquaz.engine.dal.TurqChequeCheque;
+import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.dal.TurqChequeTransactionType;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -127,8 +132,13 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
                 }
             }
             {
-                tableChequeRolls = new Table(this, SWT.NONE);
+                tableChequeRolls = new Table(this, SWT.FULL_SELECTION);
                 GridData tableChequeRollsLData = new GridData();
+                tableChequeRolls.addMouseListener(new MouseAdapter() {
+                    public void mouseDoubleClick(MouseEvent evt) {
+                      tableMouseDoubleClick();
+                    }
+                });
                 tableChequeRolls.setLinesVisible(true);
                 tableChequeRolls.setHeaderVisible(true);
                 tableChequeRollsLData.grabExcessHorizontalSpace = true;
@@ -197,6 +207,20 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 	    
 	}
 
+	public void tableMouseDoubleClick(){
+	    TableItem selection[] = tableChequeRolls.getSelection();
+	    if(selection.length>0){
+	    
+	    
+	    boolean isUpdated = new CheUIChequeInPayrollUpdate(getShell(),SWT.NULL,(TurqChequeRoll)selection[0].getData()).open();
+	   if(isUpdated)
+	   {
+	       search();
+	   }
+	    
+	    }
+	    
+	}
     public void delete() {
         // TODO Auto-generated method stub
 
@@ -212,8 +236,36 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
     public void search() {
       try
       {
+         tableChequeRolls.removeAll();
         List ls = CheBLSearchChequeRoll.searchChequeRoll(txtRollNo.getText().trim(),dateStartDate.getDate(),dateEndDate.getDate(),(TurqChequeTransactionType)comboRollType.getData(comboRollType.getText().trim()));
-          
+         TableItem item ;
+         TurqChequeRoll roll;
+         String owner ="";
+         for(int i=0;i<ls.size();i++){
+         
+             roll = (TurqChequeRoll)ls.get(i);
+             item = new TableItem(tableChequeRolls,SWT.NULL);
+             item.setData(roll);
+             
+             if(roll.getTurqCurrentCard().getCurrentCardsId().intValue()!=-1){
+             owner = roll.getTurqCurrentCard().getCardsName();
+                 
+             }
+             else if(roll.getTurqBanksCard().getBanksCardsId().intValue()!=-1){
+                 owner = roll.getTurqBanksCard().getBankCode();
+             }
+             
+             item.setText(new String[]{
+                             DatePicker.formatter.format(roll.getChequeRollsDate()),
+                             roll.getChequeRollNo(),
+                             roll.getTurqChequeTransactionType().getTransactionTypsName(),
+                             owner
+                           });
+             
+             
+         }
+         
+         
       }
       catch(Exception ex)
       {

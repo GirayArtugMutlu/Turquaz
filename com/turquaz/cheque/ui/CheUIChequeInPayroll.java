@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
 
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
@@ -171,7 +172,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
                 }
             }
             {
-                tableCheques = new Table(this, SWT.NONE);
+                tableCheques = new Table(this, SWT.FULL_SELECTION);
                 tableCheques.setLinesVisible(true);
                 tableCheques.setHeaderVisible(true);
                 GridData tableChequesLData = new GridData();
@@ -215,7 +216,13 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 	}
 
     public void newForm() {
-        // TODO Auto-generated method stub
+       
+        CheUIChequeInPayroll  curCard = new CheUIChequeInPayroll(this.getParent(),this.getStyle());
+		 CTabFolder tabfld = (CTabFolder)this.getParent();
+		 tabfld.getSelection().setControl(curCard);	 
+		 this.dispose();
+
+        
 
     }
     public boolean verifyFields(){
@@ -321,4 +328,29 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
         
     }
     
+    
+    public CurrentPicker getCurrentPicker() {
+        return currentPicker;
+    }
+    public void setCurrentPicker(CurrentPicker currentPicker) {
+        this.currentPicker = currentPicker;
+    }
+    public DatePicker getDatePicker1() {
+        return datePicker1;
+    }
+    public void setDatePicker1(DatePicker datePicker1) {
+        this.datePicker1 = datePicker1;
+    }
+    public Table getTableCheques() {
+        return tableCheques;
+    }
+    public void setTableCheques(Table tableCheques) {
+        this.tableCheques = tableCheques;
+    }
+    public Text getTxtRollNo() {
+        return txtRollNo;
+    }
+    public void setTxtRollNo(Text txtRollNo) {
+        this.txtRollNo = txtRollNo;
+    }
 }
