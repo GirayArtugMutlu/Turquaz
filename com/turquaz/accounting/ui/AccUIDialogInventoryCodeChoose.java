@@ -1,6 +1,6 @@
 package com.turquaz.accounting.ui;
 
-import javax.security.auth.login.AccountExpiredException;
+
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;
@@ -129,8 +129,9 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 
 	/** Add your post-init code in here */
 	public void postInitGUI(){
-		accountTree.fillTree(-1,"15");
-		
+	
+	accountTree.fillTree(-1,"15");		
+	
 	}
 
   

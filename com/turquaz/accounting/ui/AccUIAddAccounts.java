@@ -15,6 +15,9 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.accounting.bl.AccBLAccountAdd;
+import com.turquaz.engine.ui.component.TextWithButton;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
@@ -26,9 +29,8 @@ import com.turquaz.engine.ui.component.SecureComposite;
 */
 public class AccUIAddAccounts extends SecureComposite{
 
+	private TextWithButton txtParentAccount;
 	private AccBLAccountAdd blAccountAdd = new AccBLAccountAdd();
-	private Text txtAccParentAccount;
-	private Composite composite1;
 	private CLabel cLabel2;
 	private Text txtAccAccountCode;
 	private CLabel cLabel1;
@@ -52,16 +54,15 @@ public class AccUIAddAccounts extends SecureComposite{
 			cLabel1 = new CLabel(this,SWT.NULL);
 			txtAccAccountCode = new Text(this,SWT.NULL);
 			cLabel2 = new CLabel(this,SWT.NULL);
-			composite1 = new Composite(this,SWT.NULL);
-			txtAccParentAccount = new Text(composite1,SWT.NULL);
+			txtParentAccount = new TextWithButton(this,SWT.NULL);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(448,326));
 	
 			GridData label1LData = new GridData();
 			label1LData.verticalAlignment = GridData.CENTER;
 			label1LData.horizontalAlignment = GridData.BEGINNING;
-			label1LData.widthHint = 77;
-			label1LData.heightHint = 16;
+			label1LData.widthHint = 91;
+			label1LData.heightHint = 18;
 			label1LData.horizontalIndent = 0;
 			label1LData.horizontalSpan = 1;
 			label1LData.verticalSpan = 1;
@@ -69,20 +70,20 @@ public class AccUIAddAccounts extends SecureComposite{
 			label1LData.grabExcessVerticalSpace = false;
 			label1.setLayoutData(label1LData);
 			label1.setText("Account Name");
-			label1.setSize(new org.eclipse.swt.graphics.Point(77,16));
+			label1.setSize(new org.eclipse.swt.graphics.Point(91,18));
 	
 			GridData txtAccAcountNameLData = new GridData();
 			txtAccAcountNameLData.verticalAlignment = GridData.CENTER;
 			txtAccAcountNameLData.horizontalAlignment = GridData.BEGINNING;
-			txtAccAcountNameLData.widthHint = 105;
-			txtAccAcountNameLData.heightHint = 18;
+			txtAccAcountNameLData.widthHint = 143;
+			txtAccAcountNameLData.heightHint = 19;
 			txtAccAcountNameLData.horizontalIndent = 0;
 			txtAccAcountNameLData.horizontalSpan = 1;
 			txtAccAcountNameLData.verticalSpan = 1;
 			txtAccAcountNameLData.grabExcessHorizontalSpace = false;
 			txtAccAcountNameLData.grabExcessVerticalSpace = false;
 			txtAccAcountName.setLayoutData(txtAccAcountNameLData);
-			txtAccAcountName.setSize(new org.eclipse.swt.graphics.Point(105,18));
+			txtAccAcountName.setSize(new org.eclipse.swt.graphics.Point(143,19));
 	
 			GridData cLabel1LData = new GridData();
 			cLabel1LData.verticalAlignment = GridData.CENTER;
@@ -101,15 +102,15 @@ public class AccUIAddAccounts extends SecureComposite{
 			GridData txtAccAccountCodeLData = new GridData();
 			txtAccAccountCodeLData.verticalAlignment = GridData.CENTER;
 			txtAccAccountCodeLData.horizontalAlignment = GridData.BEGINNING;
-			txtAccAccountCodeLData.widthHint = 124;
-			txtAccAccountCodeLData.heightHint = 16;
+			txtAccAccountCodeLData.widthHint = 144;
+			txtAccAccountCodeLData.heightHint = 17;
 			txtAccAccountCodeLData.horizontalIndent = 0;
 			txtAccAccountCodeLData.horizontalSpan = 1;
 			txtAccAccountCodeLData.verticalSpan = 1;
 			txtAccAccountCodeLData.grabExcessHorizontalSpace = false;
 			txtAccAccountCodeLData.grabExcessVerticalSpace = false;
 			txtAccAccountCode.setLayoutData(txtAccAccountCodeLData);
-			txtAccAccountCode.setSize(new org.eclipse.swt.graphics.Point(124,16));
+			txtAccAccountCode.setSize(new org.eclipse.swt.graphics.Point(144,17));
 	
 			GridData cLabel2LData = new GridData();
 			cLabel2LData.verticalAlignment = GridData.CENTER;
@@ -124,45 +125,22 @@ public class AccUIAddAccounts extends SecureComposite{
 			cLabel2.setLayoutData(cLabel2LData);
 			cLabel2.setText("Parent Account");
 	
-			GridData composite1LData = new GridData();
-			composite1LData.verticalAlignment = GridData.CENTER;
-			composite1LData.horizontalAlignment = GridData.BEGINNING;
-			composite1LData.widthHint = 118;
-			composite1LData.heightHint = 33;
-			composite1LData.horizontalIndent = 0;
-			composite1LData.horizontalSpan = 1;
-			composite1LData.verticalSpan = 1;
-			composite1LData.grabExcessHorizontalSpace = false;
-			composite1LData.grabExcessVerticalSpace = false;
-			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(118,33));
-	
-			GridData txtAccParentAccountLData = new GridData();
-			txtAccParentAccountLData.verticalAlignment = GridData.CENTER;
-			txtAccParentAccountLData.horizontalAlignment = GridData.BEGINNING;
-			txtAccParentAccountLData.widthHint = 96;
-			txtAccParentAccountLData.heightHint = 18;
-			txtAccParentAccountLData.horizontalIndent = 0;
-			txtAccParentAccountLData.horizontalSpan = 1;
-			txtAccParentAccountLData.verticalSpan = 1;
-			txtAccParentAccountLData.grabExcessHorizontalSpace = false;
-			txtAccParentAccountLData.grabExcessVerticalSpace = false;
-			txtAccParentAccount.setLayoutData(txtAccParentAccountLData);
-			txtAccParentAccount.setSize(new org.eclipse.swt.graphics.Point(96,18));
-			GridLayout composite1Layout = new GridLayout(1, true);
-			composite1.setLayout(composite1Layout);
-			composite1Layout.marginWidth = 5;
-			composite1Layout.marginHeight = 5;
-			composite1Layout.numColumns = 1;
-			composite1Layout.makeColumnsEqualWidth = true;
-			composite1Layout.horizontalSpacing = 0;
-			composite1Layout.verticalSpacing = 0;
-			composite1.layout();
-			GridLayout thisLayout = new GridLayout(4, true);
+			GridData txtParentAccountLData = new GridData();
+			txtParentAccountLData.widthHint = 145;
+			txtParentAccountLData.heightHint = 22;
+			txtParentAccount.setLayoutData(txtParentAccountLData);
+			txtParentAccount.setSize(new org.eclipse.swt.graphics.Point(145,22));
+			txtParentAccount.addMouseListener( new MouseAdapter() {
+				public void mouseUp(MouseEvent evt) {
+					txtParentAccountMouseUp(evt);
+				}
+			});
+			txtParentAccount.layout();
+			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
 			thisLayout.marginHeight = 5;
-			thisLayout.numColumns = 4;
+			thisLayout.numColumns = 2;
 			thisLayout.makeColumnsEqualWidth = false;
 			thisLayout.horizontalSpacing = 5;
 			thisLayout.verticalSpacing = 20;
@@ -187,12 +165,14 @@ public class AccUIAddAccounts extends SecureComposite{
 	
 	String accountName = txtAccAcountName.getText().trim();
 	String accountCode = txtAccAccountCode.getText().trim();
-    int parentId = Integer.parseInt(txtAccParentAccount.getText().trim());
+    int parentId = Integer.parseInt(txtParentAccount.getText().trim());
 		blAccountAdd.saveAccount(accountName,accountCode,parentId);
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
-		}
+	
+	
+	}
+	catch(Exception ex){
+		ex.printStackTrace();
+	}
 		
 	}
 	public void search(){
@@ -233,5 +213,12 @@ public class AccUIAddAccounts extends SecureComposite{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	/** Auto-generated event handler method */
+	protected void txtParentAccountMouseUp(MouseEvent evt){
+	
+	
+	
+	
 	}
 }
