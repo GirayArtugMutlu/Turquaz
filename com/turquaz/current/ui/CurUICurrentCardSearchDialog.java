@@ -249,7 +249,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 																		txtCurrentName.getText().trim(),(TurqCurrentGroup)comboTurqGroupName.getData(comboTurqGroupName.getText()));
 
 			for(int k=0; k<listCurrentCards.size(); k++){
-				TurqCurrentCard aCurrentCard=(TurqCurrentCard)listCurrentCards.get(k);
+				TurqCurrentCard aCurrentCard=(TurqCurrentCard)((Object[])listCurrentCards.get(k))[1];
 				TableItem item=new TableItem(tableCurrentCardSearch, SWT.NULL);
 				item.setData(aCurrentCard);
  				
