@@ -85,6 +85,7 @@ import com.turquaz.cheque.ui.CheUIChequeOutPayrollCurrent;
 import com.turquaz.cheque.ui.CheUIChequeRollSearch;
 import com.turquaz.cheque.ui.CheUICustomerChequeSearch;
 import com.turquaz.cheque.ui.CheUIOwnChequeSearch;
+import com.turquaz.cheque.ui.CheUIReturnFromBankRoll;
 import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurrentCardAbstract;
@@ -718,7 +719,7 @@ public final class TreeFactory {
 	public static Tree createChequesTree(Tree tree){
 		TreeItem root = new TreeItem(tree,SWT.NULL);
 		
-		root.setText("Bordrolar");  
+		root.setText(Messages.getString("TreeFactory.56"));   //$NON-NLS-1$
 		TreeItem item;
 		
 		
@@ -753,9 +754,15 @@ public final class TreeFactory {
 			item.setData(CheUIChequeCollect.class.getName());
 	    }
 		
+		if(EngBLPermissions.getPermission(CheUIReturnFromBankRoll.class.getName())>0){
+			item = new TreeItem(root,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.111"));   //$NON-NLS-1$
+			item.setData(CheUIReturnFromBankRoll.class.getName());
+	    }
+		
 		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
 		
-		searchRoot.setText("Arama");  
+		searchRoot.setText(Messages.getString("TreeFactory.112"));   //$NON-NLS-1$
 		
 		if(EngBLPermissions.getPermission(CheUIOwnChequeSearch.class.getName())>0){
 			item = new TreeItem(searchRoot,SWT.NULL);

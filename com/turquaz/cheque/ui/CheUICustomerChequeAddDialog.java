@@ -398,8 +398,10 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 		    cheque.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		    cheque.setLastModified(Calendar.getInstance().getTime());
 		    cheque.setCreationDate(Calendar.getInstance().getTime());
-	   
-        
+	        
+		    // TODO Exchane Rate
+		    cheque.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+            cheque.setChequesAmountInForeignCurrency(curText.getBigDecimalValue());
         
         
 	    
