@@ -122,7 +122,6 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				compSearchLData.horizontalAlignment = GridData.FILL;
 				compSearchLData.heightHint = 72;
 				compSearch.setLayoutData(compSearchLData);
-				compSearchLayout.makeColumnsEqualWidth = true;
 				compSearchLayout.numColumns = 4;
 				compSearch.setLayout(compSearchLayout);
 				{
@@ -136,8 +135,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				{
 					txtCurrentCard = new CurrentPicker(compSearch, SWT.NONE);
 					GridData txtCurrentCardLData = new GridData();
-					txtCurrentCardLData.widthHint = 153;
-					txtCurrentCardLData.heightHint = 17;
+					txtCurrentCardLData.widthHint = 237;
+					txtCurrentCardLData.heightHint = 15;
 					txtCurrentCardLData.horizontalSpan = 3;
 					txtCurrentCard.setLayoutData(txtCurrentCardLData);
 					
@@ -146,23 +145,31 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					lblStartDate = new CLabel(compSearch, SWT.NONE);
 					lblStartDate.setText(Messages.getString("CurUICurrentCardAbstract.1")); //$NON-NLS-1$
 					GridData lblStartDateLData = new GridData();
-					lblStartDateLData.widthHint = 142;
+					lblStartDateLData.widthHint = 96;
 					lblStartDateLData.heightHint = 18;
 					lblStartDate.setLayoutData(lblStartDateLData);
 				}
 				{
 					datePickerStartDate = new DatePicker(compSearch, SWT.NONE);
+					GridData datePickerStartDateLData = new GridData();
+					datePickerStartDateLData.widthHint = 103;
+					datePickerStartDateLData.heightHint = 23;
+					datePickerStartDate.setLayoutData(datePickerStartDateLData);
 				}
 				{
 					lblEndDate = new CLabel(compSearch, SWT.NONE);
 					lblEndDate.setText(Messages.getString("CurUICurrentCardAbstract.2")); //$NON-NLS-1$
 					GridData lblEndDateLData = new GridData();
-					lblEndDateLData.widthHint = 144;
-					lblEndDateLData.heightHint = 22;
+					lblEndDateLData.widthHint = 77;
+					lblEndDateLData.heightHint = 20;
 					lblEndDate.setLayoutData(lblEndDateLData);
 				}
 				{
 					datePickerEndDate = new DatePicker(compSearch, SWT.NONE);
+					GridData datePickerEndDateLData = new GridData();
+					datePickerEndDateLData.widthHint = 103;
+					datePickerEndDateLData.heightHint = 24;
+					datePickerEndDate.setLayoutData(datePickerEndDateLData);
 				}
 				}
 			
@@ -206,14 +213,14 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 						tableColumnDocumentNo = new TableColumn(
 							tableCurrentTransactions,
 							SWT.NONE);
-						tableColumnDocumentNo.setText("Belge No");
+						tableColumnDocumentNo.setText(Messages.getString("CurUICurrentCardAbstract.4")); //$NON-NLS-1$
 						tableColumnDocumentNo.setWidth(89);
 					}
                     {
                         tableColumnDefinition = new TableColumn(
                             tableCurrentTransactions,
                             SWT.NONE);
-                        tableColumnDefinition.setText("Aç?klama");
+                        tableColumnDefinition.setText(Messages.getString("CurUICurrentCardAbstract.5")); //$NON-NLS-1$
                         tableColumnDefinition.setWidth(156);
                     }
 					{
@@ -234,12 +241,12 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					}
                     {
                         tableColumnDebitBalance = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
-                        tableColumnDebitBalance.setText("Borç Bakiye");
+                        tableColumnDebitBalance.setText(Messages.getString("CurUICurrentCardAbstract.6")); //$NON-NLS-1$
                         tableColumnDebitBalance.setWidth(100);
                     }
                     {
                         tableColumnCreditBalance = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
-                        tableColumnCreditBalance.setText("Alacak Bakiye");
+                        tableColumnCreditBalance.setText(Messages.getString("CurUICurrentCardAbstract.7")); //$NON-NLS-1$
                         tableColumnCreditBalance.setWidth(100);
                     }
 				}
@@ -316,10 +323,10 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			    }
 			         		
 			    item.setText(new String[]{
-			                    "",
-			                    "",
-			                    "",
-			                    "-----DEV?R-----",
+			                    "", //$NON-NLS-1$
+			                    "", //$NON-NLS-1$
+			                    "", //$NON-NLS-1$
+			                    Messages.getString("CurUICurrentCardAbstract.11"), //$NON-NLS-1$
 			                    cf.format(totalDept),
 			                    cf.format(totalCredit),
 			                    (balance.compareTo(new BigDecimal(0))<0) ? cf.format(balance.multiply(new BigDecimal(-1))) : "", //$NON-NLS-1$
@@ -332,14 +339,14 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			else{
 			    item = new TableItem(tableCurrentTransactions,SWT.NULL);
 			    item.setText(new String[]{
-	                    "",
-	                    "",
-	                    "",
-	                    "",
-	                    "0,00",
-	                    "0,00",
-	                    "0,00",
-	                    "0,00"
+	                    "", //$NON-NLS-1$
+	                    "", //$NON-NLS-1$
+	                    "", //$NON-NLS-1$
+	                    "", //$NON-NLS-1$
+	                    "0,00", //$NON-NLS-1$
+	                    "0,00", //$NON-NLS-1$
+	                    "0,00", //$NON-NLS-1$
+	                    "0,00" //$NON-NLS-1$
 	                    });
 			}
 			
@@ -352,16 +359,21 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			
 			for(int i=0;i<results.size();i++)
 			{
-		
-				transaction = (TurqCurrentTransaction)results.get(i);
+			    transaction = (TurqCurrentTransaction)results.get(i);
+			    
+			    balance = balance.subtract(transaction.getTransactionsTotalDept());
+				balance = balance.add(transaction.getTransactionsTotalCredit());
 				item = new TableItem(tableCurrentTransactions,SWT.NULL);
 				item.setData(transaction);
 				item.setText(new String[]{DatePicker.formatter.format(transaction.getTransactionsDate()),
 		        				  transaction.getTurqCurrentTransactionType().getTransactionTypeName(),
 								  transaction.getTransactionsDocumentNo(),
+								  transaction.getTransactionsDefinition(),
 								  cf.format(transaction.getTransactionsTotalDept()),
 								  cf.format(transaction.getTransactionsTotalCredit()),
-								  
+								  (balance.compareTo(new BigDecimal(0))<0) ? cf.format(balance.multiply(new BigDecimal(-1))) : "", //$NON-NLS-1$
+						          (balance.compareTo(new BigDecimal(0))>0) ? cf.format(balance): ""  //$NON-NLS-1$
+						  
 									});
 			}
 			
@@ -386,7 +398,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	{
 		if (currentCard!=null)
 		{
-			String title="Cari Kart Extresi:\t"+"Kod:"+currentCard.getCardsCurrentCode()+"\tAd:"+currentCard.getCardsName();
+			String title=Messages.getString("CurUICurrentCardAbstract.20")+Messages.getString("CurUICurrentCardAbstract.21")+currentCard.getCardsCurrentCode()+Messages.getString("CurUICurrentCardAbstract.22")+currentCard.getCardsName(); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			EngBLUtils.printTable(tableCurrentTransactions,title);
 		}
 	}

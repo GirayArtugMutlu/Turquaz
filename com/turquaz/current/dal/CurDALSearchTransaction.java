@@ -131,7 +131,7 @@ public class CurDALSearchTransaction {
 	        
 	    	Session session = EngDALSessionFactory.openSession(); 
 	    	String query = "Select sum(transaction.transactionsTotalDept),sum(transaction.transactionsTotalCredit) from TurqCurrentTransaction as transaction where" +
-			" transaction.turqCurrentCard= :curCard" +
+			" transaction.turqCurrentCard= :curCard and" +
 			" transaction.transactionsDate < :endDate";
 	    
 	    	Query q = session.createQuery(query); 
