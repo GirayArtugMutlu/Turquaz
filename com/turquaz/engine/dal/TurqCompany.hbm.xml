@@ -32,6 +32,27 @@
         length="250"
     />
     <property
+        name="companyAddress"
+        type="java.lang.String"
+        column="company_address"
+        not-null="true"
+        length="250"
+    />
+    <property
+        name="companyTelephone"
+        type="java.lang.String"
+        column="company_telephone"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="companyFax"
+        type="java.lang.String"
+        column="company_fax"
+        not-null="true"
+        length="100"
+    />
+    <property
         name="createdBy"
         type="java.lang.String"
         column="created_by"

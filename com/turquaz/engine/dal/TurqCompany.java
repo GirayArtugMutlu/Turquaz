@@ -15,6 +15,15 @@ public class TurqCompany implements Serializable {
     private java.lang.String companyName;
 
     /** persistent field */
+    private java.lang.String companyAddress;
+
+    /** persistent field */
+    private java.lang.String companyTelephone;
+
+    /** persistent field */
+    private java.lang.String companyFax;
+
+    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
@@ -27,8 +36,11 @@ public class TurqCompany implements Serializable {
     private java.util.Date updateDate;
 
     /** full constructor */
-    public TurqCompany(java.lang.String companyName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate) {
+    public TurqCompany(java.lang.String companyName, java.lang.String companyAddress, java.lang.String companyTelephone, java.lang.String companyFax, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate) {
         this.companyName = companyName;
+        this.companyAddress = companyAddress;
+        this.companyTelephone = companyTelephone;
+        this.companyFax = companyFax;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
@@ -53,6 +65,30 @@ public class TurqCompany implements Serializable {
 
     public void setCompanyName(java.lang.String companyName) {
         this.companyName = companyName;
+    }
+
+    public java.lang.String getCompanyAddress() {
+        return this.companyAddress;
+    }
+
+    public void setCompanyAddress(java.lang.String companyAddress) {
+        this.companyAddress = companyAddress;
+    }
+
+    public java.lang.String getCompanyTelephone() {
+        return this.companyTelephone;
+    }
+
+    public void setCompanyTelephone(java.lang.String companyTelephone) {
+        this.companyTelephone = companyTelephone;
+    }
+
+    public java.lang.String getCompanyFax() {
+        return this.companyFax;
+    }
+
+    public void setCompanyFax(java.lang.String companyFax) {
+        this.companyFax = companyFax;
     }
 
     public java.lang.String getCreatedBy() {
