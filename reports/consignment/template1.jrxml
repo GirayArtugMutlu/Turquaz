@@ -165,16 +165,6 @@
 				<reportElement positionType="Float" x="410" y="13" width="145" height="1"/>
 				<graphicElement/>
 			</line>
-			<staticText>
-				<reportElement positionType="Float" x="89" y="94" width="274" height="15"/>
-				<textElement/>
-				<text><![CDATA[tarihine kadar ödenmemesi halinde %6 vade farkı uygulanır.]]></text>
-			</staticText>
-			<textField>
-				<reportElement positionType="Float" x="16" y="94" width="67" height="20"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{dueDate}]]></textFieldExpression>
-			</textField>
 		</band>
 		</groupFooter>
 	</group>

@@ -7,9 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-import net.sf.jasperreports.engine.JasperManager;
+import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 
 import org.eclipse.swt.layout.FillLayout;
@@ -176,8 +177,11 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 			parameters.put("column2header",Messages.getString("AccUIAccountingJournal.24")); //$NON-NLS-1$ //$NON-NLS-2$
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
-			JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingJournal.jasper"); //$NON-NLS-1$
-			final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
+			//JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingJournal.jasper"); //$NON-NLS-1$
+			//final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
+			
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingJournal.jasper"); 
+	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
 			reportViewer.getReportViewer().setDocument(jasperPrint);
 			
 					

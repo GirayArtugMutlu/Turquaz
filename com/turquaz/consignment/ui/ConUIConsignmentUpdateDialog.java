@@ -149,8 +149,8 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 							toolPrint
 								.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt) {
-
-									EngBLUtils.PrintConsignment(consignment, getParent());
+									dialogShell.close();
+									EngBLUtils.PrintConsignment(consignment);
 
 								}
 								});

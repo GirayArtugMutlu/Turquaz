@@ -69,7 +69,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.turquaz.engine.ui.component.NumericText;
-import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
+
 
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;

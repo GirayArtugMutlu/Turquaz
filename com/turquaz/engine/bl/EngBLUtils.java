@@ -312,7 +312,7 @@ public class EngBLUtils {
 			}	
 	}
 	
-	public static void PrintConsignment(TurqConsignment cons, Shell parent)
+	public static void PrintConsignment(TurqConsignment cons)
 	{
 		try
 		{
@@ -373,8 +373,8 @@ public class EngBLUtils {
             parameters.put("formatter",formatter); 
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
-			JasperReport jasperReport = JasperManager.loadReport("reports/invoice/template1.jasper"); 
-			final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/consignment/template1.jasper"); 
+	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
 			
 			ViewerApp viewerApp = new ViewerApp();
 			

@@ -20,7 +20,6 @@ package com.turquaz.inventory.ui.comp;
 * @version  $Id$
 */
 
-import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;

@@ -8,9 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-import net.sf.jasperreports.engine.JasperManager;
+import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 
 
@@ -155,8 +156,11 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
             parameters.put("formatter",formatter); //$NON-NLS-1$
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
-			JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingGeneralLedger.jasper"); //$NON-NLS-1$
-			final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
+			//JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingGeneralLedger.jasper"); //$NON-NLS-1$
+			//final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingGeneralLedger.jasper"); 
+	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
+			
 			
 			reportViewer.getReportViewer().setDocument(jasperPrint);
 			

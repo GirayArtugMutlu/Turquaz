@@ -9,9 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 
-import net.sf.jasperreports.engine.JasperManager;
+import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 import org.eclipse.swt.layout.FillLayout;
@@ -148,8 +149,10 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
             parameters.put("formatter",formatter); //$NON-NLS-1$
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
-			JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingBalance.jasper"); //$NON-NLS-1$
-			final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
+			//JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingBalance.jasper"); //$NON-NLS-1$
+			//final JasperPrint jasperPrint = JasperManager.fillReport(jasperReport,parameters,db.getCon());
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingBalance.jasper"); 
+	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
 			
 			JasperViewer.viewReport(jasperPrint,false);
 			
