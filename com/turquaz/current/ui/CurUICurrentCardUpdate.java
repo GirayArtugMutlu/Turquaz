@@ -102,19 +102,9 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			toolBar1 = new ToolBar(coolBar1,SWT.NULL);
 			toolUpdate = new ToolItem(toolBar1,SWT.NULL);
 			toolDelete = new ToolItem(toolBar1,SWT.NULL);
-			cTabFolder1 = new CTabFolder(dialogShell,SWT.NULL);
-			cTabItem1 = new CTabItem(cTabFolder1,SWT.NULL);
-			compCurCardAdd = new CurUICurrentCardAdd(cTabFolder1,SWT.NULL);
-			cTabItem2 = new CTabItem(cTabFolder1,SWT.NULL);
-			composite1 = new Composite(cTabFolder1,SWT.NULL);
-			tableCurrentBalances = new Table(composite1,SWT.NULL);
-			tableColumnTransactionType = new TableColumn(tableCurrentBalances,SWT.NULL);
-			tableColumnTotalCredit = new TableColumn(tableCurrentBalances,SWT.NULL);
-			tableColumnTotalDept = new TableColumn(tableCurrentBalances,SWT.NULL);
-			tableColumnBalanceCredit = new TableColumn(tableCurrentBalances,SWT.NULL);
-			tableColumnBalanceDept = new TableColumn(tableCurrentBalances,SWT.NULL);
+			compCurCardAdd = new CurUICurrentCardAdd(dialogShell,SWT.NULL);
 	
-			dialogShell.setSize(new org.eclipse.swt.graphics.Point(713,497));
+			dialogShell.setSize(new org.eclipse.swt.graphics.Point(600,434));
 	
 			GridData coolBar1LData = new GridData();
 			coolBar1LData.verticalAlignment = GridData.CENTER;
@@ -134,87 +124,30 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	
 	
 			toolUpdate.setText("Update");
-			final org.eclipse.swt.graphics.Image toolUpdateimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
-			toolUpdate.setImage(toolUpdateimage);
-			toolUpdate.addSelectionListener( new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					toolUpdateWidgetSelected(evt);
-				}
-			});
 	
 			toolDelete.setText("Delete");
-			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
-			toolDelete.setImage(toolDeleteimage);
+			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setImage(toolDeleteýmage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
 				}
 			});
 	
-			GridData cTabFolder1LData = new GridData();
-			cTabFolder1LData.verticalAlignment = GridData.FILL;
-			cTabFolder1LData.horizontalAlignment = GridData.FILL;
-			cTabFolder1LData.widthHint = -1;
-			cTabFolder1LData.heightHint = -1;
-			cTabFolder1LData.horizontalIndent = 0;
-			cTabFolder1LData.horizontalSpan = 1;
-			cTabFolder1LData.verticalSpan = 1;
-			cTabFolder1LData.grabExcessHorizontalSpace = true;
-			cTabFolder1LData.grabExcessVerticalSpace = true;
-			cTabFolder1.setLayoutData(cTabFolder1LData);
-			cTabFolder1.setSize(new org.eclipse.swt.graphics.Point(699,439));
-	
-			cTabItem1.setControl(compCurCardAdd);
-			cTabItem1.setText("Card Information");
-	
-			compCurCardAdd.setSize(new org.eclipse.swt.graphics.Point(699,422));
+			GridData compCurCardAddLData = new GridData();
+			compCurCardAddLData.verticalAlignment = GridData.FILL;
+			compCurCardAddLData.horizontalAlignment = GridData.FILL;
+			compCurCardAddLData.widthHint = -1;
+			compCurCardAddLData.heightHint = -1;
+			compCurCardAddLData.horizontalIndent = 0;
+			compCurCardAddLData.horizontalSpan = 1;
+			compCurCardAddLData.verticalSpan = 1;
+			compCurCardAddLData.grabExcessHorizontalSpace = true;
+			compCurCardAddLData.grabExcessVerticalSpace = true;
+			compCurCardAdd.setLayoutData(compCurCardAddLData);
+			compCurCardAdd.setSize(new org.eclipse.swt.graphics.Point(590,381));
 			compCurCardAdd.setEnabled(true);
 			compCurCardAdd.layout();
-	
-			cTabItem2.setControl(composite1);
-			cTabItem2.setText("Card Balances");
-	
-			composite1.setSize(new org.eclipse.swt.graphics.Point(699,422));
-	
-			GridData tableCurrentBalancesLData = new GridData();
-			tableCurrentBalancesLData.verticalAlignment = GridData.BEGINNING;
-			tableCurrentBalancesLData.horizontalAlignment = GridData.FILL;
-			tableCurrentBalancesLData.widthHint = -1;
-			tableCurrentBalancesLData.heightHint = 198;
-			tableCurrentBalancesLData.horizontalIndent = 0;
-			tableCurrentBalancesLData.horizontalSpan = 2;
-			tableCurrentBalancesLData.verticalSpan = 1;
-			tableCurrentBalancesLData.grabExcessHorizontalSpace = true;
-			tableCurrentBalancesLData.grabExcessVerticalSpace = false;
-			tableCurrentBalances.setLayoutData(tableCurrentBalancesLData);
-			tableCurrentBalances.setHeaderVisible(true);
-			tableCurrentBalances.setLinesVisible(true);
-			tableCurrentBalances.setSize(new org.eclipse.swt.graphics.Point(673,198));
-	
-			tableColumnTransactionType.setText("Transaction Type");
-			tableColumnTransactionType.setWidth(134);
-	
-			tableColumnTotalCredit.setText("Credit");
-			tableColumnTotalCredit.setWidth(132);
-	
-			tableColumnTotalDept.setText("Dept");
-			tableColumnTotalDept.setWidth(109);
-	
-			tableColumnBalanceCredit.setText("Balance Credit");
-			tableColumnBalanceCredit.setWidth(137);
-	
-			tableColumnBalanceDept.setText("Balance Dept");
-			tableColumnBalanceDept.setWidth(131);
-			GridLayout composite1Layout = new GridLayout(2, true);
-			composite1.setLayout(composite1Layout);
-			composite1Layout.marginWidth = 5;
-			composite1Layout.marginHeight = 5;
-			composite1Layout.numColumns = 2;
-			composite1Layout.makeColumnsEqualWidth = false;
-			composite1Layout.horizontalSpacing = 5;
-			composite1Layout.verticalSpacing = 5;
-			composite1.layout();
-			cTabFolder1.setSelection(0);
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.marginWidth = 5;
@@ -226,11 +159,10 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					toolUpdateimage.dispose();
-					toolDeleteimage.dispose();
+					toolDeleteýmage.dispose();
 				}
 			});
-			Rectangle bounds = dialogShell.computeTrim(0, 0, 713,497);
+			Rectangle bounds = dialogShell.computeTrim(0, 0, 600,434);
 			dialogShell.setSize(bounds.width, bounds.height);
 			postInitGUI();
 			dialogShell.open();
@@ -303,10 +235,19 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			compCurCardAdd.getAccPickerCustomer().setData(currentCard.getTurqAccountingAccountByAccountingCodeIdCustomer());
 			compCurCardAdd.getAccPickerSupplierAccCode().setData(currentCard.getTurqAccountingAccountByAccountingCodeIdSupplier());
 	        
+	        it=currentCard.getTurqCurrentCardsGroups().iterator();
+	        while(it.hasNext()){
+	        	TurqCurrentCardsGroup currentCardGroup=(TurqCurrentCardsGroup) it.next();
+	        	compCurCardAdd.getCompRegisterGroup().RegisterGroup(currentCardGroup.getTurqCurrentGroup());
+	        }
+			
+
+	        
 	        
 	        fillCurrentGroups();     
 	        fillCurrentBalances();
 	     
+
 			
 		}
 		catch(Exception ex){

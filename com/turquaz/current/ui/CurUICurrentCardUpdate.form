@@ -22,7 +22,7 @@
 		</Layout>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[713, 497]"/>
+				<Dimension value="[600, 434]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -45,7 +45,7 @@
 				</Events>
 				<Properties>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 5, 703, 38]"/>
+						<Rectangle value="[5, 5, 590, 38]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>
@@ -72,9 +72,6 @@
 								<Events>
 								</Events>
 								<Properties>
-									<Property name="size" type="Dimension">
-										<Dimension value="[690, 38]"/>
-									</Property>
 								</Properties>
 								<SubComponents>
 									<Component class="org.eclipse.swt.widgets.ToolItem" name="toolUpdate" style="0">
@@ -82,13 +79,9 @@
 											<LayoutConstraint/>
 										</Constraints>
 										<Events>
-											<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolUpdateWidgetSelected"/>
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Update"/>
-											<Property name="image" type="Image">
-												<Image name="\icons\save_edit.gif"/>
-											</Property>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.ToolItem" name="toolDelete" style="0">
@@ -100,7 +93,7 @@
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Delete"/>
-											<Property name="image" type="Image">
+											<Property name="ımage" type="Image">
 												<Image name="\icons\delete_edit.gif"/>
 											</Property>
 										</Properties>
@@ -111,7 +104,7 @@
 					</Component>
 				</SubComponents>
 			</Component>
-			<Component class="org.eclipse.swt.custom.CTabFolder" name="cTabFolder1" style="0">
+			<Component class="com.turquaz.current.ui.CurUICurrentCardAdd" name="compCurCardAdd" style="0">
 				<Constraints>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -130,161 +123,15 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[703, 444]"/>
+						<Dimension value="[590, 381]"/>
 					</Property>
+					<Property name="enabled" type="boolean" value="true"/>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 48, 703, 444]"/>
+						<Rectangle value="[5, 48, 590, 381]"/>
 					</Property>
+					<Property name="externalizeStrings" type="boolean" value="false"/>
+					<Property name="externalizeStrings" type="boolean" value="false"/>
 				</Properties>
-				<SubComponents>
-					<Component class="org.eclipse.swt.custom.CTabItem" name="cTabItem1" style="0">
-						<Constraints>
-							<LayoutConstraint/>
-						</Constraints>
-						<Events>
-						</Events>
-						<Properties>
-							<Property name="text" type="String" value="Card Information"/>
-						</Properties>
-						<SubComponents>
-							<Component class="com.turquaz.current.ui.CurUICurrentCardAdd" name="compCurCardAdd" style="0">
-								<Constraints>
-									<Constraint class="org.eclipse.swt.layout.GridData"/>
-									<LayoutConstraint/>
-								</Constraints>
-								<Events>
-								</Events>
-								<Properties>
-									<Property name="size" type="Dimension">
-										<Dimension value="[699, 422]"/>
-									</Property>
-									<Property name="enabled" type="boolean" value="true"/>
-									<Property name="externalizeStrings" type="boolean" value="false"/>
-									<Property name="externalizeStrings" type="boolean" value="false"/>
-								</Properties>
-							</Component>
-						</SubComponents>
-					</Component>
-					<Component class="org.eclipse.swt.custom.CTabItem" name="cTabItem2" style="0">
-						<Constraints>
-							<LayoutConstraint/>
-						</Constraints>
-						<Events>
-						</Events>
-						<Properties>
-							<Property name="text" type="String" value="Card Balances"/>
-						</Properties>
-						<SubComponents>
-							<Component class="org.eclipse.swt.widgets.Composite" name="composite1" style="0">
-								<Constraints>
-									<LayoutConstraint/>
-								</Constraints>
-								<Layout class="Grid">
-									<Property name="marginWidth" type="int" value="5"/>
-									<Property name="marginHeight" type="int" value="5"/>
-									<Property name="numColumns" type="int" value="2"/>
-									<Property name="makeColumnsEqualWidth" type="boolean" value="false"/>
-									<Property name="horizontalSpacing" type="int" value="5"/>
-									<Property name="verticalSpacing" type="int" value="5"/>
-								</Layout>
-								<Events>
-								</Events>
-								<Properties>
-									<Property name="size" type="Dimension">
-										<Dimension value="[699, 422]"/>
-									</Property>
-								</Properties>
-								<SubComponents>
-									<Component class="org.eclipse.swt.widgets.Table" name="tableCurrentBalances" style="0">
-										<Constraints>
-											<Constraint class="org.eclipse.swt.layout.GridData"/>
-											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
-												<Property name="verticalAlignment" type="int" value="1"/>
-												<Property name="horizontalAlignment" type="int" value="4"/>
-												<Property name="widthHint" type="int" value="-1"/>
-												<Property name="heightHint" type="int" value="198"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
-												<Property name="horizontalSpan" type="int" value="2"/>
-												<Property name="verticalSpan" type="int" value="1"/>
-												<Property name="grabExcessHorizontalSpace" type="boolean" value="true"/>
-												<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
-											</LayoutConstraint>
-										</Constraints>
-										<Events>
-										</Events>
-										<Properties>
-											<Property name="headerVisible" type="boolean" value="true"/>
-											<Property name="linesVisible" type="boolean" value="true"/>
-											<Property name="size" type="Dimension">
-												<Dimension value="[689, 214]"/>
-											</Property>
-											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 5, 689, 214]"/>
-											</Property>
-										</Properties>
-										<SubComponents>
-											<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnTransactionType" style="0">
-												<Constraints>
-													<LayoutConstraint/>
-												</Constraints>
-												<Events>
-												</Events>
-												<Properties>
-													<Property name="text" type="String" value="Transaction Type"/>
-													<Property name="width" type="int" value="134"/>
-												</Properties>
-											</Component>
-											<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnTotalCredit" style="0">
-												<Constraints>
-													<LayoutConstraint/>
-												</Constraints>
-												<Events>
-												</Events>
-												<Properties>
-													<Property name="text" type="String" value="Credit"/>
-													<Property name="width" type="int" value="132"/>
-												</Properties>
-											</Component>
-											<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnTotalDept" style="0">
-												<Constraints>
-													<LayoutConstraint/>
-												</Constraints>
-												<Events>
-												</Events>
-												<Properties>
-													<Property name="text" type="String" value="Dept"/>
-													<Property name="width" type="int" value="109"/>
-												</Properties>
-											</Component>
-											<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnBalanceCredit" style="0">
-												<Constraints>
-													<LayoutConstraint/>
-												</Constraints>
-												<Events>
-												</Events>
-												<Properties>
-													<Property name="text" type="String" value="Balance Credit"/>
-													<Property name="width" type="int" value="137"/>
-												</Properties>
-											</Component>
-											<Component class="org.eclipse.swt.widgets.TableColumn" name="tableColumnBalanceDept" style="0">
-												<Constraints>
-													<LayoutConstraint/>
-												</Constraints>
-												<Events>
-												</Events>
-												<Properties>
-													<Property name="text" type="String" value="Balance Dept"/>
-													<Property name="width" type="int" value="131"/>
-												</Properties>
-											</Component>
-										</SubComponents>
-									</Component>
-								</SubComponents>
-							</Component>
-						</SubComponents>
-					</Component>
-				</SubComponents>
 			</Component>
 		</SubComponents>
 	</Component>
