@@ -20,6 +20,8 @@ package com.turquaz.accounting.ui;
 * @version  $Id$
 */
 
+import java.sql.Date;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
@@ -39,6 +41,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Label;
+
+import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -70,6 +74,7 @@ public class AccUITransactionAdd extends SecureComposite {
 	private Text txtDocumentNo;
 	private CLabel lblDocumentNo;
 	private DatePicker dateTransactionDate;
+	private AccBLTransactionAdd blTransAdd = new AccBLTransactionAdd();
 	public AccUITransactionAdd(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -325,9 +330,37 @@ public class AccUITransactionAdd extends SecureComposite {
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	
+	}
+	public boolean verifyFields(){
+	
+	return true;
+	
+	
 	}
 
 	public void save(){
+	
+	if(verifyFields()){
+	
+	try{
+	
+	blTransAdd.saveAccTransaction(dateTransactionDate.getDate(),txtDocumentNo.getText().trim(),2,1);
+		
+	}
+
+	catch(Exception ex){
+	ex.printStackTrace();
+	}
+	
+	
+	
+	
+	
+	
+	}
+	
+	
 	
 	}
 	

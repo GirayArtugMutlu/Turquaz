@@ -116,6 +116,14 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
 	}
+	
+	public Date getDate(){
+		if(this.getData()!=null){
+			return (Date)this.getData();
+		}
+		else return null;
+		
+	}
 
 	/** Auto-generated event handler method */
 	protected void button1MouseUp(MouseEvent evt){
