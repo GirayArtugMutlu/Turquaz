@@ -100,6 +100,7 @@ import com.turquaz.inventory.ui.InvUIInventoryGroupAdd;
 import com.turquaz.inventory.ui.InvUIInventoryLedger;
 import com.turquaz.inventory.ui.InvUIInventoryTransactionReport;
 import com.turquaz.inventory.ui.InvUIOtherTransactionIn;
+import com.turquaz.inventory.ui.InvUIOtherTransactionOut;
 import com.turquaz.inventory.ui.InvUIProfitAnalysis;
 import com.turquaz.inventory.ui.InvUITransactionSearch;
 import com.turquaz.inventory.ui.InvUITransactionsTotalReport;
@@ -133,6 +134,12 @@ public final class TreeFactory
 			item = new TreeItem(transRoot, SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.116"));  //$NON-NLS-1$
 			item.setData(InvUIOtherTransactionIn.class.getName());
+		}
+		if (EngBLPermissions.getPermission(InvUIOtherTransactionOut.class.getName()) > 0)
+		{
+			item = new TreeItem(transRoot, SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.117"));   //$NON-NLS-1$
+			item.setData(InvUIOtherTransactionOut.class.getName());
 		}
 		
 		

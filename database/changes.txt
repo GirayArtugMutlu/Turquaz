@@ -897,4 +897,7 @@ ALTER TABLE turq_inventory_transactions
    
 INSERT INTO turq_module_components VALUES (87, 0, 'com.turquaz.inventory.ui.InvUIOtherTransactionIn', 'Diger Giris Hareketi', 'cem', '2005-02-28', 'cem', '2005-02-28');
 
+INSERT INTO turq_module_components VALUES (88, 0, 'com.turquaz.inventory.ui.InvUIOtherTransactionOut', 'Diger Cikis Hareketi', 'cem', '2005-02-28', 'cem', '2005-02-28');
+
+
 
