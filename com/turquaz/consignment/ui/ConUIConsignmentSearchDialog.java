@@ -244,6 +244,10 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 					tableColumnSpecialVatAmount.setWidth(100);
 				}
 			}
+			
+			comboConsignmentType.add(Messages.getString("ConUIConsignmentSearchDialog.11")); //$NON-NLS-1$
+			comboConsignmentType.add(Messages.getString("ConUIConsignmentSearchDialog.12")); //$NON-NLS-1$
+			
 			composite1.layout();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
