@@ -20,7 +20,7 @@ package com.turquaz.current.ui;
 * @version  $Id$
 */
 import java.math.BigDecimal;
-import java.util.List;
+
 
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
@@ -119,7 +119,8 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 								.setData(EngBLCurrentCards
 									.getCards(txtCurrentCode
 										.getText().trim()));
-						} catch (Exception ex) {
+							
+                        } catch (Exception ex) {
 							ex.printStackTrace();
 						}
                    }
@@ -355,7 +356,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 	
 	//Transaction Type is Cash 
 	//4,at the end means cash, it is a cash Transaction 
-	blTransAdd.saveCurrentCashTransaction((TurqCurrentCard)txtCurrentCode.getData(txtCurrentCode.getText()),
+	blTransAdd.saveCurrentCashTransaction((TurqCurrentCard)txtCurrentCode.getData(),
 									  dateTransDate.getDate(),txtDocumentNo.getText().trim(),isCredit,
 									  decTxtAmount.getBigDecimalValue(),new BigDecimal(0),4,(TurqAccountingAccount)accPickerCashAccount.getData());
 	
