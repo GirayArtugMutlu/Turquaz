@@ -235,8 +235,19 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
             
     			dept = new BigDecimal(0);
     			credit = new BigDecimal(0);
-            
+    			
     			result = (Object[])ls.get(i);
+    			
+    			if(result[5]!=null)
+    			{
+    				dept = (BigDecimal)result[5];
+    			}
+    			if(result[6]!=null)
+    			{
+    				credit = (BigDecimal)result[6];
+    			}
+            
+    			
     			transId = (Integer) result[0];
           
     			transType =result[2].toString();
@@ -252,8 +263,8 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
                     				  docNo,
                     				  transType,
 									  definition,
-									  cf.format(result[5]),
-									  cf.format(result[6])
+									  cf.format(dept),
+									  cf.format(credit)
                     				});
             
             

@@ -217,7 +217,7 @@ public class CheBLUpdateCheque {
 		
 	}
 	
-	private static void updateBankTransactions(TurqChequeRoll chequeRoll)throws Exception{
+	public static void updateBankTransactions(TurqChequeRoll chequeRoll)throws Exception{
 		try{
 			//Delete Bank Transactions First
 			Iterator it = chequeRoll.getTurqEngineSequence().getTurqBanksTransactionBills().iterator();
@@ -245,7 +245,7 @@ public class CheBLUpdateCheque {
 					 											chequeInRoll.getTurqChequeCheque().getChequesAmount(),
 																chequeRoll.getChequeRollsDate(),
 																"Çek Portfoy No:"+chequeInRoll.getTurqChequeCheque().getChequesPortfolioNo(),
-																chequeRoll.getChequeRollNo());
+																chequeRoll.getChequeRollNo(),chequeInRoll.getTurqChequeCheque().getTurqCurrencyExchangeRate());
 		              			
 				}
 				
@@ -274,8 +274,7 @@ public class CheBLUpdateCheque {
         
         int rollType = chequeRoll.getTurqChequeTransactionType().getId().intValue();
         
-        TurqAccountingAccount rollAccount = chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount();
-         
+       // 
         BigDecimal totalAmount = new BigDecimal(0);
         it = chequeRoll.getTurqChequeChequeInRolls().iterator();
 		while(it.hasNext())
@@ -288,6 +287,9 @@ public class CheBLUpdateCheque {
         
         if(rollType==EngBLCommon.CHEQUE_TRANS_IN)
         {
+        	TurqAccountingAccount rollAccount = chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount();
+            
+        	
         	TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(chequeRoll.getTurqCurrentCard(),EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
 //       TODO acc trans exRate
         	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,curAccount,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
@@ -296,6 +298,8 @@ public class CheBLUpdateCheque {
         
         else if(rollType==EngBLCommon.CHEQUE_TRANS_OUT_BANK)
         {
+        	TurqAccountingAccount rollAccount = chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount();
+        
         
         	CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
         }
@@ -314,7 +318,7 @@ public class CheBLUpdateCheque {
     	{
         	
         	CheBLSaveChequeTransaction.saveRollAccountingTransactions(null,null,chequeRoll,totalAmount,EngBLCommon.getBaseCurrencyExchangeRate());
-                   	
+                 	
     	}
         else if(rollType == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_CURRENT)
     	{

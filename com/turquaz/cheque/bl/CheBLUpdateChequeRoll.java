@@ -191,6 +191,7 @@ public class CheBLUpdateChequeRoll {
           
            CurBLCurrentTransactionAdd blCurrent = new CurBLCurrentTransactionAdd();
            BigDecimal totalAmount = new BigDecimal(0);
+           
            for(int i = 0; i<chequeList.size();i++){
                
              
@@ -256,9 +257,11 @@ public class CheBLUpdateChequeRoll {
            }
            else if(rollType==EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_BANK)
            {
-                      	
+                     
+           	CheBLUpdateCheque.updateBankTransactions(chequeRoll); 
            	CheBLSaveChequeTransaction.saveRollAccountingTransactions(null,null,chequeRoll,null,EngBLCommon.getBaseCurrencyExchangeRate());
-                        
+               	
+           	
            }
           
            

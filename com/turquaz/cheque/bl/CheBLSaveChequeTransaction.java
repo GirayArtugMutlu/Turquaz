@@ -283,7 +283,7 @@ public class CheBLSaveChequeTransaction {
             
             CheDALSave.save(chequeInRoll);
             
-            BankBLTransactionAdd.saveChequeTransaction(CheDALSearch.getBankOfCustomerCheque(cheque),seq,cheque.getChequesAmount(),rollDate,Messages.getString("CheBLSaveChequeTransaction.4")+rollNo,rollNo); //$NON-NLS-1$
+            BankBLTransactionAdd.saveChequeTransaction(CheDALSearch.getBankOfCustomerCheque(cheque),seq,cheque.getChequesAmount(),rollDate,Messages.getString("CheBLSaveChequeTransaction.4")+rollNo,rollNo,cheque.getTurqCurrencyExchangeRate()); //$NON-NLS-1$
             
             
           }
@@ -711,6 +711,7 @@ public class CheBLSaveChequeTransaction {
     	
     	else if(type == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_BANK)
     	{
+    		System.out.println("Onsel was here...");
     		Map deptAccountMap = new Hashtable();
     		Map creditAccountMap = new Hashtable();
     		CheBLUpdateChequeRoll.initializeChequeRoll(roll);
@@ -733,6 +734,7 @@ public class CheBLSaveChequeTransaction {
     			
     			if(deptAccount==null||creditAccount==null)
     			{
+    				System.out.println("BordroNo : "+roll.getChequeRollNo()+" Muhasebele?tirilemedi!!");
     				return ;
     				
     			}
@@ -776,6 +778,7 @@ public class CheBLSaveChequeTransaction {
       		
       		while(it.hasNext())
       		{
+      			
       		Integer accountId = (Integer)it.next();
       		TurqAccountingAccount account = new TurqAccountingAccount();
       		account.setId(accountId);
@@ -787,6 +790,8 @@ public class CheBLSaveChequeTransaction {
        	   	
       		transCounterRow.setCreditAmount(new BigDecimal(0));
       		transCounterRow.setDeptAmount((BigDecimal)deptAccountMap.get(accountId));    
+      		System.out.println("Onsel was here...");
+      		System.out.println((BigDecimal)deptAccountMap.get(accountId));
       		 
       		blAccTran.saveAccTransactionRow(transCounterRow,transId,exchangeRate);         
       			
@@ -799,6 +804,7 @@ public class CheBLSaveChequeTransaction {
   		
   		while(it.hasNext())
   		{
+  			System.out.println("Onsel was here...");
   		Integer accountId = (Integer)it.next();
   		TurqAccountingAccount account = new TurqAccountingAccount();
   		account.setId(accountId);
@@ -806,7 +812,7 @@ public class CheBLSaveChequeTransaction {
   		TurqAccountingTransactionColumn transCounterRow = new TurqAccountingTransactionColumn();
   		
   		transCounterRow.setTurqAccountingAccount(account);
-  		transCounterRow.setTransactionDefinition("Bankadan Bordrosu "+roll.getChequeRollNo());
+  		transCounterRow.setTransactionDefinition("Bankadan Tahsil Bordrosu "+roll.getChequeRollNo());
    	   	
   		transCounterRow.setDeptAmount(new BigDecimal(0));
   		transCounterRow.setCreditAmount((BigDecimal)creditAccountMap.get(accountId));    

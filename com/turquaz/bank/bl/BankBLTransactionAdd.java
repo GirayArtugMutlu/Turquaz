@@ -696,7 +696,7 @@ public class BankBLTransactionAdd {
     }
     public static void saveChequeTransaction(TurqBanksCard bankCard, TurqEngineSequence seq,
             BigDecimal totalAmount, Date transDate, String definition,
-            String docNo) throws Exception {
+            String docNo,TurqCurrencyExchangeRate exRate) throws Exception {
     	
         try {
            
@@ -729,6 +729,7 @@ public class BankBLTransactionAdd {
             bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
             bankTransBill.setLastModified(Calendar.getInstance().getTime());
             bankTransBill.setCreationDate(Calendar.getInstance().getTime());
+       
 
             /*
              * Transaction Rows
@@ -741,9 +742,13 @@ public class BankBLTransactionAdd {
             transRow.setLastModified(Calendar.getInstance().getTime());
             transRow.setCreationDate(Calendar.getInstance().getTime());
             transRow.setTurqBanksCard(bankCard);
+            transRow.setTurqCurrencyExchangeRate(exRate);
            
-            transRow.setDeptAmount(totalAmount);
+            transRow.setDeptAmount(totalAmount.multiply(exRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
+            transRow.setDeptAmountInForeignCurrency(totalAmount);
+            
             transRow.setCreditAmount(new BigDecimal(0));
+            transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
          
             /**
              * Save transaction bill
