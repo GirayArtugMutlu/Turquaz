@@ -45,15 +45,15 @@ public class InvUITree extends Tree {
 	public InvUITree(org.eclipse.swt.widgets.Composite comp, int style){
 		super(comp,style);
 		TreeItem root = new TreeItem(this,SWT.NULL);
-		root.setText("Stok");
+		root.setText("Inventory");
 		TreeItem item = new TreeItem(root,SWT.NULL);
-		item.setText("Stok Kartý");
+		item.setText("Inventory Card");
 		item.setData(InvUICardAdd.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Stok Hareketi");
+		item.setText("Inventory Transaction");
 		item.setData(InvUITransactionAdd.class.getName());
 		item = new TreeItem(root,SWT.NULL);
-		item.setText("Kart Arama");
+		item.setText("Inventory Search");
 		item.setData(InvUICardSearch.class.getName());
 		item = new TreeItem(root,SWT.NULL);
 		item.setText("Add Warehouse");

@@ -32,9 +32,9 @@ public class AdmUITree extends Tree {
 	public AdmUITree(Composite comp, int style){
 		super(comp,style);
 		TreeItem root = new TreeItem(this,SWT.NULL);
-		root.setText("Yönetici");
+		root.setText("Administrator");
 		TreeItem item = new TreeItem(root,SWT.NULL);
-		item.setText("Kullanýcý Ýzinleri");
+		item.setText("User Permissions");
 		item.setData(AdmUIPermPanel.class.getName());
 	}
 	

@@ -399,9 +399,9 @@
 																					<Constraint heightHint=""/>
 																					<Constraint verticalAlignment=""/>
 																					<Constraint grabExcessVerticalSpace=""/>
-																					<Constraint widthHint=""/>
-																					<Constraint horizontalSpan=""/>
 																					<Constraint grabExcessHorizontalSpace=""/>
+																					<Constraint horizontalSpan=""/>
+																					<Constraint widthHint=""/>
 																					<Constraint horizontalIndent=""/>
 																					<LayoutConstraint/>
 																				</Constraints>
@@ -429,9 +429,9 @@
 																					<Constraint heightHint=""/>
 																					<Constraint verticalAlignment=""/>
 																					<Constraint grabExcessVerticalSpace=""/>
-																					<Constraint widthHint=""/>
-																					<Constraint horizontalSpan=""/>
 																					<Constraint grabExcessHorizontalSpace=""/>
+																					<Constraint horizontalSpan=""/>
+																					<Constraint widthHint=""/>
 																					<Constraint horizontalIndent=""/>
 																					<LayoutConstraint/>
 																				</Constraints>
@@ -788,13 +788,13 @@
 																</Events>
 																<Properties>
 																	<Property name="size" type="Dimension">
-																		<Dimension value="[76, 22]"/>
+																		<Dimension value="[44, 22]"/>
 																	</Property>
 																	<Property name="preferredSize" type="Dimension">
-																		<Dimension value="[76, 22]"/>
+																		<Dimension value="[44, 22]"/>
 																	</Property>
 																	<Property name="minimumSize" type="Dimension">
-																		<Dimension value="[76, 22]"/>
+																		<Dimension value="[44, 22]"/>
 																	</Property>
 																	<Property name="text" type="String" value="coolItem3"/>
 																	<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -831,7 +831,7 @@
 																				<Properties>
 																					<Property name="enabled" type="boolean" value="true"/>
 																					<Property name="toolTipText" type="String" value="New"/>
-																					<Property name="ımage" type="Image">
+																					<Property name="image" type="Image">
 																						<Image name="\icons\new_wiz.gif"/>
 																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -848,8 +848,8 @@
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
 																					<Property name="toolTipText" type="String" value="Save"/>
-																					<Property name="ımage" type="Image">
-																						<Image name="\icons\save_edit.gif"/>
+																					<Property name="image" type="Image">
+																						<Image name="\icons\save.gif"/>
 																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -865,7 +865,7 @@
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
 																					<Property name="toolTipText" type="String" value="Delete"/>
-																					<Property name="ımage" type="Image">
+																					<Property name="image" type="Image">
 																						<Image name="\icons\delete_edit.gif"/>
 																					</Property>
 																					<Property name="externalizeStrings" type="boolean" value="false"/>
@@ -882,7 +882,7 @@
 																				<Properties>
 																					<Property name="text" type="String" value=""/>
 																					<Property name="toolTipText" type="String" value="Search"/>
-																					<Property name="ımage" type="Image">
+																					<Property name="image" type="Image">
 																						<Image name="\icons\run_exec.gif"/>
 																					</Property>
 																					<Property name="selection" type="boolean" value="true"/>
@@ -899,8 +899,8 @@
 													<Component class="org.eclipse.swt.custom.CTabFolder" name="tabfldMain" style="2056">
 														<Constraints>
 															<Constraint right=""/>
-															<Constraint top=""/>
 															<Constraint width=""/>
+															<Constraint top=""/>
 															<Constraint height=""/>
 															<Constraint left="null"/>
 															<Constraint class="org.eclipse.swt.layout.GridData"/>
