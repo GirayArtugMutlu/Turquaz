@@ -40,5 +40,28 @@ public class CashBLCashTransactionSearch {
            throw ex;
        }
    }
+   public static List getTransactions(TurqCashCard cashCard, Date startDate, Date endDate)throws Exception{
+       try{
+           
+           return CashDALCashCard.getTransactions(cashCard,startDate,endDate);
+           
+       }
+       catch(Exception ex){
+           throw ex;
+       }
+   }
+  // Devreden
+   public static List getDeferredTotal(TurqCashCard cashCard,Date endDate)throws Exception 
+   {
+       try
+       {
+           return CashDALCashCard.getDeferredTotal(cashCard,endDate);
+       }
+       catch(Exception ex)
+       {
+           throw ex;
+       }
+       
+   }
 
 }

@@ -1,15 +1,24 @@
 package com.turquaz.cash.ui;
 
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+
 import org.eclipse.swt.layout.GridLayout;
 
 import com.turquaz.cash.Messages;
+import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cash.ui.comp.CashCardPicker;
+import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
+
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CLabel;
@@ -126,7 +135,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
                 {
                     tableColumnDate = new TableColumn(tableCashTrans, SWT.NONE);
                     tableColumnDate.setText(Messages.getString("CashUICashCardAbstract.3")); //$NON-NLS-1$
-                    tableColumnDate.setWidth(59);
+                    tableColumnDate.setWidth(67);
                 }
                 {
                     tableColumnCashCode = new TableColumn(
@@ -188,8 +197,106 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
      
      if(verifyFields())
      {
+     try{
+        
+      TurkishCurrencyFormat cf = new TurkishCurrencyFormat();   
+      TableItem item = new TableItem(tableCashTrans,SWT.NULL);   
+      
+      BigDecimal total_dept=new BigDecimal(0);
+      BigDecimal total_credit = new BigDecimal(0);
+      BigDecimal deferred_dept = new BigDecimal(0);
+      BigDecimal deferred_credit = new BigDecimal(0);
+      
+      List deferred = CashBLCashTransactionSearch.getDeferredTotal((TurqCashCard)cashCardPicker.getData(),datePicker.getDate());
+      
+      if(deferred.size()!=0){
+          
+          Object[] amounts = (Object[])deferred.get(0);          
+          item.setText(new String[]{
+                  "","","DEVREDEN",cf.format(amounts[0]),cf.format(amounts[1])
+          			});
+          deferred_dept = deferred_dept.add((BigDecimal)amounts[0]);
+          deferred_credit = deferred_credit.add((BigDecimal)amounts[1]);
+          
+      }
+      else
+      {
+          item.setText(new String[]{
+                  "","","---DEVREDEN---",cf.format(0),cf.format(0)
+          			});
+      }
+         
+       List ls = CashBLCashTransactionSearch.getTransactions((TurqCashCard)cashCardPicker.getData(),datePicker.getDate(),datePickerEndDate.getDate());
      
-        //TODO 
+   
+       BigDecimal credit;
+       BigDecimal dept;
+       for(int i =0; i<ls.size();i++)
+       {
+           credit = new BigDecimal(0);
+           dept = new BigDecimal(0);
+           
+
+           Object results[] = (Object[])ls.get(i);
+           if(results[3]!=null)
+           {
+              dept = (BigDecimal)results[3]; 
+           }
+           
+           if(results[4]!=null){
+               credit = (BigDecimal)results[4];
+           }
+           
+           item = new TableItem(tableCashTrans,SWT.NULL);
+           item.setText(new String[]{
+                   		DatePicker.formatter.format((Date)results[0]),
+                   		results[1].toString(),
+                   		results[2].toString(),
+                   		cf.format(dept),
+                   		cf.format(credit),
+           				});
+           
+           total_dept = total_dept.add(dept);
+           total_credit = total_credit.add(credit);
+           
+           
+           
+       }
+       
+       item=new TableItem(tableCashTrans,SWT.NULL);
+       item=new TableItem(tableCashTrans,SWT.NULL);
+       item.setText(new String[]{
+                     "",
+                     "",
+                     "---KASA YEKÜNÜ---",
+                     cf.format(total_dept),
+                     cf.format(total_credit)
+                      });
+       
+       item=new TableItem(tableCashTrans,SWT.NULL);  
+       item.setText(new String[]{
+               "",
+               "",
+               "---DEVREDEN---",
+               cf.format(deferred_dept),
+               cf.format(deferred_credit)
+                });
+       item=new TableItem(tableCashTrans,SWT.NULL);  
+       item.setText(new String[]{
+               "",
+               "",
+               "---TOPLAM---",
+               cf.format(deferred_dept.add(total_dept)),
+               cf.format(deferred_credit.add(total_credit))
+                });
+       
+     
+     
+     
+     }
+     catch(Exception ex){
+         ex.printStackTrace();
+     }
          
      }
 
