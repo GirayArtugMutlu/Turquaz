@@ -89,7 +89,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[625, 404]"/>
+										<Dimension value="[641, 404]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -367,7 +367,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[625, 404]"/>
+										<Dimension value="[641, 404]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -1198,7 +1198,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[625, 404]"/>
+										<Dimension value="[641, 404]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -1448,7 +1448,7 @@
 												<Dimension value="[61, 25]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[559, 217, 61, 25]"/>
+												<Rectangle value="[575, 217, 61, 25]"/>
 											</Property>
 										</Properties>
 									</Component>

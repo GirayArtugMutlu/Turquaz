@@ -348,7 +348,7 @@ public class InvUICardAdd extends SecureComposite {
 			tabInvCardGeneral.setControl(compInvCardGeneral);
 			tabInvCardGeneral.setText("General Information");
 	
-			compInvCardGeneral.setSize(new org.eclipse.swt.graphics.Point(625,404));
+			compInvCardGeneral.setSize(new org.eclipse.swt.graphics.Point(641,404));
 	
 			GridData lblInvCardNameLData = new GridData();
 			lblInvCardNameLData.verticalAlignment = GridData.CENTER;
@@ -493,7 +493,7 @@ public class InvUICardAdd extends SecureComposite {
 			tabInvCardDetails.setControl(compInvCardDetails);
 			tabInvCardDetails.setText("Details");
 	
-			compInvCardDetails.setSize(new org.eclipse.swt.graphics.Point(625,404));
+			compInvCardDetails.setSize(new org.eclipse.swt.graphics.Point(641,404));
 	
 			GridData lblInvCardMinLData = new GridData();
 			lblInvCardMinLData.verticalAlignment = GridData.CENTER;
@@ -954,7 +954,7 @@ public class InvUICardAdd extends SecureComposite {
 			tabInvCardPrices.setControl(compInvCardPrices);
 			tabInvCardPrices.setText("Prices");
 	
-			compInvCardPrices.setSize(new org.eclipse.swt.graphics.Point(625,404));
+			compInvCardPrices.setSize(new org.eclipse.swt.graphics.Point(641,404));
 	
 			GridData compInvCardPricesTableLData = new GridData();
 			compInvCardPricesTableLData.verticalAlignment = GridData.CENTER;
@@ -1535,13 +1535,26 @@ decimalSymbol + "][0-9]+)?"); //$NON-NLS-1$
 		
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 		//If inventory name is not given
-		if (txtInvCardName.getText().trim().equals("")) { //$NON-NLS-1$
-		
-		msg.setMessage(Messages.getString("InvUICardAdd.49")); //$NON-NLS-1$
-		msg.open();
-		return false;
+		if (txtInvCardName.getText().trim().equals("")) { 		
+			msg.setMessage("Please Fill Inventory Name!"); 
+			msg.open();
+			return false;
 		}
-		
+		else if (txtInvCardCode.getText().trim().equals("")) { 		
+			msg.setMessage("Please Fill Inventory Code!"); 
+			msg.open();
+			return false;
+		}
+		else if (txtInvCardInAcc.getData()==null) { 		
+			msg.setMessage("Please Select In Accounting Code in Details"); 
+			msg.open();
+			return false;
+		}
+		else if (txtInvCardOutAcc.getData()==null) { 		
+			msg.setMessage("Please Select In Accounting Code in Details"); 
+			msg.open();
+			return false;
+		}
 		return true;
 	}
 
