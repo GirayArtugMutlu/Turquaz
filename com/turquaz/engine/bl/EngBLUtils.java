@@ -10,15 +10,20 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
 import com.turquaz.engine.Messages;
+import com.turquaz.engine.dal.TurqBill;
+import com.turquaz.engine.dal.TurqConsignment;
+import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SWTPTable;
 
 import de.kupzog.ktools.kprint.boxes.PBox;
 import de.kupzog.ktools.kprint.boxes.PDocument;
 import de.kupzog.ktools.kprint.boxes.PHLine;
+import de.kupzog.ktools.kprint.boxes.PHSpace;
 import de.kupzog.ktools.kprint.boxes.PTableBoxProvider;
 import de.kupzog.ktools.kprint.boxes.PTextBox;
 import de.kupzog.ktools.kprint.boxes.PTextStyle;
@@ -192,6 +197,96 @@ public class EngBLUtils {
 		PrintPreview pr = new PrintPreview(null, title, IconSource.getImage("print"), doc); //$NON-NLS-1$
 		pr.open();
 		
+	}
+	
+	public static void printBill(TurqBill bill,Shell parent){
+	    
+	    PDocument doc = new PDocument("Turquaz Printing");
+	    new PVSpace(doc,8);
+	    PTextBox t;
+	    
+	    int style_below = PBox.POS_BELOW | PBox.ROW_ALIGN;
+	    int style_right = PBox.POS_RIGHT | PBox.ROW_ALIGN;
+	    int style_grab_right =PBox.GRAB|PBox.POS_RIGHT;
+	    
+	    new PHSpace(doc,style_below,3);
+	    t = new PTextBox(doc,style_right,0,5);
+	    
+	    t.setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName()); 
+	    t.getTextStyle().fontSize = 10;
+	    
+	    
+	    t = new PTextBox(doc,style_grab_right);
+	    
+	    t.setText(DatePicker.formatter.format(bill.getBillsDate())); 
+	    t.getTextStyle().fontSize = 10;
+	    t.getTextStyle().fontStyle = SWT.BOLD;
+	    t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;	    
+	    
+	    
+	    TurqConsignment cons = (TurqConsignment)bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator().next();
+	    
+	    new PVSpace(doc,0.2);    
+	    
+	    t = new PTextBox(doc,style_grab_right);
+	    
+	    t.setText(DatePicker.formatter.format(cons.getConsignmentsDate())); 
+	    t.getTextStyle().fontSize = 10;
+	    t.getTextStyle().fontStyle = SWT.BOLD;
+	    t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;	
+	    
+	    
+	    new PHSpace(doc,style_below,3);   
+	    
+	    
+	    t = new PTextBox(doc,style_right,0,5);
+	    
+	    t.setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsAddress()); 
+	    t.getTextStyle().fontSize = 10;
+	    
+	    new PVSpace(doc,0.08);  
+	    
+	    t = new PTextBox(doc,style_grab_right);
+	    
+	    t.setText(bill.getTurqBillConsignmentCommon().getConsignmentDocumentNo()); 
+	    t.getTextStyle().fontSize = 10;
+	    t.getTextStyle().fontStyle = SWT.BOLD;
+	    t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;	
+	    
+	   
+	    new PVSpace(doc,0.1);
+	    
+	    new PHSpace(doc,style_below,3);
+	    
+	    t = new PTextBox(doc,style_right,0,5);
+	    
+	    t.setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsTaxDepartment()+" "
+	             +bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsTaxNumber() ); 
+	    t.getTextStyle().fontSize = 8;
+	    
+	   
+	    t = new PTextBox(doc,style_grab_right);
+	    
+	    t.setText(bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode()); 
+	    t.getTextStyle().fontSize = 10;
+	    t.getTextStyle().fontStyle = SWT.BOLD;
+	    t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;	
+	    
+	    new PVSpace(doc,8);
+	        
+	    t = new PTextBox(doc,style_grab_right);
+	    
+	    t.setText(bill.getTurqBillConsignmentCommon().getTotalAmount().toString()); 
+	    t.getTextStyle().fontSize = 10;
+	    t.getTextStyle().fontStyle = SWT.BOLD;
+	    t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
+	    
+	    
+	    
+	    
+	    PrintPreview pr = new PrintPreview(parent, "", IconSource.getImage("print"), doc); //$NON-NLS-1$
+		pr.open();    
+	
 	}
 
 }

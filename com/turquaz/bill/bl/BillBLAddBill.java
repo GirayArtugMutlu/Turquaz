@@ -33,7 +33,7 @@ public class BillBLAddBill {
 	public BillBLAddBill(){
 		
 	}
-	public Integer saveBill(String docNo, String definition, boolean isPrinted,
+	public TurqBill saveBill(String docNo, String definition, boolean isPrinted,
 			                Date billsDate,  TurqConsignment cons,
 								   int type, boolean isOpen, Object currentAccount)throws Exception {
 		try{			
@@ -70,7 +70,7 @@ public class BillBLAddBill {
 			saveCurrentTransaction(bill);
 			saveAccountingTransaction(bill,currentAccount);
 			
-			return bill.getBillsId();
+			return bill;
 			
 		}
 		catch(Exception ex){

@@ -8,6 +8,7 @@ import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.bl.EngBLPermissions;
+import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqConsignment;
@@ -50,6 +51,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
 	private CoolItem coolItem1;
 	private ToolItem toolUpdate;
+	private ToolItem toolPrint;
 	private ToolItem toolCancel;
 	private BillUIAddBill compAddBill;
 	private ToolItem toolDelete;
@@ -133,6 +135,19 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 								}
 								});
 						}
+                        {
+                            toolPrint = new ToolItem(toolBar1, SWT.NONE);
+                            toolPrint.setText("Yazd?r");
+                            toolPrint.setImage(SWTResourceManager.getImage("gfx/print.gif"));
+                            toolPrint
+                                .addSelectionListener(new SelectionAdapter() {
+                                public void widgetSelected(SelectionEvent evt) {
+                                
+                                    EngBLUtils.printBill(bill,getParent());
+                                
+                                }
+                                });
+                        }
                     }
                 }
             }

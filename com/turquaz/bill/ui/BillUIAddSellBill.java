@@ -70,6 +70,8 @@ import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
+import com.turquaz.engine.bl.EngBLUtils;
+import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
@@ -1450,6 +1452,7 @@ public class BillUIAddSellBill extends Composite
 
 	public void save() {
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+		MessageBox msg2 = new MessageBox(this.getShell(),SWT.YES|SWT.NO);
 		try {
 			if (verifyFields()) {
 
@@ -1463,14 +1466,25 @@ public class BillUIAddSellBill extends Composite
 				Boolean paymentType = (Boolean) comboPaymentType
 						.getData(comboPaymentType.getText());
 
-				Integer billId = blAddBill.saveBill(txtDocumentNo.getText(),
+				TurqBill bill = blAddBill.saveBill(txtDocumentNo.getText(),
 						txtDefinition.getText(), false, dateConsignmentDate
 								.getDate(), cons, type, !paymentType
 								.booleanValue(),
 								paymentType.booleanValue() ? accountPickerCurAcc.getData():null);
-				saveGroups(billId);
+				saveGroups(bill.getBillsId());
 				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				msg.open();
+				msg2.setMessage("Faturay? Yazdirmak ?ster misiniz?");
+				int answer = msg2.open();
+				
+				if(answer == SWT.YES)
+				{
+				    EngBLUtils.printBill(bill,getShell());
+				    
+				}
+				
+				
+				
 				newForm();
 			}
 		} catch (Exception ex) {

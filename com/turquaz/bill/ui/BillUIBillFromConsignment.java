@@ -989,8 +989,7 @@ implements SecureComposite{
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 	try{	
 		if(verifyFields()){
-			TurqBill bill = new TurqBill();
-			bill.setBillsId(new Integer(-1));
+			
 	        int type =0;
 		if(comboConsignmentType.getText().equals(Messages.getString("BillUIBillFromConsignment.33"))){ //$NON-NLS-1$
 			type =1;
@@ -999,7 +998,7 @@ implements SecureComposite{
 	     
 	     Boolean paymentType = (Boolean)comboPaymentType.getData(comboPaymentType.getText());
 	     
-		Integer consID =blAddBill.saveBill(txtDocumentNo.getText(),
+		TurqBill bill =blAddBill.saveBill(txtDocumentNo.getText(),
 										txtDefinition.getText(),
 										false,
 										dateBillDate.getDate(),
@@ -1008,7 +1007,7 @@ implements SecureComposite{
 										!paymentType.booleanValue(),
 										paymentType.booleanValue() ? accountPickerCurAcc.getData() : null);
 		
-		saveGroups(consID);
+		saveGroups(bill.getBillsId());
 		msg.setMessage(Messages.getString("BillUIBillFromConsignment.34")); //$NON-NLS-1$
 		msg.open();
 		newForm();
