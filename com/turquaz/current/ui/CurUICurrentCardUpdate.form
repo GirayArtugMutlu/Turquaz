@@ -82,6 +82,7 @@
 											<LayoutConstraint/>
 										</Constraints>
 										<Events>
+											<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolUpdateWidgetSelected"/>
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Update"/>

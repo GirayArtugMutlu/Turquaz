@@ -19,6 +19,8 @@ import org.eclipse.swt.widgets.Composite;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import org.eclipse.swt.layout.GridData;
+
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentCardsGroup;
 import com.turquaz.engine.dal.TurqCurrentCardsPhone;
@@ -132,6 +134,11 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			toolUpdate.setText("Update");
 			final org.eclipse.swt.graphics.Image toolUpdateimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
 			toolUpdate.setImage(toolUpdateimage);
+			toolUpdate.addSelectionListener( new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					toolUpdateWidgetSelected(evt);
+				}
+			});
 	
 			toolDelete.setText("Delete");
 			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
@@ -252,21 +259,15 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			compCurCardAdd.getDecTxtDiscountAmount().setText(currentCard.getCardsDiscountPayment().toString());
 			compCurCardAdd.getTxtCardAddress().setText(currentCard.getCardsAddress());
 			
-			//Hibernate.initialize(currentCard.getTurqCurrentContacts());
-			Iterator it=currentCard.getTurqCurrentContacts().iterator();
-			Integer currentCardId=currentCard.getCurrentCardsId();
 			
-			while(it.hasNext()){
-				TurqCurrentContact currentContact=(TurqCurrentContact)it.next();				
-				if (currentContact.getTurqCurrentCard().getCurrentCardsId()==currentCardId)
-				{
-					compCurCardAdd.getTxtContactPhone().setText(currentContact.getContactsPhone1());
-					compCurCardAdd.getTxtContactPhone2().setText(currentContact.getContactsPhone2());
-					curContact=currentContact;
-					break;
-				}			
-			}		
-			if (curContact != null){
+			
+			/************************************************************/
+			Iterator it=currentCard.getTurqCurrentContacts().iterator();
+		
+			
+			if(it.hasNext()){
+				System.out.println("Filling Contact Information");
+				TurqCurrentContact curContact=(TurqCurrentContact)it.next();				
 				compCurCardAdd.getTxtContactWebSite().setText(curContact.getContactsWebSite());
 				compCurCardAdd.getTxtContactName().setText(curContact.getContactsName());
 				compCurCardAdd.getTxtContactAddress().setText(curContact.getContactAddress());
@@ -276,6 +277,8 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 				compCurCardAdd.getTxtContactPhone2().setText(curContact.getContactsPhone2());
 			}
 			
+			
+			/***************************************************/
 			it=currentCard.getTurqCurrentCardsPhones().iterator();
 			int phones=0;
 			while(it.hasNext()){
@@ -297,9 +300,11 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			
 			compCurCardAdd.getAccPickerCustomer().setData(currentCard.getTurqAccountingAccountByAccountingCodeIdCustomer());
 			compCurCardAdd.getAccPickerSupplierAccCode().setData(currentCard.getTurqAccountingAccountByAccountingCodeIdSupplier());
-	       
-	       
+	        
+	        
+	        fillCurrentGroups();     
 	        fillCurrentBalances();
+	     
 			
 		}
 		catch(Exception ex){
@@ -312,6 +317,21 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 		
 		
 	}
+	
+	public void fillCurrentGroups(){
+	Iterator it=currentCard.getTurqCurrentCardsGroups().iterator();
+	while(it.hasNext()){
+	
+	TurqCurrentCardsGroup cardsGroup = (TurqCurrentCardsGroup)it.next();	
+    compCurCardAdd.getCompRegisterGroup().RegisterGroup(cardsGroup.getTurqCurrentGroup());
+	
+	}
+	
+	
+	
+	
+	}
+	
 	
 	public void fillCurrentBalances()throws Exception{
 	try{
@@ -379,26 +399,100 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 
 	/** Auto-generated event handler method */
 	protected void toolDeleteWidgetSelected(SelectionEvent evt){
-		//TODO add your handler code here
+		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+		MessageBox msg2 = new MessageBox(this.getParent(),SWT.OK|SWT.CANCEL);
 		try{
-			if (curContact!=null){
-				currentUpdate.deleteObject(curContact);
-			}
-			Iterator it=currentCard.getTurqCurrentCardsGroups().iterator();
-			while(it.hasNext()){
-				TurqCurrentCardsGroup currentGroup=(TurqCurrentCardsGroup)it.next();
-				currentUpdate.deleteObject(currentGroup);
-			}
-			currentUpdate.deleteObject(currentCard);
-			this.dialogShell.close();
+		 msg2.setMessage("Really delete Current Card?");
+	    int result = msg2.open();
+	    
+	    if(result==SWT.OK){	 
 			
+			deleteRelations();
+			
+			currentUpdate.deleteObject(currentCard);
+			
+			 msg.setMessage("Succesfully Deleted!");
+			 msg.open();
+			
+			this.dialogShell.close();
+		 }
+		
 		
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
-			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
 			msg.setMessage(ex.getMessage());
 			msg.open();
 		}
+	}
+	
+	//Delete card Phones
+	//Delete Contacts
+	//Delete registered group relations
+	public void deleteRelations()throws Exception{
+	try{
+	
+	 Iterator it=currentCard.getTurqCurrentCardsGroups().iterator();
+	 while(it.hasNext()){
+				TurqCurrentCardsGroup currentGroup=(TurqCurrentCardsGroup)it.next();
+				currentUpdate.deleteObject(currentGroup);
+			}
+			 it=currentCard.getTurqCurrentCardsPhones().iterator();
+			while(it.hasNext()){
+				
+				currentUpdate.deleteObject(it.next());
+			}
+	
+			it=currentCard.getTurqCurrentContacts().iterator();
+			while(it.hasNext()){
+				
+				currentUpdate.deleteObject(it.next());
+			}
+	}
+	catch(Exception ex ){
+	throw ex;
+	}
+	
+	}
+
+	/** Auto-generated event handler method */
+	protected void toolUpdateWidgetSelected(SelectionEvent evt){
+		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+		try{
+			
+		if(compCurCardAdd.verifyFields()){	
+		
+		currentUpdate.updateCurrentCard(compCurCardAdd.getTxtCurrentCode().getText().trim(),
+				compCurCardAdd.getTxtCurrentName().getText().trim(),
+				compCurCardAdd.getTxtCardDefinition().getText().trim(),
+				compCurCardAdd.getTxtCardAddress().getText().trim(),
+				new BigDecimal(compCurCardAdd.getNumTextDiscountRate().getIntValue()),
+				compCurCardAdd.getDecTxtDiscountAmount().getBigDecimalValue(),
+				compCurCardAdd.getDecTxtCreditLimit().getBigDecimalValue(),
+				compCurCardAdd.getDecTxtRiskLimit().getBigDecimalValue(),
+				compCurCardAdd.getTxtTaxDepartmant().getText().trim(),
+				compCurCardAdd.getTxtTaxNumber().getText().trim(),
+				(TurqAccountingAccount)compCurCardAdd.getAccPickerCustomer().getData(),
+				(TurqAccountingAccount)compCurCardAdd.getAccPickerSupplierAccCode().getData(),
+				currentCard);	
+				
+		deleteRelations();
+		compCurCardAdd.saveContact(currentCard.getCurrentCardsId());
+		compCurCardAdd.savePhones(currentCard.getCurrentCardsId());
+		compCurCardAdd.saveGroups(currentCard.getCurrentCardsId());
+		
+		 msg.setMessage("Succesfully Updated!");
+		 msg.open();
+			
+		this.dialogShell.close();
+		}
+		}
+		catch(Exception ex){
+		ex.printStackTrace();
+		
+		}
+		
+		
+		
 	}
 }

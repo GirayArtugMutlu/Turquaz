@@ -1408,4 +1408,16 @@ public class CurUICurrentCardAdd extends SecureComposite {
 		new CurUIGroupAddDialog(this.getShell(),SWT.NULL).open();
 		fillGroups();
 	}
+	/**
+	 * @return Returns the compRegisterGroup.
+	 */
+	public RegisterGroupComposite getCompRegisterGroup() {
+		return compRegisterGroup;
+	}
+	/**
+	 * @param compRegisterGroup The compRegisterGroup to set.
+	 */
+	public void setCompRegisterGroup(RegisterGroupComposite compRegisterGroup) {
+		this.compRegisterGroup = compRegisterGroup;
+	}
 }
