@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.tx.EngTXCommon;
 
 public class AccUIAccountsTree
 {
@@ -40,7 +41,11 @@ public class AccUIAccountsTree
 		try
 		{
 			TreeItem item;
-			List mainBranches = AccBLAccountAdd.getAccount(parent, codeCrit);
+			Object args[] = new Object[2];
+			args[0]=new Integer(parent);
+			args[1]=codeCrit;
+			List mainBranches = (List)EngTXCommon.searchTX(AccBLAccountAdd.class.getName(),"getAccount",args);
+			
 			TurqAccountingAccount account;
 			for (int i = 0; i < mainBranches.size(); i++)
 			{
@@ -66,7 +71,11 @@ public class AccUIAccountsTree
 		try
 		{
 			TreeItem item;
-			List mainBranches = AccBLAccountAdd.getAccount(parent_id, codeCriteria);
+			Object args[] = new Object[2];
+			args[0]=new Integer(parent_id);
+			args[1]=codeCriteria;
+			List mainBranches = (List)EngTXCommon.searchTX(AccBLAccountAdd.class.getName(),"getAccount",args);
+			
 			TurqAccountingAccount account;
 			for (int i = 0; i < mainBranches.size(); i++)
 			{

@@ -32,13 +32,13 @@ public class AccBLAccountUpdate
 	{
 	}
 
-	public static void updateAccount(TurqAccountingAccount account, String accountName, String accountCode, Object parent)
+	public static void updateAccount(TurqAccountingAccount account, String accountName, String accountCode, TurqAccountingAccount parent)
 			throws Exception
 	{
 		try
 		{
 			String accCode = account.getAccountCode();
-			TurqAccountingAccount parentAccount = (TurqAccountingAccount) parent;
+			TurqAccountingAccount parentAccount = parent;
 			account.setAccountName(accountName);
 			account.setAccountCode(accountCode);
 			account.setUpdatedBy(System.getProperty("user"));

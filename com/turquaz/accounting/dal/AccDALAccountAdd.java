@@ -198,7 +198,7 @@ public class AccDALAccountAdd
 					+ " and accounts.accountCode like '100%'" + " order by accounts.accountCode";
 			Query q = session.createQuery(query);
 			List list = q.list();
-			session.close();
+			
 			return list;
 		}
 		catch (Exception ex)

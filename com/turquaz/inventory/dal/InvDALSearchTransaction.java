@@ -295,13 +295,7 @@ public class InvDALSearchTransaction
 		{
 			throw ex;
 		}
-		finally
-		{
-			if (session != null)
-			{
-				session.close();
-			}
-		}
+		
 	}
 
 	public static List getInitialTransactions() throws Exception
@@ -342,12 +336,6 @@ public class InvDALSearchTransaction
 		{
 			throw ex;
 		}
-		finally
-		{
-			if (session != null)
-			{
-				session.close();
-			}
-		}
+		
 	}
 }

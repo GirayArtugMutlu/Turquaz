@@ -174,7 +174,7 @@ public class BankDALCommon
 			q.setParameter("endDate", endDate);
 			q.setParameter("cashCard", cashCard);
 			List ls = q.list();
-			session.close();
+			
 			return ls;
 		}
 		catch (Exception ex)
@@ -192,7 +192,6 @@ public class BankDALCommon
 					+ " where bankTrans.turqBanksTransactionBill.turqBanksTransactionType.id =" + EngBLCommon.BANK_TRANS_INITIAL;
 			Query q = session.createQuery(query);
 			List ls = q.list();
-			session.close();
 			return ls;
 		}
 		catch (Exception ex)

@@ -172,7 +172,7 @@ public class CashDALCashCard
 			if (it.hasNext())
 			{
 				TurqCurrentTransaction curTrans = (TurqCurrentTransaction) it.next();
-				session.close();
+			
 				return curTrans.getTurqCurrentCard();
 			}
 			

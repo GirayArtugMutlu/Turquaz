@@ -31,11 +31,11 @@ public class AccBLAccountAdd
 	{
 	}
 
-	public static List getAccount(int parentid, String codeCrit) throws Exception
+	public static List getAccount(Integer parentid, String codeCrit) throws Exception
 	{
 		try
 		{
-			return AccDALAccountAdd.getAccounts(parentid, codeCrit);
+			return AccDALAccountAdd.getAccounts(parentid.intValue(), codeCrit);
 		}
 		catch (Exception ex)
 		{
