@@ -9,6 +9,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.current.Messages;
+import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -186,7 +187,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	    		while(accIt.hasNext())
 	    		{
 	    			TurqAccountingTransactionColumn accRow = (TurqAccountingTransactionColumn)accIt.next();
-	    			if(!accRow.getTurqAccountingAccount().equals(curTrans.getTurqCurrentCard().getTurqAccountingAccount()))
+	    			if(!accRow.getTurqAccountingAccount().equals(CurBLCurrentCardSearch.getCurrentAccountingAccount(curTrans.getTurqCurrentCard(),EngBLCommon.CURRENT_ACC_TYPE_GENERAL)))
 	    			{
 	    				compVoucher.getAccountPicker().setText(accRow.getTurqAccountingAccount().getAccountCode());
 	    				

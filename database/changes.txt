@@ -383,5 +383,68 @@ INSERT INTO turq_module_components VALUES (80, 9, 'com.turquaz.cheque.ui.CheUICh
 **********************************************************************
 
 
+*********************24-02-2005***************************************
+-------------- Current Accounting Tables -----------------------------
+
+CREATE TABLE turq_current_accounting_types
+(
+  current_accouting_types_id int4 NOT NULL,
+  type_name varchar(100) NOT NULL,
+  definition varchar(100) NOT NULL
+) 
+WITHOUT OIDS;
+
+INSERT INTO turq_current_accounting_types VALUES (0, 'Cari Muhasebe Hesabi', ' ');
+INSERT INTO turq_current_accounting_types VALUES (1, 'Alinan Cekler Muhasebe Hesabi', ' ');
+INSERT INTO turq_current_accounting_types VALUES (2, 'Verilen Cekler Muhasebe Hesabi', ' ');
+
+
+CREATE TABLE turq_current_accounting_accounts
+(
+  current_accounting_accounts_id int4 NOT NULL,
+  current_cards_id int4 NOT NULL,
+  accounting_accounts_id int4 NOT NULL,
+  current_accounting_types_id int4 NOT NULL,
+  created_by varchar(50) NOT NULL,
+  creation_date date NOT NULL,
+  updated_by varchar(50) NOT NULL,
+  last_modified date NOT NULL,
+  CONSTRAINT turq_current_accounting_accounts_pkey PRIMARY KEY (current_accounting_accounts_id),
+  CONSTRAINT "curAcc1" FOREIGN KEY (accounting_accounts_id) REFERENCES turq_accounting_accounts (accounting_accounts_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT "curAcc2" FOREIGN KEY (current_accounting_types_id) REFERENCES turq_current_accounting_types (current_accouting_types_id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT "curAcc3" FOREIGN KEY (current_cards_id) REFERENCES turq_current_cards (current_cards_id) ON UPDATE RESTRICT ON DELETE RESTRICT
+) 
+WITHOUT OIDS;
+
+!!!!!!!!!!!!!!!!IMPORTANTT!!!!!!!!!!!!!!!!
+In the preferences section of program,  export current card data to new Tables.. 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+----After you finished the above action continue with below---
+
+ALTER TABLE turq_current_cards DROP COLUMN accounting_code_id;
+
+---- Foreign Currency Support For current transactions --------
+
+ALTER TABLE turq_current_transactions
+   ADD COLUMN total_credit_in_foreign_currency numeric;
+ALTER TABLE turq_current_transactions
+   ADD COLUMN total_dept_in_foreign_currency numeric;
+ALTER TABLE turq_current_transactions
+   ADD COLUMN total_discount_in_foreign_currency numeric;
+
+update turq_current_transactions set total_dept_in_foreign_currency = transactions_total_dept,
+ total_credit_in_foreign_currency = transactions_total_credit, total_discount_in_foreign_currency = transactions_total_discount;
+
+ALTER TABLE turq_current_transactions
+   ALTER COLUMN total_credit_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_current_transactions
+   ALTER COLUMN total_dept_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_current_transactions
+   ALTER COLUMN total_discount_in_foreign_currency SET NOT NULL;
+   
+   
+   
+
 
 

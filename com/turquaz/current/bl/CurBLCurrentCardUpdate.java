@@ -22,10 +22,11 @@ package com.turquaz.current.bl;
 */
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.turquaz.current.dal.CurDALCurrentCardUpdate;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentCardsGroup;
@@ -47,7 +48,7 @@ public class CurBLCurrentCardUpdate {
 			String cardAddress, BigDecimal cardDiscountRate,
 			BigDecimal cardDiscountPayment,	BigDecimal cardCreditLimit,
 			BigDecimal cardRiskLimit, String cardTaxDepartment,
-			String cardTaxNumber, TurqAccountingAccount accCode,int daysToValue, TurqCurrentCard currentCard) throws Exception {
+			String cardTaxNumber, Map AccountingAccounts,int daysToValue, TurqCurrentCard currentCard) throws Exception {
 		try{
 		    
 			currentCard.setCardsCurrentCode(currentCode);
@@ -61,16 +62,34 @@ public class CurBLCurrentCardUpdate {
 			currentCard.setCardsRiskLimit(cardRiskLimit);
 			currentCard.setCardsTaxDepartment(cardTaxDepartment);
 			currentCard.setCardsTaxNumber(cardTaxNumber);
-			currentCard.setTurqAccountingAccount(accCode);
+			
+			
 			currentCard.setUpdatedBy(System.getProperty("user"));
 			currentCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			currentUpdate.updateObject(currentCard);	
+			
+			updateAccounts(currentCard,AccountingAccounts);
+			currentUpdate.updateObject(currentCard);
+			
 	
 		}
 		catch(Exception ex){
 			throw ex;
 		}
 	}
+	
+	
+	public void updateAccounts(TurqCurrentCard curCard, Map accounts)throws Exception{
+		
+		Iterator it = curCard.getTurqCurrentAccountingAccounts().iterator();
+		currentUpdate.deleteObject(it.next());
+		
+		new CurBLCurrentCardAdd().saveCurrentAccountingAccounts(curCard,accounts);
+		
+		
+		
+		
+	}
+	
 	
 	public void saveCardPhone(int countryCode, int cityCode, int phoneNumber, Integer curCard)
 	throws Exception{

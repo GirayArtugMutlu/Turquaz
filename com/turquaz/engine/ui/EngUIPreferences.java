@@ -44,6 +44,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
 	private Composite composite1;
 	private CCombo cCombo;
+	private Button btnCurrentCards;
 	private Button btnUpdateBills;
 	private CLabel lblBillFormat;
 	private DatePicker datePicker;
@@ -140,7 +141,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
                 }
 				//START >>  btnUpdateBills
 				btnUpdateBills = new Button(composite1, SWT.PUSH | SWT.CENTER);
-				btnUpdateBills.setText("Fatura Muhasebele\u015ftir");
+				btnUpdateBills.setText(Messages.getString("EngUIPreferences.3")); //$NON-NLS-1$
 				btnUpdateBills.setVisible(true);
 				btnUpdateBills.addMouseListener(new MouseAdapter() {
 					public void mouseUp(MouseEvent evt) {
@@ -151,6 +152,25 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 					}
 				});
 				//END <<  btnUpdateBills
+				//START >>  btnCurrentCards
+				btnCurrentCards = new Button(composite1, SWT.PUSH | SWT.CENTER);
+				btnCurrentCards
+					.setText(Messages.getString("EngUIPreferences.6")); //$NON-NLS-1$
+				btnCurrentCards.addMouseListener(new MouseAdapter() {
+					public void mouseUp(MouseEvent evt) {
+						try{
+							
+						if(	EngUICommon.okToDelete(getParent(),Messages.getString("EngUIPreferences.7"))) //$NON-NLS-1$
+						{
+							EngBLCommon.exportCurrentCardAccs();
+						}	
+						}
+						catch(Exception ex){
+							ex.printStackTrace();
+						}
+					}
+				});
+				//END <<  btnCurrentCards
             }
             fillBillTypeCombo();
             EngUICommon.centreWindow(dialogShell);
@@ -194,4 +214,6 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 	    }
 	}
 	
+	
+
 }

@@ -21,7 +21,10 @@ package com.turquaz.current.ui;
 */
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 
@@ -43,8 +46,8 @@ import com.turquaz.current.Messages;
 import com.turquaz.accounting.ui.AccUIAddAccountDialog;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.NumericText;
@@ -435,6 +438,16 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	private Text txtContactName;
 	private CLabel Name;
 	private NumericText numTxtNumber2;
+	private CLabel cLabel4;
+	private CLabel cLabel3;
+	private CLabel lblChequesGiven;
+	private AccountPicker accountPickerChequesTaken;
+	private AccountPicker accountPickerChequesGiven;
+	private CLabel lblChequeTaken;
+	private AccountPicker accPickerCustomer;
+	private CLabel lblAccountingCodeCustomer;
+	private Composite compaccountingAccounts;
+	private CTabItem tabItemAccountingAccounts;
 	private NumericText numDueDays;
 	private CLabel lblDueDays;
 	private NumericText numTxtCityCode2;
@@ -446,8 +459,6 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	private NumericText numtxtCountryCode;
 	private Composite composite1;
 	private Label lblTelephone1;
-	private AccountPicker accPickerCustomer;
-	private CLabel lblAccountingCodeCustomer;
 	private CurrencyText decTxtDiscountAmount;
 	private CLabel lblDiscountAMount;
 	private NumericText numTextDiscountRate;
@@ -491,7 +502,6 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	
 			tbfCurrentCardAdd = new CTabFolder(this,SWT.NULL);
 			tabItemGeneralInfo = new CTabItem(tbfCurrentCardAdd,SWT.NULL);
-			tabItemCurrentGroups = new CTabItem(tbfCurrentCardAdd,SWT.NULL);
 			compCurrentGroups = new Composite(tbfCurrentCardAdd,SWT.NULL);
 			compRegisterGroup = new RegisterGroupComposite(compCurrentGroups,SWT.NULL);
 			btnUpdateGroups = new Button(compCurrentGroups,SWT.PUSH| SWT.CENTER);
@@ -688,6 +698,80 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
                     compCurrentContactInfo.layout();
                 }
             }
+
+			tabItemCurrentGroups = new CTabItem(tbfCurrentCardAdd, SWT.NONE);
+			tabItemCurrentGroups.setText(Messages
+				.getString("CurUICurrentCardAdd.23")); //$NON-NLS-1$
+				//START >>  tabItemAccountingAccounts
+				tabItemAccountingAccounts = new CTabItem(
+					tbfCurrentCardAdd,
+					SWT.NONE);
+				tabItemAccountingAccounts.setText("Muhasebe Hesaplar\u0131");
+				//START >>  compaccountingAccounts
+				compaccountingAccounts = new Composite(tbfCurrentCardAdd, SWT.NONE);
+				tabItemAccountingAccounts.setControl(compaccountingAccounts);
+				GridLayout compaccountingAccountsLayout = new GridLayout();
+				compaccountingAccountsLayout.numColumns = 2;
+				compaccountingAccounts.setLayout(compaccountingAccountsLayout);
+				//START >>  cLabel3
+				cLabel3 = new CLabel(compaccountingAccounts, SWT.NONE);
+				cLabel3.setText("cLabel3");
+				cLabel3.setVisible(false);
+				//END <<  cLabel3
+				//START >>  cLabel4
+				cLabel4 = new CLabel(compaccountingAccounts, SWT.NONE);
+				cLabel4.setText("cLabel4");
+				cLabel4.setVisible(false);
+				//END <<  cLabel4
+				//START >>  lblAccountingCodeCustomer
+				lblAccountingCodeCustomer = new CLabel(
+					compaccountingAccounts,
+					SWT.NONE);
+				lblAccountingCodeCustomer.setText("Cari Muhasebe Hesab\u0131");
+				//END <<  lblAccountingCodeCustomer
+				//START >>  accPickerCustomer
+				accPickerCustomer = new AccountPicker(
+					compaccountingAccounts,
+					SWT.NONE);
+				GridData accountPickerCustomerLData = new GridData();
+				accountPickerCustomerLData.widthHint = 179;
+				accountPickerCustomerLData.heightHint = 20;
+				accPickerCustomer.setLayoutData(accountPickerCustomerLData);
+				//END <<  accPickerCustomer
+				//START >>  lblChequeTaken
+				lblChequeTaken = new CLabel(compaccountingAccounts, SWT.NONE);
+				lblChequeTaken.setText("Verilen Çekler Hesab\u0131");
+				GridData lblChequeTakenLData = new GridData();
+				lblChequeTakenLData.widthHint = 110;
+				lblChequeTakenLData.heightHint = 22;
+				lblChequeTaken.setLayoutData(lblChequeTakenLData);
+				//END <<  lblChequeTaken
+				//START >>  accountPickerChequesGiven
+				accountPickerChequesGiven = new AccountPicker(
+					compaccountingAccounts,
+					SWT.NONE);
+				GridData accountPickerChequesGivenLData = new GridData();
+				accountPickerChequesGivenLData.widthHint = 178;
+				accountPickerChequesGivenLData.heightHint = 19;
+				accountPickerChequesGiven.setLayoutData(accountPickerChequesGivenLData);
+				//END <<  accountPickerChequesGiven
+				//START >>  lblChequesGiven
+				lblChequesGiven = new CLabel(compaccountingAccounts, SWT.NONE);
+				lblChequesGiven.setText("Al\u0131nan Çekler Hesab\u0131");
+				//END <<  lblChequesGiven
+				//START >>  accountPickerChequesTaken
+				accountPickerChequesTaken = new AccountPicker(
+					compaccountingAccounts,
+					SWT.NONE);
+				GridData accountPicker1LData = new GridData();
+				accountPicker1LData.widthHint = 178;
+				accountPicker1LData.heightHint = 20;
+				accountPickerChequesTaken.setLayoutData(accountPicker1LData);
+				//END <<  accountPickerChequesTaken
+				//END <<  compaccountingAccounts
+				tbfCurrentCardAdd.setSelection(0);
+				//END <<  tabItemAccountingAccounts
+
 			{
 				compCurrentGeneralInfo = new Composite(tbfCurrentCardAdd, SWT.NONE);
 				tabItemGeneralInfo.setControl(compCurrentGeneralInfo);
@@ -1073,34 +1157,11 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
                     numDueDaysLData.horizontalSpan = 3;
                     numDueDays.setLayoutData(numDueDaysLData);
                 }
-				{
-					lblAccountingCodeCustomer = new CLabel(
-						compCurrentGeneralInfo,
-						SWT.NONE);
-					GridData lblAccountingCodeCustomerLData = new GridData();
-					lblAccountingCodeCustomerLData.widthHint = 127;
-					lblAccountingCodeCustomerLData.heightHint = 17;
-					lblAccountingCodeCustomer
-						.setLayoutData(lblAccountingCodeCustomerLData);
-					lblAccountingCodeCustomer.setText(Messages
-						.getString("CurUICurrentCardAdd.13")); //$NON-NLS-1$
-				}
-				{
-					accPickerCustomer = new AccountPicker(
-						compCurrentGeneralInfo,
-						SWT.NONE);
-					GridData accPickerCustomerLData = new GridData();
-					accPickerCustomerLData.widthHint = 236;
-					accPickerCustomerLData.heightHint = 24;
-					accPickerCustomerLData.horizontalSpan = 3;
-					accPickerCustomer.setLayoutData(accPickerCustomerLData);
-				}
 				compCurrentGeneralInfo.layout();
 
 			}
 
 			tabItemCurrentGroups.setControl(compCurrentGroups);
-			tabItemCurrentGroups.setText(Messages.getString("CurUICurrentCardAdd.23")); //$NON-NLS-1$
 
 			compCurrentGroups.setSize(new org.eclipse.swt.graphics.Point(584,435));
 	
@@ -1138,7 +1199,6 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 			compCurrentGroupsLayout.horizontalSpacing = 5;
 			compCurrentGroupsLayout.verticalSpacing = 5;
 			compCurrentGroups.layout();
-			tbfCurrentCardAdd.setSelection(0);
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
@@ -1302,11 +1362,48 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 	
 	}
 	
+	public Map getAccountingFields(){
+		Map map = new Hashtable();
+		map.put(EngBLCommon.CURRENT_ACC_TYPE_GENERAL,accPickerCustomer);
+		map.put(EngBLCommon.CURRENT_ACC_TYPE_CHEQUES_GIVEN,accountPickerChequesGiven);
+		map.put(EngBLCommon.CURRENT_ACC_TYPE_CHEQUES_TAKEN,accountPickerChequesTaken);
+		
+		return map;	
+		
+	}
+	
+	public Map createAccountingMap()
+	{
+		Map fieldMap = getAccountingFields();
+		Map map = new Hashtable();
+		
+		Iterator it = fieldMap.keySet().iterator();
+		while(it.hasNext())
+		{
+			Integer type = (Integer)it.next();
+			AccountPicker picker = (AccountPicker)fieldMap.get(type);
+			
+			if(picker.getTurqAccountingAccount()!=null)
+			{
+				map.put(type,picker.getTurqAccountingAccount());
+			}
+		
+			
+			
+			
+		}	
+		
+		return map;
+	}
+	
 	public void save(){
 	try{
 	if(verifyFields(true))
 	{
 	
+		
+		
+		
 	Integer cardId = currentAdd.saveCurrentCard(txtCurrentCode.getText().trim(),
 							txtCurrentName.getText().trim(),
 							txtCardDefinition.getText().trim(),
@@ -1317,11 +1414,12 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 							decTxtRiskLimit.getBigDecimalValue(),
 							txtTaxDepartmant.getText().trim(),
 							txtTaxNumber.getText().trim(),
-							(TurqAccountingAccount)accPickerCustomer.getData(),
+							createAccountingMap(),
 							numDueDays.getIntValue());	
 	savePhones(cardId);
 	saveContact(cardId);
 	saveGroups(cardId);
+	
 	EngBLCurrentCards.RefreshContentAsistantMap();
 	MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
 	msg.setMessage(Messages.getString("CurUICurrentCardAdd.14")); //$NON-NLS-1$

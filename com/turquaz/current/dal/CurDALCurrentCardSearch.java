@@ -20,6 +20,7 @@ package com.turquaz.current.dal;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+import java.util.Iterator;
 import java.util.List;
 
 import net.sf.hibernate.Hibernate;
@@ -28,6 +29,8 @@ import net.sf.hibernate.Session;
 
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
@@ -161,6 +164,25 @@ public class CurDALCurrentCardSearch {
 	    
 	
 	}
+	public List getCurrentCardsAndAccountingAccounts()throws Exception{
+		  try{
+	        
+	        Session session = EngDALSessionFactory.openSession();
+	        String query = "Select curCard.currentCardsId, curCard.turqAccountingAccount.accountingAccountsId from TurqCurrentCard as curCard " +
+	        		" where curCard.currentCardsId <> -1" ;
+		 
+	        Query q = session.createQuery(query);
+	        
+	        List list = q.list();
+	        session.close();
+	        
+	        return list;
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
 	public TurqCurrentCard getCurrentCard(String cardCode)throws Exception{
 	    try{
 	        
@@ -198,9 +220,35 @@ public class CurDALCurrentCardSearch {
 			  Hibernate.initialize(curCard.getTurqCurrentCardsPhones());
 			  Hibernate.initialize(curCard.getTurqCurrentContacts());
 			  Hibernate.initialize(curCard.getTurqCurrentCardsGroups());
+			  Hibernate.initialize(curCard.getTurqCurrentAccountingAccounts());
 			
 			  session.close();
 			  return curCard;
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
+	public static TurqAccountingAccount getCurrentAccountingAccount(TurqCurrentCard curCard, Integer type)throws Exception{
+		try{
+			
+			Session session = EngDALSessionFactory.openSession();
+			session.refresh(curCard);
+			Iterator it = curCard.getTurqCurrentAccountingAccounts().iterator();
+			while(it.hasNext())
+			{
+				TurqCurrentAccountingAccount curAccount = (TurqCurrentAccountingAccount)it.next();
+				
+				if(curAccount.getTurqCurrentAccountingType().getCurrentAccoutingTypesId().intValue()==type.intValue())
+				{
+					return curAccount.getTurqAccountingAccount();
+				}
+				
+			}
+			
+			return null;
+			
+			
 		}
 		catch(Exception ex){
 			throw ex;

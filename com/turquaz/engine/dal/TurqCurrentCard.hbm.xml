@@ -132,14 +132,6 @@
 
     <!-- Associations -->
   
-    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
-    <many-to-one
-        name="turqAccountingAccount"
-        class="com.turquaz.engine.dal.TurqAccountingAccount"
-        not-null="true"
-    >
-        <column name="accounting_code_id" />
-    </many-to-one>
     <!-- bi-directional one-to-many association to TurqChequeRoll -->
     <set
         name="turqChequeRolls"
@@ -236,6 +228,20 @@
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqCurrentCardsGroup"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqCurrentAccountingAccount -->
+    <set
+        name="turqCurrentAccountingAccounts"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="current_cards_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCurrentAccountingAccount"
         />
     </set>
     <!-- bi-directional one-to-many association to TurqCurrentCardsPhone -->

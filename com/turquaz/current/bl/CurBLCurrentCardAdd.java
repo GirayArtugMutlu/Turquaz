@@ -22,12 +22,16 @@ package com.turquaz.current.bl;
 */
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.turquaz.current.Messages;
 import com.turquaz.current.dal.CurDALCurrentCardAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
+import com.turquaz.engine.dal.TurqCurrentAccountingType;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentCardsGroup;
 import com.turquaz.engine.dal.TurqCurrentCardsPhone;
@@ -48,7 +52,7 @@ public class CurBLCurrentCardAdd {
 								String cardAddress, BigDecimal cardDiscountRate,
 								BigDecimal cardDiscountPayment,	BigDecimal cardCreditLimit,
 								BigDecimal cardRiskLimit, String cardTaxDepartment,
-								String cardTaxNumber, TurqAccountingAccount accCode, int daysToValue) throws Exception {
+								String cardTaxNumber, Map accountingAccounts, int daysToValue) throws Exception {
 		try{
 		
 		    
@@ -63,7 +67,6 @@ public class CurBLCurrentCardAdd {
 			currentCard.setCardsRiskLimit(cardRiskLimit);
 			currentCard.setCardsTaxDepartment(cardTaxDepartment);
 			currentCard.setCardsTaxNumber(cardTaxNumber);
-			currentCard.setTurqAccountingAccount(accCode);
 		    currentCard.setDaysToValue(daysToValue);
 		    
 			currentCard.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
@@ -78,14 +81,59 @@ public class CurBLCurrentCardAdd {
 			
 			blTransAdd.saveCurrentTransaction(currentCard,cal.getTime(),"",false,new BigDecimal(0),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_INITIAL,new Integer(-1),Messages.getString("CurBLCurrentCardAdd.3")); //$NON-NLS-1$ //$NON-NLS-2$
 			
+			saveCurrentAccountingAccounts(currentCard,accountingAccounts);
+			
 			return currentCard.getCurrentCardsId();
 		}
 		catch(Exception ex){
 			throw ex;
 		}
 	}
+
 	
+	public void saveCurrentAccountingAccounts(TurqCurrentCard curCard, Map accounts)throws Exception{
 	
+		
+		Iterator it = accounts.keySet().iterator();
+		while(it.hasNext())
+		{
+			
+			Integer type = (Integer)it.next();
+			
+			if(accounts.get(type)!=null)
+			{
+				
+			
+		    TurqCurrentAccountingAccount curAccount = new TurqCurrentAccountingAccount();
+			
+			curAccount.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			curAccount.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			curAccount.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			curAccount.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			
+			curAccount.setTurqCurrentCard(curCard);
+			curAccount.setTurqAccountingAccount((TurqAccountingAccount)accounts.get(type));
+			
+			TurqCurrentAccountingType accType = new TurqCurrentAccountingType();
+			accType.setCurrentAccoutingTypesId(type);
+			
+			curAccount.setTurqCurrentAccountingType(accType);
+			
+			
+			currentAdd.saveObject(curAccount);	
+			
+			
+			
+			}
+			
+			
+			
+		}
+		
+		
+		
+		
+	}
 	
 public void saveCardPhone(int countryCode, int cityCode, int phoneNumber, Integer curCard)
 throws Exception{

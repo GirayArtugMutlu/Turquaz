@@ -30,8 +30,10 @@ import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 
 import com.turquaz.current.dal.CurDALSearchTransaction;
 import com.turquaz.current.dal.CurDALTransactionUpdate;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
+import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
@@ -92,6 +94,8 @@ public class CurBLSearchTransaction {
 			TurqAccountingAccount account,TurqCurrentTransaction curTrans)throws Exception{
 	try{
 		
+		TurqCurrency currency = EngBLCommon.getBaseCurrency();
+		
 		curTrans.setTurqCurrentCard(curCard);
 		curTrans.setTransactionsDate(transDate);
 		curTrans.setTransactionsDocumentNo(documentNo);
@@ -104,15 +108,22 @@ public class CurBLSearchTransaction {
 		if(isCredit){
 		
 		accTransType =1;
-		curTrans.setTransactionsTotalCredit(amount);	
-		curTrans.setTransactionsTotalDept(new BigDecimal(0));
+			
+		curTrans.setTransactionsTotalCredit(amount);
+		curTrans.setTotalCreditInForeignCurrency(amount.multiply(currency.getExchangeRate()).setScale(2,BigDecimal.ROUND_HALF_DOWN));
+		
+		curTrans.setTransactionsTotalDept(new BigDecimal(0));			
+        curTrans.setTotalDeptInForeignCurrency(new BigDecimal(0));
 		
 		}
 		else{
 		
 		accTransType =0;	
 		curTrans.setTransactionsTotalCredit(new BigDecimal(0));
-		curTrans.setTransactionsTotalDept(amount);
+	    curTrans.setTotalCreditInForeignCurrency(new BigDecimal(0));
+		
+		curTrans.setTotalDeptInForeignCurrency(amount.multiply(currency.getExchangeRate()).setScale(2,BigDecimal.ROUND_HALF_DOWN));				
+		curTrans.setTransactionsTotalDept(amount);	
 		
 		}
 

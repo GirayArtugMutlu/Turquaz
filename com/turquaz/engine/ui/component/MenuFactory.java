@@ -9,7 +9,6 @@ import org.eclipse.swt.widgets.MenuItem;
 import com.turquaz.accounting.ui.AccUIAccountingPlan;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
 import com.turquaz.accounting.ui.AccUIInitialTransaction;
-import com.turquaz.accounting.ui.AccUISaveJournal;
 import com.turquaz.accounting.ui.AccUITransactionAdd;
 import com.turquaz.accounting.ui.AccUITransactionCollect;
 import com.turquaz.accounting.ui.AccUITransactionPayment;
@@ -465,14 +464,14 @@ public class MenuFactory {
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
 
-		if (EngBLPermissions.getPermission(AccUIInitialTransaction.class
+		/*	if (EngBLPermissions.getPermission(AccUIInitialTransaction.class
 				.getName()) > 0) {
 			mit = new MenuItem(menuAcc, SWT.PUSH);
 			mit.setText(Messages.getString("MenuFactory.41")); //$NON-NLS-1$
 			mit.setData(AccUISaveJournal.class.getName());
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
-
+		*/
 		return menuItem;
 	}
 	

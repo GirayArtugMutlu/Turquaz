@@ -22,6 +22,7 @@ package com.turquaz.current.ui;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 import org.eclipse.swt.widgets.Display;
@@ -32,6 +33,7 @@ import org.eclipse.swt.SWT;
 
 import org.eclipse.swt.widgets.Composite;
 
+import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
@@ -42,7 +44,7 @@ import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLPermissions;
-import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentCardsGroup;
 import com.turquaz.engine.dal.TurqCurrentCardsPhone;
@@ -344,10 +346,24 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 				}
 			}
 			
-			compCurCardAdd.getAccPickerCustomer().setData(currentCard.getTurqAccountingAccount());
 			
+			it = currentCard.getTurqCurrentAccountingAccounts().iterator();
+			Map fieldMap = compCurCardAdd.getAccountingFields();
+			while(it.hasNext())
+			{
+				TurqCurrentAccountingAccount curAccount = (TurqCurrentAccountingAccount)it.next();
+			    Integer type = (Integer) curAccount.getTurqCurrentAccountingType().getCurrentAccoutingTypesId();
+			    AccountPicker picker = (AccountPicker)fieldMap.get(type);
+			    picker.setData(curAccount.getTurqAccountingAccount());
+			
+				
+				
+			
+				
+			}
 	        
-	        it=currentCard.getTurqCurrentCardsGroups().iterator();
+	        
+			it=currentCard.getTurqCurrentCardsGroups().iterator();
 	        while(it.hasNext()){
 	        	TurqCurrentCardsGroup currentCardGroup=(TurqCurrentCardsGroup) it.next();
 	        	compCurCardAdd.getCompRegisterGroup().RegisterGroup(currentCardGroup.getTurqCurrentGroup());
@@ -567,7 +583,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 				compCurCardAdd.getDecTxtRiskLimit().getBigDecimalValue(),
 				compCurCardAdd.getTxtTaxDepartmant().getText().trim(),
 				compCurCardAdd.getTxtTaxNumber().getText().trim(),
-				(TurqAccountingAccount)compCurCardAdd.getAccPickerCustomer().getData(),
+				compCurCardAdd.createAccountingMap(),
 				compCurCardAdd.getNumDueDays().getIntValue(),currentCard);	
 				
 		deleteRelations();
@@ -599,6 +615,8 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 				
 		
 		}
+	
+	
 }
 		
 		

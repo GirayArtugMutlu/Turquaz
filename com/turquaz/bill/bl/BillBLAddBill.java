@@ -11,6 +11,7 @@ import java.util.Set;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.accounting.dal.AccDALAccountAdd;
 import com.turquaz.bill.dal.BillDALAddBill;
+import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 
 import com.turquaz.engine.bl.EngBLCommon;
@@ -157,8 +158,14 @@ public class BillBLAddBill {
 					+ bill.getTurqBillConsignmentCommon().getTurqCurrentCard()
 							.getCardsName();
 
+			
+			TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(bill
+					.getTurqBillConsignmentCommon().getTurqCurrentCard(),EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
+			
+			
 			Map VATList = new HashMap();
 			Map ROWList = new HashMap();
+			
 			//Al?? Faturas?
 			if (bill.getBillsType() == 0) {
 
@@ -346,11 +353,11 @@ public class BillBLAddBill {
 				 *  
 				 */
 
+				
 				transRow = new TurqAccountingTransactionColumn();
 
-				transRow.setTurqAccountingAccount(bill
-						.getTurqBillConsignmentCommon().getTurqCurrentCard()
-						.getTurqAccountingAccount());
+				
+				transRow.setTurqAccountingAccount(curAccount);
 
 				transRow.setCreditAmount(common.getTotalAmount());
 				transRow.setDeptAmount(new BigDecimal(0));
@@ -407,9 +414,7 @@ public class BillBLAddBill {
 
 					transRow = new TurqAccountingTransactionColumn();
 
-					transRow.setTurqAccountingAccount(bill
-							.getTurqBillConsignmentCommon()
-							.getTurqCurrentCard().getTurqAccountingAccount());
+					transRow.setTurqAccountingAccount(curAccount);
 
 					transRow.setCreditAmount(new BigDecimal(0));
 					transRow.setDeptAmount(invTrans
@@ -646,9 +651,7 @@ public class BillBLAddBill {
 				 */
 				transRow = new TurqAccountingTransactionColumn();
 
-				transRow.setTurqAccountingAccount(bill
-						.getTurqBillConsignmentCommon().getTurqCurrentCard()
-						.getTurqAccountingAccount());
+				transRow.setTurqAccountingAccount(curAccount);
 
 				transRow.setCreditAmount(new BigDecimal(0));
 				transRow.setDeptAmount(common.getTotalAmount());
@@ -716,9 +719,7 @@ public class BillBLAddBill {
 
 					transRow = new TurqAccountingTransactionColumn();
 
-					transRow.setTurqAccountingAccount(bill
-							.getTurqBillConsignmentCommon()
-							.getTurqCurrentCard().getTurqAccountingAccount());
+					transRow.setTurqAccountingAccount(curAccount);
 
 					transRow.setCreditAmount(invTrans
 							.getTransactionsCumilativePrice());

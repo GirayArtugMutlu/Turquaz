@@ -56,6 +56,8 @@ public class CurBLCurrentTransactionAdd {
 	  
 	    try{
 			
+	    	TurqCurrency currency = EngBLCommon.getBaseCurrency();
+	    	
 			TurqEngineSequence docSeq =new TurqEngineSequence();;	
 			
 			if(seqDocNo==null){
@@ -75,20 +77,32 @@ public class CurBLCurrentTransactionAdd {
 			curTrans.setTransactionsDate(transDate);
 			curTrans.setTransactionsDocumentNo(documentNo);
 			curTrans.setTransactionsTotalDiscount(totalDiscount);
+			curTrans.setTotalDiscountInForeignCurrency(totalDiscount.multiply(currency.getExchangeRate()).setScale(2,BigDecimal.ROUND_HALF_DOWN));
 			curTrans.setTransactionsDefinition(definition.toUpperCase(Locale.getDefault()));
 			curTrans.setTurqEngineSequence(docSeq);
 		
+			
+		
 			if(isCredit){
+			
 			curTrans.setTransactionsTotalCredit(amount);
+			curTrans.setTotalCreditInForeignCurrency(amount.multiply(currency.getExchangeRate()).setScale(2,BigDecimal.ROUND_HALF_DOWN));
+			
 			curTrans.setTransactionsTotalDept(new BigDecimal(0));			
+            curTrans.setTotalDeptInForeignCurrency(new BigDecimal(0));
+			
+			
 			}		
 			else{
 				curTrans.setTransactionsTotalCredit(new BigDecimal(0));
-			    curTrans.setTransactionsTotalDept(amount);				
+			    curTrans.setTotalCreditInForeignCurrency(new BigDecimal(0));
+				
+				curTrans.setTotalDeptInForeignCurrency(amount.multiply(currency.getExchangeRate()).setScale(2,BigDecimal.ROUND_HALF_DOWN));				
+				curTrans.setTransactionsTotalDept(amount);	
+				
 			}
 			
-			TurqCurrency currency = new TurqCurrency();
-	        currency.setCurrenciesId(new Integer(1));
+		
 	        curTrans.setTurqCurrency(currency);
 			
 	        TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
@@ -157,10 +171,13 @@ public class CurBLCurrentTransactionAdd {
 									boolean isCredit,BigDecimal amount, BigDecimal totalDiscount,
 									int type, TurqAccountingAccount account) throws Exception{
 		try{
+			
 		//Accounting Integration 
         //Eger bir Nakit hareketi ise Muhasebe kaydini yap
 		//Daha sonra cari hareketi ekle
 		//Nakit hareketi degilse hic birsey yapma.
+			
+			TurqCurrency currency = EngBLCommon.getBaseCurrency();
         if(type == 4){
           
           int accTransactionType = 1; //0-Tahsil, 1-Tediye, 2-Mahsup
@@ -194,7 +211,7 @@ public class CurBLCurrentTransactionAdd {
          seq.setTurqModule(module);
          
          dalCurrentTrans.saveObject(seq);
-         String transDefinition="cari "+DatePicker.formatter.format(transDate) +" " + documentNo;
+         String transDefinition="Cari "+DatePicker.formatter.format(transDate) +" " + documentNo;
          Integer transId = blAcc.saveAccTransaction(transDate,documentNo,
          		accTransactionType,4,seq.getEngineSequencesId(),transDefinition);
          
@@ -211,6 +228,7 @@ public class CurBLCurrentTransactionAdd {
  		curTrans.setTransactionsDocumentNo(documentNo);
  		curTrans.setTurqCurrentCard(curCard);
  	    curTrans.setTurqEngineSequence(seq);
+ 	    curTrans.setTurqCurrency(currency);
 		
  		TurqAccountingTransaction accTrans = new TurqAccountingTransaction();
  		accTrans.setAccountingTransactionsId(transId);
@@ -219,24 +237,29 @@ public class CurBLCurrentTransactionAdd {
 		
  		if(isCredit){		
  			curTrans.setTransactionsTotalCredit(amount);
- 			curTrans.setTransactionsTotalDept(new BigDecimal(0));	
+			curTrans.setTotalCreditInForeignCurrency(amount.multiply(currency.getExchangeRate()).setScale(2,BigDecimal.ROUND_HALF_DOWN));
+			
+			curTrans.setTransactionsTotalDept(new BigDecimal(0));			
+            curTrans.setTotalDeptInForeignCurrency(new BigDecimal(0));
  			
  		}
  		else 
  		{
  			curTrans.setTransactionsTotalCredit(new BigDecimal(0));
- 			curTrans.setTransactionsTotalDept(amount);
+		    curTrans.setTotalCreditInForeignCurrency(new BigDecimal(0));
+			
+			curTrans.setTotalDeptInForeignCurrency(amount.multiply(currency.getExchangeRate()).setScale(2,BigDecimal.ROUND_HALF_DOWN));				
+			curTrans.setTransactionsTotalDept(amount);	
  		
  		}
  		
  		
- 		TurqCurrency currency = new TurqCurrency();
-        currency.setCurrenciesId(new Integer(1));
          
         TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
         transType.setCurrentTransactionTypesId(new Integer(type));
  		
  		curTrans.setTransactionsTotalDiscount(totalDiscount);
+		curTrans.setTotalDiscountInForeignCurrency(totalDiscount.multiply(currency.getExchangeRate()).setScale(2,BigDecimal.ROUND_HALF_DOWN));
  		curTrans.setTurqCurrency(currency);
  		curTrans.setTurqCurrentTransactionType(transType);		
  		
@@ -293,7 +316,7 @@ public class CurBLCurrentTransactionAdd {
     			transRowCurrent.setDeptAmount(amount);
     			
     			//cari sat?c? muhasebe kodunu da girelim
-    			transRowCurrent.setTurqAccountingAccount(curCard.getTurqAccountingAccount());
+    			transRowCurrent.setTurqAccountingAccount(CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL));
     	   			
     		}
     	   //Cari Karttan para tahsil edildiginde
@@ -308,7 +331,7 @@ public class CurBLCurrentTransactionAdd {
     			
     			
     			//cari alici muhasebe kodunu da girelim
-    			transRowCurrent.setTurqAccountingAccount(curCard.getTurqAccountingAccount());
+    			transRowCurrent.setTurqAccountingAccount(CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL));
     			
     		
     		}

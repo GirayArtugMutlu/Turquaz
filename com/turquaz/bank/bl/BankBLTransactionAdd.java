@@ -31,6 +31,7 @@ import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.dal.BankDALCommon;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
+import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 
 import com.turquaz.engine.bl.EngBLCommon;
@@ -433,8 +434,7 @@ public class BankBLTransactionAdd {
                     .getTurqAccountingAccount());
 
             accTransRowCurrent.setTransactionDefinition(definition);
-            accTransRowCurrent.setTurqAccountingAccount(curCard
-                    .getTurqAccountingAccount());
+            accTransRowCurrent.setTurqAccountingAccount(CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL));
 
             String currentTransDefinition = ""; //$NON-NLS-1$
 

@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import org.eclipse.swt.graphics.Color;
 
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
@@ -19,6 +20,7 @@ public class CurUIInitialTransTableRow implements ITableRow {
     public CurUIInitialTransTableRow(){
         curTrans.setTransactionsTotalCredit(new BigDecimal(0));
         curTrans.setTransactionsTotalDept(new BigDecimal(0));
+        curTrans.setTurqCurrency(EngBLCommon.getBaseCurrency());
         
     }
    public boolean canModify(int column_index) {
@@ -140,6 +142,7 @@ public class CurUIInitialTransTableRow implements ITableRow {
 			 	    formatted="0";
 			 	}
 			 	curTrans.setTransactionsTotalDept(new BigDecimal(formatted));
+			 	curTrans.setTotalDeptInForeignCurrency(new BigDecimal(formatted));
 			 	
 				break;
 			   
@@ -152,7 +155,7 @@ public class CurUIInitialTransTableRow implements ITableRow {
 			 	    formatted="0";
 			 	}
 			 	curTrans.setTransactionsTotalCredit(new BigDecimal(formatted));
-			 	
+			 	curTrans.setTotalCreditInForeignCurrency(new BigDecimal(formatted));
 				break;
 			 
 			    

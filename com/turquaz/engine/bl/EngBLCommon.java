@@ -22,15 +22,22 @@ package com.turquaz.engine.bl;
 * @version  $Id$
 */
 
+import java.sql.Statement;
 import java.util.Calendar;
 import java.util.List;
+
+
+import net.sf.hibernate.Session;
+import net.sf.hibernate.Transaction;
 
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.bill.dal.BillDALSearchBill;
+import com.turquaz.current.dal.CurDALCurrentCardSearch;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrency;
 
@@ -92,6 +99,13 @@ public class EngBLCommon {
     public final static int CURRENT_TRANS_INITIAL = 6; //Cari Acilis
     
     public final static int CURRENT_TRANS_OTHERS = 7; //Diger Borc Alacaklar
+    
+    
+    public final static Integer CURRENT_ACC_TYPE_GENERAL =new Integer(0); // Cari alt hesabi
+    
+    public final static Integer CURRENT_ACC_TYPE_CHEQUES_TAKEN = new Integer(1); //alinan cekler
+    
+    public final static Integer CURRENT_ACC_TYPE_CHEQUES_GIVEN = new Integer(2); //verilen cekler..
     
     
     
@@ -291,23 +305,50 @@ public class EngBLCommon {
 				
 				
 			
+			}	
 			}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+		
+		
+		
+	}
+	public static void exportCurrentCardAccs() throws Exception{
+		
+		Transaction tx = null;
+		try{
+		
 			
-			
-			
-			
-			
-			
-			
-			
-			
+		List ls = new CurDALCurrentCardSearch().getCurrentCardsAndAccountingAccounts();
+		
+		Session session = EngDALSessionFactory.openSession();
+		tx = session.beginTransaction();
+		
+		 Statement stmt = session.connection().createStatement();
+		 String query ="";
+		 
+		 for(int i=0;i<ls.size();i++){
+		 	Object result[] = (Object[])ls.get(i);
+		 	query = "insert into turq_current_accounting_accounts values("+result[0]+","+result[0]+","+result[1]
+																		  +","+0+","+"'admin','2005-01-01','admin','2005-01-01')";
+		 	
+		 	stmt.execute(query);
+		 }
+		
+		tx.commit();
+		session.flush();
+		session.close();
+		
+		
 			
 			
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
+			tx.rollback();
 		}
-		
 		
 		
 		

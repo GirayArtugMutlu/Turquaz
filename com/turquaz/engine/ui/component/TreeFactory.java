@@ -29,7 +29,6 @@ import org.eclipse.swt.widgets.TreeItem;
 import com.turquaz.accounting.ui.AccUIAccountingPlan;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
 import com.turquaz.accounting.ui.AccUIInitialTransaction;
-import com.turquaz.accounting.ui.AccUISaveJournal;
 import com.turquaz.accounting.ui.AccUITransactionAdd;
 import com.turquaz.accounting.ui.AccUITransactionCollect;
 import com.turquaz.accounting.ui.AccUITransactionPayment;
@@ -393,12 +392,12 @@ public final class TreeFactory {
 			item.setText(Messages.getString("TreeFactory.40"));  //$NON-NLS-1$
 			item.setData(AccUIInitialTransaction.class.getName());
 		}
-		if(EngBLPermissions.getPermission(AccUITransactionSearch.class.getName())>0){
+	/*	if(EngBLPermissions.getPermission(AccUITransactionSearch.class.getName())>0){
 			item = new TreeItem(settingsRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.41")); //$NON-NLS-1$
 			item.setData(AccUISaveJournal.class.getName());
 		}
-		
+	*/	
 		accountsRoot.setExpanded(true);
 		voucherRoot.setExpanded(true);
 		searchRoot.setExpanded(true);
