@@ -181,6 +181,15 @@ public class TurquazContentAssistProcessors implements
                
                }
            }
+           else if (type==EngBLCommon.CONTENT_ASSIST_MAIN_ACCOUNTS)
+           {
+           		List list = EngBLAccountingAccounts.getMainAccounts();
+           		
+                for (int i = 0; i < list.size(); i++) {
+                    TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
+                    proposed.add(new Proposal(acc.getAccountCode(),acc.getAccountName()));
+                }
+           }
             proposedCodes = new Proposal[proposed.size()];
             proposed.toArray(proposedCodes);
 

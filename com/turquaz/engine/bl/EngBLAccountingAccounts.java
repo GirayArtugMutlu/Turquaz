@@ -27,6 +27,7 @@ import java.util.List;
 
 
 import com.turquaz.accounting.bl.AccBLAccountAdd;
+
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
 
@@ -35,6 +36,7 @@ public class EngBLAccountingAccounts {
 	public List accountList;
 	public List accountListForAccountPickers;
 	public List cashAccountList;
+	public List allAccountList;
 	public HashMap accountMap = new HashMap();
 
 	
@@ -55,6 +57,7 @@ public class EngBLAccountingAccounts {
 		try{
 		 accountList = blAccount.getAllAccounts();
 		 accountListForAccountPickers = AccBLAccountAdd.getAccountsForAccountPickers();
+		 allAccountList=AccBLAccountAdd.getAllAccountsForAccountPickerAll();
 		 
 	     cashAccountList =blAccount.getCashAccounts();
 		 accountMap.clear();
@@ -93,6 +96,28 @@ public class EngBLAccountingAccounts {
 		}
 
 	}
+	
+	
+	
+	public static synchronized List getMainAccounts() throws Exception{
+		try{
+		if (_instance == null) {
+              
+			_instance = new EngBLAccountingAccounts();
+			
+
+		}      
+		return _instance.allAccountList;
+		
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+
+	}
+	
+	
+	
 	/**
 	 * 
 	 * @return
@@ -137,8 +162,7 @@ public class EngBLAccountingAccounts {
 				_instance = new EngBLAccountingAccounts();
 			
 
-			}
-			
+			}			
 			 
 			return (TurqAccountingAccount)_instance.accountMap.get(accountCode);
 			}
@@ -146,6 +170,7 @@ public class EngBLAccountingAccounts {
 				throw ex;
 			}
 	}
+	
 	public static TurqAccountingAccount getLeafAccount(String accountCode)throws Exception {
 	    try{
 	        
@@ -160,6 +185,18 @@ public class EngBLAccountingAccounts {
 			return _instance.blAccount.getLeafAccount(accountCode);
 			
 			
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	    
+	}
+	
+	public static TurqAccountingAccount getAllAccounts(String accountCode)throws Exception {
+	    try
+		{		 
+			return AccBLAccountAdd.getAllAccounts(accountCode);					
 	        
 	    }
 	    catch(Exception ex){

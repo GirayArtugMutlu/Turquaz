@@ -53,6 +53,7 @@ import org.eclipse.swt.SWT;
 * *************************************
 */
 import org.eclipse.swt.widgets.Group;
+import com.turquaz.accounting.ui.comp.AccountPickerAll;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.layout.GridData;
 
@@ -83,10 +84,10 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 	private Button radioUseMainAccounts;
 	private Group groupRemainder;
 	private TableColumn tableColumnRemain;
-	private AccountPicker accountPickerEnd;
+	private AccountPickerAll accountPickerEnd;
 	private CLabel lblAccEnd;
 	private CLabel lblAccStart;
-	private AccountPicker accountPickerStart;
+	private AccountPickerAll accountPickerStart;
 	private TableColumn tableColumnCreditRemaining;
 	private Label lblEndDate;
 	private CLabel lblStartDate;
@@ -216,7 +217,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					cal.set(cal.get(Calendar.YEAR),0,1);
 					datePickerStart.setDate(cal.getTime());
 					GridData datePickerStartLData = new GridData();
-					datePickerStartLData.widthHint = 104;
+					datePickerStartLData.widthHint = 130;
 					datePickerStartLData.heightHint = 22;
 					datePickerStart.setLayoutData(datePickerStartLData);
 				}
@@ -227,8 +228,8 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				{
 					datePickerEnd = new DatePicker(compAdvanced, SWT.NONE);
 					GridData datePickerEndLData = new GridData();
-					datePickerEndLData.widthHint = 103;
-					datePickerEndLData.heightHint = 21;
+					datePickerEndLData.widthHint = 130;
+					datePickerEndLData.heightHint = 22;
 					datePickerEnd.setLayoutData(datePickerEndLData);
 				}
 				{
@@ -236,12 +237,10 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					lblAccStart.setText(Messages.getString("AccUIAccountingAdvancedBalance.10")); //$NON-NLS-1$
 				}
 				{
-					accountPickerStart = new AccountPicker(
-						compAdvanced,
-						SWT.NONE);
+					accountPickerStart = new AccountPickerAll(compAdvanced, SWT.NONE);
 					GridData accountPickerStartLData = new GridData();
-					accountPickerStartLData.widthHint = 102;
-					accountPickerStartLData.heightHint = 14;
+					accountPickerStartLData.widthHint = 129;
+					accountPickerStartLData.heightHint = 17;
 					accountPickerStart.setLayoutData(accountPickerStartLData);
 				}
 				{
@@ -249,10 +248,10 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					lblAccEnd.setText(Messages.getString("AccUIAccountingAdvancedBalance.11")); //$NON-NLS-1$
 				}
 				{
-					accountPickerEnd = new AccountPicker(compAdvanced, SWT.NONE);
+					accountPickerEnd = new AccountPickerAll(compAdvanced, SWT.NONE);
 					GridData accountPickerEndLData = new GridData();
-					accountPickerEndLData.widthHint = 102;
-					accountPickerEndLData.heightHint = 13;
+					accountPickerEndLData.widthHint = 129;
+					accountPickerEndLData.heightHint = 17;
 					accountPickerEnd.setLayoutData(accountPickerEndLData);
 				}
 			}

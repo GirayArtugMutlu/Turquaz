@@ -48,10 +48,23 @@ public class AccBLAccountAdd {
 		}
 		
 	}
+	
 	public TurqAccountingAccount getLeafAccount(String codeCrit)throws Exception{
 		try{
 			
 			return dalAccountAdd.getLeafAccount(codeCrit);
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
+	
+	public static TurqAccountingAccount getAllAccounts(String codeCrit)throws Exception{
+		try{
+			
+			return AccDALAccountAdd.getAllAccounts(codeCrit);
 			
 		}
 		catch(Exception ex){
@@ -83,6 +96,7 @@ public class AccBLAccountAdd {
 		}
 		
 	}
+	
 	public static List getAccountsForAccountPickers()throws Exception{
 		try{
 			
@@ -94,6 +108,19 @@ public class AccBLAccountAdd {
 		}
 		
 	}
+	
+	public static List getAllAccountsForAccountPickerAll()throws Exception{
+		try{
+			
+			return AccDALAccountAdd.getAllAccountsForAccountPickerAll();
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
+	
 	
 	public List getCashAccounts()throws Exception{
 	    try{

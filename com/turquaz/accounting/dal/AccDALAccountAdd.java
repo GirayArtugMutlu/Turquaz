@@ -164,7 +164,6 @@ public class AccDALAccountAdd {
 			String query = "from TurqAccountingAccount as accounts " +
 					"where accounts.accountingAccountsId <> -1" +
 					" and accounts.turqAccountingAccountsByParentAccount.size=0" +
-					" and accounts.accountingAccountsId <> -1" +
 					
 					" order by accounts.accountCode";   
 
@@ -174,6 +173,31 @@ public class AccDALAccountAdd {
 			session.close();
 			return list;
 			 
+	        
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
+	
+	
+	public static List getAllAccountsForAccountPickerAll()throws Exception{
+	    try{
+	        Session session = EngDALSessionFactory.openSession();
+		
+			String query = "Select account from TurqAccountingAccount as account " +
+					"where account.accountingAccountsId <> -1" +
+					//" and account.turqAccountingAccountsByParentAccount.accountingAccountsId=-1" +
+					
+					" order by account.accountCode";   
+
+			Query q = session.createQuery(query); 
+			List list = q.list();
+	
+			session.close();
+			return list;
 	        
 	        
 	        
@@ -201,9 +225,7 @@ public class AccDALAccountAdd {
 				return (TurqAccountingAccount)list.get(0); 
 			}
 			else
-				return null;
-			
-			
+				return null;			
 			
 			
 			
@@ -213,6 +235,37 @@ public class AccDALAccountAdd {
 		}
 		
 	}
+	
+	
+	public static TurqAccountingAccount getAllAccounts(String code)throws Exception{
+		try{
+			Session session =  EngDALSessionFactory.openSession();
+	
+			String query = "Select account from TurqAccountingAccount as account " +
+					"where account.accountCode ='"+code+"'" +
+							" and account.accountingAccountsId <> -1";
+						
+
+			Query q = session.createQuery(query); 
+			List list = q.list();
+	
+			session.close();
+			if(list.size()>0){
+				return (TurqAccountingAccount)list.get(0); 
+			}
+			else
+				return null;			
+			
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
+	
+	
 	public List getCashAccounts()throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
