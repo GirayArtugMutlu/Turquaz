@@ -27,6 +27,25 @@ public class CheDALSave {
         }
         
     }
+    public static void saveOrUpdate(Object obj)throws Exception {
+        try{
+            Session session = EngDALSessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
+            session.saveOrUpdate(obj);
+            
+            tx.commit();
+            session.flush();
+            session.close();
+            
+            
+            
+            
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+        
+    }
     
     public static void update(Object obj)throws Exception {
         try{

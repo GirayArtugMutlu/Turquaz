@@ -1,5 +1,7 @@
 package com.turquaz.cheque.ui;
 
+import java.util.Calendar;
+
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 
@@ -84,6 +86,7 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.numColumns = 2;
 			dialogShell.layout();
+			dialogShell.setText(Messages.getString("CheUICustomerChequeAddDialog.3")); //$NON-NLS-1$
 			dialogShell.pack();
 			dialogShell.setText(Messages.getString("CheUICustomerChequeAddDialog.1")); //$NON-NLS-1$
 			dialogShell.setSize(507, 303);
@@ -251,7 +254,16 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 	    cheque.setChequesValueDate(datePickValueDate.getDate());
 	    cheque.setChequesDebtor(txtDeptor.getText().trim());
 	    cheque.setChequesPaymentPlace(txtPaymentPlace.getText().trim());
-	    cheque.setChequesAmount(curText.getBigDecimalValue());	   
+	    cheque.setChequesAmount(curText.getBigDecimalValue());	  
+	    
+	    cheque.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+        cheque.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+        cheque.setLastModified(Calendar.getInstance().getTime());
+        cheque.setCreationDate(Calendar.getInstance().getTime());
+	   
+        
+        
+        
 	    
 	    TurqBanksCard bankCard = new TurqBanksCard();
 	    bankCard.setBanksCardsId(new Integer(-1));

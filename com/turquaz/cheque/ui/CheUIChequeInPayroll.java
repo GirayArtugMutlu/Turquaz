@@ -9,7 +9,10 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.custom.CLabel;
+
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -22,6 +25,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import com.turquaz.cheque.Messages;
+import com.turquaz.cheque.bl.CheBLSaveChequeTransaction;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 
@@ -214,9 +218,27 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
         // TODO Auto-generated method stub
 
     }
+    public boolean verifyFields(){
+        if(currentPicker.getData()==null)
+        {
+            EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.11"),SWT.ICON_WARNING); //$NON-NLS-1$
+            currentPicker.setFocus();
+            return false;
+        }
+        else if(tableCheques.getItemCount()==0)
+        {
+            EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.12"),SWT.ICON_WARNING); //$NON-NLS-1$
+            toolItemAdd.setSelection(true);
+            return false;
+        }
+        return true;
+    }
+    
+    
     public void save() {
      try{
          
+        if(verifyFields()){ 
         List chequeList = new ArrayList();
         int count = tableCheques.getItemCount();
         for(int i=0;i<count;i++)
@@ -225,7 +247,10 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
             
         }
         
-        
+        CheBLSaveChequeTransaction.saveChequeRoll((TurqCurrentCard)currentPicker.getData(),txtRollNo.getText().trim(),datePicker1.getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_IN);
+        EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
+        newForm();
+        }
          
      }
      catch(Exception ex){

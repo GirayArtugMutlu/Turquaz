@@ -92,6 +92,8 @@ public class EngBLCommon {
     public final static int MODULE_CHEQUE = 9; //cek modulu
     
     
+    public final static int CHEQUE_TRANS_IN = 0; //Cek Giris Bordrosu
+    public final static int CHEQUE_TRANS_OUT = 1; //Cek Cikis Bordrosu
     
     public final static boolean INVENTORY_SPEC_VAT_FOR_EACH = true; //OTV birimle hesaplanir
     public final static boolean INVENTORY_SPEC_VAT_PERCENT = false; //OTV yuzde ile hesaplanir.

@@ -43,7 +43,7 @@
         type="java.sql.Date"
         column="created_by"
         not-null="true"
-        length="4"
+        length="50"
     />
     <property
         name="creationDate"
