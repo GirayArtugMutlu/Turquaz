@@ -261,11 +261,12 @@ public void fillTree(int parent, String codeCrit){
 		TurqAccountingAccount account =(TurqAccountingAccount)items[0].getData();
 		// it's not an main account
 		// main accounts cannot be edited
-		if(account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId().intValue()!=-1)
-		{
+		// was, now can be edited
+	//	if(account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId().intValue()!=-1)
+	//	{
 		    new AccUIAccountUpdate(this.getShell(),SWT.NULL,account).open();
 		    fillTree(-1,"");
-		}
+	//	}
 		
 		
 		

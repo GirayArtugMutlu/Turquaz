@@ -117,7 +117,8 @@ public class AccDALAccountAdd {
 			Transaction tx = session.beginTransaction();
 			String query = "from TurqAccountingAccount as accounts " +
 					"where accounts.turqCompany.companiesId ="+System.getProperty("company")+
-							" and accounts.accountingAccountsId <> -1" +
+					// was removing accounting plan	
+					//	" and accounts.accountingAccountsId <> -1" +
 							" order by accounts.accountingAccountsId";   
 
 			Query q = session.createQuery(query); 
