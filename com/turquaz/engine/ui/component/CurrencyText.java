@@ -273,11 +273,12 @@ public class CurrencyText extends Composite {
     }
    }
   
+
  
- public void setText(String txt){
- 	text.setTextLimit(textLimit);
- 	txt = txt.replaceAll("\\.",",");
- 	text.setText(txt);	 	
+ public void setText(BigDecimal bd){
+     TurkishCurrencyFormat cf = new TurkishCurrencyFormat(numberOfDecimal);
+     text.setText(cf.format(bd));
+     
  }
  
  public void setBackground(Color c){

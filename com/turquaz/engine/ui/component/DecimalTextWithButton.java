@@ -181,7 +181,7 @@ public class DecimalTextWithButton extends org.eclipse.swt.widgets.Composite {
 	}
 	
 	public void setText(String txt){
-		  text1.setText(txt);
+		  text1.setText(new BigDecimal(txt));
 		 	
 		 }
 		 public void setBackground(Color c){

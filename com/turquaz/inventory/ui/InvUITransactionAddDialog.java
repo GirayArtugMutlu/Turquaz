@@ -463,7 +463,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
     	fillComboUnits(invCard);
     	txtVat.setText(invCard.getCardVat());
     	numSpecialVat.setText(invCard.getCardSpecialVat());
-        numTxtSpecialVatEach.setText(invCard.getCardSpecialVatEach().toString());
+        numTxtSpecialVatEach.setText(invCard.getCardSpecialVatEach());
     	   	
         }
        

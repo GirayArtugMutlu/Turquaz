@@ -1072,11 +1072,11 @@ implements SecureComposite{
     
     totalVAT = totalVAT.subtract(totalVAT.multiply(new BigDecimal(discountRate+""))).setScale(2, BigDecimal.ROUND_DOWN); //$NON-NLS-1$
     
-    txtDiscountAmount.setText(discountTotal.toString());    
-	txtSubTotal.setText(subTotal.toString());
-	txtTotalVat.setText(totalVAT.toString());
-	decSpecialVat.setText(totalSpecVAT.toString());
-	txtTotalAmount.setText(generalTotal.subtract(discountTotal).toString());	
+    txtDiscountAmount.setText(discountTotal);    
+	txtSubTotal.setText(subTotal);
+	txtTotalVat.setText(totalVAT);
+	decSpecialVat.setText(totalSpecVAT);
+	txtTotalAmount.setText(generalTotal.subtract(discountTotal));	
 		
 		
 	}

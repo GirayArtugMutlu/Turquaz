@@ -168,7 +168,7 @@ implements SecureComposite{
 				txtDept.addModifyListener(new ModifyListener() {
 					public void modifyText(ModifyEvent arg0) {
 						if (!txtDept.getText().equals("")) //$NON-NLS-1$
-							txtCredit.setText(""); //$NON-NLS-1$
+							txtCredit.setText(new BigDecimal(0)); //$NON-NLS-1$
 
 					}
 				});
@@ -191,7 +191,7 @@ implements SecureComposite{
 				txtCredit.addModifyListener(new ModifyListener() {
 					public void modifyText(ModifyEvent arg0) {
 						if (!txtCredit.getText().equals("")) //$NON-NLS-1$
-							txtDept.setText(""); //$NON-NLS-1$
+							txtDept.setText(new BigDecimal(0)); //$NON-NLS-1$
 
 					}
 				});

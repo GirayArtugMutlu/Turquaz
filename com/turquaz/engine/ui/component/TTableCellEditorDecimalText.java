@@ -40,7 +40,7 @@ public class TTableCellEditorDecimalText extends TTableCellEditor {
 
 	public void open(KTable table, int col, int row, Rectangle rect) {
 		super.open(table, col, row, rect);
-		m_Text.setText(m_Model.getContentAt(m_Col, m_Row).toString());
+	//	m_Text.setText(m_Model.getContentAt(m_Col, m_Row));
 		m_Text.selectAll();
 		m_Text.setVisible(true);
 		m_Text.setEditable(true);

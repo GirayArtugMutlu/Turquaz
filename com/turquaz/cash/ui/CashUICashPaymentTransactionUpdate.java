@@ -185,12 +185,12 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	        
 	        if(row.getDeptAmount().compareTo(new BigDecimal(0))==1){
 	            
-	            compTransAdd.getCurTextTotalAmount().setText(row.getDeptAmount().toString());
+	            compTransAdd.getCurTextTotalAmount().setText(row.getDeptAmount());
 	            
 	        }
 	        else
 	        {
-	            compTransAdd.getCurTextTotalAmount().setText(row.getCreditAmount().toString() );
+	            compTransAdd.getCurTextTotalAmount().setText(row.getCreditAmount());
 	        }
 	   }
 	    

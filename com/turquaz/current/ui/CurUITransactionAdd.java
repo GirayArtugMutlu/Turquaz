@@ -208,7 +208,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 			decTxtAmountLData.widthHint = 235;
 			decTxtAmountLData.heightHint = 20;
 			decTxtAmount.setLayoutData(decTxtAmountLData);
-			decTxtAmount.setText(Messages.getString("CurUITransactionAdd.6")); //$NON-NLS-1$
+			decTxtAmount.setText(new BigDecimal(0)); 
 			decTxtAmount.setSize(235, 20);
 	
 			GridData lblTransDateLData = new GridData();

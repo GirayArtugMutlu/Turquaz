@@ -295,10 +295,10 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			compCurCardAdd.getTxtCardDefinition().setText(currentCard.getCardsDefinition());
 			compCurCardAdd.getTxtTaxDepartmant().setText(currentCard.getCardsTaxDepartment());
 			compCurCardAdd.getNumTextDiscountRate().setText((currentCard.getCardsDiscountRate().intValue()));
-			compCurCardAdd.getDecTxtRiskLimit().setText(currentCard.getCardsRiskLimit().toString());
+			compCurCardAdd.getDecTxtRiskLimit().setText(currentCard.getCardsRiskLimit());
 			compCurCardAdd.getTxtTaxNumber().setText(currentCard.getCardsTaxNumber());
-			compCurCardAdd.getDecTxtCreditLimit().setText(currentCard.getCardsCreditLimit().toString());
-			compCurCardAdd.getDecTxtDiscountAmount().setText(currentCard.getCardsDiscountPayment().toString());
+			compCurCardAdd.getDecTxtCreditLimit().setText(currentCard.getCardsCreditLimit());
+			compCurCardAdd.getDecTxtDiscountAmount().setText(currentCard.getCardsDiscountPayment());
 			compCurCardAdd.getTxtCardAddress().setText(currentCard.getCardsAddress());
 			compCurCardAdd.getNumDueDays().setText(currentCard.getDaysToValue());
 			

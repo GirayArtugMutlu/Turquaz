@@ -1459,11 +1459,11 @@ public class BillUIAddSellBill extends Composite
 
 		 generalTotal = subTotal.add(totalVAT).add(totalSpecVAT);
 		 
-		txtDiscountAmount.setText(discountTotal.toString());
-		txtSubTotal.setText(subTotal.toString());
-		txtTotalVat.setText(totalVAT.toString());
-		decSpecialVat.setText(totalSpecVAT.toString());
-		txtTotalAmount.setText(generalTotal.subtract(discountTotal).toString());
+		txtDiscountAmount.setText(discountTotal);
+		txtSubTotal.setText(subTotal);
+		txtTotalVat.setText(totalVAT);
+		decSpecialVat.setText(totalSpecVAT);
+		txtTotalAmount.setText(generalTotal.subtract(discountTotal));
 	
 		
 	}
