@@ -216,7 +216,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
         Date transDate;
         BigDecimal dept = new BigDecimal(0);
         BigDecimal credit = new BigDecimal(0);
-        String docNo ="";
+        String docNo =""; //$NON-NLS-1$
         String bankCode;
         String transType;
         TableItem item ;

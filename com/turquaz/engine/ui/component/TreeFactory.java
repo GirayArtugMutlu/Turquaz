@@ -47,6 +47,7 @@ import com.turquaz.admin.ui.AdmUIGroups;
 import com.turquaz.admin.ui.AdmUIUserAdd;
 import com.turquaz.admin.ui.AdmUIUserPermissions;
 import com.turquaz.admin.ui.AdmUIUsers;
+import com.turquaz.bank.ui.BankUIBankCardAbstract;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
 import com.turquaz.bank.ui.BankUIBankCardSearch;
 import com.turquaz.bank.ui.BankUIMoneyTransferIn;
@@ -161,17 +162,7 @@ public final class TreeFactory {
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.7")); //$NON-NLS-1$
 		item.setData(BankUIBankCardAdd.class.getName());
 		}
-		if(EngBLPermissions.getPermission(BankUIBankCardSearch.class.getName())>0){
-		item = new TreeItem(root,SWT.NULL);
-		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.8")); //$NON-NLS-1$
-		item.setData(BankUIBankCardSearch.class.getName());
-		}
 		
-		if(EngBLPermissions.getPermission(BankUISearchMoneyTransaction.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);
-			item.setText(Messages.getString("TreeFactory.60")); //$NON-NLS-1$
-			item.setData(BankUISearchMoneyTransaction.class.getName());
-		}
 		
 		TreeItem bankTrans = new TreeItem(root,SWT.NULL);
 		bankTrans.setText(Messages.getString("TreeFactory.61")); //$NON-NLS-1$
@@ -182,14 +173,35 @@ public final class TreeFactory {
 			item.setData(BankUIMoneyTransferIn.class.getName());
 		}
 		
+		if(EngBLPermissions.getPermission(BankUIBankCardSearch.class.getName())>0){
+			item = new TreeItem(root,SWT.NULL);
+			item.setText(com.turquaz.engine.Messages.getString("TreeFactory.8")); //$NON-NLS-1$
+			item.setData(BankUIBankCardSearch.class.getName());
+			}
+		
 		if(EngBLPermissions.getPermission(BankUIMoneyTransferOut.class.getName())>0){
 			item = new TreeItem(bankTrans,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.63")); //$NON-NLS-1$
 			item.setData(BankUIMoneyTransferOut.class.getName());
 		}
 		
-		
 		bankTrans.setExpanded(true);
+		
+		
+			
+			if(EngBLPermissions.getPermission(BankUISearchMoneyTransaction.class.getName())>0){
+				item = new TreeItem(root,SWT.NULL);
+				item.setText(Messages.getString("TreeFactory.60")); //$NON-NLS-1$
+				item.setData(BankUISearchMoneyTransaction.class.getName());
+			}
+
+			if(EngBLPermissions.getPermission(BankUIBankCardAbstract.class.getName())>0){
+				item = new TreeItem(root,SWT.NULL);
+				item.setText(Messages.getString("TreeFactory.64"));  //$NON-NLS-1$
+				item.setData(BankUIBankCardAbstract.class.getName());
+			}
+		
+		
 		
 		root.setExpanded(true);
 		return tree;

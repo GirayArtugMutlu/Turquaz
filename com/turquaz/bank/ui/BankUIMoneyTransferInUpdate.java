@@ -162,7 +162,7 @@ public class BankUIMoneyTransferInUpdate extends org.eclipse.swt.widgets.Dialog 
 	       {
 	           TurqCurrentTransaction curTrans = (TurqCurrentTransaction)it2.next();
 	           TurqCurrentCard curCard = curTrans.getTurqCurrentCard();
-	           compMoneyTransferIn.getCurrentPicker().setText(curCard.getCardsName()+" {"+curCard.getCardsCurrentCode()+"}");
+	           compMoneyTransferIn.getCurrentPicker().setText(curCard.getCardsName()+" {"+curCard.getCardsCurrentCode()+"}"); //$NON-NLS-1$ //$NON-NLS-2$
 	                    
 	           
 	       }
@@ -182,7 +182,7 @@ public class BankUIMoneyTransferInUpdate extends org.eclipse.swt.widgets.Dialog 
 	        {
 	            
 	            BankBLTransactionUpdate.deleteTransaction(transBill);
-	            EngUICommon.showMessageBox(getParent(),"Ba?ar?yla Silindi!",SWT.ICON_INFORMATION);
+	            EngUICommon.showMessageBox(getParent(),Messages.getString("BankUIMoneyTransferInUpdate.5"),SWT.ICON_INFORMATION); //$NON-NLS-1$
 	            isUpdated = true;
 	            dialogShell.close();
 	        }
@@ -205,7 +205,7 @@ public class BankUIMoneyTransferInUpdate extends org.eclipse.swt.widgets.Dialog 
 	                									 compMoneyTransferIn.getTxtDefinition().getText().trim(),
 	                									 compMoneyTransferIn.getTxtDocNo().getText().trim()
 	        		);
-	        EngUICommon.showMessageBox(getParent(),"Ba?ar?yla Güncellendi!");
+	        EngUICommon.showMessageBox(getParent(),Messages.getString("BankUIMoneyTransferInUpdate.6")); //$NON-NLS-1$
 	        isUpdated = true;
 	        dialogShell.close();
 	        }

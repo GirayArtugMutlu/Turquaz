@@ -21,6 +21,10 @@ package com.turquaz.bank.dal;
  * @version $Id$
  */
 
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +36,8 @@ import net.sf.hibernate.Transaction;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
+
+
 
 public class BankDALCommon {
 
@@ -146,4 +152,77 @@ public class BankDALCommon {
 	        throw ex;
 	    }
 	}
+	 public static List getTransactions(TurqBanksCard bankCard, Date startDate, Date endDate)throws Exception{
+	        try{
+	            Session session = EngDALSessionFactory.openSession();
+	            SimpleDateFormat frmt = new SimpleDateFormat("yyyy-MM-dd");
+	        
+	            
+	            String query = "SELECT bankTrans.transaction_bill_date, bankCard.bank_code, bankTrans.transaction_bill_definition, totals.dept, totals.credit " +
+	            		" FROM turq_banks_transaction_bills bankTrans " +
+	            		" LEFT JOIN (Select sum(row.dept_amount) as dept, sum(row.credit_amount) as credit, row.bank_transactions_bills_id as transId" +
+	            		" FROM turq_banks_transactions row group by row.bank_transactions_bills_id ) totals " +
+	            		" ON  totals.transId = bankTrans.banks_transaction_bills_id," +
+	            		" turq_banks_cards bankCard" +
+	            		" where bankTrans.banks_cards_id ="+bankCard.getBanksCardsId().intValue()+
+	            		" and bankTrans.transaction_bill_date >= '"+frmt.format(startDate)+"' and " +
+	            		" bankTrans.transaction_bill_date <= '"+frmt.format(endDate)+"' " +
+	            		" and bankTrans.banks_cards_id = bankCard.banks_cards_id";
+	          
+	            System.out.println(query);
+
+	            Statement stmt = session.connection().createStatement();
+	            ResultSet rs = stmt.executeQuery(query);
+	            Object [] result;
+	            List ls = new ArrayList();
+	            
+	            while(rs.next()){
+	                result = new Object[5];
+	                result[0] = rs.getObject(1);
+	                result[1] = rs.getObject(2);
+	                result[2] = rs.getObject(3);
+	                result[3] = rs.getObject(4);
+	                result[4] = rs.getObject(5);
+	                 ls.add(result);             
+	            }
+	         
+	            session.close();
+	            return ls;
+	            
+	        }
+	        catch(Exception ex){
+	            throw ex;
+	        }
+	    }
+	 //Devreden Toplam
+	    public static List getDeferredTotal(TurqBanksCard cashCard, Date endDate) throws Exception
+	    {
+	        try{
+	            Session session = EngDALSessionFactory.openSession();
+	           
+	            String query = "Select sum(row.deptAmount),sum(row.creditAmount)" +
+	            		" from TurqBanksTransaction as row where row.turqBanksTransactionBill.transactionBillDate < :endDate" +
+	            		" and row.turqBanksTransactionBill.turqBanksCard = :cashCard" +
+	            		" group by row.turqBanksTransactionBill.turqBanksCard";
+	            
+	            Query q = session.createQuery(query);
+	            q.setParameter("endDate",endDate);
+	            q.setParameter("cashCard",cashCard);
+	            List ls = q.list();
+	            
+	            session.close();
+	            return ls;
+	            
+	            
+	            
+	            
+	        }
+	        catch(Exception ex)
+	        {
+	            throw ex;
+	        }
+	        
+	        
+	    }
+	    
 }

@@ -18,5 +18,28 @@ public class BankBLTransactionSearch {
             throw ex;
         }
     }
+    public static List getTransactions(TurqBanksCard bankCard, Date startDate, Date endDate)throws Exception {
+        try{
+            
+            return BankDALCommon.getTransactions(bankCard, startDate, endDate);
+            
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    //Devreden Toplam
+    public static List getDeferredTotal(TurqBanksCard cashCard, Date endDate) throws Exception
+    {
+        try{
+        
+            return BankDALCommon.getDeferredTotal(cashCard,endDate);
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+    }
+    
 
 }

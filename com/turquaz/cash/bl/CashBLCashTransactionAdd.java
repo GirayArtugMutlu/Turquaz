@@ -76,9 +76,9 @@ public class CashBLCashTransactionAdd {
 	 cashTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 	 cashTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
      
- /*
-  * Create cash Transaction Rows
-  */
+	 /*
+	  * Create cash Transaction Rows
+	  */
 	 TurqCashTransactionRow cashTransRow = new TurqCashTransactionRow();
 	 cashTransRow.setCreatedBy(System.getProperty("user"));
 	 cashTransRow.setUpdatedBy(System.getProperty("user"));

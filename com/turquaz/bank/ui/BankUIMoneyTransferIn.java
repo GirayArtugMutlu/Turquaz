@@ -66,7 +66,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
 			this.setSize(504, 206);
             {
                 lblDocNo = new CLabel(this, SWT.NONE);
-                lblDocNo.setText("Belge No");
+                lblDocNo.setText(Messages.getString("BankUIMoneyTransferIn.5")); //$NON-NLS-1$
             }
             {
                 txtDocNo = new Text(this, SWT.NONE);
@@ -149,20 +149,20 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
     public boolean verifyFields()
     {
         if(txtBankCard.getData()==null){
-           EngUICommon.showMessageBox(getShell(),"Lütfen önce banka kart? seçiniz!",SWT.ICON_WARNING);
+           EngUICommon.showMessageBox(getShell(),Messages.getString("BankUIMoneyTransferIn.6"),SWT.ICON_WARNING); //$NON-NLS-1$
            txtBankCard.setFocus();
            return false;
             
         }
         if(currentPicker.getData()==null){
-            EngUICommon.showMessageBox(getShell(),"Lütfen önce cari kart seçiniz!",SWT.ICON_WARNING);
+            EngUICommon.showMessageBox(getShell(),Messages.getString("BankUIMoneyTransferIn.7"),SWT.ICON_WARNING); //$NON-NLS-1$
             currentPicker.setFocus();
             return false;
              
          }
         if(curAmount.getBigDecimalValue().compareTo(new BigDecimal(0))!=1)
         {
-            EngUICommon.showMessageBox(getShell(),"Lütfen Tutar Giriniz!",SWT.ICON_WARNING);
+            EngUICommon.showMessageBox(getShell(),Messages.getString("BankUIMoneyTransferIn.8"),SWT.ICON_WARNING); //$NON-NLS-1$
              curAmount.setFocus();
             return false;
             
@@ -185,7 +185,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
                       							  txtDefinition.getText(),
                       							  txtDocNo.getText()
                       							  );
-              EngUICommon.showMessageBox(getShell(),"Ba?ar?yla Kaydedildi",SWT.ICON_INFORMATION);
+              EngUICommon.showMessageBox(getShell(),Messages.getString("BankUIMoneyTransferIn.9"),SWT.ICON_INFORMATION); //$NON-NLS-1$
               newForm();
           }         
           

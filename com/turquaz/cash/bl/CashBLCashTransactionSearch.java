@@ -50,7 +50,8 @@ public class CashBLCashTransactionSearch {
            throw ex;
        }
    }
-  // Devreden
+ 
+   // Devreden
    public static List getDeferredTotal(TurqCashCard cashCard,Date endDate)throws Exception 
    {
        try
