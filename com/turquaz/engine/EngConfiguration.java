@@ -40,6 +40,7 @@ import java.util.Properties;
 public class EngConfiguration {
 	private static final String filename = "config/turquaz.properties";//$NON-NLS-1$
     private Properties props ;
+    public static String logoURL;
 	
 
 	private static EngConfiguration _instance;
@@ -49,6 +50,7 @@ public class EngConfiguration {
       FileInputStream fis = new FileInputStream(filename);
 	   props = new Properties();
 	   props.load(fis);
+	   logoURL=props.getProperty("logoURL");
 	    
 	    }
 	    catch(Exception ex){

@@ -136,8 +136,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	private void initGUI() {
 		try {
 		    
-		    DatabaseThread dbThread = new DatabaseThread();
-		    dbThread.start();
+		 //   DatabaseThread dbThread = new DatabaseThread();
+		  //  dbThread.start();
 		    
 		  
 			GridLayout thisLayout = new GridLayout();

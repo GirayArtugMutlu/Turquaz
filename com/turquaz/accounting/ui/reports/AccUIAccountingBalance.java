@@ -1,5 +1,6 @@
 package com.turquaz.accounting.ui.reports;
 
+import java.io.File;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -42,6 +43,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Button;
 
 import com.turquaz.accounting.Messages;
+import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -50,10 +52,9 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 	private CLabel lblDateRange;
 	private DatePicker datePickerBeginDate;
 	private DatePicker datePickerEndDate;
-	private Button checkSubAccounts;
+	private CLabel lblLogoURL;
 	private Button btnIcon;
 	private Button btnShow;
-	public static String logoURL;
 
 	/**
 	* Auto-generated main method to display this 
@@ -125,9 +126,8 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			NumberFormat formatter =NumberFormat.getNumberInstance();
             formatter.setMaximumFractionDigits(2);
             parameters.put("formatter",formatter);
-			parameters.put("imageUrl", logoURL);
+			parameters.put("imageUrl", EngConfiguration.logoURL);
             parameters.put("formatter",formatter); //$NON-NLS-1$
-			parameters.put("imageUrl", logoURL); //$NON-NLS-1$ //$NON-NLS-2$
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
 			JasperReport jasperReport = JasperManager.loadReport("reports/accounting/AccountingBalance.jasper"); //$NON-NLS-1$
@@ -166,13 +166,11 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 				datePickerEndDate = new DatePicker(this, SWT.NONE);
 			}
 			{
-				checkSubAccounts = new Button(this, SWT.CHECK | SWT.LEFT);
-				checkSubAccounts.setText("Show SubAccounts");
-				GridData checkSubAccountsLData = new GridData();
-				checkSubAccountsLData.widthHint = 133;
-				checkSubAccountsLData.heightHint = 16;
-				checkSubAccounts.setLayoutData(checkSubAccountsLData);
-				checkSubAccounts.setText(Messages.getString("AccUIAccountingBalance.28")); //$NON-NLS-1$
+				lblLogoURL = new CLabel(this, SWT.NONE);
+				GridData lblLogoURLLData = new GridData();
+				lblLogoURLLData.widthHint = 144;
+				lblLogoURLLData.heightHint = 16;
+				lblLogoURL.setLayoutData(lblLogoURLLData);
 			}
 			{
 				btnIcon = new Button(this, SWT.PUSH | SWT.CENTER);
@@ -197,6 +195,11 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 					}
 				});
 			}
+			File file = new File(EngConfiguration.logoURL);
+			if(file.exists())
+				this.lblLogoURL.setText("Logo:"+EngConfiguration.logoURL);
+			else
+				this.lblLogoURL.setText("Logo:");
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -211,7 +214,8 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 		String filepath = dialog.open();
 		
 		if(filepath!=null){
-			logoURL=filepath;
+			EngConfiguration.logoURL=filepath;
+			lblLogoURL.setText("Logo:"+filepath);
 		}
 
 		

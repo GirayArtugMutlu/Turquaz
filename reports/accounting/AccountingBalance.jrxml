@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="Unnamed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="ReportTitle" class="java.lang.String">
@@ -131,14 +131,14 @@
 	<title>
 		<band height="50">
 			<textField>
-				<reportElement positionType="Float" x="26" y="12" width="269" height="21"/>
+				<reportElement positionType="Float" x="36" y="13" width="269" height="21"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{ReportTitle}+"    "+$P{beginDate}+" / "+$P{endDate}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement positionType="Float" x="4" y="12" width="21" height="21"/>
+				<reportElement positionType="Float" x="4" y="12" width="30" height="27"/>
 				<graphicElement/>
 				<imageExpression class="java.lang.String"><![CDATA[$P{imageUrl}]]></imageExpression>
 			</image>
@@ -147,11 +147,11 @@
 	<columnHeader>
 		<band height="50">
 			<rectangle>
-				<reportElement positionType="Float" x="1" y="5" width="553" height="41"/>
+				<reportElement positionType="Float" x="0" y="5" width="553" height="41"/>
 				<graphicElement/>
 			</rectangle>
 			<staticText>
-				<reportElement positionType="Float" x="3" y="13" width="33" height="29"/>
+				<reportElement positionType="Float" x="3" y="13" width="26" height="29"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[H.K]]></text>
 			</staticText>
