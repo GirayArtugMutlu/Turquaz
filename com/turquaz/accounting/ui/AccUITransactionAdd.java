@@ -62,6 +62,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
+import com.cloudgarden.resource.SWTResourceManager;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -77,6 +78,13 @@ import org.eclipse.swt.events.VerifyEvent;
 * *************************************
 */
 public class AccUITransactionAdd extends  Composite implements SecureComposite {
+
+	{
+		//Register as a resource user - SWTResourceManager will
+		//handle the obtaining and disposing of resources
+		SWTResourceManager.registerResourceUser(this);
+	}
+
 
 	
 
@@ -132,6 +140,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	private final String CREDIT 		    = Messages.getString("AccUITransactionAdd.7"); //$NON-NLS-1$
 	TableCursor cursor;
 	private List columnList = new ArrayList();
+	private CLabel lblTableWarning;
 	TableRowList rowList = new TableRowList();
 	// Set column names
 	private String[] columnNames = new String[] { 
@@ -230,6 +239,17 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 				text1LData.horizontalSpan = 3;
 				text1LData.widthHint = 365;
 				txtTransDefinition.setLayoutData(text1LData);
+			}
+			{
+				lblTableWarning = new CLabel(this, SWT.NONE);
+				lblTableWarning.setText(Messages.getString("AccUITransactionAdd.10")); //$NON-NLS-1$
+				GridData lblTableWarningLData = new GridData();
+				lblTableWarning.setFont(SWTResourceManager.getFont("Tahoma", 8, 1, false, false)); //$NON-NLS-1$
+				lblTableWarningLData.horizontalSpan = 4;
+				lblTableWarningLData.widthHint = 383;
+				lblTableWarningLData.heightHint = 19;
+				lblTableWarningLData.verticalSpan = 4;
+				lblTableWarning.setLayoutData(lblTableWarningLData);
 			}
 			{
 				tableTransactionColumns = new Table(this, SWT.FULL_SELECTION | SWT.HIDE_SELECTION);

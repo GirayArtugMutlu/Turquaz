@@ -102,6 +102,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	private Text txtDefinition;
 	private TableColumn tableColumnDefinition;
 	private TableItem item;
+	private CLabel lblTableWarning;
 	private CLabel lblDefinition;
 	private TableColumn tableColumnDeptAmount;
 	private TableColumn tableColumnAccountName;
@@ -230,6 +231,16 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 				txtDefinitionLData.verticalAlignment = GridData.FILL;
 				txtDefinitionLData.horizontalAlignment = GridData.FILL;
 				txtDefinition.setLayoutData(txtDefinitionLData);
+			}
+			{
+				lblTableWarning = new CLabel(this, SWT.NONE);
+				lblTableWarning.setText(Messages.getString("AccUITransactionPayment.5")); //$NON-NLS-1$
+				GridData lblTableWarningLData = new GridData();
+				lblTableWarning.setFont(SWTResourceManager.getFont("Tahoma", 8, 1, false, false)); //$NON-NLS-1$
+				lblTableWarningLData.horizontalSpan = 4;
+				lblTableWarningLData.widthHint = 374;
+				lblTableWarningLData.heightHint = 19;
+				lblTableWarning.setLayoutData(lblTableWarningLData);
 			}
 			{
 				tableTransactionRows = new Table(this, SWT.FULL_SELECTION | SWT.HIDE_SELECTION | SWT.BORDER);

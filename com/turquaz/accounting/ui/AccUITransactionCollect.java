@@ -98,6 +98,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	private CLabel lblDate;
 	private CCombo comboDeptor;
 	private TableItem item;
+	private CLabel lblTableWarning;
 	private TableColumn txtTransactionDefinition;
 	private TableColumn tableColumnCreditAmount;
 	private TableColumn tableColumnAccountName;
@@ -230,6 +231,16 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 				txtTransDefinitionLData.widthHint = 184;
 				txtTransDefinitionLData.heightHint = 19;
 				txtTransDefinition.setLayoutData(txtTransDefinitionLData);
+			}
+			{
+				lblTableWarning = new CLabel(this, SWT.NONE);
+				lblTableWarning.setText(Messages.getString("AccUITransactionCollect.10")); //$NON-NLS-1$
+				lblTableWarning.setFont(SWTResourceManager.getFont("Tahoma", 8, 1, false, false)); //$NON-NLS-1$
+				GridData lblTableWarningLData = new GridData();
+				lblTableWarningLData.horizontalSpan = 4;
+				lblTableWarningLData.widthHint = 425;
+				lblTableWarningLData.heightHint = 19;
+				lblTableWarning.setLayoutData(lblTableWarningLData);
 			}
 			{
 				tableTransactionRows = new Table(this, SWT.FULL_SELECTION | SWT.HIDE_SELECTION | SWT.BORDER);
