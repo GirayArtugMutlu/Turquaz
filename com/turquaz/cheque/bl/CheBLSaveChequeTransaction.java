@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.cheque.Messages;
@@ -35,6 +36,7 @@ import com.turquaz.cheque.dal.CheDALSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
@@ -177,6 +179,7 @@ public class CheBLSaveChequeTransaction {
         
     }
     
+    
     public static void saveCollectFromBank( String rollNo,Date rollDate,List chequeList)throws Exception {
     	
     	 
@@ -278,6 +281,7 @@ public class CheBLSaveChequeTransaction {
           chequeRoll.setTurqBanksCard(bankCardEmpty);
           
           chequeRoll.setTurqEngineSequence(seq);
+          
           CheDALSave.save(chequeRoll);
           
           TurqChequeChequeInRoll chequeInRoll;
@@ -320,6 +324,51 @@ public class CheBLSaveChequeTransaction {
           
     	
     	
+    }
+    
+    
+    public  static void saveRollAccountingTransactions(TurqAccountingAccount rollAccount,TurqAccountingAccount counterAccount,TurqChequeRoll roll, BigDecimal amount)
+    throws Exception
+    {
+    	
+    	AccBLTransactionAdd blAccTran = new AccBLTransactionAdd();
+    	
+    	int type = roll.getTurqChequeTransactionType().getChequeTransactionTypesId().intValue();
+    	int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
+    	
+    	if(rollAccount == null || counterAccount ==null)
+    	{
+    	
+    		return ;
+    	
+    	}
+    	
+    	TurqAccountingTransactionColumn transRollRow = new TurqAccountingTransactionColumn();
+    	TurqAccountingTransactionColumn transCounterRow = new TurqAccountingTransactionColumn();
+    	
+    	if(type==EngBLCommon.CHEQUE_TRANS_IN || type==EngBLCommon.CHEQUE_TRANS_OUT_BANK)
+    	{
+    		
+    	
+    	}
+    	else if(type == EngBLCommon.CHEQUE_TRANS_OUT_CURRENT){
+    		
+    	}
+    	else if(type == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_BANK)
+    	{
+    		
+    	}
+    	else if(type == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_CURRENT)
+    	{
+    	
+    		
+    	}
+    	
+    	Integer transId = blAccTran.saveAccTransaction(roll.getChequeRollsDate(),
+				roll.getChequeRollNo(), accTransType, roll.getTurqEngineSequence().getTurqModule()
+						.getModulesId().intValue(), roll.getTurqEngineSequence()
+						.getEngineSequencesId(), "Cek Bordrosu "+roll.getChequeRollNo());
+    	    	
     }
     
     

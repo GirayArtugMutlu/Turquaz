@@ -89,6 +89,7 @@ import com.turquaz.engine.ui.component.MenuManager;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TreeFactory;
+import com.turquaz.engine.ui.component.rssowl.BrowserPanel;
 
 
 
@@ -137,6 +138,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private Composite compMainInRight;
 	private static Tree treeFavorites;
 	private CLabel lblFavoritesTab;
+	private ToolItem toolBrowser;
 	private CLabel lblActiveModul;
 	private Label label2;
 	private Button btnCheque;
@@ -177,12 +179,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	Menu popupTreeAddFavorites;
 	Menu popupTreeRemoveFavorites;
 	static Map mapList = new HashMap();
+	public static Display display; 
+	public static Shell shell;
 
 	public EngUIMainFrame(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
-		
-		
+		display = this.getDisplay();
+		shell = this.getShell();
 		
 	}
 
@@ -213,7 +217,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
             {
                 lblActiveModul = new CLabel(compModulesTab, SWT.NONE);
                 GridData lblActiveModulLData = new GridData();
-                lblActiveModul.setFont(SWTResourceManager.getFont("Tahoma", 12, 1, false, false));
+                lblActiveModul.setFont(SWTResourceManager.getFont("Tahoma", 12, 1, false, false)); //$NON-NLS-1$
                 lblActiveModul.setForeground(SWTResourceManager.getColor(255, 255, 255));
                 lblActiveModul.setBackground(SWTResourceManager.getColor(128, 128, 128));
                 lblActiveModulLData.grabExcessHorizontalSpace = true;
@@ -807,6 +811,20 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                                 }
                                 });
                         }
+						//START >>  toolBrowser
+						toolBrowser = new ToolItem(toolbarMainTop, SWT.NONE);
+						toolBrowser.setText("Turquaz Ana Sayfa"); //$NON-NLS-1$
+						toolBrowser.setImage(SWTResourceManager
+							.getImage("icons/browserview.gif")); //$NON-NLS-1$
+						toolBrowser
+							.addSelectionListener(new SelectionAdapter() {
+							public void widgetSelected(SelectionEvent evt) {
+							
+								openBrowserTab();
+							
+							}
+							});
+						//END <<  toolBrowser
                     }
                 }
             }
@@ -1309,6 +1327,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
        
    }
 
+   public static void openBrowserTab(){
+   	CTabItem yeni = new CTabItem (tabfldMain,SWT.NULL );
+	yeni.setText(Messages.getString("EngUIMainFrame.14"));  //$NON-NLS-1$
+	BrowserPanel panel = new BrowserPanel(tabfldMain,true,false);
+     yeni.setControl(panel);
+     tabfldMain.setSelection(yeni);
+	
+	arrangeIcons();
+   }
 	
 	public static void openNewTab (String Name, String classname){
 		
@@ -1383,6 +1410,17 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 	public static void arrangeIcons(){
 		try{
+			if(tabfldMain.getSelection().getControl()==null)
+			{
+				toolExportToExcel.setEnabled(false);
+				toolPrint.setEnabled(false);
+				toolDelete.setEnabled(false);
+				toolSearch.setEnabled(false);
+				toolSave.setEnabled(false);
+				toolNew.setEnabled(false);
+				return;
+				
+			}
 		   if(tabfldMain.getSelection().getControl() instanceof SecureComposite){
 		    
 		   SecureComposite c = (SecureComposite)tabfldMain.getSelection().getControl();
