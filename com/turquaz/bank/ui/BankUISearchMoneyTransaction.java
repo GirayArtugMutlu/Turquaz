@@ -1,8 +1,26 @@
 package com.turquaz.bank.ui;
 
 
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.widgets.TableColumn;
+
+import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.ui.EngUICommon;
+import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.bank.Messages;
+import com.turquaz.bank.bl.BankBLTransactionSearch;
+import com.turquaz.bank.ui.comp.BankCardPicker;
+import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
@@ -34,6 +52,20 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 
 	private Composite compSearch;
 	private Table tableMoneyTrans;
+	private CLabel lblBankCard;
+	private TableColumn tableColumnCredit;
+	private TableColumn tableColumnDocNo;
+	private TableColumn tableColumnAmount;
+	private TableColumn tableColumnType;
+	private TableColumn tableColumnBankCode;
+	private TableColumn tableColumnDate;
+	private DatePicker dateEnd;
+	private CLabel lblEndDate;
+	private DatePicker dateStart;
+	private CLabel lblStartDate;
+	private BankCardPicker bankPicker;
+	private Text txtDocNo;
+	private CLabel lblDocNo;
 
 	public BankUISearchMoneyTransaction(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
@@ -44,27 +76,111 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 		try {
 			this.setLayout(new GridLayout());
 			this.setBackground(SWTResourceManager.getColor(255, 255, 255));
-			this.setSize(650, 400);
+			this.setSize(677, 401);
             {
                 compSearch = new Composite(this, SWT.NONE);
                 GridLayout compSearchLayout = new GridLayout();
+                compSearchLayout.numColumns = 2;
                 GridData compSearchLData = new GridData();
                 compSearchLData.horizontalAlignment = GridData.FILL;
                 compSearchLData.grabExcessHorizontalSpace = true;
-                compSearchLData.heightHint = 100;
+                compSearchLData.heightHint = 114;
                 compSearch.setLayoutData(compSearchLData);
-                compSearchLayout.makeColumnsEqualWidth = true;
                 compSearch.setLayout(compSearchLayout);
+                {
+                    lblDocNo = new CLabel(compSearch, SWT.NONE);
+                    lblDocNo.setText(Messages.getString("BankUISearchMoneyTransaction.0")); //$NON-NLS-1$
+                }
+                {
+                    txtDocNo = new Text(compSearch, SWT.NONE);
+                    GridData txtDocNoLData = new GridData();
+                    txtDocNoLData.widthHint = 145;
+                    txtDocNoLData.heightHint = 16;
+                    txtDocNo.setLayoutData(txtDocNoLData);
+                }
+                {
+                    lblBankCard = new CLabel(compSearch, SWT.NONE);
+                    lblBankCard.setText(Messages.getString("BankUISearchMoneyTransaction.1")); //$NON-NLS-1$
+                }
+                {
+                    bankPicker = new BankCardPicker(compSearch, SWT.NONE);
+                    GridData bankPickerLData = new GridData();
+                    bankPickerLData.widthHint = 149;
+                    bankPickerLData.heightHint = 15;
+                    bankPicker.setLayoutData(bankPickerLData);
+                }
+                {
+                    lblStartDate = new CLabel(compSearch, SWT.NONE);
+                    lblStartDate.setText(Messages.getString("BankUISearchMoneyTransaction.2")); //$NON-NLS-1$
+                }
+                {
+                    dateStart = new DatePicker(compSearch, SWT.NONE);
+                    GridData dateStartLData = new GridData();
+                    dateStartLData.widthHint = 114;
+                    dateStartLData.heightHint = 19;
+                    dateStart.setLayoutData(dateStartLData);
+                }
+                {
+                    lblEndDate = new CLabel(compSearch, SWT.NONE);
+                    lblEndDate.setText(Messages.getString("BankUISearchMoneyTransaction.3")); //$NON-NLS-1$
+                }
+                {
+                    dateEnd = new DatePicker(compSearch, SWT.NONE);
+                    GridData dateEndLData = new GridData();
+                    dateEndLData.widthHint = 112;
+                    dateEndLData.heightHint = 17;
+                    dateEnd.setLayoutData(dateEndLData);
+                }
             }
             {
-                tableMoneyTrans = new Table(this, SWT.NONE);
+                tableMoneyTrans = new Table(this, SWT.FULL_SELECTION);
                 GridData tableMoneyTransLData = new GridData();
+                tableMoneyTrans.addMouseListener(new MouseAdapter() {
+                    public void mouseDoubleClick(MouseEvent evt) {
+                    tableMouseDoubleClick();   
+                    
+                    }
+                });
                 tableMoneyTrans.setHeaderVisible(true);
                 tableMoneyTrans.setLinesVisible(true);
                 tableMoneyTransLData.horizontalAlignment = GridData.FILL;
                 tableMoneyTransLData.verticalAlignment = GridData.FILL;
                 tableMoneyTransLData.grabExcessVerticalSpace = true;
                 tableMoneyTrans.setLayoutData(tableMoneyTransLData);
+                {
+                    tableColumnDate = new TableColumn(tableMoneyTrans, SWT.NONE);
+                    tableColumnDate.setText(Messages.getString("BankUISearchMoneyTransaction.4")); //$NON-NLS-1$
+                    tableColumnDate.setWidth(82);
+                }
+                {
+                    tableColumnDocNo = new TableColumn(
+                        tableMoneyTrans,
+                        SWT.NONE);
+                    tableColumnDocNo.setWidth(75);
+                    tableColumnDocNo.setText(Messages.getString("BankUISearchMoneyTransaction.5")); //$NON-NLS-1$
+                }
+                {
+                    tableColumnBankCode = new TableColumn(
+                        tableMoneyTrans,
+                        SWT.NONE);
+                    tableColumnBankCode.setText(Messages.getString("BankUISearchMoneyTransaction.6")); //$NON-NLS-1$
+                    tableColumnBankCode.setWidth(100);
+                }
+                {
+                    tableColumnType = new TableColumn(tableMoneyTrans, SWT.NONE);
+                    tableColumnType.setText(Messages.getString("BankUISearchMoneyTransaction.7")); //$NON-NLS-1$
+                    tableColumnType.setWidth(104);
+                }
+                {
+                    tableColumnAmount = new TableColumn(tableMoneyTrans, SWT.RIGHT);
+                    tableColumnAmount.setText(Messages.getString("BankUISearchMoneyTransaction.8")); //$NON-NLS-1$
+                    tableColumnAmount.setWidth(116);
+                }
+                {
+                    tableColumnCredit = new TableColumn(tableMoneyTrans, SWT.RIGHT);
+                    tableColumnCredit.setText(Messages.getString("BankUISearchMoneyTransaction.9")); //$NON-NLS-1$
+                    tableColumnCredit.setWidth(100);
+                }
             }
 			this.layout();
 		} catch (Exception e) {
@@ -85,7 +201,82 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 
     }
     public void search() {
-        // TODO Auto-generated method stub
+    try
+    {
+        tableMoneyTrans.removeAll();
+        TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+        
+        List ls = BankBLTransactionSearch.searchtransaction((TurqBanksCard)bankPicker.getData(),txtDocNo.getText().trim(),dateStart.getDate(),dateEnd.getDate());
+      
+        Object []result;
+        Integer transId;
+        Date transDate;
+        BigDecimal dept = new BigDecimal(0);
+        BigDecimal credit = new BigDecimal(0);
+        String docNo ="";
+        String bankCode;
+        String transType;
+        TableItem item ;
+        
+        for(int i=0;i<ls.size();i++){
+            
+            dept = new BigDecimal(0);
+            credit = new BigDecimal(0);
+            
+            result = (Object[])ls.get(i);
+            transId = (Integer)result[0];
+            bankCode = result[1].toString();
+            transType = result[2].toString();
+            
+            if(result[3]!=null){
+              dept = (BigDecimal)result[3];  
+                
+            }
+            if(result[4]!=null){
+                credit = (BigDecimal)result[4];
+            }
+            transDate = (Date)result[5];
+            docNo = result[6].toString();
+            
+            item = new TableItem(tableMoneyTrans,SWT.NULL);
+            item.setData(transId);
+            item.setText(new String[]{
+                    				  DatePicker.formatter.format(transDate),
+                    				  docNo,
+                    				  bankCode,
+                    				  transType,
+                    				  cf.format(dept),
+                    				  cf.format(credit),
+                    				  docNo
+            							});
+            
+            
+        }
+        
+        
+        
+        
+    }
+    catch(Exception ex){
+        ex.printStackTrace();
+       EngUICommon.showMessageBox(getShell(),ex.getMessage(),SWT.ICON_ERROR);
+    }
 
+    }
+    
+    public void tableMouseDoubleClick(){
+   try{
+       
+       
+       
+       
+   }
+   catch(Exception ex)
+   {
+       ex.printStackTrace();
+       EngUICommon.showMessageBox(getShell(),ex.getMessage().toString(),SWT.ICON_ERROR);
+   }
+        
+        
     }
 }

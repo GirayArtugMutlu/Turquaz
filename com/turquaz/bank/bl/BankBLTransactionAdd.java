@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
-import com.turquaz.bank.dal.BankDALBankCardAdd;
+import com.turquaz.bank.dal.BankDALCommon;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
@@ -34,7 +34,7 @@ public class BankBLTransactionAdd {
                 module.setModulesId(new Integer(EngBLCommon.MODULE_BANKS));
                 seq = new TurqEngineSequence();
                 seq.setTurqModule(module);
-                BankDALBankCardAdd.saveObject(seq);
+                BankDALCommon.saveObject(seq);
                 }
                 catch(Exception ex){
                     throw ex;
@@ -133,13 +133,13 @@ public class BankBLTransactionAdd {
          /**
           * Save transaction bill
           */
-         BankDALBankCardAdd.saveObject(bankTransBill);
+         BankDALCommon.saveObject(bankTransBill);
          
          /**
           * Save transaction row
           */
          transRow.setTurqBanksTransactionBill(bankTransBill);
-         BankDALBankCardAdd.saveObject(transRow);
+         BankDALCommon.saveObject(transRow);
               
          /**
           * 

@@ -21,7 +21,7 @@ package com.turquaz.bank.bl;
 * @version  $Id$
 */
 
-import com.turquaz.bank.dal.BankDALBankCardAdd;
+import com.turquaz.bank.dal.BankDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
@@ -34,7 +34,7 @@ public class BankBLBankCardAdd {
 	{
 	}
 	
-	private BankDALBankCardAdd bankCardDALAdd=new BankDALBankCardAdd();
+	private BankDALCommon bankCardDALAdd=new BankDALCommon();
 	
 	Calendar cal=Calendar.getInstance();
 	
@@ -56,7 +56,7 @@ public class BankBLBankCardAdd {
 			bankCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			bankCard.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			BankDALBankCardAdd.saveObject(bankCard);	
+			BankDALCommon.saveObject(bankCard);	
 			
 		}
 		catch(Exception ex)
