@@ -1000,7 +1000,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 			{
 				// sell bill
 				int type = BILL_TYPE;
-				TurqBill bill = null;
+				TurqBill bill = new TurqBill();
 				
 				HashMap argMap=new HashMap();
 				

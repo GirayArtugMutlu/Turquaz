@@ -53,7 +53,7 @@ public class BillBLAddBill
 		List invTransactions=(List)argMap.get(InvKeys.INV_TRANSACTIONS);
 		
 		
-		bill = registerBill(billDocNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate);
+		registerBill(bill,billDocNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate);
 		TurqEngineSequence engSeq = EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_BILL);
 		TurqBillInEngineSequence billInEng = new TurqBillInEngineSequence();
 		billInEng.setTurqEngineSequence(engSeq);
@@ -96,7 +96,8 @@ public class BillBLAddBill
 			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 			List billGroups=(List)argMap.get(BillKeys.BILL_GROUPS);
 			// Save Bill
-			TurqBill bill = registerBill(docNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate);
+			TurqBill  bill  = new TurqBill();
+			registerBill(bill,docNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate);
 			//Then Save Bill Groups
 			for (int i = 0; i < consList.size(); i++)
 			{
@@ -131,12 +132,12 @@ public class BillBLAddBill
 	 * @return
 	 * @throws Exception
 	 */
-	private static TurqBill registerBill(String docNo, String definition, boolean isPrinted, Date billsDate, int type, Date dueDate,
+	private static TurqBill registerBill(TurqBill bill,String docNo, String definition, boolean isPrinted, Date billsDate, int type, Date dueDate,
 			TurqCurrentCard curCard, TurqCurrencyExchangeRate exchangeRate) throws Exception
 	{
 		try
 		{
-			TurqBill bill = new TurqBill();
+			
 			bill.setBillsDate(billsDate);
 			bill.setBillsDefinition(definition);
 			bill.setBillsPrinted(isPrinted);

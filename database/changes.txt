@@ -903,13 +903,15 @@ INSERT INTO turq_module_components VALUES (88, 0, 'com.turquaz.inventory.ui.InvU
 **********************************************************************************
 ***********************************29-03-2005***************************************
 CREATE TABLE turq_bill_in_engine_sequences
-(engine_sequences_id int4 NOT NULL,
-  bills_id int4 NOT NULL,
+(
   id int4 NOT NULL,
+  engine_sequences_id int4 NOT NULL,
+  bills_id int4 NOT NULL,
+  
   CONSTRAINT p_iddd PRIMARY KEY (id),
   CONSTRAINT f_bill_id FOREIGN KEY (bills_id) REFERENCES turq_bills (id) ON UPDATE RESTRICT ON DELETE RESTRICT,
-  CONSTRAINT f_en_id FOREIGN KEY (engine_sequences_id) REFERENCES turq_engine_sequences (id) ON UPDATE RESTRICT ON DELETE RESTRICT);
-
+  CONSTRAINT f_en_id FOREIGN KEY (engine_sequences_id) REFERENCES turq_engine_sequences (id) ON UPDATE RESTRICT ON DELETE RESTRICT
+) 
 ************************************************************************************************
 ************************************************************************************************
 ***********************************!!!!!!!!IMPORTANT!!!!!!!!!!!!********************************
@@ -996,7 +998,7 @@ ALTER TABLE turq_inventory_transactions ADD COLUMN vat_special_unit_price_in_for
 ALTER TABLE turq_inventory_transactions ADD COLUMN vat_special_amount_in_foreign_currency numeric;
 ALTER TABLE turq_inventory_transactions ADD COLUMN cumilative_price_in_foreign_currency numeric;
 
-update turq_inventory_transactions set unit_price__in_foreign_currency=unit_price;
+update turq_inventory_transactions set unit_price_in_foreign_currency=unit_price;
 update turq_inventory_transactions set total_price_in_foreign_currency=total_price;
 update turq_inventory_transactions set cumilative_price_in_foreign_currency=cumilative_price;
 update turq_inventory_transactions set discount_amount_in_foreign_currency=discount_amount;
@@ -1041,6 +1043,10 @@ update turq_consignments set bill_document_no=turq_bills.bill_document_no
 where turq_consignments.engine_sequences_id=turq_bill_in_engine_sequences.engine_sequences_id
 and turq_bill_in_engine_sequences.bills_id=turq_bills.id;
 
+
+ALTER TABLE turq_bills DROP COLUMN consignments_id;
+
+
 ALTER TABLE turq_consignments
    ALTER COLUMN bill_document_no SET NOT NULL;
 
@@ -1052,6 +1058,15 @@ sum(invtrans.vat_special_amount_in_foreign_currency) AS specialvatamount,
    FROM turq_inventory_transactions invtrans, turq_bill_in_engine_sequences billin
   WHERE invtrans.engine_sequences_id = billin.engine_sequences_id
   GROUP BY billin.bills_id;
+  
+  
+  
+CREATE OR REPLACE VIEW turq_view_inv_price_totals AS 
+ SELECT invtrans.engine_sequences_id, sum(invtrans.total_price_in_foreign_currency) AS totalprice, sum(invtrans.vat_amount_in_foreign_currency) AS vatamount, sum(invtrans.vat_special_amount_in_foreign_currency) AS specialvatamount, sum(invtrans.discount_amount_in_foreign_currency) AS discountamount
+   FROM turq_inventory_transactions invtrans
+  GROUP BY invtrans.engine_sequences_id;
+
+  
 
 ALTER TABLE turq_inventory_transactions ADD COLUMN current_cards_id int4;
 

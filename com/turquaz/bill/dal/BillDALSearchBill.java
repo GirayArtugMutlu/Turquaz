@@ -100,6 +100,7 @@ public class BillDALSearchBill
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
+			session.refresh(bill);
 			Hibernate.initialize(bill.getTurqBillInGroups());
 			Hibernate.initialize(bill.getTurqBillInEngineSequences());
 			Iterator it = bill.getTurqBillInEngineSequences().iterator();
