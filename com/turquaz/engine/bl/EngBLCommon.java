@@ -129,6 +129,14 @@ public class EngBLCommon {
     public final static int CHEQUE_TYPE_CUSTOMER = 0; //mü?teri Ceki
     public final static int CHEQUE_TYPE_OWN = 1; //Firma Ceki
     
+    public final static int CHEQUE_STATUS_PORTFOY = 0; //portfoyde
+    public final static int CHEQUE_STATUS_CURRENT = 1; //ciro edili
+    public final static int CHEQUE_STATUS_BANK = 2; // bankada tahsilde
+    
+    public final static String CHEQUE_STATUS_PORTFOY_STRING = "Portföyde";
+    public final static String CHEQUE_STATUS_CURRENT_STRING = "Ciro Edildi";
+    
+    
     public final static boolean INVENTORY_SPEC_VAT_FOR_EACH = true; //OTV birimle hesaplanir
     public final static boolean INVENTORY_SPEC_VAT_PERCENT = false; //OTV yuzde ile hesaplanir.
     

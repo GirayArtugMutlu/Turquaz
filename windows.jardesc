@@ -8,7 +8,7 @@
             <packagesToUnSeal/>
         </sealing>
     </manifest>
-    <selectedElements exportClassFiles="true" exportOutputFolder="false" exportJavaFiles="false">
+    <selectedElements exportClassFiles="true" exportOutputFolder="false" exportJavaFiles="true">
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.consignment.ui"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bank.ui.comp"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.current.dal"/>

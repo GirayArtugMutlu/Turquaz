@@ -30,6 +30,7 @@ import net.sf.hibernate.Session;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqChequeTransactionType;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqViewChequeStatus;
 
 public class CheDALSearch {
@@ -115,5 +116,46 @@ public class CheDALSearch {
             throw ex;
         }
         
+    }
+    /**
+     * 
+     * @param portfoyNo
+     * @param curCard
+     * @param status
+     * @param startEnterDate
+     * @param endEnterDate
+     * @param startDueDate
+     * @param endDueDate
+     * @return
+     * @throws Exception
+     */
+    public static List searchCheques(String portfoyNo, TurqCurrentCard curCard, int status, Date startEnterDate, Date endEnterDate,
+    		                         Date startDueDate, Date endDueDate )throws Exception {
+    	try{
+    		  
+            Session session = EngDALSessionFactory.openSession(); 
+            TurqViewChequeStatus chequeStatus = null;
+   
+            /**
+             * TODO new search query
+             */
+            String query = "Select cheque, currentCard.cardsName, chequeStatus from TurqChequeCheque as cheque, TurqViewChequeStatus as chequeStatus, TurqCurrentCard currentCard " +
+            		"where cheque.chequeChequesId = chequeStatus.chequeChequesId " +
+            		" and currentCard.currentCardsId =  chequeStatus.currentCardsId " +
+            		" and chequeStatus.chequeTransactionTypesId ="+EngBLCommon.CHEQUE_TRANS_IN;
+            
+            
+            
+            
+            Query q = session.createQuery(query);    
+            
+            
+            List list = q.list();
+			session.close();
+			return list;
+    	}
+    	catch(Exception ex){
+    		throw ex;
+    	}
     }
 }
