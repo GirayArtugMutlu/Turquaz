@@ -413,6 +413,16 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			msg.open();
 			return false;
 		}
+		else if(compCurCardAdd.getAccPickerCustomer().getData()==null){
+			msg.setMessage("Please Select Customer Account");
+			msg.open();
+			return false;
+		}
+		else if(compCurCardAdd.getAccPickerSupplierAccCode().getData()==null){
+			msg.setMessage("Please Select Supplier Account");
+			msg.open();
+			return false;
+		}
 		return true;
 		}
 		catch(Exception ex){

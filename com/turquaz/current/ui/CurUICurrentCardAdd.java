@@ -1359,18 +1359,28 @@ public class CurUICurrentCardAdd extends SecureComposite {
 	
 	public boolean verifyFields()throws Exception{
 	try{
-	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 	 
-	if(txtCurrentCode.getText().trim().equals("")){
-	msg.setMessage("Please fill Current Code Field");
-	msg.open();
-	return false;
-	} 
-	else if(txtCurrentName.getText().trim().equals("")){
-	msg.setMessage("Please fill Current Name Field");
-	msg.open();
-	return false;
-	}   
+		if(txtCurrentCode.getText().trim().equals("")){
+			msg.setMessage("Please Fill Current Code Field");
+			msg.open();
+			return false;
+		} 
+		else if(txtCurrentName.getText().trim().equals("")){
+			msg.setMessage("Please Fill Current Name Field");
+			msg.open();
+			return false;
+		}
+		else if(accPickerCustomer.getData()==null){
+			msg.setMessage("Please Select Customer Account");
+			msg.open();
+			return false;
+		}
+		else if(accPickerSupplierAccCode.getData()==null){
+			msg.setMessage("Please Select Supplier Account");
+			msg.open();
+			return false;
+		}   
 	
 	return true;
 	}
@@ -1401,6 +1411,7 @@ public class CurUICurrentCardAdd extends SecureComposite {
 	savePhones(cardId);
 	saveContact(cardId);
 	saveGroups(cardId);
+	
 	
 	
 	}
