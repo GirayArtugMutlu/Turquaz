@@ -28,21 +28,20 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import com.turquaz.engine.ui.EngUIEntryFrame;
-import java.io.*;
 import java.net.*;
 
 public class EngStartup {
 
-	public static void addFile(String s) throws IOException {
+	public static void addFile(String s) throws Exception {
 		File f = new File(s);
 		addFile(f);
 	}//end method
 
-	public static void addFile(File f) throws IOException {
+	public static void addFile(File f) throws Exception {
 		addURL(f.toURL());
 	}//end method
 
-	public static void addURL(URL u) throws IOException {
+	public static void addURL(URL u) throws Exception {
 		URL urls[] = new URL[] { u };
 		ClassLoader aCL = Thread.currentThread().getContextClassLoader();
 		URLClassLoader aUrlCL = new URLClassLoader(urls, aCL);
