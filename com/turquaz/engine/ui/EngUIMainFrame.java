@@ -87,7 +87,6 @@ import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TreeFactory;
-import com.turquaz.inventory.dal.InvDALInventoryLedger;
 
 
 
@@ -137,6 +136,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private static Tree treeFavorites;
 	private ToolBar toolbarFavoritesTab;
 	private CLabel lblFavoritesTab;
+	private Tree treeCash;
+	private Button btnCash;
 	private Composite compFavoritesSelection;
 	private Composite compFavoritesTab;
 	private CTabItem tabFavorites;
@@ -240,6 +241,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 					}
 				});
 			}
+            {
+                treeCash = new Tree(compModulesTree, SWT.NONE);
+                treeCash.addMouseListener(new MouseAdapter() {
+                    public void mouseDoubleClick(MouseEvent evt) {
+                    treeCashMouseDoubleClick();    
+                    
+                    }
+                });
+            }
 			label1 = new Label(compModulesTab,SWT.SEPARATOR| SWT.HORIZONTAL);
 			compModulesHelp = new Composite(compModulesTab,SWT.NULL);
 			tabFavorites = new CTabItem(tabfldMenu,SWT.NULL);
@@ -486,6 +496,28 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 btnAccounting.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
                 btnAccountingLData.horizontalAlignment = GridData.FILL;
                 btnAccounting.setLayoutData(btnAccountingLData);
+            }
+            {
+                btnCash = new Button(compModulesHelp, SWT.PUSH
+                    | SWT.FLAT
+                    | SWT.CENTER);
+                btnCash.setText(Messages.getString("EngUIMainFrame.23")); //$NON-NLS-1$
+                GridData btnCashLData = new GridData();
+                btnCash.addMouseListener(new MouseAdapter() {
+                    public void mouseUp(MouseEvent evt) {
+                        compModulesTreeLayout.topControl =treeCash;
+                        compModulesTree.layout(); 
+                    }
+                });
+                btnCash.setFont(SWTResourceManager.getFont(
+                    "Tahoma", //$NON-NLS-1$
+                    10,
+                    1,
+                    false,
+                    false));
+                btnCashLData.grabExcessHorizontalSpace = true;
+                btnCashLData.horizontalAlignment = GridData.FILL;
+                btnCash.setLayoutData(btnCashLData);
             }
             {
                 btnAdmin = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.CENTER);
@@ -1130,6 +1162,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		treeAdmin =TreeFactory.createAdminTree(treeAdmin);		
 		treeConsignment = TreeFactory.createConsignmetTree(treeConsignment);
 		treeBill = TreeFactory.createBillTree(treeBill);
+		treeCash = TreeFactory.createCashTree(treeCash);
 		
 		
 		addKeyEventAccounting(treeAccounting);
@@ -1139,6 +1172,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		addKeyEventAdmin(treeAdmin);
 		addKeyEventConsignment(treeConsignment);
 		addKeyEventBill(treeBill);
+		addKeyEventCash(treeCash);
 		fillFavoritesTree();
 		
 		/**********Set Button Cursors*************************/
@@ -1150,6 +1184,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		btnConsignment.setCursor(cursor);
 		btnBill.setCursor(cursor);
 		btnCurrent.setCursor(cursor);	
+		btnCash.setCursor(cursor);
 		
 		
 		
@@ -1177,8 +1212,6 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		
 		try{
 		EngBLInventoryCards.getInventoryCards();	
-		InvDALInventoryLedger dalLEdger = new InvDALInventoryLedger();
-		
 		}
 		catch(Exception ex){
 		    ex.printStackTrace();
@@ -1196,6 +1229,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	treeCurrent.setMenu(popupTreeAddFavorites);
 	treeFavorites.setMenu(popupTreeRemoveFavorites);
 	treeBill.setMenu(popupTreeAddFavorites);
+	treeCash.setMenu(popupTreeAddFavorites);
 	
 	
 	}
@@ -1283,6 +1317,17 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			public void keyPressed(KeyEvent evt) {				
 				if (evt.keyCode==SWT.CR)
 					treeBillMouseDoubleClick();
+					
+			}
+		});
+		
+	}
+	public void addKeyEventCash(Tree tree)
+	{
+		tree.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {				
+				if (evt.keyCode==SWT.CR)
+					treeCashMouseDoubleClick();
 					
 			}
 		});
@@ -1650,7 +1695,13 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			openNewTab(item);
 		}
 	}
-
+	/** Auto-generated event handler method */
+	protected void treeCashMouseDoubleClick(){
+		TreeItem item = treeCash.getSelection()[0];
+		if(item.getItemCount()==0){
+			openNewTab(item);
+		}
+	}
 	//Save Options of the user...
 	public static void saveProperties(){
 	    try{

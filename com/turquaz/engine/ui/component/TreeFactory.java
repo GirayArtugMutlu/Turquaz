@@ -52,6 +52,8 @@ import com.turquaz.bill.ui.BillUIAddBuyBill;
 import com.turquaz.bill.ui.BillUIAddSellBill;
 import com.turquaz.bill.ui.BillUIBillFromConsignment;
 import com.turquaz.bill.ui.BillUIBillSearch;
+import com.turquaz.cash.ui.CashUICashCardAdd;
+import com.turquaz.cash.ui.CashUICashCardSearch;
 import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
@@ -374,6 +376,25 @@ public final class TreeFactory {
 		
 	}
 	
-	
+	public static Tree createCashTree(Tree tree){
+	    TreeItem root = new TreeItem(tree,SWT.NULL);
+		
+		root.setText(Messages.getString("TreeFactory.45"));  //$NON-NLS-1$
+		
+		TreeItem item;
+		if(EngBLPermissions.getPermission(CashUICashCardAdd.class.getName())>0){
+			item = new TreeItem(root,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.46"));  //$NON-NLS-1$
+			item.setData(CashUICashCardAdd.class.getName());
+		}
+		if(EngBLPermissions.getPermission(CashUICashCardSearch.class.getName())>0){
+			item = new TreeItem(root,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.47"));  //$NON-NLS-1$
+			item.setData(CashUICashCardSearch.class.getName());
+		}
+		root.setExpanded(true);
+		return tree;
+	    
+	}
 
 }
