@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Text;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
@@ -142,6 +143,12 @@ public class DecimalText extends Composite {
  public void setText(String txt){
   text.setText(txt);
  	
+ }
+ public void setBackground(Color c){
+ 	text.setBackground(c);
+ }
+ public Color getBackground(){
+ 	return text.getBackground();
  }
  public String getText(){
  	return text.getText();

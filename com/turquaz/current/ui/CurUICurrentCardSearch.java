@@ -100,27 +100,18 @@ private TableColumn tableColumnContactName;
 			lblCurrentName = new CLabel(compCurrentCardSearch,SWT.NULL);
 			txtCurrentName = new Text(compCurrentCardSearch,SWT.NULL);
 			lblTurqGroupName = new CLabel(compCurrentCardSearch,SWT.NULL);
-			comboTurqGroupName = new CCombo(compCurrentCardSearch,SWT.NULL);
 			tableCurrentCardSearch = new Table(this,SWT.FULL_SELECTION| SWT.H_SCROLL);
 			tableColumnCurrentCode = new TableColumn(tableCurrentCardSearch,SWT.NULL);
 			tableColumnCurrentName = new TableColumn(tableCurrentCardSearch,SWT.NULL);
 			tableColumnContactName = new TableColumn(tableCurrentCardSearch,SWT.NULL);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(435,318));
+			this.setSize(396, 323);
 	
 			GridData compCurrentCardSearchLData = new GridData();
-			compCurrentCardSearchLData.verticalAlignment = GridData.CENTER;
-			compCurrentCardSearchLData.horizontalAlignment = GridData.BEGINNING;
-			compCurrentCardSearchLData.widthHint = 425;
-			compCurrentCardSearchLData.heightHint = 119;
-			compCurrentCardSearchLData.horizontalIndent = 0;
-			compCurrentCardSearchLData.horizontalSpan = 1;
-			compCurrentCardSearchLData.verticalSpan = 1;
-			compCurrentCardSearchLData.grabExcessHorizontalSpace = false;
-			compCurrentCardSearchLData.grabExcessVerticalSpace = false;
+			compCurrentCardSearchLData.widthHint = 380;
+			compCurrentCardSearchLData.heightHint = 121;
 			compCurrentCardSearch.setLayoutData(compCurrentCardSearchLData);
-			compCurrentCardSearch.setSize(new org.eclipse.swt.graphics.Point(425,119));
-	
+
 			GridData lblCurrentCodeLData = new GridData();
 			lblCurrentCodeLData.verticalAlignment = GridData.CENTER;
 			lblCurrentCodeLData.horizontalAlignment = GridData.BEGINNING;
@@ -170,18 +161,12 @@ private TableColumn tableColumnContactName;
 			lblTurqGroupName.setLayoutData(lblTurqGroupNameLData);
 			lblTurqGroupName.setText(Messages.getString("CurUICurrentCardSearch.2")); //$NON-NLS-1$
 			lblTurqGroupName.setSize(new org.eclipse.swt.graphics.Point(65,19));
-	
-			GridData comboTurqGroupNameLData = new GridData();
-			comboTurqGroupNameLData.verticalAlignment = GridData.CENTER;
-			comboTurqGroupNameLData.horizontalAlignment = GridData.BEGINNING;
-			comboTurqGroupNameLData.widthHint = -1;
-			comboTurqGroupNameLData.heightHint = -1;
-			comboTurqGroupNameLData.horizontalIndent = 0;
-			comboTurqGroupNameLData.horizontalSpan = 1;
-			comboTurqGroupNameLData.verticalSpan = 1;
-			comboTurqGroupNameLData.grabExcessHorizontalSpace = false;
-			comboTurqGroupNameLData.grabExcessVerticalSpace = false;
-			comboTurqGroupName.setLayoutData(comboTurqGroupNameLData);
+			{
+				comboTurqGroupName = new CCombo(compCurrentCardSearch, SWT.NONE);
+				GridData comboTurqGroupNameLData = new GridData();
+				comboTurqGroupName.setLayoutData(comboTurqGroupNameLData);
+
+			}
 			GridLayout compCurrentCardSearchLayout = new GridLayout(2, true);
 			compCurrentCardSearch.setLayout(compCurrentCardSearchLayout);
 			compCurrentCardSearchLayout.marginWidth = 5;
