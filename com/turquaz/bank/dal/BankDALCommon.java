@@ -96,29 +96,21 @@ public class BankDALCommon {
 
 		}
 	}
-	public static List searchBankTransactions(TurqBanksCard bankCard, String docNo, Date startDate, Date endDate)throws Exception {
+	public static List searchBankTransactions( String docNo, Date startDate, Date endDate)throws Exception {
 	    try{
 	    
 	        
 	        
 	        Session session = EngDALSessionFactory.openSession();
-	        String query = "select bankTrans.banksTransactionBillsId, transRow.turqBanksCard.bankCode, " +
-    		" bankTrans.turqBanksTransactionType.transactionTypeName, sum(transRow.deptAmount),sum(transRow.creditAmount),bankTrans.transactionBillDate, bankTrans.transactionBillNo from TurqBanksTransactionBill as bankTrans " +
-    		" left join bankTrans.turqBanksTransactions as transRow " +
+	        String query = "select bankTrans.banksTransactionBillsId, " +
+    		" bankTrans.turqBanksTransactionType.transactionTypeName, bankTrans.transactionBillDate, bankTrans.transactionBillNo from TurqBanksTransactionBill as bankTrans " +
     		" where bankTrans.transactionBillDate >= :startDate and bankTrans.transactionBillDate <= :endDate" +
     		" and bankTrans.transactionBillNo like '"+docNo+"%'" ;
     
-     if(bankCard!=null){
-         query+=" and transRow.turqBanksCard = :bankCard ";
-     }
-    		
-    query +=" group by bankTrans.banksTransactionBillsId, transRow.turqBanksCard.bankCode,bankTrans.turqBanksTransactionType.transactionTypeName, bankTrans.transactionBillDate, bankTrans.transactionBillNo";
     query += " order by bankTrans";
 	        
 	       Query q = session.createQuery(query); 
-	 if(bankCard!=null){
-	     q.setParameter("bankCard",bankCard);
-	   }
+	
 			
 			q.setParameter("startDate",startDate);
 			q.setParameter("endDate",endDate);
@@ -182,16 +174,16 @@ public class BankDALCommon {
 	            
 	            String query = "SELECT bankTrans.transaction_bill_date, bankCard.bank_code, bankTrans.transaction_bill_definition, totals.dept, totals.credit " +
 	            		" FROM turq_banks_transaction_bills bankTrans " +
-	            		" LEFT JOIN (Select sum(row.dept_amount) as dept, sum(row.credit_amount) as credit, row.bank_transactions_bills_id as transId" +
-	            		" FROM turq_banks_transactions row group by row.bank_transactions_bills_id ) totals " +
+	            		" LEFT JOIN (Select row.banks_cards_id as banksId, row.dept_amount as dept, row.credit_amount as credit, row.bank_transactions_bills_id as transId" +
+	            		" FROM turq_banks_transactions as row ) totals " +
 	            		" ON  totals.transId = bankTrans.banks_transaction_bills_id," +
 	            		" turq_banks_cards bankCard" +
-	            		" where row.banks_cards_id ="+bankCard.getBanksCardsId().intValue()+
+	            		" where totals.banksId ="+bankCard.getBanksCardsId().intValue()+
 	            		" and bankTrans.transaction_bill_date >= '"+frmt.format(startDate)+"' and " +
 	            		" bankTrans.transaction_bill_date <= '"+frmt.format(endDate)+"' " +
-	            		" and row.banks_cards_id = bankCard.banks_cards_id";
+	            		" and totals.banksId = bankCard.banks_cards_id";
 	          
-	            System.out.println(query);
+	     
 
 	            Statement stmt = session.connection().createStatement();
 	            ResultSet rs = stmt.executeQuery(query);

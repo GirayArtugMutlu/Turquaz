@@ -1,10 +1,17 @@
 package com.turquaz.bank.ui;
 
+import java.math.BigDecimal;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
+
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.bank.Messages;
+import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.bank.ui.comp.BankCardPicker;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Text;
@@ -125,14 +132,59 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
 	}
 	
 
-    public void newForm() {
-        // TODO Auto-generated method stub
+	public boolean verifyFields(){
+		   
+		        if(bankCardPickerWithDept.getData()==null){
+		           EngUICommon.showMessageBox(getShell(),"Lütfen Borçlu Banka Kart? Seçiniz",SWT.ICON_WARNING); 
+		           bankCardPickerWithDept.setFocus();
+		           return false;
+		            
+		        }
+		        if(bankCardPickerWithCredit.getData()==null){
+			           EngUICommon.showMessageBox(getShell(),"Lütfen Alacakl? Banka Kart? Seçiniz",SWT.ICON_WARNING); 
+			           bankCardPickerWithCredit.setFocus();
+			           return false;
+			            
+			        }
+		        if(curAmount.getBigDecimalValue().compareTo(new BigDecimal(0))!=1)
+		        {
+		            EngUICommon.showMessageBox(getShell(),Messages.getString("BankUIMoneyTransferIn.8"),SWT.ICON_WARNING); //$NON-NLS-1$
+		             curAmount.setFocus();
+		            return false;
+		            
+		        }
+		        return true;
+		        
+		    
+		}
+	
 
-    }
-    public void save() {
-        // TODO Auto-generated method stub
+public void newForm() {
+  BankUITransferBetweenAccounts curCard = new BankUITransferBetweenAccounts(this.getParent(),this.getStyle());
+	 CTabFolder tabfld = (CTabFolder)this.getParent();
+	 tabfld.getSelection().setControl(curCard);	 
+	 this.dispose();
 
-    }
+
+}
+public void save() {
+  try{
+	       if(verifyFields())
+	       {
+	           BankBLTransactionAdd.saveTransferBetweenBanks(bankCardPickerWithDept.getTurqBank(),bankCardPickerWithCredit.getTurqBank(),null,curAmount.getBigDecimalValue(),datePick.getDate(),txtDefinition.getText().trim(),txtDocNo.getText().trim());
+	           EngUICommon.showSavedSuccesfullyMessage(getShell());
+	           newForm();
+	           
+	       }
+	        }
+	        catch(Exception ex){
+	            ex.printStackTrace();
+	            EngUICommon.showMessageBox(getShell(),ex.getMessage(),SWT.ICON_ERROR);
+	        }
+
+
+}
+
     public CurrencyText getCurAmount() {
         return curAmount;
     }

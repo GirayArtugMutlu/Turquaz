@@ -1,12 +1,19 @@
 package com.turquaz.bank.ui;
 
+import java.util.Iterator;
+
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+
+import com.turquaz.bank.Messages;
+import com.turquaz.bank.bl.BankBLTransactionUpdate;
+import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
+import com.turquaz.engine.ui.EngUICommon;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -32,7 +39,7 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 
 	private Shell dialogShell;
 	private ToolItem toolUpdate;
-	private BankUITransferBetweenAccounts bankUITransfer;
+	private BankUITransferBetweenAccounts compTransfer;
 	private ToolItem toolCancel;
 	private ToolItem toolDelete;
 	private ToolBar toolBar;
@@ -59,7 +66,7 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.layout();
 			dialogShell.pack();
-			dialogShell.setSize(580, 307);
+			dialogShell.setSize(550, 309);
             {
                 toolBar = new ToolBar(dialogShell, SWT.NONE);
                 GridData toolBarLData = new GridData();
@@ -103,7 +110,7 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
                 }
             }
             {
-                bankUITransfer = new BankUITransferBetweenAccounts(
+                compTransfer = new BankUITransferBetweenAccounts(
                     dialogShell,
                     SWT.NONE);
                 GridData bankUITransferLData = new GridData();
@@ -111,7 +118,7 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
                 bankUITransferLData.horizontalAlignment = GridData.FILL;
                 bankUITransferLData.grabExcessVerticalSpace = true;
                 bankUITransferLData.verticalAlignment = GridData.FILL;
-                bankUITransfer.setLayoutData(bankUITransferLData);
+                compTransfer.setLayoutData(bankUITransferLData);
             }
             postInitGUI();
 			dialogShell.open();
@@ -127,17 +134,74 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 		}
 	}
 	public void postInitGUI(){
-	    if(transBill!=null)
-	    {
-	        
-	    }
+	    EngUICommon.centreWindow(dialogShell);
+	    compTransfer.getTxtDocNo().setText(transBill.getTransactionBillNo());
+		compTransfer.getTxtDefinition().setText(transBill.getTransactionBillDefinition());
+		compTransfer.getDatePick().setDate(transBill.getTransactionBillDate());
+		
+		
+		Iterator it = transBill.getTurqBanksTransactions().iterator();
+		
+		while(it.hasNext())
+		   {
+		       TurqBanksTransaction bankTrans = (TurqBanksTransaction)it.next();
+		       
+				
+		       compTransfer.getCurAmount().setText(bankTrans.getCreditAmount());
+		       compTransfer.getBankCardPickerWithDept().setText(bankTrans.getTurqBanksCard().getBankCode());
+		       if(bankTrans.getCreditAmount().compareTo(bankTrans.getDeptAmount())<1)
+		       {
+		           compTransfer.getBankCardPickerWithCredit().setText(bankTrans.getTurqBanksCard().getBankCode());
+		           compTransfer.getCurAmount().setText(bankTrans.getDeptAmount());          
+		           
+		       }
+		      
+		       
+		       
+		   }	  
 	}
 	public void update(){
+	    try{
+	        if(compTransfer.verifyFields()){
+	            
+	            BankBLTransactionUpdate.updateTransferBetweenBanks(transBill,compTransfer.getBankCardPickerWithDept().getTurqBank(),
+						  compTransfer.getBankCardPickerWithCredit().getTurqBank(),
+						 compTransfer.getCurAmount().getBigDecimalValue(),
+						 compTransfer.getDatePick().getDate(),
+						 compTransfer.getTxtDefinition().getText().trim(),
+						 compTransfer.getTxtDocNo().getText().trim()
+);    
+	            
+	        EngUICommon.showMessageBox(getParent(),Messages.getString("BankUIOtherTransInUpdate.0")); //$NON-NLS-1$
+	        isUpdated = true;
+	        dialogShell.close();
+	        }
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	        EngUICommon.showMessageBox(getParent(),ex.getMessage().toString(),SWT.ICON_ERROR);
+	    }
 	    
 	}
 	
 	public void delete(){
+	    try{
+	        
+	        if(EngUICommon.okToDelete(getParent()))
+	        {
+	            
+	            BankBLTransactionUpdate.deleteTransaction(transBill);
+	            EngUICommon.showMessageBox(getParent(),"Ba?ar?yla Silindi!",SWT.ICON_INFORMATION);
+	            isUpdated = true;
+	            dialogShell.close();
+	        }
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	        EngUICommon.showMessageBox(getParent(),ex.getMessage().toString(),SWT.ICON_ERROR);
 	    
+	    }
 	}
-	
 }

@@ -117,6 +117,7 @@ public class BankBLTransactionAdd {
             transRowCredit.setTurqBanksTransactionBill(bankTransBill);
             transRowDebit.setTurqBanksTransactionBill(bankTransBill);
             BankDALCommon.saveObject(transRowCredit);
+            BankDALCommon.saveObject(transRowDebit);
 
 
         } catch (Exception ex) {

@@ -34,7 +34,6 @@ import org.eclipse.swt.widgets.TableColumn;
 
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -42,7 +41,6 @@ import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionSearch;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
-import com.turquaz.bank.ui.comp.BankCardPicker;
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
@@ -75,18 +73,13 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 
 	private Composite compSearch;
 	private Table tableMoneyTrans;
-	private CLabel lblBankCard;
-	private TableColumn tableColumnCredit;
 	private TableColumn tableColumnDocNo;
-	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnType;
-	private TableColumn tableColumnBankCode;
 	private TableColumn tableColumnDate;
 	private DatePicker dateEnd;
 	private CLabel lblEndDate;
 	private DatePicker dateStart;
 	private CLabel lblStartDate;
-	private BankCardPicker bankPicker;
 	private Text txtDocNo;
 	private CLabel lblDocNo;
 
@@ -120,17 +113,6 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
                     txtDocNoLData.widthHint = 145;
                     txtDocNoLData.heightHint = 16;
                     txtDocNo.setLayoutData(txtDocNoLData);
-                }
-                {
-                    lblBankCard = new CLabel(compSearch, SWT.NONE);
-                    lblBankCard.setText(Messages.getString("BankUISearchMoneyTransaction.1")); //$NON-NLS-1$
-                }
-                {
-                    bankPicker = new BankCardPicker(compSearch, SWT.NONE);
-                    GridData bankPickerLData = new GridData();
-                    bankPickerLData.widthHint = 149;
-                    bankPickerLData.heightHint = 15;
-                    bankPicker.setLayoutData(bankPickerLData);
                 }
                 {
                     lblStartDate = new CLabel(compSearch, SWT.NONE);
@@ -183,26 +165,9 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
                     tableColumnDocNo.setText(Messages.getString("BankUISearchMoneyTransaction.5")); //$NON-NLS-1$
                 }
                 {
-                    tableColumnBankCode = new TableColumn(
-                        tableMoneyTrans,
-                        SWT.NONE);
-                    tableColumnBankCode.setText(Messages.getString("BankUISearchMoneyTransaction.6")); //$NON-NLS-1$
-                    tableColumnBankCode.setWidth(100);
-                }
-                {
                     tableColumnType = new TableColumn(tableMoneyTrans, SWT.NONE);
                     tableColumnType.setText(Messages.getString("BankUISearchMoneyTransaction.7")); //$NON-NLS-1$
                     tableColumnType.setWidth(104);
-                }
-                {
-                    tableColumnAmount = new TableColumn(tableMoneyTrans, SWT.RIGHT);
-                    tableColumnAmount.setText(Messages.getString("BankUISearchMoneyTransaction.8")); //$NON-NLS-1$
-                    tableColumnAmount.setWidth(116);
-                }
-                {
-                    tableColumnCredit = new TableColumn(tableMoneyTrans, SWT.RIGHT);
-                    tableColumnCredit.setText(Messages.getString("BankUISearchMoneyTransaction.9")); //$NON-NLS-1$
-                    tableColumnCredit.setWidth(100);
                 }
             }
 			this.layout();
@@ -232,7 +197,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
         tableMoneyTrans.removeAll();
         TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
         
-        List ls = BankBLTransactionSearch.searchtransaction((TurqBanksCard)bankPicker.getData(),txtDocNo.getText().trim(),dateStart.getDate(),dateEnd.getDate());
+        List ls = BankBLTransactionSearch.searchtransaction(txtDocNo.getText().trim(),dateStart.getDate(),dateEnd.getDate());
       
         Object []result;
         Integer transId;
@@ -251,30 +216,19 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
             
             result = (Object[])ls.get(i);
             transId = (Integer)result[0];
-            bankCode = result[1].toString();
-            transType = result[2].toString();
-            
-            if(result[3]!=null){
-              dept = (BigDecimal)result[3];  
-                
-            }
-            if(result[4]!=null){
-                credit = (BigDecimal)result[4];
-            }
-            transDate = (Date)result[5];
-            docNo = result[6].toString();
+          
+            transType = result[1].toString();
+          
+            transDate = (Date)result[2];
+            docNo = result[3].toString();
             
             item = new TableItem(tableMoneyTrans,SWT.NULL);
             item.setData(transId);
             item.setText(new String[]{
                     				  DatePicker.formatter.format(transDate),
                     				  docNo,
-                    				  bankCode,
                     				  transType,
-                    				  cf.format(dept),
-                    				  cf.format(credit),
-                    				  docNo
-            							});
+                    				});
             
             
         }
@@ -325,6 +279,12 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
        else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_OTHER_DRAW)
        {
            isUpdated  = new BankUIOtherTransOutUpdate(getShell(),SWT.NULL,transBill).open();
+           
+       }
+       
+       else if(transBill.getTurqBanksTransactionType().getBankTransactionTypesId().intValue()==EngBLCommon.BANK_TRANS_BETWEEN_BANKS)
+       {
+           isUpdated  = new BankUITransferBetweenAccountsUpdate(getShell(),SWT.NULL,transBill).open();
            
        }
        
