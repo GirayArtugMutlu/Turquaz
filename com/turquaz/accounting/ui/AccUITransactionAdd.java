@@ -189,8 +189,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			this.setLayout(thisLayout);
 			{
 				lblDocumentNo = new CLabel(this, SWT.NONE);
-				lblDocumentNo.setText(Messages
-					.getString("AccUITransactionAdd.0")); //$NON-NLS-1$
+				lblDocumentNo.setText(Messages.getString("AccUITransactionAdd.0")); //$NON-NLS-1$
 				lblDocumentNo
 					.setSize(new org.eclipse.swt.graphics.Point(70, 19));
 				GridData lblDocumentNoLData = new GridData();
@@ -256,7 +255,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			}
 			//START >>  lblCurrency
 			lblCurrency = new CLabel(this, SWT.NONE);
-			lblCurrency.setText("Para Birimi");
+			lblCurrency.setText(Messages.getString("AccUITransactionAdd.9")); //$NON-NLS-1$
 			//END <<  lblCurrency
 			//START >>  comboCurrencyType
 			comboCurrencyType = new CCombo(this, SWT.NONE);
@@ -508,7 +507,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			}	
 			else if ((exchangeCurrency=(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()))==null)
 			{
-				msg.setMessage("Para birimi seçmelisiniz!");
+				msg.setMessage(Messages.getString("AccUITransactionAdd.10")); //$NON-NLS-1$
 				msg.open();
 				comboCurrencyType.setFocus();
 				return false;
@@ -517,7 +516,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			{
 				if ((exchangeRatio=AccBLTransactionSearch.getExchangeRatio(baseCurrency,exchangeCurrency,Calendar.getInstance().getTime()))==null)
 				{
-					msg.setMessage("Bugün için çapraz kur tan?mlamal?s?n?z!");
+					msg.setMessage(Messages.getString("AccUITransactionAdd.11")); //$NON-NLS-1$
 					msg.open();
 					return false;	
 					
