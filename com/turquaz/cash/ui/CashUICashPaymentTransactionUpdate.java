@@ -169,7 +169,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
         TurqCurrentCard curCard = blUpdate.getCurrentCard(cashTrans.getTurqEngineSequence());
         
         if(curCard!=null){
-        compTransAdd.getTxtCurrentAccount().setText(curCard.getCardsCurrentCode());
+        compTransAdd.getTxtCurrentAccount().setText(curCard.getCardsName()+" {"+curCard.getCardsCurrentCode()+"}");
             
         }
         
@@ -240,7 +240,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	                                compTransAdd.getTxtDefinition().getText(),
 	                                compTransAdd.getTxtDocumentNo().getText());
 	        
-	        	msg.setText(Messages.getString("CashUICashPaymentTransactionUpdate.9")); //$NON-NLS-1$
+	        	msg.setMessage(Messages.getString("CashUICashPaymentTransactionUpdate.9")); //$NON-NLS-1$
 	        	msg.open();
 	        
 	        	dialogShell.close();

@@ -167,7 +167,7 @@ public class CashUICashCollectTransactionUpdate extends Dialog {
         
         if(curCard!=null){
         
-            compTransAdd.getTxtCurrentAccount().setText(curCard.getCardsCurrentCode());
+            compTransAdd.getTxtCurrentAccount().setText(curCard.getCardsName()+" {"+curCard.getCardsCurrentCode()+"}");
             
         }
         
