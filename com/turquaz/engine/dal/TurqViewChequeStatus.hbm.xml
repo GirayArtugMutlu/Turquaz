@@ -90,10 +90,10 @@
             length="50"
         />
         <key-property 
-            name="accountingAccountsId" 
-            column="accounting_accounts_id" 
-            type="int"
-            length="4"
+            name="transactionTypesParent" 
+            column="transaction_types_parent" 
+            type="short"
+            length="2"
         />
         <key-property 
             name="chequeRollsId" 

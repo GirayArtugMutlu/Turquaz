@@ -45,7 +45,7 @@ public class TurqViewChequeStatus implements Serializable {
     private java.lang.String transactionTypsName;
 
     /** identifier field */
-    private int accountingAccountsId;
+    private short transactionTypesParent;
 
     /** identifier field */
     private int chequeRollsId;
@@ -66,7 +66,7 @@ public class TurqViewChequeStatus implements Serializable {
     private int banksCardsId;
 
     /** full constructor */
-    public TurqViewChequeStatus(int chequeChequesId, java.lang.String chequesPortfolioNo, java.lang.String chequesNo, int banksId, java.util.Date chequesDueDate, java.lang.String chequesDebtor, java.lang.String chequesPaymentPlace, java.util.Date chequesValueDate, java.math.BigDecimal chequesAmount, int currenciesId, int chequeTransactionTypesId, java.lang.String transactionTypsName, int accountingAccountsId, int chequeRollsId, java.util.Date chequeRollsDate, int engineSequencesId, java.lang.String chequeRollNo, int currentCardsId, int banksCardsId) {
+    public TurqViewChequeStatus(int chequeChequesId, java.lang.String chequesPortfolioNo, java.lang.String chequesNo, int banksId, java.util.Date chequesDueDate, java.lang.String chequesDebtor, java.lang.String chequesPaymentPlace, java.util.Date chequesValueDate, java.math.BigDecimal chequesAmount, int currenciesId, int chequeTransactionTypesId, java.lang.String transactionTypsName, short transactionTypesParent, int chequeRollsId, java.util.Date chequeRollsDate, int engineSequencesId, java.lang.String chequeRollNo, int currentCardsId, int banksCardsId) {
         this.chequeChequesId = chequeChequesId;
         this.chequesPortfolioNo = chequesPortfolioNo;
         this.chequesNo = chequesNo;
@@ -79,7 +79,7 @@ public class TurqViewChequeStatus implements Serializable {
         this.currenciesId = currenciesId;
         this.chequeTransactionTypesId = chequeTransactionTypesId;
         this.transactionTypsName = transactionTypsName;
-        this.accountingAccountsId = accountingAccountsId;
+        this.transactionTypesParent = transactionTypesParent;
         this.chequeRollsId = chequeRollsId;
         this.chequeRollsDate = chequeRollsDate;
         this.engineSequencesId = engineSequencesId;
@@ -188,12 +188,12 @@ public class TurqViewChequeStatus implements Serializable {
         this.transactionTypsName = transactionTypsName;
     }
 
-    public int getAccountingAccountsId() {
-        return this.accountingAccountsId;
+    public short getTransactionTypesParent() {
+        return this.transactionTypesParent;
     }
 
-    public void setAccountingAccountsId(int accountingAccountsId) {
-        this.accountingAccountsId = accountingAccountsId;
+    public void setTransactionTypesParent(short transactionTypesParent) {
+        this.transactionTypesParent = transactionTypesParent;
     }
 
     public int getChequeRollsId() {
@@ -258,7 +258,7 @@ public class TurqViewChequeStatus implements Serializable {
             .append("currenciesId", getCurrenciesId())
             .append("chequeTransactionTypesId", getChequeTransactionTypesId())
             .append("transactionTypsName", getTransactionTypsName())
-            .append("accountingAccountsId", getAccountingAccountsId())
+            .append("transactionTypesParent", getTransactionTypesParent())
             .append("chequeRollsId", getChequeRollsId())
             .append("chequeRollsDate", getChequeRollsDate())
             .append("engineSequencesId", getEngineSequencesId())
@@ -284,7 +284,7 @@ public class TurqViewChequeStatus implements Serializable {
             .append(this.getCurrenciesId(), castOther.getCurrenciesId())
             .append(this.getChequeTransactionTypesId(), castOther.getChequeTransactionTypesId())
             .append(this.getTransactionTypsName(), castOther.getTransactionTypsName())
-            .append(this.getAccountingAccountsId(), castOther.getAccountingAccountsId())
+            .append(this.getTransactionTypesParent(), castOther.getTransactionTypesParent())
             .append(this.getChequeRollsId(), castOther.getChequeRollsId())
             .append(this.getChequeRollsDate(), castOther.getChequeRollsDate())
             .append(this.getEngineSequencesId(), castOther.getEngineSequencesId())
@@ -308,7 +308,7 @@ public class TurqViewChequeStatus implements Serializable {
             .append(getCurrenciesId())
             .append(getChequeTransactionTypesId())
             .append(getTransactionTypsName())
-            .append(getAccountingAccountsId())
+            .append(getTransactionTypesParent())
             .append(getChequeRollsId())
             .append(getChequeRollsDate())
             .append(getEngineSequencesId())

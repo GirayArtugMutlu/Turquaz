@@ -812,8 +812,45 @@ ALTER TABLE turq_inventory_cards DROP COLUMN accounting_accounts_id_special_vat;
 ALTER TABLE turq_inventory_cards DROP COLUMN accounting_accounts_id_vat_sell;
 ALTER TABLE turq_inventory_cards DROP COLUMN accounting_accounts_id_special_vat_sell;
 
+
 **************************************************************************************;
 !!!! makro datalari en son buraya kada update edildi...!!!
 **************************************************************************************
+
+
+CREATE TABLE turq_cheque_transaction_type_groups
+(
+   id int4, 
+   group_name varchar(100), 
+   definition varchar(250), 
+   PRIMARY KEY (id)
+);
+
+insert into turq_cheque_transaction_type_groups values(1,'Portfoyde','');
+insert into turq_cheque_transaction_type_groups values(2,'Ciro Edildi','');
+insert into turq_cheque_transaction_type_groups values(3,'Tahsil Edildi','');
+insert into turq_cheque_transaction_type_groups values(4,'Cariye Iade Edildi','');
+insert into turq_cheque_transaction_type_groups values(5,'Karsiliksiz','');
+
+
+DROP VIEW turq_view_cheque_status;
+CREATE VIEW turq_view_cheque_status AS 
+ SELECT cheq.id AS cheque_cheques_id, cheq.cheques_portfolio_no, cheq.cheques_no, cheq.banks_id, cheq.cheques_due_date, cheq.cheques_debtor, cheq.cheques_payment_place, cheq.cheques_value_date, cheq.cheques_amount, cheq.currencies_id, transtype.id AS cheque_transaction_types_id, transtype.transaction_typs_name,transtype.transaction_types_parent, rolls.id AS cheque_rolls_id, rolls.cheque_rolls_date, rolls.engine_sequences_id, rolls.cheque_roll_no, rolls.current_cards_id, rolls.banks_cards_id
+   FROM turq_cheque_cheques cheq, turq_cheque_rolls rolls, turq_cheque_cheque_in_rolls cheqrolls, turq_cheque_transaction_types transtype
+  WHERE cheq.id = cheqrolls.cheque_cheques_id AND rolls.id = cheqrolls.cheque_rolls_id AND transtype.id = rolls.cheque_transaction_types_id AND rolls.id = (( SELECT max(roll_inner.id) AS max
+           FROM turq_cheque_rolls roll_inner, turq_cheque_cheque_in_rolls cheqroll_inner, turq_cheque_cheques cheq_inner
+          WHERE cheqroll_inner.cheque_rolls_id = roll_inner.id AND cheqroll_inner.cheque_cheques_id = cheq_inner.id AND cheqroll_inner.cheque_cheques_id = cheq.id));
+
+
+ALTER TABLE turq_cheque_transaction_types DROP CONSTRAINT "$53";
+ALTER TABLE turq_cheque_transaction_types DROP COLUMN accounting_accounts_id;
+
+update turq_cheque_transaction_types set transaction_types_parent =1;
+ALTER TABLE turq_cheque_transaction_types ADD CONSTRAINT type2groups FOREIGN KEY (transaction_types_parent) REFERENCES turq_cheque_transaction_type_groups (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+
+
+
 
 

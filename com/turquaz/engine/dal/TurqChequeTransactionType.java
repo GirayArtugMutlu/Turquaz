@@ -16,9 +16,6 @@ public class TurqChequeTransactionType implements Serializable {
     private java.lang.String transactionTypsName;
 
     /** persistent field */
-    private short transactionTypesParent;
-
-    /** persistent field */
     private java.lang.String createdBy;
 
     /** persistent field */
@@ -31,20 +28,19 @@ public class TurqChequeTransactionType implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
+    private com.turquaz.engine.dal.TurqChequeTransactionTypeGroup turqChequeTransactionTypeGroup;
 
     /** persistent field */
     private Set turqChequeRolls;
 
     /** full constructor */
-    public TurqChequeTransactionType(java.lang.String transactionTypsName, short transactionTypesParent, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, Set turqChequeRolls) {
+    public TurqChequeTransactionType(java.lang.String transactionTypsName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqChequeTransactionTypeGroup turqChequeTransactionTypeGroup, Set turqChequeRolls) {
         this.transactionTypsName = transactionTypsName;
-        this.transactionTypesParent = transactionTypesParent;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.turqAccountingAccount = turqAccountingAccount;
+        this.turqChequeTransactionTypeGroup = turqChequeTransactionTypeGroup;
         this.turqChequeRolls = turqChequeRolls;
     }
 
@@ -66,14 +62,6 @@ public class TurqChequeTransactionType implements Serializable {
 
     public void setTransactionTypsName(java.lang.String transactionTypsName) {
         this.transactionTypsName = transactionTypsName;
-    }
-
-    public short getTransactionTypesParent() {
-        return this.transactionTypesParent;
-    }
-
-    public void setTransactionTypesParent(short transactionTypesParent) {
-        this.transactionTypesParent = transactionTypesParent;
     }
 
     public java.lang.String getCreatedBy() {
@@ -108,12 +96,12 @@ public class TurqChequeTransactionType implements Serializable {
         this.lastModified = lastModified;
     }
 
-    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccount() {
-        return this.turqAccountingAccount;
+    public com.turquaz.engine.dal.TurqChequeTransactionTypeGroup getTurqChequeTransactionTypeGroup() {
+        return this.turqChequeTransactionTypeGroup;
     }
 
-    public void setTurqAccountingAccount(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
-        this.turqAccountingAccount = turqAccountingAccount;
+    public void setTurqChequeTransactionTypeGroup(com.turquaz.engine.dal.TurqChequeTransactionTypeGroup turqChequeTransactionTypeGroup) {
+        this.turqChequeTransactionTypeGroup = turqChequeTransactionTypeGroup;
     }
 
     public java.util.Set getTurqChequeRolls() {

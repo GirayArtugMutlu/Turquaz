@@ -32,13 +32,6 @@
         length="50"
     />
     <property
-        name="transactionTypesParent"
-        type="short"
-        column="transaction_types_parent"
-        not-null="true"
-        length="2"
-    />
-    <property
         name="createdBy"
         type="java.lang.String"
         column="created_by"
@@ -83,13 +76,13 @@
             class="com.turquaz.engine.dal.TurqChequeRoll"
         />
     </set>
-    <!-- bi-directional many-to-one association to TurqAccountingAccount -->
+    <!-- bi-directional many-to-one association to TurqChequeTransactionTypeGroup -->
     <many-to-one
-        name="turqAccountingAccount"
-        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        name="turqChequeTransactionTypeGroup"
+        class="com.turquaz.engine.dal.TurqChequeTransactionTypeGroup"
         not-null="true"
     >
-        <column name="accounting_accounts_id" />
+        <column name="transaction_types_parent" />
     </many-to-one>
 
 </class>
