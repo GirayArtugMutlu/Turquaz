@@ -138,6 +138,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			EngDALSessionFactory.init();
+			EngBLCommon.getBaseCurrency();
+			EngBLCommon.getBaseCurrencyExchangeRate();
 			String database = EngConfiguration.getString("serverAddress"); //$NON-NLS-1$
 			database = database.trim();
 			if (database == null || database.equals("") || database.equals("localhost") || database.equals("127.0.0.1")) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

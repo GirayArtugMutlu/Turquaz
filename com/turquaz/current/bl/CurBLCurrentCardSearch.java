@@ -19,7 +19,9 @@ package com.turquaz.current.bl;
  * @author Onsel Armagan
  * @version $Id$
  */
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALCurrentCardSearch;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -80,10 +82,11 @@ public class CurBLCurrentCardSearch
 		}
 	}
 
-	public static TurqCurrentCard getCurrentCard(String cardCode) throws Exception
+	public static TurqCurrentCard getCurrentCard(HashMap argMap) throws Exception
 	{
 		try
 		{
+			String cardCode=(String)argMap.get(CurKeys.CUR_CURRENT_CODE);
 			return CurDALCurrentCardSearch.getCurrentCard(cardCode);
 		}
 		catch (Exception ex)

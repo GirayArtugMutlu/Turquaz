@@ -258,7 +258,9 @@ public class InvUICardUpdateDialog extends Dialog
 	{
 		try
 		{
-			List invAccounts = InvBLCardSearch.getInvAccountingAccs(invCard.getId());
+			HashMap argMap=new HashMap();
+			argMap.put(InvKeys.INV_CARD_ID,invCard.getId());
+			List invAccounts =(List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getInvAccountingAccs",argMap);
 			for (int k = 0; k < invAccounts.size(); k++)
 			{
 				TurqInventoryAccountingAccount invAcc = (TurqInventoryAccountingAccount) invAccounts.get(k);
@@ -396,13 +398,25 @@ public class InvUICardUpdateDialog extends Dialog
 			{
 				updated = true;
 				// Update Inventory Card Fields
-				InvBLCardUpdate.updateInventoryCard(compInvUICard.getTxtInvCardCode().getText().trim(), compInvUICard
-						.getTxtInvCardName().getText().trim(), compInvUICard.getTxtInvCardDefinition().getText().trim(),
-						compInvUICard.getTxtnumInvCardMin().getIntegerValue(), compInvUICard.getTxtnumInvCardMax().getIntegerValue(),
-						compInvUICard.getTxtInvCardVat().getIntegerValue(), compInvUICard.getTxtInvCardDiscount().getIntegerValue(),
-						compInvUICard.getNumTextSpecailVATPercent().getIntegerValue(), compInvUICard.getDecTextSpecialVatAmount()
-								.getBigDecimalValue(), invCard, compInvUICard.getCompInvCardGroups().getRegisteredGroups(),
-						compInvUICard.getInvUnits(), compInvUICard.getInvPrices(), compInvUICard.getInvAccounts());
+				
+				HashMap argMap=new HashMap();
+				argMap.put(InvKeys.INV_CARD,invCard);
+				argMap.put(InvKeys.INV_CARD_CODE,compInvUICard.getTxtInvCardCode().getText().trim());
+				argMap.put(InvKeys.INV_CARD_NAME,compInvUICard.getTxtInvCardName().getText().trim());
+				argMap.put(InvKeys.INV_CARD_DEFINITION,compInvUICard.getTxtInvCardDefinition().getText().trim());
+				argMap.put(InvKeys.INV_CARD_MIN_AMOUNT,compInvUICard.getTxtnumInvCardMin().getIntegerValue());
+				argMap.put(InvKeys.INV_CARD_MAX_AMOUNT,compInvUICard.getTxtnumInvCardMax().getIntegerValue());
+				argMap.put(InvKeys.INV_CARD_VAT_RATE,compInvUICard.getTxtInvCardVat().getIntegerValue());
+				argMap.put(InvKeys.INV_CARD_DISCOUNT_RATE,compInvUICard.getTxtInvCardDiscount().getIntegerValue());
+				argMap.put(InvKeys.INV_CARD_SPECIAL_VAT_RATE,compInvUICard.getNumTextSpecailVATPercent().getIntegerValue());
+				argMap.put(InvKeys.INV_CARD_SPECIAL_FOR_EACH,compInvUICard.getDecTextSpecialVatAmount().getBigDecimalValue());
+				argMap.put(InvKeys.INV_CARD_IS_SPEC_AMOUNT,new Boolean(compInvUICard.getRadioSpecialVatAmount().getSelection()));
+				argMap.put(InvKeys.INV_CARD_INV_GROUPS,compInvUICard.getCompInvCardGroups().getRegisteredGroups());
+				argMap.put(InvKeys.INV_CARD_UNITS,compInvUICard.getInvUnits());
+				argMap.put(InvKeys.INV_CARD_PRICES,compInvUICard.getInvPrices());
+				argMap.put(InvKeys.INV_CARD_ACCOUNTS,compInvUICard.getInvAccounts());
+				
+				EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"updateInventoryCard",argMap);
 				EngTXCommon.doSingleTX(EngBLInventoryCards.class.getName(),"RefreshContentAsistantMap",null);
 				MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 				msg.setMessage(Messages.getString("InvUICardUpdateDialog.5")); //$NON-NLS-1$

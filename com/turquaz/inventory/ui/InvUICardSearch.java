@@ -404,8 +404,11 @@ public class InvUICardSearch extends Composite implements SearchComposite
 		tableViewer.removeAll();
 		try
 		{
-			List result = InvBLCardSearch.searchCards(txtInvName.getText().trim(), txtInvCode.getText().trim(),
-					(TurqInventoryGroup) comboInvSubGroup.getData(comboInvSubGroup.getText()));
+			HashMap argMap=new HashMap();
+			argMap.put(InvKeys.INV_CARD_NAME,txtInvName.getText().trim());
+			argMap.put(InvKeys.INV_CARD_CODE, txtInvCode.getText().trim());
+			argMap.put(InvKeys.INV_GROUP,comboInvSubGroup.getData(comboInvSubGroup.getText()));
+			List result =(List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"searchCards",argMap);
 			int listSize = result.size();
 			for (int i = 0; i < listSize; i++)
 			{

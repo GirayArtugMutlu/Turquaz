@@ -1279,6 +1279,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 				argMap.put(InvKeys.INV_CARD_UNITS,getInvUnits());
 				argMap.put(InvKeys.INV_CARD_PRICES,getInvPrices());
 				argMap.put(InvKeys.INV_CARD_ACCOUNTS,getInvAccounts());
+				
 				EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"saveInventoryCard",argMap);
 				txtInvCardCode.asistant.refreshContentAssistant(1);
 				EngTXCommon.doSingleTX(EngBLInventoryCards.class.getName(),"RefreshContentAsistantMap",null);

@@ -36,21 +36,35 @@ import com.turquaz.inventory.dal.InvDALCardUpdate;
 
 public class InvBLCardUpdate
 {
-	public static void updateInventoryCard(String invCode, String cardName, String cardDefinition, Integer minAmount, Integer maxAmount,
-			Integer cardVat, Integer discount, Integer cardSpecialVat, BigDecimal cardSpecialVatEach, TurqInventoryCard card, Map invGroups,
-			List invCardUnits, List invPrices, List invAccounts) throws Exception
+	public static void updateInventoryCard(HashMap argMap) throws Exception
 	{
 		try
 		{
+			TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
+			String invCode=(String)argMap.get(InvKeys.INV_CARD_CODE);
+			String cardName=(String)argMap.get(InvKeys.INV_CARD_NAME);
+			String cardDefinition=(String)argMap.get(InvKeys.INV_CARD_DEFINITION);
+			Integer minAmount=(Integer)argMap.get(InvKeys.INV_CARD_MIN_AMOUNT);
+			Integer maxAmount=(Integer)argMap.get(InvKeys.INV_CARD_MAX_AMOUNT);
+			Integer cardVat=(Integer)argMap.get(InvKeys.INV_CARD_VAT_RATE);
+			Integer discount=(Integer)argMap.get(InvKeys.INV_CARD_DISCOUNT_RATE);
+			Integer cardSpecialVat=(Integer)argMap.get(InvKeys.INV_CARD_SPECIAL_VAT_RATE);
+			BigDecimal cardSpecialVatEach=(BigDecimal)argMap.get(InvKeys.INV_CARD_SPECIAL_FOR_EACH);
+			Boolean isSpecAmount=(Boolean)argMap.get(InvKeys.INV_CARD_IS_SPEC_AMOUNT);
+			Map invGroups=(Map)argMap.get(InvKeys.INV_CARD_INV_GROUPS);
+			List invCardUnits=(List)argMap.get(InvKeys.INV_CARD_UNITS);
+			List invPrices=(List)argMap.get(InvKeys.INV_CARD_PRICES);
+			List invAccounts=(List)argMap.get(InvKeys.INV_CARD_ACCOUNTS);
+			
 			updateInvCard(invCode, cardName, cardDefinition, minAmount.intValue(), maxAmount.intValue(), cardVat.intValue(), discount.intValue(), cardSpecialVat.intValue(),
-					cardSpecialVatEach, card);
-			updateInvGroups(card, invGroups);
-			updateInvCardUnits(card, invCardUnits);
-			updateInvPrices(card, invPrices);
-			updateInvAccounts(card, invAccounts);
-			if (!InvDALCardUpdate.hasInitialTransaction(card))
+					cardSpecialVatEach, invCard);
+			updateInvGroups(invCard, invGroups);
+			updateInvCardUnits(invCard, invCardUnits);
+			updateInvPrices(invCard, invPrices);
+			updateInvAccounts(invCard, invAccounts);
+			if (!InvDALCardUpdate.hasInitialTransaction(invCard))
 			{
-				InvBLCardAdd.saveInitialTransaction(card, InvBLCardAdd.getBaseUnitFromCardUnits(invCardUnits));
+				InvBLCardAdd.saveInitialTransaction(invCard, InvBLCardAdd.getBaseUnitFromCardUnits(invCardUnits));
 			}
 		}
 		catch (Exception ex)

@@ -1,10 +1,13 @@
 package com.turquaz.engine.bl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.tx.EngTXCommon;
 
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
@@ -46,7 +49,7 @@ public class EngBLCurrentCards
 	{
 		try
 		{
-			currentList = CurBLCurrentCardSearch.getCurrentCards();
+			currentList = (List)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCards",null);
 		}
 		catch (Exception ex)
 		{
@@ -109,7 +112,9 @@ public class EngBLCurrentCards
 	{
 		try
 		{
-			return CurBLCurrentCardSearch.getCurrentCard(currentCode);
+			HashMap argMap=new HashMap();
+			argMap.put(CurKeys.CUR_CURRENT_CODE,currentCode);
+			return (TurqCurrentCard)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCard",argMap);
 		}
 		catch (Exception ex)
 		{

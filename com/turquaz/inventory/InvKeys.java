@@ -52,6 +52,7 @@ public class InvKeys
 	public static String INV_WAREHOUSE_CITY="invWarehouseCity";
 	public static String INV_MAIN_GROUP="invMainGroup";
 	public static String INV_SUB_GROUP="invSubGroup";
+	public static String INV_GROUP="invGroup";
 	
 	
 	

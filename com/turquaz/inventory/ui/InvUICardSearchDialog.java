@@ -19,6 +19,7 @@ package com.turquaz.inventory.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
@@ -39,8 +40,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
+import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 
@@ -256,21 +258,15 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 	}
 
 	public void search()
-	{
-		tableSearcResults.removeAll();
-		InvBLCardSearch cardSearch = new InvBLCardSearch();
-		List result;
+	{		
 		try
 		{
-			if (comboInvGroup.getSelectionIndex() == -1)
-			{
-				result = InvBLCardSearch.searchCards(txtInvName.getText().trim(), txtInvCode.getText().trim(), null);
-			}
-			else
-			{
-				result = InvBLCardSearch.searchCards(txtInvName.getText().trim(), txtInvCode.getText().trim(),
-						(TurqInventoryGroup) comboInvGroup.getData(comboInvGroup.getText()));
-			}
+			tableSearcResults.removeAll();
+			HashMap argMap=new HashMap();
+			argMap.put(InvKeys.INV_CARD_NAME,txtInvName.getText().trim());
+			argMap.put(InvKeys.INV_CARD_CODE, txtInvCode.getText().trim());
+			argMap.put(InvKeys.INV_GROUP,comboInvGroup.getData(comboInvGroup.getText()));
+			List result = (List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"searchCards",argMap);
 			TableItem item;
 			int listSize = result.size();
 			for (int i = 0; i < listSize; i++)

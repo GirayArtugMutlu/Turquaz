@@ -103,6 +103,7 @@ public class InvDALCardUpdate
 				session.delete(list.get(i));
 			}
 			session.flush();
+			session.clear();
 		}
 		catch (Exception ex)
 		{

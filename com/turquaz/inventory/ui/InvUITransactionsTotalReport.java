@@ -439,9 +439,13 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		try
 		{
 			tableViewer.removeAll();
-			List result = InvBLCardSearch.searchCardsAdvanced(txtInvCodeStart.getText().trim(), txtInvCodeEnd.getText().trim(),
-					txtInvNameStart.getText().trim(), txtInvNameEnd.getText().trim(), (TurqInventoryGroup) comboInvSubGroup
-							.getData(comboInvSubGroup.getText()));
+			HashMap argMap=new HashMap();
+			argMap.put(InvKeys.INV_CARD_CODE_START,txtInvCodeStart.getText().trim());
+			argMap.put(InvKeys.INV_CARD_CODE_END,txtInvCodeEnd.getText().trim());
+			argMap.put(InvKeys.INV_CARD_NAME_START,txtInvNameStart.getText().trim());
+			argMap.put(InvKeys.INV_CARD_NAME_END,txtInvNameEnd.getText().trim());
+			argMap.put(InvKeys.INV_GROUP,comboInvSubGroup.getData(comboInvSubGroup.getText()));
+			List result =(List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"searchCardsAdvanced",argMap);
 			int listSize = result.size();
 			for (int i = 0; i < listSize; i++)
 			{

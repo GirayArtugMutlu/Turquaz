@@ -30,10 +30,13 @@ import com.turquaz.inventory.dal.InvDALCardSearch;
 
 public class InvBLCardSearch
 {
-	public static List searchCards(String cardName, String cardCode, TurqInventoryGroup group) throws Exception
+	public static List searchCards(HashMap argMap) throws Exception
 	{
 		try
 		{
+			String cardName=(String)argMap.get(InvKeys.INV_CARD_NAME);
+			String cardCode=(String)argMap.get(InvKeys.INV_CARD_CODE);
+			TurqInventoryGroup group=(TurqInventoryGroup)argMap.get(InvKeys.INV_GROUP);
 			return InvDALCardSearch.searchInventoryCards(cardName, cardCode, group);
 		}
 		catch (Exception ex)
@@ -54,10 +57,11 @@ public class InvBLCardSearch
 		}
 	}
 
-	public static List getInvAccountingAccs(Integer invCardId) throws Exception
+	public static List getInvAccountingAccs(HashMap argMap) throws Exception
 	{
 		try
 		{
+			Integer invCardId=(Integer)argMap.get(InvKeys.INV_CARD_ID);
 			return InvDALCardSearch.getInvAccountingAccs(invCardId);
 		}
 		catch (Exception ex)
@@ -78,11 +82,15 @@ public class InvBLCardSearch
 		}
 	}
 
-	public static List searchCardsAdvanced(String cardCodeStart, String cardCodeEnd, String cardNameStart, String cardNameEnd,
-			TurqInventoryGroup group) throws Exception
+	public static List searchCardsAdvanced(HashMap argMap) throws Exception
 	{
 		try
 		{
+			String cardCodeStart=(String)argMap.get(InvKeys.INV_CARD_CODE_START);
+			String cardCodeEnd=(String)argMap.get(InvKeys.INV_CARD_CODE_END);
+			String cardNameStart=(String)argMap.get(InvKeys.INV_CARD_NAME_START);
+			String cardNameEnd=(String)argMap.get(InvKeys.INV_CARD_NAME_END);
+			TurqInventoryGroup group=(TurqInventoryGroup)argMap.get(InvKeys.INV_GROUP);
 			return InvDALCardSearch.searchInventoryCardsAdvanced(cardCodeStart, cardCodeEnd, cardNameStart, cardNameEnd, group);
 		}
 		catch (Exception ex)
@@ -143,10 +151,11 @@ public class InvBLCardSearch
 		}
 	}
 
-	public static TurqInventoryCard getInventoryCard(String invCode) throws Exception
+	public static TurqInventoryCard getInventoryCard(HashMap argMap) throws Exception
 	{
 		try
 		{
+			String invCode=(String)argMap.get(InvKeys.INV_CARD_CODE);
 			return InvDALCardSearch.getInventoryCard(invCode);
 		}
 		catch (Exception ex)
