@@ -256,7 +256,7 @@ public class CurUICurrentCardCreditVoucher extends org.eclipse.swt.widgets.Compo
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null);
+			List currencies = (List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null); //$NON-NLS-1$
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);
@@ -299,7 +299,7 @@ public class CurUICurrentCardCreditVoucher extends org.eclipse.swt.widgets.Compo
 				argMap.put(EngKeys.CURRENT_CARD,(TurqCurrentCard) txtCurrentCard.getData());
 				argMap.put(AccKeys.ACC_ACCOUNT, accountPicker.getTurqAccountingAccount());
 				argMap.put(EngKeys.DATE,dateTransDate.getDate());
-				argMap.put(EngKeys.DOCUMENT_NO,"");
+				argMap.put(EngKeys.DOCUMENT_NO,""); //$NON-NLS-1$
 				argMap.put(CurKeys.CUR_IS_CREDIT,new Boolean(isCredit));
 				argMap.put(CurKeys.CUR_TRANS_AMOUNT,credit);
 				argMap.put(CurKeys.CUR_DISCOUNT_PAYMENT,new BigDecimal(0));
@@ -308,7 +308,7 @@ public class CurUICurrentCardCreditVoucher extends org.eclipse.swt.widgets.Compo
 				argMap.put(EngKeys.DEFINITION, txtDefinition.getText());
 				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
 								
-				TurqCurrentTransaction curtrans = (TurqCurrentTransaction)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveOtherCurrentTransaction",argMap);
+				TurqCurrentTransaction curtrans = (TurqCurrentTransaction)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveOtherCurrentTransaction",argMap); //$NON-NLS-1$
 				
 				
 				if (EngUICommon.okToDelete(getShell(), Messages.getString("CurUICurrentCardVoucher.4"))) //$NON-NLS-1$
@@ -339,6 +339,13 @@ public class CurUICurrentCardCreditVoucher extends org.eclipse.swt.widgets.Compo
 				msg.setMessage(Messages.getString("CurUICurrentCardVoucher.10")); //$NON-NLS-1$
 				msg.open();
 				txtCurrentCard.setFocus();
+				return false;
+			}
+			else if (txtCredit.getBigDecimalValue().intValue()==0)
+			{
+				msg.setMessage(Messages.getString("CurUICurrentCardCreditVoucher.5")); //$NON-NLS-1$
+				msg.open();
+				txtCredit.setFocus();
 				return false;
 			}
 			else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)

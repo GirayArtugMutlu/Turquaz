@@ -44,10 +44,6 @@ import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
  */
 public class CurDALCurrentCardSearch
 {
-	public CurDALCurrentCardSearch()
-	{
-	}
-
 	public static List searchCurrentCards(String currentCode, String currentName, TurqCurrentGroup cardGroup) throws Exception
 	{
 		try

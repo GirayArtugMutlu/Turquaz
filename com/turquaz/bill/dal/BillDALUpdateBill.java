@@ -75,12 +75,12 @@ public class BillDALUpdateBill
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			String query = "Select accTrans from TurqAccountingTransaction as accTrans,"
+			String query = "Select accTrans.id from TurqAccountingTransaction as accTrans,"
 					+ " TurqBill as bill where "
 					+ " accTrans.turqAccountingJournal.id <>-1"
 					+ " and bill.id ="
 					+ billId
-					+ " and accTrans.turqEngineSequence.id in (Select eng.turqEngineSequence.id from bill.turqBillInEngineSequences as eng)";
+					+ " and accTrans.turqEngineSequence.id=bill.turqEngineSequence.id";
 			Query q = session.createQuery(query);
 			List list = q.list();
 			if (list.size() == 0)

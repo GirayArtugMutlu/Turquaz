@@ -129,8 +129,8 @@ public class BillDALSearchBill
 					" invTrans.turqInventoryWarehous.warehousesName,invTrans.vatRate"+
 					" from TurqInventoryTransaction invTrans" +
 					" left join invTrans.turqInventoryCard.turqInventoryCardUnits as cardUnit," +
-					" TurqBill bill " +
-					" where invTrans.turqEngineSequence.id in (Select billIn.turqEngineSequence.id from bill.turqBillInEngineSequences as billIn)" +
+					" TurqBill bill left join bill.turqBillInEngineSequences as billIn" +
+					" where invTrans.turqEngineSequence.id=billIn.turqEngineSequence.id" +
 					" and bill.id="+bill.getId()+
 					" and cardUnit.turqInventoryUnit=invTrans.turqInventoryUnit";	
 			Query q = session.createQuery(query);
