@@ -209,7 +209,7 @@ public class EngDALUserPerms {
 			//	Query q = session.createQuery("from TurqModuleComponent comp "+
 			//			"where comp.moduleComponentsId > -1");
 			Criteria cri = session.createCriteria(TurqModuleComponent.class)
-					.add(Expression.gt("moduleComponentsId", new Integer(-1)));
+					.add(Expression.gt("id", new Integer(-1)));
 			List list = cri.list();
 			tx.commit();
 			session.close();
