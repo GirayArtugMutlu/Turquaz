@@ -449,38 +449,40 @@ public class InvUITransactionTableRow implements ITableRow {
     
   
     
-    public void calculateFields(){
+    public void calculateFields()
+    {
         
-        if(invTrans.getTurqInventoryCard()!=null){
+        if(invTrans.getTurqInventoryCard()!=null)
+        {
         	
-        transAmountinBaseUnit = transAmount*cardUnits[unit_index.intValue()].getCardUnitsFactor();
+        	transAmountinBaseUnit = transAmount*cardUnits[unit_index.intValue()].getCardUnitsFactor();
         
-        invTrans.setTransactionsTotalPrice(invTrans.getTransactionsUnitPrice().multiply(new BigDecimal(transAmountinBaseUnit)));
+        	invTrans.setTransactionsTotalPrice(invTrans.getTransactionsUnitPrice().multiply(new BigDecimal(transAmountinBaseUnit)));
     	
         
-        invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsTotalPrice().multiply(invTrans.getTransactionsDiscount()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
+        	invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsTotalPrice().multiply(invTrans.getTransactionsDiscount()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
         	 	
-        BigDecimal totalPriceAfterDiscount = invTrans.getTransactionsTotalPrice().subtract(invTrans.getTransactionsDiscountAmount());
+        	BigDecimal totalPriceAfterDiscount = invTrans.getTransactionsTotalPrice().subtract(invTrans.getTransactionsDiscountAmount());
         
         
 	 	
-        if(transType==0){
-		    invTrans.setTransactionsAmountIn(transAmountinBaseUnit);
-        }
-		else{
-		    invTrans.setTransactionsTotalAmountOut(transAmountinBaseUnit);
-		 }
+        	if(transType==0){
+        		invTrans.setTransactionsAmountIn(transAmountinBaseUnit);
+        	}
+        	else{
+        		invTrans.setTransactionsTotalAmountOut(transAmountinBaseUnit);
+        	}
+        	
+        	invTrans.setTransactionsVatSpecialAmount(totalPriceAfterDiscount.multiply(invTrans.getTransactionsVatSpecial()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
         
-        invTrans.setTransactionsVatSpecialAmount(totalPriceAfterDiscount.multiply(invTrans.getTransactionsVatSpecial()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
+        	BigDecimal totalPriceAfterDiscountAddedSpecVAT = totalPriceAfterDiscount.add(invTrans.getTransactionsVatSpecialAmount());
         
-        BigDecimal totalPriceAfterDiscountAddedSpecVAT = totalPriceAfterDiscount.add(invTrans.getTransactionsVatSpecialAmount());
-        
-        invTrans.setTransactionsVatAmount(totalPriceAfterDiscountAddedSpecVAT.multiply(new BigDecimal(invTrans.getTransactionsVat())).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
+        	invTrans.setTransactionsVatAmount(totalPriceAfterDiscountAddedSpecVAT.multiply(new BigDecimal(invTrans.getTransactionsVat())).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
        
-        invTrans.setTransactionsCumilativePrice(totalPriceAfterDiscount.add(invTrans.getTransactionsVatSpecialAmount()).add(invTrans.getTransactionsVatAmount()));
+        	invTrans.setTransactionsCumilativePrice(totalPriceAfterDiscount.add(invTrans.getTransactionsVatSpecialAmount()).add(invTrans.getTransactionsVatAmount()));
         
         }
-        }
+    }
     
     public String[] getUnits(){
         return units;

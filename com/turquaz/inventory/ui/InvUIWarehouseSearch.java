@@ -74,20 +74,19 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 		SWTResourceManager.registerResourceUser(this);
 	}
 
-
+	InvBLWarehouseSearch whBLsearch = new InvBLWarehouseSearch();
+	private CLabel lblWarehouseCity;
 	private TableColumn tableColumnDescription;
 	private TableColumn tableColumnTelephone;
 	private TableColumn tableColumnWarehouseCity;
 	private TableColumn tableColumnName;
+	private TableColumn tableColumnCode;
 	private Table tableInvUIWarehouses;
 	private Text txtCity;
-	private CLabel lblWarehouseCity;
-	private TableColumn tableColumnCode;
 	private Text txtWarehouseName;
 	private CLabel lblWarehouseName;
 	private Composite composite1;
-	InvBLWarehouseSearch whBLsearch = new InvBLWarehouseSearch();
-	
+
 		public InvUIWarehouseSearch(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -100,153 +99,132 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 	public void initGUI(){
 		try {
 			preInitGUI();
-	
-			composite1 = new Composite(this,SWT.NULL);
-			lblWarehouseName = new CLabel(composite1,SWT.NULL);
-			txtWarehouseName = new Text(composite1,SWT.BORDER);
-			lblWarehouseCity = new CLabel(composite1,SWT.NULL);
-			txtCity = new Text(composite1,SWT.BORDER);
-			tableInvUIWarehouses = new Table(this,SWT.FULL_SELECTION);
-			tableColumnWarehouseCity = new TableColumn(tableInvUIWarehouses,SWT.NULL);
-			tableColumnTelephone = new TableColumn(tableInvUIWarehouses,SWT.NULL);
-			tableColumnDescription = new TableColumn(tableInvUIWarehouses,SWT.NULL);
-	
+
 			this.setSize(new org.eclipse.swt.graphics.Point(618,381));
-	
-			GridData composite1LData = new GridData();
-			composite1LData.verticalAlignment = GridData.CENTER;
-			composite1LData.horizontalAlignment = GridData.FILL;
-			composite1LData.widthHint = -1;
-			composite1LData.heightHint = 92;
-			composite1LData.horizontalIndent = 0;
-			composite1LData.horizontalSpan = 1;
-			composite1LData.verticalSpan = 1;
-			composite1LData.grabExcessHorizontalSpace = true;
-			composite1LData.grabExcessVerticalSpace = false;
-			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(608,92));
-			composite1.setBackground(SWTResourceManager.getColor(255, 255, 255));
-	
-			GridData lblWarehouseNameLData = new GridData();
-			lblWarehouseNameLData.verticalAlignment = GridData.CENTER;
-			lblWarehouseNameLData.horizontalAlignment = GridData.BEGINNING;
-			lblWarehouseNameLData.widthHint = 105;
-			lblWarehouseNameLData.heightHint = 20;
-			lblWarehouseNameLData.horizontalIndent = 0;
-			lblWarehouseNameLData.horizontalSpan = 1;
-			lblWarehouseNameLData.verticalSpan = 1;
-			lblWarehouseNameLData.grabExcessHorizontalSpace = false;
-			lblWarehouseNameLData.grabExcessVerticalSpace = false;
-			lblWarehouseName.setLayoutData(lblWarehouseNameLData);
-			lblWarehouseName.setText(Messages.getString("InvUIWarehouseSearch.0")); //$NON-NLS-1$
-			lblWarehouseName.setSize(new org.eclipse.swt.graphics.Point(105,20));
-	
-			GridData txtWarehouseNameLData = new GridData();
-			txtWarehouseName.addKeyListener(new KeyAdapter() {
-				public void keyReleased(KeyEvent evt) {
-					if (evt.keyCode==SWT.CR)
-						search();
-				}
-			});
-			txtWarehouseNameLData.verticalAlignment = GridData.CENTER;
-			txtWarehouseNameLData.horizontalAlignment = GridData.BEGINNING;
-			txtWarehouseNameLData.widthHint = 117;
-			txtWarehouseNameLData.heightHint = 15;
-			txtWarehouseNameLData.horizontalIndent = 0;
-			txtWarehouseNameLData.horizontalSpan = 1;
-			txtWarehouseNameLData.verticalSpan = 1;
-			txtWarehouseNameLData.grabExcessHorizontalSpace = false;
-			txtWarehouseNameLData.grabExcessVerticalSpace = false;
-			txtWarehouseName.setLayoutData(txtWarehouseNameLData);
-			txtWarehouseName.setSize(new org.eclipse.swt.graphics.Point(117,15));
-	
-			GridData lblWarehouseCityLData = new GridData();
-			lblWarehouseCityLData.verticalAlignment = GridData.CENTER;
-			lblWarehouseCityLData.horizontalAlignment = GridData.BEGINNING;
-			lblWarehouseCityLData.widthHint = -1;
-			lblWarehouseCityLData.heightHint = -1;
-			lblWarehouseCityLData.horizontalIndent = 0;
-			lblWarehouseCityLData.horizontalSpan = 1;
-			lblWarehouseCityLData.verticalSpan = 1;
-			lblWarehouseCityLData.grabExcessHorizontalSpace = false;
-			lblWarehouseCityLData.grabExcessVerticalSpace = false;
-			lblWarehouseCity.setLayoutData(lblWarehouseCityLData);
-			lblWarehouseCity.setText(Messages.getString("InvUIWarehouseSearch.1")); //$NON-NLS-1$
-	
-			GridData txtCityLData = new GridData();
-			txtCity.addKeyListener(new KeyAdapter() {
-				public void keyReleased(KeyEvent evt) {
-					if (evt.keyCode==SWT.CR)
-						search();
-				}
-			});
-			txtCityLData.verticalAlignment = GridData.CENTER;
-			txtCityLData.horizontalAlignment = GridData.BEGINNING;
-			txtCityLData.widthHint = 114;
-			txtCityLData.heightHint = 16;
-			txtCityLData.horizontalIndent = 0;
-			txtCityLData.horizontalSpan = 1;
-			txtCityLData.verticalSpan = 1;
-			txtCityLData.grabExcessHorizontalSpace = false;
-			txtCityLData.grabExcessVerticalSpace = false;
-			txtCity.setLayoutData(txtCityLData);
-			txtCity.setSize(new org.eclipse.swt.graphics.Point(114,16));
-			GridLayout composite1Layout = new GridLayout(2, true);
-			composite1.setLayout(composite1Layout);
-			composite1Layout.marginWidth = 5;
-			composite1Layout.marginHeight = 5;
-			composite1Layout.numColumns = 2;
-			composite1Layout.makeColumnsEqualWidth = false;
-			composite1Layout.horizontalSpacing = 5;
-			composite1Layout.verticalSpacing = 5;
-			composite1.layout();
-	
-			GridData tableInvUIWarehousesLData = new GridData();
-			tableInvUIWarehousesLData.verticalAlignment = GridData.FILL;
-			tableInvUIWarehousesLData.horizontalAlignment = GridData.FILL;
-			tableInvUIWarehousesLData.widthHint = -1;
-			tableInvUIWarehousesLData.heightHint = -1;
-			tableInvUIWarehousesLData.horizontalIndent = 0;
-			tableInvUIWarehousesLData.horizontalSpan = 1;
-			tableInvUIWarehousesLData.verticalSpan = 1;
-			tableInvUIWarehousesLData.grabExcessHorizontalSpace = true;
-			tableInvUIWarehousesLData.grabExcessVerticalSpace = true;
-			tableInvUIWarehouses.setLayoutData(tableInvUIWarehousesLData);
-			tableInvUIWarehouses.setHeaderVisible(true);
-			tableInvUIWarehouses.setLinesVisible(true);
-			tableInvUIWarehouses.setSize(new org.eclipse.swt.graphics.Point(592,258));
-			tableInvUIWarehouses.addMouseListener( new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
-					tableInvUIWarehousesMouseDoubleClick(evt);
-				}
-			});
 
-			{
-				tableColumnCode = new TableColumn(
-					tableInvUIWarehouses,
-					SWT.NONE);
-				tableColumnCode.setText("Depo Kodu");
-				tableColumnCode.setWidth(84);
-			}
-			{
-				tableColumnName = new TableColumn(
-					tableInvUIWarehouses,
-					SWT.NONE);
-				tableColumnName.setText(Messages
-					.getString("InvUIWarehouseSearch.0")); //$NON-NLS-1$
-				tableColumnName.setWidth(161);
-			}
-	
-			tableColumnWarehouseCity.setText(Messages.getString("InvUIWarehouseSearch.1")); //$NON-NLS-1$
-			tableColumnWarehouseCity.setWidth(100);
-
-			tableColumnTelephone.setText(Messages.getString("InvUIWarehouseSearch.4")); //$NON-NLS-1$
-			tableColumnTelephone.setWidth(100);
-	
-			tableColumnDescription.setText(Messages.getString("InvUIWarehouseSearch.5")); //$NON-NLS-1$
-			tableColumnDescription.setWidth(150);
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
+			{
+				composite1 = new Composite(this, SWT.NONE);
+				GridLayout composite1Layout = new GridLayout();
+				composite1Layout.numColumns = 2;
+				composite1.setSize(new org.eclipse.swt.graphics.Point(608, 92));
+				GridData composite1LData = new GridData();
+				composite1.setLayout(composite1Layout);
+				composite1.setBackground(SWTResourceManager.getColor(
+					255,
+					255,
+					255));
+				composite1LData.horizontalAlignment = GridData.FILL;
+				composite1LData.heightHint = 92;
+				composite1LData.grabExcessHorizontalSpace = true;
+				composite1.setLayoutData(composite1LData);
+				{
+					lblWarehouseName = new CLabel(composite1, SWT.NONE);
+					lblWarehouseName.setText(Messages
+						.getString("InvUIWarehouseSearch.0"));
+					lblWarehouseName
+						.setSize(new org.eclipse.swt.graphics.Point(105, 20));
+					GridData lblWarehouseNameLData = new GridData();
+					lblWarehouseNameLData.widthHint = 105;
+					lblWarehouseNameLData.heightHint = 20;
+					lblWarehouseName.setLayoutData(lblWarehouseNameLData);
+				}
+				{
+					txtWarehouseName = new Text(composite1, SWT.BORDER);
+					txtWarehouseName
+						.setSize(new org.eclipse.swt.graphics.Point(117, 15));
+					GridData txtWarehouseNameLData = new GridData();
+					txtWarehouseName.addKeyListener(new KeyAdapter() {
+						public void keyReleased(KeyEvent evt) {
+							if (evt.keyCode == SWT.CR)
+								search();
+						}
+					});
+					txtWarehouseNameLData.widthHint = 104;
+					txtWarehouseNameLData.heightHint = 8;
+					txtWarehouseName.setLayoutData(txtWarehouseNameLData);
+				}
+				{
+					lblWarehouseCity = new CLabel(composite1, SWT.NONE);
+					lblWarehouseCity.setText(Messages
+						.getString("InvUIWarehouseSearch.1"));
+					GridData lblWarehouseCityLData = new GridData();
+					lblWarehouseCity.setLayoutData(lblWarehouseCityLData);
+				}
+				{
+					txtCity = new Text(composite1, SWT.BORDER);
+					txtCity
+						.setSize(new org.eclipse.swt.graphics.Point(114, 16));
+					GridData txtCityLData = new GridData();
+					txtCity.addKeyListener(new KeyAdapter() {
+						public void keyReleased(KeyEvent evt) {
+							if (evt.keyCode == SWT.CR)
+								search();
+						}
+					});
+					txtCityLData.widthHint = 101;
+					txtCityLData.heightHint = 9;
+					txtCity.setLayoutData(txtCityLData);
+				}
+			}
+			{
+				tableInvUIWarehouses = new Table(this, SWT.FULL_SELECTION);
+				tableInvUIWarehouses.setHeaderVisible(true);
+				tableInvUIWarehouses.setLinesVisible(true);
+				tableInvUIWarehouses
+					.setSize(new org.eclipse.swt.graphics.Point(592, 258));
+				GridData tableInvUIWarehousesLData = new GridData();
+				tableInvUIWarehouses.addMouseListener(new MouseAdapter() {
+					public void mouseDoubleClick(MouseEvent evt) {
+						tableInvUIWarehousesMouseDoubleClick(evt);
+					}
+				});
+				tableInvUIWarehousesLData.verticalAlignment = GridData.FILL;
+				tableInvUIWarehousesLData.horizontalAlignment = GridData.FILL;
+				tableInvUIWarehousesLData.grabExcessHorizontalSpace = true;
+				tableInvUIWarehousesLData.grabExcessVerticalSpace = true;
+				tableInvUIWarehouses.setLayoutData(tableInvUIWarehousesLData);
+				{
+					tableColumnCode = new TableColumn(
+						tableInvUIWarehouses,
+						SWT.NONE);
+					tableColumnCode.setText("Depo Kodu");
+					tableColumnCode.setWidth(84);
+				}
+				{
+					tableColumnName = new TableColumn(
+						tableInvUIWarehouses,
+						SWT.NONE);
+					tableColumnName.setText(Messages
+						.getString("InvUIWarehouseSearch.0")); //$NON-NLS-1$
+					tableColumnName.setWidth(161);
+				}
+				{
+					tableColumnWarehouseCity = new TableColumn(
+						tableInvUIWarehouses,
+						SWT.NONE);
+					tableColumnWarehouseCity.setText(Messages
+						.getString("InvUIWarehouseSearch.1"));
+					tableColumnWarehouseCity.setWidth(100);
+				}
+				{
+					tableColumnTelephone = new TableColumn(
+						tableInvUIWarehouses,
+						SWT.NONE);
+					tableColumnTelephone.setText(Messages
+						.getString("InvUIWarehouseSearch.4"));
+					tableColumnTelephone.setWidth(100);
+				}
+				{
+					tableColumnDescription = new TableColumn(
+						tableInvUIWarehouses,
+						SWT.NONE);
+					tableColumnDescription.setText(Messages
+						.getString("InvUIWarehouseSearch.5"));
+					tableColumnDescription.setWidth(150);
+				}
+			}
 			thisLayout.marginWidth = 5;
 			thisLayout.marginHeight = 5;
 			thisLayout.numColumns = 1;
