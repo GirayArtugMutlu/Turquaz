@@ -50,6 +50,11 @@ public class SearchTableViewer
 		rowList.addTask(new SearchTableRow(txt,data));
 		
 	}
+	
+	public void addRow(ITableRow row){
+		rowList.addTask(row);
+	}
+	
 	public void removeAll(){
 		
 		rowList.removeAll();
