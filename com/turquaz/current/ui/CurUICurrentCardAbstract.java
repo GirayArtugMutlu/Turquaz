@@ -60,7 +60,6 @@ import org.eclipse.swt.widgets.MessageBox;
 
 import org.eclipse.swt.layout.GridData;
 
-import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;

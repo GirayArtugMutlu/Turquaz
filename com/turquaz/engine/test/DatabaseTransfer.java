@@ -14,13 +14,13 @@ public class DatabaseTransfer {
 		//	EngDALConnection conn1 = new
 		// EngDALConnection("Postgresql","turquaz","","kulup.sabanciuniv.edu","turquaz_turkish_20041206");
 		EngDALConnection conn2 = new EngDALConnection("Postgresql", "postgres",
-				"", "kulup.sabanciuniv.edu", "alpercam_20050106");
+				"", "kulup.sabanciuniv.edu", "turquaz");
 
 		ResultSet first;
 		try {
 
 			conn2.connect();
-			FileInputStream fstream = new FileInputStream("C:\\stok_alper.csv");
+			FileInputStream fstream = new FileInputStream("database/turquaz.script");
 			// Convert our input stream to a
 			// DataInputStream
 			DataInputStream in = new DataInputStream(fstream);
@@ -34,8 +34,19 @@ public class DatabaseTransfer {
 			// below parses the accounting plan and inserts to the database
 			int counter = 15;
 			while (in.available() != 0) {
+			    try{
+			      data = d.readLine();
+			      if(data.startsWith("INSERT"))
+			      conn2.execQuery(data);   
+			    }
+			    catch(Exception ex)
+			    {
+			        ex.printStackTrace();
+			    }
+			    
+			    
 
-				data = d.readLine();
+			/*	data = d.readLine();
 				System.out.println(data);
 				String rest = "";
 				int a = data.indexOf(",");
@@ -69,7 +80,7 @@ public class DatabaseTransfer {
 				System.out.println(def);
 				System.out.println(group);
 				}
-				
+				*/
 				
 
 					try {
@@ -185,7 +196,7 @@ public class DatabaseTransfer {
 
 					} catch (Exception ex) {
 						
-						System.out.println(code);
+						//System.out.println(code);
 					//System.out.println(accCode);
 						ex.printStackTrace();
 					}

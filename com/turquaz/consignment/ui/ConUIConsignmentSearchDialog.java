@@ -22,7 +22,6 @@ import org.eclipse.swt.custom.CCombo;
 
 import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
-import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.DatePicker;

@@ -73,7 +73,6 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
 import com.cloudgarden.resource.SWTResourceManager;
-import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
