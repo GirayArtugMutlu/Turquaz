@@ -16,6 +16,7 @@ import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Point;
 
+import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -61,6 +62,17 @@ public class TurquazContentAssistProcessors implements
                 for (int i = 0; i < list.size(); i++) {
                     TurqInventoryCard acc = (TurqInventoryCard)list.get(i);
                     proposed.add(acc.getCardInventoryCode());
+                }
+
+            }
+            else if (type == 2) {
+                AccBLAccountAdd blAccount = new AccBLAccountAdd();
+                
+                List list = blAccount.getAccountsForAccountPickers();
+
+                for (int i = 0; i < list.size(); i++) {
+                    TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
+                    proposed.add(acc.getAccountCode());
                 }
 
             }

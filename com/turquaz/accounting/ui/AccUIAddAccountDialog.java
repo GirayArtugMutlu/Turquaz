@@ -217,8 +217,8 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog {
 
 		compAccountCard.getTxtAccAccountCode()
 				.setText(account.getAccountCode()+".");
-		compAccountCard.getTxtParentAccount().setData(
-				account);
+		compAccountCard.getTxtParentAccount().setText(
+				account.getAccountCode());
 		
 
 		Point parentLocation = this.getParent().getLocation();

@@ -51,6 +51,7 @@ import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.VerifyEvent;
 
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistProcessors;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
@@ -140,7 +141,8 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
                             
                             
                             if(txtParentAccount.getData()!=null){
-                             txtAccAccountCode.setText(txtParentAccount.getText().trim()+".");
+                             if(((TurqAccountingAccount)txtParentAccount.getData()).getAccountingAccountsId().intValue()!=-1)
+                                txtAccAccountCode.setText(txtParentAccount.getText().trim()+".");
                                                    
                             }
                             else{
@@ -172,7 +174,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 				GridData txtAccAccountCodeLData = new GridData();
 				
 				txtAccAccountCodeLData.widthHint = 250;
-				txtAccAccountCodeLData.heightHint = 20;
+				txtAccAccountCodeLData.heightHint = 24;
 				txtAccAccountCode.setLayoutData(txtAccAccountCodeLData);
 			}
 			{
@@ -188,7 +190,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 				txtAccAcountName = new Text(this, SWT.NONE);
 				GridData txtAccAcountNameLData = new GridData();
 				txtAccAcountNameLData.widthHint = 251;
-				txtAccAcountNameLData.heightHint = 19;
+				txtAccAcountNameLData.heightHint = 26;
 				txtAccAcountName.setLayoutData(txtAccAcountNameLData);
 			}
 
@@ -217,11 +219,12 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	}
 
 	/** Add your post-init code in here 	*/
-	 TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtParentAccount);
-	    
-	 final TurquazContentAssistant asistant= new TurquazContentAssistant(adapter,0);
-	   
+	TextContentAssistSubjectAdapter adapter;
+	TurquazContentAssistant asistant;
 	public void postInitGUI(){
+	    adapter = new TextContentAssistSubjectAdapter(txtParentAccount);
+	    
+	asistant= new TurquazContentAssistant(adapter,0);
 	   
 	     adapter.appendVerifyKeyListener(
 	             new VerifyKeyListener() {

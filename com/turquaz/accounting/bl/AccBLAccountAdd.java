@@ -72,7 +72,17 @@ public class AccBLAccountAdd {
 		}
 		
 	}
-	
+	public List getAccountsForAccountPickers()throws Exception{
+		try{
+			
+			return dalAccountAdd.getAccountsForAccountPickers();
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
 	public void saveAccount(String accountName, String accountCode, Object parent)throws Exception{
 		try{
 		
