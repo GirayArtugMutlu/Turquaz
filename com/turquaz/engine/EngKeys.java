@@ -31,4 +31,6 @@ public class EngKeys
 	public final static String CURRENT_CARD_END="currentCardEnd";
 	public final static String AMOUNT_IN="amountIn";
 	public final static String AMOUNT_OUT="amountOut";
+	public final static String USER ="user";
+	public final static String PASSWORD ="password";
 }
