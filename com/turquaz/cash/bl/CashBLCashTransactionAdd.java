@@ -35,6 +35,7 @@ import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
@@ -85,7 +86,7 @@ public class CashBLCashTransactionAdd {
 					module.setId(new Integer(EngBLCommon.MODULE_CASH));
 					seq = new TurqEngineSequence();
 					seq.setTurqModule(module);
-					dalCash.save(seq);
+					EngDALCommon.saveObject(seq);
 				} catch (Exception ex) {
 					throw ex;
 				}
@@ -111,7 +112,7 @@ public class CashBLCashTransactionAdd {
 			/**
 			 * Save Cash Transaction
 			 */
-			dalCash.save(cashTrans);
+			EngDALCommon.saveObject(cashTrans);
 
 
 			/*
@@ -155,7 +156,7 @@ public class CashBLCashTransactionAdd {
 				cashTransRow.setTurqCurrencyExchangeRate(exchangeRate);
 				cashTransRow.setTurqCashTransaction(cashTrans);
 
-				dalCash.save(cashTransRow);
+				EngDALCommon.saveObject(cashTransRow);
 			}
 
 		}
@@ -190,7 +191,7 @@ public class CashBLCashTransactionAdd {
 					module.setId(new Integer(EngBLCommon.MODULE_CASH));
 					seq = new TurqEngineSequence();
 					seq.setTurqModule(module);
-					dalCash.save(seq);
+					EngDALCommon.saveObject(seq);
 				} catch (Exception ex) {
 					throw ex;
 				}
@@ -275,7 +276,7 @@ public class CashBLCashTransactionAdd {
 			/**
 			 * Save Cash Transaction
 			 */
-			dalCash.save(cashTrans);
+			EngDALCommon.saveObject(cashTrans);
 
 			/**
 			 * Save Cash Transaction Row
@@ -284,7 +285,7 @@ public class CashBLCashTransactionAdd {
 			cashTransRow.setTurqCurrencyExchangeRate(exchangeRate);
 			cashTransRow.setTurqCashTransaction(cashTrans);
 
-			dalCash.save(cashTransRow);
+			EngDALCommon.saveObject(cashTransRow);
 
 			/**
 			 * Save Current transaction
@@ -321,7 +322,7 @@ public class CashBLCashTransactionAdd {
 					module.setId(new Integer(EngBLCommon.MODULE_CASH));
 					seq = new TurqEngineSequence();
 					seq.setTurqModule(module);
-					dalCash.save(seq);
+					EngDALCommon.saveObject(seq);
 				} catch (Exception ex) {
 					throw ex;
 				}
@@ -405,7 +406,7 @@ public class CashBLCashTransactionAdd {
 			/**
 			 * Save Cash Transaction
 			 */
-			dalCash.save(cashTrans);
+			EngDALCommon.saveObject(cashTrans);
 
 			/**
 			 * Save Cash Transaction Row
@@ -414,7 +415,7 @@ public class CashBLCashTransactionAdd {
 
 			cashTransRow.setTurqCashTransaction(cashTrans);
 
-			dalCash.save(cashTransRow);
+			EngDALCommon.saveObject(cashTransRow);
 
 		
 			/**
@@ -445,7 +446,7 @@ public class CashBLCashTransactionAdd {
 					module.setId(new Integer(EngBLCommon.MODULE_CASH));
 					seq = new TurqEngineSequence();
 					seq.setTurqModule(module);
-					dalCash.save(seq);
+					EngDALCommon.saveObject(seq);
 				} catch (Exception ex) {
 					throw ex;
 				}
@@ -512,7 +513,7 @@ public class CashBLCashTransactionAdd {
 			/**
 			 * Save Cash Transaction
 			 */
-			dalCash.save(cashTrans);
+				EngDALCommon.saveObject(cashTrans);
 
 			/**
 			 * Save Cash Transaction Row
@@ -525,8 +526,8 @@ public class CashBLCashTransactionAdd {
 			cashTransRowWithCredit.setTurqCurrencyExchangeRate(exchangeRate);
 			
 
-			dalCash.save(cashTransRowWithDept);
-            dalCash.save(cashTransRowWithCredit);
+			EngDALCommon.saveObject(cashTransRowWithDept);
+			EngDALCommon.saveObject(cashTransRowWithCredit);
 		
 			/**
 			 * Save Accounting Transaction

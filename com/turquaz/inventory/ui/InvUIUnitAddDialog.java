@@ -397,7 +397,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 				invUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				invUnit.setUnitsName(txtUnitName.getText().trim());
 	
-				blCardAdd.saveOrUpdateObject(invUnit);
+				blCardAdd.saveObject(invUnit);
 	
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);

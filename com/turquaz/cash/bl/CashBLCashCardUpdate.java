@@ -25,6 +25,7 @@ package com.turquaz.cash.bl;
 import java.util.Calendar;
 
 import com.turquaz.cash.dal.CashDALCashCard;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
 
@@ -48,7 +49,7 @@ public class CashBLCashCardUpdate {
           cashCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
           cashCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
           
-		  dalCash.update(cashCard);   
+          EngDALCommon.updateObject(cashCard);   
           
           
         }
@@ -64,7 +65,7 @@ public class CashBLCashCardUpdate {
     public void delete(TurqCashCard card)throws Exception{
         
         try{
-            dalCash.delete(card);
+        	EngDALCommon.deleteObject(card);
             
             
             

@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.turquaz.consignment.dal.ConDALAddConsignment;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
@@ -99,7 +100,7 @@ public class ConBLAddConsignment {
             TurqModule module = new TurqModule();
             module.setId(new Integer(6));
             seq.setTurqModule(module);
-            dalConsignment.save(seq);
+            EngDALCommon.saveObject(seq);
             
             consignment.setTurqEngineSequence(seq);
             
@@ -135,11 +136,11 @@ public class ConBLAddConsignment {
 			common.setTurqCurrentCard(curCard);
 			common.setTurqCurrencyExchangeRate(exRate);
 			
-			dalConsignment.save(common);
+			EngDALCommon.saveObject(common);
 			
 			consignment.setTurqBillConsignmentCommon(common);
 			
-			dalConsignment.save(consignment);
+			EngDALCommon.saveObject(consignment);
 			
 			// Then Save Inventory Transactions 
 			for(int i=0;i<invTransactions.size();i++)
@@ -198,7 +199,7 @@ public class ConBLAddConsignment {
 			invTrans.setTransactionsAmountIn(new BigDecimal(0));
 			}
 			
-			dalConsignment.save(invTrans);
+			EngDALCommon.saveObject(invTrans);
 			
 			
 		}
@@ -220,7 +221,7 @@ public class ConBLAddConsignment {
 		cardGroup.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 		cardGroup.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 
-		dalConsignment.save(cardGroup);
+		EngDALCommon.saveObject(cardGroup);
 	
 	}
 	catch(Exception ex){

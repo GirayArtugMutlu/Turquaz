@@ -37,6 +37,7 @@ import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
@@ -78,13 +79,13 @@ public class CashBLCashTransactionUpdate {
             Iterator it = cashTrans.getTurqCashTransactionRows().iterator();
             while(it.hasNext()){
                 
-                dalCash.delete(it.next());
+            	EngDALCommon.deleteObject(it.next());
                 
             }
             
                 
             
-            dalCash.delete(cashTrans);
+            EngDALCommon.deleteObject(cashTrans);
             
         }
         catch(Exception ex)
@@ -109,7 +110,7 @@ public class CashBLCashTransactionUpdate {
            Iterator it = cashTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
                 while(it.hasNext()){
                     
-                    dalCash.delete(it.next());
+                	EngDALCommon.deleteObject(it.next());
                     
                 }
                 
@@ -120,12 +121,12 @@ public class CashBLCashTransactionUpdate {
             Iterator it = cashTrans.getTurqCashTransactionRows().iterator();
             while(it.hasNext()){
                 
-                dalCash.delete(it.next());
+            	EngDALCommon.deleteObject(it.next());
                 
             }
             
             
-            dalCash.delete(cashTrans);
+            EngDALCommon.deleteObject(cashTrans);
             
             
             
@@ -151,7 +152,7 @@ public class CashBLCashTransactionUpdate {
            Iterator it = cashTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
                 while(it.hasNext()){
                     
-                    dalCash.delete(it.next());
+                	EngDALCommon.deleteObject(it.next());
                     
                 }
                 
@@ -162,7 +163,7 @@ public class CashBLCashTransactionUpdate {
             Iterator it = cashTrans.getTurqCashTransactionRows().iterator();
             while(it.hasNext()){
                 
-                dalCash.delete(it.next());
+            	EngDALCommon.deleteObject(it.next());
                 
             }
             
@@ -172,7 +173,7 @@ public class CashBLCashTransactionUpdate {
             dalCash.deleteAccountingTransaction(cashTrans);
            
             
-            dalCash.delete(cashTrans);
+            EngDALCommon.deleteObject(cashTrans);
             
             
             
@@ -199,7 +200,7 @@ public class CashBLCashTransactionUpdate {
                 Iterator it = cashTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
                 while(it.hasNext()){
                     
-                    dalCash.delete(it.next());
+                	EngDALCommon.deleteObject(it.next());
                     
                 }
                 
@@ -210,7 +211,7 @@ public class CashBLCashTransactionUpdate {
              it = cashTrans.getTurqCashTransactionRows().iterator();
              while(it.hasNext()){
                  
-                 dalCash.delete(it.next());
+             	EngDALCommon.deleteObject(it.next());
                  
              }
              
@@ -296,7 +297,7 @@ public class CashBLCashTransactionUpdate {
                  	 * Save Cash Transaction
                  	*/
                  	
-            	    dalCash.update(cashTrans);
+            	 EngDALCommon.updateObject(cashTrans);
             	    
             	
             	    
@@ -308,7 +309,7 @@ public class CashBLCashTransactionUpdate {
             	    cashTransRow.setTurqCurrencyExchangeRate(exchangeRate);
             	    cashTransRow.setTurqCashTransaction(cashTrans);
             	    
-            	    dalCash.save(cashTransRow);
+            	    EngDALCommon.saveObject(cashTransRow);
             	    
             	    
             	    
@@ -378,7 +379,7 @@ try{
         Iterator it = cashTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
         while(it.hasNext()){
             
-            dalCash.delete(it.next());
+        	EngDALCommon.deleteObject(it.next());
             
         }
 
@@ -388,7 +389,7 @@ try{
      it = cashTrans.getTurqCashTransactionRows().iterator();
      while(it.hasNext()){
          
-         dalCash.delete(it.next());
+     	EngDALCommon.deleteObject(it.next());
          
      }
      
@@ -465,7 +466,7 @@ try{
          	/**
          	 * Save Cash Transaction
          	*/
-    	    dalCash.update(cashTrans);
+    	 EngDALCommon.updateObject(cashTrans);
     	    
     	
     	    
@@ -477,7 +478,7 @@ try{
     	    cashTransRow.setTurqCurrencyExchangeRate(exchangeRate);
     	    cashTransRow.setTurqCashTransaction(cashTrans);
     	    
-    	    dalCash.save(cashTransRow);
+    	    EngDALCommon.saveObject(cashTransRow);
     	    
     	    
     	    
@@ -519,7 +520,7 @@ try{
         Iterator it = cashTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
         while(it.hasNext()){
             
-            dalCash.delete(it.next());
+        	EngDALCommon.deleteObject(it.next());
             
         }
         
@@ -530,7 +531,7 @@ try{
      it = cashTrans.getTurqCashTransactionRows().iterator();
      while(it.hasNext()){
          
-         dalCash.delete(it.next());
+     	EngDALCommon.deleteObject(it.next());
          
      }
      
@@ -593,7 +594,7 @@ try{
 		/**
 		 * Save Cash Transaction
 		 */
-		dalCash.update(cashTrans);
+			EngDALCommon.updateObject(cashTrans);
 
 		/**
 		 * Save Cash Transaction Row
@@ -607,8 +608,8 @@ try{
 		cashTransRowWithCredit.setTurqCurrencyExchangeRate(exchangeRate);
 		
 
-		dalCash.save(cashTransRowWithDept);
-     dalCash.save(cashTransRowWithCredit);
+		EngDALCommon.saveObject(cashTransRowWithDept);
+		EngDALCommon.saveObject(cashTransRowWithCredit);
 	
 		/**
 		 * Save Accounting Transaction

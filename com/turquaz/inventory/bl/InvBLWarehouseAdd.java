@@ -3,6 +3,7 @@ package com.turquaz.inventory.bl;
 
 import java.util.Calendar;
 
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 
 import com.turquaz.inventory.dal.InvDALWarehouseAdd;
@@ -52,7 +53,7 @@ public class InvBLWarehouseAdd {
 		warehouse.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 		warehouse.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 		
-		whDALAdd.saveObject(warehouse);	
+		EngDALCommon.saveObject(warehouse);	
 
 			
 	

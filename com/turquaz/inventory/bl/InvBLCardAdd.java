@@ -32,6 +32,7 @@ import java.util.Map;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
@@ -73,7 +74,7 @@ public class InvBLCardAdd {
             cardGroup
                     .setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 
-           InvDALCardAdd.saveObject(session, cardGroup);
+            EngDALCommon.saveObject(session, cardGroup);
 
         } catch (Exception ex) {
             throw ex;
@@ -129,7 +130,7 @@ public class InvBLCardAdd {
         cardUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
         cardUnit.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 
-        InvDALCardAdd.saveObject(session,cardUnit);
+        EngDALCommon.saveObject(session,cardUnit);
 
     }
 
@@ -150,7 +151,7 @@ public class InvBLCardAdd {
             invPrice
                     .setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 
-            InvDALCardAdd.saveObject(session, invPrice);
+            EngDALCommon.saveObject(session, invPrice);
 
         } catch (Exception ex) {
 
@@ -167,7 +168,7 @@ public class InvBLCardAdd {
         	invAcc.setUpdatedBy(System.getProperty("user"));
         	invAcc.setLastModified(new java.sql.Date(cal.getTime().getTime()));
         	invAcc.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-            InvDALCardAdd.saveObject(session, invAcc);
+        	EngDALCommon.saveObject(session, invAcc);
 
         } catch (Exception ex) {
 
@@ -176,10 +177,10 @@ public class InvBLCardAdd {
 
     }
 
-    public void saveOrUpdateObject(Object obj) throws Exception {
+    public void saveObject(Object obj) throws Exception {
         try {
 
-            cardAdd.saveOrUpdateObject(obj);
+        	EngDALCommon.saveObject(obj);
 
         } catch (Exception ex) {
             throw ex;
@@ -198,7 +199,7 @@ public class InvBLCardAdd {
             invUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
             invUnit.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 
-            cardAdd.saveOrUpdateObject(invUnit);
+            EngDALCommon.saveObject(invUnit);
 
         } catch (Exception ex) {
             throw ex;
@@ -226,7 +227,7 @@ public class InvBLCardAdd {
             invGroup
                     .setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 
-            cardAdd.saveOrUpdateObject(invGroup);
+            EngDALCommon.saveObject(invGroup);
 
         } catch (Exception ex) {
             throw ex;
@@ -316,7 +317,7 @@ public class InvBLCardAdd {
             card.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
             card.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
             card.setSpecVatForEach(isSpecAmount);
-            InvDALCardAdd.saveObject(session,card);
+            EngDALCommon.saveObject(session,card);
 
             return card;
 
@@ -329,7 +330,7 @@ public class InvBLCardAdd {
     public void deleteObject(Object obj) throws Exception {
         try {
 
-            cardAdd.deleteObject(obj);
+        	EngDALCommon.deleteObject(obj);
 
         } catch (Exception ex) {
             throw ex;

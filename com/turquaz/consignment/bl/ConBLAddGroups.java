@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.turquaz.consignment.dal.ConDALAddGroups;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 
 
@@ -51,7 +52,7 @@ public class ConBLAddGroups {
 		group.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 		group.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 		
-		dalAddGroups.save(group);	
+		EngDALCommon.saveObject(group);	
 			
 		}
 		catch(Exception ex){
@@ -68,7 +69,7 @@ public class ConBLAddGroups {
 		group.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		group.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 	
-		dalAddGroups.update(group);	
+		EngDALCommon.updateObject(group);	
 			
 		}
 		catch(Exception ex){
@@ -80,7 +81,7 @@ public class ConBLAddGroups {
 		try{
 
 	
-		dalAddGroups.delete(group);	
+			EngDALCommon.deleteObject(group);	
 
 		
 		}

@@ -3,6 +3,7 @@ package com.turquaz.inventory.bl;
 
 import java.util.Calendar;
 
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.inventory.dal.InvDALWarehouseUpdate;
 
@@ -48,7 +49,7 @@ public class InvBLWarehouseUpdate {
 		wh.setUpdatedBy(System.getProperty("user"));
 		wh.setLastModified(new java.sql.Date(cal.getTime().getTime()));
           
-		whDALUpdate.updateObject(wh);
+		EngDALCommon.updateObject(wh);
         }
         catch(Exception ex){
         	throw ex;
@@ -57,7 +58,7 @@ public class InvBLWarehouseUpdate {
 	}
 	public void deleteObject(Object obj)throws Exception{
 		try{
-			whDALUpdate.deleteObject(obj);
+			EngDALCommon.deleteObject(obj);
 			
 			
 			

@@ -32,6 +32,7 @@ import java.util.Map;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
@@ -161,7 +162,7 @@ public class InvBLCardUpdate {
 			card.setCardSpecialVatEach(cardSpecialVatEach);		
 			card.setUpdatedBy(System.getProperty("user"));
 			card.setUpdateDate(Calendar.getInstance().getTime());	    
-			InvDALCardUpdate.updateObject(session,card);
+			EngDALCommon.updateObject(session,card);
 
 
 		} catch (Exception ex) {
@@ -202,7 +203,7 @@ public class InvBLCardUpdate {
 		    while(it.hasNext())
 		    {		      
 		    	cardGroup = (TurqInventoryCardGroup)it.next();
-		    	InvDALCardUpdate.deleteObject(session,cardGroup);
+		    	EngDALCommon.deleteObject(session,cardGroup);
 		    }		    
 		}
 		catch(Exception ex)
@@ -221,7 +222,7 @@ public class InvBLCardUpdate {
  			while (it.hasNext())
  			{
  				invAccount=(TurqInventoryAccountingAccount)it.next();
- 				InvDALCardUpdate.deleteObject(session,invAccount);
+ 				EngDALCommon.deleteObject(session,invAccount);
  			}
 		}
  		catch(Exception ex)
@@ -240,7 +241,7 @@ public class InvBLCardUpdate {
 			while(it.hasNext())
 			{   	    
 				cardUnit = (TurqInventoryCardUnit)it.next();
-				InvDALCardUpdate.deleteObject(session,cardUnit);				
+				EngDALCommon.deleteObject(session,cardUnit);				
 			} 	   
 	    }    
 	    catch(Exception ex)
@@ -259,7 +260,7 @@ public class InvBLCardUpdate {
 			while(it.hasNext())
 			{		     
 				invPrice = (TurqInventoryPrice)it.next();		    
-				InvDALCardUpdate.deleteObject(session, invPrice);
+				EngDALCommon.deleteObject(session, invPrice);
 			}
 		}
 		catch(Exception ex)

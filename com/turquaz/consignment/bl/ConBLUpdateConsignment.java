@@ -23,6 +23,7 @@ import java.util.List;
 
 import com.turquaz.consignment.dal.ConDALUpdateConsignment;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
@@ -97,7 +98,7 @@ public class ConBLUpdateConsignment {
 	   while(it2.hasNext())
 	   {
 		
-	   		dalCons.deleteObject(it2.next());
+	   	EngDALCommon.deleteObject(it2.next());
 									
 	   }
 	
@@ -141,9 +142,9 @@ public class ConBLUpdateConsignment {
 		common.setTurqCurrentCard(curCard);
 		common.setConsignmentDocumentNo(docNo);
 	  
-		dalCons.update(common);
+		EngDALCommon.updateObject(common);
 		
-		dalCons.updateConsignment(consignment);
+		EngDALCommon.updateObject(consignment);
 		
 		
 		}
@@ -188,7 +189,7 @@ public class ConBLUpdateConsignment {
 	public static void deleteObject(Object obj)throws Exception{
 	try{
 		
-		dalCons.deleteObject(obj);
+		EngDALCommon.deleteObject(obj);
 	
 	}
 	catch(Exception ex){

@@ -21,10 +21,7 @@ package com.turquaz.inventory.dal;
 * @author  Onsel Armagan
 * @version  $Id$
 */
-import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 
-import com.turquaz.engine.dal.EngDALSessionFactory;
 
 public class InvDALWarehouseAdd {
 	public InvDALWarehouseAdd()
@@ -32,27 +29,7 @@ public class InvDALWarehouseAdd {
 			
 	}
 	
-	public void saveObject(Object obj)throws Exception {
-	try{
-			
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
-		
-		session.save(obj);
-		session.flush();
-		tx.commit();
-		session.close();
-			
-			
-	}
-	catch(Exception ex){
-	
-		throw ex; 
-	
-	}
-		
-		
-	}
+
 	
 	
 	

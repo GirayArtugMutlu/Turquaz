@@ -49,30 +49,7 @@ public class InvDALCardUpdate {
 
 	}
 
-	public static void updateObject(Session session, Object obj) throws Exception {
-		try
-		{
-			session.update(obj);
-
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-
-	}
-
-	public static void deleteObject(Session session, Object obj) throws Exception {
-		try 
-		{
-			session.delete(obj);
-		} 
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-
-	}
+	
 
 	public boolean hasTransactions(TurqInventoryCard card) throws Exception {
 		try {

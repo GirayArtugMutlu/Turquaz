@@ -47,65 +47,10 @@ public class CashDALCashCard {
         
     }
     
-    public void save(Object obj)throws Exception {
-        try{
-            Session session = EngDALSessionFactory.openSession();
-            Transaction tx = session.beginTransaction();
-            session.save(obj);
-            
-            tx.commit();
-            session.flush();
-            session.close();
-            
-            
-        }
-        catch(Exception ex){
-            throw ex;
-            
-        }
-        
-    }
+   
+   
     
-    public void update(Object obj)throws Exception {
-        try{
-            
-            Session session = EngDALSessionFactory.openSession();
-            Transaction tx = session.beginTransaction();
-            session.update(obj);
-            
-            tx.commit();
-            session.flush();
-            session.close();
-            
-            
-            
-        }
-        catch(Exception ex){
-            throw ex;
-        }
-        
-        
-        
-    }
     
-    public void delete(Object obj)throws Exception{
-        try{
-            
-            Session session = EngDALSessionFactory.openSession();
-            Transaction tx = session.beginTransaction();
-            session.delete(obj);
-            
-            tx.commit();
-            session.flush();
-            session.close();
-            
-            
-            
-        }
-        catch(Exception ex){
-            throw ex;
-        }
-    } 
     
     public void deleteAccountingTransaction(TurqCashTransaction cashTrans)throws Exception{
         try{
