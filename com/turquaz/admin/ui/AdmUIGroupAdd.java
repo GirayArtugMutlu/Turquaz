@@ -151,6 +151,7 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 		{
 			msg.setMessage(Messages.getString("AdmUIGroupAdd.2")); //$NON-NLS-1$
 			msg.open();
+			txtAdmGroupName.setFocus();
 			return false;
 		}
 		return true;

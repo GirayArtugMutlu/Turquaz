@@ -53,9 +53,16 @@ import com.turquaz.engine.dal.TurqCurrentGroup;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
 public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private TableColumn tableColumnDescription;
@@ -211,6 +218,11 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			});
 	
 			GridData btnGroupAddLData = new GridData();
+			btnGroupAdd.addMouseListener(new MouseAdapter() {
+				public void mouseUp(MouseEvent evt) {
+					btnGroupAddMouseUp(evt);
+				}
+			});
 			btnGroupAddLData.verticalAlignment = GridData.CENTER;
 			btnGroupAddLData.horizontalAlignment = GridData.BEGINNING;
 			btnGroupAddLData.widthHint = -1;
@@ -222,14 +234,6 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			btnGroupAddLData.grabExcessVerticalSpace = false;
 			btnGroupAdd.setLayoutData(btnGroupAddLData);
 			btnGroupAdd.setText(Messages.getString("CurUIGroupAddDialog.4")); //$NON-NLS-1$
-			btnGroupAdd.addMouseListener( new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
-					btnGroupAddMouseDoubleClick(evt);
-				}
-				public void mouseUp(MouseEvent evt) {
-					btnGroupAddMouseUp(evt);
-				}
-			});
 			GridLayout compGroupAddDialogLayout = new GridLayout(3, true);
 			compGroupAddDialog.setLayout(compGroupAddDialogLayout);
 			compGroupAddDialogLayout.marginWidth = 5;
@@ -414,10 +418,6 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 	}
 	}
 
-	/** Auto-generated event handler method */
-	protected void btnGroupAddMouseDoubleClick(MouseEvent evt){
-		
-	}
 
 	/** Auto-generated event handler method */
 	protected void btnGroupAddMouseUp(MouseEvent evt){
@@ -429,6 +429,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 	    
 	    msg.setMessage(Messages.getString("CurUIGroupAddDialog.24")); //$NON-NLS-1$
 	    msg.open();
+	    txtGroupName.setFocus();
 	    }
 	    else{
 	    

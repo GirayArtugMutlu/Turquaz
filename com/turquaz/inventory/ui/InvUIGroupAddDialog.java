@@ -222,10 +222,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 			btnGroupAddLData.grabExcessVerticalSpace = false;
 			btnGroupAdd.setLayoutData(btnGroupAddLData);
 			btnGroupAdd.setText(Messages.getString("InvUIGroupAddDialog.4")); //$NON-NLS-1$
-			btnGroupAdd.addMouseListener( new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
-					btnGroupAddMouseDoubleClick(evt);
-				}
+			btnGroupAdd.addMouseListener(new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
 					btnGroupAddMouseUp(evt);
 				}
@@ -338,14 +335,6 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 	
 		
 	}
-
-	/** Auto-generated event handler method */
-
-
-	/** Auto-generated event handler method */
-	protected void btnGroupAddMouseDoubleClick(MouseEvent evt){
-		
-}
 	
 
 	/** Auto-generated event handler method */
@@ -406,6 +395,8 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog {
 		    
 		    msg.setMessage(Messages.getString("InvUIGroupAddDialog.14")); //$NON-NLS-1$
 		    msg.open();
+		    txtGroupName.setFocus();
+		    return;
 		    }
 	else{
 		

@@ -219,21 +219,25 @@ private boolean verifyfields()
 		if (txtBankName.getText().trim().equals("")){ //$NON-NLS-1$
 			msg.setMessage(Messages.getString("BankUIBankCardAdd.6")); //$NON-NLS-1$
 			msg.open();
+			txtBankName.setFocus();
 			return false;
 			}
 		else if(txtBankBranchName.getText().trim().equals("")){ //$NON-NLS-1$
 			msg.setMessage(Messages.getString("BankUIBankCardAdd.8")); //$NON-NLS-1$
 			msg.open();
+			txtBankBranchName.setFocus();
 			return false;
 			}
 		else if (txtBankAccountNo.getText().trim().equals("")){ //$NON-NLS-1$
 			msg.setMessage(Messages.getString("BankUIBankCardAdd.5")); //$NON-NLS-1$
 			msg.open();
+			txtBankAccountNo.setFocus();
 			return false;
 			}
 		else if (comboCurrency.getData(comboCurrency.getText())==null){
 			msg.setMessage(Messages.getString("BankUIBankCardAdd.11")); //$NON-NLS-1$
 			msg.open();
+			comboCurrency.setFocus();
 			return false;
 			}
 		else

@@ -214,12 +214,14 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
     if(txtAccAccountCode.getText().trim().equals("")){ //$NON-NLS-1$
     msg.setMessage(Messages.getString("AccUIAddAccounts.4")); //$NON-NLS-1$
     msg.open();	
+    this.txtAccAccountCode.setFocus();
     return false;
     }
     
 	else if(txtParentAccount.getData()==null){
 	  msg.setMessage(Messages.getString("AccUIAddAccounts.5")); //$NON-NLS-1$
      msg.open();	
+     this.txtParentAccount.setFocus();
     return false;
 	}
 

@@ -307,6 +307,7 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
    if(accountPicker.getData()==null){
    		msg.setMessage(Messages.getString("AccUITransactionRowAddDialog.13"));	 //$NON-NLS-1$
    		msg.open();
+   		accountPicker.setFocus();
    		return false;
    
    }
@@ -314,6 +315,7 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
    
    	msg.setMessage(Messages.getString("AccUITransactionRowAddDialog.15")); //$NON-NLS-1$
 	msg.open();
+	decTextAmount.setFocus();
 	return false;
    
    } 

@@ -1354,16 +1354,19 @@ public class CurUICurrentCardAdd extends  Composite implements SecureComposite{
 		if(txtCurrentCode.getText().trim().equals("")){ //$NON-NLS-1$
 			msg.setMessage(Messages.getString("CurUICurrentCardAdd.28")); //$NON-NLS-1$
 			msg.open();
+			txtCurrentCode.setFocus();
 			return false;
 		} 
 		else if(txtCurrentName.getText().trim().equals("")){ //$NON-NLS-1$
 			msg.setMessage(Messages.getString("CurUICurrentCardAdd.30")); //$NON-NLS-1$
 			msg.open();
+			txtCurrentName.setFocus();
 			return false;
 		}
 		else if(accPickerCustomer.getData()==null){
 			msg.setMessage(Messages.getString("CurUICurrentCardAdd.31")); //$NON-NLS-1$
 			msg.open();
+			accPickerCustomer.setFocus();
 			return false;
 		}
 		 

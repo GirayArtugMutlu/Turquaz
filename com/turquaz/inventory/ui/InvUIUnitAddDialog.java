@@ -191,6 +191,11 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 				{
 					btnUnitAdd = new Button(composite1, SWT.PUSH | SWT.CENTER);
 					GridData btnUnitAddLData = new GridData();
+					btnUnitAdd.addMouseListener(new MouseAdapter() {
+						public void mouseUp(MouseEvent evt) {
+							btnUnitAddMouseUp(evt);
+						}
+					});
 					btnUnitAddLData.widthHint = 42;
 					btnUnitAddLData.heightHint = 27;
 					btnUnitAdd.setLayoutData(btnUnitAddLData);
@@ -199,11 +204,6 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 					btnUnitAdd.setSize(new org.eclipse.swt.graphics.Point(
 						42,
 						27));
-					btnUnitAdd.addMouseListener(new MouseAdapter() {
-						public void mouseUp(MouseEvent evt) {
-							btnUnitAddMouseUp(evt);
-						}
-					});
 				}
 				composite1.layout();
 			}
@@ -402,6 +402,8 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	    
 	    msg.setMessage(Messages.getString("InvUIUnitAddDialog.18")); //$NON-NLS-1$
 	    msg.open();
+	    txtUnitName.setFocus();
+	    return;
 	    }
 	    else{
 	    

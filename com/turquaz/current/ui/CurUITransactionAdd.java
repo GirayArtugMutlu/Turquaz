@@ -326,22 +326,26 @@ public class CurUITransactionAdd extends Composite implements SecureComposite{
 	
 	msg.setMessage(Messages.getString("CurUITransactionAdd.12")); //$NON-NLS-1$
     msg.open();	
+    comboCurrentCode.setFocus();
 	
 	return false;
 	}
 	else if(dateTransDate.getData()==null){
 	msg.setMessage(Messages.getString("CurUITransactionAdd.13")); //$NON-NLS-1$
     msg.open();	
+    dateTransDate.setFocus();
 	return false;
 	}
 	else if(decTxtAmount.getText().equals("")){ //$NON-NLS-1$
 	msg.setMessage(Messages.getString("CurUITransactionAdd.15")); //$NON-NLS-1$
     msg.open();	
+    decTxtAmount.setFocus();
 	return false;
 	}
 	else if (accPickerCashAccount.getData()==null){
 	msg.setMessage(Messages.getString("CurUITransactionAdd.16")); //$NON-NLS-1$
     msg.open();	
+    accPickerCashAccount.setFocus();
 	return false;
 	}
 	

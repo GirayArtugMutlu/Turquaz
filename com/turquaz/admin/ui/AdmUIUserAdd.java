@@ -248,17 +248,18 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 		if(txtUsername.getText().trim().length()==0){
 			msg.setMessage(Messages.getString("AdmUIUserAdd.6")); //$NON-NLS-1$
 			msg.open();
+			txtUsername.setFocus();
 			return false;
 			
 		}
 		else if(!txtPassword.getText().equals(txtRePassword.getText())){
 		msg.setMessage(Messages.getString("AdmUIUserAdd.7")); //$NON-NLS-1$
 		msg.open();
+		txtPassword.setText("");
+		txtRePassword.setText("");
+		txtPassword.setFocus();
 		 return false;			
-		}
-		
-		
-		
+		}		
 		return true;
 	}
 	

@@ -372,28 +372,24 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	calculateTotalDeptAndCredit();
 	
 	if(totalCredit.doubleValue()!=totalDept.doubleValue()){
-	msg.setMessage(Messages.getString("AccUITransactionAdd.12")); //$NON-NLS-1$
-	
-	msg.open();
-	
+	msg.setMessage(Messages.getString("AccUITransactionAdd.12")); //$NON-NLS-1$	
+	msg.open();	
 	return false;
 	}
 	else if(tableTransactionColumns.getItems().length==0){
-	msg.setMessage(Messages.getString("AccUITransactionAdd.13")); //$NON-NLS-1$
-	
+	msg.setMessage(Messages.getString("AccUITransactionAdd.13")); //$NON-NLS-1$	
 	msg.open();
 	
 	return false;
 	
 	}
 	else if(dateTransactionDate.getData()==null){
-	msg.setMessage(Messages.getString("AccUITransactionAdd.14")); //$NON-NLS-1$
-	
+	msg.setMessage(Messages.getString("AccUITransactionAdd.14")); //$NON-NLS-1$	
 	msg.open();
+	dateTransactionDate.setFocus();
 	
 	return false;
-	}
-	
+	}	
 	else{
 	return true;
 	}
