@@ -38,18 +38,23 @@ public class TTableInvPricesModel extends TTableModel {
 		
 	}
 	public KTableCellEditor getCellEditor(int col, int row) {
-		if (col == 1)
+		if (col == 2)
 		{	
 			TTableCellEditorCombo e = new TTableCellEditorCombo();
 			e.setItems(items);
 			return e;
 		}
-		else if (col==0)
+		else if (col==1)
 		{	
 			TTableCellEditorDecimalText e = new TTableCellEditorDecimalText();
 
 			return e;
 		}	
+		else if(col==0){
+			TTableCellEditorCombo e = new TTableCellEditorCombo();
+			e.setItems(new String[]{"Buy","Sell"});
+			return e;
+		}
 		
 		return new KTableCellEditorText();
 	}
