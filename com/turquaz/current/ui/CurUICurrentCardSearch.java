@@ -257,7 +257,7 @@ private TableColumn tableColumnContactName;
 		try{
 			tableCurrentCardSearch.removeAll();
 			List listCurrentCards=curBLCurrentCardSearch.searchCurrentCard(txtCurrentCode.getText().trim(),
-																		txtCurrentName.getText().trim(),(TurqCurrentGroup)comboTurqGroupName.getData());
+																		txtCurrentName.getText().trim(),(TurqCurrentGroup)comboTurqGroupName.getData(comboTurqGroupName.getText()));
 
 			for(int k=0; k<listCurrentCards.size(); k++){
 				TurqCurrentCard aCurrentCard=(TurqCurrentCard)listCurrentCards.get(k);

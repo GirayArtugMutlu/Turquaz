@@ -40,10 +40,8 @@ public class CurDALCurrentCardSearch {
 					" currentCard.cardsCurrentCode like '"+currentCode+"%' and" +
 					" currentCard.cardsName like '"+currentName+"%' and" +
 					" currentCard.turqCompany.companiesId ="+System.getProperty("company");
-
-		
 			if (cardGroup!=null){
-				query +=" and currentCard.turqCurrentGroup = :cardGroup";
+				query +=" and gr.turqCurrentGroup = :cardGroup";
 			}		
 			Query q = session.createQuery(query); 	
 			if (cardGroup!=null){
