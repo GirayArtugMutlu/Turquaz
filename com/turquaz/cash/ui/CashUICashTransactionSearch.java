@@ -84,6 +84,9 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	private DatePicker datePickerStart;
 	private CLabel lblStartDate;
 	private CashCardPicker txtCashCard;
+	private Text txtDefinition;
+	private TableColumn tableColumnDefinition;
+	private CLabel lblDefinition;
 	private Table tableCashTransactions;
 	CashBLCashTransactionSearch blSearch = new CashBLCashTransactionSearch();
 	private Calendar cal=Calendar.getInstance();
@@ -105,9 +108,9 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
                 GridData compSearchPanelLData = new GridData();
                 compSearchPanelLData.grabExcessHorizontalSpace = true;
                 compSearchPanelLData.horizontalAlignment = GridData.FILL;
-                compSearchPanelLData.heightHint = 97;
+                compSearchPanelLData.heightHint = 74;
                 compSearchPanel.setLayoutData(compSearchPanelLData);
-                compSearchPanelLayout.numColumns = 2;
+                compSearchPanelLayout.numColumns = 4;
                 compSearchPanel.setLayout(compSearchPanelLayout);
                 {
                     lblCashCard = new CLabel(compSearchPanel, SWT.NONE);
@@ -120,10 +123,21 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
                 {
                     txtCashCard = new CashCardPicker(compSearchPanel, SWT.NONE);
                     GridData txtCashCardLData = new GridData();
-                    txtCashCardLData.widthHint = 144;
-                    txtCashCardLData.heightHint = 17;
+                    txtCashCardLData.widthHint = 191;
+                    txtCashCardLData.heightHint = 16;
                     txtCashCard.setLayoutData(txtCashCardLData);
                 }
+				{
+					lblDefinition = new CLabel(compSearchPanel, SWT.NONE);
+					lblDefinition.setText(Messages.getString("CashUICashTransactionSearch.9")); //$NON-NLS-1$
+				}
+				{
+					txtDefinition = new Text(compSearchPanel, SWT.NONE);
+					GridData txtDefinitionLData = new GridData();
+					txtDefinitionLData.widthHint = 214;
+					txtDefinitionLData.heightHint = 17;
+					txtDefinition.setLayoutData(txtDefinitionLData);
+				}
                 {
                     lblStartDate = new CLabel(compSearchPanel, SWT.NONE);
                     lblStartDate.setText(Messages.getString("CashUICashTransactionSearch.1")); //$NON-NLS-1$
@@ -131,8 +145,8 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
                 {
                     datePickerStart = new DatePicker(compSearchPanel, SWT.NONE);
                     GridData datePickerStartLData = new GridData();
-                    datePickerStartLData.widthHint = 122;
-                    datePickerStartLData.heightHint = 21;
+                    datePickerStartLData.widthHint = 125;
+                    datePickerStartLData.heightHint = 22;
                     datePickerStart.setLayoutData(datePickerStartLData);
                 }
                 {
@@ -143,7 +157,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
                     datePickerEnd = new DatePicker(compSearchPanel, SWT.NONE);
                     GridData datePickerEndLData = new GridData();
                     datePickerEndLData.widthHint = 125;
-                    datePickerEndLData.heightHint = 21;
+                    datePickerEndLData.heightHint = 22;
                     datePickerEnd.setLayoutData(datePickerEndLData);
                 }
             }
@@ -177,6 +191,13 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
                     tableColumnCashCard.setText(Messages.getString("CashUICashTransactionSearch.4")); //$NON-NLS-1$
                     tableColumnCashCard.setWidth(100);
                 }
+				{
+					tableColumnDefinition = new TableColumn(
+						tableCashTransactions,
+						SWT.NONE);
+					tableColumnDefinition.setText(Messages.getString("CashUICashTransactionSearch.10")); //$NON-NLS-1$
+					tableColumnDefinition.setWidth(120);
+				}
                 {
                     tableColumnType = new TableColumn(
                         tableCashTransactions,
@@ -224,14 +245,14 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	           
 	            tableCashTransactions.removeAll();
 	            
-	          List list = blSearch.searchCashTransactions(txtCashCard.getTurqCashCard(),datePickerStart.getDate(),datePickerEnd.getDate());	
+	          List list = blSearch.searchCashTransactions(txtCashCard.getTurqCashCard(),datePickerStart.getDate(),datePickerEnd.getDate(),txtDefinition.getText());	
 	          
 	          Object[] row ;
 	          TableItem item;
 	          BigDecimal deptAmount = new BigDecimal(0);
 	          BigDecimal creditAmount = new BigDecimal(0);
 	          BigDecimal amount;
-	          String cardName;
+	          String cardName, transDefinition;
 	          Date transDate = null;
 	          String type;
 	          Integer id;
@@ -261,12 +282,12 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	                  amount = deptAmount;
 	                  
 	              }
-	              
+	              transDefinition=row[6].toString();
 	              TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 	              item.setText(new String[]{
 	                      		
 	                      DatePicker.formatter.format(transDate),
-	                      cardName,
+	                      cardName,transDefinition,
 	                      type,
 	                      cf.format(amount)
 	                      

@@ -35,11 +35,11 @@ public class CashBLCashTransactionSearch {
         
     }
     
-   public List searchCashTransactions(TurqCashCard cashCard, Date startDate, Date endDate)throws Exception{
+   public List searchCashTransactions(TurqCashCard cashCard, Date startDate, Date endDate, String definition)throws Exception{
        try{
            
            
-           return dalCash.searchCashTransaction(cashCard,startDate,endDate);
+           return dalCash.searchCashTransaction(cashCard,startDate,endDate, definition);
            
            
        }
