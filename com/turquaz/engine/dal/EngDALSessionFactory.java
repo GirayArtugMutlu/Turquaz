@@ -61,7 +61,6 @@ public class EngDALSessionFactory {
 		System.setProperty("dbPass",password);
 		
 		
-		
 		Configuration cfg =new Configuration();
 			
 		Properties props = new Properties();
