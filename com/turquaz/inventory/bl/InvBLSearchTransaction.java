@@ -66,12 +66,14 @@ public class InvBLSearchTransaction {
 		
 	}
 	
-	public List searchTransactionsAdvanced(String invCardCode, String invCardName, 
+	public List searchTransactionsAdvanced(String invCardCodeStart,String invCardCodeEnd,
+			String invCardNameStart, String invCardNameEnd, 
 			TurqCurrentCard curCardStart, TurqCurrentCard curCardEnd, 
 			Date startDate,Date endDate, int type, TurqInventoryGroup invGroup)throws Exception{
 		try{
 			
-			return dalSearch.searchTransactionsAdvanced(invCardCode,invCardName,curCardStart,curCardEnd,
+			return dalSearch.searchTransactionsAdvanced(invCardCodeStart,invCardCodeEnd,
+					invCardNameStart,invCardNameEnd,curCardStart,curCardEnd,
 					startDate,endDate,type,invGroup);
 			
 		}

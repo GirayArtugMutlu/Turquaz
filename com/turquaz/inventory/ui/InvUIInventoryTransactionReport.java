@@ -37,6 +37,7 @@ import org.eclipse.swt.widgets.Composite;
 import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
 
 
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 
 import com.turquaz.engine.dal.TurqConsignment;
@@ -455,15 +456,16 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			tableTransactions.removeAll();
-			int type = 0;
-			if (comboTransactionsType.getText().equals(Messages.getString("InvUIInventoryTransactionReport.21"))) //$NON-NLS-1$
-				type=2;
-			else if (comboTransactionsType.getText().equals(Messages.getString("InvUIInventoryTransactionReport.22"))) //$NON-NLS-1$
-				type = 1;
+			int type = EngBLCommon.COMMON_ALL_INT;
+			if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_BUY_STRING))
+				type=EngBLCommon.COMMON_BUY_INT;
+			else if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_SELL_STRING))
+				type = EngBLCommon.COMMON_SELL_INT;
 
 
-			List list = blSearch.searchTransactionsAdvanced(txtInvCardStart.getText(),
-					txtInvNameStart.getText(),(TurqCurrentCard)txtCurCardStart.getData(),
+			List list = blSearch.searchTransactionsAdvanced(txtInvCardStart.getText().trim(),
+					txtInvCardEnd.getText().trim(),txtInvNameStart.getText().trim(),
+					txtInvNameEnd.getText().trim(),(TurqCurrentCard)txtCurCardStart.getData(),
 					(TurqCurrentCard)txtCurCardEnd.getData(),dateStartDate.getDate(),
 					dateEndDate.getDate(),type,
 					(TurqInventoryGroup)comboInvGroup.getData(comboInvGroup.getText()));
