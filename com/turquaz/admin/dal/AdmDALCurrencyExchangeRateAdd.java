@@ -62,7 +62,7 @@ public class AdmDALCurrencyExchangeRateAdd {
 		try {
 			Session session = EngDALSessionFactory.openSession();
 
-			String query = "Select exchangeRate.exchangeRatesId," +
+			String query = "Select exchangeRate.id," +
 					" exchangeRate.exhangeRatesDate," +
 					" exchangeRate.turqCurrencyByExchangeCurrencyId.currenciesAbbreviation," +
 					" exchangeRate.exchangeRatio" +

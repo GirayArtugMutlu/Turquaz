@@ -121,7 +121,7 @@ public class BankDALCommon {
     
 	        
 	        Session session = EngDALSessionFactory.openSession();
-	        String query = "select bankTrans.banksTransactionBillsId, bankTrans.transactionBillDate," +
+	        String query = "select bankTrans.id, bankTrans.transactionBillDate," +
 	        		" bankTrans.turqBanksTransactionType.transactionTypeName," +
 	        		" bankTrans.transactionBillDefinition, bankTrans.transactionBillNo, sum(transRow.deptAmount),sum(transRow.creditAmount)" +
 	        " from TurqBanksTransactionBill as bankTrans " +
@@ -130,7 +130,7 @@ public class BankDALCommon {
     		" and bankTrans.transactionBillNo like '"+docNo+"%'" ;
     
 	        
-	        query += " group by bankTrans.banksTransactionBillsId, bankTrans.transactionBillDate," +
+	        query += " group by bankTrans.id, bankTrans.transactionBillDate," +
 	        		"bankTrans.turqBanksTransactionType.transactionTypeName," +
 	        		"bankTrans.transactionBillDefinition, bankTrans.transactionBillNo ";
 	        query += " order by bankTrans, bankTrans.transactionBillDate";
@@ -203,14 +203,14 @@ public class BankDALCommon {
 	            		" FROM turq_banks_transaction_bills bankTrans " +
 	            		" LEFT JOIN (Select row.banks_cards_id as banksId, row.dept_amount as dept, row.credit_amount as credit, row.bank_transactions_bills_id as transId" +
 	            		" FROM turq_banks_transactions as row ) totals " +
-	            		" ON  totals.transId = bankTrans.banks_transaction_bills_id," +
+	            		" ON  totals.transId = bankTrans.id," +
 	            		" turq_banks_cards bankCard ," +
 	            		" turq_banks_transaction_types type" +
 	            		" where totals.banksId ="+bankCard.getId().intValue()+
 	            		" and bankTrans.transaction_bill_date >= '"+frmt.format(startDate)+"' and " +
 	            		" bankTrans.transaction_bill_date <= '"+frmt.format(endDate)+"' " +
-	            		" and totals.banksId = bankCard.banks_cards_id" +
-	            		" and type.bank_transaction_types_id = bankTrans.banks_transaction_types_id" +
+	            		" and totals.banksId = bankCard.id" +
+	            		" and type.id = bankTrans.banks_transaction_types_id" +
 	            		" order by bankTrans.transaction_bill_date";
 	          
 	     System.out.println(query);
@@ -274,7 +274,7 @@ public class BankDALCommon {
 	        Session session = EngDALSessionFactory.openSession();
 	        
 	        String query = "Select bankTrans from TurqBanksTransaction as bankTrans " +
-	        		" where bankTrans.turqBanksTransactionBill.turqBanksTransactionType.bankTransactionTypesId ="+EngBLCommon.BANK_TRANS_INITIAL;
+	        		" where bankTrans.turqBanksTransactionBill.turqBanksTransactionType.id ="+EngBLCommon.BANK_TRANS_INITIAL;
 	            
 	        Query q = session.createQuery(query);
 	        
@@ -294,8 +294,8 @@ public class BankDALCommon {
 	    public static boolean checkInitialTransaction(TurqBanksCard bankCard)throws Exception {
 	        try{
 	            Session session = EngDALSessionFactory.openSession();
-	            String query = "select bankTrans.bankTransactionsId from TurqBanksTransaction as bankTrans " +
-	            		" where bankTrans.turqBanksCard = :bankCard and bankTrans.turqBanksTransactionBill.turqBanksTransactionType.bankTransactionTypesId="+EngBLCommon.BANK_TRANS_INITIAL;
+	            String query = "select bankTrans.id from TurqBanksTransaction as bankTrans " +
+	            		" where bankTrans.turqBanksCard = :bankCard and bankTrans.turqBanksTransactionBill.turqBanksTransactionType.id="+EngBLCommon.BANK_TRANS_INITIAL;
 	            Query q = session.createQuery(query);
 		        q.setParameter("bankCard",bankCard);
 		        List ls = q.list();

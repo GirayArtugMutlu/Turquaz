@@ -48,14 +48,14 @@ public class BankDALBankCardSearch {
 		{
 			Session session = EngDALSessionFactory.openSession();
 		
-			String query = "Select bankCard.banksCardsId," +
+			String query = "Select bankCard.id," +
 			" bankCard.bankName, bankCard.bankBranchName," +
 			" bankCard.bankAccountNo,turqCur.currenciesAbbreviation," +
 			" bankCard.bankDefinition from TurqBanksCard as bankCard," +
 			" bankCard.turqCurrency as turqCur where" + //$NON-NLS-1$
 			" bankCard.bankName like '"+bankName+"%' and bankCard.bankBranchName like '"+bankBranchName+"%' "+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			" and bankCard.bankAccountNo like '"+bankAccountNo+"%'" +
-			" and bankCard.banksCardsId <> -1"; //$NON-NLS-1$ //$NON-NLS-2$
+			" and bankCard.id <> -1"; //$NON-NLS-1$ //$NON-NLS-2$
 		
 			if (currency!=null)
 			{
@@ -85,7 +85,7 @@ public class BankDALBankCardSearch {
 			Session session = EngDALSessionFactory.openSession();
 
 			String query = "Select bankCard from TurqBanksCard as bankCard" +
-					" where bankCard.banksCardsId="+bankId; //$NON-NLS-1$
+					" where bankCard.id="+bankId; //$NON-NLS-1$
 
 
 			Query q = session.createQuery(query);
@@ -110,7 +110,7 @@ public class BankDALBankCardSearch {
 			Session session = EngDALSessionFactory.openSession();
 
 			String query = "Select bankCard from TurqBanksCard as bankCard" +
-					" where bankCard.banksCardsId <> -1";
+					" where bankCard.id <> -1";
 
 
 			Query q = session.createQuery(query);
@@ -136,7 +136,7 @@ public class BankDALBankCardSearch {
 			Session session = EngDALSessionFactory.openSession();
 
 			String query = "Select bankCard.banksCardsId, bankCard.turqAccountingAccount.accountingAccountsId  from TurqBanksCard as bankCard" +
-					" where bankCard.banksCardsId <> -1";
+					" where bankCard.id <> -1";
 
 
 			Query q = session.createQuery(query);
