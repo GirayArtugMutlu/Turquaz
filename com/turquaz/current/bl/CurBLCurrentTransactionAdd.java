@@ -59,47 +59,21 @@ public class CurBLCurrentTransactionAdd {
 		//Nakit hareketi degilse hic birsey yapma.
         if(type == 4){
           
-        	
-          TurqAccountingTransactionColumn transRowCash = new TurqAccountingTransactionColumn();
-          TurqAccountingTransactionColumn transRowCurrent = new TurqAccountingTransactionColumn();
-          
-          //Kasa muhasebe kodunu girelim
-          transRowCash.setTurqAccountingAccount(account);
-		
           int accTransactionType = 1; //0-Tahsil, 1-Tediye, 2-Mahsup
-    		
-		  
-		  //Cari Karta para verildiginde
-		  //Kasaya alacak hareketi 
-		  //Cari kartin satici muhasebe hesabina borc hareketi 
+    	  //Cari Karta para verildiginde
+		  //Kasaya alacak hareketi (Tediye fisi) 
+	
     		if(isCredit){
     			
     			accTransactionType = 1;	    			
-    			transRowCash.setCreditAmount(amount);
-    			transRowCash.setDeptAmount(new BigDecimal(0));
-    			transRowCurrent.setCreditAmount(new BigDecimal(0));
-    			transRowCurrent.setDeptAmount(amount);
     			
-    			//cari sat?c? muhasebe kodunu da girelim
-    			transRowCurrent.setTurqAccountingAccount(curCard.getTurqAccountingAccountByAccountingCodeIdSupplier());
     	   			
     		}
     	   //Cari Karttan para tahsil edildiginde
-  		   //Kasaya borc hareketi 
-  		   //Cari kartin alici muhasebe hesabina alacak hareketi 
+  		   //Kasaya borc hareketi(Tahsil fisi) 
     		else 
     		{
     			accTransactionType = 0;
-    			transRowCash.setCreditAmount(new BigDecimal(0));
-    			transRowCash.setDeptAmount(amount);
-    			transRowCurrent.setCreditAmount(amount);
-    			transRowCurrent.setDeptAmount(new BigDecimal(0));
-    			
-    			
-    			//cari alici muhasebe kodunu da girelim
-    			transRowCurrent.setTurqAccountingAccount(curCard.getTurqAccountingAccountByAccountingCodeIdCustomer());
-    			
-    		
     		}
         
         
@@ -108,15 +82,12 @@ public class CurBLCurrentTransactionAdd {
          //4-Cari modulu id si.. 
          Integer transId = blAcc.saveAccTransaction(transDate,documentNo,accTransactionType,4);
          
-         //fis kalemlerini de ekleyelim.. 
+         //muhasebe fisi kalemlerini de ekleyelim.. 
          saveAccountingCashTransactionRows(curCard,isCredit,amount,account,transId);           
-      
          
          
         //Simdi Cari Hareketi Kaydedebiliriz. 
-        
- 		
- 		TurqCurrentTransaction curTrans = new TurqCurrentTransaction();
+       	TurqCurrentTransaction curTrans = new TurqCurrentTransaction();
  		
  		curTrans.setTransactionsDate(transDate);
  		curTrans.setTransactionsDocumentNo(documentNo);

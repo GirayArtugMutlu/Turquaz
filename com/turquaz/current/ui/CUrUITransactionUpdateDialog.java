@@ -1,7 +1,9 @@
 package com.turquaz.current.ui;
 
 
-import net.sf.hibernate.odmg.Transaction;
+
+
+import java.util.List;
 
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
@@ -14,8 +16,12 @@ import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.current.ui.CurUITransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
+import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 
 import org.eclipse.swt.SWT;
@@ -140,31 +146,65 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	}
 /** Add your post-init code in here 	*/
 	public void postInitGUI(){
-	
+	try{
 	// if it is not cash trasaction 
 	//close 
 	if(transaction.getTurqCurrentTransactionType().getCurrentTransactionTypesId().intValue()!=4){
 	dialogShell.close();
+	return;
 	}
+	
+	AccBLTransactionSearch blAccTransSearch = new AccBLTransactionSearch();
 	
 	//else fill the composite
 	
 	compTransactionAdd.getTxtDocumentNo().setText(transaction.getTransactionsDocumentNo());
 	compTransactionAdd.getComboCurrentCode().setText(transaction.getTurqCurrentCard().getCardsCurrentCode());
 	compTransactionAdd.getDateTransDate().setDate(transaction.getTransactionsDate());
+	
+	TurqAccountingTransaction accTrans = transaction.getTurqAccountingTransaction();
+	
+	boolean isCredit = false;
+	//Tediye fisi
 	if(transaction.getTransactionsTotalCredit().compareTo(transaction.getTransactionsTotalDept())==1){
+	
 	compTransactionAdd.getComboTransType().setText("Credit");
 	compTransactionAdd.getDecTxtAmount().setText(transaction.getTransactionsTotalCredit().toString());
+    isCredit =true;
 	
+    
 	}
+	
+	//Tahsil fisi
 	else{
-	compTransactionAdd.getComboTransType().setText("Dept");
-		compTransactionAdd.getDecTxtAmount().setText(transaction.getTransactionsTotalDept().toString());
+	isCredit = false;	
+	compTransactionAdd.getComboTransType().setText("Debit");
+	compTransactionAdd.getDecTxtAmount().setText(transaction.getTransactionsTotalDept().toString());
+	
 	}
 	
+	List list = blAccTransSearch.searchTransactionRows(accTrans,isCredit);
+    //get transaction row for cash account
+	if(list.size()>0){
+	
+     TurqAccountingTransactionColumn transRow = (TurqAccountingTransactionColumn)list.get(0);
+     compTransactionAdd.getAccPickerCashAccount().setData(transRow.getTurqAccountingAccount());
+     
+		
+	}
+	else {
+		System.out.println("Something went wrong at "+this.getClass().getName());
+		System.out.println("in line 177");
+	}
+
+	
 	
 	}
 	
+	catch(Exception ex){
+		ex.printStackTrace();
+	}
+	}
 	
 	
 }

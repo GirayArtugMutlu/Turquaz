@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
+import com.turquaz.engine.dal.TurqAccountingTransaction;
 
 /**
  * @author onsel
@@ -50,6 +51,20 @@ public class AccBLTransactionSearch {
 		}
 	}
 	
+	public List searchTransactionRows(TurqAccountingTransaction trans, boolean isCredit)throws Exception{
+		try{
+			
+			
+			return dalTransSearch.searchTransactionRows(trans,isCredit);
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+		
+	}
 	
 	
 

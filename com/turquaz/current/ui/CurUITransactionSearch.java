@@ -407,8 +407,14 @@ public class CurUITransactionSearch extends SecureComposite {
 		
 		TurqCurrentTransaction trans = (TurqCurrentTransaction)items[0].getData();
 		
+		//nakit hareketi ise izin ver
 		if(trans.getTurqCurrentTransactionType().getCurrentTransactionTypesId().intValue()==4){
 		new CUrUITransactionUpdateDialog(this.getShell(),SWT.NULL,trans).open();
+		}
+		else{
+			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+			msg.setMessage("Only Cash Transactions can be edited!");
+			msg.open();
 		}
 		}
 	}

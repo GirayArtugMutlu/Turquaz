@@ -130,6 +130,40 @@ public class AccDALTransactionSearch {
 	
 	
 	}
+	public List searchTransactionRows(TurqAccountingTransaction trans, boolean isCredit)throws Exception{
+		try{
+		
+			Session session = EngDALSessionFactory.openSession();
+			
+			String query = "select transRow from TurqAccountingTransactionColumn as transRow" +
+					" where transRow.turqAccountingTransaction = :trans" ;
+			
+			//Tahsil Fisi		
+			if(isCredit){
+				query += " and transRow.creditAmount > 0";
+			}
+			//Tediye Fisi
+			else {
+			     query += " and transRow.deptAmount > 0";
+			}
+			
+			Query q = session.createQuery(query); 
+			q.setParameter("trans",trans);
+			List list = q.list();
+			session.close();
+			
+			return list;	
+			
+			
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+		
+	}
 	
 	
 
