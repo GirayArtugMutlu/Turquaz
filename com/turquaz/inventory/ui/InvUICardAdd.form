@@ -707,6 +707,7 @@
 											</LayoutConstraint>
 										</Constraints>
 										<Events>
+											<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="btnInvCardDetPreMouseUp"/>
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="&lt;&lt; Previous"/>
@@ -1100,6 +1101,7 @@
 											</LayoutConstraint>
 										</Constraints>
 										<Events>
+											<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="btnInvCardUnitsPreMouseUp"/>
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value=" Previous"/>
@@ -1153,7 +1155,7 @@
 							<Property name="text" type="String" value="Prices"/>
 						</Properties>
 						<SubComponents>
-							<Component class="org.eclipse.swt.widgets.Composite" name="composite3" style="0">
+							<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardPrices" style="0">
 								<Constraints>
 									<LayoutConstraint/>
 								</Constraints>
@@ -1173,7 +1175,7 @@
 									</Property>
 								</Properties>
 								<SubComponents>
-									<Component class="org.eclipse.swt.widgets.Composite" name="composite4" style="0">
+									<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardPricesTable" style="0">
 										<Constraints>
 											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -1208,7 +1210,7 @@
 											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
 										<SubComponents>
-											<Component class="org.eclipse.swt.widgets.Composite" name="composite5" style="0">
+											<Component class="org.eclipse.swt.widgets.Composite" name="compInvCardPricesAdd" style="0">
 												<Constraints>
 													<Constraint class="org.eclipse.swt.layout.GridData"/>
 													<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -1263,9 +1265,6 @@
 														</Events>
 														<Properties>
 															<Property name="text" type="String" value=""/>
-															<Property name="image" type="Image">
-																<Image name="\icons\plus.gif"/>
-															</Property>
 															<Property name="size" type="Dimension">
 																<Dimension value="[30, 24]"/>
 															</Property>
@@ -1295,9 +1294,6 @@
 														</Events>
 														<Properties>
 															<Property name="text" type="String" value=""/>
-															<Property name="image" type="Image">
-																<Image name="\icons\minus.gif"/>
-															</Property>
 															<Property name="size" type="Dimension">
 																<Dimension value="[30, 24]"/>
 															</Property>
@@ -1352,6 +1348,7 @@
 											</LayoutConstraint>
 										</Constraints>
 										<Events>
+											<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="btnInvCardPricesPreMouseUp"/>
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Previous"/>
@@ -1637,7 +1634,7 @@
 											</Component>
 										</SubComponents>
 									</Component>
-									<Component class="org.eclipse.swt.widgets.Button" name="button5" style="16777224">
+									<Component class="org.eclipse.swt.widgets.Button" name="btnInvCardGroupsPre" style="16777224">
 										<Constraints>
 											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -1653,6 +1650,7 @@
 											</LayoutConstraint>
 										</Constraints>
 										<Events>
+											<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="btnInvCardGroupsPreMouseUp"/>
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Previous"/>
