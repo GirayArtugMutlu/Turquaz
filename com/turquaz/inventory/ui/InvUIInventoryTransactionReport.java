@@ -289,7 +289,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 						tableTransactions,
 						SWT.NONE);
 					tableColumnInventoryCode.setText(Messages.getString("InvUIInventoryTransactionReport.11")); //$NON-NLS-1$
-					tableColumnInventoryCode.setWidth(108);
+					tableColumnInventoryCode.setWidth(109);
 				}
 				{
 					tableColumnTotalAmountIn = new TableColumn(

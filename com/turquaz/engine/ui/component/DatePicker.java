@@ -202,10 +202,10 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 
               }
           }
-          cal.open();	
+          cal.open();
+          }
 	
-	
-	
-	
+	public Object getData(){
+	    return getDate();
 	}
 }
