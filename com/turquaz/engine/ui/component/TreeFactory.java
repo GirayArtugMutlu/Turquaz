@@ -86,6 +86,7 @@ import com.turquaz.cheque.ui.CheUIChequeRollSearch;
 import com.turquaz.cheque.ui.CheUICustomerChequeSearch;
 import com.turquaz.cheque.ui.CheUIOwnChequeSearch;
 import com.turquaz.cheque.ui.CheUIReturnFromBankRoll;
+import com.turquaz.cheque.ui.CheUIReturnFromCurrent;
 import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurrentCardAbstract;
@@ -758,6 +759,11 @@ public final class TreeFactory {
 			item = new TreeItem(root,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.111"));   //$NON-NLS-1$
 			item.setData(CheUIReturnFromBankRoll.class.getName());
+	    }
+		if(EngBLPermissions.getPermission(CheUIReturnFromCurrent.class.getName())>0){
+			item = new TreeItem(root,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.113"));    //$NON-NLS-1$
+			item.setData(CheUIReturnFromCurrent.class.getName());
 	    }
 		
 		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);

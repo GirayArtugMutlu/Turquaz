@@ -32,7 +32,6 @@ import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -138,7 +137,7 @@ public class CheUIReturnFromCurrent extends org.eclipse.swt.widgets.Composite im
                 }
 				//START >>  lblAccountingAccount
 				lblAccountingAccount = new CLabel(compInfoPanel, SWT.NONE);
-				lblAccountingAccount.setText("Kar\u015f\u0131l\u0131ks\u0131z Çek Hesab\u0131");
+				lblAccountingAccount.setText(Messages.getString("CheUIReturnFromCurrent.0")); //$NON-NLS-1$
 				//END <<  lblAccountingAccount
 				//START >>  accountPicker
 				accountPicker = new AccountPicker(compInfoPanel, SWT.NONE);
@@ -254,14 +253,10 @@ public class CheUIReturnFromCurrent extends org.eclipse.swt.widgets.Composite im
         if(verifyFields()){ 
 
 //	          TODO cheq trans exRate
-              CheBLSaveChequeTransaction.saveChequeRoll(accountPicker.getTurqAccountingAccount(),
-              		null,
-					null,
+              CheBLSaveChequeTransaction.saveReturnFromCurrent(accountPicker.getTurqAccountingAccount(),
+              		
 					txtRollNo.getText().trim(),
-					datePicker1.getDate(),cheques,
-					EngBLCommon.CHEQUE_TRANS_OUT_BANK,
-					false,
-					EngBLCommon.getBaseCurrencyExchangeRate());
+					datePicker1.getDate(),cheques);
 
               EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
               newForm();
