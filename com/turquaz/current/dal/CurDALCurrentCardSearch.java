@@ -56,6 +56,7 @@ public class CurDALCurrentCardSearch {
 				Hibernate.initialize(curCard.getTurqCurrentCardsGroups());
 				Hibernate.initialize(curCard.getTurqCurrentContacts());		
 				Hibernate.initialize(curCard.getTurqCurrentCardsPhones());
+
 			}
 			
 			session.close();

@@ -346,7 +346,7 @@ public class InvUICardAdd extends SecureComposite {
 			tabfldInvCardAdd.setSize(new org.eclipse.swt.graphics.Point(641,421));
 	
 			tabInvCardGeneral.setControl(compInvCardGeneral);
-			tabInvCardGeneral.setText(Messages.getString("InvUICardAdd.0")); //$NON-NLS-1$
+			tabInvCardGeneral.setText("General Information");
 	
 			compInvCardGeneral.setSize(new org.eclipse.swt.graphics.Point(625,404));
 	
@@ -361,7 +361,7 @@ public class InvUICardAdd extends SecureComposite {
 			lblInvCardNameLData.grabExcessHorizontalSpace = false;
 			lblInvCardNameLData.grabExcessVerticalSpace = false;
 			lblInvCardName.setLayoutData(lblInvCardNameLData);
-			lblInvCardName.setText(Messages.getString("InvUICardAdd.1")); //$NON-NLS-1$
+			lblInvCardName.setText("Inventory Name");
 			lblInvCardName.setSize(new org.eclipse.swt.graphics.Point(96,20));
 	
 			GridData txtInvCardNameLData = new GridData();
@@ -389,7 +389,7 @@ public class InvUICardAdd extends SecureComposite {
 			lblInvCardSpecialCodeLData.grabExcessHorizontalSpace = false;
 			lblInvCardSpecialCodeLData.grabExcessVerticalSpace = false;
 			lblInvCardSpecialCode.setLayoutData(lblInvCardSpecialCodeLData);
-			lblInvCardSpecialCode.setText(Messages.getString("InvUICardAdd.2")); //$NON-NLS-1$
+			lblInvCardSpecialCode.setText("Special Code");
 			lblInvCardSpecialCode.setSize(new org.eclipse.swt.graphics.Point(73,18));
 	
 			GridData txtInvCardSpecialCodeLData = new GridData();
@@ -417,7 +417,7 @@ public class InvUICardAdd extends SecureComposite {
 			lblInvCardCodeLData.grabExcessHorizontalSpace = false;
 			lblInvCardCodeLData.grabExcessVerticalSpace = false;
 			lblInvCardCode.setLayoutData(lblInvCardCodeLData);
-			lblInvCardCode.setText(Messages.getString("InvUICardAdd.3")); //$NON-NLS-1$
+			lblInvCardCode.setText("Inventory Code");
 			lblInvCardCode.setSize(new org.eclipse.swt.graphics.Point(100,23));
 	
 			GridData txtInvCardCodeLData = new GridData();
@@ -445,7 +445,7 @@ public class InvUICardAdd extends SecureComposite {
 			lblInvCardDefinitionLData.grabExcessHorizontalSpace = false;
 			lblInvCardDefinitionLData.grabExcessVerticalSpace = false;
 			lblInvCardDefinition.setLayoutData(lblInvCardDefinitionLData);
-			lblInvCardDefinition.setText(Messages.getString("InvUICardAdd.4")); //$NON-NLS-1$
+			lblInvCardDefinition.setText("Definition");
 			lblInvCardDefinition.setSize(new org.eclipse.swt.graphics.Point(76,17));
 	
 			GridData txtInvCardDefinitionLData = new GridData();
@@ -473,7 +473,7 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardGeneralLData.grabExcessHorizontalSpace = false;
 			btnInvCardGeneralLData.grabExcessVerticalSpace = false;
 			btnInvCardGeneral.setLayoutData(btnInvCardGeneralLData);
-			btnInvCardGeneral.setText(Messages.getString("InvUICardAdd.5")); //$NON-NLS-1$
+			btnInvCardGeneral.setText("Next >>");
 			btnInvCardGeneral.setSize(new org.eclipse.swt.graphics.Point(67,23));
 			btnInvCardGeneral.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -491,7 +491,7 @@ public class InvUICardAdd extends SecureComposite {
 			compInvCardGeneral.layout();
 	
 			tabInvCardDetails.setControl(compInvCardDetails);
-			tabInvCardDetails.setText(Messages.getString("InvUICardAdd.6")); //$NON-NLS-1$
+			tabInvCardDetails.setText("Details");
 	
 			compInvCardDetails.setSize(new org.eclipse.swt.graphics.Point(625,404));
 	
@@ -506,7 +506,7 @@ public class InvUICardAdd extends SecureComposite {
 			lblInvCardMinLData.grabExcessHorizontalSpace = false;
 			lblInvCardMinLData.grabExcessVerticalSpace = false;
 			lblInvCardMin.setLayoutData(lblInvCardMinLData);
-			lblInvCardMin.setText(Messages.getString("InvUICardAdd.7")); //$NON-NLS-1$
+			lblInvCardMin.setText("Minimum Amount");
 			lblInvCardMin.setSize(new org.eclipse.swt.graphics.Point(115,16));
 	
 			GridData txtnumInvCardMinLData = new GridData();
@@ -533,7 +533,7 @@ public class InvUICardAdd extends SecureComposite {
 			lblInvCardMaxLData.grabExcessHorizontalSpace = false;
 			lblInvCardMaxLData.grabExcessVerticalSpace = false;
 			lblInvCardMax.setLayoutData(lblInvCardMaxLData);
-			lblInvCardMax.setText(Messages.getString("InvUICardAdd.8")); //$NON-NLS-1$
+			lblInvCardMax.setText("Maximum Amount");
 			lblInvCardMax.setSize(new org.eclipse.swt.graphics.Point(101,19));
 	
 			GridData txtnumInvCardMaxLData = new GridData();
@@ -560,7 +560,7 @@ public class InvUICardAdd extends SecureComposite {
 			lblInvCardInAccLData.grabExcessHorizontalSpace = false;
 			lblInvCardInAccLData.grabExcessVerticalSpace = false;
 			lblInvCardInAcc.setLayoutData(lblInvCardInAccLData);
-			lblInvCardInAcc.setText(Messages.getString("InvUICardAdd.9")); //$NON-NLS-1$
+			lblInvCardInAcc.setText("In Accounting Code");
 			lblInvCardInAcc.setSize(new org.eclipse.swt.graphics.Point(115,16));
 	
 			GridData txtInvCardInAccLData = new GridData();
@@ -593,7 +593,7 @@ public class InvUICardAdd extends SecureComposite {
 			lblInvCardOutAccLData.grabExcessHorizontalSpace = false;
 			lblInvCardOutAccLData.grabExcessVerticalSpace = false;
 			lblInvCardOutAcc.setLayoutData(lblInvCardOutAccLData);
-			lblInvCardOutAcc.setText(Messages.getString("InvUICardAdd.10")); //$NON-NLS-1$
+			lblInvCardOutAcc.setText("Out Accointing Code");
 			lblInvCardOutAcc.setSize(new org.eclipse.swt.graphics.Point(104,19));
 	
 			GridData txtInvCardOutAccLData = new GridData();
@@ -627,7 +627,7 @@ public class InvUICardAdd extends SecureComposite {
 			lblInvCardVatLData.grabExcessHorizontalSpace = false;
 			lblInvCardVatLData.grabExcessVerticalSpace = false;
 			lblInvCardVat.setLayoutData(lblInvCardVatLData);
-			lblInvCardVat.setText(Messages.getString("InvUICardAdd.11")); //$NON-NLS-1$
+			lblInvCardVat.setText("Vat");
 			lblInvCardVat.setSize(new org.eclipse.swt.graphics.Point(115,16));
 	
 			GridData txtInvCardVatLData = new GridData();
@@ -654,7 +654,7 @@ public class InvUICardAdd extends SecureComposite {
 			lblInvCardDiscountLData.grabExcessHorizontalSpace = false;
 			lblInvCardDiscountLData.grabExcessVerticalSpace = false;
 			lblInvCardDiscount.setLayoutData(lblInvCardDiscountLData);
-			lblInvCardDiscount.setText(Messages.getString("InvUICardAdd.12")); //$NON-NLS-1$
+			lblInvCardDiscount.setText("Discount");
 			lblInvCardDiscount.setSize(new org.eclipse.swt.graphics.Point(47,19));
 	
 			GridData txtInvCardDiscountLData = new GridData();
@@ -681,7 +681,7 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardDetPreLData.grabExcessHorizontalSpace = false;
 			btnInvCardDetPreLData.grabExcessVerticalSpace = false;
 			btnInvCardDetPre.setLayoutData(btnInvCardDetPreLData);
-			btnInvCardDetPre.setText(Messages.getString("InvUICardAdd.13")); //$NON-NLS-1$
+			btnInvCardDetPre.setText("<< Previous");
 			btnInvCardDetPre.setSize(new org.eclipse.swt.graphics.Point(82,25));
 			btnInvCardDetPre.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -700,7 +700,7 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardNextLData.grabExcessHorizontalSpace = false;
 			btnInvCardNextLData.grabExcessVerticalSpace = false;
 			btnInvCardNext.setLayoutData(btnInvCardNextLData);
-			btnInvCardNext.setText(Messages.getString("InvUICardAdd.14")); //$NON-NLS-1$
+			btnInvCardNext.setText("Next >>");
 			btnInvCardNext.setSize(new org.eclipse.swt.graphics.Point(61,25));
 			btnInvCardNext.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -718,7 +718,7 @@ public class InvUICardAdd extends SecureComposite {
 			compInvCardDetails.layout();
 	
 			tabInvCardUnits.setControl(compInvCardUnit);
-			tabInvCardUnits.setText(Messages.getString("InvUICardAdd.15")); //$NON-NLS-1$
+			tabInvCardUnits.setText("Units");
 	
 			compInvCardUnit.setSize(new org.eclipse.swt.graphics.Point(641,404));
 	
@@ -733,7 +733,7 @@ public class InvUICardAdd extends SecureComposite {
 			lblInvCardUnitLData.grabExcessHorizontalSpace = false;
 			lblInvCardUnitLData.grabExcessVerticalSpace = false;
 			lblInvCardUnit.setLayoutData(lblInvCardUnitLData);
-			lblInvCardUnit.setText(Messages.getString("InvUICardAdd.16")); //$NON-NLS-1$
+			lblInvCardUnit.setText("Base Unit");
 			lblInvCardUnit.setSize(new org.eclipse.swt.graphics.Point(51,19));
 	
 			GridData comboInvCardUnitsLData = new GridData();
@@ -747,7 +747,7 @@ public class InvUICardAdd extends SecureComposite {
 			comboInvCardUnitsLData.grabExcessHorizontalSpace = false;
 			comboInvCardUnitsLData.grabExcessVerticalSpace = false;
 			comboInvCardUnits.setLayoutData(comboInvCardUnitsLData);
-			comboInvCardUnits.setText(Messages.getString("InvUICardAdd.17")); //$NON-NLS-1$
+			comboInvCardUnits.setText("Choose Unit");
 			final Color comboInvCardUnitsbackground = new Color(Display.getDefault(),255,255,255);
 			comboInvCardUnits.setBackground(comboInvCardUnitsbackground);
 			comboInvCardUnits.setSize(new org.eclipse.swt.graphics.Point(104,29));
@@ -763,7 +763,7 @@ public class InvUICardAdd extends SecureComposite {
 			btnUpdateUnitsLData.grabExcessHorizontalSpace = false;
 			btnUpdateUnitsLData.grabExcessVerticalSpace = false;
 			btnUpdateUnits.setLayoutData(btnUpdateUnitsLData);
-			btnUpdateUnits.setText(Messages.getString("InvUICardAdd.18")); //$NON-NLS-1$
+			btnUpdateUnits.setText("Update Units");
 			btnUpdateUnits.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
 					btnUpdateUnitsMouseUp(evt);
@@ -781,7 +781,7 @@ public class InvUICardAdd extends SecureComposite {
 			lblInvCardSecondaryUnitsLData.grabExcessHorizontalSpace = false;
 			lblInvCardSecondaryUnitsLData.grabExcessVerticalSpace = false;
 			lblInvCardSecondaryUnits.setLayoutData(lblInvCardSecondaryUnitsLData);
-			lblInvCardSecondaryUnits.setText(Messages.getString("InvUICardAdd.19")); //$NON-NLS-1$
+			lblInvCardSecondaryUnits.setText("Secondary Units");
 	
 			GridData compInvCardAddSecondaryUnitsLData = new GridData();
 			compInvCardAddSecondaryUnitsLData.verticalAlignment = GridData.CENTER;
@@ -811,7 +811,7 @@ public class InvUICardAdd extends SecureComposite {
 			tableInvCardAddAllUnits.setLinesVisible(true);
 			tableInvCardAddAllUnits.setSize(new org.eclipse.swt.graphics.Point(116,100));
 	
-			tableColumn1.setText(Messages.getString("InvUICardAdd.20")); //$NON-NLS-1$
+			tableColumn1.setText("Units");
 			tableColumn1.setWidth(112);
 	
 			GridData compInvCardAddUnitsButtonsLData = new GridData();
@@ -838,7 +838,7 @@ public class InvUICardAdd extends SecureComposite {
 			btnRegisterInvUnitLData.grabExcessHorizontalSpace = false;
 			btnRegisterInvUnitLData.grabExcessVerticalSpace = false;
 			btnRegisterInvUnit.setLayoutData(btnRegisterInvUnitLData);
-			btnRegisterInvUnit.setText(Messages.getString("InvUICardAdd.21")); //$NON-NLS-1$
+			btnRegisterInvUnit.setText(">>");
 			btnRegisterInvUnit.setSize(new org.eclipse.swt.graphics.Point(39,19));
 			btnRegisterInvUnit.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -857,7 +857,7 @@ public class InvUICardAdd extends SecureComposite {
 			btnRemoveRegisteredInvUnitLData.grabExcessHorizontalSpace = false;
 			btnRemoveRegisteredInvUnitLData.grabExcessVerticalSpace = false;
 			btnRemoveRegisteredInvUnit.setLayoutData(btnRemoveRegisteredInvUnitLData);
-			btnRemoveRegisteredInvUnit.setText(Messages.getString("InvUICardAdd.22")); //$NON-NLS-1$
+			btnRemoveRegisteredInvUnit.setText("<<");
 			btnRemoveRegisteredInvUnit.setSize(new org.eclipse.swt.graphics.Point(39,19));
 			btnRemoveRegisteredInvUnit.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -889,10 +889,10 @@ public class InvUICardAdd extends SecureComposite {
 			tableInvCardAddRegisteredUnits.setLinesVisible(true);
 			tableInvCardAddRegisteredUnits.setSize(new org.eclipse.swt.graphics.Point(160,101));
 	
-			tableColumn2.setText(Messages.getString("InvUICardAdd.23")); //$NON-NLS-1$
+			tableColumn2.setText("Registered Units");
 			tableColumn2.setWidth(110);
 	
-			tableColumnUnitCoefficient.setText(Messages.getString("InvUICardAdd.24")); //$NON-NLS-1$
+			tableColumnUnitCoefficient.setText("Factor");
 			tableColumnUnitCoefficient.setWidth(50);
 			GridLayout compInvCardAddSecondaryUnitsLayout = new GridLayout(3, true);
 			compInvCardAddSecondaryUnits.setLayout(compInvCardAddSecondaryUnitsLayout);
@@ -915,7 +915,7 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardUnitsPreLData.grabExcessHorizontalSpace = false;
 			btnInvCardUnitsPreLData.grabExcessVerticalSpace = false;
 			btnInvCardUnitsPre.setLayoutData(btnInvCardUnitsPreLData);
-			btnInvCardUnitsPre.setText(Messages.getString("InvUICardAdd.25")); //$NON-NLS-1$
+			btnInvCardUnitsPre.setText(" Previous");
 			btnInvCardUnitsPre.setSize(new org.eclipse.swt.graphics.Point(82,25));
 			btnInvCardUnitsPre.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -934,7 +934,7 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardUnitsNxtLData.grabExcessHorizontalSpace = false;
 			btnInvCardUnitsNxtLData.grabExcessVerticalSpace = false;
 			btnInvCardUnitsNxt.setLayoutData(btnInvCardUnitsNxtLData);
-			btnInvCardUnitsNxt.setText(Messages.getString("InvUICardAdd.26")); //$NON-NLS-1$
+			btnInvCardUnitsNxt.setText("Next ");
 			btnInvCardUnitsNxt.setSize(new org.eclipse.swt.graphics.Point(61,25));
 			btnInvCardUnitsNxt.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -952,7 +952,7 @@ public class InvUICardAdd extends SecureComposite {
 			compInvCardUnit.layout();
 	
 			tabInvCardPrices.setControl(compInvCardPrices);
-			tabInvCardPrices.setText(Messages.getString("InvUICardAdd.27")); //$NON-NLS-1$
+			tabInvCardPrices.setText("Prices");
 	
 			compInvCardPrices.setSize(new org.eclipse.swt.graphics.Point(625,404));
 	
@@ -1042,13 +1042,13 @@ public class InvUICardAdd extends SecureComposite {
 			tableInvCardAddPrices.setLinesVisible(true);
 			tableInvCardAddPrices.setSize(new org.eclipse.swt.graphics.Point(421,178));
 	
-			tableColumnPriceType.setText(Messages.getString("InvUICardAdd.28")); //$NON-NLS-1$
+			tableColumnPriceType.setText("Price Type");
 			tableColumnPriceType.setWidth(120);
 	
-			tableColumnAmount.setText(Messages.getString("InvUICardAdd.29")); //$NON-NLS-1$
+			tableColumnAmount.setText("Amount");
 			tableColumnAmount.setWidth(150);
 	
-			tableColumnCurrency.setText(Messages.getString("InvUICardAdd.30")); //$NON-NLS-1$
+			tableColumnCurrency.setText("Currency");
 			tableColumnCurrency.setWidth(162);
 			GridLayout compInvCardPricesTableLayout = new GridLayout(2, true);
 			compInvCardPricesTable.setLayout(compInvCardPricesTableLayout);
@@ -1071,7 +1071,7 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardPricesPreLData.grabExcessHorizontalSpace = false;
 			btnInvCardPricesPreLData.grabExcessVerticalSpace = false;
 			btnInvCardPricesPre.setLayoutData(btnInvCardPricesPreLData);
-			btnInvCardPricesPre.setText(Messages.getString("InvUICardAdd.31")); //$NON-NLS-1$
+			btnInvCardPricesPre.setText("Previous");
 			btnInvCardPricesPre.setSize(new org.eclipse.swt.graphics.Point(82,25));
 			btnInvCardPricesPre.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -1090,7 +1090,7 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardPricesNextLData.grabExcessHorizontalSpace = false;
 			btnInvCardPricesNextLData.grabExcessVerticalSpace = false;
 			btnInvCardPricesNext.setLayoutData(btnInvCardPricesNextLData);
-			btnInvCardPricesNext.setText(Messages.getString("InvUICardAdd.32")); //$NON-NLS-1$
+			btnInvCardPricesNext.setText("Next ");
 			btnInvCardPricesNext.setSize(new org.eclipse.swt.graphics.Point(61,25));
 			btnInvCardPricesNext.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -1108,7 +1108,7 @@ public class InvUICardAdd extends SecureComposite {
 			compInvCardPrices.layout();
 	
 			tabInvCardGroups.setControl(compInvCardAddGroups);
-			tabInvCardGroups.setText(Messages.getString("InvUICardAdd.33")); //$NON-NLS-1$
+			tabInvCardGroups.setText("Groups");
 	
 			compInvCardAddGroups.setSize(new org.eclipse.swt.graphics.Point(641,404));
 	
@@ -1140,7 +1140,7 @@ public class InvUICardAdd extends SecureComposite {
 			tableInvCardAddGroupsAllGroups.setLinesVisible(true);
 			tableInvCardAddGroupsAllGroups.setSize(new org.eclipse.swt.graphics.Point(141,141));
 	
-			tableColumnInvCardAddGroupAllGroups.setText(Messages.getString("InvUICardAdd.34")); //$NON-NLS-1$
+			tableColumnInvCardAddGroupAllGroups.setText("Groups");
 			tableColumnInvCardAddGroupAllGroups.setWidth(141);
 	
 			GridData compInvCardAddGroupsButtonsLData = new GridData();
@@ -1167,7 +1167,7 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardAddGroupsRegisterLData.grabExcessHorizontalSpace = false;
 			btnInvCardAddGroupsRegisterLData.grabExcessVerticalSpace = false;
 			btnInvCardAddGroupsRegister.setLayoutData(btnInvCardAddGroupsRegisterLData);
-			btnInvCardAddGroupsRegister.setText(Messages.getString("InvUICardAdd.35")); //$NON-NLS-1$
+			btnInvCardAddGroupsRegister.setText(">>");
 			btnInvCardAddGroupsRegister.setSize(new org.eclipse.swt.graphics.Point(44,29));
 			btnInvCardAddGroupsRegister.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -1186,7 +1186,7 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardAddGroupsRemoveLData.grabExcessHorizontalSpace = false;
 			btnInvCardAddGroupsRemoveLData.grabExcessVerticalSpace = false;
 			btnInvCardAddGroupsRemove.setLayoutData(btnInvCardAddGroupsRemoveLData);
-			btnInvCardAddGroupsRemove.setText(Messages.getString("InvUICardAdd.36")); //$NON-NLS-1$
+			btnInvCardAddGroupsRemove.setText("<<");
 			btnInvCardAddGroupsRemove.setSize(new org.eclipse.swt.graphics.Point(48,31));
 			btnInvCardAddGroupsRemove.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -1205,7 +1205,7 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardAddNewLData.grabExcessHorizontalSpace = false;
 			btnInvCardAddNewLData.grabExcessVerticalSpace = false;
 			btnInvCardAddNew.setLayoutData(btnInvCardAddNewLData);
-			btnInvCardAddNew.setText(Messages.getString("InvUICardAdd.37")); //$NON-NLS-1$
+			btnInvCardAddNew.setText("Update Groups");
 			btnInvCardAddNew.setSize(new org.eclipse.swt.graphics.Point(129,41));
 			btnInvCardAddNew.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
@@ -1237,7 +1237,7 @@ public class InvUICardAdd extends SecureComposite {
 			tableInvCardAddGroupsRegisteredGroups.setLinesVisible(true);
 			tableInvCardAddGroupsRegisteredGroups.setSize(new org.eclipse.swt.graphics.Point(150,141));
 	
-			tableColumnRegisteredGroups.setText(Messages.getString("InvUICardAdd.38")); //$NON-NLS-1$
+			tableColumnRegisteredGroups.setText("Registered Groups");
 			tableColumnRegisteredGroups.setWidth(146);
 			GridLayout compInvCardAddGroupsSelectionLayout = new GridLayout(3, true);
 			compInvCardAddGroupsSelection.setLayout(compInvCardAddGroupsSelectionLayout);
@@ -1260,7 +1260,7 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardGroupsPreLData.grabExcessHorizontalSpace = false;
 			btnInvCardGroupsPreLData.grabExcessVerticalSpace = false;
 			btnInvCardGroupsPre.setLayoutData(btnInvCardGroupsPreLData);
-			btnInvCardGroupsPre.setText(Messages.getString("InvUICardAdd.39")); //$NON-NLS-1$
+			btnInvCardGroupsPre.setText("Previous");
 			btnInvCardGroupsPre.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
 					btnInvCardGroupsPreMouseUp(evt);
@@ -1692,7 +1692,6 @@ decimalSymbol + "][0-9]+)?"); //$NON-NLS-1$
 			e.printStackTrace();
 		}
 	}
-
 	protected void btnInvCardGeneralMouseUp(MouseEvent evt) {
 		int next = tabfldInvCardAdd.getSelectionIndex() + 1;
 		tabfldInvCardAdd.setSelection(next);

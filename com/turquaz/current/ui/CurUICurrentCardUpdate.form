@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Form style="SWT" ide="eclipse" builder="jigloo" version="2.7.2">
 <NonVisualComponents>
-		<Component class="java.lang.Object" name="Non-visual components" style="0">
+		<Component class="java.lang.Object" name="object1" style="0">
 			<Constraints>
 				<LayoutConstraint/>
 			</Constraints>
+			<Properties>
+			</Properties>
 		</Component></NonVisualComponents>
 	<Component class="org.eclipse.swt.widgets.Dialog" name="CurUICurrentCardUpdate" style="0">
 		<Constraints>
@@ -20,8 +22,117 @@
 		</Layout>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[304, 208]"/>
+				<Dimension value="[600, 434]"/>
 			</Property>
 		</Properties>
+		<SubComponents>
+			<Component class="org.eclipse.swt.widgets.CoolBar" name="coolBar1" style="0">
+				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
+					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+						<Property name="verticalAlignment" type="int" value="2"/>
+						<Property name="horizontalAlignment" type="int" value="4"/>
+						<Property name="widthHint" type="int" value="-1"/>
+						<Property name="heightHint" type="int" value="-1"/>
+						<Property name="horizontalIndent" type="int" value="0"/>
+						<Property name="horizontalSpan" type="int" value="1"/>
+						<Property name="verticalSpan" type="int" value="1"/>
+						<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+						<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+					</LayoutConstraint>
+				</Constraints>
+				<Events>
+				</Events>
+				<Properties>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[5, 5, 590, 38]"/>
+					</Property>
+					<Property name="visible" type="boolean" value="true"/>
+				</Properties>
+				<SubComponents>
+					<Component class="org.eclipse.swt.widgets.CoolItem" name="coolItem1" style="0">
+						<Constraints>
+							<LayoutConstraint/>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="preferredSize" type="Dimension">
+								<Dimension value="[88, 38]"/>
+							</Property>
+							<Property name="minimumSize" type="Dimension">
+								<Dimension value="[88, 38]"/>
+							</Property>
+						</Properties>
+						<SubComponents>
+							<Component class="org.eclipse.swt.widgets.ToolBar" name="toolBar1" style="0">
+								<Constraints>
+									<LayoutConstraint/>
+								</Constraints>
+								<Events>
+								</Events>
+								<Properties>
+								</Properties>
+								<SubComponents>
+									<Component class="org.eclipse.swt.widgets.ToolItem" name="toolUpdate" style="0">
+										<Constraints>
+											<LayoutConstraint/>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="text" type="String" value="Update"/>
+										</Properties>
+									</Component>
+									<Component class="org.eclipse.swt.widgets.ToolItem" name="toolDelete" style="0">
+										<Constraints>
+											<LayoutConstraint/>
+										</Constraints>
+										<Events>
+											<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="toolDeleteWidgetSelected"/>
+										</Events>
+										<Properties>
+											<Property name="text" type="String" value="Delete"/>
+											<Property name="ımage" type="Image">
+												<Image name="\icons\delete_edit.gif"/>
+											</Property>
+										</Properties>
+									</Component>
+								</SubComponents>
+							</Component>
+						</SubComponents>
+					</Component>
+				</SubComponents>
+			</Component>
+			<Component class="com.turquaz.current.ui.CurUICurrentCardAdd" name="compCurCardAdd" style="0">
+				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
+					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+						<Property name="verticalAlignment" type="int" value="4"/>
+						<Property name="horizontalAlignment" type="int" value="4"/>
+						<Property name="widthHint" type="int" value="-1"/>
+						<Property name="heightHint" type="int" value="-1"/>
+						<Property name="horizontalIndent" type="int" value="0"/>
+						<Property name="horizontalSpan" type="int" value="1"/>
+						<Property name="verticalSpan" type="int" value="1"/>
+						<Property name="grabExcessHorizontalSpace" type="boolean" value="true"/>
+						<Property name="grabExcessVerticalSpace" type="boolean" value="true"/>
+					</LayoutConstraint>
+				</Constraints>
+				<Events>
+				</Events>
+				<Properties>
+					<Property name="size" type="Dimension">
+						<Dimension value="[590, 381]"/>
+					</Property>
+					<Property name="enabled" type="boolean" value="true"/>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[5, 48, 590, 381]"/>
+					</Property>
+					<Property name="externalizeStrings" type="boolean" value="false"/>
+					<Property name="externalizeStrings" type="boolean" value="false"/>
+				</Properties>
+			</Component>
+		</SubComponents>
 	</Component>
 </Form>

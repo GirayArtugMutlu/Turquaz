@@ -6,6 +6,9 @@
  */
 package com.turquaz.current.dal;
 
+import java.util.List;
+
+import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
@@ -39,6 +42,43 @@ public class CurDALCurrentCardUpdate {
 			}
 		
 		
+	}
+	
+	public void saveObject(Object obj)throws Exception {
+		try{
+				
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			
+			session.save(obj);
+			session.flush();
+			tx.commit();
+			session.close();
+				
+				
+		}
+		catch(Exception ex){
+		
+			throw ex; 
+		
+		}
+	}
+	public List getCurrentGroups() throws Exception {
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			String query = "from TurqCurrentGroup as curGroup " +
+					"where curGroup.turqCompany.companiesId ="+System.getProperty("company");		   
+			Query q = session.createQuery(query); 
+			List list = q.list();
+			tx.commit();
+			session.close();
+			return list;
+					
+		}
+		catch (Exception ex){
+			throw ex;
+		}
 	}
 	public void deleteObject(Object obj)throws Exception{
 		try{
