@@ -643,7 +643,7 @@ ALTER TABLE turq_cheque_cheques
 ALTER TABLE turq_cheque_cheques
    ALTER COLUMN exchange_rate_id SET NOT NULL;
 
-ALTER TABLE turq_cheque_cheques ADD CONSTRAINT ex_rate FOREIGN KEY (exchange_rate_id) 
+ALTER TABLE turq_cheque_cheques ADD CONSTRAINT ex_rate4 FOREIGN KEY (exchange_rate_id) 
 REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 
@@ -666,12 +666,8 @@ ALTER TABLE turq_cash_transaction_rows
 ALTER TABLE turq_cash_transaction_rows
    ALTER COLUMN exchange_rate_id SET NOT NULL;
 
-ALTER TABLE turq_cash_transaction_rows ADD CONSTRAINT ex_rate FOREIGN KEY (exchange_rate_id) 
+ALTER TABLE turq_cash_transaction_rows ADD CONSTRAINT ex_rate5 FOREIGN KEY (exchange_rate_id) 
 REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
-
-
-
-
 
 ALTER TABLE turq_bill_consignment_commons ADD COLUMN discount_rate_perc numeric;
 ALTER TABLE turq_bill_consignment_commons ADD COLUMN discount_amount_in_foreign_currency numeric;
@@ -709,7 +705,7 @@ ALTER TABLE turq_bill_consignment_commons
    ALTER COLUMN exchange_rate_id SET NOT NULL;
 
 
-ALTER TABLE turq_bill_consignment_commons ADD CONSTRAINT ex_rate FOREIGN KEY (exchange_rate_id) 
+ALTER TABLE turq_bill_consignment_commons ADD CONSTRAINT ex_rate6 FOREIGN KEY (exchange_rate_id) 
 REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 
@@ -735,7 +731,7 @@ ALTER TABLE turq_banks_transactions
    ALTER COLUMN exchange_rate_id SET NOT NULL;
 
 
-ALTER TABLE turq_banks_transactions ADD CONSTRAINT ex_rate FOREIGN KEY (exchange_rate_id) 
+ALTER TABLE turq_banks_transactions ADD CONSTRAINT ex_rate7 FOREIGN KEY (exchange_rate_id) 
 REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 

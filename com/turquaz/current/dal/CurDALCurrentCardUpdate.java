@@ -118,9 +118,10 @@ public class CurDALCurrentCardUpdate {
 		}
 	}
 	public void deleteObject(Object obj)throws Exception{
+		Transaction tx =null;
 		try{
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			tx= session.beginTransaction();
 		
 			session.delete(obj);
 			session.flush();
@@ -129,6 +130,10 @@ public class CurDALCurrentCardUpdate {
 			
 			}
 			catch(Exception ex){
+				if(tx!=null)
+				{
+					tx.rollback();
+				}
 				throw ex;
 			}
 		
