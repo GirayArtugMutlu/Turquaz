@@ -29,7 +29,6 @@ import com.turquaz.accounting.ui.comp.AccUIAccountsTree;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Tree;
-import com.turquaz.accounting.bl.AccBLAccountAdd;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -39,7 +38,6 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 {
 	private Shell dialogShell;
 	private Tree accountTree;
-	private AccBLAccountAdd blAccount;
 	Object returnObj[] = new Object[2];
 
 	public AccUIDialogInventoryCodeChoose(Shell parent, int style)
@@ -100,7 +98,6 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 	/** Add your pre-init code in here */
 	public void preInitGUI()
 	{
-		blAccount = new AccBLAccountAdd();
 	}
 
 	/** Add your post-init code in here */

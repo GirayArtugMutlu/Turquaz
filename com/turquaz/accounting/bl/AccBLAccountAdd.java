@@ -127,7 +127,7 @@ public class AccBLAccountAdd
 		}
 	}
 
-	public static TurqAccountingAccount saveAccount(String accountName, String accountCode, Object parent) throws Exception
+	public static TurqAccountingAccount saveAccount(String accountName, String accountCode, TurqAccountingAccount parent) throws Exception
 	{
 		try
 		{

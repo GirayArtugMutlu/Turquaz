@@ -106,7 +106,7 @@ public class AccBLAccountUpdate
 		}
 	}
 
-	public static void deleteAccount(Object obj) throws Exception
+	public static void deleteAccount(TurqAccountingAccount obj) throws Exception
 	{
 		try
 		{

@@ -46,6 +46,7 @@ import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.VerifyEvent;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -88,8 +89,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 	{
 		return txtParentAccount;
 	}
-	private AccBLAccountAdd blAccountAdd = new AccBLAccountAdd();
-	private AccBLAccountUpdate blAccountUpdate = new AccBLAccountUpdate();
+	
 	private CLabel cLabel1;
 	private Text txtAccAcountName;
 	private Text txtParentAccount;
@@ -311,7 +311,11 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 			{
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				TurqAccountingAccount parent = (TurqAccountingAccount) txtParentAccount.getData();
-				List accTrans = AccBLAccountUpdate.getAccountTransColumns(parent);
+								
+				 
+				
+				 List accTrans =(List)EngTXCommon.searchTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",new Object[]{parent});
+				
 				if (accTrans.size() > 0)
 				{
 					msg.setMessage(Messages.getString("AccUIAddAccounts.6")); //$NON-NLS-1$
@@ -320,10 +324,13 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				}
 				String accountName = txtAccAcountName.getText().trim();
 				String accountCode = txtAccAccountCode.getText().trim();
-				TurqAccountingAccount account = AccBLAccountAdd.saveAccount(accountName, accountCode, parent);
+				
+				TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",new Object[]{accountName,accountCode,parent});
+				
 				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
 				msg.open();
-				EngBLAccountingAccounts.RefreshContentAsistantMap();
+				EngTXCommon.searchTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
+
 				asistant.refreshContentAssistant(0);
 				clearFields();
 				return account;
@@ -347,7 +354,8 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 			{
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				TurqAccountingAccount parent = (TurqAccountingAccount) txtParentAccount.getData();
-				List accTrans = AccBLAccountUpdate.getAccountTransColumns(parent);
+				List accTrans =(List)EngTXCommon.searchTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",new Object[]{parent});
+				
 				if (accTrans.size() > 0)
 				{
 					msg.setMessage(Messages.getString("AccUIAddAccounts.6")); //$NON-NLS-1$
@@ -356,10 +364,11 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				}
 				String accountName = txtAccAcountName.getText().trim();
 				String accountCode = txtAccAccountCode.getText().trim();
-				AccBLAccountAdd.saveAccount(accountName, accountCode, parent);
+				TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",new Object[]{accountName,accountCode,parent});
 				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
 				msg.open();
-				EngBLAccountingAccounts.RefreshContentAsistantMap();
+				EngTXCommon.searchTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
+
 				asistant.refreshContentAssistant(0);
 				clearFields();
 			}

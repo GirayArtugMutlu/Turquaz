@@ -31,8 +31,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.Messages;
-import com.turquaz.accounting.bl.AccBLAccountAdd;
-import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -74,8 +72,6 @@ public class AccUIAddMainAccount extends Composite implements SecureComposite
 	/**
 	 * @return Returns the txtParentAccount.
 	 */
-	private AccBLAccountAdd blAccountAdd = new AccBLAccountAdd();
-	private AccBLAccountUpdate blAccountUpdate = new AccBLAccountUpdate();
 	private CLabel cLabel1;
 	private Text txtAccAcountName;
 	private Text txtAccountGroup;
