@@ -287,7 +287,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					" and curCard.cards_current_code >= "+"'"+currentCard.getCardsCurrentCode()+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					" and curCard.cards_current_code <= "+"'"+currentCard2.getCardsCurrentCode()+"'";				 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			}
-			sqlparam += " order by curCard.cards_current_code"; //$NON-NLS-1$
+			sqlparam += " order by curCard.cards_current_code, trans.transactions_date"; //$NON-NLS-1$
 			//System.out.println(sqlparam);
 			SimpleDateFormat dformat2=new SimpleDateFormat("dd/MM/yyyy");  //$NON-NLS-1$
 			parameters.put("sqlparam",sqlparam);  //$NON-NLS-1$
