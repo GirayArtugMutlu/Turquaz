@@ -100,4 +100,29 @@ public class BankDALBankCardSearch {
 		}
 	}
 	
+	public static List getBankCards()
+	throws Exception
+	{
+		try 
+		{
+			Session session = EngDALSessionFactory.openSession();
+
+			String query = "Select bankCard from TurqBanksCard as bankCard" +
+					" where bankCard.banksCardsId <> -1";
+
+
+			Query q = session.createQuery(query);
+
+			List list = q.list();
+
+			session.close();
+			return list;
+
+		} 
+		catch (Exception ex) 
+		{
+			throw ex;
+		}
+	}
+	
 }

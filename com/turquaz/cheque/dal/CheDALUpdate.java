@@ -62,6 +62,24 @@ public class CheDALUpdate {
             throw ex;
         }
     }
+    
+    public static TurqChequeRoll initializeChequeRoll(Integer chequeRollId)throws Exception {
+        try{
+            
+            Session session = EngDALSessionFactory.openSession();
+            
+            TurqChequeRoll cheqRoll=(TurqChequeRoll)session.load(TurqChequeRoll.class,chequeRollId);
+
+            
+            session.close();
+            
+            return cheqRoll;
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+    }
+    
     public static void initChequeRolls(TurqChequeCheque cheque) throws Exception {
     	try{
     		Session session = EngDALSessionFactory.openSession();

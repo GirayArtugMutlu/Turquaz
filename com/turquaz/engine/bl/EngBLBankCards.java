@@ -25,7 +25,7 @@ public class EngBLBankCards {
 
 	public void fillBankCards() throws Exception {
 		try {
-			currentList = blCardSearch.searchBankCards("","","",null);
+			currentList = BankBLBankCardSearch.getBankCards();
 			cardMap.clear();
 
 			TurqBanksCard cashCard;

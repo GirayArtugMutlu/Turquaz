@@ -52,6 +52,18 @@ public class CheBLUpdateChequeRoll {
             throw ex;
         }
     }
+    
+    public static TurqChequeRoll initializeChequeRoll(Integer chequeRollId)throws Exception {
+        try{
+            
+            return CheDALUpdate.initializeChequeRoll(chequeRollId); 
+            
+            
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+    }
     public static void updateChequeRollIn(TurqChequeRoll chequeRoll, TurqCurrentCard curCard,TurqBanksCard bankCard, String rollNo,Date rollDate,List chequeList, int rollType,boolean sumTransTotal)throws Exception{
         try{
            

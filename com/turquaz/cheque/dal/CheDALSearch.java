@@ -45,7 +45,12 @@ public class CheDALSearch {
 
 			Session session = EngDALSessionFactory.openSession();
 
-			String query = "select chequeRoll from TurqChequeRoll as chequeRoll "
+			String query = "select chequeRoll.chequeRollsId, " +
+					" chequeRoll.chequeRollsDate, chequeRoll.chequeRollNo," +
+					" chequeRoll.turqChequeTransactionType.transactionTypsName," +
+					" chequeRoll.turqCurrentCard.cardsName, chequeRoll.turqBanksCard.bankCode," +
+					" chequeRoll.turqCurrentCard.currentCardsId,chequeRoll.turqBanksCard.banksCardsId" +
+					" from TurqChequeRoll as chequeRoll "
 					+ "where chequeRoll.chequeRollsDate >= :startDate and chequeRoll.chequeRollsDate <=:endDate "
 					+ "and chequeRoll.chequeRollNo like '" + rollNo + "%'";
 

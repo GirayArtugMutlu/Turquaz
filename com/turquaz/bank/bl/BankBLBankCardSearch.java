@@ -56,6 +56,19 @@ public class BankBLBankCardSearch {
 		}		
 	}
 	
+	public static List getBankCards()
+	throws Exception
+	{
+		try
+		{
+			return BankDALBankCardSearch.getBankCards();
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}		
+	}
+	
 	
 	public static TurqBanksCard getBankCardByBankCardId(Integer bankId)
 	throws Exception
