@@ -284,13 +284,13 @@ public class InvUICardAdd extends SecureComposite {
 			tabInvCardGroups = new CTabItem(tabfldInvCardAdd,SWT.NULL);
 			compInvCardAddGroups = new Composite(tabfldInvCardAdd,SWT.NULL);
 			compInvCardAddGroupsSelection = new Composite(compInvCardAddGroups,SWT.NULL);
-			tableInvCardAddGroupsAllGroups = new Table(compInvCardAddGroupsSelection,SWT.SINGLE| SWT.BORDER);
+			tableInvCardAddGroupsAllGroups = new Table(compInvCardAddGroupsSelection,SWT.SINGLE| SWT.FULL_SELECTION| SWT.BORDER);
 			tableColumnInvCardAddGroupAllGroups = new TableColumn(tableInvCardAddGroupsAllGroups,SWT.NULL);
 			compInvCardAddGroupsButtons = new Composite(compInvCardAddGroupsSelection,SWT.NULL);
 			btnInvCardAddGroupsRegister = new Button(compInvCardAddGroupsButtons,SWT.PUSH| SWT.CENTER);
 			btnInvCardAddGroupsRemove = new Button(compInvCardAddGroupsButtons,SWT.PUSH| SWT.CENTER);
 			btnInvCardAddNew = new Button(compInvCardAddGroupsButtons,SWT.PUSH| SWT.CENTER);
-			tableInvCardAddGroupsRegisteredGroups = new Table(compInvCardAddGroupsSelection,SWT.BORDER);
+			tableInvCardAddGroupsRegisteredGroups = new Table(compInvCardAddGroupsSelection,SWT.FULL_SELECTION| SWT.BORDER);
 			tableColumnRegisteredGroups = new TableColumn(tableInvCardAddGroupsRegisteredGroups,SWT.NULL);
 			btnInvCardGroupsPre = new Button(compInvCardAddGroups,SWT.PUSH| SWT.CENTER);
 	
@@ -1083,15 +1083,15 @@ public class InvUICardAdd extends SecureComposite {
 			GridData compInvCardAddGroupsButtonsLData = new GridData();
 			compInvCardAddGroupsButtonsLData.verticalAlignment = GridData.CENTER;
 			compInvCardAddGroupsButtonsLData.horizontalAlignment = GridData.BEGINNING;
-			compInvCardAddGroupsButtonsLData.widthHint = 75;
-			compInvCardAddGroupsButtonsLData.heightHint = 87;
+			compInvCardAddGroupsButtonsLData.widthHint = 114;
+			compInvCardAddGroupsButtonsLData.heightHint = 90;
 			compInvCardAddGroupsButtonsLData.horizontalIndent = 0;
 			compInvCardAddGroupsButtonsLData.horizontalSpan = 1;
 			compInvCardAddGroupsButtonsLData.verticalSpan = 1;
 			compInvCardAddGroupsButtonsLData.grabExcessHorizontalSpace = false;
 			compInvCardAddGroupsButtonsLData.grabExcessVerticalSpace = false;
 			compInvCardAddGroupsButtons.setLayoutData(compInvCardAddGroupsButtonsLData);
-			compInvCardAddGroupsButtons.setSize(new org.eclipse.swt.graphics.Point(75,87));
+			compInvCardAddGroupsButtons.setSize(new org.eclipse.swt.graphics.Point(114,90));
 	
 			GridData btnInvCardAddGroupsRegisterLData = new GridData();
 			btnInvCardAddGroupsRegisterLData.verticalAlignment = GridData.CENTER;
@@ -1113,7 +1113,7 @@ public class InvUICardAdd extends SecureComposite {
 			});
 	
 			GridData btnInvCardAddGroupsRemoveLData = new GridData();
-			btnInvCardAddGroupsRemoveLData.verticalAlignment = GridData.CENTER;
+			btnInvCardAddGroupsRemoveLData.verticalAlignment = GridData.BEGINNING;
 			btnInvCardAddGroupsRemoveLData.horizontalAlignment = GridData.CENTER;
 			btnInvCardAddGroupsRemoveLData.widthHint = 39;
 			btnInvCardAddGroupsRemoveLData.heightHint = 19;
@@ -1134,7 +1134,7 @@ public class InvUICardAdd extends SecureComposite {
 			GridData btnInvCardAddNewLData = new GridData();
 			btnInvCardAddNewLData.verticalAlignment = GridData.CENTER;
 			btnInvCardAddNewLData.horizontalAlignment = GridData.BEGINNING;
-			btnInvCardAddNewLData.widthHint = 65;
+			btnInvCardAddNewLData.widthHint = 100;
 			btnInvCardAddNewLData.heightHint = 23;
 			btnInvCardAddNewLData.horizontalIndent = 0;
 			btnInvCardAddNewLData.horizontalSpan = 2;
@@ -1142,8 +1142,8 @@ public class InvUICardAdd extends SecureComposite {
 			btnInvCardAddNewLData.grabExcessHorizontalSpace = false;
 			btnInvCardAddNewLData.grabExcessVerticalSpace = false;
 			btnInvCardAddNew.setLayoutData(btnInvCardAddNewLData);
-			btnInvCardAddNew.setText("New Group");
-			btnInvCardAddNew.setSize(new org.eclipse.swt.graphics.Point(65,23));
+			btnInvCardAddNew.setText("Update Groups");
+			btnInvCardAddNew.setSize(new org.eclipse.swt.graphics.Point(100,23));
 			btnInvCardAddNew.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
 					btnInvCardAddNewMouseUp(evt);

@@ -28,7 +28,7 @@ import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
-import com.turquaz.engine.dal.TurqAccountingAccount;
+
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
@@ -78,13 +78,33 @@ public class InvDALCardAdd {
 	}
 	public void saveOrUpdateInventoryGroup(TurqInventoryGroup invGroup)throws Exception{
 		try{
-			
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			session.saveOrUpdate(invGroup);
+			session.flush();
+			tx.commit();
+			session.close();
 			
 			
 		}
 		catch(Exception ex){
 			throw ex;
 		}
+	}
+	public void saveOrUpdateObject(Object obj)throws Exception{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			session.saveOrUpdate(obj);
+			session.flush();
+			tx.commit();
+			session.close();
+			
+			}
+			catch(Exception ex){
+				throw ex;
+			}	
+		
 	}
 	public void saveOrUpdateCardUnit(TurqInventoryCardUnit cardUnit)throws Exception{
 		try{
@@ -128,6 +148,21 @@ public class InvDALCardAdd {
 		}
 			
 		}
+	
+	public void deleteObject(Object obj)throws Exception{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			session.delete(obj);
+			session.flush();
+			tx.commit();
+			session.close();
+			
+			}
+			catch(Exception ex){
+				throw ex;
+			}	
+	}
 	
 	public TurqCurrency getCurrency(String abbrev)throws Exception{
 		try{

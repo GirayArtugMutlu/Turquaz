@@ -91,7 +91,7 @@
 							<Property name="visible" type="boolean" value="true"/>
 						</Properties>
 					</Component>
-					<Component class="org.eclipse.swt.widgets.Text" name="txtGroupDesc" style="2048">
+					<Component class="org.eclipse.swt.widgets.Text" name="txtGroupName" style="2048">
 						<Constraints>
 							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -167,7 +167,7 @@
 							</Property>
 						</Properties>
 					</Component>
-					<Component class="org.eclipse.swt.widgets.Button" name="button1" style="16777224">
+					<Component class="org.eclipse.swt.widgets.Button" name="btnDelete" style="16777224">
 						<Constraints>
 							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -183,6 +183,7 @@
 							</LayoutConstraint>
 						</Constraints>
 						<Events>
+							<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="btnDeleteMouseUp"/>
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value="Delete"/>
@@ -195,7 +196,7 @@
 							</Property>
 						</Properties>
 					</Component>
-					<Component class="org.eclipse.swt.widgets.Button" name="button2" style="16777224">
+					<Component class="org.eclipse.swt.widgets.Button" name="btnUpdate" style="16777224">
 						<Constraints>
 							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -211,6 +212,7 @@
 							</LayoutConstraint>
 						</Constraints>
 						<Events>
+							<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="btnUpdateMouseUp"/>
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value="Update"/>
@@ -223,7 +225,7 @@
 							</Property>
 						</Properties>
 					</Component>
-					<Component class="org.eclipse.swt.widgets.Button" name="button3" style="16777224">
+					<Component class="org.eclipse.swt.widgets.Button" name="btnGroupAdd" style="16777224">
 						<Constraints>
 							<Constraint class="org.eclipse.swt.layout.GridData"/>
 							<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -239,6 +241,8 @@
 							</LayoutConstraint>
 						</Constraints>
 						<Events>
+							<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="btnGroupAddMouseDoubleClick"/>
+							<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="btnGroupAddMouseUp"/>
 						</Events>
 						<Properties>
 							<Property name="text" type="String" value="Add"/>
@@ -249,7 +253,7 @@
 					</Component>
 				</SubComponents>
 			</Component>
-			<Component class="org.eclipse.swt.widgets.Table" name="tableInvGroups" style="2816">
+			<Component class="org.eclipse.swt.widgets.Table" name="tableInvGroups" style="68352">
 				<Constraints>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
