@@ -94,41 +94,14 @@ public class AccUIAddAccounts extends SecureComposite{
 		try {
 			preInitGUI();
 	
-			label1 = new Label(this,SWT.NULL);
-			txtAccAcountName = new Text(this,SWT.NULL);
 			cLabel1 = new CLabel(this,SWT.NULL);
 			txtAccAccountCode = new Text(this,SWT.NULL);
+			label1 = new Label(this,SWT.NULL);
+			txtAccAcountName = new Text(this,SWT.NULL);
 			cLabel2 = new CLabel(this,SWT.NULL);
 			txtParentAccount = new TextWithButton(this,SWT.NULL);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(435,204));
-	
-			GridData label1LData = new GridData();
-			label1LData.verticalAlignment = GridData.CENTER;
-			label1LData.horizontalAlignment = GridData.BEGINNING;
-			label1LData.widthHint = 91;
-			label1LData.heightHint = 18;
-			label1LData.horizontalIndent = 0;
-			label1LData.horizontalSpan = 1;
-			label1LData.verticalSpan = 1;
-			label1LData.grabExcessHorizontalSpace = false;
-			label1LData.grabExcessVerticalSpace = false;
-			label1.setLayoutData(label1LData);
-			label1.setText("Account Name");
-			label1.setSize(new org.eclipse.swt.graphics.Point(91,18));
-	
-			GridData txtAccAcountNameLData = new GridData();
-			txtAccAcountNameLData.verticalAlignment = GridData.CENTER;
-			txtAccAcountNameLData.horizontalAlignment = GridData.BEGINNING;
-			txtAccAcountNameLData.widthHint = 256;
-			txtAccAcountNameLData.heightHint = 17;
-			txtAccAcountNameLData.horizontalIndent = 0;
-			txtAccAcountNameLData.horizontalSpan = 1;
-			txtAccAcountNameLData.verticalSpan = 1;
-			txtAccAcountNameLData.grabExcessHorizontalSpace = false;
-			txtAccAcountNameLData.grabExcessVerticalSpace = false;
-			txtAccAcountName.setLayoutData(txtAccAcountNameLData);
-			txtAccAcountName.setSize(new org.eclipse.swt.graphics.Point(256,17));
 	
 			GridData cLabel1LData = new GridData();
 			cLabel1LData.verticalAlignment = GridData.CENTER;
@@ -158,6 +131,33 @@ public class AccUIAddAccounts extends SecureComposite{
 			txtAccAccountCode.setSize(new org.eclipse.swt.graphics.Point(255,17));
 			final Color txtAccAccountCodebackground = new Color(Display.getDefault(),255,255,255);
 			txtAccAccountCode.setBackground(txtAccAccountCodebackground);
+	
+			GridData label1LData = new GridData();
+			label1LData.verticalAlignment = GridData.CENTER;
+			label1LData.horizontalAlignment = GridData.BEGINNING;
+			label1LData.widthHint = 91;
+			label1LData.heightHint = 18;
+			label1LData.horizontalIndent = 0;
+			label1LData.horizontalSpan = 1;
+			label1LData.verticalSpan = 1;
+			label1LData.grabExcessHorizontalSpace = false;
+			label1LData.grabExcessVerticalSpace = false;
+			label1.setLayoutData(label1LData);
+			label1.setText("Account Name");
+			label1.setSize(new org.eclipse.swt.graphics.Point(91,18));
+	
+			GridData txtAccAcountNameLData = new GridData();
+			txtAccAcountNameLData.verticalAlignment = GridData.CENTER;
+			txtAccAcountNameLData.horizontalAlignment = GridData.BEGINNING;
+			txtAccAcountNameLData.widthHint = 256;
+			txtAccAcountNameLData.heightHint = 17;
+			txtAccAcountNameLData.horizontalIndent = 0;
+			txtAccAcountNameLData.horizontalSpan = 1;
+			txtAccAcountNameLData.verticalSpan = 1;
+			txtAccAcountNameLData.grabExcessHorizontalSpace = false;
+			txtAccAcountNameLData.grabExcessVerticalSpace = false;
+			txtAccAcountName.setLayoutData(txtAccAcountNameLData);
+			txtAccAcountName.setSize(new org.eclipse.swt.graphics.Point(256,17));
 	
 			GridData cLabel2LData = new GridData();
 			cLabel2LData.verticalAlignment = GridData.CENTER;
