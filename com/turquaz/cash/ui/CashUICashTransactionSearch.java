@@ -313,7 +313,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	            
 	            
 	            if(cashTrans.getTurqEngineSequence().getTurqModule().getModulesId().intValue()!=EngBLCommon.MODULE_CASH){	                
-	            	EngUICommon.showMessageBox(this.getShell(),"Sadece cari nakit hareketlerini bu modülden görüntüleyebilirsiniz!");
+	            	EngUICommon.showMessageBox(this.getShell(),Messages.getString("CashUICashTransactionSearch.7")); //$NON-NLS-1$
 	                return;
 	            }
 	            
