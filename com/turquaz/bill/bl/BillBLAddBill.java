@@ -34,12 +34,12 @@ import com.turquaz.inventory.bl.InvBLSaveTransaction;
 public class BillBLAddBill
 {
 	//Bill from Bill
-	public static TurqBill saveBillFromBill(String consignemtDocNo, String definition, boolean isPrinted, Date billsDate, int type,
+	public static int saveBillFromBill(TurqBill bill,String consignemtDocNo, String definition, boolean isPrinted, Date billsDate, int type,
 			TurqCurrentCard currentCard, Date dueDate, BigDecimal discountAmount, String billDocNo, BigDecimal totalVat,
 			BigDecimal specialVat, BigDecimal totalAmount, TurqCurrencyExchangeRate exchangeRate, List billGroups, List invTransactions)
 			throws Exception
 	{
-		TurqBill bill = registerBill(billDocNo, definition, isPrinted, billsDate, type, dueDate, currentCard, exchangeRate);
+		bill = registerBill(billDocNo, definition, isPrinted, billsDate, type, dueDate, currentCard, exchangeRate);
 		TurqEngineSequence engSeq = EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_BILL);
 		TurqBillInEngineSequence billInEng = new TurqBillInEngineSequence();
 		billInEng.setTurqEngineSequence(engSeq);
@@ -48,9 +48,10 @@ public class BillBLAddBill
 		InvBLSaveTransaction.saveInventoryTransactions(invTransactions, engSeq.getId(), type, billsDate, definition, billDocNo,
 				exchangeRate, currentCard);
 		saveCurrentTransaction(bill, totalAmount, discountAmount);
-		saveAccountingTransaction(bill);
 		saveBillGroups(bill.getId(), billGroups);
-		return bill;
+		int result = saveAccountingTransaction(bill);
+		return result;
+		
 	}
 
 	public static void saveBillGroups(Integer billId, List billGroups) throws Exception
@@ -322,6 +323,51 @@ public class BillBLAddBill
 		{
 			throw ex;
 		}
+	}
+	
+	public static BigDecimal[] getTotalAndDiscountAmount(TurqBill bill)throws Exception
+	{
+		BigDecimal returnValues[] = new BigDecimal[2];
+		returnValues[0] = new BigDecimal(0);
+		returnValues[1] = new BigDecimal(0);
+		
+		TurqInventoryTransaction invTrans = null;
+		EngDALCommon.initializeObject(bill, "getTurqBillInEngineSequences");
+		Iterator it = bill.getTurqBillInEngineSequences().iterator();
+		BigDecimal totals = new BigDecimal(0);
+		while (it.hasNext())
+		{
+			TurqBillInEngineSequence billInEng = (TurqBillInEngineSequence) it.next();
+			EngDALCommon.initializeObject(billInEng.getTurqEngineSequence(), "getTurqInventoryTransactions");
+			Iterator it2 = billInEng.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+			while (it2.hasNext())
+			{
+				invTrans = (TurqInventoryTransaction) it2.next();
+				
+				totals = totals.add(invTrans.getTotalPriceInForeignCurrency());
+			
+				/*
+				 * VAT ROWs
+				 */
+			
+				totals = totals.add(invTrans.getVatAmountInForeignCurrency());
+			
+				/*
+				 * Special VAT Rows
+				 */
+				
+				totals = totals.add(invTrans.getVatSpecialAmountInForeignCurrency());
+				
+				/*
+				 * DiscountRows
+				 */
+				returnValues[1]= invTrans.getDiscountAmount();
+				totals = totals.subtract(invTrans.getDiscountAmount());
+			}
+		}
+		returnValues[0]= totals;
+		return returnValues;
+		
 	}
 
 	public static int saveAccountingTransaction(TurqBill bill) throws Exception

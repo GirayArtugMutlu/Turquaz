@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
@@ -56,6 +57,7 @@ import com.turquaz.bill.bl.BillBLAddGroups;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
@@ -468,7 +470,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 							}
 							{
 								lblDate = new CLabel(compInfoPanel, SWT.LEFT);
-								lblDate.setText("Fatura Tarihi");
+								lblDate.setText(Messages.getString("BillUIAddBill.7")); //$NON-NLS-1$
 								GridData lblDateLData = new GridData();
 								lblDateLData.widthHint = 90;
 								lblDateLData.heightHint = 22;
@@ -806,7 +808,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -852,7 +854,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -875,7 +877,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -1045,7 +1047,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			return false;
 		}
@@ -1060,11 +1062,16 @@ public class BillUIAddBill extends Composite implements SecureComposite
 			{
 				// buy bill
 				int type = BILL_TYPE;
-				BillBLAddBill.saveBillFromBill(txtConsignmentDocumentNo.getText(), txtDefinition.getText(), false, dateConsignmentDate
+				TurqBill bill = null;
+				int result = BillBLAddBill.saveBillFromBill(bill,txtConsignmentDocumentNo.getText(), txtDefinition.getText(), false, dateConsignmentDate
 						.getDate(), type, (TurqCurrentCard) txtCurrentCard.getData(),dateDueDate
 						.getDate(), txtDiscountAmount.getBigDecimalValue(), txtDocumentNo.getText(),
 						txtTotalVat.getBigDecimalValue(), decSpecialVat.getBigDecimalValue(), txtTotalAmount.getBigDecimalValue(),
 						EngBLCommon.getBaseCurrencyExchangeRate(), getBillGroups(), getInventoryTransactions());
+				if(result!=1)
+				{
+					EngUICommon.showMessageBox(getShell(),Messages.getString("BillUIAddBill.30"), SWT.ICON_WARNING); //$NON-NLS-1$
+				}
 				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				msg.open();
 				newForm();
@@ -1073,7 +1080,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}

@@ -15,12 +15,16 @@ package com.turquaz.consignment.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import com.turquaz.bill.bl.BillBLAddBill;
+import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.consignment.dal.ConDALUpdateConsignment;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
@@ -48,8 +52,9 @@ public class ConBLUpdateConsignment
 	 * @param exRate
 	 * @throws Exception
 	 */
+
 	public static void updateConsignment(TurqConsignment consignment, String docNo, String definition, Date consignmentDate,
-			TurqCurrentCard curCard, int type, TurqCurrencyExchangeRate exchangeRate, List invTransactions, List groups)
+			TurqCurrentCard curCard, int type, TurqCurrencyExchangeRate exchangeRate, List invTransactions, List groups, boolean updateBills)
 			throws Exception
 	{
 		try
@@ -88,6 +93,14 @@ public class ConBLUpdateConsignment
 			consignment.setTurqCurrencyExchangeRate(exchangeRate);
 			consignment.setTurqCurrentCard(curCard);
 			EngDALCommon.updateObject(consignment);
+			
+			if(updateBills)
+			{
+				updateConsignmentBills(consignment);
+			}
+			
+			
+			
 		}
 		catch (Exception ex)
 		{
@@ -95,6 +108,25 @@ public class ConBLUpdateConsignment
 		}
 	}
 
+	public static void updateConsignmentBills(TurqConsignment cons)throws Exception{
+		
+		ConDALUpdateConsignment.initiliazeConsignment(cons);
+		Iterator it = cons.getTurqEngineSequence().getTurqBillInEngineSequences().iterator();
+		if(it.hasNext())
+		{
+			
+			TurqBillInEngineSequence billEngSeq = (TurqBillInEngineSequence)it.next();
+			BigDecimal results[] = BillBLAddBill.getTotalAndDiscountAmount(billEngSeq.getTurqBill());
+			BillBLUpdateBill.deleteAccountingTransactions(billEngSeq.getTurqBill());
+			BillBLUpdateBill.deleteCurrentTransactions(billEngSeq.getTurqBill());
+			BillBLAddBill.saveCurrentTransaction(billEngSeq.getTurqBill(),results[0],results[1]);
+			BillBLAddBill.saveAccountingTransaction(billEngSeq.getTurqBill());
+			
+			
+			
+			
+		}
+	}
 	public static void deleteConsignment(TurqConsignment consignment) throws Exception
 	{
 		try
@@ -135,6 +167,8 @@ public class ConBLUpdateConsignment
 		try
 		{
 			ConDALUpdateConsignment.initiliazeConsignment(cons);
+		
+			
 		}
 		catch (Exception ex)
 		{

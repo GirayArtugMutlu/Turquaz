@@ -131,6 +131,7 @@ public class BankBLTransactionAdd
 					EngBLCommon.BANK_ACC_TYPE_GENERAL);
 			TurqAccountingAccount deptAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCardWithDept,
 					EngBLCommon.BANK_ACC_TYPE_GENERAL);
+		
 			accTransRowDept.setTransactionDefinition(definition);
 			accTransRowDept.setTurqAccountingAccount(creditAccount);
 			accTransRowCredit.setTransactionDefinition(definition);
@@ -413,8 +414,11 @@ public class BankBLTransactionAdd
 			/**
 			 * Save Accounting Transaction
 			 */
-			AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType, seq.getTurqModule().getId().intValue(), seq.getId(),
+			if(currentAccount!=null)
+			{
+				AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType, seq.getTurqModule().getId().intValue(), seq.getId(),
 					definition, exchangeRate, creditAccounts, deptAccounts, true);
+			}
 		}
 		catch (Exception ex)
 		{

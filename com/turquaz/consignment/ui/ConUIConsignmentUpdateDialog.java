@@ -22,10 +22,12 @@ import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
+import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentsInGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -183,18 +185,6 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	{
 	}
 
-	public void checkBill()
-	{
-		if (consignment.getTurqEngineSequence().getTurqBillInEngineSequences().isEmpty())
-		{
-		}
-		else
-		{
-			toolUpdate.setEnabled(false);
-			toolDelete.setEnabled(false);
-		}
-	}
-
 	public void postInitGui()
 	{
 		toolUpdate.setEnabled(false);
@@ -218,7 +208,6 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
-		checkBill();
 		TurqCurrentCard curCard = consignment.getTurqCurrentCard();
 		compAddConsignment.getTxtCurrentCard().setText(curCard.getCardsName() + " {" + curCard.getCardsCurrentCode() + "}");
 		compAddConsignment.getDateConsignmentDate().setDate(consignment.getConsignmentsDate());
@@ -233,6 +222,15 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			compAddConsignment.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.6")); //$NON-NLS-1$
 		}
 		compAddConsignment.getTxtDefinition().setText(consignment.getConsignmentsDefinition());
+		
+		Iterator it = consignment.getTurqEngineSequence().getTurqBillInEngineSequences().iterator();
+		if(it.hasNext())
+		{
+			TurqBillInEngineSequence billEng = (TurqBillInEngineSequence)it.next();
+			compAddConsignment.getTxtBillDocumentNo().setText(billEng.getTurqBill().getBillDocumentNo());
+		}
+		
+		
 		fillInvTransactionColumns();
 		fillRegisteredGroup();
 	}
@@ -300,14 +298,19 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			updated = true;
-			int type = 0;
-			if (compAddConsignment.getComboConsignmentType().getText().equals(Messages.getString("ConUIConsignmentUpdateDialog.11"))) //$NON-NLS-1$
-				type = 1;
+			int type = EngBLCommon.COMMON_BUY_INT;
+			if (compAddConsignment.getComboConsignmentType().getText().equals(EngBLCommon.COMMON_SELL_STRING)) //$NON-NLS-1$
+			{	
+				type = EngBLCommon.COMMON_SELL_INT;
+			}
+			boolean willUpdateBill = EngUICommon.okToDelete(getParent(),"Fatura hareketleri de güncellensin mi?");
+			
 			ConBLUpdateConsignment.updateConsignment(consignment, compAddConsignment.getTxtDocumentNo().getText(), compAddConsignment
 					.getTxtDefinition().getText(), compAddConsignment.getDateConsignmentDate().getDate(),
 					(TurqCurrentCard) compAddConsignment.getTxtCurrentCard().getData(), type, EngBLCommon
 							.getBaseCurrencyExchangeRate(), compAddConsignment.getInventoryTransactions(), compAddConsignment
-							.getConsignmentGroups());
+							.getConsignmentGroups(),willUpdateBill);
+						
 			msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.12")); //$NON-NLS-1$
 			msg.open();
 			dialogShell.close();

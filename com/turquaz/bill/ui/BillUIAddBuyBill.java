@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
@@ -56,6 +57,7 @@ import com.turquaz.bill.bl.BillBLAddGroups;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
@@ -350,7 +352,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							}
 							{
 								lblDate = new CLabel(compInfoPanel, SWT.LEFT);
-								lblDate.setText("Fatura Tarihi");
+								lblDate.setText(Messages.getString("BillUIAddBuyBill.4")); //$NON-NLS-1$
 								GridData lblDateLData = new GridData();
 								lblDateLData.widthHint = 90;
 								lblDateLData.heightHint = 22;
@@ -411,7 +413,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							}
 							//START >> lblCurrency
 							lblCurrency = new CLabel(compInfoPanel, SWT.NONE);
-							lblCurrency.setText("Para Birimi");
+							lblCurrency.setText(Messages.getString("BillUIAddBuyBill.15")); //$NON-NLS-1$
 							GridData lblCurrencyLData = new GridData();
 							lblCurrencyLData.widthHint = 90;
 							lblCurrencyLData.heightHint = 20;
@@ -701,7 +703,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -733,7 +735,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -770,7 +772,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -811,7 +813,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -957,7 +959,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 			}
 			else if (comboWareHouse.getData(comboWareHouse.getText()) == null)
 			{
-				msg.setMessage("Bir depo seçmelisiniz!");
+				msg.setMessage(Messages.getString("BillUIAddBuyBill.24")); //$NON-NLS-1$
 				msg.open();
 				comboWareHouse.setFocus();
 				return false;
@@ -982,7 +984,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 			
 			if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
 			{
-				msg.setMessage("Para birimi seçmelisiniz!");
+				msg.setMessage(Messages.getString("BillUIAddBuyBill.25")); //$NON-NLS-1$
 				msg.open();
 				comboCurrencyType.setFocus();
 				return false;
@@ -992,7 +994,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 				exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, dateConsignmentDate.getDate());
 				if (exchangeRate == null)
 				{
-					msg.setMessage("Günlük kur tan?mlamal?s?n?z!");
+					msg.setMessage(Messages.getString("BillUIAddBuyBill.26")); //$NON-NLS-1$
 					msg.open();
 					return false;
 				}
@@ -1006,7 +1008,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			return false;
 		}
@@ -1046,7 +1048,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			return false;
 		}
@@ -1075,11 +1077,17 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 			{
 				// buy bill
 				int type = 0;
-				BillBLAddBill.saveBillFromBill(txtConsignmentDocumentNo.getText(), txtDefinition.getText(), false, dateConsignmentDate
+				TurqBill bill = null;
+				int result = BillBLAddBill.saveBillFromBill(bill,txtConsignmentDocumentNo.getText(), txtDefinition.getText(), false, dateConsignmentDate
 						.getDate(), type, (TurqCurrentCard) txtCurrentCard.getData(), dateDueDate.getDate(), txtDiscountAmount
 								.getBigDecimalValue(), txtDocumentNo.getText(), txtTotalVat.getBigDecimalValue(), decSpecialVat
 								.getBigDecimalValue(), txtTotalAmount.getBigDecimalValue(), EngBLCommon
 								.getBaseCurrencyExchangeRate(), getBillGroups(), getInventoryTransactions());
+				if(result!=1)
+				{
+					EngUICommon.showMessageBox(getShell(),Messages.getString("BillUIAddBuyBill.29"), SWT.ICON_WARNING); //$NON-NLS-1$
+				}
+				
 				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				msg.open();
 				newForm();
@@ -1088,7 +1096,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}

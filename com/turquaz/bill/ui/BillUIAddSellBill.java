@@ -692,7 +692,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -755,7 +755,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -778,7 +778,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -978,7 +978,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			return false;
 		}
@@ -994,19 +994,26 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 			{
 				// sell bill
 				int type = BILL_TYPE;
-				TurqBill bill = BillBLAddBill.saveBillFromBill(txtConsignmentDocumentNo.getText(), txtDefinition.getText(), false,
+				TurqBill bill = null;
+			 int result = BillBLAddBill.saveBillFromBill(bill,txtConsignmentDocumentNo.getText(), txtDefinition.getText(), false,
 						dateConsignmentDate.getDate(), type,  (TurqCurrentCard) txtCurrentCard.getData(), dateDueDate.getDate(),
 						txtDiscountAmount.getBigDecimalValue(), txtDocumentNo.getText(), txtTotalVat.getBigDecimalValue(),
 						decSpecialVat.getBigDecimalValue(), txtTotalAmount.getBigDecimalValue(), EngBLCommon
 								.getBaseCurrencyExchangeRate(), getBillGroups(), getInventoryTransactions());
-				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
+			
+			 	if(result!=1)
+				{
+					EngUICommon.showMessageBox(getShell(),Messages.getString("BillUIAddSellBill.23"), SWT.ICON_WARNING); //$NON-NLS-1$
+				}
+			 
+			 	msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				msg.open();
 				msg2.setMessage(Messages.getString("BillUIAddSellBill.16")); //$NON-NLS-1$
 				int answer = msg2.open();
 				if (answer == SWT.YES)
 				{
-					boolean result = EngUICommon.okToDelete(getShell(), Messages.getString("BillUIAddSellBill.20")); //$NON-NLS-1$
-					EngBLUtils.printBill(bill, result);
+					boolean ans = EngUICommon.okToDelete(getShell(), Messages.getString("BillUIAddSellBill.20")); //$NON-NLS-1$
+					EngBLUtils.printBill(bill, ans);
 				}
 				newForm();
 			}
@@ -1014,7 +1021,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}

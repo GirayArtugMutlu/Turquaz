@@ -687,7 +687,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 				}
 				
 			//	TurqConsignment consignment = (TurqConsignment) txtConsignment.getData();
-			BillBLAddBill.saveBillFromCons(txtDocumentNo.getText(), txtDefinition.getText(), false, dateBillDate.getDate(), consList,type,dateDueDate.getDate(), getBillGroups(),(TurqCurrentCard)txtCurrentCard.getData(),EngBLCommon.getBaseCurrencyExchangeRate(),txtTotalAmount.getBigDecimalValue(),txtDiscountAmount.getBigDecimalValue());
+			BillBLAddBill.saveBillFromCons(txtBillDocumentNo.getText(), txtDefinition.getText(), false, dateBillDate.getDate(), consList,type,dateDueDate.getDate(), getBillGroups(),(TurqCurrentCard)txtCurrentCard.getData(),EngBLCommon.getBaseCurrencyExchangeRate(),txtTotalAmount.getBigDecimalValue(),txtDiscountAmount.getBigDecimalValue());
 				msg.setMessage(Messages.getString("BillUIBillFromConsignment.34")); //$NON-NLS-1$
 				msg.open();
 				newForm();
@@ -794,7 +794,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 				}
 				comboConsignmentType.setText(type);
 				dateConsDate.setDate(cons.getConsignmentsDate());
-				txtDocumentNo.setText(txtDocumentNo.getText()+","+cons.getConsignmentDocumentNo());
+				txtDocumentNo.setText(txtDocumentNo.getText()+cons.getConsignmentDocumentNo());
 			    calculateTotals();
 			}
 			catch (Exception ex)

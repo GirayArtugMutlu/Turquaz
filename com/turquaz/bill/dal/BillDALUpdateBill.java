@@ -70,6 +70,7 @@ public class BillDALUpdateBill
 			throw ex;
 		}
 	}
+	
 
 	public static boolean canUpdateBill(TurqBill bill) throws Exception
 	{

@@ -111,18 +111,6 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 					});
 				}
 				{
-					toolCancel = new ToolItem(toolBar1, SWT.NONE);
-					toolCancel.setText(Messages.getString("BillUIBillUpdateDialog.4")); //$NON-NLS-1$
-					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
-					toolCancel.addSelectionListener(new SelectionAdapter()
-					{
-						public void widgetSelected(SelectionEvent evt)
-						{
-							dialogShell.close();
-						}
-					});
-				}
-				{
 					toolPrint = new ToolItem(toolBar1, SWT.NONE);
 					toolPrint.setText(Messages.getString("BillUIBillUpdateDialog.5")); //$NON-NLS-1$
 					toolPrint.setImage(SWTResourceManager.getImage("gfx/print.gif")); //$NON-NLS-1$
@@ -133,6 +121,16 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 							boolean answer = EngUICommon.okToDelete(getParent(), Messages.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
 							dialogShell.close();
 							EngBLUtils.printBill(bill, answer);
+						}
+					});
+				}
+				{
+					toolCancel = new ToolItem(toolBar1, SWT.NONE);
+					toolCancel.setText(Messages.getString("BillUIBillUpdateDialog.4")); //$NON-NLS-1$
+					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+					toolCancel.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							dialogShell.close();
 						}
 					});
 				}
@@ -204,7 +202,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -222,8 +220,8 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			if (it2.hasNext())
 			{
 				TurqConsignment cons = (TurqConsignment) it2.next();
-				if (!cons.getConsignmentDocumentNo().equals(""))
-					compAddBill.getTxtConsignmentDocumentNo().append("[" + cons.getConsignmentDocumentNo() + "]");
+				if (!cons.getConsignmentDocumentNo().equals("")) //$NON-NLS-1$
+					compAddBill.getTxtConsignmentDocumentNo().append("[" + cons.getConsignmentDocumentNo() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			Iterator it3 = billInEng.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
 			while (it3.hasNext())
@@ -261,7 +259,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				//update the consignment
 				int type = compAddBill.BILL_TYPE;
 				//TODO exchange rate
-				BillBLUpdateBill
+			   int result []=	BillBLUpdateBill
 						.updateBill(bill, compAddBill.getTxtDocumentNo().getText().trim(), compAddBill.getTxtConsignmentDocumentNo()
 								.getText().trim(), compAddBill.getTxtDefinition().getText(), false, 
 								compAddBill.getDateConsignmentDate().getDate(), (TurqCurrentCard) compAddBill.getTxtCurrentCard()
@@ -271,8 +269,18 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 										compAddBill.getDateDueDate()
 										.getDate(), compAddBill.getInventoryTransactions(), compAddBill.getBillGroups(),
 								EngBLCommon.getBaseCurrencyExchangeRate());
+			   
+			   if(result[0]==EngBLCommon.BILL_ERR_TOO_MANY_CONS)
+			   {
+			   	 EngUICommon.showMessageBox(getParent(),Messages.getString("BillUIBillUpdateDialog.13")); //$NON-NLS-1$
+			   }
+			   if(result[1]==-1)
+			   {			   	
+			   	EngUICommon.showMessageBox(getParent(),Messages.getString("BillUIBillUpdateDialog.14")); //$NON-NLS-1$
+			   }
+			   
 				msg = new MessageBox(this.getParent(), SWT.ICON_INFORMATION);
-				msg.setMessage(Messages.getString("BillUIBillUpdateDialog.10")); //$NON-NLS-1$
+				msg.setMessage(Messages.getString("BillUIBillUpdateDialog.15"));  //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.close();
 			}
@@ -281,7 +289,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		{
 			msg = new MessageBox(this.getParent(), SWT.ICON_ERROR);
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();
@@ -313,7 +321,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();

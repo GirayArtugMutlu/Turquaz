@@ -550,7 +550,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			tabItemCurrentGroups.setText(Messages.getString("CurUICurrentCardAdd.23")); //$NON-NLS-1$
 			//START >> tabItemAccountingAccounts
 			tabItemAccountingAccounts = new CTabItem(tbfCurrentCardAdd, SWT.NONE);
-			tabItemAccountingAccounts.setText("Muhasebe Hesaplar\u0131");
+			tabItemAccountingAccounts.setText(Messages.getString("CurUICurrentCardAdd.13")); //$NON-NLS-1$
 			//START >> compaccountingAccounts
 			compaccountingAccounts = new Composite(tbfCurrentCardAdd, SWT.NONE);
 			tabItemAccountingAccounts.setControl(compaccountingAccounts);
@@ -559,17 +559,17 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			compaccountingAccounts.setLayout(compaccountingAccountsLayout);
 			//START >> cLabel3
 			cLabel3 = new CLabel(compaccountingAccounts, SWT.NONE);
-			cLabel3.setText("cLabel3");
+			cLabel3.setText("cLabel3"); //$NON-NLS-1$
 			cLabel3.setVisible(false);
 			//END << cLabel3
 			//START >> cLabel4
 			cLabel4 = new CLabel(compaccountingAccounts, SWT.NONE);
-			cLabel4.setText("cLabel4");
+			cLabel4.setText("cLabel4"); //$NON-NLS-1$
 			cLabel4.setVisible(false);
 			//END << cLabel4
 			//START >> lblAccountingCodeCustomer
 			lblAccountingCodeCustomer = new CLabel(compaccountingAccounts, SWT.NONE);
-			lblAccountingCodeCustomer.setText("Cari Muhasebe Hesab\u0131");
+			lblAccountingCodeCustomer.setText(Messages.getString("CurUICurrentCardAdd.27")); //$NON-NLS-1$
 			//END << lblAccountingCodeCustomer
 			//START >> accPickerCustomer
 			accPickerCustomer = new AccountPicker(compaccountingAccounts, SWT.NONE);
@@ -580,7 +580,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			//END << accPickerCustomer
 			//START >> lblChequeTaken
 			lblChequeTaken = new CLabel(compaccountingAccounts, SWT.NONE);
-			lblChequeTaken.setText("Verilen Çekler Hesab\u0131");
+			lblChequeTaken.setText(Messages.getString("CurUICurrentCardAdd.29")); //$NON-NLS-1$
 			GridData lblChequeTakenLData = new GridData();
 			lblChequeTakenLData.widthHint = 110;
 			lblChequeTakenLData.heightHint = 22;
@@ -595,7 +595,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			//END << accountPickerChequesGiven
 			//START >> lblChequesGiven
 			lblChequesGiven = new CLabel(compaccountingAccounts, SWT.NONE);
-			lblChequesGiven.setText("Al\u0131nan Çekler Hesab\u0131");
+			lblChequesGiven.setText(Messages.getString("CurUICurrentCardAdd.31")); //$NON-NLS-1$
 			//END << lblChequesGiven
 			//START >> accountPickerChequesTaken
 			accountPickerChequesTaken = new AccountPicker(compaccountingAccounts, SWT.NONE);
@@ -927,7 +927,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				}
 				{
 					lblDueDays = new CLabel(compCurrentGeneralInfo, SWT.NONE);
-					lblDueDays.setText("Valör Gün");
+					lblDueDays.setText(Messages.getString("CurUICurrentCardAdd.32")); //$NON-NLS-1$
 					GridData lblDueDaysLData = new GridData();
 					lblDueDaysLData.widthHint = 56;
 					lblDueDaysLData.heightHint = 19;
@@ -1024,7 +1024,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -1034,19 +1034,19 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		try
 		{
 			Map contactMap = new HashMap();
-			contactMap.put("ContactName", txtContactName.getText().trim());
-			contactMap.put("ContactAddress", txtContactAddress.getText().trim());
-			contactMap.put("ContactPhone", txtContactPhone.getText().trim());
-			contactMap.put("ContactPhone2", txtContactPhone2.getText().trim());
-			contactMap.put("ContactFaxNumber", txtFaxNumber.getText().trim());
-			contactMap.put("ContactEmail", txtContactEmail.getText().trim());
-			contactMap.put("ContactWebSite", txtContactWebSite.getText().trim());
+			contactMap.put("ContactName", txtContactName.getText().trim()); //$NON-NLS-1$
+			contactMap.put("ContactAddress", txtContactAddress.getText().trim()); //$NON-NLS-1$
+			contactMap.put("ContactPhone", txtContactPhone.getText().trim()); //$NON-NLS-1$
+			contactMap.put("ContactPhone2", txtContactPhone2.getText().trim()); //$NON-NLS-1$
+			contactMap.put("ContactFaxNumber", txtFaxNumber.getText().trim()); //$NON-NLS-1$
+			contactMap.put("ContactEmail", txtContactEmail.getText().trim()); //$NON-NLS-1$
+			contactMap.put("ContactWebSite", txtContactWebSite.getText().trim()); //$NON-NLS-1$
 			return contactMap;
 		}
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			return null;
 		}
@@ -1070,7 +1070,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			return null;
 		}
@@ -1088,7 +1088,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			return null;
 		}
@@ -1115,7 +1115,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			}
 			else if (save && EngBLCurrentCards.getCards(txtCurrentCode.getText().trim()) != null)
 			{
-				msg.setMessage("Daha önce varolan bir cari kart kodu giremezsiniz!");
+				msg.setMessage(Messages.getString("CurUICurrentCardAdd.44")); //$NON-NLS-1$
 				msg.open();
 				txtCurrentCode.setFocus();
 				return false;
@@ -1128,7 +1128,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			}
 			if (accPickerCustomer.getTurqAccountingAccount() == null)
 			{
-				boolean ans = EngUICommon.okToDelete(getShell(), Messages.getString("CurUICurrentCardAdd.26")); //$NON-NLS-1$
+				boolean ans = EngUICommon.okToDelete(getShell(),Messages.getString("CurUICurrentCardAdd.45"));  //$NON-NLS-1$
 				if (ans)
 				{
 					TurqAccountingAccount account = new AccUIAddAccountDialog(getShell(), SWT.NONE).open();
@@ -1193,7 +1193,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());

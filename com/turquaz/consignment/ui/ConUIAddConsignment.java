@@ -476,6 +476,8 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 							txtBillDocumentNoLData.widthHint = 150;
 							txtBillDocumentNoLData.heightHint = 17;
 							txtBillDocumentNo.setLayoutData(txtBillDocumentNoLData);
+							txtBillDocumentNo.setEditable(false);
+							txtBillDocumentNo.setBackground(SWTResourceManager.getColor(255, 255, 255));
 						}
 						{
 							lblDate = new CLabel(compInfoPanel, SWT.LEFT);
@@ -965,6 +967,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 			InvUITransactionTableRow row = new InvUITransactionTableRow(type, tableViewer);
 			tableViewer.addRow(row);
 		}
+		cTabFolder1.setSelection(0);
 	}
 
 	public void fillComboWarehouses()
@@ -1079,9 +1082,9 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		{
 			if (verifyFields())
 			{
-				int type = 0;
-				if (comboConsignmentType.getText().equals(Messages.getString("ConUIAddConsignment.35"))) { //$NON-NLS-1$
-					type = 1;
+				int type = EngBLCommon.COMMON_BUY_INT;
+				if (comboConsignmentType.getText().equals(EngBLCommon.COMMON_SELL_STRING)) { 
+					type=EngBLCommon.COMMON_SELL_INT;
 				}
 				TurqConsignment cons = ConBLAddConsignment.saveConsignment(txtDocumentNo.getText(), txtDefinition.getText(), false,
 						dateConsignmentDate.getDate(), (TurqCurrentCard) txtCurrentCard.getData(), type, EngBLCommon
