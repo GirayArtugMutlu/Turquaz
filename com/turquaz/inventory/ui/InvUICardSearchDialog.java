@@ -113,7 +113,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 
 
 			dialogShell.setLayout(new GridLayout());
-			dialogShell.layout();
+			
 			dialogShell.pack();
 			dialogShell.setSize(486, 418);
 			{
@@ -123,7 +123,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 				GridData compInvCardSearchPanelLData = new GridData();
 				compInvCardSearchPanel.setLayout(compInvCardSearchPanelLayout);
 				compInvCardSearchPanelLData.horizontalAlignment = GridData.FILL;
-				compInvCardSearchPanelLData.heightHint = 118;
+				compInvCardSearchPanelLData.heightHint = 134;
 				compInvCardSearchPanelLData.grabExcessHorizontalSpace = true;
 				compInvCardSearchPanel.setLayoutData(compInvCardSearchPanelLData);
 				{
@@ -139,12 +139,9 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 				{
 					txtInvName = new Text(compInvCardSearchPanel, SWT.NONE);
-					txtInvName.setSize(new org.eclipse.swt.graphics.Point(
-						168,
-						16));
 					GridData txtInvNameLData = new GridData();
 					txtInvNameLData.widthHint = 162;
-					txtInvNameLData.heightHint = 16;
+					txtInvNameLData.heightHint = 13;
 					txtInvName.setLayoutData(txtInvNameLData);
 				}
 				{
@@ -158,12 +155,10 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 				{
 					txtInvCode = new Text(compInvCardSearchPanel, SWT.NONE);
-					txtInvCode.setSize(new org.eclipse.swt.graphics.Point(
-						147,
-						17));
 					GridData txtInvCodeLData = new GridData();
-					txtInvCodeLData.widthHint = 141;
-					txtInvCodeLData.heightHint = 17;
+					txtInvCode.setSize(162, 13);
+					txtInvCodeLData.widthHint = 162;
+					txtInvCodeLData.heightHint = 13;
 					txtInvCode.setLayoutData(txtInvCodeLData);
 				}
 				{
@@ -212,8 +207,8 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 					btnSearchLData.horizontalAlignment = GridData.END;
 					btnSearchLData.grabExcessHorizontalSpace = true;
 					btnSearchLData.horizontalSpan = 2;
-					btnSearchLData.widthHint = 62;
-					btnSearchLData.heightHint = 34;
+					btnSearchLData.widthHint = 80;
+					btnSearchLData.heightHint = 37;
 					btnSearch.setLayoutData(btnSearchLData);
 				}
 			}
@@ -260,6 +255,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 					tableColumnAmount.setWidth(118);
 				}
 			}
+			dialogShell.layout();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {

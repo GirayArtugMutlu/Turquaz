@@ -158,9 +158,10 @@ implements SecureComposite,SearchComposite{
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				composite1LData.verticalAlignment = GridData.BEGINNING;
-				composite1LData.heightHint = 122;
+				composite1LData.heightHint = 140;
 				composite1.setLayoutData(composite1LData);
 				composite1Layout.numColumns = 2;
+				composite1Layout.verticalSpacing = 3;
 				composite1.setLayout(composite1Layout);
 				{
 					lblGroups = new CLabel(composite1, SWT.NONE);

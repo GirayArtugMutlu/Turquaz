@@ -149,7 +149,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
 			thisLayout.marginHeight = 20;
-			this.setSize(377, 143);
+			this.setSize(377, 148);
 			{
 				lblUserName = new CLabel(this, SWT.NONE);
 				lblUserName.setText(Messages.getString("EngUIEntryFrame.1")); //$NON-NLS-1$
@@ -221,10 +221,9 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 
 						}
 					});
-					btnCancel.setSize(70, 24);
 					btnCancelLData.horizontalAlignment = GridData.END;
-					btnCancelLData.widthHint = 70;
-					btnCancelLData.heightHint = 24;
+					btnCancelLData.widthHint = 72;
+					btnCancelLData.heightHint = 34;
 					btnCancel.setLayoutData(btnCancelLData);
 				}
 				{
@@ -238,8 +237,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 						}
 					});
 					btnOkLData.horizontalAlignment = GridData.END;
-					btnOkLData.widthHint = 70;
-					btnOkLData.heightHint = 24;
+					btnOkLData.widthHint = 74;
+					btnOkLData.heightHint = 37;
 					btnOk.setLayoutData(btnOkLData);
 				}
 			}

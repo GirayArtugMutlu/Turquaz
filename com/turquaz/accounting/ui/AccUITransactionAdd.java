@@ -179,13 +179,10 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			}
 			{
 				dateTransactionDate = new DatePicker(this, SWT.NONE);
-				dateTransactionDate.setSize(new org.eclipse.swt.graphics.Point(
-					159,
-					23));
 				GridData dateTransactionDateLData = new GridData();
 				dateTransactionDateLData.verticalAlignment = GridData.BEGINNING;
 				dateTransactionDateLData.widthHint = 159;
-				dateTransactionDateLData.heightHint = 23;
+				dateTransactionDateLData.heightHint = 26;
 				dateTransactionDate.setLayoutData(dateTransactionDateLData);
 			}
 			{
@@ -224,11 +221,10 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 				composite1LData.heightHint = 72;
 				composite1.setLayoutData(composite1LData);
 				{
-					btnAddTransactionRow = new Button(composite1, SWT.PUSH | SWT.CENTER);
+					btnAddTransactionRow = new Button(composite1, SWT.PUSH
+						| SWT.CENTER);
 					btnAddTransactionRow.setImage(SWTResourceManager
 						.getImage("icons/plus.gif")); //$NON-NLS-1$
-					btnAddTransactionRow
-						.setSize(new org.eclipse.swt.graphics.Point(26, 24));
 					GridData btnAddTransactionRowLData = new GridData();
 					btnAddTransactionRow.addMouseListener(new MouseAdapter() {
 						public void mouseUp(MouseEvent evt) {
@@ -236,25 +232,28 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 						}
 					});
 					btnAddTransactionRowLData.horizontalAlignment = GridData.CENTER;
-					btnAddTransactionRowLData.widthHint = 26;
-					btnAddTransactionRowLData.heightHint = 24;
-					btnAddTransactionRow.setLayoutData(btnAddTransactionRowLData);
+					btnAddTransactionRowLData.widthHint = 30;
+					btnAddTransactionRowLData.heightHint = 30;
+					btnAddTransactionRow
+						.setLayoutData(btnAddTransactionRowLData);
 				}
 				{
-					btnRemoveTransactionRow = new Button(composite1, SWT.PUSH | SWT.CENTER);
+					btnRemoveTransactionRow = new Button(composite1, SWT.PUSH
+						| SWT.CENTER);
 					btnRemoveTransactionRow.setImage(SWTResourceManager
 						.getImage("icons/minus.gif")); //$NON-NLS-1$
 					GridData btnRemoveTransactionRowLData = new GridData();
 					btnRemoveTransactionRow
 						.addMouseListener(new MouseAdapter() {
-						public void mouseUp(MouseEvent evt) {
-							btnRemoveTransactionRowMouseUp(evt);
-						}
+							public void mouseUp(MouseEvent evt) {
+								btnRemoveTransactionRowMouseUp(evt);
+							}
 						});
 					btnRemoveTransactionRowLData.horizontalAlignment = GridData.CENTER;
-					btnRemoveTransactionRowLData.widthHint = 24;
-					btnRemoveTransactionRowLData.heightHint = 23;
-					btnRemoveTransactionRow.setLayoutData(btnRemoveTransactionRowLData);
+					btnRemoveTransactionRowLData.widthHint = 31;
+					btnRemoveTransactionRowLData.heightHint = 29;
+					btnRemoveTransactionRow
+						.setLayoutData(btnRemoveTransactionRowLData);
 				}
 				composite1.layout();
 			}

@@ -87,7 +87,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 
 
 			dialogShell.setLayout(new GridLayout());
-		    dialogShell.layout();
+		 
 			dialogShell.pack();
 			dialogShell.setSize(566, 350);
 		
@@ -249,6 +249,8 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 			comboConsignmentType.add(Messages.getString("ConUIConsignmentSearchDialog.12")); //$NON-NLS-1$
 			
 			composite1.layout();
+			
+			   dialogShell.layout();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {

@@ -44,9 +44,16 @@ import com.turquaz.bank.bl.BankBLBankCardAdd;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
 public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 
@@ -122,19 +129,11 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 			lblBankName.setText(Messages.getString("BankUIBankCardAdd.0")); //$NON-NLS-1$
 	
 			GridData txtBankNameLData = new GridData();
-			txtBankNameLData.verticalAlignment = GridData.CENTER;
-			txtBankNameLData.horizontalAlignment = GridData.BEGINNING;
-			txtBankNameLData.widthHint = 254;
+			txtBankNameLData.widthHint = 248;
 			txtBankNameLData.heightHint = 13;
-			txtBankNameLData.horizontalIndent = 0;
-			txtBankNameLData.horizontalSpan = 1;
-			txtBankNameLData.verticalSpan = 1;
-			txtBankNameLData.grabExcessHorizontalSpace = false;
-			txtBankNameLData.grabExcessVerticalSpace = false;
 			txtBankName.setLayoutData(txtBankNameLData);
 			txtBankName.setTextLimit(50);
-			txtBankName.setSize(new org.eclipse.swt.graphics.Point(254,13));
-	
+
 			GridData lblBankBranchNameLData = new GridData();
 			lblBankBranchNameLData.verticalAlignment = GridData.CENTER;
 			lblBankBranchNameLData.horizontalAlignment = GridData.BEGINNING;
@@ -150,19 +149,11 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 			lblBankBranchName.setSize(new org.eclipse.swt.graphics.Point(95,19));
 	
 			GridData txtBankBranchNameLData = new GridData();
-			txtBankBranchNameLData.verticalAlignment = GridData.CENTER;
-			txtBankBranchNameLData.horizontalAlignment = GridData.BEGINNING;
-			txtBankBranchNameLData.widthHint = 254;
+			txtBankBranchNameLData.widthHint = 249;
 			txtBankBranchNameLData.heightHint = 13;
-			txtBankBranchNameLData.horizontalIndent = 0;
-			txtBankBranchNameLData.horizontalSpan = 1;
-			txtBankBranchNameLData.verticalSpan = 1;
-			txtBankBranchNameLData.grabExcessHorizontalSpace = false;
-			txtBankBranchNameLData.grabExcessVerticalSpace = false;
 			txtBankBranchName.setLayoutData(txtBankBranchNameLData);
 			txtBankBranchName.setTextLimit(50);
-			txtBankBranchName.setSize(new org.eclipse.swt.graphics.Point(254,13));
-	
+
 			GridData lvlBanckAccountNoLData = new GridData();
 			lvlBanckAccountNoLData.verticalAlignment = GridData.CENTER;
 			lvlBanckAccountNoLData.horizontalAlignment = GridData.BEGINNING;
@@ -177,19 +168,11 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 			lvlBanckAccountNo.setText(Messages.getString("BankUIBankCardAdd.2")); //$NON-NLS-1$
 	
 			GridData txtBankAccountNoLData = new GridData();
-			txtBankAccountNoLData.verticalAlignment = GridData.CENTER;
-			txtBankAccountNoLData.horizontalAlignment = GridData.BEGINNING;
-			txtBankAccountNoLData.widthHint = 254;
+			txtBankAccountNoLData.widthHint = 247;
 			txtBankAccountNoLData.heightHint = 13;
-			txtBankAccountNoLData.horizontalIndent = 0;
-			txtBankAccountNoLData.horizontalSpan = 1;
-			txtBankAccountNoLData.verticalSpan = 1;
-			txtBankAccountNoLData.grabExcessHorizontalSpace = false;
-			txtBankAccountNoLData.grabExcessVerticalSpace = false;
 			txtBankAccountNo.setLayoutData(txtBankAccountNoLData);
 			txtBankAccountNo.setTextLimit(50);
-			txtBankAccountNo.setSize(new org.eclipse.swt.graphics.Point(254,13));
-	
+
 			GridData lblCurrencyLData = new GridData();
 			lblCurrencyLData.verticalAlignment = GridData.CENTER;
 			lblCurrencyLData.horizontalAlignment = GridData.BEGINNING;

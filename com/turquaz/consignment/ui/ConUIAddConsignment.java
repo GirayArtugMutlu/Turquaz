@@ -391,11 +391,10 @@ implements SecureComposite{
 
 										}
 									});
-								button1LData.widthHint = 56;
-								button1LData.heightHint = 23;
+								button1LData.widthHint = 58;
+								button1LData.heightHint = 31;
 								button1LData.verticalAlignment = GridData.BEGINNING;
-								btnChooseCurrentCard
-									.setLayoutData(button1LData);
+								btnChooseCurrentCard.setLayoutData(button1LData);
 							}
 							{
 								lblDocumentNo = new CLabel(
@@ -443,12 +442,12 @@ implements SecureComposite{
 								lblDate.setLayoutData(lblDateLData);
 							}
 							{
-								dateConsignmentDate = new DatePicker(
-									compInfoPanel,
-									SWT.EMBEDDED);
+								dateConsignmentDate = new DatePicker(compInfoPanel, SWT.NONE);
 								GridData dateConsignmentDateLData = new GridData();
-								dateConsignmentDateLData.widthHint = 113;
-								dateConsignmentDateLData.heightHint = 20;
+								dateConsignmentDate.setBackground(SWTResourceManager.getColor(255, 255, 255));
+								dateConsignmentDate.setFont(SWTResourceManager.getFont("Nimbus Sans L", 10, 1, false, false));
+								dateConsignmentDateLData.widthHint = 143;
+								dateConsignmentDateLData.heightHint = 30;
 								dateConsignmentDate.setLayoutData(dateConsignmentDateLData);
 							}
 							{
@@ -475,10 +474,9 @@ implements SecureComposite{
 								lblDiscountRate = new CLabel(compInfoPanel, SWT.LEFT);
 								lblDiscountRate.setText(Messages.getString("ConUIAddConsignment.8")); //$NON-NLS-1$
 								GridData lblDiscountRateLData = new GridData();
-								lblDiscountRateLData.widthHint = 79;
-								lblDiscountRateLData.heightHint = 17;
-								lblDiscountRate
-									.setLayoutData(lblDiscountRateLData);
+								lblDiscountRateLData.widthHint = 99;
+								lblDiscountRateLData.heightHint = 20;
+								lblDiscountRate.setLayoutData(lblDiscountRateLData);
 							}
 							{
 								txtDiscountRate = new NumericText(compInfoPanel, SWT.NONE);
@@ -804,8 +802,8 @@ implements SecureComposite{
                                     btnUpdateGroupsClick();
 								}
 								});
-							btnUpdateGroupsLData.widthHint = 112;
-							btnUpdateGroupsLData.heightHint = 22;
+							btnUpdateGroupsLData.widthHint = 147;
+							btnUpdateGroupsLData.heightHint = 35;
 							btnUpdateGroups.setLayoutData(btnUpdateGroupsLData);
 						}
 					}

@@ -118,8 +118,10 @@ SecureComposite, SearchComposite{
 				composite1 = new Composite(this, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
 				composite1Layout.numColumns = 2;
+				composite1Layout.horizontalSpacing = 0;
+				composite1Layout.verticalSpacing = 0;
 				GridData composite1LData = new GridData();
-				composite1LData.heightHint = 124;
+				composite1LData.heightHint = 152;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				composite1.setLayoutData(composite1LData);
@@ -140,8 +142,8 @@ SecureComposite, SearchComposite{
 							currentCardChoose();
 						}
 					});
-					txtCurCardLData.widthHint = 208;
-					txtCurCardLData.heightHint = 20;
+					txtCurCardLData.widthHint = 217;
+					txtCurCardLData.heightHint = 26;
 					txtCurCard.setLayoutData(txtCurCardLData);
 				}
 				{
@@ -156,7 +158,7 @@ SecureComposite, SearchComposite{
 					dateStartDate = new DatePicker(composite1, SWT.NONE);
 					GridData dateStartDateLData = new GridData();
 					dateStartDateLData.widthHint = 141;
-					dateStartDateLData.heightHint = 22;
+					dateStartDateLData.heightHint = 31;
 					dateStartDate.setLayoutData(dateStartDateLData);
 				}
 				{
@@ -170,8 +172,8 @@ SecureComposite, SearchComposite{
 				{
 					dateEndDate = new DatePicker(composite1, SWT.NONE);
 					GridData dateEndDateLData = new GridData();
-					dateEndDateLData.widthHint = 140;
-					dateEndDateLData.heightHint = 22;
+					dateEndDateLData.widthHint = 143;
+					dateEndDateLData.heightHint = 31;
 					dateEndDate.setLayoutData(dateEndDateLData);
 				}
 				{

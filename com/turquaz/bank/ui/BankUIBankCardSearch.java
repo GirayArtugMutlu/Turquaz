@@ -54,9 +54,16 @@ import org.eclipse.swt.custom.CCombo;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
 */
 public class BankUIBankCardSearch extends  Composite implements SecureComposite,SearchComposite {
 
@@ -211,15 +218,8 @@ public class BankUIBankCardSearch extends  Composite implements SecureComposite,
 			lblCurrency.setText(Messages.getString("BankUIBankCardSearch.3")); //$NON-NLS-1$
 	
 			GridData comboCurrencyLData = new GridData();
-			comboCurrencyLData.verticalAlignment = GridData.CENTER;
-			comboCurrencyLData.horizontalAlignment = GridData.BEGINNING;
-			comboCurrencyLData.widthHint = -1;
-			comboCurrencyLData.heightHint = -1;
-			comboCurrencyLData.horizontalIndent = 0;
-			comboCurrencyLData.horizontalSpan = 1;
-			comboCurrencyLData.verticalSpan = 1;
-			comboCurrencyLData.grabExcessHorizontalSpace = false;
-			comboCurrencyLData.grabExcessVerticalSpace = false;
+			comboCurrencyLData.widthHint = 34;
+			comboCurrencyLData.heightHint = 30;
 			comboCurrency.setLayoutData(comboCurrencyLData);
 			GridLayout composite1Layout = new GridLayout(2, true);
 			composite1.setLayout(composite1Layout);

@@ -187,6 +187,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			compAccountCard.setLayoutData(compAccountCardLData);
 			compAccountCard
 					.setSize(new org.eclipse.swt.graphics.Point(452, 116));
+			compAccountCard.getTxtParentAccount().setBounds(101, 92, 234, 23);
 			{
 				groupAccountBalance = new Group(dialogShell, SWT.NONE);
 				GridLayout groupAccountBalanceLayout = new GridLayout();
@@ -214,18 +215,18 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 					{
 						tableColDefinition = new TableColumn(tableAccBalance,
 								SWT.NONE);
-						tableColDefinition.setWidth(50);
+						tableColDefinition.setWidth(61);
 					}
 					{
 						tableColumnDebit = new TableColumn(tableAccBalance,
 								SWT.NONE);
-						tableColumnDebit.setText("Borç");
+						tableColumnDebit.setText(Messages.getString("AccUIAccountUpdate.1")); //$NON-NLS-1$
 						tableColumnDebit.setWidth(80);
 					}
 					{
 						tableColCredit = new TableColumn(tableAccBalance,
 								SWT.NONE);
-						tableColCredit.setText("Credit");
+						tableColCredit.setText(Messages.getString("AccUIAccountUpdate.2")); //$NON-NLS-1$
 						tableColCredit.setWidth(80);
 					}
 					{
@@ -321,14 +322,14 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 			if (list.size() > 0) {
 				Object[] sums = (Object[]) list.get(0);
 				if (sums[0] != null) {
-					tableItemTotal.setText(new String[] { "Toplam",
+					tableItemTotal.setText(new String[] { Messages.getString("AccUIAccountUpdate.4"), //$NON-NLS-1$
 							sums[0].toString(), sums[1].toString() });
 
 					BigDecimal credit = (BigDecimal) sums[0];
 					BigDecimal dept = (BigDecimal) sums[1];
 					BigDecimal balance = credit.subtract(dept);
 					if (balance.doubleValue() > 0) {
-						tableItemBalance.setText(new String[] { "Bakiye", "0",
+						tableItemBalance.setText(new String[] { Messages.getString("AccUIAccountUpdate.5"), "0", //$NON-NLS-1$ //$NON-NLS-2$
 								balance.toString() });
 
 					}
@@ -336,9 +337,9 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog {
 					else {
 						tableItemBalance
 								.setText(new String[] {
-										"Bakiye",
+										Messages.getString("AccUIAccountUpdate.8"), //$NON-NLS-1$
 										balance.multiply(new BigDecimal(-1))
-												.toString(), "0" });
+												.toString(), "0" }); //$NON-NLS-1$
 
 					}
 				}

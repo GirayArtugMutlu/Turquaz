@@ -362,8 +362,7 @@ implements SecureComposite{
 					tabItemGeneral.setText(Messages
 						.getString("BillUIBillFromConsignment.0")); //$NON-NLS-1$
 					tabItemGeneral.setImage(SWTResourceManager
-						.getImage(Messages
-							.getString("BillUIBillFromConsignment.1"))); //$NON-NLS-1$
+						.getImage("icons/Home16.gif")); //$NON-NLS-1$
 					{
 						compGeneral = new Composite(cTabFolder1, SWT.NONE);
 						GridLayout compGeneralLayout = new GridLayout();
@@ -375,10 +374,12 @@ implements SecureComposite{
 							GridData compInfoPanelLData = new GridData();
 							compInfoPanelLData.horizontalSpan = 2;
 							compInfoPanelLData.horizontalAlignment = GridData.FILL;
-							compInfoPanelLData.heightHint = 172;
+							compInfoPanelLData.heightHint = 188;
 							compInfoPanelLData.grabExcessHorizontalSpace = true;
 							compInfoPanel.setLayoutData(compInfoPanelLData);
 							compInfoPanelLayout.numColumns = 4;
+							compInfoPanelLayout.horizontalSpacing = 0;
+							compInfoPanelLayout.verticalSpacing = 2;
 							compInfoPanel.setLayout(compInfoPanelLayout);
 							{
 								lblConsignmet = new CLabel(
@@ -426,10 +427,9 @@ implements SecureComposite{
 									compInfoPanel,
 									SWT.NONE);
 								GridData dateConsDateLData = new GridData();
-								dateConsDate.setSize(113, 20);
 								dateConsDate.setEnabled(false);
 								dateConsDateLData.widthHint = 113;
-								dateConsDateLData.heightHint = 20;
+								dateConsDateLData.heightHint = 29;
 								dateConsDate.setLayoutData(dateConsDateLData);
 							}
 							{
@@ -493,14 +493,11 @@ implements SecureComposite{
 								lblDate.setLayoutData(lblDateLData);
 							}
 							{
-								dateBillDate = new DatePicker(
-									compInfoPanel,
-									SWT.EMBEDDED);
+								dateBillDate = new DatePicker(compInfoPanel, SWT.NONE);
 								GridData dateConsignmentDateLData = new GridData();
-								dateConsignmentDateLData.widthHint = 113;
-								dateConsignmentDateLData.heightHint = 20;
-								dateBillDate
-									.setLayoutData(dateConsignmentDateLData);
+								dateConsignmentDateLData.widthHint = 109;
+								dateConsignmentDateLData.heightHint = 31;
+								dateBillDate.setLayoutData(dateConsignmentDateLData);
 							}
 							{
 								lblType = new CLabel(compInfoPanel, SWT.LEFT);
@@ -526,10 +523,9 @@ implements SecureComposite{
 								comboConsignmentType.setEditable(false);
 								comboConsignmentType.setText(Messages
 									.getString("BillUIBillFromConsignment.9")); //$NON-NLS-1$
-								comboConsignmentTypeLData.widthHint = 80;
-								comboConsignmentTypeLData.heightHint = 16;
-								comboConsignmentType
-									.setLayoutData(comboConsignmentTypeLData);
+								comboConsignmentTypeLData.widthHint = 81;
+								comboConsignmentTypeLData.heightHint = 21;
+								comboConsignmentType.setLayoutData(comboConsignmentTypeLData);
 							}
 							{
 								lblDiscountRate = new CLabel(
@@ -578,8 +574,8 @@ implements SecureComposite{
 									compInfoPanel,
 									SWT.NONE);
 								GridData txtDefinitionLData = new GridData();
-								txtDefinitionLData.widthHint = 191;
-								txtDefinitionLData.heightHint = 34;
+								txtDefinitionLData.widthHint = 189;
+								txtDefinitionLData.heightHint = 29;
 								txtDefinition.setLayoutData(txtDefinitionLData);
 							}
 							{

@@ -127,8 +127,8 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 				lblAdmGroupDesc.setText(Messages.getString("AdmUIGroupAdd.1")); //$NON-NLS-1$
 				GridData lblAdmGroupDescLData = new GridData();
 				lblAdmGroupDescLData.verticalAlignment = GridData.BEGINNING;
-				lblAdmGroupDescLData.widthHint = 91;
-				lblAdmGroupDescLData.heightHint = 19;
+				lblAdmGroupDescLData.widthHint = 113;
+				lblAdmGroupDescLData.heightHint = 20;
 				lblAdmGroupDesc.setLayoutData(lblAdmGroupDescLData);
 			}
 			{
