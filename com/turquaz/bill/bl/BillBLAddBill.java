@@ -169,9 +169,8 @@ public class BillBLAddBill {
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
-			dalBill.save(transRow);
 			
-	        }
+			dalBill.save(transRow);
 			
 			/**
 			 * 2-Kdv hesabini gir
@@ -179,7 +178,7 @@ public class BillBLAddBill {
 			transRow = new TurqAccountingTransactionColumn();
 			
 			//191 olarak degistir...
-			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("191"));
+			transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdVAT());
 			transRow.setTurqAccountingTransaction(accTrans);
 			
 			transRow.setCreditAmount(new BigDecimal(0));
@@ -194,6 +193,12 @@ public class BillBLAddBill {
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
 			dalBill.save(transRow);
+			
+			
+			
+	        }
+			
+			
 		
 			
 			/**
@@ -354,18 +359,14 @@ public class BillBLAddBill {
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
 			dalBill.save(transRow);
-			
-	        }
-			
 			/**
 			 * 2-Kdv hesabini gir
 			 */
 			transRow = new TurqAccountingTransactionColumn();
 			
 			//391 olarak degistir
-			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("391"));
+			transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdVATSell());
 			transRow.setTurqAccountingTransaction(accTrans);
-			
 			transRow.setCreditAmount(common.getVatAmount());
 			transRow.setDeptAmount(new BigDecimal(0));
 			
@@ -378,7 +379,7 @@ public class BillBLAddBill {
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
 			dalBill.save(transRow);
-			
+
 			
 			
 			/**
@@ -387,7 +388,7 @@ public class BillBLAddBill {
 			transRow = new TurqAccountingTransactionColumn();
 			
 			//360 olarak degistir
-			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("360"));
+			transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdSpecialVATSell());
 			transRow.setTurqAccountingTransaction(accTrans);
 			
 			transRow.setCreditAmount(common.getSpecialVatAmount());
@@ -402,6 +403,10 @@ public class BillBLAddBill {
 			transRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			
 			dalBill.save(transRow);
+	        }
+			
+			
+			
 			/**
 			 * 4- Cari Kayd?n? Yap
 			 *  

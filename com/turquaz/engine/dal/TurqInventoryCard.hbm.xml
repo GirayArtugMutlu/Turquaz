@@ -136,6 +136,40 @@
     >
         <column name="accounting_accounts_id_buy" />
     </many-to-one>
+     <many-to-one
+        name="turqAccountingAccountByAccountingAccountsIdVAT"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="accounting_accounts_id_vat" />
+    </many-to-one>
+    <many-to-one
+        name="turqAccountingAccountByAccountingAccountsIdSpecialVAT"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="accounting_accounts_id_special_vat" />
+    </many-to-one>
+    
+    <many-to-one
+        name="turqAccountingAccountByAccountingAccountsIdVATSell"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="accounting_accounts_id_vat_sell" />
+    </many-to-one>
+    
+    <many-to-one
+        name="turqAccountingAccountByAccountingAccountsIdSpecialVATSell"
+        class="com.turquaz.engine.dal.TurqAccountingAccount"
+        not-null="true"
+    >
+        <column name="accounting_accounts_id_special_vat_sell" />
+    </many-to-one>
+    
+    
+    
+    
     <!-- bi-directional one-to-many association to TurqInventoryPrice -->
     <set
         name="turqInventoryPrices"

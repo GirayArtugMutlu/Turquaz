@@ -183,7 +183,10 @@ public class InvBLCardAdd {
 	public Integer saveInvCard(String invCode, 
 			String cardName, String cardDefinition, int minAmount,
 			int maxAmount, int cardVat, int discount,TurqAccountingAccount accountBuy,
-			TurqAccountingAccount accountSell,int cardSpecialVat, BigDecimal cardSpecialVatEach) throws Exception {
+			TurqAccountingAccount accountSell,int cardSpecialVat, BigDecimal cardSpecialVatEach,
+			TurqAccountingAccount accountVAT, TurqAccountingAccount accountSpecialVAT, 
+			TurqAccountingAccount accountVATSell, TurqAccountingAccount accountSpecialVATSell
+	        ) throws Exception {
 
 		try {			
 
@@ -203,7 +206,10 @@ public class InvBLCardAdd {
 			card.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			card.setTurqAccountingAccountByAccountingAccountsIdBuy(accountBuy);
 			card.setTurqAccountingAccountByAccountingAccountsIdSell(accountSell);
-
+            card.setTurqAccountingAccountByAccountingAccountsIdVAT(accountVAT);
+            card.setTurqAccountingAccountByAccountingAccountsIdSpecialVAT(accountSpecialVAT);
+            card.setTurqAccountingAccountByAccountingAccountsIdSpecialVATSell(accountSpecialVATSell);
+            card.setTurqAccountingAccountByAccountingAccountsIdVATSell(accountVATSell);
 			cardAdd.saveOrUpdateInvCard(card);
 
 			return card.getInventoryCardsId();

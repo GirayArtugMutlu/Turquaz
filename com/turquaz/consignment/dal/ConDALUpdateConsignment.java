@@ -77,7 +77,7 @@ public class ConDALUpdateConsignment {
 	public void initiliazeConsignment(TurqConsignment cons)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+		
 			
 			session.refresh(cons);
 			Hibernate.initialize(cons.getTurqEngineSequence()
@@ -86,8 +86,7 @@ public class ConDALUpdateConsignment {
 					.getTurqBills());
 			Hibernate.initialize(cons.getTurqConsignmentsInGroups());
 			
-			session.flush();
-			tx.commit();
+			
 			session.close();
 			
 			}

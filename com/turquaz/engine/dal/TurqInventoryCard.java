@@ -56,7 +56,20 @@ public class TurqInventoryCard implements Serializable {
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy;
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVAT;
 
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSpecialVAT;
+
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVATSell;
+
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdSpecialVATSell;
+  
+    
+    
     /** persistent field */
     private Set turqInventoryPrices;
 
@@ -223,7 +236,50 @@ public class TurqInventoryCard implements Serializable {
     public void setTurqAccountingAccountByAccountingAccountsIdBuy(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdBuy) {
         this.turqAccountingAccountByAccountingAccountsIdBuy = turqAccountingAccountByAccountingAccountsIdBuy;
     }
+    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdVAT() {
+        return this.turqAccountingAccountByAccountingAccountsIdVAT;
+    }
 
+    public void setTurqAccountingAccountByAccountingAccountsIdVAT(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVAT) {
+        this.turqAccountingAccountByAccountingAccountsIdVAT = turqAccountingAccountByAccountingAccountsIdVAT;
+    }
+    
+    
+    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdVATSell() {
+        return this.turqAccountingAccountByAccountingAccountsIdVATSell;
+    }
+
+    public void setTurqAccountingAccountByAccountingAccountsIdVATSell(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVATSell) {
+        this.turqAccountingAccountByAccountingAccountsIdVATSell = turqAccountingAccountByAccountingAccountsIdSpecialVATSell;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdSpecialVAT() {
+        return this.turqAccountingAccountByAccountingAccountsIdSpecialVAT;
+    }
+
+    public void setTurqAccountingAccountByAccountingAccountsIdSpecialVAT(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVAT) {
+        this.turqAccountingAccountByAccountingAccountsIdSpecialVAT = turqAccountingAccountByAccountingAccountsIdVAT;
+    }
+    
+    
+    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccountByAccountingAccountsIdSpecialVATSell() {
+        return this.turqAccountingAccountByAccountingAccountsIdSpecialVATSell;
+    }
+
+    public void setTurqAccountingAccountByAccountingAccountsIdSpecialVATSell(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccountByAccountingAccountsIdVAT) {
+        this.turqAccountingAccountByAccountingAccountsIdSpecialVATSell = turqAccountingAccountByAccountingAccountsIdVAT;
+    }
+    
+    
+    
+    
     public java.util.Set getTurqInventoryPrices() {
         return this.turqInventoryPrices;
     }

@@ -120,7 +120,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
 		SWTResourceManager.registerResourceUser(this);
-	}
+    }
 
 	private TableViewer tableInvPricesViewer;
 	private TableColumn tableColumnCurrency;
@@ -141,6 +141,14 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	public HashMap mapEditorsTableInvCardAddRegisteredUnits;
 
 	private TableColumn tableColumnUnitCoefficient;
+	private AccountPicker accountPickerSpecVatSell;
+	private CLabel cLabel2;
+	private AccountPicker accountPickerVATSell;
+	private CLabel cLabel1;
+	private AccountPicker accountPickerSpecVAT;
+	private CLabel lblAccSpecVAT;
+	private AccountPicker accountPickerVAT;
+	private CLabel lblAccVat;
 
 	private TableColumn tableColumn2;
 
@@ -409,6 +417,74 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					txtInvCardOutAccLData.heightHint = 18;
 					txtInvCardOutAcc.setLayoutData(txtInvCardOutAccLData);
 					txtInvCardOutAcc.setEnabled(true);
+				}
+				{
+					lblAccVat = new CLabel(compInvCardDetails, SWT.RIGHT);
+					lblAccVat.setText("Alis K.D.V Muh. Kodu");
+					GridData lblAccVatLData = new GridData();
+					lblAccVatLData.widthHint = 138;
+					lblAccVatLData.heightHint = 19;
+					lblAccVat.setLayoutData(lblAccVatLData);
+				}
+				{
+					accountPickerVAT = new AccountPicker(
+						compInvCardDetails,
+						SWT.NONE);
+						GridData accountPickerVATLData = new GridData();
+						accountPickerVATLData.widthHint = 143;
+						accountPickerVATLData.heightHint = 19;
+						accountPickerVAT.setLayoutData(accountPickerVATLData);
+				}
+				{
+					lblAccSpecVAT = new CLabel(compInvCardDetails, SWT.RIGHT);
+					lblAccSpecVAT.setText("Alis ÖTV Muh. Kodu");
+					GridData lblAccSpecVATLData = new GridData();
+					lblAccSpecVATLData.widthHint = 131;
+					lblAccSpecVATLData.heightHint = 16;
+					lblAccSpecVAT.setLayoutData(lblAccSpecVATLData);
+				}
+				{
+					accountPickerSpecVAT = new AccountPicker(
+						compInvCardDetails,
+						SWT.NONE);
+					GridData accountPickerSpecVATLData = new GridData();
+					accountPickerSpecVATLData.widthHint = 156;
+					accountPickerSpecVATLData.heightHint = 14;
+					accountPickerSpecVAT.setLayoutData(accountPickerSpecVATLData);
+				}
+				{
+					cLabel1 = new CLabel(compInvCardDetails, SWT.RIGHT);
+					cLabel1.setText("Satis K.D.V Muh. Kodu");
+					GridData cLabel1LData = new GridData();
+					cLabel1LData.widthHint = 142;
+					cLabel1LData.heightHint = 19;
+					cLabel1.setLayoutData(cLabel1LData);
+				}
+				{
+					accountPickerVATSell = new AccountPicker(
+						compInvCardDetails,
+						SWT.NONE);
+					GridData accountPicker1LData = new GridData();
+					accountPicker1LData.widthHint = 143;
+					accountPicker1LData.heightHint = 19;
+					accountPickerVATSell.setLayoutData(accountPicker1LData);
+				}
+				{
+					cLabel2 = new CLabel(compInvCardDetails, SWT.RIGHT);
+					cLabel2.setText("Satis ÖTV Muh. Kodu");
+					GridData cLabel2LData = new GridData();
+					cLabel2LData.widthHint = 131;
+					cLabel2LData.heightHint = 16;
+					cLabel2.setLayoutData(cLabel2LData);
+				}
+				{
+					accountPickerSpecVatSell = new AccountPicker(
+						compInvCardDetails,
+						SWT.NONE);
+					GridData accountPicker2LData = new GridData();
+					accountPicker2LData.widthHint = 156;
+					accountPicker2LData.heightHint = 14;
+					accountPickerSpecVatSell.setLayoutData(accountPicker2LData);
 				}
 				{
 					lblInvCardVat = new CLabel(compInvCardDetails, SWT.RIGHT);
@@ -1587,6 +1663,12 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 			
 			TurqAccountingAccount accountIdSell = (TurqAccountingAccount) txtInvCardOutAcc.getData();
 			TurqAccountingAccount accountIdBuy = (TurqAccountingAccount) txtInvCardInAcc.getData();
+			TurqAccountingAccount accountIdVAt = (TurqAccountingAccount) accountPickerVAT.getData();
+			TurqAccountingAccount accountIdSpecialVAT = (TurqAccountingAccount) accountPickerSpecVAT.getData();
+			TurqAccountingAccount accountIdVAtSell = (TurqAccountingAccount) accountPickerVATSell.getData();
+			TurqAccountingAccount accountIdSpecialVATSell = (TurqAccountingAccount) accountPickerSpecVatSell.getData();
+			
+			 
 			try {
 
 				// Save inventory card
@@ -1597,7 +1679,9 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 								.getIntValue(), txtnumInvCardMax.getIntValue(),
 								txtInvCardVat.getIntValue(), txtInvCardDiscount
 								.getIntValue(), accountIdBuy, accountIdSell,numTextSpecailVATPercent.getIntValue()
-								,decTextSpecialVatAmount.getBigDecimalValue());
+								,decTextSpecialVatAmount.getBigDecimalValue(),
+								accountIdVAt, accountIdSpecialVAT,
+								accountIdVAtSell,accountIdSpecialVATSell);
 
 				
 
@@ -2044,5 +2128,54 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	}
 	public void setTxtInvCardOutAcc(AccountPicker txtInvCardOutAcc) {
 		this.txtInvCardOutAcc = txtInvCardOutAcc;
+	}
+	/**
+	 * @return Returns the accountPickerSpecVAT.
+	 */
+	public AccountPicker getAccountPickerSpecVAT() {
+		return accountPickerSpecVAT;
+	}
+	/**
+	 * @param accountPickerSpecVAT The accountPickerSpecVAT to set.
+	 */
+	public void setAccountPickerSpecVAT(AccountPicker accountPickerSpecVAT) {
+		this.accountPickerSpecVAT = accountPickerSpecVAT;
+	}
+	/**
+	 * @return Returns the accountPickerVAT.
+	 */
+	public AccountPicker getAccountPickerVAT() {
+		return accountPickerVAT;
+	}
+	/**
+	 * @param accountPickerVAT The accountPickerVAT to set.
+	 */
+	public void setAccountPickerVAT(AccountPicker accountPickerVAT) {
+		this.accountPickerVAT = accountPickerVAT;
+	}
+	/**
+	 * @return Returns the accountPickerSpecVatSell.
+	 */
+	public AccountPicker getAccountPickerSpecVatSell() {
+		return accountPickerSpecVatSell;
+	}
+	/**
+	 * @param accountPickerSpecVatSell The accountPickerSpecVatSell to set.
+	 */
+	public void setAccountPickerSpecVatSell(
+			AccountPicker accountPickerSpecVatSell) {
+		this.accountPickerSpecVatSell = accountPickerSpecVatSell;
+	}
+	/**
+	 * @return Returns the accountPickerVATSell.
+	 */
+	public AccountPicker getAccountPickerVATSell() {
+		return accountPickerVATSell;
+	}
+	/**
+	 * @param accountPickerVATSell The accountPickerVATSell to set.
+	 */
+	public void setAccountPickerVATSell(AccountPicker accountPickerVATSell) {
+		this.accountPickerVATSell = accountPickerVATSell;
 	}
 }

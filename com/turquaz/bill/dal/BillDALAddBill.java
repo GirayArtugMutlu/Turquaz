@@ -49,7 +49,7 @@ public class BillDALAddBill {
 		try{
 		
 		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+
 		session.refresh(bill);
 		
 	    Hibernate.initialize(bill.getTurqBillConsignmentCommon().getTurqConsignments());
@@ -60,14 +60,14 @@ public class BillDALAddBill {
 		  TurqConsignment cons = (TurqConsignment)it.next();	
 		
 		  Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
+		  System.out.println(cons.getTurqEngineSequence().getTurqInventoryTransactions());
 		  
-		  session.flush();
-		  tx.commit();
 		  session.close();
 		
 		  return cons.getTurqEngineSequence().getTurqInventoryTransactions();
 		}
 		else 
+			session.close();
 			return null;
 		
 		
@@ -75,5 +75,6 @@ public class BillDALAddBill {
 		catch(Exception ex){
 			throw ex;
 		}
+		
 	}
 }

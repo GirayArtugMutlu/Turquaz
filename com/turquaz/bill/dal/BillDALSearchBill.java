@@ -65,7 +65,7 @@ public class BillDALSearchBill {
 	public void initializeBill(TurqBill bill)throws Exception{
 	    try{
 	    	Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
+			
 			session.refresh(bill);
 			
 			Hibernate.initialize(bill.getTurqBillInGroups());
@@ -79,8 +79,6 @@ public class BillDALSearchBill {
 			}			
 			
 			
-			session.flush();
-			tx.commit();
 			session.close();
 	        
 	        
