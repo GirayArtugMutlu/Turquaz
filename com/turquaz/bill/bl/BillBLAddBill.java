@@ -181,14 +181,14 @@ public class BillBLAddBill {
 			/**
 			 * 2-Kdv hesabini gir
 			 */
-			if (!common.getVatAmount().equals(new BigDecimal(0))){
+			if (invTrans.getTransactionsVatAmount().compareTo(new BigDecimal(0))==1){
 				transRow = new TurqAccountingTransactionColumn();
 			
 				transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdVat());
 				
 			
 				transRow.setCreditAmount(new BigDecimal(0));
-				transRow.setDeptAmount(common.getVatAmount());
+				transRow.setDeptAmount(invTrans.getTransactionsVatAmount());
 			
 //				 set Transaction Row Definition
 				transRow.setTransactionDefinition("Fat."+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
@@ -204,7 +204,7 @@ public class BillBLAddBill {
 			/**
 			 * OTV Hesabini gir. 
 			 */
-			if (!common.getSpecialVatAmount().equals(new BigDecimal(0))){
+			if (invTrans.getTransactionsVatSpecialAmount().compareTo(new BigDecimal(0))==1){
 				transRow = new TurqAccountingTransactionColumn();
 			
 		
@@ -212,7 +212,7 @@ public class BillBLAddBill {
 				
 			
 				transRow.setCreditAmount(new BigDecimal(0));
-				transRow.setDeptAmount(common.getSpecialVatAmount());
+				transRow.setDeptAmount(invTrans.getTransactionsVatSpecialAmount());
 			
 //				 set Transaction Row Definition
 				transRow.setTransactionDefinition("Fat."+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
@@ -387,13 +387,13 @@ public class BillBLAddBill {
 			/**
 			 * 2-Kdv hesabini gir
 			 */
-			if (!common.getVatAmount().equals(new BigDecimal(0))){
+			if (invTrans.getTransactionsVatAmount().compareTo(new BigDecimal(0))==1){
 				transRow = new TurqAccountingTransactionColumn();
 			
 				//391 olarak degistir
 				transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdVatSell());
 				
-				transRow.setCreditAmount(common.getVatAmount());
+				transRow.setCreditAmount(invTrans.getTransactionsVatAmount());
 				transRow.setDeptAmount(new BigDecimal(0));
 			
 //				 set Transaction Row Definition
@@ -412,14 +412,14 @@ public class BillBLAddBill {
 			/**
 			 *3- Ötv hesabini gir
 			 */
-			if (!common.getSpecialVatAmount().equals(new BigDecimal(0))){
+			if (invTrans.getTransactionsVatSpecialAmount().compareTo(new BigDecimal(0))==1){
 				transRow = new TurqAccountingTransactionColumn();
 			
 				//360 olarak degistir
 				transRow.setTurqAccountingAccount(invTrans.getTurqInventoryCard().getTurqAccountingAccountByAccountingAccountsIdSpecialVatSell());
 			
 			
-				transRow.setCreditAmount(common.getSpecialVatAmount());
+				transRow.setCreditAmount(invTrans.getTransactionsVatSpecialAmount());
 				transRow.setDeptAmount(new BigDecimal(0));
 			
 //				 set Transaction Row Definition
