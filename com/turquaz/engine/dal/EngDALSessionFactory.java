@@ -19,6 +19,8 @@ package com.turquaz.engine.dal;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+import org.eclipse.core.internal.preferences.Base64;
+
 import com.turquaz.engine.EngConfiguration;
 
 import net.sf.hibernate.Session;
@@ -51,6 +53,7 @@ public class EngDALSessionFactory {
 		String url = "jdbc:postgresql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort")+"/"+EngConfiguration.getString("dbName");
 		String username = EngConfiguration.getString("dbUsername");
 		String password = EngConfiguration.getString("dbPassword");
+		password = new String(Base64.decode(password.getBytes()));
 		String driver = "org.postgresql.Driver";
 		
 		Configuration cfg =new Configuration();

@@ -59,6 +59,7 @@ public class EngUIDatabaseConnectionWizard extends Wizard {
 		String serverAddress= page2.getTxtServerAddress().getText();
 		String serverPort = page2.getTxtServerPort().getText();
 		String dbName = page3.getComboDatabases().getText();
+		password = org.eclipse.core.internal.preferences.Base64.encode(password.getBytes()).toString();
 		
 	   Properties props = new Properties();	
 		props.setProperty("dbType",dbType);

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
 
+import org.eclipse.core.internal.preferences.Base64;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
@@ -99,7 +100,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(398, 146);
+			this.setSize(417, 145);
 			{
 				lblUserName = new CLabel(this, SWT.NONE);
 				lblUserName.setText("Username");
@@ -187,8 +188,9 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			    Properties props = new Properties();
 			    props.load(input);
 			    
+			    String password = new String(org.eclipse.core.internal.preferences.Base64.encode(txtPassword.getText().getBytes()));
 			    props.put("username",txtUserName.getText());
-			    props.put("password",txtPassword.getText());
+			    props.put("password",password);
 			    input.close();
 			    
 			    FileOutputStream output = new FileOutputStream("config/turquaz.properties");
@@ -237,13 +239,16 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	String password = EngConfiguration.getString("password");
 	
 	if(username!=null&&password!=null){
-	txtPassword.setText(password);
+	
+		
+	txtPassword.setText(new String(Base64.decode(password.getBytes())));
 	txtUserName.setText(username);	
 		
 	}
 	else{
 		txtPassword.setText("admin");
 		txtUserName.setText("admin");
+		
 		
 	}
 	
