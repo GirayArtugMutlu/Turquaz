@@ -247,21 +247,21 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 
 	public void fillInvTransactionColumns()
 	{
-		compAddConsignment.rowList.removeAll();
+		compAddConsignment.tableViewer.removeAll();
 		TableItem item;
 		TurqInventoryTransaction invTrans;
 		Iterator it = consignment.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
 		while (it.hasNext())
 		{
 			invTrans = (TurqInventoryTransaction) it.next();
-			InvUITransactionTableRow row = new InvUITransactionTableRow(compAddConsignment.rowList, consignment.getConsignmentsType(),
+			InvUITransactionTableRow row = new InvUITransactionTableRow( consignment.getConsignmentsType(),
 					compAddConsignment.tableViewer);
 			row.setDBObject(invTrans);
-			compAddConsignment.rowList.addTask(row);
+			compAddConsignment.tableViewer.addRow(row);
 		}
-		InvUITransactionTableRow row2 = new InvUITransactionTableRow(compAddConsignment.rowList, consignment.getConsignmentsType(),
+		InvUITransactionTableRow row2 = new InvUITransactionTableRow( consignment.getConsignmentsType(),
 				compAddConsignment.tableViewer);
-		compAddConsignment.rowList.addTask(row2);
+		compAddConsignment.tableViewer.addRow(row2);
 		compAddConsignment.calculateTotals();
 	}
 

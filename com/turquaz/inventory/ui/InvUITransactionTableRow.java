@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -18,6 +17,7 @@ import com.turquaz.engine.dal.TurqInventoryTransactionType;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.engine.ui.viewers.SaveTableViewer;
 import com.turquaz.engine.ui.viewers.TableRowList;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.inventory.bl.InvBLCardSearch;
@@ -59,7 +59,7 @@ public class InvUITransactionTableRow implements ITableRow
 	TurqInventoryUnit base_unit;
 	int base_unit_index = -1;
 	InvBLCardSearch blCardSearch = new InvBLCardSearch();
-	TableViewer tableViewer;
+	SaveTableViewer tableViewer;
 	BigDecimal transAmount = new BigDecimal(0);
 	BigDecimal transAmountinBaseUnit = new BigDecimal(0);
 	TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
@@ -68,10 +68,10 @@ public class InvUITransactionTableRow implements ITableRow
 	/*
 	 * type 0 = Buy type 1 = Sell
 	 */
-	public InvUITransactionTableRow(TableRowList rowList, int type, TableViewer viewer)
+	public InvUITransactionTableRow(int type, SaveTableViewer viewer)
 	{
 		this.tableViewer = viewer;
-		this.rowList = rowList;
+		this.rowList = viewer.getRowList();
 		this.transType = type;
 		invTrans.setTransactionsAmountIn(new BigDecimal(0));
 		invTrans.setTransactionsTotalAmountOut(new BigDecimal(0));
@@ -611,7 +611,7 @@ public class InvUITransactionTableRow implements ITableRow
 	{
 		try
 		{
-			ComboBoxCellEditor editor = (ComboBoxCellEditor) tableViewer.getCellEditors()[3];
+			ComboBoxCellEditor editor = (ComboBoxCellEditor) tableViewer.getViewer().getCellEditors()[3];
 			if (getUnits() != null)
 			{
 				editor.setItems(getUnits());

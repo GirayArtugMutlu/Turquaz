@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
@@ -56,11 +55,8 @@ import com.turquaz.engine.ui.editors.AccountingCellEditor;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.ITableRowListViewer;
-import com.turquaz.engine.ui.viewers.TableRowList;
+import com.turquaz.engine.ui.viewers.SaveTableViewer;
 import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
-import com.turquaz.engine.ui.viewers.TurquazCellModifier;
-import com.turquaz.engine.ui.viewers.TurquazContentProvider;
-import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.accounting.ui.comp.CashAccountPicker;
 import org.eclipse.swt.custom.CCombo;
@@ -123,10 +119,9 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	private final String DEBIT = Messages.getString("AccUITransactionPayment.11"); //$NON-NLS-1$
 	TableCursor cursor;
 	private List columnList = new ArrayList();
-	TableRowList rowList = new TableRowList();
 	// Set column names
 	private String[] columnNames = new String[]{ACCOUNT_CODE, ACCOUNT_NAME, DEFINITION, DEBIT};
-	public TableViewer tableViewer;
+	public SaveTableViewer tableViewer;
 
 	public AccUITransactionPayment(Composite parent, int style)
 	{
@@ -282,21 +277,21 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 		for (int i = 0; i < EngBLCommon.TABLE_ROW_COUNT; i++)
 		{
 			//			enter empty table rows.
-			AccUITransactionPaymentTableRow row = new AccUITransactionPaymentTableRow(rowList);
-			rowList.addTask(row);
+			AccUITransactionPaymentTableRow row = new AccUITransactionPaymentTableRow(tableViewer.getRowList());
+			tableViewer.addRow(row);
 		}
-		rowList.addChangeListener(new ITableRowListViewer()
+		tableViewer.addChangeListener(new ITableRowListViewer()
 		{
 			public void updateRow(ITableRow row)
 			{
-				Vector vec = rowList.getTasks();
+				Vector vec = tableViewer.getRowList().getTasks();
 				int index = vec.indexOf(row);
 				if (index == vec.size() - 1)
 				{
 					if (row.okToSave())
 					{
-						AccUITransactionPaymentTableRow row2 = new AccUITransactionPaymentTableRow(rowList);
-						rowList.addTask(row2);
+						AccUITransactionPaymentTableRow row2 = new AccUITransactionPaymentTableRow(tableViewer.getRowList());
+						tableViewer.addRow(row2);
 					}
 				}
 			}
@@ -414,24 +409,17 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 		columnList.add(ACCOUNT_NAME);
 		columnList.add(DEFINITION);
 		columnList.add(DEBIT);
-		tableViewer = new TableViewer(tableTransactionRows);
-		tableViewer.setUseHashlookup(true);
-		tableViewer.setColumnProperties(columnNames);
+		
 		//     Create the cell editors
 		CellEditor[] editors = new CellEditor[columnNames.length];
 		editors[0] = new AccountingCellEditor(tableTransactionRows);
 		editors[1] = new TextCellEditor(tableTransactionRows);
 		editors[2] = new TextCellEditor(tableTransactionRows);
 		editors[3] = new CurrencyCellEditor(tableTransactionRows, 2);
+		tableViewer = new SaveTableViewer(tableTransactionRows,editors);
 		// Assign the cell editors to the viewer
-		tableViewer.setCellEditors(editors);
-		TurquazContentProvider contentProvider = new TurquazContentProvider(tableViewer, rowList);
-		tableViewer.setCellModifier(new TurquazCellModifier(columnList, contentProvider));
-		tableViewer.setContentProvider(contentProvider);
-		tableViewer.setLabelProvider(new TurquazLabelProvider());
-		tableViewer.setInput(rowList);
 		// create a TableCursor to navigate around the table
-		cursor = new TableSpreadsheetCursor(tableTransactionRows, SWT.NONE, tableViewer, rowList, true);
+		cursor = new TableSpreadsheetCursor(tableTransactionRows, SWT.NONE, tableViewer, true);
 		cursor.setEnabled(true);
 		cursor.addSelectionListener(new SelectionAdapter()
 		{

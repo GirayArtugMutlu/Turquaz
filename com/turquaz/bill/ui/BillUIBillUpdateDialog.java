@@ -17,13 +17,11 @@ import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
-import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -39,14 +37,12 @@ import org.eclipse.swt.SWT;
 public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 {
 	private Shell dialogShell;
-	private CoolItem coolItem1;
 	private ToolItem toolUpdate;
 	private ToolItem toolPrint;
 	private ToolItem toolCancel;
 	private BillUIAddBill compAddBill;
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
-	private CoolBar coolBar1;
 	private TurqBill bill;
 	ConBLUpdateConsignment blUpdateCons = new ConBLUpdateConsignment();
 	private boolean updated = false;
@@ -83,72 +79,52 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShell.pack();
 			dialogShell.setSize(690, 562);
 			{
-				coolBar1 = new CoolBar(dialogShell, SWT.NONE);
-				GridData coolBar1LData = new GridData();
-				coolBar1LData.heightHint = 46;
-				coolBar1LData.horizontalAlignment = GridData.FILL;
-				coolBar1LData.grabExcessHorizontalSpace = true;
-				coolBar1.setLayoutData(coolBar1LData);
+				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
+				GridData toolBar1LData = new GridData();
+				toolBar1LData.horizontalAlignment = GridData.FILL;
+				toolBar1LData.grabExcessHorizontalSpace = true;
+				toolBar1.setLayoutData(toolBar1LData);
 				{
-					coolItem1 = new CoolItem(coolBar1, SWT.NONE);
-					coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(45, 42));
-					coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(45, 42));
-					coolItem1.setSize(45, 42);
-					{
-						toolBar1 = new ToolBar(coolBar1, SWT.NONE);
-						coolItem1.setControl(toolBar1);
-						{
-							toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-							toolUpdate.setText(Messages.getString("BillUIBillUpdateDialog.0")); //$NON-NLS-1$
-							toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
-							toolUpdate.addSelectionListener(new SelectionAdapter()
-							{
-								public void widgetSelected(SelectionEvent evt)
-								{
-									update();
-								}
-							});
+					toolUpdate = new ToolItem(toolBar1, SWT.NONE);
+					toolUpdate.setText(Messages.getString("BillUIBillUpdateDialog.0")); //$NON-NLS-1$
+					toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
+					toolUpdate.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							update();
 						}
-						{
-							toolDelete = new ToolItem(toolBar1, SWT.NONE);
-							toolDelete.setText(Messages.getString("BillUIBillUpdateDialog.2")); //$NON-NLS-1$
-							toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
-							toolDelete.addSelectionListener(new SelectionAdapter()
-							{
-								public void widgetSelected(SelectionEvent evt)
-								{
-									delete();
-								}
-							});
+					});
+				}
+				{
+					toolDelete = new ToolItem(toolBar1, SWT.NONE);
+					toolDelete.setText(Messages.getString("BillUIBillUpdateDialog.2")); //$NON-NLS-1$
+					toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
+					toolDelete.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							delete();
 						}
-						{
-							toolCancel = new ToolItem(toolBar1, SWT.NONE);
-							toolCancel.setText(Messages.getString("BillUIBillUpdateDialog.4")); //$NON-NLS-1$
-							toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
-							toolCancel.addSelectionListener(new SelectionAdapter()
-							{
-								public void widgetSelected(SelectionEvent evt)
-								{
-									dialogShell.close();
-								}
-							});
+					});
+				}
+				{
+					toolCancel = new ToolItem(toolBar1, SWT.NONE);
+					toolCancel.setText(Messages.getString("BillUIBillUpdateDialog.4")); //$NON-NLS-1$
+					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+					toolCancel.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							dialogShell.close();
 						}
-						{
-							toolPrint = new ToolItem(toolBar1, SWT.NONE);
-							toolPrint.setText(Messages.getString("BillUIBillUpdateDialog.5")); //$NON-NLS-1$
-							toolPrint.setImage(SWTResourceManager.getImage("gfx/print.gif")); //$NON-NLS-1$
-							toolPrint.addSelectionListener(new SelectionAdapter()
-							{
-								public void widgetSelected(SelectionEvent evt)
-								{
-									boolean answer = EngUICommon.okToDelete(getParent(), Messages
-											.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
-									dialogShell.close();
-									EngBLUtils.printBill(bill, answer);
-								}
-							});
+					});
+				}
+				{
+					toolPrint = new ToolItem(toolBar1, SWT.NONE);
+					toolPrint.setText(Messages.getString("BillUIBillUpdateDialog.5")); //$NON-NLS-1$
+					toolPrint.setImage(SWTResourceManager.getImage("gfx/print.gif")); //$NON-NLS-1$
+					toolPrint.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							boolean answer = EngUICommon.okToDelete(getParent(), Messages.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
+							dialogShell.close();
+							EngBLUtils.printBill(bill, answer);
 						}
-					}
+					});
 				}
 			}
 			{
@@ -232,7 +208,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 
 	public void fillInvTransactionColumns()
 	{
-		compAddBill.rowList.removeAll();
+		compAddBill.tableViewer.removeAll();
 		TableItem item;
 		TurqInventoryTransaction invTrans;
 		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
@@ -243,14 +219,14 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			while (it2.hasNext())
 			{
 				invTrans = (TurqInventoryTransaction) it2.next();
-				InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.rowList, compAddBill.BILL_TYPE,
+				InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.BILL_TYPE,
 						compAddBill.tableViewer);
 				row.setDBObject(invTrans);
-				compAddBill.rowList.addTask(row);
+				compAddBill.tableViewer.addRow(row);
 			}
 		}
-		InvUITransactionTableRow row2 = new InvUITransactionTableRow(compAddBill.rowList, compAddBill.BILL_TYPE, compAddBill.tableViewer);
-		compAddBill.rowList.addTask(row2);
+		InvUITransactionTableRow row2 = new InvUITransactionTableRow(compAddBill.BILL_TYPE, compAddBill.tableViewer);
+		compAddBill.tableViewer.addRow(row2);
 		compAddBill.calculateTotals();
 	}
 

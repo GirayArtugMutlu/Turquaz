@@ -716,7 +716,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 
 	public void fillInvTransactionColumns()
 	{
-		compAddBill.rowList.removeAll();
+		compAddBill.tableViewer.removeAll();
 		TableItem item;
 		TurqInventoryTransaction invTrans;
 		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
@@ -727,14 +727,14 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			while (it2.hasNext())
 			{
 				invTrans = (TurqInventoryTransaction) it2.next();
-				InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.rowList, compAddBill.BILL_TYPE,
+				InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.BILL_TYPE,
 						compAddBill.tableViewer);
 				row.setDBObject(invTrans);
-				compAddBill.rowList.addTask(row);
+				compAddBill.tableViewer.addRow(row);
 			}
 		}
-		InvUITransactionTableRow row2 = new InvUITransactionTableRow(compAddBill.rowList, compAddBill.BILL_TYPE, compAddBill.tableViewer);
-		compAddBill.rowList.addTask(row2);
+		InvUITransactionTableRow row2 = new InvUITransactionTableRow(compAddBill.BILL_TYPE, compAddBill.tableViewer);
+		compAddBill.tableViewer.addRow(row2);
 		compAddBill.calculateTotals();
 	}
 

@@ -43,7 +43,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.current.ui.comp.CurrentPicker;
@@ -68,11 +67,8 @@ import com.turquaz.engine.ui.editors.InventoryCellEditor;
 import com.turquaz.engine.ui.editors.NumericCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.ITableRowListViewer;
-import com.turquaz.engine.ui.viewers.TableRowList;
+import com.turquaz.engine.ui.viewers.SaveTableViewer;
 import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
-import com.turquaz.engine.ui.viewers.TurquazCellModifier;
-import com.turquaz.engine.ui.viewers.TurquazContentProvider;
-import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 import com.turquaz.inventory.ui.InvUITransactionAddDialog;
@@ -321,7 +317,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 	private CLabel lblCashAccount;
 	private CCombo comboWareHouse;
 	private CLabel lblWareHouse;
-	public TableViewer tableViewer;
+	public SaveTableViewer tableViewer;
 	private TableColumn tableColumn12;
 	private TableColumn tableColumn11;
 	private TableColumn tableColumn10;
@@ -387,7 +383,6 @@ public class BillUIAddBill extends Composite implements SecureComposite
 			UNIT_PRICE, TOTAL_PRICE, DISCOUNT_PERCENT, TOTAL_PRICE_AFTER_DISCOUNT, VAT_PERCENT, VAT_TOTAL, SPECIAL_VAT_PERCENT,
 			SPECIAL_VAT_TOTAL, ROW_TOTAL};
 	private List columnList = new ArrayList();
-	public TableRowList rowList = new TableRowList();
 
 	public BillUIAddBill(org.eclipse.swt.widgets.Composite parent, int style, int type)
 	{
@@ -832,7 +827,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		try
 		{
 			InvUITransactionTableRow table_row = (InvUITransactionTableRow) cursor.getRow().getData();
-			ComboBoxCellEditor editor = (ComboBoxCellEditor) tableViewer.getCellEditors()[3];
+			ComboBoxCellEditor editor = (ComboBoxCellEditor) tableViewer.getViewer().getCellEditors()[3];
 			if (table_row.getUnits() != null)
 			{
 				editor.setItems(table_row.getUnits());
@@ -930,24 +925,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 
 	public void createTableViewer()
 	{
-		columnList.add(INVENTORY_CODE);
-		columnList.add(INVENTORY_NAME);
-		columnList.add(TRANS_AMOUNT);
-		columnList.add(UNIT);
-		columnList.add(TRANS_AMOUNT_IN_BASE_UNIT);
-		columnList.add(BASE_UNIT);
-		columnList.add(UNIT_PRICE);
-		columnList.add(TOTAL_PRICE);
-		columnList.add(DISCOUNT_PERCENT);
-		columnList.add(TOTAL_PRICE_AFTER_DISCOUNT);
-		columnList.add(VAT_PERCENT);
-		columnList.add(VAT_TOTAL);
-		columnList.add(SPECIAL_VAT_PERCENT);
-		columnList.add(SPECIAL_VAT_TOTAL);
-		columnList.add(ROW_TOTAL);
-		tableViewer = new TableViewer(tableConsignmentRows);
-		tableViewer.setUseHashlookup(true);
-		tableViewer.setColumnProperties(columnNames);
+		
 		//     Create the cell editors
 		CellEditor[] editors = new CellEditor[columnNames.length];
 		editors[0] = new InventoryCellEditor(tableConsignmentRows); //Stok Kodu
@@ -966,13 +944,9 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		editors[13] = new CurrencyCellEditor(tableConsignmentRows, 2);
 		editors[14] = new CurrencyCellEditor(tableConsignmentRows, 2);
 		// Assign the cell editors to the viewer
-		tableViewer.setCellEditors(editors);
-		TurquazContentProvider contentProvider = new TurquazContentProvider(tableViewer, rowList);
-		tableViewer.setCellModifier(new TurquazCellModifier(columnList, contentProvider));
-		tableViewer.setContentProvider(contentProvider);
-		tableViewer.setLabelProvider(new TurquazLabelProvider());
-		tableViewer.setInput(rowList);
-		cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE, tableViewer, rowList, true);
+	
+		tableViewer = new SaveTableViewer(tableConsignmentRows,editors);
+		cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE, tableViewer, true);
 		cursor.setEnabled(true);
 		cursor.addSelectionListener(new SelectionAdapter()
 		{
@@ -998,17 +972,17 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		}
 		//	tableViewer.setSorter(new TurquazTableSorter(0));
 		// Listener for rowList
-		rowList.addChangeListener(new ITableRowListViewer()
+		tableViewer.addChangeListener(new ITableRowListViewer()
 		{
 			public void updateRow(ITableRow row)
 			{
 				calculateTotals();
-				Vector vec = rowList.getTasks();
+				Vector vec = tableViewer.getRowList().getTasks();
 				int index = vec.indexOf(row);
 				if (index == vec.size() - 1 && row.okToSave())
 				{
-					InvUITransactionTableRow row2 = new InvUITransactionTableRow(rowList, BILL_TYPE, tableViewer);
-					rowList.addTask(row2);
+					InvUITransactionTableRow row2 = new InvUITransactionTableRow(BILL_TYPE, tableViewer);
+					tableViewer.getRowList().addTask(row2);
 				}
 			}
 

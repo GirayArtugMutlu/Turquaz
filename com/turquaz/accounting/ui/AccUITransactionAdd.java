@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -43,11 +42,8 @@ import com.turquaz.engine.ui.editors.AccountingCellEditor;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.ITableRowListViewer;
-import com.turquaz.engine.ui.viewers.TableRowList;
+import com.turquaz.engine.ui.viewers.SaveTableViewer;
 import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
-import com.turquaz.engine.ui.viewers.TurquazCellModifier;
-import com.turquaz.engine.ui.viewers.TurquazContentProvider;
-import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.MessageBox;
@@ -152,10 +148,9 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnTitle;
 	private Table table1;
-	TableRowList rowList = new TableRowList();
 	// Set column names
 	private String[] columnNames = new String[]{ACCOUNT_CODE, ACCOUNT_NAME, DEFINITION, DEPT, CREDIT};
-	public TableViewer tableViewer;
+	public SaveTableViewer tableViewer;
 
 	public AccUITransactionAdd(Composite parent, int style)
 	{
@@ -345,8 +340,8 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 		for (int i = 0; i < EngBLCommon.TABLE_ROW_COUNT; i++)
 		{
 			//			enter empty table rows.
-			AccUITransactionAddTableRow row = new AccUITransactionAddTableRow(rowList);
-			rowList.addTask(row);
+			AccUITransactionAddTableRow row = new AccUITransactionAddTableRow(tableViewer.getRowList());
+			tableViewer.addRow(row);
 		}
 	}
 
@@ -380,9 +375,6 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 		columnList.add(DEFINITION);
 		columnList.add(DEPT);
 		columnList.add(CREDIT);
-		tableViewer = new TableViewer(tableTransactionColumns);
-		tableViewer.setUseHashlookup(true);
-		tableViewer.setColumnProperties(columnNames);
 		//     Create the cell editors
 		CellEditor[] editors = new CellEditor[columnNames.length];
 		editors[0] = new AccountingCellEditor(tableTransactionColumns);
@@ -391,28 +383,25 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 		editors[3] = new CurrencyCellEditor(tableTransactionColumns, 2);
 		editors[4] = new CurrencyCellEditor(tableTransactionColumns, 2);
 		// Assign the cell editors to the viewer
-		tableViewer.setCellEditors(editors);
-		TurquazContentProvider contentProvider = new TurquazContentProvider(tableViewer, rowList);
-		tableViewer.setCellModifier(new TurquazCellModifier(columnList, contentProvider));
-		tableViewer.setContentProvider(contentProvider);
-		tableViewer.setLabelProvider(new TurquazLabelProvider());
-		tableViewer.setInput(rowList);
+
+		tableViewer = new SaveTableViewer(tableTransactionColumns,editors);
+	
 		// create a TableCursor to navigate around the table
-		cursor = new TableSpreadsheetCursor(tableTransactionColumns, SWT.NONE, tableViewer, rowList, true);
+		cursor = new TableSpreadsheetCursor(tableTransactionColumns, SWT.NONE, tableViewer, true);
 		cursor.setEnabled(true);
-		rowList.addChangeListener(new ITableRowListViewer()
+		tableViewer.addChangeListener(new ITableRowListViewer()
 		{
 			public void updateRow(ITableRow row)
 			{
 				calculateTotalDeptAndCredit();
-				Vector vec = rowList.getTasks();
+				Vector vec = tableViewer.getRowList().getTasks();
 				int index = vec.indexOf(row);
 				if (index == vec.size() - 1)
 				{
 					if (row.okToSave())
 					{
-						AccUITransactionAddTableRow row2 = new AccUITransactionAddTableRow(rowList);
-						rowList.addTask(row2);
+						AccUITransactionAddTableRow row2 = new AccUITransactionAddTableRow(tableViewer.getRowList());
+						tableViewer.addRow(row2);
 					}
 				}
 			}

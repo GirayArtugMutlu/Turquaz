@@ -247,7 +247,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 
 	public void fillTableAndCombo()
 	{
-		compTransactionPayment.rowList.removeAll();
+		compTransactionPayment.tableViewer.removeAll();
 		Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
 		List transRows = new ArrayList();
 		transRows.addAll(transactionRows);
@@ -258,9 +258,9 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		{
 			transRow = (TurqAccountingTransactionColumn) transRows.get(k);
 			if (!transRow.getDeptAmount().toString().equals("0")) { //$NON-NLS-1$
-				ITableRow row = new AccUITransactionPaymentTableRow(compTransactionPayment.rowList);
+				ITableRow row = new AccUITransactionPaymentTableRow(compTransactionPayment.tableViewer.getRowList());
 				row.setDBObject(transRow);
-				compTransactionPayment.rowList.addTask(row);
+				compTransactionPayment.tableViewer.addRow(row);
 			}
 			else
 			{
@@ -269,8 +269,8 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 			}
 		}
 		//	 add last empty row
-		AccUITransactionPaymentTableRow row2 = new AccUITransactionPaymentTableRow(compTransactionPayment.rowList);
-		compTransactionPayment.rowList.addTask(row2);
+		AccUITransactionPaymentTableRow row2 = new AccUITransactionPaymentTableRow(compTransactionPayment.tableViewer.getRowList());
+		compTransactionPayment.tableViewer.addRow(row2);
 	}
 
 	/** Auto-generated event handler method */

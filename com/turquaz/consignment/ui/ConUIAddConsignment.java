@@ -43,7 +43,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.current.ui.comp.CurrentPicker;
@@ -66,11 +65,8 @@ import com.turquaz.engine.ui.editors.InventoryCellEditor;
 import com.turquaz.engine.ui.editors.NumericCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.ITableRowListViewer;
-import com.turquaz.engine.ui.viewers.TableRowList;
+import com.turquaz.engine.ui.viewers.SaveTableViewer;
 import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
-import com.turquaz.engine.ui.viewers.TurquazCellModifier;
-import com.turquaz.engine.ui.viewers.TurquazContentProvider;
-import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import org.eclipse.swt.widgets.Button;
@@ -360,7 +356,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 	private CLabel lblDate;
 	private CurrentPicker txtCurrentCard;
 	private CLabel lblCurrentCard;
-	public TableViewer tableViewer;
+	public SaveTableViewer tableViewer;
 	/**
 	 * 0 - Stok Kodu 1 - Stok Cinsi //cant modify 2 - Miktar 3 - Birim 4 - Temel Birim Miktar? //cant modify 5 - Tamel Birimi //cant modify
 	 * 6 - Birim Fiyat? 7 - Toplam Tutar //cant modify 8 - Kdv % 9 - Kdv Tutari //cantModify 10 - Ötv % 11 - Ötv Tutari //cant Modify 12 -
@@ -389,7 +385,6 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 			UNIT_PRICE, TOTAL_PRICE, DISCOUNT_PERCENT, TOTAL_PRICE_AFTER_DISCOUNT, VAT_PERCENT, VAT_TOTAL, SPECIAL_VAT_PERCENT,
 			SPECIAL_VAT_TOTAL, ROW_TOTAL};
 	private List columnList = new ArrayList();
-	public TableRowList rowList = new TableRowList();
 
 	public ConUIAddConsignment(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -601,9 +596,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 								tableColumn3.setText(BASE_UNIT);
 								tableColumn3.setWidth(75);
 							}
-							{
-								tableViewer = new TableViewer(tableConsignmentRows, SWT.NONE);
-							}
+							
 							{
 								tableColumn6 = new TableColumn(tableConsignmentRows, SWT.RIGHT);
 								tableColumn6.setText(UNIT_PRICE);
@@ -801,7 +794,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		try
 		{
 			InvUITransactionTableRow table_row = (InvUITransactionTableRow) cursor.getRow().getData();
-			ComboBoxCellEditor editor = (ComboBoxCellEditor) tableViewer.getCellEditors()[3];
+			ComboBoxCellEditor editor = (ComboBoxCellEditor) tableViewer.getViewer().getCellEditors()[3];
 			if (table_row.getUnits() != null)
 			{
 				editor.setItems(table_row.getUnits());
@@ -848,9 +841,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		columnList.add(SPECIAL_VAT_PERCENT);
 		columnList.add(SPECIAL_VAT_TOTAL);
 		columnList.add(ROW_TOTAL);
-		tableViewer = new TableViewer(tableConsignmentRows);
-		tableViewer.setUseHashlookup(true);
-		tableViewer.setColumnProperties(columnNames);
+		
 		//     Create the cell editors
 		CellEditor[] editors = new CellEditor[columnNames.length];
 		editors[0] = new InventoryCellEditor(tableConsignmentRows); //Stok Kodu
@@ -868,14 +859,10 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		editors[12] = new CurrencyCellEditor(tableConsignmentRows, 4);
 		editors[13] = new CurrencyCellEditor(tableConsignmentRows, 2);
 		editors[14] = new CurrencyCellEditor(tableConsignmentRows, 2);
+		tableViewer = new SaveTableViewer(tableConsignmentRows,editors);
 		// Assign the cell editors to the viewer
-		tableViewer.setCellEditors(editors);
-		TurquazContentProvider contentProvider = new TurquazContentProvider(tableViewer, rowList);
-		tableViewer.setCellModifier(new TurquazCellModifier(columnList, contentProvider));
-		tableViewer.setContentProvider(contentProvider);
-		tableViewer.setLabelProvider(new TurquazLabelProvider());
-		tableViewer.setInput(rowList);
-		cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE, tableViewer, rowList, true);
+		
+		cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE, tableViewer, true);
 		cursor.setEnabled(true);
 		cursor.addSelectionListener(new SelectionAdapter()
 		{
@@ -902,13 +889,13 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		}
 		//	tableViewer.setSorter(new TurquazTableSorter(0));
 		// Listener for rowList
-		rowList.addChangeListener(new ITableRowListViewer()
+		tableViewer.addChangeListener(new ITableRowListViewer()
 		{
 			public void updateRow(ITableRow row)
 			{
 				calculateTotals();
 				int type = 0;
-				Vector vec = rowList.getTasks();
+				Vector vec = tableViewer.getRowList().getTasks();
 				int index = vec.indexOf(row);
 				if (index == vec.size() - 1)
 				{
@@ -917,8 +904,8 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 						if (comboConsignmentType.getText().equals(Messages.getString("ConUIAddConsignment.34"))) { //$NON-NLS-1$
 							type = 1;
 						}
-						InvUITransactionTableRow row2 = new InvUITransactionTableRow(rowList, type, tableViewer);
-						rowList.addTask(row2);
+						InvUITransactionTableRow row2 = new InvUITransactionTableRow(type, tableViewer);
+						tableViewer.addRow(row2);
 					}
 				}
 			}
@@ -980,8 +967,8 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		for (int i = 0; i < 10; i++)
 		{
 			//		enter empty table rows.
-			InvUITransactionTableRow row = new InvUITransactionTableRow(rowList, type, tableViewer);
-			rowList.addTask(row);
+			InvUITransactionTableRow row = new InvUITransactionTableRow(type, tableViewer);
+			tableViewer.addRow(row);
 		}
 	}
 
