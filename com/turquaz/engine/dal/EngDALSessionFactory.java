@@ -47,16 +47,17 @@ public class EngDALSessionFactory {
 	 */
 	public EngDALSessionFactory(){
 		
-		try{
-			
+		try{		
 		
 			String url = "notSet://";
 			String driver = "noteSet";
 			if (EngConfiguration.getString("dbType").startsWith("Turquaz"))
 			{		
 		
-		 url = "jdbc:hsqldb:hsql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort");
-		  driver = "org.hsqldb.jdbcDriver";
+		 //url = "jdbc:hsqldb:hsql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort");
+		
+		 url =  "jdbc:hsqldb:database/turquaz";		
+		driver = "org.hsqldb.jdbcDriver";
 		}
 			else if (EngConfiguration.getString("dbType").startsWith("Postgresql"))
 			{

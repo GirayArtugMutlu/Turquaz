@@ -73,6 +73,9 @@ public class EngConfiguration {
 	
 	private String findString(String Key){
 	
+		if(props ==null){
+			return "";
+		}
 	    return props.getProperty(Key);
 	    
 	}

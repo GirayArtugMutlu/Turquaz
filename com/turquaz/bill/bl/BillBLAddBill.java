@@ -182,7 +182,7 @@ public class BillBLAddBill {
 			transRow = new TurqAccountingTransactionColumn();
 			
 			//191 olarak degistir...
-			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("101"));
+			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("191"));
 			transRow.setTurqAccountingTransaction(accTrans);
 			
 			transRow.setCreditAmount(new BigDecimal(0));
@@ -206,7 +206,7 @@ public class BillBLAddBill {
 			transRow = new TurqAccountingTransactionColumn();
 			
 			//193 olarak degistir..
-			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("101"));
+			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("193"));
 			transRow.setTurqAccountingTransaction(accTrans);
 			
 			transRow.setCreditAmount(new BigDecimal(0));
@@ -367,7 +367,7 @@ public class BillBLAddBill {
 			transRow = new TurqAccountingTransactionColumn();
 			
 			//391 olarak degistir
-			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("101"));
+			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("391"));
 			transRow.setTurqAccountingTransaction(accTrans);
 			
 			transRow.setCreditAmount(invTrans.getTransactionsVatAmount());
@@ -391,7 +391,7 @@ public class BillBLAddBill {
 			transRow = new TurqAccountingTransactionColumn();
 			
 			//360 olarak degistir
-			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("101"));
+			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("360"));
 			transRow.setTurqAccountingTransaction(accTrans);
 			
 			transRow.setCreditAmount(invTrans.getTransactionsVatSpecialAmount());

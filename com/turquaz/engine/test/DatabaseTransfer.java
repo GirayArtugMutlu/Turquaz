@@ -21,7 +21,7 @@ public class DatabaseTransfer {
 		first.next();
 		while(first.next())
 		{
-			String query2 = "insert into turq_accounting_accounts values ("+first.getString(1)+", '"+ first.getString(3) +" ','"+   first.getString(4) +" ',"+ first.getString(5)+
+			String query2 = "insert into turq_accounting_accounts values ("+first.getString(1)+", '"+ first.getString(3) +" ','"+   first.getString(4) +"',"+ first.getString(5)+
 			" ,"+first.getString(10)  +", 'admin','2004-12-05'	,'admin',	'2004-12-05'	" +  ")";
 			System.out.println(query2);
 			

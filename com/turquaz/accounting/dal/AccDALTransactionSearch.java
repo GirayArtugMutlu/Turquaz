@@ -28,6 +28,8 @@ package com.turquaz.accounting.dal;
 
 import java.util.Date;
 import java.util.List;
+
+import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
@@ -95,7 +97,7 @@ public class AccDALTransactionSearch {
         
     	Session session = EngDALSessionFactory.openSession();
 		
-    	String query ="select accTrans from TurqAccountingTransaction as accTrans " +
+    	String query ="select accTrans from TurqAccountingTransaction as accTrans" +
     				  " where accTrans.transactionDocumentNo like '"+docNo+"%' ";
     	
 		if(startDate!=null){
@@ -132,6 +134,12 @@ public class AccDALTransactionSearch {
 		}
 			
 		List list = q.list();
+		for (int i =0;i<list.size();i++){
+			
+		TurqAccountingTransaction accTrans = (TurqAccountingTransaction)list.get(i);
+		Hibernate.initialize(accTrans.getTurqAccountingTransactionColumns());
+			
+		}
 		session.close();
 		
 		return list;
@@ -205,19 +213,19 @@ public class AccDALTransactionSearch {
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
 	        String query ="select accTrans from TurqAccountingTransaction as accTrans" +
-	        				" left join fetch accTrans.turqAccountingTransactionColumns"+
+	        				
 	                      " where accTrans.turqAccountingJournal.accountingJournalId = -1";
 	        
 	        Query q = session.createQuery(query); 
 			
 	        List list = q.list();		
 	       
-			/*for (int i =0;i<list.size();i++){
+			for (int i =0;i<list.size();i++){
 				
 			TurqAccountingTransaction accTrans = (TurqAccountingTransaction)list.get(i);
 			Hibernate.initialize(accTrans.getTurqAccountingTransactionColumns());
 				
-			}*/
+			}
 	        
 	        session.close();
 			

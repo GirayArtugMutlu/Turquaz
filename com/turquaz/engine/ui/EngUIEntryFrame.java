@@ -139,7 +139,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	private void initGUI() {
 		try {
 			
-			   preInitGui();
+		
 			   
 			String database = EngConfiguration.getString("serverAddress"); //$NON-NLS-1$
 			database = database.trim();
@@ -149,7 +149,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		    DatabaseThread dbThread = new DatabaseThread();
 		    dbThread.start();
 			}
-		    
+			  preInitGui();
 		 
 			GridLayout thisLayout = new GridLayout();
 			this.addKeyListener(new KeyAdapter() {

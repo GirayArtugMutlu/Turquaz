@@ -24,7 +24,7 @@ public class AccUITransactionAddTableRow implements ITableRow {
         super();
         this.rowList = rowList;  
         transRow.setTransactionDefinition("");
-        transRow.setCreditAmount(new BigDecimal(12312));
+        transRow.setCreditAmount(new BigDecimal(0));
         transRow.setDeptAmount(new BigDecimal(0));
         transRow.setTransactionDefinition("");
     }

@@ -615,9 +615,10 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
       totalDept =new BigDecimal(0);
     
 		for(int i=0; i<items.length;i++){
-		
-		totalDept = totalDept.add(new BigDecimal(items[i].getText(3)));
-    
+			TurqAccountingTransactionColumn column = (TurqAccountingTransactionColumn)((AccUITransactionCollectTableRow)items[i].getData()).getDBObject();
+		if(column!=null){	
+		totalDept = totalDept.add(column.getDeptAmount());
+		}
 		}
    	
 	}
