@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <props>
   <com.turquaz.accounting.ui.AccUITransactionSearch>
-    <column index="3" width="101" />
-    <column index="5" width="121" />
-    <column index="2" width="81" />
-    <column index="0" width="137" />
-    <column index="4" width="227" />
-    <column index="1" width="78" />
+    <column index="3" width="80" />
+    <column index="5" width="118" />
+    <column index="2" width="74" />
+    <column index="0" width="57" />
+    <column index="4" width="101" />
+    <column index="1" width="80" />
   </com.turquaz.accounting.ui.AccUITransactionSearch>
   <com.turquaz.inventory.ui.InvUICardSearch>
     <column index="3" width="60" />
@@ -19,13 +19,13 @@
     <column index="1" width="98" />
   </com.turquaz.inventory.ui.InvUICardSearch>
   <com.turquaz.inventory.ui.InvUITransactionSearch>
-    <column index="3" width="100" />
+    <column index="3" width="74" />
     <column index="5" width="100" />
-    <column index="2" width="100" />
-    <column index="0" width="73" />
-    <column index="4" width="100" />
+    <column index="2" width="75" />
+    <column index="0" width="57" />
+    <column index="4" width="77" />
     <column index="6" width="100" />
-    <column index="1" width="93" />
+    <column index="1" width="74" />
   </com.turquaz.inventory.ui.InvUITransactionSearch>
   <com.turquaz.bill.ui.BillUIBillSearch>
     <column index="3" width="150" />

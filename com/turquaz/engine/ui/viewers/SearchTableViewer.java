@@ -12,9 +12,12 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.engine.ui.EngUITableColumns;
 import com.turquaz.engine.ui.EngUITableProperties;
 import com.turquaz.engine.ui.component.SearchComposite;
 
@@ -26,6 +29,7 @@ public class SearchTableViewer
 	TableRowList rowList = new TableRowList();
 	TableViewer viewer = null;
 	int columnTypes[] = null;
+	int defaultWidths[]= null;
 
 	public SearchTableViewer(Table table, int columnTypes[],boolean isSortable)
 	{
@@ -35,8 +39,10 @@ public class SearchTableViewer
 		TableColumn columns[] = table.getColumns();
 		List columnList = new ArrayList();
 		String columnNames[] = new String[columns.length];
+		defaultWidths = new int[columns.length];
 		for (int i = 0; i < columns.length; i++)
 		{
+			defaultWidths[i] = columns[i].getWidth();
 			columnNames[i] = columns[i].getText();
 			columnList.add(columns[i].getText());
 			if(isSortable)
@@ -63,9 +69,9 @@ public class SearchTableViewer
 		setColumnWidths();
 		
 		/**
-		 * Save Column Widths
+		 * Settable Menu
 		 */
-		saveColumnWidths();
+		setPopupMenu();
 	}
 
 	public void addRow(String[] txt, Object data)
@@ -81,6 +87,31 @@ public class SearchTableViewer
 	public void removeAll()
 	{
 		rowList.removeAll(this);
+	}
+	
+	
+	private void setPopupMenu()
+	{
+		Menu menu = viewer.getTable().getMenu();
+		if(menu == null)
+		{
+			menu = new Menu(viewer.getTable().getShell(),SWT.POP_UP);
+			viewer.getTable().setMenu(menu);
+		}
+		
+		MenuItem item = new MenuItem(menu,SWT.SEPARATOR);
+		item = new MenuItem(menu,SWT.PUSH);
+		item.setText("Tablo Görünümü");
+		item.addListener(SWT.Selection, new Listener()
+				{
+					public void handleEvent(Event e)
+					{
+						new EngUITableColumns(viewer.getTable().getShell(),SWT.NONE).open(viewer.getTable(),defaultWidths);
+					}
+				});
+		
+		
+		
 	}
 	
 	
