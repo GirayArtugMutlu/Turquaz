@@ -54,6 +54,10 @@ public class EngBLCommon {
     
     public final static int CURRENT_TRANS_BANK = 5; //Cari Banka Hareketi
     
+    public final static int CURRENT_TRANS_INITIAL = 6; //Cari Acilis
+    
+    
+    
     public final static boolean CURRENT_TRANS_CREDIT = true; // cari alacak hareketi
     
     public final static boolean CURRENT_TRANS_DEBIT = false; // cari borc hareketi

@@ -156,6 +156,18 @@ public class CurBLSearchTransaction {
 	    
 	    
 	}
+	public List getInitialTransactions()throws Exception{
+	    try{
+	        
+	        return dalSearch.getInitialTransactions();
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	    
+	}
 	
 	
 

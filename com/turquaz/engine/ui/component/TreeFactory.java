@@ -63,6 +63,7 @@ import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurrentCardAbstract;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.current.ui.CurUICurrentCardSearch;
+import com.turquaz.current.ui.CurUIInitialTransaction;
 import com.turquaz.current.ui.CurUITransactionSearch;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLPermissions;
@@ -282,6 +283,15 @@ public final class TreeFactory {
 		item = new TreeItem(root,SWT.NULL);
 		item.setText(com.turquaz.engine.Messages.getString("TreeFactory.20")); //$NON-NLS-1$
 		item.setData(CurUITransactionSearch.class.getName());
+		}
+		
+		if(EngBLPermissions.getPermission(CurUIInitialTransaction.class.getName())>0){
+			item = new TreeItem(root,SWT.NULL);
+			
+			item.setText(Messages.getString("TreeFactory.55"));  //$NON-NLS-1$
+			
+			item.setData(CurUIInitialTransaction.class.getName());
+		
 		}
 		
 		root.setExpanded(true);

@@ -25,6 +25,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.turquaz.current.dal.CurDALCurrentCardAdd;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentCardsGroup;
@@ -38,9 +39,10 @@ public class CurBLCurrentCardAdd {
 	public CurBLCurrentCardAdd(){
 	}
 	
+	
 	private Calendar cal=Calendar.getInstance();
 	private CurDALCurrentCardAdd currentAdd=new CurDALCurrentCardAdd();
-	
+	CurBLCurrentTransactionAdd blTransAdd = new CurBLCurrentTransactionAdd();
 	public Integer saveCurrentCard(String currentCode, String cardName, String cardDefinition,
 								String cardAddress, BigDecimal cardDiscountRate,
 								BigDecimal cardDiscountPayment,	BigDecimal cardCreditLimit,
@@ -69,6 +71,10 @@ public class CurBLCurrentCardAdd {
 			currentCard.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 		
 			currentAdd.saveObject(currentCard);	
+		
+			
+			blTransAdd.saveCurrentTransaction(currentCard,currentCard.getCreationDate(),"",false,new BigDecimal(0),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_INITIAL,new Integer(-1),"Aç?l?? Hareketi");
+			
 			return currentCard.getCurrentCardsId();
 		}
 		catch(Exception ex){

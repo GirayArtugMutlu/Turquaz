@@ -37,6 +37,7 @@ import com.turquaz.inventory.bl.InvBLCardSearch;
 * for any corporate or commercial purpose.
 * *************************************
 */
+
 public class InvUITransactionTableRow implements ITableRow {
 
     TurqInventoryTransaction invTrans = new TurqInventoryTransaction();
@@ -118,6 +119,7 @@ public class InvUITransactionTableRow implements ITableRow {
 			    else{
 			        result =invTrans.getTurqInventoryCard().getCardInventoryCode();
 			    }
+			    
 			    
 			 break;
 				
@@ -437,7 +439,7 @@ public class InvUITransactionTableRow implements ITableRow {
 					catch(Exception ex){
 					    ex.printStackTrace();
 					}
-			 break;
+			 break;			 
 				
 			case 1 : //inventory name
 			    
@@ -448,12 +450,11 @@ public class InvUITransactionTableRow implements ITableRow {
 			 	if(formatted.equals("")){
 			 	    formatted="0";
 			 	}
+			 	
 			 	transAmount = Integer.parseInt(formatted);
-			 	
-			 	
 			 
 			 	
-				break;
+			 	break;
 			    
 			case 3 :  //Unit
 			    

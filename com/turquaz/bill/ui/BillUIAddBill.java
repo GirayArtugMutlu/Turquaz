@@ -1162,6 +1162,11 @@ public class BillUIAddBill extends Composite
 
 	     				// any character
 	     				} 
+	                     else if(e.stateMask == SWT.CTRL){
+	                         tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
+ 
+	                     }
+	                     
 	                     //any character
 	                     else if((e.keyCode<0x10000 || e.character!='\0') && e.keyCode>0x1f && e.keyCode!=127 
 	         					|| e.keyCode==0x00 && (e.stateMask==0 || e.stateMask==SWT.SHIFT)){
@@ -1170,8 +1175,10 @@ public class BillUIAddBill extends Composite
 	                         if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof TextCellEditor){
 	                             
 	                             TextCellEditor editor = ((TextCellEditor)tableViewer.getCellEditors()[cursor.getColumn()]);
+	                             
 	                             ((Text)editor.getControl()).setText(""+e.character); //$NON-NLS-1$
-	     						if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof CurrencyCellEditor 
+	     						
+	                             if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof CurrencyCellEditor 
 	     						 ){
 	     						    
 	     						}

@@ -1,5 +1,8 @@
 
 package com.turquaz.current.bl;
+
+import com.turquaz.current.dal.CurDALCurrentCardUpdate;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -23,4 +26,19 @@ package com.turquaz.current.bl;
 
 public class CurBLTransactionUpdate {
 
+    static CurDALCurrentCardUpdate dalUpdate = new CurDALCurrentCardUpdate();
+    
+    public static void updateTrans(Object trans)throws Exception{
+        try{
+            
+          dalUpdate.updateObject(trans);  
+            
+            
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+        
+    }
+    
 }

@@ -1173,6 +1173,10 @@ public class BillUIAddSellBill extends Composite
 
 	     				// any character
 	     				} 
+	                     else if(e.stateMask == SWT.CTRL){
+	                         tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
+ 
+	                     }
 	                     //any character
 	                     else if((e.keyCode<0x10000 || e.character!='\0') && e.keyCode>0x1f && e.keyCode!=127 
 	         					|| e.keyCode==0x00 && (e.stateMask==0 || e.stateMask==SWT.SHIFT)){
