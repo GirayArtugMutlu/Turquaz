@@ -1065,6 +1065,13 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		}
 				
 	}
+	catch(ClassCastException ex){
+		toolNew.setEnabled(false);
+		toolSave.setEnabled(false);
+		toolDelete.setEnabled(false);
+		toolSearch.setEnabled(false);
+		toolExportToExcel.setEnabled(false);
+	}
 	catch(Exception ex)
 				{
 					toolNew.setEnabled(false);
