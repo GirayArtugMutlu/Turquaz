@@ -694,6 +694,9 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 						cf.format(priceIn), cf.format(unitPriceIn), cf.format(outAmount) + "", //$NON-NLS-1$
 						cf.format(priceOut), cf.format(unitPriceOut)},transId);
 			}
+			tableViewer.addRow(new String[]{"", "", "", "", "", "", "", "", ""}, null);
+			tableViewer.addRow(new String[]{"", "", "TOPLAM", "", cf.format(totalAmountIn),
+					"", "", cf.format(totalAmountOut), ""}, null);
 			if (list.size() > 0)
 				GenerateJasper(list, type);
 		}
