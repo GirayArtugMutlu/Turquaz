@@ -460,8 +460,9 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 		if(selection.length>0){
 	
 			TurqCurrentCard card = (TurqCurrentCard)selection[0].getData();
-			new CurUICurrentCardUpdate(this.getShell(),SWT.NULL,card).open();
-			search();
+			boolean updated=new CurUICurrentCardUpdate(this.getShell(),SWT.NULL,card).open();
+			if (updated)
+				search();
 		}
 	}
 	public void exportToExcel(){
