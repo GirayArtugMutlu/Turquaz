@@ -21,18 +21,13 @@
  **	  	RSSOwl - initial API and implementation (bpasero@rssowl.org)				 **
  **																																					 **
  **	 **********************************************************************	 */
-
 package com.turquaz.engine.ui.component.rssowl;
 
-
-
 import java.util.Locale;
-
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
-
 import com.turquaz.engine.ui.EngUIMainFrame;
 
 /**
@@ -41,69 +36,58 @@ import com.turquaz.engine.ui.EngUIMainFrame;
  * @author <a href="mailto:bpasero@rssowl.org">Benjamin Pasero </a>
  * @version 1.0
  */
-public class FontShop {
-
-	
+public class FontShop
+{
 	public static final int DEFAULT_FONT_BASE = 0;
-
 	/** Dialog bold font */
 	public static Font dialogBoldFont = null;
-
 	/** Font for the Dialogs */
-	public static Font dialogFont = new Font(EngUIMainFrame.display, EngUIMainFrame.display.getSystemFont().getFontData()[0].getName(), EngUIMainFrame.display.getSystemFont().getFontData()[0].getHeight() + DEFAULT_FONT_BASE, 0);
-
+	public static Font dialogFont = new Font(EngUIMainFrame.display, EngUIMainFrame.display.getSystemFont().getFontData()[0].getName(),
+			EngUIMainFrame.display.getSystemFont().getFontData()[0].getHeight() + DEFAULT_FONT_BASE, 0);
 	/** Font for the ViewForm headers and TabItem titles */
-	public static Font headerFont = new Font(EngUIMainFrame.display, EngUIMainFrame.display.getSystemFont().getFontData()[0].getName(), EngUIMainFrame.display.getSystemFont().getFontData()[0].getHeight() + DEFAULT_FONT_BASE + 1, 0);
-
+	public static Font headerFont = new Font(EngUIMainFrame.display, EngUIMainFrame.display.getSystemFont().getFontData()[0].getName(),
+			EngUIMainFrame.display.getSystemFont().getFontData()[0].getHeight() + DEFAULT_FONT_BASE + 1, 0);
 	/** Bold Font for the table holding news */
 	public static Font tableBoldFont = null;
-
 	/** Font for the table holding news */
-	public static Font tableFont = new Font(EngUIMainFrame.display, EngUIMainFrame.display.getSystemFont().getFontData()[0].getName(), EngUIMainFrame.display.getSystemFont().getFontData()[0].getHeight() + DEFAULT_FONT_BASE, 0);
-
+	public static Font tableFont = new Font(EngUIMainFrame.display, EngUIMainFrame.display.getSystemFont().getFontData()[0].getName(),
+			EngUIMainFrame.display.getSystemFont().getFontData()[0].getHeight() + DEFAULT_FONT_BASE, 0);
 	/** Bold font for the Text */
 	public static Font textBoldFont = null;
-
 	/** Font for the newstext */
-	public static Font textFont = new Font(EngUIMainFrame.display, EngUIMainFrame.display.getSystemFont().getFontData()[0].getName(), EngUIMainFrame.display.getSystemFont().getFontData()[0].getHeight() + DEFAULT_FONT_BASE + 1, 0);
-
+	public static Font textFont = new Font(EngUIMainFrame.display, EngUIMainFrame.display.getSystemFont().getFontData()[0].getName(),
+			EngUIMainFrame.display.getSystemFont().getFontData()[0].getHeight() + DEFAULT_FONT_BASE + 1, 0);
 	/** Font for the tree holding favorites (Bold) */
 	public static Font treeBoldFont = null;
-
 	/** Font for the tree holding favorites */
-	public static Font treeFont = new Font(EngUIMainFrame.display, EngUIMainFrame.display.getSystemFont().getFontData()[0].getName(), EngUIMainFrame.display.getSystemFont().getFontData()[0].getHeight() + DEFAULT_FONT_BASE, 0);
+	public static Font treeFont = new Font(EngUIMainFrame.display, EngUIMainFrame.display.getSystemFont().getFontData()[0].getName(),
+			EngUIMainFrame.display.getSystemFont().getFontData()[0].getHeight() + DEFAULT_FONT_BASE, 0);
 
 	/** This utility class constructor is hidden */
-	private FontShop() {
-	//Protect default constructor
+	private FontShop()
+	{
+		//Protect default constructor
 	}
 
 	/** Dispose fonts */
-	public static void disposeFonts() {
+	public static void disposeFonts()
+	{
 		if (isset(dialogBoldFont))
 			dialogBoldFont.dispose();
-
 		if (isset(dialogFont))
 			dialogFont.dispose();
-
 		if (isset(headerFont))
 			headerFont.dispose();
-
 		if (isset(tableFont))
 			tableFont.dispose();
-
 		if (isset(tableBoldFont))
 			tableBoldFont.dispose();
-
 		if (isset(textBoldFont))
 			textBoldFont.dispose();
-
 		if (isset(textFont))
 			textFont.dispose();
-
 		if (isset(treeFont))
 			treeFont.dispose();
-
 		if (isset(treeBoldFont))
 			treeBoldFont.dispose();
 	}
@@ -111,19 +95,20 @@ public class FontShop {
 	/**
 	 * Check the given Font for being NULL or disposed. Return false in that case.
 	 * 
-	 * @param font The font to check
+	 * @param font
+	 *             The font to check
 	 * @return boolean TRUE if the font is available
 	 */
-	public static boolean isset(Font font) {
+	public static boolean isset(Font font)
+	{
 		return (font != null && !font.isDisposed());
 	}
-
-	
 
 	/**
 	 * Update styled fonts and the dialog font used by JFace dialogs
 	 */
-	public static void updateFonts() {
+	public static void updateFonts()
+	{
 		initStyledFonts();
 		JFaceResources.getFontRegistry().put(JFaceResources.DIALOG_FONT, FontShop.dialogFont.getFontData());
 	}
@@ -131,7 +116,8 @@ public class FontShop {
 	/**
 	 * Init the bold font
 	 */
-	private static void initDialogBoldFont() {
+	private static void initDialogBoldFont()
+	{
 		FontData[] fontData = dialogFont.getFontData();
 		fontData[0].setStyle(SWT.BOLD);
 		fontData[0].setLocale(Locale.getDefault().toString());
@@ -141,7 +127,8 @@ public class FontShop {
 	/**
 	 * Init all styled (bold) fonts
 	 */
-	private static void initStyledFonts() {
+	private static void initStyledFonts()
+	{
 		initDialogBoldFont();
 		initTableBoldFont();
 		initTextBoldFont();
@@ -151,7 +138,8 @@ public class FontShop {
 	/**
 	 * Init the table bold font
 	 */
-	private static void initTableBoldFont() {
+	private static void initTableBoldFont()
+	{
 		FontData[] fontData = tableFont.getFontData();
 		fontData[0].setStyle(SWT.BOLD);
 		fontData[0].setLocale(Locale.getDefault().toString());
@@ -161,7 +149,8 @@ public class FontShop {
 	/**
 	 * Init the bold font
 	 */
-	private static void initTextBoldFont() {
+	private static void initTextBoldFont()
+	{
 		FontData[] fontData = textFont.getFontData();
 		fontData[0].setStyle(SWT.BOLD);
 		fontData[0].setLocale(Locale.getDefault().toString());
@@ -171,7 +160,8 @@ public class FontShop {
 	/**
 	 * Init the tree bold font
 	 */
-	private static void initTreeBoldFont() {
+	private static void initTreeBoldFont()
+	{
 		FontData[] fontData = treeFont.getFontData();
 		fontData[0].setStyle(SWT.BOLD);
 		fontData[0].setLocale(Locale.getDefault().toString());

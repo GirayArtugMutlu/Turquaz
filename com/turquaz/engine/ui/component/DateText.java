@@ -1,4 +1,3 @@
-
 package com.turquaz.engine.ui.component;
 
 /************************************************************************/
@@ -16,12 +15,10 @@ package com.turquaz.engine.ui.component;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
-public class DateText {
-
+ * @author Onsel Armagan
+ * @version $Id$
+ */
+public class DateText
+{
 }

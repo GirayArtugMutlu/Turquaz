@@ -21,7 +21,6 @@
  **	  	RSSOwl - initial API and implementation (bpasero@rssowl.org)				 **
  **																																					 **
  **	 **********************************************************************	 */
-
 package com.turquaz.engine.ui.component.rssowl;
 
 import org.eclipse.swt.SWT;
@@ -35,23 +34,29 @@ import org.eclipse.swt.layout.GridData;
  * @author <a href="mailto:bpasero@rssowl.org">Benjamin Pasero </a>
  * @version 1.0
  */
-public class LayoutDataShop {
-
+public class LayoutDataShop
+{
 	/** This utility class constructor is hidden */
-	private LayoutDataShop() {
-	//Protect default constructor
+	private LayoutDataShop()
+	{
+		//Protect default constructor
 	}
 
 	/**
 	 * Create a new FormData with the given Parameters
 	 * 
-	 * @param marginLeft Margin in pixel to the left
-	 * @param marginRight Margin in pixel to the right
-	 * @param marginTop Margin in pixel to the top
-	 * @param marginBottom Margin in pixel to the bottom
+	 * @param marginLeft
+	 *             Margin in pixel to the left
+	 * @param marginRight
+	 *             Margin in pixel to the right
+	 * @param marginTop
+	 *             Margin in pixel to the top
+	 * @param marginBottom
+	 *             Margin in pixel to the bottom
 	 * @return FormData with the given parameters
 	 */
-	public static FormData createFormData(int marginLeft, int marginRight, int marginTop, int marginBottom) {
+	public static FormData createFormData(int marginLeft, int marginRight, int marginTop, int marginBottom)
+	{
 		FormData formData = new FormData();
 		formData.top = new FormAttachment(0, marginTop);
 		formData.left = new FormAttachment(0, marginLeft);
@@ -63,36 +68,48 @@ public class LayoutDataShop {
 	/**
 	 * Create a new GridData with the given parameters
 	 * 
-	 * @param style GridData style
-	 * @param horizontalSpan Horizontal span
+	 * @param style
+	 *             GridData style
+	 * @param horizontalSpan
+	 *             Horizontal span
 	 * @return GridData with the given parameters
 	 */
-	public static GridData createGridData(int style, int horizontalSpan) {
+	public static GridData createGridData(int style, int horizontalSpan)
+	{
 		return createGridData(style, horizontalSpan, SWT.DEFAULT);
 	}
 
 	/**
 	 * Create a new GridData with the given parameters
 	 * 
-	 * @param style GridData style
-	 * @param horizontalSpan Horizontal span
-	 * @param widthHint Width hint in pixel
+	 * @param style
+	 *             GridData style
+	 * @param horizontalSpan
+	 *             Horizontal span
+	 * @param widthHint
+	 *             Width hint in pixel
 	 * @return GridData with the given parameters
 	 */
-	public static GridData createGridData(int style, int horizontalSpan, int widthHint) {
+	public static GridData createGridData(int style, int horizontalSpan, int widthHint)
+	{
 		return createGridData(style, horizontalSpan, widthHint, SWT.DEFAULT);
 	}
 
 	/**
 	 * Create a new GridData with the given parameters
 	 * 
-	 * @param style GridData style
-	 * @param horizontalSpan Horizontal span
-	 * @param widthHint Width hint in pixel
-	 * @param heightHint Height hint in pixel
+	 * @param style
+	 *             GridData style
+	 * @param horizontalSpan
+	 *             Horizontal span
+	 * @param widthHint
+	 *             Width hint in pixel
+	 * @param heightHint
+	 *             Height hint in pixel
 	 * @return GridData with the given parameters
 	 */
-	public static GridData createGridData(int style, int horizontalSpan, int widthHint, int heightHint) {
+	public static GridData createGridData(int style, int horizontalSpan, int widthHint, int heightHint)
+	{
 		GridData g = new GridData(style);
 		g.horizontalSpan = horizontalSpan;
 		g.widthHint = widthHint;

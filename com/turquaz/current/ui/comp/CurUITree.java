@@ -1,5 +1,3 @@
-
-
 package com.turquaz.current.ui.comp;
 
 /************************************************************************/
@@ -17,39 +15,31 @@ package com.turquaz.current.ui.comp;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
-
+ * @author  Onsel Armagan
+ * @version  $Id$
+ */
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.*;
-
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.current.ui.CurUICurrentCardSearch;
 
-
-
 /**
  * @author onsel
- *
  * @version $Id$
  */
-public class CurUITree extends Tree {
-	
-	public CurUITree(org.eclipse.swt.widgets.Composite comp, int style){
-		super(comp,style);
-		TreeItem root = new TreeItem(this,SWT.NULL);
+public class CurUITree extends Tree
+{
+	public CurUITree(org.eclipse.swt.widgets.Composite comp, int style)
+	{
+		super(comp, style);
+		TreeItem root = new TreeItem(this, SWT.NULL);
 		root.setText("Current");
-		TreeItem item = new TreeItem(root,SWT.NULL);
+		TreeItem item = new TreeItem(root, SWT.NULL);
 		item.setText("Current Card Add");
 		item.setData(CurUICurrentCardAdd.class.getName());
-		item = new TreeItem(root,SWT.NULL);
+		item = new TreeItem(root, SWT.NULL);
 		item.setText("Current Card Search");
 		item.setData(CurUICurrentCardSearch.class.getName());
 	}
-	
-
 }

@@ -1,4 +1,3 @@
-
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -21,30 +20,24 @@
 package com.turquaz.cash.bl;
 
 import java.util.List;
-
 import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
+public class CashBLCashCardSearch
+{
+	public CashBLCashCardSearch()
+	{
+	}
 
-
-
-public class CashBLCashCardSearch {
-    
-    public CashBLCashCardSearch(){
-        
-        
-    }
-    public static List searchCashCard(TurqAccountingAccount account, String cardName)throws Exception {
-        try{
-            
-           return CashDALCashCard.searchCashCard(account,cardName); 
-            
-        }
-        
-        catch(Exception ex){
-            throw ex;
-        }
-    }
-  
-
+	public static List searchCashCard(TurqAccountingAccount account, String cardName) throws Exception
+	{
+		try
+		{
+			return CashDALCashCard.searchCashCard(account, cardName);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }

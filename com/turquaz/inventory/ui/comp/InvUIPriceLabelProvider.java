@@ -1,4 +1,3 @@
-
 package com.turquaz.inventory.ui.comp;
 
 /************************************************************************/
@@ -16,26 +15,27 @@ package com.turquaz.inventory.ui.comp;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
+ * @author Onsel Armagan
+ * @version $Id$
+ */
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
-
-
-public class InvUIPriceLabelProvider extends LabelProvider implements ITableLabelProvider { 
-	public Image getColumnImage(Object element, int columnIndex) {
+public class InvUIPriceLabelProvider extends LabelProvider implements ITableLabelProvider
+{
+	public Image getColumnImage(Object element, int columnIndex)
+	{
 		return null;
 	}
-	public String getColumnText(Object element, int columnIndex) {
+
+	public String getColumnText(Object element, int columnIndex)
+	{
 		String result = ""; //$NON-NLS-1$
 		InvUIPrice price = (InvUIPrice) element;
-		switch (columnIndex) {
-		
+		switch (columnIndex)
+		{
 			case 0 :
 				result = price.priceType;
 				break;
@@ -46,9 +46,8 @@ public class InvUIPriceLabelProvider extends LabelProvider implements ITableLabe
 				result = price.abrev;
 				break;
 			default :
-				break; 	
+				break;
 		}
 		return result;
 	}
-	
 }

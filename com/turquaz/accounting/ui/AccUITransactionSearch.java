@@ -15,44 +15,35 @@ package com.turquaz.accounting.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
  * @author  Onsel Armagan
  * @version  $Id$
  */
-
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
-
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
-
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Table;
-
 import com.cloudgarden.resource.SWTResourceManager;
-
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
-
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
-
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
-
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -61,19 +52,14 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
 
 /**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
- * which is free for non-commercial use. If Jigloo is being used commercially
- * (ie, by a corporation, company or business for any purpose whatever) then you
- * should purchase a license for each developer using Jigloo. Please visit
- * www.cloudgarden.com for details. Use of Jigloo implies acceptance of these
- * licensing terms. ************************************* A COMMERCIAL LICENSE
- * HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be
- * used legally for any corporate or commercial purpose.
- * *************************************
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
  */
-public class AccUITransactionSearch extends Composite implements
-		SearchComposite {
-
+public class AccUITransactionSearch extends Composite implements SearchComposite
+{
 	{
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
@@ -99,19 +85,20 @@ public class AccUITransactionSearch extends Composite implements
 	private Composite compAccTransactionSearch;
 	private Calendar cal = Calendar.getInstance();
 
-	public AccUITransactionSearch(Composite parent, int style) {
+	public AccUITransactionSearch(Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
 
 	/**
-	 * Initializes the GUI. Auto-generated code - any changes you make will
-	 * disappear.
+	 * Initializes the GUI. Auto-generated code - any changes you make will disappear.
 	 */
-	public void initGUI() {
-		try {
+	public void initGUI()
+	{
+		try
+		{
 			preInitGUI();
-
 			{
 				compAccTransactionSearch = new Composite(this, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
@@ -123,16 +110,13 @@ public class AccUITransactionSearch extends Composite implements
 				compAccTransactionSearch.setLayoutData(composite1LData);
 				compAccTransactionSearch.setLayout(composite1Layout);
 				{
-					lblDocumentNo = new CLabel(compAccTransactionSearch,
-							SWT.NONE);
+					lblDocumentNo = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblDocumentNoLData = new GridData();
 					lblDocumentNoLData.widthHint = 99;
 					lblDocumentNoLData.heightHint = 24;
 					lblDocumentNo.setLayoutData(lblDocumentNoLData);
-					lblDocumentNo.setText(Messages
-							.getString("AccUITransactionSearch.0")); //$NON-NLS-1$
-					lblDocumentNo.setSize(new org.eclipse.swt.graphics.Point(
-							99, 24));
+					lblDocumentNo.setText(Messages.getString("AccUITransactionSearch.0")); //$NON-NLS-1$
+					lblDocumentNo.setSize(new org.eclipse.swt.graphics.Point(99, 24));
 				}
 				{
 					txtDocumentNo = new Text(compAccTransactionSearch, SWT.NONE);
@@ -154,38 +138,31 @@ public class AccUITransactionSearch extends Composite implements
 				groupTransTypes.setLayoutData(groupTransTypesLData);
 				groupTransTypesLayout.makeColumnsEqualWidth = true;
 				groupTransTypes.setLayout(groupTransTypesLayout);
-				groupTransTypes.setText(Messages
-						.getString("AccUITransactionSearch.2")); //$NON-NLS-1$
+				groupTransTypes.setText(Messages.getString("AccUITransactionSearch.2")); //$NON-NLS-1$
 				//START >> btnAccTrans
 				btnAccTrans = new Button(groupTransTypes, SWT.CHECK | SWT.LEFT);
-				btnAccTrans.setText(Messages
-						.getString("AccUITransactionSearch.12")); //$NON-NLS-1$
+				btnAccTrans.setText(Messages.getString("AccUITransactionSearch.12")); //$NON-NLS-1$
 				btnAccTrans.setSelection(true);
 				//END << btnAccTrans
 				//START >> btnCollect
 				btnCollect = new Button(groupTransTypes, SWT.CHECK | SWT.LEFT);
-				btnCollect.setText(Messages
-						.getString("AccUITransactionSearch.13")); //$NON-NLS-1$
+				btnCollect.setText(Messages.getString("AccUITransactionSearch.13")); //$NON-NLS-1$
 				btnCollect.setSelection(true);
 				//END << btnCollect
 				//START >> btnPayment
 				btnPayment = new Button(groupTransTypes, SWT.CHECK | SWT.LEFT);
-				btnPayment.setText(Messages
-						.getString("AccUITransactionSearch.14")); //$NON-NLS-1$
+				btnPayment.setText(Messages.getString("AccUITransactionSearch.14")); //$NON-NLS-1$
 				btnPayment.setSelection(true);
 				//END << btnPayment
 				//END << groupTransTypes
 				{
-					lblStartDate = new CLabel(compAccTransactionSearch,
-							SWT.NONE);
+					lblStartDate = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblStartDateLData = new GridData();
 					lblStartDate.setLayoutData(lblStartDateLData);
-					lblStartDate.setText(Messages
-							.getString("AccUITransactionSearch.3")); //$NON-NLS-1$
+					lblStartDate.setText(Messages.getString("AccUITransactionSearch.3")); //$NON-NLS-1$
 				}
 				{
-					dateStartDate = new DatePicker(compAccTransactionSearch,
-							SWT.NONE);
+					dateStartDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
 					GridData dateStartDateLData = new GridData();
 					dateStartDateLData.widthHint = 156;
 					dateStartDateLData.heightHint = 22;
@@ -197,12 +174,10 @@ public class AccUITransactionSearch extends Composite implements
 					lblEndDate = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblEndDateLData = new GridData();
 					lblEndDate.setLayoutData(lblEndDateLData);
-					lblEndDate.setText(Messages
-							.getString("AccUITransactionSearch.4")); //$NON-NLS-1$
+					lblEndDate.setText(Messages.getString("AccUITransactionSearch.4")); //$NON-NLS-1$
 				}
 				{
-					dateEndDate = new DatePicker(compAccTransactionSearch,
-							SWT.NONE);
+					dateEndDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
 					GridData dateEndDateLData = new GridData();
 					dateEndDateLData.widthHint = 154;
 					dateEndDateLData.heightHint = 21;
@@ -214,30 +189,23 @@ public class AccUITransactionSearch extends Composite implements
 			tableTransactions = new Table(this, SWT.MULTI | SWT.FULL_SELECTION);
 			{
 				tableColumnDate = new TableColumn(tableTransactions, SWT.NONE);
-				tableColumnDate.setText(Messages
-						.getString("AccUITransactionSearch.7")); //$NON-NLS-1$
+				tableColumnDate.setText(Messages.getString("AccUITransactionSearch.7")); //$NON-NLS-1$
 				tableColumnDate.setWidth(118);
 			}
 			tableColumnDocumentNo = new TableColumn(tableTransactions, SWT.NULL);
 			tableColumnTransType = new TableColumn(tableTransactions, SWT.NULL);
 			//START >> tableColumnModuleName
 			tableColumnModuleName = new TableColumn(tableTransactions, SWT.NONE);
-			tableColumnModuleName.setText(Messages
-					.getString("AccUITransactionSearch.15")); //$NON-NLS-1$
+			tableColumnModuleName.setText(Messages.getString("AccUITransactionSearch.15")); //$NON-NLS-1$
 			tableColumnModuleName.setWidth(80);
 			//END << tableColumnModuleName
 			{
-				tableColumnDefinition = new TableColumn(tableTransactions,
-						SWT.NONE);
-				tableColumnDefinition.setText(Messages
-						.getString("AccUITransactionSearch.5")); //$NON-NLS-1$
+				tableColumnDefinition = new TableColumn(tableTransactions, SWT.NONE);
+				tableColumnDefinition.setText(Messages.getString("AccUITransactionSearch.5")); //$NON-NLS-1$
 				tableColumnDefinition.setWidth(150);
 			}
-			tableColumnTotalAmount = new TableColumn(tableTransactions,
-					SWT.RIGHT);
-
+			tableColumnTotalAmount = new TableColumn(tableTransactions, SWT.RIGHT);
 			this.setSize(new org.eclipse.swt.graphics.Point(646, 513));
-
 			GridData tableTransactionsLData = new GridData();
 			tableTransactionsLData.verticalAlignment = GridData.FILL;
 			tableTransactionsLData.horizontalAlignment = GridData.FILL;
@@ -246,23 +214,18 @@ public class AccUITransactionSearch extends Composite implements
 			tableTransactions.setLayoutData(tableTransactionsLData);
 			tableTransactions.setHeaderVisible(true);
 			tableTransactions.setLinesVisible(true);
-
-			tableTransactions.addMouseListener(new MouseAdapter() {
-				public void mouseDoubleClick(MouseEvent evt) {
+			tableTransactions.addMouseListener(new MouseAdapter()
+			{
+				public void mouseDoubleClick(MouseEvent evt)
+				{
 					tableTransactionsMouseDoubleClick(evt);
 				}
 			});
-
-			tableColumnTransType.setText(Messages
-					.getString("AccUITransactionSearch.1")); //$NON-NLS-1$
+			tableColumnTransType.setText(Messages.getString("AccUITransactionSearch.1")); //$NON-NLS-1$
 			tableColumnTransType.setWidth(130);
-
-			tableColumnDocumentNo.setText(Messages
-					.getString("AccUITransactionSearch.0")); //$NON-NLS-1$
+			tableColumnDocumentNo.setText(Messages.getString("AccUITransactionSearch.0")); //$NON-NLS-1$
 			tableColumnDocumentNo.setWidth(126);
-
-			tableColumnTotalAmount.setText(Messages
-					.getString("AccUITransactionSearch.8")); //$NON-NLS-1$
+			tableColumnTotalAmount.setText(Messages.getString("AccUITransactionSearch.8")); //$NON-NLS-1$
 			tableColumnTotalAmount.setWidth(118);
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
@@ -273,215 +236,186 @@ public class AccUITransactionSearch extends Composite implements
 			thisLayout.horizontalSpacing = 5;
 			thisLayout.verticalSpacing = 5;
 			this.layout();
-			addDisposeListener(new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
+			addDisposeListener(new DisposeListener()
+			{
+				public void widgetDisposed(DisposeEvent e)
+				{
 				}
 			});
-
 			postInitGUI();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
 
 	/** Add your pre-init code in here */
-	public void preInitGUI() {
+	public void preInitGUI()
+	{
 	}
 
 	/** Add your post-init code in here */
-	public void postInitGUI() {
+	public void postInitGUI()
+	{
 		//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		dateStartDate.setDate(cal.getTime());
-
 	}
 
-	public void save() {
-
+	public void save()
+	{
 	}
 
-	public void delete() {
-
+	public void delete()
+	{
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-
 		TableItem items[] = tableTransactions.getSelection();
-		if (items.length > 0) {
-			TurqAccountingTransaction accTrans = (TurqAccountingTransaction) items[0]
-					.getData();
-
+		if (items.length > 0)
+		{
+			TurqAccountingTransaction accTrans = (TurqAccountingTransaction) items[0].getData();
 			int status = 0;
-
 			/* Check if it has a journal entry */
-			if (accTrans.getTurqAccountingJournal().getId()
-					.intValue() != -1) {
+			if (accTrans.getTurqAccountingJournal().getId().intValue() != -1)
+			{
 				status = 1;
-
 			}
 			/*
 			 * Check if it is entered from accountingmodule
-			 *  
 			 */
 			//1- Muhasebe Modulu
-			else if (accTrans.getTurqModule().getId().intValue() != 1) {
+			else if (accTrans.getTurqModule().getId().intValue() != 1)
+			{
 				status = 2;
-
 			}
-
-			if (status == 2) {
+			if (status == 2)
+			{
 				msg.setMessage(Messages.getString("AccUITransactionSearch.6")); //$NON-NLS-1$
 				msg.open();
 				return;
 			}
-			if (status == 1) {
+			if (status == 1)
+			{
 				msg.setMessage(Messages.getString("AccUITransactionSearch.9")); //$NON-NLS-1$
 				msg.open();
 				return;
 			}
-
 			AccBLTransactionUpdate blUpdate = new AccBLTransactionUpdate();
-			MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK
-					| SWT.CANCEL);
-			try {
-				msg2
-						.setMessage(Messages
-								.getString("AccUITransactionSearch.10")); //$NON-NLS-1$
+			MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
+			try
+			{
+				msg2.setMessage(Messages.getString("AccUITransactionSearch.10")); //$NON-NLS-1$
 				int result = msg2.open();
-
-				if (result == SWT.OK) {
-
+				if (result == SWT.OK)
+				{
 					AccBLTransactionUpdate.initiliazeTransactionRows(accTrans);
-
 					Iterator it = accTrans.getTurqAccountingTransactionColumns().iterator();
-					while (it.hasNext()) {
+					while (it.hasNext())
+					{
 						EngBLCommon.delete(it.next());
 					}
 					EngBLCommon.delete(accTrans);
-
 					msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 					msg.open();
 					search();
-
 				}
-
-			} catch (Exception ex) {
-				MessageBox msg3 = new MessageBox(this.getShell(),
-						SWT.ICON_WARNING);
+			}
+			catch (Exception ex)
+			{
+				MessageBox msg3 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
 				msg3.setMessage(Messages.getString("AccUIAccountingPlan.5")); //$NON-NLS-1$
 				msg3.open();
-
 				ex.printStackTrace();
-
 			}
 		}
-
 	}
 
-	public void search() {
-		try {
+	public void search()
+	{
+		try
+		{
 			tableTransactions.removeAll();
-
-			List result = AccBLTransactionSearch.searchAccTransaction(txtDocumentNo
-					.getText().trim(),
-
-			dateStartDate.getDate(), dateEndDate.getDate(), btnAccTrans
-					.getSelection(), btnCollect.getSelection(), btnPayment
-					.getSelection());
-
+			List result = AccBLTransactionSearch.searchAccTransaction(txtDocumentNo.getText().trim(), dateStartDate.getDate(),
+					dateEndDate.getDate(), btnAccTrans.getSelection(), btnCollect.getSelection(), btnPayment.getSelection());
 			TableItem item;
-
 			int listSize = result.size();
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			for (int i = 0; i < listSize; i++) {
-
+			for (int i = 0; i < listSize; i++)
+			{
 				TurqAccountingTransaction accTran = new TurqAccountingTransaction();
-
 				Object[] accTransValues = (Object[]) result.get(i);
-
-				accTran
-						.setId((Integer) accTransValues[0]);
-
+				accTran.setId((Integer) accTransValues[0]);
 				item = new TableItem(tableTransactions, SWT.NULL);
 				item.setData(accTran);
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
-
 				BigDecimal total = new BigDecimal(0);
-				if (accTransValues[5] != null) {
+				if (accTransValues[5] != null)
+				{
 					total = (BigDecimal) accTransValues[5];
 				}
-
 				String transDate = formatter.format(accTransValues[1]);
-				item.setText(new String[] { transDate,
-						accTransValues[2].toString(), //doc no
+				item.setText(new String[]{transDate, accTransValues[2].toString(), //doc no
 						accTransValues[3].toString(), //type
 						accTransValues[6].toString(),//modele name
 						accTransValues[4].toString(), //definition
-						cf.format(total) }); //$NON-NLS-1$ 
-
+						cf.format(total)}); //$NON-NLS-1$ 
 			}
-
-		} catch (Exception ex) {
-
-			ex.printStackTrace();
-
 		}
-
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
-	public void newForm() {
-
+	public void newForm()
+	{
 	}
 
-	public void printTable() {
-		EngBLUtils.printTable(tableTransactions, Messages
-				.getString("AccUITransactionSearch.11")); //$NON-NLS-1$
-
+	public void printTable()
+	{
+		EngBLUtils.printTable(tableTransactions, Messages.getString("AccUITransactionSearch.11")); //$NON-NLS-1$
 	}
 
 	/** Auto-generated event handler method */
-	protected void tableTransactionsMouseDoubleClick(MouseEvent evt) {
-
-		try {
-
+	protected void tableTransactionsMouseDoubleClick(MouseEvent evt)
+	{
+		try
+		{
 			TableItem selection[] = tableTransactions.getSelection();
-
-			if (selection.length > 0) {
-
-				TurqAccountingTransaction accTrans = (TurqAccountingTransaction) selection[0]
-						.getData();
+			if (selection.length > 0)
+			{
+				TurqAccountingTransaction accTrans = (TurqAccountingTransaction) selection[0].getData();
 				AccBLTransactionUpdate.initiliazeTransactionRows(accTrans);
-				int type = accTrans.getTurqAccountingTransactionType()
-						.getId().intValue();
+				int type = accTrans.getTurqAccountingTransactionType().getId().intValue();
 				boolean updated;
-				if (type == 2) {
-					updated = new AccUITransactionUpdateDialog(this
-							.getShell(), SWT.NULL, accTrans).open();
+				if (type == 2)
+				{
+					updated = new AccUITransactionUpdateDialog(this.getShell(), SWT.NULL, accTrans).open();
 					if (updated)
 						search();
-
-				} else if (type == 1) {
-					updated= new AccUITransactionPaymentUpdateDialog(this.getShell(),
-							SWT.NULL, accTrans).open();
-					if (updated)
-						search();
-				} else if (type == 0) {
-					updated=new AccUITransactionCollectUpdateDialog(this.getShell(),
-							SWT.NULL, accTrans).open();
-					if (updated)
-						search();
-
 				}
-
+				else if (type == 1)
+				{
+					updated = new AccUITransactionPaymentUpdateDialog(this.getShell(), SWT.NULL, accTrans).open();
+					if (updated)
+						search();
+				}
+				else if (type == 0)
+				{
+					updated = new AccUITransactionCollectUpdateDialog(this.getShell(), SWT.NULL, accTrans).open();
+					if (updated)
+						search();
+				}
 			}
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
-
 	}
 
-	public void exportToExcel() {
-
+	public void exportToExcel()
+	{
 		EngBLUtils.Export2Excel(tableTransactions);
-
 	}
-
 }

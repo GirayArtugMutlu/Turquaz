@@ -21,9 +21,7 @@
  **	  	RSSOwl - initial API and implementation (bpasero@rssowl.org)				 **
  **																																					 **
  **	 **********************************************************************	 */
-
 package com.turquaz.engine.ui.component.rssowl;
-
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
@@ -36,7 +34,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-
 import com.turquaz.engine.ui.EngUIMainFrame;
 
 /**
@@ -45,20 +42,24 @@ import com.turquaz.engine.ui.EngUIMainFrame;
  * @author <a href="mailto:bpasero@rssowl.org">Benjamin Pasero </a>
  * @version 1.0
  */
-public class LayoutShop {
-
+public class LayoutShop
+{
 	/** This utility class constructor is hidden */
-	private LayoutShop() {
-	// Protect default constructor
+	private LayoutShop()
+	{
+		// Protect default constructor
 	}
 
 	/**
 	 * Center a shell on the monitor
 	 * 
-	 * @param display The display
-	 * @param shell The shell to center
+	 * @param display
+	 *             The display
+	 * @param shell
+	 *             The shell to center
 	 */
-	public static void centerShell(Display display, Shell shell) {
+	public static void centerShell(Display display, Shell shell)
+	{
 		Rectangle displayBounds = display.getPrimaryMonitor().getBounds();
 		Rectangle shellBounds = shell.getBounds();
 		int x = displayBounds.x + (displayBounds.width - shellBounds.width) >> 1;
@@ -69,11 +70,14 @@ public class LayoutShop {
 	/**
 	 * Create a new FillLayout with the given parameters
 	 * 
-	 * @param marginWidth Margin width in pixel
-	 * @param marginHeight Margin height in pixel
+	 * @param marginWidth
+	 *             Margin width in pixel
+	 * @param marginHeight
+	 *             Margin height in pixel
 	 * @return FillLayout New FillLayout with the given parameters
 	 */
-	public static FillLayout createFillLayout(int marginWidth, int marginHeight) {
+	public static FillLayout createFillLayout(int marginWidth, int marginHeight)
+	{
 		FillLayout f = new FillLayout();
 		f.marginHeight = marginHeight;
 		f.marginWidth = marginWidth;
@@ -83,74 +87,101 @@ public class LayoutShop {
 	/**
 	 * Create a new GridLayout with the given parameters
 	 * 
-	 * @param rows The number of rows
+	 * @param rows
+	 *             The number of rows
 	 * @return GridLayout New GridLayout with the given parameters
 	 */
-	public static GridLayout createGridLayout(int rows) {
+	public static GridLayout createGridLayout(int rows)
+	{
 		return createGridLayout(rows, 5, 5, 5, 5, false);
 	}
 
 	/**
 	 * Create a new GridLayout with the given parameters
 	 * 
-	 * @param rows The number of rows
-	 * @param marginWidth Margin width in pixel
+	 * @param rows
+	 *             The number of rows
+	 * @param marginWidth
+	 *             Margin width in pixel
 	 * @return GridLayout New GridLayout with the given parameters
 	 */
-	public static GridLayout createGridLayout(int rows, int marginWidth) {
+	public static GridLayout createGridLayout(int rows, int marginWidth)
+	{
 		return createGridLayout(rows, marginWidth, 5, 5, 5, false);
 	}
 
 	/**
 	 * Create a new GridLayout with the given parameters
 	 * 
-	 * @param rows The number of rows
-	 * @param marginWidth Margin width in pixel
-	 * @param marginHeight Margin height in pixel
+	 * @param rows
+	 *             The number of rows
+	 * @param marginWidth
+	 *             Margin width in pixel
+	 * @param marginHeight
+	 *             Margin height in pixel
 	 * @return GridLayout New GridLayout with the given parameters
 	 */
-	public static GridLayout createGridLayout(int rows, int marginWidth, int marginHeight) {
+	public static GridLayout createGridLayout(int rows, int marginWidth, int marginHeight)
+	{
 		return createGridLayout(rows, marginWidth, marginHeight, 5, 5, false);
 	}
 
 	/**
 	 * Create a new GridLayout with the given parameters
 	 * 
-	 * @param rows The number of rows
-	 * @param marginWidth Margin width in pixel
-	 * @param marginHeight Margin height in pixel
-	 * @param makeColumnsEqualWidth TRUE if columns should be equals in size
+	 * @param rows
+	 *             The number of rows
+	 * @param marginWidth
+	 *             Margin width in pixel
+	 * @param marginHeight
+	 *             Margin height in pixel
+	 * @param makeColumnsEqualWidth
+	 *             TRUE if columns should be equals in size
 	 * @return GridLayout New GridLayout with the given parameters
 	 */
-	public static GridLayout createGridLayout(int rows, int marginWidth, int marginHeight, boolean makeColumnsEqualWidth) {
+	public static GridLayout createGridLayout(int rows, int marginWidth, int marginHeight, boolean makeColumnsEqualWidth)
+	{
 		return createGridLayout(rows, marginWidth, marginHeight, 5, 5, makeColumnsEqualWidth);
 	}
 
 	/**
 	 * Create a new GridLayout with the given parameters
 	 * 
-	 * @param rows The number of rows
-	 * @param marginWidth Margin width in pixel
-	 * @param marginHeight Margin height in pixel
-	 * @param verticalSpacing Vertical spacing in pixel
+	 * @param rows
+	 *             The number of rows
+	 * @param marginWidth
+	 *             Margin width in pixel
+	 * @param marginHeight
+	 *             Margin height in pixel
+	 * @param verticalSpacing
+	 *             Vertical spacing in pixel
 	 * @return GridLayout New GridLayout with the given parameters
 	 */
-	public static GridLayout createGridLayout(int rows, int marginWidth, int marginHeight, int verticalSpacing) {
+	public static GridLayout createGridLayout(int rows, int marginWidth, int marginHeight, int verticalSpacing)
+	{
 		return createGridLayout(rows, marginWidth, marginHeight, verticalSpacing, 5, false);
 	}
 
 	/**
 	 * Create a new GridLayout with the given parameters
 	 * 
-	 * @param rows The number of rows
-	 * @param marginWidth Margin width in pixel
-	 * @param marginHeight Margin height in pixel
-	 * @param verticalSpacing Vertical spacing in pixel
-	 * @param horizontalSpacing Horizontal spacing in pixel
-	 * @param makeColumnsEqualWidth TRUE if columns should be equals in size
+	 * @param rows
+	 *             The number of rows
+	 * @param marginWidth
+	 *             Margin width in pixel
+	 * @param marginHeight
+	 *             Margin height in pixel
+	 * @param verticalSpacing
+	 *             Vertical spacing in pixel
+	 * @param horizontalSpacing
+	 *             Horizontal spacing in pixel
+	 * @param makeColumnsEqualWidth
+	 *             TRUE if columns should be equals in size
 	 * @return GridLayout New GridLayout with the given parameters
 	 */
-	public static GridLayout createGridLayout(int rows, int marginWidth, int marginHeight, int verticalSpacing, int horizontalSpacing, boolean makeColumnsEqualWidth) {
+	public static GridLayout createGridLayout(int rows, int marginWidth, int marginHeight, int verticalSpacing, int horizontalSpacing,
+			boolean makeColumnsEqualWidth)
+	{
 		GridLayout g = new GridLayout(rows, false);
 		g.marginHeight = marginHeight;
 		g.marginWidth = marginWidth;
@@ -163,12 +194,16 @@ public class LayoutShop {
 	/**
 	 * Pack all controls and sub composites
 	 * 
-	 * @param control Control to start
+	 * @param control
+	 *             Control to start
 	 */
-	public static void packAll(Control control) {
-		if (control instanceof Composite) {
+	public static void packAll(Control control)
+	{
+		if (control instanceof Composite)
+		{
 			Control[] childs = ((Composite) control).getChildren();
-			for (int a = 0; a < childs.length; a++) {
+			for (int a = 0; a < childs.length; a++)
+			{
 				packAll(childs[a]);
 			}
 			((Composite) control).layout();
@@ -176,44 +211,46 @@ public class LayoutShop {
 	}
 
 	/**
-	 * Sets the initial location to use for the shell. The default implementation
-	 * centers the shell horizontally (1/2 of the difference to the left and 1/2
-	 * to the right) and vertically (1/3 above and 2/3 below) relative to the
-	 * parent shell
+	 * Sets the initial location to use for the shell. The default implementation centers the shell horizontally (1/2 of the difference to
+	 * the left and 1/2 to the right) and vertically (1/3 above and 2/3 below) relative to the parent shell
 	 * 
-	 * @param shell The shell to set the location
+	 * @param shell
+	 *             The shell to set the location
 	 */
-	public static void positionShell(Shell shell) {
+	public static void positionShell(Shell shell)
+	{
 		positionShell(shell, true);
 	}
 
 	/**
-	 * Sets the initial location to use for the shell. The default implementation
-	 * centers the shell horizontally (1/2 of the difference to the left and 1/2
-	 * to the right) and vertically (1/3 above and 2/3 below) relative to the
-	 * parent shell
+	 * Sets the initial location to use for the shell. The default implementation centers the shell horizontally (1/2 of the difference to
+	 * the left and 1/2 to the right) and vertically (1/3 above and 2/3 below) relative to the parent shell
 	 * 
-	 * @param shell The shell to set the location
-	 * @param computeSize If TRUE, initialSize is computed from the Shell
+	 * @param shell
+	 *             The shell to set the location
+	 * @param computeSize
+	 *             If TRUE, initialSize is computed from the Shell
 	 */
-	public static void positionShell(Shell shell, boolean computeSize) {
+	public static void positionShell(Shell shell, boolean computeSize)
+	{
 		positionShell(shell, computeSize, 0);
 	}
 
 	/**
-	 * Sets the initial location to use for the shell. The default implementation
-	 * centers the shell horizontally (1/2 of the difference to the left and 1/2
-	 * to the right) and vertically (1/3 above and 2/3 below) relative to the
-	 * parent shell
+	 * Sets the initial location to use for the shell. The default implementation centers the shell horizontally (1/2 of the difference to
+	 * the left and 1/2 to the right) and vertically (1/3 above and 2/3 below) relative to the parent shell
 	 * 
-	 * @param shell The shell to set the location
-	 * @param computeSize If TRUE, initialSize is computed from the Shell
-	 * @param sameDialogCount In the case the same dialog is opened more than
-	 * once, do not position the Shells on the same position. The sameDialogCount
-	 * integer tells how many dialogs of the same kind are already open. This
-	 * number is used to move the new dialog by some pixels.
+	 * @param shell
+	 *             The shell to set the location
+	 * @param computeSize
+	 *             If TRUE, initialSize is computed from the Shell
+	 * @param sameDialogCount
+	 *             In the case the same dialog is opened more than once, do not position the Shells on the same position. The
+	 *             sameDialogCount integer tells how many dialogs of the same kind are already open. This number is used to move the new
+	 *             dialog by some pixels.
 	 */
-	public static void positionShell(Shell shell, boolean computeSize, int sameDialogCount) {
+	public static void positionShell(Shell shell, boolean computeSize, int sameDialogCount)
+	{
 		Rectangle containerBounds = EngUIMainFrame.shell.getBounds();
 		Point initialSize = (computeSize == true) ? shell.computeSize(SWT.DEFAULT, SWT.DEFAULT, true) : shell.getSize();
 		int x = Math.max(0, containerBounds.x + (containerBounds.width - initialSize.x) >> 1);
@@ -222,15 +259,19 @@ public class LayoutShop {
 	}
 
 	/**
-	 * Set invisible labels as spacer to a composite. The labels will grab
-	 * vertical space.
+	 * Set invisible labels as spacer to a composite. The labels will grab vertical space.
 	 * 
-	 * @param composite The control to add the spacer into
-	 * @param cols Is used as horizontal span in the GridData
-	 * @param rows Number of labels that are created
+	 * @param composite
+	 *             The control to add the spacer into
+	 * @param cols
+	 *             Is used as horizontal span in the GridData
+	 * @param rows
+	 *             Number of labels that are created
 	 */
-	public static void setDialogSpacer(Composite composite, int cols, int rows) {
-		for (int a = 0; a < rows; a++) {
+	public static void setDialogSpacer(Composite composite, int cols, int rows)
+	{
+		for (int a = 0; a < rows; a++)
+		{
 			Label spacer = new Label(composite, SWT.NONE);
 			spacer.setLayoutData(LayoutDataShop.createGridData(GridData.HORIZONTAL_ALIGN_BEGINNING, cols));
 			spacer.setFont(FontShop.dialogFont);
@@ -240,12 +281,16 @@ public class LayoutShop {
 	/**
 	 * Recursivly update layout for given control and childs
 	 * 
-	 * @param control The control to set the layout
+	 * @param control
+	 *             The control to set the layout
 	 */
-	public static void setLayoutForAll(Control control) {
-		if (control instanceof Composite) {
+	public static void setLayoutForAll(Control control)
+	{
+		if (control instanceof Composite)
+		{
 			Control[] childs = ((Composite) control).getChildren();
-			for (int a = 0; a < childs.length; a++) {
+			for (int a = 0; a < childs.length; a++)
+			{
 				setLayoutForAll(childs[a]);
 			}
 			((Composite) control).layout();

@@ -3,7 +3,6 @@ package com.turquaz.engine.bl;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
@@ -22,107 +21,103 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
  * @author Huseyin Ergun
  * @version $Id$
  */
-
-public class EngBLCurrentCards {
-
+public class EngBLCurrentCards
+{
 	public List currentList;
-
 	static EngBLCurrentCards _instance;
 
-	public EngBLCurrentCards() throws Exception {
-		try {
+	public EngBLCurrentCards() throws Exception
+	{
+		try
+		{
 			fillCurrentCards();
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
 
-	public void fillCurrentCards() throws Exception {
-		try {
-		    
+	public void fillCurrentCards() throws Exception
+	{
+		try
+		{
 			currentList = CurBLCurrentCardSearch.getCurrentCards();
-			
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-
 	}
 
-	public static synchronized List getCurrentCards() throws Exception {
-		try {
-			if (_instance == null) {
-
+	public static synchronized List getCurrentCards() throws Exception
+	{
+		try
+		{
+			if (_instance == null)
+			{
 				_instance = new EngBLCurrentCards();
-
 			}
-
 			return _instance.currentList;
-
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-
 	}
-	
-	public static TurqCurrentCard getCards(String currentCode)
-	throws Exception {
-		try 
+
+	public static TurqCurrentCard getCards(String currentCode) throws Exception
+	{
+		try
 		{
-
-			if (_instance == null) {
-
+			if (_instance == null)
+			{
 				_instance = new EngBLCurrentCards();
-
 			}
-
 			return (TurqCurrentCard) _instance.getCurrentCard(currentCode);
-
 		}
-		catch (Exception ex) 
+		catch (Exception ex)
 		{
 			throw ex;
 		}
 	}
-	public static TurqCurrentCard  getCurrentCardForContentAssist(String cardNameCode)throws Exception{
-	    try{
-	        
-	        String pattern = ".*[{](.*)[}].*";
-	        Pattern p = Pattern.compile(pattern);
-	        Matcher m = p.matcher(cardNameCode);
-	        if(m.find()){
-	            
-	          return getCards(m.group(1));
-	            
-	        }
-	        
-	        return null;
-	        
-	        
-	        
-	    }
-	    catch(Exception ex){
-	        throw ex;
-	    }
-	    
-	    
+
+	public static TurqCurrentCard getCurrentCardForContentAssist(String cardNameCode) throws Exception
+	{
+		try
+		{
+			String pattern = ".*[{](.*)[}].*";
+			Pattern p = Pattern.compile(pattern);
+			Matcher m = p.matcher(cardNameCode);
+			if (m.find())
+			{
+				return getCards(m.group(1));
+			}
+			return null;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
 	}
-	
-	public TurqCurrentCard getCurrentCard(String currentCode)throws Exception {
-	 try{
-	     
-	     return CurBLCurrentCardSearch.getCurrentCard(currentCode);
-	 }
-	 catch(Exception ex){
-	     throw ex;
-	 }
-	    
+
+	public TurqCurrentCard getCurrentCard(String currentCode) throws Exception
+	{
+		try
+		{
+			return CurBLCurrentCardSearch.getCurrentCard(currentCode);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
 	}
-	public static void RefreshContentAsistantMap()throws Exception
+
+	public static void RefreshContentAsistantMap() throws Exception
 	{
 		try
 		{
@@ -133,13 +128,9 @@ public class EngBLCurrentCards {
 			}
 			_instance.fillCurrentCards();
 		}
-		
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			throw ex;
-		}	
-		
+		}
 	}
-	
-
 }

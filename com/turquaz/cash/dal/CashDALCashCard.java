@@ -1,4 +1,3 @@
-
 package com.turquaz.cash.dal;
 
 /************************************************************************/
@@ -16,11 +15,9 @@ package com.turquaz.cash.dal;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -29,267 +26,209 @@ import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqEngineSequence;
-
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
 /**
- * 
  * @author onsel
  * @version $Id$
  */
+public class CashDALCashCard
+{
+	public CashDALCashCard()
+	{
+	}
 
-public class CashDALCashCard {
-    
-    public CashDALCashCard(){
-        
-    }
-    
-   
-   
-    
-    
-    
-    public static void deleteAccountingTransaction(TurqCashTransaction cashTrans)throws Exception{
-        try{
-            Session session = EngDALSessionFactory.openSession();
-            Transaction tx = session.beginTransaction();
-            
-            session.refresh(cashTrans);
-            
-            Iterator it = cashTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
-            while(it.hasNext()){
-                
-              TurqAccountingTransaction accTran =(TurqAccountingTransaction)it.next();
-              Iterator it2 = accTran.getTurqAccountingTransactionColumns().iterator();
-              while(it2.hasNext()){
-                  session.delete(it2.next());
-                  
-              }
-              session.delete(accTran);
-              
-            }
-            
-            tx.commit();
-            session.flush();
-            session.close();
-            
-            
-            
-            
-            
-        }
-        catch(Exception ex){
-            throw ex;
-        }
-        
-    }
-    
-    public static List searchCashCard(TurqAccountingAccount account, String name)throws Exception{
-     try{
-         Session session = EngDALSessionFactory.openSession();
-         
-         String query = "select cashCard from TurqCashCard as cashCard " +
-         		" where cashCard.cashCardName like '"+name+"%' ";
-         if(account !=null){
-             query += " cashCard.turqAccountingAccount = :account";
-         }
-         
-         Query q = session.createQuery(query);
-        
-         if(account !=null){
-             q.setParameter("account",account);
-         }
-         
-         List lst = q.list();
-         
-         session.close();
-         return lst; 
-        
-     }
-     catch(Exception ex){
-         throw ex;
-     }
-        
-    }
-    public static List searchCashTransaction(TurqCashCard cashCard, Date startdate, Date endDate, String definition)throws Exception{
-        try{
-            
-            Session session = EngDALSessionFactory.openSession();
-            
-            String query = "select distinct cashTrans.id," +
-            		" cashTrans.turqCashTransactionType.cashTransationTypeName, sum(transRow.deptAmount),sum(transRow.creditAmount),cashTrans.transactionDate, cashTrans.transactionDefinition from TurqCashTransaction as cashTrans" +
-            		" left join cashTrans.turqCashTransactionRows as transRow " +
-            		" where cashTrans.transactionDate >= :startDate and cashTrans.transactionDate <= :endDate " ;
-            		
-            
-             if(cashCard!=null){
-                 query+=" and transRow.turqCashCard = :cashCard ";
-             }
-             if(!definition.equals(""))
-             {
-             	query+=" and cashTrans.transactionDefinition like '"+definition+"%'";
-             }
-            		
-            query +=" group by cashTrans.id, cashTrans.turqCashTransactionType.cashTransationTypeName, cashTrans.transactionDate,cashTrans.transactionDefinition";
-            query += " order by cashTrans.transactionDate";
-            Query q = session.createQuery(query);
-            q.setParameter("startDate",startdate);
-            q.setParameter("endDate",endDate);
-            
-            if(cashCard!=null){
-             q.setParameter("cashCard",cashCard);   
-            }
-            
-            List lst = q.list();
-            
-            return lst;
-            
-            
-            
-            
-            
-        }
-        catch(Exception ex){
-            throw ex;
-        }
-        
-        
-    }
-    public static TurqCashTransaction initiliazeCashTrans(Integer id)throws Exception{
-        try{
-            Session session = EngDALSessionFactory.openSession();
-            
-            TurqCashTransaction cashTrans =(TurqCashTransaction)session.load(TurqCashTransaction.class, id);
-            
+	public static void deleteAccountingTransaction(TurqCashTransaction cashTrans) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			session.refresh(cashTrans);
+			Iterator it = cashTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
+			while (it.hasNext())
+			{
+				TurqAccountingTransaction accTran = (TurqAccountingTransaction) it.next();
+				Iterator it2 = accTran.getTurqAccountingTransactionColumns().iterator();
+				while (it2.hasNext())
+				{
+					session.delete(it2.next());
+				}
+				session.delete(accTran);
+			}
+			tx.commit();
+			session.flush();
+			session.close();
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
-            Hibernate.initialize(cashTrans.getTurqEngineSequence().getTurqCurrentTransactions());   
-            Hibernate.initialize(cashTrans.getTurqCashTransactionRows());
-            Hibernate.initialize(cashTrans.getTurqEngineSequence().getTurqAccountingTransactions());
-            
-            session.close();
-            return cashTrans;
-            
-            
-            
-        }
-        catch(Exception ex){
-            throw ex;
-        }
-        
-        
-    }
-    public static void initiliazeCashTrans(TurqCashTransaction cashTrans)throws Exception{
-        try{
-            
-            Session session = EngDALSessionFactory.openSession();
-            
-            session.refresh(cashTrans);
-       
-           
-                
-            Hibernate.initialize(cashTrans.getTurqCashTransactionRows()); 
-            
-            session.close();
-            
-            
-            
-        }
-        catch(Exception ex){
-            throw ex;
-        }
-        
-        
-    }
-    public static TurqCurrentCard getCurrentCard (TurqEngineSequence seq)throws Exception{
-        try{
-            Session session = EngDALSessionFactory.openSession();
-            session.refresh(seq);
-            Hibernate.initialize(seq.getTurqCurrentTransactions());
-            
-            Iterator it = seq.getTurqCurrentTransactions().iterator();
-            
-            if(it.hasNext()){
-                
-            TurqCurrentTransaction curTrans = (TurqCurrentTransaction)it.next();
-            session.close();
-            return curTrans.getTurqCurrentCard();
-            
-            
-            }
-            
-            session.close();
-            return null;
-            
-            
-            
-        }
-        catch(Exception ex){
-            throw ex;
-        }
-        
-    }
-    public static List getTransactions(TurqCashCard cashCard, Date startDate, Date endDate)throws Exception{
-        try{
-            Session session = EngDALSessionFactory.openSession();
-          
-            
-            String query = "select trans.id, trans.transactionDate, trans.transactionDefinition," +
-            		" transRow.deptAmount,transRow.creditAmount, trans.turqCashTransactionType.cashTransationTypeName" +
-            		" from TurqCashTransaction as trans left join trans.turqCashTransactionRows as transRow " +
-            		" where transRow.turqCashCard = :cashCard" +
-            		" and trans.transactionDate >= :startDate and trans.transactionDate<= :endDate" +
-            		
-            		" order by trans.id,trans.transactionDate";
+	public static List searchCashCard(TurqAccountingAccount account, String name) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "select cashCard from TurqCashCard as cashCard " + " where cashCard.cashCardName like '" + name + "%' ";
+			if (account != null)
+			{
+				query += " cashCard.turqAccountingAccount = :account";
+			}
+			Query q = session.createQuery(query);
+			if (account != null)
+			{
+				q.setParameter("account", account);
+			}
+			List lst = q.list();
+			session.close();
+			return lst;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
-          
-            Query q = session.createQuery(query);
-            q.setParameter("cashCard",cashCard);
-            q.setParameter("startDate",startDate);
-            q.setParameter("endDate",endDate);
-            
-            List ls = q.list();
-            session.close();
-            return ls;
-            
-        }
-        catch(Exception ex){
-            throw ex;
-        }
-    }
+	public static List searchCashTransaction(TurqCashCard cashCard, Date startdate, Date endDate, String definition) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "select distinct cashTrans.id,"
+					+ " cashTrans.turqCashTransactionType.cashTransationTypeName, sum(transRow.deptAmount),sum(transRow.creditAmount),cashTrans.transactionDate, cashTrans.transactionDefinition from TurqCashTransaction as cashTrans"
+					+ " left join cashTrans.turqCashTransactionRows as transRow "
+					+ " where cashTrans.transactionDate >= :startDate and cashTrans.transactionDate <= :endDate ";
+			if (cashCard != null)
+			{
+				query += " and transRow.turqCashCard = :cashCard ";
+			}
+			if (!definition.equals(""))
+			{
+				query += " and cashTrans.transactionDefinition like '" + definition + "%'";
+			}
+			query += " group by cashTrans.id, cashTrans.turqCashTransactionType.cashTransationTypeName, cashTrans.transactionDate,cashTrans.transactionDefinition";
+			query += " order by cashTrans.transactionDate";
+			Query q = session.createQuery(query);
+			q.setParameter("startDate", startdate);
+			q.setParameter("endDate", endDate);
+			if (cashCard != null)
+			{
+				q.setParameter("cashCard", cashCard);
+			}
+			List lst = q.list();
+			return lst;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
-    //Devreden Toplam
-    public static List getDeferredTotal(TurqCashCard cashCard, Date endDate) throws Exception
-    {
-        try{
-            Session session = EngDALSessionFactory.openSession();
-           
-            String query = "Select sum(row.deptAmount),sum(row.creditAmount)" +
-            		" from TurqCashTransactionRow as row where row.turqCashTransaction.transactionDate < :endDate" +
-            		" and row.turqCashCard = :cashCard" +
-            		" group by row.turqCashCard";
-            
-            Query q = session.createQuery(query);
-            q.setParameter("endDate",endDate);
-            q.setParameter("cashCard",cashCard);
-            List ls = q.list();
-            
-            session.close();
-            return ls;
-            
-            
-            
-            
-        }
-        catch(Exception ex)
-        {
-            throw ex;
-        }
-        
-        
-    }
-    
+	public static TurqCashTransaction initiliazeCashTrans(Integer id) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			TurqCashTransaction cashTrans = (TurqCashTransaction) session.load(TurqCashTransaction.class, id);
+			Hibernate.initialize(cashTrans.getTurqEngineSequence().getTurqCurrentTransactions());
+			Hibernate.initialize(cashTrans.getTurqCashTransactionRows());
+			Hibernate.initialize(cashTrans.getTurqEngineSequence().getTurqAccountingTransactions());
+			session.close();
+			return cashTrans;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
+	public static void initiliazeCashTrans(TurqCashTransaction cashTrans) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			session.refresh(cashTrans);
+			Hibernate.initialize(cashTrans.getTurqCashTransactionRows());
+			session.close();
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static TurqCurrentCard getCurrentCard(TurqEngineSequence seq) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			session.refresh(seq);
+			Hibernate.initialize(seq.getTurqCurrentTransactions());
+			Iterator it = seq.getTurqCurrentTransactions().iterator();
+			if (it.hasNext())
+			{
+				TurqCurrentTransaction curTrans = (TurqCurrentTransaction) it.next();
+				session.close();
+				return curTrans.getTurqCurrentCard();
+			}
+			session.close();
+			return null;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static List getTransactions(TurqCashCard cashCard, Date startDate, Date endDate) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "select trans.id, trans.transactionDate, trans.transactionDefinition,"
+					+ " transRow.deptAmount,transRow.creditAmount, trans.turqCashTransactionType.cashTransationTypeName"
+					+ " from TurqCashTransaction as trans left join trans.turqCashTransactionRows as transRow "
+					+ " where transRow.turqCashCard = :cashCard"
+					+ " and trans.transactionDate >= :startDate and trans.transactionDate<= :endDate"
+					+ " order by trans.id,trans.transactionDate";
+			Query q = session.createQuery(query);
+			q.setParameter("cashCard", cashCard);
+			q.setParameter("startDate", startDate);
+			q.setParameter("endDate", endDate);
+			List ls = q.list();
+			session.close();
+			return ls;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	//Devreden Toplam
+	public static List getDeferredTotal(TurqCashCard cashCard, Date endDate) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "Select sum(row.deptAmount),sum(row.creditAmount)"
+					+ " from TurqCashTransactionRow as row where row.turqCashTransaction.transactionDate < :endDate"
+					+ " and row.turqCashCard = :cashCard" + " group by row.turqCashCard";
+			Query q = session.createQuery(query);
+			q.setParameter("endDate", endDate);
+			q.setParameter("cashCard", cashCard);
+			List ls = q.list();
+			session.close();
+			return ls;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }

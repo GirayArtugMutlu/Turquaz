@@ -1,5 +1,5 @@
-
 package com.turquaz.bank.ui.comp;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -15,32 +15,29 @@ package com.turquaz.bank.ui.comp;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
+ * @author Onsel Armagan
+ * @version $Id$
+ */
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-
-
 import com.turquaz.bank.ui.BankUIBankCardAdd;
 import com.turquaz.bank.ui.BankUIBankCardSearch;
 
-public class BankUITree extends Tree{
-	public BankUITree(Composite comp, int style){
-	super(comp,style);
-	TreeItem root = new TreeItem(this,SWT.NULL);
-	root.setText("Banks");
-	TreeItem item = new TreeItem(root,SWT.NULL);
-	item.setText("Bank Card Add");
-	item.setData(BankUIBankCardAdd.class.getName());
-	item = new TreeItem(root,SWT.NULL);
-	item.setText("Bank Card Search");
-	item.setData(BankUIBankCardSearch.class.getName());
-	
+public class BankUITree extends Tree
+{
+	public BankUITree(Composite comp, int style)
+	{
+		super(comp, style);
+		TreeItem root = new TreeItem(this, SWT.NULL);
+		root.setText("Banks");
+		TreeItem item = new TreeItem(root, SWT.NULL);
+		item.setText("Bank Card Add");
+		item.setData(BankUIBankCardAdd.class.getName());
+		item = new TreeItem(root, SWT.NULL);
+		item.setText("Bank Card Search");
+		item.setData(BankUIBankCardSearch.class.getName());
 	}
-
 }

@@ -1,4 +1,3 @@
-
 package com.turquaz.consignment.dal;
 
 /************************************************************************/
@@ -16,38 +15,33 @@ package com.turquaz.consignment.dal;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
+ * @author Onsel Armagan
+ * @version $Id$
+ */
 import net.sf.hibernate.Session;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqConsignment;
 
-public class ConDALAddConsignment {
-	public ConDALAddConsignment(){
-		
+public class ConDALAddConsignment
+{
+	public ConDALAddConsignment()
+	{
 	}
-	
-	public static TurqConsignment loadConsignment(Integer consId)throws Exception {
-		
-		try{
+
+	public static TurqConsignment loadConsignment(Integer consId) throws Exception
+	{
+		try
+		{
 			Session session = EngDALSessionFactory.openSession();
-			
-			TurqConsignment cons =(TurqConsignment)session.load(TurqConsignment.class,consId);
+			TurqConsignment cons = (TurqConsignment) session.load(TurqConsignment.class, consId);
 			session.flush();
-		
 			session.close();
 			return cons;
-			
-			}
-			catch(Exception ex){
-				throw ex;
-			}
 		}
-	
-
-
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }

@@ -1,5 +1,5 @@
-
 package com.turquaz.engine.ui.viewers;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -15,14 +15,15 @@ package com.turquaz.engine.ui.viewers;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel
-* @version  $Id$
-*/
+ * @author Onsel
+ * @version $Id$
+ */
+public interface ITableRowListViewer
+{
+	public void addRow(ITableRow element);
 
-public interface ITableRowListViewer {
-    public void addRow(ITableRow element);
-    public void removeRow(ITableRow element);
-    public void updateRow(ITableRow element);
+	public void removeRow(ITableRow element);
+
+	public void updateRow(ITableRow element);
 }

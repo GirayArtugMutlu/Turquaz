@@ -15,12 +15,10 @@ package com.turquaz.bank.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
  * @author Onsel
  * @version $Id$
  */
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,14 +26,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.dal.BankDALBankCardSearch;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
-
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -50,647 +46,534 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
 
-public class BankBLTransactionAdd {
-	
+public class BankBLTransactionAdd
+{
 	//TODO DONE
-	public static void saveTransferBetweenBanks(TurqBanksCard bankCardWithDept,
-            TurqBanksCard bankCardWithCredit,TurqEngineSequence seq,
-            BigDecimal totalAmount, Date transDate, String definition,
-            String docNo, TurqCurrencyExchangeRate exchangeRate) throws Exception {
-        try {
-
-            if (seq == null) {
-                try {
-                    TurqModule module = new TurqModule();
-                    module.setId(new Integer(EngBLCommon.MODULE_BANKS));
-                    seq = new TurqEngineSequence();
-                    seq.setTurqModule(module);
-                    EngDALCommon.saveObject(seq);
-                } catch (Exception ex) {
-                    throw ex;
-                }
-            }
-            TurqBanksTransactionType transType = new TurqBanksTransactionType();
-            transType.setId(new Integer(EngBLCommon.BANK_TRANS_BETWEEN_BANKS));
-
-            TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
-          
-
-            bankTransBill.setTurqEngineSequence(seq);
-            bankTransBill.setTransactionBillDate(transDate);
-            bankTransBill.setTransactionBillDefinition(definition);
-            bankTransBill.setTransactionBillNo(docNo);
-            bankTransBill.setTurqBanksTransactionType(transType);
-
-            bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-            bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-            bankTransBill.setLastModified(Calendar.getInstance().getTime());
-            bankTransBill.setCreationDate(Calendar.getInstance().getTime());
-
-            /*
-             * Transaction Rows
-             *  
-             */
-            TurqBanksTransaction transRowCredit = new TurqBanksTransaction();
-            transRowCredit.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-            transRowCredit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-            transRowCredit.setLastModified(Calendar.getInstance().getTime());
-            transRowCredit.setCreationDate(Calendar.getInstance().getTime());
-          
-            transRowCredit.setTurqBanksCard(bankCardWithDept);
-            transRowCredit.setCreditAmountInForeignCurrency(totalAmount);
-            transRowCredit.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));            
-            transRowCredit.setDeptAmountInForeignCurrency(new BigDecimal(0));
-            transRowCredit.setDeptAmount(new BigDecimal(0));
-            
-
-            TurqBanksTransaction transRowDebit = new TurqBanksTransaction();
-            transRowDebit.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-            transRowDebit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-            transRowDebit.setLastModified(Calendar.getInstance().getTime());
-            transRowDebit.setCreationDate(Calendar.getInstance().getTime());
-          
-            transRowDebit.setTurqBanksCard(bankCardWithCredit);
-            transRowDebit.setCreditAmountInForeignCurrency(new BigDecimal(0));
-            transRowDebit.setCreditAmount(new BigDecimal(0));
-            transRowDebit.setDeptAmountInForeignCurrency(totalAmount);
-            transRowDebit.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
-           
-
-            /**
-             * Save transaction bill
-             */
-            EngDALCommon.saveObject(bankTransBill);
-
-            /**
-             * Save transaction row
-             */
-            transRowCredit.setTurqBanksTransactionBill(bankTransBill);
-            transRowCredit.setTurqCurrencyExchangeRate(exchangeRate);
-            
-            transRowDebit.setTurqBanksTransactionBill(bankTransBill);
-            transRowDebit.setTurqCurrencyExchangeRate(exchangeRate);
-            
-            EngDALCommon.saveObject(transRowCredit);
-            EngDALCommon.saveObject(transRowDebit);
-            
-            /**
-             * 
-             * Save accounting transactions...
-             * 
-             */
-            /*
-             * Create Accounting transaction
-             */
-            
-            TurqAccountingTransactionColumn accTransRowDept = new TurqAccountingTransactionColumn();
-            TurqAccountingTransactionColumn accTransRowCredit = new TurqAccountingTransactionColumn();
-
-            TurqAccountingAccount creditAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCardWithCredit,EngBLCommon.BANK_ACC_TYPE_GENERAL);
-            TurqAccountingAccount deptAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCardWithDept,EngBLCommon.BANK_ACC_TYPE_GENERAL);
-            
-            
-            accTransRowDept.setTransactionDefinition(definition);
-            accTransRowDept.setTurqAccountingAccount(creditAccount);
-
-            accTransRowCredit.setTransactionDefinition(definition);
-            accTransRowCredit.setTurqAccountingAccount(deptAccount);
-
-            int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
-            
-            accTransRowCredit.setDeptAmount(new BigDecimal(0));
-            accTransRowCredit.setCreditAmount(totalAmount);
-
-            accTransRowDept.setDeptAmount(totalAmount);
-            accTransRowDept.setCreditAmount(new BigDecimal(0));
-            
-            
-            String accounting_definition ="Banka Virman- "+definition;
-            Map creditAccounts=new HashMap();
-            Map deptAccounts=new HashMap();
-            BankBLTransactionUpdate.prepareAccountingMaps(deptAccount.getId(),
-            		creditAccount.getId(),totalAmount,creditAccounts,deptAccounts);
-            AccBLTransactionAdd.saveAccTransaction(transDate, docNo,accTransType,
-                    seq.getTurqModule().getId().intValue(), seq.getId(),
-					accounting_definition, exchangeRate,creditAccounts,
-					deptAccounts,true);
-
-
-        } catch (Exception ex) {
-            throw ex;
-        }
-
-    }
-
-    public static void saveInitialBankTransaction(TurqBanksCard bankCard)
-            throws Exception {
-        try {
-            TurqEngineSequence seq;
-            TurqModule module = new TurqModule();
-            module.setId(new Integer(EngBLCommon.MODULE_BANKS));
-            seq = new TurqEngineSequence();
-            seq.setTurqModule(module);
-            EngDALCommon.saveObject(seq);
-            TurqBanksTransactionType transType = new TurqBanksTransactionType();
-            transType.setId(new Integer(
-                    EngBLCommon.BANK_TRANS_INITIAL));
-
-            TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();       
-
-            bankTransBill.setTurqEngineSequence(seq);
-
-            Calendar cal = Calendar.getInstance();
-            cal.set(cal.get(Calendar.YEAR), 0, 1);
-
-            bankTransBill.setTransactionBillDate(cal.getTime());
-            bankTransBill.setTransactionBillDefinition(Messages
-                    .getString("BankBLTransactionAdd.0")); //$NON-NLS-1$
-            bankTransBill.setTransactionBillNo(""); //$NON-NLS-1$
-            bankTransBill.setTurqBanksTransactionType(transType);
-           
-
-            bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-            bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-            bankTransBill.setLastModified(Calendar.getInstance().getTime());
-            bankTransBill.setCreationDate(Calendar.getInstance().getTime());
-
-            /*
-             * Transaction Rows
-             *  
-             */
-            TurqBanksTransaction transRow = new TurqBanksTransaction();
-            transRow.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-            transRow.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-            transRow.setLastModified(Calendar.getInstance().getTime());
-            transRow.setCreationDate(Calendar.getInstance().getTime());
-          
-            transRow.setTurqBanksCard(bankCard);
-            	
-            transRow.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
-            transRow.setDeptAmount(new BigDecimal(0));
-            transRow.setCreditAmount(new BigDecimal(0));
-            transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
-            transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
-
-            /**
-             * Save transaction bill
-             */
-            EngDALCommon.saveObject(bankTransBill);
-
-            /**
-             * Save transaction row
-             */
-            transRow.setTurqBanksTransactionBill(bankTransBill);
-            EngDALCommon.saveObject(transRow);
-
-        } catch (Exception ex) {
-            throw ex;
-        }
-
-    }
-
-    //TODO DONE
-    public static void saveCashTransaction(TurqBanksCard bankCard,
-            TurqCashCard cashCard, int type, TurqEngineSequence seq,
-            BigDecimal totalAmount, Date transDate, String definition,
-            String docNo, TurqCurrencyExchangeRate exchangeRate ) throws Exception {
-        try {
-
-            if (seq == null) {
-                try {
-                    TurqModule module = new TurqModule();
-                    module.setId(new Integer(EngBLCommon.MODULE_BANKS));
-                    seq = new TurqEngineSequence();
-                    seq.setTurqModule(module);
-                    EngDALCommon.saveObject(seq);
-                } catch (Exception ex) {
-                    throw ex;
-                }
-            }
-            TurqBanksTransactionType transType = new TurqBanksTransactionType();
-            transType.setId(new Integer(type));
-
-            TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
-    
-
-            bankTransBill.setTurqEngineSequence(seq);
-            bankTransBill.setTransactionBillDate(transDate);
-            bankTransBill.setTransactionBillDefinition(definition);
-            bankTransBill.setTransactionBillNo(docNo);
-            bankTransBill.setTurqBanksTransactionType(transType);
-
-            bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-            bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-            bankTransBill.setLastModified(Calendar.getInstance().getTime());
-            bankTransBill.setCreationDate(Calendar.getInstance().getTime());
-
-            /*
-             * Transaction Rows
-             *  
-             */
-            TurqBanksTransaction transRow = new TurqBanksTransaction();
-            transRow.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-            transRow.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-            transRow.setLastModified(Calendar.getInstance().getTime());
-            transRow.setCreationDate(Calendar.getInstance().getTime());
-            
-            transRow.setTurqBanksCard(bankCard);
-
-            TurqAccountingAccount bankAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCard,EngBLCommon.BANK_ACC_TYPE_GENERAL);
-            TurqAccountingAccount currentAccount=cashCard.getTurqAccountingAccount();
-
-            String currentTransDefinition = ""; //$NON-NLS-1$
-
-            int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
-
-            boolean currentTransType = false; // Credit or Debit
-            int cashTransType = 0;
-            
-            Map creditAccounts=new HashMap();
-            Map deptAccounts=new HashMap();
-
-            //Para yatirma
-            if (type == EngBLCommon.BANK_TRANS_CASH_DEPOSIT) {
-            	BankBLTransactionUpdate.prepareAccountingMaps(
-            			currentAccount.getId(),bankAccount.getId(),
-						totalAmount,creditAccounts,deptAccounts);
-
-                transRow.setDeptAmountInForeignCurrency(totalAmount);
-                transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
-                transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
-                transRow.setCreditAmount(new BigDecimal(0));
-
-                cashTransType = EngBLCommon.CASH_CURRENT_PAYMENT;
-
-            }
-
-            //Para cekme
-            else if (type == EngBLCommon.BANK_TRANS_CASH_DRAW) {
-            	BankBLTransactionUpdate.prepareAccountingMaps(
-            			bankAccount.getId(),currentAccount.getId(),
-						totalAmount,creditAccounts,deptAccounts);
-
-                transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
-                transRow.setDeptAmount(new BigDecimal(0));
-                transRow.setCreditAmountInForeignCurrency(totalAmount);
-                transRow.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
-
-                cashTransType = EngBLCommon.CASH_CURRENT_COLLECT;
-
-            }
-
-            /**
-             * Save transaction bill
-             */
-            EngDALCommon.saveObject(bankTransBill);
-
-            /**
-             * Save transaction row
-             */
-            transRow.setTurqBanksTransactionBill(bankTransBill);
-            transRow.setTurqCurrencyExchangeRate(exchangeRate);
-            EngDALCommon.saveObject(transRow);
-
-            /**
-             * 
-             * 
-             *  
-             */
-            CurBLCurrentTransactionAdd blCurTrans = new CurBLCurrentTransactionAdd();
-
-            /**
-             * Save Cash Transaction
-             */
-
-            List totals = new ArrayList();
-            totals.add(totalAmount);
-            CashBLCashTransactionAdd.saveCashTransaction(cashCard, seq, cashTransType, transDate,
-                    definition, docNo, totals, bankAccount,exchangeRate);
-
-            /**
-             * Save Accounting Transaction
-             *  
-             */
-            AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType,
-                    seq.getTurqModule().getId().intValue(), seq.getId(),
-					definition,exchangeRate,creditAccounts,deptAccounts,true);
-
-        } catch (Exception ex) {
-            throw ex;
-        }
-
-    }
-
-    //TODO DONE
-    public static void saveTransaction(TurqBanksCard bankCard,
-            TurqCurrentCard curCard, int type, TurqEngineSequence seq,
-            BigDecimal totalAmount, Date transDate, String definition,
-            String docNo, TurqCurrencyExchangeRate exchangeRate) throws Exception {
-        try {
-            if (seq == null) {
-                try {
-                    TurqModule module = new TurqModule();
-                    module.setId(new Integer(EngBLCommon.MODULE_BANKS));
-                    seq = new TurqEngineSequence();
-                    seq.setTurqModule(module);
-                    EngDALCommon.saveObject(seq);
-                } catch (Exception ex) {
-                    throw ex;
-                }
-            }
-            TurqBanksTransactionType transType = new TurqBanksTransactionType();
-            transType.setId(new Integer(type));
-
-            TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
-     
-
-            bankTransBill.setTurqEngineSequence(seq);
-            bankTransBill.setTransactionBillDate(transDate);
-            bankTransBill.setTransactionBillDefinition(definition);
-            bankTransBill.setTransactionBillNo(docNo);
-            bankTransBill.setTurqBanksTransactionType(transType);
-
-            bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-            bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-            bankTransBill.setLastModified(Calendar.getInstance().getTime());
-            bankTransBill.setCreationDate(Calendar.getInstance().getTime());
-
-            /*
-             * Transaction Rows
-             *  
-             */
-            TurqBanksTransaction transRow = new TurqBanksTransaction();
-            transRow.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-            transRow.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-            transRow.setLastModified(Calendar.getInstance().getTime());
-            transRow.setCreationDate(Calendar.getInstance().getTime());
-            
-            transRow.setTurqBanksCard(bankCard);
-
-            TurqAccountingAccount bankAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCard,EngBLCommon.BANK_ACC_TYPE_GENERAL);
-
-            TurqAccountingAccount currentAccount=CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
-
-            String currentTransDefinition = ""; //$NON-NLS-1$
-
-            int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
-
-            boolean currentTransType = false; // Credit or Debit
-            
-            Map creditAccounts=new HashMap();
-            Map deptAccounts=new HashMap();
-
-            if (type == EngBLCommon.BANK_TRANS_RECIEVE_MONEY) {
-            	BankBLTransactionUpdate.prepareAccountingMaps(
-            			currentAccount.getId(),bankAccount.getId(),
-						totalAmount,creditAccounts,deptAccounts);
-
-                transRow.setDeptAmountInForeignCurrency(totalAmount);
-                transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
-                transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
-                transRow.setCreditAmount(new BigDecimal(0));
-                
-
-                currentTransType = EngBLCommon.CURRENT_TRANS_CREDIT;
-                currentTransDefinition = bankCard.getBankCode()+" "+definition; //$NON-NLS-1$
-
-            }
-            else if (type == EngBLCommon.BANK_TRANS_SEND_MONEY) {
-            	
-            	BankBLTransactionUpdate.prepareAccountingMaps(
-            			bankAccount.getId(),currentAccount.getId(),
-						totalAmount,creditAccounts,deptAccounts);
-
-                transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
-                transRow.setDeptAmount(new BigDecimal(0));
-                transRow.setCreditAmountInForeignCurrency(totalAmount);
-                transRow.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
-
-                currentTransType = EngBLCommon.CURRENT_TRANS_DEBIT;
-                currentTransDefinition =  bankCard.getBankCode()+" "+definition; //$NON-NLS-1$
-            }
-
-            /**
-             * Save transaction bill
-             */
-            EngDALCommon.saveObject(bankTransBill);
-
-            /**
-             * Save transaction row
-             */
-            transRow.setTurqBanksTransactionBill(bankTransBill);
-            transRow.setTurqCurrencyExchangeRate(exchangeRate);
-            EngDALCommon.saveObject(transRow);
-
-            /**
-             * Save Current transaction
-             */
-            CurBLCurrentTransactionAdd.saveCurrentTransaction(curCard, transDate, docNo,
-                    currentTransType, totalAmount, new BigDecimal(0),
-                    EngBLCommon.CURRENT_TRANS_BANK, seq.getId(),
-                    currentTransDefinition, exchangeRate);
-
-            /**
-             * Save Accounting Transaction
-             *  
-             */
-
-            AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType,
-                    seq.getTurqModule().getId().intValue(), seq.getId(),
-					definition,exchangeRate,creditAccounts,deptAccounts,true);
-        } 
-        catch (Exception ex) 
+	public static void saveTransferBetweenBanks(TurqBanksCard bankCardWithDept, TurqBanksCard bankCardWithCredit, TurqEngineSequence seq,
+			BigDecimal totalAmount, Date transDate, String definition, String docNo, TurqCurrencyExchangeRate exchangeRate)
+			throws Exception
+	{
+		try
 		{
-            throw ex;
-        }
-
-    }
-
-    //TODO DONE
-    public static void saveOtherTransaction(TurqBanksCard bankCard,
-            TurqAccountingAccount account, int type, TurqEngineSequence seq,
-            BigDecimal totalAmount, Date transDate, String definition,
-            String docNo, TurqCurrencyExchangeRate exchangeRate) throws Exception {
-        try {
-
-            if (seq == null) {
-                try {
-                    TurqModule module = new TurqModule();
-                    module.setId(new Integer(EngBLCommon.MODULE_BANKS));
-                    seq = new TurqEngineSequence();
-                    seq.setTurqModule(module);
-                    EngDALCommon.saveObject(seq);
-                } catch (Exception ex) {
-                    throw ex;
-                }
-            }
-            
-             
-            TurqBanksTransactionType transType = new TurqBanksTransactionType();
-            transType.setId(new Integer(type));
-
-            TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
-           
-
-            bankTransBill.setTurqEngineSequence(seq);
-            bankTransBill.setTransactionBillDate(transDate);
-            bankTransBill.setTransactionBillDefinition(definition);
-            bankTransBill.setTransactionBillNo(docNo);
-            bankTransBill.setTurqBanksTransactionType(transType);
-
-            bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-            bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-            bankTransBill.setLastModified(Calendar.getInstance().getTime());
-            bankTransBill.setCreationDate(Calendar.getInstance().getTime());
-
-            /*
-             * Transaction Rows
-             *  
-             */
-            TurqBanksTransaction transRow = new TurqBanksTransaction();
-            transRow.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-            transRow.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-            transRow.setLastModified(Calendar.getInstance().getTime());
-            transRow.setCreationDate(Calendar.getInstance().getTime());
-           
-            transRow.setTurqBanksCard(bankCard);
-
-            TurqAccountingAccount bankAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCard,EngBLCommon.BANK_ACC_TYPE_GENERAL);
-
-            String currentTransDefinition = ""; //$NON-NLS-1$
-
-            int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
-            
-            Map creditAccounts=new HashMap();
-            Map deptAccounts=new HashMap();
-
-            //Para yatirma
-            if (type == EngBLCommon.BANK_TRANS_OTHER_DEPOSIT)
-            {
-            	BankBLTransactionUpdate.prepareAccountingMaps(account.getId(),
-            			bankAccount.getId(),totalAmount,creditAccounts,deptAccounts);
-
-                transRow.setDeptAmountInForeignCurrency(totalAmount);
-                transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
-                transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
-                transRow.setCreditAmount(new BigDecimal(0));
-
-            }
-
-            //Para cekme
-            else if (type == EngBLCommon.BANK_TRANS_OTHER_DRAW) {
-
-            	BankBLTransactionUpdate.prepareAccountingMaps(
-            			bankAccount.getId(),account.getId(),totalAmount,
-						creditAccounts,deptAccounts);
-
-                transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
-                transRow.setDeptAmount(new BigDecimal(0));
-                transRow.setCreditAmountInForeignCurrency(totalAmount);
-                transRow.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
-
-            }
-
-            /**
-             * Save transaction bill
-             */
-            EngDALCommon.saveObject(bankTransBill);
-
-            /**
-             * Save transaction row
-             */
-            transRow.setTurqBanksTransactionBill(bankTransBill);
-            transRow.setTurqCurrencyExchangeRate(exchangeRate);
-            EngDALCommon.saveObject(transRow);
-
-            /**
-             * Save Accounting Transaction
-             *  
-             */
-
-            AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType,
-                    seq.getTurqModule().getId().intValue(), seq.getId(),
-					definition,exchangeRate,creditAccounts,deptAccounts,true);
-
-        } 
-        catch (Exception ex)
+			if (seq == null)
+			{
+				try
+				{
+					TurqModule module = new TurqModule();
+					module.setId(new Integer(EngBLCommon.MODULE_BANKS));
+					seq = new TurqEngineSequence();
+					seq.setTurqModule(module);
+					EngDALCommon.saveObject(seq);
+				}
+				catch (Exception ex)
+				{
+					throw ex;
+				}
+			}
+			TurqBanksTransactionType transType = new TurqBanksTransactionType();
+			transType.setId(new Integer(EngBLCommon.BANK_TRANS_BETWEEN_BANKS));
+			TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
+			bankTransBill.setTurqEngineSequence(seq);
+			bankTransBill.setTransactionBillDate(transDate);
+			bankTransBill.setTransactionBillDefinition(definition);
+			bankTransBill.setTransactionBillNo(docNo);
+			bankTransBill.setTurqBanksTransactionType(transType);
+			bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankTransBill.setLastModified(Calendar.getInstance().getTime());
+			bankTransBill.setCreationDate(Calendar.getInstance().getTime());
+			/*
+			 * Transaction Rows
+			 */
+			TurqBanksTransaction transRowCredit = new TurqBanksTransaction();
+			transRowCredit.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRowCredit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRowCredit.setLastModified(Calendar.getInstance().getTime());
+			transRowCredit.setCreationDate(Calendar.getInstance().getTime());
+			transRowCredit.setTurqBanksCard(bankCardWithDept);
+			transRowCredit.setCreditAmountInForeignCurrency(totalAmount);
+			transRowCredit.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio())
+					.setScale(2, EngBLCommon.ROUNDING_METHOD));
+			transRowCredit.setDeptAmountInForeignCurrency(new BigDecimal(0));
+			transRowCredit.setDeptAmount(new BigDecimal(0));
+			TurqBanksTransaction transRowDebit = new TurqBanksTransaction();
+			transRowDebit.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRowDebit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRowDebit.setLastModified(Calendar.getInstance().getTime());
+			transRowDebit.setCreationDate(Calendar.getInstance().getTime());
+			transRowDebit.setTurqBanksCard(bankCardWithCredit);
+			transRowDebit.setCreditAmountInForeignCurrency(new BigDecimal(0));
+			transRowDebit.setCreditAmount(new BigDecimal(0));
+			transRowDebit.setDeptAmountInForeignCurrency(totalAmount);
+			transRowDebit.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
+			/**
+			 * Save transaction bill
+			 */
+			EngDALCommon.saveObject(bankTransBill);
+			/**
+			 * Save transaction row
+			 */
+			transRowCredit.setTurqBanksTransactionBill(bankTransBill);
+			transRowCredit.setTurqCurrencyExchangeRate(exchangeRate);
+			transRowDebit.setTurqBanksTransactionBill(bankTransBill);
+			transRowDebit.setTurqCurrencyExchangeRate(exchangeRate);
+			EngDALCommon.saveObject(transRowCredit);
+			EngDALCommon.saveObject(transRowDebit);
+			/**
+			 * Save accounting transactions...
+			 */
+			/*
+			 * Create Accounting transaction
+			 */
+			TurqAccountingTransactionColumn accTransRowDept = new TurqAccountingTransactionColumn();
+			TurqAccountingTransactionColumn accTransRowCredit = new TurqAccountingTransactionColumn();
+			TurqAccountingAccount creditAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCardWithCredit,
+					EngBLCommon.BANK_ACC_TYPE_GENERAL);
+			TurqAccountingAccount deptAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCardWithDept,
+					EngBLCommon.BANK_ACC_TYPE_GENERAL);
+			accTransRowDept.setTransactionDefinition(definition);
+			accTransRowDept.setTurqAccountingAccount(creditAccount);
+			accTransRowCredit.setTransactionDefinition(definition);
+			accTransRowCredit.setTurqAccountingAccount(deptAccount);
+			int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
+			accTransRowCredit.setDeptAmount(new BigDecimal(0));
+			accTransRowCredit.setCreditAmount(totalAmount);
+			accTransRowDept.setDeptAmount(totalAmount);
+			accTransRowDept.setCreditAmount(new BigDecimal(0));
+			String accounting_definition = "Banka Virman- " + definition;
+			Map creditAccounts = new HashMap();
+			Map deptAccounts = new HashMap();
+			BankBLTransactionUpdate.prepareAccountingMaps(deptAccount.getId(), creditAccount.getId(), totalAmount, creditAccounts,
+					deptAccounts);
+			AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType, seq.getTurqModule().getId().intValue(), seq.getId(),
+					accounting_definition, exchangeRate, creditAccounts, deptAccounts, true);
+		}
+		catch (Exception ex)
 		{
-            throw ex;
-        }
+			throw ex;
+		}
+	}
 
-    }
-    public static void saveChequeTransaction(TurqBanksCard bankCard, TurqEngineSequence seq,
-            BigDecimal totalAmount, Date transDate, String definition,
-            String docNo,TurqCurrencyExchangeRate exRate) throws Exception {
-    	
-        try {
-           
-            if (seq == null) {
-                try {
-                    TurqModule module = new TurqModule();
-                    module.setId(new Integer(EngBLCommon.MODULE_BANKS));
-                    seq = new TurqEngineSequence();
-                    seq.setTurqModule(module);
-                    EngDALCommon.saveObject(seq);
-                } catch (Exception ex) {
-                    throw ex;
-                }
-            
-            }
-            
-            TurqBanksTransactionType transType = new TurqBanksTransactionType();
-            transType.setId(new Integer(EngBLCommon.BANK_TRANS_CHEQUE_COLLECT));
+	public static void saveInitialBankTransaction(TurqBanksCard bankCard) throws Exception
+	{
+		try
+		{
+			TurqEngineSequence seq;
+			TurqModule module = new TurqModule();
+			module.setId(new Integer(EngBLCommon.MODULE_BANKS));
+			seq = new TurqEngineSequence();
+			seq.setTurqModule(module);
+			EngDALCommon.saveObject(seq);
+			TurqBanksTransactionType transType = new TurqBanksTransactionType();
+			transType.setId(new Integer(EngBLCommon.BANK_TRANS_INITIAL));
+			TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
+			bankTransBill.setTurqEngineSequence(seq);
+			Calendar cal = Calendar.getInstance();
+			cal.set(cal.get(Calendar.YEAR), 0, 1);
+			bankTransBill.setTransactionBillDate(cal.getTime());
+			bankTransBill.setTransactionBillDefinition(Messages.getString("BankBLTransactionAdd.0")); //$NON-NLS-1$
+			bankTransBill.setTransactionBillNo(""); //$NON-NLS-1$
+			bankTransBill.setTurqBanksTransactionType(transType);
+			bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankTransBill.setLastModified(Calendar.getInstance().getTime());
+			bankTransBill.setCreationDate(Calendar.getInstance().getTime());
+			/*
+			 * Transaction Rows
+			 */
+			TurqBanksTransaction transRow = new TurqBanksTransaction();
+			transRow.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRow.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRow.setLastModified(Calendar.getInstance().getTime());
+			transRow.setCreationDate(Calendar.getInstance().getTime());
+			transRow.setTurqBanksCard(bankCard);
+			transRow.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+			transRow.setDeptAmount(new BigDecimal(0));
+			transRow.setCreditAmount(new BigDecimal(0));
+			transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
+			transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
+			/**
+			 * Save transaction bill
+			 */
+			EngDALCommon.saveObject(bankTransBill);
+			/**
+			 * Save transaction row
+			 */
+			transRow.setTurqBanksTransactionBill(bankTransBill);
+			EngDALCommon.saveObject(transRow);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
-            TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
-           
+	//TODO DONE
+	public static void saveCashTransaction(TurqBanksCard bankCard, TurqCashCard cashCard, int type, TurqEngineSequence seq,
+			BigDecimal totalAmount, Date transDate, String definition, String docNo, TurqCurrencyExchangeRate exchangeRate)
+			throws Exception
+	{
+		try
+		{
+			if (seq == null)
+			{
+				try
+				{
+					TurqModule module = new TurqModule();
+					module.setId(new Integer(EngBLCommon.MODULE_BANKS));
+					seq = new TurqEngineSequence();
+					seq.setTurqModule(module);
+					EngDALCommon.saveObject(seq);
+				}
+				catch (Exception ex)
+				{
+					throw ex;
+				}
+			}
+			TurqBanksTransactionType transType = new TurqBanksTransactionType();
+			transType.setId(new Integer(type));
+			TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
+			bankTransBill.setTurqEngineSequence(seq);
+			bankTransBill.setTransactionBillDate(transDate);
+			bankTransBill.setTransactionBillDefinition(definition);
+			bankTransBill.setTransactionBillNo(docNo);
+			bankTransBill.setTurqBanksTransactionType(transType);
+			bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankTransBill.setLastModified(Calendar.getInstance().getTime());
+			bankTransBill.setCreationDate(Calendar.getInstance().getTime());
+			/*
+			 * Transaction Rows
+			 */
+			TurqBanksTransaction transRow = new TurqBanksTransaction();
+			transRow.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRow.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRow.setLastModified(Calendar.getInstance().getTime());
+			transRow.setCreationDate(Calendar.getInstance().getTime());
+			transRow.setTurqBanksCard(bankCard);
+			TurqAccountingAccount bankAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCard,
+					EngBLCommon.BANK_ACC_TYPE_GENERAL);
+			TurqAccountingAccount currentAccount = cashCard.getTurqAccountingAccount();
+			String currentTransDefinition = ""; //$NON-NLS-1$
+			int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
+			boolean currentTransType = false; // Credit or Debit
+			int cashTransType = 0;
+			Map creditAccounts = new HashMap();
+			Map deptAccounts = new HashMap();
+			//Para yatirma
+			if (type == EngBLCommon.BANK_TRANS_CASH_DEPOSIT)
+			{
+				BankBLTransactionUpdate.prepareAccountingMaps(currentAccount.getId(), bankAccount.getId(), totalAmount, creditAccounts,
+						deptAccounts);
+				transRow.setDeptAmountInForeignCurrency(totalAmount);
+				transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
+				transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
+				transRow.setCreditAmount(new BigDecimal(0));
+				cashTransType = EngBLCommon.CASH_CURRENT_PAYMENT;
+			}
+			//Para cekme
+			else if (type == EngBLCommon.BANK_TRANS_CASH_DRAW)
+			{
+				BankBLTransactionUpdate.prepareAccountingMaps(bankAccount.getId(), currentAccount.getId(), totalAmount, creditAccounts,
+						deptAccounts);
+				transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
+				transRow.setDeptAmount(new BigDecimal(0));
+				transRow.setCreditAmountInForeignCurrency(totalAmount);
+				transRow
+						.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,
+								EngBLCommon.ROUNDING_METHOD));
+				cashTransType = EngBLCommon.CASH_CURRENT_COLLECT;
+			}
+			/**
+			 * Save transaction bill
+			 */
+			EngDALCommon.saveObject(bankTransBill);
+			/**
+			 * Save transaction row
+			 */
+			transRow.setTurqBanksTransactionBill(bankTransBill);
+			transRow.setTurqCurrencyExchangeRate(exchangeRate);
+			EngDALCommon.saveObject(transRow);
+			/**
+			 * 
+			 * 
+			 *  
+			 */
+			CurBLCurrentTransactionAdd blCurTrans = new CurBLCurrentTransactionAdd();
+			/**
+			 * Save Cash Transaction
+			 */
+			List totals = new ArrayList();
+			totals.add(totalAmount);
+			CashBLCashTransactionAdd.saveCashTransaction(cashCard, seq, cashTransType, transDate, definition, docNo, totals,
+					bankAccount, exchangeRate);
+			/**
+			 * Save Accounting Transaction
+			 */
+			AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType, seq.getTurqModule().getId().intValue(), seq.getId(),
+					definition, exchangeRate, creditAccounts, deptAccounts, true);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
-            bankTransBill.setTurqEngineSequence(seq);
-            bankTransBill.setTransactionBillDate(transDate);
-            bankTransBill.setTransactionBillDefinition(definition);
-            bankTransBill.setTransactionBillNo(docNo);
-            bankTransBill.setTurqBanksTransactionType(transType);
+	//TODO DONE
+	public static void saveTransaction(TurqBanksCard bankCard, TurqCurrentCard curCard, int type, TurqEngineSequence seq,
+			BigDecimal totalAmount, Date transDate, String definition, String docNo, TurqCurrencyExchangeRate exchangeRate)
+			throws Exception
+	{
+		try
+		{
+			if (seq == null)
+			{
+				try
+				{
+					TurqModule module = new TurqModule();
+					module.setId(new Integer(EngBLCommon.MODULE_BANKS));
+					seq = new TurqEngineSequence();
+					seq.setTurqModule(module);
+					EngDALCommon.saveObject(seq);
+				}
+				catch (Exception ex)
+				{
+					throw ex;
+				}
+			}
+			TurqBanksTransactionType transType = new TurqBanksTransactionType();
+			transType.setId(new Integer(type));
+			TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
+			bankTransBill.setTurqEngineSequence(seq);
+			bankTransBill.setTransactionBillDate(transDate);
+			bankTransBill.setTransactionBillDefinition(definition);
+			bankTransBill.setTransactionBillNo(docNo);
+			bankTransBill.setTurqBanksTransactionType(transType);
+			bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankTransBill.setLastModified(Calendar.getInstance().getTime());
+			bankTransBill.setCreationDate(Calendar.getInstance().getTime());
+			/*
+			 * Transaction Rows
+			 */
+			TurqBanksTransaction transRow = new TurqBanksTransaction();
+			transRow.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRow.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRow.setLastModified(Calendar.getInstance().getTime());
+			transRow.setCreationDate(Calendar.getInstance().getTime());
+			transRow.setTurqBanksCard(bankCard);
+			TurqAccountingAccount bankAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCard,
+					EngBLCommon.BANK_ACC_TYPE_GENERAL);
+			TurqAccountingAccount currentAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,
+					EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
+			String currentTransDefinition = ""; //$NON-NLS-1$
+			int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
+			boolean currentTransType = false; // Credit or Debit
+			Map creditAccounts = new HashMap();
+			Map deptAccounts = new HashMap();
+			if (type == EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
+			{
+				BankBLTransactionUpdate.prepareAccountingMaps(currentAccount.getId(), bankAccount.getId(), totalAmount, creditAccounts,
+						deptAccounts);
+				transRow.setDeptAmountInForeignCurrency(totalAmount);
+				transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
+				transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
+				transRow.setCreditAmount(new BigDecimal(0));
+				currentTransType = EngBLCommon.CURRENT_TRANS_CREDIT;
+				currentTransDefinition = bankCard.getBankCode() + " " + definition; //$NON-NLS-1$
+			}
+			else if (type == EngBLCommon.BANK_TRANS_SEND_MONEY)
+			{
+				BankBLTransactionUpdate.prepareAccountingMaps(bankAccount.getId(), currentAccount.getId(), totalAmount, creditAccounts,
+						deptAccounts);
+				transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
+				transRow.setDeptAmount(new BigDecimal(0));
+				transRow.setCreditAmountInForeignCurrency(totalAmount);
+				transRow
+						.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,
+								EngBLCommon.ROUNDING_METHOD));
+				currentTransType = EngBLCommon.CURRENT_TRANS_DEBIT;
+				currentTransDefinition = bankCard.getBankCode() + " " + definition; //$NON-NLS-1$
+			}
+			/**
+			 * Save transaction bill
+			 */
+			EngDALCommon.saveObject(bankTransBill);
+			/**
+			 * Save transaction row
+			 */
+			transRow.setTurqBanksTransactionBill(bankTransBill);
+			transRow.setTurqCurrencyExchangeRate(exchangeRate);
+			EngDALCommon.saveObject(transRow);
+			/**
+			 * Save Current transaction
+			 */
+			CurBLCurrentTransactionAdd.saveCurrentTransaction(curCard, transDate, docNo, currentTransType, totalAmount,
+					new BigDecimal(0), EngBLCommon.CURRENT_TRANS_BANK, seq.getId(), currentTransDefinition, exchangeRate);
+			/**
+			 * Save Accounting Transaction
+			 */
+			AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType, seq.getTurqModule().getId().intValue(), seq.getId(),
+					definition, exchangeRate, creditAccounts, deptAccounts, true);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
-            bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-            bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-            bankTransBill.setLastModified(Calendar.getInstance().getTime());
-            bankTransBill.setCreationDate(Calendar.getInstance().getTime());
-       
+	//TODO DONE
+	public static void saveOtherTransaction(TurqBanksCard bankCard, TurqAccountingAccount account, int type, TurqEngineSequence seq,
+			BigDecimal totalAmount, Date transDate, String definition, String docNo, TurqCurrencyExchangeRate exchangeRate)
+			throws Exception
+	{
+		try
+		{
+			if (seq == null)
+			{
+				try
+				{
+					TurqModule module = new TurqModule();
+					module.setId(new Integer(EngBLCommon.MODULE_BANKS));
+					seq = new TurqEngineSequence();
+					seq.setTurqModule(module);
+					EngDALCommon.saveObject(seq);
+				}
+				catch (Exception ex)
+				{
+					throw ex;
+				}
+			}
+			TurqBanksTransactionType transType = new TurqBanksTransactionType();
+			transType.setId(new Integer(type));
+			TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
+			bankTransBill.setTurqEngineSequence(seq);
+			bankTransBill.setTransactionBillDate(transDate);
+			bankTransBill.setTransactionBillDefinition(definition);
+			bankTransBill.setTransactionBillNo(docNo);
+			bankTransBill.setTurqBanksTransactionType(transType);
+			bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankTransBill.setLastModified(Calendar.getInstance().getTime());
+			bankTransBill.setCreationDate(Calendar.getInstance().getTime());
+			/*
+			 * Transaction Rows
+			 */
+			TurqBanksTransaction transRow = new TurqBanksTransaction();
+			transRow.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRow.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRow.setLastModified(Calendar.getInstance().getTime());
+			transRow.setCreationDate(Calendar.getInstance().getTime());
+			transRow.setTurqBanksCard(bankCard);
+			TurqAccountingAccount bankAccount = BankDALBankCardSearch.getBankAccountingAccount(bankCard,
+					EngBLCommon.BANK_ACC_TYPE_GENERAL);
+			String currentTransDefinition = ""; //$NON-NLS-1$
+			int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
+			Map creditAccounts = new HashMap();
+			Map deptAccounts = new HashMap();
+			//Para yatirma
+			if (type == EngBLCommon.BANK_TRANS_OTHER_DEPOSIT)
+			{
+				BankBLTransactionUpdate.prepareAccountingMaps(account.getId(), bankAccount.getId(), totalAmount, creditAccounts,
+						deptAccounts);
+				transRow.setDeptAmountInForeignCurrency(totalAmount);
+				transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
+				transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
+				transRow.setCreditAmount(new BigDecimal(0));
+			}
+			//Para cekme
+			else if (type == EngBLCommon.BANK_TRANS_OTHER_DRAW)
+			{
+				BankBLTransactionUpdate.prepareAccountingMaps(bankAccount.getId(), account.getId(), totalAmount, creditAccounts,
+						deptAccounts);
+				transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
+				transRow.setDeptAmount(new BigDecimal(0));
+				transRow.setCreditAmountInForeignCurrency(totalAmount);
+				transRow
+						.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,
+								EngBLCommon.ROUNDING_METHOD));
+			}
+			/**
+			 * Save transaction bill
+			 */
+			EngDALCommon.saveObject(bankTransBill);
+			/**
+			 * Save transaction row
+			 */
+			transRow.setTurqBanksTransactionBill(bankTransBill);
+			transRow.setTurqCurrencyExchangeRate(exchangeRate);
+			EngDALCommon.saveObject(transRow);
+			/**
+			 * Save Accounting Transaction
+			 */
+			AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType, seq.getTurqModule().getId().intValue(), seq.getId(),
+					definition, exchangeRate, creditAccounts, deptAccounts, true);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
-            /*
-             * Transaction Rows
-             *  
-             */
-          
-            TurqBanksTransaction transRow = new TurqBanksTransaction();
-            transRow.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-            transRow.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-            transRow.setLastModified(Calendar.getInstance().getTime());
-            transRow.setCreationDate(Calendar.getInstance().getTime());
-            transRow.setTurqBanksCard(bankCard);
-            transRow.setTurqCurrencyExchangeRate(exRate);
-           
-            transRow.setDeptAmount(totalAmount.multiply(exRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
-            transRow.setDeptAmountInForeignCurrency(totalAmount);
-            
-            transRow.setCreditAmount(new BigDecimal(0));
-            transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
-         
-            /**
-             * Save transaction bill
-             */
-            EngDALCommon.saveObject(bankTransBill);
-
-            /**
-             * Save transaction row
-             */
-            transRow.setTurqBanksTransactionBill(bankTransBill);
-            EngDALCommon.saveObject(transRow);
-
-          
-        } catch (Exception ex) {
-            throw ex;
-        }
-
-    }
-
+	public static void saveChequeTransaction(TurqBanksCard bankCard, TurqEngineSequence seq, BigDecimal totalAmount, Date transDate,
+			String definition, String docNo, TurqCurrencyExchangeRate exRate) throws Exception
+	{
+		try
+		{
+			if (seq == null)
+			{
+				try
+				{
+					TurqModule module = new TurqModule();
+					module.setId(new Integer(EngBLCommon.MODULE_BANKS));
+					seq = new TurqEngineSequence();
+					seq.setTurqModule(module);
+					EngDALCommon.saveObject(seq);
+				}
+				catch (Exception ex)
+				{
+					throw ex;
+				}
+			}
+			TurqBanksTransactionType transType = new TurqBanksTransactionType();
+			transType.setId(new Integer(EngBLCommon.BANK_TRANS_CHEQUE_COLLECT));
+			TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
+			bankTransBill.setTurqEngineSequence(seq);
+			bankTransBill.setTransactionBillDate(transDate);
+			bankTransBill.setTransactionBillDefinition(definition);
+			bankTransBill.setTransactionBillNo(docNo);
+			bankTransBill.setTurqBanksTransactionType(transType);
+			bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankTransBill.setLastModified(Calendar.getInstance().getTime());
+			bankTransBill.setCreationDate(Calendar.getInstance().getTime());
+			/*
+			 * Transaction Rows
+			 */
+			TurqBanksTransaction transRow = new TurqBanksTransaction();
+			transRow.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRow.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRow.setLastModified(Calendar.getInstance().getTime());
+			transRow.setCreationDate(Calendar.getInstance().getTime());
+			transRow.setTurqBanksCard(bankCard);
+			transRow.setTurqCurrencyExchangeRate(exRate);
+			transRow.setDeptAmount(totalAmount.multiply(exRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
+			transRow.setDeptAmountInForeignCurrency(totalAmount);
+			transRow.setCreditAmount(new BigDecimal(0));
+			transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
+			/**
+			 * Save transaction bill
+			 */
+			EngDALCommon.saveObject(bankTransBill);
+			/**
+			 * Save transaction row
+			 */
+			transRow.setTurqBanksTransactionBill(bankTransBill);
+			EngDALCommon.saveObject(transRow);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }

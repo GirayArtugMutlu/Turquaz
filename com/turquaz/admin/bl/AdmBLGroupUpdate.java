@@ -1,4 +1,3 @@
-
 package com.turquaz.admin.bl;
 
 /************************************************************************/
@@ -16,49 +15,47 @@ package com.turquaz.admin.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Huseyin Ergun
-* @version  $Id$
-*/
-
+ * @author Huseyin Ergun
+ * @version $Id$
+ */
 import java.util.Calendar;
-
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqGroup;
 
-public class AdmBLGroupUpdate {
-
-	public AdmBLGroupUpdate(){
-		
+public class AdmBLGroupUpdate
+{
+	public AdmBLGroupUpdate()
+	{
 	}
-	public static void updateGroup( String name, String description,TurqGroup group)throws Exception{
-		try{
+
+	public static void updateGroup(String name, String description, TurqGroup group) throws Exception
+	{
+		try
+		{
 			Calendar cal = Calendar.getInstance();
 			group.setGroupsName(name);
-			group.setGroupsDescription(description);;
-			
+			group.setGroupsDescription(description);
+			;
 			group.setUpdateDate(cal.getTime());
 			group.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-			
 			EngDALCommon.updateObject(group);
-				
 		}
-		catch(Exception ex){
-				throw ex;
+		catch (Exception ex)
+		{
+			throw ex;
 		}
-		
-		}
-	public static void deleteObject(Object obj)throws Exception{
-		try{
-		 
-			EngDALCommon.deleteObject(obj);
-				
-		}
-		catch(Exception ex){
-				throw ex;
-		}
-		
-		}
+	}
 
+	public static void deleteObject(Object obj) throws Exception
+	{
+		try
+		{
+			EngDALCommon.deleteObject(obj);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }

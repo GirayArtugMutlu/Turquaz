@@ -1,5 +1,5 @@
-
 package com.turquaz.admin.bl;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -15,46 +15,38 @@ package com.turquaz.admin.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
+ * @author Onsel Armagan
+ * @version $Id$
+ */
 import java.util.Calendar;
-
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqGroup;
 
-
-public class AdmBLGroupAdd {
-	
-	public AdmBLGroupAdd(){
-		
+public class AdmBLGroupAdd
+{
+	public AdmBLGroupAdd()
+	{
 	}
-	
-	
-	public static Integer saveGroup(String groupname, String description)
-			throws Exception {
-		try {
-			
+
+	public static Integer saveGroup(String groupname, String description) throws Exception
+	{
+		try
+		{
 			Calendar cal = Calendar.getInstance();
 			TurqGroup group = new TurqGroup();
 			group.setGroupsName(groupname);
 			group.setGroupsDescription(description);
-
 			group.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			group.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			group.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
 			group.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-
 			EngDALCommon.saveObject(group);
-
 			return group.getId();
-
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-
 	}
 }

@@ -1,11 +1,8 @@
-
 package com.turquaz.inventory.bl;
 
 import java.util.Calendar;
-
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
-
 
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
@@ -22,46 +19,34 @@ import com.turquaz.engine.dal.TurqInventoryWarehous;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
-public class InvBLWarehouseAdd {
-
-	public static void saveWarehouse(String whName, String whCode, String whDescription,
-							String whAddress, String whTelephone,
-							String whCity )throws Exception {
-	  try{
-		TurqInventoryWarehous warehouse = new TurqInventoryWarehous();
-		warehouse.setWarehousesAddress(whAddress);
-		warehouse.setWarehousesName(whName);
-		warehouse.setWarehousesCity(whCity);
-		warehouse.setWarehousesTelephone(whTelephone);
-		warehouse.setWarehousesDescription(whDescription);
-		warehouse.setWarehousesCode(whCode);
-		
-		warehouse.setCreatedBy(System.getProperty("user"));
-		warehouse.setUpdatedBy(System.getProperty("user"));
-		
-		Calendar cal=Calendar.getInstance();
-		warehouse.setLastModified(cal.getTime());
-		warehouse.setCreationDate(cal.getTime());
-		
-		EngDALCommon.saveObject(warehouse);	
-
-			
-	
-	  }
-	  
-		catch(Exception ex){
+ * @author Onsel Armagan
+ * @version $Id$
+ */
+public class InvBLWarehouseAdd
+{
+	public static void saveWarehouse(String whName, String whCode, String whDescription, String whAddress, String whTelephone,
+			String whCity) throws Exception
+	{
+		try
+		{
+			TurqInventoryWarehous warehouse = new TurqInventoryWarehous();
+			warehouse.setWarehousesAddress(whAddress);
+			warehouse.setWarehousesName(whName);
+			warehouse.setWarehousesCity(whCity);
+			warehouse.setWarehousesTelephone(whTelephone);
+			warehouse.setWarehousesDescription(whDescription);
+			warehouse.setWarehousesCode(whCode);
+			warehouse.setCreatedBy(System.getProperty("user"));
+			warehouse.setUpdatedBy(System.getProperty("user"));
+			Calendar cal = Calendar.getInstance();
+			warehouse.setLastModified(cal.getTime());
+			warehouse.setCreationDate(cal.getTime());
+			EngDALCommon.saveObject(warehouse);
+		}
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-		
-		
-		
 	}
-	
-
 }

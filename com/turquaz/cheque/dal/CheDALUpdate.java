@@ -1,5 +1,5 @@
-
 package com.turquaz.cheque.dal;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -15,85 +15,80 @@ package com.turquaz.cheque.dal;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel
-* @version  $Id$
-*/
-
-
+ * @author Onsel
+ * @version $Id$
+ */
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Session;
-
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeRoll;
 
-public class CheDALUpdate {
-	public static TurqChequeCheque initializeCheque(Integer chequeId)throws Exception{
-		try{
-			
-		     Session session = EngDALSessionFactory.openSession();
-		     TurqChequeCheque cheque = (TurqChequeCheque)session.load(TurqChequeCheque.class,chequeId);
-		     session.close();
-		     return cheque;
-			
-			
+public class CheDALUpdate
+{
+	public static TurqChequeCheque initializeCheque(Integer chequeId) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			TurqChequeCheque cheque = (TurqChequeCheque) session.load(TurqChequeCheque.class, chequeId);
+			session.close();
+			return cheque;
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-	
-    public static void initializeChequeRoll(TurqChequeRoll chequeRoll)throws Exception {
-        try{
-            
-            Session session = EngDALSessionFactory.openSession();
-            
-            session.refresh(chequeRoll);
-            Hibernate.initialize(chequeRoll.getTurqChequeChequeInRolls());
-            Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqCurrentTransactions());
-            Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqBanksTransactionBills());
-            Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqCashTransactions());
-            Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqAccountingTransactions());
-            chequeRoll.getTurqChequeRollAccountingAccount();
-            session.close();
-            
-            
-        }
-        catch(Exception ex){
-            throw ex;
-        }
-    }
-    
-    public static TurqChequeRoll initializeChequeRoll(Integer chequeRollId)throws Exception {
-        try{
-            
-            Session session = EngDALSessionFactory.openSession();
-            
-            TurqChequeRoll cheqRoll=(TurqChequeRoll)session.load(TurqChequeRoll.class,chequeRollId);
 
-            
-            session.close();
-            
-            return cheqRoll;
-        }
-        catch(Exception ex){
-            throw ex;
-        }
-    }
-    
-    public static void initChequeRolls(TurqChequeCheque cheque) throws Exception {
-    	try{
-    		Session session = EngDALSessionFactory.openSession();
-    		session.refresh(cheque);
-    		Hibernate.initialize(cheque.getTurqChequeChequeInRolls());
-    		session.close();
-    		
-    		
-    	}
-    	catch(Exception ex){
-    		throw ex;
-    	}
-    }
+	public static void initializeChequeRoll(TurqChequeRoll chequeRoll) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			session.refresh(chequeRoll);
+			Hibernate.initialize(chequeRoll.getTurqChequeChequeInRolls());
+			Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqCurrentTransactions());
+			Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqBanksTransactionBills());
+			Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqCashTransactions());
+			Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqAccountingTransactions());
+			chequeRoll.getTurqChequeRollAccountingAccount();
+			session.close();
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static TurqChequeRoll initializeChequeRoll(Integer chequeRollId) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			TurqChequeRoll cheqRoll = (TurqChequeRoll) session.load(TurqChequeRoll.class, chequeRollId);
+			session.close();
+			return cheqRoll;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static void initChequeRolls(TurqChequeCheque cheque) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			session.refresh(cheque);
+			Hibernate.initialize(cheque.getTurqChequeChequeInRolls());
+			session.close();
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }

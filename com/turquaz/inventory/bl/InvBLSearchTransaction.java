@@ -1,4 +1,3 @@
-
 package com.turquaz.inventory.bl;
 
 /************************************************************************/
@@ -16,14 +15,12 @@ package com.turquaz.inventory.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Huseyin Ergun
-* @version  $Id$
-*/
+ * @author Huseyin Ergun
+ * @version $Id$
+ */
 import java.util.Date;
 import java.util.List;
-
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -33,84 +30,82 @@ import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.inventory.dal.InvDALSearchTransaction;
 
-public class InvBLSearchTransaction {
-   
-	public static List searchTransactions(TurqCurrentCard card, TurqInventoryCard invCard, Date startDate,Date endDate, int type)throws Exception{
-		try{			
-			return InvDALSearchTransaction.searchTransactions(card,invCard,startDate,endDate,type);	
+public class InvBLSearchTransaction
+{
+	public static List searchTransactions(TurqCurrentCard card, TurqInventoryCard invCard, Date startDate, Date endDate, int type)
+			throws Exception
+	{
+		try
+		{
+			return InvDALSearchTransaction.searchTransactions(card, invCard, startDate, endDate, type);
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			throw ex;
 		}
-		
 	}
-	
-	public static List searchTransactionsRange(TurqInventoryCard invCardStart,
-			TurqInventoryCard invCardEnd, TurqCurrentCard curCard,
-			Date startDate,Date endDate, int type)throws Exception{
-		try{
-			
-			return InvDALSearchTransaction.searchTransactionsRange(invCardStart,invCardEnd,curCard,startDate,endDate,type);
-			
+
+	public static List searchTransactionsRange(TurqInventoryCard invCardStart, TurqInventoryCard invCardEnd, TurqCurrentCard curCard,
+			Date startDate, Date endDate, int type) throws Exception
+	{
+		try
+		{
+			return InvDALSearchTransaction.searchTransactionsRange(invCardStart, invCardEnd, curCard, startDate, endDate, type);
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-		
 	}
+
 	public static TurqInventoryTransaction getInvTransByTransId(Integer transId) throws Exception
 	{
 		try
 		{
 			return InvDALSearchTransaction.getInvTransByTransId(transId);
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			throw ex;
 		}
 	}
-	
-	public static List searchTransactionsAdvanced(String invCardCodeStart,String invCardCodeEnd,
-			String invCardNameStart, String invCardNameEnd, 
-			TurqCurrentCard curCardStart, TurqCurrentCard curCardEnd, 
-			Date startDate,Date endDate, int type, TurqInventoryGroup invMainGroup,
-			TurqInventoryGroup invSubGroup)throws Exception{
-		try{
-			
-			return InvDALSearchTransaction.searchTransactionsAdvanced(invCardCodeStart,invCardCodeEnd,
-					invCardNameStart,invCardNameEnd,curCardStart,curCardEnd,
-					startDate,endDate,type,invMainGroup, invSubGroup);
-			
+
+	public static List searchTransactionsAdvanced(String invCardCodeStart, String invCardCodeEnd, String invCardNameStart,
+			String invCardNameEnd, TurqCurrentCard curCardStart, TurqCurrentCard curCardEnd, Date startDate, Date endDate, int type,
+			TurqInventoryGroup invMainGroup, TurqInventoryGroup invSubGroup) throws Exception
+	{
+		try
+		{
+			return InvDALSearchTransaction.searchTransactionsAdvanced(invCardCodeStart, invCardCodeEnd, invCardNameStart,
+					invCardNameEnd, curCardStart, curCardEnd, startDate, endDate, type, invMainGroup, invSubGroup);
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-		
 	}
-	
+
 	public static TurqConsignment getConsignment(TurqEngineSequence seq) throws Exception
 	{
-		try {
-			
+		try
+		{
 			return InvDALSearchTransaction.getConsignment(seq);
 		}
-		
-		catch (Exception ex) {
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
+
 	public static TurqBill getBill(TurqEngineSequence seq) throws Exception
 	{
-		try {
-			
+		try
+		{
 			return InvDALSearchTransaction.getBill(seq);
 		}
-		
-		catch (Exception ex) {
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-		
-	
 }

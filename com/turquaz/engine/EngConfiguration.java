@@ -1,4 +1,3 @@
-
 package com.turquaz.engine;
 
 /************************************************************************/
@@ -16,103 +15,98 @@ package com.turquaz.engine;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
+ * @author Onsel Armagan
+ * @version $Id$
+ */
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
-
-
-
-public class EngConfiguration {
-	private static final String filename = "config/turquaz.properties";//$NON-NLS-1$
-    private Properties props ;
-    public static String logoURL ="";
-    public Date currentDate;
-
-	
-
+public class EngConfiguration
+{
+	private static final String filename = "config/turquaz.properties"; //$NON-NLS-1$
+	private Properties props;
+	public static String logoURL = "";
+	public Date currentDate;
 	private static EngConfiguration _instance;
-	private EngConfiguration() {
-	    try{
-	    
-	   currentDate  = Calendar.getInstance().getTime();    
-       FileInputStream fis = new FileInputStream(filename);
-	   props = new Properties();
-	   props.load(fis);
-	   logoURL=props.getProperty("logoURL");
-	   if(logoURL ==null){
-	       logoURL ="";
-	   }
-	    
-	    }
-	    catch(Exception ex){
-	        ex.printStackTrace();
-	    }
-	    
+
+	private EngConfiguration()
+	{
+		try
+		{
+			currentDate = Calendar.getInstance().getTime();
+			FileInputStream fis = new FileInputStream(filename);
+			props = new Properties();
+			props.load(fis);
+			logoURL = props.getProperty("logoURL");
+			if (logoURL == null)
+			{
+				logoURL = "";
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
-	public static void setString(String key, String value){
-	
-	    _instance.props.setProperty(key,value);  
-	    try{
-	    FileOutputStream fileout = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$
-	    _instance.props.store(fileout,"Turquaz Properties File"); //$NON-NLS-1$
-		fileout.flush();
-		fileout.close();
-	    }
-	    catch(Exception ex){
-	        ex.printStackTrace();
-	    }
-	
-	}
-	
-	public static String getString(String key) {
-		if(_instance==null){
-		    _instance = new EngConfiguration();
+	public static void setString(String key, String value)
+	{
+		_instance.props.setProperty(key, value);
+		try
+		{
+			FileOutputStream fileout = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$
+			_instance.props.store(fileout, "Turquaz Properties File"); //$NON-NLS-1$
+			fileout.flush();
+			fileout.close();
 		}
-	    
-	    return _instance.findString(key);
-	    
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
-	
-	private String findString(String Key){
-	
-		if(props ==null){
+
+	public static String getString(String key)
+	{
+		if (_instance == null)
+		{
+			_instance = new EngConfiguration();
+		}
+		return _instance.findString(key);
+	}
+
+	private String findString(String Key)
+	{
+		if (props == null)
+		{
 			return "";
 		}
-	    return props.getProperty(Key);
-	    
+		return props.getProperty(Key);
 	}
+
 	public static Date getCurrentDate()
 	{
-	    if(_instance==null){
-		    _instance = new EngConfiguration();
+		if (_instance == null)
+		{
+			_instance = new EngConfiguration();
 		}
-	    
-	    return _instance.currentDate;
-	    
+		return _instance.currentDate;
 	}
+
 	public static void setCurrentDate(Date d)
 	{
-	   
-	    if(_instance==null){
-		    _instance = new EngConfiguration();
+		if (_instance == null)
+		{
+			_instance = new EngConfiguration();
 		}
-	    
-	  _instance.currentDate = d;
+		_instance.currentDate = d;
 	}
-	
-	public static void refreshConfig(){
-	    _instance = new EngConfiguration();
+
+	public static void refreshConfig()
+	{
+		_instance = new EngConfiguration();
 	}
-	
-	
 }

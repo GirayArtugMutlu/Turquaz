@@ -7,165 +7,179 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqBanksTransactionBill implements Serializable {
+public class TurqBanksTransactionBill implements Serializable
+{
+	/** identifier field */
+	private java.lang.Integer id;
+	/** persistent field */
+	private java.util.Date transactionBillDate;
+	/** persistent field */
+	private java.lang.String createdBy;
+	/** persistent field */
+	private java.util.Date creationDate;
+	/** persistent field */
+	private java.lang.String updatedBy;
+	/** persistent field */
+	private java.util.Date lastModified;
+	/** persistent field */
+	private java.lang.String transactionBillDefinition;
+	/** persistent field */
+	private java.lang.String transactionBillNo;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType;
+	/** persistent field */
+	private Set turqBanksTransactions;
 
-    /** identifier field */
-    private java.lang.Integer id;
+	/** full constructor */
+	public TurqBanksTransactionBill(java.util.Date transactionBillDate, java.lang.String createdBy, java.util.Date creationDate,
+			java.lang.String updatedBy, java.util.Date lastModified, java.lang.String transactionBillDefinition,
+			java.lang.String transactionBillNo, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence,
+			com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType, Set turqBanksTransactions)
+	{
+		this.transactionBillDate = transactionBillDate;
+		this.createdBy = createdBy;
+		this.creationDate = creationDate;
+		this.updatedBy = updatedBy;
+		this.lastModified = lastModified;
+		this.transactionBillDefinition = transactionBillDefinition;
+		this.transactionBillNo = transactionBillNo;
+		this.turqEngineSequence = turqEngineSequence;
+		this.turqBanksTransactionType = turqBanksTransactionType;
+		this.turqBanksTransactions = turqBanksTransactions;
+	}
 
-    /** persistent field */
-    private java.util.Date transactionBillDate;
+	/** default constructor */
+	public TurqBanksTransactionBill()
+	{
+	}
 
-    /** persistent field */
-    private java.lang.String createdBy;
+	public java.lang.Integer getId()
+	{
+		return this.id;
+	}
 
-    /** persistent field */
-    private java.util.Date creationDate;
+	public void setId(java.lang.Integer id)
+	{
+		this.id = id;
+	}
 
-    /** persistent field */
-    private java.lang.String updatedBy;
+	public java.util.Date getTransactionBillDate()
+	{
+		return this.transactionBillDate;
+	}
 
-    /** persistent field */
-    private java.util.Date lastModified;
+	public void setTransactionBillDate(java.util.Date transactionBillDate)
+	{
+		this.transactionBillDate = transactionBillDate;
+	}
 
-    /** persistent field */
-    private java.lang.String transactionBillDefinition;
+	public java.lang.String getCreatedBy()
+	{
+		return this.createdBy;
+	}
 
-    /** persistent field */
-    private java.lang.String transactionBillNo;
+	public void setCreatedBy(java.lang.String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
+	public java.util.Date getCreationDate()
+	{
+		return this.creationDate;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType;
+	public void setCreationDate(java.util.Date creationDate)
+	{
+		this.creationDate = creationDate;
+	}
 
-    /** persistent field */
-    private Set turqBanksTransactions;
+	public java.lang.String getUpdatedBy()
+	{
+		return this.updatedBy;
+	}
 
-    /** full constructor */
-    public TurqBanksTransactionBill(java.util.Date transactionBillDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String transactionBillDefinition, java.lang.String transactionBillNo, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType, Set turqBanksTransactions) {
-        this.transactionBillDate = transactionBillDate;
-        this.createdBy = createdBy;
-        this.creationDate = creationDate;
-        this.updatedBy = updatedBy;
-        this.lastModified = lastModified;
-        this.transactionBillDefinition = transactionBillDefinition;
-        this.transactionBillNo = transactionBillNo;
-        this.turqEngineSequence = turqEngineSequence;
-        this.turqBanksTransactionType = turqBanksTransactionType;
-        this.turqBanksTransactions = turqBanksTransactions;
-    }
+	public void setUpdatedBy(java.lang.String updatedBy)
+	{
+		this.updatedBy = updatedBy;
+	}
 
-    /** default constructor */
-    public TurqBanksTransactionBill() {
-    }
+	public java.util.Date getLastModified()
+	{
+		return this.lastModified;
+	}
 
-    public java.lang.Integer getId() {
-        return this.id;
-    }
+	public void setLastModified(java.util.Date lastModified)
+	{
+		this.lastModified = lastModified;
+	}
 
-    public void setId(java.lang.Integer id) {
-        this.id = id;
-    }
+	public java.lang.String getTransactionBillDefinition()
+	{
+		return this.transactionBillDefinition;
+	}
 
-    public java.util.Date getTransactionBillDate() {
-        return this.transactionBillDate;
-    }
+	public void setTransactionBillDefinition(java.lang.String transactionBillDefinition)
+	{
+		this.transactionBillDefinition = transactionBillDefinition;
+	}
 
-    public void setTransactionBillDate(java.util.Date transactionBillDate) {
-        this.transactionBillDate = transactionBillDate;
-    }
+	public java.lang.String getTransactionBillNo()
+	{
+		return this.transactionBillNo;
+	}
 
-    public java.lang.String getCreatedBy() {
-        return this.createdBy;
-    }
+	public void setTransactionBillNo(java.lang.String transactionBillNo)
+	{
+		this.transactionBillNo = transactionBillNo;
+	}
 
-    public void setCreatedBy(java.lang.String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence()
+	{
+		return this.turqEngineSequence;
+	}
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
+	public void setTurqEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence)
+	{
+		this.turqEngineSequence = turqEngineSequence;
+	}
 
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public com.turquaz.engine.dal.TurqBanksTransactionType getTurqBanksTransactionType()
+	{
+		return this.turqBanksTransactionType;
+	}
 
-    public java.lang.String getUpdatedBy() {
-        return this.updatedBy;
-    }
+	public void setTurqBanksTransactionType(com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType)
+	{
+		this.turqBanksTransactionType = turqBanksTransactionType;
+	}
 
-    public void setUpdatedBy(java.lang.String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
+	public java.util.Set getTurqBanksTransactions()
+	{
+		return this.turqBanksTransactions;
+	}
 
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
+	public void setTurqBanksTransactions(java.util.Set turqBanksTransactions)
+	{
+		this.turqBanksTransactions = turqBanksTransactions;
+	}
 
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("id", getId()).toString();
+	}
 
-    public java.lang.String getTransactionBillDefinition() {
-        return this.transactionBillDefinition;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqBanksTransactionBill))
+			return false;
+		TurqBanksTransactionBill castOther = (TurqBanksTransactionBill) other;
+		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
+	}
 
-    public void setTransactionBillDefinition(java.lang.String transactionBillDefinition) {
-        this.transactionBillDefinition = transactionBillDefinition;
-    }
-
-    public java.lang.String getTransactionBillNo() {
-        return this.transactionBillNo;
-    }
-
-    public void setTransactionBillNo(java.lang.String transactionBillNo) {
-        this.transactionBillNo = transactionBillNo;
-    }
-
-    public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence() {
-        return this.turqEngineSequence;
-    }
-
-    public void setTurqEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence) {
-        this.turqEngineSequence = turqEngineSequence;
-    }
-
-    public com.turquaz.engine.dal.TurqBanksTransactionType getTurqBanksTransactionType() {
-        return this.turqBanksTransactionType;
-    }
-
-    public void setTurqBanksTransactionType(com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType) {
-        this.turqBanksTransactionType = turqBanksTransactionType;
-    }
-
-    public java.util.Set getTurqBanksTransactions() {
-        return this.turqBanksTransactions;
-    }
-
-    public void setTurqBanksTransactions(java.util.Set turqBanksTransactions) {
-        this.turqBanksTransactions = turqBanksTransactions;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getId())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqBanksTransactionBill) ) return false;
-        TurqBanksTransactionBill castOther = (TurqBanksTransactionBill) other;
-        return new EqualsBuilder()
-            .append(this.getId(), castOther.getId())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getId()).toHashCode();
+	}
 }

@@ -1,4 +1,5 @@
 package com.turquaz.admin.ui;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -14,14 +15,12 @@ package com.turquaz.admin.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
+ * @author  Onsel Armagan
+ * @version  $Id$
+ */
 import java.util.HashMap;
 import java.util.List;
-
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -32,32 +31,17 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
-
-
 /**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
-
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
+ */
 import org.eclipse.swt.layout.GridData;
-
-
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUserAdd;
-
-
 import com.turquaz.engine.dal.TurqGroup;
-
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
@@ -65,7 +49,9 @@ import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
-public class AdmUIUserAdd extends Composite implements SecureComposite {
+
+public class AdmUIUserAdd extends Composite implements SecureComposite
+{
 	private CLabel lblUsername;
 	private Text txtUsername;
 	private Text txtPassword;
@@ -80,20 +66,23 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 	private CLabel lblPassWord;
 
 	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
+	 * Auto-generated method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
+	 */
+	public static void showGUI()
+	{
 		Display display = Display.getDefault();
 		Shell shell = new Shell(display);
 		AdmUIUserAdd inst = new AdmUIUserAdd(shell, SWT.NULL);
 		Point size = inst.getSize();
 		shell.setLayout(new FillLayout());
 		shell.layout();
-		if(size.x == 0 && size.y == 0) {
+		if (size.x == 0 && size.y == 0)
+		{
 			inst.pack();
 			shell.pack();
-		} else {
+		}
+		else
+		{
 			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
 			int MENU_HEIGHT = 22;
 			if (shell.getMenuBar() != null)
@@ -101,19 +90,23 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		while (!shell.isDisposed()) {
+		while (!shell.isDisposed())
+		{
 			if (!display.readAndDispatch())
 				display.sleep();
 		}
 	}
 
-	public AdmUIUserAdd(org.eclipse.swt.widgets.Composite parent, int style) {
+	public AdmUIUserAdd(org.eclipse.swt.widgets.Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
 
-	private void initGUI() {
-		try {
+	private void initGUI()
+	{
+		try
+		{
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
@@ -186,9 +179,12 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 			{
 				txtDescription = new Text(this, SWT.MULTI | SWT.V_SCROLL);
 				GridData txtDescriptionLData = new GridData();
-				txtDescription.addVerifyListener(new VerifyListener() {
-					public void verifyText(VerifyEvent evt) {
-						if (evt.keyCode == SWT.TAB) {
+				txtDescription.addVerifyListener(new VerifyListener()
+				{
+					public void verifyText(VerifyEvent evt)
+					{
+						if (evt.keyCode == SWT.TAB)
+						{
 							registeredGroups.setFocus();
 							evt.doit = false;
 						}
@@ -208,9 +204,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 				lblGroups.setLayoutData(lblGroupsLData);
 			}
 			{
-				registeredGroups = new RegisterGroupComposite(
-					this,
-					SWT.NONE);
+				registeredGroups = new RegisterGroupComposite(this, SWT.NONE);
 				GridData tableAllGroupsLData = new GridData();
 				tableAllGroupsLData.widthHint = 139;
 				tableAllGroupsLData.heightHint = 92;
@@ -219,185 +213,210 @@ public class AdmUIUserAdd extends Composite implements SecureComposite {
 				registerGroupComposite1LData.heightHint = 127;
 				registeredGroups.setLayoutData(registerGroupComposite1LData);
 				registeredGroups.getTableAllGroups().setLayoutData(tableAllGroupsLData);
-				
 				postInitGUI();
-				
 			}
 			this.layout();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
-	
-	public void postInitGUI(){
-	
-		try{
-		HashMap groupMap = new HashMap(); 
-		
-		List list = AdmBLUserAdd.getGroups();
-		TurqGroup group;
-		
-		for(int i=0; i<list.size();i++){
-		group = (TurqGroup)list.get(i);
-		groupMap.put(group.getGroupsName(),group);
+
+	public void postInitGUI()
+	{
+		try
+		{
+			HashMap groupMap = new HashMap();
+			List list = AdmBLUserAdd.getGroups();
+			TurqGroup group;
+			for (int i = 0; i < list.size(); i++)
+			{
+				group = (TurqGroup) list.get(i);
+				groupMap.put(group.getGroupsName(), group);
+			}
+			registeredGroups.fillTableAllGroups(groupMap);
 		}
-		registeredGroups.fillTableAllGroups(groupMap);
-		
-		}
-		catch(Exception ex){
-			
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
-		
-		
-		
 	}
-	
-	public boolean verifyFields(){
-		
-		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-		if(txtUsername.getText().trim().length()==0){
+
+	public boolean verifyFields()
+	{
+		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+		if (txtUsername.getText().trim().length() == 0)
+		{
 			msg.setMessage(Messages.getString("AdmUIUserAdd.6")); //$NON-NLS-1$
 			msg.open();
 			txtUsername.setFocus();
 			return false;
-			
 		}
-		else if(!txtPassword.getText().equals(txtRePassword.getText())){
-		msg.setMessage(Messages.getString("AdmUIUserAdd.7")); //$NON-NLS-1$
-		msg.open();
-		txtPassword.setText("");
-		txtRePassword.setText("");
-		txtPassword.setFocus();
-		 return false;			
-		}		
+		else if (!txtPassword.getText().equals(txtRePassword.getText()))
+		{
+			msg.setMessage(Messages.getString("AdmUIUserAdd.7")); //$NON-NLS-1$
+			msg.open();
+			txtPassword.setText("");
+			txtRePassword.setText("");
+			txtPassword.setFocus();
+			return false;
+		}
 		return true;
 	}
-	
-	public void saveUserGroups(Integer userid)throws Exception{
-		try{
-		TableItem items[]= registeredGroups.getTableAllGroups().getItems();
-		for(int i=0; i<items.length;i++){
-			if(items[i].getChecked()){
-			AdmBLUserAdd.saveUserGroups(userid,items[i].getData());	
-				
+
+	public void saveUserGroups(Integer userid) throws Exception
+	{
+		try
+		{
+			TableItem items[] = registeredGroups.getTableAllGroups().getItems();
+			for (int i = 0; i < items.length; i++)
+			{
+				if (items[i].getChecked())
+				{
+					AdmBLUserAdd.saveUserGroups(userid, items[i].getData());
+				}
 			}
-			
 		}
-		
-		
-	
-	}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-		
-		
 	}
-	
-	public void save(){
-		try{
-		if(verifyFields())
+
+	public void save()
+	{
+		try
 		{
-			
-		Integer userId =AdmBLUserAdd.saveUser(txtUsername.getText(),txtPassword.getText(),
-						   txtRealName.getText(),txtDescription.getText());
-		saveUserGroups(userId);
-			
-		newForm();
-			
-		}	
+			if (verifyFields())
+			{
+				Integer userId = AdmBLUserAdd.saveUser(txtUsername.getText(), txtPassword.getText(), txtRealName.getText(),
+						txtDescription.getText());
+				saveUserGroups(userId);
+				newForm();
+			}
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
 	}
-	public void search(){
-		
+
+	public void search()
+	{
 	}
-	public void newForm(){
-		
-		 AdmUIUserAdd  curCard = new AdmUIUserAdd(this.getParent(),this.getStyle());
-		 CTabFolder tabfld = (CTabFolder)this.getParent();
-		 tabfld.getSelection().setControl(curCard);	 
-		 this.dispose();
-		
-		
+
+	public void newForm()
+	{
+		AdmUIUserAdd curCard = new AdmUIUserAdd(this.getParent(), this.getStyle());
+		CTabFolder tabfld = (CTabFolder) this.getParent();
+		tabfld.getSelection().setControl(curCard);
+		this.dispose();
 	}
-	public void delete(){
-		
+
+	public void delete()
+	{
 	}
 
 	/**
 	 * @return Returns the registeredGroups.
 	 */
-	public RegisterGroupComposite getRegisteredGroups() {
+	public RegisterGroupComposite getRegisteredGroups()
+	{
 		return registeredGroups;
 	}
+
 	/**
-	 * @param registeredGroups The registeredGroups to set.
+	 * @param registeredGroups
+	 *             The registeredGroups to set.
 	 */
-	public void setRegisteredGroups(RegisterGroupComposite registeredGroups) {
+	public void setRegisteredGroups(RegisterGroupComposite registeredGroups)
+	{
 		this.registeredGroups = registeredGroups;
 	}
+
 	/**
 	 * @return Returns the txtDescription.
 	 */
-	public Text getTxtDescription() {
+	public Text getTxtDescription()
+	{
 		return txtDescription;
 	}
+
 	/**
-	 * @param txtDescription The txtDescription to set.
+	 * @param txtDescription
+	 *             The txtDescription to set.
 	 */
-	public void setTxtDescription(Text txtDescription) {
+	public void setTxtDescription(Text txtDescription)
+	{
 		this.txtDescription = txtDescription;
 	}
+
 	/**
 	 * @return Returns the txtPassword.
 	 */
-	public Text getTxtPassword() {
+	public Text getTxtPassword()
+	{
 		return txtPassword;
 	}
+
 	/**
-	 * @param txtPassword The txtPassword to set.
+	 * @param txtPassword
+	 *             The txtPassword to set.
 	 */
-	public void setTxtPassword(Text txtPassword) {
+	public void setTxtPassword(Text txtPassword)
+	{
 		this.txtPassword = txtPassword;
 	}
+
 	/**
 	 * @return Returns the txtRealName.
 	 */
-	public Text getTxtRealName() {
+	public Text getTxtRealName()
+	{
 		return txtRealName;
 	}
+
 	/**
-	 * @param txtRealName The txtRealName to set.
+	 * @param txtRealName
+	 *             The txtRealName to set.
 	 */
-	public void setTxtRealName(Text txtRealName) {
+	public void setTxtRealName(Text txtRealName)
+	{
 		this.txtRealName = txtRealName;
 	}
+
 	/**
 	 * @return Returns the txtRePassword.
 	 */
-	public Text getTxtRePassword() {
+	public Text getTxtRePassword()
+	{
 		return txtRePassword;
 	}
+
 	/**
-	 * @param txtRePassword The txtRePassword to set.
+	 * @param txtRePassword
+	 *             The txtRePassword to set.
 	 */
-	public void setTxtRePassword(Text txtRePassword) {
+	public void setTxtRePassword(Text txtRePassword)
+	{
 		this.txtRePassword = txtRePassword;
 	}
+
 	/**
 	 * @return Returns the txtUsername.
 	 */
-	public Text getTxtUsername() {
+	public Text getTxtUsername()
+	{
 		return txtUsername;
 	}
+
 	/**
-	 * @param txtUsername The txtUsername to set.
+	 * @param txtUsername
+	 *             The txtUsername to set.
 	 */
-	public void setTxtUsername(Text txtUsername) {
+	public void setTxtUsername(Text txtUsername)
+	{
 		this.txtUsername = txtUsername;
 	}
 }

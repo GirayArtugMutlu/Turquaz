@@ -7,117 +7,125 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqCurrentTransactionType implements Serializable {
+public class TurqCurrentTransactionType implements Serializable
+{
+	/** identifier field */
+	private java.lang.Integer id;
+	/** persistent field */
+	private java.lang.String transactionTypeName;
+	/** persistent field */
+	private java.lang.String createdBy;
+	/** persistent field */
+	private java.util.Date creationDate;
+	/** persistent field */
+	private java.lang.String updatedBy;
+	/** persistent field */
+	private java.util.Date lastModified;
+	/** persistent field */
+	private Set turqCurrentTransactions;
 
-    /** identifier field */
-    private java.lang.Integer id;
+	/** full constructor */
+	public TurqCurrentTransactionType(java.lang.String transactionTypeName, java.lang.String createdBy, java.util.Date creationDate,
+			java.lang.String updatedBy, java.util.Date lastModified, Set turqCurrentTransactions)
+	{
+		this.transactionTypeName = transactionTypeName;
+		this.createdBy = createdBy;
+		this.creationDate = creationDate;
+		this.updatedBy = updatedBy;
+		this.lastModified = lastModified;
+		this.turqCurrentTransactions = turqCurrentTransactions;
+	}
 
-    /** persistent field */
-    private java.lang.String transactionTypeName;
+	/** default constructor */
+	public TurqCurrentTransactionType()
+	{
+	}
 
-    /** persistent field */
-    private java.lang.String createdBy;
+	public java.lang.Integer getId()
+	{
+		return this.id;
+	}
 
-    /** persistent field */
-    private java.util.Date creationDate;
+	public void setId(java.lang.Integer id)
+	{
+		this.id = id;
+	}
 
-    /** persistent field */
-    private java.lang.String updatedBy;
+	public java.lang.String getTransactionTypeName()
+	{
+		return this.transactionTypeName;
+	}
 
-    /** persistent field */
-    private java.util.Date lastModified;
+	public void setTransactionTypeName(java.lang.String transactionTypeName)
+	{
+		this.transactionTypeName = transactionTypeName;
+	}
 
-    /** persistent field */
-    private Set turqCurrentTransactions;
+	public java.lang.String getCreatedBy()
+	{
+		return this.createdBy;
+	}
 
-    /** full constructor */
-    public TurqCurrentTransactionType(java.lang.String transactionTypeName, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqCurrentTransactions) {
-        this.transactionTypeName = transactionTypeName;
-        this.createdBy = createdBy;
-        this.creationDate = creationDate;
-        this.updatedBy = updatedBy;
-        this.lastModified = lastModified;
-        this.turqCurrentTransactions = turqCurrentTransactions;
-    }
+	public void setCreatedBy(java.lang.String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
 
-    /** default constructor */
-    public TurqCurrentTransactionType() {
-    }
+	public java.util.Date getCreationDate()
+	{
+		return this.creationDate;
+	}
 
-    public java.lang.Integer getId() {
-        return this.id;
-    }
+	public void setCreationDate(java.util.Date creationDate)
+	{
+		this.creationDate = creationDate;
+	}
 
-    public void setId(java.lang.Integer id) {
-        this.id = id;
-    }
+	public java.lang.String getUpdatedBy()
+	{
+		return this.updatedBy;
+	}
 
-    public java.lang.String getTransactionTypeName() {
-        return this.transactionTypeName;
-    }
+	public void setUpdatedBy(java.lang.String updatedBy)
+	{
+		this.updatedBy = updatedBy;
+	}
 
-    public void setTransactionTypeName(java.lang.String transactionTypeName) {
-        this.transactionTypeName = transactionTypeName;
-    }
+	public java.util.Date getLastModified()
+	{
+		return this.lastModified;
+	}
 
-    public java.lang.String getCreatedBy() {
-        return this.createdBy;
-    }
+	public void setLastModified(java.util.Date lastModified)
+	{
+		this.lastModified = lastModified;
+	}
 
-    public void setCreatedBy(java.lang.String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public java.util.Set getTurqCurrentTransactions()
+	{
+		return this.turqCurrentTransactions;
+	}
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
+	public void setTurqCurrentTransactions(java.util.Set turqCurrentTransactions)
+	{
+		this.turqCurrentTransactions = turqCurrentTransactions;
+	}
 
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("id", getId()).toString();
+	}
 
-    public java.lang.String getUpdatedBy() {
-        return this.updatedBy;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqCurrentTransactionType))
+			return false;
+		TurqCurrentTransactionType castOther = (TurqCurrentTransactionType) other;
+		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
+	}
 
-    public void setUpdatedBy(java.lang.String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
-
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
-    public java.util.Set getTurqCurrentTransactions() {
-        return this.turqCurrentTransactions;
-    }
-
-    public void setTurqCurrentTransactions(java.util.Set turqCurrentTransactions) {
-        this.turqCurrentTransactions = turqCurrentTransactions;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getId())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqCurrentTransactionType) ) return false;
-        TurqCurrentTransactionType castOther = (TurqCurrentTransactionType) other;
-        return new EqualsBuilder()
-            .append(this.getId(), castOther.getId())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getId()).toHashCode();
+	}
 }

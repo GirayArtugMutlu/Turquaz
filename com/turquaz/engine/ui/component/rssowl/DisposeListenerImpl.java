@@ -21,7 +21,6 @@
  **	  	RSSOwl - initial API and implementation (bpasero@rssowl.org)				 **
  **																																					 **
  **	 **********************************************************************	 */
-
 package com.turquaz.engine.ui.component.rssowl;
 
 import org.eclipse.swt.custom.CLabel;
@@ -39,25 +38,26 @@ import org.eclipse.swt.widgets.ToolItem;
  * @author <a href="mailto:bpasero@rssowl.org">Benjamin Pasero </a>
  * @version 1.0
  */
-public class DisposeListenerImpl implements DisposeListener {
-
+public class DisposeListenerImpl implements DisposeListener
+{
 	/** Singleton instance of DisposeListenerImpl */
 	private static DisposeListenerImpl disposeListenerImpl;
 
 	/**
 	 * Protect this constructor
 	 */
-	private DisposeListenerImpl() {
-	// Force to use static getInstance() Method
+	private DisposeListenerImpl()
+	{
+		// Force to use static getInstance() Method
 	}
 
 	/**
-	 * Singleton to retrieve either an existing instance of DisposeListenerImpl or
-	 * a new created one.
+	 * Singleton to retrieve either an existing instance of DisposeListenerImpl or a new created one.
 	 * 
 	 * @return DisposeListenerImpl An instance of DisposeListenerImpl
 	 */
-	public static DisposeListenerImpl getInstance() {
+	public static DisposeListenerImpl getInstance()
+	{
 		if (disposeListenerImpl == null)
 			disposeListenerImpl = new DisposeListenerImpl();
 		return disposeListenerImpl;
@@ -66,43 +66,43 @@ public class DisposeListenerImpl implements DisposeListener {
 	/**
 	 * @see org.eclipse.swt.events.DisposeListener#widgetDisposed(org.eclipse.swt.events.DisposeEvent)
 	 */
-	public void widgetDisposed(DisposeEvent e) {
-
+	public void widgetDisposed(DisposeEvent e)
+	{
 		/** Handle CLabel */
-		if (e.widget instanceof CLabel) {
+		if (e.widget instanceof CLabel)
+		{
 			if (((CLabel) e.widget).getImage() != null)
 				((CLabel) e.widget).getImage().dispose();
 		}
-
 		/** Handle Label */
-		if (e.widget instanceof Label) {
+		if (e.widget instanceof Label)
+		{
 			if (((Label) e.widget).getImage() != null)
 				((Label) e.widget).getImage().dispose();
 		}
-
 		/** Handle CTabItem */
-		if (e.widget instanceof CTabItem) {
+		if (e.widget instanceof CTabItem)
+		{
 			if (((CTabItem) e.widget).getImage() != null)
 				((CTabItem) e.widget).getImage().dispose();
 		}
-
 		/** Handle MenuItem */
-		if (e.widget instanceof MenuItem) {
+		if (e.widget instanceof MenuItem)
+		{
 			if (((MenuItem) e.widget).getImage() != null)
 				((MenuItem) e.widget).getImage().dispose();
 		}
-
 		/** Handle ToolItem */
-		if (e.widget instanceof ToolItem) {
+		if (e.widget instanceof ToolItem)
+		{
 			if (((ToolItem) e.widget).getImage() != null)
 				((ToolItem) e.widget).getImage().dispose();
-
 			if (((ToolItem) e.widget).getDisabledImage() != null)
 				((ToolItem) e.widget).getImage().dispose();
 		}
-
 		/** Handle Button */
-		if (e.widget instanceof Button) {
+		if (e.widget instanceof Button)
+		{
 			if (((Button) e.widget).getImage() != null)
 				((Button) e.widget).getImage().dispose();
 		}

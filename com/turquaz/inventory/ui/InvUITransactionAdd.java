@@ -15,47 +15,33 @@ package com.turquaz.inventory.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
+ * @author  Onsel Armagan
+ * @version  $Id$
+ */
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
-
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
-
-
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.inventory.Messages;
 
 /**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
-
-public class InvUITransactionAdd extends  Composite implements SecureComposite {
-
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
+ */
+public class InvUITransactionAdd extends Composite implements SecureComposite
+{
 	private CCombo comboInvTransWhSelect;
 	private Label lblInvTransWhSelect;
 	private CCombo comboInvTransUnit;
@@ -66,21 +52,22 @@ public class InvUITransactionAdd extends  Composite implements SecureComposite {
 	private CCombo comboInvTransCard;
 	private CLabel lblInvTransCard;
 	private Composite compInvTransAdd;
-	public InvUITransactionAdd(Composite parent, int style) {
+
+	public InvUITransactionAdd(Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
 
 	/**
-	* Initializes the GUI.
-	* Auto-generated code - any changes you make will disappear.
-	*/
-	public void initGUI(){
-		try {
+	 * Initializes the GUI. Auto-generated code - any changes you make will disappear.
+	 */
+	public void initGUI()
+	{
+		try
+		{
 			preInitGUI();
-
-			this.setSize(new org.eclipse.swt.graphics.Point(329,223));
-
+			this.setSize(new org.eclipse.swt.graphics.Point(329, 223));
 			GridLayout thisLayout = new GridLayout();
 			thisLayout.makeColumnsEqualWidth = true;
 			this.setLayout(thisLayout);
@@ -109,8 +96,7 @@ public class InvUITransactionAdd extends  Composite implements SecureComposite {
 					lblInvTransCardLData.widthHint = 52;
 					lblInvTransCardLData.heightHint = 19;
 					lblInvTransCard.setLayoutData(lblInvTransCardLData);
-					lblInvTransCard.setText(Messages
-						.getString("InvUITransactionAdd.0")); //$NON-NLS-1$
+					lblInvTransCard.setText(Messages.getString("InvUITransactionAdd.0")); //$NON-NLS-1$
 					lblInvTransCard.setLayout(lblInvTransCardLayout);
 					lblInvTransCard.layout();
 				}
@@ -128,8 +114,7 @@ public class InvUITransactionAdd extends  Composite implements SecureComposite {
 					lblInvTransTypeLData.widthHint = 57;
 					lblInvTransTypeLData.heightHint = 13;
 					lblInvTransType.setLayoutData(lblInvTransTypeLData);
-					lblInvTransType.setText(Messages
-						.getString("InvUITransactionAdd.1")); //$NON-NLS-1$
+					lblInvTransType.setText(Messages.getString("InvUITransactionAdd.1")); //$NON-NLS-1$
 				}
 				{
 					combpInvTransType = new CCombo(compInvTransAdd, SWT.NONE);
@@ -145,16 +130,14 @@ public class InvUITransactionAdd extends  Composite implements SecureComposite {
 					lblInvTransAmountLData.widthHint = 29;
 					lblInvTransAmountLData.heightHint = 13;
 					lblInvTransAmount.setLayoutData(lblInvTransAmountLData);
-					lblInvTransAmount.setText(Messages
-						.getString("InvUITransactionAdd.2")); //$NON-NLS-1$
+					lblInvTransAmount.setText(Messages.getString("InvUITransactionAdd.2")); //$NON-NLS-1$
 				}
 				{
 					txtNumInvTransAmount = new Text(compInvTransAdd, SWT.NONE);
 					GridData txtNumInvTransAmountLData = new GridData();
 					txtNumInvTransAmountLData.widthHint = 64;
 					txtNumInvTransAmountLData.heightHint = 13;
-					txtNumInvTransAmount
-						.setLayoutData(txtNumInvTransAmountLData);
+					txtNumInvTransAmount.setLayoutData(txtNumInvTransAmountLData);
 				}
 				{
 					comboInvTransUnit = new CCombo(compInvTransAdd, SWT.NONE);
@@ -170,74 +153,77 @@ public class InvUITransactionAdd extends  Composite implements SecureComposite {
 					lblInvTransWhSelectLData.widthHint = 25;
 					lblInvTransWhSelectLData.heightHint = 13;
 					lblInvTransWhSelect.setLayoutData(lblInvTransWhSelectLData);
-					lblInvTransWhSelect.setText(Messages
-						.getString("InvUITransactionAdd.3")); //$NON-NLS-1$
+					lblInvTransWhSelect.setText(Messages.getString("InvUITransactionAdd.3")); //$NON-NLS-1$
 				}
 				{
-					comboInvTransWhSelect = new CCombo(
-						compInvTransAdd,
-						SWT.NONE);
+					comboInvTransWhSelect = new CCombo(compInvTransAdd, SWT.NONE);
 					GridData comboInvTransWhSelectLData = new GridData();
 					comboInvTransWhSelectLData.widthHint = 64;
 					comboInvTransWhSelectLData.heightHint = 16;
 					comboInvTransWhSelectLData.horizontalSpan = 3;
-					comboInvTransWhSelect
-						.setLayoutData(comboInvTransWhSelectLData);
+					comboInvTransWhSelect.setLayoutData(comboInvTransWhSelectLData);
 				}
 				compInvTransAdd.layout();
 			}
 			this.layout();
-	
 			postInitGUI();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
-	/** Add your pre-init code in here 	*/
-	public void preInitGUI(){
+
+	/** Add your pre-init code in here */
+	public void preInitGUI()
+	{
 	}
 
-	/** Add your post-init code in here 	*/
-	public void postInitGUI(){
+	/** Add your post-init code in here */
+	public void postInitGUI()
+	{
 	}
-	public void save(){
-		
+
+	public void save()
+	{
 	}
-	public void delete(){
-		
+
+	public void delete()
+	{
 	}
-	public void newForm(){
-		
+
+	public void newForm()
+	{
 	}
-	public void search(){
-		
+
+	public void search()
+	{
 	}
-	
-	
 
 	/**
-	* This static method creates a new instance of this class and shows
-	* it inside a new Shell.
-	*
-	* It is a convenience method for showing the GUI, but it can be
-	* copied and used as a basis for your own code.	*
-	* It is auto-generated code - the body of this method will be
-	* re-generated after any changes are made to the GUI.
-	* However, if you delete this method it will not be re-created.	*/
-	public static void showGUI(){
-		try {
+	 * This static method creates a new instance of this class and shows it inside a new Shell. It is a convenience method for showing the
+	 * GUI, but it can be copied and used as a basis for your own code. * It is auto-generated code - the body of this method will be
+	 * re-generated after any changes are made to the GUI. However, if you delete this method it will not be re-created.
+	 */
+	public static void showGUI()
+	{
+		try
+		{
 			Display display = Display.getDefault();
 			Shell shell = new Shell(display);
 			InvUITransactionAdd inst = new InvUITransactionAdd(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0,0,329,223);
+			Rectangle shellBounds = shell.computeTrim(0, 0, 329, 223);
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.open();
-			while (!shell.isDisposed()) {
+			while (!shell.isDisposed())
+			{
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}

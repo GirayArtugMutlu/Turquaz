@@ -1,4 +1,5 @@
 package com.turquaz.accounting.ui.reports;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -14,8 +15,6 @@ package com.turquaz.accounting.ui.reports;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
-
 import java.io.File;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -24,14 +23,11 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
-
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -41,27 +37,17 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
-
-
 /**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
+ */
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Button;
-
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.engine.EngConfiguration;
@@ -69,7 +55,9 @@ import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.layout.GridData;
-public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
+
+public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite
+{
 	private CLabel lblDateRange;
 	private DatePicker datePickerBeginDate;
 	private DatePicker datePickerEndDate;
@@ -78,28 +66,31 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 	private Button btnShow;
 
 	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
+	 * Auto-generated main method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
+	 */
+	public static void main(String[] args)
+	{
 		showGUI();
 	}
-		
+
 	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
+	 * Auto-generated method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
+	 */
+	public static void showGUI()
+	{
 		Display display = Display.getDefault();
 		Shell shell = new Shell(display);
 		AccUIAccountingBalance inst = new AccUIAccountingBalance(shell, SWT.NULL);
 		Point size = inst.getSize();
 		shell.setLayout(new FillLayout());
 		shell.layout();
-		if(size.x == 0 && size.y == 0) {
+		if (size.x == 0 && size.y == 0)
+		{
 			inst.pack();
 			shell.pack();
-		} else {
+		}
+		else
+		{
 			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
 			int MENU_HEIGHT = 22;
 			if (shell.getMenuBar() != null)
@@ -107,39 +98,41 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		while (!shell.isDisposed()) {
+		while (!shell.isDisposed())
+		{
 			if (!display.readAndDispatch())
 				display.sleep();
 		}
 	}
 
-	public AccUIAccountingBalance(org.eclipse.swt.widgets.Composite parent, int style) {
+	public AccUIAccountingBalance(org.eclipse.swt.widgets.Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
-	
-	private void btnShowSingleClick(){
-		try{
-			List transColumns=AccBLAccountAdd.getTransactionColumns(3,datePickerBeginDate.getDate(),datePickerEndDate.getDate());
-			BigDecimal totalCredit=new BigDecimal(0);
-			BigDecimal totalDept=new BigDecimal(0);
-			for(int k=0; k<transColumns.size(); k++)
+
+	private void btnShowSingleClick()
+	{
+		try
+		{
+			List transColumns = AccBLAccountAdd.getTransactionColumns(3, datePickerBeginDate.getDate(), datePickerEndDate.getDate());
+			BigDecimal totalCredit = new BigDecimal(0);
+			BigDecimal totalDept = new BigDecimal(0);
+			for (int k = 0; k < transColumns.size(); k++)
 			{
-				TurqAccountingTransactionColumn column=(TurqAccountingTransactionColumn)transColumns.get(k);
-				totalCredit=totalCredit.add(column.getCreditAmount());
-				totalDept=totalDept.add(column.getDeptAmount());
+				TurqAccountingTransactionColumn column = (TurqAccountingTransactionColumn) transColumns.get(k);
+				totalCredit = totalCredit.add(column.getCreditAmount());
+				totalDept = totalDept.add(column.getDeptAmount());
 			}
 			if (!totalDept.equals(totalCredit))
 			{
-				MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(Messages.getString("AccUIAccountingBalance.1")); //$NON-NLS-1$
 				msg.open();
 			}
 			Map parameters = new HashMap();
-			
-
-			String sqlparam="Select mytab.deptsum,mytab.creditsum,mytab.top_account,accs.account_name,accs.account_code," + //$NON-NLS-1$
-					" accs.id as accounting_accounts_id from turq_accounting_accounts accs,"+ //$NON-NLS-1$
+			String sqlparam = "Select mytab.deptsum,mytab.creditsum,mytab.top_account,accs.account_name,accs.account_code," + //$NON-NLS-1$
+					" accs.id as accounting_accounts_id from turq_accounting_accounts accs," + //$NON-NLS-1$
 					"(Select SUM(transcolumns.dept_amount) as deptsum," + //$NON-NLS-1$
 					"SUM(transcolumns.credit_amount) as creditsum," + //$NON-NLS-1$
 					" accounts.top_account" + //$NON-NLS-1$
@@ -148,43 +141,40 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 					" turq_accounting_transactions trans" + //$NON-NLS-1$
 					" where transcolumns.accounting_accounts_id=accounts.id" + //$NON-NLS-1$
 					" and transcolumns.accounting_transactions_id=trans.id"; //$NON-NLS-1$
-			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
-			 sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
-					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'" //$NON-NLS-1$ //$NON-NLS-2$
-					+" GROUP BY accounts.top_account)" + //$NON-NLS-1$
+			SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
+			sqlparam += " and trans.transactions_date >= '" + dformat.format(datePickerBeginDate.getDate()) + "'" //$NON-NLS-1$ //$NON-NLS-2$
+					+ " and trans.transactions_date <= '" + dformat.format(datePickerEndDate.getDate()) + "'" //$NON-NLS-1$ //$NON-NLS-2$
+					+ " GROUP BY accounts.top_account)" + //$NON-NLS-1$
 					" as mytab where mytab.top_account=accs.id ORDER BY mytab.top_account"; //$NON-NLS-1$
-			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
-			parameters.put("sqlparam",sqlparam);		 //$NON-NLS-1$
-			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate())); //$NON-NLS-1$
-			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate())); //$NON-NLS-1$
+			SimpleDateFormat dformat2 = new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
+			parameters.put("sqlparam", sqlparam); //$NON-NLS-1$
+			parameters.put("beginDate", dformat2.format(datePickerBeginDate.getDate())); //$NON-NLS-1$
+			parameters.put("endDate", dformat2.format(datePickerEndDate.getDate())); //$NON-NLS-1$
 			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
-			NumberFormat formatter =NumberFormat.getNumberInstance();
-            formatter.setMaximumFractionDigits(2);
-            parameters.put("formatter",formatter); //$NON-NLS-1$
+			NumberFormat formatter = NumberFormat.getNumberInstance();
+			formatter.setMaximumFractionDigits(2);
+			parameters.put("formatter", formatter); //$NON-NLS-1$
 			parameters.put("imageUrl", EngConfiguration.logoURL); //$NON-NLS-1$
-            parameters.put("formatter",formatter); //$NON-NLS-1$
-			EngDALConnection db=new EngDALConnection();
+			parameters.put("formatter", formatter); //$NON-NLS-1$
+			EngDALConnection db = new EngDALConnection();
 			db.connect();
-
-			
-			
-			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/accounting/AccountingBalance.jasper");  //$NON-NLS-1$
-	    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());
-			
-			JasperViewer.viewReport(jasperPrint,false);
-			
-					
-			}
-			catch(Exception ex){
-				ex.printStackTrace();
-				MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
-				msg.setMessage(ex.getMessage());
-				msg.open();
-			}
+			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/accounting/AccountingBalance.jasper"); //$NON-NLS-1$
+			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, db.getCon());
+			JasperViewer.viewReport(jasperPrint, false);
 		}
-	
-	private void initGUI() {
-		try {
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+			msg.setMessage(ex.getMessage());
+			msg.open();
+		}
+	}
+
+	private void initGUI()
+	{
+		try
+		{
 			{
 				this.setSize(400, 75);
 			}
@@ -222,9 +212,10 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 				btnIconLData1.widthHint = 102;
 				btnIconLData1.heightHint = 30;
 				btnIcon.setLayoutData(btnIconLData1);
-
-				btnIcon.addMouseListener(new MouseAdapter() {
-					public void mouseUp(MouseEvent evt) {
+				btnIcon.addMouseListener(new MouseAdapter()
+				{
+					public void mouseUp(MouseEvent evt)
+					{
 						btnLogoSingleClick();
 					}
 				});
@@ -236,39 +227,41 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 				btnShowLData.widthHint = 117;
 				btnShowLData.heightHint = 30;
 				btnShow.setLayoutData(btnShowLData);
-				btnShow.addMouseListener(new MouseAdapter() {
-					public void mouseUp(MouseEvent evt) {
+				btnShow.addMouseListener(new MouseAdapter()
+				{
+					public void mouseUp(MouseEvent evt)
+					{
 						btnShowSingleClick();
 					}
 				});
 			}
 			File file = new File(EngConfiguration.logoURL);
-			if(file.exists())
-				this.lblLogoURL.setText(Messages.getString("AccUIAccountingBalance.27")+EngConfiguration.logoURL); //$NON-NLS-1$
+			if (file.exists())
+				this.lblLogoURL.setText(Messages.getString("AccUIAccountingBalance.27") + EngConfiguration.logoURL); //$NON-NLS-1$
 			else
 			{
 				this.lblLogoURL.setText(Messages.getString("AccUIAccountingBalance.28")); //$NON-NLS-1$
-				EngConfiguration.logoURL=""; //$NON-NLS-1$
+				EngConfiguration.logoURL = ""; //$NON-NLS-1$
 			}
 			this.layout();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
-	
-	private void btnLogoSingleClick(){
-		FileDialog dialog = new FileDialog (this.getShell(), SWT.OK);
-		dialog.setFilterNames (new String [] {"Image Files (*.jpg;*.jpeg;*.bmp;*.png)", "*.jpg;*.jpeg;*.bmp;*.png"}); //$NON-NLS-1$ //$NON-NLS-2$
-		dialog.setFilterExtensions (new String [] {"*.jpg;*.jpeg;*.bmp;*.png"}); //Windows wild cards //$NON-NLS-1$
+
+	private void btnLogoSingleClick()
+	{
+		FileDialog dialog = new FileDialog(this.getShell(), SWT.OK);
+		dialog.setFilterNames(new String[]{"Image Files (*.jpg;*.jpeg;*.bmp;*.png)", "*.jpg;*.jpeg;*.bmp;*.png"}); //$NON-NLS-1$ //$NON-NLS-2$
+		dialog.setFilterExtensions(new String[]{"*.jpg;*.jpeg;*.bmp;*.png"}); //Windows wild cards //$NON-NLS-1$
 		dialog.setText(Messages.getString("AccUIAccountingBalance.35")); //$NON-NLS-1$
 		String filepath = dialog.open();
-		
-		if(filepath!=null){
-			EngConfiguration.logoURL=filepath;
-			lblLogoURL.setText(Messages.getString("AccUIAccountingBalance.36")+filepath); //$NON-NLS-1$
+		if (filepath != null)
+		{
+			EngConfiguration.logoURL = filepath;
+			lblLogoURL.setText(Messages.getString("AccUIAccountingBalance.36") + filepath); //$NON-NLS-1$
 		}
-
-		
 	}
-
 }

@@ -1,5 +1,5 @@
-
 package com.turquaz.cheque.dal;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -15,14 +15,10 @@ package com.turquaz.cheque.dal;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel
-* @version  $Id$
-*/
-
-
-public class CheDALSave {
-      
-
+ * @author Onsel
+ * @version $Id$
+ */
+public class CheDALSave
+{
 }

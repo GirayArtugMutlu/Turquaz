@@ -15,16 +15,13 @@ package com.turquaz.cheque.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
  * @author Onsel
  * @version $Id$
  */
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -41,49 +38,39 @@ import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
-
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
-public class CheUIReturnFromGivenChequesUpdate extends
-		org.eclipse.swt.widgets.Dialog {
-
+public class CheUIReturnFromGivenChequesUpdate extends org.eclipse.swt.widgets.Dialog
+{
 	private Shell dialogShell;
-
 	private ToolItem toolUpdate;
-
 	private CheUIReturnFromGivenCheques compChequeRoll;
-
 	private ToolItem toolCancel;
-
 	private ToolItem toolDelete;
-
 	private ToolBar toolBar;
-
 	boolean isUpdated = false;
-
 	TurqChequeRoll chequeRoll = null;
 
-	public CheUIReturnFromGivenChequesUpdate(Shell parent, int style,
-			TurqChequeRoll chequeRoll) {
+	public CheUIReturnFromGivenChequesUpdate(Shell parent, int style, TurqChequeRoll chequeRoll)
+	{
 		super(parent, style);
 		this.chequeRoll = chequeRoll;
 	}
 
-	public boolean open() {
-		try {
+	public boolean open()
+	{
+		try
+		{
 			Shell parent = getParent();
-			dialogShell = new Shell(parent, SWT.DIALOG_TRIM
-					| SWT.APPLICATION_MODAL);
-
+			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 			{
 				//Register as a resource user - SWTResourceManager will
 				//handle the obtaining and disposing of resources
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
-
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.layout();
 			dialogShell.pack();
@@ -97,10 +84,11 @@ public class CheUIReturnFromGivenChequesUpdate extends
 			//START >> toolUpdate
 			toolUpdate = new ToolItem(toolBar, SWT.NONE);
 			toolUpdate.setText("Güncelle");
-			toolUpdate.setImage(SWTResourceManager
-					.getImage("icons/save_edit.gif"));
-			toolUpdate.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
+			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
+			toolUpdate.addSelectionListener(new SelectionAdapter()
+			{
+				public void widgetSelected(SelectionEvent evt)
+				{
 					toolUpdateWidgetSelected(evt);
 				}
 			});
@@ -108,10 +96,11 @@ public class CheUIReturnFromGivenChequesUpdate extends
 			//START >> toolDelete
 			toolDelete = new ToolItem(toolBar, SWT.NONE);
 			toolDelete.setText("Sil");
-			toolDelete.setImage(SWTResourceManager
-					.getImage("icons/delete_edit.gif"));
-			toolDelete.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
+			toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
+			toolDelete.addSelectionListener(new SelectionAdapter()
+			{
+				public void widgetSelected(SelectionEvent evt)
+				{
 					toolDeleteWidgetSelected(evt);
 				}
 			});
@@ -119,10 +108,11 @@ public class CheUIReturnFromGivenChequesUpdate extends
 			//START >> toolCancel
 			toolCancel = new ToolItem(toolBar, SWT.NONE);
 			toolCancel.setText("Kapat");
-			toolCancel
-					.setImage(SWTResourceManager.getImage("icons/cancel.jpg"));
-			toolCancel.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
+			toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg"));
+			toolCancel.addSelectionListener(new SelectionAdapter()
+			{
+				public void widgetSelected(SelectionEvent evt)
+				{
 					dialogShell.close();
 				}
 			});
@@ -140,114 +130,98 @@ public class CheUIReturnFromGivenChequesUpdate extends
 			postInitGUI();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
-			while (!dialogShell.isDisposed()) {
+			while (!dialogShell.isDisposed())
+			{
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
 			return isUpdated;
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			return false;
 		}
 	}
 
-	public void postInitGUI() {
-		try {
-
+	public void postInitGUI()
+	{
+		try
+		{
 			compChequeRoll.getToolItemAdd().setEnabled(false);
 			compChequeRoll.getToolItemDelete().setEnabled(false);
-
 			EngUICommon.centreWindow(dialogShell);
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-
 			CheBLUpdateChequeRoll.initializeChequeRoll(chequeRoll);
-
 			compChequeRoll.getTxtRollNo().setText(chequeRoll.getChequeRollNo());
-			compChequeRoll.getDatePicker1().setDate(
-					chequeRoll.getChequeRollsDate());
-
+			compChequeRoll.getDatePicker1().setDate(chequeRoll.getChequeRollsDate());
 			TableItem item;
-
 			Iterator it = chequeRoll.getTurqChequeChequeInRolls().iterator();
-
-			while (it.hasNext()) {
-
-				TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll) it
-						.next();
+			while (it.hasNext())
+			{
+				TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll) it.next();
 				TurqChequeCheque cheque = chequeInRoll.getTurqChequeCheque();
-
 				item = new TableItem(compChequeRoll.getTableCheques(), SWT.NULL);
 				item.setData(cheque);
-				item.setText(new String[] {
-								cheque.getChequesPortfolioNo(),
-								DatePicker.formatter.format(cheque
-										.getChequesDueDate()),
-								cheque.getChequesPaymentPlace(),
-								cheque.getChequesDebtor(),
-								cf.format(cheque.getChequesAmount()) });
-
+				item.setText(new String[]{cheque.getChequesPortfolioNo(), DatePicker.formatter.format(cheque.getChequesDueDate()),
+						cheque.getChequesPaymentPlace(), cheque.getChequesDebtor(), cf.format(cheque.getChequesAmount())});
 			}
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
-
 	}
 
-	private void toolUpdateWidgetSelected(SelectionEvent evt) {
-		
-		try{
-	        if(compChequeRoll.verifyFields()){ 
-	            List chequeList = new ArrayList();
-	            int count = compChequeRoll.getTableCheques().getItemCount();
-	            for(int i=0;i<count;i++)
-	            {
-	                chequeList.add(compChequeRoll.getTableCheques().getItem(i).getData());
-	                
-	            }   
-	           
-//	          TODO cheq trans exRate
-	        
-	           CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,null,null,null,compChequeRoll.getTxtRollNo().getText().trim(),compChequeRoll.getDatePicker1().getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT.intValue(),false,EngBLCommon.getBaseCurrencyExchangeRate());
-	           EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
-	           
-	           isUpdated=true;
-	           
-	           dialogShell.close();
-	        }
-	        
-	        
-	    }
-	    catch(Exception ex){
-	        ex.printStackTrace();
-	        EngUICommon.showMessageBox(getParent(),ex.getMessage(),SWT.ICON_ERROR);
-	    }
-		
-		
-
-	}
-	
-	private void toolDeleteWidgetSelected(SelectionEvent evt) {
-		try{
-	        
-	        if(EngUICommon.okToDelete(getParent()))
-	        {
-	          if(compChequeRoll.getTableCheques().getItemCount()>0)
-	          {
-	          	 EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeOutPayrollBankUpdate.0"),SWT.ICON_WARNING);  //$NON-NLS-1$
-	             return;
-	          }
-	            CheBLUpdateChequeRoll.deleteChequeRollIn(chequeRoll);
-	            EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeInPayrollUpdate.8"),SWT.ICON_INFORMATION); //$NON-NLS-1$
-	            isUpdated=true;
-	            dialogShell.close();
-	        }
-	        
-	        
-	    }
-	    catch(Exception ex){
-	        ex.printStackTrace();
-	        EngUICommon.showMessageBox(getParent(),ex.getMessage().toString(),SWT.ICON_ERROR);
-	    }
+	private void toolUpdateWidgetSelected(SelectionEvent evt)
+	{
+		try
+		{
+			if (compChequeRoll.verifyFields())
+			{
+				List chequeList = new ArrayList();
+				int count = compChequeRoll.getTableCheques().getItemCount();
+				for (int i = 0; i < count; i++)
+				{
+					chequeList.add(compChequeRoll.getTableCheques().getItem(i).getData());
+				}
+				//	          TODO cheq trans exRate
+				CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll, null, null, null, compChequeRoll.getTxtRollNo().getText().trim(),
+						compChequeRoll.getDatePicker1().getDate(), chequeList, EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT
+								.intValue(), false, EngBLCommon.getBaseCurrencyExchangeRate());
+				EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIChequeInPayroll.13"), SWT.ICON_INFORMATION); //$NON-NLS-1$
+				isUpdated = true;
+				dialogShell.close();
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			EngUICommon.showMessageBox(getParent(), ex.getMessage(), SWT.ICON_ERROR);
+		}
 	}
 
+	private void toolDeleteWidgetSelected(SelectionEvent evt)
+	{
+		try
+		{
+			if (EngUICommon.okToDelete(getParent()))
+			{
+				if (compChequeRoll.getTableCheques().getItemCount() > 0)
+				{
+					EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIChequeOutPayrollBankUpdate.0"), SWT.ICON_WARNING); //$NON-NLS-1$
+					return;
+				}
+				CheBLUpdateChequeRoll.deleteChequeRollIn(chequeRoll);
+				EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIChequeInPayrollUpdate.8"), SWT.ICON_INFORMATION); //$NON-NLS-1$
+				isUpdated = true;
+				dialogShell.close();
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			EngUICommon.showMessageBox(getParent(), ex.getMessage().toString(), SWT.ICON_ERROR);
+		}
+	}
 }

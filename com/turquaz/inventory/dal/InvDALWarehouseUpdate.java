@@ -1,4 +1,3 @@
-
 package com.turquaz.inventory.dal;
 
 /************************************************************************/
@@ -16,46 +15,41 @@ package com.turquaz.inventory.dal;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
  * @author Onsel Armagan
  * @version $Id$
  */
 import java.util.List;
-
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 
-public class InvDALWarehouseUpdate {
-
-
-
-	public static boolean hasTransaction(TurqInventoryWarehous warehouse)
-			throws Exception {
-		try {
+public class InvDALWarehouseUpdate
+{
+	public static boolean hasTransaction(TurqInventoryWarehous warehouse) throws Exception
+	{
+		try
+		{
 			Session session = EngDALSessionFactory.openSession();
-
 			String query = "Select transactions from TurqInventoryTransaction as transactions "
 					+ "where transactions.turqInventoryWarehous = :warehouse ";
-
 			Query q = session.createQuery(query);
 			q.setParameter("warehouse", warehouse);
-
 			List list = q.list();
 			session.close();
-
-			if (list.size() > 0) {
+			if (list.size() > 0)
+			{
 				return true;
-			} else {
+			}
+			else
+			{
 				return false;
 			}
-
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-
 }

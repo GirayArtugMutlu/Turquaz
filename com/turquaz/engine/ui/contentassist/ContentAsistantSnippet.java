@@ -1,4 +1,5 @@
 package com.turquaz.engine.ui.contentassist;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -14,11 +15,10 @@ package com.turquaz.engine.ui.contentassist;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel
-* @version  $Id$
-*/
+ * @author Onsel
+ * @version $Id$
+ */
 import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.SWT;
@@ -32,15 +32,13 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
-
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.VerifyKeyListener;
 
-
-public class ContentAsistantSnippet extends org.eclipse.swt.widgets.Composite {
-
+public class ContentAsistantSnippet extends org.eclipse.swt.widgets.Composite
+{
 	private Menu menu1;
 	private MenuItem aboutMenuItem;
 	private MenuItem contentsMenuItem;
@@ -56,39 +54,39 @@ public class ContentAsistantSnippet extends org.eclipse.swt.widgets.Composite {
 	private Menu fileMenu;
 	private MenuItem fileMenuItem;
 
-	
-
-	public ContentAsistantSnippet(Composite parent, int style) {
+	public ContentAsistantSnippet(Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
-	
+
 	/**
-	* Initializes the GUI.
-	*/
-	private void initGUI() {
-		try {
-			this.setSize(new org.eclipse.swt.graphics.Point(400,300));
-			
+	 * Initializes the GUI.
+	 */
+	private void initGUI()
+	{
+		try
+		{
+			this.setSize(new org.eclipse.swt.graphics.Point(400, 300));
 			GridLayout thisLayout = new GridLayout();
 			thisLayout.numColumns = 2;
 			thisLayout.horizontalSpacing = 20;
 			this.setLayout(thisLayout);
-            {
-                cLabel1 = new CLabel(this, SWT.NONE);
-                cLabel1.setText("Example");
-                GridData cLabel1LData = new GridData();
-                cLabel1LData.widthHint = 49;
-                cLabel1LData.heightHint = 19;
-                cLabel1.setLayoutData(cLabel1LData);
-            }
-            {
-                text1 = new Text(this, SWT.NONE);
-                GridData text1LData = new GridData();
-                text1LData.widthHint = 228;
-                text1LData.heightHint = 21;
-                text1.setLayoutData(text1LData);
-            }
+			{
+				cLabel1 = new CLabel(this, SWT.NONE);
+				cLabel1.setText("Example");
+				GridData cLabel1LData = new GridData();
+				cLabel1LData.widthHint = 49;
+				cLabel1LData.heightHint = 19;
+				cLabel1.setLayoutData(cLabel1LData);
+			}
+			{
+				text1 = new Text(this, SWT.NONE);
+				GridData text1LData = new GridData();
+				text1LData.widthHint = 228;
+				text1LData.heightHint = 21;
+				text1.setLayoutData(text1LData);
+			}
 			{
 				menu1 = new Menu(getShell(), SWT.BAR);
 				getShell().setMenuBar(menu1);
@@ -139,62 +137,61 @@ public class ContentAsistantSnippet extends org.eclipse.swt.widgets.Composite {
 			}
 			postInitGUI();
 			this.layout();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
-	
-	
-	//Content Assistant Code Here...  
-	public void postInitGUI(){
-	    System.setProperty("company","0");
-	    TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(text1);
-	    
-	 	final SubjectControlContentAssistant asistant= new TurquazContentAssistant(adapter,0);
-	   
-	     adapter.appendVerifyKeyListener(
-	             new VerifyKeyListener() {
-	                 public void verifyKey(VerifyEvent event) {
 
-	                 // Check for Ctrl+Spacebar
-	                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
-	             
-	                  asistant.showPossibleCompletions();              
-	                   event.doit = false;
-
-	                 }
-	                
-	              }
-	           });
-	 	
-	    
+	//Content Assistant Code Here...
+	public void postInitGUI()
+	{
+		System.setProperty("company", "0");
+		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(text1);
+		final SubjectControlContentAssistant asistant = new TurquazContentAssistant(adapter, 0);
+		adapter.appendVerifyKeyListener(new VerifyKeyListener()
+		{
+			public void verifyKey(VerifyEvent event)
+			{
+				// Check for Ctrl+Spacebar
+				if (event.stateMask == SWT.CTRL && event.character == ' ')
+				{
+					asistant.showPossibleCompletions();
+					event.doit = false;
+				}
+			}
+		});
 	}
-	
+
 	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
+	 * Auto-generated main method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
+	 */
+	public static void main(String[] args)
+	{
 		Display display = Display.getDefault();
 		Shell shell = new Shell(display);
 		ContentAsistantSnippet inst = new ContentAsistantSnippet(shell, SWT.NULL);
 		Point size = inst.getSize();
 		shell.setLayout(new FillLayout());
 		shell.layout();
-		if(size.x == 0 && size.y == 0) {
+		if (size.x == 0 && size.y == 0)
+		{
 			inst.pack();
 			shell.pack();
-		} else {
+		}
+		else
+		{
 			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
 			if (shell.getMenuBar() != null)
 				shellBounds.height -= 22;
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		while (!shell.isDisposed()) {
+		while (!shell.isDisposed())
+		{
 			if (!display.readAndDispatch())
 				display.sleep();
 		}
 	}
-
 }

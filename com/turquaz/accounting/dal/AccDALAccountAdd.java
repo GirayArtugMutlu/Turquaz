@@ -1,4 +1,3 @@
-
 package com.turquaz.accounting.dal;
 
 /************************************************************************/
@@ -16,285 +15,218 @@ package com.turquaz.accounting.dal;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
-
+ * @author Onsel Armagan
+ * @version $Id$
+ */
 import java.util.List;
-
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
-
-public class AccDALAccountAdd {
-	
-
-	public static List getAccounts(int parentid, String codeCriteria)throws Exception{
-		
-		try{
+public class AccDALAccountAdd
+{
+	public static List getAccounts(int parentid, String codeCriteria) throws Exception
+	{
+		try
+		{
 			Session session = EngDALSessionFactory.openSession();
-		
-			String query = "from TurqAccountingAccount as accounts " +
-					"where  accounts.turqAccountingAccountByParentAccount.id ="+parentid+"" +
-							" and accounts.accountCode like '"+codeCriteria+"%'" +
-							" and accounts.id <> -1" +
-							" order by accounts.id";   
-
-			Query q = session.createQuery(query); 
-			
+			String query = "from TurqAccountingAccount as accounts " + "where  accounts.turqAccountingAccountByParentAccount.id ="
+					+ parentid + "" + " and accounts.accountCode like '" + codeCriteria + "%'" + " and accounts.id <> -1"
+					+ " order by accounts.id";
+			Query q = session.createQuery(query);
 			List list = q.list();
-		
 			session.close();
 			return list;
-			
-			
-			
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-		
 	}
-	public static TurqAccountingAccount getAccount(String code)throws Exception{
-		try{
-			Session session =  EngDALSessionFactory.openSession();
-	
-			String query = "from TurqAccountingAccount as accounts " +
-					"where accounts.accountCode ='"+code+"'" +
-							" and accounts.id <> -1";
-						
 
-			Query q = session.createQuery(query); 
+	public static TurqAccountingAccount getAccount(String code) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "from TurqAccountingAccount as accounts " + "where accounts.accountCode ='" + code + "'"
+					+ " and accounts.id <> -1";
+			Query q = session.createQuery(query);
 			List list = q.list();
-		
 			session.close();
-			
-			if(list.size()>0){
-				return (TurqAccountingAccount)list.get(0); 
+			if (list.size() > 0)
+			{
+				return (TurqAccountingAccount) list.get(0);
 			}
-		
-				return null;
-			
-			
-			
-			
-			
+			return null;
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-		
 	}
-	
-	public static List getAllAccounts()throws Exception{
-		try{
+
+	public static List getAllAccounts() throws Exception
+	{
+		try
+		{
 			Session session = EngDALSessionFactory.openSession();
-	
 			String query = "from TurqAccountingAccount as accounts " +
-					
-					// was removing accounting plan	
+			// was removing accounting plan
 					//	" and accounts.accountingAccountsId <> -1" +
-							" order by accounts.id";   
-
-			Query q = session.createQuery(query); 
+					" order by accounts.id";
+			Query q = session.createQuery(query);
 			List list = q.list();
-
 			session.close();
 			return list;
-			
-			
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-		
 	}
-	
-	
-	public static List getAllAccountsWithSum()throws Exception{
-		try{
+
+	public static List getAllAccountsWithSum() throws Exception
+	{
+		try
+		{
 			Session session = EngDALSessionFactory.openSession();
-	
-			String query = "Select account, accView from" +
-					" TurqAccountingAccount account, TurqViewAccTotal accView" +
-					" where account.id=accView.accountingAccountsId" + 
-					" order by account.id";
+			String query = "Select account, accView from" + " TurqAccountingAccount account, TurqViewAccTotal accView"
+					+ " where account.id=accView.accountingAccountsId" + " order by account.id";
 			//includes "accounting plan" id=-1
-
-			Query q = session.createQuery(query); 
+			Query q = session.createQuery(query);
 			List list = q.list();
-
 			session.close();
 			return list;
-			
-			
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-		
 	}
-	
-	
-	
-	public static List getAccountsForAccountPickers()throws Exception{
-	    try{
-	        Session session = EngDALSessionFactory.openSession();
-		
-			String query = "from TurqAccountingAccount as accounts " +
-					"where accounts.id <> -1" +
-					" and accounts.turqAccountingAccountsByParentAccount.size=0" +
-					
-					" order by accounts.accountCode";   
 
-			Query q = session.createQuery(query); 
+	public static List getAccountsForAccountPickers() throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "from TurqAccountingAccount as accounts " + "where accounts.id <> -1"
+					+ " and accounts.turqAccountingAccountsByParentAccount.size=0" + " order by accounts.accountCode";
+			Query q = session.createQuery(query);
 			List list = q.list();
-	
 			session.close();
 			return list;
-			 
-	        
-	        
-	        
-	    }
-	    catch(Exception ex){
-	        throw ex;
-	    }
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
 	}
-	
-	
-	public static List getAllAccountsForAccountPickerAll()throws Exception{
-	    try{
-	        Session session = EngDALSessionFactory.openSession();
-		
-			String query = "Select account from TurqAccountingAccount as account " +
-					"where account.id<> -1" +
-					//" and account.turqAccountingAccountsByParentAccount.accountingAccountsId=-1" +
-					
-					" order by account.accountCode";   
 
-			Query q = session.createQuery(query); 
+	public static List getAllAccountsForAccountPickerAll() throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "Select account from TurqAccountingAccount as account " + "where account.id<> -1" +
+			//" and account.turqAccountingAccountsByParentAccount.accountingAccountsId=-1" +
+					" order by account.accountCode";
+			Query q = session.createQuery(query);
 			List list = q.list();
-	
 			session.close();
 			return list;
-	        
-	        
-	        
-	    }
-	    catch(Exception ex){
-	        throw ex;
-	    }
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
 	}
-	
-	public static TurqAccountingAccount getLeafAccount(String code)throws Exception{
-		try{
-			Session session =  EngDALSessionFactory.openSession();
-	
-			String query = "from TurqAccountingAccount as accounts " +
-					"where accounts.accountCode ='"+code+"'" +
-							" and accounts.id <> -1" +
-							" and accounts.turqAccountingAccountsByParentAccount.size=0";
-						
 
-			Query q = session.createQuery(query); 
+	public static TurqAccountingAccount getLeafAccount(String code) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "from TurqAccountingAccount as accounts " + "where accounts.accountCode ='" + code + "'"
+					+ " and accounts.id <> -1" + " and accounts.turqAccountingAccountsByParentAccount.size=0";
+			Query q = session.createQuery(query);
 			List list = q.list();
-	
 			session.close();
-			if(list.size()>0){
-				return (TurqAccountingAccount)list.get(0); 
+			if (list.size() > 0)
+			{
+				return (TurqAccountingAccount) list.get(0);
 			}
-			
-				return null;			
-			
-			
-			
+			return null;
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-		
 	}
-	
-	
-	public static TurqAccountingAccount getAllAccounts(String code)throws Exception{
-		try{
-			Session session =  EngDALSessionFactory.openSession();
-	
-			String query = "Select account from TurqAccountingAccount as account " +
-					"where account.accountCode ='"+code+"'" +
-							" and account.id <> -1";
-						
 
-			Query q = session.createQuery(query); 
+	public static TurqAccountingAccount getAllAccounts(String code) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "Select account from TurqAccountingAccount as account " + "where account.accountCode ='" + code + "'"
+					+ " and account.id <> -1";
+			Query q = session.createQuery(query);
 			List list = q.list();
-	
 			session.close();
-			if(list.size()>0){
-				return (TurqAccountingAccount)list.get(0); 
+			if (list.size() > 0)
+			{
+				return (TurqAccountingAccount) list.get(0);
 			}
-		
-				return null;			
-			
-			
-			
+			return null;
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-		
 	}
-	
-	
-	public static List getCashAccounts()throws Exception{
-	    try{
-	        Session session = EngDALSessionFactory.openSession();
-		
-			String query = "Select accounts.accountCode, accounts.accountName from TurqAccountingAccount as accounts " +
-					"where accounts.id <> -1" +
-					" and accounts.turqAccountingAccountsByParentAccount.size=0" +
-					" and accounts.accountCode like '100%'" +
-					" order by accounts.accountCode";   
 
-			Query q = session.createQuery(query); 
+	public static List getCashAccounts() throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "Select accounts.accountCode, accounts.accountName from TurqAccountingAccount as accounts "
+					+ "where accounts.id <> -1" + " and accounts.turqAccountingAccountsByParentAccount.size=0"
+					+ " and accounts.accountCode like '100%'" + " order by accounts.accountCode";
+			Query q = session.createQuery(query);
 			List list = q.list();
-	
 			session.close();
 			return list;
-			 
-	        
-	        
-	        
-	    }
-	    catch(Exception ex){
-	        throw ex;
-	    }
-	}
-	public static List getTransactionColumns(int type, Object startDate, Object endDate)throws Exception{
-		
-		try{
-			Session session = EngDALSessionFactory.openSession();						
-			String query="Select transColumn from TurqAccountingTransactionColumn as transColumn" +
-					" where transColumn.turqAccountingTransaction.transactionsDate >= :startDate" +
-					" and transColumn.turqAccountingTransaction.transactionsDate <= :endDate";
-			if (type!=-1)
-				query+=" and transColumn.turqAccountingTransaction.turqAccountingTransactionType.id ="+type;
-			Query q = session.createQuery(query); 
-			q.setParameter("endDate",endDate);
-			q.setParameter("startDate",startDate);
-			
-			List list = q.list();
-			session.close();			
-			return list;			
 		}
-		
-		catch(Exception ex){
-			throw ex;			
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static List getTransactionColumns(int type, Object startDate, Object endDate) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query = "Select transColumn from TurqAccountingTransactionColumn as transColumn"
+					+ " where transColumn.turqAccountingTransaction.transactionsDate >= :startDate"
+					+ " and transColumn.turqAccountingTransaction.transactionsDate <= :endDate";
+			if (type != -1)
+				query += " and transColumn.turqAccountingTransaction.turqAccountingTransactionType.id =" + type;
+			Query q = session.createQuery(query);
+			q.setParameter("endDate", endDate);
+			q.setParameter("startDate", startDate);
+			List list = q.list();
+			session.close();
+			return list;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
 		}
 	}
 }

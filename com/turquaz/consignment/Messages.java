@@ -1,4 +1,3 @@
-
 package com.turquaz.consignment;
 
 /************************************************************************/
@@ -16,30 +15,31 @@ package com.turquaz.consignment;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Huseyin Ergun
-* @version  $Id$
-*/
-
+ * @author Huseyin Ergun
+ * @version $Id$
+ */
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-public class Messages {
-	private static final String BUNDLE_NAME = "com.turquaz.consignment.messages_tr_TR";//$NON-NLS-1$
+public class Messages
+{
+	private static final String BUNDLE_NAME = "com.turquaz.consignment.messages_tr_TR"; //$NON-NLS-1$
 
-	private Messages() {
+	private Messages()
+	{
 	}
 
-	public static String getString(String key) {
-		
-		try {
-			final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-			.getBundle(BUNDLE_NAME,Locale.getDefault());
-			
+	public static String getString(String key)
+	{
+		try
+		{
+			final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, Locale.getDefault());
 			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
+		}
+		catch (MissingResourceException e)
+		{
 			return '!' + key + '!';
 		}
 	}

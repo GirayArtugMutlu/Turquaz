@@ -1,4 +1,5 @@
 package com.turquaz.accounting.ui;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -14,70 +15,50 @@ package com.turquaz.accounting.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
-
+ * @author  Onsel Armagan
+ * @version  $Id$
+ */
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Set;
-
-
-
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
-
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
-
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionAdd;
-
 import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
-
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.viewers.ITableRow;
-
-
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
 
 /**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
-public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog {
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
+ */
+public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
+{
 	private AccUITransactionAdd compTransactionAdd;
 	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
@@ -86,31 +67,30 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private ToolBar toolBar1;
 	private Shell dialogShell;
 	private AccBLTransactionUpdate blTransUpdate = new AccBLTransactionUpdate();
-	private boolean updated=false;
+	private boolean updated = false;
+	private TurqAccountingTransaction accTrans;
 
-    private TurqAccountingTransaction accTrans;
-	public AccUITransactionUpdateDialog(Shell parent, int style,TurqAccountingTransaction trans) {
+	public AccUITransactionUpdateDialog(Shell parent, int style, TurqAccountingTransaction trans)
+	{
 		super(parent, style);
-	    this.accTrans =trans;
+		this.accTrans = trans;
 	}
 
 	/**
-	* Opens the Dialog Shell.
-	* Auto-generated code - any changes you make will disappear.
-	*/
-	public boolean open(){
-		try {
+	 * Opens the Dialog Shell. Auto-generated code - any changes you make will disappear.
+	 */
+	public boolean open()
+	{
+		try
+		{
 			preInitGUI();
-	
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-
-                {
-                    //Register as a resource user - SWTResourceManager will
-                    //handle the obtaining and disposing of resources
-                    SWTResourceManager.registerResourceUser(dialogShell);
-                }
-
+			{
+				//Register as a resource user - SWTResourceManager will
+				//handle the obtaining and disposing of resources
+				SWTResourceManager.registerResourceUser(dialogShell);
+			}
 			dialogShell.setText(Messages.getString("AccUITransactionUpdateDialog.9")); //$NON-NLS-1$
 			{
 				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
@@ -120,9 +100,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				toolBar1.setLayoutData(toolBar1LData);
 			}
 			{
-				compTransactionAdd = new AccUITransactionAdd(
-					dialogShell,
-					SWT.NONE);
+				compTransactionAdd = new AccUITransactionAdd(dialogShell, SWT.NONE);
 				GridData compTransactionAddLData = new GridData();
 				compTransactionAddLData.grabExcessHorizontalSpace = true;
 				compTransactionAddLData.horizontalAlignment = GridData.FILL;
@@ -132,40 +110,39 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				compTransactionAdd.getTxtDocumentNo().setBounds(80, 5, 150, 17);
 				compTransactionAdd.layout();
 			}
-
 			dialogShell.setSize(667, 479);
-
-            {
-                toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-                toolUpdate.setText(Messages
-                    .getString("AccUITransactionUpdateDialog.0")); //$NON-NLS-1$
-                toolUpdate.setImage(SWTResourceManager
-                    .getImage("icons/save_edit.gif")); //$NON-NLS-1$
-                toolUpdate.addSelectionListener(new SelectionAdapter() {
-                    public void widgetSelected(SelectionEvent evt) {
-                        toolUpdateWidgetSelected(evt);
-                    }
-                });
-
-            }
-            {
-                toolDelete = new ToolItem(toolBar1, SWT.NONE);
-             
-                toolDelete.setImage(SWTResourceManager
-                    .getImage("icons/Delete16.gif")); //$NON-NLS-1$
-                    toolDelete.setText("&Fi\u015fi Sil");
-                toolDelete.addSelectionListener(new SelectionAdapter() {
-                    public void widgetSelected(SelectionEvent evt) {
-                        toolDeleteWidgetSelected(evt);
-                    }
-                });
-            }
+			{
+				toolUpdate = new ToolItem(toolBar1, SWT.NONE);
+				toolUpdate.setText(Messages.getString("AccUITransactionUpdateDialog.0")); //$NON-NLS-1$
+				toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
+				toolUpdate.addSelectionListener(new SelectionAdapter()
+				{
+					public void widgetSelected(SelectionEvent evt)
+					{
+						toolUpdateWidgetSelected(evt);
+					}
+				});
+			}
+			{
+				toolDelete = new ToolItem(toolBar1, SWT.NONE);
+				toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
+				toolDelete.setText("&Fi\u015fi Sil");
+				toolDelete.addSelectionListener(new SelectionAdapter()
+				{
+					public void widgetSelected(SelectionEvent evt)
+					{
+						toolDeleteWidgetSelected(evt);
+					}
+				});
+			}
 			{
 				toolCancel = new ToolItem(toolBar1, SWT.NONE);
 				toolCancel.setText(Messages.getString("AccUITransactionUpdateDialog.8")); //$NON-NLS-1$
 				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
-				toolCancel.addSelectionListener(new SelectionAdapter() {
-					public void widgetSelected(SelectionEvent evt) {
+				toolCancel.addSelectionListener(new SelectionAdapter()
+				{
+					public void widgetSelected(SelectionEvent evt)
+					{
 						dialogShell.close();
 					}
 				});
@@ -174,17 +151,15 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				toolPrint = new ToolItem(toolBar1, SWT.NONE);
 				toolPrint.setText(Messages.getString("AccUITransactionUpdateDialog.6")); //$NON-NLS-1$
 				toolPrint.setImage(SWTResourceManager.getImage("icons/Print16.gif")); //$NON-NLS-1$
-				toolPrint.addSelectionListener(new SelectionAdapter() {
-					public void widgetSelected(SelectionEvent evt) {
-						
+				toolPrint.addSelectionListener(new SelectionAdapter()
+				{
+					public void widgetSelected(SelectionEvent evt)
+					{
 						dialogShell.close();
 						EngBLUtils.PrintTransaction(accTrans);
-				
-
 					}
 				});
 			}
-
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.marginWidth = 5;
@@ -197,171 +172,152 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			postInitGUI();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
-			while (!dialogShell.isDisposed()) {
+			while (!dialogShell.isDisposed())
+			{
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
 			return updated;
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			return true;
 		}
 	}
-public void showDialog(TurqAccountingTransaction accTrans){
-	
-	
-	
-	
-	
 
-	}
-	/** Add your pre-init code in here 	*/
-	public void preInitGUI(){
+	public void showDialog(TurqAccountingTransaction accTrans)
+	{
 	}
 
-	/** Add your post-init code in here 	*/
-	public void postInitGUI(){
-		
+	/** Add your pre-init code in here */
+	public void preInitGUI()
+	{
+	}
+
+	/** Add your post-init code in here */
+	public void postInitGUI()
+	{
 		EngUICommon.centreWindow(dialogShell);
-		
 		toolUpdate.setEnabled(false);
 		toolDelete.setEnabled(false);
-		    
-		if(EngBLPermissions.getPermission(compTransactionAdd.getClass().getName())==2){
-		    toolUpdate.setEnabled(true); 
+		if (EngBLPermissions.getPermission(compTransactionAdd.getClass().getName()) == 2)
+		{
+			toolUpdate.setEnabled(true);
 		}
-		else if(EngBLPermissions.getPermission(compTransactionAdd.getClass().getName())==3){
-		    toolDelete.setEnabled(true);
-		    toolUpdate.setEnabled(true); 
-		}  
-		/*Check if it has a journal entry*/
-		if(accTrans.getTurqAccountingJournal().getId().intValue()!=-1){
+		else if (EngBLPermissions.getPermission(compTransactionAdd.getClass().getName()) == 3)
+		{
+			toolDelete.setEnabled(true);
+			toolUpdate.setEnabled(true);
+		}
+		/* Check if it has a journal entry */
+		if (accTrans.getTurqAccountingJournal().getId().intValue() != -1)
+		{
 			toolUpdate.setEnabled(false);
-			toolDelete.setEnabled(false);		    
+			toolDelete.setEnabled(false);
 		}
-	try{
-		
-	/* Check if it is entered from accountingmodule
-	 * 
-	 */
-		//1- Muhasebe Modulu
-		if(accTrans.getTurqModule().getId().intValue()!=1){
-		    toolUpdate.setEnabled(false);
-			toolDelete.setEnabled(false);	
-		    
-		}
-	    
-	    
-	    
-	compTransactionAdd.getTxtDocumentNo().setText(accTrans.getTransactionDocumentNo());
-	compTransactionAdd.getTxtTransDefinition().setText(accTrans.getTransactionDescription());
-
-	compTransactionAdd.getComboCurrencyType().setText(accTrans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
-
-	
-	Date date = new Date(accTrans.getTransactionsDate().getTime());
-	compTransactionAdd.getDateTransactionDate().setDate(date);
-	fillTable();
-	compTransactionAdd.calculateTotalDeptAndCredit();
-	Integer trModule=accTrans.getTurqModule().getId();
-	if (trModule.intValue()!=1){ //1=Transaction, only view is allowed for other modules..
-	}
-	}
-	catch(Exception ex){
-	    ex.printStackTrace();
-	}
-	
-	}
-	public void fillTable(){
-	
-	compTransactionAdd.rowList.removeAll();
-		
-	Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
-	
-	List transRows=new ArrayList();
-	transRows.addAll(transactionRows);
-	Collections.sort(transRows,new EngBLHibernateComparer());
-	TurqAccountingTransactionColumn transRow;
-	TableItem item;
-	for (int k=0; k<transRows.size(); k++)
-	{
-		transRow=(TurqAccountingTransactionColumn)transRows.get(k);
-	
-		ITableRow row = new AccUITransactionAddTableRow(compTransactionAdd.rowList);
-		row.setDBObject(transRow);
-		compTransactionAdd.rowList.addTask(row);
-
-	
-	
-	}
-	// add last empty row
-
-	
-	AccUITransactionAddTableRow row2 = new AccUITransactionAddTableRow(compTransactionAdd.rowList);
-	compTransactionAdd.rowList.addTask(row2);
-	
-	}
-	
-
-	/** Auto-generated event handler method */
-	protected void toolUpdateWidgetSelected(SelectionEvent evt){
-		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
-		
 		try
 		{
-
-			if(compTransactionAdd.verifyFields())
+			/*
+			 * Check if it is entered from accountingmodule
+			 */
+			//1- Muhasebe Modulu
+			if (accTrans.getTurqModule().getId().intValue() != 1)
 			{
-			
-				updated=true;
+				toolUpdate.setEnabled(false);
+				toolDelete.setEnabled(false);
+			}
+			compTransactionAdd.getTxtDocumentNo().setText(accTrans.getTransactionDocumentNo());
+			compTransactionAdd.getTxtTransDefinition().setText(accTrans.getTransactionDescription());
+			compTransactionAdd.getComboCurrencyType().setText(
+					accTrans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
+			Date date = new Date(accTrans.getTransactionsDate().getTime());
+			compTransactionAdd.getDateTransactionDate().setDate(date);
+			fillTable();
+			compTransactionAdd.calculateTotalDeptAndCredit();
+			Integer trModule = accTrans.getTurqModule().getId();
+			if (trModule.intValue() != 1)
+			{ //1=Transaction, only view is allowed for other modules..
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 
+	public void fillTable()
+	{
+		compTransactionAdd.rowList.removeAll();
+		Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
+		List transRows = new ArrayList();
+		transRows.addAll(transactionRows);
+		Collections.sort(transRows, new EngBLHibernateComparer());
+		TurqAccountingTransactionColumn transRow;
+		TableItem item;
+		for (int k = 0; k < transRows.size(); k++)
+		{
+			transRow = (TurqAccountingTransactionColumn) transRows.get(k);
+			ITableRow row = new AccUITransactionAddTableRow(compTransactionAdd.rowList);
+			row.setDBObject(transRow);
+			compTransactionAdd.rowList.addTask(row);
+		}
+		// add last empty row
+		AccUITransactionAddTableRow row2 = new AccUITransactionAddTableRow(compTransactionAdd.rowList);
+		compTransactionAdd.rowList.addTask(row2);
+	}
+
+	/** Auto-generated event handler method */
+	protected void toolUpdateWidgetSelected(SelectionEvent evt)
+	{
+		MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
+		try
+		{
+			if (compTransactionAdd.verifyFields())
+			{
+				updated = true;
 				Map creditAccounts = new HashMap();
 				Map deptAccounts = new HashMap();
-				compTransactionAdd.prepareAccountingMaps(creditAccounts,deptAccounts);
-				
-				AccBLTransactionUpdate.updateTransaction(accTrans,compTransactionAdd.getTxtDocumentNo().getText().trim(),
-										compTransactionAdd.getDateTransactionDate().getData(),compTransactionAdd.getTxtTransDefinition().getText().trim(),
-										compTransactionAdd.getExchangeRate(),creditAccounts,deptAccounts,false);
-
-			 msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$
-			 msg.open();
-			 dialogShell.close();
-			}	
+				compTransactionAdd.prepareAccountingMaps(creditAccounts, deptAccounts);
+				AccBLTransactionUpdate.updateTransaction(accTrans, compTransactionAdd.getTxtDocumentNo().getText().trim(),
+						compTransactionAdd.getDateTransactionDate().getData(), compTransactionAdd.getTxtTransDefinition().getText()
+								.trim(), compTransactionAdd.getExchangeRate(), creditAccounts, deptAccounts, false);
+				msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$
+				msg.open();
+				dialogShell.close();
+			}
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			ex.printStackTrace();
 			msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.3")); //$NON-NLS-1$
-			 msg.open();
+			msg.open();
 		}
-		
-		
-		
-	}   
-    
+	}
+
 	/** Auto-generated event handler method */
-	protected void toolDeleteWidgetSelected(SelectionEvent evt){
-		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
-		MessageBox msg2 = new MessageBox(this.getParent(),SWT.YES|SWT.NO);
+	protected void toolDeleteWidgetSelected(SelectionEvent evt)
+	{
+		MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
+		MessageBox msg2 = new MessageBox(this.getParent(), SWT.YES | SWT.NO);
 		msg2.setMessage(Messages.getString("AccUITransactionUpdateDialog.4")); //$NON-NLS-1$
 		int answer = msg2.open();
-		if(answer ==SWT.YES){
-		try{
-		updated=true;
-		
-		AccBLTransactionSearch.removeAccountingTransaction(accTrans);
-		
-		msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.5")); //$NON-NLS-1$
-		msg.open();	
-		this.dialogShell.dispose();	
-		
-		}
-		catch(Exception ex){
-		ex.printStackTrace();
-		msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.3")); //$NON-NLS-1$
-		msg.open();	
-		
-		}
+		if (answer == SWT.YES)
+		{
+			try
+			{
+				updated = true;
+				AccBLTransactionSearch.removeAccountingTransaction(accTrans);
+				msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.5")); //$NON-NLS-1$
+				msg.open();
+				this.dialogShell.dispose();
+			}
+			catch (Exception ex)
+			{
+				ex.printStackTrace();
+				msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.3")); //$NON-NLS-1$
+				msg.open();
+			}
 		}
 	}
 }

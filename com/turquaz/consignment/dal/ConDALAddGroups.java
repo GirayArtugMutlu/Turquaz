@@ -1,5 +1,5 @@
-
 package com.turquaz.consignment.dal;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -14,38 +14,32 @@ package com.turquaz.consignment.dal;
 /* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
-/************************************************************************/
+/** ********************************************************************* */
 import java.util.List;
-
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 
-
-public class ConDALAddGroups {
-	public ConDALAddGroups(){
-		
+public class ConDALAddGroups
+{
+	public ConDALAddGroups()
+	{
 	}
 
-	public static List getConsignmentGroups()throws Exception{
-		try{
-			
-			
+	public static List getConsignmentGroups() throws Exception
+	{
+		try
+		{
 			Session session = EngDALSessionFactory.openSession();
-		
-			String query = "from TurqConsignmentGroup as gr " ; //$NON-NLS-1$
-			Query q = session.createQuery(query); 
+			String query = "from TurqConsignmentGroup as gr "; //$NON-NLS-1$
+			Query q = session.createQuery(query);
 			List list = q.list();
-	
 			session.close();
-			return list;	
-	
+			return list;
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-		
 	}
-
-
 }

@@ -6,76 +6,77 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqViewAccTotal implements Serializable {
+public class TurqViewAccTotal implements Serializable
+{
+	/** identifier field */
+	private int accountingAccountsId;
+	/** identifier field */
+	private java.math.BigDecimal totalcreditamount;
+	/** identifier field */
+	private java.math.BigDecimal totaldeptamount;
 
-    /** identifier field */
-    private int accountingAccountsId;
+	/** full constructor */
+	public TurqViewAccTotal(int accountingAccountsId, java.math.BigDecimal totalcreditamount, java.math.BigDecimal totaldeptamount)
+	{
+		this.accountingAccountsId = accountingAccountsId;
+		this.totalcreditamount = totalcreditamount;
+		this.totaldeptamount = totaldeptamount;
+	}
 
-    /** identifier field */
-    private java.math.BigDecimal totalcreditamount;
+	/** default constructor */
+	public TurqViewAccTotal()
+	{
+	}
 
-    /** identifier field */
-    private java.math.BigDecimal totaldeptamount;
+	public int getAccountingAccountsId()
+	{
+		return this.accountingAccountsId;
+	}
 
-    /** full constructor */
-    public TurqViewAccTotal(int accountingAccountsId, java.math.BigDecimal totalcreditamount, java.math.BigDecimal totaldeptamount) {
-        this.accountingAccountsId = accountingAccountsId;
-        this.totalcreditamount = totalcreditamount;
-        this.totaldeptamount = totaldeptamount;
-    }
+	public void setAccountingAccountsId(int accountingAccountsId)
+	{
+		this.accountingAccountsId = accountingAccountsId;
+	}
 
-    /** default constructor */
-    public TurqViewAccTotal() {
-    }
+	public java.math.BigDecimal getTotalcreditamount()
+	{
+		return this.totalcreditamount;
+	}
 
-    public int getAccountingAccountsId() {
-        return this.accountingAccountsId;
-    }
+	public void setTotalcreditamount(java.math.BigDecimal totalcreditamount)
+	{
+		this.totalcreditamount = totalcreditamount;
+	}
 
-    public void setAccountingAccountsId(int accountingAccountsId) {
-        this.accountingAccountsId = accountingAccountsId;
-    }
+	public java.math.BigDecimal getTotaldeptamount()
+	{
+		return this.totaldeptamount;
+	}
 
-    public java.math.BigDecimal getTotalcreditamount() {
-        return this.totalcreditamount;
-    }
+	public void setTotaldeptamount(java.math.BigDecimal totaldeptamount)
+	{
+		this.totaldeptamount = totaldeptamount;
+	}
 
-    public void setTotalcreditamount(java.math.BigDecimal totalcreditamount) {
-        this.totalcreditamount = totalcreditamount;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("accountingAccountsId", getAccountingAccountsId()).append("totalcreditamount",
+				getTotalcreditamount()).append("totaldeptamount", getTotaldeptamount()).toString();
+	}
 
-    public java.math.BigDecimal getTotaldeptamount() {
-        return this.totaldeptamount;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqViewAccTotal))
+			return false;
+		TurqViewAccTotal castOther = (TurqViewAccTotal) other;
+		return new EqualsBuilder().append(this.getAccountingAccountsId(), castOther.getAccountingAccountsId()).append(
+				this.getTotalcreditamount(), castOther.getTotalcreditamount()).append(this.getTotaldeptamount(),
+				castOther.getTotaldeptamount()).isEquals();
+	}
 
-    public void setTotaldeptamount(java.math.BigDecimal totaldeptamount) {
-        this.totaldeptamount = totaldeptamount;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("accountingAccountsId", getAccountingAccountsId())
-            .append("totalcreditamount", getTotalcreditamount())
-            .append("totaldeptamount", getTotaldeptamount())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqViewAccTotal) ) return false;
-        TurqViewAccTotal castOther = (TurqViewAccTotal) other;
-        return new EqualsBuilder()
-            .append(this.getAccountingAccountsId(), castOther.getAccountingAccountsId())
-            .append(this.getTotalcreditamount(), castOther.getTotalcreditamount())
-            .append(this.getTotaldeptamount(), castOther.getTotaldeptamount())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getAccountingAccountsId())
-            .append(getTotalcreditamount())
-            .append(getTotaldeptamount())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getAccountingAccountsId()).append(getTotalcreditamount()).append(getTotaldeptamount())
+				.toHashCode();
+	}
 }

@@ -1,5 +1,5 @@
-
 package com.turquaz.accounting.dal;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -15,71 +15,58 @@ package com.turquaz.accounting.dal;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
-
+ * @author Onsel Armagan
+ * @version $Id$
+ */
 import java.util.List;
-
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
-
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 
-
-public class AccDALTransactionUpdate {
-	
-
-	public static void initializeTransactionRows(TurqAccountingTransaction accTrans)throws Exception{
-	   try{
-	        
-	       Session session = EngDALSessionFactory.openSession();
-		   Transaction tx = session.beginTransaction();
-		   
-		   session.refresh(accTrans);
-		   Hibernate.initialize(accTrans.getTurqAccountingTransactionColumns());
-			
+public class AccDALTransactionUpdate
+{
+	public static void initializeTransactionRows(TurqAccountingTransaction accTrans) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			session.refresh(accTrans);
+			Hibernate.initialize(accTrans.getTurqAccountingTransactionColumns());
 			session.flush();
 			tx.commit();
-			session.close(); 
-	        
-	        
-	    }
-	    catch(Exception ex){
-	        throw ex;
-	    }
-	    
+			session.close();
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
 	}
-	public static TurqAccountingTransaction getInitialTransaction()throws Exception{
-	    try{
-	        Session session = EngDALSessionFactory.openSession();
 
+	public static TurqAccountingTransaction getInitialTransaction() throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
 			String query = "select accTrans from TurqAccountingTransaction as accTrans"
-					+ " where accTrans.turqAccountingTransactionType.id ="+EngBLCommon.ACCOUNTING_TRANS_OPENING;
-
+					+ " where accTrans.turqAccountingTransactionType.id =" + EngBLCommon.ACCOUNTING_TRANS_OPENING;
 			Query q = session.createQuery(query);
-			
 			List list = q.list();
 			session.close();
-
-			if(list.size()>0){
-			    return (TurqAccountingTransaction)list.get(0);
+			if (list.size() > 0)
+			{
+				return (TurqAccountingTransaction) list.get(0);
 			}
 			return null;
-	        
-	        
-	    }
-	    catch(Exception ex){
-	        throw ex;
-	    }
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
 	}
-	
-
 }

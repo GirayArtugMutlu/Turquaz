@@ -15,12 +15,10 @@ package com.turquaz.cheque.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
  * @author  Onsel
  * @version  $Id$
  */
-
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
@@ -32,7 +30,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
-
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -52,75 +49,51 @@ import com.turquaz.cheque.bl.CheBLSaveChequeTransaction;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
- * which is free for non-commercial use. If Jigloo is being used commercially
- * (ie, by a corporation, company or business for any purpose whatever) then you
- * should purchase a license for each developer using Jigloo. Please visit
- * www.cloudgarden.com for details. Use of Jigloo implies acceptance of these
- * licensing terms. ************************************* A COMMERCIAL LICENSE
- * HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be
- * used legally for any corporate or commercial purpose.
- * *************************************
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
  */
-public class CheUIChequeOutPayrollCurrent extends
-		org.eclipse.swt.widgets.Composite implements SecureComposite {
-
+public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Composite implements SecureComposite
+{
 	{
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
 		SWTResourceManager.registerResourceUser(this);
 	}
-
 	private Composite compInfoPanel;
-
 	private ToolBar toolBarButtons;
-
 	private ToolItem toolItemAddOwn;
-
 	private ToolItem toolItemAddCustomer;
-
 	private Button btnSumTotals;
-
 	private TableColumn tableColumnAmount;
-
 	private TableColumn tableColumnPaymentPlace;
-
 	private TableColumn tableColumnDeptor;
-
 	private TableColumn tableColumnDueDaye;
-
 	private TableColumn tableColumnNo;
-
 	private CurrentPicker currentPicker;
-
 	private CLabel lblCurrentCode;
-
 	private DatePicker datePicker1;
-
 	private CLabel lblRollDate;
-
 	private Text txtRollNo;
-
 	private CLabel lblRollNo;
-
 	private Table tableCheques;
-
 	private ToolItem toolItemUpdate;
-
 	private ToolItem toolItemDelete;
-
 	List cheques = new ArrayList();
-
 	TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 
-	public CheUIChequeOutPayrollCurrent(
-			org.eclipse.swt.widgets.Composite parent, int style) {
+	public CheUIChequeOutPayrollCurrent(org.eclipse.swt.widgets.Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
 
-	private void initGUI() {
-		try {
+	private void initGUI()
+	{
+		try
+		{
 			this.setLayout(new GridLayout());
 			this.setBackground(SWTResourceManager.getColor(255, 255, 255));
 			this.setSize(663, 373);
@@ -136,8 +109,7 @@ public class CheUIChequeOutPayrollCurrent extends
 				compInfoPanel.setLayout(compInfoPanelLayout);
 				{
 					lblRollNo = new CLabel(compInfoPanel, SWT.NONE);
-					lblRollNo.setText(Messages
-							.getString("CheUIChequeInPayroll.1")); //$NON-NLS-1$
+					lblRollNo.setText(Messages.getString("CheUIChequeInPayroll.1")); //$NON-NLS-1$
 				}
 				{
 					txtRollNo = new Text(compInfoPanel, SWT.NONE);
@@ -148,8 +120,7 @@ public class CheUIChequeOutPayrollCurrent extends
 				}
 				{
 					lblRollDate = new CLabel(compInfoPanel, SWT.NONE);
-					lblRollDate.setText(Messages
-							.getString("CheUIChequeInPayroll.3")); //$NON-NLS-1$
+					lblRollDate.setText(Messages.getString("CheUIChequeInPayroll.3")); //$NON-NLS-1$
 				}
 				{
 					datePicker1 = new DatePicker(compInfoPanel, SWT.NONE);
@@ -160,8 +131,7 @@ public class CheUIChequeOutPayrollCurrent extends
 				}
 				{
 					lblCurrentCode = new CLabel(compInfoPanel, SWT.NONE);
-					lblCurrentCode.setText(Messages
-							.getString("CheUIChequeInPayroll.5")); //$NON-NLS-1$
+					lblCurrentCode.setText(Messages.getString("CheUIChequeInPayroll.5")); //$NON-NLS-1$
 				}
 				{
 					currentPicker = new CurrentPicker(compInfoPanel, SWT.NONE);
@@ -171,10 +141,8 @@ public class CheUIChequeOutPayrollCurrent extends
 					currentPicker.setLayoutData(currentPickerLData);
 				}
 				{
-					btnSumTotals = new Button(compInfoPanel, SWT.CHECK
-							| SWT.LEFT);
-					btnSumTotals.setText(Messages
-							.getString("CheUIChequeOutPayrollCurrent.0")); //$NON-NLS-1$
+					btnSumTotals = new Button(compInfoPanel, SWT.CHECK | SWT.LEFT);
+					btnSumTotals.setText(Messages.getString("CheUIChequeOutPayrollCurrent.0")); //$NON-NLS-1$
 				}
 			}
 			{
@@ -186,53 +154,48 @@ public class CheUIChequeOutPayrollCurrent extends
 				{
 					toolItemAddOwn = new ToolItem(toolBarButtons, SWT.NONE);
 					toolItemAddOwn.setText("Firma Çeki"); //$NON-NLS-1$
-					toolItemAddOwn.setImage(SWTResourceManager
-							.getImage("icons/plus.gif")); //$NON-NLS-1$
-					toolItemAddOwn.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					toolItemAddOwn.setImage(SWTResourceManager.getImage("icons/plus.gif")); //$NON-NLS-1$
+					toolItemAddOwn.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							addOwnCheque();
-
 						}
 					});
-
 				}
 				{
 					toolItemAddCustomer = new ToolItem(toolBarButtons, SWT.NONE);
-					toolItemAddCustomer.setText(Messages
-							.getString("CheUIChequeOutPayrollCurrent.1")); //$NON-NLS-1$
-					toolItemAddCustomer.setImage(SWTResourceManager
-							.getImage("icons/plus.gif")); //$NON-NLS-1$
-					toolItemAddCustomer
-							.addSelectionListener(new SelectionAdapter() {
-								public void widgetSelected(SelectionEvent evt) {
-									toolItemAddCustomerWidgetSelected(evt);
-								}
-							});
+					toolItemAddCustomer.setText(Messages.getString("CheUIChequeOutPayrollCurrent.1")); //$NON-NLS-1$
+					toolItemAddCustomer.setImage(SWTResourceManager.getImage("icons/plus.gif")); //$NON-NLS-1$
+					toolItemAddCustomer.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
+							toolItemAddCustomerWidgetSelected(evt);
+						}
+					});
 				}
 				{
 					toolItemDelete = new ToolItem(toolBarButtons, SWT.NONE);
-					toolItemDelete.setText(Messages
-							.getString("CheUIChequeInPayroll.2")); //$NON-NLS-1$
-					toolItemDelete.setImage(SWTResourceManager
-							.getImage("icons/minus.gif")); //$NON-NLS-1$
-					toolItemDelete.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
-
+					toolItemDelete.setText(Messages.getString("CheUIChequeInPayroll.2")); //$NON-NLS-1$
+					toolItemDelete.setImage(SWTResourceManager.getImage("icons/minus.gif")); //$NON-NLS-1$
+					toolItemDelete.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							deleteTableRow();
-
 						}
 					});
 				}
 				{
 					toolItemUpdate = new ToolItem(toolBarButtons, SWT.NONE);
-					toolItemUpdate.setText(Messages
-							.getString("CheUIChequeInPayroll.4")); //$NON-NLS-1$
-					toolItemUpdate.setImage(SWTResourceManager
-							.getImage("icons/Refresh16.gif")); //$NON-NLS-1$
-					toolItemUpdate.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					toolItemUpdate.setText(Messages.getString("CheUIChequeInPayroll.4")); //$NON-NLS-1$
+					toolItemUpdate.setImage(SWTResourceManager.getImage("icons/Refresh16.gif")); //$NON-NLS-1$
+					toolItemUpdate.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							updateCheque();
-
 						}
 					});
 				}
@@ -249,291 +212,277 @@ public class CheUIChequeOutPayrollCurrent extends
 				tableCheques.setLayoutData(tableChequesLData);
 				{
 					tableColumnNo = new TableColumn(tableCheques, SWT.NONE);
-					tableColumnNo.setText(Messages
-							.getString("CheUIChequeInPayroll.6")); //$NON-NLS-1$
+					tableColumnNo.setText(Messages.getString("CheUIChequeInPayroll.6")); //$NON-NLS-1$
 					tableColumnNo.setWidth(59);
 				}
 				{
 					tableColumnDueDaye = new TableColumn(tableCheques, SWT.NONE);
-					tableColumnDueDaye.setText(Messages
-							.getString("CheUIChequeInPayroll.7")); //$NON-NLS-1$
+					tableColumnDueDaye.setText(Messages.getString("CheUIChequeInPayroll.7")); //$NON-NLS-1$
 					tableColumnDueDaye.setWidth(100);
 				}
 				{
-					tableColumnPaymentPlace = new TableColumn(tableCheques,
-							SWT.NONE);
-					tableColumnPaymentPlace.setText(Messages
-							.getString("CheUIChequeInPayroll.9")); //$NON-NLS-1$
+					tableColumnPaymentPlace = new TableColumn(tableCheques, SWT.NONE);
+					tableColumnPaymentPlace.setText(Messages.getString("CheUIChequeInPayroll.9")); //$NON-NLS-1$
 					tableColumnPaymentPlace.setWidth(151);
 				}
 				{
 					tableColumnDeptor = new TableColumn(tableCheques, SWT.NONE);
-					tableColumnDeptor.setText(Messages
-							.getString("CheUIChequeInPayroll.8")); //$NON-NLS-1$
+					tableColumnDeptor.setText(Messages.getString("CheUIChequeInPayroll.8")); //$NON-NLS-1$
 					tableColumnDeptor.setWidth(145);
 				}
 				{
 					tableColumnAmount = new TableColumn(tableCheques, SWT.RIGHT);
-					tableColumnAmount.setText(Messages
-							.getString("CheUIChequeInPayroll.10")); //$NON-NLS-1$
+					tableColumnAmount.setText(Messages.getString("CheUIChequeInPayroll.10")); //$NON-NLS-1$
 					tableColumnAmount.setWidth(100);
 				}
 			}
-			
 			this.layout();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	public void newForm() {
-
-		CheUIChequeOutPayrollCurrent curCard = new CheUIChequeOutPayrollCurrent(
-				this.getParent(), this.getStyle());
+	public void newForm()
+	{
+		CheUIChequeOutPayrollCurrent curCard = new CheUIChequeOutPayrollCurrent(this.getParent(), this.getStyle());
 		CTabFolder tabfld = (CTabFolder) this.getParent();
 		tabfld.getSelection().setControl(curCard);
 		this.dispose();
-
 	}
 
-	public boolean verifyFields() {
-		if (currentPicker.getData() == null) {
-			EngUICommon.showMessageBox(getShell(), Messages
-					.getString("CheUIChequeInPayroll.11"), SWT.ICON_WARNING); //$NON-NLS-1$
+	public boolean verifyFields()
+	{
+		if (currentPicker.getData() == null)
+		{
+			EngUICommon.showMessageBox(getShell(), Messages.getString("CheUIChequeInPayroll.11"), SWT.ICON_WARNING); //$NON-NLS-1$
 			currentPicker.setFocus();
 			return false;
-		} else if (tableCheques.getItemCount() == 0) {
-			EngUICommon.showMessageBox(getShell(), Messages
-					.getString("CheUIChequeInPayroll.12"), SWT.ICON_WARNING); //$NON-NLS-1$
+		}
+		else if (tableCheques.getItemCount() == 0)
+		{
+			EngUICommon.showMessageBox(getShell(), Messages.getString("CheUIChequeInPayroll.12"), SWT.ICON_WARNING); //$NON-NLS-1$
 			toolItemAddOwn.setSelection(true);
 			return false;
 		}
 		return true;
 	}
 
-	public void save() {
-		try {
-
-			if (verifyFields()) {
-//		          TODO cheq trans exRate
-				CheBLSaveChequeTransaction.saveChequeRoll(null,
-						(TurqCurrentCard) currentPicker.getData(),
-						null,
-						txtRollNo.getText().trim(),
-						datePicker1.getDate(),
-						cheques, EngBLCommon.CHEQUE_TRANS_OUT_CURRENT.intValue(),
-						btnSumTotals.getSelection(),
-						EngBLCommon.getBaseCurrencyExchangeRate());
-				EngUICommon
-						.showMessageBox(
-								getShell(),
-								Messages.getString("CheUIChequeInPayroll.13"), SWT.ICON_INFORMATION); //$NON-NLS-1$
+	public void save()
+	{
+		try
+		{
+			if (verifyFields())
+			{
+				//		          TODO cheq trans exRate
+				CheBLSaveChequeTransaction.saveChequeRoll(null, (TurqCurrentCard) currentPicker.getData(), null, txtRollNo.getText()
+						.trim(), datePicker1.getDate(), cheques, EngBLCommon.CHEQUE_TRANS_OUT_CURRENT.intValue(), btnSumTotals
+						.getSelection(), EngBLCommon.getBaseCurrencyExchangeRate());
+				EngUICommon.showMessageBox(getShell(), Messages.getString("CheUIChequeInPayroll.13"), SWT.ICON_INFORMATION); //$NON-NLS-1$
 				newForm();
-
 			}
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(),
-					SWT.ICON_ERROR);
 		}
-
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
+		}
 	}
 
-	public void deleteTableRow() {
+	public void deleteTableRow()
+	{
 		TableItem selection[] = tableCheques.getSelection();
-		if (selection.length > 0) {
-			if (EngUICommon.okToDelete(this.getShell())) {
+		if (selection.length > 0)
+		{
+			if (EngUICommon.okToDelete(this.getShell()))
+			{
 				cheques.remove(selection[0].getData());
 				selection[0].dispose();
-
 			}
-
 		}
-
 	}
 
-	public void fillTable() {
+	public void fillTable()
+	{
 		tableCheques.removeAll();
-		for (int i = 0; i < cheques.size(); i++) {
+		for (int i = 0; i < cheques.size(); i++)
+		{
 			TableItem item;
 			TurqChequeCheque cheque = (TurqChequeCheque) cheques.get(i);
-			if (cheque != null) {
+			if (cheque != null)
+			{
 				item = new TableItem(tableCheques, SWT.NULL);
 				item.setData(cheque);
-				item
-						.setText(new String[] {
-								cheque.getChequesPortfolioNo(),
-								DatePicker.formatter.format(cheque
-										.getChequesDueDate()),
-								cheque.getChequesPaymentPlace(),
-								cheque.getChequesDebtor(),
-								cf.format(cheque.getChequesAmount()) });
-
+				item.setText(new String[]{cheque.getChequesPortfolioNo(), DatePicker.formatter.format(cheque.getChequesDueDate()),
+						cheque.getChequesPaymentPlace(), cheque.getChequesDebtor(), cf.format(cheque.getChequesAmount())});
 			}
 		}
-
 	}
 
-	public void updateCheque() {
-
+	public void updateCheque()
+	{
 		TableItem selection[] = tableCheques.getSelection();
 		TurqChequeCheque cheque = null;
-		if (selection.length > 0) {
-
+		if (selection.length > 0)
+		{
 			cheque = (TurqChequeCheque) selection[0].getData();
-
-			if (cheque.getChequesType() == EngBLCommon.CHEQUE_TYPE_OWN) {
-			
-				cheque = new CheUIOwnChequeAddDialog(getShell(), SWT.NULL)
-						.open(cheque);
-				if (cheque != null) {
-
+			if (cheque.getChequesType() == EngBLCommon.CHEQUE_TYPE_OWN)
+			{
+				cheque = new CheUIOwnChequeAddDialog(getShell(), SWT.NULL).open(cheque);
+				if (cheque != null)
+				{
 					selection[0].setData(cheque);
-					selection[0].setText(new String[] {
-							cheque.getChequesPortfolioNo(),
-							DatePicker.formatter.format(cheque
-									.getChequesDueDate()),
-							cheque.getChequesPaymentPlace(),
-							cheque.getChequesDebtor(),
-							cf.format(cheque.getChequesAmount()) });
-
+					selection[0].setText(new String[]{cheque.getChequesPortfolioNo(),
+							DatePicker.formatter.format(cheque.getChequesDueDate()), cheque.getChequesPaymentPlace(),
+							cheque.getChequesDebtor(), cf.format(cheque.getChequesAmount())});
 				}
 			}
-
 		}
-
 	}
 
-	public void addOwnCheque() {
+	public void addOwnCheque()
+	{
 		TableItem item;
-
-		TurqChequeCheque cheque = new CheUIOwnChequeAddDialog(getShell(),
-				SWT.NULL).open();
-		if (cheque != null) {
+		TurqChequeCheque cheque = new CheUIOwnChequeAddDialog(getShell(), SWT.NULL).open();
+		if (cheque != null)
+		{
 			item = new TableItem(tableCheques, SWT.NULL);
 			item.setData(cheque);
-			item.setText(new String[] { cheque.getChequesPortfolioNo(),
-					DatePicker.formatter.format(cheque.getChequesDueDate()),
-					cheque.getChequesPaymentPlace(), cheque.getChequesDebtor(),
-					cf.format(cheque.getChequesAmount()) });
+			item.setText(new String[]{cheque.getChequesPortfolioNo(), DatePicker.formatter.format(cheque.getChequesDueDate()),
+					cheque.getChequesPaymentPlace(), cheque.getChequesDebtor(), cf.format(cheque.getChequesAmount())});
 			cheques.add(cheque);
-
 		}
-
 	}
 
-	public CurrentPicker getCurrentPicker() {
+	public CurrentPicker getCurrentPicker()
+	{
 		return currentPicker;
 	}
 
-	public void setCurrentPicker(CurrentPicker currentPicker) {
+	public void setCurrentPicker(CurrentPicker currentPicker)
+	{
 		this.currentPicker = currentPicker;
 	}
 
-	public DatePicker getDatePicker1() {
+	public DatePicker getDatePicker1()
+	{
 		return datePicker1;
 	}
 
-	public void setDatePicker1(DatePicker datePicker1) {
+	public void setDatePicker1(DatePicker datePicker1)
+	{
 		this.datePicker1 = datePicker1;
 	}
 
-	public Table getTableCheques() {
+	public Table getTableCheques()
+	{
 		return tableCheques;
 	}
 
-	public void setTableCheques(Table tableCheques) {
+	public void setTableCheques(Table tableCheques)
+	{
 		this.tableCheques = tableCheques;
 	}
 
-	public Text getTxtRollNo() {
+	public Text getTxtRollNo()
+	{
 		return txtRollNo;
 	}
 
-	public void setTxtRollNo(Text txtRollNo) {
+	public void setTxtRollNo(Text txtRollNo)
+	{
 		this.txtRollNo = txtRollNo;
 	}
 
 	/**
 	 * @return Returns the btnSumTotals.
 	 */
-	public Button getBtnSumTotals() {
+	public Button getBtnSumTotals()
+	{
 		return btnSumTotals;
 	}
 
 	/**
 	 * @param btnSumTotals
-	 *            The btnSumTotals to set.
+	 *             The btnSumTotals to set.
 	 */
-	public void setBtnSumTotals(Button btnSumTotals) {
+	public void setBtnSumTotals(Button btnSumTotals)
+	{
 		this.btnSumTotals = btnSumTotals;
 	}
 
 	/**
 	 * @return Returns the toolItemAddCustomer.
 	 */
-	public ToolItem getToolItemAddCustomer() {
+	public ToolItem getToolItemAddCustomer()
+	{
 		return toolItemAddCustomer;
 	}
 
 	/**
 	 * @param toolItemAddCustomer
-	 *            The toolItemAddCustomer to set.
+	 *             The toolItemAddCustomer to set.
 	 */
-	public void setToolItemAddCustomer(ToolItem toolItemAddCustomer) {
+	public void setToolItemAddCustomer(ToolItem toolItemAddCustomer)
+	{
 		this.toolItemAddCustomer = toolItemAddCustomer;
 	}
 
 	/**
 	 * @return Returns the toolItemAddOwn.
 	 */
-	public ToolItem getToolItemAddOwn() {
+	public ToolItem getToolItemAddOwn()
+	{
 		return toolItemAddOwn;
 	}
 
 	/**
 	 * @param toolItemAddOwn
-	 *            The toolItemAddOwn to set.
+	 *             The toolItemAddOwn to set.
 	 */
-	public void setToolItemAddOwn(ToolItem toolItemAddOwn) {
+	public void setToolItemAddOwn(ToolItem toolItemAddOwn)
+	{
 		this.toolItemAddOwn = toolItemAddOwn;
 	}
 
 	/**
 	 * @return Returns the toolItemDelete.
 	 */
-	public ToolItem getToolItemDelete() {
+	public ToolItem getToolItemDelete()
+	{
 		return toolItemDelete;
 	}
 
 	/**
 	 * @param toolItemDelete
-	 *            The toolItemDelete to set.
+	 *             The toolItemDelete to set.
 	 */
-	public void setToolItemDelete(ToolItem toolItemDelete) {
+	public void setToolItemDelete(ToolItem toolItemDelete)
+	{
 		this.toolItemDelete = toolItemDelete;
 	}
 
 	/**
 	 * @return Returns the toolItemUpdate.
 	 */
-	public ToolItem getToolItemUpdate() {
+	public ToolItem getToolItemUpdate()
+	{
 		return toolItemUpdate;
 	}
 
 	/**
 	 * @param toolItemUpdate
-	 *            The toolItemUpdate to set.
+	 *             The toolItemUpdate to set.
 	 */
-	public void setToolItemUpdate(ToolItem toolItemUpdate) {
+	public void setToolItemUpdate(ToolItem toolItemUpdate)
+	{
 		this.toolItemUpdate = toolItemUpdate;
 	}
 
-	private void toolItemAddCustomerWidgetSelected(SelectionEvent evt) {
-
-		cheques = new CheUICustomerChequeChooseDialog(getShell(), SWT.NULL,
-				cheques).open();
+	private void toolItemAddCustomerWidgetSelected(SelectionEvent evt)
+	{
+		cheques = new CheUICustomerChequeChooseDialog(getShell(), SWT.NULL, cheques).open();
 		fillTable();
 	}
 }

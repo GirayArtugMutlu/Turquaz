@@ -1,4 +1,5 @@
 package com.turquaz.cheque.ui;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -14,17 +15,14 @@ package com.turquaz.cheque.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel
-* @version  $Id$
-*/
+ * @author  Onsel
+ * @version  $Id$
+ */
 import java.math.BigDecimal;
 import java.util.Calendar;
-
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
-
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLUpdateCheque;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -48,23 +46,15 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
-
 /**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
-public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog {
-
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
+ */
+public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog
+{
 	private Shell dialogShell;
 	private CurrencyText curText;
 	private Composite compCheq;
@@ -86,24 +76,23 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 	TurqChequeCheque cheque = null;
 	boolean isUpdated = false;
 
-	public CheUIOwnChequeUpdate(Shell parent, int style,TurqChequeCheque cheque) {
+	public CheUIOwnChequeUpdate(Shell parent, int style, TurqChequeCheque cheque)
+	{
 		super(parent, style);
-		  this.cheque = cheque;
+		this.cheque = cheque;
 	}
 
-	
-	public boolean open() {
-		try {
+	public boolean open()
+	{
+		try
+		{
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-
-                {
-                    //Register as a resource user - SWTResourceManager will
-                    //handle the obtaining and disposing of resources
-                    SWTResourceManager.registerResourceUser(dialogShell);
-                }
-
-
+			{
+				//Register as a resource user - SWTResourceManager will
+				//handle the obtaining and disposing of resources
+				SWTResourceManager.registerResourceUser(dialogShell);
+			}
 			GridLayout dialogShellLayout = new GridLayout();
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.numColumns = 2;
@@ -112,54 +101,56 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.pack();
 			dialogShell.setText(Messages.getString("CheUICustomerChequeAddDialog.1")); //$NON-NLS-1$
 			dialogShell.setSize(507, 303);
-            {
-                toolBar1 = new ToolBar(dialogShell, SWT.NONE);
-                GridData toolBar1LData = new GridData();
-                toolBar1LData.horizontalAlignment = GridData.FILL;
-                toolBar1LData.grabExcessHorizontalSpace = true;
-                toolBar1LData.horizontalSpan = 2;
-                toolBar1.setLayoutData(toolBar1LData);
-                {
-                    toolSave = new ToolItem(toolBar1, SWT.NONE);
-                    toolSave.setText(Messages.getString("CheUICustomerChequeAddDialog.0")); //$NON-NLS-1$
-                    toolSave.setImage(SWTResourceManager
-                        .getImage("icons/save_edit.gif")); //$NON-NLS-1$
-                    toolSave.addSelectionListener(new SelectionAdapter() {
-                        public void widgetSelected(SelectionEvent evt) {
-                            update();
-                        }
-                    });
-                }
-				//START >>  toolDelete
+			{
+				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
+				GridData toolBar1LData = new GridData();
+				toolBar1LData.horizontalAlignment = GridData.FILL;
+				toolBar1LData.grabExcessHorizontalSpace = true;
+				toolBar1LData.horizontalSpan = 2;
+				toolBar1.setLayoutData(toolBar1LData);
+				{
+					toolSave = new ToolItem(toolBar1, SWT.NONE);
+					toolSave.setText(Messages.getString("CheUICustomerChequeAddDialog.0")); //$NON-NLS-1$
+					toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
+					toolSave.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
+							update();
+						}
+					});
+				}
+				//START >> toolDelete
 				toolDelete = new ToolItem(toolBar1, SWT.NONE);
-				toolDelete
-					.setText(Messages.getString("CheUIOwnChequeUpdate.0")); //$NON-NLS-1$
-				toolDelete.setImage(SWTResourceManager
-					.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
-				toolDelete.addSelectionListener(new SelectionAdapter() {
-					public void widgetSelected(SelectionEvent evt) {
+				toolDelete.setText(Messages.getString("CheUIOwnChequeUpdate.0")); //$NON-NLS-1$
+				toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+				toolDelete.addSelectionListener(new SelectionAdapter()
+				{
+					public void widgetSelected(SelectionEvent evt)
+					{
 						toolDeleteWidgetSelected(evt);
 					}
 				});
-				//END <<  toolDelete
-                {
-                    toolCancel = new ToolItem(toolBar1, SWT.NONE);
-                    toolCancel.setText("Kapat"); //$NON-NLS-1$
-                    toolCancel.setImage(SWTResourceManager
-                        .getImage("icons/cancel.jpg")); //$NON-NLS-1$
-                    toolCancel.addSelectionListener(new SelectionAdapter() {
-                        public void widgetSelected(SelectionEvent evt) {
-                          dialogShell.close();
-                        }
-                    });
-                }
-            }
-			//START >>  tabFolder
+				//END << toolDelete
+				{
+					toolCancel = new ToolItem(toolBar1, SWT.NONE);
+					toolCancel.setText("Kapat"); //$NON-NLS-1$
+					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+					toolCancel.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
+							dialogShell.close();
+						}
+					});
+				}
+			}
+			//START >> tabFolder
 			tabFolder = new CTabFolder(dialogShell, SWT.NONE);
-			//START >>  cTabItem1
+			//START >> cTabItem1
 			cTabItem1 = new CTabItem(tabFolder, SWT.NONE);
 			cTabItem1.setText(Messages.getString("CheUIOwnChequeUpdate.1")); //$NON-NLS-1$
-			//START >>  compCheq
+			//START >> compCheq
 			compCheq = new Composite(tabFolder, SWT.NONE);
 			GridLayout compCheqLayout = new GridLayout();
 			compCheqLayout.numColumns = 2;
@@ -167,8 +158,7 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 			cTabItem1.setControl(compCheq);
 			{
 				lblChequeNo = new CLabel(compCheq, SWT.NONE);
-				lblChequeNo.setText(Messages
-					.getString("CheUICustomerChequeAddDialog.5")); //$NON-NLS-1$
+				lblChequeNo.setText(Messages.getString("CheUICustomerChequeAddDialog.5")); //$NON-NLS-1$
 				GridData lblChequeNoLData = new GridData();
 				lblChequeNoLData.widthHint = 71;
 				lblChequeNoLData.heightHint = 19;
@@ -183,8 +173,7 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 			}
 			{
 				lblBankName = new CLabel(compCheq, SWT.NONE);
-				lblBankName.setText(Messages
-					.getString("CheUIOwnChequeAddDialog.1")); //$NON-NLS-1$
+				lblBankName.setText(Messages.getString("CheUIOwnChequeAddDialog.1")); //$NON-NLS-1$
 			}
 			{
 				bankPicker = new BankCardPicker(compCheq, SWT.NONE);
@@ -195,8 +184,7 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 			}
 			{
 				lblDueDate = new CLabel(compCheq, SWT.NONE);
-				lblDueDate.setText(Messages
-					.getString("CheUIOwnChequeAddDialog.2")); //$NON-NLS-1$
+				lblDueDate.setText(Messages.getString("CheUIOwnChequeAddDialog.2")); //$NON-NLS-1$
 			}
 			{
 				datePickValueDate = new DatePicker(compCheq, SWT.NONE);
@@ -207,8 +195,7 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 			}
 			{
 				lblPaymentPlace = new CLabel(compCheq, SWT.NONE);
-				lblPaymentPlace.setText(Messages
-					.getString("CheUICustomerChequeAddDialog.10")); //$NON-NLS-1$
+				lblPaymentPlace.setText(Messages.getString("CheUICustomerChequeAddDialog.10")); //$NON-NLS-1$
 			}
 			{
 				txtPaymentPlace = new Text(compCheq, SWT.NONE);
@@ -219,8 +206,7 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 			}
 			{
 				lblAmount = new CLabel(compCheq, SWT.NONE);
-				lblAmount.setText(Messages
-					.getString("CheUICustomerChequeAddDialog.11")); //$NON-NLS-1$
+				lblAmount.setText(Messages.getString("CheUICustomerChequeAddDialog.11")); //$NON-NLS-1$
 			}
 			{
 				curText = new CurrencyText(compCheq, SWT.NONE);
@@ -229,7 +215,7 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 				curTextLData.heightHint = 17;
 				curText.setLayoutData(curTextLData);
 			}
-			//END <<  compCheq
+			//END << compCheq
 			tabFolder.setSelection(0);
 			GridData tabFolderLData = new GridData();
 			tabFolderLData.grabExcessHorizontalSpace = true;
@@ -238,113 +224,111 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 			tabFolderLData.verticalAlignment = GridData.FILL;
 			tabFolderLData.horizontalSpan = 2;
 			tabFolder.setLayoutData(tabFolderLData);
-			//END <<  cTabItem1
-			//END <<  tabFolder
-            postInitGUI();
+			//END << cTabItem1
+			//END << tabFolder
+			postInitGUI();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
-			while (!dialogShell.isDisposed()) {
+			while (!dialogShell.isDisposed())
+			{
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
 			return isUpdated;
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			return isUpdated;
 		}
 	}
-	public void postInitGUI(){
-	    EngUICommon.centreWindow(dialogShell);
-	    if(cheque!=null){
-	       
-	        
-	        txtChequeNo.setText(cheque.getChequesNo());
-	        txtPaymentPlace.setText(cheque.getChequesPaymentPlace());
-	        datePickValueDate.setDate(cheque.getChequesDueDate());
-	        curText.setText(cheque.getChequesAmount());
-	        bankPicker.setText(cheque.getTurqBanksCard().getBankCode());
-	        
-	        
-	    }
-	    
+
+	public void postInitGUI()
+	{
+		EngUICommon.centreWindow(dialogShell);
+		if (cheque != null)
+		{
+			txtChequeNo.setText(cheque.getChequesNo());
+			txtPaymentPlace.setText(cheque.getChequesPaymentPlace());
+			datePickValueDate.setDate(cheque.getChequesDueDate());
+			curText.setText(cheque.getChequesAmount());
+			bankPicker.setText(cheque.getTurqBanksCard().getBankCode());
+		}
 	}
+
 	public boolean verifyFields()
 	{
-	    if(bankPicker.getData()==null)
-	    {
-	        EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIOwnChequeAddDialog.0"),SWT.ICON_WARNING); //$NON-NLS-1$
-	        bankPicker.setFocus();
-	        return false;
-	    }
-	    else if(curText.getBigDecimalValue().compareTo(new BigDecimal(0))<1)
-	    {
-	       EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIOwnChequeAddDialog.3"),SWT.ICON_WARNING); //$NON-NLS-1$
-	        curText.setFocus();
-	        return false;
-	    }
-	    return true;
-	   
-	}
-	
-	public void update(){
-		try{
-	    if(verifyFields()){
-	        
-	    
-	    if(cheque == null){
-	        cheque = new TurqChequeCheque();
-	    }
-	    /**
-	     * 
-	     */
-	    TurqBanksCard bankCard= (TurqBanksCard)bankPicker.getData();
-	    cheque.setBankBranchName(bankCard.getBankBranchName());
-	    cheque.setBankName(bankCard.getBankName());
-	    cheque.setChequesPortfolioNo(""); //$NON-NLS-1$
-	    cheque.setChequesNo(txtChequeNo.getText().trim());
-	    cheque.setChequesDueDate(datePickValueDate.getDate());
-	    cheque.setChequesValueDate(datePickValueDate.getDate());
-	    cheque.setChequesDebtor(Messages.getString("CheUIOwnChequeAddDialog.4")); //$NON-NLS-1$
-	    cheque.setChequesPaymentPlace(txtPaymentPlace.getText().trim());
-	    cheque.setChequesAmount(curText.getBigDecimalValue());	  
-	
-        cheque.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-        cheque.setLastModified(Calendar.getInstance().getTime());
-
-	    cheque.setChequesType(EngBLCommon.CHEQUE_TYPE_OWN);
-        
-        cheque.setTurqBanksCard(bankCard);
-//        TODO cheq trans exRate
-        CheBLUpdateCheque.updateCheque(cheque,EngBLCommon.getBaseCurrencyExchangeRate());
-        
-        EngUICommon.showSavedSuccesfullyMessage(getParent());
-	    isUpdated = true;
-	    dialogShell.close();
-	    
-	    }
+		if (bankPicker.getData() == null)
+		{
+			EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIOwnChequeAddDialog.0"), SWT.ICON_WARNING); //$NON-NLS-1$
+			bankPicker.setFocus();
+			return false;
 		}
-		catch(Exception ex){
+		else if (curText.getBigDecimalValue().compareTo(new BigDecimal(0)) < 1)
+		{
+			EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIOwnChequeAddDialog.3"), SWT.ICON_WARNING); //$NON-NLS-1$
+			curText.setFocus();
+			return false;
+		}
+		return true;
+	}
+
+	public void update()
+	{
+		try
+		{
+			if (verifyFields())
+			{
+				if (cheque == null)
+				{
+					cheque = new TurqChequeCheque();
+				}
+				/**
+				 * 
+				 */
+				TurqBanksCard bankCard = (TurqBanksCard) bankPicker.getData();
+				cheque.setBankBranchName(bankCard.getBankBranchName());
+				cheque.setBankName(bankCard.getBankName());
+				cheque.setChequesPortfolioNo(""); //$NON-NLS-1$
+				cheque.setChequesNo(txtChequeNo.getText().trim());
+				cheque.setChequesDueDate(datePickValueDate.getDate());
+				cheque.setChequesValueDate(datePickValueDate.getDate());
+				cheque.setChequesDebtor(Messages.getString("CheUIOwnChequeAddDialog.4")); //$NON-NLS-1$
+				cheque.setChequesPaymentPlace(txtPaymentPlace.getText().trim());
+				cheque.setChequesAmount(curText.getBigDecimalValue());
+				cheque.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+				cheque.setLastModified(Calendar.getInstance().getTime());
+				cheque.setChequesType(EngBLCommon.CHEQUE_TYPE_OWN);
+				cheque.setTurqBanksCard(bankCard);
+				//        TODO cheq trans exRate
+				CheBLUpdateCheque.updateCheque(cheque, EngBLCommon.getBaseCurrencyExchangeRate());
+				EngUICommon.showSavedSuccesfullyMessage(getParent());
+				isUpdated = true;
+				dialogShell.close();
+			}
+		}
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
-	    
-	}
-	
-	private void toolDeleteWidgetSelected(SelectionEvent evt) {
-		try{
-			if(EngUICommon.okToDelete(getParent()))
-			{
-//		          TODO cheq trans exRate
-			CheBLUpdateCheque.deleteCheque(cheque,EngBLCommon.getBaseCurrencyExchangeRate());
-			EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIOwnChequeUpdate.2"),SWT.ICON_INFORMATION); //$NON-NLS-1$
-			
-			isUpdated = true;
-			dialogShell.close();
-			}
-			}
-			catch(Exception ex)
-			{
-				ex.printStackTrace();
-			}
 	}
 
+	private void toolDeleteWidgetSelected(SelectionEvent evt)
+	{
+		try
+		{
+			if (EngUICommon.okToDelete(getParent()))
+			{
+				//		          TODO cheq trans exRate
+				CheBLUpdateCheque.deleteCheque(cheque, EngBLCommon.getBaseCurrencyExchangeRate());
+				EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIOwnChequeUpdate.2"), SWT.ICON_INFORMATION); //$NON-NLS-1$
+				isUpdated = true;
+				dialogShell.close();
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 }

@@ -1,4 +1,3 @@
-
 package com.turquaz.engine.ui.wizards;
 
 /************************************************************************/
@@ -16,112 +15,110 @@ package com.turquaz.engine.ui.wizards;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
-
+ * @author Onsel Armagan
+ * @version $Id$
+ */
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-
-
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-
 import com.turquaz.engine.Messages;
 
+public class EngUICreateTablesWizardPage extends WizardPage
+{
+	private ISelection selection;
+	private boolean isDisplaySet = false;
 
-public class EngUICreateTablesWizardPage extends WizardPage {
-
-	 private ISelection selection;
-	 private boolean isDisplaySet = false;
-	
 	public EngUICreateTablesWizardPage(ISelection selection)
-    {		
-        super("Database Connector"); //$NON-NLS-1$
-        setTitle(Messages.getString("EngUICreateTablesWizardPage.1")); //$NON-NLS-1$
-        setDescription(Messages.getString("EngUICreateTablesWizardPage.2")); //$NON-NLS-1$
-        this.selection = selection;
-        setPageComplete(true);
-     
-       
-    }
-	public void createControl(Composite arg0) {
-		Composite container = new Composite(arg0, SWT.NULL);
-       
-        this.setControl(container);
-	}
-	
-	public void ShowPage(String dbName){
-	    EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard)getWizard()).getPage1();
-		Composite container = (Composite)this.getControl();
-		Control children[] = container.getChildren();
-		for(int i=0;i<children.length;i++){
-			children[i].dispose();
-			
-		}		
-		 GridLayout layout = new GridLayout();
-	        container.setLayout(layout);
-	        layout.numColumns = 1;
-	        layout.verticalSpacing = 9;
-	      
-	        
-	        Label label = new Label(container, SWT.NULL);	
-	        
-	        if(page1.getComboDBServer().getText().startsWith("Turquaz")) //$NON-NLS-1$
-			{
-	            label.setText(Messages.getString("EngUICreateTablesWizardPage.6")); //$NON-NLS-1$
-			}
-	        else
-	        {
-	            label.setText(Messages.getString("EngUICreateTablesWizardPage.6")+Messages.getString("EngUICreateTablesWizardPage.4")); //$NON-NLS-1$ //$NON-NLS-2$
-	        }
-	    
-	        container.layout();
-	
-	}
-	
-	public boolean checkTables(){
-		EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard)getWizard()).getPage1();
-		 if(page1.getComboDBServer().getText().startsWith("Turquaz")) //$NON-NLS-1$
-		{
-		 	// no need to create tables
-		return true;
-		}
-		 else {
-		 	// if postgresql
-		 	return false;
-		 }
+	{
+		super("Database Connector"); //$NON-NLS-1$
+		setTitle(Messages.getString("EngUICreateTablesWizardPage.1")); //$NON-NLS-1$
+		setDescription(Messages.getString("EngUICreateTablesWizardPage.2")); //$NON-NLS-1$
+		this.selection = selection;
+		setPageComplete(true);
 	}
 
-	
+	public void createControl(Composite arg0)
+	{
+		Composite container = new Composite(arg0, SWT.NULL);
+		this.setControl(container);
+	}
+
+	public void ShowPage(String dbName)
+	{
+		EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard) getWizard()).getPage1();
+		Composite container = (Composite) this.getControl();
+		Control children[] = container.getChildren();
+		for (int i = 0; i < children.length; i++)
+		{
+			children[i].dispose();
+		}
+		GridLayout layout = new GridLayout();
+		container.setLayout(layout);
+		layout.numColumns = 1;
+		layout.verticalSpacing = 9;
+		Label label = new Label(container, SWT.NULL);
+		if (page1.getComboDBServer().getText().startsWith("Turquaz")) //$NON-NLS-1$
+		{
+			label.setText(Messages.getString("EngUICreateTablesWizardPage.6")); //$NON-NLS-1$
+		}
+		else
+		{
+			label.setText(Messages.getString("EngUICreateTablesWizardPage.6") + Messages.getString("EngUICreateTablesWizardPage.4")); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		container.layout();
+	}
+
+	public boolean checkTables()
+	{
+		EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard) getWizard()).getPage1();
+		if (page1.getComboDBServer().getText().startsWith("Turquaz")) //$NON-NLS-1$
+		{
+			// no need to create tables
+			return true;
+		}
+		else
+		{
+			// if postgresql
+			return false;
+		}
+	}
+
 	/**
 	 * @return Returns the isDisplaySet.
 	 */
-	public boolean isDisplaySet() {
+	public boolean isDisplaySet()
+	{
 		return isDisplaySet;
 	}
+
 	/**
-	 * @param isDisplaySet The isDisplaySet to set.
+	 * @param isDisplaySet
+	 *             The isDisplaySet to set.
 	 */
-	public void setDisplaySet(boolean isDisplaySet) {
+	public void setDisplaySet(boolean isDisplaySet)
+	{
 		this.isDisplaySet = isDisplaySet;
 	}
+
 	/**
 	 * @return Returns the selection.
 	 */
-	public ISelection getSelection() {
+	public ISelection getSelection()
+	{
 		return selection;
 	}
+
 	/**
-	 * @param selection The selection to set.
+	 * @param selection
+	 *             The selection to set.
 	 */
-	public void setSelection(ISelection selection) {
+	public void setSelection(ISelection selection)
+	{
 		this.selection = selection;
 	}
 }

@@ -1,6 +1,5 @@
 package com.turquaz.accounting.ui;
 
-
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -16,16 +15,11 @@ package com.turquaz.accounting.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
-
-
+ * @author  Onsel Armagan
+ * @version  $Id$
+ */
 import java.util.List;
-
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
@@ -42,126 +36,120 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.SWT;
-
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.accounting.bl.AccBLAccountUpdate;
-
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.VerifyEvent;
-
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
-
-
-
 import com.cloudgarden.resource.SWTResourceManager;
-/**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
-public class AccUIAddAccounts extends  Composite implements SecureComposite{
 
+/**
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
+ */
+public class AccUIAddAccounts extends Composite implements SecureComposite
+{
 	{
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
 		SWTResourceManager.registerResourceUser(this);
 	}
 
-
 	/**
 	 * @return Returns the txtAccAccountCode.
 	 */
-	public Text getTxtAccAccountCode() {
+	public Text getTxtAccAccountCode()
+	{
 		return txtAccAccountCode;
 	}
+
 	/**
 	 * @return Returns the txtAccAcountName.
 	 */
-	public Text getTxtAccAcountName() {
+	public Text getTxtAccAcountName()
+	{
 		return txtAccAcountName;
 	}
+
 	/**
 	 * @return Returns the txtParentAccount.
 	 */
-	public Text getTxtParentAccount() {
+	public Text getTxtParentAccount()
+	{
 		return txtParentAccount;
 	}
 	private AccBLAccountAdd blAccountAdd = new AccBLAccountAdd();
-	private AccBLAccountUpdate blAccountUpdate=new AccBLAccountUpdate();
+	private AccBLAccountUpdate blAccountUpdate = new AccBLAccountUpdate();
 	private CLabel cLabel1;
 	private Text txtAccAcountName;
 	private Text txtParentAccount;
 	private CLabel cLabel2;
 	private Label label1;
 	private Text txtAccAccountCode;
-	public AccUIAddAccounts(Composite parent, int style) {
+
+	public AccUIAddAccounts(Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
 
 	/**
-	* Initializes the GUI.
-	* Auto-generated code - any changes you make will disappear.
-	*/
-	public void initGUI(){
-		try {
+	 * Initializes the GUI. Auto-generated code - any changes you make will disappear.
+	 */
+	public void initGUI()
+	{
+		try
+		{
 			preInitGUI();
-
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
-	
 			this.setSize(393, 152);
-            {
-                cLabel2 = new CLabel(this, SWT.NONE);
-                GridData cLabel2LData = new GridData();
-                cLabel2.setText(Messages.getString("AccUIAddAccounts.2")); //$NON-NLS-1$
-                cLabel2.setLayoutData(cLabel2LData);
-            }
-            {
-                txtParentAccount = new Text(this, SWT.NONE);
-                GridData txtParentAccountLData = new GridData();
-                txtParentAccount.addModifyListener(new ModifyListener() {
-                    public void modifyText(ModifyEvent evt) {
-                        try {
-                            txtParentAccount.setData(EngBLAccountingAccounts
-                                .getAccount(txtParentAccount.getText().trim()));
-                            
-                            
-                            if(txtParentAccount.getData()!=null){
-                             if(((TurqAccountingAccount)txtParentAccount.getData()).getId().intValue()!=-1)
-                                txtAccAccountCode.setText(txtParentAccount.getText().trim()+" "); //$NON-NLS-1$
-                                                   
-                            }
-                            else{
-                                txtAccAccountCode.setText(""); //$NON-NLS-1$
-                            }
-                            
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-
-                    }
-                });
-                txtParentAccountLData.widthHint = 200;
-                txtParentAccountLData.heightHint = 17;
-                txtParentAccount.setLayoutData(txtParentAccountLData);
-                txtParentAccount.setEnabled(true);
-            }
+			{
+				cLabel2 = new CLabel(this, SWT.NONE);
+				GridData cLabel2LData = new GridData();
+				cLabel2.setText(Messages.getString("AccUIAddAccounts.2")); //$NON-NLS-1$
+				cLabel2.setLayoutData(cLabel2LData);
+			}
+			{
+				txtParentAccount = new Text(this, SWT.NONE);
+				GridData txtParentAccountLData = new GridData();
+				txtParentAccount.addModifyListener(new ModifyListener()
+				{
+					public void modifyText(ModifyEvent evt)
+					{
+						try
+						{
+							txtParentAccount.setData(EngBLAccountingAccounts.getAccount(txtParentAccount.getText().trim()));
+							if (txtParentAccount.getData() != null)
+							{
+								if (((TurqAccountingAccount) txtParentAccount.getData()).getId().intValue() != -1)
+									txtAccAccountCode.setText(txtParentAccount.getText().trim() + " "); //$NON-NLS-1$
+							}
+							else
+							{
+								txtAccAccountCode.setText(""); //$NON-NLS-1$
+							}
+						}
+						catch (Exception ex)
+						{
+							ex.printStackTrace();
+						}
+					}
+				});
+				txtParentAccountLData.widthHint = 200;
+				txtParentAccountLData.heightHint = 17;
+				txtParentAccount.setLayoutData(txtParentAccountLData);
+				txtParentAccount.setEnabled(true);
+			}
 			{
 				cLabel1 = new CLabel(this, SWT.NONE);
 				cLabel1.setSize(new org.eclipse.swt.graphics.Point(83, 17));
@@ -174,7 +162,6 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 			{
 				txtAccAccountCode = new Text(this, SWT.NONE);
 				GridData txtAccAccountCodeLData = new GridData();
-				
 				txtAccAccountCodeLData.widthHint = 200;
 				txtAccAccountCodeLData.heightHint = 17;
 				txtAccAccountCode.setLayoutData(txtAccAccountCodeLData);
@@ -195,9 +182,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 				txtAccAcountNameLData.heightHint = 17;
 				txtAccAcountName.setLayoutData(txtAccAcountNameLData);
 			}
-
-			final Color txtAccAccountCodebackground = new Color(Display.getDefault(),255,255,255);
-
+			final Color txtAccAccountCodebackground = new Color(Display.getDefault(), 255, 255, 255);
 			thisLayout.marginWidth = 5;
 			thisLayout.marginHeight = 5;
 			thisLayout.numColumns = 2;
@@ -205,126 +190,125 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 			thisLayout.horizontalSpacing = 5;
 			thisLayout.verticalSpacing = 20;
 			this.layout();
-			addDisposeListener(new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
+			addDisposeListener(new DisposeListener()
+			{
+				public void widgetDisposed(DisposeEvent e)
+				{
 					txtAccAccountCodebackground.dispose();
 				}
 			});
-	
 			postInitGUI();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
-	/** Add your pre-init code in here 	*/
-	public void preInitGUI(){
-	}
 
-	/** Add your post-init code in here 	*/
+	/** Add your pre-init code in here */
+	public void preInitGUI()
+	{
+	}
+	/** Add your post-init code in here */
 	TextContentAssistSubjectAdapter adapter;
 	TurquazContentAssistant asistant;
-	public void postInitGUI(){
-	    adapter = new TextContentAssistSubjectAdapter(txtParentAccount);
-	    
-	asistant= new TurquazContentAssistant(adapter,0);
-	   
-	     adapter.appendVerifyKeyListener(
-	             new VerifyKeyListener() {
-	                 public void verifyKey(VerifyEvent event) {
 
-	                 // Check for Ctrl+Spacebar
-	                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
-	             
-	                  asistant.showPossibleCompletions();    
-	                   event.doit = false;
-
-	                 }
-	              }
-	      });
-	    
-	    
-	}
-	
-	
-	public boolean verifyFields(boolean update, TurqAccountingAccount toUpdate){
-	try{
-	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-   
-    boolean valid = false;
-	
-    if(txtAccAccountCode.getText().trim().equals("")){ //$NON-NLS-1$
-    msg.setMessage(Messages.getString("AccUIAddAccounts.4")); //$NON-NLS-1$
-    msg.open();	
-    this.txtAccAccountCode.setFocus();
-    return false;
-    }
-    TurqAccountingAccount acc=EngBLAccountingAccounts.getAccount(txtAccAccountCode.getText().trim());
-    if (acc!= null)
-    {
-    	if (!update)
-    	{
-    		msg.setMessage(Messages.getString("AccUIAddAccounts.3")); //$NON-NLS-1$
-    		msg.open();
-    		txtAccAccountCode.setFocus();
-    		return false;   
-    	}
-    	else
-    	{
-    		if (toUpdate!=null && !acc.getId().equals(toUpdate.getId()))
-    		{
-    			msg.setMessage(Messages.getString("AccUIAddAccounts.7")); //$NON-NLS-1$
-    			msg.open();
-    			txtAccAccountCode.setFocus();
-    			return false;
-    		}
-    	}
-    }
-    
-	else if(txtParentAccount.getData()==null)
+	public void postInitGUI()
 	{
-		msg.setMessage(Messages.getString("AccUIAddAccounts.5")); //$NON-NLS-1$
-		msg.open();	
-		this.txtParentAccount.setFocus();
-		return false;
-	}
-	TurqAccountingAccount topAcc=(TurqAccountingAccount)txtParentAccount.getData();
-	if (topAcc.getId().intValue()!=-1)
-	{
-		if (!txtAccAccountCode.getText().startsWith(txtParentAccount.getText().trim()))
+		adapter = new TextContentAssistSubjectAdapter(txtParentAccount);
+		asistant = new TurquazContentAssistant(adapter, 0);
+		adapter.appendVerifyKeyListener(new VerifyKeyListener()
 		{
-			msg.setMessage(Messages.getString("AccUIAddAccounts.9")); //$NON-NLS-1$
-			msg.open();
-			txtAccAccountCode.setText(txtParentAccount.getText().trim().concat(" ")); //$NON-NLS-1$
-			txtAccAccountCode.setFocus();
-			txtAccAccountCode.setSelection(txtParentAccount.getText().trim().length()+1);
+			public void verifyKey(VerifyEvent event)
+			{
+				// Check for Ctrl+Spacebar
+				if (event.stateMask == SWT.CTRL && event.character == ' ')
+				{
+					asistant.showPossibleCompletions();
+					event.doit = false;
+				}
+			}
+		});
+	}
+
+	public boolean verifyFields(boolean update, TurqAccountingAccount toUpdate)
+	{
+		try
+		{
+			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+			boolean valid = false;
+			if (txtAccAccountCode.getText().trim().equals("")) { //$NON-NLS-1$
+				msg.setMessage(Messages.getString("AccUIAddAccounts.4")); //$NON-NLS-1$
+				msg.open();
+				this.txtAccAccountCode.setFocus();
+				return false;
+			}
+			TurqAccountingAccount acc = EngBLAccountingAccounts.getAccount(txtAccAccountCode.getText().trim());
+			if (acc != null)
+			{
+				if (!update)
+				{
+					msg.setMessage(Messages.getString("AccUIAddAccounts.3")); //$NON-NLS-1$
+					msg.open();
+					txtAccAccountCode.setFocus();
+					return false;
+				}
+				else
+				{
+					if (toUpdate != null && !acc.getId().equals(toUpdate.getId()))
+					{
+						msg.setMessage(Messages.getString("AccUIAddAccounts.7")); //$NON-NLS-1$
+						msg.open();
+						txtAccAccountCode.setFocus();
+						return false;
+					}
+				}
+			}
+			else if (txtParentAccount.getData() == null)
+			{
+				msg.setMessage(Messages.getString("AccUIAddAccounts.5")); //$NON-NLS-1$
+				msg.open();
+				this.txtParentAccount.setFocus();
+				return false;
+			}
+			TurqAccountingAccount topAcc = (TurqAccountingAccount) txtParentAccount.getData();
+			if (topAcc.getId().intValue() != -1)
+			{
+				if (!txtAccAccountCode.getText().startsWith(txtParentAccount.getText().trim()))
+				{
+					msg.setMessage(Messages.getString("AccUIAddAccounts.9")); //$NON-NLS-1$
+					msg.open();
+					txtAccAccountCode.setText(txtParentAccount.getText().trim().concat(" ")); //$NON-NLS-1$
+					txtAccAccountCode.setFocus();
+					txtAccAccountCode.setSelection(txtParentAccount.getText().trim().length() + 1);
+					return false;
+				}
+			}
+			return true;
+		}
+		catch (Exception ex)
+		{
 			return false;
 		}
 	}
-	return true;
-	}
-	catch(Exception ex)
+
+	public void clearFields()
 	{
-		return false;
+		txtAccAccountCode.setText(""); //$NON-NLS-1$
+		txtAccAcountName.setText(""); //$NON-NLS-1$
+		txtParentAccount.setFocus();
+		txtParentAccount.setSelection(txtParentAccount.getText().length());
 	}
-	
-	}
-	public void clearFields(){
-	txtAccAccountCode.setText(""); //$NON-NLS-1$
-	txtAccAcountName.setText(""); //$NON-NLS-1$
-	
-	txtParentAccount.setFocus();
-	txtParentAccount.setSelection(txtParentAccount.getText().length());
-	}
-	
-	
-	public void save(){
-		try{
-			
-			if(verifyFields(false,null))
+
+	public void save()
+	{
+		try
+		{
+			if (verifyFields(false, null))
 			{
-				MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-				TurqAccountingAccount parent=(TurqAccountingAccount)txtParentAccount.getData();
-				List accTrans=AccBLAccountUpdate.getAccountTransColumns(parent);
+				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+				TurqAccountingAccount parent = (TurqAccountingAccount) txtParentAccount.getData();
+				List accTrans = AccBLAccountUpdate.getAccountTransColumns(parent);
 				if (accTrans.size() > 0)
 				{
 					msg.setMessage(Messages.getString("AccUIAddAccounts.6")); //$NON-NLS-1$
@@ -332,73 +316,72 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 					return;
 				}
 				String accountName = txtAccAcountName.getText().trim();
-				String accountCode = txtAccAccountCode.getText().trim();				
-				AccBLAccountAdd.saveAccount(accountName,accountCode,parent);	
-				
+				String accountCode = txtAccAccountCode.getText().trim();
+				AccBLAccountAdd.saveAccount(accountName, accountCode, parent);
 				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
-				msg.open();    
-				
-				
+				msg.open();
 				EngBLAccountingAccounts.RefreshContentAsistantMap();
 				asistant.refreshContentAssistant(0);
-    
 				clearFields();
 			}
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			ex.printStackTrace();
-			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			msg.setMessage(ex.getMessage());
 			msg.open();
-		
-		}		
+		}
 	}
-	public void search(){
+
+	public void search()
+	{
 	}
-	public void delete(){
-	
+
+	public void delete()
+	{
 	}
-	public void newForm(){
-	    clearFields();	    
+
+	public void newForm()
+	{
+		clearFields();
 	}
 
 	/**
-	* This static method creates a new instance of this class and shows
-	* it inside a new Shell.
-	*
-	* It is a convenience method for showing the GUI, but it can be
-	* copied and used as a basis for your own code.	*
-	* It is auto-generated code - the body of this method will be
-	* re-generated after any changes are made to the GUI.
-	* However, if you delete this method it will not be re-created.	*/
-	public static void showGUI(){
-		try {
+	 * This static method creates a new instance of this class and shows it inside a new Shell. It is a convenience method for showing the
+	 * GUI, but it can be copied and used as a basis for your own code. * It is auto-generated code - the body of this method will be
+	 * re-generated after any changes are made to the GUI. However, if you delete this method it will not be re-created.
+	 */
+	public static void showGUI()
+	{
+		try
+		{
 			Display display = Display.getDefault();
 			Shell shell = new Shell(display);
 			AccUIAddAccounts inst = new AccUIAddAccounts(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0,0,435,204);
+			Rectangle shellBounds = shell.computeTrim(0, 0, 435, 204);
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.open();
-			while (!shell.isDisposed()) {
+			while (!shell.isDisposed())
+			{
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
+
 	/** Auto-generated event handler method */
-	protected void txtParentAccountMouseUp(MouseEvent evt){
-	
-	
-	Object[] obj = new AccUIStaticAccountsDialog(this.getShell(),SWT.NULL).showDialog(""); //$NON-NLS-1$
-		if (obj[0] != null) {
+	protected void txtParentAccountMouseUp(MouseEvent evt)
+	{
+		Object[] obj = new AccUIStaticAccountsDialog(this.getShell(), SWT.NULL).showDialog(""); //$NON-NLS-1$
+		if (obj[0] != null)
+		{
 			txtParentAccount.setData(obj[1]);
-		
 		}
-	
-	
 	}
 }

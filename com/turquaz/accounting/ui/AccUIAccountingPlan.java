@@ -15,18 +15,14 @@ package com.turquaz.accounting.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
  * @author  Onsel Armagan
  * @version  $Id$
  */
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
-
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
@@ -34,76 +30,60 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
-
 import org.eclipse.swt.widgets.TableColumn;
-
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.custom.TableTreeItem;
 import org.eclipse.swt.SWT;
-
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.accounting.bl.AccBLAccountUpdate;
-
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqViewAccTotal;
 import com.turquaz.engine.ui.component.SearchComposite;
-
 import com.cloudgarden.resource.SWTResourceManager;
 
 /**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
- * which is free for non-commercial use. If Jigloo is being used commercially
- * (ie, by a corporation, company or business for any purpose whatever) then you
- * should purchase a license for each developer using Jigloo. Please visit
- * www.cloudgarden.com for details. Use of Jigloo implies acceptance of these
- * licensing terms. ************************************* A COMMERCIAL LICENSE
- * HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be
- * used legally for any corporate or commercial purpose.
- * *************************************
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
  */
-public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
-		implements SearchComposite {
-
+public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite implements SearchComposite
+{
 	{
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
 		SWTResourceManager.registerResourceUser(this);
 	}
-
 	Menu popup;
-
 	private TableTree tableTreeAccountingPlan;
-
 	private HashMap accountTotals;
 
-	public AccUIAccountingPlan(Composite parent, int style) {
+	public AccUIAccountingPlan(Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
 
 	/**
-	 * Initializes the GUI. Auto-generated code - any changes you make will
-	 * disappear.
+	 * Initializes the GUI. Auto-generated code - any changes you make will disappear.
 	 */
-	public void initGUI() {
-		try {
-
+	public void initGUI()
+	{
+		try
+		{
 			preInitGUI();
-
 			tableTreeAccountingPlan = new TableTree(this, SWT.FULL_SELECTION);
-
 			this.setSize(new org.eclipse.swt.graphics.Point(468, 276));
 			this.setBackground(SWTResourceManager.getColor(128, 128, 255));
-
 			GridData tableTreeAccountingPlanLData = new GridData();
 			tableTreeAccountingPlanLData.verticalAlignment = GridData.FILL;
 			tableTreeAccountingPlanLData.horizontalAlignment = GridData.FILL;
@@ -115,8 +95,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
 			tableTreeAccountingPlanLData.grabExcessHorizontalSpace = true;
 			tableTreeAccountingPlanLData.grabExcessVerticalSpace = true;
 			tableTreeAccountingPlan.setLayoutData(tableTreeAccountingPlanLData);
-			tableTreeAccountingPlan.setSize(new org.eclipse.swt.graphics.Point(
-					442, 250));
+			tableTreeAccountingPlan.setSize(new org.eclipse.swt.graphics.Point(442, 250));
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
@@ -126,120 +105,104 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
 			thisLayout.horizontalSpacing = 5;
 			thisLayout.verticalSpacing = 5;
 			this.layout();
-			addDisposeListener(new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
+			addDisposeListener(new DisposeListener()
+			{
+				public void widgetDisposed(DisposeEvent e)
+				{
 				}
 			});
-
 			postInitGUI();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
 
 	/** Add your pre-init code in here */
-	public void preInitGUI() {
-
+	public void preInitGUI()
+	{
 		//Add popup menu to delete account
 		popup = new Menu(getShell(), SWT.POP_UP);
 		MenuItem item = new MenuItem(popup, SWT.PUSH);
 		item.setText(Messages.getString("AccUIAccountingPlan.2")); //$NON-NLS-1$
-
-		item.addListener(SWT.Selection, new Listener() {
-			public void handleEvent(Event e) {
+		item.addListener(SWT.Selection, new Listener()
+		{
+			public void handleEvent(Event e)
+			{
 				delete();
-
 			}
 		});
 		item = new MenuItem(popup, SWT.PUSH);
 		item.setText(Messages.getString("AccUIAccountingPlan.3")); //$NON-NLS-1$
-
-		item.addListener(SWT.Selection, new Listener() {
-			public void handleEvent(Event e) {
+		item.addListener(SWT.Selection, new Listener()
+		{
+			public void handleEvent(Event e)
+			{
 				TableTreeItem items[] = tableTreeAccountingPlan.getSelection();
-				if (items.length > 0) {
-					new AccUIAddAccountDialog(getShell(), SWT.NULL)
-							.open((TurqAccountingAccount) items[0].getData());
+				if (items.length > 0)
+				{
+					new AccUIAddAccountDialog(getShell(), SWT.NULL).open((TurqAccountingAccount) items[0].getData());
 					fillTree(-1, ""); //$NON-NLS-1$
 				}
 			}
-
 		});
-
 	}
 
 	/** Add your post-init code in here */
-	public void postInitGUI() {
-		tableTreeAccountingPlan.getTable().addMouseListener(new MouseAdapter() {
-			public void mouseDoubleClick(MouseEvent evt) {
+	public void postInitGUI()
+	{
+		tableTreeAccountingPlan.getTable().addMouseListener(new MouseAdapter()
+		{
+			public void mouseDoubleClick(MouseEvent evt)
+			{
 				tableTreeAccountingPlanMouseDoubleClick(evt);
 			}
 		});
-
 		tableTreeAccountingPlan.getTable().setLinesVisible(true);
 		tableTreeAccountingPlan.getTable().setHeaderVisible(true);
-
 		tableTreeAccountingPlan.setMenu(popup);
-
-		final TableColumn col = new TableColumn(tableTreeAccountingPlan
-				.getTable(), SWT.LEFT);
+		final TableColumn col = new TableColumn(tableTreeAccountingPlan.getTable(), SWT.LEFT);
 		col.setText(Messages.getString("AccUIAccountingPlan.0")); //$NON-NLS-1$
 		col.setWidth(200);
-
-		final TableColumn col2 = new TableColumn(tableTreeAccountingPlan
-				.getTable(), SWT.LEFT);
+		final TableColumn col2 = new TableColumn(tableTreeAccountingPlan.getTable(), SWT.LEFT);
 		col2.setText(Messages.getString("AccUIAccountingPlan.1")); //$NON-NLS-1$
 		col2.setWidth(200);
-
 		fillTree(-1, ""); //$NON-NLS-1$
-
 	}
 
 	/**
-	 * 
 	 * @param parent
-	 *            Parent Account
+	 *             Parent Account
 	 * @param codeCrit
 	 */
-	public void fillTree(int parent, String codeCrit) {
-		try {
-
+	public void fillTree(int parent, String codeCrit)
+	{
+		try
+		{
 			Map treeItems = new HashMap();
 			tableTreeAccountingPlan.removeAll();
 			TableTreeItem item;
-
 			List mainBranches = AccBLAccountAdd.getAllAccountsWithSum();
-
 			TurqAccountingAccount account;
 			TurqViewAccTotal accView;
-
 			Integer parentId;
 			accountTotals = new HashMap();
-			for (int i = 0; i < mainBranches.size(); i++) {
-				account = (TurqAccountingAccount) ((Object[]) mainBranches
-						.get(i))[0];
+			for (int i = 0; i < mainBranches.size(); i++)
+			{
+				account = (TurqAccountingAccount) ((Object[]) mainBranches.get(i))[0];
 				accView = (TurqViewAccTotal) ((Object[]) mainBranches.get(i))[1];
-				parentId = account.getTurqAccountingAccountByParentAccount()
-						.getId();
-
-				BigDecimal totalDept = (accView.getTotaldeptamount() == null) ? new BigDecimal(
-						0)
-						: accView.getTotaldeptamount();
-				BigDecimal totalCredit = (accView.getTotalcreditamount() == null) ? new BigDecimal(
-						0)
-						: accView.getTotalcreditamount();
-
-				BigDecimal[] totals = { totalCredit, totalDept };
-				accountTotals.put(
-						new Integer(accView.getAccountingAccountsId()), totals);
+				parentId = account.getTurqAccountingAccountByParentAccount().getId();
+				BigDecimal totalDept = (accView.getTotaldeptamount() == null) ? new BigDecimal(0) : accView.getTotaldeptamount();
+				BigDecimal totalCredit = (accView.getTotalcreditamount() == null) ? new BigDecimal(0) : accView.getTotalcreditamount();
+				BigDecimal[] totals = {totalCredit, totalDept};
+				accountTotals.put(new Integer(accView.getAccountingAccountsId()), totals);
 				if (parentId.intValue() == -1)
 				{
-
-					TableTreeItem[] parentItems = tableTreeAccountingPlan
-							.getItems();
+					TableTreeItem[] parentItems = tableTreeAccountingPlan.getItems();
 					String accId = account.getAccountCode();
 					int k;
-					for (k = 0; k < parentItems.length; k++) 
+					for (k = 0; k < parentItems.length; k++)
 					{
 						TableTreeItem pItem = parentItems[k];
 						if (pItem.getText(0).equals("HESAP PLANI")) //$NON-NLS-1$
@@ -247,26 +210,16 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
 						if (accId.compareTo(pItem.getText(0)) < 0)
 							break;
 					}
-
-					item = new TableTreeItem(tableTreeAccountingPlan, SWT.NULL,
-							k);
+					item = new TableTreeItem(tableTreeAccountingPlan, SWT.NULL, k);
 					item.setText(0, account.getAccountCode());
 					item.setText(1, account.getAccountName());
-
 					item.setData(account);
-
 					treeItems.put(account.getId(), item);
-
 				}
 				else
 				{
-
-					TableTreeItem parentItem = (TableTreeItem) treeItems
-							.get(parentId);
-
-					parentItem.setFont(SWTResourceManager.getFont(
-							"Tahoma", 9, 1, false, false)); //$NON-NLS-1$
-
+					TableTreeItem parentItem = (TableTreeItem) treeItems.get(parentId);
+					parentItem.setFont(SWTResourceManager.getFont("Tahoma", 9, 1, false, false)); //$NON-NLS-1$
 					{
 						//Register as a resource user - SWTResourceManager
 						// will
@@ -287,150 +240,143 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
 					item.setText(0, account.getAccountCode());
 					item.setText(1, account.getAccountName());
 					item.setData(account);
-					
 					while (parentId.intValue() != -1)
 					{
-						BigDecimal[] parentTotals=(BigDecimal[])accountTotals.get(parentId);
-						parentTotals[0]=parentTotals[0].add(totalCredit);
-						parentTotals[1]=parentTotals[1].add(totalDept);
-						account=account.getTurqAccountingAccountByParentAccount();
-						parentId=account.getTurqAccountingAccountByParentAccount().getId();
+						BigDecimal[] parentTotals = (BigDecimal[]) accountTotals.get(parentId);
+						parentTotals[0] = parentTotals[0].add(totalCredit);
+						parentTotals[1] = parentTotals[1].add(totalDept);
+						account = account.getTurqAccountingAccountByParentAccount();
+						parentId = account.getTurqAccountingAccountByParentAccount().getId();
 					}
-
 				}
-
 			}
-
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
-
 	}
 
 	/**
-	 * 
 	 * @param parentItem
 	 * @param parent_id
 	 * @param codeCriteria
-	 *            Account code criteria for branches
+	 *             Account code criteria for branches
 	 */
-	public void fillBranch(TableTreeItem parentItem, int parent_id,
-			String codeCriteria) {
-		try {
-
+	public void fillBranch(TableTreeItem parentItem, int parent_id, String codeCriteria)
+	{
+		try
+		{
 			TableTreeItem item;
 			List mainBranches = AccBLAccountAdd.getAccount(parent_id, codeCriteria);
 			TurqAccountingAccount account;
-			for (int i = 0; i < mainBranches.size(); i++) {
-
+			for (int i = 0; i < mainBranches.size(); i++)
+			{
 				account = (TurqAccountingAccount) mainBranches.get(i);
 				item = new TableTreeItem(parentItem, SWT.NULL);
 				item.setText(0, account.getAccountCode());
 				item.setText(1, account.getAccountName());
 				item.setData(account);
-				fillBranch(item, account.getId().intValue(),
-						""); //$NON-NLS-1$
-
+				fillBranch(item, account.getId().intValue(), ""); //$NON-NLS-1$
 			}
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
-
 	}
 
 	/** Auto-generated event handler method */
-	protected void tableTreeAccountingPlanMouseDoubleClick(MouseEvent evt) {
+	protected void tableTreeAccountingPlanMouseDoubleClick(MouseEvent evt)
+	{
 		TableTreeItem items[] = tableTreeAccountingPlan.getSelection();
-
-		if (items.length > 0) {
-			TurqAccountingAccount account = (TurqAccountingAccount) items[0]
-					.getData();
+		if (items.length > 0)
+		{
+			TurqAccountingAccount account = (TurqAccountingAccount) items[0].getData();
 			// it's not an main account
 			// main accounts cannot be edited
 			// was, now can be edited
 			//	if(account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId().intValue()!=-1)
 			//	{
-			boolean result = new AccUIAccountUpdate(this.getShell(), SWT.NULL,
-					account,(BigDecimal[])accountTotals.get(account.getId())).open();
-			if (result) {
+			boolean result = new AccUIAccountUpdate(this.getShell(), SWT.NULL, account, (BigDecimal[]) accountTotals
+					.get(account.getId())).open();
+			if (result)
+			{
 				fillTree(-1, ""); //$NON-NLS-1$
 			}
 			//	}
-
 		}
-
 	}
 
-	public void exportToExcel() {
-
+	public void exportToExcel()
+	{
 		EngBLUtils.Export2Excel(tableTreeAccountingPlan.getTable());
-
 	}
 
-	public void printTable() {
-		EngBLUtils.printTable(tableTreeAccountingPlan.getTable(), Messages
-				.getString("AccUIAccountingPlan.4")); //$NON-NLS-1$
-
+	public void printTable()
+	{
+		EngBLUtils.printTable(tableTreeAccountingPlan.getTable(), Messages.getString("AccUIAccountingPlan.4")); //$NON-NLS-1$
 	}
 
-	public void delete() {
+	public void delete()
+	{
 		TableTreeItem items[] = tableTreeAccountingPlan.getSelection();
-
-		if (items.length > 0) {
-			TurqAccountingAccount account = (TurqAccountingAccount) items[0]
-					.getData();
-
+		if (items.length > 0)
+		{
+			TurqAccountingAccount account = (TurqAccountingAccount) items[0].getData();
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-			MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK
-					| SWT.CANCEL);
-			try {
+			MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
+			try
+			{
 				List accTrans = AccBLAccountUpdate.getAccountTransColumns(account);
-				if (accTrans.size() > 0) {
+				if (accTrans.size() > 0)
+				{
 					msg.setMessage(Messages.getString("AccUIAccountingPlan.6")); //$NON-NLS-1$
 					msg.open();
 					return;
 				}
 				List subAccs = AccBLAccountUpdate.getSubAccounts(account);
-				if (subAccs.size() > 0) {
+				if (subAccs.size() > 0)
+				{
 					msg.setMessage(Messages.getString("AccUIAccountingPlan.5")); //$NON-NLS-1$
 					msg.open();
 					return;
 				}
 				msg2.setMessage(Messages.getString("AccUIAccountUpdate.15")); //$NON-NLS-1$
 				int result = msg2.open();
-
-				if (result == SWT.OK) {
+				if (result == SWT.OK)
+				{
 					AccBLAccountUpdate.deleteAccount(account);
 					msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 					msg.open();
 					EngBLAccountingAccounts.RefreshContentAsistantMap();
 					fillTree(-1, ""); //$NON-NLS-1$
-
 				}
-
-			} catch (Exception ex) {
+			}
+			catch (Exception ex)
+			{
 				MessageBox msg3 = new MessageBox(this.getShell(), SWT.NULL);
 				ex.printStackTrace();
 				msg3.setMessage(ex.getMessage());
 				msg3.open();
-
 			}
 		}
 	}
 
-	public void update() {
-
+	public void update()
+	{
 	}
 
-	public void search() {
+	public void search()
+	{
 		fillTree(-1, ""); //$NON-NLS-1$
 	}
 
-	public void save() {
-
+	public void save()
+	{
 	}
 
-	public void newForm() {
-
+	public void newForm()
+	{
 	}
 }

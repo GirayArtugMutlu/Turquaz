@@ -1,5 +1,5 @@
-
 package com.turquaz.accounting.dal;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -15,12 +15,10 @@ package com.turquaz.accounting.dal;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
-public class AccDALTransactionAdd {
-
+ * @author Onsel Armagan
+ * @version $Id$
+ */
+public class AccDALTransactionAdd
+{
 }

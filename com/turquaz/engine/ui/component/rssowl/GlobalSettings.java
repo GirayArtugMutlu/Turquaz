@@ -21,29 +21,23 @@
  **	  	RSSOwl - initial API and implementation (bpasero@rssowl.org)				 **
  **																																					 **
  **	 **********************************************************************	 */
-
 package com.turquaz.engine.ui.component.rssowl;
-
 
 import org.eclipse.swt.graphics.RGB;
 
 /**
- * This class holds some settings the user has made in RSSOwl. A lot of Objects
- * in RSSOwl need to access them, thats why they are declared public and static.
- * Also contains some constants that are used in the application.
+ * This class holds some settings the user has made in RSSOwl. A lot of Objects in RSSOwl need to access them, thats why they are declared
+ * public and static. Also contains some constants that are used in the application.
  * 
  * @author <a href="mailto:bpasero@rssowl.org">Benjamin Pasero </a>
  * @version 1.0
  */
-public class GlobalSettings {
-
-
+public class GlobalSettings
+{
 	/**
 	 * Selected header color
 	 */
 	public static RGB headerColor = new RGB(224, 232, 246);
-	public static RGB syntaxHighlightColor =new RGB(224, 232, 246) ;
+	public static RGB syntaxHighlightColor = new RGB(224, 232, 246);
 	public static RGB linkColor = new RGB(224, 232, 246);
-
-	
 }

@@ -13,153 +13,125 @@
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 package com.turquaz.engine.dal;
 
 import java.util.Properties;
-
-
 import org.eclipse.core.internal.preferences.Base64;
-
 import com.turquaz.engine.EngConfiguration;
-
 import net.sf.hibernate.Session;
 import net.sf.hibernate.SessionFactory;
 import net.sf.hibernate.cfg.Configuration;
 
 /**
  * @author onsel
- *
- * @version $Id$
- * 
- * Class for initial database configuration. It creates the necessary
- * bindings according to hibernate.cfg.xml
- * Initiliaze the static SessionFactory object
- * 
+ * @version $Id$ Class for initial database configuration. It creates
+ *          the necessary bindings according to hibernate.cfg.xml Initiliaze the static SessionFactory object
  */
-public class EngDALSessionFactory {
+public class EngDALSessionFactory
+{
 	static EngDALSessionFactory _instance;
 	public SessionFactory factory;
-	Configuration cfg ;
-	
+	Configuration cfg;
+
 	/**
 	 * Default Constructor
-	 *
 	 */
-	public EngDALSessionFactory(){
-	    Properties props = new Properties();
-		try{		
-		
+	public EngDALSessionFactory()
+	{
+		Properties props = new Properties();
+		try
+		{
 			String url = "notSet://";
 			String driver = "noteSet";
 			if (EngConfiguration.getString("dbType").startsWith("Turquaz"))
-			{		
-		
-		// url = "jdbc:hsqldb:hsql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort");
-		
-		 url =  "jdbc:hsqldb:database/turquaz";		
-		driver = "org.hsqldb.jdbcDriver";
-		props.put("hibernate.dialect","net.sf.hibernate.dialect.HSQLDialect");
-		
-		}
+			{
+				// url = "jdbc:hsqldb:hsql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort");
+				url = "jdbc:hsqldb:database/turquaz";
+				driver = "org.hsqldb.jdbcDriver";
+				props.put("hibernate.dialect", "net.sf.hibernate.dialect.HSQLDialect");
+			}
 			else if (EngConfiguration.getString("dbType").startsWith("Postgresql"))
 			{
-				url = "jdbc:postgresql://"+EngConfiguration.getString("serverAddress")+":"+EngConfiguration.getString("serverPort")+"/"+EngConfiguration.getString("dbName");
-				 driver = "org.postgresql.Driver";
-				 props.put("hibernate.dialect","net.sf.hibernate.dialect.PostgreSQLDialect");
-				 props.put("hibernate.schema","public");
-					
+				url = "jdbc:postgresql://" + EngConfiguration.getString("serverAddress") + ":"
+						+ EngConfiguration.getString("serverPort") + "/" + EngConfiguration.getString("dbName");
+				driver = "org.postgresql.Driver";
+				props.put("hibernate.dialect", "net.sf.hibernate.dialect.PostgreSQLDialect");
+				props.put("hibernate.schema", "public");
 			}
-		String username = EngConfiguration.getString("dbUsername");
-		String password = EngConfiguration.getString("dbPassword");
-		password = new String(Base64.decode(password.getBytes()));
-		
-		
-		System.setProperty("Url",url);
-		System.setProperty("dbLogin",username);
-		System.setProperty("dbPass",password);
-		
-		
-	   cfg =new Configuration();		
-		
-		props.put("hibernate.connection.url",url);
-		props.put("hibernate.connection.driver_class",driver);
-		props.put("hibernate.connection.username",username);
-		props.put("hibernate.connection.password",password);
-		props.put("hibernate.show_sql","false");
-
-		
-		
-		
-			
-		cfg = cfg.configure();
-		cfg.addProperties(props);
-		
-		factory = cfg.buildSessionFactory();
-		
+			String username = EngConfiguration.getString("dbUsername");
+			String password = EngConfiguration.getString("dbPassword");
+			password = new String(Base64.decode(password.getBytes()));
+			System.setProperty("Url", url);
+			System.setProperty("dbLogin", username);
+			System.setProperty("dbPass", password);
+			cfg = new Configuration();
+			props.put("hibernate.connection.url", url);
+			props.put("hibernate.connection.driver_class", driver);
+			props.put("hibernate.connection.username", username);
+			props.put("hibernate.connection.password", password);
+			props.put("hibernate.show_sql", "false");
+			cfg = cfg.configure();
+			cfg.addProperties(props);
+			factory = cfg.buildSessionFactory();
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
-		
 	}
+
 	/**
-	 * 
 	 * @return SessionFactory objects for opening Hibernate Sessions
 	 */
-	public static synchronized SessionFactory getSessionFactory(){
-		if (_instance == null) {
-
+	public static synchronized SessionFactory getSessionFactory()
+	{
+		if (_instance == null)
+		{
 			_instance = new EngDALSessionFactory();
-
 		}
-
 		return _instance.factory;
 	}
+
 	/**
-	 * 
 	 * @return SessionFactory objects for opening Hibernate Sessions
 	 */
-	
-	public static synchronized Configuration getConfiguration(){
-		if (_instance == null) {
-
+	public static synchronized Configuration getConfiguration()
+	{
+		if (_instance == null)
+		{
 			_instance = new EngDALSessionFactory();
-
 		}
-
 		return _instance.cfg;
 	}
-	
+
 	/**
-	 * 
 	 * @return Session object whisch is created by the static SessionFactory
 	 * @throws Exception
 	 */
-	public static synchronized Session openSession() throws Exception{
-		try{
-		if (_instance == null) {
-
-			_instance = new EngDALSessionFactory();
-
+	public static synchronized Session openSession() throws Exception
+	{
+		try
+		{
+			if (_instance == null)
+			{
+				_instance = new EngDALSessionFactory();
+			}
+			return _instance.factory.openSession();
 		}
-        return _instance.factory.openSession();
-		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
+
 	/**
 	 * initialize the static EngDALSessionFactory
-	 *
 	 */
-	public static synchronized void init() {
-		if (_instance == null) {
-
+	public static synchronized void init()
+	{
+		if (_instance == null)
+		{
 			_instance = new EngDALSessionFactory();
-
 		}
 	}
-
-
 }

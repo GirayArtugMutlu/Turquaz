@@ -1,4 +1,3 @@
-
 package com.turquaz.admin.bl;
 
 /************************************************************************/
@@ -16,31 +15,28 @@ package com.turquaz.admin.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Huseyin Ergun
-* @version  $Id$
-*/
-
+ * @author Huseyin Ergun
+ * @version $Id$
+ */
 import java.util.List;
-
 import com.turquaz.engine.dal.EngDALCommon;
 
-public class AdmBLGroups {
-
-	public AdmBLGroups(){
-		
+public class AdmBLGroups
+{
+	public AdmBLGroups()
+	{
 	}
-	
-	public static List getGroups()throws Exception{
-		try{
-			
+
+	public static List getGroups() throws Exception
+	{
+		try
+		{
 			return EngDALCommon.getGroups();
-			
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-
 }

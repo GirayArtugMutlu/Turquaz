@@ -1,5 +1,5 @@
-
 package com.turquaz.cash.bl;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -15,86 +15,80 @@ package com.turquaz.cash.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel
-* @version  $Id$
-*/
-
+ * @author Onsel
+ * @version $Id$
+ */
 import java.util.Date;
 import java.util.List;
-
 import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 
-public class CashBLCashTransactionSearch {
+public class CashBLCashTransactionSearch
+{
+	public CashBLCashTransactionSearch()
+	{
+	}
 
-    public CashBLCashTransactionSearch(){
-        
-    }
-    
-   public static List searchCashTransactions(TurqCashCard cashCard, Date startDate, Date endDate, String definition)throws Exception{
-       try{
-           
-           
-           return CashDALCashCard.searchCashTransaction(cashCard,startDate,endDate, definition);
-           
-           
-       }
-       catch(Exception ex){
-           throw ex;
-       }
-       
-   }
-   public static TurqCashTransaction initializeCashTransaction(Integer id)throws Exception
-   {
-       try{
-                    
-           return CashDALCashCard.initiliazeCashTrans(id);
-           
-           
-       }
-       catch(Exception ex){
-           throw ex;
-       }
-   }
-   
-   public static void initializeCashTransaction(TurqCashTransaction cashTrans)throws Exception
-   {
-       try{
-                    
-       	CashDALCashCard.initiliazeCashTrans(cashTrans);
-           
-           
-       }
-       catch(Exception ex){
-           throw ex;
-       }
-   }
-   public static List getTransactions(TurqCashCard cashCard, Date startDate, Date endDate)throws Exception{
-       try{
-           
-           return CashDALCashCard.getTransactions(cashCard,startDate,endDate);
-           
-       }
-       catch(Exception ex){
-           throw ex;
-       }
-   }
- 
-   // Devreden
-   public static List getDeferredTotal(TurqCashCard cashCard,Date endDate)throws Exception 
-   {
-       try
-       {
-           return CashDALCashCard.getDeferredTotal(cashCard,endDate);
-       }
-       catch(Exception ex)
-       {
-           throw ex;
-       }
-       
-   }
+	public static List searchCashTransactions(TurqCashCard cashCard, Date startDate, Date endDate, String definition) throws Exception
+	{
+		try
+		{
+			return CashDALCashCard.searchCashTransaction(cashCard, startDate, endDate, definition);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
+	public static TurqCashTransaction initializeCashTransaction(Integer id) throws Exception
+	{
+		try
+		{
+			return CashDALCashCard.initiliazeCashTrans(id);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static void initializeCashTransaction(TurqCashTransaction cashTrans) throws Exception
+	{
+		try
+		{
+			CashDALCashCard.initiliazeCashTrans(cashTrans);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static List getTransactions(TurqCashCard cashCard, Date startDate, Date endDate) throws Exception
+	{
+		try
+		{
+			return CashDALCashCard.getTransactions(cashCard, startDate, endDate);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	// Devreden
+	public static List getDeferredTotal(TurqCashCard cashCard, Date endDate) throws Exception
+	{
+		try
+		{
+			return CashDALCashCard.getDeferredTotal(cashCard, endDate);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }

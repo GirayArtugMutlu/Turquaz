@@ -15,16 +15,13 @@ package com.turquaz.inventory.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
+ * @author  Onsel Armagan
+ * @version  $Id$
+ */
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
-
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
@@ -32,14 +29,12 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqViewInventoryTotal;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
-
 import com.turquaz.inventory.Messages;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -47,41 +42,29 @@ import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.bl.InvBLCardUpdate;
 import com.turquaz.inventory.dal.InvDALCardUpdate;
-
 import org.eclipse.swt.layout.GridData;
-
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
-
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
-
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
+
 /**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
-
-
-public class InvUICardSearch extends  Composite implements SearchComposite {
-
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
+ */
+public class InvUICardSearch extends Composite implements SearchComposite
+{
 	private InvBLCardAdd invBLCardAdd = new InvBLCardAdd();
 	InvBLCardUpdate cardUpdate = new InvBLCardUpdate();
 	private Composite compInvCardSearch;
@@ -103,22 +86,22 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	private InventoryPicker txtInvCode;
 	private CLabel lblInvCode;
 	private Composite compInvCardSearchPanel;
-	
-	public InvUICardSearch(Composite parent, int style) {
+
+	public InvUICardSearch(Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
 
 	/**
-	* Initializes the GUI.
-	* Auto-generated code - any changes you make will disappear.
-	*/
-	public void initGUI(){
-		try {
+	 * Initializes the GUI. Auto-generated code - any changes you make will disappear.
+	 */
+	public void initGUI()
+	{
+		try
+		{
 			preInitGUI();
-
-			this.setSize(new org.eclipse.swt.graphics.Point(573,437));
-
+			this.setSize(new org.eclipse.swt.graphics.Point(573, 437));
 			FillLayout thisLayout = new FillLayout(256);
 			this.setLayout(thisLayout);
 			{
@@ -126,9 +109,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 				GridLayout compInvCardSearchLayout = new GridLayout();
 				compInvCardSearchLayout.makeColumnsEqualWidth = true;
 				compInvCardSearch.setLayout(compInvCardSearchLayout);
-				compInvCardSearch.setSize(new org.eclipse.swt.graphics.Point(
-					573,
-					437));
+				compInvCardSearch.setSize(new org.eclipse.swt.graphics.Point(573, 437));
 				{
 					compInvCardSearchPanel = new Composite(compInvCardSearch, SWT.NONE);
 					GridLayout compInvCardSearchPanelLayout = new GridLayout();
@@ -145,11 +126,8 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 						cLabel2LData.widthHint = 97;
 						cLabel2LData.heightHint = 17;
 						lblInvCode.setLayoutData(cLabel2LData);
-						lblInvCode.setText(Messages
-							.getString("InvUICardSearch.1")); //$NON-NLS-1$
-						lblInvCode.setSize(new org.eclipse.swt.graphics.Point(
-							97,
-							17));
+						lblInvCode.setText(Messages.getString("InvUICardSearch.1")); //$NON-NLS-1$
+						lblInvCode.setSize(new org.eclipse.swt.graphics.Point(97, 17));
 					}
 					{
 						txtInvCode = new InventoryPicker(compInvCardSearchPanel, SWT.NONE);
@@ -157,7 +135,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 						txtInvCodeLData.widthHint = 141;
 						txtInvCodeLData.heightHint = 17;
 						txtInvCode.setLayoutData(txtInvCodeLData);
-						txtInvCode.setSize(new org.eclipse.swt.graphics.Point(147,17));
+						txtInvCode.setSize(new org.eclipse.swt.graphics.Point(147, 17));
 					}
 					{
 						lblInvName = new CLabel(compInvCardSearchPanel, SWT.NONE);
@@ -171,8 +149,10 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 					{
 						txtInvName = new Text(compInvCardSearchPanel, SWT.NONE);
 						GridData txtInvNameLData = new GridData();
-						txtInvName.addKeyListener(new KeyAdapter() {
-							public void keyReleased(KeyEvent evt) {
+						txtInvName.addKeyListener(new KeyAdapter()
+						{
+							public void keyReleased(KeyEvent evt)
+							{
 								if (evt.keyCode == SWT.CR)
 									search();
 							}
@@ -181,50 +161,50 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 						txtInvNameLData.heightHint = 17;
 						txtInvName.setLayoutData(txtInvNameLData);
 					}
-					//START >>  lblInvGroup
+					//START >> lblInvGroup
 					lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
 					lblInvGroup.setText("Stok Ana Grup");
 					GridData lblInvGroupLData = new GridData();
 					lblInvGroupLData.widthHint = 85;
 					lblInvGroupLData.heightHint = 19;
 					lblInvGroup.setLayoutData(lblInvGroupLData);
-					//END <<  lblInvGroup
-					//START >>  comboInvMainGroup
+					//END << lblInvGroup
+					//START >> comboInvMainGroup
 					comboInvMainGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
 					GridData comboInvGroupLData = new GridData();
-					comboInvMainGroup
-						.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					comboInvMainGroup.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							comboInvMainGroupWidgetSelected(evt);
 						}
-						});
+					});
 					comboInvGroupLData.widthHint = 127;
 					comboInvGroupLData.heightHint = 18;
 					comboInvMainGroup.setLayoutData(comboInvGroupLData);
-					//END <<  comboInvMainGroup
-					//START >>  lblInvSubGroup
-					lblInvSubGroup = new CLabel(
-						compInvCardSearchPanel,
-						SWT.NONE);
+					//END << comboInvMainGroup
+					//START >> lblInvSubGroup
+					lblInvSubGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
 					lblInvSubGroup.setText("Stok Alt Grup");
-					//END <<  lblInvSubGroup
-					//START >>  comboInvSubGroup
+					//END << lblInvSubGroup
+					//START >> comboInvSubGroup
 					comboInvSubGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
 					GridData comboInvSubGroupLData = new GridData();
 					comboInvSubGroupLData.widthHint = 125;
 					comboInvSubGroupLData.heightHint = 13;
 					comboInvSubGroup.setLayoutData(comboInvSubGroupLData);
-					//END <<  comboInvSubGroup
+					//END << comboInvSubGroup
 				}
 				{
 					tableSearcResults = new Table(compInvCardSearch, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 					tableSearcResults.setHeaderVisible(true);
 					tableSearcResults.setLinesVisible(true);
-					tableSearcResults
-						.setSize(new org.eclipse.swt.graphics.Point(543, 318));
+					tableSearcResults.setSize(new org.eclipse.swt.graphics.Point(543, 318));
 					GridData tableSearcResultsLData = new GridData();
-					tableSearcResults.addMouseListener(new MouseAdapter() {
-						public void mouseDoubleClick(MouseEvent evt) {
+					tableSearcResults.addMouseListener(new MouseAdapter()
+					{
+						public void mouseDoubleClick(MouseEvent evt)
+						{
 							tableSearcResultsMouseDoubleClick(evt);
 						}
 					});
@@ -234,62 +214,45 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 					tableSearcResultsLData.grabExcessVerticalSpace = true;
 					tableSearcResults.setLayoutData(tableSearcResultsLData);
 					{
-						tableColumnInvName = new TableColumn(
-							tableSearcResults,
-							SWT.NONE);
-						tableColumnInvName.setText(Messages.getString("InvUICardSearch.3"));  //$NON-NLS-1$
+						tableColumnInvName = new TableColumn(tableSearcResults, SWT.NONE);
+						tableColumnInvName.setText(Messages.getString("InvUICardSearch.3")); //$NON-NLS-1$
 						tableColumnInvName.setWidth(69);
 					}
 					{
-						tableColumnInventoryCode = new TableColumn(
-							tableSearcResults,
-							SWT.NONE);
-						tableColumnInventoryCode.setText(Messages.getString("InvUICardSearch.4"));  //$NON-NLS-1$
+						tableColumnInventoryCode = new TableColumn(tableSearcResults, SWT.NONE);
+						tableColumnInventoryCode.setText(Messages.getString("InvUICardSearch.4")); //$NON-NLS-1$
 						tableColumnInventoryCode.setWidth(107);
 					}
 					{
-						tableColumnAmountIn = new TableColumn(
-							tableSearcResults,
-							SWT.RIGHT);
-						tableColumnAmountIn.setText(Messages.getString("InvUICardSearch.5"));  //$NON-NLS-1$
+						tableColumnAmountIn = new TableColumn(tableSearcResults, SWT.RIGHT);
+						tableColumnAmountIn.setText(Messages.getString("InvUICardSearch.5")); //$NON-NLS-1$
 						tableColumnAmountIn.setWidth(60);
 					}
 					{
-						tableColumnAmountOut = new TableColumn(
-							tableSearcResults,
-							SWT.RIGHT);
-						tableColumnAmountOut.setText(Messages.getString("InvUICardSearch.7"));  //$NON-NLS-1$
+						tableColumnAmountOut = new TableColumn(tableSearcResults, SWT.RIGHT);
+						tableColumnAmountOut.setText(Messages.getString("InvUICardSearch.7")); //$NON-NLS-1$
 						tableColumnAmountOut.setWidth(60);
 					}
 					{
-						tableColumnBalanceAmountIn = new TableColumn(
-							tableSearcResults,
-							SWT.RIGHT);
-						tableColumnBalanceAmountIn.setText(Messages.getString("InvUICardSearch.8"));  //$NON-NLS-1$
+						tableColumnBalanceAmountIn = new TableColumn(tableSearcResults, SWT.RIGHT);
+						tableColumnBalanceAmountIn.setText(Messages.getString("InvUICardSearch.8")); //$NON-NLS-1$
 						tableColumnBalanceAmountIn.setWidth(69);
 					}
 					{
-						tableColumnBalanceAmountOut = new TableColumn(
-							tableSearcResults,
-							SWT.RIGHT);
-						tableColumnBalanceAmountOut.setText(Messages.getString("InvUICardSearch.9"));  //$NON-NLS-1$
+						tableColumnBalanceAmountOut = new TableColumn(tableSearcResults, SWT.RIGHT);
+						tableColumnBalanceAmountOut.setText(Messages.getString("InvUICardSearch.9")); //$NON-NLS-1$
 						tableColumnBalanceAmountOut.setWidth(71);
 					}
 					{
-						tableColumnPriceIn = new TableColumn(
-							tableSearcResults,
-							SWT.RIGHT);
-						tableColumnPriceIn.setText(Messages.getString("InvUICardSearch.10"));  //$NON-NLS-1$
+						tableColumnPriceIn = new TableColumn(tableSearcResults, SWT.RIGHT);
+						tableColumnPriceIn.setText(Messages.getString("InvUICardSearch.10")); //$NON-NLS-1$
 						tableColumnPriceIn.setWidth(75);
 					}
 					{
-						tableColumnPriceOut = new TableColumn(
-							tableSearcResults,
-							SWT.RIGHT);
-						tableColumnPriceOut.setText(Messages.getString("InvUICardSearch.11"));  //$NON-NLS-1$
+						tableColumnPriceOut = new TableColumn(tableSearcResults, SWT.RIGHT);
+						tableColumnPriceOut.setText(Messages.getString("InvUICardSearch.11")); //$NON-NLS-1$
 						tableColumnPriceOut.setWidth(76);
 					}
-					
 				}
 			}
 			thisLayout.type = SWT.HORIZONTAL;
@@ -297,251 +260,217 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 			thisLayout.marginHeight = 0;
 			thisLayout.spacing = 0;
 			this.layout();
-	
 			postInitGUI();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
-/** Add your pre-init code in here 	*/
-	public void preInitGUI(){
+
+	/** Add your pre-init code in here */
+	public void preInitGUI()
+	{
 	}
 
-	/** Add your post-init code in here 	*/
-	public void postInitGUI(){
-
-		
+	/** Add your post-init code in here */
+	public void postInitGUI()
+	{
 		fillComboGroup();
-		
-				
 	}
-	
-	private void comboInvMainGroupWidgetSelected(SelectionEvent evt) {
-		
+
+	private void comboInvMainGroupWidgetSelected(SelectionEvent evt)
+	{
 		comboInvSubGroup.removeAll();
-		if (comboInvMainGroup.getSelectionIndex()==-1)
+		if (comboInvMainGroup.getSelectionIndex() == -1)
 			return;
-		TurqInventoryGroup invMainGr=(TurqInventoryGroup)comboInvMainGroup.getData(comboInvMainGroup.getText());
+		TurqInventoryGroup invMainGr = (TurqInventoryGroup) comboInvMainGroup.getData(comboInvMainGroup.getText());
 		if (invMainGr != null)
 		{
 			Iterator it = invMainGr.getTurqInventoryGroups().iterator();
-			while(it.hasNext())
+			while (it.hasNext())
 			{
-				TurqInventoryGroup invGr=(TurqInventoryGroup)it.next();
+				TurqInventoryGroup invGr = (TurqInventoryGroup) it.next();
 				comboInvSubGroup.add(invGr.getGroupsName());
-				comboInvSubGroup.setData(invGr.getGroupsName(),invGr);
+				comboInvSubGroup.setData(invGr.getGroupsName(), invGr);
 			}
 			if (comboInvSubGroup.getItemCount() > 0)
 				comboInvSubGroup.setText(comboInvSubGroup.getItem(0));
 		}
 	}
 
-
-
 	public void fillComboGroup()
 	{
-		try 
+		try
 		{
-			List groupList=InvBLCardAdd.getParentInventoryGroups();
+			List groupList = InvBLCardAdd.getParentInventoryGroups();
 			comboInvMainGroup.add("");
-			for(int k=0; k<groupList.size(); k++)
+			for (int k = 0; k < groupList.size(); k++)
 			{
-				TurqInventoryGroup gr=(TurqInventoryGroup)groupList.get(k);
+				TurqInventoryGroup gr = (TurqInventoryGroup) groupList.get(k);
 				comboInvMainGroup.add(gr.getGroupsName());
-				comboInvMainGroup.setData(gr.getGroupsName(),gr);
+				comboInvMainGroup.setData(gr.getGroupsName(), gr);
 			}
-
 		}
-		catch (Exception ex) 
+		catch (Exception ex)
 		{
 			ex.printStackTrace();
 		}
-	
-	
 	}
-	
-	public void save(){
-		
-	}      
-	      
-	  	
-	public void delete(){
-	    TableItem items[]=tableSearcResults.getSelection();
-	    if(items.length>0){
-	    	 TurqInventoryCard invCard = (TurqInventoryCard)items[0].getData();	
-	   try{
-	    
-	     InvBLCardSearch blCardSearch = new InvBLCardSearch();
-	     InvBLCardSearch.initializeInventoryCard(invCard);
-	   }
-	   catch(Exception ex){
-	   	ex.printStackTrace();
-	   }
-		   MessageBox msg=new MessageBox(this.getShell(),SWT.YES|SWT.NO);
-	      try{
-	      
-	      msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
-	      if (msg.open()==SWT.NO)
-	       return;
-	     
-	     // if the inventory card contains transactions 
-	     if(InvDALCardUpdate.hasTransactions(invCard))
-	     {
-	     	MessageBox msg2 = new MessageBox(this.getShell(),SWT.ICON_WARNING);
-	    	msg2.setMessage("Inventory card contains transactions and \ncan not be deleted. Delete them first. ");  //$NON-NLS-1$
-			msg2.open();
-			return;
-	     }
-	    InvBLCardUpdate.deleteInventoryCard(invCard);
-	    msg = new MessageBox(this.getShell(),SWT.NULL);
-		msg.setMessage(Messages.getString("InvUICardUpdateDialog.6"));	 //$NON-NLS-1$
-		msg.open();	 
-	    search();
-	       
-	           
-	    }
-	    catch(Exception ex){
-	    	
-	    ex.printStackTrace();	
-	    msg = new MessageBox(this.getShell(),SWT.ICON_ERROR);	
-	    msg.setMessage(ex.getMessage());
-	    msg.open();
-	   
-	 
-	    
-	    }
-	    }
-	    
-		
+
+	public void save()
+	{
 	}
-	public void newForm(){
-		
+
+	public void delete()
+	{
+		TableItem items[] = tableSearcResults.getSelection();
+		if (items.length > 0)
+		{
+			TurqInventoryCard invCard = (TurqInventoryCard) items[0].getData();
+			try
+			{
+				InvBLCardSearch blCardSearch = new InvBLCardSearch();
+				InvBLCardSearch.initializeInventoryCard(invCard);
+			}
+			catch (Exception ex)
+			{
+				ex.printStackTrace();
+			}
+			MessageBox msg = new MessageBox(this.getShell(), SWT.YES | SWT.NO);
+			try
+			{
+				msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
+				if (msg.open() == SWT.NO)
+					return;
+				// if the inventory card contains transactions
+				if (InvDALCardUpdate.hasTransactions(invCard))
+				{
+					MessageBox msg2 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
+					msg2.setMessage("Inventory card contains transactions and \ncan not be deleted. Delete them first. "); //$NON-NLS-1$
+					msg2.open();
+					return;
+				}
+				InvBLCardUpdate.deleteInventoryCard(invCard);
+				msg = new MessageBox(this.getShell(), SWT.NULL);
+				msg.setMessage(Messages.getString("InvUICardUpdateDialog.6")); //$NON-NLS-1$
+				msg.open();
+				search();
+			}
+			catch (Exception ex)
+			{
+				ex.printStackTrace();
+				msg = new MessageBox(this.getShell(), SWT.ICON_ERROR);
+				msg.setMessage(ex.getMessage());
+				msg.open();
+			}
+		}
 	}
+
+	public void newForm()
+	{
+	}
+
 	public void search()
 	{
-		
 		tableSearcResults.removeAll();
-	
 		try
 		{
-			
-			List result = InvBLCardSearch.searchCards(txtInvName.getText().trim(),txtInvCode.getText().trim(),(TurqInventoryGroup)comboInvSubGroup.getData(comboInvSubGroup.getText()));
-
-	
+			List result = InvBLCardSearch.searchCards(txtInvName.getText().trim(), txtInvCode.getText().trim(),
+					(TurqInventoryGroup) comboInvSubGroup.getData(comboInvSubGroup.getText()));
 			TableItem item;
 			int listSize = result.size();
-			for(int i =0; i<listSize;i++)
+			for (int i = 0; i < listSize; i++)
 			{
-				Object[] objs=(Object[])result.get(i);
-	
-	
+				Object[] objs = (Object[]) result.get(i);
 				String invCode = objs[1].toString();
 				String invName = objs[2].toString();
-				Integer cardId = (Integer)objs[3];
-	
-				TurqViewInventoryTotal invView=(TurqViewInventoryTotal)((Object[])result.get(i))[0];
-				item = new TableItem(tableSearcResults,SWT.NULL);
-	
+				Integer cardId = (Integer) objs[3];
+				TurqViewInventoryTotal invView = (TurqViewInventoryTotal) ((Object[]) result.get(i))[0];
+				item = new TableItem(tableSearcResults, SWT.NULL);
 				item.setData(cardId);
-	
-				BigDecimal totalAmountIn =(invView.getTotalAmountIn()==null) ? new BigDecimal(0): invView.getTotalAmountIn();
-				BigDecimal totalAmountOut = (invView.getTotalAmountOut()==null) ? new BigDecimal(0) : invView.getTotalAmountOut();
-				BigDecimal totalPriceIn = (invView.getTotalPriceIn()==null) ? new BigDecimal(0) : invView.getTotalPriceIn();
-				BigDecimal totalPriceOut = (invView.getTotalPriceOut()==null)?new BigDecimal(0) : invView.getTotalPriceOut();
-	
+				BigDecimal totalAmountIn = (invView.getTotalAmountIn() == null) ? new BigDecimal(0) : invView.getTotalAmountIn();
+				BigDecimal totalAmountOut = (invView.getTotalAmountOut() == null) ? new BigDecimal(0) : invView.getTotalAmountOut();
+				BigDecimal totalPriceIn = (invView.getTotalPriceIn() == null) ? new BigDecimal(0) : invView.getTotalPriceIn();
+				BigDecimal totalPriceOut = (invView.getTotalPriceOut() == null) ? new BigDecimal(0) : invView.getTotalPriceOut();
 				BigDecimal balanceAmountIn = new BigDecimal(0);
 				BigDecimal balanceAmountOut = new BigDecimal(0);
-	
-				if((totalAmountIn.subtract(totalAmountOut).doubleValue()<=0))
+				if ((totalAmountIn.subtract(totalAmountOut).doubleValue() <= 0))
 				{
 					balanceAmountOut = totalAmountOut.subtract(totalAmountIn);
-		
-		
-				}	
+				}
 				else
 				{
 					balanceAmountIn = totalAmountIn.subtract(totalAmountOut);
-		
 				}
-	
-	
 				TurkishCurrencyFormat format = new TurkishCurrencyFormat();
-	
-				item.setText(new String[]{invCode,
-							  invName,
-					          totalAmountIn.toString(),
-							  totalAmountOut.toString(),
-							  balanceAmountIn.toString(),
-							  balanceAmountOut.toString(),
-							  format.format(totalPriceIn),
-							  format.format(totalPriceOut)
-							  });
-	
-	
+				item.setText(new String[]{invCode, invName, totalAmountIn.toString(), totalAmountOut.toString(),
+						balanceAmountIn.toString(), balanceAmountOut.toString(), format.format(totalPriceIn),
+						format.format(totalPriceOut)});
 			}
-	
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			ex.printStackTrace();
 		}
-	
-	
-	
-		
 	}
 
 	/**
-	* This static method creates a new instance of this class and shows
-	* it inside a new Shell.
-	*
-	* It is a convenience method for showing the GUI, but it can be
-	* copied and used as a basis for your own code.	*
-	* It is auto-generated code - the body of this method will be
-	* re-generated after any changes are made to the GUI.
-	* However, if you delete this method it will not be re-created.	*/
-	public static void showGUI(){
-		try {
+	 * This static method creates a new instance of this class and shows it inside a new Shell. It is a convenience method for showing the
+	 * GUI, but it can be copied and used as a basis for your own code. * It is auto-generated code - the body of this method will be
+	 * re-generated after any changes are made to the GUI. However, if you delete this method it will not be re-created.
+	 */
+	public static void showGUI()
+	{
+		try
+		{
 			Display display = Display.getDefault();
 			Shell shell = new Shell(display);
 			InvUICardSearch inst = new InvUICardSearch(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0,0,573,437);
+			Rectangle shellBounds = shell.computeTrim(0, 0, 573, 437);
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.open();
-			while (!shell.isDisposed()) {
+			while (!shell.isDisposed())
+			{
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
-/** Auto-generated event handler method */
-	protected void tableSearcResultsMouseDoubleClick(MouseEvent evt){
-	    
-    TableItem [] selection= tableSearcResults.getSelection();	
-	
-	if(selection.length>0){
-	try{
-	Integer cardId = (Integer)selection[0].getData();
-	TurqInventoryCard card = InvBLCardSearch.initializeInventoryCard(cardId);
-	boolean updated=new InvUICardUpdateDialog(this.getShell(),SWT.NULL,card).open();
-	if (updated)
-		search();
+
+	/** Auto-generated event handler method */
+	protected void tableSearcResultsMouseDoubleClick(MouseEvent evt)
+	{
+		TableItem[] selection = tableSearcResults.getSelection();
+		if (selection.length > 0)
+		{
+			try
+			{
+				Integer cardId = (Integer) selection[0].getData();
+				TurqInventoryCard card = InvBLCardSearch.initializeInventoryCard(cardId);
+				boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, card).open();
+				if (updated)
+					search();
+			}
+			catch (Exception ex)
+			{
+				ex.printStackTrace();
+			}
+		}
 	}
-	catch(Exception ex){
-	    ex.printStackTrace();
-	}
-	}
-	}
-	public void exportToExcel(){
-		
+
+	public void exportToExcel()
+	{
 		EngBLUtils.Export2Excel(tableSearcResults);
-		
 	}
-	public void printTable(){
-	    EngBLUtils.printTable(tableSearcResults,Messages.getString("InvUICardSearch.6")); //$NON-NLS-1$
-	    
+
+	public void printTable()
+	{
+		EngBLUtils.printTable(tableSearcResults, Messages.getString("InvUICardSearch.6")); //$NON-NLS-1$
 	}
 }

@@ -1,4 +1,3 @@
-
 package com.turquaz.inventory.bl;
 
 /************************************************************************/
@@ -16,30 +15,25 @@ package com.turquaz.inventory.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
-
 import java.util.Date;
 import java.util.List;
-
 import com.turquaz.inventory.dal.InvDALInventoryLedger;
 
 /**
- * 
  * @author onsel
  * @version Id: $$
- * 
  */
-public class InvBLInventoryLedger {
-        
-    public static List getInventoryLedger(Date date, String invCode)throws Exception {
-        
-    try
-	{        
-        return InvDALInventoryLedger.getInventoryLedger(date, invCode);        
-    }
-    catch(Exception ex){
-        throw ex;
-    }
-        
-    }
+public class InvBLInventoryLedger
+{
+	public static List getInventoryLedger(Date date, String invCode) throws Exception
+	{
+		try
+		{
+			return InvDALInventoryLedger.getInventoryLedger(date, invCode);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }

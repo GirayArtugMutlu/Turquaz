@@ -6,117 +6,125 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqOrderInGroup implements Serializable {
+public class TurqOrderInGroup implements Serializable
+{
+	/** identifier field */
+	private java.lang.Integer id;
+	/** persistent field */
+	private java.lang.String createdBy;
+	/** persistent field */
+	private java.util.Date creationDate;
+	/** persistent field */
+	private java.lang.String updatedBy;
+	/** persistent field */
+	private java.util.Date lastModified;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqOrder turqOrder;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqOrderGroup turqOrderGroup;
 
-    /** identifier field */
-    private java.lang.Integer id;
+	/** full constructor */
+	public TurqOrderInGroup(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy,
+			java.util.Date lastModified, com.turquaz.engine.dal.TurqOrder turqOrder, com.turquaz.engine.dal.TurqOrderGroup turqOrderGroup)
+	{
+		this.createdBy = createdBy;
+		this.creationDate = creationDate;
+		this.updatedBy = updatedBy;
+		this.lastModified = lastModified;
+		this.turqOrder = turqOrder;
+		this.turqOrderGroup = turqOrderGroup;
+	}
 
-    /** persistent field */
-    private java.lang.String createdBy;
+	/** default constructor */
+	public TurqOrderInGroup()
+	{
+	}
 
-    /** persistent field */
-    private java.util.Date creationDate;
+	public java.lang.Integer getId()
+	{
+		return this.id;
+	}
 
-    /** persistent field */
-    private java.lang.String updatedBy;
+	public void setId(java.lang.Integer id)
+	{
+		this.id = id;
+	}
 
-    /** persistent field */
-    private java.util.Date lastModified;
+	public java.lang.String getCreatedBy()
+	{
+		return this.createdBy;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqOrder turqOrder;
+	public void setCreatedBy(java.lang.String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqOrderGroup turqOrderGroup;
+	public java.util.Date getCreationDate()
+	{
+		return this.creationDate;
+	}
 
-    /** full constructor */
-    public TurqOrderInGroup(java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqOrder turqOrder, com.turquaz.engine.dal.TurqOrderGroup turqOrderGroup) {
-        this.createdBy = createdBy;
-        this.creationDate = creationDate;
-        this.updatedBy = updatedBy;
-        this.lastModified = lastModified;
-        this.turqOrder = turqOrder;
-        this.turqOrderGroup = turqOrderGroup;
-    }
+	public void setCreationDate(java.util.Date creationDate)
+	{
+		this.creationDate = creationDate;
+	}
 
-    /** default constructor */
-    public TurqOrderInGroup() {
-    }
+	public java.lang.String getUpdatedBy()
+	{
+		return this.updatedBy;
+	}
 
-    public java.lang.Integer getId() {
-        return this.id;
-    }
+	public void setUpdatedBy(java.lang.String updatedBy)
+	{
+		this.updatedBy = updatedBy;
+	}
 
-    public void setId(java.lang.Integer id) {
-        this.id = id;
-    }
+	public java.util.Date getLastModified()
+	{
+		return this.lastModified;
+	}
 
-    public java.lang.String getCreatedBy() {
-        return this.createdBy;
-    }
+	public void setLastModified(java.util.Date lastModified)
+	{
+		this.lastModified = lastModified;
+	}
 
-    public void setCreatedBy(java.lang.String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public com.turquaz.engine.dal.TurqOrder getTurqOrder()
+	{
+		return this.turqOrder;
+	}
 
-    public java.util.Date getCreationDate() {
-        return this.creationDate;
-    }
+	public void setTurqOrder(com.turquaz.engine.dal.TurqOrder turqOrder)
+	{
+		this.turqOrder = turqOrder;
+	}
 
-    public void setCreationDate(java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public com.turquaz.engine.dal.TurqOrderGroup getTurqOrderGroup()
+	{
+		return this.turqOrderGroup;
+	}
 
-    public java.lang.String getUpdatedBy() {
-        return this.updatedBy;
-    }
+	public void setTurqOrderGroup(com.turquaz.engine.dal.TurqOrderGroup turqOrderGroup)
+	{
+		this.turqOrderGroup = turqOrderGroup;
+	}
 
-    public void setUpdatedBy(java.lang.String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("id", getId()).toString();
+	}
 
-    public java.util.Date getLastModified() {
-        return this.lastModified;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqOrderInGroup))
+			return false;
+		TurqOrderInGroup castOther = (TurqOrderInGroup) other;
+		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
+	}
 
-    public void setLastModified(java.util.Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
-    public com.turquaz.engine.dal.TurqOrder getTurqOrder() {
-        return this.turqOrder;
-    }
-
-    public void setTurqOrder(com.turquaz.engine.dal.TurqOrder turqOrder) {
-        this.turqOrder = turqOrder;
-    }
-
-    public com.turquaz.engine.dal.TurqOrderGroup getTurqOrderGroup() {
-        return this.turqOrderGroup;
-    }
-
-    public void setTurqOrderGroup(com.turquaz.engine.dal.TurqOrderGroup turqOrderGroup) {
-        this.turqOrderGroup = turqOrderGroup;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getId())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqOrderInGroup) ) return false;
-        TurqOrderInGroup castOther = (TurqOrderInGroup) other;
-        return new EqualsBuilder()
-            .append(this.getId(), castOther.getId())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getId()).toHashCode();
+	}
 }

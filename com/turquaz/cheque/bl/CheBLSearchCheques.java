@@ -1,5 +1,5 @@
-
 package com.turquaz.cheque.bl;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -15,64 +15,60 @@ package com.turquaz.cheque.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel
-* @version  $Id$
-*/
-
+ * @author Onsel
+ * @version $Id$
+ */
 import java.util.Date;
 import java.util.List;
-
-
-
 import com.turquaz.cheque.dal.CheDALSearch;
-
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
-public class CheBLSearchCheques {
-	public static List searchCheque(String portfoliNo, TurqCurrentCard curCard, Integer status, Date startEnterDate, Date endEnterDate, Date startDueDate, Date endDueDate)throws Exception {
-		try{
-			
-		return	CheDALSearch.searchCheque(portfoliNo,curCard,status,startEnterDate,endEnterDate,startDueDate,endDueDate);
-			
+public class CheBLSearchCheques
+{
+	public static List searchCheque(String portfoliNo, TurqCurrentCard curCard, Integer status, Date startEnterDate, Date endEnterDate,
+			Date startDueDate, Date endDueDate) throws Exception
+	{
+		try
+		{
+			return CheDALSearch.searchCheque(portfoliNo, curCard, status, startEnterDate, endEnterDate, startDueDate, endDueDate);
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-	public static List searchOwnCheques(TurqCurrentCard curCard, TurqBanksCard bankCard,
-			 Date startEnterDate, Date endEnterDate,
-			Date startDueDate, Date endDueDate) throws Exception {
-		try {
-			
-		 return CheDALSearch.searchOwnCheques(curCard,bankCard,startEnterDate,endEnterDate,startDueDate,endDueDate);
-		
+
+	public static List searchOwnCheques(TurqCurrentCard curCard, TurqBanksCard bankCard, Date startEnterDate, Date endEnterDate,
+			Date startDueDate, Date endDueDate) throws Exception
+	{
+		try
+		{
+			return CheDALSearch.searchOwnCheques(curCard, bankCard, startEnterDate, endEnterDate, startDueDate, endDueDate);
 		}
-		catch (Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-	public static TurqAccountingAccount getChequeRollAccountingAccount(TurqChequeCheque cheque, int rollType)throws Exception{
-	
-		return CheDALSearch.getChequeRollAccountingAccount(cheque,rollType);
-	
-	
+
+	public static TurqAccountingAccount getChequeRollAccountingAccount(TurqChequeCheque cheque, int rollType) throws Exception
+	{
+		return CheDALSearch.getChequeRollAccountingAccount(cheque, rollType);
 	}
-	
-	public static List getChequeHistory(TurqChequeCheque cheque) throws Exception {
-		try 
+
+	public static List getChequeHistory(TurqChequeCheque cheque) throws Exception
+	{
+		try
 		{
 			return CheDALSearch.getChequeHistory(cheque);
-
-		} 
-		catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-	
-
 }

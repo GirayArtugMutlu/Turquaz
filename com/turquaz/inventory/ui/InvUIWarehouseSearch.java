@@ -15,65 +15,48 @@ package com.turquaz.inventory.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
+ * @author  Onsel Armagan
+ * @version  $Id$
+ */
 import java.util.List;
-
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.SWT;
-
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
-
-
 /**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
+ */
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyAdapter;
 
-public class InvUIWarehouseSearch extends  Composite implements SecureComposite,SearchComposite {
-
+public class InvUIWarehouseSearch extends Composite implements SecureComposite, SearchComposite
+{
 	{
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
 		SWTResourceManager.registerResourceUser(this);
 	}
-
 	private CLabel lblWarehouseCity;
 	private TableColumn tableColumnDescription;
 	private TableColumn tableColumnTelephone;
@@ -86,21 +69,21 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 	private CLabel lblWarehouseName;
 	private Composite composite1;
 
-		public InvUIWarehouseSearch(Composite parent, int style) {
+	public InvUIWarehouseSearch(Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
 
 	/**
-	* Initializes the GUI.
-	* Auto-generated code - any changes you make will disappear.
-	*/
-	public void initGUI(){
-		try {
+	 * Initializes the GUI. Auto-generated code - any changes you make will disappear.
+	 */
+	public void initGUI()
+	{
+		try
+		{
 			preInitGUI();
-
-			this.setSize(new org.eclipse.swt.graphics.Point(618,381));
-
+			this.setSize(new org.eclipse.swt.graphics.Point(618, 381));
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
 			{
@@ -110,20 +93,15 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 				composite1.setSize(new org.eclipse.swt.graphics.Point(608, 92));
 				GridData composite1LData = new GridData();
 				composite1.setLayout(composite1Layout);
-				composite1.setBackground(SWTResourceManager.getColor(
-					255,
-					255,
-					255));
+				composite1.setBackground(SWTResourceManager.getColor(255, 255, 255));
 				composite1LData.horizontalAlignment = GridData.FILL;
 				composite1LData.heightHint = 92;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1.setLayoutData(composite1LData);
 				{
 					lblWarehouseName = new CLabel(composite1, SWT.NONE);
-					lblWarehouseName.setText(Messages
-						.getString("InvUIWarehouseSearch.0"));
-					lblWarehouseName
-						.setSize(new org.eclipse.swt.graphics.Point(105, 20));
+					lblWarehouseName.setText(Messages.getString("InvUIWarehouseSearch.0"));
+					lblWarehouseName.setSize(new org.eclipse.swt.graphics.Point(105, 20));
 					GridData lblWarehouseNameLData = new GridData();
 					lblWarehouseNameLData.widthHint = 105;
 					lblWarehouseNameLData.heightHint = 20;
@@ -131,11 +109,12 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 				}
 				{
 					txtWarehouseName = new Text(composite1, SWT.BORDER);
-					txtWarehouseName
-						.setSize(new org.eclipse.swt.graphics.Point(117, 15));
+					txtWarehouseName.setSize(new org.eclipse.swt.graphics.Point(117, 15));
 					GridData txtWarehouseNameLData = new GridData();
-					txtWarehouseName.addKeyListener(new KeyAdapter() {
-						public void keyReleased(KeyEvent evt) {
+					txtWarehouseName.addKeyListener(new KeyAdapter()
+					{
+						public void keyReleased(KeyEvent evt)
+						{
 							if (evt.keyCode == SWT.CR)
 								search();
 						}
@@ -146,18 +125,18 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 				}
 				{
 					lblWarehouseCity = new CLabel(composite1, SWT.NONE);
-					lblWarehouseCity.setText(Messages
-						.getString("InvUIWarehouseSearch.1"));
+					lblWarehouseCity.setText(Messages.getString("InvUIWarehouseSearch.1"));
 					GridData lblWarehouseCityLData = new GridData();
 					lblWarehouseCity.setLayoutData(lblWarehouseCityLData);
 				}
 				{
 					txtCity = new Text(composite1, SWT.BORDER);
-					txtCity
-						.setSize(new org.eclipse.swt.graphics.Point(114, 16));
+					txtCity.setSize(new org.eclipse.swt.graphics.Point(114, 16));
 					GridData txtCityLData = new GridData();
-					txtCity.addKeyListener(new KeyAdapter() {
-						public void keyReleased(KeyEvent evt) {
+					txtCity.addKeyListener(new KeyAdapter()
+					{
+						public void keyReleased(KeyEvent evt)
+						{
 							if (evt.keyCode == SWT.CR)
 								search();
 						}
@@ -171,11 +150,12 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 				tableInvUIWarehouses = new Table(this, SWT.FULL_SELECTION);
 				tableInvUIWarehouses.setHeaderVisible(true);
 				tableInvUIWarehouses.setLinesVisible(true);
-				tableInvUIWarehouses
-					.setSize(new org.eclipse.swt.graphics.Point(592, 258));
+				tableInvUIWarehouses.setSize(new org.eclipse.swt.graphics.Point(592, 258));
 				GridData tableInvUIWarehousesLData = new GridData();
-				tableInvUIWarehouses.addMouseListener(new MouseAdapter() {
-					public void mouseDoubleClick(MouseEvent evt) {
+				tableInvUIWarehouses.addMouseListener(new MouseAdapter()
+				{
+					public void mouseDoubleClick(MouseEvent evt)
+					{
 						tableInvUIWarehousesMouseDoubleClick(evt);
 					}
 				});
@@ -185,42 +165,28 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 				tableInvUIWarehousesLData.grabExcessVerticalSpace = true;
 				tableInvUIWarehouses.setLayoutData(tableInvUIWarehousesLData);
 				{
-					tableColumnCode = new TableColumn(
-						tableInvUIWarehouses,
-						SWT.NONE);
+					tableColumnCode = new TableColumn(tableInvUIWarehouses, SWT.NONE);
 					tableColumnCode.setText("Depo Kodu");
 					tableColumnCode.setWidth(84);
 				}
 				{
-					tableColumnName = new TableColumn(
-						tableInvUIWarehouses,
-						SWT.NONE);
-					tableColumnName.setText(Messages
-						.getString("InvUIWarehouseSearch.0")); //$NON-NLS-1$
+					tableColumnName = new TableColumn(tableInvUIWarehouses, SWT.NONE);
+					tableColumnName.setText(Messages.getString("InvUIWarehouseSearch.0")); //$NON-NLS-1$
 					tableColumnName.setWidth(161);
 				}
 				{
-					tableColumnWarehouseCity = new TableColumn(
-						tableInvUIWarehouses,
-						SWT.NONE);
-					tableColumnWarehouseCity.setText(Messages
-						.getString("InvUIWarehouseSearch.1"));
+					tableColumnWarehouseCity = new TableColumn(tableInvUIWarehouses, SWT.NONE);
+					tableColumnWarehouseCity.setText(Messages.getString("InvUIWarehouseSearch.1"));
 					tableColumnWarehouseCity.setWidth(100);
 				}
 				{
-					tableColumnTelephone = new TableColumn(
-						tableInvUIWarehouses,
-						SWT.NONE);
-					tableColumnTelephone.setText(Messages
-						.getString("InvUIWarehouseSearch.4"));
+					tableColumnTelephone = new TableColumn(tableInvUIWarehouses, SWT.NONE);
+					tableColumnTelephone.setText(Messages.getString("InvUIWarehouseSearch.4"));
 					tableColumnTelephone.setWidth(100);
 				}
 				{
-					tableColumnDescription = new TableColumn(
-						tableInvUIWarehouses,
-						SWT.NONE);
-					tableColumnDescription.setText(Messages
-						.getString("InvUIWarehouseSearch.5"));
+					tableColumnDescription = new TableColumn(tableInvUIWarehouses, SWT.NONE);
+					tableColumnDescription.setText(Messages.getString("InvUIWarehouseSearch.5"));
 					tableColumnDescription.setWidth(150);
 				}
 			}
@@ -231,89 +197,83 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 			thisLayout.horizontalSpacing = 5;
 			thisLayout.verticalSpacing = 5;
 			this.layout();
-			addDisposeListener(new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
+			addDisposeListener(new DisposeListener()
+			{
+				public void widgetDisposed(DisposeEvent e)
+				{
 				}
 			});
-	
 			postInitGUI();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
-	/** Add your pre-init code in here 	*/
-	public void preInitGUI(){
+
+	/** Add your pre-init code in here */
+	public void preInitGUI()
+	{
 	}
 
-	/** Add your post-init code in here 	*/
-	public void postInitGUI(){
-	 
-		
-	
+	/** Add your post-init code in here */
+	public void postInitGUI()
+	{
 	}
-		
-	public void save(){
-	
-	}
-	public void search(){
-	try{
-	
-	tableInvUIWarehouses.removeAll();
-	TableItem item;
-	TurqInventoryWarehous warehouse;
-	List result = InvBLWarehouseSearch.searchWarehouse(txtWarehouseName.getText().trim(),txtCity.getText().trim());
-	
-	for(int i= 0; i< result.size();i++){
-	item = new TableItem(tableInvUIWarehouses, SWT.NULL);
-	
-	warehouse = (TurqInventoryWarehous)result.get(i);
-	item.setData(warehouse);
-	
-	item.setText(new String[]{warehouse.getWarehousesCode(),
-								warehouse.getWarehousesName(),
-							  warehouse.getWarehousesCity(),
-							  warehouse.getWarehousesTelephone(),
-							  warehouse.getWarehousesDescription()});
-		
-	}
-	
-	
-	
-	
-	}
-	catch(Exception ex){
-	ex.printStackTrace();
-	}
-	
-	
-	}
-	public void delete(){
-	}
-	public void newForm(){
-	}	
 
-	
+	public void save()
+	{
+	}
+
+	public void search()
+	{
+		try
+		{
+			tableInvUIWarehouses.removeAll();
+			TableItem item;
+			TurqInventoryWarehous warehouse;
+			List result = InvBLWarehouseSearch.searchWarehouse(txtWarehouseName.getText().trim(), txtCity.getText().trim());
+			for (int i = 0; i < result.size(); i++)
+			{
+				item = new TableItem(tableInvUIWarehouses, SWT.NULL);
+				warehouse = (TurqInventoryWarehous) result.get(i);
+				item.setData(warehouse);
+				item.setText(new String[]{warehouse.getWarehousesCode(), warehouse.getWarehousesName(), warehouse.getWarehousesCity(),
+						warehouse.getWarehousesTelephone(), warehouse.getWarehousesDescription()});
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void delete()
+	{
+	}
+
+	public void newForm()
+	{
+	}
 
 	/** Auto-generated event handler method */
-	protected void tableInvUIWarehousesMouseDoubleClick(MouseEvent evt){
+	protected void tableInvUIWarehousesMouseDoubleClick(MouseEvent evt)
+	{
 		TableItem items[] = tableInvUIWarehouses.getSelection();
-		if(items.length>0){
-		new InvUIWarehouseUpdate(this.getShell(),SWT.NULL,(TurqInventoryWarehous)items[0].getData()).open();
-		search();
-		
+		if (items.length > 0)
+		{
+			new InvUIWarehouseUpdate(this.getShell(), SWT.NULL, (TurqInventoryWarehous) items[0].getData()).open();
+			search();
 		}
-		
-		
-		
-		
 	}
-	public void exportToExcel(){
-		
+
+	public void exportToExcel()
+	{
 		EngBLUtils.Export2Excel(tableInvUIWarehouses);
-		
 	}
-	public void printTable(){
-	    EngBLUtils.printTable(tableInvUIWarehouses,"Depolar");
-	    
+
+	public void printTable()
+	{
+		EngBLUtils.printTable(tableInvUIWarehouses, "Depolar");
 	}
 }

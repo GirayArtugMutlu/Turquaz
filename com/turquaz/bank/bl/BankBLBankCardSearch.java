@@ -1,5 +1,5 @@
-
 package com.turquaz.bank.bl;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -15,83 +15,67 @@ package com.turquaz.bank.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Ceday
-* @version  $Id$
-*/
-
+ * @author Ceday
+ * @version $Id$
+ */
 import java.util.List;
-
 import com.turquaz.bank.dal.BankDALBankCardSearch;
 import com.turquaz.bank.dal.BankDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 
-
-public class BankBLBankCardSearch {
-	
-	
+public class BankBLBankCardSearch
+{
 	public BankBLBankCardSearch()
 	{
 	}
-	
-	
-	
-	
+
 	public static List searchBankCards(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency)
-	throws Exception
+			throws Exception
 	{
 		try
 		{
-			return BankDALBankCardSearch.searchBankCards(bankName,bankBranchName,bankAccountNo,currency);
+			return BankDALBankCardSearch.searchBankCards(bankName, bankBranchName, bankAccountNo, currency);
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			throw ex;
-		}		
+		}
 	}
-	
-	public static List getBankCards()
-	throws Exception
+
+	public static List getBankCards() throws Exception
 	{
 		try
 		{
 			return BankDALBankCardSearch.getBankCards();
 		}
-		catch(Exception ex)
-		{
-			throw ex;
-		}		
-	}
-	
-	
-	public static TurqBanksCard getBankCardByBankCardId(Integer bankId)
-	throws Exception
-	{
-		try 
-		{
-			return BankDALBankCardSearch.getBankCardByBankCardId(bankId);
-		} 
-		catch (Exception ex) 
+		catch (Exception ex)
 		{
 			throw ex;
 		}
 	}
-	public static void initializeBankCard(TurqBanksCard bankCard)throws Exception
+
+	public static TurqBanksCard getBankCardByBankCardId(Integer bankId) throws Exception
 	{
-	
-		BankDALCommon.initializeBankCard(bankCard);
-		
-	}
-	public static TurqAccountingAccount getAccountingAccount(TurqBanksCard bankCard, Integer type)throws Exception{
-		
-		
-		return BankDALBankCardSearch.getBankAccountingAccount(bankCard, type);
-		
-		
-		
+		try
+		{
+			return BankDALBankCardSearch.getBankCardByBankCardId(bankId);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
 	}
 
+	public static void initializeBankCard(TurqBanksCard bankCard) throws Exception
+	{
+		BankDALCommon.initializeBankCard(bankCard);
+	}
+
+	public static TurqAccountingAccount getAccountingAccount(TurqBanksCard bankCard, Integer type) throws Exception
+	{
+		return BankDALBankCardSearch.getBankAccountingAccount(bankCard, type);
+	}
 }

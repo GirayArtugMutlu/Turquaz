@@ -1,4 +1,3 @@
-
 package com.turquaz.admin.dal;
 
 /************************************************************************/
@@ -16,17 +15,13 @@ package com.turquaz.admin.dal;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Huseyin Ergun
-* @version  $Id$
-*/
-
-
-
-public class AdmDALGroupUpdate {
-	public AdmDALGroupUpdate() {
-
+ * @author Huseyin Ergun
+ * @version $Id$
+ */
+public class AdmDALGroupUpdate
+{
+	public AdmDALGroupUpdate()
+	{
 	}
-
 }

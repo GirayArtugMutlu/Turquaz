@@ -1,5 +1,5 @@
-
 package com.turquaz.consignment.dal;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -14,42 +14,32 @@ package com.turquaz.consignment.dal;
 /* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
-/************************************************************************/
-
-
+/** ********************************************************************* */
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Session;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqConsignment;
 
-
-public class ConDALUpdateConsignment {
-
-	public ConDALUpdateConsignment(){
-		
+public class ConDALUpdateConsignment
+{
+	public ConDALUpdateConsignment()
+	{
 	}
 
-	public static void initiliazeConsignment(TurqConsignment cons)throws Exception{
-		try{
+	public static void initiliazeConsignment(TurqConsignment cons) throws Exception
+	{
+		try
+		{
 			Session session = EngDALSessionFactory.openSession();
-		
-			
 			session.refresh(cons);
-			Hibernate.initialize(cons.getTurqEngineSequence()
-					.getTurqInventoryTransactions());
-			Hibernate.initialize(cons.getTurqBillConsignmentCommon()
-					.getTurqBills());
+			Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
+			Hibernate.initialize(cons.getTurqBillConsignmentCommon().getTurqBills());
 			Hibernate.initialize(cons.getTurqConsignmentsInGroups());
-			
-			
 			session.close();
-			
-			}
-			catch(Exception ex){
-				throw ex;
-			}
-	    
-	    
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
 	}
-	
 }

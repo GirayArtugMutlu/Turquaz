@@ -1,5 +1,5 @@
-
 package com.turquaz.admin.dal;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -15,18 +15,13 @@ package com.turquaz.admin.dal;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
-
-public class AdmDALUserPermissions {
-	public AdmDALUserPermissions(){
-		
+ * @author Onsel Armagan
+ * @version $Id$
+ */
+public class AdmDALUserPermissions
+{
+	public AdmDALUserPermissions()
+	{
 	}
-	
-
-
 }

@@ -1,5 +1,5 @@
-
 package com.turquaz.inventory.bl;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -15,163 +15,161 @@ package com.turquaz.inventory.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
+ * @author Onsel Armagan
+ * @version $Id$
+ */
 import java.util.List;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
-
 import com.turquaz.inventory.dal.InvDALCardSearch;
 
+public class InvBLCardSearch
+{
+	public static List searchCards(String cardName, String cardCode, TurqInventoryGroup group) throws Exception
+	{
+		try
+		{
+			return InvDALCardSearch.searchInventoryCards(cardName, cardCode, group);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
-public class InvBLCardSearch {
-	
-	public static List searchCards(String cardName, String cardCode, TurqInventoryGroup group)throws Exception{
-		try{
-		
-			return InvDALCardSearch.searchInventoryCards(cardName,cardCode,group);
+	public static TurqAccountingAccount getInventoryAccount(Integer invCardId, int invAccTypeId) throws Exception
+	{
+		try
+		{
+			return InvDALCardSearch.getInventoryAccount(invCardId, invAccTypeId);
 		}
-		
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-	
-	public static TurqAccountingAccount getInventoryAccount(Integer invCardId,int invAccTypeId)
-	throws Exception
+
+	public static List getInvAccountingAccs(Integer invCardId) throws Exception
 	{
-	    try{
-	        return InvDALCardSearch.getInventoryAccount(invCardId,invAccTypeId);
-	    }
-	    catch(Exception ex){
-	        throw ex;
-	    }
-		
-	}
-	
-	public static List getInvAccountingAccs(Integer invCardId)	throws Exception
-	{
-	    try{
-	        return InvDALCardSearch.getInvAccountingAccs(invCardId);
-	    }
-	    catch(Exception ex){
-	        throw ex;
-	    }		
-	}
-	
-	public static List getAllInvAccTypes()throws Exception{
-	    try
+		try
 		{
-	        return InvDALCardSearch.getAllInvAccTypes();
-	    }
-	    catch(Exception ex)
-		{
-	        throw ex;
-	    }
-	}
-	
-	public static List searchCardsAdvanced(String cardCodeStart, String cardCodeEnd,
-			String cardNameStart,String cardNameEnd, TurqInventoryGroup group)throws Exception{
-		try{
-		
-			return InvDALCardSearch.searchInventoryCardsAdvanced(cardCodeStart,cardCodeEnd,cardNameStart,cardNameEnd,
-					group);
+			return InvDALCardSearch.getInvAccountingAccs(invCardId);
 		}
-		
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-	
-	public static TurqInventoryCard initializeInventoryCard(Integer cardId)throws Exception{
-	    try{
-	        
-	        return InvDALCardSearch.initializeInventoryCard(cardId);
-	        
-	    }
-	    catch(Exception ex){
-	        throw ex;
-	    }
-	}
-	public static void initializeInventoryCard(TurqInventoryCard invCard)throws Exception{
-	    try{
-	        
-	    	InvDALCardSearch.initializeInventoryCard(invCard);
-	        
-	    }
-	    catch(Exception ex){
-	        throw ex;
-	    }
-	}
-	
-	public static TurqInventoryCard getTurqInvCardById(Integer cardId )throws Exception{
-	    try{      
-	        
-	        return InvDALCardSearch.getTurqInvCardById(cardId);
-			}
-	    catch(Exception ex){
-	        throw ex;
-	    }
-	}
-	
-	
-	public static TurqViewInventoryAmountTotal getView (TurqInventoryCard invCard)throws Exception
+
+	public static List getAllInvAccTypes() throws Exception
 	{
-		try{
-		    
+		try
+		{
+			return InvDALCardSearch.getAllInvAccTypes();
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static List searchCardsAdvanced(String cardCodeStart, String cardCodeEnd, String cardNameStart, String cardNameEnd,
+			TurqInventoryGroup group) throws Exception
+	{
+		try
+		{
+			return InvDALCardSearch.searchInventoryCardsAdvanced(cardCodeStart, cardCodeEnd, cardNameStart, cardNameEnd, group);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static TurqInventoryCard initializeInventoryCard(Integer cardId) throws Exception
+	{
+		try
+		{
+			return InvDALCardSearch.initializeInventoryCard(cardId);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static void initializeInventoryCard(TurqInventoryCard invCard) throws Exception
+	{
+		try
+		{
+			InvDALCardSearch.initializeInventoryCard(invCard);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static TurqInventoryCard getTurqInvCardById(Integer cardId) throws Exception
+	{
+		try
+		{
+			return InvDALCardSearch.getTurqInvCardById(cardId);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static TurqViewInventoryAmountTotal getView(TurqInventoryCard invCard) throws Exception
+	{
+		try
+		{
 			return InvDALCardSearch.getView(invCard);
-			
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			throw ex;
 		}
 	}
-	public static List getInventoryCards()throws Exception {
-	    try{
-	        return InvDALCardSearch.getInventoryCards();
-	        
-	    }
-	    catch(Exception ex){
-	        
-	        throw ex;
-	    }
-	    
-	    
-	}
-	
-	public static List getAllInventoryCards()throws Exception{
-	    try
-		{
-	        return InvDALCardSearch.getAllInventoryCards();
-	    }
-	    catch(Exception ex)
-		{
-	        throw ex;
-	    }
-	}
-	
-	public static TurqInventoryCard getInventoryCard(String invCode)throws Exception {
-	    try{
-	        return InvDALCardSearch.getInventoryCard(invCode);
-	        
-	    }
-	    catch(Exception ex){
-	        
-	        throw ex;
-	    }
-	    
-	    
-	}
-	
-	
-	
-	
 
+	public static List getInventoryCards() throws Exception
+	{
+		try
+		{
+			return InvDALCardSearch.getInventoryCards();
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static List getAllInventoryCards() throws Exception
+	{
+		try
+		{
+			return InvDALCardSearch.getAllInventoryCards();
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static TurqInventoryCard getInventoryCard(String invCode) throws Exception
+	{
+		try
+		{
+			return InvDALCardSearch.getInventoryCard(invCode);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }

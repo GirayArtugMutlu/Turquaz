@@ -1,5 +1,5 @@
-
 package com.turquaz.engine.ui.viewers;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -15,53 +15,53 @@ package com.turquaz.engine.ui.viewers;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel
-* @version  $Id$
-*/
-
+ * @author Onsel
+ * @version $Id$
+ */
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
 
-public class TableRowList {
-    private final int COUNT = 10;
+public class TableRowList
+{
+	private final int COUNT = 10;
 	private Vector tasks = new Vector(COUNT);
 	private Set changeListeners = new HashSet();
-	int counter=0;
+	int counter = 0;
+
 	/**
 	 * Constructor
 	 */
-	public TableRowList() {
+	public TableRowList()
+	{
 		super();
 		this.initData();
 	}
-	
+
 	/*
-	 * Initialize the table data.
-	 * Create COUNT tasks and add them them to the 
-	 * collection of tasks
+	 * Initialize the table data. Create COUNT tasks and add them them to the collection of tasks
 	 */
-	private void initData() {
-	
+	private void initData()
+	{
 	};
 
-	
 	/**
 	 * Return the collection of tasks
 	 */
-	public Vector getTasks() {
+	public Vector getTasks()
+	{
 		return tasks;
 	}
-	
+
 	/**
 	 * Add a new task to the collection of tasks
 	 */
-	public void addTask(ITableRow row) {
-	    counter++;
-	    row.setRowIndex(counter);
+	public void addTask(ITableRow row)
+	{
+		counter++;
+		row.setRowIndex(counter);
 		tasks.add(tasks.size(), row);
 		Iterator iterator = changeListeners.iterator();
 		while (iterator.hasNext())
@@ -71,30 +71,29 @@ public class TableRowList {
 	/**
 	 * @param task
 	 */
-	public void removeTask(ITableRow task) {
+	public void removeTask(ITableRow task)
+	{
 		tasks.remove(task);
 		Iterator iterator = changeListeners.iterator();
 		while (iterator.hasNext())
 			((ITableRowListViewer) iterator.next()).removeRow(task);
 	}
-	
-	public void removeAll(){
-		Vector v = (Vector)tasks.clone();
+
+	public void removeAll()
+	{
+		Vector v = (Vector) tasks.clone();
 		Iterator it = v.iterator();
-		while(it.hasNext()){
-			
-		 removeTask((ITableRow)it.next());
-			
+		while (it.hasNext())
+		{
+			removeTask((ITableRow) it.next());
 		}
-		
-		
-		
 	}
 
 	/**
 	 * @param task
 	 */
-	public void taskChanged(ITableRow task) {
+	public void taskChanged(ITableRow task)
+	{
 		Iterator iterator = changeListeners.iterator();
 		while (iterator.hasNext())
 			((ITableRowListViewer) iterator.next()).updateRow(task);
@@ -103,17 +102,16 @@ public class TableRowList {
 	/**
 	 * @param viewer
 	 */
-	public void removeChangeListener(ITableRowListViewer viewer) {
+	public void removeChangeListener(ITableRowListViewer viewer)
+	{
 		changeListeners.remove(viewer);
 	}
 
 	/**
 	 * @param viewer
 	 */
-	public void addChangeListener(ITableRowListViewer viewer) {
+	public void addChangeListener(ITableRowListViewer viewer)
+	{
 		changeListeners.add(viewer);
 	}
-
-    
-    
 }

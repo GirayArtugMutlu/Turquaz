@@ -15,30 +15,20 @@ package com.turquaz.admin.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
  * @author  Onsel Armagan
  * @version  $Id$
  */
-
 import org.eclipse.swt.layout.GridLayout;
-
 import org.eclipse.swt.widgets.MessageBox;
-
 import org.eclipse.swt.widgets.TableItem;
-
 import org.eclipse.swt.SWT;
-
 /**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
- * which is free for non-commercial use. If Jigloo is being used commercially
- * (ie, by a corporation, company or business for any purpose whatever) then you
- * should purchase a license for each developer using Jigloo. Please visit
- * www.cloudgarden.com for details. Use of Jigloo implies acceptance of these
- * licensing terms. ************************************* A COMMERCIAL LICENSE
- * HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be
- * used legally for any corporate or commercial purpose.
- * *************************************
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
  */
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
@@ -46,7 +36,6 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
-
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUserPermissions;
 import com.turquaz.admin.bl.AdmBLUsers;
@@ -57,58 +46,42 @@ import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.dal.TurqUserPermission;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
-
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
 
-public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
-		implements SecureComposite, SearchComposite {
-
+public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite implements SecureComposite, SearchComposite
+{
 	{
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
 		SWTResourceManager.registerResourceUser(this);
 	}
-
 	private Composite composite1;
-
 	private Table tableUserPermissions;
-
 	private CLabel lblModules;
-
 	private CCombo comboModules;
-
 	private CLabel lblModuleComponents;
-
 	private TableColumn tableColumnPermissionLevel;
-
 	private CCombo comboPermissionLevel;
-
 	private TableColumn tableColumnModuleComponent;
-
 	private TableColumn tableColumnModule;
-
 	private TableColumn tableColumnUser;
-
 	private CLabel lblPermissionLevel;
-
 	private CCombo comboModuleComponents;
-
 	private CCombo comboUsers;
-
 	private CLabel lblUsers;
 
-	
-
-	public AdmUIUserPermissions(org.eclipse.swt.widgets.Composite parent,
-			int style) {
+	public AdmUIUserPermissions(org.eclipse.swt.widgets.Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
 
-	private void initGUI() {
-		try {
+	private void initGUI()
+	{
+		try
+		{
 			this.setLayout(new GridLayout());
 			this.setSize(492, 342);
 			{
@@ -125,8 +98,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 				composite1.setLayout(composite1Layout);
 				{
 					lblUsers = new CLabel(composite1, SWT.NONE);
-					lblUsers.setText(Messages
-							.getString("AdmUIUserPermissions.0")); //$NON-NLS-1$
+					lblUsers.setText(Messages.getString("AdmUIUserPermissions.0")); //$NON-NLS-1$
 					GridData lblUsersLData = new GridData();
 					lblUsersLData.widthHint = 74;
 					lblUsersLData.heightHint = 17;
@@ -135,8 +107,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 				{
 					comboUsers = new CCombo(composite1, SWT.NONE);
 					GridData comboUsersLData = new GridData();
-					comboUsers.setBackground(SWTResourceManager.getColor(255,
-							255, 255));
+					comboUsers.setBackground(SWTResourceManager.getColor(255, 255, 255));
 					comboUsers.setEditable(false);
 					comboUsersLData.widthHint = 118;
 					comboUsersLData.heightHint = 16;
@@ -144,8 +115,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 				}
 				{
 					lblModules = new CLabel(composite1, SWT.NONE);
-					lblModules.setText(Messages
-							.getString("AdmUIUserPermissions.1")); //$NON-NLS-1$
+					lblModules.setText(Messages.getString("AdmUIUserPermissions.1")); //$NON-NLS-1$
 					GridData lblModulesLData = new GridData();
 					lblModulesLData.widthHint = 67;
 					lblModulesLData.heightHint = 17;
@@ -154,11 +124,12 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 				{
 					comboModules = new CCombo(composite1, SWT.NONE);
 					GridData comboModulesLData = new GridData();
-					comboModules.setBackground(SWTResourceManager.getColor(255,
-							255, 255));
+					comboModules.setBackground(SWTResourceManager.getColor(255, 255, 255));
 					comboModules.setEditable(false);
-					comboModules.addSelectionListener(new SelectionAdapter() {
-						public void widgetSelected(SelectionEvent evt) {
+					comboModules.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
 							moduleSelected(evt);
 						}
 					});
@@ -168,8 +139,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 				}
 				{
 					lblModuleComponents = new CLabel(composite1, SWT.NONE);
-					lblModuleComponents.setText(Messages
-							.getString("AdmUIUserPermissions.2")); //$NON-NLS-1$
+					lblModuleComponents.setText(Messages.getString("AdmUIUserPermissions.2")); //$NON-NLS-1$
 					GridData lblModuleComponentsLData = new GridData();
 					lblModuleComponentsLData.widthHint = 128;
 					lblModuleComponentsLData.heightHint = 18;
@@ -178,34 +148,28 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 				{
 					comboModuleComponents = new CCombo(composite1, SWT.NONE);
 					GridData comboModuleComponentsLData = new GridData();
-					comboModuleComponents.setBackground(SWTResourceManager
-							.getColor(255, 255, 255));
+					comboModuleComponents.setBackground(SWTResourceManager.getColor(255, 255, 255));
 					comboModuleComponents.setEditable(false);
 					comboModuleComponentsLData.widthHint = 176;
 					comboModuleComponentsLData.heightHint = 14;
-					comboModuleComponents
-							.setLayoutData(comboModuleComponentsLData);
+					comboModuleComponents.setLayoutData(comboModuleComponentsLData);
 				}
 				{
 					lblPermissionLevel = new CLabel(composite1, SWT.NONE);
-					lblPermissionLevel.setText(Messages
-							.getString("AdmUIUserPermissions.3")); //$NON-NLS-1$
+					lblPermissionLevel.setText(Messages.getString("AdmUIUserPermissions.3")); //$NON-NLS-1$
 				}
 				{
 					comboPermissionLevel = new CCombo(composite1, SWT.NONE);
 					GridData comboPermissionLevelLData = new GridData();
-					comboPermissionLevel.setBackground(SWTResourceManager
-							.getColor(255, 255, 255));
+					comboPermissionLevel.setBackground(SWTResourceManager.getColor(255, 255, 255));
 					comboPermissionLevel.setEditable(false);
 					comboPermissionLevelLData.widthHint = 85;
 					comboPermissionLevelLData.heightHint = 17;
-					comboPermissionLevel
-							.setLayoutData(comboPermissionLevelLData);
+					comboPermissionLevel.setLayoutData(comboPermissionLevelLData);
 				}
 			}
 			{
-				tableUserPermissions = new Table(this, SWT.SINGLE
-						| SWT.FULL_SELECTION);
+				tableUserPermissions = new Table(this, SWT.SINGLE | SWT.FULL_SELECTION);
 				GridData table1LData = new GridData();
 				tableUserPermissions.setLinesVisible(true);
 				tableUserPermissions.setHeaderVisible(true);
@@ -215,82 +179,74 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 				table1LData.horizontalAlignment = GridData.FILL;
 				tableUserPermissions.setLayoutData(table1LData);
 				{
-					tableColumnUser = new TableColumn(tableUserPermissions,
-							SWT.NONE);
-					tableColumnUser.setText(Messages
-							.getString("AdmUIUserPermissions.4")); //$NON-NLS-1$
+					tableColumnUser = new TableColumn(tableUserPermissions, SWT.NONE);
+					tableColumnUser.setText(Messages.getString("AdmUIUserPermissions.4")); //$NON-NLS-1$
 					tableColumnUser.setWidth(100);
 				}
 				{
-					tableColumnModule = new TableColumn(tableUserPermissions,
-							SWT.NONE);
-					tableColumnModule.setText(Messages
-							.getString("AdmUIUserPermissions.5")); //$NON-NLS-1$
+					tableColumnModule = new TableColumn(tableUserPermissions, SWT.NONE);
+					tableColumnModule.setText(Messages.getString("AdmUIUserPermissions.5")); //$NON-NLS-1$
 					tableColumnModule.setWidth(109);
 				}
 				{
-					tableColumnModuleComponent = new TableColumn(
-							tableUserPermissions, SWT.NONE);
-					tableColumnModuleComponent.setText(Messages
-							.getString("AdmUIUserPermissions.6")); //$NON-NLS-1$
+					tableColumnModuleComponent = new TableColumn(tableUserPermissions, SWT.NONE);
+					tableColumnModuleComponent.setText(Messages.getString("AdmUIUserPermissions.6")); //$NON-NLS-1$
 					tableColumnModuleComponent.setWidth(120);
 				}
 				{
-					tableColumnPermissionLevel = new TableColumn(
-							tableUserPermissions, SWT.NONE);
-					tableColumnPermissionLevel.setText(Messages
-							.getString("AdmUIUserPermissions.7")); //$NON-NLS-1$
+					tableColumnPermissionLevel = new TableColumn(tableUserPermissions, SWT.NONE);
+					tableColumnPermissionLevel.setText(Messages.getString("AdmUIUserPermissions.7")); //$NON-NLS-1$
 					tableColumnPermissionLevel.setWidth(120);
 				}
 			}
 			this.layout();
 			postInitGUI();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	public void postInitGUI() {
-		try {
-
+	public void postInitGUI()
+	{
+		try
+		{
 			java.util.List userList = AdmBLUsers.getUsers();
-			for (int i = 0; i < userList.size(); i++) {
+			for (int i = 0; i < userList.size(); i++)
+			{
 				TurqUser user = (TurqUser) userList.get(i);
 				comboUsers.setData(user.getUsername(), user);
 				comboUsers.add(user.getUsername());
-
 			}
-
 			java.util.List moduleList = AdmBLUserPermissions.getModules();
-			for (int i = 0; i < moduleList.size(); i++) {
+			for (int i = 0; i < moduleList.size(); i++)
+			{
 				TurqModule module = (TurqModule) moduleList.get(i);
 				comboModules.setData(module.getModulesName(), module);
 				comboModules.add(module.getModulesName());
-
 			}
 			comboPermissionLevel.add(Messages.getString("AdmUIUserPermissions.17")); //$NON-NLS-1$
 			comboPermissionLevel.setData(Messages.getString("AdmUIUserPermissions.8"), new Integer(0)); //$NON-NLS-1$
-
 			comboPermissionLevel.add(Messages.getString("AdmUIUserPermissions.18")); //$NON-NLS-1$
 			comboPermissionLevel.setData(Messages.getString("AdmUIUserPermissions.9"), new Integer(1)); //$NON-NLS-1$
-
 			comboPermissionLevel.add(Messages.getString("AdmUIUserPermissions.19")); //$NON-NLS-1$
 			comboPermissionLevel.setData(Messages.getString("AdmUIUserPermissions.10"), new Integer(2)); //$NON-NLS-1$
-
 			comboPermissionLevel.add(Messages.getString("AdmUIUserPermissions.25")); //$NON-NLS-1$
 			comboPermissionLevel.setData(Messages.getString("AdmUIUserPermissions.11"), new Integer(3)); //$NON-NLS-1$
-
 			comboPermissionLevel.setText(Messages.getString("AdmUIUserPermissions.26")); //$NON-NLS-1$
-
 			fillTableUserPermissions();
-
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
 	}
 
-	public void moduleSelected(SelectionEvent evt) {
-		try {
+	public void moduleSelected(SelectionEvent evt)
+	{
+		try
+		{
 			if (comboModules.getText().equals("*")) { //$NON-NLS-1$
 				comboModuleComponents.removeAll();
 				TurqModuleComponent modComp = new TurqModuleComponent();
@@ -298,197 +254,188 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 				comboModuleComponents.setText("*"); //$NON-NLS-1$
 				comboModuleComponents.add("*"); //$NON-NLS-1$
 				comboModuleComponents.setData("*", modComp); //$NON-NLS-1$
-
-			} else {
-
-				comboModuleComponents.removeAll();
-				TurqModule module = (TurqModule) comboModules
-						.getData(comboModules.getText());
-				fillComboModuleComponents(module.getId().intValue());
-
 			}
-
-		} catch (Exception ex) {
-
+			else
+			{
+				comboModuleComponents.removeAll();
+				TurqModule module = (TurqModule) comboModules.getData(comboModules.getText());
+				fillComboModuleComponents(module.getId().intValue());
+			}
+		}
+		catch (Exception ex)
+		{
 		}
 	}
 
-	public void fillComboModuleComponents(int module_id) {
-		try {
-			java.util.List compList = AdmBLUserPermissions
-					.getModuleComponents(module_id);
-			for (int i = 0; i < compList.size(); i++) {
-				TurqModuleComponent user = (TurqModuleComponent) compList
-						.get(i);
-				comboModuleComponents.setData(user.getComponentsDescription(),
-						user);
+	public void fillComboModuleComponents(int module_id)
+	{
+		try
+		{
+			java.util.List compList = AdmBLUserPermissions.getModuleComponents(module_id);
+			for (int i = 0; i < compList.size(); i++)
+			{
+				TurqModuleComponent user = (TurqModuleComponent) compList.get(i);
+				comboModuleComponents.setData(user.getComponentsDescription(), user);
 				comboModuleComponents.add(user.getComponentsDescription());
 			}
-
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
 	}
 
-	public void fillTableUserPermissions() {
-		try {
+	public void fillTableUserPermissions()
+	{
+		try
+		{
 			tableUserPermissions.removeAll();
 			java.util.List userPermList = AdmBLUserPermissions.getUserPermissions();
 			TableItem item;
-
 			String username;
 			String module;
 			String moduleComp;
 			String permLevel;
-
-			for (int i = 0; i < userPermList.size(); i++) {
-
-				TurqUserPermission userPerm = (TurqUserPermission) userPermList
-						.get(i);
+			for (int i = 0; i < userPermList.size(); i++)
+			{
+				TurqUserPermission userPerm = (TurqUserPermission) userPermList.get(i);
 				username = userPerm.getTurqUser().getUsername();
 				module = userPerm.getTurqModule().getModulesName();
-
 				if (module.trim().equals("*")) { //$NON-NLS-1$
-
 					moduleComp = "*"; //$NON-NLS-1$
-
-				} else {
-					moduleComp = userPerm.getTurqModuleComponent()
-							.getComponentsDescription();
+				}
+				else
+				{
+					moduleComp = userPerm.getTurqModuleComponent().getComponentsDescription();
 				}
 				// translation of permission level 0,1,2,3 to strings for table
-				
 				// print error if it does not take the permissons
 				permLevel = Messages.getString("AdmUIUserPermissions.12"); //$NON-NLS-1$
-				if (userPerm.getUserPermissionsLevel()==0 )
+				if (userPerm.getUserPermissionsLevel() == 0)
 				{
 					permLevel = Messages.getString("AdmUIUserPermissions.13"); //$NON-NLS-1$
 				}
-				else if (userPerm.getUserPermissionsLevel()==1 )
+				else if (userPerm.getUserPermissionsLevel() == 1)
 				{
 					permLevel = Messages.getString("AdmUIUserPermissions.14"); //$NON-NLS-1$
 				}
-				else if (userPerm.getUserPermissionsLevel()==2 )
+				else if (userPerm.getUserPermissionsLevel() == 2)
 				{
 					permLevel = Messages.getString("AdmUIUserPermissions.15"); //$NON-NLS-1$
 				}
-				else if (userPerm.getUserPermissionsLevel()==3 )
+				else if (userPerm.getUserPermissionsLevel() == 3)
 				{
 					permLevel = Messages.getString("AdmUIUserPermissions.16"); //$NON-NLS-1$
 				}
-
 				item = new TableItem(tableUserPermissions, SWT.NULL);
 				item.setData(userPerm);
-
-				item.setText(new String[] { username, module, moduleComp,
-						permLevel });
+				item.setText(new String[]{username, module, moduleComp, permLevel});
 			}
-
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
 	}
 
-	public boolean verifyFields() {
+	public boolean verifyFields()
+	{
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-
-		if (comboUsers.getSelectionIndex() == -1) {
+		if (comboUsers.getSelectionIndex() == -1)
+		{
 			msg.setMessage(Messages.getString("AdmUIUserPermissions.20")); //$NON-NLS-1$
 			msg.open();
 			return false;
-		} else if (comboModules.getSelectionIndex() == -1) {
+		}
+		else if (comboModules.getSelectionIndex() == -1)
+		{
 			msg.setMessage(Messages.getString("AdmUIUserPermissions.21")); //$NON-NLS-1$
 			msg.open();
 			return false;
-		} else if (comboModuleComponents.getData(comboModuleComponents
-				.getText()) == null) {
+		}
+		else if (comboModuleComponents.getData(comboModuleComponents.getText()) == null)
+		{
 			msg.setMessage(Messages.getString("AdmUIUserPermissions.22")); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
-
-		else if (comboPermissionLevel.getText().trim().length() == 0) {
+		else if (comboPermissionLevel.getText().trim().length() == 0)
+		{
 			msg.setMessage(Messages.getString("AdmUIUserPermissions.23")); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
-
 		return true;
 	}
 
-	public void save() {
-		try {
-			if (verifyFields()) {
-				AdmBLUserPermissions.saveUserPermission(comboUsers.getData(comboUsers
-						.getText()), comboModules.getData(comboModules
-						.getText()), comboModuleComponents
-						.getData(comboModuleComponents.getText()),
-						((Integer) comboPermissionLevel
-								.getData(comboPermissionLevel.getText()))
-								.intValue());
-
+	public void save()
+	{
+		try
+		{
+			if (verifyFields())
+			{
+				AdmBLUserPermissions.saveUserPermission(comboUsers.getData(comboUsers.getText()), comboModules.getData(comboModules
+						.getText()), comboModuleComponents.getData(comboModuleComponents.getText()), ((Integer) comboPermissionLevel
+						.getData(comboPermissionLevel.getText())).intValue());
 				newForm();
 				fillTableUserPermissions();
-
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(Messages.getString("AdmUIUserPermissions.24")); //$NON-NLS-1$
 				msg.open();
 			}
-
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
-
 	}
 
-	public void search() {
+	public void search()
+	{
 		comboUsers.setText(""); //$NON-NLS-1$
 		comboModules.setText(""); //$NON-NLS-1$
 		comboModuleComponents.setText(""); //$NON-NLS-1$
 		comboPermissionLevel.setText(""); //$NON-NLS-1$
-
 	}
 
-	public void newForm() {
-
+	public void newForm()
+	{
 	}
 
-	public void delete() {
-
+	public void delete()
+	{
 		MessageBox msg = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 		MessageBox msg2 = new MessageBox(this.getShell(), SWT.NULL);
 		msg.setMessage(Messages.getString("AdmUIUserPermissions.29")); //$NON-NLS-1$
-
-		try {
-			if (msg.open() == SWT.OK) {
-
+		try
+		{
+			if (msg.open() == SWT.OK)
+			{
 				TableItem items[] = tableUserPermissions.getSelection();
-				if (items.length > 0) {
+				if (items.length > 0)
+				{
 					AdmBLUserPermissions.deleteObject(items[0].getData());
 					fillTableUserPermissions();
-					msg2.setMessage(Messages
-							.getString("AdmUIUserPermissions.30")); //$NON-NLS-1$
+					msg2.setMessage(Messages.getString("AdmUIUserPermissions.30")); //$NON-NLS-1$
 					msg2.open();
-
 				}
 			}
-
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 			msg2.setMessage(ex.getMessage());
 			msg2.open();
 		}
-
 	}
 
-	public void exportToExcel() {
-
+	public void exportToExcel()
+	{
 		EngBLUtils.Export2Excel(tableUserPermissions);
-
-	}
-	public void printTable(){
-	    EngBLUtils.printTable(tableUserPermissions,"Kullan?c? ?zinleri");
-	    
 	}
 
+	public void printTable()
+	{
+		EngBLUtils.printTable(tableUserPermissions, "Kullan?c? ?zinleri");
+	}
 }

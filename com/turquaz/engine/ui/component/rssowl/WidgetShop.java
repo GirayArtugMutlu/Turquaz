@@ -21,9 +21,7 @@
  **	  	RSSOwl - initial API and implementation (bpasero@rssowl.org)				 **
  **																																					 **
  **	 **********************************************************************	 */
-
 package com.turquaz.engine.ui.component.rssowl;
-
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
@@ -40,7 +38,6 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
-
 import java.util.Vector;
 
 /**
@@ -49,53 +46,54 @@ import java.util.Vector;
  * @author <a href="mailto:bpasero@rssowl.org">Benjamin Pasero </a>
  * @version 1.0
  */
-public class WidgetShop {
-
+public class WidgetShop
+{
 	/** This utility class constructor is hidden */
-	private WidgetShop() {
-	// Protect default constructor
+	private WidgetShop()
+	{
+		// Protect default constructor
 	}
 
 	/**
-	 * From the given Vector of words calculate all StyleRanges using the Color
-	 * and Font Style that is given.
+	 * From the given Vector of words calculate all StyleRanges using the Color and Font Style that is given.
 	 * 
-	 * @param textField Textfield where the text is in
-	 * @param words Words to be highlighted
-	 * @param foreground Color of the text-foreground
-	 * @param background Color of the text-background
-	 * @param fontstyle Fontstyle for the highlighted words
-	 * @param caseSensitive FALSE if the case of the word to highlight should be
-	 * ignored
+	 * @param textField
+	 *             Textfield where the text is in
+	 * @param words
+	 *             Words to be highlighted
+	 * @param foreground
+	 *             Color of the text-foreground
+	 * @param background
+	 *             Color of the text-background
+	 * @param fontstyle
+	 *             Fontstyle for the highlighted words
+	 * @param caseSensitive
+	 *             FALSE if the case of the word to highlight should be ignored
 	 * @return Vector A Vector containing all calculated StyleRanges
 	 */
-	public static Vector calculateStyleRanges(StyledText textField, Vector words, Color foreground, Color background, int fontstyle, boolean caseSensitive) {
-
+	public static Vector calculateStyleRanges(StyledText textField, Vector words, Color foreground, Color background, int fontstyle,
+			boolean caseSensitive)
+	{
 		/** Use Vector for the StyleRanges */
 		Vector styleRanges = new Vector();
-
 		/** Text with words to style */
 		String text = textField.getText();
-
 		/** Regard case sensitivity */
 		if (!caseSensitive)
 			text = textField.getText().toLowerCase();
-
 		/** Foreach word to style */
-		for (int a = 0; a < words.size(); a++) {
+		for (int a = 0; a < words.size(); a++)
+		{
 			int start = 0;
 			String curWord = (String) words.get(a);
-
 			/** ToLowerCase if case is regarded */
 			if (!caseSensitive)
 				curWord = curWord.toLowerCase();
-
 			/** Save current position */
 			int pos;
-
 			/** For each occurance of the word in the text */
-			while ((pos = text.indexOf(curWord, start)) > -1) {
-
+			while ((pos = text.indexOf(curWord, start)) > -1)
+			{
 				/** New stylerange for the word */
 				StyleRange styleRange = new StyleRange();
 				styleRange.start = pos;
@@ -104,50 +102,53 @@ public class WidgetShop {
 				styleRange.foreground = foreground;
 				styleRange.background = background;
 				styleRanges.add(styleRange);
-
 				/** Goto next words */
 				start = styleRange.start + styleRange.length;
 			}
 		}
-
 		return styleRanges;
 	}
 
 	/**
-	 * Apply a wildcard popup menu to the text. Wildcards a displayed as "[TEXT]"
-	 * and represent replaceable parameters.
+	 * Apply a wildcard popup menu to the text. Wildcards a displayed as "[TEXT]" and represent replaceable parameters.
 	 * 
-	 * @param text The control to append the menu
-	 * @param wildcards The wildcards to add to the menu
+	 * @param text
+	 *             The control to append the menu
+	 * @param wildcards
+	 *             The wildcards to add to the menu
 	 */
-	public static void createWildCardMenu(Text text, String[] wildcards) {
+	public static void createWildCardMenu(Text text, String[] wildcards)
+	{
 		createWildCardMenu(text, wildcards, wildcards);
 	}
 
 	/**
-	 * Apply a wildcard popup menu to the text. Wildcards a displayed as "[TEXT]"
-	 * and represent replaceable parameters.
+	 * Apply a wildcard popup menu to the text. Wildcards a displayed as "[TEXT]" and represent replaceable parameters.
 	 * 
-	 * @param text The control to append the menu
-	 * @param wildcards The wildcards to add to the menu
-	 * @param labels The labels for the menuitems
+	 * @param text
+	 *             The control to append the menu
+	 * @param wildcards
+	 *             The wildcards to add to the menu
+	 * @param labels
+	 *             The labels for the menuitems
 	 */
-	public static void createWildCardMenu(final Text text, String[] wildcards, String[] labels) {
-
+	public static void createWildCardMenu(final Text text, String[] wildcards, String[] labels)
+	{
 		/** Both arrays need to have the same size */
 		if (wildcards.length != labels.length)
 			return;
-
 		Menu wildCardMenu = new Menu(text);
-
 		/** Foreach wildcards */
-		for (int a = 0; a < wildcards.length; a++) {
+		for (int a = 0; a < wildcards.length; a++)
+		{
 			final String wildcard = wildcards[a];
 			MenuItem menuItem = new MenuItem(wildCardMenu, SWT.POP_UP);
 			menuItem.setText(labels[a]);
 			menuItem.setImage(PaintShop.iconBackward);
-			menuItem.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent e) {
+			menuItem.addSelectionListener(new SelectionAdapter()
+			{
+				public void widgetSelected(SelectionEvent e)
+				{
 					text.insert(wildcard);
 				}
 			});
@@ -158,64 +159,68 @@ public class WidgetShop {
 	/**
 	 * Set the given StyleRanges from the Vector to the StyledText
 	 * 
-	 * @param textField Textfield where the text is in
-	 * @param styleRanges Vector containing StyleRanges
+	 * @param textField
+	 *             Textfield where the text is in
+	 * @param styleRanges
+	 *             Vector containing StyleRanges
 	 */
-	public static void highlightText(StyledText textField, Vector styleRanges) {
+	public static void highlightText(StyledText textField, Vector styleRanges)
+	{
 		StyleRange styleRangesArray[] = new StyleRange[styleRanges.size()];
 		for (int a = 0; a < styleRanges.size(); a++)
 			styleRangesArray[a] = (StyleRange) styleRanges.get(a);
-
 		textField.setStyleRanges(styleRangesArray);
 	}
 
 	/**
-	 * Change fontstyle / background / foreground of the given words adding a
-	 * StyleRange to the given TextField.
+	 * Change fontstyle / background / foreground of the given words adding a StyleRange to the given TextField.
 	 * 
-	 * @param textField Textfield where the text is in
-	 * @param words Words to be highlighted
-	 * @param foreground Color of the text-foreground
-	 * @param background Color of the text-background
-	 * @param fontstyle Fontstyle for the highlighted words
-	 * @param caseSensitive FALSE if the case of the word to highlight should be
-	 * ignored
+	 * @param textField
+	 *             Textfield where the text is in
+	 * @param words
+	 *             Words to be highlighted
+	 * @param foreground
+	 *             Color of the text-foreground
+	 * @param background
+	 *             Color of the text-background
+	 * @param fontstyle
+	 *             Fontstyle for the highlighted words
+	 * @param caseSensitive
+	 *             FALSE if the case of the word to highlight should be ignored
 	 */
-	public static void highlightText(StyledText textField, Vector words, Color foreground, Color background, int fontstyle, boolean caseSensitive) {
+	public static void highlightText(StyledText textField, Vector words, Color foreground, Color background, int fontstyle,
+			boolean caseSensitive)
+	{
 		highlightText(textField, calculateStyleRanges(textField, words, foreground, background, fontstyle, caseSensitive));
 	}
 
 	/**
 	 * Set Mnemonics to the given Array of Buttons.
 	 * 
-	 * @param buttons The Buttons
+	 * @param buttons
+	 *             The Buttons
 	 */
-	public static void initMnemonics(Button buttons[]) {
-
-		
-
+	public static void initMnemonics(Button buttons[])
+	{
 		/** Store chars that have been used as mnemonic */
 		Vector chars = new Vector();
-
 		/** For each Button */
-		for (int a = 0; a < buttons.length; a++) {
+		for (int a = 0; a < buttons.length; a++)
+		{
 			String name = buttons[a].getText();
-
 			/** Replace any & that are existing */
 			name = name.replaceAll("&", "");
-
 			/** For each char in the name */
-			for (int b = 0; b < name.length(); b++) {
-
+			for (int b = 0; b < name.length(); b++)
+			{
 				/** Check if char is available and no whitespace */
-				if (name.substring(b, b + 1) != null && !name.substring(b, b + 1).equals(" ")) {
-
+				if (name.substring(b, b + 1) != null && !name.substring(b, b + 1).equals(" "))
+				{
 					/** Check if char has been used as mnemonic before */
-					if (!chars.contains(name.substring(b, b + 1).toLowerCase())) {
-
+					if (!chars.contains(name.substring(b, b + 1).toLowerCase()))
+					{
 						/** Set mnemonic */
 						buttons[a].setText(name.substring(0, b) + "&" + name.substring(b, name.length()));
-
 						/** Add char as used mnemonic */
 						chars.add(name.substring(b, b + 1).toLowerCase());
 						break;
@@ -226,38 +231,42 @@ public class WidgetShop {
 	}
 
 	/**
-	 * Check the given widget for being NULL or disposed. Return false in that
-	 * case.
+	 * Check the given widget for being NULL or disposed. Return false in that case.
 	 * 
-	 * @param widget The widget to check
+	 * @param widget
+	 *             The widget to check
 	 * @return boolean TRUE if the widget is alive
 	 */
-	public static boolean isset(Widget widget) {
+	public static boolean isset(Widget widget)
+	{
 		return (widget != null && !widget.isDisposed());
 	}
 
 	/**
-	 * Tweak the Text widget with adding listeners to call the selectAll() Method.
-	 * The Method is called on MouseDoubleClick and on CTRL+A / CMD+A pressed.
+	 * Tweak the Text widget with adding listeners to call the selectAll() Method. The Method is called on MouseDoubleClick and on CTRL+A /
+	 * CMD+A pressed.
 	 * 
-	 * @param text The Text widget to tweak
+	 * @param text
+	 *             The Text widget to tweak
 	 */
-	public static void tweakTextWidget(final Text text) {
-
+	public static void tweakTextWidget(final Text text)
+	{
 		/** Check Widget */
 		if (!isset(text))
 			return;
-
 		/** MouseDoubleClick Event */
-		text.addMouseListener(new MouseAdapter() {
-			public void mouseDoubleClick(MouseEvent e) {
+		text.addMouseListener(new MouseAdapter()
+		{
+			public void mouseDoubleClick(MouseEvent e)
+			{
 				text.selectAll();
 			}
 		});
-
 		/** KeyPressed Event */
-		text.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
+		text.addKeyListener(new KeyAdapter()
+		{
+			public void keyPressed(KeyEvent e)
+			{
 				if ((e.stateMask == SWT.CTRL || e.stateMask == SWT.COMMAND) && (e.keyCode == 'a' || e.keyCode == 'A'))
 					text.selectAll();
 			}

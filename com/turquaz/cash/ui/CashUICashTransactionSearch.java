@@ -1,4 +1,5 @@
 package com.turquaz.cash.ui;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -14,22 +15,17 @@ package com.turquaz.cash.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel
-* @version  $Id$
-*/
-
+ * @author  Onsel
+ * @version  $Id$
+ */
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
-
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -39,7 +35,6 @@ import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
-
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -50,23 +45,15 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 
-
 /**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
-public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composite implements SearchComposite{
-   
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
+ */
+public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composite implements SearchComposite
+{
 	private Composite compSearchPanel;
 	private CLabel lblCashCard;
 	private CLabel lblEndDate;
@@ -81,44 +68,45 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	private TableColumn tableColumnDefinition;
 	private CLabel lblDefinition;
 	private Table tableCashTransactions;
-	private Calendar cal=Calendar.getInstance();
+	private Calendar cal = Calendar.getInstance();
 
-	
-
-	public CashUICashTransactionSearch(org.eclipse.swt.widgets.Composite parent, int style) {
+	public CashUICashTransactionSearch(org.eclipse.swt.widgets.Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
 
-	private void initGUI() {
-		try {
+	private void initGUI()
+	{
+		try
+		{
 			this.setLayout(new GridLayout());
 			this.setSize(627, 377);
-            {
-                compSearchPanel = new Composite(this, SWT.NONE);
-                GridLayout compSearchPanelLayout = new GridLayout();
-                GridData compSearchPanelLData = new GridData();
-                compSearchPanelLData.grabExcessHorizontalSpace = true;
-                compSearchPanelLData.horizontalAlignment = GridData.FILL;
-                compSearchPanelLData.heightHint = 74;
-                compSearchPanel.setLayoutData(compSearchPanelLData);
-                compSearchPanelLayout.numColumns = 4;
-                compSearchPanel.setLayout(compSearchPanelLayout);
-                {
-                    lblCashCard = new CLabel(compSearchPanel, SWT.NONE);
-                    lblCashCard.setText(Messages.getString("CashUICashTransactionSearch.0")); //$NON-NLS-1$
-                    GridData lblCashCardLData = new GridData();
-                    lblCashCardLData.widthHint = 59;
-                    lblCashCardLData.heightHint = 18;
-                    lblCashCard.setLayoutData(lblCashCardLData);
-                }
-                {
-                    txtCashCard = new CashCardPicker(compSearchPanel, SWT.NONE);
-                    GridData txtCashCardLData = new GridData();
-                    txtCashCardLData.widthHint = 191;
-                    txtCashCardLData.heightHint = 16;
-                    txtCashCard.setLayoutData(txtCashCardLData);
-                }
+			{
+				compSearchPanel = new Composite(this, SWT.NONE);
+				GridLayout compSearchPanelLayout = new GridLayout();
+				GridData compSearchPanelLData = new GridData();
+				compSearchPanelLData.grabExcessHorizontalSpace = true;
+				compSearchPanelLData.horizontalAlignment = GridData.FILL;
+				compSearchPanelLData.heightHint = 74;
+				compSearchPanel.setLayoutData(compSearchPanelLData);
+				compSearchPanelLayout.numColumns = 4;
+				compSearchPanel.setLayout(compSearchPanelLayout);
+				{
+					lblCashCard = new CLabel(compSearchPanel, SWT.NONE);
+					lblCashCard.setText(Messages.getString("CashUICashTransactionSearch.0")); //$NON-NLS-1$
+					GridData lblCashCardLData = new GridData();
+					lblCashCardLData.widthHint = 59;
+					lblCashCardLData.heightHint = 18;
+					lblCashCard.setLayoutData(lblCashCardLData);
+				}
+				{
+					txtCashCard = new CashCardPicker(compSearchPanel, SWT.NONE);
+					GridData txtCashCardLData = new GridData();
+					txtCashCardLData.widthHint = 191;
+					txtCashCardLData.heightHint = 16;
+					txtCashCard.setLayoutData(txtCashCardLData);
+				}
 				{
 					lblDefinition = new CLabel(compSearchPanel, SWT.NONE);
 					lblDefinition.setText(Messages.getString("CashUICashTransactionSearch.9")); //$NON-NLS-1$
@@ -130,238 +118,190 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 					txtDefinitionLData.heightHint = 17;
 					txtDefinition.setLayoutData(txtDefinitionLData);
 				}
-                {
-                    lblStartDate = new CLabel(compSearchPanel, SWT.NONE);
-                    lblStartDate.setText(Messages.getString("CashUICashTransactionSearch.1")); //$NON-NLS-1$
-                }
-                {
-                    datePickerStart = new DatePicker(compSearchPanel, SWT.NONE);
-                    GridData datePickerStartLData = new GridData();
-                    datePickerStartLData.widthHint = 125;
-                    datePickerStartLData.heightHint = 22;
-                    datePickerStart.setLayoutData(datePickerStartLData);
-                }
-                {
-                    lblEndDate = new CLabel(compSearchPanel, SWT.NONE);
-                    lblEndDate.setText(Messages.getString("CashUICashTransactionSearch.2")); //$NON-NLS-1$
-                }
-                {
-                    datePickerEnd = new DatePicker(compSearchPanel, SWT.NONE);
-                    GridData datePickerEndLData = new GridData();
-                    datePickerEndLData.widthHint = 125;
-                    datePickerEndLData.heightHint = 22;
-                    datePickerEnd.setLayoutData(datePickerEndLData);
-                }
-            }
-            {
-                tableCashTransactions = new Table(this, SWT.FULL_SELECTION);
-                GridData tableCashTransactionsLData = new GridData();
-                tableCashTransactions.addMouseListener(new MouseAdapter() {
-                    public void mouseDoubleClick(MouseEvent evt) {
-                        
-                    tableMouseDoubleClick();
-                    }
-                });
-                tableCashTransactions.setHeaderVisible(true);
-                tableCashTransactions.setLinesVisible(true);
-                tableCashTransactionsLData.grabExcessVerticalSpace = true;
-                tableCashTransactionsLData.grabExcessHorizontalSpace = true;
-                tableCashTransactionsLData.horizontalAlignment = GridData.FILL;
-                tableCashTransactionsLData.verticalAlignment = GridData.FILL;
-                tableCashTransactions.setLayoutData(tableCashTransactionsLData);
-                {
-                    tableColumnDate = new TableColumn(
-                        tableCashTransactions,
-                        SWT.NONE);
-                    tableColumnDate.setText(Messages.getString("CashUICashTransactionSearch.3")); //$NON-NLS-1$
-                    tableColumnDate.setWidth(95);
-                }
 				{
-					tableColumnDefinition = new TableColumn(
-						tableCashTransactions,
-						SWT.NONE);
+					lblStartDate = new CLabel(compSearchPanel, SWT.NONE);
+					lblStartDate.setText(Messages.getString("CashUICashTransactionSearch.1")); //$NON-NLS-1$
+				}
+				{
+					datePickerStart = new DatePicker(compSearchPanel, SWT.NONE);
+					GridData datePickerStartLData = new GridData();
+					datePickerStartLData.widthHint = 125;
+					datePickerStartLData.heightHint = 22;
+					datePickerStart.setLayoutData(datePickerStartLData);
+				}
+				{
+					lblEndDate = new CLabel(compSearchPanel, SWT.NONE);
+					lblEndDate.setText(Messages.getString("CashUICashTransactionSearch.2")); //$NON-NLS-1$
+				}
+				{
+					datePickerEnd = new DatePicker(compSearchPanel, SWT.NONE);
+					GridData datePickerEndLData = new GridData();
+					datePickerEndLData.widthHint = 125;
+					datePickerEndLData.heightHint = 22;
+					datePickerEnd.setLayoutData(datePickerEndLData);
+				}
+			}
+			{
+				tableCashTransactions = new Table(this, SWT.FULL_SELECTION);
+				GridData tableCashTransactionsLData = new GridData();
+				tableCashTransactions.addMouseListener(new MouseAdapter()
+				{
+					public void mouseDoubleClick(MouseEvent evt)
+					{
+						tableMouseDoubleClick();
+					}
+				});
+				tableCashTransactions.setHeaderVisible(true);
+				tableCashTransactions.setLinesVisible(true);
+				tableCashTransactionsLData.grabExcessVerticalSpace = true;
+				tableCashTransactionsLData.grabExcessHorizontalSpace = true;
+				tableCashTransactionsLData.horizontalAlignment = GridData.FILL;
+				tableCashTransactionsLData.verticalAlignment = GridData.FILL;
+				tableCashTransactions.setLayoutData(tableCashTransactionsLData);
+				{
+					tableColumnDate = new TableColumn(tableCashTransactions, SWT.NONE);
+					tableColumnDate.setText(Messages.getString("CashUICashTransactionSearch.3")); //$NON-NLS-1$
+					tableColumnDate.setWidth(95);
+				}
+				{
+					tableColumnDefinition = new TableColumn(tableCashTransactions, SWT.NONE);
 					tableColumnDefinition.setText(Messages.getString("CashUICashTransactionSearch.10")); //$NON-NLS-1$
 					tableColumnDefinition.setWidth(120);
 				}
-                {
-                    tableColumnType = new TableColumn(
-                        tableCashTransactions,
-                        SWT.NONE);
-                    tableColumnType.setText(Messages.getString("CashUICashTransactionSearch.5")); //$NON-NLS-1$
-                    tableColumnType.setWidth(95);
-                }
-                {
-                    tableColumnTotal = new TableColumn(tableCashTransactions, SWT.RIGHT);
-                    tableColumnTotal.setWidth(103);
-                    tableColumnTotal.setText(Messages.getString("CashUICashTransactionSearch.6")); //$NON-NLS-1$
-                }
-            }
-            postInitGUI();
+				{
+					tableColumnType = new TableColumn(tableCashTransactions, SWT.NONE);
+					tableColumnType.setText(Messages.getString("CashUICashTransactionSearch.5")); //$NON-NLS-1$
+					tableColumnType.setWidth(95);
+				}
+				{
+					tableColumnTotal = new TableColumn(tableCashTransactions, SWT.RIGHT);
+					tableColumnTotal.setWidth(103);
+					tableColumnTotal.setText(Messages.getString("CashUICashTransactionSearch.6")); //$NON-NLS-1$
+				}
+			}
+			postInitGUI();
 			this.layout();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
-	
-	public void postInitGUI(){
-	    
+
+	public void postInitGUI()
+	{
 		//datePickerStart.setDate(new Date(cal.getTime().getYear(),0,1));
-		cal.set(cal.get(Calendar.YEAR),0,1);
+		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		datePickerStart.setDate(cal.getTime());
-
-	}
-	
-	
-	 public void delete() {
-	        // TODO Auto-generated method stub
-
-	    }
-	    public void exportToExcel() {
-	       EngBLUtils.Export2Excel(tableCashTransactions);
-
-	    }
-	    public void printTable() {
-	       EngBLUtils.printTable(tableCashTransactions,Messages.getString("CashUICashTransactionSearch.8")); //$NON-NLS-1$
-
-	    }
-	    
-	    public void search() {
-	        try{
-	           
-	          tableCashTransactions.removeAll();
-	            
-	          List list = CashBLCashTransactionSearch.searchCashTransactions(txtCashCard.getTurqCashCard(),datePickerStart.getDate(),datePickerEnd.getDate(),txtDefinition.getText());	
-	          
-	          Object[] row ;
-	          TableItem item;
-	          BigDecimal deptAmount = new BigDecimal(0);
-	          BigDecimal creditAmount = new BigDecimal(0);
-	          BigDecimal amount;
-	          String cardName, transDefinition;
-	          Date transDate = null;
-	          String type;
-	          Integer id;
-	          for(int i = 0;i<list.size();i++){
-	              
-	              row = (Object[])list.get(i);
-	              item = new TableItem(tableCashTransactions,SWT.NULL);
-	              id = (Integer)row[0];
-	              item.setData(id);
-	              
-	              
-	             // cardName = row[1].toString();
-	              type = row[1].toString();
-	              
-	              if(row[2]!=null){
-	                  deptAmount = (BigDecimal)row[2];
-	                  
-	              }
-	              if(row[3]!=null){
-	                  creditAmount =(BigDecimal) row[3];
-	              }
-	              
-	              transDate = (Date)row[4];
-	              
-	              amount = creditAmount;
-	              if(deptAmount.compareTo(new BigDecimal(0))==1){
-	                  amount = deptAmount;
-	                  
-	              }
-	              transDefinition=row[5].toString();
-	              TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-	              item.setText(new String[]{
-	                      		
-	                      DatePicker.formatter.format(transDate),
-	                      transDefinition,
-	                      type,
-	                      cf.format(amount)
-	                      
-	                      
-	              });
-	              
-	              
-	              
-	          }
-	          
-	          
-	          
-	          
-	          
-	          
-	          
-	          
-	          }
-	        catch(Exception ex){
-	            ex.printStackTrace();
-	        }
-	    }
-	public void tableMouseDoubleClick(){
-	
-	    try{
-	    	
-	        TableItem selection[] = tableCashTransactions.getSelection();
-	        
-	        if(selection.length>0){
-	        
-	            TableItem item = selection[0];
-	           
-	            Integer id = (Integer)item.getData();
-	            
-	            TurqCashTransaction cashTrans = CashBLCashTransactionSearch.initializeCashTransaction(id);
-	            
-	            
-	            if(cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue()!=EngBLCommon.MODULE_CASH){	                
-	            	EngUICommon.showMessageBox(this.getShell(),Messages.getString("CashUICashTransactionSearch.7")); //$NON-NLS-1$
-	                return;
-	            }
-	            
-	            boolean updated=false;
-	            if(cashTrans.getTurqCashTransactionType().getId().intValue()==EngBLCommon.CASH_CURRENT_COLLECT)
-	            {
-	               updated= new CashUICashCollectTransactionUpdate(this.getShell(),SWT.NULL,cashTrans).open();
-	                
-	            }
-	            else if(cashTrans.getTurqCashTransactionType().getId().intValue()==EngBLCommon.CASH_CURRENT_PAYMENT){
-	                
-	                updated=new CashUICashPaymentTransactionUpdate(this.getShell(),SWT.NULL,cashTrans).open();
-	                
-	                
-	            }
-	            else if(cashTrans.getTurqCashTransactionType().getId().intValue()==EngBLCommon.CASH_OTHER_COLLECT){
-	                
-	                updated=new CashUICashOtherCollectTransactionUpdate(this.getShell(),SWT.NULL,cashTrans).open();
-	                
-	                
-	            }
-	            else if(cashTrans.getTurqCashTransactionType().getId().intValue()==EngBLCommon.CASH_OTHER_PAYMENT){
-	                
-	                updated=new CashUICashOtherPaymentTransactionUpdate(this.getShell(),SWT.NULL,cashTrans).open();
-	                
-	                
-	            }
-	            else if(cashTrans.getTurqCashTransactionType().getId().intValue()==EngBLCommon.CASH_TRANSFER_BETWEEN_CARDS){
-	                
-	                updated=new CashUICashTransferBetweenCardsUpdate(this.getShell(),SWT.NULL,cashTrans).open();
-	                
-	                
-	            }
-	            if (updated)
-	            	search();
-	            
-	            
-	            
-	        }    
-	        
-	        
-	        
-	        
-	        
-	    }
-	    catch(Exception ex){
-	        
-	        ex.printStackTrace();
-	    
-	    }
 	}
 
+	public void delete()
+	{
+		// TODO Auto-generated method stub
+	}
+
+	public void exportToExcel()
+	{
+		EngBLUtils.Export2Excel(tableCashTransactions);
+	}
+
+	public void printTable()
+	{
+		EngBLUtils.printTable(tableCashTransactions, Messages.getString("CashUICashTransactionSearch.8")); //$NON-NLS-1$
+	}
+
+	public void search()
+	{
+		try
+		{
+			tableCashTransactions.removeAll();
+			List list = CashBLCashTransactionSearch.searchCashTransactions(txtCashCard.getTurqCashCard(), datePickerStart.getDate(),
+					datePickerEnd.getDate(), txtDefinition.getText());
+			Object[] row;
+			TableItem item;
+			BigDecimal deptAmount = new BigDecimal(0);
+			BigDecimal creditAmount = new BigDecimal(0);
+			BigDecimal amount;
+			String cardName, transDefinition;
+			Date transDate = null;
+			String type;
+			Integer id;
+			for (int i = 0; i < list.size(); i++)
+			{
+				row = (Object[]) list.get(i);
+				item = new TableItem(tableCashTransactions, SWT.NULL);
+				id = (Integer) row[0];
+				item.setData(id);
+				// cardName = row[1].toString();
+				type = row[1].toString();
+				if (row[2] != null)
+				{
+					deptAmount = (BigDecimal) row[2];
+				}
+				if (row[3] != null)
+				{
+					creditAmount = (BigDecimal) row[3];
+				}
+				transDate = (Date) row[4];
+				amount = creditAmount;
+				if (deptAmount.compareTo(new BigDecimal(0)) == 1)
+				{
+					amount = deptAmount;
+				}
+				transDefinition = row[5].toString();
+				TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+				item.setText(new String[]{DatePicker.formatter.format(transDate), transDefinition, type, cf.format(amount)});
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void tableMouseDoubleClick()
+	{
+		try
+		{
+			TableItem selection[] = tableCashTransactions.getSelection();
+			if (selection.length > 0)
+			{
+				TableItem item = selection[0];
+				Integer id = (Integer) item.getData();
+				TurqCashTransaction cashTrans = CashBLCashTransactionSearch.initializeCashTransaction(id);
+				if (cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue() != EngBLCommon.MODULE_CASH)
+				{
+					EngUICommon.showMessageBox(this.getShell(), Messages.getString("CashUICashTransactionSearch.7")); //$NON-NLS-1$
+					return;
+				}
+				boolean updated = false;
+				if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_CURRENT_COLLECT)
+				{
+					updated = new CashUICashCollectTransactionUpdate(this.getShell(), SWT.NULL, cashTrans).open();
+				}
+				else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_CURRENT_PAYMENT)
+				{
+					updated = new CashUICashPaymentTransactionUpdate(this.getShell(), SWT.NULL, cashTrans).open();
+				}
+				else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_OTHER_COLLECT)
+				{
+					updated = new CashUICashOtherCollectTransactionUpdate(this.getShell(), SWT.NULL, cashTrans).open();
+				}
+				else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_OTHER_PAYMENT)
+				{
+					updated = new CashUICashOtherPaymentTransactionUpdate(this.getShell(), SWT.NULL, cashTrans).open();
+				}
+				else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_TRANSFER_BETWEEN_CARDS)
+				{
+					updated = new CashUICashTransferBetweenCardsUpdate(this.getShell(), SWT.NULL, cashTrans).open();
+				}
+				if (updated)
+					search();
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 }

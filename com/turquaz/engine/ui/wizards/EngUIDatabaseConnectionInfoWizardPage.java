@@ -15,122 +15,122 @@ package com.turquaz.engine.ui.wizards;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
  * @author Onsel Armagan
- * @version $Id: EngUIDatabaseConnectionInfoWizardPage.java,v 1.4 2004/11/04
- *          16:55:35 onsel Exp $
+ * @version $Id$
  */
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-
 import com.turquaz.engine.Messages;
 
-public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
-
+public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage
+{
 	/**
 	 * @return Returns the selection.
 	 */
-	public ISelection getSelection() {
+	public ISelection getSelection()
+	{
 		return selection;
 	}
 
 	/**
 	 * @param selection
-	 *            The selection to set.
+	 *             The selection to set.
 	 */
-	public void setSelection(ISelection selection) {
+	public void setSelection(ISelection selection)
+	{
 		this.selection = selection;
 	}
 
 	/**
 	 * @return Returns the txtPassword.
 	 */
-	public Text getTxtPassword() {
+	public Text getTxtPassword()
+	{
 		return txtPassword;
 	}
 
 	/**
 	 * @param txtPassword
-	 *            The txtPassword to set.
+	 *             The txtPassword to set.
 	 */
-	public void setTxtPassword(Text txtPassword) {
+	public void setTxtPassword(Text txtPassword)
+	{
 		this.txtPassword = txtPassword;
 	}
 
 	/**
 	 * @return Returns the txtServerAddress.
 	 */
-	public Text getTxtServerAddress() {
+	public Text getTxtServerAddress()
+	{
 		return txtServerAddress;
 	}
 
 	/**
 	 * @param txtServerAddress
-	 *            The txtServerAddress to set.
+	 *             The txtServerAddress to set.
 	 */
-	public void setTxtServerAddress(Text txtServerAddress) {
+	public void setTxtServerAddress(Text txtServerAddress)
+	{
 		this.txtServerAddress = txtServerAddress;
 	}
 
 	/**
 	 * @return Returns the txtServerPort.
 	 */
-	public Text getTxtServerPort() {
+	public Text getTxtServerPort()
+	{
 		return txtServerPort;
 	}
 
 	/**
 	 * @param txtServerPort
-	 *            The txtServerPort to set.
+	 *             The txtServerPort to set.
 	 */
-	public void setTxtServerPort(Text txtServerPort) {
+	public void setTxtServerPort(Text txtServerPort)
+	{
 		this.txtServerPort = txtServerPort;
 	}
 
 	/**
 	 * @return Returns the txtUsername.
 	 */
-	public Text getTxtUsername() {
+	public Text getTxtUsername()
+	{
 		return txtUsername;
 	}
 
 	/**
 	 * @param txtUsername
-	 *            The txtUsername to set.
+	 *             The txtUsername to set.
 	 */
-	public void setTxtUsername(Text txtUsername) {
+	public void setTxtUsername(Text txtUsername)
+	{
 		this.txtUsername = txtUsername;
 	}
-
 	private ISelection selection;
-
 	private Text txtServerAddress;
-
 	private Text txtServerPort;
-
 	private Text txtUsername;
-
 	private Text txtPassword;
 
-	public EngUIDatabaseConnectionInfoWizardPage(ISelection selection) {
+	public EngUIDatabaseConnectionInfoWizardPage(ISelection selection)
+	{
 		super("Database Connector"); //$NON-NLS-1$
 		setTitle(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.1")); //$NON-NLS-1$
 		setDescription(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.2")); //$NON-NLS-1$
 		this.selection = selection;
 		setPageComplete(false);
-
 	}
 
 	/*
@@ -138,119 +138,107 @@ public class EngUIDatabaseConnectionInfoWizardPage extends WizardPage {
 	 * 
 	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
 	 */
-	public void createControl(Composite arg0) {
+	public void createControl(Composite arg0)
+	{
 		Composite container = new Composite(arg0, SWT.NULL);
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
 		layout.numColumns = 2;
 		layout.verticalSpacing = 9;
-
 		Label label = new Label(container, SWT.NULL);
-		label.setText(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.4"));  //$NON-NLS-1$
-		
+		label.setText(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.4")); //$NON-NLS-1$
 		txtServerAddress = new Text(container, SWT.BORDER | SWT.SINGLE);
-		
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		txtServerAddress.setLayoutData(gd);
-		txtServerAddress.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-			    txtUsername.setText("");
-			    dialogChanged();
-				
+		txtServerAddress.addModifyListener(new ModifyListener()
+		{
+			public void modifyText(ModifyEvent e)
+			{
+				txtUsername.setText("");
+				dialogChanged();
 			}
 		});
-
 		label = new Label(container, SWT.NULL);
 		label.setText("&Port:"); //$NON-NLS-1$
-
 		txtServerPort = new Text(container, SWT.BORDER | SWT.SINGLE);
-		
-		EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard)getWizard()).getPage1();
-		
+		EngUIDatabaseTypeWizardPage page1 = ((EngUIDatabaseConnectionWizard) getWizard()).getPage1();
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		txtServerPort.setLayoutData(gd);
-		txtServerPort.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
+		txtServerPort.addModifyListener(new ModifyListener()
+		{
+			public void modifyText(ModifyEvent e)
+			{
 				dialogChanged();
 			}
 		});
-
 		label = new Label(container, SWT.NULL);
 		label.setText(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.0")); //$NON-NLS-1$
-
 		txtUsername = new Text(container, SWT.BORDER | SWT.SINGLE);
-		
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		txtUsername.setLayoutData(gd);
-		txtUsername.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
+		txtUsername.addModifyListener(new ModifyListener()
+		{
+			public void modifyText(ModifyEvent e)
+			{
 				dialogChanged();
-
 			}
 		});
-
 		label = new Label(container, SWT.NULL);
 		label.setText(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.3")); //$NON-NLS-1$
-
-		txtPassword = new Text(container, SWT.BORDER | SWT.SINGLE
-				| SWT.PASSWORD);
+		txtPassword = new Text(container, SWT.BORDER | SWT.SINGLE | SWT.PASSWORD);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		txtPassword.setLayoutData(gd);
-		txtPassword.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
+		txtPassword.addModifyListener(new ModifyListener()
+		{
+			public void modifyText(ModifyEvent e)
+			{
 				dialogChanged();
 			}
 		});
-		
-		
 		this.setControl(container);
-
 	}
 
-	private void updateStatus(String message) {
+	private void updateStatus(String message)
+	{
 		setErrorMessage(message);
 		setPageComplete(message == null);
-
 	}
-	public void updateFields(String type){
-		if(type.startsWith("Postgresql")) //$NON-NLS-1$
+
+	public void updateFields(String type)
+	{
+		if (type.startsWith("Postgresql")) //$NON-NLS-1$
 		{
 			txtServerAddress.setText("localhost"); //$NON-NLS-1$
 			txtServerPort.setText("5432"); //$NON-NLS-1$
 			txtUsername.setText("postgres"); //$NON-NLS-1$
-			
 		}
-		else if(type.startsWith("Turquaz")) //$NON-NLS-1$
+		else if (type.startsWith("Turquaz")) //$NON-NLS-1$
 		{
 			txtServerAddress.setText("localhost"); //$NON-NLS-1$
 			txtServerPort.setText("8877"); //$NON-NLS-1$
 			txtUsername.setText("sa"); //$NON-NLS-1$
-			
 		}
 	}
 
-	private void dialogChanged() {
-		if (txtServerAddress.getText().length() == 0) {
+	private void dialogChanged()
+	{
+		if (txtServerAddress.getText().length() == 0)
+		{
 			updateStatus(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.10")); //$NON-NLS-1$
-
 			return;
-		} else if (txtUsername.getText().length() == 0) {
+		}
+		else if (txtUsername.getText().length() == 0)
+		{
 			updateStatus(Messages.getString("EngUIDatabaseConnectionInfoWizardPage.11")); //$NON-NLS-1$
-
 			return;
 		}
 		updateStatus(null);
-
 	}
 
-	public IWizardPage getNextPage() {
-
-		EngUIDatabaseSelectionWizardPage page = ((EngUIDatabaseConnectionWizard) getWizard())
-				.getPage3();
+	public IWizardPage getNextPage()
+	{
+		EngUIDatabaseSelectionWizardPage page = ((EngUIDatabaseConnectionWizard) getWizard()).getPage3();
 		page.ShowPage();
-
 		return page;
-
 	}
-
 }

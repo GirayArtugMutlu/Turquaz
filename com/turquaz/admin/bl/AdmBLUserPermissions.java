@@ -1,4 +1,3 @@
-
 package com.turquaz.admin.bl;
 
 /************************************************************************/
@@ -16,12 +15,10 @@ package com.turquaz.admin.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
+ * @author Onsel Armagan
+ * @version $Id$
+ */
 import java.util.Calendar;
 import java.util.List;
 import com.turquaz.engine.dal.EngDALCommon;
@@ -31,78 +28,79 @@ import com.turquaz.engine.dal.TurqModuleComponent;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.dal.TurqUserPermission;
 
-public class AdmBLUserPermissions {
-	
-
-	
-	
-	public AdmBLUserPermissions(){
-		
+public class AdmBLUserPermissions
+{
+	public AdmBLUserPermissions()
+	{
 	}
-	
-	public static void saveUserPermission(Object user, Object module, Object moduleComp, int level)throws Exception{
-		try{
+
+	public static void saveUserPermission(Object user, Object module, Object moduleComp, int level) throws Exception
+	{
+		try
+		{
 			Calendar cal = Calendar.getInstance();
 			TurqUserPermission userPerm = new TurqUserPermission();
-			userPerm.setTurqUser((TurqUser)user);
-			userPerm.setTurqModule((TurqModule)module);
-			userPerm.setTurqModuleComponent((TurqModuleComponent)moduleComp);
+			userPerm.setTurqUser((TurqUser) user);
+			userPerm.setTurqModule((TurqModule) module);
+			userPerm.setTurqModuleComponent((TurqModuleComponent) moduleComp);
 			userPerm.setUserPermissionsLevel(level);
-			
 			userPerm.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			userPerm.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			userPerm.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
 			userPerm.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-			
 			EngDALCommon.saveObject(userPerm);
-			
-			
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-	public static void deleteObject(Object obj)throws Exception {
-		try{
-			
-			EngDALCommon.deleteObject(obj);			
-			
+
+	public static void deleteObject(Object obj) throws Exception
+	{
+		try
+		{
+			EngDALCommon.deleteObject(obj);
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-	public static List getUserPermissions()throws Exception{
-	try{
-		
-		return EngDALUserPerms.getUserPermissions();
-		
+
+	public static List getUserPermissions() throws Exception
+	{
+		try
+		{
+			return EngDALUserPerms.getUserPermissions();
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
 	}
-	catch(Exception ex){
-		throw ex;
-	}
-	}
-	public static List getModuleComponents(int moduleId)throws Exception{
-		try{
-			
+
+	public static List getModuleComponents(int moduleId) throws Exception
+	{
+		try
+		{
 			return EngDALUserPerms.getModuleComponents(moduleId);
-			
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-	public static List getModules()throws Exception {
-		try{
-			
+
+	public static List getModules() throws Exception
+	{
+		try
+		{
 			return EngDALUserPerms.getModules();
-			
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-	
-
-
 }

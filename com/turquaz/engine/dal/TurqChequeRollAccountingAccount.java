@@ -6,76 +6,81 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /** @author Hibernate CodeGenerator */
-public class TurqChequeRollAccountingAccount implements Serializable {
+public class TurqChequeRollAccountingAccount implements Serializable
+{
+	/** identifier field */
+	private java.lang.Integer id;
+	/** nullable persistent field */
+	private com.turquaz.engine.dal.TurqChequeRoll turqChequeRoll;
+	/** persistent field */
+	private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
 
-    /** identifier field */
-    private java.lang.Integer id;
+	/** full constructor */
+	public TurqChequeRollAccountingAccount(java.lang.Integer id, com.turquaz.engine.dal.TurqChequeRoll turqChequeRoll,
+			com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount)
+	{
+		this.id = id;
+		this.turqChequeRoll = turqChequeRoll;
+		this.turqAccountingAccount = turqAccountingAccount;
+	}
 
-    /** nullable persistent field */
-    private com.turquaz.engine.dal.TurqChequeRoll turqChequeRoll;
+	/** default constructor */
+	public TurqChequeRollAccountingAccount()
+	{
+	}
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
+	/** minimal constructor */
+	public TurqChequeRollAccountingAccount(java.lang.Integer id, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount)
+	{
+		this.id = id;
+		this.turqAccountingAccount = turqAccountingAccount;
+	}
 
-    /** full constructor */
-    public TurqChequeRollAccountingAccount(java.lang.Integer id, com.turquaz.engine.dal.TurqChequeRoll turqChequeRoll, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
-        this.id = id;
-        this.turqChequeRoll = turqChequeRoll;
-        this.turqAccountingAccount = turqAccountingAccount;
-    }
+	public java.lang.Integer getId()
+	{
+		return this.id;
+	}
 
-    /** default constructor */
-    public TurqChequeRollAccountingAccount() {
-    }
+	public void setId(java.lang.Integer id)
+	{
+		this.id = id;
+	}
 
-    /** minimal constructor */
-    public TurqChequeRollAccountingAccount(java.lang.Integer id, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
-        this.id = id;
-        this.turqAccountingAccount = turqAccountingAccount;
-    }
+	public com.turquaz.engine.dal.TurqChequeRoll getTurqChequeRoll()
+	{
+		return this.turqChequeRoll;
+	}
 
-    public java.lang.Integer getId() {
-        return this.id;
-    }
+	public void setTurqChequeRoll(com.turquaz.engine.dal.TurqChequeRoll turqChequeRoll)
+	{
+		this.turqChequeRoll = turqChequeRoll;
+	}
 
-    public void setId(java.lang.Integer id) {
-        this.id = id;
-    }
+	public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccount()
+	{
+		return this.turqAccountingAccount;
+	}
 
-    public com.turquaz.engine.dal.TurqChequeRoll getTurqChequeRoll() {
-        return this.turqChequeRoll;
-    }
+	public void setTurqAccountingAccount(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount)
+	{
+		this.turqAccountingAccount = turqAccountingAccount;
+	}
 
-    public void setTurqChequeRoll(com.turquaz.engine.dal.TurqChequeRoll turqChequeRoll) {
-        this.turqChequeRoll = turqChequeRoll;
-    }
+	public String toString()
+	{
+		return new ToStringBuilder(this).append("id", getId()).toString();
+	}
 
-    public com.turquaz.engine.dal.TurqAccountingAccount getTurqAccountingAccount() {
-        return this.turqAccountingAccount;
-    }
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof TurqChequeRollAccountingAccount))
+			return false;
+		TurqChequeRollAccountingAccount castOther = (TurqChequeRollAccountingAccount) other;
+		return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
+	}
 
-    public void setTurqAccountingAccount(com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
-        this.turqAccountingAccount = turqAccountingAccount;
-    }
-
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getId())
-            .toString();
-    }
-
-    public boolean equals(Object other) {
-        if ( !(other instanceof TurqChequeRollAccountingAccount) ) return false;
-        TurqChequeRollAccountingAccount castOther = (TurqChequeRollAccountingAccount) other;
-        return new EqualsBuilder()
-            .append(this.getId(), castOther.getId())
-            .isEquals();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
-    }
-
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(getId()).toHashCode();
+	}
 }

@@ -1,5 +1,5 @@
-
 package com.turquaz.consignment.bl;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -14,80 +14,77 @@ package com.turquaz.consignment.bl;
 /* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
-/************************************************************************/
+/** ********************************************************************* */
 import java.util.Calendar;
 import java.util.List;
-
 import com.turquaz.consignment.dal.ConDALAddGroups;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 
-
-public class ConBLAddGroups {
-
-	public ConBLAddGroups(){
-		
+public class ConBLAddGroups
+{
+	public ConBLAddGroups()
+	{
 	}
-	
-	public static List getConsignmentGroups()throws Exception {
-		try{
+
+	public static List getConsignmentGroups() throws Exception
+	{
+		try
+		{
 			return ConDALAddGroups.getConsignmentGroups();
-			
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-	
-	
-	public static void saveGroup(String name, String description)throws Exception{
-		try{
+
+	public static void saveGroup(String name, String description) throws Exception
+	{
+		try
+		{
 			Calendar cal = Calendar.getInstance();
-		TurqConsignmentGroup group = new TurqConsignmentGroup();
-		group.setGroupsDescription(description);
-		group.setGroupsName(name);
-		
-		group.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-		group.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-		group.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-		group.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
-		
-		EngDALCommon.saveObject(group);	
-			
+			TurqConsignmentGroup group = new TurqConsignmentGroup();
+			group.setGroupsDescription(description);
+			group.setGroupsName(name);
+			group.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			group.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			group.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			group.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			EngDALCommon.saveObject(group);
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-	
-	public static void updateGroup(String name, String description,TurqConsignmentGroup group)throws Exception{
-		try{
+
+	public static void updateGroup(String name, String description, TurqConsignmentGroup group) throws Exception
+	{
+		try
+		{
 			Calendar cal = Calendar.getInstance();
-		group.setGroupsDescription(description);
-		group.setGroupsName(name);
-	
-		group.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-		group.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-	
-		EngDALCommon.updateObject(group);	
-			
+			group.setGroupsDescription(description);
+			group.setGroupsName(name);
+			group.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			group.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			EngDALCommon.updateObject(group);
 		}
-		catch(Exception ex){
-			throw ex;
-		}
-	}
-	
-	public static void deleteGroup(TurqConsignmentGroup group)throws Exception{
-		try{
-
-	
-			EngDALCommon.deleteObject(group);	
-
-		
-		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
 
+	public static void deleteGroup(TurqConsignmentGroup group) throws Exception
+	{
+		try
+		{
+			EngDALCommon.deleteObject(group);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }

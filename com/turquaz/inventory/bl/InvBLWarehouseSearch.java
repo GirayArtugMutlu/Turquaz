@@ -1,8 +1,6 @@
-
 package com.turquaz.inventory.bl;
 
 import java.util.List;
-
 import com.turquaz.inventory.dal.InvDALWarehouseSearch;
 
 /************************************************************************/
@@ -20,30 +18,32 @@ import com.turquaz.inventory.dal.InvDALWarehouseSearch;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
-public class InvBLWarehouseSearch {
-	
-	public static List searchWarehouse(String name, String city)throws Exception{
+ * @author Onsel Armagan
+ * @version $Id$
+ */
+public class InvBLWarehouseSearch
+{
+	public static List searchWarehouse(String name, String city) throws Exception
+	{
 		try
-		{			
-			return InvDALWarehouseSearch.searchWarehouse(name, city);		
+		{
+			return InvDALWarehouseSearch.searchWarehouse(name, city);
 		}
-		catch(Exception ex)
-		{			
-			throw ex;			
-		}		
+		catch (Exception ex)
+		{
+			throw ex;
+		}
 	}
 
-	public static List getInventoryWarehouses() throws Exception {
-		try {
-	
+	public static List getInventoryWarehouses() throws Exception
+	{
+		try
+		{
 			return InvDALWarehouseSearch.getInventoryWarehouses();
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}

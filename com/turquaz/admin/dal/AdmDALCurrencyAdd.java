@@ -6,14 +6,9 @@
  */
 package com.turquaz.admin.dal;
 
-
 /**
- * @author Cem
- *
- * 
- * Window - Preferences - Java - Code Style - Code Templates
+ * @author Cem Window - Preferences - Java - Code Style - Code Templates
  */
-public class AdmDALCurrencyAdd {
-
-
+public class AdmDALCurrencyAdd
+{
 }

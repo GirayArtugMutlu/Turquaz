@@ -1,5 +1,5 @@
-
 package com.turquaz.consignment.bl;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -14,65 +14,55 @@ package com.turquaz.consignment.bl;
 /* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
-/************************************************************************/
-
+/** ********************************************************************* */
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import com.turquaz.consignment.dal.ConDALSearchConsignment;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
-
-public class ConBLSearchConsignment {
+public class ConBLSearchConsignment
+{
 	Calendar cal = Calendar.getInstance();
-   
-	public ConBLSearchConsignment(){
-   	
-   
-	}
-	
-	
-	public static List searchConsignment(TurqCurrentCard card,Date startDate,Date endDate, int type,String docNo)throws Exception{
-		try{
-			
-			return ConDALSearchConsignment.searchConsignments(card,startDate,endDate,type,docNo);
-			
-		}
-		catch(Exception ex){
-			throw ex;
-		}
-		
-	}
-	
-	
-	public static List chooseConsignment(TurqCurrentCard card,Date startDate,Date endDate, int type)throws Exception{
-		try{
-			
-			return ConDALSearchConsignment.chooseConsignments(card,startDate,endDate,type);
-			
-		}
-		catch(Exception ex){
-			throw ex;
-		}
-		
-	}
-	
-	
-	public static TurqConsignment getConsignmentByConsId(Integer consId) throws Exception
-	{
-		try {
-			
-			return ConDALSearchConsignment.getConsignmentByConsId(consId);
 
-		} 
+	public ConBLSearchConsignment()
+	{
+	}
+
+	public static List searchConsignment(TurqCurrentCard card, Date startDate, Date endDate, int type, String docNo) throws Exception
+	{
+		try
+		{
+			return ConDALSearchConsignment.searchConsignments(card, startDate, endDate, type, docNo);
+		}
 		catch (Exception ex)
 		{
 			throw ex;
 		}
 	}
-	
-	
-	
+
+	public static List chooseConsignment(TurqCurrentCard card, Date startDate, Date endDate, int type) throws Exception
+	{
+		try
+		{
+			return ConDALSearchConsignment.chooseConsignments(card, startDate, endDate, type);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static TurqConsignment getConsignmentByConsId(Integer consId) throws Exception
+	{
+		try
+		{
+			return ConDALSearchConsignment.getConsignmentByConsId(consId);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }

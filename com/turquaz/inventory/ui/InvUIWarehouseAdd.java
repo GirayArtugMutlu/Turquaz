@@ -1,4 +1,3 @@
-
 package com.turquaz.inventory.ui;
 
 /************************************************************************/
@@ -16,11 +15,10 @@ package com.turquaz.inventory.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
+ * @author  Onsel Armagan
+ * @version  $Id$
+ */
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
@@ -31,63 +29,65 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.SWT;
-
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseAdd;
-
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
-/**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
-public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 
+/**
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
+ */
+public class InvUIWarehouseAdd extends Composite implements SecureComposite
+{
 	private Text txtWarehouseDescription;
 	private Text txtWarehouseCode;
 	private CLabel lblWarehouseCode;
 	private CLabel lblDescription;
 	private Text txtTelephone;
 	private CLabel lblWarehouseTelephone;
+
 	/**
 	 * @return Returns the txtTelephone.
 	 */
-	public Text getTxtTelephone() {
+	public Text getTxtTelephone()
+	{
 		return txtTelephone;
 	}
+
 	/**
 	 * @return Returns the txtWarehouseAdres.
 	 */
-	public Text getTxtWarehouseAdres() {
+	public Text getTxtWarehouseAdres()
+	{
 		return txtWarehouseAdres;
 	}
+
 	/**
 	 * @return Returns the txtWarehouseCity.
 	 */
-	public Text getTxtWarehouseCity() {
+	public Text getTxtWarehouseCity()
+	{
 		return txtWarehouseCity;
 	}
+
 	/**
 	 * @return Returns the txtWarehouseDescription.
 	 */
-	public Text getTxtWarehouseDescription() {
+	public Text getTxtWarehouseDescription()
+	{
 		return txtWarehouseDescription;
 	}
+
 	/**
 	 * @return Returns the txtWarehouseName.
 	 */
-	public Text getTxtWarehouseName() {
+	public Text getTxtWarehouseName()
+	{
 		return txtWarehouseName;
 	}
 	private Text txtWarehouseAdres;
@@ -96,20 +96,21 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 	private CLabel lblWareHouseCity;
 	private Text txtWarehouseName;
 	private CLabel lblWarehouseName;
-	
-	public InvUIWarehouseAdd(Composite parent, int style) {
+
+	public InvUIWarehouseAdd(Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
 
 	/**
-	* Initializes the GUI.
-	* Auto-generated code - any changes you make will disappear.
-	*/
-	public void initGUI(){
-		try {
+	 * Initializes the GUI. Auto-generated code - any changes you make will disappear.
+	 */
+	public void initGUI()
+	{
+		try
+		{
 			preInitGUI();
-	
 			{
 				lblWarehouseCode = new CLabel(this, SWT.NONE);
 				lblWarehouseCode.setText("Depo Kodu");
@@ -122,21 +123,18 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 				txtWarehouseCodeLData.heightHint = 17;
 				txtWarehouseCodeLData.horizontalAlignment = GridData.FILL;
 				txtWarehouseCode.setLayoutData(txtWarehouseCodeLData);
-
 			}
-			lblWarehouseName = new CLabel(this,SWT.NULL);
-			txtWarehouseName = new Text(this,SWT.NULL);
-			lblWarehouseAdres = new CLabel(this,SWT.NULL);
-			txtWarehouseAdres = new Text(this,SWT.MULTI| SWT.WRAP| SWT.H_SCROLL| SWT.V_SCROLL);
-			lblWareHouseCity = new CLabel(this,SWT.NULL);
-			txtWarehouseCity = new Text(this,SWT.NULL);
-			lblWarehouseTelephone = new CLabel(this,SWT.NULL);
-			txtTelephone = new Text(this,SWT.NULL);
-			lblDescription = new CLabel(this,SWT.NULL);
-			txtWarehouseDescription = new Text(this,SWT.MULTI| SWT.WRAP| SWT.H_SCROLL| SWT.V_SCROLL);
-	
-			this.setSize(new org.eclipse.swt.graphics.Point(593,343));
-	
+			lblWarehouseName = new CLabel(this, SWT.NULL);
+			txtWarehouseName = new Text(this, SWT.NULL);
+			lblWarehouseAdres = new CLabel(this, SWT.NULL);
+			txtWarehouseAdres = new Text(this, SWT.MULTI | SWT.WRAP | SWT.H_SCROLL | SWT.V_SCROLL);
+			lblWareHouseCity = new CLabel(this, SWT.NULL);
+			txtWarehouseCity = new Text(this, SWT.NULL);
+			lblWarehouseTelephone = new CLabel(this, SWT.NULL);
+			txtTelephone = new Text(this, SWT.NULL);
+			lblDescription = new CLabel(this, SWT.NULL);
+			txtWarehouseDescription = new Text(this, SWT.MULTI | SWT.WRAP | SWT.H_SCROLL | SWT.V_SCROLL);
+			this.setSize(new org.eclipse.swt.graphics.Point(593, 343));
 			GridData lblWarehouseNameLData = new GridData();
 			lblWarehouseNameLData.verticalAlignment = GridData.CENTER;
 			lblWarehouseNameLData.horizontalAlignment = GridData.BEGINNING;
@@ -149,14 +147,12 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			lblWarehouseNameLData.grabExcessVerticalSpace = false;
 			lblWarehouseName.setLayoutData(lblWarehouseNameLData);
 			lblWarehouseName.setText(Messages.getString("InvUIWarehouseAdd.0")); //$NON-NLS-1$
-	
 			GridData txtWarehouseNameLData = new GridData();
 			txtWarehouseNameLData.horizontalAlignment = GridData.FILL;
 			txtWarehouseNameLData.heightHint = 17;
 			txtWarehouseName.setLayoutData(txtWarehouseNameLData);
 			txtWarehouseName.setTextLimit(50);
-			txtWarehouseName.setSize(new org.eclipse.swt.graphics.Point(259,17));
-	
+			txtWarehouseName.setSize(new org.eclipse.swt.graphics.Point(259, 17));
 			GridData lblWarehouseAdresLData = new GridData();
 			lblWarehouseAdresLData.verticalAlignment = GridData.BEGINNING;
 			lblWarehouseAdresLData.horizontalAlignment = GridData.BEGINNING;
@@ -169,14 +165,15 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			lblWarehouseAdresLData.grabExcessVerticalSpace = false;
 			lblWarehouseAdres.setLayoutData(lblWarehouseAdresLData);
 			lblWarehouseAdres.setText(Messages.getString("InvUIWarehouseAdd.1")); //$NON-NLS-1$
-	
 			GridData txtWarehouseAdresLData = new GridData();
-			txtWarehouseAdres.addVerifyListener(new VerifyListener() {
-				public void verifyText(VerifyEvent evt) {
-					if (evt.keyCode == SWT.TAB) {
+			txtWarehouseAdres.addVerifyListener(new VerifyListener()
+			{
+				public void verifyText(VerifyEvent evt)
+				{
+					if (evt.keyCode == SWT.TAB)
+					{
 						txtWarehouseCity.setFocus();
 						evt.doit = false;
-						
 					}
 				}
 			});
@@ -191,8 +188,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			txtWarehouseAdresLData.grabExcessVerticalSpace = false;
 			txtWarehouseAdres.setLayoutData(txtWarehouseAdresLData);
 			txtWarehouseAdres.setTextLimit(250);
-			txtWarehouseAdres.setSize(new org.eclipse.swt.graphics.Point(323,74));
-	
+			txtWarehouseAdres.setSize(new org.eclipse.swt.graphics.Point(323, 74));
 			GridData lblWareHouseCityLData = new GridData();
 			lblWareHouseCityLData.verticalAlignment = GridData.CENTER;
 			lblWareHouseCityLData.horizontalAlignment = GridData.BEGINNING;
@@ -205,7 +201,6 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			lblWareHouseCityLData.grabExcessVerticalSpace = false;
 			lblWareHouseCity.setLayoutData(lblWareHouseCityLData);
 			lblWareHouseCity.setText(Messages.getString("InvUIWarehouseAdd.2")); //$NON-NLS-1$
-	
 			GridData txtWarehouseCityLData = new GridData();
 			txtWarehouseCityLData.verticalAlignment = GridData.CENTER;
 			txtWarehouseCityLData.horizontalAlignment = GridData.BEGINNING;
@@ -218,8 +213,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			txtWarehouseCityLData.grabExcessVerticalSpace = false;
 			txtWarehouseCity.setLayoutData(txtWarehouseCityLData);
 			txtWarehouseCity.setTextLimit(50);
-			txtWarehouseCity.setSize(new org.eclipse.swt.graphics.Point(153,17));
-	
+			txtWarehouseCity.setSize(new org.eclipse.swt.graphics.Point(153, 17));
 			GridData lblWarehouseTelephoneLData = new GridData();
 			lblWarehouseTelephoneLData.verticalAlignment = GridData.CENTER;
 			lblWarehouseTelephoneLData.horizontalAlignment = GridData.BEGINNING;
@@ -232,8 +226,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			lblWarehouseTelephoneLData.grabExcessVerticalSpace = false;
 			lblWarehouseTelephone.setLayoutData(lblWarehouseTelephoneLData);
 			lblWarehouseTelephone.setText(Messages.getString("InvUIWarehouseAdd.3")); //$NON-NLS-1$
-			lblWarehouseTelephone.setSize(new org.eclipse.swt.graphics.Point(56,19));
-	
+			lblWarehouseTelephone.setSize(new org.eclipse.swt.graphics.Point(56, 19));
 			GridData txtTelephoneLData = new GridData();
 			txtTelephoneLData.verticalAlignment = GridData.CENTER;
 			txtTelephoneLData.horizontalAlignment = GridData.BEGINNING;
@@ -245,8 +238,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			txtTelephoneLData.grabExcessHorizontalSpace = false;
 			txtTelephoneLData.grabExcessVerticalSpace = false;
 			txtTelephone.setLayoutData(txtTelephoneLData);
-			txtTelephone.setSize(new org.eclipse.swt.graphics.Point(153,17));
-	
+			txtTelephone.setSize(new org.eclipse.swt.graphics.Point(153, 17));
 			GridData lblDescriptionLData = new GridData();
 			lblDescriptionLData.verticalAlignment = GridData.BEGINNING;
 			lblDescriptionLData.horizontalAlignment = GridData.BEGINNING;
@@ -259,14 +251,15 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			lblDescriptionLData.grabExcessVerticalSpace = false;
 			lblDescription.setLayoutData(lblDescriptionLData);
 			lblDescription.setText(Messages.getString("InvUIWarehouseAdd.4")); //$NON-NLS-1$
-	
 			GridData txtWarehouseDescriptionLData = new GridData();
-			txtWarehouseDescription.addVerifyListener(new VerifyListener() {
-				public void verifyText(VerifyEvent evt) {
-					if (evt.keyCode == SWT.TAB) {
+			txtWarehouseDescription.addVerifyListener(new VerifyListener()
+			{
+				public void verifyText(VerifyEvent evt)
+				{
+					if (evt.keyCode == SWT.TAB)
+					{
 						txtWarehouseCode.setFocus();
 						evt.doit = false;
-
 					}
 				}
 			});
@@ -281,7 +274,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			txtWarehouseDescriptionLData.grabExcessVerticalSpace = false;
 			txtWarehouseDescription.setLayoutData(txtWarehouseDescriptionLData);
 			txtWarehouseDescription.setTextLimit(50);
-			txtWarehouseDescription.setSize(new org.eclipse.swt.graphics.Point(347,93));
+			txtWarehouseDescription.setSize(new org.eclipse.swt.graphics.Point(347, 93));
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
 			thisLayout.marginWidth = 5;
@@ -291,119 +284,122 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 			thisLayout.horizontalSpacing = 5;
 			thisLayout.verticalSpacing = 15;
 			this.layout();
-	
 			postInitGUI();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
-	/** Add your pre-init code in here 	*/
-	public void preInitGUI(){
+
+	/** Add your pre-init code in here */
+	public void preInitGUI()
+	{
 	}
 
-	/** Add your post-init code in here 	*/
-	public void postInitGUI(){
+	/** Add your post-init code in here */
+	public void postInitGUI()
+	{
 	}
 
-	
-	
-	boolean verifyFields(){
-		
-		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-		
-	  if(txtWarehouseName.getText().trim().equals("")){ //$NON-NLS-1$
-	  	msg.setMessage(Messages.getString("InvUIWarehouseAdd.6")); //$NON-NLS-1$
-	  	msg.open();
-	  	txtWarehouseName.setFocus();
-	  	return false;
-	  }
-	  return true;
-	 
+	boolean verifyFields()
+	{
+		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+		if (txtWarehouseName.getText().trim().equals("")) { //$NON-NLS-1$
+			msg.setMessage(Messages.getString("InvUIWarehouseAdd.6")); //$NON-NLS-1$
+			msg.open();
+			txtWarehouseName.setFocus();
+			return false;
+		}
+		return true;
 	}
-	public void delete(){
+
+	public void delete()
+	{
 	}
-	public void clearFields(){
+
+	public void clearFields()
+	{
 		txtWarehouseName.setText(""); //$NON-NLS-1$
 		txtWarehouseDescription.setText(""); //$NON-NLS-1$
 		txtTelephone.setText(""); //$NON-NLS-1$
 		txtWarehouseAdres.setText(""); //$NON-NLS-1$
 		txtWarehouseCity.setText(""); //$NON-NLS-1$
 		txtWarehouseCode.setText("");
-		
-		
-	}
-	public void save(){
-	try{
-	
-	if(verifyFields()){
-	InvBLWarehouseAdd.saveWarehouse(txtWarehouseName.getText().trim(),txtWarehouseCode.getText().trim(),
-						 txtWarehouseDescription.getText().trim(),
-						 txtWarehouseAdres.getText().trim(),
-						 txtTelephone.getText().trim(),
-						 txtWarehouseCity.getText().trim());
-	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-	msg.setMessage(Messages.getString("InvUIWarehouseAdd.12")); //$NON-NLS-1$
-	msg.open();
-	clearFields();
-		}
-	
-	}
-	catch(Exception ex){
-	ex.printStackTrace();
-	
-	}
-	
-	
-	
-	
-	
-	
-	
-	}
-	public void newForm(){
-		clearFields();
-	    
-	}
-	public void search(){
 	}
 
+	public void save()
+	{
+		try
+		{
+			if (verifyFields())
+			{
+				InvBLWarehouseAdd.saveWarehouse(txtWarehouseName.getText().trim(), txtWarehouseCode.getText().trim(),
+						txtWarehouseDescription.getText().trim(), txtWarehouseAdres.getText().trim(), txtTelephone.getText().trim(),
+						txtWarehouseCity.getText().trim());
+				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+				msg.setMessage(Messages.getString("InvUIWarehouseAdd.12")); //$NON-NLS-1$
+				msg.open();
+				clearFields();
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void newForm()
+	{
+		clearFields();
+	}
+
+	public void search()
+	{
+	}
 
 	/**
-	* This static method creates a new instance of this class and shows
-	* it inside a new Shell.
-	*
-	* It is a convenience method for showing the GUI, but it can be
-	* copied and used as a basis for your own code.	*
-	* It is auto-generated code - the body of this method will be
-	* re-generated after any changes are made to the GUI.
-	* However, if you delete this method it will not be re-created.	*/
-	public static void showGUI(){
-		try {
+	 * This static method creates a new instance of this class and shows it inside a new Shell. It is a convenience method for showing the
+	 * GUI, but it can be copied and used as a basis for your own code. * It is auto-generated code - the body of this method will be
+	 * re-generated after any changes are made to the GUI. However, if you delete this method it will not be re-created.
+	 */
+	public static void showGUI()
+	{
+		try
+		{
 			Display display = Display.getDefault();
 			Shell shell = new Shell(display);
 			InvUIWarehouseAdd inst = new InvUIWarehouseAdd(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0,0,593,343);
+			Rectangle shellBounds = shell.computeTrim(0, 0, 593, 343);
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.open();
-			while (!shell.isDisposed()) {
+			while (!shell.isDisposed())
+			{
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * @return Returns the txtWarehouseCode.
 	 */
-	public Text getTxtWarehouseCode() {
+	public Text getTxtWarehouseCode()
+	{
 		return txtWarehouseCode;
 	}
+
 	/**
-	 * @param txtWarehouseCode The txtWarehouseCode to set.
+	 * @param txtWarehouseCode
+	 *             The txtWarehouseCode to set.
 	 */
-	public void setTxtWarehouseCode(Text txtWarehouseCode) {
+	public void setTxtWarehouseCode(Text txtWarehouseCode)
+	{
 		this.txtWarehouseCode = txtWarehouseCode;
 	}
 }

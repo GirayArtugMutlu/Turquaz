@@ -15,56 +15,50 @@ package com.turquaz.engine.ui.component;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
+ * @author  Onsel Armagan
+ * @version  $Id$
+ */
 import java.util.HashMap;
 import java.util.Iterator;
-
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
-
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.SWT;
-
 import com.turquaz.engine.Messages;
 
 /**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a
-* for-profit company or business) then you should purchase
-* a license - please visit www.cloudgarden.com for details.
-*/
-public class RegisterGroupComposite extends org.eclipse.swt.widgets.Composite {
-
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a for-profit company or business) then you should purchase a license - please visit www.cloudgarden.com for details.
+ */
+public class RegisterGroupComposite extends org.eclipse.swt.widgets.Composite
+{
 	private TableColumn tableColumn3;
 	private Table tableAllGroups;
 	private Composite composite1;
-	public RegisterGroupComposite(Composite parent, int style) {
+
+	public RegisterGroupComposite(Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
 
 	/**
-	* Initializes the GUI.
-	* Auto-generated code - any changes you make will disappear.
-	*/
-	public void initGUI(){
-		try {
+	 * Initializes the GUI. Auto-generated code - any changes you make will disappear.
+	 */
+	public void initGUI()
+	{
+		try
+		{
 			preInitGUI();
-	
-			composite1 = new Composite(this,SWT.NULL);
-			tableAllGroups = new Table(composite1,SWT.SINGLE| SWT.CHECK| SWT.FULL_SELECTION| SWT.H_SCROLL| SWT.V_SCROLL| SWT.BORDER);
-			tableColumn3 = new TableColumn(tableAllGroups,SWT.NULL);
-	
-			this.setSize(new org.eclipse.swt.graphics.Point(174,188));
-	
+			composite1 = new Composite(this, SWT.NULL);
+			tableAllGroups = new Table(composite1, SWT.SINGLE | SWT.CHECK | SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL
+					| SWT.BORDER);
+			tableColumn3 = new TableColumn(tableAllGroups, SWT.NULL);
+			this.setSize(new org.eclipse.swt.graphics.Point(174, 188));
 			GridData composite1LData = new GridData();
 			composite1LData.verticalAlignment = GridData.FILL;
 			composite1LData.horizontalAlignment = GridData.FILL;
@@ -76,8 +70,7 @@ public class RegisterGroupComposite extends org.eclipse.swt.widgets.Composite {
 			composite1LData.grabExcessHorizontalSpace = true;
 			composite1LData.grabExcessVerticalSpace = true;
 			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(174,188));
-	
+			composite1.setSize(new org.eclipse.swt.graphics.Point(174, 188));
 			GridData tableAllGroupsLData = new GridData();
 			tableAllGroupsLData.verticalAlignment = GridData.FILL;
 			tableAllGroupsLData.horizontalAlignment = GridData.FILL;
@@ -91,8 +84,7 @@ public class RegisterGroupComposite extends org.eclipse.swt.widgets.Composite {
 			tableAllGroups.setLayoutData(tableAllGroupsLData);
 			tableAllGroups.setHeaderVisible(true);
 			tableAllGroups.setLinesVisible(true);
-			tableAllGroups.setSize(new org.eclipse.swt.graphics.Point(134,158));
-	
+			tableAllGroups.setSize(new org.eclipse.swt.graphics.Point(134, 158));
 			tableColumn3.setText(Messages.getString("RegisterGroupComposite.0")); //$NON-NLS-1$
 			tableColumn3.setWidth(141);
 			GridLayout composite1Layout = new GridLayout(3, true);
@@ -113,61 +105,56 @@ public class RegisterGroupComposite extends org.eclipse.swt.widgets.Composite {
 			thisLayout.horizontalSpacing = 0;
 			thisLayout.verticalSpacing = 0;
 			this.layout();
-	
 			postInitGUI();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
-	/** Add your pre-init code in here 	*/
-	public void preInitGUI(){
+
+	/** Add your pre-init code in here */
+	public void preInitGUI()
+	{
 	}
 
-	/** Add your post-init code in here 	*/
-	public void postInitGUI(){
+	/** Add your post-init code in here */
+	public void postInitGUI()
+	{
 	}
-
 
 	/** Auto-generated event handler method */
+	public void fillTableAllGroups(HashMap elementMap)
+	{
+		tableAllGroups.removeAll();
+		Iterator it = elementMap.keySet().iterator();
+		TableItem item;
+		while (it.hasNext())
+		{
+			item = new TableItem(tableAllGroups, SWT.NULL);
+			String key = it.next().toString();
+			item.setText(key);
+			item.setData(elementMap.get(key));
+		}
+	}
 
-	public void fillTableAllGroups(HashMap elementMap){
-	
-	tableAllGroups.removeAll();	
-	Iterator it = elementMap.keySet().iterator();
-	TableItem item;
-	while(it.hasNext()){
-     item = new TableItem(tableAllGroups,SWT.NULL);
-     String key =it.next().toString();
-     item.setText(key);
-     item.setData(elementMap.get(key));		
+	public void RegisterGroup(Object data)
+	{
+		TableItem items[] = tableAllGroups.getItems();
+		for (int i = 0; i < items.length; i++)
+		{
+			if (items[i].getData().equals(data))
+			{
+				items[i].setChecked(true);
+			}
+		}
 	}
-		
-		
-	}
-	public void RegisterGroup(Object data){
-	TableItem items[] = tableAllGroups.getItems();
-	
 
-	for(int i=0 ; i<items.length;i++){
-	if(items[i].getData().equals(data)){
-	items[i].setChecked(true);
-	
-	
-	}
-	
-	
-	}
-	
-	
-	
-	}
-	
-	
 	/**
 	 * @return Returns the tableAllGroups.
 	 */
-	public Table getTableAllGroups() {
+	public Table getTableAllGroups()
+	{
 		return tableAllGroups;
 	}
-
 }

@@ -1,4 +1,5 @@
 package com.turquaz.admin.ui;
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -14,13 +15,11 @@ package com.turquaz.admin.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
+ * @author  Onsel Armagan
+ * @version  $Id$
+ */
 import java.util.List;
-
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -30,67 +29,55 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
-
-
 /**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
+ */
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
-
-
-
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroups;
-
-
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqGroup;
-
-
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
-public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements SecureComposite,SearchComposite {
+
+public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements SecureComposite, SearchComposite
+{
 	private Table tableGroups;
 	private TableColumn tableColumnGroupname;
 	private TableColumn tableColumnDescription;
 
-
 	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
+	 * Auto-generated main method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
+	 */
+	public static void main(String[] args)
+	{
 		showGUI();
 	}
-		
+
 	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
+	 * Auto-generated method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
+	 */
+	public static void showGUI()
+	{
 		Display display = Display.getDefault();
 		Shell shell = new Shell(display);
 		AdmUIUsers inst = new AdmUIUsers(shell, SWT.NULL);
 		Point size = inst.getSize();
 		shell.setLayout(new FillLayout());
 		shell.layout();
-		if(size.x == 0 && size.y == 0) {
+		if (size.x == 0 && size.y == 0)
+		{
 			inst.pack();
 			shell.pack();
-		} else {
+		}
+		else
+		{
 			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
 			int MENU_HEIGHT = 22;
 			if (shell.getMenuBar() != null)
@@ -98,36 +85,43 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		while (!shell.isDisposed()) {
+		while (!shell.isDisposed())
+		{
 			if (!display.readAndDispatch())
 				display.sleep();
 		}
 	}
 
-	public AdmUIGroups(org.eclipse.swt.widgets.Composite parent, int style) {
+	public AdmUIGroups(org.eclipse.swt.widgets.Composite parent, int style)
+	{
 		super(parent, style);
 		initGUI();
 	}
-	public void save(){
-		
-	}
-	public void delete(){
-		
-	}
-	public void newForm(){
-		 AdmUIGroups  curCard = new AdmUIGroups(this.getParent(),this.getStyle());
-		 CTabFolder tabfld = (CTabFolder)this.getParent();
-		 tabfld.getSelection().setControl(curCard);	 
-		 this.dispose();
-		
-	}
-	public void search(){
-		
-	}
-	
 
-	private void initGUI() {
-		try {
+	public void save()
+	{
+	}
+
+	public void delete()
+	{
+	}
+
+	public void newForm()
+	{
+		AdmUIGroups curCard = new AdmUIGroups(this.getParent(), this.getStyle());
+		CTabFolder tabfld = (CTabFolder) this.getParent();
+		tabfld.getSelection().setControl(curCard);
+		this.dispose();
+	}
+
+	public void search()
+	{
+	}
+
+	private void initGUI()
+	{
+		try
+		{
 			this.setLayout(new GridLayout());
 			this.setSize(377, 322);
 			{
@@ -146,49 +140,49 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 					tableColumnGroupname.setWidth(112);
 				}
 				{
-					tableColumnDescription = new TableColumn(
-						tableGroups,
-						SWT.NONE);
+					tableColumnDescription = new TableColumn(tableGroups, SWT.NONE);
 					tableColumnDescription.setText(Messages.getString("AdmUIGroups.1")); //$NON-NLS-1$
 					tableColumnDescription.setWidth(200);
 				}
 			}
 			this.layout();
 			fillTable();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
-	public void fillTable(){
-		try{
+
+	public void fillTable()
+	{
+		try
+		{
 			tableGroups.removeAll();
 			List list = AdmBLGroups.getGroups();
 			TurqGroup group;
 			TableItem item;
-			for(int i=0;i<list.size();i++){
-				group = (TurqGroup)list.get(i);
-			   item = new TableItem(tableGroups,SWT.NULL);
-			   item.setData(group);
-			   item.setText(new String[]{group.getGroupsName(),group.getGroupsDescription()});
-				
+			for (int i = 0; i < list.size(); i++)
+			{
+				group = (TurqGroup) list.get(i);
+				item = new TableItem(tableGroups, SWT.NULL);
+				item.setData(group);
+				item.setText(new String[]{group.getGroupsName(), group.getGroupsDescription()});
 			}
-			
-			
-			
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
-		
-	}
-	public void exportToExcel(){
-		
-		EngBLUtils.Export2Excel(tableGroups);
-		
-	}
-	public void printTable(){
-	    EngBLUtils.printTable(tableGroups,"Kullan?c? Gruplar?");
-	    
 	}
 
+	public void exportToExcel()
+	{
+		EngBLUtils.Export2Excel(tableGroups);
+	}
+
+	public void printTable()
+	{
+		EngBLUtils.printTable(tableGroups, "Kullan?c? Gruplar?");
+	}
 }

@@ -1,4 +1,3 @@
-
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -14,8 +13,6 @@
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
-
 /**
  * @author onsel
  * @version $Id$
@@ -23,57 +20,47 @@
 package com.turquaz.cash.bl;
 
 import java.util.Calendar;
-
 import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
 
-public class CashBLCashCardUpdate {
-  
-    CashDALCashCard dalCash = new CashDALCashCard();
-    
-    public CashBLCashCardUpdate(){
-        
-    }
-    
-    
-    public static void updateCashCard(TurqCashCard cashCard, String name, String definition, TurqAccountingAccount cashAccount)throws Exception {
-        try{
-            
-          Calendar cal=Calendar.getInstance();
-          cashCard.setCashCardName(name);
-          cashCard.setCashCardDefinition(definition);
-          cashCard.setTurqAccountingAccount(cashAccount);
-         
-          cashCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-          cashCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-          
-          EngDALCommon.updateObject(cashCard);   
-          
-          
-        }
-        catch(Exception ex){
-            
-            throw ex;
-            
-        }
-        
-        
-        
-    }
-    public static void delete(TurqCashCard card)throws Exception{
-        
-        try{
-        	EngDALCommon.deleteObject(card);
-            
-            
-            
-        }
-        catch(Exception ex){
-            throw ex;
-        }
-        
-    }
+public class CashBLCashCardUpdate
+{
+	CashDALCashCard dalCash = new CashDALCashCard();
 
+	public CashBLCashCardUpdate()
+	{
+	}
+
+	public static void updateCashCard(TurqCashCard cashCard, String name, String definition, TurqAccountingAccount cashAccount)
+			throws Exception
+	{
+		try
+		{
+			Calendar cal = Calendar.getInstance();
+			cashCard.setCashCardName(name);
+			cashCard.setCashCardDefinition(definition);
+			cashCard.setTurqAccountingAccount(cashAccount);
+			cashCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			cashCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			EngDALCommon.updateObject(cashCard);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static void delete(TurqCashCard card) throws Exception
+	{
+		try
+		{
+			EngDALCommon.deleteObject(card);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }

@@ -1,4 +1,3 @@
-
 package com.turquaz.engine.bl;
 
 /************************************************************************/
@@ -16,90 +15,93 @@ package com.turquaz.engine.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
- * @author  Onsel Armagan
- * @version  $Id$
+ * @author Onsel Armagan
+ * @version $Id$
  */
-
 import java.util.List;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 
-public class EngBLInventoryCards {
+public class EngBLInventoryCards
+{
 	public List cardList;
-	
 	static EngBLInventoryCards _instance;
-
 	private InvBLCardSearch blAccount = new InvBLCardSearch();
 
-	public EngBLInventoryCards() throws Exception {
-		try {
+	public EngBLInventoryCards() throws Exception
+	{
+		try
+		{
 			fillInventoryList();
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
 
-	public void fillInventoryList() throws Exception {
-		try {
-			
-		    cardList = InvBLCardSearch.getInventoryCards();			
-			
-		} catch (Exception ex) {
+	public void fillInventoryList() throws Exception
+	{
+		try
+		{
+			cardList = InvBLCardSearch.getInventoryCards();
+		}
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
+
 	/**
-	 * 
 	 * @return
 	 * @throws Exception
 	 */
-	public static synchronized List getInventoryCards() throws Exception {
-		try {
-			if (_instance == null) {
-
+	public static synchronized List getInventoryCards() throws Exception
+	{
+		try
+		{
+			if (_instance == null)
+			{
 				_instance = new EngBLInventoryCards();
-
 			}
-
 			return _instance.cardList;
-
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			throw ex;
 		}
-
 	}
 
-	public static TurqInventoryCard getInvCard(String accountCode)
-			throws Exception {
-		try {
-			if (_instance == null) {
-
+	public static TurqInventoryCard getInvCard(String accountCode) throws Exception
+	{
+		try
+		{
+			if (_instance == null)
+			{
 				_instance = new EngBLInventoryCards();
-
 			}
-
 			return _instance.getCard(accountCode);
-
-
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-	
-	
-	public TurqInventoryCard getCard(String invCode)throws Exception{
-		try {
 
-
-			return (TurqInventoryCard)InvBLCardSearch.getInventoryCard(invCode); 
-
-		} catch (Exception ex) {
+	public TurqInventoryCard getCard(String invCode) throws Exception
+	{
+		try
+		{
+			return (TurqInventoryCard) InvBLCardSearch.getInventoryCard(invCode);
+		}
+		catch (Exception ex)
+		{
 			throw ex;
 		}
 	}
-	public static void RefreshContentAsistantMap()throws Exception
+
+	public static void RefreshContentAsistantMap() throws Exception
 	{
 		try
 		{
@@ -110,12 +112,9 @@ public class EngBLInventoryCards {
 			}
 			_instance.fillInventoryList();
 		}
-		
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			throw ex;
-		}	
-		
+		}
 	}
-
 }

@@ -15,15 +15,11 @@ package com.turquaz.inventory.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-
 /**
-* @author  Onsel Armagan
-* @version  $Id$
-*/
-
-
+ * @author  Onsel Armagan
+ * @version  $Id$
+ */
 import java.util.List;
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -38,12 +34,12 @@ import com.turquaz.engine.ui.component.DecimalTextWithButton;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;import com.turquaz.engine.ui.component.CurrencyText;
+import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Button;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
-
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -52,23 +48,15 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
-
 /**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
-public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
-
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
+ * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
+ * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
+ * legally for any corporate or commercial purpose. *************************************
+ */
+public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
+{
 	private Shell dialogShell;
 	private Composite composite1;
 	private CLabel invAmount;
@@ -98,27 +86,25 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	TurqInventoryUnit defaultUnit;
 
 	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Dialog inside a new Shell.
-	*/
-	
-	public InvUITransactionAddDialog(Shell parent, int style, boolean buy) {
+	 * Auto-generated main method to display this org.eclipse.swt.widgets.Dialog inside a new Shell.
+	 */
+	public InvUITransactionAddDialog(Shell parent, int style, boolean buy)
+	{
 		super(parent, style);
-		BUY=buy;
+		BUY = buy;
 	}
 
-	public TurqInventoryTransaction open() {
-		try {
+	public TurqInventoryTransaction open()
+	{
+		try
+		{
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-
-				{
-					//Register as a resource user - SWTResourceManager will
-					//handle the obtaining and disposing of resources
-					SWTResourceManager.registerResourceUser(dialogShell);
-				}
-
-
+			{
+				//Register as a resource user - SWTResourceManager will
+				//handle the obtaining and disposing of resources
+				SWTResourceManager.registerResourceUser(dialogShell);
+			}
 			GridLayout dialogShellLayout = new GridLayout();
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.horizontalSpacing = 0;
@@ -147,7 +133,6 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 				{
 					txtInvCard = new Group(composite1, SWT.NONE);
-					
 					GridData txtInvCardLData = new GridData();
 					txtInvCardLData.widthHint = 334;
 					txtInvCardLData.heightHint = 21;
@@ -185,18 +170,18 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 					lblPrice.setLayoutData(lblPriceLData);
 				}
 				{
-					decTxtPrice = new DecimalTextWithButton(
-						composite1,
-						SWT.NONE);
+					decTxtPrice = new DecimalTextWithButton(composite1, SWT.NONE);
 					GridData comboPricesLData = new GridData();
 					comboPricesLData.heightHint = 18;
 					comboPricesLData.horizontalAlignment = GridData.FILL;
 					decTxtPrice.setLayoutData(comboPricesLData);
-					decTxtPrice.addMouseListener(new MouseAdapter() {
-						public void mouseUp(MouseEvent evt) {
+					decTxtPrice.addMouseListener(new MouseAdapter()
+					{
+						public void mouseUp(MouseEvent evt)
+						{
 							chooseInventoryPrice();
-							}
-						});
+						}
+					});
 				}
 				{
 					comboCurrency = new CCombo(composite1, SWT.NONE);
@@ -255,8 +240,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 					numTxtSpecialVatEach.setLayoutData(numTxtSpecialVatEachLData);
 				}
 				{
-					btnSpecialButtonEach = new Button(composite1, SWT.RADIO
-						| SWT.LEFT);
+					btnSpecialButtonEach = new Button(composite1, SWT.RADIO | SWT.LEFT);
 				}
 				{
 					lblWareHouse = new CLabel(composite1, SWT.NONE);
@@ -297,8 +281,10 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 					{
 						btnCancel = new Button(composite2, SWT.PUSH | SWT.CENTER);
 						GridData button1LData = new GridData();
-						btnCancel.addMouseListener(new MouseAdapter() {
-							public void mouseUp(MouseEvent evt) {
+						btnCancel.addMouseListener(new MouseAdapter()
+						{
+							public void mouseUp(MouseEvent evt)
+							{
 								dialogShell.close();
 							}
 						});
@@ -311,8 +297,10 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 					{
 						btnOk = new Button(composite2, SWT.PUSH | SWT.CENTER);
 						GridData button2LData = new GridData();
-						btnOk.addMouseListener(new MouseAdapter() {
-							public void mouseUp(MouseEvent evt) {
+						btnOk.addMouseListener(new MouseAdapter()
+						{
+							public void mouseUp(MouseEvent evt)
+							{
 								btnOkMouseUp();
 							}
 						});
@@ -323,131 +311,128 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 						btnOk.setLayoutData(button2LData);
 					}
 				}
-
 			}
 			postInitGui();
 			dialogShell.layout();
-
 			dialogShell.pack();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
-			while (!dialogShell.isDisposed()) {
+			while (!dialogShell.isDisposed())
+			{
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
 			return invTrans;
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
-	public void postInitGui(){
-		
+
+	public void postInitGui()
+	{
 		fillComboCurrency();
 		fillComboWarehouses();
+	}
 
-		
-		
-		
+	public void fillComboUnits(TurqInventoryCard invCard)
+	{
 	}
-	
-	public void fillComboUnits(TurqInventoryCard invCard){
-	
-	}
-	
-	public void fillComboCurrency(){
-		try{
-		comboCurrency.removeAll();	
-		List currencies = EngBLCommon.getCurrencies();
-		TurqCurrency currency;	
-		for(int i=0;i<currencies.size();i++){
-		
-		currency = (TurqCurrency)currencies.get(i);
-		comboCurrency.add(currency.getCurrenciesAbbreviation());
-		comboCurrency.setData(currency.getCurrenciesAbbreviation(),currency);
-		
-		
+
+	public void fillComboCurrency()
+	{
+		try
+		{
+			comboCurrency.removeAll();
+			List currencies = EngBLCommon.getCurrencies();
+			TurqCurrency currency;
+			for (int i = 0; i < currencies.size(); i++)
+			{
+				currency = (TurqCurrency) currencies.get(i);
+				comboCurrency.add(currency.getCurrenciesAbbreviation());
+				comboCurrency.setData(currency.getCurrenciesAbbreviation(), currency);
+			}
+			if (comboCurrency.getItemCount() > 0)
+			{
+				comboCurrency.setText(comboCurrency.getItem(0));
+			}
 		}
-		if(comboCurrency.getItemCount()>0){
-			comboCurrency.setText(comboCurrency.getItem(0));
-		}
-	}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
-		
 	}
-	
-	public void fillComboWarehouses(){
-		try{
+
+	public void fillComboWarehouses()
+	{
+		try
+		{
 			comboWareHouses.removeAll();
 			List list = InvBLWarehouseSearch.getInventoryWarehouses();
-			
-			TurqInventoryWarehous warehouse;	
-			for(int i=0;i<list.size();i++){
-			
-			warehouse = (TurqInventoryWarehous)list.get(i);
-			comboWareHouses.add(warehouse.getWarehousesName());
-			comboWareHouses.setData(warehouse.getWarehousesName(),warehouse);
-			
-			
+			TurqInventoryWarehous warehouse;
+			for (int i = 0; i < list.size(); i++)
+			{
+				warehouse = (TurqInventoryWarehous) list.get(i);
+				comboWareHouses.add(warehouse.getWarehousesName());
+				comboWareHouses.setData(warehouse.getWarehousesName(), warehouse);
 			}
-			if(comboWareHouses.getItemCount()>0){
+			if (comboWareHouses.getItemCount() > 0)
+			{
 				comboWareHouses.setText(comboWareHouses.getItem(0));
 			}
-			
-			
 		}
-		catch(Exception ex){
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
 		}
 	}
-	public void chooseInventoryPrice(){
-		if(txtInvCard.getData()!=null){
-			TurqInventoryCard invCard = (TurqInventoryCard)txtInvCard.getData();
-			TurqInventoryPrice price = new InvUIPriceChooseDialog(this.getParent(),SWT.NULL,invCard).open();
-			if(price!=null){
-			decTxtPrice.setText(price.getPricesAmount().toString());
-			comboCurrency.setText(price.getTurqCurrency().getCurrenciesAbbreviation());
+
+	public void chooseInventoryPrice()
+	{
+		if (txtInvCard.getData() != null)
+		{
+			TurqInventoryCard invCard = (TurqInventoryCard) txtInvCard.getData();
+			TurqInventoryPrice price = new InvUIPriceChooseDialog(this.getParent(), SWT.NULL, invCard).open();
+			if (price != null)
+			{
+				decTxtPrice.setText(price.getPricesAmount().toString());
+				comboCurrency.setText(price.getTurqCurrency().getCurrenciesAbbreviation());
 			}
-    	}
-		else{
-			MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+		}
+		else
+		{
+			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 			msg.setMessage(Messages.getString("InvUITransactionAddDialog.9")); //$NON-NLS-1$
 			msg.open();
 		}
-		
 	}
-	
-	
-	public void chooseInventoryCard(TurqInventoryCard invCard){
-	
-        if(invCard!=null){
-    	fillComboUnits(invCard);
-    	txtVat.setText(invCard.getCardVat());
-    	numSpecialVat.setText(invCard.getCardSpecialVat());
-        numTxtSpecialVatEach.setText(invCard.getCardSpecialVatEach());
-    	   	
-        }
-       
-  
 
-	}
-	
-	boolean verifyFields(){
-		if (txtInvCard.getData()==null)
+	public void chooseInventoryCard(TurqInventoryCard invCard)
+	{
+		if (invCard != null)
 		{
-			MessageBox msg=new MessageBox(this.getParent(),SWT.NULL);
+			fillComboUnits(invCard);
+			txtVat.setText(invCard.getCardVat());
+			numSpecialVat.setText(invCard.getCardSpecialVat());
+			numTxtSpecialVatEach.setText(invCard.getCardSpecialVatEach());
+		}
+	}
+
+	boolean verifyFields()
+	{
+		if (txtInvCard.getData() == null)
+		{
+			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 			msg.setMessage(Messages.getString("InvUITransactionAddDialog.7")); //$NON-NLS-1$
 			msg.open();
 			return false;
-		}		
+		}
 		return true;
 	}
-	
-	public void btnOkMouseUp(){
-		
+
+	public void btnOkMouseUp()
+	{
 	}
-	
 }
