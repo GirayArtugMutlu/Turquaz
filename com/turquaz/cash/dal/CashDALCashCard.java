@@ -59,11 +59,10 @@ public class CashDALCashCard {
             session.close();
             
             
-            
-            
         }
         catch(Exception ex){
             throw ex;
+            
         }
         
     }

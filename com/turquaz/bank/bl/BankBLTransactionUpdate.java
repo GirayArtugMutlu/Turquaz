@@ -77,10 +77,13 @@ public class BankBLTransactionUpdate {
         }
 
     }
+    
+    
+    //TODO DONE
     public static void updateTransferBetweenBanks( TurqBanksTransactionBill bankTransBill,TurqBanksCard bankCardWithDept,
             TurqBanksCard bankCardWithCredit,
             BigDecimal totalAmount, Date transDate, String definition,
-            String docNo) throws Exception {
+            String docNo, TurqCurrencyExchangeRate exchangeRate) throws Exception {
         try {
             
             // delete transactions
@@ -127,7 +130,9 @@ public class BankBLTransactionUpdate {
             transRowCredit.setCreationDate(Calendar.getInstance().getTime());
           
             transRowCredit.setTurqBanksCard(bankCardWithDept);
-            transRowCredit.setCreditAmount(totalAmount);
+            transRowCredit.setCreditAmountInForeignCurrency(totalAmount);
+            transRowCredit.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
+            transRowCredit.setDeptAmountInForeignCurrency(new BigDecimal(0));
             transRowCredit.setDeptAmount(new BigDecimal(0));
 
             TurqBanksTransaction transRowDebit = new TurqBanksTransaction();
@@ -137,8 +142,10 @@ public class BankBLTransactionUpdate {
             transRowDebit.setCreationDate(Calendar.getInstance().getTime());
          
             transRowDebit.setTurqBanksCard(bankCardWithCredit);
+            transRowDebit.setCreditAmountInForeignCurrency(new BigDecimal(0));
             transRowDebit.setCreditAmount(new BigDecimal(0));
-            transRowDebit.setDeptAmount(totalAmount);
+            transRowDebit.setDeptAmountInForeignCurrency(totalAmount);
+            transRowDebit.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
            
 
             /**
@@ -150,7 +157,11 @@ public class BankBLTransactionUpdate {
              * Save transaction row
              */
             transRowCredit.setTurqBanksTransactionBill(bankTransBill);
+            transRowCredit.setTurqCurrencyExchangeRate(exchangeRate);
+            
             transRowDebit.setTurqBanksTransactionBill(bankTransBill);
+            transRowDebit.setTurqCurrencyExchangeRate(exchangeRate);
+            
             BankDALCommon.saveObject(transRowCredit);
             BankDALCommon.saveObject(transRowDebit);
             /**
@@ -188,14 +199,14 @@ public class BankBLTransactionUpdate {
             
             
             String accounting_definition ="Banka Virman - "+definition;
-            
+
             Integer transId = blAccTran.saveAccTransaction(transDate, docNo,
                     accTransType,
                     bankTransBill.getTurqEngineSequence().getTurqModule().getId().intValue(),bankTransBill.getTurqEngineSequence()
-                            .getId(), accounting_definition);
-//          TODO acc trans column exRate
-            blAccTran.saveAccTransactionRow(accTransRowCredit, transId,EngBLCommon.getBaseCurrencyExchangeRate());
-            blAccTran.saveAccTransactionRow(accTransRowDept, transId,EngBLCommon.getBaseCurrencyExchangeRate());
+                            .getId(), accounting_definition,exchangeRate);
+
+            blAccTran.saveAccTransactionRow(accTransRowCredit, transId,exchangeRate);
+            blAccTran.saveAccTransactionRow(accTransRowDept, transId,exchangeRate);
 
 
         } catch (Exception ex) {
@@ -204,10 +215,11 @@ public class BankBLTransactionUpdate {
 
     }
 
+    //TODO DONE
     public static void updateCashTransactionBill(
             TurqBanksTransactionBill bankTransBill, TurqBanksCard bankCard,
             TurqCashCard cashCard, BigDecimal totalAmount, Date transDate,
-            String definition, String docNo) throws Exception {
+            String definition, String docNo, TurqCurrencyExchangeRate exchangeRate) throws Exception {
         try {
 
             //delete transactions
@@ -247,6 +259,7 @@ public class BankBLTransactionUpdate {
 
             bankTransBill.setUpdatedBy(System.getProperty("user"));
             bankTransBill.setLastModified(Calendar.getInstance().getTime());
+
 
             /*
              * Transaction Rows
@@ -294,7 +307,9 @@ public class BankBLTransactionUpdate {
                 accTransRowCurrent.setDeptAmount(new BigDecimal(0));
                 accTransRowCurrent.setCreditAmount(totalAmount);
 
-                transRow.setDeptAmount(totalAmount);
+                transRow.setDeptAmountInForeignCurrency(totalAmount);
+                transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
+                transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
                 transRow.setCreditAmount(new BigDecimal(0));
 
                 cashTransType = EngBLCommon.CASH_CURRENT_PAYMENT;
@@ -310,8 +325,10 @@ public class BankBLTransactionUpdate {
                 accTransRowCurrent.setDeptAmount(totalAmount);
                 accTransRowCurrent.setCreditAmount(new BigDecimal(0));
 
+                transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
                 transRow.setDeptAmount(new BigDecimal(0));
-                transRow.setCreditAmount(totalAmount);
+                transRow.setCreditAmountInForeignCurrency(totalAmount);
+                transRow.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
 
                 cashTransType = EngBLCommon.CASH_CURRENT_COLLECT;
 
@@ -326,6 +343,7 @@ public class BankBLTransactionUpdate {
              * Save transaction row
              */
             transRow.setTurqBanksTransactionBill(bankTransBill);
+            transRow.setTurqCurrencyExchangeRate(exchangeRate);
             BankDALCommon.saveObject(transRow);
 
             /**
@@ -343,9 +361,10 @@ public class BankBLTransactionUpdate {
             List totals = new ArrayList();
             totals.add(totalAmount);
             CashBLCashTransactionAdd blCash = new CashBLCashTransactionAdd();
+
             blCash.saveCashTransaction(cashCard, bankTransBill
                     .getTurqEngineSequence(), cashTransType, transDate,
-                    definition, docNo, totals, bankAccount);
+                    definition, docNo, totals, bankAccount,exchangeRate);
 
             /**
              * Save Accounting Transaction
@@ -356,10 +375,10 @@ public class BankBLTransactionUpdate {
                     accTransType, bankTransBill.getTurqEngineSequence()
                             .getTurqModule().getId().intValue(),
                     bankTransBill.getTurqEngineSequence()
-                            .getId(), definition);
-//          TODO acc trans column exRate
-            blAccTran.saveAccTransactionRow(accTransRowBank, transId,EngBLCommon.getBaseCurrencyExchangeRate());
-            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,EngBLCommon.getBaseCurrencyExchangeRate());
+                            .getId(), definition,exchangeRate);
+
+            blAccTran.saveAccTransactionRow(accTransRowBank, transId,exchangeRate);
+            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,exchangeRate);
 
         } catch (Exception ex) {
             throw ex;
@@ -367,10 +386,11 @@ public class BankBLTransactionUpdate {
 
     }
 
+    //TODO DONE
     public static void updateOtherTransactionBill(
             TurqBanksTransactionBill bankTransBill, TurqBanksCard bankCard,
             TurqAccountingAccount account, BigDecimal totalAmount, Date transDate,
-            String definition, String docNo) throws Exception {
+            String definition, String docNo, TurqCurrencyExchangeRate exchangeRate) throws Exception {
         try {
 
             //delete transactions
@@ -442,7 +462,9 @@ public class BankBLTransactionUpdate {
                 accTransRowCurrent.setDeptAmount(new BigDecimal(0));
                 accTransRowCurrent.setCreditAmount(totalAmount);
 
-                transRow.setDeptAmount(totalAmount);
+                transRow.setDeptAmountInForeignCurrency(totalAmount);
+                transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
+                transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
                 transRow.setCreditAmount(new BigDecimal(0));
 
             }
@@ -456,10 +478,10 @@ public class BankBLTransactionUpdate {
                 accTransRowCurrent.setDeptAmount(totalAmount);
                 accTransRowCurrent.setCreditAmount(new BigDecimal(0));
 
+                transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
                 transRow.setDeptAmount(new BigDecimal(0));
-                transRow.setCreditAmount(totalAmount);
-
-           
+                transRow.setCreditAmountInForeignCurrency(totalAmount);
+                transRow.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));	
 
             }
 
@@ -472,6 +494,7 @@ public class BankBLTransactionUpdate {
              * Save transaction row
              */
             transRow.setTurqBanksTransactionBill(bankTransBill);
+            transRow.setTurqCurrencyExchangeRate(exchangeRate);
             BankDALCommon.saveObject(transRow);
 
             /**
@@ -491,10 +514,10 @@ public class BankBLTransactionUpdate {
                     accTransType, bankTransBill.getTurqEngineSequence()
                             .getTurqModule().getId().intValue(),
                     bankTransBill.getTurqEngineSequence()
-                            .getId(), definition);
-//          TODO acc trans column exRate
-            blAccTran.saveAccTransactionRow(accTransRowBank, transId,EngBLCommon.getBaseCurrencyExchangeRate());
-            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,EngBLCommon.getBaseCurrencyExchangeRate());
+                            .getId(), definition,exchangeRate);
+
+            blAccTran.saveAccTransactionRow(accTransRowBank, transId,exchangeRate);
+            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,exchangeRate);
 
         } catch (Exception ex) {
             throw ex;
@@ -502,6 +525,7 @@ public class BankBLTransactionUpdate {
 
     }
 
+    //TODO DONE
     public static void updateTransactionBill(
             TurqBanksTransactionBill bankTransBill, TurqBanksCard bankCard,
             TurqCurrentCard curCard, BigDecimal totalAmount, Date transDate,
@@ -599,7 +623,9 @@ public class BankBLTransactionUpdate {
                 accTransRowCurrent.setDeptAmount(new BigDecimal(0));
                 accTransRowCurrent.setCreditAmount(totalAmount);
 
-                transRow.setDeptAmount(totalAmount);
+                transRow.setDeptAmountInForeignCurrency(totalAmount);
+                transRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
+                transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
                 transRow.setCreditAmount(new BigDecimal(0));
 
                 currentTransType = EngBLCommon.CURRENT_TRANS_CREDIT;
@@ -616,8 +642,10 @@ public class BankBLTransactionUpdate {
                 accTransRowCurrent.setDeptAmount(totalAmount);
                 accTransRowCurrent.setCreditAmount(new BigDecimal(0));
 
+                transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
                 transRow.setDeptAmount(new BigDecimal(0));
-                transRow.setCreditAmount(totalAmount);
+                transRow.setCreditAmountInForeignCurrency(totalAmount);
+                transRow.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
 
                 currentTransType = EngBLCommon.CURRENT_TRANS_DEBIT;
                 currentTransDefinition = curCard.getCardsName() + " 'e Havale";
@@ -633,6 +661,7 @@ public class BankBLTransactionUpdate {
              * Save transaction row
              */
             transRow.setTurqBanksTransactionBill(bankTransBill);
+            transRow.setTurqCurrencyExchangeRate(exchangeRate);
             BankDALCommon.saveObject(transRow);
 
             /**
@@ -662,10 +691,10 @@ public class BankBLTransactionUpdate {
                     accTransType, bankTransBill.getTurqEngineSequence()
                             .getTurqModule().getId().intValue(),
                     bankTransBill.getTurqEngineSequence()
-                            .getId(), definition);
-//          TODO acc trans column exRate
-            blAccTran.saveAccTransactionRow(accTransRowBank, transId,EngBLCommon.getBaseCurrencyExchangeRate());
-            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,EngBLCommon.getBaseCurrencyExchangeRate());
+                            .getId(), definition,exchangeRate);
+
+            blAccTran.saveAccTransactionRow(accTransRowBank, transId,exchangeRate);
+            blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,exchangeRate);
 
         } catch (Exception ex) {
             throw ex;

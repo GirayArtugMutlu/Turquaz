@@ -127,6 +127,13 @@
         column="bank_account_no"
         length="100"
     />
+    <property
+        name="chequesAmountInForeignCurrency"
+        type="java.math.BigDecimal"
+        column="cheques_amount_in_foreign_currency"
+        not-null="true"
+        length="65535"
+    />
 
     <!-- Associations -->
   
@@ -137,6 +144,14 @@
         not-null="true"
     >
         <column name="currencies_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqCurrencyExchangeRate -->
+    <many-to-one
+        name="turqCurrencyExchangeRate"
+        class="com.turquaz.engine.dal.TurqCurrencyExchangeRate"
+        not-null="true"
+    >
+        <column name="exchange_rate_id" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqBanksCard -->
     <many-to-one

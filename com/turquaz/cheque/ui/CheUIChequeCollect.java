@@ -121,8 +121,8 @@ public class CheUIChequeCollect extends org.eclipse.swt.widgets.Composite implem
                 {
                     txtRollNo = new Text(compInfoPanel, SWT.NONE);
                     GridData txtRollNoLData = new GridData();
-                    txtRollNoLData.widthHint = 134;
-                    txtRollNoLData.heightHint = 18;
+                    txtRollNoLData.widthHint = 150;
+                    txtRollNoLData.heightHint = 17;
                     txtRollNo.setLayoutData(txtRollNoLData);
                 }
                 {
@@ -133,8 +133,8 @@ public class CheUIChequeCollect extends org.eclipse.swt.widgets.Composite implem
                 {
                     datePicker1 = new DatePicker(compInfoPanel, SWT.NONE);
                     GridData datePicker1LData = new GridData();
-                    datePicker1LData.widthHint = 143;
-                    datePicker1LData.heightHint = 19;
+                    datePicker1LData.widthHint = 157;
+                    datePicker1LData.heightHint = 23;
                     datePicker1.setLayoutData(datePicker1LData);
                 }
                 {
@@ -144,8 +144,8 @@ public class CheUIChequeCollect extends org.eclipse.swt.widgets.Composite implem
 				//START >>  cashCardPcker
 				cashCardPcker = new CashCardPicker(compInfoPanel, SWT.NONE);
 				GridData cashCardPckerLData = new GridData();
-				cashCardPckerLData.widthHint = 225;
-				cashCardPckerLData.heightHint = 18;
+				cashCardPckerLData.widthHint = 157;
+				cashCardPckerLData.heightHint = 17;
 				cashCardPcker.setLayoutData(cashCardPckerLData);
 				//END <<  cashCardPcker
                 {

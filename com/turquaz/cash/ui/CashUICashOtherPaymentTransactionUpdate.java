@@ -198,15 +198,16 @@ public class CashUICashOtherPaymentTransactionUpdate extends Dialog {
 	        TurqCashTransactionRow row = (TurqCashTransactionRow)it.next();
 	        compTransAdd.getTxtAccountingAccount().setText(row.getTurqAccountingAccount().getAccountCode());
 	        compTransAdd.getTxtCashCard().setText(row.getTurqCashCard().getCashCardName());
-	        if(row.getDeptAmount().compareTo(new BigDecimal(0))==1){
+	        if(row.getDeptAmountInForeignCurrency().compareTo(new BigDecimal(0))==1){
 	            
-	            compTransAdd.getCurTextTotalAmount().setText(row.getDeptAmount());
+	            compTransAdd.getCurTextTotalAmount().setText(row.getDeptAmountInForeignCurrency());
 	            
 	        }
 	        else
 	        {
-	            compTransAdd.getCurTextTotalAmount().setText(row.getCreditAmount() );
+	            compTransAdd.getCurTextTotalAmount().setText(row.getCreditAmountInForeignCurrency() );
 	        }
+	        compTransAdd.getComboCurrencyType().setText(row.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
 	   }
 	    
 	    
@@ -246,7 +247,8 @@ public class CashUICashOtherPaymentTransactionUpdate extends Dialog {
 	                                compTransAdd.getCurTextTotalAmount().getBigDecimalValue(),
 	                                compTransAdd.getDatePicker().getDate(),
 	                                compTransAdd.getTxtDefinition().getText(),
-	                                compTransAdd.getTxtDocumentNo().getText());
+	                                compTransAdd.getTxtDocumentNo().getText(),
+									compTransAdd.getExchangeRate());
 	        }
 	        msg.setMessage(Messages.getString("CashUICashCollectTransactionUpdate.5")); //$NON-NLS-1$
 	        msg.open();

@@ -85,6 +85,20 @@
             class="com.turquaz.engine.dal.TurqAccountingTransactionColumn"
         />
     </set>
+    <!-- bi-directional one-to-many association to TurqChequeCheque -->
+    <set
+        name="turqChequeCheques"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="exchange_rate_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqChequeCheque"
+        />
+    </set>
     <!-- bi-directional one-to-many association to TurqCurrentTransaction -->
     <set
         name="turqCurrentTransactions"
@@ -97,6 +111,48 @@
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqCurrentTransaction"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqBillConsignmentCommon -->
+    <set
+        name="turqBillConsignmentCommons"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="exchange_rate_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBillConsignmentCommon"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqCashTransactionRow -->
+    <set
+        name="turqCashTransactionRows"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="exchange_rate_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqCashTransactionRow"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqBanksTransaction -->
+    <set
+        name="turqBanksTransactions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="exchange_rate_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBanksTransaction"
         />
     </set>
 

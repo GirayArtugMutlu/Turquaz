@@ -81,9 +81,9 @@ public class CurBLCurrentTransactionAdd {
 			curTrans.setTurqCurrentCard(curCard);
 			curTrans.setTransactionsDate(transDate);
 			curTrans.setTransactionsDocumentNo(documentNo);
-			curTrans.setTransactionsTotalDiscount(totalDiscount);
+			curTrans.setTransactionsTotalDiscount(totalDiscount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
 
-			curTrans.setTotalDiscountInForeignCurrency(totalDiscount.multiply(exchangeRate.getExchangeRatio()).setScale(2,BigDecimal.ROUND_HALF_DOWN));
+			curTrans.setTotalDiscountInForeignCurrency(totalDiscount);
 			curTrans.setTransactionsDefinition(definition.toUpperCase(Locale.getDefault()));
 			curTrans.setTurqEngineSequence(docSeq);
 		
@@ -91,8 +91,8 @@ public class CurBLCurrentTransactionAdd {
 		
 			if(isCredit){
 			
-			curTrans.setTransactionsTotalCredit(amount);
-			curTrans.setTotalCreditInForeignCurrency(amount.multiply(exchangeRate.getExchangeRatio()).setScale(2,BigDecimal.ROUND_HALF_DOWN));
+			curTrans.setTransactionsTotalCredit(amount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
+			curTrans.setTotalCreditInForeignCurrency(amount);
 			
 			curTrans.setTransactionsTotalDept(new BigDecimal(0));			
             curTrans.setTotalDeptInForeignCurrency(new BigDecimal(0));
@@ -103,8 +103,8 @@ public class CurBLCurrentTransactionAdd {
 				curTrans.setTransactionsTotalCredit(new BigDecimal(0));
 			    curTrans.setTotalCreditInForeignCurrency(new BigDecimal(0));
 			    
-				curTrans.setTotalDeptInForeignCurrency(amount.multiply(exchangeRate.getExchangeRatio()).setScale(2,BigDecimal.ROUND_HALF_DOWN));				
-				curTrans.setTransactionsTotalDept(amount);	
+				curTrans.setTotalDeptInForeignCurrency(amount);				
+				curTrans.setTransactionsTotalDept(amount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));	
 				
 			}
 			
@@ -132,6 +132,7 @@ public class CurBLCurrentTransactionAdd {
 		}
 	}
 	
+	//TODO DONE
 	public TurqCurrentTransaction saveOtherCurrentTransaction(TurqCurrentCard curCard,TurqAccountingAccount account,java.util.Date transDate, String documentNo,
 			boolean isCredit,BigDecimal amount, BigDecimal totalDiscount,int type,Integer seqDocNo,String definition, TurqCurrencyExchangeRate exchangeRate)throws Exception{
 		try{
@@ -147,9 +148,9 @@ public class CurBLCurrentTransactionAdd {
 			         // add accounting bill rows
 				  String transDefinition="Cari Borc/Alacak "+DatePicker.formatter.format(transDate) +" " + documentNo;
 			         Integer transId = blAcc.saveAccTransaction(transDate,documentNo,
-			         		EngBLCommon.ACCOUNTING_TRANS_GENERAL,EngBLCommon.MODULE_CURRENT,curTrans.getTurqEngineSequence().getId(),transDefinition);
-			         
-			         saveAccountingCashTransactionRows(curCard,isCredit,amount,account,transId,definition);           
+			         		EngBLCommon.ACCOUNTING_TRANS_GENERAL,EngBLCommon.MODULE_CURRENT,curTrans.getTurqEngineSequence().getId(),transDefinition, exchangeRate);
+
+			         saveAccountingCashTransactionRows(curCard,isCredit,amount,account,transId,definition,exchangeRate);           
 			         
 				return curTrans;
 			}
@@ -173,10 +174,11 @@ public class CurBLCurrentTransactionAdd {
 	 * @param account  Kasa muhasebe hesabi 
 	 * @throws Exception
 	 */
-	
+	//DONE
 	public void saveCurrentCashTransaction(TurqCurrentCard curCard,java.util.Date transDate, String documentNo,
 									boolean isCredit,BigDecimal amount, BigDecimal totalDiscount,
-									int type, TurqAccountingAccount account) throws Exception{
+									int type, TurqAccountingAccount account,
+									TurqCurrencyExchangeRate exchangeRate) throws Exception{
 		try{
 			
 		//Accounting Integration 
@@ -219,11 +221,12 @@ public class CurBLCurrentTransactionAdd {
          dalCurrentTrans.saveObject(seq);
          String transDefinition="Cari "+DatePicker.formatter.format(transDate) +" " + documentNo;
          Integer transId = blAcc.saveAccTransaction(transDate,documentNo,
-         		accTransactionType,4,seq.getId(),transDefinition);
+         		accTransactionType,4,seq.getId(),transDefinition,exchangeRate);
          
          //muhasebe fisi kalemlerini de ekleyelim.. 
          // add accounting bill rows
-         saveAccountingCashTransactionRows(curCard,isCredit,amount,account,transId,transDefinition);           
+         saveAccountingCashTransactionRows(curCard,isCredit,amount,
+         		account,transId,transDefinition,exchangeRate);           
          
          
         //Simdi Cari Hareketi Kaydedebiliriz. 
@@ -234,8 +237,8 @@ public class CurBLCurrentTransactionAdd {
  		curTrans.setTransactionsDocumentNo(documentNo);
  		curTrans.setTurqCurrentCard(curCard);
  	    curTrans.setTurqEngineSequence(seq);
-//        TODO current trans exRate
- 	    curTrans.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+
+ 	    curTrans.setTurqCurrencyExchangeRate(exchangeRate);
 		
  		TurqAccountingTransaction accTrans = new TurqAccountingTransaction();
  		accTrans.setId(transId);
@@ -243,9 +246,9 @@ public class CurBLCurrentTransactionAdd {
  		 		
 		
  		if(isCredit){		
- 			curTrans.setTransactionsTotalCredit(amount);
-// 	        TODO current trans exRate
-			curTrans.setTotalCreditInForeignCurrency(amount.multiply(EngBLCommon.getBaseCurrencyExchangeRate().getExchangeRatio()).setScale(2,BigDecimal.ROUND_HALF_DOWN));
+ 			
+			curTrans.setTotalCreditInForeignCurrency(amount);
+			curTrans.setTransactionsTotalCredit(amount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
 			
 			curTrans.setTransactionsTotalDept(new BigDecimal(0));			
             curTrans.setTotalDeptInForeignCurrency(new BigDecimal(0));
@@ -255,9 +258,9 @@ public class CurBLCurrentTransactionAdd {
  		{
  			curTrans.setTransactionsTotalCredit(new BigDecimal(0));
 		    curTrans.setTotalCreditInForeignCurrency(new BigDecimal(0));
-//	        TODO current trans exRate
-			curTrans.setTotalDeptInForeignCurrency(amount.multiply(EngBLCommon.getBaseCurrencyExchangeRate().getExchangeRatio()).setScale(2,BigDecimal.ROUND_HALF_DOWN));				
-			curTrans.setTransactionsTotalDept(amount);	
+
+			curTrans.setTotalDeptInForeignCurrency(amount);				
+			curTrans.setTransactionsTotalDept(amount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));	
  		
  		}
  		
@@ -266,11 +269,10 @@ public class CurBLCurrentTransactionAdd {
         TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
         transType.setId(new Integer(type));
  		
- 		curTrans.setTransactionsTotalDiscount(totalDiscount);
-//      TODO current trans exRate
-		curTrans.setTotalDiscountInForeignCurrency(totalDiscount.multiply(EngBLCommon.getBaseCurrencyExchangeRate().getExchangeRatio()).setScale(2,BigDecimal.ROUND_HALF_DOWN));
-//      TODO current trans exRate
- 		curTrans.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+ 		curTrans.setTransactionsTotalDiscount(totalDiscount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
+		curTrans.setTotalDiscountInForeignCurrency(totalDiscount);
+
+ 		curTrans.setTurqCurrencyExchangeRate(exchangeRate);
  		curTrans.setTurqCurrentTransactionType(transType);		
  		
  		curTrans.setCreatedBy(System.getProperty("user"));
@@ -303,9 +305,10 @@ public class CurBLCurrentTransactionAdd {
 	 * @param account "cari karttaki muhasebe hesabina karsilik gelecek muhasebe kodu" 
 	 * @param AccTransId Accounting transaction id
 	 */
+	//TODO DONE
 	public void saveAccountingCashTransactionRows(TurqCurrentCard curCard, 
 			boolean isCredit,BigDecimal amount,TurqAccountingAccount account,
-			Integer AccTransId, String definition) throws Exception{
+			Integer AccTransId, String definition, TurqCurrencyExchangeRate exchangeRate) throws Exception{
 	  try{
 			   
         	
@@ -322,8 +325,11 @@ public class CurBLCurrentTransactionAdd {
     		   			
     			transRowCash.setCreditAmount(amount);
     			transRowCash.setDeptAmount(new BigDecimal(0));
+    			
+    			
     			transRowCurrent.setCreditAmount(new BigDecimal(0));
     			transRowCurrent.setDeptAmount(amount);
+    			
     			
     			//cari sat?c? muhasebe kodunu da girelim
     			transRowCurrent.setTurqAccountingAccount(CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL));
@@ -336,9 +342,10 @@ public class CurBLCurrentTransactionAdd {
     		{
     			transRowCash.setCreditAmount(new BigDecimal(0));
     			transRowCash.setDeptAmount(amount);
-    			transRowCurrent.setCreditAmount(amount);
-    			transRowCurrent.setDeptAmount(new BigDecimal(0));
     			
+    			
+    			transRowCurrent.setCreditAmount(amount);
+    			transRowCurrent.setDeptAmount(new BigDecimal(0));    			
     			
     			//cari alici muhasebe kodunu da girelim
     			transRowCurrent.setTurqAccountingAccount(CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard,EngBLCommon.CURRENT_ACC_TYPE_GENERAL));
@@ -353,9 +360,9 @@ public class CurBLCurrentTransactionAdd {
          //fis kalemlerini de ekleyelim.. 
          transRowCash.setTransactionDefinition(definition);
          transRowCurrent.setTransactionDefinition(definition);
-//       TODO acc trans column exRate
-         blAcc.saveAccTransactionRow(transRowCash,AccTransId,EngBLCommon.getBaseCurrencyExchangeRate());
-         blAcc.saveAccTransactionRow(transRowCurrent,AccTransId,EngBLCommon.getBaseCurrencyExchangeRate());
+
+         blAcc.saveAccTransactionRow(transRowCash,AccTransId,exchangeRate);
+         blAcc.saveAccTransactionRow(transRowCurrent,AccTransId,exchangeRate);
        
 		}
 		

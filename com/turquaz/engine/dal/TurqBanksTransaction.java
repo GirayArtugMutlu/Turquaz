@@ -30,19 +30,31 @@ public class TurqBanksTransaction implements Serializable {
     private java.math.BigDecimal creditAmount;
 
     /** persistent field */
+    private java.math.BigDecimal deptAmountInForeignCurrency;
+
+    /** persistent field */
+    private java.math.BigDecimal creditAmountInForeignCurrency;
+
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqBanksTransactionBill turqBanksTransactionBill;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqBanksCard turqBanksCard;
 
     /** full constructor */
-    public TurqBanksTransaction(java.math.BigDecimal deptAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.math.BigDecimal creditAmount, com.turquaz.engine.dal.TurqBanksTransactionBill turqBanksTransactionBill, com.turquaz.engine.dal.TurqBanksCard turqBanksCard) {
+    public TurqBanksTransaction(java.math.BigDecimal deptAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.math.BigDecimal creditAmount, java.math.BigDecimal deptAmountInForeignCurrency, java.math.BigDecimal creditAmountInForeignCurrency, com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate, com.turquaz.engine.dal.TurqBanksTransactionBill turqBanksTransactionBill, com.turquaz.engine.dal.TurqBanksCard turqBanksCard) {
         this.deptAmount = deptAmount;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
         this.creditAmount = creditAmount;
+        this.deptAmountInForeignCurrency = deptAmountInForeignCurrency;
+        this.creditAmountInForeignCurrency = creditAmountInForeignCurrency;
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
         this.turqBanksTransactionBill = turqBanksTransactionBill;
         this.turqBanksCard = turqBanksCard;
     }
@@ -105,6 +117,30 @@ public class TurqBanksTransaction implements Serializable {
 
     public void setCreditAmount(java.math.BigDecimal creditAmount) {
         this.creditAmount = creditAmount;
+    }
+
+    public java.math.BigDecimal getDeptAmountInForeignCurrency() {
+        return this.deptAmountInForeignCurrency;
+    }
+
+    public void setDeptAmountInForeignCurrency(java.math.BigDecimal deptAmountInForeignCurrency) {
+        this.deptAmountInForeignCurrency = deptAmountInForeignCurrency;
+    }
+
+    public java.math.BigDecimal getCreditAmountInForeignCurrency() {
+        return this.creditAmountInForeignCurrency;
+    }
+
+    public void setCreditAmountInForeignCurrency(java.math.BigDecimal creditAmountInForeignCurrency) {
+        this.creditAmountInForeignCurrency = creditAmountInForeignCurrency;
+    }
+
+    public com.turquaz.engine.dal.TurqCurrencyExchangeRate getTurqCurrencyExchangeRate() {
+        return this.turqCurrencyExchangeRate;
+    }
+
+    public void setTurqCurrencyExchangeRate(com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate) {
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
     }
 
     public com.turquaz.engine.dal.TurqBanksTransactionBill getTurqBanksTransactionBill() {

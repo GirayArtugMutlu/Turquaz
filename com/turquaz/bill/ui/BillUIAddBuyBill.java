@@ -66,6 +66,8 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqConsignment;
+import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
@@ -93,6 +95,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
 
 
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
@@ -308,6 +311,8 @@ public class BillUIAddBuyBill extends Composite
 	private Text txtConsignmentDocumentNo;
 
 	private CLabel lblInventoryPrice;
+	private CCombo comboCurrencyType;
+	private CLabel lblCurrency;
 	private TableColumn tableColumnPriceAfterDiscount;
 	private DatePicker dateDueDate;
 	private CLabel lblDueDate;
@@ -387,6 +392,10 @@ public class BillUIAddBuyBill extends Composite
 	BillBLAddBill blAddBill = new BillBLAddBill();
 
 	ConBLAddConsignment blAddConsignment = new ConBLAddConsignment();
+	
+	private TurqCurrency baseCurrency=EngBLCommon.getBaseCurrency();
+	private TurqCurrencyExchangeRate exchangeRate=null;
+	private TurqCurrency exchangeCurrency=null;
 	
 //	 Set the table column property names
 	private final String INVENTORY_CODE             = Messages.getString("BillUIAddBuyBill.0"); //$NON-NLS-1$
@@ -493,8 +502,8 @@ public class BillUIAddBuyBill extends Composite
                                 GridData txtCurrentCardLData = new GridData();
                                
                                 txtCurrentCard.setBackground(SWTResourceManager.getColor(255,255,255));
-                                txtCurrentCardLData.widthHint = 219;
-                                txtCurrentCardLData.heightHint = 15;
+                                txtCurrentCardLData.widthHint = 157;
+                                txtCurrentCardLData.heightHint = 17;
                                 txtCurrentCard.setLayoutData(txtCurrentCardLData);
                             }
                             {
@@ -513,8 +522,8 @@ public class BillUIAddBuyBill extends Composite
                                     SWT.NONE);
                                 GridData txtDocumentNoLData = new GridData();
                                 txtDocumentNo.setTextLimit(50);
-                                txtDocumentNoLData.widthHint = 106;
-                                txtDocumentNoLData.heightHint = 16;
+                                txtDocumentNoLData.widthHint = 150;
+                                txtDocumentNoLData.heightHint = 17;
                                 txtDocumentNo.setLayoutData(txtDocumentNoLData);
                             }
                             {
@@ -531,15 +540,14 @@ public class BillUIAddBuyBill extends Composite
                                     SWT.NONE);
                                 GridData txtBillDocumentNoLData = new GridData();
                                 txtConsignmentDocumentNo.setTextLimit(50);
-                                txtBillDocumentNoLData.widthHint = 133;
-                                txtBillDocumentNoLData.heightHint = 15;
+                                txtBillDocumentNoLData.widthHint = 150;
+                                txtBillDocumentNoLData.heightHint = 17;
                                 txtConsignmentDocumentNo
                                     .setLayoutData(txtBillDocumentNoLData);
                             }
                             {
                                 lblDate = new CLabel(compInfoPanel, SWT.LEFT);
-                                lblDate.setText(Messages
-                                    .getString("BillUIAddBill.7")); //$NON-NLS-1$
+                                lblDate.setText("Fatura Tarihi");
                                 GridData lblDateLData = new GridData();
                                 lblDateLData.widthHint = 100;
                                 lblDateLData.heightHint = 22;
@@ -548,8 +556,8 @@ public class BillUIAddBuyBill extends Composite
                             {
                                 dateConsignmentDate = new DatePicker(compInfoPanel, SWT.NONE);
                                 GridData dateConsignmentDateLData = new GridData();
-                                dateConsignmentDateLData.widthHint = 113;
-                                dateConsignmentDateLData.heightHint = 20;
+                                dateConsignmentDateLData.widthHint = 157;
+                                dateConsignmentDateLData.heightHint = 23;
                                 dateConsignmentDate
                                     .setLayoutData(dateConsignmentDateLData);
                             }
@@ -657,6 +665,17 @@ public class BillUIAddBuyBill extends Composite
                                 dateDueDateLData.heightHint = 19;
                                 dateDueDate.setLayoutData(dateDueDateLData);
                             }
+							//START >>  lblCurrency
+							lblCurrency = new CLabel(compInfoPanel, SWT.NONE);
+							lblCurrency.setText("Para Birimi");
+							//END <<  lblCurrency
+							//START >>  comboCurrencyType
+							comboCurrencyType = new CCombo(compInfoPanel, SWT.NONE);
+							GridData comboCurrencyTypeLData = new GridData();
+							comboCurrencyTypeLData.widthHint = 135;
+							comboCurrencyTypeLData.heightHint = 17;
+							comboCurrencyType.setLayoutData(comboCurrencyTypeLData);
+							//END <<  comboCurrencyType
 
                         }
                         {
@@ -1046,6 +1065,7 @@ public class BillUIAddBuyBill extends Composite
 
 	public void postInitGui() {
 	    
+		fillCurrencyCombo();
 		cTabFolder1.setSelection(tabItemGeneral);
 
 		fillGroupsTable();
@@ -1074,6 +1094,31 @@ public class BillUIAddBuyBill extends Composite
 	    
 	    //fill combo ware houses
 	    fillComboWarehouses();
+	}
+	
+	public void fillCurrencyCombo()
+	{
+		try
+		{
+			List currencies=AccBLTransactionSearch.getCurrencies();
+			for (int k=0; k<currencies.size(); k++)
+			{
+				TurqCurrency currency=(TurqCurrency)currencies.get(k);
+				comboCurrencyType.add(currency.getCurrenciesAbbreviation());
+				comboCurrencyType.setData(currency.getCurrenciesAbbreviation(),currency);
+				if (currency.isDefaultCurrency())
+				{
+					comboCurrencyType.setText(currency.getCurrenciesAbbreviation());
+					baseCurrency=currency;
+				}
+			
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
 	}
 
 	 public void createTableViewer(){
@@ -1236,51 +1281,85 @@ public class BillUIAddBuyBill extends Composite
 	}
 
 	public boolean verifyFields() {
-		MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING);
+		try
+		{
+			MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING);
 
-		if (txtCurrentCard.getData() == null) {
-			msg.setMessage(Messages.getString("BillUIAddBuyBill.14")); //$NON-NLS-1$
-			msg.open();
-			txtCurrentCard.setFocus();
-			return false;
-		}
-
-		if (tableConsignmentRows.getItemCount() == 0) {
-			msg.setMessage(Messages.getString("BillUIAddBill.39")); //$NON-NLS-1$
-			msg.open();
-			cursor.setFocus();
-			return false;
-		}
-		boolean isExistEntry=false;
-		TableItem items[] = tableConsignmentRows.getItems();
-		for(int k=0; k<items.length ; k++)
-		{
-			InvUITransactionTableRow row = (InvUITransactionTableRow)items[k].getData();
-			if (row.okToSave())
-			{
-				isExistEntry=true;
-				break;
-			}
-		}
-		if (!isExistEntry)
-		{
-			msg.setMessage(Messages.getString("BillUIAddBill.39")); //$NON-NLS-1$
-			msg.open();
-			return false;
-		}
-		
-		Boolean isCurrent=(Boolean)comboPaymentType.getData(comboPaymentType.getText());
-		if (isCurrent.booleanValue())
-		{
-			if (accountPickerCurAcc.getData()==null)
-			{
-				msg.setMessage(Messages.getString("BillUIAddBuyBill.15")); //$NON-NLS-1$
+			if (txtCurrentCard.getData() == null) {
+				msg.setMessage(Messages.getString("BillUIAddBuyBill.14")); //$NON-NLS-1$
 				msg.open();
-				accountPickerCurAcc.setFocus();
+				txtCurrentCard.setFocus();
 				return false;
 			}
+
+			else if (tableConsignmentRows.getItemCount() == 0) {
+				msg.setMessage(Messages.getString("BillUIAddBill.39")); //$NON-NLS-1$
+				msg.open();
+				cursor.setFocus();
+				return false;
+			}
+			boolean isExistEntry=false;
+			TableItem items[] = tableConsignmentRows.getItems();
+			for(int k=0; k<items.length ; k++)
+			{
+				InvUITransactionTableRow row = (InvUITransactionTableRow)items[k].getData();
+				if (row.okToSave())
+				{
+					isExistEntry=true;
+					break;
+				}
+			}
+			if (!isExistEntry)
+			{
+				msg.setMessage(Messages.getString("BillUIAddBill.39")); //$NON-NLS-1$
+				msg.open();
+				return false;
+			}
+			
+		
+			Boolean isCurrent=(Boolean)comboPaymentType.getData(comboPaymentType.getText());
+			if (isCurrent.booleanValue())
+			{
+				if (accountPickerCurAcc.getData()==null)
+				{
+					msg.setMessage(Messages.getString("BillUIAddBuyBill.15")); //$NON-NLS-1$
+					msg.open();
+					accountPickerCurAcc.setFocus();
+					return false;
+				}
+			}
+			
+    		if ((exchangeCurrency=(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()))==null)
+    		{
+        		msg.setMessage("Para birimi seçmelisiniz!");
+        		msg.open();
+        		comboCurrencyType.setFocus();
+        		return false;
+    		}
+    		if (baseCurrency.getId().intValue() !=exchangeCurrency.getId().intValue())
+    		{
+				exchangeRate=EngBLCommon.getCurrencyExchangeRate(baseCurrency,
+						exchangeCurrency,dateConsignmentDate.getDate());
+				if (exchangeRate == null)
+				{
+					msg.setMessage("Günlük kur tan?mlamal?s?n?z!");
+					msg.open();
+					return false;	
+			
+				}
+			
+    		}
+    		else
+    		{
+    			exchangeRate=EngBLCommon.getBaseCurrencyExchangeRate();
+    		}
+    		return true;
 		}
-		return true;
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return false;
+		}
 	}
 
 	public void saveConsignmentRows(Integer consignmentID) {
@@ -1369,6 +1448,7 @@ public class BillUIAddBuyBill extends Composite
 					decSpecialVat.getBigDecimalValue(), txtTotalAmount
 							.getBigDecimalValue(), type);
 			saveConsignmentRows(cons.getId());
+			
 
 			return cons;
 		} catch (Exception ex) {

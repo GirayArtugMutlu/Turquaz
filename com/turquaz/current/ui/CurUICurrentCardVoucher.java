@@ -18,6 +18,7 @@ package com.turquaz.current.ui;
 /************************************************************************/
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
@@ -49,6 +50,8 @@ import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
+import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.ui.EngUICommon;
@@ -57,6 +60,7 @@ import com.turquaz.engine.ui.component.SecureComposite;
 
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.custom.CCombo;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -78,13 +82,32 @@ implements SecureComposite{
 	private DatePicker dateTransDate;
 	private CLabel lvlDefinition;
 	private Text txtDefinition;
+	private CCombo comboCurrencyType;
+	private CLabel lblCurrency;
 	private AccountPicker accountPicker;
 	private CLabel lblAcccountingAccount;
 	private CCombo comboType;
 	private CLabel lblDept;
 	private CurrencyText txtCredit;
 	private CLabel lblCredit;
+
+	/**
+	 * @return Returns the comboCurrencyType.
+	 */
+	public CCombo getComboCurrencyType() {
+		return comboCurrencyType;
+	}
+	/**
+	 * @return Returns the exchangeRate.
+	 */
+	public TurqCurrencyExchangeRate getExchangeRate() {
+		return exchangeRate;
+	}
 	private CurBLCurrentTransactionAdd curBLTransAdd=new CurBLCurrentTransactionAdd();
+	
+	private TurqCurrency baseCurrency=EngBLCommon.getBaseCurrency();
+	private TurqCurrencyExchangeRate exchangeRate=null;
+	private TurqCurrency exchangeCurrency=null;
 
 	/**
 	* Auto-generated main method to display this 
@@ -146,9 +169,8 @@ implements SecureComposite{
 			{
 				txtCurrentCard = new CurrentPicker(this, SWT.NONE);
 				GridData txtCurrentCardLData = new GridData();
-				txtCurrentCard.setSize(311, 19);
-				txtCurrentCardLData.widthHint = 311;
-				txtCurrentCardLData.heightHint = 19;
+				txtCurrentCardLData.widthHint = 157;
+				txtCurrentCardLData.heightHint = 17;
 				txtCurrentCard.setLayoutData(txtCurrentCardLData);
 			}
 			{
@@ -158,21 +180,9 @@ implements SecureComposite{
 			{
 				dateTransDate = new DatePicker(this, SWT.NONE);
 				GridData dateTransDateLData = new GridData();
-				dateTransDateLData.widthHint = 112;
+				dateTransDateLData.widthHint = 157;
 				dateTransDateLData.heightHint = 23;
 				dateTransDate.setLayoutData(dateTransDateLData);
-			}
-			{
-				lvlDefinition = new CLabel(this, SWT.NONE);
-				lvlDefinition.setText(Messages.getString("CurUICurrentCardVoucher.2")); //$NON-NLS-1$
-			}
-			{
-				txtDefinition = new Text(this, SWT.NONE);
-				GridData txtDefinitionLData = new GridData();
-               
-				txtDefinitionLData.widthHint = 395;
-				txtDefinitionLData.heightHint = 18;
-				txtDefinition.setLayoutData(txtDefinitionLData);
 			}
 			{
 				lblDept = new CLabel(this, SWT.NONE);
@@ -183,8 +193,8 @@ implements SecureComposite{
 				
 				GridData txtDeptLData = new GridData();
 				comboType.setBackground(SWTResourceManager.getColor(255, 255, 255));
-				txtDeptLData.widthHint = 71;
-				txtDeptLData.heightHint = 16;
+				txtDeptLData.widthHint = 135;
+				txtDeptLData.heightHint = 17;
 				comboType.setLayoutData(txtDeptLData);
 			}
 			{
@@ -198,8 +208,8 @@ implements SecureComposite{
 			{
 				txtCredit = new CurrencyText(this, SWT.NONE);
 				GridData txtCreditLData = new GridData();
-				txtCreditLData.widthHint = 203;
-				txtCreditLData.heightHint = 18;
+				txtCreditLData.widthHint = 150;
+				txtCreditLData.heightHint = 17;
 				txtCredit.setLayoutData(txtCreditLData);
 			}
 			//START >>  lblAcccountingAccount
@@ -209,20 +219,76 @@ implements SecureComposite{
 			//START >>  accountPicker
 			accountPicker = new AccountPicker(this, SWT.NONE);
 			GridData accountPickerLData = new GridData();
-			accountPickerLData.widthHint = 209;
-			accountPickerLData.heightHint = 18;
+			accountPickerLData.widthHint = 157;
+			accountPickerLData.heightHint = 17;
 			accountPicker.setLayoutData(accountPickerLData);
 			//END <<  accountPicker
+			//START >>  lblCurrency
+			lblCurrency = new CLabel(this, SWT.NONE);
+			lblCurrency.setText("Para Birimi");
+			//END <<  lblCurrency
+			//START >>  comboCurrencyType
+			comboCurrencyType = new CCombo(this, SWT.NONE);
+			GridData comboCurrencyTypeLData = new GridData();
+			comboCurrencyTypeLData.widthHint = 135;
+			comboCurrencyTypeLData.heightHint = 17;
+			comboCurrencyType.setLayoutData(comboCurrencyTypeLData);
+			//END <<  comboCurrencyType
+			{
+				lvlDefinition = new CLabel(this, SWT.NONE);
+				lvlDefinition.setText(Messages
+					.getString("CurUICurrentCardVoucher.2")); //$NON-NLS-1$
+			}
+			{
+				txtDefinition = new Text(this, SWT.MULTI | SWT.WRAP);
+				GridData txtDefinitionLData = new GridData();
+
+				txtDefinitionLData.widthHint = 383;
+				txtDefinitionLData.heightHint = 56;
+				txtDefinition.setLayoutData(txtDefinitionLData);
+			}
 			comboType.add(EngBLCommon.COMMON_DEPT_STRING);
 			comboType.add(EngBLCommon.COMMON_CREDIT_STRING);
 			comboType.setText(EngBLCommon.COMMON_DEPT_STRING);
 			comboType.setEditable(false);
 			
 			this.layout();
+			PostInit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public void PostInit()
+	{
+		fillCurrencyCombo();
+	}
+	
+	public void fillCurrencyCombo()
+	{
+		try
+		{
+			List currencies=AccBLTransactionSearch.getCurrencies();
+			for (int k=0; k<currencies.size(); k++)
+			{
+				TurqCurrency currency=(TurqCurrency)currencies.get(k);
+				comboCurrencyType.add(currency.getCurrenciesAbbreviation());
+				comboCurrencyType.setData(currency.getCurrenciesAbbreviation(),currency);
+				if (currency.isDefaultCurrency())
+				{
+					comboCurrencyType.setText(currency.getCurrenciesAbbreviation());
+					baseCurrency=currency;
+				}
+			
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+	}
+	
 	
 	public void newForm()
 	{
@@ -246,11 +312,11 @@ implements SecureComposite{
 				if(comboType.getText().equals(EngBLCommon.COMMON_CREDIT_STRING)){
 				    isCredit=true;
 				}
-//		        TODO current trans exRate
+
 				TurqCurrentTransaction curtrans = curBLTransAdd.saveOtherCurrentTransaction((TurqCurrentCard)txtCurrentCard.getData(),
 					accountPicker.getTurqAccountingAccount(),dateTransDate.getDate(),"",isCredit,credit, //$NON-NLS-1$
 							new BigDecimal(0),EngBLCommon.CURRENT_TRANS_OTHERS,
-							null,txtDefinition.getText(),EngBLCommon.getBaseCurrencyExchangeRate());
+							null,txtDefinition.getText(),exchangeRate);
 				
 				if(EngUICommon.okToDelete(getShell(),Messages.getString("CurUICurrentCardVoucher.4"))) //$NON-NLS-1$
 				{
@@ -269,22 +335,55 @@ implements SecureComposite{
 	}
 	public boolean verifyFields()
 	{
-		MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
-		if (txtCurrentCard.getData()==null)
+		try
 		{
-			msg.setMessage(Messages.getString("CurUICurrentCardVoucher.10")); //$NON-NLS-1$
-			msg.open();
-			txtCurrentCard.setFocus();
+			MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
+			if (txtCurrentCard.getData()==null)
+			{
+				msg.setMessage(Messages.getString("CurUICurrentCardVoucher.10")); //$NON-NLS-1$
+				msg.open();
+				txtCurrentCard.setFocus();
+				return false;
+			}
+			else if (txtCredit.getText().equals("") && comboType.getText().equals("")) //$NON-NLS-1$ //$NON-NLS-2$
+			{
+				msg.setMessage(Messages.getString("CurUICurrentCardVoucher.13")); //$NON-NLS-1$
+				msg.open();
+				comboType.setFocus();
+				return false;
+			}
+			else if ((exchangeCurrency=(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()))==null)
+			{
+				msg.setMessage("Para birimi seçmelisiniz!");
+				msg.open();
+				comboCurrencyType.setFocus();
+				return false;
+			}
+			if (baseCurrency.getId().intValue() !=exchangeCurrency.getId().intValue())
+			{
+				exchangeRate=EngBLCommon.getCurrencyExchangeRate(baseCurrency,
+					exchangeCurrency,dateTransDate.getDate());
+			
+				if (exchangeRate == null)
+				{
+					msg.setMessage("Günlük kur tan?mlamal?s?n?z!");
+					msg.open();
+					return false;	
+		
+				}
+		
+			}
+			else
+			{
+				exchangeRate=EngBLCommon.getBaseCurrencyExchangeRate();
+			}  
+			return true;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
 			return false;
 		}
-		else if (txtCredit.getText().equals("") && comboType.getText().equals("")) //$NON-NLS-1$ //$NON-NLS-2$
-		{
-			msg.setMessage(Messages.getString("CurUICurrentCardVoucher.13")); //$NON-NLS-1$
-			msg.open();
-			comboType.setFocus();
-			return false;
-		}
-		return true;
 	}
 
     public DatePicker getDateTransDate() {

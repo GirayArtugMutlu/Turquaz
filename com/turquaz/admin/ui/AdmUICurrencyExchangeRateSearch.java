@@ -18,6 +18,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
+import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyExchangeRateAdd;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -38,6 +39,14 @@ import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 * *************************************
 */
 public class AdmUICurrencyExchangeRateSearch extends org.eclipse.swt.widgets.Composite {
+	
+    {
+        //Register as a resource user - SWTResourceManager will
+        //handle the obtaining and disposing of resources
+        SWTResourceManager.registerResourceUser(this);
+    }
+    
+    
 	private Composite compTable;
 	private Table tableExchange;
 	private TableColumn tableColumnDate;

@@ -72,6 +72,20 @@
         not-null="true"
         length="4"
     />
+    <property
+        name="deptAmountInForeignCurrency"
+        type="java.math.BigDecimal"
+        column="dept_amount_in_foreign_currency"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="creditAmountInForeignCurrency"
+        type="java.math.BigDecimal"
+        column="credit_amount_in_foreign_currency"
+        not-null="true"
+        length="65535"
+    />
 
     <!-- Associations -->
   
@@ -90,6 +104,14 @@
         not-null="true"
     >
         <column name="cash_cards_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqCurrencyExchangeRate -->
+    <many-to-one
+        name="turqCurrencyExchangeRate"
+        class="com.turquaz.engine.dal.TurqCurrencyExchangeRate"
+        not-null="true"
+    >
+        <column name="exchange_rate_id" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqAccountingAccount -->
     <many-to-one

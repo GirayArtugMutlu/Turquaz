@@ -12,6 +12,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 
+import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyExchangeRateAdd;
@@ -43,6 +44,14 @@ import org.eclipse.swt.SWT;
 */
 public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Composite implements SecureComposite
 {
+	
+    {
+        //Register as a resource user - SWTResourceManager will
+        //handle the obtaining and disposing of resources
+        SWTResourceManager.registerResourceUser(this);
+    }
+    
+    
 	private CLabel lvlExchangeDate;
 	private Text txtBaseCurrency;
 	private CCombo comboExchangeCurrency;

@@ -178,11 +178,11 @@ public class BillBLAddBill {
 				 */
 
 				AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
-
+				 //TODO bank exRate
 				Integer transID = blAcc.saveAccTransaction(bill.getBillsDate(),
 						common.getBillDocumentNo(), 2, 7,
 						bill.getTurqEngineSequence().getId(),
-						billDefinition);
+						billDefinition,EngBLCommon.getBaseCurrencyExchangeRate());
 
 				TurqAccountingTransactionColumn transRow = null;
 				TurqInventoryTransaction invTrans = null;
@@ -407,10 +407,11 @@ public class BillBLAddBill {
 				 * 1 -Cari Muhasebe hareketi isle 2- Kasa Muhasebe hareketi isle
 				 */
 				if (!bill.isIsOpen()) {
+					 //TODO bill exRate
 					transID = blAcc.saveAccTransaction(bill.getBillsDate(),
 							common.getBillDocumentNo(), 1, 7, bill
 									.getTurqEngineSequence()
-									.getId(), billDefinition);
+									.getId(), billDefinition,EngBLCommon.getBaseCurrencyExchangeRate());
 
 					/**
 					 * 1-Cari Muhasebe Satiri
@@ -475,7 +476,7 @@ public class BillBLAddBill {
 				 */
 
 				AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
-
+//				TODO bill exRate
 				Integer transID = blAcc.saveAccTransaction(bill.getBillsDate(),
 						common.getBillDocumentNo(), 2, 7,
 						bill.getTurqEngineSequence().getId(),
@@ -484,7 +485,7 @@ public class BillBLAddBill {
 										.getBillDocumentNo()
 								+ " "
 								+ bill.getTurqBillConsignmentCommon()
-										.getTurqCurrentCard().getCardsName());
+										.getTurqCurrentCard().getCardsName(),EngBLCommon.getBaseCurrencyExchangeRate());
 
 				TurqAccountingTransactionColumn transRow = null;
 				TurqInventoryTransaction invTrans = null;
@@ -712,10 +713,11 @@ public class BillBLAddBill {
 				 * 1 -Cari Muhasebe hareketi isle 2- Kasa Muhasebe hareketi isle
 				 */
 				if (!bill.isIsOpen()) {
+//					TODO bill exRate
 					transID = blAcc.saveAccTransaction(bill.getBillsDate(),
 							common.getBillDocumentNo(), 0, 7, bill
 									.getTurqEngineSequence()
-									.getId(), billDefinition);
+									.getId(), billDefinition,EngBLCommon.getBaseCurrencyExchangeRate());
 
 					/**
 					 * 1-Cari Muhasebe Satiri

@@ -21,9 +21,14 @@ package com.turquaz.cash.ui;
 */
 
 import java.math.BigDecimal;
+import java.util.List;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.MessageBox;
+
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.ui.comp.AccountPicker;
+import org.eclipse.swt.custom.CCombo;
 import com.turquaz.cash.ui.comp.CashCardPicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
@@ -34,6 +39,8 @@ import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -67,6 +74,8 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
 
 	private CLabel lblCashCard;
 	private Text txtDefinition;
+	private CCombo comboCurrencyType;
+	private CLabel lblCurrency;
 	private DatePicker datePicker;
 	private CLabel lblDate;
 	private CLabel lblDefinition;
@@ -77,7 +86,11 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
 	private AccountPicker txtAccountingAccount;
 	private CLabel lblCurrentCard;
 	private CashCardPicker txtCashCard;
-	CashBLCashTransactionAdd blTrans = new CashBLCashTransactionAdd();
+	private CashBLCashTransactionAdd blTrans = new CashBLCashTransactionAdd();
+	
+	private TurqCurrency baseCurrency=EngBLCommon.getBaseCurrency();
+	private TurqCurrencyExchangeRate exchangeRate=null;
+	private TurqCurrency exchangeCurrency=null;
 
 	
 	public CashUICashOtherCollectTransaction(org.eclipse.swt.widgets.Composite parent, int style) {
@@ -98,9 +111,9 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
             {
                 txtDocumentNo = new Text(this, SWT.NONE);
                 GridData txtDocumentNoLData = new GridData();
-                txtDocumentNo.setSize(166, 19);
-                txtDocumentNoLData.widthHint = 166;
-                txtDocumentNoLData.heightHint = 19;
+                txtDocumentNo.setSize(150, 19);
+                txtDocumentNoLData.widthHint = 150;
+                txtDocumentNoLData.heightHint = 17;
                 txtDocumentNo.setLayoutData(txtDocumentNoLData);
             }
             {
@@ -110,7 +123,7 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
             {
                 datePicker = new DatePicker(this, SWT.NONE);
                 GridData datePickerLData = new GridData();
-                datePickerLData.widthHint = 128;
+                datePickerLData.widthHint = 152;
                 datePickerLData.heightHint = 23;
                 datePicker.setLayoutData(datePickerLData);
             }
@@ -121,8 +134,8 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
             {
                 txtCashCard = new CashCardPicker(this, SWT.NONE);
                 GridData txtCashCardLData = new GridData();
-                txtCashCardLData.widthHint = 167;
-                txtCashCardLData.heightHint = 19;
+                txtCashCardLData.widthHint = 150;
+                txtCashCardLData.heightHint = 17;
 
                 txtCashCard.setLayoutData(txtCashCardLData);
             }
@@ -133,8 +146,8 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
             {
                 txtAccountingAccount = new AccountPicker(this, SWT.NONE);
                 GridData txtCurrentAccountLData = new GridData();
-                txtCurrentAccountLData.widthHint = 167;
-                txtCurrentAccountLData.heightHint = 18;
+                txtCurrentAccountLData.widthHint = 150;
+                txtCurrentAccountLData.heightHint = 17;
                 txtAccountingAccount.setLayoutData(txtCurrentAccountLData);
       
             }
@@ -149,19 +162,30 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
             {
                 curTextTotalAmount = new CurrencyText(this, SWT.NONE);
                 GridData curTextTotalAmountLData = new GridData();
-                curTextTotalAmountLData.widthHint = 165;
-                curTextTotalAmountLData.heightHint = 19;
+                curTextTotalAmountLData.widthHint = 145;
+                curTextTotalAmountLData.heightHint = 17;
                 curTextTotalAmount.setLayoutData(curTextTotalAmountLData);
             }
+			//START >>  lblCurrency
+			lblCurrency = new CLabel(this, SWT.NONE);
+			lblCurrency.setText("Para Birimi");
+			//END <<  lblCurrency
+			//START >>  comboCurrencyType
+			comboCurrencyType = new CCombo(this, SWT.NONE);
+			GridData comboCurrencyTypeLData = new GridData();
+			comboCurrencyTypeLData.widthHint = 130;
+			comboCurrencyTypeLData.heightHint = 17;
+			comboCurrencyType.setLayoutData(comboCurrencyTypeLData);
+			//END <<  comboCurrencyType
             {
                 lblDefinition = new CLabel(this, SWT.NONE);
                 lblDefinition.setText(Messages.getString("CashUICashCollectTransactionAdd.7")); //$NON-NLS-1$
             }
             {
-                txtDefinition = new Text(this, SWT.NONE);
+                txtDefinition = new Text(this, SWT.MULTI | SWT.WRAP);
                 GridData txtDefinitionLData = new GridData();
-                txtDefinitionLData.widthHint = 359;
-                txtDefinitionLData.heightHint = 18;
+                txtDefinitionLData.widthHint = 367;
+                txtDefinitionLData.heightHint = 50;
                 txtDefinition.setLayoutData(txtDefinitionLData);
             }
             postInitGUI();
@@ -173,7 +197,32 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
 	
 	public void postInitGUI(){
 	   
-	    
+	    fillCurrencyCombo();
+	}
+	
+	public void fillCurrencyCombo()
+	{
+		try
+		{
+			List currencies=AccBLTransactionSearch.getCurrencies();
+			for (int k=0; k<currencies.size(); k++)
+			{
+				TurqCurrency currency=(TurqCurrency)currencies.get(k);
+				comboCurrencyType.add(currency.getCurrenciesAbbreviation());
+				comboCurrencyType.setData(currency.getCurrenciesAbbreviation(),currency);
+				if (currency.isDefaultCurrency())
+				{
+					comboCurrencyType.setText(currency.getCurrenciesAbbreviation());
+					baseCurrency=currency;
+				}
+			
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
 	}
 
     public void newForm() {
@@ -198,7 +247,8 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
                        						  curTextTotalAmount.getBigDecimalValue(),
                        						  datePicker.getDate(),
                        						  txtDefinition.getText(),
-                       						  txtDocumentNo.getText().trim()
+                       						  txtDocumentNo.getText().trim(),
+											  exchangeRate
                        						  );
                
                msg.setMessage(Messages.getString("CashUICashCollectTransactionAdd.1")); //$NON-NLS-1$
@@ -216,26 +266,58 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
 
     }
     public boolean verifyFields(){
-        MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
-        if(txtCashCard.getData()==null){
-            msg.setMessage(Messages.getString("CashUICashCollectTransactionAdd.8")); //$NON-NLS-1$
-            msg.open();
-            txtCashCard.setFocus();
-           return false;
-        }
-        else if(txtAccountingAccount.getData()==null){
-            msg.setMessage(Messages.getString("CashUICashOtherCollectTransaction.0"));  //$NON-NLS-1$
-            msg.open();
-            txtAccountingAccount.setFocus();
-            return false;
-        }
-        else if(curTextTotalAmount.getBigDecimalValue().equals(new BigDecimal(0))){
-            msg.setMessage(Messages.getString("CashUICashCollectTransactionAdd.10")); //$NON-NLS-1$
-            msg.open();
-            curTextTotalAmount.setFocus();
-            return false;
-        }
-        return true;
+    	try
+		{
+    		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+    		if(txtCashCard.getData()==null){
+    			msg.setMessage(Messages.getString("CashUICashCollectTransactionAdd.8")); //$NON-NLS-1$
+    			msg.open();
+    			txtCashCard.setFocus();
+    			return false;
+    		}
+    		else if(txtAccountingAccount.getData()==null){
+    			msg.setMessage(Messages.getString("CashUICashOtherCollectTransaction.0"));  //$NON-NLS-1$
+    			msg.open();
+    			txtAccountingAccount.setFocus();
+    			return false;
+    		}
+    		else if(curTextTotalAmount.getBigDecimalValue().equals(new BigDecimal(0))){
+    			msg.setMessage(Messages.getString("CashUICashCollectTransactionAdd.10")); //$NON-NLS-1$
+    			msg.open();
+    			curTextTotalAmount.setFocus();
+    			return false;
+    		}
+    		else if ((exchangeCurrency=(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()))==null)
+    		{
+    			msg.setMessage("Para birimi seçmelisiniz!");
+    			msg.open();
+    			comboCurrencyType.setFocus();
+    			return false;
+    		}
+    		if (baseCurrency.getId().intValue() !=exchangeCurrency.getId().intValue())
+    		{
+    			exchangeRate=EngBLCommon.getCurrencyExchangeRate(baseCurrency,
+					exchangeCurrency,datePicker.getDate());
+    			if (exchangeRate == null)
+    			{
+    				msg.setMessage("Günlük de?i?im oran? tan?mlamal?s?n?z!");
+    				msg.open();
+					return false;	
+		
+    			}
+		
+    		}
+    		else
+    		{
+    			exchangeRate=EngBLCommon.getBaseCurrencyExchangeRate();
+    		}  
+    		return true;
+		}
+    	catch(Exception ex)
+		{
+    		ex.printStackTrace();
+    		return false;
+		}
     }
     
     public CurrencyText getCurTextTotalAmount() {
@@ -280,5 +362,17 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
 	 */
 	public void setTxtAccountingAccount(AccountPicker txtAccountingAccount) {
 		this.txtAccountingAccount = txtAccountingAccount;
+	}
+	/**
+	 * @return Returns the comboCurrencyType.
+	 */
+	public CCombo getComboCurrencyType() {
+		return comboCurrencyType;
+	}
+	/**
+	 * @return Returns the exchangeRate.
+	 */
+	public TurqCurrencyExchangeRate getExchangeRate() {
+		return exchangeRate;
 	}
 }

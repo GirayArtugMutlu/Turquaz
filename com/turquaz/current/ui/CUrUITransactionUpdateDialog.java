@@ -37,8 +37,11 @@ import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.current.ui.CurUITransactionAdd;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 
@@ -71,7 +74,12 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private Shell dialogShell;
 	TurqCurrentTransaction transaction;
 	private ToolItem toolCancel;
-	CurBLSearchTransaction blSearch = new CurBLSearchTransaction();
+	
+	private CurBLSearchTransaction blSearch = new CurBLSearchTransaction();
+	
+	private TurqCurrency baseCurrency=EngBLCommon.getBaseCurrency();
+	private TurqCurrencyExchangeRate exchangeRate=null;
+	private TurqCurrency exchangeCurrency=null;
 	
 
 	public CUrUITransactionUpdateDialog(Shell parent, int style,TurqCurrentTransaction trans) {
@@ -228,6 +236,10 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	compTransactionAdd.getTxtCurrentCode().setText(transaction.getTurqCurrentCard().getCardsCurrentCode());
 	compTransactionAdd.getDateTransDate().setDate(transaction.getTransactionsDate());
 	
+	compTransactionAdd.getComboCurrencyType().setText(transaction.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
+	
+	
+	//TODO CHECK UPDATE !!!
 	/*TurqAccountingTransaction accTrans = transaction.getTurqAccountingTransaction();
 	
 	boolean isCredit = false;

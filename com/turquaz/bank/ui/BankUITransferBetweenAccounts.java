@@ -1,17 +1,23 @@
 package com.turquaz.bank.ui;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
 
+import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
+import org.eclipse.swt.custom.CCombo;
 import com.turquaz.bank.ui.comp.BankCardPicker;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Text;
@@ -35,7 +41,9 @@ import org.eclipse.swt.SWT;
 public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Composite implements SecureComposite {
 	private CLabel lblDocNo;
 	private CLabel lblBankCard;
+	private CCombo comboCurrencyType;
 	private Text txtDefinition;
+	private CLabel lblCurrency;
 	private CLabel lblDefinition;
 	private CurrencyText curAmount;
 	private CLabel lblAmount;
@@ -45,9 +53,25 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
 	private DatePicker datePick;
 	private CLabel lblDate;
 	private Text txtDocNo;
+	
+	private TurqCurrency baseCurrency=EngBLCommon.getBaseCurrency();
+	private TurqCurrencyExchangeRate exchangeRate=null;
+	private TurqCurrency exchangeCurrency=null;
 
 	
 
+	/**
+	 * @return Returns the comboCurrencyType.
+	 */
+	public CCombo getComboCurrencyType() {
+		return comboCurrencyType;
+	}
+	/**
+	 * @return Returns the exchangeRate.
+	 */
+	public TurqCurrencyExchangeRate getExchangeRate() {
+		return exchangeRate;
+	}
 	public BankUITransferBetweenAccounts(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -58,7 +82,7 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(540, 211);
+			this.setSize(539, 224);
             {
                 lblDocNo = new CLabel(this, SWT.NONE);
                 lblDocNo.setText("Belge No");
@@ -66,8 +90,8 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
             {
                 txtDocNo = new Text(this, SWT.NONE);
                 GridData txtDocNoLData = new GridData();
-                txtDocNoLData.widthHint = 128;
-                txtDocNoLData.heightHint = 15;
+                txtDocNoLData.widthHint = 150;
+                txtDocNoLData.heightHint = 17;
                 txtDocNo.setLayoutData(txtDocNoLData);
             }
             {
@@ -77,8 +101,8 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
             {
                 datePick = new DatePicker(this, SWT.NONE);
                 GridData datePickLData = new GridData();
-                datePickLData.widthHint = 109;
-                datePickLData.heightHint = 20;
+                datePickLData.widthHint = 157;
+                datePickLData.heightHint = 23;
                 datePick.setLayoutData(datePickLData);
             }
             {
@@ -88,8 +112,8 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
             {
                 bankCardPickerWithDept = new BankCardPicker(this, SWT.NONE);
                 GridData txtBankCardLData = new GridData();
-                txtBankCardLData.widthHint = 192;
-                txtBankCardLData.heightHint = 18;
+                txtBankCardLData.widthHint = 157;
+                txtBankCardLData.heightHint = 17;
                 bankCardPickerWithDept.setLayoutData(txtBankCardLData);
             }
             {
@@ -99,8 +123,8 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
             {
                 bankCardPickerWithCredit = new BankCardPicker(this, SWT.NONE);
                 GridData currentPickerLData = new GridData();
-                currentPickerLData.widthHint = 191;
-                currentPickerLData.heightHint = 18;
+                currentPickerLData.widthHint = 157;
+                currentPickerLData.heightHint = 17;
                 bankCardPickerWithCredit.setLayoutData(currentPickerLData);
             }
             {
@@ -110,29 +134,74 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
             {
                 curAmount = new CurrencyText(this, SWT.NONE);
                 GridData curAmountLData = new GridData();
-                curAmountLData.widthHint = 185;
-                curAmountLData.heightHint = 18;
+                curAmountLData.widthHint = 150;
+                curAmountLData.heightHint = 17;
                 curAmount.setLayoutData(curAmountLData);
             }
+			//START >>  lblCurrency
+			lblCurrency = new CLabel(this, SWT.NONE);
+			lblCurrency.setText("Para Birimi");
+			//END <<  lblCurrency
+			//START >>  comboCurrencyType
+			comboCurrencyType = new CCombo(this, SWT.NONE);
+			GridData comboCurrencyTypeLData = new GridData();
+			comboCurrencyTypeLData.widthHint = 135;
+			comboCurrencyTypeLData.heightHint = 17;
+			comboCurrencyType.setLayoutData(comboCurrencyTypeLData);
+			//END <<  comboCurrencyType
             {
                 lblDefinition = new CLabel(this, SWT.NONE);
                 lblDefinition.setText("Aç\u0131klama");
             }
             {
-                txtDefinition = new Text(this, SWT.NONE);
+                txtDefinition = new Text(this, SWT.MULTI | SWT.WRAP);
                 GridData txtDefinitionLData = new GridData();
-                txtDefinitionLData.widthHint = 361;
-                txtDefinitionLData.heightHint = 18;
+                txtDefinitionLData.widthHint = 362;
+                txtDefinitionLData.heightHint = 51;
                 txtDefinition.setLayoutData(txtDefinitionLData);
             }
 			this.layout();
+			PostInit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	public void PostInit()
+	{
+		fillCurrencyCombo();
+	}
+	
+	
+	public void fillCurrencyCombo()
+	{
+		try
+		{
+			List currencies=AccBLTransactionSearch.getCurrencies();
+			for (int k=0; k<currencies.size(); k++)
+			{
+				TurqCurrency currency=(TurqCurrency)currencies.get(k);
+				comboCurrencyType.add(currency.getCurrenciesAbbreviation());
+				comboCurrencyType.setData(currency.getCurrenciesAbbreviation(),currency);
+				if (currency.isDefaultCurrency())
+				{
+					comboCurrencyType.setText(currency.getCurrenciesAbbreviation());
+					baseCurrency=currency;
+				}
+			
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+	}
+	
 
 	public boolean verifyFields(){
+		try
+		{
 		   
 		        if(bankCardPickerWithDept.getData()==null){
 		           EngUICommon.showMessageBox(getShell(),"Lütfen Borçlu Banka Kart? Seçiniz",SWT.ICON_WARNING); 
@@ -140,20 +209,48 @@ public class BankUITransferBetweenAccounts extends org.eclipse.swt.widgets.Compo
 		           return false;
 		            
 		        }
-		        if(bankCardPickerWithCredit.getData()==null){
+		        else if(bankCardPickerWithCredit.getData()==null){
 			           EngUICommon.showMessageBox(getShell(),"Lütfen Alacakl? Banka Kart? Seçiniz",SWT.ICON_WARNING); 
 			           bankCardPickerWithCredit.setFocus();
 			           return false;
 			            
 			        }
-		        if(curAmount.getBigDecimalValue().compareTo(new BigDecimal(0))!=1)
+		        else if(curAmount.getBigDecimalValue().compareTo(new BigDecimal(0))!=1)
 		        {
 		            EngUICommon.showMessageBox(getShell(),Messages.getString("BankUIMoneyTransferIn.8"),SWT.ICON_WARNING); //$NON-NLS-1$
 		             curAmount.setFocus();
 		            return false;
 		            
 		        }
+	    		else if ((exchangeCurrency=(TurqCurrency)comboCurrencyType.getData(comboCurrencyType.getText()))==null)
+	    		{
+	    			EngUICommon.showMessageBox(getShell(),"Para birimi seçmelisiniz!",SWT.ICON_WARNING);
+	        		comboCurrencyType.setFocus();
+	        		return false;
+	    		}
+	    		if (baseCurrency.getId().intValue() !=exchangeCurrency.getId().intValue())
+	    		{
+					exchangeRate=EngBLCommon.getCurrencyExchangeRate(baseCurrency,
+							exchangeCurrency,datePick.getDate());
+					if (exchangeRate == null)
+					{
+						EngUICommon.showMessageBox(getShell(),"Günlük kur tan?mlamal?s?n?z!",SWT.ICON_WARNING);
+						return false;	
+				
+					}
+				
+	    		}
+	    		else
+	    		{
+	    			exchangeRate=EngBLCommon.getBaseCurrencyExchangeRate();
+	    		}
 		        return true;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return false;
+		}
 		        
 		    
 		}
@@ -171,7 +268,11 @@ public void save() {
   try{
 	       if(verifyFields())
 	       {
-	           BankBLTransactionAdd.saveTransferBetweenBanks(bankCardPickerWithDept.getTurqBank(),bankCardPickerWithCredit.getTurqBank(),null,curAmount.getBigDecimalValue(),datePick.getDate(),txtDefinition.getText().trim(),txtDocNo.getText().trim());
+	           BankBLTransactionAdd.saveTransferBetweenBanks(bankCardPickerWithDept.getTurqBank(),
+	           		bankCardPickerWithCredit.getTurqBank(),
+					null,curAmount.getBigDecimalValue(),datePick.getDate(),
+					txtDefinition.getText().trim(),txtDocNo.getText().trim(),
+					exchangeRate);
 	           EngUICommon.showSavedSuccesfullyMessage(getShell());
 	           newForm();
 	           

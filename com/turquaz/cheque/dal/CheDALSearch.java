@@ -224,8 +224,7 @@ public class CheDALSearch {
 		try {
 
 			/**
-			 * TODO
-			 * Bankaya teminata cek verilmesi dusunulmeden Cheque_trans_out_current kullanildi.
+			 * TODO Bankaya teminata cek verilmesi dusunulmeden Cheque_trans_out_current kullanildi.
 			 */
 			Session session = EngDALSessionFactory.openSession();
 			TurqViewChequeStatus chequeStatus = null;

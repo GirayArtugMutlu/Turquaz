@@ -47,6 +47,7 @@ public class AccBLTransactionAdd {
 	
 	
 	//Muhasebe fisi kalemlerini kaydet
+	//TODO DONE
 	public void saveAccTransactionRow(TurqAccountingTransactionColumn transRow,
 			Integer transID, TurqCurrencyExchangeRate exchangeRate)
 	throws Exception
@@ -63,11 +64,9 @@ public class AccBLTransactionAdd {
 		
 			transRow.setTurqAccountingTransaction(trans);			
 			
-			transRow.setRowsCreditInBaseCurrency(transRow.getCreditAmount());
-			transRow.setRowsDeptInBaseCurrency(transRow.getDeptAmount());
 			transRow.setTurqCurrencyExchangeRate(exchangeRate);
-			transRow.setRowsCreditInBaseCurrency(transRow.getCreditAmount().multiply(exchangeRate.getExchangeRatio()));
-			transRow.setRowsDeptInBaseCurrency(transRow.getDeptAmount().multiply(exchangeRate.getExchangeRatio()));
+			transRow.setRowsCreditInBaseCurrency(transRow.getCreditAmount().multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
+			transRow.setRowsDeptInBaseCurrency(transRow.getDeptAmount().multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
 
 
 			transRow.setCreatedBy(System.getProperty("user"));
@@ -83,8 +82,9 @@ public class AccBLTransactionAdd {
 		}
 	}
    
-	
-   public Integer saveAccTransaction(Date date, String documentNo,int type,int moduleId,Integer docSeqId, String definition) throws Exception
+	//TODO DONE
+   public Integer saveAccTransaction(Date date, String documentNo,int type,int moduleId,
+   		Integer docSeqId, String definition, TurqCurrencyExchangeRate exchangeRate) throws Exception
 	{
 		try{
 			
@@ -114,9 +114,8 @@ public class AccBLTransactionAdd {
 		
 		/**
 		 * TODO Will Change in next version
-		 * TODO trans exhangeRate issue
 		 */
-		trans.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+		trans.setTurqCurrencyExchangeRate(exchangeRate);
 		
 		//Hangi modulde kaydedildigi
 		TurqModule module = new TurqModule();

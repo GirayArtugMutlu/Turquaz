@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
+import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyAdd;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -32,6 +33,12 @@ import com.turquaz.engine.ui.component.SecureComposite;
 * *************************************
 */
 public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implements SecureComposite {
+	
+    {
+        //Register as a resource user - SWTResourceManager will
+        //handle the obtaining and disposing of resources
+        SWTResourceManager.registerResourceUser(this);
+    }
 	private CLabel lblCurrencyName;
 	private Text txtCurrencyName;
 	private CLabel lblCurrencyAbbr;

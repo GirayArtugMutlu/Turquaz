@@ -46,7 +46,7 @@ import org.eclipse.swt.layout.GridData;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionAdd;
-import com.turquaz.engine.bl.EngBLCommon;
+
 import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -253,7 +253,7 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	    
 	compTransactionAdd.getTxtDocumentNo().setText(accTrans.getTransactionDocumentNo());
 	compTransactionAdd.getTxtTransDefinition().setText(accTrans.getTransactionDescription());
-//	TODO  exRate
+
 	compTransactionAdd.getComboCurrencyType().setText(accTrans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
 
 	
@@ -275,12 +275,12 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	compTransactionAdd.rowList.removeAll();
 		
 	Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
+	
 	List transRows=new ArrayList();
 	transRows.addAll(transactionRows);
 	Collections.sort(transRows,new EngBLHibernateComparer());
 	TurqAccountingTransactionColumn transRow;
 	TableItem item;
-	boolean isCurrencySet = false;
 	for (int k=0; k<transRows.size(); k++)
 	{
 		transRow=(TurqAccountingTransactionColumn)transRows.get(k);
@@ -288,6 +288,7 @@ public void showDialog(TurqAccountingTransaction accTrans){
 		ITableRow row = new AccUITransactionAddTableRow(compTransactionAdd.rowList);
 		row.setDBObject(transRow);
 		compTransactionAdd.rowList.addTask(row);
+
 	
 	
 	}
@@ -310,10 +311,10 @@ public void showDialog(TurqAccountingTransaction accTrans){
 			if(compTransactionAdd.verifyFields())
 			{
 				updated=true;
-//				TODO acc trans exRate
+
 			 blTransUpdate.updateTransaction(accTrans,compTransactionAdd.getTxtDocumentNo().getText().trim(),
 										compTransactionAdd.getDateTransactionDate().getData(),compTransactionAdd.getTxtTransDefinition().getText().trim(),
-										EngBLCommon.getBaseCurrencyExchangeRate());
+										compTransactionAdd.getExchangeRate());
 			 updateTransactionRows();
 			 msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$
 			 msg.open();
@@ -330,6 +331,8 @@ public void showDialog(TurqAccountingTransaction accTrans){
 		
 		
 	}
+	
+//TODO DONE
   public void updateTransactionRows()throws Exception {
    try{
   

@@ -22,8 +22,7 @@ package com.turquaz.accounting.dal;
  *          cemdayanik Exp $
  */
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -132,36 +131,6 @@ public class AccDALTransactionSearch {
 		}
 	}
 	
-	
-	public static BigDecimal getExchangeRatio(TurqCurrency baseCurrency, TurqCurrency exchangeCurrency, Date exchangeDate)
-	throws Exception
-	{
-
-		try 
-		{
-			Session session = EngDALSessionFactory.openSession();
-			SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-			String query = "select exchangeRatio.exchangeRatio from TurqCurrencyExchangeRate as exchangeRatio" +
-					" where exchangeRatio.turqCurrencyByBaseCurrencyId= :baseCurrency" +
-					" and exchangeRatio.turqCurrencyByExchangeCurrencyId= :exchangeCurrency" +
-					" and exchangeRatio.exhangeRatesDate ='"+df.format(exchangeDate)+"'";
-			Query q = session.createQuery(query);
-			
-			q.setParameter("baseCurrency",baseCurrency);
-			q.setParameter("exchangeCurrency",exchangeCurrency);
-			List list = q.list();
-			session.close();
-			
-			if (list.size()==0)
-				return null;
-			else
-				return (BigDecimal)list.get(0);
-
-		} catch (Exception ex) {
-			throw ex;
-
-		}
-	}
 	
 
 	

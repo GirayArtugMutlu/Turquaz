@@ -182,6 +182,7 @@ public class CashBLCashTransactionUpdate {
         
     }
     
+    //TODO DONE
     public void updateCashTrans(TurqCashTransaction cashTrans, TurqCashCard cashCard, TurqCurrentCard current, 
 					BigDecimal totalAmount, Date transDate,
 					String definition, String document_no,TurqCurrencyExchangeRate exchangeRate)throws Exception {
@@ -264,8 +265,10 @@ public class CashBLCashTransactionUpdate {
                     accTransRowCurrent.setDeptAmount(new BigDecimal(0));
                     accTransRowCurrent.setCreditAmount(totalAmount);
                     
+                    cashTransRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
                     cashTransRow.setDeptAmount(new BigDecimal(0));
-                    cashTransRow.setCreditAmount(totalAmount);
+                    cashTransRow.setCreditAmountInForeignCurrency(totalAmount);
+                    cashTransRow.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
                     
                     accTransType = EngBLCommon.ACCOUNTING_TRANS_COLLECT;
                     currentTransType = EngBLCommon.CURRENT_TRANS_CREDIT;
@@ -285,7 +288,9 @@ public class CashBLCashTransactionUpdate {
                      accTransRowCurrent.setDeptAmount(totalAmount);
                      accTransRowCurrent.setCreditAmount(new BigDecimal(0));
                      
-                     cashTransRow.setDeptAmount(totalAmount);
+                     cashTransRow.setDeptAmountInForeignCurrency(totalAmount);
+                     cashTransRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
+                     cashTransRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
                      cashTransRow.setCreditAmount(new BigDecimal(0));
                               
                      accTransType = EngBLCommon.ACCOUNTING_TRANS_PAYMENT;
@@ -299,6 +304,7 @@ public class CashBLCashTransactionUpdate {
                  	/**
                  	 * Save Cash Transaction
                  	*/
+                 	
             	    dalCash.update(cashTrans);
             	    
             	
@@ -308,7 +314,7 @@ public class CashBLCashTransactionUpdate {
             		 * Save Cash Transaction Row
             		 * 
             		 */  
-            	
+            	    cashTransRow.setTurqCurrencyExchangeRate(exchangeRate);
             	    cashTransRow.setTurqCashTransaction(cashTrans);
             	    
             	    dalCash.save(cashTransRow);
@@ -335,10 +341,11 @@ public class CashBLCashTransactionUpdate {
             	    */
             	   
             	   Integer transId = blAccTran.saveAccTransaction(transDate,document_no,accTransType, cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue(),
-            	           										   cashTrans.getTurqEngineSequence().getId(),definition);
-//            	 TODO acc trans column exRate
-            	   blAccTran.saveAccTransactionRow(accTransRowCash,transId,EngBLCommon.getBaseCurrencyExchangeRate());
-            	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId,EngBLCommon.getBaseCurrencyExchangeRate());         
+            	           										   cashTrans.getTurqEngineSequence().getId(),
+																   definition,exchangeRate);
+
+            	   blAccTran.saveAccTransactionRow(accTransRowCash,transId,exchangeRate);
+            	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId,exchangeRate);         
             
             
         }
@@ -351,9 +358,11 @@ public class CashBLCashTransactionUpdate {
         
         
     }
+    
+    //TODO DONE
     public void updateOtherTrans(TurqCashTransaction cashTrans, TurqCashCard cashCard, TurqAccountingAccount account, 
 			BigDecimal totalAmount, Date transDate,
-			String definition, String document_no)throws Exception {
+			String definition, String document_no, TurqCurrencyExchangeRate exchangeRate)throws Exception {
 try{
     
 
@@ -431,8 +440,10 @@ try{
             accTransRowCurrent.setDeptAmount(new BigDecimal(0));
             accTransRowCurrent.setCreditAmount(totalAmount);
             
+            cashTransRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
             cashTransRow.setDeptAmount(new BigDecimal(0));
-            cashTransRow.setCreditAmount(totalAmount);
+            cashTransRow.setCreditAmountInForeignCurrency(totalAmount);
+            cashTransRow.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
             
             accTransType = EngBLCommon.ACCOUNTING_TRANS_COLLECT;
             currentTransType = EngBLCommon.CURRENT_TRANS_CREDIT;
@@ -451,8 +462,10 @@ try{
              accTransRowCurrent.setDeptAmount(totalAmount);
              accTransRowCurrent.setCreditAmount(new BigDecimal(0));
              
-             cashTransRow.setDeptAmount(totalAmount);
+             cashTransRow.setDeptAmountInForeignCurrency(totalAmount);
+             cashTransRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
              cashTransRow.setCreditAmount(new BigDecimal(0));
+             cashTransRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
                       
              accTransType = EngBLCommon.ACCOUNTING_TRANS_PAYMENT;
              currentTransType = EngBLCommon.CURRENT_TRANS_DEBIT;
@@ -472,7 +485,7 @@ try{
     		 * Save Cash Transaction Row
     		 * 
     		 */  
-    	
+    	    cashTransRow.setTurqCurrencyExchangeRate(exchangeRate);
     	    cashTransRow.setTurqCashTransaction(cashTrans);
     	    
     	    dalCash.save(cashTransRow);
@@ -487,10 +500,11 @@ try{
     	    */
     	   
     	   Integer transId = blAccTran.saveAccTransaction(transDate,document_no,accTransType, cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue(),
-    	           										   cashTrans.getTurqEngineSequence().getId(),definition);
-//    	 TODO acc trans column exRate
-    	   blAccTran.saveAccTransactionRow(accTransRowCash,transId,EngBLCommon.getBaseCurrencyExchangeRate());
-    	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId,EngBLCommon.getBaseCurrencyExchangeRate());         
+    	           										   cashTrans.getTurqEngineSequence().getId(),
+														   definition,exchangeRate);
+
+    	   blAccTran.saveAccTransactionRow(accTransRowCash,transId,exchangeRate);
+    	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId,exchangeRate);         
     
     
 }
@@ -504,9 +518,10 @@ catch(Exception ex){
 
 }
     
+    //TODO DONE
     public void updateTransBetweenCards(TurqCashTransaction cashTrans, TurqCashCard cashCardWithDebt, TurqCashCard cashCardWithCredit, 
 			BigDecimal totalAmount, Date transDate,
-			String definition, String document_no)throws Exception {
+			String definition, String document_no, TurqCurrencyExchangeRate exchangeRate)throws Exception {
 try{
     
     
@@ -601,10 +616,14 @@ try{
 			accTransCashWithCredit.setCreditAmount(new BigDecimal(0));
 			accTransCashWithCredit.setDeptAmount(totalAmount);
 
-			cashTransRowWithDept.setCreditAmount(totalAmount);
+			cashTransRowWithDept.setCreditAmountInForeignCurrency(totalAmount);
+			cashTransRowWithDept.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
 			cashTransRowWithDept.setDeptAmount(new BigDecimal(0));
+			cashTransRowWithDept.setDeptAmountInForeignCurrency(new BigDecimal(0));
 			
-			cashTransRowWithCredit.setDeptAmount(totalAmount);
+			cashTransRowWithCredit.setDeptAmountInForeignCurrency(totalAmount);
+			cashTransRowWithCredit.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,EngBLCommon.ROUNDING_METHOD));
+			cashTransRowWithCredit.setCreditAmountInForeignCurrency(new BigDecimal(0));
 			cashTransRowWithCredit.setCreditAmount(new BigDecimal(0));
 
 			accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
@@ -624,6 +643,9 @@ try{
 		cashTransRowWithDept.setTurqCashTransaction(cashTrans);
 		cashTransRowWithCredit.setTurqCashTransaction(cashTrans);
 		
+		cashTransRowWithDept.setTurqCurrencyExchangeRate(exchangeRate);
+		cashTransRowWithCredit.setTurqCurrencyExchangeRate(exchangeRate);
+		
 
 		dalCash.save(cashTransRowWithDept);
      dalCash.save(cashTransRowWithCredit);
@@ -636,12 +658,12 @@ try{
 		Integer transId = blAccTran.saveAccTransaction(transDate,
 				document_no, accTransType, cashTrans.getTurqEngineSequence().getTurqModule()
 						.getId().intValue(), cashTrans.getTurqEngineSequence()
-						.getId(), definition);
-//		TODO acc trans column exRate
+						.getId(), definition,exchangeRate);
+
 		blAccTran.saveAccTransactionRow(accTransCashWithDept, transId,
-				EngBLCommon.getBaseCurrencyExchangeRate());
+				exchangeRate);
 		blAccTran.saveAccTransactionRow(accTransCashWithCredit, transId,
-				EngBLCommon.getBaseCurrencyExchangeRate());
+				exchangeRate);
     
 }
 

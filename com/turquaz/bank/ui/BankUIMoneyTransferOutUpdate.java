@@ -32,7 +32,6 @@ import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
@@ -166,11 +165,12 @@ public class BankUIMoneyTransferOutUpdate extends org.eclipse.swt.widgets.Dialog
 	   {
 	       TurqBanksTransaction bankTrans = (TurqBanksTransaction)it.next();
 	     
+	       compMoneyTransferIn.getComboCurrencyType().setText(bankTrans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
 	       compMoneyTransferIn.getTxtBankCard().setText(bankTrans.getTurqBanksCard().getBankCode());
-	 	   compMoneyTransferIn.getCurAmount().setText(bankTrans.getCreditAmount());
-	       if(bankTrans.getCreditAmount().compareTo(bankTrans.getDeptAmount())<1)
+	 	   compMoneyTransferIn.getCurAmount().setText(bankTrans.getCreditAmountInForeignCurrency());
+	       if(bankTrans.getCreditAmountInForeignCurrency().compareTo(bankTrans.getDeptAmountInForeignCurrency())<1)
 	       {
-	           compMoneyTransferIn.getCurAmount().setText(bankTrans.getDeptAmount());          
+	           compMoneyTransferIn.getCurAmount().setText(bankTrans.getDeptAmountInForeignCurrency());          
 	           
 	       }
 	       
@@ -197,14 +197,14 @@ public class BankUIMoneyTransferOutUpdate extends org.eclipse.swt.widgets.Dialog
 	public void update(){
 	    try{
 	        if(compMoneyTransferIn.verifyFields()){
-//	          TODO current trans exRate
+
 	        BankBLTransactionUpdate.updateTransactionBill(transBill,(TurqBanksCard)compMoneyTransferIn.getTxtBankCard().getData(),
 	                									 (TurqCurrentCard)compMoneyTransferIn.getCurrentPicker().getData(),
 	                									 compMoneyTransferIn.getCurAmount().getBigDecimalValue(),
 	                									 compMoneyTransferIn.getDatePick().getDate(),
 	                									 compMoneyTransferIn.getTxtDefinition().getText().trim(),
 	                									 compMoneyTransferIn.getTxtDocNo().getText().trim(),
-														 EngBLCommon.getBaseCurrencyExchangeRate()
+														 compMoneyTransferIn.getExchangeRate()
 	        		);
 	        EngUICommon.showMessageBox(getParent(),Messages.getString("BankUIMoneyTransferOutUpdate.5")); //$NON-NLS-1$
 	        isUpdated = true;

@@ -146,13 +146,13 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 		   {
 		       TurqBanksTransaction bankTrans = (TurqBanksTransaction)it.next();
 		       
-				
-		       compTransfer.getCurAmount().setText(bankTrans.getCreditAmount());
+		       compTransfer.getComboCurrencyType().setText(bankTrans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
+		       compTransfer.getCurAmount().setText(bankTrans.getCreditAmountInForeignCurrency());
 		       compTransfer.getBankCardPickerWithDept().setText(bankTrans.getTurqBanksCard().getBankCode());
-		       if(bankTrans.getCreditAmount().compareTo(bankTrans.getDeptAmount())<1)
+		       if(bankTrans.getCreditAmountInForeignCurrency().compareTo(bankTrans.getDeptAmountInForeignCurrency())<1)
 		       {
 		           compTransfer.getBankCardPickerWithCredit().setText(bankTrans.getTurqBanksCard().getBankCode());
-		           compTransfer.getCurAmount().setText(bankTrans.getDeptAmount());          
+		           compTransfer.getCurAmount().setText(bankTrans.getDeptAmountInForeignCurrency());          
 		           
 		       }
 		      
@@ -169,7 +169,8 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 						 compTransfer.getCurAmount().getBigDecimalValue(),
 						 compTransfer.getDatePick().getDate(),
 						 compTransfer.getTxtDefinition().getText().trim(),
-						 compTransfer.getTxtDocNo().getText().trim()
+						 compTransfer.getTxtDocNo().getText().trim(),
+						 compTransfer.getExchangeRate()
 );    
 	            
 	        EngUICommon.showMessageBox(getParent(),Messages.getString("BankUIOtherTransInUpdate.0")); //$NON-NLS-1$

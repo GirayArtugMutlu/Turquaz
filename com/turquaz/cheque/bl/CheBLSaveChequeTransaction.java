@@ -384,7 +384,11 @@ public class CheBLSaveChequeTransaction {
           TurqAccountingAccount account = new TurqAccountingAccount();
           
           account.setId(new Integer(-1));
-          new CashBLCashTransactionAdd().saveCashTransaction(cashCard,chequeRoll.getTurqEngineSequence(),EngBLCommon.CASH_CHEQUE_COLLECT,rollDate,Messages.getString("CheBLSaveChequeTransaction.5"),rollNo,totals,account); //$NON-NLS-1$
+//        TODO bill exRate
+          new CashBLCashTransactionAdd().saveCashTransaction(cashCard,chequeRoll.getTurqEngineSequence(),
+          		EngBLCommon.CASH_CHEQUE_COLLECT,rollDate,
+				Messages.getString("CheBLSaveChequeTransaction.5"),rollNo,totals,
+				account,EngBLCommon.getBaseCurrencyExchangeRate()); //$NON-NLS-1$
           
           saveRollAccountingTransactions(cashCard.getTurqAccountingAccount(),null,chequeRoll,chequeTotals,EngBLCommon.getBaseCurrencyExchangeRate());
           
@@ -433,11 +437,11 @@ public class CheBLSaveChequeTransaction {
     		 
     		transCounterRow.setDeptAmount(new BigDecimal(0));
     		transCounterRow.setCreditAmount(amount);    	
-    		
+//    		TODO cheq exRate
     		Integer transId = blAccTran.saveAccTransaction(roll.getChequeRollsDate(),
     				roll.getChequeRollNo(), accTransType, roll.getTurqEngineSequence().getTurqModule()
     						.getId().intValue(), roll.getTurqEngineSequence()
-    						.getId(), "Giris Cek Bordrosu "+roll.getChequeRollNo());
+    						.getId(), "Giris Cek Bordrosu "+roll.getChequeRollNo(),EngBLCommon.getBaseCurrencyExchangeRate());
     		
 //    		TODO acc trans column exRate
     		blAccTran.saveAccTransactionRow(transRollRow,transId,exchangeRate);
@@ -494,11 +498,11 @@ public class CheBLSaveChequeTransaction {
             transRollRow.setCreditAmount(new BigDecimal(0));
            
             transRollRow.setTransactionDefinition("Banka Cikis Bordrosu "+roll.getChequeRollNo());
-            
+//          TODO cheq exRate
             Integer transId = blAccTran.saveAccTransaction(roll.getChequeRollsDate(),
     				roll.getChequeRollNo(), accTransType, roll.getTurqEngineSequence().getTurqModule()
     						.getId().intValue(), roll.getTurqEngineSequence()
-    						.getId(), "Banka Cikis Bordrosu "+roll.getChequeRollNo());
+    						.getId(), "Banka Cikis Bordrosu "+roll.getChequeRollNo(),EngBLCommon.getBaseCurrencyExchangeRate());
         	
             blAccTran.saveAccTransactionRow(transRollRow,transId,exchangeRate);
         
@@ -593,11 +597,11 @@ public class CheBLSaveChequeTransaction {
             transRollRow.setCreditAmount(new BigDecimal(0));
            
             transRollRow.setTransactionDefinition("Cari Cikis Bordrosu "+roll.getChequeRollNo());
-            
+//          TODO cheq exRate
             Integer transId = blAccTran.saveAccTransaction(roll.getChequeRollsDate(),
     				roll.getChequeRollNo(), accTransType, roll.getTurqEngineSequence().getTurqModule()
     						.getId().intValue(), roll.getTurqEngineSequence()
-    						.getId(), "Cari Cikis Bordrosu "+roll.getChequeRollNo());
+    						.getId(), "Cari Cikis Bordrosu "+roll.getChequeRollNo(),EngBLCommon.getBaseCurrencyExchangeRate());
         	
             blAccTran.saveAccTransactionRow(transRollRow,transId,exchangeRate);
         
@@ -680,10 +684,11 @@ public class CheBLSaveChequeTransaction {
     		
     	
     		// Save Accounting Transaction
+//    		TODO cheq  exRate
     		Integer transId = blAccTran.saveAccTransaction(roll.getChequeRollsDate(),
     				roll.getChequeRollNo(), accTransType, roll.getTurqEngineSequence().getTurqModule()
     						.getId().intValue(), roll.getTurqEngineSequence()
-    						.getId(), "Bankadan Tahsil Bordrosu "+roll.getChequeRollNo());
+    						.getId(), "Bankadan Tahsil Bordrosu "+roll.getChequeRollNo(),EngBLCommon.getBaseCurrencyExchangeRate());
     	
     		
     		//Save Dept columns
@@ -776,10 +781,11 @@ public class CheBLSaveChequeTransaction {
     		}
     		
     		// Save Accounting Transaction
+//    		TODO cheq exRate
     		Integer transId = blAccTran.saveAccTransaction(roll.getChequeRollsDate(),
     				roll.getChequeRollNo(), accTransType, roll.getTurqEngineSequence().getTurqModule()
     						.getId().intValue(), roll.getTurqEngineSequence()
-    						.getId(), "Elden Tahsil Bordrosu "+roll.getChequeRollNo());
+    						.getId(), "Elden Tahsil Bordrosu "+roll.getChequeRollNo(),EngBLCommon.getBaseCurrencyExchangeRate());
     	
     		TurqAccountingTransactionColumn transDeptRow = new TurqAccountingTransactionColumn();
       		

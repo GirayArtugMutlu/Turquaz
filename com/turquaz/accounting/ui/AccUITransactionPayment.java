@@ -22,7 +22,6 @@ package com.turquaz.accounting.ui;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -52,6 +51,7 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -106,7 +106,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	
 	private TurqCurrency baseCurrency;
 	private TurqCurrency exchangeCurrency;
-	private BigDecimal exchangeRatio;
+	private TurqCurrencyExchangeRate exchangeRate;
 	
 	
 	private CLabel lblDate;
@@ -122,6 +122,12 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	private TableColumn tableColumnAccountCode;
 	private Table tableTransactionRows;
 	private CashAccountPicker comboCreditor;
+	/**
+	 * @return Returns the exchangeRate.
+	 */
+	public TurqCurrencyExchangeRate getExchangeRate() {
+		return exchangeRate;
+	}
 	private Text txtDocumentNo;
 	private CLabel lbldocumentNo;
 	private BigDecimal totalCredit;
@@ -425,21 +431,23 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 				comboCurrencyType.setFocus();
 				return false;
    			}
-   			if (baseCurrency.getId()!=exchangeCurrency.getId())
-   			{
-   				if ((exchangeRatio=AccBLTransactionSearch.getExchangeRatio(baseCurrency,exchangeCurrency,Calendar.getInstance().getTime()))==null)
-				{
-					msg.setMessage(Messages.getString("AccUITransactionPayment.7")); //$NON-NLS-1$
-					msg.open();
-					return false;	
-			
-				}
-			
-   			}
-   			else
-   			{
-   				exchangeRatio=new BigDecimal(1);
-   			}
+			if (baseCurrency.getId().intValue() !=exchangeCurrency.getId().intValue())
+			{
+					exchangeRate=EngBLCommon.getCurrencyExchangeRate(baseCurrency,
+							exchangeCurrency,datePickerTransactionDate.getDate());
+					if (exchangeRate == null)
+					{
+						msg.setMessage("Günlük de?i?im oran? tan?mlamal?s?n?z!");
+						msg.open();
+						return false;	
+				
+					}
+				
+			}
+			else
+			{
+				exchangeRate=EngBLCommon.getBaseCurrencyExchangeRate();
+			}
    			return true;
 		}
 		catch (Exception ex)
@@ -526,7 +534,9 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	* 2- Mahsup Fisi	
 	*
 	**/
-	Integer transId =blTransAdd.saveAccTransaction(datePickerTransactionDate.getDate(),txtDocumentNo.getText().trim(),1,1,null,txtDefinition.getText().trim());
+	Integer transId =blTransAdd.saveAccTransaction(datePickerTransactionDate.getDate(),
+			txtDocumentNo.getText().trim(),1,1,null,
+			txtDefinition.getText().trim(),exchangeRate);
 	
 	saveTransactionRows(transId);
 	msg.setMessage(Messages.getString("AccUITransactionPayment.18")); //$NON-NLS-1$
@@ -572,15 +582,15 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
     transRow.setCreditAmount(totalCredit);
     transRow.setTurqAccountingAccount((TurqAccountingAccount)comboCreditor.getData());
     transRow.setTransactionDefinition(Messages.getString("AccUITransactionPayment.13")); //$NON-NLS-1$
-//  TODO acc trans column exRate
-    blTransAdd.saveAccTransactionRow(transRow,transId,EngBLCommon.getBaseCurrencyExchangeRate());   
+
+    blTransAdd.saveAccTransactionRow(transRow,transId,exchangeRate);   
      
     //Save the table rows    
     for(int i=0; i<items.length;i++){
         AccUITransactionPaymentTableRow row =(AccUITransactionPaymentTableRow)items[i].getData();
-//      TODO acc trans column exRate
+
         if(row.okToSave()){
-            blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId,EngBLCommon.getBaseCurrencyExchangeRate());
+            blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId,exchangeRate);
         }
     }
     

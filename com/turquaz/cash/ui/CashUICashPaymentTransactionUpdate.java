@@ -214,13 +214,14 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	        compTransAdd.getTxtCashCard().setText(row.getTurqCashCard().getCashCardName());
 	        if(row.getDeptAmount().compareTo(new BigDecimal(0))==1){
 	            
-	            compTransAdd.getCurTextTotalAmount().setText(row.getDeptAmount());
+	            compTransAdd.getCurTextTotalAmount().setText(row.getDeptAmountInForeignCurrency());
 	            
 	        }
 	        else
 	        {
-	            compTransAdd.getCurTextTotalAmount().setText(row.getCreditAmount());
+	            compTransAdd.getCurTextTotalAmount().setText(row.getCreditAmountInForeignCurrency());
 	        }
+	        compTransAdd.getComboCurrencyType().setText(row.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
 	   }
 	    
 	    
@@ -259,14 +260,13 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	        if(compTransAdd.verifyFields())
 	        {
 	        	updated=true;
-//	          TODO current trans exRate
 	        	blUpdate.updateCashTrans(cashTrans,(TurqCashCard)compTransAdd.getTxtCashCard().getData(),
 	                                (TurqCurrentCard)compTransAdd.getTxtCurrentAccount().getData(),
 	                                compTransAdd.getCurTextTotalAmount().getBigDecimalValue(),
 	                                compTransAdd.getDatePicker().getDate(),
 	                                compTransAdd.getTxtDefinition().getText(),
 	                                compTransAdd.getTxtDocumentNo().getText(),
-									EngBLCommon.getBaseCurrencyExchangeRate());
+									compTransAdd.getExchangeRate());
 	        
 	        	msg.setMessage(Messages.getString("CashUICashPaymentTransactionUpdate.9")); //$NON-NLS-1$
 	        	msg.open();

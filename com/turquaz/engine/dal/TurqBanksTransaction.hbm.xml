@@ -66,9 +66,31 @@
         not-null="true"
         length="65535"
     />
+    <property
+        name="deptAmountInForeignCurrency"
+        type="java.math.BigDecimal"
+        column="dept_amount_in_foreign_currency"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="creditAmountInForeignCurrency"
+        type="java.math.BigDecimal"
+        column="credit_amount_in_foreign_currency"
+        not-null="true"
+        length="65535"
+    />
 
     <!-- Associations -->
   
+    <!-- bi-directional many-to-one association to TurqCurrencyExchangeRate -->
+    <many-to-one
+        name="turqCurrencyExchangeRate"
+        class="com.turquaz.engine.dal.TurqCurrencyExchangeRate"
+        not-null="true"
+    >
+        <column name="exchange_rate_id" />
+    </many-to-one>
     <!-- bi-directional many-to-one association to TurqBanksTransactionBill -->
     <many-to-one
         name="turqBanksTransactionBill"

@@ -13,9 +13,6 @@ public class TurqBillConsignmentCommon implements Serializable {
     private java.lang.Integer id;
 
     /** persistent field */
-    private int discountRate;
-
-    /** persistent field */
     private java.math.BigDecimal discountAmount;
 
     /** persistent field */
@@ -49,6 +46,27 @@ public class TurqBillConsignmentCommon implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
+    private int discountRate;
+
+    /** persistent field */
+    private java.math.BigDecimal discountAmountInForeignCurrency;
+
+    /** persistent field */
+    private java.math.BigDecimal vatAmountInForeignCurrency;
+
+    /** persistent field */
+    private java.math.BigDecimal chargesInForeignCurrency;
+
+    /** persistent field */
+    private java.math.BigDecimal totalAmountInForeignCurrency;
+
+    /** persistent field */
+    private java.math.BigDecimal specialVatAmountInForeignCurrency;
+
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard;
 
     /** persistent field */
@@ -58,8 +76,7 @@ public class TurqBillConsignmentCommon implements Serializable {
     private Set turqBills;
 
     /** full constructor */
-    public TurqBillConsignmentCommon(int discountRate, java.math.BigDecimal discountAmount, java.math.BigDecimal vatAmount, java.math.BigDecimal charges, java.math.BigDecimal totalAmount, java.math.BigDecimal specialVatAmount, java.lang.String billDocumentNo, java.lang.String consignmentDocumentNo, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqConsignments, Set turqBills) {
-        this.discountRate = discountRate;
+    public TurqBillConsignmentCommon(java.math.BigDecimal discountAmount, java.math.BigDecimal vatAmount, java.math.BigDecimal charges, java.math.BigDecimal totalAmount, java.math.BigDecimal specialVatAmount, java.lang.String billDocumentNo, java.lang.String consignmentDocumentNo, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, int discountRate, java.math.BigDecimal discountAmountInForeignCurrency, java.math.BigDecimal vatAmountInForeignCurrency, java.math.BigDecimal chargesInForeignCurrency, java.math.BigDecimal totalAmountInForeignCurrency, java.math.BigDecimal specialVatAmountInForeignCurrency, com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqConsignments, Set turqBills) {
         this.discountAmount = discountAmount;
         this.vatAmount = vatAmount;
         this.charges = charges;
@@ -71,6 +88,13 @@ public class TurqBillConsignmentCommon implements Serializable {
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
+        this.discountRate = discountRate;
+        this.discountAmountInForeignCurrency = discountAmountInForeignCurrency;
+        this.vatAmountInForeignCurrency = vatAmountInForeignCurrency;
+        this.chargesInForeignCurrency = chargesInForeignCurrency;
+        this.totalAmountInForeignCurrency = totalAmountInForeignCurrency;
+        this.specialVatAmountInForeignCurrency = specialVatAmountInForeignCurrency;
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
         this.turqCurrentCard = turqCurrentCard;
         this.turqConsignments = turqConsignments;
         this.turqBills = turqBills;
@@ -86,14 +110,6 @@ public class TurqBillConsignmentCommon implements Serializable {
 
     public void setId(java.lang.Integer id) {
         this.id = id;
-    }
-
-    public int getDiscountRate() {
-        return this.discountRate;
-    }
-
-    public void setDiscountRate(int discountRate) {
-        this.discountRate = discountRate;
     }
 
     public java.math.BigDecimal getDiscountAmount() {
@@ -182,6 +198,62 @@ public class TurqBillConsignmentCommon implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public int getDiscountRate() {
+        return this.discountRate;
+    }
+
+    public void setDiscountRate(int discountRate) {
+        this.discountRate = discountRate;
+    }
+
+    public java.math.BigDecimal getDiscountAmountInForeignCurrency() {
+        return this.discountAmountInForeignCurrency;
+    }
+
+    public void setDiscountAmountInForeignCurrency(java.math.BigDecimal discountAmountInForeignCurrency) {
+        this.discountAmountInForeignCurrency = discountAmountInForeignCurrency;
+    }
+
+    public java.math.BigDecimal getVatAmountInForeignCurrency() {
+        return this.vatAmountInForeignCurrency;
+    }
+
+    public void setVatAmountInForeignCurrency(java.math.BigDecimal vatAmountInForeignCurrency) {
+        this.vatAmountInForeignCurrency = vatAmountInForeignCurrency;
+    }
+
+    public java.math.BigDecimal getChargesInForeignCurrency() {
+        return this.chargesInForeignCurrency;
+    }
+
+    public void setChargesInForeignCurrency(java.math.BigDecimal chargesInForeignCurrency) {
+        this.chargesInForeignCurrency = chargesInForeignCurrency;
+    }
+
+    public java.math.BigDecimal getTotalAmountInForeignCurrency() {
+        return this.totalAmountInForeignCurrency;
+    }
+
+    public void setTotalAmountInForeignCurrency(java.math.BigDecimal totalAmountInForeignCurrency) {
+        this.totalAmountInForeignCurrency = totalAmountInForeignCurrency;
+    }
+
+    public java.math.BigDecimal getSpecialVatAmountInForeignCurrency() {
+        return this.specialVatAmountInForeignCurrency;
+    }
+
+    public void setSpecialVatAmountInForeignCurrency(java.math.BigDecimal specialVatAmountInForeignCurrency) {
+        this.specialVatAmountInForeignCurrency = specialVatAmountInForeignCurrency;
+    }
+
+    public com.turquaz.engine.dal.TurqCurrencyExchangeRate getTurqCurrencyExchangeRate() {
+        return this.turqCurrencyExchangeRate;
+    }
+
+    public void setTurqCurrencyExchangeRate(com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate) {
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
     }
 
     public com.turquaz.engine.dal.TurqCurrentCard getTurqCurrentCard() {

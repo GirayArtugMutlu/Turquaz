@@ -626,3 +626,122 @@ ALTER TABLE public.turq_current_transactions ADD CONSTRAINT ex_rate3 FOREIGN KEY
 ***********************************************************
  *** 03/03/2005 hsqldb database updated v1.49 ***
 
+
+
+
+************************foreign currency support***********************
+************************06-03-2005**************************************
+
+ALTER TABLE turq_cheque_cheques ADD COLUMN cheques_amount_in_foreign_currency numeric;
+ALTER TABLE turq_cheque_cheques ADD COLUMN exchange_rate_id int4;
+
+update turq_cheque_cheques set cheques_amount_in_foreign_currency=cheques_amount;
+update turq_cheque_cheques set exchange_rate_id=-1;
+
+ALTER TABLE turq_cheque_cheques
+   ALTER COLUMN cheques_amount_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_cheque_cheques
+   ALTER COLUMN exchange_rate_id SET NOT NULL;
+
+ALTER TABLE turq_cheque_cheques ADD CONSTRAINT ex_rate FOREIGN KEY (exchange_rate_id) 
+REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+
+
+
+
+ALTER TABLE turq_cash_transaction_rows ADD COLUMN dept_amount_in_foreign_currency numeric;
+ALTER TABLE turq_cash_transaction_rows ADD COLUMN credit_amount_in_foreign_currency numeric;
+ALTER TABLE turq_cash_transaction_rows ADD COLUMN exchange_rate_id int4;
+
+update turq_cash_transaction_rows set dept_amount_in_foreign_currency=dept_amount;
+update turq_cash_transaction_rows set credit_amount_in_foreign_currency=credit_amount;
+update turq_cash_transaction_rows set exchange_rate_id=-1;
+
+ALTER TABLE turq_cash_transaction_rows
+   ALTER COLUMN dept_amount_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_cash_transaction_rows
+   ALTER COLUMN credit_amount_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_cash_transaction_rows
+   ALTER COLUMN exchange_rate_id SET NOT NULL;
+
+ALTER TABLE turq_cash_transaction_rows ADD CONSTRAINT ex_rate FOREIGN KEY (exchange_rate_id) 
+REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+
+
+
+ALTER TABLE turq_bill_consignment_commons ADD COLUMN discount_rate_perc numeric;
+ALTER TABLE turq_bill_consignment_commons ADD COLUMN discount_amount_in_foreign_currency numeric;
+ALTER TABLE turq_bill_consignment_commons ADD COLUMN vat_amount_in_foreign_currency numeric;
+ALTER TABLE turq_bill_consignment_commons ADD COLUMN charges_in_foreign_currency numeric;
+ALTER TABLE turq_bill_consignment_commons ADD COLUMN total_amount_in_foreign_currency numeric;
+ALTER TABLE turq_bill_consignment_commons ADD COLUMN special_vat_amount_in_foreign_currency numeric;
+ALTER TABLE turq_bill_consignment_commons ADD COLUMN exchange_rate_id int4;
+
+
+update turq_bill_consignment_commons set discount_rate_perc=discount_rate;
+update turq_bill_consignment_commons set discount_amount_in_foreign_currency=discount_amount;
+update turq_bill_consignment_commons set vat_amount_in_foreign_currency=vat_amount;
+update turq_bill_consignment_commons set charges_in_foreign_currency=charges;
+update turq_bill_consignment_commons set total_amount_in_foreign_currency=total_amount;
+update turq_bill_consignment_commons set special_vat_amount_in_foreign_currency=special_vat_amount;
+update turq_bill_consignment_commons set exchange_rate_id=-1;
+
+
+
+ALTER TABLE turq_bill_consignment_commons
+   ALTER COLUMN discount_rate_perc SET NOT NULL;
+ALTER TABLE turq_bill_consignment_commons
+   ALTER COLUMN discount_amount_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_bill_consignment_commons
+   ALTER COLUMN vat_amount_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_bill_consignment_commons
+   ALTER COLUMN charges_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_bill_consignment_commons
+   ALTER COLUMN total_amount_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_bill_consignment_commons
+   ALTER COLUMN special_vat_amount_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_bill_consignment_commons DROP COLUMN discount_rate;
+ALTER TABLE turq_bill_consignment_commons
+   ALTER COLUMN exchange_rate_id SET NOT NULL;
+
+
+ALTER TABLE turq_bill_consignment_commons ADD CONSTRAINT ex_rate FOREIGN KEY (exchange_rate_id) 
+REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+
+
+
+
+ALTER TABLE turq_banks_transactions ADD COLUMN dept_amount_in_foreign_currency numeric;
+ALTER TABLE turq_banks_transactions ADD COLUMN credit_amount_in_foreign_currency numeric;
+ALTER TABLE turq_banks_transactions ADD COLUMN exchange_rate_id int4;
+
+
+update turq_banks_transactions set dept_amount_in_foreign_currency=dept_amount;
+update turq_banks_transactions set credit_amount_in_foreign_currency=credit_amount;
+update turq_banks_transactions set exchange_rate_id=-1;
+
+
+ALTER TABLE turq_banks_transactions
+   ALTER COLUMN dept_amount_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_banks_transactions
+   ALTER COLUMN credit_amount_in_foreign_currency SET NOT NULL;
+ALTER TABLE turq_banks_transactions
+   ALTER COLUMN exchange_rate_id SET NOT NULL;
+
+
+ALTER TABLE turq_banks_transactions ADD CONSTRAINT ex_rate FOREIGN KEY (exchange_rate_id) 
+REFERENCES turq_currency_exchange_rates (id)    ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+**************************************************************************************
+yukardakilerden sonra bunlar da cal?st?r?lacak..
+
+
+ALTER TABLE turq_bill_consignment_commons RENAME discount_rate_perc  TO discount_rate;
+**************************************************************************************

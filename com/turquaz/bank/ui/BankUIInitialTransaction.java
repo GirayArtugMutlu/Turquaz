@@ -46,6 +46,7 @@ import org.eclipse.swt.SWT;
 * for any corporate or commercial purpose.
 * *************************************
 */
+//TODO Bank Initial Transaction : currency should be added???
 public class BankUIInitialTransaction extends org.eclipse.swt.widgets.Composite {
 	private Table tableBankInitialTransactions;
 	private TableColumn tableColumnBankName;

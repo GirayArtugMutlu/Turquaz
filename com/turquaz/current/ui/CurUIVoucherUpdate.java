@@ -165,18 +165,20 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	    
 	    if(curTrans.getTransactionsTotalDept().doubleValue()>0){
 	        compVoucher.getComboType().setText(EngBLCommon.COMMON_DEPT_STRING);
-	        compVoucher.getTxtCredit().setText(curTrans.getTransactionsTotalDept());
+	        compVoucher.getTxtCredit().setText(curTrans.getTotalDeptInForeignCurrency());
 	        
 	    }
 	    else
 	    {
 	    	compVoucher.getComboType().setText(EngBLCommon.COMMON_CREDIT_STRING);
-	        compVoucher.getTxtCredit().setText(curTrans.getTransactionsTotalCredit());
+	        compVoucher.getTxtCredit().setText(curTrans.getTotalCreditInForeignCurrency());
 	    }
 	    
 	    compVoucher.getDateTransDate().setDate(curTrans.getTransactionsDate());
 	    compVoucher.getTxtCurrentCard().setText(curTrans.getTurqCurrentCard().getCardsName()+" {"+curTrans.getTurqCurrentCard().getCardsCurrentCode()+"}"); //$NON-NLS-1$ //$NON-NLS-2$
 	    compVoucher.getTxtDefinition().setText(curTrans.getTransactionsDefinition());
+	    
+	    compVoucher.getComboCurrencyType().setText(curTrans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
 	    try{
 	    	  
 	    	CurBLTransactionUpdate.initCurTrans(curTrans);
@@ -230,12 +232,11 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 			    isCredit=true;
 			}
 			
-//	        TODO current trans exRate
 			TurqCurrentTransaction curtrans =new CurBLCurrentTransactionAdd().saveOtherCurrentTransaction((TurqCurrentCard)compVoucher.getTxtCurrentCard().getData(),
 				compVoucher.getAccountPicker().getTurqAccountingAccount(),compVoucher.getDateTransDate().getDate(),"",isCredit, credit , //$NON-NLS-1$
 						new BigDecimal(0),EngBLCommon.CURRENT_TRANS_OTHERS,
 						null,compVoucher.getTxtDefinition().getText(),
-						EngBLCommon.getBaseCurrencyExchangeRate());
+						compVoucher.getExchangeRate());
 			
 	       EngUICommon.showMessageBox(getParent(),Messages.getString("CurUIVoucherUpdate.1")); //$NON-NLS-1$
 	    }

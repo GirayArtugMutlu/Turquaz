@@ -41,6 +41,7 @@ public class AccBLTransactionUpdate {
 		
 	}
 	
+	//TODO DONE
 	public void updateTransaction(TurqAccountingTransaction transaction,String docNo, Object transDate, String definition, TurqCurrencyExchangeRate exchangeRate)
 	throws Exception{
 	

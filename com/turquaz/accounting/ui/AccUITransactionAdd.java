@@ -22,7 +22,6 @@ package com.turquaz.accounting.ui;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -36,6 +35,7 @@ import org.eclipse.swt.widgets.Composite;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.custom.CCombo;
@@ -99,6 +99,12 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 
 
 	/**
+	 * @return Returns the exchangeRate.
+	 */
+	public TurqCurrencyExchangeRate getExchangeRate() {
+		return exchangeRate;
+	}
+	/**
 	 * @return Returns the tableTransactionColumns.
 	 */
 	public Table getTableTransactionColumns() {
@@ -123,9 +129,10 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 		return txtDocumentNo;
 	}
 	private AccBLTransactionAdd blTransAdd = new AccBLTransactionAdd();
+
 	private TurqCurrency baseCurrency;
 	private TurqCurrency exchangeCurrency;
-	private BigDecimal exchangeRatio;
+	private TurqCurrencyExchangeRate exchangeRate;
 	
 	BigDecimal totalCredit ;
 	private CLabel lblDate;
@@ -521,20 +528,22 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 				comboCurrencyType.setFocus();
 				return false;
 			}
-			if (baseCurrency.getId()!=exchangeCurrency.getId())
+			if (baseCurrency.getId().intValue() !=exchangeCurrency.getId().intValue())
 			{
-				if ((exchangeRatio=AccBLTransactionSearch.getExchangeRatio(baseCurrency,exchangeCurrency,Calendar.getInstance().getTime()))==null)
-				{
-					msg.setMessage(Messages.getString("AccUITransactionAdd.11")); //$NON-NLS-1$
-					msg.open();
-					return false;	
-					
-				}
-					
+					exchangeRate=EngBLCommon.getCurrencyExchangeRate(baseCurrency,
+							exchangeCurrency,dateTransactionDate.getDate());
+					if (exchangeRate == null)
+					{
+						msg.setMessage("Günlük kur tan?mlamal?s?n?z!");
+						msg.open();
+						return false;	
+				
+					}
+				
 			}
 			else
 			{
-				exchangeRatio=new BigDecimal(1);
+				exchangeRate=EngBLCommon.getBaseCurrencyExchangeRate();
 			}
 			return true;
 		}
@@ -557,10 +566,10 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
     		{
    
     			AccUITransactionAddTableRow row =(AccUITransactionAddTableRow)items[i].getData();
-    			//TODO acc trans column exRate
+    
     			if(row.okToSave())
     			{
-    				blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId,EngBLCommon.getBaseCurrencyExchangeRate());
+    				blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn)row.getDBObject(),transId,exchangeRate);
     			}
     
     		}
@@ -599,7 +608,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 			try
 			{
 				
-				Integer transId =blTransAdd.saveAccTransaction(dateTransactionDate.getDate(),txtDocumentNo.getText().trim(),2,1,null,txtTransDefinition.getText().trim());
+				Integer transId =blTransAdd.saveAccTransaction(dateTransactionDate.getDate(),txtDocumentNo.getText().trim(),2,1,null,txtTransDefinition.getText().trim(),exchangeRate);
 	
 				saveTransactionRows(transId);
 				msg.setMessage(Messages.getString("AccUITransactionAdd.16")); //$NON-NLS-1$
@@ -635,7 +644,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 		if(column!=null&&((AccUITransactionAddTableRow)items[i].getData()).okToSave())
 		{
 			totalCredit =totalCredit.add(column.getCreditAmount());
-		totalDept = totalDept.add(column.getDeptAmount());
+			totalDept = totalDept.add(column.getDeptAmount());
 		}
     
 		}

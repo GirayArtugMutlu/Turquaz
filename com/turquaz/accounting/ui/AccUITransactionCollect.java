@@ -23,7 +23,6 @@ package com.turquaz.accounting.ui;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -50,6 +49,7 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -101,7 +101,7 @@ public class AccUITransactionCollect extends Composite implements
 	
 	private TurqCurrency baseCurrency;
 	private TurqCurrency exchangeCurrency;
-	private BigDecimal exchangeRatio;
+	private TurqCurrencyExchangeRate exchangeRate;
 
 	private CLabel lblDate;
 
@@ -119,6 +119,12 @@ public class AccUITransactionCollect extends Composite implements
 
 	private TableColumn tableColumnAccountCode;
 
+	/**
+	 * @return Returns the exchangeRate.
+	 */
+	public TurqCurrencyExchangeRate getExchangeRate() {
+		return exchangeRate;
+	}
 	private Table tableTransactionRows;
 
 	private Text txtTransDefinition;
@@ -505,11 +511,13 @@ public class AccUITransactionCollect extends Composite implements
 				comboCurrencyType.setFocus();
 				return false;
 			}
-			if (baseCurrency.getId()!=exchangeCurrency.getId())
+			if (baseCurrency.getId().intValue() !=exchangeCurrency.getId().intValue())
 			{
-					if ((exchangeRatio=AccBLTransactionSearch.getExchangeRatio(baseCurrency,exchangeCurrency,Calendar.getInstance().getTime()))==null)
+					exchangeRate=EngBLCommon.getCurrencyExchangeRate(baseCurrency,
+							exchangeCurrency,datePickerTransactionDate.getDate());
+					if (exchangeRate == null)
 					{
-						msg.setMessage(Messages.getString("AccUITransactionCollect.11")); //$NON-NLS-1$
+						msg.setMessage("Günlük kur tan?mlamal?s?n?z!");
 						msg.open();
 						return false;	
 				
@@ -518,7 +526,7 @@ public class AccUITransactionCollect extends Composite implements
 			}
 			else
 			{
-				exchangeRatio=new BigDecimal(1);
+				exchangeRate=EngBLCommon.getBaseCurrencyExchangeRate();
 			}
 			return true;
 		}
@@ -544,7 +552,7 @@ public class AccUITransactionCollect extends Composite implements
 				Integer transId = blTransAdd.saveAccTransaction(
 						datePickerTransactionDate.getDate(), txtDocumentNo
 								.getText().trim(), 0, 1, null,
-						txtTransDefinition.getText().trim());
+						txtTransDefinition.getText().trim(),exchangeRate);
 
 				saveTransactionRows(transId);
 				msg
@@ -592,18 +600,18 @@ public class AccUITransactionCollect extends Composite implements
 							.getData());
 			transRow.setTransactionDefinition(Messages
 					.getString("AccUITransactionCollect.9")); //$NON-NLS-1$
-			//TODO acc trans column exRate
-			blTransAdd.saveAccTransactionRow(transRow, transId,EngBLCommon.getBaseCurrencyExchangeRate() );
+
+			blTransAdd.saveAccTransactionRow(transRow, transId,exchangeRate );
 
 			//Save the table rows
 			for (int i = 0; i < items.length; i++) {
 				AccUITransactionCollectTableRow row = (AccUITransactionCollectTableRow) items[i]
 						.getData();
-				//TODO acc trans column exRate
+
 				if (row.okToSave()) 
 				{
 					blTransAdd.saveAccTransactionRow((TurqAccountingTransactionColumn) row
-											.getDBObject(), transId,EngBLCommon.getBaseCurrencyExchangeRate() );
+											.getDBObject(), transId,exchangeRate );
 				}
 			}
 

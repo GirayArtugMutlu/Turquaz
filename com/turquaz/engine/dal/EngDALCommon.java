@@ -1,6 +1,8 @@
 
 package com.turquaz.engine.dal;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import net.sf.hibernate.Hibernate;
@@ -54,6 +56,38 @@ public class EngDALCommon {
 			throw ex;
 		}
 	}
+	
+	public static TurqCurrencyExchangeRate getCurrencyExchangeRate(TurqCurrency baseCurrency, TurqCurrency exchangeCurrency, Date exchangeDate)
+	throws Exception
+	{
+
+		try 
+		{
+			Session session = EngDALSessionFactory.openSession();
+			SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+			String query = "select exchangeRate from TurqCurrencyExchangeRate as exchangeRate" +
+					" where exchangeRate.turqCurrencyByBaseCurrencyId= :baseCurrency" +
+					" and exchangeRate.turqCurrencyByExchangeCurrencyId= :exchangeCurrency" +
+					" and exchangeRate.exhangeRatesDate ='"+df.format(exchangeDate)+"'";
+			Query q = session.createQuery(query);
+			
+			q.setParameter("baseCurrency",baseCurrency);
+			q.setParameter("exchangeCurrency",exchangeCurrency);
+			List list = q.list();
+			session.close();
+			
+			if (list.size()==0)
+				return null;
+			else
+				return (TurqCurrencyExchangeRate)list.get(0);
+
+		} catch (Exception ex) {
+			throw ex;
+
+		}
+	}
+	
+	
 	public boolean checkUserPass(String username, String pass)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
