@@ -30,6 +30,10 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.widgets.Button;
 
 import org.eclipse.swt.widgets.Text;
@@ -63,9 +67,11 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 
 
 	public final  static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	
 	Calendar calendar = Calendar.getInstance();
 	private Button button1;
 	private Text text1;
+	DateMask dateMask = new DateMask();
 	public DatePicker(Composite parent, int style) {
 		super(parent, style);
 	
@@ -78,6 +84,7 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 	*/
 	public void initGUI(){
 		try {
+		    dateMask.setMask("##/##/####");
 			preInitGUI();
 
 			this.setSize(282, 27);
@@ -87,12 +94,28 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 			GridLayout thisLayout = new GridLayout(4, true);
 			this.setLayout(thisLayout);
 			{
-				text1 = new Text(this, SWT.NONE);
-				text1.setEditable(true);
+				text1 = new Text(this, SWT.READ_ONLY);
 				text1.setSize(new org.eclipse.swt.graphics.Point(244, 35));
 				GridData text1LData = new GridData();
+                text1.addKeyListener(new KeyAdapter() {
+                    public void keyPressed(KeyEvent evt) {
+                        dateMask.textMaskGeneric(evt);
+                    }
+                });
+                text1.addFocusListener(new FocusAdapter() {
+                    public void focusLost(FocusEvent evt) {
+                        try {
+                            Date d = DatePicker.formatter
+                                .parse(text1.getText());
+                            text1.setText(DatePicker.formatter.format(d));
+                            setDate(d);
+
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
 				text1.setBackground(SWTResourceManager.getColor(255, 255, 255));
-				text1.setEnabled(false);
 				text1LData.verticalAlignment = GridData.FILL;
 				text1LData.horizontalAlignment = GridData.FILL;
 				text1LData.grabExcessHorizontalSpace = true;

@@ -11,6 +11,7 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Table;
@@ -18,6 +19,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.TableCursor;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.widgets.Text;
+import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -27,6 +30,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
+import com.turquaz.engine.ui.component.DateMask;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.editors.InventoryCellEditor;
 import com.turquaz.engine.ui.editors.NumericCellEditor;
@@ -53,7 +57,15 @@ import com.turquaz.inventory.ui.InvUITransactionTableRow;
 * *************************************
 */
 public class NewComposite extends org.eclipse.swt.widgets.Composite {
+
+    {
+        //Register as a resource user - SWTResourceManager will
+        //handle the obtaining and disposing of resources
+        SWTResourceManager.registerResourceUser(this);
+    }
+
 	private Table table;
+	private Text text1;
 	private TableColumn tableColumn12;
 	private TableColumn tableColumn11;
 	private TableColumn tableColumn10;
@@ -103,6 +115,7 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
 	
 	   int last_row_index=0;
     TableCursor cursor;
+    DateMask dateMask = new DateMask();
 	
 	// Set column names
 	private String[] columnNames = new String[] { 
@@ -169,9 +182,10 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
 
 	private void initGUI() {
 		try {
+		    dateMask.setMask("##/##/####");
 			this.setLayout(new GridLayout());
           
-			this.setSize(1407, 291);
+			this.setSize(1411, 311);
             {
                 table = new Table(this, SWT.FULL_SELECTION | SWT.HIDE_SELECTION);
                 GridData tableLData = new GridData();
@@ -244,6 +258,21 @@ public class NewComposite extends org.eclipse.swt.widgets.Composite {
                     
                     }
                 });
+            }
+            {
+                text1 = new Text(this, SWT.READ_ONLY);
+                GridData text1LData = new GridData();
+                text1.setText("12/12/2004");
+                
+                text1.addKeyListener(new KeyAdapter() {
+                    public void keyPressed(KeyEvent evt) {
+                      dateMask.textMaskGeneric(evt);
+                    
+                    }
+                });
+                text1LData.widthHint = 145;
+                text1LData.heightHint = 24;
+                text1.setLayoutData(text1LData);
             }
 
             createTableViewer();
