@@ -25,7 +25,6 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.swt.layout.GridLayout;
@@ -40,10 +39,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 
 import org.eclipse.swt.custom.CLabel;
 
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
-import com.turquaz.accounting.bl.AccBLTransactionUpdate;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -140,7 +136,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 					lblDocumentNoLData.widthHint = 99;
 					lblDocumentNoLData.heightHint = 24;
 					lblAccNo.setLayoutData(lblDocumentNoLData);
-					lblAccNo.setText("Hesap Kodu"); //$NON-NLS-1$
+					lblAccNo.setText(Messages.getString("AccUISubsidiaryLedger.0"));  //$NON-NLS-1$
 					lblAccNo
 							.setSize(new org.eclipse.swt.graphics.Point(99, 24));
 				}
@@ -161,8 +157,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 							SWT.NONE);
 					GridData lblStartDateLData = new GridData();
 					lblStartDate.setLayoutData(lblStartDateLData);
-					lblStartDate.setText(Messages
-							.getString("AccUITransactionSearch.3")); //$NON-NLS-1$
+					lblStartDate.setText(Messages.getString("AccUISubsidiaryLedger.1"));  //$NON-NLS-1$
 				}
 				{
 					dateStartDate = new DatePicker(compAccTransactionSearch,
@@ -182,8 +177,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 					lblEndDate = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblEndDateLData = new GridData();
 					lblEndDate.setLayoutData(lblEndDateLData);
-					lblEndDate.setText(Messages
-							.getString("AccUITransactionSearch.4")); //$NON-NLS-1$
+					lblEndDate.setText(Messages.getString("AccUISubsidiaryLedger.2"));  //$NON-NLS-1$
 				}
 				{
 					dateEndDate = new DatePicker(compAccTransactionSearch,
@@ -217,32 +211,29 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 				}
 			});
 
-			tableColumnDate.setText(Messages
-					.getString("AccUITransactionSearch.7")); //$NON-NLS-1$
+			tableColumnDate.setText(Messages.getString("AccUISubsidiaryLedger.3"));  //$NON-NLS-1$
 			tableColumnDate.setWidth(118);
 			{
 				tableColumnDocumentNo = new TableColumn(tableTransactions,
 						SWT.NONE);
-				tableColumnDocumentNo.setText(Messages
-						.getString("AccUITransactionSearch.0"));
+				tableColumnDocumentNo.setText(Messages.getString("AccUISubsidiaryLedger.4")); //$NON-NLS-1$
 				tableColumnDocumentNo.setWidth(126);
 			}
 			{
 				tableColumnDefinition = new TableColumn(tableTransactions,
 						SWT.NONE);
-				tableColumnDefinition.setText(Messages
-						.getString("AccUITransactionSearch.5")); //$NON-NLS-1$
+				tableColumnDefinition.setText(Messages.getString("AccUISubsidiaryLedger.5")); //$NON-NLS-1$
 				tableColumnDefinition.setWidth(150);
 			}
 			{
 				tableColumnDept = new TableColumn(tableTransactions, SWT.NONE);
-				tableColumnDept.setText("Borç"); //$NON-NLS-1$
+				tableColumnDept.setText(Messages.getString("AccUISubsidiaryLedger.6"));  //$NON-NLS-1$
 				tableColumnDept.setWidth(118);
 
 			}
 			{
 				tableColumnCredit = new TableColumn(tableTransactions, SWT.NONE);
-				tableColumnCredit.setText("Alacak");
+				tableColumnCredit.setText(Messages.getString("AccUISubsidiaryLedger.7")); //$NON-NLS-1$
 				tableColumnCredit.setWidth(118);
 			}
 			GridLayout thisLayout = new GridLayout(1, true);
@@ -280,79 +271,6 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 
 	public void delete() {
 
-		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-
-		TableItem items[] = tableTransactions.getSelection();
-		if (items.length > 0) {
-			TurqAccountingTransaction accTrans = (TurqAccountingTransaction) items[0]
-					.getData();
-
-			int status = 0;
-
-			/* Check if it has a journal entry */
-			if (accTrans.getTurqAccountingJournal().getAccountingJournalId()
-					.intValue() != -1) {
-				status = 1;
-
-			}
-			/*
-			 * Check if it is entered from accountingmodule
-			 *  
-			 */
-			//1- Muhasebe Modulu
-			else if (accTrans.getTurqModule().getModulesId().intValue() != 1) {
-				status = 2;
-
-			}
-
-			if (status == 2) {
-				msg.setMessage(Messages.getString("AccUITransactionSearch.6")); //$NON-NLS-1$
-				msg.open();
-				return;
-			}
-			if (status == 1) {
-				msg.setMessage(Messages.getString("AccUITransactionSearch.9")); //$NON-NLS-1$
-				msg.open();
-				return;
-			}
-
-			AccBLTransactionUpdate blUpdate = new AccBLTransactionUpdate();
-			MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK
-					| SWT.CANCEL);
-			try {
-				msg2
-						.setMessage(Messages
-								.getString("AccUITransactionSearch.10")); //$NON-NLS-1$
-				int result = msg2.open();
-
-				if (result == SWT.OK) {
-
-					blUpdate.initiliazeTransactionRows(accTrans);
-
-					Iterator it = accTrans
-							.getTurqAccountingTransactionColumns().iterator();
-					while (it.hasNext()) {
-						EngBLCommon.delete(it.next());
-					}
-					EngBLCommon.delete(accTrans);
-
-					msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
-					msg.open();
-					search();
-
-				}
-
-			} catch (Exception ex) {
-				MessageBox msg3 = new MessageBox(this.getShell(),
-						SWT.ICON_WARNING);
-				msg3.setMessage(Messages.getString("AccUIAccountingPlan.5")); //$NON-NLS-1$
-				msg3.open();
-
-				ex.printStackTrace();
-
-			}
-		}
-
 	}
 
 	public void search() {
@@ -363,7 +281,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 			
 			if (txtAccount.getData()== null)
 			{
-		    	msg.setMessage("Lütfen Bir Muhasebe Hesab? Seçiniz!.."); //$NON-NLS-1$
+		    	msg.setMessage(Messages.getString("AccUISubsidiaryLedger.9"));  //$NON-NLS-1$
 		    	msg.open();
 		    	txtAccount.setFocus();
 		    	return ; 
@@ -405,8 +323,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 	}
 
 	public void printTable() {
-		EngBLUtils.printTable(tableTransactions, Messages
-				.getString("AccUITransactionSearch.11")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableTransactions, Messages.getString("AccUISubsidiaryLedger.8"));  //$NON-NLS-1$
 
 	}
 
