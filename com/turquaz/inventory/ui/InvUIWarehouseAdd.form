@@ -177,7 +177,7 @@
 				<Events>
 				</Events>
 				<Properties>
-					<Property name="textLimit" type="int" value="25"/>
+					<Property name="textLimit" type="int" value="50"/>
 					<Property name="size" type="Dimension">
 						<Dimension value="[159, 17]"/>
 					</Property>
@@ -231,7 +231,6 @@
 				<Events>
 				</Events>
 				<Properties>
-					<Property name="textLimit" type="int" value="25"/>
 					<Property name="size" type="Dimension">
 						<Dimension value="[159, 17]"/>
 					</Property>
@@ -283,7 +282,7 @@
 				</Events>
 				<Properties>
 					<Property name="text" type="String" value=""/>
-					<Property name="textLimit" type="int" value="250"/>
+					<Property name="textLimit" type="int" value="50"/>
 					<Property name="size" type="Dimension">
 						<Dimension value="[370, 109]"/>
 					</Property>

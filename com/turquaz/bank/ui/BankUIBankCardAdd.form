@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Form style="SWT" ide="eclipse" builder="jigloo" version="2.7.2">
 <NonVisualComponents>
-		<Component class="java.lang.Object" name="Non-visual components" style="0">
+		<Component class="java.lang.Object" name="object1" style="0">
 			<Constraints>
 				<LayoutConstraint/>
 			</Constraints>
+			<Properties>
+			</Properties>
 		</Component></NonVisualComponents>
 	<Component class="org.eclipse.swt.widgets.Composite" name="BankUIBankCardAdd" style="0">
 		<Constraints>
@@ -13,8 +15,8 @@
 		<Layout class="Grid">
 			<Property name="marginWidth" type="int" value="5"/>
 			<Property name="marginHeight" type="int" value="5"/>
-			<Property name="numColumns" type="int" value="1"/>
-			<Property name="makeColumnsEqualWidth" type="boolean" value="true"/>
+			<Property name="numColumns" type="int" value="2"/>
+			<Property name="makeColumnsEqualWidth" type="boolean" value="false"/>
 			<Property name="horizontalSpacing" type="int" value="5"/>
 			<Property name="verticalSpacing" type="int" value="5"/>
 		</Layout>
@@ -22,11 +24,154 @@
 		</Events>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[329, 223]"/>
+				<Dimension value="[456, 312]"/>
 			</Property>
 			<Property name="bounds" type="Rectangle">
-				<Rectangle value="[0, 0, 329, 223]"/>
+				<Rectangle value="[0, 0, 456, 312]"/>
 			</Property>
 		</Properties>
+		<SubComponents>
+			<Component class="org.eclipse.swt.custom.CLabel" name="lblBankName" style="0">
+				<Constraints>
+					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+						<Property name="verticalAlignment" type="int" value="2"/>
+						<Property name="horizontalAlignment" type="int" value="1"/>
+						<Property name="widthHint" type="int" value="-1"/>
+						<Property name="heightHint" type="int" value="-1"/>
+						<Property name="horizontalIndent" type="int" value="0"/>
+						<Property name="horizontalSpan" type="int" value="1"/>
+						<Property name="verticalSpan" type="int" value="1"/>
+						<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+						<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+					</LayoutConstraint>
+				</Constraints>
+				<Events>
+				</Events>
+				<Properties>
+					<Property name="text" type="String" value="Bank Name"/>
+				</Properties>
+			</Component>
+			<Component class="org.eclipse.swt.widgets.Text" name="txtBankName" style="0">
+				<Constraints>
+					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+						<Property name="verticalAlignment" type="int" value="2"/>
+						<Property name="horizontalAlignment" type="int" value="1"/>
+						<Property name="widthHint" type="int" value="254"/>
+						<Property name="heightHint" type="int" value="13"/>
+						<Property name="horizontalIndent" type="int" value="0"/>
+						<Property name="horizontalSpan" type="int" value="1"/>
+						<Property name="verticalSpan" type="int" value="1"/>
+						<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+						<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+					</LayoutConstraint>
+				</Constraints>
+				<Events>
+				</Events>
+				<Properties>
+					<Property name="textLimit" type="int" value="50"/>
+					<Property name="size" type="Dimension">
+						<Dimension value="[260, 13]"/>
+					</Property>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[105, 8, 260, 13]"/>
+					</Property>
+				</Properties>
+			</Component>
+			<Component class="org.eclipse.swt.custom.CLabel" name="lblBankBranchName" style="0">
+				<Constraints>
+					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+						<Property name="verticalAlignment" type="int" value="2"/>
+						<Property name="horizontalAlignment" type="int" value="1"/>
+						<Property name="widthHint" type="int" value="95"/>
+						<Property name="heightHint" type="int" value="19"/>
+						<Property name="horizontalIndent" type="int" value="0"/>
+						<Property name="horizontalSpan" type="int" value="1"/>
+						<Property name="verticalSpan" type="int" value="1"/>
+						<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+						<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+					</LayoutConstraint>
+				</Constraints>
+				<Events>
+				</Events>
+				<Properties>
+					<Property name="text" type="String" value="Bank Branch Name"/>
+					<Property name="size" type="Dimension">
+						<Dimension value="[95, 19]"/>
+					</Property>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[5, 29, 95, 19]"/>
+					</Property>
+				</Properties>
+			</Component>
+			<Component class="org.eclipse.swt.widgets.Text" name="txtBankBranchName" style="0">
+				<Constraints>
+					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+						<Property name="verticalAlignment" type="int" value="2"/>
+						<Property name="horizontalAlignment" type="int" value="1"/>
+						<Property name="widthHint" type="int" value="254"/>
+						<Property name="heightHint" type="int" value="13"/>
+						<Property name="horizontalIndent" type="int" value="0"/>
+						<Property name="horizontalSpan" type="int" value="1"/>
+						<Property name="verticalSpan" type="int" value="1"/>
+						<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+						<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+					</LayoutConstraint>
+				</Constraints>
+				<Events>
+				</Events>
+				<Properties>
+					<Property name="textLimit" type="int" value="50"/>
+					<Property name="size" type="Dimension">
+						<Dimension value="[260, 13]"/>
+					</Property>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[105, 32, 260, 13]"/>
+					</Property>
+				</Properties>
+			</Component>
+			<Component class="org.eclipse.swt.custom.CLabel" name="lvlBanckAccountNo" style="0">
+				<Constraints>
+					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+						<Property name="verticalAlignment" type="int" value="2"/>
+						<Property name="horizontalAlignment" type="int" value="1"/>
+						<Property name="widthHint" type="int" value="-1"/>
+						<Property name="heightHint" type="int" value="-1"/>
+						<Property name="horizontalIndent" type="int" value="0"/>
+						<Property name="horizontalSpan" type="int" value="1"/>
+						<Property name="verticalSpan" type="int" value="1"/>
+						<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+						<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+					</LayoutConstraint>
+				</Constraints>
+				<Events>
+				</Events>
+				<Properties>
+					<Property name="text" type="String" value="Bank Account No"/>
+				</Properties>
+			</Component>
+			<Component class="org.eclipse.swt.widgets.Text" name="txtBankAccountNo" style="0">
+				<Constraints>
+					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
+						<Property name="verticalAlignment" type="int" value="2"/>
+						<Property name="horizontalAlignment" type="int" value="1"/>
+						<Property name="widthHint" type="int" value="254"/>
+						<Property name="heightHint" type="int" value="13"/>
+						<Property name="horizontalIndent" type="int" value="0"/>
+						<Property name="horizontalSpan" type="int" value="1"/>
+						<Property name="verticalSpan" type="int" value="1"/>
+						<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
+						<Property name="grabExcessVerticalSpace" type="boolean" value="false"/>
+					</LayoutConstraint>
+				</Constraints>
+				<Events>
+				</Events>
+				<Properties>
+					<Property name="textLimit" type="int" value="50"/>
+					<Property name="size" type="Dimension">
+						<Dimension value="[260, 13]"/>
+					</Property>
+				</Properties>
+			</Component>
+		</SubComponents>
 	</Component>
 </Form>

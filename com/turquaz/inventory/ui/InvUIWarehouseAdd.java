@@ -9,17 +9,9 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
-
 import org.eclipse.swt.custom.CLabel;
-
 import org.eclipse.swt.SWT;
-
-
-
 import com.turquaz.engine.ui.component.SecureComposite;
-
-
-
 import com.turquaz.inventory.bl.InvBLWarehouseAdd;
 
 
@@ -179,7 +171,7 @@ public class InvUIWarehouseAdd extends SecureComposite {
 			txtWarehouseCityLData.grabExcessHorizontalSpace = false;
 			txtWarehouseCityLData.grabExcessVerticalSpace = false;
 			txtWarehouseCity.setLayoutData(txtWarehouseCityLData);
-			txtWarehouseCity.setTextLimit(25);
+			txtWarehouseCity.setTextLimit(50);
 			txtWarehouseCity.setSize(new org.eclipse.swt.graphics.Point(153,17));
 	
 			GridData lblWarehouseTelephoneLData = new GridData();
@@ -207,7 +199,6 @@ public class InvUIWarehouseAdd extends SecureComposite {
 			txtTelephoneLData.grabExcessHorizontalSpace = false;
 			txtTelephoneLData.grabExcessVerticalSpace = false;
 			txtTelephone.setLayoutData(txtTelephoneLData);
-			txtTelephone.setTextLimit(25);
 			txtTelephone.setSize(new org.eclipse.swt.graphics.Point(153,17));
 	
 			GridData lblDescriptionLData = new GridData();
@@ -234,7 +225,7 @@ public class InvUIWarehouseAdd extends SecureComposite {
 			txtWarehouseDescriptionLData.grabExcessHorizontalSpace = false;
 			txtWarehouseDescriptionLData.grabExcessVerticalSpace = false;
 			txtWarehouseDescription.setLayoutData(txtWarehouseDescriptionLData);
-			txtWarehouseDescription.setTextLimit(250);
+			txtWarehouseDescription.setTextLimit(50);
 			txtWarehouseDescription.setSize(new org.eclipse.swt.graphics.Point(347,93));
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
