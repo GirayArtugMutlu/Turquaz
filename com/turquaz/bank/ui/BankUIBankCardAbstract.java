@@ -19,6 +19,8 @@ import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionSearch;
 import com.turquaz.bank.ui.comp.BankCardPicker;
@@ -28,7 +30,6 @@ import org.eclipse.swt.custom.CTabItem;
 import com.jasperassistant.designer.viewer.ViewerComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableItem;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
@@ -70,6 +71,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 	private CLabel lblStartDate;
 	private BankCardPicker bankPicker;
 	private Composite compSearchPanel;
+	SearchTableViewer tableViewer = null;
 
 	public BankUIBankCardAbstract(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -229,10 +231,23 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 		}
 	}
 
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[7];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_DATE;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableAbstract,columnTypes,false);
+	}
 	public void PostInit()
 	{
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		dateStartDate.setDate(cal.getTime());
+		createTableViewer();
 	}
 
 	public void delete()
@@ -266,9 +281,10 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 		{
 			if (verifyFields())
 			{
-				tableAbstract.removeAll();
+				tableViewer.removeAll();
+				
 				TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-				TableItem item = new TableItem(tableAbstract, SWT.NULL);
+				
 				BigDecimal total_dept = new BigDecimal(0);
 				BigDecimal total_credit = new BigDecimal(0);
 				BigDecimal deferred_dept = new BigDecimal(0);
@@ -297,25 +313,22 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 					balance = deferred_dept.subtract(deferred_credit);
 					if (balance.doubleValue() > 0)
 					{
-						item
-								.setText(new String[]{
-										"", "", Messages.getString("BankUIBankCardAbstract.11"), cf.format(amounts[0]), cf.format(amounts[1]), cf.format(balance), cf.format(new BigDecimal(0)) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-								});
+						tableViewer.addRow(new String[]{"", "", Messages.getString("BankUIBankCardAbstract.11"), cf.format(amounts[0]), cf.format(amounts[1]), cf.format(balance), cf.format(new BigDecimal(0)) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+								},null);
 					}
 					else
 					{
-						item
-								.setText(new String[]{
+						tableViewer.addRow(new String[]{
 										"", "", Messages.getString("BankUIBankCardAbstract.11"), cf.format(amounts[0]), cf.format(amounts[1]), cf.format(new BigDecimal(0)), cf.format(balance.negate()) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-								});
+								},null);
 					}
 				}
 				else
 				{
-					item
-							.setText(new String[]{
+					tableViewer.addRow(new String[]{
 									"", "", Messages.getString("BankUIBankCardAbstract.14"), cf.format(0), cf.format(0), cf.format(0), cf.format(0) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-							});
+							},null);
+					
 					parameters.put("initialDept", new BigDecimal(0));
 					parameters.put("initialCredit", new BigDecimal(0));
 					parameters.put("initialBalance", new BigDecimal(0));
@@ -337,26 +350,25 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 					{
 						credit = (BigDecimal) results[4];
 					}
-					item = new TableItem(tableAbstract, SWT.NULL);
-					item.setText(new String[]{DatePicker.formatter.format((Date) results[0]), results[5].toString(),
-							results[2].toString(), cf.format(dept), cf.format(credit),});
+					
 					total_dept = total_dept.add(dept);
 					total_credit = total_credit.add(credit);
 					balance = balance.add(dept).subtract(credit);
 					if (balance.doubleValue() > 0)
 					{
-						item.setText(new String[]{DatePicker.formatter.format((Date) results[0]), results[5].toString(),
-								results[2].toString(), cf.format(dept), cf.format(credit), cf.format(balance), cf.format(0)});
+						tableViewer.addRow(new String[]{DatePicker.formatter.format((Date) results[0]), results[5].toString(),
+								results[2].toString(), cf.format(dept), cf.format(credit), cf.format(balance), cf.format(0)},null);
 					}
 					else
 					{
-						item.setText(new String[]{DatePicker.formatter.format((Date) results[0]), results[5].toString(),
+						tableViewer.addRow(new String[]{DatePicker.formatter.format((Date) results[0]), results[5].toString(),
 								results[2].toString(), cf.format(dept), cf.format(credit), cf.format(0),
-								cf.format(balance.negate())});
+								cf.format(balance.negate())},null);
 					}
 				}
-				item = new TableItem(tableAbstract, SWT.NULL);
-				item = new TableItem(tableAbstract, SWT.NULL);
+				
+				tableViewer.addRow(new String[]{"","","","","","",""},null);
+				
 				String balance_dept = "";
 				String balance_credit = "";
 				if (total_dept.subtract(total_credit).doubleValue() > 0)
@@ -369,10 +381,10 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 					balance_credit = cf.format(total_dept.subtract(total_credit).negate());
 					balance_dept = cf.format(0);
 				}
-				item.setText(new String[]{"", //$NON-NLS-1$
+				tableViewer.addRow(new String[]{"", //$NON-NLS-1$
 						"", //$NON-NLS-1$
 						Messages.getString("BankUIBankCardAbstract.17"), //$NON-NLS-1$
-						cf.format(total_dept), cf.format(total_credit), balance_dept, balance_credit});
+						cf.format(total_dept), cf.format(total_credit), balance_dept, balance_credit},null);
 				if (balance.doubleValue() > 0)
 				{
 					balance_dept = cf.format(balance);
@@ -383,11 +395,11 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 					balance_credit = cf.format(balance.negate());
 					balance_dept = cf.format(0);
 				}
-				item = new TableItem(tableAbstract, SWT.NULL);
-				item.setText(new String[]{"", //$NON-NLS-1$
+				
+				tableViewer.addRow(new String[]{"", //$NON-NLS-1$
 						"", //$NON-NLS-1$
 						Messages.getString("BankUIBankCardAbstract.20"), //$NON-NLS-1$
-						cf.format(deferred_dept), cf.format(deferred_credit), balance_dept, balance_credit});
+						cf.format(deferred_dept), cf.format(deferred_credit), balance_dept, balance_credit},null);
 				BigDecimal grand_total_dept = deferred_dept.add(total_dept);
 				BigDecimal grand_total_credit = deferred_credit.add(total_credit);
 				if (grand_total_dept.subtract(grand_total_credit).doubleValue() > 0)
@@ -400,11 +412,10 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 					balance_credit = cf.format(grand_total_dept.subtract(grand_total_credit).negate());
 					balance_dept = cf.format(0);
 				}
-				item = new TableItem(tableAbstract, SWT.NULL);
-				item.setText(new String[]{"", //$NON-NLS-1$
+				tableViewer.addRow(new String[]{"", //$NON-NLS-1$
 						"", //$NON-NLS-1$
 						Messages.getString("BankUIBankCardAbstract.23"), //$NON-NLS-1$
-						cf.format(grand_total_dept), cf.format(grand_total_credit), balance_dept, balance_credit});
+						cf.format(grand_total_dept), cf.format(grand_total_credit), balance_dept, balance_credit},null);
 				//REPORT PART
 				if (ls.size() > 0)
 				{
