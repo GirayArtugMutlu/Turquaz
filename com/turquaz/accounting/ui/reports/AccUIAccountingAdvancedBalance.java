@@ -77,7 +77,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Label;
-import com.turquaz.accounting.ui.comp.AccountPicker;
 public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Composite implements SearchComposite {
 	private TableColumn tableColumnTotalCredit;
 	private Button radioUseRemainder;
