@@ -23,9 +23,6 @@ package com.turquaz.inventory.bl;
 
 import java.util.Calendar;
 import java.util.List;
-
-
-
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
@@ -123,6 +120,18 @@ public class InvBLCardSearch {
 	    
 	    
 	}
+	
+	public static List getAllInventoryCards()throws Exception{
+	    try
+		{
+	        return InvDALCardSearch.getAllInventoryCards();
+	    }
+	    catch(Exception ex)
+		{
+	        throw ex;
+	    }
+	}
+	
 	public TurqInventoryCard getInventoryCard(String invCode)throws Exception {
 	    try{
 	        return cardSearch.getInventoryCard(invCode);

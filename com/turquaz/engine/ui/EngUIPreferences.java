@@ -46,6 +46,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 	private CCombo cCombo;
 	private Button btnCurrentCards;
 	private Button btnUpdateCashTrans;
+	private Button btnExportInvAccounts;
 	private Button btnExportBankCards;
 	private Button btnUpdateBills;
 	private CLabel lblBillFormat;
@@ -206,6 +207,25 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog {
 					}
 				});
 				//END <<  btnUpdateCashTrans
+				//START >>  btnExportInvAccounts
+				btnExportInvAccounts = new Button(composite1, SWT.PUSH
+					| SWT.CENTER);
+				btnExportInvAccounts.setText("ExportInvAccounts");
+				btnExportInvAccounts.setVisible(false);
+				btnExportInvAccounts.addMouseListener(new MouseAdapter() {
+					public void mouseUp(MouseEvent evt) {
+						try
+						{
+							EngBLCommon.exportInventoryAccounts();
+						}
+						catch(Exception ex)
+						{
+							ex.printStackTrace();
+						}
+						
+					}
+				});
+				//END <<  btnExportInvAccounts
             }
             fillBillTypeCombo();
             EngUICommon.centreWindow(dialogShell);
