@@ -148,7 +148,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                     txtInvCard.addModifyListener(new ModifyListener() {
                        public void modifyText(ModifyEvent ev){
                            try{
-                             txtInvCard.setData( EngBLInventoryCards.getAccount(txtInvCard.getText().trim()));
+                             txtInvCard.setData( EngBLInventoryCards.getCard(txtInvCard.getText().trim()));
                                                  
                            }
                            catch(Exception ex){

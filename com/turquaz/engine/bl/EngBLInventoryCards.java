@@ -82,7 +82,7 @@ public class EngBLInventoryCards {
 
 	}
 
-	public static TurqInventoryCard getAccount(String accountCode)
+	public static TurqInventoryCard getCard(String accountCode)
 			throws Exception {
 		try {
 

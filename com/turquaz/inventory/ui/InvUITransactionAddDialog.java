@@ -163,7 +163,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 					  txtInvCard.addModifyListener(new ModifyListener() {
 	                       public void modifyText(ModifyEvent ev){
 	                           try{
-	                             txtInvCard.setData( EngBLInventoryCards.getAccount(txtInvCard.getText().trim()));
+	                             txtInvCard.setData( EngBLInventoryCards.getCard(txtInvCard.getText().trim()));
 	                              chooseInventoryCard((TurqInventoryCard)txtInvCard.getData());
 	                             
 	                           }

@@ -56,6 +56,7 @@ import org.eclipse.swt.widgets.Button;
 
 
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryGroup;
@@ -1562,40 +1563,59 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	
 
 	public boolean verifyFields() {
-		
+		try{
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 		//If inventory name is not given
-		if (txtInvCardName.getText().trim().equals("")) { 		 //$NON-NLS-1$
-			msg.setMessage(Messages.getString("InvUICardAdd.41"));  //$NON-NLS-1$
-			msg.open();
-			txtInvCardName.setFocus();
-			return false;
-		}
-		else if (txtInvCardCode.getText().trim().equals("")) { 		 //$NON-NLS-1$
+		
+		if (txtInvCardCode.getText().trim().equals("")) { 		 //$NON-NLS-1$
 			msg.setMessage(Messages.getString("InvUICardAdd.43"));  //$NON-NLS-1$
 			msg.open();
 			txtInvCardCode.setFocus();
 			return false;
 		}
+		else if (EngBLInventoryCards.getCard(txtInvCardCode.getText().trim())!= null)
+		{
+			msg.setMessage(Messages.getString("InvUICardAdd.2")); //$NON-NLS-1$
+			msg.open();
+			txtInvCardCode.setFocus();
+			return false;			
+		}
+		else if (txtInvCardName.getText().trim().equals("")) { 		 //$NON-NLS-1$
+			msg.setMessage(Messages.getString("InvUICardAdd.41"));  //$NON-NLS-1$
+			msg.open();
+			txtInvCardName.setFocus();
+			return false;
+		}
 		else if (txtInvCardInAcc.getData()==null) { 		
 			msg.setMessage(Messages.getString("InvUICardAdd.44"));  //$NON-NLS-1$
 			msg.open();
+			tabfldInvCardAdd.setSelection(tabInvCardDetails);
 			txtInvCardInAcc.setFocus();
 			return false;
 		}
 		else if (txtInvCardOutAcc.getData()==null) { 		
 			msg.setMessage(Messages.getString("InvUICardAdd.45"));  //$NON-NLS-1$
 			msg.open();
+			tabfldInvCardAdd.setSelection(tabInvCardDetails);
 			txtInvCardOutAcc.setFocus();
 			return false;
 		}
 		else if (comboInvCardUnits.getData(comboInvCardUnits.getText())==null){
 			msg.setMessage(Messages.getString("InvUICardAdd.46"));  //$NON-NLS-1$
 			msg.open();
+			tabfldInvCardAdd.setSelection(tabInvCardUnits);
 			comboInvCardUnits.setFocus();
 			return false;
 		}
 		return true;
+		}
+		catch(Exception ex)
+		{
+			MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
+			msg.setMessage(ex.getMessage());
+			msg.open();
+			return false;
+		}
 	}
 
 	public void save() {
