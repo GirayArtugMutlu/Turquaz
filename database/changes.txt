@@ -390,7 +390,8 @@ CREATE TABLE turq_current_accounting_types
 (
   current_accouting_types_id int4 NOT NULL,
   type_name varchar(100) NOT NULL,
-  definition varchar(100) NOT NULL
+  definition varchar(100) NOT NULL,
+  CONSTRAINT turq_current_accounting_types_pkey PRIMARY KEY (current_accouting_types_id)
 ) 
 WITHOUT OIDS;
 
