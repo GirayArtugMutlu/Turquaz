@@ -111,10 +111,10 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
 	private DatePicker datePickerTransactionDate;
 	private BigDecimal totalDept;
 //	 Set the table column property names
-	private final String ACCOUNT_CODE 		= "Hesap Kodu";
-	private final String ACCOUNT_NAME   	= "Hesap Ad?";
-	private final String DEFINITION         = "Aç?klama";
-	private final String CREDIT 		    = "Alacak";
+	private final String ACCOUNT_CODE 		= Messages.getString("AccUITransactionCollect.4"); //$NON-NLS-1$
+	private final String ACCOUNT_NAME   	= Messages.getString("AccUITransactionCollect.5"); //$NON-NLS-1$
+	private final String DEFINITION         = Messages.getString("AccUITransactionCollect.6"); //$NON-NLS-1$
+	private final String CREDIT 		    = Messages.getString("AccUITransactionCollect.7"); //$NON-NLS-1$
 	TableCursor cursor;
 	private List columnList = new ArrayList();
 	TableRowList rowList = new TableRowList();
@@ -508,7 +508,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
     transRow.setCreditAmount(new BigDecimal(0));
     transRow.setDeptAmount(totalDept);
     transRow.setTurqAccountingAccount((TurqAccountingAccount)comboDeptor.getData(comboDeptor.getText()));
-    transRow.setTransactionDefinition("Kasa - Borç");
+    transRow.setTransactionDefinition(Messages.getString("AccUITransactionCollect.9")); //$NON-NLS-1$
     blTransAdd.saveAccTransactionRow(transRow,transId);   
      
     //Save the table rows    

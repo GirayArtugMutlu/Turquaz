@@ -113,10 +113,10 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 	private BigDecimal totalCredit;
 	private DatePicker datePickerTransactionDate;
 //	 Set the table column property names
-	private final String ACCOUNT_CODE 		= "Hesap Kodu";
-	private final String ACCOUNT_NAME   	= "Hesap Ad?";
-	private final String DEFINITION         = "Aç?klama";
-	private final String DEBIT 		    	= "Borç";
+	private final String ACCOUNT_CODE 		= Messages.getString("AccUITransactionPayment.4"); //$NON-NLS-1$
+	private final String ACCOUNT_NAME   	= Messages.getString("AccUITransactionPayment.9"); //$NON-NLS-1$
+	private final String DEFINITION         = Messages.getString("AccUITransactionPayment.10"); //$NON-NLS-1$
+	private final String DEBIT 		    	= Messages.getString("AccUITransactionPayment.11"); //$NON-NLS-1$
 	TableCursor cursor;
 	private List columnList = new ArrayList();
 	TableRowList rowList = new TableRowList();
@@ -249,31 +249,28 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 					tableColumnAccountCode = new TableColumn(
 						tableTransactionRows,
 						SWT.NONE);
-					tableColumnAccountCode.setText(Messages
-						.getString("AccUITransactionPayment.5")); //$NON-NLS-1$
+					tableColumnAccountCode.setText(ACCOUNT_CODE); //$NON-NLS-1$
 					tableColumnAccountCode.setWidth(126);
 				}
 				{
 					tableColumnAccountName = new TableColumn(
 						tableTransactionRows,
 						SWT.NONE);
-					tableColumnAccountName.setText(Messages
-						.getString("AccUITransactionPayment.6")); //$NON-NLS-1$
+					tableColumnAccountName.setText(ACCOUNT_NAME); //$NON-NLS-1$
 					tableColumnAccountName.setWidth(150);
 				}
                 {
                     tableColumnDefinition = new TableColumn(
                         tableTransactionRows,
                         SWT.NONE);
-                    tableColumnDefinition.setText("Aç?klama");
+                    tableColumnDefinition.setText(DEFINITION); //$NON-NLS-1$
                     tableColumnDefinition.setWidth(150);
                 }
 				{
 					tableColumnDeptAmount = new TableColumn(
 						tableTransactionRows,
 						SWT.NONE);
-					tableColumnDeptAmount.setText(Messages
-						.getString("AccUITransactionPayment.7")); //$NON-NLS-1$
+					tableColumnDeptAmount.setText(DEBIT); //$NON-NLS-1$
 					tableColumnDeptAmount.setWidth(100);
 				}
 			}
@@ -505,7 +502,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
     transRow.setDeptAmount(new BigDecimal(0));
     transRow.setCreditAmount(totalCredit);
     transRow.setTurqAccountingAccount((TurqAccountingAccount)comboCreditor.getData(comboCreditor.getText()));
-    transRow.setTransactionDefinition("Kasa - Alacak -");
+    transRow.setTransactionDefinition(Messages.getString("AccUITransactionPayment.13")); //$NON-NLS-1$
     blTransAdd.saveAccTransactionRow(transRow,transId);   
      
     //Save the table rows    

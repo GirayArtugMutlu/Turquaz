@@ -125,11 +125,11 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	private CLabel lblDocumentNo;
 	BigDecimal totalDept ;
 //	 Set the table column property names
-	private final String ACCOUNT_CODE 		= "Hesap Kodu";
-	private final String ACCOUNT_NAME   	= "Hesap Ad?";
-	private final String DEFINITION         = "Aç?klama";
-	private final String DEPT     			= "Borç";
-	private final String CREDIT 		    = "Alacak";
+	private final String ACCOUNT_CODE 		= Messages.getString("AccUITransactionAdd.3"); //$NON-NLS-1$
+	private final String ACCOUNT_NAME   	= Messages.getString("AccUITransactionAdd.4"); //$NON-NLS-1$
+	private final String DEFINITION         = Messages.getString("AccUITransactionAdd.5"); //$NON-NLS-1$
+	private final String DEPT     			= Messages.getString("AccUITransactionAdd.6"); //$NON-NLS-1$
+	private final String CREDIT 		    = Messages.getString("AccUITransactionAdd.7"); //$NON-NLS-1$
 	TableCursor cursor;
 	private List columnList = new ArrayList();
 	TableRowList rowList = new TableRowList();
