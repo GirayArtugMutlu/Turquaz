@@ -41,18 +41,48 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
-/**
- * @author onsel
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class CurBLCurrentTransactionAdd {
 
 	private CurDALCurrentTransactionAdd dalCurrentTrans=new CurDALCurrentTransactionAdd();	
 	private Calendar cal=Calendar.getInstance();
 	public CurBLCurrentTransactionAdd(){
 		
+	}
+	
+	
+	public void saveCurrentTransaction(TurqCurrentCard curCard,java.util.Date transDate, String documentNo,
+			boolean isCredit,BigDecimal amount, BigDecimal totalDiscount, int type)throws Exception{
+		try{
+			TurqCurrentTransaction curTrans = new TurqCurrentTransaction();
+			curTrans.setTurqCurrentCard(curCard);
+			curTrans.setTransactionsDate(transDate);
+			curTrans.setTransactionsDocumentNo(documentNo);
+			curTrans.setTransactionsTotalDiscount(totalDiscount);
+		
+			if(isCredit){
+			curTrans.setTransactionsTotalCredit(amount);
+			curTrans.setTransactionsTotalDept(new BigDecimal(0));			
+			}		
+			else{
+				curTrans.setTransactionsTotalCredit(new BigDecimal(0));
+			    curTrans.setTransactionsTotalDept(amount);				
+			}
+			
+			TurqCurrency currency = new TurqCurrency();
+	        currency.setCurrenciesId(new Integer(1));
+	        curTrans.setTurqCurrency(currency);
+			
+	        TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
+	        transType.setCurrentTransactionTypesId(new Integer(type));
+	        curTrans.setTurqCurrentTransactionType(transType);	
+			
+	        dalCurrentTrans.saveObject(curTrans);
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
 	}
 	
 	
@@ -68,6 +98,7 @@ public class CurBLCurrentTransactionAdd {
 	 * @param account  Kasa muhasebe hesabi 
 	 * @throws Exception
 	 */
+	
 	public void saveCurrentCashTransaction(TurqCurrentCard curCard,java.util.Date transDate, String documentNo,
 									boolean isCredit,BigDecimal amount, BigDecimal totalDiscount,
 									int type, TurqAccountingAccount account) throws Exception{

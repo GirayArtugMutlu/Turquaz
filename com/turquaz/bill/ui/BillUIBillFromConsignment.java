@@ -233,6 +233,7 @@ implements SecureComposite{
 	private TableColumn tableColumnAmount;
 	private Composite compTotalsPanel;
 	private CLabel lblInventoryPrice;
+	private Button checkClosedBill;
 	private NumericText txtDiscountRate;
 	private DatePicker dateConsDate;
 	private CLabel lblConsignmentDate;
@@ -511,6 +512,17 @@ implements SecureComposite{
 								txtDefinitionLData.widthHint = 191;
 								txtDefinitionLData.heightHint = 34;
 								txtDefinition.setLayoutData(txtDefinitionLData);
+							}
+							{
+								checkClosedBill = new Button(
+									compInfoPanel,
+									SWT.CHECK | SWT.LEFT);
+								checkClosedBill.setText("Closed Bill?");
+								GridData checkClosedBillLData = new GridData();
+								checkClosedBillLData.widthHint = 166;
+								checkClosedBillLData.heightHint = 19;
+								checkClosedBillLData.horizontalSpan = 2;
+								checkClosedBill.setLayoutData(checkClosedBillLData);
 							}
 						}
 						{
@@ -878,7 +890,9 @@ implements SecureComposite{
 										consignment,
 										txtTotalVat.getBigDecimalValue(),
 										decSpecialVat.getBigDecimalValue(),
-										txtTotalAmount.getBigDecimalValue(),type);
+										txtTotalAmount.getBigDecimalValue(),
+										type,
+										!checkClosedBill.getSelection());
 		
 		saveGroups(consID);
 		msg.setMessage("Succesfully Saved!!");
