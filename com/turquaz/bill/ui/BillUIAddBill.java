@@ -445,7 +445,7 @@ public class BillUIAddBill extends Composite
 			
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(678, 526);
+			this.setSize(981, 551);
 			{
 				cTabFolder1 = new CTabFolder(this, SWT.NONE);
 				cTabFolder1.setSize(56, 25);
@@ -740,7 +740,7 @@ public class BillUIAddBill extends Composite
                                     tableConsignmentRows,
                                     SWT.NONE);
                                 tableColumn8.setText(VAT_PERCENT);
-                                tableColumn8.setWidth(100);
+                                tableColumn8.setWidth(56);
                             }
                             {
                                 tableColumn9 = new TableColumn(tableConsignmentRows, SWT.RIGHT);
@@ -748,9 +748,7 @@ public class BillUIAddBill extends Composite
                                 tableColumn9.setWidth(100);
                             }
                             {
-                                tableColumn10 = new TableColumn(
-                                    tableConsignmentRows,
-                                    SWT.NONE);
+                                tableColumn10 = new TableColumn(tableConsignmentRows, SWT.RIGHT);
                                 tableColumn10.setText(SPECIAL_VAT_PERCENT);
                                 tableColumn10.setWidth(110);
                             }
