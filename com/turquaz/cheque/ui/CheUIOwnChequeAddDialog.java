@@ -248,7 +248,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog {
 	        txtChequeNo.setText(cheque.getChequesNo());
 	        txtPaymentPlace.setText(cheque.getChequesPaymentPlace());
 	        datePickValueDate.setDate(cheque.getChequesDueDate());
-	        curText.setText(cheque.getChequesAmount());
+	        curText.setText(cheque.getChequesAmountInForeignCurrency());
 	        bankPicker.setText(cheque.getTurqBanksCard().getBankCode());
 	        
 	        
@@ -292,8 +292,9 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog {
 	    cheque.setChequesValueDate(datePickValueDate.getDate());
 	    cheque.setChequesDebtor(Messages.getString("CheUIOwnChequeAddDialog.4")); //$NON-NLS-1$
 	    cheque.setChequesPaymentPlace(txtPaymentPlace.getText().trim());
-	    cheque.setChequesAmount(curText.getBigDecimalValue());	  
-	    
+	    cheque.setChequesAmount(curText.getBigDecimalValue());	 
+	    cheque.setChequesAmountInForeignCurrency(curText.getBigDecimalValue());
+	    cheque.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
 	    cheque.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
         cheque.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
         cheque.setLastModified(Calendar.getInstance().getTime());

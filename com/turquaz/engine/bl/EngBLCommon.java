@@ -196,6 +196,7 @@ public class EngBLCommon {
 
 	public final static int CHEQUE_TRANS_RETURN_FROM_BANK = 5; //Bankadan Karsiliksiz iade...
 	
+	public final static int CHEQUE_TRANS_RETURN_FROM_CURRENT = 6; //Cariden karsiliksiz iade...
 	
 	
 	

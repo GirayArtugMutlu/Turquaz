@@ -796,6 +796,7 @@ public class CheBLSaveChequeTransaction {
     		deptAccountsMap.put(deptAccount.getId(),amount);
       		
     	}
+    	
     	else if(type == EngBLCommon.CHEQUE_TRANS_RETURN_FROM_BANK)
     	{
     		if(rollAccount==null){
@@ -840,6 +841,53 @@ public class CheBLSaveChequeTransaction {
     		
     		deptAccountsMap.put(deptAccount.getId(),amount);
     	}
+    	
+    	
+    	else if(type == EngBLCommon.CHEQUE_TRANS_RETURN_FROM_CURRENT)
+    	{
+    		if(rollAccount==null){
+    			return false ;
+    		}
+    	
+    		CheBLUpdateChequeRoll.initializeChequeRoll(roll);
+    		TurqChequeCheque cheque = null;
+    		TurqAccountingAccount creditAccount = null;
+    		TurqAccountingAccount deptAccount = rollAccount;
+    		Iterator it = roll.getTurqChequeChequeInRolls().iterator();
+    	
+    		while(it.hasNext())
+    		{
+    			cheque = ((TurqChequeChequeInRoll)it.next()).getTurqChequeCheque();
+    			
+    			TurqBanksCard bankCard = CheDALSearch.getBankOfCustomerCheque(cheque);
+	   			   			
+    			creditAccount = CheBLSearchCheques.getChequeRollAccountingAccount(cheque,EngBLCommon.CHEQUE_TRANS_IN);
+    			
+	
+    			if(creditAccount==null)
+    			{
+    				return false;
+		
+    			}
+    			
+    			if(creditAccountsMap.containsKey(creditAccount.getId()))
+    			{
+    				BigDecimal total = (BigDecimal)creditAccountsMap.get(creditAccount.getId());
+    				total = total.add(cheque.getChequesAmount());
+    				creditAccountsMap.put(creditAccount.getId(),total);    				
+    			}
+    			
+    			else{
+    				
+    				creditAccountsMap.put(creditAccount.getId(),cheque.getChequesAmount());
+    			
+    			}     			
+    		}
+    		
+    		
+    		deptAccountsMap.put(deptAccount.getId(),amount);
+    	}
+    	
     	
     	
     	
