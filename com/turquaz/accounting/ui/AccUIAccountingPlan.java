@@ -31,8 +31,7 @@ import java.util.Map;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
+
 import org.eclipse.swt.widgets.TableColumn;
 
 import org.eclipse.swt.events.DisposeEvent;
@@ -50,7 +49,7 @@ import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.ui.component.SearchComposite;
-import com.turquaz.engine.ui.component.TableSorter;
+
 
 
 

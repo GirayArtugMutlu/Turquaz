@@ -526,8 +526,9 @@ public class InvUICardUpdateDialog extends Dialog{
     }
     
     public void delete(){
+    	MessageBox msg=new MessageBox(this.getParent(),SWT.YES|SWT.NO);
       try{
-      MessageBox msg=new MessageBox(this.getParent(),SWT.YES|SWT.NO);
+      
       msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
       if (msg.open()==SWT.NO)
        return;
@@ -548,7 +549,13 @@ public class InvUICardUpdateDialog extends Dialog{
            
     }
     catch(Exception ex){
-    ex.printStackTrace();
+    	
+    ex.printStackTrace();	
+    msg = new MessageBox(this.getParent(),SWT.ICON_ERROR);	
+    msg.setMessage(ex.getMessage());
+    msg.open();
+    dialogShell.close();
+ 
     
     }
     
