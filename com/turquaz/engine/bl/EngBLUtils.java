@@ -250,7 +250,7 @@ public class EngBLUtils {
 			TurqBillConsignmentCommon billCommon=bill.getTurqBillConsignmentCommon();
 			BigDecimal invoiceSum=billCommon.getTotalAmount().add(billCommon.getSpecialVatAmount());
 			BigDecimal discount=billCommon.getDiscountAmount();
-			BigDecimal specialVAT=billCommon.getSpecialVatAmount();
+			BigDecimal specialVAT=billCommon.getVatAmount();
 			BigDecimal invoiceTotal=invoiceSum.subtract(discount);
 			BigDecimal grandTotal=invoiceTotal.add(specialVAT);
 			parameters.put("invoiceSum",invoiceSum);
@@ -260,6 +260,7 @@ public class EngBLUtils {
 			parameters.put("invoiceGrandTotal",grandTotal);
 			parameters.put("invoiceGrandTotalText",EngBLCurrencyToWords.getTurkishCarrencyInWords(grandTotal));
 			parameters.put("invoiceDate",dformat.format(bill.getBillsDate()));
+			parameters.put("dueDate",dformat.format(bill.getDueDate()));
 			TurqCurrentCard curCard=billCommon.getTurqCurrentCard();
 			parameters.put("currentName",curCard.getCardsName());
 			parameters.put("currentAddress",curCard.getCardsAddress());
@@ -292,8 +293,6 @@ public class EngBLUtils {
 			viewerApp.open();
 			
 			//reportViewer.getReportViewer().setDocument(jasperPrint);
-			
-					
 			}
 			catch(Exception ex){
                   ex.printStackTrace();
