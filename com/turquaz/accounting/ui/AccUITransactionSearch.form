@@ -35,7 +35,7 @@
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
 						<Property name="widthHint" type="int" value="-1"/>
-						<Property name="heightHint" type="int" value="133"/>
+						<Property name="heightHint" type="int" value="125"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
 						<Property name="verticalSpan" type="int" value="1"/>
@@ -55,10 +55,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[636, 133]"/>
+						<Dimension value="[636, 125]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 5, 636, 133]"/>
+						<Rectangle value="[5, 5, 636, 125]"/>
 					</Property>
 				</Properties>
 				<SubComponents>
@@ -288,10 +288,10 @@
 					<Property name="headerVisible" type="boolean" value="true"/>
 					<Property name="linesVisible" type="boolean" value="true"/>
 					<Property name="size" type="Dimension">
-						<Dimension value="[636, 365]"/>
+						<Dimension value="[636, 373]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 143, 636, 365]"/>
+						<Rectangle value="[5, 135, 636, 373]"/>
 					</Property>
 				</Properties>
 				<SubComponents>

@@ -86,14 +86,14 @@ public class AccUITransactionSearch extends SecureComposite {
 			composite1LData.verticalAlignment = GridData.CENTER;
 			composite1LData.horizontalAlignment = GridData.FILL;
 			composite1LData.widthHint = -1;
-			composite1LData.heightHint = 133;
+			composite1LData.heightHint = 125;
 			composite1LData.horizontalIndent = 0;
 			composite1LData.horizontalSpan = 1;
 			composite1LData.verticalSpan = 1;
 			composite1LData.grabExcessHorizontalSpace = true;
 			composite1LData.grabExcessVerticalSpace = false;
 			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(636,133));
+			composite1.setSize(new org.eclipse.swt.graphics.Point(636,125));
 	
 			GridData lblDocumentNoLData = new GridData();
 			lblDocumentNoLData.widthHint = 99;
@@ -165,7 +165,7 @@ public class AccUITransactionSearch extends SecureComposite {
 			tableTransactions.setLayoutData(tableTransactionsLData);
 			tableTransactions.setHeaderVisible(true);
 			tableTransactions.setLinesVisible(true);
-			tableTransactions.setSize(new org.eclipse.swt.graphics.Point(620,349));
+			tableTransactions.setSize(new org.eclipse.swt.graphics.Point(620,357));
 	
 			tableColumnTransType.setText("Transaction Type");
 			tableColumnTransType.setWidth(115);
