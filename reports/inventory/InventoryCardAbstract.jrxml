@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="InventoryCardAbstract" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="sqlparam" class="java.lang.String">
@@ -323,14 +323,14 @@
 	<title>
 		<band height="77">
 			<textField>
-				<reportElement positionType="Float" x="124" y="6" width="396" height="14"/>
+				<reportElement positionType="Float" x="129" y="6" width="396" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[(($P{invCardStart}.equals("")) ? "HEPSİ" : $P{invCardStart})+(($P{invCardEnd}.equals("")  ? "" : (" - "+$P{invCardEnd})))]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="4" y="6" width="120" height="14"/>
+				<reportElement positionType="Float" x="4" y="6" width="127" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
