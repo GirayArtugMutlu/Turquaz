@@ -303,7 +303,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	public void deleteInvUnits(TurqInventoryCard invCard){
 	    try{
 	    
-	   
+	
 	    //First remove groups then re-add them..
 		Iterator it = invCard.getTurqInventoryCardUnits().iterator();
 	    TurqInventoryCardUnit cardUnit; 
@@ -367,9 +367,16 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	public void delete(){
 	    TableItem items[]=tableSearcResults.getSelection();
 	    if(items.length>0){
-	   
-	     TurqInventoryCard invCard = (TurqInventoryCard)items[0].getData();
-	    MessageBox msg=new MessageBox(this.getShell(),SWT.YES|SWT.NO);
+	    	 TurqInventoryCard invCard = (TurqInventoryCard)items[0].getData();	
+	   try{
+	    
+	     InvBLCardSearch blCardSearch = new InvBLCardSearch();
+		   blCardSearch.initializeInventoryCard(invCard);
+	   }
+	   catch(Exception ex){
+	   	ex.printStackTrace();
+	   }
+		   MessageBox msg=new MessageBox(this.getShell(),SWT.YES|SWT.NO);
 	      try{
 	      
 	      msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
@@ -396,7 +403,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	    msg = new MessageBox(this.getShell(),SWT.NULL);
 		msg.setMessage(Messages.getString("InvUICardUpdateDialog.6"));	 //$NON-NLS-1$
 		msg.open();	 
-	
+	    search();
 	       
 	           
 	    }
