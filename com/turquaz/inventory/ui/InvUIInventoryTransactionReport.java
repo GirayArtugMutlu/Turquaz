@@ -141,7 +141,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				GridLayout composite1Layout = new GridLayout();
 				composite1Layout.numColumns = 4;
 				GridData composite1LData = new GridData();
-				composite1LData.heightHint = 126;
+				composite1LData.heightHint = 118;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				compInvTransactionSearch.setLayoutData(composite1LData);

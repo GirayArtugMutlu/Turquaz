@@ -121,7 +121,6 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	private TableColumn tableColumnPriceType;
 
 	private Button btnUpdateUnits;
-
 	private Button btnInvCardGroupsPre;
 
 	private Button btnInvCardPricesNext;
