@@ -26,9 +26,10 @@ public class NewTurkishCurrencyFormat extends DecimalFormat {
 	this.setGroupingSize(3);
 	this.setMaximumFractionDigits(2);
 	this.setGroupingUsed(true);
+	
 	}
 	
-	private String formatBD(BigDecimal dc){
+	private String format(BigDecimal dc){
 		
 		String formatted = super.format(dc);
 		formatted +=" "+this.getDecimalFormatSymbols().getCurrencySymbol();
@@ -36,13 +37,13 @@ public class NewTurkishCurrencyFormat extends DecimalFormat {
 		
 	}
 	
-	public static synchronized String format(BigDecimal bdc){
+	public static synchronized String formatBD(BigDecimal bdc){
 		
 		if(_instance == null){
 			
 			_instance = new NewTurkishCurrencyFormat();
 		}
-		return _instance.formatBD(bdc);
+		return _instance.format(bdc);
 		
 	}
 	
