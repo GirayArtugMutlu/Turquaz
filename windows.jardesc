@@ -13,6 +13,7 @@
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bank.ui.comp"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.current.dal"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bank.dal"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine.tx"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.cash"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bank.ui"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.inventory.ui.comp"/>
@@ -20,7 +21,6 @@
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.inventory.bl"/>
         <file path="/Turquaz/log4j.properties"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bill.bl"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;de.kupzog.ktable"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.accounting.ui.reports"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.cloudgarden.resource"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.inventory.dal"/>
@@ -64,12 +64,12 @@
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.admin.ui"/>
         <javaElement handleIdentifier="=Turquaz/&lt;de.kupzog.ktools.kprint.gui"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.cash.ui.comp"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;de.kupzog.ktools.kprint.boxes"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine.bl"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;de.kupzog.ktools.kprint.boxes"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bill.dal"/>
         <javaElement handleIdentifier="=Turquaz/&lt;icons"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.admin.dal"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.current.ui"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.admin"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.current.ui"/>
     </selectedElements>
 </jardesc>

@@ -328,6 +328,7 @@ public class CheDALSearch
 			List list = q.list();
 			if (list.size() > 0)
 			{
+				System.out.println(list.size());
 				return (TurqCurrentCard) list.get(0);
 			}
 			return null;

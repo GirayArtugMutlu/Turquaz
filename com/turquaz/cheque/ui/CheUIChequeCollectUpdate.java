@@ -224,7 +224,7 @@ public class CheUIChequeCollectUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(EngKeys.DATE, compChequeRoll.getDatePicker1().getDate());
 				argMap.put(CheKeys.CHE_CHEQUE_LIST,chequeList);
 							
-				EngTXCommon.doSingleTX(CheBLUpdateChequeRoll.class.getName(),"updateChequeCollectRoll",argMap) ;
+				EngTXCommon.doTransactionTX(CheBLUpdateChequeRoll.class.getName(),"updateChequeCollectRoll",argMap) ;
 			
 				
 				EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIChequeInPayroll.13"), SWT.ICON_INFORMATION); //$NON-NLS-1$
@@ -237,7 +237,7 @@ public class CheUIChequeCollectUpdate extends org.eclipse.swt.widgets.Dialog
 			Logger loger = Logger.getLogger(this.getClass());
 			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
-			EngUICommon.showMessageBox(getParent(), ex.getMessage(), SWT.ICON_ERROR);
+			EngUICommon.showMessageBox(getParent(),"Hata Olustu!", SWT.ICON_ERROR);
 		}
 	}
 

@@ -31,8 +31,8 @@ import com.turquaz.accounting.dal.AccDALTransactionSearch;
 import com.turquaz.bank.BankKeys;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
-import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
+import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.dal.CheDALSearch;
@@ -53,7 +53,6 @@ import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.dal.TurqChequeRollAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.tx.EngTXCommon;
 
 public class CheBLUpdateChequeRoll
 {
@@ -288,10 +287,7 @@ public class CheBLUpdateChequeRoll
 			while (it.hasNext())
 			{
 				TurqCashTransaction cashTrans = (TurqCashTransaction) it.next();
-				HashMap argMap = new HashMap();
-				argMap.put(CashKeys.CASH_TRANSACTION,cashTrans);
-				
-				EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"initializeTransaction",argMap);
+				CashDALCashCard.initiliazeCashTrans(cashTrans);
 				CashBLCashTransactionUpdate.deleteChequeCashTrans(cashTrans);
 			}
 			//Delete Accounting Transactions..

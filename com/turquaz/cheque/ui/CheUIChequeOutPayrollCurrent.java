@@ -327,7 +327,7 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
 			Logger loger = Logger.getLogger(this.getClass());
 			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
+			EngUICommon.showMessageBox(getShell(),"Hata Olustu!", SWT.ICON_ERROR);
 		}
 	}
 

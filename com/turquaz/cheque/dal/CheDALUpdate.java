@@ -27,7 +27,7 @@ import com.turquaz.engine.dal.TurqChequeRoll;
 
 public class CheDALUpdate
 {
-	public static TurqChequeCheque initializeCheque(Integer chequeId) throws Exception
+	public static TurqChequeCheque initCheque(Integer chequeId) throws Exception
 	{
 		try
 		{

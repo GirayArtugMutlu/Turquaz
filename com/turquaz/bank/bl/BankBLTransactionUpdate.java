@@ -534,8 +534,7 @@ public class BankBLTransactionUpdate
 			{
 				CashBLCashTransactionUpdate.deleteOnlyCashTransaction((TurqCashTransaction) it.next());
 			}
-			//delete accounting transactions
-			AccDALTransactionSearch dalAcc = new AccDALTransactionSearch();
+		
 			it = bankTransBill.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
 			while (it.hasNext())
 			{

@@ -139,7 +139,9 @@ public class BankDALBankCardSearch
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
+			session.clear();
 			session.refresh(bankCard);
+		
 			Iterator it = bankCard.getTurqBankAccountingAccounts().iterator();
 			while (it.hasNext())
 			{

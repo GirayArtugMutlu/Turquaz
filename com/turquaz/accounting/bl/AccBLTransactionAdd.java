@@ -52,6 +52,7 @@ public class AccBLTransactionAdd
 		Iterator it = deptAccounts.keySet().iterator();
 		while (it.hasNext())
 		{
+		
 			Integer accountId = (Integer) it.next();
 			TurqAccountingAccount account = new TurqAccountingAccount();
 			account.setId(accountId);

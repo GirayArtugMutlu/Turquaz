@@ -231,6 +231,11 @@ public class CheBLUpdateCheque
 		}
 		if (rollType == EngBLCommon.CHEQUE_TRANS_IN.intValue())
 		{
+			
+			if(chequeRoll.getTurqChequeRollAccountingAccount()==null)
+			{
+				return;
+			}
 			TurqAccountingAccount rollAccount = chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount();
 			TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(chequeRoll.getTurqCurrentCard(),
 					EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
@@ -240,6 +245,10 @@ public class CheBLUpdateCheque
 		}
 		else if (rollType == EngBLCommon.CHEQUE_TRANS_OUT_BANK.intValue())
 		{
+			if(chequeRoll.getTurqChequeRollAccountingAccount()==null)
+			{
+				return;
+			}
 			TurqAccountingAccount rollAccount = chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount();
 			CheBLSaveChequeTransaction.saveRollAccountingTransactions(rollAccount, null, chequeRoll, totalAmount, EngBLCommon
 					.getBaseCurrencyExchangeRate(), Messages.getString("CheBLUpdateCheque.4") + chequeRoll.getChequeRollNo()); //$NON-NLS-1$
@@ -278,5 +287,13 @@ public class CheBLUpdateCheque
 			CheBLSaveChequeTransaction.saveRollAccountingTransactions(null, null, chequeRoll, totalAmount, EngBLCommon
 					.getBaseCurrencyExchangeRate(), Messages.getString("CheBLUpdateCheque.10") + chequeRoll.getChequeRollNo()); //$NON-NLS-1$
 		}
+	}
+	
+	public static TurqChequeCheque initCheque(HashMap argMap)throws Exception
+	{
+		Integer cheId = (Integer)argMap.get(CheKeys.CHE_CHEQUE);
+		
+		return CheDALUpdate.initCheque(cheId);
+		
 	}
 }

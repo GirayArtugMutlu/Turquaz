@@ -21,7 +21,7 @@ import org.eclipse.swt.custom.CLabel;
 import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchCheques;
-import com.turquaz.cheque.dal.CheDALUpdate;
+import com.turquaz.cheque.bl.CheBLUpdateCheque;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -417,7 +417,11 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 				Integer cheqId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cheqId != null)
 				{
-					TurqChequeCheque cheque = CheDALUpdate.initializeCheque(cheqId);
+					HashMap argMap = new HashMap();
+					argMap.put(CheKeys.CHE_CHEQUE,cheqId);
+					
+					TurqChequeCheque cheque = (TurqChequeCheque)EngTXCommon.doSingleTX(CheBLUpdateCheque.class.getName(),"initCheque",argMap);
+					
 					boolean isUpdated = new CheUICustomerChequeUpdate(getShell(), SWT.NULL, cheque).open();
 					if (isUpdated)
 						search();

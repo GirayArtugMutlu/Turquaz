@@ -17,7 +17,7 @@ import org.eclipse.swt.custom.CLabel;
 import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchCheques;
-import com.turquaz.cheque.dal.CheDALUpdate;
+import com.turquaz.cheque.bl.CheBLUpdateCheque;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.custom.CTabFolder;
 import com.jasperassistant.designer.viewer.ViewerComposite;
@@ -397,7 +397,11 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 				Integer cheqId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cheqId != null)
 				{
-					TurqChequeCheque cheque = CheDALUpdate.initializeCheque(cheqId);
+					HashMap argMap = new HashMap();
+					argMap.put(CheKeys.CHE_CHEQUE,cheqId);
+					
+					TurqChequeCheque cheque = (TurqChequeCheque)EngTXCommon.doSingleTX(CheBLUpdateCheque.class.getName(),"initCheque",argMap);
+					
 					boolean isUpdated = new CheUIOwnChequeUpdate(getShell(), SWT.NULL, cheque).open();
 					if (isUpdated)
 						search();

@@ -186,10 +186,10 @@ public class CheUIChooseGivenChequesDialog extends org.eclipse.swt.widgets.Dialo
 				item = new TableItem(tableCheques, SWT.NULL);
 				item.setData(cheque);
 				
+				
 				HashMap argMap = new HashMap();
 				argMap.put(CheKeys.CHE_CHEQUE,cheque);
-				
-				
+								
 				TurqCurrentCard curCard =(TurqCurrentCard)EngTXCommon.doSingleTX(CheBLSearchChequeRoll.class.getName(),"getCurrentCardOfCustomerCheque",argMap);
 				
 				item.setText(new String[]{cheque.getChequesPortfolioNo(),
@@ -203,7 +203,7 @@ public class CheUIChooseGivenChequesDialog extends org.eclipse.swt.widgets.Dialo
 			Logger loger = Logger.getLogger(this.getClass());
 			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
-			EngUICommon.showMessageBox(getParent(), ex.getMessage().toString(), SWT.ICON_ERROR);
+			EngUICommon.showMessageBox(getParent(), "Hata Olu?tu!", SWT.ICON_ERROR);
 		}
 	}
 

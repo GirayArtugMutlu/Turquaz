@@ -152,6 +152,13 @@ public class EngDALCommon
 		session.flush();
 		
 	}
+	public static void saveOrUpdateObject(Object obj) throws Exception
+	{
+		Session session = EngDALSessionFactory.getSession();	
+		session.saveOrUpdate(obj);
+		session.flush();
+		
+	}
 
 	public static Integer getBankTransaction(TurqEngineSequence seq) throws Exception
 	{
