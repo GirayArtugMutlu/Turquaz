@@ -1,11 +1,12 @@
 package com.turquaz.current.ui;
 
 import com.cloudgarden.resource.SWTResourceManager;
-import org.eclipse.swt.widgets.CoolBar;
+import com.turquaz.current.Messages;
+import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
-import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -29,31 +30,17 @@ import org.eclipse.swt.SWT;
 public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 
 	private Shell dialogShell;
-	private CoolItem coolItem1;
 	private ToolItem toolUpdate;
 	private CurUICurrentCardVoucher compVoucher;
 	private ToolItem toolCancel;
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
-	private CoolBar coolBar1;
+    TurqCurrentTransaction curTrans;
 
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Dialog inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		try {
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			CurUIVoucherUpdate inst = new CurUIVoucherUpdate(shell, SWT.NULL);
-			inst.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
-	public CurUIVoucherUpdate(Shell parent, int style) {
+	public CurUIVoucherUpdate(Shell parent, int style, TurqCurrentTransaction curTrans){
 		super(parent, style);
+		this.curTrans = curTrans;
 	}
 
 	public void open() {
@@ -70,43 +57,31 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.layout();
-			dialogShell.pack();
-			dialogShell.setSize(673, 621);
+	
+			dialogShell.setSize(672, 316);
             {
-                coolBar1 = new CoolBar(dialogShell, SWT.EMBEDDED);
-                GridData coolBar1LData = new GridData();
-                coolBar1LData.horizontalAlignment = GridData.FILL;
-                coolBar1LData.grabExcessHorizontalSpace = true;
-                coolBar1.setLayoutData(coolBar1LData);
+                toolBar1 = new ToolBar(dialogShell, SWT.NONE);
+                GridData toolBar1LData = new GridData();
+                toolBar1LData.grabExcessHorizontalSpace = true;
+                toolBar1LData.horizontalAlignment = GridData.FILL;
+                toolBar1.setLayoutData(toolBar1LData);
                 {
-                    coolItem1 = new CoolItem(coolBar1, SWT.NONE);
-                    coolItem1
-                        .setPreferredSize(new org.eclipse.swt.graphics.Point(
-                            24,
-                            22));
-                    coolItem1
-                        .setMinimumSize(new org.eclipse.swt.graphics.Point(
-                            24,
-                            22));
-                    {
-                        toolBar1 = new ToolBar(coolBar1, SWT.NONE);
-                        coolItem1.setControl(toolBar1);
-                        {
-                            toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-                            toolUpdate.setText("&Güncelle");
-                            toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
-                        }
-                        {
-                            toolDelete = new ToolItem(toolBar1, SWT.NONE);
-                            toolDelete.setText("&Sil");
-                            toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
-                        }
-                        {
-                            toolCancel = new ToolItem(toolBar1, SWT.NONE);
-                            toolCancel.setText("&?ptal");
-                            toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg"));
-                        }
-                    }
+                    toolUpdate = new ToolItem(toolBar1, SWT.NONE);
+                    toolUpdate.setText(Messages.getString("CurUIVoucherUpdate.0")); //$NON-NLS-1$
+                    toolUpdate.setImage(SWTResourceManager
+                        .getImage("icons/save_edit.gif")); //$NON-NLS-1$
+                }
+                {
+                    toolDelete = new ToolItem(toolBar1, SWT.NONE);
+                    toolDelete.setText(Messages.getString("CurUIVoucherUpdate.2")); //$NON-NLS-1$
+                    toolDelete.setImage(SWTResourceManager
+                        .getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+                }
+                {
+                    toolCancel = new ToolItem(toolBar1, SWT.NONE);
+                    toolCancel.setText(Messages.getString("CurUIVoucherUpdate.4")); //$NON-NLS-1$
+                    toolCancel.setImage(SWTResourceManager
+                        .getImage("icons/cancel.jpg")); //$NON-NLS-1$
                 }
             }
             {
@@ -118,6 +93,8 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
                 compVoucherLData.grabExcessVerticalSpace = true;
                 compVoucher.setLayoutData(compVoucherLData);
             }
+        	
+            postInitGUI();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {
@@ -127,6 +104,25 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void postInitGUI(){
+        EngUICommon.centreWindow(dialogShell);
+	    
+	    
+	    if(curTrans.getTransactionsTotalDept().doubleValue()>0){
+	        compVoucher.getTxtDept().setText(curTrans.getTransactionsTotalDept());
+	        
+	    }
+	    else
+	    {
+	        compVoucher.getTxtCredit().setText(curTrans.getTransactionsTotalCredit());
+	    }
+	    
+	    compVoucher.getDateTransDate().setDate(curTrans.getTransactionsDate());
+	    compVoucher.getTxtCurrentCard().setText(curTrans.getTurqCurrentCard().getCardsName()+" {"+curTrans.getTurqCurrentCard().getCardsCurrentCode()+"}"); //$NON-NLS-1$ //$NON-NLS-2$
+	    compVoucher.getTxtDefinition().setText(curTrans.getTransactionsDefinition());
+	    
 	}
 	
 }

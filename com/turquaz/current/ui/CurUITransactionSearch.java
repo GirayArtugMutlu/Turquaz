@@ -33,6 +33,7 @@ import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
@@ -349,16 +350,15 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	/** Auto-generated event handler method */
 	protected void tableCurrentTransactionsMouseDoubleClick(MouseEvent evt){
 		TableItem items[] = tableCurrentTransactions.getSelection();
-	//	if(items.length >0){
-		
-		if(false)
+		if(items.length >0)
+	//	if(false)
 		{
 		TurqCurrentTransaction trans = (TurqCurrentTransaction)items[0].getData();
-		
-		//nakit hareketi ise izin ver
-		if(trans.getTurqCurrentTransactionType().getCurrentTransactionTypesId().intValue()==4){
-		new CUrUITransactionUpdateDialog(this.getShell(),SWT.NULL,trans).open();
+			//nakit hareketi ise izin ver
+		if(trans.getTurqCurrentTransactionType().getCurrentTransactionTypesId().intValue()==EngBLCommon.CURRENT_TRANS_OTHERS){
+		new CurUIVoucherUpdate(this.getShell(),SWT.NULL,trans).open();
 		search();
+	
 		}
 		else{
 			MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);

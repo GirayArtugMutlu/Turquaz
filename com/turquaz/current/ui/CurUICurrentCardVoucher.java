@@ -267,4 +267,34 @@ implements SecureComposite{
 		return true;
 	}
 
+    public DatePicker getDateTransDate() {
+        return dateTransDate;
+    }
+    public void setDateTransDate(DatePicker dateTransDate) {
+        this.dateTransDate = dateTransDate;
+    }
+    public CurrencyText getTxtCredit() {
+        return txtCredit;
+    }
+    public void setTxtCredit(CurrencyText txtCredit) {
+        this.txtCredit = txtCredit;
+    }
+    public CurrentPicker getTxtCurrentCard() {
+        return txtCurrentCard;
+    }
+    public void setTxtCurrentCard(CurrentPicker txtCurrentCard) {
+        this.txtCurrentCard = txtCurrentCard;
+    }
+    public Text getTxtDefinition() {
+        return txtDefinition;
+    }
+    public void setTxtDefinition(Text txtDefinition) {
+        this.txtDefinition = txtDefinition;
+    }
+    public CurrencyText getTxtDept() {
+        return txtDept;
+    }
+    public void setTxtDept(CurrencyText txtDept) {
+        this.txtDept = txtDept;
+    }
 }

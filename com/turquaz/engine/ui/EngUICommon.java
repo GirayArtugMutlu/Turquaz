@@ -2,6 +2,7 @@
 package com.turquaz.engine.ui;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
@@ -39,5 +40,22 @@ public class EngUICommon {
 	    msg2.setMessage(message); 
 	    msg2.open();
 	}
+
+	public static void centreWindow(Shell	shell )
+	  {
+	    Rectangle displayRect;
+	    try {
+	    	displayRect = shell.getMonitor().getClientArea();
+	    } catch (NoSuchMethodError e) {
+	      displayRect = shell.getDisplay().getClientArea();
+	    }
+
+	    Rectangle shellRect = shell.getBounds();
+		
+	    int x = (displayRect.width - shellRect.width) / 2;
+	    int y = (displayRect.height - shellRect.height) / 2;
+
+	    shell.setLocation(x, y);
+	  }  
 
 }

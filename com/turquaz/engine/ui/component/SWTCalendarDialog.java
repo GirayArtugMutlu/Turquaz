@@ -30,7 +30,7 @@ import org.vafada.swtcalendar.SWTCalendarListener;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 
-import com.turquaz.engine.bl.EngBLUtils;
+import com.turquaz.engine.ui.EngUICommon;
 
 import java.util.Locale;
 
@@ -77,7 +77,7 @@ public class SWTCalendarDialog {
 
     public void open() {
         shell.pack();
-        EngBLUtils.centreWindow(shell);
+        EngUICommon.centreWindow(shell);
         shell.open();
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch()) display.sleep();
