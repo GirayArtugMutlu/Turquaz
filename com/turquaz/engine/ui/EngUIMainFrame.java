@@ -1376,6 +1376,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				{
 					//if the tab is already open
 					tabfldMain.setSelection((CTabItem)mapList.get(classname));
+					arrangeIcons();
 				}
 				else
 				{	

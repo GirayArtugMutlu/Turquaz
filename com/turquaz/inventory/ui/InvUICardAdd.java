@@ -722,22 +722,18 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 							compInvCardAddSecondaryUnits,
 							SWT.V_SCROLL | SWT.BORDER);
 						GridData tableInvCardAddRegisteredUnitsLData = new GridData();
+						tableInvCardAddRegisteredUnits.setSize(160, 81);
 						tableInvCardAddRegisteredUnits
 							.addMouseListener(new MouseAdapter() {
 							public void mouseDoubleClick(MouseEvent evt) {
 								btnRemoveRegisteredInvUnitMouseUp();
 							}
 							});
-						tableInvCardAddRegisteredUnitsLData.widthHint = 140;
+						tableInvCardAddRegisteredUnitsLData.widthHint = 160;
 						tableInvCardAddRegisteredUnitsLData.heightHint = 81;
-						tableInvCardAddRegisteredUnits
-							.setLayoutData(tableInvCardAddRegisteredUnitsLData);
+						tableInvCardAddRegisteredUnits.setLayoutData(tableInvCardAddRegisteredUnitsLData);
 						tableInvCardAddRegisteredUnits.setHeaderVisible(true);
 						tableInvCardAddRegisteredUnits.setLinesVisible(true);
-						tableInvCardAddRegisteredUnits
-							.setSize(new org.eclipse.swt.graphics.Point(
-								160,
-								101));
 						{
 							tableColumn2 = new TableColumn(
 								tableInvCardAddRegisteredUnits,
@@ -750,9 +746,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 							tableColumnUnitCoefficient = new TableColumn(
 								tableInvCardAddRegisteredUnits,
 								SWT.NONE);
-							tableColumnUnitCoefficient.setText(Messages
-								.getString("InvUICardAdd.24")); //$NON-NLS-1$
-							tableColumnUnitCoefficient.setWidth(50);
+							tableColumnUnitCoefficient.setText(Messages.getString("InvUICardAdd.24")); //$NON-NLS-1$
+							tableColumnUnitCoefficient.setWidth(60);
 						}
 					}
 					compInvCardAddSecondaryUnits.layout();
