@@ -16,6 +16,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 
+import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import org.eclipse.swt.layout.GridData;
@@ -77,6 +78,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
 	private TurqCurrentCard currentCard;
 	private CurBLCurrentCardUpdate currentUpdate=new CurBLCurrentCardUpdate();
+	private CurBLCurrentCardAdd currentAdd=new CurBLCurrentCardAdd();
 	private TurqCurrentContact curContact=null;
 
 	public CurUICurrentCardUpdate(Shell parent, int style, TurqCurrentCard curCard) {
@@ -454,13 +456,33 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	}
 	
 	}
-
+    
+	public boolean verifyFields()throws Exception{
+		try{
+			MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+		if(!compCurCardAdd.verifyFields()){
+			return false;
+		}
+		else if((!currentCard.getCardsCurrentCode().equals(compCurCardAdd.getTxtCurrentCode().getText().trim()))
+				&&currentAdd.isCurrentCodePresent(compCurCardAdd.getTxtCurrentCode().getText().trim())){
+			
+			msg.setMessage("Current Code already exist!Please Specify Another");
+			msg.open();
+			return false;
+		}
+		return true;
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
+	
 	/** Auto-generated event handler method */
 	protected void toolUpdateWidgetSelected(SelectionEvent evt){
 		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 		try{
 			
-		if(compCurCardAdd.verifyFields()){	
+		if(verifyFields()){	
 		
 		currentUpdate.updateCurrentCard(compCurCardAdd.getTxtCurrentCode().getText().trim(),
 				compCurCardAdd.getTxtCurrentName().getText().trim(),
@@ -488,11 +510,27 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 		}
 		}
 		catch(Exception ex){
-		ex.printStackTrace();
+
+			try{
+			ex.printStackTrace();
+			System.out.println(currentCard.getCardsCurrentCode());
+			System.out.println(compCurCardAdd.getTxtCurrentCode().getText().trim());
+		
+			    msg.setMessage(ex.getMessage());
+			    msg.open();
+			
+			}
+			catch(Exception ex1){
+			ex1.printStackTrace();
+			}
+			}
+			
+				
 		
 		}
-		
-		
-		
-	}
 }
+		
+		
+		
+	
+

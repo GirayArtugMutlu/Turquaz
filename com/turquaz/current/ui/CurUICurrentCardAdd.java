@@ -10,6 +10,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
@@ -1356,15 +1357,35 @@ public class CurUICurrentCardAdd extends SecureComposite {
 	public void clearFields(){
 	}
 	
-	public boolean verifyFields(){
+	public boolean verifyFields()throws Exception{
+	try{
+	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+	 
+	if(txtCurrentCode.getText().trim().equals("")){
+	msg.setMessage("Please fill Current Code Field");
+	msg.open();
+	return false;
+	} 
+	else if(txtCurrentName.getText().trim().equals("")){
+	msg.setMessage("Please fill Current Name Field");
+	msg.open();
+	return false;
+	}   
+	
 	return true;
+	}
+	catch(Exception ex){
+	throw ex;
+	}
+	
+	
 	}
 	
 	public void save(){
-	
+	try{
 	if(verifyFields())
 	{
-	try{
+	
 	Integer cardId = currentAdd.saveCurrentCard(txtCurrentCode.getText().trim(),
 							txtCurrentName.getText().trim(),
 							txtCardDefinition.getText().trim(),
@@ -1383,11 +1404,28 @@ public class CurUICurrentCardAdd extends SecureComposite {
 	
 	
 	}
+	}
 	catch(Exception ex){
-	
+	 
+	try{
 	ex.printStackTrace();
+	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+	if(currentAdd.isCurrentCodePresent(txtCurrentCode.getText().trim())){
+	
+	msg.setMessage("Current Code already exist!Please Specify Another");
+	msg.open();
+	}
+	
+	else{
+	    msg.setMessage(ex.getMessage());
+	    msg.open();
 	}
 	}
+	catch(Exception ex1){
+	ex1.printStackTrace();
+	}
+	}
+	
 		
 	}
 	

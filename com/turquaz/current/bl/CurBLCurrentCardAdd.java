@@ -209,7 +209,30 @@ public void updateObject(Object obj)throws Exception{
 		throw ex;
 	}
 	
-}	
+}
+
+public boolean isCurrentCodePresent(String Code)throws Exception{
+try{
+	
+	return currentAdd.isCurrentCodePresent(Code);
+}
+
+catch(Exception ex){
+throw ex;
+
+}
+}
+public boolean isCurrentNamePresent(String name)throws Exception{
+	try{
+		
+		return currentAdd.isCurrentNamePresent(name);
+	}
+
+	catch(Exception ex){
+	throw ex;
+
+	}
+	}
 	
 
 }
