@@ -1185,6 +1185,7 @@ public class BillUIAddBuyBill extends Composite
 	                     //any character
 	                     else if((e.keyCode<0x10000 || e.character!='\0') && e.keyCode>0x1f && e.keyCode!=127 
 	         					|| e.keyCode==0x00 && (e.stateMask==0 || e.stateMask==SWT.SHIFT)){
+	                         if(cursor.getRow()!=null){
 	                         tableViewer.editElement(cursor.getRow().getData(),cursor.getColumn());
 	                         if(tableViewer.getCellEditors()[cursor.getColumn()] instanceof TextCellEditor){
 	                             
@@ -1199,6 +1200,7 @@ public class BillUIAddBuyBill extends Composite
 	     						}
 	                             
 	                         }
+	                     }
 	                     }
 	    		         
 	    		     }});
