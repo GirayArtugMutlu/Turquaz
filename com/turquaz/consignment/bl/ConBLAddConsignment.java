@@ -9,7 +9,10 @@ import com.turquaz.consignment.dal.ConDALAddConsignment;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqConsignment;
+import com.turquaz.engine.dal.TurqConsignmentGroup;
+import com.turquaz.engine.dal.TurqConsignmentsInGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
+
 /**
  * @author onsel
  *
@@ -57,14 +60,37 @@ public class ConBLAddConsignment {
 			dalConsignment.save(consignment);
 			
 			return consignment.getConsignmentsId();
-	
-			
-			
 			
 		}
 		catch(Exception ex){
 			throw ex;
 		}
+	}
+	
+	
+	public void registerGroup(TurqConsignmentGroup grp, Integer conId)throws Exception{
+	try{
+		TurqConsignmentsInGroup cardGroup = new TurqConsignmentsInGroup();
+		TurqConsignmentGroup group = (TurqConsignmentGroup) grp;
+		TurqConsignment card =new TurqConsignment();
+		card.setConsignmentsId(conId);
+		cardGroup.setTurqConsignment(card);
+		cardGroup.setTurqConsignmentGroup(group);
+
+		cardGroup.setCreatedBy(System.getProperty("user"));
+		cardGroup.setUpdatedBy(System.getProperty("user"));
+		cardGroup
+				.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+		cardGroup
+				.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+
+		dalConsignment.save(cardGroup);
+	
+	}
+	catch(Exception ex){
+		throw ex;
+	}
+		
 	}
 
 }

@@ -136,6 +136,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private CCombo comboModuleSelection;
 	private CLabel lblModuleSelection;
 	private Composite compModuleSelection;
+	private Tree treeConsignment;
 	private Composite compModulesTab;
 	private CTabItem tabModules;
 	private CTabFolder tabfldMenu;
@@ -183,14 +184,20 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabModules = new CTabItem(tabfldMenu,SWT.NULL);
 			compModulesTab = new Composite(tabfldMenu,SWT.NULL);
 			compModuleSelection = new Composite(compModulesTab,SWT.BORDER);
-			lblModuleSelection = new CLabel(compModuleSelection,SWT.LEFT);
-			comboModuleSelection = new CCombo(compModuleSelection,SWT.FLAT| SWT.READ_ONLY| SWT.H_SCROLL| SWT.V_SCROLL);
 			compModulesTree = new Composite(compModulesTab,SWT.NULL);
 			treeBank = new Tree(compModulesTree,SWT.NULL);
 			treeInventory = new Tree(compModulesTree,SWT.NULL);
 			treeAccounting = new Tree(compModulesTree,SWT.NULL);
 			treeAdmin = new Tree(compModulesTree,SWT.NULL);
 			treeCurrent = new Tree(compModulesTree,SWT.NULL);
+			{
+				treeConsignment = new Tree(compModulesTree, SWT.NONE);
+				treeConsignment.addMouseListener(new MouseAdapter() {
+					public void mouseDoubleClick(MouseEvent evt) {
+						 treeConsignmentMouseDoubleClick();
+					}
+				});
+			}
 			label1 = new Label(compModulesTab,SWT.SEPARATOR| SWT.HORIZONTAL);
 			compModulesHelp = new Composite(compModulesTab,SWT.NULL);
 			composite1 = new Composite(compModulesHelp,SWT.NULL);
@@ -295,40 +302,51 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compModulesTab.setSize(new org.eclipse.swt.graphics.Point(386,549));
 	
 			GridData compModuleSelectionLData = new GridData();
-			compModuleSelectionLData.verticalAlignment = GridData.CENTER;
 			compModuleSelectionLData.horizontalAlignment = GridData.FILL;
-			compModuleSelectionLData.widthHint = -1;
-			compModuleSelectionLData.heightHint = 16;
-			compModuleSelectionLData.horizontalIndent = 0;
+			compModuleSelectionLData.heightHint = 22;
 			compModuleSelectionLData.horizontalSpan = 5;
-			compModuleSelectionLData.verticalSpan = 1;
 			compModuleSelectionLData.grabExcessHorizontalSpace = true;
-			compModuleSelectionLData.grabExcessVerticalSpace = false;
 			compModuleSelection.setLayoutData(compModuleSelectionLData);
-			compModuleSelection.setSize(new org.eclipse.swt.graphics.Point(382,16));
-	
-			lblModuleSelection.setText(Messages.getString("EngUIMainFrame.3")); //$NON-NLS-1$
-			lblModuleSelection.setSize(new org.eclipse.swt.graphics.Point(191,16));
-			lblModuleSelection.setLayout(null);
 
-			comboModuleSelection.setBackground(SWTResourceManager.getColor(236, 233, 216));
-			comboModuleSelection.setSize(new org.eclipse.swt.graphics.Point(169,16));
-			comboModuleSelection.addSelectionListener( new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					comboModuleSelectionWidgetSelected(evt);
-				}
-			});
-			comboModuleSelection.addDisposeListener( new DisposeListener() {
-				public void widgetDisposed(DisposeEvent evt) {
-					comboModuleSelectionWidgetDisposed(evt);
-				}
-			});
-			FillLayout compModuleSelectionLayout = new FillLayout(256);
-			compModuleSelection.setLayout(compModuleSelectionLayout);
-			compModuleSelectionLayout.type = SWT.HORIZONTAL;
-			compModuleSelectionLayout.marginWidth = 0;
+			GridLayout compModuleSelectionLayout = new GridLayout();
+			compModuleSelectionLayout.numColumns = 2;
 			compModuleSelectionLayout.marginHeight = 0;
-			compModuleSelectionLayout.spacing = 0;
+			compModuleSelectionLayout.horizontalSpacing = 0;
+			compModuleSelectionLayout.marginWidth = 0;
+			compModuleSelectionLayout.verticalSpacing = 0;
+			compModuleSelection.setLayout(compModuleSelectionLayout);
+			{
+				lblModuleSelection = new CLabel(compModuleSelection, SWT.LEFT);
+				lblModuleSelection.setText(Messages
+					.getString("EngUIMainFrame.3")); //$NON-NLS-1$
+				lblModuleSelection.setLayout(null);
+				GridData lblModuleSelectionLData = new GridData();
+				lblModuleSelectionLData.widthHint = 79;
+				lblModuleSelectionLData.heightHint = 22;
+				lblModuleSelection.setLayoutData(lblModuleSelectionLData);
+			}
+			{
+				comboModuleSelection = new CCombo(compModuleSelection, SWT.FLAT | SWT.READ_ONLY | SWT.H_SCROLL | SWT.V_SCROLL);
+				comboModuleSelection.setBackground(SWTResourceManager.getColor(
+					236,
+					233,
+					216));
+				GridData comboModuleSelectionLData = new GridData();
+				comboModuleSelectionLData.widthHint = 70;
+				comboModuleSelectionLData.heightHint = 18;
+				comboModuleSelection.setLayoutData(comboModuleSelectionLData);
+				comboModuleSelection
+					.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							comboModuleSelectionWidgetSelected(evt);
+						}
+					});
+				comboModuleSelection.addDisposeListener(new DisposeListener() {
+					public void widgetDisposed(DisposeEvent evt) {
+						comboModuleSelectionWidgetDisposed(evt);
+					}
+				});
+			}
 			compModuleSelection.layout();
 	
 			GridData compModulesTreeLData = new GridData();
@@ -821,6 +839,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		treeAccounting = TreeFactory.createAccountingTree(treeAccounting);
 		treeCurrent = TreeFactory.createCurrentTree(treeCurrent);
 		treeAdmin =TreeFactory.createAdminTree(treeAdmin);		
+		
 		fillFavoritesTree();
 				
 		
@@ -834,8 +853,10 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		treeAdmin.setMenu(popupTreeAddFavorites);
 		treeBank.setMenu(popupTreeAddFavorites);
 		treeInventory.setMenu(popupTreeAddFavorites);
+		treeConsignment.setMenu(popupTreeAddFavorites);
 		treeCurrent.setMenu(popupTreeAddFavorites);
 		treeFavorites.setMenu(popupTreeRemoveFavorites);
+		
 		
 		
 		
@@ -1157,6 +1178,13 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	/** Auto-generated event handler method */
 	protected void treeBankMouseDoubleClick(MouseEvent evt){
 		TreeItem item = treeBank.getSelection()[0];
+		if(item.getItemCount()==0){
+			openNewTab(item);
+		}
+	}
+	/** Auto-generated event handler method */
+	protected void treeConsignmentMouseDoubleClick(){
+		TreeItem item = treeConsignment.getSelection()[0];
 		if(item.getItemCount()==0){
 			openNewTab(item);
 		}

@@ -42,6 +42,7 @@ import com.turquaz.admin.ui.AdmUIUserPermissions;
 import com.turquaz.admin.ui.AdmUIUsers;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
 import com.turquaz.bank.ui.BankUIBankCardSearch;
+import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.current.ui.CurUICurrentCardSearch;
 import com.turquaz.current.ui.CurUITransactionAdd;
@@ -118,12 +119,12 @@ public final class TreeFactory {
 		item.setData(AccUITransactionSearch.class.getName());
 		
 		TreeItem report = new TreeItem(tree,SWT.NULL);
-		report.setText("Raporlar"); //$NON-NLS-1$
+		report.setText(Messages.getString("TreeFactory.32")); //$NON-NLS-1$
 		item = new TreeItem(report,SWT.NULL);
-		item.setText("Yevmiye Defteri");
+		item.setText(Messages.getString("TreeFactory.28")); //$NON-NLS-1$
 		item.setData(AccUIAccountingJournal.class.getName());
 		item = new TreeItem(report,SWT.NULL);
-		item.setText("Mizan");
+		item.setText(Messages.getString("TreeFactory.29")); //$NON-NLS-1$
 		item.setData(AccUIAccountingBalance.class.getName());
 		
 		
@@ -169,6 +170,16 @@ public final class TreeFactory {
 		item.setData(AdmUIGroupPermissions.class.getName());
 		return tree;
 	}
+	public static Tree createConsignmetTree(Tree tree){
+		TreeItem root = new TreeItem(tree,SWT.NULL);
+		root.setText(Messages.getString("TreeFactory.31")); //$NON-NLS-1$
+		TreeItem item = new TreeItem(root,SWT.NULL);
+		item.setText(Messages.getString("TreeFactory.30")); //$NON-NLS-1$
+		item.setData(ConUIAddConsignment.class.getName());
+		
+		return tree;
+	}
+	
 	
 
 }

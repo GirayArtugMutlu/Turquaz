@@ -23,6 +23,7 @@ package com.turquaz.engine.ui;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.Locale;
 import java.util.Properties;
 
 import org.eclipse.core.internal.preferences.Base64;
@@ -253,7 +254,9 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 		}
 	}
 	public void preInitGui(){
-				
+			
+		Locale.setDefault(new Locale("tr","TR"));
+		
 		File config = new File("config/turquaz.properties");
 		if(!config.exists()){
 			EngUIDatabaseConnectionWizard wizard = new EngUIDatabaseConnectionWizard();
